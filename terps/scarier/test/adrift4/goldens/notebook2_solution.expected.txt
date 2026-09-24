@@ -1,0 +1,55 @@
+Loading game...
+
+Night and Day
+Your answering machine's prolonged beep fades away as it begins to record
+your incoming call.   It's 8 P.M. and you were expecting to spend a quiet
+night in.  You stretch on the sofa and listen to see who is trying to intrude
+on your relaxing evening.
+
+"Hello?" You hear lounge music playing in the background.  "Are you there?  I
+know you're there.  Please pick up.  I've gotten myself into a bit of a jam.
+I need a ride.  Please, Hil!  This is the last favor I'll ever ask.  Just
+pick up, okay?"
+
+Forcing yourself to sit up, you grab the phone.  "Alright.  Where are you,
+Guy?  What is it this time?"
+
+"I can't tell you how good it is to hear your voice.  I'm at North Park
+Street.  The Red Cantina.  Don't have time to explain anything else.  Just
+come and get me, okay?"
+
+"Ugh!"  Sounds like the seedy side of town.  "You couldn't call a taxi?"
+
+"Don't have the fare.  Are you coming, Hil?" Guy asks anxiously.
+
+You grab your car keys and start slipping into your coat.  "I'm heading out
+now."
+
+"Good," Guy replies with relief.  "And hurry it up, will you? I'll be waiting
+outside."  Click!  The dial tone buzzes in your ear.
+
+You hang up too, feeling unsettled.  There was no mistaking the urgency in
+his voice.  Why didn't he explain it?  You hurry out the door.
+
+Press a key
+
+The Sidewalk, Outside the Red Cantina
+The long sidewalk stretches from east to west.  The restaurant entrance is
+directly to the north.
+
+This is a demo for a notebook that takes input from the player.  It is
+unpassworded.    Any suggestions on improving this notebook are greatly
+appreciated.  Oh, yes, you are holding a notebook.:)
+
+> look
+
+The Sidewalk, Outside the Red Cantina
+The long sidewalk stretches from east to west.  The restaurant entrance is
+directly to the north.
+
+This is a demo for a notebook that takes input from the player.  It is
+unpassworded.    Any suggestions on improving this notebook are greatly
+appreciated.  Oh, yes, you are holding a notebook.:)
+
+> quit
+Do you really want to quit? [Y/N]

@@ -1,0 +1,49 @@
+
+> look at desk
+You run over to the desk and quickly look through it.You pull a large holepuncher out of the bottom drawer.
+
+> use holepunch on window
+You smash open the window with the holepunch and hit away all the glass.
+
+> look out window
+You can see a tree branch outside the window...
+
+> jump onto branch
+You leap out the window and grab ahold of the branch.You manage to swing into the tree and you climb down into your backyard.  The Stalker is looking for you  The stalker's getting closer
+
+> look at lawnmower
+You look at the lawnmower and see a screwdriver lying on top of it.You quickly grab it.
+
+> e
+You move east.
+Kitchen
+You're in your tiny kitchen.The fridge door is open as it was broken earlier that day.You look for a weapon but you remember that your ex-wife took most of your possesions.To the North is the livning room.
+
+> hide in fridge
+You jump into the fridge and hide inside.You hold the door closed and you can hear the man run into the kictchen.He looks around and then leaves once again.You open the door and enter the kitchen a colder man.
+
+> n
+You run into the living room
+
+> pick up windex
+You quickly grab the can of windex.
+
+> w
+You move west.
+Basement
+You're in a dark basement.The only thing you can see is an old washer and dryer in the corner,a box of soap on top of them.It's too dark to try and navigate the stairs again.  Your cell phone lies on top of the dryer.
+
+> take soap
+As you reach for the soap,the door swings open and the killer starts down the stairs after you...  The Killer is walking towards you with a knife in his hands.
+
+> use windex on killer
+You spray the cleaner into the mask and it seaps through,into the mans eyes.He stumbles backwards for a moment.
+
+> use screwdriver on killer
+You raise the screwdriver into the air and stab the killer in the chest.He falls backwards,dropping the knife onto the cement floor.  
+As you stand over the body,the world starts fade away.You wake up from your dream and look up.You're laying down on the couch in front of the tv.Once again you've fallen asleep watching horrors movies again.Quickly,you change the channel and wipe the sweat off your head.What a dream.And as you sit there,watching the television,you don't notice the figure standing right behind the couch...
+You scored 55 out of the maximum 60!
+That is 91% of the game!
+You finished 5 points short.
+
+[Press any key to end]

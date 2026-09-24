@@ -1,0 +1,13 @@
+Petter
+male
+enter
+e
+e
+e
+enter
+n
+1
+n
+enter
+quit
+y

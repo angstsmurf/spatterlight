@@ -255,6 +255,13 @@ def main():
             continue
         numbered.append((prompt, line))
     lines = []
+    # The span BEFORE the first prompt: its pauses are PRE, but its timed
+    # <wait>s were never waited out.  Homeless Harry's StartupText runs 82 s
+    # of <waitN>; run400 takes typed input during a timed wait, so the first
+    # `s` walked the player out mid-intro, echoed with no "> " prompt, and the
+    # compare counted it lost (2026-09-24).
+    if waits[0]:
+        lines.append("#sleep %d" % (waits[0] + 1))
     for n, (at, cmd) in enumerate(numbered):
         lines.append(cmd)
         # everything the NEXT span prints, interleaved as it was printed: a

@@ -1,0 +1,41 @@
+Petter
+n
+you killed black cat
+w
+give stranger collar
+e
+e
+you have killed zombie
+w
+n
+wear armor
+s
+d
+out
+kill thief
+w
+buy box
+in
+u
+kill snake
+d
+out
+e
+in
+d
+kill killer
+u
+out
+n
+trade with ghost
+room a
+kill rat
+s
+room b
+trade with stranger
+look
+e
+boss
+get dragon killed go!
+quit
+y

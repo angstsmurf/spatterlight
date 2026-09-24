@@ -1,0 +1,437 @@
+Loading game...
+
+Adrift: Drifting in...
+Everyday is a routine.  You wake up, go to work, lunch, tea-break, return
+home.  Here you are again, in the same bedroom you've been staying in for the
+pass ten years.
+
+It is 6 o'clock in the evening.  The skylight is diming, emitting soothing
+golden rays of sunlight.  The calming sounds of chirping birds warms your
+heart, just the way it did everyday.  With a long resent, you dropped on your
+bed, just like any other day.
+
+"I must do something constructive, meaningful and worthwhile today..."
+
+A hundred ideas must have rushed through your head but yet, you fail to get
+any inspiration.
+
+"Hmm...  I knew there was something I needed to buy...  What did I forget?
+Hmm..."
+
+You decide the best thing to do now is to surf the web for something
+interesting.  With that, you stood up for a good stretch, preparing yourself
+for your daunting task ahead...
+
+Bedroom
+This is your bedroom, simply decorated.  A single bed occupies one length of
+the room.  Next to it is a wooden study table and a matching chair in front
+of it.  Also, there is a personal computer and a telephone on the table.
+Across the room is a cupboard where you store away all you clothes.  A large
+window on the north wall gives a wide view off the outside, making your small
+room seem much more spacious.
+
+> open drawer
+You open the drawer.  A mouse is inside the drawer.
+
+> look in drawer
+drawers.  COUNT N.  A drawer is a part of a desk or other piece of furniture
+that is shaped like a rectangular box.  :)  The drawer is open.  A mouse is
+inside the drawer.
+
+> get mouse
+You take a mouse from the drawer.
+
+> switch on computer
+The computer boots up with a low humm......  You waited patiently for your
+computer to boot up...
+
+As you reach to move your mouse pointer over the Internet Explorer icon...
+to your horror, the mouse isn't there!!!
+
+"Oh that's right!  I need a new mouse.  I just threw out the old one this
+morning."  You give yourself a disappointing sigh.
+
+"I remembered having a spare mouse somewhere.  Wonder where I left it..."
+
+> plug mouse into computer
+You plugged the mouse into your computer.  You're glad that it worked
+properly.
+
+Eagerly, you carry on with the task you set for yourself today.
+Click...click!  You entered your username and password...
+
+"Dialing..."
+"Failed to connect to remote computer."
+"No dial tone.  Make sure the modem is correctly connected to the computer
+and phone line."
+
+> open cupboard
+It is opened.
+
+> look in cupboard
+A grey two door wooden cupboard, standing over six feet tall and four feet
+wide.  On the downside, it does not have a mirror anywhere on it. Your myriad
+of clothes are neatly hung in the cupboard.  The cupboard is open.  A
+telephone directory is inside the cupboard.
+
+Abruptly, a thought struck you.  You scratch your head in dismay.
+
+"Now I remember.  I need to buy a new modem."  You cursed as you blame
+yourself for being so forgetful.
+
+Recalling...
+
+Two days ago, there was a big thunderstorm.  Despite numerous warnings you've
+read or heard before saying that it is dangerous to surf the internet during
+a thunderstorm, you procceed, thinking that yourself won't be the unlucky
+one.  Suddenly, a flash of lightning lits the night sky, blinding you for a
+split second.  You hurried to shield your eyes with both your hands.  In the
+following moment, you hear the loud rumbling of thunder accompanied but a
+perculiar "booming" and "sparking" sound.  Slowly, you opened your eyes, only
+to realise that everything is dark and you can't see a thing.  Oh no!  The
+lightning has blinded you for life!  What a scary thought!  You compose
+yourself, and looked around.  At this instant, the power came back on and
+your room is bright once more.  The power must have been tripped.  But to
+your dismay, your modem has exploded...
+
+Now that you're home, you find it a chore to go shopping for a modem at this
+hour.  Maybe a lazy fellow like you would fancy a home delivery...
+If only you know the number to call...
+
+> get directory
+You take a telephone directory from the cupboard.
+
+> read directory
+You search fanatically through the directory to find a reliable pc vendor's
+number.  Finally, you found one.
+
+CENTRAL HARDWARE ZONE HOME DELIVERY - "WE DELIVERY RIGHT TO YOUR DOORSTEPS,
+OR YOUR MONEY BACK." - 236-8725
+
+> get money
+You've already got the money!
+
+> count money
+You counted all the notes and coins... $88.  Unconvince at your poor
+financial status, you counted again, carefully... still $88.
+
+> call 2368725
+You dialed Central Hardware Zone...
+
+"Good evening!  Central Hardware Zone!"
+
+"Err...hello!  I want to order a dial up modem."
+
+"Ahh...modems.  We have just the right modem for you.  We ordered two hundred
+of the latest modem this morning.  A hundred and ninty-nine of them were sold
+out already.  And you're our lucky two hundredth customer.  Tell you what...
+since you're so special, we'll even give you a 30% discount!"
+
+"O..Ok.  Do you make home deliveries?"
+
+"Of course we do!  Didn't you see our motto?  'We delivery right to your
+doorsteps, or your money back'."
+
+"Well...ok then.  Send it over to my place."
+
+"Deal!"  With that, you hear the salesman slam down the phone with a loud
+thud.  Somehow, you know you're going to regret this.  The salesman sounded
+like a cheat.  You wondered to yourself how you got coaxed into this deal.
+Remembering when you bought the wooden table, you realise you were never good
+at making a good bargain.
+There is a knock on the door.  Knock...knock!
+
+> open door
+You open the door, wondering who it is...
+
+"Good evening!  Did you order one modem from Central Hardware Zone?"
+
+"Huh??  So fast?"
+
+"Yup!  This is our renowed speedy home delivery service.  We deliver right to
+your doorsteps, or your money back."  Grinned.
+
+"O..Ok.."  Awed in amazement and astonishment.
+
+"That would be $400"  Another wider grin.
+
+"Err..."  Awed again, this time in shock of the hefty price.
+
+> give money to deliveryman
+Although shy, you took all your money out and stretch your hand to Deli
+Veryman.  Your ears turned red and hung your head low, shuffling your feet
+uneasily.
+
+"This is all I have..."  Deli Veryman received your money and counted it
+again.
+
+"Only $88...  Well...  Since you're also my last delivery of the day, I'll
+personally give you another 80% discount.  That'll be $80, and I'll keep the
+change.  Here, take it!  I'm leaving.  Bye..."  Wide grin.
+
+Surprised, you watch him as he dashed off down the corridor.  You ponder in
+disbelief how a deliveryman can accept $88 for a $400 product, and still
+carry that professional deliveryman smile.  Then again, that's not your
+problem.  Closing the door behind you, you carry your new-bought modem back
+to your work place.
+
+> plug modem into computer
+In a matter of minutes, the modem is connected properly and running.
+
+Finally everything's in order.  Quickly, you logged on and continue what you
+set out to achieve today.
+
+Happy.  You feel a sense of accomplishment from fixing your computer.
+Abruptly, you remembered your true aim for the day.
+
+"I must do something constructive, meaningful and worthwhile today..."
+
+You search the net furiously for nearly an hour and narrowed down your
+choices of something meaningful to two.
+
+1.  www.allaboutalphabet.com
+2.  www.adrift.org.uk
+
+Use the format "click on [URL]"
+
+> click on www.adrift.org.uk
+Click!
+The Adrift website, in it's purple and black background, appears on your
+screen.  You explored the site thoroughly and found Adrift very interesting,
+constructive, meaningful and worthwhile.  You might have found what you've
+been looking for.
+
+Ten minutes later, you're convince that this is what you want, the one tool
+that can let you explore you limitless creativity while putting your logical
+thinking and analytical skills to the test during the creation of the game.
+You decide to download it.  You found the following links:
+
+1.  Adrift Generator & Runner
+2.  Adrift Tutorial
+3.  Adrift Topic Tutorial System (ATTS)
+4.  continue surfing
+5.  go back
+
+Use the format "download [file]" or type "continue surfing" or "go back"
+
+> download Adrift Generator & Runner
+You downloaded the Adrift Generator & Runner.  Maybe you can install it later
+and begin your very first Adrift game.  You thought to yourself, "I think
+I'll make a house simulation..."  But for now, you still want to explore this
+website further.
+
+Abruptly, the letter 'A' floated off your keyboard and drifted towards the
+screen.  As the letter touched the screen, a small ripple start to form
+around it on the screen.  Much to your surprise, the letter penetrated the
+screen and vanished into it.  As the last corner of that letter disappear
+into the screen, so did the ripples on it.
+
+Taken aback, you could not believe your eyes.  Instantly, you are overcomed
+by fear.  Despite this, you were determined to find out what happened.  You
+reach to touch the screen.  Bonk!  Your finger hit the screen face.  Try as
+you might, there is no way you can penetrate it.  The screen is indeed solid.
+ You got back to your work but the eerie feeling still lingers...
+
+> download Adrift Tutorial
+You downloaded the Adrift Tutorial.  This shall be your guide to using
+Adrift.  Every newbie must have it.  But for now, you still want to explore
+this website further.
+
+> download ATTS
+You downloaded the Adrift Topic Tutorial System.  It teaches a lot about
+variables and ALR.  You promise yourself to read it before making your first
+game.  But for now, you still want to explore this website further.
+
+You hear a tweaching noise.  Looking around, you found nothing and dismiss
+the noise as your imagination.  Suddenly, the letter 'D' broke off from the
+keyboard, and in similar fashion, drifted into the computer screen.  Fear
+grips you as it did the first time round.  As you sit back, staring blankly
+at the screen in puzzlement, the letter 'R' and 'I' took off into the screen
+in quick succession.  You feel even more determined to find out what is
+happening.
+
+> continue surfing
+You continue exploring the Adrift website and you come across a few more
+worthy links:
+
+1.  KF Adrift on the web
+2.  Adrift Forum
+3.  go back
+
+Use the format "click on [link]" or type "go back"
+
+> click on Adrift Forum
+Click!
+You're in the Adrift Forum.  At once, you are surprise at the popularity of
+Adrift.  Many people from around the world have, like you, downloaded Adrift
+and are actively using it.  This is their dicussion ground, where fellow
+drifters' gather.
+
+You begin to feel the strength of this special community.  As you read post
+after post, you feel yourself being drawn deeper and deeper into this unique
+group of people,  your thoughts, your body, fully captivated by this
+immersive atmosphere.  You feel literally swept off your seat, literally
+drifting...literally...
+
+Literally!!!
+
+To you horror, you're indeed floating in mid air, just like those letters
+were.  You recall the letters, 'A' - 'D' - 'R' - 'I' - 'F' - 'T', they spell
+'ADRIFT'.
+
+It's too late.  Struggle as you try but you are unable to get a grip on
+anything.  You are being sucked into the computer screen to who-knows-where.
+Swinging your limbs in all directions to no avail, you plunged into the
+screen head first.
+
+  You are being pulled through a neverending white chasm.  As you rush
+through it at high speed, you feel yourself shoved and twisted all along your
+body.  For an instant, you hear a strange crumbling of paper, a moment later,
+the sound was gone.  After an almost endless journey, you come to an abrupt
+halt.
+
+"Where am I?"
+
+> open envelope
+Breaking the seal first, you open up the envelope.  There is a note inside.
+As you drop the useless envelope, it vanished into thin air (if there really
+is any air here).
+
+> read note
+It reads: "In the event that you are trapped in a void and could do no other
+useful things, you must find this note in a sealed envelope.  Once you find
+it, read the note, then someone will appear to assist you."  As you try to
+examine the note further, it vanished, as did the envelope.
+
+> ask man about realm
+At first, the man didn't seem to hear you, then he turned towards you in one
+swift movement,  his voice bellowing with anger.
+
+"How DARE you talk to me like that!!?"
+
+After a while, he calmed down enough to answer your questions...
+"I, The Hintmaster, is the moderator of this realm.  This place you are
+drifting in, is known as The Adrift Foyer.  This whole realm is created by
+the one they call Campbell.  I honour him for all the work that he has done,
+and you should too.  Being The Hintmaster, I do as my name says, and
+sometimes against the wish of my creator.  But that is besides the point.
+Here, you'll see rooms, objects, tasks, events and characters drifting
+around.  You may find out more from me if you want."  With his last word, he
+turns away and carries on drifting.
+
+> Make The Hintmaster drop Event1
+As if gripped by a powerful arm, an unseen force pulled Event1 from under The
+Hintmaster's belt.
+
+"Well...well...  You learn fast.  Seems that you are starting to understand
+how things work here.  Fine...  I shall not retrieve Event1."
+
+> I thank Campbell for creating Adrift
+The Hintmaster laughs as you said that, nodding his head as if in consent.
+
+"I see you must be grateful to my creator.  I used to honour him too.  If you
+haven't realized, Event1 has started running.  You're almost there..."
+"Hey!  You haven't told me your name yet!" said The Hintmaster.
+
+> look
+
+The Adrift Foyer
+You can see no end in all directions... That is IF you know which direction
+you are facing.  Everywhere looks the same.  You are drifting in the Adrift
+world, where all the rooms, objects, event-tasks combo, characters are
+created.  This is where it all of Adrift begins.  Drifting here is Task1,
+Task2 and Task3.  Also here is an Event1, a circular device and a triangular
+device.  The Hintmaster is here.
+
+> get circular device
+You pick up the circular device.
+"You are not the first person here.  I am!" said The Hintmaster.
+
+> press circular button
+You press the circular button.  As you depress the button on The Correct One,
+your surrounding start to become brighter.  You raise your hands to shield
+your eyes from the increasing glare.  The Hintmaster and all in The Adrift
+Foyer fades into blindness.  You seem to hear The Hintmaster's last words...
+
+"You have only seen a small portion of what Adrift holds for your in the
+future.  For now, you shall leave this realm, enjoy what time you have in
+your world.  We shall meet again... soon..."
+
+The Hintmaster's laughter rings in your ears as the glare becomes too bright
+for your eyes to even open.  You feel your body torn apart by the same
+mysterious forces that engulf you when you travelled here.
+The blinding light...
+the deafening laugh...
+the tormenting pain...
+
+Bedroom
+This is your bedroom, simply decorated.  A single bed occupies one length of
+the room.  Next to it is a wooden study table and a matching chair in front
+of it.  Also, there is a personal computer and a telephone on the table.
+Across the room is a cupboard where you store away all you clothes.  A large
+window on the north wall gives a wide view off the outside, making your small
+room seem much more spacious.
+
+You wake up, finding yourself on your own bed in your own bedroom,  unclear
+of what had happened.  "Was it a dream?"  Looking at yourself, you find no
+difference as when you first arrived home.  You shake your head in an attempt
+to regain some memory.
+
+Everything is silent around you, the birds no longer sing and the breezing
+wind has stopped.  Suddenly, a familiar phrase rings a bell in your head.
+
+"...constructive, meaningful and worthwhile..."
+
+Now you remember, you came home to fix your computer and surf the net so that
+you can fulfill you aim.  But you remembered more... The Hintmaster.  Did it
+really happen?
+
+Your head turned to see your computer screen on, you decided to carry on with
+you work.
+
+> look
+
+Bedroom
+This is your bedroom, simply decorated.  A single bed occupies one length of
+the room.  Next to it is a wooden study table and a matching chair in front
+of it.  Also, there is a personal computer and a telephone on the table.
+Across the room is a cupboard where you store away all you clothes.  A large
+window on the north wall gives a wide view off the outside, making your small
+room seem much more spacious.  As you get up from your bed, you feel an
+unexplained urgh to take another glance at your bed.  Your beloved bedsheet
+has the words "I am the King of the World." printed on it.  But now it's
+gone!  In place of it is another message.  Your eyes open wide as you read
+it...
+
+"The Hintmaster is the King of the Adrift realm.  It's not over..."
+
+Quickly, you rush to examine your keyboard.  True enough, six of the letters
+on the keyboard are gone, ADRIFT.  Looking up to your screen, it showed a
+familiar black and purple background.
+
+"So it all really happened..."  You wondered to yourself as you slumped into
+your chair.  You bury your face in both your hands as you try to recall
+everything that occurred today.
+
+You are indeed captivated by Adrift.  No doubt it is already a very limitless
+program that allows you explore your imagination and creativity, but it also
+holds together a special group of people from all around the world that share
+the same interest in interactive fiction.
+
+"Something constructive, meaningful and worthwhile... well... I've found it
+in Adrift.  Mission Accomplished!"
+
+Once again, you logged on to the Adrift Forum and decided to join this band
+of crusaders in their common goal of creation.  You need a name...
+
+You decide to call yourself...   ketigid
+
+You look down at your open drawer, there's something inside.  It's a grey
+circular object, with a round button on it.
+
+"The Correct One... Why is it here?"
+You scored 12 out of the maximum 12!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

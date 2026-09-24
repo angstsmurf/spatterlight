@@ -2520,6 +2520,22 @@ pf_hoist_tail (scr_filterref_t filter, size_t from)
 
 
 /*
+ * pf_buffer_tail()
+ *
+ * Everything buffered from a length pf_buffer_length() returned earlier, for
+ * a caller that cuts it out with pf_truncate() and puts it back elsewhere.
+ */
+std::string
+pf_buffer_tail (scr_filterref_t filter, size_t from)
+{
+  assert (pf_is_valid (filter));
+
+  return from < filter->buffer.size () ? filter->buffer.substr (from)
+                                       : std::string ();
+}
+
+
+/*
  * pf_truncate()
  *
  * Cut the buffer back to a length pf_buffer_length() returned earlier,

@@ -1,0 +1,41 @@
+Loading game...
+
+Escape From Camelot
+The suspicious six are at it again. Only this time they get caught. Your
+group members are hidden somewhere in camelot castle and you must find them
+before it's too late!
+
+> look at tiles
+When you look at the tiles, you notice that the one you are standing can be
+lifted.
+
+> lift tile
+When the tile is lifted, it reveals a hole just big enough for you to fit
+through.
+
+> d
+You move down.
+
+Hallway
+You are in a busy hallway. If anyone sees you here you will immediately be
+sentenced to death. In the corner there is a statue just big enough for you
+to hide behind.There are doors leading north, north east, east, south and
+west.
+
+> s
+You move south.
+
+Round table room
+On the round table are some mugs that probably shouldn't have been left
+there. Inside the mugs is some sweet smelling liquid that makes you quite
+thirsty. You see a hole in the roof.  Also here is a Mugs.
+
+> climb through hole
+You climb through the hole and find yourself in a secret room. Your last
+companion is in here.
+
+You scored 1 out of the maximum 5!
+That is 20% of the game!
+You finished 4 points short.
+
+[Press any key to end]

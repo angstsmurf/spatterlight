@@ -1,0 +1,87 @@
+play message
+open desk drawer
+look in drawer
+take all from drawer
+look under drawer
+read card
+open door
+n
+x mailbox
+get envelope
+s
+open envelope
+unlock closet
+open closet
+e
+take picks
+decode orders
+read orders
+open safe
+4789
+shred orders
+shred envelope
+w
+n
+w
+s
+knock door
+1
+5
+n
+e
+e
+push button
+n
+e
+n
+w
+n
+open gate
+e
+pick lock
+open door
+s
+give cookie to dog
+s
+look under rug
+unlock door
+open door
+e
+u
+w
+type anna
+1
+1
+4
+b
+b
+2
+1
+b
+b
+b
+2
+4
+b
+3
+e
+d
+w
+close door
+lock door
+drop key
+n
+n
+close door
+lock door
+w
+s
+e
+s
+w
+push button
+s
+w
+s
+phone Trotter
+1

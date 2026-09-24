@@ -1,0 +1,66 @@
+w
+n
+e
+Remove brick
+get gold necklace
+get bible
+w
+s
+e
+e
+e
+e
+get food
+n
+scare guests
+s
+w
+w
+w
+w
+s
+d
+e
+give rats food
+s
+w
+u
+u
+w
+s
+w
+w
+w
+pick up rope
+e
+e
+e
+n
+e
+d
+w
+u
+build vessel
+get fish
+s
+e
+say goodbye
+s
+s
+e
+s
+w
+w
+leave fish
+attack dan
+s
+w
+find family
+run away
+w
+s
+s
+d
+escape
+quit
+y

@@ -1,0 +1,618 @@
+Loading game...
+
+House of Death
+To start, TRY TO EXAMINE EVERYTHING.  Especially the items you pick up.
+If you find any problems, errors, suggestions, questions, compliments,
+complaints, flames, death threats, etc.  please e-mail me at mth10@usa.net
+
+You are a secret agent, on a mission to break some drug ring,  or something
+boring like that.  Fortunately, the author of this story had pity on the
+players.  You ride in a private jet, in a seat right next to a wind, and
+suddenly, a bird flys into an engine on the plane, causing it to burst into
+flames!  The plane decends into a forest.  Both wings get ripped off, and you
+get sucked out of the hole where the wings were!  You land in a small pond,
+shaken, but unharmed.  You step out, and watch as your plane explodes!  You
+hear howls, and notice some eyes gleaming at your from behind a bush.  It
+leaps out, and claws soar right by your neck!  You run away, sure that you
+will meet your end, and not something exciting like being strapped to a bomb,
+or being in a massive firefight where you save the world and die from a
+fatal wound, but you have to die by being attacked by wolves!  They're
+usually afraid of people anyway!  You run for what seems like hours.  You
+glance at your watch, and see that it's been about 45 minutes.  You feel your
+legs almost give out.  Suddenly, you stumble into a clearing...
+
+> n
+You move north.
+
+Front Yard
+You are right in front of a house, exits to the north and south.  You hear
+barks.  Wolves must be near.  You can move north and south.  Wolves are
+closing in.  Rain is falling hard.
+
+> n
+You move north.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Everything is suddenly lit up by a flash of lightning!
+
+> w
+You move west.
+
+Library
+You are in a library.  There is a fireplace, and once nice chairs, now
+mangled.  This was probably once a very cozy and friendly room.  You can only
+move east.  Suddenly, there is a crash of thunder, making you jump!
+
+> flip switch
+You press the switch, which flips down to become level with the fireplace
+wall.  A door slides open to the east.  Rain is falling hard.
+
+> w
+You move west.
+
+Bottom of the Tower
+You are in a tower.  You see some stairs.  Also here is a rusty shovel.  You
+can move east and up.  Everything is suddenly lit up by a flash of lightning!
+
+> get shovel
+You pick up the rusty shovel.  Suddenly, there is a crash of thunder, making
+you jump!
+
+> u
+You move up.
+
+Top of Tower
+You are in the top of the tower.  You see a set of stairs, a pipe organ, and
+a piano bench.  You can only move down.  Rain is falling hard.
+
+> sit on bench
+You sit down on the piano bench.
+Everything is suddenly lit up by a flash of lightning!
+
+> play organ
+You play the organ, not bad, but you need practice.  Suddenly, there is a
+crash of thunder, making you jump!
+
+> open bench
+You open the piano bench.  A note is inside the piano bench.  Beethoven
+floats into the room from below.  Beethoven's ghost says, "Hi!  I'm glad you
+like music!"  Rain is falling hard.
+
+> get note
+You take a note from the piano bench.  Everything is suddenly lit up by a
+flash of lightning!
+
+> read note
+June 6, 1802:  Uncle Charles died today.  His dying words were, "Get my
+gold".  The old miser.  He was always a greedy fellow, but who would know
+that greed would be his dying wish?  Suddenly, there is a crash of thunder,
+making you jump!
+
+> d
+(Getting off the piano bench first)
+You move down.
+
+Bottom of the Tower
+You are in a tower.  You see some stairs.  You can move east and up.  Rain is
+falling hard.
+
+> e
+You move east.
+
+Library
+You are in a library.  There is a fireplace, and once nice chairs, now
+mangled.  This was probably once a very cozy and friendly room.  You can move
+east and west.  Everything is suddenly lit up by a flash of lightning!
+
+> e
+You move east.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  Charles is here.  He appears to
+be looking for somthing.  You can move north, east, south, west and up.
+Charles staggers away to the west.  Suddenly, there is a crash of thunder,
+making you jump!
+
+> u
+You move up.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Rain is
+falling hard.
+
+> n
+You move north.
+
+Master Bedroom
+This is the master bedroom.  It was once very beautiful.  You see a
+king-sized bed, and an oak dresser.  You can move south and west.  Everything
+is suddenly lit up by a flash of lightning!
+
+> open dresser
+You open the oak dresser.  Steel key is inside the oak dresser.  Suddenly,
+there is a crash of thunder, making you jump!
+
+> get steel key
+You take steel key from the oak dresser.  Rain is falling hard.
+
+> s
+You move south.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Everything is
+suddenly lit up by a flash of lightning!
+
+> w
+You move west.
+
+Guest Bedroom
+This is the guest bedroom, it has a bed, which is mangled beyond all
+recognition.  You notice some writing on the wall.  You can only move east.
+Suddenly, there is a crash of thunder, making you jump!
+
+> read wall
+When the grandfather clock says midnight, come here.  Make sure clock is
+running.  Wind, instead of resetting the hands.  Rain is falling hard.
+
+> e
+You move east.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Everything is
+suddenly lit up by a flash of lightning!
+
+> d
+You move down.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Suddenly, there is a crash of thunder, making you jump!
+
+> wind grandfather clock
+You wind the grandfather's clock.  In spins to 12:00 and stops.  It starts
+chiming non-stop.  Rain is falling hard.  You hear the clock chiming.
+
+> u
+You move up.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Everything is
+suddenly lit up by a flash of lightning!  You hear the clock chiming.
+
+> w
+You move west.
+
+Guest Bedroom
+This is the guest bedroom, it has a bed, which is mangled beyond all
+recognition.  You notice some writing on the wall.  A trapdoor and ladder are
+coming down from the ceiling!  You can move east and up.  Suddenly, there is
+a crash of thunder, making you jump!
+
+> u
+You move up.
+
+Attic
+The attic, it is riddled with cobwebs, and a very musty smell.  There is a
+steel box here.  Also here is rusty key.  You can only move down.  Rain is
+falling hard.
+
+> unlock box
+You unlock the box and open it.  You get some sort of device.  You discard
+the key.  Everything is suddenly lit up by a flash of lightning!
+
+> open chest
+You open Large chest.  Suddenly, there is a crash of thunder, making you
+jump!
+
+> get rusty key
+You pick up rusty key.  Rain is falling hard.
+
+> d
+You move down.
+
+Guest Bedroom
+This is the guest bedroom, it has a bed, which is mangled beyond all
+recognition.  You notice some writing on the wall.  A trapdoor and ladder are
+coming down from the ceiling!  You can move east and up.  Everything is
+suddenly lit up by a flash of lightning!
+
+> e
+You move east.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Suddenly,
+there is a crash of thunder, making you jump!  You hear the clock chiming.
+
+> d
+You move down.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Charles staggers in from the west.  Rain is falling
+hard.  You hear the clock chiming.
+
+> e
+You move east.
+
+Dining Room
+This is the dining room.  You can move north and west.  Charles staggers in
+from the west.  Everything is suddenly lit up by a flash of lightning!  You
+hear the clock chiming.
+
+> n
+You move north.
+
+Kitchen
+This is the kitchen.  You see an oak cabinet.  You can only move south.
+Charles staggers in from the south.  Suddenly, there is a crash of thunder,
+making you jump!  You hear the clock chiming.
+
+> unlock cabinet
+You unlock the cabinet.  You find a small note inside, which you take.  You
+discard the key.  Charles staggers away to the south.  Rain is falling hard.
+You hear the clock chiming.
+
+> s
+You move south.
+
+Dining Room
+This is the dining room.  Charles is here.  He appears to be looking for
+somthing.  You can move north and west.  Charles staggers away to the west.
+Everything is suddenly lit up by a flash of lightning!  You hear the clock
+chiming.
+
+> w
+You move west.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  Charles is here.  He appears to
+be looking for somthing.  You can move north, east, south, west and up.
+Charles staggers away to the west.  Suddenly, there is a crash of thunder,
+making you jump!  You hear the clock chiming.
+
+> n
+You move north.
+
+Back Entry
+This is the entry to the back of the house.  You can move north and south.
+Rain is falling hard.  You hear the clock chiming.
+
+> n
+You move north.
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Rain is falling hard.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!  You see a bunch of zombies in the
+graveyard.  This may not be a good time to go gravedigging.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Rain is falling hard.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!  The place is swarming with zombies.  STAY
+AWAY!  (They're starting to return to their graves)
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!  All the zombies returned to their graves.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Rain is falling hard.
+
+> n
+You move north.
+
+Graveyard
+This is the graveyard.  These appear to be the graves of past residents of
+this house.  You can only move south.  Everything is suddenly lit up by a
+flash of lightning!
+
+> dig charles grave
+You begin digging in front of Uncle Charles's gravestone.  You hit somthing,
+and stop digging.  Suddenly, there is a crash of thunder, making you jump!
+
+> get gold
+You pick up the bag of money.  Rain is falling hard.
+
+> s
+You move south.
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!  You see a bunch of zombies in the graveyard.
+ This may not be a good time to go gravedigging.
+
+> s
+You move south.
+
+Back Entry
+This is the entry to the back of the house.  You can move north and south.
+Suddenly, there is a crash of thunder, making you jump!  You hear the clock
+chiming.
+
+> s
+You move south.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Rain is falling hard.  You hear the clock chiming.
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Charles staggers in from the east.  You give the money
+to charles.  He smiles and disappears.  Everything is suddenly lit up by a
+flash of lightning!  You hear the clock chiming.  You hear a baby crying!
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Suddenly, there is a crash of thunder, making you jump!
+You hear the clock chiming.  You hear a baby crying!
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Rain is falling hard.  You hear the clock chiming.  You
+hear a baby crying!
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Everything is suddenly lit up by a flash of lightning!
+You hear the clock chiming.  You hear a baby crying!
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Suddenly, there is a crash of thunder, making you jump!
+You hear the clock chiming.  You hear a baby crying!
+
+> look
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Rain is falling hard.  You hear the clock chiming.  You
+hear a baby crying!
+
+> n
+You move north.
+
+Back Entry
+This is the entry to the back of the house.  You can move north and south.
+Everything is suddenly lit up by a flash of lightning!  You hear the clock
+chiming.
+
+> n
+You move north.
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!  The place is swarming with zombies.  STAY
+AWAY!  (They're starting to return to their graves)
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Rain is falling hard.
+All the zombies returned to their graves.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Rain is falling hard.
+
+> look
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Everything is suddenly
+lit up by a flash of lightning!
+
+> n
+You move north.
+
+Graveyard
+This is the graveyard.  These appear to be the graves of past residents of
+this house.  You can only move south.  Suddenly, there is a crash of thunder,
+making you jump!  Zombies spot you, and are approaching you!
+
+> dig baby grave
+You dig up the baby's grave.  You hit somthing, and stop.  Rain is falling
+hard.
+
+> get rattle
+You pick up the rattle.  Everything is suddenly lit up by a flash of
+lightning!  Zombies are right next to you!  Get away now!
+
+> s
+You move south.
+
+Behind House
+Your are behind the house.  The grass is very long.  A rusted and broken gate
+is to the north.  You can move north, south and west.  Suddenly, there is a
+crash of thunder, making you jump!  All the zombies returned to their graves.
+
+> s
+You move south.
+
+Back Entry
+This is the entry to the back of the house.  You can move north and south.
+Rain is falling hard.  You hear the clock chiming.
+
+> s
+You move south.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Everything is suddenly lit up by a flash of lightning!
+You hear the clock chiming.  You hear a baby crying!
+
+> u
+You move up.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Suddenly,
+there is a crash of thunder, making you jump!  You hear the clock chiming.
+You hear a baby crying!
+
+> n
+You move north.
+
+Master Bedroom
+This is the master bedroom.  It was once very beautiful.  You see a
+king-sized bed, and an oak dresser.  You can move south and west.  Baby
+crawls in from the west.  Rain is falling hard.  You hear a baby crying!
+
+> w
+You move west.
+
+Nursery
+It's a little nursery!  You see a cradle.  You can only move east.  Baby
+crawls in from the east.  You give the rattle to the baby.  It shakes it, and
+laughs, and then it disappears.  Everything is suddenly lit up by a flash of
+lightning!
+
+> give rattle to baby
+Give what?
+Suddenly, there is a crash of thunder, making you jump!
+
+> e
+You move east.
+
+Master Bedroom
+This is the master bedroom.  It was once very beautiful.  You see a
+king-sized bed, and an oak dresser.  You can move south and west.  Rain is
+falling hard.
+
+> s
+You move south.
+
+Upstairs Hallway
+Your are in the hallway, with a balcony overlooking the entryway.   Portraits
+of family line the room.    You can move north, west and down.  Everything is
+suddenly lit up by a flash of lightning!  You hear the clock chiming.
+
+> d
+You move down.
+
+Entryway
+You are in the entryway.  There are cobwebs all over.  Portraits of family
+line the room.  You see a grandfather clock.  You can move north, east,
+south, west and up.  Suddenly, there is a crash of thunder, making you jump!
+You hear the clock chiming.
+
+> remove portrait
+You take the portrait off the wall and discard it.  So much for historical
+value.  Doing so reveals a button.  Rain is falling hard.  You hear the clock
+chiming.
+
+> push button
+You push the button in, and a trapdoor opens up under you, and you fall to
+the basement.  You hear the clock chiming.
+
+> n
+You move north.
+
+Laboratory
+This is a laboratory, it is extremely advanced, especially since the age of
+the house.  David is here.  You can only move south.
+
+> give device to david
+You give the device to David.  He thanks you.  He says, "I guess you want to
+know about what I'm doing here.  I'm researching technology for our
+government, you see that I've been monitoring you ever since you got here.  I
+didn't bother contacting you earlier, because I figured that you would find
+your way down here eventually.  Now, it's time for you to return to the
+base."  He points the device at you...  Now that you finished, do it again!
+In the front entry, type "Fun Things".  It'll give you a bunch of cool and
+funny things to do!
+You scored 42 out of the maximum 42!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

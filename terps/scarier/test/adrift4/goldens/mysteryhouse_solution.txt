@@ -1,0 +1,23 @@
+n
+e
+in
+examine sofa
+get key
+n
+n
+x desk
+get matches
+x bookshelf
+get candle
+move bookshelf
+e
+light candle
+s
+s
+push button
+s
+get Treasure Chest
+open chest
+w
+w
+drop treasure Chest

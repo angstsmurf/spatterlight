@@ -1,0 +1,28 @@
+look in locker
+get blaster
+get rope
+look in drawer
+get suit
+wear suit
+open cuboard
+get helmet
+wear helmet
+look at floor
+get manual
+get survival kit
+pull hand rail
+open door
+out
+throw bar to column 2
+jump to column 2
+get bar
+vault to column 3
+propel to column 4
+tie loop in rope
+throw rope to column 5
+climb to column 5
+recode transmitter
+look
+look
+quit
+y

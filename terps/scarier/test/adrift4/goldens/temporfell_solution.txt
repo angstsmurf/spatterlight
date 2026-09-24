@@ -1,0 +1,3 @@
+stand
+look
+exits

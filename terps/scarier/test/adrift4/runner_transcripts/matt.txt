@@ -1,0 +1,144 @@
+
+> n
+You move north.
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you.
+
+> you killed black cat
+You have killed the black cat. You pick up Golden Collar  Black Cat hits you.
+
+> w
+You move west.
+Spare Bedroom
+ Stranger - Hey you killed my cat you idiot. Give me the collar back.  You can only move east.
+
+> give stranger collar
+You gave the stranger the collar. He gave you a knife in return! Stranger disapeared in a cloud of smoke. How mysterious!! 
+
+> e
+You move east.
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you.
+
+> e
+You move east.
+Bathroom
+It smells in here  Zombie is here.  You can only move west.  Zombie hits you.
+
+> you have killed zombie
+You have killed the zombie. You earned 10 points!  Zombie hits you.
+
+> w
+You move west.
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you.
+
+> n
+You move north.
+Closet
+Nothing much in here...Just some rusty old armor  Also here is rusty Armor.  You can only move south.
+
+> wear armor
+You put on the armor!
+
+> s
+You move south.
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you, but it doesn't seem to do any damage.
+
+> d
+You move down.
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> out
+You have already done that.
+
+> kill thief
+You can't do that here!
+
+> w
+You can't go in that direction, but you can move up, down and out.
+
+> buy box
+You can't do that here!
+
+> in
+You can't go in that direction, but you can move up, down and out.
+
+> u
+You move up.
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you, but it doesn't seem to do any damage.
+
+> kill snake
+You can't do that here!  Black Cat hits you, but it doesn't seem to do any damage.
+
+> d
+You move down.
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> out
+You have already done that.
+
+> e
+You can't go in that direction, but you can move up, down and out.
+
+> in
+You can't go in that direction, but you can move up, down and out.
+
+> d
+You move down.
+Basement
+Your basement. Look! A killer!  Killer is here.  You can only move up.  Killer shoots you with the Gun.
+
+> kill killer
+You stab Killer with the Knife.
+
+> u
+You move up.
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> out
+You have already done that.
+
+> n
+You can't go in that direction, but you can move up, down and out.
+
+> trade with ghost
+You can't do that here!
+
+> room a
+You can't do that here!
+
+> kill rat
+Who do you want to attack?
+
+> s
+You can't go in that direction, but you can move up, down and out.
+
+> room b
+You can't do that here!
+
+> trade with stranger
+You can't do that here!
+
+> look
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> e
+You can't go in that direction, but you can move up, down and out.
+
+> boss
+You can't do that here!
+
+> get dragon killed go!
+Take what?
+
+> quit
+
+> y
+What the heck do you wanna do????

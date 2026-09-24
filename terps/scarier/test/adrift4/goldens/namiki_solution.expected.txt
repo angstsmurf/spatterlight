@@ -495,8 +495,8 @@ blouse, my Prada belt, a perfume flask, a Kenzo jacket, a Dior skirt and my
 jewelry.
 
 > take all from bag
-I take my bandana, my Yamamoto blouse, my Prada belt, the perfume flask, the
-Kenzo jacket, the Dior skirt and my jewelry from the tennis bag.
+I take my bandana, my Yamamoto blouse, my Prada belt, the perfume flask and
+the Kenzo jacket from the tennis bag.the Dior skirtmy jewelry
 
 > remove kimono
 I remove the kimono.

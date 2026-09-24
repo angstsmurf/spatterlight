@@ -202,14 +202,39 @@ verdict quoted from the game's own shipped text: `aparty.taf`, `delight.taf`,
 `Hunting Ground.taf` (non-consensual sexualized violence culminating in
 murder), `Choices.taf`, `plains.taf`, `A Dream Come True.taf`,
 `British.Fox.and.the.Celebrity.Abductions.taf`. `BeThere.taf` is excluded as
-an ADRIFT 5 duplicate (deleted from `games/`).
+an ADRIFT 5 duplicate (deleted from `games/`).  Downloaded walkthroughs that
+were left unwired because the TAF itself names under-21 characters:
+`enc4.taf` (player is eighteen), `Eva's secret.taf` (Petra is 20),
+`midsomer bottom manor ver1.8.taf` (Maisie 14, Caroline 16, Leslie 17),
+`sororityHouse.taf` (freshman sister; another character called "just a
+little girl"), `the_burbs.taf` (Jimmy and Jen are 14-year-old twins).
 
 **AIF between adults** — row committed, solution/golden(/notes) gitignored:
 Archie's Birthday, Diary of a Stripper, windy2, croft, dr-who-vortex-lust,
 gamma, Temple_Of_The_Sun, amy, The_Strange_Tale_of_Dr_Wilkins, BSG TWENTY TWO
 Final, warlock, BarneysProblem, Dear Diary, Dear Diary 2, Riding_Home, hcw,
 Scandal, cldone, magicshow, goblin, ss whore, Sex is Mental, The Worst Game In
-The World.
+The World, DOA_X_B_S, The Silver Maiden, Trapped With A Girl, Practice Policy,
+To Be King, Harem Prologue, Duchess of Desire.
+
+Further GAMES_WITH_HINTS declines (TAF text): `Deadly Climax 1.0 final.taf`
+(Asia a "fifteen year old pupil"; Jo compared to thirteen); `party.taf`
+(Becky 17, Amber 19, Karen/Kelli 16); `DC.taf` (player is a "15 year old
+boy"); `score.taf` (player is "a teenager"); `zara.taf` (Claire "the teenage
+daughter"); `lauren.taf` ("teenage boy, nearly 18"); `Birthday.taf` (school
+friends / Junior); `practice-procedures-1.5_4.0.taf` (schoolgirl Amy);
+`Fairy Tails Remixed v1.5.taf` (Muffet "little child"); `Pay Back.taf`
+(Clara 18); `Unexpected Proposal.taf` (Lucy is 17); Crossworlds 0/1/3
+(Janey sixteen); `options.taf` (Melissa 16);
+`consequences.taf` (girl "can't be more than eighteen"); `Big Stuff.taf`
+("dream schoolgirl"); `Janey's Diary.taf` / `Sleep Over.taf` (sixteen).
+`windy.taf` / `windy-2005.taf` stay declined as Camp Windy Lake.
+`pta5.taf` (Nikki “naughty schoolgirl”; Ellie “barely seventeen”);
+`The Search.taf` (Sharon a “teenager” in sexual scenes);
+`LastWeek.taf` (Kirsten section: “teenagers tend to be happier…” in a sexual AIF).
+`Hotown1.taf` (Linda “a young lady of about 18” in sexual scenes).
+`power play 1.3c.taf` (Joseph’s daughter “a pretty seventeen year old” / “innocent teen” in sexual scenes).
+`relatives.taf` (Felicia is 17, “just the same as you”; Heather is 18, in sexual scenes).
 
 Vocabulary scan (`taf_pattern_scan.py plaintext()`) false positives worth not
 re-chasing: draped/scraped/grapefruit → rape; circumstances/cucumber/succumb/

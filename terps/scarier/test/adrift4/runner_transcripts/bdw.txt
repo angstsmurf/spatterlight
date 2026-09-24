@@ -1,0 +1,138 @@
+
+> look
+"This is the longest I have had to go without my body.  While it's off having orgies, swimming naked in the seas of Frogstar V, and generally being obnoxiously outlandish, I had to oversee three thousand Denedidan Slug tournaments and correlate the mucus/lift ratios.  Enough is enough!  Time to call it back!"
+
+The brain of Probert Hardfard mulls on how to accomplish this.  "Maybe if I get it dead drunk, so inebriated it can't control itself without my help, I'll finally regain control."
+
+"Problem: my body enjoys getting drunk and retaining control.  Solution: ... don't know...  what hasn't it consumed that will waste it?  Ahah!  Pan Galactic Gargle Blaster!"
+
+"Body, oh, body!  I need you to study the effects of the Pan Galactic Gargle Blaster for research!"
+
+The body responds, "Bugger your research!
+
+"Although...  I've heard that is the best drink in the galaxy!"
+
+Take A Chance Bar
+Catering to both the wealthy and the downtrodden, the bar's design of seedy and swanky is balanced in a perpetual optical warfare - occasionally breaking out into a physical battle with neither side gaining the upper hand, foot, or other prosthesis.  One could make a quick get-away from the main entrance to the southwest.  The barkeep is leaning on the bar watching the antics of the inebriated.
+
+> ask barkeep about blaster
+The body of Probert swaggers up to the barkeep and grins a knowing grin, not knowing the grin actually puts people off, and demands a Pan Galactic Gargle Blaster.
+
+"Sorry, mate.  I only have some of the ingredients in stock."  The barkeep quickly writes out on the back of a drink coaster a list.  "If you can get these items, I'll be able to mix the drink for you," says the barkeep as he hands the list to the body.
+
+> sw
+Probert Hardfard moves southwest.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> se
+Probert Hardfard moves southeast.
+Rinchippi Pet Store
+The store has been held by the Rinchippi family for five generations.  The last three generations have had nothing to do with the actual running of the business, thus the employees have taken advantage of the owners absence to sell all types of pets: legal, illegal, humanoid, whatever the client desires.  What immediately catches the eye upon entrance is the large aquarium of Santraginus fish swimming in a delirious happy state.  Next to it is a terrarium of Fallian marsh mallongators, with the gas bubbling up around the creatures.  To the northwest is the exit.  A sales clerk is standing here, staring at Probert Hardfard.
+
+> ask clerk about fish
+The teenager scoops out a Santraginus fish and some water into a plastic bag, then hands it over in exchange for some cash.
+
+> nw
+Probert Hardfard moves northwest.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> w
+Probert Hardfard moves west.
+Station Utilities
+Bangs, wheezes, huffings, and other noises associated with the production of the station's needs fill the ear immediately upon entering.  Only a professional engineer with five degrees from the University of Extreme Difficult Studies would understand the piping, electronics, photonics, plastronics, and exophlangical components of the room. An escape from the auditory assault is possible to the east.  An unused air tank is lying in the corner of the room.
+
+> take tank
+Probert Hardfard takes the air tank.
+
+> e
+Probert Hardfard moves east.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> se
+Probert Hardfard moves southeast.
+Rinchippi Pet Store
+The store has been held by the Rinchippi family for five generations.  The last three generations have had nothing to do with the actual running of the business, thus the employees have taken advantage of the owners absence to sell all types of pets: legal, illegal, humanoid, whatever the client desires.  What immediately catches the eye upon entrance is the large aquarium of Santraginus fish swimming in a delirious happy state.  Next to it is a terrarium of Fallian marsh mallongators, with the gas bubbling up around the creatures.  To the northwest is the exit.  A sales clerk is standing here, staring at Probert Hardfard.
+
+> give tank to clerk
+The pimply faced teenager looks Probert in the eye, "It will be a moment while I transfer some of the gas to your tank."  He steps behind the terrarium and Probert hears the siphoning of gas being transferred.
+
+"That should be about four liters of gas, ...sir..." as the teenager hands the tank back to the body.
+
+> nw
+Probert Hardfard moves northwest.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> n
+Probert Hardfard moves north.
+Fly High Restaurant
+The foyer of the Fly High restaurant is actually very classy for such a waystation as this.  Fine violet silk drapes cover the walls and the highly varnished dark wood ceiling reflects the light of the emerald chandelier.  The maitre' de's podium bars the entrance to the actual dining hall.  To the south lies the promenade.  The chef is standing in for the maitre' de by the podium.
+
+> give fish to chef
+"It takes great skill to fry this tender fillet without turning it into a blackened mess."  The chef takes the Santraginus fish out of the bag and retires to the kitchen.  In a short time it hands a plate with the fish and a set of utensils to the body of Probert.
+
+> s
+Probert Hardfard moves south.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> ne
+Probert Hardfard moves northeast.
+Take A Chance Bar
+Catering to both the wealthy and the downtrodden, the bar's design of seedy and swanky is balanced in a perpetual optical warfare - occasionally breaking out into a physical battle with neither side gaining the upper hand, foot, or other prosthesis.  One could make a quick get-away from the main entrance to the southwest.  The barkeep is leaning on the bar watching the antics of the inebriated.
+
+> give utensils
+The barkeep pulls the spoon out from the bundle and hands the rest back to Probert's body.  He then holds the spoon up to the light and appears to check out his face in the reflection.  "Good..."  
+"The Santraginus seawater is critical for the proper mixing," emphatically states the barkeep.
+
+> give seawater
+The barkeep gently unties the bag and takes a small sniff of the seawater.  He closes his eyes and smiles a silly smile, holding the bag loosely.  Probert's body gets worried as the barkeep is loosing a grip on the bag and shouts, "Hey!"  The barkeep quickly regains equilibrium and ties the bag back up, "Yes, definitely Santraginus seawater."
+
+"Not just any tooth will do, but only an Algolian Suntiger's" states the barkeep.
+
+> give tank
+Probert's body hoists the tank onto the counter, which causes the barkeep to respond, "Hey, careful with the counter!"  The barkeep then lets out a tiny burst of gas out of the tank.  His eye's cross and he starts to collapse behind the bar, "...definitely Fallian marsh gas..." he croaks out.  Several patrons sitting at the bar quickly leave the establishment at the same time.  
+"Not just any tooth will do, but only an Algolian Suntiger's" states the barkeep.
+
+> sw
+Probert Hardfard moves southwest.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> s
+Probert Hardfard moves south.
+Loading Dock
+The dock requires the licensing of professional teamsters to unload and load all freighters passing through, even if they don't have any freight for this port-of-call.  The promenade is visible to the north.  Freighter Captain is dealing with the teamsters.
+
+> give fish to captain
+"Tanks, here da toot" says the captain as he trades the Suntiger tooth for the fried Santraginus fish and eating utensils.  
+
+> n
+Probert Hardfard moves north.
+Promenade
+Spaciously crowded, the area services the fine establishments of the "Fly High Restaurant" to the north, "Take A Chance Bar" to the northeast, and "Rinchippi Pet Store" to the southeast.  To the south is the loading dock of preference, as the other three docks are just doors to space and the interior doors were welded shut.  To the west is the station utilities - power, light, water, air, gravity, and other necessary components for the survival of most species visiting the Station.
+
+> ne
+Probert Hardfard moves northeast.
+Take A Chance Bar
+Catering to both the wealthy and the downtrodden, the bar's design of seedy and swanky is balanced in a perpetual optical warfare - occasionally breaking out into a physical battle with neither side gaining the upper hand, foot, or other prosthesis.  One could make a quick get-away from the main entrance to the southwest.  The barkeep is leaning on the bar watching the antics of the inebriated.
+
+> give tooth
+The barkeep gently wraps two fingers on the tooth avoiding the barbs.  The barkeep carefully places the items from the list on the bar.  Reciting out loud, he prepares the drink:
+  "Juice from Ol' Janx Spirit", which he took from a bottle on the wall behind him;
+  "Measure of Santraginus seawater", after he carefully opens the bag;
+  Reaching from a freezer below the bar, he brings out an icetray, "three cubes of Arcturan Mega-gin... wait for it to melt";
+  "Bubble four liters of Fallian marsh gas", after attaching a hose to the air tank;
+  Lifting a small bottle from the counter below him, "float a measure of Qualatin Hypermint extract" on the back of the silver spoon;
+  "Tooth of Algolian Suntiger", he gently lowers it in, watching the multi-colors swirling around the drink;
+  "The final touch" as he adds an olive.
+
+Probert looks at the Pan Galactic Gargle Blaster sitting in front of him.
+
+
+> drink blaster
+The body of Probert Hardfard grabs the reinforced glass and drains the Gargle Blaster in one large gulp.  "WHOO!  WHOO!  WHEE!  WHAA!", shouts the body as its eyes bug out just before passing out.  Unfortunately the brain forgot the true effect of the notoriously potent drink: "like having your brains smashed out by a slice of lemon wrapped round a large gold brick."  From this day on, Probert Hardfard lived only with his body, while the brain took a permanent residence in the Institute of Morbid Alcoholics in a coma.
+

@@ -1,0 +1,402 @@
+Loading game...
+
+Seek and Enjoy
+
+...........................Seek and Enjoy by Backmasker. One man's quest to
+get some bloody time to
+himself.............................................................
+
+You have decided to work from home a couple of times a week to get out of the
+office. This has resulted in you walking around and talking to yourself.
+
+You have put this odd behavior down to you having no creative outlet. You
+have therefore decided to go to a recording studio to make some music.
+
+Your wife has begrudgingly agreed to this on the terms that you complete 5
+simple tasks before you leave. She has written the tasks down for you on a
+list. You are holding the list.
+
+------------------------------------------------------------------------------
+--------------------------
+
+Remember that to win an IF game you will need to
+
+1) Look (l) on, at and in everything
+
+2) Read everything you think will be readable.
+
+3) Have the right tools for the job.
+
+4) Make sure everything is where it should be before trying to complete a
+task.
+
+To enjoy this game please go to option>display and media>media>select
+graphics and sound. Then go to layout and select the radio button the the
+bottom right.
+
+When you are ready to complete a task, type the task; for example "put bin in
+garden" (without quotation marks)
+
+Office
+
+Your office is where you spend an alarming amount of time working and
+googling obscure actors on imdb. It is warm and inviting with a large window
+that gives you a good view of the cars going up and down your road.   Also
+here is a computer, an uncomfortable chair, a digital piano, a bookcase and a
+mp3 player.  A buzzing bee is here.  You can only move west.
+
+> w
+You move west.
+
+Hall
+The hall is full of your family's shoes and coats. It is crowded and quite
+frankly dangerous. Your wife has been dropping hints that she would like a
+telephone table, you know, the ones with a leather seat you can lie on dead
+classy like. It makes you want to sob.   Also here is a front door, a
+understairs cupboard and a coat.  You can move east, south and up.
+
+> s
+You move south.
+
+Dining/ Living room
+The dining room is decorated in a rustic style, with exposed brickwork and
+bare floorboards. The children have had their breakfast so your feet stick to
+the floor as you walk.  Also here is a calendar and a fridge.  You can move
+north, south and west.
+
+> x fridge
+You file all your important documents and store valuable items on the fridge.
+ A front door key is on the fridge.  You can hear your phone ringing faintly
+from the Kitchen
+
+> get key
+You take the front door key from the fridge.
+
+> n
+You move north.
+
+Hall
+You have been here before.  Also here is a front door, a understairs cupboard
+and a coat.  You can move east, south and up.  Kay enters from the east.
+
+> unlock front door
+You unlock the front door with the front door key.  Kay leaves to the south.
+
+> open front door
+You open the front door.
+
+> u
+You move up.
+
+Upstairs Hall
+The upstairs hall could do with a clean.   Also here is a toy box and some
+toys.  Sam is here.  You can move east, south, up and down.
+
+> get toys
+You take the toys.
+
+> e
+You move east.
+
+Childrens room
+The children's room is full of empty wardrobes, bookshelves and boxes. The
+floor is covered with clothes, books, toys and games.  Also here is a cabin
+bed, a plunger and a toy train.  You can only move west.
+
+> drop toys
+You drop the toys.
+
+> x cabin bed
+The cabin bed is where your son sleeps  Your debit card is on the cabin bed.
+
+> get debit card
+You take your debit card from the cabin bed.
+
+> get plunger
+You take the plunger.
+
+> w
+You move west.
+
+Upstairs Hall
+  Also here is a toy box.  Sam is here.  You can move east, south, up and
+down.
+
+> go down
+You move down.
+
+Hall
+You have been here before.  Also here is a front door, a understairs cupboard
+and a coat.  You can move north, east, south and up.
+
+> drop debit card
+You drop your debit card.
+
+> s
+You move south.
+
+Dining/ Living room
+The dining room smells a bit weird.  Also here is a calendar and a fridge.
+Kay is here.  You can move north, south and west.
+
+> w
+You move west.
+
+Kitchen
+The kitchen is extremely noisy. You can almost make out a worksurface under
+piles of dirty pots, pans and crockery. There is a stink coming from the bin
+that turns your stomach.   Also here is a washing machine, a bin, a drawer
+and a worksurface.  You can only move east.
+
+> open drawer
+You open the drawer.  A plastic bag and a plastic gloves are inside the
+drawer.
+
+> get plastic bag
+You take the plastic bag from the drawer.
+
+> get plastic gloves
+You take the plastic gloves from the drawer.
+
+> wear plastic gloves
+You put on the plastic gloves.
+
+> get bin
+You take the bin.
+
+> e
+You move east.
+
+Dining/ Living room
+The dining room smells a bit weird.  Also here is a calendar and a fridge.
+Kay is here.  You can move north, south and west.
+
+> s
+You move south.
+
+Garden
+
+The garden is popular with the local cats and foxes who use it as their own
+personal toilet.
+
+Your next door neighbour's cat is on your roof looking at you like YOU are a
+filthy bastard. You pick up a shoe and throw it at the cat. You miss. You
+realise it is one of your favorite shoes. It is now on the roof.  Also here
+is a shed door, a sledge hammer, a football, a car and a mushroom.  Jade is
+here.  You can only move north.
+
+> clear up cat turds
+You pick up the cat turds and dispose of them. Well done.
+
+> put bin in garden
+You take the bin out to the back garden. Part of you dies as you know you'll
+have to rebag everything tomorrow once the foxes get to it.
+
+Thats an item off the list completed.
+
+> s
+You move south.
+
+Dining/ Living room
+The dining room smells a bit weird.  Also here is a calendar and a fridge.
+Kay is here.  You can move north, south and west.
+
+> s
+You move south.
+
+Garden
+  Also here is a shed door, a sledge hammer, a football, a car and a
+mushroom.  Jade is here.  You can only move north.
+
+> get sledge hammer
+You take the sledge hammer.
+
+> unlock shed door
+You unlock the shed door with the sledge hammer.
+
+> open shed door
+You open the shed door.
+
+> s
+You move south.
+
+Shed
+You planned to turn your shed into a garden pub. Your wife misheard you and
+thought you meant general purpose storage area. It is full of old junk which
+you should have got rid of years ago, but you are too tight to hire a skip.
+Also here is a workbench.  You can move north and down.
+
+> x workbench
+You bought the workbench to help you complete d.i.y projects such as building
+a computer desk. There is a large pile of wood under the workbench.  A drill
+is on the workbench.
+
+> get drill
+You take the drill from the workbench.
+
+> n
+You move north.
+
+Garden
+  Also here is a shed door, a football, a car and a mushroom.  Jade is here.
+You can move north and south.
+
+> n
+You move north.
+
+Dining/ Living room
+The dining room smells a bit weird.  Also here is a calendar and a fridge.
+Kay is here.  You can move north, south and west.
+
+> n
+You move north.
+
+Hall
+You have been here before.  Also here is a front door, your debit card, a
+understairs cupboard and a coat.  You can move north, east, south and up.
+
+> n
+You move north.
+
+Your Road
+You have lived in your street for over a year and love the area and your
+neighbours. You dread having to renew the tenancy every six months as you
+know you cannot afford the deposit on a new house or any increase in rent.
+Beedle is here.  You can move south and west.
+
+> fix gate
+You fix the gate. Well done. How are you getting on with the list?
+
+> s
+You move south.
+
+Hall
+You have been here before.  Also here is a front door, your debit card, a
+understairs cupboard and a coat.  You can move north, east, south and up.
+
+> u
+You move up.
+
+Upstairs Hall
+  Also here is a toy box.  Sam is here.  You can move east, south, up and
+down.
+
+> s
+You move south.
+
+Bathroom
+The bathroom honks due to the toilet being blocked.   Also here is the
+toilet.  You can only move north.
+
+> unblock toilet
+The toilet is now unblocked. Well done. That is an item off the list.  You
+hear your doorbell ring and rush to the hallway.
+You see that someone has put a copy of the watchtower through your letter box
+
+You realise in your dash to the door that you have put down all the objects
+you were holding and cannot remember where they are.
+You have a bit of a cry.
+
+> get debit card
+You take your debit card.
+
+> n
+You move north.
+
+Your Road
+  You can move south and west.
+
+> w
+You move west.
+
+Station
+You are at the station. If you have completed all tasks on the list maybe you
+should get on the train.   You can only move east.
+
+> get on train
+Take what?
+You give the station employee your debit card. You get on the train and start
+the journey to the studio. You breathe a sigh of relief. You finally have
+some time to yourself.
+
+Five minutes into the journey, you ring your wife to check how the kids are.
+
+Congratulations you have won Seek and Enjoy....or have you? Look at your
+score. If it is less than 90 then you have missed out on a few freebies. Play
+again and see if you can find them.
+
+------------------------------------------------------------------------------
+---------------------------------
+
+Hidden Messages in Audio
+
+1) The Morse code at the beginning spells DJ Slipmatt
+
+2) Somewhere in the introduction there is someone reading the definition of
+lunacy from the dictionary (referring to Luna C). The message is backmasked.
+
+3) About half way through the track Knees up Mother Brown is played at a high
+frequency on a vibraphone (Vibes).
+
+4) if you play the tune in a spectrograph ( www.sonicvisualiser.org/) there
+is a picture of a pig (a reference to DJ Ham). The pig appears at 3:31.
+
+5) At the end of the track you can hear a number being dialed. At the end of
+the video the website http://www.dialabc.com/sound/detect/ is flashed up. If
+you upload a wav of the number being dialed to that site it will give you a
+number to ring. If you ring the number you will hear an excerpt of Billy
+Bunter of Greyfriars school.
+
+Hidden Messages in the Video
+
+1) "Six Days" are circled on a calender
+
+2) "The Big Spill"
+
+3) "So in Love"
+
+4) "Steamtrain"
+
+5) "Sunshine"
+
+6) "Above the Clouds"
+
+7) "In Complete Darkness" (The final S is missing from darkness...incomplete
+darkness)
+
+8) "Unity" (Uni and Tea)
+
+9) "Toy Town"
+
+10) "Higher Love" (Hire Love)
+
+11) "The 6th Gate" (6th five bar gate is circled)
+
+12) "Eye Opener"
+
+13) "Keep on Trying"
+
+14) "Shooting Star" (watch the clip in a mirror)
+
+15) "Feel Free"
+
+16) "4 am"
+
+17) "Burn Motherfucker"
+
+18) "Connexions"
+
+19) "Turn Up The Music"
+
+20) "Close Your eyes"
+
+21) "Heart of Gold" (AU is the chemical symbol for gold)
+
+22) "Rushins"
+
+23) "Breaking Free"
+
+24) "On and On"
+
+25) "Airhead" (Balloon with a face painted on it)
+[Press any key to end]

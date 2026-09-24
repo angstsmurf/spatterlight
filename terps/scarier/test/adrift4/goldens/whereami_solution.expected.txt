@@ -1,0 +1,52 @@
+Loading game...
+
+Where Am I?
+
+Awakening, giving your head a good shaking while slowly getting to your feet,
+ looking around, you ask yourself "Where am I?"
+
+In a small room that is approximately 9 feet by 9 feet in width by 9 feet
+high.  And without any doors!  "Whhhaaaaatttt?" you find yourself asking, in
+mild shock.
+
+Trying to remember what had just happened, you had just taken your appointed
+seat at the 1st Annual Dumpster's Bakery Presidential Toast.  Looking rather
+fetching in the More's 2 piece striped purple suit that you had picked up
+earlier in the day for this event, you were careful in not having the suit's
+arm sleeve brush against the butter as you reached for your glass of water
+and ...... that's all that you're able to remember!
+
+Now - never mind why you're here but,.how do you get OUT of here??
+
+Where Am I?
+In this 9 by 9 by 9 foot dark grey painted room, the only things that you're
+able to see are the lightbulb mounted in the centre of the ceiling as well as
+a switch panel mounted on the right side of one of the walls.  There isn't
+anything else in here at all, outside of yourself.  There is a gray control
+panel on the north wall.  There's a lightbulb in the ceiling above you,
+lighting up the room.
+
+> get panel
+There are a number of wires coming from the gray box that are connected to
+the switches on the gray panel.  Noticing this, you leave the panel hanging
+in place.
+
+> get tape
+You take the masking tape from the gray control panel.
+
+> put tape on sensor
+Carefully, you cover the light sensor's eye with the masking tape that you
+had removed from the gray panel.
+
+"What the heck's THAT??" you find yourself exclaiming as the room begins
+shaking as if there were an earthquake happening!
+
+Look! A hole has opened up in the floor!
+
+> down
+You move down.
+
+I'm Free!
+You've escaped the exitless room!
+You're FREE!
+[Press any key to end]

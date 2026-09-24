@@ -1,0 +1,6 @@
+move body
+get pen
+read letter
+sign letter
+quit
+y

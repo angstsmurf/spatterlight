@@ -1,0 +1,9 @@
+e
+get hammer
+w
+s
+x jar
+take jar
+hit jar
+quit
+y

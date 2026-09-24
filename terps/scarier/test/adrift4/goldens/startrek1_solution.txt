@@ -1,0 +1,6 @@
+open communicator
+Energize
+w
+engineering
+quit
+y

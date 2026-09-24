@@ -1,0 +1,33 @@
+Petter
+male
+open wardrobe
+get clothes
+wear clothes
+lie on bed
+open door
+out
+u
+n
+open wallet
+get credit cards
+buy drink
+s
+look
+look
+se
+e
+e
+s
+in
+ask merchant about goods
+out
+n
+n
+in
+ask shopkeeper about goods
+out
+s
+e
+e
+ask the old woman about amanda
+give wedding picture to old woman

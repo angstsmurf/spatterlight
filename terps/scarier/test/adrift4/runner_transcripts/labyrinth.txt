@@ -1,0 +1,142 @@
+
+> yank rope
+The bindings seem to be loosening a little.  
+
+> yank rope
+The bindings seem almost ready to break!  
+
+> yank rope
+Finally, the rope gives way and your hands are free. You slowly remove your gag and blindfold, blinking until your eyes adjust to the light.  
+
+> get lantern
+The lantern's glow provides a little comfort against the dark unknown of the Labyrinth.  
+
+> open chest
+Inside the battered wooden chest is a leather backpack, a small knife and servicable clothes.  
+
+> wear clothes
+You quickly dress in the clothes from the chest. They seem quite adequate, P, and should see you through this little Initiation test.  
+
+> take knife
+You secure the knife in the band of your trousers.  
+
+> s
+You move south.
+Winding Tunnels
+This winding, roughly-hewn tunnel leads north-south or branches towards the east.
+
+
+> e
+You move east.
+One Big Empty
+This is just one big empty space! There isn't any breeze and it doesn't even smell bad!!
+
+From here you can go north, south and west.
+
+An unusual stone catches your eye in the lantern's light.  
+A small kit lies bundled in the dirt.  
+Oh no! Your explorations have triggered the nice little surprise the thugs have set  for you ... *** WHOOSH *** ... suddenly you find yourself hanging upside down by the ankles ... dangling at the end of a rope snare! Oops!  
+
+> look
+One Big Empty
+This is just one big empty space! There isn't any breeze and it doesn't even smell bad!!
+
+From here you can go north, south and west.
+
+An unusual stone catches your eye in the lantern's light.  
+A small kit lies bundled in the dirt.  
+Oh no! Your explorations have triggered the nice little surprise the thugs have set  for you ... *** WHOOSH *** ... suddenly you find yourself hanging upside down by the ankles ... dangling at the end of a rope snare! Oops!  
+
+> disarm snare with knife
+Some time later you manage to sever the rope and fall to the ground ... ouch!  
+
+> take stone
+You carefully take the amber stone.  
+
+> take toolkit
+You carefully take the thief's toolkit.  
+
+> n
+You move north.
+Drafty Cave
+This rather odd-shaped cave is cold and drafty. The ground is very muddy and slippery (so be careful where you walk). There is a large pool of swirling water here in the northern corner.
+
+Likely looking tunnels are going north, south and west.
+
+What looks like a pendent lies in the dirt near the wall.  
+
+> take amulet
+You carefully take the golden amulet.  
+
+> wear amulet
+You carefully place the amulet around your neck.  
+
+> w
+You move west.
+One Big Empty
+This is just one big empty space! There isn't any breeze and it doesn't even smell bad!!
+
+From here you can go north, south and west.
+Bits and pieces of a severed rope snare lie scattered around.  
+
+> w
+You move west.
+Winding Tunnels
+This winding, roughly-hewn tunnel leads north-south or branches towards the east.
+
+
+> s
+You move south.
+Low Cave
+This naturally-formed cave is small with a low ceiling. Water drips down the eastern wall (from some unknown source)  allowing the wall to become slick with an odious slime (ugh!!).
+
+Small openings appear on the northern, southern and western walls.
+
+There is a huge gaping hole in front of you.
+Luckily you were carrying the "Feather" stone for it saves you from ... breaking your neck! ... but will it work next time?
+
+
+> n
+You move north.
+Narrow Passage
+This narrow passage runs mainly east-west with another passage heading southward. The ground is damp in places and the air is quite stale. There is no breeze here.
+
+
+> search cave
+That wind sounds like it's travelling through a shaft or something ...  
+Look at that, it certainly pays to be thorough, doesn't it? The SINGING SWORD of XANDER glimmers in the lantern's light.  
+
+> get sword
+You carefully take the ancient sword.  
+
+> n
+You move north.
+Vaulted Chamber
+This vaulted chamber is truly awesome. It's high ceilings seem to disappear into the darkness above. 
+
+It was obviously used in times past as a meeting place (the first lords of the Leviathian House, perhaps). Around the perimeter seats have been very carefully carved out of the walls. A carved stone pedestal stands in the centre of the chamber.
+
+Hmmm .... north, south or west ... take your pick!
+
+Oops!  Pointing directly at your chest is a wicked looking arrow trap.
+Hmmm ... the arrow trap device doesn't look like it's very stable ...
+
+
+> disarm trap with toolkit
+With nimble fingers, and all the alacrity you can muster, you disarm the trap!  
+
+> put sword on pedestal
+You carefully place the SINGING SWORD of XANDER on the pedestal and quickly step away, not quite sure what happens now ...
+
+The ceiling above bursts into light and the sounds of joyful music filters down the coruscating rays.
+
+Blinded by the light and distracted by the music you fail to hear the footsteps behind you. Once again you are bundled up and dragged to ... who knows where!
+
+This time when you are left alone the warm scents of a hot bath waft around you and the bindings are easily removed. Within minutes you are luxuriating in deep, hot water ... muscles relaxing, warm fuzzy feelings and a sense of euphoria all warring for a prominent position in your mind.
+
+An hour later you are relaxing with a cup of mulled wine, in the flowing gray robes of an Initiate of the House of Leviathan, with a smurk of extreme satisfaction trying desperately to hide behind a more serious demenour. 
+
+Soon all this will be forgotten as you have but one special night (tonight) to enjoy privileges that will not be yours for many years to come. You are beginning a new life - one that has no past and only the greatest of futures ...
+
+Enjoy this night well ... for tomorrow the real work begins!
+[Press any key to end]

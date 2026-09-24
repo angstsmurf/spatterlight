@@ -1,0 +1,235 @@
+Loading game...
+
+The Strange Adventure
+You have woken in the middle of the night. You soon realize that you were
+woken up by a blood curdling scream........
+Please enter your name:
+
+> Petter
+
+> n
+You move north.
+
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east,
+south, west and down.  Black Cat hits you.
+
+> you killed black cat
+You have killed the black cat. You pick up Golden Collar  Black Cat hits you.
+
+> w
+You move west.
+
+Spare Bedroom
+ Stranger - Hey you killed my cat you idiot. Give me the collar back.  You
+can only move east.
+
+> give stranger collar
+You gave the stranger the collar. He gave you a knife in return! Stranger
+disapeared in a cloud of smoke. How mysterious!!
+
+> e
+You move east.
+
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east,
+south, west and down.  Black Cat hits you.
+
+> e
+You move east.
+
+Bathroom
+It smells in here  Zombie is here.  You can only move west.  Zombie hits you.
+
+> you have killed zombie
+You have killed the zombie. You earned 10 points!  Zombie hits you.
+
+> w
+You move west.
+
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east,
+south, west and down.  Black Cat hits you.
+
+> n
+You move north.
+
+Closet
+Nothing much in here...Just some rusty old armor  Also here is rusty Armor.
+You can only move south.
+
+> wear armor
+You put on the armor!
+
+> s
+You move south.
+
+Hallway
+You are in your hallway.  Black Cat is here.  You can move north, east,
+south, west and down.  Black Cat hits you, but it doesn't seem to do any
+damage.
+
+> d
+You move down.
+
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> out
+You move out.
+
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across
+the street almost looks like a temple!  Thief is here.  You can move north,
+west and in.  Thief hits you, but it doesn't seem to do any damage.
+
+> kill thief
+You have killed the thief. You found a bag of money!
+
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across
+the street almost looks like a temple!  Your front yard.  Thief is here.  You
+can move north, west and in.  Thief hits you, but it doesn't seem to do any
+damage.
+
+> w
+You move west.
+
+Neighbor's Front Yard
+Your Neighbor's front yard  Salesman is here.  You can move east and in.
+
+> buy box
+You bought the box from the Salesman! Inside is some candy!
+
+> in
+You move in.
+
+Neighbor's House
+Your neighbor's house.  You can move up and out.
+
+> u
+You move up.
+
+Upstairs
+Kind of creepy.....  Snake is here.  You can only move down.  Snake hits you,
+but it doesn't seem to do any damage.
+
+> kill snake
+You've killed the snake! You picked up the Poison Amulet and 10 points!
+Snake hits you, but it doesn't seem to do any damage.
+
+> d
+You move down.
+
+Neighbor's House
+Your neighbor's house.  You can move up and out.
+
+> out
+You move out.
+
+Neighbor's Front Yard
+Your Neighbor's front yard  Salesman is here.  You can move east and in.
+
+> e
+You move east.
+
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across
+the street almost looks like a temple!  Your front yard.  Thief is here.  You
+can move north, west and in.  Thief hits you, but it doesn't seem to do any
+damage.
+
+> in
+You move in.
+
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> d
+You move down.
+
+Basement
+Your basement. Look! A killer!  Killer is here.  You can only move up.
+Killer shoots you with the Gun.
+
+> kill killer
+Congrats! You've killed the killer!
+
+Basement
+Your basement. Look! A killer!  Killer is here.  You can only move up.
+Nothing much here!  Killer hits you, but it doesn't seem to do any damage.
+
+> u
+You move up.
+
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
+
+> out
+You move out.
+
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across
+the street almost looks like a temple!  Your front yard.  Thief is here.  You
+can move north, west and in.  Thief hits you, but it doesn't seem to do any
+damage.
+
+> n
+You move north.
+
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.
+You can only move south.
+
+> trade with ghost
+You traded your box for the Key!
+
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.
+You can only move south.  The main room of the temple.
+
+> room a
+You've entered the first room in the temple.....Look!  Giant Rat hits you.
+
+> kill rat
+You killed the rat! you picked up his medallion!  Giant Rat hits you, but it
+doesn't seem to do any damage.
+
+> s
+You move south.
+
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.
+You can only move south.
+
+> room b
+You are in Room B.
+
+> trade with stranger
+You've traded your Key for the Boss key and for the Sword! You wear the Boss
+Key!
+
+> look
+
+Room B
+The second room in the temple......The Stranger is here!!!!  You can only
+move east.
+
+> e
+You move east.
+
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.
+You can only move south.
+
+> boss
+You are now in the Boss Room. Look! the dragon!  Dragon hits you.
+
+> get dragon killed go!
+Congrats! You've killed the Temple's Boss! You beat the game! You also got
+100 points!
+You scored 161 out of the maximum 161!
+That is 99% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

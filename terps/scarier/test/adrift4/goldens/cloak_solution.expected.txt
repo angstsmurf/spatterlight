@@ -1,0 +1,36 @@
+Loading game...
+
+Cloak of Darkness
+A basic IF demonstration.
+
+Hurrying through the rainswept November night, you're glad to see the bright
+lights of the Opera House.  It's surprising that there aren't more people
+about but, hey, what do you expect in a cheap demo game...?
+
+> w
+You move west.
+The walls of this small room were clearly once lined with hooks, though now
+only one remains.  The exit is a door to the east.
+
+> hang cloak
+You hang the cloak on the hook.
+
+> e
+You move east.
+You are standing in a spacious hall, splendidly decorated in red and gold,
+with glittering chandeliers overhead.  The entrance from the street is to the
+north, and there are doorways south and west.
+
+> s
+You move south.
+The bar, much rougher than you'd have guessed after the opulence of the foyer
+to the north, is completely empty.  There seems to be some sort of message
+scrawled in the sawdust on the floor.
+
+> read message
+The message, neatly marked in the sawdust, reads... *** You have won ***
+You scored 2 out of the maximum 2!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

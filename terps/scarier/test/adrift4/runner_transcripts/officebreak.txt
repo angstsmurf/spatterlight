@@ -1,0 +1,29 @@
+
+> take coffee
+You turn off the coffee machine and pull yourself a cup of coffee.
+
+> open briefcase
+You open the briefcase and pull out your trusty holepuncher.
+
+> use holepunch on door
+You slam the holepunch on the door and knock off the doorknob.You quickly run inside the closet.
+
+> take poster
+Your tear the poster down a reveal a vent behind it.
+
+> use holepunch on vent
+You smash open the vent and crawl through.You climb out on the other side,you're in a broken elevator.
+
+> use coffee on wires
+You pour the coffee on the wires causing them to spark and the elevator short circuits.It falls down the long elevator shaft and crashes into the lobby.When you get up,there's fire everywhere and you can smell your boss coming down the stairs for you...
+
+> use holepuncher on desk
+You smash open the desk and pull out a can of pepsi.
+
+> use pepsi on coffee
+You open the pepsi can and pour the coffee into it.You shake it up and throw it into the fire.You yell out a line you heard from an action movie and then leap into the air as the room explodes.You fly out of the building on fire and land in the middle of the street where a car drives over you.As they carry you away on the stretcher,you can see your boss waving his fist at you.  Good job,you ended up in the emergency ward,but you don't have to work in the weekend,mainly because you'll be in the hospital.
+You scored 60 out of the maximum 60!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

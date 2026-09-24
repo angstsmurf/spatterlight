@@ -1,0 +1,27 @@
+P
+male
+yank rope
+yank rope
+yank rope
+get lantern
+open chest
+wear clothes
+take knife
+s
+e
+look
+disarm snare with knife
+take stone
+take toolkit
+n
+take amulet
+wear amulet
+w
+w
+s
+n
+search cave
+get sword
+n
+disarm trap with toolkit
+put sword on pedestal

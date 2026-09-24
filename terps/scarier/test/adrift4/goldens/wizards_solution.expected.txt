@@ -1,0 +1,161 @@
+Loading game...
+
+Wizards Playground
+
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Character Generisation Step 1
+Which Elven Race Would You Be?
+Elf: Elves are best in the Lore of Light
+Drow Elf: Drow Elves are best in the Lore of Darkness
+Wood Elf: Wood Elves are best in the Lore of Beasts
+Half Elf: Half Elves are better fighters, but don't specialise in any Lore of
+Magic.
+
+> elf
+
+So you are an Elf.
+
+Character Generisation Step 2
+Which Lore of Magic do You Specialize In?
+The Lore of Light
+The Lore of Darkness
+The Lore of Beasts
+
+> lore of light
+
+Ah so you follow the Lore of Light.
+
+Type, 'spell list' to gain spells and 'magic' to know how many magic points
+you have.
+
+The Playground
+To the north is the Training Ground and the Guild of Wizards is to the east.
+
+> learn heaven bolt
+You learn the Heaven Bolt spell. Type, 'cast heaven bolt on 'character name''
+to strike them with a lightning bolt from the heavens.
+
+> learn illuminate
+You learn the Illuminate spell. Type, 'cast illuminate' to heal yourself.
+
+> e
+You move east.
+
+The Guild of Wizards
+The entrance hall to the guild is warm and welcoming. Candles float around
+the room, lighting the place up. The walls and carpets are full of colour.
+"Hello there young wizard. Would you like to ''join' the Wizard's Guild" Says
+a fairly old looking wizard, in a large red robe.
+
+> join
+"Ah thats good to here. We are always on the lookout for young wizards as
+youself. Here, this badge is for you to show you have joined. You may move
+into the back if you wish. You should find several masters back there. Ask
+them if they have any work for you."
+  You thank the old wizard and pin the badge onto your robe.
+
+> e
+You move east.
+
+Main Hall
+The main hall is huge and fairly busy, with wizards running from one place to
+the next, with charts and scrolls in their arms.   Master Rex is here.
+
+> ask Master Rex about work
+"You could remove the Troll from the bridge for me. Bring me back one of its
+teeth as proof."
+
+> w
+You move west.
+
+The Guild of Wizards
+The entrance hall to the guild is warm and welcoming. Candles float around
+the room, lighting the place up. The walls and carpets are full of colour.
+"Hello there young wizard. Would you like to ''join' the Wizard's Guild" Says
+a fairly old looking wizard, in a large red robe.  The entrance hall to the
+guild is warm and welcoming. Candles float around the room, lighting the
+place up. The walls and carpets are full of colour.
+
+> w
+You move west.
+
+The Playground
+To the north is the Training Ground and the Guild of Wizards is to the east.
+
+> n
+You move north.
+
+Training Ground
+The floor is dusty. Burn marks and blood stains line the stone walls. Master
+Jibu is here, and will train you for a price. Type, 'gold' to know how much
+money you have and type, 'train' to be taught by Master Jibu. It will cost
+you 7 Gold a session.
+
+> train
+Master Jibu trains you. As you feel that you can't go on any longer, he puts
+up a hand and says, "That's enough for this session. If you want you can
+continue training for free in the training pit to the west. But be warned,
+people have died in there."
+
+> train
+Master Jibu trains you. As you feel that you can't go on any longer, he puts
+up a hand and says, "That's enough for this session. If you want you can
+continue training for free in the training pit to the west. But be warned,
+people have died in there."
+
+> train
+Master Jibu trains you. As you feel that you can't go on any longer, he puts
+up a hand and says, "That's enough for this session. If you want you can
+continue training for free in the training pit to the west. But be warned,
+people have died in there."  Well done Petter, you have gained a level. You
+are now at Level 2. You have 111 experience with 300 needed until the next
+level. Type, 'level' to find out how much experience you currently have, at
+any time during the game.
+
+> s
+You move south.
+
+The Playground
+To the north is the Training Ground and the Guild of Wizards is to the east.
+
+> cast heaven bolt on troll
+The heavens open and a golden lightning bolt strikes your victim.
+
+> cast heaven bolt on troll
+The heavens open and a golden lightning bolt strikes your victim.
+
+> cast heaven bolt on troll
+The heavens open and a golden lightning bolt strikes your victim.
+
+> cast heaven bolt on troll
+The heavens open and a golden lightning bolt strikes your victim.
+
+> e
+You move east.
+
+The Guild of Wizards
+The entrance hall to the guild is warm and welcoming. Candles float around
+the room, lighting the place up. The walls and carpets are full of colour.
+"Hello there young wizard. Would you like to ''join' the Wizard's Guild" Says
+a fairly old looking wizard, in a large red robe.  The entrance hall to the
+guild is warm and welcoming. Candles float around the room, lighting the
+place up. The walls and carpets are full of colour.
+
+> e
+You move east.
+
+Main Hall
+The main hall is huge and fairly busy, with wizards running from one place to
+the next, with charts and scrolls in their arms.   Master Rex is here.
+
+> give troll tooth to master rex
+You give him the troll tooth. "Very good. Here have some gold."
+
+> quit
+Do you really want to quit? [Y/N]

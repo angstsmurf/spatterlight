@@ -1,0 +1,374 @@
+
+> up
+With each step up the staircase, the banister creaks as you grip it tightly.
+
+Upstairs of House
+       A slight rustling sound comes from the room. A large chandelier hangs over the rough midsteps leading down to the first floor.  A ray of light shines through the cracks of the east doorway.
+
+
+
+> e
+As you enter the door creaks open. There is only one window in the back of the room that gives out milk-like light. It looks like a man stands in the back of the room near the north wall.
+
+> n
+You get closer. "Sir, uh sir. Do you happen to know how to get out of here?" you ask. The man stares blankly. Then he jerks suddenly as a knife pulls from his back......    You jerk from sleep quickly. Sweat runs down your already dampened neck. You force air through your lungs faster with each breath. You wipe the sweat off your face. 
+     You turn the lights on and sit to recover from your horrible nightmare.
+
+> sleep
+You decide to finally get a good night's rest but the telephone awakens you from your glorius slumber. Tonight you just can't get any sleep.
+
+> answer phone
+You pick up the phone and greet the person on the other end with a gruff  "Hello." "This is your aunt. Honey, I've seen something in this house and I want to get out of here. I saw something in my room. It t-tuh-talked to me and  told me to get out. I want to leave. " then your aunt starts to cry. "Ohmigod!" she screams. Interrupted by a loud boom, the line goes dead.
+    You call back but get a busy signal. You slip something on and grab your keys. Your car makes it to the house quick. When you get out you get the creeps because the house is just.....scary.
+
+> open door
+You hear a scream that breaks your heart at the thought of the nightmare you had earlier. "Nooooo!" you yell and beat on the door. As you start to give up you see that the window is slightly cracked. 
+You get dizzy at the thought of your little dream you had earlier. 
+
+> open window
+As you push up the window you take a deep breath and step in. The window slams down hard.....enough to break the glass leaving a large dagger-like piece of glass so you can't leave.
+
+> up
+You fall through a loose step.Recovering from the fall, you start to wipe the dirt off your clothing when you notice something in a corner of the room. Looking up, you notice it is moving towards you. 
+     "Who are you!?" you yell. Desperate, you look around and grab a chair. You fling it at him,and it hits him and he falls to the floor. Then you push past him and into the next room, making sure you lock the door behind you.
+
+> look under sheets
+You just need a quick peek, to see who's under there. You pull the covers off and find a grimey, dusty old doll that marks different parts of the body. You give a sigh of relief for it not being your aunt.
+   You turn around and something hits your elbow. You look to see it is your aunt hanging from a noose. [More] 
+   1 month later
+      You lost your internet job after Dot.com laid off so many employees and bills and with tax day right around the corner; you were going to rip your hair out. So after weeks of bribing from your sister and a perky real-estate agent, you move into the home your Aunt died in. Only temporarily though, you didn't agree until the docters agreed it was a suicide. So now, here you are standing in front of your new home,tired from driving so much. Your things haven't been brought over yet but maybe in the morning it will be. You step out of the car and onto the front lawn.
+
+> ne
+You move northeast.
+Side of Mansion
+         Darkness covers the rusty shed to the east and also the house which you can barely see. A small window here leads into the basement. You can see uncontained plantlife wrapped around almost everything here.
+
+
+
+> e
+You move east.
+Shed
+       The old shed seems to be also taken over by wild weeds and vines. The way back is west.
+
+A hammer is the only thing here left that isn't ravaged by nature.
+
+> get hammer
+You take the hammer.
+
+> w
+You move west.
+Side of Mansion
+         Darkness covers the rusty shed to the east and also the house which you can barely see. A small window here leads into the basement. You can see uncontained plantlife wrapped around almost everything here.
+
+
+
+> sw
+You move southwest.
+Front of Mansion
+       The house you now have is large and can probably fill a large family. The house looks new on certain parts and old on others. It looks like someone began to rennovate the  house but never got a chance to finish. There seems to be an attic and you can barely make out the small balcony on the side because it is hidden by the house. A path leads northeast, to the side of the mansion and the door leads in.
+
+
+
+> in
+You move in.
+Grand Hall
+     A large chandilier hangs over your head. Light sprinkles this hall. A stairway lies directly in front of you with a kitchen to the east and a living room to the west. The hall has a large painting posted at the top of the stairway. Also other antiques such as vases and other things are here.
+
+
+
+> x vase
+A blue vase made in Taiwan.   Bedroom key is inside the vase.
+
+> get key
+You take bedroom key from the vase.
+
+> e
+You move east.
+Kitchen
+The kitchen seems very......large. The dining table seats many and cabinets line the walls. Old plates and things are still lying around and dust inhabits the fine chairs of the dining table. To the west is the door you came out of.
+
+
+
+> open cabinet
+You open old cabinet.  A candle is inside old cabinet.
+
+> get candle
+You take the candle from old cabinet.
+
+> w
+You move west.
+Grand Hall
+     A large chandilier hangs over your head. Light sprinkles this hall. A stairway lies directly in front of you with a kitchen to the east and a living room to the west. The hall has a large painting posted at the top of the stairway. Also other antiques such as vases and other things are here.
+
+
+
+> u
+You move up.
+Top of Stairs
+       The stairs are carpeted with a red rug that leads up to where you are standing. Where you stand there is a bedroom on one side of you and a mesh door that leads to a balcony on the other. A large painting of a man hangs here beside the bathroom which lies north of you. 
+
+  The bedroom to the east is locked.
+
+
+
+> use key to unlock door
+ The door shuts behind you and the lock clicks in place. Nervously, you turn the knob revealing the fact that you're trapped.
+
+> look in hole
+There isn't any hole here!  A lighter is inside the hole.
+
+> get lighter
+You take the lighter from the hole.
+
+> in
+You move in.
+Closet
+          The closet is encased with darkness. The room has no distinct features unless that what you call bare walls distinct. To get out of this cramped postition you leave the door slightly open because you don't want to risk getting locked in. 
+
+
+
+> search for lightswitch
+You look for it and find a small lever. CLICK! The lights pop on and your foot goes from under you. You look to see a secret passage leading down.
+
+> d
+You move down.
+Secret Passageway
+        Stone steps lead about 2-3 floors down. The weathering of rock causes some steps to crumble under your feet giving you a sense of danger. But you can always escape above to the closet. Then again, the steps do lead down.
+
+
+
+> d
+You move down.
+Secret Basement
+       A murky brown fog flows through the air giving you a sense of heaviness. The temperature is hot enough to make you sweat instantly minutes. The basement has basically junk and unrelated things except a brick wall that blocks a part of the house off. The steps lead upstairs and if the window was opened you could climb through it to get to the side of this house.
+
+
+
+> hit wall with hammer
+You hit the bricks for what seems like hours until it comes down. Then you push the loose bricks out of the way. You step over the bricks that have fell.
+
+Corridor
+      The corriders long stretch of hallway that leads to an odd shaped door to the north. The former brick wall here leads out to the basement. 
+
+
+
+> n
+You move north.
+Secret Bedroom
+          A music box is on the dresser which reflection from the mirror reflects at you. An old bed is covered with white sheet. A door lay in the northeast corner that leads to another room. The way out is south. 
+
+  A large lump seems to be under the bed sheets.
+
+> look under bed
+You quickly pull the sheet away revealing a crowbar. You snatch it, then replace the sheet.
+
+> s
+You move south.
+Corridor
+      The corriders long stretch of hallway that leads to an odd shaped door to the north. The former brick wall here leads out to the basement. 
+
+
+
+> out
+You move out.
+Secret Basement
+       A murky brown fog flows through the air giving you a sense of heaviness. The temperature is hot enough to make you sweat instantly minutes. The basement has basically junk and unrelated things except a brick wall that blocks a part of the house off. The steps lead upstairs and if the window was opened you could climb through it to get to the side of this house.
+
+  The previously blocked off corrider is now open.
+
+
+
+> u
+You move up.
+Secret Passageway
+        Stone steps lead about 2-3 floors down. The weathering of rock causes some steps to crumble under your feet giving you a sense of danger. But you can always escape above to the closet. Then again, the steps do lead down.
+
+
+
+> u
+You move up.
+Closet
+          The closet is encased with light. The room has no distinct features unless that what you call bare walls distinct. To get out of this cramped postition you leave the door slightly open because you don't want to risk getting locked in. 
+
+  A secret passage goes underground by stone steps. A board was here where it was pulled off to make way for the secret passage.
+
+
+
+> out
+You move out.
+Bedroom
+      The rooms bares a smell of old wood.This looks like the only room cleared of it's contents. Everything is gone. Only a window and a closet door you can go in are here. The way you came in lies west.
+
+
+
+> use crowbar on window
+You pry the window open. Something falls down from above. You push your head  through the window and look up. A window lies open. It seems the only way up to the attic.
+
+> up
+You climb the vines to the attic.
+
+Attic
+        The dark attic that seems to have a chest in the middle of the room. Heat from this hot stuffy area comes from the bottom of the floor. The attic window is open and leads down. A long rug sits under the chest and floor looks unstable.
+
+
+
+> open chest
+       Just as you are almost there the floor gives out and you put up a pitiful struggle before you fall through the floor.[More]
+      You get up and see that you are in the dark room.
+
+The man sat down beside Jason and talked to him. "Do you really believe this Jason? Do you really think that He knows what he's doing up there?" the man stares at Jason's face as he turns his head. "Are you saying there is no God?" Jason's voice lowers it's tone and it is if he is getting even more confused "No, there is one. He just is inferior to mine Jason, my God is the holier one. But for one to be so holy he needs energy.". 
+       Jason takes this all easily "What kind of energy?" he asks. "Well, you know, sacrifices. The greater the sacrifice the GREATER YOU WILL PROSPER!" Eli talks loud while standing up and pointing a finger in the sky. "What do you mean prosper?" Jason queries. 
+      "It will give fame, fortune, anything you want. Your life will be fulfilled and you will finally have a God in your life!" Jason thinks about this offer for a minute with great care. "What is the highest form of sacrifice?" he asks in greed "A killing spree." [More]  
+
+
+Unknown Dark Room
+         The room is filled with darkness. You can see there's no light switch. The lighted room is back southwest.
+
+
+
+> get chest key
+You take chest key.
+
+> sw
+You move southwest.
+Secret Bedroom
+          A music box is on the dresser which reflection from the mirror reflects at you. An old bed is covered with white sheet. A door lay in the northeast corner that leads to another room. The way out is south. 
+
+
+
+> s
+You move south.
+Corridor
+      The corriders long stretch of hallway that leads to an odd shaped door to the north. The former brick wall here leads out to the basement. 
+
+
+
+> out
+You move out.
+Secret Basement
+       A murky brown fog flows through the air giving you a sense of heaviness. The temperature is hot enough to make you sweat instantly minutes. The basement has basically junk and unrelated things except a brick wall that blocks a part of the house off. The steps lead upstairs and if the window was opened you could climb through it to get to the side of this house.
+
+  The previously blocked off corrider is now open.
+
+
+
+> u
+You move up.
+Secret Passageway
+        Stone steps lead about 2-3 floors down. The weathering of rock causes some steps to crumble under your feet giving you a sense of danger. But you can always escape above to the closet. Then again, the steps do lead down.
+
+
+
+> u
+You move up.
+Closet
+          The closet is encased with light. The room has no distinct features unless that what you call bare walls distinct. To get out of this cramped postition you leave the door slightly open because you don't want to risk getting locked in. 
+
+  A secret passage goes underground by stone steps. A board was here where it was pulled off to make way for the secret passage.
+
+
+
+> light candle
+The candle shows only a little light, you need a light more to see the entire closet.
+
+> out
+You move out.
+Bedroom
+      The rooms bares a smell of old wood.This looks like the only room cleared of it's contents. Everything is gone. Only a window and a closet door you can go in are here. The way you came in lies west.
+
+  The window has been pryed open. Also you notice a hole in the floor that wasn't here previously. 
+ 
+
+
+> up
+You climb the vines to the attic.
+
+Attic
+        The dark attic that seems to have a chest in the middle of the room. Heat from this hot stuffy area comes from the bottom of the floor. The attic window is open and leads down. A long rug sits under the chest and floor looks unstable.
+
+    A hole is in the floor where you fell through. You try to avoid it.
+
+
+
+> open chest
+You put the key in the slot and turn. The chest seems to be empty at first glance. A chilling laughter echos at of the chest. Suddenly the darkness of the chest is shaken when a leg pops out, then another, and an arm, until an entire body is climbing out of the chest. The body wear's a priest's clothing. You stumble backwards and out of the window, at the last minute you grip unto the ladder and climb down to the bedroom, the man right behind you.  
+A voice yells out "Come on, don't run from me."  
+You can still hear the man's voice. "You can run, but you'll still die." he says.
+
+> in
+You move in.
+Closet
+          The closet is encased with light. The room has no distinct features unless that what you call bare walls distinct. To get out of this cramped postition you leave the door slightly open because you don't want to risk getting locked in. 
+
+  A secret passage goes underground by stone steps. A board was here where it was pulled off to make way for the secret passage.
+
+
+He laughs and says "It's almost over.".
+
+> d
+You move down.
+Secret Passageway
+        Stone steps lead about 2-3 floors down. The weathering of rock causes some steps to crumble under your feet giving you a sense of danger. But you can always escape above to the closet. Then again, the steps do lead down.
+
+
+A voice yells out "Come on, don't run from me."
+
+> d
+You move down.
+Secret Basement
+       A murky brown fog flows through the air giving you a sense of heaviness. The temperature is hot enough to make you sweat instantly minutes. The basement has basically junk and unrelated things except a brick wall that blocks a part of the house off. The steps lead upstairs and if the window was opened you could climb through it to get to the side of this house.
+
+  The previously blocked off corrider is now open.
+
+
+
+> in
+You move in.
+Corridor
+      The corriders long stretch of hallway that leads to an odd shaped door to the north. The former brick wall here leads out to the basement. 
+
+
+You can still hear the man's voice. "You can run, but you'll still die." he says.
+
+> n
+You move north.
+Secret Bedroom
+          A music box is on the dresser which reflection from the mirror reflects at you. An old bed is covered with white sheet. A door lay in the northeast corner that leads to another room. The way out is south. 
+
+
+He laughs and says "It's almost over.".
+
+> ne
+You enter the door and wait for him. The door bursts open and the man takes off his mask. He appears to be a man of 30 or 40. His face is aged. He starts to speak "Hello, my friend. No need to be hasty now. I just want to thank you for releasing me from that prison.".[More]
+ 
+ And that's how people started to die.
+      "Wh-who are you?" you manage to stutter. "I am the the prophet Eli. I taught Jason of his practices. It's amazing how a person can turn an innocent kid into a famed serial killer by the words of another." he says. "You tricked him. You are the source of all of this. You made this man who he is." you say. "Exactly, and I came here to resurrect him by my theories. My theories are that when  you die you become a spirit and if your rage is strong enough you can be made again." he says. 
+      Now he starts to walk around the room. As he walks he talks. "I came here to test my theory. If Jason can come alive again then let him do so!" he shouts those last words. "I tricked you. I MADE YOUR FAMILY DISOWN YOU. EVERYONE HATES YOU BECAUSE OF ME. COME AND GET ME YOU BASTARD!!! " suddenly Eli is jerked from his feet and put under the guillotine's sharp blade. "It's true. It's true. I can't believe it! I was right. YOU HEAR ME YOU SON OF A BITCH! I WAS RIGHT!!!" Eli yells. SLICE! The cuts the head of Eli off. You scream in terror. Suddenly, writing appears on the wall. It says: Your next. You have to get out!
+
+> sw
+You move southwest.
+Secret Bedroom
+          A music box is on the dresser which reflection from the mirror reflects at you. An old bed is covered with white sheet. A door lay in the northeast corner that leads to another room. The way out is south. 
+
+
+
+> s
+You move south.
+Corridor
+      The corriders long stretch of hallway that leads to an odd shaped door to the north. The former brick wall here leads out to the basement. 
+
+
+
+> out
+You move out.
+Secret Basement
+       A murky brown fog flows through the air giving you a sense of heaviness. The temperature is hot enough to make you sweat instantly minutes. The basement has basically junk and unrelated things except a brick wall that blocks a part of the house off. The steps lead upstairs and if the window was opened you could climb through it to get to the side of this house.
+
+  The previously blocked off corrider is now open.
+
+
+
+> out
+       You run out of the house. But back inside......     Jason cries but he saw no tears. Even in revenge Jason wants to hurt Eli even more for what he's done to him. Suddenly, he thinks about something. Until now he never realized the situation. If Eli's theory is correct, he is a ghost. But he has so much anger boiling inside of him, maybe he can leave this house in human form. First finding a human, then taking over his mind. Like the prophet Eli did..... 
+
+[Press any key to end]

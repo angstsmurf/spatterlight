@@ -1,0 +1,58 @@
+Petter
+s
+attack beggar
+rob rogue
+e
+get message
+w
+w
+get sword
+n
+get shield
+wear shield
+kick bookcase
+in
+get metal object
+out
+s
+e
+s
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+kill strange person with sword
+look
+get paper
+s
+give cigarette and paper to guard
+w
+s
+examine table
+get chalice
+get cigar
+get old meat
+shake cigar over meat
+n
+w
+n
+give meat to dogs
+out
+n
+n
+n
+n
+get flower
+crush flower into chalice
+s
+w
+n
+sw
+give chalice to guards
+w
+give chalice to chief guard
+w
+look

@@ -1,0 +1,45 @@
+get oars
+w
+use oars
+remove shoes
+pray
+get key
+out
+get shoes
+wear shoes
+in
+in
+in
+get necklace
+out
+n
+use key
+n
+get map
+open box
+get compass
+n
+start mission
+get sweets
+show map
+s
+s
+e
+look
+look
+look
+get compass
+n
+n
+e
+e
+e
+e
+give sweets to guard
+e
+give relles compass
+w
+n
+use speaking rod
+draw a picture of mount noiz
+receive garland

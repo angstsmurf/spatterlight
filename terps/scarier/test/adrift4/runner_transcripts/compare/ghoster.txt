@@ -1,0 +1,12 @@
+feed        22 commands
+runner      22 turns echoed
+scarier     22 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 21  kill attack robot
+  run400   Who do you want to attack? You manage to avoid Alien Robot's attack.
+  scarier  You hit Alien Robot with the crowbar. With the robot destroyed, and the subconscious mind and body of Hendar at your disposal, you send a message to all ships to abandon the assault and return all captured. They obey without question. You go to cell and remove Olan and place Hendar's body inside and return to your own. This might not be the end of the fight, you feel. But it is at least a victory. You begin transporting yourself and all survivors back to the town. It is a bitter sweet time as you celebrate the victory and mourn those who were lost in the attack. Olan says to you: "You can mourn now. But you must be ready to fight again soon. The End? [Press any key to end]
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -105,7 +105,7 @@ scr_dump_structure_once (scr_gameref_t game)
 {
   static scr_bool dumped = FALSE;
   static scr_bool checked_env = FALSE;
-  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events;
+  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events, dump_alrs;
   scr_int t, i;
 
   /* This is called from every task_can_run_task_directional() -- per task,
@@ -118,11 +118,59 @@ scr_dump_structure_once (scr_gameref_t game)
       dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
       dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
       trace_events = getenv ("SCR_TRACE_EVENTS") != NULL;
+      dump_alrs = getenv ("SCR_DUMP_ALRS") != NULL;
     }
-  if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events)
+  if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events
+      && !dump_alrs)
     return;
 
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  /*
+   * SCR_DUMP_ALRS: the ALR table in the order the output filter walks it
+   * (ALRs2, longest original first).  compare_wine_transcript.py uses it to
+   * recognise an echoed command the Runner rewrote -- a Russian game's
+   * [north] -> [север] comes back as "> север", which is not a lost command.
+   * Length-prefixed so an original may contain ']' or a newline.  Stops
+   * before the task dump.
+   */
+  if (dump_alrs && !dump_tasks && !dumped)
+    {
+      scr_vartype_t yk[3];
+      scr_int yc, yi;
+
+      dumped = TRUE;
+      yk[0].string = "ALRs";
+      yc = prop_get_child_count (bundle, "I<-s", yk);
+      fprintf (stderr, "ALRCOUNT %ld\n", yc);
+      for (yi = 0; yi < yc; yi++)
+        {
+          scr_int alr;
+          const scr_char *orig, *repl;
+
+          yk[0].string = "ALRs2";
+          yk[1].integer = yi;
+          yk[2].string = "ALRIndex";
+          alr = prop_get_integer (bundle, "I<-sis", yk);
+          yk[0].string = "ALRs";
+          yk[1].integer = alr;
+          yk[2].string = "Original";
+          orig = prop_get_string (bundle, "S<-sis", yk);
+          yk[2].string = "Replacement";
+          repl = prop_get_string (bundle, "S<-sis", yk);
+          if (!orig)
+            orig = "";
+          if (!repl)
+            repl = "";
+          fprintf (stderr, "ALR %lu %lu\n",
+                   (unsigned long) strlen (orig),
+                   (unsigned long) strlen (repl));
+          fwrite (orig, 1, strlen (orig), stderr);
+          fwrite (repl, 1, strlen (repl), stderr);
+          fputc ('\n', stderr);
+        }
+      return;
+    }
 
   if (trace_tasks)
     {

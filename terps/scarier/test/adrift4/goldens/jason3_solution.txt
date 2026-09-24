@@ -1,0 +1,27 @@
+n
+e
+u
+take body
+d
+w
+s
+in
+x floor
+get key
+start ignition
+out
+open trunk
+get wrench
+fix car
+hit jason with wrench
+n
+in
+close door
+search
+up
+pull
+open cabinet
+get gun
+shoot jason
+get jason's key
+east

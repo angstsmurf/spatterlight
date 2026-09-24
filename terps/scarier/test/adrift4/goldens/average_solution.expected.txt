@@ -1,0 +1,91 @@
+Loading game...
+
+The Average Life
+     You are an average person, aren't you? You have an average job, as a
+small clerk in a small average company. You have the average kind of house,
+the average furniture sets, average pets - a few average-looking goldfishes,
+and have always led an average life. Today is just another average day, which
+you have grown used to, isn't it......?
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+> open cupboard
+You slowly open the cupboard. There are nothing too special inside other
+than...... Wait, there is a card!
+
+> get card
+You take the card from the cupboard.
+
+> out
+You move out.
+
+Gate of House
+You are now at the gate of the house. You looked sadly back into the house,
+and saw the landlord and his family enjoying a comedy show on the television.
+Deep in your heart, you have always wanted to join them, but never found the
+courage to, thus always appeared an average, quiet man to them.  You can move
+north, east, west and in.
+
+> w
+You move west.
+
+Street
+Walking onto the street, you realised that the local bar is just ahead. You
+wondered if you should go into it. After all, you have never gone into it
+before......  You can move east and in.
+
+> in
+You move in.
+
+The Bar
+Cautiously, you stepped into the bar, wondering who is "Baldy". But, you
+found "Baldy" easily, him being the only person with no hair at all, seated
+by the window, and eyeing everybody who comes in and out of the bar...
+Exit(s) is/are --- out.
+
+> give card to baldy
+"So you indeed are the guy! Come with me immediately!" Baldy boomed. Your
+curiousity gripped you like a vice, and you followed him into a heavily
+guarded room......
+
+Guarded Room
+You kept following Baldy, till you reached a heavily guarded room. Baldy then
+stopped and said, "Go into the room, my boss has been waiting for you." With
+that, you were shoved into the room, and you could hear a 'click', for they
+locked the door. A man in a black suit smiled and greeted you, "So, you are
+Petter! Why, have you forgotten your old friend?"
+
+> talk to man
+"We used to be the best of friends, and I still hope we are, unless you have
+forgotten me already...... We were both small pickpockets in the past, and
+barely could earn enough to fill our stomachs... One day, we picked a rich
+fellow's pockets, but you were found out, and given a bitter beating. I ran
+away in time, but have been sorry for leaving you in the lurch all this
+time...... I have made it big through the years, but I never forgotten about
+you. All this time, I have my men searching for you all around, and finally I
+found you! Come, I will show you the life I am leading now, then you shall
+decide, whether to join me, or to remain in your little house, an average and
+lonely man....."
+
+Alley
+Joe took you to the alley, taking a few of his bodyguards along. A drug
+addict is lying on the ground, but got up as soon as he saw Joe. He begged,
+"Give me more drugs! Please, I will pay you! I promise! I......" Joe pulled a
+gun out of his jacket, and passed it to you. "Shoot him, Petter."
+
+> refuse
+"You are a clever man, Petter..." Joe spoke. All of the sudden, police
+officer appeared out of nowhere, and pointed all their guns at Joe.........
+The officers later explained that they have been tailing you ever since you
+pick up the card from Joe, so as to arrest the infamous drug lord, Joe......
+Knowing that, you went back to your average life, with the knowledge that you
+had a not-too-average past too.......................
+You scored 30 out of the maximum 35!
+That is 85% of the game!
+You finished 5 points short.
+
+[Press any key to end]

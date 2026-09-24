@@ -1,0 +1,71 @@
+Petter
+male
+n
+w
+w
+south
+x bed
+get backpack
+n
+e
+e
+w
+w
+w
+w
+w
+w
+w
+w
+w
+n
+sit on chair
+x console
+press menu pad
+s
+e
+e
+e
+e
+n
+e
+n
+x furniture
+x table
+get binoculars
+x window
+use binoculars to examine stars
+s
+w
+w
+w
+n
+d
+d
+nw
+w
+x metal
+sit on mountain bike
+turn on switch
+turn throttle
+kill the throttle
+in
+s
+open wooden door
+w
+press Disengage Simulation
+get card
+e
+sit on mountain bike
+turn on switch
+turn on throttle
+u
+u
+s
+w
+n
+press top button
+out
+n
+sit on throne
+answer yes

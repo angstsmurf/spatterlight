@@ -1,0 +1,126 @@
+
+> n
+You move north.
+Outside of Evans House, near door
+      The large house looms in front of you. A light is on in one of the rooms in the east side of the house. This house seems to be old, and not well kept. Just what you expected from a hermit who nevers mows his lawn and has "urban legends" told about him everywhere.
+
+> e
+You move east.
+Side of Evans house
+The side of this house has plants growing all over it. It's like they're taking over. You can tell that the owner of the house doesn't care how bad it is out here. A large vine creeps up to the window of a lit room.
+
+
+> u
+You move up.
+Bedroom
+This room is your typical teenager's room. A bed, a poster, but there are a few strange aspects. The bed has blood on it. The room..........has a bad feeling to it. Like someone or something is there. It is difficult to describe. The air gets cold. 
+
+
+> take body
+You pick up the body but as you do you girlfriend's foot hits the floor and can causes a small racket that is noticeable. A man's voice booms "Who's that?".  The man scrambles to get up here. You have to hurry out of this place.
+
+> d
+You move down.
+Side of Evans house
+The side of this house has plants growing all over it. It's like they're taking over. You can tell that the owner of the house doesn't care how bad it is out here. A large vine creeps up to the window of a lit room.
+
+
+> w
+You move west.
+Outside of Evans House, near door
+      The large house looms in front of you. A light is on in one of the rooms in the east side of the house. This house seems to be old, and not well kept. Just what you expected from a hermit who nevers mows his lawn and has "urban legends" told about him everywhere.
+
+> s
+You move south.
+Outside of Evans House, near car
+   Your trusty Chevy sits in the darkness. It's red glare is faded to an almost brick red color. The woods are in plain sight but it is easy to get lost in the woods nowadays. A light seems to be on in one of the rooms at the side of the house. North is the large house.
+
+> in
+You duck into the car and throw the body in the back. You sit in the seat and start to relax. Scraaape! A scraping noise comes from the window. Jason is pulling around to open the door. You quickly lock the door. After attempting to break the window Jason goes back into his house. He must be going to get something. Whatever he's going to get you need to go!
+
+> x floor
+On the floor is all kinds of junk. But one piece stands out. The key to your car.  Car key is on the floor.
+
+> get key
+You take car key from the floor.
+
+> start ignition
+Vrooooom! The engine comes to life. Then it coughs out as to make you mad. Jason appears with a sledgehammer. You try the car quickly and it comes back to life. Please don't quit on me now you think. You put the stick in reverse and back up. Then you put it in drive and get away from the house. You look in the rear view mirror and see Jason and his weapon slowly fade away into the darkness. You breath relief until you remember you're carrying a dead body in the back. You look in your mirror and find that the bag is gone! But how? It was here just a minute ago. [More] 
+
+ Boom! Your body lunges forward at the impact of the car. Apperantly, you hit a tree. The engine is smoking. You pound the dashboard in fury.
+
+> out
+You move out.
+Woods,near Car
+ The whole place is creepy. The woods seem to be watching you. There is a car in front of you. The trunk is almost open. You get the feeling everyone gets when they're in the woods all alone being hunted by a pyschopath.
+
+
+> open trunk
+You open the trunk.  A wrench is inside the trunk.
+
+> get wrench
+You take a wrench from the trunk.
+
+> fix car
+You start to fix the car with your mechanic knowledge. After doing a good amount of handy work a twig snaps. You are alarmed when Jason comes out of the shadows. You cannot run and hide now. You must face him.  Jason hits you, but it doesn't seem to do any damage.
+
+> hit jason with wrench
+You hit Jason with the wrench.  
+ You hit Jason with the wrench you have and that knocks him out cold. You jump back into the car and jolt the car to life once again. You back the car up. Jason gets up off of the ground. You hit the pedal and hit Jason hard. No human could have lived after that. You drive until you notice the gas is incredibly low. But you see a house ahead. The car coughs and sputters until it stops at the light. You can't believe it.[More]
+      You are back at Jason's house. Fate has put you in a bad position. You step out of the car trying not to get any paler from fright.
+
+> n
+You move north.
+Outside of Evans House, near door
+      The large house looms in front of you. A light is on in one of the rooms in the east side of the house. This house seems to be old, and not well kept. Just what you expected from a hermit who nevers mows his lawn and has "urban legends" told about him everywhere.   The door is open from when Jason ran out of the house. 
+
+> in
+You move in.
+Dark Room
+It is pitch black in here. You have to search for a light switch or something. The door is left open for anyone to get in.
+
+> close door
+Good idea. You close the door so Jason won't get in. Suddenly, Jason starts beating on the door. After about 10 tries he leaves and you relax.....a little.
+
+> search
+  You fumble in the darkness for a light switch. When the light turns on your heart stops......or beats even faster.[More]
+
+Jason's House
+  There are 2 people hung over a mantlepiece. One a middle-aged man, the other a big woman. The last noose is empty. The faces are green and purple and bugs eat away at their faces. The necks are so rotted away it is degrading. After a while their head will dislodge from their bodies. Or it will be the other way around. Their is a stairs leading upwards. Your head spins with sickness on your mind.
+
+> up
+As you move up the crickety stairs you hear a booming noise. Something is in the attic. You have to see what it is.
+
+> pull
+You pull on the string. Boom! Jason kicks you down the stairs. Your back smacks the ground. You wriggle in pain and notice Jason is coming down the stairs.
+
+> open cabinet
+You open the cabinet.  A gun is inside the cabinet.
+
+> get gun
+You take a gun from the cabinet.
+
+> shoot jason
+ Pow! You shoot Jason and blood escapes from his wounds. "You shot me...." he says. He walks over to the empty noose. He puts it around his neck. As he hangs himself he chants [More] "I have a so-on. I have a so-on. I have a so-o-o-n." then he coughs and sputters and smiles. He chokes. But his face is frozen in a hysterical state. It scares you that he dies smiling. A key falls from him. You carefully pick it up. It must be the key to the door to the east.
+
+> get jason's key
+You've already got Jason's key!
+
+> east
+
+ "ohmygod!"
+
+ "His face it's covered with m.......m....... maggots!" 
+
+"Uh........" 
+
+ "Who's there?"  "I SAID WHO'S THERE?"
+
+"It's me baby."
+
+"WHO THE FU-"   
+You scored 125 out of the maximum 125!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

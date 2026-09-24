@@ -1,0 +1,20 @@
+
+> get panel
+There are a number of wires coming from the gray box that are connected to the switches on the gray panel.  Noticing this, you leave the panel hanging in place.
+
+> get tape
+You take the masking tape from the gray control panel.
+
+> put tape on sensor
+Carefully, you cover the light sensor's eye with the masking tape that you had removed from the gray panel.
+
+"What the heck's THAT??" you find yourself exclaiming as the room begins shaking as if there were an earthquake happening!
+
+Look! A hole has opened up in the floor!
+
+> down
+You move down.
+I'm Free!
+You've escaped the exitless room!
+You're FREE!
+[Press any key to end]

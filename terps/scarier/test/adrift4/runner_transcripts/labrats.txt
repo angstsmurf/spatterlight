@@ -1,0 +1,74 @@
+
+> press vent
+I push the vent button, and with a hiss air starts coming back into the microscope chamber.  
+ 
+
+'You know, Kath, if you ever get tired of that old man you're married to, just give me a call.'
+'Yeah, Gripper, why don't you hold your breath?'
+
+> turn cap anti-clockwise
+I turn the cap 90 degrees anti-clockwise to release the seal.  
+
+'Gripper, cut that out' I hear Bels whine. 
+
+
+> remove cap
+I remove the cap from the air lock.  
+
+Bels sighs loudly and thwacks some papers on one of the desks. 
+
+Gripper puts a pencil in his ear, wiggles it, pulls it out and makes a suprised face.
+
+> put slide in microscope
+I carefully put the glass slide in the chamber.  
+
+'Gripper, cut that out' I hear Bels whine. 
+
+'You know, Kath, if you ever get tired of that old man you're married to, just give me a call.'
+'Yeah, Gripper, why don't you hold your breath?'
+
+> put cap on air lock
+I put the cap back on the air lock.  
+
+'Kath, d'you think the Commisson will ever send any inspectors down here?' Bels asks. 
+'Down here?' I scoff 'They never go below top-side - no it would be the police, not the inspectors.' 
+'Oh, that's great,' Gripper says staring at his screen morosely. 
+
+
+> turn cap clockwise
+I turn the cap of the air lock 90 degrees clockwise to seal the air lock. The chamber can now be evacuated.  
+
+'Kath, d'you think the Commisson will ever send any inspectors down here?' Bels asks. 
+'Down here?' I scoff 'They never go below top-side - no it would be the police, not the inspectors.' 
+'Oh, that's great,' Gripper says staring at his screen morosely. 
+
+Gripper belches long and loud. Simultaneously Bels and I grimace to ourselves.
+
+> press pump
+The pump starts taking air out of the microscope chamber.  
+
+Bels sighs loudly and thwacks some papers on one of the desks. 
+
+Gripper puts a pencil in his ear, wiggles it, pulls it out and makes a suprised face.
+
+> turn dial
+I turn the dial until the picture comes into focus.  
+
+Bels sighs loudly and thwacks some papers on one of the desks. 
+
+Gripper comes over to check on my progress. He uses the opportunity to look down my shirt as usual, but never seems to realise that I will never wear a look-downable-shirt around him, ever.
+
+> examine screen
+I've finally got the sample in, vac on and the image focused. A greyscale image of the tooth appears, and I gasp in wonder.
+
+'Bels, Gripper, get your arses over here.'
+
+They rush over and gaze at the imaging screen.
+
+'What the hell?' says Gripper.
+
+'Oh my God!' says Bels.
+
+'This is just what we've been looking for.' I say.
+
+[Press any key to end]

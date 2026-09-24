@@ -2080,8 +2080,14 @@ uip_compare_reference (const scr_char *words)
 
       /*
        * About to match another word, so advance over whitespace in the
-       * current string too.
+       * current string too -- which must be there.  Every Runner matches
+       * a name with InStr against the line and whole-word edges (run400
+       * 454CB0), so "mailbox" is not the Short "mail box": chasingrussian
+       * T8 `x mailbox` is "You see no such thing." (run400x,
+       * runner_transcripts/chasingrussian.txt).
        */
+      if (scr_isspace (words[wpos - 1]) && !scr_isspace (uip_string[posn]))
+        return 0;
       while (scr_isspace (uip_string[posn]) && uip_string[posn] != NUL)
         posn++;
     }
@@ -3623,6 +3629,46 @@ uip_last_npc_name (scr_gameref_t game, scr_int npc)
  * the next "ask about zzz" echo "(GARGOYLE)".
  */
 static scr_int uip_npc_before_noting = -1;
+static scr_int uip_him_before_noting = -1, uip_her_before_noting = -1,
+               uip_it_before_noting = -1, uip_it_object_before_noting = -1;
+
+/*
+ * The same loop in characters() writes the him/her registers too, by the
+ * NPC's gender byte, for every character the line names by Name or alias --
+ * no presence or seen test (run400 loc_47F3A2..47F402, run390 loc_4592B8..
+ * 459326); a neuter character goes to the object antecedent (run400 pushes
+ * Name to Proc_21_41_448C24).  Pronoun replacement has already run on the
+ * line by then, so it read the previous line's value.  Before 3.9 there is
+ * no gender byte and uip_assign_pronouns() keeps the old handling.
+ * Measured on British Fox (4.00, runner_transcripts/britishfox.txt turn
+ * 188): Sharon was last seen at reception, yet `ask about grace` in the
+ * cells makes `tell her it was sabrina` echo "(Grace)", Grace being named
+ * but never seen.
+ */
+static void
+uip_note_npc_pronoun (scr_gameref_t game, scr_int npc)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+    return;
+
+  switch (prop_get_indexed_integer (bundle, "NPCs", npc, "Gender"))
+    {
+    case NPC_MALE:
+      game->him_npc = npc;
+      break;
+    case NPC_FEMALE:
+      game->her_npc = npc;
+      break;
+    case NPC_NEUTER:
+      game->it_npc = npc;
+      game->it_object = -1;
+      break;
+    default:
+      break;
+    }
+}
 
 void
 uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
@@ -3631,10 +3677,17 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
   scr_int index_;
 
   uip_npc_before_noting = game->last_npc;
+  uip_him_before_noting = game->him_npc;
+  uip_her_before_noting = game->her_npc;
+  uip_it_before_noting = game->it_npc;
+  uip_it_object_before_noting = game->it_object;
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
       if (uip_npc_named (game, index_, lowered, string))
-        game->last_npc = index_;
+        {
+          game->last_npc = index_;
+          uip_note_npc_pronoun (game, index_);
+        }
     }
 }
 
@@ -3675,6 +3728,13 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
   scr_int index_;
 
   game->last_npc = uip_npc_before_noting;
+  game->him_npc = uip_him_before_noting;
+  game->her_npc = uip_her_before_noting;
+  if (game->it_npc != uip_it_before_noting)
+    {
+      game->it_npc = uip_it_before_noting;
+      game->it_object = uip_it_object_before_noting;
+    }
   if (walked)
     return;
 
@@ -3698,7 +3758,10 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
           named = scr_strempty (alias_name);
         }
       if (named)
-        game->last_npc = index_;
+        {
+          game->last_npc = index_;
+          uip_note_npc_pronoun (game, index_);
+        }
     }
 }
 
@@ -4084,7 +4147,9 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
             }
         }
 
-      if (uip_match ("%character% *", current, game))
+      /* 3.9 on, uip_note_named_npcs() has already done the characters. */
+      if (prop_get_taf_version (bundle) <= TAF_VERSION_380
+          && uip_match ("%character% *", current, game))
         {
           scr_int count, index_, npc;
 

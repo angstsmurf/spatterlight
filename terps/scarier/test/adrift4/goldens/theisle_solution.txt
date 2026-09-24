@@ -1,0 +1,23 @@
+Petter
+male
+n
+n
+get flowers
+ne
+get sword
+sw
+in
+get gold
+kill johnnie
+out
+ne
+n
+n
+e
+give flowers on Sarah
+ask sarah to follow
+w
+give gold to boatmaster
+ask boatmaster to take you home
+quit
+y

@@ -240,23 +240,41 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
              * in D.C., didn't you?" on every visit, unconditionally, where
              * SCARE printed neither ever.  Only three alts corpus-wide use
              * Var3 = 0: those two, and one in House.taf with empty text.
+             *
+             * That "cannot find" holds only while object 0 belongs to the
+             * list Var3 indexes.  Otherwise, run400's Var3 - 1 = -1 lookup
+             * (Proc_19_12 @453249) falls through to object 0 itself, and
+             * the test runs on that object.  The list is the Wearable flag
+             * alone for the wearing pair and non-static for the rest.
+             * Measured on Dragonsphere, where object 0 is the backpack:
+             * it is worn but not flagged Wearable, and the Runner never
+             * prints the "isn't wearing" alt "It is very cold out here."
              */
-            switch (var2)
+            if (prop_get_taf_version (bundle) >= TAF_VERSION_400
+                && gs_object_count (game) > 0
+                && ((var2 == 2 || var2 == 3)
+                    ? !prop_get_indexed_boolean (bundle, "Objects", 0,
+                                                 "Wearable")
+                    : obj_is_static (game, 0)))
+              object = 0;
+            else
               {
-              case 0: case 2: case 4:
-                retval = TRUE;
+                switch (var2)
+                  {
+                  case 0: case 2: case 4:
+                    retval = TRUE;
+                    break;
+                  case 1: case 3: case 5:
+                    retval = FALSE;
+                    break;
+                  default:
+                    scr_fatal ("lib_use_room_alt:"
+                              " invalid player condition, %ld\n", var2);
+                  }
                 break;
-              case 1: case 3: case 5:
-                retval = FALSE;
-                break;
-              default:
-                scr_fatal ("lib_use_room_alt:"
-                          " invalid player condition, %ld\n", var2);
               }
-            break;
           }
-
-        if (var2 == 2 || var2 == 3)
+        else if (var2 == 2 || var2 == 3)
           object = obj_wearable_object (game, var3 - 1);
         else
           object = obj_dynamic_object (game, var3 - 1);
@@ -1875,6 +1893,22 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * if no starting point overrider found.
    */
   showobjects = TRUE;
+  /*
+   * run400 viewroom (Proc_19_63_472CA4) reads HideObjects from EVERY alt
+   * that holds (472263), not only from the starter on: homelessharry T11,
+   * the Cardboard Box's always-true alt 0 hiding objects under the later
+   * display alt, lists no "Toothless Willy is here."
+   * (runner_transcripts/homelessharry.txt).
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    for (alt = 0; alt < alt_count; alt++)
+      if (lib_use_room_alt (game, room, alt))
+        {
+          vt_key[3].integer = alt;
+          vt_key[4].string = "HideObjects";
+          if (prop_get_integer (bundle, "I<-sisis", vt_key) == 1)
+            showobjects = FALSE;
+        }
   for (alt = (start != -1) ? start : 0; alt < alt_count; alt++)
     {
       /* Ignore all non-method-2 alts except for the starter. */
@@ -7041,7 +7075,8 @@ static scr_bool
 lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
                                std::string *term_out,
                                std::vector<scr_int> *namesakes_out,
-                               scr_int *flagged_out)
+                               scr_int *flagged_out,
+                               std::string *list_term_out = NULL)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int room = gs_playerroom (game);
@@ -7055,7 +7090,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
     {
       std::vector<scr_int> namesakes;
       scr_vartype_t vt_key[4];
-      const scr_char *name, *term;
+      const scr_char *name, *term, *list_term;
       scr_int alias_count, alias, other;
 
       if (!npc_in_room (game, npc, room))
@@ -7064,6 +7099,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
       name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
       term = (!scr_strempty (name) && lib_input_contains_word (input, name))
              ? name : NULL;
+      list_term = term;
       alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
       for (alias = 0; alias < alias_count; alias++)
         {
@@ -7077,6 +7113,13 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
         }
       if (!term)
         continue;
+      /* npc_in_command's list term (var_98) is the Name when it is a whole
+       * word of the line, the alias loop skipped (GoTo 45E682); only the
+       * header term (48B815) takes the alias.  noximion T57 `kill venemous
+       * buzzard with sword`: "Which buzzard.   venemous buzzard or  venemous
+       * buzzard?" (runner_transcripts/noximion.txt). */
+      if (!list_term)
+        list_term = term;
 
       for (other = 0; other < gs_npc_count (game); other++)
         {
@@ -7103,6 +7146,8 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
         {
           if (term_out)
             *term_out = term;
+          if (list_term_out)
+            *list_term_out = list_term;
           if (namesakes_out)
             *namesakes_out = namesakes;
         }
@@ -7150,11 +7195,10 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
 
   flagged = -1;
   if (!lib_npc_400_find_namesakes_in (game, input, &term_string, &namesakes,
-                                      &flagged))
+                                      &flagged, &npc_term))
     return FALSE;
   /* The list is built by the character scan (45E7D3) and printed whole, so
    * it keeps the character's term even when the object half prints. */
-  npc_term = term_string;
 
   /*
    * The two halves of the question read ONE untyped index, and the object
@@ -10226,21 +10270,45 @@ lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
  * look-ups, 2 for the put/drop family, 0 for none; see
  * run_set_task_class_filter().
  */
+static scr_bool lib_task_prematches_line (scr_gameref_t game,
+                                          const scr_char *input,
+                                          scr_int class_filter,
+                                          scr_int *match_kind = NULL);
+
 scr_bool
 lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
 {
+  const scr_char *input = run_get_dispatch_input ();
+
+  return input && lib_task_prematches_line (game, input, class_filter);
+}
+
+/* The same, answering the pre-matcher's result: 0 miss, 1 a task with text
+   of its own (or a fallback hit), 2 a silent first-pass hit, 3 a failing
+   restriction with a message; see run_does_command_match(). */
+scr_int
+lib_task_prematch_kind_input (scr_gameref_t game, scr_int class_filter)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int kind = 0;
+
+  if (!input || !lib_task_prematches_line (game, input, class_filter, &kind))
+    return 0;
+  return kind;
+}
+
+/* The same pre-match on a line the Runner has rewritten in place. */
+static scr_bool
+lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
+                          scr_int class_filter, scr_int *match_kind)
+{
   scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
   scr_bool *references, status;
-  const scr_char *input;
-
-  input = run_get_dispatch_input ();
-  if (!input)
-    return FALSE;
 
   references = lib_save_object_references (game, references_buffer,
                                            LIB_ALLOCATION_AVOIDANCE_SIZE);
   run_set_task_class_filter (class_filter);
-  status = run_does_command_match (game, input, TRUE);
+  status = run_does_command_match (game, input, TRUE, match_kind);
   run_set_task_class_filter (0);
 #ifdef SCARIER_DUMP_TOOLS
   if (getenv ("SCR_TRACE_MATCH"))
@@ -11990,6 +12058,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
       && !lib_is_version_400 (game);
   const scr_bool from_390_multi = from_390 && !lib_take_from_single_named;
+  scr_int fits;
   assert (!is_associate_object || !is_associate_npc);
 
   /*
@@ -12101,9 +12170,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * full." when any failed on size, otherwise "That is too heavy.", and takes
    * nothing (4634F9-463545).
    */
+  fits = 0;
   if (from_390_multi)
     {
-      scr_int size, weight, fits;
+      scr_int size, weight;
       scr_bool any_size, any_weight;
 
       size = lib_carried_size (game);
@@ -12296,22 +12366,61 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                                          "You pick up ",
                                                          "I pick up ",
                                                          "%player% pick up "));
-              else
+              else if (!from_390_multi)
                 pf_buffer_string (filter, lib_take_from_verb (game));
-              lib_print_list (game, list,
-                              parent == -1 || lib_is_version_400 (game)
-                              || (prop_get_taf_version (gs_get_bundle (game))
-                                  >= TAF_VERSION_390
-                                  && !(lib_take_single_named
-                                       || lib_take_from_single_named))
-                              ? lib_print_object_np : lib_print_object,
-                              " and ");
-              if (parent != -1)
+              if (from_390_multi)
                 {
-                  pf_buffer_string (filter, " from ");
-                  lib_print_object_np (game, parent);
+                  /*
+                   * 3.9's all/and take-from punctuates its list by counting
+                   * down from the pre-pass count of objects that fit, not
+                   * from the number actually taken (run390 463AAA-463B18):
+                   * ", " while more than one remains, " and " before the
+                   * last, " from <container>." on reaching zero, and nothing
+                   * after that.  The verb is printed only if anything fit.
+                   * Objects the take loop accepts past the count are glued
+                   * on after the full stop.  Measured on Namiki's `take all
+                   * from bag`, seven objects with a count of five: "I take
+                   * my bandana, ... and the Kenzo jacket from the tennis
+                   * bag.the Dior skirtmy jewelry".
+                   */
+                  scr_int remaining = fits;
+                  size_t index;
+
+                  if (fits > 0)
+                    pf_buffer_string (filter, lib_take_from_verb (game));
+                  for (index = 0; index < list.size (); index++)
+                    {
+                      lib_print_object_np (game, list[index]);
+                      remaining--;
+                      if (remaining > 1)
+                        pf_buffer_string (filter, ", ");
+                      else if (remaining == 1)
+                        pf_buffer_string (filter, " and ");
+                      else if (remaining == 0)
+                        {
+                          pf_buffer_string (filter, " from ");
+                          lib_print_object_np (game, parent);
+                          pf_buffer_character (filter, '.');
+                        }
+                    }
                 }
-              pf_buffer_character (filter, '.');
+              else
+                {
+                  lib_print_list (game, list,
+                                  parent == -1 || lib_is_version_400 (game)
+                                  || (prop_get_taf_version (gs_get_bundle (game))
+                                      >= TAF_VERSION_390
+                                      && !(lib_take_single_named
+                                           || lib_take_from_single_named))
+                                  ? lib_print_object_np : lib_print_object,
+                                  " and ");
+                  if (parent != -1)
+                    {
+                      pf_buffer_string (filter, " from ");
+                      lib_print_object_np (game, parent);
+                    }
+                  pf_buffer_character (filter, '.');
+                }
               if (saved)
                 {
                   const scr_char *text = saved.get ();
@@ -13259,6 +13368,14 @@ lib_cmd_take_absent (scr_gameref_t game)
    * ("<The X> is closed." 47395C).  Measured escape_to_new_york turn 152
    * `get parcel`, the parcel seen but absent, inside a closed parent
    * (Ticket run400 xoshiro trace 2026-09-12).
+   *
+   * An OPEN parent gets past that arm, and the take-from then finds
+   * nothing it can reach and ends at "Take what?" (47332B).  British Fox
+   * T147 `get silver key`: the key was listed by `open bag` (the lister
+   * 46A950 stamps it seen), then an event put the bag back on the dungeon
+   * table and the player in the corridor.  run400 answers "Take what?"
+   * where the plain refusal was "There is nothing worth taking here."
+   * (runner_transcripts britishfox, 2026-09-24).
    */
   if (gs_object_position (game, best_object) == OBJ_IN_OBJECT)
     {
@@ -13272,6 +13389,8 @@ lib_cmd_take_absent (scr_gameref_t game)
           pf_buffer_string (filter, " is closed.\n");
           return TRUE;
         }
+      if (obj_is_container (game, parent))
+        return FALSE;
     }
 
   pf_buffer_string (filter, "There is nothing worth taking here.\n");
@@ -17336,6 +17455,9 @@ lib_co_400_raise_for_pending_tie (scr_gameref_t game)
  * multiple references with *REFERENCES 1, or *REFERENCES -1 to leave the
  * line to the ordinary parse.
  */
+static scr_int lib_seen_named_object_400 (scr_gameref_t game,
+                                          const scr_char *input);
+
 static scr_bool
 lib_drop_named_400 (scr_gameref_t game, scr_int *references)
 {
@@ -17367,7 +17489,39 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
   object = lib_name_object_resolve_400 (game, input, 2, &pending, &last_tied,
                                         &marked, &mark_count);
   if (object == -2)
-    return FALSE;
+    {
+      /*
+       * Nothing present answers, so 463640 falls back to the seen objects,
+       * and insides says "not holding" (465F1D) inside put_drop_list, above
+       * the task dispatcher.  ghoster T17 `drop body`, the body left in
+       * another room: "You are not holding your lifeless body.", where the
+       * task pass let task 8's restriction refusal speak first
+       * (runner_transcripts/ghoster.txt).  lib_cmd_drop_what() is the same
+       * answer for lines no task matches.
+       */
+      scr_int kind;
+
+      object = lib_seen_named_object_400 (game, input);
+      if (object == -1 || obj_indirectly_in_room (game, object,
+                                                  gs_playerroom (game)))
+        return FALSE;
+      /* A task that matches with its restrictions passing still runs:
+         freedom (escape.taf) `drop jeep` while driving it is task 43
+         "drop *jeep*", "Done." (runner_transcripts/freedom.txt).  ghoster's
+         task 8 only matches through its failing restriction's message
+         (kind 3), and the Runner says "not holding".  Fitted to these two
+         rows; where 44CCE0 makes the call is not traced. */
+      if (lib_task_prematches_line (game, input, 0, &kind) && kind != 3)
+        return FALSE;
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, ".\n");
+      return TRUE;
+    }
 
   if (object == -1)
     {
@@ -17402,6 +17556,41 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
         || gs_object_position (game, object) == OBJ_WORN_PLAYER
         || obj_indirectly_held_by_player (game, object)))
     return FALSE;
+
+  /*
+   * A held object is insides' (46639C), and put_drop_list has already
+   * rewritten the global line "drop " -> "put " (459B3D).  insides pre-matches
+   * that line with no class filter (465DC8); a hit hands the definite form
+   * to put-family tasks only and claims the line whatever they do, so with
+   * none running generaltasks' tail answers DontUnderstand, not a turn.
+   * mysterymanor T3 `drop cell phone`: task 3's `* cell phone` matches "put
+   * cell phone" and the Runner prints "What's that? A spook got your
+   * tongue?" (runner_transcripts/mysterymanor.txt).  p4REPEAT3's literal
+   * `drop hat` task does not match "put hat", so its drop stays the
+   * library's (Adrift_952.txt).  lib_put_held_unsplit_400() is the put twin.
+   *
+   * A put-family task on the rewritten line does NOT claim it: ADRIFTMAS
+   * T59 `drop suitcase` hits task 30 "[wear/put] {on} {the} [%object%]" and
+   * advent350b T270 `drop lamp` hits task 77 "[drop/put] [lantern/light]",
+   * and the Runner answers both from the library ("You drop the suitcase.",
+   * "You drop the brass lantern.").  So only a line that no class-2 task
+   * pre-matches is claimed -- a rule fitted to these four rows, not read
+   * out of 44CCE0.
+   */
+  if (gs_object_position (game, object) == OBJ_HELD_PLAYER
+      && lib_task_prematches_line (game, line.c_str (), 0)
+      && !lib_task_prematches_line (game, line.c_str (), 2))
+    {
+      if (!lib_try_game_command_short_definite (game, "drop", object))
+        {
+          pf_buffer_string (filter,
+                            prop_get_global_string (gs_get_bundle (game),
+                                                    "DontUnderstand"));
+          pf_buffer_character (filter, '\n');
+          game->is_admin = TRUE;
+        }
+      return TRUE;
+    }
 
   gs_clear_multiple_references (game);
   game->multiple_references[object] = TRUE;
@@ -18027,6 +18216,19 @@ lib_wear_backend (scr_gameref_t game)
   for (object = 0; object < object_count; object++)
     {
       if (!game->object_references[object])
+        continue;
+
+      /*
+       * 4.0's wears (463C30) pre-matches nothing: its body has no call to
+       * either dispatcher (453C50 / 44CCE0), so only the typed line ever
+       * reaches the tasks.  British Fox's `wear british fox costume` misses
+       * task 477's "wear {British Fox's} costume" and run400 answers "You put
+       * on British Fox's costume." from the library, where the rebuilt
+       * "wear British Fox's costume" (or bare "wear costume", which hits
+       * 'wear {my} costume') ran the task (runner_transcripts britishfox
+       * T16, and T97 `wear eleanor's clothes`).
+       */
+      if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
         continue;
 
       if (lib_try_game_command_short (game, "wear", object))
@@ -21195,8 +21397,17 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
      */
     const size_t hoist_from = pf_buffer_length (filter);
 
+    /*
+     * The name is Proc_21_31_448710 mode 0, which answers "that" for an
+     * object the player has never seen: fairscare T1 `put doll in fire`,
+     * the voodoo doll present but unseen, is "(Taking that first)"
+     * (run400x seed 1234, runner_transcripts/fairscare.txt).
+     */
     pf_buffer_string (filter, "(Taking ");
-    lib_print_object_np (game, object);
+    if (gs_object_seen (game, object))
+      lib_put_print_object_or_that (game, object);
+    else
+      pf_buffer_string (filter, "that");
     pf_buffer_string (filter, " first)\n");
     lib_put_announce_bytes += pf_buffer_length (filter) - hoist_from;
     if (run_in_put_clause_loop ())
@@ -25015,12 +25226,14 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
 /*
  * lib_co_400_line_leaves_which_pending()
  *
- * The object analogue of lib_npc_400_line_names_namesakes().  Unless its
- * examine arm takes the line (only when no task ran), run400's characters()
- * (Proc_19_0_480674) calls co(object, 0) (Proc_21_39_46486C) for EVERY
- * object, once for each NPC the line names by Name or any alias (480180,
- * behind 45E99C(npc, 1)), and again for `give` with that NPC in the player's
- * room (48022F-480384).  Each call picks the object's name word
+ * The object analogue of lib_npc_400_line_names_namesakes().  run400's
+ * characters() (Proc_19_0_480674) has two loops calling co(object, 0)
+ * (Proc_21_39_46486C) for EVERY object.  The one at 480180 sits inside the
+ * examine arm (47FE63-48022A), which needs an examine verb and no task run
+ * for the line, so on the task-ran lines this rule serves it never runs.
+ * The other is the `give` branch (48022F-480384): c("give") and an NPC in
+ * the player's room, not gated by the task-ran flag.  Each call picks the
+ * object's name word
  * (lib_co_400_name_word()) and counts the present, seen objects answering to
  * it.  Exactly one sets the pending-disambiguation index Me(424) =
  * MemVar_4941EC back to -1 (46485E).  Two or more take the "Which" arm at
@@ -25037,6 +25250,12 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
  * with the Fire Uniform worn and the Electric Uniform held, runs task 6 and
  * draws nothing that turn (Adrift_128/130/131_c2*.txt).  `poke toy` in
  * p4TAMB.taf, with two present toys and no NPC, IS a turn.
+ *
+ * British Fox (4.00) `welsh fox rub tits` (synonym -> touch) runs task 44
+ * with Welsh Fox's tits and the player's own tits both present, and IS a
+ * turn: run400x's Me(424) watchpoint shows no write at all on the line
+ * (Adrift_bf_watch.txt / bf_watch_trace.txt, 2026-09-24), where `x tits`
+ * asks "Which tits." -- the named-NPC scan was an over-reach.
  *
  * Not modelled: the arm's 454454 prefix contest can hand the write to a
  * namesake with more Prefix words typed, which leaves the index at -1 only
@@ -25056,11 +25275,11 @@ lib_co_400_line_leaves_which_pending (scr_gameref_t game, const scr_char *line)
     return FALSE;
 
   scans = FALSE;
+  if (!lib_input_contains_word (line, "give"))
+    return FALSE;
   for (npc = 0; npc < gs_npc_count (game) && !scans; npc++)
     {
-      if (lib_npc_referenced (game, npc, line)
-          || (npc_in_room (game, npc, room)
-              && lib_input_contains_word (line, "give")))
+      if (npc_in_room (game, npc, room))
         scans = TRUE;
     }
   if (!scans)
@@ -25344,8 +25563,15 @@ lib_battle_absent_npc (scr_gameref_t game)
       const scr_char *name;
 
       name = prop_get_indexed_string (bundle, "NPCs", index_, "Name");
+      /*
+       * 4.0 tests the Name alone.  Enigma's `kill orc guard`, with the Orc
+       * guard present and the Goblin guard (Alias "guard") seen elsewhere,
+       * is not "Goblin guard isn't here!" under run400x.
+       */
       if (!name || name[0] == NUL
-          || !lib_npc_named_in_line (game, index_, input)
+          || !(lib_is_version_400 (game)
+               ? lib_input_contains_word (input, name)
+               : lib_npc_named_in_line (game, index_, input))
           || !gs_npc_seen (game, index_)
           || npc_in_room (game, index_, gs_playerroom (game)))
         continue;
@@ -25401,6 +25627,22 @@ lib_attack_absent_npc (scr_gameref_t game)
       && !lib_input_contains_word (input, "kick")
       && !lib_input_contains_word (input, "punch")
       && !lib_input_contains_word (input, "attack"))
+    return FALSE;
+
+  /*
+   * 4.0's absent arm (47F6E8) needs the buffer still empty, and therest's
+   * checkverb arms (4455F8, 48940C-4896A0) have already filled it for any
+   * line holding hit/kick/push/pull/press/shake, so the nothing-happens line
+   * stands.  amnesiakid `kick tom`, Tom elsewhere: "You kick, but nothing
+   * happens." (runner_transcripts/amnesiakid.txt).  run390 45960F overwrites.
+   */
+  if (is_400
+      && (lib_input_contains_word (input, "hit")
+          || lib_input_contains_word (input, "kick")
+          || lib_input_contains_word (input, "push")
+          || lib_input_contains_word (input, "pull")
+          || lib_input_contains_word (input, "press")
+          || lib_input_contains_word (input, "shake")))
     return FALSE;
 
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
@@ -25581,6 +25823,10 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   return TRUE;
 }
 
+static scr_int lib_battle_scan_with (scr_gameref_t game, scr_int npc,
+                                     const scr_char *input,
+                                     scr_bool *refused);
+
 static scr_bool
 lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
@@ -25622,8 +25868,32 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   if (lib_battle_unnamed_target (game, npc))
     return TRUE;
 
+  /*
+   * dobattle (run390 44CD63-44CE44, run400 47EC16) walks every object the
+   * text after " with " names, with no break, and the last weapon wins:
+   * thesorc T246 `attack king with staff`, the long mage staff and the
+   * Master Staff both held, strikes with the Master Staff
+   * (runner_transcripts/thesorc.txt).  Asking would drop the blow.  Only the
+   * text after " with ": the whole line refuses the seen static "shadow" in
+   * Shadowpeak's `attack shadow with sword`.
+   */
+  object = -1;
+  if (battle_is_enabled (game)
+      && prop_get_taf_version (bundle) >= TAF_VERSION_390
+      && run_get_dispatch_input ())
+    {
+      const scr_char *with = strstr (run_get_dispatch_input (), " with ");
+      scr_bool refused = FALSE;
+
+      if (with)
+        object = lib_battle_scan_with (game, npc, with + 6, &refused);
+      if (refused)
+        return TRUE;
+    }
+
   /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, verb, NULL);
+  if (object == -1)
+    object = lib_disambiguate_object (game, verb, NULL);
   if (object == -1)
     return TRUE;
 
@@ -31398,6 +31668,38 @@ lib_cmd_open_other (scr_gameref_t game)
 }
 
 /*
+ * lib_cmd_open_ended_400()
+ * lib_cmd_close_ended_400()
+ *
+ * `open *` / `close *` once a task has ended the game on the line.  run400's
+ * openclose (Proc_19_3_476468, called at 48A515) sits above the gameover jump
+ * and still answers for an object it resolves, but with none it leaves
+ * silently (4756BC).  "You can't open that." is therest's arm, below the
+ * jump, so the line falls to DontUnderstand: haremprologue T59 `open door`,
+ * task 105 ending the game with no "door" object, answers "I don't
+ * understand what you mean!" (runner_transcripts/haremprologue.txt).
+ */
+scr_bool
+lib_cmd_open_ended_400 (scr_gameref_t game)
+{
+  scr_bool status;
+
+  if (lib_open_close_resolved_400 (game, lib_cmd_open_object, &status))
+    return status;
+  return FALSE;
+}
+
+scr_bool
+lib_cmd_close_ended_400 (scr_gameref_t game)
+{
+  scr_bool status;
+
+  if (lib_open_close_resolved_400 (game, lib_cmd_close_object, &status))
+    return status;
+  return FALSE;
+}
+
+/*
  * 4.0: a lock or unlock line naming a present object the arm declined (see
  * lib_lock_backend()) goes on to the object catch-all, not to "You can't
  * unlock that.".
@@ -32816,10 +33118,15 @@ lib_is_put_where_line_400 (scr_gameref_t game)
    * and 46DC34 re-tests the same word.  So bare `put` and `blorp put` both
    * land here, both answering "Where do you want to put that?" (p4REW,
    * Adrift_251_casc40.txt).  See run_hoist_verb_line(). */
-  return lib_input_contains_word (input, "put")
+  if (!(lib_input_contains_word (input, "put")
          && !strstr (input, " in ") && !strstr (input, " on ")
          && !strstr (input, " into ") && !strstr (input, " onto ")
-         && !lib_input_contains_word (input, "down");
+         && !lib_input_contains_word (input, "down")))
+    return FALSE;
+  /* A task pre-match skips the question (46DC85), and a held object then
+     has the line claimed by insides; see lib_put_held_unsplit_400(). */
+  return !(lib_put_held_unsplit_400 (game, input)
+           && lib_task_prematches_input (game, 0));
 }
 
 static scr_bool
@@ -33113,6 +33420,100 @@ lib_put_clauses_400 (scr_gameref_t game, const scr_char *input,
   if (split != std::string::npos)
     clauses.push_back (line);
   return TRUE;
+}
+
+/*
+ * lib_put_task_tie_400()
+ *
+ * A put line with no in/on split goes to name_object whole (459C55), and
+ * when a task pre-matches it (453C50, unfiltered) 46DC85 skips "Where do
+ * you want to put ..." for the mode-2 scorer at 46DE99.  Its flat tie exit
+ * at 46E192 has no task gate: "It is not clear which <term> you are
+ * referring to." prints and the dispatcher then runs the task, joined on.
+ * makeshift T7 `put needle through balloon`, the held large round balloon
+ * and the loose long balloons both aliased "balloon"
+ * (runner_transcripts/makeshift.txt).  A unique winner or a tie with a
+ * pending object is unmeasured here and prints nothing.
+ *
+ * The line is not a named put row, so run_all_commands() calls this ahead
+ * of its task passes.  Returns TRUE when it has printed, the line left
+ * unclaimed for the tasks.
+ */
+scr_bool
+lib_put_task_tie_400 (scr_gameref_t game, const scr_char *input)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::vector<scr_int> marked;
+  std::string line;
+  scr_bool on_branch;
+  scr_int pending, last_tied, mark_count;
+
+  if (!lib_is_version_400 (game) || !input
+      || !lib_input_contains_word (input, "put"))
+    return FALSE;
+  line = run_normalise_put_line (input);
+  if (lib_phrase_has_word (line, "all")
+      || line.find (" and ") != std::string::npos
+      || lib_put_split_400 (game, line, FALSE, TRUE, &on_branch)
+         != std::string::npos
+      || !lib_phrase_has_word (line, "put")
+      || lib_phrase_has_word (line, "down")
+      || !lib_task_prematches_input (game, 0))
+    return FALSE;
+
+  if (lib_name_object_resolve_400 (game, line.c_str (), 2, &pending,
+                                   &last_tied, &marked, &mark_count) != -1
+      || pending >= 0)
+    return FALSE;
+
+  pf_buffer_string (filter, "It is not clear which ");
+  pf_buffer_string (filter,
+                    lib_drop_named_term_400 (game, last_tied, line.c_str (),
+                                             FALSE));
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         " you are referring to.\n",
+                                         " I am referring to.\n",
+                                         " %player% is referring to.\n"));
+  return TRUE;
+}
+
+/*
+ * lib_put_held_unsplit_400()
+ *
+ * A put line with no in/on split whose named object is HELD belongs to
+ * run400's insides handler (46639C), which offers the line to put-family
+ * tasks only (453C50 class 2) and claims it whatever they do.  amnesiakid
+ * T46 `put M-80 under bookshelf`, the M-80 in hand: the task `* M-80 *
+ * bookshelf` names no put word, so it never runs, and the Runner prints
+ * the game's DontUnderstand text ("Shut Up!!") -- where marika's `put
+ * blanket under door`, the blanket on the bed, reaches its task.
+ */
+scr_bool
+lib_put_held_unsplit_400 (scr_gameref_t game, const scr_char *input)
+{
+  std::vector<scr_int> marked;
+  std::string line;
+  scr_bool on_branch;
+  scr_int object, pending, last_tied, mark_count;
+
+  if (!lib_is_version_400 (game) || !input
+      || !lib_input_contains_word (input, "put"))
+    return FALSE;
+  line = run_normalise_put_line (input);
+  if (lib_phrase_has_word (line, "all")
+      || line.find (" and ") != std::string::npos
+      || lib_put_split_400 (game, line, FALSE, TRUE, &on_branch)
+         != std::string::npos
+      || on_branch
+      || !lib_phrase_has_word (line, "put")
+      || lib_phrase_has_word (line, "down"))
+    return FALSE;
+
+  object = lib_name_object_resolve_400 (game, line.c_str (), 2, &pending,
+                                        &last_tied, &marked, &mark_count);
+  return object >= 0
+         && gs_object_position (game, object) == OBJ_HELD_PLAYER;
 }
 
 scr_bool

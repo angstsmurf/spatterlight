@@ -1,0 +1,77 @@
+Loading game...
+
+Dead Race
+
+By
+Justahack
+
+A week ago, a frenzied media reported a score of rabid individuals in your
+city who were savagely attacking anyone and everyone they encountered. The
+city SWAT was called in to intervene. A few days later, the media further
+reported that the size of the group responsible for these violent attacks
+seemed to be growing to an unprecedented size. Violence was being experienced
+on a city-wide scale. The National Guard was then sent to intervene.
+press any key ...
+
+A few days ago, on your way home to your city apartment, you just barely
+managed to escape the crowd of what you could only describe as ... zombies.
+Their blank stare and ghastly decayed forms all turned in your direction and
+shambled relentlessly towards you, as you hurriedly entered your apartment.
+press any key ...
+
+Now, holed up in your apartment, with the incessant clawing of the undead
+outside your door you wonder what has become of the people you know. Family,
+friends, and girlfriend. What will ... become of you?
+press any key ...
+
+Battered Living Room
+
+No light filters into your living room as mounds of bodies swarm and press
+themselves against your front door. You're standing in the middle of your
+darkened living room, the lights having ceased to operate a few days ago. In
+the corner is a non-functional television, in front of which is your leather
+couch. A coffee table adorned with adult magazines sits in between the
+television and couch. There are splintered remains of wood and two badly
+destroyed doors on the floor. Your bedroom is to the west, and bathroom to
+the east.
+
+> w
+You move west.
+
+Your Bedroom
+
+Unlike the rest of your residence, your bedroom is relatively clean. Quite
+possibly because, but not limited to, your bedroom being relatively sparse.
+The floor is free of any debris of trash, and the bed is kept in relative
+neatness. There are windows on the west side of your room, along with your
+bed on the east side. There is a dresser here along with your work desk.
+Interestingly enough, there is no closet here. The living room is to the
+east.
+
+> look at window
+
+Your bedroom window faces an alley way. Upon closer inspection, it looks as
+though you could climb out your window and possibly reach another building.
+(If you want to try this, type open window)
+
+> open window
+
+You quietly slide open the window. You glance outside and note that there
+doesn't appear to be a zombie within line of sight of your window. There
+appears to be a ledge below you which appears sturdy enough to hold your
+weight. (If you want to try to escape by the ledge, type go out window)
+
+!!!
+Suddenly, you feel a jerking vibration in your pants. It's your cell phone!
+Who could that be? (To check your phone, type check text one)
+
+> go out window
+
+You as quietly, and carefully as you can slide open your bedroom window and
+climb outside to the ledge beneath your window sill. As you ponder your next
+move, you slip and start falling down towards into ... nothingness.
+press any key ...
+
+Why nothingness? Because this is just a demo. Hope you enjoyed it!
+
+[Press any key to end]

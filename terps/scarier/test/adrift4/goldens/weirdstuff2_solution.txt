@@ -1,0 +1,28 @@
+n
+look at woman
+buy drink
+give drink to donna
+open package
+read letter
+s
+ask clerk about room
+open elevator
+press button
+wait
+wait
+wait
+wait
+wait
+look
+e
+push 14
+wait
+wait
+wait
+look
+w
+wait
+s
+unlock door with key
+open door
+in

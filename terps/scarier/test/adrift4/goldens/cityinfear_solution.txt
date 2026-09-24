@@ -1,0 +1,295 @@
+1
+n
+x corpses
+x corpse 1
+x corpse 2
+x corpse 3
+x business card
+x library card
+s
+in
+x dashboard
+x dashboard
+drive station
+out
+n
+u
+n
+x desk
+x shelves
+open box
+wear japan badge
+s
+d
+s
+in
+drive home
+out
+n
+n
+x body
+x bed
+wear boots
+s
+s
+in
+drive chase
+out
+open door
+n
+nw
+x cabinets
+push button
+se
+ne
+open wardrobe
+wear jacket
+sw
+s
+nw
+u
+x hand
+x edge
+get finger
+d
+se
+in
+drive japantown
+out
+n
+e
+e
+e
+e
+s
+s
+arrest bodyguards
+x desk
+move painting
+247d
+w
+n
+n
+w
+w
+w
+w
+s
+in
+drive minsc
+out
+w
+talk to jolene
+give pearls to jolene
+4
+1
+e
+in
+drive balabon
+out
+se
+d
+give chocolates to costas
+nw
+ne
+4
+ne
+x fridge
+get taps from fridge
+fit taps
+sw
+in
+drive station
+out
+n
+talk to windle
+4
+s
+in
+drive sunset
+out
+n
+talk slorb
+s
+in
+drive home
+out
+x window
+n
+x body
+read notebook
+s
+in
+drive station
+out
+n
+talk to windle
+4
+s
+in
+drive library
+out
+n
+donate
+nw
+se
+s
+in
+drive station
+out
+n
+n
+x evidence
+s
+u
+nw
+x desk
+se
+d
+s
+in
+drive balabon
+out
+w
+buy map
+e
+in
+drive bank
+out
+sw
+s
+w
+give club
+e
+s
+shoot janitor
+shoot janitor
+shoot janitor
+shoot janitor
+shoot janitor
+e
+n
+undraw drape
+x desk
+x lip
+look under bed
+n
+w
+n
+n
+ne
+in
+drive station
+out
+n
+give diary to windle
+give file to windle
+give rifle to windle
+s
+n
+u
+nw
+x table
+smash cabinet
+get fan
+se
+d
+s
+in
+drive home
+out
+n
+x sofa
+s
+in
+drive japantown
+out
+n
+buy bun
+s
+in
+drive minsc
+out
+n
+cabal
+armour
+ten bullets
+cabal
+s
+in
+drive machorsky
+out
+nw
+wear armour
+n
+n
+n
+n
+talk bob
+get key
+s
+u
+open door
+w
+lie bed
+look under bed
+push 1
+push 2
+push 3
+x monitor
+e
+d
+s
+s
+se
+in
+drive station
+out
+n
+give confession to windle
+give parchment to windle
+give songbook to windle
+s
+in
+drive slaughter
+out
+n
+e
+x bush
+open door
+n
+n
+x table
+wear uniform
+w
+nw
+se
+e
+s
+s
+w
+s
+in
+drive slorb
+out
+x window
+shoot
+n
+s
+in
+drive station
+out
+wait
+in
+drive slaughter
+out
+n
+w
+n
+n
+give bun to alice
+shoot alice
+shoot alice
+shoot alice
+shoot alice
+sit

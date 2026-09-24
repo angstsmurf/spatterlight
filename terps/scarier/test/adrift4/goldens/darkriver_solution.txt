@@ -1,0 +1,12 @@
+get rope
+look under rocks
+get key
+stand on dock
+look gauge
+tie rope to boat
+pull the boat 60 meters to the left
+enter boat
+turn on boat
+max power!
+quit
+y

@@ -1,0 +1,3256 @@
+Loading game...
+
+Scene of the Crime
+
+   I had been sleeping off the worst hangover I'd had for at least a day when
+the call came through. I scrabbled about, still half asleep, and finally
+managed to grab the receiver. Which I promptly used to clonk myself one in
+the face (I think such things are traditional).
+   The voice on the other end of the phone was low and excited: "We got a
+dead one, boss. Rossetter Street. Be there or be a funny shaped thing."
+   There was a click! as the caller hung up.
+
+   A murder, eh? Just my line of business.
+
+Intro
+
+Do you want instructions (y/n)?
+
+> n
+My hotel room
+MY HOTEL ROOM
+
+   This is my hotel room, which is not a pretty sight at the best of times
+(which this, if you're wondering, is not). My bed looks like it's seen one
+too many cans of Carling tipped onto it, the carpet appears to be just one
+small step away from giving up the ghost for good and the telephone looks to
+have grown a pair of ears. All in all, one depressing sight.
+   The door leading out of this joyful place is to the south.
+
+> x bed
+A-ha! I find a small card and my everyday clothes!
+
+> get clothes
+I take my everyday clothes.
+
+> wear clothes
+I put on my everyday clothes.
+
+> x clothes
+I quickly go through the pockets and come up with some small change and a
+lighter.
+
+> get all
+I take the small card.
+
+> s
+I try to go south - but it seems that the door is a little on the locked
+side. Needless to say, I don't get far.
+
+> call room service
+I put a call through to room service who promise to send someone up to fix my
+door asap. I thank them for their assistance and hang up.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+   There is a sudden crash and the door comes flying off its hinges! I manage
+to duck to one side and thus avoid being squashed beneath it.
+   In the doorway stands a short, squat man with a ferocious moustache and a
+crowbar in one hand. Yep, there's no mistaking the sinister appearance of
+Jake 'The Slasher' McGrogan, the most feared man on the East Side of-
+   "I'm Stanley," says the man, interrupting my train of thought. "From room
+service."
+   Ah well, I could be wrong.
+   "Now," says Stanley the room service man. "What seems to be the problem
+with your door?"
+   I look at it. At both pieces of it actually, the top and the bottom, lying
+forlornly on the floor. "Er, it's a little broken," I say lamely.
+   Stanley nods. "True, true. Ah well, can't be time wasting. Got to be on my
+way."
+   He salutes me with the crowbar in pretty much the same way I might salute
+Herr Fuhrer if I ever met him, then turns and marches promptly away.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> s
+A small corridor
+A SMALL CORRIDOR
+
+   I am in a small corridor outside my room which lies to the north. A flight
+of stairs lead down to the lobby.
+
+> d
+I move down.
+
+The lobby of the Dorkchester
+THE LOBBY OF THE DORKCHESTER
+
+   I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
+lower east region of town. A clerk sits between a desk looking seriously
+bored with life. Not a lot else seems to be happening.
+   I can move south to the street, east to the bar and up to a corridor.  A
+clerk is here.
+
+> e
+I move east.
+
+The Dorkchester's bar
+
+THE DORKCHESTER'S BAR
+
+   I am propping up the bar at the Dorkchester (not in the literal sense, of
+course, because it's quite a heavy bar and I'd no doubt do myself an injury
+if I tried. But I'm sure you catch my drift). The place is populated by
+several lowlives who have nothing better to do with their lives than sit
+around in bars drinking. Some people are just born lucky. Off to one side a
+band are playing some Beatles classics.  I can see Barry the bartender.
+
+> say to barry hello
+"Hello, sir," he says in an officious tone. "My, but you were in a bad way
+last night, I must say."
+   He winks knowingly at me.
+
+> ask barry about last night
+"The fight was most impressive, sir," says Barry, who can talk in italics
+when the occasion warrants it. "The way you hit that swarthy fellow from
+behind on the back of the head with that bar stool was my favourite part.
+Well done, sir."
+
+> thank barry
+"My pleasure, sir," he says. "Oh, by the way, you dropped your badge during
+the fight."
+   He hands my badge over with an oily smirk.
+
+> x lowlifes
+In their grubby midst, I catch sight of Jimmy "the Snitch", an informant of
+mine.
+
+> say to jimmy hello
+"Hi, fellow," he mumbles. "I'm really down on my luck, y'know. Got some
+useful info, though."
+   "Such as?" I ask.
+   Jimmy opens his hand and mimes putting money into it. "Can't remember
+right now, pal. Maybe some cash would sort out the old memory problem."
+
+> give change to jimmy
+"That'll do nicely," he says as he pockets the money. "Now listen, you gotta
+stop the meeting, pal, that's all that matters right now."
+   A meeting, eh?
+   "What meeting?" I ask, kind of hoping he's not going to want more cash in
+return.
+   "Between the crimelords of the city, boss. Something big's going down,
+something very big. And if you don't stop it-" he runs a finger across his
+neck and makes a squawking sound "-big trouble. Here, take this matchbox."
+   He hands over a tatty matchbox which I give the once over.
+   "A matchbox?"
+   "Right," he says. "But a special matchbox. It's got magic powers. Rub it
+when you need info and I'll do what I can. Anyway, be seeing you."
+   Before I can stop him, he jumps to his feet and runs out of the bar.
+
+> w
+I move west.
+
+The lobby of the Dorkchester
+THE LOBBY OF THE DORKCHESTER
+
+   I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
+lower east region of town. A clerk sits between a desk looking seriously
+bored with life. Not a lot else seems to be happening.
+   I can move south to the street, east to the bar and up to a corridor.  A
+clerk is here.
+
+> s
+I move south.
+
+Chalfont Street
+
+CHALFONT STREET
+
+   I am on Chalfont Street, just a few steps south of the lobby of the
+Dorkchester, a sleazy hotel where I sometimes stay. Chalfont Street extends
+east and west as far as the eye can see but there is nothing very interest in
+either of those directions. Here is my (for want of a better word) 'car'. It
+does not look well.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope.
+
+> insert keys
+The car starts to hum unpleasantly. In fact it sounds more like a ticking
+bomb than a car waiting to go (or maybe that's just my imagination).
+
+> x junk
+Wading through it all, I find the keys to my front door.
+
+> get keys
+I take my keys.
+
+> drive to rossetter street
+I set off across town, knocking over trash cans, narrowly avoiding
+pedestrians, and even clipping a couple of fire hydrants for good measure.
+   Before long I arrive at Rossetter Street.
+
+> out
+Rossetter Street
+
+ROSSETTER STREET
+
+   I am midway up Rossetter Street which lies in the centre of the hard part
+of town. A dreary bar looms menacingly to the north, the sort of cheap dive
+where even the most hard on his luck detective couldn't obtain a free drink
+(believe me, I've tried). My car is parked here.
+
+> n
+Hard Bar
+
+THE HARD BAR
+
+   I find myself in the Hard Bar, which is commonly known as the most
+unpleasant pub in town (and believe me, that takes some doing). Everything in
+here is dark and shadowy, even the lights. Along one wall runs a
+knife-scarred bar at which more than a few undesirables are drinking pint
+after pint of what passes for beer in this place.
+   I can see a doorway to the northeast and the outside world to the south.
+
+   "Ah, boss," says Clancy, the voice from the phone. "Glad you got here so
+quick."
+   I nod, surveying the bar. It doesn't look promising. Anyone here could be
+a killer. Probably is a killer. I didn't like the look of any of them.
+Unfortunately, the law tends to frown on me arresting people just because
+they look a bit dodgy. Evidence, of all things, is required these days.
+   "Where's the stiff?" I ask."
+   "This way, boss," says Clancy, and heads through a doorway to the
+northeast.
+
+> ne
+Office
+
+THE HARD BAR'S OFFICE
+
+   I am in the Hard Bar's office. On the floor lies a dead body. At least I
+assume it's dead. It's in four different pieces so if it isn't dead it's not
+very well. A sofa and lounge chair are the only other things of interest in
+here. Southwest lies the main room of the bar.  I can see Clancy.
+
+   "Any clues?" I ask as I take in the scene.
+   Clancy nods. "Woman who lives in Slazenger Heights claims she saw a masked
+man running out of here with a bloodstained knife in his hand and screaming
+'I killed him, I killed him!' I know it's a long shot but I had McAvity take
+her home and keep an eye on her just in case she knows something. Aside from
+that, we're beat."
+
+> x body
+A-ha! I come across clue 1!
+
+> x sofa
+Pushed down the back, I find a card.
+
+> get all
+I take the clue 1 and the tiny card.
+
+> ask clancy about murder
+"It's got me beat, boss," he says, his stock response to everything. "Don't
+ask me anymore questions. You know I'm no good at this kind of thing."
+
+> ask clancy about murder
+"Ah, gee, boss," he complains. "It's bad enough I had to come to work today -
+my wife's throwing me a birthday party at the Halycon on Malvern Row -
+without you asking me questions besides." He sighs. "I think I'd better take
+the rest of the day off. I don't feel so well."
+   He leaves the office.
+
+> sw
+I move southwest.
+
+Hard Bar
+
+THE HARD BAR
+
+   I find myself in the Hard Bar, which is commonly known as the most
+unpleasant pub in town (and believe me, that takes some doing). Everything in
+here is dark and shadowy, even the lights. Along one wall runs a
+knife-scarred bar at which more than a few undesirables are drinking pint
+after pint of what passes for beer in this place.
+   I can see a doorway to the northeast and the outside world to the south.
+
+> s
+I move south.
+
+Rossetter Street
+
+ROSSETTER STREET
+
+   I am midway up Rossetter Street which lies in the centre of the hard part
+of town. A dreary bar looms menacingly to the north, the sort of cheap dive
+where even the most hard on his luck detective couldn't obtain a free drink
+(believe me, I've tried). My car is parked here.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.
+
+> drive to slazenger heights
+With rubber burning, I shoot off across town. I manage to knock a couple of
+wing mirrors off on the way and 'accidentally' knock a cyclist into a storm
+drain, before arriving at Slazenger Heights.
+
+> out
+Slazenger Heights
+
+SLAZENGER HEIGHTS
+
+   This is the posh part of town. I can tell because I've never felt so out
+of place in my life. Elegant rows of trees stretch from one end of this road
+to the other with barely a mugger or cut-throat in sight to spoil the view.
+Before me to the south rises a classy condominium. Nearby lurks my 'car'.
+
+> s
+I move south.
+
+Condominium
+
+A POSH CONDOMINIUM
+
+   This place has Class with a capital C. There are actual palm trees in the
+reception area and the stairs to the first floor are so elegant they wouldn't
+look out of place in a Hollywood blockbuster. Everything here is so spic and
+span that I feel more out of place than ever.
+   A short walk north is the outside world.
+
+> u
+I move up.
+
+1st Floor
+
+THE 1ST FLOOR
+
+   I'm on the 1st Floor of the condominium. More stairs lead up to the upper
+floors of the building (and from the look of things there are a lot of
+floors). North of me is a door that I suspect is important because it's the
+only described in this particular location.
+
+> knock
+I do.
+   A female voice from beyond the door shouts out, "who is it?"
+
+> say police
+"Really?" There is a snikt! sound and a small peephole in the door opens.
+"Let's see some ID."
+
+> show id
+There is a moment's silence then the door swings open to reveal Officer
+Sandra McAvity standing there with her gun out.
+   "In you come, boss" she says.
+
+> n
+Tricia Munrowe's apartment
+
+TRICIA MUNROWE'S APARTMENT
+
+   I find myself in a lavishly appointed appartment (and try saying that
+after a couple of bottles of Jack Daniels), the home of Tricia Munrowe. Much
+space seems to be given over to abstract works of art (or 'crap' in street
+slang), and very little to actual furniture. A window in the east wall gives
+a breath-taking (and quite stomach-wrenching) view of the city.  I can see
+Officer McAvity.  I can see Tricia Munrowe.
+
+   "Good job you got here when you did, boss," says McAvity solemnly. "Tricia
+says she's been getting weird phonecalls all morning."
+   "It was terrible, terrible!" Tricia moans.
+   "Tell me about it," I say.
+   "Terrible," she says. "Just terrible."
+
+> ask tricia about murder
+"That poor man got gunned down in cold blood," she says with feeling. "It was
+horrible."
+
+> ask tricia about murder
+"He was just minding his own business, chatting to some guy in a black coat,
+and suddenly this hulking fellow just looms out of the crowd and shoots him."
+
+> ask tricia about coat
+"He said something about 'finishing the deal', or something like that."
+
+> ask tricia about fellow
+"He was dressed in a ski mask and had a walking stick. I'd definitely
+recognise him if I saw him again."
+
+> say to tricia follow
+"Whatever you say, detective," she says.
+
+> say to mcavity "follow me"
+"Lead on, sir," she says and salutes smartly.
+
+> s
+I move south.
+
+1st Floor
+
+THE 1ST FLOOR
+
+   I'm on the 1st Floor of the condominium. More stairs lead up to the upper
+floors of the building (and from the look of things there are a lot of
+floors). North of me is a door that I suspect is important because it's the
+only described in this particular location.  Officer McAvity enters from the
+north.  Tricia Munrowe enters from the north.
+
+> d
+I move down.
+
+Condominium
+
+A POSH CONDOMINIUM
+
+   This place has Class with a capital C. There are actual palm trees in the
+reception area and the stairs to the first floor are so elegant they wouldn't
+look out of place in a Hollywood blockbuster. Everything here is so spic and
+span that I feel more out of place than ever.
+   A short walk north is the outside world.  Officer McAvity enters from
+above.  Tricia Munrowe enters from above.
+
+> n
+I move north.
+
+Slazenger Heights
+
+SLAZENGER HEIGHTS
+
+   This is the posh part of town. I can tell because I've never felt so out
+of place in my life. Elegant rows of trees stretch from one end of this road
+to the other with barely a mugger or cut-throat in sight to spoil the view.
+Before me to the south rises a classy condominium. Nearby lurks my 'car'.
+Officer McAvity enters from the south.  Tricia Munrowe enters from the south.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.  Tricia Munrowe enters.
+
+> drive to sleze row
+I take several shortcuts - across a park, through a school playing ground,
+and over a field where several boys are kicking a football - and soon arrive
+home.
+
+> out
+Sleze Row
+
+SLEZE ROW
+
+   I am outside my house on a thoroughfare known as Sleze Row (yes, I've
+heard all the jokes so don't start). This is a rough neighbourhood where the
+girl guides carry flick-knives and the less said about the nuns the better.
+My car lurks nearby, looking right at home in the unsavoury surroundings. My
+front door is north.  Officer McAvity enters.  Tricia Munrowe enters.
+
+> unlock door
+I unlock and open my front door.
+
+> n
+I move north.
+
+Front room
+
+MY FRONT ROOM
+
+   My front room. I could describe this location as cosy but that would be a
+lie so I'll tell it like it is. Cheap chairs sit around a cheap table, on top
+of which is a cheap TV that hasn't worked for longer than I care to think
+about. My bedroom lies north, the sitting room is east, the kitchen northeast
+and the rest of the world that doesn't include my house is south.  Officer
+McAvity enters from the south.  Tricia Munrowe enters from the south.
+
+> x tv
+It's got a 3.5 inch screen and optional sound and pictures. The last time I
+used it all I could get was Coronation Street so maybe it's just as well it
+doesn't work any more.
+   On top of the tv I find my special police whistle which I decide to take
+with me.
+
+> ne
+I move northeast.
+
+Kitchen
+
+MY KITCHEN
+
+   This is my kitchen. It isn't spic and it isn't span but it has lots of
+food and that's what counts. It also comes equipped with a washer, dryer,
+sink, oven, stove, fridge, microwave and several cabinets. Pity I've never
+bothered to learn how to use any of them.  Officer McAvity enters from the
+south-west.  Tricia Munrowe enters from the south-west.
+
+> x microwave
+Sitting on top of the microwave are a bag of sweets.
+
+> get sweets
+I take the bag of sweets.
+
+> sw
+I move southwest.
+
+Front room
+
+MY FRONT ROOM
+
+   My front room. I could describe this location as cosy but that would be a
+lie so I'll tell it like it is. Cheap chairs sit around a cheap table, on top
+of which is a cheap TV that hasn't worked for longer than I care to think
+about. My bedroom lies north, the sitting room is east, the kitchen northeast
+and the rest of the world that doesn't include my house is south.  Officer
+McAvity enters from the north-east.  Tricia Munrowe enters from the
+north-east.
+
+> n
+I move north.
+
+Bedroom
+
+MY BEDROOM
+
+   My bedroom. And a depressing sight it is too. Someone tried to waste me
+here once and I still haven't got the stains wiped off the wall. My bed is
+just one depressing heap lurking in the corner next to the closet. A window
+above it gives a thrilling view of an alley which is infested by rats,
+muggers and arsonists. My neighbourhood: a charming place.  Officer McAvity
+enters from the south.  Tricia Munrowe enters from the south.
+
+> x bed
+For some reason that probably doesn't really bear thinking about, I see clue
+6 lying on top of my bed.
+
+> get clue 6
+I take the clue 6 from my bed.
+
+> open bed
+I struggle with the sliding door for a few moments before having to admit
+defeat. It seems years of non-usage have jammed the thing.
+
+> open bed
+I give it another go.
+   This time, with much sweating, cursing, swearing and so on, I manage to
+drag the sliding door.
+   Inside, I find my gun.
+
+> get gun
+I take my gun.
+
+> open closet
+I slide open the closet door. No armed robbers jump out to attack me. Part of
+me feels disappointed at this for reasons I can't define.
+
+> in
+I move in.
+
+Closet
+
+THE CLOSET
+
+   I am in my closet. There isn't a lot to see here so if you were expecting
+a wonderful location description you'll be sadly mistaken because there isn't
+a lot to say about the inside of a closet. Other than here is where I keep my
+suits, hanging from the rail.  Also here is some riot gear.  Officer McAvity
+enters from outside.  Tricia Munrowe enters from outside.
+
+> x rail
+Actually I lied. I don't have any suits. But hanging from the rail is my
+police uniform.
+
+> get uniform
+I take my police uniform from the rail.
+
+> get gear
+I take the riot gear.
+
+> out
+I move out.
+
+Bedroom
+
+MY BEDROOM
+
+   My bedroom. And a depressing sight it is too. Someone tried to waste me
+here once and I still haven't got the stains wiped off the wall. My bed is
+just one depressing heap lurking in the corner next to the closet. A window
+above it gives a thrilling view of an alley which is infested by rats,
+muggers and arsonists. My neighbourhood: a charming place.  Officer McAvity
+enters from inside.  Tricia Munrowe enters from inside.
+
+> s
+I move south.
+
+Front room
+
+MY FRONT ROOM
+
+   My front room. I could describe this location as cosy but that would be a
+lie so I'll tell it like it is. Cheap chairs sit around a cheap table, on top
+of which is a cheap TV that hasn't worked for longer than I care to think
+about. My bedroom lies north, the sitting room is east, the kitchen northeast
+and the rest of the world that doesn't include my house is south.  Officer
+McAvity enters from the north.  Tricia Munrowe enters from the north.
+
+> e
+I move east.
+
+Sitting room
+
+MY SITTING ROOM
+
+   My sitting room. This is where I sit down to watch TV. Only I don't have a
+TV in here and the chairs are too uncomfortable to sit on. All that is in
+here in fact are a large collection of boxes that have been here since I
+moved in and that I haven't yet got around to unpacking. I guess I've just
+been busy these past fifteen years.  Officer McAvity enters from the west.
+Tricia Munrowe enters from the west.
+
+> x boxes
+I go through the first few and come across my picklock. A-ha! So that's where
+I put it! I've been looking for it for the past fifteen years.
+
+> x boxes
+I wade through the next few and find a comic that I haven't looked through in
+years. Ah, the memories it brings back.
+
+> get picklock
+I am already carrying the picklock.
+
+> get comic
+I am already carrying the comic.
+
+> w
+I move west.
+
+Front room
+
+MY FRONT ROOM
+
+   My front room. I could describe this location as cosy but that would be a
+lie so I'll tell it like it is. Cheap chairs sit around a cheap table, on top
+of which is a cheap TV that hasn't worked for longer than I care to think
+about. My bedroom lies north, the sitting room is east, the kitchen northeast
+and the rest of the world that doesn't include my house is south.  Officer
+McAvity enters from the east.  Tricia Munrowe enters from the east.
+
+> s
+I move south.
+
+Sleze Row
+
+SLEZE ROW
+
+   I am outside my house on a thoroughfare known as Sleze Row (yes, I've
+heard all the jokes so don't start). This is a rough neighbourhood where the
+girl guides carry flick-knives and the less said about the nuns the better.
+My car lurks nearby, looking right at home in the unsavoury surroundings. My
+front door is north.  Officer McAvity enters from the north.  Tricia Munrowe
+enters from the north.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.  Tricia Munrowe enters.
+
+> wear uniform
+I put on my police uniform.
+
+> drive to congleton plaza
+When I arrive at Congleton Plaza, I seem to have a new collection of dents in
+my fender. Funny, I don't remember running over anyone...
+
+> out
+Congleton Plaza
+
+CONGLETON PLAZA
+
+   I am standing by my has-definitely-seen-better-days car outside the police
+station. It is a gaudy building, with one wall painted blue and another
+bright red. I'm sure there's a reason for this, but just what that reason is
+has me beat. Steps lead up to the entrance.  Officer McAvity enters.  Tricia
+Munrowe enters.
+
+> n
+I move north.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Officer McAvity enters from below.  Tricia Munrowe enters from
+below.
+
+> x wanted board
+Several disreputable looking fellows glare back at me. In all my time I've
+never seen such a collection of ugly, deformed mutants that-
+   Oh, this is the squadroom group photograph. The wanted board is over to
+one side.
+
+> x wanted board
+I glance at the crims. None of them look very familiar. My landlord doesn't
+appear anywhere.
+   Amidst them all, I see a number has been jotted down: 555-1213.
+
+> n
+I move north.
+
+My office
+
+MY OFFICE
+
+   This is my office. It's roughly the size of a shoe box, and a cramped shoe
+box at that. In here there is a desk, a chair, a table, a filing cabinet
+containing evidence galore, a chest of drawers containing files, a phone and
+a window. Not bad for a room that's only about four feet across and half that
+wide. There's also a door lurking to the south.  Officer McAvity enters from
+the south.  Tricia Munrowe enters from the south.
+
+> look under table
+Under the table, where it obviously fell off during one of my (very
+infrequent) cleaning sessions, I find an old, but useable, gas mask.
+
+> get mask
+I take the gas mask.
+
+> open cabinet
+I open the filing cabinet using my nifty picklock.
+
+> x cabinet
+Inside the filing cabinet, I find (amidst lots of other garbage that doesn't
+really warrant a better description than 'lots of other garbage') a
+collection of mug shots which I decide to take with me.
+
+> show shots to tricia
+She studies the photos for a while before pointing one out.
+   "That's him," she says. "That's the guy in the dark coat. I'd recognise
+him anywhere. He's a sleazy lawyer called Talbot. He's got an office on
+Slater Drive. Sorry I can't help with the guy in the ski mask but I don't see
+any mug shots of guys in ski masks here so it's kinda hard to identify him."
+   "Would you be willing in testify against him in court?" I ask.
+   She considers. "What are the odds of me making it through to the trial in
+one piece?"
+   I tell her.
+   "Less than 5%, eh?" She nods. "I like those odds. I'll risk it. Well, I
+think I'll be going now. You can reach me on this number the next time you
+need me."
+   She hands me a slip of paper and leaves.
+
+> drop shots
+I drop the mug shots.
+
+> ring 555-1213
+I tap the digits in and wait.
+   Before long, a mean-spirited voice snarls in my ear: "this if the office
+of Captain Slorb. What do you want?"
+
+> say appointment
+"An appointment, eh?" the voice says. "Oh, hell, if you must. Come up when
+you got a moment."
+   The phone is slammed down.
+
+> s
+I move south.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Officer McAvity enters from the north.
+
+> u
+I move up.
+
+Upper floor
+
+UPPER FLOOR
+
+   This is the upper floor of the police station, where one day (if I play my
+cards right and don't accidentally shoot the wrong person) I'll have my very
+own office. Everything is very plush here, from the receptionist to the
+paintings that adorn the walls. Doorways stands to the north and northwest
+and east is Captain Slorb's office. Downwards are the stairs I just came up.
+Captain Slorb's receptionist is here.  Officer McAvity enters from below.
+
+> e
+Captain Slorb's office
+
+CAPTAIN SLORB'S OFFICE
+
+   I am in Captain Slorb's office, the boss of this particular precinct. His
+desk crouches hungrily by the mock Tudor fireplace, above which hang various
+of his trophies. To one side of the fireplace is a glass cabinet in which
+rest more trophies. Other than this is his desk. Oh, and a table covered with
+trophies. A doorway leads west.  I can see Captain Slorb.  Officer McAvity
+enters from the west.
+   "Just the man I wanted to see," Slorb announces as he sees me. "Seat
+yourself and let's get down to business."
+
+> sit
+I sit down.
+   Slorb says, "I hear you've landed the big murder case of the moment,
+McClane. That's interesting. I think you might need some help, though."
+   "I'm doing perfectly well with the case on my own, sir," I lie.
+   "Sure you are, son. But I think you should get some help all the same.
+Gather the clues, McClane, then come see me. We'll have another little
+chinwag."
+   I wait for him to go on but that seems to be all he has to say.
+
+> w
+I move west.
+
+Upper floor
+
+UPPER FLOOR
+
+   This is the upper floor of the police station, where one day (if I play my
+cards right and don't accidentally shoot the wrong person) I'll have my very
+own office. Everything is very plush here, from the receptionist to the
+paintings that adorn the walls. Doorways stands to the north and northwest
+and east is Captain Slorb's office. Downwards are the stairs I just came up.
+Captain Slorb's receptionist is here.  Officer McAvity enters from the east.
+
+> d
+I move down.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Officer McAvity enters from above.
+
+> s
+I move south.
+
+Congleton Plaza
+
+CONGLETON PLAZA
+
+   I am standing by my has-definitely-seen-better-days car outside the police
+station. It is a gaudy building, with one wall painted blue and another
+bright red. I'm sure there's a reason for this, but just what that reason is
+has me beat. Steps lead up to the entrance.  Officer McAvity enters from
+above.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to chalfont street
+I take a shortcut I know through Walker Boulevard Market and arrive at
+Chalfont Street in good time.
+
+> out
+Chalfont Street
+
+CHALFONT STREET
+
+   I am on Chalfont Street, just a few steps south of the lobby of the
+Dorkchester, a sleazy hotel where I sometimes stay. Chalfont Street extends
+east and west as far as the eye can see but there is nothing very interest in
+either of those directions. Here is my (for want of a better word) 'car'. It
+does not look well.  Officer McAvity enters.
+
+> n
+I move north.
+
+The lobby of the Dorkchester
+THE LOBBY OF THE DORKCHESTER
+
+   I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
+lower east region of town. A clerk sits between a desk looking seriously
+bored with life. Not a lot else seems to be happening.
+   I can move south to the street, east to the bar and up to a corridor.  A
+clerk is here.  Officer McAvity enters from the south.
+
+> give comic to clerk
+"Ah, not a bad little number this," he comments as I hand the comic over.
+"Here. Have this strange little rod I found the other day."
+   I stare at it in perplexion. "But what does it do?" I ask.
+   The clerk shrugs. "Damned if I know. But it's in the game so I guess it
+does something. Or maybe it's one of those red herring thingies, designed to
+throw you off the beaten track. You can never tell with these things."
+
+> s
+I move south.
+
+Chalfont Street
+
+CHALFONT STREET
+
+   I am on Chalfont Street, just a few steps south of the lobby of the
+Dorkchester, a sleazy hotel where I sometimes stay. Chalfont Street extends
+east and west as far as the eye can see but there is nothing very interest in
+either of those directions. Here is my (for want of a better word) 'car'. It
+does not look well.  Officer McAvity enters from the north.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to malvern row
+The rush hour traffic is a killer but a shortcut I know through the kiddies'
+playground of a local school soon sees me to Malvern Row.
+
+> out
+Malvern Row
+
+MALVERN ROW
+
+   I am standing outside my car on the corner of Malvern Row. A large
+building, some kind of concert hall I guess, looms before me. Malvern Row
+extends southeast.  Officer McAvity enters.
+
+> enter building
+The Halycon
+
+THE HALYCON
+
+   I am inside the foyer of the Halycon. Once it was a concert hall, home to
+the big stars of the era (DJ Otzi, The Tweenies, Posh Spice). Now it's just a
+sad remnant of those glory days. A staircase lined with photographs of past
+stars leads up into the main area. A door leads out.  Officer McAvity enters
+from outside.
+
+> u
+I move up.
+
+Main area
+
+MAIN AREA OF THE HALYCON
+
+   I am in the Halycon amidst partying couples, fighting drunks, mad old
+spinsters, and any other stereotypes that you generally find at these kind of
+bashes. A band on a stage to one side are murdering an old Rod Stewart song.
+Arranged along one wall is a table covered with lots of different types of
+food. Some of it even looks edible. I spy a staircase leading down.  Clancy's
+wife is here.  I can see Clancy.  Officer McAvity enters from below.
+
+> x table
+Piled with more food than you could shake a stick at. None of it looks very
+appetising, although I'm sure I can force down a few sheep eyeballs just to
+be sociable.
+   There is a small boy standing by the table, trying to force a carrot and a
+sausage to dance. He doesn't seem to be having much luck.
+
+> get food
+I swipe some from the table when no one's looking.
+
+> give sweets to boy
+The small boy takes the sweets and at once forces half a dozen into his mouth
+at once. A moment later his mother comes running over, screeching at me for
+trying to 'abduct' her 'precious', whacks him on the back until he spits out
+the sweets, and then storms off.
+   "Someone oughta call the police," someone mutters.
+   "I am the police," I point out nastily.
+   The guy gives me a cold look. "Yeah? And I'm the King of Sardinia."
+   All in all the incident isn't a complete washout as I see clue 3 lying on
+the floor where the kid was sitting.
+
+> get all
+I take the clue 3.
+
+> d
+I move down.
+
+The Halycon
+
+THE HALYCON
+
+   I am inside the foyer of the Halycon. Once it was a concert hall, home to
+the big stars of the era (DJ Otzi, The Tweenies, Posh Spice). Now it's just a
+sad remnant of those glory days. A staircase lined with photographs of past
+stars leads up into the main area. A door leads out.  Officer McAvity enters
+from above.
+
+> out
+I move out.
+
+Malvern Row
+
+MALVERN ROW
+
+   I am standing outside my car on the corner of Malvern Row. A large
+building, some kind of concert hall I guess, looms before me. Malvern Row
+extends southeast.  Officer McAvity enters from inside.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to 7th avenue
+I arrive at 7th Avenue before I know it, having succeeded in putting dents in
+only a couple of other cars.
+
+> out
+7th Avenue
+
+7TH AVENUE
+
+   I am on the sidewalk by the side of a diner called Macy's which is partway
+up 7th Avenue. It looks like the sort of rundown dive that most of the people
+I arrest would frequent. Hence not a place to head without backup. The door
+to Macy's is to the north while a dark alley curls around the side of the
+building to the east. Making the place look untidy is my car.  Officer
+McAvity enters.
+
+> wear gear
+I put on the riot gear.
+
+> e
+I move east.
+
+Alley
+
+AN ALLEY
+
+   I am in a sleazy alley at the side of Macy's. It is knee-deep with filth
+here. The walls are spray-painted with graffiti that is both foul-mouthed and
+deeply offence and as such should not be examined under any circumstances
+whatsoever. The alley winds further to the northeast, and gets seriously dark
+besides.  Officer McAvity enters from the west.
+
+> ne
+As I try to venture further into the alley, a masked figure steps from the
+shadows brandishing a rocket launcher.
+   "Are you Rick McClane, the man I've been sent to kill?" it asks.
+   "Yes," I say, which probably wasn't the cleverest thing to say actually.
+   The figure smiles (or at least I assume it does, only it's a little hard
+to see what with the mask in the way), and pulls the trigger on the rocket
+launcher...
+
+PRESS A KEY TO CONTINUE
+   When I come to I seem to have a thumping pain in my chest and a gaping
+hole in my riot gear, but I'm in one piece. Where the masked man has gone I'm
+not sure. Right now I'm just too grateful to be alive.
+
+> ne
+Dead end
+
+DEAD END
+
+   I have reached the end of the road. Or alley to be precise, but road has a
+better ring. There are a group of beggars here having a singsong around a
+fire that looks to have been started in an old police car. My old police car
+by the look of things! I always wondered where it had got to.  Officer
+McAvity enters from the south-west.
+
+> give food to beggars
+Their eyes light up!
+   "Food!" one remarks. "It be many a year since I last seen food!"
+   "1975 the last time I ated!" another comments. "I been livin' off sewer
+water and whatever the pot boy at Macy's throws out since then."
+   "Here, kind sir," another says. "Have this curious little rod we found one
+day. It's the least we can do."
+   I stare at the rod I've been given. "This?" I ask.
+   "Like I said," the beggar says, "least we could do."
+
+> get all
+There is nothing worth taking here.
+
+> sw
+I move southwest.
+
+Alley
+
+AN ALLEY
+
+   I am in a sleazy alley at the side of Macy's. It is knee-deep with filth
+here. The walls are spray-painted with graffiti that is both foul-mouthed and
+deeply offence and as such should not be examined under any circumstances
+whatsoever. The alley winds further to the northeast, and gets seriously dark
+besides.  Also here is a used rocket shell.  Officer McAvity enters from the
+north-east.
+
+> w
+I move west.
+
+7th Avenue
+
+7TH AVENUE
+
+   I am on the sidewalk by the side of a diner called Macy's which is partway
+up 7th Avenue. It looks like the sort of rundown dive that most of the people
+I arrest would frequent. Hence not a place to head without backup. The door
+to Macy's is to the north while a dark alley curls around the side of the
+building to the east. Making the place look untidy is my car.  Officer
+McAvity enters from the east.
+
+> join rods
+Connecting the two rods together is a simple little task that takes me, an
+expert with his hands, no more then six hours to complete. When I've
+finished, I have a nifty little crowbar.
+
+> n
+I move north.
+
+Macy's
+
+MACY'S
+
+   This isn't the famous department store, it's a classy little restaurant
+where a cup of coffee will set you back a cool month's wages. As for what the
+muffins cost, don't ask...
+   I can see a lot of tables in this joint, and a lot of seriously shady
+characters sitting at them. One good explosion here and half the criminal
+fraternity in the city would go up in smoke. The door to the restroom is
+north and a bar to the west.  Officer McAvity enters from the south.
+
+> w
+I move west.
+
+Macy's bar
+
+MACY'S BAR
+
+   I'm at the bar. Normally this would be a cause for celebration but after
+one look at the prices here, I realise celebrating is the last thing I'll be
+doing.
+   The bar extends the length of the room and is one of those posh-type bars
+that are highly resistant to vomit, knives and heads being slammed into them.
+Handy for a place like this.  I can see Alfonse the waiter.  Officer McAvity
+enters from the east.
+
+> get flowers
+I swipe the flowers.
+   Alfonse gives me a disappointed look and replaces them with some more.
+
+> say to alfonse hello
+Not surprisingly, no-one takes any notice of me.
+
+> show badge to alfonse
+"That is a very nice badge, officer," Alfonse remarks. "It is very similar to
+one my sister bought down at the mall."
+
+> ask alfonse about clue 7
+"I know nothing about that," he says.
+
+> e
+I move east.
+
+Macy's
+
+MACY'S
+
+   This isn't the famous department store, it's a classy little restaurant
+where a cup of coffee will set you back a cool month's wages. As for what the
+muffins cost, don't ask...
+   I can see a lot of tables in this joint, and a lot of seriously shady
+characters sitting at them. One good explosion here and half the criminal
+fraternity in the city would go up in smoke. The door to the restroom is
+north and a bar to the west.  Officer McAvity enters from the west.
+
+> n
+I move north.
+
+Restroom
+
+MACY'S RESTROOM
+
+   The restroom. As with most restrooms, there's nowhere to actually rest in
+here and as most of the stalls are broken, there's nowhere to do your other
+business besides. The single remaining stall lurks unpleasantly to the
+northwest.  Officer McAvity enters from the south.
+
+> say police
+The moment I say it, the door to the stall flies open and a seedy little
+fellow stumbles out.
+   "Sorry, officer," he says in a whine of voice. "I didna know it was you!
+I'll just be on my way."
+   He scurries out of the restroom without even pulling up his trousers. The
+sight is such that I'm just glad I haven't had dinner yet today.
+
+> nw
+Stall
+
+A STALL
+
+   I am in the only stall in Macy's that is working. Not that that is saying
+much because the smell in here is so overpowering that only someone with an
+iron constitution could use the place anyway. The toilet itself is- (no! I
+don't wanna even describe it!)  Officer McAvity enters from the south-east.
+
+> wear mask
+I put on the gas mask.
+
+> x toilet
+Even with the gas mask blocking out the smell, this is a horrible task. I
+wade through
+EDITED HERE FOR CONTENT
+
+and find clue 4. Quite why some joker had dropped it in the toilet is
+anyone's guess. Probably felt it would be the one place in the city no sane
+person would think to look.
+
+> get all
+There is nothing worth taking here.
+
+> se
+I move southeast.
+
+Restroom
+
+MACY'S RESTROOM
+
+   The restroom. As with most restrooms, there's nowhere to actually rest in
+here and as most of the stalls are broken, there's nowhere to do your other
+business besides. The single remaining stall lurks unpleasantly to the
+northwest.  Officer McAvity enters from the north-west.
+
+> s
+I move south.
+
+Macy's
+
+MACY'S
+
+   This isn't the famous department store, it's a classy little restaurant
+where a cup of coffee will set you back a cool month's wages. As for what the
+muffins cost, don't ask...
+   I can see a lot of tables in this joint, and a lot of seriously shady
+characters sitting at them. One good explosion here and half the criminal
+fraternity in the city would go up in smoke. The door to the restroom is
+north and a bar to the west.  Officer McAvity enters from the north.
+
+> s
+I move south.
+
+7th Avenue
+
+7TH AVENUE
+
+   I am on the sidewalk by the side of a diner called Macy's which is partway
+up 7th Avenue. It looks like the sort of rundown dive that most of the people
+I arrest would frequent. Hence not a place to head without backup. The door
+to Macy's is to the north while a dark alley curls around the side of the
+building to the east. Making the place look untidy is my car.  Officer
+McAvity enters from the north.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to slater drive
+Although I drive like a maniac, it seems to take an age to reach Slater Drive
+being, as it is, in the busiest district in the city. Eventually I get there
+and knock over a lamp post as I pull up.
+
+> out
+Slater Drive
+
+SLATER DRIVE
+
+   Slater Drive is in the heart of the city and is where all the lawyers,
+judges, drug dealers, etc, come to work. As such, it is not a nice place to
+be. Walking around here without the right protection is just asking for
+someone to take a shot at you. A massive high-rise building looms to the
+north and the entrance to a tube station is east. I can also see the doorway
+to a shady shop and my car (which appears to be lying dead on the road).
+Officer McAvity enters.
+
+> n
+I move north.
+
+Office building
+
+AN OFFICE BUILDING
+
+   I find myself in the sleazy entrance of a large office building. Stairs
+lead up from here to the next floor. There is also an exotic statue standing
+by the reception desk. Something about it rings a bell deep in my mind.  A
+receptionist is here.  Officer McAvity enters from the south.
+
+> x desk
+There's nothing very interesting about. Off to one side, I spot a fire alarm.
+
+> light alarm
+The moment my lighter comes into contact with the fire alarm, it starts
+emitting a high-pitched whine that is a cross between a cat being strangled
+and a night at the opera.
+   "Fire!" shrieks the receptionist. "Oh my god! FIRE!!!!!"
+   She snatches up her bag, her hat, her coat, pauses to adjust her makeup,
+drops her hat, stoops to pick it up, stumbles over her coat (which she had
+also dropped), curses for a bit, re-applies her makeup, and then is gone
+through the door.
+   Just as well the building isn't really burning down, I reflect.
+
+> u
+I move up.
+
+Corridor
+
+A NONDESCRIPT CORRIDOR
+
+   I am in a nondescript corridor outside of the offices of Talbot, Tung &
+Dodger. A door leads north into the firm while stairs lead up and down.
+Officer McAvity enters from below.
+
+> n
+The door appears to be locked.
+
+> ne
+I can't go in that direction, but I can move north and down.
+
+> x desk
+I can't see my desk from here!
+
+> get all
+There is nothing worth taking here.
+
+> sw
+I can't go in that direction, but I can move north and down.
+
+> s
+I can't go in that direction, but I can move north and down.
+
+> d
+I move down.
+
+Office building
+
+AN OFFICE BUILDING
+
+   I find myself in the sleazy entrance of a large office building. Stairs
+lead up from here to the next floor. There is also an exotic statue standing
+by the reception desk. Something about it rings a bell deep in my mind.
+Officer McAvity enters from above.
+
+> s
+I move south.
+
+Slater Drive
+
+SLATER DRIVE
+
+   Slater Drive is in the heart of the city and is where all the lawyers,
+judges, drug dealers, etc, come to work. As such, it is not a nice place to
+be. Walking around here without the right protection is just asking for
+someone to take a shot at you. A massive high-rise building looms to the
+north and the entrance to a tube station is east. I can also see the doorway
+to a shady shop and my car (which appears to be lying dead on the road).
+Officer McAvity enters from the north.
+
+> enter shop
+Wakeem's bazaar
+
+WAKEEM'S BAZAAR
+
+   All around me is a bizarre bazaar. There are cages containing stuffed
+animals, cages containing stuffed humans and even a couple of vampires
+hanging from spikes on one wall. Part of me wonders if I have momentarily
+stepped into another adventure without realising.  Wakeem the shop owner is
+here.  Officer McAvity enters from outside.
+   "Ah so," Wakeem says, clapping his hands together like an overexcited
+monkey. "Ah so indeed."
+
+> x vampires
+Tucked into a pocket I find clue 2.
+   "Ah so," Wakeem says, clapping his hands together like an overexcited
+monkey. "Ah so indeed."
+
+> get all
+There is nothing worth taking here.
+   "Ah so," Wakeem says, clapping his hands together like an overexcited
+monkey. "Ah so indeed."
+
+> out
+I move out.
+
+Slater Drive
+
+SLATER DRIVE
+
+   Slater Drive is in the heart of the city and is where all the lawyers,
+judges, drug dealers, etc, come to work. As such, it is not a nice place to
+be. Walking around here without the right protection is just asking for
+someone to take a shot at you. A massive high-rise building looms to the
+north and the entrance to a tube station is east. I can also see the doorway
+to a shady shop and my car (which appears to be lying dead on the road).
+Officer McAvity enters from inside.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to blackwater row
+I set off across town, weaving around pedestrians who think they're safe just
+because they're on the pavement, and eventually arive at Blackwater Row.
+
+> out
+Blackwater Row
+
+BLACKWATER ROW
+
+   I am on Blackwater Row, which is pretty much as close to the country as
+this city gets. There is a small path leading off to the northeast and a bank
+to the east. Every other direction seems to be taken up with bushes and
+trees. My car is closeby, parked on someone's daffodil collection.  Officer
+McAvity enters.
+
+> e
+I move east.
+
+Hogwash Bank
+
+HOGWASH BANK
+
+   I am in the Hogwash Bank. This is a pretty small, one room affair with
+just one teller and a queue that's just slightly smaller than the combined
+population of France and Germany. There are doors to the southeast and west.
+A teller is here.  I can see some customers.  Officer McAvity enters from the
+west.
+
+> se
+The teller moves to block me.
+   "I really am most dreadfully sorry, sir," he says, not sounding like he
+means a word of it. "But the back room is strictly off limits for members of
+the public."
+
+> show badge to teller
+The teller sees my badge and goes pale.
+   "You're a cop?" he says.
+   I nod, resisting the urge (with difficulty) to arrest him on the spot for
+failing to call me 'sir'.
+   He steps aside with a defeated sigh.
+
+> se
+Back room
+
+THE BACK ROOM
+
+   I find myself in a seedy little back room that smells of beer, fags and
+drugs. For a moment there I thought I was back at the precinct. Aside from a
+table and a couple of hard wooden chairs in the middle of the floor there is
+little to see here. Apart from the imposing vault to the east.  Officer
+McAvity enters from the north-west.
+
+> rub matchbox
+I give the matchbox a little rub. Not very surprisingly, nothing happens.
+
+> call teller
+I yell and a few seconds later there is the sound of a struggle from the main
+room of the vault. Jimmy "the Snitch" comes staggering in, carrying the clerk
+over his shoulders.
+   "He was gonna run for it, boss," he says, dropping the clerk in an
+unceremonious heap on the floor. "But he ran into me instead."
+   "Is he dead?" I ask.
+   Jimmy kicks the clerk in the guts. The clerk groans.
+   "No," says Jimmy. "Anyway, I gotta be going now. Give the ol' matchbox a
+rub the next time you need me."
+  Jimmy leaves.
+
+> say to teller "open the vault"
+He gapes. "The vault? Are you nuts? I'd get the sack if I opened that without
+the boss' permission!"
+
+> show badge to teller
+"Do it," I say. "Or else."
+   He doesn't ask 'or else what?' which is just as well because there's not a
+damn thing I can do to him right now. He just goes over, types in the code,
+and the vault doors spring open. Well, not spring, but they do open.
+   "I'm outta here," he says. "You're nuts, man, going in there."
+   He turns and leaves at a run.
+
+> e
+Vault
+
+THE VAULT
+
+   I am in the vault. It is a small, closely confined space. Normally I'd be
+feeling claustrophobic in such surroundings but all that GOLD is kinda
+distracting. It is piled on shelves that are stacked floor to ceiling and
+there is more here than an honest guy like myself could make in a lifetime of
+taking bribes from criminals.
+
+   Seated around a table, looking seriously shady, are a group of men. They
+look like they've just stepped out of a Godfather film.  Mr Poorleone, a
+Mafia boss, is here.  I can see some mobsters.
+
+   "Well, well," says Mr Poorleone. "If it ain't the pigs."
+   "Pig actually," I correct. "There's only one of me."
+   As soon as I say this, I realise it probably wasn't the cleverest thing to
+say.
+   This is confirmed to me when Mr Poorleone smiles. "I see." He nods to a
+couple of his 'friends'. "Boys. See our friend out."
+   The 'boys', each of whom is a good seven feet tall and built like Mike
+Tyson's tougher brother, start closing in on me.  Officer McAvity enters from
+the west.
+
+> blow whistle
+PARP! PARP!!
+   That's the sound of the whistle as I blow it.
+   A moment later, the vault is flooded with Secret Service agents.
+   "Gangsters, eh?" one of them says. "You're nicked, the lot of you!"
+   "Where's your proof?" asks Mr Poorleone, not seeming the least bit
+impressed.
+   "Yeah," pipes up another hood. "Yous can't just come barging in and
+arresting us. Yous gotta have-"
+   There is a sudden blast of gunfire and the hood is lying on the floor in a
+pool of his own blood.
+   "Hand slipped," explains an agent. "Itchy trigger finger and all that." He
+glances at Poorleone and the remaining mobsters, all of whom don't look quite
+as confident now as they did a minute ago. "Now move, the lot of you. Before
+it slips again."
+   Not needing to be told twice, Mr Poorleone and the mobsters depart.
+
+> x body
+A-ha! Success! In one pocket I find clue 8!
+
+> get all
+There is nothing worth taking here.
+
+> w
+I move west.
+
+Back room
+
+THE BACK ROOM
+
+   I find myself in a seedy little back room that smells of beer, fags and
+drugs. For a moment there I thought I was back at the precinct. Aside from a
+table and a couple of hard wooden chairs in the middle of the floor there is
+little to see here. Apart from the imposing vault to the east.  Officer
+McAvity enters from the east.
+
+> nw
+I move northwest.
+
+Hogwash Bank
+
+HOGWASH BANK
+
+   I am in the Hogwash Bank. This is a pretty small, one room affair with
+just one teller and a queue that's just slightly smaller than the combined
+population of France and Germany. There are doors to the southeast and west.
+I can see some customers.  Officer McAvity enters from the south-east.
+
+> w
+I move west.
+
+Blackwater Row
+
+BLACKWATER ROW
+
+   I am on Blackwater Row, which is pretty much as close to the country as
+this city gets. There is a small path leading off to the northeast and a bank
+to the east. Every other direction seems to be taken up with bushes and
+trees. My car is closeby, parked on someone's daffodil collection.  Officer
+McAvity enters from the east.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to 7th avenue
+I arrive at 7th Avenue before I know it, having succeeded in putting dents in
+only a couple of other cars.
+
+> out
+7th Avenue
+
+7TH AVENUE
+
+   I am on the sidewalk by the side of a diner called Macy's which is partway
+up 7th Avenue. It looks like the sort of rundown dive that most of the people
+I arrest would frequent. Hence not a place to head without backup. The door
+to Macy's is to the north while a dark alley curls around the side of the
+building to the east. Making the place look untidy is my car.  Officer
+McAvity enters.
+
+> n
+I move north.
+
+Macy's
+
+MACY'S
+
+   This isn't the famous department store, it's a classy little restaurant
+where a cup of coffee will set you back a cool month's wages. As for what the
+muffins cost, don't ask...
+   I can see a lot of tables in this joint, and a lot of seriously shady
+characters sitting at them. One good explosion here and half the criminal
+fraternity in the city would go up in smoke. The door to the restroom is
+north and a bar to the west.  Officer McAvity enters from the south.
+
+> w
+Macy's bar
+
+MACY'S BAR
+
+   I'm at the bar. Normally this would be a cause for celebration but after
+one look at the prices here, I realise celebrating is the last thing I'll be
+doing.
+   The bar extends the length of the room and is one of those posh-type bars
+that are highly resistant to vomit, knives and heads being slammed into them.
+Handy for a place like this.  Talbot is here.  I can see Alfonse the waiter.
+
+   "It's a disgrace," I overhear Talbot (who seems quite drunk) saying to
+Alfonse, "that in this day and age, a decent law-abiding citizen can't just
+be gunned down in public without the police coming and-"
+   He sees me then and goes very quiet.
+  "Evening, officer," he goes on, somewhat more subdued. "Fancy seeing you
+here."  Officer McAvity enters from the east.
+
+> say to alfonse "hello"
+"I know nothing," he says. "I am just a simple bartender. I know not a single
+thing in the whole wide world."
+   "Pull the other one," I say. "It's got bells on."
+   He considers this for a second then says, "ah, but I would not know that.
+For I know nothing."
+
+> show badge to alfonse
+The smile leaves Alfonse's face as I wave my badge at him. "Are you going to
+bust me again, officer?" he asks nervously.
+   "That depends," I say. I've got nothing to bust him with, but if push
+comes to shove I'm sure I'll be able to make up something. "What do you
+know?"
+   "I know about three things, officer. I know the location of clue 7, where
+Freddy has gone for his dinner, and the whereabouts of the meeting. Which one
+do you want?"
+   "All of them."
+   He smiles, suddenly confident again. "Ah, but that is against the rules,
+officer. You must pick only one."
+
+> ask alfonse about clue 7
+"It is here," he says, and hands it over.
+   "Where did you get it from, Alfonse?" I ask suspiciously.
+   He shrugs. "I find it in the restroom."
+
+> z
+I wait...
+   Talbot sits at the bar, mopes for a while, and orders another round of
+drinks. There's only him drinking but I guess he just wants to make sure he
+doesn't run out.
+
+> z
+I wait...
+   "It was all his own stupid fault anyway," Talbot mutters to himself.
+"Travers had it coming. I mean, you don't mess with people like Shady and
+expect to walk away in one piece."
+
+> z
+I wait...
+   "Another round of drinks, pal," Talbot says drunkenly to Alfonse.
+   Alfonse shakes his head. "I think you has had too much for one evening as
+it is, Mr Talbot. Why don't you head off home now?"
+   Talbot throws his wallet on the bar. "Whatsamatter, pal? My money not good
+enough for the likes of you, eh?"
+
+> get wallet
+I take Talbot's wallet.
+
+> open wallet
+I open Talbot's wallet.  Inside Talbot's wallet is Talbot's key, Talbot's
+library card and a bill.
+
+> get key
+I take Talbot's key from Talbot's wallet.
+
+> z
+I wait...
+   "You don't wanna mess with me, pal," Talbot warns. "Not after what
+happened to poor ol' Travers. Snapped my fingers, I did, and Shady had him
+whacked." He points a shaky finger at Alfonse. "Same could happen to you as
+well, if you're not careful."
+
+> z
+I wait...
+   Alfonse nods and a couple of bouncers grab Talbot from behind and drag him
+out of the bar. There is a brief argument, followed by a noise that sounds
+suspiciously like a bouncer hitting a lawyer in the head, and then the
+bouncers come back in. Of Talbot there is no sign.
+
+> e
+I move east.
+
+Macy's
+
+MACY'S
+
+   This isn't the famous department store, it's a classy little restaurant
+where a cup of coffee will set you back a cool month's wages. As for what the
+muffins cost, don't ask...
+   I can see a lot of tables in this joint, and a lot of seriously shady
+characters sitting at them. One good explosion here and half the criminal
+fraternity in the city would go up in smoke. The door to the restroom is
+north and a bar to the west.  Officer McAvity enters from the west.
+
+> s
+I move south.
+
+7th Avenue
+
+7TH AVENUE
+
+   I am on the sidewalk by the side of a diner called Macy's which is partway
+up 7th Avenue. It looks like the sort of rundown dive that most of the people
+I arrest would frequent. Hence not a place to head without backup. The door
+to Macy's is to the north while a dark alley curls around the side of the
+building to the east. Making the place look untidy is my car.  Also here is a
+few of Talbot's teeth.  Officer McAvity enters from the north.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to congleton plaza
+When I arrive at Congleton Plaza, I seem to have a new collection of dents in
+my fender. Funny, I don't remember running over anyone...
+
+> out
+Congleton Plaza
+
+CONGLETON PLAZA
+
+   I am standing by my has-definitely-seen-better-days car outside the police
+station. It is a gaudy building, with one wall painted blue and another
+bright red. I'm sure there's a reason for this, but just what that reason is
+has me beat. Steps lead up to the entrance.  Officer McAvity enters.
+
+> n
+I move north.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Officer McAvity enters from below.
+
+> u
+I move up.
+
+Upper floor
+
+UPPER FLOOR
+
+   This is the upper floor of the police station, where one day (if I play my
+cards right and don't accidentally shoot the wrong person) I'll have my very
+own office. Everything is very plush here, from the receptionist to the
+paintings that adorn the walls. Doorways stands to the north and northwest
+and east is Captain Slorb's office. Downwards are the stairs I just came up.
+Captain Slorb's receptionist is here.  Officer McAvity enters from below.
+
+> nw
+I move northwest.
+
+Store
+
+POLICE EVIDENCE STORE
+
+   This is the store. Evidence seized in raids generally winds up here
+(unless it 'slips' into Captain Slorb's pockets and is never heard of again).
+It is a vast room filled with shelves upon which are stored a literal gold
+mine of items.  I can see the clerk here.  Officer McAvity enters from the
+south-east.
+
+> say to clerk hello
+"McClane!" it says in a strangely robotic voice. "Good of you to come visit
+your old friend. Most folk just come in here and order me around but take the
+time to talk."
+
+> show riot gear to clerk
+"Hmmm," it remarks. "That looks nasty. Well, better replace it with some new
+stuff before someone tries to kill you again."
+   It takes some new riot gear off the shelf and hands it over to me.
+
+> wear gear
+I put on the riot gear.
+
+> se
+I move southeast.
+
+Upper floor
+
+UPPER FLOOR
+
+   This is the upper floor of the police station, where one day (if I play my
+cards right and don't accidentally shoot the wrong person) I'll have my very
+own office. Everything is very plush here, from the receptionist to the
+paintings that adorn the walls. Doorways stands to the north and northwest
+and east is Captain Slorb's office. Downwards are the stairs I just came up.
+Captain Slorb's receptionist is here.  Officer McAvity enters from the
+north-west.
+
+> d
+I move down.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Officer McAvity enters from above.
+
+> s
+I move south.
+
+Congleton Plaza
+
+CONGLETON PLAZA
+
+   I am standing by my has-definitely-seen-better-days car outside the police
+station. It is a gaudy building, with one wall painted blue and another
+bright red. I'm sure there's a reason for this, but just what that reason is
+has me beat. Steps lead up to the entrance.  Officer McAvity enters from
+above.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Officer
+McAvity enters.
+
+> drive to the beach
+I take the coast highway down to the beach and narrowly (though not for want
+of trying) run a couple of bikers off the road before arriving.
+
+> out
+Beach
+
+THE BEACH
+
+   I am on a sunny part of the beach that seems to stretch as far to the
+north and south as the eye can see (or my eyes anyway). Tall sand dunes block
+off most directions, leaving just a winding path to the northwest and a
+gentle path to the west leading down to the sea the only ways out of here.
+   Making a real eyesore of itself, my car is also here.  Officer McAvity
+enters.
+
+> nw
+I move northwest.
+
+Amidst sand dunes
+
+AMIDST SAND DUNES
+
+   I wander through the sand dunes which, though pretty, aren't the most
+exciting bits of scenery I have ever seen. Fortunately, they end a short way
+north where there is a large beach complex. Another path heads off to the
+southeast.  Officer McAvity enters from the south-east.
+
+> n
+I move north.
+
+Outside complex
+
+OUTSIDE THE BEACH COMPLEX
+
+   I am hidden in a clump of bushes just outside a beach complex. It is a
+fairly big structure with, by the look of things, at least a couple dozen
+rooms inside. A path leads around the complex to the east and west whereas
+the main door, in front of which stands a hood with a rifle, is north. A
+little path leads away from all this madness to the south.  Officer McAvity
+enters from the south.
+
+> shoot hood
+I open up and blast him away. He makes quite a mess on the sand but I'm sure
+there's a sand gardener around here who can take care of things like that.
+
+> n
+"I think we should split up, boss," says McAvity. "I'll swing round the back
+of the complex and get 'em that way."
+   Before I can say yes or no, she scuttles off amidst the sand dunes. I seem
+to be on my own again.
+
+> n
+Entrance
+
+ENTRANCE OF THE COMPLEX
+
+   I am standing in the main entrance of the beach complex. It's quite a
+modern place for saying it's so far off the beaten track. A corridor winds
+away northeast and there is a door before me to the west. South lies the
+outside world.
+
+> ne
+I move northeast.
+
+Corridor
+
+A CORRIDOR
+
+   I seem to be in a short corridor leading north and southwest.
+
+> n
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> ne
+I move northeast.
+
+Unfinished corridor
+
+AN UNFINISHED CORRIDOR
+
+   There are gaping holes in the walls of the corridor here, probably
+indicating that either the place is unfinished or in the process of being
+demolished. Piles of bricks and mortar make wandering around here decidely
+dodgy. If I want to risk it, however, I can go northwest, east and southwest.
+
+> e
+I move east.
+
+Bizarrely painted corridor
+
+A BIZARRELY PAINTED CORRIDOR
+
+   The walls of this corridor are painted a strange red colour which looks
+vaguely familiar but I can't quite place. Even more strangely, there are
+several rolls of big, thick carpet lying here for reasons that don't really
+bear thinking about. The corridor extends both east and west while north of
+here is a door.
+
+> e
+I move east.
+
+Small room
+
+A SMALL ROOM
+
+   I have reached the end of the corridor and find myself in a small room
+with doors to the north, east and south. Each door has a number on it which
+I'm sure signifies something really important. West lies a corridor.
+
+> e
+I move east.
+
+Mugsy's room
+
+MUGSY'S ROOM
+
+   This is a small, grotty little room. There is just a bed (with a lewd
+poster above it) and a fridge for decoration. Slumbering on the bed is a
+short, squat man who looks somewhat like a pit bull terrier.
+
+> kill mugsy
+I raise the crowbar high overhead - and bring it crashing down!
+   Exit one gangster.
+
+> x mugsy
+Dead he appears. I guess you could argue that this is cold blooded murder but
+as the old saying goes: rather him than me.
+   About his bloodied person, I find a security card and a knife.
+
+> get all
+I take the security card and the viciously sharp knife.
+
+> w
+I move west.
+
+Small room
+
+A SMALL ROOM
+
+   I have reached the end of the corridor and find myself in a small room
+with doors to the north, east and south. Each door has a number on it which
+I'm sure signifies something really important. West lies a corridor.
+
+> w
+I move west.
+
+Bizarrely painted corridor
+
+A BIZARRELY PAINTED CORRIDOR
+
+   The walls of this corridor are painted a strange red colour which looks
+vaguely familiar but I can't quite place. Even more strangely, there are
+several rolls of big, thick carpet lying here for reasons that don't really
+bear thinking about. The corridor extends both east and west while north of
+here is a door.
+
+> insert security card
+I insert the card and the door slides open with a cool hiss sound.
+
+> n
+I move north.
+
+Ill gotten gains room
+
+ILL GOTTEN GAINS ROOM
+
+   All around me are piled high the ill gotten gains of Mr Shady and his
+cohorts. There are gold bullion shipments, the proceeds from numerous bank
+robberies, enough drugs to keep you high for the rest of your life, jewels
+enough that even my girlfriend would be hard pressed to wear in a week, and
+so on. All in all, a man could die happy just seeing this room. Fitted to the
+wall to one side of the door is an axe.  Also here is a sack of gold, some
+drugs, some stolen bank notes and some priceless jewels.
+
+> get axe
+I take it from the wall.
+
+> s
+I move south.
+
+Bizarrely painted corridor
+
+A BIZARRELY PAINTED CORRIDOR
+
+   The walls of this corridor are painted a strange red colour which looks
+vaguely familiar but I can't quite place. Even more strangely, there are
+several rolls of big, thick carpet lying here for reasons that don't really
+bear thinking about. The corridor extends both east and west while north of
+here is a door.
+
+> w
+I move west.
+
+Unfinished corridor
+
+AN UNFINISHED CORRIDOR
+
+   There are gaping holes in the walls of the corridor here, probably
+indicating that either the place is unfinished or in the process of being
+demolished. Piles of bricks and mortar make wandering around here decidely
+dodgy. If I want to risk it, however, I can go northwest, east and southwest.
+
+> sw
+I move southwest.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> smash door
+I give it a few whacks with my trusty axe and it is soon in pieces.
+
+> w
+Store room
+
+A STORE ROOM
+
+   I am in a store room that seems to be a general dumping area for the
+complex. There is every kind of junk, rubbish and all round garbage in here.
+None of it looks even slightly useful. A door leads out of this mess to the
+east.  Also here is a bell.
+
+> get all
+I take the bell.
+
+> e
+I move east.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> ring bell
+I ring the bell loud enough to wake the dead.
+   A moment later I hear the mobster who was standing guard in the entrance
+come running to see what the disturbance is. I quickly duck into the command
+centre and he goes past without seeing a thing.
+Press a key
+
+> push button 1
+I see poisonous gas flood into the canteen on one of the monitors.
+
+> push button 2
+I see poisonous gas flood into the recreations room on one of the monitors.
+
+> push button 4
+I see poisonous gas flood into Vince's room on one of the monitors.
+
+> push knob 1
+I hear an alarm start to ring and the monitor indicating the canteen flashes
+once.
+   On another monitor I see Vince the violent leave Shady's lair and head to
+the canteen to investigate the disturbance.
+
+> push knob 2
+I hear an alarm start to ring and the monitor indicating the recreations room
+flashes once.
+   On another monitor I see Samuel leave Shady's lair and head to the
+recreations room to investigate the disturbance.
+
+> push knob 4
+I hear an alarm start to ring and the monitor indicating Vince's room flashes
+once.
+   On another monitor I see Boris leave Shady's lair and head to Vince's room
+to investigate the disturbance.
+
+> x monitor 8
+I see the complex's canteen. It is full of poisonous gas.
+   Vince the violent is standing in the canteen. He suddenly grabs his
+throat, staggers around for a while, then collapses dead on the floor.
+
+> x monitor 17
+I see the complex's recreations room. It is full of poisonous gas.
+   Samuel is standing in the recreations room. He suddenly grabs his throat,
+staggers around for a while, then collapses dead on the floor.
+
+> x monitor 13
+I see a grotty little room that looks like a pig has been living in it. It is
+full of poisonous gas.
+   Boris is standing in the canteen. He suddenly grabs his throat, staggers
+around for a while, then collapses dead on the floor.
+
+> s
+I move south.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> s
+I move south.
+
+Corridor
+
+A CORRIDOR
+
+   I seem to be in a short corridor leading north and southwest.
+
+> sw
+I move southwest.
+
+Entrance
+
+ENTRANCE OF THE COMPLEX
+
+   I am standing in the main entrance of the beach complex. It's quite a
+modern place for saying it's so far off the beaten track. A corridor winds
+away northeast and there is a door before me to the west. South lies the
+outside world.
+
+> drop all
+I drop my lighter, the small card, the clue 1, the clue 2, the clue 3, the
+clue 4, the clue 6, the clue 7, the clue 8, the tiny card, my gun, my badge,
+my keys, the slip of paper, the flowers, the whistle, Jimmy's matchbox, the
+picklock, the nifty little crowbar, the viciously sharp knife, the axe, the
+bell, Talbot's key and Talbot's wallet.
+
+> remove gear
+I remove the riot gear.
+
+> drop gear
+I drop the riot gear.
+
+> remove uniform
+I remove my police uniform.
+
+> drop uniform
+I drop my police uniform.
+
+> open door
+I grasp the handle and give it a few hefty shakes before opening the door-
+   With a hideous SCREECH!!!
+   Before I know it, tough fellows in ski masks have sprung out of nowhere
+and beat me into unconsciousness...
+
+   When I wake up, I seem to be somewhere else.
+Press a key to continue
+
+My cell
+
+MY "CELL"
+
+   I am in a little room that is completely bare aside from a hard, wooden
+bed. There is a door set in the south wall which looks locked. Above the bed
+is a small window with bars across it. There don't seem to be a lot of exits
+from this room.
+
+> x bed
+I examine the bed. At first I see nothing out of the ordinary. Then I look
+closer.
+   And closer.
+   And finally I see it.
+   A bomb.
+
+> get bomb
+I take the bomb.
+
+> x window
+Any hopes I might have of getting out of here via the window are soon dashed
+when I see that it is only six inches across and the bars are seriously
+solid. I couldn't even come close to breaking them.
+   Then I catch sight of a face on the other side of the window.
+   Officer McAvity!
+   "They got you, eh, boss?" she says. "Too bad. I can't find a way into the
+complex and there's another hood on the main entrance. Here, take this."
+   She pushes a small capsule through the bars.
+   "Cyanide?" I ask.
+  "No, even better. Explosive. You fit it to the door and it explodes and
+blows you a hole out of here."
+   "And won't that kill me as well?"
+   MvAvity frowns. "Could well do, boss. But it's your choice. I bet you
+won't have long before someone decides to come and finish you off all and for
+once."
+
+> get explosive
+I am already carrying the explosive.
+
+> fit explosive to door
+I attach it to the door as best I can. It doesn't change in appearance much
+but something tells me it's now armed.
+
+> hide under bed
+I crawl under the bed and wedge myself into the corner. Then I cover my eyes.
+(What use this has against an explosion I can't really say.)
+
+BOOOOOOOOOOMMMMMMM!!!!!!!!
+
+   As you might well have guessed, that was the sound of the explosive going
+off. The explosion is tremendously loud and bright but fortunately the bed
+takes the worst of the damage and all I get is a little crisping around the
+edges.
+   When the smoke has cleared I can see that door is well and truly down.
+
+> s
+I move south.
+
+Small room
+
+A SMALL ROOM
+
+   I have reached the end of the corridor and find myself in a small room
+with doors to the north, east and south. Each door has a number on it which
+I'm sure signifies something really important. West lies a corridor.
+
+> w
+I move west.
+
+Bizarrely painted corridor
+
+A BIZARRELY PAINTED CORRIDOR
+
+   The walls of this corridor are painted a strange red colour which looks
+vaguely familiar but I can't quite place. Even more strangely, there are
+several rolls of big, thick carpet lying here for reasons that don't really
+bear thinking about. The corridor extends both east and west while north of
+here is a door.
+
+> w
+I move west.
+
+Unfinished corridor
+
+AN UNFINISHED CORRIDOR
+
+   There are gaping holes in the walls of the corridor here, probably
+indicating that either the place is unfinished or in the process of being
+demolished. Piles of bricks and mortar make wandering around here decidely
+dodgy. If I want to risk it, however, I can go northwest, east and southwest.
+
+> sw
+I move southwest.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> s
+I move south.
+
+Corridor
+
+A CORRIDOR
+
+   I seem to be in a short corridor leading north and southwest.
+
+> sw
+I move southwest.
+
+Entrance
+
+ENTRANCE OF THE COMPLEX
+
+   I am standing in the main entrance of the beach complex. It's quite a
+modern place for saying it's so far off the beaten track. A corridor winds
+away northeast and there is a door before me to the west. South lies the
+outside world.  Also here is my lighter, a small card, a clue 1, a clue 2, a
+clue 3, a clue 4, a clue 6, a clue 7, a clue 8, a tiny card, my gun, my
+badge, my keys, some riot gear, my police uniform, a slip of paper, some
+flowers, a whistle, Jimmy's matchbox, a picklock, a nifty little crowbar, a
+viciously sharp knife, an axe, a bell, Talbot's key and Talbot's wallet.
+
+> get all
+I take my lighter, the small card, the clue 1, the clue 2, the clue 3, the
+clue 4, the clue 6, the clue 7, the clue 8, the tiny card, my gun, my badge,
+my keys, the riot gear, my police uniform, the slip of paper, the flowers,
+the whistle, Jimmy's matchbox, the picklock, the nifty little crowbar, the
+viciously sharp knife, the axe, the bell, Talbot's key and Talbot's wallet.
+
+> wear gear
+I put on the riot gear.
+
+> wear uniform
+I put on my police uniform.
+
+> s
+I move south.
+
+Outside complex
+
+OUTSIDE THE BEACH COMPLEX
+
+   I am hidden in a clump of bushes just outside a beach complex. It is a
+fairly big structure with, by the look of things, at least a couple dozen
+rooms inside. A path leads around the complex to the east and west whereas
+the main door, in front of which lies a dead hood, is north. A little path
+leads away from all this madness to the south.  Also here is the hood's
+rifle.
+
+> s
+I move south.
+
+Amidst sand dunes
+
+AMIDST SAND DUNES
+
+   I wander through the sand dunes which, though pretty, aren't the most
+exciting bits of scenery I have ever seen. Fortunately, they end a short way
+north where there is a large beach complex. Another path heads off to the
+southeast.
+
+> se
+I move southeast.
+
+Beach
+
+THE BEACH
+
+   I am on a sunny part of the beach that seems to stretch as far to the
+north and south as the eye can see (or my eyes anyway). Tall sand dunes block
+off most directions, leaving just a winding path to the northwest and a
+gentle path to the west leading down to the sea the only ways out of here.
+   Making a real eyesore of itself, my car is also here.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.
+
+> drive to malvern row
+The rush hour traffic is a killer but a shortcut I know through the kiddies'
+playground of a local school soon sees me to Malvern Row.
+
+> out
+Malvern Row
+
+MALVERN ROW
+
+   I am standing outside my car on the corner of Malvern Row. A large
+building, some kind of concert hall I guess, looms before me. Malvern Row
+extends southeast.
+
+> se
+I move southeast.
+
+Malvern Plaza
+
+MALVERN PLAZA
+
+   The street opens out into a sizeable plaza here and as with every plaza it
+has a big statue in the middle of it. This one is covered with bird crap and
+surrounded by kids on skateboards. Malvern Row lies northwest and a dark
+alley can be made out to the east.
+
+> e
+A dark alley
+
+A DARK ALLEY
+
+   This is a seriously dark alley, lit hardly at all by the sun and certainly
+not by any kind of artificial lighting. It extends to the east for as far as
+I can make out.
+
+> e
+I move east.
+
+End of the alley
+
+END OF THE ALLEY
+
+   The alley comes to an end at a big pit in the ground. No doubt
+construction workers dug the hole and then promptly forgot about it. There is
+a large telephone pole on this side and a shabby, rundown house on the other.
+Westwards lies the alley.
+
+> e
+I can only move west.
+
+> use axe
+I hack into the telephone pole with my axe and, as always happens in these
+situations, it falls across the length of the pit and provides me with a
+convenient footpath to the east.
+
+> e
+I move east.
+
+Outside Talbot's house
+
+OUTSIDE TALBOT'S HOUSE
+
+   I'm outside the house of Talbot, the city's worst lawyer. The house is
+somewhat like the man himself: small, shabby and very rundown. It also looks
+like it could do with a good shave. A rickety door is set in the front of the
+house.
+
+> unlock door
+I open the door with Talbot's own key.
+
+> e
+Talbot's house
+
+TALBOT'S HOUSE
+
+   Talbot's house is a dismal, rundown affair that doesn't look like it has
+got a good clean in years (if ever!) The floor is strewn with empty pizza
+boxes, broken bottles, dropped food, crushed cans and more junk than you can
+shake a stick at. His tv and video look to be brand new and so does his sofa,
+which kind of indicates that they're all stolen. There is a door to the east
+and the front door lies west.
+
+   From outside the house I hear the sound of someone staggering around
+drunkenly. Could it be Talbot returned from Macy's?
+
+> e
+
+TALBOT'S TOILET
+
+   In most houses this would be the bathroom, but in Talbot's house there is
+no bath, just a gaping hole in the floor. There's no sink, either, or
+anything else you might normally effect to find in a bathroom. Except for the
+toilet, which is giving off a smell so bad I can almost feel it.
+
+   I glance back through the doorway and see that Talbot has staggered into
+his house. He is currently standing in the middle of the floor, swaying
+drunkenly from side to side. More worrying: he has a gun in his hand!
+
+Talbot's toilet
+
+TALBOT'S TOILET
+
+   In most houses this would be the bathroom, but in Talbot's house there is
+no bath, just a gaping hole in the floor. There's no sink, either, or
+anything else you might normally effect to find in a bathroom. Except for the
+toilet, which is giving off a smell so bad I can almost feel it.
+
+> raise seat
+Taking my life in my hands, I reach out and gingerly lift the toilet seat.
+
+> hide
+Gritting my teeth in disgust at the smell emanating from the hole, I gingerly
+lower myself into it.
+   And just in time, for Talbot staggers into the room a moment later. He
+goes to the toilet, bends over it and is violently ill.
+   I try to block my ears against the sound of this but some of it manages to
+flood through. Suffice to say, it's not one of the highlights of my life.
+   Before long Talbot passes out, his head halfway down the toilet. I climb
+back out of the hole and wonder what to do next.
+
+> x talbot
+The sleazy lawyer is shoulder deep in his own toilet. Lying on the floor at
+his side is the gun he was carrying, a nifty little pistol.
+
+> get pistol
+I take the nifty little pistol.
+
+> w
+Outside Talbot's house
+
+OUTSIDE TALBOT'S HOUSE
+
+   I'm outside the house of Talbot, the city's worst lawyer. The house is
+somewhat like the man himself: small, shabby and very rundown. It also looks
+like it could do with a good shave. A rickety door is set in the front of the
+house.
+
+   I hear a noise from the toilet. It sounds like Talbot is waking up!
+
+> e
+   Just as I'm about to go in, Talbot comes staggering out. He sees me and
+raises his hand. Then he stops.
+   "My gun!" he says. "Where's my gun gone?"
+   I show it to him.
+   He sighs. A beaten sigh. "Ah, hell with it. I give up."
+   Talbot sinks down in a heap.
+
+> wait
+Time passes...
+
+> ask talbot about travers
+"Travers is the corpse at the Hard Bar. Shady had him whacked 'cos the
+business deal wasn't going well."
+
+> ask talbot about deal
+"Travers and his business partner, O'Hagen, were looking to open a series of
+high profile drugstores across the city. They came to me 'cos I've got a
+reputation as being someone who can get these matters sorted out without
+having to go through all the red tape. But they reckoned without Shady
+becoming involved."
+
+> ask talbot about shady
+"Turns out Shady wanted in on the deal 'cos he could see there was real money
+involved and what with all the cash he spends on wine, women and more wine,
+he was getting kinda desperate. He ordered me to bring him in as a silent
+partner on the deal." Talboh shrugs. "But then things went wrong."
+
+> ask talbot about what happened
+"O'Hagen was getting itchy about the deal. He didn't like the idea of working
+with a big time crook like Shady. He felt there was a chance he was gonna
+wind up getting killed. I told him that was nuts and Shady was really a nice
+guy when you got to know. I even introduced him to Shady to illustrate my
+point." He shrugs. "Unfortunately for O'Hagen, Shady shot him dead. But I did
+try."
+
+> ask talbot about o'hagen
+"I told you, Shady shot him. Then he had Vince and Mugsy drag the corpse
+somewhere in the country and ditch it. But," Talbot says with a smile, "I
+took precautions. I saw how easy Shady had got rid of O'Hagen when he didn't
+like him. I figured if he can off O'Hagen that easily, he might start
+deciding to off me and Travers as well. Turns out, he did have Travers
+killed, and when that happened I got even more worried. So I moved O'Hagen's
+corpse and I even hid my written confession on it. Tell you everything you
+need to bring Shady down that will. Of course you'll have to find the body
+first. Here, I'll give you directions."
+
+> w
+I move west.
+
+Outside Talbot's house
+
+OUTSIDE TALBOT'S HOUSE
+
+   I'm outside the house of Talbot, the city's worst lawyer. The house is
+somewhat like the man himself: small, shabby and very rundown. It also looks
+like it could do with a good shave. A rickety door is set in the front of the
+house.
+
+> w
+I move west.
+
+End of the alley
+
+END OF THE ALLEY
+
+   The alley comes to an end at a big pit in the ground. No doubt
+construction workers dug the hole and then promptly forgot about it. There is
+a large telephone pole on this side and a shabby, rundown house on the other.
+Westwards lies the alley.
+
+END OF THE ALLEY
+
+   The alley comes to an end at a big pit in the ground. No doubt
+construction workers dug the hole and then promptly forgot about it. There is
+a large telephone pole spanning the pit and a shabby, rundown house on the
+far side. Westwards lies the alley.
+
+> w
+I move west.
+
+A dark alley
+
+A DARK ALLEY
+
+   This is a seriously dark alley, lit hardly at all by the sun and certainly
+not by any kind of artificial lighting. It extends to the east for as far as
+I can make out.
+
+> w
+I move west.
+
+Malvern Plaza
+
+MALVERN PLAZA
+
+   The street opens out into a sizeable plaza here and as with every plaza it
+has a big statue in the middle of it. This one is covered with bird crap and
+surrounded by kids on skateboards. Malvern Row lies northwest and a dark
+alley can be made out to the east.
+
+> nw
+I move northwest.
+
+Malvern Row
+
+MALVERN ROW
+
+   I am standing outside my car on the corner of Malvern Row. A large
+building, some kind of concert hall I guess, looms before me. Malvern Row
+extends southeast.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.
+
+> drive to blackwater row
+I set off across town, weaving around pedestrians who think they're safe just
+because they're on the pavement, and eventually arive at Blackwater Row.
+
+> out
+Blackwater Row
+
+BLACKWATER ROW
+
+   I am on Blackwater Row, which is pretty much as close to the country as
+this city gets. There is a small path leading off to the northeast and a bank
+to the east. Every other direction seems to be taken up with bushes and
+trees. My car is closeby, parked on someone's daffodil collection.
+
+> ne
+I move northeast.
+
+A winding country path
+
+A WINDING COUNTRY PATH
+
+   I seem to be on a winding country path that (wait for it) winds all over
+the place. I can go north and northwest or back southwest if this already
+seems like a bad idea.
+
+> nw
+I move northwest.
+
+A winding path
+
+A WINDING PATH
+
+   The path splits here, with branches going off to the northwest, west,
+southwest and southeast.
+
+> w
+I move west.
+
+A boring little path
+
+A BORING LITTLE PATH
+
+   I am on a boring little path which doesn't really warrant any better
+description than that. It heads off north, east and west.
+
+> w
+I move west.
+
+A curvy path
+
+A CURVY PATH
+
+   The path curves around a corner here. For some reason, there is a bench
+here although quite why someone would put a bench in the middle of nowhere is
+a mystery. The path leads on southeast and east.
+
+> sw
+I move southwest.
+
+Another path
+
+ANOTHER PATH
+
+   But this path has a difference. Lying at the end of it is a dead body. And
+a pretty gruesome one, too. It seems the maggots have been at it.
+
+> x body
+I go through its pockets and, sure enough, I come up lucky. Talbot's
+confession is just where he said it would be.
+
+> get all
+There is nothing worth taking here.
+
+> ne
+I move northeast.
+
+A curvy path
+
+A CURVY PATH
+
+   The path curves around a corner here. For some reason, there is a bench
+here although quite why someone would put a bench in the middle of nowhere is
+a mystery. The path leads on southeast and east.
+
+> e
+I move east.
+
+A boring little path
+
+A BORING LITTLE PATH
+
+   I am on a boring little path which doesn't really warrant any better
+description than that. It heads off north, east and west.
+
+> e
+I move east.
+
+A winding path
+
+A WINDING PATH
+
+   The path splits here, with branches going off to the northwest, west,
+southwest and southeast.
+
+> se
+I move southeast.
+
+A winding country path
+
+A WINDING COUNTRY PATH
+
+   I seem to be on a winding country path that (wait for it) winds all over
+the place. I can go north and northwest or back southwest if this already
+seems like a bad idea.
+
+> sw
+I move southwest.
+
+Blackwater Row
+
+BLACKWATER ROW
+
+   I am on Blackwater Row, which is pretty much as close to the country as
+this city gets. There is a small path leading off to the northeast and a bank
+to the east. Every other direction seems to be taken up with bushes and
+trees. My car is closeby, parked on someone's daffodil collection.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.
+
+> drive to the beach
+I take the coast highway down to the beach and narrowly (though not for want
+of trying) run a couple of bikers off the road before arriving.
+
+> out
+Beach
+
+THE BEACH
+
+   I am on a sunny part of the beach that seems to stretch as far to the
+north and south as the eye can see (or my eyes anyway). Tall sand dunes block
+off most directions, leaving just a winding path to the northwest and a
+gentle path to the west leading down to the sea the only ways out of here.
+   Making a real eyesore of itself, my car is also here.
+
+> nw
+I move northwest.
+
+Amidst sand dunes
+
+AMIDST SAND DUNES
+
+   I wander through the sand dunes which, though pretty, aren't the most
+exciting bits of scenery I have ever seen. Fortunately, they end a short way
+north where there is a large beach complex. Another path heads off to the
+southeast.
+
+> n
+I move north.
+
+Outside complex
+
+OUTSIDE THE BEACH COMPLEX
+
+   I am hidden in a clump of bushes just outside a beach complex. It is a
+fairly big structure with, by the look of things, at least a couple dozen
+rooms inside. A path leads around the complex to the east and west whereas
+the main door, in front of which lies a dead hood, is north. A little path
+leads away from all this madness to the south.  Also here is the hood's
+rifle.
+
+> n
+Entrance
+
+ENTRANCE OF THE COMPLEX
+
+   I am standing in the main entrance of the beach complex. It's quite a
+modern place for saying it's so far off the beaten track. A corridor winds
+away northeast and there is a door before me to the west. South lies the
+outside world.
+
+> ne
+I move northeast.
+
+Corridor
+
+A CORRIDOR
+
+   I seem to be in a short corridor leading north and southwest.
+
+> n
+I move north.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.
+
+> ne
+I move northeast.
+
+Unfinished corridor
+
+AN UNFINISHED CORRIDOR
+
+   There are gaping holes in the walls of the corridor here, probably
+indicating that either the place is unfinished or in the process of being
+demolished. Piles of bricks and mortar make wandering around here decidely
+dodgy. If I want to risk it, however, I can go northwest, east and southwest.
+
+> nw
+I move northwest.
+
+Mundane little corridor
+
+MUNDANE LITTLE CORRIDOR
+
+   I'm at a junction where several corridors meet. I can go northwest, north,
+west and southeast from here.
+
+> n
+I move north.
+
+Yet another damn corridor
+
+YET ANOTHER DAMN CORRIDOR
+
+   I plod on along another corridor, my patience wearing thin very swiftly
+indeed. From this enthralling place I can go both north (where the corridor
+opens out somewhat) and south (where it doesn't).
+
+> n
+Shady's Lair
+
+SHADY'S LAIR
+
+   Almost without warning I find myself in the lair of Mr Shady, the criminal
+mastermind of the city. This is not a friendly place and even the furniture
+has a strangely violent look to it. On one wall are a collection of photos
+blown to giant sizes and on the other some 'hunting trophies'. The way out is
+south.
+
+   "Well, well," says Shady. "You've got a nerve coming here, cop."
+   "Nerve is my middle name," I say.
+   He raises an eyebrow. "Really? Mine's Maurice."
+   He pulls the gun before I see it and the bullet hits me in the chest.
+Fortunately, my riot gear gets in the way and the bullet bounces off.
+   "Of all the damn luck," Shady mutters.
+   "It's over, Shady," I say.
+   "Maybe, maybe not. Do you have enough evidence to take me in, cop? You'd
+better make damn sure you do, because otherwise I'll be out in 24 hours and
+you'll be dead 24 hours after that."
+
+> arrest shady
+"You're nicked, Shady," I say.
+   Ever a lover of irritating cliches, he merely says, "it's a fair cop."  Mr
+Shady enters.
+
+> s
+I move south.
+
+Yet another damn corridor
+
+YET ANOTHER DAMN CORRIDOR
+
+   I plod on along another corridor, my patience wearing thin very swiftly
+indeed. From this enthralling place I can go both north (where the corridor
+opens out somewhat) and south (where it doesn't).   Mr Shady enters from the
+north.
+
+> s
+I move south.
+
+Mundane little corridor
+
+MUNDANE LITTLE CORRIDOR
+
+   I'm at a junction where several corridors meet. I can go northwest, north,
+west and southeast from here.  Mr Shady enters from the north.
+
+> se
+I move southeast.
+
+Unfinished corridor
+
+AN UNFINISHED CORRIDOR
+
+   There are gaping holes in the walls of the corridor here, probably
+indicating that either the place is unfinished or in the process of being
+demolished. Piles of bricks and mortar make wandering around here decidely
+dodgy. If I want to risk it, however, I can go northwest, east and southwest.
+ Mr Shady enters from the north-west.
+
+> sw
+I move southwest.
+
+Main area
+
+MAIN AREA OF THE COMPLEX
+
+   This is the main area of the complex. There are chairs here set around a
+bank of monitors which all look a little too high tech for a beach complex.
+On the walls are paintings of various mobsters I've known over the years,
+most of whom are now safely behind bars. Corridors lead off from here
+northwest, northeast, east and south, whereas there are doors to the north
+and west. I feel almost spoilt for choice.  Mr Shady enters from the
+north-east.
+
+> s
+I move south.
+
+Corridor
+
+A CORRIDOR
+
+   I seem to be in a short corridor leading north and southwest.  Mr Shady
+enters from the north.
+
+> sw
+I move southwest.
+
+Entrance
+
+ENTRANCE OF THE COMPLEX
+
+   I am standing in the main entrance of the beach complex. It's quite a
+modern place for saying it's so far off the beaten track. A corridor winds
+away northeast and there is a door before me to the west. South lies the
+outside world.  Mr Shady enters from the north-east.
+
+> s
+I move south.
+
+Outside complex
+
+OUTSIDE THE BEACH COMPLEX
+
+   I am hidden in a clump of bushes just outside a beach complex. It is a
+fairly big structure with, by the look of things, at least a couple dozen
+rooms inside. A path leads around the complex to the east and west whereas
+the main door, in front of which lies a dead hood, is north. A little path
+leads away from all this madness to the south.  Also here is the hood's
+rifle.  Mr Shady enters from the north.
+
+> s
+I move south.
+
+Amidst sand dunes
+
+AMIDST SAND DUNES
+
+   I wander through the sand dunes which, though pretty, aren't the most
+exciting bits of scenery I have ever seen. Fortunately, they end a short way
+north where there is a large beach complex. Another path heads off to the
+southeast.  Mr Shady enters from the north.
+
+> se
+I move southeast.
+
+Beach
+
+THE BEACH
+
+   I am on a sunny part of the beach that seems to stretch as far to the
+north and south as the eye can see (or my eyes anyway). Tall sand dunes block
+off most directions, leaving just a winding path to the northwest and a
+gentle path to the west leading down to the sea the only ways out of here.
+   Making a real eyesore of itself, my car is also here.  Mr Shady enters
+from the north-west.
+
+> enter car
+My car
+
+MY CAR
+
+   I'm seated in my car, a beat-up (make that seriously beat-up) model from
+the late 30's. The 1830's that is. As such, it's seen better years, if not
+better decades. The dashboard is one horrid mess of cobwebs. Lurking
+somewhere around is a glove box although what with all the assorted junk I
+tend to decorate the inside of my car with, it's somewhat difficult to locate
+just where.  Also here is an envelope and a small creased note.  Mr Shady
+enters.
+
+> drive to congleton plaza
+When I arrive at Congleton Plaza, I seem to have a new collection of dents in
+my fender. Funny, I don't remember running over anyone...
+
+> out
+Congleton Plaza
+
+CONGLETON PLAZA
+
+   I am standing by my has-definitely-seen-better-days car outside the police
+station. It is a gaudy building, with one wall painted blue and another
+bright red. I'm sure there's a reason for this, but just what that reason is
+has me beat. Steps lead up to the entrance.  Mr Shady enters.
+
+> n
+I move north.
+
+Police station
+
+POLICE STATION
+
+   I am in my everyday place of work - the police station. It looks pretty
+much in the same depressing state as usual. Old Moe, the duty sergeant, is
+asleep behind his desk, there are a couple of suspects chained to a radiator,
+and the wanted board is looking as full as ever. My office is to the north
+and a flight of stairs lead up to where all the important people have their
+offices. Congleton Plaza is south and down through the doors.  Old Moe is
+asleep here.  Mr Shady enters from below.
+
+> u
+I move up.
+
+Upper floor
+
+UPPER FLOOR
+
+   This is the upper floor of the police station, where one day (if I play my
+cards right and don't accidentally shoot the wrong person) I'll have my very
+own office. Everything is very plush here, from the receptionist to the
+paintings that adorn the walls. Doorways stands to the north and northwest
+and east is Captain Slorb's office. Downwards are the stairs I just came up.
+Captain Slorb's receptionist is here.  Mr Shady enters from below.
+
+> e
+I move east.
+
+Captain Slorb's office
+
+CAPTAIN SLORB'S OFFICE
+
+   I am in Captain Slorb's office, the boss of this particular precinct. His
+desk crouches hungrily by the mock Tudor fireplace, above which hang various
+of his trophies. To one side of the fireplace is a glass cabinet in which
+rest more trophies. Other than this is his desk. Oh, and a table covered with
+trophies. A doorway leads west.  I can see Captain Slorb.
+
+   "You're nicked, Shady," says Slorb. "McClane got you fair and square."
+   Shady sighs. "I suppose this is it." He shakes his head in despair then
+breaks down and has a good sob.
+Press a key to continue
+
+CITY HALL
+
+   I am standing on a large stage at City Hall amidst thousands of yelling,
+screaming, bawling people. I don't think I have ever seen anything quite so
+horrendous in my life. A long narrow passage leads out of this place to the
+south.
+
+   "DICK MCCLANE!" booms out a voice through a megaphone (or maybe just
+someone with a really big mouth, it's difficult to tell) and I numbly wander
+across the stage to where the Mayor is standing.
+   "Dick," he says in a cheerful voice. "You have saved the city from peril,
+you have spared the common people from the threat of evil, you have even paid
+your unpaid parking ticket collection. For that, and many other things, you
+have our undying thanks."
+   I mumble something along the lines of how incredibly grateful to receive
+the Mayor's thanks I am, how my life will never be the same again, how I've
+lived for this moment my entire life. Not wanting to ramble, I settle for
+expressing this as "um."
+   The Mayor nods understandingly. "And in recognition of your achievement,
+we present to you this trophy."
+   A minion in City Hall garb wanders off and casually hands me my 'trophy'.
+It appears to be a Teletubbie wearing a gold hat and carrying a wand.
+   "I don't know what to say," I murmur. Quite truthfully.
+
+The rest of the day passes in pretty much the same way...
+You scored 214 out of the maximum 240!
+That is 89% of the game!
+You finished 26 points short.
+
+[Press any key to end]

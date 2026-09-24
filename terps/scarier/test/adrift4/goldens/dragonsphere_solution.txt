@@ -1,0 +1,53 @@
+get backpack
+get jacket
+look in jacket
+get key
+n
+w
+d
+pull lever
+get cube
+w
+w
+get crystal
+e
+e
+n
+n
+d
+n
+use key
+n
+find sound
+throw crystal
+n
+get sphere
+n
+e
+n
+w
+get flower
+e
+u
+u
+talk to wizard
+go into portal
+hop on dragon
+w
+n
+w
+read wall
+get pendant
+e
+s
+e
+ask dragon to take you to Mount Draco
+hop on
+n
+knock on door
+n
+u
+talk to dragon
+win
+quit
+y

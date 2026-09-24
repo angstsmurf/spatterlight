@@ -1,0 +1,237 @@
+Loading game...
+
+The Doomed World of Aquarius
+Welcome to the world of Atrius. His is a slowly decaying world. This decay is
+caused by the evil sorcerer Malcor. Atrius believes it his destiny to destroy
+Malcor. And Malcor believes himself to be invincible. Who will prevail? Only
+you can decide that.
+
+Flowery Meadow
+You are in  A Flowery meadow with flowers all over.   You can only move
+north.
+
+> n
+You move north.
+
+Northern Meadow
+This is the northern part of the Flowery meadow. You see a menacing looking
+forest to the north.  Also here is A long Sword.  You can move north and
+south.
+
+> n
+You move north.
+
+Forest Entrance
+The entrance to a dark and gloomy forest. It does not appear to be a pleasant
+place to be.  The evil Malcor is here!
+
+> goodbye
+The evil sorcerer suddenly vanishes into a puff of smoke and you are alone.
+
+> e
+You move east.
+
+Forest Path
+This is a dark forest path surrounded by some of the tallest trees you have
+ever seen. You can barely see the sky or the sunlight.  An Ugly Green Ogre is
+here.  You can move north and west.  Ogre hits you.
+
+> n
+You move north.
+
+Forest Clearing
+This is a clearing in the forest it is odd how it suddenly appeared.   Also
+here is A Shiny magical Stone.  You can move north and south.
+
+> n
+You move north.
+
+North of clearing
+This is an area just north of the clearing and in the distance you can see
+what appears to be a large castle. You will have to move closer to be sure.
+A Larger green Ogre is here.  You can move north and south.  Ogre hits you.
+
+> n
+You move north.
+
+Edge of Forest
+This is the Northern edge of the Forest. You can definitely see a castle to
+the north now.  Fenrik is here.
+
+> farewell
+The Aged Fenrik disappears as he walks into the Forest.
+
+> n
+You move north.
+
+Front of Castle
+Your in front of the huge castle. It seems to reach so high you can't even
+see the top of it. The Door is closed and locked. Maybe you should search for
+another way in.  You can move east, south and west.
+
+> e
+You move east.
+
+Eastern side of Castle
+You are on the eastern side of the castle. There does not appear to be anyway
+in from here.  You can move east and west.
+
+> e
+You move east.
+
+Rear of castle
+This is the Rear of the Castle. You see a rope ladder leading to a second
+floor balcony of the Castle.  You can move east, west and up.
+
+> u
+You move up.
+
+Second floor Balcony
+You are on the second floor balcony. You can enter the forboding castle from
+here.  Also here is Magical Potion.  You can move north and down.
+
+> n
+You move north.
+
+Second Floor Entrance to Castle
+This is the Entrance you found to the castle. It is somewhat dark yet you are
+surprised by the natural illumination the walls are giving off.  An evil
+armour wearing Knight is here.  You can move south and west.
+
+> w
+You move west.
+
+Hallway
+This is a long winding hallway. It appears to go on forever. The door behind
+you is now gone. It appears that if you want to leave you will have to find
+another way out.  You can only move north.
+
+> n
+You move north.
+
+Hallway (in front of painting)
+You are in the hallway. In front of you is an ominous painting. It appears to
+be the Earth but it is engulfed completely in flames.  You can move north and
+south.
+
+> n
+You move north.
+
+End of Hallway
+You have finally reached the end of the long Hallway. You hear pitiful
+screams coming from the East.  You can move north, east and south.
+
+> n
+You move north.
+
+Stairwell (2nd Floor)
+It appears to be a winding stairwell that reaches to the upper levels of the
+Castle.  Also here is Glowing magical Stone.  You can move south and up.
+
+> u
+You move up.
+
+Stairwell (5th floor)
+It seems to go on forever and you have not seen an exit to it yet. You feel
+compelled by something to keep going though.   You can move up and down.
+
+> u
+You move up.
+
+Stairwell (10th floor)
+After what seems like ages of climbing you finally reach the top of the
+stairwell. You feel chills run up your spine as you reach for the door in
+front of you.  You can move west and down.
+
+> w
+You move west.
+
+10th floor entrance
+This is the entrance to the 10th floor. You smell the stench of rotting
+flesh. Be cautious.  You can move east and west.
+
+> w
+You move west.
+
+Hallway (10th floor)
+This is another long hallway. You hear screams coming from a room near the
+end of it.  You can move north and east.
+
+> n
+You move north.
+
+End of hallway
+You finally reach the end of the hallway. The room you heard the screams come
+from is to your East.  You can only move east.
+
+> secretweapon97531
+Here you go chris :)
+
+> e
+You move east.
+
+Entrance to Torture room
+This is a small Hall that leads to the torture room. There is a horrid
+looking mangled body here.  You can only move east.
+
+> e
+You move east.
+
+Torture room
+This is what looks like a torture room you can not imagine the horrors that
+people have faced here.  An Evil looking Executioner is here.  You can only
+move west.
+
+> attack executioner
+You hit Executioner with Secret Weapon.  The Executioner falls to the ground
+and his body disintegrates. All that is left is a magical amulet. Maybe you
+should take this Impressive amulet.
+
+> take amulet
+You Take the magic amulet and it Vanishes. All of a sudden you feel a surge
+of power rush thru your body. You feel much stronger now.
+
+> w
+You move west.
+
+Entrance to Torture room
+This is a small Hall that leads to the torture room. There is a horrid
+looking mangled body here.  You can move east and west.
+
+> w
+You move west.
+
+End of hallway
+You finally reach the end of the hallway. The room you heard the screams come
+from is to your East.  You can move north, east and south.
+
+> n
+You move north.
+
+Mirror room
+This is an odd room it has a Huge mirror that covers an entire wall. Yet it
+has a sort of rippled effect to it. It sort of resembles water when a small
+stone is thrown into it. Yet at the touch it appears to be solid.
+
+> break mirror
+The Mirror Shatters and everything goes dark.
+
+Entrance to Malcor's Void
+Suddenly you have appeared somewhere out of the castle. In fact this looks
+like no part of Aquarius that you have seen. Then suddenly you hear Malcor's
+voice. "HaHa I am surprised that you have been able to make it this Far my
+young Atrius. But things are much different here. I control this place and I
+dont think you will be able to survive here." He ends with a maniacal laugh
+and it is silent again. You can only Move East.
+
+> east
+Will Atrius ever find Malcor? Will he be able to survive the void? You will
+be able to find out soon when Part2 of Aquarius is released. Until then I
+leave you with those dreaded words.
+
+......To Be Continued........
+You scored 60 out of the maximum 95!
+That is 63% of the game!
+You finished 35 points short.
+
+[Press any key to end]

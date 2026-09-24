@@ -1,0 +1,144 @@
+Loading game...
+
+First Day
+You are Player , an average four foot tall, short dark hair, and hazel eyed,
+10 year old.  The alarm beeps loudly and you jolt out of bed. You are nervous
+and excited all at the same time. You have to get dressed, eat breakfast, and
+get to the bus stop on time.  If you need a hint on what to do, just type
+HINT. Or if a hint isn't available, type INFO. Please type READ ME first.
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Bedroom
+This is your bedroom, that you share with you bratty little brother.
+Surprisingly, your room is clean. Mom made you clean it last night, so you'd
+have more time to play after school. You share a bunk bed with Shane, and you
+were lucky enough to win the top bunk in a coin toss.  You are lucky on
+account of you have a tv, and a ton of toys in your room, which are kept in a
+cabinet, along with your school uniforms.  Shane is here.  You can only move
+north.
+
+> open cabinet
+You open the cabinet.  Your toys and your uniform are inside the cabinet.
+
+> get uniform
+You take your uniform from the cabinet.
+
+> get dressed
+You put on your dull looking uniform, and are now dressed for school.
+
+> e
+You move east.
+
+Living Room
+This is your living room. It is large and roomy, and holds a couch, a chair,
+an entertainment center, and  a coffee table. The carpet is a plush cream
+color, and Mom has a fit if you spill anything on it. Your parents room is to
+the south, but you are not allowed to go in there.  You can move north and
+west.
+
+> n
+You move north.
+
+Dining room
+This is the small room north of the living room, where you family gathers for
+dinner There is a dinette here and some chairs.  You can move south and west.
+
+> w
+You move west.
+
+Kitchen
+The kitchen is small, but comfortable. There are a few cupboards, a stove,
+refrigerator, and a table for preparing food.  You can only move east.
+
+> open refrigerator
+You open the refrigerator.  A gallon of milk is inside the refrigerator.
+
+> get milk
+You take a gallon of milk from the refrigerator.
+
+> look at table
+The sturdy table is made from wood, and is near the back door.  Mom usually
+uses the table when she has to cut vegetables up to make salad, or something.
+ On the Kitchen table is a cereal bowl, a spoon and a box of Frooties.
+
+> take bowl
+You take a cereal bowl from the Kitchen table.
+
+> take spoon
+You take a spoon from the Kitchen table.
+
+> take box of Frooties
+You take a box of Frooties from the Kitchen table.
+
+> pour milk in bowl
+You pour the milk in the bowl, and watch as the Frooties begin to float to
+the rim of the bowl.
+
+> e
+You move east.
+
+Dining room
+This is the small room north of the living room, where you family gathers for
+dinner There is a dinette here and some chairs.  You can move south and west.
+
+> eat breakfast
+You chow down on the large bowl of Frooties you prepared for yourself. You
+dive your spoon in over and over, until you finally get to the bottom of the
+bowl. Now that you ate all the cereal, you pick the bowl up and slurp the
+sugar logged  milk at the bottom of the bowl. MMM!
+
+> s
+You move south.
+
+Living Room
+This is your living room. It is large and roomy, and holds a couch, a chair,
+an entertainment center, and  a coffee table. The carpet is a plush cream
+color, and Mom has a fit if you spill anything on it. Your parents room is to
+the south, but you are not allowed to go in there.  You can move north, east
+and west.
+
+> e
+You move east.
+
+Front yard
+This is your front yard. The fresh cut green grass is worn in spots where you
+and your brother play with your wrestling set. There is a patio table and
+some chairs. Dad likes to barbecue every weekend, so his grill is here too.
+You can move east and west.
+
+> e
+You move east.
+
+On the side walk
+You are on the sidewalk in front of your house. You can see your house to the
+west, and to the southwest is your nasty neighbors house, you stay away from
+there ever since the lady and your mom had an argument over trash. The trash
+didn't have anything to do with garbage. It's funny how adults can still act
+like children.  You can move south and west.
+
+> s
+You move south.
+
+In front of the Neighbor's house
+You walk along the front of the neighbors house,  tapping the fence as you
+go. The house is surrounded by a  small, old, and badly in need of repair,
+chain link fence. Th house itself is red brick, and a white covered porch
+lies to the front of the house.  You can move north and south.
+
+> s
+You move south.
+
+At the Bus Stop
+You are standing at the bus stop. Is is on the south side of your neighbor's
+house. Thankfully they leave early, so you don't have to worry about them.
+The area you are standing in is covered with dirt  and pebbles. There is a
+yellow fire hydrant on the corner. And several children are here waiting for
+the bus.  You can only move north.
+
+> quit
+Do you really want to quit? [Y/N]

@@ -1,0 +1,20 @@
+buy candy bar
+give candy bar to Mr.White
+s
+w
+take bag
+wear bag
+open crate
+take rope
+e
+lift rack
+take gun
+n
+threaten white
+tie up white
+open cash register
+take cash
+e
+step on mat
+quit
+y

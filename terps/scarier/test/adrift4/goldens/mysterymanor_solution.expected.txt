@@ -1,0 +1,671 @@
+Loading game...
+
+Mystery Manor
+
+MYSTERY MANOR
+
+Will you survive?
+
+     You have been driving down this dusty dirt road for nearly 45 minutes
+now, when a light rain begins to fall.  You have spent the past two hours
+driving on the interstate, and are anxious to get to the manor, which you
+purchased at a reduced rate. It seems it has been on the market for a few
+years, and no one was even interested in the house, because of the strange
+disappearance of the family that lived there. It doesn't concern you much,
+you are just anxious to check this mysterious place out.
+    You flip on your windshield wipers as the rain begins to pelt down,
+giving a mist over the beaten dirt road.  The beams of light from your car
+cast erie shadows on the thick growth of trees that line the road. A bright
+flash streaks to the ground, along with an ear shattering boom, as you slam
+on the brakes.
+  All is dark. You drift in and out of conciousness. You feel the cold rain
+beat down on your  face, as you struggle to open your eyes.
+    You pull yourself together and realize that the flash you saw was
+actually lightning hitting a tree near the roadside, that you were not lucky
+enough miss. Your car is in shambles, much like you at the moment.  All the
+contents of your glove compartment lay scattered on the front seat, and the
+floor boards. At least the air bag worked, and packs a whopping punch.
+     Your only choice now is to walk the rest of the way to the manor.
+Grabbing the flashlight off the front seat, you struggle with the door and
+finally manage to get out of your smashed up car. If  you had delayed any
+longer, you would surely have been crushed to death by the massive pine.
+     While climbing over the tree laying across the muddy road, you catch
+your coat on a gnarled branch. Unable to get your coat free, you leave it
+behind, and head up the road.
+    You catch a glimpse of something out of the corner of your eye, but turn
+the flashlight in that direction, and see nothing but trees, dripping from
+the heavy rain. You round the corner, as lightening streaks across the sky,
+giving enough light to see the manor just ahead. You go through the stories
+in your mind about the family that lived here. You dismiss all the stories of
+alien abduction, just walking away from their lives,  a crazy murderer
+killing  them and eating their rotting flesh.
+     It is all nonsense to you. You'll have plenty of time to go through the
+house, and just maybe find out the truth. You will figure out what to do
+about your car later. All the utilities should be in working order, but you
+are not sure if there is a phone. Luckily you brought your cell phone with
+you.     Finally you make it up a small  muddy slope to the front walkway. Go
+figure that the rain is reduced to a light sprinkle, but of no importance to
+you since you are soaking wet, and shiver in the cold night air.
+
+> use cell phone
+You try to dial out, but all you get in return is static. The force from the
+crash must have knocked something loose. Or the tall trees that cover the
+entire area may be causing some kind of interference.
+
+> use flashlight
+You rotate the flashlight into the on position, and it shines brightly for a
+moment, then begins to fade. You had sense enough to bring the flashlight
+with you, but not sense enough to make sure it had fresh batteries.
+
+> drop flashlight
+You drop the flashlight.
+
+> drop cell phone
+What's that? A spook got your tongue?
+
+> n
+You move north.
+
+Front Stoop
+You are standing on the front stoop which overlooks the front walkway to the
+south. You notice that the concrete slab you are standing on has the letters
+A M deeply imprinted into the cement.  The same lantern style lighting
+fixtures that are on the brick columns, next to the front walkway, also  are
+perched high on the wall next to the front door.   You can only move south.
+
+> open door
+You left the keys to the manor in your smashed up car. Your only hope is that
+the door or window will be unlocked. You reach out and slowly turn the brass
+knob.  It creaks as you reach out with your other hand and slowly push the
+door inward. You let out a scream as a strong chilling wind gusts from behind
+you, throwing the door open, then smacking on the wall, before slamming shut
+in your face.
+
+> open door
+You look around the front area of the house, and see nothing. You carefully
+turn the knob and push the heavy door open. Once again it creaks, sending a
+chill up and down your already soaked and freezing body.  You quickly, but
+cautiously, enter the foyer of the  creepy manor, closing the door behind
+you. The door seems to be a bit warped, all of the sudden, and won't close
+all of the way.
+
+> nw
+You move northwest.
+
+Family Room
+You are in the family room, which lies north of the living room. There is a
+nook of sorts, containing a window,  on the west wall that looks out into the
+twisted maze of the thick woods. Sliding arcadia doors to the north, lead
+outside to the sun deck. The room appears to be quite cozy,  and inviting.
+Erie shadows dance on the walls from the reflection of the lightning
+outdoors.  You can move north, east, south, down and southeast.
+
+> e
+You move east.
+
+Breakfast Nook
+This is a small breakfast nook with two windows side by side on the north
+wall, and one to the west, looking out to the sun deck. Looking to the north,
+out the double pane glass, you see steps leading down to a path that
+disappears into the thick tangle of trees. There is a small long table with a
+bench seat sitting in front of the northern windows.  The room is lit up
+often by the flashes of lightning, from the storm.  You can move east, south
+and west.
+
+> take vase
+As you reach out for the vase, the air turns cold, and the grooved glass vase
+slides across the table. Not believing your eyes, you reach for the vase
+again. Once again the vase slides across the table, out of your reach.
+
+> e
+You move east.
+
+Downstairs Hall
+This is a small hallway that looks out to a screened in porch through a small
+window on the north wall, which would provide ample lighting if not for the
+tangle of trees that block the sun light from streaming in. doorways lead to
+the east and south, and you can move in to a small bathroom.  The hallway is
+dimly lit by a soft light hanging securely on the wall.  You can move north,
+east, south, west, down and in.
+
+> in
+You move in.
+
+Downstairs Bath
+You are in a small downstairs bathroom that is painted in a bright yellow. It
+some how gives you the feel that it is actually larger than it really is.
+Pale orange stenciled flowers make a line around the top portion of the wall,
+ drawing your attention away from the tiny room, that contains nothing more
+than a toilet and cabinet style sink.  The room is very dark, an occasional
+flash can be seen reflecting off the hallway walls.  You can only move out.
+
+> open cabinet
+You open the cabinet.  The blood stained towel is inside the cabinet.
+
+> get towel
+You take the blood stained towel from the cabinet.
+
+> examine stain
+You examine the stain closer and sure that it is blood. You hold the towel up
+to get  better look at it, and notice that the stain takes the shape of a
+face. Where the eyes and mouth  would be remains white.
+     While you hold the towel up, the  dried stain begins to turn moist, and
+soon begins dripping to the floor. In your sudden fear, you throw the towel
+into the sink.
+    You watch the towel closely as if expecting it to leap from the sink, and
+it appears that water runs over it, rinsing the from the towel. Blood stained
+water swirls around the drain hole, before going down.
+
+> get wet towel
+You take the clean, wet towel from the cabinet style sink.
+
+> out
+You move out.
+
+Downstairs Hall
+This is a small hallway that looks out to a screened in porch through a small
+window on the north wall, which would provide ample lighting if not for the
+tangle of trees that block the sun light from streaming in. doorways lead to
+the east and south, and you can move in to a small bathroom.  The hallway is
+dimly lit by a soft light hanging securely on the wall.  You can move north,
+east, south, west, down and in.
+
+> s
+You move south.
+
+Small Hall
+This is a small hallway , with worn tan carpeting, that leads to the garage.
+It must have been used often, coming and going,  since the carpet is not only
+worn but slightly darkened from the heavy foot traffic.  The small and dark,
+reflections dance across the walls with every flash.  You can move north,
+south and in.
+
+> s
+You move south.
+
+Garage
+This is a very large garage that can hold at least two cars,  maybe three. At
+the moment it looks as if it had been cleaned out. There are no vehicles, no
+cabinets, no windows, and the textured concrete floor is free from any kind
+of automobile drippings, such as oil or antifreeze. Most peculiar, since the
+floor is textured, that some kind of stain would be impossible to get out. It
+is as if it was never used, even near the doorway seems untouched , unlike
+the floor just beyond the doorway to the north.
+    Two white slatted doors stand ajar on the north wall, giving an open view
+into a storage closet, which also looks to be untouched by even the slightest
+bit of dust or grime.  A small breaker box is on the wall near the hall door.
+  The room is dark, and it is hard to see.  You can only move north.
+
+> open breaker box
+You open the breaker box.  The switch is inside the breaker box.
+
+> flip switch
+You flip the switch and lights blink for a few moments, shadows creep in and
+out making your heart flutter,  then lights finally come to life. You feel
+much better now that you will be able to see clearly.
+
+> n
+You move north.
+
+Small Hall
+This is a small hallway , with worn tan carpeting, that leads to the garage.
+It must have been used often, coming and going,  since the carpet is not only
+worn but slightly darkened from the heavy foot traffic.  The hall is dimly
+lit from the light in the other hallway.  You can move north, south and in.
+
+> n
+You move north.
+
+Downstairs Hall
+This is a small hallway that looks out to a screened in porch through a small
+window on the north wall, which would provide ample lighting if not for the
+tangle of trees that block the sun light from streaming in. doorways lead to
+the east and south, and you can move in to a small bathroom.  The hallway is
+dimly lit by a soft light hanging securely on the wall.  You can move north,
+east, south, west, down and in.
+
+> w
+You move west.
+
+Breakfast Nook
+This is a small breakfast nook with two windows side by side on the north
+wall, and one to the west, looking out to the sun deck. Looking to the north,
+out the double pane glass, you see steps leading down to a path that
+disappears into the thick tangle of trees. There is a small long table with a
+bench seat sitting in front of the northern windows.  the nook is lit by a
+small light hanging from the ceiling.  You can move east, south and west.
+
+> w
+You move west.
+
+Family Room
+You are in the family room, which lies north of the living room. There is a
+nook of sorts, containing a window,  on the west wall that looks out into the
+twisted maze of the thick woods. Sliding arcadia doors to the north, lead
+outside to the sun deck. The room appears to be quite cozy,  and inviting.
+The room is softly lit by a fixture hanging from the ceiling.  You can move
+north, east, south, down and southeast.
+
+> se
+You move southeast.
+
+Foyer
+You are in the large foyer with a grand staircase, that appears to have been
+hand carved from an unknown wood, leads to the upper level of the manor. The
+floor is covered with a green and white marbled tile that ends at the
+doorways of the adjoining rooms. You notice a door under the staircase, and
+open doorways to the west, north, and east. The front stoop lies just to the
+south, through the front door.  The room is fairly lit by a soft light
+hanging from the ceiling.  You can move east, south, west, up, in and
+northwest.
+
+> u
+You move up.
+
+Upstairs Hall
+You are on the landing at the top of the stairs, that looks down to the foyer
+below. It seems the house disects into several directions here,  and a window
+is on the south wall, high above the front door down below.  A small frosted
+crystal light is securely fastened to the wall near the staircase.  You can
+move north, east, down, northeast, southwest and northwest.
+
+> sw
+You move southwest.
+
+Bedroom
+This is a bedroom that  seems to have belonged to a little girl. The walls
+are a light pink, and white lacey curtains adorn the windows. The frilly
+canopy bed sits catty cornered in the southwest portion of the room,  very
+near to the southern bay window, that looks to the front wooded area of the
+home. The room is unlike the others in the respect that dust covers a small
+vanity and mirror, the bed and window sill.    The room is lit by a porcelain
+princess lamp that sits on the vanity.  You can move north, in and northeast.
+ A swirl of icey air rushes past you, with bringing the sound of a womans
+screams.   Just as you are about to make a run for it , the bloody
+decapitated body blocks your way. Holding her head in front of your face, so
+she may get a good look at you, the bloody head whimpers, "You are not the
+one" with that the ghost flees with a ear piercing scream.
+
+> look on bed
+The white canopy is adorned with pink bedding trimmed in frilly white lace. A
+layer of dust covers the neatly made bed.  The porcelain doll is on the
+canopy bed.
+
+> get doll from bed
+You take the porcelain doll from the canopy bed.
+
+> break doll
+You look at the doll, and its dark eyes seem to see right through you. You
+look at the red pouty lips and see them begin to part slightly. You scream as
+you drop the doll to the ground. With a crash the head shatters into pieces.
+A golden locket lies in the mass of broken doll pieces, and the white lacy
+bodice lies face down next to  the locket.
+
+> ne
+You move northeast.
+
+Upstairs Hall
+You are on the landing at the top of the stairs, that looks down to the foyer
+below. It seems the house disects into several directions here,  and a window
+is on the south wall, high above the front door down below.  A small frosted
+crystal light is securely fastened to the wall near the staircase.  You can
+move north, east, down, northeast, southwest and northwest.
+
+> e
+You move east.
+
+Long Hall
+This is a long, dark hallway that runs from the east and west. There seems to
+be a draft flowing down the hall with no apparent source, since it runs down
+the center of the house, and no windows are near. Some kind of lighting
+fixtures hang from the ceiling, but must have burned out long ago.  You can
+move north, east, south, west and up.
+
+> u
+You move up.
+
+Attic
+You are standing in a small dark attic. It is an open area, with no apparent
+windows. There is a strange smell in the air, and cold spots shift around the
+room. The attic contains boxes and some old furniture, and various wall
+hangings, and paintings.  You can only move down.
+
+> wipe picture
+You begin wiping the painting with the wet towel, and soon it begins to
+reveal a painting of a woman wearing a white dress, and appears to be running
+from something. The woman has a fearful expression on her pale face. The name
+plate on the painting is titled "Basement".
+
+> drop towel
+You drop the clean, wet towel.
+
+> d
+You move down.
+
+Long Hall
+This is a long, dark hallway that runs from the east and west. There seems to
+be a draft flowing down the hall with no apparent source, since it runs down
+the center of the house, and no windows are near. Some kind of lighting
+fixtures hang from the ceiling, but must have burned out long ago.  You can
+move north, east, south, west and up.
+
+> w
+You move west.
+
+Upstairs Hall
+You are on the landing at the top of the stairs, that looks down to the foyer
+below. It seems the house disects into several directions here,  and a window
+is on the south wall, high above the front door down below.  A small frosted
+crystal light is securely fastened to the wall near the staircase.  You can
+move north, east, down, northeast, southwest and northwest.
+
+> d
+You move down.
+
+Foyer
+You are in the large foyer with a grand staircase, that appears to have been
+hand carved from an unknown wood, leads to the upper level of the manor. The
+floor is covered with a green and white marbled tile that ends at the
+doorways of the adjoining rooms. You notice a door under the staircase, and
+open doorways to the west, north, and east. The front stoop lies just to the
+south, through the front door.  The room is fairly lit by a soft light
+hanging from the ceiling.  You can move east, south, west, up, in and
+northwest.
+
+> nw
+You move northwest.
+
+Family Room
+You are in the family room, which lies north of the living room. There is a
+nook of sorts, containing a window,  on the west wall that looks out into the
+twisted maze of the thick woods. Sliding arcadia doors to the north, lead
+outside to the sun deck. The room appears to be quite cozy,  and inviting.
+The room is softly lit by a fixture hanging from the ceiling.  You can move
+north, east, south, down and southeast.
+
+> d
+You move down.
+
+Basement
+The basement is cold and dark, the stairs creak and groan as you slowly walk
+down into the darkness. You enter a large open area in the basement, that
+seems too small, given the size of the of the house above. A furnace is in
+the corner.  The floor is made from cement, and is very cold. A light coat of
+dust covers the stairs and the floor. The only footprints imprinted in the
+dust are your own.  Also here is the heavy pick axe.  You can only move up.
+
+> get pick axe
+You take the heavy pick axe.
+
+> open furnace
+You open the large grate on the front of the furnace, sending out a billowing
+cloud of ashes, leaving you coughing and gasping for breath. Among the
+remaining ashes in the furnace, you catch a glimpse of something reflective.
+Reaching into the pile of ashes you pull out the object and wipe the ashes on
+your clothes. You have discovered an ID bracelet. There is an inscription on
+it.
+
+> hit wall with pick
+You hit the wall several times with the heavy axe, until the wall finally
+begins to crumble on into a heap on the floor. The horrible smell of rotting
+flesh comes wafting out of the underground tomb.
+
+> drop pick axe
+You drop the heavy pick axe.
+
+> in
+You move in.
+
+Tomb
+This is some kind of dark musty tomb.  A rotting corpse of a female wearing a
+white gown lies in the corner, with the skull resting in her lap, with the
+brown hair sticking to the remaining rotting flesh.  Something is gripped
+firmly in the boney fingers.  You can only move out.
+
+> x corpse
+The corpse is that of a female. She wears a white, blood stained gown, and
+her decapitated head rests in her lap. You catch a glimpse of a small silver
+key held in the hand of the rotting corpse.  The small silver key is inside
+the rotting corpse.
+
+> get key from corpse
+You take the small silver key from the rotting corpse.
+
+> out
+You move out.
+
+Basement
+The basement is cold and dark, the stairs creak and groan as you slowly walk
+down into the darkness. You enter a large open area in the basement, that
+seems too small, given the size of the of the house above. A furnace is in
+the corner.  The floor is made from cement, and is very cold. A light coat of
+dust covers the stairs and the floor. The only footprints imprinted in the
+dust are your own.  Also here is the heavy pick axe.  You can move up and in.
+
+> u
+You move up.
+
+Downstairs Hall
+This is a small hallway that looks out to a screened in porch through a small
+window on the north wall, which would provide ample lighting if not for the
+tangle of trees that block the sun light from streaming in. doorways lead to
+the east and south, and you can move in to a small bathroom.  The hallway is
+dimly lit by a soft light hanging securely on the wall.  You can move north,
+east, south, west, down and in.
+
+> n
+You move north.
+
+Screen Porch
+You are outside on a screened porch, with doorways to the west and south. A
+small window is also located on the south wall, but there isn't anything to
+see but an empty wall, when looking through it. Large pines tower above to
+your north, and east. Gaining you no access to what might lie in wait in
+those directions.  You can move south and west.
+
+> w
+You move west.
+
+Back Stairs
+A narrow stairway leads down to a worn dirt path,  along with entry to to
+screen porch to the east, and the sun deck to the west. To the south are two
+double pane windows, with some kind of reflective material covering them, so
+you can't see inside.  You can move north, east and west.
+
+> n
+You move north.
+
+Worn Path
+You are walking along a long worn, and somewhat muddy path. The path leads to
+the north and back to the back stairs to the south. Tall trees cast an eerie
+shadows in all directions, form the break in the clouds where the moon is
+visible. Moans and groans can be heard form the wind howling through the
+thick woods.  You can move north and south.
+
+> n
+You move north.
+
+Wooded Trail
+The worn path quickly turns to a narrow wooded trail. The clouds take over
+the moon, and is no longer visible. A heavy metal gate blocks the way to the
+north, and appears to be locked. Any idea of climbing the gate is impossible,
+due to the razor sharp spikes that line the top.  You can only move south.
+
+> unlock gate
+You manuever the key into a small lock that holds the gate closed. It swings
+open, with a loud creak. gusty winds send the rain soaked leaves flying about
+the area. You can feel something watching your every move, yet see nothing.
+Cold air stirs all about, chilling you to the core.
+
+> n
+You move north.
+
+Mausoleum
+You find yourself in a tomb, presumably that of at least one of the family
+members. Bits of broken bone are scattered about.  The walls are dark and
+damp. Small streams of water trickle down between the cracks of the stone.
+Winding weed like vines creep their way in from the outside. The air is
+incredibly hot here, yet ice cold at the same time. You feel very ill being
+here. Something tells you that you are about to find out what happened to the
+family, and now you are not so sure that you want to.  Also here is the worn
+journal and scattered bones.  You can only move south.
+
+> look
+
+Mausoleum
+You find yourself in a tomb, presumably that of at least one of the family
+members. Bits of broken bone are scattered about.  The walls are dark and
+damp. Small streams of water trickle down between the cracks of the stone.
+Winding weed like vines creep their way in from the outside. The air is
+incredibly hot here, yet ice cold at the same time. You feel very ill being
+here. Something tells you that you are about to find out what happened to the
+family, and now you are not so sure that you want to.  Also here is the worn
+journal and scattered bones.  You can only move south.
+
+> get journal
+You take the worn journal.
+
+> open journal
+You open the worn journal.
+
+> read journal
+You begin to read....
+     Angel Marie - A fun game of hide and seek was being played. Thinking she
+was clever, she hid in the stone building in the woods. The family was
+unaware she had ventured in that direction, and that a large stone had gave
+way, trapping her in what would become her tomb.
+  As she slowly suffocated to death, she vowed that she would make her family
+pay for abandoning her in this cold, and dark place. Shortly after her death,
+strange things began happening. Things like spooky shadows, vases moving
+across tables.
+    Evan - He was Angel Marie's older brother and just wasn't interested in
+playing with dolls and music boxes. He tried his best to ditch Angel, as she
+would follow him everywhere.
+ He had built the stone building in the woods, just for himself. He used
+trees that he pushed over for leverage to get the heavy stones in place. He
+raised the last stone just days before it became his sister's tomb. His
+father later put a gate up to keep Evan from venturing into the deep woods.
+    A few weeks after Angel disappeared,  Lauri sent her son Evan into the
+basement to light the furnace. She was afraid to go down there, since she
+kept seeing strange things .
+    When Evan failed to return, she reluctantly went down in the cold, dark
+basement. She screamed in horror at the sight she saw. Evan's pant leg and
+boots hung out from the raging furnace. She stumbled backward, falling into
+the the small room in the basement that her husband, Charles, had been
+blocking off.
+ As she tried to get to her feet, grabbing the edge of the unfinished wall, a
+dark shadow emerged. In one clean swoop, her screams were silenced, as her
+headless body fell backward into the room, her head landing on her bloody
+lap.
+ The room became her tomb, the same as the stone building became Angel
+Marie's.
+    Charles was frantic when he returned home and was unable to find Evan and
+his wife, Lauri. He began searching the house. He made his way down to the
+basement and noticed that the wall had been completed. Assuming that Evan had
+finished the work, he thought nothing of it.
+ In is moments of fear he headed out to the woods, and finally made it to the
+bladed gate. He didn't bring the key with him, so in haste decided he would
+climb the sharp gate. He perched himself on the top of the gate, between the
+blades. Suddenly a dark shadow emerged from behind the cluster of trees.
+   Charles was able to see the face clearly, that would bring him to his
+death. The gate shook violently, causing Charles to lose his grip. He tried
+to jump free, but one of the metal blades  caught him under his chin,
+piercing his skull, and protruding out the top of his head. "I couldn't help
+but to say. "Later... Chuck."
+    If you haven't figured it out yet, I pushed the stone, sealing Angel
+Marie in her tomb. I lopped off Lauri's head as she discovered the fate of
+her son. I shook the fence, so Chuck would fall.
+    Now I watch you.....The only way out is through the front door.....If you
+don't hurry...you too, will be NEVERMORE!!!!
+
+> s
+You move south.
+
+Wooded Trail
+The worn path quickly turns to a narrow wooded trail. The clouds take over
+the moon, and is no longer visible. A heavy metal gate blocks the way to the
+north, and appears to be locked. Any idea of climbing the gate is impossible,
+due to the razor sharp spikes that line the top.  You can move north and
+south.  Stranger walks towards you from the north.
+
+> s
+You move south.
+
+Worn Path
+You are walking along a long worn, and somewhat muddy path. The path leads to
+the north and back to the back stairs to the south. Tall trees cast an eerie
+shadows in all directions, form the break in the clouds where the moon is
+visible. Moans and groans can be heard form the wind howling through the
+thick woods.  You can move north and south.  Stranger walks towards you from
+the north.
+
+> s
+You move south.
+
+Back Stairs
+A narrow stairway leads down to a worn dirt path,  along with entry to to
+screen porch to the east, and the sun deck to the west. To the south are two
+double pane windows, with some kind of reflective material covering them, so
+you can't see inside.  You can move north, east and west.  Stranger walks
+towards you from the north.
+
+> w
+You move west.
+
+Sun Deck
+You are outside on the sun deck, that overlooks a mass of trees and thick
+vegetation. The weathered deck is made of long planks of sturdy pine, and
+enclosed with railing of the same.  You imagine that the family was probably
+going to remove some of the trees, to have some kind of view of what lies
+beyond the mass of  twisted woodland. There is a small window on the east
+wall, just before the back stairs, with some kind of reflective material,
+banning you access to see in the house.  You can move east and south.
+Stranger walks towards you from the east.
+
+> s
+You move south.
+
+Family Room
+You are in the family room, which lies north of the living room. There is a
+nook of sorts, containing a window,  on the west wall that looks out into the
+twisted maze of the thick woods. Sliding arcadia doors to the north, lead
+outside to the sun deck. The room appears to be quite cozy,  and inviting.
+The room is softly lit by a fixture hanging from the ceiling.  You can move
+north, east, south, down and southeast.  Stranger walks towards you from the
+north.
+
+> s
+You move south.
+
+Living Room
+You are in a large living room, which is a large open area with a bay window
+that looks out to the thick wooded area, outdoors. You can see the walkway
+through the large window.
+    The furnishings are those of the people who once dwelled in this isolated
+woodland home. The sofa sits on the west wall, in front of a small window,
+with a cocktail table a few feet away. A leather arm chair with a end table
+by it's side sits in the southeast corner of the room. Judging by the lack of
+other furnishings, it appears this room was rarely used.  Doorways lead north
+and back to the east is the foyer from which you entered this  place.  The
+room is softly lit from a fixture hanging from the ceiling.  You can move
+north and east.  Stranger walks towards you from the north.
+
+> talk to stranger
+Before you can get a word out, the strange extends his hand to meet yours.
+"I'm sorry, I didn't mean to frighten you. I saw the smashed car down the
+road, and wanted to make sure that no one was hurt.
+    By the way, my name is Evan............Evan....Manor....
+
+    You may not survive your run in with Evan Manor, but you did win the
+game. Next time you buy a property at a reduced rate, you should be very
+careful. You never know who could be lurking in the shadows.
+
+   Special thanks to all beta testers that gave their input on my game.
+
+Written by Mystery
+
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

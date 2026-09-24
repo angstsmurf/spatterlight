@@ -1,0 +1,49 @@
+
+> get rope
+You take the rope.
+
+> open chest
+Ther are literally dozens of drawers in this large chest and your character knows what each one of them holds. To be nice, I wll not identify each of the hundreds of objects in here, just the ones you might find useful in the game. For all intents and purposes, the tool chest is now open. A bolt and a magnifying glass are inside the tool chest.
+
+> look in chest
+A large toolchest, about four feet high, with many drawers for storing every conceivable tool, screw or small part you could ever need. It contains literally hundreds of different peices so I will be kind and only tell you about the ones you need for this game.  The tool chest is open.  A bolt and a magnifying glass are inside the tool chest.
+
+> get bolt
+You take the bolt from the tool chest.
+
+> get magnifying glass
+You take the magnifying glass from the tool chest.
+
+> x hole
+But a hole that is a perfect circle three-quarters of an inch wide that seems ridged inside. And it feels like metal just below the surface. You touch the hole, measure it and even put part of a finger into it. Yes, it's a hole. But it's a hole that's exactly 3/4 of an inch across with ridges going down as far as the aided eye can see. And it appears to be made of metal just below the surface.
+
+> x ridges
+Taking a flashlight and a magnifying glass you use for small repairs, you find those are not ridges. It is a sinigle groove carved into a metal tube inside the hole. It looks just like the "groove" on a screw - or bolt.
+
+> screw bolt into hole
+You screw the bolt into the hole and make sure it is tight.
+
+> loop rope over hook
+The rope slides off the hook
+
+> tie rope to bolt
+Being a boy scout really helped on this one. You tie an expert knot. The rest of the rope lies nearby.
+
+> pull rope
+Pulling with all your might, the square section of concrete slab rises.  It is almost three feet deep. You have just enough strength to get it high enough to slide it onto the floor. You can now see that there is a doorway in your floor. But where does it lead to. Also you now know to  "X slab".
+
+> d
+You move down.
+Underground
+On the north wall is a ladder leading up. Otherwise this just a big room. Rows of shelves full of canned food on one wall. Cylinders in one corner. A small machine with some canisters next to it are on the south wall. And a large, flat bed is on the floor west. Looks like a 1950's bomb-shelter.  The shelves on the east wall have swiveled away, revealing a passageway deep within.  Also here are some shelves.
+
+> pull shelves
+The shelves are, indeed part of the wall. But that wall is apparantly just a disguised door. It swivels out, revealing a dark passage east.
+
+> e
+You walk into the darkness, unsure of what you will find. You expect more bomb shelter, but will he have put in any traps to dissuade the panicked mobs during the falling atomic bombs? What else will there be?
+
+> quit
+
+> 
+Uh, could you try that again?

@@ -1,0 +1,45 @@
+
+> north
+You move north.
+Living Room
+You enter the large living room.A few boxes line the walls.Jimmy's body is lying on the couch underneath a window.A coffee table beside him has some blood on it.There's a desk in the corner of the room.Inspector Jameson is looking through a box.To the East is the kitchen and to the West is the bedroom.  Inspector is here.
+
+> east
+You move east.
+Kitchen
+You're standing in the kitchen.A fridge is against the wall,wide open.The cupboards are open and empty. Dr.Sam Williams is examining the kitchen table.  Sam is here.
+
+> look under table
+You duck under the table and find a piece of paper taped underneath it.
+
+> west
+You move west.
+Living Room
+You enter the large living room.A few boxes line the walls.Jimmy's body is lying on the couch underneath a window.A coffee table beside him has some blood on it.There's a desk in the corner of the room.Inspector Jameson is looking through a box.To the East is the kitchen and to the West is the bedroom.  Inspector is here.
+
+> west
+You move west.
+Bedroom
+You're standing the small bedroom.The roomate Tom is sitting in a chair beside his desk.  Tom is here.
+
+> ask tom about key
+"Here,you can have it."
+
+> east
+You move east.
+Living Room
+You enter the large living room.A few boxes line the walls.Jimmy's body is lying on the couch underneath a window.A coffee table beside him has some blood on it.There's a desk in the corner of the room.Inspector Jameson is looking through a box.To the East is the kitchen and to the West is the bedroom.  Inspector is here.
+
+> open desk with key
+You open the desk and pull out a folder.
+
+> open folder
+You open the folder and pull out two things from inside, a pile of money and a letter
+
+> give evidence to inspector
+"Great work detective. I think we can arrest this Trent fellow."  With all the evidence,you're able to prove to the jury that Trent smashed the window to the apartment,then shot from outside and hit the sleeping Jimmy.Good job!
+You scored 35 out of the maximum 80!
+That is 43% of the game!
+You finished 45 points short.
+
+[Press any key to end]

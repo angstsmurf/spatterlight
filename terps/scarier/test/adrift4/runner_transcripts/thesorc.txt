@@ -1,0 +1,825 @@
+
+> 4247
+You press 4247 on the panel, and your car starts up! You drive down to the town square, then your car breaks down!  
+
+> out
+You move out.  
+At the Town Square
+You are at the town square, looking for a hotel you can stay at.  Sarum is wandering around here.  
+
+> sw
+You move southwest.
+At The Restaurant
+You are at a restaurant, and see many people around that are eating.  
+
+> s
+You move south.
+In the office
+This is the office of the restaurant. The owner of the restaurant is here, and maybe you should get a job.  Gallier is here.  
+
+> work for gallier
+You get a job at the restaurant, and you type "serve customer" to serve a customer.  
+
+> n
+You move north.
+At The Restaurant
+You are at a restaurant, and see many people around that are eating.  To serve a customer, type "serve customer."   You are granted $100 by Gallier. You needed a raise
+
+> ne
+You move northeast.
+At the Town Square
+You are at the town square, looking for a hotel you can stay at.  You notice Sarum, your trusty companion, standing by the street.
+
+> e
+You move east.
+At the Staff Shop
+This is a place where they sell staves that are more powerful then your own.  Lightning Pulse is here.  Sarum is wandering around here.  
+
+> buy master staff
+You give Lightning the 500 gold and he gives you the Master Staff!  
+
+> w
+You move west.
+At the Town Square
+You are at the town square, looking for a hotel you can stay at.  
+
+> ne
+You move northeast.
+On the Edge of the Forest.
+This is the forest edge, where you are no longer in the safeness of town.  Large Ogre is here.  Sarum hits Large Ogre.  
+
+> cast firebolt on ogre
+You destroy the ogre as a start of the others.......  
+
+> n
+You move north.
+Deep in the forest
+You are deep in the forest, and it is quiet.  
+
+> n
+You move north.
+On the other edge of the forest
+You are on the other edge of the forest, where you can see a bridge up ahead.  
+
+> n
+You move north.
+At the Fonador Docks
+You are at the docking bay, for ships to dock. You can move up and south.  Masif is here.  
+
+> up
+You go up onto the ship, and it leaves.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The ship's docked at Jonador. You get off.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> look
+At the Jonador Docks
+You get off the ship, and you are in the Jonador docks.  Sarum is wandering around here.  
+
+> s
+You move south.
+At the Jonador town square
+You are at the town square. You can move south to the castle of Jonador, or north back to the docks.  The puzzle master is here.  
+
+> s
+You move south.
+Outside Jonador castle
+You are on the outside of the Jonador castle. You'd better have armor and a weapon....because the Jonadorians don't like Fonadorians... You should try to cast a spell if you read the spell book back in Fonador.  A castle guard is here.  Sarum hits A castle guard.  
+
+> cast freeze missiles on guard
+You send out a large orb, where all these frozen missiles freeze him and he just breaks apart.  
+
+> cast freeze on guard
+You have already done that.  
+
+> cast guard
+You have already done that.  
+
+> s
+You move south.
+Castle Main Hall
+You are in the main hall of the castle.  
+
+> u
+You move up.
+Castle Stairs
+You are on the castle stairs. There is a door that says "What is the passcode?" It looks like you can blow up the door.  
+
+> blow up door
+You use a spell with your staff to destroy the door.  
+
+> n
+You move north.
+The Throne Room
+You are in the throne room. This is it. The final showdown. You Vs. King. You'd better have a damn good weapon.......  The King of Jonador is here.  Sarum hits The Evil King.  The Evil King hits Sarum, but it doesn't seem to do any damage.  
+
+> attack king with staff
+You hit The Evil King with Master Staff.  Sarum hits The Evil King.  The Evil King hits Sarum, but it doesn't seem to do any damage.  
+
+> hit king with staff
+You hit The Evil King with Master Staff.  You Throw one last spell at him, and he is finally dead. You see a large case in the corner.  
+
+> kill king with staff
+The King of Jonador isn't here!  
+
+> cast firebolt on king
+The King of Jonador is not here!  
+
+> look
+The Throne Room
+You are in the throne room. This is it. The final showdown. You Vs. King. You'd better have a damn good weapon.......  Also here is a case.  Sarum is wandering around here.  
+
+> take staff of kings
+To take the staff, but then a huge whirlwind comes out of nowhere!  The whirlwind is catching up.
+
+> s
+You move south.
+Castle Stairs
+You are on the castle stairs. There is a door that says "What is the passcode?" It looks like you can blow up the door.  It sure is coming...  
+
+> d
+You move down.
+Castle Main Hall
+You are in the main hall of the castle.  It sure is coming...  
+
+> n
+You move north.
+Outside Jonador castle
+You are on the outside of the Jonador castle. You'd better have armor and a weapon....because the Jonadorians don't like Fonadorians... You should try to cast a spell if you read the spell book back in Fonador.  It sure is coming...  
+
+> n
+You move north.
+At the Jonador town square
+You are at the town square. You can move south to the castle of Jonador, or north back to the docks.  The puzzle master is here.  It sure is coming...  
+
+> n
+You move north.
+At the Jonador Docks
+You get off the ship, and you are in the Jonador docks.  The only way you can get back is if you jump in the water.  It sure is coming...  
+
+> jump in water
+You use the staff of kings to glide over the water to Fonador.  [win=%win%] You are now king. You bring peace to the two lands, and you go down in Fonador history. Congratulations-You've Done It! You've beaten The Sorcerer!
+ T H E   E N D
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

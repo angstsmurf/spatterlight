@@ -1,0 +1,91 @@
+
+> n
+You move north.
+The Beach.
+The sandy beach. You can go West, East, or North to the Hut.  Also here is a fish.
+
+> n
+You move north.
+The Hut Garden
+The flowery Hut Garden. You can go in to the Hut. A path northeast leads to the Jungle.  Also here are the flowers.
+
+> get flowers
+You take the flowers.
+
+> ne
+You move northeast.
+Jungle
+A bustling Jungle teeming with life. You can go southeast to the Hut, or go north and go to the lake.  Also here is the Sword.
+
+> get sword
+You take the Sword.
+
+> sw
+You move southwest.
+The Hut Garden
+The flowery Hut Garden. You can go in to the Hut. A path northeast leads to the Jungle.
+
+> in
+You move in.
+Hut
+The cosy Hut  Also here is the Gold.  Johnnie is here.
+
+> get gold
+You take the Gold.
+
+> kill johnnie
+You kill johnnie.  
+Hut
+The cosy Hut  Johnnie is here.  Johnnie is dead on the floor in a pool of blood.
+
+> out
+You move out.
+The Hut Garden
+The flowery Hut Garden. You can go in to the Hut. A path northeast leads to the Jungle.
+
+> ne
+You move northeast.
+Jungle
+A bustling Jungle teeming with life. You can go southeast to the Hut, or go north and go to the lake.
+
+> n
+You move north.
+The Lake
+A large Lake is here. A path to the south leads to the Jungle. A boat is here, to the north.
+
+> n
+You move north.
+The Boat
+The boat is huge. It spans across the lake, and to the east, you see a Hut.  Boatmaster is here.
+
+> e
+You move east.
+The Hut
+Another cosy Hut.  Sarah is here.
+
+> give flowers on Sarah
+You give the flowers to her  
+The Hut
+Another cosy Hut.  Sarah is here.  Sarah likes you now.
+
+> ask sarah to follow
+She will.  
+The Hut
+Another cosy Hut.  Sarah is here.  Sarah waits for you at the boat.
+
+> w
+You move west.
+The Boat
+The boat is huge. It spans across the lake, and to the east, you see a Hut.  Sarah and Boatmaster are here.
+
+> give gold to boatmaster
+You give him the gold.  He can now take you home. Ask him to take you home.
+
+> ask boatmaster to take you home
+He does.
+That task seemed important in some way...
+You scored 1500 out of the maximum 1500!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

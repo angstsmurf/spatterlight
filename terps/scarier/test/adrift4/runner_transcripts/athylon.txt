@@ -1,0 +1,207 @@
+
+> s
+You move south.
+Crossing
+This room is dank and you here a shuffling somewhere.  A beggar is here.  You can move north, east and west.
+
+> attack beggar
+You prepare to fight the beggar, as he looks up you deliver a blow to his jaw, he crumples helplessly. You wait expectantly for guards, but none come.
+
+> rob rogue
+You bend down and take the cigarette.
+
+> e
+You move east.
+Message room
+a message lies in the middle if this room  Also here is A message.  You can only move west.
+
+> get message
+You take A message.
+
+> w
+You move west.
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an unconcious beggar.  You can move north, east and west.
+
+> w
+You move west.
+Sword room
+This room is small and has a podium in the middle.  Also here is a large, sharp sword.  You can move north and east.
+
+> get sword
+you take the a large, sharp sword
+
+> n
+You move north.
+Shield/armour room
+This room has a large bookcase at one end.  Also here is a shield.  You can only move south.
+
+> get shield
+You take the shield.
+
+> wear shield
+You put on the shield.
+
+> kick bookcase
+You give the bookcase a good kick and it swings open!
+
+> in
+You move in.
+Strange room
+This room is unnatural, unnatural in the way that the walls seem to be very paranoid.  Also here is a strange, twisted metal object.  You can only move out.
+
+> get metal object
+you take the a strange, twisted metal object
+
+> out
+You move out.
+Shield/armour room
+This room has a large bookcase at one end.  You can move south and in.
+
+> s
+You move south.
+Sword room
+This room is small and has a podium in the middle.  You can move north and east.
+
+> e
+You move east.
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an unconcious beggar.  You can move north, east, south and west.
+
+> s
+You move south.
+Fighting room
+blah  Strange person is here.  You can move north and south.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> kill strange person with sword
+a stranger manages to avoid your attack with the large, sharp sword.  You manage to avoid a stranger's attack.
+
+> look
+Fighting room
+blah  Strange person is here.  You can move north and south.  You manage to avoid a stranger's attack.
+
+> get paper
+Take what?  You manage to avoid a stranger's attack.
+
+> s
+You move south.
+Guarded gate
+The corridor ends with a large gate, guarded by a large and hulking armoured monstrosity.  Guard is here.  You can only move north.
+
+> give cigarette and paper to guard
+You show him the cigarette, but he just grunts and doesn't look up.
+
+> w
+You can only move north.
+
+> s
+You can only move north.
+
+> examine table
+You see no such thing.
+
+> get chalice
+Take what?
+
+> get cigar
+Take what?
+
+> get old meat
+Take what?
+
+> shake cigar over meat
+You shake, but nothing happens.
+
+> n
+You move north.
+Fighting room
+blah  Strange person is here.  You can move north and south.  You manage to avoid a stranger's attack.
+
+> w
+You can't go in that direction, but you can move north and south.  You manage to avoid a stranger's attack.
+
+> n
+You move north.
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an unconcious beggar.  You can move north, east, south and west.
+
+> give meat to dogs
+Give what?
+
+> out
+You can't go in that direction, but you can move north, east, south and west.
+
+> n
+You move north.
+Start room
+In this room is a hole in the top whereby you got in.  You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> get flower
+Take what?
+
+> crush flower into chalice
+[sarcastic mode] you're **really** gonna be able to do that without a flower!!!
+
+> s
+You move south.
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an unconcious beggar.  You can move north, east, south and west.
+
+> w
+You move west.
+Sword room
+This room is small and has a podium in the middle.  You can move north and east.
+
+> n
+You move north.
+Shield/armour room
+This room has a large bookcase at one end.  You can move south and in.
+
+> sw
+You can't go in that direction, but you can move south and in.
+
+> give chalice to guards
+Give what?
+
+> w
+You can't go in that direction, but you can move south and in.
+
+> give chalice to chief guard
+Give what?
+
+> w
+You can't go in that direction, but you can move south and in.
+
+> look
+Shield/armour room
+This room has a large bookcase at one end.  You can move south and in.

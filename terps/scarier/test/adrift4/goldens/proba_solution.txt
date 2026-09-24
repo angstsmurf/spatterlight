@@ -1,0 +1,31 @@
+north
+west
+north
+east
+x стол
+take корм
+west
+south
+south
+give собаке корм
+east
+x стол
+x ваза
+get яблоко
+take яблоко
+есть яблоко
+west
+south
+press выключатель
+move гирю
+west
+x полка
+x коробка
+open коробка
+get ключ
+take ключ
+east
+north
+north
+north
+north

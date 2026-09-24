@@ -1,0 +1,16 @@
+take gun
+open desk
+n
+e
+use gun on roddy
+ask roddy about jake
+take bottle
+w
+n
+give bottle to man
+s
+w
+n
+go into vent
+shoot roddy
+shoot jake

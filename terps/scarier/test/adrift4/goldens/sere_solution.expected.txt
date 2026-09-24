@@ -283,7 +283,7 @@ special about the hay,  though, is the large sniper rifle half buried
 underneath
 
 > take sniper rifle
-You take the sniper rifle.
+        You pull the sniper rifle out of the pile of hay.
 
 > load sniper rifle
         You insert the bullet into the chamber of the sniper rifle.
@@ -516,8 +516,8 @@ feel a lump form in your throat and a chill shoots up your spine as the beast
 breaks contact with the earth and pounds it's way into the air.  After that,
 the aircraft settles into a rythmic shuffle and as the plane rocks you, the
 drone of the engines sing you into a deep sleep.
-You scored 130 out of the maximum 260!
-That is 50% of the game!
-You finished 130 points short.
+You scored 140 out of the maximum 260!
+That is 53% of the game!
+You finished 120 points short.
 
 [Press any key to end]

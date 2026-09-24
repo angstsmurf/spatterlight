@@ -1,0 +1,93 @@
+sleep
+out
+u
+sw
+buy 6
+wear shield
+ne
+u
+u
+sw
+go to 1
+b
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+w
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+w
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+ne
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+ne
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+e
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+s
+e
+s
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+sw
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+sw
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+n
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+kill venemous buzzard with sword
+wait

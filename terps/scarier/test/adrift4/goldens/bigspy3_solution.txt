@@ -1,0 +1,16 @@
+ask prisoner about children
+get magazine
+read magazine
+take bone
+attack henchman with bone
+get phone
+call lawyer
+get key
+ask criminal about inventory
+cut coupon
+use spray
+use computer
+emergency
+self destruction
+quit
+y

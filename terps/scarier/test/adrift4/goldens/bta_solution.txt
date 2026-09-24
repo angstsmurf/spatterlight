@@ -1,0 +1,11 @@
+get sword
+n
+w
+w
+w
+w
+s
+w
+get iron stake
+n
+w

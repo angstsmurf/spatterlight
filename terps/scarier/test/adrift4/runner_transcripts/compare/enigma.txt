@@ -1,0 +1,49 @@
+feed        73 commands
+runner      73 turns echoed
+scarier     73 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 2  n
+  run400   You move north. Wide corridor This corridor runs north to west bending around to the west at the southern end. It is quite wide and there seems to be alot of scratches and drag marks on the floor. A swordsman, a spearman, an arrow goblin, a spear goblin and a knife goblin are here. You can move north and south. The tough looking spearman attacks you with his short spear, but you manage to avoid it. Arrow goblin attacks the tall swordsman with it's bow, but he manages to avoid it. Knife goblin attacks the tall swordsman with it's knife, but he manages to avoid it.
+  scarier  You move north. Wide corridor This corridor runs north to west bending around to the west at the southern end. It is quite wide and there seems to be alot of scratches and drag marks on the floor. A swordsman, a spearman, an arrow goblin, a spear goblin and a knife goblin are here. You can move north and south. The tough looking spearman stabs you with his short spear. Arrow goblin shoots the tall swordsman with it's bow. A sadistic goblin cuts you with it's knife. After the swordsman falls, the goblins notice you behind them and chatter louder and louder as if they fear you. The man's sword flies throu the air and hits the solid wall with such a force that it smashes and all that is left is the broken hilt.
+
+turn 3  kill swordsman
+  run400   the tall swordsman manages to avoid your attack with it's short sword. The tall swordsman attacks you with his short sword, but you manage to avoid it. Spear goblin attacks the tough looking spearman with it's spear, but he manages to avoid it. Knife goblin attacks the tough looking spearman with it's knife, but he manages to avoid it.
+  scarier  You stab the tall swordsman with it's short sword. A mean looking greenskin stabs you with it's spear. A sadistic goblin cuts you with it's knife.
+
+turn 4  kill spearman
+  run400   the tough looking spearman manages to avoid your attack with it's short sword. Knife goblin attacks the tall swordsman with it's knife, but he manages to avoid it.
+  scarier  You stab the tough looking spearman with it's short sword. A sadistic goblin cuts you with it's knife. As the spearman falls, he crushes his wooden spear, making some unhealthy cracking noises.
+
+turn 5  kill arrow goblin
+  run400   Which goblin. A short goblin or a sadistic goblin?
+  scarier  You stab a short goblin with it's short sword. A mean looking greenskin stabs you with it's spear. A sadistic goblin cuts you with it's knife. The goblin holding the bow flies backwards from the blow, dropping it's bow onto the hard floor, breaking the tiny weapon.
+
+turn 6  kill spear goblin
+  run400   That is still ambiguous!
+  scarier  You stab a mean looking greenskin with it's short sword. A sadistic goblin cuts you with it's knife. As the fatal blow is about to land, the spear goblin holds up his weapon to parry but it is just smashed in half by the blow.
+
+turn 7  kill knife goblin
+  run400   Which goblin. A short goblin or a sadistic goblin?
+  scarier  You stab a sadistic goblin with it's short sword. The greenskin's dagger breaks as it hits the ground, shards of rusted knife bouncing everywhere.
+
+turn 17  w
+  run400   You move west. Goblin guard room This smelly room reminds you of the prison cell! There are two torches nailed into the wall and a stone chair on the northern wall. There is a brown door to the east and a long passageway to the west. a goblin guard is here. You can move east and west.
+  scarier  You move west. Goblin guard room This smelly room reminds you of the prison cell! There are two torches nailed into the wall and a stone chair on the northern wall. There is a brown door to the east and a long passageway to the west. a goblin guard is here. You can move east and west. A goblin guard hits you, but it doesn't seem to do any damage.
+
+turn 18  kill goblin guard
+  run400   a goblin guard manages to avoid your attack with it's short sword. You manage to avoid a goblin guard's attack.
+  scarier  You stab a goblin guard with it's short sword. Goblin guard falls down, dead.
+
+turn 23  ne
+  run400   You move northeast. Small fungi cave This cave is littered with wheelbarrows. They are everywhere, all wooden and covered in toad stools. Some of them are carrying mushrooms, the others are empty. There are some crossroads to the south west. there is a goblin farmer here. You can only move southwest.
+  scarier  You move northeast. Small fungi cave This cave is littered with wheelbarrows. They are everywhere, all wooden and covered in toad stools. Some of them are carrying mushrooms, the others are empty. There are some crossroads to the south west. there is a goblin farmer here. You can only move southwest. A small goblin farmer hits you.
+
+turn 24  kill goblin farmer
+  run400   a small goblin farmer manages to avoid your attack with it's short sword. You manage to avoid a small goblin farmer's attack.
+  scarier  You stab a small goblin farmer with it's short sword. Goblin farmer falls down, dead.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

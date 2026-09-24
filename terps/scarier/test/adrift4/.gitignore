@@ -154,3 +154,104 @@
 /goldens/crossworlds4_solution.expected.txt
 /runner_transcripts/**/crossworlds2.*
 /runner_transcripts/**/crossworlds4.*
+
+# Dead or Alive Xtreme Beach Sex (AIF): explicit text, deliberately not
+# committed.
+/goldens/doa_xbs_solution.txt
+/goldens/doa_xbs_solution.expected.txt
+/runner_transcripts/**/doa_xbs.*
+
+# The Silver Maiden (AIF): explicit text, deliberately not committed.
+/goldens/silvermaiden_solution.txt
+/goldens/silvermaiden_solution.expected.txt
+/runner_transcripts/**/silvermaiden.*
+
+# Trapped With A Girl (AIF): explicit text, deliberately not committed.
+/goldens/trappedwithagirl_solution.txt
+/goldens/trappedwithagirl_solution.expected.txt
+/runner_transcripts/**/trappedwithagirl.*
+
+# Practice Policy (AIF): explicit text, deliberately not committed.
+/goldens/practicepolicy_solution.txt
+/goldens/practicepolicy_solution.expected.txt
+/runner_transcripts/**/practicepolicy.*
+
+# To Be King (AIF): explicit text, deliberately not committed.
+/goldens/tobeking_solution.txt
+/goldens/tobeking_solution.expected.txt
+/runner_transcripts/**/tobeking.*
+
+# Harem Prologue (AIF): explicit text, deliberately not committed.
+/goldens/haremprologue_solution.txt
+/goldens/haremprologue_solution.expected.txt
+/runner_transcripts/**/haremprologue.*
+
+# Duchess of Desire (AIF): explicit text, deliberately not committed.
+/goldens/duchess_solution.txt
+/goldens/duchess_solution.expected.txt
+/runner_transcripts/**/duchess.*
+
+# Ziva.taf (AIF): explicit text, deliberately not committed.
+/goldens/ziva_solution.txt
+/goldens/ziva_solution.expected.txt
+/runner_transcripts/**/ziva.*
+
+# Smoke Demo.taf and Homeless Harry.taf (AIF): explicit text, not committed.
+/goldens/smokedemo_solution.txt
+/goldens/smokedemo_solution.expected.txt
+/goldens/homelessharry_solution.txt
+/goldens/homelessharry_solution.expected.txt
+/goldens/gosha_solution.txt
+/goldens/gosha_solution.expected.txt
+/runner_transcripts/**/smokedemo.*
+/runner_transcripts/**/homelessharry.*
+/runner_transcripts/**/gosha.*
+
+# home1-2.taf (AIF): explicit text, deliberately not committed.
+/goldens/home12_solution.txt
+/goldens/home12_solution.expected.txt
+/runner_transcripts/**/home12.*
+
+# Vengance.taf / alex.taf / Notice Me.taf / ghost.taf (AIF): explicit text.
+/goldens/vengance_solution.txt
+/goldens/vengance_solution.expected.txt
+/goldens/alex_solution.txt
+/goldens/alex_solution.expected.txt
+/goldens/noticeme_solution.txt
+/goldens/noticeme_solution.expected.txt
+/goldens/ghost_solution.txt
+/goldens/ghost_solution.expected.txt
+/runner_transcripts/**/vengance.*
+/runner_transcripts/**/alex.*
+/runner_transcripts/**/noticeme.*
+/runner_transcripts/**/ghost.*
+
+# Ginger.taf (AIF): explicit text, deliberately not committed.
+/goldens/ginger_solution.txt
+/goldens/ginger_solution.expected.txt
+/runner_transcripts/**/ginger.*
+
+# breakout.taf / Filthy Bill.taf (AIF): explicit text, deliberately not committed.
+/goldens/breakout_solution.txt
+/goldens/breakout_solution.expected.txt
+/goldens/filthybill_solution.txt
+/goldens/filthybill_solution.expected.txt
+/runner_transcripts/**/breakout.*
+/runner_transcripts/**/filthybill.*
+
+# gotcha.taf (AIF): explicit text, deliberately not committed.
+/goldens/gotcha_solution.txt
+/goldens/gotcha_solution.expected.txt
+/runner_transcripts/**/gotcha.*
+
+# AFP.taf (AIF): explicit text, deliberately not committed.
+/goldens/afp_solution.txt
+/goldens/afp_solution.expected.txt
+/runner_transcripts/**/afp.*
+/runner_transcripts/**/AFP.*
+
+# PB.taf / Pizza Beast (AIF): explicit text, deliberately not committed.
+/goldens/pb_solution.txt
+/goldens/pb_solution.expected.txt
+/runner_transcripts/**/pb.*
+/runner_transcripts/**/PB.*

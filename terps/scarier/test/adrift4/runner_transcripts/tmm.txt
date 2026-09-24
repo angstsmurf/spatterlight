@@ -1,0 +1,74 @@
+
+> enter
+The Vega`s street
+The street where you live, you look ahead and something gets your attention, what was that?
+The street manssion taht is three blocks ahead is so dark, not that you have never seem it before like this, but, you hear kind of shouts coming from the manssion, wanna give a look over there?
+East of here is the continuation of the street.
+
+
+> e
+You move east.
+The Vega`s street continues
+As You are walking on the street, you can hear louder to the shouts, you look to the left and to the right, looking for someone that could help, but you see nobody but yourself.East of here is the continuation of the street.
+
+
+> e
+You move east.
+The Vega`s street continues
+You were walking and sunddenly the shouts stopped, the night is falling and the shadows maden by the moon makes the manssion still more strange. the cold air pass through your body, the fear and the curiosity mix themselves, if you think you can`t continue this game you`d better stop here, if not, go ahead.
+East of here is the continuation of the street.
+
+
+> e
+You move east.
+In the front of the manssion
+You look to your whatch and it marks 11:00 p.m,you fix your eyes at the manssion and then you hear a strange voice:
+-HELP, HELP PLEASE!!!!
+So before you think twice, you try to go to the front gate but before you give your first step someone touchs your shoulder...
+
+( press enter to continue)
+
+> enter
+Chapter 2
+Chapter 2
+
+getting in the manssion
+
+
+
+(press enter to continue)
+
+> n
+You move north.
+The manssion`s front gate
+When a hand touchs your shoulder your blood get cold, you try to look behinde you but your legs are stopped...
+-How are you? Someone say...
+When you get some forces to look behinde you, you see Jill a friend of yours...
+
+(1) Ask Jill to come with you.
+(2) Don`t ask Jill to come with you.  Jill is with you here.
+
+> 1
+What? Well, I`ll try to do my best.
+
+> n
+You move north.
+The mannsion`s front door
+You and Jill go to the manssion`s front door.
+The main door is in front of you, to the left and to the right is the varanda.
+(press C )
+
+> enter
+You won!
+
+(press enter to play again)  
+The Vega`s street
+The street where you live, you look ahead and something gets your attention, what was that?
+The street manssion taht is three blocks ahead is so dark, not that you have never seem it before like this, but, you hear kind of shouts coming from the manssion, wanna give a look over there?
+East of here is the continuation of the street.
+
+
+> quit
+
+> 
+Try a simple word

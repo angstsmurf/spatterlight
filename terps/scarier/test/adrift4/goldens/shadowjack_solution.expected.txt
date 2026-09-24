@@ -1,0 +1,325 @@
+Loading game...
+
+Jack of Shadows
+This is my first Adrift game, as well as my first completed work of
+interactive fiction. Some characters in this game are based on characters
+created by Roger Zelazny (my favorite author). -Ace
+
+        I have received word from the Colonel Who Never Died that there is a
+great danger threatening both the realms of Darkside and Dayside. A danger
+which can only be stayed by the power of an ancient artifact, the Star of
+Heaven. Lost for an age, the location of the Star was unknown until now. The
+Colonel and several Darkside powers have cast great magics that have unveiled
+its location. It lies underground in the ruins of some ancient civilization.
+The ruins are in Twilight, closer to Dayside than Darkside. And since
+Darksiders tend not to leave their places of power and I am so uniquely
+qualified, it is up to me to retrieve this object of power.
+
+Ruined Statue
+Looming above me a broken statue towers, ravaged by the passage of time. A
+crown of stone rests upon its brow, a brightly glowing jewel its centerpiece.
+About me lurk malevolent shadows, seeming to move with a life of their own,
+though these are glimpses seen from the corner of my eye that vanish the
+moment I look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> n
+I move north.
+
+Ancient Gallery
+The walls about me are ancient and crumbling, yet modern looking portraits
+hang from them all the same. The faces depicted twist and writhe as if in
+torment. Is it my imagination or can I also hear their cries? Against one
+wall lies a large crystal, as tall as a man and wide as a chariot. There is a
+large manlike shape frozen within the crystal. Being something of an expert
+on these matters I find it rather intriguing. A simple tap on the crystal
+should tell me much about the magic of its construction.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.
+
+> hit crystal
+I direct a strong blow to the crystal. There is a deep resonating tone that
+raises in pitch until the crystal shatters. I raise my hands to protect my
+face from the rain of crystal shards.
+        "Well, you never know until you try". I say to myself as I lower my
+hands.
+        "Mmmm it feels so good to move again!" says a soft sultry voice.
+        Now this should be interesting. I think to myself wryly.
+        "My name is Morganna, and you are Jack, known variously as Jack of
+Shadows, Shadow Jack, Lord of Twilight or Master of Shadows." She says with a
+knowing smile.
+        "Nice to meet you". I say blandly. There is no reason to belabor the
+obvious, she knows my name and probably more about me than I would imagine,
+seeing as how she is a demoness and all.
+        "The pleasure is mine." She sticks out her hand as if waiting for you
+to grip it.
+
+> grip morganna's hand
+I reach out and gently shake her hand.
+
+> s
+I move south.
+
+Ruined Statue
+Looming above me a broken statue towers, ravaged by the passage of time. A
+crown of stone rests upon its brow, a brightly glowing jewel its centerpiece.
+About me lurk malevolent shadows, seeming to move with a life of their own,
+though these are glimpses seen from the corner of my eye that vanish the
+moment I look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> search shadows
+I search through the shadows and find a small metal rod that I take for
+further examination.
+
+> n
+I move north.
+
+Ancient Gallery
+The walls about me are ancient and crumbling, yet modern looking portraits
+hang from them all the same. The faces depicted twist and writhe as if in
+torment. Is it my imagination or can I also hear their cries? Off to one
+side, near the wall, lies the shattered remains of a containment crystal.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.  Morganna is here flexing her wings softly.
+
+> ne
+I move northeast.
+
+Passage
+The broken bones of tiny rodents crunch underfoot as I make your way along
+this passage.It is dark and shadowy for the most part, illuminated poorly by
+the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an
+ancient gallery.
+
+> search shadows
+I search through the shadows and find a length of rope.
+
+> get rope
+I take the length of rope.
+
+> sw
+I move southwest.
+
+Ancient Gallery
+The walls about me are ancient and crumbling, yet modern looking portraits
+hang from them all the same. The faces depicted twist and writhe as if in
+torment. Is it my imagination or can I also hear their cries? Off to one
+side, near the wall, lies the shattered remains of a containment crystal.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.  Morganna is here flexing her wings softly.
+
+> s
+I move south.
+
+Ruined Statue
+Looming above me a broken statue towers, ravaged by the passage of time. A
+crown of stone rests upon its brow, a brightly glowing jewel its centerpiece.
+About me lurk malevolent shadows, seeming to move with a life of their own,
+though these are glimpses seen from the corner of my eye that vanish the
+moment I look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> w
+I move west.
+
+Cage
+In the center of this circular chamber is a cage, sunken into the floor, in
+which the remains of some beast lie decomposing. Claw marks on the bars of
+the cage indicate the beast fought ferociously to escape its imprisonment,
+yet failed. And died. The cage is closed an locked.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.
+
+> pick lock with rod
+I pick the lock with the small metal rod, cursing the fact I left my picks
+behind.
+
+> open cage
+I open the cage door with a loud creak of rusty hinges.
+
+> w
+I move west.
+
+Humming Chamber
+Once this was doubtless some kind of meeting hall. Rows of seats spiral
+outwards from a central podium where a speaker once stood to deliver speeches
+to a waiting audience. Many of the seats are smashed and little but splinters
+remain. Burn marks scar the floor and walls; in one place there is what
+appears to be a large quantity of books and scrolls which someone has
+attempted to burn but abandoned partway through. A faint humming sound can be
+heard, emanating from somewhere in the chamber.
+
+A passage extends northwest and another to the east.
+
+> nw
+I move northwest.
+
+Blocked Passage
+The ceiling has collapsed, blocking further access along this passage. On one
+wall is an opening in the rubble which overlooks the outside world, although
+the drop looks to be formidable and I doubt I could survive it.
+
+The passage leads back to the southeast.
+
+> move stones
+I shift them around but don't really accomplish much.
+
+> search rubble
+I rummage around a bit then squeeze my arm between some large stones and find
+a small hammer. I hang on to it.
+
+> se
+I move southeast.
+
+Humming Chamber
+Once this was doubtless some kind of meeting hall. Rows of seats spiral
+outwards from a central podium where a speaker once stood to deliver speeches
+to a waiting audience. Many of the seats are smashed and little but splinters
+remain. Burn marks scar the floor and walls; in one place there is what
+appears to be a large quantity of books and scrolls which someone has
+attempted to burn but abandoned partway through. A faint humming sound can be
+heard, emanating from somewhere in the chamber.
+
+A passage extends northwest and another to the east.
+
+> e
+I move east.
+
+Cage
+In the center of this circular chamber is a cage, sunken into the floor, in
+which the remains of some beast lie decomposing. Claw marks on the bars of
+the cage indicate the beast fought ferociously to escape its imprisonment,
+yet failed. And died. The cage is open.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east you can make out a statue.
+
+> e
+I move east.
+
+Ruined Statue
+Looming above me a broken statue towers, ravaged by the passage of time. A
+crown of stone rests upon its brow, a brightly glowing jewel its centerpiece.
+About me lurk malevolent shadows, seeming to move with a life of their own,
+though these are glimpses seen from the corner of my eye that vanish the
+moment I look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> climb statue
+I swing the rope and manage to lasso the head of the statue. I scramble up
+the rope.
+
+> pry star
+I place the flat end of the rod under an edge of the jewel and gently strike
+it with a small hammer. As the Star of heaven pops free there is a massive
+rumbling from the north.
+
+> climb down
+I easily climb down rope.
+
+Ruined Statue
+Looming above me a broken statue towers, ravaged by the passage of time. A
+crown of stone rests upon its brow, an empty socket its centerpiece. There is
+a length of rope lassoed around the statue's neck. About me lurk malevolent
+shadows, seeming to move with a life of their own, though these are glimpses
+seen from the corner of my eye that vanish the moment I look closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+> put jewel in cloak
+I put the brightly glowing jewel inside heavy black cloak.
+
+> enter shadows
+I step into shadow and travel to the Fortress of Life.
+
+Fortress of Life
+Shadows dance across the ancient stone walls of this small room, cast by the
+flame of a single flickering candle. I am back in the Fortress of Life, named
+by its lord, the Colonel Who Never Died. I find it to be a precarious naming.
+
+There is a passage to the north blocked by a huge ironbound door.
+
+The door opens and a young and attractive woman enters and closes it behind
+her.
+        "Welcome Shadow Jack, the Colonel awaits you. I am Llewella, new
+apprentice to his lordship". She drops a quick curtsey. "I will take you to
+him".
+        Hmm a female apprentice.
+        "So what happened to young Pug?" I ask.
+        "Oh, the Colonel says it was probably a very enjoyable way to go. He
+was working on a rather tricky bit of summoning when the succubi he was
+binding charmed him when he forgot a key phrase. Apparently he was buried
+with the smile still plastered on his face". She giggles in a sharp,
+harpy-ish manner that makes me take an immediate dislike to her. "The Lord is
+waiting, we should go."
+        Llewella takes the candle and leads the way through the twisty
+passages of the Fortress of Life. It only takes a few moments, I am sure, yet
+it feels like a very long walk the way my thoughts are spinning.
+
+> z
+Time passes...
+
+        Just what the hell is going on here? A new female apprentice, Pug
+dying while botching the binding of a succubi...
+things just weren't adding up.
+        "The Colonel is on the ramparts past this door Jack of Shadows." She
+gestures at the door then quickly leaves.
+I take a deep breath and open the door and step through.
+
+Ramparts of the Fortress of Life.
+Heavy thunderheads fill the sky and intermittent lightning throws the entire
+scene into sharp relief for brief moments. Sporadic rain falls making the
+ancient stones glimmer in an oddly beautiful way.
+
+There is a heavy ironbound door blocking the doorway back into the castle to
+the southwest.  The Colonel Who Never Died is here.
+
+> give jewel to colonel
+I hand the jewel to the Colonel.
+        "Ahh at last!" Says the Colonel gleefully. "Now to insure the future
+of both the Darkside and Dayside!"
+        The colonel starts doing something with the Star of Heaven. The
+ramparts are lit up brighter than day as the jewel beigns to glow with a
+fierce brilliance. I start glancing around looking for a shadow, any shadow.
+There are none. The magical blaze of the jewel banished every hint of shadow.
+I can feel the hair of my arms and neck rising as if charged with static
+electricity.
+        "Its now time Jack of the Shadows, Lord of Twilight for your threat
+to be ended!" He yells and makes a throwing gesture as if he is going to
+throw the Star of Heaven at me.
+        I have absolutely no idea what he is talking about and am about to
+say so when a blast of power hits me and I start to crumple.
+
+> look up
+I look up at the eye of the storm and see my own face looking down at me!
+
+> raise up
+I stretch out my arm skyward, grasping for help from on high.
+
+> z
+Time passes...
+As the Colonel Who Never Died powers up the Star of Heaven for the killing
+blow, I stretch my arm skyward and grasp wildly. I get the shock of my life
+when another hand meets my own and with a firm grip begins pulling me into
+the sky!
+        "SHADOW JACK!" shouts the Colonel.
+        I look down in time to see a ball of blazing brilliance arcing from
+his hand coming straight for me. All the hair on my body stands on end as I
+make a wild effort to pull myself higher. There is the feeling of a great
+weight hitting me from every direction, then blackness descends and I know no
+more.
+
+** You have won the game! **
+
+[Press any key to end]

@@ -1,0 +1,11 @@
+press vent
+turn cap anti-clockwise
+remove cap
+put slide in microscope
+put cap on air lock
+turn cap clockwise
+press pump
+turn dial
+examine screen
+quit
+y

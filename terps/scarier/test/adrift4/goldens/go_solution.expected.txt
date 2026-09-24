@@ -1,0 +1,481 @@
+Loading game...
+
+Go!
+This adventure isn't just a normal story and can't happen in a normal life.
+All the names, places and situations are imagined. If you have any comments,
+questions, wishes, suggestions, advices etc. or if you are stuck and want to
+get a hint for the game, then just send me an e-mail at xenia@mail.lv .
+Thanks for playing!
+
+And now, let's begin.
+You start your way as a 27-years-old man Dick, you are very shy and
+diffident. Pathologic loser! Perhaps that's because you are very ugly -
+spotty face with terrific spectacles, feeble and slack body... Finally you
+find a great chance to overcome all the difficulties. Your uncle Ben sudenly
+dies and you are the one who's going to find his treasure - famous ancient
+chest. You are by the front door of his house now, wondering what to do next.
+
+> turn switch
+Yeah! The light is everywhere!
+
+By the front door
+You mention the stairs that lead up, the archway to the east. Near the stairs
+you see a small table. There is a portrait of uncle Ben on the back wall.
+You can move east and up.
+
+> open drawer
+You open the drawer. There is a pile of magazines in it.
+
+> remove magazines
+You throw useless fashion-magazines away. You mention a strange key left in
+the drawer. Perhaps it was under the magazines.
+
+> get key
+You take a strange key from the small drawer.
+
+> unbend key
+The key is now very straight. Just eager to open the right lock.
+
+> e
+You move east.
+
+In the kitchen
+You are in the kitchen. Your first thought is what a strange room it is. The
+cause of it are red wallpapers... well, your uncle wasn't just an ordinary
+man. You see a kitchen table, a kitchen cabinet, chairs and a sink. There is
+a door in a back wall.  You can only move west.
+
+> open cabinet
+You open the kitchen cabinet.  Plastic object is inside the kitchen cabinet.
+
+> get plastic object
+You take plastic object from the kitchen cabinet.
+
+> open door
+You open the green door. You get that it is a way to the garden.
+
+> w
+You move west.
+
+By the front door
+You mention the stairs that lead up, the archway to the east. Near the stairs
+you see a small table. There is a portrait of uncle Ben on the back wall.
+You can move east and up.
+
+> u
+You move up.
+
+In the corridor
+You are in the corridor. You see an unusual painting depicting the garden
+during the thunderstorm. There is a large steel door to the west. You mention
+some kind of panel near it. There is also a small door to the east.  You can
+move west and down.
+
+> push plastic object in panel
+You hear a loud noise and mention that the large steel door opens. You see
+the way to uncle Ben's room. You go in.
+
+> open wardrobe
+You open the cumbersome wardrobe.  A scratched shovel is inside the
+cumbersome wardrobe.
+
+> get shovel
+You take a scratched shovel from the cumbersome wardrobe.
+
+> remove poster
+You tear the poster... poor Clinton! What is it? It's a safe! Uncle Ben's
+safe under the poster!
+
+> open safe
+Oh, OH, OOOOOH! Uncle Ben forgot to lock his safe! Yeah! You open it!!! Yeah!
+Yeah! Hooray!!!
+
+> get drawing
+You take a free-hand drawing from Z.Y.X. safe.
+
+> e
+You move east.
+
+In the corridor
+You are in the corridor. You see an unusual painting depicting the garden
+during the thunderstorm. There is a large steel door to the west. You mention
+some kind of panel near it. There is also a small door to the east.  You can
+move west and down.
+
+> d
+You move down.
+
+By the front door
+You mention the stairs that lead up, the archway to the east. Near the stairs
+you see a small table. There is a portrait of uncle Ben on the back wall.
+You can move east and up.
+
+> e
+You move east.
+
+In the kitchen
+You are in the kitchen. Your first thought is what a strange room it is. The
+cause of it are red wallpapers... well, your uncle wasn't just an ordinary
+man. You see a kitchen table, a kitchen cabinet, chairs and a sink. There is
+a door in a back wall.  You can move north and west.
+
+> n
+You move north.
+
+In the garden
+The garden of uncle Ben is really huge. It's 100x100 metres.    You won't
+find anything here, unless you have a map.  You can only move south.
+
+> dig chest
+You use a map and a shovel and find a chest! Hooray, you are almost rich! The
+only bad thing is the chest is locked.
+
+> unlock chest with strange key
+You unlock the chest and open it... oh, no! OH, NO! There's no treasure! No
+treasure! Something lies on the bottom of the chest.
+
+> get diary
+You take someone's diary from the ancient chest.
+
+> read diary
+You start to read a diary. It's the diary of a young woman..  As you become
+immersed in the text, you start to imagine everything and then....
+
+                                                                  You are
+very beautiful 23-years-old woman. Your nickname is Angel, everyone called
+you like that since your birth, it seems you don't even remember your true
+name. You look at yourself and mention that you are naked. You think that you
+need something to wear, because it's rather cold here, in this room number 14
+of motel 'Paradise Regained'.  Suddenly you notice an ugly cockroach crawling
+on the floor.  You terribly want to smoke a cigarette.
+
+> look
+
+In the room 14
+You look around. This room is very dirty and neglected. It is lumbered with
+furniture and in disorder. You see the couch, the chair, the wardrobe and the
+clock on the wall.  Also here is a beautiful dress and a pack of cigarettes.
+Your head splits, you are trembling and willing to smoke.
+
+> sleep on bed
+You gape and yawn, you lie on bed, close your eyes and sleep for a while.
+Then you stand up. You mention that the sun is shining outside.
+
+> move cushion
+You move the pillow and notice a key under it. Perhaps you put it there
+yesterday.
+
+> get aluminium key
+You take an aluminium key from the cozy couch.  The cockroach crawls out of
+one of the holes.  You are almost ready to drop, you are trembling and
+willing to smoke.
+
+> unlock wardrobe
+You open the wardrobe.
+
+> x bloomers
+Just bloomers, with small pink flowers.  A purse is inside the bloomers.
+Your head splits, you are trembling and willing to smoke.
+
+> get purse
+You take a purse from the bloomers.
+
+> x purse
+It's a black leather purse.
+
+> open purse
+You open your purse. There's a credit card inside it.  The cockroach crawls
+out of one of the holes.  You are almost ready to drop, you are trembling and
+willing to smoke.
+
+> get credit card
+You take a credit card from the purse.
+
+> take cigarettes
+You take the cigarettes from the couch.  Your head splits, you are trembling
+and willing to smoke.
+
+> open cigarettes
+You open the pack of cigarettes. You notice a piece of paper in it.
+
+> get dress
+You pick up the beautiful dress.
+
+> wear dress
+You wear the dress. Of course it's a bit transparent, but you don't have
+anything else to wear. Now you can go out of your room.  The cockroach crawls
+out of one of the holes.  You are almost ready to drop, you are trembling and
+willing to smoke.
+
+> s
+You move south.
+
+In the reception room
+It's rather empty. You see a desk, a key stand and motel owner.  Mat stands
+at the desk, writing something.  You can move north and west.
+
+> ask Mat about cockroaches
+Yeah, there are some in your room, but you requested it yesterday, i don't
+know why. You said you liked number 14. Ok, I can give you the key from room
+11. Take it.  Your head splits, you are trembling and willing to smoke.
+
+> take key
+You take the key from the keystand. Heh, now your room will be better. At
+least you hope so!
+
+> e
+You move east.
+
+In the room 11
+This room is much cleaner than the one you have stayed before. The walls here
+are sky-blue. You look around and notice a cozy arm-chair, tv and a
+videorecorder.  You can only move west.
+
+> insert cord into receptacle
+You turn the videorecorder on.  You are almost ready to drop, you are
+trembling and willing to smoke.
+
+> w
+You move west.
+
+In the reception room
+It's rather empty. You see a desk, a key stand and motel owner.  Mat stands
+at the desk, writing something.  You can move north, east and west.
+
+> w
+You move west.
+
+Outside the motel
+It's Gagarin's Street. You see a bench, an ash-bin and a plaque. People are
+everywhere.  You can move north, east and west.  People are looking at you
+with strange faces, turning their heads at you and totally surprised. You
+wonder what's wrong.  Your head splits, you are trembling and willing to
+smoke.
+
+> n
+You move north.
+
+In the centre
+It's very quiet for a centre of a city, practically no traffic and not many
+people. You wonder where you are and try to remember what happened to you
+yesterday, but still don't find anything familiar. You see a cash machine at
+the corner and green bush at the other one.  There is a HI-FI shop to your
+west, a Chemist's shop to your north.  You can move north, south and west.
+
+> insert credit card in cash machine
+You manage to insert your credit card into the hole of the cash machine. You
+see the message on the display, that says: 'ENTER YOUR CODE'.
+
+> enter 190984
+You enter the code and the cash machine accepts it. You get all the money
+available.  People are looking at you with strange faces, turning their heads
+at you and totally surprised. You wonder what's wrong.  You are almost ready
+to drop, you are trembling and willing to smoke.
+
+> n
+You move north.
+
+At the Chemist's
+All the shelves of this rather small shop are filled with lots of medicine
+with Latin names.  Ralph is searching something on the shelves. When you come
+closer, he turns to you and waits for your question.  You can only move
+south.
+
+> buy plaster
+Well, a good decision, I have to say. It's a good idea to give up smoking.
+Your head splits, you are trembling and willing to smoke.
+
+> s
+You move south.
+
+In the centre
+It's very quiet for a centre of a city, practically no traffic and not many
+people. You wonder where you are and try to remember what happened to you
+yesterday, but still don't find anything familiar. You see a cash machine at
+the corner and green bush at the other one.  There is a HI-FI shop to your
+west, a Chemist's shop to your north.  You can move north, south and west.
+People are looking at you with strange faces, turning their heads at you and
+totally surprised. You wonder what's wrong.
+
+> w
+You move west.
+
+In the HI-FI shop
+The shop is full with different HI-FI equipment - lots of tvs,
+videorecorders, tape-recorders etc.  Ella sits at the table chewing her
+bubble gum.  You can only move east.
+
+> buy spectacles
+Ella gives you 'PanaSony' spectacles.  You are almost ready to drop, you are
+trembling and willing to smoke.
+
+> e
+You move east.
+
+In the centre
+It's very quiet for a centre of a city, practically no traffic and not many
+people. You wonder where you are and try to remember what happened to you
+yesterday, but still don't find anything familiar. You see a cash machine at
+the corner and green bush at the other one.  There is a HI-FI shop to your
+west, a Chemist's shop to your north.  You can move north, south and west.
+People are looking at you with strange faces, turning their heads at you and
+totally surprised. You wonder what's wrong.
+
+> s
+You move south.
+
+Outside the motel
+It's Gagarin's Street. You see a bench, an ash-bin and a plaque. People are
+everywhere.  You can move north, east and west.  Your head splits, you are
+trembling and willing to smoke.
+
+> w
+You move west.
+
+In the Video Rent
+There are a lot of huge stands everywhere around you. They are  filled with
+videotapes - movies of all different kinds are waiting for their viewers.
+Edwin sits in the corner. He rises his head and looks at you with a strange
+face.  You can only move east.
+
+> rent videotape
+You pay for a tape and get the newest one. Well, let's watch it!
+
+> e
+You move east.
+
+Outside the motel
+It's Gagarin's Street. You see a bench, an ash-bin and a plaque. People are
+everywhere.  You can move north, east and west.  You are almost ready to
+drop, you are trembling and willing to smoke.
+
+> e
+You move east.
+
+In the reception room
+It's rather empty. You see a desk, a key stand and motel owner.  Mat stands
+at the desk, writing something.  You can move north, east and west.
+
+> e
+You move east.
+
+In the room 11
+This room is much cleaner than the one you have stayed before. The walls here
+are sky-blue. You look around and notice a cozy arm-chair, tv and a
+videorecorder.  You can only move west.  Your head splits, you are trembling
+and willing to smoke.
+
+> stick plaster
+You stick the plaster on your left arm. After some minutes you fell better,
+you think it's time to relax.
+
+> wear spectacles
+You wear the spectacles and now you can see clearly what's going on. You feel
+that you've finally done what you needed to. It's time to relax in the
+arm-chair.
+
+> put videotape in videorecorder
+Now you can watch the movie.
+
+> sit in arm-chair
+You sit down in the comfortable arm-chair willing to relax.
+
+> watch tv
+You relax in the soft and cozy arm-chair, put on your spectacles and start to
+watch tv...  Suddenly you realize you are in the unknown room. That happened
+again! No possible way to relax!!! What are you going to do now?
+
+> check mail
+You check the mail. There is one new message. You read it and find out it's
+an invitation for a night! well...! There is an address. You quickly write it
+down.
+
+> x rack
+It looks like a kitten and on it's tail there is a coat.  A brown coat is on
+the rack.
+
+> get coat
+You take the coat. You notice a key left on the rack. Perhaps it was under
+the coat.
+
+> get key
+You take a key from the rack.
+
+> unlock door
+You unlock the door and move out the office.
+
+> press button
+You call the elevator and then you go down. You are now outside the building.
+
+> x kiosk
+You examine a phone. Perhaps it's better to dial a number instead of watching
+at it... wait! There is a slice of bread on the phone.  A slice of bread is
+on the phone kiosk.
+
+> get bread
+You take a slice of bread from the phone kiosk.
+
+> in
+You move in.
+
+In the empty room
+The room is totally empty. The only things you see are the doors, one to the
+office and the other to the elevator.   You can move south and out.
+
+> s
+You move south.
+
+In the office
+Looks like an office of an ordinary clerk or errand-boy. A thick layer of
+dust covers all the furniture, it seems this place has been abandoned for a
+long time. You mention an oak table, a file, a rack on the wall and a door
+out.  Robin is sitting in his cage.  You can only move north.
+
+> feed parrot
+You feed the parrot. He starts to scream: 'Thank you, Mr. Davis, thank you,
+Mr. Davis!'
+
+> examine file
+You look for the drawer with surname Mr. Davis and finally find it. You open
+it and find a card and some coins inside it. You take them.
+
+> n
+You move north.
+
+In the empty room
+The room is totally empty. The only things you see are the doors, one to the
+office and the other to the elevator.   You can move south and out.
+
+> press button
+You call the elevator and then you go down. You are now outside the building.
+
+> call taxi-driver
+You call the cab. After some minutes you notice a bright-yellow car to the
+north. Perhaps it's Andrew Hallway.
+
+> n
+You move north.
+
+Inside the cab
+You see a taxi-driver, Andrew Hallway, in front of you. He eats a hamburger
+and looks at you impatiently.  Andrew Hallway is sitting in front.  You can
+only move south.
+
+> give paper to taxi-driver
+You give the paper to Andrew. He looks at it and says: 'Oh, it's near. We
+will be there in some minutes'. Then he starts the engine and drives between
+other cars, stopping at the traffic lights, watching around. After some
+minutes he stops near the rather pretty house. You pay him and go out.  You
+go in the house and meet a beautiful woman who waits for you. Well, you made
+it! Great! Now you are as happy as it could be, finally feeling that all the
+adventures are behind. You relax with your woman and feel that it is the best
+time in your life!
+
+Thank you for playing this adventure.  If you have any comments, questions,
+wishes, suggestions, advices etc. then just send me an e-mail at
+xenia@mail.lv .
+You scored 189 out of the maximum 190!
+That is 99% of the game!
+You finished 1 points short.
+
+[Press any key to end]

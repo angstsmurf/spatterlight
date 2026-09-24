@@ -1,0 +1,135 @@
+
+> open dresser
+I probably should get out of bed.
+
+> get magic bag
+I take the magic bag from the dresser.
+
+> get pda
+I take my PDA from the night stand.
+
+> turn on pda
+The PDA is on.
+
+> i
+I am carrying my PDA and a magic bag.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+  (All the mages I know have a single chime or bell tone announcing contact, but, Hey!, I'm a teenager, and I need something that I won't ignore.)
+  I run over to the palantiri and "see" Uncle looking at me.
+
+"Ariana!  Sorry for interrupting your plans, but I need you to come to the Mage's Hall immediately!  Grab your stuff!  ... oh fragglesticks!...  Be prepared for some magical attacks!"
+
+  Well, whatever I thought I might be doing today sure got changed fast!  I better look up my wards and attacks before I head out!
+
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> west
+Hallway
+This is the upstairs hallway.  Pictures of me and my brother when we were younger are along the stairway down.  My room doors are on the eastern wall, the bathroom door to the north, and my brother's room to the west.  
+
+  “Mom!”, I yelled down the stairs.
+
+  “Ariana, have you made your bed yet?”
+
+  “Moooom!  Uncle just called, and I need meet him!”
+
+  “I suppose that your curfew is out of order tonight then.”
+
+  “I don't know how late I'll be.”
+
+  “That seems to be the general way for you magicians.  Alright, be safe and try to let us know if this is an extended mission.”
+
+  “Love ya!  Gotta go!”
+
+
+
+> goto Mage's Hall
+I summon an image of the Mage's Hall and cast the spell upon my bedroom doors, then walk on through.  
+Mage's Hall
+  From what I've experienced, most magicians disdain a fancy appearance, so this hall is kinda flashy.  It has eight sides with marble pillars at each corner supporting a ring of low windows under a copper dome.  The windows cast light on the middle of the room where a brass sundial sits.  Alcoves are in the north wall - for the communal palantiri - and the northwest wall - for the Magician's Tome.  The northeast wall has the exit to the street, and the door looks like it's out of a medieval movie.  The other walls lead to classrooms and offices.  Both wooden and marble benches form two concentric circles around the center of the room.  
+
+  “…Yes, what you are saying is true…    …Fine, but I'd rather her be a normal teenager and enjoy her youth before sending her on tough missions.   …She is skilled, more so than most of the other students, but…   …Alright, but I still don't know why you want me to…   …(Fragglesticks!  Diplomacy my ass.)…  …I'll be there right after I brief Ariana.”  Uncle is leaning against the palantiri, staring into the communal crystal ball - yep, this one really is crystal - but I don't think he is still in communication with the council.  I politely wait for him by one of the marble benches.
+
+  “Ariana!  Sorry to drag you down here on a Saturday!”  Uncle runs over and grabs me in a bear hug, which I give him one back.
+
+  “You know I like doing magic and running errands.  Especially missions!”
+
+  “But you are still young and should be with your friends.  Maybe even a boyfriend?” he says with a smirk.
+
+  “Uncle!”  I start blushing.
+
+  He sits down on the bench and gestures next to him, “Sit with me, child”  I don't take offense at him calling me that because I know he says that only as a term of affection, not that he thinks I'm just a kid.  I sit next to him waiting for him to talk.  Uncle sighs and stares off in the distance, not saying anything for a while.  
+
+  “Uncle, why do you always say 'fragglesticks' instead of swearing?” I ask to satisfy my curiosity.  He has a quick shake of the head, grins, then bursts out laughing.
+
+  “You know, I never really thought about it.  Swearing is a bad thing to do, but 'fragglesticks'…”  He shakes his head and rests his hand on his chin.  “My mentor says it, and his mentor said it.  I suppose someone somewhere just came up with the word!  Means nothing.”  Uncle turns his head and looks me right in the eyes.  “You are an amazing young lady, Ariana.
+  “And that is why I have to send you out on a mission for me.”  His face quickly turns somber.  “I have been very suspicious of the activities of Mage Dresdan.  I cannot put my finger on what he is up to, but I believe many things are coming to a head tonight.  The counsel disagrees with me and wants me on what they call a 'diplomatic' mission.
+  “I fear that sending you to continue to investigate Dresdan may be extremely dangerous, and would rather you enjoy your youth.”  I start to argue, but he continues to talk.  “I also know you very well,” he says with a slight smile, poking a long finger on my nose. “You have just the right amount of confidence in your talents - not overconfident to put yourself into trouble, and not under confident to be hesitant to take action.  You have the imagination for new spells, like that PDA of yours.  Maybe we can implement that for the younger generations - though we still insist that all students have a hard copy of the Magician's Tome.”
+
+  Uncle places his hands on his lap, then swings a leg over the bench to face me directly.  I turn to face him sitting cross-legged.  “I am not able to approach Dresdan's home directly as he has a powerful ward blocking any magic from entering except himself.  All I know is that I have seen several disreputable characters coming and going.  It is my thought that since you are young and not as powerful in magic, but imaginative, that you might find a way to find out what is going on inside.  Don't risk a direct confrontation!  Even if he is not doing any harm, he still might be annoyed enough to hurt you.  Yes, I said to come quickly, but don't act rashly.  Remember your own wards, attacks, spells, and incantations.”
+  He looks at me as if debating if he is going to tell me more.  “I need to teach you another spell.  You know how to shape-shift into animals you've imprinted on.  Now you need to know how to shape-shift into another human.”  Uncle jumps up and gives me a hand up from the bench.  “First you need to know that the person you are copying must be asleep or unconscious.  You do know the sleep spell?”  I nod my head.  “Concentrate on everything you see about that person - don't forget the clothes!  We don't want you going around starkers.”  We both laugh at the mental image.  “Picture that firmly, just like when you imprinted on the animals, then close your eyes and place your fingers on their forehead.  Then recite the phrase 'her2mind'.  If you don't know their name, make one up that you will remember.  You now have the imprint for the shape-shift.  To make the change, remember the imprint with your eyes closed and fingers on your forehead, reciting 'me2her'.”  He sighs, and places his hands on my shoulders.  “Try to charge up on magic as much as you can.  This spell does take a lot out of you and does not last as long as an animal shape-change.”
+
+  Uncle starts walking to leave the building.  “We both need to go.  Dresdan's home is in the downtown quarter near the old firehall.  You can't miss it with the 'sight'.”  He closes his eyes with a slight smile, “I have a feeling you will do fine.  Godspeed, Ariana.”  He then leaves me to walk out of the building onto whatever mission the counsel sent him on.
+
+
+  I think mom was right - this is going to be an all-nighter!

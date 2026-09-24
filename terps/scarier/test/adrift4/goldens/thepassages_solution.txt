@@ -1,0 +1,85 @@
+Petter
+male
+talk to pontaco
+ask pontaco about adventure
+n
+get magic seeds
+e
+open east door
+e
+e
+talk to fontana
+n
+open beach house door
+in
+climb ladder
+look at table
+get torch
+climb down ladder
+sit on slide
+get box
+climb slide
+out
+s
+give box to fontana
+open box
+get sheath
+get sword
+ask fontana about battle
+s
+s
+cut Dummy1 with sword
+cut Dummy1 with sword
+cut Dummy1 with sword
+s
+s
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+cut Dummy2 with sword
+s
+s
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+cut Dummy3 with sword
+s
+s
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+cut Dummy4 with sword
+w
+w
+w
+w
+s
+ask pontaco about the outer world
+n
+w
+look
+open west pasage
+w
+look
+w
+look

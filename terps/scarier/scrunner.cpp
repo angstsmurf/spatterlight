@@ -1245,13 +1245,18 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"buy %text%", lib_cmd_buy_other},
   {"buy", lib_cmd_buy_what},
   {"clean %object% *", lib_cmd_clean_object},
+  /* clean (488F02), wash (488FFC), cut (489041), shake (48950E), climb
+   * (4898F5) and sell (489A3D) are therest arms below the 4887A0 clause too. */
+  {"clean %text%", lib_cmd_verb_absent_400},
   {"clean %text%", lib_cmd_clean_other},
   {"clean", lib_cmd_clean_what},
   {"climb %object% *", lib_cmd_climb_object},
+  {"climb %text%", lib_cmd_verb_absent_400},
   {"climb %text%", lib_cmd_climb_other},
   {"climb", lib_cmd_climb_what},
   {"cry *", lib_cmd_cry},
   {"cut %object% *", lib_cmd_cut_object},
+  {"cut %text%", lib_cmd_verb_absent_400},
   {"cut %text%", lib_cmd_cut_other},
   {"cut", lib_cmd_cut_what},
   {"dance *", lib_cmd_dance},
@@ -1269,21 +1274,28 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"clear %object% *", lib_cmd_clear_object},
   {"clear %text%", lib_cmd_clear_other},
   {"fix %object% *", lib_cmd_fix_object},
+  /* Every therest() verb meets the seen-but-absent clause (4887A0) before
+   * its own arm: crashland T8 `fix ship`, the ship seen and left behind, is
+   * "You can't see the ship." (run400 fix arm 489BE7 is below the clause). */
+  {"fix %text%", lib_cmd_verb_absent_400},
   {"fix %text%", lib_cmd_fix_other},
   {"fix", lib_cmd_fix_what},
   {"fly *", lib_cmd_fly},
   {"hint *", lib_cmd_hint},
   {"hit %character%", lib_cmd_hit_npc},
   {"hit %object% *", lib_cmd_hit_object},
+  {"hit %text%", lib_cmd_verb_absent_400},
   {"hit %text%", lib_cmd_hit_other},
   {"hit", lib_cmd_hit_what},
   {"slap %object% *", lib_cmd_slap_object},
+  {"slap %text%", lib_cmd_verb_absent_400},
   {"slap %text%", lib_cmd_slap_other},
   {"slap", lib_cmd_slap_what},
   {"hum *", lib_cmd_hum},
   {"jump *", lib_cmd_jump},
   {"kick %character%", lib_cmd_attack_npc},
   {"kick %object% *", lib_cmd_kick_object},
+  {"kick %text%", lib_cmd_verb_absent_400},
   {"kick %text%", lib_cmd_kick_other},
   {"kick", lib_cmd_kick_what},
   {"kiss %character% *", lib_cmd_kiss_npc},
@@ -1291,20 +1303,25 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"kiss *", lib_cmd_kiss_other},
   {"kill *", lib_cmd_kill_other},
   {"lift %object% *", lib_cmd_lift_object},
+  {"lift %text%", lib_cmd_verb_absent_400},
   {"lift %text%", lib_cmd_lift_other},
   {"lift", lib_cmd_lift_what},
   {"light %object% *", lib_cmd_light_object},
+  {"light %text%", lib_cmd_verb_absent_400},
   {"light %text%", lib_cmd_light_other},
   {"light", lib_cmd_light_what},
   {"listen *", lib_cmd_listen},
   {"mend %object% *", lib_cmd_mend_object},
+  {"mend %text%", lib_cmd_verb_absent_400},
   {"mend %text%", lib_cmd_mend_other},
   {"mend", lib_cmd_mend_what},
   {"move %object% *", lib_cmd_move_object},
+  {"move %text%", lib_cmd_verb_absent_400},
   {"move %text%", lib_cmd_move_other},
   {"move", lib_cmd_move_what},
   {"please *", lib_cmd_please},
   {"press %object% *", lib_cmd_press_object},
+  {"press %text%", lib_cmd_verb_absent_400},
   {"press %text%", lib_cmd_press_other},
   {"press", lib_cmd_press_what},
   {"pull %object% *", lib_cmd_pull_object},
@@ -1317,17 +1334,21 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"push %text%", lib_cmd_push_other},
   {"push", lib_cmd_push_what},
   {"repair %object% *", lib_cmd_repair_object},
+  {"repair %text%", lib_cmd_verb_absent_400},
   {"repair %text%", lib_cmd_repair_other},
   {"repair", lib_cmd_repair_what},
   {"rub %object% *", lib_cmd_rub_object},
+  {"rub %text%", lib_cmd_verb_absent_400},
   {"rub %text%", lib_cmd_rub_other},
   {"rub", lib_cmd_rub_what},
   {"run *", lib_cmd_run},
   {"say *", lib_cmd_say},
   {"sell %object% *", lib_cmd_sell_object},
+  {"sell %text%", lib_cmd_verb_absent_400},
   {"sell %text%", lib_cmd_sell_other},
   {"sell", lib_cmd_sell_what},
   {"shake %object% *", lib_cmd_shake_object},
+  {"shake %text%", lib_cmd_verb_absent_400},
   {"shake %text%", lib_cmd_shake_other},
   {"shake", lib_cmd_shake_what},
   {"shout *", lib_cmd_shout},
@@ -1336,6 +1357,10 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"smell %object% *", lib_cmd_smell_object},
   {"smell *", lib_cmd_smell_other},
   {"stop %object% *", lib_cmd_stop_object},
+  /* stop (488F56) is a therest arm below the 4887A0 clause too: British
+   * Fox T376 `stop engine`, the Britmobile's engine seen elsewhere, is
+   * "You can't see Britmobile engine." */
+  {"stop %text%", lib_cmd_verb_absent_400},
   {"stop %text%", lib_cmd_stop_other},
   {"stop", lib_cmd_stop_what},
   {"suck %object% *", lib_cmd_suck_object},
@@ -1347,6 +1372,10 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"thank *", lib_cmd_thank},
   {"turn %object% *", lib_cmd_turn_object},
   {"turn %object% *", lib_cmd_turn_absent},
+  /* The clause reads every object the line names, not the one a pattern
+   * bound: British Fox T306 `eugene turn on computer`, Sharon's computer
+   * seen elsewhere, is "You can't see Sharon's computer.". */
+  {"turn %text%", lib_cmd_verb_absent_400},
   {"turn %text%", lib_cmd_turn_other},
   {"turn", lib_cmd_turn_what},
   {"touch %object% *", lib_cmd_touch_object},
@@ -1356,6 +1385,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"unblock %text%", lib_cmd_unblock_other},
   {"unblock", lib_cmd_unblock_what},
   {"wash %object% *", lib_cmd_wash_object},
+  {"wash %text%", lib_cmd_verb_absent_400},
   {"wash %text%", lib_cmd_wash_other},
   {"wash", lib_cmd_wash_what},
   {"whistle *", lib_cmd_whistle},
@@ -2178,9 +2208,9 @@ run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
  */
 static scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[] = {
   {"open %object%", lib_cmd_open_absent},
-  {"open *", lib_cmd_open_other},
+  {"open *", lib_cmd_open_ended_400},
   {"close %object%", lib_cmd_close_absent},
-  {"close *", lib_cmd_close_other},
+  {"close *", lib_cmd_close_ended_400},
   {"sit {down/up} [on/in] *", lib_cmd_verb_absent_400},
   {"sit {down/up} [on/in] *", lib_cmd_sit_other},
   {"stand {up/down} [on/in] *", lib_cmd_verb_absent_400},
@@ -4460,6 +4490,10 @@ run_get_dispatch_input (void)
  */
 static std::vector<scr_bool> run_tasks_ran_this_command;
 
+/* TRUE while a 4.0 line has a spent task's RepeatText to answer with; set
+   by run_all_commands() from its REFUSAL_PASS_PROBE. */
+static scr_bool run_repeat_found_400 = FALSE;
+
 /*
  * The last typed command as the dispatcher saw it, and whether a game task
  * ran for it: the pre-4.0 end-of-turn ambiguity prompt (see
@@ -6077,7 +6111,16 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * restricted ones with a fail message.  Use the cache built above to weed
    * out matches that are certain to fail.
    */
-  if (!is_handled && !is_matched && include_restrictions)
+  /*
+   * 4.0 enters that fallback only when the picker found no task at all, and
+   * a spent task with a RepeatText whose restrictions pass IS one it finds
+   * (see run_task_refusal()), however far down the table: British Fox's
+   * `attack guard` after the basement guard is down answers task 385's
+   * "The guard is already unconscious.", never task 331's "The jailors are
+   * not here" (runner_transcripts/britishfox.txt turns 215-256).
+   */
+  if (!is_handled && !is_matched && include_restrictions
+      && !(is_restriction_first && run_repeat_found_400))
     {
       for (task = 0; task < task_count; task++)
         {
@@ -6194,6 +6237,10 @@ run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
  */
 static scr_int run_task_class_filter = 0;
 
+/* A held-object put with no in/on split admits put-family tasks only,
+   whatever the caller's mode; see lib_put_held_unsplit_400(). */
+static scr_bool run_put_class_only = FALSE;
+
 void
 run_set_task_class_filter (scr_int mode)
 {
@@ -6223,8 +6270,10 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, TRUE);
   scr_bool is_take = FALSE, is_put = FALSE;
+  const scr_int mode = run_task_class_filter != 0 ? run_task_class_filter
+                       : run_put_class_only ? 2 : 0;
 
-  if (run_task_class_filter == 0)
+  if (mode == 0)
     return TRUE;
 
   for (const scr_char *pattern : patterns)
@@ -6242,7 +6291,7 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
         }
     }
 
-  switch (run_task_class_filter)
+  switch (mode)
     {
     case 1:
       return is_take;
@@ -6329,6 +6378,16 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
 {
   scr_int task_count, task, direction;
 
+  /* The pre-matcher takes its caller's mode alone: name_object's unfiltered
+     look-up still sees a non-put task on a held-object put line. */
+  struct put_class_suspend
+  {
+    const scr_bool saved;
+    put_class_suspend () : saved (run_put_class_only)
+    { run_put_class_only = FALSE; }
+    ~put_class_suspend () { run_put_class_only = saved; }
+  } const suspend;
+
   /*
    * match_kind, when asked for, is the pre-matcher's own return value:
    * 1 for a hit whose matched direction has text to print, or a fallback
@@ -6347,8 +6406,21 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
   if (!run_is_running (game))
     return FALSE;
 
-  /* Apply input synonyms, so indirection through a synonym still counts. */
-  scr_owned_string filtered (pf_filter_input (string, gs_get_bundle (game)));
+  /*
+   * Apply input synonyms, so indirection through a synonym still counts --
+   * for the interface's probe of a raw typed line only.  The Runner's
+   * pre-matcher 453C50 applies none: its typed line has been through the
+   * synonym table already (run_player_input()), and a line the library
+   * rebuilds reaches it as built.  S.E.R.E. (4.00) maps get -> take and has
+   * task 40 "take *  sniper * rifle" (two spaces, so the typed line misses)
+   * with the alternative "get * rifle": run400 answers `take sniper rifle`
+   * in the barn with the task, which the take piece's "get the sniper rifle"
+   * pre-matches (runner_transcripts/sere.txt T22).  Filtered, that line read
+   * "take the sniper rifle" and the library took the rifle.
+   */
+  scr_owned_string filtered (check_restrictions
+                             ? NULL
+                             : pf_filter_input (string, gs_get_bundle (game)));
   if (filtered)
     string = scr_normalize_string (filtered.get ());
 
@@ -7745,6 +7817,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   repeat_found = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
                  && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
   repeat_pending = repeat_found && !run_repeat_survivor_400 (game, string);
+  run_repeat_found_400 = repeat_found;
 
   /*
    * put_drop_list's own clause loop, carved before anything else looks at
@@ -7792,6 +7865,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
               && run_is_put_command (game, put_clauses.empty ()
                                            ? put_line
                                            : put_clauses[0].c_str ());
+  struct put_class_guard
+  {
+    explicit put_class_guard (scr_bool on) { run_put_class_only = on; }
+    ~put_class_guard () { run_put_class_only = FALSE; }
+  } const put_class (!put_first && !repeat_pending
+                     && lib_put_held_unsplit_400 (game, put_line));
   status = FALSE;
   refused = FALSE;
   if (!repeat_pending && run_put_take_400 (game, string))
@@ -7941,6 +8020,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   std::string outer_battle;
   const scr_char *outer_line = string;
+  scr_bool outer_twice = FALSE;
+  size_t outer_mark = 0;
   if ((battle_kinds & RUN_BATTLE_TAKE)
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
@@ -7955,20 +8036,124 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           || strncmp (outer_line, "take ", 5) == 0
           || strncmp (outer_line, "pick ", 5) == 0)
       && !lib_input_contains_word (outer_line, "all")
-      && !lib_input_contains_word (outer_line, "and")
-      && lib_take_names_dynamic_400 (game, outer_line)
-      && !lib_task_prematches_input (game, 1))
+      && !lib_input_contains_word (outer_line, "and"))
     {
-      /* The piece names its object by whole-word score, so "get in the van"
-         is a take of the van; see lib_take_scored_400(). */
-      run_dispatch_input = outer_line;
-      status = run_priority_commands (game, outer_line);
-      if (!status)
+      /* The piece names its object by whole-word score, so "get in the
+         van" is a take of the van; see lib_take_scored_400(). */
+      auto outer_take = [&] () -> scr_bool
         {
-          const scr_ref_number_guard ref_number (game);
-          status = lib_take_scored_400 (game);
+          scr_bool taken;
+
+          run_dispatch_input = outer_line;
+          taken = run_priority_commands (game, outer_line);
+          if (!taken)
+            {
+              const scr_ref_number_guard ref_number (game);
+              taken = lib_take_scored_400 (game);
+            }
+          run_dispatch_input = string;
+          return taken;
+        };
+      const scr_int kind = lib_task_prematch_kind_input (game, 1);
+
+      if (kind == 2)
+        {
+          /*
+           * get_piece dispatches a pre-matched task at 472DE7 but claims the
+           * line only when the pre-matcher answered 1, a task with text of
+           * its own.  A textless task (2) runs there and get_piece carries
+           * on, resolving its noun only now.  make_400_takedoubleprobe.py
+           * measures both halves (run400x Adrift_282_p4tdbl, _p4tdbo).
+           */
+          outer_mark = pf_buffer_length (filter);
+          run_game_commands_in_parser_context (game, task_string, TRUE, FALSE);
+          if (lib_take_names_dynamic_400 (game, outer_line))
+            {
+              /*
+               * An object in reach is taken, or refused, as usual, and the
+               * task ran once only.  The take line comes first and the
+               * task's text follows it (47359A, lib_take_backend_common());
+               * a refusal is appended.  p4TDBO `get ball` "Player take the
+               * ball.  BOBTEXT.", `get gem` held "BOBTEXT.Player is already
+               * carrying the gem."; an object the task brought within reach
+               * too, sommeril T49 `take silver key` "You are already
+               * carrying the SILVER KEY." (runner_transcripts/sommeril.txt).
+               */
+              std::string task_text = pf_buffer_tail (filter, outer_mark);
+              scr_int held_before = 0, held_after = 0, object;
+
+              pf_truncate (filter, outer_mark);
+              for (object = 0; object < gs_object_count (game); object++)
+                held_before += gs_object_position (game, object)
+                               == OBJ_HELD_PLAYER;
+              status = outer_take ();
+              for (object = 0; object < gs_object_count (game); object++)
+                held_after += gs_object_position (game, object)
+                              == OBJ_HELD_PLAYER;
+              if (!task_text.empty ())
+                {
+                  if (held_after > held_before)
+                    pf_buffer_join (filter, task_text.c_str ());
+                  else
+                    {
+                      std::string answer = pf_buffer_tail (filter, outer_mark);
+
+                      pf_truncate (filter, outer_mark);
+                      while (!task_text.empty () && task_text.back () == '\n')
+                        task_text.pop_back ();
+                      pf_buffer_string (filter, task_text.c_str ());
+                      pf_buffer_string (filter, answer.c_str ());
+                    }
+                  status = TRUE;
+                }
+            }
+          else if (lib_task_prematch_kind_input (game, 1) != 0)
+            {
+              /*
+               * With no object its 473241 pre-match hits again and exits
+               * silently, and the dispatcher at 48A481 runs the typed line
+               * AGAIN.  British Fox T318 `get grace` prints task 123's text
+               * twice (runner_transcripts/britishfox.txt); p4TDBL `get bob`
+               * "BOBTEXT.  BOBTEXT." with its counter up by two, `get eel`,
+               * nothing printed by either run, "I don't understand.".
+               */
+              outer_twice = TRUE;
+            }
+          else
+            {
+              /*
+               * A task the run spent misses 473241, and get_piece goes on to
+               * 47332B: "Take what?" into an empty buffer, and the line is
+               * get_outer's.  FunHouse T2 `pick up money`, task 11 once-only
+               * and silent (score only): "Take what?" and the turn ticks
+               * (runner_transcripts/funhouse.txt); p4TDBL's first `get dog`
+               * prints the text its execute action set off, and nothing more.
+               */
+              if (pf_buffer_length (filter) == outer_mark)
+                pf_buffer_string (filter, "Take what?\n");
+              status = TRUE;
+            }
         }
-      run_dispatch_input = string;
+      else if (lib_take_names_dynamic_400 (game, outer_line))
+        {
+          if (kind != 0)
+            {
+              /*
+               * The pre-match hit on a task with text, or on a failing
+               * restriction's message, is get_piece's claim, loud: the
+               * FailMessage prints through 45404C (44CCA5) before any
+               * library take could.  bigspy2 T2 `get puzzle`, the boy in the
+               * room: "Hey, leave my sliding puzzle alone..." (runner_
+               * transcripts/bigspy2.txt); advent350b T386 `get chain`,
+               * "It's locked to the friendly bear." (runner_transcripts/
+               * advent350b.txt:1753).
+               */
+              status = run_game_commands_in_parser_context (game, task_string,
+                                                            TRUE, FALSE);
+            }
+          else
+            status = outer_take ();
+        }
     }
 
   if (!status && !refused
@@ -7986,12 +8171,29 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !refused && lib_drop_what_pre390 (game))
     status = TRUE;
 
+  /*
+   * A put line with no in/on split that a task pre-matches reaches
+   * name_object's mode-2 scorer, whose flat tie answer prints ahead of the
+   * task and does not claim the line; see lib_put_task_tie_400().
+   */
+  if (!status && !refused && !put_first && !repeat_pending && !inv_listed
+      && lib_put_task_tie_400 (game, put_line))
+    {
+      pf_note_trailing_auto_break (filter);
+      pf_buffer_join_pending (filter);
+    }
+
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
   if (!status && !refused)
     {
+      /* get_piece's run does not count as the dispatcher's one task, and
+         the take it stood in for has had its turn: no silent-literal peek
+         to hand the line back to it. */
+      run_matcher_second_pass = outer_twice;
       status = run_game_commands_in_parser_context (game, task_string,
-                                                    FALSE, TRUE);
+                                                    FALSE, !outer_twice);
+      run_matcher_second_pass = FALSE;
       if (run_any_task_ran_this_command ())
         run_takes_second_pass_370 (game, string, task_string, task_mark);
     }
@@ -8157,10 +8359,19 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     }
   if (inv_listed)
     status = TRUE;
-  if (!status && !silent_task_390 && battle_kinds)
+  /*
+   * After get_piece's double run the library has nothing left for the line:
+   * get_outer was its take.  Whatever either run printed answers it;
+   * nothing at all is DontUnderstand (p4TDBL `get eel`, Adrift_282_p4tdbl).
+   */
+  const scr_bool outer_silent = outer_twice && !status;
+  if (outer_silent && pf_buffer_length (filter) > outer_mark)
+    status = TRUE;
+  if (!status && !silent_task_390 && !outer_silent && battle_kinds)
     status = run_battle_line (game, string, battle_kinds);
-  const scr_bool reached_library = !status && !silent_task_390;
-  if (!status && !silent_task_390)
+  const scr_bool reached_library = !status && !silent_task_390
+                                   && !outer_silent;
+  if (!status && !silent_task_390 && !outer_silent)
     {
       /*
        * Only now, with every task pass declined, does the Runner rewrite a
@@ -8347,10 +8558,10 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * sun_empire_site.txt, VBRNG_SEED=10, commands 58 and 63, site-tagged
    * draws): `get sample from orgaan soldier` with the two soldiers Skyrv and
    * Skynd present runs task 63/64, and neither the Code Red siren nor the
-   * battle draws a thing that turn.  characters()' co() scan over the
-   * objects does the same for an object name that two present objects share
-   * (lib_co_400_line_leaves_which_pending(); Cyberclones II `give electric
-   * uniform to lightning`).
+   * battle draws a thing that turn.  characters()' give-branch co() scan
+   * over the objects does the same for an object name that two present
+   * objects share (lib_co_400_line_leaves_which_pending(); Cyberclones II
+   * `give electric uniform to lightning`).
    */
   if (status && !game->is_admin && run_any_task_ran_this_command ()
       && (lib_npc_400_line_names_namesakes (game, string)
@@ -9923,7 +10134,15 @@ run_main_loop (scr_gameref_t game)
            * and 3.9 counted this line's elements as they read them; see
            * run_player_input().
            */
-          if (!run_counts_line_elements (game))
+          /*
+           * run400 counts the turn only in the end-of-turn tick
+           * (48B5B8-48B5C1), which the EndGame action's game-over byte
+           * (4941AD) skips: goldbe's winning `climb down rope` leaves
+           * %turns% at 31 (runner_transcripts/goldbe.txt).
+           */
+          if (!run_counts_line_elements (game)
+              && !(prop_get_taf_version (gs_get_bundle (game))
+                   >= TAF_VERSION_400 && !game->is_running))
             game->turns++;
           game->has_notified = FALSE;
 

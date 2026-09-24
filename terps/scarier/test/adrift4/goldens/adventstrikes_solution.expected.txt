@@ -1,0 +1,144 @@
+Loading game...
+
+Adventure Strikes When You Least Expect It
+It all started about half an hour ago. You were leaning out of your bedroom
+window trying to see what all the noise was outside, when you slipped.
+Fortunately an adjoning block of flats broke your fall. At least they broke
+your fall until the roof caved in, and you found yourself face down in a
+ground floor flat with a large hole in the roof.
+Since then you've managed to get yourself upright again, and the pain isn't
+too bad, Your left leg definitely needs medical attention, and your dentist
+is going to have something to put away for his retirement.
+First though, you're going to have to find your way out.
+
+Living Room
+The first thing that strikes you about this room is how cold and dark it is.
+Even during the middle of summer you're shivering and struggling to see into
+the corners. The carpet is stained and covered by some sort of damp sticky
+mould. The wooden front door lies to the south.  Also here is a can of
+varnish and a crate.  You can move north, east and west.
+
+> get varnish
+You take the can of varnish.
+
+> e
+You move east.
+
+Kitchen
+This room is cramped, dirty and mildly disgusting. An old fridge and a small
+unit are the only furniture remaining, and even they are scratched and
+dented.  Light filters into the room through a big window to the east. Thick
+steel bars sit ominously  behind the window.  You can only move west.
+
+> open fridge
+You open the fridge.  A large piece of cheese is inside the fridge.
+
+> get cheese
+You take the large piece of cheese from the fridge.
+
+> w
+You move west.
+
+Living Room
+The first thing that strikes you about this room is how cold and dark it is.
+Even during the middle of summer you're shivering and struggling to see into
+the corners. The carpet is stained and covered by some sort of damp sticky
+mould. The wooden front door lies to the south.  Also here is a crate.  You
+can move north, east and west.
+
+> w
+You move west.
+
+Bedroom
+Something about this room makes you glad that you don't live here. The
+combination of garish wallpaper, layers of filth and bizarre wall angles
+makes you almost want to throw up. The strange stains on the bed and wardrobe
+add to the effect even further.   Light filters in through a dirty window
+with thick bars to the west.  You can only move east.  As you move the
+stiffness in your leg reminds you just how urgently you need to get out of
+here.
+
+> open wardrobe
+You open the wardrobe.  A coat hanger and a puppet are inside the wardrobe.
+
+> get coat hanger
+You take the coat hanger from the wardrobe.
+
+> varnish cheese
+You spray varnish all over the piece of cheese then wait for it to set. This
+leaves the cheese even harder than before and kind of shiny.
+
+> e
+You move east.
+
+Living Room
+The first thing that strikes you about this room is how cold and dark it is.
+Even during the middle of summer you're shivering and struggling to see into
+the corners. The carpet is stained and covered by some sort of damp sticky
+mould. The wooden front door lies to the south.  Also here is a crate.  You
+can move north, east and west.
+
+> n
+You move north.
+
+Bathroom
+The bathroom is dark and damp. Even the dim light isn't enough to hide the
+extensive decay and damage. Every part of the room is mouldy, dirty, broken
+or all three. The remains of a smashed bathroom suite and a half-collapsed
+shower cubicle add to the general squalor.  A small window in the north wall
+provides dim illumination.  You can only move south.
+
+> break window with cheese
+The artificially hardened cheese smashes through the bathroom window.
+
+> get crowbar with coat hanger
+You reach through the window with the coat hanger.  Carefully and
+painstakingly you manage to pull the crowbar near enough to take hold of it.
+As you move the stiffness in your leg reminds you just how urgently you need
+to get out of here.
+
+> s
+You move south.
+
+Living Room
+The first thing that strikes you about this room is how cold and dark it is.
+Even during the middle of summer you're shivering and struggling to see into
+the corners. The carpet is stained and covered by some sort of damp sticky
+mould. The wooden front door lies to the south.  Also here is a crate.  You
+can move north, east and west.
+
+> open crate with crowbar
+You carefully pry open the crate. Doing so causes your leg to start to throb
+more harder and faster.
+
+> look in crate
+The crate is large and made of wood held together by heavy nails. It has been
+crudely opened, leaving the top badly splintered.  A saw is inside the open
+crate.
+
+> get saw from crate
+You take the saw from the open crate.
+
+> break door with saw
+You start the electric saw and cut a big enough hole in the door to climb
+through.
+
+> s
+You move south.
+
+Hallway
+The hallway is cold and sterile. Gleaming steel walls and doors seem like
+something out of a science fiction film. The only things that seem out of
+place are the broken wooden door to the north and the fire alarm. The
+southern door has a large number 53 on it, and the western door is labelled
+EXIT.  Also here is a fire alarm.  You can only move north.  As you move the
+stiffness in your leg reminds you just how urgently you need to get out of
+here.
+
+> set off fire alarm
+You break the glass to set off the fire alarm
+You don't have to listen to the nasty pulsing of the alarm for long before
+the Fire Brigade arrive. From them opening the door it's only a short time
+until you find yourself in hospital and on the mend.
+Congratulations, you've found your way out.
+[Press any key to end]

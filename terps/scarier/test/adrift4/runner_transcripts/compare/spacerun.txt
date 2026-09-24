@@ -1,0 +1,49 @@
+feed        54 commands
+runner      54 turns echoed
+scarier     56 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 35  flip switch
+  run400   You can't do that here!
+  scarier  You flip the switch but cannot hear anything.
+
+turn 37  n
+  run400   You move north. Corridor This small corridor is a t-bone junction. It leads south to the recieving area, east to an inner cooridor and west to the electronics room. Slime drips from the cieling. The eastern door is broken. Sparks spray from the edges and you can just see between the doors but there is not enough space to squeeze through. You can only move south.
+  scarier  You move north. Corridor This small corridor is a t-bone junction. It leads south to the recieving area, east to an inner cooridor and west to the electronics room. Slime drips from the cieling. The eastern door is broken. Sparks spray from the edges and you can just see between the doors but there is not enough space to squeeze through. You can move south and west.
+
+turn 38  w
+  run400   You can only move south.
+  scarier  You move west. Electronics room This room is very small. It reminds you of a cleaners cupboard. There is a fuse box mounted on the wall. You can only move east.
+
+turn 39  open door
+  run400   You can't do that here!
+  scarier  You swing the little fuse box door open and gape inside. There are more broken wires in here than you have ever seen! There are two wires in here you could 'twist together' and maybe make a curcit.
+
+turn 40  twist wires together
+  run400   You can't do that here!
+  scarier  You take hold of the two wires and twist the ends together. A small spark makes you jump and you hear a generator powering up.
+
+turn 41  e
+  run400   You can only move south.
+  scarier  You move east. Corridor This small corridor is a t-bone junction. It leads south to the recieving area, east to an inner cooridor and west to the electronics room. Slime drips from the cieling. The eastern door seems to be working now, even though sparks still continually spray from the edges of the door. You can move east, south and west.
+
+turn 42  e
+  run400   You can only move south.
+  scarier  You move east. Inner corridor This corridor leads deeper and deeper into the ship. There is a neon sign over head flashing: "Unclean! Unclean! Please procede to Alien Search Recieving Room for directions!" You can move north and west.
+
+turn 43  n
+  run400   You can only move south.
+  scarier  You move north. Alien search recieving room This room is like a receptionists room. There is a desk and a wall panel here. Four doors lead out of here: one to the north reading 'Stairs to Sector B', the southern one has no label, the western one says 'Shower Room' and the eastern room is labeled 'Customs'. You can move east, south and west.
+
+turn 44  w
+  run400   You can only move south.
+  scarier  You move west. Customs room There is a small conveyor belt here. There is a desk attatched to it. You can move east and west.
+
+turn 45  push button
+  run400   You can't do that here!
+  scarier  You place your stuff on the conveyor belt, press the button and watch as the objects are sprayed for desiese. They come out all sparkly clean.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

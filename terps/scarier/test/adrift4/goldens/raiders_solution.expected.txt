@@ -1,0 +1,84 @@
+Loading game...
+
+Raiders of Sheppey
+
+Large Loaded ship
+You are at the base of a large ship. Men are working nearby to complete the
+caulking of the hull. There are piles of food nearby on a straw mat. The ship
+is almost ready to depart!  You can move north, south and west.
+
+> w
+You move west.
+
+Pile of food
+A great deal of food is spread out on a large straw mat.  Also here is a
+pork, a water, a urn, a ale, a wine, a grapes and a bread.  You can only move
+east.  You manage to avoid Priest 's attack.  You manage to avoid Leper's
+attack.
+
+> drink water
+You obtain superstrength.  You manage to avoid Priest 's attack.  You manage
+to avoid Leper's attack.  YOu are extremely strong. No one can hurt you right
+now!
+
+> e
+You move east.
+
+Large Loaded ship
+You are at the base of a large ship. Men are working nearby to complete the
+caulking of the hull. There are piles of food nearby on a straw mat. The ship
+is almost ready to depart!  You have great bulging muscles.  You can move
+north, south and west.
+
+> s
+You move south.
+
+Ship hull
+You are onboard the ship. Several strong men are talking here. There seems to
+be enough supplies onboard to last for months. The ship begins to move. You
+are going somewhere else!  Also here is a rope.  You have great bulging
+muscles.  You can move north, east and west.
+
+> n
+You move north.
+
+Shore
+You are on a shore somewhere else on the British Isles.   Also here is a
+Wishing stone.  Native guide is here.  You can move north, east, south and
+west.
+
+> e
+You move east.
+
+Pagan ritual site
+You have stubbled onto a horrible site. Skeletons are everywhere decorating
+the wall around an idol.   You can move north, east, west and in.
+
+> move idol
+You are very brave!  A door opens on the idol.
+
+> in
+You move in.
+
+Open door
+The door to the idol is open.  Also here is a sapphire.  You can move north
+and out.
+
+> take sapphire
+You are carrying a sapphire sword.
+
+> n
+You move north.
+
+Thicket
+This area is so overgrown you cannot walk.   Valludu is here.  You can only
+move south.
+
+> stab valludu
+You are real brave, buddy!
+Hurray you have beat the evil monster valludu. You have won the game!
+You scored 0 out of the maximum 100!
+That is 0% of the game!
+You finished 100 points short.
+
+[Press any key to end]

@@ -1,0 +1,325 @@
+Loading game...
+
+The tunnels of Athylon
+
+Please enter your name:
+
+> Petter
+
+Start room
+In this room is a hole in the top whereby you got in.  You can only move
+south.
+
+> s
+You move south.
+
+Crossing
+This room is dank and you here a shuffling somewhere.  A beggar is here.  You
+can move north, east and west.
+
+> attack beggar
+You prepare to fight the beggar, as he looks up you deliver a blow to his
+jaw, he crumples helplessly. You wait expectantly for guards, but none come.
+
+> rob rogue
+You bend down and take the cigarette.
+
+> e
+You move east.
+
+Message room
+a message lies in the middle if this room  Also here is A message.  You can
+only move west.
+
+> get message
+You take A message.
+
+> w
+You move west.
+
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an
+unconcious beggar.  You can move north, east and west.
+
+> w
+You move west.
+
+Sword room
+This room is small and has a podium in the middle.  Also here is a large,
+sharp sword.  You can move north and east.
+
+> get sword
+you take the a large, sharp sword
+
+> n
+You move north.
+
+Shield/armour room
+This room has a large bookcase at one end.  Also here is a shield.  You can
+only move south.
+
+> get shield
+You take the shield.
+
+> wear shield
+You put on the shield.
+
+> kick bookcase
+You give the bookcase a good kick and it swings open!
+
+> in
+You move in.
+
+Strange room
+This room is unnatural, unnatural in the way that the walls seem to be very
+paranoid.  Also here is a strange, twisted metal object.  You can only move
+out.
+
+> get metal object
+you take the a strange, twisted metal object
+
+> out
+You move out.
+
+Shield/armour room
+This room has a large bookcase at one end.  You can move south and in.
+
+> s
+You move south.
+
+Sword room
+This room is small and has a podium in the middle.  You can move north and
+east.
+
+> e
+You move east.
+
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an
+unconcious beggar.  You can move north, east, south and west.
+
+> s
+You move south.
+
+Fighting room
+blah  Strange person is here.  You can move north and south.  A stranger hits
+you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.  A stranger hits you.
+
+> kill strange person with sword
+You cut a stranger with the large, sharp sword.
+
+> kill strange person with sword
+Strange person isn't here!
+
+> look
+
+Fighting room
+blah  Also here is a piece of paper.  You can move north and south.
+
+> get paper
+You take the piece of paper.
+
+> s
+You move south.
+
+Guarded gate
+The corridor ends with a large gate, guarded by a large and hulking armoured
+monstrosity.  Guard is here.  You can only move north.
+
+> give cigarette and paper to guard
+You give the guard the cigarette and the paper, he takes them, fumbles for a
+match, looks at the paper and opens the gate.
+
+> w
+You move west.
+
+Passageway
+A long passage stretches away in front of you  You can move east, south and
+west.
+
+> s
+You move south.
+
+Large Hall
+No one has seen you, fortunately, you'd best be descrete! a large table
+occupies the middle of the hall.  You can only move north.
+
+> examine table
+This table is utterly huge! it stretches right the way down the room, with
+various things on top.  On the huge table is a golden chalice, a hunk of old
+meat, a fat cigar and a hunk of edible meat.
+
+> get chalice
+you sneak up and grab a golden chalice
+
+> get cigar
+you sneak up and grab a fat cigar
+
+> get old meat
+you sneak up and grab a hunk of old meat
+
+> shake cigar over meat
+You tap the cigar over the meat and some tobacco falls onto the meat, you're
+not gonna eat it now!
+
+> n
+You move north.
+
+Passageway
+A long passage stretches away in front of you  You can move east, south and
+west.
+
+> w
+You move west.
+
+End of passageway
+This is the end of the passageway, you hear steps somewhere.  You can move
+north, east and south.
+
+> n
+You move north.
+
+Gate with dogs
+This passage has several dogs sleeping in front of the gate, you don't want
+to wake them up, which you would certainly do by leaving!  Some guard dogs
+are here.  You can only move south.
+
+> give meat to dogs
+You throw the meat to them and one leaps from sleep to catch it, the rest
+join in. In a moment the dogs are sleeping/unconcious/in  agony/dead
+
+> out
+You move out.
+
+Fields
+You've finally come out into the open! You'll now have to find your way to
+Athylon, without, of course, being eaten by animals.  You can only move
+north.
+
+> n
+You move north.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, east,
+south and west.
+
+> n
+You move north.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, east,
+south, west and northeast.  Beast bounds towards you, slavering like mad.  A
+foul beast hits you, but it doesn't seem to do any damage.
+
+> n
+You move north.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, south,
+west and southwest.
+
+> n
+You move north.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  Also here is a pretty
+flower.  You can move east and south.
+
+> get flower
+You take the pretty flower.
+
+> crush flower into chalice
+You crush the flower to make a paste inside the chalice, the paste then
+dissolves, bubbles for a while and then becomes red like the wine that was in
+the bottom of the cup.
+
+> s
+You move south.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, south,
+west and southwest.
+
+> w
+You move west.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, east,
+south, west and northeast.
+
+> n
+You move north.
+
+Fields
+Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, south,
+west and southwest.
+
+> sw
+You move southwest.
+
+Huge gate
+This gate is huge, eleven guards stand in front of you, not looking too
+happy. "Warra you want?" mumbles one of them, in fact, the effect of him
+mumbling so loudly is quite startling.  Guards are here.  You can only move
+northeast.
+
+> give chalice to guards
+You give the chalice to the guards and they thank you and each take a sip...
+in a second they are on the floor.
+
+> w
+You move west.
+
+Outside... ATHYLON
+"You've arrived at Athylon! woo-hoo! well done you've finish-" " WAIT!!! that
+was the **old** storyboard, they still have to open the gate!"..."oops..."
+"...he's right you know!"  the chief guard of Athylon is here, he doesn't
+find it difficult to make his presence felt, you can **feel** the air around
+you struggling to get out of the way.  You can only move east.
+
+> give chalice to chief guard
+you give the guard the golden chalice and he suddenly has a change of
+attitude! even the chief guard of Athylon stoops to bribery!
+
+> w
+You move west.
+
+End of Game!!!
+Well done! you have got to the town of Athylon! After a long dispute with
+marketing (i.e. me) we decided that it would not be suitable to put the rest
+of the game in this version as this is named "the *tunnels* of Athylon"
+therefore you are not allowed to actually enter the town of Athylon, so see
+ya in the next game! Well done! [press any key]  You can only move east.
+
+> look
+
+End of Game!!!
+Well done! you have got to the town of Athylon! After a long dispute with
+marketing (i.e. me) we decided that it would not be suitable to put the rest
+of the game in this version as this is named "the *tunnels* of Athylon"
+therefore you are not allowed to actually enter the town of Athylon, so see
+ya in the next game! Well done! [press any key]  You can only move east.
+
+You scored 17 out of the maximum 25!
+That is 68% of the game!
+You finished 8 points short.
+
+[Press any key to end]

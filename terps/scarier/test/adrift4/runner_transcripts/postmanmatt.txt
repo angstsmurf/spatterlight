@@ -1,0 +1,63 @@
+
+> move body
+You try to turn him over, but fail on account of him being a very heavy fellow and you being rather weak.
+
+However, a pen which was previously trapped under the body rolls free.  
+
+> get pen
+You take the pen.  
+
+> read letter
+But... it's not your letter!
+
+Ah, heck with it! It's for the dead man and, with him being dead, he's not very likely to open it, is he?
+
+So you open it. It reads:
+
+"Dear Mr Blimey,
+
+It has recently come to my attention that you have a very silly  name. People with very silly names should be mocked. As such, I am writing you this correspondence so I can make fun of you. 
+
+Consider yourself made fun of.
+
+Yours sincerely,
+
+
+Hogwash Bottomley"
+
+Hmmm...
+
+There's a line at the bottom which needs signing. Unfortunately, it's currently unsigned.  
+
+Tess scratches herself.
+
+> sign letter
+You hesitate briefly before doing the unthinkable - well, it's clearly not unthinkable because you just thought of doing it, but it's pretty damn almost close to being unthinkable - and sign the letter.
+
+There. Done.
+
+You then leave the letter by the body, call to Tess to stop savaging a lion she's found, and head on to your next stop on the postal route.
+
+Castle Dracula, eh? Hmmm... should be a piece of cake.
+
+[MORE]
+
+  
+
+
+Victory!
+
+Well done! You've won!
+
+What an epic victory!
+
+I mean spiffing!
+
+Your score is 35,333,890 out of a possible 35,333,890. Your rank is masterful wonderful adventure of awesomeness.
+
+Give yourself a darn good clap on the back, old fellow.
+
+> quit
+
+> 
+Sorry. That's not a command used in this adventure.

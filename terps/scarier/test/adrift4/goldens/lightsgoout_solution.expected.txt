@@ -1,0 +1,161 @@
+Loading game...
+
+When The Lights Go Out......
+
+     As a little child, you have always wondered - what happens when you go
+to sleep? What happens when you put out the lights? Where is that noise
+coming from?
+     Now, you are all grown up, a teenager, but the memories of sleepless,
+frightened nights would always haunt you, whenever you turn off the lights at
+night.
+     Finally, tonight, you have found enough courage, to end this suffering
+once and for all...!
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+> n
+(Getting off the bed first)
+You move north.
+
+Corridor
+     You tiptoed onto the corridor outside your room, for your parents are
+light sleepers, thus any sound could easily wake them up.
+     To the North is your parents' bedroom; South is your own room; and Down
+will take you to the Living Room.
+
+> d
+You move down.
+
+Living Room
+     You stepped cautiously into the Living Room. It seems rather empty,
+because of the huge windows, giving a clear view outside.
+     You can move South to the Kitchen, West to the Storeroom, or Up to go
+back up to the Corridor.
+
+> w
+You move west.
+
+Storeroom
+     You opened the door, and moved into the storeroom. You searched the
+shelves for something useful, but most are either too large or simply useless
+pieces of furniture.
+     Wait, there is a can of lubricating oil here...! You wonder if it would
+come in handy...
+     You can only move in the direction of East, to the Living Room.
+
+> get can of lubricating oil
+     You took the can of lubricating oil.
+
+> e
+You move east.
+
+Living Room
+     You stepped cautiously into the Living Room. It seems rather empty,
+because of the huge windows, giving a clear view outside.
+     You can move South to the Kitchen, West to the Storeroom, or Up to go
+back up to the Corridor.
+
+> u
+You move up.
+
+Corridor
+     You tiptoed onto the corridor outside your room, for your parents are
+light sleepers, thus any sound could easily wake them up.
+     To the North is your parents' bedroom; South is your own room; and Down
+will take you to the Living Room.
+
+> s
+You move south.
+
+Your Bedroom
+     This is your bedroom, where you spent much of your sleepless nights in.
+This morning, you found a secret trapdoor under your bed, while doing
+spring-cleaning. Since then, you made up your mind to exploring what that is
+beyond / below that trapdoor......
+     You can move North - onto the corridor, or Down, into the secret
+trapdoor.
+
+> put oil on bolt
+     With the help of the oil, you easily opened the trapdoor. Suddenly, a
+powerful force pulled you down.........
+     When you regain consciousness, you found yourself lying in a cave...
+
+> n
+You move north.
+
+Tunnel
+     You went into the tunnel, and you can see that there is a bright light
+at the other end of the tunnel.
+     You can go Up to explore the source of the light, or move back South to
+the Cave.
+
+> u
+You move up.
+
+Entrance
+     Finally, you came to the top, and were welcomed by a blinding light.
+Right beside where you have came up from, there is an opened gate and a small
+guardhouse.
+     You can either go Down to the tunnel, West to the slope, or South.  A
+strange looking man, who appears to be the guard, is seated with his back to
+you.
+
+> w
+You move west.
+
+Slope
+     You kept walking, and you found yourself stopping by a dangerously steep
+slope, with a really bright light coming down from the top.
+     You can choose to climb in the direction of East - or to head West, back
+to the Cave.
+
+> e
+You move east.
+
+Entrance
+     Finally, you came to the top, and were welcomed by a blinding light.
+Right beside where you have came up from, there is an opened gate and a small
+guardhouse.
+     You can either go Down to the tunnel, West to the slope, or South.  A
+strange looking man, who appears to be the guard, is seated with his back to
+you.
+
+> look
+
+Entrance
+     Finally, you came to the top, and were welcomed by a blinding light.
+Right beside where you have came up from, there is an opened gate and a small
+guardhouse.
+     You can either go Down to the tunnel, West to the slope, or South.  A
+strange looking man, who appears to be the guard, is seated with his back to
+you.
+
+> s
+You move south.
+
+City of The Lights
+     Curious and confused by your new discovery, you moved into a huge place,
+and a sign says, "Welcome to the City of The Lights!"
+     You looked at all the people passing by, who look sleepy and tired,
+therefore are not paying much attention to you. It is crazy, but all the
+people looked like lamps and light bulbs!
+     A huge projection high above you reads, "[South ~ Rest Area]  [East ~
+Entertainment Zone]  [West ~ Restaurants] [North ~ Exit]"
+
+> look
+
+City of The Lights
+     Curious and confused by your new discovery, you moved into a huge place,
+and a sign says, "Welcome to the City of The Lights!"
+     You looked at all the people passing by, who look sleepy and tired,
+therefore are not paying much attention to you. It is crazy, but all the
+people looked like lamps and light bulbs!
+     A huge projection high above you reads, "[South ~ Rest Area]  [East ~
+Entertainment Zone]  [West ~ Restaurants] [North ~ Exit]"
+
+> quit
+Do you really want to quit? [Y/N]

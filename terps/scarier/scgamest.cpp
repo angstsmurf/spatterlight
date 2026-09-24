@@ -1370,7 +1370,11 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
                 }
               else if (initialposition == 4 + game->room_count)
                 {
-                  if (initialparent == 0)
+                  /* 0 is the player; an unset -1 is too.  run380 already
+                   * treats Parent -1 on a worn object as the player
+                   * (tra.taf), and 4.0 files use the same leftover -1
+                   * (nem.taf's starting shoes).  Parent 1+ is NPC n-1. */
+                  if (initialparent <= 0)
                     gs_object_player_wear_unchecked (game, index_);
                   else
                     {

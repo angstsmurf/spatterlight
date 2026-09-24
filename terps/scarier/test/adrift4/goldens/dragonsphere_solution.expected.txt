@@ -1,0 +1,350 @@
+Loading game...
+
+Dragon Sphere
+
+Cabin
+A warm cozy cabin with a fireplace, a table and a chair. There are doors to
+the west and south.
+
+> get backpack
+picked up the backpack.
+
+> get jacket
+You pick up the jacket, which has a key in one of it's pockets.
+
+> look in jacket
+A big, fluffy jacket. There is a key in the pocket of the jacket. The pocket
+can store 2 small items.
+
+> get key
+Take what?
+
+> n
+You move north.
+
+Snowy Field
+A snowy field with no tree's and the scattered remains of Dragonbane.
+
+> w
+You move west.
+
+Ruins of Dragonbane
+This is what's left of Dragonbane. Destroyed by monsters many years ago, it
+has been in history for centuries. Wait, there is also  a cave leading down
+into the snow-buried Dragonbane.
+
+> d
+You move down.
+
+Cave entrance
+It is dark down here. You can still see a bit due to small holes through the
+snow above you. There is some writing on the wall but is hard to read. It
+says:( He wh.o reads th..s, typ.." pu..l leve.."). You are so ancious to see
+Dragonbane. You feel you should just keep on going. Should you go north, into
+the cave? Can you solve this riddle? It might be your last!
+
+> pull lever
+You pulled the lever, and the floor below you dropped. You slid all the way
+down into Dragonbane, the city of dragons.
+
+> get cube
+Picked up the black cube.
+
+> w
+You move west.
+
+Streets of Dragonbane
+There is a building to the west that is setting off a yellowish glow. The
+glow is coming from the inside.
+
+> w
+You move west.
+
+Dragonbane Building
+The yellow glow is coming from a crystal on top of a table. When you step
+near it, the glow disappears.
+
+> get crystal
+Picked up the crystal.
+
+> e
+You move east.
+
+Streets of Dragonbane
+There is a building to the west that is setting off a yellowish glow. The
+glow is coming from the inside.
+
+> e
+You move east.
+
+Dragonbane Plaza
+The city of Dragonbane lies here. Most of all the buildings down here are
+still perfectly intact. This is the Dragonbane Plaza. On the plaza ground is
+a black cube. Also, a yellow glow comes from the west.
+
+> n
+You move north.
+
+Dragonbane Palace
+Dragonbane Palace. Said to have housed the Dragon Sphere which was protected
+by dragons.
+
+> n
+You move north.
+
+Palace Throne Room
+The throne room has magnificent artistry. There is a throne in the center.
+The throne of the Dragon king. A very historical thing. There is a cold gust
+of wind coming from under the throne room. You push the throne, and reveal a
+secret passage downward.
+
+> d
+You move down.
+
+Underground Tunnel
+The tunnel is lit by torches. They must be some sort of magic for their
+flames to have not estinguished. There is a big door ahead to the north.
+
+> n
+You move north.
+
+Giant Door
+A giant, golden door is in front of you. It has a key hole in it.
+
+> use key
+You put the key into the key hole, and turn. All of a sudden the door opens,
+and a staircase going up is in front of you.
+
+> n
+You move north.
+
+Dragonbane Temple
+A giant temple under the palace. It's bieng here astounds you. You suddenly
+hear a growling noise. You don't know what it is. Maybe you should find the
+noise.
+
+> find sound
+When you look around, a dragon appears from around the corner. It's coming
+right at you! You know the only things you can use as weapons are that wierd
+black cube and the yellow crystal. Which one will you choose to throw at the
+dragon? Will you survive?
+
+> throw crystal
+You throw the crystal, and it starts glowing again. When it hits the dragon,
+the dragon becomes covered in a yellow glow and disappears. Then the crystal
+returns to around your neck. You notice the dragon is now inside the crystal.
+Your going to be famous! You have caught a dragon! You now notice a door to
+the north.
+
+> n
+You move north.
+
+Dragonbane Temple
+You are now in a room with a giant hole in it. Hovering above the hole is the
+fabled Dragon Sphere. The crystal of the dragons. You wonder how to get it.
+You think that the pit might be just an elusion to keep people away from it.
+Will you brave the step that could be fatal?
+
+> get sphere
+You take a step onto the abyss, and you don't fall. What a relief. You walk
+over to the Dragon sphere. It hovers in front of you, glowing red. You
+finnaly have found it. The fabled Dragon Sphere. You grab the sphere from
+it's hovering location, then you fall into the dark abyss below. You wake up
+in an unfamiliar place.
+
+> n
+You move north.
+
+Streets of Dragonbane
+You now can see the palace to the north. Around you, people are walking
+around. None of them look like they want to talk to you. You also notice a
+small animal on the ground. It's a baby dragon! It looks mean. Maybe you
+shouldn't mess with it.
+
+> e
+You move east.
+
+Dragonbane Plaza
+The plaza is now at it's Fame and glory. There are a few people here. They
+all look busy. Let's not disturb them.
+
+> n
+You move north.
+
+Dragonbane Palace
+The palace is amazing. It looks the same as the one in the future, only it is
+covered with beautiful plants. Birds are chirping in the tree's above. You
+look to your left and see a beatiful garden. There is a lady in the garden.
+You also notice a staircase.
+
+> w
+You move west.
+
+Dragonbane Garden, year 956
+The garden has so many beautiful roses. There is a lady over in the corner of
+the garden. She is looking at a crystal rose, the same one you found in the
+future. She looks like she wants the flower, but she does'nt want to pick it.
+Maybe you could give her yours.
+
+> get flower
+Take what?
+
+> e
+You move east.
+
+Dragonbane Palace
+The palace is amazing. It looks the same as the one in the future, only it is
+covered with beautiful plants. Birds are chirping in the tree's above. You
+look to your left and see a beatiful garden. There is a lady in the garden.
+You also notice a staircase.
+
+> u
+You move up.
+
+Palace Tower
+There are stairs still leading upward.
+
+> u
+You move up.
+
+Wizards room
+You are now in a room with a cauldrin and many other zany, sorcerous things.
+Then you notice a man at the balcony window.
+
+> talk to wizard
+The wizard turns. He says that you are here because you tried to take the
+dragon sphere without putting it in the magical black cube he made. Then the
+wizard hands you the Dragon Sphere, and says "I found it in the streets. You
+must have dropped it on your fall." The Wizard put the sphere in the cube.
+Then, he created a portal behind me, and says to go into it so you can go
+home. All you need to do is go into the portal.
+
+> go into portal
+You walk up to the portal, having gotten the Dragon Sphere. Before you walk
+into the portal, a dragon runs into the balcony and kills the wizard. The
+dragon says that the wizard was evil and was going to kill you. Then the
+dragon says to hop on his back. What should you do now? Also keep in mind
+that the dragon just saved your life.
+
+> hop on dragon
+You hop on the dragon, and opens his grip from the shattered balcony. The
+dragon flies over Dragonbane. Once out from above the city, the dragon turns
+east, towards a mountain. The dragon lands, and let's you off.
+
+> w
+You move west.
+
+Mountain Cave entrance
+Cold air blows out of the cave. You can see the sun is setting behind you. It
+will be cold soon, so maybe you should go inside.
+
+> n
+You move north.
+
+Mountain Cave
+You look around in wonder. There are paintings of the wall. Dragons fighting
+humans. Dragons destroying buildings. Humans destroying dragon eggs. How
+amazing. The history of what happened before Dragonbane is on these walls.
+While looking at the paintings, you notice a small hole in the west corner of
+the cave. It looks like you might be able to fit through it.
+
+> w
+You move west.
+
+Mountain Temple
+You look around in awe. You are in some sort of temple.On one of the walls
+are some writings. It might be the history of Dragonbane!
+
+> read wall
+You can see that the message is clear, so you decide to read it. "On the year
+408, Bane entered a war that was said to never end. When Bane became the
+leader of the war, he stopped it, and from there on made peace with all
+dragons. Bane founded Dragonbane, named after him. Before Bane died, he said
+a great evil had appeared, and that he trapped it inside a pendant. The only
+way the evil can be destroyed is by a man who catchs the last dragon. Only
+then can the evil be destroyed. The chosen one must wear the pendant and
+bring it to The Elder Dragon, who lives at the top of Mount Draco. Only then
+can peace be restored to The current Dragonbane and for all time." That is
+the history of Dragonbane. Am I the one? You now notice a podium in the
+center of the room. It has the pendant on it.
+
+> get pendant
+You get the pendant and put it on. Now you have to get to the top of Mount
+Draco, wherever it may be. Maybe your dragon friend can take you. Why don't
+you ask him to fly you to Mount Draco?
+
+> e
+You move east.
+
+Mountain Cave
+You look around in wonder. There are paintings of the wall. Dragons fighting
+humans. Dragons destroying buildings. Humans destroying dragon eggs. How
+amazing. The history of what happened before Dragonbane is on these walls.
+While looking at the paintings, you notice a small hole in the west corner of
+the cave. It looks like you might be able to fit through it.
+
+> s
+You move south.
+
+Mountain Cave entrance
+Cold air blows out of the cave. You can see the sun is setting behind you. It
+will be cold soon, so maybe you should go inside.
+
+> e
+You move east.
+
+Mountain
+A giant mountain looms overhead.  Cold winds blow around you. The dragon is
+resting on the ground behind you. There is a cave a bit to your left. Maybe
+you should go in it.
+
+> ask dragon to take you to Mount Draco
+That's this mountain. I'll fly you to the Elder dragon at the top. Hop on.
+
+> hop on
+You hop on, and you start your way up the mountain. Almost there, you see a
+tall building on the peak of the mountain. The dragon flies you right in
+front of the  tower, and you hop on. You say thank you, and the dragon flies
+off.
+
+> n
+You move north.
+
+Draco Tower
+The tower is huge. You think that it must have been designed specifically for
+dragons, due to the door having the shape of one. You should knock on the
+door.
+
+> knock on door
+You knock on the huge door, which makes little noise. You know you were heard
+when the door opens and a small dragon appears. The dragon looks at you, then
+from an educational guess, he must have seen the pendant. He signals you to
+follow him in.
+
+> n
+You can't go in that direction, but you can move south and up.
+
+> u
+You move up.
+
+Inside Draco Tower
+You are in a giant room with many treasures. You notice an old dragon sitting
+on a big thrown. He must be the Elder Dragon.
+
+> talk to dragon
+The elder says that you are the chosen one, and that the only way to destroy
+the evil is to give it to the elder. But in doing, the elder dragon will
+perish. He accepts his death with honor, and grabs the pendant from around
+your neck. The pendant starts to glow. Then the elder dragon swallows it and
+the elder dragon dissapears. You honor the dragon in your mind. When you are
+about to leave, everything around you turns black and you lose consiousness.
+
+> win
+You won the game!   Coming soon from Kameetrei@aol.com: Dragon Sphere, battle
+for peace (coming in mid-2001)
+You have found the Dragon Sphere and destroyed the Evil! Excellent work!
+You scored 115 out of the maximum 140!
+That is 82% of the game!
+You finished 25 points short.
+
+[Press any key to end]

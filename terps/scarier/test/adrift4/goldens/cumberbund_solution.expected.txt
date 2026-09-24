@@ -1,0 +1,43 @@
+Loading game...
+
+Cumberbund
+
+You're nearly ready - you're just missing one thing.  The green and red
+cumberbund that she really likes.  You'd better find it before she arrives!
+You know it's here somewhere...
+
+Inside your bedroom
+
+It's your bedroom.  The ramshackle single bed is unmade, sitting on a grey
+carpet marked with cigarette burns and stains.  A wardrobe leans against the
+far wall, one door swinging open slightly.  On the wall, next to your
+Metallica poster is a swimsuit calender, turned to this month.  A chest of
+drawers completes the setting.
+
+> search under bed
+
+You fall to your hands and knees and peer under the bed.  Perhaps...?
+
+No.  You vacuumed just this morning.  There was nothing under there then and
+there's nothing there now.
+
+> look in wardrobe
+
+You swing open the wardrobe and begin rifling through the clothes hanging
+there.  Back and forth.  Back and forth.  Back and forth.  No.  You can't
+find the cumberbund there.  Where is it?
+
+> open drawers
+
+The drawers slide open, SHFFFFing as they go.  Cartons of cigarettes and
+underwear.  The contents depress you a little, but you aren't sure why.
+Surely there's no time for sorrow today?  She'll be here soon.  You hope that
+you can find the cumberbund quickly, but you'll have to look elsewhere.  It's
+not here.
+
+The tears come to your eyes, unbidden, just as they do every time.  You're
+not going to find it.  You know that.  You aren't going to find the
+cumberbund and she's not going to come.  You've always known that.  She died
+twelve years ago and you killed her.  It's always been your fault.
+
+[Press any key to end]

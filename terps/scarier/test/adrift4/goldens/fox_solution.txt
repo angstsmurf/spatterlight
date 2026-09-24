@@ -1,0 +1,25 @@
+Petter
+male
+age 25
+sorcerer
+w
+buy mage staff
+e
+se
+e
+e
+s
+se
+e
+e
+e
+e
+kill troll
+kill troll
+e
+e
+read sign
+e
+s
+s
+e

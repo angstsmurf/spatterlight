@@ -1,0 +1,48 @@
+вз€ть карту
+north
+north
+insert карту в сканер
+вз€ть том
+вз€ть книгу
+south
+west
+south
+встать на том
+вз€ть ключ
+отпереть дверь
+south
+вз€ть смокинг
+сн€ть свитер
+сн€ть джинсы
+надеть смокинг
+north
+north
+east
+east
+south
+вз€ть сажень
+north
+east
+north
+kill demon саженью
+вз€ть пропуск
+south
+west
+south
+положить пропуск на камень
+вз€ть пропуск
+north
+west
+west
+north
+show пропуск вахтеру
+west
+вз€ть кольцо
+надеть кольцо
+east
+south
+west
+west
+west
+give книгу officer
+постучать

@@ -1,0 +1,122 @@
+Loading game...
+
+Can I do it?
+        IMPORTANT INFO:Hello and thanks for trying out my game. This game has
+been tested and checked many times, although if you see any errors, please
+e-mail me at nsiamas5@hotmail.com. This is a short adventure which if done
+correctly will take no longer than 10 minutes. A few notes, if at anytime you
+become stuck, try asking the other character in the game. It uses the ask ""
+about "" format. (Ex. ask Fung about card key) Although, if this isn't
+enough, I have two walkthroughs, one is a list of all the things you must
+type, in order to access this one, type short. My second one works like a
+walkthrough, telling you what to do, to access this one type basic. One final
+thing, there is a secret thing you can do which is not mentioned in the
+walkthroughs. It gives you one point so until you do it you'll never reach
+the maximum score. Trust me though, it isn't too hard to do. I've taken up
+too much time already, enjoy the game.
+
+------------------------------------------------------------------------------
+--------------------------------
+        As I enter my throat starts to get dry. My hand twitches a little,
+but I know what I'm here for. Mr. White, the store's clerk, is reading a
+magazine. His face is buried in it so he doesn't notice me. I swallow hard, I
+start to sweat. I tell myself to calm down, but it's hard. I pull myself
+together right as Mr. White looks up from his magazine. He gives me a grin,
+and then continues to read his magazine. I look down at my bag, and my
+wallet. I know what to do, the question is,  Can I do it?
+
+Market Front
+The fluorescent lights make a strange buzzing sound as they give off a white
+light. The counter sits at the front of the room, behind it is the old
+shopkeeper Mr. White. This is a one room market, with a small stand with
+treats on it. To my right is an automatic door. There is a pretty big cash
+register on the counter. South is the back of the store.
+
+> buy candy bar
+I pay Mr. White the money and get the snickel bar.
+
+> give candy bar to Mr.White
+I hand the candy bar to Mr. White. He looks at it for a second, and then
+says, "For me?" I nod my head as if to say yes. His face seemed to brighten
+as he takes the candy bar. He smiles and thanks me. He eats the candy bar
+quickly, sits back down and continues to read his magazine.
+
+> s
+I move south.
+
+Back of shop
+As I step behind the big rack of food supplies, I see many things. I see
+another rack of food. I see some magazines, and some coolers. From this
+angle, Mr. White can't see me. North is the Market's front.
+
+> w
+I move west.
+
+Supply closet
+This is a back room where all the supplies are kept. There is a bundle of old
+bags used for carrying groceries, and a crate full of other things. There
+also is a toilet. East is the back of the store.
+
+> take bag
+I take the paper bag.
+
+> wear bag
+the bag fits on easily, and the holes make it easy to see!
+
+> open crate
+I open the crate.  A rope is inside the crate.
+
+> take rope
+I take the rope from the crate.
+
+> e
+I move east.
+
+Back of shop
+As I step behind the big rack of food supplies, I see many things. I see
+another rack of food. I see some magazines, and some coolers. From this
+angle, Mr. White can't see me. North is the Market's front.
+
+> lift rack
+I start to lift up the rack. Surely enough there is a gun.
+
+> take gun
+I take the gun from the rack.
+
+> n
+I move north.
+
+Market Front
+The fluorescent lights make a strange buzzing sound as they give off a white
+light. The counter sits at the front of the room, behind it is the old
+shopkeeper Mr. White. This is a one room market, with a small stand with
+treats on it. To my right is an automatic door. There is a pretty big cash
+register on the counter. South is the back of the store.
+
+> threaten white
+I pull out the pistol and threaten Mr. White, he freaks out and says, "Okay!
+Okay! Just don't shoot!" He then lies down and panics.
+
+> tie up white
+I tie up Mr. White with the rope.
+
+> open cash register
+I quickly open the register, revealing cash!
+
+> take cash
+Great! Now that I have what I want, I'd better leave.
+
+> e
+I move east.
+
+The Way Out
+All I have to do is step on the mat and my heist will be complete.
+
+> step on mat
+I step on the mat....
+
+You scored 7 out of the maximum 8!
+That is 87% of the game!
+You finished 1 points short.
+
+[Press any key to end]

@@ -1,0 +1,107 @@
+Loading game...
+
+The Merlin Bird of Prey written by Mark Sarul
+
+Norman Thicket had always been a dreamer, escaping into a world of fantasy.
+Ordinary life just seemed too mundane to him, better a world of books and
+adventure games. One day whilst talking to a friend he complained of life. A
+strange man came past and on hearing Norman said, "So you want adventure,
+well then, you shall have it". Norman asked the man, "What do you mean, I
+shall have it". The man then turned his piercing stare holding Norman for a
+few seconds, "I have given you what you have wished for, a world of fantasy".
+The man then quickly disappeared, slowly Norman's sight started to become
+hazy and everything started to turn inside out, suddenly Norman blacked out.
+
+You have been called upon to find the ritual treasures of an old monastery in
+the land of Tarakania. The treasures were stolen from the monastery by an
+evil magician called Oswin who is said to have only one fear, that of the
+merlin, bird of prey. Many many years ago the king of Tarakania was given the
+merlin bird as a gift by an old women who new of Oswin and his fears. She
+also knew what Oswin had done to the monastery and so she cast a spell on the
+merlin bird which gave it poisonous talons. Until now no one has had the
+courage or strength to challenge Oswin. It is up to you to find and return
+the ritual treasures to the monastery and rid Tarakania of this evil man.
+Your first challenge is to find where the monks have hidden the merlin bird,
+if you able to find the merlin bird this will be proof enough to the monks
+that you will be trustworthy in your quest to help them.
+
+And so your world of fantasy begins...
+
+The Gatehouse
+Halfway up a mountain stands a large gatehouse of an old 12th century
+monastery. To the far west and in the distance you can see a snow capped
+mountain range, to the south a great expanse of forest, while below you to
+the north you can see what looks like an old house with smoke coming from
+it's chimney. To the east are two large bronze doors of the monastery.
+
+> examine bronze door
+The bronze doors are high enough to allow heavily laden carts to pass
+through. Set into the left hand bronze door is a small square grating and on
+the wall you see a chain which is attached to a brass bell.
+
+> pull chain
+You grab hold of the chain and give it a couple of tugs. After a while two
+monks appear at the grating, one of them looks at you and smiles. "Welcome my
+son". Saying this they both slowly open one of the large bronze doors and
+then quickly disappear.
+
+> e
+You move east.
+
+The Main Cloister
+This is a large open area of the monastery. The surrounding walls are filled
+with tall arches. You can also see a small square lawn and in the centre of
+the lawn there is a small fountain. A large bronze door is open to the west.
+You can move south and west.
+
+> examine fountain
+There is a tall stone lion sitting in the centre of the fountain with water
+spewing from it's mouth.
+
+> drink water
+You place your cupped hands in to the fountain and drink the refreshing clear
+water. Just what you needed.
+
+> s
+You move south.
+
+The Frater
+This is where the monks eat their meals. As you walk into the room you can
+hear the echo of your footsteps on the solid oak floor. Lined up either side
+of you are rows and rows of wooden tables with long benches pushed underneath
+them. There is a strong smell of cooked vegetables coming from the south,
+while to the east you notice an arched wooden door.  You can only move north.
+
+> look at table
+You see no such thing.
+
+> examine frater
+The Frater
+This is where the monks eat their meals. As you walk into the room you can
+hear the echo of your footsteps on the solid oak floor. Lined up either side
+of you are rows and rows of wooden tables with long benches pushed underneath
+them. There is a strong smell of cooked vegetables coming from the south,
+while to the east you notice an arched wooden door.  You can only move north.
+
+> n
+You move north.
+
+The Main Cloister
+This is a large open area of the monastery. The surrounding walls are filled
+with tall arches. You can also see a small square lawn and in the centre of
+the lawn there is a small fountain. A large bronze door is open to the west.
+You can move south and west.
+
+> w
+You move west.
+
+The Gatehouse
+Halfway up a mountain stands a large gatehouse of an old 12th century
+monastery. To the far west and in the distance you can see a snow capped
+mountain range, to the far south a great expanse of forest, while below you
+to the far north you can see what looks like an old house with smoke coming
+from it's chimney. To the east are two large bronze doors of the monastery,
+one of the large bronze doors are open.  You can only move east.
+
+> quit
+Do you really want to quit? [Y/N]

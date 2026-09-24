@@ -1,0 +1,28 @@
+d
+x chest
+get harpoon
+get kit
+open kit
+get flares
+u
+e
+look
+throw harpoon at the creature
+look
+throw harpoon at the creature
+look
+throw harpoon at the creature
+look
+throw harpoon at the creature
+look
+throw harpoon at the creature
+look
+throw harpoon at the creature
+look
+x creature
+get key
+e
+unlock gate
+open gate
+get banana
+s

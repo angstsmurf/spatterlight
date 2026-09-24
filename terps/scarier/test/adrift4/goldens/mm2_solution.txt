@@ -1,0 +1,29 @@
+Petter
+n
+get book
+s
+open hamper
+get hammer
+read book
+look mirror
+break mirror
+n
+s
+open refrigerator
+get rattle
+n
+n
+give rattle to fang
+n
+drink water
+pull plug
+n
+knock door
+e
+swing vine
+eat mushroom
+open drawer
+get book
+open book
+get note
+go to selmas

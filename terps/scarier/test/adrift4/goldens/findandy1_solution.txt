@@ -1,0 +1,21 @@
+use toilet
+w
+ask Ray about Andy
+say Jelly
+w
+s
+w
+give cake to maggy
+e
+s
+get chocolates
+n
+d
+get card
+u
+e
+use card
+e
+give chocolates to Marjorie
+quit
+y

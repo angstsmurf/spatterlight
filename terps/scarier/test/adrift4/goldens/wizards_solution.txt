@@ -1,0 +1,24 @@
+Petter
+male
+elf
+lore of light
+learn heaven bolt
+learn illuminate
+e
+join
+e
+ask Master Rex about work
+w
+w
+n
+train
+train
+train
+s
+cast heaven bolt on troll
+cast heaven bolt on troll
+cast heaven bolt on troll
+cast heaven bolt on troll
+e
+e
+give troll tooth to master rex

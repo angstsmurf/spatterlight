@@ -1,0 +1,185 @@
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+The door bursts open and a cop walks in.
+"James Bolivar DeGriz, I am here to arrest you on the charge of illegal entry, theft, and forgery."
+
+> z
+Time passes...
+
+
+The cop moves toward you. "Come along peacefully, DeGriz."
+
+> push button
+Pressing the button triggers an explosive charge in the ceiling causing a crossbeam to buckle. This results in a 3 ton safe being dropped onto the robot cop's head.
+The transmitting device is also destroyed, having been built for one use only. You throw the useless box aside.
+
+"In addition to those charges," the cop continues, "you have just added assault to a police robot. You can not escape. I have radioed other police robots surrounding the building of your actions. They will be here in moments."  
+You hear the robot cop radioing his counterparts below.
+
+> open panel
+
+The section of wall opens to reveal an emergency escape path to a service elevator. You move through the opening to the accessway behind.  
+Elevator Access
+This is the secret accessway to the service elevator. To the south is the open elevator.
+
+> s
+You move south.
+Service Elevator
+This is a rather drab, utility elevator used mainly for moving crates and boxes between the floors of the warehouse. There are 3 buttons labeled GROUND, OFFICES (this is your floor), and ROOF. 
+
+> roof
+The elevator slowly moves upward. After a few seconds the doors open and you step out onto the roof of the warehouse.  
+Warehouse Roof
+This is the roof of the government warehouse. It is basically a flat area with a long drop on all sides. Next to the warehouse  is another building whose roof is level with this one. However, the gap between the two buildings is too far to jump across.
+The roof is littered with construction debris.  You can also see a long board.
+
+> get board
+You pick up the long board.
+
+> place board
+You carefully move the board over the edge of the warehouse roof until it rests on the roof of the adjoining building.
+Carefully balancing, and not looking down, you walk across to the next building.  
+Adjoining Building
+This is the roof of the next building. To the west is a stairway access into the building and freedom.  
+You hear sounds indicating that the robot cops have made their way into your office and have called for the elevator.
+
+> drop board
+The board drops to the ground below effectively cutting off any pursuit by the police robots.  
+Adjoining Building
+This is the roof of the next building. To the west is a stairway access into the building and freedom.
+
+> west
+Stepping into the stairwell you begin to make your transformation from the forty-five year old business man. Off comes the padding around the middle followed by the fake fingerprints. A quick wipe through the hair and it is restored to it's natural brown color. The nose plugs and cheek pads hurt a bit coming out. Lastly, the blue colored contact lenses. You're now twenty kilos lighter and ten years younger. Gone is businessman James DeGriz and you're back to begin "Slippery Jim" DeGriz, the Stainless Steel Rat.  
+Stairway Access
+
+You can now go down to the building exit and freedom.  You can also see a cigar cutter and a set of lock picks.
+
+> get cutter
+You pick up the cigar cutter.
+
+> get lock picks
+You pick up the set of lock picks.
+
+> down
+Ahh, freedom. You walk away from the building with a sizeable amount of money and the satisfaction of a job well done. A few hours later your have entered the local spaceport facility.  
+Spaceport ticket booth
+
+You are standing at the local spaceport to purchase a ticket to one of the planets in the Beta Cygnus system.   You can also see a Moriy XVIII ticket.
+
+> buy ticket
+You have purchased the ticket to Moriy XVIII. You move into the boarding area of the spaceport.  
+Spaceport
+There are two boarding gates currently accepting passengers. The one to the west is marked for the flight to Moriy XVIII and the one to the east is marked for a flight to Moriy X.
+
+> e
+You move east.
+East Boarding Gate
+This is the main boarding gate for the flight to Moriy X. Before you is the robotic ticket taker waiting to see you ticket.
+
+> alter ticket
+You successfully alter the Moriy XVIII ticket using the punch end of your cigar cutter to now have the proper holes to change your destination to Moriy X.
+
+> e
+You can only move west.
+
+> show ticket
+The robot scans your ticket and waves you through the boarding gate to the ship bound for Moriy X.
+After an uneventful trip your ship lands safely on Moriy X.After passing easily through customs with your case of money from the previous operation, you travel to the large manufacturing city of Brouggh.
+
+After spending a few days relaxing and scouting the city, you spot a situation that's just too good to pass up. You are going to hold up Moraio's, the largest retail store in the city. Every evening at the same time, an armored car takes the days receipts to the bank. You are going to steal the armored car full of unmarked small bills.
+
+A few days of observing the routine at Moraio's and you have formulated a plan. Over the next couple of days  you manage to lease a large tractor trailer rig, put together a few smoke bombs, some anesthetic  bombs and nose filters to protect you from the effects of the anesthetic bombs.  
+Moriy X
+
+You are standing near the cab of the armored car.
+
+> insert filters
+You place the nose filters into your nostrils.
+
+> enter car
+You quickly move to the armored car and slip inside.  
+Inside armored car
+The cab of the armored car is quite spartan with only the controls necessary to drive the vehicle.  Driver is here.
+
+> throw bomb
+You release an anesthetic bomb. The driver is instantly rendered unconscious.
+
+> drive car
+You quickly move the unconscious driver aside and slip behind the controls of the armored car. In seconds you have pulled away with no one the wiser. Once out of sight you turn the car toward the alley where you had parked the tractor trailer rig. A few well placed smoke bombs completely conceals you as you drive the armored car up into the trailer. 
+You brazenly drive the tractor trailer rig with the armored car inside into the back loading area of Moraio's warehouse. You figure they won't suspect you of returning to the store.
+You spent the next couple of hours happily taking the money out of its bags and packing it into several small packages. These packages all have pre-addressed labels to various drop points you use. With the boxes all prepared, you move them onto the shipping dock where a robot worker quickly picks them up and moves them to the shipping department.
+As you watch the packages of your money being taken away you suddenly notice something. Outside the gate of the walled lot sits a squad of police vehicles - waiting for you!
+How could this be? You hadn't left a trail. The local police couldn't have caught on this quickly. Someone had set a trap for the Stainless Steel Rat!
+
+The words flash into your mind The Special Corps!
+
+Nothing was ever printed about it, only a thousand whispered words heard on a thousand worlds around the galaxy. The Special Corps, the branch of the League that took care of the troubles that individual planets couldn't solve. The Corps was supposed to have finished off the remnants of Haskell's Raiders after the peace, of putting the illegal T & Z Traders out of business, of finally catching Inskipp. 
+And now they are after you!
+They are out there waiting for you, thinking of all the ways out as you are - and blocking them. It looks as though the only chance you have is to go through the store which is now closed and dark inside.  
+Moraio's back lot
+The entrance into the store is to the north of you.  In the distance you can hear the cops moving into the loading area.
+
+> n
+You move north.
+Moraio's back entrance
+You are standing at the rear entrance of Moraio's in front of a locked door.
+
+> open door
+You quickly pick the lock to the door and slip inside. You move rapidly through the darkened store, ducking down occassionally when you spot guards with flashlights patrolling the store. You begin to make your way to the door you were planning to use to leave the building.  
+Employee's Entrance
+The main door is north of you.  A guard is here.
+
+> throw bomb
+You toss your remaining anesthetic bomb at the guard. Just when you think it didn't work, he collapses to the floor.
+
+> n
+You can only move west.
+
+> w
+You move west.
+Corridor
+To the south is a staircase leading up.
+
+> up
+With the sound of footsteps approaching from behind and the sight of guards moving toward you in front, you bolt up the staricase. For the next few minutes you move up the stairs, barely staying ahead of the pursuing guards below.
+As you reach the fifth floor landing, you notice a new sound - footsteps coming down toward you from above.  
+5th floor
+You're at the stariwell landing of the 5th floor. There is a door to the east providing access to the 5th floor.  The guards from above and below close in on your location.
+
+> east
+You quickly open the door and slip through just ahead of the approaching guards.  
+5th floor hallway
+This is the 5th floor hallway. There is an office door to the north. At the opposite end of the hallway to the east is another door.
+
+> north
+Fortunately the door is unlocked and you slip inside. The sounds of pursuit fade away. You have lost them. You breathe a sigh of relief.
+
+The lights come on!
+
+Turning abruptly, you look across the room to see a man sitting calmly behind a desk, smiling.
+"Here, DeGriz, have a cigar. I believe they're your brand," he says, holding out on open box of cigars. "And relax, if I wanted you killed you'd be dead now instead of herded into this office. By the way, my name is Harold Peters Inskipp. I am the head of the Special Corps."
+
+Inskipp!
+
+The name reverberates in your head. Inskipp the Uncatchable. The man who looted Pharsydion II in mid-flight and pulled all those other deals you read about in your misspent youth.
+
+> take cigar
+You reach across to the man, take one of the cigars and drop into the chair opposite the desk.
+"I've come here to ask you to join the Special Corps," Inskipp continued. "I imagine you would like to ask me about a few things."
+
+> join corps
+Congratulation! You have successfully completed the first part of the Stainless Steel Rat adventure.
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

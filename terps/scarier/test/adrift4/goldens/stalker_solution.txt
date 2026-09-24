@@ -1,0 +1,15 @@
+look at desk
+use holepunch on window
+look out window
+jump onto branch
+look at lawnmower
+e
+hide in fridge
+n
+pick up windex
+w
+take soap
+use windex on killer
+use screwdriver on killer
+quit
+y

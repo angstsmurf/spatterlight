@@ -1,0 +1,430 @@
+Loading game...
+
+Space Run
+You are a secret agent of A.R.M.Y. (Armed Reconnasance Mobile infantrY). Your
+orders are to explore a newly discovered space ship that is drifting,
+seemlessly lifless though warp space. You step into your uniform, gather your
+lazer rifle and enter a drop pod. As you buckle yourself into the 'pod you
+look at your comrades; two men and a woman occupy the drop pod. You gaze out
+of the nearby viewing window and watch as two other drop pods blast off
+towards the nearby floating ship.
+ With a roar of thruster engines your drop pod shoots off from the station
+and into the blackness of space. The velocity forces you all back into your
+seats, you grit your teeth resisting the force of the 'pods speed. Then,
+bracing for impact you grab hold of the belt buckles that strap you in by the
+shoulders before your pod pierces the outer layer of the ship... you black
+out...
+ You are shaken up by one of your comrades, he has a slit in his forehead and
+blood is trickling from it into his mouth. "The others are dead..." he
+utters. "there was an electro magnetic pulse running through the ship. Our
+pods retro rockets couldn't fire and we crashed through about five decks!"
+You look up and stare into space. "Luckily" the man murmers, "the life
+support systems are still online. I've no idea how they could still work
+after the e'pulse..." He helps you up and grabs his laser rifle from the
+floor. "The name's Adam." He smiles cheekily at the wrecked drop pod. "Let's
+go!"
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Crash area
+Two metal doors lead from this room, one to the north and the othe to the
+east. The ceiling has a gaping hole in it where your drop pod crashed. The
+wreckage from the crash lies in a smoking heap, the fumes conglamorating on
+the force field that prevents you from flying off into space.  The northern
+door is locked down.  Adam is here.  You can only move east.
+
+> e
+You move east.
+
+Control room
+This room has many buttons, flashing lights and desks with broken computers
+on them. You guess this damage must have been caused by your crash. There are
+three doors here, all labled: to the north is the Key Card Storage Room, to
+the south is the Air Control Room and to the west is a corridor labled 'Lock
+Down Corridor. There is a hand scanner on the wall here.  You can move south
+and west.
+
+> s
+You move south.
+
+Air control room
+This room has many steel tanks stuk in the walls. This room has a large panel
+on the south wall and metallic pipes dangle from every corner. The hissing
+sound of gas can be heard here.  A purple alien is here.  You can only move
+north.  Adam shoots the purple alien with the lazer rifle.  The purple alien
+hits Adam.
+
+> shoot alien
+You shoot the purple alien with the lazer rifle.  The creature stumbles back
+from the hit and slouches down to the ground, it's purple ichor blood leaking
+all over the floor.
+
+> push button
+You press the red button cautiously and hear the hissing and pumping of
+hydrolics.
+
+> n
+You move north.
+
+Control room
+This room has many buttons, flashing lights and desks with broken computers
+on them. You guess this damage must have been caused by your crash. There are
+three doors here, all labled: to the north is the Key Card Storage Room, to
+the south is the Air Control Room and to the west is a corridor labled 'Lock
+Down Corridor. There is a hand scanner on the wall here.  You can move south
+and west.
+
+> w
+You move west.
+
+Crash area
+Two metal doors lead from this room, one to the north and the othe to the
+east. The ceiling has a gaping hole in it where your drop pod crashed. The
+wreckage from the crash lies in a smoking heap, the fumes conglamorating on
+the force field that prevents you from flying off into space.  The northern
+door is locked down.  You can move north and east.
+
+> n
+You move north.
+
+Lock down area
+This area is made of a simple concrete. The edges of all the walls are taped
+with the classic yellow and black striped caution tape. A large door stands
+on the south end of the corridor.  You can move north and south.
+
+> n
+You move north.
+
+Lock down area
+This corridor runs south/north. There are also two doors to the east and
+west. The west one is labeled Space Ship Port and the other is labeled
+Recieving room.  You can move east and south.
+
+> e
+You move east.
+
+Recieving area
+This room looks like a reception. It is a recieving area but there is no one
+to recieve you. There is a receptionists desk here and three doors leading
+north, east and west. There is also a key card swiper on the northern wall.
+You can move east and west.
+
+> pull lever
+You pull the lever but don't hear anything except a metalic voice in the
+background ssaying; "Docking Port Opening".
+
+> w
+You move west.
+
+Lock down area
+This corridor runs south/north. There are also two doors to the east and
+west. The west one is labeled Space Ship Port and the other is labeled
+Recieving room.  You can move east, south and west.
+
+> w
+You move west.
+
+Space ship port
+This room is huge. You can hear the humming of a force field which is
+stopping you from floating into outer space. This place is used to dock space
+ships and pods. It doesn't look like any of your freinds made it here though.
+ Also here is a dead man.  a blue alien is here.  You can only move east.
+Adam shoots the blue alien with the lazer rifle.  The blue alien hits Adam.
+
+> shoot alien
+You shoot the blue alien with the lazer rifle.  The alien falls to it's face
+and speads it's purple blood over the tiled surface.
+
+> shoot alien
+Alien isn't here!
+Alien isn't here!
+
+> shoot alien
+Alien isn't here!
+Alien isn't here!
+
+> x man
+This is the uniformed body of a soldier. He doesn't look like he's from
+A.R.M.Y. He has claw and bite marks all over him.  A decapitated hand is on
+the dead man.
+
+> get hand
+You take a decapitated hand from the dead man.
+
+> e
+You move east.
+
+Lock down area
+This corridor runs south/north. There are also two doors to the east and
+west. The west one is labeled Space Ship Port and the other is labeled
+Recieving room.  You can move east, south and west.
+
+> e
+You move east.
+
+Recieving area
+This room looks like a reception. It is a recieving area but there is no one
+to recieve you. There is a receptionists desk here and three doors leading
+north, east and west. There is also a key card swiper on the northern wall.
+You can move east and west.
+
+> w
+You move west.
+
+Lock down area
+This corridor runs south/north. There are also two doors to the east and
+west. The west one is labeled Space Ship Port and the other is labeled
+Recieving room.  You can move east, south and west.
+
+> s
+You move south.
+
+Lock down area
+This area is made of a simple concrete. The edges of all the walls are taped
+with the classic yellow and black striped caution tape. A large door stands
+on the south end of the corridor.  You can move north and south.
+
+> s
+You move south.
+
+Crash area
+Two metal doors lead from this room, one to the north and the othe to the
+east. The ceiling has a gaping hole in it where your drop pod crashed. The
+wreckage from the crash lies in a smoking heap, the fumes conglamorating on
+the force field that prevents you from flying off into space.  The northern
+door is locked down.  You can move north and east.
+
+> e
+You move east.
+
+Control room
+This room has many buttons, flashing lights and desks with broken computers
+on them. You guess this damage must have been caused by your crash. There are
+three doors here, all labled: to the north is the Key Card Storage Room, to
+the south is the Air Control Room and to the west is a corridor labled 'Lock
+Down Corridor. There is a hand scanner on the wall here.  You can move south
+and west.
+
+> put hand on scanner
+You put the decapitated hand onto the scanner and wait as the green beam
+reads the palm. "Access Granted".
+
+> n
+You move north.
+
+Key card storage room
+This room was obviously used for storing access cards of some sort. There are
+alot of shelves and cocave shapes on the walls where the cards originally
+sat.  Also here is red keycard.  You can only move south.
+
+> get keycard
+You pick up red keycard.
+
+> s
+You move south.
+
+Control room
+This room has many buttons, flashing lights and desks with broken computers
+on them. You guess this damage must have been caused by your crash. There are
+three doors here, all labled: to the north is the Key Card Storage Room, to
+the south is the Air Control Room and to the west is a corridor labled 'Lock
+Down Corridor. There is a hand scanner on the wall here.  You can move north,
+south and west.
+
+> w
+You move west.
+
+Crash area
+Two metal doors lead from this room, one to the north and the othe to the
+east. The ceiling has a gaping hole in it where your drop pod crashed. The
+wreckage from the crash lies in a smoking heap, the fumes conglamorating on
+the force field that prevents you from flying off into space.  The northern
+door is locked down.  You can move north and east.
+
+> n
+You move north.
+
+Lock down area
+This area is made of a simple concrete. The edges of all the walls are taped
+with the classic yellow and black striped caution tape. A large door stands
+on the south end of the corridor.  You can move north and south.
+
+> n
+You move north.
+
+Lock down area
+This corridor runs south/north. There are also two doors to the east and
+west. The west one is labeled Space Ship Port and the other is labeled
+Recieving room.  You can move east, south and west.
+
+> e
+You move east.
+
+Recieving area
+This room looks like a reception. It is a recieving area but there is no one
+to recieve you. There is a receptionists desk here and three doors leading
+north, east and west. There is also a key card swiper on the northern wall.
+You can move east and west.
+
+> swipe key card
+You swipe your key card down the slide and hear several blips... "Access
+Granted".
+
+> e
+You move east.
+
+Staff office
+This office looks as if it was the scene of a ransacking. There is a desk
+here that has been toppled over, papers and compter components lie scattered
+over the floor. There is a small panel on the wall.  a red alien is here.
+You can only move west.  Adam shoots the red alien with the lazer rifle.  The
+red alien hits you.
+
+> shoot alien
+You shoot the red alien with the lazer rifle.  The alien slumps lifeless to
+the floor.
+
+> shoot alien
+Alien isn't here!
+Alien isn't here!
+Alien isn't here!
+
+> flip switch
+You flip the switch but cannot hear anything.
+
+> w
+You move west.
+
+Recieving area
+This room looks like a reception. It is a recieving area but there is no one
+to recieve you. There is a receptionists desk here and three doors leading
+north, east and west. There is also a key card swiper on the northern wall.
+You can move north, east and west.
+
+> n
+You move north.
+
+Corridor
+This small corridor is a t-bone junction. It leads south to the recieving
+area, east to an inner cooridor and west to the electronics room. Slime drips
+from the cieling.  The eastern door is broken. Sparks spray from the edges
+and you can just see between the doors but there is not enough space to
+squeeze through.  You can move south and west.
+
+> w
+You move west.
+
+Electronics room
+This room is very small. It reminds you of a cleaners cupboard. There is a
+fuse box mounted on the wall.  You can only move east.
+
+> open door
+You swing the little fuse box door open and gape inside. There are more
+broken wires in here than you have ever seen! There are two wires in here you
+could 'twist together' and maybe make a curcit.
+
+> twist wires together
+You take hold of the two wires and twist the ends together. A small spark
+makes you jump and you hear a generator powering up.
+
+> e
+You move east.
+
+Corridor
+This small corridor is a t-bone junction. It leads south to the recieving
+area, east to an inner cooridor and west to the electronics room. Slime drips
+from the cieling.  The eastern door seems to be working now, even though
+sparks still continually spray from the edges of the door.  You can move
+east, south and west.
+
+> e
+You move east.
+
+Inner corridor
+This corridor leads deeper and deeper into the ship.  There is a neon sign
+over head flashing: "Unclean! Unclean! Please procede to Alien Search
+Recieving Room for directions!"  You can move north and west.
+
+> n
+You move north.
+
+Alien search recieving room
+This room is like a receptionists room. There is a desk and a wall panel
+here. Four doors lead out of here: one to the north reading 'Stairs to Sector
+B', the southern one has no label, the western one says 'Shower Room' and the
+eastern room is labeled 'Customs'.   You can move east, south and west.
+
+> w
+You move west.
+
+Customs room
+There is a small conveyor belt here. There is a desk attatched to it.  You
+can move east and west.
+
+> push button
+You place your stuff on the conveyor belt, press the button and watch as the
+objects are sprayed for desiese. They come out all sparkly clean.
+
+> n
+You move north.
+
+Maintenance room
+This maintanence room is full of switches and levers. One lever is clearly
+more important than the others.  You can only move south.
+
+> pull lever
+You yank the lever and hear the chugging sound as power flows through cables
+and wires.
+
+> s
+You move south.
+
+Customs room
+There is a small conveyor belt here. There is a desk attatched to it.  You
+can move north, east and west.
+
+> e
+You move east.
+
+Alien search recieving room
+This room is like a receptionists room. There is a desk and a wall panel
+here. Four doors lead out of here: one to the north reading 'Stairs to Sector
+B', the southern one has no label, the western one says 'Shower Room' and the
+eastern room is labeled 'Customs'.   You can move east, south and west.
+
+> s
+You move south.
+
+Inner corridor
+This corridor leads deeper and deeper into the ship.  There is a neon sign
+over head flashing: "Unclean! Unclean! Please procede to Alien Search
+Recieving Room for directions!"  You can move north, east and west.
+
+> e
+You move east.
+
+Science recieving room
+This room is full of instruments and tools. There is a receptionist's desk
+standing in the corner, an equiptment table and a clothes rack in here. A
+large, wide door leads into a turbo lift.  The turbo lift doors seem to be
+broken. The panel doesn't seem to respond.  You can move west and in.
+
+> in
+You move in.
+
+Turbo lift
+This lift has a button panel on the northern wall.  You can only move out.
+
+> push button
+You push the button and watch as the doors close on sector C. That was a
+tough one... you can only wonder what could be on sectors A and B... but
+you'll have to wait for the full version to find out!
+You scored 245 out of the maximum 290!
+That is 84% of the game!
+You finished 45 points short.
+
+[Press any key to end]

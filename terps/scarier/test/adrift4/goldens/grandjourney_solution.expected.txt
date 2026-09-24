@@ -1,0 +1,1077 @@
+Loading game...
+
+Grand Journey
+Welcome to Player's Grand Journey. It starts here in Home Field...
+
+You are Player, an explorer with an unbridled sense of adventure.
+Your close companion and lifelong friend Pontaco is here in Home Field, ready
+to give you advice on where to go and what to do.
+
+***Begin by typing "Talk To Pontaco"
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Home Field
+You are in Home Field. This is where your close friend Pontaco can be found
+to give you advice and help you out.  To the North is North Field, the
+gateway to the rest of the world.  You shouldn't try going to North Field
+before you  talk to Pontaco.  Pontaco is here.
+
+> talk to pontaco
+"Hello! My name is Pontaco. I am here to give you advice on the game.
+To start you off, here's a few simple pointers.
+1) Whenever you meet someone new, you should always try talking to them
+first, just as you have done now, by typing "Talk To" followed by the
+person's name. Then, if you think a person knows about something in
+particular, you can type "Ask (person) About (something)" and if they know
+what you are talking about, they will give you an answer, but otherwise they
+will not respond to your question.
+2) If you ever come across anything you are not sure about, you can come back
+here at any time to ask me about it, and I will try to tell you more about
+it.. You can do this by again typing "Ask Pontaco about (something)"
+3) To see what you are carrying, all you have to do is type "Inventory".
+4) Finally, you should try as many things as you can if you get stuck, before
+coming to see me, as you will probably find that for the time it took you to
+come and find me again, you could have solved the problem for yourself.
+
+O.K., those are the basics, so let's get this show on the road. To find out
+more about what to do, just  ask me about the adventure."
+(Remeber, do this by typing "Ask Pontaco About Adventure")
+
+> ask pontaco about adventure
+"Every journey begins with a single step. You must seek Adventure and go on a
+Grand Journey to uncover the mysteries and magic of our world. Who knows what
+sort of weird and wonderful things you will discover along your way! The only
+way out of Home Field is by heading North, to North Field. From there you can
+go to wherever the world takes you. You should start by heading East as soon
+as you get into North Field.
+There you wil find the East Passage, which leads to Grand Ocean Bay. You will
+have to open the East Passage before you can travel through to Grand Ocean
+Bay.
+Remember to look around you whenever you  reach somewhere new, and to examine
+any strange objects you might come across. There are some objects that you
+can pick up and carry, and some that you can't.
+One of the most important objects you will come across are Magic Seeds. If
+you ever get badly hurt, you can eat a Magic Seed to boost your stamina.
+ If you want to find out more about an object, come back here and ask me
+about it and I will try to tell you more about it.
+Go North now, and then East to find the Gateway to the East Passage, and step
+foot into a greater world of Magic and Mystery!
+Come back here at any time if you need advice, my friend. Good Luck, Petter!"
+
+> n
+You move north.
+
+North Field
+This is North Field. From here you can travel South to Home Field, or travel
+East, West or North to go to the Gateways to any of the Passages that you can
+see around. There is a North Passage, a West Passage and an East Passage.
+Sometimes you may not be able to enter one of the Passages unless you perform
+a certain task or have a particular item.  Also here are Magic Seeds.  You
+can move north, east, south and west.
+
+> get magic seeds
+You have picked up some Magic Seeds. These are very rare, and very useful.
+You now have 10 Magic Seeds. Keep them by your side.
+
+> e
+You move east.
+
+Gateway To East Passage
+This is the Gateway to the East Passage.  The East Passage is a mysterious
+doorway which leads to Grand Ocean Bay.  Until the Passage is open, you can
+only go West, to return to North Field.  You can only move west.
+
+> open east door
+The East Passage has been opened. You can now travel East.
+
+> e
+You move east.
+
+East Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. You can see the way out not far from here.
+Keep going East to reach Grand Ocean Bay. Go West to return to the Gateway to
+the East Passage.  You can move east and west.
+
+> e
+You move east.
+
+Grand Ocean Bay
+You have come through the East Passage to Grand Ocean Bay. It is a beautiful
+place, with soft white sand and crystal clear water. To the West is the
+Passage which brought you here. To the East is nothing but a vast ocean. To
+the South is a dark and dangerous looking cave. You look ahead and see
+somebody staring at you.  Fontana is here.  You can move east, south and
+west.
+
+> talk to fontana
+"My name is Fontana. I have lost a Box of mine in the building to the North,
+the Grand Ocean Beach House. I have searched all over, but I just can't seem
+to find it.
+If you can find it for me, then maybe we'll talk more. If you find my missing
+Box, you can talk to me just like you'd talk to anyone else.
+(Ask Fontana About (something)
+If you find my box, just pick it up and bring it to me, then ask me about it
+to see if it is mine."
+
+> n
+You move north.
+
+Grand Ocean Beach House
+You are standing in front of the Grand Ocean Beach House.  The Front Door
+looks old and rickety, so it shouldn't be too hard to open. Go South to
+return to Grand Ocean Bay.  You can only move south.
+
+> open door
+The Front Door of the Beach House swings open with a loud CREEEAAAAKKKKK. You
+can now go Inside.
+
+> in
+You move in.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can only move out.
+
+> climb ladder
+You have climbed the Beach House Ladder.
+
+Beach House Top Level
+This is the top level of the Grand Ocean Beach House. There is a table in
+this room with something on it, and the ladder which leads down to the Main
+Room.
+
+> x table
+This is a table. Things can sometimes be found on top of tables or benches,
+and sometimes you can put objects on tables or benches.  A bright Torch is on
+the big Table.
+
+> get torch
+You pick up the torch. This handy tool will light your way in dark areas.
+
+> climb ladder
+You have climbed down the Beach House Ladder.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can move up and out.
+
+> sit on slide
+You sat on the slide and went down into the Basement.
+
+Beach House Basement
+This is the Beach House Basement.  Now that you have a light, you can see
+what else is down here. Maybe you'll find what Fontana lost here? Remember to
+bring it back to her!
+There is a slide which leads back up to the Main Room.  Also here is a small
+Box.
+
+> get box
+You picked up the box. Take it to Fontana and find out if it is hers.
+
+> sit on slide
+You climbed the slide to get back to the Beach House Main Room.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can move up, down and out.
+
+> out
+You move out.
+
+Grand Ocean Beach House
+You are standing in front of the Grand Ocean Beach House.  Go South to return
+to Grand Ocean Bay.  You can move south and in.
+
+> s
+You move south.
+
+Grand Ocean Bay
+This is Grand Ocean Bay. It is a beautiful place, with soft white sand and
+crystal clear water. To the West is the Passage which brought you here. To
+the East is nothing but a vast ocean. To the North is the Beach House. To the
+South is a dark and dangerous looking cave.   Fontana is here.  You can move
+north, east, south and west.
+
+> give box to fontana
+You give Fontana her box.  "Here, you can have this box. Keep it with you at
+all times. Open it, and take what I have put in there for you.
+
+> ask fontana about box
+"Is that my box? It is!! Thank you very much! I knew I could count on you!
+Just give it to me for a moment......"
+
+> open box
+You open the small Box.  A small Sheath is inside the small Box.
+
+> get sheath
+You picked up the sheath.
+
+> get sword
+You take a Small Sword from its sheath.  "This is a small sword." Fontana
+says. "It is not very strong, but it is very useful. When you are holding it,
+you can Cut your enemies.
+Ask me about battle, and I will teach you all there is to know about
+fighting, and I will take you through a Battle Training course.
+
+> ask fontana about battle
+"Once you know the name of the enemy you have to fight, you can attack them.
+You have to type something like: "Cut Mr.Enemy with Sword." Typing something
+like: "Cut Enemy with Sword" won't work, because the name is different.
+ You will do damage to the enemy depending on how much stronger than them you
+are.
+ Battle with enemies is very strategic. You never know how often an enemy
+will attack you. Once you attack an enemy, you will be able to tell if you
+can defeat him. If the enemy is too strong, you will be told that not much
+happened when you attacked them. If you can defeat them, this message will
+not appear.
+The most important part of any battle is checking your Status. You can check
+your Status by typing: "Status" You will be able to see your health(Stamina),
+strength(Hit Strength) and your defence power(Defence). This is shown as
+numbers. The higher the number, the more chance you have of winning. Your
+Stamina is the one you should pay most attention to, because once this number
+reaches Zero, you die. You can also check the Status of your enemy to show
+the same information for them. You can do this by typing the name of your
+enemy, followed by the word Status: "Mr. Enemy Status" This will show you how
+much stronger or weaker they are than you. When you finally defeat your
+enemy, a message will appear saying that they have been killed.
+ How much damage you do to an enemy depends on how much higher your Attack is
+to his Defence.  For example,
+if your enemy's Defence is 6, and your Attack is 7, you will only do 1 point
+of damage. Same as if Your Defence was 0, and the enemy's attack was 6, he
+would do 6 damage points.
+Be careful when fighting an enemy. Most of the time you should check the
+enemy's Status as soon as the fight starts, so you have some idea what you're
+up against. You can check Status at any time. It does not interfere with the
+battle. Be careful that you don't check the Status of an enemy you have
+already killed, as this can be very confusing during a fight. If the enemy
+can do enough damage to you in one hit (eg: you haven't got enough Stamina to
+survive), you will be killed. If your Stamina isn't full (up to its highest
+number), your first move should be to heal yourself using your Magic Seeds.
+Winning a batlle relies on your judgement: when to stay and fight, and when
+to run away. That decision could be the difference between life and death.
+
+Go now, to the cave South of here, to begin your Battle Training. You will
+have to complete 4 battles, each one tougher than the last. I will be able to
+contact you telepathically, and give you instructions on what to do."
+
+> xyzzy
+You are such a CHEAT!!!!!
+
+I couldn't help myself! When I found out that XYZZY didn't do anything in
+ADRIFT, I had to change that!
+
+Your Status has increased by about 400 points, giving you the comparitive
+strength of a God as opposed to everything else in this game!!
+
+> s
+You move south.
+
+Dark Cave
+This is the entrance to the Grand Ocean Caves.  As you stand at the entrance,
+staring at in in awe, a telepathic message comes to you....."Petter, can you
+hear me? This is Fontana speaking. You are entering the caves which I have
+designed to be a Battle Training area. Remember all I taught you about
+battle. If you don't think that you are ready to proceed through the test,
+return to me and we'll go over it all again.
+
+Proceed south to the First Battle Test room. This test is designed to get you
+used to fighting with weapons. The enemy you have to face is a Weak Test
+Dummy. This dummy has no Attack or Defence strength, so  it cannot hurt you,
+so you should be able to defeat it easily. Remember to check its Status to
+find out much Stamina it has.
+Remember to take the Sword out of the Sheath before a battle and replace it
+once you have finished.
+Good Luck, Petter!"  You can move north and south.
+
+> s
+You move south.
+
+First Battle Test Room
+This is the First Battle Test room.  This is where your first test will take
+place. Defeat the enemy. Once you have defeated the enemy, you can move
+South, deeper into the cave to continue your training, or you can move North,
+back toward the entrance.  Dummy1 is here.  The first enemy hits you, but it
+doesn't seem to do any damage.
+
+> cut dummy1
+You cut the first enemy with the small Sword.  The enemy has been killed. Its
+body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+> s
+You move south.
+
+First Battle Test Room Corridor
+The 1st corridor.  A telepathic message from Fontana comes to you: "Petter,
+that was very impressive! Let's see if you can handle something a little
+tougher. In the next room, you will face an enemy who is pretty much the same
+as the last one, only this time it will take more hits to win. Continue South
+for your next test.
+Good Luck!"  You can move north and south.
+
+> s
+You move south.
+
+Second Battle Test Room
+This is the 2nd Battle Test room.  This is where you will face your second
+test. You must defeat your enemy to continue. Once you defeat the enemy, you
+can continue South to go deeper into the cave, or go North to head back to
+the entrance.  Dummy2 is here.
+
+> cut dummy2
+You cut the second enemy with the small Sword.  The enemy has been killed.
+Its body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+> s
+You move south.
+
+Second Battle Test Room Corridor
+The 2nd corridor.  A telepathic message from Fontana comes to you. "You are
+getting very good, Petter! I think it's time you tried battling an enemy that
+can do some damage. Remember to check the Status of you and your enemy. Good
+Luck!"  You can move north and south.
+
+> s
+You move south.
+
+Third Battle Test Room
+This is the Third Battle Test room.  This is your third test.  As you prepare
+for battle, a telepathic message from Fontana comes to you....
+"Petter, be VERY careful during this test. This enemy CAN AND WILL take life
+from you. If you are careful with your battle decisions, you are sure to win.
+Remember to check the Status of both you and your enemy at any time during
+the battle, as this does not interfere with the fighting. Good Luck!"  Dummy3
+is here.  The third enemy hits you, but it doesn't seem to do any damage.
+
+> cut dummy3
+You cut the third enemy with the small Sword.  The enemy has been killed. Its
+body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+**You may want to save incase you lose your life!
+
+> s
+You move south.
+
+Third Battle Test Room Corridor
+The 3rd corridor.   A telepathic message from Fontana comes to you: "You
+handled that battle with the skill of a true warrior, Petter. It is time for
+your final test. Continue South to the Fourth Battle Test Room. There you
+will have to battle the toughest enemy you've had to face yet. This enemy has
+terrific stamina, a hefty attack, and excellent defence. This enemy's defence
+is so great that it will cut your attack damage by half. If your own Stamina
+is in danger, you can Eat your Magic Seeds, if you have any left. This should
+restore your Stamina by 10 points. Good Luck, Petter, you're going to need
+it."  You can move north and south.
+
+> s
+You move south.
+
+Fourth Battle Test Room
+This is the Fourth Battle Test Room. This is where you must complete your
+final test.  Dummy4 is here.
+
+> cut dummy4
+You cut the fourth enemy with the small Sword.  The final battle test  dummy
+starts to shake uncontrollably. You put your Sword in its Sheath, and you
+watch in amazed horror as first its legs, then its arms and finally its head
+flies off its body.
+First one arm then the other, then both legs and the head explode sending
+mini fireworks all around you.
+ What's left of the body dissolves into oblivion in a brilliant flash of red
+light.
+You hear a distant rumble which grows louder and Louder and
+LOUDER!............
+
+All of a sudden the caves disappear from view and you are surrounded by
+nothing but a bright white light. You shut your eyes tightly to block out the
+blinding light.
+
+When you open them, you find yourself standing on the beach of the Vast
+Ocean.
+
+Beach Of The Vast Ocean
+This is the beach of the Vast Ocean. No-one has ever sailed on the Vast Ocean
+and survived to tell the tale. Your best bet is to head West to Grand Ocean
+Bay.  You can only move west.  To the  West, you see Fontana standing in her
+usual place. You decide to go over there and ask her about what happened.
+
+> w
+You move west.
+
+Grand Ocean Bay
+This is Grand Ocean Bay. It is a beautiful place, with soft white sand and
+crystal clear water. To the West is the Passage which brought you here. To
+the East is nothing but a vast ocean. To the North is the Beach House. To the
+South is a dark and dangerous looking cave.   Fontana is here.  You can move
+north, east and west.
+
+> ask fontana about what happened
+"I knew you could do it, Petter!
+So you're worried about what happened? To tell the truth, it worried me a
+bit, too. I'll explain what happened to you.
+When you defeated the Final Battle Test Dummy, it triggered a self destruct
+sequence in the caves. The cave collapsed on itself, destroying everything
+that was in there. It means that from now on nobody can get into the caves.
+I have feared this might happen for quite a while, so I set up a special warp
+inside the caves that would transport anyone inside to the Beach if the caves
+ever collapsed. So that's why you ended up back here.
+
+With your sword you can now travel through the West Passage into the Outer
+World. The Outer World is a beautiful but very dangerous place. There is a
+man who lives in Home Field who will be able to tell you more about the Outer
+World. I suggest you pay him a visit."
+
+> w
+You move west.
+
+East Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. You can see the way out not far from here.
+Keep going East to reach Grand Ocean Bay. Go West to return to the Gateway to
+the East Passage.  You can move east and west.
+
+> w
+You move west.
+
+Gateway To East Passage
+This is the Gateway to the East Passage.  The East Passage is a mysterious
+doorway which leads to Grand Ocean Bay.  You can move east and west.
+
+> w
+You move west.
+
+North Field
+This is North Field. From here you can travel South to Home Field, or travel
+East, West or North to go to the Gateways to any of the Passages that you can
+see around. There is a North Passage, a West Passage and an East Passage.
+Sometimes you may not be able to enter one of the Passages unless you perform
+a certain task or have a particular item.  You can move north, east, south
+and west.
+
+> w
+You move west.
+
+Gateway To West Passage
+This is the Gateway to the West Passage. The West Passage is a mysterious
+doorway which leads to The Outer World.   Until the Passage is open, you can
+only go East, to return to North Field.  You can only move east.
+
+> get sword
+You take a Small Sword from its sheath.
+
+> open west passage
+The West Passage is open. You can now travel West.
+
+> w
+You move west.
+
+West Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. Continue West to enter the Outer World, or
+head East to return to the Gateway to the West Passage.  You can move east
+and west.
+
+> w
+You move west.
+
+Outer World
+
+As you emerge from the West Passage, you are instantly spellbound by the
+breathtaking beauty of the Outer World.
+Never before have you seen such a magnificent place. A distant mountain range
+stretches endlessly as far as the eye can see.
+A small village lies just ahead, and as you begin to walk, you discover that
+you are on the edge of a high cliff, and the only way to go is down, into the
+dark, eerie forest below.  You can move east and down.
+
+> d
+You move down.
+
+Rabban Woods
+You tumble down the cliff to the eerie forest below, called Rabban Woods.
+
+Rabban Woods is a dark and scary place. You can't see the sky, yet there
+always seems to be enough light to see where you're going.
+There is a path that twists and turns deeper into the woods to the North. The
+cliff is too steep to climb up, so you've got no choice but to head into the
+woods, and into danger....  You can only move north.
+
+> n
+You move north.
+
+Deep Within Rabban Woods
+You move deeper and deeper into Rabban Woods, twisting and turning in every
+direction.  You look behind you and realise that you've lost sight of where
+you came from. You then realise that the mysterious forest is closing all
+around you, blocking off the path so you have nowhere to go. As you turn
+around, a vicious Hound jumps into your path, growling and baring its sharp
+white fangs. Remembering everything that Fontana taught you, you prepare to
+defend yourself against this horrible beast.  Vicious Hound hits you, but it
+doesn't seem to do any damage.
+
+> cut hound
+You cut Vicious Hound with the small Sword.  The vicious beast has been
+killed. Its body dissolves into oblivion in a brilliant flash of red light. A
+path through Rabban Woods opens up infront of you. You can now travel east.
+
+> e
+You move east.
+
+End Of Rabban Woods
+You can see a way to the North. The woods thin out as you head towards the
+exit, and sunlight shines onto your hot sweaty face.  You can move north and
+west.
+
+> n
+You move north.
+
+Other Side Of Rabban Woods
+This is the other side of Rabban Woods. You don't know how you managed to
+escape such an eerie place. You never want to step foot in there again.
+To the West is a hill so big that the only thing you can see at the top is
+clouds and sky. The hill is very big, but nowhere near as steep as the cliff
+you came down.  You can move south and west.
+
+> w
+You move west.
+
+Bottom Of Rabban Hill
+You are at the bottom of Rabban Hill.
+Rabban Woods lie to the East.
+The top of Rabban Hill is a long way Up.  You can move east and up.
+
+> u
+You move up.
+
+Rabban Hill
+You start to make your way up Rabban Hill, thankful that it is nothing like
+the woods.
+The soft green grass feels wonderful underneath your feet, so you decide to
+stop halfway and have a rest before going up the last part of the hill to the
+top.
+Just then, something grabs your attention out of the corner of your eye.
+Also here is an old bucket.  You can move up and down.
+
+> get bucket
+You take the old bucket. It doesn't look like it has been here long, so maybe
+the person who owns it is nearby?
+
+> u
+You move up.
+
+Top Of Rabban Hill
+The top of Rabban Hill flattens out and you can see the village just to the
+West. The mysterious Rabban Woods seems a long way down.  You can move west
+and down.
+
+> w
+You move west.
+
+Outskirts Of Village
+These are the outskirts of Rabban Village. The village itself lies North.
+Rabban Hill is to the East.  A small cottage is here, with smoke pouring from
+the chimney. You can't help but wonder if this is where the owner of the
+bucket lives?  You can move east and in.
+
+> in
+You move in.
+
+Cottage
+This cottage seems to be a single room house, with not much in the way of
+furniture. The fireplace sends a warm orange glow across the room. The man
+who lives here looks up and sees you, then spots the bucket. He opens his
+mouth as if to start talking, then stops and looks at you with the faintest
+glimmer of hope in his eyes, as if waiting for you to speak up....  Carlos is
+here.  You can only move out.
+
+> talk to carlos
+"You......You don't look like one of them.......
+You're not from around here, are you?
+My name is Carlos. This is my home..............My bucket............could I
+have it back.... please??"
+
+> give bucket to carlos
+You give Carlos the old bucket.
+
+"Th......Thank you very much.
+I didn't think I would ever get it back, even if it is just an old bucket.
+
+You seem like a nice enough person, so I'll warn you about Rabban Village.
+Rabban Village used to be a nice place, until the Guards came and took over
+our peaceful town. They treat us like slaves, and they kill whoever tries to
+stand in their way.
+
+Since they came, we have all been living in fear.
+
+We've been waiting for someone to come and rid our village of the Guards and
+liberate our people.
+
+I see you have a sword..........Will you help us defeat the Guards and
+restore peace to Rabban Village?
+
+Answer "Yes" or "No"
+
+> yes
+"Thank you very much. I had a feeling that you would be the type to throw
+themselves head first into danger just to help other people.
+Follow me, I will tell you more about the Guards and Rabban Village, and I
+may have something to help you on your way."
+
+Cottage Cellar
+This is the cottage cellar. There is nothing of interest here, as this room
+is mainly used as a hideout.
+Carlos begins to explain to you about the Guards.
+
+"Rabban Village has been overtaken by Guards, as you must know by now.
+Suprisingly, there are only two of them, but they are very strong and mighty.
+The Guards can be found just North of Town Square, in an area that has become
+known as their Battle Arena. This is where they do battle with anyone who
+dares to step foot there.
+There are only a few buildings left standing in Rabban Village, either
+because they have been destroyed or they are falling apart because no one was
+there to look after them.
+Only one man still remains living in Rabban Village. He is The Blacksmith.
+You should pay him a visit before facing the Guards. He will be able to
+strengthen your sword, making you more powerful than ever.
+
+There is a rumour that somewhere in Rabban Village there is an underground
+hideout of rebels, waiting for someone to lead them into battle to defeat the
+Guards.
+They won't follow just anyone. They will only follow the person they see
+wearing the ancient Band of Truth, worn by the brave and loyal warriors of a
+time long past.
+This is what I am about to give you. When you wear it, you take on the power
+of the ancient warriors. Your maximum Strenth, Stamina and Defence will be
+increased.
+Here, allow me to help you put it on.......There. I'm sure you're feeling
+stronger already!
+This is a very powerful thing to have in your possession, Petter. Do not let
+it fall into evil hands.
+I recommend that you search as hard as you can to find the rebel hideout.
+Help from the rebels could be the difference between life and death.
+
+ I'll lead you back to the Outskirts of Rabban Village, Petter, so you can
+head into Rabban Village. I will stay hidden down here, where I am safe.
+Remember to go see the Blacksmith. I'm sure he will help you!"
+
+Outskirts Of Village
+These are the outskirts of Rabban Village. The village itself lies North.
+Rabban Hill is to the East.  A small cottage is here, with smoke pouring from
+the chimney.  You can move north, east and in.
+
+> n
+You move north.
+
+Rabban Village Entrance
+Rabban Village is silent and empty. There's not a soul on the streets, and
+only a few buildings remain undamaged.
+This is the entrance to Rabban Village. To the East is Stable Court. To the
+West is Blacksmith's Street. To the North is Town Square. Go South to return
+to the Outskirts of Rabban Village.  You can move north, east, south and
+west.
+
+> e
+You move east.
+
+Stable Court
+Once upon a time, the stables of Rabban Village were full of horses and cows.
+Since the Guards came, the owners of the animals have fled, either taking
+their horses and cows with them, or leaving them to die of starvation. Now
+there are no animals or people around the stables, and the stables themselves
+have been falling apart with age and lack of maintenance.  You can move west
+and in.
+
+> in
+You move in.
+
+Stables
+There is a pile of old hay and straw that looks like it could burst into
+flames from the slightest bit of heat.  Also here is a pile of old Straw.
+You can only move out.
+
+> get straw
+You pick up the pile of old Straw.
+
+> out
+You move out.
+
+Stable Court
+Once upon a time, the stables of Rabban Village were full of horses and cows.
+Since the Guards came, the owners of the animals have fled, either taking
+their horses and cows with them, or leaving them to die of starvation. Now
+there are no animals or people around the stables, and the stables themselves
+have been falling apart with age and lack of maintenance.  You can move west
+and in.
+
+> w
+You move west.
+
+Rabban Village Entrance
+Rabban Village is silent and empty. There's not a soul on the streets, and
+only a few buildings remain undamaged.
+This is the entrance to Rabban Village. To the East is Stable Court. To the
+West is Blacksmith's Street. To the North is Town Square. Go South to return
+to the Outskirts of Rabban Village.  You can move north, east, south and
+west.
+
+> w
+You move west.
+
+Blacksmith's Street
+Here stands the Blacksmith's Shop. Normally an intense heat radiates from the
+building, caused by the Blacksmith's forge, but for some reason the fire in
+the forge doesn't seem to be burning.  You can move east and in.
+
+> in
+You move in.
+
+Blacksmith's Shop
+Inside the Blacksmith's shop is small and unusually cold, because the fire in
+the Blacksmith's forge is nothing but glowing embers, preventing the
+Blacksmith from using  it. On the walls you can see weapons and armour
+hanging from hooks and sitting on  shelves, an excellent example of the
+Blacksmith's skill.
+
+The Blacksmith sees you and speaks up.
+"How do you do Stranger! Here to try and defeat the Guards are you? Good Luck
+to you then. I would strengthen your sword, but the fire in my forge has
+almost gone out, and there is only the slightest bit of heat left in there,
+and I don't have anything to put on there to get it going....
+.....Say, do you have anything that you could put on the forge to get the
+fire going?
+If you can get my fire started again, I will make your sword even stronger
+than it is."
+
+  You can only move out.
+
+> put straw on forge
+You put the small pile of hay and straw on the glowing embers of the fire in
+the Blacksmith's forge. Smoke begins to rise, and soon enough, the fire is
+burning brightly.
+
+Blacksmith's Shop
+Inside the Blacksmith's shop is small and very hot, because of the forge
+burning brightly at one end of the room. On the walls you can see weapons and
+armour hanging from hooks and sitting on shelves, an excellent example of the
+Blacksmith's skill.
+The Blacksmith sees you and speaks up.
+"Thank you for lighting the fire in my forge, Petter! Now I will see what I
+can do about making your sword stronger.........
+...........Hmmmm. I think I can help you, Petter. Your sword is quite
+interesting. Quite very interesting indeed!
+If you can find me some Gold, I could use that to turn this small thing into
+the mighty Guilded Sword!!! Give me some Gold and I will get to work straight
+away!"
+
+  You can only move out.
+
+> out
+You move out.
+
+Blacksmith's Street
+Here stands the Blacksmith's Shop. You can feel an intense heat radiating
+from the building, an obvious sign that the fire in the Blacksmith's forge is
+burning brightly.  You can move east and in.
+
+> e
+You move east.
+
+Rabban Village Entrance
+Rabban Village is silent and empty. There's not a soul on the streets, and
+only a few buildings remain undamaged.
+This is the entrance to Rabban Village. To the East is Stable Court. To the
+West is Blacksmith's Street. To the North is Town Square. Go South to return
+to the Outskirts of Rabban Village.  You can move north, east, south and
+west.
+
+> n
+You move north.
+
+Town Square
+This is the Town Square, the centre of Rabban Village. To the East is Tavern
+Lane. To the West is Haunting Avenue. North is the Rabban Guard's Arena,
+somewhere you shouldn't go until you are ready. To the South is Rabban
+Village Entrance.
+You shouldn't go into the Guard's Arena until you have everything you need.
+You can move east, south and west.
+
+> e
+You move east.
+
+Tavern Lane
+This is the road to the local tavern and inn.  You can move west and in.
+
+> in
+You move in.
+
+Tavern
+This is the local tavern. Upstairs is the local inn. This is where visitors
+would usually come for a drink or meal, or to stay the night.
+There is nobody around, and the whole place is dark and quiet. There is
+nothing much in the room, because by the looks of it, someone has broken in
+and stolen all the chairs and tables.  You can move up and out.
+
+> u
+You move up.
+
+Rabban Village Inn
+This is Rabban Village Inn, where people used to stay the night.
+The inn is only one room, and has nothing but a bed and a small chest for
+people to put their things in during their stay.
+Sometimes things get left in the chest from people who have left in a
+hurry....
+  You can only move down.
+
+> x chest
+This is a small chest that people can use to put their things in during their
+stay at Rabban Village Inn. Sometimes things get left behind....  The Chest
+is closed.
+
+> open chest
+You open the small Chest.  A lump of Gold is inside the small Chest.
+
+> get gold
+You take a lump of Gold from the small Chest.
+
+> d
+You move down.
+
+Tavern
+This is the local tavern. Upstairs is the local inn. This is where visitors
+would usually come for a drink or meal, or to stay the night.
+There is nobody around, and the whole place is dark and quiet. There is
+nothing much in the room, because by the looks of it, someone has broken in
+and stolen all the chairs and tables.  You can move up and out.
+
+> out
+You move out.
+
+Tavern Lane
+This is the road to the local tavern and inn.  You can move west and in.
+
+> w
+You move west.
+
+Town Square
+This is the Town Square, the centre of Rabban Village. To the East is Tavern
+Lane. To the West is Haunting Avenue. North is the Rabban Guard's Arena,
+somewhere you shouldn't go until you are ready. To the South is Rabban
+Village Entrance.
+You shouldn't go into the Guard's Arena until you have everything you need.
+You can move east, south and west.
+
+> s
+You move south.
+
+Rabban Village Entrance
+Rabban Village is silent and empty. There's not a soul on the streets, and
+only a few buildings remain undamaged.
+This is the entrance to Rabban Village. To the East is Stable Court. To the
+West is Blacksmith's Street. To the North is Town Square. Go South to return
+to the Outskirts of Rabban Village.  You can move north, east, south and
+west.
+
+> w
+You move west.
+
+Blacksmith's Street
+Here stands the Blacksmith's Shop. You can feel an intense heat radiating
+from the building, an obvious sign that the fire in the Blacksmith's forge is
+burning brightly.  You can move east and in.
+
+> in
+You move in.
+
+Blacksmith's Shop
+Inside the Blacksmith's shop is small and very hot, because of the forge
+burning brightly at one end of the room. On the walls you can see weapons and
+armour hanging from hooks and sitting on shelves, an excellent example of the
+Blacksmith's skill.
+The Blacksmith sees you and speaks up.
+"Thank you for lighting the fire in my forge, Petter! Now I will see what I
+can do about making your sword stronger.........
+...........Hmmmm. I think I can help you, Petter. Your sword is quite
+interesting. Quite very interesting indeed!
+If you can find me some Gold, I could use that to turn this small thing into
+the mighty Guilded Sword!!! Give me some Gold and I will get to work straight
+away!"
+
+  You can only move out.
+
+> give gold to blacksmith
+You give the Gold to the Blacksmith.
+
+"This is just the thing for the job, Petter! If you wait just a moment, I'll
+get to work on your sword!!"
+
+The Blacksmith takes the Gold and your small Sword, and begins to temper the
+metal, which gets very hot.
+The fire in the Blacksmith's forge is so hot that he is able to melt the gold
+onto your sword.
+He hammers away at the metal for a while, working as fast as he can.
+
+Finally he turns around to face you, revealing the mighty Guilded Sword!
+
+He gives you the Guilded Sword, and says
+"I knew I could do it! I've turned your Small Sword into the Guilded Sword.
+It's golden blade makes it 10 times stronger than before! This mighty blade
+is too big to fit inside your Sheath, so I'm giving you the Big Sheath, that
+can hold the Guilded Sword.
+Now get out there and kick some Rabban Guard butt!!!"
+
+> get guilded sword
+You take the Mighty Guilded Sword from the big Sheath.
+
+> out
+You move out.
+
+Blacksmith's Street
+Here stands the Blacksmith's Shop. You can feel an intense heat radiating
+from the building, an obvious sign that the fire in the Blacksmith's forge is
+burning brightly.  You can move east and in.
+
+> e
+You move east.
+
+Rabban Village Entrance
+Rabban Village is silent and empty. There's not a soul on the streets, and
+only a few buildings remain undamaged.
+This is the entrance to Rabban Village. To the East is Stable Court. To the
+West is Blacksmith's Street. To the North is Town Square. Go South to return
+to the Outskirts of Rabban Village.  You can move north, east, south and
+west.
+
+> n
+You move north.
+
+Town Square
+This is the Town Square, the centre of Rabban Village. To the East is Tavern
+Lane. To the West is Haunting Avenue. North is the Rabban Guard's Arena,
+somewhere you shouldn't go until you are ready. To the South is Rabban
+Village Entrance.
+  You shouldn't try and fight the Guards alone. Try and find some help....
+You can move east, south and west.
+
+> w
+You move west.
+
+Haunting Avenue
+Haunting Avenue got its name because no-one ever goes there since the only
+house on the street was ruined, and the area is always as quiet and deserted
+as a ghost town.
+Apart from that, Haunting Avenue is the same as any other street in Rabban
+Village. To the South are the ruins of the house that once stood at the end
+of the street. In the middle of the street, you spot a peculiar shape in the
+ground, probably a drain that leads under the street.  You can move east and
+south.
+
+> open drain
+You open the drain. You can see a way down to the floor below.
+
+> d
+You move down.
+
+Rebel Hideout
+The Rebel Hideout is cleverly hidden underneath Haunting Avenue. Here you
+will be able to find someone to help battle the Guards who are terrorising
+Rabban Village.
+The Rebels here are trained to fight to the death. They cannot hear a thing,
+and they cannot speak a word. A mystical power surrounds the Rebel Fighters.
+The limit of their ability is unknown to all but them.
+
+They stay completely loyal to whoever they see wearing the Band of Truth and
+who ever holds the powerful Guilded Sword. They follow every movement and
+they are always ready to battle.
+Their instincts are very sharp - they only attack the enemy of their leader.
+
+If they choose you as their leader, they will follow you into battle and
+never leave your side until they die.
+There is a red Lever here.
+  Rebel1 is here.  You can only move up.
+
+> pull lever
+You pull the Lever.
+The 1st Rebel turns around. It sees you wearing the Band of Truth and
+carrying the Guilded Sword, and chooses you as its leader.
+Together you trek to the Rabban Guard's Arena to do battle.
+
+The Rebel Fighter is trained to fight to the death. When one dies, another
+will come to your aid, until there are no more rebels left.
+Just as long as you have a Rebel Fighter by your side, the Guard will attack
+it as well as you, giving you a better chance of surviving.
+You take the Guilded Sword from the Big Sheath.
+You are in the Guard's Arena, and the battle is about to begin!!!......
+
+Rabban Village Guard's Arena
+This is a plain area created by the Guards of Rabban Village for the sole
+purpose of fighting to the death. Your only escape is south, back into Town
+Square, where you can take a rest from the action.  Rabban Guard is here.
+You can only move south.  Rebel1 hits the evil Guard.  The evil Guard hits
+Rebel1.
+
+> cut guard
+You cut the evil Guard with the Mighty Guilded Sword.  The evil Rabban
+Village Guard has finally been defeated. It's body dissolves into oblivion in
+a brilliant flash of red light.
+
+Just then, the ground begins to shake. You hear a deafening "ROAR" and
+suddenly the Rabban Guard's Big Sister appears infront of you, and she is
+VERY VERY Angry!
+She wastes no time in trying to get revenge for the death of her brother.
+
+The Band of Truth magically brings all the Rebel Fighters who have been
+killed back to life. Together you all do battle agaist the evil Big Sister.
+Rebel1 hits the mean old Big Sister.  Rebel2 hits the mean old Big Sister.
+Rebel3 hits the mean old Big Sister.  The mean old Big Sister hits you, but
+it doesn't seem to do any damage.
+
+> cut big sister
+You cut the mean old Big Sister with the Mighty Guilded Sword.  Rebel1 hits
+the mean old Big Sister.  Rebel2 hits the mean old Big Sister.  Rebel3 hits
+the mean old Big Sister.  The mean old Big Sister hits Rebel3.
+
+> cut big sister
+You cut the mean old Big Sister with the Mighty Guilded Sword.  The Big
+Sister falls to her knees, thrashing around madly in a desperate effort to
+hurt you.
+Jumping towards her, you swing the mighty Guilded Sword down and slice off
+the Big Sister's head.
+She lets out a blood curdling scream, as her body dissolves in a blinding
+flash of blood-red light.
+
+After a long and enduring battle, with the help of the Rebel Fighters, you
+finally defeat the evil Guards of Rabban Village.
+
+The sky seems to lighten as the oppressive air surrounding the  Rabban
+Guard's Arena lifts after the death's of the two Guards.
+Finally the people of Rabban Village can return and start their lives over,
+without living in fear. They can rebuild their houses and live a long and
+happy life.
+
+You have finished the DEMO version of
+GRAND JOURNEY. The full game is expected to have finished production within
+six or more months.
+Well Done!!!!
+
+You scored 250 out of the maximum 250!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,90 @@
+
+> s
+You move south.
+Main Street
+Cars zip by on their separate ways. How DARE they be so frivolous?! You've been locked out of your house! Maybe you should have a drink at the pub to calm your nerves...  You can move north and west.
+
+> w
+You move west.
+Outside the Pub
+Patrick's Pub. Ah, so many memories... not all of them pleasant, though. Like the time you got drunk and tried to date a coat stand. Oh, well.  You can move east and in.
+
+> in
+You move in.
+Inside the Pub
+The scent of vomit was never an attractive smell. Pat's obviously on vacation. He would've cleaned up any thrown cookies by the time they'd hit the floor. No-one's here. That's odd, not even a replacement barkeep or a "We're Closed" sign. Hmmm... Oh well. There is a table here.  You can only move out.
+
+> drink beer
+You down the beer and look down. You're melting into a puddle! Soon you've melted completely. You drip through the floor...  
+What the...?
+This place is messed up. Not only is everything the opposite color it should be, but half of the stuff's all floating in midair! There are some floating words here. Maybe they should be read... There is a hole in the ceiling, but it's too far up to reach.  Also here is a green laser gun and a weird costume.
+
+> get gun
+You take the green laser gun.
+
+> get costume
+You take the weird costume.
+
+> wear costume
+You put on the weird costume.
+
+> fly
+You jump into the air and stay there. Hey! You're flying! Must be the boots. You soar through the hole and leave the odd place.  
+A new world...
+This must be the world where that whatever-his-name-is robot's hiding. This part of it doesn't look very friendly, but it IS the city. The tall buildings look rather cracked, as if airplanes had flown into them. There is also a small machine stuck to the wall of a building.  You can only move south.
+
+> pull lever
+Suddenly, a piece of plastic pops out of a slot in the machine. It's an ID card! You pocket it quickly.
+
+> s
+You move south.
+Outside A Warehouse
+There is a large rectangular building here. The door is a large metal shutter. There is another small machine next to the door.  A muscular cop is here.  You can only move north.
+
+> swipe card
+The large shutter slowly grinds open after you swipe the card through the slot. You enter the warehouse as the shutter closes once more
+
+> shoot alien
+The alien is blown into little Alien McNuggets.
+
+> press button
+As you press the button, a loud blaring alarm goes off. Nerve gas sprays into the room, knocking you unconscious. While you're knocked out, the police come and throw you in jail.
+
+> open door
+What the? The door isn't locked! You take the opportunity to sroll right out of the cell.  
+The Jail Lobby
+This is where people who want to tell a cop something come to wait. It's painted gray, brown and black. A cop sleeps face down on his keyboard.  A sleeping cop is here.  You can move north and out.
+
+> out
+You move out.
+A Back Road
+It's a long, winding back road behind the city, just outside the police station. It leads past a farm, a field, and over a hill.  You can move north and in.
+
+> n
+You move north.
+On the Road
+It's just a dirt road. The farm is to the west, the field is to the east, and the road continues north.  You can move east, south and west.
+
+> n
+You can't go in that direction, but you can move east, south and west.
+
+> w
+You move west.
+The Farm
+It's a relatively large farm. There's a barn, the farmer's house and a cow pasture. A farmer is busily trying to fix a large something (it's covered by a tarp)  You can move east and in.
+
+> in
+You move in.
+The Barn
+It's just light enough to let you see the general state of disrepair that this barn is in. The paint is peeling, the boards are cracked, and there's cobwebs everywhere. There's something up high in the rafters, but you can't quite see it. How would you be able to get up next to it?...  You can only move out.
+
+> fly
+You fly up to the rafters. There's a small trapdoor. You push it open and fly into the room above.
+
+> take orb
+As you take the orb, it pulses. Suddenly, you feel like you're being stretched and twisted. You see the hayloft being distorted and finally disappearing from your view. Where you end up is much, much worse than the hayloft... You fall into a laboratory. VgeF3 looms in front of you. "So , they sent someone to find me, eh? Well hero, you found me, but you'll never defeat me!" he yells. He starts zapping you with an odd gun.  The ray flows over you. It hurts!
+
+> throw orb
+You lob the orb underhand through the air. VGeF3 stares in horror as it smashes to bits against the floor. Suddenly, a blue spark jumps from his body. The ray that he had turned on you  suddenly dissipates. You watch as more sparks come from him. After about 10 seconds, he explodes. As he explodes, you are pulled from the lab onto yet another world. The scientists who created the robot thank you profusely for your trouble, and send you back to Earth. When you get home, you realize that your keys are still in the house. Suddenly, the keys drop at your feet. Looking up into the night sky, you say "Thanks, guys." And as you unlock the door, you hear a faint "It's the least we could do, Rob. See you later!"
+
+[Press any key to end]

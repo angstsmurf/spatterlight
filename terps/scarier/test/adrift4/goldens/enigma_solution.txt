@@ -1,0 +1,73 @@
+n
+e
+n
+kill swordsman
+kill spearman
+kill arrow goblin
+kill spear goblin
+kill knife goblin
+n
+e
+e
+look in garbage
+get copper key
+w
+w
+w
+open door
+w
+kill goblin guard
+w
+in
+s
+e
+ne
+kill goblin farmer
+look in wheel barrows
+get small key
+sw
+e
+open wooden door
+e
+x desk
+get apple
+eat apple
+look in bookcase
+get tatty pages
+w
+w
+w
+n
+out
+w
+s
+x weapons rack
+get longsword
+x shield rack
+get steel shield
+wear steel shield
+drop short sword
+n
+e
+in
+s
+e
+e
+e
+read pages
+kill orc guard
+w
+w
+w
+n
+out
+w
+w
+put copper key in door
+put small key in door
+open large wooden doors
+w
+orc warlord's death
+lift drapes
+get stone key
+open stone door

@@ -1,0 +1,27 @@
+open dresser
+get magic bag
+get pda
+turn on pda
+i
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+west
+goto Mage's Hall

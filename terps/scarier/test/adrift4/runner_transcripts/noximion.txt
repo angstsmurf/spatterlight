@@ -1,0 +1,396 @@
+
+> sleep
+You rest and feel replenished.
+
+> out
+You move out.
+Meho City (1st Floor) Central
+Central is named so because of the amount of activity that takes place here. Some people hustle and bustle about, while others converse with one another, sitting on a bench or near the giant fountain in the center of the place. The area is a small circle from which the upper parts of the city can be viewed. This little section is the heart of Meho City, and the rest of Noximion as well. 
+
+> u
+You move up.
+Meho City (2nd Floor) Mall 1
+Plenty of people roam the first floor of the mall. The translucent windows and walls that border the main walk make it easy for shoppers to see what is being offered.  Military material such as weaponry and armor can be found here, as well as civilian drugs and foods. An odd mix for sure, but it is what the Planners designed. 
+
+You can move northeast (to the Medicine Shop), northwest (to the Food Shop), southeast (to the Weapon Shop), and southwest (to the Armor Shop).
+
+> sw
+You move southwest.
+Armor Shop
+Like the rest of the shops in Meho, this armor shop is subsidized by the government to give young recruits an easily accessible source of supplies. The armor here is mostly low-level. 
+
+Type 'list' to bring up a list of available armor. 
+
+> buy 6
+You buy the light layer shield.
+
+> wear shield
+You put on the light shield.
+
+> ne
+You move northeast.
+Meho City (2nd Floor) Mall 1
+Plenty of people roam the first floor of the mall. The translucent windows and walls that border the main walk make it easy for shoppers to see what is being offered.  Military material such as weaponry and armor can be found here, as well as civilian drugs and foods. An odd mix for sure, but it is what the Planners designed. 
+
+You can move northeast (to the Medicine Shop), northwest (to the Food Shop), southeast (to the Weapon Shop), and southwest (to the Armor Shop).
+
+> u
+You move up.
+Meho City (3rd Floor) Mall 2
+The upper half of the mall is the one where the most civilians can be found. Translucent benches have been put in place along the walkway because of the many families walking around buying goods. Clothes, furniture, and other miscellaneous items can be purchased on this floor. A dizzying array of colored lighting is allowed here, and brand names and commercials are displayed everywhere. It is also relatively noisy in here, with hundreds of people chattering and "soothing" background music playing.  
+
+You can move northeast (to the Club), northwest (to the Clothing Shop), southeast (to the Items Shop), and southwest (to the Furniture Shop).
+
+> u
+You move up.
+Meho City (4th Floor) Port
+The place most familiar to Guardians, the port leads to four different waiting rooms where you can be ported to places far away from here, or anywhere outside of the city. They are the only ways into and outside of Meho.
+
+You can move northeast (to the Zank Port), northwest (to the St. Ness Port), southeast (to the Alunia/Plantura Port), and southwest (to the Mihokosa Barrens Port).
+
+> sw
+You move southwest.
+Mihokosa Barrens Port
+Located right outside of Meho City, the Barrens are home to a few surviving evil monsters that seek to annoy people. They aren't too tough to take down.
+
+You can currently go to:
+
+1.) Mihokosa Barrens I
+2.) ***
+3.) ***
+
+
+> go to 1
+You feel fuzzy, and suddenly...nothing.
+
+[Press any key to continue]
+
+Mihokosa Barrens
+The objective is to kill all beasts in the dungeon.
+This dungeon is ranked: 1 for Beginner.
+You can leave at any time by typing flee, however significant experience points penalties will incur. Don't be afraid to flee because it's better than dying, which means game over.
+
+Begin.
+Buzzard hits you, but it doesn't seem to do any damage.
+
+> b
+Done.  The buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+  
+
+> kill venemous buzzard with sword
+  
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  The buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+    
+
+> w
+You move west.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+      
+
+> kill venemous buzzard with sword
+      
+
+> w
+You move west.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+        
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+          
+
+> kill venemous buzzard with sword
+          
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+          
+
+> ne
+You move northeast.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+            
+
+> kill venemous buzzard with sword
+            
+
+> ne
+You move northeast.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+              
+
+> e
+You move east.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                
+
+> kill venemous buzzard with sword
+                
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard and 
+
+A venemous buzzard are here.  Buzzard hits you, but it doesn't seem to do any damage.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+Which buzzard.   venemous buzzard or  venemous buzzard?
+
+> kill venemous buzzard with sword
+              You hit buzzard with the light sword.  The buzzard drops.You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                    
+
+> kill venemous buzzard with sword
+                    
+
+> kill venemous buzzard with sword
+                    
+
+> kill venemous buzzard with sword
+                    
+
+> kill venemous buzzard with sword
+                    
+
+> kill venemous buzzard with sword
+                    
+
+> s
+You move south.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. 
+
+> e
+You move east.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky. 
+
+> s
+You move south.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                      
+
+> kill venemous buzzard with sword
+                      
+
+> sw
+You move southwest.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                        
+
+> kill venemous buzzard with sword
+                        
+
+> sw
+You move southwest.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                          
+
+> kill venemous buzzard with sword
+                          
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+                            
+
+> n
+You move north.
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and ugly on the eyes as they sound. There is virtually no plant life here. Dust and dirt has taken over. Mountainous structures border your path and reach high into the sky.   
+
+A venemous buzzard is here.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  Buzzard hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit buzzard with the light sword.  The buzzard drops.  
+
+Congratulations! You have defeated all monsters and completed the dungeon!
+
+[Press any key to continue]
+
+Mihokosa Barrens Port
+Located right outside of Meho City, the Barrens are home to a few surviving evil monsters that seek to annoy people. They aren't too tough to take down.
+
+You can currently go to:
+
+1.) Mihokosa Barrens I
+2.) ***
+3.) ***
+
+
+> kill venemous buzzard with sword
+                              
+
+> wait
+Time passes...

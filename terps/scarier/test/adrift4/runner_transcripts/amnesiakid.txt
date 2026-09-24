@@ -1,0 +1,383 @@
+
+> hit loser
+You hit Loser, with a force that could knock out an elephant.
+
+> n
+You move north.
+Back Room
+The back room is not seen by the public. It is empty.. There is just a computer, on the ground.  You can move north and south.
+
+> n
+You move north.
+Alley
+The alley is the space between the back of this building and the back of the other building.. There is nothing here except a dumpster.   Crackhead Bob is here.  You can move east, south and west.
+
+> w
+You move west.
+Crackhead Bob's House
+You are in Crackhead Bobs house. It is made of a sturdy cargo freight crate. Against one side there is a cot. On the other side, there is a makeshift nightstand made of a number of boxes.   Pedro is here.  You can only move east.
+
+> look at nightstand
+It is a nightstand made up of numerous boxes, large and small.  A piece of styrofoam is on the nightstand.
+
+> get styrofoam
+You take the piece of styrofoam from the nightstand.
+
+> e
+You move east.
+Alley
+The alley is the space between the back of this building and the back of the other building.. There is nothing here except a dumpster.   Crackhead Bob is here.  You can move east, south and west.
+
+> e
+You move east.
+City Pool
+You are at the city pool. The water is nasty, grotesque and hideous looking. It is a shade of green that can only be seen in barf and strange diarrhea. Even if it was clean, no one would want to go in because it is 33 degrees outside. (Fahrenheit) Across the pool, you can see a chest.   You can only move west.
+
+> place styrofoam in pool
+You place the styrofoam on the pool. It floats. It also seems to support your weight. You sit on it and float to the other side of the pool.
+
+> e
+You move east.
+Underneath the Freeway
+You are underneath the freeway. The sounds of cars whizzing by above you makes you uncomfortable. There is a large pillar here that holds up this section of the Freeway.  You can move south and west.
+
+> s
+You move south.
+Open Field
+You are in a wide open field filled with weeds. There is a strange pile of dirt to your left.   You can move north and south.
+
+> s
+You move south.
+The No Dumping Sign
+You are at the No Dumping Sign. It is large and yellow. There is a picture of a little dude throwing garbage and then an X through it. All around you is garbage. There is a tunnel in the garbage.  You can move north, south and down.
+
+> s
+You move south.
+Behind the Dollar Store
+You are behind the dollar store. The back of the store is so drab and boring looking, because it has been freshly painted a monotonous shade of gray. There is a chain link fence running along a section of the wall.  You can only move north.
+
+> look at fence
+It is a metal chainlink fence. Wow, exciting. There is a  can of spray paint sitting next to the fence.
+
+> get spray paint
+You take can of spray paint.
+
+> n
+You move north.
+The No Dumping Sign
+You are at the No Dumping Sign. It is large and yellow. There is a picture of a little dude throwing garbage and then an X through it. All around you is garbage. There is a tunnel in the garbage.  You can move north, south and down.
+
+> n
+You move north.
+Open Field
+You are in a wide open field filled with weeds. There is a strange pile of dirt to your left.   You can move north and south.
+
+> n
+You move north.
+Underneath the Freeway
+You are underneath the freeway. The sounds of cars whizzing by above you makes you uncomfortable. There is a large pillar here that holds up this section of the Freeway.  You can move south and west.
+
+> spray paint on pillar
+You rattle the can of spray paint and then uphold your responsibility of a nice law-abiding citizen by covering up the graffiti.  
+Suddenly a huge rumbling occurs. The pillar shifts and a tunnel appears.
+
+> in
+You move in.
+Dollar Store Bathrooms
+The Dollar Store. The savior of cheap people everywhere. It seems you came in through an "unconventional" entrance. You are in the bathroom. There is a sink. No toilet though, strange......  You can move west and out.
+
+> w
+You move west.
+Inside the Dollar Store
+The Dollar Store. The savior to cheap people everywhere. It seems they are having a give stuff away sale because they are closing. You can just take whatever you may find. There are 5 aisles; 1,2,3,4, and 5. just type the number of the aisle you want to browse.  You can move east and south.
+
+> 5
+Wow, you found a treasure trove of crap! There is a chainsaw, a watermelon, an M-80, and a bike here.
+
+> look
+Inside the Dollar Store
+The Dollar Store. The savior to cheap people everywhere. It seems they are having a give stuff away sale because they are closing. You can just take whatever you may find. There are 5 aisles; 1,2,3,4, and 5. just type the number of the aisle you want to browse.  Also here is a chainsaw, a watermelon, an M-80 and a bike.  You can move east and south.
+
+> get chainsaw
+You take the chainsaw.
+
+> get M-80
+You take the M-80.
+
+> s
+You move south.
+In front of the Dollar Store
+You are in front of the Dollar store. There is a little electric horse ride for little kids here.   You can only move north.
+
+> n
+You move north.
+Inside the Dollar Store
+The Dollar Store. The savior to cheap people everywhere. It seems they are having a give stuff away sale because they are closing. You can just take whatever you may find. There are 5 aisles; 1,2,3,4, and 5. just type the number of the aisle you want to browse.  Also here is a watermelon and a bike.  You can move east and south.
+
+> e
+You move east.
+Dollar Store Bathrooms
+The Dollar Store. The savior of cheap people everywhere. It seems you came in through an "unconventional" entrance. You are in the bathroom. There is a sink. No toilet though, strange......  You can move west and out.
+
+> out
+You move out.
+Underneath the Freeway
+You are underneath the freeway. The sounds of cars whizzing by above you makes you uncomfortable. There is a large pillar here that holds up this section of the Freeway.  You can move south, west and in.
+
+> s
+You move south.
+Open Field
+You are in a wide open field filled with weeds. There is a strange pile of dirt to your left.   You can move north and south.
+
+> s
+You move south.
+The No Dumping Sign
+You are at the No Dumping Sign. It is large and yellow. There is a picture of a little dude throwing garbage and then an X through it. All around you is garbage. There is a tunnel in the garbage.  You can move north, south and down.
+
+> d
+You move down.
+Freaky Tunnel In The Garbage
+You are in the freaky tunnel in the garbage. It is dark and stinky.  You can move east, west and up.
+
+> w
+You move west.
+Storage Tunnel
+This tunnel is very small.   Also here is a leash.  You can only move east.
+
+> take leash
+You take the leash.
+
+> e
+You move east.
+Freaky Tunnel In The Garbage
+You are in the freaky tunnel in the garbage. It is dark and stinky.  You can move east, west and up.
+
+> u
+You move up.
+The No Dumping Sign
+You are at the No Dumping Sign. It is large and yellow. There is a picture of a little dude throwing garbage and then an X through it. All around you is garbage. There is a tunnel in the garbage.  You can move north, south and down.
+
+> n
+You move north.
+Open Field
+You are in a wide open field filled with weeds. There is a strange pile of dirt to your left.   You can move north and south.
+
+> n
+You move north.
+Underneath the Freeway
+You are underneath the freeway. The sounds of cars whizzing by above you makes you uncomfortable. There is a large pillar here that holds up this section of the Freeway.  You can move south, west and in.
+
+> s
+You move south.
+Open Field
+You are in a wide open field filled with weeds. There is a strange pile of dirt to your left.   You can move north and south.
+
+> bury banana in dirt
+You place the banana on the pile of dirt. Suddenly, as if by magic, a banana tree explodes out of the ground. A branch grabs you by the crotch and lifts you up into the air.  
+In the Magical Banana Tree
+You are in the magical banana tree. Its long purple branches are very contrasting to its long yellow bananas.  Far below you can see the pile of dirt that you put your banana into to cause the tree to grow.  You can only move north.  This tree is too tall. You wont be able to get down.
+
+> n
+You move north.
+On The Freeway
+You are on the freeway. It is a large concrete expansion that enable high  volumes of cars to travel effeciently.   Also here is a hitchiker sign.  You can only move south.
+
+> get hitchiker sign
+You take the hitchiker sign.
+
+> wave hitchiker sign
+You hold up the sign. Suddenly a huge double decker bus pulls up. Slowly, its large black doors open. You climb in.  
+On The Mysterious Double Decker Bus Of Doom
+The bus is very freaky. It is filled to the brim with freaky people. The interior is a shocking pink color and everyone looks seasick.   ???? is here.  You can only move east.
+
+> e
+You move east.
+Back of the Mysterious Double Decker bus Of Doom
+You are in the back of the Mysterious double Decker Bus of Doom.There is not much here except a bed against the back window.   You can only move west.
+
+> lie on the pink bed
+You lay on the bed and quickly fall into a deep sleep...............  You awake suddenly....inside a trash can!
+
+> out
+You move out.
+Basement
+This basement is freaky. It is very dark and spooky. In one corner there is a bookshelf.  You can only move in.
+
+> slide M-80 under bookshelf
+You slide the M-80 under the bookshelf. BOOM!! You dive for cover as it explodes. After all the dust has settled, you notice that the bookshelf is unharmed.....it has been moved over, and there is a door where it was.
+
+> take books
+You take all of the books.
+
+> n
+You move north.
+Secret room
+You are in the secret room. One side of the room is filled with canned goods. The other side is filled with weapons. And in the middle there is a cot.   The Crazy Scientist is here.  You can only move south.
+
+> give books to scientist
+You give the books to the scientist. "Ahhh. My notebooks. Thank you very much, but I have one more request of you. You know how three of the books were empty? They werent really, everything was written in invisible ink. I need you to get the solution which will make it appear." He hands you a letter. "Here, take this, and be on your way." 
+
+> s
+You move south.
+Basement
+This basement is freaky. It is very dark and spooky. In one corner there is a bookshelf.  You can move north, up and in.
+
+> u
+You move up.
+Scientists Abandoned Cabin
+Wow, the scientist must have been in his hiding place along time. The cabin is filled with spider webs and looks as if no one has been here for years. There is a wooden table in the center of the room, and a fireplace mantle against one wall.  You can only move south.
+
+> s
+You move south.
+Scientists front Yard
+The yard is practically a jungle. The scientist has not mowed the grass in so long it is over 6 feet tall!! There is a quaint wooden fence around the yard.  You can move north and south.
+
+> chop the grass with the chainsaw
+You pull out the chainsaw, rev it up and chop down the monstrously tall grass. Wow!!!! You found a plunger!!!
+
+> s
+You move south.
+On the side of the road
+You are at the side of the dirt road that runs next to the scientists cabin. it stretches for miles and miles in either direction, so you probably want to find another mode of transportation.  You can only move north.
+
+> wave hitchiker sign
+You hold up the hitchiker sign. After a while a car slows down and stops in front of you. What do you say?
+ 1: I need a ride to the Dollar Store to get a potion out of the horsie ride.
+or
+2: Could you please give me a ride to town?
+
+> 2
+The driver gladly accepts your request. He motions for you to get in.
+
+> in
+You move in.
+In a car
+You are in a car. There is a glovebox, and a CD player.   Jed is here.
+
+> open glovebox
+You open the glovebox.  A porno mag is inside the glovebox.
+
+> x glovebox
+It is a regular glovebox.  The glovebox is open.  A porno mag is inside the glovebox.
+
+> get porno mag
+You take the magazine.  Jed screams "Hey that's mine!!" In a feeble attempt to take it from you, he mistakenly opens the door and you fall out. (Should've worn your seat belt) You come to a stop at a farm.  
+
+> look
+At a farm
+You are at a farm.   A farmer is here.
+
+> give porno mag to farmer
+You hand over the magazine. He says
+"Go on into my house over and wait for a minute, then I'll come help ya.
+
+> in
+You move in.
+Inside the house
+You are inside the farmers house. There is a toilet and a bed here.  You can only move out.
+
+> wait
+Time passes...
+The farmer comes into the house.
+
+> wait
+Time passes...
+The farmer walks up to his bed, grabs something from underneath it and walks toward you.  The object in his hand is a bag of strange powder. He sprinkles some on you and says "Koo-Loo Limpah!!" and you disappear.  
+Suddenly some movers appear and pick the toilet up. They carry it to a moving truck. After setting it inside, they close the doors.
+
+> wait
+Time passes...
+The doors finally open and the movers pick up the toilet again. They carry it into a familiar building.  Hey! It's the dollar store! The movers carry the toilet into the bathroom and bolt it down and hook it up. Finally youve managed to get out.  
+
+> w
+You move west.
+Inside the Dollar Store
+The room is now empty. The give away stuff sale really cleaned them out. There is absolutely nothing left. Not even the Merry Xmas from Saudi Arabia snowglobes.....  Also here is a watermelon and a bike.  You can move east and south.
+
+> s
+You move south.
+In front of the Dollar Store
+You are in front of the Dollar store. There is a little electric horse ride for little kids here. The magic solution is inside that horsie. Remembe the scientists letter: "You may have to use some kind of tool to get it."  You can only move north.
+
+> chainsaw horse
+You pull out the chainsaw and cut the horsie to bits. After the smoke clears, in the midst of the plastic rubble, you find the magic solution. Now, to get it back to the scientist...... but how?
+
+.....If only your uncle were here...He loves going on crazy adventures, and he'd probably know what to do.
+
+> get solution
+You take magical solution.
+
+> n
+You move north.
+Inside the Dollar Store
+The room is now empty. The give away stuff sale really cleaned them out. There is absolutely nothing left. Not even the Merry Xmas from Saudi Arabia snowglobes.....  Also here is a watermelon and a bike.  You can move east and south.
+
+> e
+You move east.
+Dollar Store Bathrooms
+The Dollar Store. The savior of cheap people everywhere. There is a sink and now a toilet here.  You can move west and out.
+
+> out
+You move out.
+Underneath the Freeway
+You are underneath the freeway. The sounds of cars whizzing by above you makes you uncomfortable. There is a large pillar here that holds up this section of the Freeway.  You can move south, west and in.
+
+> w
+You move west.
+Other side of the pool
+You are on the other side of the pool. It is frozen solid. There is a chest here.  You can move east and west.
+
+> w
+You move west.
+City Pool
+You are at the city pool. The water is nasty, grotesque and hideous looking. It is a shade of green that can only be seen in barf and strange diarrhea. Even if it was clean, no one would want to go in because it is 33 degrees outside. (Fahrenheit) Across the pool, you can see a chest. Now it must be at least 32 degrees outside because the pool is frozen solid.  You can move east and west.
+
+> w
+You move west.
+Alley
+The alley is the space between the back of this building and the back of the other building.. There is nothing here except a dumpster.   Crackhead Bob is here.  You can move east, south and west.
+
+> s
+You move south.
+Back Room
+The back room is not seen by the public. It is empty.. There is just a computer, on the ground.  You can move north and south.
+
+> s
+You move south.
+Postnet
+You are in Postnet, a local store in your town. There is lots of interesting stuff here including: a computer, a counter and copy machines.  Loser is here.  You can move north and south.
+
+> s
+You move south.
+Parking Lot
+It is a parking lot. There are a lot of cars here. So many in fact that you can't go anywhere except back inside the store.  Tom is here.  You can only move north.
+
+> kick tom
+You kick the helpless fat man. As he is running away from your ninja violence, he drops a map.
+
+> look
+Parking Lot
+It is a parking lot. There are a lot of cars here. So many in fact that you can't go anywhere except back inside the store.  You can only move north.
+
+> get map
+You take the map.
+
+> look at map
+It  A shadow surronds you.
+
+> wait
+Time passes...
+You look up....  Something huge is falling out of the sky right toward you.  BOOOOOOOOOOOOOOOOOOOOOOM!!!!!!!!!!!!!!  
+Scientists Abandoned Cabin
+HOLY CRAP!!! The scientists cabin fell from the sky and landed on you. Now you are inside.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> give solution to scientist
+The scientist quickly pours the solution the 'empty' notebooks. Writing appears. He studies it for a bit then a few minutes later says "OK time to test the prototype." He grabs you and shoves you into some kin of strange pod.  
+Some kind of strange pod
+You are stuffed into the strnge pod with no room to spare, you are alredy having difficulties breathing.

@@ -1,0 +1,84 @@
+w
+n
+search hedges
+s
+e
+oil gate
+unlock gate
+open gate
+u
+n
+raise flag
+open door
+n
+open clock
+get all from clock
+n
+move statue
+w
+get wrench
+e
+e
+move pillows
+n
+x table
+get lamp
+move painting
+e
+open refrigerator
+get frozen
+n
+get flashlight
+s
+w
+w
+s
+u
+e
+push button
+w
+w
+push armoire
+s
+get all
+n
+e
+d
+s
+s
+s
+w
+n
+get umbrella
+put umbrella in hole
+open umbrella
+get silver
+get umbrella
+s
+e
+n
+open mailbox
+get all from mailbox
+s
+d
+w
+s
+s
+w
+level cabinet with matchbook
+open drawer
+put flashlight in charger
+get flashlight
+e
+e
+get ashes
+n
+get axe
+s
+e
+climb tree
+shake branches
+d
+get emerald
+quit
+y

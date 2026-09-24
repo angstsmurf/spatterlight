@@ -1,0 +1,256 @@
+Loading game...
+
+Stranded
+
+Please enter your name:
+
+> open plane
+
+> get first aid kit
+You take the First Aid Kit from Crashed Plane.  You recieved a hard blow to
+the head in the crash you better cover it or you will pass out! You start
+feeling dizzy from the loss of blood!
+
+> look in first aid kit
+A red cross is on it.  The First Aid Kit is closed.
+
+> open first aid kit
+You open the First Aid Kit.  A Bandage is inside the First Aid Kit.
+
+> get bandage
+You take the Bandage from the First Aid Kit.
+
+> wear bandage
+You put on the bandage. The dizzyness slowly ebbs away.
+
+> get wallet
+You take the Wallet from Crashed Plane.
+
+> look in wallet
+The Wallet is closed.
+
+> open wallet
+You open the Wallet.  A Cell Phone is inside the Wallet.
+
+> get cell phone
+You take the Cell Phone from the Wallet.
+
+> n
+You move north.
+
+GrassyField2
+To the south is the crashed plane. To the west you can see an abandoned
+cabin. A cold breeze blows through you. Brrr Your cold!  You can move north,
+east, south and west.
+
+> e
+You move east.
+
+GrassyField5
+The grass blows in the cold winter breeze  You can also see Rusted Hammer.
+You can only move west.
+
+> get hammer
+You take Rusted Hammer.
+
+> w
+You move west.
+
+GrassyField2
+To the south is the crashed plane. To the west you can see an abandoned
+cabin. A cold breeze blows through you. Brrr Your cold!  You can move north,
+east, south and west.
+
+> w
+You move west.
+
+GrassyField3
+Here is a log cabin.  You can move east, west and in.
+
+> hit door
+You hit the door. It creaks open a tiny bit.....
+
+> hit door
+You hit the door. Its hinges creak....
+
+> hit door
+You hit the door. Its hinges finnaly break and the door falls down to the
+ground!
+
+> in
+You go in.
+
+> look
+
+Cabin
+The whole place is covered in dust.  You can also see a Hook, a Skis, a
+Window and Wooden Planks.  You can only move out.
+
+> get skis
+You take the Skis.
+
+> get planks
+You take Wooden Planks.
+
+> out
+You move out.
+
+GrassyField3
+Here is a log cabin.  You can move east, west and in.
+
+> e
+You move east.
+
+GrassyField2
+To the south is the crashed plane. To the west you can see an abandoned
+cabin. A cold breeze blows through you. Brrr Your cold!  You can move north,
+east, south and west.
+
+> n
+You move north.
+
+Snow covered Cliff
+Its freezing! The snow is blowing into your eyes and nose! North is a steep
+slope. You can't go down on foot!  You can only move south.
+
+> wear skis
+You put on the old skis.
+
+> n
+You ski down the slope
+
+> n
+You move north.
+
+Snow covered Forest
+Some snow falls off the trees.  A badger is here!  You can move east, south
+and west.  You manage to avoid Badger's attack.
+
+> e
+You move east.
+
+Snow covered forest2
+A Cave is here. Here lies a broken sign. You can't read it because the words
+were scratched of by claw marks.....  You can also see Broken Sign.  You can
+move west and in.
+
+> in
+You move in.
+
+Cave
+The sound of howling wind slowly dies down as you enter the cave!  You can
+also see a Nails.  Wolf is here.  You can only move out.  You manage to avoid
+Wolf's attack.
+
+> get nails
+You take the Nails.  You manage to avoid Wolf's attack.
+
+> out
+You move out.
+
+Snow covered forest2
+A Cave is here. Here lies a broken sign. You can't read it because the words
+were scratched of by claw marks.....  You can also see Broken Sign.  You can
+move west and in.
+
+> w
+You move west.
+
+Snow covered Forest
+Some snow falls off the trees.  A badger is here!  You can move east, south
+and west.  You manage to avoid Badger's attack.
+
+> w
+You move west.
+
+Snow covered forest3
+You listen to the gentle crunching sound of the snow as you walk through the
+forest. Its a beautiful sight!  You can move east and south.
+
+> s
+You move south.
+
+Snow covered forest 4
+You here a Howl..... There must be a wolf close by!!!!!!!!  You can also see
+Rusty Axe.  You can move north and south.
+
+> s
+You move south.
+
+Snow Covered Forest
+The nice smell of winter ahhhh... Too bad your trapped in the middles of now
+where!  You can also see a Dead Body.  You can only move north.
+
+> look at dead body
+It looks like its been here for some time!  Climbing Boots are on the Dead
+Body.
+
+> get boots from dead body
+You take Climbing Boots from the Dead Body.
+
+> wear boots
+You put on Climbing Boots.
+
+> n
+You move north.
+
+Snow covered forest 4
+You here a Howl..... There must be a wolf close by!!!!!!!!  You can also see
+Rusty Axe.  You can move north and south.
+
+> n
+You move north.
+
+Snow covered forest3
+You listen to the gentle crunching sound of the snow as you walk through the
+forest. Its a beautiful sight!  You can move east and south.
+
+> e
+You move east.
+
+Snow covered Forest
+Some snow falls off the trees.  A badger is here!  You can move east, south
+and west.  You manage to avoid Badger's attack.
+
+> s
+You move south.
+
+Bottom of the cliff
+Your at the bottom of the cliff. You look up at it and you can't believe you
+skied down it!   You can move north and south.
+
+> s
+You climb up the slope!
+
+> s
+You move south.
+
+GrassyField2
+To the south is the crashed plane. To the west you can see an abandoned
+cabin. A cold breeze blows through you. Brrr Your cold!  You can move north,
+east, south and west.
+
+> w
+You move west.
+
+GrassyField3
+Here is a log cabin.  You can move east, west and in.
+
+> w
+You move west.
+
+GrassyField4
+A stream separates one have from another! You will need a boat to cross! Brr
+Your cold!  You can also see Broken Boat.  You can only move east.
+
+> fix boat
+You patch up the holes on the old boat!
+
+> place boat in water
+You push the boat into the water!...... It floats! Yes!
+
+> cross stream
+You cross the stream! Your cell phone rings! They will be picking you up
+within an hour! Good job!
+
+[Press any key to end]

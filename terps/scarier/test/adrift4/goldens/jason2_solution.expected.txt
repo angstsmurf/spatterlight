@@ -1,0 +1,319 @@
+Loading game...
+
+Jason Evans : Misunderstood
+
+The Church
+
+"Jason Evans was a nice boy. He was just misunderstood."
+----------------
+Unknown
+
+ You drive along the road fine until you drive by a Church and see a man dump
+a white, blood stained bag into a large pipe that leads underground. The
+cloaked figure stares as you drive by. About 2 miles down the road you turn
+the car around because you think that trying to help whatever is in that bag
+is the right thing to do. You're also curious.
+
+ Curiousity killed the cat. (Type about if first time player)
+
+> look in pipe
+You look in and hear a noise. You climb in deeper and call again. You hear
+another voice. You get in a little more until a rat touches your hand and you
+scream and fall in. The darkness overcomes you........
+You get up and brush yourself off. You look around and find that you are in a
+black hole.
+
+> n
+You move north.
+
+Strange Room
+This room has many strange things here. Letters are scattered all over a
+table. A small box sits beside the table. A list is also here. A small ladder
+leads up and out of here. The room is lighted by a small candle. A small box
+is here.  Also here is a list.
+
+> climb ladder
+You climb the ladder up to the Churchyard. When you get there you hear the
+sound of a truck. You look at the highway and see a truck coming. A dark
+figure drives the truck. You better hide and quick.
+
+> look
+
+Outside of Church
+The Church has boarded up windows and a large tree that towers over a pipe. A
+long pipe that descends from the ground makes it the ideal place for dumping
+things. You can go into the Church. They whole area here is deserted. Besides
+this place there is nothing but countryside.  Also here is rusted hammer.
+
+> get rusted hammer
+You pick up rusted hammer.
+
+> use hammer on door
+You take the hammer and hit the door so that you can get in. The truck
+finally arrives and you see the cloaked figure hold an axe and head towards
+the pipe. He will know you have been there! You just hope he doesn't notice
+the door beaten in.
+
+> twist dial
+You twist the wooden dial and a axe comes through the glass base. You take
+the axe.
+
+> use axe on window
+You take the axe and crack the boards of the window. You jump out and see the
+cloaked figure go into the church. You get into your car and drive to a local
+diner for help on directions. And if you get a chance you will ask about that
+Church.
+
+> answer phone
+You pick up the phone. "Hey, I know where you are. You have something I want.
+Something I need. I will get it. Nice hair. Your eyes are hazel aren't they.
+Your hair is black. You are wearing faded out blue jeans aren't you." a
+mysterious voice says. You look around the room to see if there is anybody
+with a cell here. Suddenly an axe slices the connection. The bartender holds
+an axe and says "Get out! You invited that thing here. Get out of my diner!".
+Then she started to curse like crazy. You step out of the diner and start
+your car.
+
+You drive along until something lands on top of your car and you swerve off
+the road and flip the car over unto a lawn outside of a two story house.
+
+> knock on door
+It seems it is night now. You knock on the door and an old woman comes out
+the house and looks at you. You tell her you need help. "Help, huh. Did you
+bring anyone with you?" she asks. "Of course not. Why do you ask?" you reply.
+She points her finger and you look in that direction. A dark cloaked figure
+is standing in front of your car. "That ain't my scarecrow." she says and
+goes inside and comes out with a double barreled shotgun. She takes three
+shots at the scarecrow until a noise is heard overhead and into her house.
+Glass shatters and she goes in. Three shots ring through the air. You hope
+the woman isn't hurt.
+
+> look
+
+Outside of House
+A giant house towers in front of you. Your burning heap of a car lies south.
+Someone seems to be in the house because the lights are on. A grassy field is
+close to you but there is no need to go there. You can just walk right in the
+house but that would be rude.
+
+> look
+
+Outside of House
+A giant house towers in front of you. Your burning heap of a car lies south.
+Someone seems to be in the house because the lights are on. A grassy field is
+close to you but there is no need to go there. You can just walk right in the
+house but that would be rude.
+
+> look
+
+Outside of House
+A giant house towers in front of you. Your burning heap of a car lies south.
+Someone seems to be in the house because the lights are on. A grassy field is
+close to you but there is no need to go there. You can just walk right in the
+house but that would be rude.  A police car arrives in the driveway two
+policeman come out. One is a tall, white male and the other is a short, black
+female that looks a little chubby. "We saw your car and we had to see what
+was wrong." the man says. He would have said more if a black figure hadn't
+landed on his policecar. He turns around but is quickly murdered with an axe.
+The woman takes out her gun but is murdered the same way. The figure swoops
+into the sky as if he could fly and comes down right in front of you. You,
+terrified, stumbles into the policecar and locks the door.
+You hear a noise from a little microphone thing on the floor. You pick it up
+and listen. "I have some important information for you. Drive to the parking
+lot near the old cafe and I will give you it. I will be in a blue car. It is
+the only blue car there." an old woman on the other line says and hangs up.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> look
+
+Police Car
+The police car has a lot of complicated things you don't bother with. The
+cloaked figure stomps and beats all over the car. As if he needs something
+you have. He takes an axe and instead of trying to beat in the front window
+beats in all the others as if he wants you to be scared. There are keys in
+the ignition.
+
+> drive to parking lot
+You turn the ignition and head for the parking lot until a blaring truck
+beeps his horn and tries to rush you off the road. You finally see the cafe
+and the truck parks in the parking lot. A cloaked figure stares out his
+truck. Unfortunately, you have a flat tire. What a great place to get broke
+down. As you get out of the police car the figure watches you from his truck.
+
+> n
+You move north.
+
+Old Cafe
+This place has a few circle shaped tables and unstable chairs here. There
+seems to be a man which looks like he is sleeping on a table. A waittress
+stares out you eerily. Here eyes don't move. It is as if there is something
+wrong.
+
+> s
+You move south.
+
+Parking Lot
+The cloaked figure watches from his truck. The old cafe is north and is still
+run by the son of the founder. A blue car sits in the corner silently. The
+big truck revvs it's engine as if trying to scare you.
+
+> open car
+You open blue car.  A note is inside blue car.
+
+> get note
+You take a note from blue car.
+
+> read note
+It says: There is keys in the ignition. Start the car and meet me at the
+hotel. Then she has written the directions at the bottom.
+
+> start ignition
+You quickly turn the ignition and jump in the car. As you leave the parking
+lot the truck follows for a while and then turns around. Then what you see
+terrifies you.
+The hotel is old and looks like it is abandoned. You stop the car. Should you
+go on or stop. You make the decision and park your car out front. A light is
+in a room that appears to be the attic. You step out of the car and take a
+flashlight that is under the seat.
+
+> in
+You move in.
+
+Lobby
+Cobwebs border a key rack with no keys on it. The old lobby is practically
+tore down. Paint crumbles off the walls and the carpet is lumpy as if there
+is something under it. A desk that has no cabinets appear to have been the
+desk for reservations. Crumpled up sheets of paper appear to have been
+cattalogs. Stairs and elevators go up to the second floor.
+
+> u
+You move up.
+
+Second Floor
+The second floor of the hotel looks like a large room that left insane
+prisoners to die. Strange writings line the wall and an old paint ladder is
+right in the middle of the second floor hall. A hole seems to have been
+ripped right through the ceiling so the ladder could be used. The ground is
+very unstable to walk on.
+
+> climb paint ladder
+You climb the shabby paint ladder and look into the attic. You hear the sound
+of a rocking chair and as you climb up farther you find that a woman is in
+the rocking chair.
+
+"Jason Evans was a nice boy. He was just misunderstood. Misunderstood." the
+woman says and starts to cry. "I am Jason Evans grandmother. A long time ago
+he joined a cult. The family was drawn into it one by one. Jason's father
+never really believed in it but believed enough to commit suicide for his
+crimes. His mother moved to a little cabin. But enough background. Somehow
+Jason made a deal with....... the devil and now he has turned into some kind
+of demon who can fly. Once he finds something he wants he hunts until he gets
+it. What he needs is the blood of pure souls to serve his...... devil to keep
+being this demon. You are a pure blooded soul. Before you came Jason scarred
+my face and told me to make sure you got a note he has to give to you. I
+wasn't supposed to tell you about all this but I trust you will kill him. The
+message is that he needs you to go to the church. So you two will have a
+trial." she says and breaks out crying. She then throws a rope at your feet.
+"You know what to do."
+
+Suddenly, the ladder shakes and before the floor comes from under the ladder
+you take the rope but cannot reach the note. You fall straight down into the
+lobby. You dust yourself off and get back in the blue car.
+
+> drive to church
+You start the blue car up and the window shield wipers scrape against the
+window. The rain pounds badly on the car. You drive good until you hear your
+loud breathing. It is unusually loud. You turn your head and find that you
+weren't the one breathing loud. The cloak figure  is revealed. You see a face
+that is unreal. It looks like a mask. A very disturbing mask. It has no eyes,
+ears, or even a visible breathhole. Just a plain faceless face. It seems to
+smile at you. He points at the road and you swerve to avoid a tree and
+finally reach the churchyard. Yet, Jason is gone. His mask lays on the floor.
+You pick it up and examine it. It was just a tool used to scare you. As a
+mask it looks utterly ridiculous but on his face what you feel is best
+described as physcological horror. You get out of the car shaking and
+remember what you have to do.
+
+> in
+You move in.
+
+Church
+The church is nothing but jumbled darkness now. You cannot see nothing.  The
+dark figure that is Jason Evans tries to slice you with his axe but you dodge
+him every time he tries.
+
+> use rope on Jason Evans
+You take the rope and when Jason Evans jumps in the air you jump too and
+catch Jason Evans tender neck and wrap the rope around it. Jason's hood falls
+and you see his face. A face of an old teenager. He is handsome but his face
+is red and choking. He stops moving and you run out of the church.
+"Mistrial!" Jason Evans yells as you get in the car and leave this town. This
+dark town you leave forever. Congratulations! Your fright factor is 8! Play
+over to get it higher or try playing in the dark.
+You scored 70 out of the maximum 70!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,154 @@
+Loading game...
+
+The Fox
+Welcome, You are Player, in a quest to save Florand, from the Distant Fox of
+D'narolf, in the paralell land. You will learn more of this once you select
+your character. To check your gold, type "gold".
+
+press any key to continue .
+
+Story
+
+The last few weeks you have been thinking about the fox of D'narolf. The fox
+often sends his wolves and kills many. These wolves and foxes are evil as
+hell. You must find the fox, for the destiny of Florand! You decide one day
+to fight wolves, and to destroy the fox. Good luck on your quest, hero.
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Profile
+This is the profile. Type you age in years, and your class as Warrior,
+Sorcerer, or Rogue. You must type your age first.
+
+> age 25
+You are now 25 years old.
+
+> sorcerer
+You are now a Sorcerer. You specialize in Staves and Magic. Your quest is to
+travel to the Sorcerer village, retrieve the Sorc Staff of Power, take a boat
+to D'narolf, search for the Castle of Wolf, and destroy the Fox!
+
+> w
+You move west.
+
+Weapon Shop
+This is a weapon shop. Read the sign for weapons.  Claudia is selling weapons
+here.
+
+> buy mage staff
+You give Claudia $100 and she gives you the Mage Staff.
+
+> e
+You move east.
+
+Taston Village
+You are in Taston village. This town is your hometown.  Darem is here.
+
+> se
+You move southeast.
+
+The road east
+You are on the road out of Taston, and onto the road east.
+
+> e
+You move east.
+
+Further down the east road
+You are further down the east road. You can see a village from here.
+
+> e
+You move east.
+
+Vastern Gate
+You are at the gate to Vastern, the city east of Taston.
+
+> s
+You move south.
+
+Vastern Village
+You are in Vastern, the city that you are in. There are a few shops, and a
+tavern.
+
+> se
+You move southeast.
+
+Road out of Vastern
+You are on the road out of vastern. This is to continue your quest.
+
+> e
+You move east.
+
+On the road
+You are walking down the road to the next village.
+
+> e
+You move east.
+
+On the road
+You are still walking down the road, and you can see a bridge up ahead.
+
+> e
+You move east.
+
+In front of a bridge
+You are in front of an ordinary bridge.
+
+> e
+You are about to move east, when a troll pops out from under the bridge.  The
+Small Troll hits you.
+
+> kill troll
+You hit The Small Troll with the mage staff.  The Small Troll hits you.
+
+> kill troll
+You hit The Small Troll with the mage staff.
+
+> e
+You move east.
+
+On the road
+You are walking on the road.
+
+> e
+You move east.
+
+The Gate
+This is a gate. You can feel a large, powerful magi source in and beyond it.
+There is also a sign here.
+
+> read sign
+This is the Sorcerer's village of the east. Only sorcerers are permitted
+inside the village.
+
+> e
+You move east.
+
+Busy street
+You are on a busy street. There are shops all around. You can see a tall
+tower up ahead, beyond the city.
+
+> s
+You move south.
+
+Busy Road
+You are walking down a busy road. If you want money, you should get to work.
+
+> s
+You move south.
+
+Tower enterance
+You are at the enterance to the tower. You need to go inside and retreive the
+Sorc Staff of Power.
+
+> e
+This is the end of the demo. You have now completed this part of The Fox.
+There will be a full version much bigger.
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

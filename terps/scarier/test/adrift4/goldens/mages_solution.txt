@@ -1,0 +1,10 @@
+lie down
+sleep
+d
+s
+look
+exits
+i
+stats
+money
+magic

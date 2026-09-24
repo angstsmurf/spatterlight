@@ -1,0 +1,148 @@
+
+> get glass
+You take the piece of glass.
+
+> n
+You move north.
+Sunlight cave
+You are stood in a large cave. The shadowy walls are made of rough rock. In the wall is a tiny hole. Sunlight streams through the hole, forming a shaft of bright sunlight that strikes the floor in front of you.   To the south is the Time Machine. The door is open.  To the north is an archway, leading to a very dark passageway.  It is very dark in here -  so dark that you can only just see your feet.  Also here is a torch.  You can move north and south.
+
+> put glass in hole
+You place the piece of glass into the hole. The sunlight shining through the hole becomes focussed into a very hot beam of sunlight that strikes the floor of the cave in front of you.
+
+> get torch
+You take the torch.
+
+> light torch
+You put the torch into the beam of light. The torch smoulders gently, then catches light.
+
+> n
+You move north.
+The dark passageway
+You are stood in a very dark, narrow passageway. The walls press against your shoulders.  The light from the torch creates a warm glow, allowing you to see your way. To the north is an archway leading into a larger cave. To the south is Sunlight Cave.  You can move north and south.
+
+> n
+You move north.
+Lake cave
+You are stood in a large, well-lit cave. There is a large hole in the ceiling above you, and bright sunlight streams through. In the centre of the cave is a small lake. Looking down into the lake, it is clear that it is very deep.  The water level is well below your feet. Floating on the surface of the lake is a wooden key, but it is well out of reach.  There is a tiny mousehole in the wall.  On the far wall is a cave painting, painted in bright reds and oranges. It seems to show figures and animals of some sort.  By the lake is an enormous rock.  In the corner of the cave is a sleeping mammoth.
+
+> look in mousehole
+You start to do that, but are startled by the torch suddenly going out as it burns away to nothing and falls apart into a pile of ash that scatters across the floor.
+
+You reach down to brush ash from your trousers, and are suddenly aware that there is something in your pocket. Reaching inside, you find a cheese sandwich!
+
+IF YOU WANT TO TRY YOUR LAST INSTRUCTION AGAIN, PLEASE RETYPE IT.
+
+
+Lake cave
+You are stood in a large, well-lit cave. There is a large hole in the ceiling above you, and bright sunlight streams through. In the centre of the cave is a small lake. Looking down into the lake, it is clear that it is very deep.  The water level is well below your feet. Floating on the surface of the lake is a wooden key, but it is well out of reach.  There is a tiny mousehole in the wall.  On the far wall is a cave painting, painted in bright reds and oranges. It seems to show figures and animals of some sort.  By the lake is an enormous rock.  In the corner of the cave is a sleeping mammoth.
+
+> put sandwich in mousehole
+You place the cheese sandwich in front of the mousehole. The smell from the sandwich wafts into the hole. Suddenly, a tiny mouse runs from the hole, grabs the sandwich and scurries across the floor, squeaking loudly as it runs. The mammoth wakes up with a start, and , seeing the mouse, stands up and starts to run, bellowing loudly. 
+
+The mammoth slams into the large rock, knocking it into the lake. The water level in the lake rises suddenly - the wooden key that was floating in the lake is now within reach! You reach out and take the key
+
+The mammoth slams through one of the walls of the cave, creating an entry to the north to another cave.
+
+> n
+You move north.
+The enigma cave
+You are stood in a small cave. The walls are covered in strange scribblings and artwork, clearly drawn by an ancient tribe. To the north is a large, carved door (The Enigma Door).  The door is locked.  Suddenly, there is a flash of light, and a shadowy image of a man flickers into the room. As the image clears, you realise it is the Professor!
+
+"Hello!", says the Professor. "I am speaking to you via a holographic image from the future. I've been searching history to try and find you. I'm so sorry that the machine went wrong, Petter." To get back to 2004, you need to do some calculations. Visit this website:  www.wolverhamptonclc.co.uk/puzzle1, and answer the questions. This will give you a code, that you need to type into the Time Machine to get it working again. Good Luck Petter!".   You can only move south.  With that, the image flickers again and disappears . . . . . . . .
+
+> unlock door with key
+You unlock the Enigma Door with the wooden key.
+
+> open door
+You open the Enigma Door.
+
+> n
+You move north.
+The chute room
+You are stood in a tiny cave. To the south is a large, carved door, leading back into the cave where you saw the Professor.  The door is open.  On the back wall of the cave is a wooden chute, large enough to carry a person, leading down into the darkness beyond.  You can only move south.
+
+> go down chute
+You climb into the chute and let go. You begin sliding down the chute, quicker and quicker, gathering speed until you can barely breathe. With a crack, you smash through a wooden ceiling, and land, bruised but unhurt in a familiar cave.  
+Sunlight cave
+You are stood in a large cave. The shadowy walls are made of rough rock. Sunlight streams through the piece of glass in the hole, forming a shaft of hot, bright sunlight that strikes the floor in front of you. The beam of light is causing the rock floor to glow in the heat.  To the south is the Time Machine. The door is open.  To the north is an archway, leading to a very dark passageway.  It is very dark in here -  so dark that you can only just see your feet.  You can move north and south.
+
+> s
+You move south.
+The Time Machine
+You are stood inside the Time Machine. Most of the screens are blank and cracked, and there is the faint smell of burning from the dials and switches. On one of the screens is a message: "Enter the access code to reactivate the Time Machine". (Type the word "ENTER" and then the code - e.g. "ENTER 1234").  You can only move north.
+
+> enter 9217
+You type the code. The Time Machine whirrs into action - clunking and grinding as it seems to build to a frenzy of noise. Suddenly, you feel your stomach drop down towards your feet - stars and planets whizz past your head. You black out . . . . . .
+
+You wake with a start. The Time Machine has clearly moved again, but this does not look like the Professor's laboratory. The noise inside the machine is deafening and you rush from the Time Machine, just in time to turn and see it explode. If you're going to get home now, you'll have to find another way . . . . . . .
+
+
+The freight room
+You are stood in a room full of enormous boxes. Many of the boxes are printed with bold type: "Galactic Trade Corporation", "Jupiter Banana Importers". The walls are made of shiny metal. The room is lit by strip lights that fill the room with a pale yellow glow. To the north is a sliding door; as you approach it, it opens to reveal  a corridor to the north.  You can only move north.
+
+> n
+You move north.
+The west corridor
+You are stood in a long corridor that stretches to the east. The walls are blank and dark red. To the north is a window. You approach the window and look out . . . . and can't believe your eyes. Outside is the darkness of space . . . .and the Earth! You peer round the edge of the window. It is clear that you are in a space station of some sort. You wonder why there is no-one around . . . . . . .  You can move east and south.
+
+> e
+You move east.
+The east corridor
+You are stood at the eastern end of a corridor. The corridor stretches back to the west. The walls are blank. To the north is the door of a lift; the door opens as you approach.  Fixed to the wall of the corridor is a food replicating machine. It appears to be working as lights blink and there is a screen reading "Hello and welcome to the TX220 Gourmet Replicator. How may I feed you, today?".  You can move north and west.
+
+> n
+You move north.
+The turbolift (ground floor)
+You are stood in the turbolift, sitting on the ground floor.  On the far side of the lift is the lift button.  You can only move south.
+
+> press button
+You press the button, the doors of the lift close and the lift moves rapidly to the first floor. The doors open to the north.  
+The turbolift (first floor)
+You are stood in the turbolift, sitting on the first floor. To the north is a large room, filled with bunk-beds.  On the far side of the lift is the lift button.  You can only move north.  Suddenly, a robotic voice crackles from the intercom system: "This is an emergency. This space station will be destroyed in 30 minutes. All remaining crew should make their way to the control room and teleport down to Wolverhampton Spaceport 1". The message ends. 
+
+> n
+You move north.
+Staff quarters
+You are stood in a large room. The walls are filled with bunk-beds, stretching up to the ceiling. There are no posters or pictures or photographs on the wall.   Hiding beneath one of the bunkbeds is a very strange creature, looking a little like a goblin. He is muttering to himself . . . . "must escape . . . . . Kevin . . . . . . .must escape . . . . . hungry . . . . . . need food".
+
+(Type "Ask Kevin about SUBJECT" to ask him something e.g. "Ask Kevin about potatoes")  You can move north and south.
+
+> n
+You move north.
+The gravity room
+You are stood in a small empty room. The walls are padded with some kind of foam. The only piece of furniture in here is a large locker.  Looking up, you can see that there is some kind of card (maybe a keycard?) on top of the locker, but it is well out of reach.  To the north is the control room door. The door is controlled by a keycard slot. The door is locked. (TYPE "unlock door" if you have the keycard and "open door" to then open it)  On the wall is a small keypad of numbers, above a label reading "ANTI-GRAVITY CONTROL PANEL"  You can only move south.
+
+> type 3491 on keypad
+You type the code into the keypad. The doors of the chamber close and you start to hear a whirring noise that builds to a rhythmic hum. You are starting to feel lighter! Gradually, your feet light off the floor! You are weightless, and float up to take the keycard. After 30 seconds, the whirring stop and you drop to the ground with a slight bump.
+
+> unlock door
+You unlock the control room entry with the keycard.
+
+> open door
+You open the control room entry.
+
+> n
+You move north.
+The control room
+You are stood in a large, bright room. The walls are covered in screens, dials and switches, flashing randomly. One screen in particular catches your attention. The display on the screen says "Teleport control unit. Please enter location reference to teleport to Planet Earth".
+
+(TYPE "ENTER" then the code to teleport - e.g. ENTER 421691). To the south is the door leading back into the gravity room.   The door is open.  Kevin is here. He is standing and staring at one of the screens and muttering to himself again . . . ."I don't know the location . . . . . tried to visit www.wolverhamptonclc.co.uk/puzzle2 . . . . . couldn't answer the questions . . . . . need the location". He sees you and shouts desparately "We are running out of time! Can you answer the quiz questions? Please! Please! You look intelligent to me . . . . answer the questions and get us back to Earth".  You can only move south.
+
+> enter 65197
+You type the location into the teleporter. Kevin steps onto the teleport pad first, and disappears. You stand on the pad and wait. You feel a tingling as your atoms are pulled apart - for a moment you feel nothing, see nothing, hear nothing . . . . . . 
+
+Then you are stood in a busy room. Around you move animals of different races and different species - some human, some not.  Many of them are clutching suitcases. You are stood in a spaceport of some type. A giant sign reads "Welcome to Wolverhampton. Today's date is 18th Oct. 2963 AD. Enjoy your stay".
+
+Welcome to the future, Petter! There is no way to get back to 2004 . . . . . but Christmas 2963 may be a great one . . . . . .
+
+
+Congratulations, you have finished the adventure! Ring or email the City Learning Centre before 4 p.m. on Mon 18th Oct. Give the phrase "I eat aquaplums from a silver spoon" to place your name into the draw.
+
+Phone number: 01902 551509
+Email: clc@wolverhampton.biblio.net
+
+Please give your name, your school and your year group when you get in touch.
+
+WELL DONE!!!
+[Press any key to end]

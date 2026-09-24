@@ -1,0 +1,142 @@
+Loading game...
+
+Beethro's Text Adventure (Demo)
+Beethro awakened from his mid-afternoon slumber to find one of his nephews
+prodding at him. "Wake up, unca Beethro!" he squeaked. "You've got an
+impor... imp... important message from the king!"
+"Dugan? I've about had it up to here with the guy." Beethro groaned, rolling
+over in his bed. "If this is about some exterminating job, I swear, I'll go
+up there and..."
+"Unca Beethro, the messenger said the king would pay you 5,000 greckles to
+get ridda his problem!"
+Beethro rolled over again to face his nephew. "Did you just say 5,000? That's
+an incredible amount for stingy old Dugan. I wonder what kind of pestilence
+is pestering him today?"
+"I dunno, unca Beethro, but you'd better get up there quick, the messenger
+said it was ur... urgent!"
+"I don't see how anything Dugan has to hire me for can be considered urgent,
+since he rarely ever puts those dungeons of his to proper use. But since I'm
+awake, I might as well see what he wants. That is a lot of money... just so
+long as he's not asking me to exterminate all 25 floors again." Beethro
+heaved himself out of bed, and his nephew scurried out through the front
+door.
+
+Welcome to the Beethro's Text Adventure Demo! Type HELP to get a number of
+typical text adventure game commands and their [abbreviations], or type MORE
+HELP for some general game-playing advice. If you're really stuck, move to
+the room that contains your problem and type HINT.
+
+(Click the "More" button or hit Enter to continue)
+
+The Bedroom
+Beethro stands amid the piles of miscellaneous junk that litter his bedroom.
+The only thing of interest in this room is the bed, a very ornate piece of
+furniture carved from a rare wood only found in the Plains. Beethro figures
+if you're going to sleep, you might as well sleep in style. To the east is
+the bathroom and to the north is the main room of the house, the living room.
+
+Beethro's really big sword is here.
+
+> get sword
+Beethro take the really big sword.
+
+> n
+Beethro moves north.
+
+The Living Room
+The living room is easily the largest room in the house. Half of it is taken
+up by a mountain of letters, most of them in blue envelopes. The stove sits
+near them, burning cheerily, ready to take in a few shovelfuls of letters
+should the mountain start to get near the ceiling. Aside from that, there is
+also an extremely soft (one might say too soft) couch positioned near the
+stove to catch its heat, and a wooden card table. A window in the southwest
+corner gives a lovely view of the village and adds some much-needed sunlight.
+The kitchen is to the north, the bedroom lies to the south, and the entryway
+is to the west.
+
+> w
+Beethro moves west.
+
+The Entryway
+Beethro's entryway is a short hall where visitors can stomp the dirt off
+their boots and hang up their coats. A wall-mounted coat rack hangs on the
+north wall, while the village can be seen through a window to the south. To
+the east is the living room, and moving west will take you outdoors.
+
+> w
+Beethro moves west.
+
+Outside Beethro's House
+Beethro stands on the dirt path that leads up to his house, at the top of
+Throdinger Hill. There are no other houses on this hill; the majority of the
+population not living in the Low Spaces resides in the village, placed on a
+series of hills a ways to the southwest. The inevitable crossroads lies
+downhill to the west, connecting this path to the Market Square and,
+ultimately, the rest of Dugandy. The entrance to Beethro's house is up the
+hill to the east.
+
+> w
+Beethro moves west.
+
+A Crossroads
+This is one of the ever-present crossroads that inevitably work themselves in
+when you're trying to make a text adventure game. To the north is Beethro's
+own restaurant, the Roasted Roach Grill. To the south lies the village, the
+residency of most of the occupants of Dugandy, and to the west is Market
+Square.
+
+> w
+Beethro moves west.
+
+Market Square
+This enourmous square is one of the few paved locations in Dugandy, and is
+where most of the King's subjects spend their time if they're not at home.
+There are always at least a few people milling about among the numerous
+stalls and booths, where everything from peppers to produce can be had for
+decently low prices. To the north is the path up the mountain that leads to
+King Dugan's Castle; to the west is a narrow trail that leads into the Dark
+Forest, and a duo of crossroads lies to the east and south.
+
+> s
+Beethro moves south.
+
+Another Crossroads
+Yes, it's another uninteresting crossroads. To the west is the fields, to the
+east is the village, Market Square is to the north, and the trail leading
+down to the Low Spaces is to the south.
+
+A royal guard stands here, blocking access to the Low Spaces.
+
+> w
+Beethro moves west.
+
+The Fields
+This expanse of fields is where most of the kingdom's crop-growing activity
+takes place. It's not too large, and it is, amazingly enough, almost
+completely flat, in contrast to the hilly terrain that dominates the area.
+Currently there are no crops growing here; the harvesting season recently
+ended and the citizens are waiting for winter to end before they plant
+anything else. A crossroads is to the east, and a dusty trail is visible to
+the north.
+
+There is an iron stake lying on the ground here.
+
+> get iron stake
+Beethro take the iron stake.
+
+> n
+Beethro moves north.
+
+A Dusty Trail
+This seldom-used trail leads out of the kingdom and into the Dark Forest,
+which looms ominously up ahead. Very few people go into the Dark Forest, and
+fewer come back, though lumberjacks are often seen at its edge chopping down
+wood to build something or other. The trail leads west into the Dark Forest
+and east into Market Square.
+
+> w
+Beethro attempts to head west, but only succeeds in smacking into a force
+field. "Oh, right." he grumbles. "It's only a demo."
+
+> quit
+Do you really want to quit? [Y/N]

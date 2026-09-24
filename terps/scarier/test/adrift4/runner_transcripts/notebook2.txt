@@ -1,0 +1,6 @@
+
+> look
+The Sidewalk, Outside the Red Cantina
+The long sidewalk stretches from east to west.  The restaurant entrance is directly to the north.
+
+This is a demo for a notebook that takes input from the player.  It is unpassworded.    Any suggestions on improving this notebook are greatly appreciated.  Oh, yes, you are holding a notebook.:)

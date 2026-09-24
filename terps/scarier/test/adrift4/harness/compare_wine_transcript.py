@@ -165,6 +165,12 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
         name, _, value = assignment.partition("=")
         env[name] = value
     env["SCR_SKIP_WAITKEY"] = "1"
+    # SCR_ECHO_INPUT (a derivation aid) prints each command after its prompt,
+    # so every scarier turn opened with the command and the name answer became
+    # a turn of its own: the offset settled one prompt early and 22 reports
+    # in runner_transcripts/compare read as whole-game divergences, because
+    # the shell that ran `recompare` had it exported (2026-09-23).
+    env.pop("SCR_ECHO_INPUT", None)
     # Mark the real prompts (os_ansi puts \x02 in front of them) and move
     # every unmarked '>' off column 0 below, so no splitter here can take game
     # text for a prompt.  3monkeys' and JGrim's endings print their own
@@ -204,7 +210,8 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
                           stderr=subprocess.STDOUT if markers
                           else subprocess.DEVNULL, env=env)
     lines = done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
-    return [line[1:].replace("\x02", "") if line.startswith("\x02>")
+    # A marked prompt keeps its \x02 so is_scarier_prompt() can trust it.
+    return ["\x02" + line[1:].replace("\x02", "") if line.startswith("\x02>")
             else " " + line if line.startswith(">")
             else line.replace("\x02", "")
             for line in lines]
@@ -276,6 +283,57 @@ def pause_counts(lines, popups):
             counts[-1][0] += len(re.findall(r"\[WAITKEY\]", line))
             counts[-1][1] += len(re.findall(r"\[CONFIRM ate ", line))
     return counts[popups:]
+
+
+QUIT_WORDS = ("quit", "bye", "end")
+
+
+def closing_quit(feed):
+    """Index of the `quit` (and its `y`) that closes the feed, or None.
+
+    The walkthroughs end on `quit` + `y` so that scarier exits, but in the
+    Runner that pair is not a turn.  Once the game has ended it goes to
+    "[Press any key to end]" and is never echoed.  Before that, `quit` asks
+    its questions in MsgBoxes (Form_QueryUnload, run400 loc_48AAB4) that the
+    transcript never shows, and the answer is left behind as a stray line:
+    "> " and the game's "I don't understand", or at 3.90 "> y" and "Huh?".
+    scarier asks the same question inline.  trailing_empty_turns() can read
+    that stray Return back as an empty turn, so blanks belong to the tail too.
+    None of it is game text.  It scored 53 rows as "2 lost command(s)" and 8
+    as a differing turn (2026-09-24).
+    """
+    index = len(feed)
+    while index > 0 and feed[index - 1].strip().lower() in ("y", "yes", ""):
+        index -= 1
+    if index > 0 and feed[index - 1].strip().lower() in QUIT_WORDS:
+        return index - 1
+    return None
+
+
+def ended_tail(runner_lines, runner_turns, losses, closing):
+    """Index of the first feed line left over after the game ended, or None.
+
+    Walkthroughs often pad past the winning move -- a second `wait`, a spare
+    attack, `look` -- and once the Runner is at "[Press any key to end]" it
+    never echoes them, so they read as lost commands.  Only the whole tail
+    counts: every loss must come after the Runner's last echo.  The caller
+    also requires scarier to have ended on the same command, so a game that
+    ends EARLY on one side is still reported.  It scored bz3americans,
+    bz3soviets, g7056, marmalade, pb, praxis, shadowjack and thelasthour as
+    lost commands (2026-09-24).
+    """
+    last = next((line.strip() for line in reversed(runner_lines)
+                 if line.strip()), "")
+    if last != "[Press any key to end]" or not losses:
+        return None
+    echoed = [index for index, turn in enumerate(runner_turns[:closing])
+              if turn is not None]
+    if not echoed:
+        return None
+    ended = echoed[-1] + 1
+    if [index for index, _ in losses] != list(range(ended, closing)):
+        return None
+    return ended
 
 
 def trailing_empty_turns(runner_lines):
@@ -387,7 +445,93 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True,
     return feed + [""] * min(popped, empty_tail), encoding
 
 
-def raw_lines_all_echoed(feed_path, runner_lines):
+def taf_alr_recursive(path):
+    """4.00 filters an ALR's replacement; 3.9 splices it in verbatim."""
+    with open(os.path.expanduser(path), "rb") as handle:
+        return handle.read(11)[8:11] == b"\x93\x45\x3e"
+
+
+def load_alrs(taf):
+    """The game's ALR table, in the order the Runner walks it.
+
+    Empty when the game has none, or when the harness cannot dump them.
+    """
+    if not taf:
+        return []
+    scare = os.path.join(HERE, "scare")
+    env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"),
+           "SCR_DUMP_ALRS": "1", "SCR_SKIP_WAITKEY": "1"}
+    done = subprocess.run([scare, os.path.expanduser(taf)],
+                          input=b"quit\ny\n", stdout=subprocess.DEVNULL,
+                          stderr=subprocess.PIPE, env=env)
+    data = done.stderr
+    alrs = []
+    index = 0
+    while True:
+        end = data.find(b"\n", index)
+        if end < 0:
+            break
+        line = data[index:end]
+        index = end + 1
+        if not line.startswith(b"ALR "):
+            continue
+        parts = line.split()
+        if len(parts) != 3:
+            continue
+        try:
+            olen, rlen = int(parts[1]), int(parts[2])
+        except ValueError:
+            continue
+        if index + olen + rlen > len(data):
+            break
+        orig = data[index:index + olen].decode("latin-1")
+        repl = data[index + olen:index + olen + rlen].decode("latin-1")
+        index += olen + rlen
+        if index < len(data) and data[index:index + 1] == b"\n":
+            index += 1
+        if orig:
+            alrs.append((orig, repl))
+    return alrs
+
+
+def apply_alrs(text, alrs, recursive, depth=0):
+    """One output-filter walk of 'text'.
+
+    The same walk the Runner gives the echoed command before it writes the
+    transcript: one pass, longest original first, and (4.00 only) the
+    replacement filtered before it is spliced in.  A pass never goes back, so
+    a replacement cannot form an original the walk has already passed.
+    """
+    if depth > 32:
+        return text
+    out = text
+    for orig, repl in alrs:
+        if orig not in out:
+            continue
+        if recursive and out == repl:
+            return out
+        expansion = apply_alrs(repl, alrs, True, depth + 1) if recursive else repl
+        out = out.replace(orig, expansion)
+    return out
+
+
+def commands_match(echo, command, alrs, recursive):
+    """Did the Runner echo this feed command?
+
+    Case-insensitive, because Auto complete rewrites the echo's case.  A
+    miss there is retried after the game's ALR table: the transcript stores
+    the rewritten command, so akron_rus echoes `north` as `север` and Elm
+    Street echoes it as `на север`.  An exact echo still wins, so a game
+    whose ALRs never touch the command compares as before.
+    """
+    if echo.lower() == command.lower():
+        return True
+    if not alrs or not command:
+        return False
+    return apply_alrs(command, alrs, recursive).lower() == echo.lower()
+
+
+def raw_lines_all_echoed(feed_path, runner_lines, alrs=(), recursive=False):
     """Did every line of the command file come back as an echo, in order?
 
     read_feed drops the blanks it believes answered a pause, so a row where
@@ -407,7 +551,7 @@ def raw_lines_all_echoed(feed_path, runner_lines):
     while echoes and not echoes[-1]:
         echoes.pop()
     return len(raw) == len(echoes) and all(
-        a.lower() == b.lower() for a, b in zip(raw, echoes))
+        commands_match(b, a, alrs, recursive) for a, b in zip(raw, echoes))
 
 
 # The Runner's own end-of-session prompt.  The engine now buffers it too --
@@ -438,13 +582,15 @@ def strip_runner_keyprompt(runner_text, scarier_text):
     return None
 
 
-def split_runner(lines, feed, lookahead, start=0):
+def split_runner(lines, feed, lookahead, start=0, alrs=(), recursive=False):
     """Split the Runner transcript on its echoed command lines.
 
     Returns (turns, losses).  turns[i] is the output the Runner printed for
     feed[i]; a command the Runner never echoed gets None and is listed in
     losses.  The echo is matched case-insensitively because the Runner's Auto
-    complete rewrites what it echoes, and a command is looked for a few feed
+    complete rewrites what it echoes, and again after the game's ALR table
+    because a translated game rewrites the command it stores (`north` comes
+    back as `север`).  A command is looked for a few feed
     entries ahead so that ONE lost command does not derail the whole file.
     """
     turns = [None] * len(feed)
@@ -474,7 +620,8 @@ def split_runner(lines, feed, lookahead, start=0):
             # "The estate is decayed beyond saving." -- and dropping that echo
             # reported a command the Runner had echoed perfectly as lost
             # (crookedestate feed[44], 2026-09-07).
-            expected = any(feed[index + ahead].strip().lower() == stripped.lower()
+            expected = any(commands_match(stripped, feed[index + ahead].strip(),
+                                          alrs, recursive)
                            for ahead in range(0, lookahead + 1)
                            if index + ahead < len(feed))
             if stripped.lower() in ("save", "restore") and not expected:
@@ -494,7 +641,8 @@ def split_runner(lines, feed, lookahead, start=0):
             for ahead in range(0, lookahead + 1):
                 if index + ahead >= len(feed):
                     break
-                if stripped.lower() == feed[index + ahead].strip().lower():
+                if commands_match(stripped, feed[index + ahead].strip(),
+                                  alrs, recursive):
                     hit = index + ahead
                     break
         if hit is None:
@@ -534,7 +682,14 @@ def is_scarier_prompt(line, previous):
     `>`: albert_is_lost T21's `>UNDOeth?"` cut that turn at "Drat,"
     (2026-09-15).  Such a line is a wrap exactly when its first word would
     not have fitted on the non-blank line before it.
+
+    A line scarier_run() kept the \x02 marker on is a prompt whatever its
+    width: mm2 T22's dream ends "...have a point." and the marked prompt
+    after it read as a wrap, so T22 swallowed T23 (2026-09-24).  The width
+    test is only for replays read from a file, which carry no marker.
     """
+    if line.startswith("\x02>"):
+        return True
     if not line.startswith(">"):
         return False
     words = line.split()
@@ -562,7 +717,7 @@ def split_scarier(lines):
                 intro = "\n".join(pending)
             else:
                 turns.append("\n".join(pending))
-            pending = [line[1:]]
+            pending = [line.lstrip("\x02")[1:]]
         else:
             pending.append(line)
 
@@ -622,8 +777,10 @@ def main():
     runner_lines = read_lines(args.runner)
     feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup,
                                empty_tail=trailing_empty_turns(runner_lines))
+    alrs = load_alrs(args.taf)
+    recursive = taf_alr_recursive(args.taf) if args.taf else False
     runner_intro, runner_turns, losses = split_runner (
-        runner_lines, feed, args.lookahead, args.start)
+        runner_lines, feed, args.lookahead, args.start, alrs, recursive)
 
     if args.scarier:
         scarier_lines = read_lines(args.scarier)
@@ -653,7 +810,32 @@ def main():
           % (len(scarier_turns), args.offset))
     print()
 
-    if losses and raw_lines_all_echoed(args.feed, runner_lines):
+    closing = closing_quit(feed)
+    if closing is not None:
+        losses = [(index, command) for index, command in losses
+                  if index < closing]
+        print("closing     feed[%d:] %s -- the session's own quit; not compared"
+              % (closing, "|".join(feed[closing:])))
+        print()
+    else:
+        closing = len(feed)
+
+    ended = ended_tail(runner_lines, runner_turns, losses, closing)
+    if ended is not None:
+        if len(scarier_turns) - args.offset == ended:
+            losses = [(index, command) for index, command in losses
+                      if index < ended]
+            print("ended       feed[%d:%d] %s -- after the game ended on both"
+                  " sides; not compared"
+                  % (ended, closing, "|".join(feed[ended:closing])))
+            closing = ended
+        else:
+            print("ENDED       the game ended at feed[%d] in the Runner but"
+                  " scarier played %d feed turns"
+                  % (ended - 1, len(scarier_turns) - args.offset))
+        print()
+
+    if losses and raw_lines_all_echoed(args.feed, runner_lines, alrs, recursive):
         # Every line of the command file, blanks included, came back as an
         # echo in order -- nothing was lost.  What differs is which of those
         # blanks was a pause answer: read_feed classifies them from SCARIER's
@@ -692,7 +874,7 @@ def main():
             return normalise(scarier_turns[position])
         return None
 
-    for index in range(args.start, len(feed)):
+    for index in range(args.start, closing):
         if runner_turns[index] is None:
             continue
         runner_text = normalise(runner_turns[index])

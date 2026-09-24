@@ -1,66 +1,56 @@
-look
-take ice
-east
+get ice
+e
 swim down
 press button
-east
-east
-take laser cutter
-take welding torch
-east
-examine man
-take canister
-west
-south
-fill small canister from tank
+e
+e
+get laser cutter
+get welding torch
+e
+look at man
+get small fuel canister
+w
+s
+fill small canister
 refill torch
-north
-west
-north
-north
-examine maintenance manager
-take power cell
-examine desk
-take rope
-power laser with cell
-south
-south
-east
-south
-cut door with laser
-north
-west
-north
-east
+n
+w
+n
+n
+look at corpse
+get power cell
+look at desk
+get rope
+s
+e
+power laser
 cut panel with laser
 tie rope to spike
-down
-east
-east
-examine dead officer
-take whiskey
-take grenade
-examine table
-examine bookcase
-take key
+d
+e
+e
+pluck officer's eye
+look at dead officer
+get glass of whiskey
+get grenade
+look at bookcase
+get silver key
 put ice in whiskey
 drink whiskey
-pluck officer's eye
-west
-north
-north
-examine box
+w
+n
+n
 unlock box with key
-charge scanner with cell
+open box with key
+plug cell into retinal scanner
 hold eye in front of scanner
-north
-north
-east
-move picture
-west
-north
-down
+n
+n
+n
+d
 throw grenade
-east
+e
 weld bike
 mount bike
+quit
+y

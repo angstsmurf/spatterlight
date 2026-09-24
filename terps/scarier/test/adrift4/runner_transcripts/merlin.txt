@@ -1,0 +1,44 @@
+
+> examine bronze door
+The bronze doors are high enough to allow heavily laden carts to pass through. Set into the left hand bronze door is a small square grating and on the wall you see a chain which is attached to a brass bell.
+
+> pull chain
+You grab hold of the chain and give it a couple of tugs. After a while two monks appear at the grating, one of them looks at you and smiles. "Welcome my son". Saying this they both slowly open one of the large bronze doors and then quickly disappear.
+
+> e
+You move east.
+The Main Cloister
+This is a large open area of the monastery. The surrounding walls are filled with tall arches. You can also see a small square lawn and in the centre of the lawn there is a small fountain. A large bronze door is open to the west.  You can move south and west.
+
+> examine fountain
+There is a tall stone lion sitting in the centre of the fountain with water spewing from it's mouth.
+
+> drink water
+You place your cupped hands in to the fountain and drink the refreshing clear water. Just what you needed.
+
+> s
+You move south.
+The Frater
+This is where the monks eat their meals. As you walk into the room you can hear the echo of your footsteps on the solid oak floor. Lined up either side of you are rows and rows of wooden tables with long benches pushed underneath them. There is a strong smell of cooked vegetables coming from the south, while to the east you notice an arched wooden door.  You can only move north.
+
+> look at table
+You see no such thing.
+
+> examine frater
+The Frater
+This is where the monks eat their meals. As you walk into the room you can hear the echo of your footsteps on the solid oak floor. Lined up either side of you are rows and rows of wooden tables with long benches pushed underneath them. There is a strong smell of cooked vegetables coming from the south, while to the east you notice an arched wooden door.  You can only move north.
+
+> n
+You move north.
+The Main Cloister
+This is a large open area of the monastery. The surrounding walls are filled with tall arches. You can also see a small square lawn and in the centre of the lawn there is a small fountain. A large bronze door is open to the west.  You can move south and west.
+
+> w
+You move west.
+The Gatehouse
+Halfway up a mountain stands a large gatehouse of an old 12th century monastery. To the far west and in the distance you can see a snow capped mountain range, to the far south a great expanse of forest, while below you to the far north you can see what looks like an old house with smoke coming from it's chimney. To the east are two large bronze doors of the monastery, one of the large bronze doors are open.  You can only move east.
+
+> quit
+
+> 
+I don't understand what you mean!

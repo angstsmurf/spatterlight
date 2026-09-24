@@ -1,0 +1,26 @@
+look
+ask barkeep about blaster
+sw
+se
+ask clerk about fish
+nw
+w
+take tank
+e
+se
+give tank to clerk
+nw
+n
+give fish to chef
+s
+ne
+give utensils
+give seawater
+give tank
+sw
+s
+give fish to captain
+n
+ne
+give tooth
+drink blaster

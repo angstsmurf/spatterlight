@@ -1,0 +1,205 @@
+Loading game...
+
+Ghoster
+Your lifeless body lies on the ground.
+
+"Darn it, Daniel.  I wish you wouldn't do that."  Your friend Laura cries.
+"Come on, go back NOW!"
+
+You return to your body and stand back up.  This is a somewhat normal thing
+since you were five and you discovered your unusual gift.  You can use this
+by typing "ghost", then "occupy [character]" then "return".
+
+You and Laura walk back to your village.  You weren't able to catch much on
+your hunting trip, but Laura's good humor is cheering you up.  You begin to
+approach the old well at the edge of your town.
+
+Something is wrong.
+
+The sky is unusually dark and unforgiving.  Laura runs quickly into the
+village.
+
+You see her grabbed by an enormous and scary green creature and carried up
+onto the old hill.  As you run into to edge of the village, the creature
+stands on the hill and activates something on his wrist.  He and Laura
+disappear.  Within seconds, you see many other of your townspeople suffer the
+same fate.
+
+By the well
+Beat down and dead grass marks where your village's people worked and played
+for so many years.  Now it  feels as if these paths will never be walked on
+again.
+
+  You can move east, south and southeast.
+
+> s
+You move south.
+
+Blacksmith's Shop
+A once marvel of order and technological amazement to you, the shop now lies
+in disarray.  Broken metal is strewn about and your old friend, the
+Blacksmith, is no longer in sight.
+
+  You see a crowbar.  You can move north, east and south.
+
+> get crowbar
+You take the crowbar.
+
+> e
+You move east.
+
+Village Square
+The sky is dark.  The town is eerily empty.
+
+  You can move north, east, south, west, northeast, southeast, southwest and
+northwest.
+
+> sw
+You move southwest.
+
+Inn
+beautiful draperies and window treatments lie destroyed.  The roof and walls
+appear damaged by strange magic.
+
+You see an Alien.
+
+  You can move north, east and northeast.  Alien hits you, but it doesn't
+seem to do any damage.
+
+> ghost
+You have disembodied.
+You manage to avoid Alien's attack.
+
+> occupy Alien
+You now occupy the body of Alien
+
+> get body
+Wow.  Holding your own lifeless body.  That's a little weird.
+
+> ne
+You move northeast.
+
+Village Square
+The sky is dark.  The town is eerily empty.
+
+  You can move north, east, south, west, northeast, southeast, southwest and
+northwest.
+
+> ne
+You move northeast.
+
+By the hill
+As you stand next to the small hill above a once tranquil valley, you look to
+the sky and feel through your very soul an erie darkness.  You see that
+darkness is from an ominous and unusual cloud.  A ship.
+
+  You can move south, west and southwest.
+
+> stand on hill
+You stand on the hill.
+
+> activate beacon
+You are transported
+
+Transporter Pad
+The walls around you are a dark metalic grey.  You feel a rumbling beneath
+your feet.  You are on the Alien Ship.
+
+You see an Alien Officer.
+
+  You can only move south.  Alien officer manages to avoid Alien's attack.
+Alien officer hits Alien, but it doesn't seem to do any damage.
+
+> s
+You move south.
+
+In Corridor
+A hexagonal tunnel stretches around you.  Cold and evil permeate the air.
+There is a computer screen on the wall.
+
+  You can move north, east and west.
+
+> w
+You move west.
+
+Up the corridor
+The deck plates rumble beneath you.  Is the ship changing speed?  You can
+move north, east and west.  You are now back in your body.
+
+> w
+You move west.
+
+Corner
+The corridor veers left.  You can see other alien ships out a window on your
+right.
+
+  You can move east and south.
+
+> s
+You move south.
+
+Large Hall
+You walk down stairs into a large open area.  To the west is a giant bulkhead
+door.  Looks like whatever is to the west is pretty important.  Hey, how can
+you have cardinal directions on a spaceship, anyway?  You see a control
+panel.
+
+  You can move north and east.
+
+> use crowbar in bulkhead
+You have held the bulkhead door open with the crowbar.
+
+> w
+You move west.
+
+Bridge
+A large and beautiful room bustling with electronic goings-on.
+
+An Alien Attack Robot looms above you.  You see the unbelievably massive and
+ugly Alien Captain foaming at the mouth with anger.  There is a nametag on
+his chest that reads "HENDAR".  You can only move east.  Alien Robot hits
+you, but it doesn't seem to do any damage.
+
+> drop body
+You are not holding your lifeless body.
+Alien Robot hits you, but it doesn't seem to do any damage.
+
+> return
+You have not disembodied.  Alien Robot hits you, but it doesn't seem to do
+any damage.
+
+> ghost
+You have disembodied.
+You manage to avoid Alien Robot's attack.  You manage to avoid Alien Captain
+captain's attack.
+
+> occupy captain
+You now occupy the body of Hendar.
+
+Hendar manages to avoid Alien Robot's attack.
+
+> kill attack robot
+You hit Alien Robot with the crowbar.
+With the robot destroyed, and the subconscious mind and body of Hendar at
+your disposal, you send a message to all ships to abandon the assault and
+return all captured.
+
+They obey without question.
+
+You go to cell and remove Olan and place Hendar's body inside and return to
+your own.
+
+This might not be the end of the fight, you feel.
+
+But it is at least a victory.
+
+You begin transporting yourself and all survivors back to the town.
+
+It is a bitter sweet time as you celebrate the victory and mourn those who
+were lost in the attack.
+
+Olan says to you: "You can mourn now.  But you must be ready to fight again
+soon.
+
+The End?
+[Press any key to end]

@@ -1,0 +1,16 @@
+s
+put card in atm
+e
+buy wine
+w
+n
+give wine to guard
+s
+w
+get scissors
+cut clothes
+e
+n
+open locks with device
+quit
+y

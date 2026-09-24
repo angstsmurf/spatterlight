@@ -1,0 +1,110 @@
+
+> out
+You move out.
+Scrap field
+A scrap field  Recycler and Enemy Tank are here.  Enemy Tank hits Recycler.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.  Enemy Tank hits you.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.  Enemy Tank hits you.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.  Recycler hits Enemy Tank, but it doesn't seem to do any damage.  Enemy Tank hits you.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.  Enemy Tank hits Recycler.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.  Enemy Tank hits Recycler.
+
+> attack enemy tank with stabber
+You shoot Enemy Tank with AT stabber.
+
+> n
+You move north.
+Scrap field 2
+There is nothing of interest here.  Also here is 5 pieces of scrap bio-metal.
+
+> n
+You move north.
+Scrap field 3
+There is nothing of interest here.
+
+> n
+You move north.
+Scrap field 4
+There is nothing of interest here.
+
+> n
+You move north.
+Nav 3
+There is nothing of interest here.  Gun tower is here.  Gun tower hits you.
+
+> n
+You move north.
+Central CCA base
+Many structures are here but you must destroy the recycler!  Enemy Recycler and Enemy Fighter are here.  Enemy Recycler hits you, but it doesn't seem to do any damage.  Enemy Fighter hits you.
+
+> attack enemy fighter with stabber
+You shoot Enemy Fighter with AT stabber.  Enemy Fighter hits you.
+
+> attack enemy fighter with stabber
+You shoot Enemy Fighter with AT stabber.  Enemy Fighter hits you.
+
+> attack enemy fighter with stabber
+You shoot Enemy Fighter with AT stabber.
+
+> attack enemy fighter with stabber
+Enemy Fighter isn't here!  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  General Collins: General Roberts and me are proud because of your wits and courage!                MISSION COMPLETE!  
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

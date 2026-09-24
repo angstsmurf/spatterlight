@@ -1,0 +1,126 @@
+
+> n
+You move north.
+Road
+There is old outhouse near the east land of the road.
+
+> e
+You move east.
+Outhouse
+Litle old outhouse made from wood. It's easy to flame it if you have lighter  Also here is a lighter.
+
+> get lighter
+You pick up the lighter.
+
+> burn the outhouse
+Its time to flame this outhouse. Its burn good.
+
+> w
+You move west.
+Road
+There is old outhouse near the east land of the road.
+
+> n
+You move north.
+Park of the castle Black waterfall
+Home sweet home. There is north path to the main door and one thats going west.
+
+> w
+You move west.
+Arbour
+In the end of the west path is big arbour with statue of eagle on its senter.
+
+> breake statue
+You breake it with one kick.  A golden key is appear from the statue peaces.
+
+> look in statue
+There are only few peaces on ground from the statue.  A Key is inside the statue.
+
+> get key
+You take a Key from the statue.
+
+> e
+You move east.
+Park of the castle Black waterfall
+Home sweet home. There is north path to the main door and one thats going west.
+
+> n
+You move north.
+Corridor 
+There is two unlocked rooms in this corridor on north and on west.
+
+> n
+You move north.
+Magic lab
+This is your magic lab. Stefcho is a skull that you made.   Its time to wake up Stefcho try to slap it  Stefcho e tuk
+
+> drop lighter
+You drop the lighter.
+
+> slap Stefcho
+You hit skull, but it doesn't seem to do any damage.
+
+> get lighter
+You pick up the lighter.
+
+> natisni simvola sluntse
+Bingpo skrinat se otvarq shiroko.
+
+> take fire dragon
+Its good to take this with you.
+
+> s
+You move south.
+Corridor 
+There is two unlocked rooms in this corridor on north and on west.
+
+> w
+You move west.
+Bedroom
+Bedroom with desk, bed, window and mirror.
+
+> breake the mirror
+You breake the mirror. You found a secret way down.
+
+> d
+You move down.
+Secret way.
+Lets find where will take us.  Here is to dark to walk .Look carefully around. May be the problem is not so dificult.  Also here is a torch.
+
+> get torch
+You pick up the torch.
+
+> burn torch
+You burn the torch
+
+> d
+You move down.
+Temple of KOLIBRI
+A temple of KOLIBRI the god wariror. In the senter of the room it has altar and behind it a statue of KOLIBRI
+
+> sacrifice mouse
+After litle time you cach one mouse and sacrificed it in the name of KOLIBRI. KOLIBRI appears.
+
+> s
+You move south.
+Tomb
+Litle dark tomb. Its not good idea to stay here very very long. It has way to anador tomb on east.
+
+> e
+You move east.
+Temple of KALI
+The temple is almost same as the Temple of KOLIBRI. But in the altar it hase surptise for you. Here is Dimka Velichkova the women that you hate more than everything. It is not important how she kome here its important that you will sacrifice her in the name of kali. Do it.
+
+> look at altar
+The altar is almost same as the altar of KOLIBRI.  On the altar is Dimka  Velichkova.  A knife is on the altar.
+
+> get knife
+You take a knife from the altar.
+
+> sacrifice Dimka Velichkova
+YOu hate this woman she kill's you and now you will show what is pain.     After you finish the sacrifice KALI apears.           You are now her favourite man. And she will helps you from this moment to the end of time.                                                                                    You became a favourite man of KALI and drom now you will live very very easy and good.
+You scored 12 out of the maximum 13!
+That is 92% of the game!
+You finished 1 points short.
+
+[Press any key to end]

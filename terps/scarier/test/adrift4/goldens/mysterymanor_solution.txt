@@ -1,0 +1,67 @@
+use cell phone
+use flashlight
+drop flashlight
+drop cell phone
+n
+open door
+open door
+nw
+e
+take vase
+e
+in
+open cabinet
+get towel
+examine stain
+get wet towel
+out
+s
+s
+open breaker box
+flip switch
+n
+n
+w
+w
+se
+u
+sw
+look on bed
+get doll from bed
+break doll
+ne
+e
+u
+wipe picture
+drop towel
+d
+w
+d
+nw
+d
+get pick axe
+open furnace
+hit wall with pick
+drop pick axe
+in
+x corpse
+get key from corpse
+out
+u
+n
+w
+n
+n
+unlock gate
+n
+look
+get journal
+open journal
+read journal
+s
+s
+s
+w
+s
+s
+talk to stranger

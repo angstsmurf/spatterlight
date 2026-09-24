@@ -1,0 +1,34 @@
+n
+hit crystal
+grip morganna's hand
+s
+search shadows
+n
+ne
+search shadows
+get rope
+sw
+s
+w
+pick lock with rod
+open cage
+w
+nw
+move stones
+search rubble
+se
+e
+e
+climb statue
+pry star
+climb down
+put jewel in cloak
+enter shadows
+z
+give jewel to colonel
+look up
+raise up
+z
+z
+z
+z

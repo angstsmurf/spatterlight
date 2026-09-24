@@ -1,0 +1,44 @@
+
+> ask prisoner about children
+He gets even more depressed and drops his magazine next to your cell.
+
+> get magazine
+You take the law magazine.
+
+> read magazine
+There is a number for a copyright lawyer firm. You remember it. There is also a coupon for a mace spray on one page.
+
+> take bone
+You hurl it into air and catch it again before puting it away.
+
+> attack henchman with bone
+You hit him on the head resulting satisfying crunch. Unluckily he falls wrong way but drops his phone next to your cell. ("Cell next to your cell" puns are not appreciated.)
+
+> get phone
+You take the cell phone.
+
+> call lawyer
+They sent someone over who looks at a dog and decides it is copyright infringement of the Disney Company. They take the dog away and leave the key behind.
+
+> get key
+You pick it up and let yourself out of your cell. Then you follow the corridor into the criminal's lair.
+
+> ask criminal about inventory
+"i guess it is unfair that you are against me without your inventory." He hands you over your belongings. Only useful things amongst them are scissors.
+
+> cut coupon
+You cut out the coupon. Knowing the cartoonish nature of the game you hope that a mace spray would arrive as soon as you post it. But where would you find a mailbox? No worries, as soon as you have cut out the coupon there is little flash of movement and after that you hold in your hand the mace spray instead of the coupon.
+
+> use spray
+Yo do that and then whack the stunned criminal on the head.  Instead a crunch there is only a thud -but hey it must do for now. The criminal falls down. Countdown has already begun can you do anything about it? 
+
+> use computer
+You try to stop the countdown. You manage only to speed it up. Thankfully there are emergency controls.
+
+> emergency
+You try to use emergency controls but only manage to send nuclear weapons out. But no fear, there is still self destruction option.
+
+> self destruction
+You have understood it wrong -this was self destruction option for the criminal's lair not for nuclear weapons.
+Narrator can not ask whether this is end of our hero or will the world be saved. He gets destroyed with the rest of the world after a... 
+[Press any key to end]

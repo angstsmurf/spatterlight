@@ -1,0 +1,21 @@
+Petter
+male
+e
+in
+w
+d
+e
+s
+search washing machine
+get screwdriver
+n
+w
+get post
+open envelope
+open door
+out
+e
+n
+n
+w
+give timesheet to monk

@@ -1,0 +1,130 @@
+Loading game...
+
+Untitled
+Physics Action #1:  The Dark River
+
+You, the conquering physics hero, is out strolling one day with your
+significant other when Mr. Evil, your dark nemesis, jumps out of his car and
+steals your S.O.  You are so mad that you start jumping up and down.
+
+Remembering your physics knowledge, you start jumping FORWARD and actually
+start gaining some forward displacement....funny how that works...amazing
+science!
+
+You jump into your car and chase Mr. Evil to the edge of a fast flowing
+river.  He gets there before you and barely has enough time to get into a
+boat with your S.O before you come to a screaching halt and run to the edge
+of the river.
+
+By the time you get to the river, Mr. Evil is already on the other side.
+
+You start pacing madly..."I need to get to the other side, beat up Mr. Evil
+and save my S.O."  hmmm......Looking around you see that luck has left you
+with probably just enough stuff for you to make rescue plan possible......
+
+If you are totally stumped type "help"
+
+The dock.
+There is a swift moving river moving from left to right.  Curse Mr. Evil!
+Since the river is moving so swiftly, you dare not enter the river yourself.
+There is a boat here that looks good enough to make one more trip, its so old
+and rattled.
+
+ Directly opposite your dock, there is a dock on the other side of the river.
+ You know you have to reach that dock safely, because there are nasty looking
+cliffs to the left and right of the other dock.
+
+You need to hurry up and get to the other side to stop Mr. Evil from stealing
+your beloved.  Hurry!  A cluster of rocks rest by the boat dock.  A coiled
+rope has been left behind by a careless fisherman.
+
+> get rope
+You take the rope.
+
+> look under rocks
+You pry on the edge of the rock and are rewarded by finding a most awesome
+looking key.
+
+> get key
+You take the key.
+
+> stand on dock
+You walk over to the dock.
+
+> look gauge
+The gauge measures the speed of the water.  Currently the gauge reads 13.5
+m/s
+
+> tie rope to boat
+You tie the rope to the boat.  It feels very secure!
+When you are ready to pull the boat around type "pull the boat XX meters to
+the left/right" where XX is a numeric number --whole numbers only,  if you
+get a decimal answer, round to the nearest whole number.  You also have to
+choose whether to pull the boat to the left or right.
+
+> pull the boat 60 meters to the left
+You pull on the rope and drag the boat 60 meters to the left.  Not wanting to
+mess anything up, you point the boat directly across the river.
+
+> enter boat
+You walk to the boat and get inside.
+
+ "What a nice boat," you say," FOR KICKING MR. EVILS TRASH!"
+
+In the boat
+The boat looks rather decrepid.  There is an ignition switch on the right
+console and a speed lever that has two settings, zero and 22.5 m/s.  The
+steering wheel is rather rusted up so you don't think that you will be able
+to steer the boat once it gets going.  You better make any setting
+adjustments before you start the boat.
+The boat is 60 meters from the dock.  A tacklebox is shoved up agains the
+side of the boat.
+
+> turn on boat
+You take the key and turn the switch.  The boat roars to life!
+
+vroom...
+
+Vroom!
+
+VROOM!!!
+
+Now how do you make this thing move forward??
+
+Looking around, you see a speed lever.....  hmmmm......how convenient.
+
+> max power!
+You jam the lever forward and the boat rips across the river.  In less than 5
+seconds you reach the other side.  The boat zips forward to the other side of
+river.
+
+swoosh!
+
+As you speed forward you travel downstream.  Thankfully, you have pulled the
+boat upriver the right distance and you end up on the other side safely on
+the dock!
+yes
+
+yes....
+
+Yes
+
+YES!!!
+
+You make it to the other side just in time to grab Mr. Evil,  PUNCH HIS FACE
+OUT, and reconquer your beloved!
+
+ Congradulations  Physics has saved your love life.  Tell no one how to solve
+this puzzle and come and find Mr. E for some sweet extra credit points.
+
+To claim your extra credit points, answer the following riddle:
+What cheese is made backwards?
+think about it, if you can't, just google it.
+
+Either way, bring Mr. E  the answer for some truly earned extra credit.
+
+You scored 12 out of the maximum 12!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

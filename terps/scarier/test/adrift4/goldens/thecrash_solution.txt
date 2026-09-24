@@ -1,0 +1,52 @@
+open plane
+get first aid kit
+look in first aid kit
+open first aid kit
+get bandage
+wear bandage
+get wallet
+look in wallet
+open wallet
+get cell phone
+n
+e
+get hammer
+w
+w
+hit door
+hit door
+hit door
+in
+look
+get skis
+get planks
+out
+e
+n
+wear skis
+n
+n
+e
+in
+get nails
+out
+w
+w
+s
+s
+look at dead body
+get boots from dead body
+wear boots
+n
+n
+e
+s
+s
+s
+w
+w
+fix boat
+place boat in water
+cross stream
+quit
+y

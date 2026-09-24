@@ -1,0 +1,256 @@
+Loading game...
+
+The Amazing TV Caper
+You gaze with undisguised longing at the girl before you. Very hot she is,
+and the fact that she's clad only in her swimsuit only makes her hotness all
+the more obvious.She relaxes in the spa and beckons with one slender hand.
+Slowly, you move toward her, your eyes trying and failing utterly to remain
+locked on hers, which are about as blue as it's possible for eyes to be. Your
+incredible dream is interrupted by a sound from downstairs. You sit bolt
+upright in bed, your ears straining, but all is silent once more. You try to
+recapture the phenomenal dream you were just having, but it soon becomes
+apparent that that's not gonna happen. You decide it's probably time to get
+up.
+
+Master Bedroom
+This is your bedroom. In the exact center stands a huge kingsized bed. To the
+left of it is a nightstand where your cell phone lies. Next to that is a
+photo of an incredibly hot, sexy girl. Looking at it reminds you of last
+weekend and you smile slowly, thinking of all the fun you'll have once Emily
+gets off work...  You can move in and out.
+
+> in
+(Getting off Kingsized bed first)
+You move in.
+
+Bathroom
+This is just your average bathroom. There's a cabinet/sink, a huge bathtub
+and a crapper, standard bathroom stuff, if a bit on the fancy side. You are a
+bit rich after all...  You can only move out.
+
+> make pitstop
+Ah! That's better!
+
+> out
+You move out.
+
+Master Bedroom
+This is your bedroom. In the exact center stands a huge kingsized bed. To the
+left of it is a nightstand where your cell phone lies. Next to that is a
+photo of an incredibly hot, sexy girl. Looking at it reminds you of last
+weekend and you smile slowly, thinking of all the fun you'll have once Emily
+gets off work...  You can move down, in and out.
+
+> out
+You move out.
+
+Hall Closet
+This walk-in closet could hold quite a lot more than it currently contains.
+Also here is a Baseball Bat.  You can only move in.
+
+> get bat
+Take what?
+
+> get bat
+Take what?
+
+> in
+You move in.
+
+Master Bedroom
+This is your bedroom. In the exact center stands a huge kingsized bed. To the
+left of it is a nightstand where your cell phone lies. Next to that is a
+photo of an incredibly hot, sexy girl. Looking at it reminds you of last
+weekend and you smile slowly, thinking of all the fun you'll have once Emily
+gets off work...  You can move down, in and out.
+
+> d
+You move down.
+
+Living room
+This is your living room. There's a couch, across from which is the cabinet
+which houses your all-important TV set. Situated about halfway between them
+is a small coffee table.  You can move up and in.
+
+> open entertainment center
+You swing open the large double doors on your trusty entertainment center.
+Your eyes widen in shock as you stare at the shelf where your bigscreen TV
+should be. It's nowhere in sight. You suddenly realize that the noise you
+heard down here a while ago wasn't your imagination. You realize also that it
+was probably connected with the disappearance of your TV! Rage flows through
+you and you decide it's time to get nasty.
+
+> get note
+Take what?
+
+> get note
+Take what?
+
+> tear up note
+With a surge of contempt you tear up Slick's note. You decide right then and
+there that enough is enough and it's time to take steps. You remember that
+there's a baseball bat in the upstairs hall closet...
+
+> out
+You move out.
+
+Java Joint
+This coffee house is a popular hangout for the cool crowd. Business is a bit
+slow today, but the girl behind the counter doesn't seem to mind.  Shannon is
+here.  You can move in and out.
+
+> ask shannon to elaborate
+You ask Shannon what she has in mind as payment for her help. She tells you
+that one of Slick's cronies, the scrawny Squirt, stole a ring of hers the
+last time he visited the shop. She offers to help you if you can return the
+ring. You agree to help, having a strong desire of your own to have it out
+with Squirt. Shannon tells you that Squirt is most likely hanging out at the
+empty lot not far from the Java Joint and that you should check there.
+
+> e
+You move east.
+
+Empty Lot
+This empty lot is where the city once had plans to build a new mall. But like
+so many of their plans they quickly gave up when they realized that somebody
+would actually have to do the work and that it wasn't going to do itself. The
+place is littered with bricks, broken glass, cigarette butts and empty
+packages and other debris left here by the losers who call this place their
+own.  Squirt is here.  You can move west and in.
+
+> get ring from Squirt
+Not fooled by Squirt's feeble attempts to deny that he has the ring, you leap
+into action, delivering a series of well-placed punches and kicks to Squirt's
+midsection.  Squirt  collapses to the ground, gazing up at you with utter
+terror. He finally agrees to give you the missing ring.
+
+> w
+You move west.
+
+Java Joint
+This coffee house is a popular hangout for the cool crowd. Business is a bit
+slow today, but the girl behind the counter doesn't seem to mind.  Shannon is
+here.  You can move east, in and out.
+
+> present shannon with ring
+Shannon's hazel eyes light up as you place the ring you took from Squirt in
+the palm of her hand. She embraces you briefly, then tells you that Leo might
+know where Slick's hideout is. He's working now, but Shannon tells you that
+the House O' Rock isn't usually very busy this time of day, so Leo should
+have a few minutes.
+
+> w
+You move west.
+
+House O' Rock
+This music store cells both CD's and musical instruments. The place usually
+teams with prospective customers. You feel energized everytime youcome here.
+Leo is here.  You can only move east.
+
+> ask leo if he's seen emily
+Leo tells you that she's working at the moment. Slick hasn't been over that
+way yet.
+
+> s
+You move south.
+
+Macey's
+This department store isn't one of your favorite hangouts. Emily favors this
+place more than you, which is hardly surprising since she works here.  Emily
+is here.  You can move north, east and west.
+
+> kiss emily
+Giving into desire, you firmly plant your lips on those of your girl. She
+returns the kiss emphatically. When at last you pull back, she tells you to
+be careful and to get your TV back before tonight.
+
+> n
+You move north.
+
+House O' Rock
+This music store cells both CD's and musical instruments. The place usually
+teams with prospective customers. You feel energized everytime youcome here.
+Leo is here.  You can move east and south.
+
+> e
+You move east.
+
+Java Joint
+This coffee house is a popular hangout for the cool crowd. Business is a bit
+slow today, but the girl behind the counter doesn't seem to mind.  Shannon is
+here.  You can move east, west, in and out.
+
+> e
+You move east.
+
+Empty Lot
+This empty lot is where the city once had plans to build a new mall. But like
+so many of their plans they quickly gave up when they realized that somebody
+would actually have to do the work and that it wasn't going to do itself. The
+place is littered with bricks, broken glass, cigarette butts and empty
+packages and other debris left here by the losers who call this place their
+own.  Squirt is here.  You can move west and in.
+
+> in
+You move in.
+
+Slick's Wherehouse
+This cavernous room is filed with all manner of stolen goods. Your TV is in
+the center of the large space. Slik stands guard over it.  Slick is here.
+You can only move out.
+
+> hit slick with bat
+You need a bat first.
+
+> call cops
+Shouldn't you make sure he doesn't get away first?
+
+> get tv
+You take Bigscreen TV.
+
+> out
+You move out.
+
+Empty Lot
+This empty lot is where the city once had plans to build a new mall. But like
+so many of their plans they quickly gave up when they realized that somebody
+would actually have to do the work and that it wasn't going to do itself. The
+place is littered with bricks, broken glass, cigarette butts and empty
+packages and other debris left here by the losers who call this place their
+own.  Squirt is here.  You can move west and in.
+
+> w
+You move west.
+
+Java Joint
+This coffee house is a popular hangout for the cool crowd. Business is a bit
+slow today, but the girl behind the counter doesn't seem to mind.  Shannon is
+here.  You can move east, west, in and out.
+
+> in
+You move in.
+
+Living room
+This is your living room. There's a couch, across from which is the cabinet
+which houses your all-important TV set. Situated about halfway between them
+is a small coffee table.  You can move up, in and out.
+
+> place tv on shelf
+With great care, you return your trusty TV to its rightful place and plug it
+back in. You then set about reconnecting all the other gadgets that were
+hooked up to it before it was stolen. While you're doing this, Emily appears
+in the living room doorway, blue eyes sparkling.
+
+> turn on tv
+You grab the remote and, with a sidelong glance at the smiling Emily, you
+switch on the TV.
+
+> embrace emily
+You take your girlfriend in your arms and move to the couch. With your TV
+firmly in its proper place, you can now enjoy the rest of the night...
+Rockin' man!
+You scored 714 out of the maximum 839!
+That is 85% of the game!
+You finished 125 points short.
+
+[Press any key to end]

@@ -1,0 +1,552 @@
+Loading game...
+
+The Successor
+"You have the qualities I am looking for as a successor.  Prove it to me!"
+states the stranger.  He stands at six foot two and has the bearing of a
+person of great influence and power.
+
+Before you can question him further, "Successor to what?", you find yourself
+shrinking and floating!  He opens his shirt and before you can blink, you are
+flying right into his naval!
+
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Landing Bay
+This "landing bay" puts any aircraft carrier to shame.  All types of flying
+aircraft are parked here, including some fantastic spaceships, some of which
+are just hovering in the air.  You also see hundreds of land vehicles, from
+bicycles to tanks.   Off in the distance is a water bay with all sorts of
+ships and submersables.  Looking carefully you actually do see a nuclear
+aircraft carrier in the distance.  And all of what you see is enclosed in one
+room... if that's what you would call it.
+
+Your compass doesn't read directions now so you arbitrarily call the hallway
+ahead of you "north".  You can only move north.
+
+> n
+You move north.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the north.  You can move east, south and west.
+
+> w
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> south
+As soon as you approach the door, it slides open.  It closes behind as you
+pass through.  (So why didn't the red doors open?)
+
+Mens Bunkroom
+The room is long and narrow at first glance.  You realize that the curtains
+along the walls are actually privacy curtains for each bed.  You are not
+going to even bother to count the number of bunks.  You can move north and
+west.
+
+> x bed
+You pick one lower bunk to inspect and find it to be quite comfortable.  A
+blue backpack is on the bed.
+
+> get backpack
+You take the blue backpack from the bed.
+
+> n
+You move north.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the north.  You can move east, south and west.
+
+> w
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east, south and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> w
+Deja vu?  Weren't you here before?
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the north.  You can move east, south and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> n
+You move north.
+
+Android Room
+This is the first room that is small.  At first you feel as though you walked
+into a closet, that is the perpective it gave you.  It is actually fairly
+comfortable with a chair pulled up to a console of some type.  There is a
+door on the far wall.  You can only move south.
+
+> sit on chair
+You sit down on the computer chair.
+
+> x console
+There appear to be three touch pads labeled "Menu", "Activate", and
+"De-activate".
+
+> press menu pad
+ A set of colored pads replace the main menu.
+
+> s
+(Getting off the computer chair first)
+You move south.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the north.  You can move east, south and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> n
+You can't go in that direction, but you can move east and west.
+
+> e
+You move east.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east, south and west.
+
+> n
+You move north.
+
+Conference Lounge
+This is the first room that is not brightly lit - the lighting is more
+subdued.  The furniture is arranged in small clusters and at different levels
+for the feeling of semi-privacy even though all can been seen from any point
+in the room.  Here also is the first window you've seen on the north wall.
+You can only move south.
+
+> x furniture
+The curved couches arc around the scattered tables.
+
+> x table
+The low circular tables remind you of coffee tables.  A binoculars is on the
+low table.
+
+> get binoculars
+You take the binoculars from the low table.
+
+> x window
+As you look out the window to a night sky, you feel as though something is
+wrong with what you see.  Then you realize: a) no ground visible, b) all the
+stars except one seem too regularly spaced, and c) that one star is exactly
+in the center of your viewing.
+
+> use binoculars to examine stars
+The binoculars auto-focus on the distant stars... and you realize those are
+not stars!  They appear to be massive solar panels - one edge is possibly the
+diameter of Jupiter!  Further examination shows that the panels are mounted
+on a complete sphere (this window may be the only viewport).
+
+Okay, now you are getting a headache.  If this is a Dyson sphere, you'll be
+wandering around forever!
+
+> s
+You move south.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east, south and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the south.  You can move east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> n
+You move north.
+
+Balcony
+You are on a balcony with steel railings and a stair going down...   OH!   Oh
+boy!  You are not afraid of heights, but you hug the wall when you realize
+what the balcony overlooks!  You can move south and down.
+
+> d
+You move down.
+
+Escalator Stairs
+For every step you take the stairs move with you at a very fast rate.
+Thankfully they stop when you do as your ears would pop from the pressure
+changes.  Thankfully the stairs are that fast as well, because if you tried
+to walk this distance under your own power it would take a month!  (Well
+maybe not quite that long.)  You can move up and down.
+
+> d
+River Valley
+The air has the fresh smell of springtime, with only the sounds being the
+river babbling beside you and the wind rustling the leaves of the trees.  The
+valley is covered with soft green grass, while the river banks are made of
+fine smooth sand - perfect for walking barefoot.  A dense forest is on both
+sides of the valley.
+
+The only flaw to a beautiful landscape is the walls enclosing it.  Especially
+the southern wall with the stairs going up.  You can move north, east, west,
+up, northeast, southeast and southwest.
+
+> nw
+After taking off your shoes, you wade along the river bank enjoying the
+coolness of the water and the warmth of the sand.  After a while you come
+across a shallow bend to the river which is easy to cross.
+
+> w
+You move west.
+
+Trail Head
+A gentle breeze rustles the leaves above you in the dense forest.  To the
+east you see the glimmering of the light reflected from the river.  You are
+on the end of a well-groomed hiking trail which extends deep into the forest
+west-ward.  A clump of brush is near the trail.  You can move east and west.
+
+> x metal
+You get to the other side of a clump of brush and find a mountain bike!
+
+> sit on mountain bike
+You sit down on the mountain bike.
+
+> turn on switch
+You hear a slight electrical hum.
+
+> turn throttle
+Wow!  What a turn of speed the bike can kick out!  You wind through the
+forest trail so fast that everything seems a blur and don't even see the
+transition to a mountain trail.  You might want to kill the throttle very
+soon.
+
+> kill the throttle
+The bike slows to a halt, your heart is still racing, and you think you left
+your stomach somewhere earlier down the trail.
+
+> in
+You move in.
+
+Cave Entrance
+The cave entrance is barely large enough for you.  Inside it is dimly lit
+with phospherous lichen and continues deeper in the mountain turning south.
+You can move south, in, out and northeast.
+
+> s
+You move south.
+
+Cave Tunnel
+Both the cave and this tunnel have the appearance of being carved out by
+erosion.  Also here is an old wooden door.  You can move north and out.
+
+> open wooden door
+You open the old wooden door.
+
+> w
+You move west.
+
+Holodeck Control Room
+Even though you like computers, this room puts NORAD to shame.  Flat screens
+cover the walls along with blinking lights.  Toggle switches, push buttons,
+rotary switches, and touch screens are embedded in the walls and protruding
+consoles.  Giving a dim light to the room is a holographic situation table.
+You can only move east.
+
+> press Disengage Simulation
+With no flourish or elaborate style, the holographic image of the countryside
+fades to a gray rectangular box.
+
+> get card
+You take white access card.
+
+> e
+Holodeck
+The caves, the mountain, the forests and valley have all vanished.  All that
+remains is a featureless grey room, that happens to be several miles long and
+wide, and who knows how many thousand feet high.  Off to the east the stairs
+are barely visible.  Also here is a mountain bike.
+
+> sit on mountain bike
+You sit down on the mountain bike.
+
+> turn on switch
+You hear a slight electrical hum.
+
+> turn on throttle
+This time you are more in control of the bike.  The only indication of your
+speed is the air flowing around your body and the steady approach of the
+stairs.
+You come to a smooth stop this time at the foot of the stairs.
+
+> u
+(Getting off the mountain bike first)
+You move up.
+
+Escalator Stairs
+For every step you take the stairs move with you at a very fast rate.
+Thankfully they stop when you do as your ears would pop from the pressure
+changes.  Thankfully the stairs are that fast as well, because if you tried
+to walk this distance under your own power it would take a month!  (Well
+maybe not quite that long.)  You can move up and down.
+
+> u
+You move up.
+
+Balcony
+You are on a balcony with steel railings and a stair going down...   OH!   Oh
+boy!  You are not afraid of heights, but you hug the wall when you realize
+what the balcony overlooks!  You can move south and down.
+
+> s
+You move south.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  You
+can move north, east and west.
+
+> w
+You move west.
+
+Corridor
+The entire corridor is made of metal.  About thirty feet wide and twenty feet
+high.  You cannot see the ends of the hall, in fact the lighting seems to
+track your movement and illuminates one hundred feet either direction.  There
+is a door to the north.  You can move east, south and west.
+
+> n
+As soon as you approach the door, it slides open.  It closes behind as you
+pass through.
+
+Elevator
+Seems like a typical elevator, except it is cylindrical.  There is a display
+panel with text above the control panel.
+
+> press top button
+The top button flashes on momentarily.
+
+> out
+Dark and Forboding Hallway
+Very little light is in this hallway.  Some comes from the elevator door
+area, and a few spotlights that illuminate a circular pattern on the floor
+every twenty feet or so.  Next to the walls are perfectly smooth pillars very
+close together.  Your compass is acting up again, so you call the direction
+to the elevator south.  You can move north, south and in.
+
+> n
+Central Control Room
+Much like the hallway, there are pillars close to each other along the walls.
+ Dominating the room is the appearance of a throne.  The stranger is here.
+You can only move south.
+"Congratulations on achieving the goals I have set for you.  I realize that
+they may seem disjointed and disconcerting, but by getting this far you have
+confirmed that you are more than qualified to become my successor.
+Please have a seat on the central processor.  That will aid in explaining
+what you have accomplished."
+
+> sit on throne
+From the moment you sit on the chair, your senses and brain go into overload.
+ You seem to have double vision as with your eyes the stranger is standing
+below you and yet seeing exactly what he saw instantly before this adventure
+started.  The memories of childhood and other things you thought you forgot
+are instantly remembered.  And yet there are memories of things you know you
+didn't do.
+
+"What you are feeling is the sum total of all who have had control of this
+system.  "I" was never in your presence before until now.  What you saw was a
+construct - an android if you will.  Except it is far more than that.  You
+have seen how dimensions and space have no boundaries as you understand them.
+ The entire body of the construct is actually about a kilometer tall - to you
+it was over six feet.  It is powered by a star in the region of a human heart
+- as you saw what was a Dyson sphere.  It has the ability to transform energy
+into matter - the holodeck could terraform a planet section by section.  The
+system has access to specialized androids, you have yet to see in action.
+All of the vehicles and the androids are available outside of the system on
+the operator's command.  It also has access to weapons you have not seen.
+
+"The memories you are experiencing are enhancing your own and allow you to
+learn how to use the system to it's full potential.  Time is not an issue.
+Inside here we are in a different temporal continuum.  Outside time has
+appeared to have stopped.  Your life can be extended to thousands of years
+even to the outside world.  I have lived a full and adventurous life, but now
+it is time to pass on the command.  Yes or no, will you become my successor?"
+
+> answer yes
+I don't understand what you mean!
+
+"Godspeed on a life beyond your imagination!"  The stranger fades from your
+physical sight, and your "second" sight resumes full time.  The system
+integrates into your mind and you "see" the stranger's body reform itself
+into yours.
+
+You can't wait to explore the potential of your new "body", and what lies
+ahead!
+You scored 0 out of the maximum 80!
+That is 0% of the game!
+You finished 80 points short.
+
+[Press any key to end]

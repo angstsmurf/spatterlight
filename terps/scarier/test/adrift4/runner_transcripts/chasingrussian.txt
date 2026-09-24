@@ -1,0 +1,635 @@
+
+> play message
+Beep
+
+This is Captain Trotter.  You should be receiving a new set of orders via mail.  Complete the assignment and call me to let me know you're done.
+
+Beep
+
+The phone machine hangs up.
+
+> open desk drawer
+You open the desk drawer.
+
+> look in drawer
+The top drawer of your desk has an oak drawer pull.
+Desk drawer is open.  A silver key and a brass key are inside desk drawer.
+
+> take all from drawer
+You take the silver key and the brass key from desk drawer.
+
+> look under drawer
+Taped to the bottom of your desk drawer is a paper card.
+
+> read card
+4789
+
+> open door
+You open the front door.
+
+> n
+You move north.
+Outside your office
+You're standing outside your office at #16 Elm Street.  Your office is to the south.  The street in front of your office goes east and west.  The traffic looks heavy today so you probably shouldn't cross the street here.  Also here is a mail box.
+
+> x mailbox
+You see no such thing.
+
+> get envelope
+Take what?
+
+> s
+You move south.
+Your Office
+The office of your "Travel Agency" is really just a front for your covert operations.  It's a simple office with a desk and chair for you and a sofa for your clients.  The wall to the west has a display with various travel flyers.  A window allows sunlight in from the south.
+
+Your office has a closet to the east.  The door to go outside is to the North.  Also here is a small card.
+
+> open envelope
+You don't have an envelope
+
+> unlock closet
+You unlock the closet with the silver key.
+
+> open closet
+You open the closet.
+
+> e
+You move east.
+Closet
+Your office closet is full of super secret special CIA tools.   There's a wall safe on the north wall of the closet.  Also here is a message decoding machine, a paper shredder, a coil of rope, a black backpack and lock picks.
+
+> take picks
+You take lock picks.
+
+> decode orders
+You don't have any orders to decipher
+
+> read orders
+You don't have the orders
+
+> open safe
+You must enter the proper code on the number pad. What is the code?
+
+> 4789
+The safe is open.
+
+> shred orders
+I don't think I remember seeing that in the CIA handbook.
+
+> shred envelope
+The shredder grabs the envelope and pulls them into the blades.  A grinding noise starts as the paper is cut, ground up and pulverized.  
+
+As the paper dust is dumped into the trash collection part of the shredder small ink jets spray the dust with various rainbow colors of indelible ink.  Not only is the paper converted to paper dust, but it's painted random colors so it can never be assembled into a recognizable document again.
+
+> w
+You move west.
+Your Office
+The office of your "Travel Agency" is really just a front for your covert operations.  It's a simple office with a desk and chair for you and a sofa for your clients.  The wall to the west has a display with various travel flyers.  A window allows sunlight in from the south.
+
+Your office has a closet to the east.  The door to go outside is to the North.  Also here is a small card.
+
+> n
+You move north.
+Outside your office
+You're standing outside your office at #16 Elm Street.  Your office is to the south.  The street in front of your office goes east and west.  The traffic looks heavy today so you probably shouldn't cross the street here.  Also here is a mail box.
+
+> w
+You move west.
+West Elm Street
+The road continues out of town.  There's really nothing to see further west.  In fact, the sidewalk ends here.  
+
+A house with the address of  #14 Elm street is to the south of you.
+
+
+
+> s
+You move south.
+#14 Elm Street
+This is one of the quaint Victorian houses on your street.  Mrs. Beazly lives here.  She's a sweet old lady who, every now and then,  brings cookies to your office.  
+
+Mrs. Beazly is very proud of her roses.  There are roses along the pathway to her house.  She has roses in pots on the porch. Even the stained glass window in her front door is a picture of a rose.
+
+
+> knock door
+Mrs. Beasley answers the door.
+
+Oh Hello Deary.  It's so nice to see you.  I bet you're here for some more of my famous peanut butter cookies aren't you? 
+
+1 ] I'd love to have another of your wonderful cookies.
+2 ] How are you today Mrs. Beazley?
+3 ] I was just going for a walk and I thought I'd tell you how beautiful your roses look today.
+4 ] Where would #23 Elm be.  Would you know?
+5 ] Well, Have a nice day Mrs. Beazley.  I must be going now.
+
+
+> 1
+Well let me just go get you one.
+
+Mrs. Beazley goes inside the house for just a moment and returns with a cookie.
+
+"Here you go dear.  I know how much you enjoy my peanut butter cookies."
+
+Mrs. Beazley gives you the cookie.
+
+1 ] I'd love to have another of your wonderful cookies.
+2 ] How are you today Mrs. Beazley?
+3 ] I was just going for a walk and I thought I'd tell you how beautiful your roses look today.
+4 ] Where would #23 Elm be.  Would you know?
+5 ] Well, Have a nice day Mrs. Beazley.  I must be going now.
+
+> 5
+Well you take care dear.  It's so nice of you to come visit me like that.
+
+Come back soon.
+
+Mrs. Beazley goes back into her house and closes the door.
+
+
+#14 Elm Street
+This is one of the quaint Victorian houses on your street.  Mrs. Beazly lives here.  She's a sweet old lady who, every now and then,  brings cookies to your office.  
+
+Mrs. Beazly is very proud of her roses.  There are roses along the pathway to her house.  She has roses in pots on the porch. Even the stained glass window in her front door is a picture of a rose.
+
+
+> n
+You leave Mrs. Beazley's doorstep.
+
+
+West Elm Street
+The road continues out of town.  There's really nothing to see further west.  In fact, the sidewalk ends here.  
+
+A house with the address of  #14 Elm street is to the south of you.
+
+
+
+> e
+You move east.
+Outside your office
+You're standing outside your office at #16 Elm Street.  Your office is to the south.  The street in front of your office goes east and west.  The traffic looks heavy today so you probably shouldn't cross the street here.  Also here is a mail box.
+
+> e
+You move east.
+East Elm Street
+You're on the south side of Elm street just east of your office.  A cross walk has been painted in the street to allow you to cross the street if the light is green.  The sidewalk continues east. 
+
+#18 Elm Street, Bobby's Burgers, is just south of you.   Right now the light is red and you cannot cross the street.
+
+> push button
+You push the button.  After about 30 seconds the street light turns green for north and south traffic.  You can cross the street now.
+
+
+> n
+You move north.
+North side of East Elm Street
+The north side of East Elm Street continues ease and west. A cross walk has been painted in the street to allow you to cross the street if the light is green.  The sidewalk continues east.
+  There is a street light here and it's green in your direction.   You are allowed to cross the street.
+
+> e
+You move east.
+North side of Elm Street, Far east end
+You're at the eastern limit of town.  Beyond here the road just goes into the woods.  Another old Victorian house is to the north and that house's driveway veers off to the northeast.  
+
+
+> n
+You move north.
+#23 Elm Street.  Front Porch
+The front porch of this old Victorian house is painted white and has 2 wooden columns painted a pale blue.  The front door is painted pale blue to match the columns.  On either side of the door is a window.  
+
+Unlike most of the other houses on this street there are no potted plants or flowers on the porch.  There is, however, a wooden porch swing.
+
+Steps to your left lead to a path.  Steps to your right lead to the driveway.
+
+> w
+You move west.
+Path around house
+A garden path leads around the west side of the house to the back yard.  There are a few pots of flowers along the path.  You pass by a couple of windows on the side of the house
+
+> n
+You move north.
+North end of path
+The path continues around the house.  The path to the front porch is to the south. The backyard of the house is through a gate to the east.
+
+> open gate
+You open garden gate.
+
+> e
+You move east.
+Dr. Stoyonov's Backyard
+Dr. Stoyonov's back yard doesn't look any different from  your typical non-Russian-Spy's backyard.  The lawn is nicely mowed.  A large oak tree shades the backyard.  The oak tree is encircled by a metal bench and a ring of flowers is planted underneath the bench. 
+
+A wooden gate to the path is to the west. A metal gate to the driveway is to the east.  The backdoor of the house is to the south and a 2nd story window is above the door.
+
+
+> pick lock
+Carefully and quietly, you pick the lock to the back door of Dr. Stoyonov's house.  It only takes you a minute to open the lock.
+
+
+
+> open door
+You open back door.
+
+> s
+Kitchen
+Dr. Stoyonov's kitchen looks like a professional chef's kitchen.  All the appliances are stainless steel and the countertops are a deep green marble.  The terracotta tile floor add a southwestern flair to the room.
+
+The door to the backyard is to the north and an opening to the front room is to the south.
+  A big scary dog is here and he's barking and snarling at you.  He looks like he wants to tear your arms off.
+
+> give cookie to dog
+The dog sniffs at the cookie for a bit and then takes a bite.  He likes it.  It only takes a few seconds for him to woof down the cookie, but now he thinks you're a friend so he stops growling and curls up in the corner of the room.
+
+
+
+> s
+Library
+The library has some bookcases in it, but there aren't very many books.  Dr. Stoyonov must have just moved in.
+
+An overstuffed chair with a side table sits in the corner.  A fireplace is built into the west wall.  To the east, where a stairwell would logically be, is an ornate carved wooden door.
+
+
+> look under rug
+You lift the corner of the Persian rug to see if there's anything underneath.  You can see some dust, a couple of peanut shells, and a black key.
+
+You take the key.
+
+
+> unlock door
+You unlock ornate door with black key.
+
+> open door
+You open ornate door.
+
+> e
+You move east.
+Lower stairwell
+You are in the lower part of the stairwell that leads up to the 2nd floor.  An Ornate door is to the west. 
+
+> u
+You move up.
+Upper stairwell
+The stairwell leads down to the first floor.  The office is to the west.
+
+
+> w
+You move west.
+Dr. Stoyonov's Office
+This appears to be Dr. Stoyonov's office.  He has several bookcases in the room as well as a nice desk with a computer on it.  He has an Aeron chair in front of the computer desk.
+
+There is a door to the north and a stairwell to the east.
+
+
+> type anna
+The computer screen goes blank for a second and then changes to a menu:
+
+1]  Check email
+2]  Read Files.
+3]  Exit
+
+
+
+> 1
+1] Inbox
+2] Sent
+
+B] Back to home page
+
+
+> 1
+
+     From:  				Subject:
+1]  SwissAir				Reservation Confirmation
+2]  AnnaGrlll				Hi Daddy
+3]  V1aGr@YourDr.fu		Why Pay More?
+4]  Dragon				Package
+5]  Lowest R@tes Ever!		Rates Have Never Been Lower!
+
+
+B] Back
+
+
+
+
+> 4
+
+From: Dragon		
+Subject: Package
+
+We received your message that you have acquired the package.
+
+Meet us at the drop point at the Grand Hotel in Zurich.  You will receive payment at that time.  We'll set up an airline reservation for you to get to Zurich.
+
+The Dragon.
+
+B] Back
+
+
+
+
+> b
+
+     From:  				Subject:
+1]  SwissAir				Reservation Confirmation
+2]  AnnaGrlll				Hi Daddy
+3]  V1aGr@YourDr.fu		Why Pay More?
+4]  Dragon				Package
+5]  Lowest R@tes Ever!		Why Pay More?
+
+
+B] Back
+
+
+
+
+
+> b
+1] Inbox
+2] Sent
+
+B] Back to home page
+
+
+> 2
+
+     To:  				Subject:
+1]  Dragon				Confirmation
+2]  AnnaGrlll				Miss you Missy
+
+B] Back
+
+
+
+
+
+> 1
+
+To: Dragon
+Subject: Confirmation
+
+I received the airline confirmation.  I am on my way to the airport with the package.  I should see you in 2 days.
+
+Dr. Stoyonov.
+
+
+B] Back
+
+
+
+
+
+> b
+
+     To:  				Subject:
+1]  Dragon				Confirmation
+2]  AnnaGrlll				Miss you Missy
+
+B] Back
+
+
+
+
+> b
+1] Inbox
+2] Sent
+
+B] Back to home page
+
+
+
+> b
+
+1]  Check email
+2]  Read Files.
+3]  Exit
+
+
+
+> 2
+Files:
+
+1] Games
+2] Adrift Generator
+3] Adrift Runner
+4] LazPlns
+
+
+B] Go Back to home page.
+
+> 4
+	File: LazPlns - - - Deleted & Purged.
+	FIle Unavailable.
+
+Rats, he's deleted the file already.
+
+Files:
+
+1] Games
+2] Adrift Generator
+3] Adrift Runner
+4] LazPlns
+
+
+B] Go Back to home page.
+
+
+> b
+1]  Check email
+2]  Read Files.
+3]  Exit
+
+
+> 3
+Logged Off.
+
+
+Enter Password:
+
+So it looks like Dr. Stoyonov  is bringing the stolen plans to Switzerland.
+
+You should get back to the office and call Captain Trotter.  But first, you better clean up any sign that you've been here.  Remember, you're "The Ghost".
+
+
+Dr. Stoyonov's Office
+This appears to be Dr. Stoyonov's office.  He has several bookcases in the room as well as a nice desk with a computer on it.  He has an Aeron chair in front of the computer desk.
+
+There is a door to the north and a stairwell to the east.
+
+
+> e
+You move east.
+Upper stairwell
+The stairwell leads down to the first floor.  The office is to the west.
+
+
+> d
+You move down.
+Lower stairwell
+You are in the lower part of the stairwell that leads up to the 2nd floor.  An Ornate door is to the west. 
+
+> w
+You move west.
+Library
+The library has some bookcases in it, but there aren't very many books.  Dr. Stoyonov must have just moved in.
+
+An overstuffed chair with a side table sits in the corner.  A fireplace is built into the west wall.  To the east, where a stairwell would logically be, is an ornate carved wooden door.
+
+
+> close door
+You close ornate door.
+
+> lock door
+Not wanting anyone to know that you were in the house, you use the lock picks to lock the ornate door.  The Ghost always covers his tracks.
+
+
+> drop key
+You lift the Persian carpet and put the black key back where you found it.
+
+
+> n
+You move north.
+Kitchen
+Dr. Stoyonov's kitchen looks like a professional chef's kitchen.  All the appliances are stainless steel and the countertops are a deep green marble.  The terracotta tile floor add a southwestern flair to the room.
+
+The door to the backyard is to the north and an opening to the front room is to the south.
+  The big dog is curled up in the corner of the kitchen.  He's not growling but he's watching you carefully.
+
+> n
+Dr. Stoyonov's Backyard
+Dr. Stoyonov's back yard doesn't look any different from  your typical non-Russian-Spy's backyard.  The lawn is nicely mowed.  A large oak tree shades the backyard.  The oak tree is encircled by a metal bench and a ring of flowers is planted underneath the bench. 
+
+A wooden gate to the path is to the west. A metal gate to the driveway is to the east.  The backdoor of the house is to the south and a 2nd story window is above the door.
+
+
+> close door
+You close back door.
+
+> lock door
+Not wanting anyone to know that you were in the house, you use the lock picks to lock the door.  The Ghost always covers his tracks.
+
+
+
+
+
+> w
+You move west.
+North end of path
+The path continues around the house.  The path to the front porch is to the south. The backyard of the house is through a gate to the east.
+
+> s
+You move south.
+Path around house
+A garden path leads around the west side of the house to the back yard.  There are a few pots of flowers along the path.  You pass by a couple of windows on the side of the house
+
+> e
+You move east.
+#23 Elm Street.  Front Porch
+The front porch of this old Victorian house is painted white and has 2 wooden columns painted a pale blue.  The front door is painted pale blue to match the columns.  On either side of the door is a window.  
+
+Unlike most of the other houses on this street there are no potted plants or flowers on the porch.  There is, however, a wooden porch swing.
+
+Steps to your left lead to a path.  Steps to your right lead to the driveway.
+
+> s
+You move south.
+North side of Elm Street, Far east end
+You're at the eastern limit of town.  Beyond here the road just goes into the woods.  Another old Victorian house is to the north and that house's driveway veers off to the northeast.  
+
+
+> w
+You move west.
+North side of East Elm Street
+The north side of East Elm Street continues ease and west. A cross walk has been painted in the street to allow you to cross the street if the light is green.  The sidewalk continues east.
+  There is a street light here and it's red in your direction.  You can't cross unless the light is  green.
+
+> push button
+You push the button.  After about 30 seconds the street light turns green for north and south traffic.  You can cross the street now.
+
+
+> s
+You move south.
+East Elm Street
+You're on the south side of Elm street just east of your office.  A cross walk has been painted in the street to allow you to cross the street if the light is green.  The sidewalk continues east. 
+
+#18 Elm Street, Bobby's Burgers, is just south of you.   The light is green and you may cross the street
+
+> w
+You move west.
+Outside your office
+You're standing outside your office at #16 Elm Street.  Your office is to the south.  The street in front of your office goes east and west.  The traffic looks heavy today so you probably shouldn't cross the street here.  Also here is a mail box.
+
+> s
+You move south.
+Your Office
+The office of your "Travel Agency" is really just a front for your covert operations.  It's a simple office with a desk and chair for you and a sofa for your clients.  The wall to the west has a display with various travel flyers.  A window allows sunlight in from the south.
+
+Your office has a closet to the east.  The door to go outside is to the North.  Also here is a small card.
+
+> phone Trotter
+You dial Captain Trotter using your digitally encrypted phone.
+
+Ring
+
+Ring
+
+This is Captain Morris Trotter.  How can I help you?
+
+1]  Dr. Stoyonov has already removed the plans from his house.  He's on his way to Switzerland right now.
+
+2]  Um, I forgot what I was going to say.
+
+
+
+> 1
+He's already removed the plans from his house ?!
+
+OK, we'll get you on a plane to Switzerland A.S.A.P.
+
+I'll have someone contact you with your flight information.
+
+
+press any key to continue
+
+
+
+You've completed the first chapter of this assignment.  You've determined where the stolen plans are.  But how did "The Ghost" do?  Did you leave behind any evidence of your search of Dr. Stoyonov's house?
+
+
+You remembered to lock the back door.  Good.
+You remembered to lock the front door.  Good.
+You closed the garage door.  Good.
+You left the Ornate door locked.  Good.
+You logged off of Dr. Stoyonov's computer.  Good.
+The ladder is back in Dr. Stoyonov's garage.  Good.
+You put the black key back where you found it.  Good.
+
+You've informed Captain Trotter of Dr.Stoyonov's plan to bring the stolen plans to Zurich Switzerland.  You've completed this chapter of the adventure.  Now it's time to open the champagne and celebrate.
+
+
+But this is only the beginning.
+
+
+In chapter 2 of this series, "Spys in the Snow"  you'll travel to Zurich and continue the story.
+
+Press any key to continue
+
+
+
+
+This is my first interactive fiction game and I would like to say "Thank You" to the following Drifters who gave their advice and did basic beta testing.   I learned quite a bit from them.
+
+Lap Top Tech
+TDS
+David Whyld
+NickyDude
+KFDrift
+DuoDave
+
+
+Thanks Guys
+
+
+You scored 67 out of the maximum 102!
+That is 65% of the game!
+You finished 35 points short.
+
+[Press any key to end]

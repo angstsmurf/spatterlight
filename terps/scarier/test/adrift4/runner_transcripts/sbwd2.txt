@@ -1,0 +1,158 @@
+
+> se
+You move southeast.
+Town Square
+You are standing in the middle of the Town Square of the Island of Driftwood. There are several buildings surrounding the square on almost every side; the lone exception is the path following the stream to the northwest. There is a signpost here with arrows pointing in many different directions. The center of the square is filled with one of the most ornate fountains you have ever laid your eyes on. 
+
+The sound of water gurgling fills the air, but you can make out an odd sound, like soft music, coming from the north, and waves gently breaking to the southeast. An odd smell is wafting in from the northeast.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> take coins
+You reach down in to the near freezing water and quickly snatch a handful of cold slippery coins from the fountain's bottom.
+
+> n
+You move north.
+Blue Wave Casino
+At one point in its history, this must have been a most glamorous establishment, hosting the finest the gambling business afforded; now it its little more than a vacant second-rate night club. The once exciting craps tables now sit worn and faded. Rows and rows of slot machines stand singing their calling song in a sad attempt to attract new customers. A coating of dust silently collects on the threadbare surfaces of the Blackjack tables.
+
+To the east stands a hallway from which a strange smell emanates; to the south your ears can pick up the soft gurgle of water.
+
+> take tray
+Your taking the tray is just another step towards you winning it big!
+
+> play slots
+You pop a coin into the slot, pull the handle and...grapes, grapes, orange - You lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...lemon, lemon, bell - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...lemon, lemon, bell - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...orange, grapes, cherry - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...bell, bar, 7 - You Lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...grapes, grapes, orange - You lose.
+
+> play slots
+You pop a coin into the slot, pull the handle and...7, 7, 7, - That's it!!! You hit the JACKPOT!!!! Your winnings fall all over the floor.  
+
+> look
+Blue Wave Casino
+At one point in its history, this must have been a most glamorous establishment, hosting the finest the gambling business afforded; now it its little more than a vacant second-rate night club. The once exciting craps tables now sit worn and faded. Rows and rows of slot machines stand singing their calling song in a sad attempt to attract new customers. A coating of dust silently collects on the threadbare surfaces of the Blackjack tables.
+
+To the east stands a hallway from which a strange smell emanates; to the south your ears can pick up the soft gurgle of water.  
+
+> collect my winnings
+You scoop up your winnings off of the floor and put them into your coin tray for future needs. You can never have enough money.  
+
+> s
+You move south.
+Town Square
+You are standing in the middle of the Town Square of the Island of Driftwood. There are several buildings surrounding the square on almost every side; the lone exception is the path following the stream to the northwest. There is a signpost here with arrows pointing in many different directions. The center of the square is filled with one of the most ornate fountains you have ever laid your eyes on. 
+
+The sound of water gurgling fills the air, but you can make out an odd sound, like soft music, coming from the north, and waves gently breaking to the southeast. An odd smell is wafting in from the northeast.
+
+> w
+You move west.
+The 5 and Dime Shop
+You enter the 5 and dime shop and find it to be much like the rest of this town, emptied of anything with value. Your eyes scan across the room only to find a worn cash register and a rather dilapidated looking broom. The shelves seem to be barren save for a small amount of dust. 
+
+There is a slight breeze blowing in from the east carrying the sound of gurgling water.
+
+
+> examine shelves
+Your search reveals that the shelves were not as empty as the appeared to be. You have found a small raft and a fishing net of some kind (if you nose is smelling correctly).
+
+> take raft
+You pull the raft from it's perch, surprised by how light it is.
+
+> e
+You head out the door, pausing long enough to  drop a few coins in the cash register for your "purchases."  
+Town Square
+You are standing in the middle of the Town Square of the Island of Driftwood. There are several buildings surrounding the square on almost every side; the lone exception is the path following the stream to the northwest. There is a signpost here with arrows pointing in many different directions. The center of the square is filled with one of the most ornate fountains you have ever laid your eyes on. 
+
+The sound of water gurgling fills the air, but you can make out an odd sound, like soft music, coming from the north, and waves gently breaking to the southeast. An odd smell is wafting in from the northeast.
+
+> se
+You move southeast.
+The Greenwood Docks
+You are standing on a rock shingle facing out over a vast expanse of open ocean. You can catch the scent of fish mingled with a hint of salt as you stare out over wave after wave of water rolling its way to the rocky ledge at your feet. Straining your SpaceVision to its limits, you can make out the hazy forms of other islands dotting the horizon far, far out to sea. Not knowing how your SpaceFlight Powers would effect the atmosphere around you on this alien world, you don't dare to fly to them ~ your only hope is to find some sort of floatation device to get from island to island…
+
+You can here the song of water gurgling along a streambed to the northwest.
+
+> unfold raft
+You flip the raft over and, with a mighty tug; you pull the tab causing the raft to slip open for use. You carefully slip it into the water where it bobs on the oceans surface obediently awaiting your commands.
+
+> enter raft
+Not wanting to take an unnecessary salty swim, you carefully slip down into the boat barely fitting into the tight seat.   
+In The Raft
+You are in the raft - this will be the only sorce of travel between about 4 different islands during the rest of the game.
+
+All you need to do is enter your coordinates, and the raft will do the rest.
+
+> turn dial to A1
+You flip the dial to A1, and the raft begins to sail slowly away from the Docks. As you move out of the no wake zone, the raft picks up speed rapidly zooming across the oceans surface towards a small island to the north.
+
+
+
+
+Thus ends the first chapter of the Second Adventure...more chapters will follow soon!
+
+STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY AND WONDER DOG!
+
+
+
+
+[Press any key to end]

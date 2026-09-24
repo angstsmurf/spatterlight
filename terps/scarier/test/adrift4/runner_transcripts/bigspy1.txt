@@ -1,0 +1,61 @@
+
+> s
+You move south.
+A mall
+It is full of smaller shops. Otherwise not much to see.  Also here is an ATM.
+
+> put card in atm
+You put a credit card in ATM and fetch some money. ATM eats your card (you are happy this is a text game -an animation showing a slit in ATM turning into a mouth would be awkward).
+
+> e
+You move east.
+A liqueur store
+There are many shelves. Try not to stare too much.  Also here is a bottle of wine.
+
+> buy wine
+"Here is your wine. Have a good day."
+
+> w
+You move west.
+A mall
+It is full of smaller shops. Otherwise not much to see.  Also here is an ATM.
+
+> n
+You move north.
+Near the mansion
+The ominous mansion rises above you. It is situated in desolate place ... just a length of a short walk from the mall.  Also here is a door.  Guard is here.
+
+> give wine to guard
+You try to tell her that she is fine lady and want to share wine with her. Somehow she reads into this action that you respect her and brought her non strong alcohol because you don't want her to get drunk. She agrees to meet you in a diner in the mall and leaves.
+
+> s
+You move south.
+A mall
+It is full of smaller shops. Otherwise not much to see.  Also here is an ATM.
+
+> w
+You move west.
+A sewing department
+Because a traditional upbringing you are not very knowledgeable about sewing equipment.  You think you recognize a pair of scissors.
+
+> get scissors
+You take the scissors.
+
+> cut clothes
+You cut a device for unlocking electronic locks out from your clothes.
+
+> e
+You move east.
+A mall
+It is full of smaller shops. Otherwise not much to see.  Also here is an ATM.
+
+> n
+You move north.
+Near the mansion
+The ominous mansion rises above you. It is situated in desolate place ... just a length of a short walk from the mall.  Also here is a door.
+
+> open locks with device
+You open electronic locks with a gadget. Knowing taht the gadget did most of the job somehow creates empty feeling inside you. Now you realize how James Bond must have felt when Q-branch got better and better with gadgets. The door opens.
+Now you are inside the mansion. Kindly run the second chapter. (Do you have any idea what a pain in an arse playtesting a game in longer chunks would have been for me?)
+
+[Press any key to end]

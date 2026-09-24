@@ -1,0 +1,113 @@
+Loading game...
+
+Ye Intro for Yon Astounding Castle! of Some Sort
+
+Prepareth yeself, adventurer,
+forsooth!
+
+Ye hath enter'd...
+
+YON
+ASTOUNDING
+CASTLE!
+OF SOME SORT
+
+-----   -----   -----
+Hear ye!  Hear ye!
+'Twas writ using ye olde ADRIFT 4,
+for which all rights of copy & such
+ doth hereforeto belongeth to
+Campbell Wild, for ye years
+ ranging from 1998 until their expiry
+or whatever.
+
+'Twas writ by olde scribbling scribe,
+Tiberius Thingamus,
+as a well-bedraggled tome
+ of ye fantasy gamestoryness or as
+ some gamestory-type thing.
+
+Yon Intro Version
+released upon ye
+Fourth of May in ye
+Ninth Year of ye
+Second Millenium
+Anno Domini.
+-----   -----   -----
+
+[presseth of yon enter key to continue]
+
+Outside Yon Castle
+Ye standeth outside yon castle, which is surrounded by yon moat.  Yon
+drawbridge in ye east is up, preventing ye entry into yon castle.  Nearby
+there groweth yon nut tree.
+
+To learn how to playeth yon game, typeth "tutorial" and press enter.  Do not
+typeth of ye "help", for yon message knoweth not what it talketh about.
+
+Always presseth ye enter key after ye typeth ye commands.
+
+> climb tree
+
+In Ye Nut Tree
+Ye standeth within yon nut tree and clingeth to't quite precariously.  Yon
+nuts decorate ye nut tree nutfully.  Ye noticeth yon long branch of ye nut
+tree extendeth o'er ye castle wall to ye east.
+
+> east
+Ye moves east.
+
+Atop Ye Castle Wall
+Ye standeth atop ye castle wall, o'erlooking yon castle courtyard to ye east.
+ Yon towers loom north and south, and yon long branch of ye nut tree
+extendeth from ye west.  A jolly breeze bloweth ye hair about (or tickleth ye
+scalp if ye be bald).  Yon drawbridge operating contraption sticketh out from
+between a pair of yon crenellations.
+
+> open contraption
+Ye openeth yon drawbridge operating contraption.
+
+Ye heareth yon loud, creaking kaboom as ye drawbridge falleth open suddenly.
+
+> west
+Ye moves west.
+
+In Ye Nut Tree
+Ye standeth within yon nut tree and clingeth to't quite precariously.  Yon
+nuts decorate ye nut tree nutfully.  Ye noticeth yon long branch of ye nut
+tree extendeth o'er ye castle wall to ye east.
+
+> down
+Ye moves down.
+
+Outside Yon Castle
+Ye standeth outside yon castle, which is surrounded by yon moat.  Yon
+drawbridge in ye east is down, allowing ye entry into yon castle.  Nearby
+there groweth yon nut tree.
+
+> east
+Congratulations on yon stunning reaching ye end of yon intro.
+
+[presseth almost any key to continue]
+
+Well, that's it!
+
+But hath ye performed all ye can?
+
+Hath ye...
+
+... read ye Book of Wisdom at all locations?
+... shaken ye nut tree?
+... jumped in ye moat?
+... typed "win" whilst holding no treasure?
+... fed ye weird squirrel?
+... typed "win" whilst holding 1 treasure?
+... tried saying bad words?
+... met ye SPITEFUL CLUNGE?
+... met ye CLUNGE twice?
+... thrice?
+... tried to melt anything?
+
+If so, HUZZAH!  Ye hath truly won ye intro.
+
+[Press any key to end]

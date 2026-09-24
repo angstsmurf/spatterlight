@@ -1,0 +1,49 @@
+n
+0987654321
+attack monster
+eat plant
+n
+n
+farewell
+take sword
+w
+w
+jump
+n
+n
+e
+e
+attack monster
+eat plant
+take stone
+w
+w
+n
+n
+push rock
+n
+w
+n
+push button
+d
+d
+d
+out
+u
+u
+goodbye
+n
+n
+attack mutant
+take potion
+drink potion
+n
+n
+n
+farewell
+take slayer
+take stone
+drink potion
+n
+no
+attack malcor

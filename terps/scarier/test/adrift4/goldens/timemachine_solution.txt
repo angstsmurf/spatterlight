@@ -1,0 +1,29 @@
+Petter
+male
+get glass
+n
+put glass in hole
+get torch
+light torch
+n
+n
+look in mousehole
+put sandwich in mousehole
+n
+unlock door with key
+open door
+n
+go down chute
+s
+enter 9217
+n
+e
+n
+press button
+n
+n
+type 3491 on keypad
+unlock door
+open door
+n
+enter 65197

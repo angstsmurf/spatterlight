@@ -5,7 +5,7 @@
 # binary over the solution script and strict-diffs the transcript against a
 # committed golden.  A golden MATCH is the pass; an optional per-row win marker
 # guards against a silently-desynced walkthrough being blessed as "passing"
-# (see TODO_plover_walkthroughs.md Â§6/Â§7 -- Key & Compass scripts desync on the
+# (see TODO_plover_walkthroughs.md §6/§7 -- Key & Compass scripts desync on the
 # games' interactive "(Press a key)" pauses).  [TODO_plover_walkthroughs.md was
 # pruned 2026-07-14 once every item closed; citations to it here and in the
 # *_walkthrough.md files resolve via git history:
@@ -64,7 +64,7 @@ FILTER="${1:-}"
 # Seeded with the two 4th-1-Hour-Comp games already carried here, plus the
 # ready-to-add native-ADRIFT Plover games (they SKIP until their .taf is
 # dropped into a games dir and a *_solution.txt is derived -- see
-# TODO_plover_walkthroughs.md Â§1/Â§6).  Add a row per game as you derive it.
+# TODO_plover_walkthroughs.md §1/§6).  Add a row per game as you derive it.
 #
 # (A function-wrapped heredoc, NOT MAP=$(cat <<EOF): macOS /bin/bash 3.2
 # mis-parses heredocs inside $() when the content's quote count is odd --
@@ -2794,7 +2794,7 @@ mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKE
 #     from where the bearded man sat -- the stairs are in a different room, "En
 #     bas des escaliers", reached by stepping north into the corridor and back
 #     south.  The coffee machine is then usable from the hall itself.
-#   * `insÃ©rer la bague mÃ©tallique dans l'armoire Ã©lectrique` needs the word
+#   * `insérer la bague métallique dans l'armoire électrique` needs the word
 #     `plate`: hammering the ring renames the object.
 #   * `ouvrir la porte avec le badge` -> `utiliser le badge`, twice.  The game
 #     defines an input synonym `ouvrir` -> `open` (SCR_TRACE_FLAGS=512 shows the
@@ -3828,7 +3828,7 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # (`Adven_1_greatc.rtf` turn 41).  `steal picasso` runs the task in both.
 # Measured 2026-09-04 in run380 (`Adven_1_greatf.rtf`, 121 commands up to
 # `break into car`): 121/121 echoed, ZERO engine differences (turns 5/102/109
-# differ only by the transcript's mojibake of `Â£`).  The tail from turn 121 on
+# differ only by the transcript's mojibake of `£`).  The tail from turn 121 on
 # is the car chase, whose four events (police arrival 1..6, small road 1..15,
 # police 3 / police 4 1..5) all roll RANDOM lengths: two earlier full replays
 # (`greatc` survived and won 1240, `greate` died in the chase, which restarts
@@ -6504,7 +6504,7 @@ foresthouse2_solution.txt|TheForestHouse_2.taf|You scored 13 out of the maximum 
 # room description lists the ice chunk but does not mark it seen, so
 # `take ice` as the literal first command fails until an explicit `look`
 # re-prints the same text and seeds it. 66 commands, no env.
-shetland_solution.txt|The_Shetland_Enigma.taf|You scored 210 out of the maximum 100!
+shetland_solution.txt|The_Shetland_Enigma.taf|distress broadcaster|SCR_SKIP_WAITKEY=1
 # Take One (Robert Street/"Rafgon", finish-the-game-comp-2005, 9547 bytes,
 # 4.00): WON, no score system at all (zero ACT type=4) -- the game's one
 # and only ending (one ACT type=6 in the whole file). A demon-arrival timer
@@ -7961,12 +7961,12 @@ barneysproblem_solution.txt|BarneysProblem.taf|BABYLON|SCR_SKIP_WAITKEY=1
 # lot. Well done indeed!"
 deadreckoning_solution.txt|DeadReckoning.taf|this is the best of the lot. Well done indeed!|SCR_SKIP_WAITKEY=1
 # cldone.taf (AIF, adult content -- see /goldens/.gitignore): a fake-psychic
-# scam gets exposed mid-sÃ©ance and detours into an explicit one-on-one scene.
+# scam gets exposed mid-séance and detours into an explicit one-on-one scene.
 # Three rooms (Parlour, Back Room, Miranda's Loft); the only two named
 # variables are `choice` (the confession-branch pick) and `mir` (a private
 # scoring/gate counter, examinable via the game's own debug task `x mir`).
 # Structure, derived via SCR_DUMP_TASKS plus interactive replay:
-#   - The sÃ©ance needs `sit`/`join hands`/`concentrate`/`ask miranda about
+#   - The séance needs `sit`/`join hands`/`concentrate`/`ask miranda about
 #     tattoo` (each srd, +2 apiece) before Miranda leaves to smoke, which is
 #     the only window `push crystal ball` (+2) and `look under table` (+2,
 #     reveals the "contraption" -- ADRIFT's seen-object model: it isn't
@@ -9303,9 +9303,14 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 # SERE - Survive, Evade, Resist, Escape (ADRIFT 4).  Solution: the author's
 # walkthrough bundled in S.E.R.E.xmusic.zip (downloaded/SERE_walkthrough.txt),
-# "the minimum tasks required to complete the game", so the win scores
-# 130 of 260: the hiding places, the barn documents and maps, the boat
-# under the bushes and the sniper duel are all optional points.
+# "the minimum tasks required to complete the game"; the win scores 140 of
+# 260 (the hiding places, the barn documents and maps, the boat under the
+# bushes and the sniper duel are all optional points).  The 10 the author's
+# 130 leaves out is `take sniper rifle` in the barn, task 40: its command
+# "take *  sniper * rifle" has two spaces and misses the typed line, but
+# the take piece pre-matches its "get * rifle" on "get the sniper rifle",
+# unfiltered by the game's get -> take synonym (runner_transcripts/sere.txt
+# T22, 140 at the end).
 # Departures from the walkthrough:
 #   - a leading "1" answers the title menu (SCR_SKIP_WAITKEY=1 so the
 #     menu's <waitkey> does not eat it);
@@ -9313,7 +9318,7 @@ ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmeri
 #     spaced two-word direction (Proc_19_29_475638, run400.bas ~63400), so
 #     "south east" falls to the anywhere-task `* east *` (task 31, "open
 #     water") in the river rooms instead of taking the exit.
-sere_solution.txt|S.E.R.E.taf|You scored 130 out of the maximum 260!|SCR_SKIP_WAITKEY=1
+sere_solution.txt|S.E.R.E.taf|You scored 140 out of the maximum 260!|SCR_SKIP_WAITKEY=1
 # Escape to Freedom (Richard Otter's 2005 port of Mario Moeller's 1989 game).
 # Solution: the walkthrough bundled in freedom.zip
 # (downloaded/EscapeToFreedom_walkthrough.txt).  Departures:
@@ -9430,7 +9435,428 @@ crossworlds2_solution.txt|Crossworlds Part 2.taf|You scored 75 out of the maximu
 # a name).  With that flag, the literal walkthrough plays clean start to
 # finish: 100/100, 100%.
 crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
+# British Fox and the Celebrity Abductions (Sirene).  Solution: hand-derived
+# (no author walkthrough survives online) by live static+dynamic analysis of
+# the .taf under SCR_RNG=xoshiro, following the game's own StartupText hint
+# that max score needs the scripted capture-and-escape route, not the
+# alternate "subdue Grace" branch (mutually exclusive, lower-scoring).
+# Chain: Welsh Fox intro -> Grace's-office seduction/capture -> dungeon
+# jailors scene, concealing a key (`put * key in ass`) past the post-scene
+# search -> collar removal alone in the cell -> jailbreak (`open door`
+# triggers the alarm) -> full dungeon loot run -> a costume/item-retrieval
+# side-trip back to Grace's Office via the rear Computer-Room route, killing
+# both the balcony guard and the upstairs guard on the way in (his spawn is a
+# fixed tick 4 turns after entering the office, so `wait` is timed to land
+# on it) to avoid a second, unscripted damage-cap knockout -- the balcony
+# guard is patrolled on both routes to/from the office and must be put down
+# before any return crossing; 15 reps of the arousal-raise action is the
+# exact count that triggers the lust-overwhelm escape without spending extra
+# turns (and therefore extra RNG draws) that shift the later outdoor-patrol
+# gauntlet's damage rolls into a KO -- fewer reps never escapes, more just
+# wastes turns. Then per-captive bespoke triggers (oral for Ulgham, "tell
+# her it was sabrina" for Jones, a sex toy for Omega-Bones, the dungeon
+# catsuit for Sinclair) and a `call <name>`-every-room escort out the back
+# door/gate route (the front-hallway route has an unresolved balcony-gunman
+# hazard, avoided) to the Abandoned Farmhouse, where all four rescues fire.
+# Finally `in`/`close britmobile door`/`start engine`/`return to
+# headquarters` drives home, and the corridor walk north into the
+# Controller's Office ends the game. Scores 21/50 -- the remaining points are
+# behind an unexplored Eugene/computer-terminal evidence puzzle (password
+# "butterscotch", per static analysis, never live-tested); Grace herself
+# necessarily evades capture since arresting her is the OTHER, mutually
+# exclusive branch. Needs SCR_SKIP_WAITKEY=1 for the same family of
+# unattended-prompt reasons as CW2/CW4 above.
+britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 43 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+# Dead or Alive Xtreme Beach Sex (captain_cranky_pants2000, 4.00).  AIF,
+# solution/golden gitignored.  Solution: the author's command list
+# (downloaded/DOAXBS_solution.txt) after a "Player" name at the intro
+# prompt.  Eight girls plus the shower-cubicle and telescope extras are
+# 10/10; `go home` in the lobby is the EndGame.  No waitkeys on the intro.
+doa_xbs_solution.txt|DOA_X_B_S.taf|You scored 10 out of the maximum 10!|
+# The Silver Maiden (4.00).  AIF, solution/golden gitignored.  Solution:
+# the west (Prima) path from the readme walkthrough
+# (downloaded/SilverMaiden_readme_walkthrough.txt), then the Velle riddle
+# sequence and `cast disintegrate on velle`.  Katherine is described as
+# early twenties; the file's own warning is 18+.  Completing Prima's scene
+# teleports to Velle, so the east path is a mutually exclusive alternate
+# medallion, not a second room on the same run.  One medallion is enough
+# to increment VAR d and fire the EndGame.
+silvermaiden_solution.txt|The Silver Maiden.taf|You cast your ultimate spell at Velle.|
+# Inside Job (3.90).  Solution: the author's 14 hinted tasks, taking the
+# media-player shortcut (`play nplh`) that fires the type=6 EndGame.  The
+# scream-awake ending is intentional; scoring is not the point (590 of
+# 14198).  No waitkeys on the intro.
+insidejob_solution.txt|insidejob.taf|You scored 590 out of the maximum 14198!|
+# The Doomed World of Aquarius, Part 1 (3.90).  Solution: the in-game
+# politeness hints (`goodbye` / `farewell`) to clear Malcor and Fenrik, the
+# castle-back-ladder route, then `secretweapon97531` (author cheat, raises
+# weapon stats) and one `attack executioner` so task 7 opens the mirror
+# room.  `break mirror` / `east` is the EndGame into Part 2.  No combat
+# assist: the cheat weapon hits on the first swing under xoshiro.
+aquarius1_solution.txt|AquariusPart1Ver1.taf|......To Be Continued........|
+# Trapped With A Girl (3.90, One Room Comp).  AIF, solution/golden
+# gitignored.  Jasmine is an adult (single saleswoman; the TAF never ages
+# her).  Solution: examine the mower so the gas exists, suck then blow the
+# vacuum to dump it on the floor, vending code 723 for the match, light it
+# onto the gas.  Name prompt is the first solution line.  The bundled
+# "Office Walkthru.txt" is for the other One Room Comp entry, not this game.
+trappedwithagirl_solution.txt|trappedwithagirl.taf|There is a huge explosion.|
+# Practice Policy (3.90).  AIF, solution/golden gitignored.  Emma and Claire
+# are the clinic's employed nurses (jobs, gym, references); the TAF never
+# ages them.  Solution follows the 50 hinted tasks: greet, watch Emma
+# through the reception window, send her to change, blackmail Claire with
+# the cheques from her locker, the prep/OR sequence, peep the shower via
+# six `look at girls`, drug and cage Brutus, confront Emma (`tell emma
+# about shower` -- the hinted "her and claire" line is eaten by the
+# parser), then the OR scene ending in `fuck Emma`.  After the first
+# spanking, `claire lie on table` gates off the earlier repeatable lick
+# so the later `claire lick emma's pussy` / `emma punish claire` pair can
+# fire (the missing 10).  `fuck claire's ass` twice is a lose.  330/330.
+# Intro waitkeys need SCR_SKIP_WAITKEY=1.
+practicepolicy_solution.txt|practice policy.taf|You scored 330 out of the maximum 330!|SCR_SKIP_WAITKEY=1
+# The Makeshift Magician (3.90, One Room Comp).  Kids' birthday party; not
+# AIF.  Solution: the six party tricks the cheat list names (hat, candies,
+# balloon-dog, needle-through-balloon, wand button, spoon), never typing
+# hint/cheat.  After all six, the sneeze episode runs; take handkerchief is
+# the EndGame.  The sneeze text has a waitkey.
+makeshift_solution.txt|makeshift-magician.taf|your magic career is probably over. Well, it's probably a good thing...|SCR_SKIP_WAITKEY=1
+# The Doomed World of Aquarius, Part 2 (3.90).  Solution: politeness
+# (farewell/goodbye), jump, push rock, push button, then cheat code
+# 0987654321 for the secret weapon and attack through the void fights.
+# `no` then `attack malcor` is the type=6 win (195/200; the missing 5 is
+# an unused plant/potion bonus).  No waitkeys on the intro.
+aquarius2_solution.txt|AquariusPart2Ver1.taf|You scored 195 out of the maximum 200!|
+# The Adventures of Space Boy! Volume II (4.00).  Chapter-end win: fountain
+# coins, casino tray, fourteen `play slots` under the harness xoshiro seed
+# until the jackpot ALR, wait one turn so event #move winnings fires, collect
+# into the tray, examine 5-and-dime shelves, buy raft, unfold/enter, turn
+# dial to A1.
+sbwd2_solution.txt|sbwdII.taf|follow soon!|
+# Chasing the Russian (3.90).  Solution follows the 19 hinted tasks: answering
+# machine, card under the drawer, closet picks, safe 4789, shred the orders,
+# Mrs Beazley, walk-button, backyard pick, cookie for the dog, type anna /
+# laser plans, tidy Ghost traces, phone Trotter.  Chapter EndGame at 77/102.
+# Intro waitkeys need SCR_SKIP_WAITKEY=1.
+chasingrussian_solution.txt|ChasingTheRussian_noSound.taf|You've completed this chapter of the adventure.|SCR_SKIP_WAITKEY=1
+# The Nem Rehsif (4.00).  Pioneer mission only (170/680).  Shoes start worn
+# with Parent -1; scgamest.cpp treats that as the player so `remove shoes`
+# can open the sanctuary.  After `show map` wait three looks on the beach
+# for the eagle to drop the compass, then Relles / speaking rod / garland.
+# Do not give the key to Legna (lose).  No intro waitkeys.
+nem_solution.txt|nem.taf|Congratulations! Well done good and faithful servant!|
+# To Be King v1.8 (AIF).  Adult court intrigue; TAF never ages the Queen or
+# the princes as under-21.  Solution/golden gitignored.  Richard path:
+# dagger, Thomas/Sarah, king, levers, betray Richard, church pistol, Nhixx
+# kills Alexander, Paladin, `sit throne`.  TASK 8 EndGame COMPLETE is
+# YOU WIN!  Declared max 95 is exceedable (120/95).  The armed east exit
+# is the death joke.  No waitkeys.
+tobeking_solution.txt|To Be King v1.8.taf|YOU WIN!|
+# The Tale of the Unlikely Harem Girl, Prologue (AIF).  Adult; TAF never
+# ages Nila.  Solution/golden gitignored.  Grapes/Nila, then the harem-girl
+# disguise, ring/oil sequence, dress, table search, return to Nila, open
+# the front door.  45/18 (author max short).  No waitkeys.
+haremprologue_solution.txt|harem prologue.taf|Congratulations! You have completed the Prologue to the Tale of the Unlikely|
+# Duchess of Desire (AIF).  Adult college/dorm; TAF never ages Luni or Skye.
+# Solution/golden gitignored.  Author's 23 hints: grammar book, follow Luni,
+# dorm, library books, Scamp, shovel, application/Mary, dig, take artifact,
+# castle bedroom with artifact held (empty-handed is the lose), dungeon,
+# give artifact to Luni, up.  197/210.  No waitkeys.
+duchess_solution.txt|Duchess of Desire.taf|Suddenly the Duchess appears.|
+# Fair Scare Nightmare.  Doll/fire then 911, shovel, dig, house.  Candle in
+# the severed head so the Unliving Room wind cannot blow it out; burn the
+# rope, sword, bacon/owl, toy clock, then doll clock.  18/20.  Avoid skip
+# the start / big skip / the horn.  End waitkey.
+fairscare_solution.txt|fairscarenightmare.taf|Now you can live in relaxation.|SCR_SKIP_WAITKEY=1
+# Scene of the Crime (David Whyld).  Gas the goons on the first beach
+# visit, confession off O'Hagen, arrest Shady, east into Slorb's office.
+# 214/240.  Intro waitkeys.
+sceneofthecrime_solution.txt|Scene of the Crime.taf|McClane got you fair and square.|SCR_SKIP_WAITKEY=1
+# Scene of the Crime 2: City In Fear.  Sit in Slorb's office after the Alice
+# showdown (give bun, shoot alice x4).  Cartoon combat with a nine-year-old
+# gangster, not sexual.  No i cheat.  280/550.  Waitkeys.
+cityinfear_solution.txt|CityInFear.taf|Put it there... Captain|SCR_SKIP_WAITKEY=1
+# Labyrinth.  xoshiro layout: snare in One Big Empty (disarm with knife),
+# pit in Low Cave (amber stone), arrow in the vault (toolkit), singing
+# sword in the Narrow Passage, then pedestal.  Magic trap is the bog (skip).
+labyrinth_solution.txt|labyrinth.taf|The ceiling above bursts into light|SCR_SKIP_WAITKEY=1
+# Brain Dead Weekend.  HHGG gag: fish/chef, tank/clerk, fried fish/captain,
+# give the four mix items, drink the blaster.  Marker is the gulp shout.
+bdw_solution.txt|BDW.taf|WHOO!  WHOO!  WHEE!  WHAA!|
+# Colossal Cave (Crowther/Woods 350, ADRIFT 4 port advent350b.taf).
+# Win is EndGame dead_type=3: drop the rusty-marked dynamite rod in the
+# SW repository (room 125) and blast after the cave closes.  Route is a
+# Wheeler-style 350-point list adapted for xoshiro dwarves (`throw axe`
+# loops) and this port's verbs (`water plant`, `free bird`).  307/350.
+advent350b_solution.txt|advent350b.taf|*** You have won! ***|SCR_SKIP_WAITKEY=1
+# Adventure Strikes When You Least Expect It (tiny 4.00 puzzle).  Harden
+# cheese with varnish, hook the crowbar through the bathroom window, saw
+# the front door, set off the hallway fire alarm.  One-room-comp scale.
+adventstrikes_solution.txt|AdventStrikes.taf|found your way out.|SCR_SKIP_WAITKEY=1
+# Jason Evans 1 (horror, not AIF).  Milk/statue, Elm-Street candles, toaster
+# fire into the hunters cabin (author stub `rtufghsdfvg` starts the blaze),
+# castle box/hanged man, rocks at passing cars.  Waitkeys throughout.
+jasonevans_solution.txt|jasonevans.taf|The town that is gone forever.|SCR_SKIP_WAITKEY=1
+# Jason Evans 2: Misunderstood.  Author hints: pipe, hammer/door, clock axe,
+# diner phone, knock, wait for the police walk, parking-lot note, hotel
+# grandmother rope, then the rope on Jason in the church.  Waitkeys.
+jason2_solution.txt|jason2.taf|Your fright factor is|SCR_SKIP_WAITKEY=1
+# Jason Evans 3: Return.  Take the body, keys from the car floor, wrench in
+# the woods trunk, wrench-fight, dark-room search, gun from the cabinet,
+# shoot Jason, east.  125/125.  Waitkeys.
+jason3_solution.txt|jason3.taf|You scored 125 out of the maximum 125!|SCR_SKIP_WAITKEY=1
+# Jason Evans 4 (horror, not AIF).  Nightmare hotel, aunt's house, mansion
+# key/vase, hammer/wall, crowbar under the secret-bedroom sheets, attic
+# chest twice, lure Eli to the guillotine, then out.  Intro waitkeys.
+jason4_solution.txt|Jason_4.taf|Like the prophet Eli did.....|SCR_SKIP_WAITKEY=1
+# Dead Race (IntroComp 2009 demo).  Bedroom window is the whole game.
+deadrace_solution.txt|deadRace.taf|this is just a demo|SCR_SKIP_WAITKEY=1
+# Sigmund Praxis, Guerrilla Therapist (IntroComp 2002).  Wait for the
+# Countess; any later command EndGames the teaser.
+praxis_solution.txt|praxis.taf|only one of them can be the victor|SCR_SKIP_WAITKEY=1
+# Crashland (Twin Comp 1st).  Sell the recycling plans, pay Maita to
+# haul/fix the Obispo, buy grain deeds, board.  Dino/dust events are
+# scenery.  Waitkeys.
+crashland_solution.txt|crashlite.taf|Not a bad ending, after all|SCR_SKIP_WAITKEY=1
+# Jack of Shadows / Shadowjack (Finish The Game Comp).  Smash the
+# gallery crystal, grip Morganna's hand so the statue-shadows hide a
+# rod, rope in the passage, hammer in the rubble, pry the Star, hide it
+# in the cloak, ride shadow to the ramparts, reach up.
+shadowjack_solution.txt|shadowjack.taf|** You have won the game! **|SCR_SKIP_WAITKEY=1
+# Yon Castle intro.  Climb the nut tree, open the wall contraption so
+# the drawbridge falls, climb down, east.
+yoncastle_solution.txt|yoncastle_intro.taf|Congratulations on yon stunning reaching ye end|SCR_SKIP_WAITKEY=1
+# The Magician's Niece (IntroComp 2009).  Teen mage, non-sexual.  PDA
+# and magic bag, wait for Uncle's palantiri summons, west then goto the
+# hall.  No EndGame; marker is the briefing close.
+magiciansniece_solution.txt|The Magician's Niece.taf|Godspeed, Ariana|SCR_SKIP_WAITKEY=1
+# Mystery Manor (IF Comp 2001).  Full 200/200: phone, flashlight, vase,
+# bath towel/painting, garage breaker, porcelain doll, furnace bracelet,
+# pick the basement wall, Lauri's key, journal, then talk to Evan.
+# Inventory is tight -- drop spent tools before the mausoleum.  Do not
+# climb the gate or the pine.
+mysterymanor_solution.txt|mysterymanor.taf|You scored 200 out of the maximum 200!|SCR_SKIP_WAITKEY=1
+# Monster in the Mirror: Selma's Will (3.90, SelmasWill.taf).  Distinct
+# from Will.taf (4.00 remake, already wired).  Paperclip in the sweater
+# before the fireplace brick; otherwise the same heirloom chain as
+# will_solution.txt.  EndGame type=6 on give will to Lewis.
+selmaswill_solution.txt|SelmasWill.taf|You did a great job!|SCR_SKIP_WAITKEY=1
+# Monster in the Mirror (Part 2).  Hammer in the hamper, book on the
+# closet shelf; break the bedroom mirror after looking.  Baby rattle in
+# the southern-desert fridge for Fang, drink the oasis (it is a
+# teleport, not a death), pull the boat plug, knock for the squirrel,
+# swing the willow, eat the mushroom, then the bedroom note.
+mm2_solution.txt|Monster in the Mirror 2.taf|I hope you enjoyed these short games|SCR_SKIP_WAITKEY=1
+# Cloak of Darkness (3.80).  Hang the cloak before the bar message.
+cloak_solution.txt|cloak.taf|*** You have won ***|SCR_SKIP_WAITKEY=1
+# Bounty Hunter.  Gun, Roddy, bottle-for-ticket, vent, Donny, Jake.
+bountyhunter_solution.txt|bountyhunter.taf|You scored 30 out of the maximum 30!|SCR_SKIP_WAITKEY=1
+# Escape from Camelot.  Dungeon tile into the hallway, then the hole
+# under the round table is the type=6 win (empty WINTEXT).
+camelot_solution.txt|Escape_from_Camelot.taf|You scored 1 out of the maximum 5!|SCR_SKIP_WAITKEY=1
+# Cumberbund (1_axia.taf). Search the three hiding places; the end-game
+# event fires once var0 hits 3. Waitkeys on the closer.
+cumberbund_solution.txt|1_axia.taf|twelve years ago and you killed her|SCR_SKIP_WAITKEY=1
+# Where Am I? / Jack.taf. Tape off the hanging panel, cover the sensor,
+# then the floor hole. Waitkeys. Named whereami so a filter cannot also
+# hit shadowjack_solution.txt (which contains the substring jack_solution).
+whereami_solution.txt|Jack.taf|You're FREE!|SCR_SKIP_WAITKEY=1
+# The Lab Experiment. Passcard and gum in the lost-and-found cabinet,
+# rock from the vault, charge the laser generators, press the booth
+# button, gum the pressure hole. Waitkeys.
+laboratory_solution.txt|laboratory.taf|Find out what happens in "Escape from the Lab".|SCR_SKIP_WAITKEY=1
+# The Big Spy Fiction ch.1. ATM cash, buy wine, send the guard to the
+# diner, cut the lock-gadget out of the clothes with mall scissors.
+bigspy1_solution.txt|bigspy1.taf|Kindly run the second chapter|SCR_SKIP_WAITKEY=1
+# Heist. Author `short` route minus checker-mix (that buy also needs
+# money==2, same as the candy, so 8/8 is mutually exclusive). Waitkeys.
+heist_solution.txt|heist.taf|You scored 7 out of the maximum 8!|SCR_SKIP_WAITKEY=1
+# Office Breakout. Coffee + holepunch through door/vent/elevator, then
+# pepsi+coffee on the lobby fire. Full 60/60. Waitkeys on the closer.
+officebreak_solution.txt|officebreak.taf|You scored 60 out of the maximum 60!|SCR_SKIP_WAITKEY=1
+# The Big Spy Fiction ch.2. Starts in the lobby; distract the henchman
+# with the sliding puzzle, open the office, crack the safe. Waitkeys.
+bigspy2_solution.txt|bigspy2.taf|It's again time to play the next chapter|SCR_SKIP_WAITKEY=1
+# Find Andy Part 1. Starts in the hotel bathroom. Flush the membership
+# card, Ray's jelly riddle for the cake, Maggy then Vicky then Marjorie.
+# Full 1000/1000. Waitkeys.
+findandy1_solution.txt|findandy1.taf|You scored 1000 out of the maximum 1000!|SCR_SKIP_WAITKEY=1
+# The Dark River. Key under the rocks, 60 m left (13.5 m/s * ~4.4 s),
+# then max power. Full 12/12. Waitkeys in the closer.
+darkriver_solution.txt|The_Dark_River_1.4.taf|You scored 12 out of the maximum 12!|SCR_SKIP_WAITKEY=1
+# Locked Out. Rock in the lawn grass, miss then hit the ladder, batteries
+# in the treehouse, crowbar behind the garage furniture. Waitkeys.
+# 90/110: library PUT consumes "put rock on lid" (+20) before the task.
+lockedout_solution.txt|lockedout.taf|You scored 90 out of the maximum 110!|SCR_SKIP_WAITKEY=1
+# The Big Spy Fiction ch.3. Ask the prisoner, bone the henchman, call the
+# lawyer, then mace and the lair's self-destruction. Waitkeys.
+bigspy3_solution.txt|bigspy3.taf|Narrator can not ask whether this is end of our hero|SCR_SKIP_WAITKEY=1
+# Goldilocks B&E. Keypad 667, spoons after porridge, fleece, tabasco on
+# the padlock and bars, rope out the bedroom. 32/35 (library GET takes
+# the fridge egg before the +2 task). Waitkeys.
+goldbe_solution.txt|Gold_B_and_E_v1.2.taf|You scored 32 out of the maximum 35!|SCR_SKIP_WAITKEY=1
+# Death House. Sit to play the organ, steel key for the attic box, rusty
+# for the cabinet; wait out the graveyard cycle; Charles then the baby
+# auto-take their gifts. Full 42/42. Waitkeys.
+deathhouse_solution.txt|deathhouse.taf|You scored 42 out of the maximum 42!|SCR_SKIP_WAITKEY=1
+# Here Today Gone to Hell. Walk to the stage and start the show. Optional
+# van scene is adult and not required. Waitkeys.
+heretoday_solution.txt|heretoday.taf|The band rips into "Tidal Wave"|SCR_SKIP_WAITKEY=1
+# Raiders. Water for strength, sapphire behind the idol, stab Valludu.
+raiders_solution.txt|raiders.taf|Hurray you have beat the evil monster valludu|SCR_SKIP_WAITKEY=1
+# Heroes. Drink the pub beer, fly the boots, warehouse alien, hayloft orb.
+heroes_solution.txt|heroes.taf|the least we could do, Rob|SCR_SKIP_WAITKEY=1
+# Postman Matt. Pen under the body, sign Bottomley's letter. Waitkeys.
+postmanmatt_solution.txt|Postman Matt.taf|Your rank is masterful|SCR_SKIP_WAITKEY=1
+# Lab Rats. Vent, unseal, slide in, reseal, pump, focus. Waitkeys.
+labrats_solution.txt|labrats.taf|This is just what we've been looking for.|SCR_SKIP_WAITKEY=1
+# Shelter. Bolt from the chest into the slab, rope over the hook, shelves.
+shelter_solution.txt|shelter.taf|falling atomic bombs|SCR_SKIP_WAITKEY=1
+# The Amazing TV Caper. Bathroom, bat, Shannon's ring, Slick, TV back.
+tvcaper_solution.txt|tvcaper.taf|Rockin' man!|SCR_SKIP_WAITKEY=1
+# Dragon Sphere. Lever into Dragonbane, cube and crystal, catch the dragon,
+# flower for the lady, pendant to the elder. 115/140. Waitkeys.
+dragonsphere_solution.txt|dragon sphere v2.0.taf|You have found the Dragon Sphere and destroyed the Evil|SCR_SKIP_WAITKEY=1
+# The Isle. Name/gender, sword for Johnnie, flowers for Sarah, gold for
+# the boat. Full 1500/1500.
+theisle_solution.txt|The_Isle.taf|You scored 1500 out of the maximum 1500!|SCR_SKIP_WAITKEY=1
+# The Mansion's Mystery intro. Street to the front door.
+tmm_solution.txt|T._M._M.taf|You won!|SCR_SKIP_WAITKEY=1
+# Shanilor demo. Key in the mirror-chest, unlock the shutter, climb down.
+shanilor_solution.txt|shanilor.taf|You have completed this demo.|SCR_SKIP_WAITKEY=1
+# Stalker. Holepunch the window, fridge, windex then screwdriver. 55/60.
+stalker_solution.txt|stalker.taf|fallen asleep watching horrors movies again|SCR_SKIP_WAITKEY=1
+# Ispace. Hammer from the living room, hit the walnut jar.
+ispace_solution.txt|Ispace.taf|worldwide craze|SCR_SKIP_WAITKEY=1
+# Sad Obsession. Mega chilli to Hell, lax coffee, holy water, pizza 9377 3591.
+obsession_solution.txt|obsession.taf|Congratulations, you fulfilled your|SCR_SKIP_WAITKEY=1
+# Ziva.taf (AIF): NCIS adult; solution/golden gitignored.
+ziva_solution.txt|Ziva.taf|You scored 240 out of the maximum 240!|SCR_SKIP_WAITKEY=1
+# Rocky Raccoon. Fish for the cat, attack Dan and Nancy, sewer escape.
+rocky_solution.txt|Rocky_Raccon_Game.taf|safely rescued your family|SCR_SKIP_WAITKEY=1
+# Smoke Demo (AIF): dress disguise into the village. Gitignored goldens.
+smokedemo_solution.txt|Smoke Demo.taf|You scored 20 out of the maximum 45!|SCR_SKIP_WAITKEY=1
+# Homeless Harry (AIF): Lysol for Willy. Gitignored goldens.
+homelessharry_solution.txt|Homeless Harry.taf|Yay, you won the game!|SCR_SKIP_WAITKEY=1
+# Gosha Adventure (AIF): aspirin, Masha, Plan for Vovan. Gitignored goldens.
+gosha_solution.txt|gosha.taf|You scored 210 out of the maximum 250!|SCR_SKIP_WAITKEY=1
+# Matt's Strange Adventure. Typed combat verbs; n into the temple; Room B east then boss.
+matt_solution.txt|matt.taf|You scored 161 out of the maximum 161!|SCR_SKIP_WAITKEY=1
+# Sentor. Lighter, statue-key, fire dragon, torch, Kali knife. 12/13.
+sentor_solution.txt|sentor.taf|You became a favourite man of KALI|SCR_SKIP_WAITKEY=1
+# Marmalade Skies. Suit, bar-vault columns, recode transmitter. 150/150.
+marmalade_solution.txt|Marmalade_Skies.taf|You have been saved.|SCR_SKIP_WAITKEY=1
+# The Crash. Bandage, ski the cliff, nails, boots off the body, patch the boat.
+thecrash_solution.txt|thecrash.taf|Your cell phone rings!|SCR_SKIP_WAITKEY=1
+# Locuras. Hierba, cama, crucigrama Freud/Bucéfalo/Calvitero, diván. 100/200.
+locuras_solution.txt|Locuras.taf|Tu ego te lo agradece.|SCR_SKIP_WAITKEY=1
+# home1-2.taf (AIF): Faith; lie on bed then sleep. Gitignored goldens.
+home12_solution.txt|home1-2.taf|You scored 152 out of the maximum 163!|SCR_SKIP_WAITKEY=1
+# Star Trek Chain Reaction ep1. Communicator, Energize, elevator Engineering.
+startrek1_solution.txt|thestartrekchainreactionepisode1thehornetsnest.taf|Elevator malfunction.|SCR_SKIP_WAITKEY=1
+# Vengance (AIF). Gitignored goldens.
+vengance_solution.txt|Vengance.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# Alex / Heather lab. Kiss, straps, mix green antidote. Gitignored goldens.
+alex_solution.txt|alex.taf|You did it! You're safe now!|SCR_SKIP_WAITKEY=1
+# Notice Me (AIF). Rose, eavesdrop, Tanith package, pet, kiss Lethe. Gitignored.
+noticeme_solution.txt|Notice Me.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+# Urban Dragon. Crowbar, cold beer for Gus, warrant, houseboat ice, shoot Baxter.
+urbandragon_solution.txt|urbandragon.taf|afford your own houseboat|SCR_SKIP_WAITKEY=1
+# Stainless Steel Rat (rat.taf). Cop/button, board, ticket punch, armored car, Inskipp.
+rat_solution.txt|rat.taf|Congratulation! You have successfully completed the first part|SCR_SKIP_WAITKEY=1
+# ghost.taf (AIF). Yellow basil, Hamlet, evidence, Sarah. Gitignored goldens.
+ghost_solution.txt|ghost.taf|As if you could ever forget.|SCR_SKIP_WAITKEY=1
+# Wasteland bunker teaser. Keys, start the truck, winch the blast doors, west.
+wasteland_solution.txt|wasteland.taf|shadow of tall mountains|SCR_SKIP_WAITKEY=1
+# Ginger (AIF). EVENT after `fuck tits`. Gitignored goldens.
+ginger_solution.txt|Ginger.taf|Yep, when it rains it pours.|SCR_SKIP_WAITKEY=1
+# Spooked 2. Rope-rock, 212188 trunk, hook+dresser, ask then get head.
+spooked2_solution.txt|Spooked2.taf|Congratulations you won with a score of 23 out of 23!|SCR_SKIP_WAITKEY=1
+# Time Adventure. Crackers+engine, salted gang, armor, sword, wired battery.
+timeadventure_solution.txt|timeadventure.taf|It must have all been a nightmare|SCR_SKIP_WAITKEY=1
+# The Cell. Rug-key, paperclip, follow Eagle, pipe, red teleporter, chip in jacket.
+cell_solution.txt|cell.taf|Congratulations, you won!|SCR_SKIP_WAITKEY=1
+# Breakout (AIF). Oil+closet strips, bucket torch, alarm, Klygana, chair.
+breakout_solution.txt|breakout.taf|Congratulations - you've won the game!|SCR_SKIP_WAITKEY=1
+# Merlin Bird of Prey IntroComp teaser. Pull chain, bronze doors, fountain.
+merlin_solution.txt|The Merlin Bird of Prey - IntroComp.taf|monks appear at the grating|SCR_SKIP_WAITKEY=1
+# drifting.taf. Mouse in drawer, modem delivery, forum, Hintmaster, Correct One.
+drifting_solution.txt|drifting.taf|ketigid|SCR_SKIP_WAITKEY=1
+# Gotcha (AIF). Campus water-gun. Hairpin, sprinklers, towel, kiss, squirt.
+gotcha_solution.txt|gotcha.taf|dinner and a movie buster|SCR_SKIP_WAITKEY=1
+# The Sorcerer. Job raise, master staff, ogre, ship, freeze guard, king, staff, jump.
+thesorc_solution.txt|thesorc.taf|Congratulations-You've Done It!|SCR_SKIP_WAITKEY=1
+# A Friendly Party (AIF). Greet, pizza, beer, kings, Denise, peek, sleep.
+afp_solution.txt|AFP.taf|resting your head against the cushions|SCR_SKIP_WAITKEY=1
+# cellpart1 teaser. Wait for door, Genevive handshake, cabinet.
+cellpart1_solution.txt|cellpart1.taf|gingerly step over the booby trap|SCR_SKIP_WAITKEY=1
+# Pizza Beast (AIF). Ring doorbell, ray gun, zap Zamyatin, red switch, Lia.
+pb_solution.txt|PB.taf|freed the girls|SCR_SKIP_WAITKEY=1
+# When the Lights Go Out. Oil the trapdoor, cave, city of the lights.
+lightsgoout_solution.txt|lightsgoout.taf|Welcome to the City of The Lights|SCR_SKIP_WAITKEY=1
+# First Day of School. Dress, Frooties at the dinette, sidewalk to the hydrant.
+firstday_solution.txt|firstday.taf|yellow fire hydrant|SCR_SKIP_WAITKEY=1
+# The Average Life. Cupboard card, Baldy, refuse Joe's gun.
+average_solution.txt|average.taf|not-too-average past|SCR_SKIP_WAITKEY=1
+# Time Machine (CLC). Glass, sandwich, 9217, gravity 3491, teleport 65197.
+timemachine_solution.txt|timemachine.taf|aquaplums from a silver spoon|SCR_SKIP_WAITKEY=1
+# Night and Day / Notebook2. Unpassworded notebook-input demo at the Red Cantina.
+notebook2_solution.txt|Notebook2.taf|unpassworded|SCR_SKIP_WAITKEY=1
+# Battlezone 3 Americans. Kill the tank, rush Nav 3, fighter, enemy recycler.
+bz3americans_solution.txt|bz3_americans.taf|proud because of your wits and courage|SCR_SKIP_WAITKEY=1
+# Battlezone 3 Soviets. Passes into town, shoot the prototype enemy recycler.
+bz3soviets_solution.txt|bz3_soviets.taf|Good work comrade|SCR_SKIP_WAITKEY=1
+# The Passages (3.9). Pontaco, Fontana box+sword, Dummy1-4, west to Outer World.
+thepassages_solution.txt|thepassages.taf|breathtaking beauty of the Outer World|SCR_SKIP_WAITKEY=1
+# The Fox (demo). Sorcerer, mage staff, troll, sorcerer village, east at the tower.
+fox_solution.txt|fox.taf|You have now completed this part of The Fox|SCR_SKIP_WAITKEY=1
+# Beethro's Text Adventure demo. Sword, stake in the fields, Dark Forest force field.
+bta_solution.txt|bta.taf|It's only a demo.|SCR_SKIP_WAITKEY=1
+# The Tunnels of Athylon. Unarmed KO beggar, sword vs stranger, tobacco dogs, poisoned chalice.
+# Needs the combat assist: an upgraded 3.9 game with Accuracy/Agility 0 everywhere, so the
+# 4.0 accuracy>agility test is 0>0 and the stranger dodges every blow at any seed -- run400x
+# too (runner_transcripts/athylon.txt).  The first golden was blessed with the assist on
+# but the row never set it (2026-09-24).
+athylon_solution.txt|athylon.taf|End of Game!!!|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+# Amnesia Kid. Styrofoam, banana tree, M-80 bookshelf, horsie, Tom's map, scientist pod.
+amnesiakid_solution.txt|amnesiakid.taf|Some kind of strange pod|SCR_SKIP_WAITKEY=1
+# The Successor. Blue bunk pack, android menu, Dyson binoculars, holodeck card, elevator.
+successor_solution.txt|The_Successor.taf|Godspeed on a life beyond your imagination!|SCR_SKIP_WAITKEY=1
+# Wizards Playground. Elf/light, four remote heaven bolts, troll tooth to Rex.
+wizards_solution.txt|Wizards_Playground.taf|You give him the troll tooth. "Very good. Here have some gold."|SCR_SKIP_WAITKEY=1
+# Grand Journey demo. Fontana box/sword, cave dummies, hound, Carlos, guilded sword, Big Sister.
+grandjourney_solution.txt|grandjourney.taf|You have finished the DEMO version of|SCR_SKIP_WAITKEY=1
+# Sk8 Sponsorz. 998 park kickflips to Birdhouse (turn-timed events).
+sk8sponsorz_solution.txt|sk8sponsorz.taf|You succeed and join Birdhouse.|SCR_SKIP_WAITKEY=1
+# G7056. Cake/fuse, jump, garage, generator, captor, 10x sniper sentry, roof beacon.
+g7056_solution.txt|g7056.taf|MISSION COMPLETED!!!|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+# Space Run demo. Hand/scanner, keycard, fuse wires, customs, turbo lift sector C.
+spacerun_solution.txt|spacerun.taf|wait for the full version to find out|SCR_ASSUME_COMBAT=1 SCR_ASSUME_ROOMS=1 SCR_SKIP_WAITKEY=1
+# Enigma. Corridor fight, copper/brass keys in the oak doors, authored warlord death, stone door.
+enigma_solution.txt|enigma.taf|clawed feet scrape across the mountain rocks|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+# Seek and Enjoy. Chores then train; go down not d (toys death); drop card before toilet doorbell.
+seekandenjoy_solution.txt|seekandenjoybybackmasker.taf|some time to yourself|SCR_SKIP_WAITKEY=1
+# Ghoster. Occupy alien, stand on hill, beacon, ferry body, crowbar bulkhead, occupy captain, kill robot.
+ghoster_solution.txt|ghoster.taf|But it is at least a victory.|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+# Noximion. Shield, Barrens port go to 1 (event), b, 16 buzzards, wait for dungeon complete.
+noximion_solution.txt|noximion.taf|defeated all monsters and completed the dungeon|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+# Hunting Ground. Greet, pistol/dagger/pearls, dump corpses, leave John in blue, Libby last, jump dock.
+huntingground_solution.txt|Hunting Ground.taf|too much upon his pistol|SCR_SKIP_WAITKEY=1
+# Go. House, diary teleport, cash machine, office, taxi.
+go_solution.txt|Go.taf|adventures are behind|SCR_SKIP_WAITKEY=1
+# ??????? ???????? demo. Stove basket, pies, hat in the apple tree, out the gate.
+demoshapka_solution.txt|DemoShapka.taf|66%|SCR_SKIP_WAITKEY=1
+# ?????. Feed the dog, eat the apple, move the weight, take the key, leave.
+# Win marker on the proba row is cp1251, matching the transcript.
+proba_solution.txt|proba.taf|âûøëè èç ýòîé êâàðòèðû|SCR_SKIP_WAITKEY=1
+# Akron, Russian. Scanner, stake, dry the pass on the wasteland stone, tuxedo and ring.
+akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
+# Nightmare on Elm Street (Russian). Valve, coffee, alarm, go to work.
+elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
+# Crime Scene. Paper under the kitchen table, Tom's key, folder, show the inspector.
+crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
 EOF
+
+
 }
 
 find_game() {  # $1=basename -> prints path or nothing

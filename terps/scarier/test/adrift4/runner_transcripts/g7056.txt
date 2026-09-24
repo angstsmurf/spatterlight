@@ -1,0 +1,294 @@
+
+> w
+You move west.
+South Hallway
+There is a door leading east marked "Briefing Room" 
+and a door leading west that says "Office Supply"   
+
+> n
+You move north.
+Lobby
+A few gray metal desks and chairs occupy the room
+To the north and south are hallways.  Also here is a memo.  Secretary is here.
+
+> n
+You move north.
+North Hallway
+To the North there is a door through which you can see that it is a 
+nice day outside.
+To the East a mess hall
+To your West is an equipment depo
+South leads back to the lobby
+
+> e
+You move east.
+Mess Hall
+This mess hall has seen better days. The tables and chairs are rusted and the whole place smells of burnt food. This mess hall looks like every other mess hall you have seen in your career.   Also here is an apple and a piece of cake.
+
+> get cake
+You take the piece of cake.
+
+> w
+You move west.
+North Hallway
+To the North there is a door through which you can see that it is a 
+nice day outside.
+To the East a mess hall
+To your West is an equipment depo
+South leads back to the lobby
+
+> s
+You move south.
+Lobby
+A few gray metal desks and chairs occupy the room
+To the north and south are hallways.  Also here is a memo.  Secretary is here.
+
+> give cake to secretary
+The secretary pauses and then happily takes your cake.
+
+[Secretary] smiling
+Thanks babe, I have something for you.
+
+She gives you an electric fuse
+This might come in handy
+
+oh and here ya go.
+She hands you a energy drink.
+
+
+
+> n
+You move north.
+North Hallway
+To the North there is a door through which you can see that it is a 
+nice day outside.
+To the East a mess hall
+To your West is an equipment depo
+South leads back to the lobby
+
+> w
+You move west.
+Weapons Depot
+There are racks of guns in this olive drab room.
+lots of guns  Also here is a sniper rifle, remote charge and a pistol.
+
+> get all
+You take the sniper rifle, remote charge and the pistol.
+
+> e
+You move east.
+North Hallway
+To the North there is a door through which you can see that it is a 
+nice day outside.
+To the East a mess hall
+To your West is an equipment depo
+South leads back to the lobby
+
+> n
+You move north.
+Outside Near Hangar
+It's nice outside, the sky is blue
+to the North you can see a hangar
+to the South there is a door marked CO  Williams enters from the north.
+
+> n
+You move north.
+Hangar
+This hangar is a rusted steel temporary aircraft hanger. Dirty and shabby. 
+Your paratrooper transport airplane is to your west.
+
+> w
+You move west.
+Airplane
+Paratrooper airplane transport. Over the jump door there is a red/green jump light.
+  
+[Pilot] Sir we are already to go. Just give me the word to launch when you are ready
+  Also here is a remote beacon.
+
+> get beacon
+You take the remote beacon.
+
+> launch
+The aircraft takes off and in a few moments you are in the air.
+
+[Pilot] Sir, we will be arriving at the drop point soon. This might be a good time to check your inventory and make sure you have all you need for this mission.
+
+> wait
+Time passes...
+
+> jump
+Your mission will be a failure if you jump and land at the wrong time  
+
+All of a sudden the jump light turns green. The jump door is opened.  
+
+> jump
+Field
+A long narrow field that is surrounded by forest. This field looks like it could have been used as an landing field for small airplanes in the past. There is a 6ft barbed-wire fence that follows the perimeter. 
+
+To the west you see an auto garage.    
+
+You hear one of the captors, a guard, on the radio. He doesn't see you, yet.  Also here is a rock.
+
+> look under rock
+Rather funny looking rock. It's also too light to be a rock of this side.  Feels like plastic.  A key is inside the rock.
+
+> get key
+You take the key from the rock.
+
+> w
+You move west.
+Auto Garage
+An old auto garage with tools and parts lying around like someone that was working here left in a hurry.
+To your west is the lobby of Outpost 11.
+And a passage lies to the east.  Also here is a screwdriver, a hammer and a generator.  Guard is here.
+
+> shoot guard with pistol
+You shoot Guard with the pistol.   The Guard is dead.
+
+> get screwdriver
+You take the screwdriver.
+
+> get hammer
+You take the hammer.
+
+> w
+You move west.
+Outside Lobby
+You are at the front door of the Outpost 11 lobby. There is a lock on the door.
+
+> unlock door with key
+The door is now unlocked
+
+> n
+You move north.
+Auto Garage
+An old auto garage with tools and parts lying around like someone that was working here left in a hurry.
+To your west is the lobby of Outpost 11.
+And a passage lies to the east.  Also here is a generator.
+
+> restart generator
+The generator is now on
+
+> w
+You move west.
+Outside Lobby
+You are at the front door of the Outpost 11 lobby. There is a lock on the door.
+
+> s
+You move south.
+Outpost 11 Lobby
+OutPost 11 lobby is dark. The reception desk is unoccupied. 
+
+Stairways leading up.
+Hallway to the west
+South leads to a door marked confernce room. You hear some people talking on the radio behind this door
+And there is a flight of stairs that lead up from here.
+
+> s
+You move south.
+Outpost 11 Conference Room
+A huge glossy brown mahogany conference table lies in the middle of this room. White office chairs surround the table. 
+
+To the north is the Lobby.  one of the captors is here.
+
+> shoot captor with pistol
+You shoot Captor with the pistol.  Captor hits you, but it doesn't seem to do any damage.
+
+> shoot captor with pistol
+You shoot Captor with the pistol.  The captor is dead
+
+> x table
+A huge glossy brown mahogany conference table. 
+
+There seems to be some tiny white paint specks in the middle of the table.
+
+Directly above the table is a vent
+
+> stand on table
+You stand on the conference table.
+
+> open vent
+The Vent is now open. It is large enough to squeeze into.
+
+While opening the vent it seems like you stripped the screws, the vent is now opened for good.
+
+> u
+(Getting off the conference table first)
+You move up.
+Outpost 11 Command Center
+The Command center has many desks and tables. Maps and charts are on the walls. There seem  to be a center or command desk that is in the center of the room. This seems to be the heart of this room, where all the decisions are made.
+
+There are stairs going up.  And a vent going down to the conference room.  A mean looking sentry is here.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle.  You manage to avoid Sentry's attack.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle, but it doesn't seem to do any damage.  You manage to avoid Sentry's attack.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle, but it doesn't seem to do any damage.
+
+> shoot sentry with sniper rifle
+Sentry isn't here!
+
+> shoot sentry with sniper rifle
+Sentry isn't here!
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle, but it doesn't seem to do any damage.  Sentry hits you, but it doesn't seem to do any damage.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle, but it doesn't seem to do any damage.  You manage to avoid Sentry's attack.
+
+> shoot sentry with sniper rifle
+You shoot Sentry with the sniper rifle.  The Sentry is dead
+
+> u
+You move up.
+Outpost 11 Office Cubicles
+Cubicles line the room on both walls. There is a staircase going up.
+
+> u
+You move up.
+Roof of Outpost 11
+This building comes to a point and the roof is only 20 feet by 20 feet. 
+Time to signal for the pickup.  Hostages is here.
+
+> 30009999 See Player
+The Hostages recognize that you are here to save them. They huddle behind you and ask you to lead them to safety.
+
+You now have the hostages in tow.
+
+
+
+> turn on beacon
+The beacon is now on
+
+> wait
+Time passes...
+A rescue helicopter lands.
+
+You and the hostages climb aboard.
+
+[Pilot]
+So where to.
+
+You all chuckle and smile as the end of this stressful day winds down.
+
+[Pilot]
+Sir, General Roberts is on the radio.
+
+[General Roberts]
+Congradulations on a job well done. Now bring those people home.
+
+
+MISSION COMPLETED!!!  
+
+[Press any key to end]

@@ -1,0 +1,21 @@
+
+> open communicator
+You open the communicator.
+
+> Energize
+You appear in the Transporter Room.  
+Transporter Room
+You are in the Transporter room of the Enterprise. In front of you is a woman in a red Starfleet uniform behind a set of controls for the transporter.  Also here are transporter controls and a transporter.  Trans.Opperator is here.  You can only move west.  A voice comes in over the intercom: "Kirk to transporter room..." The Transporter Opperator flicks a switch on the intercom panel. "Transporter Room." "Send McCoy and the alien up to the bridge. I need to talk to them," says the voice. "Yes, captain," says the opperator. "Well, I guess we'd better head to the bridge," McCoy says. 
+
+> w
+You move west.
+Elevator
+You are in an elevator on the U.S.S. Enterprise. An intercom panel with switches is to the right of the door. Computer: "Please state destination or deck number."
+
+> engineering
+Computer: "Destination confirmed. Approaching Engineering."  The elevator suddenly stops.  Computer: "Elevator malfunction."  Next Episode --  The Star Trek Chain Reaction: Episode 2 Klingon Space
+You scored 6 out of the maximum 20!
+That is 30% of the game!
+You finished 14 points short.
+
+[Press any key to end]

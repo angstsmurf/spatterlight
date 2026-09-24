@@ -1,0 +1,225 @@
+
+> n
+You move north.
+Middle of Walkway
+You are about halfway to the end of the walkway.   A Void Monster is here.  Monster hits you.
+
+> 0987654321
+Here you go Chris :)  Monster hits you, but it doesn't seem to do any damage.
+
+> attack monster
+You shoot Monster with Secret Weapon.  The void Monster falls to the ground and disintegrates. All that is left behind is some sort of edible plant. 
+
+> eat plant
+You can't eat Edible Plant.
+
+> n
+You move north.
+End of Walkway
+You are at the end of the walkway. Suddenly a doorway appears and what looks like a house from your village is in front of you. Yet everywhere else it is still the void.  You can move north and south.
+
+> n
+You move north.
+Entrance of House
+This appears to be the inside of the house. It looks exactly like the common house that you would find in your own village.  The Aged Warrior Fenrik is here.
+
+> farewell
+Fenrik disappears but he leaves behind a wondrous looking Sword. 
+
+> take sword
+You pick up The Wondrous Sword.
+
+> w
+You move west.
+Living Area
+This is the living area of the house. It is not furnished.  You can move east and west.
+
+> w
+You move west.
+Edge of a cliff
+As you walk out the back door of the house you now stand at the edge of a Cliff. You do not understand this place at all. There is a bronze Plaque here.
+
+> jump
+You close your eyes and Jump from the cliff. You fall for almost 5 minutes then suddenly you appear on your feet in a small room.  
+Small room
+This is the small room at the bottom of the cliff. You do not know how it happened but you seemed to have landed safely.  You can only move north.
+
+> n
+You move north.
+Entrance to Large Valley
+You exit the small room and come out into what looks like a strange Valley. It is unlike the Valleys you would find on Aquarius though. You feel even more compelled to find Malcor and find out more about this strange place.  You can move north and south.
+
+> n
+You move north.
+Valley
+You are still in the Large valley and can still see no end to it. Although it is not so much dark but very hazy ahead of you. There is a Strange looking cave to your East.  You can move north, east and south.
+
+> e
+You move east.
+Cave
+You are in a Strange cave. Like the walls of the Castle you visited before the walls of the cave seem to have some kind of natural illumination. There is a huge Pile of bones here. You also hear a strange noise coming from the east.  You can move east and west.
+
+> e
+You move east.
+Inner Cave
+This is the Inner section of the Cave. It is slightly darker than the last but still illuminated.  A Cave Monster is here.
+
+> attack monster
+You shoot Monster with Secret Weapon.  The Cave monster falls to the ground and disintegrates. All that is left is some sort of edible plant and A Radiant Magical Stone.
+
+> eat plant
+You can't eat Edible Plant.
+
+> take stone
+Which Stone.  A Shiny Magical Stone, A Glowing Magical Stone or A Radiant Magical Stone?
+
+> w
+You move west.
+Cave
+You are in a Strange cave. Like the walls of the Castle you visited before the walls of the cave seem to have some kind of natural illumination. There is a huge Pile of bones here. You also hear a strange noise coming from the east.  You can move east and west.
+
+> w
+You move west.
+Valley
+You are still in the Large valley and can still see no end to it. Although it is not so much dark but very hazy ahead of you. There is a Strange looking cave to your East.  You can move north, east and south.
+
+> n
+You move north.
+Midway through Valley
+You are about midway through the valley. As you look up you see a strange creature flying over head but it doesn't appear to be a threat to you.  You can move north and south.
+
+> n
+You move north.
+End of Valley
+After about 20 minutes of travel in the valley you reach the end of it. Although there is no exit you can see an outline in the wall ahead of you. Maybe if you look around you can find a way to open it. There is also a silver plaque here and a Rock below it that protrudes from the wall.  You can only move south.
+
+> push rock
+As you push in the rock. The outline of the wall opens up and there is now a path North.  
+End of Valley
+There is now an open path to the north that was covered by the outline in the wall.  You can move north and south.
+
+> n
+You move north.
+Darkened Pathway
+You come into a Dark Pathway. It is darker than anyplace else in the void you have been to. You can barely see anything at all.  You can move south and west.
+
+> w
+You move west.
+Pathway
+You are still walking along the Dark pathway. It does seem to be getting brighter ahead.  You can move north and east.
+
+> n
+You move north.
+End of Pathway
+You have reached the end of the Pathway. The walls have the same illumination you have noticed in other places. You see a Large Brass Button on the wall in front of you.  You can only move south.
+
+> push button
+The floor beneath you opens up and you fall to the room below.  
+Pit 
+You have fallen into a Large pit. You look around and see several skeletons lying around the pit. These were obviously men who were not so fortunate on their landing. Also in front of you is a small tunnel leading down. It looks as if you can barely fit into it.  You can only move down.
+
+> d
+You move down.
+Small tunnel
+This is a very small tunnel which continues down. You can barely see 2 feet in front of you but you feel the urge to press on anyway.  You can move up and down.
+
+> d
+You move down.
+Steep tunnel
+You are about half way down the steep tunnel. It seems to be evening out as you go down.  You can move up and down.
+
+> d
+You move down.
+End of tunnel
+You look out the tunnel and as you look down you see nothing but void. You look up and you see that there are hand holds cut into the rock face. You should be able to make it up from here if you are careful.  You can move up and out.
+
+> out
+You move out.
+Rock face
+You climb out onto the rock face. As you look up you are relieved that it is not a very long climb.  You can move up and in.
+
+> u
+You move up.
+Top of Rock Face
+You reach the top of the rock face. As you look over the ledge you notice a shadowy figure about 30 paces from the ledge but you can't quite make it out.  You can move up and down.
+
+> u
+You move up.
+Top of mountain
+You have reached the top of the Mountain. You now see who the figure is.  The evil Sorcerer Malcor is here.  You can move north and down.
+
+> goodbye
+Malcor Vanishes and you are Alone again.  
+Top of mountain
+You are at the Top of a Mountain. Ahead of you is a Narrow trail.  The evil Sorcerer Malcor is here.  You can move north and down.
+
+> n
+You move north.
+Narrow Path
+You start out walking on a Narrow Path. All around the path there are strange over grown Vines. You have never seen plants like these before.  You can move north and south.
+
+> n
+You move north.
+Narrow Path...
+You continue along the Narrow Path and notice that it doesn't look as if you are getting anywhere. Then suddenly from the vines a Void Mutant jumps out at you.  A Void Mutant is here.  You can move north and south.  Mutant hits you, but it doesn't seem to do any damage.
+
+> attack mutant
+You shoot Mutant with Secret Weapon.  The Void Mutant falls to the ground and disintegrates. All that is left behind is a Magical Potion.  
+Narrow Path...
+You are on the Narrow Path. It doesn't look as if your getting anywhere but you must press on.  A Void Mutant is here.  You can move north and south.
+
+> take potion
+You pick up A Magical Potion.
+
+> drink potion
+You drink the Potion and feel Much Stronger.
+
+> n
+You move north.
+Narrow Path......
+You continue along the Narrow path and still nothings seems to have changed even though you have walked almost 300 paces from the beginning of the path. You begin to feel doubt within yourself but you know an entire world lies in your hands and you can not give up.  You can move north and south.
+
+> n
+You move north.
+End of Narrow Path
+You have finally reached the end of the Narrow path to your great relief. As you look ahead you see a small Dome shaped building about 100 paces from where you are now.  You can move north and south.
+
+> n
+You move north.
+In Front of Dome
+You are standing in front of the Dome now. You can feel an awesome power emanating from within it. In front of you stands your Old friend Fenrik. You say hello to him and he says something about the End.
+
+> farewell
+The Aged Warrior Vanishes but has left behind many Great items for you.  
+In Front of Dome
+You are standing in front of the Dome now. You can feel an awesome power emanating from within it.  You can move north and south.
+
+> take slayer
+You pick up Sorcerer Slayer.
+
+> take stone
+Which Stone.  A Shiny Magical Stone, A Glowing Magical Stone, A Radiant Magical Stone or A Golden Magical Stone?
+
+> drink potion
+You can't do that here!
+
+> n
+You move north.
+Inside Dome
+You have finally reached the destination you have been aiming for since you left your village. You look all around you as the door closes behind you and see nothing but Stars. What a wondrous place this is. Suddenly you Hear Malcor's voice from all around you. He says "Welcome to what I consider my home young Warrior. You have gone to quite alot of trouble to get here. I must ask you to now answer my Question I asked you before. Will you join me? Yes or No."
+
+> no
+You feel true to your People now that you have erased all doubt within yourself as to how you would react. Suddenly Malcor appears in front of you and Says "I am sorry it has to be this way. Prepare yourself for death".  Malcor hits you, but it doesn't seem to do any damage.
+
+> attack malcor
+You shoot Malcor with Secret Weapon.  As you strike the Final blow to Malcor He falls to the ground. You are suddenly surrounded by a Blinding Light. You hear the sound of what sounds like a Million souls sighing with relief. You yourself feel a sense of joy and relief that this whole ordeal is over. Suddenly as quick as it began the bright light Subsides and you appear back in the Flowery field where your Journey began. And Fenrik approaches you.
+
+He begins by saying "Congratulations Brave warrior. I never doubted that you would make the right decision. You must prepare yourself though for I am about to tell you what has transpired since you entered the Castle days ago. Shortly after that Malcor released his Hordes of monsters across the lands and let them do what they did best. Kill. So far estimates are close to about 12 million killed on our continent alone. We will not know for a while about the others. But you will be relieved to know that your village suffered light casualties. Luckily by your warning they were prepared to defend themselves. I know this is bad news for you But do think about the fact that if you had not intervened Malcor would have succeeded in his quest to destroy this world. And Billions would have died. You are a hero Brave one and a mightier warrior than I ever was. This world owes you their Lives. And so do I. Now lets get you to your Village and Family".....................
+
+
+                                                          THE END
+You scored 195 out of the maximum 200!
+That is 97% of the game!
+You finished 5 points short.
+
+[Press any key to end]

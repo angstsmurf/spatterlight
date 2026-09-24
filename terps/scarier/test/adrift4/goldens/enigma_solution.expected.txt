@@ -1,0 +1,538 @@
+Loading game...
+
+Enigma Creature
+
+Prison cell
+This small cell is made of a primitive hewn stone that was probably hacked
+straight out of the earth. The floor is covered in soft, blackened hay except
+around the doorway. The doorway is a rusty, old, iron gate with a broken open
+lock.   Also here is some blackened straw.  You can only move north.
+
+> n
+(Standing up first)
+You move north.
+
+Cell corridor
+This long tunnel has been dug out of the natural stone of the deep earth. It
+stretches west to east; to the west are a few more prison cells and to the
+east, the tunnel turns to the left. South of here, there is a prison cell
+with a smashed lock and to the north, there is another prison cell.  You can
+move east, south and west.
+
+> e
+You move east.
+
+Eastern corridor
+This corridor turns sharply around a bend and it is impossible to guess where
+it will lead.   There are battle sounds echoing around the walls, the
+ownersof some high pitched voices seem to fighting the owners of lower
+pitched ones.  You can move north and west.  There is a loud commotion coming
+from around here. It sounds like a fight!
+
+> n
+You move north.
+
+Wide corridor
+This corridor runs north to west bending around to the west at the southern
+end. It is quite wide and there seems to be alot of scratches and drag marks
+on the floor.  A swordsman, a spearman, an arrow goblin, a spear goblin and a
+knife goblin are here.  You can move north and south.  The tough looking
+spearman stabs you with his short spear.  Arrow goblin shoots the tall
+swordsman with it's bow.  A sadistic goblin cuts you with it's knife.  After
+the swordsman falls, the goblins notice you behind them and chatter louder
+and louder as if they fear you.  The man's sword flies throu the air and hits
+the solid wall with such a force that it smashes and all that is left is the
+broken hilt.
+
+> kill swordsman
+You stab the tall swordsman with it's short sword.  A mean looking greenskin
+stabs you with it's spear.  A sadistic goblin cuts you with it's knife.
+
+> kill spearman
+You stab the tough looking spearman with it's short sword.  A sadistic goblin
+cuts you with it's knife.  As the spearman falls, he crushes his wooden
+spear, making some unhealthy cracking noises.
+
+> kill arrow goblin
+You stab a short goblin with it's short sword.  A mean looking greenskin
+stabs you with it's spear.  A sadistic goblin cuts you with it's knife.  The
+goblin holding the bow flies backwards from the blow, dropping it's bow onto
+the hard floor, breaking the tiny weapon.
+
+> kill spear goblin
+You stab a mean looking greenskin with it's short sword.  A sadistic goblin
+cuts you with it's knife.  As the fatal blow is about to land, the spear
+goblin holds up his weapon to parry but it is just smashed in half by the
+blow.
+
+> kill knife goblin
+You stab a sadistic goblin with it's short sword.  The greenskin's dagger
+breaks as it hits the ground, shards of rusted knife bouncing everywhere.
+
+> n
+You move north.
+
+T-bone junction
+This T-junction heads south, east and west. To the south you can smell dirt
+and rot, from the east you can see some light and the west corridor is
+nondesript apart from the mud on the floor.  You can move east, south and
+west.
+
+> e
+You move east.
+
+Eastern T-bone corridor
+This corridor runs east to west in a basic straight line, to the west is a
+T-bone junction heading south and west and to the east is a doorway spilling
+light out into the passage way.  You can move east and west.
+
+> e
+You move east.
+
+Garbage room
+This room is extremley bright. Or it might be that you have been down in the
+dark for so long that you can't stand this light. There is a huge pile of
+garbage in the centre of the room and a small grate about thirty feet up in
+the cieling. There is only one way out of this room, that is a doorway that
+leads westwards down a corridor.  You can only move west.
+
+> look in garbage
+This is a smelly heap of trash, it consists mainly of feces and other
+excretions, there is some scrap wood and metal here aswell and you're sure
+you just saw a skull.  A small book is on the pile of garbage, and inside is
+some trash and a copper key.
+
+> get copper key
+You take the copper key from the pile of garbage.
+
+> w
+You move west.
+
+Eastern T-bone corridor
+This corridor runs east to west in a basic straight line, to the west is a
+T-bone junction heading south and west and to the east is a doorway spilling
+light out into the passage way.  You can move east and west.
+
+> w
+You move west.
+
+T-bone junction
+This T-junction heads south, east and west. To the south you can smell dirt
+and rot, from the east you can see some light and the west corridor is
+nondesript apart from the mud on the floor.  You can move east, south and
+west.
+
+> w
+You move west.
+
+Western T-bone corridor
+This corridor is very muddy and the amount of footprints here suggests it is
+or was a main route down here. The corridor runs east to a T-bone junction
+and west to a small door about five feet high.  You can only move east.
+
+> open door
+You pull on the silver ring and the swings open with a brain grating creak.
+
+> w
+You move west.
+
+Goblin guard room
+This smelly room reminds you of the prison cell! There are two torches nailed
+into the wall and a stone chair on the northern wall. There is a brown door
+to the east and a long passageway to the west.  a goblin guard is here.  You
+can move east and west.  A goblin guard hits you, but it doesn't seem to do
+any damage.
+
+> kill goblin guard
+You stab a goblin guard with it's short sword.  Goblin guard falls down,
+dead.
+
+> w
+You move west.
+
+Long corridor
+This corridor seems to go on for a long time. There are small candles on the
+walls that light the path. There are two doorways here, one to the north and
+one to the west. There is a small door you could go in from here, it smells
+of something strange.  You can move north, east, west and in.
+
+> in
+You move in.
+
+Mushroom cave entrance
+This room smells very weird. The walls glow with a phospherous green and the
+floor is covered in pale yellow mushrooms and toadstools. There is a doorway
+you can go out of from here and a winding tunnel heading southwards.  Also
+here are some yellow mushrooms.  You can move south and out.
+
+> s
+You move south.
+
+Mushroom corridor
+This winding tunnel is laden with fungi of all shapes and sizes, they all
+smell very strangely. The walls glow a putrid green and the damp in here is
+almost tangeble. This corridor heads north to east and seems to get deeper
+the farther east you go.  You can move north and east.
+
+> e
+You move east.
+
+Fungi crossroads
+These crossroads are like much of this area; green and yellow, damp and
+musty. The walls are glowing here too and the fungi grows as well as ever in
+this region. The passages that lead out from here are northwest to a small
+cave, west to a snaking corridor, south to a large cavern and east to a
+wooden door.  You can move east, south, west and northeast.
+
+> ne
+You move northeast.
+
+Small fungi cave
+This cave is littered with wheelbarrows. They are everywhere, all wooden and
+covered in toad stools. Some of them are carrying mushrooms, the others are
+empty. There are some crossroads to the south west.  there is a goblin farmer
+here.  You can only move southwest.  A small goblin farmer hits you.
+
+> kill goblin farmer
+You stab a small goblin farmer with it's short sword.  Goblin farmer falls
+down, dead.
+
+> look in wheel barrows
+These wheel barrows contain alsorts and you could find all sorts of things
+searching through them.  A small key is inside the wooden wheel barrows.
+
+> get small key
+You take the small key from the wooden wheel barrows.
+
+> sw
+You move southwest.
+
+Fungi crossroads
+These crossroads are like much of this area; green and yellow, damp and
+musty. The walls are glowing here too and the fungi grows as well as ever in
+this region. The passages that lead out from here are northwest to a small
+cave, west to a snaking corridor, south to a large cavern and east to a
+wooden door.  You can move east, south, west and northeast.
+
+> e
+You move east.
+
+Wooden door fungi room
+This part of the fungi complex is not as fruitful as the rest of it and all
+there is in this area are a few withered toad stools. There is a small wooden
+door here with a brass knob on it.  You can only move west.
+
+> open wooden door
+You pull on the brass knob and cringe as the echoing creak echoes throughout
+the caverns.
+
+> e
+You move east.
+
+Goblin study room
+This room is unlike the other fungi infested rooms, for a start, the fungi is
+almost gone except for the flourescent stuff on the walls. There is a small
+chair sitting behind a stone desk here and an aged bookcase stands on the
+northern wall.  You can only move west.
+
+> x desk
+This stone desk is quite smooth and someone is most likely to be using it
+often since there is a half full ink vial in it.  On the stone desk is a
+piece of parchment, a tiny ink pen and a red apple.
+
+> get apple
+You take the red apple from the stone desk.
+
+> eat apple
+You crunch into the soft fruit and grin as it quenches a little of your
+hunger.
+
+> look in bookcase
+This bookcase is covered in moss instead of books!  Some tatty pages are
+inside the little bookcase.
+
+> get tatty pages
+You take the tatty pages from the little bookcase.
+
+> w
+You move west.
+
+Wooden door fungi room
+This part of the fungi complex is not as fruitful as the rest of it and all
+there is in this area are a few withered toad stools. There is a small wooden
+door here with a brass knob on it.  You can move east and west.
+
+> w
+You move west.
+
+Fungi crossroads
+These crossroads are like much of this area; green and yellow, damp and
+musty. The walls are glowing here too and the fungi grows as well as ever in
+this region. The passages that lead out from here are northwest to a small
+cave, west to a snaking corridor, south to a large cavern and east to a
+wooden door.  You can move east, south, west and northeast.
+
+> w
+You move west.
+
+Mushroom corridor
+This winding tunnel is laden with fungi of all shapes and sizes, they all
+smell very strangely. The walls glow a putrid green and the damp in here is
+almost tangeble. This corridor heads north to east and seems to get deeper
+the farther east you go.  You can move north and east.
+
+> n
+You move north.
+
+Mushroom cave entrance
+This room smells very weird. The walls glow with a phospherous green and the
+floor is covered in pale yellow mushrooms and toadstools. There is a doorway
+you can go out of from here and a winding tunnel heading southwards.  Also
+here are some yellow mushrooms.  You can move south and out.
+
+> out
+You move out.
+
+Long corridor
+This corridor seems to go on for a long time. There are small candles on the
+walls that light the path. There are two doorways here, one to the north and
+one to the west. There is a small door you could go in from here, it smells
+of something strange.  You can move north, east, west and in.
+
+> w
+You move west.
+
+Western passage way
+This passage way is very elaborate, there are carvings and statues set into
+the walls all over this corridor. There are three doorways here, one to the
+east, one to the south and one at the far western end of the passage.  You
+can move east, south and west.
+
+> s
+You move south.
+
+Armoury
+This room is quite small but contains quite alot. There is sre many weapon
+racks but not many weapons, maybe their owners are currently using them.
+There is a shield rack here and a sword rack.   You can only move north.
+
+> x weapons rack
+This weapons rack probably holds twenty or so weapons when full but right now
+the weapons have all been taken.  A steel longsword is on the wooden weapons
+rack.
+
+> get longsword
+You take the steel longsword from the wooden weapons rack.
+
+> x shield rack
+This shield rack is made of wood and has a few notches for shields to fit on.
+ A steel shield is on the wooden shield rack.
+
+> get steel shield
+You take the steel shield from the wooden shield rack.
+
+> wear steel shield
+You put on the steel shield.
+
+> drop short sword
+You drop it's short sword.
+
+> n
+You move north.
+
+Western passage way
+This passage way is very elaborate, there are carvings and statues set into
+the walls all over this corridor. There are three doorways here, one to the
+east, one to the south and one at the far western end of the passage.  You
+can move east, south and west.
+
+> e
+You move east.
+
+Long corridor
+This corridor seems to go on for a long time. There are small candles on the
+walls that light the path. There are two doorways here, one to the north and
+one to the west. There is a small door you could go in from here, it smells
+of something strange.  You can move north, east, west and in.
+
+> in
+You move in.
+
+Mushroom cave entrance
+This room smells very weird. The walls glow with a phospherous green and the
+floor is covered in pale yellow mushrooms and toadstools. There is a doorway
+you can go out of from here and a winding tunnel heading southwards.  Also
+here are some yellow mushrooms.  You can move south and out.
+
+> s
+You move south.
+
+Mushroom corridor
+This winding tunnel is laden with fungi of all shapes and sizes, they all
+smell very strangely. The walls glow a putrid green and the damp in here is
+almost tangeble. This corridor heads north to east and seems to get deeper
+the farther east you go.  You can move north and east.
+
+> e
+You move east.
+
+Fungi crossroads
+These crossroads are like much of this area; green and yellow, damp and
+musty. The walls are glowing here too and the fungi grows as well as ever in
+this region. The passages that lead out from here are northwest to a small
+cave, west to a snaking corridor, south to a large cavern and east to a
+wooden door.  You can move east, south, west and northeast.
+
+> e
+You move east.
+
+Wooden door fungi room
+This part of the fungi complex is not as fruitful as the rest of it and all
+there is in this area are a few withered toad stools. There is a small wooden
+door here with a brass knob on it.  You can move east and west.
+
+> e
+You move east.
+
+Goblin study room
+This room is unlike the other fungi infested rooms, for a start, the fungi is
+almost gone except for the flourescent stuff on the walls. There is a small
+chair sitting behind a stone desk here and an aged bookcase stands on the
+northern wall.  You can only move west.
+
+> read pages
+You bring the papers closer to your gnarled face and study the unfamiliar
+text... then, you remember a scene from the back of your mind! A smooth, pink
+hand is protruding from the bottom of your vision and writing on a collection
+of paper pages. The words slowly form; 'Day Seven. Our journey across the
+mountains has proven troublesome and we had to fend off quite a few goblins
+this morning. Bornok whispers about orcs on the wind but he's been drinking
+and I doubt he can smell much but beer right now! Day Eight; Bornok WAS
+right, there are many orcs in these mountains and we should be wary of any
+sneaknig up from behin...' The words stop here and you feel dejavu strike
+you...
+
+> kill orc guard
+You hit a fierce orc with the steel longsword.  Orc guard falls down, dead.
+
+> w
+You move west.
+
+Wooden door fungi room
+This part of the fungi complex is not as fruitful as the rest of it and all
+there is in this area are a few withered toad stools. There is a small wooden
+door here with a brass knob on it.  You can move east and west.
+
+> w
+You move west.
+
+Fungi crossroads
+These crossroads are like much of this area; green and yellow, damp and
+musty. The walls are glowing here too and the fungi grows as well as ever in
+this region. The passages that lead out from here are northwest to a small
+cave, west to a snaking corridor, south to a large cavern and east to a
+wooden door.  You can move east, south, west and northeast.
+
+> w
+You move west.
+
+Mushroom corridor
+This winding tunnel is laden with fungi of all shapes and sizes, they all
+smell very strangely. The walls glow a putrid green and the damp in here is
+almost tangeble. This corridor heads north to east and seems to get deeper
+the farther east you go.  You can move north and east.
+
+> n
+You move north.
+
+Mushroom cave entrance
+This room smells very weird. The walls glow with a phospherous green and the
+floor is covered in pale yellow mushrooms and toadstools. There is a doorway
+you can go out of from here and a winding tunnel heading southwards.  Also
+here are some yellow mushrooms.  You can move south and out.
+
+> out
+You move out.
+
+Long corridor
+This corridor seems to go on for a long time. There are small candles on the
+walls that light the path. There are two doorways here, one to the north and
+one to the west. There is a small door you could go in from here, it smells
+of something strange.  You can move north, east, west and in.
+
+> w
+You move west.
+
+Western passage way
+This passage way is very elaborate, there are carvings and statues set into
+the walls all over this corridor. There are three doorways here, one to the
+east, one to the south and one at the far western end of the passage.  You
+can move east, south and west.
+
+> w
+You move west.
+
+Western end of the passageway
+There is a large bulky door on the western wall, it has two huge keyholes in
+it, one of brass, the other of copper.  You can only move east.
+
+> put copper key in door
+You put the copper key inside large wooden door.
+
+> put small key in door
+You put the small key inside large wooden door.
+
+> open large wooden doors
+You turn the two keys and push open the collosal oaken portals, waiting for
+something drastic in the room beyond.
+
+> w
+You move west.
+
+Orc throne room
+This room is gargantuan and holds more spiked skulls than you have ever seen!
+There is a large stone throne on the western wall and heavy drapes of black
+and red hang from the northern and southern walls. A large pair of wooden
+doors hang open at the eastern end of the room. There is a cold draft in here
+coming from somewhere.  You can only move east.  As you enter the orc
+warlord's throne room, you hear booming laughter coming from the throne.
+
+> orc warlord's death
+The warlord stumbles, the last blow hitting him square in the chest, his
+fiedish armour glowing a dark crimson. The beast removes the sword from his
+body and staggers into his throne... "HA!" It laughs in the face of death.
+"You were my favourite, the only survivor..." You look at the savage,
+puzzled. "We caught you in the mountains, killed you friends and tortured you
+for days..." He coughs up blood as his chin falls onto his chest. "The
+goblins were very anxious to try... " It coughs up blood, "... try their
+magics on you... I let them do it and hed the keys to my throne room. Goblins
+are unpredictable... " The orc looks up at you as his mighty axe falls to the
+stone floor. "I heard your screams... and reveled in them!" A strange grin
+appears on the creature's face. "You were transformed into this? HAHAHA...
+urrgh" You try and rouse the orc, transformed from what? you want to ask...
+but he is gone. Now all you have to do is find a way out of this damnable
+place.  An enormous orc warlord hits you, but it doesn't seem to do any
+damage.  As you enter the orc warlord's throne room, you hear booming
+laughter coming from the throne.
+
+> lift drapes
+As you lift the drapes one by one, you find a door, cut out of the wall.
+There is a stone key hole in it...  As you enter the orc warlord's throne
+room, you hear booming laughter coming from the throne.
+
+> get stone key
+You take stone key.  An enormous orc warlord hits you, but it doesn't seem to
+do any damage.  As you enter the orc warlord's throne room, you hear booming
+laughter coming from the throne.
+
+> open stone door
+You slide the stone key into the lock and turn it. As you do; you see a rush
+of golden light. You are outside!
+You step out of the throne room and shield your eyes from the bright sun.
+Your clawed feet scrape across the mountain rocks as you walk towards a
+nearby ledge. The view before you brings tears to your redened eyes, a long
+series of mountains runs towards the horizon and surrounds the peak you are
+standing on. You start walking down the rugged path... you've got a long
+journey ahead of you, to get home and to get some answers... whatever it
+takes!
+[Press any key to end]

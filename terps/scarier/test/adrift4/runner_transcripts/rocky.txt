@@ -1,0 +1,275 @@
+
+> w
+You move west.
+Street Corner 1
+You are standing on a street corner. There is an alley to the east. The street runs North and South.
+
+> n
+You move north.
+Library
+You are outside of the Public Library. Don't stay here long or you might be seen and captured by humans!
+
+> e
+You move east.
+Gym
+You are at a Gym. There are people training to fight in boxing tournaments. Does not look too friendly to for Raccoons. There is a discolored brick in the wall that looks loose like it can be removed. 
+
+> Remove brick
+You removed the brick. Behind it is an open space containing a gold necklace. 
+
+> get gold necklace
+You  picked up the gold necklace.   This must be the treasure Doc sent us to find!
+
+> get bible
+you pick up the bible
+
+> w
+You move west.
+Library
+You are outside of the Public Library. Don't stay here long or you might be seen and captured by humans!
+
+> s
+You move south.
+Street Corner 1
+You are standing on a street corner. There is an alley to the east. The street runs North and South.
+
+> e
+You move east.
+Alley
+You are in a dark alley running east and west in the middle of a big city.   You are here.
+
+> e
+You move east.
+Apartment Building
+Your are in an abandoned apartment building. 
+
+> e
+You move east.
+Restaurant 1
+You are standing outside of a restaurant. The back door is ajar. 
+
+> e
+You move east.
+Kitchen in Restaurant 1
+You have entered the kitchen. The room is surprisingly empty.  To the north is a door.   There is some food here.
+
+> get food
+you picked up the food  
+Kitchen in Restaurant 1
+You have entered the kitchen. The room is surprisingly empty.  To the north is a door.   There is some food here.
+
+> n
+You move north.
+Dining Room 1
+You have entered a dining room. There are 10 guests or so dining and enjoying light music. 
+
+> scare guests
+You jump up on a table and the guests leap from their seats and run for the door. You get a kick out of this and smile. Because you despise humans, you really get a kick out of this!
+
+> s
+You move south.
+Kitchen in Restaurant 1
+You have entered the kitchen. The room is surprisingly empty.  To the north is a door. 
+
+> w
+You move west.
+Restaurant 1
+You are standing outside of a restaurant. The back door is ajar. 
+
+> w
+You move west.
+Apartment Building
+Your are in an abandoned apartment building. 
+
+> w
+You move west.
+Alley
+You are in a dark alley running east and west in the middle of a big city.   You are here.
+
+> w
+You move west.
+Street Corner 1
+You are standing on a street corner. There is an alley to the east. The street runs North and South.
+
+> s
+You move south.
+Sewer Entrance 1
+Ah a sewer entrance. Back home you used to go down into these to get around undetected. 
+
+> d
+You move down.
+Sewer 1
+You are in the sewer. You can hear the sounds from a street above you through an opening. There is a tunnel to the East. 
+
+> e
+You move east.
+Sewer 2
+You are in the Sewer. You can hear a dog barking from the apartment building above you. There are tunnels running West and South.   The Ratpack is here.
+
+> give rats food
+You happily hand the rats the food you saved from the kitchen. They accept, and agree to help you on your way.   The Ratpack enters.
+
+> s
+You move south.
+Sewer 3
+You are in the Sewer system. Above you is the sounds of cars crossing a bridge. There is a tunnel running to the North.  
+
+> w
+You move west.
+Sewer 4
+You are in the city sewer system. Above you is the sound of the river's shoreline. It's windy and the waves from the wake of a boat are lapping up against the shore. 
+
+> u
+You move up.
+Sewer Entrance 4
+You are standing on the river's shore. Boats are passing, people are laughing, but it appears to be a dead end. Nothing but a pile of logs and sticks here and an impassible wall to the East.   Also here are pile of logs.  The Ratpack enters.
+
+> u
+You can only move down.
+
+> w
+You can only move down.
+
+> s
+You can only move down.
+
+> w
+You can only move down.
+
+> w
+You can only move down.
+
+> w
+You can only move down.
+
+> pick up rope
+Take what?
+
+> e
+You can only move down.
+
+> e
+You can only move down.
+
+> e
+You can only move down.
+
+> n
+You can only move down.
+
+> e
+You can only move down.
+
+> d
+You move down.
+Sewer 4
+You are in the city sewer system. Above you is the sound of the river's shoreline. It's windy and the waves from the wake of a boat are lapping up against the shore. 
+
+> w
+You can't go in that direction, but you can move east and up.
+
+> u
+You move up.
+Sewer Entrance 4
+You are standing on the river's shore. Boats are passing, people are laughing, but it appears to be a dead end. Nothing but a pile of logs and sticks here and an impassible wall to the East.   Also here are pile of logs.  The Ratpack is here.
+
+> build vessel
+You have built a raft. Time to overcome your fear of water, Rocky. You push off and climb on the raft. Doc helps guide you and the Ratpack across the river to the South shore.   
+Restaurant 2
+You are at a restaurant. There is a fish on the floor. No humans around.   Also here is a fish.
+
+> get fish
+you picked up the fish.  
+Restaurant 2
+You are at a restaurant. There is a fish on the floor. No humans around.   Also here is a fish.  The Ratpack is here.
+
+> s
+You move south.
+Street 1
+You are on a street.   The Ratpack enters from the north.
+
+> e
+You move east.
+Bar
+You are at the back door of a bar. There are a couple of people inside. They are highly enebriated and will not likely give you any trouble. There is a bottle of booze sitting by the door. Hmmm..... 
+
+> say goodbye
+It is wise to travel alone from here. They have reached their destination and you have a family to rescue. 
+
+> s
+You move south.
+Street 3
+
+
+> s
+You can't go in that direction, but you can move north and east.
+
+> e
+You move east.
+Street 4
+
+
+> s
+You move south.
+Street 5
+
+
+> w
+You move west.
+Street 6
+
+
+> w
+You move west.
+Lawn 1
+
+
+> leave fish
+you drop the fish  you leave the fish to distract Tiger the cat and slip passed to home to reunite safely with your family.
+
+> attack dan
+You scratch at Dan and Nancy's faces.  They run down the street to the neighbor's house.The coast is clear. Find your family.
+
+> s
+You move south.
+Lawn 2
+
+
+> w
+You move west.
+Home
+
+
+> find family
+you find them in the walls of the house.
+
+> run away
+You, your wife and daughter begin running away from Dan and Nancy. Which way??  
+Home
+  Family is here.
+
+> w
+You move west.
+Street 10
+
+
+> s
+You move south.
+Street 11
+
+
+> s
+You move south.
+Sewer Entrance 5
+You are at the entrance to your sewer. 
+
+> d
+You move down.
+Sewer 5
+You are in the sewer. There is a tunnel running East. It was this sewer tunnel that brought you to this home. Type "ESCAPE"   
+
+> escape
+YOU WIN!
+
+You have safely rescued your family from Dan and Nancy! 
+[Press any key to end]

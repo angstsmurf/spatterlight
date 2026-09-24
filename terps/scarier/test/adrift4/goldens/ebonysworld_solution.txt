@@ -1,0 +1,56 @@
+move picture
+get x-ray specs
+wear x-ray specs
+n
+get key
+use key with lock
+s
+w
+s
+get sharp stick
+s
+w
+get casino chips
+get bottle
+n
+swap chips for beer
+put beer in bottle
+slide rug
+d
+w
+n
+w
+u
+give beer to seaman
+open boat
+sail boat
+w
+n
+take animal
+d
+use sharp stick with strange square
+put animal in cage
+turn switch
+w
+get reeds
+swim in pond
+w
+get HAR elexir
+e
+n
+u
+w
+lie on bed
+pull cord
+x urn
+get warp stone quarter
+drink HAR elexir
+e
+n
+turn dial to high
+turn dial to on
+flip lever up
+turn valve on
+s
+e
+flip switch

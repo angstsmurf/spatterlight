@@ -1,0 +1,12 @@
+e
+look at desk
+get keys
+e
+u
+w
+start truck
+attach hook to handle
+pull lever
+w
+quit
+y

@@ -1,0 +1,81 @@
+look at ash
+take key
+n
+n
+unlock cupboard
+s
+s
+u
+w
+open window
+climb ladder
+d
+e
+n
+look table
+take key
+s
+e
+look at vent
+take credit card
+w
+n
+use credit card on closet
+unlock safe
+s
+w
+climb ladder
+use engine on time machine
+dig dirt
+use rock on window
+n
+take salt
+s
+e
+use salt on crackers
+give salted crackers to gang
+w
+n
+ask bartender about job
+s
+s
+buy armor
+wear armor
+n
+w
+n
+e
+search hay
+w
+n
+u
+use brass key on door
+n
+s
+d
+s
+w
+n
+take sword
+s
+s
+use sword on cabinet
+n
+e
+n
+u
+n
+use engine on time machine
+take battery
+s
+e
+push button
+use wirecutters on wires
+use wires on battery
+w
+s
+cut wire
+in
+use battery on time machine
+quit
+y

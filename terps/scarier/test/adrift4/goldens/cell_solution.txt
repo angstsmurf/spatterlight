@@ -1,0 +1,55 @@
+look under rug
+get key
+open door
+n
+n
+look at drain
+get paperclip from drain
+pick up a paperclip
+s
+d
+open door with paperclip
+d
+look at man
+s
+e
+d
+get pipe
+u
+w
+s
+s
+s
+e
+look under desk
+get paper
+say eagle
+look at man
+w
+look at window
+break window
+e
+press red button
+s
+shake tree
+get stick
+n
+look man
+smell
+get key
+open cage
+w
+open picture
+look under desk
+get card
+open safe
+look safe
+get pistol
+shoot matrick
+look at corpse
+get jacket
+look in jacket
+get chip
+deactivate bomb
+quit
+y

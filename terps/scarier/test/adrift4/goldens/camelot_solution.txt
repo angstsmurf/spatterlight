@@ -1,0 +1,5 @@
+look at tiles
+lift tile
+d
+s
+climb through hole

@@ -1,0 +1,37 @@
+in
+make pitstop
+out
+out
+get bat
+get bat
+in
+d
+open entertainment center
+get note
+get note
+tear up note
+out
+ask shannon to elaborate
+e
+get ring from Squirt
+w
+present shannon with ring
+w
+ask leo if he's seen emily
+s
+kiss emily
+n
+e
+e
+in
+hit slick with bat
+call cops
+get tv
+out
+w
+in
+place tv on shelf
+turn on tv
+embrace emily
+quit
+y

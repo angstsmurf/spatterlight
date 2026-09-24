@@ -1,0 +1,33 @@
+take crowbar
+w
+open trunk
+n
+pull cord
+use crowbar on door
+take bottle
+open window
+d
+n
+w
+use bottle on freezer
+e
+s
+give bottle to gus
+ask gus about baxter
+n
+e
+n
+take batteries
+use batteries on flashlight
+use crowbar on door
+use crowbar on ice
+d
+turn on flashlight
+search body
+load gun
+u
+n
+n
+shoot baxter
+quit
+y

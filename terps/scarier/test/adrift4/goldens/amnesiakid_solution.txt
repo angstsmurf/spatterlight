@@ -1,0 +1,90 @@
+Petter
+male
+hit loser
+n
+n
+w
+look at nightstand
+get styrofoam
+e
+e
+place styrofoam in pool
+e
+s
+s
+s
+look at fence
+get spray paint
+n
+n
+n
+spray paint on pillar
+in
+w
+5
+look
+get chainsaw
+get M-80
+s
+n
+e
+out
+s
+s
+d
+w
+take leash
+e
+u
+n
+n
+s
+bury banana in dirt
+n
+get hitchiker sign
+wave hitchiker sign
+e
+lie on the pink bed
+out
+slide M-80 under bookshelf
+take books
+n
+give books to scientist
+s
+u
+s
+chop the grass with the chainsaw
+s
+wave hitchiker sign
+2
+in
+open glovebox
+x glovebox
+get porno mag
+look
+give porno mag to farmer
+in
+wait
+wait
+wait
+w
+s
+chainsaw horse
+get solution
+n
+e
+out
+w
+w
+w
+s
+s
+s
+kick tom
+look
+get map
+look at map
+wait
+wait
+wait
+give solution to scientist

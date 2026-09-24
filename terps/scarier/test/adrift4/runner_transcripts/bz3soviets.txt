@@ -1,0 +1,118 @@
+
+> s
+You move south.
+Pass 1
+There is nothing of interest here.
+
+> w
+You move west.
+Pass 2
+There is nothing of interest here.
+
+> w
+You move west.
+Pass 3
+There is nothing of interest here.
+
+> n
+You move north.
+Pass 4
+There is nothing of interest here.
+
+> n
+You move north.
+Pass 5
+There is nothing of interest here.
+
+> w
+You move west.
+Pass 6
+There is nothing of interest here.
+
+> s
+You move south.
+Pass 7
+There is nothing of interest here.
+
+> e
+You move east.
+Pass 8
+There is nothing of interest here.
+
+> in
+You move in.
+Outskirts of town
+There is nothing of interest here.
+
+> e
+You move east.
+Outer town
+There is nothing of interest here.
+
+> out
+You move out.
+Inner town
+There is nothing of interest here.
+
+> e
+You move east.
+Town center
+There is nothing of interest here.
+
+> n
+You move north.
+American Base
+There is nothing of interest here.  Enemy Recycler and Silo are here.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.  Silo hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.  Silo hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.  Silo hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Enemy Recycler hits you, but it doesn't seem to do any damage.  Silo hits you, but it doesn't seem to do any damage.
+
+> attack enemy recycler with stabber
+You shoot Enemy Recycler with AT stabber.  Good work comrade! This is only the medium level though, He he! The Cthonians will make you cry like a baby! This is only included in the full version though! It will be out soon!                              WATCH YOUR BACK!  
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

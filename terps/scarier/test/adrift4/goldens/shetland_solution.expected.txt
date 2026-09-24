@@ -2,21 +2,10 @@ Loading game...
 
 The Shetland Enigma
 
-> look
-
-In the sea
-You are bobbing around in the icy waters of Xantres Luna V.  The sky above is
-clear and dark, speckled ith distant pricks of starlight.  Behind you, in the
-direction your life-suit's compass tells you is west, is the small iceberg
-into which your shuttle crashed.  Ahead of you, just a short swim away, is
-the gigantic form of a space-craft's rear dorsal.  It juts out of the water
-by some two-hundred feet.  On it, below the Space-Corps insignia, is printed
-the ship's name: the Shetland.  Also here is a small chunk of ice.
-
-> take ice
+> get ice
 You take the small chunk of ice.
 
-> east
+> e
 You move east.
 
 At the Shetland's dorsal
@@ -44,7 +33,7 @@ You are in a small access hatchway in the rear end of the enormous freighter,
 Shetland.  Behind you, to the west, is a door leading out into the freezing
 ocean.  In front of you is a door leading into the ship.
 
-> east
+> e
 You move east.
 
 At a junction
@@ -52,7 +41,7 @@ You are at a three-way junction in a maintenance corridor.  The door to your
 west leads into an airlock and through that out to sea, and there is also a
 door to your east.  A corridor branches off to the north.
 
-> east
+> e
 You move east.
 
 In a maintenance shed
@@ -62,13 +51,13 @@ west, another leads south, and the last leads east.  Because of the way the
 Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
 towards the north.  Also here is a laser cutter and a welding torch.
 
-> take laser cutter
+> get laser cutter
 You take the laser cutter.
 
-> take welding torch
+> get welding torch
 You take the welding torch.
 
-> east
+> e
 You move east.
 
 The Maintenance-Staff Room
@@ -76,16 +65,16 @@ This room is slightly larger than the adjoining supply-shed.  Benches line
 both walls.  There is a door in the east wall and another in the west.  A man
 is slumped against the north wall.
 
-> examine man
+> look at man
 This man is definitely dead, and has been for at least a month.  He has long
 ago started to decompose.  It looks like he was flung across the room when
 the ship crashed.  His neck is horribly broken, and on closer inspection, his
 skull is cracked from the impact.  A small fuel canister is on the dead man.
 
-> take canister
+> get small fuel canister
 You take the small fuel canister from the dead man.
 
-> west
+> w
 You move west.
 
 In a maintenance shed
@@ -95,7 +84,7 @@ west, another leads south, and the last leads east.  Because of the way the
 Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
 towards the north.
 
-> south
+> s
 You move south.
 
 The engine access bay
@@ -103,13 +92,13 @@ You are in a small chamber with doors at both ends, to the north and south.
 Two large computer terminals stand against the east wall.  Also here is a
 large fuel tank.
 
-> fill small canister from tank
+> fill small canister
 You refill the small fuel canister with MPF Fluid from the larger tank.
 
 > refill torch
 You plug the small fuel canister into the welding torch.
 
-> north
+> n
 You move north.
 
 In a maintenance shed
@@ -119,7 +108,7 @@ west, another leads south, and the last leads east.  Because of the way the
 Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
 towards the north.
 
-> west
+> w
 You move west.
 
 At a junction
@@ -127,14 +116,14 @@ You are at a three-way junction in a maintenance corridor.  The door to your
 west leads into an airlock and through that out to sea, and there is also a
 door to your east.  A corridor branches off to the north.
 
-> north
+> n
 You move north.
 
 In a short corridor
 You are in a short, dark corridor.  There is a door in the north end, and an
 elevator in the east wall.
 
-> north
+> n
 You move north.
 
 In the maintenance manager's office
@@ -143,94 +132,40 @@ the Shetland.  Incidentally, his decaying corpse is lying on the floor beside
 a pleasant looking maroon-leather topped desk.  There is a framed photograph
 on the wall of a smiling woman holding a small baby.  A door leads south.
 
-> examine maintenance manager
+> look at corpse
 This corpse has been here for some time, and has decomposed a little.  The
 skin is decidedly blue from the freezing temperature.  He has a pained
 expression on his cold face.  A small power cell is on the dead maintenance
 manager.
 
-> take power cell
+> get power cell
 You take the small power cell from the dead maintenance manager.
 
-> examine desk
+> look at desk
 This is an expensive-looking wooden desk, with a maroon-leather top.  Pens
 are scattered on the floor around it, from when the Shetland crashed.  It
 also has a drawer.  A length of rope is inside the maintenance manager's
 desk.
 
-> take rope
+> get rope
 You take the length of rope from the maintenance manager's desk.
 
-> power laser with cell
-You plug the small energy cell into the laser-cutting tool.
-
-> south
+> s
 You move south.
 
 In a short corridor
 You are in a short, dark corridor.  There is a door in the north end, and an
 elevator in the east wall.
 
-> south
-You move south.
-
-At a junction
-You are at a three-way junction in a maintenance corridor.  The door to your
-west leads into an airlock and through that out to sea, and there is also a
-door to your east.  A corridor branches off to the north.
-
-> east
-You move east.
-
-In a maintenance shed
-This is a small room, from which three doors lead.  On the floor lie various
-tools, which have fallen from their hangings on the walls.  A door leads
-west, another leads south, and the last leads east.  Because of the way the
-Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
-towards the north.
-
-> south
-You move south.
-
-The engine access bay
-You are in a small chamber with doors at both ends, to the north and south.
-Two large computer terminals stand against the east wall.  Also here is a
-large fuel tank.
-
-> cut door with laser
-You cut through the south door with the laser cutter.
-
-> north
-You move north.
-
-In a maintenance shed
-This is a small room, from which three doors lead.  On the floor lie various
-tools, which have fallen from their hangings on the walls.  A door leads
-west, another leads south, and the last leads east.  Because of the way the
-Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
-towards the north.
-
-> west
-You move west.
-
-At a junction
-You are at a three-way junction in a maintenance corridor.  The door to your
-west leads into an airlock and through that out to sea, and there is also a
-door to your east.  A corridor branches off to the north.
-
-> north
-You move north.
-
-In a short corridor
-You are in a short, dark corridor.  There is a door in the north end, and an
-elevator in the east wall.
-
-> east
+> e
 You move east.
 
 In an elevator
 You are in a defunct elevator.  With no power, it can do absolutely nothing.
   There is a small panel in the floor, but it is locked.
+
+> power laser
+You plug the small energy cell into the laser-cutting tool.
 
 > cut panel with laser
 You cut away the floor panel using your laser cutting tool.  The panel drops
@@ -241,7 +176,7 @@ up to you.
 You tie the rope to the jagged spike of metal.  It now hangs down the lengthy
 drop.
 
-> down
+> d
 You move down.
 
 In an elevator shaft
@@ -249,7 +184,7 @@ You are in an elevator shaft, dangling from a length of rope that stretches
 up past many closed elevator doors.  But you are currently by an open
 elevator door, which is in front of you, to the east.
 
-> east
+> e
 You move east.
 
 In a long passageway
@@ -258,7 +193,7 @@ wall, one in the east wall and one at the north end.  However, one of the
 doors in the west wall is locked.  The other is an elevator shaft, in which
 dangles a length of rope from above.
 
-> east
+> e
 You move east.
 
 In an officer's cabin
@@ -266,26 +201,25 @@ This room was obviously once an officer's cabin.  This is obvious partly
 because the corpse of an officer is sprawled across the large desk in the
 middle of the room.  A bookshelf lines the east wall.
 
-> examine dead officer
-This man has died of hypothermia.  His skin is blue and his eyes are slightly
-bulging.  A glass of whiskey and a grenade are on the dead officer.
+> pluck officer's eye
+You pluck out one of the dead officer's eyeballs.
 
-> take whiskey
+> look at dead officer
+This man has died of hypothermia.  His skin is blue and his remaining eye is
+slightly bulging.  One of his eyes has been plucked out.  A glass of whiskey
+and a grenade are on the dead officer.
+
+> get glass of whiskey
 You take the glass of whiskey from the dead officer.
 
-> take grenade
+> get grenade
 You take the grenade from the dead officer.
 
-> examine table
-A large wooden desk.  Pens and blank papers are scattered around it.  The
-corpse of the officer whose cabin this was is sprawled across it.  A piece of
-paper is on the dead officer's table.
-
-> examine bookcase
+> look at bookcase
 This bookshelf is littered with all kinds of books, none of them that
 interesting.  A silver key is on the bookcase.
 
-> take key
+> get silver key
 You take the silver key from the bookcase.
 
 > put ice in whiskey
@@ -295,10 +229,7 @@ You put the chunk of ice in the glass of whiskey.
 You gulp down the tasty glass of whiskey.  You really needed that after your
 experiences today.  It calms your nerves somewhat.
 
-> pluck officer's eye
-You pluck out one of the dead officer's eyeballs.
-
-> west
+> w
 You move west.
 
 In a long passageway
@@ -307,7 +238,7 @@ wall, one in the east wall and one at the north end.  However, one of the
 doors in the west wall is locked.  The other is an elevator shaft, in which
 dangles a length of rope from above.
 
-> north
+> n
 You move north.
 
 In the kitchens
@@ -316,7 +247,7 @@ the many cooking implements strewn around, and partly because all the corpses
 here are dressed in cooks' uniforms.  There is a door at the north end of the
 room and a door to the south.  In the east wall is a huge oven.
 
-> north
+> n
 You move north.
 
 In a section of corridor
@@ -326,13 +257,13 @@ into this proclaiming, "Officers Only".  There is a large wall-mounted box on
 the west wall.  There is a retinal scanner beside the door, which isn't
 working as there is no power.
 
-> examine box
-This looks like an emergency supply box.  It is physically locked.
-
 > unlock box with key
 You unlock the supply box.  Inside is a small power cell, which you take.
 
-> charge scanner with cell
+> open box with key
+You can't open the large wall-mounted box with the silver key.
+
+> plug cell into retinal scanner
 You power up the retinal scanner.  It bleeps and emits a faint infrared glow.
 
 > hold eye in front of scanner
@@ -340,7 +271,7 @@ You hold the officer's eye in front of the retinal scanner.  With a bleep, it
 unlocks the door.  There is an ominous groan of steel as the bolts slide
 apart...
 
-> north
+> n
 You move north.
 
 On a carpeted stairwell
@@ -349,7 +280,7 @@ slight angle at which the Shetland has crashed, the stairs tip unnaturally,
 making them incredibly steep.  Upwards, to the south, is a large bulkhead,
 and below, to the north, is a wooden door.
 
-> north
+> n
 You move north.
 
 In a dank passage
@@ -358,34 +289,7 @@ is water dripping down the left wall, and the whole corridor tilts down to
 the north due to the Shetland's angle.  There are doors in both walls, and
 one at each end.  Stairs lead upward from the south door.
 
-> east
-You move east.
-
-In the Captain's cabin
-You are in a small cabin, whose once plush interior is now sadly damp and
-gloomy.  There must be a tear somewhere on the Shetland's left flank for
-water to be able to get inside.  There is a large four-poster bed against the
-east wall, a bookcase against the north, and a worktop in the middle of the
-room, beside which are an assortment of pens and pencils which fell when the
-ship crashed.  Hanging from the south wall is a large, framed picture of
-Jakai Marrel, the director of the Space Corps, and your ultimate master.
-
-> move picture
-Behind the large framed portrait of the Director of the Space Corps is a
-hollowed out section of wall containing a large communications box.  It is
-off, as there is no power.  Why would the Captain of a freighter keep a
-secret comm-set?
-
-> west
-You move west.
-
-In a dank passage
-You are in a long passage, quite close to the Shetland's left flank.  There
-is water dripping down the left wall, and the whole corridor tilts down to
-the north due to the Shetland's angle.  There are doors in both walls, and
-one at each end.  Stairs lead upward from the south door.
-
-> north
+> n
 You move north.
 
 In the primary command chamber
@@ -404,7 +308,7 @@ yards through the dark water outside, but occasionally, bubbles rise past
 from below.  A small alcove in the east wall contains a ladder that leads
 downwards.
 
-> down
+> d
 You move down.
 
 In a maintenance shaft
@@ -419,7 +323,7 @@ You throw the implosion grenade at the heap of rubble.  There is a deafening
 thud, and shards of shattered metal scatter down the corridor, luckily
 missing you by inches.  However, the east door is now clear...
 
-> east
+> e
 You move east.
 
 In the hangar
@@ -456,8 +360,8 @@ that, he draws his Benson and puts three 8mm rounds through your body.  You
 gasp when you feel blood running through your fingers as you clutch them to
 your chest.  Utterly betrayed, you die, and are never heard of again...
 
-You scored 210 out of the maximum 100!
-That is 210% of the game!
-You finished -110 points short.
+You scored 180 out of the maximum 100!
+That is 180% of the game!
+You finished -80 points short.
 
 [Press any key to end]

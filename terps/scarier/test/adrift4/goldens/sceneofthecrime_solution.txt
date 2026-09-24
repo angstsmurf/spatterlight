@@ -1,0 +1,360 @@
+n
+x bed
+get clothes
+wear clothes
+x clothes
+get all
+s
+call room service
+z
+z
+z
+z
+z
+s
+d
+e
+say to barry hello
+ask barry about last night
+thank barry
+x lowlifes
+say to jimmy hello
+give change to jimmy
+w
+s
+enter car
+insert keys
+x junk
+get keys
+drive to rossetter street
+out
+n
+ne
+x body
+x sofa
+get all
+ask clancy about murder
+ask clancy about murder
+sw
+s
+enter car
+drive to slazenger heights
+out
+s
+u
+knock
+say police
+show id
+n
+ask tricia about murder
+ask tricia about murder
+ask tricia about coat
+ask tricia about fellow
+say to tricia follow
+say to mcavity "follow me"
+s
+d
+n
+enter car
+drive to sleze row
+out
+unlock door
+n
+x tv
+ne
+x microwave
+get sweets
+sw
+n
+x bed
+get clue 6
+open bed
+open bed
+get gun
+open closet
+in
+x rail
+get uniform
+get gear
+out
+s
+e
+x boxes
+x boxes
+get picklock
+get comic
+w
+s
+enter car
+wear uniform
+drive to congleton plaza
+out
+n
+x wanted board
+x wanted board
+n
+look under table
+get mask
+open cabinet
+x cabinet
+show shots to tricia
+drop shots
+ring 555-1213
+say appointment
+s
+u
+e
+sit
+w
+d
+s
+enter car
+drive to chalfont street
+out
+n
+give comic to clerk
+s
+enter car
+drive to malvern row
+out
+enter building
+u
+x table
+get food
+give sweets to boy
+get all
+d
+out
+enter car
+drive to 7th avenue
+out
+wear gear
+e
+ne
+ne
+give food to beggars
+get all
+sw
+w
+join rods
+n
+w
+get flowers
+say to alfonse hello
+show badge to alfonse
+ask alfonse about clue 7
+e
+n
+say police
+nw
+wear mask
+x toilet
+get all
+se
+s
+s
+enter car
+drive to slater drive
+out
+n
+x desk
+light alarm
+u
+n
+ne
+x desk
+get all
+sw
+s
+d
+s
+enter shop
+x vampires
+get all
+out
+enter car
+drive to blackwater row
+out
+e
+se
+show badge to teller
+se
+rub matchbox
+call teller
+say to teller "open the vault"
+show badge to teller
+e
+blow whistle
+x body
+get all
+w
+nw
+w
+enter car
+drive to 7th avenue
+out
+n
+w
+say to alfonse "hello"
+show badge to alfonse
+ask alfonse about clue 7
+z
+z
+z
+get wallet
+open wallet
+get key
+z
+z
+e
+s
+enter car
+drive to congleton plaza
+out
+n
+u
+nw
+say to clerk hello
+show riot gear to clerk
+wear gear
+se
+d
+s
+enter car
+drive to the beach
+out
+nw
+n
+shoot hood
+n
+n
+ne
+n
+ne
+e
+e
+e
+kill mugsy
+x mugsy
+get all
+w
+w
+insert security card
+n
+get axe
+s
+w
+sw
+smash door
+w
+get all
+e
+ring bell
+push button 1
+push button 2
+push button 4
+push knob 1
+push knob 2
+push knob 4
+x monitor 8
+x monitor 17
+x monitor 13
+s
+s
+sw
+drop all
+remove gear
+drop gear
+remove uniform
+drop uniform
+open door
+x bed
+get bomb
+x window
+get explosive
+fit explosive to door
+hide under bed
+s
+w
+w
+sw
+s
+sw
+get all
+wear gear
+wear uniform
+s
+s
+se
+enter car
+drive to malvern row
+out
+se
+e
+e
+e
+use axe
+e
+unlock door
+e
+e
+raise seat
+hide
+x talbot
+get pistol
+w
+e
+wait
+ask talbot about travers
+ask talbot about deal
+ask talbot about shady
+ask talbot about what happened
+ask talbot about o'hagen
+w
+w
+w
+w
+nw
+enter car
+drive to blackwater row
+out
+ne
+nw
+w
+w
+sw
+x body
+get all
+ne
+e
+e
+se
+sw
+enter car
+drive to the beach
+out
+nw
+n
+n
+ne
+n
+ne
+nw
+n
+n
+arrest shady
+s
+s
+se
+sw
+s
+sw
+s
+s
+se
+enter car
+drive to congleton plaza
+out
+n
+u
+e

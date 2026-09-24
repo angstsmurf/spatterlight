@@ -1,0 +1,34 @@
+look in pipe
+n
+climb ladder
+look
+get rusted hammer
+use hammer on door
+twist dial
+use axe on window
+answer phone
+knock on door
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+look
+drive to parking lot
+n
+s
+open car
+get note
+read note
+start ignition
+in
+u
+climb paint ladder
+drive to church
+in
+use rope on Jason Evans

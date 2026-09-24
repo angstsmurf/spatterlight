@@ -1,0 +1,39 @@
+n
+n
+w
+open cabinet
+get gum
+get card
+e
+s
+w
+open vault
+get rock
+e
+s
+put rock on panel
+n
+e
+turn on computer
+power generators
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+w
+n
+e
+press button
+w
+s
+s
+put gum on hole
+quit
+y

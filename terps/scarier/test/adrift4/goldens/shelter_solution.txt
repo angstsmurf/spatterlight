@@ -1,0 +1,16 @@
+get rope
+open chest
+look in chest
+get bolt
+get magnifying glass
+x hole
+x ridges
+screw bolt into hole
+loop rope over hook
+tie rope to bolt
+pull rope
+d
+pull shelves
+e
+quit
+y

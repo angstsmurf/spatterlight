@@ -1,0 +1,147 @@
+
+> w
+You start following the road, ever westwards...
+
+After a while you begin to wonder if you're not going the wrong way...
+
+After an even longer while you begin to wonder what the hell you were thinking, going west. After all, you were perfectly safe on your ship.
+
+You stop thinking. Just left, right, left, right... You'll get there eventually. Then you wonder where exactly there might be, and how long until eventually.
+
+Then you take a turn, and realze you've eventually made it to there.
+
+
+The town gate
+A low stone wall, overgrown with drying weeds, is broken by a huge arch, as wide as the road and tall enough to allow even a small spaceship to pass through. On the top side of the arch, in neon letters, the name of the town: "Ydarrut".
+
+The road enters town through this arch, to the north.
+
+> n
+You move north.
+Galdu street
+A signpost indicates this to be Galdu street. You could play football on this street.. Unimpressive houses, dusty gardens, tall pine trees.
+
+The street continues to the north, and exits town to the south.
+
+> n
+You move north.
+The town square
+The town square doesn't look quite like you'd imagined it would. For one thing, the houses you've seen around town had led you to expect something a bit more Mediterranean, whitewashed walls, red shingles, that sort of thing.
+
+Instead the square if paved with Penrose tiles, the buildings surrounding it are made of translucid plasticrete, and colorful holograms flicker silently all over the place.
+
+The one thing that you did expect, however, is the statue in the middle of the square.
+
+Several streets exit the square to the south, west and northwest. What you assume is the town hall lies at the north end of the square.
+
+> n
+You move north.
+The civic center
+The Civic Centre looks more like an ancient Gothic cathedral than a public building. In the choire area there is something that resebles an altar, but is, in fact, a computer terminal. Quite possibly it is self-aware, or at least reasonably intelligent.
+
+> sell plans
+You slide the plans for the recycling plant you'd been trying to sell into a slot that opens in the terminal.
+
+> s
+You move south.
+The town square
+The town square doesn't look quite like you'd imagined it would. For one thing, the houses you've seen around town had led you to expect something a bit more Mediterranean, whitewashed walls, red shingles, that sort of thing.
+
+Instead the square if paved with Penrose tiles, the buildings surrounding it are made of translucid plasticrete, and colorful holograms flicker silently all over the place.
+
+The one thing that you did expect, however, is the statue in the middle of the square.
+
+Several streets exit the square to the south, west and northwest. What you assume is the town hall lies at the north end of the square.
+
+> nw
+You move northwest.
+Espizegazor
+A signpost indicates this to be Espizegazor. Oh look, this one's narrow. Oh wait, no it isn't.. Better-built houses, rich gardens, the same pine trees you've seen everywhere.
+
+The town square is to the southeast, and a machine shop of sorts is to the west.
+
+> w
+You move west.
+The machine shop
+..And suddenly you're in another word: There's all sorts of technological implements around here, from an anvil with a pair of hammers on it, to a brand-new Yakashati plasma flow modulator.
+
+In the adjacent courtyard you're shocked to see an Argentinosaur.  Maita Jakeres is here.
+
+> fix ship
+You can't see the ship.
+
+> give card to maita
+You hand Maita your credit card and explain how to get to the ship. She smiles, then whistles to her dinosaur.
+
+It leaves, and returns shortly with your ship in tow.  
+
+> e
+You move east.
+Espizegazor
+A signpost indicates this to be Espizegazor. Oh look, this one's narrow. Oh wait, no it isn't.. Better-built houses, rich gardens, the same pine trees you've seen everywhere.
+
+The town square is to the southeast, and a machine shop of sorts is to the west.
+
+> se
+You move southeast.
+The town square
+The town square doesn't look quite like you'd imagined it would. For one thing, the houses you've seen around town had led you to expect something a bit more Mediterranean, whitewashed walls, red shingles, that sort of thing.
+
+Instead the square if paved with Penrose tiles, the buildings surrounding it are made of translucid plasticrete, and colorful holograms flicker silently all over the place.
+
+The one thing that you did expect, however, is the statue in the middle of the square.
+
+Several streets exit the square to the south, west and northwest. What you assume is the town hall lies at the north end of the square.
+
+> n
+You move north.
+The civic center
+The Civic Centre looks more like an ancient Gothic cathedral than a public building. In the choire area there is something that resebles an altar, but is, in fact, a computer terminal. Quite possibly it is self-aware, or at least reasonably intelligent.
+
+> buy grains
+I don't think that is for sale.
+
+> s
+You move south.
+The town square
+The town square doesn't look quite like you'd imagined it would. For one thing, the houses you've seen around town had led you to expect something a bit more Mediterranean, whitewashed walls, red shingles, that sort of thing.
+
+Instead the square if paved with Penrose tiles, the buildings surrounding it are made of translucid plasticrete, and colorful holograms flicker silently all over the place.
+
+The one thing that you did expect, however, is the statue in the middle of the square.
+
+Several streets exit the square to the south, west and northwest. What you assume is the town hall lies at the north end of the square.
+
+> s
+You move south.
+Galdu street
+A signpost indicates this to be Galdu street. Are all streets this wide around here? If you saw a skyscraper, the streets would still make it look squat.. Unimpressive houses, dusty gardens, tall pine trees.
+
+The street continues to the north, and exits town to the south.
+
+> s
+You move south.
+The town gate
+A low stone wall, overgrown with drying weeds, is broken by a huge arch, as wide as the road and tall enough to allow even a small spaceship to pass through. On the top side of the arch, in neon letters, the name of the town: "Ydarrut".
+
+The road enters town through this arch, to the north.  A gust of wind brings in a huge cloud of dust from somewhere in the southeast.
+
+> e
+You move east.
+The crash site
+What initially seemed to be a large savannah, turns out to be, in fact, a cultivated field. The wheat is chest-high and it sways gently in the breeze.
+
+The horizon is dominated by purplish hills to the north, and there are some nondescript trees far to the southeast. A few puffy clouds float gently in the summer afternoon...
+
+A very peaceful picture.
+
+A ridiculously wide dirt road gently arches to the west.  
+
+The Pasqual Obispo stands majestically in the field, as good as new and ready for take-off.
+
+> e
+You board your ship, and take off. Not a bad ending, after all...
+Relaxing in the acceleration couch of the Obispo, you ponder on the past events. Sure, you're richer than you were last week, but you could have sold that plant for at least twice the sum. Oh well. You live and you learn.
+
+
+[Press any key to end]

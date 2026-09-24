@@ -1,0 +1,87 @@
+n
+n
+w
+flip switch
+w
+get shovel
+u
+sit on bench
+play organ
+open bench
+get note
+read note
+d
+e
+e
+u
+n
+open dresser
+get steel key
+s
+w
+read wall
+e
+d
+wind grandfather clock
+u
+w
+u
+unlock box
+open chest
+get rusty key
+d
+e
+d
+e
+n
+unlock cabinet
+s
+w
+n
+n
+look
+look
+look
+look
+look
+look
+look
+look
+n
+dig charles grave
+get gold
+s
+s
+s
+look
+look
+look
+look
+look
+look
+n
+n
+look
+look
+look
+look
+look
+n
+dig baby grave
+get rattle
+s
+s
+s
+u
+n
+w
+give rattle to baby
+e
+s
+d
+remove portrait
+push button
+n
+give device to david
+quit
+y

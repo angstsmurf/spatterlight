@@ -1,0 +1,56 @@
+Petter
+male
+e
+s
+shoot alien
+push button
+n
+w
+n
+n
+e
+pull lever
+w
+w
+shoot alien
+shoot alien
+shoot alien
+x man
+get hand
+e
+e
+w
+s
+s
+e
+put hand on scanner
+n
+get keycard
+s
+w
+n
+n
+e
+swipe key card
+e
+shoot alien
+shoot alien
+flip switch
+w
+n
+w
+open door
+twist wires together
+e
+e
+n
+w
+push button
+n
+pull lever
+s
+e
+s
+e
+in
+push button

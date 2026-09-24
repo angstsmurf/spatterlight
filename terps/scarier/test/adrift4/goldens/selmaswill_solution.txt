@@ -1,0 +1,109 @@
+look
+x coatrack
+take sweater
+look in sweater
+take paperclip
+w
+x chair
+take yarn
+x basket
+take needle
+x dish
+take candy
+take brick
+x fireplace
+take key
+e
+n
+w
+x box
+open box
+x box
+take hat
+e
+n
+e
+look
+x dale
+give hat to dale
+open cabinet
+x cabinet
+take cleaner
+sew bear
+w
+w
+look
+x cc
+give bear to cc
+take plunger
+e
+s
+e
+look
+x sink
+use plunger on sink
+take key
+w
+s
+x bench
+open bench
+x bench
+take penny
+u
+look
+x machine
+buy gum
+eat gum
+d
+look
+take penny
+u
+buy gum
+d
+n
+n
+e
+n
+look
+x walter
+give gum to walter
+s
+w
+look
+x ida
+give sweater to ida
+s
+s
+u
+w
+look
+x tammi
+give earring to tammi
+e
+look
+x henry
+give marbles to henry
+slide down the banister
+u
+n
+look
+x zeke
+give candy to zeke
+x door
+unlock door
+n
+look
+x cozies
+take cozies
+look
+x mirror
+look me
+clean glass with towel
+break glass
+s
+s
+slide down the banister
+s
+s
+look
+give will to lewis

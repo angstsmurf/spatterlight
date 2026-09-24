@@ -1,0 +1,61 @@
+up
+e
+n
+sleep
+answer phone
+open door
+open window
+up
+look under sheets
+ne
+e
+get hammer
+w
+sw
+in
+x vase
+get key
+e
+open cabinet
+get candle
+w
+u
+use key to unlock door
+look in hole
+get lighter
+in
+search for lightswitch
+d
+d
+hit wall with hammer
+n
+look under bed
+s
+out
+u
+u
+out
+use crowbar on window
+up
+open chest
+get chest key
+sw
+s
+out
+u
+u
+light candle
+out
+up
+open chest
+in
+d
+d
+in
+n
+ne
+sw
+s
+out
+out
+

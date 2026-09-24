@@ -1,0 +1,65 @@
+e
+put doll in fire
+w
+phone
+call 911
+n
+take shovel
+s
+dig
+look in hole
+n
+unlock door
+open door
+w
+look at table
+take candle
+w
+7
+13
+24
+open cabinet
+look in cabinet
+take mirror
+light candle
+e
+e
+put mirror on chair
+e
+look at desk
+take glasses
+take book
+light lamp
+w
+drop candle
+n
+take ice
+s
+take candle
+w
+w
+put ice in pot
+look in pot
+take head
+put candle in head
+e
+e
+n
+w
+burn rope
+e
+e
+take sword
+w
+w
+take bacon
+in
+give bacon to owl
+in
+open clock
+sword
+toy clock
+e
+take doll
+w
+doll clock

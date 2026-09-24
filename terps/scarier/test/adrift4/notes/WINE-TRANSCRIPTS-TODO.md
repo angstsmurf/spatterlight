@@ -210,7 +210,8 @@ Row comments and probe generators cite sections by title ("Ported
 ## Open leads
 
 None blocks a golden. Rows not named here differ only by a capture
-artefact; no corpus row differs by an engine rule.
+artefact, apart from the engine rules diagnosed on 2026-09-24 and listed
+below as not yet ported.
 
 ### Harness and compare
 
@@ -250,12 +251,134 @@ artefact; no corpus row differs by an engine rule.
 - Lost commands after an ending: thelasthour's last `wait` only (that row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
   solution line and the extra `wait` makes up for it).
+- The feed's closing `quit`/`y`: never echoed after an ending, and otherwise
+  asked in the Runner's Form_QueryUnload MsgBoxes, which the transcript does
+  not show. `closing_quit()` in the compare leaves that tail out
+  (2026-09-24). It had scored 53 rows as "2 lost command(s)" and 8 as a
+  differing `quit` turn.
+- The `*_repeatassist` rows (vampire, merry_murders) run scarier-only
+  assists and differ by design, like the `to_hell_and_beyond` assisted rows.
 - Deliberate deviations by row: sandy_meta_number and hero's closing
   `statusline` (SCARE meta-commands; hero uses `statusline` on purpose to
   print the score).
 - Load failures from the 09-06/09-07 batches: six rows raised `evaluate
   error - Subscript out of range` mid-game; TheADRIFTProject crashed with
   run-time error 401 at command 92.
+
+### Engine, diagnosed 2026-09-24
+
+These are the fix-diagnosis batches over the compare reports. Batch A
+(crashland, fairscare, haremprologue, makeshift, noximion) and batch B
+are ported and blessed.
+
+**Ported (batch B, 2026-09-24):** chasingrussian T8 (whitespace after
+the name's inner space), bigspy2 T2 plus advent350b T386 (loud task pass
+before the library take), thesorc T246-248 (dobattle takes the last
+named weapon), outside and mm2 (harness: the compare trusts the `\x02>`
+prompt marker and no longer uses the 80-column heuristic), namiki T93
+(from_390_multi counts down from `fits`), dragonsphere T4 (type-2 room alt
+with Var3 0), goldbe (no turn count on the ending turn), homelessharry
+T11, enigma T57 (absent-NPC battle checks the Name only), and these:
+
+- **amnesiakid T46** `put M-80 under bookshelf`: `lib_put_held_unsplit_400`
+  plus `run_put_class_only` (class-2 dispatch for a held object; the
+  pre-match itself stays unfiltered). T80 `kick tom`: 4.0's absent-NPC
+  attack arm needs an empty buffer, and therest's checkverb arms have
+  already filled it for hit/kick/push/pull/press/shake, so "Nothing
+  happens" stands. With the class filter the walkthrough's `put M-80
+  under bookshelf` no longer runs task 16, so it is **rerouted to `slide
+  M-80 under bookshelf`**.
+- **mysterymanor T3** `drop cell phone`: `lib_drop_named_400` hands a
+  HELD object to the short definite drop (DontUnderstand when nothing
+  runs), but only when the rewritten `put` line pre-matches some task
+  unfiltered and NO class-2 task. The exception is empirical. A claim on
+  any unfiltered hit broke ADRIFTMAS_Party T59 `drop suitcase` (task 30
+  `[wear/put]{on}...`) and advent350b T270 `drop lamp` (task 77
+  `[drop/put] [lantern/light]`), and both were identical before. Where
+  44CCE0 makes this call is not traced.
+- **ghoster T17** `drop body`: when nothing present resolves,
+  `lib_drop_named_400` answers "You are not holding <seen object>." ahead
+  of the tasks, UNLESS a task pre-matches the typed line with its
+  restrictions passing (a first-pass hit). freedom (escape.taf) `drop jeep`
+  while driving must keep task 43's "Done.". ghoster task 8 hits only
+  through its failing restriction's message (kind 3). This is also a
+  fitted rule.
+
+**Ported (britishfox, 2026-09-24):** the row now matches the Runner end
+to end, and its compare report is gone.
+
+- 4.0 therest verbs below the 4887A0 clause take "You can't see <seen
+  object>." through `lib_cmd_verb_absent_400`. The rows are clean, wash,
+  climb, cut, sell and shake, plus turn (T306 `eugene turn on computer`)
+  and stop (T376 `stop engine`, 488F56).
+- The co() scan that leaves a Which pending (`lib_co_400_line_leaves_which_pending`)
+  is limited to the give branch.
+- T16/T97: 4.0 wear has no rebuilt-line retry (wears 463C30 does no
+  pre-match), so `lib_wear_backend` skips `lib_try_game_command_short` at
+  4.0. The walkthrough now uses `wear my costume` and `wear eleanore's
+  clothes`. The flirt lines 7-11 are gone.
+- T147: an auto-from take whose parent is an OPEN container gives "Take
+  what?" (47332B). `lib_cmd_take_absent` declines.
+- T188: characters() writes him/her by gender byte for every NPC the line
+  names, with no presence or seen test (run400 47F3A2-47F402, run390
+  4592B8-459326). A neuter NPC becomes the object "it". This is in
+  `uip_note_named_npcs` from 3.9 on, and `uip_assign_pronouns` keeps its
+  %character% branch for 3.8 and earlier only.
+- T215-256 `attack guard`: 45404C's failure pass runs only when the picker
+  found no task. A spent task with a RepeatText whose restrictions pass
+  (385, "The guard is already unconscious.") is a find, so the lower task
+  331's "The jailors are not here" never prints. The fallback in
+  `run_game_commands_common` is gated on `run_repeat_found_400`.
+
+**Re-driven 2026-09-24** on the current walkthrough (the old feed still
+had the dropped flirt lines): 43/50. T318 was the one differing turn and
+is now ported; the row is identical on every turn.
+
+- T318 `get grace`: a textless take-family task runs TWICE. get_piece
+  dispatches the pre-matched task at 472DE7 but claims only on a
+  pre-match of 1 (the task has text of its own). With no object resolved,
+  its 473241 pre-match hits again and exits silently, and the dispatcher
+  at 48A481 runs the typed line a second time. Probe p4TDBL
+  (`make_400_takedoubleprobe.py`, Adrift_282_p4tdbl) measures the cells:
+  a task spent by the first run misses 473241 and gets "Take what?" at
+  47332B, but only into an empty buffer (FunHouse T2); an object the run
+  brings into reach is taken or refused (sommeril T49); two silent runs
+  give DontUnderstand. With a dynamic object in reach (p4TDBO,
+  `--objects`, Adrift_282_p4tdbo) the task runs ONCE and the library take
+  follows: "Player take the ball.  BOBTEXT." (take line first, 47359A),
+  held "BOBTEXT.Player is already carrying the gem." (refusal glued on).
+  Ported too; no stored transcript or golden has the case.
+
+**Not ported / left open:**
+
+- **lockedout T22** `get battery` (3.9): takes() rewrites a bare take of
+  a contained object into "... from <parent>" (4552EE), and insides()
+  picks the FIRST reachable Prefix/Short substring match past "from"
+  (462838-462E75), which gives the tub of Lego and "is not inside". A
+  port regressed two rows, so it was reverted: alex (the syringe's
+  Prefix matched) and mm2 (dresser vs drawer). The role of var_D2 in that
+  loop is still open.
+- **ghoster T21** `kill attack robot`: dobattle needs InStr(verb) <
+  InStr(Name) (47EBC2), so the Runner asks "Who do you want to attack?".
+  To port it, change the walkthrough and feed to `attack attack robot`
+  and re-drive in Wine.
+- **matt** (3.9): checktask 44B4B2 claims a reverse command without a
+  room check. Porting this makes matt unwinnable on the Runner route.
+- **crossworlds4** (3.9): the "it" antecedent needs co()'s definite write
+  (43B69E) and the take-from container. Needs a probe.
+- **spacerun**: differs by design (SCR_ASSUME_ROOMS).
+- **athylon**: differs by design since its suite row gained
+  SCR_ASSUME_COMBAT=1, which the plan copies into the compare. Every blow
+  misses on the Runner (Accuracy = Agility = 0), so the capture is a loss
+  and the assisted golden a win. It was identical without the assist.
+
+**Wine re-drives done 2026-09-24:** bigspy2, amnesiakid and homelessharry
+are identical. make_wine_cmdfile.py now writes the intro span's timed
+`<wait>`s as a leading `#sleep` (Homeless Harry's 82 s StartupText took
+the first `s`). 35 feeds gained that line; their captures were already
+identical, so none was re-driven. chicago and shetland (rerouted
+walkthroughs) were re-driven the same day. Still owed: ghoster (if T21 is
+taken up).
 
 ### Engine, needs a probe (3.7)
 

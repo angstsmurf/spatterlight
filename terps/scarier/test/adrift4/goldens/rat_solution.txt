@@ -1,0 +1,36 @@
+z
+z
+z
+z
+push button
+open panel
+s
+roof
+get board
+place board
+drop board
+west
+get cutter
+get lock picks
+down
+buy ticket
+e
+alter ticket
+e
+show ticket
+insert filters
+enter car
+throw bomb
+drive car
+n
+open door
+throw bomb
+n
+w
+up
+east
+north
+take cigar
+join corps
+quit
+y

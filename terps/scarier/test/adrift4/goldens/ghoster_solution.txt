@@ -1,0 +1,22 @@
+s
+get crowbar
+e
+sw
+ghost
+occupy Alien
+get body
+ne
+ne
+stand on hill
+activate beacon
+s
+w
+w
+s
+use crowbar in bulkhead
+w
+drop body
+return
+ghost
+occupy captain
+kill attack robot

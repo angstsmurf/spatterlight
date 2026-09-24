@@ -1,0 +1,85 @@
+turn switch
+open drawer
+remove magazines
+get key
+unbend key
+e
+open cabinet
+get plastic object
+open door
+w
+u
+push plastic object in panel
+open wardrobe
+get shovel
+remove poster
+open safe
+get drawing
+e
+d
+e
+n
+dig chest
+unlock chest with strange key
+get diary
+read diary
+look
+sleep on bed
+move cushion
+get aluminium key
+unlock wardrobe
+x bloomers
+get purse
+x purse
+open purse
+get credit card
+take cigarettes
+open cigarettes
+get dress
+wear dress
+s
+ask Mat about cockroaches
+take key
+e
+insert cord into receptacle
+w
+w
+n
+insert credit card in cash machine
+enter 190984
+n
+buy plaster
+s
+w
+buy spectacles
+e
+s
+w
+rent videotape
+e
+e
+e
+stick plaster
+wear spectacles
+put videotape in videorecorder
+sit in arm-chair
+watch tv
+check mail
+x rack
+get coat
+get key
+unlock door
+press button
+x kiosk
+get bread
+in
+s
+feed parrot
+examine file
+n
+press button
+call taxi-driver
+n
+give paper to taxi-driver
+quit
+y

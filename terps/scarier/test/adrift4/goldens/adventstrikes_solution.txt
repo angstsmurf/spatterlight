@@ -1,0 +1,20 @@
+get varnish
+e
+open fridge
+get cheese
+w
+w
+open wardrobe
+get coat hanger
+varnish cheese
+e
+n
+break window with cheese
+get crowbar with coat hanger
+s
+open crate with crowbar
+look in crate
+get saw from crate
+break door with saw
+s
+set off fire alarm

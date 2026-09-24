@@ -1,0 +1,111 @@
+Loading game...
+
+Untitled
+
+A lobby
+The lobby is impressive.  Also here is an office door.  Henchman is here.
+
+> s
+You move south.
+
+Near the mansion
+The ominous mansion rises above you. It is situated in desolate place ...
+just a length of a short walk from the mall.
+
+> s
+You move south.
+
+A mall
+It is full of smaller shops. Otherwise not much to see.
+
+> s
+You move south.
+
+A diner
+A nice little diner. You are of course more used to fancy restaurants.  Guard
+and Contact are here.
+
+> kiss guard
+Your contact turns her back to you do and rushes out. She drops her lipstick
+on a way out.
+
+> get lipstick
+You take the lipstick.
+
+> n
+You move north.
+
+A mall
+It is full of smaller shops. Otherwise not much to see.
+
+> n
+You move north.
+
+Near the mansion
+The ominous mansion rises above you. It is situated in desolate place ...
+just a length of a short walk from the mall.
+
+> n
+You move north.
+
+A lobby
+The lobby is impressive.  Also here is an office door.  Henchman is here.
+
+> e
+You move east.
+
+A living room
+I could write in a length about furnishings of this living room. Actually i
+couldn't, i have never been inside of a living room of a truly rich bastard.
+Also here is a computer.
+
+> use lipstick
+You get into computer and run the hit game "Grand Theft Tank". Its
+recognisable intro music starts to play. A boy enters into room and begins to
+play with sadistic grin on his face.
+
+> w
+You move west.
+
+A lobby
+The lobby is impressive.  Also here is an office door.  Henchman is here.
+
+> w
+You move west.
+
+A room of a boy
+It would be full of kewl stuff if word "kewl" wasn't out of fashion. And no,
+noobs doesn't use word "kewl". Noobs use a word "noob".   Also here is a
+sliding puzzle.
+
+> get puzzle
+You pick it up with a disgust.
+
+> e
+You move east.
+
+A lobby
+The lobby is impressive.  Also here is an office door.  Henchman is here.
+
+> give puzzle to henchman
+It makes him really confused. He gives all of his attention to the puzzle.
+
+> open door
+You open the door to the office in north.
+
+> n
+You move north.
+
+An office
+The office desk is empty.  Also here is a safe.
+
+> open safe
+You easily bypass electronic locks. Papers in the safe detail criminal's most
+notorious plan. Partly because the shock and partly because you are as lousy
+with doors as with sliding puzzles you hit your head against a top part of
+the office door in your way out. You loose consciousness.
+It's again time to play the next chapter. It is mostly laziness that i made
+so short chapter but you might also realize pattern -in the end of each
+chapter your character reaches his initial goal. Ok, less talking more
+playing now.
+[Press any key to end]

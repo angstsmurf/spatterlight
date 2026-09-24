@@ -1,0 +1,20 @@
+s
+s
+s
+kiss guard
+get lipstick
+n
+n
+n
+e
+use lipstick
+w
+w
+get puzzle
+e
+give puzzle to henchman
+open door
+n
+open safe
+quit
+y

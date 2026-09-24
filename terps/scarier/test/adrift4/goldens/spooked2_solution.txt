@@ -1,0 +1,36 @@
+get water
+give water to man
+2
+search man
+n
+n
+nw
+ne
+n
+n
+n
+look under mat
+search dead man
+get knife
+get knife
+s
+look at lawn
+get rock
+cut rope
+n
+e
+unlock shed
+tie rope to rock
+tie rope to tree
+up
+w
+212188
+look in trunk
+get hook
+stand on dresser
+open trapdoor
+talk to head
+ask head about will
+get head
+quit
+y

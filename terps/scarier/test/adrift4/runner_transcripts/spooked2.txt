@@ -1,0 +1,283 @@
+
+> get water
+You take the bottle of water.
+
+> give water to man
+You uncap the bottle of water and douse the unconscious fellow's face with it. He stirs. "Who...who are you?" he asks.
+
+1: "No, the question is who are you!"
+2: "Name's Ben."  
+
+> 2
+"Ben is it? Well, Ben I--" he stops talking to cough, and you see blood drops spray on his hands. "Ben...closer...." he says. You move in a little closer. He grips your hand. 
+"Err...I'm not gay, sorry," you say, letting go of his hand.
+"...no...not that...." his voice weakens.
+"What is it you are trying to say?"
+"...for gods' sake...leave while you still can...." he says and dies.
+
+How cliche.  
+
+> search man
+You search him and find a silver key in one of his pockets. You collect the key.
+
+> n
+You move north.  
+More Road
+You are trapped in a sea of fog. Something tells you to go north.
+
+> n
+You move north.
+On a Brick Walkway
+
+The fog has thinned out a little and now you see a brick walkway leading northwest to a very impressive Victorian manor. The yard of the house is visible, even from such a great distance. The road has meshed into brick at this point, making for unusual terrain.
+
+Large blood drops create a trail on the walkway that continues northwest.
+
+> nw
+As you move northwest, you feel kind of...wierd.
+
+On a Brick Walkway
+
+A crimson shade of brick decorates the path you have chosen. The passage being so red you wonder if you're traveling along the very veins of Satan. A mosaic of hedges and shrubs parallel the walkway to the northeast.
+
+The large blood drops continue...as if their only purpose is to foreshadow the horrors that awaits you in the house you are so drawn to. And to be so drawn, you may soon be erased.
+
+> ne
+You move northeast.  
+Perched Upon The Veins Of Satan
+
+A pitch black phoenix envies your position as one that stands atop a passage to hell itself, so vile that just standing provokes the feeling of one's soul being torn apart. On this pathway the brick-red bricks taunt you north onto a bridge. Southwest is the past.
+
+The blood bread crumbs continue.  
+
+Bells ring out from the hinterland. Darkness will overtake everything soon and night will cometh. And when night cometh, so do the things that go bumpeth.
+
+> n
+Moving north, your head seems to collect itself.
+
+Small Bridge
+
+The bridges wobbles from side to side precariously. Aged wooden planks have been tied to ropes that are even less assuring than the unstable walkway. A mansion lies north and a brick walkway is south.
+
+> n
+You move towards the house ahead for no other reason than you are drawn to it.  You pace towards the end of the bridge when you hear a snap and the bridge leans to one side. Looking back you see a rope has snapped and the rest of the bridge will soon follow suit. You push yourself off the feeble railing and run as fast as you can north. The bridge begins to fall from under you. You take a leap of faith... [More]
+
+...and make it.
+
+Walkway
+
+Before you a bridge has been ripped apart and fallen into a ravine of some sort. In front of you lies a mansion where upper-class folk are certain to live. Their lawn is all cut and neat-like so they must be real snobs. There's nothing else here besides the concrete walkway you're on and the wreckage that has made it impossible to go south.
+
+Blood drops form a trail north onto the porch of the house.
+
+> n
+You move north.
+On The Veranda
+
+You are standing on the front porch of some pompous rich people. The kind of people that would call their porch a veranda.
+You aren't familiar with exact wood types but you guess the whole thing is made of oak. Beside you is a stylish rocking chair along with stylish mailbox right beside it. To top it off a stylish door is right in front of you. Steps lead east to the side of the house and south closer to the fallen bridge.  
+
+The source of the blood trail has been found. A dead guy lies on top of the welcome mat in front of the door with a knife in his back.
+
+> look under mat
+You look under the mat and find a tiny key. Sweet!
+
+> search dead man
+You search him and find a list in one of his pockets. You collect the list.
+
+> get knife
+You remove the knife from the man's back with a slurping noise that just grinds your stomach. Suddenly the man moves as if what you did brought him back to life.
+
+"Jesus Christ! Oh the pain!" he yells.
+"Sorry about that," you say and put the knife back as he must've wanted.
+"No...why...." he says and his body falls limp.
+
+Can anyone make up their mind these days?
+
+> get knife
+You remove the knife from the man's back again and hear the familiar slurping noise which once again makes you want to vomit. This time he doesn't jump up asking for his knife back.
+
+> s
+You move south.
+Walkway
+
+Before you a bridge has been ripped apart and fallen into a ravine of some sort. In front of you lies a mansion where upper-class folk are certain to live. Their lawn is all cut and neat-like so they must be real snobs. There's nothing else here besides the concrete walkway you're on and the wreckage that has made it impossible to go south.
+
+Blood drops form a trail north onto the porch of the house.
+
+> look at lawn
+Every blade of grass has been perfectly cut. You've never seen anything like it....  A rock is on the lawn.
+
+> get rock
+You take the rock from the lawn.
+
+> cut rope
+The rope isn't too tough so you manage to cut through it fairly quickly. You now have a very old rope.
+
+> n
+You move north.
+On The Veranda
+
+You are standing on the front porch of some pompous rich people. The kind of people that would call their porch a veranda.
+You aren't familiar with exact wood types but you guess the whole thing is made of oak. Beside you is a stylish rocking chair along with stylish mailbox right beside it. To top it off a stylish door is right in front of you. Steps lead east to the side of the house and south closer to the fallen bridge.  
+
+The source of the blood trail has been found. A dead guy lies on top of the welcome mat in front of the door with a large wound in his back.
+
+> e
+You move east.
+Side of the House
+
+The house is still shown in all it's swank glory but it is a bit darker here. A large oak tree towers over you a couple yards from the house and blocks out part of the moon that would usually illuminate the outside of the house. Sitting to your north is a small shed that looks like it hasn't been used recently(to say the least). The veranda is west.
+
+> unlock shed
+You unlock the shed and as soon as you do...BOOM! The doors fly open before you can open them and you are knocked off your feet and fly backwards a couple yards. The back of your head smacks the ground and a sharp pain travels through your body.
+
+Ugh...the pain...the darkness.... [More]
+
+"Hey! Hey dude! Dude are you okay?" you hear a voice echoing throughout your mind.
+"Err...no. My head hurts like a mother--" you say.
+"I'm sorry I didn't mean to but I was scared, you know? I've been locked in there for like four days."
+You slowly gain your bearings and make out the face of a blonde fellow with an assortment of piercings.
+"Let me guess...you got locked in the shed after searching around the premises?" you ask.
+"No, actually I just happened to lock myself in," he says.
+"But how could you--"
+"I'm sorry but I can't explain. I have to go. Although I can tell you my name is Bobert. Remember me because we'll meet in the future," he says standing over you and runs off.
+"But how did you lock yourself inside?" you ask but he is already gone.
+
+You stand up and brush yourself off.
+
+> tie rope to rock
+You tie the rope around the rock and end up with something that'd put the scientists in the Useless Endeavors lab to shame.
+
+> tie rope to tree
+You toss the rock-rope combo into the air and it manages to catch on to a branch in the tree. You lower the rope with the rock on it and create a knot, which you tighten after tossing the useless stone.
+
+Now you should be able to easily ascend the tree.
+
+> up
+Using the rope, you shimmy your way up the tree.
+
+Up In A Freaking Tree
+
+Being in a tree isn't quite as glorious as you remember it to be. It's itchy, crowded, and hard to get comfortable. That's a far cry from a home away from home as it was in your golden days. A window is across from you to the west(although it's a nice little jump) and you can climb down the rope to get back on flat land.
+
+> w
+You take a leap of faith...[More]
+
+...and don't make it. Apparently you aren't as fit as you thought, and end up falling short of your target. As you fall you see the window quickly open and see that something black opened it. Your face smacks the side of the house and just when you expect to slide down and break your legs you feel a hand grab you. [More]
+
+Actually it wasn't a hand...more of a paw. Looking up you see a black cat with its arm extended to yours pulling  you up with seemingly superhuman strength. You slide through the window and land on a bed, still amazed.
+
+"You okay?" the cat asks.
+"I'm talking to a cat. No I'm not okay," you say.
+"Ha ha ha. You forget you are in another universe," it says.
+"How do you know this?"
+"I only know what I am told." 
+"Well who told--"
+"I'm sorry but I have to go."
+"Why is it that every time I meet someone they rudely leave?" you ask.
+"I thank you for giving me the courage to open the window. But now my purpose is done. Goodbye," the cat says and jumps out the window, leaving you to yourself in someone's bedroom.
+
+Bedroom
+This the bedroom of an eccentric, as displayed by the scribblings and notes written all over the walls. Sitting beside a small bed on the south wall is a trunk that has been placed under a window. A wooden trapdoor with a dusty handle is in the ceiling, above an oak dresser. To the west is a door that's been boarded up.
+
+> 212188
+You input the code and the trunk is unlocked and opened unto you!
+
+> look in trunk
+It is very wide and is (along with the rest of the things in the room) incredibly dated. It looks like someone found your dead uncle's buried treasure chest and put it here. Even a little loose dirt lies on top of the chest...err...trunk.  The trunk is open.  Jack's note and a metal hook are inside the trunk.
+
+> get hook
+You take the metal hook from the trunk.
+
+> stand on dresser
+You stand on the oak dresser.
+
+> open trapdoor
+You jump off the dresser and hook the handle of the trapdoor and pull it down. A mini-ladder pops out and after you get off the bedroom floor you climb up into the attic.
+
+The trapdoor shuts from under you, and you know it will not open again.
+
+Attic
+It is dark, musty, and very stuffy in this attic.  
+
+A disembodied head floats in the center of the room.
+
+> talk to head
+At first you are baffled as to what you can say to a floating head.
+
+"Hi...." you manage to say.
+"I am the Oracle! I know all! Ask me a question! Any question at all!" it says.
+
+> ask head about will
+You ask him the question.
+
+"I am indeed Jack Jackman, the former head of this house that died without leaving a proper will to his family. I was also indirectly responsible for my son's death," it says.
+"You didn't answer my question," you say.
+"I shall tell you all. Jack Jr. was stabbed in the back by a man named Bobert. You may or may not have met him earlier. The butler found my poor son dead then found Bobert in the bedroom below. He rushed Bobert and managed to force him into a shed for containment. He went to call the police but..."
+"This really is none of my business."
+"...there was an Americanadian Idol  marathon on. He's been watching it ever since," it says.
+"Okay, this is all fine and dandy but I really have to--"
+"Michael Spanner killed himself and his family with chicken bone quite some time ago. His evil spirit has haunted this place ever since! He possessed Bobert to kill my son, and now he has imprisoned me to this afterlife!"
+
+You prepare yourself for more of this meaningless babble.
+
+"It is Spanner who caused the bulk of this mess. He's the reason I died! But that isn't the craziest part. He's still alive!" [More]
+
+"Wait...what? You're saying a psycho-spirit-evil guy is alive after being killed?" you ask.
+"Yes!"
+"None of this makes sense. I'm out of here," you say and crouch down to attempt to get the trapdoor open.
+
+What a load of crap. You're pretty sure he made up 95% of that story on the spot.
+
+"It does make sense. It makes lots of sense Mr. Ben Xavier Williams, scientist of Cocan university." 
+
+That wasn't the head's voice. You look around to where you heard the voice and see a man step from a dark corner of the attic. His clothes are ragged and he grips a blood-stained machete. This is the final showdown.
+
+"I don't know what you're here for dude, but it sure as hell isn't to chat." you say.
+"You are correct in that assumption! Let's end this!" he says.
+
+> get head
+Spanner closes in on you and when he is beside the floating head he stops.
+
+"Any last words, Mr. Williams?" he says, giving you an opportunity to say something cool.
+"Yeah. You need to stop all this killing and put your mind to good use. You will be surprised what you can do when you put your mind to it," you say.
+"A pity," he says. "I thought you'd say something witty or thought-provoking. Instead you lecture me on the importance of using one's mind to get ahead in life."
+You duck and grab the disembodied head.
+
+Spanner swings the machete but it misses you. You spin around until you are back to where you were.
+
+"Yes. A mind really is a terrible thing to waste!" you say, launching Jack Jackman's head at Michael Spanner's. Upon contact, both of their heads explode into a red mist, giving the room a new paint job. Michael's now headless body falls to the floor, blood still spurting from where his head used to be.
+
+"Crap," you say, wiping the blood off your skin, face, and clothing. Something tells you things should be okay here from now on. You've done your good deed for the year.
+
+Suddenly you feel woozy. No, dizzy. Like...wizzy. [More]  
+You are back in the Field Lab.
+
+Standing on the platform you can see Joe holding a plastic cover over himself. When he sees you haven't exploded he puts it down.
+
+"Ben! You made it! I have such important information to tell you," he says.
+You try to talk but can't, as he hasn't completely shut off the field.
+"It turns out that Spices exploded because we removed him at the wrong place. I've only partially removed you from that dimension, if I fully removed you, you would explode."
+Your eyes search the room.
+"Don't worry, I sent Lydia home," he says.
+You relax at the thought your bitter ex-girlfriend isn't here to "accidentally" murder you.
+"To remove you from the electrofield without killing you I must get you to a suitable portal in another universe." he says.
+
+After a bit of reflection Joe laughs and says, "Funny how this started off as a machine that was thought to only put you in suspended animation. Now we're traveling universes and dimensions. Note I say universes and dimensions because we really don't know where the hell you're going." 
+
+He walks over to a newly installed console and presses a couple of buttons.
+
+"Oh, and before I send you off twirling into another universe. I want you to know that your 'last words' to Spanner were pretty cheesy." he says, and presses a button that makes everything go black. [More]  
+That concludes episode two! Where will Ben go next and who will he meet? Better yet, what games will be spoofed next?
+
+All this and more will be answered in episode three! [More]
+
+Congratulations you won with a score of 23 out of 23!  
+
+This game is over. You can restart, restore, undo, quit, go out and party, whatever.
+
+> quit
+
+> 
+I guess I'm breaking mimesis when I say this but I don't understand what you mean.

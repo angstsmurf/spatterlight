@@ -1,0 +1,10 @@
+north
+east
+look under table
+west
+west
+ask tom about key
+east
+open desk with key
+open folder
+give evidence to inspector

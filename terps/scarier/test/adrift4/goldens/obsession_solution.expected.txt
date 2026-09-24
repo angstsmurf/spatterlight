@@ -1,0 +1,374 @@
+Loading game...
+
+Sad Obsession
+jhills44@hotmail.com
+
+In this game, you can use the format  "talk to [person]" instead of "ask
+[person] about [subject]"
+
+Tips: Try to communticate, don't be afraid to be violent and try everything
+possible.
+
+Note: There are a couple of bugs in this game that I can't figure out how to
+get 'round.
+
+You are a sad individual who has always been a fan of Lost in Space and that
+sort of thing, and have always wanted to be lost in another world and on a
+quest to get home.
+But before that can happen, you have to get lost in another world
+first.......
+
+Main Street
+This is the main street. It's packed full of sleazy joints with names like
+XTC Pleasurezone and Thongs 'R' us, none of which you want to set foot in.  A
+Mexican is here.  You can only move east.
+
+> talk to the mexican
+Mexican: "Hey Hombre. You like spice, ay? Yeah? Then Havva this." You recieve
+a chilli pepper.
+
+> e
+You move east.
+
+Acorn Square
+This is Acorn Square, the posher part of town. The square boasts a statue of
+an Acorn computer. Just goes to show how "Odle Worle" this place is. You
+eagerly spy a pub to the north.  You can move north and west.
+
+> n
+You move north.
+
+The Clergyman's Right Big Toe
+The Clergyman's Right Big Toe. It's almost completley empty.  A man eating
+peanuts from a bowl on the bar and a shifty looking guy are here.  You can
+move south and west.
+
+> talk to guy
+Guy: "Hey, get outta my face! Go on! if I give you a shotgun will you go
+away. Fine. Now BEAT IT!" You recieve a shotgun. "Now don't talk to me
+again!" Wow, it IS easy to get your hands on illegal weapons!
+
+> put chilli in bowl
+You put the chilli in the peanut bowl. The man scoops up a handful of
+peanuts. Suddenly, his eyes water and he runs to the loo. A huge explosion
+goes up and the whole western side of the building is blown away!
+
+> w
+You move west.
+
+Toilet
+This is the alley. It doesn't smell much better than the bogs. The charred
+corpse of the peanut eater lies on the floor.  You can move north and east.
+
+> n
+You move north.
+
+Behind the pub
+Behind the pub. The rubbish bins packed with newspapers and bottles and the
+recyling box is filled with black bags.  An alien drinking water is here.
+You can only move south.
+
+> shoot alien
+You shoot the vile thing. It's corpse disintergrates, leaving behind the
+mineral water. That's something you don't usually read.
+
+> get water
+You take the bottle of mineral water.
+
+> s
+You move south.
+
+Toilet
+This is the alley. It doesn't smell much better than the bogs. The charred
+corpse of the peanut eater lies on the floor.  You can move north and east.
+
+> e
+You move east.
+
+The Clergyman's Right Big Toe
+The Clergyman's Right Big Toe. It's almost completley empty.  The Clergyman's
+Right Big Toe. It's almost completley empty and half of it's missing.  a
+shifty looking guy is here.  You can move south and west.
+
+> s
+You move south.
+
+Acorn Square
+This is Acorn Square, the posher part of town. The square boasts a statue of
+an Acorn computer. Just goes to show how "Odle Worle" this place is. You
+eagerly spy a pub to the north.  You can move north and west.
+
+> w
+You move west.
+
+Main Street
+This is the main street. It's packed full of sleazy joints with names like
+XTC Pleasurezone and Thongs 'R' us, none of which you want to set foot in.  A
+Mexican is here.  You can only move east.
+
+> give water to the mexican
+Mexican: "Gracious, Amigo. Here, have this in return."  You recieve a mega
+chilli
+
+> eat mega chilli
+You eat the mega chilli. Suddenly, smoke spurts from your mouth. You feel
+your intestines on fire, and you painfully die.You wake up, and see alight at
+the end of the tunnel. You run towards it at top speed. But then a voice
+says; "SORRY, YOU'RE NOT WELCOME HERE!" A bright light follows as you start
+to fall into a firey hole..........You find yourself at the
+
+The Gates of Hell
+The gates of hell. It's real hot. The surroundings are on fire and you here
+screams of pain. Bit like Liverpool.....   Also here is a piece of paper.  A
+demon standing guard with the name badge 'Smeck'  is here.  You can only move
+north.
+
+> n
+You move north.
+
+The Lava Pits
+This seems to be the lava pits. You can feel your eyebrows singe as you stand
+by the bubbling magma. North is the entrance to a large red castle like
+building, with a keypad by the door  You can move east and south.
+
+> use keypad
+What is the access number?
+
+> 9416056
+With a click and a creak the doors swing open, exposing a long corridor.
+
+> n
+You move north.
+
+Corridor
+You're in a corrior. The walls seem to be on fire.  North leads to more
+corridor, east are the toilets and west is the Confiscated Objects Room, but
+there's a demon guarding the door.  Also here is a coin.  You can move north,
+east and south.
+
+> get coin
+You take the coin.
+
+> n
+You move north.
+
+Northern Corridor
+This is the northern part of the corridor. West is the Staff Room, East is
+the accounts office, and North are some massive doors.  You can move east,
+south and west.
+
+> e
+You move east.
+
+Accounts Office
+There's no-one in this room. The inbox is crammed with unfinished paper work.
+There's a phone on the desk here with a little black book beside it and an
+old wooden cupboard on the wall. Also here is a coffee machine.  You can only
+move west.
+
+> use coin with machine
+You put the coin in the coffee machine. a cup drops down and coffee pours
+into it. You kick the machine because you didn't get any change.
+
+> get coffee
+You take the cup of coffee.
+
+> open cupboard
+You look in the cupboard. It's full of cobwebs. Also here is a bottle of
+Turbo Lax
+
+> take laxative
+You pick up the bottle of Turbo Lax
+
+> use laxative with coffee
+You put the laxative in the coffee, you sick arab.
+
+> w
+You move west.
+
+Northern Corridor
+This is the northern part of the corridor. West is the Staff Room, East is
+the accounts office, and North are some massive doors.  You can move east,
+south and west.
+
+> s
+You move south.
+
+Corridor
+You're in a corrior. The walls seem to be on fire.  North leads to more
+corridor, east are the toilets and west is the Confiscated Objects Room, but
+there's a demon guarding the door.  You can move north, east and south.
+
+> give coffee to guard
+The demon snatches the coffee and gulps it down. Suddenly, he clutches a his
+bum, screams and runs into the toilets.
+
+> w
+You move west.
+
+Confiscated Objects Room
+This room it full of tall shelves stacked with confiscated junk that's been
+taken from the occupants. Most of it's junk.  Also here is your shotgun, a
+model of the USS Enterprise and a bottle of holy water.  You can only move
+east.
+
+> get all
+You take your shotgun, the model of the USS Enterprise and the bottle of holy
+water.
+
+> e
+You move east.
+
+Corridor
+You're in a corrior. The walls seem to be on fire.  North leads to more
+corridor, east are the toilets and west is the Confiscated Objects Room, but
+there's a demon guarding the door.  You're in a corridor. The walls seem to
+be on fire.  North leads to more corridor and west is the Confiscated Objects
+Room.  You can move north, east, south and west.
+
+> s
+You move south.
+
+The Lava Pits
+This seems to be the lava pits. You can feel your eyebrows singe as you stand
+by the bubbling magma. North is the entrance to a large red castle like
+building, with a keypad by the door  You can move north, east and south.
+
+> e
+You move east.
+
+Nerd Torture Chamber
+You enter Nerd Torture Room, to see....to see.....A bunch of fat geeks being
+forced to drink beer?  A Trekky and a Demon are here.  You can only move
+west.
+
+> shoot demon
+You blast the the spawn of satan. The corpse burns up in a puff of smoke
+
+> give model to trekky
+Trekky: "Gasp, my model! Why thank you! Here, have my beer, it tastes
+horrible." You recieve a beer. "Know we let us get on with arguing whether
+Captain Kirk is better or Captain Picard!"
+
+> w
+You move west.
+
+The Lava Pits
+This seems to be the lava pits. You can feel your eyebrows singe as you stand
+by the bubbling magma. North is the entrance to a large red castle like
+building, with a keypad by the door  You can move north, east and south.
+
+> n
+You move north.
+
+Corridor
+You're in a corrior. The walls seem to be on fire.  North leads to more
+corridor, east are the toilets and west is the Confiscated Objects Room, but
+there's a demon guarding the door.  You're in a corridor. The walls seem to
+be on fire.  North leads to more corridor and west is the Confiscated Objects
+Room.  You can move north, east, south and west.
+
+> n
+You move north.
+
+Northern Corridor
+This is the northern part of the corridor. West is the Staff Room, East is
+the accounts office, and North are some massive doors.  You can move east,
+south and west.
+
+> w
+You move west.
+
+Staff Room
+This is the staff room, the employee's pad. Just rows of chairs, nearly all
+empty.  A Demon reclining in one of the chairs is here.  You can only move
+east.
+
+> give beer to demon
+"Whoah, thanks, pal! I needed a beer. Dunno what I can give you in
+return....I know!"  You recieve a key
+
+> e
+You move east.
+
+Northern Corridor
+This is the northern part of the corridor. West is the Staff Room, East is
+the accounts office, and North are some massive doors.  You can move east,
+south and west.
+
+> n
+You can't go in that direction, but you can move east, south and west.
+
+> open door
+You put the key in the lock of the giant doors and they slowly open, to
+reveal, the bosse's office........
+
+> n
+You move north.
+
+Bosses Office
+This is the Big Cheese's Office. The whole room is surrounded a ring of fire.
+Assorted body bits hang from the ceiling. There's also water cooler in the
+corner.  Satan is here.  You can only move south.
+
+> use holy water with water cooler
+You quickly drink all the water in the cooler and replace it with holy water.
+You also quickly dash to the toilets.
+
+Toilets
+The bogs from hell, litterally. And yet they're cleaner than normal public
+bogs, including the ones in The Clergyman's Right Big Toe.  You can here
+moaning and sploshing coming from one of the cubicals  You can only move
+west.
+
+> w
+You move west.
+
+Corridor
+You're in a corrior. The walls seem to be on fire.  North leads to more
+corridor, east are the toilets and west is the Confiscated Objects Room, but
+there's a demon guarding the door.  You're in a corridor. The walls seem to
+be on fire.  North leads to more corridor and west is the Confiscated Objects
+Room.  You can move north, east, south and west.
+
+> n
+You move north.
+
+Northern Corridor
+This is the northern part of the corridor. West is the Staff Room, East is
+the accounts office, and North are some massive doors.  You can move north,
+east, south and west.
+
+> e
+You move east.
+
+Accounts Office
+There's no-one in this room. The inbox is crammed with unfinished paper work.
+There's a phone on the desk here with a little black book beside it and an
+old wooden cupboard on the wall. Also here is a coffee machine.  You can only
+move west.
+
+> read phone book
+There's only one number here, the pizza place's, 9377 3591.
+
+> use phone
+You pick up the phone. What number do you want to dial?
+
+> 9377 3591
+Voice: "Hello, you have dialed Pizza Palace, would you like to try our new
+Super Hot Ay Chiuaua Pizza? Well.....yes or no?
+
+> yes
+Voice: "Okay, your pizza will be round in a few minutes. Bye."  You here the
+screech of a van outside and a man dressed in a goofy uniform carrying a
+pizza box dashes across the corridor and knocks on the huge double doors at
+the end of the corridor. The doors creak open and a clawed hand takes the
+box, quickly followed by a huge flame erupting from the room and the sound of
+gulping, and then a scream! You rush to the corridor and see a smoking hole
+in the ground and an empty plastic cup. Suddenly everything goes white and
+all the eternally tortured soles from from the depths of Hell and rise and
+float back to earth, including you. Congratulations, you fulfilled your
+lifelong dreamof escaping from another dimension, and destroyed Hell in the
+process. Not bad.
+
+[Press any key to end]

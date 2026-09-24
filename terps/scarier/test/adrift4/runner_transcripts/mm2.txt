@@ -1,0 +1,148 @@
+
+> n
+(Standing up first)
+You move north.
+Closet
+The closet is so dark, you can't even see your hand in front of your face. In the daylight, there is enough light to see the shelf. But in the dark, nothing is visible.  You can only move south.
+
+> get book
+Take what?
+
+> s
+You move south.
+Bedroom
+The room is fairly dark, illuminated only by a moonbeam shining through the window. Your bed is on the eastern wall of your small room, with a nightstand just to the right side. A large dresser takes up most of the western wall, along with a clothes hamper nearby.  Your closet  is to the north , but it is too dark to see in, since the lightbulb blew a day or two ago, and you never bothered to replace it.  You can only move north.
+
+> open hamper
+You open the clothes hamper.  An old rusty hammer is inside the clothes hamper.
+
+> get hammer
+You take an old rusty hammer from the clothes hamper.
+
+> read book
+You don't have a book to read, but if you had....Aw nevermind.
+
+> look mirror
+Looking closer at the mirror, trying to see your own reflection, you begin to see the image large,  dark red eyes. Soon the image of a demon appears, with large spiked horns. Drool seems to be dripping from the razor sharp teeth. It's coming closer!...Hurry...You better do something fast!...!
+
+> break mirror
+Horrified by the sight of a fierce, drooling demon, with sharp, bladed teeth, you hurl the hammer as hard as you can toward the mirror. You cover your head to shield yourself from the flying glass. A moment later you look back at the broken mirror, and the broken shards of glass that are scattered about the room.
+  Thinking that it was just your imagination, you turn to begin cleaning up the huge mess you made, when you begin to notice the glass on the floor moving toward the direction of the mirror. In disbelief, you turn toward the mirror again, the glass is no longer just sliding, it is airborn, and being sucked into the mirror. 
+   You grab hold of your bed, as a gale force wind seems to be sucking everything in the room into the mirror. You are lifted off your feet, and are sideways in mid air, hanging on to the sheets of your bed with all your might.  Your attemps are futile, as the sheets give way, and you are sucked, screaming into the abyss of the mirror.
+     Endless darkness surrounds you. Not even the glass or sheets you held so tightly are visible.  All is dark as you land hard on some unseen surface, and are knocked unconcious, for what seems only seconds.
+
+> n
+You move north.
+Northern Desert
+Much like any other desert, you are surrounded by the hot sun and the hot sand. The heat is really taking it's toll on you. You feel that hallucinations are not far off. You wipe the sweat from your brow, and can barely swallow whats left of the saliva in your mouth. You can make out what looks to be some kind of oasis just to the north of here.  Fang slithers about, hissing.  You can move east, south and west.
+
+> s
+You move south.
+In the Desert
+The desert is a dangerous place to be, but somehow you are here. An endless sea of fine sand covers the entire land. The sun beats down, seeming to almost melt the sand beneath your feet. Your mouth begins to become very dry, as if you were eating the sand itself. You feel instantly dehydrated, and long for water in the worst way. You catch a glimpse of something to the north of you.  Also here is a book.  You can move north, northeast and northwest.
+
+> open refrigerator
+You can't open that.
+
+> get rattle
+Take what?
+
+> n
+You move north.
+Northern Desert
+Much like any other desert, you are surrounded by the hot sun and the hot sand. The heat is really taking it's toll on you. You feel that hallucinations are not far off. You wipe the sweat from your brow, and can barely swallow whats left of the saliva in your mouth. You can make out what looks to be some kind of oasis just to the north of here.  Fang slithers about, hissing.  You can move east, south and west.
+
+> n
+Fang slithers forward, blocking your way. "Sssss.....You will not pass.....Sssss.....I shall warn you, that my bite is still very deadly.....Sssss........Do not try my patiensssss...."
+
+> give rattle to fang
+You shake the rattle in front of Fang, and it eagerly slithers over to you. Holding out the rattle, Fang curls its tail around the handle and begins to shake the rattle happily. In an exciteful hiss, Fang declares, " I am back! All will fear me again! Thank you! Thank you!" Then the rattlesnake cheerfully slithers out of your way, permitting you passage to the north.
+
+> n
+Now that you have pleased Fang, he so graciously spares your life and moves aside so  you may see what lies beyond. Your strength is low, and you crawl your way to the north.  
+Oasis
+
+
+  Lush, lively palm trees tower above, swaying in a gentle breeze, that seemed nonexistant moments ago. A large crystal clear pool of water, ripples lightly in the refreshing flow of air. You feel so thirsty, and tired.
+
+> drink water
+You can hardly contain yourself as you scoop up handfuls of water, one after another, and drink as you have never done before. You act almost like an animal, and would fight for the rights to drink from the pool. You finish, and flop over onto your back and stare at the blue sky above.
+
+    As you lay there, trying to recover from all that has happened, you begin to feel a bit strange. Tiny little circles begin to swirl past your eyes. You rub your eyes, and realize that you are now holding your eyes in your hands. You scream uncontrolably, and flail your arms about, which only makes things worse, since you hold your eyes in your hands.
+
+  You try hard to put them back in their sockets, only to see that your own head begins to melt away....slowly....along with your body. Until you are nothing but a bubbling puddle of green goo, with a couple of eyeballs.
+   Fang slithers over and hisses, "Ssssss.......One more thing...Sssssss......Don't ....Sssss......drink the water.....Sssssss." Then slithers away again, and you are left helpless, as even your eyeballs begin to melt away into the goo. 
+ Just when you think  this is the end, you feel yourself begin to materialize again. But you are no longer by the pool. You are somewhere else entirely.  
+In a Boat
+
+
+ You find yourself in a small wooden boat, in the middle of a large body of water. You cannot see any land masses in any direction. Looking around for some paddles or oars, you find nothing but a small plug in the bottom of the boat. A small breeze dances about, stirring the salty air.  
+
+  The first thing you do is check to see if you are back to normal. Once you confirm all your body parts are in the right place, you try to shake off the woosy feeling and regain your composure.
+
+> pull plug
+Not knowing how to get yourself out of this mess, you decide to pull the small plug in the bottom of the boat. In the instant it comes free, a large pink ballon inflates itself and lifts the boat you are in, up high above the waters surface.
+
+    For the first day, you did nothing but keep an eye out for land, but with no luck. Exhausted from your adventures, you lay down in the bottom of the boat, and drift off into a peaceful slumber.  You are stunned awake by a large crash, and are flug out of the boat and hit the ground. 
+
+    To your amazement, you are in a large grassy field. The same field your journey began in. Even the tall tree is here, with the planks leading up. Except for the tree has a small boat teetering at its top. The pink balloon breaks free, and makes that unforgettable sound of a whoopie cushion, as it zigs and zags arcoss the sky, and out of sight.
+
+
+Grassy field
+The tall, green, grassy field, sways gently in the gentle breeze. A large tree, hundreds of years old, make it home in the center of the field. Planks nailed to the tree, provide a ladder up to where the tree branches off in several directions. Teetering on the treetop, is the small boat that you were in moments before. How the fall didn't kill you, you will never know.  You can move north and up.
+
+> n
+You move north.
+Woods
+Twisted trees rise high, blocking the sky from view.  The air seems cold and damp, which seems a bit refreshing after nearly melting to death in the scorching desert. You hear creatures of the woods, calling back and forth to one another,  almost mocking one another. One thing a bit odd here is a large tree, that appears to have a door.  This is very strange, indeed.  You can move east and south.
+
+> knock door
+Knocking on the door seems the civil thing to do, so you do it. Listening intently, you hear something scurrying just on the other side. Then the door opens to reveal a very fat, grubby looking squirell, smoking a cigar.
+
+  "Err...What do you want? Well...? Oh.. you must be the dope Selma told me about. Well...a....yur sposed to go across the creek, and find a tasty mushroom. Good eatin'...Now beat it!"  With all that said, the chunky and quite rude little squirrel waddles back into  the tree and slams the door.
+
+
+> e
+You move east.
+By the Creek
+The creek is flowing swiftly, and the looks rather dangerous. You spot the mushroom just on the other side, but are debating how you will get to it. There are some stones peeking out the top of the swiftly moving water, but they look pretty slippery. A lone willow tree, with long vines, sits near the edge of the creek. The sound of the rushing water,  makes you a bit uncomfortable.  You can only move west.
+
+> swing vine
+Getting a frim grip on one on the hanging willow branches, you get a running start and fling yourself outward, to the other side of the creek. The vine snaps and hurls you to the ground with a thump, while the vine falls into the creek and floats away.
+
+> eat mushroom
+Unable to pluck the large mushroom from the ground, you bend down and nibble from its top. It really doesn't taste that bad, and you eat a little more. Before long, you have eaten the entire mushroom. You feel so tired, with your full tummy, you lay down and drift off to sleep.
+
+  You find yourself tossing and turning in your bed. You can hear something, but ignore it and drift back to sleep.  You dream that Aunt Selma is here, and she is trying to tell you something. It has something to do with her house, but you can't understand what she is trying to say. You can see her holding a piece of paper and a book. Then she puts the paper in the book, and tosses the book into the dresser. You definately get the feeling that something wasn't right about  this. You awake in your bedroom.
+
+Bedroom
+Your bedroom seems different than it was before. There is no closet, but all the furnishings seem to be the same. The dresser drawers don't appear to be nailed shut, which you can remember doing, but  cannot remember why. All these dreams are making you go crazy, and you wonder if they have a point.  
+> open drawer
+You open dresser drawer.  An old book is inside dresser drawer.
+
+> get book
+You take an old book from dresser drawer.
+
+> open book
+You open the old book.  A note is inside the old book.
+
+> get note
+You take a note from the old book.
+
+> go to selmas
+You hop out of bed, and prepare to go to your Aunt Selma's house. Just as you open the door to leave, your mother is there to greet you.
+  "Oh, I am sorry to just drop in on you without a phone call. But something very interesting has happened with your Aunt Selma's estate. I found a letter in an old hat box, she had given me before she died. The letter says something about her will was never found, but it exists. That is funny, since her lawer said everything was frozen for five years, until the state can make heads or tails out of her assets. If we can find the will, all this will be settled, and Selma can rest in peace. Oh, I almost forgot. Several other relatives have found letters stating the same. Selma really knows how to keep us together" you mother spits all that out, without even taking a breath.
+
+   You show your mom the letter you found, and decide that it would be best if all of the family went to the house together, to find the will. Unfortunately, Aunt Selma's house is all the way across the state, and will take hours to get there.   
+   So while you are waiting for me to drive across the state, just sit back and relax. I hope you enjoyed these short games, and look forward to bringing you Monster in the Mirror - Selma's Will. It won't be as short, or easy as these others have been. 
+  See, Selma was a very odd old woman. She was into all sorts of creepy things, that others would find very disturbing. Some members of the family tried several times to have her commited. It will be interesting to see who shows up at Selma's to find her will.
+
+ By    Mystery
+
+
+
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

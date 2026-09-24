@@ -1,0 +1,102 @@
+Petter
+male
+talk to pontaco
+ask pontaco about adventure
+n
+get magic seeds
+e
+open east door
+e
+e
+talk to fontana
+n
+open door
+in
+climb ladder
+x table
+get torch
+climb ladder
+sit on slide
+get box
+sit on slide
+out
+s
+give box to fontana
+ask fontana about box
+open box
+get sheath
+get sword
+ask fontana about battle
+xyzzy
+s
+s
+cut dummy1
+s
+s
+cut dummy2
+s
+s
+cut dummy3
+s
+s
+cut dummy4
+w
+ask fontana about what happened
+w
+w
+w
+w
+get sword
+open west passage
+w
+w
+d
+n
+cut hound
+e
+n
+w
+u
+get bucket
+u
+w
+in
+talk to carlos
+give bucket to carlos
+yes
+n
+e
+in
+get straw
+out
+w
+w
+in
+put straw on forge
+out
+e
+n
+e
+in
+u
+x chest
+open chest
+get gold
+d
+out
+w
+s
+w
+in
+give gold to blacksmith
+get guilded sword
+out
+e
+n
+w
+open drain
+d
+pull lever
+cut guard
+cut big sister
+cut big sister

@@ -1,0 +1,351 @@
+Loading game...
+
+Fair Scare Nightmare
+
+Bed Room
+It is dark in your room with only moonlight from the window. There is a bed.
+Next to the bed is a phone.  Also here is a horn.
+
+> e
+(Standing up first)
+You move east.
+
+Living Room
+There is man lying near the fireplace.  He is sleeping.
+
+> put doll in fire
+(Taking that first)
+You put that inside the fireplace.  The Voodoo doll burns. The weird thing
+is. The doll of the sleeping man is not the only thing burning. The sleeping
+man himself also started burning.
+
+Hint Place
+Then you hear the phone ring.
+
+> w
+You move west.
+
+Bed Room
+It is dark in your room with only moonlight from the window. There is a bed.
+Next to the bed is a phone.  Also here is a horn.
+
+> phone
+You answer the phone. You hear, "Why did you burn me?!" Then smoke started
+coming in from the living room.
+
+> call 911
+You use the phone to call for help. You get the firefighters to come over.
+They put out the fire. But they could not save the man. Later the man had a
+funeral. You decided to go to it. You saw the body of the sleeping man being
+buried in the graveyard. Now the funeral is over. Right below you is the body
+of the man.
+
+Graveyard
+This is a spooky graveyard filled great oak trees. The grave of the man is in
+the dead center of the graveyard.
+
+> n
+(Getting off the grave first)
+You move north.
+
+Front of House
+There in front of you is the creepy old house of what use to be the home of
+the man who burned up in your living room. There are stone steps leading up
+to the door.  Also here is a shovel.
+
+> take shovel
+You take the shovel.
+
+> s
+You move south.
+
+Graveyard
+This is a spooky graveyard filled great oak trees. The grave of the man is in
+the dead center of the graveyard.
+
+> dig
+You dig a big hole where the body is buried.
+
+> look in hole
+This is the ditch you dug in the the grave.  A coffin is inside the hole.
+
+> n
+You move north.
+
+Front of House
+There in front of you is the creepy old house of what use to be the home of
+the man who burned up in your living room. There are stone steps leading up
+to the door.
+
+> unlock door
+You unlock the door.
+
+> open door
+You open the door, enter the house, and shut the door behind you. (You can
+go straight to this house at the start of this game if you type, "skip the
+start".)
+
+Entry Way
+This is the entrance area that leads to the rest of the house. Besides the
+nice chair right in the middle, it is not very interesting.
+
+> w
+You move west.
+
+Dinning Room
+This is a romantic place. There is a table. You see no one at the table, but
+you hear a strange ghostly sound.
+
+> look at table
+It is a small black table.  A candle is on the table.
+
+> take candle
+You take the candle from the table.
+
+> w
+You move west.
+
+Kitchen
+You smell something nasty cooking in a big cooking pot, near the cabinet.
+
+> 7
+You turn the dial on the lock clockwise to 7.
+
+> 13
+You turn the dial on the lock counter clockwise to 13.
+
+> 24
+You turn the dial on the lock clockwise to 24. Then you unlock the lock.
+
+> open cabinet
+You open the cabinet.  A mirror is inside the cabinet.
+
+> look in cabinet
+The lock is off.  The cabinet is open.  A mirror is inside the cabinet.
+
+> take mirror
+You take the mirror from the cabinet.
+
+> light candle
+You light the candle with the fire under the pot.
+
+> e
+You move east.
+
+Dinning Room
+This is a romantic place. There is a table. You see no one at the table, but
+you hear a strange ghostly sound.
+
+> e
+You move east.
+
+Entry Way
+This is the entrance area that leads to the rest of the house. Besides the
+nice chair right in the middle, it is not very interesting.
+
+> put mirror on chair
+You put the mirror onto the chair.
+
+> e
+You move east.
+
+Study
+This looks like a workplace. Right in front of the entrance to the room is a
+big oil lamp. There is a desk in the middle of the room for studying.
+
+> look at desk
+It is a sturdy wooden desk.  A spell book and a pair of glasses are on the
+desk.
+
+> take glasses
+You take the pair of glasses from the desk.
+
+> take book
+You take the spell book from the desk.
+
+> light lamp
+You light the big oil lamp with the candle. It makes a really bright light.
+Almost blinding.  The light from the big oil lamp bounced off the mirror on
+the brass chair, went to the Unliving Room, and lit it up.
+
+> w
+You move west.
+
+Entry Way
+This is the entrance area that leads to the rest of the house. Besides the
+nice chair right in the middle, it is not very interesting.
+
+> drop candle
+You drop the candle.
+
+> n
+You move north.
+
+Unliving Room
+The room is lit up. wind is coming out of a magic box.
+
+> take ice
+You take the block of ice from magic box.
+
+> s
+You move south.
+Entry Way.
+
+> take candle
+You take the candle.
+
+> w
+You move west.
+
+Dinning Room
+This is a romantic place. There is a table. You see no one at the table, but
+you hear a strange ghostly sound.
+
+> w
+You move west.
+
+Kitchen
+You smell something nasty cooking in a big cooking pot, near the cabinet.
+
+> put ice in pot
+You put the block of ice inside big cooking pot.  The ice melted.
+
+> look in pot
+The cooking pot is filled. with a stew. It is boiling hot. Under the pot is
+firewood with fire on it heating up the pot of stew.  A head is inside big
+cooking pot.
+
+> take head
+The stew in the pot was so hot that when you took a head out of the cooking
+pot it burned your hand.
+
+> put candle in head
+You put the candle inside the head.
+
+> e
+You move east.
+
+Dinning Room
+This is a romantic place. There is a table. You see no one at the table, but
+you hear a strange ghostly sound.
+
+> e
+You move east.
+
+Entry Way
+This is the entrance area that leads to the rest of the house. Besides the
+nice chair right in the middle, it is not very interesting.
+
+> n
+You move north.
+
+Unliving Room
+The room is lit up. wind is coming out of a magic box.
+
+> w
+You move west.
+
+Rock Room
+The wooden floor creaks when you walk on it. It is almost like it is about to
+give way. There is a rope that is tied to a metal loop in the floor. The rope
+leads up into a hole in the ceiling, and comes out of another hole in the
+ceiling, where a big rock is tied to it that is hanging right over your head.
+
+> burn rope
+You use the candle to set the rope on fire. The fire is burning away at the
+rope.
+
+> e
+You move east.
+
+Unliving Room
+The room is lit up. wind is coming out of a magic box.
+
+> e
+You move east.
+
+Torture Chamber
+This looks like a place of torment. This place is filled with devices of
+torture including a guillotine.  Also here is a sword.
+
+> take sword
+You take the sword.
+
+> w
+You move west.
+
+Unliving Room
+The room is lit up. wind is coming out of a magic box.
+
+> w
+When you walk in you fall through a big hole in the floor. (You can  go
+straight to the Basement at the start of this game you if you type, "big
+skip".)
+
+Basement
+This basement has a cage with a wolf  in it. There is an opening in a wall.
+Also here is a piece of bacon.
+
+> take bacon
+You take the piece of bacon.
+
+> in
+You start to go in the opening. Then an owl flew out. Then it started flying
+back and forth in front of the opening.
+
+> give bacon to owl
+The owl takes the bacon and flies off with it.
+
+> in
+You move in.
+
+Cave
+This is small cave. The walls are slimy. At the end of the cave is an old
+clock.
+
+> open clock
+You open old clock.  A dark shadow like figure came out of the clock.
+
+> sword
+You attack The Dark Figure with the sword. He drops the toy. Then you take
+it.
+
+> toy clock
+You put the toy in the clock. The toy goes back in time, and you go with it.
+Now you are back on your bed, on the night that man came in your home.
+
+Bed Room
+It is dark in your room with only moonlight from the window. There is a bed.
+Next to the bed is a phone.  The clock that brought you here is here.  Also
+here is a horn.
+
+> e
+(Getting off the bed first)
+You move east.
+
+Living Room
+There is man lying near the fireplace.  He is on fire.
+
+> take doll
+You take the voodoo doll from the sleeping man.
+
+> w
+You move west.
+
+Bed Room
+It is dark in your room with only moonlight from the window. There is a bed.
+Next to the bed is a phone.  The clock that brought you here is here.  Also
+here is a horn.
+
+> doll clock
+You put the voodoo doll of the man in the clock. The voodoo doll gets sent to
+the future. The man goes with it.
+Now you can live in relaxation.
+
+ (The password to edit this game in the Adrift Generator is "boss".)
+
+You scored 18 out of the maximum 20!
+That is 90% of the game!
+You finished 2 points short.
+
+[Press any key to end]

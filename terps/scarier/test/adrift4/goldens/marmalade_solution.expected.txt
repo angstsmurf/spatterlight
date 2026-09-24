@@ -1,0 +1,158 @@
+Loading game...
+
+Marmalade Skies
+You open your eyes and gasp for air. Your whole body feels cold and numb. It
+is a while before you can move. You seem to be lieing in some sort of
+chamber. You open the door and sit upwards. The action leeves you feeling
+dizzy and it takes a while to understand where you are.
+  It all begins to make sence. This thing that you are in is an escape pod.
+What you were escapeing from you can't remember, in fact you can't remeber
+who you are. Some distant memory tells you that is a commen effect from being
+frozen. You must of frozen yourelf after launching the escape pod so that you
+could be awakened when the pod landed someplace, which can only mean you have
+landed and many thousands of years could of came to pass since then.
+
+Type 'game info' is this is your first time playing.
+
+Inside the Escape Pod
+The inside of the escape pod looks fairly shaken up by the landing. A locker
+has opened and seems to have lost some of its content to the floor. Next to
+it is another small cuboard. A freeze chamber is at one end of the small pod
+and a drawer has opened out from under it. At the other end is a small
+surface with a monitor built into it.  A hand rail has come loose at one end
+and hangs  to the side of the door.
+
+> look in locker
+The locker is made of strong plastic. Apart from that, there isn't much else
+to say.  The locker is open.  A Blaster and a rope are inside the locker.
+
+> get blaster
+You take a Blaster from the locker.
+
+> get rope
+You take a rope from the locker.
+
+> look in drawer
+The drawer pulls out from under the freeze chamber.  The drawer is open.  A
+enviroment suit is inside the drawer.
+
+> get suit
+You take a enviroment suit from the drawer.
+
+> wear suit
+You put on the enviroment suit.
+
+> open cuboard
+You open the small cuboard.  A enviroment helmet is inside the small cuboard.
+
+> get helmet
+You take a enviroment helmet from the small cuboard.
+
+> wear helmet
+You put on the enviroment helmet.
+
+> look at floor
+The floor is a plain white colour.  A codeing manual and a survival kit are
+on the floor.
+
+> get manual
+You take a codeing manual from the floor.
+
+> get survival kit
+You take a survival kit from the floor.
+
+> pull hand rail
+You pull hard on the hand rail which hangs off the roof of the escape pod.
+The other end suddenly comes loose and you fall back against the locker. You
+pick the hand rail (a hand rail no longer, but a long bar) up and take it
+with you.
+
+> open door
+You open the door to the planets surface. You can now move out and in at
+will.
+
+> out
+You move out.
+
+Column 1
+To begin to try and describe the beauty that you can see would be impossible.
+You stand on what seems to be some column of rock. The surface area isn't
+very large and yet you are amazed at how the escape pod managed to land on
+it. From the evidence of the surface it seems it must of landed verticaly at
+some speed. Some smaller parts of rock have come loose.
+  The sky has a light orange taint to it, reminding you of the colour of
+marmalade, though what marmalade is you can't remember. Below the height of
+the column is a sea of colourful gasses. You look directly downwards and see
+that the bottom of the column dissapears into a spiral of green and purple
+gasses, trying to climb their way up the side of the rock.
+  Something passes just above you which grabs your attention. It is some sort
+of plant life, floating in the low gravity levels. There are more, just
+peacefully allowing the breeze to take them along. This isn't the only column
+as well. The one you stand on is at one end of a chain of five. Something
+shiny catches your eye. There is some sort of device on the fith column. You
+wonder if you could get over there to find out what it is. There are other
+columns in the distance as well, each disappearing into the depths of the
+gasses below. You wander how high up you actually are.
+
+> throw bar to column 2
+You throw the bar across to the second column.
+
+> jump to column 2
+You take a run up, which in the low gravity is a large step up, and jump
+forwards. The feeling is fantastic, yet a little scary. You land on the
+second colomn and have to work hard to stop yourself from just bouncing off
+the other side.
+ You stand up and look back. There is a rumbling sound and then the colomn
+collapses. You watch the rock and the escape pod dissapear into the depth of
+the sea of gasses. You hope there was nothing over there that you needed.
+
+> get bar
+You pick up the bar.
+
+> vault to column 3
+Useing the bar you run up and vault over to the third column. You gain the
+extra distance and hight you need and land safely. Unfortunatly you loose the
+bar and it falls down into the depths below.
+
+> propel to column 4
+You jump towards the fourth coloumn. While in the air you turn around and
+fire the Blaster. It propels you furthur and quicker towards the fourth
+collumn. You make it, but have to hold onto the side to stop yourself from
+flying off the other side, you picked up some speed in the process.
+
+> tie loop in rope
+At one end of the rope you tie a fairly large loop. You test it and make sure
+the knot is strong and wont come loose with a large weight pulling on it.
+
+> throw rope to column 5
+Keeping ahold of the other end you throw the rope towards the fifth column.
+You miss the first and second time, but it is third time lucky and the loop
+in the end of the rope falls around the divice. You can now climb the rope to
+the fifth column.
+
+> climb to column 5
+You swing on the rope so that you are up against the rock side of the fifth
+column. Then useing your hands to pull on the rope and using your legs to
+walk against the rock surface, you make your way to the top of the column.
+
+> recode transmitter
+You follow the manuals instructions on how to recode this type of
+transmitter. It takes a while but finally it begins sending out a distress
+signal.
+
+> look
+
+Column 5
+A device stands has been put here on purpose. Somewhere in the back of your
+mind you seem to know that this devise is a transmitter and could be used to
+send a signal for somebody to come and pick you up.
+All you can do now is wait...
+Time passes and you use up the supplies in your survival kit. Slowly you grow
+weaker. Then just when your about to give up and you don't have the strength
+to keep your eyes open, a ship appears. Somebody comes out and scoops up your
+limp body and takes you back within their ship. You have been saved.
+You scored 150 out of the maximum 150!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

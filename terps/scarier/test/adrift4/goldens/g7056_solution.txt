@@ -1,0 +1,55 @@
+w
+n
+n
+e
+get cake
+w
+s
+give cake to secretary
+n
+w
+get all
+e
+n
+n
+w
+get beacon
+launch
+wait
+jump
+jump
+look under rock
+get key
+w
+shoot guard with pistol
+get screwdriver
+get hammer
+w
+unlock door with key
+n
+restart generator
+w
+s
+s
+shoot captor with pistol
+shoot captor with pistol
+x table
+stand on table
+open vent
+u
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+shoot sentry with sniper rifle
+u
+u
+30009999 See Player
+turn on beacon
+wait
+wait

@@ -1,0 +1,10 @@
+kick shutter
+touch mirror
+open chest
+look in chest
+get key
+touch mirror
+unlock shutter with key
+d
+quit
+y

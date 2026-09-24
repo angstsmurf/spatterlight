@@ -1,0 +1,103 @@
+
+> use toilet
+As well as the HORROR of the jobby, you also saw a Fatfighters Membership card bob up and down then flush away !!
+
+> w
+You move west.
+Hotel Reception
+
+  Ray is here.  You can move east and west.
+
+> ask Ray about Andy
+answer his riddle by typing "say _ _ _ _ _ " What is he?
+
+> say Jelly
+Listen to his directions! He has also given you something!
+
+> w
+You move west.
+The Park
+
+It has been vandalised recently.  Also here is The Hanging Tree, a person called Anne and a Park.  You can move east and south.
+
+> s
+You move south.
+Fete
+
+The Jam tasting tent looks interesting! Ye Old well is here.  Also here is a Park.  You can move north, east, south, west and down.
+
+> w
+You move west.
+Jam Tasting Tent
+
+  Also here is a lady called Judy, a lady called Maggy and a lot of Jam.  You can only move east.
+
+> give cake to maggy
+She is being sick all over you!
+
+> e
+You move east.
+Fete
+
+The Jam tasting tent looks interesting! Ye Old well is here.  Also here is a Park.  You can move north, east, south, west and down.
+
+> s
+You move south.
+Field
+
+  Also here is a Scarecrow.  Vicky is here.  You can only move north.
+
+> get chocolates
+You take the chocolates.
+
+> n
+You move north.
+Fete
+
+The Jam tasting tent looks interesting! Ye Old well is here.  Also here is a Park.  You can move north, east, south, west and down.
+
+> d
+You move down.
+Bottom Of A Well
+
+It is a bit smelly down here!  Also here is a Jobby and a Membership Card.  You can only move up.
+
+> get card
+You take the Membership Card.
+
+> u
+You move up.
+Fete
+
+The Jam tasting tent looks interesting! Ye Old well is here.  Also here is a Park.  You can move north, east, south, west and down.
+
+> e
+You move east.
+Community Centre
+
+  Also here is a lady called Carol.  You can only move west.
+
+> use card
+You can now enter Fat Fighters.
+
+> e
+You move east.
+Fat Fighters
+
+The class is empty apart from Marjorie who is looking frustrated.  Marjorie is here.  You can only move west.
+
+> give chocolates to Marjorie
+Marjorie tells you to "say Minder" to Dennis Waterman 
+when you meet him in part 2 (of 2) of this adventure.
+You will meet many other characters from Little Britain in Part 2 of Find Andy. 
+
+
+Hope you enjoyed this as much as I had making it....
+ 
+. by ian Thomson  (comments and reviews of my games are warmly welcomed and appreciated)
+ email iantommo@hotmail.com
+You scored 1000 out of the maximum 1000!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

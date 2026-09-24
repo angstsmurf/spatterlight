@@ -1,0 +1,587 @@
+Loading game...
+
+The Time Machine
+
+You were given your grandfather's notes and you studied them. You found out
+that on one of the last days before he disappeared, he was about to go
+through time. Deciding that there might be a chance to bring him back into
+present time, you drove to his manor in search of a machine that would send
+you on an adventure throughout time...
+Please enter your name:
+
+> look at ash
+
+> take key
+You take the key out of the ash and then dust it off as you place it in your
+pocket.
+
+> n
+You move north.
+
+Dining Room
+You're standing in the large dining room. A large table sits in the middle of
+the room, dust has been collecting on it. Large chairs are pushed into the
+table, plates still sit in front of them. You can hear the pattering of the
+rain on the roof in here. There's a small door to the North, the hall is back
+to the South. You never realized that it was such a clean dining room. Even
+the floor seems to be perfectly clean.
+
+> n
+You move north.
+
+Kitchen
+You're standing in the medium sized kitchen. Cupboards line the wall, all
+made of finely crafted wood. A large oven covers almost have of one side of
+the room, smells of cooked meat still linger around it. There's a large clock
+on the wall, it has stopped working. You can hear the sounds of a train from
+the railroad station a few miles away.
+
+> unlock cupboard
+You twist the key in the locks and open all the cupboards. You take a box of
+crackers from within one of the cupboards.
+
+> s
+You move south.
+
+Dining Room
+You're standing in the large dining room. A large table sits in the middle of
+the room, dust has been collecting on it. Large chairs are pushed into the
+table, plates still sit in front of them. You can hear the pattering of the
+rain on the roof in here. There's a small door to the North, the hall is back
+to the South. You never realized that it was such a clean dining room. Even
+the floor seems to be perfectly clean.
+
+> s
+You move south.
+
+Grand Hall
+You're standing in the grand hall of the mansion. It smells like a clean
+hotel in here, your grandfather always did keep a clean house. Paintings hang
+on the walls, some overtop a large fireplace. There's a large staircase here,
+the banister is sparkling clean. There's a door to the North that smells like
+fresh paint. You can hear the sounds of the rain falling from outside the
+large manor. You never realized that the house wasn't as large as you used to
+think it was.
+
+> u
+You move up.
+
+Hallway
+You're standing in the upper hallway of the large house. Lamps hang off the
+celing, dangling just above your head. There's a door to the North, East and
+West, each one of the doors have been in kept excellent condition. The
+pattering of the rain is louder in here.
+
+> w
+You move west.
+
+Library
+You're standing in the large library of the manor. Bookcases line the walls,
+each shelf filled with hundreds of books. Bright lights slightly hurt your
+eyes from the large lamps that cover the entire ceiling of the room. You can
+hear the sounds of rain hitting the glass windows at the side of the room.
+
+> open window
+You open the window and get rain in your face for it.
+
+> climb ladder
+You climb up the ladder and enter the room in the window above.
+
+> d
+You climb down the ladder and into the Library.
+
+> e
+You move east.
+
+Hallway
+You're standing in the upper hallway of the large house. Lamps hang off the
+celing, dangling just above your head. There's a door to the North, East and
+West, each one of the doors have been in kept excellent condition. The
+pattering of the rain is louder in here.
+
+> n
+You move north.
+
+Bedroom
+You're in the only bedroom of the manor. It's a large, tidy room that hasn't
+been used in awhile. The large bed is made and some dust is covering the
+pillows. The loud noises of a nearby train rattles the table and the window
+near the end of the room.  There's a large closet but it has been locked up
+securely with a weak lock.
+
+> look table
+You look at the beautiful oak table and see a large key sitting on top of it.
+
+> take key
+You take the large key off the table and place it into your pocket.
+
+> s
+You move south.
+
+Hallway
+You're standing in the upper hallway of the large house. Lamps hang off the
+celing, dangling just above your head. There's a door to the North, East and
+West, each one of the doors have been in kept excellent condition. The
+pattering of the rain is louder in here.
+
+> e
+You move east.
+
+Bathroom
+You're in the large bathroom of the manor. The sink is empty and sparkly
+clean, the cabinet above it has a shiny mirror on it. The toilet is clean and
+hasn't been used in a long while. It smells very clean in here, like aerosol.
+You can hear the sounds of fans turning above you in the vents.
+
+> look at vent
+You can see two vents that travel throughout the house. You can see a credit
+card has been placed on the grating of the vent.
+
+> take credit card
+You open the vent and take the credit card that was hidden in it.
+
+> w
+You move west.
+
+Hallway
+You're standing in the upper hallway of the large house. Lamps hang off the
+celing, dangling just above your head. There's a door to the North, East and
+West, each one of the doors have been in kept excellent condition. The
+pattering of the rain is louder in here.
+
+> n
+You move north.
+
+Bedroom
+You're in the only bedroom of the manor. It's a large, tidy room that hasn't
+been used in awhile. The large bed is made and some dust is covering the
+pillows. The loud noises of a nearby train rattles the table and the window
+near the end of the room.  There's a large closet but it has been locked up
+securely with a weak lock.
+
+> use credit card on closet
+You slip the card between the closet and then turn the knob, opening the
+closet up. You search through the closet and pull out a large safe.
+
+> unlock safe
+You stick the key into hole and open up the safe. You pull a medium sized
+engine out of the safe. The engine seems to be very high tech, wires and
+chemicals buzz and slurp throughout it.
+
+> s
+You move south.
+
+Hallway
+You're standing in the upper hallway of the large house. Lamps hang off the
+celing, dangling just above your head. There's a door to the North, East and
+West, each one of the doors have been in kept excellent condition. The
+pattering of the rain is louder in here.
+
+> w
+You move west.
+
+Library
+You're standing in the large library of the manor. Bookcases line the walls,
+each shelf filled with hundreds of books. Bright lights slightly hurt your
+eyes from the large lamps that cover the entire ceiling of the room. You can
+hear the sounds of rain hitting the glass windows at the side of the room.
+
+> climb ladder
+You climb up the ladder and enter the room in the window above.
+
+> use engine on time machine
+You place the engine in the slot and sit in the chair. You randomly push some
+buttons and the chair starts to emit a humming noise. Suddenly, the wheel on
+the back starts spinning and you and the machine quickly vanish into thin
+air. You can feel yourself hurtling through some sort of a dimension as you
+can feel,see,or hear nothing. It's amazing. The darkness quickly disappears
+and you feel yourself lying on solid ground. You open your eyes to the sight
+of a sword in front of your eyes. Two men in armor quickly lift you up and
+throw you onto the back of a wagon. You cross through the beautiful
+countryside, stopping once in awhile letting a horse get a break.
+
+   Your breath is taken away as the wagon passes through a gate and into a
+bustling marketplace. Merchants shout out items and numbers as the wagon
+moves along. Finally, the wagon pulls up to a large castle and the two men
+carry you inside. They meet with a large man who says to throw you in the
+dungeons. You are carried down steep stairs and through a dark and musty
+stone hallway. They lift up a small stone slab and push you down into a pit.
+You look up and see them closing off the hole once again.
+
+> dig dirt
+You dig through the loose dirt and find a large rock that had been hidden
+there.
+
+> use rock on window
+You smash the rock against the bars on the window and they fly off. You hoist
+yourself through the window and you crawl up into the marketplace.
+
+> n
+You move north.
+
+Pub
+You're standing in the dank and dirty pub. It's quiet in here, only a few men
+sitting at the tables in the corner. The bartender is sitting behind the bar,
+his large hands are cleaning a wooden mug. There's a small poster thats
+hanging off a wall beside the door.
+
+> take salt
+You take the shaker of salt
+
+> s
+You move south.
+
+Marketplace
+People are walking back and forth as you stand in the marketplace. You can
+hear music playing as you see people dancing in the streets, buying items
+from the merchants. There's a small pub to the North, there's an alley to the
+East and the Castle is back to the West. You see a nice quiet stand to the
+South.
+
+> e
+You move east.
+
+Alley
+You're standing in a dark alley that's located behind the pub. A gang of men
+are standing in the corner of the alley, each of them are wearking long dark
+cloaks
+
+> use salt on crackers
+You open the salt shaker and pour it all over the crackers. You shake the box
+up and voila, you now have salted crackers.
+
+> give salted crackers to gang
+The gang quickly takes the crackers and eat them all. All the men start to
+get thirsty from the salt and they all walk into the bar for a drink.
+
+> w
+You move west.
+
+Marketplace
+People are walking back and forth as you stand in the marketplace. You can
+hear music playing as you see people dancing in the streets, buying items
+from the merchants. There's a small pub to the North, there's an alley to the
+East and the Castle is back to the West. You see a nice quiet stand to the
+South.
+
+> n
+You move north.
+
+Pub
+You're standing in the dank and dirty pub. It's quiet in here, only a few men
+sitting at the tables in the corner. The bartender is sitting behind the bar,
+his large hands are cleaning a wooden mug. There's a small poster thats
+hanging off a wall beside the door.  The gang has now come into the bar and
+are sitting and drinking.
+
+> ask bartender about job
+"Thanks peasant. Here's thirty shillings for your trouble."
+
+> s
+You move south.
+
+Marketplace
+People are walking back and forth as you stand in the marketplace. You can
+hear music playing as you see people dancing in the streets, buying items
+from the merchants. There's a small pub to the North, there's an alley to the
+East and the Castle is back to the West. You see a nice quiet stand to the
+South.
+
+> s
+You move south.
+
+Market Stand
+You're standing at the only quiet market stand on the street. A merchant is
+standing beside the stand, his long cloak hides any weapons he might have
+underneath.   You look at the stand and see a nice suit of armor that is
+sitting on the stand's counter. The merchant chimes in with the price, 30
+shillings. The marketplace is back to the North.
+
+> buy armor
+You pay the merchant and take the suit of armor off the stand.
+
+> wear armor
+You put on the suit of armor and get bogged down by an extra fifty pounds of
+metal to carry around.
+
+> n
+You move north.
+
+Marketplace
+People are walking back and forth as you stand in the marketplace. You can
+hear music playing as you see people dancing in the streets, buying items
+from the merchants. There's a small pub to the North, there's an alley to the
+East and the Castle is back to the West. You see a nice quiet stand to the
+South.
+
+> w
+You move west.
+
+Bridge to Castle
+You're standing at the bridge to the castle. Two guards are standing at the
+bridge that crosses over the moat and into the castle itself. They say you're
+not allowed into the kingdom, no peasants, only guards or roalty. The smell
+of sewage comes from the moat that flows around the castle. The castle is to
+the North.
+
+> n
+You walk past the guards in the armor and they don't say anything. You walk
+through the gates and enter the main courtyard of the castle.
+
+> e
+You move east.
+
+Stable
+You're standing in the middle of the stable. Horses are standing around,
+eating hay that's piled along the wall. You can hear the sounds of guards
+talking about a machine from around the corner. Maybe the time machine?
+
+> search hay
+You search through the hay and find a key that has been dropped into the hay.
+
+> w
+You move west.
+
+Courtyard
+You're standing in the large courtyard of the castle. To the North is the
+tower, to the East is the stable, and to the West is the castle. You can hear
+the sounds of guards fighting and horses carrying wagons across the large
+yard.
+
+> n
+You move north.
+
+Bottom of Tower
+You're standing at the bottom of large spiral stairs. Torches line the walls
+all the way up to the top of the tower. It's dark in here and it smells like
+mold. You feel a chill coming as a blast of cool wind comes through the
+cracks in the concrete.
+
+> u
+You move up.
+
+Top of Tower
+You're standing at the top of the tower. A large oak door stands in front of
+you, a large lock has been placed on the handle to keep someone like you out
+of it. You can see the marketplace far below from a small slit in the stone.
+
+> use brass key on door
+You unlock the door which provides access to the North, into the room.
+
+> n
+You move north.
+
+Tower Room
+You're standing in the room at the top of the tower. In the middle of the
+room is the time machine, it seems they must have been frightened by it so
+they hit it up here. The engine of the time machine has been taken out once
+again.
+
+> s
+You move south.
+
+Top of Tower
+You're standing at the top of the tower. A large oak door stands in front of
+you, a large lock has been placed on the handle to keep someone like you out
+of it. You can see the marketplace far below from a small slit in the stone.
+
+> d
+You move down.
+
+Bottom of Tower
+You're standing at the bottom of large spiral stairs. Torches line the walls
+all the way up to the top of the tower. It's dark in here and it smells like
+mold. You feel a chill coming as a blast of cool wind comes through the
+cracks in the concrete.
+
+> s
+You move south.
+
+Courtyard
+You're standing in the large courtyard of the castle. To the North is the
+tower, to the East is the stable, and to the West is the castle. You can hear
+the sounds of guards fighting and horses carrying wagons across the large
+yard.
+
+> w
+You move west.
+
+Castle Hall
+You're standing in the large castles main hall. Servants walk to and fro
+through the hall into and out of rooms. There's a door to North and another
+one to the South. It smells very clean in here, better than everywhere else.
+
+> n
+You move north.
+
+Throne Room
+You're standing in the throne room of the kingdom. The king isn't here, but
+his servants walk back and forth through the room, cleaning the chairs and
+the large table at the side of the room. You can hear a violing being played
+from somewhere in the castle.
+
+> take sword
+You take the sword off the table and attach it to your suit of armor.
+
+> s
+You move south.
+
+Castle Hall
+You're standing in the large castles main hall. Servants walk to and fro
+through the hall into and out of rooms. There's a door to North and another
+one to the South. It smells very clean in here, better than everywhere else.
+
+> s
+You move south.
+
+King's Bedroom
+You're standing in the king's bedroom. The king isn't here anymore, just a
+few servants cleaning up. You can see a large cabinet standing in the corner
+beside the bed. It smells like candles in here, even though you cannot see
+any.
+
+> use sword on cabinet
+You swing the sword and hit the lock right off the cabinet. You open the
+doors and pull out the engine from the time machine from within. The servants
+stare at you in awe.
+
+> n
+You move north.
+
+Castle Hall
+You're standing in the large castles main hall. Servants walk to and fro
+through the hall into and out of rooms. There's a door to North and another
+one to the South. It smells very clean in here, better than everywhere else.
+
+> e
+You move east.
+
+Courtyard
+You're standing in the large courtyard of the castle. To the North is the
+tower, to the East is the stable, and to the West is the castle. You can hear
+the sounds of guards fighting and horses carrying wagons across the large
+yard.
+
+> n
+You move north.
+
+Bottom of Tower
+You're standing at the bottom of large spiral stairs. Torches line the walls
+all the way up to the top of the tower. It's dark in here and it smells like
+mold. You feel a chill coming as a blast of cool wind comes through the
+cracks in the concrete.
+
+> u
+You move up.
+
+Top of Tower
+You're standing at the top of the tower. A large oak door stands in front of
+you, a large lock has been placed on the handle to keep someone like you out
+of it. You can see the marketplace far below from a small slit in the stone.
+
+> n
+You move north.
+
+Tower Room
+You're standing in the room at the top of the tower. In the middle of the
+room is the time machine, it seems they must have been frightened by it so
+they hit it up here. The engine of the time machine has been taken out once
+again.
+
+> use engine on time machine
+You place the engine in the slot and sit on the time machine. You hear guards
+running up the stairs of the tower to see what's happening. The wheel on the
+machine quickly begins to spin and you suddenly enter the third dimension
+once again. You feel yourself floating through time and space as you feel and
+hear nothing. The time machine suddenly stops and you feel yourself lying
+face down in dirt.
+
+                                You stand up and look all around. You're
+standing in the middle of a large dirt area. City ruins are all over the
+place, they seem to have been blown up. You can smell gas all around and the
+smell of burnt flesh. It seems you've went a bit too far into the future...
+
+> take battery
+You take the battery out of the truck of the car.
+
+> s
+You move south.
+
+Village
+You're standing in a small village located outside the ruins. People in black
+cloaks walk through the street, they all have strange masks on. There's a
+house to the East and a junkyard to the South. The ruins of the city are back
+to the North. It smells terrible here, you can understand why everyone wears
+masks. All the people stare at you as they walk past.
+
+> e
+You move east.
+
+Small House
+You're standing in the small house of one of the future men. A couch lies on
+the ground, in front of it is a large tv. You can see a small closet next to
+a sink that has been nailed into the wall. It smells like burnt rubber in
+here.
+
+> push button
+You push the button and the closet opens. You look inside and take a pair of
+wirecutters from a box.
+
+> use wirecutters on wires
+You snip the wires from the tv and place them into your pocket.
+
+> use wires on battery
+You tie the wires to the end of the battery and you now have a power source.
+But, do you have anything that needs powering?
+
+> w
+You move west.
+
+Village
+You're standing in a small village located outside the ruins. People in black
+cloaks walk through the street, they all have strange masks on. There's a
+house to the East and a junkyard to the South. The ruins of the city are back
+to the North. It smells terrible here, you can understand why everyone wears
+masks. All the people stare at you as they walk past.
+
+> s
+You move south.
+
+Junkyard
+You're standing in a large junkyard. Garbage is everywhere and people are
+searching through it for helpful items. You can hear the sound of a siren as
+garbage is crushed up in a machine in a large bulding across the yard.  You
+can see a large storage shed here, the door to it is closed with some type of
+security panel.
+
+> cut wire
+You snip the large wire and power to the door goes out. You can now go into
+the storage shed.
+
+> in
+You move in.
+
+Storage Shed
+You're standing in the small storage shed. Boxes are lined up against the
+wall, each one empty. In the middle of the room is the time machine, it seems
+these people didn't care for it much either. It's too advanced for anyone.
+The engine is actually in the machine, but it seems to have run out of power.
+You can smell gas inside of the shed.
+
+> use battery on time machine
+You start the engine and quickly get onto the time machine. The wheel spins
+around and around and you suddenly find yourself going through dimensions
+once again. You feel nothing as you travel through darkness. The time machine
+begins to fly up into a white light.
+
+  You suddenly wake up in your bed sweating. You wipe the liquid off your
+face and sigh. It must have all been a nightmare. You get up and walk towards
+the window and look out. You see space all around you and you can see Earth
+floating a million miles away. You can see the reflection of the time machine
+in the corner of the room in the shiny glass...
+
+You scored 170 out of the maximum 175!
+That is 97% of the game!
+You finished 5 points short.
+
+[Press any key to end]

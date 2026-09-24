@@ -1,0 +1,10 @@
+take coffee
+open briefcase
+use holepunch on door
+take poster
+use holepunch on vent
+use coffee on wires
+use holepuncher on desk
+use pepsi on coffee
+quit
+y

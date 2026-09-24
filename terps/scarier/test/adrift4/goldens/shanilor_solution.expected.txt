@@ -1,0 +1,72 @@
+Loading game...
+
+Untitled
+The evil sorcerer, Shanilor, has locked you up at the top of the tower of
+evil. You must get out of the tower before Shanilor carries out his plan of
+becoming the almighty ruler of Girmador.
+
+"Uugh. Where am I?" you say as you open your eyes and see a dirty stone
+ceiling above. You raise yourself with your hands to a sitting position. You
+are lying on something hard, but you know it's not the stone floor because it
+isn't as hard as stone.
+    "Oh no! Shanilor. I must stop him." You get up to your two feet and look
+around you are in a square room with stone ceiling, floor and walls. You see
+a small window on one of the walls. You walk to it and look outside. You see
+that you are in some high place looking out over the grassy fields of
+Garenthul. Further out beyond the grassy fields you can see the snow topped
+mountains of Panai. Upon further examination of the room, you see a wooden
+shutter in the middle of the room and a dirty matress with a torn and dirty
+sheet on it.
+
+Top floor of Shanilor's tower
+There is a matress on the floor full of holes where pieces of the matress
+have been torn out. A small white sheet, though not that white as it is
+rather dirty, all torn and tattered, lies on the matress. A small window is
+on the wall above the matress, looking out over the land of Ilnamur. A large
+mirror is to the right of the window. There is also a shutter in the middle
+of the room, probably leading to the next floor of the tower.
+
+> kick shutter
+Despite the shutter's old and 'almost falling apart' appearance, it doesn't
+break. There is a keyhole there though.
+
+> touch mirror
+You reach out with your hand to touch the surface of the mirror. As your
+fingers touch the mirror a flashing white light blinds you. As you regain
+your sight you see that you are no longer in the room where you were.
+
+> open chest
+You open the chest.  Small golden key is inside the chest.
+
+> look in chest
+The small chest is made of wood. A large diamond is embedded into the front
+of the chest with a golden frame surrounding it. The edges of the chest ar
+made of silver with small gems engraved into it.  The chest is open.  Small
+golden key is inside the chest.
+
+> get key
+You take small golden key from the chest.
+
+> touch mirror
+You reach out with your hand to touch the surface of the mirror. As your
+fingers touch the mirror a flashing white light blinds you. As you regain
+your sight you see that you are no longer in the room where you were.
+
+> unlock shutter with key
+You stick the small golden key inside the keyhole of the shutter and you turn
+the key. A clicking sound informs you that the shutter is now unlocked.
+
+> d
+You look down into the next room. You then carefully lower yourself down into
+the other room.  You have completed this demo. As you read this text I am
+working on the full game. I hope you enjoyed this rather small demo and are
+looking forward to playing the full game. Thank you for playing my demo.
+Credits
+Creation of demo..................Steingrimur Jonsson(me)
+Inspiration..............................Every drifter out there
+Special thanks......................Campbell
+You scored 14 out of the maximum 14!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,1763 @@
+
+> 1
+Plaza
+PLAZAConsidered by many to be the true heart of the city and by others (i.e. me and me alone) to be the sleaziest dump known to man, the plaza is a sprawling mess of cheesy pan-handlers, robbers, politicians and the other dregs of society. A statue of one of the previous mayors of the city (one of the few who didn't get assassinated during his first week in office) rises somewhat unmajestically in the centre. Its head is there, I am sure of this, although quite obscured by graffiti and bird droppings.
+   North of here is the crime scene, inwards lies my (for want of a better word) car, and paths lead around the plaza to the east and west.
+
+> n
+I move north.CRIME SCENEThe plaza opens out towards the centre and there is usually a market here on weekdays. Today, however, there are three dead bodies lying on the ground in three slowly spreading pools of blood and a host of cops standing around trying to look like they know what they're doing. A couple are wrestling with a "Police - Do Not Cross" tape, several others are attempting to question a squirrel which was found at the crime scene and has so far proven most unhelpful and the rest sip from plastic cups the way they've no doubt seem cops do on TV. South of here lies the entrance to the plaza and west, northwest, northeast and east are paths leading either to woodlands or the others part of the plaza.  
+
+"You made good time, boss," says Clancy as I reach the crime scene. "Only eight hours since I called you."
+   "I had important business to take care of, Clancy," I reply.
+   Clancy nods knowingly. "Nasty one this is, boss. Three dead men. This one-" he points to each of the corpses in turn "-is Carlos. Shot twenty-two times in the back of the head. Next to him is Michael. Knifed to death although he was also shot so we're not sure what actually killed him yet. Last is Larry. Knifed and shot and beaten with a hammer. Some people just don't make friends easily."
+   "What can you tell me?"
+   "Not much," says Clancy (a typical response for Clancy). "Feel free to ask questions though, boss. As soon as you're done here, the Chief wants me to ship the bodies off to the coroner so he can do an autopsy on them."
+   I decide a few questions might well be in order.
+
+   1)  Were there any witnesses?
+   2)  Don't these people have surnames?
+   3)  What do we know about the dead men?
+   4)  Why are there no dead women, Clancy? Seems rather sexist to me.
+
+> x corpses
+The corpses have been tagged as "corpse 1", "corpse 2" and "corpse 3", an overhelpful officer informs me.
+   "It'd mean ever so much, boss, if you'd examine 'em as 'corpse 1' and 'corpse 2' and 'corpse 3', boss, it would, boss," adds the overhelpful officer.
+
+> x corpse 1
+A quick perusal of the corpse - along with the overhelpful officer's less than helpful comments - tells me that the first corpse is called Carlos and that he lives (or lived actually) on Chase Avenue. The twenty-two bullet holes in the back of his head indicate either that the shooter wanted to be really sure he was dead or they just had a lot of ammo to use. As such, there isn't really a whole lot of Carlos' head left.
+   "Pretty gruesome, eh, boss?" says the overhelpful officer. "I mean, twenty-two times in the head? Man, he must have made some big enemies!"
+   "Did he have any possessions?" I ask.
+   The officer hands me what Carlos was carrying at the time of his death: a small business card, a library card, 3 dollars (which I promptly pocket on the grounds that I need the cash a lot more than he does) and Carlos' keys.
+
+> x corpse 2
+Corpse 2 - Michael. According to Clancy, he was both shot and stabbed. The corpse is quite a grisly sight and isn't helped much by the fact that Clancy has dropped half an ice cream cone over it.
+   "The coroner should be able to tell us more, boss," says the overhelpful officer. "I mean, as soon as he gets one look at that gaping knife wound, he… he-" The overhelpful officer is mercifully quiet for the next minute or two (aside from some painful-sounding vomiting) allowing me to study the corpse in peace.
+   There doesn't really seem a lot to see. The knife wound is in Michael's left shoulder and the bullet hole in his right. Either could have killed him though a hunch tells me there is some significance to the multiple wounds.
+   "Was he carrying anything?" I ask.
+   "Nyeah," says the overhelpful officer who hasn't quite finished being ill.
+   Another officer translates this as, "no, boss. We figure pickpockets got here first and swiped everything he owned. I've arrested him before, though, and I know he's got a pad on Balabon Street."
+
+> x corpse 3
+Corpse 3 belongs to some chap called Larry who, from what Clancy tells me, was knifed, shot and beaten to death. Some people just don't get on well with others.
+   "Did he have any possessions when you found him?" I ask the overhelpful officer.
+   "No, boss," he replies. "We just know the guy's name is Larry 'cos he's got it tattooed on his left wrist but apart from that we don't know a thing about him."
+
+> x business card
+The card is printed on cheap material and appears to be a kind of promotional business card. It doesn't say where Carlos works which I find quite odd.
+
+> x library card
+Just a common library card in the name of Carlos (his surname has been left suspiciously blank). It lists the library as being on Emming Street in the hard part of town.
+
+> s
+I move south.
+Plaza
+PLAZAConsidered by many to be the true heart of the city and by others (i.e. me and me alone) to be the sleaziest dump known to man, the plaza is a sprawling mess of cheesy pan-handlers, robbers, politicians and the other dregs of society. A statue of one of the previous mayors of the city (one of the few who didn't get assassinated during his first week in office) rises somewhat unmajestically in the centre. Its head is there, I am sure of this, although quite obscured by graffiti and bird droppings.
+   North of here is the crime scene, inwards lies my (for want of a better word) car, and paths lead around the plaza to the east and west.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> x dashboard
+Amongst the other junk piled high on the dashboard, I find a bullet which must have fell out of my gun the last time I tried to shoot someone from my car.
+
+> x dashboard
+Aha! Another bullet! I guess I must have been lax that day.
+
+> drive station
+I pull up at my destination and an surprised to note the young woman clinging to my bonnet.
+   "What are you doing up there?" I ask her.
+   "You drove over me!" she protests as I help her down. "You almost killed me!"
+   "Ah, with 'almost' being the operative word," I say.
+   I send her on her way without charging her for the dent in my bonnet caused by her head although she doesn't seem particularly grateful as a result.
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> u
+I move up.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> n
+I move north.
+Evidence Store
+EVIDENCE STOREA new idea in the station, the evidence store (where we're supposed to store something called 'evidence' though my grasp of the whole thing is a little limited to say the least) is a small room, barely big enough to swing a medium-sized cat. The walls are lined with shelves which contain (I would hazard a guess anyway) this elusive stuff called evidence. The clerk with the unenviable task of keeping watch over this horde is fast asleep at his desk, his snoring being quite a bit louder than my home stereo. South lies the main area of the station.
+
+> x desk
+Careful not to disturb the clerk (who in any case could sleep through a hurricane), I search the desk. And come across the clerk's key and a dollar he must have dropped. I take both figuring that as a cop the key is as much my property as anyone's and the dollar my just reward for being so clever as to search the desk in the first place.
+
+> x shelves
+There's far too much junk (or "evidence" I guess I should call it) stored on the shelves to search through. I imagine I'd be here forever if I tried. But a box placed at one end of the first shelf catches my attention. The fact that it is locked also catches my attention. You don't lock things unless there's something worthwhile inside them.
+
+> open box
+Using the key I swiped off the sleeping clerk, I unlock the box. And am quite disappointed to find it empty aside from a measly badge. I take it out and wonder if I've wasted my time here after all.
+
+> wear japan badge
+I put on the Japan badge.
+
+> s
+I move south.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> d
+I move down.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> s
+I move south.
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive home
+I set off, my engine roaring, my tyres burning the tarmac - and several irate passersby yelling abuse at me for nearly running them over. Realising I could well be in danger of having a complaint made against me for dangerous driving, I put on a burst of speed - up to 180 mph from my usual cruising speed of 120 mph - and soon leave the trouble-causers behind.
+
+> out
+I leave my car.  
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).
+
+> n
+I move north.  
+Lounge
+LOUNGE"Lounge" is perhaps not the most accurate description for this room as it functions more as whatever it needs to be depending on what I need it for. Right now, it's a dumping ground for whatever garbage I haven't yet got around to carting out to the trash. Scattered around the room in no real order are my TV, stereo, video, sofa and a large cabinet which I bought some time ago and since which time have completely forgotten what is in it.  Doorways lead off north to my bedroom, east to my kitchen and south to the street.  
+
+As I enter my house, I hear - or think I do at any rate - someone moving around in the general area of my bedroom.
+
+> n
+I move north.  
+Bedroom
+BEDROOMIf the rest of the house was a mess, then this would be classed as a bomb site. How Carlos can live in such conditions is a mystery (although in his current state it's probably not bothering him a whole lot). It looks like someone has gone mad in here with several gallons of multicoloured paint and done a number on the bed, chest of drawers, wardrobe and window. One wall used to hold a full length mirror but someone with a penchant for smashing things obviously took a dislike to it and now bits of it are lying scattered all over the floor making walking around in here quite treacherous. And lying on the floor in a pool of spreading blood is the dead body of the man who tried to kill me. Doorways lead southwest to the lounge and south to the bathroom.  
+
+As I enter my bedroom, I catch a sudden movement out of the corner of my eye and, ever on the lookout for would-be assassins, throw myself to the floor. At the same time (or a fraction of a second later actually as if it had been at the same time I would be lying dead on the floor with a bullet hole in me), a bullet smacks into the wall where my head would have been a moment ago.
+   "Darn!" yells the gunman, a thin rat-faced fellow standing all of five feet away. Not at all pleased by his lack of gunmanship, he raises his gun to fire again-
+   But not before I've drawn my own gun and shot him clean between the eyes (okay, so the bullet hit him in the chest but if he had eyes there I'd have got him right between them).
+   The body sways for a moment before becoming aware of its unfortunate demise and promptly collapses in front of me.
+
+> x body
+My attacker appears somewhat unwell. In fact, it'd be fair to say that he won't be trying to kill me again anytime soon. Now normally this would be cause for rejoicement - one less person in the world with the desire to kill me - but right now I've got a dead body lying on my bedroom floor and no idea why he tried to kill me. On a hunch I go through his pockets and come across nothing more interesting than $5 and a piece of paper. I take both figuring that while I might not get a whole lot out of them, at least I'm likely to make better progress than the dead guy.
+
+> x bed
+I don't remember the last night I got a decent night's sleep in this bed. Either a hitman is bursting through the window in the middle of the night trying to kill you (which kind of puts you in a non-sleepy mood) or the bed bugs are starting to bite. Maybe I ought to try getting a better security system then maybe I'll be able to get some use out of my bed again.
+
+However, I do note that my heavy duty boots are lying alongside my bed. I take them with me in case I need them for anything.
+
+> wear boots
+I put on the heavy duty boots.
+
+> s
+I move south.
+Lounge
+LOUNGE"Lounge" is perhaps not the most accurate description for this room as it functions more as whatever it needs to be depending on what I need it for. Right now, it's a dumping ground for whatever garbage I haven't yet got around to carting out to the trash. Scattered around the room in no real order are my TV, stereo, video, sofa and a large cabinet which I bought some time ago and since which time have completely forgotten what is in it.  Doorways lead off north to my bedroom, east to my kitchen and south to the street.
+
+> s
+I move south.
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive chase
+As I drive across town, I reflect on what a glorious day it is to be out driving. Alas, with a triple murder to solve I don't have time to spend on observing the view.
+
+> out
+I leave my car.  
+Chase Avenue
+CHASE AVENUEChase Avenue lies in the hardest part of the hard part of town. This is the sort of district where the toddlers carry knives as well as dummies and girl guides know a hundred and one ways to choke you. I've been to some lousy places before but none quite so bad as this.
+   Carlos' house lurks ominously ahead of me, looking for all the world like it's auditioning for a part in Psycho. It's the first time I've seen a house which looks more rundown than my own and believe me that takes some doing. All the windows are either smashed or boarded up, the chimney is hanging off the roof and the door looks to be hanging off its hinges.
+   Some girl guides lurk nearby, eyeing me with ill-concealed menace. Carlos' house lies north, a dingy alley is northwest, my car is inwards and Chase Avenue extends off to the east and west although quite why I'd want to wander around in this neighbourhood is a mystery in itself.
+
+> open door
+Using the keys I took from Carlos' body, I open his front door.
+   A couple of passersby call out "far out, dude! Man's only been dead a few hours and already some honky's breakin' into his joint!"
+
+> n
+I move north.
+Lounge
+LOUNGEThe main room of Carlos' house (for want of a better word to describe it) is a jumbled mess of broken furniture, smashed up boxes and crates and rolls of carpet that look like they've been lying here for years. In one corner is a TV although from the way the screen is hanging at an angle I doubt it's got much chance of working again. There is an unpleasant smell emanating from somewhere in the room but I'm not able to place it. Either Carlos owns the record for having the most untidy house in history or someone has recently ransacked this place. Doors (mostly broken and hanging from the hinges) lead off northwest to the kitchen, northeast to the bedroom and east to the bathroom. The front door stands open to the south.
+
+> nw
+I move northwest.
+Kitchen
+KITCHENThe terrible smell of burnt meat is always present in Carlos' kitchen although it's somewhat overpowered by the stench of spilt milk. Piled high on the grubby sink are a stack of unwashed pots that look like they've been sitting here for months if not years. Light from a cracked window illuminates the worst stains on the pots and, believe me, they could certainly do without the illuminating. A set of (battered) cabinets above the (broken) washer and a (rusty) fridge complete what is without a doubt the most unhygienic kitchen I have ever set foot into and considering that my own would hardly win awards for cleanliness that is really saying something. The lounge lies to the southeast.
+
+> x cabinets
+One of the cabinets is locked and no amount of wrenching the handle, kicking or swearing bloody murder will get it open. Another is open but contains nothing more than the usual garbage strewn around Carlos' house so I go on to the third and final cabinet. And find a button attached to the wall. There's no label on the button or anything else to indicate just what it does so if I'm the curious type I'm just going to have to press it and see what happens…
+
+> push button
+I tap on it - and hear a ladder drop down from the roof to the alley outside the kitchen window.
+
+> se
+I move southeast.
+Lounge
+LOUNGEThe main room of Carlos' house (for want of a better word to describe it) is a jumbled mess of broken furniture, smashed up boxes and crates and rolls of carpet that look like they've been lying here for years. In one corner is a TV although from the way the screen is hanging at an angle I doubt it's got much chance of working again. There is an unpleasant smell emanating from somewhere in the room but I'm not able to place it. Either Carlos owns the record for having the most untidy house in history or someone has recently ransacked this place. Doors (mostly broken and hanging from the hinges) lead off northwest to the kitchen, northeast to the bedroom and east to the bathroom. The front door stands open to the south.
+
+> ne
+I move northeast.
+Bedroom
+BEDROOMIf the rest of the house was a mess, then this would be classed as a bomb site. How Carlos can live in such conditions is a mystery (although in his current state it's probably not bothering him a whole lot). It looks like someone has gone mad in here with several gallons of multicoloured paint and done a number on the bed, chest of drawers, wardrobe and window. One wall used to hold a full length mirror but someone with a penchant for smashing things obviously took a dislike to it and now bits of it are lying scattered all over the floor making walking around in here quite treacherous. And lying on the floor in a pool of spreading blood is the dead body of the man who tried to kill me. Doorways lead southwest to the lounge and south to the bathroom.
+
+> open wardrobe
+My feet cunningly protected by the heavy duty boots I'm wearing, I cross over to the wardrobe, swing it open and find myself face to face with the world's trendiest jacket. Reverently, I take it down from the rack and marvel at it. Quite how someone like Carlos could afford a jacket like this is a mystery but as he won't be wanting it any more, it would be a shame to let it go to waste.
+   As I'm studying the jacket, I notice a couple of lines of text down one sleeve.
+
+> wear jacket
+I put on the trendy jacket.
+
+> sw
+I move southwest.
+Lounge
+LOUNGEThe main room of Carlos' house (for want of a better word to describe it) is a jumbled mess of broken furniture, smashed up boxes and crates and rolls of carpet that look like they've been lying here for years. In one corner is a TV although from the way the screen is hanging at an angle I doubt it's got much chance of working again. There is an unpleasant smell emanating from somewhere in the room but I'm not able to place it. Either Carlos owns the record for having the most untidy house in history or someone has recently ransacked this place. Doors (mostly broken and hanging from the hinges) lead off northwest to the kitchen, northeast to the bedroom and east to the bathroom. The front door stands open to the south.
+
+> s
+I move south.
+Chase Avenue
+CHASE AVENUEChase Avenue lies in the hardest part of the hard part of town. This is the sort of district where the toddlers carry knives as well as dummies and girl guides know a hundred and one ways to choke you. I've been to some lousy places before but none quite so bad as this.
+   Carlos' house lurks ominously ahead of me, looking for all the world like it's auditioning for a part in Psycho. It's the first time I've seen a house which looks more rundown than my own and believe me that takes some doing. All the windows are either smashed or boarded up, the chimney is hanging off the roof and the door looks to be hanging off its hinges.
+   Some girl guides lurk nearby, eyeing me with ill-concealed menace. Carlos' house lies north, a dingy alley is northwest, my car is inwards and Chase Avenue extends off to the east and west although quite why I'd want to wander around in this neighbourhood is a mystery in itself.
+
+> nw
+I move northwest.
+Alley
+ALLEYI'm in an alley at the side of Carlos' house which leans rather alarmingly at an angle. One good kick in the wrong place and I could well imagine it collapsing right into the alley. There are several dumpsters here, all of which are full to the brim and don't look like they've been emptied in weeks, if ever. No doubt as a result of me banging that button in the kitchen, a ladder has dropped from the roof and dangles a few feet above one of the dumpsters. The unmistakeable stench of filth exudes from every pore of the alley and it's all I can do not to add my breakfast to it. As soon as I'm out of here the better. Chase Avenue lies to the southeast (and not a moment too soon) and the roof of Carlos' house lies up.
+
+> u
+I climb up the ladder and find myself on the:
+
+Roof
+ROOFFrom the roof of Carlos' house, I get a wonderful and inspiring view of the locale in which he lives: I can see muggers plying their trade, school kids breaking into a bank further up the street, an old woman throwing a thug down some steps…
+   The roof itself is pretty much barren aside from a chalk figure someone has drawn by the chimney. What it represents I don't know. A ladder leads down to the alley.
+
+> x hand
+Bending down, I examine the hand and notice that two of the fingers are pointing to the edge of the roof. Either that, or the chalk figure is making a rude gesture at me.
+
+> x edge
+Following the pointing fingers of the chalk figure, I cross to the edge of the roof and study it as best I can. What I'm supposed to be looking for isn't at first obvious but when I push a loose stone to one side and a severed finger falls out, it's pretty obvious this is what I was being directed to. Why is another matter.
+
+> get finger
+I take the finger.
+
+> d
+I move down.
+Alley
+ALLEYI'm in an alley at the side of Carlos' house which leans rather alarmingly at an angle. One good kick in the wrong place and I could well imagine it collapsing right into the alley. There are several dumpsters here, all of which are full to the brim and don't look like they've been emptied in weeks, if ever. No doubt as a result of me banging that button in the kitchen, a ladder has dropped from the roof and dangles a few feet above one of the dumpsters. The unmistakeable stench of filth exudes from every pore of the alley and it's all I can do not to add my breakfast to it. As soon as I'm out of here the better. Chase Avenue lies to the southeast (and not a moment too soon) and the roof of Carlos' house lies up.
+
+> se
+I move southeast.
+Chase Avenue
+CHASE AVENUEChase Avenue lies in the hardest part of the hard part of town. This is the sort of district where the toddlers carry knives as well as dummies and girl guides know a hundred and one ways to choke you. I've been to some lousy places before but none quite so bad as this.
+   Carlos' house lurks ominously ahead of me, looking for all the world like it's auditioning for a part in Psycho. It's the first time I've seen a house which looks more rundown than my own and believe me that takes some doing. All the windows are either smashed or boarded up, the chimney is hanging off the roof and the door looks to be hanging off its hinges.
+   Some girl guides lurk nearby, eyeing me with ill-concealed menace. Carlos' house lies north, a dingy alley is northwest, my car is inwards and Chase Avenue extends off to the east and west although quite why I'd want to wander around in this neighbourhood is a mystery in itself.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive japantown
+On my drive across town, I make record time. The lights were for me all the way - a straight line of beautiful red - and so I didn't have to stop once. Great the way things turn out like that sometimes.
+
+> out
+I leave my car.  
+Japantown
+JAPANTOWNA pall of smog hangs over the whole of Japantown. Whether this is due to the large number of Japanese restaurants or the large number of burning police cars I can't really tell. Japantown is pretty much a law unto itself and that law doesn't include cops who can't trace their ancestry back to at least five Japanese families of high regard.
+   A narrow road leads up to a large square not far away but right now I'm feeling a little non-Japanese and, as such, a little non-safe. North lies the square (and my potential death if I'm not careful) and in lies the safe haven of my car.
+
+> n
+I move north.
+Hing Tong Yang Ming Square
+HING TONG YANG MING SQUARELit by a bonfire on which roast at least two dozen police cars, Hing Tong Yang Ming Square is the thriving heart of Japantown. Literally hundreds of market stalls selling every kind of rubbish you'd never want to buy stretch away as far as the eye can see (or about fifty feet in every direction if the truth be told). Looming over everything is a monument dedicated to Poo Wee Plop, a local Japanese hero. I find myself with directions galore to choose from: north to a dark alley, northeast to Mertle Avenue, northwest to what look like some roadworks, west to a massive warehouse, east to the trendiest nightclub in town - The Ritz - and south to where my car is parked.
+
+> e
+I move east.
+Outside The Ritz
+OUTSIDE THE RITZUndoubtedly the swankiest nightclub the city has to offer, The Ritz is the place to be. If you're anyone, this is the place you come to be with everyone else who is anyone. If you're no one, you probably don't even know the place exists... Myself, I've never set foot inside the dive in my life.
+   Several thuggish-looking minders stand on either side of the main doors and look seriously unlikely to let anyone in without a very good reason or a very large amount of cash. Beyond them, the sound of uncontrolled mayhem erupts from time to time. East lies the insides of the club, west the square.
+
+> e
+The minders take one look at my trendy jacket and immediately throw several other partygoers out of the way to make room for me.
+   "Chill!" one of them says as I pass by into the club.
+
+  
+The Ritz
+THE RITZJudging by the look of things, The Ritz occupies roughly the size of a large city block and contains nearly twice as many people. No doubt there's a bar in here somewhere but I'm damned if I can see where it is. People either in the throes of epileptic fits or dancing (it's hard to tell which) make a fool of themselves all about me. I, needless to say, maintain my ever present cool and just bop along to the music from time to time. The way out is west and the rest of the nightclub spreads out to east, southeast and south.
+
+> e
+I move east.
+The Ritz
+THE RITZHere I come across a group of people frantically shaking their bodies, throwing themselves around and, in general, looking like a right bunch of arses. The music is so loud as to make conversation nigh on impossible, although judging from the drugged-up expressions on most of the faces I see, conversation in this sort of place is pretty much a no go area anyway. The dancefloor extends east, west, southwest, south and east.
+
+> e
+I move east.
+The Ritz
+THE RITZI find myself in a corner where the music at just 180 decibels is slightly quiet than in the rest of the club. A bar runs along the wall here at which serves a single morose-looking bartender dressed, for some strange reason, in a gorilla costume. The chances of me getting served are perhaps quite slim considering the 118 other people in the queue before me. West, southwest and south lie the dancefloor.
+
+> s
+I move south.
+The Ritz
+THE RITZI seem to have made my way to the eastern edge of the club and there is a temporary lull in the manic dancing here as several of the dancers have either fainted or died from exhaustion. I take advantage of this fortunate (for me anyway) turn of events to catch my breath and wonder where I should go next. Judging from the state of the people around me, none of them are likely to aid my investigation a whole lot. I find exits looming to the north, northwest, west, southwest and south.
+
+> s
+I move south.
+The Ritz
+THE RITZI have reached the far southeastern corner of the nightclub and find myself faced with a large door. A larged locked door that is. And one guarded by two definitely unfriendly bodyguards who look down on me in pretty much the same way I might look down on a bug I was planning to squash into the sidewalk. The din from the rest of the nightclub is still overpowering here but it seems somehow quietened by the presence of the bodyguards. The locked door lies east and the rest of the nightclub is to the north, northwest and west.
+
+> arrest bodyguards
+The bodyguards shy away from me.
+   "Er, maybe we made a mistake, officer," one says nervously. "What say we let you into the office and you don't arrest us?"
+   "I think we have a deal," I say.
+   The other bodyguard hurries over and opens the door for me.
+
+  
+Manager's Office
+MANAGER'S OFFICESome places just scream 'class' at you. This is one of them. Most of the office is taken up with an old oak desk on top of which are a TV and a stereo system. The walls are lined with expensive portraits of previous owners of the club and priceless works of art. One painting in particular - that of a policeman being hung - catches my attention though I can't be sure why. A single window about the size of my house overlooks Hing Tong Yang Ming Square. A door leads west to the nightclub.
+
+> x desk
+The TV and the stereo system I ignore because they look pretty much your standard models. The desk I concentrate on.
+   Alas, there isn't really a lot to see. Several months paperwork, a collection of unpaid parking tickets, some unpaid bills, a bag of crisps...
+   Oh, and the smoking pistol. I pick up this last item because it seems slightly out of place in these lavish surroundings. From the look of things, it seems to have been fired recently.
+   There's nothing else very interesting about the desk aside from a single drawer on the left hand side.
+
+> move painting
+Acting on one of my ever reliable hunches, I move the painting a few inches to one side - and discover a hidden safe behind it.
+
+> 247d
+The moment I key in the final digit in the combination, the safe springs open!
+
+Out of it falls... not a lot really. No cascade of jewels, no wads of cash in easy to carry bundles. Just some pearls and $10. I can't help feeling more than a little disappointed by all of this.
+
+> w
+The bodyguards must be psychic because as I approach the door, one of them opens it and ushers me out into the club.
+
+  
+The Ritz
+THE RITZI have reached the far southeastern corner of the nightclub and find myself faced with a large door. A larged locked door that is. And one guarded by two definitely unfriendly bodyguards who look down on me in pretty much the same way I might look down on a bug I was planning to squash into the sidewalk. The din from the rest of the nightclub is still overpowering here but it seems somehow quietened by the presence of the bodyguards. The locked door lies east and the rest of the nightclub is to the north, northwest and west.
+
+> n
+I move north.
+The Ritz
+THE RITZI seem to have made my way to the eastern edge of the club and there is a temporary lull in the manic dancing here as several of the dancers have either fainted or died from exhaustion. I take advantage of this fortunate (for me anyway) turn of events to catch my breath and wonder where I should go next. Judging from the state of the people around me, none of them are likely to aid my investigation a whole lot. I find exits looming to the north, northwest, west, southwest and south.
+
+> n
+I move north.
+The Ritz
+THE RITZI find myself in a corner where the music at just 180 decibels is slightly quiet than in the rest of the club. A bar runs along the wall here at which serves a single morose-looking bartender dressed, for some strange reason, in a gorilla costume. The chances of me getting served are perhaps quite slim considering the 118 other people in the queue before me. West, southwest and south lie the dancefloor.
+
+> w
+I move west.
+The Ritz
+THE RITZHere I come across a group of people frantically shaking their bodies, throwing themselves around and, in general, looking like a right bunch of arses. The music is so loud as to make conversation nigh on impossible, although judging from the drugged-up expressions on most of the faces I see, conversation in this sort of place is pretty much a no go area anyway. The dancefloor extends east, west, southwest, south and east.
+
+> w
+I move west.
+The Ritz
+THE RITZJudging by the look of things, The Ritz occupies roughly the size of a large city block and contains nearly twice as many people. No doubt there's a bar in here somewhere but I'm damned if I can see where it is. People either in the throes of epileptic fits or dancing (it's hard to tell which) make a fool of themselves all about me. I, needless to say, maintain my ever present cool and just bop along to the music from time to time. The way out is west and the rest of the nightclub spreads out to east, southeast and south.
+
+> w
+I move west.
+Outside The Ritz
+OUTSIDE THE RITZUndoubtedly the swankiest nightclub the city has to offer, The Ritz is the place to be. If you're anyone, this is the place you come to be with everyone else who is anyone. If you're no one, you probably don't even know the place exists... Myself, I've never set foot inside the dive in my life.
+   Several thuggish-looking minders stand on either side of the main doors and look seriously unlikely to let anyone in without a very good reason or a very large amount of cash. Beyond them, the sound of uncontrolled mayhem erupts from time to time. East lies the insides of the club, west the square.
+
+> w
+I move west.
+Hing Tong Yang Ming Square
+HING TONG YANG MING SQUARELit by a bonfire on which roast at least two dozen police cars, Hing Tong Yang Ming Square is the thriving heart of Japantown. Literally hundreds of market stalls selling every kind of rubbish you'd never want to buy stretch away as far as the eye can see (or about fifty feet in every direction if the truth be told). Looming over everything is a monument dedicated to Poo Wee Plop, a local Japanese hero. I find myself with directions galore to choose from: north to a dark alley, northeast to Mertle Avenue, northwest to what look like some roadworks, west to a massive warehouse, east to the trendiest nightclub in town - The Ritz - and south to where my car is parked.
+
+> s
+I move south.
+Japantown
+JAPANTOWNA pall of smog hangs over the whole of Japantown. Whether this is due to the large number of Japanese restaurants or the large number of burning police cars I can't really tell. Japantown is pretty much a law unto itself and that law doesn't include cops who can't trace their ancestry back to at least five Japanese families of high regard.
+   A narrow road leads up to a large square not far away but right now I'm feeling a little non-Japanese and, as such, a little non-safe. North lies the square (and my potential death if I'm not careful) and in lies the safe haven of my car.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive minsc
+I take a shortcut I know down Main Street only to find it blocked by traffic. It seems some idiot who didn't pay attention to the highway code caused a crash up ahead. Cursing in disgust at the sheer stupidity of some people, I mount the pavement and drive through several department stores to get to where I'm going.
+
+> out
+I leave my car.  
+Minsc Grove
+MINSC GROVEWith stormclouds gathering overhead on a seemingly permanent basis, Minsc Grove is not one of my favourite spots in the city. The road is lined with burnt-out cars and abandoned houses and rumours persist that if you venture here after the hours of darkness, you learn just how unfriendly the locals can be. With their pitchforks...
+   I can make out a few undamaged buildings around that have either had the fortune to escape the rampant vandalism of the Grove or are just the next on the list. Weirdest sight of all is what looks like a massive tower rising somewhere off in the distance. To the west is a rundown supermarket, north lies the sole block of flats still standing, northeast is the road to the tower and in lies my car.
+
+> w
+I move west.
+Supermarket
+SUPERMARKETThough most of the shelves are either empty, on fire or missing in action (i.e. stolen by the locals), this supermarket is a thriving business. The aisles are packed with shoppers and the cries of old aged pensioners as they fight over the last packet of weetabix is enough to drive anyone mad. To make matters worse, only one person is serving: a pasty-faced girl wearing too much makeup and alternatively operating the till and yelling abuse at customers. To the east lies Minsc Grove.
+
+> talk to jolene
+"What d'you wanna know, pal?" Jolene asks.
+
+   1)  What's a nice girl like you doing in a place like this?
+   2)  Where did you hulking friend disappear to?
+   3)  Fancy a date?
+   4)  I've got a hankering for some chocolate. Have you got any to sell?
+   5)  [going down on one knee] Jolene, marry me! I think I'm in love!
+
+> give pearls to jolene
+"Hmm, nice," says Jolene. "Y'know, I was gonna ask where a cheapo like you coulda got some pearls like these from but considering they're probably stolen an' I ain't handin' 'em back if the owner wants 'em back, I ain't askin'." She pops the pearls down her front, ignores the customers clamouring for service, and turns to me, "what d'you wanna know then?"
+
+   1)  What's a nice girl like you doing in a place like this?
+   2)  Where did you hulking friend disappear to?
+   3)  Fancy a date?
+   4)  I've got a hankering for some chocolate. Have you got any to sell?
+   5)  [going down on one knee] Jolene, marry me! I think I'm in love!
+
+> 4
+"Sure, I've got one box left. Special offer - just $4."
+
+   1)  I'll take it.
+   2)  Any chance you could lower the price?
+   3)  Sorry. Not interested.
+
+> 1
+"Here you are," says Jolene as she takes the money, slips it into her back pocket and hands me the chocolates.
+
+> e
+I move east.
+Minsc Grove
+MINSC GROVEWith stormclouds gathering overhead on a seemingly permanent basis, Minsc Grove is not one of my favourite spots in the city. The road is lined with burnt-out cars and abandoned houses and rumours persist that if you venture here after the hours of darkness, you learn just how unfriendly the locals can be. With their pitchforks...
+   I can make out a few undamaged buildings around that have either had the fortune to escape the rampant vandalism of the Grove or are just the next on the list. Weirdest sight of all is what looks like a massive tower rising somewhere off in the distance. To the west is a rundown supermarket, north lies the sole block of flats still standing, northeast is the road to the tower and in lies my car.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive balabon
+There is a howl of rage as I drive off and I look out of my window to see a red-faced man hopping around in pain and clutching his foot. Eager to show what a good citizen I am, I reverse and go to his aid. Unfortunately, I leave my foot on the accelerator a fraction of a second too long and knock him flying. This, on top of the broken foot I caused him when I drove over it, doesn't leave the man best pleased so I quickly floor the accelerator and get out of there.
+
+> out
+I leave my car.  
+Balabon Avenue
+BALABON AVENUEBalabon Avenue is a fairly short street in the rough part of town. Cops - myself included - rarely set foot in this area for fear of just what might happen to us if we did. The streets are generally roamed by gangs of tough, gangly men with a penchant for lynching anyone they come across not rich enough to buy their way to safety.
+   The ruins of empty buildings crowd around me on most sides and I realise that few people live on Balabon Avenue these days. It has become pretty much a ruin inhabited by the homeless, drifters and whoever else is unfortunate enough to wind up here. Northeast lies Michael's house, west a pawn shop, southeast the entrance to the subway and south the remainder of Balabon Avenue. The way to my car is in.
+
+> se
+I move southeast.
+Subway
+SUBWAYIn years past this was perhaps a fully functioning subway. Now it's just a desolate ruin. The air reeks of a fire long ago and it seems no one has bothered to rebuild the subway since then. As such the walls are black with fire damage and the floor is an ashy waste. What looks like an escalator leading down to the subway platforms lurks off to one side...
+   And then there are the shadows, the moving shadows. I don't see any distinct shapes but it's obvious from the rustle of bodies and the bitter coughing that permeates the air that I'm not alone here. Northwest lies Balabon Avenue and down lies the ancient subway.
+
+> d
+As I approach the escalator, some of the shadows crowded about me suddenly move forward into the light.
+   I give a yelp! They're not a pretty sight!
+
+"Many years have we lived here... in the darkness," says one of the things. "Many years... reviled by those who do not understand us... they fear us for what we can do... they try to harm us... but strong we are... strong and many... and sometimes-"
+   "Ah, shut it with that crap!" another of the things snaps. "Geez, every friggin' time we get a visitor here you come on all heavy with the creepy voice an' all. Believe me, it's lame as hell and I ain't gonna sit here and listen to it any longer." The thing inches forward a little and peers up at me. "The name's Costas, chief. How'd you do?"
+   "Er... fine," I say hesitantly.
+   "Good. Good. No doubt you be wanting to get into that there house nearby? Well an' good. Suppose you'll be needing the key, won't you?"
+   "That would be handy-"
+   "Quite, quite," goes on Costas. "I've got the key." He pats his pocket. "But it'll cost you."
+   "Name your price," I say. "The sky's the limit." Actually the limit's what cash I've got on me which is a lot less than the sky but I'm kind of hoping they won't ask for that.
+   "The sky, eh?" Costas mutters. "I've always fancied a nice bit o' sky. But no. What say some chocolates? A nice box of chocolates if you'd be so kind."
+   "Where am I going to find chocolates around here?" I ask.
+   "Dunno," says Costas with a shrug. "But one thing's for certain: you ain't gettin' the key till I get the chocolates."
+
+> give chocolates to costas
+"Much obliged," says Costas. "Much obliged indeed." He tears open the chocolates and crams five into his mouth at the same time. "Aah! Perfect! Why, I haven't this much fun since... since... well, since never. Much obliged all the same."
+   "You mentioned something about a house," I point out, "and how you had the key for it."
+   "Oh, that," says Costas as he crams some more chocolates into his mouth. "I was lying."
+   "Lying?" I ask, not feeling very happy by this turn of events.
+   "Yep. There ain't no key."
+   "No key?"
+   Costas peers at me. "Do you always repeat back to people whatever they say or do I just get special treatment for whatever reason?"
+   "Whatever reason?"
+   Costas sighs. "Geez, you're as bad as this lot. Okay, you don't need a key to get into the house. What you need is a password. Just tell it to the girl with the enormous- er, the well-endow- er, the girl in the house and she'll let you pass."
+   "But what is the password?" I ask.
+   "Oh. Password is the password." Costas winks. "Clever, eh? I mean, no one would ever have guessed that."
+   "Genius," I mutter (secretly annoyed I didn't think of it myself."
+
+> nw
+I move northwest.
+Balabon Avenue
+BALABON AVENUEBalabon Avenue is a fairly short street in the rough part of town. Cops - myself included - rarely set foot in this area for fear of just what might happen to us if we did. The streets are generally roamed by gangs of tough, gangly men with a penchant for lynching anyone they come across not rich enough to buy their way to safety.
+   The ruins of empty buildings crowd around me on most sides and I realise that few people live on Balabon Avenue these days. It has become pretty much a ruin inhabited by the homeless, drifters and whoever else is unfortunate enough to wind up here. Northeast lies Michael's house, west a pawn shop, southeast the entrance to the subway and south the remainder of Balabon Avenue. The way to my car is in.
+
+> ne
+I try to go northeast but find the door to Michael's house locked. As I debate banging on the door in the hopes of getting it to open, a voice yells out from within: "what's the password?"
+
+   1)  I have no idea.
+   2)  I'm a cop. I don't need a password.
+   3)  Open the door or you're under arrest.
+   4)  The password is password.
+
+> 4
+After a moment the door swings open. A stunning blonde girl stands there.
+   "Come in," she says and disappears into the darkness beyond the doorway.
+
+> ne
+I move northeast.  
+Michael's House
+MICHAEL'S HOUSEEither Michael was poor or he liked to live as if he was because his entire house comprises of a single room. Crammed in here (and crammed is the right word) are a bath, fridge, dining room table, bed and toilet. There are several dozen other things crammed in here besides but I really don't feel like going into too much detail. No one in their right mind would choose to live in a place like this and I'm worried that prolonged exposure to this sort of mentality might start to wear off on me. Balabon Avenue lies southwest.  Alora is here.
+
+> x fridge
+Leaning alarmingly to one side and smelling quite bad, the fridge is alternatively white with patches of black (or mould by any other name) clinging to its surface. It doesn't look very hygienic but then as the person who owned it is now dead that isn't going to bother him a whole lot.  The taps are inside the fridge.
+
+> get taps from fridge
+I take the taps from the fridge.
+
+> fit taps
+Inspiration striking me, I attach the taps to the bath and before long water is flowing again. As it does so, it washes free from the stain around the bath a single cartridge which I quickly scoop up.
+   "That was amazing," Alora says.
+   "Not all cops are stupid," I say proudly.
+   Alora hesitates then shakes her head. "Fixing a bath hardly qualifies you as the next Einstein, pal. Still, it was pretty impressive."
+
+> sw
+I move southwest.
+Balabon Avenue
+BALABON AVENUEBalabon Avenue is a fairly short street in the rough part of town. Cops - myself included - rarely set foot in this area for fear of just what might happen to us if we did. The streets are generally roamed by gangs of tough, gangly men with a penchant for lynching anyone they come across not rich enough to buy their way to safety.
+   The ruins of empty buildings crowd around me on most sides and I realise that few people live on Balabon Avenue these days. It has become pretty much a ruin inhabited by the homeless, drifters and whoever else is unfortunate enough to wind up here. Northeast lies Michael's house, west a pawn shop, southeast the entrance to the subway and south the remainder of Balabon Avenue. The way to my car is in.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive station
+I set off across town leaving a trail of burning rubber behind me. Though it's quite a way to my destination I make it there in almost record time due to my ability to ignore such things as red lights, zebra crossings and irate traffic police chasing after me and shouting "stop, you bleedin' maniac!"
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> talk to windle
+"Glory be!" says Windle. "Always nice to see you around the place, my friend. Have you considered the glory of the Divine that we discussed during our last meeting?"
+
+   1)  Windle, I've got bad news for you. The Divine's been arrested for robbery and is going to be sent down for 50 years.
+   2)  Windle, shut up.
+   3)  Sure, let's discuss the glory of the Divine.
+   4)  Have you anything non-Divine related to tell me?
+   5)  Windle, I need help in my current case.
+
+> 4
+"Indeed I do," says Windle. "I had a message from Captain Slorb earlier on that he wants to meet you at the Sunset Cafe."
+   "I thought Slorb was on holiday," I say.
+   Windle shrugs. "The ways of the Divine are strange indeed. Anyway, can I interest you in..."
+
+   1)  Let's talk about something else, Windle.
+
+> s
+I move south.
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive sunset
+Before I know it, I have arrived. Funny, I don't remember running into anything but there is now a sizeable dent in my bonnet which I could swear wasn't there yesterday.
+
+> out
+I leave my car.  
+Outside The Cafe
+OUTSIDE THE CAFEI'm on a pleasant stretch of walkway outside of the Sunset Cafe, the world's most famous seaside cafe. Apparently anyone who is anyone knows of the place. Me, I'd never heard of it before today.
+   The front facade of the cafe is overwhelmingly cheerful and makes me feel depressed at the idea of other people having so much fun while I'm stuck trying to solve a triple murder. Parked nearby is my car, looking very out of place in these cheery surroundings.
+   The ocean can be seen off to the east, preceded by a vast stretch of sunny beach on which are frollicking endless hordes of people. A door leads north into the interior of the cafe to the north and my car lies in. East is the beach (and a little further east the ocean).
+
+> n
+I move north.  
+Sunset Cafe
+SUNSET CAFEThe interior of the cafe is quite a contrast to the exterior and I guess the owners must have run into severe financial difficulties over the past few years for things to have become this bad. The floor is ankle-deep in sand, lolly wrappers and half-eaten sweets. Smelly old men squat at grubby tables, arguing ferociously over one thing or another in loud, gruff voices. Behind the counter, a harassed looking young women wearing way too much makeup rushes back and forth trying to serve the horde of kids clamouring for service.
+   I feel quite a bit better for seeing all of this. Not everyone in the world is having a great time by the look of things. A door leads south to the area outside the cafe.  Captain Slorb is here, looking suspiciously around him.  
+
+Slorb sees me and beckons me over.
+
+> talk slorb
+"You look like a man who needs help with his case, McClane," says Slorb as I approach.
+   "That's not true at all, sir," I lie. "I'm doing fine."
+   "Really?" Slorb says with a raised eyebrow. "Word has it you're experiencing a few problems."
+   "None at all, sir," I lie.
+   Slorb indicates a seat. "Let's talk anyway, McClane. Maybe I can give you a little helping hand."
+   I sit down. "I don't need a helping hand, sir," I lie. "I've found three clues already-"
+   "Only three? I'm disappointed, McClane. If I were you I'd have solved the entire case by now and the culprits would be either locked up or floating in the river. Anyway, let's have a look at this evidence..."
+   Slorb takes the smoking pistol, the finger (which is beginning to fester a little by now) and the empty cartridge and lays them out on the table and I explain the circumstances behind each of them. He studies them for a full minute then nods his head.
+   "I see a pattern here," he says at last.
+   "So do I," I lie. "Er... what pattern?"
+   "This isn't Carlos' finger even though it was found on his roof. The body they inspected at the morgue was fully intact as far as fingers were concerned so I'm guessing it was someone sent to kill Carlos who found himself outmatched." He pushes the finger to one side and goes onto the other two items. "The cartridge... Interesting. If it fit the smoking pistol the whole thing would be more easily solved but it doesn't so I think we're looking at multiple shooters here. The pistol... Now this I like. You see the markings on the barrel, here and here?"
+   I nod.
+   "Marks of the Crapone family of mobsters they are. They always mark the barrels of their weapons and then sometimes leave the weapons at crime scenes knowing there's no way we can pin the blame on them. They like rubbing our noses in it." Slorb studies the pistol for a moment then pushes it aside. "Back to the cartridge...
+   "What do you think of this theory, McClane? An assassin sent by Alice Crapone, headwoman of the Crapone family, tries to off Carlos. Carlos gets the better of him and shoots his finger off. The smoking pistol you later find in Larry's office at The Ritz. Now I happen to know that Larry has connections with the Crapone family: he pays them protection money and they kill anyone he has a grudge against. I'm guessing that 'anyone' in this case would be Carlos."
+   "Why Carlos?" I ask, the first thing I've said during this conversation that hasn't been an outright lie.
+   "Because Carlos was an undercover cop," says Slorb. "He'd been investigating mob connections at The Ritz and was close to finding concrete evidence on Larry. Evidence that would allow us to intimidate Larry into telling us everything he knew about Alice Crapone or risk a lifetime in prison." Slorb shrugs. "Actually, he'd have got a lifetime in prison anyway but we were kind hoping to keep that a secret from him until he'd told us everything we wanted to know. Unfortunately, it seems Larry was onto him."
+   "So what's Michael's connection to all of this? And why were the three meeting in the plaza this morning?"
+   "Michael's got connections with the Randolphi family, in particular a nasty piece of work by the name of Mendez Randolphi. I don't know if Carlos was investigating him as well but what I do know is that the Crapones and the Randolphis are bitter enemies. Alice Crapone and Mendez Randolphi have been sworn enemies for years and would do anything to see the other dead. If Carlos was investigating Mendez, it's possible Mendez - being the paranoid SOB that he is - thought Carlos was a private investigator hired by Alice Crapone to spy on him. If he thought that, it's not that unlikely that Mendez would have killed both Carlos and Michael just to make sure no one got anything on him."
+   "And Larry?"
+   "Who knows? Wrong place at the wrong time. Maybe Alice had him killed. Maybe Mendez decided that as he was having both Carlos and Michael whacked, he might as well do Larry - a known agent for his enemy - at the same time. Kill three birds with one stone, that sort of thing." Slorb relaxes back in his seat. "Anyway, McClane. I'm glad you came to me with this but I'm not sure there's anything else I can tell you right now. Go home and get a good night's sleep and then come see me again tomorrow. We'll talk then. Hopefully something else will have come up by then."
+
+> s
+I move south.
+Outside The Cafe
+OUTSIDE THE CAFEI'm on a pleasant stretch of walkway outside of the Sunset Cafe, the world's most famous seaside cafe. Apparently anyone who is anyone knows of the place. Me, I'd never heard of it before today.
+   The front facade of the cafe is overwhelmingly cheerful and makes me feel depressed at the idea of other people having so much fun while I'm stuck trying to solve a triple murder. Parked nearby is my car, looking very out of place in these cheery surroundings.
+   The ocean can be seen off to the east, preceded by a vast stretch of sunny beach on which are frollicking endless hordes of people. A door leads north into the interior of the cafe to the north and my car lies in. East is the beach (and a little further east the ocean).
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive home
+Before I know it, I have arrived. Funny, I don't remember running into anything but there is now a sizeable dent in my bonnet which I could swear wasn't there yesterday.
+
+> out
+I leave my car.  
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).  
+
+As I close and lock my car door (probably an unnecessary action as no one in their right mind would try and steal it), I catch sight of movement out of the corner of my eye. When I look I can't see anything but I could swear the movement came from my house.
+
+> x window
+I used to have windows in my house and was very proud of them. But in this neighbourhood, windows are practically asking for some kid with a pile of rocks to take a few shots at them. After they were smashed for the fifteenth time in as many days, I decided enough was enough and downgraded to newspapers.
+   Acting on a hunch, I peer through the newspaper into my house. Sure enough, I can make out a man sitting by my TV. From the way he's facing, I'd guess he's waiting for someone to come through the door. But for what?
+
+> n
+I move north.
+
+  
+Lounge
+LOUNGE"Lounge" is perhaps not the most accurate description for this room as it functions more as whatever it needs to be depending on what I need it for. Right now, it's a dumping ground for whatever garbage I haven't yet got around to carting out to the trash. Scattered around the room in no real order are my TV, stereo, video, sofa and a large cabinet which I bought some time ago and since which time have completely forgotten what is in it. The dead body of the hitman lies on the floor. Doorways lead off north to my bedroom, east to my kitchen and south to the street.  The man I saw sitting by my TV looks up as I enter and says, "crap, you knew I was here!"
+   He goes for his gun but I'm faster and my bullet smashes into his head, killing him instantly. His dead body crashes down by my TV and, based on the state of things in here, actually makes the place look a little tidier.
+
+> x body
+Looking for a clue as to why the man was out to kill me (even the most desperate lowlifes generally have a reason to want me dead), I find a biro, a notebook, 3 dollars and 2 bullets. I take the lot, figuring that something will come in handy.
+
+> read notebook
+I scan the pages searching for information on who the hitman was.
+   It turns out he was one Harlem Grimslow and this notebook is his personal journal of kills, triumphs and arrests. Names, dates and places are listed here with a precision that would get book keepers grinding their teeth in envy. I know several of the names - officers killed in the line of duty over the year, the killer never caught. My name is the last one in the list. Time of death has been left blank, presumably to be filled in at a later date.
+   I skim through the rest of the book in search of other clues and come across one clue I wasn't expecting to find at all: details of a secret meeting between mob boss Mendez Randolphi and Captain Slorb!
+   Does this mean Slorb is some kind of traitor to the force or is he working undercover in an effort to catch Mendez up to no good? Maybe I should go and see him again and discover what I can.
+
+> s
+I move south.
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive station
+Knowing the city like the back of my hand (only less full of veins), I choose a shortcut I know which leads the wrong way down a one-way street and arrive at my destination in record time.
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> talk to windle
+"Glory be!" says Windle. "Always nice to see you around the place, my friend. Have you considered the glory of the Divine that we discussed during our last meeting?"
+
+   1)  Windle, I've got bad news for you. The Divine's been arrested for robbery and is going to be sent down for 50 years.
+   2)  Windle, shut up.
+   3)  Sure, let's discuss the glory of the Divine.
+   4)  Have you anything non-Divine related to tell me?
+   5)  Windle, I need help in my current case.
+
+> 4
+"Glad you asked about that," says Windle. "I had an urgent message from Captain Slorb. He says not to meet him at the Sunset Cafe as planned."
+   "Did he say why?" I ask.
+   "He did," says Windle.
+   "What was it?"
+   "I can't remember. Anyway, he wants you to meet him at the quietest spot in town."
+   I frown. "And where's that?"
+   "He said that you, being a great detective, would be able to figure it out on your own without my help." Windle waves a pamphlet in my face. "Now that we've got the unimportant business out of the way, what say we have a discussion about what the Divine is doing this Saturday?"
+
+   1)  Let's talk about something else, Windle.
+
+> s
+I move south.
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive library
+I set off across town leaving a trail of burning rubber behind me. Though it's quite a way to my destination I make it there in almost record time due to my ability to ignore such things as red lights, zebra crossings and irate traffic police chasing after me and shouting "stop, you bleedin' maniac!"
+
+> out
+I leave my car.  
+Emming Street
+EMMING STREETEven though there's no parking along this stretch of street, my car is parked here anyway (one of the advantages of being a cop). There isn't really much to see in this part of town that you can't see in any other part of town, hence the fact that the street is pretty much desserted. A couple of kids no older than ten stand on the corner yelling abuse at anyone who wanders within reach.  Directly before me is the city library, a building I haven't visited before today for at least ten years. The library doors are north, my car is in and Emming Street extends eastwards a way.
+
+> n
+I move north.
+Library
+LIBRARYFor as far as the eye can see (well, about twenty feet actually) bookshelves containing close on a hundred books stretch away. Yes, this is the city library. I've seldom set foot inside here since I was banned years before for beating a criminal to death with a copy of the complete works of Shakespeare (I damaged the spine apparently, something they take a very dim view of) and I see that I've not missed a lot. There are a couple other customers loping around and a librarian who looks about as bored as bored can be. In the corner I notice a collection tin for some charity. Northwest to the private reading room and south to Emming Street.
+
+> donate
+I put a dollar inside the collections box.
+   The librarian glances over me and says, "GOOD ON YOU. BUT TRY TO KEEP THE DAMN NOISE DOWN, OKAY? SOME OF US ARE TRYING TO READ!" Rollicking over with she turns back to her stereo and cranks the volume up another two dozen decibels.
+
+> nw
+I move northwest.  
+Private Reading Room
+PRIVATE READING ROOMA definite pall of silence hangs over this room and from the way the stern-looking librarian is glaring at me I get the impression even whispering is not allowed here. Lit from the side by soft lighting, the room is fairly dim. Four sets of tables and chairs are spread evenly throughout the room, all but three are empty. The fourth is occupied by a stout man reading a book of poetry. The way to the normal part of the library is southeast.  
+
+"Good, you found me," says Slorb from where he is hiding behind a large pile of books.
+
+The librarian glares at him for speaking and Slorb glares back before saying, "c'mon, McClane. We've got lots to discuss and I don't want these weirdos eavesdropping on us. Meet me outside."
+   Slorb leaves.
+
+> se
+I move southeast.
+Library
+LIBRARYFor as far as the eye can see (well, about twenty feet actually) bookshelves containing close on a hundred books stretch away. Yes, this is the city library. I've seldom set foot inside here since I was banned years before for beating a criminal to death with a copy of the complete works of Shakespeare (I damaged the spine apparently, something they take a very dim view of) and I see that I've not missed a lot. There are a couple other customers loping around and a librarian who looks about as bored as bored can be. In the corner I notice a collection tin for some charity. Northwest to the private reading room and south to Emming Street.
+
+> s
+I move south.  
+Emming Street
+EMMING STREETEven though there's no parking along this stretch of street, my car is parked here anyway (one of the advantages of being a cop). There isn't really much to see in this part of town that you can't see in any other part of town, hence the fact that the street is pretty much desserted. A couple of kids no older than ten stand on the corner yelling abuse at anyone who wanders within reach.  Directly before me is the city library, a building I haven't visited before today for at least ten years. The library doors are north, my car is in and Emming Street extends eastwards a way.  Captain Slorb is here, looking suspiciously around him.  
+
+"You in one piece then, McClane?" Slorb asks.
+   "Just about," I say warily, remembering the Captain telling me to go home and then finding a gunman waiting for me.
+   "No doubt you're remembering me telling you to go home and then you found a gunman waiting for you?" Slorb says. "Let me fill you in...
+   "Carlos wasn't the only undercover cop investigating Alice Crapone. I'm doing some investigating myself. My 'holiday' was a clever scam to make people think I was out of the area, allow me to move around without forever having to look over my shoulder. Only it seems that the scam wasn't as clever as I first thought. I'm sure Alice is onto me. She had a wire on me at the Cafe which was why I had to tell you to go home even though I knew there was a hitman waiting for you."
+   "I could have been killed!" I protest.
+   "There was nothing I could do," says Slorb. "Believe me, McClane, I didn't want to send you to your death but I knew there was no chance to warn you. Alice's goons were watching the Cafe and if I hadn't told you to go home - or if I'd tried to warn you somehow - they would have shot you the moment you left the Cafe. This way I figured you'd have a chance."
+   "So what's all this about, Chief?" I ask.
+   "Gang warfare, plain and simple. Alice Crapone wants Mendez Randolphi dead and Mendez Randolphi wants Alice Crapone dead. Anyone who gets in their way gets killed, too. There have already been enough innocents killed as it is - Carlos was just the latest - and they won't hesitate to kill us if they get the chance.
+   "But right now we have an advantage. They think you're dead, McClane, which means you can move about more freely than before. You don't have to worry about them trying to kill you again." Slorb considers this then shrugs. "Well, not for a few hours anyway, not till the hitman they sent to kill you fails to report in and they send someone to your home to investigate what happened to him... Anyway, we've got time. But what we haven't got is evidence."
+   "Can't we just arrest Mendez and Alice and come up with the evidence later?" I say.
+   Slorb gives me a disgusted look.
+   "That's a horrible thing to say, McClane. We're cops. We uphold the law. We don't just go framing people for murder just because we don't like them. In any case, both Mendez and Alice have got enough money to buy the city's best lawyers. If the evidence against them isn't 100% genuine they'll both walk. And we'll be first on their hit lists after that.
+   "No, what we need is to find proof positive of their involvements in the murders of Carlos, Michael and Larry. Mendez has a mansion in Machorsky Walk. I'm not sure where Alice's house is - she keeps it very quiet - but I know she's enlisted at the college near Copper Row. So your best bet is to break into either the mansion or the college and find out what you can."
+   "What will you be doing, Chief?" I ask.
+   "Me? I'm going to head over and see Mendez now."
+   I raise my eyebrows at this in a way even Roger Moore would be envious of.
+   "Mendez isn't sure about me at the moment. He thinks I'm corrupt and I helped confirm this by sending you apparently off to your death. For the time being, at least until he finds out you're alive, I can move about his mansion pretty freely. But there are certain areas within the mansion that are off limits and I'll be watched too closely to explore those, and I'm willing to bet my last dollar that it's there you'll find the evidence." Slorb glances at his watch. "Anyway, McClane. Either the mansion or the college. Take your pick. You might well need to search both to get enough evidence but if you're lucky you might find everything you need in one place. Now, I've got to be going or Mendez will start getting suspicious. If you find anything useful, make sure you give it to Windle. I'm using him as my eyes and ears on this because it's amazing how people - even gangsters - tend to do their best to ignore a guy handing out pamphlets and willing to engage them in talk of the Divine."
+   Slorb starts to hurry down the street then stops.
+   "And one last thing: stay away from the Cafe at all costs. Mendez has got an office nearby and they'll be watching the place in case you survived the hit earlier on."
+   The last I see of Slorb he is climbing into his car halfway down the street then driving away.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive station
+I take a shortcut I know down Main Street only to find it blocked by traffic. It seems some idiot who didn't pay attention to the highway code caused a crash up ahead. Cursing in disgust at the sheer stupidity of some people, I mount the pavement and drive through several department stores to get to where I'm going.
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> n
+I move north.
+My Old Office
+MY OLD OFFICEMany a happy time was spent within these four walls. With the door shut, I could catch up on some beauty sleep and no one would be any the wiser. Now, my old office is just an untidy storeroom where people dump whatever rubbish they've acquired and haven't got around to destroying yet. As such, it looks pretty much the same as it did when I was using it. Amidst the tangle of filing cabinets, broken guns and wrecked chairs, I spy my old desk. South lies the police station lobby.
+
+> x evidence
+The evidence consists of several items of no great interest... and a couple of bullets. Seeing these are the same match as my gun's (and wondering if I've shot someone in the past and am being investigated for it) I hastily swipe said bullets.
+
+> s
+I move south.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> u
+I move up.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> nw
+I move northwest.
+My New Office
+MY NEW OFFICEWhat with my promotion, I'd have expected being transferred to a larger office but instead I seem to have just moved up a floor. My new office is pretty much the same size as my old one and just has the added (dis)advantages of a larger table, more filing cabinets and a noticeboard listing my solved and unsolved cases of the last year. A coffee maker sits on my desk next to my computer (which looks to be slightly coffee-stained from where I'm standing) as does a fan. A window gives an excellent view of the sewage works company housed next to the station. Southeast lies the main area of the station
+
+> x desk
+My desk is the usual ungodly pile of papers, files and general all round junk that seems to accumulate wherever I happen to be. There's supposed to be a cleaning lady who comes in and tidies away all this sort of stuff every now and then but I get the distinct impression she leaves my desk well and truly alone. I'll have to arrest her son or something to get her attention.
+   Peering out from under a set of files I come across a battered video recorder. It looks like someone has given it one hell of a thump with a baseball bat but the little screen on top is lit indicating that at least the thing is still working.
+   I also come across $3, a bullet and a club (most likely something I was "meaning" to return to the evidence store but never got around to it). As there's no point in leaving such things lying around, I take them with me.
+
+> se
+I move southeast.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> d
+I move down.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> s
+I move south.
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive balabon
+Knowing the city like the back of my hand (only less full of veins), I choose a shortcut I know which leads the wrong way down a one-way street and arrive at my destination in record time.
+
+> out
+I leave my car.  
+Balabon Avenue
+BALABON AVENUEBalabon Avenue is a fairly short street in the rough part of town. Cops - myself included - rarely set foot in this area for fear of just what might happen to us if we did. The streets are generally roamed by gangs of tough, gangly men with a penchant for lynching anyone they come across not rich enough to buy their way to safety.
+   The ruins of empty buildings crowd around me on most sides and I realise that few people live on Balabon Avenue these days. It has become pretty much a ruin inhabited by the homeless, drifters and whoever else is unfortunate enough to wind up here. Northeast lies Michael's house, west a pawn shop, southeast the entrance to the subway and south the remainder of Balabon Avenue. The way to my car is in.
+
+> w
+I move west.
+Pawn Shop
+PAWN SHOPThis pawn shop resembles every pawn shop I've ever had the misfortune to visit in my life: small, cramped and overburdened with every kind of crap under the sun. There's junk that even the most desperate people in the world wouldn't put in their homes and call furniture. I should know, I'm one of them.
+   Weird music of a foreign origin emanates from a back room covered by a bead curtain. The shop around me contains an unholy assortment of "goods": fancy dress costumes, mummified heads, old bikes, a pram, a copy of YADFA, and various other junk. East lies Balabon Avenue.  Mr Hok is here, peering at me like a cat peers at an unsuspecting mouse before swooping in to sell it something.
+
+> buy map
+Mr Hok hands over the map and I part with my hard-earned (or hard-found anyway) cash.
+
+> e
+I move east.
+Balabon Avenue
+BALABON AVENUEBalabon Avenue is a fairly short street in the rough part of town. Cops - myself included - rarely set foot in this area for fear of just what might happen to us if we did. The streets are generally roamed by gangs of tough, gangly men with a penchant for lynching anyone they come across not rich enough to buy their way to safety.
+   The ruins of empty buildings crowd around me on most sides and I realise that few people live on Balabon Avenue these days. It has become pretty much a ruin inhabited by the homeless, drifters and whoever else is unfortunate enough to wind up here. Northeast lies Michael's house, west a pawn shop, southeast the entrance to the subway and south the remainder of Balabon Avenue. The way to my car is in.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive bank
+I set off, my engine roaring, my tyres burning the tarmac - and several irate passersby yelling abuse at me for nearly running them over. Realising I could well be in danger of having a complaint made against me for dangerous driving, I put on a burst of speed - up to 180 mph from my usual cruising speed of 120 mph - and soon leave the trouble-causers behind.
+
+> out
+I leave my car.  
+Copper Row
+COPPER ROWThe First Bank looms menacingly over me as I stand on the corner of Copper Row, the heart of the city's financial district. Actually, it's quite a small heart as the financial district consists of three streets and about as many businesses. Most of the "businessmen" I see seem to be carrying weapons and stand around in suspicious looking groups on street corners. Parked at the curb, doing its best to lower the tone of the neighbourhood, is my sorry excuse for a car. The main doors of the Bank are north, Copper Row extends east and southwest, whereas inwards lies my car.
+
+> sw
+I move southwest.
+Edmonton Square
+EDMONTON SQUAREA large open area populated by muggers and other of society's lowlifes, Edmonton Square is where the carnival stays when it's in town. The city comes alive during such times what with the clowns, animals and shows that go on. It's a truly amazing time...
+   Unfortunately the carnival isn't on today so there's not much to see aside from an old beggar restling his dinner from the nearby bin. To the northeast is Copper Row while the road to the city college is south, a cinema to the west and to the southeast the tent of a local fortune teller.
+
+> s
+I move south.
+College Gates
+COLLEGE GATESI'm standing before the massive and imposing gates of the city college with several thousand protesting teenagers. What they're protesting about I'm not too sure but they're certainly loud enough in their protestations to deafen anyone not used to this sort of thing.
+   The college gates themselves are shut and, beyond them, the college itself looks strangely desserted. Off to one side is a large black tent. Standing outside it are several cops I know, none of whom look very happy to be here at this time. The tent lies to the west, the college gates to the south and Edmonton Square to the north.
+
+> w
+I move west.
+Police Tent
+POLICE TENTSet up as an emergency base of operations in order to deal with the protest going on outside, the police tent is pretty much a ramshackle place. Officers rush back and forth across the muddy ground, several ferocious police dogs are chomping at the bit in their eagerness to get stuck into a few students and the whole scene is one of uncontrolled chaos.
+   At the back of the tent are a row of tables on which have been placed plans. Around these are clustered a few senior officers who seem to be yelling at each other very loudly. To the east lie the college gates.  Sergeant Smash is here.
+
+> give club
+The moment I hand the club over, a deathly hush falls over the tent.
+   "The club," gasps Smash. "You've got the frigging club!"
+   "Indeed I have," I say.
+   "What, you just found it or you had it all along?"
+   I shrug. "That would be telling."
+   Smash grabs it out of my hand and passes it to a uniform. "Jenkins, throw this over the gates and see if it convinces that mad janitor to let the hostages go."
+   Jenkins runs out of the tent and returns a minute later.
+   "Well?" Smash barks.
+   "It worked, boss," says Jenkins. "I threw it over the gate, boss, an' it only took eighteen attempts and two caved in heads where it bounced back off the wall, boss, before it went over, an' then the janitor comes out o' his hidin' place where he was, like, hidin' an' he says that he'll let the hostages go now he's got his club back, boss, an' like he does that, boss, an' then all the hostages come out an' we forces the gates open, boss, an' like then we goes in there to arrest the janitor only he's gone, boss, an' we don't know where he might be, boss."
+   "You did all that in a minute?" I ask.
+   Smash frowns. "Good point, McClane. Jenkins, you're having your pay docked for taking so long. Get out of my sight." Smash turns to me. "Well, you did a good job there, McClane. Any time you fancy a return to walking the beat and smashing a few heads open whenever you feel like it, just let me know."
+   Alls well that ends well it seems, aside from the moment Smash insists on shaking my hand and half crushes my fingers.
+
+> e
+I move east.
+College Gates
+COLLEGE GATESI'm standing before the massive and imposing gates of the city college with several thousand protesting teenagers. What they're protesting about I'm not too sure but they're certainly loud enough in their protestations to deafen anyone not used to this sort of thing.
+   The college gates themselves are shut and, beyond them, the college itself looks strangely desserted. Off to one side is a large black tent. Standing outside it are several cops I know, none of whom look very happy to be here at this time. The tent lies to the west, the college gates to the south and Edmonton Square to the north.
+
+> s
+I move south.  
+Grounds
+GROUNDSThe grounds of the college are idyllic and peaceful. Students stroll back and forth, some reading great works of literature (I catch sight of the collected works of Bart Simpson in one student's hands) others desperately trying to kill themselves by smoking or doing crazy things to impress other students. The grounds extend for quite a way in a variety of directions but the main college building lies a short walk over to the east. North lie the college gates, east the main college building and paths lead off to the west, southwest and south.  
+
+"Help! He's gone mad!" yells a student who comes running from the general direction of the college.
+   I grab his arm as he goes back and manage to stop him (only because he was fearful of me dislocating his arm but that's neither here nor there).
+   "What's going on?" I ask.
+   "The janitor!" the student wails. "He's gone mad!"
+   "We know that, but the situation's under control now."
+   "No it isn't! He's in the college now and he's got a shotgun!" The student wriggles free of my grasp. "He's threatening to shoot anyone who steps through the door!"
+   Before I can ask him anything else, he goes tearing towards the college gates.
+
+> shoot janitor
+Taking aim, I loose a shot off and the janitor goes down.
+   "Another job well done," I say.
+   Only the words taste a little off in a my mouth when the janitor staggers back to his feet. Damn. It seems I either winged him or he's wearing some kind of body armour because I'm sure I didn't miss him altogether.
+
+> shoot janitor
+My second bullet flies through the doors and hits the janitor clear in the head. Down he goes.
+   "He's dead this time," I say with a sense of satisfaction. "I even saw the bullet hit him in the head. No way is he-"
+   Getting up again.
+   I saw in disbelief as the janitor staggers back to his feet a second time. Not only that, but he's pointing the gun at where I'm standing. I watch in horror as he pulls the trigger-
+
+   BANG!!!
+
+   Now if the janitor wasn't such an awful shot he'd most likely have killed me then. As it is, he just scared a couple of birds.
+
+> shoot janitor
+Determined to make my third shot the telling one, I aim straight for the janitor's head - and pull the trigger!
+   The bullet slams into his head and throws him back against the wall behind. He slumps down to his knees.
+   "Got you, you swine!" I cry - and then stare in disbelief as the janitor gets up again!
+   No way did I miss him that time! Never! But, even so, the janitor is getting back to his feet and while he looks a little unsteady he's nevertheless doing well for a guy with three bullets in his head.
+
+> shoot janitor
+"Say goodbye, Mr Janitor," I say as I fire off my fourth shot.
+   I hit the demented janitor again and he crashes to the floor the same as he did before. And, like before, he then gets back to his feet once more.
+   How many more times am I going to have to shoot this guy before he realises he's dead?
+
+> shoot janitor
+With a weary sense that I could well be standing here firing my gun at the janitor all day - or at least until I run out of bullets - I open fire for the fifth time. My bullet hits the janitor between the eyes and he collapses again.
+   Only this time he doesn't get back up afterwards.
+   Is he dead this time or just faking? It's difficult to tell and I'm a little nervous about approaching the college until I know for sure.
+
+> e
+I move east.
+Entrancehall
+ENTRANCEHALLAbout me spreads the entrancehall of the city college. Despite being cavernous in nature, it also gives the appearance of being quite small which probably bears some consideration but not right now. Several students bearing the unmistakeable signs of hangovers stagger past me through the maze of corridors leading away from where I stand. And 'maze' is the correct word. I'm sure there must be some kind of system for making your way through the college but I'm damned if I can figure out what it is. Off to one side hangs a noticeboard on which several students with a spray can are adding their own comments.
+   Lying on the floor in a bloodstained puddle is the dead body of the janitor I had to kill to get in here. The outside world lies due west and corridors lead off to the north, northeast, east, south and southwest.
+
+> n
+Using the map I purchased from the pawn shop, I have little trouble finding my way through the winding corridors of the college and soon arrive at Alice Crapone's room.
+
+  
+Alice Crapone's Room
+ALICE CRAPONE'S ROOMMercifully absent of its inhabitant, this room still has a fairly unpleasant atmosphere to it. I've been in graveyards like this only graveyards are generally more lively. Light struggles its way through the black drapes cast over the room's single window, doing very little to illuminate the rest of the room. A desk cunningly formed into the shape of a howling mouth sits beside Alice's bed while a painting of the dear thing herself overlooks the bed and as I move about the room its eyes seem to follow me in an uneasy manner. A corridor leading back to the entrancehall lies to the north.  
+
+Something tells me I would be well advised to hurry myself in here. Being caught here by Alice's goons wouldn't be a good idea at all. They tend to shoot first and ask questions later.
+
+> undraw drape
+The moment I touch the drapes, I dislodge something that was sitting on the window ledge. Bending over, I pick it up and discover I'm now holding none other than Alice's diary.
+
+> x desk
+The desk is really quite a work of art: a block of wood shaped into a howling mouth. The writing area is the top lip, a cavity in one of the teeth is a drawer and a mole on the side of the unfortunate's jaw serves as a shelf.
+
+> x lip
+Feeling a little ghoulish, I examine the bizarre desk more closely - and come across a single file pushed to one side of the writing area. Knowing that I'm not likely to get a better chance, I promptly swipe it.
+
+> look under bed
+I crouch down beside the bed and peer underneath it in the hope of finding something that is currently hidden away down there - and I'm pleasantly surprised to find a rifle.
+   As I pull it out from under the bed, I remember the cartridge I found earlier. Fishing it out of my pocket, I compare the two. A-ha! A perfect match! 
+
+> n
+I move north.
+Entrancehall
+ENTRANCEHALLAbout me spreads the entrancehall of the city college. Despite being cavernous in nature, it also gives the appearance of being quite small which probably bears some consideration but not right now. Several students bearing the unmistakeable signs of hangovers stagger past me through the maze of corridors leading away from where I stand. And 'maze' is the correct word. I'm sure there must be some kind of system for making your way through the college but I'm damned if I can figure out what it is. Off to one side hangs a noticeboard on which several students with a spray can are adding their own comments.
+   Lying on the floor in a bloodstained puddle is the dead body of the janitor I had to kill to get in here. The outside world lies due west and corridors lead off to the north, northeast, east, south and southwest.
+
+> w
+I move west.
+Grounds
+GROUNDSThe grounds of the college are idyllic and peaceful. Students stroll back and forth, some reading great works of literature (I catch sight of the collected works of Bart Simpson in one student's hands) others desperately trying to kill themselves by smoking or doing crazy things to impress other students. The grounds extend for quite a way in a variety of directions but the main college building lies a short walk over to the east. North lie the college gates, east the main college building and paths lead off to the west, southwest and south.
+
+> n
+I move north.
+College Gates
+COLLEGE GATESI'm standing before the massive and imposing gates of the city college with several thousand protesting teenagers. What they're protesting about I'm not too sure but they're certainly loud enough in their protestations to deafen anyone not used to this sort of thing.
+   The college gates themselves are shut and, beyond them, the college itself looks strangely desserted. Off to one side is a large black tent. Standing outside it are several cops I know, none of whom look very happy to be here at this time. The tent lies to the west, the college gates to the south and Edmonton Square to the north.
+
+> n
+I move north.
+Edmonton Square
+EDMONTON SQUAREA large open area populated by muggers and other of society's lowlifes, Edmonton Square is where the carnival stays when it's in town. The city comes alive during such times what with the clowns, animals and shows that go on. It's a truly amazing time...
+   Unfortunately the carnival isn't on today so there's not much to see aside from an old beggar restling his dinner from the nearby bin. To the northeast is Copper Row while the road to the city college is south, a cinema to the west and to the southeast the tent of a local fortune teller.
+
+> ne
+I move northeast.
+Copper Row
+COPPER ROWThe First Bank looms menacingly over me as I stand on the corner of Copper Row, the heart of the city's financial district. Actually, it's quite a small heart as the financial district consists of three streets and about as many businesses. Most of the "businessmen" I see seem to be carrying weapons and stand around in suspicious looking groups on street corners. Parked at the curb, doing its best to lower the tone of the neighbourhood, is my sorry excuse for a car. The main doors of the Bank are north, Copper Row extends east and southwest, whereas inwards lies my car.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive station
+Knowing it's quite a way to my destination, I execute a variety of shortcuts to get there. It works a treat, too (aside from when I found that one of my shortcuts had been replaced by a cricket ground) and I arrive in next to no time.
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> give diary to windle
+"I'll make sure the Chief gets this, McClane," Windle promises in a rare moment of helpfulness. "Now, let's talk about the Divine some more..."
+
+> give file to windle
+"This looks interesting," says Windle as I hand him the file. "May those who are evil in the eyes of the Divine be punished justly."
+   "Er, quite," I say.
+   "Speaking of which, let's discuss the preparations for the Divine's birthday..."
+
+> give rifle to windle
+"The Chief said you'd be by," says Windle. "And this rifle will prove immensely helpful in bringing down those who are evil in the eyes of the Divine. Now, let's talk about the Divine's birthday and what happens afterwards..."
+
+> s
+I move south.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby.   
+
+"Psst!" says a bush to one side of me.
+   Curious as to why a bush should be saying "psst!" to me I hurry over and find Captain Slorb crouched there.
+   "You got the evidence, McClane," he says. "Well done."
+   "Why are you hiding in the bush, Chief?" I ask.
+   Slorb hushes me. "Keep it down, McClane. And try to look like you're doing something other than standing there holding a conversation with a man hiding in a bush."
+   "But I am-"
+   "Just tie your shoelace or something. And listen."
+   I tie my shoelace as Slorb goes on, "I've spoken to Windle and the evidence you gave him is pretty damning. We reckon there's enough to nail the swine once and for all."
+   "That was quick," I say. "I only gave him the evidence a minute ago."
+   "Wonders of modern technology," says the talking bush that is my immediate superior. "Amazing what you can do these days. Anyway, I've been able to use the evidence you gave to Windle to lean on a few suspects I've had my eye on for a while and they've coughed up the goods."
+   I have an unconscious vision of said suspects coughing up the goods and wish I didn't have such an active imagination.
+   "It turns out Alice Crapone and Mendez Randolphi are planning on meet tonight at a place called Slaughter Drive - so named I understand because of all the cops who have been shot there over the years. I want you to head down and see what you can do, McClane."
+   "Me?" I ask.
+   "You," responds the bush. "I'll be there as well only I can't let it be known that I know you so if you get into trouble don't expect me to rescue you. Oh, and make sure you bring some firepower because things are almost certain to turn messy."
+   "Why are Crapone and Randolphi meeting anyway?"
+   "It's either to sign a temporary truce so they can get on with their 'business' dealings without worrying that the other one will try to off them, or because they know they've got a mole - namely me - in their organisations and want to pool their knowledge to find out who the mole is. That's my guess anyway. Could be something completely different but if those two are involved it's bound to be bad news. Get there as quick as you can, McClane. I don't want to end up trying to arrest the whole lot on my own."
+   "Why not just call in the reinforcements now, boss?"
+   The bush - or, rather, Slorb - sighs. "One whiff of an armed task force coming for them and Crapone and Randolphi will disappear faster than a possible witness to one of their crimes. At the moment the evidence we've got is pretty damning but they've got enough money to hire some high power lawyers to represent them in court. So we need more evidence and at the meeting tonight is the best chance we'll ever have."
+   A moment later, the entire bush (obviously one of the Chief's cunning disguises) lifts itself up from the pavement and sidles away down the street. Strangely enough, no one seems to pay it the slightest bit of attention.
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> u
+I move up.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> nw
+I move northwest.
+My New Office
+MY NEW OFFICEWhat with my promotion, I'd have expected being transferred to a larger office but instead I seem to have just moved up a floor. My new office is pretty much the same size as my old one and just has the added (dis)advantages of a larger table, more filing cabinets and a noticeboard listing my solved and unsolved cases of the last year. A coffee maker sits on my desk next to my computer (which looks to be slightly coffee-stained from where I'm standing) as does a fan. I can also make out a battered looking video recorder.A window gives an excellent view of the sewage works company housed next to the station. Southeast lies the main area of the station
+
+> x table
+Aside from the piles of ancient files which clog my desk up, there isn't a lot to see.
+   Aside from $3 which I quickly shove in my pocket before anyone else sees them.
+
+> smash cabinet
+I unleash my anger on the filing cabinets in a display of quite embarrassing male testerone action.
+   The end result is a success, however, as the filing cabinets burst open, spilling their contents on the floor.
+   Alas, the contents in question turn out to be $3, 2 bullets and a lot of junk. I take the first two and shove the junk back before anyone comes to see what all the racket was about.
+
+> get fan
+For reasons that escape me right now but which will no doubt become clear as day later on, I swipe the fan from my desk.
+
+> se
+I move southeast.
+Main Area
+MAIN AREAAround me is spread the main area of the police station and it looks slightly less active than Chomslea Park on a wet Sunday afternoon with a curfew in place. Somewhere I can hear a phone ringing but, with this being the place where people phone when they're in desperate need of help, no one seems to be rushing to answer it. A few clerks wander about chatting to themselves, throwing paper aeroplanes at one another and doing whatever it is that clerks do during the hours when they should be working. East lies Captain Slorb's office, northwest is my new office, north the evidence room, northeast an empty office awaiting some poor unsuspecting schmuck and down the lobby.
+
+> d
+I move down.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> s
+I move south.
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive home
+There is a howl of rage as I drive off and I look out of my window to see a red-faced man hopping around in pain and clutching his foot. Eager to show what a good citizen I am, I reverse and go to his aid. Unfortunately, I leave my foot on the accelerator a fraction of a second too long and knock him flying. This, on top of the broken foot I caused him when I drove over it, doesn't leave the man best pleased so I quickly floor the accelerator and get out of there.
+
+> out
+I leave my car.  
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).
+
+> n
+I move north.
+Lounge
+LOUNGE"Lounge" is perhaps not the most accurate description for this room as it functions more as whatever it needs to be depending on what I need it for. Right now, it's a dumping ground for whatever garbage I haven't yet got around to carting out to the trash. Scattered around the room in no real order are my TV, stereo, video, sofa and a large cabinet which I bought some time ago and since which time have completely forgotten what is in it. The dead body of the hitman lies on the floor. Doorways lead off north to my bedroom, east to my kitchen and south to the street.
+
+> x sofa
+Too uncomfortable to sit on, I'm thinking of having my sofa sold to a local museum as an instrument of torture. The springs in it are completely gone and sitting on it actually puts you several inches lower than merely sitting on the floor.
+   However, acting on a hunch I have a rummage down the back of the sofa and come across $3 which I dropped down there sometime last month and never got round to retrieving on account of the nasty fellow with the pick axe handle trying to kill me.
+
+> s
+I move south.
+Outside My House
+OUTSIDE MY HOUSEI once won an award for my house but as this award began with the words "Worst House In..." it wasn't something I was really bothered about. In all honesty, my house (seen from the front) doesn't look too bad. It's only when you get up close that you see all the little imperfections: the lack of a front door making the burglar's lot a very easy one, the windows which aren't so much windows as strategically placed pieces of old newspaper with a 'glassy' look to them, the chimney which currently resides in my front garden following the unfortunate incident in which it fell off the roof. North lies my house, east and west the street I live on (I've never bothered learning its name so "the street" will just have to do for a description) and in is my car (which looks almost as sorry as my house right now).
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive japantown
+Knowing it's quite a way to my destination, I execute a variety of shortcuts to get there. It works a treat, too (aside from when I found that one of my shortcuts had been replaced by a cricket ground) and I arrive in next to no time.
+
+> out
+I leave my car.  
+Japantown
+JAPANTOWNA pall of smog hangs over the whole of Japantown. Whether this is due to the large number of Japanese restaurants or the large number of burning police cars I can't really tell. Japantown is pretty much a law unto itself and that law doesn't include cops who can't trace their ancestry back to at least five Japanese families of high regard.
+   A narrow road leads up to a large square not far away but right now I'm feeling a little non-Japanese and, as such, a little non-safe. North lies the square (and my potential death if I'm not careful) and in lies the safe haven of my car.
+
+> n
+I move north.
+Hing Tong Yang Ming Square
+HING TONG YANG MING SQUARELit by a bonfire on which roast at least two dozen police cars, Hing Tong Yang Ming Square is the thriving heart of Japantown. Literally hundreds of market stalls selling every kind of rubbish you'd never want to buy stretch away as far as the eye can see (or about fifty feet in every direction if the truth be told). Looming over everything is a monument dedicated to Poo Wee Plop, a local Japanese hero. I find myself with directions galore to choose from: north to a dark alley, northeast to Mertle Avenue, northwest to what look like some roadworks, west to a massive warehouse, east to the trendiest nightclub in town - The Ritz - and south to where my car is parked.
+
+> buy bun
+"A good purchase," says the marketeer as he hands me the bun. "And now, maybe you would also like this Mars Bar? Only one in town. Just a dollar also."
+   "A dollar for a Mars Bar?"
+   The marketeer shrugs. "Not my fault game has crappy currency system. Blame writer."
+
+> s
+I move south.
+Japantown
+JAPANTOWNA pall of smog hangs over the whole of Japantown. Whether this is due to the large number of Japanese restaurants or the large number of burning police cars I can't really tell. Japantown is pretty much a law unto itself and that law doesn't include cops who can't trace their ancestry back to at least five Japanese families of high regard.
+   A narrow road leads up to a large square not far away but right now I'm feeling a little non-Japanese and, as such, a little non-safe. North lies the square (and my potential death if I'm not careful) and in lies the safe haven of my car.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive minsc
+On my drive across town, I make record time. The lights were for me all the way - a straight line of beautiful red - and so I didn't have to stop once. Great the way things turn out like that sometimes.
+
+> out
+I leave my car.  
+Minsc Grove
+MINSC GROVEWith stormclouds gathering overhead on a seemingly permanent basis, Minsc Grove is not one of my favourite spots in the city. The road is lined with burnt-out cars and abandoned houses and rumours persist that if you venture here after the hours of darkness, you learn just how unfriendly the locals can be. With their pitchforks...
+   I can make out a few undamaged buildings around that have either had the fortune to escape the rampant vandalism of the Grove or are just the next on the list. Weirdest sight of all is what looks like a massive tower rising somewhere off in the distance. To the west is a rundown supermarket, north lies the sole block of flats still standing, northeast is the road to the tower and in lies my car.
+
+> n
+I move north.
+Block Of Flats
+BLOCK OF FLATSI'm in the bomb-blasted reception area of the city's seediest block of flats. This is the sort of place that not even beggars would live in and even the roaches tend to give it a wide berth. A flickering neon sign over what used to be the reception desk displays (very badly) the name of this block. Doorways lead off throughout the building and both an elevator and a flight of stairs lead up to different floors but considering the way the block seems to rock from side to side with every gust of wind, I'm not too sure whether venturing anywhere is a good idea. Doorways lead off west, northwest and north into the building, a flight of stairs lead up, an elevator is east and Minsc Grove lies back to the south.
+
+> cabal
+The moment I utter the words, a door to one side of me that I hadn't seen before suddenly flies open and masked men rush out. Before I can do anything, they throw a bag over my head and usher me along a dark corridor. I hear a door opening and find myself pushed through. The bag is ripped off my head.
+
+  
+Shadowy Apartment
+SHADOWY APARTMENTI can see very little in this place as the lights are out and the curtains drawn. What I can see is a chair before me, deep in the shadows, in which someone is sitting. Behind them is a covered window and what looks like a shelf. Between the two of us is a table on which are laid out a selection of items. I don't see any exits.  
+
+"Ah, a visitor," says the figure I can just about see. "No doubt our mutual friend, Jeremiah, gave you ze password?"
+   "'Ze' password?" I query.
+   The figure nods. "Indeed. Let me explain ze situation, friend. My name is Henriek. I am a... collector of rare and expensive (hence ze expensive part if you would) items. Zese items I am willing to zell to you for a small sum. Observe." The figure gestures to the table. "Ze items. Merely examine an item and I will tell you its price. If you wish to purchase said item, merely speak its name aloud. Clear?"
+   "And, er, how do I get out of here?"
+   "You merely speak ze password again and magic will teleport you out of here just as it teleported you in."
+   "Magic?" I ask but the man isn't saying.
+
+> armour
+"Ze armour?" remarks Henriek. "A good purchase. Here, it is yours."
+   I hand Henriek $16 and he hands me the armour.
+
+> ten bullets
+"Ah, you wish to go on a killing spree," says Henriek. "Very good, very good. All of my best customers are psychopaths."
+   I give Henriek $7 and the bullets are mine.
+
+> cabal
+The incident with the bag is repeated and before long I find myself back in the bomb blasted reception area.
+
+  
+Block Of Flats
+BLOCK OF FLATSI'm in the bomb-blasted reception area of the city's seediest block of flats. This is the sort of place that not even beggars would live in and even the roaches tend to give it a wide berth. A flickering neon sign over what used to be the reception desk displays (very badly) the name of this block. Doorways lead off throughout the building and both an elevator and a flight of stairs lead up to different floors but considering the way the block seems to rock from side to side with every gust of wind, I'm not too sure whether venturing anywhere is a good idea. Doorways lead off west, northwest and north into the building, a flight of stairs lead up, an elevator is east and Minsc Grove lies back to the south.
+
+> s
+I move south.  
+Minsc Grove
+MINSC GROVEWith stormclouds gathering overhead on a seemingly permanent basis, Minsc Grove is not one of my favourite spots in the city. The road is lined with burnt-out cars and abandoned houses and rumours persist that if you venture here after the hours of darkness, you learn just how unfriendly the locals can be. With their pitchforks...
+   I can make out a few undamaged buildings around that have either had the fortune to escape the rampant vandalism of the Grove or are just the next on the list. Weirdest sight of all is what looks like a massive tower rising somewhere off in the distance. To the west is a rundown supermarket, north lies the sole block of flats still standing, northeast is the road to the tower and in lies my car.  
+
+As I breathe in the fresh air of Minsc Grove (well, fresh aside from the smell of burnt cars and general neglect), I hear what sounds to be someone moving around in the building I just left.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive machorsky
+Knowing it's quite a way to my destination, I execute a variety of shortcuts to get there. It works a treat, too (aside from when I found that one of my shortcuts had been replaced by a cricket ground) and I arrive in next to no time.
+
+> out
+I leave my car.  
+Machorsky Walk
+MACHORSKY WALKLeaning on the bonnet of my car, I take a quick look around Machorsky Walk without trying to be too obvious about it. This is mob terrority and strange things involving guns, knives and midnight swims in the local river with large weights tied around the ankles tend to happen to cops who wind up in this neighbourhood.
+   Scar-faced kids playing with flick-knives are hanging around on every street corner I can see lending a definite air of menace to the proceedings. Looming over in one direction are the gates of a mansion of almost unbelievable proportions whereas to the other side is a seemingly innocent looking bowling alley. The gates of the mansion of unbelievable proportions lies northwest, the bowling alley is east and my car lies inwards.
+
+> nw
+I move northwest.
+Mansion Gates
+MANSION GATESIt's difficult to tell much about the mansion beyond the gates but I can see it covers several acres and has better security than Fort Knox. The gate itself is the very latest in security guards, the sort of thing designed to stop even the most ardent burglar armed with a nuclear bomb. (That it's standing wide open right now is, I'm sure, just an oversight). Situated to either side of the gate are guard towers full of angry looking men with nasty looking machine guns. A large wall, somewhere between sixty and seventy feet tall, runs around the entirety of the mansion grounds. Climbing it would be a task I doubt your average mountain climber would be up to. The mansion lies due north and Machorsky Walk due southeast. Paths lead off around the wall to the northeast and west.
+
+> wear armour
+I put on the armour.
+
+> n
+The moment I start to walk towards the gates, one of the angry looking men with a machine gun comes running over.
+   "Where the hell do you think you're going, pal?" he snarls in my face.
+   "Just taking a walk," I reply.
+   "Not in this goddamn neighbourhood, you goddamn ain't! This here is Mendez Randolphi's mansion and he don't like folk like you wandering around his grounds. So beat it!"
+
+   1)  I happen to be a cop, you know.
+   2)  I go where I want, buddy boy.
+   3)  You're under arrest.
+
+> n
+As I move north, the man sneers, "well, you asked for this, buddy," and signals to one of the others who steps forward with a rocket launcher.
+   I feel a massive weight smash into my chest and the next thing I know I'm lying on the ground in a blast crater several inches deep. My body armour is smouldering and useless. But, strangest of all, I'm alive. It seems body armour has a good habit of keeping me alive during the course of my investigations.
+   "Oh all the goddamn luck!" snarls the man. "How in hell did you survive that?"
+   "God looks out for me!" I say, gasping as I do (being hit in the chest with a rocket tends to knock the wind out of you).
+   "Looked more like a decent suit of body armour to me."
+   "God works in mysterious ways."
+   The man looks about to sneer but one glance at the blast crater and he doesn't seem so sure of himself anymore. He wets his lips. "Er, what say I just turn my back for a minute and you sneak inside, okay? And if anyone asks, I never said any of this."
+   "Quite... accept...able," I gasp stagger into the mansion grounds.
+
+  
+Mansion Grounds
+MANSION GROUNDSThe grounds of the Randolphi mansion appear to stretch for miles and show that despite what people might tell you, crime does pay. An elegant carving of the head of the family, Mendez Randolphi, can be seen off to one side of where I'm standing, peering out over the grounds as if it owns them (which in a way it does). The mansion lies directly before me while a smaller house, no doubt where the servants or bodyguards reside, is built against the encircling wall to my right. The mansion lies north, the carving west, the way out south and the smaller house east.
+
+> n
+I move north.
+Entrance
+ENTRANCEI stand in the entrance to the Randolphi mansion in which there seems to be a party of some sort going on. Party goers throw themselves from side to side in what can loosely be described as dancing (either that or they're being violently ill and trying to make the best of it). A row of tables containing food and drink line one wall, overseen by a large man carrying a machine gun. Several other large men mingle with the guests. Pride of place is given to a large diamond inside a glass case suspended above the centre of the floor. Unsurprisingly, large men stand on all sides of it and the party goers seem to be lucky to be allowed within even viewing distance. Doorways lead off to the northwest and north and a flight of stairs leads up to the second floor of the mansion while off to the south lie the mansion grounds.
+
+> n
+I move north.
+Toilets
+TOILETSThe toilets of the Randolphi mansion are actually bigger than my entire house, and probably quite a bit cleaner too. Maids in skimpy outfits sweep the floors continually and there is even an attendant to hold your drink while you partake of the facilities. Several cubicles run along the west wall but all of them seem occupied at the moment. The party lies back to the south.  Bob the bodyguard is here smoking like a chimney.
+
+> talk bob
+"Geez!" Bob grunts as I talk to him. "I thought you were Mendez then!" He glances at the cigar in his hand, makes to shove it in his pocket, realises it's still lit and instead grabs in his pocket for a handkerchief. Out comes the handkerchief and Bob wraps the cigar in it before stuffing it back in his pocket. "Mendez hates people smoking," he adds, "and he hates it when I sneak in the toilets for a quick one while I'm supposed to be working... Hell with it! Why am I telling it to some complete stranger anyway. I gotta get back out there before he notices I'm missing."
+   Bob pushes past me out of the room.
+
+> get key
+I reach down and pick the black key up. I guess it must have fallen out of Bob's pocket when he was scrambling around for a handkerchief.
+
+> s
+I move south.
+Entrance
+ENTRANCEI stand in the entrance to the Randolphi mansion in which there seems to be a party of some sort going on. Party goers throw themselves from side to side in what can loosely be described as dancing (either that or they're being violently ill and trying to make the best of it). A row of tables containing food and drink line one wall, overseen by a large man carrying a machine gun. Several other large men mingle with the guests. Pride of place is given to a large diamond inside a glass case suspended above the centre of the floor. Unsurprisingly, large men stand on all sides of it and the party goers seem to be lucky to be allowed within even viewing distance. Doorways lead off to the northwest and north and a flight of stairs leads up to the second floor of the mansion while off to the south lie the mansion grounds.
+
+> u
+I move up.
+Upper Hallway
+UPPER HALLWAYThings seem quieter up here than at the party down below. Indeed, there is a definite hush hanging over the whole place that I find a little unsettling. Lights along the hallway are dimmed making it difficult to see much beyond two doorways and an oak cabinet standing by the top of the stairs. The doorways are to the west and north and the party lies down.
+
+> open door
+Using the key I obtained from the bodyguard, I open the door to Mendez's bedroom.
+
+> w
+I move west.
+Mendez's Bedroom
+MENDEZ'S BEDROOMThe sleeping quarters of the head of the Randolphi family seem to cover an area roughly equivalent to a city block (give or take the odd cornershop here and there). A bed large enough for a herd of elephants to have a decent night's sleep on occupies the centre of the room while one entire wall is given over to a bank of monitors. Either Mendez likes to watch TV in bed or this is some kind of advanced home security setup. A door leading to the upper hallway lies to the east.
+
+> lie bed
+As I lie on the bed, I feel a sharp object jabbing into my back. Rolling back the sheets reveals a confession written in Mendez's hand which I take with me.
+
+> look under bed
+I crouch down and glance under the bed, fully expecting to see a dead body or two shoved under there. But what I find turns out to be even more disturbing: a songbook with a picture of the Wombles on the cover! I take it with me for no other reason than to assure my eyes that they're really see right.
+
+> push 1
+I push it. I hear a click somewhere in the room but nothing seems to change.
+
+> push 2
+I push it. I hear a click somewhere in the room but nothing seems to change.
+
+> push 3
+I push it. I hear a click somewhere in the room but nothing seems to change.
+
+> x monitor
+Whereas before all the monitors displayed the same room, this time one of them is showing the very room I'm standing in right now. And it's showing an item lying on the floor in the corner which I hadn't seen before. I hurry over and pick it up, noting as I do so that it's an old sheet of parchment. As I turn back to the monitors, the one showing this room goes dark for a second then returns to show the same picture as the others.
+
+> e
+I move east.  
+Upper Hallway
+UPPER HALLWAYThings seem quieter up here than at the party down below. Indeed, there is a definite hush hanging over the whole place that I find a little unsettling. Lights along the hallway are dimmed making it difficult to see much beyond two doorways and an oak cabinet standing by the top of the stairs. The doorways are to the west and north and the party lies down.  
+
+"Grab him!" cries a voice as I emerge from Mendez's bedroom.
+   Before I can do anything, bodyguards rush across the hallway and seize me, forcing me against a wall.
+   "Who the hell are you and why the hell were you coming out of my bedroom?" the same voice yells at me.
+   I find myself turned around to face none other than Mendez Randolphi himself.
+   "Well?" he says. "I want an answer."
+   "I'm here about the UFO sightings," I say, this being the first thing that pops into my head.
+   Mendez looks at me. "UFO... what?"
+   "I'm from the UFO Board of Investigations," I go on, making it up as I go along. "We had a report that there had been UFOs sighted flying over your house. What with the security monitors in your bedroom, we figured that was as good a place as any to start our search."
+   "I don't believe I've ever heard such a load of drivel in my life," says Mendez. "Why, I've half a mind to shoot you just for the-"
+   "Er, boss," says a bodyguard.
+   "Not now, Timmons. I'm trying to appear imposing to this idiot."
+   "But, boss-"
+   Mendez sighs. "What is it, Timmons?"
+   "Er, I called 'em, boss," says the bodyguard called Timmons.
+   "What?" says Mendez (pretty much mirroring my thoughts).
+   Timmons - six foot six, two hundred and fifty pounds and with a face a bulldog would be ashamed to call his own - looks like a little boy caught peeing on the floor. "I, er, I saw dese lights, boss, over the house de other week, boss, an' dey looked like UFOs, boss, sos I called de UFO Board of Invet- Invest- Inveti- er, dat Board fing an' dey said dey'd send someone over ter take a look at it, boss."
+   Mendez sighs again. "Of all the lame ass..." He shakes his head. "Oh, to hell with this!" He glances at me. "Get out of my house, friend. I've still got half a mind to shoot you anyway but I've got a party on downstairs now and the sight of you having your brains blown out might upset some of my guests. So get the hell out and don't come back." Mendez turns to Timmons. "And you, the next time you ask some freaks into my house without my permission you'll be abducted yourself."
+   Timmons' face lights up. "Really, boss?"
+   Mendez sighs a third time. From the tired way he does it, I get the impression he spends most of his time explaining things a three year old would understand to his bodyguards. "Yes, Timmons. Abducted. As in taken away to a dark, dark place by several of my 'friends' and shot."
+   "Oh..." Timmons' face falls.
+   Mendez and his bodyguards wander off back down to the party.
+
+> d
+I move down.
+Entrance
+ENTRANCEI stand in the entrance to the Randolphi mansion in which there seems to be a party of some sort going on. Party goers throw themselves from side to side in what can loosely be described as dancing (either that or they're being violently ill and trying to make the best of it). A row of tables containing food and drink line one wall, overseen by a large man carrying a machine gun. Several other large men mingle with the guests. Pride of place is given to a large diamond inside a glass case suspended above the centre of the floor. Unsurprisingly, large men stand on all sides of it and the party goers seem to be lucky to be allowed within even viewing distance. Doorways lead off to the northwest and north and a flight of stairs leads up to the second floor of the mansion while off to the south lie the mansion grounds.
+
+> s
+I move south.
+Mansion Grounds
+MANSION GROUNDSThe grounds of the Randolphi mansion appear to stretch for miles and show that despite what people might tell you, crime does pay. An elegant carving of the head of the family, Mendez Randolphi, can be seen off to one side of where I'm standing, peering out over the grounds as if it owns them (which in a way it does). The mansion lies directly before me while a smaller house, no doubt where the servants or bodyguards reside, is built against the encircling wall to my right. The mansion lies north, the carving west, the way out south and the smaller house east.
+
+> s
+I move south.
+Mansion Gates
+MANSION GATESIt's difficult to tell much about the mansion beyond the gates but I can see it covers several acres and has better security than Fort Knox. The gate itself is the very latest in security guards, the sort of thing designed to stop even the most ardent burglar armed with a nuclear bomb. (That it's standing wide open right now is, I'm sure, just an oversight). Situated to either side of the gate are guard towers full of angry looking men with nasty looking machine guns. A large wall, somewhere between sixty and seventy feet tall, runs around the entirety of the mansion grounds. Climbing it would be a task I doubt your average mountain climber would be up to. The mansion lies due north and Machorsky Walk due southeast. Paths lead off around the wall to the northeast and west.
+
+> se
+I move southeast.
+Machorsky Walk
+MACHORSKY WALKLeaning on the bonnet of my car, I take a quick look around Machorsky Walk without trying to be too obvious about it. This is mob terrority and strange things involving guns, knives and midnight swims in the local river with large weights tied around the ankles tend to happen to cops who wind up in this neighbourhood.
+   Scar-faced kids playing with flick-knives are hanging around on every street corner I can see lending a definite air of menace to the proceedings. Looming over in one direction are the gates of a mansion of almost unbelievable proportions whereas to the other side is a seemingly innocent looking bowling alley. The gates of the mansion of unbelievable proportions lies northwest, the bowling alley is east and my car lies inwards.
+
+> in
+I move in.
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive station
+I pull up at my destination and an surprised to note the young woman clinging to my bonnet.
+   "What are you doing up there?" I ask her.
+   "You drove over me!" she protests as I help her down. "You almost killed me!"
+   "Ah, with 'almost' being the operative word," I say.
+   I send her on her way without charging her for the dent in my bonnet caused by her head although she doesn't seem particularly grateful as a result.
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby. 
+
+> n
+I move north.
+Lobby
+LOBBYThe police station lobby is the acceptable face of the police that is shown to the public: hence the lack of torture devices, battered suspects and gun-carrying officers. Instead, a desk runs along one wall, manned by Old Moe (asleep as usual during working hours) and a flight of stairs lead up to the main area of the station behind him. Somewhere around here is the door to the interrogation room but I can't quite remember where. South lies the exit from the station, north my old office and up a flight of stairs.  Officer Windle is here.
+
+> give confession to windle
+"A confession!" exclaims Windle. "And in Mendez Randolphi's own handwriting! My, the Divine will see him fry for this!" Windle glances around and then adds, "that's in the literal sense, you release, as He doesn't take well to this sort of thing I can tell you."
+
+> give parchment to windle
+Windle runs his eyes over the parchment and whistles. "Now this looks promising, McClane. I can see I'll be recommending you to the Divine personally for this. Speaking of which, let's discuss the Divine, shall we?"
+
+> give songbook to windle
+"Ah," says Windle, "are we to have a little singsong... er, this doesn't look very musical." He looks through the songbook. "Hmm. Clearly this Mr Randolphi is not a nice person and I imagine the Divine will have some questions to ask him on Judgement Day. You did right to bring this to me, McClane."
+
+> s
+I move south.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby.   
+
+"Psst!" says a bush to one side of me.
+   Curious as to why a bush should be saying "psst!" to me I hurry over and find Captain Slorb crouched there.
+   "You got the evidence, McClane," he says. "Well done."
+   "Why are you hiding in the bush, Chief?" I ask.
+   Slorb hushes me. "Keep it down, McClane. And try to look like you're doing something other than standing there holding a conversation with a man hiding in a bush."
+   "But I am-"
+   "Just tie your shoelace or something. And listen."
+   I tie my shoelace as Slorb goes on, "I've spoken to Windle and the evidence you gave him is pretty damning. We reckon there's enough to nail the swine once and for all."
+   "That was quick," I say. "I only gave him the evidence a minute ago."
+   "Wonders of modern technology," says the talking bush that is my immediate superior. "Amazing what you can do these days. Anyway, I've been able to use the evidence you gave to Windle to lean on a few suspects I've had my eye on for a while and they've coughed up the goods."
+   I have an unconscious vision of said suspects coughing up the goods and wish I didn't have such an active imagination.
+   "I managed to get a set of keys off one of the suspects." Slorb hands a silver key to me. "This should make things easier as it'll let you into the cellars of the house where the meeting between Alice Crapone and Mendez Randolphi is due to take place. It's at a place called called Slaughter Drive - so named I understand because of all the cops who have been shot there over the years. I want you to head down and see what you can do, McClane."
+   "Me?" I ask.
+   "You," responds the bush. "I'll be there as well only I can't let it be known that I know you so if you get into trouble don't expect me to rescue you. Oh, and make sure you bring some firepower because things are almost certain to turn messy."
+   "Why are Crapone and Randolphi meeting anyway?"
+   "It's either to sign a temporary truce so they can get on with their 'business' dealings without worrying that the other one will try to off them, or because they know they've got a mole - namely me - in their organisations and want to pool their knowledge to find out who the mole is. That's my guess anyway. Could be something completely different but if those two are involved it's bound to be bad news. Get there as quick as you can, McClane. I don't want to end up trying to arrest the whole lot on my own."
+   "Why not just call in the reinforcements now, boss?"
+   The bush - or, rather, Slorb - sighs. "One whiff of an armed task force coming for them and Crapone and Randolphi will disappear faster than a possible witness to one of their crimes. At the moment the evidence we've got is pretty damning but they've got enough money to hire some high power lawyers to represent them in court. So we need more evidence and at the meeting tonight is the best chance we'll ever have."
+   A moment later, the entire bush (obviously one of the Chief's cunning disguises) lifts itself up from the pavement and sidles away down the street. Strangely enough, no one seems to pay it the slightest bit of attention.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive slaughter
+There is a howl of rage as I drive off and I look out of my window to see a red-faced man hopping around in pain and clutching his foot. Eager to show what a good citizen I am, I reverse and go to his aid. Unfortunately, I leave my foot on the accelerator a fraction of a second too long and knock him flying. This, on top of the broken foot I caused him when I drove over it, doesn't leave the man best pleased so I quickly floor the accelerator and get out of there.
+
+> out
+I leave my car.  
+Slaughter Drive
+SLAUGHTER DRIVEFew are the times you find cops in this neighbourhood: this is mob territory through and through and it's doubtful if there's a citizen in the place who hasn't served at least half a dozen life sentences. The bomb-blasted ruins of a playground are situated to one side of where my car is parked but it's the massive house looming against the far horizon that catches my attention. This, I feel sure, is where Crapone and Randolphi are planning to meet. The mansion lies north, the playground west and my car in.
+
+> n
+I move north.
+Path
+PATHI find myself before the walls of the massive mansion where the meeting is due to take place. The building is ancient and imposing, looking like the sort of place you'd imagine Dracula would be comfortable calling home. Voices drift on the breeze from the west. West leads to the main entrance, east is a path around the mansion and south leads back to Slaughter Drive
+
+> e
+I move east.
+Outside Shed
+OUTSIDE SHEDThe path I've been following peters out here as it reaches an old, abandoned shed that looks like it hasn't been used in decades. Several windows mark the mansion walls to the north but none of them are within easy jumping distance and they look to be either closed or locked. The path leads back to the west
+
+> x bush
+Peering through the bushes I see that a door has been cunningly hidden behind them. Even better, it looks to be attached to the wall of the mansion and is no doubt a secret way inside.
+
+> open door
+Using the key Slorb gave to me I open the hidden door. It reveals some steps leading into the wine cellar of the mansion.
+
+> n
+Ducking through the door, I enter the wine cellar of the mansion.
+
+  
+Wine Cellar
+WINE CELLARI stand at the back of a cellar filled with rack upon rack of expensive bottles of wine. A single bottle of anything in here probably costs more than I earn in a year although judging by the dust gathered on the floor it's wine that doesn't get a lot of attention. I can only see one set of footprints in the whole place. Voices emanate from beyond a door at the far end of the room. The door lies north and the hidden door I entered through is to the south
+
+> n
+I move north.
+Small Room
+SMALL ROOMThis small room at the edge of the edge of the wine cellar contains just a single table and chair and nothing else whatsoever. In all honesty, it's the most uninspiring location I've seen to date and could really do with a bit of detail adding. Doors lead away to the west and south
+
+> x table
+The table is empty aside from a uniform which I take with me.
+   "Excellent," I say, unconsciously mimicking Mr Burns from The Simpsons.
+
+> wear uniform
+I put on the uniform.
+
+> w
+I move west.
+Entrancehall
+ENTRANCEHALLThe entrancehall of the mansion is far less grand than I would have expected. Indeed, it bears the neglect of a building not used for countless years and if not for the footprints crisscrossing the dusty floor I'd have guessed no one has been here for a long time. The stairs to the second floor of the mansion look to have crumbled under the weight of countless years and the second floor is all in darkness. Doorways lead off to the west, northwest and east while a corridor leads to the north and the front steps are to the south
+
+> nw
+I move northwest.  
+Meeting
+MEETINGA table has been placed in the centre of this vast room, at which two chairs have been set (one of which has a cushion on to give the seated person a little more height). Aside from this, the room is almost devoid of description. In fact, if not for the bar along the west wall, the window on the north wall, the crystal chandelier hanging overhead, the collection of stolen objects lining the east wall and a dozen or so bodyguards there'd be virtually nothing else in this room at all. The entrancehall lies back to the southeast.  Mendez Randolphi and Alice Crapone are here.  
+
+"Pish and tosh, Unca Mendy," Alice Crapone is saying. "That's a no-no and you know it."
+   Mendez Randolphi, seated opposite Alice, looks less than amused. "It's not pish and it's not tish, Alice-"
+   "Tosh, Unca Mendy!" Alice squeals, waving her Sindy doll around as she does. "It's tosh not tish! Geez, you really aren't up with the hip 'n' happenin' dialogue are you, Unca Mendy?"
+   None of the guards situated around the room seem to be paying much attention to the meeting and I endeavour to just stand there and blend in.
+   "My plan is foolproof," Mendez goes, "in that it will not fail. Do you understand that simple term, child?"
+   "Stop treating me like a child, Unca Mendy!" Alice wails and bats him on the head with her Sindy doll. "Just cos I'm only an ickle girl you think you can treat me like a kid! Bah! Much more of this and I'll be calling my mummy!" Alice bends her head over as her doll whispers something and then sighs, "oh, allright." She looks at Mendez who has started picking his nails with a knife. "Sindy says I should go along with you cos you'd get all upset if I didn't and she says that despite you killing lots 'n' lots 'n' lots 'n' lots of people you're not such a bad sort really."
+   "So we have a deal then?" Mendez sighs. "The east side of the city is mine, the west side yours. Now, to other business...
+   "You know about the police spy, don't you?"
+   "You had him killed!" says Alice accusingly. "That was bad!"
+   "He was with the police, Alice. He was spying on us." Mendez sighs again and mutters something under his breath that sounds like give me strength... "I did what needed to be done to resolve the situation. And I had your man killed as well because I was worried what he might have said."
+   "He was nice," says Alice. She combs Sindy's hair with her fingers. "He bought me a cake once. Me thinks we should have nailed him to a wall and pulled his arms off to teach him a lesson. That would have been much nicer than what you did, Unca Mendy."
+   "Whatever. The fact remains that we have dealt with one spy... but we have another."
+   Alice stops combing Sindy's hair. She even stops sucking her lolly. "Who?" she asks, her voice sounding quite different than a moment before.
+   "A police chief no less. One by the name of Slorb. He offered his services as a hitman called the Mad Monk - some kind of religious menace from what I know - and I took him up on his offer."
+   "And now?" asks Alice. "He has an... accident?"
+   "Him and another cop. I've sent some friends over to Slorb's house to teach him what happens to people who betray my trust. And the other one - someone called McClane - I've arranged to have him shot right outside the police station the next time he goes there."
+   "Hmmm..." Alice puts Sindy down on the table and sucks on her lolly while she considers. "I think I've got a better plan, Unca Mendy."
+   "I'm all ears," says Mendez.
+   Alice looks at him. "Yes, you are. But that's beside the point right now. Listen up..."
+   They go into a huddle.
+
+> se
+I move southeast.
+Entrancehall
+ENTRANCEHALLThe entrancehall of the mansion is far less grand than I would have expected. Indeed, it bears the neglect of a building not used for countless years and if not for the footprints crisscrossing the dusty floor I'd have guessed no one has been here for a long time. The stairs to the second floor of the mansion look to have crumbled under the weight of countless years and the second floor is all in darkness. Doorways lead off to the west, northwest and east while a corridor leads to the north and the front steps are to the south
+
+> e
+I move east.
+Small Room
+SMALL ROOMThis small room at the edge of the edge of the wine cellar contains just a single table and chair and nothing else whatsoever. In all honesty, it's the most uninspiring location I've seen to date and could really do with a bit of detail adding. Doors lead away to the west and south
+
+> s
+I move south.
+Wine Cellar
+WINE CELLARI stand at the back of a cellar filled with rack upon rack of expensive bottles of wine. A single bottle of anything in here probably costs more than I earn in a year although judging by the dust gathered on the floor it's wine that doesn't get a lot of attention. I can only see one set of footprints in the whole place. Voices emanate from beyond a door at the far end of the room. The door lies north and the hidden door I entered through is to the south
+
+> s
+Ducking through the door, I leave the mansion.
+
+  
+Outside Shed
+OUTSIDE SHEDThe path I've been following peters out here as it reaches an old, abandoned shed that looks like it hasn't been used in decades. Several windows mark the mansion walls to the north but none of them are within easy jumping distance and they look to be either closed or locked.Uncovered by my pushing the concealing bushes to one side is a door set into the mansion wall. It stands wide open. The path leads back to the west
+
+> w
+I move west.
+Path
+PATHI find myself before the walls of the massive mansion where the meeting is due to take place. The building is ancient and imposing, looking like the sort of place you'd imagine Dracula would be comfortable calling home. Voices drift on the breeze from the west. West leads to the main entrance, east is a path around the mansion and south leads back to Slaughter Drive
+
+> s
+I move south.
+Slaughter Drive
+SLAUGHTER DRIVEFew are the times you find cops in this neighbourhood: this is mob territory through and through and it's doubtful if there's a citizen in the place who hasn't served at least half a dozen life sentences. The bomb-blasted ruins of a playground are situated to one side of where my car is parked but it's the massive house looming against the far horizon that catches my attention. This, I feel sure, is where Crapone and Randolphi are planning to meet. The mansion lies north, the playground west and my car in.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.
+
+> drive slorb
+I pull up at my destination and an surprised to note the young woman clinging to my bonnet.
+   "What are you doing up there?" I ask her.
+   "You drove over me!" she protests as I help her down. "You almost killed me!"
+   "Ah, with 'almost' being the operative word," I say.
+   I send her on her way without charging her for the dent in my bonnet caused by her head although she doesn't seem particularly grateful as a result.  
+
+As I arrive at Bomb Road (the charmingly named street the Chief lives on), I catch sight of several dangerous looking men heading into a house to the north. They don't look up to any good.
+
+> out
+I leave my car.  
+Bomb Road
+BOMB ROADI'm standing outside Slorb's house on Bomb Road, one of the streets in the roughest part of town. Several alleys lead off in a multitude of directions but from the look of the figures standing at the start of each alley, entering any of them would be a disastrously bad idea. Slorb's house appears rundown as if he hasn't been here for quite some time although there is a light on somewhere inside. The house lies due north, my car in and alleys are to the northwest, west, south, southeast, east and northeast.
+
+> x window
+I peer through the window and catch sight of an unpleasant scene occurring in the house: three masked assassins carrying guns are forcing Slorb into a corner. It looks like they might well be about to start shooting him. I need to do something - and quick.
+
+> shoot
+Knowing I've only moments to spare before the assassins start doing the business with Slorb, I start firing through the window. My first bullet tears into the closest assassin and he drops dead on the floor. The second sees me and tries to raise his gun to return fire - I shoot him first. The third one is faster. He evades my first shot and my second bounces off the wall by his head. Just as I'm about to try another time, Slorb's fist comes out of nowhere and lands him a hefty blow to the side of the head. The assassin's neck cracks with a sickening noise that sends shivers down my spine.
+
+"You can come in now, McClane," Slorb calls. "They're all dead."
+
+> n
+I move north.  
+Slorb's House
+SLORB'S HOUSEThough small, Slorb's house is quite cosy: the walls are decorated with expensive album covers of his favourite artists. An elegant sofa fills most of the room I'm standing in. Before it is an open coal fire (currently unlit) and to the left of the fire is Slorb's hi-fi system which looks suspiciously like one that went missing from the evidence store sometime last year. A couple of doors lead further into the house. To the south lies Bomb Walk and doors leading to the rest of the house are to the north and east.  Captain Slorb is here.  
+
+"Good job you got here when you did, McClane," says Slorb. "Things were looking dicey. Everything's moving to a conclusion, McClane. I've got enough evidence to arrest both Crapone and Randolphi, all we need to do now is go pick them up."
+   "They're planning an ambush for me at the police station," I say.
+   Slorb rubs his chin and thinks. "Interesting. If we can catch their assassins in the act, we'll have enough to send them both to the electric chair (or the kiddie version with candy for Alice I guess). But I'd be happy just to see the pair of them locked up for a long time. Alice will be at least of school leaving age before she sees the light of day again and Mendez will be collecting his pension." He shrugs. "I'll leave the decision to you, McClane. Lead on."
+   "You're coming with me?"
+   "Of course." Slorb glances at the three dead men. "I came very close to getting killed tonight. I'm not going to let an insult like that pass by. I want payback and I want it bigtime. And I want to do it personal. Which is why I'm not even going to call in the backup."
+   "(gulp!)" I say.
+   "Yep," says Slorb, mistaking my involuntary spasm of morbid fear for eagerness to be laying into some seriously dangerous people, "just the two of us. Let's go get 'em, McClane. Let's clear this city up."
+
+> s
+I move south.
+Bomb Road
+BOMB ROADI'm standing outside Slorb's house on Bomb Road, one of the streets in the roughest part of town. Several alleys lead off in a multitude of directions but from the look of the figures standing at the start of each alley, entering any of them would be a disastrously bad idea. Slorb's house appears rundown as if he hasn't been here for quite some time although there is a light on somewhere inside. The house lies due north, my car in and alleys are to the northwest, west, south, southeast, east and northeast.  Captain Slorb follows me from the north.
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.  Captain Slorb follows me from outside.
+
+> drive station
+I make it across town in what is surely record time. I achieve this by the simple realisation that the roads are very busy with all the other cars but the sidewalks are mercifully almost empty (a few people walking about but they seem eager to move out of the way when they see me approaching at 80 mph).
+
+> out
+I leave my car.  
+Outside Police Station
+OUTSIDE POLICE STATIONThe police station looks pretty much the same as it has done for the past fifty years, mainly on account of the fact that it hasn't been painted or cleaned in all that time. The front facade looks shabbier than a dead man left lying in the gutter for a fortnight; hardly the sort of thing that inspires you to come into work every day. A flight of steps lead north to the (somewhat) unimposing main doors and, beyond, lies my place of work.
+   A street winds away to the east and west and the steps are north. My car lurks nearby.   
+
+"Hmm," says Slorb. "I don't see any sign of the assassins sent for you. Maybe they're inside."
+   "They're waiting for me inside a police station?" I ask, sounding slightly dubious at the idea.
+   Slorb shrugs. "You never know with Mendez. It's his style. He likes to make a scene and nothing makes a scene better than a cop being gunned down in the lobby of his own police station." He glances up the steps into the lobby. "I don't like the look of this. If we walk in there like this we're practically asking for an ass kicking yet I don't see any other way around it."  Captain Slorb follows me.
+
+> wait
+"Good idea, McClane," says Slorb. "If we leave it long enough, they'll be sure to emerge eventually."
+
+So we wait...
+
+And wait...
+
+And wait...
+
+And wait...
+
+And just when it seems we'll be waiting for the rest of the day, three shadowy figures emerge from the lobby.
+   "I told you it was a lame ass idea waiting in there," says the first one. "I mean, no way is McClane gonna be so damn stupid as to walk into an ambush in his own frigging police station."
+   "Well, it was worth a try," answers the second. "Right, over to his house and we'll- oh, crap."
+   This last bit is upon seeing myself and Slorb waiting at the bottom of the steps.
+   "Say goodbye," says Slorb - and opens fire.
+   I pull out my own gun and start shooting.
+   The first would-be assassin goes down in a hail of gunfire; Slorb manages to catch the second one a shot to the head that only only kills him but makes him do a bizarre pirouette across the police station steps that would surely be the envy of olympic athletics; the third one is trickier. He manages to duck past us both and makes it to my car, either intending to steal it and get away or use it as cover. Slorb lets off a couple of shots but the assassin is faster and ducks out of the way of them, throwing himself across the road. As often happens at such times, a really big truck goes roaring past and when it's gone, so is the assassin.
+   "Crap, he got away!" snarls Slorb. "Well, we got two of 'em. Hopefully one of them will have the evidence we need."
+
+The mess is soon cleared up. Slorb commands several officers from the station (who were all surprisingly absent during the excitement) to get the bodies cleared up and the place scrubbed free of blood and stray body parts.
+   "And here's the contract," he says to me a few minutes later, showing me a bloodstained document in an evidence bag. "Mendez's handwriting as well. It seems he paid those jokers a cool hundred thousand to waste you. And this lolly stain at the bottom is Alice's signature. We've got enough to send 'em both to the electric chair, McClane. Let's go get 'em."
+
+> in
+I climb into my car.  
+My Car
+MY CARThere are few things in life as depressing as the inside of my car and today it looks even more depressing than usual. Quite why it looks such a mess is a mystery to me although I suspect that never cleaning it, throwing half-eaten lunches on the floor and using the passenger seat as a temporary storage room for used tissues doesn't help matters much.
+   The dashboard is cluttered with whatever junk I've been eating for snacks for the past two months, along with several case files, some evidence I borrowed from the evidence store a while back and have been meaning to return, and various other sundry items. Looming before me looking worse for wear than I do after a marathon drinking session is the steering wheel. Out lies the world that does not include my car.  Also here is my trusty screwdriver, a hammer and a whistle.  Captain Slorb follows me from outside.
+
+> drive slaughter
+I make it across town in what is surely record time. I achieve this by the simple realisation that the roads are very busy with all the other cars but the sidewalks are mercifully almost empty (a few people walking about but they seem eager to move out of the way when they see me approaching at 80 mph).  
+
+As we arrive at Slaughter Drive, Slorb glances through the front window and says, "thought I saw someone ducking into the school building. Could be one of Alice or Mendez's goons."
+
+> out
+I leave my car.  
+Slaughter Drive
+SLAUGHTER DRIVEFew are the times you find cops in this neighbourhood: this is mob territory through and through and it's doubtful if there's a citizen in the place who hasn't served at least half a dozen life sentences. The bomb-blasted ruins of a playground are situated to one side of where my car is parked but it's the massive house looming against the far horizon that catches my attention. This, I feel sure, is where Crapone and Randolphi are planning to meet. The mansion lies north, the playground west and my car in.  Captain Slorb follows me.
+
+> n
+I move north.
+Path
+PATHI find myself before the walls of the massive mansion where the meeting is due to take place. The building is ancient and imposing, looking like the sort of place you'd imagine Dracula would be comfortable calling home. All is quiet now the guards are dealt with. West leads to the main entrance, east is a path around the mansion and south leads back to Slaughter Drive  Captain Slorb follows me from the south.
+
+> w
+I move west.
+Front Steps
+FRONT STEPSA flight of stone steps lead up to the main doors of the mansion which, surprisingly enough, are standing wide open. Little is visible in the shadows beyond but the sound of voices can be heard from somewhere within the mansion.   The main doors are to the north and a path leading around the mansion is visible to the east  Captain Slorb follows me from the east.
+
+> n
+I move north.  
+Entrancehall
+ENTRANCEHALLThe entrancehall of the mansion is far less grand than I would have expected. Indeed, it bears the neglect of a building not used for countless years and if not for the footprints crisscrossing the dusty floor I'd have guessed no one has been here for a long time. The stairs to the second floor of the mansion look to have crumbled under the weight of countless years and the second floor is all in darkness. Doorways lead off to the west, northwest and east while a corridor leads to the north and the front steps are to the south  Captain Slorb follows me from the south.
+
+> n
+I move north.  
+Showdown
+SHOWDOWNThis large room takes up the bulk of the ground floor of the mansion and is lined on either side by floor-to-ceiling windows showing off the surrounding countryside (a pity the surrounding countryside consists of nothing more than a bunch of trees but you can't have everything I guess). Aside from this, the room is empty of decoration and seems not to have been used for quite some time. A corridor leads south to the entrancehall.  Mendez Randolphi and Alice Crapone are here.  
+
+"Unca Mendy! Unca Mendy!" Alice wails, waving her Sindy doll around. "I forgot my sweet cache and you know how I get when I- Ooh! The bad men are here!"
+   Mendez Randolphi, pipe in one hand, looks at the two of us and smiles. "Good. I was wondering when they'd show up."
+   Alice looks at him suspiciously. "Is there something you're not telling me, Unca?"
+   "Nothing like that." Mendez shrugs. "I just love a good scrap."
+   "We got this far, Randolphi," says Slorb. "You're not going to stop us now."
+   "Oh really?" Mendez reaches into his trouser pocket and pulls out a machine gun. "What do you say now?"
+   Slorb looks baffled. "I say, how in the hell did you get a machine gun in your pocket? The bloody gun's longer than your entire leg!"
+   "I'd tell you but then I'd have to kill you." Mendez considers that and frowns. "Actually, I'm going to kill you anyway but I really don't feel like telling you. So," he raises the machine gun, "who's first?"  Captain Slorb follows me from the south.
+
+> give bun to alice
+Alice gapes and snatches it out of my hand. "Unca Mendy!" she cries. "One of the bad men gave me a-"
+   "Get back, you young fool!" Mendez snaps. "I'm trying to shoot- oh, Christ!"
+   Slorb goes charging across the room and smashes into Mendez, sending the two of them crashing to the floor.
+   I turn to Alice - who looks at me innocently as she strokes her Sindy doll and eats what I just gave her.
+   "Are you going to come quietly?" I ask.
+   Alice sighs and shakes her head. "I doubt it. What do you think, Sindy? What? Yes, that's what I was going to suggest myself." Alice twists Sindy's head round and then pulls it clean off. Attached to the end of the doll's head is a sharp spike. "Sindy thinks I should kill you," she adds and starts closing in on me.  
+
+> shoot alice
+Alice's face goes pale. "Aah, you wouldn't shoot an ickle girl would you?"
+   I find myself hesitating... until I see Alice raising the spiked doll's head ready to throw at me.
+   I fire...
+
+And miss!
+
+"Hah!" sneers Alice. "Call that shooting! I was shooting better in my pushchair than that!"
+
+> shoot alice
+I fire again - and miss again! Alice ducks out of the way and the bullet bounces off the wall behind her head!
+   "Damn it, McClane!" yells Slorb who is still struggling with Mendez. "Stop arsing around and deal with her!"
+   "You sweared!" Alice wails, jumping up and down in annoyance. "Just you wait till I'm ready to deal with you, buddy!"
+
+> shoot alice
+A third time I fire - and this time manage to hit the Sindy doll in the chest!
+   "Sindy!" Alice wails. "Aaah, my poor little Sindy doll!"
+   She wails for about a second more than throws the ruined doll in one corner.
+   "Hell with it," says Alice. "I always preferred Barbie anyway."
+
+> shoot alice
+I fire at Alice a fourth time - and knock her lolly flying!
+   "My lollllllllllllll-yyyyyyyyyyy!!!" she cries. "First my Sindy doll and then my lolly! Waaaaaa-aaaahaahhhhhhh! Waaaaa-hhhhh! Mu-mmmmmmmmyyyyyyyy!!!"
+   She falls down on the floor and starts having a tantrum, banging and kicking her feet and pounding the floor with her fists.
+   "Alicd, you're nicked!" I tell her.
+   She ignores me aside from the odd word, entirely inappropriate for someone of her tender years.
+   I hurry over to where Slorb is still struggling with Mendez and put my gun to Mendez's head. "You're nicked, Randolphi," I say.
+   "Crap," he hisses.
+   "If you get a sudden itch in your trigger finger, McClane," says Slorb. "I'll understand."
+   "Unca Mendy! Unca Mendy!" she wails. "The bad men won, Unca Mendy!"
+   "Alice," says Mendez.
+   "What, Unca Mendy?"
+   "FOR THE LOVE OF GOOD, STOP CALLING ME UNCA MENDY!!!"
+
+...press a key to continue...  
+Captain Slorb's Office
+CAPTAIN SLORB'S OFFICEUsually this would be the hive of activity within the police station but as Slorb is currently on holiday there isn't a lot going on. An ancient mahogany desk takes up the bulk of the area and the rest seems to be given over to the vast and varied collection of awards Slorb has been given over the years for his expertise in solving dangerous crimes. The main cabinet of gongs is seven feet high, eight feet wide and contains over a hundred of the things. A lesser man might feel humbled by all this. I just feel like sliding open the cabinet door and swiping a few. West lies the main area of the station.  
+
+Later...
+
+"Take a seat, McClane," says Slorb. The injuries he received in the fight with Mendez Randolphi two days ago look considerably healed. "We've got a lot to discuss."
+
+> sit
+I seat myself.
+   "All in all, things were a resounding success," says Slorb, shuffling some papers on his desk. "We nailed both Alice Crapone and Mendez Randolphi with enough evidence to send them to the electric chair - or the chair in Mendez's case, the Snitch Home for Wayward Brats in Alice's. But either way, she won't be a menace to society for a good few years to come. Actually, I say we but it should really be you, McClane. You did all the hard work."
+   "You're too kind," I say, all the time trying to balance my massively inflated ego.
+   "Put it there... Captain," says Slorb as he shakes my hand.
+   "Captain?" I say.
+   Snorb nods. "I'm retiring. High time I got to spend some time with the wife and kids."
+   "I never knew you had a wife and kids."
+   "Well, I don't..." Slorb shrugs. "But now I'm retiring I'll have time to get some. So good luck with your new job, McClane. You did good."
+
+...press a key to continue...  

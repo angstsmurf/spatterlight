@@ -1,0 +1,46 @@
+s
+s
+look in grass
+get rock
+n
+n
+break lock with rock
+open box
+look in box
+get baseball
+w
+n
+w
+throw ball
+throw baseball
+throw baseball at ladder
+u
+n
+open drawer
+get remote
+dig in tub of Lego
+open lego piece
+get battery
+look under dresser
+get battery
+s
+d
+s
+e
+e
+put batteries in remote
+use remote
+e
+turn on light
+clean trash
+ne
+look behind pile of furniture
+get crowbar
+sw
+w
+n
+w
+n
+smash window
+quit
+y

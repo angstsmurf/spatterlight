@@ -1,0 +1,302 @@
+Loading game...
+
+Locked Out
+
+You were suppose to pick up your kids from school at 2:00 today, take them
+over to the YMCA at 2:20, and meet your wife at the theater at 2:30.
+Everything was going fine, until you locked yourself out of your house, while
+your keys were still inside, laying next to the phone. You've only got 15
+minutes until you have to pick up your kids at the school, but you've got to
+get inside your house first.
+
+[Press a key to continue]
+
+One thing you should know before playing.
+There are some objects, commands or directions, that as soon as you take,
+command or use, will end the game. These are underlined. So if you want to
+finish the game the right way, stay away from these.
+
+Front Porch
+You are standing on your front porch. Your front door is the only thing
+between you and your keys. Next to you is one of those large wooden swings
+you can fit three people on, and to the right of your door is a small box.
+The porch continues on to the west, and the driveway is to the south.
+
+> s
+You move south.
+
+Driveway
+There is nothing much of interest here. To the north is the porch, south is
+the front yard, and east is the garage. The driveway continues west
+
+> s
+You move south.
+
+Front Lawn
+You are standing on your front lawn. You just recently cut the grass, and the
+smell of it still lingers. To the south is a dense forest, to the west and
+east is even more lawn, and to the north is your driveway. A clump of grass
+is at your feet.  Bluejay flutters in .
+
+> look in grass
+You look in the cluster of grass.  A large rock is inside the cluster of
+grass.  Bluejay flutters off to the west.
+
+> get rock
+You take a large rock from the cluster of grass.
+
+> n
+You move north.
+
+Driveway
+There is nothing much of interest here. To the north is the porch, south is
+the front yard, and east is the garage. The driveway continues west
+
+> n
+You move north.
+
+Front Porch
+You are standing on your front porch. Your front door is the only thing
+between you and your keys. Next to you is one of those large wooden swings
+you can fit three people on, and to the right of your door is a small box.
+The porch continues on to the west, and the driveway is to the south.
+
+> break lock with rock
+You beat the rock against the lock, hoping to break it. It takes a while. As
+you are about to give up, the lock finally falls apart and clatters to the
+floor.
+
+..::You've earned 10 points!::..
+
+> open box
+You open up the box. Inside there is some emgerancy supplies and a baseball.
+
+> look in box
+A small metal box with a golden hawk engraved upon the side. It is nailed to
+the side of the house, about 3 feet above the ground.   The box is open.  A
+baseball is inside the small metal box.
+
+> get baseball
+You take a baseball from the small metal box.
+
+> w
+You move west.
+
+Front Porch
+You are standing in the corner of the porch. The porch goes north and east.
+
+> n
+You move north.
+
+Front Porch
+You are standing at the end of the porch. In the corner here there are
+several childrens toys. There is a window to the east, and to the west is the
+big oak tree. The porch goes back south.
+
+> w
+You move west.
+
+West Lawn
+You are standing on the west lawn. The only thing of interest here is a tree
+containing your kids' treehouse. At the moment there is no way to get up
+there. Back south is the end of the driveway, and to the east is the porch.
+
+> throw ball
+You throw the ball and miss the ladder by a mile.  Bluejay flutters in .
+
+> throw baseball
+You have already done that.  Bluejay flutters off to above.
+
+> throw baseball at ladder
+You throw the ball at the ladder. It hits the ladder and the ladder tumbles
+down the side of the tree. Now you can get up to the treehouse.
+
+..::You've earned 10 points!::..
+
+> u
+You move up.
+
+Outside Treehouse
+You are up in a tree. There are some toys on the floor here. To the north is
+the door to the treehouse.
+
+> n
+You move north.
+
+Inside Treehouse
+Even though this treehouse is small, it's the messiest one you have ever
+seen. Toys, books, and trash litter the floor. There is a dresser here (how
+the heck did they get that up here?!?), a fold-up card table, a big tub of
+Legos, several Nintendo DS's, and a portable TV. Man, these kids... The way
+you came is back south.  Also here is a drawer.
+
+> open drawer
+You open the drawer.  Inside the drawer is some sheets, some gum and a
+remote.
+
+> get remote
+You take a remote from the drawer.
+
+> dig in tub of Lego
+You dig around in the tub of Lego, and come of with one of those specialized
+pieces that needs batteries. Maybe there are still some in there.
+
+> open lego piece
+You open the specialized Lego piece.  A Energizer battery is inside the
+specialized Lego piece.
+
+> get battery
+You take a Energizer battery from the specialized Lego piece.
+
+> look under dresser
+You peek under the dresser.  Under here are some cotten balls, tissue paper,
+some 'missing' homework, and a AA battery. Kodak, by the look of it.
+
+..::You've earned 10 points!::..
+
+> get battery
+Which battery.  The Energizer battery or the Kodak battery?
+
+> s
+You move south.
+
+Outside Treehouse
+You are up in a tree. There are some toys on the floor here. To the north is
+the door to the treehouse.  The bluejay is here.
+
+> d
+You move down.
+
+West Lawn
+You are standing on the west lawn. The only thing of interest here is a tree
+containing your kids' treehouse. At the moment there is no way to get up
+there. Back south is the end of the driveway, and to the east is the porch.
+
+> s
+You move south.
+
+Driveway
+The end of your driveway. There is nothing of much interest here. You can
+walk down the road to a neighbor's house. Your front lawn is to the south.
+Your house is back east several screens.
+
+> e
+You move east.
+
+Driveway
+You are standing on a driveway.
+
+> e
+You move east.
+
+Driveway
+There is nothing much of interest here. To the north is the porch, south is
+the front yard, and east is the garage. The driveway continues west
+
+> put batteries in remote
+You've always heard that you shouldn't mix two brands of batterys together.
+Now this may or may not be true, but at the moment, you don't really care.
+You hastily stuff the batteries in the remote, and snap the back into place.
+
+..::You've earned 10 points!::..
+
+> use remote
+You click the litte button on the remote to the garage and the door does it's
+thing. (No, it doesn't, you know, go. It opens.) You praise yourself for
+finding the remote and gaining acsses to the garage. Give yourself a pat on
+da back!
+..::You've earned 20 points!::..
+
+> e
+You move east.
+
+Garage
+Even with the light streaming in from the outside, this is a very dark place.
+You can just make out some square shapes and, is that your old unicycle?!
+There is a small chain dangling from the ceiling.
+
+> turn on light
+You pull the chain and the garage is filled with light. You look around,
+blinking a little as your eyes adjust.   Dagnabbit! Some raccon got into the
+trash bin! Now there's trash all over the place! The missus is not going to
+be too happy about this...
+
+..::You've earned 10 points!::..
+
+> clean trash
+Wondering why you are doing so, you start picking up the trash. Surprisingly,
+it doesn't take long. When you finish, you place the lid on the top of the
+can.
+
+..::You've earned 20 points!::..
+
+> ne
+You move northeast.
+
+Pile of Discarded Furniture
+Wow. You never knew that furniture could be piled up to the ceiling of your
+garage. But apparently it can. But you still marvel at this wonder...
+
+> look behind pile of furniture
+You look behind the pile of discarded furniture and find a crowbar.   You
+aren't receving any point for finding this because I'm to lazy right now.
+Maybe in a later version...
+
+> get crowbar
+You've already got the crowbar!
+
+> sw
+You move southwest.
+
+Garage
+Your garage. Not a very special place. There are boxes all over the place,
+discarded furniture piles up in one corner, and trash is all over the floor.
+Freaking stupid raccons. There is barely enough room in here to park your
+car, but you usually leave it outside anyway...
+
+> w
+You move west.
+
+Driveway
+There is nothing much of interest here. To the north is the porch, south is
+the front yard, and east is the garage. The driveway continues west
+
+> n
+You move north.
+
+Front Porch
+You are standing on your front porch. Your front door is the only thing
+between you and your keys. Next to you is one of those large wooden swings
+you can fit three people on, and to the right of your door is a small box.
+The porch continues on to the west, and the driveway is to the south.  Also
+here is a lock.
+
+> w
+You move west.
+
+Front Porch
+You are standing in the corner of the porch. The porch goes north and east.
+
+> n
+You move north.
+
+Front Porch
+You are standing at the end of the porch. In the corner here there are
+several childrens toys. There is a window to the east, and to the west is the
+big oak tree. The porch goes back south.
+
+> smash window
+Figuring that you'll pay for the window when you get back, you smash through
+the window with the crowbar, unlock the window, open it, then crawl throgh.
+Finally, you and your keys are united! You can pick up your kids, take them
+to the YMCA, and watch 'Snakes on a Place', with your wife! Then, you'll
+break the news to her. She often gets very upset over broken windows...  This
+game may tank now, but coming soon is an extened edition with fixed bugs,
+more ways to win, more rooms, more objects, and more stuff to do. 'Locked
+Out: Gold Edition', coming soon. And also look for other IFs by Loner Games,
+also coming soon!
+You scored 90 out of the maximum 110!
+That is 81% of the game!
+You finished 20 points short.
+
+[Press any key to end]

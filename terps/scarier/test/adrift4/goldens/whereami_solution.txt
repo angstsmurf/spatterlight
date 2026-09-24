@@ -1,0 +1,6 @@
+get panel
+get tape
+put tape on sensor
+down
+quit
+y

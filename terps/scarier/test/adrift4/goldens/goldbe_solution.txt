@@ -1,0 +1,34 @@
+x cottage
+enter 667
+in
+get coat
+x fleece
+get fleece
+get rope
+n
+eat large bowl
+get large spoon
+get small spoon
+get medium spoon
+sit on couch
+look in hole
+take sword hilt from inside the hole in the three-seater couch
+e
+get tabasco
+open fridge
+get egg
+pour tabasco on padlock
+open trapdoor
+d
+dig bump
+get rings
+u
+w
+s
+u
+pour tabasco on bars
+open window
+tie rope to bar
+climb down rope
+quit
+y

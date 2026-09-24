@@ -369,6 +369,7 @@ extern void pf_prepend_string (scr_filterref_t filter,
 extern size_t pf_buffer_length (scr_filterref_t filter);
 extern void pf_hoist_tail (scr_filterref_t filter, size_t from);
 extern void pf_truncate (scr_filterref_t filter, size_t length);
+extern std::string pf_buffer_tail (scr_filterref_t filter, size_t from);
 extern std::string pf_cut_tail (scr_filterref_t filter, size_t from);
 extern scr_int pf_printed_to (scr_filterref_t filter);
 extern void pf_restore_printed_to (scr_filterref_t filter, scr_int note);
@@ -724,6 +725,8 @@ extern scr_int lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string
                                       std::string *task_line);
 extern scr_bool lib_task_prematches_input (scr_gameref_t game,
                                            scr_int class_filter);
+extern scr_int lib_task_prematch_kind_input (scr_gameref_t game,
+                                             scr_int class_filter);
 extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
 extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
                                            const scr_char *line);
@@ -847,6 +850,8 @@ extern scr_bool lib_cmd_open_other (scr_gameref_t game);
 extern scr_bool lib_cmd_open_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_close_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_close_other (scr_gameref_t game);
+extern scr_bool lib_cmd_open_ended_400 (scr_gameref_t game);
+extern scr_bool lib_cmd_close_ended_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_other (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_object_pre_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_unlock_object_pre_400 (scr_gameref_t game);
@@ -1006,6 +1011,10 @@ extern scr_bool lib_cmd_yes_or_no (scr_gameref_t game);
 extern scr_bool lib_cmd_verb_object (scr_gameref_t game);
 extern scr_bool lib_cmd_put_where_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_put_container_400 (scr_gameref_t game);
+extern scr_bool lib_put_held_unsplit_400 (scr_gameref_t game,
+                                          const scr_char *input);
+extern scr_bool lib_put_task_tie_400 (scr_gameref_t game,
+                                     const scr_char *input);
 extern scr_bool lib_put_clauses_400 (scr_gameref_t game,
                                     const scr_char *input,
                                     std::vector<std::string> &clauses);

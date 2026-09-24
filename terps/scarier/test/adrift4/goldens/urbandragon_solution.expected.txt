@@ -1,0 +1,248 @@
+Loading game...
+
+Urban Dragon
+You pulled your car up to the curb and put it in park. You opened the glove
+compartment and pulled out your gun. You were agent Devon Hudd, member of the
+Libson City Police Department. Your car was parked on Willard Street, a place
+were anything went and if you didn't carry a weapon, there's a good chance
+you could be dead by the end of the day. But the area has been getting a lot
+worse ever since Baxter Jones began to be spotted. Jones was a dealer, a big
+time dealer, and was just released from the prison a few weeks ago. Back in
+the pen, he was known as the Urban Dragon, a figure that could instill fear
+in anyone and everyone. He was a figure of power, evil, and greed. No one
+knew what he was up to, and that's where you come in. Your job was to find
+some evidence and arrest him before anyone else turns up dead.
+
+> take crowbar
+You take the crowbar from underneath the seat and place it in your large coat
+pocket.
+
+> w
+You move west.
+
+Willard Street
+This is the place where the scum of the city come to live. Guns are a daily
+sight here and murders happen on a weekly basis. People in long trenchcoats
+walk past you, heading to dark alleys and their large boots clanking against
+the loose cement. Your car is parked beside you, a little bit to the East. A
+small bar sits at the end of the street to the North, a few drunks are
+leaning against its wall holding cigarettes. You can see a small street to
+the South that leads to the warehouses and docks.
+
+> open trunk
+You lift open the trunk of your car and sort through the junk to find
+anything useful. You finally pull out a flashlight from under all the
+clutter.
+
+> n
+You move north.
+
+Bar
+The small bar reeks of dried ketchup and stale brew. Drunks swarm around the
+counter  shouting at each other and spilling their drinks all over the
+coutnertop. The bartender quickly fills up the mugs as the men raise their
+wallets to buy the next round. Tables cover the entire room, but only a few
+people sit at them quietly reading a newspaper or eating. There's a door to a
+backroom but the words employees only have been hastily scratched into it.  A
+tv that sits at the edge of the bartop seems to have most drunks absorbed in
+the game on the tv. Pretzel crumbs cover their shirts.
+
+> pull cord
+You pull the cord on the tv which makes the TV turn into a black void. All
+the drunks begin to shout as they demand to find out who wins the game.
+
+> use crowbar on door
+With the drunks busy yelling at the bartender to fix the tv, you quietly pry
+open the door and slip inside the dank backroom.
+
+> take bottle
+You pull one of the bottles off the shelf and place it in your coat. The
+bartender won't miss just one bottle.
+
+> open window
+You push open the window and can see a small ladder leading down to the
+streets.
+
+> d
+You move down.
+
+Alley
+The small alley smells like wet fur and the stench is almost unbearable.
+Garbage covers almost the entire cement ground and it all seems to have been
+here for awhile, maggots have covered almost everything. You can see a man
+sitting beside a large dumpster playing with his fingers. He says his name is
+Gus and that he lives in this alley. You can see a street up to the North.
+The ladder you climbed down was raised up by the barkeep who saw you climbing
+down.  Gus is here.
+
+> n
+You move north.
+
+Southside
+You're at the Southside of the area. The smell of rotting fish is quite bad
+here mainly because of the docks that are a little ways to the East. People
+walks by you in a hurry all looking for their next quick fix or getting ready
+to mug a lost tourist. A small streetlight stands beside a large warehouse to
+the West, the building is old and seems to have been shot numerous times
+because bulletholes cover almost the entire front side of it. A small alley
+to the South seems is probaly used often for drug trades and silent killings.
+
+> w
+You move west.
+
+Warehouse
+The large warehouse echos as you walk into it's huge interior. You can hear
+rats surrying across the floor as you make your way through the inside. Cold
+air chills you as you walk past an open freezer. A strange man sits in the
+corner of the warehouse, chanting strange words. The walls drip with dried
+blood from any past murders that were commited here. This is definetely not a
+safe place.
+
+> use bottle on freezer
+You place the bottle of beer in the freezer and leave it for a few minutes.
+When you take it back, you find that it's now nice and cool.
+
+> e
+You move east.
+
+Southside
+You're at the Southside of the area. The smell of rotting fish is quite bad
+here mainly because of the docks that are a little ways to the East. People
+walks by you in a hurry all looking for their next quick fix or getting ready
+to mug a lost tourist. A small streetlight stands beside a large warehouse to
+the West, the building is old and seems to have been shot numerous times
+because bulletholes cover almost the entire front side of it. A small alley
+to the South seems is probaly used often for drug trades and silent killings.
+
+> s
+You move south.
+
+Alley
+The small alley smells like wet fur and the stench is almost unbearable.
+Garbage covers almost the entire cement ground and it all seems to have been
+here for awhile, maggots have covered almost everything. You can see a man
+sitting beside a large dumpster playing with his fingers. He says his name is
+Gus and that he lives in this alley. You can see a street up to the North.
+The ladder you climbed down was raised up by the barkeep who saw you climbing
+down.  Gus is here.
+
+> give bottle to gus
+Gus takes the bottle and quickly gulps it down. With a nod, he says he'll now
+answer any questions you have.
+
+> ask gus about baxter
+"I shouldn't be doing this, but here. I'm actually a reporter for the Daily
+Bulletin. I've been here a week already trying to get a story on Baxter
+Jones. I did actually get something, a few minutes ago Jones came down here
+with a guy named Jimmy. Jimmy pulls a knife on him, but is quickly shot in
+the chest by Baxter. Jimmy's tossed in the dumpster and I just lay here
+pretending I'm asleep. I was really taking pictures of the whole incident.
+Here, you can have them. This'll prove that Mr.Jones really is up to no
+good."
+
+ With the photos, you call the department and get someone to send over a
+warrant. You quicky read it over and it states that Baxter Jones owns a
+private houseboat at the Docks.
+
+> n
+You move north.
+
+Southside
+You're at the Southside of the area. The smell of rotting fish is quite bad
+here mainly because of the docks that are a little ways to the East. People
+walks by you in a hurry all looking for their next quick fix or getting ready
+to mug a lost tourist. A small streetlight stands beside a large warehouse to
+the West, the building is old and seems to have been shot numerous times
+because bulletholes cover almost the entire front side of it. A small alley
+to the South seems is probaly used often for drug trades and silent killings.
+
+> e
+You move east.
+
+Docks
+The docks smell like rotting fish and it quickly makes you quite sick.
+Fisherman sit on their boats taking a nap before heading off on their next
+job. You can see the outline of the city far to the North where law is
+actually enforced. A large houseboat floats a little to the North of the
+dock, no one seems to be on it at the moment.
+
+> n
+You move north.
+
+Deck
+The deck of the houseboat is actually very clean. A few puddles of water
+adorn some of floor, but it's basically spotless. A few chairs are lined up
+against the rail but they're all vacant. The door to the interior of the boat
+is to the North but it is locked tight. The sounds of the water calm down
+your nerves as you sneak quietly across the deck.
+
+> take batteries
+You take the batteries and place them in your coat. No one'll miss them.
+
+> use batteries on flashlight
+You jam the batteries on the flashlight which gives it the power to turn on
+and off.
+
+> use crowbar on door
+Since you have a warrant, you stick the crowbar in the door and pry open the
+door quietly. You sneak inside the boat silently.
+
+> use crowbar on ice
+The chip away at the ice and are surprised when the huge block slips out and
+lands on the floor. The trapdoor now sits accesible in the fridge.
+
+> d
+You move down.
+
+Dark Room
+You're in a very dark lit room which seems to sway as the boat moves in the
+water   You can't really see anything because of the total darkness.
+
+> turn on flashlight
+You switch on the flashlight and the room lights up.
+
+> search body
+You search through the corpses's clothes and find a pack of bullets in his
+back pocket.
+
+> load gun
+You place the bullets in the gun and load it up. Now you're truly ready to
+take down the scum of the city.
+
+> u
+You move up.
+
+Kitchen
+The small kitchen in the houseboat is almost barren. The frudge is empty of
+all foods, the cupboards are empty except for dust that covers their insides,
+and the table in the middle of the room doesn't seem to be used very often. A
+thin layer of dust covers its top. There's a door to the North that leads
+into the living room.  A trapdoor can now be moved into to. You wonder why
+Jones would close it off...
+
+> n
+You move north.
+
+Living Room
+The dark living room is quiet except for the sound of something moving behind
+a door to the North. A large couch moves a little back and forth as the boat
+sways in the water. There's an open window which lets in the sea air and
+makes the room smell like salted crackers. You get a bad vibe from the room
+and you decide you be wary.
+
+> n
+You open the door and enter the bedroom.  Baxter Jones stands in front of you
+ready to shoot!
+
+> shoot baxter
+You draw your gun and quickly hit the trigger. Baxter is hit in the chest and
+he falls back onto the bed. You quickly drop the gun and call the police with
+the phone by the bed. The police come and you show them the secret stash
+hidden in the bottom of the boat. The police congratulate you as you have
+stopped one of the most ruthless druglords in the state.  Good job officer,
+you've won the respect of the city and can now afford your own houseboat.
+You scored 120 out of the maximum 130!
+That is 92% of the game!
+You finished 10 points short.
+
+[Press any key to end]

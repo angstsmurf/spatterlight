@@ -1,0 +1,213 @@
+
+> e
+You move east.
+Corner
+The corner is very dark. Every street light is out. Or busted. The pitter patter of the rain doesn't calm my nerves. Jason Evans house is to the east and south is the alley where I drop this trash. Jason Evans is crazy. I would never go over there. They say his parents beats him or he beats his parents or something. But he really just went crazy. Surprised the police hasn't got him yet.
+
+> e
+You move east.
+Outside of Jason Evans House
+This place is scary. I will never go any farther. Jason and his family are nuts. Complete fruitcakes. I wouldn't be caught dead in there.
+
+> knock on door
+I knock on the door. I hear shouts and screams from the inside. It sounds like a chair is thrown and a boy yells. The door opens but it appears noone is home. I start out the door until you see it is locked. Locked in a house full of physcos. I look at the disgusting kitchen and almost hurl.
+
+> use chair on fridge
+I put the chair next to the fridge. I climb up and grab the milk. Suddenly a man bursts through the window. I fall off the chair and land on the floor. I have to get out of here.
+
+> n
+I go in the room and quickly lock the door. The man beats on the door in anger. "You know Jason? Kid. You hear me. You know him? Jason doesn't have any friends." I hear a motor and a chainsaw starts ripping through the door. This people are insane.
+
+> get bar
+Take what?
+
+> use bar on window
+I break the window and I am out the house carrying milk. I am in another alley. 
+
+> look
+Back Alley
+This alley is the same as the others. Dirty and nasty. The only difference is an eagle statue. It is very big. Looks pretty scary. Looks like someone threw it out the window. I wonder if Jason Evans was in a cult. To the west is another alley.  Also here is eagle statue.  Dad is here.
+
+> get eagle statue
+You pick up eagle statue.
+
+> w
+You move west.
+Deep Alley
+This place is grimier. Certainly disgusting. Roachs crawl all over the place. There is an apartment building here. My house is to the left of me.   I hear a voice yell from your window. "Never mind that! Go over to Jason Evans and get some milk." my father shuts the window on me. I stand terrified of what can happen to me. What if they hang me. Or shoot me. Or something. I hate my life. But I probably wan't have any in a few minutes.
+
+> n
+You move north.
+Alley
+It appears the dumpster isn't here. The alley is grimey and disturbing. Trash is up to my shoes. This town is freakier than I wished. The window of Jason Evans is here. I don't wanna know what gos on inside. The alley grinds south. Toward a darker atmosphere.  A man is here.  I walk along fine until a noise rips through the distance. A familiar noise of a chainsaw. It gets closer and closer until it is almost by my ear. I look up and see the man on the roof of his house. He disappears suddenly. Until he rounds the corner with his saw. His eyes are develish. His fingers are horribably disfigured. They clutch the saw and he puts a grin on his face. "You know what? Jason is gonna die. His mother too. I just can't take it. The boy is just evil. You want to make him evil too. See my fingers. My wife flattened them with a sledgehammer. My son has join some cult and mumbles about pure all the time. My life is a wreck. It is all because of you!" then he lurches forward but trips on his on self. It will take a while for him to get up.
+
+> break statue
+I break the statue and the man is stunned. "Oh , no." he starts to chant undescribable words. He looks like a scared puppy. He falls to the ground and cries. I step over him and run for my house. 
+
+> knock on door
+I knock on the door but noone answers. I may have to go to the west and try my backdoor. Elm Street is that way.
+
+> w
+Elm Street. I hate this place. A perfect street to go on when mysterious things are happening. I might as well be in Rustin Parr's cabin.
+
+> s
+You move south.
+Side of House
+The side of the house is hear. There is no window. There is a fire escape here. This alley is very small. Crammed almost. I am stuck between two gross buildings. My backdoor is locked. That is unusual. Very unusual.
+
+> climb fire escape
+I climb the fire escape unto the other building. The building is the only one on Elm Street. The building is an old warehouse. I am on the roof.
+
+> take key
+I take the key and the floor falls from under me. I black out for a while and wake up. I am in a strange room. Like a room someone used for worship. Candles are lit and it looks like one of those movies about witchcraft. Strange things surround me. Odd-looking bowls of all shapes and sizes. But what glows above everything else is a statue with words engraved into it. I step closer but my foot goes right through the floor. It must be guarded or something.
+
+> take candles
+Are you sure? Type it again if you are.
+
+> take candles
+I take some of the candles.
+
+> o
+I step out of the room and my family car is waiting for me. It is strange noone is in it.
+
+> e
+You move east.
+Elm Street
+Elm Street is scary. The street is pretty much abandoned. There is only one house on this street. This street stretches for miles. This street has a dark history. The side of my house is south. That goes into an alley. Another filthy alley.
+
+> e
+You move east.
+Outside of House
+It is raining hard. My house is blacked out by the rain. Normally it would look spectactular. Too bad it is a rainy night. To the east of me is more road. Me and my family is new so we only know so much. We know that the dumpster is somewhere around here. But I know it's east.
+
+> unlock door
+I unlock the door and step inside.  The phone rings. 
+
+> answer phone
+I pick up the phone and I hear the voice on the other line. "Well, well, well. Look what we have here. Why, you are nothing but a rat trapped in a maze. You think you're gonna get out of this one. Well, I have the tools set out for you. All of it. Everything. Are you smart enough my friend? Use your wits. I am sure you will figure out a way to escape. I'll give 30 minutes(60 turns) to figure it out. This will be amusing."he says and hangs up. 
+
+> take toaster
+I move the toaster and I see aluminum foil behind it. 
+
+> get foil
+You've already got aluminum foil!
+
+> use aluminum foil on toaster oven
+I place the aluminum foil and light up the toaster oven. "You fool!" the voice yells. Apparently, he forgot about something. The fire is a little slow. I need something to get it going.
+
+> get herbs
+Take what?
+
+> use herbs on toaster oven
+That lit it up. Flames burst around me. The flames circle me. Before my vision blackens I see Jason Evans.........          Hunters
+Hello, I am Keith Manning and you will have my first person view of the "hunters" scheme. Hunters hunted ghosts and things. We never thought we would be the victims. Never did. We thought stupid charms and things would protect us. We were wrong. Very wrong. Spirits can control bodies. Making them an unsurpassable force against humans. Some have a taste for blood and some don't. Welcome to my world. 
+
+You sit by the campfire and sing along with your mates. Joey, Jacky, and your good friend John. Joey is a true hunter. He has been hunting for years and he still doesn't believe in the Blair Witch. Jacky is a girl you and John picked up. John is here to get scared. You are just bored of staying in the house all day. The campfire crackles and pops. "Hey Keith, go get some wood." John says.
+
+> n
+You move north.
+Woods
+Nothing but wood surrounds you. Not any particular feature on this land except for a bright light that shines north. A woodpecker pecks a hole in a tree.   Also here is fire wood.
+
+> get fire wood
+You pick up fire wood.
+
+> s
+You move south.
+Campfire
+The campfire is barely alive. It is dying down quicker than you expected. North is where John and Jacky usually get wood. But there are directions all around you. Even you don't remember them all.   Joey, Jacky and John are here.
+
+> use wood on campfire
+You put the wood on the fire to light it up more. The John questions you."Did you find anything unsual Keith?" he asks. Well, did you?
+
+> ask John about diary
+(You are taking a short path.)"Wow, this is amazing! We have to go check out that cabin now. Pack your stuff because we have to check out this camp." They pack their bags and leave towards the cabin.   You see John here and he quickly pulls you to the ground. "That is the house in which the mother of Jason Evans lived. She used to work on a railroad until she was fired. She then had no money to support her son and moved. They moved in with her divorced husband. But that didn't work out so well so she moved back to her little cabin for something. Here is her diary and a long rusty key I found. Stay out here and be on the lookout for anything suspicious. If you see anything suspicious yell and if we aren't back in ten minutes come and get us." he says and runs off.
+
+> in
+You move in.
+Cabin
+The main room of the cabin is old. There are two places to go. Down to the basement or upstairs.   John looks scared at what he sees. He looks like he never believed in this kind of stuff.
+
+> u
+You move up.
+Upstairs
+Here the walls are tore down and pictures barely stay on the walls. A bed looks raised by something big. Very big.  Joey is here.
+
+> look under bed
+You see a chest and pull it out to find one hundred dollar bill. It looks like the rest of the money is gone.
+
+> rtufghsdfvg
+You are outside of the cabin panting and taking in breath when you see flames that tower over the cabin. A forest fire! A burning tree branch falls on the cabin. "Help! We are down here!" someone yells from the basement of the cabin. 
+
+> in
+You move in.
+Burning Cabin
+A fallen branch prevents you to go any further up. The fire seems to get hotter.
+
+> d
+You move down.
+Burning Basement
+The basement is on fire. A key and a chest is here. The words "Help!" come from the chest.
+
+> take key
+You take the key and open the chest. Lights. Woman. Man. Shoe. After that you are unconscience. The scientists don't believe my story. You do. Don't you? This night of real live horror is scarier than any supernatural stuff. I remember being in the trunk of a red family car. When the trunk was opened I jumped on a teenager and wrestled him to the ground. After that I ran. That was the scariest experience in my life. Castle 
+
+Warning this senario is not suitable for little punks who are playing in the daylight. If you are please come back and try at night. Type continue to start.
+
+> continue
+"What do you have to say about Jason Evans? What do you think?"reporters crowd you and ask all kinds of stupid questions. Jason Evans's legacy told of a twisted family in which everyone killed someone. A long story. Anyway, you are a contestant for this "castle" Jason Evans bought and decorated then left. Or so they say. They say Jason was a follower of Karbaruk, a cult, and he practiced all sorts of demon projects in this castle. The twist to this castle is that once you are in you will never get out. There are five other people in the building and noone will accompany or even try to help you out. First person out alive and unscathed will be given five thousand dollars.
+
+Reporters are practically all over you and speakers poke your nose. You are late. The other people are already in there. You never really got their names.
+
+> n
+You move north.
+Front Door of Castle
+The castle is much more lovely than you thought. No reporters to ask stupid questions here. Just a door away from a haunted house.  Your host is here swinging a key around his finger.
+
+> ask host about key
+"Here is the key to the castle my good friend." he puts his hands around yours and you find out they are cold and clammy. "The castle is large. Make sure you be in there for a long time and try to scare yourself. It's good on tape. In the downstairs kitchen is a box. Open it and you will find a key. Then open the backdoor. " then he puts a hat on your head that has a small camera attached to it. He cuts it on and gives you the go ahead.
+
+> unlock door
+The key almost breaks. The castle door is unlocked.
+
+> in
+You open the door and step in as the crowd cheers you on.
+This is not what you expected. A presence of death is all around you. Death is illustrated on the walls by paintings and statues. But what scares you the most is a lifelike statue covered in clothing that is hung from the ceiling. Voices are heard overhead. "No, I didn't do it. Nooooooooo!" the voice rings through your ears. Today is going to be a day to remember.
+
+> w
+You move west.
+Kitchen of Castle
+Pots and pans are scattered around here. A big box occupies the sink. Everything here is dirty. Cabinets fall off the wall.   Also here is big box.
+
+> open box
+You open it and the box has nothing in it. "Boom!" a loud noise comes from death hall.
+
+> e
+You move east.
+Death Hall
+Death is the main theme here. As it is decorated full of sad art and statues. The most disturbing is a statue that hangs from the ceiling. He is decorated in lifelike clothes and looks almost real. A kitchen is west and a torture room(not as bad as it sounds) is east. Tell you don't want to go in the torture room.  The statue is gone.  The hanged man stands from his noose. He is alive.  The hanged man is not hanging from his noose anymore. He is alive and ready. You duck as he swings his axe and you jump into the torture room.
+
+> w
+You move west.
+Death Hall
+Death is the main theme here. As it is decorated full of sad art and statues. The most disturbing is a statue that hangs from the ceiling. He is decorated in lifelike clothes and looks almost real. A kitchen is west and a torture room(not as bad as it sounds) is east. Tell you don't want to go in the torture room.  The statue is gone.  The hanged man stands from his noose. He is alive.  The hanged man lurches forward at you but cracks his errr..... shoulder on the door. He falls to the ground and will take a moment to recover.
+
+> break sword
+You try to break the sword but it won't work so you throw it against the Hanged Man's head and when it breaks he falls to the ground and wimpers. A rumbling noise starts and the ceiling falls on you and all vision blackens......"Rise from the ashes Lord Karburak and dominate all." Jason Evans stands in front of the wreckage of the fallen castle. "Another presence. I want his pure blood. With that I will be ressurected. " a voice from the ground shouts. Jason turns his head and sees you. His eyes are devilish and his face is calm. "Ha, ha, ha. I shall be second command. It is over man. Don't you understand. Do you think you can overthrow the master of all things? Well, Karburak will be avenged. Noone can stop him. I will surely not let you." he then sits and meditates or something. It looks kind of strange. 
+
+> look
+Wreckage of Castle
+The castle has been demolished by something. The sky is dark black . The ground rumbles and as you try to keep balance you see a road south.  Also here is a rocks.
+
+> get rocks
+You pick up the rocks.
+
+> use rocks on cars
+You throw the rocks and you get an angry driver. You tell him you are in danger and he lets you in. 
+
+The driver looks mad as we zoom across the road. "Do you know what you have done? You idiot! Lord Karburak is Jason Evans's creator to him. You don't know that? Karburak is an evil demon. I was there trying to tell the contestants not to go in but they wouldn't listen." he says. This is coming on way too fast. A Lord called Karburak that has taken over Jason Evans's and his family's body to do his own dirty work. This is too much. "Oh my-" the driver screams and the car flips over. "It's raining blood!" were the first words to come out of the driver's mouth. All around blood comes down in drops. The place you see is of another world. People screaming and things flying. Suddenly, an arrow silences Jason's laughing and he is hanged on a tree along with his mother and father. This town is long forgotten. It is plagued with darkness. Some say the blood still rains in the town but noone knows where the town is. Only a single survivor named Cody Brandt told the story. Of the town which received the wrath of Jason Evans. The stories may be true. Or they may not. The town is yet to be discovered. The town that is gone forever. (For an explanation or theory of the Jason Evans stories type Keith's Theory, My Theory, or Cody's Theory)  
+You scored 140 out of the maximum 0!
+That is 100% of the game!
+You finished -140 points short.
+
+[Press any key to end]

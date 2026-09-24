@@ -1,0 +1,54 @@
+e
+e
+knock on door
+use chair on fridge
+n
+get bar
+use bar on window
+look
+get eagle statue
+w
+n
+break statue
+knock on door
+w
+s
+climb fire escape
+take key
+take candles
+take candles
+o
+e
+e
+unlock door
+answer phone
+take toaster
+get foil
+use aluminum foil on toaster oven
+get herbs
+use herbs on toaster oven
+n
+get fire wood
+s
+use wood on campfire
+ask John about diary
+in
+u
+look under bed
+rtufghsdfvg
+in
+d
+take key
+continue
+n
+ask host about key
+unlock door
+in
+w
+open box
+e
+w
+break sword
+look
+get rocks
+use rocks on cars

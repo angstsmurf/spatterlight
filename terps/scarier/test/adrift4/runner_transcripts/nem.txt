@@ -1,0 +1,200 @@
+
+> get oars
+You take the pair of oars.
+
+> w
+You move west.
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming through a hole in the ceiling many hundreds of feet above you. The cavern has a large fresh water pond with an island in the middle and vegitation all around.   Exits are roughly carved doorways to your west,east, north and south. There are tunnel entrances in the undergrowth that seem cleverly designed to let people come through them into the cavern but you cannot open the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif the noble looking Chief is here.  A shining angel of light is hovering in this place.  You can move north, east, south and west.
+
+> use oars
+You get in the rowing boat you find hidden under palm branches by the pond and row to the island in the middle of the pond. However, the boat has a leak and you just manage to leap onto the island before losing both the boat and the oars.  
+On a small island.
+You are on a small island with many palm trees. A small sanctuary is hidden in the trees with a sign besides it.
+
+> remove shoes
+You leave your shoes outside the main entrance to the sanctuary and go in.  
+In the Sanctuary
+You are in a very holy place and you feel the presence of the Divine. It is a place of prayer with no seats but kneeling cushions only and a golden altar by the far wall. On the altar is a note that reads 'For the Shepherd's Mission step 4 just push the altar!'  By the altar there is a tunnel you may be able to go in if you are allowed.  Also here is a golden prayer cushion.  Reyarp, the cloaked man, is kneeling before the altar.  You can only move out.
+
+> pray
+As you pray and repent of your sins before the Great One a golden key materializes on the altar in front of you. The cloaked man rises, hugs you and says, 'You are now almost ready for your mission. There is one more thing. You must ask the Chief what to do next.'  Suddenly the heavens seem to open and you are surrounded by glorious light which lasts for some time.
+
+> get key
+You take the golden key.
+
+> out
+You move out.
+On a small island.
+You are on a small island with many palm trees. A small sanctuary is hidden in the trees with a sign besides it.  Also here are your smelly shoes.  The glorious light bathes you and you feel the pleasure of the Great One.  You can only move in.
+
+> get shoes
+You take your smelly shoes.
+
+> wear shoes
+You put on your smelly shoes.
+
+> in
+You move in.
+In the Sanctuary
+You are in a very holy place and you feel the presence of the Divine. It is a place of prayer with no seats but kneeling cushions only and a golden altar by the far wall. On the altar is a note that reads 'For the Shepherd's Mission step 4 just push the altar!'  By the altar there is a tunnel you may be able to go in if you are allowed.  Also here is a golden prayer cushion.  Reyarp, the cloaked man, is kneeling before the altar.  The glorious light bathes you and you feel the pleasure of the Great One.  You can move in and out.
+
+> in
+You move in.
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming through a hole in the ceiling many hundreds of feet above you. The cavern has a large fresh water pond with an island in the middle and vegitation all around.   Exits are roughly carved doorways to your west,east, north and south. There are tunnel entrances in the undergrowth that seem cleverly designed to let people come through them into the cavern but you cannot open the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif the noble looking Chief is here.  A shining angel of light is hovering in this place.  The glorious light bathes you and you feel the pleasure of the Great One.  You can move north, east, south, west and in.
+
+> in
+You move in.
+In the pond.
+You are swimming in the pond in the cavern which is quite deep. The water is crystal clear and on the bottom of the pond you can see something. There is an underground tunnel you can dive into (type 'dive into tunnel' - this is for Seer's mission Step 4)).  Also here is a pair of oars, a carved necklace and an old boot.  The glorious light bathes you and you feel the pleasure of the Great One.  You can move up and out.
+
+> get necklace
+You take the carved necklace.
+
+> out
+You move out.
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming through a hole in the ceiling many hundreds of feet above you. The cavern has a large fresh water pond with an island in the middle and vegitation all around.   Exits are roughly carved doorways to your west,east, north and south. There are tunnel entrances in the undergrowth that seem cleverly designed to let people come through them into the cavern but you cannot open the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif the noble looking Chief is here.  A shining angel of light is hovering in this place.  The glorious light bathes you and you feel the pleasure of the Great One.  You can move north, east, south, west and in.
+
+> n
+You move north.
+The pioneer cave.
+This is a simple cave with a metal door to the north with the word 'Pioneers enter here' on it.  The glorious light bathes you and you feel the pleasure of the Great One.  You can only move south.
+
+> use key
+The door unlocks and swings open. You hear other doors all over the cavern complex locking with a roaring 'click' sound.  You feel the whole mountain trembling. It must be an earthquake!
+
+> n
+You move north.
+The Pioneer Room.
+You are in a room that looks like it's an army briefing room with maps and the like. There is also a large wooden explorer's box with a lid in one corner. To the north is a window with a hot air balloon waiting patiently, the basket just at the right height for you to step into it.  Also here is an old map.  The glorious light bathes you and you feel the pleasure of the Great One.  Pieces of the mountain are dropping onto the floor due to the earthquake.  You can move north and south.
+
+> get map
+You take the old map.
+
+> open box
+You open the explorer's box.  A navigational compass is inside the explorer's box.
+
+> get compass
+You take the navigational compass from the explorer's box.
+
+> n
+You move north.
+A hotair balloon.
+This is a hot air balloon waiting to take you on the Pioneer's mission. The pilot says he will take you to a sea platform to start your mission. The pilot informs you to type in 'start mission' if you are quite ready. This is Pioneer mission step 4.  Pieces of the mountain are dropping onto the floor due to the earthquake.  You can only move south.  The earthquake is over.
+
+> start mission
+'Yes Sir!", says the pilot and he takes you to a sea platform at the base of the mountain to start your mission.  
+A sea platform.
+You are at the base of a mountain to your west  (Mount Noiz) standing on a sea platform. A lift leads upwards. A vast sea (of Nis) stretches out to your east. A small ship is moored here. The eerie wailing sound you heard from above is the sea crying for you to rescue the lost souls.  Also here is a bag of sweets.  Your missions Director, Rotcerid, stands here with you.  You can only move up.
+
+> get sweets
+You take the bag of sweets.
+
+> show map
+Well, well! This is uncharted territory for me but I can tell you how to get there. Just keep going eastwards in my ship until you come to a Jetty. Go now, here are the keys to my ship....you get in and launch off eastwards...  
+The Sea of Nis 1
+You are in the Sea of Nis. To your west is a small platform at the base of Mount Noiz. Eastwards lies the sea as far as you can see. North and south you can also only see sea. You are travelling in Rotcerid's small ship.  You can move north, east, south and west.  A large eacle annoys you by continally swooping down at you.
+
+> s
+You move south.
+The Sea of Nis 5
+You are in the Sea of Nis on a small ship. Mount Noiz is towering over you to the west and you can see distant land to your south. To your north and east the sea stretches as far as you can see.  The eagle seems to be eyeing something you are carrying.  You can move north, east and south.
+
+> s
+You move south.
+The Sea of Nis 6
+You are in the sea of Nis on a small ship. Mount Noiz looms high to your west and a cliff face coming out from the mountain towers to your south. To your east is a beach leading onto an outcropping from the base of the mountain. Sea stretches as far as you can see to the north.  The eagle seems to be eyeing something you are carrying.  You can move north and east.
+
+> e
+You move east.
+A beach.
+This is a beach on an outcropping coming from the base of Mount Noiz. The sea of Nis lies to your west, north and east. To the south is a dense jungle. Rotcerid's ship is moored on the northern side of the beach.  You can move north, east, south and west.
+
+> look
+A beach.
+This is a beach on an outcropping coming from the base of Mount Noiz. The sea of Nis lies to your west, north and east. To the south is a dense jungle. Rotcerid's ship is moored on the northern side of the beach.  You can move north, east, south and west.
+
+> look
+A beach.
+This is a beach on an outcropping coming from the base of Mount Noiz. The sea of Nis lies to your west, north and east. To the south is a dense jungle. Rotcerid's ship is moored on the northern side of the beach.  You can move north, east, south and west.
+
+> look
+A beach.
+This is a beach on an outcropping coming from the base of Mount Noiz. The sea of Nis lies to your west, north and east. To the south is a dense jungle. Rotcerid's ship is moored on the northern side of the beach.  Also here is a navigational compass.  You can move north, east, south and west.
+
+> get compass
+You take the navigational compass.
+
+> n
+You move north.
+The sea of Nis 7.
+You are in the Sea of Nis in a small ship. To your distant west mount Noiz looms out of the water. North and east the sea stretches as far as your eye can see. To your south is a beach on the edge of what looks to be an outcropping from Mount Noiz.  You can move north, east, south and west.
+
+> n
+You move north.
+The Sea of Nis 2.
+You are travelling on the small ship in the sea of Nis. Mount Noiz looms tall  to the west and the sea stretches endlessly to the east. Distant land can be seen to the north and south.  You can move north, east, south and west.
+
+> e
+You move east.
+The Sea of Nis 3.
+You are on the small ship in the middle of the sea of Nis. Mount Noiz is in the distant west and you can just make out signs of a settlement to the east.  You can move north, east, south and west.
+
+> e
+You move east.
+The Sea of Nis 4.
+You are in the small ship on the sea of Nis. Mount Noiz can barely be seen to the west and you see a large settlement coming up on the east.  You can move north, east, south and west.
+
+> e
+You move east.
+The Dehcaernu Jetty.
+This is the westernmost jetty for the Dehcaernu people. No one is here except you. Rotcerid's small ship is here.  Also here is a black cap.  You can move north, east, south and west.
+
+> e
+You move east.
+The Dehcaernu entry point.
+At the end of the jetty to the west, this is the entry point to the Dehcaernu settlement. You see the settlement stretched out eastwards,  a longhouse on stilts over the Waters of Nis.  There is a Dehcaernu guard sitting in a small guardpost.  You can only move west.
+
+> give sweets to guard
+The guard suddenly lights up as you give him the sweets. He happily beckons you to pass by the check point and enter the Dehcaernu Settlement.  
+The Dehcaernu Settlement.
+You are in the main Dehcaenu Settlement which is a long wooden row of houses and shops built on stilts over the sea. West is the entry point and east in the market. North and south are various narrow buildings on the overall longhouse.  You can move north, east, south and west.
+
+> e
+You move east.
+The Market Place.
+This is the bustling market place of the settlement. The seller before you has a stall full of long wooden rods called 'speaking rods'.  Relles, the main seller is there.  You can only move west.
+
+> give relles compass
+Relles smiles and gladly takes the compass. He puts one of the speaking rods in your hands.
+
+> w
+You move west.
+The Dehcaernu Settlement.
+You are in the main Dehcaenu Settlement which is a long wooden row of houses and shops built on stilts over the sea. West is the entry point and east in the market. North and south are various narrow buildings on the overall longhouse.  You can move north, east, south and west.
+
+> n
+You move north.
+The Tribal Council Place.
+This is an open area where all the heads of the houses are gathered for a tribal council. They all sit in a circle and one elder goes into the middle, taps his long pole on the ground and eveyone listens to what he has to say or watches the message he draws in the dust.  Ranog, the Tribal Chief of the Dehcaernu stands in your midst.  It looks like a battle with all the natives beating each other with their sticks.  You can only move south.
+
+> use speaking rod
+All action stops and all eyes turn on you as you tap the rod on the floor. They wait for you to draw something in the dust or speak. What will you do ?  Ecaep walks towards you.  Relles walks towards you.
+
+> draw a picture of mount noiz
+Suddenly Chief Ranog gets up and says (through the interpreter Ecaep) that he wants to follow you to Mount Noiz. He and Ecaep proceed to follow you to Mount Noiz in your ship......  Nam Rehsif majestically walks towards you.  Reyarp walks towards you.  Ranog walks towards you.  Ecaep walks towards you.
+
+> receive garland
+You gladly receive the garland and a loud fanfare of trumpets fills the air plus the cheers of the crowd.
+Congratulations! Well done good and faithful servant!
+
+You have finished your mission.
+
+There are four other missions in this one adventure you may or may not have already accomplished. Try another one....
+You scored 170 out of the maximum 680!
+That is 25% of the game!
+You finished 510 points short.
+
+[Press any key to end]

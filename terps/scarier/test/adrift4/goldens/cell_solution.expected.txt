@@ -1,0 +1,283 @@
+Loading game...
+
+The Cell
+You open your eye's to find yourself in a strange room.  You don't seem to
+remember anything.
+
+> look under rug
+You see a key.
+
+> get key
+You pick up the rusty key.
+
+> open door
+The door is now open.
+
+> n
+You move north.
+
+In the hall
+You are in a hall.  The hall has some nice wall paper, but is quite empty.
+You can move north, east, south and down.
+
+> n
+You move north.
+
+In the bathroom
+You are in a bathroom.  The bathroom look's shiny.  There is a toilet and a
+sink.  You can only move south.
+
+> look at drain
+There is something stuck in the drain.  It looks like a paperclip.
+
+> get paperclip from drain
+You can't take anything from the large drain!
+
+> pick up a paperclip
+You picked up the paperclip!
+
+> s
+You move south.
+
+In the hall
+You are in a hall.  The hall has some nice wall paper, but is quite empty.
+You can move north, east, south and down.
+
+> d
+You move down.
+
+At the stairs
+You are at stairs going down.  There is a door at the bottom of the stairs.
+You can only move up.
+
+> open door with paperclip
+You just picked open the lock on the door with your paperclip.  The door is
+now open.
+
+> d
+You move down.
+
+At upper Dairy street
+You are outside. A sign says that it is upper Dairy street.   It looks misty.
+ The street is busy with people.  There is a man gesturing at you.  You can
+move north, south, west, up and down.
+
+> look at man
+The man says that his name is Eagle and that If you want to live, you must
+follow him.  He also says that you must not trust anyone.  He starts to walk
+south.
+
+> s
+You move south.
+
+At lower Dairy street
+You are at lower Dairy street.  It is misty.  This street is very busy.  You
+see a man leave south.  You can move north, east and south.
+
+> e
+You move east.
+
+In the alley
+You are in a dark alley.  You have the feeling that your being watched.  You
+can move west and down.
+
+> d
+You move down.
+
+In the sewer
+You are in a sewer.  Also here is a lead pipe.  You can only move up.
+
+> get pipe
+You pick up the lead pipe.
+
+> u
+You move up.
+
+In the alley
+You are in a dark alley.  You have the feeling that your being watched.  You
+can move west and down.
+
+> w
+You move west.
+
+At lower Dairy street
+You are at lower Dairy street.  It is misty.  This street is very busy.  You
+see a man leave south.  You can move north, east and south.
+
+> s
+You move south.
+
+At Main street
+You are at main street.  There seems to be less people around here.  You see
+a man leave south.  You can move north and south.
+
+> s
+You move south.
+
+At a store
+You are at a store.  There seems to be no people here.  There is a door in
+the back.  You see the man go through the back door.  You can move north and
+south.
+
+> s
+You move south.
+
+At the warehouse
+You are at the warehouse.  This is a large, empty room.  You see a man leave
+east.  You can move north, east, south and west.
+
+> e
+You move east.
+
+At the office
+You are at a office.  There is a desk, and a funny looking wall in this room.
+ The man that you saw enter the room seems to have disappeared.  You can only
+move west.
+
+> look under desk
+There is a piece of paper.
+
+> get paper
+You pick up the piece of paper.
+
+> say eagle
+Suddenly, as you mumble these words, the walls start to shake.  The ground
+starts to split right before you.  Everything around you starts to melt, and
+dissolve.  The building starts to collapse.  Suddenly, you find yourself in a
+completely different room.
+
+> look at man
+The scientist says "Hello... my name is Matrick.  You must have been through
+allot.  I will explain everything to you later.  Untill then... just make
+yourself at home.  Here... let me open up my labratory to you..."
+
+> w
+You move west.
+
+At the pressure room
+You are at a air pressure room.
+
+> look at window
+You can see Matrick the scientist laughing at you through the window.  The
+glass looks very thick.
+
+> break window
+You try to break the window with your hands, but it doesn't work.  You
+luckily have a lead pipe that might actually break it.  You take out your
+pipe, and break the window.  You see Matrick the scientist on the other side.
+ As soon as you jump through the window, Matrick goes racing into the next
+room.
+
+> e
+You move east.
+
+At the teleporting room
+You are at the teleporting room.  There is a window, and a teleporting
+machine in this room.  The scientist that you saw enter the room is gone...
+You can only move west.
+
+> press red button
+The teleporting machine starts to make some funny sounds.  It looks like you
+pressed the right button.  You decide to get in the teleporting machine, and
+you are instantly teleported to a different location.
+
+> s
+You move south.
+
+At the forest
+You are the forest.  There is a tree next to the path.  You can move north
+and south.
+
+> shake tree
+A stick falls down from the tree.
+
+> get stick
+You pick up the long stick.
+
+> n
+You move north.
+
+At a field
+You are at a field in the middle of nowhere.  There is a man standing next to
+you.  You can only move south.
+
+> look man
+It is eagle.  He says "Hello.  As you might remember, my name is Eagle.  I am
+here to help you.  You must be very confused.  You see, a mad scientist named
+Matrick threatened to destroy the world, using a bomb.  The technology used
+for this bomb was more advanced than the world has ever seen before.  The
+United States hired two secret agents to deactivate this bomb.  You and me.
+Matrick learned about us, and succeeded in capturing you.  He erased your
+memory, so you would be useless in this mission.  Unfortunatly, your memory
+can never be restored.  You will have to start a new life.  You must help me
+stop Matrick, and save the world!"  Just as you start to follow Eagle, you
+hear a noise coming from above.  It is a helicopter.  Before you can do
+anything, you feel a sharp pain slice through your shoulder.  You have been
+shot.  Luckily it is only a tranquilizer.  You start to feel dizzy, and
+collapse on to the ground.  Hours pass...
+
+> smell
+In the air, you smell something that reminds you of a freshly cooked cake.
+With this refeshing smell, you slowly regain consciousness.
+
+> get key
+You try to get the keys on the desk, but you can't reach them through your
+cage...  Luckily, you have a stick.  You reach the keys with your stick, and
+bring them back to your cage.
+
+> open cage
+You open your cage.
+
+> w
+You move west.
+
+At Matrick's laboratory
+There is nothing of interest here.
+
+> open picture
+You pull the picture, and it swings open.  Behind the picture, you see a
+safe.
+
+> look under desk
+You see a card under the desk.
+
+> get card
+You pick up the card.
+
+> open safe
+You open the safe with the key card.
+
+> look safe
+There is a pistol inside the safe.
+
+> get pistol
+You pick up the pistol.
+
+> shoot matrick
+While Matrick is turned around, you shoot him in the shoulder.  He falls down
+onto the ground,  looks up in surprise, and sees you.  With his last words,
+he says "you may have killed me, but you will never stop my bomb from killing
+everyone..."
+
+> look at corpse
+Matrick is wearing a jacket.
+
+> get jacket
+You get a jacket from the corpse of Matrick.
+
+> look in jacket
+It is a sports jacket.  A computer chip is inside the jacket.
+
+> get chip
+You take a computer chip from the jacket.
+
+> deactivate bomb
+You instert the chip into the bomb, and the timer stops.  You have saved the
+world!  Congratulations, you won!
+THE END
+Made by Byron Knoll
+You scored 290 out of the maximum 290!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

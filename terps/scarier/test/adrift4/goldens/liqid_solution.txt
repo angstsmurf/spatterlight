@@ -1,0 +1,19 @@
+open dresser
+get off bed
+get pair of socks
+s
+w
+s
+w
+w
+ring bell
+wait
+wait
+ask joe about sword
+e
+n
+s
+e
+e
+e
+fight jenkins

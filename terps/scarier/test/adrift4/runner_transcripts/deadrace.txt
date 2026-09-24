@@ -1,0 +1,31 @@
+
+> w
+You move west.
+Your Bedroom
+Unlike the rest of your residence, your bedroom is relatively clean. Quite possibly because, but not limited to, your bedroom being relatively sparse. The floor is free of any debris of trash, and the bed is kept in relative neatness. There are windows on the west side of your room, along with your bed on the east side. There is a dresser here along with your work desk. Interestingly enough, there is no closet here. The living room is to the east.
+
+
+
+> look at window
+
+Your bedroom window faces an alley way. Upon closer inspection, it looks as though you could climb out your window and possibly reach another building. (If you want to try this, type open window)
+
+
+> open window
+
+You quietly slide open the window. You glance outside and note that there doesn't appear to be a zombie within line of sight of your window. There appears to be a ledge below you which appears sturdy enough to hold your weight. (If you want to try to escape by the ledge, type go out window)
+
+
+!!!
+Suddenly, you feel a jerking vibration in your pants. It's your cell phone! Who could that be? (To check your phone, type check text one)
+
+
+> go out window
+
+You as quietly, and carefully as you can slide open your bedroom window and climb outside to the ledge beneath your window sill. As you ponder your next move, you slip and start falling down towards into ... nothingness.
+press any key ...
+
+
+Why nothingness? Because this is just a demo. Hope you enjoyed it!
+
+[Press any key to end]

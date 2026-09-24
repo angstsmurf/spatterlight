@@ -1,0 +1,19 @@
+Petter
+male
+n
+d
+w
+get can of lubricating oil
+e
+u
+s
+put oil on bolt
+n
+u
+w
+e
+look
+s
+look
+quit
+y

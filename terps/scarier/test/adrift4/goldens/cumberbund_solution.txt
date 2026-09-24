@@ -1,0 +1,5 @@
+search under bed
+look in wardrobe
+open drawers
+quit
+y

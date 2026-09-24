@@ -308,7 +308,7 @@ static long os_ansi_input_line = 0;
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
 {
-  scr_bool echo_input;
+  scr_bool echo_input, scripted;
 
   full_flush ();
   if (feof (stdin))
@@ -346,14 +346,19 @@ os_read_line (scr_char *buffer, scr_int length)
    * ending prints "> GIVE FINGER TO DR. WICKETT", which the Wine compare
    * otherwise split off as a turn of its own (2026-09-19).
    */
-  if (getenv ("SCR_MARK_PROMPT"))
+  /*
+   * A `go <place>` walk types its own steps; show each as typed.  A step is
+   * part of the typed turn, the Runner echoing it as "> East" inside the
+   * walk, so it gets no \x02: outside's goto turns split in the compare.
+   */
+  scripted = scr_take_scripted_line (buffer, length);
+  if (getenv ("SCR_MARK_PROMPT") && !scripted)
     putchar ('\x02');
   putchar ('>');
   if (echo_input)
     putchar (' ');
 
-  /* A `go <place>` walk types its own steps; show each as typed. */
-  if (scr_take_scripted_line (buffer, length))
+  if (scripted)
     {
       fputs (buffer, stdout);
       putchar ('\n');

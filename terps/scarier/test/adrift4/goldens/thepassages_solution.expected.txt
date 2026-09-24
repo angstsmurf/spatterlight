@@ -1,0 +1,636 @@
+Loading game...
+
+The Passages
+Welcome to Player's Grand Journey. It starts here in Home Field...
+
+You are Player, an explorer with an unbridled sense of adventure.
+Your close companion and lifelong friend Pontaco is here in Home Field, ready
+to give you advice on where to go and what to do.
+
+***Begin by typing "Talk To Pontaco"
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Home Field
+You are in Home Field. This is where your close friend Pontaco can be found
+to give you advice and help you out.  To the North is North Field, the
+gateway to the rest of the world.  You shouldn't try going to North Field
+before you  talk to Pontaco.  Pontaco is here.
+
+> talk to pontaco
+"Hello! My name is Pontaco. I am here to give you advice on the game.
+To start you off, here's a few simple pointers.
+1) Whenever you meet someone new, you should always try talking to them
+first, just as you have done now, by typing "Talk To" followed by the
+person's name. Then, if you think a person knows about something in
+particular, you can type "Ask (person) About (something)" and if they know
+what you are talking about, they will give you an answer, but otherwise they
+will not respond to your question.
+2) If you ever come across anything you are not sure about, you can come back
+here at any time to ask me about it, and I will try to tell you more about
+it.. You can do this by again typing "Ask Pontaco about (something)"
+3) To see what you are carrying, all you have to do is type "Inventory".
+4) Finally, you should try as many things as you can if you get stuck, before
+coming to see me, as you will probably find that for the time it took you to
+come and find me again, you could have solved the problem for yourself.
+
+O.K., those are the basics, so let's get this show on the road. To find out
+more about what to do, just  ask me about the adventure."
+(Remeber, do this by typing "Ask Pontaco About Adventure")
+
+> ask pontaco about adventure
+"Every journey begins with a single step. You must seek Adventure and go on a
+Grand Journey to uncover the mysteries and magic of our world. Who knows what
+sort of weird and wonderful things you will discover along your way! The only
+way out of Home Field is by heading North, to North Field. From there you can
+go to wherever the world takes you. You should start by heading East as soon
+as you get into North Field.
+There you wil find the East Passage, which leads to Grand Ocean Bay. You will
+have to open the East Passage before you can travel through to Grand Ocean
+Bay.
+Remember to look around you whenever you  reach somewhere new, and to examine
+any strange objects you might come across. There are some objects that you
+can pick up and carry, and some that you can't.
+One of the most important objects you will come across are Magic Seeds. If
+you ever get badly hurt, you can eat a Magic Seed to boost your stamina.
+ If you want to find out more about an object, come back here and ask me
+about it and I will try to tell you more about it.
+Go North now, and then East to find the Gateway to the East Passage, and step
+foot into a greater world of Magic and Mystery!
+Come back here at any time if you need advice, my friend. Good Luck, Petter!"
+
+> n
+You move north.
+
+North Field
+This is North Field. From here you can travel South to Home Field, or travel
+East, West or North to go to the Gateways to any of the Passages that you can
+see around. There is a North Passage, a West Passage and an East Passage.
+Sometimes you may not be able to enter one of the Passages unless you perform
+a certain task or have a particular item.  Also here are Magic Seeds.  You
+can move north, east, south and west.
+
+> get magic seeds
+You have picked up some Magic Seeds. These are very rare, and very useful.
+You now have 10 Magic Seeds. Keep them by your side.
+
+> e
+You move east.
+
+Gateway To East Passage
+This is the Gateway to the East Passage.  The East Passage is a mysterious
+doorway which leads to Grand Ocean Bay.  Until the Passage is open, you can
+only go West, to return to North Field.  You can only move west.
+
+> open east door
+The East Passage has been opened. You can now travel East.
+
+> e
+You move east.
+
+East Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. You can see the way out not far from here.
+Keep going East to reach Grand Ocean Bay. Go West to return to the Gateway to
+the East Passage.  You can move east and west.
+
+> e
+You move east.
+
+Grand Ocean Bay
+You have come through the East Passage to Grand Ocean Bay. It is a beautiful
+place, with soft white sand and crystal clear water. To the West is the
+Passage which brought you here. To the East is nothing but a vast ocean. To
+the South is a dark and dangerous looking cave. You look ahead and see
+somebody staring at you.  Fontana is here.  You can move east, south and
+west.
+
+> talk to fontana
+"My name is Fontana. I have lost a Box of mine in the building to the North,
+the Grand Ocean Beach House. I have searched all over, but I just can't seem
+to find it.
+If you can find it for me, then maybe we'll talk more. If you find my missing
+Box, you can talk to me just like you'd talk to anyone else.
+(Ask Fontana About (something)
+If you find my box, just pick it up and bring it to me, then ask me about it
+to see if it is mine."
+
+> n
+You move north.
+
+Grand Ocean Beach House
+You are standing in front of the Grand Ocean Beach House.  The Front Door
+looks old and rickety, so it shouldn't be too hard to open. Go South to
+return to Grand Ocean Bay.  You can only move south.
+
+> open beach house door
+The Front Door of the Beach House swings open with a loud CREEEAAAAKKKKK. You
+can now go Inside.
+
+> in
+You move in.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can only move out.
+
+> climb ladder
+You have climbed the Beach House Ladder.
+
+Beach House Top Level
+This is the top level of the Grand Ocean Beach House. There is a table in
+this room with something on it, and the ladder which leads down to the Main
+Room.
+
+> look at table
+This is a table. Things can sometimes be found on top of tables or benches,
+and sometimes you can put objects on tables or benches.  A bright Torch is on
+the big Table.
+
+> get torch
+You pick up the torch. This handy tool will light your way in dark areas.
+
+> climb down ladder
+You have climbed down the Beach House Ladder.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can move up and out.
+
+> sit on slide
+You sat on the slide and went down into the Basement.
+
+Beach House Basement
+This is the Beach House Basement.  Now that you have a light, you can see
+what else is down here. Maybe you'll find what Fontana lost here? Remember to
+bring it back to her!
+There is a slide which leads back up to the Main Room.  Also here is a small
+Box.
+
+> get box
+You picked up the box. Take it to Fontana and find out if it is hers.
+
+> climb slide
+You climbed the slide to get back to the Beach House Main Room.
+
+Grand Ocean Beach House Main Room
+You are inside Grand Ocean Beach House. There are three levels to the house.
+You are in the Main Room. There is a ladder which leads to the Top Level and
+a slide which leads to the Basement.   You can move up, down and out.
+
+> out
+You move out.
+
+Grand Ocean Beach House
+You are standing in front of the Grand Ocean Beach House.  Go South to return
+to Grand Ocean Bay.  You can move south and in.
+
+> s
+You move south.
+
+Grand Ocean Bay
+This is Grand Ocean Bay. It is a beautiful place, with soft white sand and
+crystal clear water. To the West is the Passage which brought you here. To
+the East is nothing but a vast ocean. To the North is the Beach House. To the
+South is a dark and dangerous looking cave.   Fontana is here.  You can move
+north, east, south and west.
+
+> give box to fontana
+You give Fontana her box.  "Here, you can have this box. Keep it with you at
+all times. Open it, and take what I have put in there for you.
+
+> open box
+You open the small Box.  A small Sheath is inside the small Box.
+
+> get sheath
+You picked up the sheath.
+
+> get sword
+You take a Small Sword from its sheath.  "This is a small sword." Fontana
+says. "It is not very strong, but it is very useful. When you are holding it,
+you can Cut your enemies.
+Ask me about battle, and I will teach you all there is to know about
+fighting, and I will take you through a Battle Training course.
+
+> ask fontana about battle
+"Once you know the name of the enemy you have to fight, you can attack them.
+You have to type something like: "Cut Mr.Enemy with Sword." Typing something
+like: "Cut Enemy with Sword" won't work, because the name is different.
+ You will do damage to the enemy depending on how much stronger than them you
+are.
+ Battle with enemies is very strategic. You never know how often an enemy
+will attack you. Once you attack an enemy, you will be able to tell if you
+can defeat him. If the enemy is too strong, you will be told that not much
+happened when you attacked them. If you can defeat them, this message will
+not appear.
+The most important part of any battle is checking your Status. You can check
+your Status by typing: "Status" You will be able to see your health(Stamina),
+strength(Hit Strength) and your defence power(Defence). This is shown as
+numbers. The higher the number, the more chance you have of winning. Your
+Stamina is the one you should pay most attention to, because once this number
+reaches Zero, you die. You can also check the Status of your enemy to show
+the same information for them. You can do this by typing the name of your
+enemy, followed by the word Status: "Mr. Enemy Status" This will show you how
+much stronger or weaker they are than you. When you finally defeat your
+enemy, a message will appear saying that they have been killed.
+ How much damage you do to an enemy depends on how much higher your Attack is
+to his Defence.  For example,
+if your enemy's Defence is 6, and your Attack is 7, you will only do 1 point
+of damage. Same as if Your Defence was 0, and the enemy's attack was 6, he
+would do 6 damage points.
+Be careful when fighting an enemy. Most of the time you should check the
+enemy's Status as soon as the fight starts, so you have some idea what you're
+up against. You can check Status at any time. It does not interfere with the
+battle. Be careful that you don't check the Status of an enemy you have
+already killed, as this can be very confusing during a fight. If the enemy
+can do enough damage to you in one hit (eg: you haven't got enough Stamina to
+survive), you will be killed. If your Stamina isn't full (up to its highest
+number), your first move should be to heal yourself using your Magic Seeds.
+Winning a batlle relies on your judgement: when to stay and fight, and when
+to run away. That decision could be the difference between life and death.
+
+Go now, to the cave South of here, to begin your Battle Training. You will
+have to complete 4 battles, each one tougher than the last. I will be able to
+contact you telepathically, and give you instructions on what to do."
+
+> s
+You move south.
+
+Dark Cave
+This is the entrance to the Grand Ocean Caves.  As you stand at the entrance,
+staring at in in awe, a telepathic message comes to you....."Petter, can you
+hear me? This is Fontana speaking. You are entering the caves which I have
+designed to be a Battle Training area. Remember all I taught you about
+battle. If you don't think that you are ready to proceed through the test,
+return to me and we'll go over it all again.
+
+Proceed south to the First Battle Test room. This test is designed to get you
+used to fighting with weapons. The enemy you have to face is a Weak Test
+Dummy. This dummy has no Attack or Defence strength, so  it cannot hurt you,
+so you should be able to defeat it easily. Remember to check its Status to
+find out much Stamina it has.
+Remember to take the Sword out of the Sheath before a battle and replace it
+once you have finished.
+Good Luck, Petter!"  You can move north and south.
+
+> s
+You move south.
+
+First Battle Test Room
+This is the First Battle Test room.  This is where your first test will take
+place. Defeat the enemy. Once you have defeated the enemy, you can move
+South, deeper into the cave to continue your training, or you can move North,
+back toward the entrance.  Dummy1 is here.  The first enemy hits you, but it
+doesn't seem to do any damage.
+
+> cut Dummy1 with sword
+You cut the first enemy with the small Sword.
+
+> cut Dummy1 with sword
+You cut the first enemy with the small Sword.  The first enemy hits you, but
+it doesn't seem to do any damage.
+
+> cut Dummy1 with sword
+You cut the first enemy with the small Sword.  The enemy has been killed. Its
+body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+> s
+You move south.
+
+First Battle Test Room Corridor
+The 1st corridor.  A telepathic message from Fontana comes to you: "Petter,
+that was very impressive! Let's see if you can handle something a little
+tougher. In the next room, you will face an enemy who is pretty much the same
+as the last one, only this time it will take more hits to win. Continue South
+for your next test.
+Good Luck!"  You can move north and south.
+
+> s
+You move south.
+
+Second Battle Test Room
+This is the 2nd Battle Test room.  This is where you will face your second
+test. You must defeat your enemy to continue. Once you defeat the enemy, you
+can continue South to go deeper into the cave, or go North to head back to
+the entrance.  Dummy2 is here.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.  The second enemy hits you,
+but it doesn't seem to do any damage.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.  The second enemy hits you,
+but it doesn't seem to do any damage.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.  The second enemy hits you,
+but it doesn't seem to do any damage.
+
+> cut Dummy2 with sword
+You cut the second enemy with the small Sword.  The enemy has been killed.
+Its body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> cut Dummy2 with sword
+Dummy2 isn't here!
+
+> s
+You move south.
+
+Second Battle Test Room Corridor
+The 2nd corridor.  A telepathic message from Fontana comes to you. "You are
+getting very good, Petter! I think it's time you tried battling an enemy that
+can do some damage. Remember to check the Status of you and your enemy. Good
+Luck!"  You can move north and south.
+
+> s
+You move south.
+
+Third Battle Test Room
+This is the Third Battle Test room.  This is your third test.  As you prepare
+for battle, a telepathic message from Fontana comes to you....
+"Petter, be VERY careful during this test. This enemy CAN AND WILL take life
+from you. If you are careful with your battle decisions, you are sure to win.
+Remember to check the Status of both you and your enemy at any time during
+the battle, as this does not interfere with the fighting. Good Luck!"  Dummy3
+is here.
+
+> cut Dummy3 with sword
+You cut the third enemy with the small Sword.  The third enemy hits you.
+
+> cut Dummy3 with sword
+You cut the third enemy with the small Sword.
+
+> cut Dummy3 with sword
+You cut the third enemy with the small Sword.  The third enemy hits you.
+
+> cut Dummy3 with sword
+You cut the third enemy with the small Sword.
+
+> cut Dummy3 with sword
+You cut the third enemy with the small Sword.  The enemy has been killed. Its
+body dissolves into oblivion in a brilliant flash of red light.
+You can now continue South, further into the caves to continue your training,
+or head North, to get back to the Entrance.
+
+**You may want to save incase you lose your life!
+
+> cut Dummy3 with sword
+Dummy3 isn't here!
+
+> cut Dummy3 with sword
+Dummy3 isn't here!
+
+> cut Dummy3 with sword
+Dummy3 isn't here!
+
+> s
+You move south.
+
+Third Battle Test Room Corridor
+The 3rd corridor.   A telepathic message from Fontana comes to you: "You
+handled that battle with the skill of a true warrior, Petter. It is time for
+your final test. Continue South to the Fourth Battle Test Room. There you
+will have to battle the toughest enemy you've had to face yet. This enemy has
+terrific stamina, a hefty attack, and excellent defence. This enemy's defence
+is so great that it will cut your attack damage by half. If your own Stamina
+is in danger, you can Eat your Magic Seeds, if you have any left. This should
+restore your Stamina by 10 points. Good Luck, Petter, you're going to need
+it."  You can move north and south.
+
+> s
+You move south.
+
+Fourth Battle Test Room
+This is the Fourth Battle Test Room. This is where you must complete your
+final test.  Dummy4 is here.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The fourth enemy hits you.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The fourth enemy hits you.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The fourth enemy hits you.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The fourth enemy hits you.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The fourth enemy hits you.
+
+> cut Dummy4 with sword
+You cut the fourth enemy with the small Sword.  The final battle test  dummy
+starts to shake uncontrollably. You put your Sword in its Sheath, and you
+watch in amazed horror as first its legs, then its arms and finally its head
+flies off its body.
+First one arm then the other, then both legs and the head explode sending
+mini fireworks all around you.
+ What's left of the body dissolves into oblivion in a brilliant flash of red
+light.
+You hear a distant rumble which grows louder and Louder and
+LOUDER!............
+
+All of a sudden the caves disappear from view and you are surrounded by
+nothing but a bright white light. You shut your eyes tightly to block out the
+blinding light.
+
+When you open them, you find yourself standing on the beach of the Vast
+Ocean.
+
+Beach Of The Vast Ocean
+This is the beach of the Vast Ocean. No-one has ever sailed on the Vast Ocean
+and survived to tell the tale. Your best bet is to head West to Grand Ocean
+Bay.  You can only move west.  To the  West, you see Fontana standing in her
+usual place. You decide to go over there and ask her about what happened.
+
+> cut Dummy4 with sword
+Dummy4 isn't here!
+
+> cut Dummy4 with sword
+Dummy4 isn't here!
+
+> w
+You move west.
+
+Grand Ocean Bay
+This is Grand Ocean Bay. It is a beautiful place, with soft white sand and
+crystal clear water. To the West is the Passage which brought you here. To
+the East is nothing but a vast ocean. To the North is the Beach House. To the
+South is a dark and dangerous looking cave.   Fontana is here.  You can move
+north, east and west.
+
+> w
+You move west.
+
+East Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. You can see the way out not far from here.
+Keep going East to reach Grand Ocean Bay. Go West to return to the Gateway to
+the East Passage.  You can move east and west.
+
+> w
+You move west.
+
+Gateway To East Passage
+This is the Gateway to the East Passage.  The East Passage is a mysterious
+doorway which leads to Grand Ocean Bay.  You can move east and west.
+
+> w
+You move west.
+
+North Field
+This is North Field. From here you can travel South to Home Field, or travel
+East, West or North to go to the Gateways to any of the Passages that you can
+see around. There is a North Passage, a West Passage and an East Passage.
+Sometimes you may not be able to enter one of the Passages unless you perform
+a certain task or have a particular item.  You can move north, east, south
+and west.
+
+> s
+You move south.
+
+Home Field
+You are in Home Field. This is where your close friend Pontaco can be found
+to give you advice and help you out.  To the North is North Field, the
+gateway to the rest of the world.  Pontaco is here.  You can only move north.
+
+> ask pontaco about the outer world
+"So you have met Fontana. I see you are carrying her sword. She is a very
+powerful ally, Petter. I see she has trained you in the way of the Sword very
+well.
+You are now fully equipped to head to the Outer World.
+You must be very careful in the Outer World, Petter. It may look like a nice
+place, but danger lurks around every corner. The Outer World used to be a
+peaceful place, but was overtaken by evil.
+Kindness to people you come across will be rewarding in the end. You will
+have to do battle with many tough enemies.
+You could be the one who rids the world of evil. Trust in yourself and you
+can achieve anything.
+
+I cannot tell you what to do, or where to go in the Outer World, I must leave
+that up to you.
+
+Go through the West Passage and into the Outer World. You can make a
+difference, Petter, I know you can........."
+
+> n
+You move north.
+
+North Field
+This is North Field. From here you can travel South to Home Field, or travel
+East, West or North to go to the Gateways to any of the Passages that you can
+see around. There is a North Passage, a West Passage and an East Passage.
+Sometimes you may not be able to enter one of the Passages unless you perform
+a certain task or have a particular item.  You can move north, east, south
+and west.
+
+> w
+You move west.
+
+Gateway To West Passage
+This is the Gateway to the West Passage. The West Passage is a mysterious
+doorway which leads to The Outer World.   Until the Passage is open, you can
+only go East, to return to North Field.  You can only move east.
+
+> look
+
+Gateway To West Passage
+This is the Gateway to the West Passage. The West Passage is a mysterious
+doorway which leads to The Outer World.   Until the Passage is open, you can
+only go East, to return to North Field.  You can only move east.
+
+> open west pasage
+The West Passage is open. You can now travel West.
+
+> w
+You move west.
+
+West Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. Continue West to enter the Outer World, or
+head East to return to the Gateway to the West Passage.  You can move east
+and west.
+
+> look
+
+West Passage
+You have entered one of the three mysterious passages which connect the Outer
+World to the Fields.  You are floating in mid air and surrounded by nothing
+but a rainbow of swirling colours. Continue West to enter the Outer World, or
+head East to return to the Gateway to the West Passage.  You can move east
+and west.
+
+> w
+You move west.
+
+Outer World
+
+As you emerge from the West Passage, you are instantly spellbound by the
+breathtaking beauty of the Outer World.
+Never before have you seen such a magnificent place. A distant mountain range
+stretches endlessly as far as the eye can see.
+A small village lies just ahead, and as you begin to walk, you discover that
+you are on the edge of a high cliff, and the only way to go is down, into the
+dark, eerie forest below.  You can move east and down.
+
+> look
+
+Outer World
+
+As you emerge from the West Passage, you are instantly spellbound by the
+breathtaking beauty of the Outer World.
+Never before have you seen such a magnificent place. A distant mountain range
+stretches endlessly as far as the eye can see.
+A small village lies just ahead, and as you begin to walk, you discover that
+you are on the edge of a high cliff, and the only way to go is down, into the
+dark, eerie forest below.  You can move east and down.
+
+> quit
+Do you really want to quit? [Y/N]

@@ -1,0 +1,22 @@
+Petter
+male
+open cabinet
+get uniform
+get dressed
+e
+n
+w
+open refrigerator
+get milk
+look at table
+take bowl
+take spoon
+take box of Frooties
+pour milk in bowl
+e
+eat breakfast
+s
+e
+e
+s
+s

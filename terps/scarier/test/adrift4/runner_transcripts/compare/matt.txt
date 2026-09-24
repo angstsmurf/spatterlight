@@ -1,0 +1,51 @@
+feed        40 commands
+runner      40 turns echoed
+scarier     39 turns, feed[0] is scarier turn 1
+
+closing     feed[38:] quit|y -- the session's own quit; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 12  out
+  run400   You have already done that.
+  scarier  You move out. Front Yard Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple! Thief is here. You can move north, west and in. Thief hits you, but it doesn't seem to do any damage.
+
+turn 13  kill thief
+  run400   You can't do that here!
+  scarier  You have killed the thief. You found a bag of money! Front Yard Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple! Your front yard. Thief is here. You can move north, west and in. Thief hits you, but it doesn't seem to do any damage.
+
+turn 14  w
+  run400   You can't go in that direction, but you can move up, down and out.
+  scarier  You move west. Neighbor's Front Yard Your Neighbor's front yard Salesman is here. You can move east and in.
+
+turn 15  buy box
+  run400   You can't do that here!
+  scarier  You bought the box from the Salesman! Inside is some candy!
+
+turn 16  in
+  run400   You can't go in that direction, but you can move up, down and out.
+  scarier  You move in. Neighbor's House Your neighbor's house. You can move up and out.
+
+turn 17  u
+  run400   You move up. Hallway You are in your hallway. Black Cat is here. You can move north, east, south, west and down. Black Cat hits you, but it doesn't seem to do any damage.
+  scarier  You move up. Upstairs Kind of creepy..... Snake is here. You can only move down. Snake hits you, but it doesn't seem to do any damage.
+
+turn 18  kill snake
+  run400   You can't do that here! Black Cat hits you, but it doesn't seem to do any damage.
+  scarier  You've killed the snake! You picked up the Poison Amulet and 10 points! Snake hits you, but it doesn't seem to do any damage.
+
+turn 19  d
+  run400   You move down. Downstairs Hallway You see some odd pictures on the wall....... You can move up, down and out.
+  scarier  You move down. Neighbor's House Your neighbor's house. You can move up and out.
+
+turn 20  out
+  run400   You have already done that.
+  scarier  You move out. Neighbor's Front Yard Your Neighbor's front yard Salesman is here. You can move east and in.
+
+turn 21  e
+  run400   You can't go in that direction, but you can move up, down and out.
+  scarier  You move east. Front Yard Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple! Your front yard. Thief is here. You can move north, west and in. Thief hits you, but it doesn't seem to do any damage.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

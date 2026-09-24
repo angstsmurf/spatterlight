@@ -1,0 +1,232 @@
+Loading game...
+
+The Lab Experiment
+
+The Test Room
+This is the test room, which has all kinds of computers and machinery. In the
+centre of the room though is a laser testing machine, which you put a piece
+of rock in it and it turns to any other substance.  Scientist is here.  You
+can only move north.
+
+> n
+You move north.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  You can move north, east, south and
+west.
+
+> n
+You move north.
+
+The End of The Corridor
+This is the end of the corridor, with two doors to the west and the east. The
+exit door is to the north, but it is only for emergencies.  You can move
+east, south and west.
+
+> w
+You move west.
+
+Lost and Found
+This is the lost and found room. Any items that get lost in the complex end
+up in the cabinet here.  You can only move east.
+
+> open cabinet
+You open the cabinet.  Inside the cabinet is pass card, wad of gum and a
+shoe.
+
+> get gum
+You take wad of gum from the cabinet.
+
+> get card
+You take pass card from the cabinet.
+
+> e
+You move east.
+
+The End of The Corridor
+This is the end of the corridor, with two doors to the west and the east. The
+exit door is to the north, but it is only for emergencies.  You can move
+east, south and west.
+
+> s
+You move south.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  You can move north, east, south and
+west.
+
+> w
+You move west.
+
+The Substance Room
+This is the substance room, where all kinds of substances can be obtained.
+You require a pass card to open the vault where the rocks are.  You can only
+move east.
+
+> open vault
+You open the vault, which contains the rock.
+
+> get rock
+You take the rock from the vault.
+
+> e
+You move east.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  You can move north, east, south and
+west.
+
+> s
+You move south.
+
+The Test Room
+This is the test room, which has all kinds of computers and machinery. In the
+centre of the room though is a laser testing machine, which you put a piece
+of rock in it and it turns to any other substance.  Scientist is here.  You
+can only move north.
+
+> put rock on panel
+You put the rock on the panel.
+
+> n
+You move north.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  You can move north, east, south and
+west.
+
+> e
+You move east.
+
+The Laser Room
+This is the laser room, which has a computer the powers the lasers.  You can
+only move west.
+
+> turn on computer
+You turn on the computer. "Welcome to the Laser Generator Prompt. Generator
+Performance: 98.9%." The command prompt lights up. You must type what to do
+now.
+
+> power generators
+You type in power generators. The large generator next to you starts humming.
+10% powered.  Generators 30%
+
+> z
+Time passes...
+A loud voice booms over the speaker, "Proffesor Atkinson, there is a phone
+call for you at the Administration Office."
+
+> z
+Time passes...
+Generator 50%
+
+> z
+Time passes...
+Generator 75%
+
+> z
+Time passes...
+Generator 100%  The generators have been powered.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A loud voice booms over the speaker,"Proffesor Hennington, your passcard for
+the vaults in the substance room has been identified. Please report to the
+Lost and Found."
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+A loud voice booms over the speaker ,"Proffesor Williams, The test for the DX
+Prototype was succesful. Please procede to the Analysis room immediately."  A
+loud voice booms over the speaker, "Can Proffesor Wornor please report to
+Test Lab Level A4 for immediate radioactive testing."
+
+> w
+You move west.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  You can move north, east, south and
+west.
+
+> n
+You move north.
+
+The End of The Corridor
+This is the end of the corridor, with two doors to the west and the east. The
+exit door is to the north, but it is only for emergencies.  You can move
+east, south and west.
+
+> e
+You move east.
+
+Command Booth
+This is the command booth, which has lots of monitors of the test room. There
+is a big red button that says start laser cycle.  You can only move west.
+
+> press button
+You press the button, and watch through the monitor as the laser starts to
+shoot down at the rock. After a few seconds, a bit of the laser reflects off
+a glassy bit of the rock and hits one of the pressure pipes on the wall.
+ERROR, ERROR. The computer starts flashing with the word error.
+         A loud voice booms over the speaker,"Attention, all personell on
+level 3 test labs please evacuate the complex, repeat, all personell on level
+3 test labs please evacuate the complex."  You can feel a bit of pressure.
+You better stop the leak before the pressure explodes you!
+
+> w
+You move west.
+
+The End of The Corridor
+This is the end of the corridor, with two doors to the west and the east. The
+exit door is to the north, but it is only for emergencies.  The pressure is
+rising.  You can move east, south and west.
+
+> s
+You move south.
+
+The Corridor
+This is the corridor, which is a long mettalic room with two doors either
+side of you and one behind and in front.  The pressure is rising.  You can
+move north, east, south and west.
+
+> s
+You move south.
+
+The Test Room
+This is the test room, which has all kinds of computers and machinery. In the
+centre of the room though is a laser testing machine, which you put a piece
+of rock in it and it turns to any other substance.  This is the test room,
+which has a lot of broken computers. The laser has been automatically
+switched off, but to the pressure pipe has had a hole punctured in it. If
+only you had something to cover it.  The pressure is rising.  You can only
+move north.
+
+> put gum on hole
+You get the wad of gum and place it on the hole. It stops the leak and the
+pressure stops rising. The other scientists later on come back into the
+complex and return to work. You get the laser to operate again and you try it
+on the rock, this time it turns into gold!!! You and your other scientists
+start celebrating when a voice booms over the speaker," This entire complex
+is under military control! Get out while you stil- (BANG!) Ahh...."
+Find out what happens in "Escape from the Lab".
+[Press any key to end]

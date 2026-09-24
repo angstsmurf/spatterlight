@@ -1,0 +1,121 @@
+Loading game...
+
+Bounty Hunter
+
+> take gun
+You grab your gun off the desk
+
+> open desk
+You open the desk's drawers and search through them. You find an interesting
+file in the top drawer.
+
+> n
+You move north.
+
+Street
+The sun is out today and the street is pretty busy. Tourists walk down the
+streets taking pictures of anything that catches their eye. You can see a
+fancy hotel to the North, a small bar to the East, and the airport to the
+West. You're office is to the South.
+
+> e
+You move east.
+
+Bar
+The small seedy bar has been here for years and you occasionaly stop by for
+some drinks. It's quiet in here today, only a few drunks lined up against the
+bar downing their breakfast. One man catches your eye, Roddy Scotts, a friend
+of the fugitive.   He sits at the end of the bar with a bottle beside him.
+You walk over and sit beside him.
+
+> use gun on roddy
+You push Roddy against the wall and place the gun in his nose. You tell him
+to talk or the wall will be getting a new red coat. He sits back in his chair
+and agrees to talk.
+
+> ask roddy about jake
+"Yeah, Jake called me an hour ago. Said the heat was onto him here and he was
+going to catch a plane to Las Vegas. The plane leaves in a couple of minutes,
+I'd hurry if I was you. Oh, and make sure you have a ticket."
+
+> take bottle
+You take the bottle and place it in your coar. Roddy either doesn't notice or
+doesn't care.
+
+> w
+You move west.
+
+Street
+The sun is out today and the street is pretty busy. Tourists walk down the
+streets taking pictures of anything that catches their eye. You can see a
+fancy hotel to the North, a small bar to the East, and the airport to the
+West. You're office is to the South.
+
+> n
+You move north.
+
+Hotel Front
+You're standing in front of the hotel, which seems to have closed down. It
+sure doesn't look as nice as when you seen it from a distance. The walls are
+cracked and the doors have been boarded shut.   You can see a man standing in
+front of the doors, he's shouting out words about some tickets.  Man is here.
+
+> give bottle to man
+You hand the man the bottle and his face lights up. He hands you a plane
+ticket and then walks off.
+
+> s
+You move south.
+
+Street
+The sun is out today and the street is pretty busy. Tourists walk down the
+streets taking pictures of anything that catches their eye. You can see a
+fancy hotel to the North, a small bar to the East, and the airport to the
+West. You're office is to the South.
+
+> w
+You move west.
+
+Airport
+The large airport is bustling with people leaving and entering the city.
+Tourists walk throughout the large area stopping at the food court or taking
+a quickly glance at one of the newspaper stands.   There's a plane leaving to
+Las Vegas to the North.
+
+> n
+You hand the stewardess your ticket and you get on the plane. It's a large
+plane so you quickly start looking through it for Jake. You finally find him
+in First Class. You sit in the seat beside him and slowly pull your gun from
+your coat. You hold it up to his side and tell him to slowly walk off the
+plane with you. You both get up and begin to walk towards the exit. Suddenly,
+Donny sits up from a seat in the back and shoots at you. You let go of Jake
+and run backwards, firing your gun at Donny. You run into the small bathroom
+and await your next move.
+
+> go into vent
+You climb in the vent and crawl your way through a small tunnel. You drop at
+the other end in the luggage area. Donny is already searching through the
+room for you.
+
+> shoot roddy
+You raise the gun and shoot Donny in the back. He slumps to the ground with a
+puddle of blood around him. The door opens behind you and you feel a gun
+placed at the back of your head. You can hear Jake laughing and you know
+you'll have to think fast.  Jake has his gun aimed at your head  He's about
+to shoot!
+
+> shoot jake
+You quickly spin around and hit the gun out of Jake's hand. He backs up into
+the door and you quickly pop a cap into his forehead. You search through his
+jacket and pull out a wad of cash. You place the money in your coat and walk
+out of the room. You jump off the plane and quickly run back to your office.
+You place the money on the table and throw off your coat. You finally got
+your money back, the money you had to rob a bank for. All Jake did was shoot
+the guards blocking the way. Of course you weren't a bounty hunter, but it's
+easier to get people like you to help you with your problem...
+
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

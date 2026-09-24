@@ -1,0 +1,10 @@
+Petter
+male
+open cupboard
+get card
+out
+w
+in
+give card to baldy
+talk to man
+refuse

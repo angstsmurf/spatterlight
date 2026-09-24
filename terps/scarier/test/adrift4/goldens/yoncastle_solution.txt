@@ -1,0 +1,6 @@
+climb tree
+east
+open contraption
+west
+down
+east

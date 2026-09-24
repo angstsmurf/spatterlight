@@ -1,0 +1,49 @@
+w
+s
+x fridge
+get key
+n
+unlock front door
+open front door
+u
+get toys
+e
+drop toys
+x cabin bed
+get debit card
+get plunger
+w
+go down
+drop debit card
+s
+w
+open drawer
+get plastic bag
+get plastic gloves
+wear plastic gloves
+get bin
+e
+s
+clear up cat turds
+put bin in garden
+s
+s
+get sledge hammer
+unlock shed door
+open shed door
+s
+x workbench
+get drill
+n
+n
+n
+n
+fix gate
+s
+u
+s
+unblock toilet
+get debit card
+n
+w
+get on train

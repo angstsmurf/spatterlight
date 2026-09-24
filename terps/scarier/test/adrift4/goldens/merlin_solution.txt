@@ -1,0 +1,12 @@
+examine bronze door
+pull chain
+e
+examine fountain
+drink water
+s
+look at table
+examine frater
+n
+w
+quit
+y

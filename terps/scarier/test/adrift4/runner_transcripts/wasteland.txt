@@ -1,0 +1,45 @@
+
+> e
+You move east.
+Briefing room
+You are in a room with a low ceiling painted in drab military colours. Chairs have been arranged in rows facing a desk and display board. A set of slightly rusty metal doors lead west into the cryostasis room, a passageway with plastic dust doors leads north and the passageway runs east and south.
+
+> look at desk
+It's a simple metal desk.  Some keys are on the desk.
+
+> get keys
+You take the keys from the desk.
+
+> e
+You move east.
+Stairwell
+You are in a dark stairwell that leads upwards, a door leads west.
+
+> u
+You move up.
+Bunker landing
+You are on a landing made of concrete with stairs leading downwards, a door also leads west.
+
+> w
+You move west.
+Depot
+You are in a large room which is made entirely out of concrete and steel. A truck is parked at one end but it looks rusted and broken down. There is a wide doorway easily able to accomodate the vehicle to your south and to your east a door opens into the stairwell landing. To your west are huge metal blast doors, a control box is mounted on the wall next to them.
+
+> start truck
+You start the truck and after a few misfires the engine rumbles into life.
+
+> attach hook to handle
+You play out the winch cable and fix the hook on the handle of the blast doors.
+
+> pull lever
+You pull the winch lever and the winch takes up the slack and starts to haul the door open. It only manages to open the door a fraction before smoke starts to pour from the winch mechanism but it is enough for you to slip out of the blast doors. You quickly shut off the winch by yanking the lever back into position.
+
+> w
+You move west.
+Outside the blast doors
+You are in the shadow of tall mountains outside the nuclear survival bunker. The bunker squats to your west, painted in brown and black stripes to help it blend into the dark mountains. One of the blast doors stands slightly open. A trail leads south through the mountains.
+
+> quit
+
+> 
+I don't understand what you mean!

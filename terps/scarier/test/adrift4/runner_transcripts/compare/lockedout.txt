@@ -1,0 +1,14 @@
+feed        46 commands
+runner      44 turns echoed
+scarier     44 turns, feed[0] is scarier turn 0
+
+closing     feed[44:] quit|y -- the session's own quit; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 22  get battery
+  run400   The Energizer battery is not inside the tub of Lego!
+  scarier  You take a Energizer battery from the specialized Lego piece.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)
