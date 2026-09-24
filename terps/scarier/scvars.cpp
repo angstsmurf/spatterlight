@@ -35,6 +35,7 @@
 #include <string.h>
 #include <time.h>
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -1068,8 +1069,18 @@ var_get_system (scr_var_setref_t vars,
       vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
       vars->temporary[0] = '\0';
 
-      /* Write what's in the object into temporary. */
-      var_list_in_object (game, vars->referenced_object);
+      /*
+       * Write what's in the object into temporary -- but only for an open
+       * container.  run390 fills %in_<object>% through whatisinon() (loop at
+       * 0045B3CC), whose in-branch (00443A46) requires the container flag and
+       * an openness other than closed, the same gate as the room lister in
+       * lib_list_in_on_object().  thewill (runner_transcripts/thewill.txt):
+       * the Hallway's "%in_clock%" prints nothing while the clock is shut,
+       * where we listed the pocket watch "inside the open grandfather clock".
+       */
+      if (obj_is_container (game, vars->referenced_object)
+          && gs_object_openness (game, vars->referenced_object) <= OBJ_OPEN)
+        var_list_in_object (game, vars->referenced_object);
 
       /* Restore saved referenced object and return. */
       vars->referenced_object = saved_ref_object;
@@ -2026,6 +2037,39 @@ var_get_string (scr_var_setref_t vars, const scr_char *name)
 
 
 /*
+ * var_indexed_name()
+ *
+ * The storage key of the variable at INDEX_: its Name, unless an earlier
+ * variable has the same Name, in which case a key no %marker% can spell.
+ * The Runner keeps its variables in an array, so restrictions, actions and
+ * saves address a duplicate by index, while a %name% marker resolves to the
+ * first by the index-order Replace (var_interpolate_user_ordered()).  mages
+ * declares "sleep" twice, as 13 (210) and 15 (0): keyed by name the second
+ * overwrote the first, so the `#pass out` event's sleep <= 10 test passed
+ * on turn 0, where run390 never passes out (runner_transcripts/mages.txt).
+ */
+const scr_char *
+var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
+{
+  static std::set<std::string> duplicate_keys;
+  const scr_char *name;
+  scr_int earlier;
+
+  name = prop_get_indexed_string (bundle, "Variables", index_, "Name");
+  for (earlier = 0; earlier < index_; earlier++)
+    {
+      if (strcmp (name, prop_get_indexed_string (bundle, "Variables",
+                                                 earlier, "Name")) == 0)
+        {
+          std::string key = std::string (name) + "\x01" + std::to_string (index_);
+          return duplicate_keys.insert (key).first->c_str ();
+        }
+    }
+  return name;
+}
+
+
+/*
  * var_create()
  *
  * Create and return a new set of variables.  Variables are created from the
@@ -2063,8 +2107,7 @@ var_create (scr_prop_setref_t bundle)
 
           /* Retrieve variable name, type, and string initial value. */
           vt_key[1].integer = index_;
-          vt_key[2].string = "Name";
-          name = prop_get_string (bundle, "S<-sis", vt_key);
+          name = var_indexed_name (bundle, index_);
 
           vt_key[2].string = "Type";
           var_type = prop_get_integer (bundle, "I<-sis", vt_key);

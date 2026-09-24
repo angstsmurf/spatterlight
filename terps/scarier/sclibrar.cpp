@@ -25959,6 +25959,8 @@ static scr_bool lib_battle_attack_many (scr_gameref_t game,
                                         scr_bool with_object);
 static scr_bool lib_battle_line_names_many (scr_gameref_t game);
 static void lib_battle_weapon_question (scr_gameref_t game, scr_int npc);
+static void lib_battle_continue_after_kill (scr_gameref_t game, scr_int npc,
+                                            const scr_char *verb);
 
 /*
  * dobattle refuses a non-weapon with its only such message, 47EC7D (run390
@@ -26051,6 +26053,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
             weapon = battle_player_best_weapon (game);
         }
       lib_battle_player_strike (game, npc, verb, method, weapon);
+      lib_battle_continue_after_kill (game, npc, verb);
       return TRUE;
     }
 
@@ -26172,6 +26175,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   if (battle_is_enabled (game))
     {
       lib_battle_player_strike (game, npc, verb, method, object);
+      lib_battle_continue_after_kill (game, npc, verb);
       return TRUE;
     }
 
@@ -26904,13 +26908,140 @@ lib_battle_400_namesake_tail (scr_gameref_t game)
     }
 }
 
+/*
+ * lib_battle_strike_loop()
+ *
+ * dobattle's target loop from NPC `start` on.  It tests each NPC as it
+ * reaches it, against `line`: the typed line until a 3.9 kill swaps in its
+ * KilledTask's command (lib_battle_killed_task_line()), after which "with"
+ * and the weapons are read from that command too (44CD66, the co() walk at
+ * 44CDB0).  `replaced` says `line` is already such a command.
+ */
+static void
+lib_battle_strike_loop (scr_gameref_t game, scr_int verb_index,
+                        scr_int start, const scr_char *start_line,
+                        scr_bool replaced, scr_bool with_object,
+                        scr_int object, scr_bool scan,
+                        scr_bool *struck, scr_bool *refused)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::string line = start_line;
+  scr_int index_;
+
+  for (index_ = start; index_ < gs_npc_count (game); index_++)
+    {
+      const scr_int npc = index_;
+      scr_int weapon;
+      const scr_char *killed_line;
+
+      if (!lib_battle_npc_is_target (game, npc, line.c_str (), verb_index))
+        continue;
+      if (replaced)
+        {
+          with_object = FALSE;
+          scan = lib_input_contains_word (line.c_str (), "with")
+                 && lib_battle_line_names_any_object (game, line.c_str ());
+        }
+
+      if (with_object || scan)
+        {
+          if (scan)
+            weapon = lib_battle_scan_with (game, npc, line.c_str (),
+                                           refused);
+          else if (!battle_is_weapon (game, object))
+            {
+              lib_battle_cant_attack (game, npc, object);
+              *refused = TRUE;
+              weapon = -1;
+            }
+          else
+            weapon = object;
+          if (weapon < 0)
+            continue;
+          if (gs_object_position (game, weapon) != OBJ_HELD_PLAYER)
+            {
+              /* 4.0 appends this one (47EF41); 3.9 assigns it (44D0E7), so
+               * two targets leave one "You are not carrying the club!". */
+              if (!lib_is_version_400 (game))
+                pf_empty (filter);
+              lib_print_response_object (game,
+                                         "You are not carrying ",
+                                         "I am not carrying ",
+                                         "%player% is not carrying ",
+                                         weapon, "!\n");
+              *refused = TRUE;
+              continue;
+            }
+        }
+      else
+        {
+          weapon = battle_player_wielded_weapon (game);
+          if (weapon < 0)
+            {
+              const scr_int count = battle_player_weapon_count (game);
+
+              if (count > 1)
+                {
+                  lib_battle_weapon_question (game, npc);
+                  continue;
+                }
+              if (count == 1)
+                weapon = battle_player_best_weapon (game);
+            }
+        }
+      lib_battle_player_strike (game, npc, LIB_BATTLE_VERBS[verb_index].verb,
+                                LIB_BATTLE_VERBS[verb_index].method, weapon);
+      *struck = TRUE;
+
+      killed_line = lib_battle_killed_task_line (game, npc);
+      if (killed_line)
+        {
+          line = killed_line;
+          replaced = TRUE;
+        }
+    }
+}
+
+/*
+ * lib_battle_continue_after_kill()
+ *
+ * A one-target blow is still one pass of that same loop: when it killed an
+ * NPC with a KilledTask at 3.9, the loop goes on past it against the task's
+ * command.  thenightmoon T23 `attack elf with longsword` kills the Dark elf
+ * (NPC 9), whose KilledTask "drow giving in" brings the injured Drow (NPC
+ * 10, Named "Drow") into the library; the loop reaches it, finds "drow" in
+ * that line with no "attack" before it, and strikes: run390 adds "You hit
+ * injured dark elf with your longsword." (runner_transcripts/
+ * thenightmoon.txt).
+ */
+static void
+lib_battle_continue_after_kill (scr_gameref_t game, scr_int npc,
+                                const scr_char *verb)
+{
+  const scr_char *killed_line = lib_battle_killed_task_line (game, npc);
+  scr_int verb_index;
+  scr_bool struck = FALSE, refused = FALSE;
+
+  if (!killed_line || !battle_is_enabled (game))
+    return;
+  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
+    {
+      if (scr_strcasecmp (LIB_BATTLE_VERBS[verb_index].verb, verb) == 0)
+        break;
+    }
+  if (!LIB_BATTLE_VERBS[verb_index].verb)
+    return;
+  lib_battle_strike_loop (game, verb_index, npc + 1, killed_line, TRUE,
+                          FALSE, -1, FALSE, &struck, &refused);
+}
+
 static scr_bool
 lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
   std::vector<scr_int> targets;
-  scr_int verb_index, object, index_;
+  scr_int verb_index, object;
   scr_bool struck, refused, scan;
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
@@ -26972,89 +27103,10 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
       scan = TRUE;
     }
 
-  /*
-   * The loop tests each NPC as it reaches it, against `line`: the typed line
-   * until a 3.9 kill swaps in its KilledTask's command
-   * (lib_battle_killed_task_line()), after which "with" and the weapons are
-   * read from that command too (44CD66, the co() walk at 44CDB0).
-   */
-  std::string line = input;
-  scr_bool replaced = FALSE;
-
   struck = FALSE;
   refused = FALSE;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
-    {
-      const scr_int npc = index_;
-      scr_int weapon;
-      const scr_char *killed_line;
-
-      if (!lib_battle_npc_is_target (game, npc, line.c_str (), verb_index))
-        continue;
-      if (replaced)
-        {
-          with_object = FALSE;
-          scan = lib_input_contains_word (line.c_str (), "with")
-                 && lib_battle_line_names_any_object (game, line.c_str ());
-        }
-
-      if (with_object || scan)
-        {
-          if (scan)
-            weapon = lib_battle_scan_with (game, npc, line.c_str (),
-                                           &refused);
-          else if (!battle_is_weapon (game, object))
-            {
-              lib_battle_cant_attack (game, npc, object);
-              refused = TRUE;
-              weapon = -1;
-            }
-          else
-            weapon = object;
-          if (weapon < 0)
-            continue;
-          if (gs_object_position (game, weapon) != OBJ_HELD_PLAYER)
-            {
-              /* 4.0 appends this one (47EF41); 3.9 assigns it (44D0E7), so
-               * two targets leave one "You are not carrying the club!". */
-              if (!lib_is_version_400 (game))
-                pf_empty (filter);
-              lib_print_response_object (game,
-                                         "You are not carrying ",
-                                         "I am not carrying ",
-                                         "%player% is not carrying ",
-                                         weapon, "!\n");
-              refused = TRUE;
-              continue;
-            }
-        }
-      else
-        {
-          weapon = battle_player_wielded_weapon (game);
-          if (weapon < 0)
-            {
-              const scr_int count = battle_player_weapon_count (game);
-
-              if (count > 1)
-                {
-                  lib_battle_weapon_question (game, npc);
-                  continue;
-                }
-              if (count == 1)
-                weapon = battle_player_best_weapon (game);
-            }
-        }
-      lib_battle_player_strike (game, npc, LIB_BATTLE_VERBS[verb_index].verb,
-                                LIB_BATTLE_VERBS[verb_index].method, weapon);
-      struck = TRUE;
-
-      killed_line = lib_battle_killed_task_line (game, npc);
-      if (killed_line)
-        {
-          line = killed_line;
-          replaced = TRUE;
-        }
-    }
+  lib_battle_strike_loop (game, verb_index, 0, input, FALSE, with_object,
+                          object, scan, &struck, &refused);
 
   /* Only the question, and no blow: as for one target, not a turn. */
   if (!struck && !refused)
@@ -27561,8 +27613,8 @@ lib_cmd_kiss_object (scr_gameref_t game)
  * katryn` with Katryn elsewhere answers "I'm not sure she would appreciate
  * that!".  3.9 is from the decompile alone.
  */
-scr_bool
-lib_cmd_kiss_other (scr_gameref_t game)
+static scr_bool
+lib_kiss_named_npc (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
@@ -27594,9 +27646,35 @@ lib_cmd_kiss_other (scr_gameref_t game)
             }
         }
     }
+  return FALSE;
+}
+
+scr_bool
+lib_cmd_kiss_other (scr_gameref_t game)
+{
+  if (lib_kiss_named_npc (game))
+    return TRUE;
 
   /* Reject this attempt. */
   return lib_print_message (game, "I'm not sure it would appreciate that.\n");
+}
+
+/*
+ * lib_cmd_kiss_ended_400()
+ *
+ * The kiss row of a 4.0 line whose task has just ended the game.  The
+ * characters() kiss block (run400 47F7E2-47F83A) runs from the generaltasks
+ * tail at 48B56E and sits above the gameover exit at 4805CD, so it still
+ * answers; therest's "I'm not sure it would appreciate that." is past the
+ * jump at 48AC62 and does not.  night's `kiss rachel` (task 4, no
+ * CompleteText, ends the game, Rachel left outside the car) is "I'm not sure
+ * she would appreciate that!" ahead of the WinText in
+ * runner_transcripts/night.txt.
+ */
+scr_bool
+lib_cmd_kiss_ended_400 (scr_gameref_t game)
+{
+  return lib_kiss_named_npc (game);
 }
 
 

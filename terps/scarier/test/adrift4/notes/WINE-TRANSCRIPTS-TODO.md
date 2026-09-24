@@ -40,15 +40,12 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 536 identical on every turn, 32 identical apart from
-  whitespace, 18 with a report. Every differing row is classified under
-  "Open leads" or "Nothing owed", except five rows added with the
-  2026-09-24 batch of 22 newly-wired walkthroughs (mages, hotelconfuego,
-  night, thewill, thenightmoon) whose reports are genuine-looking but
-  not yet diagnosed -- see "New-row leads, not chased" below -- and two
-  more from the same batch (cloddemo, temporfell) whose reports are
-  capture artefacts from the Wine keystroke drive, not engine
-  differences.
+- **Manifest (2026-09-25):** 540 identical on every turn, 33 identical
+  apart from whitespace, 13 with a report. Every differing row is
+  classified under "Open leads" or "Nothing owed". The five
+  genuine divergences from the 2026-09-24 batch are ported (see "New-row
+  leads, ported"). cloddemo and temporfell are capture artefacts from the
+  Wine keystroke drive.
 - **Which transcript to cite.** For a wired row, cite
   `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), never the
   `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's `source`
@@ -435,6 +432,10 @@ is now ported; the row is identical on every turn.
   SCR_ASSUME_COMBAT=1, which the plan copies into the compare. Every blow
   misses on the Runner (Accuracy = Agility = 0), so the capture is a loss
   and the assisted golden a win. It was identical without the assist.
+- **enigma**: differs by design for the same reason (row env
+  SCR_ASSUME_COMBAT=1). From T2, every assisted blow lands where the Runner
+  misses. T57 (absent-NPC battle checks the Name only) is ported; see
+  batch B.
 
 **Wine re-drives done 2026-09-24:** bigspy2, amnesiakid and homelessharry
 are identical. make_wine_cmdfile.py now writes the intro span's timed
@@ -453,70 +454,54 @@ taken up).
   prompt -- a 3.70 co()-term split (Short vs Alias), not chased further
   (p37EVQ, Adrift_evq_p37EVQ.rtf, 2026-09-20).
 
-### New-row leads, not chased (2026-09-24)
+### New-row leads, ported (2026-09-25)
 
-Five of the 22 walkthroughs wired up on 2026-09-24 (liqid, mages,
-monsterisland, mysteryhouse, bedlam, crimelife, dbaa, dickynoodle,
-dishduty, ebonysworld, filthybill, hotelconfuego, illegalsocks, newbie,
-teaw, temporfell, thenightmoon, cloddemo, night, thewill, twentyone,
-weirdstuff2 -- the other 17 are identical) drove clean against the real
-Runner but disagree with it. Each looks genuine, not a capture artefact
-(RULE 2 says every feed command was echoed, or -- thewill -- the report
-was re-driven clean after an unrelated lost-command re-drive). None is
-chased further here; the game text and Runner-side function citations
-below are a running start for whoever picks one up.
+Five of the 22 walkthroughs wired up on 2026-09-24 drove clean against
+the Runner but disagreed with it (the other 17 were identical; cloddemo
+and temporfell are capture artefacts, see "Harness and compare"). All five
+are now identical on every turn, apart from whitespace in thenightmoon's
+case, and their goldens are re-blessed. The row comments in
+`run_v4_walkthroughs.sh` carry the evidence.
 
-- **mages T0-2, T29** (3.90): `lie down` and `sleep` -- the game keys a
-  "pass out" event off a tiredness stat, task command `#pass out`
-  (CompleteText "You pass out onto the ground and wake up in your own
-  home...", `games/mages.taf`). Scarier's `lie down` (T0) appends that
-  CompleteText to the plain lie-down response one turn early, and the
-  next `sleep` (T1) then succeeds ("You fall asleep on your bed...")
-  where run390 refuses with the `sleep*` task's restriction message
-  "You are not in the right place to do that." The stat divergence
-  persists to T29's `stats` (90 vs 100 health). Looks like a
-  tiredness-variable or location-restriction check firing on the wrong
-  turn; not traced into scvars.cpp/scrunner.cpp's restriction evaluator.
-- **night T86** (4.00, `The_Night_That_Dripped_Blood.taf`), `kiss
-  rachel`: run400 prefixes the scene with "I'm not sure she would
-  appreciate that!" (the library's generic kiss/hug/touch fallback,
-  `sclibrar.cpp` ~27520-27599) before still running the scene text;
-  Scarier runs only the scene text. This is the same library callback
-  already fixed for House's `kiss cathy` (see
-  `run_game_commands_common`'s one-task-per-line doc comment,
-  `scrunner.cpp` ~6000-6018) but with the opposite polarity -- here the
-  real Runner keeps printing the library fallback on a LATER kiss where
-  Scarier has apparently already retired it. Whether this is the same
-  gate misfiring the other way, or a second, independent issue, needs a
-  probe.
-- **hotelconfuego T39** (4.00), bare `n`: Scarier answers with task
-  882's `[open/enter] {the} [back stage] {door}` CompleteText ("Joe
-  stealthily creeps over to the Back Stage Door...", `games/
-  1_Hotel_con_Fuego.taf`) instead of a plain room move; run400 does the
-  plain move (the back-stage entry apparently already happened on an
-  earlier turn on the Runner's side). Looks like a task-vs-movement
-  ordering slip a turn or more upstream of T39; not traced.
-- **thewill T8-19** (3.90, `The_Will.taf`): after `u`/`n`/`open door`,
-  Scarier's Hallway description adds "A titanium pocket watch is
-  visible inside the open grandfather clock." and the Inside Shack
-  description likewise adds contents sentences for the cabinet/drawer,
-  even though the clock is never opened anywhere in the walkthrough;
-  run400 shows neither sentence and takes a different (unopened-door)
-  branch through the same rooms. The markers are `%in_clock%` /
-  `%on_cabinet%` / `%in_drawer%` (room Long/LastDesc text). Traced
-  `var_list_in_object`/`var_list_on_object`/`var_list_at_object`
-  (scvars.cpp ~560-784) and the library's parallel
-  `lib_list_in_object_*` family (sclibrar.cpp ~8965-9180) end to end;
-  neither's literal templates ("Inside X is Y.", "X is inside Y.")
-  match the observed wording ("is visible inside the open X"), so the
-  string comes from somewhere else not yet found. Re-driven clean
-  2026-09-24 (no lost commands) to rule out a capture artefact.
-- **thenightmoon T23-58** (3.90): combat wording/state divergences
-  against a dark elf and a skeleton guard (e.g. run400 "Guard isn't
-  here! Skeleton guard isn't here!" where Scarier still runs the attack
-  and lands or misses hits) -- likely in the same battle/dobattle family
-  as the already-ported type-7 and multi-target rules (see "NPCs, walks
-  and battle" below), but not diagnosed against this specific fight.
+- **mages T0-2, T29** (3.90): the game declares a variable named "sleep"
+  twice (var 13 = 210, var 15 = 0). Scarier looked variables up by name, so
+  the `#pass out` event's restriction read the wrong one: it fired on turn
+  0 and let `sleep` succeed. Variables are now addressed by index
+  (`var_indexed_name`), so the event no longer fires and `sleep` gets "You
+  are not in the right place to do that.", as in run390.
+- **thewill T11/T20/T27** (3.90): `%in_clock%` / `%in_drawer%` in room text
+  list nothing while the container is closed (the Runner's whatisinon
+  gate). Scarier listed the contents regardless ("A titanium pocket watch
+  is visible inside the open grandfather clock."). The openness gate is in
+  `var_get_system`'s `in_` arm.
+- **night T86** (4.00): the winning `kiss rachel` runs silent task 4, which
+  ends the game, and characters()' kiss block still answers "I'm not sure
+  she would appreciate that!" ahead of the WinText. It is ported as the
+  ended-game fallback row `{"kiss *", lib_cmd_kiss_ended_400}` (with
+  `lib_kiss_named_npc`).
+- **hotelconfuego T39** (4.00): task 102's `n/north/go north` has no
+  bracket group, so its slashes are literal (`uip_parse_list`). A bare `n`
+  in the Cabaret is the ordinary exit ("(Getting off the chair first)")
+  and not the task, so the later task 882 no longer fires out of turn.
+- **thenightmoon T23, T50-58** (3.90): two dobattle/checktask rules from the
+  run390 decompile.
+  (1) The checktask `%character%` arm (44AD48-44ADC2) walks every NPC with
+  no break. Every hit stores the reference, so the last hit wins, but the
+  Replace that spells the command fires on the FIRST hit only. That makes it
+  the 3.9 twin of the pre-4.0 `%object%` substitution veto
+  (`run_match_task_commands`). At T50 the command is spelled with "Guard",
+  so TASK 11's `attack guard` matches and the skeleton guard can die.
+  (2) killchar (42D344-42D40C) overwrites the command line with the
+  KilledTask's Command(0) and runs tasks(1). dobattle's no-break target
+  loop (44CC1C-44D1D5) then tests every LATER NPC against that line. At
+  T23 the dark elf's KilledTask "drow giving in" makes the loop strike the
+  Drow as well: `lib_battle_continue_after_kill` / `lib_battle_strike_loop`
+  (3.9 only; run400 does not do this).
+  The old golden ended in a player death from grinding an unkillable guard
+  ("That is 30% of the game"). Now the guard crumbles at T51 and the tail's
+  repeated attacks get "Guard isn't here!  Skeleton guard isn't here!", as
+  in the Runner. The win marker is now "The skeleton crumbles to dust".
+  **Open:** the walkthrough could be extended past the Prison.
 
 ---
 

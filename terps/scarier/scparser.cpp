@@ -913,20 +913,6 @@ uip_parse_list (scr_ptnoderef_t list)
           /* Terminate list building and return. */
           return;
 
-        case TOK_ALTERNATES_SEPARATOR:
-          /*
-           * Inside a group, this ends the current alternative.  Outside one
-           * it is not a separator at all -- run400's matcher only ever looks
-           * for "/" between [] or {} delimiters, so a bare "take/get/eat
-           * stew" is a single literal that matches only itself.  Fall into
-           * the default case, which makes a literal "/" word node.  (Before
-           * this, the list was terminated here *without* a NODE_EOS, so the
-           * pattern degenerated to "take" and prefix-matched anything.)
-           */
-          if (uip_parse_group_depth > 0)
-            return;
-          /* Fall through. */
-
         case TOK_EOS:
           /*
            * A space between the end of a plain literal pattern and the end
@@ -945,6 +931,25 @@ uip_parse_list (scr_ptnoderef_t list)
           else
             child->right_sibling = node;
           return;
+
+        case TOK_ALTERNATES_SEPARATOR:
+          /*
+           * Inside a group, this ends the current alternative.  Outside one
+           * it is not a separator at all -- run400's matcher only ever looks
+           * for "/" between [] or {} delimiters, so a bare "take/get/eat
+           * stew" is a single literal that matches only itself.  Fall into
+           * the default case, which makes a literal "/" word node.  (Before
+           * this, the list was terminated here *without* a NODE_EOS, so the
+           * pattern degenerated to "take" and prefix-matched anything; and
+           * later this case sat above TOK_EOS and fell into THAT, so it
+           * ended the pattern at the first "/" and "n/north/go north"
+           * matched a bare `n` -- hotelconfuego's task 102 swallowed the
+           * move out of the Cabaret, where run400 walks north, T39 of
+           * runner_transcripts/hotelconfuego.txt.)
+           */
+          if (uip_parse_group_depth > 0)
+            return;
+          /* Fall through. */
 
         default:
           /* Add the next node at the appropriate link. */

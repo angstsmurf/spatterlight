@@ -10019,6 +10019,10 @@ liqid_solution.txt|liqid.taf|I surrender, you win!|
 # counter") -- so going `in`/behind the counter and trying to serve always
 # answers "There is no customer here." The walkthrough ends by reading the
 # stats/money/magic displays, the game's own steady-state summary.
+# Runner (run390x, runner_transcripts/mages.txt): identical on every turn
+# since 2026-09-24. The game declares "sleep" twice (var 13 = 210, var 15 =
+# 0); variables are addressed by index (var_indexed_name), so the `#pass
+# out` event no longer fires on turn 0 and `sleep` is refused.
 mages_solution.txt|mages.taf|a magic rating of 20, and your mana=50.|
 # MonsterIsland.taf: content-reviewed Frankenstein/Dracula monster-hunting
 # comic adventure, no sexual content, no minors (the walkthrough never
@@ -10062,6 +10066,10 @@ newbie_solution.txt|newbie.taf|You go throo the wall|
 # ladder/cat/mirror bad-luck gag to distract the mysterious man guarding
 # the dressing room, and examine the trunk to trigger the ending cutscene,
 # which the game itself announces as "the end of the demo."
+# Runner (run400x, runner_transcripts/hotelconfuego.txt): identical on every
+# turn since 2026-09-24.  Task 102's "n/north/go north" has no group, so its
+# slashes are literal (scparser uip_parse_list); a bare `n` in the Cabaret is
+# the ordinary exit, "(Getting off the chair first)", not the task.
 hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the demo.|
 # TEAW_(introcomp).taf ("To End All Wars"): a WWI-trenches IntroComp entry --
 # only the opening scene of an unfinished larger game, one room, no score.
@@ -10129,20 +10137,27 @@ temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # until some turns after the kill). Then fight the Skeleton guard in the
 # Prison: its bare alias "skeleton" resolves to the wrong, absent NPC (a
 # different "Skeleton" elsewhere), so `attack skeleton guard with
-# longsword` (the full name) is required just to target it at all. Even at
-# full stamina, with both the potion and the powder used mid-fight for two
-# full heals, the fight cannot be won: `attack %character% with %object%`
-# is one single generic library task (TASK 5, ACT type=7 changing NPC
-# battle attribute 0 by 2) shared by every enemy in the game, while
-# "skeleton's death" (TASK 11) never once fires in SCR_TRACE_TASKS output
-# no matter how many hits land -- 22 attacks land safely, 23 is fatal to the
-# player, and the Skeleton guard never shows any sign of dying. Tested
-# without success: fully healed entry, SCR_ASSUME_COMBAT=1, wearing the
-# village-gate armour/shield (both actually unobtainable -- "Take what?"),
-# and bypassing the fight entirely (`take keys` without fighting: "Take
-# what?", and the NPC attacks unprovoked regardless). Wired as the
-# deepest deterministic reach; ends on the death screen. SCR_RNG=xoshiro.
-thenightmoon_solution.txt|thenightmoon.taf|That is 30% of the game|SCR_RNG=xoshiro
+# longsword` (the full name) is required just to target it at all. The guard
+# used to be unkillable (22 hits landed, the 23rd killed the player, and
+# "skeleton's death" TASK 11 never fired). That was two Scarier bugs, both
+# ported from the run390 decompile, and the run is now identical to the Wine
+# Runner (runner_transcripts/thenightmoon.txt) on every turn:
+#  (1) run390 checktask's %character% arm (44AD48-44ADC2) walks every NPC
+#      with no break: each hit stores the reference (the last hit wins), but
+#      the Replace spelling the command fires on the FIRST hit only. That
+#      makes it the 3.9 twin of the pre-4.0 %object% substitution veto. At
+#      T50 "Guard" (the skeleton guard's first Name) is what the command gets
+#      spelled with, so TASK 11's "attack guard" matches and the fight counts.
+#  (2) run390 killchar (42D344-42D40C) overwrites the command line with the
+#      KilledTask's Command(0) and runs tasks(1); dobattle's no-break target
+#      loop (44CC1C-44D1D5) then tests every LATER NPC against that line. At
+#      T23 the dark elf's KilledTask "drow giving in" makes the loop strike
+#      the Drow too ("You hit injured dark elf with your longsword.").
+# The guard crumbles at T51. The rest of the command tail repeats the attack,
+# which gets "Guard isn't here!  Skeleton guard isn't here!", as it does in
+# the Runner. The walkthrough stops there; it could now be extended past the
+# Prison. SCR_RNG=xoshiro.
+thenightmoon_solution.txt|thenightmoon.taf|The skeleton crumbles to dust|SCR_RNG=xoshiro
 # clod_demo.taf (CloD Demo): menu-driven tech demo. Best reachable, not a win --
 # the Pedestal Room past the archway death-trap is the deepest safe stop.
 cloddemo_solution.txt|clod_demo.taf||
@@ -10151,10 +10166,17 @@ cloddemo_solution.txt|clod_demo.taf||
 # bookshop unlock, the Blue-Boar book gating Glenn's Ghost-Train presence,
 # the tunnel/trapdoor escape, the phone-call/alley/Chloe exposition chain,
 # then the Rachel beach ending. See notes/Night_walkthrough.md.
+# Runner (run400x, runner_transcripts/night.txt): identical on every turn
+# since 2026-09-24.  The winning `kiss rachel` runs silent task 4 (ends the
+# game); characters()' kiss block still answers "I'm not sure she would
+# appreciate that!" ahead of the WinText (lib_cmd_kiss_ended_400).
 night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the maximum 100!|
 # The_Will.taf: 150-point treasure hunt. Best reachable, 35/150 -- gate/
 # shack/matchbook/emerald route; crowbar/watch/charger left ungettable
 # (genuine parser-level refusals). See notes/TheWill_walkthrough.md.
+# Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
+# since 2026-09-24.  %in_clock% / %in_drawer% in room text list nothing while
+# the container is closed (whatisinon gate, see var_get_system in_).
 thewill_solution.txt|The_Will.taf||
 # Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
 # and cane are mandatory survival gear; escape corridor then let the

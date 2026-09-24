@@ -1366,8 +1366,7 @@ task_run_change_variable_action (scr_gameref_t game,
   /* Get the name and type of the variable being addressed. */
   vt_key[0].string = "Variables";
   vt_key[1].integer = var1;
-  vt_key[2].string = "Name";
-  name = prop_get_string (bundle, "S<-sis", vt_key);
+  name = var_indexed_name (bundle, var1);
   vt_key[2].string = "Type";
   type = prop_get_integer (bundle, "I<-sis", vt_key);
 

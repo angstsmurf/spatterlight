@@ -27,15 +27,13 @@ yourself, and a washbasin to improve your hygiene after using the chamberpot.
 > lie down
 You lie down on the ground.
 When you have weapons, you can go out and look for a quest either at the Town
-Council or the Hero's Guild.  You pass out onto the ground and wake up in
-your own home.  You realize that you have not had sleep in a long time, and
-you were very tired.  You need to sleep right now.
+Council or the Hero's Guild.
 
 > sleep
-You fall asleep on your bed and wake up a few hours later.
+You are not in the right place to do that.
 
 > d
-(Getting off your small bed first)
+(Standing up first)
 You move down.
 
 Your Front Hall
@@ -248,7 +246,7 @@ or "in".  Customer is here.  There is a customer here that you have to serve.
 
 > stats
 You have:
-90 health
+100 health
 70 hygiene,
 70 hunger,
  and bladder 20   There is a customer here that you have to serve.

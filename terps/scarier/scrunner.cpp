@@ -2228,6 +2228,7 @@ static scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[] = {
   {"[x/ex/exam/examine/look {at}] *", lib_cmd_examine_other},
   {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
   {"hint *", lib_cmd_hint},
+  {"kiss *", lib_cmd_kiss_ended_400},
   {"* %character% *", lib_cmd_verb_npc},
   {NULL, NULL}
 };
@@ -5450,7 +5451,23 @@ run_match_task_commands (scr_gameref_t game,
               || variable
               || literal_ref
               || (is_matched && version < TAF_VERSION_390
-                  && strstr (pattern, "%object%") != NULL)))
+                  && strstr (pattern, "%object%") != NULL)
+              /*
+               * A 3.9 %character% command is decided the same way, not by
+               * the tree's position: checktask's NPC walk (44AD48-44ADC2)
+               * stores every NPC whose Name the line contains in
+               * MemVar_4681AA but Replace()s only on the first, so the
+               * LOWEST-indexed Name in the line spells the command.
+               * thenightmoon T50 `attack skeleton guard with longsword`
+               * contains NPC 0's Name "Guard" as well as NPC 11's "Skeleton
+               * guard"; the command becomes "attack Guard with longsword",
+               * equals nothing, and task 5 ("As you strike %character%,
+               * they realise you are not as friendly...") never runs --
+               * run390 hands the line to dobattle, "You hit the skeleton
+               * with your longsword." (runner_transcripts/thenightmoon.txt).
+               */
+              || (is_matched && version >= TAF_VERSION_390
+                  && strstr (pattern, "%character%") != NULL)))
         {
           std::string literal;
           scr_int ref_object, ref_character;

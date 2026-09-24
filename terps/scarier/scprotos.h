@@ -307,6 +307,8 @@ extern scr_bool var_get_command_number (scr_var_setref_t vars,
 extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
                                               std::string &text);
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);
+extern const scr_char *var_indexed_name (scr_prop_setref_t bundle,
+                                        scr_int index_);
 extern void var_destroy (scr_var_setref_t vars);
 extern void var_register_game (scr_var_setref_t vars, scr_gameref_t game);
 extern void var_set_ref_character (scr_var_setref_t vars, scr_int character);
@@ -759,6 +761,7 @@ extern scr_bool lib_cmd_remove_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_kiss_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_kiss_object (scr_gameref_t game);
 extern scr_bool lib_cmd_kiss_other (scr_gameref_t game);
+extern scr_bool lib_cmd_kiss_ended_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_kill_other (scr_gameref_t game);
 extern scr_bool lib_cmd_eat_object (scr_gameref_t game);
 extern scr_bool lib_cmd_give_object_npc (scr_gameref_t game);

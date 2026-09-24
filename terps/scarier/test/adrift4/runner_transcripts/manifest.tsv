@@ -228,7 +228,7 @@ hhorror	hhorror.txt	driven:Adrift_332_hhorror_rt.txt	3.90	run390x.exe	50	0		SCR_
 hiker	hiker.txt	driven:Adrift_370_hiker_rt.txt	4.00	run400x.exe	1234	2			yes	identical on every turn.
 home12	home12.txt	driven:Adrift_329_home12_rt.txt	3.90	run390x.exe	1234	0	Petter	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 homelessharry	homelessharry.txt	driven:Adrift_282_homelessharry_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-hotelconfuego	hotelconfuego.txt	driven:Adrift_313_hotelconfuego_rt.txt	4.00	run400x.exe	1234	5			yes	1 differing turn(s)
+hotelconfuego	hotelconfuego.txt	driven:Adrift_313_hotelconfuego_rt.txt	4.00	run400x.exe	1234	5			yes	identical on every turn.
 house	house.txt	driven:Adrift_501_house_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
 howitstarted	howitstarted.txt	driven:Adrift_140_howitstarted_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 hub	hub.txt	driven:Adrift_130_hub_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -287,7 +287,7 @@ lost_down	lost_down.txt	driven:Adrift_254_lost_down_rt.txt	3.90	run390x.exe	1234
 lost_souls	lost_souls.txt	driven:Adrift_320_lost_souls_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from whitespace.
 lostmines	lostmines.txt	harvested-xoshiro:Adrift_141_lostmines_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 losttomb	losttomb.txt	driven:Adrift_340_losttomb_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
-mages	mages.txt	driven:Adrift_312_mages_rt.txt	3.90	run390x.exe	1234	0			yes	4 differing turn(s)
+mages	mages.txt	driven:Adrift_312_mages_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 magiciansniece	magiciansniece.txt	driven:Adrift_325_magiciansniece_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 magicshow	magicshow.txt	driven:Adrift_493_magicshow_rt.txt	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 maincourse	maincourse.txt	driven:Adrift_282_maincourse_rt.txt	4.00	run400x.exe	17	2		SCR_SEED=17	yes	identical on every turn.
@@ -335,7 +335,7 @@ neighbours	neighbours.txt	driven:Adrift_435_neighbours_rt.txt	4.00	run400x.exe	1
 nem	nem.txt	driven:Adrift_329_nem_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 newbie	newbie.txt	driven:Adrift_324_newbie_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 newton	newton.txt	driven:Adrift_360_newton_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
-night	night.txt	driven:Adrift_315_night_rt.txt	4.00	run400x.exe	1234	0	Petter~male		yes	1 differing turn(s)
+night	night.txt	driven:Adrift_315_night_rt.txt	4.00	run400x.exe	1234	0	Petter~male		yes	identical on every turn.
 notebook2	notebook2.txt	driven:Adrift_355_notebook2_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 noticeme	noticeme.txt	driven:Adrift_333_noticeme_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 noximion	noximion.txt	driven:Adrift_315_noximion_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
@@ -483,7 +483,7 @@ thecrash	thecrash.txt	driven:Adrift_327_thecrash_rt.txt	4.00	run400x.exe	1234	0	
 thehunter	thehunter.txt	driven:Adrift_451_thehunter_rt.txt	4.00	run400x.exe	1234	0	Hunter~male		yes	identical on every turn.
 theisle	theisle.txt	driven:Adrift_313_theisle_rt.txt	4.00	run400x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thelasthour	thelasthour.txt	driven:Adrift_141_thelasthour_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-thenightmoon	thenightmoon.txt	driven:Adrift_320_thenightmoon_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	no	10+ differing turn(s)
+thenightmoon	thenightmoon.txt	driven:Adrift_320_thenightmoon_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	no	identical on every turn apart from whitespace.
 thepassages	thepassages.txt	driven:Adrift_284_thepassages_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thepkgirl	thepkgirl.txt	driven:Adrift_128_thepkgirl_rt.txt	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 theroad	theroad.txt	driven:Adrift_403_theroad_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -492,7 +492,7 @@ thesisters	thesisters.txt	driven:Adrift_280_thesisters_rt.txt	4.00	run400x.exe	1
 thesorc	thesorc.txt	driven:Adrift_346_thesorc_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thetest	thetest.txt	driven:Adrift_189_thetest_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thetest_win	thetest_win.txt	driven:Adrift_190_thetest_win_rt.txt	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	yes	identical on every turn.
-thewill	thewill.txt	driven:Adrift_284_thewill_rt.txt	3.90	run390x.exe	1234	0			yes	3 differing turn(s)
+thewill	thewill.txt	driven:Adrift_284_thewill_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 thewoods	thewoods.txt	harvested-native-0-draws:Adrift_729_thewoods.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 think2	think2.txt	driven:Adrift_174_think2_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 thorn	thorn.txt	driven:Adrift_148_thorn_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.

@@ -720,7 +720,7 @@ debug_print_variable (scr_gameref_t game, scr_int variable)
       return;
     }
 
-  name = prop_get_indexed_string (bundle, "Variables", variable, "Name");
+  name = var_indexed_name (bundle, variable);
 
   if (var_get (vars, name, &var_type, &vt_rvalue))
     {
@@ -741,7 +741,8 @@ debug_print_variable (scr_gameref_t game, scr_int variable)
     if_print_debug ("[Invalid variable] ");
   snprintf (buffer, sizeof(buffer), "%ld ", variable);
   if_print_debug (buffer);
-  debug_print_quoted (name);
+  debug_print_quoted (prop_get_indexed_string (bundle, "Variables", variable,
+                                               "Name"));
 }
 
 
@@ -1361,7 +1362,7 @@ debug_dump_variable (scr_gameref_t game, scr_int variable)
   debug_print_variable (game, variable);
   if_print_debug_character ('\n');
 
-  name = prop_get_indexed_string (bundle, "Variables", variable, "Name");
+  name = var_indexed_name (bundle, variable);
 
   if_print_debug ("    Value = ");
   if (var_get (vars, name, &var_type, &vt_rvalue))
@@ -2025,7 +2026,7 @@ debug_compare_variable (scr_gameref_t from, scr_gameref_t with, scr_int variable
   if (from->bundle != with->bundle)
     scr_fatal ("debug_compare_variable: property sharing malfunction\n");
 
-  name = prop_get_indexed_string (bundle, "Variables", variable, "Name");
+  name = var_indexed_name (bundle, variable);
 
   if (!var_get (from_var, name, &var_type, &vt_rvalue)
       || !var_get (with_var, name, &var_type2, &vt_rvalue2))

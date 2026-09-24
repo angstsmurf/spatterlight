@@ -778,7 +778,7 @@ static scr_int
 ser_variable_at (scr_prop_setref_t bundle, scr_int index_,
                  const scr_char **name)
 {
-  *name = prop_get_indexed_string (bundle, "Variables", index_, "Name");
+  *name = var_indexed_name (bundle, index_);
   return prop_get_indexed_integer (bundle, "Variables", index_, "Type");
 }
 

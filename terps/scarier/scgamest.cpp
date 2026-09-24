@@ -1882,8 +1882,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
 
       vt_key[1].integer = var;
 
-      vt_key[2].string = "Name";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
+      name = var_indexed_name (bundle, var);
       vt_key[2].string = "Type";
       var_type = prop_get_integer (bundle, "I<-sis", vt_key);
 

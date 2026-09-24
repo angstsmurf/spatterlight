@@ -155,7 +155,7 @@ You move west.
 Inside Shack
 The shack has just this one room and  houses only a small single-drawer metal
 cabinet which is leaning to one side. A crowbar is in plain view on the
-cabinet. A battery charger is visible inside the open cabinet drawer.
+cabinet.
 
 > level cabinet with matchbook
 With what?

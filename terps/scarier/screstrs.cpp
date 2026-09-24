@@ -745,7 +745,7 @@ restr_pass_task_int_var (scr_gameref_t game,
           scr_int ivar, type;
 
           ivar = restr_integer_variable (game, var3 - 1);
-          name = prop_get_indexed_string (bundle, "Variables", ivar, "Name");
+          name = var_indexed_name (bundle, ivar);
           type = prop_get_indexed_integer (bundle, "Variables", ivar, "Type");
 
           if (type != TAFVAR_NUMERIC)
@@ -853,8 +853,7 @@ restr_pass_task_var (scr_gameref_t game,
   /* Get the name and type of the variable being addressed. */
   vt_key[0].string = "Variables";
   vt_key[1].integer = var1 - 2;
-  vt_key[2].string = "Name";
-  name = prop_get_string (bundle, "S<-sis", vt_key);
+  name = var_indexed_name (bundle, var1 - 2);
   vt_key[2].string = "Type";
   type = prop_get_integer (bundle, "I<-sis", vt_key);
 

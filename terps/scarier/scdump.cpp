@@ -1366,7 +1366,8 @@ scr_dump_npc_trace (scr_gameref_t game)
                 continue;
             }
 
-          if (!var_get (vars, name, &var_type, &vt_rvalue)
+          if (!var_get (vars, var_indexed_name (bundle, index), &var_type,
+                        &vt_rvalue)
               || var_type != VAR_INTEGER)
             continue;
           if (all)
