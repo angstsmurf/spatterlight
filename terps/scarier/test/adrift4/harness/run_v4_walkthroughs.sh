@@ -9931,6 +9931,54 @@ dickynoodle_solution.txt|DickyNoodle.TAF|You untie your loving Uncle Noodle|
 # unsettling "stepford" dialogue, and tries "wash dishes" once more to show
 # the fail message persists even after the reset.
 dishduty_solution.txt|dishduty_intro(3).taf|You can't wash that.|
+# illegalsocks.taf (Illegal Socks): content-reviewed sci-fi/action comedy, no
+# sexual content, no minors. UNWINNABLE -- confirmed via SCR_DEBUGGER_ENABLED=1/
+# SCR_DUMP_TASKS=1 plus live fprintf instrumentation of lib_battle_npc_is_target
+# (sclibrar.cpp): the sole boss NPC, "Dr. Myanus Hurts" (index 6/13, both Battle
+# Dome copies), can never be targeted by any typed attack command. Its authored
+# Name field contains a literal ". " (the period-space in "Dr."), so ADRIFT
+# 4.0's own input splitter (run_find_split_400, scrunner.cpp -- object names
+# suppress a split there, NPC names do not) breaks "attack dr. myanus hurts"
+# into two separate lines before any handler sees it; typing without the space
+# ("attack dr.myanus hurts") survives the splitter but then fails the engine's
+# literal whole-Name substring test (lib_battle_npc_is_target), which for a
+# 4.0 game never falls back to aliases/prefixes the way pre-4.0 does; and every
+# alias/prefix phrasing that does parse ("attack doctor", "attack the great
+# doctor") passes the %character% grammar stage but fails that same literal
+# re-check inside lib_battle_unnamed_target. This blocks both TASK 23/26 (the
+# "evil" branch) and TASK 31/33 (the true win, reached via TASK 31 "Push Green
+# Button") identically, since both require killing this same mis-named NPC --
+# an original-game authoring bug (a title abbreviation embedded in an NPC's
+# Name), not a Scarier defect. The walkthrough plays to the best reachable
+# state: buys the ticket, solves the Sam/Tim/Tom/jump sequence, wires the
+# computer/poster/controller puzzle, lights the gas to open the secret door,
+# meets the boss's ultimatum, takes the teleporter into the Evil-side Battle
+# Dome (its own +150), through to the Good room (killing Wauk/Trace via the
+# typed "Get Sword"/"Get Armor" tasks rather than the broken attack verb, plus
+# the "points" bonus), and into the second Battle Dome, where Quzar and the
+# Doctor trade misses forever (player Accuracy is 0/0 per `status` -- combat
+# here can never resolve either) -- 745 of 2155 (34%), the game's own score
+# report is the marker.
+illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of 2155.|
+# ebonysworld.taf (Ebony's World): content-reviewed fantasy/comic adventure,
+# no sexual content, no minors. UNWINNABLE -- confirmed via SCR_TRACE_VARS=all:
+# the final task, TASK 26 ("flip switch" in the Conference room), requires
+# four named variables (dial1, dial2, lever, valve) to read 3, 2, 2, 2. The
+# walkthrough's pipe-room sequence (`turn dial to high`, `turn dial to on`,
+# `flip lever up`) correctly satisfies dial1/dial2/lever, but `valve` stays
+# at its default of 1 for the entire game: `SCR_DUMP_TASKS=1` shows every
+# task that could touch it -- both the lever tasks AND the "turn valve
+# on/off" tasks -- write to variable index 2 ("lever") only; variable index 3
+# ("valve") is never targeted by a single ACT in the whole game. `flip
+# switch` therefore always answers "you flip it but nothing happens" no
+# matter what order or combination of pipe-room commands precede it -- an
+# orphaned/unwired variable, the same class of authoring bug as
+# `bedlam_solution.txt`. The walkthrough reaches this confirmed dead end
+# (score 1450) after solving every other puzzle: the x-ray specs/key, the
+# casino chip swap for beer, the boat/seaman crossing, capturing the strange
+# animal, the reed/pond/elixir sequence, and the full (correct but
+# insufficient) pipe-room startup.
+ebonysworld_solution.txt|ebonysworld.taf|Your score is 1450 out of a maximum of 0.|
 # ?????. Feed the dog, eat the apple, move the weight, take the key, leave.
 # Win marker on the proba row is cp1251, matching the transcript.
 proba_solution.txt|proba.taf|вышли из этой квартиры|SCR_SKIP_WAITKEY=1
@@ -9996,6 +10044,40 @@ monsterisland_solution.txt|MonsterIsland.taf|And the beginning of a village down
 # real puzzle (the sofa's key, the bookshelf's secret passage after lighting
 # a candle, the button opening the vault) and ends at this proven dead end.
 mysteryhouse_solution.txt|MysteryHouse.taf|You drop the Treasure Chest.|
+# 1_Hotel_con_Fuego.taf (Hotel con Fuego): content-reviewed comic mystery
+# demo, no sexual content, no minors. WON the demo's full designed arc:
+# get the theater ticket, get drunk at the bar (3x buy beer unlocks a
+# response ladder), open the purse dropped by a departing patron (3x open
+# purse, another response ladder) and take the mirror, travel back to the
+# Theater Entrance and wait there (excluded from the stage-show timeout's
+# WHERE_ROOMS per SCR_DUMP_TASKS) until the sobering-up EVENT fires --
+# `go_back_stage` requires sobriety, the opposite of the flirt/volunteer
+# path's drunk requirement -- then give the ticket, go backstage, use the
+# ladder/cat/mirror bad-luck gag to distract the mysterious man guarding
+# the dressing room, and examine the trunk to trigger the ending cutscene,
+# which the game itself announces as "the end of the demo."
+hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the demo.|
+# Filthy Bill Does Everyone But His Mother (filthybill.taf, AIF/adult, all
+# named characters textually adult -- Amanda explicitly "18 year old
+# daughter", Chelsea "middle aged hooker", Marlene a police officer, Tanya
+# the stable grounds keeper, Janine a hotel-suite "buxom beauty", Jen a bar
+# patron; no minors). Best-reachable state: 5 of 6 required conquests done
+# (Amanda, Chelsea, the Desk Clerk via "say interested", Tanya, Marlene).
+# The 6th, Jen, is permanently blocked by a genuine authoring bug: her task
+# requires the "french tickler" worn, which is a CONTAINERIDX item sealed
+# inside the passed-out Bum's coat. Taking a held/worn object from an NPC
+# is unconditionally refused by the engine (sclibrar.cpp) unless the NPC is
+# actually killed in battle (which drops worn items -- scbattle.cpp
+# battle_kill); the Bum is never a battle target, so "give whiskey to bum"
+# (a plain ACT type=7 battle-attribute change, not a kill) never triggers
+# that drop, and no other task ever relocates the coat or its contents.
+# The wired script demonstrates this: it attempts "screw jen" after doing
+# everything else required (phone-prank ladder at the payphone, shower,
+# shave) and gets the tickler-specific refusal, then attempts "orgy" in the
+# Orgy-Fest Room and gets "Someone is missing here." -- confirming the win
+# task's all-six-conquests restriction can never be satisfied. Same class
+# of authoring dead end as ebonysworld/illegalsocks in this same batch.
+filthybill_solution.txt|filthybill.taf|studded cocks|
 EOF
 
 

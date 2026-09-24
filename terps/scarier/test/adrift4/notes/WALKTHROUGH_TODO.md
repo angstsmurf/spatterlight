@@ -215,7 +215,7 @@ gamma, Temple_Of_The_Sun, amy, The_Strange_Tale_of_Dr_Wilkins, BSG TWENTY TWO
 Final, warlock, BarneysProblem, Dear Diary, Dear Diary 2, Riding_Home, hcw,
 Scandal, cldone, magicshow, goblin, ss whore, Sex is Mental, The Worst Game In
 The World, DOA_X_B_S, The Silver Maiden, Trapped With A Girl, Practice Policy,
-To Be King, Harem Prologue, Duchess of Desire.
+To Be King, Harem Prologue, Duchess of Desire, Filthy Bill.
 
 Further GAMES_WITH_HINTS declines (TAF text): `Deadly Climax 1.0 final.taf`
 (Asia a "fifteen year old pupil"; Jo compared to thirteen); `party.taf`

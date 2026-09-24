@@ -1,26 +1,55 @@
+
+
+
+
+
 e
 get ticket
+
+
+
 n
 n
 buy beer
 buy beer
 buy beer
+open purse
+open purse
+open purse
+take mirror
 s
 s
 w
 n
 e
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
 give ticket to millie
-wait
-wait
-wait
-volunteer
-wait
-wait
-wait
-wait
-wait
-wait
-wait
-wait
-wait
+n
+n
+open ladder
+walk under ladder
+give mirror to cat
+s
+e
+x trunk

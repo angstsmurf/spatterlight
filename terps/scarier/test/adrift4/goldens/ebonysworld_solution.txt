@@ -54,3 +54,4 @@ turn valve on
 s
 e
 flip switch
+score
