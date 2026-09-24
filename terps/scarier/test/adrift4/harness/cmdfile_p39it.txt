@@ -1,0 +1,48 @@
+probe
+x microwave
+open it
+search it
+search it
+x ball
+search it
+search it
+zzz ball
+search it
+get ball
+search it
+drop ball
+search it
+look
+open cabinet
+search it
+get jet
+search it
+read it
+get it
+put jet in cabinet
+search it
+get jet from cabinet
+search it
+x jet
+search it
+read jet
+search it
+drop jet
+x ball
+get vial
+search it
+x crate
+x ball
+get coin
+search it
+x ball
+put coin in crate
+search it
+x ball
+get coin from crate
+search it
+x ball
+x crate
+search it
+close cabinet
+search it

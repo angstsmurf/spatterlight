@@ -611,6 +611,8 @@ extern void uip_begin_antecedent_400 (void);
 extern void uip_note_antecedent_400 (scr_int object, scr_int form,
                                      scr_int stage);
 extern scr_bool uip_pronoun_was_used (void);
+extern void uip_note_handler_antecedent_390 (scr_int object);
+extern void uip_note_take_from_390 (scr_int parent);
 extern void uip_commit_antecedent_400 (scr_gameref_t game);
 extern scr_char *uip_rewrite_references (scr_gameref_t game,
                                          const scr_char *string,

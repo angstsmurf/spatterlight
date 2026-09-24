@@ -144,11 +144,33 @@ static scr_int uip_antecedent_object = -1;
 static scr_int uip_antecedent_form = UIP_IT_INDEFINITE;
 static scr_int uip_antecedent_stage = -1;
 
+/*
+ * run390's handlers write the antecedent after generaltasks' co() pre-pass,
+ * so on a 3.9 line the last handler write wins outright; see
+ * uip_assign_antecedent_390().
+ */
+static scr_int uip_handler_object_390 = -1;
+static scr_int uip_take_from_parent_390 = -1;
+
 void
 uip_begin_antecedent_400 (void)
 {
   uip_antecedent_object = -1;
   uip_antecedent_stage = -1;
+  uip_handler_object_390 = -1;
+  uip_take_from_parent_390 = -1;
+}
+
+void
+uip_note_handler_antecedent_390 (scr_int object)
+{
+  uip_handler_object_390 = object;
+}
+
+void
+uip_note_take_from_390 (scr_int parent)
+{
+  uip_take_from_parent_390 = parent;
 }
 
 void
@@ -3301,8 +3323,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
               definite = uip_tense_prefix_3738 (prefix);
               prefix = definite.c_str ();
             }
-          else if (game->it_form == UIP_IT_DEFINITE
-                   && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+          else if (game->it_form == UIP_IT_DEFINITE)
             {
               if (scr_compare_word (prefix, "a", 1))
                 definite = std::string ("the") + (prefix + 1);
@@ -3429,8 +3450,10 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * a camcorder from the desk."; and on veteran (3.90, run390, same
            * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
            * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
-           * mode 1 (authored Prefix), so unlike 4.0 there is no "the" form,
-           * which is why uip_definite_form() stays 4.00-only.  (An earlier
+           * mode 1 (authored Prefix).  Lines no handler names an object on
+           * keep co()'s mode-0 "the X" from the pre-pass (43B69E), so 3.9
+           * has the definite form too -- see uip_assign_antecedent_390()
+           * and the p39IT probe (crossworlds4 "(the microwave)").  (An earlier
            * reading of run390 had
            * it keeping showbrackets only for the "ask about"/"talk about"
            * rewrite at loc_459036/459107 and echoing nothing -- wrong.)
@@ -4049,6 +4072,165 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
 
 
 /*
+ * uip_assign_antecedent_390()
+ *
+ * run390's object antecedent on a line.  Before any handler, generaltasks
+ * calls co(obj, 0) for EVERY object (45F318-45F430), and co() ends
+ * (43B626-43B6B0) by storing the mode-0 name, tense(Prefix & " " & Short)
+ * -- "the X" -- for an object whose Short, or failing that Alias, is a
+ * whole word of the line, that is present and seen, and that has no present
+ * seen namesake (the crowd arms are not modelled).  So the LAST such object
+ * in index order wins, not the last one named.  A handler that acts then
+ * stores the authored mode-1 name: examines/read (44BE52, refusals too),
+ * takes' pick-up from the floor (455067, the "and" arm 4550F0), drops
+ * (445BE6), wears (43D043) and removes (439E68) -- see
+ * uip_note_handler_antecedent_390().  Take-from, put, open/close, tasks and
+ * the unknown-verb reply leave the pre-pass's.  A line through a pronoun is
+ * no different: the pronoun has already been spliced into it.
+ *
+ * Measured with make_39_itprobe.py (run390x Adrift_p39it.txt, 2026-09-24):
+ * `open it` (a task) then `search it` "(the microwave)"; `get jet` from
+ * the open cabinet, rewritten to take-from, "(the cabinet)" -- the vial
+ * comes first in index order -- where `get coin` from the crate listed
+ * before it is "(the coin)"; `put coin in crate` "(the coin)"; `read it`
+ * on the cabinet "(the cabinet)" then `get it` "(a cabinet)"; `get ball`,
+ * `drop ball`, `x jet`, `read jet` all "a".  crossworlds4 T29/T240/T241.
+ */
+/*
+ * run390 c(term, "") (4334B0) on the lower-cased line: the first occurrence
+ * with a start or space before it decides, by whether the line ends or a
+ * space, comma or full stop follows.  An empty term never matches.
+ */
+static scr_bool
+uip_line_has_word_390 (const scr_char *line, const scr_char *term)
+{
+  std::string needle (term);
+  const scr_char *scan;
+
+  for (auto &c : needle)
+    c = scr_tolower (c);
+  if (needle.empty ())
+    return FALSE;
+
+  for (scan = strstr (line, needle.c_str ()); scan;
+       scan = strstr (scan + 1, needle.c_str ()))
+    {
+      scr_char next;
+
+      if (scan != line && scan[-1] != ' ')
+        continue;
+      next = scan[needle.size ()];
+      return next == NUL || next == ' ' || next == ',' || next == '.';
+    }
+  return FALSE;
+}
+
+/* The 3.9 record's one Alias, or NULL. */
+static const scr_char *
+uip_object_alias_390 (scr_prop_setref_t bundle, scr_int object)
+{
+  scr_vartype_t vt_key[4];
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  if (prop_get_child_count (bundle, "I<-sis", vt_key) < 1)
+    return NULL;
+  vt_key[3].integer = 0;
+  return prop_get_string (bundle, "S<-sisi", vt_key);
+}
+
+/* co()'s obhere() And seen byte. */
+static scr_bool
+uip_object_present_seen_390 (scr_gameref_t game, scr_int object)
+{
+  return gs_object_seen (game, object)
+         && obj_indirectly_in_room (game, object, gs_playerroom (game));
+}
+
+static void
+uip_assign_antecedent_390 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int handler = uip_handler_object_390;
+  std::string rewritten;
+  scr_int object, other, found = -1;
+
+  uip_handler_object_390 = -1;
+
+  /*
+   * takes' rewrite (4552EE) is what the rest of the line meets: `get jet`
+   * of a vial in the open cabinet becomes `get jet from ` & LCase(name(
+   * cabinet, 1)), and the cabinet is named on it.
+   */
+  if (uip_take_from_parent_390 >= 0)
+    {
+      const scr_char *prefix = prop_get_indexed_string (bundle, "Objects",
+                                   uip_take_from_parent_390, "Prefix");
+
+      rewritten = line;
+      rewritten += " from ";
+      rewritten += prefix;
+      rewritten += " ";
+      rewritten += prop_get_indexed_string (bundle, "Objects",
+                                            uip_take_from_parent_390,
+                                            "Short");
+      for (auto &c : rewritten)
+        c = scr_tolower (c);
+      line = rewritten.c_str ();
+      uip_take_from_parent_390 = -1;
+    }
+
+  if (handler >= 0)
+    {
+      game->it_object = handler;
+      game->it_form = UIP_IT_INDEFINITE;
+      game->it_npc = -1;
+      return;
+    }
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *term, *alias;
+      scr_int count;
+
+      term = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      if (!uip_line_has_word_390 (line, term))
+        {
+          alias = uip_object_alias_390 (bundle, object);
+          if (!alias || !uip_line_has_word_390 (line, alias))
+            continue;
+          term = alias;
+        }
+      if (!uip_object_present_seen_390 (game, object))
+        continue;
+
+      count = 0;
+      for (other = 0; other < gs_object_count (game); other++)
+        {
+          const scr_char *other_alias = uip_object_alias_390 (bundle, other);
+
+          if ((scr_strcasecmp (prop_get_indexed_string (bundle, "Objects",
+                                                        other, "Short"),
+                               term) == 0
+               || (other_alias && scr_strcasecmp (other_alias, term) == 0))
+              && uip_object_present_seen_390 (game, other))
+            count++;
+        }
+      if (count <= 1)
+        found = object;
+    }
+
+  if (found >= 0)
+    {
+      game->it_object = found;
+      game->it_form = UIP_IT_DEFINITE;
+      game->it_npc = -1;
+    }
+}
+
+
+/*
  * uip_assign_pronouns()
  *
  * Search a player command for object and NPC names, and assign any found to
@@ -4089,6 +4271,13 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
   handler_set = uip_antecedent_stage == UIP_STAGE_HANDLER;
   uip_commit_antecedent_400 (game);
   uip_pronoun_used = FALSE;
+
+  if (prop_get_taf_version (bundle) == TAF_VERSION_390)
+    {
+      uip_assign_antecedent_390 (game, string);
+      uip_pending_definite = FALSE;
+      return;
+    }
 
   /* Save var references so we can restore them later. */
   saved_ref_object = var_get_ref_object (vars);

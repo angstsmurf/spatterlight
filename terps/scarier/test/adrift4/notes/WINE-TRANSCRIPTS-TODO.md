@@ -364,8 +364,11 @@ is now ported; the row is identical on every turn.
   and re-drive in Wine.
 - **matt** (3.9): checktask 44B4B2 claims a reverse command without a
   room check. Porting this makes matt unwinnable on the Runner route.
-- **crossworlds4** (3.9): the "it" antecedent needs co()'s definite write
-  (43B69E) and the take-from container. Needs a probe.
+- **crossworlds4** (3.9): FIXED 2026-09-24. The "it" antecedent is now
+  co()'s pre-pass (last present, seen, unshadowed object named on the
+  line, "the X"), overwritten in mode 1 by take/drop/wear/remove/examine/
+  read handlers; takes' auto-from rewrite adds the parent to the line.
+  Probe: harness/make_39_itprobe.py (p39IT, 48/48 identical).
 - **spacerun**: differs by design (SCR_ASSUME_ROOMS).
 - **athylon**: differs by design since its suite row gained
   SCR_ASSUME_COMBAT=1, which the plan copies into the compare. Every blow

@@ -1081,6 +1081,18 @@ lib_is_version_390 (scr_gameref_t game)
   return version >= TAF_VERSION_390 && version < TAF_VERSION_400;
 }
 
+/*
+ * A run390 handler that acted names its object to the antecedent in mode 1,
+ * the authored Prefix, after generaltasks' co() pre-pass; see
+ * uip_assign_antecedent_390() in scparser.cpp.
+ */
+static void
+lib_note_antecedent_390 (scr_gameref_t game, scr_int object)
+{
+  if (lib_is_version_390 (game))
+    uip_note_handler_antecedent_390 (object);
+}
+
 
 /*
  * lib_set_admin()
@@ -9940,6 +9952,9 @@ lib_cmd_examine_object (scr_gameref_t game)
    */
   gs_set_object_seen (game, object, TRUE);
 
+  /* run390 examines names it too, in mode 1 (44BE52). */
+  lib_note_antecedent_390 (game, object);
+
   /* 4.0 names a present object to the antecedent setter (471749-471789). */
   if (lib_is_version_400 (game)
       && (obj_indirectly_in_room (game, object, gs_playerroom (game))
@@ -12288,6 +12303,12 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
               /* A successful library take spends OnlyWhenNotMoved mode 1
                * (run400 `takes` @0047BF66).  Nothing else does. */
               gs_set_object_unmoved (game, object, FALSE);
+              /* run390 takes 455067; a take from a parent is rewritten to
+               * take-from (4552EE), which writes nothing. */
+              if (parent == -1)
+                lib_note_antecedent_390 (game, object);
+              else if (lib_is_version_390 (game))
+                uip_note_take_from_390 (parent);
             }
 
           if (!list.empty ())
@@ -14368,6 +14389,7 @@ lib_take_and_pre400 (scr_gameref_t game)
             {
               gs_object_player_get (game, object);
               gs_set_object_unmoved (game, object, FALSE);
+              lib_note_antecedent_390 (game, object);   /* 4550F0 */
               taken++;
               candidates--;
               lib_print_object_np (game, object);
@@ -16826,6 +16848,7 @@ lib_move_to_room (scr_gameref_t game, scr_int object, scr_int target)
 {
   (void) target;
   gs_object_to_room (game, object, gs_playerroom (game));
+  lib_note_antecedent_390 (game, object);       /* run390 drops 445BE6 */
 }
 
 static void
@@ -16833,6 +16856,7 @@ lib_move_to_player (scr_gameref_t game, scr_int object, scr_int target)
 {
   (void) target;
   gs_object_player_get (game, object);
+  lib_note_antecedent_390 (game, object);       /* run390 removes 439E68 */
 }
 
 static void
@@ -18247,6 +18271,7 @@ lib_wear_backend (scr_gameref_t game)
 
       list.push_back (object);
       gs_object_player_wear (game, object);
+      lib_note_antecedent_390 (game, object);   /* run390 wears 43D043 */
     }
 
   /*
@@ -24910,6 +24935,9 @@ lib_read_tail_pre400 (scr_gameref_t game, scr_int object)
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     lib_examine_tail (game, object, TRUE);
   pf_buffer_character (gs_get_filter (game), '\n');
+  /* run390 examines 44BE52, just ahead of the tail: `read it` on the
+   * unreadable cabinet, then `get it`, echoes "(a cabinet)". */
+  lib_note_antecedent_390 (game, object);
 }
 
 scr_bool

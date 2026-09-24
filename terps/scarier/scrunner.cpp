@@ -9268,6 +9268,9 @@ run_player_input (scr_gameref_t game)
           uip_commit_antecedent_400 (game);
           uip_set_pronoun_flags (FALSE, FALSE);
         }
+      /* 3.9: generaltasks' co() pre-pass ran before anything answered. */
+      else if (run_get_version (bundle) == TAF_VERSION_390)
+        uip_assign_pronouns (game, command);
       return status;
     }
   else
@@ -9305,6 +9308,9 @@ run_player_input (scr_gameref_t game)
           uip_commit_antecedent_400 (game);
           uip_set_pronoun_flags (FALSE, FALSE);
         }
+      else if (run_get_version (bundle) == TAF_VERSION_390
+               && !game->do_restart && !game->do_restore)
+        uip_assign_pronouns (game, command);
     }
 
   /*

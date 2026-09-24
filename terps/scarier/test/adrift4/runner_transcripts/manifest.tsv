@@ -103,7 +103,7 @@ crm	crm.txt	harvested-native-0-draws:Adrift_604_crm.txt	3.90	run390x.exe	1234	0	
 croft	croft.txt	driven:Adrift_348_croft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 crossworlds2	crossworlds2.txt	driven:Adrift_310_crossworlds2_rt.txt	3.90	run390x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-crossworlds4	crossworlds4.txt	driven:Adrift_311_crossworlds4_rt.txt	3.90	run390x.exe	1234	2	Player	SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+crossworlds4	crossworlds4.txt	driven:Adrift_311_crossworlds4_rt.txt	3.90	run390x.exe	1234	2	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 cumberbund	cumberbund.txt	driven:Adrift_312_cumberbund_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cursed	cursed.txt	driven:Adrift_128_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
