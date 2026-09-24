@@ -1,4 +1,4 @@
-# ADRIFT 4 walkthroughs — derivation COMPLETE
+# ADRIFT 4 walkthroughs — 36 screened games still to derive
 
 Goal: a verified, reproducible, near-maximum-score walkthrough for every
 `.taf` in `test/adrift4/games/`, in the style of `Sun_Empire_walkthrough.md` —
@@ -14,15 +14,35 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
 
     git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md
 
-## Where things stand (2026-09-19)
+## Where things stand (2026-09-25)
 
-- **428 rows, 428 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no NOSCRIPT.
-- Every `.taf` in `games/` is either wired or declined on content (14 files,
-  listed under *Content policy*). The unwired list *is* the decline list.
+- **598 rows, 598 PASS**, exit 0 (40 s wall) — no FAIL, no SKIP, no NEEDGOLD,
+  no NOSCRIPT. `proba` passes again.
+- **Open work: 36 unwired games.** `ee50c8de9` (2026-09-22) pinned 262 more
+  games and `cf78747dc` added `Relife.taf`; the wiring commits since then
+  covered the ones with downloaded walkthroughs. Of the 121 `.taf` files still
+  without a row, 83 are content declines (53 earlier, 30 new) and 38 have been
+  screened (see
+  *Content policy*, 2026-09-25):
+  - **23 clean:** zanoza, Dolg, Govard, Govard2, shablon, CS2, NAT_01,
+    WanderersGoW 0.04, Relife (Russian, cp1251), smercenary, tempest7,
+    hdigit1, The_World_According_to_CBN, toronto, the_view_is_better_here,
+    virtual, imagings, wonderland, shortlived, monster, hammurabi, TAOT3,
+    Last_Knight.
+  - **13 AIF between adults** (gitignore the solution and golden when wired):
+    EscapePod, Handyman, xclue1.0a, ovaloffice, Planescape-Encounters1,
+    latework, RodneyandthePrincess40v3-1, salvation, christmas present 1.0,
+    studio, fun town, Legend of Akhbar, VGM1_3.
+  - **2 pending an owner call:** ghostjustice, bluesky.
+
+  None has a source walkthrough in `downloaded/`, so every route is derived
+  from scratch.
+- `games/Older.zip` (268 entries) is not in the manifest and has no row. It is
+  an archive, not a game.
 - Every walkthrough in `downloaded/` has a game and a row.
 - Every partial checkpoint has been finished (Ghost town, YADFA, Uncle
   Grumble, Lights Camera Action, Cowboy Blues, mould, blood, House, magicshow
-  — all closed 2026-09-04/05). **Nothing here is open work.**
+  — all closed 2026-09-04/05).
 - Three rows walled deliberately on 2026-09-13 when the pre-4.0 spent-task
   claim was ported (`run_spent_task_390()`): journ2 5/90, vampire 70/100,
   merry_murders 120/135. Those are Runner-true, not regressions.
@@ -195,19 +215,38 @@ A narration-depicted minor counts even if the player cannot participate
 refusal of a child NPC is clean (suzy). Dark non-sexual themes wire normally
 (thelasthour, ForestHouse3, Patient7, A View to a Home).
 
-**14 permanent declines** — never committed, no `.gitignore` entry, each
+**12 permanent declines** — never committed, no `.gitignore` entry, each
 verdict quoted from the game's own shipped text: `aparty.taf`, `delight.taf`,
 `awakening.taf`, `enc1.taf`, `enc2.taf`, `windy.taf`,
 `Buffy Before the Date.taf`, `ssteacher.taf`, `sibling seduction.taf`,
-`Hunting Ground.taf` (non-consensual sexualized violence culminating in
-murder), `Choices.taf`, `plains.taf`, `A Dream Come True.taf`,
-`British.Fox.and.the.Celebrity.Abductions.taf`. `BeThere.taf` is excluded as
+`Choices.taf`, `plains.taf`, `A Dream Come True.taf`.
+
+⚠️ **Contradictions found 2026-09-25, unresolved:**
+- `Hunting Ground.taf` (declined for non-consensual sexualized violence
+  culminating in murder, which is *not* the no-minors criterion) and
+  `British.Fox.and.the.Celebrity.Abductions.taf` both used to head this list,
+  yet both are **wired**: rows `huntingground` and `britishfox` (43/50), with
+  goldens *and* `runner_transcripts/` committed in `cf78747dc` (local, not
+  pushed) and no `.gitignore` entry — unlike every other AIF row below.
+- `fantasyworld.taf` is on the declines list further down (Carrie is
+  explicitly 16) but has had a live row since August (the route uses the game's
+  own NOSEX switch and scores 0/500), with its golden committed.
+
+Each needs an owner decision: keep the row (and gitignore the explicit text),
+or drop it. `BeThere.taf` is excluded as
 an ADRIFT 5 duplicate (deleted from `games/`).  Downloaded walkthroughs that
 were left unwired because the TAF itself names under-21 characters:
-`enc4.taf` (player is eighteen), `Eva's secret.taf` (Petra is 20),
+`enc4.taf` (ex-girlfriend Tammi "a year younger than you", explicit sexual
+content), `Eva's secret.taf` (Eva's own diary: sexual activity "began 4 years
+ago when she was 15"),
 `midsomer bottom manor ver1.8.taf` (Maisie 14, Caroline 16, Leslie 17),
-`sororityHouse.taf` (freshman sister; another character called "just a
-little girl"), `the_burbs.taf` (Jimmy and Jen are 14-year-old twins).
+`the_burbs.taf` (Jimmy and Jen are 14-year-old twins).
+
+`sororityHouse.taf` was re-reviewed 2026-09-24: no character anywhere in the
+TAF text is given an age or grade below college (Ginger has just graduated,
+Jenni is "a junior at the local university", Holli/Kaytie are freshman
+sorority sisters); the earlier "little girl" note was a sarcastic aside, not
+an age claim. Moved to the AIF-between-adults list below.
 
 **AIF between adults** — row committed, solution/golden(/notes) gitignored:
 Archie's Birthday, Diary of a Stripper, windy2, croft, dr-who-vortex-lust,
@@ -215,7 +254,7 @@ gamma, Temple_Of_The_Sun, amy, The_Strange_Tale_of_Dr_Wilkins, BSG TWENTY TWO
 Final, warlock, BarneysProblem, Dear Diary, Dear Diary 2, Riding_Home, hcw,
 Scandal, cldone, magicshow, goblin, ss whore, Sex is Mental, The Worst Game In
 The World, DOA_X_B_S, The Silver Maiden, Trapped With A Girl, Practice Policy,
-To Be King, Harem Prologue, Duchess of Desire, Filthy Bill.
+To Be King, Harem Prologue, Duchess of Desire, Sorority House, Filthy Bill.
 
 Further GAMES_WITH_HINTS declines (TAF text): `Deadly Climax 1.0 final.taf`
 (Asia a "fifteen year old pupil"; Jo compared to thirteen); `party.taf`
@@ -235,6 +274,90 @@ friends / Junior); `practice-procedures-1.5_4.0.taf` (schoolgirl Amy);
 `Hotown1.taf` (Linda “a young lady of about 18” in sexual scenes).
 `power play 1.3c.taf` (Joseph’s daughter “a pretty seventeen year old” / “innocent teen” in sexual scenes).
 `relatives.taf` (Felicia is 17, “just the same as you”; Heather is 18, in sexual scenes).
+`Hidden Assets.taf` (self-declared "underage" 16yo).
+`Kissing.taf` (16yo cousin, explicit sexual content; also 15yo "Freshman" content).
+`Paradise_Hotel.taf` (16yo daughter, extensive explicit content).
+`Plan69.taf` (explicit schoolgirl/student sexual scene).
+`Virgin.taf` (Felicia 16, Heather 15, sexual content, despite in-game 18+ disclaimer).
+`fantasyworld.taf` (Carrie explicitly 16, explicit sexual content; also a 10-11yo child killed in the narrative).
+`graduation.taf` (Kiko, schoolgirl-coded despite ambiguous stated age — same troubling-framing pattern as Hotown1/Pay Back).
+`normvillehigh.taf` (Samantha stated 18 but framed throughout as a current high-school senior — same pattern).
+`school plan 1.2.taf` (Jenny and Jilly both explicitly "sixteen year old", sexualized descriptions).
+`darkfantasy.taf` (the captive is repeatedly called "a young girl", "girlish torso", "young ass" through explicit BDSM content; no adult age is ever stated for her — only the player disclaimer says "you should only proceed if you are an adult").
+`Private Teacher.taf` (player is explicitly "a young kid" "called back after school" by their teacher, with homework/"skipping school"/"your parents" framing and no adult age stated for the player, followed by explicit sexual content).
+`ronweasley4.taf` (Luna Lovegood is textually anchored a "sixth year" while every other named character is explicitly "seventh year" and turning 18 this week — a minor by the game's own internal chronology — with reachable explicit content keyed to her character; the file is disqualified regardless of whether a given walkthrough route avoids triggering it).
+
+**2026-09-25 screen of the 68 unscreened files from the 2026-09-22 pin
+(`ee50c8de9`) and `Relife.taf`** — 30 declines, each quote verified verbatim
+against `taf_pattern_scan.py plaintext()`:
+`mount.taf` (Rio "a teenaged Japanese 'bikini idol'", no adult age, "perfect
+teenage breasts" in a sex action; Sydney's schoolgirl outfit alone would have
+been fine — adult model in costume);
+`Turnberry Manor.taf` (intro: "girls as young as 16 years old"; Sara "a bubbly
+sixteen year old girl");
+`decisions.taf` (*Choices* sequel; player Melissa "a seventeen year old
+lesbian" fixated on her teacher);
+`lasthurrah.taf` (Teagan/Riley "teenaged Australian tourist[s]", then "The
+girls back at high school won't believe this!");
+`SBFT.taf` (player transformed to "a high school sophomore" body; one ending a
+"twelve-year-old");
+`bad day 2.1.taf` (bus scene: schoolgirl "probably about fourteen" climaxing;
+Jamie "fifteen or sixteen");
+`community.taf` (Amy "I'm fifteen Mister", "our local jailbait", exposed and
+groped);
+`gross.taf` (player and classmates at "Bialik High School"; `feel alissa's ass`,
+`jerk off`);
+`1st_time.taf` ("as a teenage boy"; "most of the guys at school");
+`abduction.taf` (Samantha "a senior student at the high school" in a peeping
+scene; Rebecca "a picture of high school contradictions");
+`switchedit.taf` ("Little Johnny … Only 13" joins the abuse of the captive);
+`Home alone.taf` ("Jill, she is your sister, she is only 16");
+`Getting Even.taf` (player "an average sixteen year old girl");
+`santababy.taf` (Heather "looks about 16-years old … in pigtails");
+`oakwood.taf` (teacher at "Oakwood Sixth Form for Girls", students sexualised);
+`truck.taf` (menu: "If you'd like girl less than 16, type 1");
+`stowaway.taf` ("I am, after all, still in high school");
+`Time.taf` ("your sister, seventeen years old, naked");
+`lessons (part 1–4).taf` (Jack "a 18 year old student at Thomson High" — the
+normvillehigh pattern; all four parts share Jack and Miss Jones);
+`xmen.taf` ("even at 17 years old Jubilee");
+`x-men.taf` ("Jean Grey, age 17"; Rogue 16; Kitty and Jubilee 15);
+`cabin.taf` (Rachel "about sixteen years old, seventeen perhaps, but she could
+be younger");
+`train1.taf` (Emma "about 17 years old", "the helpless schoolgirl");
+`SilverWolf.taf` (SacredMoon "a cute, sixteen-year old teenager");
+`enc3.taf` ("You're a 15-year old boy" — same series as enc1/enc2/enc4);
+`casino.taf` (maid "a young woman no older than 19"; Kelly "you wonder if she's
+old enough to be in the casino" — the consequences/Hotown1 around-18 pattern);
+`Drone Academy.taf` (partner Kadey has no stated age; "watch this young girl
+masturbating", "those little teenie bopper whores" — the darkfantasy pattern).
+
+**Pending owner call (not derived, not declined):**
+`ghostjustice.taf` — Candi is judged "around 21 or 22" by the narrator, but
+the sex scene is her "little girl routine" ("Her words and mannerisms might be
+those of a little girl"). That is closer to graduation's schoolgirl-coding
+than to mount's adult-in-costume. Everyone else is adult (Susan "20 years old").
+`bluesky.taf` — no age is stated anywhere; the player stays at home on a summer
+job while "Your family went on holiday", a neighbour calls him "son", and Maria
+"is about your own age". Nothing frames a minor, but nothing establishes an adult.
+
+**Screened AIF between adults, not yet wired** (13; gitignore solution and
+golden when wired): EscapePod (Jenna "a twenty-year old ensign"), Handyman
+("You are a 21 year old man", college sorority), xclue1.0a, ovaloffice ("25-year
+old intern"), Planescape-Encounters1, latework, RodneyandthePrincess40v3-1,
+salvation, christmas present 1.0, studio (Shelby "I'm 19-years old and I'm
+attending college"; the one "teen" line is about her), fun town, Legend of
+Akhbar, VGM1_3 (Rebecca "barely out of her teens").
+
+**Screened clean** (23): `zanoza`, `Dolg`, `Govard`, `Govard2`, `shablon`,
+`CS2`, `NAT_01`, `WanderersGoW 0.04`, `Relife` (the nine cp1251 Russian games;
+hits were закончил/страх/член-as-member false positives), `smercenary`,
+`hdigit1`, `The_World_According_to_CBN`, `toronto` (a teen NPC's only
+sexual line is the refusal "get away perve" — the suzy precedent),
+`the_view_is_better_here`, `virtual`, `imagings`, `wonderland`, `shortlived`,
+`monster`, `hammurabi`, `TAOT3`, `Last_Knight`, `tempest7` (chaste Ferdinand/
+Miranda courtship with a marriage ending; flagged only because the game's own
+chronology makes Miranda about 12).
 
 Vocabulary scan (`taf_pattern_scan.py plaintext()`) false positives worth not
 re-chasing: draped/scraped/grapefruit → rape; circumstances/cucumber/succumb/
