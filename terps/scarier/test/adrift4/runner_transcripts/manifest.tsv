@@ -1,7 +1,7 @@
 tag	file	source	version	exe	seed	pre	popups	env	win_marker	verdict
 3monkeys	3monkeys.txt	driven:Adrift_128_3monkeys_rt.txt	4.00	run400x.exe	149	0		SCR_SEED=149 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ADRIFTMAS_Party	ADRIFTMAS_Party.txt	driven:Adrift_219_ADRIFTMAS_Party_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_128_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_282_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 JGrim	JGrim.txt	driven:Adrift_221_JGrim_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ShadricksUnderground	ShadricksUnderground.txt	driven:Adrift_213_ShadricksUnderground_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 Tear	Tear.txt	driven:Adrift_216_Tear_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -239,7 +239,7 @@ inmemory	inmemory.txt	driven:Adrift_312_inmemory_rt.txt	4.00	run400x.exe	1234	1	
 insidejob	insidejob.txt	driven:Adrift_282_insidejob_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 invasion_shirts	invasion_shirts.txt	driven:Adrift_206_invasion_shirts_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 inverness	inverness.txt	driven:Adrift_177_inverness_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
-iqsfot	iqsfot.txt	driven:Adrift_285_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+iqsfot	iqsfot.txt	driven:Adrift_282_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ispace	ispace.txt	driven:Adrift_317_ispace_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 jailbreakbob	jailbreakbob.txt	driven:Adrift_460_jailbreakbob_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 james_bond	james_bond.rtf	driven:Adrift_298_james_bond_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.

@@ -330,9 +330,6 @@ CHAPTER THREE:
 A MOUSE ON CAT PLANET!
 
  
-> 
-NOTE TO CADETS:  Your input required.  For available inputs, type verb.  Then press enter.
-
 
 
 The designated greeter for the ship is a Traglean ambassador named Smitty the Cat.  Like the Captain, he looks like a person with a cat's head, but wearing a decorated blue suit with a red sash.  Also, Smitty has the head of a Russian Blue cat.
@@ -346,6 +343,19 @@ Irvine shrugs.  "Sure, whatever.  The ship's lab is in the basement, on the star
 Irvine steps off the gangplank the wrong way and falls to the forest floor.  "Oof!"
 
 [press almost any key to continue] 
+
+The Captain steps out and greets a small party of explorers armed with super-heavy ray rifles.  Gatts explains to all present (like heroes do) that he is leaving on an exploration mission with the esteemed Fat Cat's personal guard.  Scrambling up from his undignified position, Irvine is about to bound off with them when one of the men extends his paw and says, "No mice allowed on this trip."
+
+Before tromping off into the jungle, Captain Gatts turns to Irvine. "Don't worry about what they say, cadet.  Just find a way to make yourself useful."
+
+[press almost any key to continue]   
+
+SPACEPORT, TRAGLEA
+Amidst a high, transparent dome covering miles, and surrounded inside and out by rain forest splendor, attendants see to the needs of gleaming spaceships parked in rows.  A simple path through the trees leads east to the Traglean capital, Ki'parandazar.  
+
+The Sagittarian rests neatly between two other ships of its class.  A gangplank leads up into the hull of the ship.  Some mechanics rush over to check in the spaceship, then leave Nika to her work.
+HiRBy hovers over from inside.  
+
 > e
 Irvine goes east.
 
@@ -365,19 +375,6 @@ The space cadet stands up wearily, fixing his glasses and brushing off dirt.  "C
 The monkey chitters laughingly, pawing at its newfound thingy.
 
 Irvine sighs.  "Oh... drezz."  
-
-
-The Captain steps out and greets a small party of explorers armed with super-heavy ray rifles.  Gatts explains to all present (like heroes do) that he is leaving on an exploration mission with the esteemed Fat Cat's personal guard.  Scrambling up from his undignified position, Irvine is about to bound off with them when one of the men extends his paw and says, "No mice allowed on this trip."
-
-Before tromping off into the jungle, Captain Gatts turns to Irvine. "Don't worry about what they say, cadet.  Just find a way to make yourself useful."
-
-[press almost any key to continue]   
-
-SPACEPORT, TRAGLEA
-Amidst a high, transparent dome covering miles, and surrounded inside and out by rain forest splendor, attendants see to the needs of gleaming spaceships parked in rows.  A simple path through the trees leads east to the Traglean capital, Ki'parandazar.  
-
-The Sagittarian rests neatly between two other ships of its class.  A gangplank leads up into the hull of the ship.  Some mechanics rush over to check in the spaceship, then leave Nika to her work.
-HiRBy hovers over from inside.  
 
 > s
 Irvine goes south.

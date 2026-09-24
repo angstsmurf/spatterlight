@@ -162,7 +162,8 @@ Row comments and probe generators cite sections by title ("Ported
    which run400 leaves promptless; `task_print_end_keyprompt()` buffers the
    prompt for every other ending); blank-line counts around an ending
    (goldens run through `cat -s`); a startup echo for a feed's leading blank
-   lines (Glum_Fiddle); a `<centre>` join; a `<waitkey>` line join or
+   lines (Glum_Fiddle's 2026-09-15 capture; the current feed has none, and
+   a re-drive is identical); a `<centre>` join; a `<waitkey>` line join or
    `<waitkey><cls>` butt-join; a wrap inside an unbreakable token; `[MORE]`
    splits; `.rtf` mojibake; the epilogue cut at the final keypress; rule-2
    "lost" lines after an identical ending.
@@ -237,7 +238,10 @@ below as not yet ported.
 ### Nothing owed (capture and compare artefacts)
 
 - Epilogue or pause text one turn late or cut at the final keypress:
-  iqsfot T41-42. (mortality T29/T32 was a drive race, not the engine: the
+  none left. (iqsfot T41-42 was the same drive race: the `<waitkey>` in
+  text variable %smitwait% ran a blank as an empty command ("NOTE TO
+  CADETS: Your input required."). Re-driven as Adrift_282_iqsfot_rt, it is
+  identical, 2026-09-24. mortality T29/T32 was a drive race, not the engine: the
   old capture ran two blank pause answers as empty commands ("> " / "Try
   something else.") at `<waitkey>`s. run400's pause swallows the key
   (Text1_KeyDown 484E28 sets 0x494239 = 2, Text1_KeyPress eats it). A
@@ -255,7 +259,9 @@ below as not yet ported.
   blank answers the pause; the compare splits the turn differently, same
   text.
 - Whitespace-only joins or the trailing `[Press any key to end]`: the 25
-  "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo.
+  "apart from whitespace" rows. (Glum_Fiddle turn 0, two empty commands
+  after `game`, is gone: re-driven with the current feed as
+  Adrift_282_Glum_Fiddle_rt, identical, 2026-09-24.)
 - Lost commands after an ending: thelasthour's last `wait` only (that row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
   solution line and the extra `wait` makes up for it).
