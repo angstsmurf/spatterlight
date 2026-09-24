@@ -1,0 +1,562 @@
+The Snow
+
+A Text Adventure
+By GAZArts
+
+For almost a year, every morning has begun the same way. Feed Felix. Try the Wi-Fi. Look for someone outside.
+
+The snow always drives you back. No neighbours answer. No engines start. No planes cross the sky. At night, the food you have eaten returns to the cupboards.
+
+Before all this, there were sirens. You remember that much. Then silence, and snow.
+
+Today you are going farther than the garden gate.
+
+Type HINT for a nudge. Ordinary commands such as LOOK AT, TAKE, OPEN and USE work; the object links offer actions too.
+
+You are in your Bedroom.
+You can see your Gaming Computer, a Desk, RGB Lighting, Funko Pops, a Window, Lego, a Chair and a Bed.
+You can go in the closet or east to the landing.
+
+Your computer casts a soft glow across the desk, picking out the Lego and Funko figures on the shelves. The bed is unmade. Beyond the long window, the parked cars are still buried beneath the snow.
+
+You know this room better than you ever wanted to.
+
+A doorway in the corner leads into the walk-in closet. To the east is the landing.
+> in
+
+> in
+
+You are in your Closet.
+You can see Shelves, Shirts and a Shoe Box.
+You can go out of the closet.
+
+Shelves of folded clothes line the left and back walls. Shirts hang on the right, above a battered shoe box. It smells of wool and the cedar blocks you keep forgetting to replace. The bedroom is out through the doorway.
+> x shelves
+
+> x shelves
+Jeans, woollen jumpers and a stray pair of swimming trunks fill the shelves. Down in the darkest corner, you spot your overcoat. It must have slipped off the shelf.
+> open shoe box
+
+> open shoe box
+You open it.
+Inside are Polaroids, a keychain and a penknife. Small things you kept from before the snow.
+> take penknife
+
+> take penknife
+You slip the penknife into your pocket.
+> take overcoat
+
+> take overcoat
+You pick it up.
+You pull on the overcoat and settle it across your shoulders. The warmth is immediate. You won't be taking it off in a hurry.
+> out
+
+> out
+
+You are in your Bedroom.
+You can see your Gaming Computer, a Desk, RGB Lighting, Funko Pops, a Window, Lego, a Chair and a Bed.
+You can go in the closet or east to the landing.
+
+Your computer casts a soft glow across the desk, picking out the Lego and Funko figures on the shelves. The bed is unmade. Beyond the long window, the parked cars are still buried beneath the snow.
+
+You know this room better than you ever wanted to.
+
+A doorway in the corner leads into the walk-in closet. To the east is the landing.
+> east
+
+> east
+
+You are on your Landing.
+You can see a Small Table, a Lamp and Portraits.
+You can go west to your bedroom, east to your bathroom or down stairs.
+
+A lamp lights the small table beneath the framed pictures. Your bedroom is west, the bathroom east, and the stairs lead down. Everything is where it belongs. Nobody has moved a thing in nearly a year.
+> down
+
+> down
+
+You are in your Downstairs Hall.
+You can see a Front Door, Photographs, a Doormat, Trinkets, a Mirror and a Staircase.
+You can go up to the landing, north to the kitchen, east to the living room or south.
+
+The narrow hallway leads north to the kitchen, east to the living room, and upstairs to the landing. The front door is south. Family photographs hang beside the mirror and the shelf of little ornaments. You catch yourself listening for someone coming down the stairs behind you.
+> open front door
+
+> open front door
+You open the door and step onto the snow-covered porch.
+
+You are at your Front Porch.
+You can see a Front Door and a Wooden Bench.
+You can go north back inside your house or south to your garden.
+
+Snow taps against the porch roof. A wooden bench stands beside your front door, which leads north into the house. The garden lies south. For a moment you are tempted to sit down and put this off until tomorrow.
+> south
+
+> south
+
+You are in your Front Garden.
+You can see a Garden Gate, a Lamp Post, a Front Porch and Snow.
+You can go north to your front porch or south into the street.
+
+The garden is buried four feet deep. Only the tops of the bushes and the gate survive above the snow. Your old path runs south beneath it; the porch is north.
+
+The wind pushes against your coat as you approach the gate. It almost feels like a hand.
+> south
+
+> south
+The gate blocks your way.
+> open garden gate
+
+> open garden gate
+You push towards the gate, head down against the wind. Snow strikes your face. You grip the gate and pull. It holds.
+
+You pull harder. Slowly, it begins to give.
+
+You are in the Street.
+You can see Terraced Houses, House Number 7, Raised Snow and a Garden Gate.
+You can go north to your garden, west to the west end of the street, east to the east end of the street or south to house number 7.
+
+You pull the gate open and force your way through.
+
+I’m not going back.
+
+The wind stops so abruptly that you stumble. Across the road, lights burn behind the Russells’ windows at Number 7. The street leads west to Tesco and east to the school. Your garden is north.
+> south
+
+> south
+
+You are at the front porch of House Number 7.
+You can see a Roof, the Door Number, a Letter Box (in which there is an Envelope) and a Front Door.
+You can go north to the street or south inside Number 7.
+
+Number 7 has no bench or wooden platform, just a small roof over a brown front door. A polished chrome 7 is fixed at its centre. An envelope is wedged halfway through the letter box.
+> south
+
+> south
+The door to Number 7 is locked.
+> break in front door
+
+> break in front door
+You work the penknife into the edge of the door. Something gives with a crunch, and the door swings open.
+
+You look at the damaged frame. That was disturbingly easy.
+
+You are in the Hallway of House Number 7.
+You can see a Front Door, Family Portraits, a Small Side Table (on which there is a Postcard and a Bowl of Keys), a Coat Rack, a Mirror, a Shelf and a Staircase.
+You can go south back to the front porch, west to the living room, north to the kitchen or up to the landing.
+
+The layout is almost a mirror of your own: stairs on the right, living room on the left, kitchen to the north. The decorations belong unmistakably to the Russells. Family portraits and art prints fill the walls.
+
+A postcard and a bowl of keys sit on the table beside the front door. Opposite them, two coats hang from a rack. A mirror above a shelf of ornaments reflects the stairs.
+> north
+
+> north
+
+You are in the Kitchen of House Number 7.
+You can see an Empty green kettle, a Kitchen Sink, a Wall Cabinets, a Bottom Cabinets, an Island, Bar Stools, a Cooker, a Fridge, a Window and a Heating Unit.
+You can go south to the hallway.
+
+Mint-green walls, white cabinets, and a central island surrounded by stools. A green kettle rests on its heating unit beside the sink. The cupboards and fridge are closed. This kitchen looks ready for breakfast, but the room has a stale, sour smell. The hallway is south.
+> open bottom cabinets
+
+> open bottom cabinets
+You open it.
+The cupboards creak open. Plates, bowls, cups and cleaning supplies. You are about to close them when you notice a tall red thermos in the corner.
+> take thermos
+
+> take thermos
+
+You pick up the thermos.
+> fill kettle
+
+> fill kettle
+You fill the kettle with cold water from the tap.
+> boil kettle
+
+> boil kettle
+You place the full kettle on its base and switch it on. The water rumbles, then boils. A moment later, the kettle clicks off.
+> fill thermos
+
+> fill thermos
+You pour the boiling water into the thermos and screw the lid on tightly. Then you return the empty kettle to its heating unit.
+> south
+
+> south
+
+You are in the Hallway of House Number 7.
+You can see a Front Door, Family Portraits, a Small Side Table (on which there is a Postcard and a Bowl of Keys), a Coat Rack, a Mirror, a Shelf and a Staircase.
+You can go south back to the front porch, west to the living room, north to the kitchen or up to the landing.
+
+The layout is almost a mirror of your own: stairs on the right, living room on the left, kitchen to the north. The decorations belong unmistakably to the Russells. Family portraits and art prints fill the walls.
+
+A postcard and a bowl of keys sit on the table beside the front door. Opposite them, two coats hang from a rack. A mirror above a shelf of ornaments reflects the stairs.
+> open front door
+
+> open front door
+You open the door and step out onto the porch.
+
+You are at the front porch of House Number 7.
+You can see a Roof, the Door Number, a Letter Box (in which there is an Envelope) and a Front Door.
+You can go north to the street or south inside Number 7.
+
+Number 7 has no bench or wooden platform, just a small roof over a brown front door. A polished chrome 7 is fixed at its centre. An envelope is wedged halfway through the letter box.
+> south
+
+> south
+The door to Number 7 is locked.
+> north
+
+> north
+
+You are in the Street.
+You can see Terraced Houses, House Number 7, Raised Snow and a Garden Gate.
+You can go north to your garden, west to the west end of the street, east to the east end of the street or south to house number 7.
+
+Terraced houses face the detached homes on your side of the street. Lights burn behind their curtains. Snow humps over parked cars. Number 7 is south, your garden north, Tesco west and the school east.
+> east
+
+> east
+
+You are in the East end of the street.
+You can see a School and a Snowman.
+You can go west to the middle of the street or east to the entrance of the school.
+
+The primary school stands behind rusted railings, snow banked against its walls. An overhanging roof has kept the entrance clear.
+
+Between you and the school stands the snowman. It is taller up close. You would have to pass right beside it.
+> use thermos on snowman
+
+> use thermos on snowman
+You unscrew the thermos and fling boiling water across the snowman, then back the other way. Steam rises from the cuts in its chest.
+
+It makes no sound. Its arms fall loose. The head tips sideways and drops. In seconds, there is only slush, sticks and coal at your feet.
+> east
+
+> east
+You give the puddle a wide berth and pass through the gap in the railings towards the school doors.
+
+You are at the School Entrance.
+You can see a Mural and the Entrance Doors.
+You can go south or north.
+
+A roof shelters the school’s double doors. Through their glass you can see a brightly lit reception desk. A mosaic and the school’s name cover the wall beside you. The street is south.
+> open entrance doors
+
+> open entrance doors
+You push the doors. Both open easily.
+
+You are in a School Foyer.
+You can see Windows, Posters, a Reception Desk (on which there is a Computer Monitor, a Stack of Paperwork, a Keyboard, a Computer Mouse and a Telephone), a Notice Board, a Display Case and an Entrance Doors.
+You can go south or north.
+
+Yellow walls, a spotless tiled floor, and children’s work in a display case. The reception desk holds a computer, telephone and paperwork. A noticeboard stands beside it. The sign reads Spurious Primary School.
+
+Beyond reception, the hallway is north. The street doors are south.
+> north
+
+> north
+
+You are in a School Hallway.
+You can see a Drinking Fountain, Sprinklers, Posters, Class Rooms and a Lockers.
+You can go south to the School Foyer, east to the School Toilets, southwest to Class Coch, west to Class Gwyrdd, northwest to Class Glas or north to Class Melyn.
+
+Posters and labelled lockers line the hallway. A drinking fountain stands beneath a reminder to stay hydrated, and sprinklers run along the ceiling. Everything seems to be waiting for the next bell. You can almost hear the slam of locker doors, hurried footsteps and laughter carrying from one end of the corridor to the other.
+Doors lead west to Gwyrdd, northwest to Glas, southwest to Coch, north to Melyn and east to the toilets. The foyer is south.
+> west
+
+> west
+
+You are in Class GWYRDD.
+You can see Desks, Windows, a Playground, Artwork, Cubbyholes, a Reading Corner, a Bean Bag Chair, a Whiteboard, a Computer station and a Teacher's Desk.
+You can go east.
+
+Children’s artwork covers the walls. Desks face a whiteboard and the teacher’s desk, with cubbyholes and computers along the side. A bean bag sits in the reading corner. Beyond the windows is the playground. The hallway is east.
+> open teacher's desk
+
+> open teacher's desk
+You open it.
+The left drawer holds six issues of Women's Health, several with Davina McCall on the cover. The right contains a packet of cigarettes.
+> take cigarettes
+
+> take cigarettes
+You pocket the pack of Berkeley cigarettes.
+> east
+
+> east
+
+You are in a School Hallway.
+You can see Sprinklers and a Snowman.
+You can go south to the School Foyer, east to the School Toilets, southwest to Class Coch, west to Class Gwyrdd, northwest to Class Glas or north to Class Melyn.
+
+The lights have gone out. A little light reaches you from the foyer to the south, but the snowman stands directly in your way. He is larger than the one outside.
+
+The classroom doors and toilets are still around you. The sprinklers are overhead.
+> speak to snowman
+
+> speak to snowman
+You: "This stalking business is getting old, you know."
+
+The snowman tilts its head down towards you. One branch arm rises in that familiar wave.
+
+The hallway is gone.
+
+You are standing inside Class Glas. The locked classroom.
+
+You are in Class GLAS.
+You can see Windows, a Light Switch, a Teacher's Desk, a Reading Corner, a Computer Station, Cubbyholes, Desks, a Sprinklers and a Class Room Door.
+You can go southeast.
+
+Streetlight falls across the empty desks. There are cubbyholes, computers and a reading corner, much as in Class Gwyrdd. The teacher’s desk has two drawers. Above it are sprinklers and a detector. The light switch does nothing useful. Your way back southeast is blocked by the classroom door.
+> open teacher's desk
+
+> open teacher's desk
+You open it.
+The left drawer holds a key fob. In the right are a note and a lighter.
+> take lighter
+
+> take lighter
+You pick it up.
+> take key fob
+
+> take key fob
+You pick it up.
+> light up cigarettes
+
+> light up cigarettes
+You take a cigarette from the pack and light it with the Zippo.
+> use lit cigarette on sprinklers
+
+> use lit cigarette on sprinklers
+You climb onto the teacher's desk and hold the cigarette beneath the detector.
+
+The alarm starts. Water bursts from the sprinklers, soaking your shoulders and the desk beneath your feet.
+
+Something thrashes in the hallway.
+> open classroom door
+
+> open classroom door
+
+You are in a School Hallway.
+You can see a Puddle, Lockers and Posters.
+You can go north or southeast.
+
+For a second, the fire alarm resolves into a steady electronic pulse. A woman says, very clearly, “Stay with me.” You turn. There is nobody in the hallway.
+Then the sound is only an alarm again.
+The alarm fades as you step into the hallway. Water runs down the lockers and drips from the ruined posters.
+
+Where the snowman stood, coal and a carrot lie in a puddle beside an orange scarf.
+
+The way out is clear. Time to go.
+> north
+
+> north
+
+You are in a School Foyer.
+You can see Windows, Posters, a Reception Desk (on which there is a Computer Monitor, a Stack of Paperwork, a Keyboard, a Computer Mouse and a Telephone), a Notice Board, a Display Case and an Entrance Doors.
+You can go south or north.
+
+The foyer is dry, although water creeps under the arch from the hallway to the north. The telephone, computer and papers remain undisturbed on the reception desk. The doors to the street are south.
+> open entrance doors
+
+> open entrance doors
+You pull the handles. This time, the doors open. Cold night air reaches your face.
+
+You are at the School Entrance.
+You can see a Mural and the Entrance Doors.
+You can go south or north.
+
+Cold air meets your face. The entrance doors are behind you, and the street is south. You have a way past the school now. The Tesco staff door might be worth investigating next.
+> south
+
+> south
+
+You are in the East end of the street.
+You can see a School and a Puddle.
+You can go west to the middle of the street or east to the entrance of the school.
+
+A puddle is already freezing where the snowman stood. Coal, a carrot and the scarf lie in the slush.
+> west
+
+> west
+
+You are in the Street.
+You can see Terraced Houses, House Number 7, Raised Snow and a Garden Gate.
+You can go north to your garden, west to the west end of the street, east to the east end of the street or south to house number 7.
+
+Terraced houses face the detached homes on your side of the street. Lights burn behind their curtains. Snow humps over parked cars. Number 7 is south, your garden north, Tesco west and the school east.
+> west
+
+> west
+
+You are in the West end of the street.
+You can see a Neon Sign, Windows and a Shop Door.
+You can go east, north or west.
+
+The Tesco Metro sign glows above frosted windows. No one stands behind the counter. The door is north; your street continues east, while the road west bends towards the dual carriageway. A gust rattles the sign, then everything falls quiet again.
+> open shop door
+
+> open shop door
+The door opens easily when you push it.
+
+You are on the shop floor of a Tesco Metro.
+You can see Shelves (on which there is Packets of Crisps, Canned Goods, Sandwiches, Bottles of pop and Chocolate Bars), a Cash Desk (on which there is Scratch Cards and a Cash Register), Windows, Cigarettes, a Staff Door, a Notice Sign, a Fob Scanner and a Shop Door.
+You can go south or northeast.
+
+Rows of crisps, cans and sandwiches sit beneath humming strip lights. Much of the food has expired. Beside the cash register are cigarettes and scratch cards. A staff door with a fob scanner stands in the far corner, northeast; the street door is south.
+> use key fob on fob scanner
+
+> use key fob on fob scanner
+You hold the blue fob against the scanner. The staff door opens automatically. You step through before it closes behind you.
+
+You are in a Tesco Staff Room.
+You can see a Staff Door, Motivational Posters, a Noticeboard, a Vending Machine, a Seating Area and an Emergency Exit.
+You can go southwest or east.
+
+The staff room is warm. A vending machine hums beside empty armchairs. A company notice hangs on the board, and a mug has left a brown ring on one of the tables. The shop is southwest. An emergency exit stands to the east.
+> open emergency exit
+
+> open emergency exit
+You push the bar. The door opens onto a small, rather bare garden.
+
+You are in a Meeting Point.
+You can see Grass, a Wall, a Dual Carriageway, an Emergency Exit and a Path.
+You can go south, west or north.
+
+Behind the shop, a small patch of grass marks the fire assembly point. Beyond its low wall, the dual carriageway is packed with snowbound cars. You can climb north onto the road or follow the path west towards the snowmen. The emergency door has closed behind you.
+> north
+
+> north
+You step over the low wall. The road barrier takes more effort, several grunts and a little swearing. Eventually, your feet reach the snowy tarmac.
+
+Cars stretch away in both directions, as far as you can see. This did not happen only to your street.
+
+You move between the buried vehicles, wondering how far the silence goes.
+
+You are on a Dual Carriageway.
+You can see Cars and a Ford Kuga.
+You can go south.
+
+Cars stand nose to tail on the dual carriageway, their windows white with frost. No engines run. No footprints lead away.
+
+You pass another buried Corsa and stop. Ahead is a black Ford Kuga. You know the shape of that car too well. The shop’s assembly point is south.
+> x ford kuga
+
+> x ford kuga
+As you approach the black Ford Kuga, recognition tightens in your stomach. The rear number plate is half buried.
+
+You need to see the rest of it.
+> dig out license plate
+
+> dig out license plate
+You kneel behind the Kuga and scrape snow from the plate with your fingers.
+
+The rest of the number emerges.
+
+Yours.
+You stand. The car window is slightly open now.
+> x window of ford kuga
+
+> x window of ford kuga
+You lean towards the window.
+
+You are in the driver's seat.
+
+Your body is slumped against the steering wheel. Blue skin, purple lips. Your head rests at the wrong angle. Your eyes look back at you through the frost.
+
+Then you remember the sirens.
+
+People running to their cars. The road filling. A rumble you felt before you understood it. White light.
+
+You woke in your bedroom afterwards. You told yourself the sirens had been a warning about the blizzard. You had held on to that explanation for a year.
+
+"Felix," you say.
+
+You would not have left him.
+
+You look past your own body. A white cat carrier sits on the back seat, FELIX written in yellow across the plastic. Frost covers its little door.
+
+You had managed to keep looking at the driver's seat. This is what makes you cry.
+You wipe your eyes and turn from the car.
+
+The snowman is standing in front of you.
+> x snowman
+
+> x snowman
+The snowman stands close enough for you to touch it. Coal eyes meet yours.
+
+You can feel the cold coming off its body.
+> speak to snowman
+
+> speak to snowman
+You: "Can you hear me?"
+Snowman: "I can hear you."
+You can ask the Snowman the following:
+Ask Snowman about death
+Ask Snowman about snow
+Ask Snowman about Snowman
+Ask Snowman about others
+Ask Snowman about Felix
+Ask Snowman about afterlife
+> ask snowman about afterlife
+
+> ask snowman about afterlife
+You: "Where am I going?"
+Snowman: "With me."
+You: "All right. Where are we going?"
+Snowman: "We're not allowed to tell you. It would spoil the surprise."
+A red door appears in the snow to his right.
+You: "You want me to walk through that?"
+Snowman: "Yes."
+> x red door
+
+> x red door
+The red door stands upright in the snow without a wall to hold it. Gold lines cover its surface. You follow one with your eyes and find it joins itself in a way it should not.
+
+Beside it, a blue door flickers into view. Three plain numbers mark its centre: 404.
+
+The snowman turns towards it before you do. You could ask him about the blue door.
+> open blue door
+
+> open blue door
+You turn towards the blue door.
+
+“That is not the way,” the snowman says.
+
+It is the first time he has sounded afraid.
+
+You push. White light widens across the snow. The electronic pulse grows louder, and something grips your temples hard enough to hurt.
+
+Then the street is gone.
+
+You are in Your Lab.
+
+Light stings your eyes. Someone lifts a headset from your face. The contacts pull at your skin, and a gloved hand presses gauze against your temple.
+
+“Stay with me.”
+
+You know that woman’s voice.
+
+People gather around the chair. One checks your pulse; another turns off a monitor. The room smells of disinfectant.
+
+“Where am I?”
+
+“The lab, Doctor. You haven’t left.”
+
+You try to sit up. “How long?”
+
+“Just under half an hour.”
+
+A year of snow. A house you could walk through blind. Felix waiting for you at the window. You cannot fit any of it into half an hour.
+
+A man behind the others looks towards the headset.
+“Does it work?”
+
+You stare at him until he lowers it out of sight.
+
+“No,” you say. “It doesn’t work.”
+
+THE BLUE DOOR
+The end
+The Snow
+Written by Gareth Meyrick
+[state=Finished]

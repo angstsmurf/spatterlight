@@ -1,0 +1,232 @@
+Strength to Leave
+
+by Mikayla Mitchell
+
+You are in a Front Room.
+You can see a curtain and a front door.
+You can go south or north.
+You open your eyes to a house. It holds a familiar feeling and you can be pretty sure that this is your house. There is a door in front of you that you assume goes outside. There is a window next to it, but the curtains are pulled shut and no light comes in.
+You were sure you were about to go somewhere. You need to go somewhere. The door is right in front of you, but your heart is pounding in your chest and you aren't even sure if you're breathing. You don't know where this fear came from, this desperate need to stay inside your home. You'll need to find the strength to get out, and you're not sure how to get that. There has to be something that can help you; something to remind you of what is good out there.
+> south
+
+> south
+You turn your back on the door and the tension in your body loosens just a bit.
+
+You are in a Living Room.
+You can see a fireplace, a couch, a TV (on which there is a game console), a mantle and a coffee table.
+You can go north, south or west.
+You step into the living room. It's small, but not in a bad way. The walls are wooden and the windows are the same as the front room; they are long but covered in curtains with no light. A couch and recliner face a table with a TV, divided only by a coffee table. A fireplace is off to the corner. Above it is a mantle with objects you can't quite make out from your position. You feel a bit safer and your muscles loosen at the familiar sight. You know this is your home, just by the feeling. But the memories of it feel far away, just out of reach. Something still distantly feels wrong. It feels empty. You wonder how long it's been since this room has held anyone but you.
+> x coffee table
+
+> x coffee table
+The coffee table sits between the couch and the TV. It is clearly well used, covered in scratches and marks from movement or drinks. It appears empty at first glance, but something catches your eye.
+On top of it is an USB.
+> take usb
+
+> take usb
+You slip it into your pocket.
+> west
+
+> west
+
+You are in a Bedroom.
+You can see a computer desk, a bed and a dresser.
+You can go east, south or in.
+You step into a small room. There is a double bed facing the door and pressed against the back wall. A nightstand is next to it. A dresser is set up against the other wall. The closet is in the far corner. Next to you, against the wall, is a computer desk. This is your room. You feel at ease in this room. It's empty and quiet, but it feels safe and secure to you. There's a feeling in your chest and whisper in your mind that makes you think you could stay in here forever.
+> x computer desk
+
+> x computer desk
+A computer desk. A PC sits on top of it, which is turned off at the moment. Headphones rest on the desk between the monitor and the keyboard. There are some small figures of characters from games. Sticky notes are scattered around the desk with mostly incoherent notes and reminders.
+on which there is a Computer.
+> use usb on computer
+
+> use usb on computer
+You put the USB in the computer
+> use computer
+
+> use computer
+You sit down at your computer and put a hand on the mouse.
+You move the mouse around aimlessly. But one moment, you blink. And in the next moment, the screen is different. Everything is different. Your headphones are on your head and you're leaned forward on the desk. You feel slightly out of control of yourself, as if experiencing a memory.
+A voice rings suddenly through your headphones. "Hey!"
+"Hey." Your voice comes out on its own.
+When the voice on the other end speaks again, you finally recognize who it is. "Did you turn in your draft today?" It's your sister's voice on the other end. You recognize this memory. She's asking you about the draft of a story you had been working on for a writing competition.
+"Mhmm," you hummed. "Turned it in last night, actually."
+"Niiice." She draws out the word, like she does when she's impressed or amused. And you can feel yourself smiling. Your mind wanders to that draft, and you voice your thoughts. "I don't think it will make it past this round."
+"Well don't say that. I thought you said you were proiud of it?"
+You had been proud of it.
+"I am proud of it."
+"We could go do something? It's been a while since we've talked in person instead of online."
+Your chest tightens and you pause for a moment. No words come from you for a moment.
+At your silence, she speaks up again. "Or I could just come over. We don't have to go anywhere."
+That feels like an improvement. Still difficult, but an improvement.
+You think about your sister, as her voice fades into the background. You're starting to remember more. When was the last time you even saw her? She pushed and supported you when you needed it. She never stopped reaching out, even as your mind kept yelling at you to stay home, don't leave, you're in danger. She has created a thread you can hang onto.
+You gained Connection
+> open dresser
+
+> open dresser
+You open it.
+Sitting inside of the dresser is a game cartridge.
+> x dresser
+
+> x dresser
+A fairly large dresser that is on the side of the room. It has some stationary supplies and notebooks as well as character figures from games and shows.
+Sitting inside of the dresser is a game cartridge.
+> take game cartridge
+
+> take game cartridge
+You pick it up.
+> east
+
+> east
+
+You are in a Living Room.
+You can see a fireplace, a couch, a TV (on which there is a game console), a mantle and a coffee table.
+You can go north, south or west.
+You step into the living room. It's small, but not in a bad way. The walls are wooden and the windows are the same as the front room; they are long but covered in curtains with no light. A couch and recliner face a table with a TV, divided only by a coffee table. A fireplace is off to the corner. Above it is a mantle with objects you can't quite make out from your position. You feel a bit safer and your muscles loosen at the familiar sight. You know this is your home, just by the feeling. But the memories of it feel far away, just out of reach. Something still distantly feels wrong. It feels empty. You wonder how long it's been since this room has held anyone but you.
+> south
+
+> south
+
+You are in a Kitchen.
+You can see ingredients and a dining table.
+You can go north.
+You step into a large room that is partially divided by a counter into a kitchen and a dining room. An overhead light dimly lights up the small dining table. Two empty plates sit atop it, across from each other. You feel so sure that you've been alone in this house for so long that you aren't sure who the other plate could be for. A smaller table with a chair sits against a back wall, with something on top of it. The kitchen is small, and seems unused. Everything seems so clean that it seems almost untouched. On the counter, there are a number of ingredients that seem like they could be used to make something.
+> x ingredients
+
+> x ingredients
+Macaron cookies
+A bit of your general baking ingredients, like flour, sugar, salt, and the like. Also some heavy cream, vanilla, and food coloring. There are honestly a lot of things you could make with this. But the macaron baking mat just next to it indicates that that's probably what it's actually for.
+> use ingredients
+
+> use ingredients
+You grab what you need to get started and stand at the counter. A process that starts off intentional starts to drift into natural movements as your body moves on its own, knowing what to do. You mix ingredients and put the batter you create into a piping bag to pipe onto the mat. You bake it and it cools and time seems to pass in the blink of an eye, like you barely had to wait at all. You make the buttercream and finish up the macarons. You place them into a container.
+You seem to blink and the scene has changed, just slightly. The lights in the room are brighter, not not in a harsh, overwhelming way. Looking up, there is someone sitting at the dining room table, talking animatedly, presumably to you, as he plays on his phone. You have to take a moment to think, although the feeling you get when you see him is immediate. You feel warm at the sight of both of them at your table. When he turnes to face you and speak, you settle into the memory, once again as if experiencing a memory both from third person yet still in your own body. It's your friend, someone you've been close to for a long time and you wonder how you could have ever forgotten him, even a little bit. He spins his phone in his hand and you're already predicting it's a one way road to dropping it.
+"Your damn cat keeps stepping on me," he complains, sounding annoyed but you know he's joking.
+You roll your eyes. "She doesn't like your vibe, clearly." You spot a cat, your cat, at the door to the kitchen. She's sitting, confident, with her eyes squinted as she stares at your friend. She stares at everyone and everything with the same amount of judgement and disdain.
+"Are the macarons from yesterday ready? I'm starving."
+"As you usually are," you comment and when you look down at the container with the cookies and sure enough, they are ready, even though your memories feel melded together. You grab the container so you can give him some.
+> give macarons to friend
+
+> give macarons to friend
+You take the container to the table and open it, placing some macarons on each plate. Your friend instantly squeals from excitement and starts to eat them. You sigh, but you're smiling. You sit down with him and bite into one of the macarons. It's not perfect; the texture is a bit off. They're difficult cookies to make.
+"A few of the cookies are hollow, I think," your friend voices what you are thinking.
+"Not everyone can make them as perfectly as you," you joke back with him.
+He is the one who taught you how to make these. It took a lot of lessons and a lot of frustration. You're not sure who got mad at you more for your mistakes, you or him. He made fun of you a lot, but you knew deep down it was never serious. He loved to complain about anything and everything, but you could see past his antics every time he would encourage a friend on the phone, or tap your leg rhythmically with his foot under the table, or show you funny pictures he found related to your interests even if he didn't get it.
+He taught you a lot. Your lives were so different from one another's that you taught each other things every day often without realizing. He made you understand something as simple as baking macarons, but it went deeper than that. Your experience with each other led to a deeper level of understanding each other. You met when he moved from another country when you were both young. He always taught you words in his first language and you would talk about differences in your families. Sometimes you would teach him slang when he would fail at trying to use it on his own, as funny as that was. Both of you were so willing to learn from each other about anything and everything. He taught you how to make cookies but he'd also taught you so much more.
+You received Understanding.
+> north
+
+> north
+
+You are in a Living Room.
+You can see a fireplace, a couch, a TV (on which there is a game console), a mantle and a coffee table.
+You can go north, south or west.
+You step into the living room. It's small, but not in a bad way. The walls are wooden and the windows are the same as the front room; they are long but covered in curtains with no light. A couch and recliner face a table with a TV, divided only by a coffee table. A fireplace is off to the corner. Above it is a mantle with objects you can't quite make out from your position. You feel a bit safer and your muscles loosen at the familiar sight. You know this is your home, just by the feeling. But the memories of it feel far away, just out of reach. Something still distantly feels wrong. It feels empty. You wonder how long it's been since this room has held anyone but you.
+> use game cartridge on game console
+
+> use game cartridge on game console
+You sit on the ground and pick the console up, turning it on and putting the cartridge inside. The screen flicks on and the application appears on the front of the screen. Looks like you can play it now.
+> use game console
+
+> use game console
+You settle on the floor, legs crossed, and open the game application. It's a game you've had for a long time, from a series you've loved for even longer. But the music starting and title appearing still makes you as excited as a child as you turn the volume up to soak it all in.
+You close your eyes as you absorb the lilting rhythm of the piano, feeling the notes wrap around you like a warm blanket.
+
+You open your eyes again, looking back down at your console and ready to play. But as you do open your eyes, the scenery is different. You wince, not just at the sudden change,  but at cold air hitting your eyes. As you blink it away and look up, you see people. It's dark outside, but you're in a long line of people and outside a store. The realization that you are outside and away from home hits you as a thrum of dread strikes your chest, but you quickly recognize the memory. It's the release night of the exact game you were just playing. For the very first time since playing that series, you lined up for a midnight release. You couldn't tell if your heart was going crazy from anxiety or excitement.
+Some voices cut into your thoughts and you focus in on the group in front of you. You don't recognize them; they're just other fans in line. It's unclear if they know each other, but their conversation about the game draws you in.
+"Did you play the last game?"
+"I did! I think it had my favorite protagonist. He really grew on me!"
+"Ahh, good taste! His fighting style was so cool! I had some trouble with the controls on it. I'm still working through it."
+"It took some getting used to! It's fun once you get it."
+You're listening and you feel so on edge you're practically standing on your toes. You had just played the last game before coming and had a lot of thoughts on it too. This was your first time being surrounded by people who would know what you were talking about. The people are slightly facing you. They don't seem mean either.
+
+Despite your panic, you hear yourself speak up. "The controls in that game are really different. I had to stop playing for a few months and come back to it."
+The few people speaking paused and turned to look at you and for a horrible moment you were sure they were going to say something about interrupting them. But before the feeling could completely consume you, the first one lit up with a smile. "I feel that! Did you manage to get through it?"
+Feeling more at ease and in your element now, you nod eagerly. "Just the other day. I had to make sure I finished before getting this game tonight."
+They each nodded. "I hid from my social media for weeks so I wouldn't get spoilers," the next one said.
+"Are you going to start playing tonight?" you ask. You don't remember the last time you felt this excited talking to someone about this. "I made sure to nap all day so I could stay up." You feel yourself laughing along with the others and your heart feels so full it could burst.
+"Same! I even took off work for the next few days!" The others laughed at that and you laughed with them.
+You settled into their circle as they let you join the conversation.
+It passed the time quickly, and soon all of you were excitedly fidgeting as the line moved. You knew the first person had gotten their game when conversations were cut off by someone racing out of the store, game held above their head as they shouted a victory cry and sped to their car. The rest of the line shouted cheers along with him. A few people driving away after getting the game were blasting the opening theme song from their cars. You don't think you stopped smiling all night.
+You don't even think you ever got each other's names, but you were friends in that moment all the same. Even the people you saw only for a passing moment, there was a connection between you just through your presence and mutual excitement. This series and moment had created something vital for you. It created a community. Even with those you did not actually know, even those you never even knew the name of, you were sharing important moments and feelings.
+You received Community
+> west
+
+> west
+
+You are in a Bedroom.
+You can see a computer desk (on which there is a Computer), a bed, a dresser and an USB.
+You can go east, south or in.
+You step into a small room. There is a double bed facing the door and pressed against the back wall. A nightstand is next to it. A dresser is set up against the other wall. The closet is in the far corner. Next to you, against the wall, is a computer desk. This is your room. You feel at ease in this room. It's empty and quiet, but it feels safe and secure to you. There's a feeling in your chest and whisper in your mind that makes you think you could stay in here forever.
+> south
+
+> south
+
+You are in a Bathroom.
+You can see a mirror.
+You can go north.
+You step into the bathroom connected to the bedroom. It's small, with just a bathtub across from a mirror and sink; the toilet sits in the back, a cabinet above it. The lights inside are harsh and you wince a bit when you step inside.
+> x mirror
+
+> x mirror
+You step up to the mirror and look into it. Your reflection on the other side is distorted and blurry. The fact that you can't see yourself or even fathom what you look like at the moment fills you with dread. It makes your brain feel as foggy as the reflection and your thoughts simultaneously slow and become too overwhelming.
+You should return when you're more prepared. Support feels important to face this.
+> use community on mirror
+
+> use community on mirror
+You think about your sister. But not just your sister, important people to you that you have a connection with. That connection feels tangible right now; feels like proof that you exist. You take a breath and think about them, but also allow your thoughts to drift to yourself and how you feel at that moment. You clench your hands into fists and press down on the counter, feeling the pressure.
+You are yourself. And there is no shame in that. Even if you have to keep telling yourself that.
+It could take a while to become clear, to be able to look in the mirror and not see something that confuses and upsets you.
+You imagine the people around you that you have come to know, whether it was for a long time or short time. You have entered communities where people understand you and allowed them to know you, and that is real. It reminds you that you are real.
+You open your eyes and you face the mirror. Clear as ever, it's you.
+You received Confidence.
+> north
+
+> north
+
+You are in a Bedroom.
+You can see a computer desk (on which there is a Computer), a bed, a dresser and an USB.
+You can go east, south or in.
+You step into a small room. There is a double bed facing the door and pressed against the back wall. A nightstand is next to it. A dresser is set up against the other wall. The closet is in the far corner. Next to you, against the wall, is a computer desk. This is your room. You feel at ease in this room. It's empty and quiet, but it feels safe and secure to you. There's a feeling in your chest and whisper in your mind that makes you think you could stay in here forever.
+> east
+
+> east
+
+You are in a Living Room.
+You can see a fireplace, a couch, a TV (on which there is a game console), a mantle and a coffee table.
+You can go north, south or west.
+You step into the living room. It's small, but not in a bad way. The walls are wooden and the windows are the same as the front room; they are long but covered in curtains with no light. A couch and recliner face a table with a TV, divided only by a coffee table. A fireplace is off to the corner. Above it is a mantle with objects you can't quite make out from your position. You feel a bit safer and your muscles loosen at the familiar sight. You know this is your home, just by the feeling. But the memories of it feel far away, just out of reach. Something still distantly feels wrong. It feels empty. You wonder how long it's been since this room has held anyone but you.
+
+Something seems different about the mantle. Splashes of color catch your eye from the picture frames on top of it.
+> x mantle
+
+> x mantle
+on top of it is a framed pictures.
+> x framed pictures
+
+> x framed pictures
+As you step by the mantle and frames again, you immediately notice something different. The gray fog on the photos has cleared, and the photographs are now visible. The first is a picture of you and your sister. You recognize this moment now. It depicts the two of you the day you turned in your final draft for editing then critique for the competition. She had come over that day and the two of you celebrated together.
+The draft you submitted never made it anny further. You find that you can't even quite remember the critique you got on it that had hurt so bad. But you do remember her sitting with you the day you submitted, celebrating that it was completed. This Connection to someone you love makes you feel a bit stronger. You want to see her again soon.
+The photo next to it is of you and your friend. You're sitting close together on the couch. Your heads are leaned close together and you're laughing, a plate of what are probably homemade cookies between you. He always loves when you do things with him and he gets to teach you new things and you love to learn. It's been a while.
+The third photo is from a concert. It was an orchestra that performed songs from that same game you liked so much. It's a group photo but you don't actually know any of the people in it. The people who had stayed after the conert was over had wanted a picture. You don't think you got anyone's name, but you do recognize many of the faces around yours as people you had talked to a lot that night. The memory of it still made you excited and you wondered if you could go to another event in the future.
+The next photo is you from a pride event and your two close friends next to you. All three of you are dressed up in bright colors and smiling brightly. You remember feeling so free that day, surrounded not only by your friends but other people who understood you in a specific way not many others did.
+The final photo is just you. You look happy. You're not sure when it was taken. You're posed for the photo, but you can't tell who could have taken the photo or where you were. But you don't think it really matters.
+The feelings connected to these memories are a strange type of overwhelming. One that makes you blink back tears, face heataing up uncomfortable despite the pleasant warm feeling in your chest.
+You have places to be. And people to visit with again. The idea of going out still sparks that same fear and dread as before, but it feels like it could be manageable now.
+You received Security
+You think you can use this to leave now.
+> north
+
+> north
+
+You are in a Front Room.
+You can see a curtain and a front door.
+You can go south or north.
+You open your eyes to a house. It holds a familiar feeling and you can be pretty sure that this is your house. There is a door in front of you that you assume goes outside. There is a window next to it, but the curtains are pulled shut and no light comes in.
+You were sure you were about to go somewhere. You need to go somewhere. The door is right in front of you, but your heart is pounding in your chest and you aren't even sure if you're breathing. You don't know where this fear came from, this desperate need to stay inside your home. You'll need to find the strength to get out, and you're not sure how to get that. There has to be something that can help you; something to remind you of what is good out there.
+> use security on front door
+
+> use security on front door
+You step up to the door and reach out, grabbing the handle. You breathe through the pounding in your chest and you think about your friends and your family. And finally, you think about yourself. Something that maybe would be selfish. When you open the door, the sun is warm against your face. Stepping outside through the door isn't as scary as you thought it might be. It's just the first step. But it's the most important. It's the key to continuing forward.
+You've broken out of what was trapping you inside. Inside yourself, in your home, in your own isolation. You can keep walking now.
+[state=Finished]
