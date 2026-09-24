@@ -14759,6 +14759,12 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 }
 
 
+static scr_int lib_take_from_slot_390 (scr_gameref_t game,
+                                       const scr_char *line);
+static scr_bool lib_take_from_resolved (scr_gameref_t game, scr_int associate,
+                                        scr_bool is_except,
+                                        scr_int references);
+
 /*
  * lib_take_multiple_common()
  *
@@ -14997,6 +15003,47 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
         {
           gs_clear_multiple_references (game);
           return FALSE;
+        }
+    }
+
+  /*
+   * run390 takes() rewrites a bare take of something in or on an object to
+   * "<line> from <parent's Prefix Short>" (4552EE) and hands it to
+   * insides(), whose container slot walk may pick another object the
+   * rewritten line names; see lib_take_from_slot_390().
+   */
+  if (!is_except && references == 1
+      && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_int index_;
+
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        if (game->multiple_references[index_])
+          break;
+      if (index_ < gs_object_count (game)
+          && (gs_object_position (game, index_) == OBJ_IN_OBJECT
+              || gs_object_position (game, index_) == OBJ_ON_OBJECT))
+        {
+          const scr_int parent = gs_object_parent (game, index_);
+          const scr_char *prefix, *line;
+          std::string rewritten;
+          scr_int slot;
+          size_t at;
+
+          line = run_get_dispatch_input ();
+          prefix = prop_get_indexed_string (bundle, "Objects", parent,
+                                            "Prefix");
+          rewritten = std::string (line ? line : "") + " from ";
+          if (prefix[0] != NUL)
+            rewritten += std::string (prefix) + " ";
+          rewritten += prop_get_indexed_string (bundle, "Objects", parent,
+                                                "Short");
+          for (at = 0; at < rewritten.size (); at++)
+            rewritten[at] = scr_tolower (rewritten[at]);
+          slot = lib_take_from_slot_390 (game, rewritten.c_str ());
+          if (slot >= 0 && slot != parent)
+            return lib_take_from_resolved (game, slot, FALSE, references);
         }
     }
 
@@ -15820,6 +15867,118 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
 
 
 /*
+ * lib_take_from_slot_390()
+ *
+ * run390 insides()' container slot for a take-from (462811-462E75).  Every
+ * object co() names on the line is walked in index order, and InStr()
+ * places its lowercased Short (record 4) and Alias (record 8) on the line
+ * -- the first occurrence only, and an empty name at 1, as VB does:
+ *
+ *   slot empty, or not reachable yet: the object takes it when its Short,
+ *     or its non-empty Alias, falls after "from"; the slot is reachable once
+ *     one of them is here (obhere, a static in the room, or held, worn or
+ *     loose in the room) (4627FC-4629A5)
+ *   otherwise, four arms with NO presence test: the object replaces the
+ *     slot when its Short or Alias lies further along the line than the
+ *     slot's Short or (non-empty) Alias, and past position 1 -- a put's
+ *     Left(var_E0, 2), which is empty on a take-from -- given that the
+ *     slot's name is on the line at all (4629A8-462E72)
+ *
+ * So the first present name after "from" holds the slot against a longer
+ * name that starts at the same place: lockedout's takes() rewrite of `get
+ * battery` (in the specialized Lego piece) to "get battery from a
+ * specialized lego piece" lands on the tub of Lego (index 0, Short "Lego"),
+ * and run390 answers "The Energizer battery is not inside the tub of Lego!"
+ * (runner_transcripts/lockedout.txt T22).  -1 when nothing took the slot.
+ */
+static scr_int
+lib_instr_390 (const scr_char *line, const scr_char *name)
+{
+  if (!name || !*name)
+    return 1;
+  return lib_instr_nocase (line, name);
+}
+
+static const scr_char *
+lib_alias_390 (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+
+  if (lib_alias_prepare (bundle, vt_key, "Objects", object) == 0)
+    return "";
+  vt_key[3].integer = 0;
+  return prop_get_string (bundle, "S<-sisi", vt_key);
+}
+
+static scr_bool
+lib_take_from_reachable_390 (scr_gameref_t game, scr_int object)
+{
+  if (lib_obhere_380 (game, object))
+    return TRUE;
+  if (obj_is_static (game, object))
+    return obj_indirectly_in_room (game, object, gs_playerroom (game));
+  switch (gs_object_position (game, object))
+    {
+    case OBJ_HELD_PLAYER:
+    case OBJ_WORN_PLAYER:
+      return TRUE;
+    default:
+      return gs_object_position (game, object) == gs_playerroom (game) + 1;
+    }
+}
+
+static scr_int
+lib_take_from_slot_390 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int from, object, slot = -1;
+  scr_bool reachable = FALSE;
+
+  if (!line)
+    return -1;
+  from = lib_instr_nocase (line, "from");
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *short_, *alias, *slot_alias;
+      scr_int at_short, at_alias, slot_short_at, slot_alias_at;
+      scr_bool slot_alias_ok;
+
+      if (!lib_co_pre400 (game, line, object, 0))
+        continue;
+      short_ = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      alias = lib_alias_390 (game, object);
+      at_short = lib_instr_390 (line, short_);
+      at_alias = lib_instr_390 (line, alias);
+
+      if (slot < 0 || !reachable)
+        {
+          if (at_short > from || (at_alias > from && alias[0] != NUL))
+            {
+              slot = object;
+              if (lib_take_from_reachable_390 (game, object))
+                reachable = TRUE;
+            }
+          continue;
+        }
+
+      slot_alias = lib_alias_390 (game, slot);
+      slot_short_at
+        = lib_instr_390 (line, prop_get_indexed_string (bundle, "Objects",
+                                                        slot, "Short"));
+      slot_alias_at = lib_instr_390 (line, slot_alias);
+      slot_alias_ok = slot_alias_at > 0 && slot_alias[0] != NUL;
+      if ((at_short > slot_short_at && at_short > 1 && slot_short_at > 0)
+          || (at_alias > slot_short_at && at_alias > 1 && slot_short_at > 0)
+          || (at_short > slot_alias_at && at_short > 1 && slot_alias_ok)
+          || (at_alias > slot_alias_at && at_alias > 1 && slot_alias_ok))
+        slot = object;
+    }
+  return slot;
+}
+
+
+/*
  * lib_take_from_and_390()
  *
  * run390's insides() on a line with "and" (462FD2-463E77).  The object
@@ -16156,94 +16315,21 @@ lib_take_from_piece_400 (scr_gameref_t game, scr_int associate)
 }
 
 /*
- * lib_take_from_multiple_common()
+ * lib_take_from_resolved()
  *
- * Take the objects inside or on an object and listed in %text%, or -- for
- * is_except -- every one of them but those listed.  Neither is mandatory:
- * plain "take <object>" works fine with containers and surfaces, but they
- * are a standard in Adrift so here they are.
+ * The take-from handler once the container (associate) is fixed and the
+ * names are parsed into multiple_references: validate the container, filter
+ * the names by it and answer.  Shared by the typed take-from and by 3.9's
+ * bare take that takes()' rewrite sends to another container (see
+ * lib_take_from_slot_390()).
  */
 static scr_bool
-lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
+lib_take_from_resolved (scr_gameref_t game, scr_int associate,
+                        scr_bool is_except, scr_int references)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_bool is_400 = lib_is_version_400 (game);
-  scr_int associate, objects, references;
-  scr_bool is_ambiguous;
-
-  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
-  if (lib_take_from_empty_verb (game))
-    return FALSE;
-  /* A line with "and" has its own rules in every Runner. */
-  if (!is_except && lib_take_from_and_line (game))
-    return lib_take_from_and (game);
-
-  /* Get the referenced object, and if none, consider complete. */
-  associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
-  if (associate == -1)
-    return is_ambiguous;
-
-  /*
-   * 4.0 inspects the container before it ever looks at the names the line
-   * gave, and the three answers it can give there outrank anything the names
-   * could say.  Measured live on p4TFROM against run400 (Adrift_971/972,
-   * 2026-09-10), with the box the only container in the room:
-   *
-   *   box closed, coin inside   `get coin from box`   The box is closed.
-   *   box closed, stone outside `get stone from box`  The box is closed.
-   *   box open and empty        `get stone from box`  There is nothing inside the box.
-   *   box open and empty        `get coin from box`   There is nothing inside the box.
-   *                             (with the coin in hand -- still the container's answer)
-   *   box open, coin inside     `get stone from box`  Take what?
-   *
-   * so the empty-container line precedes the membership test, and a name the
-   * container does not hold is simply dropped.  Pre-4.0 has the opposite
-   * order -- run390 answers the same five turns "You can't do that!", "You
-   * can't get anything from the box as it is closed!", "The stone is not
-   * inside the box!", "The coin is not inside the box!" and "The stone is not
-   * inside the box!" (Adrift_970/973) -- so the names are parsed first there,
-   * exactly as before, and lib_take_from_no_name() carries the first of them.
-   */
-  if (is_400)
-    {
-      /* The piece is named first; see lib_take_from_piece_400(). */
-      if (!is_except && lib_take_from_piece_400 (game, associate))
-        return TRUE;
-
-      if (!lib_take_from_is_valid (game, associate))
-        {
-          pf_buffer_answer_break (filter);
-          return TRUE;
-        }
-
-      if (!lib_take_from_has_contents (game, associate))
-        {
-          if (lib_take_from_unseen (game, associate))
-            lib_take_from_unseen_refusal (game, associate);
-          else
-            lib_take_from_empty (game, associate, is_except);
-
-          pf_buffer_answer_break (filter);
-          return TRUE;
-        }
-    }
-
-  /* Parse the multiple objects list to find the target objects. */
-  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
-                                   lib_take_from_filter, associate,
-                                   &references))
-    {
-      /* Pre-3.9 has no parse; the names pick a slot of their own, and the
-         object named is as good a slot as the container (`get gem from box`
-         with the gem elsewhere is "You are not holding a box." with the box
-         on the floor, p37TKA/p38TKA cell 126; see lib_take_from_slot_pre390). */
-      if (!is_except
-          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-        return lib_take_from_slot_pre390 (game);
-      return lib_take_from_no_name (game);
-    }
-  else if (references == 0)
-    return TRUE;
+  scr_int objects;
 
   /* Note single-object takes; the backend prints their prefix raw pre-4.0. */
   lib_take_from_single_named = !is_except && references == 1;
@@ -16313,6 +16399,112 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   lib_take_from_task_sweep_380 (game);
   pf_buffer_answer_break (filter);
   return TRUE;
+}
+
+
+/*
+ * lib_take_from_multiple_common()
+ *
+ * Take the objects inside or on an object and listed in %text%, or -- for
+ * is_except -- every one of them but those listed.  Neither is mandatory:
+ * plain "take <object>" works fine with containers and surfaces, but they
+ * are a standard in Adrift so here they are.
+ */
+static scr_bool
+lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_bool is_400 = lib_is_version_400 (game);
+  scr_int associate, objects, references;
+  scr_bool is_ambiguous;
+
+  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
+  if (lib_take_from_empty_verb (game))
+    return FALSE;
+  /* A line with "and" has its own rules in every Runner. */
+  if (!is_except && lib_take_from_and_line (game))
+    return lib_take_from_and (game);
+
+  /* Get the referenced object, and if none, consider complete. */
+  associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
+  if (associate == -1)
+    return is_ambiguous;
+
+  /* 3.9's container is insides()' slot, not the parser's best match; see
+     lib_take_from_slot_390(). */
+  if (!is_except
+      && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
+    {
+      const scr_int slot
+        = lib_take_from_slot_390 (game, run_get_dispatch_input ());
+
+      if (slot >= 0)
+        associate = slot;
+    }
+
+  /*
+   * 4.0 inspects the container before it ever looks at the names the line
+   * gave, and the three answers it can give there outrank anything the names
+   * could say.  Measured live on p4TFROM against run400 (Adrift_971/972,
+   * 2026-09-10), with the box the only container in the room:
+   *
+   *   box closed, coin inside   `get coin from box`   The box is closed.
+   *   box closed, stone outside `get stone from box`  The box is closed.
+   *   box open and empty        `get stone from box`  There is nothing inside the box.
+   *   box open and empty        `get coin from box`   There is nothing inside the box.
+   *                             (with the coin in hand -- still the container's answer)
+   *   box open, coin inside     `get stone from box`  Take what?
+   *
+   * so the empty-container line precedes the membership test, and a name the
+   * container does not hold is simply dropped.  Pre-4.0 has the opposite
+   * order -- run390 answers the same five turns "You can't do that!", "You
+   * can't get anything from the box as it is closed!", "The stone is not
+   * inside the box!", "The coin is not inside the box!" and "The stone is not
+   * inside the box!" (Adrift_970/973) -- so the names are parsed first there,
+   * exactly as before, and lib_take_from_no_name() carries the first of them.
+   */
+  if (is_400)
+    {
+      /* The piece is named first; see lib_take_from_piece_400(). */
+      if (!is_except && lib_take_from_piece_400 (game, associate))
+        return TRUE;
+
+      if (!lib_take_from_is_valid (game, associate))
+        {
+          pf_buffer_answer_break (filter);
+          return TRUE;
+        }
+
+      if (!lib_take_from_has_contents (game, associate))
+        {
+          if (lib_take_from_unseen (game, associate))
+            lib_take_from_unseen_refusal (game, associate);
+          else
+            lib_take_from_empty (game, associate, is_except);
+
+          pf_buffer_answer_break (filter);
+          return TRUE;
+        }
+    }
+
+  /* Parse the multiple objects list to find the target objects. */
+  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
+                                   lib_take_from_filter, associate,
+                                   &references))
+    {
+      /* Pre-3.9 has no parse; the names pick a slot of their own, and the
+         object named is as good a slot as the container (`get gem from box`
+         with the gem elsewhere is "You are not holding a box." with the box
+         on the floor, p37TKA/p38TKA cell 126; see lib_take_from_slot_pre390). */
+      if (!is_except
+          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+        return lib_take_from_slot_pre390 (game);
+      return lib_take_from_no_name (game);
+    }
+  else if (references == 0)
+    return TRUE;
+
+  return lib_take_from_resolved (game, associate, is_except, references);
 }
 
 

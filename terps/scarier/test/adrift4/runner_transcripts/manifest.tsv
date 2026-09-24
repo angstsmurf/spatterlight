@@ -268,7 +268,7 @@ light_up	light_up.txt	driven:Adrift_128_light_up_rt.txt	4.00	run400x.exe	133	2		
 lightsgoout	lightsgoout.txt	driven:Adrift_350_lightsgoout_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 lobster	lobster.txt	driven:Adrift_393_lobster_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 locked_door	locked_door.txt	driven:Adrift_272_locked_door_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-lockedout	lockedout.txt	driven:Adrift_284_lockedout_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+lockedout	lockedout.txt	driven:Adrift_284_lockedout_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 locuras	locuras.txt	driven:Adrift_328_locuras_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 longbarrow	longbarrow.txt	driven:Adrift_378_longbarrow_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 lost	lost.txt	driven:Adrift_253_lost_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

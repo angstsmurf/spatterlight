@@ -146,7 +146,7 @@ You open the specialized Lego piece.  A Energizer battery is inside the
 specialized Lego piece.
 
 > get battery
-You take a Energizer battery from the specialized Lego piece.
+The Energizer battery is not inside the tub of Lego!
 
 > look under dresser
 You peek under the dresser.  Under here are some cotten balls, tissue paper,

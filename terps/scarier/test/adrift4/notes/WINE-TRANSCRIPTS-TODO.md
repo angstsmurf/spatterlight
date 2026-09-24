@@ -351,13 +351,22 @@ is now ported; the row is identical on every turn.
 
 **Not ported / left open:**
 
-- **lockedout T22** `get battery` (3.9): takes() rewrites a bare take of
-  a contained object into "... from <parent>" (4552EE), and insides()
-  picks the FIRST reachable Prefix/Short substring match past "from"
-  (462838-462E75), which gives the tub of Lego and "is not inside". A
-  port regressed two rows, so it was reverted: alex (the syringe's
-  Prefix matched) and mm2 (dresser vs drawer). The role of var_D2 in that
-  loop is still open.
+- **lockedout T22** `get battery` (3.9): FIXED 2026-09-24. takes()
+  rewrites a bare take of something in or on a present, seen parent to
+  "<line> from <Prefix Short>" (4552EE), and insides() walks every co()
+  object in index order for the container slot (462811-462E75). The
+  record fields there are Short (4) and Alias (8), not Prefix/Short:
+  run390's object record starts Prefix (0), as compose_object_name
+  42B0E8 shows. The first Short/Alias past "from" takes the slot until one
+  is reachable (4627FC-4629A5), then four unguarded arms replace it with a
+  name lying further along the line (4629A8-462E72). "lego" is found at
+  the same place as "lego piece", so the tub of Lego keeps the slot and
+  the Runner says "The Energizer battery is not inside the tub of Lego!".
+  Ported as sclibrar.cpp lib_take_from_slot_390(), used by the typed
+  take-from and by the bare take (lib_take_from_resolved()). The earlier
+  reverted attempt read the fields as Prefix/Short, so a Prefix "a" matched
+  inside "take" (veteran, alex, mm2). Suite: only lockedout's golden moved.
+  Recompare: no verdict moved.
 - **ghoster T21** `kill attack robot`: FIXED 2026-09-24. The one-target
   %character% path (lib_battle_unnamed_target) now also requires
   InStr(var_90) < InStr(Name) (47EBC2); the robot is Named "Attack Robot",
