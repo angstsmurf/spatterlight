@@ -1,0 +1,1004 @@
+Loading game...
+
+The Night That Dripped Blood
+
+That reminds you, you must head down there today and collect your wages...
+
+You slide naked from beneath the silk sheets and decide to get up...
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Bedroom
+
+A decorative hand carved wooden rail runs the length of Brad's balcony
+bedroom. The king-size bed is draped in black satin sheets and there is a
+large mirror fixed to the ceiling. Brad's wardrobe is bristling with
+expensive and tasteless clothes. A large window looks out towards the sea. A
+wrought iron spiral staircase winds down into the living room. An open door
+leads into the bathroom. Exits are east and down.
+
+> e
+You move east.
+
+Bathroom
+
+The  bathroom features a huge shower cubicle. Full length mirrors line one
+wall. There are twin sinks and expensive hand carved wooden cabinets
+containing fluffy towels. A ceiling fan circulates cool air. Exits are west
+and in ( the shower ).
+
+> in
+You step under the cool refreshing spray and wash away the sweat. The water
+runs over your chest, your stomach and down your legs. You let out a long
+relaxing sigh. Turning round, you duck your head beneath the spray, feeling
+the water tingle against your scalp and stream through your hair, running
+down over your back. You rinse the shampoo from your hair and step from the
+cubicle. Taking a large white towel you quickly dry yourself and comb your
+hair. You pull on a pair shorts, a white T shirt and blue canvas shoes. You
+pick up your watch and black satchel as well.
+
+> w
+You move west.
+
+Bedroom
+
+A decorative hand carved wooden rail runs the length of Brad's balcony
+bedroom. The king-size bed is draped in black satin sheets and there is a
+large mirror fixed to the ceiling. Brad's wardrobe is bristling with
+expensive and tasteless clothes. A large window looks out towards the sea. A
+wrought iron spiral staircase winds down into the living room. An open door
+leads into the bathroom. Exits are east and down.
+
+> d
+You move down.
+
+Lounge
+
+The  lounge is richly furnished with leather chairs and decorative coffee
+tables. A huge widescreen TV dominates one end of the room and there is also
+a large library of DVD movies on show. The white washed walls are hung with
+framed pictures and expensive looking carvings. The polished wooden floor is
+scattered with sheepskin rugs. A huge bay window faces out across the sea and
+the beach below. An ornate wrought iron spiral staircase winds up to an open
+plan bedroom. A beaded curtain hangs across a decorative archway which leads
+through to the kitchen. The front door is closed. Exits are east and up.
+Also here is the morning post.
+
+> look at couch
+At the back of the couch you dig out the TV remote control.
+
+> e
+You move east.
+
+Kitchen
+
+The kitchen is modern, sleek and spartan. Beneath a window looking out onto a
+small garden is a stainless steel sink and draining board. A large fridge
+stands in one corner. In another corner is a wooden table and a set of four
+chairs. Fixed to one wall is a telephone. Exits are west and south.
+
+> s
+You move south.
+
+Utility Room
+
+The utility room is home to a washing machine, a tumble dryer and a large
+chest freezer. The only exit is north.  Also here is a red handled
+screwdriver.
+
+> search washing machine
+Inside the washing machine is a pile of your unwashed clothes which you
+decide to leave until later. Stuffed into the pocket of your jeans is a tatty
+timesheet which you take.
+
+> get screwdriver
+You take the red handled screwdriver.
+
+> n
+You move north.
+
+Kitchen
+
+The kitchen is modern, sleek and spartan. Beneath a window looking out onto a
+small garden is a stainless steel sink and draining board. A large fridge
+stands in one corner. In another corner is a wooden table and a set of four
+chairs. Fixed to one wall is a telephone. Exits are west and south.
+
+> w
+You move west.
+
+Lounge
+
+The  lounge is richly furnished with leather chairs and decorative coffee
+tables. A huge widescreen TV dominates one end of the room and there is also
+a large library of DVD movies on show. The white washed walls are hung with
+framed pictures and expensive looking carvings. The polished wooden floor is
+scattered with sheepskin rugs. A huge bay window faces out across the sea and
+the beach below. An ornate wrought iron spiral staircase winds up to an open
+plan bedroom. A beaded curtain hangs across a decorative archway which leads
+through to the kitchen. The front door is closed. Exits are east and up.
+Also here is the morning post.
+
+> get post
+You scoop up the mail and sift through it. There's a few bills for Brad which
+you put to one side, the local newspaper, a postcard from Florida, a plain
+white envelope and an X rated porn magazine.
+
+> open envelope
+You slit the envelope open and find a neatly folded note inside.
+
+> read note
+The note has been carefully handwritten.
+
+Petter
+
+I am quite certain that by now you have become deeply puzzled and most
+intrigued by this perculiar letter. Who can it be from ? Why has it been sent
+here ? Well, I will not provide too many answers too quickly for that would
+spoil things. Things ? I can read your mind. Your thoughts are so loud and so
+clear. All I can adivse you to do is to seek out the Blue Boar. It shall be a
+fascinating and engrossing starting point for you. I bid you good luck in
+your search.
+
+Happy Reading Petter!!!
+
+Regards
+A friend.
+
+> open door
+You open the front door and feel the sunshine splash across your face.
+
+> out
+You move out.
+
+Clifftop
+
+You are outside Brad's house on the outskirts of Critch. The house was built
+several years ago on the clifftop and the view from here is breathtaking. The
+sky above is a gorgeous blue without a single cloud in sight. A stony path
+wends its way through the low grass towards the cliff edge. Another path
+leads east into town. Exits are east, west and in.
+
+> e
+You move east.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> n
+You move north.
+
+Lane
+
+You  are walking through the main residential area of Critch. The narrow lane
+is lined with small bungalows and brightly painted chalets. A white haired
+man is out mowing his lawn. A young woman in shorts and a bikini top is
+washing her front windows. Several children in swimsuits are playing
+excitedly with water guns. Exits are north and south.
+
+> n
+You move north.
+
+Blan Hill
+
+Blan hill stretches for several miles and is crisscrossed with pathways,
+flower gardens and lawns.  The name dates back several centuries to when the
+land here was wild and hilly. Now, with time, the ground seems to have
+levelled out more. This has long been a place to relax, for locals and
+tourists alike, taking long walks or enjoying an afternoon picnic. There is a
+small cafe near the cliff edge. A sign is hanging up in the window. CLOSED
+FOR REFURBISHMENT. Exits are northeast along the paths, west into the cafe or
+south.
+
+> w
+You move west.
+
+Cafe
+
+The cafe is a dingy and rundown greasy spoon. Orange plastic chairs and
+circular green tables. The walls are in desperate need of a fresh coat of
+paint and the white ceiling has turned yellow from years of cigarette smoking
+patrons. Red and white check curtains are drawn across the dirt encrusted
+windows blocking out the sunlight.  The only exit is east.
+
+There is a plump, middle aged, moon faced man here. His round belly strains
+against his trousers and dark rings show beneath the arms of his shirt. It's
+Monk, the owner of the cafe, your boss, a bit of a creep, really, but pretty
+harmless to be fair. He looks busy at his desk with a mountain of paperwork.
+
+> give timesheet to monk
+You hand the dog eared time sheet to Monk. He stares at it, shaking his head,
+mumbling and cursing under his breath.
+"Well, come on, Monk, I don't want to have be here any longer, okay ?"
+Monk continues to study the timesheet.
+"I haven't signed this," he says. "You should have got me to sign it. I can't
+pay you for this. You know the rules Petter - you get your timesheet signed
+at the end of each shift...this isn't signed...I mean, it's not my
+problem...I got bills, overheads, lots of overheads, lots and lots of
+overheads, what can I say ? I can't help you out...I'm sorry, what can I do
+?"
+"Listen, Monk, you can give me what you owe me is what you can do," you
+demand, angrily.
+Monk rises from his chair and tugs a brown wage packet from the front pocket
+of his shirt.
+"Now, now, how ahout a little bit of respect. I got rights, you know, I got
+rights and overheads to meet, okay, so less of your attitude, okay ? Now,
+look, I'll make a deal with you...I have an errand needs doing...how about
+you sort that for me and I'll forget that YOU forgot to get me to sign your
+timesheet."
+He thrusts your wage packet back into his pocket.
+"What do you say ?"
+
+> ask monk about errand
+"Christina took sick...must have been something she ate," laughs Monk,
+scratching his huge belly. "She cooks gorgeous burgers. How about we start
+with you making me a few burgers ? And then I'll take a look at this
+timesheet, okay ?"
+He jabs his thumb towards the kitchens.
+"You know where the kitchen is, right ?"
+
+> n
+You move north.
+
+Cafe Kitchen
+
+The kitchen feels like a sweat box with the fans broken and the windows
+painted shut. There is a bad smell in here as well. The floors, the walls,
+the ovens, the counters are all greasy, stained and unwashed. The sink is
+piled high with dirty, food encrusted crockery. A circular bin is overflowing
+with rubbish. Several flies are buzzing round it. Hanging on one wall from a
+large nail is a swimsuit special calender. A large radio is balanced on top
+of the fridge.  The only exit is south.
+
+> cook burgers
+You quickly rustle up a few hamburgers and dress them with salad and relish.
+Monk wolfs them down and wipe his mouth with the cuff of his shirt.
+"Hmm, well, not bad, Petter, not bad at all...not up to Christina's
+standard...but not bad."
+"Look, how about signing my timesheet and handing over my wages ?"
+"Well, okay, I could but, well, as I am having to do you a really big
+favour...how about a few more burgers and then we'll see ?"
+You trudge back to the kitchen...Monk is going to keep this up forever...you
+need a plan...!
+
+> look at remote control
+The back of the remote comes off in your hand and a set of batteries drop
+out. You slip them into your bag for safe keeping.
+
+> play radio
+You slot the batteries from the TV remote control into the back of the radio
+and turn the volume up. The dial is stuck on 101.62 FM...Critch Country &
+Western favourites...you grimace!
+
+> s
+You move south.
+
+Cafe
+
+The cafe is a dingy and rundown greasy spoon. Orange plastic chairs and
+circular green tables. The walls are in desperate need of a fresh coat of
+paint and the white ceiling has turned yellow from years of cigarette smoking
+patrons. Red and white check curtains are drawn across the dirt encrusted
+windows blocking out the sunlight.  Exits are north and east.
+
+There is a plump, middle aged, moon faced man here. His round belly strains
+against his trousers and dark rings show beneath the arms of his shirt. It's
+Monk, the owner of the cafe, your boss, a bit of a creep, really, but pretty
+harmless to be fair. He looks busy at his desk with a mountain of paperwork.
+
+> give magazine to monk
+"Here, take a look through this whilst I cook you up some more burgers."
+Monk takes the magazine and his eyes light up.
+"Looks, interesting," he mutters, licking his lips. "Looks, er, well, very
+interesting...are you in this ?"
+You glare at Monk.
+"Oh, I see, no need to take it like that...they turned you down, right ?"
+He gets to his feet and pops out back into his office, closing the door
+behind him.
+
+> look at desk
+Monk's desk is a shambles, covered  with papers, documents, an empty cash
+box, old newspapers, old magazines, ashtrays and half empty mugs of coffee.
+Tucked under the desk is a sturdy wooden chair.
+
+> look at chair
+The chair is held together with large screws.
+
+> loosen screws
+The screws make a terrible crunching sound but with the radio drowning out
+the noise, you are able to continue without the fear of alering Monk. Moments
+later, he emerges from his office, red faced and somewhat flustered, and
+carrying a large cup of coffee.
+"How about some more burgers ?"
+You smile thinly at him.
+"Well, I got lots to do so make yourself useful," he says, pulling out the
+chair.
+He drops into it and the chair collapses beneath his weight. Monk cries out
+as he hits the floor, hot coffee splashing all over him. He lurches to his
+feet, shouting.
+"It's burning...it's burning...Christ, it's burning me!!"
+He pulls off the sodden shirt, throwing it onto the desk. Monk rushes back
+into his office, locking the door behind him. You lift up the shirt and your
+wage packet drops onto the desk.
+
+> get packet
+You take the wage packet.
+
+> open packet
+Brimming with crisp ten pound notes!
+
+> read newspaper
+The Critch Chronicle containing the usual collection of stories and
+advertisements.
+
+You are about to put the paper away when an advert catches your eye in the
+classified section.
+
+RARE & LOST BOOKS
+Old, lost, rare and out of print fiction and non-fiction.
+18 The Parade, Critch.
+
+Hmmm...rare books !!
+
+> e
+You move east.
+
+Blan Hill
+
+Blan hill stretches for several miles and is crisscrossed with pathways,
+flower gardens and lawns.  The name dates back several centuries to when the
+land here was wild and hilly. Now, with time, the ground seems to have
+levelled out more. This has long been a place to relax, for locals and
+tourists alike, taking long walks or enjoying an afternoon picnic. There is a
+small cafe near the cliff edge. A sign is hanging up in the window. CLOSED
+FOR REFURBISHMENT. Exits are northeast along the paths, west into the cafe or
+south.
+
+> s
+You move south.
+
+Lane
+
+You  are walking through the main residential area of Critch. The narrow lane
+is lined with small bungalows and brightly painted chalets. A white haired
+man is out mowing his lawn. A young woman in shorts and a bikini top is
+washing her front windows. Several children in swimsuits are playing
+excitedly with water guns. Exits are north and south.
+
+> s
+You move south.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> s
+You move south.
+
+The Parade
+
+You  find yourself strolling along the Parade, mingling with the shoppers and
+tourists. The place is a hive of activity. There are rows upon rows of shops,
+market stalls, burger vans, a candy floss stall, an information kiosk,
+crowded wooden benches, a chip van and also several performing entertainers.
+The smell of fried onions, burgers and freshly made donuts fills your
+nostrils.
+
+Rare & Lost Books is a small shop wedged between a betting shop and a beach
+shop. An open sign hangs in the door. Exits are north and in.
+
+> in
+You move in.
+
+Bookshop
+
+The  bookshop is musty and cramped. Wooden shelves are lined with hundreds
+and hundreds of old and rare volumes. Next to the front door is a small
+counter. There is a hush in the place. The only exit is out.
+
+> look at counter
+There is a shiny brass RING FOR SERVIVE bell on the counter.
+
+> ring bell
+"Well, now, what have we here ?"
+The harsh, sharp voice startles you.
+You spin round to face the cold stare of the shop owner, Miss Bent.
+"So, are you looking for a book ? A rare book ? An out of print book ? A book
+lovingly and laboriously created only to be cast tattered and unwanted and
+thrown into a cupboard to gather dirt and dust and cobwebs ?"
+You stare at her, a little speechless
+"Well ?"
+"Er..yeah, sort of."
+"Then you've certainly come to the right place. Now, what book do you wish to
+ask me about ?"
+
+> ask miss bent about blue boar
+"Ah, I should have suspected...a rare desire indeed...pure, undiluted
+filth...pulp horror...my, goodness, no wonder it is a rare book."
+Miss Bent pulls a well thumbed paperbook from one of the shelves.
+"The Blue Boar" she states. "That will cost you thirty five pounds, please."
+"Can I just borrow it ?" you ask, meekly.
+"Let me see," ponders Miss Bent. "Hmm, now, how can I phrase this...hmm...how
+about no ?"
+She puts the book back on the shelf.
+"Thirty five pounds and not a penny less."
+
+> buy book
+"It's me again, Miss Bent," you say. "I'd like one copy of the Blue Boar,
+please."
+She looks down her nose at you.
+"There is only one copy of the ghastly thing, thank goodness, a dreadful
+concoction of nonsense...violence, lust, sex...shocking!"
+You hand over your money.
+"I'll try to behave after reading it!" you smirk.
+You look at the tattered and well thumbed paperback that has just coast you
+£35 and wonder what an earth you are doing...
+
+> look at book
+The Blue Boar, written by Daniel Daniels and published in 1950. It's the
+story of a sunken WWII German U boat that resurfaces off the Critch coastline
+bringing with it an army of murderous undead Nazi zombies. They slaughter the
+inhabitants of the town...starting with a young girl who was out on the beach
+and was later found crucified and beheaded...the book looks well read, the
+spine is broken in several places, the pages are heavily thumbed and the
+brief synopsis on the back promises a macabre and blood curdling experience.
+You flick through the pages and are quite surprised when an advertisement
+flyer drops out into your lap.
+
+> look at flyer
+It's an advertisement flyer for the Critch fair.
+
+There is a neatly written message on the back. It reads..
+
+Well, you have succeeded in tracking down this sordid work of literature.
+Now, Petter, will you enjoy your next scary ride quite as much ?
+
+Regards
+A friend.
+
+Hmmm...this is becoming very, very odd indeed!
+
+> out
+You move out.
+
+The Parade
+
+You  find yourself strolling along the Parade, mingling with the shoppers and
+tourists. The place is a hive of activity. There are rows upon rows of shops,
+market stalls, burger vans, a candy floss stall, an information kiosk,
+crowded wooden benches, a chip van and also several performing entertainers.
+The smell of fried onions, burgers and freshly made donuts fills your
+nostrils.
+
+Rare & Lost Books is a small shop wedged between a betting shop and a beach
+shop. An open sign hangs in the door. Exits are north and in.
+
+> n
+You move north.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> e
+You move east.
+
+Paved Square
+
+You  find yourself on a paved square outside the fairground. Behind high
+railings you can see colourful rides and huge crowds of locals and tourists.
+Exits are east and west.
+
+> e
+You move east.
+
+Fairground
+
+Loud  thumping dance music is pounding from the fairground sound system.
+There are hundreds of people here today, lining up for the haunted house, the
+mirror maze or a ride on the bumper cars. The arcade is packed and so is the
+bingo hall...the air is filled with laughter and music...you smile to
+yourself. Exits are north, east and west.
+
+> e
+You move east.
+
+Food Stalls
+
+You edge your way through the crowds building up around the food stalls. The
+smell of chips and donuts is almost overpowering but you resist the
+temptation. Exits are north and west.
+
+> n
+You move north.
+
+Ghost Train
+
+You  are outside the Ghost Train with it's traditional single track and
+carriages painted with skeletons, ghosts and creatures of the night. The ride
+is open. Exits are north and south.
+
+The ride owner, Glenn, is muscular and tanned, blond haired and in his mid
+twenties. He is wearing tight fitting cutoff denim shorts, a white vest top
+and canvas shoes. He is selling tickets for the ghost train at one pound per
+person.
+
+> buy ticket
+You dig out a ten pound note and hand it to the young man. Smiling, he hands
+you back a pink ticket and your change. You climb into a single carriage.
+Glenn switches on the ride. You trundle slowly along the track and disappear
+through a set of doors daubed with the faces of monsters and demons. Darkness
+engulfs you...cobwebs brush across your face...an animated skeleton dangles
+from the ceiling...flashes of green light reveals pictures of horrific,
+disfigured faces...a soundtrack of moaning and howling wind is playing
+constantly...it's all pretty lame, really...you can see a right bend in the
+track ahead which should lead to the exit but you are surprised when the
+carriage lurches to the left and stops dead...you turn and look over your
+shoulder...you can see the exit from here...suddenly a large panel drops from
+the ceiling, trapping you and blocking out the exit...
+
+> look at tunnel
+You gingerly run your hands across the smooth walls of the tunnel and find a
+metal lever.
+
+> pull lever
+The lever is tough to move and takes both hands. You hear a loud click and a
+panel slides open to reveal another gloomy tunnel.
+
+> e
+You move east.
+
+Another Tunnel
+
+The tunnel is narrow and the ceiling low. The track is uncomfortable beneath
+your feet. Exits are north and west.
+
+> n
+You move north.
+
+Dead End
+
+The tunnel winds around a corner and reaches a dead end. The light is very
+poor and you can hear nothing above the din of moaning voices and howling.
+The only visible exit is back south.
+
+> look at floor
+You drop to your knees and scrabble about the tracks. You find a trapdoor,
+which is unlocked and reveals a dark chute.
+
+> d
+You ease into the opening and slide down a twisting and turning chute. You
+crash through a hatch and emerge back outside.
+
+> look at ticket
+A ticket for the ghost train. Scribbled on the back is a Critch telephone
+number.
+
+> w
+You move west.
+
+Minature Railway
+
+The colourful minature railing is for young children only. The brightly
+painted carrriages are pulled along by a 1920s style engine. The track runs
+through several stations and a tunnel. The children are squealing with joy
+and delight and parents look on with broad smiles across their faces. Exits
+are south, east and southwest.
+
+> s
+You move south.
+
+Ghost Train
+
+You  are outside the Ghost Train with it's traditional single track and
+carriages painted with skeletons, ghosts and creatures of the night. The ride
+is currently closed for repairs. Exits are north and south.
+
+> s
+You move south.
+
+Food Stalls
+
+You edge your way through the crowds building up around the food stalls. The
+smell of chips and donuts is almost overpowering but you resist the
+temptation. Exits are north and west.
+
+> w
+You move west.
+
+Fairground
+
+Loud  thumping dance music is pounding from the fairground sound system.
+There are hundreds of people here today, lining up for the haunted house, the
+mirror maze or a ride on the bumper cars. The arcade is packed and so is the
+bingo hall...the air is filled with laughter and music...you smile to
+yourself. Exits are north, east and west.
+
+> w
+You move west.
+
+Paved Square
+
+You  find yourself on a paved square outside the fairground. Behind high
+railings you can see colourful rides and huge crowds of locals and tourists.
+Exits are east and west.
+
+> w
+You move west.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> w
+You move west.
+
+Clifftop
+
+You are outside Brad's house on the outskirts of Critch. The house was built
+several years ago on the clifftop and the view from here is breathtaking. The
+sky above is a gorgeous blue without a single cloud in sight. A stony path
+wends its way through the low grass towards the cliff edge. Another path
+leads east into town. Exits are east, west and in.
+
+> in
+You move in.
+
+Lounge
+
+The  lounge is richly furnished with leather chairs and decorative coffee
+tables. A huge widescreen TV dominates one end of the room and there is also
+a large library of DVD movies. The white washed walls are hung with framed
+pictures and expensive looking carvings and ornaments and the polished wooden
+floor is scattered with sheepskin rugs. A huge bay window faces out across
+the sea and the beach below. An ornate wrought iron spiral staircase winds up
+to an open plan bedroom. A beaded curtain hangs across a decorative archway
+which leads through to the kitchen. Exits are east, up and out through the
+front door.
+
+> e
+You move east.
+
+Kitchen
+
+The kitchen is modern, sleek and spartan. Beneath a window looking out onto a
+small garden is a stainless steel sink and draining board. A large fridge
+stands in one corner. In another corner is a wooden table and a set of four
+chairs. Fixed to one wall is a telephone. Exits are west and south.
+
+> call number
+You lift the receiver and dial the number. You wait...and wait...it keeps
+ringing...you are about to hang up when a woman answers.
+"Can I talk to Glenn, please ?"
+"Petter, right ?" asks the woman. "I'm Chloe. Look, I know..."
+"No, you don't know," you interrupt. "So keep quiet and listen. Is he there
+or not ?"
+There is a long silence and suddenly a man's voice comes on the line.
+"I'm sorry, Petter, I had to do it. Anyway, you escaped, no harm done...you
+should have kept out of all this."
+"Kept out of what ?" you frown, puzzled. "What are you going on about ?
+There was another silence on the line.
+"Look, I live at No.7 on the lane. I think you should come over...I have a
+lot of explaining to do."
+"You certainly do, pal," you shout, angrily, slamming the phone down.
+
+> w
+You move west.
+
+Lounge
+
+The  lounge is richly furnished with leather chairs and decorative coffee
+tables. A huge widescreen TV dominates one end of the room and there is also
+a large library of DVD movies. The white washed walls are hung with framed
+pictures and expensive looking carvings and ornaments and the polished wooden
+floor is scattered with sheepskin rugs. A huge bay window faces out across
+the sea and the beach below. An ornate wrought iron spiral staircase winds up
+to an open plan bedroom. A beaded curtain hangs across a decorative archway
+which leads through to the kitchen. Exits are east, up and out through the
+front door.
+
+> out
+You move out.
+
+Clifftop
+
+You are outside Brad's house on the outskirts of Critch. The house was built
+several years ago on the clifftop and the view from here is breathtaking. The
+sky above is a gorgeous blue without a single cloud in sight. A stony path
+wends its way through the low grass towards the cliff edge. Another path
+leads east into town. Exits are east, west and in.
+
+> e
+You move east.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> n
+You move north.
+
+Lane
+
+You  are walking through the main residential area of Critch. The narrow lane
+is lined with small bungalows and brightly painted chalets. There is no one
+around. Exits are north, south and west ( to Glenn's bungalow ).
+
+> w
+You move west.
+
+Glenn's Bungalow
+
+You  are standing outside the front door to Glenn's bungalow. An alleyway
+leads around back. Exits are east and west.
+
+> w
+You move west.
+
+Alleyway
+
+You are  in a narrow alleyway that runs alongside Glenn's bungalow and ends
+at a locked garden gate, painted black and topped with razor sharp iron
+spikes. A single window, hung with a net curtain, faces into the alleyway.
+The only exit is east.
+
+> look at window
+Breathing hard, you edge towards the window and peer into a small bedroom.
+The room is empty. You can see a large double bed and a wardrobe.
+
+You hear voices...
+
+"Look, I'm just not happy with this," says Chloe. "There has to be another
+way, Glenn."
+Silence.
+"Glenn ? Glenn, are you listening to me ?"
+Taking a deep breath you peer in.
+"I'm listening," says Glenn, peeling off his vest top. "And it changes
+nothing. It has to end, all of this madness, it cannot continue...it must
+end, Chloe."
+Chloe, a young red haired woman, is leaning against the bedroom wall, her
+arms folded. She is naked, her body tanned and supple, her breasts large and
+firm, her pussy a neatly trimmed strip of red hair.
+"This horror has unfolded for more than forty years, Chloe," continues Glenn,
+stripping off, revealing a hard, tanned and muscular body. Thick blond hair
+clusters around a large flaccid cock. "The book has resurfaced once more and
+with the book comes death and horror. My father died trying to lift the
+curse. I have sworn to continue his fight and rid this disease forced upon
+our town."
+"But like this ? It's wrong, Glenn, what you are planning to do," says Chloe,
+pulling on a red robe.
+"The curse must end," retorts Glenn, firmly, pulling on a matching red robe.
+"Or more will die."
+Chloe stares at him.
+"And tonight," he continues, lifting a long sword from the bed. "Petter will
+die and the curse, for now, will be lifted..."
+You edge away from the window, shocked, unable to think straight, unable to
+focus...you turn and begin to walk slowly away when you heard the slap of
+feet and Glenn and Chloe emerge at the top of the alley.
+
+> attack
+There is nothing left to do but charge them both and try to fight your way
+free...
+
+Glenn raises the sword...
+
+You brace yourself, preparing to attack...
+
+"Now you die," whispers Glenn, closing in on you. "Now it ends..."
+He gasps, suddenly, a stunned expression across his face. He drops to his
+knees and falls face down on the ground. The sword slips from his hand...
+"Quickly," insists Chloe, pocketing a syringe. "Help me get him
+inside...please...I can explain!"
+Grabbing the sword, the two of you carry him back into the bungalow and close
+the door.
+
+> ask chloe about curse
+"I really am sorry, I...Glenn can be very hard to control, you must
+understand he cares passionately about what he does."
+"Attempted murder ? Something really nice to get passionate about. How long
+will he be out for ?"
+"All night, you don't have to worry, and after tonight it will be too late,
+he will not harm you."
+You get to your feet, fuming.
+"He planned to kill me...he trapped me in this stupid ghost train and left me
+there. Then I come here and he plans to chop me up with a sword. Why ? Who is
+he ? Who are you ?"
+Chloe collapses into a chair.
+"Are you both some kind of sick cult or what ?"
+"It's the curse," sobs Chloe. "The curse on this town...that damn book...why
+did you have to buy it...why ?"
+"What the hell has a book got to do with any of this ? What is going on ?"
+Chloe nods slowly to herself.
+"In 1945, a German U boat was sunk off the coast of these shores. It was
+spotted from the watchtower on Blan hill. A destroyer, HMS Valiant, was in
+the area and U53 was sunk to the bottom of the sea..."
+"And ?"
+"During the 50s," continues Chloe. "A young local man named, Daniel Daniels,
+researched the sinking. What no one knew at the time, what no one realised,
+was that Germany had already surrendered !! The crew of that submarine were
+unarmed and were attempting to give themselves up...but the people of
+Critch...Daniels wrote a novel called the Blue Boar. It was a nickname the
+crew had bestowed upon their submarine. He twisted and warped the story into
+a macabre and chilling tale of horror..."
+You hold up your hand.
+"I know what the book is about..."
+"Only Daniel wasn't happy with leaving things on the page," whispers Chloe,
+getting to her feet, her voice becoming more frantic. "He embraced and
+conspired with the dark magic's and brought forward an evil to this town from
+its watery grave."
+She begins to pace nervously up and down, her robe falling open revealing her
+naked body.
+"Daniel rose the undead Nazi crewmen and on a hot summer night they killed
+and maimed and tortured and took their revenge upon the people of Critch.
+This has passed for more than forty years now. It always begins the same -
+someone is chosen - an innocent - led to uncover the book and led to reveal
+the dark secrets it carries...that is why Glenn wanted you dead...you have
+been chosen...but now it's too late...the damage has been done...tonight, at
+midnight, the U boat U53 will rise from the sea and the undead crewmen will
+once more have their revenge."
+The room falls silent.
+"Daniel Daniels died in a car accident in 1961 and for years Critch thought
+itself free of this terror. Then in 1968 the cycle began once more. We do not
+know who has been summoning this horror since Daniel died...but killing
+you...the trigger...could have saved us this year...now it is too late. With
+the book open once more, you were led to Glenn at the fairground, it always
+happens this way, once the damage is down the innocent one is sent to Glenn,
+the innocent is not needed anymore."
+Stunned, you get to you feet.
+"So who is behind all this ?" you ask.
+"I don't know," admits Chloe, lowering her head and belting her robe. "If we
+could find them then maybe we could stop the final part of the ritual."
+You nod slowly and get to your feet.
+"Do you know what I think ? I think your crazy ! I think Glenn is crazy ! I'm
+getting out of here..I'm going to chill out, enjoy the sunshine, take a dip
+in sea and forget this day ever happened."
+You level the sword at Chloe.
+"And don't even think about coming after me...got it ?"
+You leave...
+
+> s
+You move south.
+
+Centre Of Critch
+
+You have reached the town centre. Critch is a small and quaint seafront town
+with plenty of history. Commercialism has crept in over the past few years
+but the place still retains a certain charm and mystery. Exits are north,
+south, east and west.
+
+> w
+You move west.
+
+Clifftop
+
+You are outside Brad's house on the outskirts of Critch. The house was built
+several years ago on the clifftop and the view from here is breathtaking. The
+sky above is a gorgeous blue without a single cloud in sight. A stony path
+wends its way through the low grass towards the cliff edge. Another path
+leads east into town. Exits are east, west and in.
+
+> w
+You move west.
+
+Top Of Path
+
+You are standing on a grassy verge at the cliff edge.  A narrow path winds
+its way down to the sandy beach below. Exits are east and down.
+
+> d
+You move down.
+
+Path
+
+The  cliffside path, strewn with stones and shells from the beach, is a
+mixture of earth and sand. The way is lined with beautiful flowers. Exits are
+up and down.
+
+> d
+You move down.
+
+Beach
+
+The white sand beach is less than a mile long. The clear sea gently laps
+against the shell strewn shoreline. The only exit is up.
+
+> swim
+An empty sea is just what you want after all what has happened today. Kicking
+off your shoes and stripping off your T shirt you wade out into the cool sea
+and dive forward as the water rises about you. You glide through the gentle
+waves. The sensation is amazing and your bare flesh tingles. After sometime,
+you swim back to shore and flop down on the hot sand. The sun dries you
+quickly and soon you are pulling on your shoes and T shirt once more.
+
+You suddenly spot a young woman making her way across the beach. Her long
+blonde hair is pulled back in a ponytail. She is wearing a bright green
+string bikini with a patterned sarong tied around her waist, dark sunglasses
+and a dark green baseball cap. A leather bag is slung across one shoulder.
+She looks slim, tanned, her legs shapely, her hips nicely curved, her stomach
+flat, her breasts small and firm. She picks a spot near the cliff and unfolds
+a large blanket. Dropping her bag she unties her sarong revealing thong
+bikini bottoms. Her narrow buttocks are smooth and tanned. She drops down
+onto the blanket and rolls onto her stomach.
+
+> ask woman about herself
+"Hi!"
+The woman looks up from her blanket.
+"I'm Petter."
+She sits up, slowly raising her sunglasses.
+"Hi, Petter," she says, smiling, her voice low and husky. "I'm
+Rachel...Rachel Hull."
+
+> ask rachel about herself
+Rachel smiles.
+"What would you like to know ? I'm twenty one years of age and I've never
+been any further than this little town. Sorry, there's not much to tell."
+She squirts sun lotion onto her bare arms and begins rubbing it in.
+"What about you, Petter, what's your story ?"
+You sit with her and roll your eyes.
+"I've had the strangest day...mysterious notes, strange books and a red robed
+weirdo with a sword..."
+"Nothing out of the ordinary then," giggles Rachel.
+"No," you laugh. "Just a regular kind of day."
+Your eyes meet...and linger
+"Hey, what happened to the sun ?"
+A low wind has got up, blowing in grey clouds. Light rain begins to spill
+from the sky.
+"Quick," says Rachel. "We can shelter in my car..."
+The two of you run back up the hillside and clamber into her car.
+
+> kiss rachel
+You lean closer to Rachel. She looks into your eyes and takes your hand with
+her own. You can feel your heart beating. You gently run your fingers through
+her hair, you softly caress the warm nape of her neck, you trail your fingers
+along her jaw line, feeling her soft tanned skin, finally letting the tips of
+your fingers touch her moist lips...
+
+She moves towards you, you feel her lips brush against yours, lightly,
+teasing you at first, then again, more urgent, wanton, insistent, her wet
+lips locked with yours, tongues driving hard and furious...you feel her body
+against yours, young, supple...you reach for her...your hands tingle as they
+touch her skin...
+"Get in the back," whispers Rachel, breathless.
+You both climb onto the back seat and stretch naked against eachother. Your
+bodies glow and glisten and sweat. You drive against eachother, exploring,
+discovering, rolling and thrashing about as the rain continues to fall and
+darkness pulls in all around you...you writhe against Rachel, licking every
+golden inch of her body, delighting in her taste and smell, you ache to
+please her, you lust for her to please you...you feel tingles, tremors,
+gasps, wetness...and dizzyness...your head is spinning...your visions
+cloud...you cannot see Rachel...you cannot hear her groans and orgasmic
+moans...you cannot taste her...you cannot touch her...there is blackness all
+around...engulfing you...seducing you...drawing you in...it has begun...the
+storm clouds boil and rumble overhead...a viscious fork of lightning rips
+against the horizon...you both stare with horror at the as a dark submarine
+emerges from the rolling sea fog...
+
+To Be Continued...
+
+Password for Part 2 is 6700GOBLIN
+Send an email to @aol.com to recieve part 2.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

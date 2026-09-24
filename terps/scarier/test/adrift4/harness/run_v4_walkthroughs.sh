@@ -10143,6 +10143,27 @@ temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # what?", and the NPC attacks unprovoked regardless). Wired as the
 # deepest deterministic reach; ends on the death screen. SCR_RNG=xoshiro.
 thenightmoon_solution.txt|thenightmoon.taf|That is 30% of the game|SCR_RNG=xoshiro
+# clod_demo.taf (CloD Demo): menu-driven tech demo. Best reachable, not a win --
+# the Pedestal Room past the archway death-trap is the deepest safe stop.
+cloddemo_solution.txt|clod_demo.taf||
+# The_Night_That_Dripped_Blood.taf. Full WIN, 100/100 -- Monk's wages
+# (couch/remote/screws/radio noise-cover), the note-before-newspaper
+# bookshop unlock, the Blue-Boar book gating Glenn's Ghost-Train presence,
+# the tunnel/trapdoor escape, the phone-call/alley/Chloe exposition chain,
+# then the Rachel beach ending. See notes/Night_walkthrough.md.
+night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the maximum 100!|
+# The_Will.taf: 150-point treasure hunt. Best reachable, 35/150 -- gate/
+# shack/matchbook/emerald route; crowbar/watch/charger left ungettable
+# (genuine parser-level refusals). See notes/TheWill_walkthrough.md.
+thewill_solution.txt|The_Will.taf||
+# Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
+# and cane are mandatory survival gear; escape corridor then let the
+# countdown expire. See notes/TwentyOne_walkthrough.md.
+twentyone_solution.txt|Twenty-one.taf|survived long enough to get the best ending|
+# weirdstuff2.taf: horror opener. Best reachable, not a win -- WINTEXT is
+# empty; entering room 1436 is an unavoidable trap into a Cell with zero
+# EXIT entries (genuine engine dead end). See notes/Weirdstuff2_walkthrough.md.
+weirdstuff2_solution.txt|weirdstuff2.taf||
 EOF
 
 

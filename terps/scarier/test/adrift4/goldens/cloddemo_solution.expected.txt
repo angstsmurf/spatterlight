@@ -1,0 +1,1006 @@
+Loading game...
+
+Clod's Quest: The Dungeons of Zivulda [demo version 1.0]
+
+Please note:
+
+Clod's Quest: The Dungeons of Zivulda is best played at
+1280 x 1024 or greater resolution.
+
+If your monitor is running at a lower resolution,
+you may wish to change it before continuing.
+
+Although it is not necessary to play,
+you may wish to engage the map function of your ADRIFT Runner
+under "Options"... "Display & Media"... in the "Layout" tab.
+
+If used, the map should be positioned at the right-hand side of the screen.
+
+You will not need the graphics window.
+
+[press enter or almost any other key to continue]
+
+Clod's Quest: The Dungeons of Zivulda
+
+Clod's Quest:
+The Dungeons of Zivulda
+***********************************************************
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a fantasy adventure.
+Demo v1.00: March 2009.
+
+       > INTRODUCTION
+ START
+   OPTIONS
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) LEARN how to play.
+~~~~~~~~~~~~~~~~~~~~~~~
+Please enter ' \ 1 or 2 on your keyboard and press enter, as per the guide
+above.
+
+> 1
+
+Introduction
+
+Long ago in the kingdom of Brelsamore, the terrible sorceress Zivulda
+demanded that the king relinquish the throne to her zombie overlord
+Gridlorch.  When the king refused, Zivulda threatened that she would cover
+the sun with Vile Darkness forever if the king did not change his mind within
+a fortnight.
+
+At the King's orders, Heroes of the Crown have issued forth from Wendellwich
+Castle to stop Zivulda, but none of them have returned from her horrible
+dungeons in Mount Gravinwort.
+
+When no more heroes were left and the end of a fortnight drew nigh, the King
+turned to the College of Wizardry for help.  Wizards, however, have
+traditionally been unbothered by politics.  Even amidst events as threatening
+the impending Darkness, the wizards have vowed to maintain their apolitical
+stance.
+
+And so it was that, with the clock ticking down to the sorceress's deadline,
+the wizards chose to send Clod-- the College of Wizardry's Second Archmage's
+apprentice's janitor's apprentice-- to delve into the dungeons of Zivulda and
+save the day with nothing but a sword and what few items he could fit into
+his tunic.
+
+The sun still shines on Brelsamore... but for how long?
+
+[press enter to return to Start Menu]
+
+Clod's Quest: The Dungeons of Zivulda
+
+Clod's Quest:
+The Dungeons of Zivulda
+***********************************************************
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a fantasy adventure.
+Demo v1.00: March 2009.
+
+       > INTRODUCTION
+ START
+   OPTIONS
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) LEARN how to play.
+~~~~~~~~~~~~~~~~~~~~~~~
+Please enter ' \ 1 or 2 on your keyboard and press enter, as per the guide
+above.
+
+> \
+
+Clod's Quest: The Dungeons of Zivulda
+
+Clod's Quest:
+The Dungeons of Zivulda
+***********************************************************
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a fantasy adventure.
+Demo v1.00: March 2009.
+
+        INTRODUCTION
+> START
+   OPTIONS
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) LEARN how to play.
+~~~~~~~~~~~~~~~~~~~~~~~
+Please enter ' \ 1 or 2 on your keyboard and press enter, as per the guide
+above.
+
+> 1
+
+Dungeon Entrance
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is
+Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An
+acrid, foul smell wafts up from the entrance, which is blocked by an iron
+portcullis.  Above the iron portcullis, a dragon's head statue broods over
+your predicament.  You must find a way inside.  Off to the side of the iron
+portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                   > SWORD  Be careful with this thing!
+                    MAGNIFYING GLASS
+                    POTION OF STRENGTH
+                    CHEESE & PICKLE SANDWICH
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                    SWORD
+                   > MAGNIFYING GLASS  For thorough examination.
+                    POTION OF STRENGTH
+                    CHEESE & PICKLE SANDWICH
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                    SWORD
+                    MAGNIFYING GLASS
+                   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+                    CHEESE & PICKLE SANDWICH
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                    SWORD
+                    MAGNIFYING GLASS
+                    POTION OF STRENGTH
+                   > CHEESE & PICKLE SANDWICH  Your only rations.
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You leisurely devour the cheese & pickle sandwich.
+
+[press enter to continue]
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                   > SWORD  Be careful with this thing!
+                    MAGNIFYING GLASS
+                    POTION OF STRENGTH
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                    SWORD
+                   > MAGNIFYING GLASS  For thorough examination.
+                    POTION OF STRENGTH
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                    SWORD
+                    MAGNIFYING GLASS
+                   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You drink the potion and feel Herculean strength course through your veins!
+
+[press enter to continue]
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+                   INVENTORY
+
+                   > SWORD  Be careful with this thing!
+                    MAGNIFYING GLASS
+
+                   _________
+
+                   You have 0 save(s).
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 2
+
+Dungeon Entrance
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is
+Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An
+acrid, foul smell wafts up from the entrance, which is blocked by an iron
+portcullis.  Above the iron portcullis, a dragon's head statue broods over
+your predicament.  You must find a way inside.  Off to the side of the iron
+portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+With a prolonged grunt, you lift the mighty portcullis!
+
+Unfortunately, the effects of the strength potion fade immediately after and
+your muscles deflate to their normal size.
+
+[press enter to continue]
+
+Dungeon Entrance
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is
+Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An
+acrid, foul smell wafts up from the entrance, no longer blocked by the iron
+portcullis.  Above the entrance, a dragon's head statue broods over your
+predicament.  You have found a way inside... but dare you enter the Dungeons
+of Zivulda?  Off to the side of the entrance is a dead bush.
+
+  What do you do?
+  < Go into the entrance >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You boldly stroll into the dungeons of Zivulda.
+
+[press enter to continue]
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Leave through the entrance >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Remove the exit sign >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+It's no use.  The exit sign is firmly attached to the wall.
+
+[press enter to continue]
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Remove the exit sign >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+No way!  You might have to clean up after wizards back at the college, but
+this dungeon can get its own janitor's apprentice.
+
+[press enter to continue]
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Pass through the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Wipe boots on the indoor entry mat >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You daintily smear the muck from your boots onto the indoor entry mat.  The
+mat turns out to be pleasantly absorbent.
+
+[press enter to continue]
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Wipe boots on the indoor entry mat >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Leave through the entrance >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Remove the exit sign >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+No way!  You might have to clean up after wizards back at the college, but
+this dungeon can get its own janitor's apprentice.
+
+[press enter to continue]
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Entryway Tunnel
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but
+even the likes of Zivulda must provide adventurers a place to wipe off their
+boots.  A worm-infested skull stares up at you from the indoor entry mat with
+a slack-jawed expression-- a not too subtle reminder to those who would track
+mud into the dungeon.  An exit sign hangs above the entrance to the west and
+an ornate archway leads east into another room.
+
+  What do you do?
+  < Pass through the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You pass through the ornate archway into the room beyond.
+
+[press enter to continue]
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Pass through the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Lift the pedastal >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Put finger in the first socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Put finger in the second socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Put finger in the third socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Put finger in the fourth socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> \
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Make shadow puppets the rays of light >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> 1
+You briefly amuse yourself with a story about a rabbit and an alligator.
+
+[press enter to continue]
+
+Pedastal Room
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the
+College of Wizardry, except it has four sockets lined across the top.
+Arbitrarily, you name them the first, second, third, and fourth sockets, from
+right-to-left.  Rays of light fall into each socket from four lined-up holes
+in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy
+wooden door blocks the way to the north, and to the south an enormous stone
+slab stands against the wall.
+
+  What do you do?
+  < Make shadow puppets the rays of light >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+> quit
+Do you really want to quit? [Y/N]

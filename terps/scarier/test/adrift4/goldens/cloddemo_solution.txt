@@ -1,4 +1,94 @@
+# CloDDemo (cloddemo / clod_demo.taf) -- ADRIFT. "Clod's Quest: The Dungeons
+# of Zivulda [demo version 1.0]" by Duncan Bowsman: a comedic fantasy dungeon
+# crawl. Clod is a janitor's apprentice at the College of Wizardry, sent to
+# retrieve items from Zivulda's dungeon. This is a menu-driven demo, not a
+# free-text parser: each screen shows a single highlighted option, cycled
+# forward with `\` (or `'`), chosen with `1`; `2` opens/closes the inventory.
+#
+# BEST-REACHABLE, NOT A WIN: this is a short promotional demo with no complete
+# solution published anywhere; the puzzle (find gemstones, place them in the
+# pedestal's four sockets to redirect light rays per an on-pedestal poem,
+# retrieve a key seen wedged in a dragon-statue's teeth, deal with something
+# living in a dead bush, open a locked door, move an immovable stone slab)
+# was not solved within this investigation. The script below reaches a solid,
+# fully verified, deterministic checkpoint: past the demo's one genuine
+# instant-death trap, into the game's second room.
+#
+# Key discoveries, in case of a future attempt:
+#  - Eating the CHEESE & PICKLE SANDWICH and drinking the POTION OF STRENGTH
+#    (both one-shot, via the inventory) are needed before "Lift the iron
+#    portcullis" succeeds, letting the player enter the dungeon proper.
+#  - The Entryway Tunnel's "Pass through the ornate archway" option is an
+#    UNCONDITIONAL DEATH TRAP ("Track mud into MY dungeon, will you?") unless
+#    "Wipe boots on the indoor entry mat" (an easily-missed menu option, also
+#    in the Entryway Tunnel) is selected first, in the SAME visit -- leaving
+#    and re-entering re-dirties the boots ("Leave through the entrance" always
+#    steps in mud again).
+#  - Two other Entryway Tunnel options ("Remove the exit sign", "Clean out
+#    the worm-infested skull") are pure refusal red herrings.
+#  - Equipping the MAGNIFYING GLASS changes actions to "examine": on the
+#    dragon-head statue at the Dungeon Entrance it reveals "a tarnished key
+#    stuck in the dragon's teeth" (retrieval method not found: bare hands and
+#    the sword both fail); on the pedestal in the room beyond the archway it
+#    reveals a poem confirming the gemstone/socket puzzle, with its last line
+#    illegible.
+#  - Equipping the SWORD on the Dungeon Entrance's dead bush ("slice") clears
+#    shrub lizards that otherwise bite the player if reached into bare-handed;
+#    whether this yields anything further was not confirmed.
+#  - In the Pedestal Room, "Open the heavy wooden door" is locked and "Push
+#    the stone slab" won't budge; both likely need the gemstone puzzle solved
+#    or the statue key first.
+# This mirrors the Sandy/Penrhyn/TheWill precedent for a best-reachable
+# checkpoint rather than a full win.
+#
+# Content note: no minors appear in the text reached so far (cast: Clod, a
+# disembodied trap-voice; backstory mentions a king, wizards, and the
+# sorceress Zivulda, all adults).
 \
 1
-'
+
+\
 1
+2
+\
+\
+\
+1
+
+\
+\
+1
+
+2
+1
+
+1
+
+\
+1
+
+\
+1
+
+\
+\
+1
+
+\
+\
+\
+1
+
+\
+1
+
+\
+\
+\
+\
+\
+\
+1
+
+quit
+y

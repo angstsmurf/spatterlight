@@ -1,6 +1,64 @@
+# Twenty-one (twentyone / Twenty-one.taf) -- ADRIFT 3.90. A horror vignette:
+# after dinner at Al Fornio's, a maniac chases the player through a six-room
+# alley escape route to 21st Street. Blank line 1 eats the intro's <waitkey>.
+# WIN: "You've done it. You've survived long enough to get the best ending
+# and learn the secret of...Twenty-One!"
+#
+# Two items are mandatory survival gear, both gated behind actions that look
+# unrelated to the chase:
+#  - The silver flask (survives the maniac's FIRST stab in 17th Street Back
+#    Alley -- skip it and he kills you outright) comes from `apologize to
+#    samantha` back at Ocean Bay Ave. (a birthday gift box); `open box`
+#    reveals/equips the flask automatically, no separate "wear" needed.
+#  - The eyeglasses and the walking cane are BOTH required for the final
+#    confrontation's best outcome (glasses alone, or cane alone, each yield
+#    a lesser death text). Glasses start on the dinner table and can't be
+#    directly taken (`get glasses` fails as "what are you reaching for?");
+#    leaving the restaurant then re-entering (`s` then `n`) triggers the
+#    waiter to hand them back. The cane belongs to a hustler running a
+#    three-card-monte game outside; his verbal claim about which card is
+#    correct is a deliberate lie -- the actual winning pick, confirmed
+#    empirically under the harness's fixed RNG, is always "the middle card".
+#    Three consecutive wins make him flee, after which `get cane` succeeds.
+#
+# The escape corridor is a straight run w,w,w,w (17th St Back Alley -> 18th
+# St Fish Market -> 19th St Pier -> 20th St Shanty Town -> 21st Street). The
+# blank line right after `unlock car` (which starts the chase) absorbs a
+# <waitkey> embedded in the maniac's first-attack text; skip it and one of
+# the four `w` movement commands is silently swallowed instead (confirmed
+# with SCR_MARK_WAITKEY=1). Arriving at 21st Street just narrates the
+# maniac catching up again (regardless of inventory) and starts a countdown;
+# four more turns of `z` let it expire, which is what actually resolves the
+# ending based on held cane + worn glasses -- no specific escape verb exists
+# or is needed.
+#
+# Content note: no minors appear anywhere in the game text searched (the
+# cast is the player, an adult date, a restaurant waiter/manager, a hustler,
+# and the maniac).
 1
 pay bill
 s
-get cane
+apologize to samantha
+open box
+n
+wear glasses
+s
 play monte
-pick the right card
+pick the middle card
+play monte
+pick the middle card
+play monte
+pick the middle card
+get cane
+ne
+n
+unlock car
+
+w
+w
+w
+w
+z
+z
+z
+z

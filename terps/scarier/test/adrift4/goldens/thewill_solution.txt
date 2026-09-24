@@ -1,64 +1,47 @@
+# The Will (thewill / The_Will.taf) -- ADRIFT 3.90, ambrosine@mindspring.com,
+# 2001. 150-point treasure hunt across ~50 rooms (yard, house, woods, tunnels).
+# Best-reachable partial: 35/150. Blank line 1 eats the intro's <waitkey>
+# ("Press any key when ready to play.").
+#
+# Front Gate is locked; the fix is two one-shot consumables used IN ORDER:
+# `unlock gate` (breaks off the entrance key) then `oil gate` (empties the
+# oilcan, found via `search hedges` at the Northwest Corner of Yard) then
+# `open gate` -- skipping either step leaves the hinges "too rusty" or the
+# lock unturned.  The open gate's exit is "u" (up), not the compass direction
+# suggested by the room text.
+#
+# The house interior gates several prominent objects (crowbar on the Inside
+# Shack cabinet, a pocket watch inside the Hallway's grandfather clock, a
+# battery charger in the cabinet drawer) behind a plain `get X`/`take X from Y`
+# that always answers "What do you want to take?"/"You can't do that." --
+# these did not yield to any lever/tool/verb tried and are left unsolved here.
+# The one similar-looking puzzle that DOES have a solution: the Inside Shack's
+# cabinet leans and its drawer won't budge until you `move pillows` in the
+# Living Room (finds a matchbook) and `level cabinet with matchbook` back at
+# the shack -- `open drawer` then works, but the battery charger inside is
+# "securely fastened" and still can't be taken.
 w
 n
 search hedges
 s
 e
-oil gate
 unlock gate
+oil gate
 open gate
 u
 n
-raise flag
 open door
 n
-open clock
-get all from clock
 n
 move statue
-w
-get wrench
-e
+n
+open window
+s
 e
 move pillows
-n
-x table
-get lamp
-move painting
-e
-open refrigerator
-get frozen
-n
-get flashlight
-s
-w
 w
 s
-u
-e
-push button
-w
-w
-push armoire
 s
-get all
-n
-e
-d
-s
-s
-s
-w
-n
-get umbrella
-put umbrella in hole
-open umbrella
-get silver
-get umbrella
-s
-e
-n
-open mailbox
-get all from mailbox
 s
 d
 w
@@ -67,18 +50,10 @@ s
 w
 level cabinet with matchbook
 open drawer
-put flashlight in charger
-get flashlight
 e
 e
-get ashes
-n
-get axe
-s
 e
 climb tree
 shake branches
 d
 get emerald
-quit
-y

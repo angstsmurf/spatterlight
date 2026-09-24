@@ -1,9 +1,79 @@
+# The Night That Dripped Blood (night / The_Night_That_Dripped_Blood.taf) --
+# ADRIFT. A horror/mystery vignette: after a one-night stand, Petter is sent
+# on an errand chain by his cafe-owner boss, Monk, then chases down a
+# "seek out the Blue Boar" note through the town's Rare & Lost Books shop,
+# gets trapped in the fairground Ghost Train by its owner Glenn, escapes,
+# phones Glenn's house, is ambushed in the alley behind it, and gets the
+# full backstory (a WWII U-boat massacre turned 1950s pulp novel turned a
+# recurring town curse) from Glenn's partner Chloe before finally meeting
+# Rachel on the beach.
+#
+# WIN: "You scored 100 out of the maximum 100! That is 100% of the game!
+# Well done - you scored maximum points!" -- full completion, not just a
+# best-reachable ending.
+#
+# Key findings, since none of this is obvious from the tiny starting area:
+#  - `look at couch` in the Lounge (very first room after showering/dressing)
+#    finds a TV remote control; carrying it lets `look at remote control` be
+#    done from anywhere later to find batteries -- needed to `play radio` in
+#    the Cafe Kitchen once the Monk errand chain reaches that point.
+#  - Monk's wages: `give timesheet to monk` alone fails (unsigned); the
+#    actual unlock is `ask monk about errand`, which starts a repeatable
+#    `cook burgers` chore (Cafe Kitchen) that stalls forever until you also
+#    `give magazine to monk` (the X rated magazine found via `get post` /
+#    `open envelope`), then `look at desk` and `look at chair` reveal his
+#    office chair is held together by screws. `loosen screws` needs BOTH the
+#    screwdriver (from `search washing machine` -> `get screwdriver` in the
+#    Utility Room) AND the radio already playing as noise cover, or Monk
+#    catches you. This makes him fall, spill coffee, and flee, dropping his
+#    wage packet on the desk -- `get packet` then `open packet` gets the
+#    cash needed for everything downstream.
+#  - The Blue Boar subplot: `read note` (from the envelope) then `read
+#    newspaper` (order matters -- newspaper's advert text only appears once
+#    the note has been read) reveals a rare bookshop's address. At the shop,
+#    `ring bell` summons Miss Bent; `ask miss bent about blue boar` then
+#    `buy book` (needs the Monk cash) gets a 1950s pulp novel about undead
+#    Nazi U-boat crewmen haunting the town -- `look at book` reads it, and a
+#    flyer falls out; `look at flyer` reveals a note that finally makes the
+#    fairground's Ghost Train owner, Glenn, appear and start selling tickets
+#    (he isn't there before the book/flyer is read, no matter how long you
+#    wait at the ride).
+#  - `buy ticket` traps the player inside a rigged ghost-train car. `look at
+#    tunnel` finds a lever; `pull lever` opens an escape route through two
+#    more tunnels; `look at floor` at the dead end finds a trapdoor, and `d`
+#    slides down a chute back outside, with the ghost-train ticket now
+#    revealing a phone number on its back (`look at ticket`).
+#  - Back in the house Kitchen, `call number` reaches Chloe and then Glenn,
+#    who gives his address (a bungalow reached via the Lane, once the call is
+#    made). At the bungalow, going around to the Alleyway and `look at
+#    window` triggers a scripted confrontation: Glenn, intending to kill the
+#    player to "end the curse", corners them with a sword in the alley --
+#    `attack` resolves it (Chloe secretly drugs Glenn), and both carry him
+#    (and the player) into the bungalow's Sitting Room.
+#  - `ask chloe about curse` (any topic works after `ask chloe about *`)
+#    delivers the full backstory: a 1945 U-boat, U53, was sunk attempting to
+#    surrender; 1950s writer Daniel Daniels novelized it as "The Blue Boar"
+#    and, per Chloe, invoked real dark magic, cursing the town with recurring
+#    undead-crew massacres tied to the book resurfacing. This ends the
+#    subplot and returns the player to the Lane.
+#  - Only now does the Beach (reached via Clifftop -> Top Of Path -> Path ->
+#    down) allow `swim`, which introduces Rachel; `ask woman about herself`
+#    then `ask rachel about herself` (she confirms she's twenty one) leads
+#    to shelter from sudden rain in her car, where `kiss rachel` delivers the
+#    game's win text and full score.
+#
+# Content note: the endgame scene (Rachel, in her car) and the Alleyway
+# window scene (Glenn and Chloe) both include explicit adult sexual/nudity
+# content; the game states Rachel's age directly ("I'm twenty one years of
+# age") and Glenn is independently described as "in his mid twenties" when
+# first met at the Ghost Train -- no minors appear anywhere in the text.
 Petter
 male
 e
 in
 w
 d
+look at couch
 e
 s
 search washing machine
@@ -12,6 +82,7 @@ n
 w
 get post
 open envelope
+read note
 open door
 out
 e
@@ -19,3 +90,71 @@ n
 n
 w
 give timesheet to monk
+ask monk about errand
+n
+cook burgers
+look at remote control
+play radio
+s
+give magazine to monk
+look at desk
+look at chair
+loosen screws
+get packet
+open packet
+read newspaper
+e
+s
+s
+s
+in
+look at counter
+ring bell
+ask miss bent about blue boar
+buy book
+look at book
+look at flyer
+out
+n
+e
+e
+e
+n
+buy ticket
+look at tunnel
+pull lever
+e
+n
+look at floor
+d
+look at ticket
+w
+s
+s
+w
+w
+w
+w
+in
+e
+call number
+w
+out
+e
+n
+w
+w
+look at window
+attack
+ask chloe about curse
+s
+w
+w
+d
+d
+swim
+ask woman about herself
+ask rachel about herself
+kiss rachel
+quit
+y
