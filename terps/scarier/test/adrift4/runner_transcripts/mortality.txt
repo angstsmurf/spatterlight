@@ -611,9 +611,6 @@ Gamble has stopped and turned and is looking at me. I'm dressed all in black and
 
 
 
-> 
-Try something else. That command is not one needed for this adventure.
-
 
 
 
@@ -698,9 +695,6 @@ Thought you'd killed me, did you, R? You stupid bastard. You don't know who you'
 
 
 
-
-> 
-Try something else. That command is not one needed for this adventure.
 
 
 

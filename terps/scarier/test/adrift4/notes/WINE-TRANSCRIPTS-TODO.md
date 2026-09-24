@@ -237,7 +237,12 @@ below as not yet ported.
 ### Nothing owed (capture and compare artefacts)
 
 - Epilogue or pause text one turn late or cut at the final keypress:
-  mortality T29/T32, iqsfot T41-42. (endgame T9 was the same thing: its
+  iqsfot T41-42. (mortality T29/T32 was a drive race, not the engine: the
+  old capture ran two blank pause answers as empty commands ("> " / "Try
+  something else.") at `<waitkey>`s. run400's pause swallows the key
+  (Text1_KeyDown 484E28 sets 0x494239 = 2, Text1_KeyPress eats it). A
+  re-drive, Adrift_282_mortality_rt, has no stray turns and is identical,
+  2026-09-24. endgame T9 was the same thing: its
   closing text has a `<waitkey>` after the first "The End." and the feed
   ended at `z`, so the Runner sat at the pause. With a trailing blank line
   in the solution it is identical, Adrift_282_endgame_rt, 2026-09-24.)
