@@ -1,0 +1,938 @@
+You wake up to find out that you are lying on a haystack. You remember that you had too much to drink last night. What gender are you?
+
+Male
+Female
+> Male
+You remember that you are a male.
+
+What race are you?
+A Hobbit
+A Dwarf
+A Man
+An Elf
+> Hobbit
+You remember that you are a Hobbit.
+
+Go home
+> Home
+You are in your home, a house in Bree.
+Leave
+> Bree
+You are Bree, with many Men and Hobbits.
+Go to the Prancing Pony
+Go West
+Go East
+> The Prancing Pony
+You are in the Prancing Pony. Aragorn, otherwise known as Strider, sits with Gandalf the Grey. Barliman Butterbur is cleaning glasses.
+Leave
+Talk to Aragorn
+Talk to Gandalf the Grey
+Talk to Barliman Butterbur
+> Aragorn
+"Are you frightened?"
+Done
+> The Prancing Pony
+You are in the Prancing Pony. Aragorn, otherwise known as Strider, sits with Gandalf the Grey. Barliman Butterbur is cleaning glasses.
+Leave
+Talk to Aragorn
+Talk to Gandalf the Grey
+Talk to Barliman Butterbur
+> Gandalf
+"The board is set...the pieces are moving."
+Done
+> The Prancing Pony
+You are in the Prancing Pony. Aragorn, otherwise known as Strider, sits with Gandalf the Grey. Barliman Butterbur is cleaning glasses.
+Leave
+Talk to Aragorn
+Talk to Gandalf the Grey
+Talk to Barliman Butterbur
+> Barliman
+"Good evening!"
+Done
+> The Prancing Pony
+You are in the Prancing Pony. Aragorn, otherwise known as Strider, sits with Gandalf the Grey. Barliman Butterbur is cleaning glasses.
+Leave
+Talk to Aragorn
+Talk to Gandalf the Grey
+Talk to Barliman Butterbur
+> Bree
+You are Bree, with many Men and Hobbits.
+Go to the Prancing Pony
+Go West
+Go East
+> The Old Forest
+You are in the Old Forest.
+Go East
+Go West
+Go to Tom Bombadil's House
+> Buckland
+You are in Buckland. Many Hobbits walk past you.
+Go to Brandy Hall
+Go West
+Go East
+> Brandy Hall
+You are in Brandy Hall with many Hobbits. Meriadoc Brandybuck and Peregrin Took are talking together.
+Leave
+Talk to Meriadoc Brandybuck
+Talk to Peregrin Took
+> Merry
+"The only brew for the brave and true comes from the Green Dragon."
+Done
+> Brandy Hall
+You are in Brandy Hall with many Hobbits. Meriadoc Brandybuck and Peregrin Took are talking together.
+Leave
+Talk to Meriadoc Brandybuck
+Talk to Peregrin Took
+> Pippin
+"What about second breakfast?"
+Done
+> Brandy Hall
+You are in Brandy Hall with many Hobbits. Meriadoc Brandybuck and Peregrin Took are talking together.
+Leave
+Talk to Meriadoc Brandybuck
+Talk to Peregrin Took
+> Buckland
+You are in Buckland. Many Hobbits walk past you.
+Go to Brandy Hall
+Go West
+Go East
+> Hobbiton
+You are in Hobbiton. Hobbits of all sizes walk past.
+
+Go to the Green Dragon
+Go East
+Go West
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Rosie
+"Have a good day."
+Done
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Frodo
+"I know what I must do."
+Done
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Sam
+"Even darkness must pass."
+Done
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Gaffer
+"Folk should keep their nose in their own business."
+Done
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Bilbo
+"It's a dangerous business, going out your front door."
+Done
+> The Green Dragon
+You are in The Green Dragon. Rosie cleans cups at the bar, and a few Hobbits drink or eat at tables. Frodo Baggins and Samwise Gamgee sit at one table with Gaffer and Bilbo Baggins.
+
+Leave
+Talk to Rosie
+Talk to Frodo Baggins
+Talk to Samwise Gamgee
+Talk to Gaffer
+Talk to Bilbo
+> Hobbiton
+You are in Hobbiton. Hobbits of all sizes walk past.
+
+Go to the Green Dragon
+Go East
+Go West
+> Mithlond
+You are in Mithlond. Cirdan the shipwright stands next to his ship.
+Go East
+Talk to Cirdan the Shipwright
+> Cirdan
+"These ships sail to Valinor."
+Done
+> Mithlond
+You are in Mithlond. Cirdan the shipwright stands next to his ship.
+Go East
+Talk to Cirdan the Shipwright
+> Hobbiton
+You are in Hobbiton. Hobbits of all sizes walk past.
+
+Go to the Green Dragon
+Go East
+Go West
+> Buckland
+You are in Buckland. Many Hobbits walk past you.
+Go to Brandy Hall
+Go West
+Go East
+> The Old Forest
+You are in the Old Forest.
+Go East
+Go West
+Go to Tom Bombadil's House
+> The House of Tom Bombadil
+You are in Tom Bombadil's house. Tom Bombadil is dancing and singing, and Goldberry sits smelling flowers.
+Leave
+Talk to Tom Bombadil
+Talk to Goldberry
+> Tom
+"Tom was here before river and the trees; Tom remembers the first raindrop and the first acorn."
+Done
+> The House of Tom Bombadil
+You are in Tom Bombadil's house. Tom Bombadil is dancing and singing, and Goldberry sits smelling flowers.
+Leave
+Talk to Tom Bombadil
+Talk to Goldberry
+> Goldberry
+"Welcome to our house."
+Done
+> The House of Tom Bombadil
+You are in Tom Bombadil's house. Tom Bombadil is dancing and singing, and Goldberry sits smelling flowers.
+Leave
+Talk to Tom Bombadil
+Talk to Goldberry
+> The Old Forest
+You are in the Old Forest.
+Go East
+Go West
+Go to Tom Bombadil's House
+> Bree
+You are Bree, with many Men and Hobbits.
+Go to the Prancing Pony
+Go West
+Go East
+> Amon Sul
+You are at Weathertop.
+Go East
+Go West
+> Rivendell
+You are in Rivendell. Many Elves stroll along.
+Go to the House of Elrond
+Go East
+Go West
+Go South
+Go North
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Elrond
+"Welcome, stranger from distant lands."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Arwen
+"I choose a mortal life."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Elladan
+"They have been summoned."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Elrohir
+"The days are short."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Glorfindel
+"We should seek a final end of this menace, even if we do not hope to make one."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Erestor
+"That is the path of despair."
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Lindir
+"My lady!"
+Done
+> The House of Elrond
+You are in Elrond's House, with many Elves. Elrond is talking to Erestor. Elladan and Elrohir are in the corner. Glorfindel is sitting at a table. Arwen is sewing. Lindir is singing.
+Leave
+Talk to Elrond
+Talk to Arwen
+Talk to Elladan
+Talk to Elrohir
+Talk to Glorfindel
+Talk to Erestor
+Talk to Lindir
+> Rivendell
+You are in Rivendell. Many Elves stroll along.
+Go to the House of Elrond
+Go East
+Go West
+Go South
+Go North
+> The Misty Mountains
+You are at the Misty Mountains. Many Dwarves make their home here.
+Go to the Main Cave
+Go East
+Go West
+Go South
+> The Main Cave
+You are in the Main Cave with many Dwarves. Gimli is talking with his father, Gloin.
+Leave
+Talk to Gimli
+Talk to Gloin
+> Gimli
+"It's the Dwarves that go swimming with little hairy women."
+Done
+> The Main Cave
+You are in the Main Cave with many Dwarves. Gimli is talking with his father, Gloin.
+Leave
+Talk to Gimli
+Talk to Gloin
+> Gloin
+"You were less tender to me."
+Done
+> The Main Cave
+You are in the Main Cave with many Dwarves. Gimli is talking with his father, Gloin.
+Leave
+Talk to Gimli
+Talk to Gloin
+> The Misty Mountains
+You are at the Misty Mountains. Many Dwarves make their home here.
+Go to the Main Cave
+Go East
+Go West
+Go South
+> Mirkwood
+You are in Mirkwood. Elves warily walk along, many of them with bows.
+Go to the Cave of Thranduil
+Go West
+Go South
+Go East
+> The Cave of Thranduil
+You are in Thranduil's Cave. Thranduil is talking with Legolas. Galion is standing behind them.
+Leave
+Talk to Thranduil
+Talk to Legolas
+Talk to Galion
+> Thranduil
+"May your shadow never grow less."
+Done
+> The Cave of Thranduil
+You are in Thranduil's Cave. Thranduil is talking with Legolas. Galion is standing behind them.
+Leave
+Talk to Thranduil
+Talk to Legolas
+Talk to Galion
+> Legolas
+"The Elves began it; waking up the trees, teaching them to speak."
+Done
+> The Cave of Thranduil
+You are in Thranduil's Cave. Thranduil is talking with Legolas. Galion is standing behind them.
+Leave
+Talk to Thranduil
+Talk to Legolas
+Talk to Galion
+> Galion
+"Do as I say!"
+Done
+> The Cave of Thranduil
+You are in Thranduil's Cave. Thranduil is talking with Legolas. Galion is standing behind them.
+Leave
+Talk to Thranduil
+Talk to Legolas
+Talk to Galion
+> Mirkwood
+You are in Mirkwood. Elves warily walk along, many of them with bows.
+Go to the Cave of Thranduil
+Go West
+Go South
+Go East
+> Caras Galadhon
+You are in Caras Galadhon. Elves walk along platforms leading between trees.
+Go to the Palace of Galadriel
+Go North
+Go West
+Go South
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Galadriel
+"The Mirror shows many things."
+Done
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Celeborn
+"Never before have we clad strangers in the garb of our own people."
+Done
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Haldir
+"We are proud to fight alongside Men once more."
+Done
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Rumil
+"Welcome."
+Done
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Orophin
+"Hello."
+Done
+> The Glade of Galadriel
+You are in Galdriel's Glade. Galadriel and Celeborn are talking. Haldir stands next to them. Rumil and Orophin stand side-by-side.
+Leave
+Talk to Galadriel
+Talk to Celeborn
+Talk to Haldir
+Talk to Rumil
+Talk to Orophin
+> Caras Galadhon
+You are in Caras Galadhon. Elves walk along platforms leading between trees.
+Go to the Palace of Galadriel
+Go North
+Go West
+Go South
+> Moria
+You are in Moria. Many Dwarves walk around, selling wares or just walking.
+Go to the Chamber of Mazarbul
+Go North
+Go East
+Go South
+> The Chamber of Mazarbul
+You are in the Chamber of Mazarbul. Dwarves walk around looking at the records.
+Leave
+> Moria
+You are in Moria. Many Dwarves walk around, selling wares or just walking.
+Go to the Chamber of Mazarbul
+Go North
+Go East
+Go South
+> Isengard
+You are in Isengard. Uruk Hai walk past you, staring at you with unfriendly eyes.
+Go North
+Go East
+Go South
+> Fangorn Forest
+You are in Fangorn Forest. Treebeard is standing next to another Ent.
+Go North
+Go West
+Go South
+Talk to Treebeard
+> Edoras
+You are in Edoras. The Men do their chores or talk.
+Go to the Golden Hall
+Go North
+Go West
+Go East
+Go South
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Theoden
+"Let them come."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Theodred
+"Welcome to Rohan."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Grima
+"Ill news is an ill guest."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Eomer
+"Speak quickly."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Eowyn
+"I fear neither death nor pain."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Hama
+"I cannot allow you before Theoden King so armed."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Haleth
+"No!"
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Gamling
+"He leaves because there is no hope."
+Done
+> The Golden Hall
+You are in the Golden Hall. Theoden sits on his throne. He is talking to his son, Theodred. Grima stands at their side. Eowyn and Eomer are talking at one of the tables. Hamma and his son, Haleth, are sitting at a table. Gamling is standing guard.
+Leave
+Talk to Theoden
+Talk to Theodred
+Talk to Grima
+Talk to Eomer
+Talk to Eowyn
+Talk to Hama
+Talk to Haleth
+Talk to Gamling
+> Edoras
+You are in Edoras. The Men do their chores or talk.
+Go to the Golden Hall
+Go North
+Go West
+Go East
+Go South
+> Helms Deep
+You are in Helm's Deep. It is deserted.
+Go North
+Go East
+> Edoras
+You are in Edoras. The Men do their chores or talk.
+Go to the Golden Hall
+Go North
+Go West
+Go East
+Go South
+> Minas Tirith
+You are in Minas Tirith. Many Men walk around, buying or selling wares.
+Go to the Citadel
+Go West
+Go East
+> The Citadel
+You are in the Citadel. Denethor sits on the throne. Boromir stands next to him. Beregond stands guard.
+Leave
+Talk to Denethor
+Talk to Boromir
+Talk to Beregond
+> Denethor
+"I have seen more than you know."
+Done
+> The Citadel
+You are in the Citadel. Denethor sits on the throne. Boromir stands next to him. Beregond stands guard.
+Leave
+Talk to Denethor
+Talk to Boromir
+Talk to Beregond
+> Boromir
+"It is a strange fate that we should suffer so much fear and doubt over so small a thing."
+Done
+> The Citadel
+You are in the Citadel. Denethor sits on the throne. Boromir stands next to him. Beregond stands guard.
+Leave
+Talk to Denethor
+Talk to Boromir
+Talk to Beregond
+> Beregond
+"Generous deed should not be checked by cold council."
+Done
+> The Citadel
+You are in the Citadel. Denethor sits on the throne. Boromir stands next to him. Beregond stands guard.
+Leave
+Talk to Denethor
+Talk to Boromir
+Talk to Beregond
+> Minas Tirith
+You are in Minas Tirith. Many Men walk around, buying or selling wares.
+Go to the Citadel
+Go West
+Go East
+> Osgiliath
+You are in Osgiliath. The city stands strong, full of Men of Gondor.
+Go East
+Go West
+> Minas Morgul
+You are in Minas Morgul. The Nazgul are inside, making plans.
+Go East
+Go West
+Go North
+Talk to the Nazgul
+> Shelobs Lair
+You are in Shelob's Lair. Shelob is in a corner.
+Talk to Shelob
+Go East
+Go West
+> Shelob
+"Click!"
+Done
+> Shelobs Lair
+You are in Shelob's Lair. Shelob is in a corner.
+Talk to Shelob
+Go East
+Go West
+> Cirith Ungol
+You are in Cirith Ungol. Many orcs run up and down the stairs.
+Go West
+Go East
+> Mount Doom
+You are at Mt. Doom.
+Go West
+Go East
+Go North
+> Henneth Annun
+You are in Henneth Annun. Faramir and the other Rangers are there.
+Go South
+Go North
+Talk to Faramir
+> The Dead Marshes
+You are in the Dead Marshes.
+Go South
+Go East
+> Morannon
+You are at the Black Gate. The Mouth of Sauron stands in front of it.
+Go South
+Go West
+Talk to the Mouth of Sauron
+> The Mouth of Sauron
+"My master, Sauron the Great, bids thee welcome."
+Done
+> Morannon
+You are at the Black Gate. The Mouth of Sauron stands in front of it.
+Go South
+Go West
+Talk to the Mouth of Sauron
+> Mount Doom
+You are at Mt. Doom.
+Go West
+Go East
+Go North
+> Barad Dur
+You are at Barad Dur. The Eye is on top of the tower, staring at you.
+Go West
+Talk to Sauron
+> Sauron
+"I see you!"
+Done
+> Barad Dur
+You are at Barad Dur. The Eye is on top of the tower, staring at you.
+Go West
+Talk to Sauron
+> Mount Doom
+You are at Mt. Doom.
+Go West
+Go East
+Go North
+> Henneth Annun
+You are in Henneth Annun. Faramir and the other Rangers are there.
+Go South
+Go North
+Talk to Faramir
+> Faramir
+"I do not believe this darkness will endure."
+Done
+> Henneth Annun
+You are in Henneth Annun. Faramir and the other Rangers are there.
+Go South
+Go North
+Talk to Faramir
+> Minas Morgul
+You are in Minas Morgul. The Nazgul are inside, making plans.
+Go East
+Go West
+Go North
+Talk to the Nazgul
+> The Nazgul
+"Screeeeech!"
+Done
+> Minas Morgul
+You are in Minas Morgul. The Nazgul are inside, making plans.
+Go East
+Go West
+Go North
+Talk to the Nazgul
+> Osgiliath
+You are in Osgiliath. The city stands strong, full of Men of Gondor.
+Go East
+Go West
+> Minas Tirith
+You are in Minas Tirith. Many Men walk around, buying or selling wares.
+Go to the Citadel
+Go West
+Go East
+> Edoras
+You are in Edoras. The Men do their chores or talk.
+Go to the Golden Hall
+Go North
+Go West
+Go East
+Go South
+> Dunharrow
+You are in Dunharrow.
+Go South
+Go North
+> The Paths of the Dead
+You are in the Paths of the Dead. The King of the Dead is staring at you, and he is surrounded by ghostly warriors.
+Go North
+Go East
+Talk to the King of the Dead
+> The King of the Dead
+"The Dead do not suffer the living to pass."
+Done
+> The Paths of the Dead
+You are in the Paths of the Dead. The King of the Dead is staring at you, and he is surrounded by ghostly warriors.
+Go North
+Go East
+Talk to the King of the Dead
+> Dunharrow
+You are in Dunharrow.
+Go South
+Go North
+> Edoras
+You are in Edoras. The Men do their chores or talk.
+Go to the Golden Hall
+Go North
+Go West
+Go East
+Go South
+> Fangorn Forest
+You are in Fangorn Forest. Treebeard is standing next to another Ent.
+Go North
+Go West
+Go South
+Talk to Treebeard
+> Treebeard
+"It takes a long time to say anything in Old Entish. And we never say anything unless it is worth taking a long time to say.
+Done
+> Fangorn Forest
+You are in Fangorn Forest. Treebeard is standing next to another Ent.
+Go North
+Go West
+Go South
+Talk to Treebeard
+> Caras Galadhon
+You are in Caras Galadhon. Elves walk along platforms leading between trees.
+Go to the Palace of Galadriel
+Go North
+Go West
+Go South
+> Mirkwood
+You are in Mirkwood. Elves warily walk along, many of them with bows.
+Go to the Cave of Thranduil
+Go West
+Go South
+Go East
+> The Lonely Mountain
+You are in the Lonely Mountain. Smaug lays around his treasure.
+Talk to Smaug
+Go West
+> Smaug
+"I kill where I wish and none dare resist."
+Done
+> The Lonely Mountain
+You are in the Lonely Mountain. Smaug lays around his treasure.
+Talk to Smaug
+Go West
+> Mirkwood
+You are in Mirkwood. Elves warily walk along, many of them with bows.
+Go to the Cave of Thranduil
+Go West
+Go South
+Go East
+> The Misty Mountains
+You are at the Misty Mountains. Many Dwarves make their home here.
+Go to the Main Cave
+Go East
+Go West
+Go South
+> Rivendell
+You are in Rivendell. Many Elves stroll along.
+Go to the House of Elrond
+Go East
+Go West
+Go South
+Go North
+> Angmar
+You are in Angmar. The Witch King stands by himself.
+Talk to the Witch King
+Go South
+> The Witch King
+"No man can kill me."
+Done
+[state=Running]

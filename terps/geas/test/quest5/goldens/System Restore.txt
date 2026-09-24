@@ -1,0 +1,197 @@
+System Restore
+
+You've always been an avid gamer. Shooters, platformers, puzzle, RPG; they name it, you've played it. PC games are especially fun, so when your mom brings in a strange box bearing a symbol of ornate crossed swords and the title System Restore, you decide to crack it open and see what it could be about. You've never heard of a game like this, and it doesn't look like the usual system restore programs that fix computers. Opening the box reveals several items that convince you it's a game.
+
+First, there's a visor of some kind, one of those really sleek and expensive looking ones with built in earphones and mic that look like they're meant for super-immersive games. The same crossed swords symbol is embedded into them and pressing it activates the visor and lowers the microphone, though all you can see right now is just black. Next, there's a hard disk, all black and with the symbol also on it in the form of a decal. Could the game be so big it has its own drive? Probably, since the visor suggests it's super-immersive. There's also a small manual, more of a note, and you read it while wondering how your mom could afford such an expensive-looking PC game.
+"Install the drive to your PC. It will wirelessly connect to the neural visor. Once both are online, activate the remote link and take command. It's up to you to save the Guardian Angel and save the world. Time is of the essence. We have faith in you."
+
+"Signed, Staff of the Archives of the Twin Blades"
+
+It's not much of a game intro, but there's probably a tutorial in the game anyway. There's no system requirements list, which is a little weird, but hey, you're not complaining. So, rescue a guardian angel and save the world? Not the most original plot, but for super-immersion it'll do.
+
+You install the drive in your home computer and put on the visor, calling out 'Thanks for the new game, Mom!' before booting up the PC.
+
+Funny, the log-in screen got taken over by that crossed sword symbol. Wonder how that happened? Oh well. You grin and move your mouse to click on the single icon in the center of an all black desktop, marked 'Remote Link'. For just a moment, you wonder why the game would be 'remote' when you just installed a hard drive, but the prompt to activate it just came on...
+Activate Remote Link? Yes/No
+> yes
+"Remote Link Activated."
+
+....
+
+"Connecting...."
+
+"Connected."
+
+....
+
+"Accessing Firewall."
+
+....
+
+"Negotiating..."
+
+....
+
+"Firewall Down. System Override Commencing."
+
+.........3
+
+.......2
+
+.....1
+
+"System Override Complete. Minimal Power. Basic Systems Online. Restarting Neural Network."
+
+For a game, it seems weirdly like you're actually hacking into something. You shiver a little and smile wider. This kind of introduction is wicked cool! Like a movie promo or something. You wait for the rest of the game to catch up.
+"Neural Network Online."
+
+(All systems green...)
+
+(Error.)
+
+............
+
+You frown a little. When that voice came on, you jumped a little at your seat, but relaxed again. The voice was smooth and calm, a young man's voice. He's probably playing the part of the guide or something. When he mentioned an error, you began to assume that there must have been an actual game error.
+
+You huff, getting ready to quit the game and check the connections, when the voice suddenly returned, clear as day through the earpieces.
+(You are an intruder. Identify yourself.)
+
+Blinking in surprise, you say your name through the microphone. Must be for player identification or something.
+Requesting Name...:
+> Robin
+(Data recorded.)
+(I seem to have an error that needs to be corrected. I do not know by what method you've come to gain access to my body, but I am no longer in control.)
+
+Okay, intro's a little funny, but so far so good. Right?
+
+(My name is Caleb. I am a living android, existing on this planet for far longer than it has been known as Earth and charged with the task of archiving knowledge and protecting this world. Or rather, I was living. This is the error that I am unable to correct on my own.)
+
+(My soul appears to have been stolen.)
+
+Now THIS is a twist to the usual plot! Okay, game's getting some bonus points for that. You're controlling a robot character, cool. You settle down in your seat, ready for what's next.
+(I cannot access immediate data recorded prior to you rebooting me; those files appear to have been damaged and will take time to recover. I do not know where I am, nor where my soul has been taken. However, it does not appear to be mere coincidence that you are in control of me. You seem to be accessing my systems remotely so I will need your assistance in this venture.)
+
+Okay, okay, typical game-start spiel. The visor suddenly comes to life, filling your vision with a wire-frame image of a man with long hair tied back in a ponytail and a strange suit with coattails. It spins slowly so you can see it from all sides, then shrinks and moves to a corner of the visor. Some kind of health reference?
+
+(Locate my soul and perform a system restoration. The longer I am unable to fulfill my duties, the greater the risk of dangers befalling this world. I will do what I can to aid you, Robin.)
+
+The viewing field flashes a second time, forcing you to shut your eyes reflexively. When you open them again, you utter a soft sound of appreciation at the detail put into the startpoint of the game. It all looks so real!
+
+(As most humans would say in this scenario, good luck.)
+An empty room
+You can see an examining table, a mirror, a computer desk and a card reader.
+You can go east through the door.
+
+The room is mostly bare of furnishings and is a stark white in color. No windows or homey decorations can be seen. There is simply a flat metal examining table on which you were lying when all this started, a light source above it, a few small square tables, and a computer terminal on a desk nearby. Against a wall is a tall mirror, very clinical and professional-looking. To the east is a door, stainless steel with a small square window in it.
+
+This game must have been super expensive and state of the art; just as you were reaching for the keyboard to experiment with commands and sit up from that table, the character you were 'possessing' sat up on its own! You were startled, but quickly caught on that just thinking of what you wanted to do made the character respond. It was like the visor was translating your thoughts into action, as if the character was your own body. Smiling as you practice walking around in a figure that's much taller than your real self, you started getting the hang of moving around easily. Then Caleb jolted you back to the here and now.
+
+(As much as you seem to be enjoying making my body do inane actions, Robin, it would be prudent to begin searching for a way out of here and find clues as to the whereabouts of my soul.)
+
+(Also, I have finished my system checks and have noted that many of my functions have been disabled, so you will need to restore those as well. Some of my equipment is missing; please locate and return them quickly. I also seem to have reduced health for some reason, so try to keep me in optimal condition. If I am destroyed... the end results will not be pleasant, that is all that I can determine.)
+
+Okay, so now you have some objectives. Find power-ups, get equipped, stay alive and find the robot angel's soul. No problem!
+> look at computer desk
+> look at computer desk
+A black and grey desk with a computer terminal on it. There are some pen holders but otherwise, it's completely bare.
+> search computer desk
+> search computer desk
+You search the desk and find all the drawers are locked except for one of them. Lucky!
+> open drawer
+> open drawer
+You open the drawer and see several aqua colored cards scattered in it.
+You see the Aqua Keycard.
+> take aqua keycard
+> take aqua keycard
+You take the Aqua Keycard. This should be handy.
+> close drawer
+> close drawer
+You close the drawer out of habit.
+Caleb hums approvingly. For some reason, that makes you feel pretty good about yourself.
+> look at computer terminal
+> look at computer terminal
+A desktop computer with flatscreen monitor, mouse and keyboard. The detailing is awesome for an in-game object. Checking it out a little closer, you spot a flat panel plugged into the computer with an LCD screen in it.
+
+(This is a connector's input panel. It was created for use by androids like me to interface directly with a computer. If you place my hand on it, I'll be able to access its data.) Caleb remarks while you examine the thing.
+> use connector's input pad
+> use connector's input pad
+You place Caleb's palm onto the pad and watch the terminal go crazy with files being scanned and opened at rapid speed. After a while, the image in the corner of your visor disappears and is replaced by three status displays.
+
+(I have regained access to my health and mana management functions. Odd how they were disabled like that.) Caleb muses, (Also, you will notice I now have a Systems Damage gauge. You must be very careful with that. As you can see, I already have 1 point of damage. I will always have that 1 point. You have no need to know why. Just know that 1 point of Systems Damage is gained for every 50 points or more of HP I lose. Currently, I don't have the ability to restore HP, but you can repair Systems Damage once you find my travel pack.)
+
+(In the meantime, Robin, try not to let my Systems Damage reach 70 points or higher. At 70 points, I had been able to use an Over-Limit Mode, but that system is currently disabled. At 80 points and above, you run the risk of me shutting down permanently and the world will be in danger.)
+
+Well, that makes the game a lot harder, then, if you can't heal yourself right away. At least you got the warning. Right, new objectives! Find the stuff to heal yourself before you run into some random battle or whatever.
+> use aqua keycard on card reader
+> use aqua keycard on card reader
+You swipe the Aqua Keycard through the reader. There's a soft Beep! and the light turns green.
+> east
+> east
+Ground Floor - Hallway A
+You can see the Green Lab, the Blue Lab, the Yellow Lab and the Orange Lab.
+You can go west to the Aqua Lab, northeast to the Green Lab, southwest to the Blue Lab, southeast to the Yellow Lab, east to the Orange Lab, north to the stairs and elevator or south to Hallway B.
+
+The hallway is long and has four other doors besides the one you just walked through. It looks empty, but glancing around reveals security cameras mounted on the ceiling at each end of the hall. There could be security guards watching you right now.
+
+Looking to the south, you can see the hallway ends in an 'L' shape. To the north is an elevator and a door with a sign that says 'Stairs'. All the doors here are marked with a colored square on them.
+
+On a hunch, you look back over your shoulder at the door you just came out of and see an aqua-colored square on the door right under the little window. You bring out the Aqua Keycard and compare the two.
+
+(I would assume you are thinking that the Aqua Keycard opens Aqua Doors.) Caleb suddenly comments and you nod. (Perhaps other Keycards are needed to access other colored doors?)
+
+"Yeah. I kinda figured that. Every game's got their thing; color cards and doors must be this one's quirk." you return dryly, looking around for any sign of security.
+
+(Game?) Funny how Caleb sounds puzzled by that. Must be a scripting glitch. (Well, at this point, I feel I must warn you that we are now able to be confronted by any enemies that may be here to hinder us. I would prefer if we did not encounter any, so please try not to linger too long in open areas like this hallway. Rooms should be safe, so long as there is no one already inside them, of course.)
+
+Well, at least he gave you fair warning of that, too.
+> south
+> south
+The Ground Floor - Hallway B
+You can see the Violet Lab, the Indigo Lab, the Red Lab and the Lounge.
+You can go north to Hallway A, southwest to the Red Lab, northeast to the Violet Lab, southeast to the Indigo Lab or west to the Lounge.
+
+An 'L' shaped bend that turns into another hallway, this place has four more rooms and a few more cameras. The tile floor is shiny under the harsh flourescent lights. Both sides of the hall have two doors but only three of them have colored squares and card readers. The last door is unmarked and -miraculously- has no card reader.
+
+"These graphics are amazing! Why haven't I ever heard of a game company called Archives of the Twin Blades?" you wonder aloud as you step into the second hallway, looking around at the doors and walls. You reach out to put Caleb's hand against one and the visor starts scrolling with data about its density, possible construction materials, and temperature.
+
+(It is not a game company, but we do hold large amounts of stock in several others. The Archives was built to house the knowledge of the world.) Caleb returns.
+
+"Then they paid an awful lot of cash to have a game made this good. I wonder what the rest of the story is gonna be like?" you mutter under your breath. Caleb just sighs and for a second there you wonder if you really just held a conversation with a character in a video game.
+> west
+> west
+The Lounge
+You can see a kitchen, a juice bar, a sofa and a plasma television.
+You can go east or in the kitchen area.
+
+The inside of the lounge makes you think of employee perks. The room looks cushy; it's big and well lit with several tables and chairs, a mini-kitchen and juice bar, and an area with sofas and a big-screen plasma TV. Vases of flowers and elegant curtains decorate the room, and the walls are painted a soft beige. It's really relaxing to look at. You gape at all the stuff until Caleb plays a little coughing audio into your ear to get your attention.
+
+"Man, these bad guys must be loaded!" you exclaim, "It's kind of a cliché for video game villains to be filthy rich, but I haven't seen anything this over the top since the latest Grand Larceny game came out!"
+
+(If we are going to be doing comparisons, then this situation is more of a Grand Theft Me.) Caleb returns in an unamused tone, (Will you please stay on track, Robin? We need to find another Keycard.)
+
+"Yeah, yeah. Spoilsport." you mutter, but he's right. Gotta keep your focus on the game so you don't lose this early.
+> in
+> in
+
+Standing in the kitchen area makes you feel a little weird. Why would a game bother to put something like this in here? It doesn't seem to make much sense. You suppose it's just to take up space or provide a break from the rest of the game.
+
+(A kitchen....) Caleb trails off, sounding a little sad and uncertain, maybe even sad that he was uncertain. You look around and shrug.
+
+"Yeah, it's a kitchen. So what?" you ask.
+
+(I...Kitchen... Cooking... It was part of my original function.) Caleb returns almost brokenly, (Function... call to....) He starts clicking, a kind of nervous tic that has you wonder if maybe you just stumbled across a major glitch in the game. Seriously, who would build a robotic guardian angel and have him do something as stupid as cook?
+> look
+> look
+
+Standing in the kitchen area makes you feel a little weird. Why would a game bother to put something like this in here? On top of that, Caleb keeps making little clicking sounds, like a hard drive trying stubbornly to access a bad sector, and it's getting kind of annoying. You decide to search the area quickly so you can get out and make him stop that.
+> out
+> out
+The Lounge
+You can see a kitchen, a juice bar, a sofa and a plasma television.
+You can go east or in the kitchen area.
+
+The inside of the lounge makes you think of employee perks. The room looks cushy; it's big and well lit with several tables and chairs, a mini-kitchen and juice bar, and an area with sofas and a big-screen plasma TV. Vases of flowers and elegant curtains decorate the room, and the walls are painted a soft beige. It's really relaxing to look at. You gape at all the stuff until Caleb plays a little coughing audio into your ear to get your attention.
+> inventory
+> inventory
+You are carrying the Aqua Keycard.
+[state=Running]

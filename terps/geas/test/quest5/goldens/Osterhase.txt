@@ -1,0 +1,1263 @@
+Osterhase
+Happy Easter!
+
+by XanMag
+
+You are in an open field.
+You can go west or east.
+So... here you finally are.  The Great Easter Egg Hunter, huh?
+
+Well, what are you waiting on?  There are twenty-five eggs that need found.  Get to it!
+
+PS.  Beware the Easter Bunny.
+A beautiful landscape of greens below and blues above streaked with pleasant sunbeams.
+> east
+
+> east
+
+You are in a mostly mown field.
+You can see a tuft of grass.
+You can go southeast, southwest or west.
+A rolling field of green grasses under pale blue skies.
+> search tuft of grass
+
+> search tuft of grass
+You rummage around in the thick, tall grass hoping to find something worthwhile.
+
+Hm...
+
+What do you know?  It's an egg.
+> take boring egg
+
+> take boring egg
+You pull the prize from the tuft of grass and add it to your basket.
+You've added to the loneliness of your basket.  Hey!  Better than zero!
+> southeast
+
+> southeast
+
+You are in a sad field.
+You can see a big guy.
+You can go northwest or southeast.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+> southeast
+
+> southeast
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+> south
+
+> south
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+> south
+
+> south
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+> southwest
+
+> southwest
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+
+There is a magician here standing behind a table.
+> southwest
+
+> southwest
+
+You are in an open field.
+You can see a lame egg.
+You can go northeast or west.
+If only every day could be this nice - a gentle breeze carries sunbeams and ripples the grasses.
+> west
+
+> west
+
+You are in a treed field.
+You can see a blue egg, a tree and a bird.
+You can go east, west or up.
+Grass welcomes your tootsies and the sun warms your face.
+There is a big tree here and in that tree sits an angry looking vulture.
+> take blue egg
+
+> take blue egg
+You bend down to pick up the blue egg.  Just as you are about to grab it, a huge vulture swoops down and snatches it up.  You swat and feathers fly but eventually the vulture flies up into the tree with the egg.
+> take feather
+
+> take feather
+You pick it up.
+> east
+
+> east
+
+You are in an open field.
+You can see a lame egg.
+You can go northeast or west.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> northeast
+
+> northeast
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+A rolling field of green grasses under pale blue skies.
+
+There is a magician here standing behind a table.
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+> north
+
+> north
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> north
+
+> north
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+> northwest
+
+> northwest
+
+You are in a sad field.
+You can see a big guy.
+You can go northwest or southeast.
+Sun and sky welcome eyes upward while grass below greets your feet.
+> tickle big guy with feather
+
+> tickle big guy with feather
+You reach out the feather and tickle the shirtless man in the armpit region.  At first he eyes you with a dose of hatred, but he eventually starts laughing.  It seems his mood has changed.
+> southeast
+
+> southeast
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+Grass stretches in all directions covered by sun and sky.
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+You just get comfortable in the room when the Easter Bunny hops in and belts you with a few raw eggs!
+
+As the bunny leaves the room, he tosses up a peace sign and chuckles.
+> south
+
+> south
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+SPLAT.  SPLAT.  SPLAT  "What the..." you mumble as you look around.  You didn't even see the blasted rodent that time!
+
+So. Stinking. Annoying.  The rabbit disappears.
+> northwest
+
+> northwest
+
+You are in an open field.
+You can see a pile of worthless shells.
+You can go southeast or southwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+> southwest
+
+> southwest
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+> northwest
+
+> northwest
+
+You are in a flighty field.
+You can see a skinny girl.
+You can go southeast or southwest.
+A lovely sunlit field of grasses.
+A thin girl is dancing in the grass.
+> tell skinny girl about big guy
+
+> tell skinny girl about big guy
+"Really?" the girl says and her ears and eyes perk up.  "Do you think he might be interested in me?  Could you please tell him about me and see what he thinks?"
+> southeast
+
+> southeast
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a pile of worthless shells.
+You can go southeast or southwest.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+> southeast
+
+> southeast
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+> north
+
+> north
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+> northwest
+
+> northwest
+
+You are in a sad field.
+You can see a big guy.
+You can go northwest or southeast.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+You just get comfortable in the room when the Easter Bunny hops in and belts you with a few raw eggs!
+
+Ugh.  You hate rabbits.
+> tell big guy about skinny girl
+
+> tell big guy about skinny girl
+"Whoa."  The guy is definitely interested at the mention of a girl.  He hears you describe her and asks you a few questions.  His eyes wide and a bit of drool forms at the corner of his mouth. "Yep.  Yessir.  Thanks a ton, buddy!"  He hops up and darts out of the room.
+
+You look at the spot that he was sitting and notice a tuft of black hair poking up above the grass.
+> look at black hair
+
+> look at black hair
+Upon closer inspection, you notice that the tuft of hair is attached to a much flattened, long-dead cat.  Gross.  Maybe this is why he was so distraught.
+> take black cat
+
+> take black cat
+You pick up the dead cat.  Gross.
+> southeast
+
+> southeast
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+> south
+
+> south
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Sun and sky welcome eyes upward while grass below greets your feet.
+OUCH!! Before you can blink the Easter Bunny surprises you out of no where and pelts you with some rotten eggs.  Gross!
+
+The rabbit hops out of sight.
+> south
+
+> south
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Grass stretches in all directions covered by sun and sky.
+> southwest
+
+> southwest
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Grass welcomes your tootsies and the sun warms your face.
+
+There is a magician here standing behind a table.
+The rabbit comes in with a sad smile on his face.  He reaches out to shake your hand in what looks to be an apologetic gesture.  You reach out and grab its hand.  Just as you do so he slaps you hard across the face with his other, egg-filled hand.
+
+Too slow to react, the crafty bunny hops from the room.
+> southwest
+
+> southwest
+
+You are in an open field.
+You can see a lame egg.
+You can go northeast or west.
+Sun and sky welcome eyes upward while grass below greets your feet.
+> west
+
+> west
+
+You are in a treed field.
+You can see a tree and a bird.
+You can go east, west or up.
+A lovely sunlit field of grasses.
+There is a big tree here and in that tree sits an angry looking vulture.
+The vulture nested in the tree takes notice of your approach.
+SPLAT.  SPLAT.  SPLAT  "What the..." you mumble as you look around.  You didn't even see the blasted rodent that time!
+
+After belting you with a few eggs, the rabbit hops from the room.
+> drop black cat
+
+> drop black cat
+You drop the dead cat near the base of the tree.  The vulture takes interest and swoops down and begins eating.
+> up
+
+> up
+
+You are in a treetop.
+You can see a nest.
+You can go down.
+You are at the top of a pretty tall tree.  There is a nest within reach.
+As you take a moment to enjoy the beautiful landscape, the foul Bunny hops into the room and cracks of few steamy, raw eggs on your chest.
+
+Before you can blink, the rabbit hops away.
+> x nest
+
+> x nest
+It's a big nest for a big, angry bird.
+It contains a blue egg.
+> take blue egg
+
+> take blue egg
+You reach into the nest and grab the blue egg!
+> down
+
+> down
+
+You are in a treed field.
+You can see a tree, a bird and a black cat.
+You can go east, west or up.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+There is a big tree here.  A vulture is eating a dead cat in the grasses nearby.
+> east
+
+> east
+
+You are in an open field.
+You can see a lame egg.
+You can go northeast or west.
+A rolling field of green grasses under pale blue skies.
+> northeast
+
+> northeast
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+
+There is a magician here standing behind a table.
+A streak of white flies across your field of vision and before you know it, about half a dozen eggs explode on your feet.
+
+For good measure the bunny blasts you with another egg before leaving the area.
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Grass welcomes your tootsies and the sun warms your face.
+> north
+
+> north
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+It is wonderful here - that is, if you like nice grass and blue skies.
+The rabbit comes in with a sad smile on his face.  He reaches out to shake your hand in what looks to be an apologetic gesture.  You reach out and grab its hand.  Just as you do so he slaps you hard across the face with his other, egg-filled hand.
+
+"Go away, rabbit!  It does as you suggest."  You are certain the Easter Bunny didn't hear you because you look around and it is already gone.
+> northwest
+
+> northwest
+
+You are in an open field.
+You can see a pile of worthless shells.
+You can go southeast or southwest.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> southwest
+
+> southwest
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> northwest
+
+> northwest
+
+You are in a flighty field.
+You can see a skinny girl and a big guy.
+You can go southeast or southwest.
+Grass welcomes your tootsies and the sun warms your face.
+Two lovers are here snuggled up in the grass.
+You notice that both the big, once-cranky guy is the field sitting comfortable in the grass with the flighty, thin gal.  They look very happy together.
+DAMN IT!  That rabbit has a wicked, live arm.  Three slimy eggs right in the ribs!
+
+Ugh.  You hate rabbits.
+> speak skinny girl
+
+> speak skinny girl
+"Oh, I can't thank you enough!" the girl squeals.  "Here, take this as a token of our appreciation!"
+
+She hands you a medium-sized, bright pink egg before returning to her new love.
+> southwest
+
+> southwest
+
+You are in a field on fire.
+You can see a ring of fire, an orange egg and a totem pole.
+You can go northeast, northwest or north.
+A beautiful landscape of greens below and blues above streaked with pleasant sunbeams.
+> north
+
+> north
+
+You are in a portal to end game field.
+You can see a magic hole, an exit sign and glasses.
+You can go south.
+All the grass seems to have disappeared here and there is an egg-shaped hole in the ground.  Lying next to the hole are a strange pair of glasses.
+> take glasses
+
+> take glasses
+You pick them up.
+> wear glasses
+
+> wear glasses
+You put the glasses on and everything seems to slow down.  Definitely weird and cool.
+> south
+
+> south
+
+You are in a field on fire.
+You can see a ring of fire, an orange egg and a totem pole.
+You can go northeast, northwest or north.
+Warm sun drives away clouds and hugs the grass.
+The Easter Bunny hops in and bounces over to you.  He hands you a gift box.  He waits eagerly as you eyeball it.  You open it.  The box and the two dozen eggs in it explode, covering you in a mess of rotten, raw eggs.
+
+Ugh.  You hate rabbits.
+> northeast
+
+> northeast
+
+You are in a flighty field.
+You can see a skinny girl and a big guy.
+You can go southeast or southwest.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+Two lovers are here snuggled up in the grass.
+You notice that both the big, once-cranky guy is the field sitting comfortable in the grass with the flighty, thin gal.  They look very happy together.
+The Easter Bunny hops in and bounces over to you.  He hands you a gift box.  He waits eagerly as you eyeball it.  You open it.  The box and the two dozen eggs in it explode, covering you in a mess of rotten, raw eggs.
+
+Ugh.  You hate rabbits.
+> southeast
+
+> southeast
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+Grass welcomes your tootsies and the sun warms your face.
+DAMN IT!  That rabbit has a wicked, live arm.  Three slimy eggs right in the ribs!
+
+Quick as lighting, the bunny leaves the room.
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a pile of worthless shells.
+You can go southeast or southwest.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> southeast
+
+> southeast
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+> south
+
+> south
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+> southwest
+
+> southwest
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+
+There is a magician here standing behind a table.
+> speak Magician
+
+> speak Magician
+"Step right up and play me a game!
+"Just guess the cup and win a prize!"
+You watch as the magician feints and moves and slides the cups from side to side.  It's very fast, but with these glasses on, you see everything just a step slower.  The ball vanishes from one of the cups as he slides it toward the edge of the table.  CHEATER!!
+
+You let him finish and he asks, "So, dear friend, which cup holds the ball?"
+
+You reply with confidence, "None.  You have cheated!"
+
+The magician looks at you with a snarl and shakes his head.  Defeated.  He reaches under the table and hands you a glowing egg.  You take it and stash it in your basket!
+Hey!  You are making some glacial progress!
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+Sun and sky welcome eyes upward while grass below greets your feet.
+> search rock pile
+
+> search rock pile
+You search the pile of rocks and find arock-like easter egg!  You snatch up the rock and chuck it in your basket!
+> north
+
+> north
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+Warm sun drives away clouds and hugs the grass.
+> north
+
+> north
+
+You are in a cold field.
+You can see an icy block.
+You can go northwest or south.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+There is about a five by five foot square of blue tinted grass here, which is most likely caused by the big block of ice sitting in the middle of the field.
+> northwest
+
+> northwest
+
+You are in a sad field.
+You can go northwest or southeast.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+> northwest
+
+> northwest
+
+You are in a mostly mown field.
+You can see a tuft of grass.
+You can go southeast, southwest or west.
+Sun and sky welcome eyes upward while grass below greets your feet.
+> southwest
+
+> southwest
+
+You are in an open field.
+You can see a yellow egg.
+You can go northeast or northwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+
+Hm.  A yellow egg rests in plain view in the green grass.
+> northwest
+
+> northwest
+
+You are in a musical field.
+You can see a piano.
+You can go southwest, southeast or east.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+Quick as lighting, the bunny leaves the room.
+> play piano
+
+> play piano
+You crank out a few verses of 'Chopsticks'.  At the height of the crescendo, one of the keys snaps loose and falls to the ground.  Oops!
+> take piano key
+
+> take piano key
+You pick it up.
+> southwest
+
+> southwest
+
+You are in an open field.
+You can see a cream egg.
+You can go northeast or southwest.
+Warm sun drives away clouds and hugs the grass.
+> southwest
+
+> southwest
+
+You are in a gambler's field.
+You can see a slot machine.
+You can go south or northeast.
+Grass welcomes your tootsies and the sun warms your face.
+
+So weird.  There's a slot machine here in the middle of the field.
+You hear a noise to the south.  You whip around to catch the culprit and, wouldn't you know it?  A few eggs splatter across your back to the north.
+
+As the bunny leaves the room, he tosses up a peace sign and chuckles.
+> south
+
+> south
+
+You are in an open field.
+You can go south, northeast or north.
+A lovely sunlit field of grasses.
+> south
+
+> south
+
+You are in a malodorous field.
+You can go southeast or north.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+This room smells a bit funny.
+> southeast
+
+> southeast
+
+You are in a fountained field.
+You can see a fountain and a clear egg.
+You can go southeast, northeast or northwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+> southeast
+
+> southeast
+
+You are in an odorous field.
+You can see an interesting plant.
+You can go east or northwest.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+> east
+
+> east
+
+You are in a treed field.
+You can see a tree, a bird and a black cat.
+You can go east, west or up.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+There is a big tree here.  A vulture is eating a dead cat in the grasses nearby.
+> east
+
+> east
+
+You are in an open field.
+You can see a lame egg.
+You can go northeast or west.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+> take lame egg
+
+> take lame egg
+You heft the lame white egg into your basket.
+> northeast
+
+> northeast
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+
+There is a magician here standing behind a table.
+The Easter Bunny hops in and bounces over to you.  He hands you a gift box.  He waits eagerly as you eyeball it.  You open it.  The box and the two dozen eggs in it explode, covering you in a mess of rotten, raw eggs.
+
+Before you can blink, the rabbit hops away.
+> northwest
+
+> northwest
+
+You are in a Riddler's field.
+You can see Easter Riddler.
+You can go southwest or southeast.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+"Go away, rabbit!  It does as you suggest."  You are certain the Easter Bunny didn't hear you because you look around and it is already gone.
+> speak Easter Riddler
+
+> speak Easter Riddler
+You have chosen to test your knowledge with my riddles.  Here is the first question:
+
+What is the name of the Hatchery owner?
+A.  The Mother Goose
+B.  Osterhase
+C.  Harrieta Hare
+D.  Bertha E. Bunny
+(please choose a letter)
+Speak to me again for riddle number two.
+> b
+"You have guessed Osterhase.  This is CORRECT!  Well done!  One egg for you."
+
+You grab the egg and toss it in your basket.
+
+> speak Easter Riddler
+
+> speak Easter Riddler
+"Here is question number two."
+
+What was the big, grumpy guy most likely upset about?"
+A.  He had no love life.
+B.  He is not an "Easter kind of guy"
+C.  He hasn't any eggs.
+D.  He accidentally killed his cat.
+(please choose a letter)
+> d
+"You have guessed that he accidentally killed his cat.  This is CORRECT!  Well done!  One egg for you."
+
+You grab the egg and toss it in your basket.
+
+Making some headway.  You are about half way there!
+> speak Easter Riddler
+
+> speak Easter Riddler
+What is the name of the sunken ship?
+A.  HydroHare
+B.  Easter's Elite
+C.  Bunny's Boat
+D.  Speedy Snowhare
+> a
+"You have guessed HydroHare and that is correct!  Congratulations.  Here is your prize!"  She hands you a Riddler Egg and you take it and stuff it in your basket.
+
+"Our quiz is now over."
+> southwest
+
+> southwest
+
+You are in a wet field.
+You can see a lake.
+You can go northwest, northeast or down.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> down
+
+> down
+
+You are swimming in a lake.
+You can see fish and a sunken ship.
+You can go in or up.
+Thankfully the water is very clear and you can see clearly.  Fish hug the banks and a sunken ship lies at the bottom of the lake.  You may be able to go in to the ship.
+> in
+
+> in
+You swim down to the ship and aim for a broken spot in the hull.  Just as you are about to get there, a HUGE barracuda bursts from the ship and starts to attack.  You haul ass to the surface and scamper on shore just before the sharp teeth tear your flesh apart.
+
+You glance back at the water and you see a lot of poor smaller fish thrashing about in the water.
+
+You are in a wet field.
+You can see a lake.
+You can go northwest, northeast or down.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+As you take a moment to enjoy the beautiful landscape, the foul Bunny hops into the room and cracks of few steamy, raw eggs on your chest.
+
+You'd really like to toss a few eggs back at the rabbit, but it has disappeared already.
+> down
+
+> down
+
+You are swimming in a lake.
+You can see fish, orbs and a sunken ship.
+You can go in or up.
+Thankfully the water is very clear and you can see everything under the water.  There are a few fish that remain near the shores but many of them look sad after the mass killing inflicted by the barracuda.  Where fish used to be, glistening orbs remain in their place.  At the bottom of this lake you see what looks like a sunken ship.
+> take orbs
+
+> take orbs
+You scoop up some of the fish eggs and put them in your basket!
+> in
+
+> in
+You brave the deep waters one more time and aim for the broken spot in the hull of the ship.  You enter successfully and see no signs of the barracuda.
+
+You are in a sunken ship.
+You can see a chest.
+You can go out.
+You are inside a sunken ship.  I wouldn't stay too long seeing that there is a hungry barracuda in the area and you can't hold your breath forever.
+> use piano key on chest
+
+> use piano key on chest
+The key white key plops perfectly in the holes between the black keys.
+> take pirate egg
+
+> take pirate egg
+You snatch up the pirate egg.
+> take bag of coins
+
+> take bag of coins
+You pick it up.
+> out
+
+> out
+
+You are swimming in a lake.
+You can see fish and a sunken ship.
+You can go in or up.
+Thankfully the water is very clear and you can see everything under the water.  There are a few fish that remain near the shores but many of them look sad after the mass killing inflicted by the barracuda.  Where fish used to be, glistening orbs remain in their place.  At the bottom of this lake you see what looks like a sunken ship.
+> up
+
+> up
+
+You are in a wet field.
+You can see a lake.
+You can go northwest, northeast or down.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+The rabbit comes in with a sad smile on his face.  He reaches out to shake your hand in what looks to be an apologetic gesture.  You reach out and grab its hand.  Just as you do so he slaps you hard across the face with his other, egg-filled hand.
+
+For good measure the bunny blasts you with another egg before leaving the area.
+> northwest
+
+> northwest
+
+You are in a guarded altar field.
+You can see a giant minotaur and an altar.
+You can go southwest or southeast.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+You walk into the room and step on something hard hidden in the grass.  Eggs launch in from the south and they erupt in yellow bursts all around you.
+
+"Go away, rabbit!  It does as you suggest."  You are certain the Easter Bunny didn't hear you because you look around and it is already gone.
+> southwest
+
+> southwest
+
+You are in a fountained field.
+You can see a fountain and a clear egg.
+You can go southeast, northeast or northwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+> northwest
+
+> northwest
+
+You are in a malodorous field.
+You can go southeast or north.
+Sun and sky welcome eyes upward while grass below greets your feet.
+The rabbit hops into the room again, squats down, stares you directly in the eyes and drops a few hundred rabbit turds at your feet.  He smiles and hops away.
+> north
+
+> north
+
+You are in an open field.
+You can go south, northeast or north.
+Warm sun drives away clouds and hugs the grass.
+> north
+
+> north
+
+You are in a gambler's field.
+You can see a slot machine.
+You can go south or northeast.
+If only every day could be this nice - a gentle breeze carries sunbeams and ripples the grasses.
+
+So weird.  There's a slot machine here in the middle of the field.
+> use slot machine
+
+> use slot machine
+You drop a coin in and pull the handle.
+Stick. Turd. Stick.
+> use slot machine
+
+> use slot machine
+You drop a coin in and pull the handle.
+Turd. Egg. Turd.
+> use slot machine
+
+> use slot machine
+You drop a coin in and pull the handle.
+Stick. Stick. Stick
+The machine churns a bit and a stick pops out.
+You grab it and add it to your inventory.
+> use slot machine
+
+> use slot machine
+Stick. Turd.  Turd. Damn it!
+> use slot machine
+
+> use slot machine
+Egg. Stick.  Egg. Damn it!
+> use slot machine
+
+> use slot machine
+Stick. Turd. Stick. Damn it!
+> use slot machine
+
+> use slot machine
+Egg.  Egg.  Egg.
+WOOHOO!
+A golden egg drop out of the machine.
+You pick it up and add it to the basket!
+Wow.  You are becoming the master egg hunter!  Twelve and counting!
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a cream egg.
+You can go northeast or southwest.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+> take cream egg
+
+> take cream egg
+You pick up the cream colored egg.
+> northeast
+
+> northeast
+
+You are in a musical field.
+You can see a piano.
+You can go southwest, southeast or east.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+Quick as lighting, the bunny leaves the room.
+> southeast
+
+> southeast
+
+You are in an open field.
+You can see a yellow egg.
+You can go northeast or northwest.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+
+Hm.  A yellow egg rests in plain view in the green grass.
+> take yellow egg
+
+> take yellow egg
+You pick up the yellow egg and store it in your basket.
+> northwest
+
+> northwest
+
+You are in a musical field.
+You can see a piano.
+You can go southwest, southeast or east.
+Plush grass, welcoming skies, and a warming sun.  What else could a traveler want...
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+As the bunny leaves the room, he tosses up a peace sign and chuckles.
+> southwest
+
+> southwest
+
+You are in an open field.
+You can go northeast or southwest.
+Grass stretches in all directions covered by sun and sky.
+You hear a faint chuckling from above.  You look up and the Easter Bunny, who is riding a giant vulture, drops some rancid eggs right on your face.
+
+"Go away, rabbit!  It does as you suggest."  You are certain the Easter Bunny didn't hear you because you look around and it is already gone.
+> southwest
+
+> southwest
+
+You are in a gambler's field.
+You can see a slot machine.
+You can go south or northeast.
+The taller grasses strain upward to drink in the warm sun streaking across the blue sky.
+
+So weird.  There's a slot machine here in the middle of the field.
+> south
+
+> south
+
+You are in an open field.
+You can go south, northeast or north.
+If only every day could be this nice - a gentle breeze carries sunbeams and ripples the grasses.
+> northeast
+
+> northeast
+
+You are in a field inspired by Colossal Cave Adventure .
+You can see a pedestal.
+You can go southwest or southeast.
+It is wonderful here - that is, if you like nice grass and blue skies.
+
+There is a REALLY tall pedestal here.
+> xyzzy
+
+> xyzzy
+You speak the magic word and the earth begins to shrink.  Faster and faster.  Smaller and smaller.  Suddenly your feet come to a rest and your stretched body gets snapped back like a fresh rubber band.  You are standing on top of a platform in the middle of outer space.  On the pedastal, next to your feet, is a shiny egg.
+
+You are in an outer space (on a pedastal).
+You can see a shiny egg.
+You are standing on top of a VERY tall pedastal in, what appears to be, the middle of outer space!
+> take shiny egg
+
+> take shiny egg
+You grab the egg off the pedastal and the pedastal disappear and you start to fall back to Earth.  Larger and larger.  Faster and faster.  Just as you are about to splat onto the soft grass below, you blink and find yourself back in the field.  Unscathed!
+
+You are in a field inspired by Colossal Cave Adventure .
+You can see a pedestal.
+You can go southwest or southeast.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+
+> southeast
+
+> southeast
+
+You are in a field on fire.
+You can see a ring of fire, an orange egg and a totem pole.
+You can go northeast, northwest or north.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+> northeast
+
+> northeast
+
+You are in a flighty field.
+You can see a skinny girl and a big guy.
+You can go southeast or southwest.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+Two lovers are here snuggled up in the grass.
+You notice that both the big, once-cranky guy is the field sitting comfortable in the grass with the flighty, thin gal.  They look very happy together.
+> southeast
+
+> southeast
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+A lovely sunlit field of grasses.
+> lift welcome mat
+
+> lift welcome mat
+You lift the doormat to the side a bit and notice a hole has been cut from the ground beneath.  A brown egg rests in the hole.  You snatch it up, put it in your basket, and replace the welcome mat as you first found it.
+That will teach that obnoxious bunny.  Keep going, you egg-hunting beast!
+> in
+
+> in
+
+You are in a hatchery.
+You can see a mother goose.
+You can go out.
+This is a hatchery.  A mootherly goose is here tending to all of the eggs in the back room.
+> pet mother goose
+
+> pet mother goose
+The mother goose stops gabbing for a moment as you reach up and pet her head, aligning a few ruffled feathers.  She smiles deeply and eyes you admirably.  "Well, how did you know that I love being petted.  It's been such a long time since anyone has every petted me.  I miss it dearly."  She pauses, rushes into the back room and returns.  "Here, take this, deary."
+
+She hands you a large, feathery egg which you gladly accept and stash in your basket.
+> out
+
+> out
+
+You are in a field with hatchery.
+You can see a hut.
+You can go northeast, northwest or in.
+Picturesque grasses stretch upward to the blue skies and the warm sun.
+> northeast
+
+> northeast
+
+You are in an open field.
+You can see a pile of worthless shells.
+You can go southeast or southwest.
+Nice grass underfoot, clear skies with a rising eastern sun overhead.
+> search pile of worthless shells
+
+> search pile of worthless shells
+You rustle around in the pile of broken shells and lo and behold!  You uncover a beaten up egg!
+> take cracked egg
+
+> take cracked egg
+This egg is cracked but it should still count, right?  You pick it up and gently place it in the basket.
+> southeast
+
+> southeast
+
+You are in a Fido's field.
+You can see a dog and a thicket.
+You can go north, northwest, south or east.
+A rolling field of green grasses under pale blue skies.
+OUCH!! Before you can blink the Easter Bunny surprises you out of no where and pelts you with some rotten eggs.  Gross!
+
+Before you can react, the rabbit disappears from the field of grass.
+> south
+
+> south
+
+You are in an open field.
+You can see a rock pile.
+You can go north or southwest.
+A beautiful landscape of greens below and blues above streaked with pleasant sunbeams.
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+You hear a snide chuckle as the rabbit hops away.
+> southwest
+
+> southwest
+
+You are in a swindler's field.
+You can see a "magician".
+You can go northeast, southwest or northwest.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+
+There is a magician here standing behind a table.
+> northwest
+
+> northwest
+
+You are in a Riddler's field.
+You can see Easter Riddler.
+You can go southwest or southeast.
+A lovely sunlit field of grasses.
+> southwest
+
+> southwest
+
+You are in a wet field.
+You can see a lake.
+You can go northwest, northeast or down.
+You drink in the visions of green grass, blue skies, and comforting sun rays.
+You just get comfortable in the room when the Easter Bunny hops in and belts you with a few raw eggs!
+
+For good measure the bunny blasts you with another egg before leaving the area.
+> northwest
+
+> northwest
+
+You are in a guarded altar field.
+You can see a giant minotaur and an altar.
+You can go southwest or southeast.
+Grass stretches in all directions covered by sun and sky.
+WHACK, SPLAT, SQUISH.  Egg guts splash across your chest.  Stupid rabbit.
+
+You give the rabbit a dirty look, but he is already gone!
+> give boring egg to Giant Minotaur
+
+> give boring egg to Giant Minotaur
+You reach out to give the boring egg to the minotaur and he extends a hand to take it.  As he reaches for it, his eyes narrow and his huge mouth opens in a massive yawn.
+
+"So... boring.  Must... Can't..."
+
+The minotaur lies down and falls asleep.
+> x altar
+
+> x altar
+The altar is simple.  Basically a big wooden block with some carvings on it.  There is an egg on the altar.
+It contains a horned egg.
+> take horned egg
+
+> take horned egg
+You tip-toe quietly around the snoring minotaur.  He grumbles a bit, but doesn't wake up.  You grab the horned egg off the altar and toss it in your basket.
+> southwest
+
+> southwest
+
+You are in a fountained field.
+You can see a fountain and a clear egg.
+You can go southeast, northeast or northwest.
+Warm sun drives away clouds and hugs the grass.
+> northwest
+
+> northwest
+
+You are in a malodorous field.
+You can see a turds.
+You can go southeast or north.
+Nature at it simplest and finest - soft grasses and a bright sunlight sky.
+The rabbit hops into the room again, squats down, stares you directly in the eyes and drops a few hundred rabbit turds at your feet.  He smiles and hops away.
+> southeast
+
+> southeast
+
+You are in a fountained field.
+You can see a fountain and a clear egg.
+You can go southeast, northeast or northwest.
+Sun beams streak westward through a cloudless sky.  Thick grass covers the ground.
+SPLAT.  SPLAT.  SPLAT  "What the..." you mumble as you look around.  You didn't even see the blasted rodent that time!
+
+You hear a snide chuckle as the rabbit hops away.
+> northwest
+
+> northwest
+
+You are in a malodorous field.
+You can see a turds.
+You can go southeast or north.
+A lovely sunlit field of grasses.
+The rabbit hops into the room again, squats down, stares you directly in the eyes and drops a few hundred rabbit turds at your feet.  He smiles and hops away.
+> search turds
+
+> search turds
+With great trepidation, you kick around in the giant pile of rabbit turds and unearth a smelly egg.
+> take smelly egg
+
+> take smelly egg
+With your foot, you nudge the smelly egg away from the giant pile of rabbit turds and into the grass.  With hesitant fingers, you pick it up and place it in the basket.
+Holy Rabbits, Osterhaus!  Only five to go!
+> north
+
+> north
+
+You are in an open field.
+You can go south, northeast or north.
+Grass welcomes your tootsies and the sun warms your face.
+> northeast
+
+> northeast
+
+You are in a field inspired by Colossal Cave Adventure .
+You can go southwest or southeast.
+A beautiful landscape of greens below and blues above streaked with pleasant sunbeams.
+
+> southeast
+
+> southeast
+
+You are in a field on fire.
+You can see a ring of fire, an orange egg and a totem pole.
+You can go northeast, northwest or north.
+It is wonderful here - that is, if you like nice grass and blue skies.
+> north
+
+> north
+
+You are in a portal to end game field.
+You can see a magic hole and an exit sign.
+You can go south.
+All the grass seems to have disappeared here and there is an egg-shaped hole in the ground.
+> look at basket
+
+> look at basket
+> down
+
+> down
+By entering this hole, you are, in effect ending the game.
+Are you sure you are finished?
+> yes
+You jump down the hole and finished the game!
+You've chosen to end the game with a score of 20/25
+Twenty.  The Easter Bunny shows up and gives you a high five!  You get the ranking of: EASTER BUNNY'S BUDDY!
+[state=Finished]

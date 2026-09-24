@@ -1,0 +1,149 @@
+disneys time machine
+some kid travels through time
+
+by riley pomeroy
+
+You wake up from your bed and you stand up and stretch your arms. You look around your room. You see a leather wallet under your bed. You see a pile of clothes on the floor. You consider putting them on but you're not leaving your room today, it’s Saturday
+Or at least you think. A poster on the wall seems to be hiding something. The door to the south leads to the hallway
+
+ [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]
+> take clothes
+
+> take clothes
+You pick it up.
+> wear clothes
+
+> wear clothes
+You put it on.
+> take poster
+
+> take poster
+a hole is revealed on the wall
+> take wallet
+
+> take wallet
+You pick it up.
+> open wallet
+
+> open wallet
+You open it.
+> in
+
+> in
+
+You barely manage to fit your head and arm through the hole. You wonder why you went to all this trouble. In the dim light, you can barely make out a small knife. You can see pink insulation through the cracks in the wall. The exit to the bedroom is out.
+> take knife
+
+> take knife
+You pick it up.
+> out
+
+> out
+
+You wake up from your bed and you stand up and stretch your arms. You look around your room. You see a leather wallet under your bed. You see a pile of clothes on the floor. You consider putting them on but you're not leaving your room today, it’s Saturday
+Or at least you think. A poster on the wall seems to be hiding something. The door to the south leads to the hallway
+
+> south
+
+> south
+
+You are right next to your bedroom. You look around and you see a backpack. You also see the spot on the wall where you wrote in invisible ink. There’s a door to your north. The hallway continues to the east.
+
+> take backpack
+
+> take backpack
+You pick it up.
+> east
+
+> east
+
+Your shoes are on the floor.  The floor is dirty from mud and whatnot. The front door is to the south. The bathroom is to the north. The hallway continues to the west. The kitchen is to the east.
+> take shoes
+
+> take shoes
+You pick it up.
+> wear shoes
+
+> wear shoes
+You put it on.
+> south
+
+> south
+
+You are outside your house on the front lawn. The mailbox is empty. The grass is green very green like really super very really very really super very really super very really very greeeen. The ground is littered with toys from the neighborhood kids. You want to go yell at those dern youngins but your tired and you have prune juice to attend to. The last sentence was a lie because this isn’t Florida and you don’t live in a retirement community. There’s a screwdriver on the ground. The entrance is to the house is to the north.
+
+> north
+
+> north
+
+Your shoes are on the floor.  The floor is dirty from mud and whatnot. The front door is to the south. The bathroom is to the north. The hallway continues to the west. The kitchen is to the east.
+> north
+
+> north
+
+You're in the bathroom. There’s junk all over the counter and you see your body spray. While looking at the body spray you remember the YouTube video by mossyrocks03 on how to make a flamethrower. You think to yourself “now I just need a lighter to complete the flamethrower”. The exit is to the south.
+
+> south
+
+> south
+
+Your shoes are on the floor.  The floor is dirty from mud and whatnot. The front door is to the south. The bathroom is to the north. The hallway continues to the west. The kitchen is to the east.
+> east
+
+> east
+
+You are standing in front of a granite kitchen island. Your phone is over by the fridge. A radio is by the toaster and there’s some bread in there. There is a fork next to the toaster. The front door is to the west. The rec room is to the north. Batteries lie on the counter
+> take phone
+
+> take phone
+You pick it up.
+> take fork
+
+> take fork
+You pick it up.
+> north
+
+> north
+
+The tv is in front of you, it’s huge. The remote is on the table. There is a yuge Wall to keep the remotes bigly separated (┬┴┬┴┤ ┐͡-)⌣ ⌣ ├┬┴┬┴). On the other “illegal” side of the wall there lies a garage remote. Some duct tape is also lying around. The porch is to the north. The kitchen is to the south. The door to the garage is to the west.
+> north
+
+> north
+
+> south
+
+> south
+
+The tv is in front of you, it’s huge. The remote is on the table. There is a yuge Wall to keep the remotes bigly separated (┬┴┬┴┤ ┐͡-)⌣ ⌣ ├┬┴┬┴). On the other “illegal” side of the wall there lies a garage remote. Some duct tape is also lying around. The porch is to the north. The kitchen is to the south. The door to the garage is to the west.
+> east
+
+> east
+
+The concrete floor is cold. There is a ceiling rack on the ceiling. (☞ ͠° ͟ ͜ʖ ͡°)☞ BOI
+Your parents carpooled today so they left the Tesla. The license reads R3DHR1NG. Maybe you can find the keys in here. Your bike is up on the kickstand. The rec room is to the east. Once you get on your bike you can go to school.
+
+> out
+
+> out
+
+> east
+
+> east
+
+> north
+
+> north
+
+> west
+
+> west
+
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+[state=Running]
