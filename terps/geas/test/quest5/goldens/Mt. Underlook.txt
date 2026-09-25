@@ -1,0 +1,148 @@
+Mt. Underlook
+Trial of False Eyes
+
+by Ken Ra
+
+A Your Cell
+The cell is small - barely enough space for a worn mattress and a toilet. Every sound echoes throughout the underground complex. Each cell is carved into the stone, and the cell doors are crafted from latticed titanium. The lock is crafted from a more sturdy metal - perhaps one of the mystical elements shared with mortals shortly before the war?
+You feel weak...
+> e
+
+> e
+You go through the cell door! You have 20/20 vision. You should definitely look at objects before interacting with them. This place is very dangerous and missing a warning sign could get you killed!
+
+Corridor 59Q
+The cavern is dark, and long. There are a few light fixtures drilled into the ceiling with steel-covered wires linking them together. The lights are the color of blood and incredibly dim - providing only enough light to navigate. Dust particles float around in the air - taxing your lungs. The cells are between five and thirty feet apart from one another with no distinguishable organization.
+> pull switch
+
+> pull switch
+You turn the extra lights on.
+> search corpse
+
+> search corpse
+You find a lockpick inside the man's lung!
+> take lockpick
+
+> take lockpick
+You take the lockpick.
+> n
+
+> n
+
+Corridor 60Q
+Just another long hallway filled with cells.
+> press panel
+
+> press panel
+The nearby door unlocks but the power goes out!
+> n
+
+> n
+
+Intersection R
+The room is well-lit. Each wall, ceiling, and floor are covered in steel. A camera is placed in the center of the ceiling. There are strange metal tubes in each corner with wireless networking devices attached. You hear sounds from the Northern and Western rooms.
+The poison covering the floor smells rancid.
+> e
+
+> e
+
+A Utility Hall
+The room is long with heavy cyberpunk-style machines along each wall. Various buttons, screens, and guages line the top of each machine. This room must be used for air pressure and temperature control within these lower caverns. Maybe you can scavenge something from them?
+> vandalize machine
+
+> vandalize machine
+Please choose which 'machine' you mean:
+1: Heavy Machine
+2: Heavy Machine
+3: Heavy Machine
+4: Heavy Machine
+5: Heavy Machine
+6: Heavy Machine
+> 1
+You vandalize the machine
+> take battery
+
+> take battery
+You rip the battery from the machine.
+> use battery
+
+> use battery
+> w
+
+> w
+You return to Corridor Intersection R
+
+Intersection R
+The room is well-lit. Each wall, ceiling, and floor are covered in steel. A camera is placed in the center of the ceiling. There are strange metal tubes in each corner with wireless networking devices attached.
+The poison covering the floor smells rancid.
+> n
+
+> n
+
+A Guard Break Room
+The room is tiny. There are a few chairs around a table. Dirty counters almost completely surround the room. A welter of dirty napkins sits on the table. On the opposite end of the room is a safe with a key hole. A Warson guard stands in the room.
+> interact warson
+
+> interact warson
+You jab the Warson with your stun rod! The battery unloads all its power in one shock - killing the guard.
+The guard whimpers "Deimos Dammit!"
+> search dead guard
+
+> search dead guard
+You search the corpse. His knife is dull and his gun only responds to his fingerprint. You notice some sort of badge on his waist.
+> take key card
+
+> take key card
+You take the key card. It's covered in a film of ash from the guard's burned skin.
+> pick lock gunsafe
+
+> pick lock gunsafe
+You pick the lock and open the safe!
+> search gunsafe
+
+> search gunsafe
+> take revolver
+
+> take revolver
+You take the revolver.
+> s
+
+> s
+
+Intersection R
+The room is well-lit. Each wall, ceiling, and floor are covered in steel. A camera is placed in the center of the ceiling. There are strange metal tubes in each corner with wireless networking devices attached.
+The poison covering the floor smells rancid.
+> swipe card panel
+
+> swipe card panel
+You swipe the card and the door unlocks!
+> w
+
+> w
+
+A Command Room
+You enter the room. It is an office space with a long desk. Across the room is an elevator. Kokouson sits in a chair watching his guard attempt to fix the surveillance. Kokouson is a muscular, dark-skinned man wearing flexible gray armor. His eyes are completetely black from the technology integrated into his body. He is bald with metal strips along his scalp. He carries a plethora of knives. They both notice you upon entry and you instinctually arm yourself with the revolver. Be careful about who you decide to shoot first!
+
+> shoot kokouson
+
+> shoot kokouson
+You shoot Kokouson. His armor glitches - stunning him!
+The guard, unable to find his gun, charges at you with a knife and stabs you!
+> shoot guard
+
+> shoot guard
+You shoot and kill the guard! Kokouson glares at you as he recovers. He presses a button and you hear a series of loud clicks in the distance. GET OUT OF THERE!
+> e
+
+> e
+
+Intersection R
+The room is well-lit. Each wall, ceiling, and floor are covered in steel. A camera is placed in the center of the ceiling. There are strange metal tubes in each corner with wireless networking devices attached.
+Kokouson enters the room and stabs you!
+
+The Underworld
+YOU DIED
+YOU DIED
+Kokouson enters the room and stabs you!
+YOU DIED
+[state=Running]
