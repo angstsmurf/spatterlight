@@ -300,3 +300,8 @@
 /goldens/superstud_solution.txt
 /goldens/superstud_solution.expected.txt
 /runner_transcripts/**/superstud.*
+
+# britishfox.taf: explicit text, deliberately not committed.
+/goldens/britishfox_solution.txt
+/goldens/britishfox_solution.expected.txt
+/runner_transcripts/**/britishfox.*
