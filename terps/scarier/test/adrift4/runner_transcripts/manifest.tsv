@@ -597,7 +597,7 @@ withoutaclue	withoutaclue.txt	driven:Adrift_490_withoutaclue_rt.txt	4.00	run400x
 witnessdemon	witnessdemon.txt	driven:Adrift_367_witnessdemon_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 wizards	wizards.txt	driven:Adrift_306_wizards_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 wolvesatthedoor	wolvesatthedoor.txt	driven:Adrift_448_wolvesatthedoor_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-wonderland	wonderland.txt	driven:Adrift_312_wonderland_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1	no	10+ differing turn(s)
+wonderland	wonderland.txt	driven:Adrift_312_wonderland_rt.txt	4.00	run400x.exe	1234	0			no	identical on every turn.
 wonderwombat	wonderwombat.txt	driven:Adrift_346_wonderwombat_rt.txt	3.90	run390x.exe	3	2		SCR_SEED=3 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 woof	woof.txt	driven:Adrift_201_woof_rt.txt	4.00	run400x.exe	5	0	Rex	SCR_SEED=5	yes	identical on every turn.
 worldcbn	worldcbn.txt	driven:Adrift_286_worldcbn_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

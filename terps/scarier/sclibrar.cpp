@@ -26024,6 +26024,9 @@ lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
   pf_buffer_answer_break (filter);
 }
 
+static scr_bool lib_battle_line_names_any_object (scr_gameref_t game,
+                                                  const scr_char *input);
+
 static scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
@@ -26062,6 +26065,22 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   /* dobattle's own reference test must name it too. */
   if (lib_battle_unnamed_target (game, npc))
     return TRUE;
+
+  /*
+   * A "with" after the target (47EBDE, var_8A = 2) makes the blow the
+   * with-loop's: nothing present named after it leaves dobattle silent
+   * (the with row above declined the same line), and the line goes on to
+   * the catch-alls.  See lib_battle_line_names_object().
+   */
+  if (battle_is_enabled (game)
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      && run_get_dispatch_input ())
+    {
+      const scr_char *with = strstr (run_get_dispatch_input (), " with ");
+
+      if (with && !lib_battle_line_names_any_object (game, with + 6))
+        return FALSE;
+    }
 
   /* With the Battle System enabled, resolve a real attack. */
   if (battle_is_enabled (game))
@@ -26183,6 +26202,10 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
         object = lib_battle_scan_with (game, npc, with + 6, &refused);
       if (refused)
         return TRUE;
+      /* A "with" naming nothing present prints nothing in dobattle, and
+       * the line goes on to the catch-alls (lib_battle_line_names_object). */
+      if (with && object == -1)
+        return FALSE;
     }
 
   /* Get the referenced object, and if none, consider complete. */
@@ -26852,11 +26875,25 @@ lib_battle_definite_name (scr_gameref_t game, scr_int object)
   return result;
 }
 
+/*
+ * dobattle asks co() about each object (47EC16, run390 44CDB0), and co()
+ * resolves only a PRESENT object -- obhere(), and from 3.9 seen as well
+ * (464360-46437E; the tail test 4647C5-464819 is obhere And seen at mode
+ * 0).  A seen weapon lying elsewhere is not named at all, so dobattle
+ * prints nothing for it and the line falls to the catch-all's seen+absent
+ * arm, a turn: wonderland T7-T10 `attack card guard with knife`, the
+ * ethereal knife two rooms back, is "You must be in the same room as the
+ * ethereal knife to be able to do anything with it." with the Card Guard's
+ * blow appended (runner_transcripts/wonderland.txt, 2026-09-25), not
+ * dobattle's "not carrying", which is for a present weapon not held (the
+ * dropped rock of probe pWS2).
+ */
 static scr_bool
 lib_battle_line_names_object (scr_gameref_t game, scr_int object,
                               const scr_char *input)
 {
-  return gs_object_seen (game, object)
+  return lib_co_candidate (game, object, gs_playerroom (game))
+         && gs_object_seen (game, object)
          && lib_verb_object_name_score (game, object, input) > 0;
 }
 
@@ -27154,6 +27191,13 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   /* An explicit weapon is resolved once; each target then tests it. */
   object = -1;
   scan = FALSE;
+  if (with_object
+      && !lib_battle_line_names_any_object (game, input))
+    {
+      /* The row's object is elsewhere: co() names nothing present, so
+       * dobattle is silent (lib_battle_line_names_object). */
+      return FALSE;
+    }
   if (with_object)
     {
       object = lib_disambiguate_object (game,
@@ -34248,6 +34292,37 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
   return -1;
 }
 
+/*
+ * lib_therest_with_silent_400()
+ *
+ * Whether run400's therest leaves a " with " line without a word: it splits
+ * at the first " with " (4883C5) and resolves each half with 463640 in mode
+ * 0 (present and seen, then seen only; lib_with_half_400()), and a half
+ * that resolves nothing restores the line and exits (488430 for the head,
+ * 4884DB for the tail) ahead of every verb arm and of the can't-see clause
+ * 4887A0.  On TRUE, *top is the whole line's mode-0 object, what the
+ * unhandled-verb catch-all 48B19A then speaks for (MemVar_4942F8), or -1.
+ */
+static scr_bool
+lib_therest_with_silent_400 (scr_gameref_t game, scr_int *top)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *tail = input ? strstr (input, " with ") : NULL;
+  std::string head;
+
+  *top = -1;
+  if (!lib_is_version_400 (game) || !tail)
+    return FALSE;
+
+  head.assign (input, tail - input);
+  if (lib_with_half_400 (game, head.c_str ()) >= 0
+      && lib_with_half_400 (game, tail + 6) >= 0)
+    return FALSE;
+
+  *top = lib_with_half_400 (game, input);
+  return TRUE;
+}
+
 scr_bool
 lib_cmd_verb_object (scr_gameref_t game)
 {
@@ -34431,30 +34506,69 @@ lib_cmd_verb_object (scr_gameref_t game)
        * object, so the DontUnderstand text answers.
        */
       if (lib_is_version_400 (game))
-        return lib_cant_see_absent_object (game, ".\n", TRUE);
-
-      count = 0;
-      object = -1;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
         {
-          if (game->object_references[index_]
-              && (gs_object_seen (game, index_)
-                  || !lib_matcher_requires_seen (game)))
-            {
-              count++;
-              object = index_;
-            }
-        }
-      if (count != 1)
-        return FALSE;
+          /*
+           * therest splits the line at its first " with " before anything
+           * else (4883C5) and leaves SILENTLY when either half resolves no
+           * object (488430 / 4884DB), so its can't-see clause 4887A0 never
+           * speaks for such a line; the unhandled-verb catch-all 48B19A
+           * does, on the line-top 463640 object (MemVar_4942F8, 48A3FD:
+           * present and seen first, then seen only).  Seen and absent is
+           * its second arm, 48B24B, "must be in the same room as", and a
+           * turn.  wonderland T7-T10 `attack card guard with knife`, the
+           * knife two rooms back: dobattle names nothing present, the head
+           * "attack card guard" resolves no object, and run400 answers
+           * "You must be in the same room as the ethereal knife to be able
+           * to do anything with it." with the Card Guard's blow appended
+           * (runner_transcripts/wonderland.txt, 2026-09-25).
+           */
+          scr_int top;
 
-      var_set_ref_object (vars, object);
-      lib_print_response_object (game,
-                                 "You can't see ",
-                                 "I can't see ",
-                                 "%player% can't see ",
-                                 object, ".\n");
-      return TRUE;
+          if (!lib_therest_with_silent_400 (game, &top))
+            return lib_cant_see_absent_object (game, ".\n", TRUE);
+          if (top < 0)
+            return FALSE;
+          if (gs_object_seen (game, top)
+              && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
+            {
+              var_set_ref_object (vars, top);
+              lib_print_response_object (game,
+                                         "You must be in the same room as ",
+                                         "I must be in the same room as ",
+                                         "%player% must be in the same room as ",
+                                         top,
+                                         " to be able to do anything with it.\n");
+              return TRUE;
+            }
+          count = 1;
+          object = top;
+        }
+
+      if (count != 1)
+        {
+          count = 0;
+          object = -1;
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (game->object_references[index_]
+                  && (gs_object_seen (game, index_)
+                      || !lib_matcher_requires_seen (game)))
+                {
+                  count++;
+                  object = index_;
+                }
+            }
+          if (count != 1)
+            return FALSE;
+
+          var_set_ref_object (vars, object);
+          lib_print_response_object (game,
+                                     "You can't see ",
+                                     "I can't see ",
+                                     "%player% can't see ",
+                                     object, ".\n");
+          return TRUE;
+        }
     }
 
   /*

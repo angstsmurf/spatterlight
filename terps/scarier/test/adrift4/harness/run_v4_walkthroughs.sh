@@ -10357,7 +10357,7 @@ tempest7_solution.txt|tempest7.taf|Congratulations, you have won!|SCR_RNG=xoshir
 imagings_solution.txt|imagings.taf||
 # Welcome to Wonderland: UNWINNABLE in run400 -- the ethereal knife is phantom-weighed
 # by the NPC-held rod/Staff chain (94 > MaxWt 90) and never taken, so no marker.
-wonderland_solution.txt|wonderland.taf||SCR_ASSUME_COMBAT=1
+wonderland_solution.txt|wonderland.taf||
 # Short-lived: unwinnable by design, MaxScore 0.
 shortlived_solution.txt|shortlived.taf||
 # The Monster in the Mirror: WIN 100/100.

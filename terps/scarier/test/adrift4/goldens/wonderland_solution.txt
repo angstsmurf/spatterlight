@@ -1,10 +1,13 @@
 # Welcome to Wonderland (wonderland / wonderland.taf) -- ADRIFT 4.00. Alice
 # in a nightmare Wonderland: gnome mines, drill, Red Queen. Every character
-# has Accuracy and Agility 0, so every blow misses without SCR_ASSUME_COMBAT=1;
-# the Red Queen holds the iron key to the last room. Scarier once won it (215);
+# has Accuracy and Agility 0, so every blow misses (0 > 0 fails) in run400 and
+# in scarier; the row no longer sets SCR_ASSUME_COMBAT=1 (dropped 2026-09-25,
+# it only hid the misses). The Red Queen holds the iron key to the last room.
+# Scarier once won it (215) with the assist;
 # run400 never lets `get knife` succeed -- the NPC-held rod, letter, key and
 # Staff of Hearts phantom-weigh the knife to 94 against MaxWt 90 (2026-09-25),
-# so the route dies at the Card Guard and the golden records that, unwinnable.
+# so the route stalls at the Card Guard's locked door and the golden records
+# that, unwinnable (the Guard's blows all miss; nobody dies).
 get knife
 get note
 read note

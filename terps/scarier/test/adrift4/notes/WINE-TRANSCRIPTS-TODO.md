@@ -298,12 +298,30 @@ below as not yet ported.
     so task_move_object now sets runner_parent likewise. `count` never
     re-weighs a held object, so a cleared child only shows on its next
     drop/take. The game is unwinnable in run400; golden re-blessed, marker
-    dropped. Left over: T6+ battle hit/miss RNG, and T7 `attack card guard
-    with knife` with the knife absent -- Runner takes the unhandled-verb
-    catch-all's seen+absent arm "You must be in the same room as the
-    ethereal knife to be able to do anything with it." (48B24B, a turn),
-    scarier's battle handler says "You are not carrying the ethereal
-    knife!".
+    dropped. T7-T10 `attack card guard with knife` with the knife absent
+    PORTED 2026-09-25: dobattle's with-loop asks co() (47EC16), and co()
+    resolves only a PRESENT object (obhere, and seen from 3.9: 464360-
+    46437E, 4647C5-464819), so dobattle prints nothing; therest then splits
+    the line at " with " and exits silently when the head "attack card
+    guard" resolves no object (488430), ahead of its can't-see clause
+    4887A0; the unhandled-verb catch-all's seen+absent arm 48B24B answers
+    on the line-top 463640 object, "You must be in the same room as the
+    ethereal knife to be able to do anything with it.", a turn (the
+    Guard's blow is appended). scarier: lib_battle_line_names_object gates
+    on lib_co_candidate, lib_battle_attack_with/_bare return FALSE when
+    nothing present is named after "with", and lib_cmd_verb_object's 4.0
+    count!=1 path takes lib_therest_with_silent_400 before
+    lib_cant_see_absent_object. Golden re-blessed. The T6+ "hit/miss"
+    divergence was NOT RNG: every wonderland character has Accuracy and
+    Agility 0, so 0 > 0 fails and every blow misses in run400 (19 "but you
+    manage to avoid it" lines over the 78 turns); the row still carried
+    SCR_ASSUME_COMBAT=1 from when the route won, which made scarier hit.
+    Assist dropped from the row, plan.tsv and manifest.tsv (2026-09-25);
+    golden re-blessed, 78 turns, no death; compare IDENTICAL on every
+    turn. Left over: the same therest-silent rule for the OTHER verbs
+    (`kick card guard with knife` still reaches `kick %object% *` and says
+    "You can't see the ethereal knife." -- unmeasured, run400 should give
+    the same-room answer by the listing).
 - **cs2 "10+ differing turn(s)" is a compare artefact.** The game's
   question menus print lines beginning `> `, which the compare takes for
   prompts; a word-level diff of `runner_transcripts/cs2.txt` against the

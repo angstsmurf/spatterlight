@@ -600,7 +600,7 @@ thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshir
 zanoza	zanoza.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	Ïîçäðàâëÿþ ñ ïîáåäîé	866
 tempest7	tempest7.taf	4.00	run400x.exe	1234	2		SCR_RNG=xoshiro	Congratulations, you have won!	404
 imagings	imagings.taf	4.00	run400x.exe	1234	0				9
-wonderland	wonderland.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1	The Tempest has put you someplace different	101
+wonderland	wonderland.taf	4.00	run400x.exe	1234	0				169
 shortlived	shortlived.taf	4.00	run400x.exe	1234	0	Player~male			1
 monstermirror	monster.taf	3.90	run390x.exe	1234	0			So you figured it out	0
 taot3	TAOT3.taf	3.90	run390x.exe	1234	0				1
