@@ -24,6 +24,8 @@ IFF::IFF(std::shared_ptr<IO> io, TypeID type) : m_io(std::move(io))
             throw InvalidFile();
         }
 
+        auto filesize = m_io->filesize();
+
         while (true) {
             try {
                 type_val = m_io->read32();
@@ -35,6 +37,10 @@ IFF::IFF(std::shared_ptr<IO> io, TypeID type) : m_io(std::move(io))
 
             auto size = m_io->read32();
             auto offset = m_io->tell();
+
+            if (filesize.has_value() && (offset > *filesize || size > *filesize - offset)) {
+                throw InvalidFile();
+            }
 
             m_entries.emplace_back(TypeID(type_val), offset, size);
 

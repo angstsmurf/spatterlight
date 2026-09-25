@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
+#include <filesystem>
 #include <initializer_list>
 #include <string>
 
@@ -69,14 +70,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 #ifdef GARGLK
     if (!game_file.empty()) {
-        auto story_name = game_file;
-        auto slash = story_name.rfind('/');
-
-        if (slash != std::string::npos) {
-            story_name.erase(0, slash + 1);
-        }
-
-        garglk_set_story_name(story_name.c_str());
+        auto story_name = std::filesystem::path(game_file).filename();
+        garglk_set_story_name(story_name.string().c_str());
     } else {
         frefid_t ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
         if (ref != nullptr) {
@@ -91,7 +86,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     if (!game_file.empty()) {
 #ifndef ZTERP_OS_DOS
-        glkunix_set_base_file(&game_file[0]);
+        glkunix_set_base_file(game_file.data());
 #endif
         load_resources();
     }
@@ -112,7 +107,7 @@ int InitGlk(unsigned int);
 #ifdef ZTERP_GLK_BLORB
 static strid_t load_file(const std::string &file, StreamRock rock)
 {
-    frefid_t ref = winglk_fileref_create_by_name(fileusage_BinaryMode | fileusage_Data, const_cast<char *>(file.c_str()), 0, static_cast<glui32>(rock));
+    frefid_t ref = winglk_fileref_create_by_name(fileusage_BinaryMode | fileusage_Data, const_cast<char *>(file.c_str()), static_cast<glui32>(rock), 0);
 
     if (ref == nullptr) {
         return nullptr;
@@ -151,26 +146,16 @@ static void startup()
     }
 
     if (!game_file.empty()) {
-        auto slash = game_file.find_last_of("/\\");
-        std::string game_dir, filename;
+        auto path = std::filesystem::path(game_file);
 
-        if (slash != std::string::npos) {
-            game_dir = game_file.substr(0, slash);
-            filename = game_file.substr(slash + 1);
-        } else {
+        auto game_dir = path.parent_path();
+        if (game_dir.empty()) {
             game_dir = ".";
-            filename = game_file;
         }
+        winglk_set_resource_directory(game_dir.string().c_str());
 
-        winglk_set_resource_directory(game_dir.c_str());
-
-        if (!filename.empty()) {
-            auto dot = filename.rfind('.');
-            if (dot != std::string::npos) {
-                filename.resize(dot);
-            }
-
-            sglk_set_basename(&filename[0]);
+        if (auto filename = path.filename(); !filename.empty()) {
+            sglk_set_basename(filename.replace_extension().string().data());
         }
 
         load_resources();
@@ -216,7 +201,7 @@ static void load_resources()
         strid_t file = load_file(blorb_file, StreamRock::BlorbStream);
         if (file != nullptr) {
             if (giblorb_set_resource_map(file) == giblorb_err_None) {
-                screen_load_scale_info(blorb_file);
+                screen_load_scale_info();
 #ifdef SPATTERLIGHT
                 active_blorb_file_stream = file;
 #endif
@@ -232,16 +217,10 @@ static void load_resources()
         return;
     }
 
-    for (const auto &ext : {".blb", ".blorb"}) {
-        std::string blorb_file = game_file;
-        auto dot = blorb_file.rfind('.');
-        if (dot != std::string::npos) {
-            blorb_file.replace(dot, std::string::npos, ext);
-        } else {
-            blorb_file += ext;
-        }
+    for (const auto &ext : {"blb", "blorb"}) {
+        std::filesystem::path blorb_file(game_file);
 
-        if (set_map(blorb_file)) {
+        if (set_map(blorb_file.replace_extension(ext).string())) {
             return;
         }
     }

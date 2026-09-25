@@ -15,6 +15,7 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <optional>
 #include <sstream>
 #include <stdexcept>
 #include <unordered_map>
@@ -151,9 +152,9 @@ static Options::Parser color_helper(int num)
 // Define options that can be set from the command-line or the config file.
 #define BOOL(opt, desc, from_config, name)		add_parser(opt, desc, from_config, #name, bool_helper(name), OptValue::Type::Flag)
 #define NUMBER(opt, desc, from_config, name, range)	add_parser(opt, desc, from_config, #name, number_helper<unsigned long>(range, name, [](unsigned long n) { return n; }), OptValue::Type::Number)
-#define OPTNUM(opt, desc, from_config, name, range)	add_parser(opt, desc, from_config, #name, number_helper<std::unique_ptr<unsigned long>>(range, name, [](unsigned long n) { return std::make_unique<unsigned long>(n); }), OptValue::Type::Number)
+#define OPTNUM(opt, desc, from_config, name, range)	add_parser(opt, desc, from_config, #name, number_helper<std::optional<unsigned long>>(range, name, [](unsigned long n) { return n; }), OptValue::Type::Number)
 #define FLOAT(opt, desc, from_config, name)		add_parser(opt, desc, from_config, #name, float_helper(name), OptValue::Type::Value)
-#define STRING(opt, desc, from_config, name)		add_parser(opt, desc, from_config, #name, [this](const std::string &val) { name = std::make_unique<std::string>(val); }, OptValue::Type::Value)
+#define STRING(opt, desc, from_config, name)		add_parser(opt, desc, from_config, #name, [this](const std::string &val) { name = val; }, OptValue::Type::Value)
 #define CHAR(opt, desc, from_config, name)		add_parser(opt, desc, from_config, #name, char_helper(name), OptValue::Type::Value)
 
 // Define options that can be set from the config file only.
@@ -173,7 +174,8 @@ static Options::Parser color_helper(int num)
 // files to be shared between such builds without dispaying diagnostics
 // for options which are valid in some builds but not others.
 
-Options::Options() {
+Options::Options()
+{
     if (m_initialized) {
         throw std::runtime_error("internal error: Options created multiple times");
     }
@@ -226,7 +228,6 @@ Options::Options() {
     CONFIG_BOOL  (redirect_v6_windows);
     CONFIG_BOOL  (disable_v6_hacks);
     CONFIG_FLOAT (v6_hack_max_scale);
-    CONFIG_BOOL  (v6_borders);
     CONFIG_BOOL  (aspect_correction);
 
     COLOR(black,   2);
@@ -254,8 +255,6 @@ Options::Options() {
         } catch (const PatchStatus::NotFound &) {
             throw ParseError("does not apply to this story");
         }
-
-        return false;
     });
 
 #ifdef ZTERP_GLK_UNIX
@@ -267,20 +266,20 @@ Options::Options() {
     // themselves need to be generated here, so lifetime issues must be
     // taken into account. This is ugly, but just allocate space with
     // “new”.
-    for (const auto &opt : options.opts()) {
-        glkunix_argumentlist_t arg{new char[3], glkunix_arg_NoValue, new char[opt.second.desc.size() + 1]};
+    for (const auto &[flag, opt] : options.opts()) {
+        glkunix_argumentlist_t arg{new char[3], glkunix_arg_NoValue, new char[opt.desc.size() + 1]};
 
         arg.name[0] = '-';
-        arg.name[1] = opt.first;
+        arg.name[1] = flag;
         arg.name[2] = 0;
 
-        if (opt.second.type == OptValue::Type::Number) {
+        if (opt.type == OptValue::Type::Number) {
             arg.argtype = glkunix_arg_NumberValue;
-        } else if (opt.second.type == OptValue::Type::Value) {
+        } else if (opt.type == OptValue::Type::Value) {
             arg.argtype = glkunix_arg_ValueFollows;
         }
 
-        std::memcpy(arg.desc, opt.second.desc.data(), opt.second.desc.size() + 1);
+        std::memcpy(arg.desc, opt.desc.data(), opt.desc.size() + 1);
 
         glkunix_arguments[i++] = arg;
     }
@@ -299,7 +298,8 @@ Options::Options() {
 
 bool Options::m_initialized = false;
 
-void Options::add_parser(char opt, std::string desc, bool use_config, std::string name, const Parser &parser, OptValue::Type type) {
+void Options::add_parser(char opt, std::string desc, bool use_config, std::string name, const Parser &parser, OptValue::Type type)
+{
     if (opt != 0) {
         m_opts.insert({opt, {type, std::move(desc), parser}});
     }
@@ -312,7 +312,7 @@ void Options::add_parser(char opt, std::string desc, bool use_config, std::strin
 void Options::read_config()
 {
     auto file = zterp_os_rcfile(false);
-    if (file == nullptr) {
+    if (!file.has_value()) {
         return;
     }
 
@@ -374,19 +374,24 @@ void Options::read_config()
 
 void Options::read_envvars()
 {
-    for (const auto &pair : m_from_config) {
+    for (const auto &[name, parser] : m_from_config) {
         std::ostringstream ss;
         ss << "BOCFEL_";
-        for (unsigned char ch : pair.first) {
+        for (unsigned char ch : name) {
             ss << static_cast<char>(std::toupper(ch));
         }
 
         auto val = zterp_getenv(ss.str());
-        if (val != nullptr) {
-            try {
-                pair.second(*val);
-            } catch (const ParseError &e) {
-                std::cerr << "invalid value for $" << ss.str() << ": " << e.what() << std::endl;
+        if (val.has_value()) {
+            *val = ltrim(rtrim(*val));
+            if (val->empty()) {
+                std::cerr << "warning: empty value for $" << ss.str() << std::endl;
+            } else {
+                try {
+                    parser(*val);
+                } catch (const ParseError &e) {
+                    std::cerr << "warning: invalid value for $" << ss.str() << ": " << e.what() << std::endl;
+                }
             }
         }
     }
@@ -467,25 +472,27 @@ void Options::help()
 #endif
 
     screen_puts("Usage: bocfel [args] filename");
-    for (const auto &opt : options.opts()) {
+    for (const auto &[flag, opt] : options.opts()) {
         std::string typestr;
 
-        if (opt.second.type == OptValue::Type::Number) {
+        if (opt.type == OptValue::Type::Number) {
             typestr = "number";
-        } else if (opt.second.type == OptValue::Type::Value) {
+        } else if (opt.type == OptValue::Type::Value) {
             typestr = "string";
         }
 
         std::ostringstream ss;
-        ss << "-" << opt.first << " " << std::setw(12) << std::left << typestr << opt.second.desc;
+        ss << "-" << flag << " " << std::setw(12) << std::left << typestr << opt.desc;
         screen_puts(ss.str());
     }
 }
 #else
 Options::Options()
 {
+#ifdef ZTERP_GLK_UNIX
     glkunix_arguments[0] = glkunix_argumentlist_t{const_cast<char *>(""), glkunix_arg_ValueFollows, const_cast<char *>("file to load")};
     glkunix_arguments[1] = glkunix_argumentlist_t{nullptr, glkunix_arg_End, nullptr};
+#endif
 }
 
 void Options::process_arguments(int argc, char **argv)

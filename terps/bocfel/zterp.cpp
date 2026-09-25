@@ -14,6 +14,7 @@
 #include <iostream>
 #include <memory>
 #include <new>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <string>
@@ -56,6 +57,8 @@
 #endif
 
 using namespace std::literals;
+
+static constexpr uint32_t MAX_STORY_SIZE = 0xffff * 8;
 
 std::string game_file;
 
@@ -150,8 +153,10 @@ static void initialize_games()
 
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
+        { Game::AMFV, { "131-850628", "77-850814", "79-851122" } },
 #if !defined(SPATTERLIGHT) && !defined(HEADLESS_V6)
         { Game::Arthur, { "54-890606", "63-890622", "74-890714" } },
+        { Game::Infocom1234, infocom1234 },
         { Game::Journey, { "26-890316", "30-890322", "77-890616", "83-890706" } },
 #else
         { Game::Arthur, { "40-890502", "41-890504", "54-890606", "63-890622", "74-890714" } },
@@ -179,9 +184,9 @@ static void initialize_games()
         { Game::MysteriousAdventures, mysterious },
     };
 
-    for (const auto &pair : gamemap) {
-        if (pair.second.find(story_id) != pair.second.end()) {
-            games.insert(pair.first);
+    for (const auto &[game, ids] : gamemap) {
+        if (ids.find(story_id) != ids.end()) {
+            games.insert(game);
         }
     }
 }
@@ -225,9 +230,6 @@ static void find_id()
     initialize_games();
 }
 
-static bool have_statuswin = false;
-static bool have_upperwin  = false;
-
 static void write_flags1()
 {
     uint8_t flags1 = byte(0x01);
@@ -241,10 +243,10 @@ static void write_flags1()
         flags1 |= FLAGS1_VARIABLE;
 #endif
 
-        if (have_statuswin) {
+        if (have_statuswin()) {
             flags1 &= ~FLAGS1_NOSTATUS;
         }
-        if (have_upperwin) {
+        if (have_upperwin()) {
             flags1 |= FLAGS1_SCREENSPLIT;
         }
         if (options.enable_censorship) {
@@ -324,7 +326,7 @@ static void write_flags2()
             flags2 &= ~FLAGS2_MENUS;
         }
 
-        if (options.disable_graphics_font) {
+        if (options.disable_graphics_font && zversion == 5) {
             flags2 &= ~FLAGS2_PICTURES;
         }
 
@@ -369,8 +371,6 @@ void write_header()
     write_header_extension_table();
 
     if (zversion >= 4) {
-        unsigned int width, height;
-
 #ifdef SPATTERLIGHT
         options.int_number = gli_zmachine_terp;
         if (is_spatterlight_v6) {
@@ -380,7 +380,7 @@ void write_header()
         store_byte(0x1e, options.int_number);
         store_byte(0x1f, options.int_version);
 
-        get_screen_size(width, height);
+        auto [width, height] = get_screen_size();
 
         // Screen height and width.
         // A height of 255 means infinite, so cap at 254.
@@ -406,7 +406,7 @@ void write_header()
     store_byte(0x32, 1);
     store_byte(0x33, 1);
 
-    if (options.username != nullptr) {
+    if (options.username.has_value()) {
         options.username->resize(8, '\0');
         std::copy(options.username->begin(), options.username->end(), &memory[0x38]);
     }
@@ -415,7 +415,7 @@ void write_header()
 static void process_alphabet_table()
 {
     if (zversion == 1) {
-        std::memcpy(&atable[26 * 2], R"#( 0123456789.,!?_#'"/\<-:()")#", 26);
+        std::memcpy(&atable[26 * 2], R"#( 0123456789.,!?_#'"/\<-:())#", 26);
     } else if (zversion >= 5 && word(0x34) != 0) {
         if (word(0x34) + 26 * 3 > memory_size) {
             die("corrupted story: alphabet table out of range");
@@ -460,6 +460,10 @@ void zterp_mouse_click(uint16_t x, uint16_t y)
 
 static void calculate_checksum(IO &io, long offset)
 {
+    if (header.file_length < 0x40) {
+        return;
+    }
+
     uint32_t remaining = header.file_length - 0x40;
     uint16_t checksum = 0;
 
@@ -585,10 +589,12 @@ static void process_story(IO &io, long offset)
 
     if (zversion >= 5) {
         header.extension_table = word(0x36);
-        header.extension_entries = user_word(header.extension_table);
+        if (header.extension_table != 0) {
+            header.extension_entries = user_word(header.extension_table);
 
-        if (header.extension_table + (2 * header.extension_entries) > memory_size) {
-            die("corrupted story: header extension table out of range");
+            if (header.extension_table + (2 * (header.extension_entries + 1)) > memory_size) {
+                die("corrupted story: header extension table out of range");
+            }
         }
     }
 
@@ -630,10 +636,6 @@ static void process_story(IO &io, long offset)
         header.strings_offset = word(0x2a) * 8UL;
     }
 
-    if (zversion >= 5 && !options.disable_term_keys) {
-        header.terminating_characters_table = word(0x2e);
-    }
-
     try {
         dynamic_memory.assign(memory.begin(), memory.begin() + header.static_start);
     } catch (const std::bad_alloc &) {
@@ -653,6 +655,10 @@ static void process_story(IO &io, long offset)
     }
     options.read_envvars();
 #endif
+
+    if (zversion >= 5 && !options.disable_term_keys) {
+        header.terminating_characters_table = word(0x2e);
+    }
 
     // Most options directly set their respective variables, but a few
     // require intervention. Delay that intervention until here so that
@@ -709,11 +715,11 @@ static void process_story(IO &io, long offset)
 #endif
 
     if (zversion <= 3) {
-        have_statuswin = create_statuswin();
+        create_statuswin();
     }
 
     if (zversion >= 3) {
-        have_upperwin = create_upperwin();
+        create_upperwin();
     }
 
     if (options.transcript_on) {
@@ -777,11 +783,10 @@ void zquit()
     // restore accidentally-deleted files. If the rename fails, though,
     // just try to delete it.
     if (options.autosave) {
-        auto autosave_name = zterp_os_autosave_name();
-        if (autosave_name != nullptr) {
+        if (auto autosave_name = zterp_os_autosave_name(); autosave_name.has_value()) {
             std::string backup_name = *autosave_name;
             backup_name += ".bak";
-            if (std::rename(autosave_name->c_str(), backup_name.c_str()) == -1) {
+            if (std::rename(autosave_name->c_str(), backup_name.c_str()) != 0) {
                 std::remove(autosave_name->c_str());
             }
         }
@@ -797,8 +802,8 @@ void zverify()
 
 static IO open_savefile(IO::Mode mode)
 {
-    // When this is null, the user is prompted for a filename.
-    std::unique_ptr<std::string> suggested;
+    // When this is std::nullopt, the user is prompted for a filename.
+    std::optional<std::string> suggested;
 
     // If no prompt argument is given, assume 0.
     if (znargs == 3 || (znargs == 4 && zargs[3] == 0)) {
@@ -820,16 +825,15 @@ static IO open_savefile(IO::Mode mode)
             filename = "NULL";
         }
 
-        auto aux = zterp_os_aux_file(filename);
-        if (aux != nullptr) {
-            suggested = std::make_unique<std::string>(*aux);
+        if (auto aux = zterp_os_aux_file(filename); aux.has_value()) {
+            suggested = *aux;
         }
     }
 
     // If there is a suggested filename and “prompt” is 1, this should
     // prompt the user with the suggested filename, but Glk doesn’t
     // support that.
-    return IO(suggested.get(), mode, IO::Purpose::Data);
+    return IO(suggested, mode, IO::Purpose::Data);
 }
 
 void zsave5()
@@ -839,13 +843,15 @@ void zsave5()
         return;
     }
 
-    ZASSERT(zargs[0] + zargs[1] < memory_size, "attempt to save beyond the end of memory");
+    ZASSERT(zargs[0] + zargs[1] <= memory_size, "attempt to save beyond the end of memory");
 
     try {
         auto savefile = open_savefile(IO::Mode::WriteOnly);
         savefile.write_exact(&memory[zargs[0]], zargs[1]);
         store(1);
     } catch (const IO::Error &) {
+        store(0);
+    } catch (const std::bad_alloc &) {
         store(0);
     }
 }
@@ -872,7 +878,7 @@ void zrestore5()
         }
 
         store(n);
-    } catch (const IO::OpenError &) {
+    } catch (const IO::Error &) {
         store(0);
     } catch (const std::bad_alloc &) {
         store(0);
@@ -952,7 +958,7 @@ static void real_main(int argc, char **argv)
 #endif
 
         auto config = zterp_os_rcfile(false);
-        if (config != nullptr) {
+        if (config.has_value()) {
             screen_printf("Configuration file: %s\n", config->c_str());
         } else {
             screen_puts("Cannot determine configuration file location");
@@ -966,7 +972,7 @@ static void real_main(int argc, char **argv)
     }
 
     try {
-        story.io = std::make_shared<IO>(&game_file, IO::Mode::ReadOnly, IO::Purpose::Data);
+        story.io = std::make_shared<IO>(game_file, IO::Mode::ReadOnly, IO::Purpose::Data);
     } catch (const IO::OpenError &) {
         die("cannot open file %s", game_file.c_str());
     }
@@ -995,20 +1001,23 @@ static void real_main(int argc, char **argv)
         memory_size = chunk->size;
         story.offset = chunk->offset;
     } catch (const Blorb::InvalidFile &) {
-        long size = story.io->filesize();
-
-        if (size == -1) {
+        auto size = story.io->filesize();
+        if (!size.has_value()) {
             die("unable to determine file size");
         }
 #if LONG_MAX > UINT32_MAX
-        if (size > UINT32_MAX) {
+        if (*size > UINT32_MAX) {
             die("file too large");
         }
 #endif
 
-        memory_size = size;
+        memory_size = *size;
         story.offset = 0;
     }
+
+    // Cap to the max possible story size (roughly 512K). This is a cap
+    // rather than a hard limit, in case a file has padding at the end.
+    memory_size = std::min(memory_size, MAX_STORY_SIZE);
 
     if (memory_size < 64) {
         die("story file too small");

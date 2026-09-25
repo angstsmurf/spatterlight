@@ -20,6 +20,7 @@
 #include <map>
 #include <memory>
 #include <new>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <stdexcept>
@@ -542,6 +543,7 @@ public:
 
     void pop() {
         if (!m_tables.empty()) {
+            m_tables.back().finish();
             m_tables.pop_back();
         }
     }
@@ -573,7 +575,7 @@ private:
         Table(const Table &) = delete;
         Table &operator=(const Table &) = delete;
 
-        ~Table() {
+        void finish() const {
             user_store_word(m_addr, m_idx - 2);
 
             if (m_formatted) {
@@ -1268,9 +1270,9 @@ void screen_print(const std::string &s)
 #ifdef ZTERP_GLK
     strid_t stream = glk_window_get_stream(mainwin->id);
 #endif
-    for (long c = io->getc(false); c != -1; c = io->getc(false)) {
+    for (auto c = io->getc(false); c.has_value(); c = io->getc(false)) {
         if (c != UNICODE_CARRIAGE_RETURN) {
-            for (const auto clean : cleanse_control(c)) {
+            for (const auto clean : cleanse_control(*c)) {
                 transcribe(clean);
                 history.add_char(clean);
 #ifdef ZTERP_GLK
@@ -1411,7 +1413,7 @@ static bool output_stream(int16_t number, uint16_t table, bool formatted)
             try {
                 // If autosave_librarystate, we open this as a Glk stream so
                 // that it will be part of the librarystate.
-                transio = std::make_unique<IO>(options.transcript_name.get(), options.overwrite_transcript ? IO::Mode::WriteOnly : IO::Mode::Append, IO::Purpose::Transcript, options.autosave_librarystate ? StreamRock::TranscriptStream : StreamRock::None);
+                transio = std::make_unique<IO>(options.transcript_name, options.overwrite_transcript ? IO::Mode::WriteOnly : IO::Mode::Append, IO::Purpose::Transcript, options.autosave_librarystate ? StreamRock::TranscriptStream : StreamRock::None);
             } catch (const IO::OpenError &) {
                 store_word(0x10, word(0x10) & ~FLAGS2_TRANSCRIPT);
                 streams.reset(OSTREAM_TRANSCRIPT);
@@ -1422,7 +1424,7 @@ static bool output_stream(int16_t number, uint16_t table, bool formatted)
         store_word(0x10, word(0x10) & ~FLAGS2_TRANSCRIPT);
         // If autosave_librarystate, we close the stream. (Keeping it open in
         // the background is unnecessary work.)
-        if (options.transcript_name != nullptr && options.autosave_librarystate) {
+        if (options.transcript_name.has_value() && options.autosave_librarystate) {
             transio = nullptr;
         }
     }
@@ -1436,7 +1438,7 @@ static bool output_stream(int16_t number, uint16_t table, bool formatted)
     if (number == 4) {
         if (scriptio == nullptr) {
             try {
-                scriptio = std::make_unique<IO>(options.record_name.get(), IO::Mode::WriteOnly, IO::Purpose::Input);
+                scriptio = std::make_unique<IO>(options.record_name, IO::Mode::WriteOnly, IO::Purpose::Input);
             } catch (const IO::OpenError &) {
                 streams.reset(OSTREAM_RECORD);
                 warning("unable to open the script");
@@ -1469,7 +1471,7 @@ bool input_stream(int which)
     } else if (istream == ISTREAM_FILE) {
         if (istreamio == nullptr) {
             try {
-                istreamio = std::make_unique<IO>(options.replay_name.get(), IO::Mode::ReadOnly, IO::Purpose::Input);
+                istreamio = std::make_unique<IO>(options.replay_name, IO::Mode::ReadOnly, IO::Purpose::Input);
             } catch (const IO::OpenError &) {
                 warning("unable to open the command script");
                 istream = ISTREAM_KEYBOARD;
@@ -1673,8 +1675,9 @@ void close_upper_window()
     set_current_window(mainwin);
 }
 
-void get_screen_size(unsigned int &width, unsigned int &height)
+std::pair<unsigned int, unsigned int> get_screen_size()
 {
+    unsigned int width = 0, height = 0;
 #ifdef ZTERP_GLK
     glui32 w, h;
 
@@ -1725,6 +1728,8 @@ void get_screen_size(unsigned int &width, unsigned int &height)
         height = 6;
     }
 #endif
+
+    return {width, height};
 }
 
 #ifdef ZTERP_GLK
@@ -1954,6 +1959,9 @@ bool GraphicsWindow::create()
     return m_id != nullptr;
 }
 
+// Upstream 2.6 dropped the v6_borders option (it was always on).
+static constexpr bool v6_borders = true;
+
 bool GraphicsWindow::resize(Type type)
 {
     if (m_id == nullptr) {
@@ -1981,7 +1989,7 @@ bool GraphicsWindow::resize(Type type)
         // 320x200 (or 320x240 in aspect-correct mode) image, as well as
         // all the text. So instead, pretend the image is 320x117,
         // preventing the bottom 83 pixels from appearing.
-        static const std::unordered_map<GraphicsWindow::Type, ImageSize, EnumClassHash> window_sizes = {
+        static const std::unordered_map<GraphicsWindow::Type, ImageSize> window_sizes = {
             {GraphicsWindow::Type::ArthurIntro, {292, 196}},
             {GraphicsWindow::Type::ArthurBanner, {314, 84}},
             {GraphicsWindow::Type::ArthurMap, {320, 96}},
@@ -2011,7 +2019,7 @@ bool GraphicsWindow::resize(Type type)
         return false;
     }
 
-    if (options.v6_borders) {
+    if (v6_borders) {
         if (m_left_border != nullptr) {
             glk_window_close(m_left_border, nullptr);
             m_left_border = nullptr;
@@ -2620,7 +2628,7 @@ void v6_restore_hacks(void) {
     if (v6_autorestore_hacks_needed) {
         v6_autorestore_hacks_needed = false;
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
-        store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
+        store_word(0x10, word(0x10) & ~FLAGS2_REDRAW);
         if (is_spatterlight_arthur) {
             arthur_update_after_autorestore();
         } else if (is_spatterlight_shogun) {
@@ -3130,6 +3138,23 @@ void window_change()
 #endif
 #endif
 
+    // Set the “request redraw” flag for AMFV. It may seem like
+    // this is a no-brainer to set for all V4+ games, but that’s not so:
+    // this can be more destructive than is necessary. Most games will
+    // clear the screen when this bit is set, losing any on-screen text.
+    // It’s really only AMFV where this is completely non-destructive,
+    // as it just does a status line redraw, not a full screen redraw.
+    //
+    // Beyond Zork, Zork Zero, and Shogun all clear the screen. We
+    // already take care of Zork Zero and Shogun manually above, and
+    // it’s trivial for the user to type REFRESH in Beyond Zork, and
+    // only slightly less trivial to select the “Refresh” menu option in
+    // Journey; and Journey will redraw the graphics the next time you
+    // change rooms, anyway.
+    if (is_game(Game::AMFV)) {
+        store_word(0x10, word(0x10) | FLAGS2_REDRAW);
+    }
+
     // §8.4
     // Only 0x20 and 0x21 are mentioned; what of 0x22 and 0x24? Zoom and
     // Windows Frotz both update the V5 header entries, so do that here,
@@ -3137,9 +3162,7 @@ void window_change()
     //
     // Also, no version restrictions are given, but assume V4+ per §11.1.
     if (zversion >= 4) {
-        unsigned width, height;
-
-        get_screen_size(width, height);
+        auto [width, height] = get_screen_size();
 
         store_byte(0x20, height > 254 ? 254 : height);
         store_byte(0x21, width > 255 ? 255 : width);
@@ -3423,7 +3446,7 @@ static bool special_zscii(T c)
 static bool istream_read_from_file(Input &input)
 {
     if (input.type == Input::Type::Char) {
-        long c;
+        std::optional<uint32_t> c;
 
         // If there are carriage returns in the input, this is almost
         // certainly a command script from a Windows system being run on a
@@ -3432,16 +3455,16 @@ static bool istream_read_from_file(Input &input)
             c = istreamio->getc(true);
         } while (c == UNICODE_CARRIAGE_RETURN);
 
-        if (c == -1) {
+        if (!c.has_value()) {
             input_stream(ISTREAM_KEYBOARD);
             return false;
         }
 
         // Don’t translate special ZSCII characters (cursor keys, function keys, keypad).
-        if (special_zscii(c)) {
-            input.key = c;
+        if (special_zscii(*c)) {
+            input.key = *c;
         } else {
-            input.key = unicode_to_zscii_q[c];
+            input.key = unicode_to_zscii_q[*c];
         }
     } else {
         std::vector<uint16_t> line;
@@ -3993,7 +4016,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 break;
             case Input::Type::Line:
                 glk_cancel_line_event(curwin->id, &ev);
-                input.len = ev.val1;
+                line.len = ev.val1;
 #ifdef SPATTERLIGHT
                     input.term = clicktype;
 #else
@@ -4465,7 +4488,7 @@ static bool read_handler()
         history.add_input(input.line.data(), input.len);
     }
 
-    if (options.enable_escape) {
+    if (zversion != 6 && options.enable_escape) {
         transcribe(033);
         transcribe('[');
         for (const auto c : *options.escape_string) {
@@ -4474,20 +4497,26 @@ static bool read_handler()
     }
 
     for (int i = 0; i < input.len; i++) {
-        transcribe(input.line[i]);
+        if (zversion != 6) {
+            transcribe(input.line[i]);
+        }
+
         if (streams.test(OSTREAM_RECORD)) {
             scriptio->putc(input.line[i]);
         }
     }
 
-    if (options.enable_escape) {
+    if (zversion != 6 && options.enable_escape) {
         transcribe(033);
         transcribe('[');
         transcribe('0');
         transcribe('m');
     }
 
-    transcribe(UNICODE_LINEFEED);
+    if (zversion != 6) {
+        transcribe(UNICODE_LINEFEED);
+    }
+
     if (streams.test(OSTREAM_RECORD)) {
         scriptio->putc(UNICODE_LINEFEED);
     }
@@ -4546,8 +4575,12 @@ static bool read_handler()
                 IO io(std::vector<uint8_t>(result.second.begin(), result.second.end()), IO::Mode::ReadOnly);
                 std::vector<uint16_t> string;
 
-                for (auto c = io.getc(true); c != -1; c = io.getc(true)) {
-                    string.push_back(c);
+                for (auto c = io.getc(true); c.has_value(); c = io.getc(true)) {
+                    string.push_back(*c);
+                }
+
+                if (string.size() > input.maxlen) {
+                    string.resize(input.maxlen);
                 }
 
                 input.len = string.size();
@@ -4567,7 +4600,7 @@ static bool read_handler()
         //
         // Because V1–4 games will never call @save_undo, seen_save_undo
         // will never be true. Thus there is no need to test zversion.
-        if (!seen_save_undo) {
+        if (!seen_save_undo && !in_interrupt()) {
             push_save(SaveStackType::Game, SaveType::Meta, SaveOpcode::Read, nullptr);
         }
     }
@@ -4686,41 +4719,63 @@ static std::map<uint32_t, ScaleInfo> picture_scale;
 // If possible, load information for image scaling from the Blorb file.
 // Errors here aren’t fatal, since the images will just be drawn in
 // their original resolution if scale data can’t be loaded.
-void screen_load_scale_info(const std::string &blorb_file) {
 #ifdef ZTERP_GLK_GRAPHICS
-    if (!glk_gestalt(gestalt_Graphics, 0) || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)) {
+static constexpr uint32_t be32(const unsigned char *base)
+{
+    return
+        (static_cast<uint32_t>(base[0]) << 24) |
+        (static_cast<uint32_t>(base[1]) << 16) |
+        (static_cast<uint32_t>(base[2]) <<  8) |
+        (static_cast<uint32_t>(base[3]) <<  0);
+}
+
+static constexpr uint32_t blorbid(const char (&type)[5])
+{
+    return giblorb_make_id(type[0], type[1], type[2], type[3]);
+}
+#endif
+
+void screen_load_scale_info()
+{
+#ifdef ZTERP_GLK_GRAPHICS
+    auto *map = giblorb_get_resource_map();
+    if (map == nullptr) {
         return;
     }
 
-    try {
-        auto io = std::make_shared<IO>(&blorb_file, IO::Mode::ReadOnly, IO::Purpose::Data);
-        IFF iff(io, IFF::TypeID("IFRS"));
-
-        uint32_t size;
-
-        if (iff.find(IFF::TypeID("RelN"), size) && size == 2) {
-            blorb_reln = io->read16();
+    giblorb_result_t res;
+    if (giblorb_load_chunk_by_type(map, giblorb_method_Memory, &res, blorbid("RelN"), 0) == giblorb_err_None) {
+        if (res.length == 2) {
+            auto *ptr = static_cast<unsigned char *>(res.data.ptr);
+            blorb_reln = (ptr[0] << 8) | ptr[1];
         }
+        giblorb_unload_chunk(map, res.chunknum);
+    }
 
-        if (iff.find(IFF::TypeID("Reso"), size) && size >= 24 && (size - 24) % 28 == 0) {
-            auto count = (size - 24) / 28;
-            auto px = io->read32();
-            auto py = io->read32();
+    if (giblorb_load_chunk_by_type(map, giblorb_method_Memory, &res, blorbid("Reso"), 0) != giblorb_err_None) {
+        return;
+    }
 
-            if (px == 0 || py == 0) {
-                throw std::runtime_error("invalid window size");
-            }
+    if (res.length >= 24 && (res.length - 24) % 28 == 0) {
+        auto *ptr = static_cast<unsigned char *>(res.data.ptr);
+        auto px = be32(ptr + 0);
+        auto py = be32(ptr + 4);
 
-            io->seek(16, IO::SeekFrom::Current);
+        // The next 16 bytes are the minimum and maximum window sizes,
+        // which aren’t used here.
+        if (px != 0 && py != 0) {
+            for (size_t i = 24; i < res.length; i += 28) {
+                auto num = be32(ptr + i);
+                double ratnum = be32(ptr + i +  4);
+                double ratden = be32(ptr + i +  8);
+                double minnum = be32(ptr + i + 12);
+                double minden = be32(ptr + i + 16);
+                double maxnum = be32(ptr + i + 20);
+                double maxden = be32(ptr + i + 24);
 
-            for (uint32_t i = 0; i < count; i++) {
-                auto num = io->read32();
-                double ratnum = io->read32();
-                double ratden = io->read32();
-                double minnum = io->read32();
-                double minden = io->read32();
-                double maxnum = io->read32();
-                double maxden = io->read32();
+                if (ratden == 0) {
+                    continue;
+                }
 
                 auto stdratio = ratnum / ratden;
                 auto minratio = (minnum == 0 || minden == 0) ? 0 : (minnum / minden);
@@ -4737,9 +4792,9 @@ void screen_load_scale_info(const std::string &blorb_file) {
                 picture_scale.insert({num, std::move(scale_info)});
             }
         }
-    } catch (...) {
-        picture_scale.clear();
     }
+
+    giblorb_unload_chunk(map, res.chunknum);
 #endif
 }
 
@@ -5351,7 +5406,7 @@ void zpicture_data()
             glui32 num = 0;
             giblorb_count_resources(map, giblorb_ID_Pict, &num, nullptr, nullptr);
 
-            user_store_word(zargs[1] + 0, num);
+            user_store_word(zargs[1] + 0, num > UINT16_MAX ? UINT16_MAX : num);
             user_store_word(zargs[1] + 2, blorb_reln);
 
             branch_if(num != 0);
@@ -5689,10 +5744,59 @@ void zshogun_menu()
     };
 
     auto table = zargs[1];
-    auto nentries = word(table);
+    auto nentries = user_word(table);
 
     ZASSERT(nentries <= ordinals.size(), "too many menu entries");
     ordinals.resize(nentries);
+
+    // This looks weird but is necessary, due to the fact that the
+    // internal_call() below can take you to a part of the game where
+    // @save might be called. Normally internal_call() creates a sort of
+    // “phantom” call frame: it’s a real call frame, but not valid in
+    // the context of Quetzal, as it contains “internal only”
+    // information (namely, that the return value needs to be
+    // transferred back to internal_call() before it returns). But if
+    // you can save in the internal call, that means restore can
+    // transfer control there, too. And that means that a phantom call
+    // frame is unacceptable: it’s OK to have a phantom call frame when
+    // nobody can see it, but saving the game accesses the call stack,
+    // and thus exposes the phantom call frame.
+    //
+    // Right now, pc is pointing to the store byte. In the absence of a
+    // @restore, that’s fine: the phantom call frame will include a pc
+    // that points to the store byte instead of the next instruction,
+    // but since the return will restore the pc inside of the internal
+    // call, the fact that it was pointing to a non-instruction is
+    // immaterial: it’s never executed. But as soon as @restore is
+    // involved, pc _must_ be pointing to an instruction. So what this
+    // does is advance pc to the next instruction, while holding onto
+    // the store variable so it can manually be set before returning.
+    // That also means that a restore from here will exit this loop
+    // (because this loop doesn’t exist in the game). Shogun proper
+    // will, if you save a game at the end-of-scene menu, restore you
+    // back to that menu.
+    //
+    // Not only do we need to advance the pc, we need store_var for two
+    // reasons: first, to store the result. But second, to hand to
+    // internal_call(), so that when it creates the now-valid stack
+    // frame, it can be told where to store the return value for a
+    // @restore.
+    //
+    // One side effect: When you restore a save file that was made
+    // inside the menu, it’s supposed to take you back to the menu. But
+    // we can’t do that: all the menu code is here, in the interpreter,
+    // so the game can’t restore to it. In the Shogun source,
+    // GET-FROM-MENU is passed a callback function (CONTINUE-MENU-F)
+    // that is called whenever a menu item is selected. When that
+    // function returns, it returns to GET-FROM-MENU, so it can just
+    // call it again if it wants. We’ve hijacked the call to it, so
+    // _this_ function is calling CONTINUE-MENU-F. But since it’s called
+    // from interpreter code, not game code, when CONTINUE-MENU-F
+    // returns, we have no choice but to return from @shogun_menu. That
+    // is to say, _on restore_, whenever CONTINUE-MENU-F returns, that
+    // is identical to causing @shogun_menu to return, which prevents
+    // the menu loop from running.
+    uint8_t store_var = byte(pc++);
 
     while (true) {
         put_char(ZSCII_NEWLINE);
@@ -5703,7 +5807,7 @@ void zshogun_menu()
         for (int i = 0; i < nentries; i++) {
             auto addr = word(table + ((i + 1) * 2));
             int len = byte(addr++);
-            ZASSERT(addr + len < header.static_end, "menu table out of bounds (0x%lx to 0x%lx)", static_cast<unsigned long>(addr), static_cast<unsigned long>(addr + len));
+            ZASSERT(addr + len <= header.static_end, "menu table out of bounds (0x%lx to 0x%lx)", static_cast<unsigned long>(addr), static_cast<unsigned long>(addr + len));
             std::stringstream ss;
             ss << static_cast<char>(ordinals.at(i)) << ". ";
             ss.write(reinterpret_cast<char *>(&memory[addr]), len);
@@ -5734,10 +5838,10 @@ void zshogun_menu()
         uint8_t val = (it - ordinals.begin()) + 1;
 
         interrupt_override = true;
-        auto result = internal_call(zargs[2], {val, zargs[1]});
+        auto result = internal_call(zargs[2], {val, zargs[1]}, store_var);
         interrupt_override = false;
         if (result != 0) {
-            store(result);
+            store_variable(store_var, result);
             return;
         }
     }
@@ -5822,17 +5926,23 @@ bool create_mainwin()
 #endif
 }
 
-bool create_statuswin()
+void create_statuswin()
 {
 #ifdef ZTERP_GLK
     statuswin.id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 1, wintype_TextGrid, static_cast<glui32>(WindowRock::StatusWin));
+#endif
+}
+
+bool have_statuswin()
+{
+#ifdef ZTERP_GLK
     return statuswin.id != nullptr;
 #else
     return false;
 #endif
 }
 
-bool create_upperwin()
+void create_upperwin()
 {
 #ifdef ZTERP_GLK
     // The upper window appeared in V3. */
@@ -5875,6 +5985,12 @@ bool create_upperwin()
 #endif
 #endif
 
+#endif
+}
+
+bool have_upperwin()
+{
+#ifdef ZTERP_GLK
     return upperwin->id != nullptr;
 #else
     return false;
@@ -5985,7 +6101,7 @@ void screen_read_scrn(IO &io, uint32_t size)
         throw RestoreError("short read");
     }
 
-    if (current_window > 7) {
+    if (current_window > (zversion == 6 ? 7 : 1)) {
         throw RestoreError(fstring("invalid window: %d", current_window));
     }
 
@@ -6069,7 +6185,7 @@ private:
     std::function<void()> m_fn;
 };
 
-void screen_read_bfhs(IO &io, bool autosave)
+void screen_read_bfhs(IO &io, SaveType savetype)
 {
     uint32_t version;
     Window saved = *mainwin;
@@ -6102,6 +6218,15 @@ void screen_read_bfhs(IO &io, bool autosave)
     mainwin->style.reset();
     set_window_style(mainwin);
 
+    // Glk autosaves maintain window state, so history playback isn’t
+    // desired. The history does exist, though, and we want to maintain
+    // it for _normal_ saves the user might do after this. So we have a
+    // slightly convoluted setup, where Glk autosaves don’t play back
+    // history, everything else does, but Bocfel-native autosaves
+    // display start/stop history playback banners.
+    const bool display = savetype != SaveType::AutosaveLib;
+    const bool banners = display && savetype != SaveType::Autosave;
+
 #ifdef ZTERP_GLK
     auto write = [&stream](std::string msg) {
         glk_put_string_stream(stream, &msg[0]);
@@ -6112,15 +6237,15 @@ void screen_read_bfhs(IO &io, bool autosave)
     };
 #endif
 
-    ScopeGuard guard([&autosave, &saved, &write] {
-        if (!autosave) {
+    ScopeGuard guard([&banners, &saved, &write] {
+        if (banners) {
             write("[End of history playback]\n\n");
         }
         *mainwin = saved;
         set_window_style(mainwin);
     });
 
-    if (!autosave) {
+    if (banners) {
         write("[Starting history playback]\n");
     }
 
@@ -6130,7 +6255,7 @@ void screen_read_bfhs(IO &io, bool autosave)
         return;
     }
 
-    if (size == 0 && autosave) {
+    if (size == 0 && savetype == SaveType::Autosave) {
         warning("empty history record");
         screen_print(">");
         return;
@@ -6138,7 +6263,7 @@ void screen_read_bfhs(IO &io, bool autosave)
 
     for (uint32_t i = 0; i < size; i++) {
         uint8_t type;
-        long c;
+        std::optional<uint32_t> c;
 
         try {
             type = io.read8();
@@ -6206,16 +6331,18 @@ void screen_read_bfhs(IO &io, bool autosave)
             break;
         case History::Entry::Type::Char:
             c = io.getc(false);
-            if (c == -1) {
+            if (!c.has_value()) {
                 return;
             }
-            for (const auto &clean : cleanse_control(c)) {
+            for (const auto &clean : cleanse_control(*c)) {
                 history.add_char(clean);
+                if (display) {
 #ifdef ZTERP_GLK
-                xglk_put_char_stream(stream, clean);
+                    xglk_put_char_stream(stream, clean);
 #else
-                IO::standard_out().putc(clean);
+                    IO::standard_out().putc(clean);
 #endif
+                }
             }
             break;
         default:
@@ -6242,6 +6369,10 @@ void screen_read_bfts(IO &io, uint32_t size)
 {
     uint32_t version;
     std::vector<uint8_t> buf;
+
+    if (!options.persistent_transcript) {
+        return;
+    }
 
     if (size < 4) {
         show_message("Corrupted Bfts entry (too small)");
@@ -6341,7 +6472,7 @@ void screen_save_persistent_transcript()
     const auto &buf = perstransio->get_memory();
 
     try {
-        IO io(nullptr, IO::Mode::WriteOnly, IO::Purpose::Transcript);
+        IO io(std::nullopt, IO::Mode::WriteOnly, IO::Purpose::Transcript);
 
         try {
             io.write_exact(buf.data(), buf.size());

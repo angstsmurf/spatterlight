@@ -14,7 +14,9 @@
 
 #include "patches.h"
 #include "memory.h"
+#include "options.h"
 #include "process.h"
+#include "screen.h"
 #include "types.h"
 #include "util.h"
 #include "zterp.h"
@@ -47,17 +49,14 @@ struct Patch {
 // user hits a key. This is worse behavior than the default, which is to
 // effectively not sleep at all. Timed input is only available with Glk,
 // and then only if the Glk implementation supports timers.
+static bool has_timed_input()
+{
 #ifdef ZTERP_GLK
-static bool has_timed_input()
-{
     return glk_gestalt(gestalt_Timer, 0);
-}
 #else
-static bool has_timed_input()
-{
     return false;
-}
 #endif
+}
 
 static std::vector<Patch> base_patches = {
     // In Arthur, there is a routine called INIT-STATUS-LINE which does this:
@@ -472,7 +471,6 @@ static std::vector<Patch> base_patches = {
     // to the <FONT 1> call at the end of the routine.
     //
     // This fix was created by Petter Sjölund.
-
     {
         "Journey", "890522", 51, 0x4f59,
         {{ 0x471f, 1, {0x40}, {0x4b} }},
@@ -1281,7 +1279,8 @@ static std::vector<Patch> v6_patches = {
 static bool apply_patch(const Replacement &r)
 {
     if (r.addr >= header.static_start &&
-        r.addr + r.n < memory_size &&
+        r.n <= memory_size &&
+        r.addr <= memory_size - r.n &&
         std::memcmp(&memory[r.addr], r.in.data(), r.n) == 0) {
 
         std::memcpy(&memory[r.addr], r.out.data(), r.n);

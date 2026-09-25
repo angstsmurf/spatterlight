@@ -5,6 +5,7 @@
 #include <array>
 #include <exception>
 #include <memory>
+#include <optional>
 #include <set>
 #include <stdexcept>
 #include <unordered_map>
@@ -33,6 +34,11 @@ struct Channel {
     class Error : public std::exception {
     };
 
+    struct Queued {
+        uint16_t number;
+        uint8_t volume;
+    };
+
     Channel() {
         if (channel == nullptr) {
             throw Error();
@@ -51,11 +57,7 @@ struct Channel {
     schanid_t channel = glk_schannel_create(0);
     bool playing = false;
     uint16_t routine = 0;
-
-    struct {
-        uint16_t number;
-        uint8_t volume;
-    } queued = {0, 0};
+    std::optional<Queued> queued;
 };
 
 class Channels {
@@ -92,9 +94,6 @@ private:
     std::unordered_map<glui32, std::shared_ptr<Channel>> m_channels;
 };
 
-constexpr glui32 Channels::Effects;
-constexpr glui32 Channels::Music;
-
 static Channels channels;
 
 static std::set<uint32_t> looping_sounds;
@@ -125,7 +124,7 @@ void init_sound()
         giblorb_result_t res;
         glui32 chunktype = IFF::TypeID("Loop").val();
         if (giblorb_load_chunk_by_type(map, giblorb_method_Memory, &res, chunktype, 0) == giblorb_err_None) {
-            for (size_t i = 0; i < res.length; i += 8) {
+            for (size_t i = 0; i + 8 <= res.length; i += 8) {
                 auto read32 = [&res](size_t offset) {
                     const auto *p = static_cast<unsigned char *>(res.data.ptr) + offset;
                     return (static_cast<uint32_t>(p[0]) << 24) |
@@ -163,7 +162,7 @@ static void start_sound(glui32 chantype, Channel *channel, uint16_t number, uint
         0x0a000, 0x0c000, 0x0e000, 0x10000
     };
 
-    channel->queued.number = 0;
+    channel->queued.reset();
 
     try {
         glk_schannel_set_volume(channel->channel, vols.at(volume - 1));
@@ -186,9 +185,9 @@ void sound_stopped(glui32 chantype)
 
         channel->playing = false;
 
-        if (channel->queued.number != 0) {
-            start_sound(chantype, channel.get(), channel->queued.number, 1, channel->queued.volume);
-            channel->queued.number = 0;
+        if (channel->queued.has_value()) {
+            start_sound(chantype, channel.get(), channel->queued->number, 1, channel->queued->volume);
+            channel->queued.reset();
         }
     } catch (const std::out_of_range &) {
     }
@@ -229,6 +228,30 @@ void zsound_effect()
         return;
     }
 
+    constexpr uint16_t SOUND_EFFECT_PREPARE = 1;
+    constexpr uint16_t SOUND_EFFECT_START = 2;
+    constexpr uint16_t SOUND_EFFECT_STOP = 3;
+    constexpr uint16_t SOUND_EFFECT_FINISH = 4;
+
+    uint16_t effect = zargs[1];
+
+    // Sound number 0 is invalid, except that it can be used to mean
+    // “stop all sounds”.
+    if (number == 0) {
+        if (effect == SOUND_EFFECT_STOP) {
+            for (const auto chantype : {Channels::Effects, Channels::Music}) {
+                try {
+                    auto channel = channels.at(chantype);
+                    glk_schannel_stop(channel->channel);
+                    channel->routine = 0;
+                } catch (const std::out_of_range &) {
+                }
+            }
+        }
+
+        return;
+    }
+
     glui32 chantype = Channels::Effects;
 
 #ifdef ZTERP_GLK_BLORB
@@ -245,10 +268,10 @@ void zsound_effect()
     // music as well.
     //
     // The Blorb standard (§14.5) notes that Adrift Blorbs are allowed
-    // more sound formats than standard Blorb: WAV, MIDI, and MP3. While
+    // more sound formats than standard Blorb: WAV and MIDI. While
     // there’s likely never going to be a Blorb file with these sound
     // formats meant for use with the Z-Machine, there’s no harm in
-    // adding MIDI and MP3 as music types here.
+    // adding MIDI as a music type here.
     if (music_sounds.find(number) == music_sounds.end()) {
         auto *map = giblorb_get_resource_map();
         if (map != nullptr) {
@@ -258,8 +281,8 @@ void zsound_effect()
                 case 0x4d4f4420: /* MOD */
                 case 0x4f474756: /* OGGV */
                 case 0x534f4e47: /* SONG */
+                case 0x4d503320: /* MP3 */
                 case 0x4d494449: /* MIDI (non-standard) */
-                case 0x4d503320: /* MP3 (non-standard) */
                     music_sounds.emplace(number, true);
                     break;
                 }
@@ -276,19 +299,6 @@ void zsound_effect()
     try {
         channel = channels.at(chantype);
     } catch (const std::out_of_range &) {
-        return;
-    }
-
-    constexpr uint16_t SOUND_EFFECT_PREPARE = 1;
-    constexpr uint16_t SOUND_EFFECT_START = 2;
-    constexpr uint16_t SOUND_EFFECT_STOP = 3;
-    constexpr uint16_t SOUND_EFFECT_FINISH = 4;
-
-    uint16_t effect = zargs[1];
-
-    // Sound effect 0 is invalid, except that it can be used to mean
-    // “stop all sounds”.
-    if (number == 0 && effect != SOUND_EFFECT_STOP) {
         return;
     }
 
@@ -341,12 +351,13 @@ void zsound_effect()
         // the “stopping” must happen here by only playing the sample
         // once.
         if (is_game(Game::LurkingHorror) && chantype == Channels::Effects && channel->playing && (number == 9 || number == 16)) {
-            channel->queued.number = number;
-            channel->queued.volume = volume;
+            channel->queued = {number, volume};
             return;
         }
 
-        channel->routine = znargs >= 4 ? zargs[3] : 0;
+        if (zversion >= 5) {
+            channel->routine = zarg_or(3, 0);
+        }
         start_sound(chantype, channel.get(), number, repeats, volume);
 
         break;
@@ -372,7 +383,7 @@ void zsound_effect()
         // play. A queued sound will only play once, so ignoring this
         // stop request is effectively just delaying it till the queued
         // sound finishes.
-        if (channel->queued.number == 0) {
+        if (!channel->queued.has_value()) {
             glk_schannel_stop(channel->channel);
             channel->routine = 0;
         }
@@ -396,8 +407,10 @@ void stash_library_sound_state(library_state_data *dat)
 
     dat->autosave_version = 1;
     dat->routine = channel->routine;
-    dat->queued_sound = channel->queued.number;
-    dat->queued_volume = channel->queued.volume;
+    // The queued sound is optional now; 0 means "nothing queued" in the
+    // library state, as it did when Queued::number was a plain field.
+    dat->queued_sound = channel->queued.has_value() ? channel->queued->number : 0;
+    dat->queued_volume = channel->queued.has_value() ? channel->queued->volume : 8;
     dat->sound_channel_tag = channel->channel->tag;
 }
 
@@ -408,10 +421,11 @@ void recover_library_sound_state(library_state_data *dat)
     auto channel = channels.at(Channels::Effects);
     channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
     channel->routine = dat->routine;
-    channel->queued.number = dat->queued_sound;
-    if (dat->autosave_version > 0)
-        channel->queued.volume = dat->queued_volume;
-    else
-        channel->queued.volume = 8;
+    if (dat->queued_sound != 0) {
+        uint8_t volume = dat->autosave_version > 0 ? dat->queued_volume : 8;
+        channel->queued = Channel::Queued{static_cast<uint16_t>(dat->queued_sound), volume};
+    } else {
+        channel->queued.reset();
+    }
 }
 #endif

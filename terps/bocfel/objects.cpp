@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
+#include <optional>
+
 #include "objects.h"
 #include "branch.h"
 #include "memory.h"
@@ -26,7 +28,7 @@ static uint16_t find_object(uint16_t n)
         objsize = 14;
     }
 
-    ZASSERT(addr + objsize < header.static_start, "object %u out of range", static_cast<unsigned int>(n));
+    ZASSERT(addr + objsize <= header.static_start, "object %u out of range", static_cast<unsigned int>(n));
 
     return addr;
 }
@@ -104,83 +106,63 @@ static void remove_object(uint16_t object)
     }
 }
 
-static uint16_t property_length(uint16_t propaddr)
-{
+struct Property {
+    uint16_t addr;
     uint16_t length;
-    // The address is to the data; the size byte is right before.
-    uint8_t b = user_byte(propaddr - 1);
+    uint8_t number;
+};
 
-    if (zversion <= 3) {
-        length = (b >> 5) + 1;
-    } else {
-        if ((b & 0x80) == 0x80) {
-            length = b & 0x3f;
-            if (length == 0) {
-                length = 64;
-            }
-        } else {
-            length = ((b & 0x40) == 0x40) ? 2 : 1;
-        }
-    }
-
-    return length;
-}
-
-static uint8_t property_number(uint16_t propaddr)
+static std::optional<Property> make_property(uint16_t addr)
 {
-    uint8_t propnum;
-
-    if (zversion <= 3) {
-        propnum = user_byte(propaddr - 1) & 0x1f;
-    } else {
-        if ((user_byte(propaddr - 1) & 0x80) == 0x80) {
-            propnum = user_byte(propaddr - 2) & 0x3f;
-        } else {
-            propnum = user_byte(propaddr - 1) & 0x3f;
-        }
-    }
-
-    return propnum;
-}
-
-static uint16_t advance_prop_addr(uint16_t propaddr)
-{
-    uint8_t size = user_byte(propaddr++);
+    uint8_t size = user_byte(addr);
     if (size == 0) {
-        return 0;
+        return std::nullopt;
     }
 
-    if (zversion >= 4 && (size & 0x80) == 0x80) {
-        propaddr++;
+    Property property;
+
+    if (zversion <= 3) {
+        property.number = size & 0x1f;
+        property.length = (size >> 5) + 1;
+        property.addr = addr + 1;
+    } else if ((size & 0x80) == 0x80) {
+        property.number = size & 0x3f;
+        property.length = user_byte(addr + 1) & 0x3f;
+        if (property.length == 0) {
+            property.length = 64;
+        }
+        property.addr = addr + 2;
+    } else {
+        property.number = size & 0x3f;
+        property.length = ((size & 0x40) == 0x40) ? 2 : 1;
+        property.addr = addr + 1;
     }
 
-    return propaddr;
+    return property;
 }
 
-static uint16_t first_property(uint16_t object)
+static std::optional<Property> first_property(uint16_t object)
 {
     uint16_t propaddr = property_address(object);
 
     propaddr += (2 * user_byte(propaddr)) + 1;
 
-    return advance_prop_addr(propaddr);
+    return make_property(propaddr);
 }
 
-static uint16_t next_property(uint16_t propaddr)
+static std::optional<Property> next_property(const Property &property)
 {
-    propaddr += property_length(propaddr);
-
-    return advance_prop_addr(propaddr);
+    return make_property(property.addr + property.length);
 }
 
-#define FOR_EACH_PROPERTY(object, addr) for (uint16_t addr = first_property(object); addr != 0; addr = next_property(addr))
+#define FOR_EACH_PROPERTY(object, property) for (std::optional<Property> property = first_property(object); property.has_value(); property = next_property(*property))
 
 static bool find_property(uint16_t object, uint16_t propnum, uint16_t &propaddr, uint16_t &proplen)
 {
-    FOR_EACH_PROPERTY(object, addr) {
-        if (property_number(addr) == propnum) {
-            propaddr = addr;
-            proplen = property_length(addr);
+    FOR_EACH_PROPERTY(object, property) {
+        if (property->number == propnum) {
+            propaddr = property->addr;
+            proplen = property->length;
             return true;
         }
     }
@@ -443,7 +425,19 @@ void zget_prop_len()
     if (zargs[0] == 0) {
         store(0);
     } else {
-        store(property_length(zargs[0]));
+        uint16_t addr;
+        if (zversion <= 3) {
+            addr = zargs[0] - 1;
+        } else {
+            int size = ((user_byte(zargs[0] - 1) & 0x80) == 0x80) ? 2 : 1;
+            addr = zargs[0] - size;
+        }
+
+        if (auto property = make_property(addr); property.has_value()) {
+            store(property->length);
+        } else {
+            store(0);
+        }
     }
 }
 
@@ -474,8 +468,8 @@ void zget_next_prop()
     uint16_t object = zargs[0], propnum = zargs[1], found_propnum = 0;
     bool next = false;
 
-    FOR_EACH_PROPERTY(object, propaddr) {
-        uint8_t current_propnum = property_number(propaddr);
+    FOR_EACH_PROPERTY(object, property) {
+        uint8_t current_propnum = property->number;
 
         if (propnum == 0 || next) {
             found_propnum = current_propnum;

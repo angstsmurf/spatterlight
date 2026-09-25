@@ -31,22 +31,28 @@ public:
         explicit TypeID(const char (&type)[5]) : TypeID(type[0], type[1], type[2], type[3]) {
         }
 
-        uint32_t val() const {
+        [[nodiscard]] uint32_t val() const {
             return m_type;
         }
 
-        std::string name() const {
-            std::string name;
+        [[nodiscard]] std::string name() const {
+            auto ascii_filter = [](uint8_t c) -> char {
+                if (c >= 32 && c <= 126) {
+                    return c;
+                } else {
+                    return '?';
+                }
+            };
 
-            name.push_back((m_type >> 24) & 0xff);
-            name.push_back((m_type >> 16) & 0xff);
-            name.push_back((m_type >>  8) & 0xff);
-            name.push_back((m_type >>  0) & 0xff);
-
-            return name;
+            return {
+                ascii_filter(m_type >> 24),
+                ascii_filter(m_type >> 16),
+                ascii_filter(m_type >>  8),
+                ascii_filter(m_type >>  0)
+            };
         }
 
-        bool empty() const {
+        [[nodiscard]] bool empty() const {
             return m_type == 0;
         }
 
@@ -77,7 +83,7 @@ public:
     IFF(std::shared_ptr<IO> io, TypeID type);
     bool find(TypeID type, uint32_t &size);
 
-    std::shared_ptr<IO> io() {
+    [[nodiscard]] std::shared_ptr<IO> io() const {
         return m_io;
     }
 

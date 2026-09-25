@@ -5,9 +5,9 @@
 
 #include <cstdarg>
 #include <functional>
-#include <memory>
+#include <istream>
+#include <optional>
 #include <string>
-#include <type_traits>
 
 #include "types.h"
 
@@ -16,24 +16,13 @@
 // Gcc appears to default to ms_printf on MinGW, even when it is
 // providing standards-conforming printf() functionality (i.e. if
 // __USE_MINGW_ANSI_STDIO is defined), so force gnu_printf there.
-#define zprintflike(f, a)	__attribute__((__format__(__gnu_printf__, f, a)))
+#define zprintflike(f, a)	[[gnu::format(__gnu_printf__, f, a)]]
 #else
-#define zprintflike(f, a)	__attribute__((__format__(__printf__, f, a)))
+#define zprintflike(f, a)	[[gnu::format(__printf__, f, a)]]
 #endif
 #else
 #define zprintflike(f, a)
 #endif
-
-// Allow scoped enums to be used as hash keys.
-// NOTE: Remove when switching to C++17, as C++17 provides this.
-struct EnumClassHash {
-    template <typename T>
-    std::enable_if_t<std::is_enum<T>::value, std::size_t>
-    operator()(T enumValue) const {
-        using UnderlyingType = std::underlying_type_t<T>;
-        return std::hash<UnderlyingType>{}(static_cast<UnderlyingType>(enumValue));
-    }
-};
 
 int16_t as_signed(uint16_t n);
 
@@ -58,13 +47,13 @@ zprintflike(1, 2)
 void die(const char *fmt, ...);
 void help();
 
-long parseint(const std::string &s, int base, bool &valid);
+std::optional<long> parseint(const std::string &s, int base);
 std::string vstring(const char *fmt, std::va_list ap);
 zprintflike(1, 2)
 std::string fstring(const char *fmt, ...);
 std::string ltrim(const std::string &s);
 std::string rtrim(const std::string &s);
-void parse_grouped_file(std::ifstream &f, const std::function<void(const std::string &line, int lineno)> &callback);
-std::unique_ptr<std::string> zterp_getenv(const std::string &name);
+void parse_grouped_file(std::istream &f, const std::function<void(const std::string &line, int lineno)> &callback);
+std::optional<std::string> zterp_getenv(const std::string &name);
 
 #endif

@@ -2,10 +2,12 @@
 //
 // SPDX-License-Identifier: MIT
 
+#include <algorithm>
 #include <cstring>
 #include <map>
 #include <memory>
 #include <new>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <stdexcept>
@@ -27,7 +29,10 @@
 #include "util.h"
 #include "zterp.h"
 
-using namespace std::literals;
+enum class AddressRange {
+    Dynamic,
+    Static,
+};
 
 static bool uni_isdigit(char c)
 {
@@ -36,7 +41,7 @@ static bool uni_isdigit(char c)
 
 static bool uni_isxdigit(char c)
 {
-    return "0123456789abcdef"s.find(c) != std::string::npos;
+    return uni_isdigit(c) || (c >= 'a' && c <= 'f');
 }
 
 static void try_user_save(const char *desc)
@@ -90,15 +95,14 @@ static void meta_debug_change_inc_dec(const std::string &string)
         screen_puts("[Debug change not started]");
     } else {
         bool saw_change = false;
+        const bool want_inc = string == "inc";
 
-        for (uint16_t addr = 0; addr < header.static_start - 2; addr++) {
+        for (uint16_t addr = 0; addr <= header.static_start - 2; addr++) {
             if (debug_change_invalid.find(addr) == debug_change_invalid.end()) {
                 int16_t newval = as_signed(word(addr));
                 int16_t oldval = as_signed((debug_change_memory[addr] << 8) | debug_change_memory[addr + 1]);
 
-#define CMP(a, b) (string == "inc" ? (a) > (b) : (a) < (b))
-                if (CMP(newval, oldval)) {
-#undef CMP
+                if (want_inc ? newval > oldval : newval < oldval) {
                     // The Z-machine does not require aligned memory access, so
                     // both even and odd addresses must be checked. However,
                     // global variables are word-sized, so if an address inside
@@ -143,7 +147,7 @@ static bool meta_debug_scan(const std::string &string)
         invalid_addr.clear();
         screen_puts("[Debug scan reset]");
     } else if (string == "show") {
-        for (uint16_t addr = 0; addr < header.static_start - 2; addr++) {
+        for (uint16_t addr = 0; addr <= header.static_start - 2; addr++) {
             if (invalid_addr.find(addr) == invalid_addr.end()) {
                 if (is_global(addr) || !in_globals(addr)) {
                     screen_puts(addrstring(addr));
@@ -151,23 +155,22 @@ static bool meta_debug_scan(const std::string &string)
             }
         }
     } else if (uni_isdigit(string[0]) || (string[0] == '-' && uni_isdigit(string[1]))) {
-        bool valid;
-        long value = parseint(string, 0, valid);
-        if (!valid) {
+        auto value = parseint(string, 0);
+        if (!value.has_value()) {
             return false;
         }
 
-        if (value < -0x8000 || value > 0xffff) {
+        if (*value < -0x8000 || *value > 0xffff) {
             screen_puts("[Value is outside the range of a 16-bit integer and will never be found]");
         } else {
             size_t count = 0;
 
-            if (value < 0) {
-                value += 0x10000;
+            if (*value < 0) {
+                *value += 0x10000;
             }
 
-            for (uint16_t addr = 0; addr < header.static_start - 2; addr++) {
-                if (word(addr) != value) {
+            for (uint16_t addr = 0; addr <= header.static_start - 2; addr++) {
+                if (word(addr) != *value) {
                     invalid_addr.insert(addr);
                 }
                 if (invalid_addr.find(addr) == invalid_addr.end()) {
@@ -184,28 +187,30 @@ static bool meta_debug_scan(const std::string &string)
     return true;
 }
 
-static long parse_address(const std::string &string, bool &valid)
+static std::optional<long> parse_address(const std::string &string)
 {
-    long addr;
-
-    if (string[0] == 'G' && uni_isxdigit(string[1]) && uni_isxdigit(string[2]) && string[3] == 0) {
-        addr = parseint(&string[1], 16, valid);
-        if (addr < 0 || addr > 239) {
-            valid = false;
+    if (string.size() == 3 && string[0] == 'G' && uni_isxdigit(string[1]) && uni_isxdigit(string[2])) {
+        auto addr = parseint(&string[1], 16);
+        if (!addr.has_value() || addr < 0 || addr > 239) {
+            return std::nullopt;
         }
-        addr = header.globals + (2 * addr);
+        return header.globals + (2 * *addr);
     } else {
-        addr = parseint(string, 16, valid);
+        return parseint(string, 16);
     }
-
-    return addr;
 }
 
-static bool validate_address(long addr, bool print)
+static bool validate_address(long addr, bool print, AddressRange range)
 {
-    if (addr < 0 || addr > memory_size - 2) {
+    unsigned long max = range == AddressRange::Dynamic ? header.static_start - 2 : memory_size - 2;
+
+    if (addr < 0 || addr > max) {
         if (print) {
-            screen_printf("[Address out of range: must be [0, 0x%lx]]\n", static_cast<unsigned long>(memory_size) - 2);
+            if (range == AddressRange::Dynamic) {
+                screen_printf("[Address out of dynamic memory: must be [0, 0x%lx]]\n", max);
+            } else {
+                screen_printf("[Address out of range: must be [0, 0x%lx]]\n", max);
+            }
         }
         return false;
     }
@@ -215,24 +220,23 @@ static bool validate_address(long addr, bool print)
 
 static bool meta_debug_print(const std::string &string)
 {
-    bool valid;
-    long addr = parse_address(string, valid);
+    auto addr = parse_address(string);
 
-    if (!valid) {
+    if (!addr.has_value()) {
         return false;
     }
-    if (!validate_address(addr, true)) {
+    if (!validate_address(*addr, true, AddressRange::Static)) {
         return true;
     }
 
-    screen_printf("%ld (0x%04lx)\n", static_cast<long>(as_signed(word(addr))), static_cast<unsigned long>(word(addr)));
+    screen_printf("%ld (0x%04lx)\n", static_cast<long>(as_signed(word(*addr))), static_cast<unsigned long>(word(*addr)));
 
     return true;
 }
 
 #ifndef ZTERP_NO_CHEAT
 // Map addresses to frozen values.
-static std::map<uint16_t, uint16_t> frozen_addresses;
+static std::map<uint32_t, uint16_t> frozen_addresses;
 
 bool cheat_add(const std::string &how, bool print)
 {
@@ -246,21 +250,17 @@ bool cheat_add(const std::string &how, bool print)
         return false;
     }
 
-    if (type == "freeze" || type == "freezew") {
-        long addr;
-        long value;
-        bool valid;
-
-        addr = parse_address(addrstr, valid);
-        if (!valid) {
+    if (type == "freeze") {
+        auto addr = parse_address(addrstr);
+        if (!addr.has_value()) {
             return false;
         }
-        if (!validate_address(addr, print)) {
+        if (!validate_address(*addr, print, AddressRange::Static)) {
             return true;
         }
 
-        value = parseint(valstr, 0, valid);
-        if (!valid) {
+        auto value = parseint(valstr, 0);
+        if (!value.has_value()) {
             return false;
         }
 
@@ -271,7 +271,7 @@ bool cheat_add(const std::string &how, bool print)
             return true;
         }
 
-        frozen_addresses[addr] = value;
+        frozen_addresses[*addr] = *value;
     } else {
         return false;
     }
@@ -283,7 +283,7 @@ bool cheat_add(const std::string &how, bool print)
     return true;
 }
 
-static bool cheat_remove(uint16_t addr)
+static bool cheat_remove(uint32_t addr)
 {
     return frozen_addresses.erase(addr) > 0;
 }
@@ -306,6 +306,11 @@ bool cheat_find_freeze(uint32_t addr, uint16_t &val)
     return true;
 }
 
+bool cheat_any()
+{
+    return !frozen_addresses.empty();
+}
+
 static bool meta_debug_freeze(const std::string &string)
 {
     std::istringstream ss(string);
@@ -324,16 +329,15 @@ static bool meta_debug_freeze(const std::string &string)
 
 static bool meta_debug_unfreeze(const std::string &string)
 {
-    bool valid;
-    long addr = parse_address(string, valid);
-    if (!valid) {
+    auto addr = parse_address(string);
+    if (!addr.has_value()) {
         return false;
     }
-    if (!validate_address(addr, true)) {
+    if (!validate_address(*addr, true, AddressRange::Static)) {
         return true;
     }
 
-    if (cheat_remove(addr)) {
+    if (cheat_remove(*addr)) {
         screen_puts("[Unfrozen]");
     } else {
         screen_puts("[Address not frozen]");
@@ -347,8 +351,8 @@ static bool meta_debug_show_freeze()
     if (frozen_addresses.empty()) {
         screen_puts("[No frozen values]");
     } else {
-        for (const auto &pair : frozen_addresses) {
-            screen_printf("%s: %lu\n", addrstring(pair.first).c_str(), static_cast<unsigned long>(pair.second));
+        for (const auto &[addr, value] : frozen_addresses) {
+            screen_printf("%s: %lu\n", addrstring(addr).c_str(), static_cast<unsigned long>(value));
         }
     }
 
@@ -366,7 +370,7 @@ static void watch_add(uint16_t addr)
 
 static void watch_all()
 {
-    for (unsigned long addr = 0; addr < UINT16_MAX + 1UL; addr++) {
+    for (uint16_t addr = 0; addr < header.static_start - 1; addr++) {
         watch_addresses.insert(addr);
     }
 }
@@ -388,6 +392,11 @@ void watch_check(uint16_t addr, unsigned long oldval, unsigned long newval)
     }
 }
 
+bool watch_any()
+{
+    return !watch_addresses.empty();
+}
+
 static bool meta_debug_watch_helper(const std::string &string, bool do_watch)
 {
     if (string == "all") {
@@ -399,24 +408,23 @@ static bool meta_debug_watch_helper(const std::string &string, bool do_watch)
             screen_puts("[Not watching any addresses for changes]");
         }
     } else {
-        bool valid;
-        long addr = parse_address(string, valid);
+        auto addr = parse_address(string);
 
-        if (!valid) {
+        if (!addr.has_value()) {
             return false;
         }
-        if (!validate_address(addr, true)) {
+        if (!validate_address(*addr, true, AddressRange::Dynamic)) {
             return true;
         }
 
         if (do_watch) {
-            watch_add(addr);
-            screen_printf("[Watching %s for changes]\n", addrstring(addr).c_str());
+            watch_add(*addr);
+            screen_printf("[Watching %s for changes]\n", addrstring(*addr).c_str());
         } else {
-            if (watch_remove(addr)) {
-                screen_printf("[No longer watching %s for changes]\n", addrstring(addr).c_str());
+            if (watch_remove(*addr)) {
+                screen_printf("[No longer watching %s for changes]\n", addrstring(*addr).c_str());
             } else {
-                screen_printf("[%s is not currently being watched]\n", addrstring(addr).c_str());
+                screen_printf("[%s is not currently being watched]\n", addrstring(*addr).c_str());
             }
         }
     }
@@ -466,7 +474,7 @@ static void meta_debug_help()
 #endif
 #ifndef ZTERP_NO_WATCHPOINTS
             "watch [address]: report any changes to the word at [address]\n"
-            "watch all: report any changes to words at all addresses\n"
+            "watch all: report any changes to words at all dynamic addresses\n"
             "unwatch [address]: stop watching [address]\n"
             "unwatch all: stop watching all addresses\n"
             "show_watch: show all watched-for addresses\n"
@@ -711,17 +719,16 @@ std::pair<MetaResult, std::string> handle_meta_command(const uint16_t *string, u
             }
 
             screen_puts("[All saves dropped]");
-        } else if (rest[0] == 0) {
+        } else if (rest.empty()) {
             restore_or_drop(0);
         } else {
-            bool valid;
-            long saveno = parseint(rest, 10, valid);
-            if (!valid || saveno < 1) {
+            auto saveno = parseint(rest, 10);
+            if (!saveno.has_value() || saveno < 1) {
                 screen_puts("[Invalid index]");
                 return {MetaResult::Rerequest, ""};
             }
 
-            restore_or_drop(saveno - 1);
+            restore_or_drop(*saveno - 1);
         }
     } else if ZEROARG("ls") {
         list_saves(SaveStackType::User);
@@ -751,7 +758,7 @@ std::pair<MetaResult, std::string> handle_meta_command(const uint16_t *string, u
             screen_puts("[No notes taken]");
         } else {
             try {
-                IO io(nullptr, IO::Mode::WriteOnly, IO::Purpose::Data);
+                IO io(std::nullopt, IO::Mode::WriteOnly, IO::Purpose::Data);
                 try {
                     io.write_exact(meta_notes.data(), meta_notes.size());
                     screen_puts("[Saved notes to file]");
@@ -792,7 +799,7 @@ std::pair<MetaResult, std::string> handle_meta_command(const uint16_t *string, u
         return {MetaResult::Say, rest};
     } else if ZEROARG("config") {
         auto config_file = zterp_os_rcfile(true);
-        if (config_file != nullptr) {
+        if (config_file.has_value()) {
             screen_puts("[Editing configuration file]");
             screen_flush();
             try {
@@ -840,6 +847,7 @@ std::pair<MetaResult, std::string> handle_meta_command(const uint16_t *string, u
                 "/drop all: drop all in-memory states\n"
                 "/ls: list all in-memory save states\n"
                 "/savetranscript: save persistent transcript (if active) to a file\n"
+                "/showtranscript: open persistent transcript (if active) in an editor\n"
                 "/notes: open a text editor to take notes\n"
                 "/shownotes: display notes taken, if any\n"
                 "/savenotes: save notes taken, if any, to a file\n"

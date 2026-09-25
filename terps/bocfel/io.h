@@ -7,6 +7,7 @@
 #include <exception>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -59,7 +60,7 @@ public:
         Current,
     };
 
-    IO(const std::string *filename, Mode mode, Purpose purpose, StreamRock namedglkrock = StreamRock::None);
+    IO(const std::optional<std::string> &filename, Mode mode, Purpose purpose, StreamRock namedglkrock = StreamRock::None);
     IO(std::vector<uint8_t> buf, Mode mode);
 #ifdef ZTERP_GLK
     IO(Mode mode, Purpose purpose, strid_t stream) : m_file(stream), m_type(Type::Glk), m_mode(mode), m_purpose(purpose) {
@@ -78,10 +79,10 @@ public:
         return IO(stdout, Mode::WriteOnly, Purpose::Transcript, false);
     }
 
-    const std::vector<uint8_t> &get_memory() const;
+    [[nodiscard]] const std::vector<uint8_t> &get_memory() const;
 
     void seek(long offset, SeekFrom whence);
-    long tell() const;
+    [[nodiscard]] long tell() const;
     size_t read(void *buf, size_t n);
     void read_exact(void *buf, size_t n);
     size_t write(const void *buf, size_t n);
@@ -92,10 +93,10 @@ public:
     void write8(uint8_t v);
     void write16(uint16_t v);
     void write32(uint32_t v);
-    long getc(bool limit16);
+    std::optional<uint32_t> getc(bool limit16);
     void putc(uint32_t c);
     std::vector<uint16_t> readline();
-    long filesize() const;
+    std::optional<unsigned long> filesize() const;
     void flush();
 
 private:

@@ -20,6 +20,7 @@ constexpr uint16_t UNICODE_REPLACEMENT     = 65533;
 
 constexpr uint8_t LATIN1_LINEFEED     = 10;
 constexpr uint8_t LATIN1_QUESTIONMARK = 63;
+constexpr uint8_t LATIN1_PIPE         = 124;
 
 #ifdef SPATTERLIGHT
 constexpr uint8_t ZSCII_BACKSPACE    = 8;
@@ -29,8 +30,10 @@ constexpr uint8_t ZSCII_DELETE       = 8;
 constexpr uint8_t ZSCII_NEWLINE      = 13;
 constexpr uint8_t ZSCII_ESCAPE       = 27;
 constexpr uint8_t ZSCII_SPACE        = 32;
+constexpr uint8_t ZSCII_EXCLAMATION  = 33;
 constexpr uint8_t ZSCII_PERIOD       = 46;
 constexpr uint8_t ZSCII_QUESTIONMARK = 63;
+constexpr uint8_t ZSCII_PIPE         = 124;
 constexpr uint8_t ZSCII_UP           = 129;
 constexpr uint8_t ZSCII_DOWN         = 130;
 constexpr uint8_t ZSCII_LEFT         = 131;

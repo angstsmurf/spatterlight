@@ -2,7 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
+#include <limits>
 #include <memory>
+#include <optional>
 #include <stdexcept>
 #include <unordered_map>
 #include <utility>
@@ -20,10 +22,10 @@ static constexpr uint32_t DATA = 0x44617461;
 Blorb::Blorb(const std::shared_ptr<IO> &io)
 {
     uint32_t size;
-    std::unique_ptr<IFF> iff;
+    std::optional<IFF> iff;
 
     try {
-        iff = std::make_unique<IFF>(io, IFF::TypeID("IFRS"));
+        iff.emplace(io, IFF::TypeID("IFRS"));
     } catch (const IFF::InvalidFile &) {
         throw InvalidFile();
     }
@@ -35,7 +37,7 @@ Blorb::Blorb(const std::shared_ptr<IO> &io)
     try {
         uint32_t nresources = iff->io()->read32();
 
-        if ((nresources * 12) + 4 != size) {
+        if (nresources > (std::numeric_limits<uint32_t>::max() - 4) / 12 || (nresources * 12) + 4 != size) {
             throw InvalidFile();
         }
 

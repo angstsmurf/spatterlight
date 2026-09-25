@@ -43,7 +43,7 @@ static unsigned long addr_to_global(uint16_t addr)
     return (addr - header.globals) / 2;
 }
 
-std::string addrstring(uint16_t addr)
+std::string addrstring(uint32_t addr)
 {
     std::ostringstream ss;
 
@@ -120,7 +120,7 @@ uint16_t word(uint32_t addr)
 {
 #ifndef ZTERP_NO_CHEAT
     uint16_t cheat_val;
-    if (cheat_find_freeze(addr, cheat_val)) {
+    if (cheat_any() && cheat_find_freeze(addr, cheat_val)) {
         return cheat_val;
     }
 #endif
@@ -130,7 +130,7 @@ uint16_t word(uint32_t addr)
 void store_word(uint32_t addr, uint16_t val)
 {
 #ifndef ZTERP_NO_WATCHPOINTS
-    if (addr < header.static_start - 1) {
+    if (watch_any() && addr < header.static_start - 1) {
         watch_check(addr, word(addr), val);
     }
 #endif
@@ -179,22 +179,19 @@ void zcopy_table()
 void zscan_table()
 {
     uint16_t addr = zargs[1];
-
-    if (znargs < 4) {
-        zargs[3] = 0x82;
-    }
+    uint16_t form = zarg_or(3, 0x82);
 
     for (uint16_t i = 0; i < zargs[2]; i++) {
         if (
-                ((zargs[3] & 0x80) == 0x80 && (user_word(addr) == zargs[0])) ||
-                ((zargs[3] & 0x80) != 0x80 && (user_byte(addr) == zargs[0]))
+                ((form & 0x80) == 0x80 && (user_word(addr) == zargs[0])) ||
+                ((form & 0x80) != 0x80 && (user_byte(addr) == zargs[0]))
            ) {
             store(addr);
             branch_if(true);
             return;
         }
 
-        addr += zargs[3] & 0x7f;
+        addr += form & 0x7f;
     }
 
     store(0);

@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <cstring>
 #include <new>
+#include <optional>
 #include <stdexcept>
 #include <vector>
 
@@ -49,7 +50,8 @@ frefid_t glkunix_fileref_create_by_name_uncleaned(glui32 usage, const char *name
 // value of the I/O object’s type, this method is used as a sort of
 // run-time type checker.
 [[noreturn]]
-void IO::bad_type() const {
+void IO::bad_type() const
+{
     die("internal error: unknown IO type %d", static_cast<int>(m_type));
 }
 
@@ -58,7 +60,8 @@ void IO::bad_type() const {
 // expect newline translation to be properly handled in these cases,
 // even though UNICODE_LINEFEED (10), as required by Glk (Glk API 0.7.0
 // §2.2), is used internally.
-bool IO::textmode() const {
+bool IO::textmode() const
+{
     return m_purpose == Purpose::Transcript || m_purpose == Purpose::Input;
 }
 
@@ -75,8 +78,8 @@ bool IO::textmode() const {
 // be able to access any file on the filesystem, and the latter needs to
 // prompt. This is a headache.
 //
-// Prompting is assumed to be necessary if “filename” is null.
-IO::IO(const std::string *filename, Mode mode, Purpose purpose, StreamRock namedglkrock) :
+// Prompting is assumed to be necessary if “filename” is std::nullopt.
+IO::IO(const std::optional<std::string> &filename, Mode mode, Purpose purpose, StreamRock namedglkrock) :
     m_mode(mode),
     m_purpose(purpose)
 {
@@ -96,7 +99,7 @@ IO::IO(const std::string *filename, Mode mode, Purpose purpose, StreamRock named
 #endif
 
     // No need to prompt.
-    if (filename != nullptr) {
+    if (filename.has_value()) {
         // In no-stdio mode, always use Glk. Otherwise, if Glk is
         // enabled, use Glk I/O if a rock is provided. If no rock is
         // provided, use stdio.
@@ -281,8 +284,8 @@ void IO::seek(long offset, SeekFrom whence)
         }
 
         // If seeking beyond the end, write zeros.
-        while (offset > m_file.backing.memory.size()) {
-            write8(0);
+        if (offset > m_file.backing.memory.size()) {
+            m_file.backing.memory.resize(offset, 0);
         }
 
         m_file.backing.offset = offset;
@@ -348,7 +351,7 @@ size_t IO::read(void *buf, size_t n)
                 return 0;
             }
 
-            s = remaining < n ? remaining : n;
+            s = remaining < (n - total) ? remaining : (n - total);
             if (s != 0) {
                 std::memcpy(buf, &b->memory[b->offset], s);
                 b->offset += s;
@@ -510,20 +513,20 @@ void IO::write32(uint32_t v)
 // Read a UTF-8 character, returning it. If limit16 is true, any Unicode
 // values which are greater than UINT16_MAX will be converted to the
 // Unicode replacement character. Otherwise, values are returned as-is.
-// -1 is returned on EOF.
+// std::nullopt is returned on EOF.
 //
 // If an invalid UTF-8 sequence is found, the Unicode replacement
 // character is returned.
-long IO::getc(bool limit16)
+std::optional<uint32_t> IO::getc(bool limit16)
 {
-    long ret;
+    uint32_t ret;
     uint8_t c;
     class NotUnicode : public std::exception {};
 
     try {
         c = read8();
     } catch (const IOError &) {
-        return -1;
+        return std::nullopt;
     }
 
     // Read a byte and make sure it’s part of a valid UTF-8 sequence.
@@ -550,7 +553,7 @@ long IO::getc(bool limit16)
             ret = (c & 0x0f) << 12;
             ret |= (read_byte() & 0x3f) << 6;
             ret |= (read_byte() & 0x3f);
-            if (ret < 0x800) {
+            if (ret < 0x800 || (ret >= 0xd800 && ret <= 0xdfff)) {
                 throw NotUnicode();
             }
         } else if ((c & 0xf8) == 0xf0) { // Four bytes.
@@ -565,7 +568,7 @@ long IO::getc(bool limit16)
             ret = UNICODE_REPLACEMENT;
         }
     } catch (const IOError &) {
-        return -1;
+        return std::nullopt;
     } catch (const NotUnicode &) {
         return UNICODE_REPLACEMENT;
     }
@@ -622,9 +625,9 @@ std::vector<uint16_t> IO::readline()
     std::vector<uint16_t> result;
 
     while (true) {
-        long c = getc(true);
+        auto c = getc(true);
 
-        if (c == -1) {
+        if (!c.has_value()) {
             throw EndOfFile();
         }
 
@@ -632,13 +635,13 @@ std::vector<uint16_t> IO::readline()
             break;
         }
 
-        result.push_back(c);
+        result.push_back(*c);
     }
 
     return result;
 }
 
-long IO::filesize() const
+std::optional<unsigned long> IO::filesize() const
 {
     switch (m_type) {
     case Type::StandardIO:
@@ -661,7 +664,7 @@ long IO::filesize() const
         bad_type();
     }
 
-    return -1;
+    return std::nullopt;
 }
 
 void IO::flush()

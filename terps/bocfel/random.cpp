@@ -137,7 +137,7 @@ static void seed_random(uint32_t seed)
     if (seed == 0) {
         mode = Mode::Random;
 
-        if (options.random_seed == nullptr) {
+        if (!options.random_seed.has_value()) {
             auto t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
             const unsigned char *p = reinterpret_cast<const unsigned char *>(&t);
             uint32_t s = 0;
@@ -226,7 +226,7 @@ void init_random(bool first_run)
     seed_random(0);
 
     if (first_run) {
-        if (options.random_device != nullptr && !random_file.is_open()) {
+        if (options.random_device.has_value() && !random_file.is_open()) {
             random_file.open(options.random_device->c_str(), std::ifstream::binary);
             if (!random_file.is_open()) {
                 warning("unable to open random device %s: %s\n", options.random_device->c_str(), std::strerror(errno));

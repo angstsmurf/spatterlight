@@ -44,6 +44,15 @@ unsigned long current_instruction;
 std::array<uint16_t, 8> zargs;
 int znargs;
 
+uint16_t zarg_or(int n, uint16_t def)
+{
+    if (n < znargs) {
+        return zargs[n];
+    } else {
+        return def;
+    }
+}
+
 // Track the current processing level: 1 for the “main” loop, 2 if
 // inside of an internal call, 3 if inside of an internal call inside of
 // an internal call, and so on.
@@ -313,8 +322,11 @@ void setup_opcodes()
 #ifndef SPATTERLIGHT
 #ifndef ZTERP_NO_V6
     // V6 hacks.
-    setup_single_opcode(6, 6, Opcount::Ext, JOURNEY_DIAL_EXT, zjourney_dial);
-    setup_single_opcode(6, 6, Opcount::Ext, SHOGUN_MENU_EXT, zshogun_menu);
+    if (is_game(Game::Journey)) {
+        setup_single_opcode(6, 6, Opcount::Ext, JOURNEY_DIAL_EXT, zjourney_dial);
+    } else if (is_game(Game::Shogun)) {
+        setup_single_opcode(6, 6, Opcount::Ext, SHOGUN_MENU_EXT, zshogun_menu);
+    }
 #endif
 #endif
 }
@@ -334,8 +346,10 @@ void process_instructions()
         if (spatterlight_restore_autosave(&saveopcode)) {
 #else
         SaveType savetype = options.autosave_librarystate ? SaveType::AutosaveLib : SaveType::Autosave;
-        if (do_restore(SaveType::Autosave, saveopcode)) {
-            show_message("Continuing last session from autosave");
+        if (do_restore(savetype, saveopcode)) {
+            if (savetype == SaveType::Autosave) {
+                show_message("Continuing last session from autosave");
+            }
 #endif
             throw Operation::Restore(saveopcode);
         }
@@ -399,7 +413,7 @@ void process_instructions()
 
         try {
             opcodes[opcode]();
-        } catch (const Operation::Return &) {
+        } catch (const Operation::ReturnFromInternal &) {
             processing_level--;
             return;
         }

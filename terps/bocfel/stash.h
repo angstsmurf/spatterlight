@@ -20,7 +20,7 @@ public:
     ~Stash();
 
     void backup();
-    bool exists() const;
+    [[nodiscard]] bool exists() const;
     bool restore();
 
 private:

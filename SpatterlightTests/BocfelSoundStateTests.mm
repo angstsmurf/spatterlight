@@ -70,6 +70,8 @@ channel_t *gli_schan_for_tag(int tag)
 // bocfel globals referenced by zsound_effect() (never executed here).
 std::array<uint16_t, 8> zargs;
 int znargs;
+int zversion;
+uint16_t zarg_or(int n, uint16_t def) { return def; }
 bool is_game(Game game) { return false; }
 
 @interface BocfelSoundStateTests : XCTestCase

@@ -24,7 +24,7 @@ struct Dictionary {
         m_num_entries(as_signed(user_word(m_addr + m_num_separators + 2))),
         m_base(m_addr + 1 + m_num_separators + 1 + 2) {
             ZASSERT(m_entry_length >= (zversion <= 3 ? 4 : 6), "dictionary entry length (%d) too small", m_entry_length);
-            ZASSERT(m_base + (labs(m_num_entries) * m_entry_length) < memory_size, "reported dictionary length extends beyond memory size");
+            ZASSERT(m_base + (std::labs(m_num_entries) * m_entry_length) <= memory_size, "reported dictionary length extends beyond memory size");
 
             m_separators[ZSCII_SPACE] = true;
             for (uint8_t i = 0; i < m_num_separators; i++) {
@@ -34,9 +34,9 @@ struct Dictionary {
 
     uint16_t find(const uint8_t *token, size_t len) const;
 
-    bool is_sep(uint8_t c) const {
+    [[nodiscard]] bool is_sep(uint8_t c) const {
         return m_separators[c];
-    };
+    }
 
 private:
     uint16_t m_addr;
@@ -44,19 +44,21 @@ private:
     std::array<bool, UINT8_MAX + 1> m_separators{};
     uint8_t m_entry_length;
     long m_num_entries;
-    uint16_t m_base;
+    uint32_t m_base;
 };
 
 // Encode the text at “s”, of length “len” (there is not necessarily a
 // terminating null character), returning it.
 //
-// 1.1 of the standard revises the encoding for V1 and V2 games. I am
-// not implementing the new rules for two basic reasons:
-// 1) It apparently only affects three (unnecessary) dictionary words in
-//    the known V1-2 games.
-// 2) Because of 1, it is not worth the effort to peek ahead and see
-//    what the next character is to determine whether to shift once or
-//    to lock.
+// Versions 1 and 2 make this function more complex than it should be.
+// In versions 1 and 2, if there is a run of 2 or more characters in a
+// different alphabet than the current one (but the same as each other),
+// then locking is employed rather than shifting. This has one known
+// use: the PDP-10 in Zork 1. With a dictionary word of “pdp10”, the 1
+// and 0 are both in A2, and thus must be encoded with a lock, not two
+// shifts. This vital change means that you can now refer to the PDP-10
+// as “pdp10” instead of “machine”, or “dryer”, or “lid”, all of which
+// are synonyms for it.
 //
 // Z-character 0 is a space (§3.5.1), so theoretically a space should be
 // encoded simply with a zero. However, Inform 6.32 encodes space
@@ -69,21 +71,49 @@ static std::array<uint8_t, 6> encode_string(const uint8_t *s, size_t len)
     const int shiftbase = zversion <= 2 ? 1 : 3;
     std::array<uint8_t, 12> chars;
 
-    for (size_t i = 0; i < len && n < max; i++) {
-        int pos = atable_pos[s[i]];
-        if (pos >= 0) {
-            int shift = pos / 26;
-            int c = pos % 26;
+    // This is always 0 for V3+, but for V1 and V2 it can change.
+    int current_alphabet = 0;
 
-            if (shift > 0) {
-                chars[n++] = shiftbase + shift;
-            }
-            chars[n++] = c + 6;
+    struct Character {
+        int alphabet;
+        std::array<uint8_t, 3> body;
+        int body_len;
+    };
+
+    // Given a ZSCII value, return both the alphabet it’s in as well as
+    // a byte array of the Z-character(s) needed to represent it. This
+    // handles characters not in the alphabet table by returning an
+    // alphabet of 2 and a Z-character of 6 followed by two 5-bit halves
+    // of the ZSCII value (see §3.4).
+    auto classify = [](uint8_t c) -> Character {
+        int pos = atable_pos[c];
+        if (pos >= 0) {
+            return { pos / 26, {static_cast<uint8_t>(pos % 26 + 6)}, 1 };
         } else {
-            chars[n++] = shiftbase + 2;
-            chars[n++] = 6;
-            chars[n++] = s[i] >> 5;
-            chars[n++] = s[i] & 0x1f;
+            return { 2, {6, static_cast<uint8_t>(c >> 5), static_cast<uint8_t>(c & 0x1f)}, 3 };
+        }
+    };
+
+    for (size_t i = 0; i < len && n < max; i++) {
+        Character cur = classify(s[i]);
+
+        // See §3.7.1, and STRING-ZSTR in the pre-V3 ZILCH source.
+        bool lock = zversion <= 2 &&
+                    cur.alphabet != current_alphabet &&
+                    i + 1 < len &&
+                    classify(s[i + 1]).alphabet == cur.alphabet;
+
+        int delta = (cur.alphabet - current_alphabet + 3) % 3;
+        if (delta != 0) {
+            chars[n++] = shiftbase + delta + (lock ? 2 : 0);
+        }
+
+        if (lock) {
+            current_alphabet = cur.alphabet;
+        }
+
+        for (int j = 0; j < cur.body_len; j++) {
+            chars[n++] = cur.body[j];
         }
     }
 
@@ -113,8 +143,9 @@ static std::array<uint8_t, 6> encode_string(const uint8_t *s, size_t len)
     return encoded;
 }
 
-uint16_t Dictionary::find(const uint8_t *token, size_t len) const {
-    const uint8_t *ret = nullptr;
+uint16_t Dictionary::find(const uint8_t *token, size_t len) const
+{
+    const uint8_t *match = nullptr;
     auto dict_compar = [](const void *a, const void *b) {
         return std::memcmp(a, b, zversion <= 3 ? 4 : 6);
     };
@@ -122,23 +153,23 @@ uint16_t Dictionary::find(const uint8_t *token, size_t len) const {
     auto encoded = encode_string(token, len);
 
     if (m_num_entries > 0) {
-        ret = static_cast<uint8_t *>(std::bsearch(encoded.data(), &memory[m_base], m_num_entries, m_entry_length, dict_compar));
+        match = static_cast<uint8_t *>(std::bsearch(encoded.data(), &memory[m_base], m_num_entries, m_entry_length, dict_compar));
     } else {
         for (long i = 0; i < -m_num_entries; i++) {
             const uint8_t *entry = &memory[m_base + (i * m_entry_length)];
 
             if (dict_compar(encoded.data(), entry) == 0) {
-                ret = entry;
+                match = entry;
                 break;
             }
         }
     }
 
-    if (ret == nullptr) {
+    if (match == nullptr) {
         return 0;
     }
 
-    return m_base + (ret - &memory[m_base]);
+    return match - memory.data();
 }
 
 static uint16_t lookup_replacement(uint16_t original, const std::vector<uint8_t> &replacement, const Dictionary &dictionary)
@@ -159,10 +190,10 @@ static void handle_token(const uint8_t *base, const uint8_t *token, size_t len, 
     d = dictionary.find(token, len);
 
     if (len == 1 && is_game(Game::Infocom1234) && start_of_sentence && !options.disable_abbreviations) {
-        const std::vector<uint8_t> examine = { 'e', 'x', 'a', 'm', 'i', 'n', 'e' };
-        const std::vector<uint8_t> again = { 'a', 'g', 'a', 'i', 'n' };
-        const std::vector<uint8_t> wait = { 'w', 'a', 'i', 't' };
-        const std::vector<uint8_t> oops = { 'o', 'o', 'p', 's' };
+        static const std::vector<uint8_t> examine = { 'e', 'x', 'a', 'm', 'i', 'n', 'e' };
+        static const std::vector<uint8_t> again = { 'a', 'g', 'a', 'i', 'n' };
+        static const std::vector<uint8_t> wait = { 'w', 'a', 'i', 't' };
+        static const std::vector<uint8_t> oops = { 'o', 'o', 'p', 's' };
 
         if (*token == 'x') {
             d = lookup_replacement(d, examine, dictionary);
@@ -212,7 +243,6 @@ static void handle_token(const uint8_t *base, const uint8_t *token, size_t len, 
 // • The final byte is the offset in the string of the token.
 void tokenize(uint16_t text, uint16_t parse, uint16_t dictaddr, bool ignore_unknown)
 {
-    const uint8_t *p;
     uint32_t text_len = 0;
     const int maxwords = user_byte(parse);
     bool in_word = false;
@@ -235,15 +265,11 @@ void tokenize(uint16_t text, uint16_t parse, uint16_t dictaddr, bool ignore_unkn
         }
     }
 
-    ZASSERT(text + 1 + (zversion >= 5) + text_len < memory_size, "attempt to tokenize out-of-bounds string");
+    ZASSERT(text + 1 + (zversion >= 5) + text_len <= memory_size, "attempt to tokenize out-of-bounds string");
 
     const uint8_t *string = &memory[text + 1 + (zversion >= 5 ? 1 : 0)];
-
-    for (p = string; p - string < text_len && *p == ZSCII_SPACE; p++) {
-    }
-    const uint8_t *lastp = p;
-
-    text_len -= (p - string);
+    const uint8_t *p = string;
+    const uint8_t *lastp = string;
 
     do {
         if (!in_word && text_len != 0 && !dictionary.is_sep(*p)) {
@@ -275,7 +301,7 @@ void tokenize(uint16_t text, uint16_t parse, uint16_t dictaddr, bool ignore_unkn
 
 static void encode_text(uint32_t text, uint16_t len, uint16_t coded)
 {
-    ZASSERT(text + len < memory_size, "reported text length extends beyond memory size");
+    ZASSERT(text + len <= memory_size, "reported text length extends beyond memory size");
 
     auto encoded = encode_string(&memory[text], len);
 
@@ -292,14 +318,7 @@ void public_encode_text(uint32_t text, uint16_t len, uint16_t coded) {
 
 void ztokenise()
 {
-    if (znargs < 3) {
-        zargs[2] = 0;
-    }
-    if (znargs < 4) {
-        zargs[3] = 0;
-    }
-
-    tokenize(zargs[0], zargs[1], zargs[2], zargs[3] != 0);
+    tokenize(zargs[0], zargs[1], zarg_or(2, 0), zarg_or(3, 0) != 0);
 }
 
 void zencode_text()

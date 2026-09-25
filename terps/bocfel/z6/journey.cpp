@@ -1588,7 +1588,7 @@ static void journey_adjust_windows(bool restoring) {
         }
 
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
-        store_word(0x10, word(0x10) & ~FLAGS2_STATUS);
+        store_word(0x10, word(0x10) & ~FLAGS2_REDRAW);
 
         if (!restoring && screenmode != MODE_CREDITS) {
             if (selected_journey_column <= 0) { // call BOLD-PARTY-CURSOR

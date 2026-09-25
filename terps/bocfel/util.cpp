@@ -9,7 +9,7 @@
 #include <fstream>
 #include <functional>
 #include <iostream>
-#include <memory>
+#include <optional>
 #include <string>
 
 #include "util.h"
@@ -90,19 +90,19 @@ void die(const char *fmt, ...)
     throw Exit(EXIT_FAILURE);
 }
 
-long parseint(const std::string &s, int base, bool &valid)
+std::optional<long> parseint(const std::string &s, int base)
 {
     char *endptr;
     const char *cstr = s.c_str();
 
     errno = 0;
     long ret = std::strtol(cstr, &endptr, base);
-    valid =
-        endptr != cstr &&
-        *endptr == 0 &&
-        errno != ERANGE;
 
-    return ret;
+    if (endptr != cstr && *endptr == 0 && errno != ERANGE) {
+        return ret;
+    } else {
+        return std::nullopt;
+    }
 }
 
 std::string vstring(const char *fmt, std::va_list ap)
@@ -118,7 +118,7 @@ std::string vstring(const char *fmt, std::va_list ap)
     }
 
     s.resize(n);
-    std::vsnprintf(&s[0], n + 1, fmt, ap_copy);
+    std::vsnprintf(s.data(), n + 1, fmt, ap_copy);
 
     va_end(ap_copy);
 
@@ -139,9 +139,7 @@ std::string fstring(const char *fmt, ...)
 
 std::string ltrim(const std::string &s)
 {
-    auto pos = s.find_first_not_of(" \t\r");
-
-    if (pos != std::string::npos) {
+    if (auto pos = s.find_first_not_of(" \t\r"); pos != std::string::npos) {
         return s.substr(pos);
     } else {
         return "";
@@ -150,16 +148,14 @@ std::string ltrim(const std::string &s)
 
 std::string rtrim(const std::string &s)
 {
-    auto pos = s.find_last_not_of(" \t\r");
-
-    if (pos != std::string::npos) {
+    if (auto pos = s.find_last_not_of(" \t\r"); pos != std::string::npos) {
         return s.substr(0, pos + 1);
     } else {
         return "";
     }
 }
 
-void parse_grouped_file(std::ifstream &f, const std::function<void(const std::string &line, int lineno)> &callback)
+void parse_grouped_file(std::istream &f, const std::function<void(const std::string &line, int lineno)> &callback)
 {
     std::string line;
     bool story_matches = true;
@@ -167,8 +163,7 @@ void parse_grouped_file(std::ifstream &f, const std::function<void(const std::st
     for (int lineno = 1; std::getline(f, line); lineno++) {
         line = ltrim(line);
 
-        auto comment = line.find('#');
-        if (comment != std::string::npos) {
+        if (auto comment = line.find('#'); comment != std::string::npos) {
             line.erase(comment);
         }
         line = rtrim(line);
@@ -192,12 +187,12 @@ void parse_grouped_file(std::ifstream &f, const std::function<void(const std::st
     }
 }
 
-std::unique_ptr<std::string> zterp_getenv(const std::string &name)
+std::optional<std::string> zterp_getenv(const std::string &name)
 {
     const char *val = std::getenv(name.c_str());
     if (val == nullptr) {
-        return nullptr;
+        return std::nullopt;
     }
 
-    return std::make_unique<std::string>(val);
+    return val;
 }

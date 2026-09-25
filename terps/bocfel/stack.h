@@ -3,6 +3,7 @@
 #ifndef ZTERP_STACK_H
 #define ZTERP_STACK_H
 
+#include <optional>
 #include <stdexcept>
 #include <vector>
 
@@ -24,7 +25,7 @@ uint16_t variable(uint16_t var);
 void store_variable(uint16_t var, uint16_t n);
 
 void start_v6();
-uint16_t internal_call(uint16_t routine, std::vector<uint16_t> args = {});
+uint16_t internal_call(uint16_t routine, std::vector<uint16_t> args = {}, std::optional<uint8_t> store_var = std::nullopt);
 void do_return(uint16_t retval);
 
 enum class SaveType {

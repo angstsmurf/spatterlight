@@ -2,14 +2,18 @@
 //
 // SPDX-License-Identifier: MIT
 
+#include <algorithm>
+#include <cerrno>
 #include <climits>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <exception>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <memory>
+#include <optional>
 #include <random>
 #include <sstream>
 #include <stdexcept>
@@ -49,40 +53,40 @@ using namespace std::literals;
 //
 // The functions required are as follows:
 //
-// long zterp_os_filesize(std::FILE *fp)
+// std::optional<unsigned long> zterp_os_filesize(std::FILE *fp)
 //
 // Return the size of the file referred to by fp. It is safe to assume
 // that the file is opened in binary mode. The file position indicator
-// need not be maintained. If the size of the file is larger than
-// LONG_MAX, -1 should be returned.
+// must be maintained. If the size of the file is larger than ULONG_MAX,
+// std::nullopt should be returned.
 //
-// std::unique_ptr<std::string> zterp_os_rcfile(bool create_parent)
+// std::optional<std::string> zterp_os_rcfile(bool create_parent)
 //
 // Different operating systems have different ideas about where
 // configuration data should be stored; this function will return a
 // suitable value for the bocfel configuration file. If a configuration
-// file location cannot be determined, return a null pointer. If
+// file location cannot be determined, return std::nullopt. If
 // “create_parent” is true, attempt to create the containing directory,
 // failing if this isn’t possible.
 //
-// std::unique_ptr<std::string> zterp_os_autosave_name()
+// std::optional<std::string> zterp_os_autosave_name()
 //
 // Return a suitable filename for autosaving. If there is some problem,
-// a null pointer is returned. For example, the Unix implementation
+// std::nullopt is returned. For example, the Unix implementation
 // returns null if it can’t create all directory components in the
 // filename. This should not verify that the file exists, because the
 // first time an autosave is created, it necessarily won’t exist
 // beforehand.
 //
-// std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename);
+// std::optional<std::string> zterp_os_aux_file(const std::string &filename);
 //
 // The Z-machine allow games to save and load arbitrary files. Bocfel
 // confines these files to a single (per-game) directory to avoid games
 // overwriting unrelated files. This function, given a filename, returns
-// a pointer to a string containing a full path to a file which
-// represents the passed-in filename. The file need not exist, but its
-// containing directory must. A null pointer is returned on failure. The
-// file must not escape its containing directory, which may require
+// a string containing a full path to a file which represents the
+// passed-in filename. The file need not exist, but its containing
+// directory must. std::nullopt is returned on failure. The file must
+// not escape its containing directory, which may require
 // platform-specific methods, but at the very least means that a file
 // containing directory separators (e.g. '/' on Unix) must be rejected
 // or sanitized. The incoming filename is guaranteed to consist of ASCII
@@ -159,10 +163,10 @@ static void ansi_set_style(const Style &style, const Color &fg, const Color &bg)
         std::cout << ";1";
     }
 
-    if (fg.mode == Color::Mode::ANSI) {
+    if (fg.mode == Color::Mode::ANSI && fg.value >= 2 && fg.value <= 9) {
         std::cout << ";" << (28 + fg.value);
     }
-    if (bg.mode == Color::Mode::ANSI) {
+    if (bg.mode == Color::Mode::ANSI && bg.value >= 2 && bg.value <= 9) {
         std::cout << ";" << (38 + bg.value);
     }
 
@@ -176,24 +180,40 @@ static std::vector<char> read_file(const std::string &filename)
     std::vector<char> new_file;
 
     try {
-        IO io(&filename, IO::Mode::ReadOnly, IO::Purpose::Data);
+        IO io(filename, IO::Mode::ReadOnly, IO::Purpose::Data);
 
-        long size = io.filesize();
-        if (size == -1) {
+        auto size = io.filesize();
+        if (!size.has_value()) {
             throw std::exception();
         }
 
         io.seek(0, IO::SeekFrom::Start);
 
         if (size != 0) {
-            new_file.resize(size);
-            io.read_exact(new_file.data(), size);
+            new_file.resize(*size);
+            io.read_exact(new_file.data(), *size);
         }
     } catch (...) {
         throw std::runtime_error("unable to read file");
     }
 
     return new_file;
+}
+
+// Given a filename (or a directory name ending in a slash), create all
+// components of all directories, returning false in case of error.
+static bool mkdir_p(const std::string &file)
+{
+    std::filesystem::path path(file);
+    if (!path.parent_path().empty()) {
+        try {
+            std::filesystem::create_directories(path.parent_path());
+        } catch (const std::runtime_error &) {
+            return false;
+        }
+    }
+
+    return true;
 }
 #endif
 
@@ -225,116 +245,98 @@ static std::string unique_name()
     return basename + "-" + get_story_id();
 }
 
-// Given a filename (or a directory name ending in a slash), create all
-// components of all directories, returning false in case of error.
-static bool mkdir_p(const std::string &file)
-{
-    for (auto slash = file.find('/'); slash != std::string::npos; slash = file.find('/', slash + 1)) {
-        auto component = file.substr(0, slash);
-        if (!component.empty()) {
-            struct stat st;
-            mkdir(component.c_str(), 0755);
-            if (stat(component.c_str(), &st) == -1 || !S_ISDIR(st.st_mode)) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-long zterp_os_filesize(std::FILE *fp)
+std::optional<unsigned long> zterp_os_filesize(std::FILE *fp)
 {
     struct stat st;
     int fd = fileno(fp);
 
-    if (fd == -1 || fstat(fd, &st) == -1 || !S_ISREG(st.st_mode) || st.st_size > LONG_MAX) {
-        return -1;
+    if (fd == -1 || fstat(fd, &st) == -1 || !S_ISREG(st.st_mode) || st.st_size > ULONG_MAX) {
+        return std::nullopt;
     }
 
     return st.st_size;
 }
 #define have_zterp_os_filesize
 
-std::unique_ptr<std::string> zterp_os_rcfile(bool create_parent)
+std::optional<std::string> zterp_os_rcfile(bool create_parent)
 {
-    std::unique_ptr<std::string> config_file;
+    std::string config_file;
 #ifdef __HAIKU__
     char settings_dir[4096];
 
     if (find_directory(B_USER_SETTINGS_DIRECTORY, -1, false, settings_dir, sizeof settings_dir) != B_OK) {
-        return nullptr;
+        return std::nullopt;
     }
 
-    config_file = std::make_unique<std::string>(std::string(settings_dir) + "/bocfel/bocfelrc");
+    config_file = std::string(settings_dir) + "/bocfel/bocfelrc";
 #else
     auto home = zterp_getenv("HOME");
-    if (home != nullptr) {
+    if (home.has_value()) {
         // This is the legacy location of the config file.
         auto s = *home + "/.bocfelrc";
         if (access(s.c_str(), R_OK) == 0) {
-            return std::make_unique<std::string>(s);
+            return s;
         }
     }
 
     auto config_home = zterp_getenv("XDG_CONFIG_HOME");
-    if (config_home != nullptr && config_home->find('/') == 0) {
-        config_file = std::make_unique<std::string>(*config_home + "/bocfel/bocfelrc");
-    } else if (home != nullptr) {
-        config_file = std::make_unique<std::string>(*home + "/.config/bocfel/bocfelrc");
+    if (config_home.has_value() && config_home->find('/') == 0) {
+        config_file = *config_home + "/bocfel/bocfelrc";
+    } else if (home.has_value()) {
+        config_file = *home + "/.config/bocfel/bocfelrc";
     } else {
-        return nullptr;
+        return std::nullopt;
     }
 #endif
 
-    if (create_parent && !mkdir_p(*config_file)) {
-        return nullptr;
+    if (create_parent && !mkdir_p(config_file)) {
+        return std::nullopt;
     }
 
     return config_file;
 }
 #define have_zterp_os_rcfile
 
-static std::unique_ptr<std::string> data_file(const std::string &filename)
+static std::optional<std::string> data_file(const std::string &filename)
 {
 #ifdef __HAIKU__
     char settings_dir[4096];
 
     if (find_directory(B_USER_SETTINGS_DIRECTORY, -1, true, settings_dir, sizeof settings_dir) != B_OK) {
-        return nullptr;
+        return std::nullopt;
     }
 
-    auto name = std::make_unique<std::string>(std::string(settings_dir) + "/bocfel/" + filename);
+    auto name = std::string(settings_dir) + "/bocfel/" + filename;
 #else
-    std::unique_ptr<std::string> name;
+    std::string name;
 
     auto data_home = zterp_getenv("XDG_DATA_HOME");
-    if (data_home != nullptr && (*data_home)[0] == '/') {
-        name = std::make_unique<std::string>(*data_home + "/bocfel/" + filename);
+    if (data_home.has_value() && (*data_home)[0] == '/') {
+        name = *data_home + "/bocfel/" + filename;
     } else {
         auto home = zterp_getenv("HOME");
-        if (home == nullptr) {
-            return nullptr;
+        if (!home.has_value()) {
+            return std::nullopt;
         }
-        name = std::make_unique<std::string>(*home + "/.local/share/bocfel/" + filename);
+        name = *home + "/.local/share/bocfel/" + filename;
     }
 #endif
 
-    if (!mkdir_p(*name)) {
-        return nullptr;
+    if (!mkdir_p(name)) {
+        return std::nullopt;
     }
 
     return name;
 }
 
-std::unique_ptr<std::string> zterp_os_autosave_name()
+std::optional<std::string> zterp_os_autosave_name()
 {
-    if (options.autosave_directory != nullptr) {
+    if (options.autosave_directory.has_value()) {
         std::string filename = *options.autosave_directory + "/"s + unique_name();
         if (!mkdir_p(filename)) {
-            return nullptr;
+            return std::nullopt;
         }
-        return std::make_unique<std::string>(filename);
+        return filename;
     } else {
         std::string filename = "autosave/"s + unique_name();
         return data_file(filename);
@@ -342,7 +344,7 @@ std::unique_ptr<std::string> zterp_os_autosave_name()
 }
 #define have_zterp_os_autosave_name
 
-std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename_)
+std::optional<std::string> zterp_os_aux_file(const std::string &filename_)
 {
     std::string filename = filename_;
     for (auto &c : filename) {
@@ -386,6 +388,11 @@ static pid_t launch_editor(const std::string &filename)
         while (ss >> std::quoted(token)) {
             args.push_back(token);
         }
+
+        if (args.empty()) {
+            throw EINVAL;
+        }
+
         args.push_back(filename);
 
         std::vector<char *> c_args;
@@ -406,7 +413,7 @@ static pid_t launch_editor(const std::string &filename)
 
     // Try the user’s editor explicitly instead of prepending it to the
     // list of defaults so a diagnostic message can easily be displayed.
-    if (options.editor != nullptr) {
+    if (options.editor.has_value()) {
         try {
             return edit_with(*options.editor);
         } catch (int err) {
@@ -432,15 +439,27 @@ void zterp_os_edit_file(const std::string &filename)
     }
 
     int status;
+    pid_t wpid;
 
 #ifdef ZTERP_GLK_TICK
-    while (waitpid(pid, &status, WNOHANG) != pid) {
-        std::this_thread::sleep_for(10ms);
-        glk_tick();
-    }
+    int flags = WNOHANG;
 #else
-    waitpid(pid, &status, 0);
+    int flags = 0;
 #endif
+
+    do {
+        wpid = waitpid(pid, &status, flags);
+#ifdef ZTERP_GLK_TICK
+        if (wpid == 0) {
+            std::this_thread::sleep_for(10ms);
+            glk_tick();
+        }
+#endif
+    } while (wpid == 0 || (wpid == -1 && errno == EINTR));
+
+    if (wpid != pid) {
+        throw std::runtime_error("unable to wait for editor process");
+    }
 
     if (!WIFEXITED(status)) {
         throw std::runtime_error("editor process terminated abnormally");
@@ -463,13 +482,13 @@ public:
     explicit TempFile(const std::string &tmpl)
     {
         auto tmpdir = zterp_getenv("TMPDIR");
-        if (tmpdir == nullptr) {
-            tmpdir = std::make_unique<std::string>("/tmp");
+        if (!tmpdir.has_value()) {
+            tmpdir = "/tmp";
         }
 
         m_path = *tmpdir + "/" + tmpl + ".XXXXXX";
 
-        m_fd = mkstemp(&m_path[0]);
+        m_fd = mkstemp(m_path.data());
         if (m_fd == -1) {
             throw std::runtime_error("unable to create temporary file");
         }
@@ -482,7 +501,7 @@ public:
         size_t bytes = 0;
         while (bytes < data.size()) {
             ssize_t n = ::write(m_fd, &data[bytes], data.size() - bytes);
-            if (n == -1) {
+            if (n == 0 || n == -1) {
                 throw std::runtime_error("unable to write to temporary file");
             }
             bytes += n;
@@ -494,7 +513,7 @@ public:
         std::remove(m_path.c_str());
     }
 
-    const std::string &path() const {
+    [[nodiscard]] const std::string &path() const {
         return m_path;
     }
 
@@ -684,94 +703,69 @@ void zterp_os_set_style(const Style &style, const Color &fg, const Color &bg)
 #pragma comment(lib, "shell32.lib")
 #endif
 
-long zterp_os_filesize(std::FILE *fp)
+std::optional<unsigned long> zterp_os_filesize(std::FILE *fp)
 {
     struct _stat st;
     int fd = _fileno(fp);
 
-    if (fd == -1 || _fstat(_fileno(fp), &st) == -1 || (st.st_mode & _S_IFREG) == 0 || st.st_size > LONG_MAX) {
-        return -1;
+    if (fd == -1 || _fstat(fd, &st) == -1 || (st.st_mode & _S_IFREG) == 0 || st.st_size > ULONG_MAX) {
+        return std::nullopt;
     }
 
     return st.st_size;
 }
 #define have_zterp_os_filesize
 
-static bool mkdir_p(const std::string &filename)
-{
-    char drive[MAX_PATH], path[MAX_PATH];
-
-    if (_splitpath_s(filename.c_str(), drive, sizeof drive, path, sizeof path, nullptr, 0, nullptr, 0) != 0) {
-        return false;
-    }
-
-    for (char *p = path; *p != 0; p++) {
-        if ((*p == '/' || *p == '\\') && p != path) {
-            char slash = *p;
-            struct _stat st;
-            *p = 0;
-            std::string component = std::string(drive) + path;
-            _mkdir(component.c_str());
-            if (_stat(component.c_str(), &st) == -1 || (st.st_mode & S_IFDIR) != S_IFDIR) {
-                return false;
-            }
-            *p = slash;
-        }
-    }
-
-    return true;
-}
-
-std::unique_ptr<std::string> zterp_os_rcfile(bool create_parent)
+std::optional<std::string> zterp_os_rcfile(bool create_parent)
 {
     auto appdata = zterp_getenv("APPDATA");
-    if (appdata == nullptr) {
-        return nullptr;
+    if (!appdata.has_value()) {
+        return std::nullopt;
     }
 
-    auto config = std::make_unique<std::string>(*appdata + "\\Bocfel\\bocfel.ini");
+    auto config = *appdata + "\\Bocfel\\bocfel.ini";
 
-    if (create_parent && !mkdir_p(*config)) {
-        return nullptr;
+    if (create_parent && !mkdir_p(config)) {
+        return std::nullopt;
     }
 
     return config;
 }
 #define have_zterp_os_rcfile
 
-std::unique_ptr<std::string> unique_name()
+std::optional<std::string> unique_name()
 {
     char fname[MAX_PATH], ext[MAX_PATH];
 
     if (_splitpath_s(game_file.c_str(), nullptr, 0, nullptr, 0, fname, sizeof fname, ext, sizeof ext) != 0) {
-        return nullptr;
+        return std::nullopt;
     }
 
-    return std::make_unique<std::string>(std::string(fname) + ext + "-" + get_story_id());
+    return std::string(fname) + ext + "-" + get_story_id();
 }
 
-static std::unique_ptr<std::string> data_file(const std::string &filename)
+static std::optional<std::string> data_file(const std::string &filename)
 {
     auto appdata = zterp_getenv("APPDATA");
-    if (appdata == nullptr) {
-        return nullptr;
+    if (!appdata.has_value()) {
+        return std::nullopt;
     }
 
-    auto name = std::make_unique<std::string>(*appdata + "\\Bocfel\\" + filename);
+    auto name = *appdata + "\\Bocfel\\" + filename;
 
-    if (!mkdir_p(*name)) {
-        return nullptr;
+    if (!mkdir_p(name)) {
+        return std::nullopt;
     }
 
     return name;
 }
 
-std::unique_ptr<std::string> zterp_os_autosave_name()
+std::optional<std::string> zterp_os_autosave_name()
 {
     auto filename = unique_name();
 
-    if (filename == nullptr) {
-        return nullptr;
+    if (!filename.has_value()) {
+        return std::nullopt;
     }
 
     return data_file("autosave\\"s + *filename);
@@ -789,10 +783,10 @@ static std::string ascii_toupper(std::string s)
     return s;
 }
 
-std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename_)
+std::optional<std::string> zterp_os_aux_file(const std::string &filename_)
 {
     std::string filename = filename_;
-    std::string upper = ascii_toupper(filename);
+    std::string normalized = ascii_toupper(rtrim(filename.substr(0, filename.find('.'))));
 
     static const std::vector<std::string> reserved_names = {
         "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4",
@@ -800,10 +794,8 @@ std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename_)
         "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
     };
 
-    for (const auto &reserved_name : reserved_names) {
-        if (upper == reserved_name || upper.find(reserved_name + ".") == 0) {
-            return nullptr;
-        }
+    if (std::find(reserved_names.begin(), reserved_names.end(), normalized) != reserved_names.end()) {
+        return std::nullopt;
     }
 
     static const std::string invalid_characters = "<>:\"/\\|?*";
@@ -814,8 +806,8 @@ std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename_)
     }
 
     auto basename = unique_name();
-    if (basename == nullptr) {
-        return nullptr;
+    if (!basename.has_value()) {
+        return std::nullopt;
     }
 
     return data_file("auxiliary\\"s + *basename + "\\" + filename);
@@ -824,7 +816,7 @@ std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename_)
 
 void zterp_os_edit_file(const std::string &filename)
 {
-    SHELLEXECUTEINFO si;
+    SHELLEXECUTEINFO si{};
     si.cbSize = sizeof(SHELLEXECUTEINFO);
     si.fMask = SEE_MASK_NOCLOSEPROCESS;
     si.hwnd = nullptr;
@@ -840,7 +832,11 @@ void zterp_os_edit_file(const std::string &filename)
     }
 
 #ifdef ZTERP_GLK_TICK
-    while (WaitForSingleObject(si.hProcess, 10) != 0) {
+    while (true) {
+        auto r = WaitForSingleObject(si.hProcess, 10);
+        if (r != WAIT_TIMEOUT) {
+            break;
+        }
         glk_tick();
     }
 #else
@@ -900,7 +896,7 @@ static Remover create_temp_file(const std::string &filename, const std::vector<c
 
     Remover remover(std::string(tempdir) + "\\" + generate_random_prefix() + "-" + filename);
     try {
-        IO io(&remover.filename(), IO::Mode::WriteOnly, IO::Purpose::Data);
+        IO io(remover.filename(), IO::Mode::WriteOnly, IO::Purpose::Data);
         io.write_exact(data.data(), data.size());
     } catch (const IO::OpenError &) {
         throw std::runtime_error("unable to create temporary file");
@@ -934,10 +930,10 @@ std::pair<unsigned int, unsigned int> zterp_os_get_screen_size()
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     if (handle != INVALID_HANDLE_VALUE) {
         CONSOLE_SCREEN_BUFFER_INFO screen;
-        GetConsoleScreenBufferInfo(handle, &screen);
-
-        return {screen.srWindow.Right - screen.srWindow.Left + 1,
-                screen.srWindow.Bottom - screen.srWindow.Top + 1};
+        if (GetConsoleScreenBufferInfo(handle, &screen) != 0) {
+            return {screen.srWindow.Right - screen.srWindow.Left + 1,
+                    screen.srWindow.Bottom - screen.srWindow.Top + 1};
+        }
     }
 
     return {0, 0};
@@ -1024,15 +1020,15 @@ std::string convertToString(char* a)
     return s;
 }
 
-std::unique_ptr<std::string> zterp_os_autosave_name()
+std::optional<std::string> zterp_os_autosave_name()
 {
     getautosavedir((char *)game_file.c_str());
     if (autosavedir == nullptr)
-        return nullptr;
+        return std::nullopt;
     std::string s = convertToString(autosavedir);
     if (s.size() == 0)
-        return nullptr;
-    return std::make_unique<std::string>(s + "/autosave.glksave");
+        return std::nullopt;
+    return s + "/autosave.glksave";
 }
 
 #define have_zterp_os_autosave_name
@@ -1043,14 +1039,28 @@ std::unique_ptr<std::string> zterp_os_autosave_name()
 // ║ Generic functions                                                            ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 #ifndef have_zterp_os_filesize
-long zterp_os_filesize(std::FILE *fp)
+std::optional<unsigned long> zterp_os_filesize(std::FILE *fp)
 {
-    // Assume fseek() can seek to the end of binary streams.
-    if (std::fseek(fp, 0, SEEK_END) == -1) {
-        return -1;
+    long orig = std::ftell(fp);
+    if (orig == -1) {
+        return std::nullopt;
     }
 
-    return std::ftell(fp);
+    // Assume fseek() can seek to the end of binary streams.
+    if (std::fseek(fp, 0, SEEK_END) == -1) {
+        return std::nullopt;
+    }
+
+    auto size = std::ftell(fp);
+
+    // Maintain original position. If this fails there's nothing we can do.
+    std::fseek(fp, orig, SEEK_SET);
+
+    if (size == -1) {
+        return std::nullopt;
+    } else {
+        return size;
+    }
 }
 #endif
 
@@ -1062,16 +1072,16 @@ void zterp_os_edit_file(const std::string &)
 #endif
 
 #ifndef have_zterp_os_rcfile
-std::unique_ptr<std::string> zterp_os_rcfile(bool)
+std::optional<std::string> zterp_os_rcfile(bool)
 {
-    return std::make_unique<std::string>("bocfelrc");
+    return "bocfelrc";
 }
 #endif
 
 #ifndef have_zterp_os_autosave_name
-std::unique_ptr<std::string> zterp_os_autosave_name()
+std::optional<std::string> zterp_os_autosave_name()
 {
-    return nullptr;
+    return std::nullopt;
 }
 #endif
 
@@ -1083,17 +1093,17 @@ extern "C" {
 }
 #endif
 
-std::unique_ptr<std::string> zterp_os_aux_file(const std::string &filename)
+std::optional<std::string> zterp_os_aux_file(const std::string &filename)
 {
 #if defined(ZTERP_GLK_UNIX) && defined(GLKUNIX_FILEREF_GET_FILENAME)
     frefid_t fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode, const_cast<char *>(filename.c_str()), 0);
     if (fref != nullptr) {
-        auto result = std::make_unique<std::string>(glkunix_fileref_get_filename(fref));
+        auto result = std::make_optional<std::string>(glkunix_fileref_get_filename(fref));
         glk_fileref_destroy(fref);
         return result;
     }
 #endif
-    return nullptr;
+    return std::nullopt;
 }
 #endif
 

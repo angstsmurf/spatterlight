@@ -20,10 +20,12 @@ std::pair<MetaResult, std::string> handle_meta_command(const uint16_t *string, u
 #ifndef ZTERP_NO_CHEAT
 bool cheat_add(const std::string &how, bool print);
 bool cheat_find_freeze(uint32_t addr, uint16_t &val);
+bool cheat_any();
 #endif
 
 #ifndef ZTERP_NO_WATCHPOINTS
 void watch_check(uint16_t addr, unsigned long oldval, unsigned long newval);
+bool watch_any();
 #endif
 
 IFF::TypeID meta_write_bfnt(IO &savefile);

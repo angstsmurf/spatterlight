@@ -7,7 +7,7 @@
 #include <cctype>
 #include <functional>
 #include <map>
-#include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -23,7 +23,7 @@ struct Options {
     bool disable_timed = false;
     bool disable_sound = false;
     bool enable_escape = false;
-    std::unique_ptr<std::string> escape_string = std::make_unique<std::string>("1m");
+    std::optional<std::string> escape_string = "1m";
     bool disable_fixed = false;
     bool assume_fixed = false;
     bool disable_graphics_font = false;
@@ -32,40 +32,39 @@ struct Options {
     bool disable_history_playback = false;
     bool show_id = false;
     bool disable_term_keys = false;
-    std::unique_ptr<std::string> username = nullptr;
+    std::optional<std::string> username = std::nullopt;
     bool disable_meta_commands = false;
     unsigned long int_number = 1; // DEC
     unsigned char int_version = 'C';
     bool disable_patches = false;
     bool replay_on = false;
-    std::unique_ptr<std::string> replay_name = nullptr;
+    std::optional<std::string> replay_name = std::nullopt;
     bool record_on = false;
-    std::unique_ptr<std::string> record_name = nullptr;
+    std::optional<std::string> record_name = std::nullopt;
     bool transcript_on = false;
-    std::unique_ptr<std::string> transcript_name = nullptr;
+    std::optional<std::string> transcript_name = std::nullopt;
     unsigned long undo_slots = 100;
     bool show_version = false;
     bool disable_abbreviations = false;
     bool enable_censorship = false;
     bool overwrite_transcript = false;
     bool override_undo = false;
-    std::unique_ptr<unsigned long> random_seed = nullptr;
-    std::unique_ptr<std::string> random_device = nullptr;
+    std::optional<unsigned long> random_seed = std::nullopt;
+    std::optional<std::string> random_device = std::nullopt;
 #ifdef SPATTERLIGHT
     bool autosave = true;
 #else
     bool autosave = false;
 #endif
     bool skip_autorestore = false;
-    std::unique_ptr<std::string> autosave_directory = nullptr;
+    std::optional<std::string> autosave_directory = std::nullopt;
     bool autosave_librarystate = false;
     bool persistent_transcript = false;
-    std::unique_ptr<std::string> editor = nullptr;
+    std::optional<std::string> editor = std::nullopt;
     bool warn_on_v6 = true;
     bool redirect_v6_windows = true;
     bool disable_v6_hacks = false;
     double v6_hack_max_scale = 4.0;
-    bool v6_borders = true;
     bool aspect_correction = false;
 
     Options();

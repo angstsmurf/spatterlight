@@ -24,7 +24,7 @@ private:
 
 extern std::string game_file;
 
-#define ZTERP_VERSION    "2.5.1"
+#define ZTERP_VERSION	"2.6"
 
 // v3
 constexpr uint8_t FLAGS1_STATUSTYPE  = 1U << 1;
@@ -45,7 +45,7 @@ constexpr uint8_t FLAGS1_TIMED    = 1U << 7;
 
 constexpr uint16_t FLAGS2_TRANSCRIPT = 1U << 0;
 constexpr uint16_t FLAGS2_FIXED      = 1U << 1;
-constexpr uint16_t FLAGS2_STATUS     = 1U << 2;
+constexpr uint16_t FLAGS2_REDRAW     = 1U << 2;
 constexpr uint16_t FLAGS2_PICTURES   = 1U << 3;
 constexpr uint16_t FLAGS2_UNDO       = 1U << 4;
 constexpr uint16_t FLAGS2_MOUSE      = 1U << 5;
@@ -91,6 +91,7 @@ extern int pixversion;
 const std::string &get_story_id();
 
 enum class Game {
+    AMFV,
     Arthur,
     Infocom1234,
     Journey,

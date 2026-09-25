@@ -20,7 +20,7 @@ extern "C" {
 static strid_t open_autosave(bool writemode)
 {
     auto autosavepath = zterp_os_autosave_name();
-    if (autosavepath == nullptr) {
+    if (!autosavepath.has_value()) {
         return nullptr;
     }
     std::string pathname = *autosavepath + ".json";
@@ -75,28 +75,36 @@ bool glkautosave_library_autorestore()
     glkunix_library_state_free(library_state);
     library_state = nullptr;
 
-    // Recover the blorb stream ID, if we have one open.
+    // Let the interpreter recover window IDs.
+    screen_recover_glk_windows();
+    screen_recover_glk_streams();
+
     if (giblorb_get_resource_map() != nullptr) {
         // It’s inefficient to throw away the blorb chunk map, which we
         // just loaded, and then recreate it. Oh well.
+        //
+        // Failure realistically can’t happen (if a Blorb resource map
+        // has been loaded, it can be unloaded; anything otherwise is a
+        // Glk library error, full stop).
         if (giblorb_unset_resource_map() != giblorb_err_None) {
-            return false;
+            die("Glk library unable to unset resource map (this is nominally an impossible situation)");
         }
 
         glui32 rock = 0;
         for (auto str = glk_stream_iterate(nullptr, &rock); str != nullptr; str = glk_stream_iterate(str, &rock)) {
             if (rock == static_cast<glui32>(StreamRock::BlorbStream)) {
                 if (giblorb_set_resource_map(str) != giblorb_err_None) {
-                    return false;
+                    show_message("Unable to load Blorb file, as Blorb file specified in autosave is not actually a Blorb: restoring, but without multimedia resources");
+                    return true;
                 }
                 break;
             }
         }
-    }
 
-    // Let the interpreter recover window IDs.
-    screen_recover_glk_windows();
-    screen_recover_glk_streams();
+        if (giblorb_get_resource_map() == nullptr) {
+            show_message("Found Blorb file, but autosave contains no Blorb stream: restoring, but without multimedia resources");
+        }
+    }
 #endif // GLKUNIX_AUTOSAVE_FEATURES
 
     return true;

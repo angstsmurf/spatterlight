@@ -71,16 +71,20 @@ void zmul()
     store(static_cast<uint32_t>(zargs[0]) * static_cast<uint32_t>(zargs[1]));
 }
 
+// For zdiv() and zmod(), cast to long to avoid -32768 [/%] -1 which, on
+// 16-bit systems, is invalid (the quotient needs to be representable in
+// the target type, which is “promoted” int, too small for 32768).
+
 void zdiv()
 {
     ZASSERT(zargs[1] != 0, "divide by zero");
-    store(as_signed(zargs[0]) / as_signed(zargs[1]));
+    store(static_cast<long>(as_signed(zargs[0])) / as_signed(zargs[1]));
 }
 
 void zmod()
 {
     ZASSERT(zargs[1] != 0, "divide by zero");
-    store(as_signed(zargs[0]) % as_signed(zargs[1]));
+    store(static_cast<long>(as_signed(zargs[0])) % as_signed(zargs[1]));
 }
 
 void zlog_shift()
