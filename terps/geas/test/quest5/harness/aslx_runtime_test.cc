@@ -1383,6 +1383,38 @@ static void test_number_parse_oracle() {
     CHECK(throws_with("ToInt(\"3000000000\")",
                       "too large or too small for an Int32"));
     CHECK(throws_with("ToDouble(\"abc\")", "was not in a correct format"));
+
+    // -- shift operators, int-flavoured and/or, bool-vs-number comparison,
+    // one-argument Split. Every value below was read off the .NET oracle
+    // (NCalcAsync 6.3.2) with a probe fixture; Deeper's keyring bitmask
+    // ("player.keyring + (1 << n)", "(player.keyring and (1 << n)) > 0") is
+    // the corpus shape that needs all four.
+    CHECK_STR(evals(in, "1 << 3"), "8");
+    CHECK_STR(evals(in, "256 >> 4"), "16");
+    CHECK_STR(evals(in, "1 << 33"), "8589934592");          // 64-bit
+    CHECK_STR(evals(in, "70000 << 1"), "140000");            // not UInt16
+    CHECK_STR(evals(in, "2.5 << 1"), "4");                   // rounds to even
+    CHECK_STR(evals(in, "1 << \"3\""), "8");
+    CHECK_STR(evals(in, "2 << 1 + 1"), "8");                 // looser than +
+    CHECK_STR(evals(in, "1 << 2 > 3"), "True");              // tighter than >
+    CHECK_STR(evals(in, "1 << 1 << 2"), "8");                // left-assoc
+    CHECK_STR(evals(in, "16 >> 1 >> 1"), "4");
+    CHECK_STR(evals(in, "5 + (1 << 2)"), "9");
+    CHECK(throws_with("-1 << 1", "too large or too small for a UInt64"));
+    CHECK_STR(evals(in, "5 and 8"), "True");
+    CHECK_STR(evals(in, "(5 and 8) > 0"), "True");
+    CHECK_STR(evals(in, "(0 and 8) > 0"), "False");
+    CHECK_STR(evals(in, "0 or 0"), "False");
+    CHECK_STR(evals(in, "5 xor 3"), "False");
+    CHECK_STR(evals(in, "not 5"), "False");
+    CHECK_STR(evals(in, "true > 0"), "True");
+    CHECK_STR(evals(in, "false > 0"), "False");
+    CHECK_STR(evals(in, "true < 2"), "True");
+    CHECK_STR(evals(in, "false = 0"), "True");
+    CHECK_STR(evals(in, "(6 and 8) = true"), "True");
+    CHECK_STR(evals(in, "StringListItem(Split(\"small;medium;large\"), 1)"),
+              "medium");
+    CHECK_STR(evals(in, "ListCount(Split(\"a,b;c\"))"), "2");
     w.errors.clear();
 }
 

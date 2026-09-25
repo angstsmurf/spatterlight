@@ -613,7 +613,8 @@ struct Lexer {
     }
 
     void lex_op() {
-        static const char *twos[] = {"<>", "!=", "==", ">=", "<=", nullptr};
+        static const char *twos[] = {"<>", "!=", "==", ">=", "<=", "<<", ">>",
+                                     nullptr};
         for (int k = 0; twos[k]; ++k) {
             if (src.compare(i, 2, twos[k]) == 0) {
                 toks.push_back({Tok::T::Op, twos[k]});
@@ -719,11 +720,11 @@ struct Parser {
         return l;
     }
     ExprP parse_relational() {
-        ExprP l = parse_additive();
+        ExprP l = parse_shift();
         while (true) {
             if (is_op(">") || is_op("<") || is_op(">=") || is_op("<=")) {
                 std::string op = cur().s; advance();
-                l = bin(op, l, parse_additive());
+                l = bin(op, l, parse_shift());
                 continue;
             }
             // "in" / "not in" sit at the relational level in QuestViva's
@@ -731,16 +732,28 @@ struct Parser {
             // ((">=" | "<=" | "<" | ">" | "in" | "not in") shift)*).
             if (is_kw("in")) {
                 advance();
-                l = bin("in", l, parse_additive());
+                l = bin("in", l, parse_shift());
                 continue;
             }
             if (is_kw("not") && p + 1 < toks.size() &&
                 toks[p + 1].t == Tok::T::Ident && toks[p + 1].s == "in") {
                 advance(); advance();
-                l = bin("not in", l, parse_additive());
+                l = bin("not in", l, parse_shift());
                 continue;
             }
             break;
+        }
+        return l;
+    }
+    // shift => additive (("<<" | ">>") additive)*, left-associative, between
+    // relational and additive as in NCalc's grammar. Oracle-verified
+    // (NCalcAsync 6.3.2): "2 << 1 + 1" is 8, "1 << 2 > 3" is True,
+    // "1 << 1 << 2" is 8. Deeper's keyring bitmask: "player.keyring + (1 << n)".
+    ExprP parse_shift() {
+        ExprP l = parse_additive();
+        while (is_op("<<") || is_op(">>")) {
+            std::string op = cur().s; advance();
+            l = bin(op, l, parse_additive());
         }
         return l;
     }
@@ -2689,6 +2702,11 @@ static bool values_equal(const Value &a, const Value &b) {
     if (is_number(a) && is_number(b)) return as_double(a) == as_double(b);
     if (a.type == Value::Type::Boolean && b.type == Value::Type::Boolean)
         return a.boolean == b.boolean;
+    // NCalc compares a bool against a number by converting the bool (true=1,
+    // false=0): oracle-verified "false = 0" and "(6 and 8) = true" are True.
+    if ((a.type == Value::Type::Boolean && is_number(b)) ||
+        (is_number(a) && b.type == Value::Type::Boolean))
+        return as_double(a) == as_double(b);
     if (a.type == Value::Type::ObjectRef && b.type == Value::Type::ObjectRef)
         return a.str == b.str;
     if ((a.type == Value::Type::String || a.type == Value::Type::ObjectRef) &&
@@ -2973,6 +2991,40 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         // double, so the result is always a double (it never goes through
         // Quest's MathHelper int fast paths).
         if (op == "^") return vdouble(std::pow(as_double(l), as_double(r)));
+        // NCalc's LeftShift/RightShift: Convert.ToUInt64(left) shifted by
+        // Convert.ToInt32(right). Oracle-verified: "1 << 33" is 8589934592
+        // (64-bit), "2.5 << 1" is 4 (banker's rounding to 2), "1 << \"3\"" is 8,
+        // and a negative left operand throws "Value was either too large or
+        // too small for a UInt64." The UInt64 result is kept as our Int
+        // (TypeOf on it errors in the oracle -- nothing in the corpus asks).
+        if (op == "<<" || op == ">>") {
+            auto to_u64 = [&](const Value &v) -> unsigned long long {
+                double d;
+                if (v.type == Value::Type::Int) {
+                    if (v.integer < 0)
+                        error("Value was either too large or too small for a UInt64.");
+                    return (unsigned long long)v.integer;
+                }
+                if (v.type == Value::Type::Double) d = v.dbl;
+                else if (v.type == Value::Type::Boolean) return v.boolean ? 1 : 0;
+                else if (v.type == Value::Type::String) {
+                    try { d = std::stod(v.str); }
+                    catch (...) { error("Input string was not in a correct format."); }
+                } else if (v.type == Value::Type::Null) {
+                    return 0;  // Convert.ToUInt64(null) is 0
+                } else {
+                    error("Object must implement IConvertible.");
+                }
+                d = std::nearbyint(d);  // Convert.ToUInt64(double) rounds to even
+                if (d < 0 || d > 18446744073709551615.0)
+                    error("Value was either too large or too small for a UInt64.");
+                return (unsigned long long)d;
+            };
+            unsigned long long a = to_u64(l);
+            int b = (int)to_u64(r);  // Convert.ToInt32(right); C# masks to 0..63
+            unsigned long long out = op == "<<" ? a << (b & 63) : a >> (b & 63);
+            return vint((long)out);
+        }
         if (op == "-" || op == "*" || op == "%") {
             if (l.type == Value::Type::Null || r.type == Value::Type::Null)
                 return vnull();  // MathHelper: null operand -> null result
@@ -3002,7 +3054,13 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         // every comparison except <> is false (TypeHelper.HasNullOrTypeConflict).
         if ((l.type == Value::Type::Null) != (r.type == Value::Type::Null))
             return vbool(false);
-        if (is_number(l) && is_number(r)) {
+        // Booleans take part as 1/0 (NCalc converts to the common numeric
+        // type): "true > 0" is True, "true < 2" is True, "false > 0" is False.
+        // Deeper's "(player.keyring and (1 << n)) > 0" is exactly that shape.
+        auto num_or_bool = [](const Value &v) {
+            return is_number(v) || v.type == Value::Type::Boolean;
+        };
+        if (num_or_bool(l) && num_or_bool(r)) {
             double a = as_double(l), b = as_double(r);
             if (op == "<") return vbool(a < b);
             if (op == ">") return vbool(a > b);
@@ -3669,7 +3727,7 @@ bool Interp::exec_statement_command(const std::string &name,
         // 5: (id, alias, from, to, initialType). No id -> a generated
         // "exitN" name and the anonymous flag.
         size_t base = args.size() >= 5 ? 1 : 0;
-        std::string alias = to_string(ev(base));
+        Value alias = ev(base);
         Value from = ev(base + 1), to = ev(base + 2);
         std::string type =
             args.size() >= 4 ? to_string(ev(base + 3)) : std::string();
@@ -3681,7 +3739,16 @@ bool Interp::exec_statement_command(const std::string &name,
         }
         Element *exit = world_.create_object(id, type, "exit");
         log_create(exit);
-        exit->set_field("alias", vstr(alias));
+        // `newExit.Fields[Alias] = exitName` goes through Fields.Set, so a
+        // null alias is REMOVED at v530+ (the initial type's alias -- "west"
+        // from westdirection -- shows through) and stored as an own null
+        // before that. Deeper's `create exit (name, null, room, room_west,
+        // "westdirection")` relies on the inherited alias for GetExitByName.
+        if (alias.type == Value::Type::Null) {
+            if (world_.asl_version < 530) exit->set_field("alias", vnull());
+        } else {
+            exit->set_field("alias", vstr(to_string(alias)));
+        }
         if (from.type == Value::Type::ObjectRef)
             exit->set_field("parent", from);
         exit->set_field("to", to);

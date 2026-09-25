@@ -428,6 +428,33 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         return vnull();
     }
+    if (fn == "getexitbyname" && n == 2) {
+        // ExpressionOwner.GetExitByName: the first ElementType.Object element
+        // (exits included, as above) parented in `parent` whose alias equals
+        // `name`, returned as its NAME (a string), or null. Deeper's
+        // CheckConnectivity flood-fill asks it for "north"/"south"/"east"/
+        // "west" on every generated cell; with the function missing every call
+        // errored to null, no cell was ever flagged accessible, and SetWayDown's
+        // `while (ListCount(sublist) = 0)` never terminated.
+        if (arg(0).type == Value::Type::Null) throw_null("parent");
+        if (arg(1).type == Value::Type::Null) throw_null("name");
+        if (arg(0).type != Value::Type::ObjectRef)
+            error("GetExitByName function expected object parameter but "
+                  "was passed '" + to_string(arg(0)) + "'");
+        Element *parentEl = obj_of(arg(0));
+        std::string want = to_string(arg(1));
+        for (auto &up : world_.elements) {
+            if (!live(up)) continue;
+            if (up->kind != ElemKind::Object && up->kind != ElemKind::Exit &&
+                up->kind != ElemKind::Turnscript && up->kind != ElemKind::Game)
+                continue;
+            if (parent_of(up.get()) != parentEl) continue;
+            const Value *f = resolve_field(up.get(), "alias");
+            if (f && f->type == Value::Type::String && to_string(*f) == want)
+                return vstr(up->name);
+        }
+        return vnull();
+    }
     if (fn == "allturnscripts" && n == 0) {
         std::vector<std::string> names;
         for (auto &up : world_.elements)
@@ -764,8 +791,10 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vbool(s.size() >= p.size() &&
                      s.compare(s.size() - p.size(), p.size(), p) == 0);
     }
-    if (fn == "split" && n == 2) {
-        std::string s = sarg(0), delim = sarg(1);
+    // StringFunctions.Split(input) -- the one-argument overload splits on ";"
+    // (Deeper: `StringListItem(Split("small;medium;large"), o.count - 1)`).
+    if (fn == "split" && (n == 2 || n == 1)) {
+        std::string s = sarg(0), delim = n == 2 ? sarg(1) : ";";
         std::vector<std::string> parts;
         if (delim.empty()) { parts.push_back(s); }
         else {
