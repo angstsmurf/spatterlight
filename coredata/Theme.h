@@ -76,12 +76,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t border;
 @property (nonatomic) kBorderColorPrefsType borderBehavior;
 @property (nullable, nonatomic, retain) NSColor *borderColor;
+@property (nullable, nonatomic, retain) NSColor *borderColorDark;
 @property (nullable, nonatomic, retain) NSColor *bufferBackground;
+@property (nullable, nonatomic, retain) NSColor *bufferBackgroundDark;
 @property (nonatomic) double bufferCellHeight;
 @property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
 @property (nullable, nonatomic, retain) NSColor *bufLinkColor;
+@property (nullable, nonatomic, retain) NSColor *bufLinkColorDark;
 @property (nonatomic) int32_t bufLinkStyle;
 @property (nonatomic) int32_t bZAdjustment;
 @property (nonatomic) kBZArrowsPrefsType bZTerminator;
@@ -100,7 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t errorHandling;
 @property (nonatomic) BOOL flicker;
 @property (nullable, nonatomic, retain) NSColor *gridBackground;
+@property (nullable, nonatomic, retain) NSColor *gridBackgroundDark;
 @property (nullable, nonatomic, retain) NSColor *gridLinkColor;
+@property (nullable, nonatomic, retain) NSColor *gridLinkColorDark;
 @property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
@@ -122,6 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL smoothScroll;
 @property (nonatomic) kSpacesFormatType spaceFormat;
 @property (nullable, nonatomic, retain) NSColor *spacingColor;
+@property (nullable, nonatomic, retain) NSColor *spacingColorDark;
 @property (nonatomic) BOOL vODelayOn;
 @property (nonatomic) double vOHackDelay;
 @property (nonatomic) int32_t vOSpeakCommand;
@@ -169,6 +175,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetCommonValues;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<GlkStyle *> * _Nonnull allStyles;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCustomStyles;
+
+/// Colors for the active light/dark mode (Preference appearance override or system).
+- (nullable NSColor *)resolvedBufferBackground;
+- (nullable NSColor *)resolvedGridBackground;
+- (nullable NSColor *)resolvedBorderColor;
+- (nullable NSColor *)resolvedSpacingColor;
+- (nullable NSColor *)resolvedBufLinkColor;
+- (nullable NSColor *)resolvedGridLinkColor;
+- (void)setResolvedBufferBackground:(nullable NSColor *)color;
+- (void)setResolvedGridBackground:(nullable NSColor *)color;
+- (void)setResolvedBorderColor:(nullable NSColor *)color;
 
 @end
 

@@ -63,7 +63,7 @@
             if (self.theme.doStyles) {
                 styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
             } else {
-                styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
+                styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).resolvedAttributeDict;
             }
             if (!styleDict) {
                 NSLog(@"GlkTextBufferWindow couldn't create style dict for style %ld", i);

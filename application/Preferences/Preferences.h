@@ -20,9 +20,9 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
     kAskIfReplace,
 };
 
-typedef NS_ENUM(NSUInteger, kModeType) {
-    kDarkMode,
-    kLightMode
+typedef NS_ENUM(NSUInteger, kAppearanceType) {
+    kDarkAppearance,
+    kLightAppearance
 };
 
 
@@ -59,16 +59,14 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 + (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;
 
-+ (kModeType)currentSystemMode;
++ (kAppearanceType)systemAppearance;
+/// Override if set, else system. Used for theme light/dark color resolution.
++ (kAppearanceType)resolvedAppearance;
 
 @property BOOL previewShown;
 @property (strong) IBOutlet NSView *sampleTextBorderView;
 
 @property (nonatomic) Theme *defaultTheme ;
-@property Theme *darkTheme;
-@property Theme *lightTheme;
-@property BOOL darkOverrideActive;
-@property BOOL lightOverrideActive;
 
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
@@ -97,9 +95,6 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *btnAdd;
 @property (weak) IBOutlet NSButton *btnRemove;
 @property (weak) IBOutlet NSBox *divider;
-
-@property (strong) IBOutlet NSMenuItem *lightModeMenuItem;
-@property (strong) IBOutlet NSMenuItem *darkModeMenuItem;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
@@ -167,8 +162,6 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
 @property (weak) IBOutlet NSButton *slowDrawCheckbox;
-@property (weak) IBOutlet NSButton *hardDarkCheckbox;
-@property (weak) IBOutlet NSButton *hardLightCheckbox;
 @property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
 @property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 
