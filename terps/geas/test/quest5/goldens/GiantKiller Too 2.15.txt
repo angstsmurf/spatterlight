@@ -1,0 +1,2315 @@
+Giantkiller Too
+A Medieval Mathematical Adventure
+
+Your browser does not support the audio tag.
+[Type help for guidance]
+
+Ever grown a plant tall enough to reach the clouds? Chances are you haven't, but believe me, it can happen. It just depends where you live, and when...
+
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+ What would you like to do? Type instructions in the space below.
+> north
+
+> north
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> west
+
+> west
+You are in the living room of your cottage. It is small but comfy enough for you and your mother. There is a fire smouldering in the middle of the room, with whiffs of smoke rising up and out through a hole in the roof.
+
+You can see your mother, a smouldering fire, a heavy wooden trapdoor and a lump of cheese.
+> talk to mother
+
+> talk to mother
+"Hi dear, do you know about the market today?" she says. "Here is a penny. Spend it wisely...or at least have a good time! " She puts the coin into your hand and gives it a squeeze.
+> east
+
+> east
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> east
+
+> east
+You are in the barn.
+
+It is strangely empty because Peppermint, the family pig, mysteriously disappeared a few days ago. Where could she be? Perhaps someone has seen her?
+
+You can see straw and a long-handled spade.
+> take spade
+
+> take spade
+You pick up the spade and put it over your shoulder.
+> west
+
+> west
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> south
+
+> south
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden.
+> south
+
+> south
+You are on the main east-west road near your garden, which is north. Around you lies dense and frightening forest.
+> west
+
+> west
+You are on the east-west road through the forest. A sign pointing west says, To The Chasm.
+> west
+
+> west
+You are on the east-west road. A path leads north from here. To the west, the sky is very bright.
+> north
+
+> north
+You find yourself in a small peaceful clearing. The only way out is a path to the south. You can hear animals and birds in the trees.
+
+You can see Buttercup Betsy.
+> talk to Buttercup Betsy
+
+> talk to Buttercup Betsy
+She looks up at you and beams. "There is no better way to start the day than by feeding the birds and animals of the forest," she says. "You should try it." She excitedly rummages through her sack and hands you a bag of birdseed. You accept it with a nod and mumble "Thank you."
+> south
+
+> south
+You are on the east-west road. A path leads north from here. To the west, the sky is very bright.
+> west
+
+> west
+The road ends here, at a sheer cliff above a bottomless chasm.
+
+You can see a winged figure on the far side, flying over a small lake.
+> west
+
+> west
+No way! Bottomless chasm ahead!!
+Your browser does not support the audio tag.
+> drop birdseed
+
+> drop birdseed
+You throw a small handful of seed onto the ground, and step back.
+
+Your browser does not support the audio tag.
+There is a rush of wind, as the winged figure approaches. It is a large gerfalcon. It stops to eat the seed before picking you up in its beak, flapping over the chasm, and setting you down gently on the far side.
+Your browser does not support the audio tag.
+You are standing on the west side of the bottomless chasm, staring into nothingness. Concealed among the tumbled rocks and cliffs is a narrow exit west into a canyon.
+
+You can see the gerfalcon waiting nearby.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> west
+
+> west
+You are at the bottom of a deep canyon that turns from west to north.
+> north
+
+> north
+You are on the south shore of a large lake. There is a small island to the north, connected to the shore by a wooden causeway.
+
+You can see a plank.
+> north
+
+> north
+
+The causeway has been damaged by a recent storm. The planks to the shore are missing, with just three support posts (A, B, C) remaining. Posts B and C are parallel to the shore and closer to it than post A. You need to work out how to get across to the causeway without going into the water, as you can't swim!
+> take plank
+
+> take plank
+You take it.
+> move plank to post b
+
+> move plank to post b
+You place the plank so that it now connects you to post B.
+> go to post b
+
+> go to post b
+You walk carefully along the plank. It seems quite steady. You are now standing at post B.
+> move plank to post a
+
+> move plank to post a
+You move the plank so that it now connects you to post A.
+> go to post a
+
+> go to post a
+You walk carefully along the plank. You are now standing at post A.
+> move plank to post c
+
+> move plank to post c
+You move the plank so that it now connects you to post C.
+> walk along plank
+
+> walk along plank
+You inch slowly to the middle of the plank.
+> move spade to causeway
+
+> move spade to causeway
+You place the long-handled spade so that it now connects you to causeway.
+> go to causeway
+
+> go to causeway
+Your browser does not support the audio tag.
+You walk carefully along the spade. Your tightrope walking lessons last summer were paying off! You have made it across. What a relief!
+
+You are standing on the causeway. It links the island (north) to the shore (south).
+
+You can see a long-handled spade.
+> take spade
+
+> take spade
+You pick up the spade and put it over your shoulder.
+> north
+
+> north
+You are on the island. The ground is flat in every direction, with very little growing on it. You can go north, south, east or west. You are currently at the end of the causeway.
+> north
+
+> north
+How many steps north do you want to take?
+> 40
+You cover the ground quickly and are now 40 steps north of the causeway.
+> west
+
+> west
+How many steps west do you want to take?
+> 32
+You cover the ground quickly and are now 40 steps north, and 32 steps west of the causeway.
+> dig ground
+
+> dig ground
+Your browser does not support the audio tag.
+Your browser does not support the audio tag.
+You dig for about 10 minutes and then hear a 'clunk', as your spade hits something hard. You have found Barnacle Bill's treasure chest!
+> open chest
+
+> open chest
+Your browser does not support the audio tag.
+You open the chest
+Your browser does not support the audio tag.
+and find a plastic token! Is that really the treasure? You take it just in case!
+> east
+
+> east
+How many steps east do you want to take?
+> 32
+You cover the ground quickly and are now 40 steps north of the causeway.
+> south
+
+> south
+How many steps south do you want to take?
+> 41
+You are standing on the causeway. It links the island (north) to the shore (south).
+> south
+
+> south
+You retrace your path across the posts, using the plank and spade, and return to the shore.
+You are on the south shore of a large lake. There is a small island to the north, connected to the shore by a wooden causeway.
+
+You can see post A, post B, post C and a plank.
+> south
+
+> south
+You are at the bottom of a deep canyon that turns from west to north.
+> east
+
+> east
+You are standing on the west side of the bottomless chasm, staring into nothingness. Concealed among the tumbled rocks and cliffs is a narrow exit west into a canyon.
+
+You can see the gerfalcon waiting nearby.
+> drop birdseed
+
+> drop birdseed
+You throw a small handful of seed onto the ground, and step back.
+
+The gerfalcon takes the seed, picks you up, and generously drops you back home.
+Your browser does not support the audio tag.
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden.
+> dig garden
+
+> dig garden
+You dig for a few minutes, making the garden look smarter.
+Your browser does not support the audio tag.
+
+As you dig you unearth an old rusty key, which you pick up.
+Your browser does not support the audio tag.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> north
+
+> north
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> east
+
+> east
+You are in the barn.
+
+You can see straw.
+> search straw
+
+> search straw
+You rummage through the straw and find a tallow candle. You pick it up.
+Your browser does not support the audio tag.
+> west
+
+> west
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> west
+
+> west
+You are in the living room of your cottage. There is a fire smouldering in the middle of the room, with whiffs of smoke rising up and out through a hole in the roof.
+
+You can see a smouldering fire, a heavy wooden trapdoor and a lump of cheese.
+> light candle
+
+> light candle
+You put the wick of the candle into the embers of the fire and blow until it catches alight.
+Your browser does not support the audio tag.
+> unlock trapdoor
+
+> unlock trapdoor
+You push the rusty key into the lock and turn it. Eventually, you hear a 'click', followed by a 'snap', as the lock opens and the key breaks.
+Your browser does not support the audio tag.
+> open trapdoor
+
+> open trapdoor
+With effort, you pull the trapdoor open, and lay it back gently on the floor. You can see wooden steps leading down.
+
+This is your first visit to the cellar. The trapdoor has been locked for as long as you can remember.
+Your browser does not support the audio tag.
+> down
+
+> down
+You climb down the steps.
+You are in the middle of an empty cellar.
+All you can see are the wooden steps leading back up to your living room and a door to the east.
+> use token
+
+> use token
+You put the token into the slot. An immediate 'click' tells you that the door lock has been released.
+Your browser does not support the audio tag.
+Your browser does not support the audio tag.
+> east
+
+> east
+You pull open the door and move forward into the gloom.
+
+Your browser does not support the audio tag.
+You are in an empty cavern. To the east is an opening, which leads into a cave system. Above the entrance is a sign saying:
+
+VENN-CUBE CAVE
+Patience is a Virtue
+> east
+
+> east
+You are in a small chamber with smooth blue walls. There are exits north, east and down.
+
+You can see a strange rock.
+
+...suddenly the rock changes! It is now small, blue, and rough.
+> wait
+
+> wait
+Time passes.
+
+...suddenly the rock changes! It is now small, red, and smooth.
+> wait
+
+> wait
+Time passes.
+
+...suddenly the rock changes! It is now small, red, and rough.
+> wait
+
+> wait
+Time passes.
+
+...suddenly the rock changes! It is now large, blue, and smooth.
+> wait
+
+> wait
+Time passes.
+
+...suddenly the rock changes! It is now large, blue, and rough.
+> wait
+
+> wait
+Time passes.
+
+...suddenly the rock changes! It is now large, red, and smooth.
+> take rock
+
+> take rock
+You pick it up tentatively. It looks a bit dangerous!
+
+...suddenly the rock changes! It is now large, red, and rough.
+> down
+
+> down
+The rock changes as you move. It is now small, red, and rough.
+
+You are in a large chamber with smooth blue walls. There are exits north, east and up.
+> east
+
+> east
+The rock changes as you move. It is now small, red, and smooth.
+
+You are in a large chamber with rough blue walls.  There are exits north, west and up.
+> north
+
+> north
+The rock changes as you move. It is now small, blue, and smooth.
+You are in a large chamber with rough red walls.  There are exits south, east, west and up.
+
+You can see a picture of a rock carved into the wall above the east exit.
+> east
+
+> east
+You leave the cave, crawling through a narrow twisting passage, before finally emerging back in the cavern by the cave entrance.
+
+You notice that the rock is no longer pulsing.
+
+Your browser does not support the audio tag.
+You are in an empty cavern. To the east is an opening, which leads into a cave system. Above the entrance is a sign saying:
+
+VENN-CUBE CAVE
+Patience is a Virtue
+> west
+
+> west
+You are in the middle of an empty cellar.
+All you can see are the wooden steps leading back up to your living room and a door to the east.
+> up
+
+> up
+You are in the living room of your cottage. There is a fire smouldering in the middle of the room, with whiffs of smoke rising up and out through a hole in the roof.
+
+You can see a smouldering fire, a heavy wooden trapdoor, wooden steps and a lump of cheese.
+> east
+
+> east
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> south
+
+> south
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden.
+> look garden
+
+> look garden
+The garden is used for growing root vegetables. Potatoes take up half the garden, with carrots, parsnips and turnips in the other half.
+ There is also a solitary mushroom.
+> take mushroom
+
+> take mushroom
+You pick it up carefully.
+Your browser does not support the audio tag.
+> south
+
+> south
+You are on the main east-west road near your garden, which is north. Around you lies dense and frightening forest.
+> east
+
+> east
+You are on the east-west road through the forest. A sign pointing east says, To The Market.
+> east
+
+> east
+You are at the entrance to the market. The main area is to the northeast. The road leads west.
+> northeast
+
+> northeast
+You're in the west side of a bustling market. The entrance is southwest. A Pig Market lies south and an Indoor Market is under construction to the north.
+> east
+
+> east
+You are in the east side of the market, with three tents ahead, to the north, south, and east. The tent to the east is large and impressive. The one to the south is small and dilapidated.  The one to the north has an oriental appearance, with a mysterious glow around it. Outside each tent is a sign saying:
+
+TAKE THE CHALLENGE
+WIN A PIG
+Entry Fee One Penny
+> north
+
+> north
+You hand over your penny, and enter.
+You are in an oriental tent, with an exit to the south and a curtain to the north. A sign says:
+
+MAGIC CURTAIN MAZE
+Can you find your way out?
+
+The maze has 8 octagonal rooms, each with a different floor finish
+Every room has a magic curtain for the 8 compass directions (N, NE, E, SE, S, SW, W, NW)
+A curtain may bring you out of the maze, take you to another room, or have no effect
+The maze changes for each new player
+Use the north curtain to begin
+> north
+
+> north
+You feel queasy as you are spirited away into the maze.
+
+Your browser does not support the audio tag.
+You are in the sandstone room. There are curtains in all 8 directions.
+
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the limestone room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> N
+You step through the north curtain and find yourself in the tin room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the sandstone room.
+
+Your browser does not support the audio tag.
+> E
+You step through the east curtain and find yourself in the ebony room.
+
+Your browser does not support the audio tag.
+> NE
+You step through the north-east curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> SE
+You step through the south-east curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> S
+You step through the south curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the granite room.
+
+Your browser does not support the audio tag.
+> SW
+You step through the south-west curtain and find yourself in the iron room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the steel room.
+
+Your browser does not support the audio tag.
+> W
+You step through the west curtain and find yourself in the zinc room.
+
+Your browser does not support the audio tag.
+> NW
+You step through the north-west curtain and find yourself outside the maze.
+
+"Phew! " you think. "That was tough!! "
+
+Your browser does not support the audio tag.
+The market owner appears. He has an unconvincingly sad face. "We are really, really sorry," he says. "The pig has escaped. Luckily, we have this very valuable antique lamp to offer in its place...and of course we will refund your entrance fee." He forces both into your hands and guides you firmly back into the market.
+
+You are in the east side of the market, with three tents ahead, to the north, south, and east. The tent to the east is large and impressive. The one to the south is small and dilapidated.  The one to the north has an oriental appearance, with a mysterious glow around it. Outside each tent is a sign saying:
+
+TAKE THE CHALLENGE
+WIN A PIG
+Entry Fee One Penny
+> south
+
+> south
+You hand over your penny, and enter.
+You are in a run-down tent, with an exit to the north. A  sign scrawled on a rough piece of wood says:
+
+DOWN-TO-ONE GAME
+Can you work it out?
+
+You can see a ginger-haired man.
+> talk to clown
+
+> talk to clown
+"Hi, step right up," he says. "In this game you give me a number between 1 and 30. If the number is even, I divide it by 2. If the number is odd, I multiply by 3 and add 1. I then do the same to the new number, and so on. If I reach 1 within 30 turns you lose."
+
+"What is your number? "
+
+> 27
+1: "As 27 is odd, I'll multiply it by 3 and add 1, to give 82".
+2: "As 82 is even, I'll halve it, to give 41".
+3: "As 41 is odd, I'll multiply it by 3 and add 1, to give 124".
+4: "As 124 is even, I'll halve it, to give 62".
+5: "As 62 is even, I'll halve it, to give 31".
+6: "As 31 is odd, I'll multiply it by 3 and add 1, to give 94".
+7: "As 94 is even, I'll halve it, to give 47".
+8: "As 47 is odd, I'll multiply it by 3 and add 1, to give 142".
+9: "As 142 is even, I'll halve it, to give 71".
+10: "As 71 is odd, I'll multiply it by 3 and add 1, to give 214".
+11: "As 214 is even, I'll halve it, to give 107".
+12: "As 107 is odd, I'll multiply it by 3 and add 1, to give 322".
+13: "As 322 is even, I'll halve it, to give 161".
+14: "As 161 is odd, I'll multiply it by 3 and add 1, to give 484".
+15: "As 484 is even, I'll halve it, to give 242".
+16: "As 242 is even, I'll halve it, to give 121".
+17: "As 121 is odd, I'll multiply it by 3 and add 1, to give 364".
+18: "As 364 is even, I'll halve it, to give 182".
+19: "As 182 is even, I'll halve it, to give 91".
+20: "As 91 is odd, I'll multiply it by 3 and add 1, to give 274".
+21: "As 274 is even, I'll halve it, to give 137".
+22: "As 137 is odd, I'll multiply it by 3 and add 1, to give 412".
+23: "As 412 is even, I'll halve it, to give 206".
+24: "As 206 is even, I'll halve it, to give 103".
+25: "As 103 is odd, I'll multiply it by 3 and add 1, to give 310".
+26: "As 310 is even, I'll halve it, to give 155".
+27: "As 155 is odd, I'll multiply it by 3 and add 1, to give 466".
+28: "As 466 is even, I'll halve it, to give 233".
+29: "As 233 is odd, I'll multiply it by 3 and add 1, to give 700".
+30: "As 700 is even, I'll halve it, to give 350".
+
+"Oh no! You have won! " howls the ginger-haired man. He bursts into tears, as he admits that he doesn't have a pig. The best he can do is return your penny.
+Your browser does not support the audio tag.
+> take tears
+
+> take tears
+You make up an elaborate story to suggest why it might be reasonable to collect some of the ginger-haired man's tears in a mushroom. He doesn't seem convinced but the attention pleases him. He stops crying, packs up his belongings, and leaves the tent.
+Your browser does not support the audio tag.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a long-handled spade, a tallow candle (lit), a strange rock, a mushroom (containing a few large tears), an old brass lamp and a silver penny.
+> look
+
+> look
+You are in a run-down tent, with an exit to the north. It is empty.
+> north
+
+> north
+You are in the east side of the market, with three tents ahead, to the north, south, and east. The tent to the east is large and impressive. The one to the south is small and dilapidated.  The one to the north has an oriental appearance, with a mysterious glow around it. Outside each tent is a sign saying:
+
+TAKE THE CHALLENGE
+WIN A PIG
+Entry Fee One Penny
+> east
+
+> east
+You hand over your penny, and enter.
+You are in the Grand Challenge tent, with exits north, south, east and west. A sign says:
+
+THE GRAND CHALLENGE
+Three tough puzzles: Calculator (east), Mirror Maze (north), and Bottle (south)
+
+COMPLETE ALL AND WIN A PIG
+> north
+
+> north
+You are in the Mirror Maze Challenge tent. There is a single exit to the south. A sign says:
+
+The maze is altered for each entrant. No bumping into mirrors.
+Move around using N, S, E, W (for north, south, east and west) to find a way out.
+
+You hear a voice saying "Go north when you are ready to begin."
+> N
+
+> N
+There is a grinding noise as the maze alters. You enter and the door slams shut behind you.
+Your browser does not support the audio tag.
+Your reflection looks large to the west, east and south, and small to the north.
+
+> N
+Your reflection looks large to the east, and small to the west, north and south.
+
+> N
+Your reflection looks large to the north and east, and small to the west and south.
+
+> W
+Your reflection looks large to the west and south, and small to the north and east.
+
+> N
+Your reflection looks large to the north, and small to the west, east and south.
+
+> W
+Your reflection looks small in every direction.
+
+> W
+Your reflection looks large to the west, north and south, and small to the east.
+
+> E
+Your reflection looks small in every direction.
+
+> S
+Your reflection looks large to the east, and small to the west, north and south.
+
+> W
+Your reflection looks large to the north and south, and small to the west and east.
+
+> W
+Your reflection looks large to the west, and small to the north, east and south.
+
+> S
+Your reflection looks large to the west and east, and small to the north and south.
+
+> S
+Your reflection looks large to the west and east, and small to the north and south.
+
+> S
+"Well done." you hear someone say, "You have conquered the mirror maze."
+Your browser does not support the audio tag.
+You think "That's one down, two to go," and find yourself smiling.
+You are in the Grand Challenge tent, with exits north, south, east and west. A sign says:
+
+THE GRAND CHALLENGE
+Three tough puzzles: Calculator (east), Mirror Maze (north), and Bottle (south)
+
+COMPLETE ALL AND WIN A PIG
+> east
+
+> east
+You are in the Calculator Challenge tent. There is an exit to the west.
+
+A voice says, "I'm going to pick a number between 1 and 100, "4", I think. What must I multiply 4 by to get 100 point something? "
+
+> 25.1
+You hear a voice say "You have entered 25.1, which when multiplied by 4 gives 100,4..."
+"...which is the right answer! Congratulations!! "
+
+Your browser does not support the audio tag.
+You think "That's two puzzles done, with just one left. This could work!"
+You are in the Grand Challenge tent, with exits north, south, east and west. A sign says:
+
+THE GRAND CHALLENGE
+Three tough puzzles: Calculator (east), Mirror Maze (north), and Bottle (south)
+
+COMPLETE ALL AND WIN A PIG
+> south
+
+> south
+You are in the Bottle Challenge tent. There is a single exit to the north.
+
+You hear someone say "Go south when you are ready to begin."
+> south
+
+> south
+You hear a voice say, "Excellent, here we go..."
+A wine crate is revealed. It can hold up to 24 bottles, in 4 rows of up to 6 bottles. You are told that you have to put 18 bottles into the crate so that there is an even number in each row and column.
+You can move your position in the crate, which starts in the upper left hand corner, using U (Up), D (Down), L (Left) or R (Right).
+
+You can put a bottle into the crate using P (Put) and take one out with T (Take). When you are ready to have the crate checked, and hence win the challenge, use C (Check).
+
+> P
+Okay, that's 1 in the crate, with 17 more to go.
+> R
+> P
+Okay, that's 2 in the crate, with 16 more to go.
+> R
+> P
+Okay, that's 3 in the crate, with 15 more to go.
+> R
+> P
+Okay, that's 4 in the crate, with 14 more to go.
+> R
+> P
+Okay, that's 5 in the crate, with 13 more to go.
+> R
+> P
+Okay, that's 6 in the crate, with 12 more to go.
+> D
+> L
+> L
+> P
+Okay, that's 7 in the crate, with 11 more to go.
+> L
+> P
+Okay, that's 8 in the crate, with 10 more to go.
+> L
+> P
+Okay, that's 9 in the crate, with 9 more to go.
+> L
+> P
+Okay, that's 10 in the crate, with 8 more to go.
+> D
+> P
+Okay, that's 11 in the crate, with 7 more to go.
+> R
+> P
+Okay, that's 12 in the crate, with 6 more to go.
+> R
+> P
+Okay, that's 13 in the crate, with 5 more to go.
+> R
+> R
+> P
+Okay, that's 14 in the crate, with 4 more to go.
+> D
+> R
+> P
+Okay, that's 15 in the crate, with 3 more to go.
+> L
+> L
+> L
+> P
+Okay, that's 16 in the crate, with 2 more to go.
+> L
+> P
+Okay, that's 17 in the crate, with 1 more to go.
+> L
+> P
+Okay, that's all the bottles in the crate. Use C if you want it checked.
+> C
+Wow, that was tough, but you did it!
+
+Your browser does not support the audio tag.
+There is a round of applause among those who have been watching your progress.
+Your browser does not support the audio tag.
+
+Suddenly the market owner appears. He has a strange fixed smile that doesn't change as he talks. "You have done really, really well," he says, adding, "indeed, so well, that instead of an ordinary pig, we are giving you a potentially much more valuable prize, plus a return of your entrance fee."
+
+You try to say that you would really prefer a pig, but the market owner forces a small box into your hand and pushes you out of the tent.
+
+You are in the east side of the market, with three tents ahead, to the north, south, and east. The tent to the east is large and impressive. The one to the south is small and dilapidated.  The one to the north has an oriental appearance, with a mysterious glow around it. Outside each tent is a sign saying:
+
+TAKE THE CHALLENGE
+WIN A PIG
+Entry Fee One Penny
+> open box
+
+> open box
+You open the box.
+It contains a bean, a compliments slip and growing instructions.
+> take bean
+
+> take bean
+You pick it up.
+> west
+
+> west
+You're in the west side of a bustling market. The entrance is southwest. A Pig Market lies south and an Indoor Market is under construction to the north.
+> west
+
+> west
+There is nothing of interest in that direction.
+> north
+
+> north
+You are in the Indoor Market. You can see several burly workmen clutching tools and partitions. They are chatting together and drinking barley tea.
+
+The foreman looks up and says, "Hello there, can you help us put up some partitions? We are ready to go when you are."
+
+Further to the west, the Indoor Market is being divided into four smaller areas. There are five partitions to put up, and you have to say where each should go. Each partition has a door in it, but the doors are locked and the keys haven't arrived yet, so look out for the exit as you work. Go west to start.
+
+You can see a foreman.
+> west
+
+> west
+You are in the south-east corner of the Indoor Market, with exits east, north and west.
+
+The foreman asks, "Where would you like the next partition?" (Choices are: east, north and west)
+
+> east
+The men heave and hammer furiously, and shortly a partition is in place to the east.
+Your browser does not support the audio tag.
+That's 1 up, with 4 left to go.
+
+Would you like to move to another quadrant or stay where you are? (Available exits: north and west)
+
+> north
+You are in the north-east corner of the Indoor Market, with exits west and south.
+
+The foreman asks, "Where would you like the next partition?" (Choices are: west and south)
+
+> south
+The men heave and hammer furiously, and shortly a partition is in place to the south.
+Your browser does not support the audio tag.
+That's 2 up, with 3 left to go.
+
+Would you like to move to another quadrant or stay where you are? (Available exits: west)
+
+> west
+You are in the north-west corner of the Indoor Market, with exits south, east and north.
+
+The foreman asks, "Where would you like the next partition?" (Choices are: south and east)
+
+> east
+The men heave and hammer furiously, and shortly a partition is in place to the east.
+Your browser does not support the audio tag.
+That's 3 up, with 2 left to go.
+
+Would you like to move to another quadrant or stay where you are? (Available exits: south and north)
+
+> south
+You are in the south-west corner of the Indoor Market, with exits north and east.
+
+The foreman asks, "Where would you like the next partition?" (Choices are: north and east)
+
+> east
+The men heave and hammer furiously, and shortly a partition is in place to the east.
+Your browser does not support the audio tag.
+That's 4 up, with 1 left to go.
+
+Would you like to move to another quadrant or stay where you are? (Available exits: north)
+
+> north
+You are in the north-west corner of the Indoor Market, with exits south and north.
+
+The foreman asks, "Where would you like the next partition?" (Choices are: south)
+
+> south
+The men heave and hammer furiously, and shortly a partition is in place to the south.
+Your browser does not support the audio tag.
+They're all up!
+Your browser does not support the audio tag.
+
+"Great job," says the foreman. "Here, have this to celebrate." He hands you a cup of barley tea. You drink it, and feel refreshed.
+
+You leave through the available exit and return to the entrance of the Indoor Market with the foreman.
+
+You are in the Indoor Market.
+
+You can see a foreman.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a long-handled spade, a tallow candle (lit), a strange rock, a mushroom (containing a few large tears), an old brass lamp, a small box (containing a compliments slip and growing instructions), a silver penny, a bean and a tea cup.
+> put rock in cup
+
+> put rock in cup
+You put the rock into the cup. Almost immediately it breaks up into what looks like soil!
+Your browser does not support the audio tag.
+> put tears in cup
+
+> put tears in cup
+You pour the tears (of the clown) from the mushroom (trumpet of death) into the cup.
+ They quickly disappear into the strange soil.
+Your browser does not support the audio tag.
+> put bean in cup
+
+> put bean in cup
+You make a small hole in the soil, add the bean, and cover it.
+Your browser does not support the audio tag.
+> rub lamp
+
+> rub lamp
+Your browser does not support the audio tag.
+You rub the lamp vigourously on your clothes. Just when you are about to give up you feel the lamp vibrate, so you keep going a bit longer.
+
+Suddenly a genie appears! He looks very exotic, dressed in a large turban and matching gold lame jumpsuit. Unfortunately, he has the same severe appearance as your fairy godmother, despite having the name "sunshine" embroidered across his chest.
+
+He looks at your planting efforts and grunts "It's ready."
+
+He holds his hands over the cup. You see movement in the soil, and a small green shoot pushes through. The bean is growing quickly so you'll need to find somewhere to replant it!
+
+"How clever of you to know my fee was a penny," says Sunshine, taking it before disappearing back into the lamp. He also picks up what is left of the Beanstalk Kit for recycling, and the lamp itself vanishes in a puff of smoke!
+Your browser does not support the audio tag.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a long-handled spade, a tallow candle (lit), a mushroom and a tea cup (containing a strange soil (in which there is a sprouting bean)).
+> look
+
+> look
+You are in the Indoor Market.
+
+You can see a foreman.
+> south
+
+> south
+You're in the west side of a bustling market. The entrance is southwest. A Pig Market lies south and an Indoor Market is under construction to the north.
+> southwest
+
+> southwest
+You are at the entrance to the market. The main area is to the northeast. The road leads west.
+> west
+
+> west
+You are on the east-west road through the forest. A sign pointing east says, To The Market.
+> west
+
+> west
+You are on the main east-west road near your garden, which is north. Around you lies dense and frightening forest.
+> north
+
+> north
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden.
+> replant bean
+
+> replant bean
+You dig a small hole in the centre of the garden and plant the bean with its soil, discarding the cup.
+
+Almost immediately, a beanstalk begins to grow up and out, shaking the ground, and forcing you to jump backwards.
+Your browser does not support the audio tag.
+
+By the time it stops, the top has disappeared into the clouds.
+Your browser does not support the audio tag.
+> drop spade
+
+> drop spade
+You put the long-handled spade down.
+> up
+
+> up
+You make your way slowly up the outside foliage.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(playerobject, room, "x") + room.grid_width/2.0 - exit.to.grid_width/2.0 + exit.grid_offset_x': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+You are in the middle of the beanstalk, breathing heavily.
+> look
+
+> look
+You are in the middle of the beanstalk, breathing heavily.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a mushroom.
+> up
+
+> up
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(playerobject, room, "x") + room.grid_width/2.0 - exit.to.grid_width/2.0 + exit.grid_offset_x': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+You are at the top of the beanstalk, which has poked through the clouds. Apart from a path leading north-east across fairly solid cloud, the other directions look too soft to walk on. To the north-east, a gigantic castle looms on the cloudline.
+
+You stop for a rest and eat the mushroom. You feel surprisingly refreshed.
+> northeast
+
+> northeast
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(playerobject, room, "x") + exit.grid_offset_x': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> look
+
+> look
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> southwest
+
+> southwest
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(playerobject, room, "x") + room.grid_width/2.0 - exit.to.grid_width/2.0 + exit.grid_offset_x': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+You are at the top of the beanstalk, which has poked through the clouds. Apart from a path leading north-east across fairly solid cloud, the other directions look too soft to walk on. To the north-east, a gigantic castle looms on the cloudline.
+> down
+
+> down
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(playerobject, room, "x") + room.grid_width/2.0 - exit.to.grid_width/2.0 + exit.grid_offset_x': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
+Error running script: Error evaluating expression 'Grid_GetGridCoordinateForPlayer(game.pov, room, "x") + room.grid_width/2.0': Cannot use this value in a calculation because it has not been set - check whether an attribute or variable has been assigned a value before using it.
+You are in the middle of the beanstalk, breathing heavily.
+> down
+
+> down
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden, a giant beanstalk and a long-handled spade.
+> north
+
+> north
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> take cheese
+
+> take cheese
+Sorry, what was that?
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed and a tallow candle (lit).
+> west
+
+> west
+You are in the living room of your cottage. There is a fire smouldering in the middle of the room, with whiffs of smoke rising up and out through a hole in the roof.
+
+You can see a smouldering fire, a heavy wooden trapdoor, wooden steps and a lump of cheese.
+> take cheese
+
+> take cheese
+You pick it up.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a lump of cheese.
+> east
+
+> east
+You are in a narrow passage between the two halves of your cottage. To the west is a single room where you and your mother live. To the east is the barn where the animals are kept.
+> south
+
+> south
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden, a giant beanstalk and a long-handled spade.
+> up
+
+> up
+You are in the middle of the beanstalk, breathing heavily.
+> up
+
+> up
+You are at the top of the beanstalk, which has poked through the clouds. Apart from a path leading north-east across fairly solid cloud, the other directions look too soft to walk on. To the north-east, a gigantic castle looms on the cloudline.
+
+You stop for a rest and eat a little cheese. You feel surprisingly refreshed.
+> northeast
+
+> northeast
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> southeast
+
+> southeast
+You are at the south-west corner of the castle. Cloud paths go east and north-west.
+> east
+
+> east
+You are at the south-east corner of the castle. Cloud paths go west and north-east.
+> northeast
+
+> northeast
+You are on the east side of the castle. The cloud path ends here. To the west, the monotony of the castle walls is broken by a small opening near the ground.
+
+You can see a hole.
+> west
+
+> west
+You are in a gloomy space under the castle. Sunlight leaks in through the gap where you entered. To the north, the space opens out. East takes you out of the castle.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a lump of cheese.
+> north
+
+> north
+Your browser does not support the audio tag.
+There is a large mouse here. He bares his teeth, and you back away.
+> throw cheese
+
+> throw cheese
+You throw the cheese towards the mouse. He sniffs it, and then starts munching happily.
+Your browser does not support the audio tag.
+> north
+
+> north
+You are in the lair of a giant mouse. You can see several holes. One leads north, and another east out of the castle.
+
+You can also see the mouse nibbling quietly in a corner (eating a lump of cheese).
+> north
+
+> north
+You are in a gloomy tunnel that runs north-south.
+> north
+
+> north
+The tunnel changes direction at this point. You can go west or south.  There is also a small dark cavern to the north.
+> west
+
+> west
+You are in a gloomy tunnel that runs east-west. There is a bright light to the west.
+> west
+
+> west
+You emerge from a hole in the skirting board of a massive room.
+
+Your browser does not support the audio tag.
+You are in the Giant's Kitchen.
+
+You can see the giant's pet ferret prowling restlessly. She spots you, and starts running in your direction.
+> look
+
+> look
+Your browser does not support the audio tag.
+You are in the Giant's Kitchen.
+
+You can see the giant's pet ferret prowling restlessly. She spots you, and starts running in your direction.
+> east
+
+> east
+You are in a gloomy tunnel that runs east-west. There is a bright light to the west.
+Your browser does not support the audio tag.
+
+The giant ferret is running after you!
+> east
+
+> east
+The tunnel changes direction at this point. You can go west or south.  There is also a small dark cavern to the north.
+Your browser does not support the audio tag.
+
+The giant ferret is getting closer!
+> north
+
+> north
+You are in a small dark cavern off the main tunnel. The only exit is the way you came in.
+Your browser does not support the audio tag.
+
+You can hear the giant ferret approaching as you crouch in a dark corner.
+> wait
+
+> wait
+Time passes.
+
+Phew! The ferret runs past where you are hiding, and keeps going.
+Your browser does not support the audio tag.
+> wait
+
+> wait
+Time passes.
+> look
+
+> look
+You are in a small dark cavern off the main tunnel. The only exit is the way you came in.
+> south
+
+> south
+The tunnel changes direction at this point. You can go west or south.  There is also a small dark cavern to the north.
+> west
+
+> west
+You are in a gloomy tunnel that runs east-west. There is a bright light to the west.
+> west
+
+> west
+You emerge from a hole in the skirting board of a massive room.
+
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> look
+
+> look
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> east
+
+> east
+You are in a gloomy tunnel that runs east-west. There is a bright light to the west.
+> east
+
+> east
+The tunnel changes direction at this point. You can go west or south.  There is also a small dark cavern to the north.
+> south
+
+> south
+You are in a gloomy tunnel that runs north-south.
+> south
+
+> south
+You are in the lair of a giant mouse. You can see several holes. One leads north, and another east out of the castle.
+
+You can also see the giant's pet ferret waiting by the hole where the mouse has gone. She ignores you.
+> look
+
+> look
+You are in the lair of a giant mouse. You can see several holes. One leads north, and another east out of the castle.
+
+You can also see the giant's pet ferret waiting by the hole where the mouse has gone. She ignores you.
+> south
+
+> south
+You are in a gloomy space under the castle. Sunlight leaks in through the gap where you entered. To the north, the space opens out. East takes you out of the castle.
+> look
+
+> look
+You are in a gloomy space under the castle. Sunlight leaks in through the gap where you entered. To the north, the space opens out. East takes you out of the castle.
+> east
+
+> east
+You are on the east side of the castle. The cloud path ends here. To the west, the monotony of the castle walls is broken by a small opening near the ground.
+
+You can see a hole.
+> look
+
+> look
+You are on the east side of the castle. The cloud path ends here. To the west, the monotony of the castle walls is broken by a small opening near the ground.
+
+You can see a hole.
+> southwest
+
+> southwest
+You are at the south-east corner of the castle. Cloud paths go west and north-east.
+> west
+
+> west
+You are at the south-west corner of the castle. Cloud paths go east and north-west.
+> northwest
+
+> northwest
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> north
+
+> north
+You are west of the castle. The cloud path ends here.
+
+You can see a skeleton sprawled on the ground.
+> look at skeleton
+
+> look at skeleton
+It is the remains of someone who appears to have fallen from the walls.  Among the bones is a grappling hook, which the climber must have been using at the time of the fall.
+> take grappling hook
+
+> take grappling hook
+You roll it up and carry it over your shoulder.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> south
+
+> south
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> southeast
+
+> southeast
+You are at the south-west corner of the castle. Cloud paths go east and north-west.
+> northeast
+
+> northeast
+There is nothing of interest in that direction.
+> west
+
+> west
+There is nothing of interest in that direction.
+> north
+
+> north
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> north
+
+> north
+You are west of the castle. The cloud path ends here.
+
+You can see a skeleton sprawled on the ground.
+> north
+
+> north
+There is nothing of interest in that direction.
+> west
+
+> west
+There is nothing of interest in that direction.
+> west
+
+> west
+There is nothing of interest in that direction.
+> look
+
+> look
+You are west of the castle. The cloud path ends here.
+
+You can see a skeleton sprawled on the ground.
+> south
+
+> south
+You are standing at the front door of a giant castle, which is to the east. The door is fifteen metres high, and its handle is far out of reach. Cut into the base of the door is a smaller door, hinged on top, and more your size.
+
+Cloud paths lead north, south-east and south-west.
+> southeast
+
+> southeast
+You are at the south-west corner of the castle. Cloud paths go east and north-west.
+> east
+
+> east
+You are at the south-east corner of the castle. Cloud paths go west and north-east.
+> northeast
+
+> northeast
+You are on the east side of the castle. The cloud path ends here. To the west, the monotony of the castle walls is broken by a small opening near the ground.
+
+You can see a hole.
+> west
+
+> west
+You are in a gloomy space under the castle. Sunlight leaks in through the gap where you entered. To the north, the space opens out. East takes you out of the castle.
+> north
+
+> north
+You are in the lair of a giant mouse. You can see several holes. One leads north, and another east out of the castle.
+
+You can also see the giant's pet ferret waiting by the hole where the mouse has gone. She ignores you.
+> north
+
+> north
+You are in a gloomy tunnel that runs north-south.
+> north
+
+> north
+The tunnel changes direction at this point. You can go west or south.  There is also a small dark cavern to the north.
+> west
+
+> west
+You are in a gloomy tunnel that runs east-west. There is a bright light to the west.
+> west
+
+> west
+You emerge from a hole in the skirting board of a massive room.
+
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> look
+
+> look
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> climb drawer unit
+
+> climb drawer unit
+You throw the grappling hook up to the first drawer handle, and after a few attempts it catches. You then work your way up, from one drawer to the next, eventually reaching the top.
+
+You are in the middle of a very large kitchen worktop.
+
+You can see an enormous Bakewell tart.
+Your browser does not support the audio tag.
+> look
+
+> look
+You are in the middle of a very large kitchen worktop.
+
+You can see an enormous Bakewell tart.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> take tart
+
+> take tart
+You eat as much as you can and then break off a piece to keep for later.
+
+Your browser does not support the audio tag.
+Suddenly, you hear a rumbling sound, and realise the Giant is heading for the kitchen. You hide in a corner.
+
+He has come for the tart. He picks it up and spots that some of it is missing. "Bloomin' mice," you hear him mutter under his breath. He switches on the security system as he leaves the room with the remains of the tart.
+> west
+
+> west
+You are at the western end of a very large kitchen worktop.
+
+You can see a large metal cage (containing a pig).
+> look
+
+> look
+You are at the western end of a very large kitchen worktop.
+
+You can see a large metal cage (containing a pig).
+> feed pig
+
+> feed pig
+Your browser does not support the audio tag.
+It's Peppermint! To your amazement, she starts talking!!
+
+Peppermint eats the piece of tart and gives a satisfied sigh.
+
+Your browser does not support the audio tag.
+"Will you help me get out of the cage? " she asks.
+> yes
+You say yes.
+
+"Great! " she snorts. "Have a look at the back of the cage. There are instructions for using the pad."
+
+You see a sign that says:
+
+MAGIC SQUARE ELECTRONICS
+To open the cage, press all 9 squares of the control pad in the right order.
+As each entry is made, the order number is displayed.
+The cage opens if the order numbers in every row, column and diagonal add up to 15.
+Starting in the top left-hand corner, move around using U (Up), D (Down), L (Left) or R (Right).
+Use P to make an entry and C to clear one.
+> R
+> R
+> D
+> P
+Okay, that's 1 entered, with 8 more to go.
+
+> L
+> L
+> U
+> P
+Okay, that's 2 entered, with 7 more to go.
+
+> R
+> D
+> D
+> P
+Okay, that's 3 entered, with 6 more to go.
+
+> L
+> P
+Okay, that's 4 entered, with 5 more to go.
+
+> R
+> U
+> P
+Okay, that's 5 entered, with 4 more to go.
+
+> R
+> U
+> P
+Okay, that's 6 entered, with 3 more to go.
+
+> L
+> P
+Okay, that's 7 entered, with 2 more to go.
+
+> R
+> D
+> D
+> P
+Okay, that's 8 entered, with 1 more to go.
+
+> L
+> L
+> U
+> P
+Success! The cage door opens, and out walks Peppermint.
+
+Your browser does not support the audio tag.
+...now you just need to escape from the castle without being caught!
+> look
+
+> look
+You are at the western end of a very large kitchen worktop.
+
+You can see a large metal cage and Peppermint.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> east
+
+> east
+Peppermint follows you.
+
+You are in the middle of a very large kitchen worktop.
+
+You can see Peppermint.
+> east
+
+> east
+Peppermint follows you.
+
+You are at the eastern end of a very large kitchen worktop.
+
+Peppermint tells you that the security code for the alarm system is the three initials of the Giant's name. Unfortunately, she doesn't know what they are. However, they are carved into the worktop, under some cookery books.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> look
+
+> look
+You are at the eastern end of a very large kitchen worktop.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> enter gap
+
+> enter gap
+There is no room to use a candle under the books so you snuff it out.
+
+You burrow into the gap under the books.
+
+Your browser does not support the audio tag.
+There are three initials carved into the worktop. You are in the groove of the first letter, at the bottom left-hand corner. It is dark so you have to feel your way along.
+
+You can crawl from one place to another by typing N, NE, etc., for north, north-east, etc.
+
+Currently, you can go west (back to the start), or north.
+
+> N
+Your browser does not support the audio tag.
+Currently, you can go north, south, north-east, or south-east.
+
+> SE
+Your browser does not support the audio tag.
+Currently, you can go north-west, or east (on to the next letter).
+
+> E
+Your browser does not support the audio tag.
+Currently, you can go west (back to the previous letter), or north.
+
+> N
+Your browser does not support the audio tag.
+Currently, you can go north, south, north-east, or south-east.
+
+> SE
+Your browser does not support the audio tag.
+Currently, you can go north-west, or east (on to the next letter).
+
+> E
+Your browser does not support the audio tag.
+Currently, you can go west (back to the previous letter), or north.
+
+> N
+Your browser does not support the audio tag.
+Currently, you can go north, south, north-east, or south-east.
+
+> SE
+Your browser does not support the audio tag.
+Currently, you can go north-west, or east (out of the last letter).
+
+> E
+Your browser does not support the audio tag.
+You pull yourself out from under the books, relieved to be in the open again.
+
+Your browser does not support the audio tag.
+> look
+
+> look
+You are at the eastern end of a very large kitchen worktop.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> climb books
+
+> climb books
+You climb to the top of the books and are now right beside the security keypad.
+> use keypad
+
+> use keypad
+Please enter the security code:
+
+> KKK
+Your browser does not support the audio tag.
+You enter KKK, switching off the security alarm system.
+Your browser does not support the audio tag.
+> look
+
+> look
+You are at the eastern end of a very large kitchen worktop, standing on a pile of the giant's cookery books.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> down
+
+> down
+You climb down the books onto the worktop.
+> use apron
+
+> use apron
+Using an apron tie, you lower yourself down.
+
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> look
+
+> look
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> climb drawer unit
+
+> climb drawer unit
+You throw the grappling hook up to the first drawer handle, and after a few attempts it catches. You then work your way up, from one drawer to the next, eventually reaching the top.
+
+You are in the middle of a very large kitchen worktop.
+> east
+
+> east
+You are at the eastern end of a very large kitchen worktop.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> look
+
+> look
+You are at the eastern end of a very large kitchen worktop.
+
+You can see a pile of large cookery books on the worktop (under which there is a gap), a security alarm keypad, an apron and Peppermint.
+> tie pig
+
+> tie pig
+You tie Peppermint to your back using the grappling hook.
+
+> use apron
+
+> use apron
+Using an apron tie, you lower yourself down.
+
+Your browser does not support the audio tag.
+You release Peppermint at the bottom.
+
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+
+You can see Peppermint.
+> look
+
+> look
+You are in the Giant's Kitchen. There is a massive entrance hall to the south. The north wall is fitted out with a range of huge wooden kitchen units. In the middle of the ground level units is a set of drawers. A worktop, well out of reach, runs east-west.
+
+You can see Peppermint.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> south
+
+> south
+Peppermint follows you.
+
+You are in the Giant's entrance hall. Cut into the base of a large outside door to the west, is a smaller door, hinged on top.
+
+You can see a very large box and Peppermint.
+> look at box
+
+> look at box
+Along one side of the box, in large letters are the words PET SECURITY SYSTEM. The box has an entrance flap at the front, with a large button beside it, and a display above that. The display shows the single letter A.
+
+Peppermint tells you that there are operating instuctions on top of the box.
+> push option button
+
+> push option button
+The display now shows B.
+> push option button
+
+> push option button
+The display now shows C.
+> climb box
+
+> climb box
+You pull yourself up onto the security box.
+
+There is a picture here, with some instructions beside it.
+
+Peppermint tries the flap and is able to get in. "If you shout out directions (N, S, E, W, for north, south, east and west), I'll follow them," she says.
+
+"At C7, I can go north, east, or south?"
+
+> n
+"At C3, I can go east?"
+
+> e
+"At C4, I can go north, east, or south?"
+
+> n
+"At C1, I can go east?"
+
+> e
+"At C2, I can go south?"
+
+> s
+"At C5, I can go west, east, or south?"
+
+> w
+"At C4, I can go south?"
+
+> s
+"At C8, I can go west, east, or south?"
+
+> w
+"At C7, I can go south?"
+
+> s
+"At C11, I can go east?"
+
+> e
+"At C12, I can go north?"
+
+> n
+"At C8, I can go east?"
+
+> e
+"At C9, I can go north, east, or south?"
+
+> n
+"At C5, I can go east?"
+
+> e
+"At C6, I can go south?"
+
+> s
+"At C10, I can go west, or south?"
+
+> w
+"At C9, I can go south?"
+
+> s
+"At C13, I can go east?"
+
+> e
+"At C14, I can go north?"
+
+> n
+"We've done it! " says Peppermint, as she emerges from the security box.
+
+The hinged door opens, releasing you from the castle.
+
+Your browser does not support the audio tag.
+You climb down from the security box.
+
+Peppermint is there to greet you.
+> look
+
+> look
+You are in the Giant's entrance hall. Cut into the base of a large outside door to the west, is a smaller door, hinged on top.
+
+You can see a very large box (on which there is an entrance flap, an option button and an option display) and Peppermint.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+> tie pig
+
+> tie pig
+You tie Peppermint to your back using the grappling hook.
+
+> west
+
+> west
+Your browser does not support the audio tag.
+As you walk out, the flap is released, falling down with a clatter. The Giant hears the noise and comes out to investigate. Time to run!
+
+Cloud paths lead north, south-east and south-west.
+> southwest
+
+> southwest
+You are at the top of the beanstalk, which has poked through the clouds. Apart from a path leading north-east across fairly solid cloud, the other directions look too soft to walk on. To the north-east, a gigantic castle looms on the cloudline.
+Your browser does not support the audio tag.
+
+The Giant is running after you!
+> down
+
+> down
+You are in the middle of the beanstalk, breathing heavily.
+Your browser does not support the audio tag.
+
+The Giant is getting closer!
+> down
+
+> down
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden, a giant beanstalk and a long-handled spade.
+Your browser does not support the audio tag.
+
+The Giant is now even closer!
+> untie pig
+
+> untie pig
+You put Peppermint down and she immediately starts digging at the roots of the beanstalk. She is making good progress but needs help.
+Your browser does not support the audio tag.
+
+The Giant is now very close indeed!
+> dig garden
+
+> dig garden
+Your browser does not support the audio tag.
+You join Peppermint in digging at the roots of the beanstalk. As it weakens, the beanstalk begins to creak, so you step back. It seems to be pulling itself out of the ground.
+
+Your browser does not support the audio tag.
+Your browser does not support the audio tag.
+Suddenly, it breaks free, flies up like a roller blind, and takes the Giant back into the clouds. He's gone!
+
+Your browser does not support the audio tag.
+You sit down to get your breath back. Your mother, who had been watching from the cottage window, appears with tea, bread, and cheese. You have a picnic while Peppermint tells you about her adventure.
+
+She was caught while looking for food in the forest. In the castle, she found she could talk. Indeed, that is why the Giant had taken her. Apparently, pigs are natural conversationalists!
+
+Now home, and still able to talk, Peppermint used her storytelling skills to earn a good living in the years that followed. You joined her from time to time to talk about your own adventures, which, as it turned it, were only just beginning…
+
+THE END
+Your browser does not support the audio tag.
+
+You can now check your score, read the epilogue you are carrying, look around, or just quit!
+> look
+
+> look
+You are standing in the garden of your cottage, which is in the middle of a forest. There is a path south, which leads to a road. Your cottage is to the north.
+
+You can see a garden, a long-handled spade and Peppermint.
+> inventory
+
+> inventory
+You are carrying an achievement certificate, an epilogue, a bag of birdseed, a tallow candle (lit) and a grappling hook.
+[state=Running]
