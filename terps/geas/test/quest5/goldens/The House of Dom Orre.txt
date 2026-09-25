@@ -1,0 +1,984 @@
+ The House of Dom Orre.
+
+Above the village stands the mysterious house of the eccentric scientist, Professor Dom Orre. A reclusive character, Dom Orre visited the village on rare occasions, but he has not now been seen for some weeks, not since terrifying screams had been heard from the house. Rumours abound concerning his fate, the nine fabulous artefacts he is reputed to have accumulated during his travels and an experiment he has been working on.
+
+As the ace reporter of the local newspaper, you have been sent by your editor to investigate the situation and, incidentally, to gather what  treasures you can find.
+
+The front door opens at a push, but having entered, you hear it close behind you with disturbing finality...
+
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south or up.
+> look
+
+> look
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south or up.
+> look at mud
+
+> look at mud
+Dirty, slimy and smelly.
+You see, half buried in the mud,  a ring.
+> take ring
+
+> take ring
+You pick it up.
+> wear ring
+
+> wear ring
+You slip the ring on. It feels a little loose.
+> open small door
+
+> open small door
+You open the small door.
+> south
+
+> south
+
+You are in the library.
+A large, well-lit and comfortably furnished room with walls lined with shelves of books. There is a door in the south wall through which can be seen a piano.
+You can go north, south, west or east.
+> open Oliver Twist
+
+> open Oliver Twist
+It proves to be hollow!
+It contains a brass key.
+> take brass key
+
+> take brass key
+You pick it up.
+> west
+
+> west
+
+You are in a store room.
+A large store room full of miscellaneous stuff - boxes, bags and general junk. There is a massive wardrobe in one corner.
+You can go east.
+> look at small blue jug
+
+> look at small blue jug
+It's small - and blue!
+It contains an ignition key.
+> take ignition key
+
+> take ignition key
+You pick it up.
+> open wardrobe
+
+> open wardrobe
+You open it.
+It contains a skeleton.
+> lift hand
+
+> lift hand
+You move the hand to one side. Under it you find a small book
+> take diary
+
+> take diary
+You pick it up.
+> read diary
+
+> read diary
+
+It is the professor's diary. It speaks of the curse of the family, the "Dom Orre Phantom",
+The latest entry reads "I have lost the family heirloom - my protection. Perhaps in here I shall be safe."
+
+It would seem that he was mistaken...
+
+> take pen
+
+> take pen
+You pick it up.
+> east
+
+> east
+
+You are in the library.
+A large, well-lit and comfortably furnished room with walls lined with shelves of books. There is a door in the south wall through which can be seen a piano.
+You can go north, south, west or east.
+> east
+
+> east
+
+You are in a shower room.
+It contains the usual facilities - a shower, a toilet and a basin. None of it very clean, unfortunately.
+You can go west.
+> wash hands
+
+> wash hands
+You wash your hands.
+> west
+
+> west
+
+You are in the library.
+A large, well-lit and comfortably furnished room with walls lined with shelves of books. There is a door in the south wall through which can be seen a piano.
+You can go north, south, west or east.
+> north
+
+> north
+
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south, up or west.
+> unlock sliding door
+
+> unlock sliding door
+Unlocked.
+> open sliding door
+
+> open sliding door
+You open it.
+> west
+
+> west
+
+You are in the furnace room.
+A room of cobwebs and coal dust, this is where the solid fuel central heating system was controlled. There is a furnace and a coal bunker.
+You can go east.
+> look at furnace
+
+> look at furnace
+You see a spider's web stretching between the furnace and the bunker.
+> touch web
+
+> touch web
+A large spider emerges from a hole and runs to the centre of the web. Obviously disappointed, it scuttles away.
+> look at hole
+
+> look at hole
+It's a small dark hole between the concrete blocks making up the bunker. It is lined with spider's silk.
+It contains a white object.
+> open furnace
+
+> open furnace
+You hear a click nearby, followed by a grating noise. Something has happened to the bunker.
+> north
+
+> north
+
+You are in a low tunnel.
+It's covered in coal dust!
+You can go north or south.
+> north
+
+> north
+
+You are in the laboratory of Dom Orre.
+In a house of general untidiness and neglect, this room is surprisingly clean.
+You can see a bench.
+You can go south.
+> look at bench
+
+> look at bench
+It is scratched and stained from countless experiments.
+On it you see a box, a flask, a small pile of black powder and a pair of tweezers.
+> take flask
+
+> take flask
+You pick it up.
+> take small pile of black powder
+
+> take small pile of black powder
+You pick it up.
+> take pair of tweezers
+
+> take pair of tweezers
+You pick them up.
+> open box
+
+> open box
+It is already open.
+> put flask in box
+
+> put flask in box
+Done.
+> put small pile of black powder in flask
+
+> put small pile of black powder in flask
+Done.
+> close box
+
+> close box
+You close it.
+> turn on box
+
+> turn on box
+You switch it on.
+The box begins to vibrate. It hums gently.
+> south
+
+> south
+
+You are in a low tunnel.
+It's covered in coal dust!
+You can go north or south.
+> south
+
+> south
+
+You are in the furnace room.
+A room of cobwebs and coal dust, this is where the solid fuel central heating system was controlled. There is a furnace and a coal bunker.
+You can see a web stretching between the furnace and the bunker..
+You can go east or north.
+> use tweezers on white object
+
+> use tweezers on white object
+You remove the object and see it is a cocoon.
+> break cocoon
+
+> break cocoon
+You break it open.
+
+The air is growing colder...
+> take fly
+
+> take fly
+You pick it up.
+
+...and colder...
+> east
+
+> east
+
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south, up, west or north.
+
+Suddenly you are faced with a terrible sight - the Dom Orre Phantom!
+
+Seeing the Ring on your finger, the phantom disappears with a terrifying screech!
+> up
+
+> up
+
+You are on a landing.
+A steep staircase leads downwards. There are open doors to the west, south and north. You can see a hatch high in the south wall.
+You can go down, west, north or south.
+You hear a sharp "crack" from the box.
+> north
+
+> north
+
+You are in the living room.
+It's furnished with a sofa, chairs and a TV. There is an old fireplace against the west wall and a cupboard to the north.
+You can go west or south.
+> look at mantlepiece
+
+> look at mantlepiece
+The mantlepiece is made of polished wood.
+On it you see a tobacco jar, a pipe rack and a box of matches.
+> open tobacco jar
+
+> open tobacco jar
+You open it.
+It contains tobacco.
+> take tobacco
+
+> take tobacco
+You pick it up.
+> take box of matches
+
+> take box of matches
+You pick it up.
+> take pipe
+
+> take pipe
+You pick it up.
+> put tobacco in pipe
+
+> put tobacco in pipe
+Done.
+> light pipe
+
+> light pipe
+You light the pipe and puff it into life! Smoke spirals to the ceiling.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains a screwdriver.
+> take screwdriver
+
+> take screwdriver
+You pick it up.
+> feel behind cushions
+
+> feel behind cushions
+You feel a coin.
+> take coin
+
+> take coin
+You pick it up.
+> press bricks
+
+> press bricks
+You see an opening in front of you. You can go in.
+> in
+
+> in
+
+You are in a cell.
+A small cramped room. There is a button on the wall.
+You can go out.
+> press button
+
+> press button
+
+The door slides shut behind you.
+There is a gentle vibration. You feel an increase in weight as the room you are in rises swiftly. Then the door slides open again.
+You can go east.
+> east
+
+> east
+
+You are in the belfry.
+There is an amazing view of the surrounding countryside. Next to you hangs an enormous bell.
+You can see some windblown rubbish.
+You can go west.
+> take rubbish
+
+> take rubbish
+You pick it up, but the wind tears it out of your hands and it flies away. However, the belfry looks tidier at least.
+
+You see something on the ground, previously hidden by the newspaper.
+> take bat
+
+> take bat
+You pick it up.
+> west
+
+> west
+
+You are in a cell.
+A small cramped room. There is a button on the wall.
+You can go east.
+> press button
+
+> press button
+
+The door slides shut behind you.
+There is a gentle vibration. A moment of weightlessness, then the door slides open again.
+ You can go out.
+> out
+
+> out
+
+You are in the living room.
+It's furnished with a sofa, chairs and a TV. There is an old fireplace against the west wall and a cupboard to the north.
+You can go west, in or south.
+> south
+
+> south
+
+You are on a landing.
+A steep staircase leads downwards. There are open doors to the west, south and north. You can see a hatch high in the south wall.
+You can go down, west, north or south.
+> west
+
+> west
+
+You are in the kitchen.
+A large but bare kitchen. There is a table, chair, sink, oven - in short, what you would expect. There is a window in the west wall next to the back door.
+You can go north or east.
+> look at table
+
+> look at table
+A basic wooden kitchen table.
+On it you see a glass.
+> take glass
+
+> take glass
+You pick it up.
+> north
+
+> north
+
+You are in the dining room.
+A sparcely furnished room with just a mahogany table and chairs.
+You can go east or south.
+> take bread roll
+
+> take bread roll
+You pick it up.
+> eat bread roll
+
+> eat bread roll
+You eat the roll.
+It must be very nourishing bread as you feel much stronger!
+> south
+
+> south
+
+You are in the kitchen.
+A large but bare kitchen. There is a table, chair, sink, oven - in short, what you would expect. There is a window in the west wall next to the back door.
+You can go north or east.
+> east
+
+> east
+
+You are on a landing.
+A steep staircase leads downwards. There are open doors to the west, south and north. You can see a hatch high in the south wall.
+You can go down, west, north or south.
+> south
+
+> south
+
+You are at the north end of a corridor.
+You can go north, west, east or south.
+> east
+
+> east
+
+You are in a small bedroom.
+You can see a single bed and a chest of drawers.
+You can go west.
+> look under bed
+
+> look under bed
+You find a slipper
+> take slipper
+
+> take slipper
+You pick it up.
+> feel in slipper
+
+> feel in slipper
+You feel something. You give the slipper a shake and examine it again.
+> look at slipper
+
+> look at slipper
+Old and shabby, and literally down-at-heel!
+It contains a jade kiwi.
+> take jade kiwi
+
+> take jade kiwi
+You pick it up.
+> west
+
+> west
+
+You are at the north end of a corridor.
+You can go north, west, east or south.
+> south
+
+> south
+
+You are at the south end of a corridor.
+You can go north, south, east or west.
+> west
+
+> west
+
+You are in a toilet.
+The usual fittings - toilet roll, toilet and so on...
+You can see an ashtray.
+You can go east.
+> smoke lit pipe
+
+> smoke lit pipe
+Smoke from the pipe drifts to the ceiling and out through a vent in the wall.
+> unscrew vent
+
+> unscrew vent
+You unscrew the cover of the vent.
+> take pearls
+
+> take pearls
+You pick them up.
+> east
+
+> east
+
+You are at the south end of a corridor.
+You can go north, south, east or west.
+> south
+
+> south
+
+You are in the games room.
+There is a low card table and two chairs. An old battered dartboard hangs on the wall, but there are no darts to be seen.
+You can go north.
+> kf3
+
+> kf3
+You move the King to square f3 - there is a quiet click. A panel has opened in the west wall.
+> west
+
+> west
+
+You are at the top of a narrow staircase.
+It leads down into near darkness.
+You can go east or down.
+> down
+
+> down
+
+You are at the bottom of a staircase.
+A long dimly-lit passage runs away northwards, and a staircase leads up.
+You can go up or north.
+> north
+
+> north
+
+You are at a corner.
+The passage stretches to the west and to the south. There is an open doorway to the north.
+You can go south, north or west.
+> north
+
+> north
+
+You are in a guard room.
+This bare room has the appearance of a guard room, though who has been guarding whom you have no idea! It contains a wooden chair and a rough wooden table.
+You can see a cudgel.
+You can go south.
+> look at table
+
+> look at table
+Thick rough wood.
+On it you see a rusty key.
+> take rusty key
+
+> take rusty key
+You pick it up.
+> put rusty key in glass
+
+> put rusty key in glass
+Done.
+The liquid fizzes around the key. After a moment...
+...the key looks brand new!
+> wait
+
+> wait
+Time passes.
+> take shiny key
+
+> take shiny key
+You pick it up.
+> south
+
+> south
+
+You are at a corner.
+The passage stretches to the west and to the south. There is an open doorway to the north.
+You can go south, north or west.
+> west
+
+> west
+
+You are outside a cell.
+There is a heavy oak door to the south.
+You can go east or west.
+> unlock door
+
+> unlock door
+The door opens to an underground cell.
+You can go in.
+
+Out of the gloom, a hideous monster rushes at you with arms outstretched menacingly.
+> open door
+
+> open door
+It is already open.
+> give glass to man
+
+> give glass to man
+He takes the glass and drains it gratefully, before running off up the passage.
+> in
+
+> in
+
+You are in a cell.
+A small damp cell. The floor is covered in filthy straw.
+You can go out.
+> search straw
+
+> search straw
+You find a toad.
+> take toad
+
+> take toad
+You pick it up.
+> out
+
+> out
+
+You are outside a cell.
+There is a heavy oak door to the south.
+You can go east, in or west.
+> west
+
+> west
+
+You are at the bottom of a ladder.
+You see daylight above you. A dim passage stretches eastward.
+You can go east or up.
+> up
+
+> up
+You find yourself in a small round space. Light from a large hole seems dazzling to eyes accustomed to the gloom of the tunnel.
+
+You are inside a hollow tree.
+At your feet, an iron ladder leads downwards.
+You can go down or out.
+> out
+
+> out
+
+You are in the garden.
+You are standing on a patch of unkempt grass. In one corner is an old hollow beech tree.
+You can go in, east or south.
+You blink in the unaccustomed brightness. You see that you stand in a neglected garden.
+ Nice to be in the fresh air again!
+> south
+
+> south
+
+You are in the garden.
+A mighty oak stands nearby.
+You can go east, north or south.
+> south
+
+> south
+
+You are in the garden.
+There is a garden shed here.
+You can go north, east or in.
+> in
+
+> in
+
+You are in a garden shed.
+A rather poky place, but sufficient for storing garden equipment.
+You can see a spade, a stepladder, some flower pots and some seed catalogues.
+You can go out.
+> take spade
+
+> take spade
+You pick it up.
+> take stepladder
+
+> take stepladder
+You pick it up.
+> out
+
+> out
+
+You are in the garden.
+There is a garden shed here.
+You can go north, east or in.
+> north
+
+> north
+
+You are in the garden.
+A mighty oak stands nearby.
+You can go east, north or south.
+> east
+
+> east
+
+You are in the garden.
+Weedy grass lies underfoot. The house looms to the east. There is a door in the wall and a window next to it.
+You can go north, west or south.
+> dig
+
+> dig
+Thinking of starting a vegetable patch, are we...?
+> dig
+
+> dig
+Thinking of starting a vegetable patch, are we...?
+> dig
+
+> dig
+You're making quite a hole in the lawn!
+
+The air is growing colder...
+> dig
+
+> dig
+Your spade strikes something hard. Carefully clearing the soil away you find the treasure chest!
+
+...and colder...
+> take chest full of jewels
+
+> take chest full of jewels
+You pick it up.
+
+Suddenly you are faced with a terrible sight - the Dom Orre Phantom!
+
+Seeing the Ring on your finger, the phantom disappears with a terrifying screech!
+> north
+
+> north
+
+You are in the garden.
+A patch of rough grass shadowed by a tall ash tree. The wall of the house stands to the east.
+You can see a swingball.
+You can go west or south.
+> west
+
+> west
+
+You are in the garden.
+You are standing on a patch of unkempt grass. In one corner is an old hollow beech tree.
+You can go in, east or south.
+> in
+
+> in
+
+You are inside a hollow tree.
+At your feet, an iron ladder leads downwards.
+You can go down or out.
+> down
+
+> down
+
+You are at the bottom of a ladder.
+You see daylight above you. A dim passage stretches eastward.
+You can go east or up.
+You hear a clink.
+> take ring
+
+> take ring
+You pick it up.
+> wear ring
+
+> wear ring
+You slip the ring on. It feels a little loose.
+> east
+
+> east
+
+You are outside a cell.
+There is a heavy oak door to the south.
+You can go east, in or west.
+> east
+
+> east
+
+You are at a corner.
+The passage stretches to the west and to the south. There is an open doorway to the north.
+You can go south, north or west.
+> south
+
+> south
+
+You are at the bottom of a staircase.
+A long dimly-lit passage runs away northwards, and a staircase leads up.
+You can go up or north.
+> up
+
+> up
+
+You are at the top of a narrow staircase.
+It leads down into near darkness.
+You can go east or down.
+> east
+
+> east
+
+You are in the games room.
+There is a low card table and two chairs. An old battered dartboard hangs on the wall, but there are no darts to be seen.
+You can go north or west.
+> north
+
+> north
+
+You are at the south end of a corridor.
+You can go north, south, east or west.
+> north
+
+> north
+
+You are at the north end of a corridor.
+You can go north, west, east or south.
+> north
+
+> north
+
+You are on a landing.
+A steep staircase leads downwards. There are open doors to the west, south and north. You can see a hatch high in the south wall.
+You can go down, west, north or south.
+> drop stepladder
+
+> drop stepladder
+You drop it.
+> climb stepladder
+
+> climb stepladder
+
+You are at the top of the ladder.
+Being at the top of the ladder at the head of the steep stairs, it's a trifle vertiginous!
+
+There is an open hatch to the south.
+You can go down or south.
+> south
+
+> south
+
+You are in the loft.
+A low-ceilinged space, roughly decked with planks. Rafters, cistern and insulation - in short, the usual contents of a loft.
+You can see an iron safe.
+You can go north.
+> lift lid
+
+> lift lid
+You open the cistern. You are aware of the noise of dripping.
+> look at cistern
+
+> look at cistern
+It has a lid to keep the dust and cockroaches out!
+It contains water and a ball cock.
+> twist ball cock
+
+> twist ball cock
+You twist it.
+> twist ball cock
+
+> twist ball cock
+You twist it.
+> twist ball cock
+
+> twist ball cock
+You twist it.
+> lift ball cock
+
+> lift ball cock
+You lift the ball cock. The dripping stops.
+> press ball cock
+
+> press ball cock
+You press it. Water gushes out into the tank.
+The safe door swings open.
+> look at open safe
+
+> look at open safe
+Its door is jammed wide open.
+It contains an egg.
+> take egg
+
+> take egg
+You pick it up.
+> north
+
+> north
+
+You are at the top of the ladder.
+Being at the top of the ladder at the head of the steep stairs, it's a trifle vertiginous!
+
+There is an open hatch to the south.
+You can go down or south.
+> down
+
+> down
+
+You are on a landing.
+A steep staircase leads downwards. There are open doors to the west, south and north. You can see a hatch high in the south wall.
+You can see a stepladder.
+You can go down, west, north or south.
+> down
+
+> down
+
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south, up, west or north.
+> west
+
+> west
+
+You are in the furnace room.
+A room of cobwebs and coal dust, this is where the solid fuel central heating system was controlled. There is a furnace and a coal bunker.
+You can see a web stretching between the furnace and the bunker..
+You can go east or north.
+> north
+
+> north
+
+You are in a low tunnel.
+It's covered in coal dust!
+You can go north or south.
+> north
+
+> north
+
+You are in the laboratory of Dom Orre.
+In a house of general untidiness and neglect, this room is surprisingly clean.
+You can see a bench (on which there is a box).
+You can go south.
+> turn off box
+
+> turn off box
+You switch it off.
+> open box
+
+> open box
+
+You open it.
+It contains a broken flask (containing a diamond).
+
+The air is growing colder...
+> take diamond
+
+> take diamond
+You pick it up.
+
+...and colder...
+> south
+
+> south
+
+You are in a low tunnel.
+It's covered in coal dust!
+You can go north or south.
+
+Suddenly you are faced with a terrible sight - the Dom Orre Phantom!
+
+Seeing the Ring on your finger, the phantom disappears with a terrifying screech!
+> south
+
+> south
+
+You are in the furnace room.
+A room of cobwebs and coal dust, this is where the solid fuel central heating system was controlled. There is a furnace and a coal bunker.
+You can see a web stretching between the furnace and the bunker..
+You can go east or north.
+> east
+
+> east
+
+You are in the hall.
+A tall dim space. The large front door lies to the east and a small door to the west. There is a sliding door to the north and an open doorway leading south. A wide staircase winds upwards. Against one wall stands a chest of drawers upon which is an aquarium.
+You can go south, up, west or north.
+> north
+
+> north
+
+You are in the garage.
+A crowded and very untidy space. Just enough room for a car!
+You can see a car.
+You can go south or in.
+> in
+
+> in
+
+You are in a car.
+Comfortable seats, wheel, dashboard, gear lever - in short, much as you would expect.
+> insert ignition key
+
+> insert ignition key
+You insert the ignition key.
+> press button
+
+> press button
+The garage door swings open and you drive to freedom!
+
+Congratulations - you discovered the fate of Dom Orre.
+
+You found out about the professor's secret experiment.
+
+You found all the valuable artefacts! Well done - your editor will be pleased.
+[state=Finished]

@@ -1,0 +1,2394 @@
+You are Esme Friggleswick, a would-be-witch, who wishes to become Madam Ingra's new apprentice.
+
+However, to achieve this honour you will need to pass a test.
+
+Madam Ingra informs you that you must go to Zandor the Sorcerer's castle and retrieve his magical staff by any means possible. In other words, you're on your own and Madam Ingra won't help you. But it doesn't mean you can't use magic to help yourself!
+
+Good luck!
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> look
+
+> look
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northeast
+
+> northeast
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> up
+
+> up
+
+Eerie
+On top of this pinnacle is a large eerie overlooking a vast view of the land below.
+You can go down.
+You can see a Giant Eagle.
+> pluck Giant Eagle
+
+> pluck Giant Eagle
+'Do you mind, my dear! That hurt.' shrieks the Eagle as you pluck a feather from her.
+> down
+
+> down
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> southwest
+
+> southwest
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron, Madam Ingra and Zumble the cat.
+> use feather on Zumble the cat
+
+> use feather on Zumble the cat
+Zumble doesn't appreciate being tickled and scarpers leaving a dead mouse behind.
+> take dead mouse
+
+> take dead mouse
+You pick it up.
+> out
+
+> out
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> south
+
+> south
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> east
+
+> east
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> in
+
+> in
+
+Yanda's pet shop
+A small shop with not many animals for sale.
+You can go out.
+You can see Yanda and a python.
+> give dead mouse to python
+
+> give dead mouse to python
+The python slowly digests the dead mouse.
+'Thank you, dear. Take this key I found. I don't know what it's for?' says Yanda.
+> out
+
+> out
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> west
+
+> west
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> south
+
+> south
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> southeast
+
+> southeast
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> southeast
+
+> southeast
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> south
+
+> south
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> south
+
+> south
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+You can see a toad.
+> look at toad
+
+> look at toad
+A very warty toad.
+> north
+
+> north
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> north
+
+> north
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> east
+
+> east
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> in
+
+> in
+
+Yanda's pet shop
+A small shop with not many animals for sale.
+You can go out.
+You can see Yanda and a python.
+> talk to Yanda
+
+> talk to Yanda
+'Can I help you, my dear?' Yanda smiles.
+1: 'Any pets going cheap?'
+2: 'Know any wart cures for toads?'
+> 2
+'If you get me a bezoar then I'll give you some wart remover.' she smiles.
+'What's a bezoar?' you ask.
+'A small mass from an animal's stomach used in magic as an antidote to most poisons.' she states.
+> out
+
+> out
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> west
+
+> west
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron and Madam Ingra.
+> talk to Madam Ingra
+
+> talk to Madam Ingra
+'What is it, Esme?' Ingra asks.
+1: 'What's my mission again?'
+2: 'Are you sure you can't help with some magic?'
+3: 'Do you have any bezoars?'
+> 3
+'What do you want that for, have you been posioned?' she asks.
+You shake your head. She rummages around the cottage, finds one and hands it to you.
+'Don't swallow it all at once.' she laughs.
+> out
+
+> out
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> south
+
+> south
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> east
+
+> east
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> in
+
+> in
+
+Yanda's pet shop
+A small shop with not many animals for sale.
+You can go out.
+You can see Yanda and a python.
+> give bezoar to Yanda
+
+> give bezoar to Yanda
+'I'll give you some wart remover for that, my dear. A fair trade.' she grins.
+> out
+
+> out
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> west
+
+> west
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> south
+
+> south
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> southeast
+
+> southeast
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> southeast
+
+> southeast
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> south
+
+> south
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> south
+
+> south
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+You can see a toad.
+> use wart remover on toad
+
+> use wart remover on toad
+You smear the wart remover on the toad and instantly the toad is cured!
+> take toad
+
+> take toad
+You pick him up.
+> north
+
+> north
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> north
+
+> north
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> in
+
+> in
+
+Hut
+A small wooden hovel.
+You can go out.
+You can see a shovel.
+> take shovel
+
+> take shovel
+You pick it up.
+> out
+
+> out
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east or south.
+> dig roots
+
+> dig roots
+You dig in to the roots and find a hidden area under the tree.
+> down
+
+> down
+
+Under the oak
+In a small hole underneath the roots of the oak tree.
+You can go up.
+You can see an iron-bound chest.
+> unlock chest
+
+> unlock chest
+Unlocked with the iron key.
+> open chest
+
+> open chest
+You open it.
+It contains a ruby and an orange potion.
+> take ruby
+
+> take ruby
+You pick it up.
+> take orange potion
+
+> take orange potion
+You pick it up.
+> drink orange potion
+
+> drink orange potion
+It tastes funny and you smell slightly funny as well!
+> move chest
+
+> move chest
+You reveal some soft ground underneath the chest.
+> dig soft ground
+
+> dig soft ground
+You dig up a worm fruit!
+> take worm fruit
+
+> take worm fruit
+You pick it up.
+> up
+
+> up
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> southeast
+
+> southeast
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> in
+
+> in
+
+Rumpel's magic shop
+A small cramped shop with all sorts of magical artefacts for sale.
+You can go out.
+You can see a toy sail boat, a metal rod, a vial of chainrot and Rumpel.
+> give ruby to Rumpel
+
+> give ruby to Rumpel
+You give the ruby to Rumpel.
+'You may take the toy boat.' he smiles.
+> take toy sail boat
+
+> take toy sail boat
+You pick it up.
+> out
+
+> out
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> northwest
+
+> northwest
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> west
+
+> west
+
+Lakeside
+A large lake with a small island in its centre.
+You can go east.
+> use toy sail boat on lake
+
+> use toy sail boat on lake
+The toy sail boat, as it touches the water, grows into a life-size one.
+> use boat
+
+> use boat
+You sail the boat to the island.
+
+Island
+A small island with a few trees and a curious ice pedestal.
+You can see a dewberry and a boat.
+> take dewberry
+
+> take dewberry
+You pick it up.
+> use boat
+
+> use boat
+You sail the boat to the mainland.
+
+Lakeside
+A large lake with a small island in its centre.
+You can go east.
+You can see a boat.
+> east
+
+> east
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northeast
+
+> northeast
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> in
+
+> in
+
+Temple of the Dragon
+An old columned temple used to worship Dragons.
+You can go out.
+You can see an altar.
+> push stone eye
+
+> push stone eye
+A secret recess opens in the altar.
+> look at recess
+
+> look at recess
+A small stone compartment in the altar.
+It contains a dragon's tooth.
+> take dragon's tooth
+
+> take dragon's tooth
+You pick it up.
+> out
+
+> out
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> southwest
+
+> southwest
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron and Madam Ingra.
+> put toad in cauldron
+
+> put toad in cauldron
+Done.
+> put dewberry in cauldron
+
+> put dewberry in cauldron
+Done.
+> put dragon's tooth in cauldron
+
+> put dragon's tooth in cauldron
+Done.
+The ingredients disappear and a red potion is created.
+> take red potion
+
+> take red potion
+You pick it up.
+> drink red potion
+
+> drink red potion
+It tastes funny but you're proctected from anything really cold.
+> out
+
+> out
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> south
+
+> south
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> west
+
+> west
+
+Lakeside
+A large lake with a small island in its centre.
+You can go east.
+You can see a boat.
+> use boat
+
+> use boat
+You sail the boat to the island.
+
+Island
+A small island with a few trees and a curious ice pedestal.
+You can see a boat.
+> look at ice pedestal
+
+> look at ice pedestal
+A pedestal made from magical blue ice.
+It contains a sapphire.
+> take sapphire
+
+> take sapphire
+You pick it up.
+> use boat
+
+> use boat
+You sail the boat to the mainland.
+
+Lakeside
+A large lake with a small island in its centre.
+You can go east.
+You can see a boat.
+> east
+
+> east
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> southeast
+
+> southeast
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> in
+
+> in
+
+Rumpel's magic shop
+A small cramped shop with all sorts of magical artefacts for sale.
+You can go out.
+You can see a metal rod, a vial of chainrot and Rumpel.
+> give sapphire to Rumpel
+
+> give sapphire to Rumpel
+You give the sapphire to Rumpel.
+'You may take the metal rod.' he smiles.
+> take metal rod
+
+> take metal rod
+You pick it up.
+> out
+
+> out
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> northwest
+
+> northwest
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> in
+
+> in
+The shop door is locked.
+> turn sign
+
+> turn sign
+The door unlocks and opens as you turn over the sign to read 'OPEN'.
+> in
+
+> in
+
+Frannie's Antiques
+A small shop with lots of junk disguised as antiques.
+You can go out.
+You can see a cabinet.
+> move cabinet
+
+> move cabinet
+You move the cabinet and reveal a trapdoor.
+> open trapdoor
+
+> open trapdoor
+You open it.
+> look at recess
+
+> look at recess
+A large hole.
+It contains a gold key.
+> take gold key
+
+> take gold key
+You pick it up.
+> out
+
+> out
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> south
+
+> south
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> southeast
+
+> southeast
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> southeast
+
+> southeast
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> in
+
+> in
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> northeast
+
+> northeast
+
+Goblin's chamber
+The walls are covered in slime and the roof has crumbled in places.
+You can go southwest or in.
+You can see a Goblin.
+> swing shovel
+
+> swing shovel
+You swing the shovel at the beam and it falls from the roof and on to the Goblin's head, knocking him out.
+> take egg
+
+> take egg
+You pick it up.
+> take copper key
+
+> take copper key
+You pick it up.
+> southwest
+
+> southwest
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> out
+
+> out
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> south
+
+> south
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> south
+
+> south
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+> southwest
+
+> southwest
+
+Drawbridge
+On the drawbridge leading to the entrance of Zandor's castle.
+You can go northeast or in.
+You can see a Hydra.
+> in
+
+> in
+That way is blocked by the Hydra.
+> northeast
+
+> northeast
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+> north
+
+> north
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> north
+
+> north
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> east
+
+> east
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> in
+
+> in
+
+Yanda's pet shop
+A small shop with not many animals for sale.
+You can go out.
+You can see Yanda and a python.
+> talk to Yanda
+
+> talk to Yanda
+'Can I help you, my dear?' Yanda smiles.
+1: 'Any pets going cheap?'
+2: 'Do you know how to get past the hydra?'
+> 2
+'It's impossible. Zandor's hydra is magically protected. Unless you can fly you'll never get inside his castle.' she replies.
+> out
+
+> out
+
+Dark alley
+A dark alley ending outside Yanda's Pet Shop.
+You can go west or in.
+> west
+
+> west
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northeast
+
+> northeast
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> up
+
+> up
+
+Eerie
+On top of this pinnacle is a large eerie overlooking a vast view of the land below.
+You can go down.
+You can see a Giant Eagle.
+> talk to Giant Eagle
+
+> talk to Giant Eagle
+'Can I help you, child?' asks the Eagle.
+1: 'Nice, eerie!'
+2: 'What's up, Mrs Eagle?'
+> 2
+'Someone has stolen my egg and I'm so distressed to do anything.' she sobs.
+> give egg to Giant Eagle
+
+> give egg to Giant Eagle
+'Oh, my dear, it's my egg! Where did you find it?' she cries.
+You tell her about the Goblin.
+'Nasty little things.' she curses, 'Well I'm happy again now. Anything you need, just speak to me.'
+> talk to Giant Eagle
+
+> talk to Giant Eagle
+'Can I help you, child?' asks the Eagle.
+1: 'Nice, eerie!'
+2: 'Can you fly me to the castle and get in a 'back way'?'
+> 2
+'Of course, my child. Climb aboard.' she says.
+
+You get on her back and hold on tight as you are lifted off the ground into the bright, cold sky. You're a long way up and after a short while you hold on even tighter as she descends to the main tower of Zandor's castle.
+
+She hovers as you climb off on to a nearby window ledge. She cries her goodbye and flys off leaving you all alone.
+
+Window ledge
+It's a long way down and the wall above you is very crooked.
+You can go in.
+> in
+
+> in
+
+Dusty chamber
+A tower room used to store junk. An open window leads out on to the ledge.
+You can go down or out.
+You can see a table, a metal holder, a casket and a fishing rod.
+> look at table
+
+> look at table
+A round mahogany table.
+It contains a candlestick (containing a candle).
+> take candle
+
+> take candle
+You pick it up.
+> x candlestick
+
+> x candlestick
+A silver candlestick. Hidden where the candle was housed, you find a small key.
+> unlock casket
+
+> unlock casket
+Unlocked with the small key.
+> open casket
+
+> open casket
+You open it.
+It contains an energy crystal.
+> take energy crystal
+
+> take energy crystal
+You pick it up.
+> take fishing rod
+
+> take fishing rod
+You pick it up.
+> down
+
+> down
+
+Great hall
+A large marble-columned hall with a black and white tiled floor.
+You can go north or up.
+You can see a mirror.
+> north
+
+> north
+
+Courtyard
+A large yard with steps leading down into darkness and two buildings reside to the south and east.
+You can go down, east, south or out.
+You can see a Hydra.
+> down
+
+> down
+
+Oubliette
+A dark and damp dungeon. A place to be forgotten.
+You can go up.
+You can see a skeleton.
+> pull leg
+
+> pull leg
+You pull his leg and a secret recess opens.
+> look at recess
+
+> look at recess
+A hole in the wall.
+It contains a coronet.
+> take coronet
+
+> take coronet
+You pick it up.
+> up
+
+> up
+
+Courtyard
+A large yard with steps leading down into darkness and two buildings reside to the south and east.
+You can go down, east, south or out.
+You can see a Hydra.
+> east
+
+> east
+
+Banquet hall
+A large vaulted hall.
+You can go west or east.
+You can see an oak table.
+> east
+
+> east
+
+Kitchen
+A small room with a chute leading down into the moat - basic waste disposal!
+You can go west.
+You can see a cupboard.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains some pepper.
+> take pepper
+
+> take pepper
+You pick it up.
+> west
+
+> west
+
+Banquet hall
+A large vaulted hall.
+You can go west or east.
+You can see an oak table.
+> look at oak table
+
+> look at oak table
+A long oak table.
+It contains a salmon.
+> take salmon
+
+> take salmon
+You pick it up.
+> east
+
+> east
+
+Kitchen
+A small room with a chute leading down into the moat - basic waste disposal!
+You can go west.
+You can see a cupboard.
+> down
+
+> down
+You enter the chute and slide all the way into the dirty water of the moat. You splutter as you reach the surface. Not being able to swim very well you are glad you make it to shore. You dry off eventually.
+
+Moat
+At the edge of a dirty moat that surrounds Zandor's castle.
+You can go northwest.
+> northwest
+
+> northwest
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+> north
+
+> north
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> west
+
+> west
+
+Mudhole
+A large hole full of brown sloppy mud.
+You can go east.
+You can see a sign.
+> use fishing rod on mud
+
+> use fishing rod on mud
+You try the fishing rod in the hole and feel a bit silly thinking that nothing alive could live down in there. You're right but you do fish out a metal sphere, after giving it a good clean.
+> take metal sphere
+
+> take metal sphere
+You are already carrying it.
+> use metal sphere on metal rod
+
+> use metal sphere on metal rod
+You fix the sphere to the rod and produce a sceptre.
+> east
+
+> east
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> north
+
+> north
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> east
+
+> east
+
+Narrow street
+A dark narrow street just outside Frannie's Antiques Shop.
+You can go west, in or east.
+You can see a sign and Eft the Fool.
+> use pepper on Eft the Fool
+
+> use pepper on Eft the Fool
+You throw a small amount of pepper in his face and he violently sneezes out his glass eye. It rests at your feet and he didn't even notice.
+> take eyeball
+
+> take eyeball
+You pick it up.
+> west
+
+> west
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> in
+
+> in
+
+Owl and Pussycat Tavern
+A small establishment with minimal furnishings.
+You can go out.
+You can see a barrel (containing some sand).
+> search barrel
+
+> search barrel
+You find a mouthorgan!
+> search barrel
+
+> search barrel
+You find a handkerchief!
+> search barrel
+
+> search barrel
+You find a toy unicorn, cute!
+> search barrel
+
+> search barrel
+You find a spoon!
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You find a horseshoe!
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> search barrel
+
+> search barrel
+You don't find anything in the sand.
+> take toy unicorn
+
+> take toy unicorn
+You pick it up.
+> out
+
+> out
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> tear toy unicorn
+
+> tear toy unicorn
+You tear the toy unicorn on the sharp end of one of the railings and its stuffing comes out. It's cotton wool.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron and Madam Ingra.
+> put worm fruit in cauldron
+
+> put worm fruit in cauldron
+Done.
+> put eyeball in cauldron
+
+> put eyeball in cauldron
+Done.
+> put cotton wool in cauldron
+
+> put cotton wool in cauldron
+Done.
+The ingredients disappear and a blue potion is created.
+> take blue potion
+
+> take blue potion
+You pick it up.
+> drink blue potion
+
+> drink blue potion
+It tastes funny but now you're quiet as a (dead) mouse.
+> out
+
+> out
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> south
+
+> south
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> south
+
+> south
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> southeast
+
+> southeast
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> southeast
+
+> southeast
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> in
+
+> in
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> southeast
+
+> southeast
+
+Giant Spider's lair
+A large dingy cavern with many spider webs.
+You can go northwest.
+You can see a spider web and a Giant Spider.
+> take spider web
+
+> take spider web
+You pick it up making sure you don't wake up the spider.
+> northwest
+
+> northwest
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> out
+
+> out
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron and Madam Ingra.
+> put pepper in cauldron
+
+> put pepper in cauldron
+Done.
+> put spider web in cauldron
+
+> put spider web in cauldron
+Done.
+> put salmon in cauldron
+
+> put salmon in cauldron
+Done.
+The ingredients disappear and a green potion is created.
+> take green potion
+
+> take green potion
+You pick it up.
+> out
+
+> out
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> southeast
+
+> southeast
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> drink green potion
+
+> drink green potion
+It tastes funny and suddenly you start to shrink in size. Before you know it you're the size of an ant.
+
+Unfortunately, all of your inventory didn't quite have the same effect and you had to drop everything.
+
+Anthill entrance
+Because of your size the Anthill is huge.
+You can go in or west.
+> in
+
+> in
+
+Antechamber
+A large chamber with ants scurrying about doing their work.
+You can go out or east.
+You can see a Soldier Ant.
+
+The Solider Ant takes a whiff of you and runs away.
+> east
+
+> east
+
+Queen's chamber
+A large chamber fit for an Ant Queen.
+You can go west.
+You can see the Ant Queen.
+
+The Ant Queen takes a whiff of you as well and leaves.
+> look
+
+> look
+Queen's chamber
+A large chamber fit for an Ant Queen.
+You can go west.
+You can see a gigantic emerald.
+> push gigantic emerald
+
+> push gigantic emerald
+You push it to the west.
+> west
+
+> west
+
+Antechamber
+A large chamber with ants scurrying about doing their work.
+You can go out or east.
+You can see a gigantic emerald.
+> push gigantic emerald
+
+> push gigantic emerald
+You push it outside.
+> out
+
+> out
+
+Anthill entrance
+Because of your size the Anthill is huge.
+You can go in or west.
+You can see a gigantic emerald.
+> push gigantic emerald
+
+> push gigantic emerald
+You push it to the west.
+> west
+
+> west
+After a while the potion wears off and you become normal size again.
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill, an emerald, a feather, an iron key, a shovel, a gold key, a copper key, a candle, a small key, an energy crystal, a fishing rod, a coronet, a metal sceptre, a toy unicorn and a green potion.
+> take all
+
+> take all
+anthill:
+You can't take it.
+emerald: You pick it up.
+feather: You pick it up.
+iron key: You pick it up.
+shovel: You pick it up.
+gold key: You pick it up.
+copper key: You pick it up.
+candle: You pick it up.
+small key: You pick it up.
+energy crystal: You pick it up.
+fishing rod: You pick it up.
+coronet: You pick it up.
+metal sceptre: You pick it up.
+toy unicorn: You pick it up.
+green potion: You pick it up.
+> south
+
+> south
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> east
+
+> east
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> southeast
+
+> southeast
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> in
+
+> in
+
+Rumpel's magic shop
+A small cramped shop with all sorts of magical artefacts for sale.
+You can go out.
+You can see a vial of chainrot and Rumpel.
+> give emerald to Rumpel
+
+> give emerald to Rumpel
+You give the emerald to Rumpel.
+'You may take the vial of chainrot.' he smiles.
+> take vial of chainrot
+
+> take vial of chainrot
+You pick it up.
+> out
+
+> out
+
+Narrow street
+A dark narrow street just outside Rumpel's Magic Shop.
+You can go northwest or in.
+> northwest
+
+> northwest
+
+Village square
+A willow tree stands in the centre of the square just outside the tavern.
+You can go west, in, east or southeast.
+> west
+
+> west
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> south
+
+> south
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> give coronet to Ghost Prince
+
+> give coronet to Ghost Prince
+The Ghost-Prince snatches the crown from you and realizes he can't take it since he is a ghost. You leave it by him and a diamond appears in its place. 'Take it, girl, before I change my mind.' he says haughtily.
+> take diamond
+
+> take diamond
+You pick it up.
+> southeast
+
+> southeast
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> southeast
+
+> southeast
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> in
+
+> in
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> northeast
+
+> northeast
+
+Goblin's chamber
+The walls are covered in slime and the roof has crumbled in places.
+You can go southwest or in.
+You can see a Goblin.
+> unlock cell door
+
+> unlock cell door
+Unlocked with the copper key.
+> open cell door
+
+> open cell door
+You open it.
+> in
+
+> in
+
+Cell
+A dark dingy room with no features at all.
+You can go out.
+You can see some chains and Madam Elsa.
+> use vial of chainrot on chains
+
+> use vial of chainrot on chains
+The chainrot does its job and the chains melt away allowing Madam Elsa to use her magic again. As a reward she gives you the Amulet of Chaos.
+
+'That should see off that nasty old Sorcerer for you.' she grins and vanishes in a cloud of smoke.
+> take amulet of chaos
+
+> take amulet of chaos
+You are already carrying it.
+> out
+
+> out
+
+Goblin's chamber
+The walls are covered in slime and the roof has crumbled in places.
+You can go southwest or in.
+You can see a Goblin.
+> southwest
+
+> southwest
+
+Tunnel
+A narrow rocky tunnel.
+You can go out, northeast or southeast.
+> out
+
+> out
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northeast
+
+> northeast
+
+Rocky path
+A steep incline that continues up to a high pinnacle. You are outside an old temple.
+You can go southwest, up or in.
+> up
+
+> up
+
+Eerie
+On top of this pinnacle is a large eerie overlooking a vast view of the land below.
+You can go down.
+You can see a Giant Eagle and an egg.
+> talk to Giant Eagle
+
+> talk to Giant Eagle
+'Can I help you, child?' asks the Eagle.
+1: 'Nice, eerie!'
+2: 'Can you fly me to the castle and get in a 'back way'?'
+> 2
+'Of course, my child. Climb aboard.' she says.
+
+You get on her back and hold on tight as you are lifted off the ground into the bright, cold sky. You're a long way up and after a short while you hold on even tighter as she descends to the main tower of Zandor's castle.
+
+She hovers as you climb off on to a nearby window ledge. She cries her goodbye and flys off leaving you all alone.
+
+Window ledge
+It's a long way down and the wall above you is very crooked.
+You can go in.
+> up
+
+> up
+You climb up the wall to the roof.
+
+Tower roof
+Precariously balancing on the conical roof. There is a hole in the roof.
+You can go down.
+> put metal sceptre in hole
+
+> put metal sceptre in hole
+Done.
+> down
+
+> down
+
+Window ledge
+It's a long way down and the wall above you is very crooked.
+You can go in.
+> in
+
+> in
+
+Dusty chamber
+A tower room used to store junk. An open window leads out on to the ledge.
+You can go down or out.
+You can see a table (on which there is a candlestick), a metal holder and a casket.
+> put energy crystal in metal holder
+
+> put energy crystal in metal holder
+Done.
+> press button
+
+> press button
+From out of the blue, a bolt of lightning hits the sceptre on the tower roof and sparks fly down the pipe into the metal holder. It charges the energy crystal.
+> take energy crystal
+
+> take energy crystal
+You pick it up.
+> down
+
+> down
+
+Great hall
+A large marble-columned hall with a black and white tiled floor.
+You can go north or up.
+You can see a mirror.
+> use diamond on mirror
+
+> use diamond on mirror
+You cut the outline of the mirror with the diamond and it falls and shatters revealing a hidden door.
+> unlock metal door
+
+> unlock metal door
+Unlocked with the gold key.
+> open metal door
+
+> open metal door
+You open it.
+> east
+
+> east
+
+Zandor's sanctum
+A large chamber with evil pouring from every corner.
+You can go west.
+You can see Zandor the Sorcerer.
+> use amulet of chaos on Zandor the Sorcerer
+
+> use amulet of chaos on Zandor the Sorcerer
+The Amulet of Chaos starts to buzz, and quite literally, as a swarm of angry bees emanate from the amulet and chase Zandor out of his castle. You hope that's the last you'll see of him!
+> use energy crystal on magical staff
+
+> use energy crystal on magical staff
+The crystal's energy cancels out the staff's magical protection.
+> take magical staff
+
+> take magical staff
+You pick it up.
+> west
+
+> west
+
+Great hall
+A large marble-columned hall with a black and white tiled floor.
+You can go north, up or east.
+You can see a metal door.
+> north
+
+> north
+
+Courtyard
+A large yard with steps leading down into darkness and two buildings reside to the south and east.
+You can go down, east, south or out.
+You can see a Hydra.
+> east
+
+> east
+
+Banquet hall
+A large vaulted hall.
+You can go west or east.
+You can see an oak table.
+> east
+
+> east
+
+Kitchen
+A small room with a chute leading down into the moat - basic waste disposal!
+You can go west.
+You can see a cupboard.
+> down
+
+> down
+You enter the chute and slide all the way into the dirty water of the moat. You splutter as you reach the surface. Not being able to swim very well you are glad you make it to shore. You dry off eventually.
+
+Moat
+At the edge of a dirty moat that surrounds Zandor's castle.
+You can go northwest.
+> northwest
+
+> northwest
+
+Clearing
+A raised bit of ground here with a wide southern view of Zandor's castle.
+You can go north, southwest or southeast.
+> north
+
+> north
+
+Swamp
+A dark and dreary swamp that goes up to your knees.
+You can go north, west or south.
+> north
+
+> north
+
+Cave entrance
+Deep in the hills you come across a cave entrance.
+You can go northwest, in or south.
+> northwest
+
+> northwest
+
+River bank
+On the southside of a fast-flowing river with a wooden hut nearby.
+You can go southeast or in.
+You can see a stone bridge.
+> cross bridge
+
+> cross bridge
+You cross the bridge.
+
+River bank
+On the northside of a fast-flowing river.
+You can go northwest.
+You can see a stone bridge.
+> northwest
+
+> northwest
+
+Ruined tower
+This tower was probably of some importance in its day but now lies in ruins.
+You can go north or southeast.
+You can see the Ghost-Prince.
+> north
+
+> north
+
+Twisted oak
+An old twisted oak tree with gnarled roots trying to trip you up.
+You can go north, west, east, south or down.
+> north
+
+> north
+
+Forest
+A dense thicket of trees line the way either side of you.
+You can go northwest, northeast or south.
+You can see an anthill.
+> northwest
+
+> northwest
+
+Outside a cottage
+A quaint white-washed cottage with rose bushes just outside the green framed windows.
+You can go in or southeast.
+> in
+
+> in
+
+Inside a cottage
+A clutter of various artefacts fill this single room.
+You can go out.
+You can see a book, a cauldron and Madam Ingra.
+> give magical staff to Madam Ingra
+
+> give magical staff to Madam Ingra
+'Thank you, child. You have passed the...' suddenly a loud explosion catapults you both across the room and just before you lose consciousness a familiar figure of Zandor stands in the middle of the gaping hole in the cottage wall.
+
+Darkness descends...
+
+When you come to you suddenly realize that the cottage is now just a pile of charred ruins and Madam Ingra's body lies dormant at Zandor's feet. He laughs out loud and the ground shakes.
+
+You have only one move to make before he kills you!
+
+Charred ruins
+The remains of Madam Ingra's cottage.
+You can see Madam Ingra, Zandor the Sorcerer and a magical staff.
+> break magical staff
+
+> break magical staff
+You quickly break the staff with your foot and after a loud crack, sparks of magical energy obliterates it completely. Zandor screams and clutches his chest. They were both connected and it's not long before Zandor is nothing more than a charred mess just like the cottage.
+
+You run to Madam Ingra and are relieved to find she was just unconscious. When she comes to, you tell her what you had done and she embraces you. The search for anything of worth in the ruins grows futile but at least you have each other.
+
+You have certainly passed your test and Madam Ingra is proud to call you her Witch's Apprentice.
+
+Congratulations, you have solved the adventure!
+
+The End
+[state=Finished]

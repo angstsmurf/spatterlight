@@ -1,0 +1,1737 @@
+Marooned
+Two Men and a cat
+
+by Simon Mellor
+
+ An Introduction.
+
+You are in a Heaven.
+
+A beautiful woman sits beside you stroking your face.
+She has long blonde hair, legs that go on for ever and her father owns a string of hotels.
+She pours you a long cool drink and looks deep into your eyes.
+"Oh darling" she purrs.
+"I love you so much".
+"How many babies shall we have?"
+"Kiss me my darling, kiss me".
+
+You roll over with a big smile on your face but the woman is no longer there?
+Reality comes flooding back...
+You sit up and wipe the sand from your mouth.
+"That was one rough landing.”
+There's only one thing on your mind (Apart from a beautiful woman), and that's water!
+Got to find something to drink....And soon.....
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod and some Parachutes.
+You can go...  north, east, west or in.
+
+Your spacesuit is very heavy and sweat pours from your body.
+Got to get this off ASAP..
+> climb ladder
+
+> climb ladder
+You climb the ladder.
+
+You are on top of the pod.
+From here you can see the whole area of your landing site and further out into the seemingly endless desert.
+You can go down.
+
+Over to the northwest you notice a patch of ground thet you hadn't noticed before.
+> down
+
+> down
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod and some Parachutes.
+You can go...  north, east, west, in or northwest.
+
+Your spacesuit is very heavy and sweat pours from your body.
+Got to get this off ASAP..
+> northwest
+
+> northwest
+
+You are on a Sloping patch of ground.
+This area is a little lower than the surounding area, that's why you couldn't see it before.
+You can see A long branch and an Atmosphere Sampler.
+You can go southeast.
+
+> take atmosphere sampler
+
+> take atmosphere sampler
+You pick it up.
+> use atmosphere sampler
+
+> use atmosphere sampler
+All good
+"Class M" as Captain Kirk would say.
+
+The display on the Sampler goes black.
+Looks like it just sampled it's last atmosphere.
+
+You are on a Sloping patch of ground.
+This area is a little lower than the surounding area, that's why you couldn't see it before.
+You can see A long branch.
+You can go southeast.
+
+You are carrying a Spacesuit (worn) and a Broken Atmosphere Sampler.
+> take a long branch
+
+> take a long branch
+You pick it up.
+> break a long branch
+
+> break a long branch
+You Snap the branch into two pieces.
+You are on a Sloping patch of ground.
+This area is a little lower than the surounding area, that's why you couldn't see it before.
+You can go southeast.
+
+You are carrying a Spacesuit (worn), a Broken Atmosphere Sampler and a Pair of wooden sticks.
+> southeast
+
+> southeast
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod and some Parachutes.
+You can go...  north, east, west, in or northwest.
+
+> remove spacesuit
+
+> remove spacesuit
+You take it off.
+”Wow! That feels better..”
+> drop spacesuit
+
+> drop spacesuit
+You drop it.
+> west
+
+> west
+
+You see A desert path running West.
+You can also see a Shovel.
+You can go east or west.
+
+> take shovel
+
+> take shovel
+You pick it up.
+> west
+
+> west
+
+You are at the end of the desert path.
+You can also see a Water Bottle.
+You can go east or north.
+
+> take water bottle
+
+> take water bottle
+You pick it up.
+> north
+
+> north
+
+You are just to the North of a desert path.
+You can also see a Piece of metal and a Packet of Condoms.
+You can go south or west.
+
+> take piece of metal
+
+> take piece of metal
+You pick it up.
+> open packet of condoms
+
+> open packet of condoms
+You open it.
+It contains  A red condom, A blue condom and A green condom.
+> take a red condom
+
+> take a red condom
+You pick it up.
+> take a blue condom
+
+> take a blue condom
+You pick it up.
+> take a green condom
+
+> take a green condom
+You can't carry any more
+You pick it up.
+> west
+
+> west
+
+You are in a shaded area.
+
+You can also see a Map of the M25.
+You can go east.
+
+> use pair of wooden sticks
+
+> use pair of wooden sticks
+To do what Gus?
+> water
+You hold the sticks out in front of you and they seem to... Well... Come alive!!
+"What the hell!!" The sticks go crazy and jump out of your hands.
+Looks like this is the spot to dig..
+You are in a shaded area.
+
+You can also see a Map of the M25.
+You can go east.
+
+You are carrying a Broken Atmosphere Sampler, a Shovel, a Water Bottle, a Piece of metal, A red condom, A blue condom and A green condom.
+> use shovel
+
+> use shovel
+You take out your shovel and dig deep into the sand.
+After a few minutes water starts to trickle into the hole and before you know it you've got a small pool of water. You cup your hands and drink, it tastes so sweet..
+You are in a shaded area.
+
+You can also see a Map of the M25 and a Pool of water.
+You can go east.
+
+You are carrying a Broken Atmosphere Sampler, a Shovel, a Water Bottle, a Piece of metal, A red condom, A blue condom and A green condom.
+> fill water bottle
+
+> fill water bottle
+You fill the bottle.
+You are in a shaded area.
+
+You can also see a Map of the M25 and a Pool of water.
+You can go east.
+
+You are carrying a Broken Atmosphere Sampler, a Shovel, a Piece of metal, A red condom, A blue condom, A green condom and a Full water bottle.
+> look
+
+> look
+You are in a shaded area.
+
+You can also see a Map of the M25 and a Pool of water.
+You can go east.
+
+> drop broken atmosphere sampler
+
+> drop broken atmosphere sampler
+You drop it.
+> drop shovel
+
+> drop shovel
+You drop it.
+> east
+
+> east
+
+You are just to the North of a desert path.
+You can also see a Packet of Condoms.
+You can go south or west.
+
+> south
+
+> south
+
+You are at the end of the desert path.
+You can go east or north.
+
+> east
+
+> east
+
+You see A desert path running West.
+You can go east or west.
+
+> east
+
+> east
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes and a Spacesuit.
+You can go...  north, east, west, in or northwest.
+
+> east
+
+> east
+
+You see a Desert path running East.
+You can go west or east.
+
+> east
+
+> east
+
+You are  at the Eastern end of a desert path.
+You can also see a Magnifying Glass and an Acme Animal Scarer.
+You can go west.
+
+> take magnifying glass
+
+> take magnifying glass
+You pick it up.
+> west
+
+> west
+
+You see a Desert path running East.
+You can go west or east.
+
+> west
+
+> west
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes and a Spacesuit.
+You can go...  north, east, west, in or northwest.
+
+> north
+
+> north
+
+You are in a Barren desert.
+You look around.
+There's nothing to see for miles but more desert and little else.
+Behind you to the South is your escape pod, it's badly dammaged and it's parachutes lay motionless on the desert floor.
+You can go north or south.
+
+> north
+
+> north
+
+You are  a Looking out across an expance of sand.
+You can see a Small pile of Potassium Nitrate.
+You can go south or North.
+
+> take potassium nitrate
+
+> take potassium nitrate
+You pick it up.
+> north
+
+> north
+You've been walking for about two hours when up ahead you notice what looks like a person sitting on a rock?
+As you get closer you can see that it is a person,
+
+You look at him and he looks at you.
+
+“Hi, I'm Gus, who the hell are you?”
+“Ed Lines is the name sir, reporter”
+“How in gods name can you be here?”
+“I was asking myself the same question Gus.”
+“I'm a character from an old text adventure game called Subsunk."
+"I've been wandering around a broken down sub since 1985."
+"I can't tell you what a thrill it is to see the sky again. I just suddenly found myself here,  where are we?”
+“On a planet billions of miles from earth Ed, this is just crazy!!”
+“Can I tag along for a while Gus?”
+“Why not. I need all the help I can get.”
+
+"Maybe I'm just a character in a computer game too?"
+
+You are in The middle of the desert.
+You can see Ed Lines.
+You can go south, north, east or west.
+
+> west
+
+> west
+
+You are in a Barren desert.
+You look around.
+There's nothing to see for miles but more desert and little else.
+Behind you to the South is your escape pod, it's badly dammaged and it's parachutes lay motionless on the desert floor.
+You can see Ed Lines.
+You can go north or south.
+
+Here again!!  We must be walking round in circles..
+> south
+
+> south
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Spacesuit and Ed Lines.
+You can go...  north, east, west, in or northwest.
+
+> in
+
+> in
+
+You are Inside your escape pod.
+You root around in the pod but come up with nothing?, you just see a tangle of wires and broken controls.
+You can go out.
+
+Ed puts his head inside and says..
+
+”Excuse me Gus, don't forget that I've been at this job since 1985 and if there's anything to find in here then I'll find it!"
+"I suggest that you wait outside and leave me to it...OK?”
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Spacesuit and Ed Lines.
+You can go...  north, east, west, in or northwest.
+
+Out through the hatch shoots a cat which hisses at you then runs off into the desert.
+A  copy of Playboy magazine is next, quickly followed by a top hat.
+Finally Ed peers out and says..
+
+”That's about it Gus except for this”
+He throws the object to you and you catch it,
+"Wow! A Compass, the man is a genius.."
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Spacesuit, Ed Lines, a Top Hat and A copy of Playboy magazine.
+You can go...  north, east, west, in or northwest.
+
+You are carrying a Piece of metal, A red condom, A blue condom, A green condom, a Full water bottle, a Magnifying Glass, a Small pile of Potassium Nitrate and Compass.
+> use compass
+
+> use compass
+”OK Ed, pick a direction...”
+”North feels good to me Gus.”
+”OK, lets go".
+
+You walk for about half an hour and there sitting directly in your path is the cat.
+The cat walks toward you meowing and purring at the same time,  Rubs her side against you legs and  purrs some more.
+
+”You've got to be kidding me."
+“Looks like we've got a bloody cat now!”
+“What's your name, Jones?”
+“Come on then and don't get in the way.”
+
+"I'm not feeding it!"
+”I'll do it Gus.”
+
+After days of walking your little trio make it to the Northern edge of the desert.
+Ed has carried the cat for most of the way as the sand was far to hot for her paws.
+
+”I'm going to call her Christa."
+
+”OK. Hope she's a good mouser as we've got no food for ourselves, never mind her!”
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are at the Second crash site.
+There's a second pod here.
+You can see a Bucket, a Core drill, a Hacksaw, Ed Lines and Christa.
+You can go west, south, east or in.
+
+> drop piece of metal
+
+> drop piece of metal
+You drop it.
+> drop magnifying glass
+
+> drop magnifying glass
+You drop it.
+> drop potassium nitrate
+
+> drop potassium nitrate
+You drop it.
+> take core drill
+
+> take core drill
+You pick it up.
+> west
+
+> west
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+ You are  at the rock face.
+You can see a Huge Boulder, Ed Lines and Christa.
+You can go east.
+
+> use core drill on huge boulder
+
+> use core drill on huge boulder
+You carefully drill a hole in the boulder.
+”We need something to put in the hole now?”
+ You are  at the rock face.
+You can see a Huge Boulder, Ed Lines, Christa and an A hole in the boulder.
+You can go east.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Water Bottle and a Core drill.
+> drop core drill
+
+> drop core drill
+You drop it.
+> east
+
+> east
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are at the Second crash site.
+There's a second pod here.
+You can see a Bucket, a Hacksaw, a Piece of metal, a Magnifying Glass, a Small pile of Potassium Nitrate, Ed Lines and Christa.
+You can go west, south, east or in.
+
+> take piece of metal
+
+> take piece of metal
+You pick it up.
+> take magnifying glass
+
+> take magnifying glass
+You pick it up.
+> take potassium nitrate
+
+> take potassium nitrate
+You can't carry any more
+You pick it up.
+> take bucket
+
+> take bucket
+You can't carry any more
+You pick it up.
+> take hacksaw
+
+> take hacksaw
+You can't carry any more
+You pick it up.
+> south
+
+> south
+
+You are in the Second Pod.
+This one isn't as beaten up as mine.
+You can see a Note, a Keypad, a Safe, a Communicator, Ed Lines and Christa.
+You can go out.
+
+> take note
+
+> take note
+You can't carry any more
+You pick it up.
+> look at note
+
+> look at note
+
+”At least we're not alone and someone else survived...”
+> use keypad
+
+> use keypad
+Please input the 8 diget code now -
+> 16061963
+
+The safe springs open and you find..
+A piece of string and a bottle of polish.
+
+A piece of string, after all that!!
+
+A piece of string, after all that!!
+
+You are in the Second Pod.
+This one isn't as beaten up as mine.
+You can see a Keypad, a Safe, a Communicator, Ed Lines and Christa.
+You can go out.
+
+> take polish
+
+> take polish
+You are already carrying it.
+> take piece of string
+
+> take piece of string
+You are already carrying it.
+> take communicator
+
+> take communicator
+You can't carry any more
+You pick it up.
+> out
+
+> out
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> east
+
+> east
+
+ You are standing by  A pool of boiling tar.
+You can see a Pool of tar, a Small pile of Sulphur, Ed Lines and Christa.
+You can go west.
+
+> take sulphur
+
+> take sulphur
+You can't carry any more
+You pick it up.
+> use piece of string on pool of tar
+
+> use piece of string on pool of tar
+You lower the string into the tar, trying not to burn your fingers.
+This will make a good fuse..
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Water Bottle, a Piece of metal, a Magnifying Glass, a Small pile of Potassium Nitrate, a Bucket, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Small pile of Sulphur and an A long fuse.
+> west
+
+> west
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> west
+
+> west
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+ You are  at the rock face.
+This must be where Svetlana got through the rock face.
+The entrance must be behind that boulder.
+You can see a Huge Boulder, an A hole in the boulder, a Core drill, Ed Lines and Christa.
+You can go east.
+
+> east
+
+> east
+It's been a long day and as the sun begins to set you decide to settle down for the night.
+You manage to get a small fire going and you sit down for a well earned rest.
+Ed sits opposite you with Christa curled up on his knees..
+
+”What a day Gus!”
+“Do you think we're ever going to get off this planet?”
+
+”We were never meant to get off this planet Ed.”
+“We were supposed to colonise it, we'd brought everything with us to start a new civilisation, I don't know how much of our stuff made it down safely after the on board emergency?”
+“Anyway, if we ever did make it back to earth we wouldn't recognise the place, it would be an eight year round trip for us but because of time dilation the earth would have aged by hundreds of years!”
+“Uncle Albert Einstein taught us that!”
+
+”By the way, what year is it Gus?”
+
+”It's 2040 Ed, you've been on that sub for 55 years but you don't seem to have aged?”
+
+”55 years!!!”
+Well, what ever has happened I'm just glad to be out of it, I'd rather take my chances here with you Gus.”
+
+”We'll get through this Ed, you stick with me.”
+
+After a while you all fall asleep, all that can be heard is the crackle of the fire and the sound of a soft breeze playing with the flames.
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, Ed Lines, Christa and the  Remains of a fire.
+You can go east or west.
+
+> look at remains of a fire
+
+> look at remains of a fire
+You poke about in the ashes..
+You find a lump of charcoal
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, Ed Lines, Christa, the  Remains of a fire and a Lump of Charcoal.
+You can go east or west.
+
+> take charcoal
+
+> take charcoal
+You can't carry any more
+You pick it up.
+> east
+
+> east
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> use charcoal on bucket
+
+> use charcoal on bucket
+You place the Charcoal into the bucket
+> use sulphur on bucket
+
+> use sulphur on bucket
+You pour the Sulphur into the bucket.
+> use potassium nitrate on bucket
+
+> use potassium nitrate on bucket
+You pour the Potassium Nitrate into the bucket.
+
+You mix the ingredients together with your hands and...
+You've got yourself a bucket full of gunpowder.
+
+”That's brilliant Gus!”
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Water Bottle, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, an A long fuse and a Bucket full of gunpowder.
+> look
+
+> look
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> west
+
+> west
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire, Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+ You are  at the rock face.
+This must be where Svetlana got through the rock face.
+The entrance must be behind that boulder.
+You can see a Huge Boulder, an A hole in the boulder, a Core drill, Ed Lines and Christa.
+You can go east.
+
+> use bucket on hole
+
+> use bucket on hole
+You carefully pour the gunpowder into the hole you drilled.
+Just need a fuse now?
+ You are  at the rock face.
+This must be where Svetlana got through the rock face.
+The entrance must be behind that boulder.
+You can see a Huge Boulder, a Core drill, Ed Lines, Christa and a Hole full of gunpowder.
+You can go east.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Water Bottle, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator and an A long fuse.
+> use fuse on hole
+
+> use fuse on hole
+You stick the fuse into the gunpowder.
+Just got to light it now?
+”All set to go, just light that fuse Gus..”
+
+”About time this baby was blown to kingdom come.”
+
+"What do you say ED?"
+"Right with ya there Gus :)"
+
+ You are  at the rock face.
+This must be where Svetlana got through the rock face.
+The entrance must be behind that boulder.
+You can see a Core drill, Ed Lines, Christa and a Huge Boulder with a fuse hanging out of it.
+You can go east.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Water Bottle, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish and a Communicator.
+> use magnifying glass on huge boulder
+
+> use magnifying glass on huge boulder
+The strong sunlight is magnified by the glass and the fuse ignites.
+Better run for you life's!
+Everyone runs back to the pod and waits........
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> look
+
+> look
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> west
+
+> west
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire, Ed Lines and Christa.
+You can go east or west.
+
+> fill water bottle
+
+> fill water bottle
+You fill your bottle.
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire, Ed Lines and Christa.
+You can go east or west.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator and a Full water bottle.
+> west
+
+> west
+
+ You are  at the rock face.
+You can see the entance to a tunnel.
+You can see a Core drill, Ed Lines and Christa.
+You can go east or north.
+
+> north
+
+> north
+
+You are in a dark tunnel.
+The tunel runs through the mountains
+
+Note:
+Any items dropped in here will automatically be returned to you.
+It's a long story.....
+
+You can see a Baseball bat, Ed Lines and Christa.
+You can go south.
+
+There are a pair of yellow eyes watching you...
+The eyes are getting closer...
+and closer...
+Meowww...
+
+”Bloody Hell Christa!!!"
+”You scared the living daylights out of me..”
+”Pick her up Ed”
+
+”OK Gus... Sorry..”
+
+"We're going to need a source of light Gus."
+"Some sort of Indiana Jones thingy.."
+> take baseball bat
+
+> take baseball bat
+You can't carry any more
+You pick it up.
+> south
+
+> south
+
+ You are  at the rock face.
+You can see the entance to a tunnel.
+You can see a Core drill, Ed Lines and Christa.
+You can go east or north.
+
+> east
+
+> east
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire, Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> use compass
+
+> use compass
+You take the long hot trek across the desert.
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Spacesuit, a Top Hat, A copy of Playboy magazine, Ed Lines and Christa.
+You can go...  north, east, west, in or northwest.
+
+> use hacksaw on spacesuit
+
+> use hacksaw on spacesuit
+You hack away at the suit and remove the outer fire proof layers.
+You've now got a long piece of thick cloth.
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Top Hat, A copy of Playboy magazine, Ed Lines and Christa.
+You can go...  north, east, west, in or northwest.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Baseball bat, a Water Bottle and an A long piece of thick cloth.
+> west
+
+> west
+
+You see A desert path running West.
+You can also see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are at the end of the desert path.
+You can also see Ed Lines and Christa.
+You can go east or north.
+
+> north
+
+> north
+
+You are just to the North of a desert path.
+You can also see a Packet of Condoms, Ed Lines and Christa.
+You can go south or west.
+
+> west
+
+> west
+
+You are in a shaded area.
+
+You can also see a Map of the M25, a Pool of water, a Broken Atmosphere Sampler, a Shovel, Ed Lines and Christa.
+You can go east.
+
+> fill water bottle
+
+> fill water bottle
+You fill the bottle.
+You are in a shaded area.
+
+You can also see a Map of the M25, a Pool of water, a Broken Atmosphere Sampler, a Shovel, Ed Lines and Christa.
+You can go east.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Baseball bat, an A long piece of thick cloth and a Full water bottle.
+> east
+
+> east
+
+You are just to the North of a desert path.
+You can also see a Packet of Condoms, Ed Lines and Christa.
+You can go south or west.
+
+> south
+
+> south
+
+You are at the end of the desert path.
+You can also see Ed Lines and Christa.
+You can go east or north.
+
+> east
+
+> east
+
+You see A desert path running West.
+You can also see Ed Lines and Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Top Hat, A copy of Playboy magazine, Ed Lines and Christa.
+You can go...  north, east, west, in or northwest.
+
+> use compass
+
+> use compass
+You take the long hot trek across the desert
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> use cloth on baseball bat
+
+> use cloth on baseball bat
+You carefully wrap the cloth around the bat,
+you have a primitive torch.
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle and a Torch.
+> east
+
+> east
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> east
+
+> east
+
+ You are standing by  A pool of boiling tar.
+You can see a Pool of tar, Ed Lines and Christa.
+You can go west.
+
+> use torch on pool of tar
+
+> use torch on pool of tar
+You dip the torch into the tar,
+that's more like it, it'll burn now :)
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle and a Tar covered torch.
+> use magnifying glass on tar covered torch
+
+> use magnifying glass on tar covered torch
+The torch bursts into flame.
+You can hear the theme tune to Indiana Jones playing in your head..
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle and a Flaming torch.
+> west
+
+> west
+
+You are at the Second crash site.
+There's a second pod here.
+You can see Ed Lines and Christa.
+You can go west, south, east or in.
+
+> west
+
+> west
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire, Ed Lines and Christa.
+You can go east or west.
+
+> west
+
+> west
+
+ You are  at the rock face.
+You can see the entance to a tunnel.
+You can see a Core drill, Ed Lines and Christa.
+You can go east or north.
+
+> north
+
+> north
+
+You are in a dark tunnel.
+The tunel runs through the mountains
+
+Note:
+Any items dropped in here will automatically be returned to you.
+It's a long story.....
+
+You can see Ed Lines and Christa.
+You can go south.
+
+You set off through the tunnel, you can hear all kinds of strange noises but you see nothing. After about 10 minutes you see a small pinpoint of light up ahead and after another five minutes you emerge from the tunnel into the fresh air.
+
+You are in an Entrance to a dense jungle.
+You can see Ed Lines and Christa.
+You can go north.
+
+”I don't like the look of this Gus!”
+“Make sure you've got that communicator with you or we could be lost in here for ever!!”
+You drop the torch.
+”Best leave this here in case I need it again”
+You are in an Entrance to a dense jungle.
+You can see Ed Lines, Christa and a Flaming torch.
+You can go north.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Piece of metal, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator and a Water Bottle.
+> look
+
+> look
+You are in an Entrance to a dense jungle.
+You can see Ed Lines, Christa and a Flaming torch.
+You can go north.
+
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+”We're lost gus.”
+> wait
+
+> wait
+Time passes.
+”Try the communicator again Gus.”
+> wait
+
+> wait
+Time passes.
+> use communicator
+
+> use communicator
+”Hey, there's a message on it from Svetlana”.
+“It says go back to the jungle entrance and follow these directions...”
+
+North, West, North, North, East, East, North, North, West, North
+
+”Let's try it.”
+
+”OK Gus..”
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go east, west or south.
+
+You are in an Entrance to a dense jungle.
+You can see a Flaming torch, Ed Lines and Christa.
+You can go north.
+
+> north
+
+> north
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go south, east, north or west.
+
+> west
+
+> west
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go north, west, south, southeast or east.
+
+> north
+
+> north
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go east, north, west or south.
+
+> north
+
+> north
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go north, east, south or west.
+
+> east
+
+> east
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go south, west, east or north.
+
+> east
+
+> east
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go south, west, east or north.
+
+> north
+
+> north
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go west, south, north or east.
+
+> north
+
+> north
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go east, west, south or north.
+
+> west
+
+> west
+
+You are in a Dense jungle.
+You can see Ed Lines and Christa.
+You can go east, west, south or north.
+
+> north
+
+> north
+
+You are in a Clearing.
+Some space to breath at last.
+You can see Ed Lines and Christa.
+You can go north, east, west or Back the way you came.
+
+> west
+
+> west
+
+You are at the end of the path.
+You can see a Drum Kit, Ed Lines and Christa.
+You can go east.
+
+"What the hell is a drum kit doing in the middle of a Forrest?.” “Well I am walking around with a fictional character from a computer game so I'm not that surprised ..”
+> play drum kit
+
+> play drum kit
+”I wasn't bad in my youth, let's see if I've still got it?”
+
+Just then a huge bird swoops down from the sky and grabs Christa. It then flies away into the trees..
+
+”NO....NO.....Gus, what are we going to do?”
+
+”Don't worry Ed, we'll get her back, you can count on that..”
+
+”Looks like thet went northeast into those trees."
+
+> east
+
+> east
+
+You are in a Clearing.
+Some space to breath at last.
+You can see Ed Lines.
+You can go north, east, west, Back the way you came or northeast.
+
+> northeast
+
+> northeast
+
+You are in an an area with tall trees all around.
+One tree in particular is very tall and there is a huge nest at the top.
+You can see a Very tall tree and Ed Lines.
+You can go southwest.
+
+> climb tree
+
+> climb tree
+
+You are in a the top of the tree.
+You can see a very large nest, a Big ugly bird, Christa and Ed Lines.
+You can go down.
+
+> use polish on piece of metal
+
+> use polish on piece of metal
+You polish away at the piece of metal. Wow! I can see my face in it now..
+You are in a the top of the tree.
+You can see a very large nest, a Big ugly bird, Christa and Ed Lines.
+You can go down.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle and a Mirror.
+> use mirror on bird
+
+> use mirror on bird
+The bird looks into the mirror and for a moment does nothing, then it lets out the most blood curdling scream you have ever heard and flies away.
+
+You are in a the top of the tree.
+You can see a very large nest, Ed Lines and Christa.
+You can go down.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle and a Mirror.
+> look at very large nest
+
+> look at very large nest
+You root around in the nest and you find something...
+You are in a the top of the tree.
+You can see a very large nest, Ed Lines and Christa.
+You can go down.
+
+You are carrying A red condom, A blue condom, A green condom, a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle, a Mirror and a Hydrogen canister.
+> down
+
+> down
+
+You are in an an area with tall trees all around.
+One tree in particular is very tall and there is a huge nest at the top.
+You can see a Very tall tree, Ed Lines and Christa.
+You can go southwest.
+
+> southwest
+
+> southwest
+
+You are in a Clearing.
+Some space to breath at last.
+You can see Ed Lines and Christa.
+You can go north, east, west, Back the way you came or northeast.
+
+> north
+
+> north
+Your communicator is ringing.
+
+ You are at the southern edge of a deep gorge..
+There was a rope bridge here but  it's broken beyond repair.
+You can just about make out the outline of some people on the other side.
+You can see an A long piece of rope, Ed Lines and Christa.
+You can go south.
+
+> use hydrogen canister on red condom
+
+> use hydrogen canister on red condom
+The Hydogen hisses into the condom and it blows up to the size of a big red balloon..
+ You are at the southern edge of a deep gorge..
+There was a rope bridge here but  it's broken beyond repair.
+You can just about make out the outline of some people on the other side.
+You can see an A long piece of rope, Ed Lines and Christa.
+You can go south.
+
+You are carrying A blue condom, A green condom, a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle, a Mirror, a Hydrogen canister and a Red Balloon.
+> use hydrogen canister on blue condom
+
+> use hydrogen canister on blue condom
+The Hydogen hisses into the condom and it blows up to the size of a big blue balloon..
+ You are at the southern edge of a deep gorge..
+There was a rope bridge here but  it's broken beyond repair.
+You can just about make out the outline of some people on the other side.
+You can see an A long piece of rope, Ed Lines and Christa.
+You can go south.
+
+You are carrying A green condom, a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle, a Mirror, a Hydrogen canister, a Red Balloon and a Blue Balloon.
+> use hydrogen canister on green condom
+
+> use hydrogen canister on green condom
+The Hydogen hisses into the condom and it blows up to the size of a big green balloon..
+ You are at the southern edge of a deep gorge..
+There was a rope bridge here but  it's broken beyond repair.
+You can just about make out the outline of some people on the other side.
+You can see an A long piece of rope, Ed Lines and Christa.
+You can go south.
+
+You are carrying a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle, a Mirror, a Hydrogen canister, a Red Balloon, a Blue Balloon and a Green Balloon.
+> use red balloon on rope
+
+> use red balloon on rope
+You find a strong piece of twine and fasten the balloon to the rope.
+> use blue balloon on rope
+
+> use blue balloon on rope
+You find a strong piece of twine and fasten the balloon to the rope.
+> use green balloon on rope
+
+> use green balloon on rope
+You find a strong piece of twine and fasten the balloon to the rope.
+You attach the last balloon and the rope lifts into the air
+ You are at the southern edge of a deep gorge..
+There was a rope bridge here but  it's broken beyond repair.
+You can just about make out the outline of some people on the other side.
+You can see Ed Lines, Christa and a floating rope.
+You can go south.
+
+You are carrying a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Water Bottle, a Mirror and a Hydrogen canister.
+> push floating rope
+
+> push floating rope
+You push the rope and it sails out across the gorge, just hope the wind stays in the right direction?
+
+Suddenly you hear Ed cry out!
+
+”Gus help.”
+“I'm disappearing.”
+“Someone must have loaded up the Subsunk game.”
+“Come and find me Gus”.
+“Please.......”
+
+And then he was gone.
+
+”Oh my god!”
+"What do I do now?”
+“I can't go on without him?”
+> south
+
+> south
+
+You are in a Clearing.
+Some space to breath at last.
+You can see Christa.
+You can go north, east, west, Back the way you came or northeast.
+
+> go back the way you came
+
+> go back the way you came
+
+You are in an Entrance to a dense jungle.
+You can see a Flaming torch and Christa.
+You can go north.
+
+> take flaming torch
+
+> take flaming torch
+You can't carry any more
+You pick up the torch and go back through the tunnel, as you emerge the heat hits you full in the face and you stop for a moment to catch your breath..
+
+ You are  at the rock face.
+You can see the entance to a tunnel.
+You can see a Core drill and Christa.
+You can go east or north.
+
+> east
+
+> east
+
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire and Christa.
+You can go east or west.
+
+> fill water bottle
+
+> fill water bottle
+You fill your bottle.
+You are in a Small Alcove.
+The water reflects on the stone ceiling above.
+You can see a Pool of water, the  Remains of a fire and Christa.
+You can go east or west.
+
+You are carrying a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Mirror, a Hydrogen canister, a Flaming torch and a Full water bottle.
+> east
+
+> east
+
+You are at    The Northern end of the desert.
+Directly ahead of you is a 100 mtr high rock wall which stretches out for miles to the East and West.
+There's got to be a way through this barrier as we can't go around or over it?
+
+You can see Christa.
+You can go east or west.
+
+> use compass
+
+> use compass
+You pick up the torch and...
+You take the long hot trek across the desert.
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Top Hat, A copy of Playboy magazine and Christa.
+You can go...  north, east, west, in or northwest.
+
+> west
+
+> west
+
+You see A desert path running West.
+You can also see Christa.
+You can go east or west.
+
+> west
+
+> west
+
+You are at the end of the desert path.
+You can also see Christa.
+You can go east or north.
+
+> north
+
+> north
+
+You are just to the North of a desert path.
+You can also see a Packet of Condoms and Christa.
+You can go south or west.
+
+> west
+
+> west
+
+You are in a shaded area.
+
+You can also see a Map of the M25, a Pool of water, a Broken Atmosphere Sampler, a Shovel and Christa.
+You can go east.
+
+> fill water bottle
+
+> fill water bottle
+You fill the bottle.
+You are in a shaded area.
+
+You can also see a Map of the M25, a Pool of water, a Broken Atmosphere Sampler, a Shovel and Christa.
+You can go east.
+
+You are carrying a Compass, a Magnifying Glass, a Hacksaw, a Note, A bottle of Polish, a Communicator, a Mirror, a Hydrogen canister, a Flaming torch and a Full water bottle.
+> east
+
+> east
+
+You are just to the North of a desert path.
+You can also see a Packet of Condoms and Christa.
+You can go south or west.
+
+> south
+
+> south
+
+You are at the end of the desert path.
+You can also see Christa.
+You can go east or north.
+
+> east
+
+> east
+
+You see A desert path running West.
+You can also see Christa.
+You can go east or west.
+
+> east
+
+> east
+
+You are standing next to  Your Escape Pod.
+Funny, but the pod does have a striking resemblance to the business end of a cement mixer lying on it's side with a couple of parachutes tied to it?
+You can see a Survival Kit, a Ladder, an Escape Pod, some Parachutes, a Top Hat, A copy of Playboy magazine and Christa.
+You can go...  north, east, west, in or northwest.
+
+> north
+
+> north
+
+You are in a Barren desert.
+You look around.
+There's nothing to see for miles but more desert and little else.
+Behind you to the South is your escape pod, it's badly dammaged and it's parachutes lay motionless on the desert floor.
+You can see Christa.
+You can go north or south.
+
+> north
+
+> north
+
+You are  a Looking out across an expance of sand.
+You can see Christa.
+You can go south or North.
+
+> north
+
+> north
+
+You are in The middle of the desert.
+You can see Christa.
+You can go south, north, east, west or down.
+
+There's a strange looking passage on the desert floor going down?
+> down
+
+> down
+You climb down a ladder and drop into a passageway.
+
+”Bloody Hell!”
+“I'm in a submarine!”
+
+It's stifling in here.
+There's a smell of oil and grease in the air and the dull lighting makes it difficult to see.
+You finally find your way into a cosy looking ward room
+
+You are in an A cozy ward room.
+There's not much to see in here, just a bed with a battered old matress on it.
+There's an intercom on the wall.
+You can see an Intercom unit and Christa.
+
+> use intercom
+
+> use intercom
+”Ed, Ed, are you there?”
+
+”I'm here Captain, you found me!”
+
+”Where are you?”
+
+”I'm in the forward launch bay, smearing some butter on a torpedo tube.”
+
+”You're doing what?”
+
+”It's a long storey captain, wait there I'm coming to you..”
+”Gus, it's so good to see you.”
+“Ive got an idea.”
+“Follow me to the generator room....”
+
+You are in The Generator room.
+It's from here that power is distrubuted around the sub.
+You can see Christa.
+
+”Gus, there's a large fuse I want you to remove and I'm pretty sure that when you do the game will not run any more.”
+“I can't touch it, I'm not programmed to do that, but you can!”
+“I'll throw the main breaker switch while you grab it, OK?”
+
+”OK, let's do it”
+
+Ed cuts the power and you remove the fuse, you can hear things shutting down all over the sub.
+The emergency lights come on but they wont last very long on battery power
+
+”OK Ed, I've got it, lets go.”
+
+ You are at the southern end of a deep gorge.
+You can see Ed Lines and Christa.
+
+Svetlana comes running across the newly repaired bridge and throws her arms around you.
+
+”Oh Captain, it's so good to see you.”
+“Most of the crew made it down safely and we've already got a few rough buildings up and we've found plenty of food and water.”
+
+“And who is this handsome fellow you have with you?”
+
+”May I introduce Mr Ed Lines.”
+"I wouldn't have made it here without him.”
+
+”Hello.”
+
+Ed's face flushes slightly.
+
+”And this is Christa the cat.”
+
+”Oh, she's lovely.”
+“Come on let's get across this bridge and get you something to eat then you can tell us all about your adventures.”
+
+Half way across the bridge Ed takes the fuse from you and hurls it into the river below.
+
+”I'm going to like it here Gus, yes sir, I'm going to like it....”
+
+The End..
+
+Please click here and let me know what you thought about the game, cheers.
+[state=Finished]

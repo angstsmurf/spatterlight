@@ -1,0 +1,661 @@
+The Lost Scroll
+
+by peter edwards
+
+ Introduction.
+
+You are an investigative journalist with a high reputation based on your success in solving the mystery of Dom Orre.
+You are summoned to the home of an old man, John de Sward, on his 100th birthday, who has a mission for you.
+You are in the home of Mr de Sward.
+
+"It's my 100th birthday today," he tells you. "I've had a long life and no regrets, save one.  My grandfather, Sir Peter de Sward, used to be a favourite of the King who often used to stay at his home, the stately house just outside the village.
+
+"One day he was entrusted by the King to look after an important scroll until such time as it was needed. Sadly, soon afterwards he was tragically killed in a riding accident. No sign could be found of the scroll, either on his person, or in the house. It was assumed that he had either carelessly lost it, or traitorously disposed of it.
+
+"Nothing was proved, but my family fell out of favour, and we lost our wealth. The house is now the property of a national heritage organisation, and is open to the public.
+
+"We have always believed in his innocence. If only the scroll could be found..."
+
+You are determined to help if you can, and make your way to the old House.
+You are standing on a gravel drive south of the gatehouse.
+The gates are wide open. There is a large granite block next to them.
+You can go north.
+> search gravel
+
+> search gravel
+You find a small shiny red stone
+> take red stone
+
+> take red stone
+You pick it up.
+> north
+
+> north
+You are in the forecourt of the Big House.
+To the north of the forecourt stand the great doors of the house. To the right of the house you can see a covered way, while to the left is a building looking a little like a pavilion.
+You can go north into the house, northeast towards a tunnel, northwest to the building or south out of the forecourt.
+> north
+
+> north
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can go northeast, northwest, east, west or south.
+You can't help noticing that the house is strangely silent -  no other visitors, no stewards, and a very eerie atmosphere...
+
+> west
+
+> west
+You are in a chapel.
+The chapel is floored with ancient flagstones, and furnished sparcely with black oaken pews. A high pulpit stands imposingly in one corner and in the other an old clock is built into the wall.
+You can go east.
+> look at cracks
+
+> look at cracks
+You examine the cracks carefully.
+Hidden in one of the cracks you see a key.
+> take key
+
+> take key
+You pick it up.
+> look at pulpit
+
+> look at pulpit
+The old pulpit stands imposingly high for such a small chapel. A small staircase leads up to it.
+> up
+
+> up
+You are in the pulpit.
+Beneath the lectern is a narrow shelf.
+You can go down.
+> look at shelf
+
+> look at shelf
+Intended for a water bottle and glass, should the preacher feel the need for refreshment.
+On it is a glass.
+> take glass
+
+> take glass
+You pick it up.
+> down
+
+> down
+You are in a chapel.
+The chapel is floored with ancient flagstones, and furnished sparcely with black oaken pews. A high pulpit stands imposingly in one corner and in the other an old clock is built into the wall.
+You can go east or up.
+> east
+
+> east
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can go northeast, northwest, east, west or south.
+> northeast
+
+> northeast
+You are in a courtyard.
+In the centre, to the north, you can see a bird-table.
+You can go north, southwest or east.
+> east
+
+> east
+You are in the gunroom.
+There is an old bench in the middle of the room . Old fowling pieces are firmly affixed to one wall, while the others are covered by the heads of various stuffed animals.
+You can go west.
+> look at bench
+
+> look at bench
+A massive, rough and heavily scarred wooden table.
+It contains a pair of field-glasses.
+> take glasses
+
+> take glasses
+You pick them up.
+> west
+
+> west
+You are in a courtyard.
+In the centre, to the north, you can see a bird-table.
+You can go north, southwest or east.
+> southwest
+
+> southwest
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can go northeast, northwest, east, west or south.
+> northwest
+
+> northwest
+You are in a passageway.
+The passageway is lined with hunting prints.
+You can go southeast or west.
+> west
+
+> west
+You are at the foot of a narrow staircase.
+You can go east or up.
+> up
+
+> up
+You are on an upper landing.
+There is a door to the south. A broad passageway stretches off eastwards lined with many doors. There is also a narrow staircase leading upwards, to the servants' quarters. Unfortunately it is closed off for essential maintenance.
+You can go down, south or east.
+> unlock door
+
+> unlock door
+The door swings opens.
+> south
+
+> south
+You are in the Tapestry Room.
+There is a great wardrobe standing against the east wall.
+You can go north.
+> raise ploughmans head
+
+> raise ploughmans head
+His head lifts up smoothly.
+> lower horses head
+
+> lower horses head
+The horse's head lowers, as if to take the strain.
+> move plough
+
+> move plough
+The wardrobe swings wide open! You realise that it is backless, showing part of  the bare stone wall of the room. There is a recess in the wall.
+> look at recess
+
+> look at recess
+There is a hole in the wall at the back of the recess.
+> look through hole
+
+> look through hole
+
+You have a view of the Great Hall down below.
+From here, the Lady of the house could watch the men feasting!
+
+To your astonishment, this time the hall looks different
+It is evening, and a fire is burning brightly in the grate. There are no electric lights, but candles flicker from various positions on the walls. For a while the shifting shadows are the only movements in the hall, but then the east door opens and a tall dark-haired  gentleman, in Georgian jacket and breeches, enters silently. He is carrying a small box.
+> look at small ebony box
+
+> look at small ebony box
+Using the fieldglasses, you see that the box is richly inlaid with a colourful mosaic pattern of a rainbow. You also see that in each colour of the rainbow one piece is missing.
+
+ Crossing over to the fireplace, he uses a poker to manipulate something up the chimney. Apparently satisfied, he then reaches up to the candlestick and pulls it back. A small compartment appears, into which he places the box. After closing the secret space by replacing the candlestick, he quietly disappears the way he came.
+> north
+
+> north
+You are on an upper landing.
+There is a door to the south. A broad passageway stretches off eastwards lined with many doors. There is also a narrow staircase leading upwards, to the servants' quarters. Unfortunately it is closed off for essential maintenance.
+You can go down, south or east.
+> down
+
+> down
+You are at the foot of a narrow staircase.
+You can go east or up.
+> east
+
+> east
+You are in a passageway.
+The passageway is lined with hunting prints.
+You can go southeast or west.
+> southeast
+
+> southeast
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can go northeast, northwest, east, west or south.
+> feel up chimney
+
+> feel up chimney
+You gingerly feel inside the chimney. Just under the soot, you can feel a loose brick.
+> move brick
+
+> move brick
+Carefully you move the brick. You hear a faint click...
+> pull candlestick
+
+> pull candlestick
+With a gentle grating sound, an opening appears in the chimneybreast.
+> take small black box
+
+> take small black box
+You pick it up.
+> put red stone in mosaic
+
+> put red stone in mosaic
+Done.
+> south
+
+> south
+You are in the forecourt of the Big House.
+To the north of the forecourt stand the great doors of the house. To the right of the house you can see a covered way, while to the left is a building looking a little like a pavilion.
+You can go north into the house, northeast towards a tunnel, northwest to the building or south out of the forecourt.
+> northeast
+
+> northeast
+You are in a tunnel.
+The tunnel, lined with mossy walls, runs between the forecourt and a sunny garden.
+You can go southwest or northeast.
+> northeast
+
+> northeast
+You are by a fishpond.
+A large fishpond surrounded with stone coping. A gentle breeze ruffles the surface of the water. Lilies are growing in the pond, and a dragonfly can be seen hawking after tiny flies.
+To the east, a winding path leads through a wood.
+You can go southwest or east.
+> lower glass
+
+> lower glass
+Lowering the bottom of the glass into the water and looking through it, you are able to see below the surface. The bed is covered with small blue pebbles. An occasional goldfish swims by.
+> search blue pebbles
+
+> search blue pebbles
+Amongst the pebbles, you see a tiny square blue stone.
+> take blue stone
+
+> take blue stone
+You pick it up.
+> put blue stone in mosaic
+
+> put blue stone in mosaic
+Done.
+> east
+
+> east
+You are in a clearing.
+A shady area in the woods
+You can go west.
+> search shade
+
+> search shade
+You find a brass key, lying in the shadows
+> take large brass key
+
+> take large brass key
+You pick it up.
+> west
+
+> west
+You are by a fishpond.
+A large fishpond surrounded with stone coping. A gentle breeze ruffles the surface of the water. Lilies are growing in the pond, and a dragonfly can be seen hawking after tiny flies.
+To the east, a winding path leads through a wood.
+You can go southwest or east.
+> southwest
+
+> southwest
+You are in a tunnel.
+The tunnel, lined with mossy walls, runs between the forecourt and a sunny garden.
+You can go southwest or northeast.
+> southwest
+
+> southwest
+You are in the forecourt of the Big House.
+To the north of the forecourt stand the great doors of the house. To the right of the house you can see a covered way, while to the left is a building looking a little like a pavilion.
+You can go north into the house, northeast towards a tunnel, northwest to the building or south out of the forecourt.
+> northwest
+
+> northwest
+You are in the orangery.
+Originally built as an enormous greenhouse for growing oranges and other exotic fruits, it has been re-designed as a tearoom for the visitors, the only concession to its origin being an orange tree in a pot, tucked away in a corner! The windows in the north wall overlook a pleasant garden.
+You can go southeast or north.
+> search compost
+
+> search compost
+You find a small orange stone
+> take orange stone
+
+> take orange stone
+You pick it up.
+> put orange stone in mosaic
+
+> put orange stone in mosaic
+Done.
+> north
+
+> north
+You are in a flower garden.
+A beautiful garden filled with a profusion of colourful flowers - daffodils, tulips and bluebells.
+You can go south or west.
+> search daffodils
+
+> search daffodils
+You see many small wild flowers growing under and between the daffodils.
+> smell violets
+
+> smell violets
+As you bend close to the flowers to smell them, you notice a small square stone.
+> take violet stone
+
+> take violet stone
+You pick it up.
+> put violet stone in mosaic
+
+> put violet stone in mosaic
+Done.
+> west
+
+> west
+You are in a field.
+An uncultivated field, where the grass and wild flowers have been allowed to develop naturally.
+You can see what appears to be a church tower to the northwest.
+You can go east or northwest.
+> northwest
+
+> northwest
+You are outside the folly.
+A three-sided folly built to resemble a church tower in the distance. It has a wooden door.
+You can go southeast.
+> unlock door
+
+> unlock door
+The door swings opens.
+> in
+
+> in
+You are in the folly.
+In the dim light from the door you can see a modern spiral wooden staircase, no doubt having replaced the old dangerous steps.
+You can go up or out.
+> up
+
+> up
+You are at the top of the folly.
+Whichever way you look, you can see views of the countryside.
+You can go down.
+> look east
+
+> look east
+
+Using the fieldglasses, you can see the house and, beyond it, the glint of a river. Between them is a small wood. In the centre of the wood is a glade. You can also make out two paths, one leading into the glade from the direction of the house, and the other running east towards the river.
+> down
+
+> down
+You are in the folly.
+In the dim light from the door you can see a modern spiral wooden staircase, no doubt having replaced the old dangerous steps.
+You can go up or out.
+> out
+
+> out
+You are outside the folly.
+A three-sided folly built to resemble a church tower in the distance. It has a wooden door.
+You can go southeast or in.
+> southeast
+
+> southeast
+You are in a field.
+An uncultivated field, where the grass and wild flowers have been allowed to develop naturally.
+You can see what appears to be a church tower to the northwest.
+You can go east or northwest.
+> east
+
+> east
+You are in a flower garden.
+A beautiful garden filled with a profusion of colourful flowers - daffodils, tulips and bluebells.
+You can go south or west.
+> south
+
+> south
+You are in the orangery.
+Originally built as an enormous greenhouse for growing oranges and other exotic fruits, it has been re-designed as a tearoom for the visitors, the only concession to its origin being an orange tree in a pot, tucked away in a corner! The windows in the north wall overlook a pleasant garden.
+You can go southeast or north.
+> southeast
+
+> southeast
+You are in the forecourt of the Big House.
+To the north of the forecourt stand the great doors of the house. To the right of the house you can see a covered way, while to the left is a building looking a little like a pavilion.
+You can go north into the house, northeast towards a tunnel, northwest to the building or south out of the forecourt.
+> northeast
+
+> northeast
+You are in a tunnel.
+The tunnel, lined with mossy walls, runs between the forecourt and a sunny garden.
+You can go southwest or northeast.
+> northeast
+
+> northeast
+You are by a fishpond.
+A large fishpond surrounded with stone coping. A gentle breeze ruffles the surface of the water. Lilies are growing in the pond, and a dragonfly can be seen hawking after tiny flies.
+To the east, a winding path leads through a wood.
+You can go southwest or east.
+> east
+
+> east
+You are in a clearing.
+A shady area in the woods. You can see considerable undergrowth on the east side.
+You can go west.
+> search undergrowth
+
+> search undergrowth
+You see a narrow path that had been obscured by the undergrowth.
+> east
+
+> east
+You are  on a riverbank.
+To the east, backing onto the river, is a small building.
+You can go west or in.
+> in
+
+> in
+You are in a tiny chapel.
+It's a small rectangular building, unfurnished except for a stone bench on each side of the door, and a plain stone altar against the east wall. High up on the west wall, over the doorway, there is a plaque.
+You can go out.
+> search moss
+
+> search moss
+You find a small green stone
+> take green stone
+
+> take green stone
+You pick it up.
+> put green stone in mosaic
+
+> put green stone in mosaic
+Done.
+> out
+
+> out
+You are  on a riverbank.
+To the east, backing onto the river, is a small building.
+You can go west or in.
+> west
+
+> west
+You are in a clearing.
+A shady area in the woods. You can see considerable undergrowth on the east side.
+You can go west or east.
+> west
+
+> west
+You are by a fishpond.
+A large fishpond surrounded with stone coping. A gentle breeze ruffles the surface of the water. Lilies are growing in the pond, and a dragonfly can be seen hawking after tiny flies.
+To the east, a winding path leads through a wood.
+You can go southwest or east.
+> southwest
+
+> southwest
+You are in a tunnel.
+The tunnel, lined with mossy walls, runs between the forecourt and a sunny garden.
+You can go southwest or northeast.
+> southwest
+
+> southwest
+You are in the forecourt of the Big House.
+To the north of the forecourt stand the great doors of the house. To the right of the house you can see a covered way, while to the left is a building looking a little like a pavilion.
+You can go north into the house, northeast towards a tunnel, northwest to the building or south out of the forecourt.
+> north
+
+> north
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can see an opening.
+You can go northeast, northwest, east, west or south.
+> northeast
+
+> northeast
+You are in a courtyard.
+In the centre, to the north, you can see a bird-table.
+You can go north, southwest or east.
+> north
+
+> north
+You are in the centre of the courtyard.
+You can see a bird-table.
+You can go south or east.
+> east
+
+> east
+You are on a lawn.
+Rough and unkempt. You can see a very old dovecot.
+You can go west.
+> dial 0717
+
+> dial 0717
+You dial"0717"
+The door swings (and jams) open!
+> in
+
+> in
+You are in a dovecot.
+In the centre of this round building stands a post reaching to the roof. There are holes high up in the wall.
+You can go out.
+> climb ladder
+
+> climb ladder
+You climb on the ladder, and move round the wall by pushing at the stonework.
+ You are near the topmost nesting hole.
+You can see some straw.
+You can go down.
+> search straw
+
+> search straw
+You find a little yellow stone
+> take yellow stone
+
+> take yellow stone
+You pick it up.
+> put yellow stone in mosaic
+
+> put yellow stone in mosaic
+Done.
+> down
+
+> down
+You climb down the ladder.
+You are in a dovecot.
+In the centre of this round building stands a post reaching to the roof. There are holes high up in the wall.
+You can go out.
+> out
+
+> out
+You are on a lawn.
+Rough and unkempt. You can see a very old dovecot.
+You can go west or in.
+> west
+
+> west
+You are in the centre of the courtyard.
+You can see a bird-table.
+You can go south or east.
+> south
+
+> south
+You are in a courtyard.
+In the centre, to the north, you can see a bird-table.
+You can go north, southwest or east.
+> southwest
+
+> southwest
+You are in the Great Hall.
+A lofty banqueting hall, two floors high. It was, presumably, lit by candlelight in the old days, but electric lights are now installed. The walls are adorned with various weapons and shields. In the north wall stands a large fireplace which clearly has not seen a fire for a very long time. High up in the west wall there is a small hole. Some sort of framed chart hangs on the opposite wall. Various doors lead out from the hall including the great doors to the south.
+You can see an opening.
+You can go northeast, northwest, east, west or south.
+> northwest
+
+> northwest
+You are in a passageway.
+The passageway is lined with hunting prints.
+You can go southeast or west.
+> west
+
+> west
+You are at the foot of a narrow staircase.
+You can go east or up.
+> up
+
+> up
+You are on an upper landing.
+There is a door to the south. A broad passageway stretches off eastwards lined with many doors. There is also a narrow staircase leading upwards, to the servants' quarters. Unfortunately it is closed off for essential maintenance.
+You can go down, south or east.
+> east
+
+> east
+You are at the end of a broad passageway.
+There is an open door in the north wall. The room beyond looks like a nursery.
+You can go west, north or east.
+> east
+
+> east
+You are in a broad passageway.
+You can see a small bedroom to the north.
+You can go west, east or north.
+> east
+
+> east
+You are in a broad passageway.
+An open door to the north reveals a large bedroom.
+You can go west, east or north.
+> east
+
+> east
+You are in a broad passageway.
+You see a bedroom through an open door to the north.
+You can go west, east or north.
+> north
+
+> north
+You are in the guest room.
+Once sumptuously furnished for important guests, a fourposter bed is all that remains.
+There is a picture hanging on the east wall.
+You can go south.
+> knock on door
+
+> knock on door
+The whole picture moves inward, then swings out to reveal an opening in the east wall.
+> east
+
+> east
+You are in a sewing room.
+Not much in this room apart from a wardrobe against the wall. There is a closed door to the south and an opening to the west.
+You can see a wardrobe.
+You can go west.
+> open wardrobe
+
+> open wardrobe
+You open it.
+It contains a dress.
+> look at dress
+
+> look at dress
+A very elegant indigo dress which buttons up the front.
+> look at buttons
+
+> look at buttons
+Indigo, to match the dress, the buttons are large and round, except for the small button at the neck.
+> take neck button
+
+> take neck button
+You carefully remove the little button. You realise that it is, in fact, a tiny square stone.
+> put indigo stone in mosaic
+
+> put indigo stone in mosaic
+Done.
+
+As you fit the last mosaic stone into place, there is a loud click. The box springs open and, to your excitement, the scroll is discovered nestling in the velvet lining of the box!
+
+With reverent fingers you pick it up and hurry back with it to the old man.
+
+You are in the house of Mr de Sward.
+The old man receives the scroll with trembling fingers and eyes full of joyful tears.
+"Thank you so much," he quavers. "Now I can clear my grandfather's name and have the old family tree restored."
+
+You take your leave, almost in tears yourself. Now back to the office, and a no-doubt overflowing in-tray!
+                                                                    THE END
+
+[state=Finished]

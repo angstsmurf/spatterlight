@@ -1,0 +1,725 @@
+Mermaid Bay
+
+by Peter Edwards
+
+ Mermaid Bay.
+For days the gale had raged around the little chalet on the Cornish cliffs where you are spending a holiday. By this morning, however, the storm had blown itself out and given way to a beautiful cloudless day. The air has been scrubbed clean, and you feel your holiday can begin...
+
+You are in a chalet.
+A pleasant and simply furnished holiday chalet set high in the Cornish cliffs overlooking the English Channel.
+You can go out.
+> out
+
+> out
+
+You are on a small grassy plateau just outside a holiday chalet..
+It is covered in short scrubby grass. An ideal place to sit in the sunshine (unless a South Westerly is blowing!).  A steep path leads down the cliff.
+You can go down the path or in to the chalet.
+
+As you look about you, you cannot help but feel that there has been a subtle change since yesterday. There is something mysterious in the air...
+
+> down
+
+> down
+
+You are on a sandy beach.
+There is a steep path climbing the cliff on the north side. Half way up, the plateau stands out prominently from the cliff face casting a shadow on the sand. You can go up the path, walk along the beach east or west, or go down to the sea.
+
+A delightful spot, on the edge of the English Channel. Waves crash along the water's edge to the south,  the aftermath of the recent storms.
+> east
+
+> east
+
+You are on a sandy beach.
+The view across the bay is outstanding. This part of the beach is a favourite spot for artists. You decide not to go further east as the incoming tide could cut you off.
+You can go west keeping under the cliffs or down towards the water.
+> search sand
+
+> search sand
+You find a brush.
+> take brush
+
+> take brush
+You pick it up.
+> down
+
+> down
+
+You are on the foreshore.
+Seaweed and flotsam lie along the water's edge.
+You can go up away from the sea or west following the sea.
+> search seaweed
+
+> search seaweed
+You find a spade head.
+> take spade head
+
+> take spade head
+You pick it up.
+> up
+
+> up
+
+You are on a sandy beach.
+The view across the bay is outstanding. This part of the beach is a favourite spot for artists. You decide not to go further east as the incoming tide could cut you off.
+You can go west keeping under the cliffs or down towards the water.
+> west
+
+> west
+
+You are on a sandy beach.
+There is a steep path climbing the cliff on the north side. Half way up, the plateau stands out prominently from the cliff face casting a shadow on the sand. You can go up the path, walk along the beach east or west, or go down to the sea.
+> west
+
+> west
+
+You are on a pebbly beach.
+You can go east along the beach, west towards some rocks or down towards the sea.
+> search pebbles
+
+> search pebbles
+You find a green stone.
+> take stone
+
+> take stone
+You pick it up.
+> west
+
+> west
+
+You are in a rocky part of the coast.
+A sandy beach bestrewn with stones, a legacy of the recent storms. There are outcrops of rocks from the cliffs. To the west, there is a rocky headland.
+You can go east towards some pebbles, down to the sea or west.
+> search rocks
+
+> search rocks
+You find a spade handle.
+> take spade handle
+
+> take spade handle
+You pick it up.
+> put spade handle in spade head
+
+> put spade handle in spade head
+Done.
+> use stone on limpets
+
+> use stone on limpets
+Please choose which 'stone' you mean:
+1: stones
+2: large green stone
+> 2
+Taken by surprise, one drops to the ground.
+> look at rocks
+
+> look at rocks
+The rocks are damp and covered in limpets.
+You see a small ledge previously hidden by a limpet.
+> look at small ledge
+
+> look at small ledge
+It's a small ledge.
+On it lies a skeleton.
+> take skeleton
+
+> take skeleton
+You pick it up.
+> down
+
+> down
+
+You are on the foreshore.
+Seaweed and driftwood lie at the edge of the water.
+To the west, you can see a headland. Clearly you would need some kind of boat to go round it.
+You can go up towards the rocks or east keeping to the sea.
+> search seaweed
+
+> search seaweed
+You find a bottle.
+> take bottle
+
+> take bottle
+You pick it up.
+> up
+
+> up
+
+You are in a rocky part of the coast.
+A sandy beach bestrewn with stones, a legacy of the recent storms. There are outcrops of rocks from the cliffs. To the west, there is a rocky headland.
+You can go east towards some pebbles, down to the sea or west.
+You can see a limpet.
+> west
+
+> west
+
+You are at a rock face.
+The cliff here juts out into the sea affording no further passage west.
+You can go east.
+> search plants
+
+> search plants
+Underneath some overhanging bunches of Thrift is a deep crevice.
+> in
+
+> in
+
+You are in a cave.
+You can go out.
+You can see a mermaid.
+You knew this was going to be a day with a difference!
+> ask mermaid about sad
+
+> ask mermaid about sad
+"I have lost something precious", she sobs, " especially precious to a mermaid."
+You hear the sound of a particularly large wave running up the beach outside. You wait for it to recede...
+> out
+
+> out
+
+You are at a rock face.
+The cliff here juts out into the sea affording no further passage west.
+You can go east or in.
+> east
+
+> east
+
+You are in a rocky part of the coast.
+A sandy beach bestrewn with stones, a legacy of the recent storms. There are outcrops of rocks from the cliffs. To the west, there is a rocky headland.
+You can go east towards some pebbles, down to the sea or west.
+You can see a limpet.
+> take object
+
+> take object
+As you reach down and take the object, a tentacle slithers out from a hole and grips your arm!
+> poke tentacle
+
+> poke tentacle
+You poke at the tentacle with the spade. It recoils, releasing its grip and producing a great cloud of ink.
+You withdraw your arm from the water.
+> fill bottle
+
+> fill bottle
+You fill the bottle with ink.
+> use brush on inky water
+
+> use brush on inky water
+Please choose which 'inky water' you mean:
+1: ink
+2: inky water
+> 2
+You dip the brush into the inky water.
+> west
+
+> west
+
+You are at a rock face.
+The cliff here juts out into the sea affording no further passage west.
+You can go east or in.
+> in
+
+> in
+
+You are in a cave.
+You can go out.
+You can see a mermaid.
+> give comb to mermaid
+
+> give comb to mermaid
+You give the comb to the mermaid, who accepts it with joy!
+
+"I'm so happy," she says. "not for getting my comb back, but because you have passed my test. You have shown yourself to be kind, heroic, trustworthy and resourceful - the sort of person I need to help me. By telling you my story I am making myself very vulnerable.
+"Many years ago," she continues, "as humans reckon time, I was trapped in this cave by some evil pirates. I can only be rescued by my own kin, and to summon them the Great Conch is required. This conch was stolen by the pirates and is my only hope. Sadly, I am now too weak either to search for it or to use it.
+
+Will you help me?"
+You readily agree.
+
+"Thank you." she says simply. "You will need this." She hands you a tiny shell.
+
+"Remember," she adds, "letting go can sometimes be more rewarding than hanging on..."
+> out
+
+> out
+
+You are at a rock face.
+The cliff here juts out into the sea affording no further passage west.
+You can go east or in.
+> east
+
+> east
+
+You are in a rocky part of the coast.
+A sandy beach bestrewn with stones, a legacy of the recent storms. There are outcrops of rocks from the cliffs. To the west, there is a rocky headland.
+You can go east towards some pebbles, down to the sea or west.
+You can see a limpet.
+> down
+
+> down
+
+You are on the foreshore.
+Seaweed and driftwood lie at the edge of the water.
+To the west, you can see a headland. Clearly you would need some kind of boat to go round it.
+You can go up towards the rocks or east keeping to the sea.
+> drop cockle shell
+
+> drop cockle shell
+As the shell falls into the water, it expands enormously.
+> enter cockle shell
+
+> enter cockle shell
+
+Gingerly you climb into the shell.  Carefully paddling with your hands, you round the headland and land on a stony beach.
+You climb out.
+
+You are on a stony beach.
+An exposed foreshore, covered in dangerous-looking jagged rocks. Not a good place for a ship to be caught on a lee shore. In fact, to the west you can see the hulk of a great wreck!
+You can go west or southwest towards the shoreline.
+> southwest
+
+> southwest
+
+You are on the foreshore.
+There is a line of seaweed showing the high tide mark.
+You can go no further west by the sea because a headland bars your way. You can, however, move up the beach towards the cliff, or north-east towards a wreck.
+> up
+
+> up
+
+You are under the cliff.
+The cliff rises steeply above you. There is a flight of rough-hewn and well worn stone steps winding upwards.
+You can go down to the sea, or up the steps.
+> up
+
+> up
+
+You are on the steep steps.
+Far below you the distant sea crashes on the stony beach, while above you the steps reach up  to a dizzying height. The steps are bordered by thick gorse bushes and the air is filled with the sound of gorse pods popping. Narrow tracks lead off to the east and west. You can climb up or down the steps, or follow the tracks.
+> west
+
+> west
+
+You are on the east side of a sunny glade between the gorse bushes.
+You can go east or west.
+You can see an adder warming itself in a pool of sunlight in the centre of the sunny spot.
+> jump over adder
+
+> jump over adder
+You take a deep breath and jump over the adder.
+The adder stays sunning itself between you and the steps!
+
+You are on the west side of a sunny glade among the gorse bushes.
+You can go west or east.
+> west
+
+> west
+
+You are in a tiny wood of stunted oaks and hawthorn.
+It has just enough cover for a few fallow deer, none of which are here at present.
+You can go east.
+> look at oaks
+
+> look at oaks
+Stunted and weakly - the paucity of the soil and the strong salt winds do not encourage the growth of tall healthy trees.
+At the base of one of the oaks, you see a small hole.
+> look at hole
+
+> look at hole
+Dark, moist and shallow.
+It contains a toad.
+> take toad
+
+> take toad
+You pick it up.
+> east
+
+> east
+
+You are on the west side of a sunny glade among the gorse bushes.
+You can go west or east.
+You can see an adder warming itself in a pool of sunlight in the centre of the sunny spot.
+> drop toad
+
+> drop toad
+You drop the toad. On seeing the adder, it reacts as only a toad can - it swells up enormously! Startled, the adder swiftly slithers away through the sprigs of gorse. Looking rather smug, so it seems to you, the toad deflates and crawls away in the opposite direction!
+> look at sprigs
+
+> look at sprigs
+You see tough-looking spiny stems between which you find a ring.
+
+> take ring
+
+> take ring
+You pick it up.
+> east
+
+> east
+
+You are on the east side of a sunny glade between the gorse bushes.
+You can go east or west.
+> east
+
+> east
+
+You are on the steep steps.
+Far below you the distant sea crashes on the stony beach, while above you the steps reach up  to a dizzying height. The steps are bordered by thick gorse bushes and the air is filled with the sound of gorse pods popping. Narrow tracks lead off to the east and west. You can climb up or down the steps, or follow the tracks.
+> up
+
+> up
+
+You are at the top of the steps.
+The steps end high up the cliff at a small rocky platform. The featureless cliff face prevents any further progress upwards.
+You can go down.
+> look at cliff face
+
+> look at cliff face
+You see a small hole in the otherwise featureless rock face.
+> use ring on hole
+
+> use ring on hole
+There is a click, and a section of the rock face moves aside revealing a doorway.
+> in
+
+> in
+
+You are in a smugglers' den.
+A large chamber, cut into the living rock. At the far end an enormous fireplace has been built.
+You can go out.
+> look at bricks
+
+> look at bricks
+On every brick is an intricate carving of a bird, each one different.
+> press chough
+
+> press chough
+You press the brick marked with a chough. It sinks into the chimney-breast, then springs out and falls to the floor, leaving behind it a small recess.
+> look at recess
+
+> look at recess
+A small dusty hole.
+It contains a glass phial.
+> take phial
+
+> take phial
+You pick it up.
+> break phial
+
+> break phial
+Carefully you snap off the top of the phial. An acrid vapour pervades the air.
+> warm phial
+
+> warm phial
+You warm the phial with your hands.
+> out
+
+> out
+
+You are at the top of the steps.
+The steps end high up the cliff at a small rocky platform. The featureless cliff face prevents any further progress upwards.
+You can go down or in.
+> down
+
+> down
+
+You are on the steep steps.
+Far below you the distant sea crashes on the stony beach, while above you the steps reach up  to a dizzying height. The steps are bordered by thick gorse bushes and the air is filled with the sound of gorse pods popping. Narrow tracks lead off to the east and west. You can climb up or down the steps, or follow the tracks.
+> down
+
+> down
+
+You are under the cliff.
+The cliff rises steeply above you. There is a flight of rough-hewn and well worn stone steps winding upwards.
+You can go down to the sea, or up the steps.
+> down
+
+> down
+
+You are on the foreshore.
+There is a line of seaweed showing the high tide mark.
+You can go no further west by the sea because a headland bars your way. You can, however, move up the beach towards the cliff, or north-east towards a wreck.
+> northeast
+
+> northeast
+
+You are on a stony beach.
+An exposed foreshore, covered in dangerous-looking jagged rocks. Not a good place for a ship to be caught on a lee shore. In fact, to the west you can see the hulk of a great wreck!
+You can go west or southwest towards the shoreline.
+You can see a cockle shell.
+> west
+
+> west
+
+You are  standing outside the wreck.
+You can go east.
+> look at wreck
+
+> look at wreck
+She's a large sloop, probably 18th Century, and in an astonishing state of preservation possibly due to having been encased in sand until last night's gales uncovered her. She is lying upright, bows in to the beach. There is a large rent in her starboard side.
+> in
+
+> in
+
+You are in the hold.
+From your sketchy knowledge of ships, you realise that the ship's stores and cargo would have been stowed here. There is a doorway to the south, and a ladder leading up.
+You can go out, south or up.
+You can see a rag.
+> south
+
+> south
+
+You are in the magazine.
+The gunpowder would have been kept here, below the waterline, to lessen the chance of being set off by a lucky shot . It is littered with broken barrels.
+You can go north.
+> search barrels
+
+> search barrels
+Tucked away in a corner, you find a key.
+> take brass key
+
+> take brass key
+You pick it up.
+> north
+
+> north
+
+You are in the hold.
+From your sketchy knowledge of ships, you realise that the ship's stores and cargo would have been stowed here. There is a doorway to the south, and a ladder leading up.
+You can go out, south or up.
+You can see a rag.
+> up
+
+> up
+
+You are in the accommodation space.
+This must be where the crew lived. There are some torn hammocks lying on the deck, but some are still hanging from the beams!
+From here you can go south. There are ladders leading up and down.
+> up
+
+> up
+
+You are on the forward gun deck.
+Judging by the number of cannon barrels lying about, this had been a well-armed ship.
+You can go south. There are ladders leading up and down.
+> south
+
+> south
+
+You are on the after gun deck.
+Judging by the number of cannon barrels lying about, this had been a well-armed ship.
+You can go down, up or north.
+> up
+
+> up
+
+You are on the quarterdeck.
+The helmsman would have stood here at the wheel (both now long gone!)
+To the south lies the Captain's cabin. The door is locked with an enormous padlock.
+You can go down or north.
+> use phial on padlock
+
+> use phial on padlock
+With a hissing and bubbling, the padlock dissolves away!
+The door to the Captain's cabin swings open.
+> in
+
+> in
+
+You are in the captain's cabin.
+There is a table and chair, and a simple cot. An old lantern swings from a beam.
+You can go north or out.
+> lie on cot
+
+> lie on cot
+You climb onto the cot.
+Not very comfortable - you get up again!
+
+> lie on cot
+
+> lie on cot
+You climb onto the cot.
+Not very comfortable - you get up again!
+
+> lie on cot
+
+> lie on cot
+With a loud creaking, an opening appears in the bulkhead next to the cot.
+> look at opening
+
+> look at opening
+It's a small locker.
+It contains a box.
+> unlock box
+
+> unlock box
+Using the skeleton, you unlock the box.
+> open box
+
+> open box
+You open it.
+It contains a sheet of paper.
+> look at box
+
+> look at box
+It's a small metal box. There is an engraving on the lid.
+It contains a sheet of paper.
+> take paper
+
+> take paper
+You pick it up.
+> use brush on paper
+
+> use brush on paper
+As you brush the ink over the paper, a message appears.
+> read paper
+
+> read paper
+These words appear....
+
+My chest is buried deep where none
+Will seek it - 'neath the excise gun!
+
+In shadow dark it's laid to rest.
+Dig deep to find my treasure chest!
+> north
+
+> north
+
+You are on the quarterdeck.
+The helmsman would have stood here at the wheel (both now long gone!)
+The door to the Captain's cabin lies open.
+You can go down, in or north.
+> down
+
+> down
+
+You are on the after gun deck.
+Judging by the number of cannon barrels lying about, this had been a well-armed ship.
+You can go down, up or north.
+> down
+
+> down
+
+You are in the galley.
+It is furnished with a decrepit solid-fuel stove and various pots and pans.
+You can go north or up.
+> north
+
+> north
+
+You are in the accommodation space.
+This must be where the crew lived. There are some torn hammocks lying on the deck, but some are still hanging from the beams!
+From here you can go south. There are ladders leading up and down.
+> down
+
+> down
+
+You are in the hold.
+From your sketchy knowledge of ships, you realise that the ship's stores and cargo would have been stowed here. There is a doorway to the south, and a ladder leading up.
+You can go out, south or up.
+You can see a rag.
+> out
+
+> out
+
+You are  standing outside the wreck.
+You can go east or in.
+> east
+
+> east
+
+You are on a stony beach.
+An exposed foreshore, covered in dangerous-looking jagged rocks. Not a good place for a ship to be caught on a lee shore. In fact, to the west you can see the hulk of a great wreck!
+You can go west or southwest towards the shoreline.
+You can see a cockle shell.
+> enter cockle shell
+
+> enter cockle shell
+
+Gingerly you climb into the shell.  Carefully paddling with your hands, you round the headland and land on the rocky beach.
+You climb out.
+
+You are on the foreshore.
+Seaweed and driftwood lie at the edge of the water.
+To the west, you can see a headland. Clearly you would need some kind of boat to go round it.
+You can go up towards the rocks or east keeping to the sea.
+> up
+
+> up
+
+You are in a rocky part of the coast.
+A sandy beach bestrewn with stones, a legacy of the recent storms. There are outcrops of rocks from the cliffs. To the west, there is a rocky headland.
+You can go east towards some pebbles, down to the sea or west.
+You can see a limpet.
+> east
+
+> east
+
+You are on a pebbly beach.
+You can go east along the beach, west towards some rocks or down towards the sea.
+> east
+
+> east
+
+You are on a sandy beach.
+There is a steep path climbing the cliff on the north side. Half way up, the plateau stands out prominently from the cliff face casting a shadow on the sand. You can go up the path, walk along the beach east or west, or go down to the sea.
+> dig in shadow
+
+> dig in shadow
+Building a sandcastle, are we?
+> dig in shadow
+
+> dig in shadow
+Building a sandcastle, are we?
+> dig in shadow
+
+> dig in shadow
+Building a sandcastle, are we?
+> dig in shadow
+
+> dig in shadow
+Your spade hits something hard.
+You have found an old chest!
+> unlock chest
+
+> unlock chest
+Using the brass key, you unlock the chest.
+> open chest
+
+> open chest
+You open it.
+It contains a mound of feathers.
+> look at chest
+
+> look at chest
+A heavy iron-bound chest.
+It contains a mound of feathers.
+> take feathers
+
+> take feathers
+You take the feathers.
+> search feathers
+
+> search feathers
+Under the feathers you find a conch.
+> take conch
+
+> take conch
+You pick it up.
+> up
+
+> up
+
+You are on a small grassy plateau just outside a holiday chalet..
+It is covered in short scrubby grass. An ideal place to sit in the sunshine (unless a South Westerly is blowing!).  A steep path leads down the cliff.
+You can go down the path or in to the chalet.
+> blow conch
+
+> blow conch
+You take a deep breath and blow hard into the small hole at one end of the conch resulting in a loud, sonorous boom.
+
+You take a deep breath. Then you face the sea and blow with all your strength!
+
+As the sonorous boom of the conch echoes and re-echoes round the bay, the wind suddenly increases into a gale. The waves rise and become full of white horses. As you watch you realise that some are real horses and are ridden by many mermaids and fierce-looking mermen. They ride beneath the cliffs, and reappear carrying the little mermaid. As they disappear into the foam, she turns briefly and waves.
+
+You drop the conch. It vanishes! You feel that the memory of the mermaid, however, will not disappear so easily...
+
+THE END
+[state=Finished]
