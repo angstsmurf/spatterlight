@@ -330,6 +330,7 @@ uip_tokenize_end (void)
  * Return the next token from the current pattern.
  */
 static scr_bool uip_token_multi_space = FALSE;
+static scr_bool uip_token_after_group = FALSE;
 
 static scr_uip_tok_t
 uip_next_token (void)
@@ -361,15 +362,37 @@ uip_next_token (void)
         uip_index++;
 
       /*
-       * A run touching a [..] or {..} group is not a literal stretch: every
-       * Runner answers "A View to a Home" `open box` from "[open] {the}
-       * {metal} [box]" and "Monsters" `shine flashlight on brainsucker`
-       * from "... {brain}  {monster}" (Adrift_295_viewtohome.txt,
-       * Adrift_1_monsters.txt), both with two spaces between groups.
+       * A run right after a [..] or {..} group is not simply literal.
+       * run400's NewParse (45D940) expands a group by splicing an
+       * alternative onto the untouched remainder and recursing, and the
+       * recursion Trim()s both sides: with the group OMITTED the remainder
+       * starts with the run, so Trim() swallows it and the rest matches as
+       * usual; with an alternative INCLUDED the remainder is "alt  ..." and
+       * its literal prefix, two spaces and all, is compared against the
+       * collapsed line and fails.  So "A View to a Home" answers `open box`
+       * from "[open] {the}  {metal} [box]" and "Monsters" `shine flashlight
+       * on brainsucker` from "... {brain}  {monster}" (both groups before
+       * the run omitted), while "christmas present 1.0" refuses `amber sit
+       * on the washing machine` for task 21 "Amber sit on {the}  {standard}
+       * washing machine" and falls through to the library's "You sit down
+       * on the standard washing machine." (runner_transcripts/
+       * christmaspresent.txt T53, 2026-09-26): {the} is included, and "the
+       * " with two spaces never matches "the w".  uip_parse_element() gives
+       * such a run its own node, and uip_match_group_double_whitespace()
+       * asks whether the group it follows matched empty.  A run between a
+       * word and a group is an ordinary literal stretch (the prefix up to
+       * the first '[' / '{' keeps its spaces, 45D7A1-45D83E), so it stays a
+       * plain double -- read from the P-code, no golden reaches that cell.
+       * A trailing run is dropped by the top-level Trim() and stays lenient.
        */
-      if (before == '}' || before == ']'
-          || uip_pattern[uip_index] == '{' || uip_pattern[uip_index] == '[')
-        uip_token_multi_space = FALSE;
+      uip_token_after_group = FALSE;
+      if (before == '}' || before == ']')
+        {
+          if (uip_pattern[uip_index] == NUL)
+            uip_token_multi_space = FALSE;
+          else
+            uip_token_after_group = uip_token_multi_space;
+        }
       uip_token_value = NULL;
       return TOK_WHITESPACE;
     }
@@ -446,7 +469,8 @@ typedef enum
 {
   NODE_UNUSED = 0,
   NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE,
-  NODE_HARD_WHITESPACE, NODE_DOUBLE_WHITESPACE, NODE_JOIN,
+  NODE_HARD_WHITESPACE, NODE_DOUBLE_WHITESPACE, NODE_GROUP_DOUBLE_WHITESPACE,
+  NODE_JOIN,
   NODE_CHARACTER_REFERENCE, NODE_OBJECT_REFERENCE, NODE_TEXT_REFERENCE,
   NODE_NUMBER_REFERENCE, NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
 } scr_pttype_t;
@@ -773,10 +797,12 @@ uip_parse_element (void)
          * belongs to the lookahead token, so read it before advancing.
          */
         scr_bool is_double = uip_token_multi_space;
+        scr_bool after_group = uip_token_after_group;
 
         uip_parse_match (TOK_WHITESPACE);
-        node = uip_new_node (is_double ? NODE_DOUBLE_WHITESPACE
-                                       : NODE_WHITESPACE);
+        node = uip_new_node (!is_double ? NODE_WHITESPACE
+                             : after_group ? NODE_GROUP_DOUBLE_WHITESPACE
+                                           : NODE_DOUBLE_WHITESPACE);
         break;
       }
 
@@ -1061,6 +1087,9 @@ uip_debug_dump_node (scr_ptnoderef_t node, scr_int depth)
           break;
         case NODE_DOUBLE_WHITESPACE:
           scr_trace (", double whitespace");
+          break;
+        case NODE_GROUP_DOUBLE_WHITESPACE:
+          scr_trace (", double whitespace after group");
           break;
         case NODE_JOIN:
           scr_trace (", join");
@@ -1566,6 +1595,27 @@ uip_match_double_whitespace (void)
 }
 
 /*
+ * Two or more spaces right after a [] or {} group.  run400's NewParse
+ * (45D940) Trim()s the remainder when the group is omitted, so the run is
+ * then an ordinary word boundary; with an alternative included the run is
+ * the start of a literal stretch and needs the typed doubles a 4.0 line
+ * never has -- see uip_next_token().  uip_match_optional() and
+ * uip_match_choice() leave whether the group just matched empty in
+ * uip_last_group_empty; this node is always that group's right sibling, so
+ * nothing else runs between them.
+ */
+static scr_bool uip_last_group_empty = FALSE;
+
+static scr_bool
+uip_match_group_double_whitespace (void)
+{
+  if (uip_last_group_empty)
+    return uip_match_whitespace (FALSE);
+
+  return uip_match_double_whitespace ();
+}
+
+/*
  * Optional whitespace, invented between two adjacent [] or {} groups.  Eat a
  * space if one is present, but never fail -- see uip_parse_list().
  */
@@ -1643,11 +1693,19 @@ uip_match_alternatives (scr_ptnoderef_t node)
 static scr_bool
 uip_match_choice (scr_ptnoderef_t node)
 {
+  scr_int start_posn;
+  scr_bool matched;
+
   /*
    * Return the result of matching alternatives.  The choice will therefore
-   * fail if none of the alternatives match.
+   * fail if none of the alternatives match.  Note for a following double
+   * space whether the choice consumed anything (an empty alternative is
+   * spliced as "" and Trim()ed away just like an omitted option).
    */
-  return uip_match_alternatives (node);
+  start_posn = uip_posn;
+  matched = uip_match_alternatives (node);
+  uip_last_group_empty = uip_posn == start_posn;
+  return matched;
 }
 
 static scr_bool
@@ -1668,7 +1726,8 @@ uip_match_optional (scr_ptnoderef_t node)
   list = uip_new_node (NODE_LIST);
   list->left_child = node->right_sibling;
 
-  /* Match on the temporary list. */
+  /* Match on the temporary list, with this option counting as empty. */
+  uip_last_group_empty = TRUE;
   matched = uip_match_node (list);
 
   /* Free the temporary list node. */
@@ -1699,6 +1758,9 @@ uip_match_optional (scr_ptnoderef_t node)
       uip_posn = start_posn;
       uip_match_alternatives (node);
     }
+
+  /* Note for a following double space whether anything was consumed. */
+  uip_last_group_empty = uip_posn == start_posn;
 
   /* Return TRUE no matter what. */
   return TRUE;
@@ -2926,6 +2988,9 @@ uip_match_node (scr_ptnoderef_t node)
       break;
     case NODE_DOUBLE_WHITESPACE:
       match = uip_match_double_whitespace ();
+      break;
+    case NODE_GROUP_DOUBLE_WHITESPACE:
+      match = uip_match_group_double_whitespace ();
       break;
     case NODE_JOIN:
       match = uip_match_join ();

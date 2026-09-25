@@ -85,6 +85,7 @@ chicken	chicken.txt	driven:Adrift_231_chicken_rt.txt	4.00	run400x.exe	1234	0			y
 choosethreehour	choosethreehour.txt	driven:Adrift_423_choosethreehour_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 chooseyourown	chooseyourown.txt	driven:Adrift_223_chooseyourown_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 chosen	chosen.txt	harvested-xoshiro:Adrift_133_chosen_x.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+christmaspresent	christmaspresent.txt	driven:Adrift_316_christmaspresent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
 cibass	cibass.txt	driven:Adrift_356_cibass_rt.txt	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 circus	circus.txt	driven:Adrift_154_circus_rt.txt	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cityinfear	cityinfear.txt	driven:Adrift_309_cityinfear_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
