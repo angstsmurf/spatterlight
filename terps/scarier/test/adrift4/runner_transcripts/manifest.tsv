@@ -108,6 +108,7 @@ crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run4
 crossworlds2	crossworlds2.txt	driven:Adrift_310_crossworlds2_rt.txt	3.90	run390x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 crossworlds4	crossworlds4.txt	driven:Adrift_311_crossworlds4_rt.txt	3.90	run390x.exe	1234	2	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+cs2	cs2.txt	driven:Adrift_282_cs2_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
 cumberbund	cumberbund.txt	driven:Adrift_312_cumberbund_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cursed	cursed.txt	driven:Adrift_128_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
@@ -138,6 +139,7 @@ dickynoodle	dickynoodle.txt	driven:Adrift_316_dickynoodle_rt.txt	3.90	run390x.ex
 digby	digby.txt	driven:Adrift_469_digby_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 dishduty	dishduty.txt	driven:Adrift_317_dishduty_rt.txt	4.00	run400x.exe	1234	0	Petter~male		yes	identical on every turn.
 doa_xbs	doa_xbs.txt	driven:Adrift_282_doa_xbs_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
+dolg	dolg.txt	driven:Adrift_282_dolg_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 donuts_intro	donuts_intro.txt	driven:Adrift_161_donuts_intro_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 doomed_xycanthus	doomed_xycanthus.txt	driven:Adrift_264_doomed_xycanthus_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 door	door.txt	driven:Adrift_354_door_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -206,6 +208,7 @@ goldilocks	goldilocks.txt	driven:Adrift_150_goldilocks_rt.txt	4.00	run400x.exe	1
 gorxungula	gorxungula.txt	driven:Adrift_392_gorxungula_rt.txt	4.00	run400x.exe	1234	2	Lophese~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 gosha	gosha.txt	driven:Adrift_323_gosha_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 gotcha	gotcha.txt	driven:Adrift_345_gotcha_rt.txt	3.90	run390x.exe	1234	0	Petter	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+govard	govard.txt	driven:Adrift_282_govard_rt.txt	3.90	run390x.exe	1234	1			yes	8 differing turn(s)
 grandjourney	grandjourney.txt	driven:Adrift_307_grandjourney_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 great_escape	great_escape.rtf	driven:Adrift_293_great_escape_rt.rtf+tail	3.80	run380x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
 greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	identical on every turn.
@@ -418,6 +421,7 @@ selmaswill	selmaswill.txt	driven:Adrift_334_selmaswill_rt.txt	3.90	run390x.exe	1
 sentor	sentor.txt	driven:Adrift_325_sentor_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 sere	sere.txt	driven:Adrift_285_sere_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 sexismental	sexismental.txt	driven:Adrift_425_sexismental_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+shablon	shablon.txt	driven:Adrift_284_shablon_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 shadow_of_the_past	shadow_of_the_past.txt	driven:Adrift_183_shadow_of_the_past_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 shadowjack	shadowjack.txt	driven:Adrift_335_shadowjack_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 shadowpeak	shadowpeak.txt	harvested-xoshiro:Adrift_128_shadowpeak_x.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
@@ -546,6 +550,7 @@ videotapedecay	videotapedecay.txt	driven:Adrift_417_videotapedecay_rt.txt	4.00	r
 viewtohome	viewtohome.txt	driven:Adrift_429_viewtohome_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 villains_and_kings	villains_and_kings.txt	driven:Adrift_195_villains_and_kings_rt.txt	3.90	run390x.exe	1234	0	male		yes	identical on every turn.
 volant	volant.txt	driven:Adrift_477_volant_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+wanderersgow	wanderersgow.txt	driven:Adrift_285_wanderersgow_rt.txt	3.90	run390x.exe	1234	1			yes	identical on every turn.
 warlock	warlock.txt	harvested-native-0-draws:Adrift_859_warlock.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 warlord	warlord.txt	driven:Adrift_506_warlord_rt.txt	4.00	run400x.exe	6	1		SCR_SEED=6 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 wasteland	wasteland.txt	driven:Adrift_337_wasteland_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

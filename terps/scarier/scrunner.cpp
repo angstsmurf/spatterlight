@@ -6765,7 +6765,7 @@ static void
 run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
+  scr_vartype_t vt_key[4], vt_command;
   const scr_char *command;
   scr_int task_count, task;
 
@@ -6780,12 +6780,18 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
     ~dispatch_guard () { task_pop_dispatched_run (); }
   } guard;
 
-  /* Get the task's first command pattern; nothing to match if absent. */
+  /*
+   * Get the task's first command pattern; nothing to match if absent.  A
+   * task can carry no command at all (Dolg's task 661 in the casino, whose
+   * command list is empty), so read with prop_get() rather than the fatal
+   * prop_get_string().
+   */
   vt_key[0].string = "Tasks";
   vt_key[1].integer = eventtask;
   vt_key[2].string = "Command";
   vt_key[3].integer = 0;
-  command = prop_get_string (bundle, "S<-sisi", vt_key);
+  command = prop_get (bundle, "S<-sisi", &vt_command, vt_key)
+            ? vt_command.string : "";
   if (scr_strempty (command))
     {
       /* No command text to dispatch; run the task directly. */
@@ -6819,9 +6825,11 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
           if (!is_matched)
             {
               vt_key[1].integer = task;
-              other = prop_get_string (bundle, "S<-sisi", vt_key);
+              other = prop_get (bundle, "S<-sisi", &vt_command, vt_key)
+                      ? vt_command.string : "";
               vt_key[1].integer = eventtask;
-              is_matched = scr_strcasecmp (command, other) == 0;
+              is_matched = !scr_strempty (other)
+                           && scr_strcasecmp (command, other) == 0;
             }
         }
       if (!is_matched)

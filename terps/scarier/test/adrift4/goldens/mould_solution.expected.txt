@@ -172,7 +172,7 @@ get his help. There is no one better at rescuing people from burning
 buildings.
 
 > hint
-There are currently no hints available.
+No hints currently available.
 
 > call mould
 You call the Mould and tell him about the situation, especially that your
@@ -427,7 +427,7 @@ Waterfall aims water at the fires that threaten to enter the area.
 Your score is 20 out of a maximum of 150.  (13%)
 
 > hint
-There are currently no hints available.
+No hints currently available.
 
 > y
 I don't understand what you mean!
@@ -466,7 +466,7 @@ least, as you have never gotten around to making any official promises.
 Waterfall has entered before you and cleared out any flames.
 
 > hint
-There are currently no hints available.
+No hints currently available.
 
 > y
 I don't understand what you mean!
@@ -1111,7 +1111,7 @@ as well leave, as there is nothing more that you can achieve here.
 Waterfall is standing around, staring absently at the building.
 
 > hint
-There are currently no hints available.
+No hints currently available.
 
 > e
 You don't know where you are headed, but anywhere is better than here. As you

@@ -41,7 +41,9 @@ Row comments and probe generators cite sections by title ("Ported
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
 - **Manifest (2026-09-25):** 540 identical on every turn, 33 identical
-  apart from whitespace, 13 with a report. Every differing row is
+  apart from whitespace, 13 with a report (govard's report is the two
+  Runner artefacts under "Deliberate deviations"; after its two run390
+  ports the Runner and Scarier both win 300/310 turn for turn). Every differing row is
   classified under "Open leads" or "Nothing owed". The five
   genuine divergences from the 2026-09-24 batch are ported (see "New-row
   leads, ported"). cloddemo and temporfell are capture artefacts from the
@@ -231,8 +233,28 @@ below as not yet ported.
   (Scarier-only by design). `raiders` (2026-09-24) hits the same class of
   load-time crash as dreamquest: run400x dialogs `Error loading adventure
   - [Subscript out of range,9,10]` and never opens a titled window, on
-  every drive attempt. Not chased -- looks like the same real-Runner
-  authoring defect, not a Wine/harness issue.
+  every drive attempt. Confirmed 2026-09-25: `SCR_DUMP_TASKS` shows one
+  task with an empty command list in `raiders.taf`, the same authoring
+  defect, so it is not the intro-`<wait>` drive footgun below (that one
+  crashes AFTER the titled window opens, and a by-hand run390 plays the
+  game fine).
+- **Intro `<wait N>` chains crash the drive at startup (govard,
+  2026-09-25).** drive.exe treats the intro as settled after 3 s of quiet
+  scrollback (`--intro-quiet`), which lands inside Govard's ~20 s chain of
+  real-time `<wait>` tags; its pre-transcript Return then hits the Runner's
+  wait loop and the Runner dies with "Run-time error '9': Subscript out of
+  range" once the entry box is re-enabled ("the pre-transcript Backspaces
+  did not complete" in the log). The unhooked run390.exe does the same
+  under the drive and plays fine by hand, so it is the harness, not the
+  game. Drive such rows with `INTRO_QUIET=25 PRE_SLEEP=30` (PRE_SLEEP alone
+  is not enough: the intro "settles" at 6 s while text is still arriving).
+  Of the 31 undriven rows, `govard2` (same author) will need it; the par
+  logs record no other startup crash of this shape (only the dreamquest and
+  raiders load dialogs).
+- **cs2 "10+ differing turn(s)" is a compare artefact.** The game's
+  question menus print lines beginning `> `, which the compare takes for
+  prompts; a word-level diff of `runner_transcripts/cs2.txt` against the
+  golden shows every turn identical (2026-09-25).
 - **cloddemo** (2026-09-24): its whole walkthrough is driven through a
   single-keystroke `'`/`\`/`1`/`2` menu (a CYOA-style control scheme), and
   the Wine keystroke injection loses or doubles several of those
@@ -502,11 +524,61 @@ case, and their goldens are re-blessed. The row comments in
   repeated attacks get "Guard isn't here!  Skeleton guard isn't here!", as
   in the Runner. The win marker is now "The skeleton crumbles to dust".
   **Open:** the walkthrough could be extended past the Prison.
+- **The synonym gate (dolg, cs2, shablon, govard; 2026-09-25, all 3.90).**
+  The Runner rewrites the typed line through the SYNONYM table only when
+  the Original's FIRST hit at a word start is followed by a space, comma,
+  full stop or the end of the line, and then replaces EVERY occurrence as
+  a substring (run390 45F18C, gate 4334B0; run380/run400 the same). Scarier
+  had rewritten every whole word unconditionally, which made Dolg's
+  `войти в дом` unmatchable. Ported in `pf_filter_input()`; Dolg is now a
+  wired WIN and identical on every Runner turn; cs2 and shablon goldens
+  changed one line each and are identical in Wine; govard's solution was
+  re-spelled on seven lines. Details and the measured table:
+  `Dolg_walkthrough.md`. The hint refusal wording is now version-split too
+  (run370 "No hints available.", 3.80+ "No hints currently available.").
+- **govard T213 (3.90): the battle weapon question is a turn.** With two
+  carried weapons and no wield, dobattle asks "What do you want to attack
+  X with?". run390 (44CE85-44CEDF) only appends the question and parks the
+  `attack <npc> with` prefix; it never sets the not-a-turn byte
+  MemVar_468219, and generaltasks' tick gate (460650-460672) runs
+  characters() and events() on any non-empty buffer. So the wolf bites on
+  the question line («Чем мне атаковать Волк with? Волк укусил меня...»).
+  4.0 has the same code but its question really is free: the identical
+  run400 light_up transcript shows the NPC's blows only on the next line.
+  Scarier had treated every version as 4.0 (`is_admin`), which put its RNG
+  stream one draw behind the Runner's for the rest of the game (the dice
+  ladder, the sword, a Sirin death instead of the win). Ported in
+  `lib_battle_attack_bare` / `lib_battle_attack_many` with a `>= 4.0` gate;
+  the govard dice ladder was then re-derived. `Govard_walkthrough.md`.
+- **govard T74/T210/T248 (3.90): a pre-4.0 room alt's "is/isn't holding"
+  tests the object's own position field.** run390 isdark (433920, the
+  ladder at 433734-4337C6 already transcribed above `lib_room_alt_darkens`)
+  reads `objects(ns(Obj)).global_22` raw and never walks a container;
+  run380 43C708 / run370 434E95 are the same code. Only run400 (Proc_21_46)
+  uses the recursive possession predicate the X-Files gun-in-holster port
+  had generalised to every version. The Ruins' «...на юго-востоке -
+  Хибара.» alt (room 11, Obj 15 the knife) fires with the knife carried and
+  stops once it is in the worn belt; the Road's alt on the licence never
+  fires while the licence is inside the held bag. Ported in
+  `lib_use_room_alt` case 2, conditions 0/1, `< 4.0`. Conditions 4/5 (same
+  room) are raw-field tests too in run390 (433843-4338FB) but stay on
+  `obj_indirectly_in_room` for want of a corpus case.
 
 ---
 
 ## Deliberate deviations (measured, not ported)
 
+- **Runner cp1251 NPC attack lines under the English locale: «чёрную
+  собаку hits me.» (govard T34-45, 3.90).** The game authors «Чёрная
+  собака меня укусила.» as the dog's attack line; the Runner's UCase-based
+  match runs under Wine's English locale, where VB6 `UCase` leaves cp1251
+  ч/я untouched, so the match fails and the English library line is
+  printed with the raw accusative name. Scarier prints the game's line. A
+  Russian-locale Runner would agree with Scarier; not ported.
+- **Runner take-all / wear-all lists end with a phantom empty-name item
+  (govard T192/T193, 3.90):** «..., сухой валежник, белый гриб и» and
+  «..., дорожный плащ, и кожаный пояс.». A cosmetic list bug in the
+  Runner's all-handler; Scarier's «... и белый гриб.» stands.
 - **`both` right after a `Which <term>. <list>?` prompt is not ported,
   because the Runner's branch does nothing useful.** Only 3.9 and 4.0 have
   it; the word is missing from the 3.7/3.8 string pools. run400 48AE94
@@ -3420,6 +3492,13 @@ transcript names are in the code comment next to the named function, in
   player, 1 = referenced, N = NPC N-2. `[3.9]` fantasyworld task 92
   (`task_same_room_npc_390`, 2026-09-19)
 
+- **The battle weapon question is a turn below 4.0.** dobattle's "What do
+  you want to attack X with?" (two+ carried weapons, no wield) sets no
+  not-a-turn byte in run390 (44CE85-44CEDF), so characters() and events()
+  run on the question line; 4.0's question is free (run400 light_up
+  `attack higher`). `[3.9]` govard T213 (`lib_battle_attack_bare`,
+  `lib_battle_attack_many`, 2026-09-25)
+
 ### Events and RNG
 
 - **Timing:**
@@ -3717,3 +3796,9 @@ transcript names are in the code comment next to the named function, in
     Monsters_r2
   - The score summary prints after every EndGame; NotifyScore defaults to
     OFF.
+- **A pre-4.0 room alt's "is/isn't holding" reads the object's own
+  position.** run390 isdark (433920) tests `global_22 = 0` on the object
+  itself, no container walk (run380 43C708 / run370 434E95 the same); only
+  4.0 uses the recursive possession predicate. An object in a held bag or
+  worn belt is not "held" for the alt. `[<4.0]` govard T74/T210/T248
+  (`lib_use_room_alt` case 2, 2026-09-25)

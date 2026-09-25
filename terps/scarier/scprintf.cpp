@@ -3012,6 +3012,299 @@ pf_rewrite_substring (const scr_char *string, std::string &buffer,
 
 
 /*
+ * pf_find_folded()
+ *
+ * Case-folded std::string::find(): the position of the first occurrence of
+ * word in line at or after from, or npos.  VB InStr(from, line, word, 1),
+ * with the LCase() both sides that the Runners' word gates apply first.
+ */
+static size_t
+pf_find_folded (const std::string &line, size_t from, const scr_char *word)
+{
+  const size_t word_length = strlen (word);
+
+  if (word_length == 0 || word_length > line.size ())
+    return std::string::npos;
+
+  for (size_t offset = from; offset + word_length <= line.size (); offset++)
+    {
+      if (scr_strncasecmp (line.c_str () + offset, word, word_length) == 0)
+        return offset;
+    }
+  return std::string::npos;
+}
+
+
+/*
+ * pf_runner_word_gate()
+ *
+ * The Runner's whole-word gate c(search[, line]) as the synonym loop calls
+ * it, all three versions that have one:
+ *
+ *   run380 429048 (Form1)     run390 4334B0 (Form1)    run400 454CB0 (General)
+ *
+ * All three LCase() both strings and walk InStr() hits.  A hit COUNTS only
+ * where it starts the line or follows a space; a mid-word hit is skipped and
+ * the search resumes one character on.  A counting hit is a whole word when
+ * it ends the line or is followed by a terminator:
+ *
+ *   3.80  " " ","          (428FF3)
+ *   3.90  " " "," "."      (43340F..433461)
+ *   4.00  " " "," "." "?"  (454C07..454C39)
+ *
+ * The version split that matters is what happens when a counting hit is NOT
+ * a whole word.  3.80 and 3.90 answer FALSE there and then -- the FIRST
+ * boundary-start hit decides.  Dolg (3.90) maps в->in, and `войти в дом`
+ * starts with the `в` of `войти`: that hit is followed by `о`, the gate
+ * says FALSE, and the whole-word ` в ` later in the line is never looked
+ * at, so the line reaches the tasks intact and task 126 ("Я вошел в дом.")
+ * matches (run390 under Wine, Adrift_dolg.txt 2026-09-25).  4.00 (454C78:
+ * `var_98 = var_96 + 1`, then back to 454B51) carries on from the next
+ * character, so any whole-word occurrence anywhere passes it.
+ *
+ * An empty search never passes: 4.00 returns 0 outright (454B0F), and the
+ * others' Replace() of an empty original is a no-op anyway.
+ */
+static scr_bool
+pf_runner_word_gate (const std::string &line, const scr_char *word,
+                     scr_int version)
+{
+  const size_t word_length = strlen (word);
+  size_t from = 0;
+
+  while (TRUE)
+    {
+      size_t hit, end;
+
+      hit = pf_find_folded (line, from, word);
+      if (hit == std::string::npos)
+        return FALSE;
+
+      if (hit == 0 || line[hit - 1] == ' ')
+        {
+          end = hit + word_length;
+          if (end == line.size ()
+              || line[end] == ' ' || line[end] == ','
+              || (version >= TAF_VERSION_390 && line[end] == '.')
+              || (version >= TAF_VERSION_400 && line[end] == '?'))
+            return TRUE;
+
+          /* Pre-4.0: the first boundary-start hit is the only one asked. */
+          if (version < TAF_VERSION_400)
+            return FALSE;
+        }
+
+      from = hit + 1;
+    }
+}
+
+
+/*
+ * pf_replace_binary()
+ *
+ * VB `Replace(line, from, to, 1, -1, 0)`: every occurrence of from, anywhere,
+ * exact byte compare, scanning left to right and resuming past each
+ * replacement.  An empty from is a no-op, as Replace's is.  Returns TRUE if
+ * anything changed.
+ *
+ * The binary compare is real: the Runner has lower-cased the typed line
+ * long before the synonym loop (scrunner.cpp, run_player_input), but the
+ * synonym's Original is used as the author typed it, so an Original with a
+ * capital letter in it passes the (LCase'd) gate and then replaces nothing.
+ * CS2 (Место преступления 2, 3.90) writes its compass synonyms that way,
+ * [СВ] -> [northeast] and friends, and run390 answers a typed "св" with
+ * the game's own "Да?" (Wine, runner_transcripts/cs2.txt, 2026-09-25); the
+ * port keeps the Runner's shape rather than guess a kinder one.
+ */
+static scr_bool
+pf_replace_binary (std::string &line, const std::string &from,
+                   const std::string &to)
+{
+  scr_bool changed = FALSE;
+  size_t offset = 0;
+
+  if (from.empty ())
+    return FALSE;
+
+  while ((offset = line.find (from, offset)) != std::string::npos)
+    {
+      line.replace (offset, from.size (), to);
+      offset += to.size ();
+      changed = TRUE;
+    }
+  return changed;
+}
+
+
+/*
+ * pf_lcase()
+ *
+ * VB LCase() on a std::string, through the locale's tolower table -- the
+ * same fold run_player_input() gives the typed line.
+ */
+static std::string
+pf_lcase (const scr_char *text)
+{
+  std::string folded (text);
+
+  for (size_t index_ = 0; index_ < folded.size (); index_++)
+    folded[index_] = scr_tolower (folded[index_]);
+  return folded;
+}
+
+
+/*
+ * pf_v380_verb_name()
+ *
+ * The 3.80 synonym table does not hold replacement TEXT.  Its Replacement
+ * field is the index of a built-in verb, and the Runner's loop (run380
+ * 441C11) expands it through Proc_2_24_42CF5C (Module1) -- a 41-entry
+ * If-chain, index 0 "Ask" .. 40 "Where", anything else "" -- before
+ * LCase()ing the result.  Crime_Adventure.taf (3.80) carries e->6, d->3 and
+ * z->37: East, Down and Wait.  A non-numeric Replacement cannot come out of
+ * the 3.80 Generator (CByte() of it would fault the Runner); it is passed
+ * through untouched here so a hand-edited file still means something.
+ */
+static std::string
+pf_v380_verb_name (const scr_char *replacement)
+{
+  static const scr_char *const VERBS[] = {
+    "Ask", "Attack", "Close", "Down", "Drink", "Drop", "East", "Examine",
+    "Find", "Get", "Give", "Goto", "Help", "Hit", "In", "Inventory", "Kick",
+    "Kill", "Lie", "Locate", "Look", "North", "Open", "Out", "Pick", "Press",
+    "Pull", "Punch", "Push", "Put", "Remove", "Restore", "Sit", "South",
+    "Stand", "Take", "Up", "Wait", "Wear", "West", "Where"
+  };
+  enum { VERBS_SIZE = sizeof (VERBS) / sizeof (VERBS[0]) };
+  scr_char *end;
+  long index_;
+
+  index_ = strtol (replacement, &end, 10);
+  if (end == replacement || *end != NUL)
+    return pf_lcase (replacement);
+
+  if (index_ < 0 || index_ >= VERBS_SIZE)
+    return "";
+  return pf_lcase (VERBS[index_]);
+}
+
+
+/*
+ * pf_apply_synonym()
+ *
+ * One game synonym applied to the typed line the way the loading Runner's
+ * synonym loop applies it.  The loops:
+ *
+ *   run370 -- none.  generaltasks 43CB04 goes straight from its() to the
+ *             built-in change()s; the synonyms Scarier synthesises for the
+ *             renamed 3.70 commands (|V370_GLOBAL:_Synonyms_|, sctafpar.cpp)
+ *             keep the whole-word rewrite they were built on.
+ *   run380 441BD7-441C30: change(orig, LCase(verbname(CByte(repl)))).
+ *             change() 425634 is `Do While c(orig)`: InStr(1, line, orig,
+ *             0) -- the FIRST SUBSTRING hit, binary compare, mid-word or
+ *             not, and not necessarily the hit the gate counted -- is
+ *             spliced out and the new text spliced in, until c() fails.
+ *             The Runner loops for ever when the new text still contains
+ *             orig as a whole word; the port stops after a few rounds,
+ *             a deliberate deviation.
+ *   run390 45F18C-45F206: If c(orig) Then line = Replace(line, orig,
+ *             LCase(repl), 1, -1, 0).  Gate once, then substring-replace
+ *             EVERY occurrence, letters inside other words included.
+ *   run400 48A129-48A2C3: the gate is 454CB0 (any whole-word occurrence);
+ *             behind it four steps, each reading the line the previous one
+ *             left:
+ *               (a) Replace(line, " " & orig & " ", " " & LCase(repl) & " ")
+ *               (b) If Left(line, Len(orig) + 1) = orig & " " Then
+ *                     line = Replace(line, orig, LCase(repl), 1, 1, 0)
+ *               (c) If Right(line, Len(orig) + 1) = " " & orig Then
+ *                     line = Left(line, Len(line) - Len(orig)) & repl
+ *               (d) If line = orig Then line = repl
+ *             (a) is Replace(.., 1, -1, 0), every occurrence; (b) is
+ *             Replace(.., 1, 1, 0) (48A204-48A20E: count 1), the leading
+ *             word only -- Ghost town (4.00) maps x->examine, and `x box`
+ *             must reach the tasks as `examine box`, not `examine
+ *             boexamine` (runner_transcripts/ghosttown.txt T25).  (c) and
+ *             (d) paste repl in the author's case; (a) and (b) fold it.
+ *             Vardock Bates (`hablar con jason` -> `talk con jason jason
+ *             dhirco`) and Yak Shaving (`x flags` -> `x clothes line
+ *             clothes line`, one `line` fewer than a whole-word-everywhere
+ *             rewrite gives) both come out of these four steps as the
+ *             run400 transcripts have them.
+ */
+static void
+pf_apply_synonym (std::string &line, const pf_str_pair_t &entry,
+                  scr_int version)
+{
+  const scr_char *original = entry.original;
+
+  switch (version)
+    {
+    case TAF_VERSION_400:
+      {
+        const std::string orig (original);
+        const std::string folded = pf_lcase (entry.replacement);
+
+        if (!pf_runner_word_gate (line, original, version))
+          return;
+
+        pf_replace_binary (line, " " + orig + " ", " " + folded + " ");
+        if (line.compare (0, orig.size () + 1, orig + " ") == 0)
+          line.replace (0, orig.size (), folded);
+        if (line.size () > orig.size ()
+            && line.compare (line.size () - orig.size () - 1,
+                             orig.size () + 1, " " + orig) == 0)
+          line.replace (line.size () - orig.size (), orig.size (),
+                        entry.replacement);
+        if (line == orig)
+          line = entry.replacement;
+        return;
+      }
+
+    case TAF_VERSION_390:
+      if (pf_runner_word_gate (line, original, version))
+        pf_replace_binary (line, original, pf_lcase (entry.replacement));
+      return;
+
+    case TAF_VERSION_380:
+      {
+        const std::string orig (original);
+        const std::string verb = pf_v380_verb_name (entry.replacement);
+        scr_int rounds;
+
+        /* A few rounds is more than a real line needs; see above. */
+        for (rounds = 0; rounds < 16; rounds++)
+          {
+            size_t hit;
+
+            if (!pf_runner_word_gate (line, original, version))
+              return;
+            hit = line.find (orig);
+            if (hit == std::string::npos)
+              return;
+            line.replace (hit, orig.size (), verb);
+          }
+        return;
+      }
+
+    default:
+      {
+        /* 3.70 (synthesised synonyms only): the whole-word rewrite. */
+        std::string buffer;
+        scr_bool modified = FALSE;
+        const scr_char *current = line.c_str ();
+
+        pf_rewrite_whole_words (current, buffer, modified, current,
+                                original, entry.replacement,
+                                entry.replacement_length, "synonym");
+        if (modified)
+          line = buffer;
+        return;
+      }
+    }
+}
+
+
+/*
  * pf_filter_input()
  *
  * Applies synonym changes to a player input string, and returns the resulting
@@ -3047,15 +3340,16 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
 
   /*
    * The Runner applies the table as a SEQUENCE OF WHOLE-STRING REWRITES, in
-   * table order: synonym 0 replaces every whole-word occurrence of its
-   * original in the input, synonym 1 does the same to synonym 0's output,
-   * and so on.  A later synonym therefore sees -- and rewrites -- the words
-   * an earlier one wrote, and an earlier synonym never sees a later one's.
+   * table order: synonym 0 rewrites the input, synonym 1 rewrites synonym
+   * 0's output, and so on.  A later synonym therefore sees -- and rewrites
+   * -- the words an earlier one wrote, and an earlier synonym never sees a
+   * later one's.  What ONE rewrite does is per version; see
+   * pf_apply_synonym() above for the loops and their gates.
    *
-   * Vardock Bates pins this (run400 under Wine, Adrift_3_vardock_bates.txt 2026-08-29).
-   * Its table has hablar->talk [101], then jason->"jason dhirco" [160], then
-   * dhirco->"jason dhirco" [161], and the task is
-   * [talk]{con}[dhirco/jason/jason dhirco]:
+   * Vardock Bates pins the order (run400 under Wine,
+   * Adrift_3_vardock_bates.txt 2026-08-29).  Its table has hablar->talk
+   * [101], then jason->"jason dhirco" [160], then dhirco->"jason dhirco"
+   * [161], and the task is [talk]{con}[dhirco/jason/jason dhirco]:
    *
    *   hablar con dhirco        -> talk con jason dhirco          task runs
    *   hablar con jason         -> talk con jason jason dhirco    generic
@@ -3065,23 +3359,45 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
    * Only the spelling that reaches the table AFTER [160] has done its work
    * survives; the other three double the surname and fall to "Nadie escucha
    * tus delirios."  Lair of the Vampire (harris->steve then steve->harris:
-   * "ask harris" ends as harris) and Yak Shaving (flags->"clothes line",
-   * then line and clothes -> "clothes line": "x flags" grows to "x clothes
-   * line clothes line line", which the containment matcher still resolves)
-   * both fit, and were the two games the previous first-match-then-whole-
-   * only rule was built around.
+   * "ask harris" ends as harris) fits too.
+   *
+   * The gate is what the whole-word-everywhere rule this replaced (2026-09-25)
+   * got wrong, both ways.  Dolg (3.90) maps в->in.  `войти в дом` must
+   * reach the tasks untouched -- its first boundary-start `в` is the one
+   * inside `войти`, the gate fails there and stops -- where the old rule
+   * gave `войти in дом` and no task matched.  `позвонить в звонок` goes
+   * the other way: the mid-word hits are skipped, the standalone ` в `
+   * passes the gate, and the substring Replace behind it then rewrites
+   * every `в`, giving `позinонить in зinонок`, which run390 does not
+   * understand; only `дернуть за шнурок` rings the bell (Adrift_dolg.txt).
+   *
+   * The compare inside Replace() is binary against the lower-cased line,
+   * so an Original with a capital letter never fires.  Measured 2026-09-25
+   * on patched copies of two games: run390 with Dolg's инв->inv and
+   * себя->me re-spelt `Инв`/`Себя` answers `инв` with "Я не понимаю, что
+   * вы хотите!" (Adrift_282_dolgcap.txt); run400 with Vardock Bates'
+   * hablar->talk re-spelt `Hablar` leaves `hablar con el taxista` unhandled
+   * (Adrift_284_vardcap.txt) where the real game runs the taxi task.
    */
-  modified = FALSE;
-  current = string;
+  {
+    const scr_int version = prop_get_taf_version (bundle);
+    std::string line (string);
 
-  for (index_ = 0; index_ < synonym_count; index_++)
-    {
-      const pf_str_pair_t &entry = pf_synonym_cache[index_];
+    for (index_ = 0; index_ < synonym_count; index_++)
+      {
+        const std::string before = line;
 
-      pf_rewrite_whole_words (string, buffer, modified, current,
-                              entry.original, entry.replacement,
-                              entry.replacement_length, "synonym");
-    }
+        pf_apply_synonym (line, pf_synonym_cache[index_], version);
+
+        if (pf_trace && line != before)
+          scr_trace ("Printfilter: synonym \"%s\"\n", line.c_str ());
+      }
+
+    modified = (line != string);
+    if (modified)
+      buffer = line;
+    current = modified ? buffer.c_str () : string;
+  }
 
   /*
    * The Runner's own built-in rewrites come AFTER the game's synonyms, in

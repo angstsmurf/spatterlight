@@ -9845,12 +9845,173 @@ huntingground_solution.txt|Hunting Ground.taf|too much upon his pistol|SCR_SKIP_
 go_solution.txt|Go.taf|adventures are behind|SCR_SKIP_WAITKEY=1
 # ??????? ???????? demo. Stove basket, pies, hat in the apple tree, out the gate.
 demoshapka_solution.txt|DemoShapka.taf|66%|SCR_SKIP_WAITKEY=1
+# ?????. Feed the dog, eat the apple, move the weight, take the key, leave.
+# Win marker on the proba row is cp1251, matching the transcript.
+proba_solution.txt|proba.taf|вышли из этой квартиры|SCR_SKIP_WAITKEY=1
+# Akron, Russian. Scanner, stake, dry the pass on the wasteland stone, tuxedo and ring.
+akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
+# Nightmare on Elm Street (Russian). Valve, coffee, alarm, go to work.
+elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
+# Crime Scene. Paper under the kitchen table, Tom's key, folder, show the inspector.
+crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
 # A Day at School (SchoolDay): comedic, non-sexual school-survival game -- no
 # romantic/sexual content anywhere in the TAF text. Homework to bedroom desk
 # and backpack, deliver+answer both classroom tests (pi digits, 5!), run from
 # Eric at recess, go to the main hall, go home. Ends 3/6 -- the alternate
 # fight/befriend-Charlie branches are unneeded for the win.
 schoolday_solution.txt|SchoolDay.taf|YOU WIN!!!!!|SCR_SKIP_WAITKEY=1
+# Sorority House (AIF): re-reviewed 2026-09-24 -- previously left unwired,
+# flagged (INDEX.md) for "non-consensual" and (WALKTHROUGH_TODO.md) for a
+# "freshman sister" / sarcastic "little girl" line. Neither is a minor per
+# this project's own criterion (no minors, not "no non-consent" -- BSG22 /
+# magicshow precedent): every named character is explicitly college-age
+# (Ginger has just graduated, Jenni is "a junior at the local university",
+# Holli/Kaytie are freshman sorority sisters), and no character anywhere in
+# the TAF text is given an age or grade below college. Goes in on the
+# croft/amy/magicshow terms: goldens/sororityHouse_solution.txt and its
+# .expected.txt are gitignored, this row is the committed artefact. The
+# route drugs and rapes a sleeping NPC (Ginger) -- disturbing, but non-
+# consent alone does not gate this corpus, same as Hunting Ground above.
+# <waitkey> pauses eat the first two commands without SCR_SKIP_WAITKEY=1.
+# WIN, 20 commands + 10 trailing `wait` (the ending is event-driven, not
+# player-triggered) -- verified against the game's own downloaded
+# walkthrough (downloaded/SororityHouse_walkthrough.txt) 2026-09-24.
+sororityHouse_solution.txt|sororityHouse.taf|Congratulations, you win!|SCR_SKIP_WAITKEY=1
+# Freshman Orientation (AIF): content-reviewed 2026-09-24 -- content
+# explicitly frames all female characters as "18 yr old freshman girls" in a
+# college setting; no ages under 18 appear anywhere in the game text. Goes in
+# on the sororityHouse/croft/amy/magicshow terms: goldens/freshman_solution.txt
+# and its .expected.txt are gitignored, this row is the committed artefact.
+freshman_solution.txt|freshman.taf|Five times.  That last time was a doozy!|SCR_SKIP_WAITKEY=1
+# The Prostitute (AIF): content-reviewed 2026-09-24 -- player is an adult
+# celebrating his birthday who hires a call girl, Lacey, found via a number
+# scrawled in the motel room's Bible; no ages under 18 appear anywhere in the
+# game text. Goes in on the sororityHouse/croft/amy/magicshow terms:
+# goldens/prostitute_solution.txt and its .expected.txt are gitignored, this
+# row is the committed artefact.
+# WIN, 16 commands -- linear motel-room scene (call Lacey, pay her, undress
+# her, work through her tasks in dependency order, then "assfuck lacey" fires
+# the game's own end-game action and prints its WinText).
+prostitute_solution.txt|prostitute.taf|Congradulations, you did it!|SCR_SKIP_WAITKEY=1
+# Loving Family.taf (AIF): content-reviewed 2026-09-24 -- player is stated to
+# be 18; his sister Heidi is about 20; Kriztina is a foreign college exchange
+# student; no ages under 18 appear anywhere in the game text. Goes in on the
+# sororityHouse/croft/amy/magicshow terms: goldens/lovingfamily_solution.txt
+# and its .expected.txt are gitignored, this row is the committed artefact.
+# WIN, 5 commands -- go from Your Room to the Game/Tv Room (e, d, e) and type
+# "fuck kriztina": TASK 40 (the game's own EndGame-win task) has zero
+# restrictions attached, an apparent authoring oversight vs. the otherwise-
+# gated "fuck jackie" task, but firing it is a genuine engine-recognized win,
+# not a workaround -- the full content-gated Mother/Heidi/Jackie/Kriztina
+# storyline was deliberately not exercised.
+lovingfamily_solution.txt|Loving Family.taf|Again Congrats and thanks for playing|SCR_SKIP_WAITKEY=1
+# fantasy.taf (AIF): content-reviewed 2026-09-24 -- player is an adult
+# student; the only named character, Misha, is explicitly stated to be 22
+# years old; no ages under 18 appear anywhere in the game text.
+# NOT a full win -- this game gates its later Heniah/Alyth/Misha story
+# chain behind giving a "Bottle of whiskey" to Mayor Veraunt, but the
+# Bottle of whiskey (described as sitting inside a Chest in the small
+# stockhouse) has no working take/open/unlock verb anywhere in the game
+# text; exhaustively tried take/get/open/unlock/break/smash/move/pick and
+# all ask-topic variants with no success -- this appears to be unfinished/
+# broken content in this amateur game. The walkthrough instead completes
+# the self-contained Dorna questline in the hideout (kiss/rub/remove/fuck
+# sequence gated by task restrictions) to its natural conclusion, where
+# Dorna's scene ends and she leaves ("she takes her clothes and walks
+# away"); after that point the only reachable location is a dead-end loop
+# (hideout <-> basement), confirmed by exhaustive direction probing.
+fantasy_solution.txt|fantasy.taf|I love working with you Player, maybe we can do some buisniss together soon|SCR_SKIP_WAITKEY=1
+# LoveForReal.taf (barely-AIF): content-reviewed 2026-09-24 -- honeymoon
+# couple (Petter/Amanda or the female-player equivalent James) adventure/
+# mystery story; full text scan of the decompiled TAF found no explicit
+# sexual content and no character anywhere given an age or grade below
+# adult. Goes in on the sororityHouse/croft/amy/magicshow terms:
+# goldens/loveforreal_solution.txt and its .expected.txt are gitignored,
+# this row is the committed artefact.
+# WIN, 98 commands -- dress, buy a drink for the spouse (triggers a
+# shipwreck), then a vision-quest through an ancient-Egypt village/desert/
+# temple/palace/pyramid item-and-favour chain (beer->corn->ring->food->
+# coins->ferry->camel->sacrifice->princess->lantern->tomb) that ends with
+# the princess's instruction to "return and save Amanda's life"; back on
+# the ship, warning the captain about the crash averts it for the game's
+# true happy resolution ("your ship safely passes along them").
+loveforreal_solution.txt|LoveForReal.taf|your ship safely passes along them|SCR_SKIP_WAITKEY=1
+# The Village of Love and Lust.taf (AIF): content-reviewed -- village-life/
+# dating-sim game with ~30 named adult NPCs; "daughter"/family-dynamic text
+# appears but no character's age is ever stated as under 18. Goes in on the
+# sororityHouse/croft/amy/magicshow terms: goldens/villagelove_solution.txt
+# and its .expected.txt are gitignored, this row is the committed artefact.
+# NOT a win -- the "Fighter of the Village" combat (Fall Day 21, Rose
+# Square) is a 3-round elimination bout (round 1 vs a random one of
+# Rico/Cliff/Gray, round 2 always Harris, final round vs a random one of
+# Gotz/Doug/Duke -- see tasks 1033-1045 in the decompile) where each
+# `fight <name>` swings random(10,30) damage at BOTH the opponent's health
+# and the player's own Stamina simultaneously; Stamina only partially
+# recovers between rounds, and the engine resolves a same-turn double KO as
+# a player loss. Swept the RNG-determining pre-fight `wait` count across the
+# entire Mayor-availability window (and the padding before round 2) under
+# this harness's own SCR_RNG=xoshiro -- round 1 is winnable (several wait
+# counts do it), but no combination found round 2 (vs Harris) survivable
+# within reasonable effort. The walkthrough instead is a deterministic,
+# reproducible stopping point: sleep 80x to reach Fall Day 21, walk to Rose
+# Square, enter the tournament, win round 1 (vs Rico), then faint partway
+# through round 2 vs Harris ("Doctor: You have overworked yourself and
+# fainted."), which is used as the (non-win) stable marker.
+villagelove_solution.txt|The Village of Love and Lust.taf|overworked yourself and fainted|SCR_SKIP_WAITKEY=1
+# mwf.taf / The Magic Wishing Fountain (AIF): content-reviewed 2026-09-24 --
+# every named human character (Sophie, Meg, Gnancy, Morton, Carradine, Syren)
+# is an adult with no stated age below adult anywhere in the game text. A
+# captured "fairy"/"sprite" creature is described mid-scene as "a tiny thin
+# naked girl", but this is classic tiny-fae fantasy-creature framing (a
+# non-human magical being caught in the Fairy Forest), not a human age claim
+# -- it does not trigger this project's no-minors policy. Goes in on the
+# sororityHouse/croft/amy/magicshow terms: goldens/mwf_solution.txt and its
+# .expected.txt are gitignored, this row is the committed artefact.
+# NOT a win -- exhaustive static analysis of the decompiled TAF (86 tasks)
+# plus play-testing found the downstream Carradine/fountain/Syren/bell-fix
+# chain needs 3 "mug of ale" objects (give ale to carradine x2, give ale to
+# syren), but only ONE ale is obtainable in the entire game: it is the
+# one-shot reward for a non-repeatable Sophie seduction scene, itself gated
+# by two singleton, non-respawning fuel items (a "tree limb" from a one-time
+# `catch fairy`, and "drift wood" found once at the Ocean) that must both be
+# burned in the Traveler's Lodge fireplace to unlock her bedroom. No
+# alternate ale source, respawn, or day/night advance was found (waited up
+# to 150 turns with no effect on the gated `kiss sophie inn` task), and the
+# fireplace refuses further fuel once maxed -- a genuine soft-lock, not a
+# harness limitation. The walkthrough demonstrates the fire-trick unlock and
+# the full Sophie tits-climax scene (yielding the one obtainable ale), hands
+# that ale to Carradine for partial (not final) progress, then settles into
+# a deterministic, stable repeating `wait` loop ("Time passes...") used as
+# the marker.
+mwf_solution.txt|mwf.taf|Time passes...|SCR_SKIP_WAITKEY=1
+# The new Superstud.taf (AIF): content-reviewed -- dating-sim/trivia game
+# about 7 college-age exchange students staying at a hotel for a school
+# year; no ages under 18 appear anywhere in the game text. Goes in on the
+# sororityHouse/croft/amy/magicshow terms: goldens/superstud_solution.txt
+# and its .expected.txt are gitignored, this row is the committed artefact.
+# WIN, 208 commands -- the game gates each girl's dialogue behind a numeric
+# "relation level" raised by repeated `talk to <name>`, which unlocks
+# sequential `ask <name> something` topics (birthday/job/colors/movie/
+# measurements/position) at rising thresholds. The game has a `come here
+# <name>` cheat/easter-egg task ("you cheater well there she is") that
+# teleports an NPC to the player's room regardless of her real location or
+# the day/night schedule, sidestepping this game's very fiddly day-cycle
+# navigation entirely: alternating `come here gillian`/`talk to gillian` at
+# the Night Club (reachable e, s, w from the Bus Stop) raises her relation
+# well past the top "Favorite Sexual Position" threshold in under 90 turns,
+# with `ask gillian something` interleaved to harvest each newly unlocked
+# topic (confirmed via `notes gillian`: birthday 24 October/Scorpio, job
+# Cashier, colors Green/Pink/Red, movie Wild Things, measurements Breast
+# 89/Hip 87/Waist 54, position Missionary). Navigating to her room (Palm
+# Spring Square n, Palm Spring Hotel in, Hotel Reception nw) crosses a
+# one-shot "Miss Palm Spring Beach" contest event that briefly reroutes
+# "in"/exits back to the Beach; `i choose gillian` resolves it. Once all
+# topics are known, `ask gillian something` in Room 103 (with her summoned
+# there via `come here gillian`) starts a multiple-choice trivia recap;
+# answering sign/job/colors/movie/waist/hip correctly (scorpio, cashier,
+# "green pink red", "wild things", 54, 87 -- no commas, the parser splits
+# on them) fires the game's own win text.
+superstud_solution.txt|The new Superstud.taf|you win the prize which is me|SCR_SKIP_WAITKEY=1
 # bedlam.taf (Bedlam): a short 1/4-finished preview build. UNWINNABLE as
 # authored -- confirmed via SCR_DUMP_TASKS -- Task 37 ("ask barbara about
 # keys") narrates handing the player the car keys but contains zero ACT
@@ -9985,15 +10146,6 @@ illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of
 # animal, the reed/pond/elixir sequence, and the full (correct but
 # insufficient) pipe-room startup.
 ebonysworld_solution.txt|ebonysworld.taf|Your score is 1450 out of a maximum of 0.|
-# ?????. Feed the dog, eat the apple, move the weight, take the key, leave.
-# Win marker on the proba row is cp1251, matching the transcript.
-proba_solution.txt|proba.taf|вышли из этой квартиры|SCR_SKIP_WAITKEY=1
-# Akron, Russian. Scanner, stake, dry the pass on the wasteland stone, tuxedo and ring.
-akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
-# Nightmare on Elm Street (Russian). Valve, coffee, alarm, go to work.
-elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
-# Crime Scene. Paper under the kitchen table, Tom's key, folder, show the inspector.
-crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
 # liqid.taf (The Quest For More Hair or AMU Part 1: The Smugglers):
 # content-reviewed comic fantasy quest, no sexual content, no minors. Best
 # reachable state, not the full ~45-room quest -- confirmed via
@@ -10086,6 +10238,37 @@ hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the dem
 # "Your gas mask is GONE and YOU ARE GOING TO DIE..." text). Wired as the
 # unavoidable ending of the intro demo.
 teaw_solution.txt|TEAW_(introcomp).taf|YOU ARE GOING TO DIE|
+# clod_demo.taf (CloD Demo): menu-driven tech demo. Best reachable, not a win --
+# the Pedestal Room past the archway death-trap is the deepest safe stop.
+cloddemo_solution.txt|clod_demo.taf||
+# The_Night_That_Dripped_Blood.taf. Full WIN, 100/100 -- Monk's wages
+# (couch/remote/screws/radio noise-cover), the note-before-newspaper
+# bookshop unlock, the Blue-Boar book gating Glenn's Ghost-Train presence,
+# the tunnel/trapdoor escape, the phone-call/alley/Chloe exposition chain,
+# then the Rachel beach ending. See notes/Night_walkthrough.md.
+# Runner (run400x, runner_transcripts/night.txt): identical on every turn
+# since 2026-09-24.  The winning `kiss rachel` runs silent task 4 (ends the
+# game); characters()' kiss block still answers "I'm not sure she would
+# appreciate that!" ahead of the WinText (lib_cmd_kiss_ended_400).
+night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the maximum 100!|
+# The Will (The_Will.taf): 150-point yard/house/woods treasure hunt, ~50 rooms.
+# Best-reachable partial, 35/150 -- see the solution file's header for the
+# unlock/oil/open-gate sequence and the pillows-matchbook-cabinet chain; the
+# crowbar/pocket-watch/battery-charger puzzles did not yield to any tool or
+# verb tried and are left unsolved.  No win marker: play ends mid-hunt, not
+# at a scripted conclusion.
+# Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
+# since 2026-09-24.  %in_clock% / %in_drawer% in room text list nothing while
+# the container is closed (whatisinon gate, see var_get_system in_).
+thewill_solution.txt|The_Will.taf||
+# Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
+# and cane are mandatory survival gear; escape corridor then let the
+# countdown expire. See notes/TwentyOne_walkthrough.md.
+twentyone_solution.txt|Twenty-one.taf|survived long enough to get the best ending|
+# weirdstuff2.taf: horror opener. Best reachable, not a win -- WINTEXT is
+# empty; entering room 1436 is an unavoidable trap into a Cell with zero
+# EXIT entries (genuine engine dead end). See notes/Weirdstuff2_walkthrough.md.
+weirdstuff2_solution.txt|weirdstuff2.taf||
 # Filthy Bill Does Everyone But His Mother (filthybill.taf, AIF/adult, all
 # named characters textually adult -- Amanda explicitly "18 year old
 # daughter", Chelsea "middle aged hooker", Marlene a police officer, Tanya
@@ -10164,34 +10347,6 @@ temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # the Runner. The walkthrough stops there; it could now be extended past the
 # Prison. SCR_RNG=xoshiro.
 thenightmoon_solution.txt|thenightmoon.taf|The skeleton crumbles to dust|SCR_RNG=xoshiro
-# clod_demo.taf (CloD Demo): menu-driven tech demo. Best reachable, not a win --
-# the Pedestal Room past the archway death-trap is the deepest safe stop.
-cloddemo_solution.txt|clod_demo.taf||
-# The_Night_That_Dripped_Blood.taf. Full WIN, 100/100 -- Monk's wages
-# (couch/remote/screws/radio noise-cover), the note-before-newspaper
-# bookshop unlock, the Blue-Boar book gating Glenn's Ghost-Train presence,
-# the tunnel/trapdoor escape, the phone-call/alley/Chloe exposition chain,
-# then the Rachel beach ending. See notes/Night_walkthrough.md.
-# Runner (run400x, runner_transcripts/night.txt): identical on every turn
-# since 2026-09-24.  The winning `kiss rachel` runs silent task 4 (ends the
-# game); characters()' kiss block still answers "I'm not sure she would
-# appreciate that!" ahead of the WinText (lib_cmd_kiss_ended_400).
-night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the maximum 100!|
-# The_Will.taf: 150-point treasure hunt. Best reachable, 35/150 -- gate/
-# shack/matchbook/emerald route; crowbar/watch/charger left ungettable
-# (genuine parser-level refusals). See notes/TheWill_walkthrough.md.
-# Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
-# since 2026-09-24.  %in_clock% / %in_drawer% in room text list nothing while
-# the container is closed (whatisinon gate, see var_get_system in_).
-thewill_solution.txt|The_Will.taf||
-# Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
-# and cane are mandatory survival gear; escape corridor then let the
-# countdown expire. See notes/TwentyOne_walkthrough.md.
-twentyone_solution.txt|Twenty-one.taf|survived long enough to get the best ending|
-# weirdstuff2.taf: horror opener. Best reachable, not a win -- WINTEXT is
-# empty; entering room 1436 is an unavoidable trap into a Cell with zero
-# EXIT entries (genuine engine dead end). See notes/Weirdstuff2_walkthrough.md.
-weirdstuff2_solution.txt|weirdstuff2.taf||
 # 2026-09-25 batch: derived walkthroughs for content-clean unwired games
 # (notes/<Game>_walkthrough.md for each). zanoza: WIN 28/29, marker is the
 # cp1251 task-91 win text.
@@ -10215,6 +10370,22 @@ lastknight_solution.txt|Last_Knight.taf||
 # depend on the xoshiro stream (enemy picks player or Romin; Romin's death ends it);
 # the two waits before the bear matter -- re-derive if anything earlier changes.
 govard2_solution.txt|Govard2.taf|готов к решающей битве|
+# Dolg (3.90, Russian): WIN 10/35 (28%). Line 48 is blank for the waitkey after
+# asking Vincent about the house; two waits before the night return so the hour
+# is 1-2 (the clock runs 24 -> 25 -> 1, never 0); examine the cross BEFORE the
+# hotel room (task 338 puts the key ring in the safe door). Needs the ported
+# Runner synonym gate -- see notes/Dolg_walkthrough.md.
+dolg_solution.txt|Dolg.taf|я и расплатился с Барни|
+# Govard. Zabvenie part 1 (3.90, Russian): WIN 300/310. Line 1 is blank for the
+# intro waitkey; fists on the jailer until he drops; the gambling phase depends
+# on the xoshiro stream. See notes/Govard_walkthrough.md.
+govard_solution.txt|Govard.taf|На этом первая часть приключений|
+# Место преступления 2 (3.90, Russian): best reachable 23/70, no win.
+cs2_solution.txt|CS2.taf||
+# Шаблон детектива (3.90, Russian): author sandbox, coverage walk, no scoring.
+shablon_solution.txt|shablon.taf||
+# Странники: врата миров 0.04 (3.90, Russian): end of demo, 29/29, no type-6 win.
+wanderersgow_solution.txt|WanderersGoW 0.04.taf||
 # NAT_01 (Nathaniel Peck, case 1; 3.90, Russian): WIN 18/18. Line 1 is blank for
 # the intro waitkey.
 nat01_solution.txt|NAT_01.taf|Вы прирожденный детектив|

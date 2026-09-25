@@ -292,11 +292,31 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
              * the gun, which lives inside the worn holster: the Runner
              * prints "It may be unwise to pull a gun on this guy." on every
              * visit, where SCARE printed the unconditioned alt instead.
+             *
+             * That is 4.0 only.  The pre-4.0 Runners test the object's own
+             * position field, exactly as SCARE did: run390 isdark (433920,
+             * the ladder at 433734-4337C6 transcribed below) reads
+             * objects(ns(Obj)).global_22 raw -- `<> 0` for "isn't holding",
+             * `= 0` for "is holding" -- and never walks a container, and
+             * run380 43C708 / run370 434E95 are the same code.  Measured in
+             * run390 on Govard (Adrift_282_govard_rt.txt): the Ruins' alt
+             * "...на юго-востоке - Хибара." (room 11, Obj 15 the knife,
+             * TypeHideObjects 10) fires while the knife is carried directly
+             * and stops the moment it is put in the worn belt, and the
+             * Road's alt (room 23, Obj 105 the licence) never fires while
+             * the licence sits inside the held hunter's bag.  So a held
+             * container's contents are NOT held for a pre-4.0 room alt.
              */
-            retval = !gs_runner_possessed (game, object);
+            if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+              retval = gs_object_position (game, object) != OBJ_HELD_PLAYER;
+            else
+              retval = !gs_runner_possessed (game, object);
             break;
           case 1:              /* Is holding (or wearing). */
-            retval = gs_runner_possessed (game, object);
+            if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+              retval = gs_object_position (game, object) == OBJ_HELD_PLAYER;
+            else
+              retval = gs_runner_possessed (game, object);
             break;
           case 2:              /* Isn't wearing. */
             retval = gs_object_position (game, object) != OBJ_WORN_PLAYER;
@@ -3244,7 +3264,19 @@ lib_cmd_hints (scr_gameref_t game)
             if_display_hints (game);
         }
       else
-        pf_buffer_string (filter, "There are currently no hints available.\n");
+        {
+          /* The Runners' own line: run380 42D2D4, run390 437A24 and run400
+             45A0CC all say "No hints currently available."; run370 426D72
+             "No hints available.".  Dolg (3.90) ALRs the 3.8+ wording into
+             Russian, so the exact text matters (runner_transcripts/dolg.txt
+             T4). */
+          const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+          pf_buffer_string (filter,
+                            prop_get_taf_version (bundle) < TAF_VERSION_380
+                            ? "No hints available.\n"
+                            : "No hints currently available.\n");
+        }
     }
   else
     {
@@ -26036,8 +26068,19 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
        * (the blow then persists it as the wield), fights bare-handed when
        * carrying none, and with two or more carried weapons asks -- a
        * question, always worded with "attack" whatever the verb, that costs
-       * no combat turn (settled live 2026-08-01).  The next line can answer
+       * no combat turn in 4.0 (settled live 2026-08-01; run400's light_up
+       * transcript, runner_transcripts/light_up.txt `attack higher`, shows
+       * the NPC's blows only on the NEXT line).  The next line can answer
        * it; see lib_battle_weapon_question().
+       *
+       * In 3.9 the question IS a turn.  run390 dobattle 44CE85-44CEDF only
+       * appends the question and parks the "attack <npc> with" prefix; it
+       * never sets the not-a-turn byte MemVar_468219, and the tick gate
+       * (generaltasks 460650-460672) needs nothing more than a non-empty
+       * output buffer to call characters() and events().  Measured on
+       * Govard (Adrift_282_govard_rt.txt, turn 213): "Чем мне атаковать
+       * Волк with?" is followed on the same turn by the wolf's bite and the
+       * events' output, where 4.0 would print the question alone.
        */
       if (weapon < 0)
         {
@@ -26046,7 +26089,8 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
           if (count > 1)
             {
               lib_battle_weapon_question (game, npc);
-              game->is_admin = TRUE;
+              if (lib_is_version_400 (game))
+                game->is_admin = TRUE;
               return TRUE;
             }
           if (count == 1)
@@ -27108,8 +27152,10 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   lib_battle_strike_loop (game, verb_index, 0, input, FALSE, with_object,
                           object, scan, &struck, &refused);
 
-  /* Only the question, and no blow: as for one target, not a turn. */
-  if (!struck && !refused)
+  /* Only the question, and no blow: as for one target, not a turn in 4.0
+   * (and a turn in 3.9, which sets no not-a-turn byte; see the single-
+   * target path in lib_battle_attack_bare). */
+  if (!struck && !refused && lib_is_version_400 (game))
     game->is_admin = TRUE;
 
   lib_battle_400_namesake_tail (game);

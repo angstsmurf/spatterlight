@@ -565,6 +565,16 @@ proba	proba.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	âûøëè èç ýò
 akron_rus	akron_rus.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	78%	0
 elmstreet	A Nightmare on Elm Street.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	100%	212
 crimescene	CrimeScene.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	Trent smashed the window	0
+schoolday	SchoolDay.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	YOU WIN!!!!!	12
+sororityHouse	sororityHouse.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Congratulations, you win!	30
+freshman	freshman.taf	4.00	run400x.exe	1234	1	x	SCR_SKIP_WAITKEY=1	Five times.  That last time was a doozy!	20
+prostitute	prostitute.taf	4.00	run400x.exe	1234	0	Steve	SCR_SKIP_WAITKEY=1	Congradulations, you did it!	1
+lovingfamily	Loving Family.taf	3.90	run390x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	Again Congrats and thanks for playing	0
+fantasy	fantasy.taf	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	I love working with you Player, maybe we can do some buisniss together soon	1
+loveforreal	LoveForReal.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	your ship safely passes along them	23
+villagelove	The Village of Love and Lust.taf	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	overworked yourself and fainted	400
+mwf	mwf.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Time passes...	1
+superstud	The new Superstud.taf	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	you win the prize which is me	189
 bedlam	bedlam.taf	3.90	run390x.exe	1234	0			These type of vehicles usually require keys to operate	0
 crimelife	crimelife.taf	4.00	run400x.exe	1234	0	Petter~male		You just got waxed by a punk gangsta	22
 dbaa	dbaa!(intro).taf	4.00	run400x.exe	1234	1			Bring me something else!	1585
@@ -586,4 +596,27 @@ twentyone	Twenty-one.taf	4.00	run400x.exe	1234	0			survived long enough to get t
 weirdstuff2	weirdstuff2.taf	4.00	run400x.exe	1234	0				47
 filthybill	filthybill.taf	3.90	run390x.exe	1234	0			studded cocks	0
 temporfell	temporfell_demo.taf	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro	Thanks for testing	346
-thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	That is 30% of the game	633
+thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	The skeleton crumbles to dust	624
+zanoza	zanoza.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	Ïîçäðàâëÿþ ñ ïîáåäîé	866
+tempest7	tempest7.taf	4.00	run400x.exe	1234	2		SCR_RNG=xoshiro	Congratulations, you have won!	404
+imagings	imagings.taf	4.00	run400x.exe	1234	0				9
+wonderland	wonderland.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1	The Tempest has put you someplace different	101
+shortlived	shortlived.taf	4.00	run400x.exe	1234	0	Player~male			1
+monstermirror	monster.taf	3.90	run390x.exe	1234	0			So you figured it out	0
+taot3	TAOT3.taf	3.90	run390x.exe	1234	0				1
+lastknight	Last_Knight.taf	3.90	run390x.exe	1234	0	Player			0
+govard2	Govard2.taf	3.90	run390x.exe	1234	0			ãîòîâ ê ðåøàþùåé áèòâå	7140
+dolg	Dolg.taf	3.90	run390x.exe	1234	0			ÿ è ðàñïëàòèëñÿ ñ Áàðíè	2521
+govard	Govard.taf	3.90	run390x.exe	1234	1			Íà ýòîì ïåðâàÿ ÷àñòü ïðèêëþ÷åíèé	5464
+cs2	CS2.taf	3.90	run390x.exe	1234	0				0
+shablon	shablon.taf	3.90	run390x.exe	1234	0				5
+wanderersgow	WanderersGoW 0.04.taf	3.90	run390x.exe	1234	1				3
+nat01	NAT_01.taf	3.90	run390x.exe	1234	1			Âû ïðèðîæäåííûé äåòåêòèâ	114
+relife	Relife.taf	3.90	run390x.exe	1234	0	ÃÃ¥Ã±Ã²		Ýòî åñòåñòâåííûé ÷åëîâåê	31
+worldcbn	The_World_According_to_CBN.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	a well-earned pat on the back	133
+hdigit1	hdigit1.taf	4.00	run400x.exe	1234	1				18
+toronto	toronto.taf	3.90	run390x.exe	1234	0	Bob~male			0
+viewbetter	the_view_is_better_here.taf	4.00	run400x.exe	1234	0			YOUR TASK IS COMPLETED. YOU HAVE...WON?	2
+virtual	virtual.taf	4.00	run400x.exe	1234	2			to understand in a few days.	34
+hammurabi	hammurabi.taf	4.00	run400x.exe	1234	0			Congratulations, Hammurabi!	134
+smercenary	smercenary.taf	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro		866

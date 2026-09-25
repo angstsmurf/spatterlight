@@ -255,3 +255,48 @@
 /goldens/pb_solution.expected.txt
 /runner_transcripts/**/pb.*
 /runner_transcripts/**/PB.*
+
+# sororityHouse.taf (AIF): explicit text, deliberately not committed.
+/goldens/sororityHouse_solution.txt
+/goldens/sororityHouse_solution.expected.txt
+/runner_transcripts/**/sororityHouse.*
+
+# freshman.taf (AIF): explicit text, deliberately not committed.
+/goldens/freshman_solution.txt
+/goldens/freshman_solution.expected.txt
+/runner_transcripts/**/freshman.*
+
+# prostitute.taf (AIF): explicit text, deliberately not committed.
+/goldens/prostitute_solution.txt
+/goldens/prostitute_solution.expected.txt
+/runner_transcripts/**/prostitute.*
+
+# Loving Family.taf (AIF): explicit text, deliberately not committed.
+/goldens/lovingfamily_solution.txt
+/goldens/lovingfamily_solution.expected.txt
+/runner_transcripts/**/lovingfamily.*
+
+# fantasy.taf (AIF): explicit text, deliberately not committed.
+/goldens/fantasy_solution.txt
+/goldens/fantasy_solution.expected.txt
+/runner_transcripts/**/fantasy.*
+
+# LoveForReal.taf: deliberately not committed.
+/goldens/loveforreal_solution.txt
+/goldens/loveforreal_solution.expected.txt
+/runner_transcripts/**/loveforreal.*
+
+# The Village of Love and Lust.taf (AIF): explicit text, deliberately not committed.
+/goldens/villagelove_solution.txt
+/goldens/villagelove_solution.expected.txt
+/runner_transcripts/**/villagelove.*
+
+# mwf.taf / The Magic Wishing Fountain (AIF): explicit text, deliberately not committed.
+/goldens/mwf_solution.txt
+/goldens/mwf_solution.expected.txt
+/runner_transcripts/**/mwf.*
+
+# The new Superstud.taf (AIF): explicit text, deliberately not committed.
+/goldens/superstud_solution.txt
+/goldens/superstud_solution.expected.txt
+/runner_transcripts/**/superstud.*

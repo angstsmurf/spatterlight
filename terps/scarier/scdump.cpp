@@ -1316,8 +1316,9 @@ scr_dump_npc_trace (scr_gameref_t game)
               if (!wanted)
                 continue;
             }
-          fprintf (stderr, "OBJTRACE obj=%ld pos=%ld state=%ld\n", object,
-                   gs_object_position (game, object),
+          fprintf (stderr, "OBJTRACE obj=%ld pos=%ld parent=%ld state=%ld\n",
+                   object, gs_object_position (game, object),
+                   gs_object_parent (game, object),
                    gs_object_state (game, object));
         }
       fflush (stderr);
