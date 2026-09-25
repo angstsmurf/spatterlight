@@ -655,6 +655,9 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
           gs_object_to_room (game, object, var3 - 1);
           stamp_seen = (var3 - 1 == gs_playerroom (game));
         }
+      /* Proc_19_10 writes &HFF to the container field on both paths
+         (48C431); see the runner_parent note in scgamest.cpp. */
+      gs_set_object_runner_parent (game, object, -1);
       break;
 
     case 1:                    /* To roomgroup part */
@@ -669,6 +672,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
         if (dest >= 0)           /* Empty group: leave the object in place. */
           gs_object_to_room (game, object, dest);
       }
+      gs_set_object_runner_parent (game, object, -1);   /* 48C471 */
       break;
 
     case 2:                    /* Into object */
@@ -704,6 +708,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       if (var3 == 0)            /* Player */
         {
           gs_object_player_get (game, object);
+          gs_set_object_runner_parent (game, object, -1);   /* 48C5E0 */
           stamp_seen = TRUE;
         }
       else if (var3 == 1)       /* Ref character */
@@ -722,6 +727,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               return;
             }
           gs_object_npc_get (game, object, npc);
+          gs_set_object_runner_parent (game, object, npc);   /* 48C676 */
           /* 3.9 never stamps an object handed to a character (run390
              execute_action @456099-4560DA writes fields 22 and 42 only). */
           stamp_seen = is_v400
@@ -735,6 +741,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               && obj_indirectly_in_room (game, object, gs_playerroom (game)))
             gs_set_object_seen (game, object, TRUE);
           gs_object_npc_get (game, object, var3 - 2);
+          gs_set_object_runner_parent (game, object, var3 - 2);  /* 48C6E5 */
           stamp_seen = is_v400
                        && obj_indirectly_in_room (game, object,
                                                   gs_playerroom (game));
@@ -748,6 +755,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       if (var3 == 0)            /* Player */
         {
           gs_object_player_wear (game, object);
+          gs_set_object_runner_parent (game, object, -1);   /* 48C745 */
           stamp_seen = TRUE;
         }
       else if (var3 == 1)       /* Ref character */
@@ -762,9 +770,13 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               return;
             }
           gs_object_npc_wear (game, object, npc);
+          gs_set_object_runner_parent (game, object, npc);   /* 48C7C3 */
         }
       else                      /* NPC id */
-        gs_object_npc_wear (game, object, var3 - 2);
+        {
+          gs_object_npc_wear (game, object, var3 - 2);
+          gs_set_object_runner_parent (game, object, var3 - 2);  /* 48C7F9 */
+        }
       break;
 
     case 6:                    /* Same room as */
@@ -798,6 +810,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
             room = gs_npc_location (game, npc) - 1;
           }
         gs_object_to_room (game, object, room);
+        gs_set_object_runner_parent (game, object, -1);   /* 48C815 */
         stamp_seen = (room == gs_playerroom (game));
         break;
       }

@@ -277,8 +277,33 @@ below as not yet ported.
     the character's descriptor "(A pretty girl)", scarier with the proper
     name "(Miranda)".
   - **wonderland** T0 `get knife`: Runner "The ethereal knife is too heavy
-    for you to carry at the moment.", scarier takes it; the whole fight
-    cascades from that (10+ turns). A weight/capacity rule at game start.
+    for you to carry at the moment.", scarier took it. PORTED 2026-09-25:
+    run400's loader keeps an NPC-HELD object's [2E] as the NPC index
+    (Parent - 1, 490749/490760), so the Card Guard's rod, letter and key
+    phantom-weigh the knife (object 0) and the Queen's Staff of Hearts
+    (81) phantom-weighs the rod (object 3): 94 > MaxWt 90 with empty
+    hands. gs_create seeds runner_parent for OBJ_HELD_NPC now, and (since
+    the same day's p4WORNNPC probes, harness/make_400_wornnpcprobe.py)
+    for OBJ_WORN_NPC too: an NPC-worn cloak with Parent 1 refuses `take
+    coin` in run400 regardless of the NPC's presence, wearability or an
+    intervening built-in give/wear. goldilocks' crown DOES phantom-weigh
+    the package (47 vs 38 on `take package` with the package in the start
+    room); the earlier "does not" reading was two offsetting 9s: the crown
+    missing and the bottle (hidden, raw Parent 0) still counted after task
+    54 `water bean` moved it to the garden. Task moves (execute_action,
+    Proc_19_10) write the container field in every arm -- &HFF for room /
+    hidden / roomgroup / player-held / player-worn / same-room, the
+    container or surface for into/onto, the NPC index for NPC-held/worn
+    (48C431/48C471/48C5E0/48C676/48C6E5/48C745/48C7C3/48C7F9/48C815) --
+    so task_move_object now sets runner_parent likewise. `count` never
+    re-weighs a held object, so a cleared child only shows on its next
+    drop/take. The game is unwinnable in run400; golden re-blessed, marker
+    dropped. Left over: T6+ battle hit/miss RNG, and T7 `attack card guard
+    with knife` with the knife absent -- Runner takes the unhandled-verb
+    catch-all's seen+absent arm "You must be in the same room as the
+    ethereal knife to be able to do anything with it." (48B24B, a turn),
+    scarier's battle handler says "You are not carrying the ethereal
+    knife!".
 - **cs2 "10+ differing turn(s)" is a compare artefact.** The game's
   question menus print lines beginning `> `, which the compare takes for
   prompts; a word-level diff of `runner_transcripts/cs2.txt` against the

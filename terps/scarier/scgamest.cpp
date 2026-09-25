@@ -689,11 +689,21 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
  *     load-worn watch took Goldilocks's package phantom from 19 to 10).
  *   - NPC possession always clears it, matching the loader's treatment of
  *     NPC-held/worn initial placements.
+ *   - A TASK move (execute_action, Proc_19_10) writes the field in every
+ *     arm: &HFF for a room, hidden, roomgroup, player-held, player-worn or
+ *     same-room destination, the container or surface for into/onto, and
+ *     the NPC index for NPC-held/worn.  Measured with p4WORNNPC probes
+ *     (2026-09-25): a task sending a stale-linked cloak or feather to
+ *     hidden or to a room takes it out of the coin's weight, and one
+ *     handing the cloak to NPC 0 moves its phantom from object 1 to
+ *     object 0.  task_move_object() applies this after each mover.
  *   - Every other move leaves it untouched.  Measured: the broken bottle
  *     (stale raw Parent 0) keeps phantom-weighing the package through a
- *     player "take" from a room and a "drop"; task moves of held objects
- *     to hidden (water, cheese, milk bottle) neither clear nor write the
- *     player-possession selector.
+ *     player "take" from a room and a "drop".  Note that `count` never
+ *     re-weighs: the running load only changes by the moved object's own
+ *     weigh at the time of its move, so a child dropping out of a held
+ *     object's phantom set shows up on the next weigh of that object
+ *     (a drop or a take), not in `count`.
  */
 
 /*
@@ -1428,10 +1438,44 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
            */
           if (game->objects[index_].position == OBJ_HELD_PLAYER)
             gs_set_object_runner_parent (game, index_, -1);
+          else if (game->objects[index_].position == OBJ_HELD_NPC
+                   || game->objects[index_].position == OBJ_WORN_NPC)
+            {
+              /*
+               * An NPC-HELD object keeps the NPC index in [2E].  run400's
+               * loader does not clear the field on this path: 490749 tests
+               * position 0 with a raw Parent above 0, writes -200 and then
+               * Parent - 1 (490760), and the weigh routine 447680 matches
+               * that value against object numbers like any other.  Measured
+               * on wonderland (2026-09-25): the Card Guard's rod, letter and
+               * key (NPC 0) phantom-weigh the knife (object 0) and the Queen's
+               * Staff of Hearts (81, NPC 3) phantom-weighs the rod (object 3),
+               * so `get knife` in an empty-handed start is 94 > 90, "The
+               * ethereal knife is too heavy for you to carry at the moment."
+               * The goldilocks measurements above tested the wrong targets
+               * (Parent 4 lands on object 3, not 4), so they never saw it.
+               *
+               * NPC-WORN objects get the same seed: the worn branch has the
+               * same Parent - 1 rewrite (490780/490797), and probes against
+               * run400 (p4WORNNPC*, 2026-09-25) refuse `take coin` whenever
+               * an NPC wears an 81-weight cloak with Parent 1 -- whether or
+               * not the NPC is present, the cloak is wearable, or a built-in
+               * give/wear has run in between.  goldilocks' crown (worn by
+               * NPC 0, weight 9) does phantom-weigh the package (object 0)
+               * too: with the package placed in the start room, `take
+               * package` costs 47 in run400 against the seeded-held-only 38.
+               * The earlier "does not weigh" reading was two offsetting
+               * errors: the crown was missing, and the bottle (hidden, raw
+               * Parent 0, weight 9) was still counted after task 54 `water
+               * bean` had moved it to the garden, which in run400 rewrites
+               * its container field (see task_move_object).
+               */
+              gs_set_object_runner_parent (game, index_,
+                                           initialparent > 0
+                                             ? initialparent - 1 : -1);
+            }
           else if (game->objects[index_].position != OBJ_IN_OBJECT
-                   && game->objects[index_].position != OBJ_ON_OBJECT
-                   && game->objects[index_].position != OBJ_HELD_NPC
-                   && game->objects[index_].position != OBJ_WORN_NPC)
+                   && game->objects[index_].position != OBJ_ON_OBJECT)
             gs_set_object_runner_parent (game, index_, initialparent);
         }
 

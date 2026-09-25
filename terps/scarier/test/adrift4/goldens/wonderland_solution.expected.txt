@@ -11,7 +11,7 @@ hangs a pungent, musty smell.  Also here is an ethereal knife and a small
 note.  You can only move north.
 
 > get knife
-You take the ethereal knife.
+The ethereal knife is too heavy for you to carry at the moment.
 
 > get note
 You take the small note.
@@ -58,19 +58,18 @@ He appears to be carrying a large iron rod.  You can move east and west.  The
 vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
-chops you with the large iron rod.
+You are not carrying the ethereal knife!
+The vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.
+You are not carrying the ethereal knife!
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
-chops you with the large iron rod.
+You are not carrying the ethereal knife!
+The vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.  Card Guard falls down,
-dead.
+You are not carrying the ethereal knife!
 
 > look
 
@@ -78,24 +77,19 @@ Entrance to mines
 You are now in what appears to be the entrance to a large mining complex.
 From the characters that are running all about, you can guess that it is also
 home to a colony of Gnomes.  They all appear fatigued and overworked, almost
-as if they were slaves.  There is a locked door here that leads east.  Also
-here is a large iron rod, a worn, old letter and a small key.  You can move
-east and west.
+as if they were slaves.  There is a locked door here that leads east.  Before
+you stands a gruesome combination of a man and a traditional playing-card.
+He appears to be carrying a large iron rod.  You can move east and west.  The
+vile Card Guard chops you with the large iron rod.
 
 > get all
-You take the large iron rod, the worn, old letter and the small key.
+There is nothing worth taking here.
 
 > read letter
-Alice:  Congratulations!  Perhaps it would be wise of me to tell you how to
-check your condition.  Type 'status' to evaluate yourself on such things as
-health, hit-strength, and defense.  Speaking of health, it would be wise to
-drink that bottle that was dropped.  What else... oh dear me!  I forgot to
-tell you about the key.  To use the key that the card guard dropped, type
-'unlock door with key.'  I believe that is all for now... perhaps I will meet
-you later to further guide you.  ~CC
+You see no such thing.
 
 > unlock door with key
-You use the key to unlock the door.
+I don't understand what you mean!
 
 > e
 You move east.
@@ -190,21 +184,20 @@ your south is the gnome encampment, to the north is a large vault, and the
 the east and west are tunnels that lead through the mine.  Before you stands
 a gruesome combination of a man and a traditional playing-card.  He appears
 to be carrying a large iron rod.  You can move north, east, south and west.
+
+> attack card guard with knife
+You are not carrying the ethereal knife!
 The vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.
+You are not carrying the ethereal knife!
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
-chops you with the large iron rod.
+You are not carrying the ethereal knife!
+The vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.
-
-> attack card guard with knife
-You cut the vile Card Guard with the ethereal knife.  Card Guard falls down,
-dead.
+You are not carrying the ethereal knife!
 
 > look
 
@@ -213,15 +206,17 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  Also here is a
-piece of parchment and a large iron rod.  You can move north, east, south and
-west.
+the east and west are tunnels that lead through the mine.  Before you stands
+a gruesome combination of a man and a traditional playing-card.  He appears
+to be carrying a large iron rod.  You can move north, east, south and west.
+The vile Card Guard chops you with the large iron rod.
 
 > get all
-You take the piece of parchment and the large iron rod.
+There is nothing worth taking here.  The vile Card Guard chops you with the
+large iron rod.
 
 > read parchment
-Combonatiun: 25, 17, 38
+You see no such thing.
 
 > n
 You move north.
@@ -263,8 +258,10 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  You can move
-north, east, south and west.
+the east and west are tunnels that lead through the mine.  Before you stands
+a gruesome combination of a man and a traditional playing-card.  He appears
+to be carrying a large iron rod.  You can move north, east, south and west.
+The vile Card Guard chops you with the large iron rod.
 
 > e
 You move east.
@@ -320,227 +317,13 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  You can move
-north, east, south and west.
+the east and west are tunnels that lead through the mine.  Before you stands
+a gruesome combination of a man and a traditional playing-card.  He appears
+to be carrying a large iron rod.  You can move north, east, south and west.
+The vile Card Guard chops you with the large iron rod.
 
-> w
-You move west.
-
-Mine Corridor - West
-Another tunnel in the mining complex.  They all look the same, gnomes
-scattered helter-skelter, torches on the walls, seemingly useless work taking
-place.  The tunnels continue to the north and back east, and there is an
-interesting looking door to the west.  You can move north and east.
-
-> n
-You move north.
-
-Mine Corridor - NW
-Just another long, raw hall down the mines.  Nothing intersting here except
-for.... oh wait... nevermind.  That's just a peculiarly shaped rock.  You can
-move north and south.
-
-> n
-You move north.
-
-Drill Room West
-Your ears are filled with the horrid sound of metal grinding, steam
-releasing, and gears turning as you enter a hallway of nothing but twisted
-steel and mechanical workings.  You'd better be careful your pinny doesn't
-get caught in any of the gears!  On the west wall there is a rather large
-two-state switch.  The Switch is currently set to "Off."  You can move north
-and south.
-
-> pull switch
-You pull the switch to the "On" position, and instantly the noise becomes
-amplified.  Normally your eardrums would burst, but this is a dream world.
-
-> n
-You move north.
-
-Ore Depository - West
-Judging from the large carts and crates that litter the already narrow area,
-this room is used for storing raw ore that the gnomes have excavated.  To the
-south you hear a fusilade of horrible mechanical noises, and to the east the
-mines continue.  You can move east and south.
-
-> e
-You move east.
-
-Front Gates
-The mines stop abruptly, and you come to a great set of Iron Doors with the
-imprint of a rather fiendish-looking heart.  Wonder where this leads... oh
-my!  As you look behind you, you notice an EXTREMELY LARGE drill!  We'll just
-have to put this piece of machinery to good use, won't we?  In front of the
-drill, but just out of reach, is a small control panel, with the words
-"Forward" and "Backward" written on it.  You can move east and west.
-
-> press forward
-You press the "forward" button on the control panel, and instantly the
-hulking drill lunges forward, bursting through the iron gates and sending
-multiple gnomes sprawling in all directions.  The large gates break into
-thousands of pieces, and the path Northwards is cleared.
-
-> n
-You move north.
-
-Count Hall
-You are now in what appears to be the darkened lobby of a twisted castle.
-Hideous portraits of... oh my goodness, its the mad Hatter!... line the wall,
-torches light the room (dimly, but enough to see), and pillars reach sky high
-to support the boundless ceiling.  The floor appears to be almost like a
-chess-board in colour.  There are two doors here, one to the north-west and
-to the north-east.  Red Pawn is here.  You can move south, northeast and
-northwest.  A small Red Pawn cuts you with the small sword, but it doesn't
-seem to do any damage.
-
-> attack red pawn with knife
-You cut a small Red Pawn with the ethereal knife.  Red Pawn falls down, dead.
-
-> attack red pawn with knife
-Red Pawn isn't here!
-
-> nw
-You move northwest.
-
-Gallery
-Haunting pictures of gruesome figures leer mockingly at you in the dim
-candlelight as you enter this twisted room of pictures and portraits.  One
-portrait on the east wall looks strange, though... as if it's jutting out
-somehow.  You can move northeast and southeast.
-
-> push portrait
-You push the portrait in.  You hear a soft clicking sound, and it moves to
-the side, revealing a room!
-
-> e
-You move east.
-
-Treasure Room
-You enter a rather small though brightly decorated room, filled with trinkets
-and gems of every shape and form.  You wonder how such beautiful objects
-could exist in such a nightmarish realm?  Perhaps it doesn't matter.
-Whatever the case, they're yours now!  Also here is a glowing red Mushroom
-and a gem-encrested Shield.  You can only move west.
-
-> get all
-You take the glowing red Mushroom and the gem-encrested Shield.
-
-> wear shield
-You put on the gem-encrested Shield.
-
-> w
-You move west.
-
-Gallery
-Haunting pictures of gruesome figures leer mockingly at you in the dim
-candlelight as you enter this twisted room of pictures and portraits.  One
-portrait on the east wall looks strange, though... as if it's jutting out
-somehow.  You can move east, northeast and southeast.
-
-> ne
-You move northeast.
-
-Manor Doors
-Before you stands an infinetely tall set of braced wooden doors, both of
-which have the imprint of a rather gruesome, nightmare-like heart on the
-face.  This is obviously the entrance to someplace rather important.  There
-is a small note to the side of the doors that reads: "Keep out!  I'm very
-busy!  Cannot be bothered!  You can move north, southeast and southwest.
-
-> n
-You move north.
-
-Throne Room
-You have entered one of the grandest rooms you've ever seen in your entire
-life, and yet you immediately want to find a way out.  There are no walls,
-only infinite skies of crimson.  Doors, Grandfather clocks, Pocketwatches,
-and Chesspieces all seem to spiral in and out in the middle of the air, all
-of which seem ridiculously large.  All of the chess-board floor times seem to
-float in mid-air, some of which simply break apart and fade from existence.
-You feel like if you don't hurry, one might disappear under you and send you
-falling (yet again) into the nightmare abyss.  Before you sits the throne to
-end all thrones, reaching skyward like the great blackened spire it is.
-Before you stands the Red Queen herself, the keeper of nightmares, the reason
-why you are here.  The horrific Red Queen shoots you with The great Staff of
-Hearts, but it doesn't seem to do any damage.
-
-> eat mushroom
-You eat the mushroom.  Such a warm little delight!  Tastes kind of strange
-though... oh well.  You feel miraculous!
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.  The horrific Red
-Queen shoots you with The great Staff of Hearts, but it doesn't seem to do
-any damage.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.  The horrific Red
-Queen shoots you with The great Staff of Hearts, but it doesn't seem to do
-any damage.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.  The horrific Red
-Queen shoots you with The great Staff of Hearts, but it doesn't seem to do
-any damage.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.  The horrific Red
-Queen shoots you with The great Staff of Hearts, but it doesn't seem to do
-any damage.
-
-> attack red queen with knife
-You cut The horrific Red Queen with the ethereal knife.  Red Queen falls
-down, dead.
-
-> look
-
-Throne Room
-You have entered one of the grandest rooms you've ever seen in your entire
-life, and yet you immediately want to find a way out.  There are no walls,
-only infinite skies of crimson.  Doors, Grandfather clocks, Pocketwatches,
-and Chesspieces all seem to spiral in and out in the middle of the air, all
-of which seem ridiculously large.  All of the chess-board floor times seem to
-float in mid-air, some of which simply break apart and fade from existence.
-You feel like if you don't hurry, one might disappear under you and send you
-falling (yet again) into the nightmare abyss.  Before you sits the throne to
-end all thrones, reaching skyward like the great blackened spire it is.  Also
-here are The great Staff of Hearts and a small iron key.
-
-> get all
-You take the small iron key.  Your hands are full.
-
-> unlock door with iron key
-You unlock the strange little door and reveal a strange little room
-
-> e
-You move east.
-
-Nightmare Gate
-You are now in a rather small, though rather discomforting room.  It looks
-much like the sort of room you'd expect to be put in at an insane asylum,
-expect the quilted pads alternate from black to red.  There is also a crudely
-manifested button on the west wall.  You can only move west.
-
-> push button
-You push the button...
-Your world falls apart... you are thrown back in the nightmare tempest... why
-does this happen to you?  Why can't you be a normal little girl, instead of
-having all of these horrible visions?  Its all over... but wait... or is it?
-The Tempest has put you someplace different... someplace utterly horrifying.
-Before you stands not only the next part of your adventure... but the rest of
-Wonderland.
-You scored 215 out of the maximum 10!
-That is 2150% of the game!
-You finished -205 points short.
+I'm afraid you are dead!
+You scored 35 out of the maximum 10!
+That is 350% of the game!
 
 [Press any key to end]

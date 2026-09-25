@@ -10355,9 +10355,9 @@ zanoza_solution.txt|zanoza.taf|Поздравляю с победой|SCR_SKIP_WAITKEY=1
 tempest7_solution.txt|tempest7.taf|Congratulations, you have won!|SCR_RNG=xoshiro
 # Imagings: demo, no score/ending; deepest point Church Road.
 imagings_solution.txt|imagings.taf||
-# Welcome to Wonderland: WIN 215 (declared MaxScore 10 is an authoring slip,
-# so the marker is the closing text).
-wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1
+# Welcome to Wonderland: UNWINNABLE in run400 -- the ethereal knife is phantom-weighed
+# by the NPC-held rod/Staff chain (94 > MaxWt 90) and never taken, so no marker.
+wonderland_solution.txt|wonderland.taf||SCR_ASSUME_COMBAT=1
 # Short-lived: unwinnable by design, MaxScore 0.
 shortlived_solution.txt|shortlived.taf||
 # The Monster in the Mirror: WIN 100/100.
