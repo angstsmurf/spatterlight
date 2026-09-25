@@ -256,6 +256,7 @@
 		961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDE09F239E700528FF9 /* AppDelegate.m */; };
 		961CCEF209F23A0000528FF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE009F239E700528FF9 /* main.m */; };
 		961CCEF409F23A0000528FF9 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE409F239E700528FF9 /* Preferences.m */; };
+		961CCEF809F23A0000528FF9 /* Preferences+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEF809F23A0000528FFA /* Preferences+Appearance.m */; };
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
@@ -2397,6 +2398,8 @@
 		961CCEE009F239E700528FF9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		961CCEE309F239E700528FF9 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		961CCEE409F239E700528FF9 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
+		961CCEF709F23A0000528FFA /* Preferences+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Appearance.h"; sourceTree = "<group>"; };
+		961CCEF809F23A0000528FFA /* Preferences+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Appearance.m"; sourceTree = "<group>"; };
 		961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextBufferWindow.h; sourceTree = "<group>"; };
 		961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextBufferWindow.m; sourceTree = "<group>"; };
 		961CCEE709F239E700528FF9 /* GlkTextGridWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextGridWindow.h; sourceTree = "<group>"; };
@@ -3717,6 +3720,7 @@
 		C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix old.rtf"; sourceTree = "<group>"; };
 		C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude old.rtf"; sourceTree = "<group>"; };
 		C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 16.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001720260619006D0E17 /* Spatterlight 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 17.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_dhgr.cpp; sourceTree = "<group>"; };
 		C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_dhgr.h; sourceTree = "<group>"; };
 		C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_pcjr.cpp; sourceTree = "<group>"; };
@@ -6438,6 +6442,8 @@
 				C386D52E263F55920066BF5B /* ParagraphPopOver.m */,
 				961CCEE309F239E700528FF9 /* Preferences.h */,
 				961CCEE409F239E700528FF9 /* Preferences.m */,
+				961CCEF709F23A0000528FFA /* Preferences+Appearance.h */,
+				961CCEF809F23A0000528FFA /* Preferences+Appearance.m */,
 				C36DFEDD29AA2F6800EC83A6 /* PreviewController.h */,
 				C36DFEDE29AA2F6800EC83A6 /* PreviewController.m */,
 			);
@@ -8506,6 +8512,7 @@
 				C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */,
 				C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,
+				961CCEF809F23A0000528FF9 /* Preferences+Appearance.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
 				C3CF369B2660207E004D0F7B /* neo.c in Sources */,
@@ -13104,6 +13111,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3DA001720260619006D0E17 /* Spatterlight 17.xcdatamodel */,
 				C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */,
 				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
 				C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */,
@@ -13124,7 +13132,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */;
+			currentVersion = C3DA001720260619006D0E17 /* Spatterlight 17.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

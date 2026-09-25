@@ -369,7 +369,7 @@
         if (hint == stylehint_BackColor) {
             color = attributes[NSBackgroundColorAttributeName];
             if (!color) {
-                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]] ? self.theme.bufferBackground : self.theme.gridBackground;
+                color = [gwindow isKindOfClass:[GlkTextBufferWindow class]] ? self.theme.resolvedBufferBackground : self.theme.resolvedGridBackground;
             }
         }
 
@@ -1068,7 +1068,7 @@
 
         case SETBGND:
             if (req->a2 < 0)
-                bg = theme.bufferBackground;
+                bg = theme.resolvedBufferBackground;
             else
                 bg = [NSColor colorFromInteger:req->a2];
             if (req->a1 == -1) {

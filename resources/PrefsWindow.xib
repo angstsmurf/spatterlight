@@ -52,21 +52,17 @@
                 <outlet property="comprehendGraphicsPopup" destination="cPR-Gx-j7K" id="zBp-5H-Lxm"/>
                 <outlet property="compromiseZArrowsMenuItem" destination="c6B-jA-wap" id="hJx-G6-FEc"/>
                 <outlet property="coverImagePopup" destination="RTY-hG-q0B" id="G4a-YX-h24"/>
-                <outlet property="darkModeMenuItem" destination="4j9-rg-AAp" id="ofj-IY-0HK"/>
                 <outlet property="delaysCheckbox" destination="0SI-L5-3sn" id="J9h-Pc-eh4"/>
                 <outlet property="detailsHeader" destination="fGi-Ga-kml" id="jYr-Rj-VEe"/>
                 <outlet property="divider" destination="Z4c-8m-5ib" id="67S-vN-4xu"/>
                 <outlet property="errorHandlingPopup" destination="Qha-Oz-Hei" id="Seu-lB-fxK"/>
                 <outlet property="formatView" destination="8bM-HF-6YZ" id="pP8-ho-piM"/>
                 <outlet property="globalView" destination="sGk-vs-Ced" id="hvR-dd-ceE"/>
-                <outlet property="hardDarkCheckbox" destination="Zi8-OE-eTE" id="1cI-51-7j0"/>
-                <outlet property="hardLightCheckbox" destination="B13-Oy-cLd" id="Ocf-U4-v9n"/>
                 <outlet property="imageReplacePopup" destination="vrL-ME-hbi" id="9T4-hd-cMh"/>
                 <outlet property="inventoryPopup" destination="5xf-qh-Vim" id="md0-M9-Ssg"/>
                 <outlet property="keepOrganisedCheckbox" destination="qnD-Dg-nVa" id="0pa-aQ-OEK"/>
                 <outlet property="libraryAtStartCheckbox" destination="9wO-C1-Hqh" id="7ZQ-zR-PB9"/>
                 <outlet property="libraryLocationField" destination="G9f-IG-BcV" id="Ven-2m-DLS"/>
-                <outlet property="lightModeMenuItem" destination="1gC-LN-mBb" id="Y9Q-Jt-FlZ"/>
                 <outlet property="marginHorizontalBufferStepper" destination="Ga3-o5-Ocm" id="hvu-sd-KQ8"/>
                 <outlet property="marginHorizontalBufferTextField" destination="yB9-OX-32B" id="1gw-Ra-aue"/>
                 <outlet property="marginHorizontalGridStepper" destination="dCc-8W-ciK" id="am9-M7-Bjg"/>
@@ -272,12 +268,11 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <binding destination="sIR-xL-wJ8" name="editable" keyPath="objectValue.editable" id="3WH-kE-yya"/>
-                                                            <binding destination="sIR-xL-wJ8" name="fontItalic" keyPath="objectValue.editable" previousBinding="Lyh-9F-fzq" id="FOS-Sd-cdY">
+                                                            <binding destination="sIR-xL-wJ8" name="fontItalic" keyPath="objectValue.editable" id="FOS-Sd-cdY">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="sIR-xL-wJ8" name="fontBold" keyPath="objectValue.hardLightOrDark" id="Lyh-9F-fzq"/>
                                                             <binding destination="sIR-xL-wJ8" name="value" keyPath="objectValue.name" id="6qG-Vj-0qR"/>
                                                             <outlet property="delegate" destination="-2" id="U85-AF-vVN"/>
                                                         </connections>
@@ -346,25 +341,6 @@
                                     </connections>
                                 </menuItem>
                                 <menuItem isSeparatorItem="YES" id="meb-p2-nba"/>
-                                <menuItem title="Use for Light Mode" id="1gC-LN-mBb">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="useInLightMode:" target="-2" id="zPN-75-0or"/>
-                                    </connections>
-                                </menuItem>
-                                <menuItem title="Use for Dark Mode" id="4j9-rg-AAp" userLabel="Use in Dark Mode">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="useInDarkMode:" target="-2" id="4Ec-Fv-yi5"/>
-                                    </connections>
-                                </menuItem>
-                                <menuItem title="Clear Light/Dark overrides" id="Xn5-Jd-cfb">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                    <connections>
-                                        <action selector="clearLightDarkOverrides:" target="-2" id="N5l-ph-OF5"/>
-                                    </connections>
-                                </menuItem>
-                                <menuItem isSeparatorItem="YES" id="saz-Ve-5FE"/>
                                 <menuItem title="Delete All User Themes" id="Wye-ED-rI1">
                                     <connections>
                                         <action selector="deleteUserThemes:" target="-2" id="m8m-LK-zcs"/>
@@ -999,46 +975,6 @@
                     <rect key="frame" x="88" y="160" width="105" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Cover image:" id="Pbn-dN-9hx">
-                        <font key="font" usesAppearanceFont="YES"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button toolTip="When the OS is in Dark Mode, all games will switch to this mode. This will override all other theme settings." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zi8-OE-eTE">
-                    <rect key="frame" x="198" y="103" width="241" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Aways use this theme in Dark mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="eh9-fW-CHJ">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changeHardDarkTheme:" target="-2" id="38w-An-lOb"/>
-                    </connections>
-                </button>
-                <button toolTip="When the OS is in Light Mode, all games will switch to this theme. This will override all other theme settings." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B13-Oy-cLd">
-                    <rect key="frame" x="198" y="125" width="247" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Always use this theme in Light mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1hm-f4-d6s">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="changeHardLightTheme:" target="-2" id="VDp-XN-3EU"/>
-                    </connections>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vx5-cI-5ss">
-                    <rect key="frame" x="64" y="126" width="130" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Light mode override:" id="Yz6-b8-Qh7">
-                        <font key="font" usesAppearanceFont="YES"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QS3-I4-dUk">
-                    <rect key="frame" x="66" y="104" width="128" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Dark mode override:" id="L7C-1N-JAu">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

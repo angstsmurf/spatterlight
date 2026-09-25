@@ -23,6 +23,7 @@
 #import "ThemeArrayController.h"
 
 #import "Preferences.h"
+#import "Preferences+Appearance.h"
 
 #ifndef DEBUG
 #define NSLog(...)
@@ -346,12 +347,7 @@ NSString *fontToString(NSFont *font) {
 
     _previewController.theme = theme;
 
-    [self findDarkAndLightThemes];
-    if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
-        _lightOverrideActive = YES;
-    } else if (_darkTheme && [Preferences currentSystemMode] == kDarkMode) {
-        _darkOverrideActive = YES;
-    }
+    [Preferences applyAppearanceOverrideToApp];
 
     _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
@@ -367,6 +363,8 @@ NSString *fontToString(NSFont *font) {
     _scrollView.verticalScroller.alphaValue = 100;
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
+
+    [self configureStylesTabAppearanceControls];
 
     [self changeThemeName:theme.name];
 
@@ -462,170 +460,20 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Color mode changes
 
 
-+ (kModeType)currentSystemMode {
++ (kAppearanceType)systemAppearance {
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleInterfaceStyle"] isEqualToString:@"Dark"])
-        return kDarkMode;
-    return kLightMode;
+        return kDarkAppearance;
+    return kLightAppearance;
 }
 
 - (void)noteColorModeChanged:(NSNotification *)notification {
-    if ([Preferences currentSystemMode] == kDarkMode) {
-        if (_darkTheme) {
-            _darkOverrideActive = YES;
-            [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_darkTheme]];
-        } else {
-            if (_lightOverrideActive || _darkOverrideActive)
-                [self lightOrDarkOverrideWasRemoved];
-            return;
-        }
-        _lightOverrideActive = NO;
-    } else {
-        if (_lightTheme) {
-            _lightOverrideActive = YES;
-            [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_lightTheme]];
-        } else {
-            if (_darkOverrideActive || _darkOverrideActive)
-                [self lightOrDarkOverrideWasRemoved];
-            return;
-        }
-        _darkOverrideActive = NO;
-    }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+    [self syncDarkModeSwitchFromResolvedMode];
     _themesHeader.stringValue = [self themeScopeTitle];
-}
-
-- (void)lightOrDarkOverrideWasRemoved {
-    _lightOverrideActive = NO;
-    _darkOverrideActive = NO;
-    _themesHeader.stringValue = [self themeScopeTitle];
-    if (self.window.keyWindow) {
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            _currentGame.theme = theme;
-        }
-    } else if (_currentGame) {
-        [prefs restoreThemeSelection:_currentGame.theme];
-    }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
-}
-
-- (void)findDarkAndLightThemes {
-    _darkTheme = nil;
-    _lightTheme = nil;
-    _lightOverrideActive = NO;
-    _darkOverrideActive = NO;
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardDark == YES"];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        _darkTheme = fetchedObjects[0];
-        _darkTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _darkTheme)
-                    wrong.hardDark = NO;
-            }
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO darkTheme: %@", error);
-        }
-        _darkTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLight == YES"];
-    error = nil;
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        _lightTheme = fetchedObjects[0];
-        _lightTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _lightTheme) {
-                    wrong.hardLight = NO;
-                }
-            }
-
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO lightTheme: %@", error);
-        }
-        _lightTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLightOrDark == YES"];
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (Theme *wrong in fetchedObjects) {
-        if (!wrong.hardDark && !wrong.hardLight)
-            wrong.hardLightOrDark = NO;
-    }
-
-    if (_lightTheme && _lightTheme == _darkTheme) {
-        _darkTheme = nil;
-        _lightTheme.hardDark = NO;
-    }
-}
-
-- (IBAction)useInLightMode:(id)sender {
-    if (_lightModeMenuItem.state == NSOnState) {
-        _hardLightCheckbox.state = NSOffState;
-    } else {
-        _hardLightCheckbox.state = NSOnState;
-    }
-    [self changeHardLightTheme:_hardLightCheckbox];
-    if (!theme.hardLight) {
-        //We switched off the light theme override. Current game (or all) gets this theme applied
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
-        }
-    }
-}
-
-- (IBAction)useInDarkMode:(id)sender {
-    if (_darkModeMenuItem.state == NSOnState) {
-        _hardDarkCheckbox.state = NSOffState;
-    } else {
-        _hardDarkCheckbox.state = NSOnState;
-    }
-    [self changeHardDarkTheme:_hardDarkCheckbox];
-    if (!theme.hardDark) {
-        // We switched off the dark theme override. Current game (or all) gets this theme applied
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
-        }
-    }
-}
-
-- (IBAction)clearLightDarkOverrides:(id)sender {
-    [self findDarkAndLightThemes];
-    if (_darkTheme) {
-        _darkTheme.hardDark = NO;
-        _darkTheme.hardLightOrDark = NO;
-        _darkTheme = nil;
-    }
-    if (_lightTheme) {
-        _lightTheme.hardLight = NO;
-        _lightTheme.hardLightOrDark = NO;
-        _lightTheme = nil;
-    }
-    [self lightOrDarkOverrideWasRemoved];
-    theme = _arrayController.selectedTheme;
-    if (_oneThemeForAll)
-        self.oneThemeForAll = YES;
-    else
-        _currentGame.theme = theme;
     [self updatePrefsPanel];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
 }
 
 
@@ -644,10 +492,10 @@ NSString *fontToString(NSFont *font) {
         [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
         return;
     }
-    clrGridFg.color = theme.gridNormal.color;
-    clrGridBg.color = theme.gridBackground;
-    clrBufferFg.color = theme.bufferNormal.color;
-    clrBufferBg.color = theme.bufferBackground;
+    clrGridFg.color = theme.gridNormal.resolvedColor;
+    clrGridBg.color = theme.resolvedGridBackground;
+    clrBufferFg.color = theme.bufferNormal.resolvedColor;
+    clrBufferBg.color = theme.resolvedBufferBackground;
 
     txtGridMargin.floatValue = (float)theme.gridMarginX;
     txtBufferMargin.floatValue = (float)theme.bufferMarginX;
@@ -680,13 +528,14 @@ NSString *fontToString(NSFont *font) {
      [defaults integerForKey:@"SelectedStyle"]];
 
     GlkStyle *selectedStyle = [self selectedStyle];
-    clrAnyFg.color = selectedStyle.color;
+    clrAnyFg.color = selectedStyle.resolvedColor;
     btnAnyFont.title = fontToString(selectedStyle.font);
 
     _btnAutoBorderColor.state = theme.borderBehavior == kAutomatic ? NSOnState : NSOffState;
     _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
+    _borderColorWell.color = theme.resolvedBorderColor ?: theme.borderColor;
 
     _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
     _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
@@ -776,10 +625,6 @@ NSString *fontToString(NSFont *font) {
     _delaysCheckbox.state = theme.sADelays;
     _slowDrawCheckbox.state = theme.slowDrawing;
 
-    _hardDarkCheckbox.state = theme.hardDark;
-    _darkModeMenuItem.state = theme.hardDark;
-    _hardLightCheckbox.state = theme.hardLight;
-    _lightModeMenuItem.state = theme.hardLight;
 
     _scottAdamsFlickerCheckbox.state = theme.flicker;
 
@@ -815,7 +660,7 @@ NSString *fontToString(NSFont *font) {
 - (void)setCurrentGame:(Game *)currentGame {
     _currentGame = currentGame;
     _themesHeader.stringValue = [self themeScopeTitle];
-    if (currentGame && currentGame.theme != theme && !(_darkOverrideActive || _lightOverrideActive)) {
+    if (currentGame && currentGame.theme != theme) {
         [self restoreThemeSelection:currentGame.theme];
     }
 }
@@ -1108,17 +953,15 @@ NSString *fontToString(NSFont *font) {
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
 
-        if (!_lightOverrideActive && !_darkOverrideActive) {
-            if (_oneThemeForAll) {
-                NSFetchRequest *fetchRequest = [Game fetchRequest];
-                NSArray *fetchedObjects;
-                NSError *error;
-                fetchRequest.includesPropertyValues = NO;
-                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-                [theme addGames:[NSSet setWithArray:fetchedObjects]];
-            } else if (_currentGame) {
-                _currentGame.theme = theme;
-            }
+        if (_oneThemeForAll) {
+            NSFetchRequest *fetchRequest = [Game fetchRequest];
+            NSArray *fetchedObjects;
+            NSError *error;
+            fetchRequest.includesPropertyValues = NO;
+            fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            [theme addGames:[NSSet setWithArray:fetchedObjects]];
+        } else if (_currentGame) {
+            _currentGame.theme = theme;
         }
 
         // Send notification that theme has changed -- trigger configure events
@@ -1349,9 +1192,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSString *)themeScopeTitle {
-    if (_lightOverrideActive) return NSLocalizedString(@"Light theme override active", nil);
-    if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", nil);
-
     if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
     if (_currentGame == nil) {
         return NSLocalizedString(@"No game is currently running", nil);
@@ -1392,19 +1232,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (!themeToRemove.editable) {
         NSBeep();
         return;
-    }
-    if (themeToRemove.hardLightOrDark) {
-        if (themeToRemove.hardDark) {
-            self.darkTheme = nil;
-            if (_darkOverrideActive) {
-                [self lightOrDarkOverrideWasRemoved];
-            }
-        } else {
-            self.lightTheme = nil;
-            if (_lightOverrideActive) {
-                [self lightOrDarkOverrideWasRemoved];
-            }
-        }
     }
     Theme *ancestor = themeToRemove.defaultParent;
     if (!ancestor)
@@ -1471,7 +1298,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     [theme addGames:orphanedGames];
     arrayController.selectedObjects = @[theme];
-    [self findDarkAndLightThemes];
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
@@ -1533,7 +1359,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return NO;
         }
     } else if (action == @selector(selectUsingTheme:)) {
-        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
+        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll) {
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
@@ -1560,8 +1386,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
         ((NSMenuItem*)menuItem).title = title;
-    } else if (action == @selector(clearLightDarkOverrides:)) {
-        return (_darkTheme || _lightTheme);
     }
 
     return YES;
@@ -1642,19 +1466,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if ([self selectedStyle] == theme.gridNormal)
             clrAnyFg.color = color;
     } else if (sender == clrGridBg) {
-        if ([theme.gridBackground isEqualToColor:color])
+        if ([theme.resolvedGridBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
-        themeToChange.gridBackground = color;
+        [themeToChange setResolvedGridBackground:color];
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
         if ([self selectedStyle] == theme.bufferNormal)
             clrAnyFg.color = color;
     } else if (sender == clrBufferBg) {
-        if ([theme.bufferBackground isEqualToColor:color])
+        if ([theme.resolvedBufferBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
-        themeToChange.bufferBackground = color;
+        [themeToChange setResolvedBufferBackground:color];
     } else if (sender == clrAnyFg) {
         key = [self selectedStyleName];
     } else if (sender == _borderColorWell) {
@@ -1665,7 +1489,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     GlkStyle *style = nil;
     if (key) {
         style = [theme valueForKey:key];
-        if ([style.color isEqualToColor:color])
+        if ([style.resolvedColor isEqualToColor:color])
             return;
 
         themeToChange = [self cloneThemeIfNotEditable];
@@ -1676,7 +1500,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         }
 
-        style.color = color;
+        style.resolvedColor = color;
     }
 
     style.autogenerated = NO;
@@ -1688,11 +1512,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)changeBorderColor:(NSColor *)color {
-    if ([color isEqualToColor:theme.borderColor])
+    if ([color isEqualToColor:theme.resolvedBorderColor])
         return;
 
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.borderColor = color;
+    [themeToChange setResolvedBorderColor:color];
 }
 
 - (IBAction)swapColors:(id)sender {
@@ -1767,15 +1591,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setInteger:windowType forKey:@"SelectedGlkWindowType"];
     [defaults setInteger:_styleNamePopup.selectedTag forKey:@"SelectedStyle"];
     GlkStyle *selectedStyle = [self selectedStyle];
-    clrAnyFg.color = selectedStyle.color;
+    clrAnyFg.color = selectedStyle.resolvedColor;
     btnAnyFont.title = fontToString(selectedStyle.font);
     selectedFontButton = btnAnyFont;
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
-    [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
-    NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
+    [self.dummyTextView updateTextWithAttributes:selectedStyle.resolvedAttributeDict];
+    NSMutableDictionary *convertedAttributes = selectedStyle.resolvedAttributeDict.mutableCopy;
 
     convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
-    theme.gridBackground : theme.bufferBackground;
+    theme.resolvedGridBackground : theme.resolvedBufferBackground;
     [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
@@ -1800,88 +1624,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         default:
             NSLog(@"Unhandled hyperlink window type");
             break;
-    }
-}
-
-- (IBAction)changeHardDarkTheme:(id)sender {
-    BOOL lightOrDarkWasRemoved = NO;
-    theme.hardDark = (_hardDarkCheckbox.state == NSOnState);
-    if (theme.hardDark) {
-        // The Use in dark mode checkbox was switched on.
-        // Switch off the other one
-        _hardLightCheckbox.state = NSOffState;
-        // If this was the light theme, nil it
-        if (_lightTheme == theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-        theme.hardLight = NO;
-        if (_darkTheme && _darkTheme != theme) {
-            // Reset any previous dark theme
-            _darkTheme.hardDark = NO;
-            _darkTheme.hardLightOrDark = NO;
-        }
-        theme.hardLightOrDark = YES;
-        _darkTheme = theme;
-    } else {
-        // The use in dark mode checkbox was switched off
-        // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_darkTheme == theme) {
-            _darkTheme = nil;
-            if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-    }
-
-    if (lightOrDarkWasRemoved) {
-        [self lightOrDarkOverrideWasRemoved];
-    } else {
-        [self noteColorModeChanged:nil];
-    }
-}
-
-- (IBAction)changeHardLightTheme:(id)sender {
-    BOOL lightOrDarkWasRemoved = NO;
-    theme.hardLight = (_hardLightCheckbox.state == NSOnState);
-    if (theme.hardLight) {
-        // The Use in light mode checkbox was switched on
-        // Switch off the other one
-        _hardDarkCheckbox.state = NSOffState;
-        // If this was the dark theme, nil it
-        theme.hardDark = NO;
-        if (_darkTheme == theme) {
-            if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-            _darkTheme = nil;
-        }
-        if (_lightTheme && _lightTheme != theme) {
-            // Reset any previous light theme
-            _lightTheme.hardLight = NO;
-            _lightTheme.hardLightOrDark = NO;
-        }
-        theme.hardLightOrDark = YES;
-        _lightTheme = theme;
-    } else {
-        // The use in light mode checkbox was switched off
-        // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_lightTheme == theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-    }
-
-    if (lightOrDarkWasRemoved) {
-        [self lightOrDarkOverrideWasRemoved];
-    } else {
-        [self noteColorModeChanged:nil];
     }
 }
 
@@ -2559,23 +2301,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
     GlkStyle *selectedStyle = nil;
 
     selectedFont = theme.bufferNormal.font;
-    selectedFontColor = theme.bufferNormal.color;
-    selectedDocumentColor = theme.bufferBackground;
+    selectedFontColor = theme.bufferNormal.resolvedColor;
+    selectedDocumentColor = theme.resolvedBufferBackground;
     selectedStyle = theme.bufferNormal;
 
     if (sender == btnGridFont) {
         selectedFont = theme.gridNormal.font;
-        selectedFontColor = theme.gridNormal.color;
-        selectedDocumentColor = theme.gridBackground;
+        selectedFontColor = theme.gridNormal.resolvedColor;
+        selectedDocumentColor = theme.resolvedGridBackground;
         selectedStyle = theme.gridNormal;
     }
     if (sender == btnAnyFont) {
         selectedStyle = [self selectedStyle];
         selectedFont = selectedStyle.font;
-        selectedFontColor = selectedStyle.color;
+        selectedFontColor = selectedStyle.resolvedColor;
         NSInteger windowType = _windowTypePopup.selectedTag;
         selectedDocumentColor = (windowType == wintype_TextGrid) ?
-        theme.gridBackground : theme.bufferBackground;
+        theme.resolvedGridBackground : theme.resolvedBufferBackground;
     }
 
     NSDictionary *attConvDict = @{ NSForegroundColorAttributeName: @"NSColor",
@@ -2588,7 +2330,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
                                    NSFontAttributeName: @"NSFont" };
 
     NSMutableDictionary *attr = [NSMutableDictionary new];
-    NSDictionary *oldAttr = selectedStyle.attributeDict;
+    NSDictionary *oldAttr = selectedStyle.resolvedAttributeDict;
     for (NSString *key in oldAttr.allKeys) {
         NSString *newKey = attConvDict[key];
         if (!newKey)
@@ -2599,7 +2341,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     attr[@"Font"] = selectedFont;
     attr[@"NSDocumentBackgroundColor"] = selectedDocumentColor;
 
-    [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
+    [self.dummyTextView updateTextWithAttributes:selectedStyle.resolvedAttributeDict];
 
     NSFontPanel *fontPanel = [NSFontPanel sharedFontPanel];
     if (fontPanel.delegate != self.dummyTextView || !fontPanel.visible) {

@@ -101,7 +101,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         return;
     NSColor *color;
     if (SPIsZColor(bc, zcolor_Default)) {
-        color = self.glkctl.theme.bufferBackground;
+        color = self.glkctl.theme.resolvedBufferBackground;
         bgnd = color.integerColor;
     } else {
         bgnd = bc;
@@ -224,7 +224,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
             // The window's default background is resolved against the theme
             // now, not when the game asked (see win_fillrect).
             if (rects[i].color == zcolor_Default)
-                [self.glkctl.theme.bufferBackground set];
+                [self.glkctl.theme.resolvedBufferBackground set];
             else
                 [[NSColor colorFromInteger:rects[i].color] set];
         }
