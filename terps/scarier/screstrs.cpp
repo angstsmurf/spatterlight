@@ -575,6 +575,39 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
                 " running char restriction, %ld, %ld, %ld\n", var1, var2, var3);
     }
 
+  /*
+   * "The Player must [not] be in the same room as ..." leaves the Runner's
+   * evaluator early in two cases, before the epilogue that copies the
+   * restriction's FailMessage into the answer buffer (run390 passrest
+   * 452BB8, run400 restriction_check 481D52), so the failure is SILENT:
+   *
+   *  - "... as the Player" (var3 = 0): run390 4522CC-4522D5 exits with the
+   *    result still 0, so the restriction FAILS whichever way round it is
+   *    worded, and the task claims nothing.  run400 4811F0-481214 first sets
+   *    the result for "must be" (var2 = 0) and leaves "must not be" false.
+   *    Studio (3.90, runner_transcripts/studio.txt T110): task 111's
+   *    "Player must be in same room as Player" / "What?" restriction fails
+   *    without its message, so the earlier out-of-room task 74 sharing the
+   *    pattern draws "You can't do that here!" and the 100th point is
+   *    unreachable.
+   *  - "... as the referenced character" (var3 = 1) with no character
+   *    referenced: run390 4522FD-45230B, run400 48123D-481245, result 0.
+   *
+   * restr_get_fail_message() knows both exits and withholds the message.
+   */
+  if (var1 == 0 && (var2 == 0 || var2 == 1)
+      && prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    {
+      if (var3 == 0)
+        {
+          if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+            return FALSE;
+          return var2 == 0;
+        }
+      if (var3 == 1 && var_get_ref_character (vars) < 0)
+        return FALSE;
+    }
+
   /* Handle var2 types 1 and 2. */
   if (var2 == 1)                /* Not in same room as */
     return !restr_pass_task_char (game, var1, 0, var3);
@@ -1324,6 +1357,31 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
     {
       vt_key[4].string = "Var1";
       if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0)
+        return NULL;
+    }
+
+  /*
+   * Likewise "the Player must [not] be in the same room as the Player" and
+   * "... as the referenced character" with none referenced: both leave the
+   * Runner's character arm before the message copy (run390 4522CC/4522FD,
+   * run400 4811F0/48123D), see restr_pass_task_char().  Studio (3.90) T110.
+   */
+  vt_key[4].string = "Type";
+  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 3
+      && prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    {
+      scr_int var1, var2, var3;
+
+      vt_key[4].string = "Var1";
+      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var2";
+      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      vt_key[4].string = "Var3";
+      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      if (var1 == 0 && (var2 == 0 || var2 == 1)
+          && (var3 == 0
+              || (var3 == 1
+                  && var_get_ref_character (gs_get_vars (game)) < 0)))
         return NULL;
     }
 

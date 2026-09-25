@@ -488,6 +488,7 @@ super_liam	super_liam.rtf	driven:Adrift_301_super_liam_rt.rtf+tail	3.80	run380x.
 superstud	superstud.txt	driven:Adrift_307_superstud_rt.txt	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 suzypowers	suzypowers.txt	driven:Adrift_467_suzypowers_rt.txt+tail	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 takeone	takeone.txt	driven:Adrift_412_takeone_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+studio	studio.txt	driven:Adrift_312_studio_rt.txt	3.90	run390x.exe	1234	0	Player		yes	identical on every turn.
 taot3	taot3.txt	driven:Adrift_307_taot3_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 target	target.txt	driven:Adrift_353_target_rt.txt	4.00	run400x.exe	212	0		SCR_SEED=212	yes	identical on every turn.
 tcom	tcom.txt	harvested-native-0-draws:Adrift_519_tcom.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.

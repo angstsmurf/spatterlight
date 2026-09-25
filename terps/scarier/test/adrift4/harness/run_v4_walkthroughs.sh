@@ -7488,6 +7488,22 @@ aegis_solution.txt|Aegis.taf| END|SCR_SKIP_WAITKEY=1
 # self-inflicted authoring dead task, not an interpreter divergence; it
 # contributes no unique content. 58 commands, no env vars.
 warlock_solution.txt|warlock.taf|The laboratory stands empty. No sign of demonic presences save a chalk-drawn|
+# studio.taf (AIF): explicit text, deliberately not committed. Photo-studio
+# framing story -- a professional photographer directs two adult models,
+# "Shelby" and an assistant "Brittany," through an escalating series of
+# solo and joint nude/explicit photo and video shoots. Straightforward
+# linear task-unlock structure, no branching endings and no
+# EndGame/death traps -- all 10 scored tasks (10 points each) are
+# reachable in a single unbroken sequence once each shoot's
+# prerequisite props (lamps, candles, lighter, vibrator) are staged. No
+# authoring quirks encountered. 120 commands, no env vars.
+# 96/100 is the Runner's ceiling (run390x runner_transcripts/studio.txt
+# T110): task 111 `shelby lick brittany's tits` carries a "Player must be in
+# same room as Player" restriction ("What?"), which run390's passrest fails
+# SILENTLY (early exit 4522CC before the FailMessage copy), so the earlier
+# out-of-room task 74 sharing the pattern draws "You can't do that here!"
+# and the 4-point shoot can never run. Ported 2026-09-26.
+studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
 # For_Love_of_Digby.taf: black-comedy puzzlebox about TV-obsessed shut-in
 # Ivan, confined to a single room (The Lounge), racing a 119-turn deadline to
 # get a battery into the TV remote before his beloved show "Digby The

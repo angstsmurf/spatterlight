@@ -643,6 +643,22 @@ case, and their goldens are re-blessed. The row comments in
   room) are raw-field tests too in run390 (433843-4338FB) but stay on
   `obj_indirectly_in_room` for want of a corpus case.
 
+- **studio T110** (3.90, wired 2026-09-26, ported the same day): task 111
+  `shelby lick brittany's tits` carries a "Player must be in same room as
+  Player" restriction with the FailMessage "What?" (the Generator's untouched
+  default row). run390's passrest leaves early for Player/same-room/Player
+  (4522CC-4522D5, result still 0), BEFORE the epilogue that copies the
+  FailMessage into the buffer (452BB8), so the restriction fails silently and
+  the task claims nothing; the earlier task 74 sharing the pattern is out of
+  the room, so its 44B681 flag draws "You can't do that here!" and the game
+  tops out at 96/100 ("You finished 4 points short."). run400's twin
+  (4811F0-481214) passes "must be" and fails "must not be", both without the
+  message; the same early exit covers "as the referenced character" with none
+  referenced (run390 4522FD, run400 48123D). Ported in
+  `restr_pass_task_char()` + `restr_get_fail_message()` (screstrs.cpp);
+  suite row marker now 96/100, golden re-blessed (gitignored), recompare
+  identical, no other golden moved.
+
 ---
 
 ## Deliberate deviations (measured, not ported)
