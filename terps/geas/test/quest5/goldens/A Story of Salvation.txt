@@ -1,0 +1,1315 @@
+A Story of Salvation
+
+by Leonard Spitt
+
+The island emerges ominously from the fog, the pier jutting towards you like an accusing finger (or a beckoning one?)  The only sounds are the soft creak of the small ferry bobbing on the water, and the grunts of the ferryman as he tugs on the oars - but you can't help thinking that it is the island itself that is drawing you closer, as though exerting some kind of sinister gravitational pull...
+
+Welcome to Salvation Island.  The music for this interactive text adventure is provided with kind permission by the talented composers at Broken Notes - please visit their site at www.broken-notes.com.  Additional sound effects are provided with kind permission from Nino Scuderi and SoundEffectsFactory - make sure you check out their YouTube channels.
+
+This story is dedicated to Faye and Natalie, my twin sisters, with thanks for their eternal support and enthusiasm for my horror projects!
+
+The island has certainly had you under its spell ever since you read about it online: formerly home to one of Britain's leading mental institutions, now a desolate and mist-shrouded ruin.  After its population of asylum workers and inmates was wiped out by a Nazi bombing raid during World War II, it was left abandoned for over a decade.  A strange twist of fate saw a population of rabbits grow from the ashes of the bombing to spread rampantly across the island, unchecked by predators and human interference and amply nourished by Salvation's dense woodland.  Many claim that it was these cute and inquisitive creatures that charmed Edward Hardacre, a wealthy entrepreneur, into buying the island to develop it as a seaside resort.
+
+Throughout the sixties and seventies the island was a successful attraction, tourists flocking from the nearby Devonshire mainland to visit 'Bunny Island', and also to rub the gleaming foot of the bronze statue that still sits atop the hill in the island's centre.  Saint Drogo is the patron saint of the healing of mental illness - legend had it that to rub his foot was to guarantee good health and fortune.  Hardacre had also converted the bombed-out ruins of the asylum into a war museum, focusing on psychiatric treatment and the plight of those suffering from mental health issues during the War, and had even built a theme park on the island's south west coast.  You can already discern the outline of the ferris wheel, like a huge skeletal creature outlined against the stony sky.
+
+But gradually the number of visitors had dwindled, and so had Hardacre's fortune.  Salvation's death-knell sounded in the late eighties when the proprietor himself mysteriously vanished - many believe that the unmarried Hardacre had preferred to throw himself into the bay rather than see his dreams crumble around him.  But his disappearance did not abate the island's decay, and now in the first decade of the new millennium the only occasional visitors are curious explorers such as you, and the surly ferryman of course, who still runs daily trips to the island for a frankly extortionate fee.
+
+The ferryman grunts again as he steps off the craft and ties it to one of the jetty's wooden posts.  "Don't forget - be back 'ere at six or you'll be spendin' the night," he mutters as you disembark.  Without another word, he sets off again, and he and his vessel are soon swallowed up by the mist.
+
+You are standing on a jetty.
+
+The wood groans ominously beneath your feet.
+
+To the north the island of Salvation looms above you - you can make out the crumbling facades and faded signs of the shopfronts along the promenade.  To get to the island you will need to proceed through the gift shop - the smiling face of a pink rabbit painted on the side of the little hut seems strangely sinister in the sickly daylight.
+
+To the south, the still and silent sea is visible for a few metres before the cloying fog devours it, as though the island's perimeter is in fact the end of the world.
+
+You can go north.
+> north
+
+> north
+
+You are in a gift shop.
+
+The little building has been ruined by vandalism and neglect.  Broken glass litters the mouldy carpet, and crude graffiti has been sprayed all over the walls.
+
+Very little of value has been left behind, but a single keyring dangling from a stand in the corner seems particularly sad, somehow.
+
+Through the northern exit is the island of Salvation, while to the south, the pier leads away into the mist.
+
+You can see a keyring, some glass and a till.
+You can go south or north.
+> north
+
+> north
+
+You exit the gift shop and gaze along the promenade at the rows of rotting facades and derelict buildings.  Detritus is strewn across the ground: old bits of packaging and drinks cartons, popcorn and sweet wrappers, blown along by the breeze that seems to have suddenly picked up.  You shiver, reminding yourself how exciting the asylum will be, and hoping you have enough time to explore it properly before it's time to head back to catch your ferry.
+
+The asylum is on the north side of Salvation, so you will have to find a way past the buildings to get there - hopefully via the hill in the centre of the island so that you can take a look at the statue on the way.
+
+You are on the promenade.
+The silence is absolute - even the seagulls seem to have abandoned this place.  The rabbits haven't though - you can see several of them lying around on the ground, and a couple hop over to you inquisitively, presumably wondering if you have any food.
+
+To the south is the gift shop.
+
+To the north is a building whose faded sign announces it as the Salvation Island Resort Hotel.
+
+The promenade continues to the east and west.
+
+You can go south, north, east or west.
+> west
+
+> west
+
+You are on the promenade.
+
+The visitors' centre stands to the north, decorated with pictures of bunny rabbits, which smile down at their congregated brethren outside.  An alleyway runs alongside it to the northeast.
+
+The promenade continues east and west.
+
+You can go east, west, northeast or north.
+> west
+
+> west
+
+You are on the promenade.
+
+The street leads past a number of shops to the north, all boarded up.  More rabbits hop along the flagstones, sniffing at pieces of litter as though searching for food.
+
+A pathway leads north between the shops.
+
+The promenade continues to run east and west.
+
+You can go east, west or north.
+> north
+
+> north
+
+You are on a path.
+
+The pathway runs between two shops and leads out to the promenade to the south, and up into the woods to the north.
+
+You can see a pair of brown rabbits sitting on the ground.
+
+You can go south or north.
+> north
+
+> north
+
+You are on a path.
+
+The pathway leads south back to the promenade, or curves around to the northeast, deeper into the woods.  The trees form a dense barrier on either side of the dirt track.  No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go south or northeast.
+> northeast
+
+> northeast
+
+You are on a path.
+
+The track leads to the southwest back towards the promenade, or opens out into three other pathways - one leading north deeper into the woods, the other leading east, and the other leading south where the trees thin out.
+
+No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go southwest, east, south or north.
+> east
+
+> east
+
+You are on a path.
+
+The path runs from west to east through the trees, alongside a high fence that bounds the hotel's modest 'pitch and putt' golf course to the south.  At its eastern end the path curves to the north away from the golf course.
+
+Lots of rabbits are visible through the fence, lounging in the weak afternoon sunlight amongst the overgrown grass.
+
+You can go west, south or north.
+> north
+
+> north
+
+You are on a path.
+
+The path leads from north to south, bounded to the west by tangled trees.
+
+To the east, you can see through the trees to the sea, and realise that you are on the island's east side, looking down at the stony grey expanse of the ocean, which is soon consumed by the blinding mist.
+
+No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go south or north.
+> north
+
+> north
+
+You emerge from the woods into a huge clearing full of small, ruined buildings.  This must be where the island-dwellers lived before it was destroyed.
+
+You are in the bombed out village.
+
+Rabbits are hopping amongst the wrecked houses around you.
+
+To the southwest, a single building seems to have survived the bombing.
+
+To the south, a pathway leads back into the woods.
+
+To the east, a steep slope leads straight down to the sea.
+
+To the west the trees form an impenetrable barrier.
+
+To the north you can just make out the huge, imposing shape of the asylum looming above the forest.  Another pathway leads into the trees towards it.
+
+You can see some ruins, a partially collapsed house and a signpost.
+You can go south, southwest or north.
+> north
+
+> north
+
+You are at a woodland crossroads.
+
+Pathways branch out into the trees in several directions.  To the south you can discern the outline of ruined buildings.
+
+To the east, an overgrown path leads towards a particularly large ruin.
+
+To the west, a winding path disappears into the undergrowth.
+
+To the northeast, another pathway ascends a steep hill.
+
+To the north stands the asylum.
+
+You can go south, east, northeast, west or north.
+> north
+
+> north
+
+The trees thin out as you head north, the path gradually widening into a gravel driveway that leads into the grounds of the asylum.  You can see the huge old building squatting menacingly at the top of a small hill; however, a sturdy-looking gate bars your way.
+You are  outside the gate to the asylum.
+
+The driveway leads between the two gateposts and into the grounds, which are a vast expanse of unkempt grass.
+
+The metal gate itself is closed, and on the other side of the gateposts a high metal fence leads away to the northwest and northeast, encircling the premises.
+
+To the south, a pathway leads back into the forest.
+
+You can go south or north.
+> climb gateposts
+
+> climb gateposts
+
+You scramble up to the top of the gatepost, and notice the missing tangle of barbed wire a few metres away on the other side.  Maybe another explorer managed to find a way in like this?  You wonder vaguely whether you will be able to scale the gatepost quite as easily from the other side, but there's no point worrying about that now - you're far too excited about exploring the asylum!
+
+You are outside the asylum, to the south.
+
+A high metal fence surrounds you, encircling the grounds.
+
+The fearsome building towers above you to the north.
+
+To the south, the driveway leads back through a gate and into the forest.
+
+A pathway leads around to the east and west sides of the asylum.
+You can see some barbed wire.
+You can go south, north, northwest or northeast.
+> northeast
+
+> northeast
+
+You are outside the asylum, to the east.
+
+A high metal fence surrounds you, encircling the grounds.
+
+The fearsome building towers above you to the west.
+
+A pathway leads around to the north and south sides of the asylum.
+
+You can go southwest or northwest.
+> pull sheeting
+
+> pull sheeting
+
+You yank hard on the metal sheeting and find that it comes away easily, revealing a smashed window beneath!  The room beyond is dark and you can make out little inside.  Has someone else come this way before you?
+> west
+
+> west
+
+You squeeze backwards through the smashed window and drop down into the room beyond.
+You are in a storage room.
+
+In the dim light you can make out dusty boxes stuffed with documents, filing cabinets, bits of miscellaneous medical equipment and even an old wheelchair shoved inside the modest space.
+
+To the east, a broken window leads back outside.
+
+To the west, a wooden door leads into the asylum - you will need to clamber over the piles of junk to get to it.
+You can see some glass, some medical equipment, a wheelchair, some filing cabinets, some documents and some boxes.
+You can go east or west.
+> west
+
+> west
+
+The area beyond is pitch black, so you switch on your torch.  It casts an eerie cone of light into the blackness.
+You are in a corridor.
+
+It runs from north to south, with a set of double doors at its northern end, as well as another door in the wall to the northwest.
+
+At its southern end is another door, before the corridor curves around to the west.
+
+There is also a doorway in the wall to the east, which leads back into the storage room through which you entered.
+
+You can go east, west, north, south or northwest.
+> west
+
+> west
+
+The corridor curves around to the west, through a pair of double doors and into a very large room.
+You are in the main hall.
+
+To the east a pair of double doors stand open, and a corridor leads away before curving to the north.
+
+To the west are another pair of double doors, although these are closed.
+
+To the south stands a very large door that must be the asylum's main entrance.
+
+To the north, a wooden staircase leads up to the second floor, but seems to have completely collapsed.
+You can see a collapsed staircase.
+You can go south, east or west.
+> west
+
+> west
+
+You are in another corridor.
+It runs from the north to the south.
+
+At the southern end a pair of double doors lead to the east.
+
+There are three doors set into the western wall.
+
+A door also stands to the north.  You can hear a scratching sound coming from behind it.
+
+You can go east, north, southwest, northwest or west.
+> open north door
+
+> open north door
+
+You open the door.
+You gingerly point your torch beam through the gap to see what could be making the scratching sound.  Suddenly, a rabbit darts out from behind the door and scurries away to the south.  You leap back in shock, nearly tripping over the terrified creature as it dashes past you.  You realise that your heart is hammering in your chest, and don't know whether to laugh or breathe a sigh of relief.
+
+Shining your torch into the corridor beyond, you see a white passageway that stretches to the north before turning east.  But the appalling stink that assaults your nostrils is far from inkeeping with the clean, clinical colour scheme.  It smells like rotting meat, but magnified to a level you have never experienced before, and you immediately gag and almost vomit on the ground.
+
+> north
+
+> north
+
+You are in a white corridor.
+
+It leads to the south and east, with doors at either end.  The air in here smells absolutely foul.
+
+You can go south or east.
+> east
+
+> east
+
+You are in a white corridor.
+
+It runs from west to east, with a door at the western end and a larger set of double doors at the eastern end.
+
+Halfway along the corridor it is bisected by another to form a T-junction.  This corridor leads to the south before ending at another door.
+
+There are also doors set into the walls at regular intervals to the northwest, north, northeast, southwest and southeast - they each have windows set into them and look like cells in which patients might have slept, or maybe been isolated.  The door to the southeast is hanging slightly ajar.
+
+The smell in here is almost unbearable.
+
+You can go west, east, northwest, north, northeast, southwest or southeast.
+> southeast
+
+> southeast
+
+You step into the room and gasp in horror.
+
+A man has been slaughtered here.  He kneels before you as if in supplication, glistening organs and splintered ribs protruding from the ruins of his torso.  Blood is everywhere, soaking his clothes, the walls, the floor.
+
+A scrap of paper is clutched in the man's left hand.
+You are in a cell.
+
+Everything is covered in blood.
+
+You can see a bed frame and a corpse.
+You can go west.
+> take piece of paper
+
+> take piece of paper
+
+Even though you feel the bile rising in your throat at the very thought, you are too curious about the man's fate not to take the piece of paper... you reach out and snatch it quickly from between his cold fingers.  The bloodstained page seems to be a crudely-sketched map of the island.  You can see 'statue' and 'chapel' denoted in the centre, and 'amusement park' in the southwest, and of course the asylum itself.  In the northeast corner the scribbled drawing of a lighthouse has been circled, and the words 'way in?' written next to it.  Turning it over, you notice the sinister phrase 'THEY COME OUT OF THE WOODS AT NIGHT' scrawled on the back.  A chill runs through your body as you stare at the words.
+> west
+
+> west
+
+You stuff the paper in your pocket and leave the dreadful room behind, suddenly desperate to get off the island as quickly as possible.
+
+As you step back into the corridor, you hear hurried footfalls and the sound of the west door slamming.  Was someone just in here with you...?  You feel your blood turn momentarily to ice water in your veins - you need to get out of here, now.  You glance at your watch - it is time to head for your ferry.
+
+You are in a white corridor.
+
+It runs from west to east, with a door at the western end and a larger set of double doors at the eastern end.
+
+Halfway along the corridor it is bisected by another to form a T-junction.  This corridor leads to the south before ending at another door.
+
+There are also doors set into the walls at regular intervals to the northwest, north, northeast, southwest and southeast - they each have windows set into them and look like cells in which patients might have slept, or maybe been isolated.  The door to the southeast is hanging slightly ajar.
+
+The smell in here is almost unbearable.
+
+You can go west, east, northwest, north, northeast, southwest or southeast.
+> west
+
+> west
+
+You are in a white corridor.
+
+It leads to the south and east, with doors at either end.  The air in here smells absolutely foul.
+
+You can go south or east.
+> south
+
+> south
+
+You are in another corridor.
+It runs from the north to the south.
+
+At the southern end a pair of double doors lead to the east.
+
+There are three doors set into the western wall.
+
+A door also stands to the north.
+
+You can go east, north, southwest, northwest or west.
+> east
+
+> east
+
+As you re-enter tha main hall, you shine your torch beam around, feeling your heart rattling in your chest.  There is nothing here, no movement at all save for the almost imperceptible swaying of the chandelier high above.  The walls of this dark place seem to be slowly closing in on you.  You can still barely believe what you saw in that room...
+
+Suddenly, something moves to your left.  You swing your torch in its direction, but not in time to see anything other than what look like bare feet disappearing into the blackness - UP THE WALL.  You flick the torch upwards but the strange, scrabbling shape disappears over the edge of the upper balcony and out of sight... but it was unmistakeably humanoid.
+
+You need to leave, now, before this tomb claims another victim.
+
+You are in the main hall.
+
+To the east a pair of double doors stand open, and a corridor leads away before curving to the north.
+
+To the west are another pair of double doors, although these are closed.
+
+To the south stands a very large door that must be the asylum's main entrance.
+
+To the north, a wooden staircase leads up to the second floor, but seems to have completely collapsed.
+You can see a collapsed staircase.
+You can go south, east or west.
+> east
+
+> east
+
+You are in a corridor.
+
+It runs from north to south, with a set of double doors at its northern end, as well as another door in the wall to the northwest.
+
+At its southern end is another door, before the corridor curves around to the west.
+
+There is also a doorway in the wall to the east, which leads back into the storage room through which you entered.
+
+You can go east, west, north, south or northwest.
+> east
+
+> east
+
+You enter the storage room.  The light coming in through the broken window is sufficient for you to see, so you click your torch off and put it back in your bag.
+You are in a storage room.
+
+In the dim light you can make out dusty boxes stuffed with documents, filing cabinets, bits of miscellaneous medical equipment and even an old wheelchair shoved inside the modest space.
+
+To the east, a broken window leads back outside.
+
+To the west, a wooden door leads into the asylum - you will need to clamber over the piles of junk to get to it.
+You can see some glass, some medical equipment, a wheelchair, some filing cabinets, some documents and some boxes.
+You can go east or west.
+> east
+
+> east
+
+You scramble out of the window, relieved to find yourself outside in daylight once again.  You wouldn't go back inside that place for a million pounds.  Now you need to get back to your ferry as quickly as possible, and decide what to do about the dead body you discovered.  You shudder once again, momentarily gripped by a wave of nausea - he didn't even look as though he had been dead for very long.  What were the words on the paper you took from him?  They come out of the woods at night...
+You are outside the asylum, to the east.
+
+A high metal fence surrounds you, encircling the grounds.
+
+The fearsome building towers above you to the west.
+
+A pathway leads around to the north and south sides of the asylum.
+You can see a broken window.
+You can go southwest, northwest or west.
+> southwest
+
+> southwest
+
+You are outside the asylum, to the south.
+
+A high metal fence surrounds you, encircling the grounds.
+
+The fearsome building towers above you to the north.
+
+To the south, the driveway leads back through a gate and into the forest.
+
+A pathway leads around to the east and west sides of the asylum.
+You can see some barbed wire.
+You can go south, north, northwest or northeast.
+> climb gatepost
+
+> climb gatepost
+
+You scramble hastily up the gatepost, and fall awkwardly as you jump down on the other side, sprawling on the ground.  But never mind a sore ankle - you need to get to that ferry as quickly as possible.
+You are  outside the gate to the asylum.
+
+The driveway leads between the two gateposts and into the grounds, which are a vast expanse of unkempt grass.
+
+The metal gate itself is closed, and on the other side of the gateposts a high metal fence leads away to the northwest and northeast, encircling the premises.
+
+To the south, a pathway leads back into the forest.
+
+You can go south or north.
+> south
+
+> south
+
+You are at a woodland crossroads.
+
+Pathways branch out into the trees in several directions.  To the south you can discern the outline of ruined buildings.
+
+To the east, an overgrown path leads towards a particularly large ruin.
+
+To the west, a winding path disappears into the undergrowth.
+
+To the northeast, another pathway ascends a steep hill.
+
+To the north stands the asylum.
+
+You can go south, east, northeast, west or north.
+> south
+
+> south
+
+You are in the bombed out village.
+
+Rabbits are hopping amongst the wrecked houses around you.
+
+To the southwest, a single building seems to have survived the bombing.
+
+To the south, a pathway leads back into the woods.
+
+To the east, a steep slope leads straight down to the sea.
+
+To the west the trees form an impenetrable barrier.
+
+To the north you can just make out the huge, imposing shape of the asylum looming above the forest.  Another pathway leads into the trees towards it.
+
+You can see some ruins, a partially collapsed house and a signpost.
+You can go south, southwest or north.
+> south
+
+> south
+
+You are on a path.
+
+The path leads from north to south, bounded to the west by tangled trees.
+
+To the east, you can see through the trees to the sea, and realise that you are on the island's east side, looking down at the stony grey expanse of the ocean, which is soon consumed by the blinding mist.
+
+No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go south or north.
+> south
+
+> south
+
+You are on a path.
+
+The path runs from west to east through the trees, alongside a high fence that bounds the hotel's modest 'pitch and putt' golf course to the south.  At its eastern end the path curves to the north away from the golf course.
+
+Lots of rabbits are visible through the fence, lounging in the weak afternoon sunlight amongst the overgrown grass.
+
+You can go west, south or north.
+> west
+
+> west
+
+You are on a path.
+
+The track leads to the southwest back towards the promenade, or opens out into three other pathways - one leading north deeper into the woods, the other leading east, and the other leading south where the trees thin out.
+
+No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go southwest, east, south or north.
+> southwest
+
+> southwest
+
+You are on a path.
+
+The pathway leads south back to the promenade, or curves around to the northeast, deeper into the woods.  The trees form a dense barrier on either side of the dirt track.  No rabbits are visible here, but there must be lots of them hiding in the undergrowth.
+
+You can go south or northeast.
+> south
+
+> south
+
+You are on a path.
+
+The pathway runs between two shops and leads out to the promenade to the south, and up into the woods to the north.
+
+You can see a pair of brown rabbits sitting on the ground.
+
+You can go south or north.
+> south
+
+> south
+
+You are on the promenade.
+
+The street leads past a number of shops to the north, all boarded up.  More rabbits hop along the flagstones, sniffing at pieces of litter as though searching for food.
+
+A pathway leads north between the shops.
+
+The promenade continues to run east and west.
+
+You can go east, west or north.
+> east
+
+> east
+
+You are on the promenade.
+
+The visitors' centre stands to the north, decorated with pictures of bunny rabbits, which smile down at their congregated brethren outside.  An alleyway runs alongside it to the northeast.
+
+The promenade continues east and west.
+
+You can go east, west, northeast or north.
+> east
+
+> east
+
+You are on the promenade.
+The silence is absolute - even the seagulls seem to have abandoned this place.  The rabbits haven't though - you can see several of them lying around on the ground, and a couple hop over to you inquisitively, presumably wondering if you have any food.
+
+To the south is the gift shop.
+
+To the north is a building whose faded sign announces it as the Salvation Island Resort Hotel.
+
+The promenade continues to the east and west.
+
+You can go south, north, east or west.
+> south
+
+> south
+
+You hurry through the gift shop, glancing at your watch to see that there are just minutes to spare before the ferry is due to return to collect you.  Your mind is still reeling from what you saw in the asylum... you just need to make it back to shore and then head immediately to a police station.
+You are standing on a jetty.
+
+The wood groans ominously beneath your feet.
+
+Behind you, to the north, the island lurks like a deathly shadow.
+
+To the south, the fog is thicker than ever - will the ferry even be able to reach the island in this weather?
+
+You can go north.
+> wait
+
+> wait
+
+You wait for some time, but the ferry does not emerge from the fog.  You glance anxiously at your watch... surely the ferryman will be here soon.
+> wait
+
+> wait
+
+Still nothing disturbs the eerie tranquility of the sea, or the sinister curtain of mist... the sun is beginning to sink.  What will you do if the ferry doesn't come to pick you up??
+> wait
+
+> wait
+
+Still the sun continues to set, casting a beautiful orange glow across the skyline... you almost feel as though you are the only human on an alien planet.  But the panic building in your gut belies the serenity of the scene.
+
+You start to think about who will notice your absence.  A couple of years ago it would have been Sarah of course... but now you might as well be dead to her.  You remember the last time you called her, and how cold she had been, how determined to keep you cut out of her life... like a cancer, surgically removed.
+
+Wait!  Of course... your mobile phone!!  What were you thinking??  You brought it along for just this sort of emergency!  You yank it out of your bag and switch it on.
+
+No signal.
+
+You wander up and down the jetty, waving the thing in the air like a lunatic, but to no avail.  The island must be outside the range of the telephone masts on the mainland.  A cold, sick feeling spreads from your stomach, pumped around your body by your increasingly frantic heartbeat.  How could you have been so stupid??  For all you know, the creepy ferryman and his craft are now at the bottom of the ocean... and you didn't tell anyone else you were coming here.
+
+There's nothing to do but continue to wait... you try to dispel the images from your mind, of the blood-soaked cell in the asylum, of the corpse's bulging eyes... and those terrible words on the paper, 'THEY COME OUT OF THE WOODS AT NIGHT'...
+> wait
+
+> wait
+
+It is full dark.  You can barely stop your hands from trembling as you take out your torch, and switch it on.  The mist seems to be closing in on you, twisting into strange and evil shapes just outside of the pitiful cone of light.  Even as you begin to contemplate spending a night lying on the jetty, you hear a clap of thunder, and the deluge that the sky had been threatening all day is finally unleashed.
+
+You are quickly drenched, and your heart sinks as you realise you cannot stay here - you must venture back into the island to look for shelter.
+
+Maybe if you can get through the night, you will be able to find some other way to contact the mainland tomorrow... or even a boat somewhere that you can use to escape.
+
+Already shivering in the freezing downpour, you stagger northwards.
+You are in a gift shop.
+
+The little building has been ruined by vandalism and neglect.  Broken glass litters the mouldy carpet, and crude graffiti has been sprayed all over the walls.
+
+Very little of value has been left behind, but a single keyring dangling from a stand in the corner seems particularly sad, somehow.
+
+Through the northern exit is the island of Salvation, while to the south, the pier leads away into the mist.
+
+You can see a keyring, some glass and a till.
+You can go south or north.
+> north
+
+> north
+
+The oily rain continues to teem down outside... you briefly consider spending the night here in the gift shop, curled up on the mouldy carpet.  But it will be freezing, with the wind and rain coming through the broken doors and windows...  Maybe you ought to sleep in the asylum?  No.  You dispel that awful thought from your mind immediately.  But you have to do something... perhaps you can find a way into the old hotel, or one of the other buildings?
+
+Gritting your teeth against the cold, and the fear gnawing at the pit of your stomach like a peculiar hunger, you step outside once again onto the promenade.
+
+You are on the promenade.
+No longer do you feel a sense of melancholic isolation; instead, with the absolute darkness surrounding you, you feel a strong sensation that something evil is lurking just outside the beam of your torch.  Your frayed nerves turn even the rabbits into visions of terror, and you begin to dread every sight of them - the fact that there seem to be more than there were before only adds to your sense of vague horror.  They come out of the woods at night... almost as if they are deliberately massing, like an audience taking their seats.
+
+The rain continues to hammer down around you.
+
+To the south is the gift shop.
+
+To the north is the Salvation Island Resort Hotel.
+
+The promenade continues to the east and west.
+
+You can go south, north, east or west.
+> west
+
+> west
+
+You are on the promenade.
+
+It stretches from east to west.  To the north stands the visitors' centre, with an alleyway running alongside it to the northeast.  The gaudy bunny rabbits that decorate it seem to be grinning cruelly at your plight.
+
+The rain seems to be getting heavier, soaking you to the bone.
+
+You can go east, west, northeast or north.
+> west
+
+> west
+
+You are on the promenade.
+
+It runs from east to west, past the boarded up shops to the north.  You feel as though you are wandering through a nightmare of darkness and rain.
+
+Between the shops, a pathway leads north, deeper into the island.
+
+You can go east, west or north.
+> north
+
+> north
+
+You are on a path.
+
+The pathway runs between two shops and leads out to the promenade to the south, and up into the woods to the north.
+
+The rabbits seem to have taken shelter from the weather... you wish you could find somewhere to do the same.
+
+You can go south or north.
+> north
+
+> north
+
+You wait for a moment, steeling your nerves before you enter the forest.  'They come out of the woods at night'...
+
+You are on a path.
+
+The pathway leads south back to the promenade, or curves around to the northeast, deeper into the woods.  The trees form a dense barrier on either side of the dirt track.
+
+You can go south or northeast.
+> northeast
+
+> northeast
+
+You are on a path.
+The track leads to the southwest back towards the promenade, or opens out into three other pathways - one leading north deeper into the woods, the other leading east, and the other leading south where the trees thin out.
+
+You can go southwest, east, south or north.
+> east
+
+> east
+
+You are on a path.
+
+The path runs from west to east through the trees, alongside a high fence that bounds the hotel's modest 'pitch and putt' golf course to the south.  At its eastern end the path curves to the north away from the golf course.
+
+Through the fence, you can see that the course is pitted with many rabbit holes, but all of the bunnies have had the sense to take shelter from the rain.
+
+You can go west, south or north.
+> north
+
+> north
+
+You are on a path.
+
+The path leads from north to south, bounded to the west by tangled trees.
+
+To the east, the ocean is shrouded in darkness.
+
+As you swing your torch beam to the north, just before the path opens out into the large clearing where the ruins of the village stand like monuments, you are alarmed to see a group of around two dozen rabbits has congregated.  They are just sitting in the pathway, staring at you, not moving at all.  It is a very eerie sight, and again you feel irrational fear squeezing your spine.
+
+You can go south or north.
+> north
+
+> north
+
+You pick your way slowly past the rabbits.  You have no idea why they are there.  They don't seem frightened of you at all.
+
+You are in the bombed out village.
+
+It is frightening in the darkness, the misshapen husk of each wrecked building looking like a slumbering monster.
+
+To the southwest, a single building seems to have survived the bombing.
+
+To the south, a pathway leads back into the woods.
+
+To the east, a steep slope leads straight down to the sea.
+
+To the west the trees form an impenetrable barrier.
+
+To the north, another pathway leads into the forest - you can't make it out, but you can feel the looming presence of the asylum above the trees.
+
+You can see some ruins, a partially collapsed house and a signpost.
+You can go south, southwest or north.
+> southwest
+
+> southwest
+
+You are in a ruined house.
+
+Inside the simple structure you find a couple of rooms, and a wooden staircase blocked with rubble from the upper floor.  One of the rooms - which might once have been a kitchen area - is completely empty, but the larger living room has some odd things in it.
+
+You can see a circle of stones and a pile of straw.
+You can go northeast.
+> x pile of straw
+
+> x pile of straw
+
+You aim your torch towards the makeshift mattress... and are horrified to see someone asleep on it!!
+
+It seems to be a man, lying on his side and facing away from you.  His lower half is dressed in torn jeans, but his upper half is naked, his broad back covered only by the long strands of dirty black hair hanging from his head.  Where the flesh is visible, you can see it is covered with strange growths and discolourations.  Despite these strange afflictions he is powerfully built, and the long, muscular arm that lays along his side is almost simian in appearance, including the oversized hand at the end of it.
+
+As you stare at him, he suddenly jerks in his sleep, nearly causing you to cry out.  Mercifully, he settles again, but as he does so the item clutched in his huge hand drops to the floor behind him... it is a screwdriver.  You suspect he wasn't planning to use it to do some DIY.
+
+> take screwdriver
+
+> take screwdriver
+
+You carefully pick up the screwdriver and put it into your pocket.
+> northeast
+
+> northeast
+
+You are in the bombed out village.
+
+It is frightening in the darkness, the misshapen husk of each wrecked building looking like a slumbering monster.
+
+To the southwest, a single building seems to have survived the bombing.
+
+To the south, a pathway leads back into the woods.
+
+To the east, a steep slope leads straight down to the sea.
+
+To the west the trees form an impenetrable barrier.
+
+To the north, another pathway leads into the forest - you can't make it out, but you can feel the looming presence of the asylum above the trees.
+
+You can see some ruins, a partially collapsed house and a signpost.
+You can go south, southwest or north.
+> south
+
+> south
+
+You are on a path.
+
+The path leads from north to south, bounded to the west by tangled trees.
+
+To the east, the ocean is shrouded in darkness.
+
+As you swing your torch beam to the north, just before the path opens out into the large clearing where the ruins of the village stand like monuments, you are alarmed to see a group of around two dozen rabbits has congregated.  They are just sitting in the pathway, staring at you, not moving at all.  It is a very eerie sight, and again you feel irrational fear squeezing your spine.
+
+You can go south or north.
+> south
+
+> south
+
+You are on a path.
+
+The path runs from west to east through the trees, alongside a high fence that bounds the hotel's modest 'pitch and putt' golf course to the south.  At its eastern end the path curves to the north away from the golf course.
+
+Through the fence, you can see that the course is pitted with many rabbit holes, but all of the bunnies have had the sense to take shelter from the rain.
+
+You can go west, south or north.
+> west
+
+> west
+
+You are on a path.
+The track leads to the southwest back towards the promenade, or opens out into three other pathways - one leading north deeper into the woods, the other leading east, and the other leading south where the trees thin out.
+
+You can go southwest, east, south or north.
+> north
+
+> north
+
+You are on a path.
+
+The path is long and leads up the hill in the centre of Salvation Island.  It curves around as it ascends through the thick undergrowth.
+
+To the south the path leads down the hill back towards the promenade.
+
+To the north, the path leads towards a clearing.
+
+The rabbits seem to have hidden from the rain, which you can hear battering insistently on the canopy of leaves above your head.
+
+You can go south or north.
+> north
+
+> north
+
+You are in a clearing.
+
+The clearing is large, and opens out to the east where you can see a small chapel.
+
+Standing in the centre of the clearing is the famous statue of Saint Drogo.  Despite his supposed healing abilities, he does not appear to be particularly benificent - he is depicted as a hunched, robed figure, one hand tightly clutching a staff as his snarling face peers out from beneath his cowl.  There are no rabbits here, as though they are frightened of the sculpture.
+
+To the south, a pathway leads back down the hill towards the promenade.
+
+You can see a statue.
+You can go south or east.
+> east
+
+> east
+
+You are in a clearing outside a chapel.
+
+The chapel stands before you, to the north.  The clearing also extends to the west, where you can make out the entrance to a path through the trees, and to the east, where you can see a small cemetery.
+
+You can see a signpost.
+You can go west, north or east.
+> use paper on chapel door
+
+> use paper on chapel door
+
+You unfold the paper and slide it under the door.
+> use screwdriver on keyhole
+
+> use screwdriver on keyhole
+
+You insert the screwdriver blade into the keyhole, and hear a soft thump as whatever was stuck in the other end falls out on the other side.
+> take paper
+
+> take paper
+
+You pull the paper back out from under the door.  On top of it is a rusty old key.
+> take chapel key
+
+> take chapel key
+
+You pick up the key.
+> unlock chapel door
+
+> unlock chapel door
+
+The chapel door is now unlocked.
+> open chapel door
+
+> open chapel door
+
+You open it.
+> north
+
+> north
+
+You are in the chapel.
+
+It smells musty and dank, like a tomb.  The darkness is absolute, dispelled only by the paltry light from your torch.  As you cast the beam around, you can see a small interior, with a few pews to the east facing the western wall, where a lectern stands with an open book upon it.  A thick coating of dust covers everything.
+
+To the south, the door leads back outside into the forest.
+
+To the north, another door leads deeper into the building.  You can make out footprints in the dust leading to and from the door.
+
+You can see a lectern, a book and some pews.
+You can go south or north.
+> lock chapel door
+
+> lock chapel door
+
+The chapel door is now locked.
+> north
+
+> north
+
+You open the door and step into into a large room.  You are unsure what it was originally used for; perhaps even living quarters for the priest?  Now, however, it has been changed into something completely different.
+
+Someone has been using the room as a workshop of some kind.  A large table in the middle of the room is completely covered in paper, ranging from newspaper extracts to scribbled sketches.  Notes and doodles lie scattered on the floor amongst piles of dusty books and notepads.  The walls are similarly adorned - maps and charts and more indecipherable notes pinned all around, across the closed shutters as though the room's occupant was comfortable working with only the artifical light of the lamp on the table.
+
+It looks like the chaotic study of an ingenious physicist... or a madman.
+
+You are in the back room of the chapel.
+
+Pictures, newspaper clippings and scribbled notes cover the floor and the walls.
+
+To the south, a door leads back into the chapel's main room.
+
+You can see a lamp, a rack of keys, a table and a map.
+You can go south.
+> x rack of keys
+
+> x rack of keys
+
+The rack of keys is on the wall opposite, and has several keys dangling from it.  Some of the hooks are labelled; you can see 'hotel', but the key is not hanging there.  One in particular does catch your eye though: a small key hanging from a hook labelled with the word 'lighthouse'.
+> take lighthouse key
+
+> take lighthouse key
+
+You take the key and put it in your pocket.
+> south
+
+> south
+
+You are in the chapel.
+
+It smells musty and dank, like a tomb.  The darkness is absolute, dispelled only by the paltry light from your torch.  As you cast the beam around, you can see a small interior, with a few pews to the east facing the western wall, where a lectern stands with an open book upon it.  A thick coating of dust covers everything.
+
+To the south, the door leads back outside into the forest.
+
+To the north, another door leads deeper into the building.  You can make out footprints in the dust leading to and from the door.
+
+You can see a lectern, a book and some pews.
+You can go south or north.
+
+A noise from the door attracts your attention.  You watch, horrified, as the handle begins to turn slowly.  As if in frustration, the door begins to rattle, and whatever is outside bangs repeatedly on the wood... but the door holds firm.  After about a minute, the hammering stops, and the only sound is the rain continuing to fall outside.
+
+You breathe a sigh of relief, thanking your foresight in locking the door from the inside.
+
+> unlock chapel door
+
+> unlock chapel door
+
+The chapel door is now unlocked.
+> south
+
+> south
+
+You are in a clearing outside a chapel.
+
+The chapel stands before you, to the north.  The clearing also extends to the west, where you can make out the entrance to a path through the trees, and to the east, where you can see a small cemetery.
+
+You can see a signpost and a piece of paper.
+You can go west, north or east.
+> west
+
+> west
+
+You are in a clearing.
+
+The clearing is large, and opens out to the east where you can see a small chapel.
+
+Standing in the centre of the clearing is the famous statue of Saint Drogo.  Despite his supposed healing abilities, he does not appear to be particularly benificent - he is depicted as a hunched, robed figure, one hand tightly clutching a staff as his snarling face peers out from beneath his cowl.  There are no rabbits here, as though they are frightened of the sculpture.
+
+To the south, a pathway leads back down the hill towards the promenade.
+
+You can see a statue.
+You can go south or east.
+> south
+
+> south
+
+You are on a path.
+
+The path is long and leads up the hill in the centre of Salvation Island.  It curves around as it ascends through the thick undergrowth.
+
+To the south the path leads down the hill back towards the promenade.
+
+To the north, the path leads towards a clearing.
+
+The rabbits seem to have hidden from the rain, which you can hear battering insistently on the canopy of leaves above your head.
+
+You can go south or north.
+> south
+
+> south
+
+You are on a path.
+The track leads to the southwest back towards the promenade, or opens out into three other pathways - one leading north deeper into the woods, the other leading east, and the other leading south where the trees thin out.
+
+You can go southwest, east, south or north.
+> east
+
+> east
+
+You are on a path.
+
+The path runs from west to east through the trees, alongside a high fence that bounds the hotel's modest 'pitch and putt' golf course to the south.  At its eastern end the path curves to the north away from the golf course.
+
+Through the fence, you can see that the course is pitted with many rabbit holes, but all of the bunnies have had the sense to take shelter from the rain.
+
+You can go west, south or north.
+> north
+
+> north
+
+You are on a path.
+
+The path leads from north to south, bounded to the west by tangled trees.
+
+To the east, the ocean is shrouded in darkness.
+
+As you swing your torch beam to the north, just before the path opens out into the large clearing where the ruins of the village stand like monuments, you are alarmed to see a group of around two dozen rabbits has congregated.  They are just sitting in the pathway, staring at you, not moving at all.  It is a very eerie sight, and again you feel irrational fear squeezing your spine.
+
+You can go south or north.
+> north
+
+> north
+
+You pick your way slowly past the rabbits.  You have no idea why they are there.  They don't seem frightened of you at all.
+
+You are in the bombed out village.
+
+It is frightening in the darkness, the misshapen husk of each wrecked building looking like a slumbering monster.
+
+To the southwest, a single building seems to have survived the bombing.
+
+To the south, a pathway leads back into the woods.
+
+To the east, a steep slope leads straight down to the sea.
+
+To the west the trees form an impenetrable barrier.
+
+To the north, another pathway leads into the forest - you can't make it out, but you can feel the looming presence of the asylum above the trees.
+
+You can see some ruins, a partially collapsed house and a signpost.
+You can go south, southwest or north.
+> north
+
+> north
+
+You are at a woodland crossroads.
+
+Pathways branch out into the trees in several directions.  To the south you can discern the outline of ruined buildings.
+
+To the east, an overgrown path leads towards a particularly large ruin.
+
+To the west, a winding path disappears into the undergrowth.
+
+To the northeast, another pathway ascends a steep hill.
+
+To the north stands the asylum.
+
+You can go south, east, northeast, west or north.
+> northeast
+
+> northeast
+
+You are on a steep hill.
+
+The path leads down towards a crossroads to the southwest, or sharply up through the trees to the northeast where you can make out the painted white cylinder of a small lighthouse.  A few rabbits are huddled together underneath a nearby bush.
+
+You can see a lighthouse.
+You can go southwest or northeast.
+> northeast
+
+> northeast
+
+You are outside the lighthouse.
+
+The simple structure stands before you, to the north.  It is painted white and seems to have escaped the attentions of the graffiti artists and other vandals, at least from the outside.
+
+On all other sides high cliffs fall away towards the sea, although the darkness prevents you from seeing the water at all.
+
+You can see a lighthouse and a signpost.
+You can go southwest or north.
+> unlock door
+
+> unlock door
+
+The door unlocks with a click.
+> open door
+
+> open door
+
+You open it.
+> north
+
+> north
+
+You are in the lighthouse.
+
+It is pitch dark inside, and somehow the darkness here feels THICKER, the light from your torch seeming to penetrate even less deeply than outside.  You can make out a spiral staircase that leads upwards around the edge of the cylindrical structure.  The room you are in is featureless except for a trapdoor set into the centre of the floor.  No... not featureless.  There is a trail of blood leading away from the trapdoor and up the stairs.
+
+You can see a spiral staircase and a trapdoor.
+You can go south or up.
+> up
+
+> up
+
+You are in the lighthouse, at the top of the staircase.
+
+A ladder leads upwards to another trapdoor, while a trail of blood leads back down the steps into darkness.
+
+You can see a spiral staircase, a ladder and a trapdoor.
+You can go down or up.
+> up
+
+> up
+
+You are at the top of the lighthouse.
+
+Darkness surrounds you on all sides, and the rain continues to lash the island with its unending misery.
+
+The lighting mechanism is before you, switched off of course, but this catches your attention for barely a moment before you notice a figure slumped against the guardrail.
+
+You can see a lighting mechanism, a slumped figure and a trapdoor.
+You can go down.
+> x slumped figure
+
+> x slumped figure
+
+The figure is a man, but his age and features are difficult to discern, as he is in incredibly bad condition - long matted hair is plastered to the sides of his filthy face, and his clothes are similarly caked with muck and gore.  One of his arms is cradled by the other, as though badly injured, and blood is seeping from many wounds.  At first you think he might be dead, but then his eyes flick open and he snarls at you, 'did you close it?  Did you close it??"
+
+You stare at him blankly as he tries to rise, before sighing and sagging back down again, unable to stand.  His eyes flit wildly from side to side in fear.
+
+"The door downstairs, you idiot.  If you left it unlocked they could be in here by now!!"
+
+Before you have time to answer, he continues.
+
+"Oh, what's the use... I'm dead anyway... if those things don't kill me this godawful rain will..."
+
+He lifts his head to the sky and smiles maniacally as the downpour continues to soak him.  He's right - he needs to get inside before he dies from exposure, never mind his injuries.
+
+"Why don't you let me help you back inside?" you ask.
+
+"Don't bother," he snaps, then coughs and spits blood.  "I'd rather die up here than see another of those... things."
+
+"What... what are they?"
+
+"I don't know... this place is... insane.  I came here to search for Hardacre..." he chuckles darkly.  "I'm a writer, you see?  I thought I'd found an interesting little mystery to dissect... but I didn't bargain for THIS."
+
+He gestures with one of his arms while the other hangs limply at his side.
+
+"But... there must be some way to get off this place??" you persist.
+
+His body is once again racked by coughing before he answers.  "There are... catacombs.  Tunnels, underneath the island.  Hardacre had found them, was exploring them when he... disappeared.  It's not hard to imagine what happened to him... pity I'll never be able to write about all of this."  His eyes mist over for a second, before his attention snaps back to you.  "Why are you here, anyway?  Are you even real??"
+
+"I'm... an urban explorer," you reply, feeling sheepish.  "I look around abandonded old buildings."
+
+He stares at you for a second, then laughs uproariously before deteriorating into another bout of hacking coughs.
+
+"Well, each to their own, I suppose.  You definitely picked the wrong place to come snooping around..."
+
+"You were saying about the tunnels?"  You press him, eager to glean any knowledge that might help you to survive.
+
+"Ah... yes... they stretch for miles, a labyrinth under the island... but if you follow the main tunnel to the west you should come out on the other side... if you can find a way into the theme park, I think there might be a boat there that you could use..."
+
+Another fit of coughing shakes his wasted body.  You wonder how long he has been trapped here...  how long since he last ate...
+
+"But... what exactly is going on here?" you persist.  "Why is the place crawling with monsters??"
+
+He grips your arm suddenly, wide eyes staring into yours.  You are suddenly frightened of this man, driven almost feral by terror... his fingernails dig into your elbow and his breath smells rotten and feverish.
+
+"I think Hardacre found out this island's secret.  I think something was buried here when the place was bombed... or at least, they thought it was..."
+
+As another bout of coughing wracks his emaciated frame, he reaches into his torn jacket.  He winces in pain as he presses a small metal key into your palm.
+
+"Here.  This will unlock the trapdoor downstairs.  Follow the tunnel west and you might have a chance.  And do me a favour... lock the door before you go."
+
+He sags backwards, sliding down to the ground.  You wish there was something you could do for him, but he seems determined to see out his remaining hours just lying here.  You hope he gets to see another sunrise.
+
+> down
+
+> down
+
+You look back at the forlorn figure of the man, and wonder if he will survive the night.  And then you consider your impending journey through the island's catacombs, and realise that you could be far closer to death than he is.  Your gaze drifts out across the black expanse of the ocean, feeling the icy drizzle on your face and wondering if it is the last time you will ever set foot outside... and with that, you turn and descend the ladder, leaving him alone in the rain.
+You are in the lighthouse, at the top of the staircase.
+
+A ladder leads upwards to another trapdoor, while a trail of blood leads back down the steps into darkness.
+
+You can see a spiral staircase, a ladder and a trapdoor.
+You can go down or up.
+> down
+
+> down
+
+You are in the lighthouse.
+
+It is pitch dark inside, and somehow the darkness here feels THICKER, the light from your torch seeming to penetrate even less deeply than outside.  You can make out a spiral staircase that leads upwards around the edge of the cylindrical structure.  The room you are in is featureless except for a trapdoor set into the centre of the floor.  No... not featureless.  There is a trail of blood leading away from the trapdoor and up the stairs.
+
+You can see a spiral staircase and a trapdoor.
+You can go south or up.
+> unlock trapdoor
+
+> unlock trapdoor
+
+The trapdoor is now unlocked.
+You open it.
+> open trapdoor
+
+> open trapdoor
+
+It is already open.
+> down
+
+> down
+
+Stifling an urge to simply scream and flee back out into the island, you steel your nerves and descend the metal ladder that is set into the wall beneath the trapdoor.  It leads you down what feel like hundreds of steps before your feet finally touch down on stone.
+
+You are in the catacombs.
+
+A cramped and uneven tunnel leads southwest.
+
+A ladder leads back up to the lighthouse, but you know that this way offers only an illusion of safety.  You must press on into the darkness ahead.
+
+You can see a ladder.
+You can go up or southwest.
+> southwest
+
+> southwest
+
+You are in the catacombs.
+
+The long, cramped tunnel leads to the north east and to the south west.
+
+You fancy that you can hear noises somewhere to the south west... or maybe that's just your fraught imagination.
+
+You can go northeast or southwest.
+> southwest
+
+> southwest
+
+You are in the catacombs.
+
+A number of tunnels intersect here.  There is unmistakeably a sound coming from the south - a strange scraping noise, like something being dragged.
+
+You remember the advice of the man in the lighthouse (it occurs to you that you never even asked his name) - he told you to head west.
+
+You can go northeast, north, south or west.
+> west
+
+> west
+
+You are in the catacombs.
+
+A long tunnel stretches from east to west.
+
+You can hear your footsteps echoing as you proceed along it.
+
+You can go east or west.
+> west
+
+> west
+
+You are in the catacombs.
+
+The corridor continues to stretch away to the west.
+
+You suddenly realise that the footfalls you can hear aren't just your own, and their echoes - there are a distinctly separate set of footsteps following you down the corridor, from the east.
+
+You can go east or west.
+In a flash, your pursuer is upon you, grunting and wailing as it leaps onto your back and wrestles you to the ground - the last thing you see are long, slender fingers reaching for your eyes before they are ripped from their sockets... mercifully your death follows soon.
+[state=Finished]
