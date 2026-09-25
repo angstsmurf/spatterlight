@@ -1,0 +1,292 @@
+Loading game...
+
+the virtual human
+
+the virtual human
+written using adrift, (c) campbell wild, 1998-2008.
+written by duncan bowsman-- an interactive fiction.
+inspired by a jørgen leth film.
+v1.00: July 2008.
+
+[disclaimer: this program is not
+affiliated with jørgen leth
+ or any related persons or
+ institutions and is not meant
+to represent the views, films,
+or work thereof.]
+
+[Press any key to continue]
+
+here is the program.
+here is the program.
+here is the text-based program.
+with it, we will define the virtual human.
+we will define the virtual human
+by answering a few questions.
+what kind of thing is it?
+how old is it?
+what can it do?
+what does such a number think and eat?
+we will look into that.
+we will investigate that.
+we shall see the virtual human briefly
+ living and eating and
+we will answer its questions.
+
+but first we must define a virtual room
+for the virtual human.
+
+[Press any key to begin]
+
+ virtual room
+this is the virtual room.
+it will house the virtual human.
+it is an empty room.
+see, the room is empty.
+there are only these words.
+these words, in this font,
+    saying these things.
+the virtual room has no boundaries
+    and is uncoloured.
+
+what colour should the virtual room be?
+
+> blue
+yes, that's right.
+the room is blue-coloured.
+
+[Press any key to continue]
+
+ virtual room
+this is the virtual room.
+here are no boundaries.
+the room is blue-coloured.
+
+how does it feel to be
+    in the blue-coloured
+    room with no boundaries?
+
+the blue room feels...
+
+> calm
+yes, that is how the blue room must feel.
+
+[Press any key to continue]
+
+ virtual room
+this is the virtual room.
+it has no boundaries and is
+    blue-coloured.
+it feels calm.
+
+now the virtual human is in the room.
+this is the virtual human
+    in the calm-feeling room.
+look at the virtual human.
+look at the ear, eyes, and mouth.
+yes, those are parts of the virtual human.
+what are some other parts of the human?
+
+is the virtual human male, female, both, or neither?
+
+> male
+yes, he is.
+the virtual human is male,
+    and has those parts.
+he is a male in a boundless,
+    blue-coloured room.
+
+[Press any key to continue]
+
+ virtual room
+the virtual human is in the boundless,
+    blue-coloured room.
+the virtual human is male.
+
+what is it like to be the virtual human?
+how must it feel?
+look at him.
+
+does the virtual human have feelings?
+
+> yes
+how does the virtual human feel?
+
+> happy
+yes, this is how the virtual human must feel.
+he must feel happy in the calm room.
+
+[Press any key to continue]
+
+ virtual room
+the calm room has not changed.
+it is blue-coloured.
+the virtual human is here.
+
+how long has the virtual human lived?
+is he old or is he young?
+
+what is the age of the virtual human?
+
+> 30
+the virtual human is 30 years old.
+
+[Press any key to continue]
+
+move in a room
+jump up & down
+shave
+eat
+speak
+
+these are some things
+    the virtual human
+    can do
+    in the virtual room.
+
+what is another verb
+    or verb phrase that also describes
+    what the perfect human can do?
+
+> sing
+yes, that's right.
+
+the virtual human can sing.
+
+look at him sing.
+
+[Press any key to continue]
+
+ virtual room
+yes, there he is:
+the virtual human in the boundless,
+    blue-coloured, calm room.
+look at him sing.
+
+who is the human?
+why is he there?
+what does he want?
+
+what does the virtual human want?
+
+> love
+yes, that must be it.
+the virtual human wants love.
+
+and the virtual human is most likely
+    to shave his...?
+
+> beard
+that's right.
+the virtual human must now begin
+    shaving his beard.
+
+[Press any key to continue]
+
+ virtual room
+now we have the beard in the virtual room
+    with the virtual human.
+there, the virtual beard.
+the virtual beard of the virtual human.
+the virtual human shaves his beard.
+see, the virtual human is shaving
+    his beard
+    in a boundless, blue-coloured,
+    calm room.
+of what is this human thinking as he
+    shaves his beard?
+
+is he thinking of the room he is in?
+
+> yes
+of course the virtual human would be
+    thinking of the virtual room.
+
+[Press any key to continue]
+
+now we will see
+what the virtual human eats
+and answer his questions.
+
+[Press any key to continue]
+
+ virtual room
+now there is a table, too, in the room;
+    a table and chairs and the human
+    and the words (in their font).
+the virtual human is going to eat
+    and to drink.
+we will see a meal.
+how does the virtual human eat?
+what does he eat?
+
+what is the virtual human's main course?
+
+> fish
+it goes without saying, the virtual human should eat fish.
+
+he wants to eat fish because he wants love, right?
+
+> yes
+yes, wanting love always
+    makes the virtual human hungry
+    for fish.
+
+  and with his fish,
+    what should the virtual human drink?
+
+> water
+indeed.
+how appropriate for a virtual,
+    happy-feeling
+    human to drink
+    water when eating
+    his fish.
+
+[Press any key to continue.]
+
+ virtual room
+the virtual room is blue-coloured
+    and completely boundless.
+the virtual human is here, sitting
+    on a chair at a table.
+the room feels calm.
+the human feels happy
+    and wants love.
+on the table: fish and water.
+the meal is served.
+
+now the virtual human will eat.
+he will eat while he thinks about
+    the room.
+he puts fish into his
+    mouth and swallows.
+he drinks water.
+now the drink is gone, too.
+
+this is a meal.
+
+is it tasty?
+
+> yes
+the virtual human makes a yummy sound.
+
+soon the words will be gone.
+no words anymore.
+
+now there must be questions.
+
+the virtual human asks you:
+
+"why is fortune so capricious?
+and why so quickly done?"
+
+what is your answer?
+
+> because
+yes, that must be the reason.
+
+today, too, i have experienced something i hope
+to understand in a few days.
+
+[Press any key to end]

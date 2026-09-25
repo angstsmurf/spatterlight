@@ -1,0 +1,202 @@
+Loading game...
+
+...
+The View Is Better Here
+An adventure by Echo
+Feedback and bug reports go to bobtherobot@hotmail.com
+
+It's still dark outside. Marina wakes briefly when the alarm rings, but once
+you silence it she rolls away and falls back asleep. The two of you had a
+fight the night before, and you didn't sleep well. You're still a little
+upset. Marina won't agree to move back in with you, into an apartment in the
+city, not even if it means your two little girls can be with their daddy
+again.
+
+You want to show her that you're still frustrated with her, but you don't
+have the heart to wake her up just to snipe at her. So instead, you remove
+your wedding ring, the first time you've ever done so, and place it in a
+teacup she left by the bed.
+
+You have something very important to do today, and you wish she could
+understand that. If she understood you, surely she would consent to move back
+in with you, so you could all be a proper family once more.
+
+Ruth's House - Bedroom
+It is a small, simply furnished room, but Ruth was very generous to let
+Marina and the girls stay here. Some of the furniture and trinkets are yours,
+but for right now you're just a visitor - your clothes, toiletries, and other
+day-to-day things are at the boarding house in Oak Cliff. There is, however,
+one thing that you just retrieved from the garage: a parcel wrapped in brown
+paper, which leans against the nightstand.
+
+Marina is still asleep in the bed.
+
+The window faces east. West is the bedroom door.
+
+> take parcel
+Taken.
+
+> w
+As you're getting ready to leave, you check your pockets. Usually when you
+visit you leave Marina some money. This morning you pull $170 out of your
+pocket. It's all you have, but that's alright. She will need it more than you
+will. She can buy everything she needs for the girls. You put it on the
+nightstand for her.
+
+You leave the bedroom, shutting the door as quietly as you can. The front
+door is a little squeaky, but that can't be helped right now. You do not
+bother to lock the door on your way out.
+
+The air is still cool, and though it will be t-shirt weather later, you're
+glad you have your jacket now.
+
+You walk down the block to Linnie Mae and Buell's house, kicking up leaves as
+you go, as a child would. Buell is going to give you a ride to work, like
+usual.
+
+Outside Linnie Mae and Buell's house
+It's a plain house, with a plain car nearby.  You see that Linnie Mae is
+looking at you through the kitchen window for a moment. As she goes back to
+her task at the sink, you walk up to the window, and just stand there and
+wait until she looks up again. When she sees you, she jumps a little, and
+puts a hand over her heart.
+
+> talk to linnie
+Linnie Mae obviosuly expected you to knock on the door, not walk right up to
+the window. You mumble "Hello," but your voice is muffled through the glass.
+Linnie Mae knows why you're here, though.
+
+"Buell!" she calls. "Your friend's here. He's waiting for his ride."
+
+Buell comes out, still looking a little sleepy. He says "Good morning,"
+cordially but with no sincerity. You say nothing in response. He cuts across
+the lawn to his car. "Ready to go?" he says.
+
+> put parcel in back seat
+You carefully place the parcel in the back seat of the car. Buell eyes it
+curiously.
+
+> get in car
+You get in the passenger's seat. Buell starts the car and you drive off.
+
+Press any key to continue.
+
+You and Buell don't have much to say to each other. He got you the job at the
+warehouse, but you hardly see him because he's in the office on the third
+floor, and you hardly go to that floor.
+
+Sometimes, Buell looks at you like he's suspicious of you. But this morning
+he's just keeping his eyes on the road. "What's in the box?" he asks.
+
+"Curtain rods," you tell him. Remember I was talking about getting some for
+my room?"
+
+"Right," he says flatly. Actually, you can't remember if it was Buell you
+were talking to about the curtain rods. You told somebody about them.
+
+It's getting lighter out. Moments ago, everything was a lovely shade of
+blue-gray; now the sun is splashing ugly colors upon the world. The
+oil-stained highway is streaked with white and yellow. The buildings are
+dirty red-brick monoliths. You liked the world better before.
+
+Buell turns off Houston Street, headed for the parking lot. You reach into
+the back seat to take the parcel.
+
+"What are you taking it into work for?" Buell asks as you both get out.
+"Aren't I dropping you off tonight?"
+
+"I'm going to take the bus," you say. You speed up your walk, to get ahead of
+Buell, so that you don't have to talk to him anymore.
+
+Press any key to continue.
+
+The morning passes uneventfully. The building is nearly empty, at lunch, and
+you know why --- obviously, on a day like today, people would want to be
+outside, on the grass, if they could manage it. But you think they're being
+foolish. The view will actually be better from in here, from the windows.
+
+At lunch, you find yourself on your way up to the sixth floor. You've stopped
+for a few minutes in the second floor snack room.
+
+Warehouse - Snack room, second floor
+A plain room with some wobbly tables and uncomfortable chairs. A refrigerator
+and counter are on your left, as you walk in. There's a Coke machine, as
+well.
+
+The nearby stairs will take you up to your destination, the sixth floor.
+
+> buy coke
+You put a dime in the machine. A bottle of Coke rolls down into the tray.
+
+> take coke
+You take the bottle from the tray.
+
+> drink coke
+You drink the Coke. It's very refreshing.
+
+> open fridge
+You open the refrigerator.  Your lunch is inside the refrigerator.
+
+> take lunch
+You take the brown paper bag with your lunch in it.
+
+> eat lunch
+You sit at a table and eat lunch alone, as usual. Carol passes by the door
+and sees you. She's very pregnant.
+
+> u
+You go upstairs.
+
+Warehouse - Sixth Floor
+It smells faintly of cooked chicken in here. Bonnie Ray probably just
+finished eating his lunch up here, enjoying the view.
+
+Cartons are stacked high; some stacks are taller than you are. Most of the
+windows are blocked by these cartons, but there is one window with a clear
+view of the plaza below.
+
+> open window
+You open the window. A breeze blows in, as warm as the air in the room. It's
+shaking the leaves on the oak tree, just a bit.
+
+> open parcel
+You open the parcel. Inside are the disassembled parts of an Italian 6.5
+millimeter bolt-action Mannlicher-Carcano rifle.
+
+> assemble rifle
+You were in the Marines. You could assemble the rifle with your eyes closed,
+if you felt like it. But right now you're keeping one eye on what you're
+doing, and one eye on what's going on in the street below.
+
+The breeze is a little cooler now, and it makes you aware of the sweat
+beading on your forehead.
+
+A dark blue Lincoln appears, inching its way along Houston Street. Inside is
+your target.
+
+> look out window
+You ease the barrel of the rifle onto the windowsill.
+
+The sun glints off the car at various angles, creating a dazzling light show
+that blinds you for a half-second at a time.
+
+> z
+Time passes...
+
+The Lincoln slows down so it may turn onto Elm Street.
+
+Now is the time.
+
+> shoot kennedy
+Pigeons scatter that you didn't know where there. You can't tell which shots
+end up where --- You're not really looking too carefully through the scope.
+It's not your job to look carefully through the scope. Perhaps you'll find
+out later, where the shots went.
+
+Your shots join the volleys echoing from the Records Building and the Grassy
+Knoll. There's nothing to do now except get out of there. You stash the rifle
+behind some cartons on the other side of the room as you flee.
+
+YOUR TASK IS COMPLETED. YOU HAVE...WON?
+
+[Press any key to end]

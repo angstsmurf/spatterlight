@@ -1,0 +1,22 @@
+# How Did I Get Into This? (hdigit1.taf) -- ADRIFT 4.00, 2008.  Two missile
+# officers and a launch button.  No task scores (MaxScore 0) and all four
+# ACT type=6 endings are v1=1 "Better luck next time." -- there is no win.
+# This takes the story's own ending: scan box, cabbage and wine (the three
+# `put X on scanner` tasks), drink the wine, answer `yes`, wait three turns
+# for Red's "Now!" and `push button` -> TASK 15 "We know we are already
+# dead."  Pushing early is TASK 14 (flubbed launch); refusing is TASK 19.
+# The blank first line answers the title <waitkey>; without it the waitkey
+# eats `take box` (the put-on-scanner then takes the box implicitly).
+
+take box
+put box on scanner
+take cabbage
+put cabbage on scanner
+take wine
+put wine on scanner
+drink wine
+yes
+z
+z
+z
+push button

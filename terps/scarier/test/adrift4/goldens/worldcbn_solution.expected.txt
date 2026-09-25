@@ -1,0 +1,805 @@
+Loading game...
+
+The World According To CBN
+
+The World According To CBN
+
+[a modern day horror]
+
+An ADRIFT game written by David Whyld
+[dwhyld@gmail.com]
+
+The latest version of this game can be founded at
+www.shadowvault.net/worldofcbn.htm
+
+Clueless Bob Newbie dreamed.
+
+He dreamed often and he liked dreaming because in his dreams, he was usually
+portrayed as a God-like figure ruling over a world in which his text
+adventures were rightly regarded as masterpieces of the highest degree. It
+made a stark contrast to the real world where, for reasons that he could
+never quite fathom, his perfect games were sneered at by all and sundry.
+Jealousy, he assumed, was the motivating force, and while he could readily
+accept that (it was only to be expected, after all, that people would be
+jealous of his genius), it still frustrated him when his latest epic - say
+Fartin': The Musical or A Day On The Toilet - was given such a shoddy
+reception. Did people think he spent forty-five minutes working hard on a
+game only to have them dismiss it as tripe?
+
+It was as shocking as it was hurtful.
+
+[MORE]
+
+But in his dreams…
+
+He dreamed of a world where every reviewer heaped praise upon his games;
+where there were temples dedicated to his finest moments; where competitions
+in which he entered were considered such a foregone conclusion that he would
+win that the only people entering them were called Bob. A world where people
+worshipped him.
+
+It was, indeed, a good dream…
+
+[MORE]
+
+Class
+The classroom is packed to capacity with eager students. So packed, in fact,
+that there aren't enough seats for them all and some are required to sit on
+the floor or lean against the wall. Of the teacher there is no sign and yet,
+strangely, the other students are well behaved and polite towards each other
+as they discuss the latest masterpiece from Mr Newbie. You're sat at your
+little desk in the corner of the room, pen in hand, waiting for the arrival
+of the teacher.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Today has been a strange day. You woke this morning with a weird, and
+somewhat blasphemous, thought: Mr Newbie's games aren't really all that good.
+
+Of course, you didn't let on to anyone that you had had that thought as not
+only was it weird and blasphemous, it's worth a death sentence if any of the
+Clueless Enforcers ever find out about it.
+
+> z
+Time passes...
+
+But the thought stayed with you as you ate your breakfast. Your father read
+the newspaper at the table and there was an article on the front page about
+Mr Newbie and his vow to write a game a day for the entirety of next year.
+Apparently the local mayor has declared next Monday a Clueless Bank Holiday
+in Mr Newbie's honour. There was a picture of Mr Newbie himself being
+worshipped by the Pope as he delivered a new game entitled: "Satan Suks!".
+
+Something about it all just struck you as… wrong.
+
+> z
+Time passes...
+
+It isn't the first time you've ever had the thought that maybe, just maybe,
+Mr Newbie isn't quite the brilliant game writer that the world believes him
+to be. You remember playing one of his games when you were four (the required
+starting age for CBN adventures) and thinking that you could have probably
+written something better yourself. Fortunately, even at that tender age you
+were wise enough not to blurt out that observation.
+
+> z
+Time passes...
+
+And then today you had the thought again. And this time it was much more
+insidious. And the more you tried to tell yourself that you were wrong, the
+more the thought came over you.
+
+Of course, you kept it to yourself. You've heard of the Heretics, people so
+insane and foolhardy that they actually believe Mr Newbie's games to be dire.
+You've heard of the prison camps where they're locked up.
+
+The door opens and in comes the teacher. Normally this would be the perfect
+opportunity for a cry of "All Hail CBN!" (the traditional greeting whenever a
+teacher enters the room) but this time the teacher isn't alone. With him is a
+hulking fellow in a blue suit and dark glasses. He looks just like a Clueless
+Enforcer you once saw in the papers.
+
+"Children," says the teacher. "This is Mr-" He pauses to check with the
+Enforcer and then goes on: "Mr Headsmasher. Er... Mr Headsmasher has reason
+to believe that there is someone in the class who doubts the brilliance of Mr
+Newbie's games."
+
+A concerted gasp of dismay goes up from everyone in the class (except you, of
+course. You're too busy trying to hide behind your massive pile of text books
+and keep out of Mr Headsmasher's line of sight.)
+
+[MORE]
+
+"Needless to say, this is a shocking revelation," the teacher goes on. "And I
+trust you will all co-operate with Mr Headsmasher in finding out who the
+guilty party is."
+
+"You tell me who he is, I'll smash 'is 'ead in!" snarls Ralph, the school
+bully. "I'll smash 'is teef outta 'is 'ead an' stomp 'em inna floor!"
+
+"Nicely put, Ralph," the teacher says with a smile, and adds to the Enforcer:
+"one of our best students."
+
+Mr Headsmasher merely grunts.
+
+"Okay, class," the teacher goes on. "Please form an orderly queue at the
+front of the room and when I give the order…"
+
+[MORE]
+
+Small Room
+What this room is normally used for you don't know but right now it's a
+torture chamber/interrogation room/holding cell all rolled into one. You're
+sat on one side of the table, Mr Headsmasher is sat on the other. The teacher
+stands at the back of the room, smoking a cigarette and looking increasingly
+nervous at the prospect of the Enforcer finding out that one of his students
+has been harbouring traitorous beliefs.
+
+You're uncomfortably aware that the chair you're sitting on is sticky with
+something that looks suspiciously like blood. You're also aware that the
+Enforcer has got a crowbar in one hand and a pen in the other.
+
+"Name!" he barks.
+
+You tell him.
+
+He nods and says, "ah-ha! You told me your name without the threat of
+physical violence. That's the mark of a guilty mind."
+
+The teacher winces.
+
+"Next question," Mr Headsmasher goes on. "What is 2 plus 2?"
+
+Surely this must be a trick question. But in a world ruled by Mr Newbie, who
+can tell?
+
+1)  "4."
+
+2)  "5."
+
+> 2
+"Good. His Lordship dislikes those with a good grasp of mathematics. Good
+mathematics have no place in His games," replies Mr Headsmasher. "Next: how
+do you spell dog?"
+
+1)  "Dog."
+
+2)  "Dogg."
+
+> 2
+"Bad spelling is the mark of a true Newbieite," says Mr Headsmasher
+approvingly. "Next: if faced with a ravenous beast from the nether
+dimensions, what is the standard course of action?"
+
+1)  "Fight it."
+
+2)  "Run away."
+
+3)  "Mr Newbie has never written a game with a ravenous beast from the nether
+dimensions in so it's a moot point."
+
+> 3
+"A better answer than the one I had written down here," says the Enforcer.
+"Interesting indeed." He makes another note. "Final question: what is worse
+than death?"
+
+1)  "Nothing."
+
+2)  "Everything."
+
+3)  "Not liking Mr Newbie's games."
+
+> 3
+"Good answer. I like the way you think."
+
+"How did he do, Mr Headsmasher?" asks the teacher eagerly, looking like he's
+wishing he'd never got out of bed this morning.
+
+"He did… amazing…" says the Enforcer. He seems to have trouble catching his
+breath. "Truly amazing. Why, I've not seen someone do this well in years. If
+I didn't know better, I'd swear he's been temporarily infused with some of
+His Lordship's divineness. He's a true Newbieite and no mistake."
+
+The teacher fairly beams. Having one of his students declared a true
+Newbieite is a glowing recommendation on his teaching skills. People have
+made life long careers based on this sort of thing.
+
+"Clearly the evildoer is not this fine upstanding student," says the
+Enforcer. Then he does a strange thing. He actually reaches over the desk and
+shakes your hand! "It's an honour to meet you and I hope you will remember me
+when you rise to the top of the Newbie Order."
+
+[MORE]
+
+The rest of the day passes in a daze. You can't concentrate on your lessons,
+you mispel the name of one of Mr Newbie's finest achievements - Da Ganstas Go
+Shopin - and then when you're called on to recite the intro to Idventure
+Quist, you have to struggle to come up with "it wuz an ot day an u deecided 2
+go on a quist 4 sum idventure". But you manage to muggle through it all.
+Somehow.
+
+When the bell rings for the end of the day, you're happy just to grab your
+stuff and hurry on home.
+
+[MORE]
+
+Your Bedroom
+Your bedroom is an untidy shambles of a room, but then you're a teenage boy
+so that perhaps comes as no surprise. After all, if it was tidy your parents
+might wonder if there was something wrong with you. From the computer to the
+TV, from the bookshelf to the desk - everything is a mess. Your bed is the
+worst of the lot and sometimes it's so untidy in here that you can't even see
+it for the junk.
+
+> x mark
+Shaped into the letter H. H for Heretic? Did you really scratch that without
+realising? Or is someone trying to frame you?
+
+You resolve to avoid eye contact with the mark in the hope that it fades
+before long.
+
+Today was worrying. Very worrying. The Enforcer might not have thought you
+were a Heretic but the idea that maybe you are has been growing in your mind.
+After all, Heretics think that Mr Newbie's games are awful. You think that Mr
+Newbie's games are awful. The similarities are alarming.
+
+> read book
+You flip open a book at random and read a few lines of text:
+
+"… an veralee did the Noobie One declaire that bad spellin wuz fine… an
+veralee did the Noobie One declaire that puzzles iz bad… an veralee…"
+
+With a groan, you shut the book.
+
+What you do now is something you're not entirely sure of. You might have
+escaped detection today, but you realise this isn't something you can keep on
+doing indefinitely. And once you leave school and start work, you're going to
+meet a lot of people whose lives are dedicated wholly to the stamping out of
+any hint of anti-Newbieism. Some of them are extremists and even take the law
+into their own hands: lynching non-Newbies on street corners before the
+Newbie Secret Police can apprehend them. You've even heard rumours of
+extremists kidnapping those they suspect of being anti-Newbieism and
+submitting them to dreadful punishments (tying them to computers and making
+them play Newbie games until they just die from sheer horror).
+
+Sooner or later, someone is going to realise just what you are and when that
+happens… well, it won't be pretty.
+
+> x tv
+It's one of the Newbie-Vision TVs that became popular around five years ago
+when Newbieism really started to take off. It has forty-seven different
+channels which display a wide variety of subjects: all of them
+Newbie-related. The Newbie Olympics is on one side with various people
+competing against each other to beat a specially designed Newbie game in
+record time (the losers are eaten by crocodiles, apparently), a programme
+about solving Newbie games on another, a third displays the source code to
+one of Mr Newbie's biggest works (it takes nearly an entire screen) and
+another…
+
+But the sight of all that Newbieism just leaves you cold. It's unnatural.
+Once you could have sat here all day and just drank in all that wonderful
+Newbieism, but today? It just doesn't appeal to you.
+
+But what to do? Run away? Hide? Throw yourself into your studies of the
+Church of CBN and hope you can convince everyone, including your own
+conscience, that you're really not a Heretic?
+
+It's a difficult decision to make.
+
+> use computer
+It looks like you've had an e-mail. You'd better check that first.
+
+> check mail
+You examine it. And see something quite shocking:
+
+"Hello, Shamus
+
+You are in grave peril. You may have escaped detection today but the agents
+of the Clueless One are as persistent as they are incompetent. Sooner or
+later, they will capture you. I am sure I don't need to say what will happen
+when they do, but it won't be pleasant.
+
+If you want to be free of this world of nightmares and live in the real
+world, meet me at the Chalker Street bridge, tonight, 11.00 pm. Come alone or
+the meeting is off.
+
+The Heretic"
+
+The Heretic!
+
+The Heretic himself is sending you e-mails! If you weren't already shaken by
+the events of the day, you certainly are now. Even knowing of the Heretic's
+existence is considered to be a sin against Newbieism. Any kind of contact
+with him is an offence punishable by instant death. If you were to meet him…
+
+[MORE]
+
+10.45 pm rolls around and you stare out of the window in the direction of the
+Chalker Street bridge. If you are to meet with the Heretic, you need to be
+leaving now. The only question is: are you going to go or not? You could well
+die tonight if the Powers That Be Writing Games discover what is going on.
+The Heretic, after all, is widely considered to be the most dangerous man on
+the planet and there are at any time literally thousands of Enforcers in
+pursuit of him. If they should happen to find him tonight…
+
+Go or not. The choice is yours.
+
+[1]  Go.
+[2]  Not.
+
+> 1
+You quickly slip on your coat and sneak out of the house. Your parents are
+reading from The Big Book Of Newbie - a famed religious tome split into
+eighty-five volumes, each of them big enough to fill in for a paving stone if
+you ever needed one - and you are able to slip past them without an alarm
+being raised.
+
+The streets of the city are a worrying place to be after the hours of
+darkness. Even the statue of Mr Newbie - five hundred feet tall and blazing
+with the lights of creation (or a series of bulbs fitted into his eyes) -
+can't completely dispel the darkness. You keep to yourself and avoid eye
+contact with everyone you meet, eager to avoid a beating from vicious toughs
+looking to make a name for themselves and curry favour from the Newbie Secret
+Police by pounding the potential anti-Newbieism out of anyone they meet. Your
+parents have often warned you about going out after dark without at least one
+CBN Games Collection in your pocket as a way of pacifying these louts but
+right now, considering who you're going to meet, you're not sure carrying
+such a thing would be a good idea.
+
+Ahead of you, the Chalker Street bridge looms.
+
+[MORE]
+
+Under The Chalker Street Bridge
+A few tramps camped out at one end of the bridge foundations are the only
+other people here and as all three of them are out cold, you're the only
+conscious person in sight. The underside of the bridge passes over you, a
+darkness against the lighter darkness of the sky. Railway tracks run under
+the bridge but the Bobway Trains stop running at 10.24 pm sharp so you're in
+little danger of being run over.
+
+> x tramp
+The tramps aren't important right now. They're asleep in any case and
+generally regarded as the lowest of the low, being, as they are, too poor to
+afford to buy Mr Newbie's games. You know there are Drop In Centres where
+they can go to play free versions of the games if they so desire, but by the
+look of things this lot have spent their time getting food instead. Even with
+your current change of heart concerning the world of Newbie, you're a little
+disgusted that these people would choose food over games.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+You become aware of the sound of footsteps and turn to see a figure emerging
+from the shadows to one side of the bridge. The figure steps into the light
+but you can still see little of it due to the cloak it wears and the cowl
+hiding its face. As it approaches, something about the way it walks, the way
+it moves, the confidence in its stride speaks volumes to you: this is a man
+who hates Mr Newbie's games with a vengeance and isn't afraid to let it show.
+This is the sort of man who would stand up in public and proudly declare that
+The Bogg Brush Advennture is 'dire'. At that moment, you admire him more than
+anyone else in the world.
+
+"You came then," he says. His voice is ordinary. You had expected that the
+voice of the Heretic would sound suitably demonic - as portrayed in the
+Newbie Headlines - but he sounds like an ordinary man in his early thirties.
+Maybe the stories about him drinking the blood of virgins and keeping a bag
+full of the hearts of dead nuns is a falsehood as well.
+
+[MORE]
+
+The Heretic reaches you and adds, "I wasn't sure whether you would make it or
+not. But are you the one I wanted or a spy sent in his place?"
+
+You aren't sure how to answer that so you don't.
+
+The Heretic smiles coldly. "I think a test is called for. Say these words:
+Clueless Bob Newbie's games are vile bilge."
+
+Even though you've been starting to believe you might secretly be a Heretic,
+hearing these words shakes you to your foundations. Casting aspersions on the
+greatness that the works of Mr Newbie is a Major Sin. Repeating what the
+Heretic has just said… well, it's so vile there probably isn't even a law
+against it.
+
+"Say them!" demands the man. "Or I leave and it ends here."
+
+[1]  Say them.
+[2]  Refuse.
+
+> z
+The Heretic awaits an answer.
+
+> 1
+It takes a couple of attempts to force the words out but you manage them in
+the end. And, afterwards, you feel strangely… good. No lightning bolt streaks
+from the sky and tears you apart, the earth doesn't open and swallow you, and
+no hordes of ravenous demons emerge from out of thin air to rend you limb
+from limb for you're your blasphemous utterance.
+
+The Heretic smiles. "Well done. Spoken like a true hater of all that Clueless
+Bob Newbie stands for. I knew I had picked rightly when I sent you that
+e-mail. I knew you had it in you." He steps towards you and claps you on the
+shoulder in a friendly manner. "I've been looking for you for a long time,
+Shamus. Someone with the necessary cynicism to realise that the world isn't
+quite what it seems and the brainpower to realise that Bob isn't the all
+powerful figure we've been led to believe."
+
+You try to take this as a compliment but calling Mr Newbie so casually by his
+first name still makes you feel like you're rubbing shoulders with a mad
+terrorist.
+
+[MORE]
+
+The Heretic laughs. "Ah, calling that fool-"
+
+You wince.
+
+"-by his first name rankles, does it? And I can tell by the way you winced
+when I called him a fool-"
+
+You wince.
+
+"-that whatever brainwashing techniques you were subjected to are still in
+force, albeit weaker in you than in anyone else I've encountered so far. You,
+at least, haven't tried to throttle me for speaking the truth."
+
+You force your hands to relax and not lock into neck-throttling claws but
+it's a struggle.
+
+"We might as well head back to my place," says the man. "We have a lot to
+talk about-" He hesitates and glances around. You feel him tense. "Damn, I
+should have expected this!"
+
+A short distance away, you catch sight of several figures who weren't there a
+moment ago. Even in the dark under the bridge, it's easy to see the CBN
+emblem emblazoned on their suits: the Beta-Smashers, the elite of the Newbie
+Secret Police! Even the Enforcers are scared of this lot.
+
+[MORE]
+
+You turn to run but the man with you doesn't seem especially worried. Instead
+of fleeing he simply says, "get gunn", and as if by magic, or something even
+more bizarre, a gun appears in his hands. He points it at the BS and fires.
+Several of them crash down while the others dive for cover.
+
+You watch the firefight with a kind of detached amusement. The BS seem to be
+downed by bullets that don't even hit them, yet effortlessly shrug off shots
+that ought to kill them. One of them falls over and bleeds... jam. It's all
+quite mad.
+
+"At least it didn't shoot flowers," the man says with a grimace before
+tossing the gun to one side. "C'mon, Shamus, we're outta here!"
+
+You expect him to take off running but instead he grabs your arm, cries,
+"open doore!" and steps through the door which opens abruptly before you.
+
+[MORE]
+
+Corridor
+Corridor.
+
+You land in the corridor with a thump that winds you.
+
+"They haven't followed us but they're attempting to," says the Heretic.
+"Considering there must be a whole twenty lines of program holding this place
+together-" he taps the wall and a bit of it bends in a way that a wall should
+never do "-it won't take them long. Gimme a sec and we'll jump somewhere
+else."
+
+> x heretic
+He appears… ordinary. Alarmingly so. You expected someone bigger, and
+tougher, and harder, and… well, more Heretic. Heretics should be ferocious
+fellows with mad eyes, wielding deadly weapons and spitting out the kind of
+language that would make a trucker blanch. This guy just seems like an
+ordinary guy. Why, if you didn't know better you'd have labelled him a text
+adventure reviewer and left it at that.
+
+> talk to heretic
+"What happened?" you cry. "How did we get from under the bridge to here? And
+how did you shoot those men? You didn't even have a gun! And we walked
+through a door that wasn't there! And-"
+
+"Later," says the Heretic. He appears to be concentrating. "I can sense the
+Beta-Smashers logging into the local NSP network. It won't take them long to
+track down where we are. We need to go again."
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The Heretic says, "got it," and then adds, "go down".
+
+You think he must be giving you an order and are just about to point out to
+him that you can't go down because there's no exit that way, when you notice
+that while there might not be an exit that way, you're still going down all
+the same. As you and the strange man sink into the floor, you have a last
+moment to cry out in horrified disbelief before everything goes black for all
+eternity.
+
+[MORE]
+
+Or about four seconds actually when you finish passing through the floor and
+find yourself…
+
+On a river bank.
+
+You blink, gasp out in dismay, trip and stumble over a frog, which lets out
+an annoyed bark and bites you on the leg, and fall flat on your face.
+
+You lie there, stars spinning around your head, in a very literal sense, and
+hear the Heretic say, "I bet you're a bit confused, aren't you?"
+
+> z
+Time passes...
+
+> x heretic
+He's sitting on a bench, and the bench is rocking back and forth.
+
+"I never knew benches rocked," you say, not sure just how it's able to rock.
+
+"In the real world, they don't," says the man.
+
+> stroke frog
+It feels slimy to the touch but something in its manner, probably the fact
+that it doesn't try to bite your hand off, indicates that it appreciate the
+gesture.
+
+> talk to heretic
+"I imagine you're a bit confused by what's going on," says the Heretic with a
+wry smile on his face. "Perhaps you're thinking you're either dreaming or
+you've gone mad. Or this is all some kind of brain tumour and none of it's
+really happening. Is that what you think?"
+
+"Kind of," you say. In truth, you haven't had the time to think about it.
+Everything's been happening so fast that you're still coming to terms with
+all the weird stuff that's happened today. "What is going on?"
+
+"Bob's little dreamworld is beginning to crumble."
+
+> talk to heretic
+"I don't understand. Bob's dreamworld?"
+
+The Heretic gestures at the world in general. "Everything you see is part of
+Bob's dreamworld, Shamus. Every little thing."
+
+You swallow. "Even me?"
+
+"No." Another wry smile. "You're a real person. As is everyone here, aside
+from the Enforcers and the Beta-Smashers and the Newbie Secret Police - that
+lot are just little Bobs running around in his dreamworld, acting as his
+guardians, lawmen-"
+
+"Agents?"
+
+The Heretic winces. "Careful. You'll have us sued for plagiarism." Before you
+can ask what he means, he goes on, "no, you're a real person and this,
+everything you see, is a dream into which you've become sucked. You're out
+there, in the real world, unconscious. You're most likely in a coma. Tell me,
+have you been here long?"
+
+"All my life."
+
+The Heretic falls silent for a moment.
+
+> talk to heretic
+"That's impossible, of course," he says.
+
+"What is?"
+
+"That you've been here your entire life. You're… what 14? 15?"
+
+"13."
+
+"Well, Bob's only been writing games for eight years now so the longest this
+little dreamworld of his has been in existence for is that long. But I don't
+imagine you've been here even that long or you'd be stark raving mad. No one
+can put up with Bob's creations for that length of time and still retain the
+ability to think, even if they're unaware of what's really going on."
+
+> talk to heretic
+"So you're really saying that my whole world doesn't exist?" you say.
+
+"That's about the size of it. Bit of a kicker, eh?"
+
+"But…" You want to tell him how unbelievable this whole thing is, how
+completely far-fetched and ridiculous and ludicrous and… but then, is a world
+in which someone like Clueless Bob Newbie is worshipped as a God any less
+far-fetched and ridiculous and ludicrous? His games, you admit, are just
+dire, and yet for reasons that no one knows, and no one even questions, he's
+effectively in charge of the entire planet. What qualifies him to be in
+charge? Why is disliking his games a Sin punishable by imprisonment or death?
+Why? Why? Why?
+
+> talk to heretic
+"Tell me what needs to be done," you say.
+
+The Heretic smiles. "Simple," he says. "We're going to shatter Bob's
+dreamworld."
+
+He stands up from the bench which continues rocking.
+
+"How do we do that?" you ask, your voice both nervous and excited at the same
+time.
+
+"Follow," says the Heretic. "And observe."
+
+He waves his arms several times - if you didn't know better, you'd swear he
+was making a rude gesture at some far off and invisible figure - then says,
+"go home", and then before you know what has happened, you look around and
+find yourself in the most feared location in the entire world.
+
+[MORE]
+
+The Home Of Clueless Bob Newbie
+Teh room is blanke save 4 a desk an a compooter. desplayed on teh compooter
+green are several lines of cod - the bu!lk of one of Bib's gums know doubt -
+while the zest of teh room is given over to a game of heaps. Hunreds,
+tousands, even smillions of them. thE walls are adorned with picta- punctu-
+pick- posters of teh man imself, is chubby face peering MANIACIALYL from each
+of themorways leads away to the west and west.
+
+"Ready yourself," says the Heretic. "He'll be here soon and we don't have a
+lot of time."
+
+"Ready myself how?" you say. "And how come there are two wests in this room?
+Isn't that impossible?"
+
+"You're in the mind of CBN here, Shamus," the Heretic says. "Nothing is
+impossible." He pauses and then adds, "except maybe writing a decent game."
+
+> talk to heretic
+"Now what?" you ask. "How do we 'shatter Bob's dreamworld'?"
+
+The Heretic frowns. "I'm not entirely sure."
+
+You gape at him. "You mean you brought us here but you don't know how to
+defeat him?"
+
+This time the Heretic shrugs. "He's the world's worst game writer. How hard
+could it be?"
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> help
+u dunt need elp
+
+(is the standard thing you'd see in an average CBN game, perhaps with need
+spelt as kneed in earlier games, and this is what you see now. Unfortunately,
+this is one command CBN never implements.
+
+Why?
+
+Opinion on the subject is divided between:
+
+a) it never occurred to him
+b) he doesn't think it's necessary
+c) he expects you to sweat blood to finish his games and including help
+commands would make them too easy
+
+but most people assume the answer is really
+
+d) if you're daft enough to be playing a CBN game, you need help of a far
+more literal kind than a text adventure could ever provide.)
+
+> z
+Time passes...
+
+"He's here."
+
+You hear the tension in the Heretic's voice even as the northern door (which
+wasn't even here a moment ago) suddenly flies open and in strides…
+
+Clueless Bob Newbie himself.
+
+"Still at large, eh, Smiffy?" says Bob, staring at the Heretic with mad eyes.
+"Damnit, you'll appreciate the genius of my games if I have to kill you
+first."
+
+"Kill me and I'll never appreciate them," says the Heretic.
+
+Bob pauses, podgy face twisted into a grimace as he tries to work this out.
+Then he scowls. "Killing you is fine by me." He raises a hand and cries,
+"gett magik sword!" and out of nowhere a shimmering blade appears.
+
+The Heretic also gestures. "Get gunn!" he cries and, sure enough, a gun
+appears in his hands.
+
+The two of them begin to circle around each other.
+
+> help
+You ask for help.
+
+"Help?" cries Bob. "Help!?! You must be joking! Do you really think I'd
+implement a HELP command here-"
+
+And then, without warning, a piano falls from the ceiling and crushes him
+into the floor with an horrendous crash.
+
+A few seconds of silence descend on the room, broken only by your frantic
+breathing, the Heretic's gasps... and the dawning realisation that the room
+description has mysteriously fixed itself. Whereas before you saw
+
+Teh room is blanke save 4 a desk an a compooter. desplayed on teh compooter
+green are several lines of cod - the bu!lk of one of Bib's gums know doubt -
+while the zest of teh room is given over to a game of heaps. Hunreds,
+tousands, even smillions of them. thE walls are adorned with picta- punctu-
+pick- posters of teh man imself, is chubby face peering MANIACIALYL from each
+of themorways leads away to the west and west.
+
+you now see
+
+The room is blank save for a desk and a computer. Displayed on the computer
+screen are several lines of code - the bulk of one of Bob's games no doubt -
+while the rest of the room is given over to heaps of games. Hundreds,
+thousands, even millions of them. The walls are adorned with posters of the
+man himself, his chubby face peering maniacally from each of them. Doorways
+leads away to the east and west.
+
+[MORE]
+
+"What happened?" you ask. "That... piano..."
+
+"It seems Bob implemented a help command after all," says the Heretic with a
+frown. "How... unusual of him."
+
+"But... but it dropped a piano on his head..."
+
+"Yes." The Heretic nods. "I guess he didn't quite know what a help should do
+so he compensated by turning it into a piano dropping command instead. I
+suspect that..."
+
+As he speaks, the Heretic's voice begins to fade. So does the Heretic. And
+the room around you.
+
+You try to grab for him, wondering if this is some kind of last trick of
+Bob's, but the Heretic smiles. "You're free, Shamus. Free. Bob's dreamworld
+is crumbling now that he's been temporarily disabled."
+
+Temporarily...?
+
+"What happens to me now?" you ask as a wind picks up and starts to carry you
+away.
+
+"Now?" The Heretic laughs. "Now you go back to the land of the living. I-"
+
+Whatever else he is planning to say is lost as the room and everything in it
+fades away and you are pulled away and lifted up and...
+
+[MORE]
+
+You are floating in a void.
+
+Normally this would be a bad sign, because a void (or avoid as he often
+spells it) is how Bob often ends his games... even the ones that end in the
+unusual state of the player not getting killed.
+
+But not to fear because that isn't the case here. You've won. You're free of
+Bob's dreamworld. You're on your way back to the real world.
+
+Give yourself a well-earned pat on the back and, whatever the real world is
+like when you get there, it's almost certain to be better than this one.
+
+(For anyone interested, the command games will list all the CBN titles
+referred to in this game. Just so you can avoid them :) )
+
+> quit
+The only command that really works here is RESTART.
+
+> y
+The only command that really works here is RESTART.
+
+>

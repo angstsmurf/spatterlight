@@ -1,0 +1,95 @@
+Loading game...
+
+How Did I Get Into This?
+
+"How did I get myself into this?"
+
+Register One
+You've been in a grocery store.  You know what this place looks like.  Sigh.
+
+I spend most of my day here, putting stuff on the scanner, then putting it
+into bags.  Oh, it's so dull...
+
+There's a customer here.  Behind them, a line of customers.  Need I say more?
+
+... oh, and this cereal box.
+
+> take box
+I take the cereal box.
+
+> put box on scanner
+I put the cereal box onto the scanner.  *boop!*
+
+I drop it into a bag.  A cabbage rolls at me from the conveyor belt.
+
+The customer goes, "Ahem," and half-smiles at me.  Impatient prick.
+
+> take cabbage
+I take the cabbage.
+
+> put cabbage on scanner
+I put the cabbage onto the scanner.  *boop!*
+
+I drop it into a bag.  Next is a bottle of wine.
+
+> take wine
+I take the bottle of wine.
+
+The customer is visibly foot-tapping, now.  Hold yer horses, dang it.
+
+> put wine on scanner
+I put the bottle of wine onto the scanner.  *boop!*--
+
+At Night
+Ugh, my head.  I know I've already had too much.  How do I get myself into
+these things?
+
+"Hurry up and kill that bottle, man.  We got places to go!"
+
+> drink wine
+Bottoms up.
+
+"Chug, chug, chug!"
+
+"Done."  I wipe my face.  Ugh... this really was their cheapest stuff.
+
+"You must be so frickin' wasted right now, man... you sure you still wanna
+drive?"
+
+> yes
+Missile Control
+All that matters here is the big, red button you don't want to push.  Red
+hunches over the security panel, poised to turn the key.
+
+"You're shitting me.  They said yes?"
+
+"Orders from up top.  This is not a drill."
+
+"I never thought this would happen... how did I get into this?"
+
+"No time to ponder it now, soldier.  You know your duty.  When I turn this
+key... you PUSH THAT BUTTON."
+
+> z
+Time passes...
+
+"Ready..."
+
+> z
+Time passes...
+
+"Set..."
+
+> z
+Time passes...
+
+"Now...!"
+
+> push button
+Without hesitation, I push the button.  I can only hope I won't be among the
+many megadeaths listed.  I share an uncertain look with Red.
+
+We know we are already dead.
+
+Better luck next time.
+[Press any key to end]

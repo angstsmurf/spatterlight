@@ -1,0 +1,50 @@
+# A Day In Toronto (toronto.taf) -- ADRIFT 3.90.  A sightseeing sandbox: 20
+# rooms, 3 tasks (ask waiter about fries/salad/burger), no scoring and no
+# ending of any kind, so this is a tour, not a win.  Lines 1-2 answer the
+# name and gender prompts.
+# Parser notes (all Runner-faithful, not bugs):
+#  - `ask waiter about burger` prints "huh?" but DOES put the burger in the
+#    room: a 3.9 task with no completion text answers DontUnderstand.
+#  - Objects match by their FULL raw name: `x bird` / `take uniform` fail,
+#    `x big fake bird` / `take astronaught uniform` work.  The tower pamplet
+#    is authored "tower pamplet " (trailing space) and cannot be referenced
+#    at all; the restaurant pamplet is the takeable one.
+#  - "Medevil times" (NW of Wallmart) shows its full show text only while you
+#    carry the pass from the walkway.
+Bob
+male
+u
+u
+d
+d
+n
+take pass
+w
+s
+w
+ask waiter about burger
+eat burger
+w
+take restaurant pamplet
+read restaurant pamplet
+s
+in
+take toy truck
+nw
+ne
+e
+in
+u
+d
+out
+w
+n
+d
+in
+take astronaught uniform
+wear astronaught uniform
+out
+u
+u
+w
+x big fake bird

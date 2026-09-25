@@ -1,0 +1,54 @@
+# The World According To CBN (The_World_According_to_CBN.taf) -- ADRIFT 4.00,
+# a Clueless Bob Newbie spin-off.  Story-on-rails: no scoring is shown
+# ("In a CBN name, no one keeps score"), no ACT type=6 -- the win is the move
+# into room 8 [<victory>] by TASK 111 `help` in Bob's home once the fight is
+# on.  The row sets SCR_SKIP_WAITKEY=1 like the CBN.taf/cbn2.taf rows, so
+# every [MORE] pause is transparent and no blank lines are needed.
+# The chain:
+#   z x5              class timer; the Enforcer arrives at 5.
+#   2 2 3 3           answers; each shifts the knowledge var.  Keep it below
+#                     2 (TASK 40) or at most 5 (TASK 39) -- 6+ is death.
+#   check mail, 1     the Heretic's e-mail, then "Go".
+#   z z z, 1          wait under the bridge for him, then say the words.
+#   z z               the corridor timer drops you to the river bank.
+#   talk to heretic x5  TASK 92 takes you to Bob's home.
+#   talk, z z, help, z, help  Bob arrives on the 1st help; the 2nd (bob
+#                     timer >= 4) drops the piano -- TASK 111, victory.
+z
+z
+z
+z
+z
+2
+2
+3
+3
+x mark
+read book
+x tv
+use computer
+check mail
+1
+x tramp
+z
+z
+z
+1
+x heretic
+talk to heretic
+z
+z
+z
+x heretic
+stroke frog
+talk to heretic
+talk to heretic
+talk to heretic
+talk to heretic
+talk to heretic
+talk to heretic
+z
+z
+help
+z
+help

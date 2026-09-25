@@ -10211,6 +10211,36 @@ monstermirror_solution.txt|monster.taf|So you figured it out|
 taot3_solution.txt|TAOT3.taf||
 # Last Knight: abandoned opening, no tasks; answers the name prompt only.
 lastknight_solution.txt|Last_Knight.taf||
+# Govard. Zabvenie part 2 (3.90, Russian): WIN 22/22. Lion/gargoyle/bear fights
+# depend on the xoshiro stream (enemy picks player or Romin; Romin's death ends it);
+# the two waits before the bear matter -- re-derive if anything earlier changes.
+govard2_solution.txt|Govard2.taf|готов к решающей битве|
+# NAT_01 (Nathaniel Peck, case 1; 3.90, Russian): WIN 18/18. Line 1 is blank for
+# the intro waitkey.
+nat01_solution.txt|NAT_01.taf|Вы прирожденный детектив|
+# ReLife v1.14 (3.90, Russian): WIN 400/400. Line 1 answers the name prompt; 6 waits
+# before arming the bomb (safe window 3-12 under xoshiro), then exactly 9 moves out.
+relife_solution.txt|Relife.taf|Это естественный человек|
+# The World According To CBN: Clueless Bob spin-off, no scoring. WIN = TASK 111
+# moves you to the <victory> room; class answers need the waitkey skip.
+worldcbn_solution.txt|The_World_According_to_CBN.taf|a well-earned pat on the back|SCR_SKIP_WAITKEY=1
+# How Did I Get Into This?: all four endings are losses -- no win exists; the
+# route takes the story ending (TASK 15). Blank line 1 answers the title waitkey.
+hdigit1_solution.txt|hdigit1.taf||
+# A Day In Toronto (3.90): sandbox, no score/events/ending -- tour of all 20 rooms.
+toronto_solution.txt|toronto.taf||
+# The View Is Better Here: WIN. Two blanks after `get in car` (drive waitkey +
+# a real turn); with one, `buy coke` is eaten.
+viewbetter_solution.txt|the_view_is_better_here.taf|YOUR TASK IS COMPLETED. YOU HAVE...WON?|
+# The Virtual Human: one-word questionnaire, WIN (TASK 127); each of the 12 blanks
+# answers a [Press any key] waitkey.
+virtual_solution.txt|virtual.taf|to understand in a few days.|
+# Hammurabi: seed-locked route under SCR_RNG=xoshiro; wins at year 10, rating 231
+# (best final-year choice for this route, not a proven maximum).
+hammurabi_solution.txt|hammurabi.taf|Congratulations, Hammurabi!|
+# Space Mercenary v0.1: menu demo, no score, empty WINTEXT, all 27 EndGames are
+# failures; route ends at the unhandled Lork audience menu. RNG-tuned.
+smercenary_solution.txt|smercenary.taf||SCR_RNG=xoshiro
 EOF
 
 

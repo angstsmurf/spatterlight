@@ -1,0 +1,43 @@
+# Hammurabi (hammurabi.taf) -- ADRIFT 4.00, Ron Moore, after the Merrill/Ahl
+# BASIC game.  Each year: 1a-1e buy 0/25/50/75/100 acres, 2a-2e sell them,
+# 3a-3e guard strength (0/1/2/3/5 bushels per citizen).  Win (TASK 35) is
+# people > 200 AND acres >= 1250 at a year's report; losing = more than a
+# third of the people hungry (impeached, ACT type=6 v1=2).  MaxScore 0.
+# Population only grows 10% a year, so the win cannot come before year 9-10;
+# the whole difficulty is a grain buffer that survives the bad harvests.
+# Found by beam search under SCR_RNG=xoshiro (the harness default) -- it is
+# a seed-locked route: ANY change to the RNG stream voids it.  Wins at the
+# end of year 10.  Years 1-9 are the first beam-search win; the final
+# year was then swept (25 buy/guard combinations): 1e 2a 3b rates 231
+# (100 acres bought, and any guard > 0 wins 65 acres from the barbarians)
+# against 190 for the beam's 1a 2a 3a.  The rating is not a game score.
+1c
+2a
+3b
+1b
+2a
+3e
+1b
+2a
+3a
+1a
+2c
+3e
+1c
+2a
+3a
+1e
+2a
+3a
+1c
+2a
+3a
+1a
+2e
+3b
+1a
+2a
+3a
+1e
+2a
+3b

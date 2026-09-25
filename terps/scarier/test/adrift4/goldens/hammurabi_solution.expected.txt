@@ -1,0 +1,353 @@
+Loading game...
+
+HAMMURABI
+
+by Ron Moore (based on Rick Merrill and David Ahl's version in BASIC)
+
+Try your hand at governing the ancient city of Sumeria!  Through shrewd use
+of your primary resources, land and grain, you must keep your people happy
+and steadily increase your land holdings.  To win, Sumeria's population must
+exceed 200 and its acreage must exceed 1250.  Your population, acreage, and
+grain are displayed at the bottom of the screen.  For management notes, use
+the 'look' command.
+
+Your farmers work tirelessly, planting 1000 acres for the coming harvest.
+
+Land is valued at 25 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1c
+You buy 50 acres at a cost of 1250 bushels of grain.
+
+Land is valued at 25 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3b
+You allot 100 bushels of grain to the defense effort.
+
+Your people consumed 1650 bushels of grain.
+17 people went hungry, 9 people starved.
+Your farmers harvested 4200 bushels this year!
+0 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 323 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 910 acres for the coming harvest.
+
+Land is valued at 20 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1b
+You buy 25 acres at a cost of 500 bushels of grain.
+
+Land is valued at 20 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3e
+You allot 455 bushels of grain to the defense effort.
+
+Your people consumed 1820 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 3731 bushels this year!
+9 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 262 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1000 acres for the coming harvest.
+
+Land is valued at 22 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1b
+You buy 25 acres at a cost of 550 bushels of grain.
+
+Land is valued at 22 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3a
+You allot 0 bushels of grain to the defense effort.
+
+Your people consumed 2000 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 3100 bushels this year!
+10 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 161 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1100 acres for the coming harvest.
+
+Land is valued at 23 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1a
+You buy 0 acres at a cost of 0 bushels of grain.
+
+Land is valued at 23 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2c
+You sell 50 acres for 1150 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3e
+You allot 550 bushels of grain to the defense effort.
+
+Your people consumed 2200 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 5170 bushels this year!
+11 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 425 bushels are lost.
+Your guards march into enemy territory, seizing 55 acres of land from the
+barbarians!
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1105 acres for the coming harvest.
+
+Land is valued at 21 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1c
+You buy 50 acres at a cost of 1050 bushels of grain.
+
+Land is valued at 21 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3a
+You allot 0 bushels of grain to the defense effort.
+
+Your people consumed 2420 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 5636 bushels this year!
+12 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 362 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1155 acres for the coming harvest.
+
+Land is valued at 19 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1e
+You buy 100 acres at a cost of 1900 bushels of grain.
+
+Land is valued at 19 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3a
+You allot 0 bushels of grain to the defense effort.
+
+Your people consumed 2660 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 7392 bushels this year!
+13 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 1067 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1255 acres for the coming harvest.
+
+Land is valued at 20 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1c
+You buy 50 acres at a cost of 1000 bushels of grain.
+
+Land is valued at 20 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3a
+You allot 0 bushels of grain to the defense effort.
+
+Your people consumed 2920 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 5271 bushels this year!
+15 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 271 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1305 acres for the coming harvest.
+
+Land is valued at 23 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1a
+You buy 0 acres at a cost of 0 bushels of grain.
+
+Land is valued at 23 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2e
+You sell 100 acres for 2300 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3b
+You allot 161 bushels of grain to the defense effort.
+
+Your people consumed 3220 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 8352 bushels this year!
+16 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 581 bushels are lost.
+Your guards march into enemy territory, seizing 94 acres of land from the
+barbarians!
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1299 acres for the coming harvest.
+
+Land is valued at 16 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1a
+You buy 0 acres at a cost of 0 bushels of grain.
+
+Land is valued at 16 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3a
+You allot 0 bushels of grain to the defense effort.
+
+Your people consumed 3540 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 4676 bushels this year!
+18 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 1145 bushels are lost.
+
+A new year dawns...
+
+Your farmers work tirelessly, planting 1299 acres for the coming harvest.
+
+Land is valued at 18 bushels per acre.  How many acres do you wish to buy?
+
+1a) 0  1b) 25  1c) 50  1d) 75  1e) 100
+
+> 1e
+You buy 100 acres at a cost of 1800 bushels of grain.
+
+Land is valued at 18 bushels per acre.  How many acres do you wish to sell?
+
+2a) 0  2b) 25  2c) 50  2d) 75  2e) 100
+
+> 2a
+You sell 0 acres for 0 bushels of grain.
+
+What guard strength would you prefer?  The value in parentheses is the upkeep
+cost in bushels per citizen.
+
+3a) none (0)  3b) minimal (1)  3c) moderate (2)  3d) strong (3)  3e) dominant
+(5)
+
+> 3b
+You allot 195 bushels of grain to the defense effort.
+
+Your people consumed 3900 bushels of grain.
+0 people went hungry, 0 people starved.
+Your farmers harvested 5456 bushels this year!
+20 settlers come to your city in search of a better life.
+The rats feast in the storehouse! 373 bushels are lost.
+Your guards march into enemy territory, seizing 65 acres of land from the
+barbarians!
+
+A new year dawns...
+
+Congratulations, Hammurabi!  You have proven to be an able ruler.  Your
+efficiency rating is 231.  Live long and prosper!!
+
+[Press any key to end]

@@ -1,0 +1,32 @@
+# The Virtual Human (virtual.taf) -- ADRIFT 4.00, Duncan Bowsman, July 2008,
+# after a Jorgen Leth film.  A questionnaire: the program asks, you answer in
+# one word.  No task scores (MaxScore 0); the one ACT type=6 v1=0 is the win.
+# BLANK LINES ARE LOAD-BEARING -- every blank answers a [Press any key to
+# continue] <waitkey>; delete one and the next answer is eaten by the pause.
+
+
+blue
+
+calm
+
+male
+
+yes
+happy
+
+30
+
+sing
+
+love
+beard
+
+yes
+
+
+fish
+yes
+water
+
+yes
+because

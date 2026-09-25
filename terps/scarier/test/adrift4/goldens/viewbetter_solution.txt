@@ -1,0 +1,27 @@
+# The View Is Better Here (the_view_is_better_here.taf) -- ADRIFT 4.00, by
+# Echo.  Dallas, 22 Nov 1963, as Oswald.  No task scores (MaxScore 0); one
+# ACT type=6 v1=0 (the shot) and one v1=1 (TASK 44, the miss).
+# The two blanks after `get in car` are the <waitkey> of the drive and the
+# turn it hands back; with one blank `buy coke` is eaten.  `assemble rifle`
+# starts the motorcade event; `look out window` + `z` bring the car into
+# view ("Now is the time") and `shoot kennedy` ends it.
+take parcel
+w
+talk to linnie
+put parcel in back seat
+get in car
+
+
+buy coke
+take coke
+drink coke
+open fridge
+take lunch
+eat lunch
+u
+open window
+open parcel
+assemble rifle
+look out window
+z
+shoot kennedy

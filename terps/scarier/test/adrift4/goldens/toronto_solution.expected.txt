@@ -1,0 +1,228 @@
+Loading game...
+
+a day in toronto
+Oh boy! a day in toronto sounds fun but its not all its cracked up to be
+there is alot of dangers in such a big city!
+Please enter your name:
+
+> Bob
+Please choose the player's gender (male or female):
+
+> male
+
+Cn tower entrance
+you look around and see all the people here just to seethis tall building you
+had better hurry up its your turn to go in the elevator type up to go up or n
+to go  Little girl, Little girls mom and Teenager are here.
+
+> u
+You move up.
+
+Watch deck
+wow your high you see some great places to visit from here such as the R.O.M
+and the science center  Tall man is here.
+
+> u
+You move up.
+
+Space deck
+the glass floor! and also you can look off of the side of the tower normally
+but today there is work going on out side so you cant not many people are
+here  Teen age girl is here.
+
+> d
+You move down.
+
+Watch deck
+wow your high you see some great places to visit from here such as the R.O.M
+and the science center  Tall man is here.
+
+> d
+You move down.
+
+Cn tower entrance
+you look around and see all the people here just to seethis tall building you
+had better hurry up its your turn to go in the elevator type up to go up or n
+to go  Little girl, Little girls mom and Teenager are here.
+
+> n
+You move north.
+
+A walk way
+it goes back to the city  Also here is a pass.  Homeless man is here.
+
+> take pass
+You pick up the pass.
+
+> w
+You move west.
+
+Gift shop
+a nice little gift shop but prices are high there is a cheep teddy beaar but
+is 40$!
+
+> s
+You move south.
+
+Bank
+standing tall and proud it looks new very new comapred to alot of stuff in
+this city but you dont have an acount there this is the royal bank your
+acount is at the bank of montreal
+
+> w
+You move west.
+
+Restaurant
+its a very small building not many people are here you think maby a Mcdonalds
+would be better untill you smell the nice smell of burgers  Waiter is here.
+
+> ask waiter about burger
+huh?
+
+> eat burger
+You eat the burger.  Not bad, but it could do with a pinch of salt!
+
+> w
+You move west.
+
+Geust imformation center
+there is alot of pamplets here but nothing much you can takee some pamplests
+Also here is a tower pamplet  and a restaurant pamplet.
+
+> take restaurant pamplet
+You pick up the restaurant pamplet.
+
+> read restaurant pamplet
+some of the best places in the city to eat are: the cn tower restaurant,
+medevil times, old spegettie factory,
+
+> s
+You move south.
+
+Wallmart entrance
+a tall doorway entrance is infront of you
+
+> in
+You move in.
+
+Wallmart
+wow look at all the toys  Also here is a toy light saver, a toy truck, a toy
+gun, a wild west toy set and a blanket.
+
+> take toy truck
+You pick up the toy truck.
+
+> nw
+You move northwest.
+
+Medevil times dinner and acting
+as soon as you walk into the door you see a kinght get knocked off of his
+horse then and archer runs up and goes on one knee with his bow at his side
+he asks if you have made reservations you tell him you have no reservations
+but you hace a pass to watch the acting. The first fight ended up being 15
+miniuts! two footmen duled each other and then one finaly lost!, the next one
+was just a lance charge and one kingt flew about 5 meters off of his horse!
+After that 10 foot men walked on stage and it was five vrs five one man s
+armor wrecked and he surendered the others on the team surenderded after 30
+miniuts of fighting! for the rest of the hour you had there was 5 knights in
+a free for all!
+
+> ne
+You move northeast.
+
+Front doors of science center
+There is nothing of interest here.
+
+> e
+You move east.
+
+Small apartment building
+a very small run down apartment building
+
+> in
+You move in.
+
+Stairs
+a long flight of stairs verry run down and the sound old
+
+> u
+You move up.
+
+Top floor of small apartment building
+a creepy floor no sound except a few televisions
+
+> d
+You move down.
+
+Stairs
+a long flight of stairs verry run down and the sound old
+
+> out
+You move out.
+
+Small apartment building
+a very small run down apartment building
+
+> w
+You move west.
+
+Front doors of science center
+There is nothing of interest here.
+
+> n
+You move north.
+
+Science center lobby
+wow there is all kinds of doors to go into! such as space and time and also
+the science arcade might be cool what about electricity or sports its all
+here to vist in the science center!  Science center employe is here.
+
+> d
+You move down.
+
+Space section
+cool the space section go into the fake space shuttle to dont forget
+
+> in
+You move in.
+
+Fake space shuttle
+WOW A FAKE SPACE SHIP TO PLAY IN!  Also here is a astronaught uniform.
+
+> take astronaught uniform
+You pick up the astronaught uniform.
+
+> wear astronaught uniform
+You put on the astronaught uniform.
+
+> out
+You move out.
+
+Space section
+cool the space section go into the fake space shuttle to dont forget
+
+> u
+You move up.
+
+Science center lobby
+wow there is all kinds of doors to go into! such as space and time and also
+the science arcade might be cool what about electricity or sports its all
+here to vist in the science center!  Science center employe is here.
+
+> u
+You move up.
+
+Science arcade
+alot of science games nothing fun to do here keep going
+
+> w
+You move west.
+
+Nature section
+There is nothing of interest here.
+
+> x big fake bird
+wow cool a fake bird it looks just like a real one but huge!
+
+> quit
+Do you really want to quit? [Y/N]

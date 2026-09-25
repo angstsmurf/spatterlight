@@ -1,0 +1,720 @@
+Loading game...
+
+Space Mercenary
+
+Space Mercenary
+
+*        *        *        *        *        *        *        *
+
+Space Mercenary
+Written using ADRIFT 4 (c) Campbell Wild 1997-2010.
+Written by Duncan Bowsman-- a science fiction story.
+v.0.1: 13 April 2013.
+
+*        *        *        *        *        *        *        *
+
+Please enter the number of the option you wish to perform.
+
+        1) Start the game.
+        2) Read the rules.
+
+ADRIFT Runner users should make sure to maximize their window of play.  Map
+and graphics screens will fit best at the right-hand side of the screen, but
+maps will not be used for most areas.
+
+You may read further descriptions of some things on screen in bold, capital
+letters.  For example, type ABOUT in order to view the credits for this game.
+
+> 1
+
+PROLOGUE
+It is the Galactic Civil Year 3937, in a galaxy nowhere near Earth.  The
+league of solar systems known as the Third Galactic Union hasn't even been
+dreamed.  It's every planet and sentient being for itself as the Third Galaxy
+writhes in chaotic misery.
+
+Luckily, you thrive on chaos.  You wouldn't be a man of your times if you
+didn't.  You are Greph Quik, and you have long made your living in shades of
+moral grey.  No job is too dirty for you, so long as you can clean the money.
+
+Last month you finished hunting down and delivering the crew of the I.S.C.
+Dog's Head to a mob boss on A-48.  The merits you earned have all but spent
+themselves since then.  You wouldn't mind getting, for once, a fat paycheck
+that allows you to kick back for a few months, maybe even a year or two at a
+time.  These petty scores are for the birds.
+
+Upon hearing hints of new developments between the warring planets Ghlarsk V
+and Zo, you raced over to their sector of the galaxy.  The score from a
+planetary government contract could be just what you're looking for...
+
+[press almost any key to begin]
+
+I.S.C. Dead-Eye, in open space...
+I.S.C. Dead-eye is a type X vessel suitable for habitation by up to three
+crew members plus cargo.  She's fitted with solar ray amplifiers, meaning she
+can travel at hyperlight speeds.  The Dead-eye is one of the rare instances
+of a type X interstellar craft, and extremely precious to someone such as
+yourself.  However, due to her size she is somewhat vulnerable against any
+other craft of the size traditionally made from ULT.
+
+Panels of lights blip readily in the cockpit of your SHIP.
+
+The defense controls close at hand are currently deactivated, as there is no
+threat nearby.
+
+Scanners currently show available landing coordinates at GHLARSK V and ZO.
+
+----------
+Your ship's diagnostic sensors currently read:
+
+     HULL: 100%
+     ENGINE: 100%  (Boost: 90%)
+     LIFESYS: 100%
+     LW: 100%       <1 laser cannon(s)>
+     RW: 100%       <1 laser cannon(s)>
+
+----------
+You have the following cargo onboard:
+
+0 piece(s) of scrap metal
+0 crystal(s)
+0 schematic(s)
+
+----------
+Equipped special: SECRET COMPARTMENT
+----------
+
+      Will you...?
+
+        1) Land at...
+        2) Scan for planets.
+        3) Manual warp pattern input.
+        4) Change special.
+
+> 1
+You punch in the coordinates for...
+
+        1) Ghlarsk V.
+        2) Zo.
+        3) Never mind.
+
+> 1
+
+Ghlarskean Pre-Orbital Checkpoint
+En route to Ghlarsk V, a magnetograviton field seizes your spaceship and
+pulls it into queue.  A blockade of tall GHLARSKEAN WARSHIPS bars your way
+onto the planet's surface.  You don't know any way to disengage or overcome
+the magnetic lock.  A few Ghlarskean patrols from out the wall of starships
+scan along the otherwise trail of ships held by the MAGNETOGRAVITON RAY.  The
+ships are all inconspicuous-- inconspicuous except for you, maybe, since you
+aren't carrying an INTERPLANETARY PASSCARD.
+
+While you wait, many ships ahead of you are being subjected to searches.  In
+one of them, the rigorous nature of the search seems to badly upset a ship's
+life systems.  Ghlarskean police exit it empty-handed.
+
+          Will you...?
+
+        1) Try to escape magnetolocks, return to open space.
+        2) Question authorities when they arrive.
+        3) Allow the search, even if it hurts your ship.
+        4) Change special.
+
+> 3
+You tell yourself you've heard enough horror stories about Ghlarskean orbit
+patrols to keep your curiosity in check, and you sit tight.
+
+[press almost any key to continue]
+
+Ghlarskean police forces crash through your air lock in a staggered marching
+order, one at the head of the group barking efficient orders.  They begin a
+rough, but orderly inspection of your cargo bay.  They question you at length
+over your ship (legally yours), purpose of visit ("just visiting"-- of
+course), and comb over the history of your merit account.
+
+Fortunately, you know how to give your merits a clean facade.  Unfortunately,
+the Ghlarskeans still have their suspicions and have received orders to
+dismantle the life systems of any ship which is suspected of storing illegal
+contraband, forcefully if necessary. Their captain of the patrol, frustrated
+after a long cycles of turning up nothing with his quota looming, decides
+force is necessary.
+
+In their fruitless search, they mangle Dead-eye's life systems.
+
+*        *        *        *
+
+Ship's lifesys -25%!
+
+[press almost any key to continue]
+
+After finding nothing, the police exit your ship and provide you with
+clearance to land at the first non-military spaceport... which turns out to
+be hard enough to find amidst all those storing warships.
+
+However, you arrive at the spaceport without further incident.
+
+[press almost any key to continue]
+
+Ghlarsk V, Spaceport
+Ghlarskean territories give pad priority to bigger military ships; any vessel
+lower than type O gets stuffed into these cramped stalls.  Your SHIP sits in
+a stall that's little more than a decrepit garage-- it would take a generous
+stretch of the imagination to call it a hangar.  The place is smeared with
+fishy-smelling lubricants and scorched by engine fire.  A Ghlarskean
+ATTENDANT sits on an old drum of cleaning fluid, wiping down equipment.
+
+      Will you...?
+
+        1) Head out to the Square.
+        2) Pay for ship maintenance.
+        3) Purchase interplanetary passcard (100 merits).
+        4) Board your ship.
+
+> 1
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 1
+
+How do you intend to hunt for rumors?
+
+        1) Ask around.
+        2) Look up an old friend.
+        3) Bribery (cost: 100 merits).
+        4) Loiter.
+        5) Never mind.
+
+> 1
+You are mostly ignored.
+
+> 1
+You are mostly ignored.
+
+> 1
+You are mostly ignored.
+
+> 1
+You are mostly ignored.
+
+> 1
+You are mostly ignored.
+
+> 4
+You are mostly ignored.
+
+> 1
+You are mostly ignored.
+
+> 3
+"I know a guy looking to sell stuff to people like you.  Name's Dridbel.
+Look for him in the Square."
+
+You can now traffick with Dridbel on Ghlarsk V!
+
+> 3
+You slip a few merits to a hooded man outside an old arcade.
+
+"Hey, man," he says.  "Looking for decryption work?"
+
+You ask him, "What's it to ya?"
+
+He leans close to you, whispering, "Join the resistance.  The password is...
+DOWN WITH LORK!"
+
+You wave him off and leave, but consider his words.
+
+You can now find work on Ghlarsk V!
+
+> 5
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 3
+You dig up further info on decryption work in the area, and confront your
+potential employer, a Ghlarskean woman with greenish scales and sharp
+tongues.
+
+She asks, "What's the password?"
+
+What is your answer?
+
+> down with lork
+"Good," she hisses thoughtfully.  "First & foremost, the Zoist Resistance
+needs someone who can keep their mouths shut.  Are you our man, then?" (Y/N)
+
+> y
+"And you know how to read Starline Encryption?" (Y/N)
+
+> y
+Your employer grins.  She leads you through a series of alleys into an
+unmarked brick building.  Inside, the space is chopped up into several small
+stations, each with walls covered in thermionic valves and read-out monitors.
+ You take a seat at one of the decryption stations and settle into work.
+
+[press almost any key to begin]
+
+lllllllill
+lllllllill
+
+How many spikes?
+
+> 2
+RIGHT
+
+illllillli
+illllillli
+
+How many spikes?
+
+> 6
+RIGHT
+
+lilillilil
+iiilillill
+
+How many spikes?
+
+> 9
+RIGHT
+
+lillllllil
+lllllillll
+
+How many spikes?
+
+> 3
+RIGHT
+
+ililililil
+lllllillll
+
+How many spikes?
+
+> 6
+RIGHT
+
+When you finish, the resistance leader approaches you again.  "Fine job you
+did," she says.  "We've pumped some merits into your account as a way of
+saying thanks."
+
+You nod.
+
+"Take this," adds the leader.  She hands you a covert decryptor.  "We try to
+keep traffic away from here, but with this you can work for us any time
+you're in the Square."
+
+With that, she shoves you out of the base and shouts, "And don't let us catch
+you around here again!"
+
+You turn toward the Square, eager to find a less smoggy place.
+
+[press almost any key to continue]
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 3
+
+ililililil
+lllllillll
+
+How many spikes?
+
+> 6
+RIGHT
+
+lllllillll
+lillllilil
+
+How many spikes?
+
+> 4
+RIGHT
+
+illllillli
+illllillll
+
+How many spikes?
+
+> 5
+RIGHT
+
+illllillli
+lillllllil
+
+How many spikes?
+
+> 5
+RIGHT
+
+llilililll
+lllllillll
+
+How many spikes?
+
+> 4
+RIGHT
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Perform decryption.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+Your decryption has uncovered a schematic.  With your help, the resistance
+seizes it before it can reach its destination.  Before paying you, though,
+their leader hands the schematic to you with urgent instructions to deliver
+it to their leaders on Zo!
+
+You have gained a schematic!
+
+[press almost any key to continue]
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 4
+A heavily-armed guard prevents your entrance to the War Room.  "What is it?"
+
+     Will you...?
+
+        1) Report Zoist resistance.
+        2) Turn in a schematic.
+        3) Nothing.
+
+> 2
+The guard takes the schematic from you with gusto.  He scans it briefly.
+
+"Yes, the Emperor will be happy with this," he says.  "Bring us 2 more and we
+may have some further use for you.  For now, take this as a reward."
+
+You gain 200 merits!
+
+[press almost any key to continue]
+
+A heavily-armed guard prevents your entrance to the War Room.  "What do you
+need?"
+
+     Will you...?
+
+        1) Report Zoist resistance.
+        2) Nothing.
+
+> 2
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Perform decryption.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 3
+
+llilililll
+lllllillll
+
+How many spikes?
+
+> 4
+RIGHT
+
+illllillli
+llilililll
+
+How many spikes?
+
+> 6
+RIGHT
+
+lillililli
+ililililil
+
+How many spikes?
+
+> 9
+RIGHT
+
+ililililil
+lillililli
+
+How many spikes?
+
+> 9
+RIGHT
+
+llilililll
+lillililli
+
+How many spikes?
+
+> 7
+RIGHT
+
+Your decryption has uncovered a schematic.  With your help, the resistance
+seizes it before it can reach its destination.  Before paying you, though,
+their leader hands the schematic to you with urgent instructions to deliver
+it to their leaders on Zo!
+
+You have gained a schematic!
+
+[press almost any key to continue]
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 4
+A heavily-armed guard prevents your entrance to the War Room.  "What is it?"
+
+     Will you...?
+
+        1) Report Zoist resistance.
+        2) Turn in a schematic.
+        3) Nothing.
+
+> 2
+The guard takes the schematic from you with gusto.  He scans it briefly.
+
+"Yes, the Emperor will be happy with this," he says.  "Bring us 1 more and we
+may have some further use for you.  For now, take this as a reward."
+
+You gain 200 merits!
+
+[press almost any key to continue]
+
+A heavily-armed guard prevents your entrance to the War Room.  "What do you
+need?"
+
+     Will you...?
+
+        1) Report Zoist resistance.
+        2) Nothing.
+
+> 2
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Perform decryption.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 3
+
+llilililll
+lillililli
+
+How many spikes?
+
+> 7
+RIGHT
+
+illllillll
+lilililili
+
+How many spikes?
+
+> 7
+RIGHT
+
+illllillll
+lillllllil
+
+How many spikes?
+
+> 4
+RIGHT
+
+lllllllill
+lllllllill
+
+How many spikes?
+
+> 2
+RIGHT
+
+lillilllii
+lllllllill
+
+How many spikes?
+
+> 5
+RIGHT
+
+Your decryption has uncovered a schematic.  With your help, the resistance
+seizes it before it can reach its destination.  Before paying you, though,
+their leader hands the schematic to you with urgent instructions to deliver
+it to their leaders on Zo!
+
+You have gained a schematic!
+
+[press almost any key to continue]
+
+Ghlarsk V, Square
+You've seen your fair share of wannabe warlord-run cesspools-- to you this is
+just one more.  Dimly-lit, brutalistic buildings sprawl around streets
+bustling with squamous, shifty denizens, almost all of whom look impoverished
+& sick.  Hypnotically flickering, electronic televisors overhead demand that
+all onlookers, "Listen to Lork!"  Partner to the billboards, a greasy smog
+gags the atmosphere.  You try not to breathe too deeply.  A horrible sense of
+anonymity pervades these bricks and smokestacks, except in one building-- the
+IMPERIAL WAR ROOM.
+
+      Will you...?
+
+        1) Listen to rumors.
+        2) Trade/traffick.
+        3) Find work.
+        4) Enter IMPERIAL WAR ROOM.
+        5) Visit spaceport.
+
+> 4
+A heavily-armed guard prevents your entrance to the War Room.  "What is it?"
+
+     Will you...?
+
+        1) Report Zoist resistance.
+        2) Turn in a schematic.
+        3) Nothing.
+
+> 2
+The guard takes the schematic from you with gusto.  He scans it briefly, then
+ducks inside for a minute.
+
+Upon his return, the guard opens the gate to the War Room and motions to you.
+ "Come with me, sir.  Lork would like a word with you."
+
+[press almost any key to continue]
+
+The guard leads you down a long corridor into a darkly furnished room
+dominated by a hologram of the third galaxy's far sector.  Lork-- a rotund
+Ghlarskean in highly decorated military dress-- holds the attention of a few
+other generals in the room, claiming that, "Victory over the Zoists shall
+soon be ours, gentlemen.  Given these new orders, our defense budgets will
+finally eclipse all other expenditures combined a tenth time over.  We will
+blow their beloved Zo and all who resist into space dust before we give one
+inch!"  Upon spying you in the doorway he adds, "That will be all for now,
+gentlemen.  We hope you will approve the order as a final measure to end this
+conflict once and for all.  Dismissed."
+
+The generals file out of the room past you. Lork takes a seat in a rich chair
+before the planning hologram. He motions for you to sit down.
+
+                Will you...?
+
+                1) Accept politely or indifferently.
+                2) Remain standing, defiant.
+
+> quit
+Do you really want to quit? [Y/N]
