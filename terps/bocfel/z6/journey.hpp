@@ -16,6 +16,12 @@ extern "C" {
 #include "spatterlight-autosave.h"
 }
 
+// G-BLACK, the dark-room picture. Missing from the MCGA Blorb; see
+// journey_draw_picture().
+#define JOURNEY_PIC_BLACK_ROOM 59
+// An ordinary room image, used to size the stand-in for G-BLACK.
+#define JOURNEY_PIC_ROOM_SIZE_REFERENCE 52
+
 void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
 int journey_draw_picture(int pic, winid_t journey_window);
 
