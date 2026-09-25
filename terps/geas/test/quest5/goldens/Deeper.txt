@@ -1,0 +1,235 @@
+Deeper
+How deep will you get?
+
+by The Pixie
+
+            Name:
+            Sex: Male
+                     Female
+
+Attributes
+
+Bonus item
+
+              Strength
+
+              ▲
+              ▼
+              0
+
+              Two healing potions
+
+              Agility
+
+              ▲
+              ▼
+              0
+
+              Sabre
+
+              Intelligence
+
+              ▲
+              ▼
+              0
+
+              Fire breath spell
+
+              Stamina
+
+              ▲
+              ▼
+              0
+
+              Medium shield
+
+              Points left
+
+              10
+
+              Light armour
+
+        .ui-widget-header {
+          background-image: none;
+          background-color: maroon;
+          border-color: black;
+        }
+        .ui-widget-content {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+        .ui-dialog-buttonset {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+        .ui-state-default {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+
+            function incAtt(att) {
+                pts = parseInt($('#points').html());
+                flag = (pts > 0);
+                if (flag) {
+                  n = parseInt($('#' + att).html());
+                  $('#' + att).html(n + 1);
+                  $('#points').html(pts - 1);
+                }
+            }
+
+            function decAtt(att) {
+                n = parseInt($('#' + att).html());
+                flag = (n > 0);
+                if (flag) {
+                  pts = parseInt($('#points').html());
+                  $('#' + att).html(n - 1);
+                  $('#points').html(pts + 1);
+                }
+            }
+
+            function setValues() {
+                that.dialog("close");
+                answer = $('#name_input').val() + "|" + $("input:radio[name='sex_input']:checked").val();
+                answer += "|" + parseInt($('#strength').html()) + "|" + parseInt($('#agility').html());
+                answer += "|" + parseInt($('#intelligence').html()) + "|" + parseInt($('#stamina').html());
+                answer += "|" + $("input:radio[name='bonus']:checked").val();
+                ASLEvent("HandleDialogue", answer);
+            }
+
+            $(document).ready(function () {
+                that = $("#dialog_window_1");
+                $('#dialog_window_1').dialog({
+                   height: 400,
+                   width: 640,
+                   buttons: {
+                      "Done": function() { setValues();}
+                  }
+                });
+                $("button[title='Close']")[0].style.display = 'none';
+            });
+
+        .ui-widget-header {
+          background-image: none;
+          background-color: maroon;
+          border-color: black;
+        }
+        .ui-widget-content {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+        .ui-dialog-buttonset {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+        .ui-state-default {
+          background-color: vanilla;
+          background-image: none;
+          border-color: maroon;
+          color: maroon
+        }
+
+             Hit points:
+             ---
+
+             Armour:
+             0
+
+             Weapon:
+             ---
+
+             On-going magic:
+             ---
+
+             Gold:
+             ---
+
+             Artefacts found:
+             0/14
+
+             Weapon stats:
+             0
+
+             Strength:
+             0
+
+             Agility:
+             0
+
+             Intelligence:
+             0
+
+             Stamina:
+             0
+
+             Defence:
+             0
+
+             Attack bonus:
+             0
+
+             Damage bonus:
+             0
+
+             Defence bonus:
+             0
+
+             Magic bonus:
+             0
+
+             Current level:
+             0
+
+             Deepest level:
+             0
+
+You are on the road to Paldown, little more than an hour from Letris. According to legend - or that guy in the Greedy Goblin anyway - an ancient dungeon lies not far from the road, offering fame and fortune to anyone brave enough to venture there.
+
+The road is heavily rutted after centuries of use and little in the way of maintenance. To either side there is heavy forest. A way off to the south, you can see seven mules in a caravan heading this way.
+You can go north or south.
+Is there a track though the forest to the east?
+> equip dagger
+
+> equip dagger
+You draw your trusty dagger ready.
+> east
+
+> east
+You make your way carefully along the track...
+
+The track stops at a small stone edifice, standing to the north.
+You can go west or north.
+> north
+
+> north
+
+The interior of the edifice is a single, high room. It is empty and featureless other than some stone stairs leading downwards, ever downwards. The dark and mysterious hole seems to draw you...
+You can see a small silver key with mystical runes.
+You can go south or down.
+> take key
+
+> take key
+You pick up the key, and add it to your keyring.
+[Keys go on your keyring, and do not appear in your inventory, as you might end up with dozens of them. To see what keys you have, type KEYS.]
+> down
+
+> down
+
+This large chamber has stone stairs leading back up. There is a sturdy wooden door to the west. There is an iron door to the south. To the east is a narrow archway.
+You can go west, south, east or up.
+> south
+
+> south
+
+You are at a corner in the passage.
+You can go west or north.
+[state=Running]
