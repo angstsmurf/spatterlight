@@ -137,3 +137,11 @@ They are kept here rather than in a scratch directory because the paths they
 cover are otherwise reachable only by finding a shipped game that happens to use
 them: the picture-clear path went unverified through two commits for exactly
 that reason.
+
+One fixture in the same directory is *scripted*, not manual:
+`fixtures/clockchase.aslx` with `clockchase.cmd` (a `#!clock=5` script) and
+`clockchase.txt` (its frozen oracle transcript). It packs both real-time chase
+shapes that kill a script under the default `DrainTimers` model into three rooms
+(see the file's header comment for the two diff commands), and both drivers must
+reproduce the transcript byte for byte. It is not part of the corpus sweeps; run
+it by hand after touching `SettleClock`/`settle_clock` or the timer code.

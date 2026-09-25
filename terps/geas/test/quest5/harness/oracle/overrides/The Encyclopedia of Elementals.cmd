@@ -1,9 +1,11 @@
-# The Encyclopedia of Elementals (Adam Holbrook, 2013, ASL 540) -- best-reachable script
+#!clock=5
+# The Encyclopedia of Elementals (Adam Holbrook, 2013, ASL 540) -- best-reachable so far
 #
-# RESULT: state=Finished, errors=0 -- but NOT the intended win. This reaches the game's
-# "Game Over" castle-collapse death (the "GoBoom" sequence in the Main Hall), which is
-# PROVEN to be the only finish() reachable by *any* command script under this oracle --
-# see the derivation note below. Two runs (seed 1234) are byte-identical.
+# RESULT: state=Running, errors=0 -- the whole Castle chapter, including the Main Hall
+# rescue (Dave saved with the metal pole), ending alive in the Fields Across the Moat
+# at the start of Section 2. The rescue is a real-time window, hence `#!clock=5` (the
+# typing clock: five seconds per typed command, nothing drained) -- see the note below.
+# Sections 2-5 are reachable now and still owed.
 #
 # SOURCE: no published walkthrough exists anywhere for this game -- derived entirely
 # from game.aslx (15617 lines, ASL 540, 5-section high-fantasy plot: Castle heist,
@@ -36,44 +38,26 @@
 # source that reveals the "main hall to castle fields" exit -- the SOLE way out of the
 # Castle chapter (grep confirms exactly one `to="Castle Fields"` in the whole file).
 #
-# WHY THE REST OF THE GAME IS UNREACHABLE (verified by direct experiment, not just
-# code reading -- see below): with GoBoom set, "sinister to secret" and "main hall to
-# sinister" get LockExit'd, forcing the only route back through Main Hall. Main Hall's
-# <description> script (game.aslx:1284-1310), on ANY entry with GoBoom true, prints
-# the collapse scene and then does:
+# THE MAIN HALL RESCUE WINDOW (why this script needs `#!clock=5`): with GoBoom set,
+# "sinister to secret" and "main hall to sinister" get LockExit'd, forcing the only
+# route back through Main Hall. Main Hall's <description> script (game.aslx:1284-1310),
+# on ANY entry with GoBoom true, prints the collapse scene and then does:
 #     wait { SetTimeout(50){ msg(...); SetTimeout(13){ msg(...); SetTimeout(7){
 #       msg(...); finish } } } }
-# -- an author-intended 70-REAL-SECOND window in which an interactive player can type
-# "help man"/"use pole on beams" (SetObjectFlagOff GoBoom, rescues Dave, 150 gold) or
-# "run away" (escapes, sacrificing Dave) before the collapse. The harness's DrainTimers
-# (harness/oracle/Program.cs, see its "Real-time timers" README section) is a `while`
-# loop that drains every pending self-destructing `timeout*` SetTimeout to completion,
-# synchronously, right after AutoAdvance() for the SAME command that triggered them --
-# BEFORE the next script line is even read. Because each callback in this chain creates
-# the next SetTimeout itself (no intervening real "wait" the harness would pause on),
-# the whole 50+13+7 cascade -- all three warnings AND the final `finish` -- fires within
-# the single "go main hall" command's settle. This was verified directly: a script
-# ending in "go main hall" / "run away" / "take metal pole" / "use pole on beams" (in
-# that order) shows via [diag] that finish already fired mid-"go main hall", with
-# scriptExhausted=False -- none of the three follow-up lines ever executed, because
-# world.State was already Finished before they could be read. This is the load-bearing
-# mirror image of the corpus's documented Escape From the Mechanical Bathhouse case
-# (an AUTHORED, non-self-destructing real timer the oracle leaves dormant, granting
-# UNLIMITED time) and of I Contain Multitudes (an ending SetTimeout the harness never
-# even reaches): here a chain of SELF-destructing SetTimeouts inside a danger sequence
-# instead resolves ATOMICALLY and INSTANTLY, granting ZERO time -- there is no point in
-# any script, before or after "go main hall", where a rescue or escape command could be
-# inserted. Since the "main hall to castle fields" exit is the only way out of the
-# Castle chapter, and entering Main Hall with GoBoom true is mandatory to reach it, and
-# that entry unconditionally and immediately ends the game, Sections 2-5 of the game
-# (Drensburg, the Ruined Castle, the Druid/Fort infiltration, and the finale against the
-# crystal necromancer) are PROVABLY unreachable from this oracle by any command script,
-# regardless of player choices -- not a derivation gap, a proven engine/harness timing
-# incompatibility specific to this game's real-time puzzle design.
+# -- an author-intended 70-REAL-SECOND window in which the player can type "x rubble"
+# (the rubble is a `hidechildren` surface; examining it reveals the metal pole), "take
+# metal pole", "use pole on beams" (SetObjectFlagOff GoBoom, rescues Dave, moves both
+# to Castle Fields after a `wait`) or just "run away" (escapes, sacrificing Dave).
+# Under the default DrainTimers model -- a player who waits out every pending
+# SetTimeout before typing again -- the whole 50+13+7 cascade, `finish` included,
+# resolved inside the single "go main hall" command, and this script's golden was that
+# forced "Game Over" until 2026-09-25. On the typing clock the three rescue commands
+# cost 15 seconds against the 50-second first warning: Dave is saved and the script
+# ends in the Fields Across the Moat with the rescued man in tow.
 #
-# This script therefore plays the entirety of the Castle chapter's reachable content
-# (both hidden-passage puzzles, the trigger-book pickup) and ends on the forced "Game
-# Over" -- the only finish() any script can reach. errors=0.
+# This script therefore plays the entire Castle chapter (both hidden-passage puzzles,
+# the trigger-book pickup, the rescue) and stops alive at the start of Section 2
+# (Drensburg). errors=0.
 Hawk
 1
 1
@@ -102,3 +86,6 @@ x Encyclopedia of Elementals
 go secret passage
 go mysterious wing
 go main hall
+x rubble
+take metal pole
+use pole on beams

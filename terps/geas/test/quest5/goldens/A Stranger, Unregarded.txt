@@ -1,0 +1,1758 @@
+Greetings, Traveller from a far land!
+
+First, let me get to know you!
+Is your character male or female (M/F)?
+> m
+
+And what is your name?
+> Robin
+
+Welcome, brave
+Sir
+Robin!
+
+Finally, you can set your level of bravery to Chicken (for novices - silly mistakes won't kill you, or at least not instantly), Fox (the standard and default - in most cases you are warned if something is fatally foolish) or Lion (for experienced or brave adventurers - foolish choices can kill you instantly)!
+So are you a chicken, a fox or a lion?
+> chicken
+
+You have chosen Chicken, a safer but perhaps less exciting ride!
+
+> stand up
+
+> stand up
+You drag yourself to your unwilling feet, brush the sand out of your hair and eyes, and slowly turn around.
+You are on a beach. Behind you is the limitless ocean, stretching to the horizon. To your left and right are sharp rocks being pounded by the surf, rising up to form a cliff to the north.
+
+A narrow path cuts through the cliff, leading into the hills beyond.
+How in hell did I get here?
+You hear the sound of surf, and something wet keeps lapping over your feet.
+> n
+
+> n
+
+You are on a steep path of rocky sand between tall cliffs, leading from the south up to the north. The sun is beating down and the only vegetation you can see are some scraggly trees at the top of the cliffs. You realise you are quite thirsty.
+
+You hope you find water soon!
+
+The sun glints off a small bottle half buried in the sand.
+You lift your head and open one bleary eye. The sun is low in the sky and you can tell from the feel in the air that it is morning.
+> take bottle
+
+> take bottle
+You pick up the bottle.
+A small crab scuttles past your nose!
+> n
+
+> n
+
+You are on a stony path climbing slowly to the north. Thankfully the slope is more gentle than down to the south, but it is still hot and dry here.
+
+You can see tall trees on either side of the path; the forest to the right looks rather more green and lush than on the left.
+
+Unfortunately you are separated from the forest by steep slopes covered in loose rock and gravel. They don't look easy to climb.
+
+You are on a beach. Behind you is the limitless ocean, stretching to the horizon. To your left and right are sharp rocks being pounded by the surf, rising up to form a cliff to the north.
+
+A narrow path cuts through the cliff, leading into the hills beyond.
+How in hell did I get here?
+> n
+
+> n
+
+You are walking along a path winding its way through a forest. A gentle breeze murmurs through the branches and high above, birds flutter among the leaves.
+
+It would be quite nice if you weren't starving. And it would be even nicer if you weren't dying of thirst!
+> e
+
+> e
+
+You are in a gloomy forest. Ancient gnarled oaks reach their leafy fingers to the sky and moss dangles from their branches. It looks much the same in any direction, except it seems rather thicker and greener towards the south.
+> s
+
+> s
+
+You are in an attractive forest glade, filtered sunlight dappling the forest floor.
+
+Swirls of orange butterflies dance among the bushes and you reflect upon the beauty of nature.
+
+More to the point, there are bushes and butterflies because a spring of clear water is bubbling from the ground here.
+
+It must be your lucky day (well, maybe not taking everything into consideration, but you know what I mean...) because one of the bushes has a crop of berries on it! From the seeds scattered around it looks like half of them have been eaten already, but heck, there's enough here for everyone!
+
+The glade blends into forest to the north and east but ends in a moderate but rocky slope to the west, at the bottom of which is a path winding among the rocks. To the south a dangerously steep, rocky slope descends to a jumble of sharp boulders washed by waves surging in from a limitless ocean.
+> drink water
+
+> drink water
+You stick your head into the lovely water and drink your fill.
+Ahhhhhh......
+> take berries
+
+> take berries
+You take a handful of the berries.
+> n
+
+> n
+
+You are in a gloomy forest. Ancient gnarled oaks reach their leafy fingers to the sky and moss dangles from their branches. It looks much the same in any direction, except it seems rather thicker and greener towards the south.
+> nw
+
+> nw
+
+The path from the south widens here into a clearing in the forest, which closes in again to the east and west.
+
+You gaze in wonder at the pyramid rising out of the ground in front of you in the north. Stone steps are carved into this face of the pyramid. The way into the pyramid is blocked by a tall, dangerous-looking Amazon.
+> w
+
+> w
+
+You are in a woodland. If you were a botanist, you would notice a number of interesting and rare species of trees, distinguishable from their more common relatives by subtle differences in leaf venation.
+
+Alas, you are not a botanist.
+
+The woodland continues to the north, south and west, while through the trees to the east you spot what seems to be a clearing in the woods.
+
+Perhaps of more interest is the ancient pyramid rising above the trees, visible to the northeast, though the forest is too thick to go directly that way.
+> nw
+
+> nw
+
+You gaze around a sea of open scrubland, nothing but grass and thorny shrubs.
+
+What do you expect, constant excitement? This is what exploring is really like!
+
+Only a mad optimist would strike west through the viciously spiked thorn bushes, but the scrubland continues to the north and south and thickens into woodland to the east, beyond which you can see the tip of some ancient structure in the distance.
+> n
+
+> n
+
+There must be underground water here, for the trees are taller and thicker.
+
+The forest thins out from the south to the north-east, but to north and west it gives way to impenetrable thickets of thorn bush that would cut your flesh to ribbons.
+
+You are standing at the base of a large tree whose branches reach close to the ground.
+> up
+
+> up
+
+What a view!
+
+Far to the west you can see an extinct volcanic caldera looming into the sky, though the way is blocked by a sea of uninviting scrubland filled with thorn bush and other botanical nastiness.
+
+Forest and woodland stretches out to the east and south of here, with a ribbon of ocean visible on both horizons. To the south east you can see a mighty stone pyramid rising above the forest.
+
+The woodlands to the north thin into marshland, itself merging into a great swamp, which stretches into the distance before vanishing in its own noisome vapours.
+
+On a thin branch just above you a glorious peach and white orchid is blooming!
+> take orchid
+
+> take orchid
+You gently take the orchid and weave its stalk into your hair.
+> down
+
+> down
+
+There must be underground water here, for the trees are taller and thicker.
+
+The forest thins out from the south to the north-east, but to north and west it gives way to impenetrable thickets of thorn bush that would cut your flesh to ribbons.
+
+You are standing at the base of a large tree whose branches reach close to the ground.
+> ne
+
+> ne
+
+You are in a shady woodland containing little of interest, unless ants are your thing. The woods continue to the east, south and southwest but the ways to the north and west have been overrun by stinging trees. If you tried to force your way through them, you would puff up like a very itchy balloon and soon expire.
+> ne
+
+> ne
+
+You are standing on wet, marshy land filled with reeds and small ponds. The land becomes drier and bushier toward the south, but the way east is filled with razor trees and the way west with stinging trees.
+
+To the north is a swamp, from which strange moanings can be heard and noisome vapours rise into the air.
+
+This is not prime real estate, let me tell you.
+Some movement draws your eye to a nearby clump of reeds.
+> x reeds
+
+> x reeds
+A clump of green reeds is growing out of the rank mud.
+At its base you see a worm.
+> take worm
+
+> take worm
+It is a slippery customer, but you manage to grab it!
+> open bottle
+
+> open bottle
+Pop!
+> put worm in bottle
+
+> put worm in bottle
+Done.
+> close bottle
+
+> close bottle
+You put the cork back into the bottle.
+> sw
+
+> sw
+
+You are in a shady woodland containing little of interest, unless ants are your thing. The woods continue to the east, south and southwest but the ways to the north and west have been overrun by stinging trees. If you tried to force your way through them, you would puff up like a very itchy balloon and soon expire.
+> sw
+
+> sw
+
+There must be underground water here, for the trees are taller and thicker.
+
+The forest thins out from the south to the north-east, but to north and west it gives way to impenetrable thickets of thorn bush that would cut your flesh to ribbons.
+
+You are standing at the base of a large tree whose branches reach close to the ground.
+> s
+
+> s
+
+You gaze around a sea of open scrubland, nothing but grass and thorny shrubs.
+
+What do you expect, constant excitement? This is what exploring is really like!
+
+Only a mad optimist would strike west through the viciously spiked thorn bushes, but the scrubland continues to the north and south and thickens into woodland to the east, beyond which you can see the tip of some ancient structure in the distance.
+> se
+
+> se
+
+You are in a woodland. If you were a botanist, you would notice a number of interesting and rare species of trees, distinguishable from their more common relatives by subtle differences in leaf venation.
+
+Alas, you are not a botanist.
+
+The woodland continues to the north, south and west, while through the trees to the east you spot what seems to be a clearing in the woods.
+
+Perhaps of more interest is the ancient pyramid rising above the trees, visible to the northeast, though the forest is too thick to go directly that way.
+> e
+
+> e
+
+The path from the south widens here into a clearing in the forest, which closes in again to the east and west.
+
+You gaze in wonder at the pyramid rising out of the ground in front of you in the north. Stone steps are carved into this face of the pyramid. The way into the pyramid is blocked by a tall, dangerous-looking Amazon.
+> give orchid to warrior
+
+> give orchid to warrior
+The Amazon gives you a startled look, then hesitantly reaches for the orchid and puts it in her hair.
+Her look changes to something strange; almost hopeful.
+> give berries to warrior
+
+> give berries to warrior
+She gratefully takes the berries and hungrily devours them!
+Then she wipes the juice from her and studies you intently, as if your next actions might set the course of the future and her life.
+> kiss warrior
+
+> kiss warrior
+The Amazon melts into you as you hold her in your arms, tilt her head back and give her a long, lingering kiss.
+When you separate, she gives you a look of hope, fear and worship: then she prostrates herself on the ground at your feet!
+The way into the pyramid now lies open before you.
+> up
+
+> up
+
+You are on the steps more than half way up a massive stone pyramid, the sun beating down upon you. Looking down you see the forest stretching away into the distance; looking up you see the stairs continuing up to the higher levels.
+
+There is a square entrance here, but it is blocked by a massive stone slab. In one of the stone supports of the entrance is a narrow slot.
+
+The stone around the pyramid above the entrance is decorated - or perhaps, penetrated - by narrow slits.
+> up
+
+> up
+
+You are at the top of a stone stairway carved into the pyramid. The view here is spectacular, east and south from forest to sea, to the great northern swamp, and west through the badlands to the ancient volcanic caldera. An escarpment between here and the volcano hides what might lie between, though from what you can see it is forest.
+
+There is a raised stone platform here, possibly an altar? Resting on it is what looks like a ceremonial dagger!
+> take dagger
+
+> take dagger
+You pick up the dagger, being careful not to cut yourself on its keen edge.
+> down
+
+> down
+
+You are on the steps more than half way up a massive stone pyramid, the sun beating down upon you. Looking down you see the forest stretching away into the distance; looking up you see the stairs continuing up to the higher levels.
+
+There is a square entrance here, but it is blocked by a massive stone slab. In one of the stone supports of the entrance is a narrow slot.
+
+The stone around the pyramid above the entrance is decorated - or perhaps, penetrated - by narrow slits.
+> put dagger in slot
+
+> put dagger in slot
+The dagger slides into the slot as if made for it.
+
+There is a loud grinding sound, as of powerful counterweights and gears, and the stone slab sealing the entrance slowly rises, opening the way to a gloomy interior!
+> in
+
+> in
+Before entering you take a last look around. Below you see the guardian looking up at you, in wonder and farewell.
+
+You are in a space just inside the pyramid. Light comes in from the entrance to the east; gloomy corridors stretch north and south; while to the west, a stairway descends into inky darkness.
+> s
+
+> s
+
+You are at the end of a long gloomy stone corridor from the west, where it bends northward.
+> w
+
+> w
+
+You are in the middle of a long, gloomy stone corridor stretching to the east and west.
+> w
+
+> w
+
+You are in a bend in a gloomy corridor, leading east and north.
+> n
+
+> n
+
+You are at the end of a gloomy north-south corridor. To the north is an iron gate and to the east is a low, narrow archway.
+> e
+
+> e
+
+You have entered a moderately sized study. You can see but it is in quite gloomy, for the only light comes through a low archway to the west.
+A narrow, dark hallway leads east.
+
+Whoever used to work here must have favoured heavy wooden furniture, for there is a stout wooden desk by one wall. A sturdy wooden stool lies abandoned in one corner.
+> take stool
+
+> take stool
+It is a bit ungainly, but you pick it up without too much trouble.
+> e
+
+> e
+
+You are in a narrow east-west hallway.
+Cave-ins have left the floor littered with large, sharp rocks, and you have to pick your way carefully. It is too dark to see where the hallway leads to in the east, and only a fool would continue that way without a light; but there is just enough light to see by coming from the western entrance. Just inside that entrance, visible because it gleams dully in the light, you see a long bronze needle lying on the ground.
+> take needle
+
+> take needle
+You pick it up.
+> w
+
+> w
+
+You have entered a moderately sized study. You can see but it is in quite gloomy, for the only light comes through a low archway to the west.
+A narrow, dark hallway leads east.
+
+Whoever used to work here must have favoured heavy wooden furniture, for there is a stout wooden desk by one wall.
+> w
+
+> w
+
+You are at the end of a gloomy north-south corridor. To the north is an iron gate and to the east is a low, narrow archway.
+> s
+
+> s
+
+You are in a bend in a gloomy corridor, leading east and north.
+> e
+
+> e
+
+You are in the middle of a long, gloomy stone corridor stretching to the east and west.
+> e
+
+> e
+
+You are at the end of a long gloomy stone corridor from the west, where it bends northward.
+> n
+
+> n
+
+You are in a space just inside the pyramid. Light comes in from the entrance to the east; gloomy corridors stretch north and south; while to the west, a stairway descends into inky darkness.
+> n
+
+> n
+
+You are at a bend in a gloomy corridor which continues to the south and west. The walls are of stone and there is a large, stout door studded with iron in the northern wall.
+> w
+
+> w
+
+You are at the end of a gloomy corridor from the east. It used to continue to the west but it must have collapsed, for the way is now blocked by a jumble of stones too heavy to move.
+
+There is a stout door in the northern wall. There is also a small hole higher up on that wall.
+> stand on stool
+
+> stand on stool
+You put the stool down and climb onto it.
+> up
+
+> up
+You can now reach the hole, which opens into a gloomy room. Fortunately there are conveniently placed metal rungs inside, providing easy access to its floor, and you climb down into the room.
+
+You are in a large, gloomy room. There is a closed, sturdy wooden door in the south wall and a  gate in the east wall. Rungs lead up the south wall to a small hole.
+
+You see a sack hanging on the wall!
+> take sack
+
+> take sack
+You pick up the sack and loop it over your shoulder.
+> take bronze key
+
+> take bronze key
+You are already carrying it. (in the sack)
+> open gate
+
+> open gate
+You turn its latch and ... creak....! The gate is now open!
+> e
+
+> e
+
+This is a narrower but just as gloomy room, with a stout wooden door in its south wall. The only other exit is an open gate to the west. In the northern end of the room is a large closet.
+> unlock closet with needle
+
+> unlock closet with needle
+You successfully pick the closet's lock with the needle!
+You open it.
+It contains a suit of armour.
+> open closet
+
+> open closet
+It is already open.
+> take armour
+
+> take armour
+You take the armour and marvel at its lightness. You put it on and it seems to adjust itself to the contours of your body!
+You are pleased to note it comes with soft, silky undershirt and trousers. You feel better already!
+You gratefully peel off your old, salty rags, which fall completely apart as you do.
+> w
+
+> w
+
+You are in a large, gloomy room. There is a closed, sturdy wooden door in the south wall and a  gate in the east wall. Rungs lead up the south wall to a small hole.
+> up
+
+> up
+You climb up the rungs, squeeze through the hole and lower yourself back onto the stool.
+
+You are at the end of a gloomy corridor from the east. It used to continue to the west but it must have collapsed, for the way is now blocked by a jumble of stones too heavy to move.
+
+There is a stout door in the northern wall. There is also a small hole higher up on that wall. You are standing on a stool.
+> e
+
+> e
+
+You are at a bend in a gloomy corridor which continues to the south and west. The walls are of stone and there is a large, stout door studded with iron in the northern wall.
+You were on the stool so you hopped off and left it behind.
+> s
+
+> s
+
+You are in a space just inside the pyramid. Light comes in from the entrance to the east; gloomy corridors stretch north and south; while to the west, a stairway descends into inky darkness.
+> s
+
+> s
+
+You are at the end of a long gloomy stone corridor from the west, where it bends northward.
+> w
+
+> w
+
+You are in the middle of a long, gloomy stone corridor stretching to the east and west.
+> w
+
+> w
+
+You are in a bend in a gloomy corridor, leading east and north.
+> n
+
+> n
+
+You are at the end of a gloomy north-south corridor. To the north is an iron gate and to the east is a low, narrow archway.
+> unlock gate with bronze key
+
+> unlock gate with bronze key
+It unlocks the gate!
+Its hinges are a bit rusty but the gate opens with a screech.
+> open gate
+
+> open gate
+It is already open.
+> n
+
+> n
+
+You are in a large, cold room, deserted for a long time judging from the thickness of the dust on the floor. There is a large hearth in the northern wall with a roaring fire in it. The hearth seems to go back unusually far, but the fire fills the hearth and you can neither see through it nor get around it.
+Lying abandoned on the floor is a small clay lamp.
+> take lamp
+
+> take lamp
+You pick up the lamp.
+> light lamp
+
+> light lamp
+You light the lamp, and it glows with a cheery light.
+> wear lamp
+
+> wear lamp
+You hook the lamp to your armour.
+> n
+
+> n
+The flames seem to reach hungrily for you as you approach... are you sure you want to do this?
+1: Yes
+2: No
+> 1
+That fire is awfully big... are you really sure you want to walk into it?
+1: Yes
+2: No
+> 1
+You close your eyes, pray to Vulcan and boldly stride into the flames...
+
+The flames writhe around you but do not burn!
+You made it!
+You are in a narrow, winding tunnel running roughly north-south. The only light comes from the magical fire to the south; to the north is nothing but inky blackness.
+> n
+
+> n
+
+You are on your hands and knees in a low, narrow tunnel winding through the rock, coming from the south and bending westward.
+> w
+
+> w
+
+You are on your hands and knees in a low, narrow tunnel winding through the darkness, turning both east and north.
+> n
+
+> n
+
+You are at the end of a dark, low and narrow tunnel bending south. There is room to stand here, and there is a wooden door to the east.
+> open door
+
+> open door
+The door opens silently on well-lubricated hinges.
+> in
+
+> in
+
+You are in a spacious room, which from the strange objects in it and the sourceless pearly light that shows them appears to have been the lair of a wizard!
+
+The wizard appears to have been a person of impeccable taste. Everything is in shades of ochre or dark burgundy, and the decorations are understated and beautiful. Arcane volumes fill shelves along two of the walls, and one large book is open on a desk.
+
+The room is protected by magics powerful and strange! Most items you can neither touch nor move; others, you forget what you were doing when you approach them; still others appear in the corner of your eye but vanish when you look at them!
+
+On a pedestal in the centre of the room is some kind of statue; it is hard to tell because it disappears when you look straight at it!
+> break statue
+
+> break statue
+With a mighty shove, you push the ghastly thing off its pedestal and it smashes into a thousand pieces!
+In the wreckage gleams a magnificent sword!
+> take sword
+
+> take sword
+You grasp the sword and power thrills through your arm!
+> read book
+
+> read book
+The first entry on the page reads:
+
+Silver
+Though a lesser noble metal, the association of silver (or argent) with the moon and moonlight imbues it with far more power than it would otherwise have. Most such uses require high skills in the arts of magic, but it is best known as a weapon against werewolves. Werewolves are immune to most weapons and injuries, but silver blades or silver-tipped missiles are as effective against them as their more mundane versions against a normal man or animal.
+
+Also see the entry in this Work on Metals and Magic.
+
+Fascinating!
+> read book
+
+> read book
+The second entry on the page reads:
+
+Spells (Magic)
+Spells are basic to the wizard's toolkit and exist in many forms. Some are words in the tongue of magical beings, with Elfen and Faerie tongues quite popular. Others are anagrams. Some may be associated with an object or place.
+
+It is a peculiarity of spoken spells that their power lies less in the speaker than in the wizard or mage who first frames them. Thus the power of an anagram of the spell's action whose arrangement reflects the sound of one the magical tongues also describing or alluding to that action, depends not only on their combination but on the depth of knowledge of the crafter. Spells associated with an object or place are generally imbued in that object and can be very simple, as the power is called up from the object itself rather than being inherent in the words.
+
+In general, spells are used by saying (or "casting") them. You must learn a spell before you can cast it, unless it is written where you are at the time.
+
+The novice should beware, however, that the more powerful the spell the more dangerous its side effects can be.
+
+Also see the entries in this Work on Anagrams, Homophonic Spells, Magical Tongues, Amulets and Rings of Power.
+
+Fascinating!
+> read book
+
+> read book
+The next entry reads:
+
+Stranamanger's Waer
+One of the many obscure utterances of the mad prophet Stranamanger, this warning has been the subject of much debate through the centuries. Is it meaningless nonsense, a prophecy for the Dark Times, or something else? Perhaps one day we shall know.
+
+Beware! Beware!
+Beware the bane of confusion, which confuses the mind of all who possess it,
+Yea, even those who know it not.
+For it possesses those who possess it, and they shall be truly lost!
+Beware! Beware!
+Ye who go Hither and Thither in search of secret arts!
+For there you must go, but there the Bane shall find thee,
+And only the Mighty can escape its ruin!
+Yet the bane may be a blessing, and its curse a salvation,
+When darkness rules and all is lost.
+
+What the hell?
+> read book
+
+> read book
+The final entry on the page begins:
+
+SVREE'LAR'SPO-LELF
+The simple form of this spell belies its might, and few magics there be that can stand before its power. But much care must be taken, for much danger lies in its wielding. Created by Master Mage Theratemujar, it...
+
+Damn! That's all that's visible on this page!
+> memorise SVREE'LAR'SPO-LELF
+
+> memorise SVREE'LAR'SPO-LELF
+Furrowing your brow, you commit the spell to memory until you're sure you've got it.
+> out
+
+> out
+
+You are at the end of a dark, low and narrow tunnel bending south. There is room to stand here, and there is a wooden door to the east.
+> s
+
+> s
+
+You are on your hands and knees in a low, narrow tunnel winding through the darkness, turning both east and north.
+> e
+
+> e
+
+You are on your hands and knees in a low, narrow tunnel winding through the rock, coming from the south and bending westward.
+> s
+
+> s
+
+You are in a narrow, winding tunnel running roughly north-south. The only light comes from the magical fire to the south; to the north is nothing but inky blackness.
+> s
+
+> s
+
+You are in a large, cold room, deserted for a long time judging from the thickness of the dust on the floor. There is a large hearth in the northern wall with a roaring fire in it. The hearth seems to go back unusually far, but the fire fills the hearth and you can neither see through it nor get around it.
+> s
+
+> s
+
+You are at the end of a gloomy north-south corridor. To the north is an iron gate and to the east is a low, narrow archway.
+> e
+
+> e
+
+You have entered a moderately sized study. You can see but it is in quite gloomy, for the only light comes through a low archway to the west.
+A narrow, dark hallway leads east.
+
+Whoever used to work here must have favoured heavy wooden furniture, for there is a stout wooden desk by one wall.
+> e
+
+> e
+
+You are in a narrow east-west hallway.
+Cave-ins have left the floor littered with large, sharp rocks, and you have to pick your way carefully. It is too dark to see where the hallway leads to in the east, and only a fool would continue that way without a light; but there is just enough light to see by coming from the western entrance.
+> e
+
+> e
+
+You are at the end of a narrow hallway from the west. There is an entrance to the north.
+> in
+
+> in
+
+You are in a small, dark, musty storeroom. But whatever used to be kept here, now nothing is left but a discarded roll of twine on the floor.
+> take twine
+
+> take twine
+You pick up the roll of twine and put it in the sack. You never know when it could come in handy.
+> tie needle to twine
+
+> tie needle to twine
+You grab the twine and you tie the twine to the needle. I don't know why, but you do.
+> bend needle
+
+> bend needle
+You manage to bend the needle into a sharp hook!
+> out
+
+> out
+
+You are at the end of a narrow hallway from the west. There is an entrance to the north.
+> w
+
+> w
+
+You are in a narrow east-west hallway.
+Cave-ins have left the floor littered with large, sharp rocks, and you have to pick your way carefully. It is too dark to see where the hallway leads to in the east, and only a fool would continue that way without a light; but there is just enough light to see by coming from the western entrance.
+> w
+
+> w
+
+You have entered a moderately sized study. You can see but it is in quite gloomy, for the only light comes through a low archway to the west.
+A narrow, dark hallway leads east.
+
+Whoever used to work here must have favoured heavy wooden furniture, for there is a stout wooden desk by one wall.
+> w
+
+> w
+
+You are at the end of a gloomy north-south corridor. To the north is an iron gate and to the east is a low, narrow archway.
+> s
+
+> s
+
+You are in a bend in a gloomy corridor, leading east and north.
+> e
+
+> e
+
+You are in the middle of a long, gloomy stone corridor stretching to the east and west.
+> e
+
+> e
+
+You are at the end of a long gloomy stone corridor from the west, where it bends northward.
+> n
+
+> n
+
+You are in a space just inside the pyramid. Light comes in from the entrance to the east; gloomy corridors stretch north and south; while to the west, a stairway descends into inky darkness.
+> down
+
+> down
+
+You are on a long staircase cut into the stone, going down to the west into inky darkness.
+> down
+
+> down
+
+You are on a long east-west staircase, continuing as far as your light can show. Drops of water drop occasionally from the ceiling onto the pitted stones of the stairs.
+> down
+
+> down
+
+You are at the bottom of a long staircase rising in an eastward direction. To the west, an archway opens into who knows what.
+The air is musty and in your soul, you feel the oppression of the tons of rock above you.
+> w
+
+> w
+
+You are in a corridor cut into the rock, deep within the earth. It stretches south from here into darkness, while an open archway leads east.
+> s
+
+> s
+
+You are at the southern end of a dark corridor cut into the stone. Here a small tunnel opens at about chest height, leading upwards into more inky blackness.
+> up
+
+> up
+
+You are in a dark, narrow stone hallway leading south. A hole in the northern face leads downward at a sharp angle.
+> s
+
+> s
+
+You are in a small circular room of unknown function, containing nothing of note. There are exits to the north and west.
+> w
+
+> w
+
+You are in a long, dark, east-west hallway.
+The last sunshine you saw was when you entered the pyramid, and you wonder how far you are from there now. You wonder what makes you shiver. It is cold here, but it is more than that: as if something dire hides in the darkness ahead.
+> w
+
+> w
+
+A dark tunnel from the east widens here into a small vestibule. There is a large stone archway to the west.
+Unfortunately the archway is guarded by a very unfriendly-looking wraith!
+The wraith emits an unearthly scream, which goes through you like a cold wind, and it swipes at you with an ethereal claw!
+But your armour deflects its blow! You stagger back a pace, but you remain hale!
+> kill wraith with sword
+
+> kill wraith with sword
+When you raise your sword, the wraith emits another of its bone-chilling screams and flees through the wall, with nothing but its unearthly echo remaining!
+Well!
+That was easier than you expected!
+> w
+
+> w
+
+You are on a landing outside a large archway to the east, from which a long narrow stone staircase ascends to the west.
+> up
+
+> up
+
+You are in a dark, narrow, rough-walled corridor leading north, hewn from the deep stone. To the east, stone steps lead down into inky darkness.
+> n
+
+> n
+
+A dark corridor from the south ends here at the entrance to a room to the north.
+> n
+
+> n
+
+You are in a small room. Perhaps it was a study in a past time, for the floor is a geometric mosaic, faded frescoes decorate the walls, and the western wall is dominated by an intricate stone bas-relief. Narrow doors lead out to the east and south.
+> x bas-relief
+
+> x bas-relief
+The bas-relief is carved into the stone of the wall by a master sculptor, though the sculptor or the one who commissioned the work had dark tastes: the scenes are of battle, and spirits, and the hosts of hell.
+One part particularly catches your eye: a fierce demonic face glaring out as if at you personally.
+> x face
+
+> x face
+It looks scary, with its open snarling mouth sporting sharp metal teeth. About two and a half inches past those teeth is what appears to be a stone button at the back of its mouth!
+> push button with sword
+
+> push button with sword
+The demon's teeth slash harmlessly onto the sword, which pushes the button into the wall with a faint grinding sound. Elements of the relief rearrange themselves above the demon's head, revealing the outline of a hidden small safe!
+> open safe
+
+> open safe
+You open it.
+It contains a beautiful amulet.
+> take amulet
+
+> take amulet
+As you take the amulet, you feel an almost overwhelming desire to wear it!
+You hold it in your hand, unwilling as yet to store it out of sight in your sack.
+> e
+
+> e
+
+A narrow corridor from the west turns north here.
+> n
+
+> n
+
+You are standing above a large, dark pit to the north. In the gloom a number of whiter objects are visible, looking horribly like human bones, some poking out of mounds of mouldering cloth. A foetid odour rises from the pit and you look dubiously at the crumbling handholds providing access to the floor of the pit, some 12 feet below.
+
+The pit is large and your light does not reach to the end, but from the darkness you can hear restless rustlings, snuffling and growls, like some animal sleeping.
+
+Taking all things into consideration, you are seriously considering retracing your steps, building a boat and sailing home.
+> down
+
+> down
+
+You find yourself in the southern end of a large pit, with unsavoury remains littering the floor.
+
+Now that the clattering of stones from your descent has died down, you notice an ominous silence: the earlier mutterings from the far side of the pit have stopped...
+
+There is an ear-splitting roar as a huge cave bear rushes toward you from the north. It rises onto its hind legs and towers above you, fangs gleaming and spittle flying, looking down on you with murder on its mind!. The only ways out are the way you entered - if you can climb fast enough - and a dark crack in the western wall, just wide enough for you to enter!
+> w
+
+> w
+You run towards the crack and manage to squeeze in just before the bear reaches you!
+Whew!
+
+You are in a narrow cleft in the rock that rises up to the west. To the east it opens upon a dark, evil-smelling pit.
+Just inside the pit, an enraged  cave bear glares and growls at you, awaiting its lunch. You.
+
+Your heart is pounding and you realise your recent exertions have made you rather thirsty.
+> up
+
+> up
+
+A dark corridor stretches north. To the east is a narrow cleft in the rock. There is nothing here but the weight of centuries.
+> n
+
+> n
+
+You are in bend in a gloomy corridor. It continues south into darkness but from the west, enough pale light enters for you to see!
+> w
+
+> w
+
+You are standing on a wide landing in a cliff face, overlooking a dark and ancient forest.
+Only a trace of red sun remains in the sky, but the silvery light of a rising full moon illuminates the scene.
+An easy slope leads down from here to a path through the forest, while a  gloomy tunnel penetrates the cliff to the east.
+> w
+
+> w
+
+You are on a path winding through a dark forest. Decaying leaves rustle under your feet and the smell of vegetation is strong. The ancient forest reaches gnarled branches above your head, but there is enough light to see. The thick trees are impenetrable but an easy grade to the east leads up to a landing on the cliff face, while the path continues west into the forest.
+> w
+
+> w
+
+The path here branches north, south and east through an impenetrable, ancient forest. A slight breeze moans through the trees and you shiver, wondering what else might be hiding there.
+> n
+
+> n
+
+You are in a dark forest. Paths through the impenetrable jungle lead west and south of here.
+> w
+
+> w
+
+You are on a dark forest trail. The forest is so thick here that without a light you would be unable to see anything. The trail continues to the east and south, and an even narrower trail winds its way north.
+> n
+
+> n
+
+You are on a narrow trail through a dark forest, walking silently on a thick carpet of leaves. The peace is almost palpable, and the ancient forest seems more like a friendly companion than a place of threat and danger. The main path winds west and south, while a narrower branch leads east but is soon lost to sight as it winds its way through the trees.
+> w
+
+> w
+
+You are in a small clearing in the forest. The trees do not quite fully cover it, so some light from the moon penetrates down here. The light filtering down highlights the white flowers of a small green herb growing here.
+> take hemlock
+
+> take hemlock
+You carefully collect the hemlock and  tuck it under your belt.
+> e
+
+> e
+
+You are on a narrow trail through a dark forest, walking silently on a thick carpet of leaves. The peace is almost palpable, and the ancient forest seems more like a friendly companion than a place of threat and danger. The main path winds west and south, while a narrower branch leads east but is soon lost to sight as it winds its way through the trees.
+> s
+
+> s
+
+You are on a dark forest trail. The forest is so thick here that without a light you would be unable to see anything. The trail continues to the east and south, and an even narrower trail winds its way north.
+> s
+
+> s
+
+You are on a narrow forest path bending north and west. No light penetrates to the forest floor here and all is silent.
+> w
+
+> w
+
+You are on a wide path through the forest, illuminated by silvery moonlight from the three-quarter moon. You can go east or south.
+> s
+
+> s
+
+You are on a moonlit forest path. The path divides here into routes through the otherwise impenetrable forest, to the east,  south and north.
+> s
+
+> s
+
+You have reached a clearing in the forest. The path you have been following continues to the north and south. A sluggish stream of clear water flows past, widening here into a deep pond.
+
+A large, silvery fish leaps out of the water to grab some passing insect, and flops back into the water with a splash!
+> break bottle
+
+> break bottle
+You smash the small bottle into pieces!
+In the remains is a worm.
+> take worm
+
+> take worm
+It is a slippery customer, but you manage to grab it!
+> bait hook with worm
+
+> bait hook with worm
+The worm is now on the hook!
+> catch fish
+
+> catch fish
+You throw your line into the water and it sinks with a faint 'plop!'
+Do you know what fisherfolk spend most of their time doing?
+Waiting...
+Fishing is exciting, eh? At least we can enjoy watching the moonlight on the water.
+> wait
+
+> wait
+Time passes.
+Ooh! A ripple in the water near your line!
+> wait
+
+> wait
+Time passes.
+A tug on the line!
+You pull on the line and yay! Got one!
+It jerks itself off the hook but not soon enough to escape: there's now a big silvery fish flopping on the ground at your feet!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> take fish
+
+> take fish
+You whack the fish over the head and pick it up.
+> put hemlock in fish
+
+> put hemlock in fish
+Done.
+The hemlock is now in the fish.
+> n
+
+> n
+
+You are on a moonlit forest path. The path divides here into routes through the otherwise impenetrable forest, to the east,  south and north.
+> n
+
+> n
+
+You are on a wide path through the forest, illuminated by silvery moonlight from the three-quarter moon. You can go east or south.
+> e
+
+> e
+
+You are on a narrow forest path bending north and west. No light penetrates to the forest floor here and all is silent.
+> n
+
+> n
+
+You are on a dark forest trail. The forest is so thick here that without a light you would be unable to see anything. The trail continues to the east and south, and an even narrower trail winds its way north.
+> e
+
+> e
+
+You are in a dark forest. Paths through the impenetrable jungle lead west and south of here.
+> s
+
+> s
+
+The path here branches north, south and east through an impenetrable, ancient forest. A slight breeze moans through the trees and you shiver, wondering what else might be hiding there.
+> e
+
+> e
+
+You are on a path winding through a dark forest. Decaying leaves rustle under your feet and the smell of vegetation is strong. The ancient forest reaches gnarled branches above your head, but there is enough light to see. The thick trees are impenetrable but an easy grade to the east leads up to a landing on the cliff face, while the path continues west into the forest.
+> e
+
+> e
+
+You are standing on a wide landing in a cliff face, overlooking a dark and ancient forest.
+An easy slope leads down from here to a path through the forest, while a  gloomy tunnel penetrates the cliff to the east.
+> e
+
+> e
+
+You are in bend in a gloomy corridor. It continues south into darkness but from the west, enough pale light enters for you to see!
+> s
+
+> s
+
+A dark corridor stretches north. To the east is a narrow cleft in the rock. There is nothing here but the weight of centuries.
+> down
+
+> down
+
+You are in a narrow cleft in the rock that rises up to the west. To the east it opens upon a dark, evil-smelling pit.
+Just inside the pit, an enraged  cave bear glares and growls at you, awaiting its lunch. You.
+> give fish to cave bear
+
+> give fish to cave bear
+You toss the fish to the bear, who grabs it and swallows it in one gulp!
+After a moment, it looks dazed and staggers away into the darkness! You hear a moan and a thump.
+> e
+
+> e
+
+You are in a large, dark pit. Crumbling handholds in its south wall lead up to a dark tunnel, and a narrow crack provides an exit to the west. You cannot see the northern end of the pit from here.
+Bones and other items not bearing closer examination litter the floor.
+There's a large cave bear snoring on the floor.
+> give amulet to bear
+
+> give amulet to bear
+You carefully place the amulet over the sleeping bear's head. It seems to rest more peacefully now.
+> n
+
+> n
+
+You are in the northern end of a large, dank, malodorous pit. Bones and fragments of cloth speak of past tragedies here, while the smell of bear gives a hint as to what.
+In the north wall is a strong iron gate. Lying near what looks terribly like a chewed arm bone is a beautiful silver bracelet!
+> take bracelet
+
+> take bracelet
+You pick it up and cheerfully add it to your collection.
+> open gate
+
+> open gate
+You reach your hand through the bars and turn the handle. Fortunately, it proves to be unlocked!
+Creeeaakkk! The gate noisily opens on hinges that need some maintenance.
+> n
+
+> n
+
+You are in a long, high but relatively narrow corridor rising to the north from an iron gate to the south.
+> up
+
+> up
+
+A narrow corridor from the south joins a rather wider east-west corridor.
+> e
+
+> e
+
+A stone corridor winds west and north.
+> n
+
+> n
+
+A corridor from the south ends here at an archway opening upon a room to the north. Light comes from the entrance, illuminating this part of the corridor, but there is nothing particularly interesting here.
+You think you hear angry mutterings from the room up ahead. You have a bad feeling about this.
+> n
+
+> n
+
+You have entered a large, messy room decorated with rude frescoes. There is a rounded archway to the south and a narrow exit to the north, while an open doorway opens onto a small room to the east. From the room a whiff of something tasty emanates, unfortunately mixed with the sour odour of troll.
+No sooner have you stepped into the room than a mean-looking, fierce troll rushes out of the room to the east, brandishing a sword!
+He takes one look at you and yells,
+'How the hell did ye get past me bear?
+I've been baiting that bear for years so it hates anything with two legs - like you! Hell, even I'm scared of it!
+Well let's see how you go with me, tough guy!'
+With that, he whirls his sword in the air and leaps at you!
+> kill troll with sword
+
+> kill troll with sword
+You just manage to block his blow in time!
+You battle back and forth, your magical weaponry barely enough to match his strength and skill!
+Finally you both break off and step back, panting heavily!
+That was close!
+> s
+
+> s
+
+A corridor from the south ends here at an archway opening upon a room to the north. Light comes from the entrance, illuminating this part of the corridor, but there is nothing particularly interesting here.
+> s
+
+> s
+
+A stone corridor winds west and north.
+> w
+
+> w
+
+A narrow corridor from the south joins a rather wider east-west corridor.
+> down
+
+> down
+
+You are in a long, high but relatively narrow corridor rising to the north from an iron gate to the south.
+> s
+
+> s
+
+You are in the northern end of a large, dank, malodorous pit. Bones and fragments of cloth speak of past tragedies here, while the smell of bear gives a hint as to what.
+In the north wall is a strong iron gate.
+The bear ambles up to you and licks your face!
+> n
+
+> n
+
+You are in a long, high but relatively narrow corridor rising to the north from an iron gate to the south.
+You are being followed by a large but friendly cave bear, who can just squeeze through the corridor.
+> up
+
+> up
+
+A narrow corridor from the south joins a rather wider east-west corridor.
+You are being dogged by a large but friendly cave bear, who can just squeeze through the corridor.
+> e
+
+> e
+
+A stone corridor winds west and north.
+You are being trailed by a large but friendly cave bear.
+> n
+
+> n
+
+A corridor from the south ends here at an archway opening upon a room to the north. Light comes from the entrance, illuminating this part of the corridor, but there is nothing particularly interesting here.
+You are being dogged by a large but friendly cave bear.
+> n
+
+> n
+
+You have entered a large, messy room decorated with rude frescoes. There is a rounded archway to the south and a narrow exit to the north, while an open doorway opens onto a small room to the east. From the room a whiff of something tasty emanates, unfortunately mixed with the sour odour of troll.
+An unfriendly fierce troll is glaring at you, fingering his sword meaningfully.
+Your bear follows you in and when it sees the troll, rears up on its hind legs with an ear-splitting scream!
+"EEEEK!" shouts the troll, "What sorcery is this?!" Then he mutters something under his breath that you can't hear, and vanishes in a puff of smelly green smoke!
+The bear subsides, and looks at you with an expression both adoring and afraid.
+> e
+
+> e
+
+This is a small, messy room with a narrow exit to the west.
+On side of the room is a small desk. The troll ran away so fast he left a tempting sandwich on it!
+In the centre of the room is a tall pedestal. On it is displayed a beautiful fire opal!
+The bear cannot follow you here and waits outside
+> take opal
+
+> take opal
+You pick up the gorgeous object and carefully store it away.
+> take sandwich
+
+> take sandwich
+You pick up the sandwich. Smells nice!
+> w
+
+> w
+
+You have entered a large, messy room decorated with rude frescoes. There is a rounded archway to the south and a narrow exit to the north, while an open doorway opens onto a small room to the east. From the room a whiff of something tasty emanates, unfortunately mixed with the sour odour of troll.
+You are being followed by a large but friendly cave bear.
+The bear is wearing a beautiful amulet.
+> n
+
+> n
+
+You are in a very narrow hallway, leading north into darkness from a lit room.
+The bear is too big to enter here and stays behind, snuffling around in its former tormentor's room.
+> n
+
+> n
+
+You are in a dark, narrow hallway from the south. It ends north of here, but a narrow crack opens there into a rough path leading upwards.
+> n
+
+> n
+
+High above, some kind of openings in the roof let in a pale light, revealing a vast corridor decorated in shades of blue stretching east and west, with an equally wide and magnificent corridor leading north. Its western and northern branches are as illuminated as here, while to the east it extends into a deepening gloom. A narrow gap in the rock wall to the south opens onto a narrow path winding down into darkness.
+
+From the north comes the echo of a cry, but whether from a beast or a man calling out in anguish, you cannot tell.
+> w
+
+> w
+
+A vast corridor palely lit by holes high in the roof leads east. To the west, a monumental archway opens onto a large circular room.
+> w
+
+> w
+
+You have entered a large, circular, domed room room, decorated with blue tile and lit by light filtering in from above. A wide arched exit leads east while a more narrow corridor heads south.
+> s
+
+> s
+
+You are in a narrow, blue hallway heading north to a large, well-lit room and south to an open doorway.
+> s
+
+> s
+
+You are in a small, low, gloomy chamber, a long disused bedroom by the look of it, lit only by dim light from the north.
+A recent cave-in has left a pile of rubble on the floor - and opened a small, dark hole in the roof!
+> up
+
+> up
+You grab the sides of the hole and pull yourself up.
+
+You are crawling through a tight, dark access tunnel in the stone. It goes from a hole in the floor to the west of here to the east, but you cannot see what lies there.
+> e
+
+> e
+
+You have reached a small room. It must have been ravaged by fire long ago, for it is empty except for a mound of long dead ashes.
+> x ashes
+
+> x ashes
+You poke through the ashes,
+and discover a strange metal cylinder!
+> take cylinder
+
+> take cylinder
+You pick up the cylinder.
+> w
+
+> w
+
+You are crawling through a tight, dark access tunnel in the stone. It goes from a hole in the floor to the west of here to the east, but you cannot see what lies there.
+> down
+
+> down
+You lower yourself down through the hole.
+
+You are in a small, low, gloomy chamber, a long disused bedroom by the look of it, lit only by dim light from the north.
+A recent cave-in has left a pile of rubble on the floor - and opened a small, dark hole in the roof!
+> n
+
+> n
+
+You are in a narrow, blue hallway heading north to a large, well-lit room and south to an open doorway.
+> n
+
+> n
+
+You have entered a large, circular, domed room room, decorated with blue tile and lit by light filtering in from above. A wide arched exit leads east while a more narrow corridor heads south.
+> e
+
+> e
+
+A vast corridor palely lit by holes high in the roof leads east. To the west, a monumental archway opens onto a large circular room.
+> e
+
+> e
+
+High above, some kind of openings in the roof let in a pale light, revealing a vast corridor decorated in shades of blue stretching east and west, with an equally wide and magnificent corridor leading north. Its western and northern branches are as illuminated as here, while to the east it extends into a deepening gloom. A narrow gap in the rock wall to the south opens onto a narrow path winding down into darkness.
+> e
+
+> e
+
+A vast, high corridor ends here, still dimly lit by the light illuminating its western reaches. A smaller corridor leads north.
+> n
+
+> n
+
+This is a relatively narrow corridor, but in the dim light from somewhere above you can see it was once magnificent. To the south it joins a larger corridor, while to the north a staircase leads gently upwards.
+> up
+
+> up
+
+You are on a wide landing at the top of a once magnificent staircase leading down to the south, long abandoned. Light still filters in from above, but to the east is a rounded archway leading back into darkness.
+> e
+
+> e
+
+You are in a long, winding corridor stretching away into the darkness to the east and west. The echoes of past centuries accompany your footsteps as your boots tap on the stone.
+> e
+
+> e
+
+You are at the end of a long corridor winding through the darkness to the west. A long staircase descends gently southward.
+> down
+
+> down
+
+You are at the bottom of a long staircase rising gently northward. A cold dark corridor, a decaying shadow of some past glory, leads west.
+> w
+
+> w
+
+Two tiled corridors cross here, leading north, south, east and west.
+> n
+
+> n
+
+You are in a north-south corridor. It must have been spectacular once, but all that is left of its past glory are mosaics of faded blue tiles. Another corridor joins here from the west.
+> n
+
+> n
+
+You are in a north-south hallway tastefully decorated in purplish blue tiles, long faded from their original glory. A hallway leads to the east, while to the north a slim archway looks like the entrance to a room.
+> e
+
+> e
+
+You are in a hallway from the west, lit dimly from the entrance to a room to the east.
+> e
+
+> e
+
+You are in  medium sized room, perhaps once a day room as it has a view of the ocean through a window.
+The tunnels you have been exploring must have reached a cliff face, for far below you can see a ribbon of beach, the breaking waves palely illuminated by the full moon above.
+
+Oh, look! A large crossbow has been left here, propped up in one corner!
+> sheath sword
+
+> sheath sword
+You put the sword in its scabbard.
+> take crossbow
+
+> take crossbow
+You pick up the weapon, admiring its balance.
+> w
+
+> w
+
+You are in a hallway from the west, lit dimly from the entrance to a room to the east.
+> w
+
+> w
+
+You are in a north-south hallway tastefully decorated in purplish blue tiles, long faded from their original glory. A hallway leads to the east, while to the north a slim archway looks like the entrance to a room.
+> n
+
+> n
+
+You are in small bedroom, once luxurious but now fallen into disrepair. The only furniture now is a small closed cupboard on the wall and a large bed in the centre.
+Something has made a hole in the roof above the bed, but this room is quite high and the hole is about 12 feet off the floor, well out of reach.
+> open cupboard
+
+> open cupboard
+You open the cupboard.
+It contains a small box.
+> take box
+
+> take box
+You pick up the box.
+> s
+
+> s
+
+You are in a north-south hallway tastefully decorated in purplish blue tiles, long faded from their original glory. A hallway leads to the east, while to the north a slim archway looks like the entrance to a room.
+> s
+
+> s
+
+You are in a north-south corridor. It must have been spectacular once, but all that is left of its past glory are mosaics of faded blue tiles. Another corridor joins here from the west.
+> s
+
+> s
+
+Two tiled corridors cross here, leading north, south, east and west.
+> w
+
+> w
+
+This is another intersection of corridors leading to all points of the compass. There is nothing here but dust and the echoes of the past.
+> n
+
+> n
+
+You are in a long, north-south corridor with another corridor branching off it to the east. To the north it ends at a narrow entrance to a dark room.
+> n
+
+> n
+
+You are in a medium-sized oval room of unknown function. Long ago there must have been a tragedy or a fight in here, for piled in a corner of the room is an old skeleton.
+> x skeleton
+
+> x skeleton
+The skeleton is long dead, and several of its bones have been scattered by scavengers.
+Embedded in its ribcage is a steel arrow.
+> take arrow
+
+> take arrow
+You pick up the arrow and store it away.
+> s
+
+> s
+
+You are in a long, north-south corridor with another corridor branching off it to the east. To the north it ends at a narrow entrance to a dark room.
+> s
+
+> s
+
+This is another intersection of corridors leading to all points of the compass. There is nothing here but dust and the echoes of the past.
+> s
+
+> s
+
+You are in a large oval room, so high your light does not show the ceiling. Echoes like whispers of the past sound at the edge of your hearing.
+A stone archway to the north leads to a wide corridor, while a low, narrow crawlway is visible in the south wall.
+> s
+
+> s
+
+You are crawling through a tight north-south crawl space, too dark and cramped to see what lies beyond.
+> s
+
+> s
+
+You have entered a small tomb with a deep red floor. Faded paintings of life and afterlife decorate the walls.
+The air hear feels charged, as if a great power resides here; not hostile, but watching and waiting.
+Filling most of the tomb is a large stone sarcophagus.
+> open sarcophagus
+
+> open sarcophagus
+You grasp the sides and heave with all your might, and the lid slides aside, far enough to see what lies within!
+Inside it reposes a mummy.
+> x mummy
+
+> x mummy
+The mummy is ancient but retains an aura of absolute power to be seen, to be worshipped, but not to be meddled with.
+On one of its fingers is a golden ring.
+> x ring
+
+> x ring
+It is a large ring of yellow gold, and on it is inscribed a mysterious word: FALNX.
+On it is inscribed a mysterious word, FALNX.
+> memorise FALNX
+
+> memorise FALNX
+Furrowing your brow, you commit the spell to memory until you're sure you've got it.
+> close sarcophagus
+
+> close sarcophagus
+You shove the lid with all your might, and it slides back into position with a faint thud.
+> n
+
+> n
+
+You are crawling through a tight north-south crawl space, too dark and cramped to see what lies beyond.
+> n
+
+> n
+
+You are in a large oval room, so high your light does not show the ceiling. Echoes like whispers of the past sound at the edge of your hearing.
+A stone archway to the north leads to a wide corridor, while a low, narrow crawlway is visible in the south wall.
+> n
+
+> n
+
+This is another intersection of corridors leading to all points of the compass. There is nothing here but dust and the echoes of the past.
+> e
+
+> e
+
+Two tiled corridors cross here, leading north, south, east and west.
+> s
+
+> s
+
+A corridor, once grand but now fallen into disrepair, winds its way to the north. To the east, an archway opens upon a large, dimly lit room.
+> e
+
+> e
+
+You are in a small but once grand circular chamber made of marble, lit by a soft light seemlingly from the marble itself, with an exit to the west.
+To the east is a niche sealed by a stone slab.
+> say FALNX
+
+> say FALNX
+You feel a ripple of power, like the feel of distant lightning,
+and the stone slab lifts silently, exposing a dark entrance!
+You feel strange, knowing you just spoke a word of power - but no longer recalling what it was!
+> e
+
+> e
+
+You are in a small treasure room of white marble, lit by an invisible light source, whose only exit is to the west.
+In the centre of the room is a gleaming alabaster pedestal. The pedestal is displaying a beautiful, large emerald!
+> take emerald
+
+> take emerald
+The pick up the emerald, and marvel at its beauty before tucking it safely away.
+You hear a grinding noise, and see the stone slab beginning to descend!
+> w
+
+> w
+You execute a perfect commando roll as you dive out, and the slab thuds shut behind you!
+
+You are in a small but once grand circular chamber made of marble, lit by a soft light seemlingly from the marble itself, with an exit to the west.
+To the east is a niche sealed by a stone slab.
+> w
+
+> w
+
+A corridor, once grand but now fallen into disrepair, winds its way to the north. To the east, an archway opens upon a large, dimly lit room.
+> n
+
+> n
+
+Two tiled corridors cross here, leading north, south, east and west.
+> e
+
+> e
+
+You are at the bottom of a long staircase rising gently northward. A cold dark corridor, a decaying shadow of some past glory, leads west.
+> up
+
+> up
+
+You are at the end of a long corridor winding through the darkness to the west. A long staircase descends gently southward.
+> w
+
+> w
+
+You are in a long, winding corridor stretching away into the darkness to the east and west. The echoes of past centuries accompany your footsteps as your boots tap on the stone.
+> w
+
+> w
+
+You are on a wide landing at the top of a once magnificent staircase leading down to the south, long abandoned. Light still filters in from above, but to the east is a rounded archway leading back into darkness.
+> down
+
+> down
+
+This is a relatively narrow corridor, but in the dim light from somewhere above you can see it was once magnificent. To the south it joins a larger corridor, while to the north a staircase leads gently upwards.
+> s
+
+> s
+
+A vast, high corridor ends here, still dimly lit by the light illuminating its western reaches. A smaller corridor leads north.
+> w
+
+> w
+
+High above, some kind of openings in the roof let in a pale light, revealing a vast corridor decorated in shades of blue stretching east and west, with an equally wide and magnificent corridor leading north. Its western and northern branches are as illuminated as here, while to the east it extends into a deepening gloom. A narrow gap in the rock wall to the south opens onto a narrow path winding down into darkness.
+> n
+
+> n
+
+You are in a wide corridor from the south, decorated in faded, light blue tiles and lit from holes far above. To the north it curves away to the east.
+
+A howl or cry from somewhere north of here chills you to the bone.
+> ne
+
+> ne
+
+You are in a wide corridor leading north and curving away to the southwest. A pale light from far above reveals faded paintings of gods and battle scenes on the walls.
+
+A large, rather hairy man dashes into the northern end of the corridor and gives you a big grin, then rushes into a room to the east and slams the door!
+> n
+
+> n
+
+You are standing outside a closed door to a room to the east. Wide corridors head south and west of here.
+A terrifying howl, or perhaps a scream, comes from inside the room, and you wonder why you didn't just stay lying on a nice beach somewhere!
+> w
+
+> w
+
+You are at the end of a wide corridor stretching east from here. A low, dark tunnel leads north from here. In the western wall is a closet with a large mat in front of it.
+> lift mat
+
+> lift mat
+Beneath it you find a key!
+> take key
+
+> take key
+You pick up the key.
+> n
+
+> n
+
+You are on a landing above a mighty underground river flowing swiftly eastward, far below here. Long ago, the roof of the cavern must have collapsed for the region here is open to the sky. High above,
+clouds scud across a moonlit sky.
+A sheer, slick cliff just east of here plunges to a landing and the river. Nearby a rope ladder is coiled on the ground.
+To the north, a narrow crystal bridge spans the chasm through which the river flows.
+A vicious harpy guards the bridge, wheeling and swooping in the air and calling out obscenities at you, challeging you to dare cross the chasm!
+
+The sight of the river makes you realise you are thirsty!
+> ready crossbow
+
+> ready crossbow
+You insert the arrow, pull back the string and lock it in place ready to fire.
+> aim crossbow
+
+> aim crossbow
+You sight down the bow, taking quick but careful aim on your target.
+> fire crossbow
+
+> fire crossbow
+Your arrow flies true, and strikes the disgusting creature in the chest!
+She falls wailing and cursing, to end in a faint splash far below.
+> n
+
+> n
+
+You are on a narrow crystal bridge, smooth and slippery as ice. Far below a dark river flows swiftly to the east; you feel dizzy, as if the river is calling to you... One misstep and you are lost!
+> n
+
+> n
+
+You are on a large circular platform cut out of the cliff face north of a mighty river, criss-crossed by many small footprints. A narrow tunnel penetrates the rock to the east.
+The way west is blocked by a large, circular circular metal door with a solid-looking combination lock on it.
+> s
+
+> s
+
+You are on a narrow crystal bridge, smooth and slippery as ice. Far below a dark river flows swiftly to the east; you feel dizzy, as if the river is calling to you... One misstep and you are lost!
+> s
+
+> s
+
+You are on a landing above a mighty underground river flowing swiftly eastward, far below here. Long ago, the roof of the cavern must have collapsed for the region here is open to the sky. High above,
+clouds scud across a moonlit sky.
+A sheer, slick cliff just east of here plunges to a landing and the river. Nearby a rope ladder is coiled on the ground.
+To the north, a narrow crystal bridge spans the chasm through which the river flows.
+> s
+
+> s
+
+You are at the end of a wide corridor stretching east from here. A low, dark tunnel leads north from here. In the western wall is a closet with a large mat in front of it.
+> unlock closet with key
+
+> unlock closet with key
+It isn't locked!
+> open closet
+
+> open closet
+The door opens with only a little resistance.
+> put crossbow in closet
+
+> put crossbow in closet
+The crossbow is now in the closet.
+> lock closet
+
+> lock closet
+You cannot lock it when it is open.
+> n
+
+> n
+
+You are on a landing above a mighty underground river flowing swiftly eastward, far below here. Long ago, the roof of the cavern must have collapsed for the region here is open to the sky. High above,
+clouds scud across a moonlit sky.
+A sheer, slick cliff just east of here plunges to a landing and the river. Nearby a rope ladder is coiled on the ground.
+To the north, a narrow crystal bridge spans the chasm through which the river flows.
+> n
+
+> n
+
+You are on a narrow crystal bridge, smooth and slippery as ice. Far below a dark river flows swiftly to the east; you feel dizzy, as if the river is calling to you... One misstep and you are lost!
+> n
+
+> n
+
+You are on a large circular platform cut out of the cliff face north of a mighty river, criss-crossed by many small footprints. A narrow tunnel penetrates the rock to the east.
+The way west is blocked by a large, circular circular metal door with a solid-looking combination lock on it.
+> e
+
+> e
+
+You are in a dark, arched east-west corridor. To the west is a small hole in the stone, while to the east, a broad staircase leads gently downwards.
+> e
+
+> e
+
+You are in a large square staging area. Smoky torches, high on the walls out of reach, provide illumination - though who maintains them, and why, is a mystery.
+Wide staircases lead up to the east and west.
+To the north is a large portcullis. The portcullis is closed, but through its bars you can see a dark corridor.
+A faded sign reads, "Ring bell for service". But there is no bell here.
+> e
+
+> e
+
+You are in a wide, high corridor, leading east from a broad staircase going gently down to the west, that is lit by torches high up on the walls. A tight tunnel penetrates the northern wall.
+> e
+
+> e
+
+You are in a rectangular room, whose formerly deep blue paint is cracked, faded and peeling. Light comes in from a window in the east wall, overlooking the ocean and a sandy beach far below.
+There is a small closed cupboard on the wall.
+> open cupboard
+
+> open cupboard
+You open it.
+Inside it you see a small golden bell.
+> take bell
+
+> take bell
+It tinkles softly as you pick it up.
+> w
+
+> w
+
+You are in a wide, high corridor, leading east from a broad staircase going gently down to the west, that is lit by torches high up on the walls. A tight tunnel penetrates the northern wall.
+> w
+
+> w
+
+You are in a large square staging area. Smoky torches, high on the walls out of reach, provide illumination - though who maintains them, and why, is a mystery.
+Wide staircases lead up to the east and west.
+To the north is a large portcullis. The portcullis is closed, but through its bars you can see a dark corridor.
+A faded sign reads, "Ring bell for service". But there is no bell here.
+> ring bell
+
+> ring bell
+Ting-aling-aling-aling!
+There is a grinding, clanking sound as the portcullis slowly raises!
+The way north is now open!
+> n
+
+> n
+
+As you step under the portcullis, you hear a loud rattling, and look up to see the portcullis falling towards your head! You have mere seconds to decide whether to continue forward or go back!
+> n
+
+> n
+
+The portcullis crashes down behind you! Just made it!
+But jumping in you slip on the floor, and your lamp goes flying, smashing into pieces!
+Slowly your eyes adjust to the gloom...
+[state=Running]

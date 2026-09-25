@@ -5,7 +5,6 @@ by Ken Ra
 
 A Your Cell
 The cell is small - barely enough space for a worn mattress and a toilet. Every sound echoes throughout the underground complex. Each cell is carved into the stone, and the cell doors are crafted from latticed titanium. The lock is crafted from a more sturdy metal - perhaps one of the mystical elements shared with mortals shortly before the war?
-You feel weak...
 > e
 
 > e
@@ -67,6 +66,7 @@ You rip the battery from the machine.
 > use battery
 
 > use battery
+You feel weak...
 > w
 
 > w
@@ -138,11 +138,26 @@ You shoot and kill the guard! Kokouson glares at you as he recovers. He presses 
 
 Intersection R
 The room is well-lit. Each wall, ceiling, and floor are covered in steel. A camera is placed in the center of the ceiling. There are strange metal tubes in each corner with wireless networking devices attached.
-Kokouson enters the room and stabs you!
+> e
 
-The Underworld
-YOU DIED
-YOU DIED
-Kokouson enters the room and stabs you!
-YOU DIED
+> e
+
+A Utility Hall
+The room is long with heavy cyberpunk-style machines along each wall. Various buttons, screens, and guages line the top of each machine. This room must be used for air pressure and temperature control within these lower caverns. Maybe you can scavenge something from them?
+> e
+
+> e
+
+Transition Room S
+The cavern is small and mostly empty. There is a large switch on the wall. The door opposite the entrance has a heavy metal bar across it. You NEED to get that unlocked and move forward as Kokouson is on your tail!
+> pull switch
+
+> pull switch
+You hear Kokouson's voice over the intercom. "Haha! You have a fighting spirit. My favorite kind to break."
+> e
+
+> e
+
+A Cavern Network
+A dark, network of crudely carved caverns. There is very little support - it's a wonder how these rooms don't collapse. The ceiling is filled with more of those pipe bombs and very dim blue lights.
 [state=Running]

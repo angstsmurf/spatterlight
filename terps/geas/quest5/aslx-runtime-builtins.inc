@@ -909,6 +909,17 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return as_double(arg(0)) >= as_double(arg(1)) ? arg(0) : arg(1);
     if (fn == "min" && n == 2)
         return as_double(arg(0)) <= as_double(arg(1)) ? arg(0) : arg(1);
+    // NcalcExpressionEvaluator resolves any unknown function against
+    // System.Math by reflection, so games can call Math statics directly.
+    // Math.Truncate/Floor/Ceiling(double) return a double (A Stranger,
+    // Unregarded's `Truncate(game.visitcount/3.34)` progress percentage).
+    if ((fn == "truncate" || fn == "floor" || fn == "ceiling") && n == 1) {
+        double d = as_double(arg(0));
+        if (fn == "truncate") d = std::trunc(d);
+        else if (fn == "floor") d = std::floor(d);
+        else d = std::ceil(d);
+        return vdouble(d);
+    }
     // Clone / ShallowClone (ExpressionOwner -> Element.Clone): copy the
     // element under a fresh "<root>N" name (GetUniqueElementName strips
     // trailing digits), copying the inherited-type stack and every own field

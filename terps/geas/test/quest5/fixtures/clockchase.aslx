@@ -1,0 +1,105 @@
+<!--Scripted fixture for the harness drivers' real-time models (oracle
+    Program.cs SettleClock, aslx_replay.cc settle_clock).  Both shapes of
+    the "chase" idiom that kill a script under DrainTimers, plus the ambient
+    chain that triggers the side-fire:
+
+      * game start queues an unrelated SetTimeout(60) ("A distant clang.")
+      * the corridor's firstenter arms a SetTimeout(20) that kills you if
+        you are still flagged as followed (the A Story of Salvation shape)
+      * the vault's description enables a 25-second RECURRING <timer> that
+        kills you outright; `pull switch` disables it (the Mt. Underlook
+        shape).  Entering the vault also queues a 60s flavour SetTimeout
+        (the klaxon), and that is what makes the vault unsurvivable under
+        DrainTimers: the drain that waits out the klaxon ticks to the
+        EARLIEST enabled trigger, the 25s chase, and fires it twice before
+        the klaxon is even due.  (Remove the corridor's countdown to see
+        that shape on its own; with it the script dies one room earlier.)
+
+    clockchase.cmd (`#!clock=5`) walks e, e, pull switch, then tick:60 to
+    show both flavour timeouts still arrive at their own time;
+    clockchase.txt is its transcript, and both drivers must reproduce it
+    byte for byte:
+
+      cd harness/oracle && dotnet bin/Release/net10.0/qvh.dll \
+          ../../fixtures/clockchase.aslx ../../fixtures/clockchase.cmd \
+          | diff ../../fixtures/clockchase.txt -
+      cd harness && ASLX_CORE=../../../quest5/aslx-core ./aslx_replay \
+          ../fixtures/clockchase.aslx ../fixtures/clockchase.cmd \
+          | diff ../fixtures/clockchase.txt -
+
+    Delete the `#!clock=5` line and the same script dies on the first `e`.-->
+<asl version="550">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="Clock Chase">
+    <gameid>2c7d1e0a-5b6f-4a83-9d2e-71f0c4b8a9e3</gameid>
+    <author>Fixture</author>
+    <start type="script">
+      msg ("You wake in a cell. Something clangs, far away, every so often.")
+      SetTimeout (60) {
+        msg ("A distant clang.")
+      }
+    </start>
+  </game>
+  <object name="hunter">
+    <inherit name="editor_object" />
+  </object>
+  <object name="cell">
+    <inherit name="editor_room" />
+    <isroom type="boolean">true</isroom>
+    <description>A bare cell. The door east stands open.</description>
+    <object name="player">
+      <inherit name="editor_player" />
+      <isplayer />
+    </object>
+    <exit alias="east" to="corridor">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="corridor">
+    <inherit name="editor_room" />
+    <isroom type="boolean">true</isroom>
+    <description>A long corridor. Footsteps behind you. A vault door stands east.</description>
+    <firstenter type="script">
+      SetObjectFlagOn (hunter, "following")
+      SetTimeout (20) {
+        if (GetBoolean(hunter, "following")) {
+          msg ("The footsteps catch you. You die.")
+          finish
+        }
+      }
+    </firstenter>
+    <exit alias="east" to="vault">
+      <inherit name="eastdirection" />
+    </exit>
+  </object>
+  <object name="vault">
+    <inherit name="editor_room" />
+    <isroom type="boolean">true</isroom>
+    <description type="script">
+      msg ("A vault with a big switch on the wall. Your pursuer is close: pull it before he arrives.")
+      EnableTimer (chase)
+    </description>
+    <beforefirstenter type="script">
+      SetObjectFlagOff (hunter, "following")
+      SetTimeout (60) {
+        msg ("A klaxon starts somewhere below.")
+      }
+    </beforefirstenter>
+    <object name="switch">
+      <inherit name="editor_object" />
+      <look>A big lever.</look>
+      <pull type="script">
+        DisableTimer (chase)
+        msg ("The vault door slams shut behind you. Safe.")
+      </pull>
+    </object>
+  </object>
+  <timer name="chase">
+    <interval type="int">25</interval>
+    <script type="script">
+      msg ("Your pursuer bursts in and stabs you. You die.")
+      finish
+    </script>
+  </timer>
+</asl>

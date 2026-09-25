@@ -1,0 +1,33 @@
+Clock Chase
+
+by Fixture
+
+You wake in a cell. Something clangs, far away, every so often.
+You are in a cell.
+You can go east.
+A bare cell. The door east stands open.
+> e
+
+> e
+
+You are in a corridor.
+You can go east.
+A long corridor. Footsteps behind you. A vault door stands east.
+> e
+
+> e
+
+You are in a vault.
+You can see a switch.
+A vault with a big switch on the wall. Your pursuer is close: pull it before he arrives.
+> pull switch
+
+> pull switch
+The vault door slams shut behind you. Safe.
+A distant clang.
+A klaxon starts somewhere below.
+> x switch
+
+> x switch
+A big lever.
+[state=Running]

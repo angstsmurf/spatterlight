@@ -13,7 +13,9 @@
 // and questions), same auto-advance of pending waits, same deterministic
 // DrainTimers (after each step, tick pending SetTimeout timers by exactly
 // their trigger delta; only self-destructing "timeout*" timers are drained so
-// recurring authored timers never loop), same HTML-strip + blank-line-collapse
+// recurring authored timers never loop) or, under a `#!clock=N` header, the
+// same typing clock (N seconds per typed command, nothing drained -- the
+// model a real-time chase needs), same HTML-strip + blank-line-collapse
 // normalisation, same "> cmd" echo for v520+ and final "[state=...]" line,
 // same Wedged-vs-Finished distinction (a Finished forced by the 20-error
 // breaker reports as Wedged, via Interp::script_errors_fatal()).
@@ -289,7 +291,6 @@ int main(int argc, char **argv) {
             pending_tick = in.next_timer_seconds();
         }
     };
-    drain_timers();
 
     bool echo = w.asl_version >= 520;
     std::ifstream script(argv[2]);
@@ -298,11 +299,32 @@ int main(int argc, char **argv) {
     while (std::getline(script, raw)) lines.push_back(raw);
     // qvh `#!errorlimit=N` directive: raise the script-error breaker
     // threshold for this game (legacy Quest had no breaker at all).
-    for (auto &l : lines)
+    // qvh `#!clock=N` directive: typing clock instead of DrainTimers -- each
+    // typed command costs N seconds (one tick after it settles), nothing is
+    // drained. Games with a real-time chase need it; see Program.cs
+    // SettleClock for the why.
+    int clock_secs = 0;
+    for (auto &l : lines) {
         if (l.rfind("#!errorlimit=", 0) == 0)
             in.set_max_script_errors((int)std::strtol(l.c_str() + 13, nullptr, 10));
+        else if (l.rfind("#!clock=", 0) == 0) {
+            long cs = std::strtol(l.c_str() + 8, nullptr, 10);
+            if (cs > 0) clock_secs = (int)cs;
+        }
+    }
+    // Program.cs SettleClock: drain (default) or, under the typing clock, tick
+    // exactly clock_secs once per typed command/event -- never for a menu or
+    // question answer (they belong to the command that asked), nor for
+    // save:/assert:/tick: bookkeeping.
+    auto settle_clock = [&](bool typed) {
+        if (clock_secs == 0) { drain_timers(); return; }
+        if (!typed || w.finished) return;
+        in.tick(clock_secs);
+        auto_advance();
+    };
     size_t li = 0;
     int steps = 0;
+    settle_clock(false);  // qvh: DrainTimers after Begin (no-op under the clock)
 
     // Resolve a script line to a menu option key: exact key, display text
     // (case-insensitive), or 1-based number. Empty return = no match.
@@ -361,6 +383,7 @@ int main(int argc, char **argv) {
         std::string cmd = nr_trim(lines[li++]);
         if (cmd.empty() || cmd[0] == '#') continue;
         steps++;
+        bool typed = false;
         if (const MenuData *m = in.pending_menu()) {
             std::string l = cmd;
             if (l.compare(0, 5, "menu:") == 0) l = nr_trim(l.substr(5));
@@ -414,6 +437,7 @@ int main(int argc, char **argv) {
             std::string param = sc == std::string::npos ? "" : rest.substr(sc + 1);
             // qvh: await world.SendEvent(name, param)
             in.send_event(name, param);
+            typed = true;
         } else if (cmd.compare(0, 5, "tick:") == 0) {
             // qvh tick:N — deterministic real-time advance: tick the game
             // clock by exactly N seconds, firing due AUTHORED timers (the
@@ -428,10 +452,11 @@ int main(int argc, char **argv) {
         } else {
             if (echo) line_out("> " + cmd);
             in.send_command(cmd);
+            typed = true;
         }
         in.drain_on_ready();
         auto_advance();
-        drain_timers();
+        settle_clock(typed);
     }
 
     // A Finished reached only because the 20-error breaker fired is reported

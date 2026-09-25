@@ -1,5 +1,10 @@
+#!clock=5
 # A Story of Salvation (Quest 5, ASL v550, 15657-line game.aslx); no published
 # walkthrough exists anywhere -- derived entirely from source.
+#
+# `#!clock=5`: the catacombs are a real-time chase (see REAL-TIME CHASE
+# below), so this script runs on the typing clock -- five seconds per typed
+# command, nothing drained -- instead of the default DrainTimers model.
 #
 # Day/night trigger chain (nightfall4 must fire before the ruined house's
 # screwdriver becomes reachable): visit the asylum cell (picks up a piece of
@@ -39,41 +44,29 @@
 # key) then north into the lighthouse, `up` twice to the top. `x slumped
 # figure` (the dying writer) prints his ENTIRE multi-stage dialogue and
 # hands over the trapdoor key in one synchronous command -- the source's
-# nested `wait{...}` blocks do NOT pause for real player input in this
-# engine (see ENGINE GAP below); no follow-up commands are needed or
-# useful. `down` twice, `unlock trapdoor`/`open trapdoor` (trapdoor1, a
-# second, different key from the lighthouse door), `down` into the
-# catacombs.
+# nested `wait{...}` blocks are auto-continued by the harness (a `wait` is a
+# keypress prompt, not a timer); no follow-up commands are needed or useful.
+# `down` twice, `unlock trapdoor`/`open trapdoor` (trapdoor1, a second,
+# different key from the lighthouse door), `down` into the catacombs.
 #
-# ENGINE GAP (this is where the script stops, at a forced, unavoidable
-# death -- not a derivation mistake): the catacombs from catacombs9 onward
-# are a real-time chase -- each room's `firstenter` sets a "following" flag
-# and calls `SetTimeout(N){ if (flag) { death; finish } }` (60/45/45/30),
-# meant to give an interactive player N real seconds to move to the next
-# room before the pursuer catches them. QuestViva's headless oracle has no
-# wall clock, so `Program.cs` reproduces the interactive timer tick
-# deterministically by draining any pending self-destructing SetTimeout by
-# its exact trigger delta immediately after each command settles (see main
-# README, "Real-time timers: DrainTimers"). For a REVEAL timer (its
-# documented purpose: Mouse Who Woke Up For Christmas, Escape From the
-# Mechanical Bathhouse) this is exactly the intended faithful behaviour. But
-# for a DANGER countdown like this one, draining the full 60-second delta
-# the instant the room's own firstenter creates it means the death check
-# fires atomically within the very same command that entered catacombs91,
-# before any subsequent player command can ever be processed -- verified
-# directly: the death message appears merged into the same output block as
-# the room description, with no intervening "> " prompt. This is the exact
-# phenomenon documented for The Encyclopedia of Elementals' Main Hall
-# rescue window: there is provably no point in any script where a player
-# choice could land inside the window, so the catacombs chase (and
-# everything past it -- underground bunker, garden, Hardacre's lab,
-# Somewhere, the ferris-wheel ending) is structurally unreachable from this
-# oracle regardless of command choices, not a gap in this derivation.
+# REAL-TIME CHASE (why this script needs `#!clock=5`): the catacombs from
+# catacombs9 onward are a chase -- each room's `firstenter` sets a
+# "following" flag and calls `SetTimeout(N){ if (flag) { death; finish } }`
+# (60/45/45/30 seconds), the next room's entry clears the flag, and the
+# player is meant to keep moving west. Under the default DrainTimers model
+# (a player who waits out every pending SetTimeout before typing again) the
+# 60-second countdown fires inside the very command that entered
+# catacombs91 and the game ended there -- this script's golden was a forced
+# death until 2026-09-25. On the typing clock the four `west`s cost 20
+# seconds in total, each countdown finds its flag already cleared, and the
+# player bars the bunker door behind them.
 #
 # Script plays every reachable beat (asylum cell paper, nightfall4 trigger,
 # ruined-house screwdriver, chapel paper/screwdriver/key puzzle, chapel-door
-# ambush-avoidance, lighthouse key, dying writer's trapdoor key) and ends on
-# the forced catacombs death. errors=0, steps=105, deterministic.
+# ambush-avoidance, lighthouse key, dying writer's trapdoor key, the
+# catacombs chase) and ends alive in the underground bunker. The rest of the
+# game (bunker, garden, Hardacre's lab, Somewhere, the ferris-wheel ending)
+# is reachable now and still owed. errors=0, steps=109, deterministic.
 north
 north
 west
@@ -177,5 +170,9 @@ open trapdoor
 down
 southwest
 southwest
+west
+west
+west
+west
 west
 west

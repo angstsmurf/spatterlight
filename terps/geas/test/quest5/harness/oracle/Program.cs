@@ -66,12 +66,21 @@ void Line(string s) => transcript.Append(s).Append('\n');
 // script-error breaker threshold for this game (see patch_questviva.py §4 —
 // legacy Quest had no breaker; some games are legacy-tolerable error storms).
 // Must be set before WorldModel's static init runs.
+//
+// A `#!clock=N` directive switches the real-time model from DrainTimers (a
+// player who waits out every pending SetTimeout before typing the next command)
+// to a typing clock: the game clock advances by exactly N seconds after each
+// command, and nothing else drains. See DrainTimers below for why a game with a
+// real-time chase needs this.
+var clockSecs = 0;
 if (args.Length >= 2)
 {
     foreach (var l in File.ReadLines(args[1]))
     {
         if (l.StartsWith("#!errorlimit="))
             Environment.SetEnvironmentVariable("QVH_ERROR_LIMIT", l["#!errorlimit=".Length..].Trim());
+        else if (l.StartsWith("#!clock=") && int.TryParse(l["#!clock=".Length..].Trim(), out var cs) && cs > 0)
+            clockSecs = cs;
     }
 }
 
@@ -139,8 +148,8 @@ Console.Error.WriteLine($"[diag] version={world.Version} objects={world.Objects.
 // prompt). No polling needed — the suspend TCS is the real settle signal.
 await world.Begin();
 await AutoAdvance();
-await DrainTimers();
-Console.Error.WriteLine($"[diag] after begin: emits={emitCount} state={world.State}");
+await SettleClock(false);
+Console.Error.WriteLine($"[diag] after begin: emits={emitCount} state={world.State} clock={clockSecs}");
 
 var stepCount = 0;
 var scriptExhausted = true;
@@ -153,6 +162,10 @@ if (args.Length >= 2)
         if (cmd.Length == 0 || cmd.StartsWith('#')) continue;
         stepCount++;
 
+        // Typing-clock accounting: only a command (or an event) costs the
+        // player N seconds. Answering a menu/question belongs to the command
+        // that raised it, and save:/assert:/tick: are harness bookkeeping.
+        var typed = false;
         if (player.PendingMenu is { } menu)
         {
             var key = ResolveMenuKey(menu, cmd);
@@ -190,6 +203,7 @@ if (args.Length >= 2)
         {
             var parts = cmd[6..].Split(';', 2);
             await world.SendEvent(parts[0], parts.Length > 1 ? parts[1] : "");
+            typed = true;
         }
         else if (cmd.StartsWith("tick:"))
         {
@@ -212,10 +226,11 @@ if (args.Length >= 2)
         {
             if (echoCommands) Line("> " + cmd);
             await world.SendCommand(cmd);
+            typed = true;
         }
 
         await AutoAdvance();
-        await DrainTimers();
+        await SettleClock(typed);
     }
 }
 
@@ -243,13 +258,42 @@ async Task AutoAdvance()
     }
 }
 
+// Let real time pass after a step, under whichever model the script chose.
+//
+// Default (no `#!clock=`): DrainTimers — the player waits out every pending
+// SetTimeout before the next command. That is the right model for gates ("your
+// eyes adjust to the dark" after 2s) but fatal for a real-time chase: a
+// "SetTimeout(60) { if (still here) die }" countdown fires inside the very
+// command that created it, and because RequestNextTimerTick reports the
+// earliest trigger of ANY enabled timer, a just-enabled recurring "chase"
+// timer with a short interval fires (possibly several times) while the drain
+// is still waiting out an unrelated ambient chain. A Story of Salvation's
+// catacombs, The Encyclopedia of Elementals' rescue window and Mt. Underlook's
+// Kokouson chase are all of this shape.
+//
+// `#!clock=N`: a typing clock — each typed command costs N seconds, ticked
+// once after the command settles (the moment the interactive players' 1s JS
+// interval would run), and nothing is ever drained. Timeouts still fire, N
+// seconds per command later; a chase with interval T grants T/N commands; the
+// script says `tick:M` where the player deliberately stands still. The header
+// names N, so the golden states its own assumption about typing speed.
+async Task SettleClock(bool typed)
+{
+    if (clockSecs == 0) { await DrainTimers(); return; }
+    if (!typed || world.State == GameState.Finished) return;
+    pendingTick = 0;
+    await world.Tick(clockSecs);
+    await AutoAdvance();
+}
+
 // Drain pending SetTimeout timers deterministically. `pendingTick` holds the
 // seconds until the next timer fires, as reported by RequestNextTimerTick (the
 // same value the interactive players' JS interval waits out). Tick(secs) advances
 // game.timeelapsed by exactly that delta and runs the due timer(s); a SetTimeout
 // timer self-destroys when it fires, so the loop settles. Only "timeout*" timers
 // (created by SetTimeoutID) are drained, keeping recurring authored timers — which
-// would otherwise loop forever in the absence of a real clock — dormant.
+// would otherwise loop forever in the absence of a real clock — dormant. (Dormant
+// only as far as the LOOP condition goes: see SettleClock for the side-fire.)
 async Task DrainTimers()
 {
     var guard = 0;

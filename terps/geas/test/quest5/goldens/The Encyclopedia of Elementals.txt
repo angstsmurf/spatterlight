@@ -205,9 +205,23 @@ Pinned under some of the wooden beams that supported the castle is a lone man wh
 You can run away through the gate, or you can try to help the man.
 You can see a dropped halberd, rubble, some wooden beams and the trapped man.
 You can go to the mysterious wing, to the hallway or outisde.
-The ceiling begins to crumble and dust falls all around you.  You don't have much time left!
-The ceiling is collapsing!  Run away!
-The flaming supports in the room give way and the castle collapses on both you and the man you were trying to save!
+> x rubble
 
-Game Over
-[state=Finished]
+~ x rubble
+This pile of rubble is mostly rock and burning wood, but on closer inspection you see a piece of metal poking out!
+There's a metal pole.
+> take metal pole
+
+~ take metal pole
+You pull the object from the rubble.  It is extremely hot.
+> use pole on beams
+
+~ use pole on beams
+Using the metal pole and all your strength, you pry the wooden beams off the trapped man, who is just able to drag himself out from under them.  You drop the pole to help him out the door.
+Press any key...
+
+The Fields Across the Moat
+You stand with the others who fled across the moat from the castle, watching it burn. The darkness of the night is contrasted by the bright light cast from the fire. You could swear that the flames have a malicious grin as they rise further into the sky than one would think possible. You can only hope to make your way to a nearby village if you hope to get any sleep at all tonight.
+You can see the rescued man.
+You can go to a small cottage.
+[state=Running]

@@ -1311,5 +1311,52 @@ The corridor continues to stretch away to the west.
 You suddenly realise that the footfalls you can hear aren't just your own, and their echoes - there are a distinctly separate set of footsteps following you down the corridor, from the east.
 
 You can go east or west.
-In a flash, your pursuer is upon you, grunting and wailing as it leaps onto your back and wrestles you to the ground - the last thing you see are long, slender fingers reaching for your eyes before they are ripped from their sockets... mercifully your death follows soon.
-[state=Finished]
+> west
+
+> west
+
+You are in the catacombs.
+
+The long, straight tunnel heads unerringly westwards.
+
+The footfalls behind you seem to be speeding up.
+
+You can go east or west.
+> west
+
+> west
+
+You are in the catacombs.
+
+The tunnel seems to be sloping gradually upwards.
+
+There is unmistakeably something following you - you begin to run, a scream building in your throat.
+
+You can go east or west.
+> west
+
+> west
+
+You are in the catacombs.
+
+You can see a door at the western end of the tunnel.
+
+You flash your torch behind you to illuminate an inhuman THING sprinting towards you, tentacles dangling from its face.
+
+You can go east or west.
+> west
+
+> west
+
+You dash through the door, which is mercifully unlocked.  You find that it can be barred with a stout piece of wood on the other side, and slam it into place before your pursuer can follow.  You wait for the sound of hammering on the other side of the door... but it never comes.
+You are in an underground bunker.
+
+A doorway to the east is barred shut.
+
+Another doorway leads to the west.
+
+There are several empty bunk beds here, and shelves lined with supplies.
+
+You can see some beds and some shelves.
+You can go east or west.
+[state=Running]

@@ -1,10 +1,11 @@
 #!errorlimit=200
+#!clock=5
 # Mt. Underlook: Trial of False Eyes (Quest 5, ASL v580, 25564-line game.aslx,
 # 1294 objects); no published walkthrough exists -- derived entirely from
-# source. THIS IS THE BEST-REACHABLE SCRIPT, NOT A WIN -- the game's own
-# engine-vs-oracle mismatch (detailed below) forces death at the first
-# chokepoint of the underground-prison Act 1, well before the vehicle-chase
-# and Act 2 content that follows it.
+# source. BEST-REACHABLE SO FAR, NOT A WIN: the script clears the Act 1
+# Kokouson chase (which needs the `#!clock=5` typing clock -- see REAL-TIME
+# CHASE below) and stops alive in the Cavern Network; the vehicle chase and
+# Act 2 that follow are reachable now and still owed.
 #
 # Escape sequence: `pull switch` in Corridor 59Q turns the corridor lights on
 # (global switch, not room-local) and opens the Mutilated Corpse; `search
@@ -36,37 +37,28 @@
 # and kills the player outright on any further turn spent in the room,
 # including a bare `look`.
 #
-# THE HUB IS UNREACHABLE-ALIVE FROM HERE -- CONFIRMED ENGINE GAP, NOT A
-# DERIVATION GAP. Corridor Intersection R's `description` script, once
-# `boss1.isopen` is true, calls `EnableTimer(Kokouson Chase)`, a 25-second
-# RECURRING authored `<timer>` (`msg("Kokouson enters the room and stabs
-# you!"); DecreaseHealth(107)`) meant to chase the player out through the
-# Pressure Room before it next fires. 107 damage is unsurvivable outright:
-# `game.pov.health` is created at a hardcoded max of 100 (source line
-# ~24534), so even full health cannot absorb the hit -- this rules out any
-# "minimize prior damage" strategy. But the timer does not even get a fair
-# 25-second window: several rooms on the only route to the hub (Corridor
-# 60Q's `firstenter`, Utility Hall's `firstenter`, both `RandomChance`-gated
-# ambient encounter spawns) queue their own one-shot `SetTimeout(...)`
-# chains, and the very first room's own intro schedules a 15+45+1+60s chain
-# before the player ever leaves the cell. The oracle's `DrainTimers` (see
-# harness/oracle/README.md's "Real-time timers" section) only *decides*
-# whether to keep ticking by checking for still-pending "timeout*"-named
-# timers, but each `Tick()` it does perform advances `game.timeelapsed` and
-# fires EVERY due timer, named or not -- so any one of these unrelated
-# ambient chains still pending when `EnableTimer(Kokouson Chase)` runs
-# immediately satisfies the freshly-set trigger as a side effect. Five
-# independent live tests (identical death point regardless of exact
-# turn-count, including one with a confirmed genuinely turn-consuming filler
-# inserted) rule out a turncount-parity theory -- the kill is a structural
-# side effect of how the headless oracle drains real-time timers, and it
-# fires on the very same command that opens `boss1`, before any escape
-# command can ever be issued. This is the same phenomenon already documented
-# for The Encyclopedia of Elementals' Main Hall rescue window and A Story of
-# Salvation's catacombs chase.
+# REAL-TIME CHASE (why this script needs `#!clock=5`). Corridor Intersection
+# R's `description` script, once `boss1.isopen` is true, calls
+# `EnableTimer(Kokouson Chase)`, a 25-second RECURRING authored `<timer>`
+# (`msg("Kokouson enters the room and stabs you!"); DecreaseHealth(107)`)
+# meant to chase the player out through the Pressure Room before it next
+# fires; 107 damage is unsurvivable outright (`game.pov.health` is created
+# at a hardcoded max of 100, source line ~24534), so the only way through is
+# speed. Under the default DrainTimers model the chase never got its 25
+# seconds: entering the hub also leaves ambient one-shot `SetTimeout` chains
+# pending (Corridor 60Q's and Utility Hall's `RandomChance`-gated
+# `firstenter` spawns, the cell's 15+45+1+60s intro chain), and the drain
+# that waits those out ticks to the EARLIEST enabled trigger -- the chase --
+# firing it twice inside the very `e` that enabled it. This script's golden
+# was that forced death until 2026-09-25. On the typing clock the escape is
+# `e` (Utility Hall; the exit script re-enables the chase, harmless), `e`
+# (the now-unlocked Pressure Room Door into "Transition Room S", which opens
+# `lockdeath1`), `pull switch` (closes lockdeath1, DisableTimer(Kokouson
+# Chase), unlocks the Heavy Titanium Door) -- 15 seconds against a
+# 25-second interval -- then `e` into the Cavern Network.
 #
-# Script plays every reachable Act 1 beat up to and including the Kokouson
-# boss fight and ends on the forced, unavoidable death. errors=0, steps=26.
+# Script plays every Act 1 beat through the Kokouson boss fight and the
+# chase and stops alive in the Cavern Network. errors=0, steps=30.
 e
 pull switch
 search corpse
@@ -92,4 +84,8 @@ swipe card panel
 w
 shoot kokouson
 shoot guard
+e
+e
+e
+pull switch
 e

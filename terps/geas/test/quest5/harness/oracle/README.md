@@ -359,6 +359,26 @@ goldens; every other transcript is byte-identical. (It cannot rescue I Contain
 Multitudes: there the ending `SetTimeout` is never even *created*, because it sits
 inside a nested `wait{…}` continuation the harness does not pump.)
 
+`DrainTimers` models an infinitely patient player, and that is the wrong player for
+a *danger* countdown. A `SetTimeout(N){ if still here: die }` chase fires inside the
+very command that created it (A Story of Salvation's catacombs, The Encyclopedia of
+Elementals' Main Hall rescue window, A Stranger, Unregarded's portcullis), and since
+each `Tick` advances to the *earliest* enabled trigger of *any* timer, a just-enabled
+recurring `<timer>` with a short interval is fired as a side effect while an
+unrelated ambient `SetTimeout` chain is drained (Mt. Underlook's Kokouson chase,
+twice, before the player can type). Those four games run instead on the **typing
+clock**: a `#!clock=N` header line (scanned anywhere in the script, like
+`#!errorlimit`) switches the driver to ticking exactly N seconds once after each
+*typed* command or `event:` line settles, and draining nothing. Menu/question
+answers, `save:`, `assert:`, `tick:` and bookkeeping lines do not tick; `tick:M`
+still exists for deliberate waiting. Under the clock a 60-second countdown is a
+budget of twelve commands, a 25-second recurring chase gives five moves to disable
+it, and a reveal timer arrives when its own time comes rather than instantly. The
+native driver honours the same header the same way, and
+`fixtures/clockchase.aslx`/`.cmd`/`.txt` exercise both chase shapes (plus the
+side-fire) on both drivers. The header is opt-in per script, so every DrainTimers
+golden is untouched.
+
 ### Synchronous sounds: `play sound (…, true, …)`
 
 `play sound` takes a *synchronous* flag, and a synchronous play is not a UI hook —
