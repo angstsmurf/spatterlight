@@ -319,6 +319,7 @@ mishmash	mishmash.txt	harvested-xoshiro:Adrift_1112_mishmash.txt	4.00	run400x.ex
 missingperson	missingperson.txt	driven:Adrift_304_missingperson_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 mm2	mm2.txt	driven:Adrift_327_mm2_rt.txt	3.90	run390x.exe	1234	1	Petter	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 monsterisland	monsterisland.txt	driven:Adrift_322_monsterisland_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+monstermirror	monstermirror.txt	driven:Adrift_285_monstermirror_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 monsters	monsters.txt	driven:Adrift_270_monsters_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 morning_headache	morning_headache.txt	driven:Adrift_324_morning_headache_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 mortality	mortality.txt	driven:Adrift_282_mortality_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -391,6 +392,7 @@ rat	rat.txt	driven:Adrift_335_rat_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITK
 reactor1	reactor1.txt	driven:Adrift_431_reactor1_rt.txt	4.00	run400x.exe	1	3		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 redwire	redwire.txt	driven:Adrift_310_redwire_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 regrets	regrets.txt	driven:Adrift_418_regrets_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+relife	relife.txt	driven:Adrift_282_relife_rt2.txt	3.90	run390x.exe	1234	0	Òåñò		yes	identical on every turn.
 relojero	relojero.txt	driven:Adrift_337_relojero_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 reluctantvampire	reluctantvampire.txt	driven:Adrift_504_reluctantvampire_rt.txt	4.00	run400x.exe	6	0		SCR_SEED=6 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 renegade_brainwave	renegade_brainwave.txt	driven:Adrift_149_renegade_brainwave_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -550,6 +552,7 @@ vetknow2	vetknow2.txt	driven:Adrift_339_vetknow2_rt.txt	4.00	run400x.exe	1234	0	
 videotapedecay	videotapedecay.txt	driven:Adrift_417_videotapedecay_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 viewtohome	viewtohome.txt	driven:Adrift_429_viewtohome_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 villains_and_kings	villains_and_kings.txt	driven:Adrift_195_villains_and_kings_rt.txt	3.90	run390x.exe	1234	0	male		yes	identical on every turn.
+virtual	virtual.txt	driven:Adrift_284_virtual_rt.txt	4.00	run400x.exe	1234	2			yes	identical on every turn.
 volant	volant.txt	driven:Adrift_477_volant_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 wanderersgow	wanderersgow.txt	driven:Adrift_285_wanderersgow_rt.txt	3.90	run390x.exe	1234	1			yes	identical on every turn.
 warlock	warlock.txt	harvested-native-0-draws:Adrift_859_warlock.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
@@ -575,6 +578,7 @@ wizards	wizards.txt	driven:Adrift_306_wizards_rt.txt	3.90	run390x.exe	1234	0	Pet
 wolvesatthedoor	wolvesatthedoor.txt	driven:Adrift_448_wolvesatthedoor_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 wonderwombat	wonderwombat.txt	driven:Adrift_346_wonderwombat_rt.txt	3.90	run390x.exe	3	2		SCR_SEED=3 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 woof	woof.txt	driven:Adrift_201_woof_rt.txt	4.00	run400x.exe	5	0	Rex	SCR_SEED=5	yes	identical on every turn.
+worldcbn	worldcbn.txt	driven:Adrift_286_worldcbn_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 worstgame	worstgame.txt	driven:Adrift_415_worstgame_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 wreckage	wreckage.txt	driven:Adrift_199_wreckage_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 wrecked	wrecked.rtf	driven:Adrift_274_wrecked_rt.rtf+tail	3.80	run380x.exe	15	0		SCR_SEED=15	yes	identical on every turn.

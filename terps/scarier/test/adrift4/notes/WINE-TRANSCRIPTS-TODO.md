@@ -238,19 +238,30 @@ below as not yet ported.
   defect, so it is not the intro-`<wait>` drive footgun below (that one
   crashes AFTER the titled window opens, and a by-hand run390 plays the
   game fine).
-- **Intro `<wait N>` chains crash the drive at startup (govard,
-  2026-09-25).** drive.exe treats the intro as settled after 3 s of quiet
-  scrollback (`--intro-quiet`), which lands inside Govard's ~20 s chain of
-  real-time `<wait>` tags; its pre-transcript Return then hits the Runner's
-  wait loop and the Runner dies with "Run-time error '9': Subscript out of
-  range" once the entry box is re-enabled ("the pre-transcript Backspaces
-  did not complete" in the log). The unhooked run390.exe does the same
-  under the drive and plays fine by hand, so it is the harness, not the
-  game. Drive such rows with `INTRO_QUIET=25 PRE_SLEEP=30` (PRE_SLEEP alone
-  is not enough: the intro "settles" at 6 s while text is still arriving).
-  Of the 31 undriven rows, `govard2` (same author) will need it; the par
-  logs record no other startup crash of this shape (only the dreamquest and
-  raiders load dialogs).
+- **Intro `<wait N>` chains used to crash the drive at startup (govard,
+  2026-09-25) -- FIXED in drive.cs the same day.** drive.exe treated the
+  intro as settled after 3 s of quiet scrollback (`--intro-quiet`), which
+  landed inside Govard's ~20 s chain of real-time `<wait>` tags; the first
+  pre-transcript Backspace was then posted into the gap between two waits
+  and the Runner died with "Run-time error '9': Subscript out of range"
+  ("the pre-transcript Backspaces did not complete" in the log). The
+  unhooked run390.exe did the same under the drive and plays fine by hand,
+  so it was the harness, not the game. `SettleIntro()` now resets the quiet
+  clock while the entry box is disabled (a real-time wait), caps at 120 s,
+  and runs again after every pre key and after the Backspaces, before menu
+  9. Re-driven govard at the default settings: byte-identical to the
+  INTRO_QUIET=25 transcript. The INTRO_QUIET/PRE_SLEEP workaround is no
+  longer needed. `govard2` never needed it (its first `<wait` is mid-game).
+  The other four wired rows with a `<wait` in the first 6 KB of the game
+  text -- relife, virtual, monstermirror, worldcbn -- were driven with the
+  fixed driver on 2026-09-25: all four identical on every turn. relife's
+  first drive differed only at the name echo, because `plan` decoded
+  make_wine_cmdfile.py's UTF-8 `POPUP_ANSWERS` line as latin-1 and
+  double-encoded the cp1251 name (fixed in `plan_one`; plan.tsv patched;
+  relife was the only non-ASCII popup). The summary rows of such a drive
+  also came out empty because the log's raw cp1251 bytes killed `sed`
+  under the UTF-8 locale; the three drivers' summary pipelines now run
+  under `LC_ALL=C`.
 - **cs2 "10+ differing turn(s)" is a compare artefact.** The game's
   question menus print lines beginning `> `, which the compare takes for
   prompts; a word-level diff of `runner_transcripts/cs2.txt` against the

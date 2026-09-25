@@ -89,7 +89,13 @@ def plan_one(row):
     done = subprocess.run([sys.executable, os.path.join(HERE, "make_wine_cmdfile.py"),
                            tag, os.path.join(FEEDS, tag + ".txt")],
                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=run_env)
-    text = done.stdout.decode("latin-1")
+    # make_wine_cmdfile.py prints its POPUP_ANSWERS through Python's UTF-8
+    # stdout, so a latin-1 decode here double-encoded relife's cp1251 name
+    # ("Òåñò" became "Ã\x92Ã¥Ã±Ã²" and the Runner typed a '?', 2026-09-25).
+    try:
+        text = done.stdout.decode("utf-8")
+    except UnicodeDecodeError:
+        text = done.stdout.decode("latin-1")
     pre = re.search(r"PRE=(\d+)", text)
     popups = re.search(r'POPUP_ANSWERS="([^"]*)"', text)
     if done.returncode or not pre:

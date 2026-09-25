@@ -1,0 +1,200 @@
+
+> search grass
+
+  You skim  your foot around in the tall grass, moving to and fro. After about 10 minutes your foot hits something hard. You find an old hammer.
+
+> n
+You move north.
+Thick Forrest
+
+    The thick forrest wraps around in most all directions, separated only by a beaten path. Tall twisted trees loom toward the sky, darkening the path below. Sounds of forrest creatures echo through the thick woods, carried on by the swift breeze that tosses leaves and small bits of bark, torn loose from the trees.  Also here are some old nails.  You can move south and west.
+
+> get nails
+You pick up the old nails.
+
+> w
+You move west.
+Cottage
+You stand outside a log cottage, that looks heavily worn with age. All the windows have wooden shutters, locked from the inside. A pile of wood rests neatly stacked against the side wall of the old cottage. A heavy iron, hand operated, water pump is secured in the hard ground.  You can move east and in.
+
+> x wood
+The wood is very dry and weathered. It must have been here for a very long time. It looks too heavy to lift.  Some wood planks are on the pile of wood.
+
+> get planks
+You take some wood planks from the pile of wood.
+
+> e
+You move east.
+Thick Forrest
+
+    The thick forrest wraps around in most all directions, separated only by a beaten path. Tall twisted trees loom toward the sky, darkening the path below. Sounds of forrest creatures echo through the thick woods, carried on by the swift breeze that tosses leaves and small bits of bark, torn loose from the trees.  You can move south and west.
+
+> s
+You move south.
+Grassy Field
+
+     You are in a large grassy field that stretches as far as the eye can see. A gentle breeze flows across the field, ever so gently bending the tall grass, as if it were paying homage to a fallen idol. There is but one lone tree in the middle of the field, obviously hundreds of years old.  You can only move north.
+
+> nail planks to tree with hammer
+With great effort you position the planks on the tree and nail each one, until you make a ladder that reaches the  space where the tree branches out. You will now be able to move up the tree.
+
+> u
+You move up.
+Up the tree
+You are high above the grassy field, that sways in the gentle breeze.  The branches seem fairly sturdy, but you are not convinced that they will hold you for long.  There is a small hole in the tree.  You can only move down.
+
+> x hole
+It is a small hole in the tree, presumably a bird once nested here. There is something in the hole  A dull key is inside the small hole.
+
+> take key
+You take the dull looking key from the hole.
+
+> d
+You move down.
+Grassy Field
+
+     You are in a large grassy field that stretches as far as the eye can see. A gentle breeze flows across the field, ever so gently bending the tall grass, as if it were paying homage to a fallen idol. There is but one lone tree in the middle of the field, obviously hundreds of years old.  You can move north and up.
+
+> n
+You move north.
+Thick Forrest
+
+    The thick forrest wraps around in most all directions, separated only by a beaten path. Tall twisted trees loom toward the sky, darkening the path below. Sounds of forrest creatures echo through the thick woods, carried on by the swift breeze that tosses leaves and small bits of bark, torn loose from the trees.  You can move south and west.
+
+> w
+You move west.
+Cottage
+You stand outside a log cottage, that looks heavily worn with age. All the windows have wooden shutters, locked from the inside. A pile of wood rests neatly stacked against the side wall of the old cottage. A heavy iron, hand operated, water pump is secured in the hard ground.  You can move east and in.
+
+> in
+You move in.
+Inside Cottage
+The one room cottage seems to have been abandoned for may years. There is an old fireplace for heat and cooking. There is a loft overhead, with  very short ladder permanantly fixed in place. An old table sits along the west wall.  The window shutters are closed and locked with a simple open and close latch. There is also a trap door in the floor.  You can move up and out.
+
+> unlock trap door
+You unlock the trap door with the dull key, and pull the heavy door open.
+
+> d
+You move down.
+In the cellar
+You are in the celler, where food is usually stored. The dirt floor and walls are damp, most likely from a recent rain. The trap door leading into this place is just above your head. The smell of mold is overwhelming, and you decide it wouldn't be a good idea to stay in here for long.  Also here is a magnifying glass.  You can only move up.
+
+> get magnifying glass
+You pick up the magnifying glass.
+
+> u
+You move up.
+Inside Cottage
+The one room cottage seems to have been abandoned for may years. There is an old fireplace for heat and cooking. There is a loft overhead, with  very short ladder permanantly fixed in place. An old table sits along the west wall.  The window shutters are closed and locked with a simple open and close latch. There is also a trap door in the floor.  You can move up, down and out.
+
+> u
+You move up.
+Loft
+This is a small loft most likely used for midnight slumber. There are no furnishings or windows in this area. It seems completely empty except for one lone shelf on the far wall.  You can only move down.
+
+> x shelf
+The shelf is a simple 2 1/2 foot long wooden plank, nailed to the wall.  A miniature book is on the shelf.
+
+> get book
+You take a miniature book from the shelf.
+
+> read book with magnifying glass
+You hold the looking glass over the tiny script and begin to read out loud.
+  "I give no water, but have a job. Turn my handle, like a knob."
+
+> d
+You move down.
+Inside Cottage
+The one room cottage seems to have been abandoned for may years. There is an old fireplace for heat and cooking. There is a loft overhead, with  very short ladder permanantly fixed in place. An old table sits along the west wall.  The window shutters are closed and locked with a simple open and close latch. There is also a trap door in the floor.  You can move up, down and out.
+
+> out
+You move out.
+Cottage
+You stand outside a log cottage, that looks heavily worn with age. All the windows have wooden shutters, locked from the inside. A pile of wood rests neatly stacked against the side wall of the old cottage. A heavy iron, hand operated, water pump is secured in the hard ground.  You can move east and in.
+
+> turn handle
+Out of curiousity, you turn the pump handle.  The second that you do,  the sky opens and dumps a horrendous amout of rain. Soon you are swept away through masses of twisted trees. You see what is left of the cabin being sucked into a massive whirlpool. You frantically try to grab onto anything you can.  Your efforts are in vain, as you too, are sucked into the swirling pool.
+
+> w
+You move west.
+Park
+The park is beautiful, and full of life. Tall trees, healthy looking shrubbery, and assorted flowers line the stone walkway that leads to a fountain to the west. You can hear birs singing melodious songs, without a care in the world. The smell of the flowers fills the still air with a fragent aroma.  You can move east and west.
+
+> look under stone
+You move the stone aside and find a card. You pick up the card.
+
+> e
+You move east.
+Center Street
+You are in the middle of Center Street. Wherever it is, it is desolate, abandoned. The roadway continues to the north and south. The the east is a plain looking building, and a park lies to the west.  You listen for any kind of movement around, but hear nothing.  You can only move west.
+
+> put card in slot
+You slide the card into the slot, but it does not come back out. A moment later you hear the click of the door, and proceed inside.
+
+> u
+You move up.
+Control Room
+This must be the control room for the fountain. There are three buttons. One is red, the other is green, and the last is yellow.  You can only move down.
+
+> press green button
+You press the green button and hear a rumble coming from somewhere outside.
+
+> press yellow button
+You press the yellow button, and the room fills with a thick smoke and a foul smelling odor. When the smoke finally clears you see a small piece of paper drift to the floor.
+
+> get paper
+You pick up the piece of paper.
+
+> read paper
+"I play a tune, that no one hears. Try me and it will all be clear."
+
+> d
+You move down.
+Plain Building
+You are inside the plain looking building. The building is empty, abandoned. A metal stairway leads up to an open doorway.  You can move west and up.
+
+> w
+You move west.
+Center Street
+You are in the middle of Center Street. Wherever it is, it is desolate, abandoned. The roadway continues to the north and south. The the east is a plain looking building, and a park lies to the west.  You listen for any kind of movement around, but hear nothing.  You can move east and west.
+
+> w
+You move west.
+Park
+The park is beautiful, and full of life. Tall trees, healthy looking shrubbery, and assorted flowers line the stone walkway that leads to a fountain to the west. You can hear birs singing melodious songs, without a care in the world. The smell of the flowers fills the still air with a fragent aroma.  You can move east and west.
+
+> w
+You move west.
+At the Fountain
+You stand before a large fountain, spewing water from a spout in the center. The water hits a point and falls back into the circular pool. It looks as if there is something stuck in the spout, but you can't see what it is until you find some way to shut the water off.  You can only move east.
+
+> x spout
+The spout shoots out water straight into the air, before it falls back into the pool. There seems to be something stuck in the spout.  A golden whistle is inside the spout.
+
+> get whistle
+You take a golden whistle from the spout.
+
+> blow whistle
+You blow into the golden whistle, but no sound seems to come out. You blow even harder, and begin to lose your breath. Moments later you are struggling in the darkness. You strain your eyes through the darkness, and realize you are in another place alltogether.
+
+> x stand
+The table isn't much to look at either. It was some garage sale bargain, and you thought you needed a bedside table. Now you wish you never would have bought it.  An old hammer is on the night stand.
+
+> get hammer
+You take an old hammer from the night stand.
+
+> x mirror
+You look into the mirror expecting to see your own reflection, but instead you see a large horned, devil like creature coming toword you very quickly. You had better do something fast !
+
+> hit mirror with hammer
+You smash the mirror with the hammer, and watch as it shatters into a million little bits. You hear the shrieks and groans as the monster in the mirror reaches out towords you with its razor sharp claws. You scream and jump back, tripping over the end of your bed. You fall and hit your head on the nightstand.  
+ When you wake the next morning, you find that it was all a horrible nightmare.  Maybe it isn't a good idea to fill up on water just before you go to bed.  
+
+    So you figured it out. I hope you had fun, and didn't have to return to the grassy field too many times. Thanks for playing.
+
+Written by Mystery
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]
