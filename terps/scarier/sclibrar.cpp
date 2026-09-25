@@ -25382,7 +25382,12 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
        * room is one "You can't hit with the sword!" (run390x Adrift_1207).
        */
       pf_empty (filter);
-      pf_buffer_string (filter, "You can't ");
+      /* Ary(0) & " can't " & verb (run390 44D041, run400 47EE9C): the
+         perspective subject, so a third-person game reads "Player can't
+         shoot with the sword!" (run400x p4BATTLEWPN, Adrift_p4withqk.txt,
+         2026-09-25). */
+      lib_print_response_message (game, "You can't ", "I can't ",
+                                  "%player% can't ");
       pf_buffer_string (filter, verb);
       lib_print_wrapped_object (game, " with ", weapon, "!\n");
       return;
@@ -26758,9 +26763,11 @@ lib_question_prefix_from_line (scr_gameref_t game)
  * "with?" stores line & " with " and sets the not-a-turn byte MemVar_494281.
  * So a task printing "What with?" to `saw rope` does not tick, and `knife`
  * then runs `saw rope with  knife` -- two spaces, which no task command
- * matches.  "Whittle it with what?" is neither and ticks.  Measured
+ * matches at 4.0.  "Whittle it with what?" is neither and ticks.  Measured
  * 2026-09-14 on p4WITHQ.taf, cmdfile_withq.txt and cmdfile_withq2.txt
- * (Adrift_39_p4withq.txt, Adrift_40_p4withq2.txt).
+ * (Adrift_39_p4withq.txt, Adrift_40_p4withq2.txt).  Returns TRUE when the
+ * line is not a turn for it, which is 4.0 only; the prefix half is 3.9's
+ * too (see inside).
  */
 scr_bool
 lib_question_with_rule (scr_gameref_t game, const scr_char *line)
@@ -26768,7 +26775,8 @@ lib_question_with_rule (scr_gameref_t game, const scr_char *line)
   const scr_char *buffer = pf_get_buffer (gs_get_filter (game));
   std::string message;
 
-  if (!lib_is_version_400 (game) || !buffer || scr_strempty (line))
+  if (!buffer || scr_strempty (line)
+      || prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return FALSE;
 
   message = buffer;
@@ -26780,8 +26788,26 @@ lib_question_with_rule (scr_gameref_t game, const scr_char *line)
           || message.compare (message.size () - 5, 5, "with?") != 0))
     return FALSE;
 
+  /*
+   * run390's twin, 460589-4605D2 at the tail of generaltasks, makes the
+   * same test and stores the same line & " with " into MemVar_4681D0
+   * (4605CE) -- the one prefix variable, which is why it lands on top of
+   * dobattle's parked "attack <name> with" (44CEDF) exactly as 48B530 lands
+   * on 47ED3E -- but never touches the not-a-turn byte MemVar_468219, so at
+   * 3.9 the line that asked is a turn.  Measured 2026-09-25 on p39WITHQ
+   * (make_39_withqprobe.py, cmdfile_p39withq.txt, run390x
+   * Adrift_p39withq.txt): a task printing "What with?" / "With what?" /
+   * "What do you want to cut it with?" ticks, `knife` then runs
+   * `saw rope with  knife` -- two spaces, and at 3.9 the task matcher sees
+   * them: the task wired with two spaces fires, the one-space twin does not
+   * -- and `shoot robot` / `sword` is "You can't shoot with the sword!",
+   * the verb the line typed, not dobattle's "attack".  run400x on
+   * p4BATTLEWPN (cmdfile_p4withq_kill.txt, Adrift_p4withqk.txt) refuses
+   * the same way, so the overwrite is both Runners'.  3.7/3.8 have no
+   * "with?" literal at all.
+   */
   lib_battle_who_pending = std::string (line) + " with ";
-  return TRUE;
+  return lib_is_version_400 (game);
 }
 
 /* checkverb's bare verb: "<Label> what?" and the line as the prefix. */

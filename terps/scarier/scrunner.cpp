@@ -4412,6 +4412,9 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
 /* Set while a 4.0 question continuation with a double space runs; see
  * run_match_task_commands(). */
 static scr_bool run_rerun_skips_tasks = FALSE;
+/* 3.9 runs a prefix rerun as joined and compares task commands against it
+   space for space; see run_match_task_commands(). */
+static scr_bool run_rerun_exact_spaces = FALSE;
 
 /*
  * The steps of a `go <place>` walk still to be typed, and what to say on
@@ -5233,6 +5236,27 @@ run_match_task_commands (scr_gameref_t game,
    */
   if (run_rerun_skips_tasks && !is_library)
     return FALSE;
+
+  /*
+   * 3.9 does not collapse the two spaces either, and its task matcher sees
+   * them: p39WITHQ's `saw rope` / `knife` fires the task wired
+   * `saw rope with  knife` and not the `saw rope with knife` before it
+   * (run390x Adrift_p39withq.txt, 2026-09-25).  Scarier's matchers let a
+   * double space through, so a pattern that has neither a double space nor
+   * a wildcard to swallow it is skipped instead.  A double space in a
+   * pattern is modelled only as far as that: such a pattern still matches
+   * through the usual single-space matcher.
+   */
+  if (run_rerun_exact_spaces && !is_library)
+    {
+      scr_bool any = FALSE;
+
+      for (command = 0; command < command_count && !any; command++)
+        any = strstr (patterns[command], "  ") != NULL
+              || strpbrk (patterns[command], "*%") != NULL;
+      if (!any)
+        return FALSE;
+    }
 
   /* Iterate over commands, looking for patterns that match string. */
   is_matched = FALSE;
@@ -9160,24 +9184,47 @@ run_player_input (scr_gameref_t game)
 
     if (!rerun.empty ())
       {
+        const scr_bool is_400 = prop_get_taf_version (bundle)
+                                >= TAF_VERSION_400;
         std::string collapsed (rerun);
         size_t pair;
 
-        while ((pair = collapsed.find ("  ")) != std::string::npos)
-          collapsed.erase (pair, 1);
+        /*
+         * 4.0 runs the joined line with its spaces collapsed and past the
+         * task matcher; 3.9 runs it as joined, and its task matcher sees
+         * every space: p39WITHQ's `saw rope` / `knife` fires the task wired
+         * `saw rope with  knife` and not its one-space twin (run390x
+         * Adrift_p39withq.txt, 2026-09-25).
+         */
+        if (is_400)
+          while ((pair = collapsed.find ("  ")) != std::string::npos)
+            collapsed.erase (pair, 1);
 
         pf_empty (filter);
         game->is_admin = FALSE;
-        run_rerun_skips_tasks = collapsed != rerun
-            && prop_get_taf_version (bundle) >= TAF_VERSION_400;
+        run_rerun_skips_tasks = is_400 && collapsed != rerun;
+        run_rerun_exact_spaces = !is_400
+            && rerun.find ("  ") != std::string::npos;
         status = run_all_commands (game, collapsed.c_str ());
         run_rerun_skips_tasks = FALSE;
+        run_rerun_exact_spaces = FALSE;
+
+        /*
+         * 3.9's prefix rerun (4601A5-4601C4) is a GoTo 45EC4B, above the
+         * element counter at 45EC5B, so the joined line counts as one more
+         * element: on p39WITHQ every continued `knife` and `sword` moves
+         * `turns` by two, the `knife` after "Whittle it with what?" -- no
+         * prefix, the object catch-all -- by one.  See run_player_input().
+         */
+        if (prop_get_taf_version (bundle) == TAF_VERSION_390)
+          game->turns++;
       }
 
     /*
-     * 4.0: a turn that ends asking "With what?" or "...with?" leaves the
-     * line plus " with " as the question prefix and is not a turn -- task
-     * text included.  See lib_question_with_rule() in sclibrar.cpp.
+     * A turn that ends asking "With what?" or "...with?" leaves the line
+     * plus " with " as the question prefix (3.9 and 4.0), and at 4.0 is not
+     * a turn -- task text included.  See lib_question_with_rule() in
+     * sclibrar.cpp.
      */
     if (status
         && lib_question_with_rule (game, rerun.empty () ? command

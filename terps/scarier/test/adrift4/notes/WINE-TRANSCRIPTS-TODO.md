@@ -3498,6 +3498,24 @@ transcript names are in the code comment next to the named function, in
   run on the question line; 4.0's question is free (run400 light_up
   `attack higher`). `[3.9]` govard T213 (`lib_battle_attack_bare`,
   `lib_battle_attack_many`, 2026-09-25)
+- **The with-question rule is 3.9's too, and it overwrites dobattle's
+  "attack" prefix in both Runners.** A line whose output is "With what?"
+  or ends "with?" leaves line & " with " as the prefix (run390 46058C,
+  run400 48B530); only 4.0 also makes that line free. At 3.9 the joined
+  line keeps its two spaces and task commands are compared against it
+  space for space (`saw rope with  knife` fires, `saw rope with knife`
+  does not), and the prefix rerun (4601A5 GoTo 45EC4B) counts twice in
+  `turns`. After the weapon question, `shoot X` / `sword` is "can't shoot
+  with the sword!" and `kick X` / `sword` chops -- the verb typed, not
+  "attack" -- with the refusal's subject in the game's perspective
+  ("Player can't shoot ..."). p39WITHQ (`make_39_withqprobe.py`,
+  `cmdfile_p39withq.txt`, run390x Adrift_p39withq.txt) and p4BATTLEWPN
+  (`cmdfile_p4withq_kill.txt`, run400x Adrift_p4withqk.txt)
+  (`lib_question_with_rule`, `run_player_input` rerun +
+  `run_rerun_exact_spaces`, `lib_battle_player_strike`, 2026-09-25).
+  Still open at 4.0: `kick gargoyle #3` / `nonsense words` is the
+  Runner's character catch-all where Scarier asks the weapon question
+  again (Adrift_1144_battlewpn.txt turn 9).
 
 ### Events and RNG
 
