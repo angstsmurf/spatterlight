@@ -1,0 +1,809 @@
+
+> look
+Hung over
+You slowly wake up, feeling decidedly unwell.  The room seems to be swaying violently around you, and you have a terrible headache. 
+
+You are lying down on a bed.  As you sit up, you realise that the swaying isn't just in your head.  The room really is swaying alarmingly from side to side.  
+Ship's Cabin
+You are in a ship's cabin.  All the fittings are made of polished oak and polished brass.
+  
+However, you have little desire to appreciate your surroundings, as the whole room is swinging violently from side to side. The lantern on the ceiling is in danger of being smashed as it plummets back and forth.  Everything loose is skittering from one end of the room to the other. 
+
+A cracked mirror is still somehow hanging on the wall, though it is swinging from side to side as the room tilts.
+
+There is a small window looking out onto the sea to the south, and a door to the west.
+
+  Also here is a small cask.
+
+> open window
+The cabin window is open.  Sea water is splashing through it into the room!
+
+> out
+You poke your head out of the window.
+
+Outside the window.
+Your head is sticking out of the cabin window, and you are being drenched by the furious waves splashing in your face.
+
+There seems to be a brass key tied to a length of string.
+
+> get key
+You untie the key from the string.
+
+> in
+You move in.
+Ship's Cabin
+You are in a ship's cabin.  All the fittings are made of polished oak and polished brass.
+  
+However, you have little desire to appreciate your surroundings, as the whole room is swinging violently from side to side. The lantern on the ceiling is in danger of being smashed as it plummets back and forth.  Everything loose is skittering from one end of the room to the other. 
+
+A cracked mirror is still somehow hanging on the wall, though it is swinging from side to side as the room tilts.
+
+There is a small window looking out onto the sea to the south, and a door to the west.
+
+  The window is open and water is gushing in every time the ship tilts over.  Also here is a small cask.
+
+> unlock door
+You use the brass key to unlock the door.
+
+> open door
+You open the cabin door.  It gives a sad creak.
+
+> get cask
+You take the small cask.
+
+> open cask
+On opening the cask, you can see that it is full of dark red wine.
+
+> pour wine
+The red wine pours out with a loud gurgling sound, and quickly sinks out of sight.
+
+> w
+You move west.
+Short Passageway
+You are in a short corridor ending in some stairs leading upward.  Water cascades down the stairs like some man-made waterfall.  A cold wind howls down from above.
+
+To the east is a wildly swinging door leading to a cabin.  Another door is to the north.  From behind it comes a tremendous crashing noise, as of clanging pots and pans.
+
+It is hard to balance because of the violent movement of the ship.
+
+> n
+You move north.
+Armory
+This appears to be the ship's armoury.  All kinds of weapons and armour have come off their shelves and are smashing about with the fierce movement of the ship.  There are a few items that you can reach safely.  Also here is a jacket of chain mail, an elegant sword and a rusty old dagger.
+
+> get dagger
+You take the rusty old dagger.
+
+> get sword
+You take the elegant sword.
+
+> s
+You move south.
+Short Passageway
+You are in a short corridor ending in some stairs leading upward.  Water cascades down the stairs like some man-made waterfall.  A cold wind howls down from above.
+
+To the east is a wildly swinging door leading to a cabin.  Another door is to the north.  From behind it comes a tremendous crashing noise, as of clanging pots and pans.
+
+It is hard to balance because of the violent movement of the ship.
+
+> w
+You move west.
+Ship's Deck
+You are on the heaving deck of the ship, next to the mast.  
+
+The ship is in the middle of one of the worst tempests you have ever imagined.  Walls of water plunge by the ship as the wind howls like a demon escaped from hell.  Every vestige of sail has been stripped from the rigging, and the main mast creaks and groans with every movement.  Sailors and passengers are desperately holding on to ropes and yelling. The deck pitches from side to side.
+
+There is a small hatchway leading down, and to the east is the foredeck.  To the west is the aft-deck.  Everywhere else there is only the dreadful sea.  The captain limps towards you from the east.
+
+> jump overboard
+Taking a deep breath, you throw yourself off the ship into the raging waters.
+
+As you hit the water you find yourself dropping some of what you were carrying.  
+The Raging Sea
+You are in the midst of a torment of sea, being smashed every moment with waves like the blows of a giant's fist.  Every moment you feel yourself being sucked beneath the waves, and you are barely able to stay afloat.  A shark is circling you.
+
+> i
+You are carrying a leather pouch, a rusty old dagger and an empty cask.  Some gold coins are inside the leather pouch.  A cork bung is on the empty cask.
+
+> throw dagger at shark
+You throw the dagger.  It strikes the shark, which gives a shriek of agony and disappears from view.
+
+> e
+You move east.
+More sea
+You are in the midst of a raging sea.  One direction looks pretty much like any other.  You find yourself struggling to keep your head above water.  The empty cask is all that is keeping you afloat.
+
+> s
+You move south.
+Even more sea
+You are in the midst of a raging sea.  One direction looks pretty much like any other.  You find yourself struggling to keep your head above water.  The empty cask is all that is keeping you afloat.  
+
+Somewhere nearby, you hear a terrible crack and the crying of sailors as the ship breaks up and plunges into the depths of the ocean.
+
+> s
+You move south.
+Some more sea
+You are in the midst of a nightmare of sea, tossed like a cork.  One direction looks pretty much like any other.  You find yourself struggling to keep your head above water.  The empty cask is all that is keeping you afloat.
+
+> e
+You move east.
+Still more sea
+You are in the midst of an agony of sea, battered and gasping for air.
+
+To the south east you occasionally catch a glimpse of land.  You find yourself struggling to keep your head above water.  The empty cask is all that is keeping you afloat.  Your struggle to swim grows ever more desperate.  The empty cask is all that is keeping you afloat.
+
+> se
+At last you find yourself lying, exhausted, on rough rocks near a narrow strip of sandy beach which appears to be part of a tropical island.
+
+Out at sea, you can see the ship breaking up and sinking... You are distraught, realising that your father, uncle and all your friends must have drowned in the wreck of the ship.
+
+
+You fall into an exhausted slumber.  When you awake, the storm has passed.  
+Spit of sand
+This is a spit of sand which stretches out into the ocean a few hundred yards.  It is littered with flotsam and jetsam from the sea, which seems as though it is always caught here before reaching the beach to the south-east.
+
+> drop pouch
+You drop the leather pouch.  
+
+> se
+You move southeast.
+Beach
+You are on a sandy beach, which stretches to the west and east. To the north-west is a spit of sand which reaches out into the sea.
+
+To the south is what appears to be dense jungle.
+
+> w
+You move west.
+West of beach
+The jungle is to your south, but it seems impenetrable.  Only to the south west and south east does it appear that you could get through.  You can also walk along the beach to the east.  A pretty girl tiptoes into view from the south-west.
+
+> sw
+You move southwest.
+Dying Trees
+Some raging fire seems to have swept through this part of the jungle, probably many months ago.  Most of the trees are burnt and dying.  Semi-burnt twigs litter the ground.
+
+There is a path leading to the north-east.  Also here are some unburnt twigs.
+
+> get twigs
+You take the unburnt twigs.
+
+> ne
+You move northeast.
+West of beach
+The jungle is to your south, but it seems impenetrable.  Only to the south west and south east does it appear that you could get through.  You can also walk along the beach to the east.
+
+> e
+You move east.
+Beach
+You are on a sandy beach, which stretches to the west and east. To the north-west is a spit of sand which reaches out into the sea.
+
+To the south is what appears to be dense jungle.
+
+> nw
+You move northwest.
+Spit of sand
+This is a spit of sand which stretches out into the ocean a few hundred yards.  It is littered with flotsam and jetsam from the sea, which seems as though it is always caught here before reaching the beach to the south-east.  Also here is a leather pouch.
+
+> z
+Time passes...
+Something brown with a gleam of metal seems to have been washed up.
+
+> get sword
+You take the rusty sword.
+
+> se
+You move southeast.
+Beach
+You are on a sandy beach, which stretches to the west and east. To the north-west is a spit of sand which reaches out into the sea.
+
+To the south is what appears to be dense jungle.
+
+> w
+You move west.
+West of beach
+The jungle is to your south, but it seems impenetrable.  Only to the south west and south east does it appear that you could get through.  You can also walk along the beach to the east.
+
+> se
+You move southeast.
+West Stream
+You are in the midst of a stream of fresh water, with steep banks. It looks like you could wade to the east, but to the west is a steep waterfall.  You might be possibly be able to climb the banks to the north-east.  A pretty girl is here.  A pretty girl runs away.
+
+> cut vines with sword
+You cut the vines and some of them fall to the ground.
+
+> get vines
+You take the loose vines.
+
+> e
+You move east.
+East Stream
+You are in a rapidly-running stream of water between steep banks. The stream continues to the west, but disappears into a narrow cleft to the east, and it doesn't look like you could squeeze through.
+
+The banks to the north and south appear to be climbable at this point.
+
+> s
+You move south.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.
+
+> se
+You move southeast.
+Small green clearing
+You are standing at the northern edge of a small green clearing.  To your north-west is a trail through dense vines.   To the south, there is a patch of green grass, as smooth as a billiard table.
+
+> drop cask
+You drop the cask.  It bounces a couple of times.
+
+> drop vines
+You drop the loose vines.  
+
+> drop sword
+You drop the rusty sword.  
+
+> nw
+You move northwest.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.
+
+> nw
+You move northwest.
+West Stream
+You are in the midst of a stream of fresh water, with steep banks. It looks like you could wade to the east, but to the west is a steep waterfall.  You might be possibly be able to climb the banks to the north-east.
+
+> u
+You move up.
+Dense Jungle
+You are in the midst of dense jungle. The air is full of strange sounds and whisperings and the calling of birds.
+
+The jungle mostly appears to be impenetrable, but trails lead to the east and north.  A pretty girl is here.  A pretty girl runs away to below.
+
+> n
+You move north.
+Beach
+You are on a sandy beach, which stretches to the west and east. To the north-west is a spit of sand which reaches out into the sea.
+
+To the south is what appears to be dense jungle.
+
+> nw
+You move northwest.
+Spit of sand
+This is a spit of sand which stretches out into the ocean a few hundred yards.  It is littered with flotsam and jetsam from the sea, which seems as though it is always caught here before reaching the beach to the south-east.  Also here is a leather pouch and a water-logged plank.
+
+> get plank
+You take the water-logged plank.
+
+> se
+You move southeast.
+Beach
+You are on a sandy beach, which stretches to the west and east. To the north-west is a spit of sand which reaches out into the sea.
+
+To the south is what appears to be dense jungle.
+
+> w
+You move west.
+West of beach
+The jungle is to your south, but it seems impenetrable.  Only to the south west and south east does it appear that you could get through.  You can also walk along the beach to the east.
+
+> se
+You move southeast.
+West Stream
+You are in the midst of a stream of fresh water, with steep banks. It looks like you could wade to the east, but to the west is a steep waterfall.  You might be possibly be able to climb the banks to the north-east.
+
+> e
+You move east.
+East Stream
+You are in a rapidly-running stream of water between steep banks. The stream continues to the west, but disappears into a narrow cleft to the east, and it doesn't look like you could squeeze through.
+
+The banks to the north and south appear to be climbable at this point.
+
+> s
+You move south.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.
+
+> se
+You move southeast.
+Small green clearing
+You are standing at the northern edge of a small green clearing.  To your north-west is a trail through dense vines.   To the south, there is a patch of green grass, as smooth as a billiard table.  Also here is a rusty sword, some loose vines and an empty cask.
+
+> tie plank to cask with vines
+You use the vines to tie the cask to the plank, making an ungainly contraption.  Then you put the whole thing onto the patch of quicksand.  It floats, but just barely.  You could probably cross over it to the south.
+
+> get sword
+You take the rusty sword.
+
+> nw
+You move northwest.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.
+
+> n
+You move north.
+East Stream
+You are in a rapidly-running stream of water between steep banks. The stream continues to the west, but disappears into a narrow cleft to the east, and it doesn't look like you could squeeze through.
+
+The banks to the north and south appear to be climbable at this point.
+
+> n
+You move north.
+Dense Jungle
+You are in the midst of dense jungle. The air is full of strange sounds and whisperings and the calling of birds.
+
+The jungle mostly appears to be impenetrable, but trails lead to the east and north.  A pretty girl is here.
+
+> e
+You move east.
+Snake Pit
+You have fallen into a pit! 
+
+What's more, it seems to be full of hundreds of huge snakes!  Fortunately, most of them appear to be asleep... but who knows for how much longer?
+
+You perhaps could climb back up, or there seems to be a slope to the south-west.
+
+There's a fearsome serpent here!  
+
+Some of the snakes have been disturbed!  A yellowy purple coloured snake slithers towards you!
+
+> kill snake with sword
+Though it dodges and tries to bite you, you hack off the serpent's head with one swift blow!
+
+> sw
+You move southwest.
+Clearing
+This is a clearing in the jungle.  There are trails to the west and north-west.
+
+In the centre of the clearing you can see the smoking remnants of a recent campfire.  There's something grisly in the fire.
+
+> put twigs in fire
+You put the ends of the twigs amonst the coals.  The twigs start to heat up and smoke.  After a moment or two, they burst into flame!  The twigs won't last long before they burn out!
+
+> w
+You move west.
+East Stream
+You are in a rapidly-running stream of water between steep banks. The stream continues to the west, but disappears into a narrow cleft to the east, and it doesn't look like you could squeeze through.
+
+The banks to the north and south appear to be climbable at this point.  The twigs burn brightly, but the flame won't last for long.
+
+> s
+You move south.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.  The twigs burn brightly, but the flame won't last for long.
+
+> se
+You move southeast.
+Small green clearing
+You are standing at the northern edge of a small green clearing.  To your north-west is a trail through dense vines.   To the south, there is a patch of green grass, as smooth as a billiard table.  The twigs burn brightly, but the flame won't last for long.
+
+> south
+Precariously above quicksand
+You are standing on a makeshift contraption above a patch of deadly quicksand.  The contraption is barely able to keep afloat with your weight.  A shambling brute is here.  The twigs burn brightly, but the flame won't last for long.  A shambling brute sneaks off.
+
+> s
+You move south.
+South of quicksand
+You are standing at the south edge of a patch of quicksand.  Across the quicksand is a contraption of wood, which acts as a bridge across the muck.
+
+Near you is a steep cliff. In the cliff face, to your east, is a dark opening.  The twigs burn brightly, but the flame won't last for long.
+
+> u
+You move up.
+Halfway up cliff
+You are on a narrow ledge half-way up a cliff-face, high above the jungle.  You are in a precarious position, as the ledge is not wide enough to rest on for long.
+
+There's a bird's nest here on the ledge.  The twigs burn brightly, but the flame won't last for long.
+
+> x nest
+You see a small bird's nest made out of sticks and leaves.  A pair of black gloves is inside the bird's nest.  A faery sprite flits across the air.
+
+> get gloves
+You take the pair of black gloves from the bird's nest.  A faery sprite slips away.
+
+> d
+You move down.
+South of quicksand
+You are standing at the south edge of a patch of quicksand.  Across the quicksand is a contraption of wood, which acts as a bridge across the muck.
+
+Near you is a steep cliff. In the cliff face, to your east, is a dark opening.  The twigs burn brightly, but the flame won't last for long.  A shambling brute shambles towards you from inside.
+
+> e
+Taking a deep breath, you enter the opening.  
+Caliban's Lair
+By the flickering light of the twigs you can see that this is a squalid cave, which looks as though it has been occupied by some beast.  Yet on the wall are crude marks of colour, which could be interpreted as being primitive drawings of people.  One in particular looks as if it is a rough drawing of a woman or a goddess.
+
+To the west and north-east are small openings in the cave wall.
+
+There's a dreadful smell.  The twigs burn brightly, but the flame won't last for long.
+
+> ne
+You move northeast.
+Narrow passage
+You are in a narrow passage or cleft in the rock, with several openings leading off.  There is a hole or shaft in the floor of the passage.  A dim light comes from somewhere above.  The twigs burn brightly, but the flame won't last for long.
+
+> u
+You move up.
+Sloping Passage
+You are in a passage in the rock which slopes steeply up to the north-west.  Light seems to be coming from that direction.  Several openings lead off.   The twigs burn brightly, but the flame won't last for long.
+
+> u
+You move up.
+Mountain Slope
+You are on a grassy slope which leads up to a mountain peak.  To the south-east is a dark opening in a rock.  To your north-east is the crumbling edge of a cliff.  The twigs burn brightly, but the flame won't last for long.
+
+> n
+You move north.
+Upper Slope
+You are high on the mountain slope, where the air is thin, and your breath comes in gasps.  You can see far out to sea, which now seems calm and still. Up a narrow path to the east you can see what seems to be man-made steps cut into the rock.  
+
+To the north is a faint trail which might have been made by mountain goats.  The twigs burn brightly, but the flame won't last for long.
+
+> e
+You move east.
+Ledge Outside Cell
+You are standing on a narrow ledge cut into the rock face, to the east of a steep slope.  Down below, the beach is a thin gleam of yellow against the blue of the sea.  You are so high you feel dizzy and confused as you labour to breathe.  There is a heavy wooden door here, set in the sheer rock.  The twigs burn brightly, but the flame won't last for long.
+
+> wear gloves
+You put on the pair of black gloves.
+
+> turn dragon
+You reach out and touch the dragon's head in the centre of the door.
+
+You feel a sudden shock, that travels all through your body, as if you have been struck by lightning. However, the gloves you are wearing seem to protect you from the worst of the shock.  
+
+The dragon moves as though alive, and begins to speak in a deep, gravelly voice:
+
+"Enter the domain of Prospero... at your peril!"
+
+The door swings open...
+
+> in
+You move in.
+Prospero's Cell
+You are inside Prospero's Cell.  
+
+There is the very smell of magic in the air.  The walls are lined with exotic paintings, tapestries and bookshelves, on which are crammed hundreds of ancient books.
+
+There is a heavy wooden door here, set in the sheer rock.  There is a large desk here, made from solid ebony, as black as pitch.  You see a tall lectern, suitable for reading while standing.  There is an enormous book resting on the lectern.  The twigs burn brightly, but the flame won't last for long.  The twigs are starting to burn out.
+
+> lift tapestry
+You lift the tapestry to reveal a dark space beyond, to your south.  The flame on the twigs is starting to go out.
+
+> x desk
+The desk is clear of papers.  At the side of the desk there is a single drawer.  A crystal globe is on the ebony desk.  The twigs have stopped burning.
+
+> get globe
+You take the crystal globe from the ebony desk.
+
+> open drawer
+You open the shallow drawer.  A greyish key is inside the shallow drawer.
+
+> get key
+You take the greyish key from the shallow drawer.
+
+> s
+You move south.
+Secret Room
+By the soft light of the crystal globe, you can see that this appears to be Prospero's alchemical laboratory.  There is a strange tangy, burnt smell in the air, and a feeling of closeness.
+
+At the centre of the room there is an old, stained table, with some alchemical apparatus on it.
+
+To one side of the room is a wooden cabinet, with three drawers.
+
+
+> put key in retort
+You take off the glass lid and put the greyish key into the retort.
+
+You wait for quite a while, but nothing seems to happen, other than a few bubbles coming off slowly from the key as it sits in the cold liquid.
+
+> light burner
+You turn a knob on the burner, and to your delight, it lights up with a blue flame.  After a while, the liquid in the retort starts to bubble.
+
+A dense cloud of bubbles surrounds the key, and after a few moments it is lost from view.  Some minutes later the bubbles clear, and you see that the key has changed colour to a beautiful golden colour.
+
+> light burner
+You turn a knob on the burner, and to your delight, it lights up with a blue flame.  After a while, the liquid in the retort starts to bubble.
+
+> x table
+The table is stained with blotches of spilled liquids, and burnt in places.  On the stained table is a glass retort, an oil burner and some flasks.
+
+> x retort
+At the very centre of the alchemical equipment is a large retort, with a wide mouth. It is half-filled with a clear pale-yellow liquid.  A golden key is inside the glass retort.
+
+> get golden key
+You take the golden key from the glass retort.
+
+> unlock bottom drawer with key
+You unlock the bottom drawer with the golden key.
+
+> open bottom drawer
+You open the bottom drawer.  A blue-green vial is inside the bottom drawer.
+
+> get vial
+You take the blue-green vial from the bottom drawer.
+
+> pour fluid
+You pour out the contents of the vial.  
+
+As the fluid hits the ground, a cloud of smoke appears and you see that it has burnt a glowing hole, which quickly fills in and fades from view as it cools.
+
+As you move the vial, you hear a very quiet rattling sound.  A shambling brute shambles towards you.
+
+> open vial
+You open the blue-green vial.  A tiny silver key is inside the blue-green vial.
+
+> get silver key
+You take the tiny silver key from the blue-green vial.  A shambling brute sneaks off.
+
+> n
+You move north.
+Prospero's Cell
+You are inside Prospero's Cell.  
+
+There is the very smell of magic in the air.  The walls are lined with exotic paintings, tapestries and bookshelves, on which are crammed hundreds of ancient books.
+
+  To the south you see a dark space which had been hidden behind one of the tapestries.
+
+There is a heavy wooden door here, set in the sheer rock.  There is a large desk here, made from solid ebony, as black as pitch.  You see a tall lectern, suitable for reading while standing.  There is an enormous book resting on the lectern.
+
+> unlock book with silver key
+You unlock the huge book with the tiny silver key.
+
+> open book
+You open the huge book.
+
+> read book
+You open the pages of the huge book at random.  A riot of wierd and wonderful illustrations and illuminated text greets your eye.
+
+You bend over the book to try to read the words, but they are in a language you do not know.  But as you try to spell out the sounds to yourself, your vision starts to dim, and you feel suddenly dizzy.  A very strange feeling comes over you...
+
+Suddenly the book seems to become larger and larger, and you find yourself falling forward, and into the very book itself.
+
+You black out, and only come to your senses after an unknown period of time.
+
+
+> s
+You move south.
+Chap. 7: To Binde Creatures With Magical Chaines
+Chap. 7: To Binde Creatures With Magical Chaines
+
+In this place there are a myriad of shimmering chains and ropes.  As you try to grasp them, they melt away.  From time to time you can hear terrible groans and screams, as of creatures or people bound fast and imprisoned, but you cannot see them.
+
+It appears that you could go in most directions from here.
+
+> w
+You move west.
+Chap. 9: To Instill Love in a Maiden
+Chap. 9: To Instill Love in a Maiden
+
+Here you see a shifting crowd of the faces of women, many of staggering beauty.  You see Helen of Troy, Cleopatra, Nefertiti and many more, all merely for an instant.  Every face is full of ardent passion and longing.
+
+It seems you could go in most directions from here.
+  Also here is a red spell.
+
+> get spell
+You take the red spell.
+
+> s
+You move south.
+Chap. 5: To Fly to Greate Heightes
+Chap. 5: To Fly to Greate Heightes
+
+You appear to be floating high above the ground.  Below you, you can see countryside spread out before you like a map.  Birds and creatures like angels whisk into your vision and then out again. 
+
+It appears that you could go in most directions from here.
+
+
+> u
+You move up.
+Table of Contents
+Table of Contents
+
+You are in a dark, calm place, illuminated mainly by giant glowing letters that pave the floor.
+
+Up above your head, there is a small patch of light, with distorted colours running through it.
+
+
+> u
+You move up.
+Prospero's Cell
+You are inside Prospero's Cell.  
+
+There is the very smell of magic in the air.  The walls are lined with exotic paintings, tapestries and bookshelves, on which are crammed hundreds of ancient books.
+
+  To the south you see a dark space which had been hidden behind one of the tapestries.
+
+There is a heavy wooden door here, set in the sheer rock.  There is a large desk here, made from solid ebony, as black as pitch.  You see a tall lectern, suitable for reading while standing.  There is an enormous book resting on the lectern.
+
+> out
+You move out.
+Ledge Outside Cell
+You are standing on a narrow ledge cut into the rock face, to the east of a steep slope.  Down below, the beach is a thin gleam of yellow against the blue of the sea.  You are so high you feel dizzy and confused as you labour to breathe.  There is a heavy wooden door here, set in the sheer rock.
+
+> w
+You move west.
+Upper Slope
+You are high on the mountain slope, where the air is thin, and your breath comes in gasps.  You can see far out to sea, which now seems calm and still. Up a narrow path to the east you can see what seems to be man-made steps cut into the rock.  
+
+To the north is a faint trail which might have been made by mountain goats.
+
+> n
+You move north.
+Goat Trail
+You are on a narrow goat trail which winds up a cliff face in a roughly north-south direction.  The goats up here must be pretty fit.  You are gasping desperately for air.
+
+> n
+You move north.
+Mountain Peak
+You are on the very peak of the mountain, wheezing and gasping for air.  The view is spectacular, but it is hard to concentrate when you are having so much trouble breathing.  
+
+You should be careful how you move, there are sheer precipices all around.
+
+
+> e
+You move east.
+Field of Flowers
+You are on an alpine plateau, out of sight of the sea. The air is very thin and cold. Above you is the mountain peak. To the south a narrow scramble leads around the side of the mountain.
+
+The plateau is carpeted with a profusion of wild flowers whose colours range through every hue in the spectrum.  You see a patch of striking dark-red blooms.
+
+> pick flowers
+You pick a handsome bouquet of the red flowers.
+
+> cast spell on flowers
+You put the flowers down so you can get a better aim, and then you cast the red spell on the flowers.  
+
+There is a scarlet flash, and you see that the flowers lie on the ground, suddenly glowing brightly with a magical aura.
+
+> get enchanted flowers
+You take the enchanted flowers.
+
+> s
+You move south.
+Upper Slope
+You are high on the mountain slope, where the air is thin, and your breath comes in gasps.  You can see far out to sea, which now seems calm and still. Up a narrow path to the east you can see what seems to be man-made steps cut into the rock.  
+
+To the north is a faint trail which might have been made by mountain goats.
+
+> s
+You move south.
+Mountain Slope
+You are on a grassy slope which leads up to a mountain peak.  To the south-east is a dark opening in a rock.  To your north-east is the crumbling edge of a cliff.
+
+> d
+You move down.
+Sloping Passage
+You are in a passage in the rock which slopes steeply up to the north-west.  Light seems to be coming from that direction.  Several openings lead off. 
+
+> d
+You move down.
+Narrow passage
+You are in a narrow passage or cleft in the rock, with several openings leading off.  There is a hole or shaft in the floor of the passage.  A dim light comes from somewhere above.
+
+> se
+You move southeast.
+Caliban's Lair
+By the dim light of the crystal globe you can see that this is a squalid cave, which looks as though it has been occupied by some beast.  Yet on the wall are crude marks of colour, which could be interpreted as being primitive drawings of people.  One in particular looks as if it is a rough drawing of a woman or a goddess.
+
+To the west and north-east are small openings in the cave wall.
+
+There's a dreadful smell.  A shambling brute is here.  A shambling brute sneaks off outside.
+
+> w
+You move west.
+South of quicksand
+You are standing at the south edge of a patch of quicksand.  Across the quicksand is a contraption of wood, which acts as a bridge across the muck.
+
+Near you is a steep cliff. In the cliff face, to your east, is a dark opening.  A shambling brute is here.  A shambling brute sneaks off to the north.
+
+> n
+You move north.
+Precariously above quicksand
+You are standing on a makeshift contraption above a patch of deadly quicksand.  The contraption is barely able to keep afloat with your weight.  A shambling brute is here.
+
+> n
+You move north.
+Small green clearing
+You are standing at the northern edge of a small green clearing.  To your north-west is a trail through dense vines.   To the south, there is deadly quicksand, covered in green algae.  A shambling brute shambles towards you from the south.
+
+> nw
+You move northwest.
+Tangle of vines
+You are in the midst of a dense tangle of vines, looping backwards and forward across your vision in every direction.
+
+Although it is very difficult to move at all, it appears easier to the north and south east.
+
+> n
+You move north.
+East Stream
+You are in a rapidly-running stream of water between steep banks. The stream continues to the west, but disappears into a narrow cleft to the east, and it doesn't look like you could squeeze through.
+
+The banks to the north and south appear to be climbable at this point.
+
+> ask girl her name
+(No female)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!
+
+> ask girl her name
+(A pretty girl)
+You don't see the girl here!  A pretty girl tiptoes into view.
+
+> ask girl her name
+(A pretty girl)
+The girl appears to be on the edge of flight, but she blushes and whispers:
+
+"My name is Miranda, fair sir!"
+
+...and then she dodges out of sight again.
+
+To your amazement, you feel a surge of longing and desire for the girl that almost overpowers you.  The brief glimpses you have had of her are nevertheless enough for you to have fallen in love.  You would do almost anything to see her again.
+
+
+
+
+> give flowers to girl
+The girl takes the enchanted flowers, and looks up with eyes suddenly full of love for you.
+
+There follows a touching love scene, which Mr Shakespeare does much better than I can.  This is the critical bit:
+
+
+     MIRANDA: Do you love me?
+
+     FERDINAND (you!): 
+        O Heaven, O Earth, bear witness to this sound,
+        And crown what I profess with kind event
+        If I speak true!  ...I,
+        Beyond all limit of what else in the world,
+        Do love, prize, honor you.
+
+     MIRANDA: I am a fool, to weep at what I am glad of.
+
+
+See, I told you it was touching.
+
+Miranda takes you home to meet her dad, Prospero, who was deposed many years ago by his brother, the current Duke, and set adrift in a boat with his baby daughter.  Prospero is now a great magician, and caused the tempest which shipwrecked you on the island.
+
+After some time, you are re-united with your father, the King. The current Duke of Milan is disgraced and everyone returns home.  You marry Miranda, and everyone lives happily ever after.
+
+
+Congratulations, you have won!
+
+
+[Thanks for playing!  Many thanks to my beta testers --David Grigg ]
+You scored 305 out of the maximum 305!
+That is 99% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

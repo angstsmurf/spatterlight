@@ -1,0 +1,49 @@
+feed        78 commands
+runner      78 turns echoed
+scarier     78 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  get knife
+  run400   The ethereal knife is too heavy for you to carry at the moment.
+  scarier  You take the ethereal knife.
+
+turn 6  e
+  run400   You move east. Entrance to mines You are now in what appears to be the entrance to a large mining complex. From the characters that are running all about, you can guess that it is also home to a colony of Gnomes. They all appear fatigued and overworked, almost as if they were slaves. There is a locked door here that leads east. Before you stands a gruesome combination of a man and a traditional playing-card. He appears to be carrying a large iron rod. You can move east and west. The vile Card Guard attacks you with the large iron rod, but you manage to avoid it.
+  scarier  You move east. Entrance to mines You are now in what appears to be the entrance to a large mining complex. From the characters that are running all about, you can guess that it is also home to a colony of Gnomes. They all appear fatigued and overworked, almost as if they were slaves. There is a locked door here that leads east. Before you stands a gruesome combination of a man and a traditional playing-card. He appears to be carrying a large iron rod. You can move east and west. The vile Card Guard chops you with the large iron rod.
+
+turn 7  attack card guard with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The vile Card Guard attacks you with the large iron rod, but you manage to avoid it.
+  scarier  You cut the vile Card Guard with the ethereal knife. The vile Card Guard chops you with the large iron rod.
+
+turn 8  attack card guard with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it.
+  scarier  You cut the vile Card Guard with the ethereal knife.
+
+turn 9  attack card guard with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it. The vile Card Guard attacks you with the large iron rod, but you manage to avoid it.
+  scarier  You cut the vile Card Guard with the ethereal knife. The vile Card Guard chops you with the large iron rod.
+
+turn 10  attack card guard with knife
+  run400   You must be in the same room as the ethereal knife to be able to do anything with it.
+  scarier  You cut the vile Card Guard with the ethereal knife. Card Guard falls down, dead.
+
+turn 11  look
+  run400   Entrance to mines You are now in what appears to be the entrance to a large mining complex. From the characters that are running all about, you can guess that it is also home to a colony of Gnomes. They all appear fatigued and overworked, almost as if they were slaves. There is a locked door here that leads east. Before you stands a gruesome combination of a man and a traditional playing-card. He appears to be carrying a large iron rod. You can move east and west. The vile Card Guard attacks you with the large iron rod, but you manage to avoid it.
+  scarier  Entrance to mines You are now in what appears to be the entrance to a large mining complex. From the characters that are running all about, you can guess that it is also home to a colony of Gnomes. They all appear fatigued and overworked, almost as if they were slaves. There is a locked door here that leads east. Also here is a large iron rod, a worn, old letter and a small key. You can move east and west.
+
+turn 12  get all
+  run400   There is nothing worth taking here.
+  scarier  You take the large iron rod, the worn, old letter and the small key.
+
+turn 13  read letter
+  run400   You see no such thing.
+  scarier  Alice: Congratulations! Perhaps it would be wise of me to tell you how to check your condition. Type 'status' to evaluate yourself on such things as health, hit-strength, and defense. Speaking of health, it would be wise to drink that bottle that was dropped. What else... oh dear me! I forgot to tell you about the key. To use the key that the card guard dropped, type 'unlock door with key.' I believe that is all for now... perhaps I will meet you later to further guide you. ~CC
+
+turn 14  unlock door with key
+  run400   I don't understand what you mean!
+  scarier  You use the key to unlock the door.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

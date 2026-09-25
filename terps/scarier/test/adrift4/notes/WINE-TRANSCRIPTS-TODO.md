@@ -262,6 +262,23 @@ below as not yet ported.
   also came out empty because the log's raw cp1251 bytes killed `sed`
   under the UTF-8 locale; the three drivers' summary pipelines now run
   under `LC_ALL=C`.
+- **Last 14 never-driven rows driven 2026-09-25 (fixed driver, 5-way):**
+  11 identical (govard2 341 cmds, hammurabi, hdigit1, imagings, lastknight,
+  nat01, shortlived, smercenary, taot3, viewbetter, zanoza) and the nine
+  earlier drives whose summary rows a later batch had truncated (fantasy,
+  freshman, loveforreal, lovingfamily, mwf, prostitute, sororityHouse,
+  superstud, villagelove -- all identical; their transcripts are
+  gitignored with their goldens). Corpus now 619/621; only dreamquest and
+  raiders (empty-command task, run400 cannot load) are missing. Three new
+  engine divergences, not harness artefacts (every feed command echoed):
+  - **toronto** T9 `ask waiter about burger`: Runner "ok" (an author task
+    matched), scarier "huh?" -- a task-command match scarier misses.
+  - **tempest7** T138 `ask girl her name`: Runner prefixes the reply with
+    the character's descriptor "(A pretty girl)", scarier with the proper
+    name "(Miranda)".
+  - **wonderland** T0 `get knife`: Runner "The ethereal knife is too heavy
+    for you to carry at the moment.", scarier takes it; the whole fight
+    cascades from that (10+ turns). A weight/capacity rule at game start.
 - **cs2 "10+ differing turn(s)" is a compare artefact.** The game's
   question menus print lines beginning `> `, which the compare takes for
   prompts; a word-level diff of `runner_transcripts/cs2.txt` against the

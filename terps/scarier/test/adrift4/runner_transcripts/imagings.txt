@@ -1,0 +1,73 @@
+
+> n
+You move north.
+Hallway
+   The hallway from a strikingly familiar apartment building.  The wallpaper is dried and peeling, and torn in spots, and the ground is thick with mildew.  The hallway is a balcony that overlooks the lobby of the apartment, and there is a staircase leading down on the far side of the hall.  There are also doors that lead to the east and west on either side of the hall.  The examination room is to the south.  
+
+> w
+You move west.
+Hotel Room
+   A small room, something out of an old hotel.  The four-poster bed is prepared delicately, centred perfectly against the far wall, and a window on the south wall gives view to an endless night sky.  The window is closed.  The only exit is east, back out into the hallway.  There is a small bottle of pills lying neatly on the bed.
+
+> open window
+  As you open the window, red spraypaint lines begin to cross the surface of the glass, forming the numbers '865.'
+
+> get bottle
+You take the bottle of pills.  
+
+> e
+You move east.
+Hallway
+   The hallway from a strikingly familiar apartment building.  The wallpaper is dried and peeling, and torn in spots, and the ground is thick with mildew.  The hallway is a balcony that overlooks the lobby of the apartment, and there is a staircase leading down on the far side of the hall.  There are also doors that lead to the east and west on either side of the hall.  The examination room is to the south.
+
+> d
+You move down.
+Apartment Lobby
+   A worn down old lobby to an equally dilapidated apartment building.  There is a door to the north and a staircase leading up on the south side of the room.  The door to the north is closed and locked.  There is some sort of mechanical device on the counter towards the back of the room.
+
+> put bottle in machine
+You put the bottle of pills inside the Prescription Machine.  
+
+> 865
+  As you enter the prescription number, there is a mechanical whirring as the bottle is sucked down into the mechanism.  After a few seconds, the bottle is jetissoned back up onto the counter.  You notice that the bottle now contains a small blue pill.  
+
+> get bottle
+You take the bottle of pills from the counter.
+
+> u
+You move up.
+Hallway
+   The hallway from a strikingly familiar apartment building.  The wallpaper is dried and peeling, and torn in spots, and the ground is thick with mildew.  The hallway is a balcony that overlooks the lobby of the apartment, and there is a staircase leading down on the far side of the hall.  There are also doors that lead to the east and west on either side of the hall.  The examination room is to the south.
+
+> e
+You move east.
+Playroom
+   The sound of music boxes and children playing reverberates off of the pastel-coloured walls and wooden floor of this room.  A window-shaped hole in the east wall overlooks nothing but ocean and fog, and the room is completely bereft of any furniture.  There is only one door; it leads west, out to the hallway.  A little girl is here playing with a small cloth doll.  Nothing you do or say seems to effect her, and she is completely unaware of your presence.  
+
+> give bottle to girl
+  As you give the girl the pills, she stands and smiles at you.  "I love you, daddy."  The flesh of her sweet, young face begins to recede, and her clothes smolder into ash.  She rots away within minutes, leaving only a small brass key behind.  
+
+> get key
+You take the small brass key.
+
+> w
+You move west.
+Hallway
+   The hallway from a strikingly familiar apartment building.  The wallpaper is dried and peeling, and torn in spots, and the ground is thick with mildew.  The hallway is a balcony that overlooks the lobby of the apartment, and there is a staircase leading down on the far side of the hall.  There are also doors that lead to the east and west on either side of the hall.  The examination room is to the south.  
+
+> d
+You move down.
+Apartment Lobby
+   A worn down old lobby to an equally dilapidated apartment building.  There is a door to the north and a staircase leading up on the south side of the room.  The door to the north is closed and locked.  There is some sort of mechanical device on the counter towards the back of the room.
+
+> unlock door with key
+  You insert the brass key into the door and unlock it with a satisfying click, and the door opens.  The key is consumed by the lock.
+
+> n
+You move north.
+Church Road
+  You are standing in the center of an empty street that runs east and west.  The buildings on either side of the street are all boarded up and condemned, except for a small house to the south.  It is raning rather profusely, and you are quickly becomming soaked.  
+
+> look
+Church Road
+  You are standing in the center of an empty street that runs east and west.  The buildings on either side of the street are all boarded up and condemned, except for a small house to the south.  It is raning rather profusely, and you are quickly becomming soaked.

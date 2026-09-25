@@ -1,0 +1,112 @@
+
+> examine girl
+The girl is lying here sprawled as though pushed by someone (or something!) upon further inspection you realise who it is! Its Emma  "Adam! Come quick theres a girl lying here. Do you know whats up with her?"
+
+> x emma
+"Attacked from behind...too weak. Go on without me, just please save...them!" Her voice trails off. You look at david and nod.You both go through the portal...
+
+> 2
+"You have buisness with herald?" Asks the creature.
+"Yes."You state.
+ "Well his counterpart goes by the name of Nexus, very nasty person. Dont want to go messing with him, Oh no!" Whispers the creature. "Tke this amulet, it will help you!" The creature hobbles off as you walk down the corridor.
+
+> put ring on altar
+The altar glows... A Blueish light shines on you from above. You are lifted into the...VENTELATION SHAFT!? OK now THATS retarded.
+
+> n
+You move north.
+Ventolation shaft
+A long vent leading deeper into the installation.
+
+> n
+You move north.
+Ventolation shaft
+A long vent leading deeper into the installation.
+
+> n
+You move north.
+Ventolation shaft
+A long vent leading deeper into the installation.
+
+> n
+You move north.
+Security lock 3
+A security lock , you need a bypass key, Nexus probably came through this way...
+
+> w
+You move west.
+Recalite Quarantine
+Damn! It looks as though the Recalites have escaped quarantine, keep your eyes open! There is an engineer's corpse here.
+
+> search body
+You search the body and... You find a bypass key!
+
+> e
+You move east.
+Security lock 3
+A security lock , you need a bypass key, Nexus probably came through this way...
+
+> swipe card
+You swipe the card and the door slides open.
+
+> n
+You move north.
+Security lock 2
+A huge Steel door with a gaping hole in the middle, Nexus didnt come through here peacefully.
+
+> n
+You move north.
+Security Lock 1
+Security lock 1 is in chaos, no men are alive, Nexus shouldnt be too far ahead!
+
+> n
+You move north.
+Main Generator room
+The main generators are situated here, destroying them would be disasterous.
+
+> n
+You move north.
+Battlegrounds
+Nexus stands in the centre of the room, watching you.
+
+> examine nexus
+Nexus lunges at you, what will you do?
+1.Combat him in a fist fight OR 
+2.Dodge him and get out of here
+
+> 1
+You attack Nexus and he blasts you back with a punch, you stagger and colide with him, now his balance is down will you 
+A. Smash him with a frying pan OR 
+B. Boot him in the shins.
+
+> A
+You hit him with the frying pan you dont have, luckily you Skited the shot and hit him clear on the head with full force, knocking him backward over the edge...He falls...And Falls...And...SPLAAAAAAAAAT!
+
+> look
+He Levitates back up to the stage and into a room to your right.
+
+> e
+You move east.
+Cemetary
+Gravestones cloud your vision as mist rises from the floor and smothers you. You see a figure standing near a newly planted grave, You look at David, he looks at you.You approach the figure...Yu recoil in horror as you see half of Nexus' face is a skull.
+"HAVENT YOU CAUSED ENOUGH DAMAGE, NOW LET ME BE" He booms and wails, 'falling' into the grave...
+
+> d
+You move down.
+Heralds grave
+A huge open room is here with a door at the end.
+
+> n
+You move north.
+FINAL RESTING PLACE
+A Samll circular room, heralds corpse lies inside the coffin in the centre of the room. Nexus fixes his posture and turns to face you, To your horror he has NO FACE LEFT!!!!! What will you do? 
+1. Throw bricks at him OR 
+2. Face him and get ready to fight
+
+> 1
+You slide a brick out from the wall and lob it at nexus, "NO!" He shreiks. The brick hits him square in the forehead, he drops his sword and makes a grab for you, will you 
+A. Deck him, grab his sword and finish him.
+B. Hit him a few times at a safe distance and kick his sword away?
+
+> B
+You keep hooking him at a safe distance and kick his sword to David, Nexus confronts yo, then turns and runs to your left.

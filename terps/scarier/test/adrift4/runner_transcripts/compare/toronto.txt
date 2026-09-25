@@ -1,0 +1,12 @@
+feed        35 commands
+runner      35 turns echoed
+scarier     38 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 9  ask waiter about burger
+  run400   ok
+  scarier  huh?
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)
