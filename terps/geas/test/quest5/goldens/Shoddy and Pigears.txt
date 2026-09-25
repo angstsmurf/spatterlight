@@ -1,0 +1,876 @@
+Shoddy and Pigears
+
+by Father Thyme
+
+You are Shoddy, a small wooden toy boy, living in Toytown. You share your small house with Pigears, a gnome with a long white beard.  Toytown has deteriorated over the years, perhaps influenced by the nearby rough seaport of  Arkville.
+
+Good morning Shoddy!
+It's very quiet.
+In fact it's too quiet. It sounds as if you are alone in the house.
+Pigears is usually up banging about by now.
+Where is he? Perhaps he's in trouble?
+Get out there and look for him!!
+
+Your bedroom
+A small room with the minimum of furniture.
+
+You can see a bed.
+You can go out.
+> out
+
+> out
+
+The landing
+Doors lead east and west. Stairs lead down. Pigears' door (west) is closed and has a large padlock. There is a sign on the door. You are almost certain he is not in there. You can usually hear him snoring.
+
+You can see a sign and a padlock.
+You can go east, down or west.
+> down
+
+> down
+You walk downstairs. CREAK!  CREAK!
+
+The hall
+The hallway is dim and dusty. A picture hangs on the wall. The front door is south, the back door north, stairs lead up and there is a lounge to the west.
+
+You can see a picture.
+You can go up, north, south or west.
+> south
+
+> south
+You leave the house by the front door.
+
+Bedpan Alley
+West leads to the town square. The alley continues east. To the north lies your front door.
+
+You can go north, east or west.
+> east
+
+> east
+
+The end of the alley
+To the north is Gusty the Clown's pawnbrokers and dealers in military memorabilia shop. East, blocking off the end of the alley is Old Mother Hubbard's house. I'm told that she has 17 kids. Half of them boys. South is the gate of the Toytown Scrap metal yard. The alley leads back west.
+
+You can see a ladder.
+You can go west, up, north, south or east.
+
+The ladder is leaning against Mother Hubbard's bedroom window.
+> take ladder
+
+> take ladder
+You pick it up. It is very heavy!
+> west
+
+> west
+
+Bedpan Alley
+West leads to the town square. The alley continues east. To the north lies your front door.
+
+You can go north, east or west.
+> north
+
+> north
+
+The hall
+The hallway is dim and dusty. A picture hangs on the wall. The front door is south, the back door north, stairs lead up and there is a lounge to the west.
+
+You can see a picture.
+You can go up, north, south or west.
+> north
+
+> north
+
+Your backyard
+The fenced in backyard smells of tomcats. South leads back into the house. High above is Pigears' open bedroom window.
+
+You can see a trash bin.
+You can go south, up or west.
+> drop ladder
+
+> drop ladder
+Phew! That was heavy.
+
+You lean the ladder against Pigears' bedroom window sill.
+
+Below Pigears' bedroom
+You are in the backyard, directly below Pigears' bedroom window.
+
+You can see a ladder.
+You can go east.
+> climb ladder
+
+> climb ladder
+You climb the ladder and scramble into Pigears' window.
+
+Pigears bedroom
+This is a much bigger room than yours. It's even got a walk in wardrobe (west). The top of the ladder is poking up outside the window.
+
+You can see a poster and a ladder.
+You can go west, east or down.
+> west
+
+> west
+
+The walk in wardrobe
+There's not a lot in here. A waste of space really.
+
+You can see a jacket.
+You can go out.
+> look at jacket
+
+> look at jacket
+It's Pigears second best jacket. Blue wool. Toysco Gnome and Wear, size XXXXXX Large. It smells of mothballs.
+In the jacket pocket is a coin.
+> take coin
+
+> take coin
+You decide to take the jacket and the coin with you. Pigears might need it. The last time he was missing he turned up starkers in Farmer Suticle's pigsty. He was very drunk.
+> out
+
+> out
+
+Pigears bedroom
+This is a much bigger room than yours. It's even got a walk in wardrobe (west). The top of the ladder is poking up outside the window.
+
+You can see a poster and a ladder.
+You can go west, east or down.
+> down
+
+> down
+You climb down the ladder.
+
+Below Pigears' bedroom
+You are in the backyard, directly below Pigears' bedroom window.
+
+You can see a ladder.
+You can go east.
+> east
+
+> east
+
+Your backyard
+The fenced in backyard smells of tomcats. South leads back into the house. High above is Pigears' open bedroom window.
+
+You can see a trash bin.
+You can go south, up or west.
+> south
+
+> south
+
+The hall
+The hallway is dim and dusty. A picture hangs on the wall. The front door is south, the back door north, stairs lead up and there is a lounge to the west.
+
+You can see a picture.
+You can go up, north, south or west.
+> south
+
+> south
+You leave the house by the front door.
+
+Bedpan Alley
+West leads to the town square. The alley continues east. To the north lies your front door.
+
+You can go north, east or west.
+> west
+
+> west
+
+The Town square
+On the north side of the Town Square stands The Toytown Clockwork railway station. West, The High Street. East, Bedpan Alley. To the south the historic  Rat and Mallet Public House.
+
+You can go east, west, south or north.
+> west
+
+> west
+
+The High Street
+Toytown High Street. To the north looms The Toy Fort. To the South Hilda Fudge's Sweet shop. Terminating the high street to the west is the Toytown Police station, domain of P.C. Pleb, that stalwart of the law.
+
+You can go south, north, east or west.
+> south
+
+> south
+You don't often come in here. The sweets and candies are far too dear. Sometimes there are cheaper items but Hilda Fudge  the owner does not like you (can't think why).
+
+The sweet shop
+A small shop packed with sweets at disgraceful prices. Mostly way out of your price range.
+
+You can see Hilda Fudge and a chocolate bar.
+You can go north.
+> buy chocolate bar
+
+> buy chocolate bar
+Hilda takes your pound coin and hands over the chocolate bar. "Enjoy," she says with a beaming smile. Then stuffs her handkerchief  in her mouth and turns away.
+> north
+
+> north
+
+The High Street
+Toytown High Street. To the north looms The Toy Fort. To the South Hilda Fudge's Sweet shop. Terminating the high street to the west is the Toytown Police station, domain of P.C. Pleb, that stalwart of the law.
+
+You can go south, north, east or west.
+> west
+
+> west
+
+Police station
+The police station entrance lobby. Doors lead north and south. The street door is east. The north door has a sign. NAUGHTY STEP.
+
+You can go south, north or east.
+> north
+
+> north
+
+The naughty step
+This rather grim room has a large open trapdoor with a fixed iron ladder leading down. Through the trapdoor is hanging a rope noose. On the trapdoor is printed 'THE NAUGHTY STEP' and two red painted footprints.
+
+You can see a printed notice  on the wall and a ladder.
+You can go down or south.
+> down
+
+> down
+You climb down the ladder.
+
+Under the trapdoor
+The trapdoor overhead allows light to filter down into this gloomy underground room. A coffin on trestles stands to one side. Obviously it is waiting for the attentions of Boxem & Plantem the toy undertakers. The iron ladder leads up.
+
+You can see a coffin and a ladder.
+You can go up.
+> open coffin
+
+> open coffin
+You slide the lid off the coffin.
+
+Oh dear!  This is Mac the Spoon, the cereal killer. He looks very dead. The phrase Mac-in-a-box springs to mind (springs, get it?) (Oh never mind).
+
+Yes it's definitely Mac the Spoon.
+> look at mac the spoon
+
+> look at mac the spoon
+He is dead. The naughty step is quite harsh in Toytown. You may or may not have seen him before. He is a master of disguise.
+He is wearing a false beard (ginger).
+> take false beard
+
+> take false beard
+You rather gingerly pick it up (no pun intended) (honest).
+> wear false beard
+
+> wear false beard
+You put on the beard.  YEUK !
+> up
+
+> up
+You climb up the ladder.
+
+The naughty step
+This rather grim room has a large open trapdoor with a fixed iron ladder leading down. Through the trapdoor is hanging a rope noose. On the trapdoor is printed 'THE NAUGHTY STEP' and two red painted footprints.
+
+You can see a printed notice  on the wall and a ladder.
+You can go down or south.
+> south
+
+> south
+
+Police station
+The police station entrance lobby. Doors lead north and south. The street door is east. The north door has a sign. NAUGHTY STEP.
+
+You can go south, north or east.
+> east
+
+> east
+
+The High Street
+Toytown High Street. To the north looms The Toy Fort. To the South Hilda Fudge's Sweet shop. Terminating the high street to the west is the Toytown Police station, domain of P.C. Pleb, that stalwart of the law.
+
+You can go south, north, east or west.
+> north
+
+> north
+
+The toy fort courtyard
+The courtyard in front of the Toytown Fort. An archway north leads into the fort. The High Street lies south.
+
+You can see a sentry.
+You can go south or north.
+> give chocolate bar to sentry
+
+> give chocolate bar to sentry
+You give the chocolate to the sentry. He stuffs the whole bar in his mouth at once. "And you're still not gettin' in," he mumbles.
+
+Suddenly he clutches the back of his trousers, "AAAAGH!" he screams. He hobbles into the fort clutching his backside and leaving a really bad smell behind.
+> north
+
+> north
+
+Inside the fort
+You are in a large lobby. A south archway leads out. A west door has a sign: MAJOR  NEEBONE-TREMBLE, FORT COMMANDER. An east door is marked MAGAZINE. The north door is signed TOILET. The toilet seems to be occupied. There is a terrible smell.
+
+You can see a magazine door.
+You can go south, west, north or east.
+> west
+
+> west
+
+The Commander's Office
+The fort commanders office. A rather shabby room. Redecoration and refurnishing were long overdue. The exit is east. Another door to the west  has steam coming from under it. You hear water splashing. There is a strong smell of soap and gin.
+
+You can see a wall safe, a calendar, a desk and a key rack.
+You can go east or west.
+
+A voice bawls out. "Is that you Paartz. I'm in the barf. Make a good job o' those medals you're supposed to be cleanin'. I want to see my face in 'em. They're in the armoury. The key's in the office. In the usual place."
+> take calendar
+
+> take calendar
+Hanging on the same nail as the calendar is a brass key, difficult to spot because of the messy wallpaper. You pick it up.
+> look at wallpaper
+
+> look at wallpaper
+The person who designed brown floral wallpaper and thought it was a good idea needs shooting.
+
+Oh look, there's a bronze key on a small nail. It blends into the wallpaper perfectly.
+> take bronze key
+
+> take bronze key
+You pick it up.
+> east
+
+> east
+
+Inside the fort
+You are in a large lobby. A south archway leads out. A west door has a sign: MAJOR  NEEBONE-TREMBLE, FORT COMMANDER. An east door is marked MAGAZINE. The north door is signed TOILET. The toilet seems to be occupied. There is a terrible smell.
+
+You can see a magazine door.
+You can go south, west, north or east.
+> unlock magazine door
+
+> unlock magazine door
+You unlock the door with the bronze key.
+
+The magazine
+The magazine has muskets chained to the wall, boxes of ammunition, and a large steel table.
+
+You can see a table.
+You can go out.
+> look at table
+
+> look at table
+It looks heavy. It is stained with metal polish.
+On it is a set of medals.
+> take medals
+
+> take medals
+You pick up the medals.
+> out
+
+> out
+
+Inside the fort
+You are in a large lobby. A south archway leads out. A west door has a sign: MAJOR  NEEBONE-TREMBLE, FORT COMMANDER. An east door is marked MAGAZINE. The north door is signed TOILET. The toilet seems to be occupied. There is a terrible smell.
+
+You can see a magazine door.
+You can go south, west, north or east.
+> south
+
+> south
+
+In the hope that no one will find the medals missing for a while you return everything else to the Commander's Office before leaving the fort.
+
+The toy fort courtyard
+The courtyard in front of the Toytown Fort. An archway north leads into the fort. The High Street lies south.
+
+You can go south or north.
+> south
+
+> south
+
+The High Street
+Toytown High Street. To the north looms The Toy Fort. To the South Hilda Fudge's Sweet shop. Terminating the high street to the west is the Toytown Police station, domain of P.C. Pleb, that stalwart of the law.
+
+You can go south, north, east or west.
+> east
+
+> east
+
+The Town square
+On the north side of the Town Square stands The Toytown Clockwork railway station. West, The High Street. East, Bedpan Alley. To the south the historic  Rat and Mallet Public House.
+
+You can go east, west, south or north.
+> east
+
+> east
+
+Bedpan Alley
+West leads to the town square. The alley continues east. To the north lies your front door.
+
+You can go north, east or west.
+> east
+
+> east
+
+The end of the alley
+To the north is Gusty the Clown's pawnbrokers and dealers in military memorabilia shop. East, blocking off the end of the alley is Old Mother Hubbard's house. I'm told that she has 17 kids. Half of them boys. South is the gate of the Toytown Scrap metal yard. The alley leads back west.
+
+You can go west, up, north, south or east.
+> north
+
+> north
+
+The Pawnbrokers
+This shop is full of pawned items none of them of any value, presided over by Gusty the Clown the Toytown pawnbroker. I really don't know how he makes a living. It's all rubbish.
+
+You can see Gusty.
+You can go south.
+
+Gusty looks at you strangely but  then relaxes. "Good day sir. Please give me your item and I will offer you a good price for it," he says, wringing his hands together. He obviously needs new glasses if he doesn't recognise you in that stupid disguise.
+> give medals to gusty
+
+> give medals to gusty
+Gusty offers you £2 you ask for £50 . You finally settle for £10. Perhaps better to leave with the cash before he spots who you are.
+> south
+
+> south
+
+The end of the alley
+To the north is Gusty the Clown's pawnbrokers and dealers in military memorabilia shop. East, blocking off the end of the alley is Old Mother Hubbard's house. I'm told that she has 17 kids. Half of them boys. South is the gate of the Toytown Scrap metal yard. The alley leads back west.
+
+You can go west, up, north, south or east.
+> west
+
+> west
+
+Bedpan Alley
+West leads to the town square. The alley continues east. To the north lies your front door.
+
+You can go north, east or west.
+> west
+
+> west
+
+The Town square
+On the north side of the Town Square stands The Toytown Clockwork railway station. West, The High Street. East, Bedpan Alley. To the south the historic  Rat and Mallet Public House.
+
+You can go east, west, south or north.
+> north
+
+> north
+
+Station turnstile
+You approach the station turnstile. Hector the train conductor (who is a large stuffed toy dog) is standing by it.
+
+You can see a Hector.
+You can go south or north on to the platform.
+> speak to hector
+
+> speak to hector
+Hector issues you with a return ticket to Arkville, after taking your ten pound note. You pass through the turnstile and onto the platform.
+
+The Arkville express is waiting to leave. The Flatulent Controller  is standing by to give the signal.
+
+The platform
+You approach the train. You must go on for Pigears' sake. You must board the train and rescue him. You turn the handle. The carriage door  opens...
+
+You can go north or south.
+> north
+
+> north
+
+The last carriage
+A grubby east west corridor. A compartment is to the north. The locked guards van door is to the east.
+
+You can go north, south or west.
+
+As you enter the train corridor the Flatulent Controller gives a loud blast, then he blows his whistle. The train moves off with a great grinding of gears. It soon picks up speed and rattles off on its way to Arkville.
+> west
+
+> west
+The train rattles into a tunnel then bursts back into the sunlight again.
+
+The middle carriage
+A grubby east west corridor. A compartment lies north.
+
+You can go east, north, south or west.
+> west
+
+> west
+The train passes a great flock of Farmer Sutical's sheep.
+
+The front carriage
+A grubby corridor. A compartment lies north. There is no west door.
+
+You can go east, south or north.
+> north
+
+> north
+As you enter the compartment you see Prudence Pleb the policemans daughter sitting by the window. You sit opposite her.
+
+The train compartment
+The compartment is almost empty. Exits are north and south.
+
+You can see Prudence Pleb.
+You can go south or north.
+> south
+
+> south
+The train slows down and shudders to a halt in Arkville station. You look round to see Prudence Pleb leaving the compartment by the north door. She hurries off the platform and out of the station. The corridor outside fills with toy soldiers and stuffed toys trying to get out. The south exit is blocked. Your only option is to follow Prudence.
+> north
+
+> north
+
+Arkville Station
+A typical Toytown train station, surrounded by green-painted wooden trees.
+
+You can go south or north.
+
+The train moves off and clatters out of the station. There is no sign of Prudence. The crowd of passengers swarm out of the train. You are pushed and shoved in all directions. You have the feeling that someone has been through your pockets. The crowd stampedes out of the station by the north exit. You pick yourself up.
+> north
+
+> north
+You leave the station and find yourself in the Arkville Harbour area. The air is full of the smell of  fish and rotting seaweed. Seagulls swoop in all directions. The whole place seems to be falling apart. Only the Ark opposite looks well maintained.
+
+Arkville Harbour
+To the south lies Arkville station. To the north Noah's Ark is tied up at the harbour wall which continues east. The way west opens out into a large pub courtyard.
+
+You can see Noah's Ark.
+You can go south, north, west or east.
+> north
+
+> north
+There seems no one about. You walk up the gangplank onto the upper deck.
+
+The upper deck of the Ark
+You are on the upper deck of the Ark. A west door leads into the large deckhouse. A  ladder leads down below decks.
+
+You can go down, west or south.
+> west
+
+> west
+A wave of heat comes out of the deckhouse door.
+
+In the Deckhouse
+The Noahs' living quarters. It all looks very comfortable in a chintzey kind of way. A door east leads out onto the upper deck. A small door leads west.
+
+You can see a fireplace and a chalkboard.
+You can go east or west.
+> west
+
+> west
+You bang your head on a low beam as you go through the small door.
+
+Noah's workshop
+This must be Mr Noah's hobby room. He seems a very neat man. Any tools all seem to be locked away. His hobby seems to be making model boats.
+
+You can see a model boat.
+You can go east.
+> take model boat
+
+> take model boat
+The model is screwed to the bench probably to stop it moving while it is worked on. However, you have pulled the upper part of the model up slightly. It drops back into place. It is on hinges. Maybe there are some wooden animals inside.
+> open model boat
+
+> open model boat
+The boat opens. The top is on hinges.
+In it is a tube of glue.
+> take glue
+
+> take glue
+You pick up the glue.
+> east
+
+> east
+You banged your head again as you left. You'll never learn.
+
+In the Deckhouse
+The Noahs' living quarters. It all looks very comfortable in a chintzey kind of way. A door east leads out onto the upper deck. A small door leads west.
+
+You can see a fireplace and a chalkboard.
+You can go east or west.
+> burn jacket
+
+> burn jacket
+You put the end of one sleeve into the fire. When it catches you remove it. The jacket is now smouldering slowly.
+> east
+
+> east
+
+The upper deck of the Ark
+You are on the upper deck of the Ark. A west door leads into the large deckhouse. A  ladder leads down below decks.
+
+You can go down, west or south.
+> south
+
+> south
+
+Arkville Harbour
+To the south lies Arkville station. To the north Noah's Ark is tied up at the harbour wall which continues east. The way west opens out into a large pub courtyard.
+
+You can see Noah's Ark.
+You can go south, north, west or east.
+> west
+
+> west
+
+The courtyard
+The pub courtyard is bounded by brick walls on the north and south sides. The pub is to the west. East leads out to the harbour.
+
+You can see a poster and the pub sign.
+You can go east or west.
+> west
+
+> west
+You enter the Bunch of  Fives. It seems a very noisy place.
+
+The public bar
+The public bar is full of smoke from E cigarettes. There is a door leading west into the back. The main exit is east. The bar is too crowded to get near.
+
+You can go east or west.
+
+A crowd of toy soldiers, pirates and various stuffed toys are clustered round a small stage singing "Why are we waiting" over and over again.
+> west
+
+> west
+You go through the west door. No one seems to take any notice..
+
+The back passage
+A narrow back passageway. Doors lead west, north and east back to the bar. The west door has a large gold star, a small notice:- DRESSING ROOM and a large keyhole. You can faintly hear someone moving about inside. The north door is marked:- PERFORMERS ONLY.
+
+You can see a keyhole.
+You can go east, west or in.
+> use glue on keyhole
+
+> use glue on keyhole
+You squirt all the glue into the keyhole and throw away the empty container. It's very quick drying. Its beginning to set already.
+> east
+
+> east
+
+The public bar
+The public bar is full of smoke from E cigarettes. There is a door leading west into the back. The main exit is east. The bar is too crowded to get near.
+
+You can go east or west.
+> east
+
+> east
+
+The courtyard
+The pub courtyard is bounded by brick walls on the north and south sides. The pub is to the west. East leads out to the harbour.
+
+You can see a poster and the pub sign.
+You can go east or west.
+> east
+
+> east
+
+Arkville Harbour
+To the south lies Arkville station. To the north Noah's Ark is tied up at the harbour wall which continues east. The way west opens out into a large pub courtyard.
+
+You can see Noah's Ark.
+You can go south, north, west or east.
+
+There is a tremendous racket from the Bunch of Fives Pub. There is a full scale riot going on over there.
+> west
+
+> west
+
+The courtyard
+The pub courtyard is bounded by brick walls on the north and south sides. The pub is to the west. East leads out to the harbour.
+
+You can see a bucket, a poster and the pub sign.
+You can go east or west.
+
+A massive fight is in full swing inside the pub. Objects (and people) are flying out of the windows and door.
+> take bucket
+
+> take bucket
+You pick up the bucket.
+> east
+
+> east
+
+Arkville Harbour
+To the south lies Arkville station. To the north Noah's Ark is tied up at the harbour wall which continues east. The way west opens out into a large pub courtyard.
+
+You can see Noah's Ark.
+You can go south, north, west or east.
+
+There is a tremendous racket from the Bunch of Fives Pub. There is a full scale riot going on over there.
+> north
+
+> north
+
+The upper deck of the Ark
+You are on the upper deck of the Ark. A west door leads into the large deckhouse. A  ladder leads down below decks.
+
+You can go down, west or south.
+> down
+
+> down
+You clamber down the ladder. You are assailed by the smell of  many types of animal manure. Pens either side of the central east west corridor are filled with animals of all kinds.
+
+The lower deck at the stern
+The passageway between the animal pens runs west. A wooden companionway ladder leads up.
+
+You can go west or up.
+> west
+
+> west
+
+The bows of the Ark
+The bows of the Ark (that's the sharp end). An east corridor leads to the stern (the blunt end).
+
+You can see a pile of manure.
+You can go east.
+> take manure
+
+> take manure
+You scoop some manure into the bucket.
+> east
+
+> east
+
+The lower deck at the stern
+The passageway between the animal pens runs west. A wooden companionway ladder leads up.
+
+You can go west or up.
+> up
+
+> up
+
+The upper deck of the Ark
+You are on the upper deck of the Ark. A west door leads into the large deckhouse. A  ladder leads down below decks.
+
+You can go down, west or south.
+> south
+
+> south
+
+Arkville Harbour
+To the south lies Arkville station. To the north Noah's Ark is tied up at the harbour wall which continues east. The way west opens out into a large pub courtyard.
+
+You can see Noah's Ark.
+You can go south, north, west or east.
+
+There is a tremendous racket from the Bunch of Fives Pub. There is a full scale riot going on over there.
+> east
+
+> east
+
+You make your way east along the harbour.
+
+East harbour
+Astern of the Ark to your north is a pirate ship. To the south a brick wall blocks off the railway. The harbour wall ends in a steep drop to the east.
+
+You can see a pirate.
+You can go west, east, north or down.
+
+The pirate ship is quite large. It has five cannons on each side and one pointing out of the stern alongside the rudder post (the stern chaser). A black flag with a skull  and crossed cutlasses flies above the large bowl shaped fighting top at the top of the mainmast. The name 'THE RUPTURED ALBATRUSS' is painted on the stern.
+
+A large pirate with a black eye-patch standing on the gangway points a flintlock pistol at you. "Clear orf!" he yells." You're off that stinkin' Noah's Ark.  Don't you deny it I seed you skulkin' by it. I hates bad smells an' that thing smells worse than most!"
+
+You are afraid to go closer or do anything. He's probably  a good shot. He looks as if he's got the eye for it. Pity about the other one.
+> down
+
+> down
+
+An In the drainage pipe
+You are in a large east west drainage pipe. A rusty iron grille blocks the pipe further west to all but water. Another pipe branches off north.
+
+You can go east or north.
+> north
+
+> north
+
+Under the gangway
+The pipe narrows to a barred outlet to the north. You can see the side of the pirate ship just beyond. Above you the pipe has been broken and repaired with metal mesh. You can see the sun shining between the underside of the planks of the gangway onto the ship.
+
+You can go south.
+
+The smell in this confined space from your bucket of manure is appalling . Luckily a lot of it is rising up through the gaps in the gangway. You feel like dropping the bucket and getting out of here.
+> drop bucket of manure
+
+> drop bucket of manure
+You drop the bucket. It falls over scattering manure. The smell increases and rises through the gangway above. A voice bawls "Rot my socks! I can't stand this, Duty Watch or not. I'm off to the Fives for a drink."  Footsteps thunder down the gangway and clump off down the harbour. You can't stand it either and kick the bucket and manure through the bars into the sea.
+> south
+
+> south
+
+An In the drainage pipe
+You are in a large east west drainage pipe. A rusty iron grille blocks the pipe further west to all but water. Another pipe branches off north.
+
+You can go east or north.
+> east
+
+> east
+Luckily you fall was broken by a pile of concrete blocks below.  There IS  an iron ladder fixed to the wall. Sorry about that. Didn't I mention it? You stagger to your feet and brush yourself down.
+
+Below the harbour wall
+You are on a pile of concrete blocks. An iron ladder leads up. A large concrete drainage  pipe leads west into the harbour wall.
+
+You can see an iron ladder.
+You can go west.
+> climb ladder
+
+> climb ladder
+You make your way up the ladder gingerly, trying to ignore the pain from your fall.
+
+East harbour
+Astern of the Ark to your north is a pirate ship. To the south a brick wall blocks off the railway. The harbour wall ends in a steep drop to the east.
+
+You can see an iron ladder.
+You can go west, east, north or down.
+> north
+
+> north
+You climb the gangway. The ship seems deserted. The smell seems to have gone now. There is no sign of the pirate either.
+
+The pirate ship main deck
+The main deck. A door leads west into the raised forecastle and east a wooden archway leads into the after-castle. The mainmast looms overhead. Shrouds with ratlines form rope ladders leading to the large bowl shaped top.
+
+You can see a door.
+You can go south, west, up or east.
+> east
+
+> east
+You enter the aftercastle by way of the carved wooden archway.
+
+Inside the aftercastle
+A small lobby. The small brass tally on the east door says CAPTAIN.  A companionway ladder leads the way down to the lower decks.
+
+You can go east, down or west.
+> down
+
+> down
+You climb down the ladder.
+
+The lower deck aft
+To the west is a door. A ladder leads up. Light is provided by a gun port east.
+
+You can go east, up or west.
+> east
+
+> east
+
+The stern chaser
+You are standing by a gun port in the stern of the ship. To the east slightly to one side a ladder leads up.
+
+You can see a cannon and a notice.
+You can go west.
+> look at cannon
+
+> look at cannon
+A massive gun mounted on a four wheeled carriage points directly astern. This would be used to deter ships coming up from astern.
+In the touch hole is a fuse.
+> light fuse
+
+> light fuse
+The jacket is almost all burnt.  You place the last of it on the fuse where it disappears into ash. The fuse splutters down into the touch hole.
+
+BOOM!   The cannon fires. You wish someone had written earplugs into this game. A cannonball screeches across the harbour scattering seagulls in all directions. A buoy with writing on it receives a direct hit and slowly sinks. The cannon recoils across the deck trailing dirty yellow smoke and missing you by inches. It vanishes into Pigears' cell with a great shattering of wood. You knew the gun was not secured properly but this was a little more than you expected. You think you may have killed Pigears. Smoke billows from the hole where the cell door was.
+
+As you move forward  you hear loud coughing. Pigears staggers from the wreckage.
+
+"WELL DONE YOUNG SHODDY!" he booms. "COME ON, LET'S GET OUT OF HERE. WE CAN GET DOWN TO THE STATION AND BACK TO TOYTOWN IN NO TIME. THEN WE ARE OFF FOR A LONG VACATION IN FLORIDA. I JUST HAVE TO PICK UP MY WINNING LOTTERY TICKET. IT'S IN MY SECOND BEST JACKET  IN MY WARDROBE AT HOME. LET'S GO THEN!"
+
+Oh dear...
+
+THE END
+[state=Finished]

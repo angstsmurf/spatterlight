@@ -1,0 +1,1759 @@
+The Curse of Gazaroth
+Chronicles of a Lonesome Traveler
+
+by MakeMeAnIsland
+
+Through kingdoms unknown
+Through distant lands untouched
+There walks a weary traveler
+Who sacrifices much
+
+Trudging day and day
+He'll trudge until the end
+The sound of his footsteps
+As his only friend
+
+At each and every corner
+He's smote death's own tune
+But one evil beyond the rest
+May well be his doom ...
+
+Hilltop View
+You are standing in a clearing at the top of a steep hill surrounded by trees. Below you to the north lies a wide, shallow valley. There is a large forest in the valley. It fills the whole valley from where you are standing to the northern side of the valley, and stretches far into the west. Huddled within the forest is a small village. To the east of the village is a large lake. Beyond the lake, far in the distance, is a steep, dark mountain. Although the weather here is clear, the mountain is covered by dark clouds and rainfall. The highest peaks of the mountain break through the clouds.
+
+A small, winding path leads north down the hillside.
+You can go north.
+> north
+
+> north
+
+Dry Well
+You are in a small, green clearing within the forest. There are small forest paths to the north and south. In the centre of the clearing is a dry well. Its sides are covered in moss. It looks ancient, yet somehow unchanged, as if the tides of time sweep around it, and it remains forever a reflection of the past.  There is a small Fairy sitting on the edge of the well.
+You can go north, south or down.
+> north
+
+> north
+
+Forest Path
+You are standing in a dense forest. The narrow forest path lead to the south and northeast. Mushrooms of different sizes grow next to the path and moss grows at base of the thick forest trees.
+You can go south or northeast.
+> northeast
+
+> northeast
+
+West of Field
+You are on the west edge of a large field. The field was once used to plant corn, but now it is only dust. To the east you can see a farm house. A winding path leads southwest into the forest.
+You can go southwest or east.
+> east
+
+> east
+
+Abandoned Farmhouse
+You are standing outside a Farmhouse. It looks abandoned. The red paint of the walls is peeling off and many of the windows are broken. The door is ajar. A large dusty field stretches out to the west. A country road leads north. It also goes south, but fallen trees have made it impossible to go that way.
+You can go west, north or in.
+> north
+
+> north
+
+North South Road
+You are on a dusty country road within the forest stretching from the south to the north. Except for your own footprints, there are no other indicators that anybody has travelled the road in the last few weeks. Up ahead, you can see the roofs of the houses in the village.
+You can go south or north.
+
+Suddenly a bandit jumps onto the road. He sees that you aren't carrying any food, and disappears into the forest.
+> north
+
+> north
+
+Southwest of Dead Field
+The country road passes on the southwest side of a large, dusty field in the countryside. Once it was used to grow crops, but now it's just dust and weeds. A lone scarecrow stands in the middle. The road goes south and northwest.
+You can go south, northwest or northeast.
+> northwest
+
+> northwest
+
+South of Village
+You can see a village to the north. A country road leads southeast into the countryside. At the side of the road is a signpost which reads: Welcome to Hamsworth. Slumped on the ground and leaning on the post is a man. He is dead.
+You can go southeast or north.
+> north
+
+> north
+
+Brown Ale Street
+You are standing on a dusty street littered with shattered glass, probably from broken bottles. You are outside Brown Ale's Tavern.  To the north is the village square. A road leads south into the countryside.
+You can go north, south or in.
+> in
+
+> in
+
+Brown Ales Tavern
+You are in a dimly lit tavern. The place is a mess. Most of the tables and chairs have been overturned, and the floor is covered with spilt mead and glass.  Mr Brown Ale is standing behind the counter, clearning mugs with a dirty cloth.  A flute player is slumped into one of the chairs, nursing a cup of mead.  Mr Strongham is sitting in the corner puffing deeply on a pipe.
+You can go out.
+> ask ale about curse
+
+> ask ale about curse
+"There was a time when the village of Hamsworth was a lovely place to live. But a couple years back it all changed. The fields stopped yielding crops. People just became real depressed, you know. Then the animals began migrating away from here. Soon after that, people started leaving, searching for a new place to call home. Some talk of a curse. I can't be sure. But I do know that around the time the depression started, the mountain to the northeast became very dark and stormy. We call it Black Mountain now."
+> ask ale about mountain
+
+> ask ale about mountain
+"Aye. To get to the mountain go north and then east at the crossroads. But I don't think you will get far."
+> ask ale about gazaroth
+
+> ask ale about gazaroth
+"Gazaroth? Doesn't ring a bell."
+> out
+
+> out
+
+Brown Ale Street
+You are standing on a dusty street littered with shattered glass, probably from broken bottles. You are outside Brown Ale's Tavern.  To the north is the village square. A road leads south into the countryside.
+You can go north, south or in.
+> north
+
+> north
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> west
+
+> west
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> northwest
+
+> northwest
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> west
+
+> west
+
+Salvation Street
+You are standing outside a small but quite magnificent Chapel. The street is cobbled and cleaner than in the rest of the village. It leads east to Gift Street.
+You can go in or east.
+> in
+
+> in
+
+Chapel
+You are in a small Chapel. Rows of seats lead up to the front of the Chapel along a thin aisle. Candles adorn the walls and send flickering shadows dancing about the room. At the front of the Chapel is a raised podium and a white altar with more candles on it. To the north is a small door. And the large Chapel entrance is behind you.  Pastor Haywidth is kneeling by the altar, praying silently.
+You can go out or north.
+> ask pastor about curse
+
+> ask pastor about curse
+"Yes. There is a curse. Some time ago, a wizard came to our village. His name is Gazaroth. Ever since then, our fields haven't yielded at all and all our hope have drained away. He now lives in a great castle on Black Mountain. I don't advise you to go there. I can promise you a painful death. But if you feel that you must, talk to Old Man Mooney. His cottage is by the forest to the north. "
+> out
+
+> out
+
+Salvation Street
+You are standing outside a small but quite magnificent Chapel. The street is cobbled and cleaner than in the rest of the village. It leads east to Gift Street.
+You can go in or east.
+> east
+
+> east
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> southeast
+
+> southeast
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> east
+
+> east
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> north
+
+> north
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> north
+
+> north
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> north
+
+> north
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> west
+
+> west
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> in
+
+> in
+
+Mooneys Cottage
+You are in a small cozy cottage.  A fire is burning in the hearth. You can smell food. Standing by the hearth, gazing into the flames, is Old Man Mooney.
+You can go out.
+> ask mooney about curse
+
+> ask mooney about curse
+"Ah, yes. I can tell you all about that. But first, I will need something in return. You see, a couple of weeks ago, a troll broke into my house and stole something very valuable to me; a red pearl. It ran off back into the forest. I am an old man, and I can't hope to face the troll. But you are young and strong. Find the troll in the forest to the north and return my pearl to me, and I will tell you all I know. Oh, you will need a weapon of some sort. You can't face a troll with your bare hands. If coin is what you need, seek out the Cemetery Keeper."
+> out
+
+> out
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> east
+
+> east
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> south
+
+> south
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> south
+
+> south
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> south
+
+> south
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> west
+
+> west
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> northwest
+
+> northwest
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> north
+
+> north
+
+Bakers Street
+You are standing outside a lovely bakery in a cobbled street. It leads south to join with other streets. A narrow path leads to the northwest. It seems slightly darker than the rest of the village.
+You can go south, northwest or in.
+> northwest
+
+> northwest
+
+Damned Street
+You are standing in a morose part of the village. The rounded stones that pave the street seem darker than those of other streets in the village. To the north is a cemetery darkened by looming trees. The street leads to the southeast.
+You can go southeast or north.
+> north
+
+> north
+
+Cemetery
+You are in a small Cemetery. The graves are guarded by headstones of many different shapes and sizes. You are close enough to read the writing on a relatively large and embelished headstone. A cobbled path leads south out of the Cemetery and another one leads east towards a garden and a small house.
+You can go south or east.
+> east
+
+> east
+
+Cemetery Keepers Garden
+You are in a dark and morose garden. The trees droop their branches lethargically and among the shrivelled up remains of flowers grows countless weeds. A clump of bushes grows in the northeast part of the garden. It looks like nobody has done any gardening in a while. A path leads up to a small house. A path leads through a small gate into a Cemetery to the west.
+You can go in or west.
+You can see a Rake.
+> in
+
+> in
+
+Cemetery Keepers House
+You are in a small, dark house. It looks very neat, although is seems that nobody has lived here for some time. Slumped in a chair next to a table is a motionless body. It must be the Cemetery Keeper.
+You can go out.
+You can see a Purse.
+> take purse
+
+> take purse
+You pick it up.
+> open purse
+
+> open purse
+You open the purse.
+The purse is already open.
+It contains a Silver Piece.
+> take silver piece
+
+> take silver piece
+You pick it up.
+> out
+
+> out
+
+Cemetery Keepers Garden
+You are in a dark and morose garden. The trees droop their branches lethargically and among the shrivelled up remains of flowers grows countless weeds. A clump of bushes grows in the northeast part of the garden. It looks like nobody has done any gardening in a while. A path leads up to a small house. A path leads through a small gate into a Cemetery to the west.
+You can go in or west.
+You can see a Rake.
+> west
+
+> west
+
+Cemetery
+You are in a small Cemetery. The graves are guarded by headstones of many different shapes and sizes. You are close enough to read the writing on a relatively large and embelished headstone. A cobbled path leads south out of the Cemetery and another one leads east towards a garden and a small house.
+You can go south or east.
+> south
+
+> south
+
+Damned Street
+You are standing in a morose part of the village. The rounded stones that pave the street seem darker than those of other streets in the village. To the north is a cemetery darkened by looming trees. The street leads to the southeast.
+You can go southeast or north.
+> southeast
+
+> southeast
+
+Bakers Street
+You are standing outside a lovely bakery in a cobbled street. It leads south to join with other streets. A narrow path leads to the northwest. It seems slightly darker than the rest of the village.
+You can go south, northwest or in.
+> south
+
+> south
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> southeast
+
+> southeast
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> east
+
+> east
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> northeast
+
+> northeast
+
+Smithy Street
+You are standing on a cobbled street outside a smithy. The street leads to the southwest.
+You can go in or southwest.
+> in
+
+> in
+
+Smithy
+You are in a small smithy. In the corner of the room is an anvil, and leaning on the wall is a hammer. A large furnace occupies the center of the room, but there is no fire in it.  Blacksmith Joe is standing next to the furnace, gazing into the ashes.
+You can go out.
+You can see a Gloves and a Hammer.
+> give silver piece to joe
+
+> give silver piece to joe
+"Thank ye'. Gimme a sec, I'll make your dagger."
+
+He start working at his forge, and soon he gives you a dagger.
+
+"Good luck to ya', traveler."
+> take gloves
+
+> take gloves
+You pick up the gloves.
+> out
+
+> out
+
+Smithy Street
+You are standing on a cobbled street outside a smithy. The street leads to the southwest.
+You can go in or southwest.
+> southwest
+
+> southwest
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> north
+
+> north
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> north
+
+> north
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> north
+
+> north
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> north
+
+> north
+
+Forest
+You are in a forest.
+You can go west, south, east, north, northeast or northwest.
+> north
+
+> north
+
+Forest
+You are in a forest.
+You can go east, west, south, north, southeast, southwest, northwest or northeast.
+> northwest
+
+> northwest
+
+Forest
+You are in a forest.
+You can go west, south, east, north, southwest, southeast, northeast or northwest.
+> northwest
+
+> northwest
+
+Forest
+You are in a forest.
+You can go south, west, east, northwest, southeast or southwest.
+> northwest
+
+> northwest
+
+Forest
+You are in a forest.
+You can go south, north, northwest, northeast, southeast or southwest.
+> northeast
+
+> northeast
+
+Forest
+You are in a forest.
+You can go west, east, north, southeast, northeast, northwest or southwest.
+> southeast
+
+> southeast
+
+Forest
+You are in a forest. Nearby there is an entrance to a cave which leads underground.
+You can go north, northwest or down.
+> down
+
+> down
+
+Troll Cave
+You are in an underground cavern. Make shift sconces adorn the walls, holding lanterns. The smell is unbearable.  A large troll stands in the middle of the cavern holding a large wooden club. It appears angry.
+You can go up.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You miss the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll hits you with its club.
+> hit troll with dagger
+
+> hit troll with dagger
+You hit the troll.
+The troll swings his club but misses.
+> hit troll with dagger
+
+> hit troll with dagger
+You slash your dagger across the trolls throat, ripping it open. It stumbled forward, collapses and dies choking in its own blood. You notice that it has dropped a red pearl.
+> take red pearl
+
+> take red pearl
+You pick it up.
+> up
+
+> up
+
+Forest
+You are in a forest. Nearby there is an entrance to a cave which leads underground.
+You can go north, northwest or down.
+> northwest
+
+> northwest
+
+Forest
+You are in a forest.
+You can go west, east, north, southeast, northeast, northwest or southwest.
+> southwest
+
+> southwest
+
+Forest
+You are in a forest.
+You can go south, north, northwest, northeast, southeast or southwest.
+> south
+
+> south
+
+Forest
+You are in a forest.
+You can go south, west, east, north, southeast or southwest.
+> south
+
+> south
+
+Forest
+You are in a forest.
+You can go west, south, east, north, southwest, southeast, northwest or northeast.
+> southeast
+
+> southeast
+
+Forest
+You are in a forest.
+You can go east, west, south, north, southeast, northwest or northeast.
+> southeast
+
+> southeast
+
+Forest
+You are in a forest.
+You can go west, east, south, north, northeast or northwest.
+> south
+
+> south
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> in
+
+> in
+
+Mooneys Cottage
+You are in a small cozy cottage.  A fire is burning in the hearth. You can smell food. Standing by the hearth, gazing into the flames, is Old Man Mooney.
+You can go out.
+> give red pearl to mooney
+
+> give red pearl to mooney
+"Oh, thank you for your trouble. I sure am glad to have my pearl back. Now I will tell you all that I know.
+
+The one who put the curse on our village is called Gazaroth. But that wasn't always his name. His name used to be Dismy Garth, and he lived in a small farm house south of the village. We weren't aware of it back then, but he was experimenting with magic, persuing a power that would ultimately destroy him. One day, when he was already a powerful sorcerer, he left the village in search of a powerful object called the Flute of Fate. He spent years searching the lands to the north, and when he finally found it, he came back to our village and used the flute to curse us. To break the curse you need to find the flute, for the flute is the source of the curse. Gazaroth may have it with him in his caslte on Black Mountain, or he may have hidden it somewhere safe. I would adivse against you seeking him out, but if you must, let me help you how I can. Good luck to you traveler. Seek out the well of time, for it holds the key."
+
+Old Man Mooney gives you a rope.
+> out
+
+> out
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> east
+
+> east
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> south
+
+> south
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> south
+
+> south
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> south
+
+> south
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> west
+
+> west
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> northwest
+
+> northwest
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> north
+
+> north
+
+Bakers Street
+You are standing outside a lovely bakery in a cobbled street. It leads south to join with other streets. A narrow path leads to the northwest. It seems slightly darker than the rest of the village.
+You can go south, northwest or in.
+> in
+
+> in
+
+Bakery
+You are standing in a small bakery. The shelves are all empty, and there is a rather stale smell.  Binny the Baker is asleep on a sofa, snoring loudly.
+You can go out.
+> talk to binny
+
+> talk to binny
+She wakes up.
+
+"Oh, hello there dear. You look tired and hungry. I'll tell you what. Take this bread. It's that last one I have, and its the least I could do to help you. I don't need it anyway. I've been 3 days without eating and I feel fit as a fiddle. Anywho, I'm really tired, so don't take offence if I don't hear you."
+
+She gives you some bread and rolls over on her sofa.
+> eat bread
+
+> eat bread
+You feel much better.
+> out
+
+> out
+
+Bakers Street
+You are standing outside a lovely bakery in a cobbled street. It leads south to join with other streets. A narrow path leads to the northwest. It seems slightly darker than the rest of the village.
+You can go south, northwest or in.
+> south
+
+> south
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> southeast
+
+> southeast
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> east
+
+> east
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> south
+
+> south
+
+Brown Ale Street
+You are standing on a dusty street littered with shattered glass, probably from broken bottles. You are outside Brown Ale's Tavern.  To the north is the village square. A road leads south into the countryside.
+You can go north, south or in.
+> south
+
+> south
+
+South of Village
+You can see a village to the north. A country road leads southeast into the countryside. At the side of the road is a signpost which reads: Welcome to Hamsworth. Slumped on the ground and leaning on the post is a man. He is dead.
+You can go southeast or north.
+> southeast
+
+> southeast
+
+Southwest of Dead Field
+The country road passes on the southwest side of a large, dusty field in the countryside. Once it was used to grow crops, but now it's just dust and weeds. A lone scarecrow stands in the middle. The road goes south and northwest.
+You can go south, northwest or northeast.
+> south
+
+> south
+
+North South Road
+You are on a dusty country road within the forest stretching from the south to the north. Except for your own footprints, there are no other indicators that anybody has travelled the road in the last few weeks. Up ahead, you can see the roofs of the houses in the village.
+You can go south or north.
+
+Suddenly a bandit jumps onto the road. He sees that you aren't carrying any food, and disappears into the forest.
+> south
+
+> south
+
+Abandoned Farmhouse
+You are standing outside a Farmhouse. It looks abandoned. The red paint of the walls is peeling off and many of the windows are broken. The door is ajar. A large dusty field stretches out to the west. A country road leads north. It also goes south, but fallen trees have made it impossible to go that way.
+You can go west, north or in.
+> west
+
+> west
+
+West of Field
+You are on the west edge of a large field. The field was once used to plant corn, but now it is only dust. To the east you can see a farm house. A winding path leads southwest into the forest.
+You can go southwest or east.
+> southwest
+
+> southwest
+
+Forest Path
+You are standing in a dense forest. The narrow forest path lead to the south and northeast. Mushrooms of different sizes grow next to the path and moss grows at base of the thick forest trees.
+You can go south or northeast.
+> south
+
+> south
+
+Dry Well
+You are in a small, green clearing within the forest. There are small forest paths to the north and south. In the centre of the clearing is a dry well. Its sides are covered in moss. It looks ancient, yet somehow unchanged, as if the tides of time sweep around it, and it remains forever a reflection of the past.  There is a small Fairy sitting on the edge of the well.
+You can go north, south or down.
+> tie rope to beam
+
+> tie rope to beam
+You tie the rope to the beam over the Well.
+> down
+
+> down
+
+Bottom of Well
+You are at the bottom of the Well. It is quite damp and there is a strong moldy smell.
+You can go up.
+You can see a Key.
+> take key
+
+> take key
+You pick it up.
+> up
+
+> up
+
+Dry Well
+You are in a small, green clearing within the forest. There are small forest paths to the north and south. In the centre of the clearing is a dry well. Its sides are covered in moss. It looks ancient, yet somehow unchanged, as if the tides of time sweep around it, and it remains forever a reflection of the past.  There is a small Fairy sitting on the edge of the well.
+You can go north, south or down.
+> north
+
+> north
+
+Forest Path
+You are standing in a dense forest. The narrow forest path lead to the south and northeast. Mushrooms of different sizes grow next to the path and moss grows at base of the thick forest trees.
+You can go south or northeast.
+> northeast
+
+> northeast
+
+West of Field
+You are on the west edge of a large field. The field was once used to plant corn, but now it is only dust. To the east you can see a farm house. A winding path leads southwest into the forest.
+You can go southwest or east.
+> east
+
+> east
+
+Abandoned Farmhouse
+You are standing outside a Farmhouse. It looks abandoned. The red paint of the walls is peeling off and many of the windows are broken. The door is ajar. A large dusty field stretches out to the west. A country road leads north. It also goes south, but fallen trees have made it impossible to go that way.
+You can go west, north or in.
+> in
+
+> in
+
+Farmhouse Kitchen
+You are in the kitchen. It has been abandoned for some time. Everything is covered by a layer of dust. There are shards of glass scattered on the floor, no doubt from the broken windows. There is a table in the middle of the kitchen and a small cabinet. A doorway to the west leads to another room.  There is a red cabinet.
+You can go out or west.
+> west
+
+> west
+
+Farmhouse Living Room
+You are in the living room. All the furnature has been overturned as if someone was hastily looking for something. There is a doorway to the east. And a cellar door leading down.
+You can go east or down.
+> unlock cellar door with key
+
+> unlock cellar door with key
+You unlock the Cellar Door.
+> open cellar door
+
+> open cellar door
+You open the Cellar Door.
+> down
+
+> down
+
+Farmhouse Cellar
+You are in a small, damp cellar. The corners are filled with cobwebs and the squeaking of rats can be hears in the walls.  There is a large chest in the corner.
+You can go up.
+You can see a Large Chest.
+> open large chest
+
+> open large chest
+You open the chest.
+The large chest contains Sword of Gazaroth.
+> take sword
+
+> take sword
+You pick up the Sword of Gazaroth
+> up
+
+> up
+
+Farmhouse Living Room
+You are in the living room. All the furnature has been overturned as if someone was hastily looking for something. There is a doorway to the east. And a cellar door leading down.  A door leads down to a cellar.
+You can go east or down.
+> east
+
+> east
+
+Farmhouse Kitchen
+You are in the kitchen. It has been abandoned for some time. Everything is covered by a layer of dust. There are shards of glass scattered on the floor, no doubt from the broken windows. There is a table in the middle of the kitchen and a small cabinet. A doorway to the west leads to another room.  There is a red cabinet.
+You can go out or west.
+> out
+
+> out
+
+Abandoned Farmhouse
+You are standing outside a Farmhouse. It looks abandoned. The red paint of the walls is peeling off and many of the windows are broken. The door is ajar. A large dusty field stretches out to the west. A country road leads north. It also goes south, but fallen trees have made it impossible to go that way.
+You can go west, north or in.
+> north
+
+> north
+
+North South Road
+You are on a dusty country road within the forest stretching from the south to the north. Except for your own footprints, there are no other indicators that anybody has travelled the road in the last few weeks. Up ahead, you can see the roofs of the houses in the village.
+You can go south or north.
+
+A bandit jumps onto the road. He sees that you carry a powerful sword. An expression of fear spreads across his face and he disappears into the forest.
+> north
+
+> north
+
+Southwest of Dead Field
+The country road passes on the southwest side of a large, dusty field in the countryside. Once it was used to grow crops, but now it's just dust and weeds. A lone scarecrow stands in the middle. The road goes south and northwest.
+You can go south, northwest or northeast.
+> northwest
+
+> northwest
+
+South of Village
+You can see a village to the north. A country road leads southeast into the countryside. At the side of the road is a signpost which reads: Welcome to Hamsworth. Slumped on the ground and leaning on the post is a man. He is dead.
+You can go southeast or north.
+> north
+
+> north
+
+Brown Ale Street
+You are standing on a dusty street littered with shattered glass, probably from broken bottles. You are outside Brown Ale's Tavern.  To the north is the village square. A road leads south into the countryside.
+You can go north, south or in.
+> north
+
+> north
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> east
+
+> east
+
+Docks
+You are standing by the docks of the village. They're nothing grand; one wooden pier. The lake stretches before you to the east and you can see a small island in the middle. A road leads west into the village. A small path leads south along the shore of the lake.  There is a small boat tied to the pier.
+You can go west or south.
+> south
+
+> south
+
+Lakeside Path
+You are on a path along the shore of the lake. It passes a dry field to the west. The path goes north and southeast.
+You can go north, southeast or west.
+> southeast
+
+> southeast
+
+Lakeside Path
+You are standing on the northeast side of a small weed ridden field. A path along the shore of the lake goes northwest.
+You can go northwest or southwest.
+> southwest
+
+> southwest
+
+Weed Ridden Field
+You are standing in the middle of a weed ridden field. The field is dusty and uneven, and large chunks of weeds have infested every corner of it. You can see a path to the northeast and beyond that the lake. A small forest path leads off into the forest to the southeast.
+You can go northeast or southeast.
+> southeast
+
+> southeast
+
+Dusty Forest Path
+You are standing on a dusty forest path. It has not been used in many years and the path is overgrown with weeds and other plants, but you can still make it out under your feet. It leads to the northeast and northwest. To the northeast you can make out a dense area of grown in the forest.
+You can go northeast or northwest.
+> northeast
+
+> northeast
+
+Weed Ridden Garden
+You are standing outside a tall murky mansion in an overgrown garden. Large trees with long drooping branches surround the garden and mansion isolating it. Shafts of light penetrate the forest canopy creating an eerie, almost mystical effect. A path leads into the forest to the southwest.
+You can go southwest or in.
+> in
+
+> in
+
+Gloomy Hallway
+You are standing in the murky entrance hallway of the mansion. The floor and walls are made from dark wood. There is a door at the end of the hallway to the east and another one to the north. A staricase leads up.
+You can go out, north, east or up.
+> up
+
+> up
+
+Upstairs Hallway
+You are in the upstairs hallway. It is slightly colder in here than downstairs. The dark corridor leads to the east where you can see a door. There is another door to the south.
+You can go down, east or south.
+> east
+
+> east
+
+Master Bedroom
+You are in the master bedroom. It is much colder in this room than in the rest of the mansion. The large posted bed has been made, and other than a few candles that have dropped to the floor the place is in perfect order. The door is to the west. You can see a closet door to the north with a lock on it.
+
+You can go north or west.
+> hit lock with sword
+
+> hit lock with sword
+You break the lock.
+> open closet door
+
+> open closet door
+You open the closet door.
+> north
+
+> north
+
+Closet
+You are in a small, dark closet. The entire room is icy cold. It must be well below freezing in here. A door leads to the south.
+You can go south.
+You can see a Small Chest.
+> open small chest
+
+> open small chest
+You open the chest. You notice some writing on the inside of the chest's lid.
+It contains an Orb of Frost.
+> use gloves
+
+> use gloves
+You put on the gloves.
+> take orb
+
+> take orb
+You pick up the Orb.
+> south
+
+> south
+
+Master Bedroom
+You are in the master bedroom. It is much colder in this room than in the rest of the mansion. The large posted bed has been made, and other than a few candles that have dropped to the floor the place is in perfect order. The door is to the west. You can see a closet door to the north.
+
+You can go north or west.
+> west
+
+> west
+
+Upstairs Hallway
+You are in the upstairs hallway. It is slightly colder in here than downstairs. The dark corridor leads to the east where you can see a door. There is another door to the south.
+You can go down, east or south.
+> down
+
+> down
+
+Gloomy Hallway
+You are standing in the murky entrance hallway of the mansion. The floor and walls are made from dark wood. There is a door at the end of the hallway to the east and another one to the north. A staricase leads up.
+You can go out, north, east or up.
+> out
+
+> out
+
+Weed Ridden Garden
+You are standing outside a tall murky mansion in an overgrown garden. Large trees with long drooping branches surround the garden and mansion isolating it. Shafts of light penetrate the forest canopy creating an eerie, almost mystical effect. A path leads into the forest to the southwest.
+You can go southwest or in.
+> southwest
+
+> southwest
+
+Dusty Forest Path
+You are standing on a dusty forest path. It has not been used in many years and the path is overgrown with weeds and other plants, but you can still make it out under your feet. It leads to the northeast and northwest. To the northeast you can make out a dense area of grown in the forest.
+You can go northeast or northwest.
+> northwest
+
+> northwest
+
+Weed Ridden Field
+You are standing in the middle of a weed ridden field. The field is dusty and uneven, and large chunks of weeds have infested every corner of it. You can see a path to the northeast and beyond that the lake. A small forest path leads off into the forest to the southeast.
+You can go northeast or southeast.
+> northeast
+
+> northeast
+
+Lakeside Path
+You are standing on the northeast side of a small weed ridden field. A path along the shore of the lake goes northwest.
+You can go northwest or southwest.
+> northwest
+
+> northwest
+
+Lakeside Path
+You are on a path along the shore of the lake. It passes a dry field to the west. The path goes north and southeast.
+You can go north, southeast or west.
+> north
+
+> north
+
+Docks
+You are standing by the docks of the village. They're nothing grand; one wooden pier. The lake stretches before you to the east and you can see a small island in the middle. A road leads west into the village. A small path leads south along the shore of the lake.  There is a small boat tied to the pier.
+You can go west or south.
+> west
+
+> west
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> north
+
+> north
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> north
+
+> north
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> north
+
+> north
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> east
+
+> east
+
+East West Road
+You are on a dusty road that goes from east and west. To the north you see the start of some jagged mountains. You can see the lake through some trees to the south. Over the trees to the southwest you can see the village at the bottom of the valley.
+You can go west or east.
+> east
+
+> east
+
+Outside Black Stoned Wall
+Before you is a large wall made with dark stone stretching from north to south. It towers over even the largest trees in the vicinity. In the wall in front of you is a wooden gate ten feet wide and 15 feet high. A dirt road leads down to the west. A small path winds to the north and disappears into the jagged mountains.
+
+You carry the mark of greatness in the form of a sword. You may pass.
+
+The gate swings slowly open.
+
+You can go west, north or east.
+> east
+
+> east
+
+Inside Black Stoned Wall
+You are on the inside of the Black Stoned Wall. A path runs northeast up into the mountains. To the east is a massive gate. The gate is open.
+
+You can go west or northeast.
+> northeast
+
+> northeast
+
+Black Mountain Path
+You are on a narrow path that winds through rising mountainous terrain. It goes to the northeast and southwest.
+You can go northeast or southwest.
+> northeast
+
+> northeast
+
+Fast Flowing River
+You are standing on the western side of a wide river. You cannot see a bridge, and the current is too fast to swim across. You can see a path leading east on the other side of the river, and another path leads to the southwest. A dark ridge of mountains stretches from the west to the north. The sky is overcast and a strong wind is blowing from the direction of the mountain. The mountain peaks appear to be engulfed in a furious storm.
+You can go southwest or east.
+> throw orb into river
+
+> throw orb into river
+You throw the orb into the river. Instantaneously the whole river freezes.
+> southwest
+
+> southwest
+
+Black Mountain Path
+You are on a narrow path that winds through rising mountainous terrain. It goes to the northeast and southwest.
+You can go northeast or southwest.
+> southwest
+
+> southwest
+
+Inside Black Stoned Wall
+You are on the inside of the Black Stoned Wall. A path runs northeast up into the mountains. To the east is a massive gate. The gate is open.
+
+You can go west or northeast.
+> west
+
+> west
+
+Outside Black Stoned Wall
+Before you is a large wall made with dark stone stretching from north to south. It towers over even the largest trees in the vicinity. In the wall in front of you is a wooden gate ten feet wide and 15 feet high. A dirt road leads down to the west. A small path winds to the north and disappears into the jagged mountains. The gate is open.
+
+You can go west, north or east.
+> west
+
+> west
+
+East West Road
+You are on a dusty road that goes from east and west. To the north you see the start of some jagged mountains. You can see the lake through some trees to the south. Over the trees to the southwest you can see the village at the bottom of the valley.
+You can go west or east.
+> west
+
+> west
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> west
+
+> west
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> in
+
+> in
+
+Mooneys Cottage
+You are in a small cozy cottage.  A fire is burning in the hearth. You can smell food. Standing by the hearth, gazing into the flames, is Old Man Mooney.
+You can go out.
+> hit mooney
+
+> hit mooney
+Old Man Mooney Dies.
+He drops a Red Pearl.
+> take red pearl
+
+> take red pearl
+You pick it up.
+> out
+
+> out
+
+Cottage Near Forest
+You are standing outside a small cottage with whitewashed walls. It looks inhabited. To the north looms the forest. A path leads east.
+You can go east, north or in.
+> east
+
+> east
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> east
+
+> east
+
+East West Road
+You are on a dusty road that goes from east and west. To the north you see the start of some jagged mountains. You can see the lake through some trees to the south. Over the trees to the southwest you can see the village at the bottom of the valley.
+You can go west or east.
+> east
+
+> east
+
+Outside Black Stoned Wall
+Before you is a large wall made with dark stone stretching from north to south. It towers over even the largest trees in the vicinity. In the wall in front of you is a wooden gate ten feet wide and 15 feet high. A dirt road leads down to the west. A small path winds to the north and disappears into the jagged mountains. The gate is open.
+
+You can go west, north or east.
+> east
+
+> east
+
+Inside Black Stoned Wall
+You are on the inside of the Black Stoned Wall. A path runs northeast up into the mountains. To the east is a massive gate. The gate is open.
+
+You can go west or northeast.
+> northeast
+
+> northeast
+
+Black Mountain Path
+You are on a narrow path that winds through rising mountainous terrain. It goes to the northeast and southwest.
+You can go northeast or southwest.
+> northeast
+
+> northeast
+
+Fast Flowing River
+You are standing on the western side of a wide river. You cannot see a bridge, and the current is too fast to swim across. You can see a path leading east on the other side of the river, and another path leads to the southwest. A dark ridge of mountains stretches from the west to the north. The sky is overcast and a strong wind is blowing from the direction of the mountain. The mountain peaks appear to be engulfed in a furious storm.
+You can go southwest or east.
+> east
+
+> east
+
+Black Mountain View
+You are on a very steep path that cuts throught he mountain side. It goes up the mountain to the east and down to the west. Below to the west you can see a river that races down the mountain side. To the east you can make out what appears to be a tower.
+You can go west or east.
+> east
+
+> east
+
+Black Castle View
+You are on a path high up in the Black Mountain. It descends down the mountain to the west and to the east you can see that it levels out a bit. Above you to the east is a great castle made from black stones. Most of its towers have collapsed, but one still stands strong, clawing at the black clouds above.
+You can go west or east.
+> east
+
+> east
+
+Black Garden
+You are in a garden high up in the Black Mountains. Hundreds of black roses sway in the howling wind. To the north is the castle, looming menacingly. To the north you can see the entrance to the caslte, enormous double doors made from dark wood that appears almost black. You spot some shiny red objects in the door, as well as some strange engravings.
+You can go west or north.
+> give red pearl to door
+
+> give red pearl to door
+You give the pearl to the door. For a moment the air is filled with a strange whishing sound that is almost musical. Then the doors swing slowly open.
+> north
+
+> north
+
+Entrance Hall
+You are in a large dark hall. Torches in sconces line the walls and provide the only light for the room. Three corridors branch off out of the room, one to the west, one to the north, and one to the east. There is a large set of open black doors to the south.
+You can go south, west, east or north.
+> north
+
+> north
+
+Corridor of Shadows
+You are in a shadowy corridor. It is darker than the other corridors because there are only two or three torches here. You can go north, northwest, west, southwest, south, southeast, east or northeast.
+You can go south, east, west, north, southwest, northeast, northwest or southeast.
+> northeast
+
+> northeast
+
+North Eastern Corridor
+You are standing at the bottom of a stairwell that leads up. Corridors lead west, southwest and south.
+You can go southwest, south, west or up.
+> up
+
+> up
+
+Top of Stairwell
+You are at the top of the stairwell. The stairwell leads down. There is a door to the north. You feel a strange energy emanating form the room beyond, something powerful, something ... evil.
+
+You can go down or north.
+> north
+
+> north
+
+North Eastern Tower
+You are in a room in the North Eastern Tower. The door to the south slams shut and locks itself. Two small lancets let in a cold howling wind that cuts to the bone and sends the flames of the torches on the walls dancing about. There is another door to the northeast. Gazaroth, the dark wizard, is standing in the middle of the room. His black robes and white beard and hair swirl violently around him.
+You can go south or northeast.
+
+He speaks.
+
+"Welcome, traveler. I have been expecting you. I see you have found my sword. I thought I had hidden it well, but perhaps not. Nonetheless, I will enjoy killing you. And just in case you were wondering, I don't have the flute. I've hidden it as well, somewhere where its influence on the village is great, yet nobody has found it. Anyway, you will never break the curse ... not after I kill you!"
+
+He utters a spell and you are engulfed in pain.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth stands still, preparing a spell.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth stands still, preparing a spell.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth utters a spell that causes blinding pain.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth stands still, preparing a spell.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth utters a spell that causes blinding pain.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth stands still, preparing a spell.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth utters a spell that causes blinding pain.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth stands still, preparing a spell.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+You hit Gazaroth with the sword.
+Gazaroth utters a spell that causes blinding pain.
+> attack gazaroth with sword
+
+> attack gazaroth with sword
+Finnaly you strike a fatal blow against Gazaroth. He falls on the floor, an expression of absolute fear on his face. He cries out, "NO! PLEASE!" He turns to you and utters his last words: "Island. Flute. Hurry!" Then his neck is twisted violently, seemingly by another person. He gives one last agonizing scream, and then his body is engulfed in a whirl of black smoke. When the smoke clears, his body is gone.
+> northeast
+
+> northeast
+
+Tower Study
+You are in a study. A table against the wall is cluttered with things; books, quills, ink, candles. In the desk is a small red cabinet. The bookshelves are overflowing with books, and there are large piles of books on the floor. There is a large cauldron over a fire in the corner filled with some sort of green liquid. Another shelf is filled with strange items and ornaments; a large scale with three pans instead of two, green dragon scales, a golden locket, and what appears to be the eye of a troll. A door leads to the southwest.
+You can go southwest.
+> take locket
+
+> take locket
+You take the locket.
+> southwest
+
+> southwest
+
+North Eastern Tower
+You are in a room in the North Eastern Tower. The door to the south slams shut and locks itself. Two small lancets let in a cold howling wind that cuts to the bone and sends the flames of the torches on the walls dancing about. There is another door to the northeast.
+You can go south or northeast.
+> south
+
+> south
+
+Top of Stairwell
+You are at the top of the stairwell. The stairwell leads down. There is a door to the north.
+
+You can go down or north.
+> down
+
+> down
+
+North Eastern Corridor
+You are standing at the bottom of a stairwell that leads up. Corridors lead west, southwest and south.
+You can go southwest, south, west or up.
+> southwest
+
+> southwest
+
+Corridor of Shadows
+You are in a shadowy corridor. It is darker than the other corridors because there are only two or three torches here. You can go north, northwest, west, southwest, south, southeast, east or northeast.
+You can go south, east, west, north, southwest, northeast, northwest or southeast.
+> south
+
+> south
+
+Entrance Hall
+You are in a large dark hall. Torches in sconces line the walls and provide the only light for the room. Three corridors branch off out of the room, one to the west, one to the north, and one to the east. There is a large set of open black doors to the south.
+You can go south, west, east or north.
+> south
+
+> south
+
+Black Garden
+You are in a garden high up in the Black Mountains. Hundreds of black roses sway in the howling wind. To the north is the castle, looming menacingly. To the north you can see the entrance to the caslte, enormous double doors made from dark wood that appears almost black. You spot some shiny red objects in the door, as well as some strange engravings.
+You can go west or north.
+> west
+
+> west
+
+Black Castle View
+You are on a path high up in the Black Mountain. It descends down the mountain to the west and to the east you can see that it levels out a bit. Above you to the east is a great castle made from black stones. Most of its towers have collapsed, but one still stands strong, clawing at the black clouds above.
+You can go west or east.
+> west
+
+> west
+
+Black Mountain View
+You are on a very steep path that cuts throught he mountain side. It goes up the mountain to the east and down to the west. Below to the west you can see a river that races down the mountain side. To the east you can make out what appears to be a tower.
+You can go west or east.
+> west
+
+> west
+
+Fast Flowing River
+You are standing on the western side of a wide river. You cannot see a bridge, and the current is too fast to swim across. You can see a path leading east on the other side of the river, and another path leads to the southwest. A dark ridge of mountains stretches from the west to the north. The sky is overcast and a strong wind is blowing from the direction of the mountain. The mountain peaks appear to be engulfed in a furious storm.
+You can go southwest or east.
+> southwest
+
+> southwest
+
+Black Mountain Path
+You are on a narrow path that winds through rising mountainous terrain. It goes to the northeast and southwest.
+You can go northeast or southwest.
+> southwest
+
+> southwest
+
+Inside Black Stoned Wall
+You are on the inside of the Black Stoned Wall. A path runs northeast up into the mountains. To the east is a massive gate. The gate is open.
+
+You can go west or northeast.
+> west
+
+> west
+
+Outside Black Stoned Wall
+Before you is a large wall made with dark stone stretching from north to south. It towers over even the largest trees in the vicinity. In the wall in front of you is a wooden gate ten feet wide and 15 feet high. A dirt road leads down to the west. A small path winds to the north and disappears into the jagged mountains. The gate is open.
+
+You can go west, north or east.
+> west
+
+> west
+
+East West Road
+You are on a dusty road that goes from east and west. To the north you see the start of some jagged mountains. You can see the lake through some trees to the south. Over the trees to the southwest you can see the village at the bottom of the valley.
+You can go west or east.
+> west
+
+> west
+
+Crossroads
+You are standing at a crossroads. A road leads south to a small bridge, and another one goes east towards some mountainous terrain. A footpath leads west. To the north is a large forest. There are no paths in sight, but the trees are not too dense as to prevent one from walking there.
+You can go south, west, north or east.
+> south
+
+> south
+
+Bridge
+You are standing on a quaint bridge that crosses a fast flowing river. The road goes north and south. You can make out the village to the south, and what appears to be a crossroads to the north. Behind the crossroads looms a large forest.
+You can go south or north.
+> south
+
+> south
+
+North of Village
+You are standing on a dusty road leading south and north. To the south you can see the village. Some distance to the north is a river and a bridge. You can see a signpost that reads Welcome to Hamsworth.
+You can go south or north.
+> south
+
+> south
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> west
+
+> west
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> southwest
+
+> southwest
+
+Lumber Street
+You are standing in a street outside a carpenters house. The street leads to the northeast.
+You can go in or northeast.
+> in
+
+> in
+
+Carpenters House
+You are standing in a small house. The ground is covered with sawdust and bits of wood. Items of freshly-made furnature are stacked up against the wall. The shelves are filled with beautiful carvings and different types of wooden contraptions.  Woody Jim sits in a corner by a table working on a carving of a beautiful woman.
+You can go out.
+> give locket to jim
+
+> give locket to jim
+A look of pure joy spreads over the carpenters face as you give him his locket.
+
+"Thank you, good sir! Thank you! You ask me to make anything for you, and if it is within my skills I will make it."
+> ask jim about oar
+
+> ask jim about oar
+"Yes. Of course. One oar coming up."
+
+He starts working zealously on the oar. He is finnished within the hour and gives it to you.
+> out
+
+> out
+
+Lumber Street
+You are standing in a street outside a carpenters house. The street leads to the northeast.
+You can go in or northeast.
+> northeast
+
+> northeast
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> east
+
+> east
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> east
+
+> east
+
+Docks
+You are standing by the docks of the village. They're nothing grand; one wooden pier. The lake stretches before you to the east and you can see a small island in the middle. A road leads west into the village. A small path leads south along the shore of the lake.  There is a small boat tied to the pier.
+You can go west or south.
+> get in boat
+
+> get in boat
+
+Boat
+You are in a boat next to a pier. To the east you can see an island. To the west is the village.  There is a small boat tied to the pier.
+You can go east.
+> attach oar to boat
+
+> attach oar to boat
+You attach the oar to the boat.
+> east
+
+> east
+
+A Boat
+You are in a boat on the shore of an island. You can see the village to the west.
+You can go west.
+> get out of boat
+
+> get out of boat
+
+Island Shore
+
+You can go east.
+As soon as you step out of the boat it fills with water and sinks.
+
+You are standing on the shore of a small island in the middle of the lake.
+> east
+
+> east
+
+Middle of Island
+You are in the middle of the island. Right before you is a white stone altar.  Above the alter, hovering in the air, is a flute.
+You can go west or down.
+It is playing a sad melody, the saddest melody you have ever heard. It fills you with an incurable depression. Colour drains from the world and life itself looses its meaning as you become entranced in a state of blissful sorrow.
+> take flute
+
+> take flute
+You take the flute, and immediately you know that you won't be able to let go of it again. You know that it's only a matter of time before you cannot find the strength to carry on ...
+
+You notice that you feel relatively weaker ...
+> move altar
+
+> move altar
+The alter seems to move slightly.
+> move altar
+
+> move altar
+You succesfully push the alter away and discover a trapdoor.
+> open trapdoor
+
+> open trapdoor
+You open the trapdoor.
+> down
+
+> down
+
+Dark Tunnel
+You are in a cramped tunnel. From the light coming through the open trap door you can see that it leads west.
+You can go up or west.
+> west
+
+> west
+
+Pitch Black Tunnel
+
+You can go east, west, north or northwest.
+You are now in a pitch black tunnel. You cannot see anything.
+> west
+
+> west
+
+Pitch Black Tunnel
+You're in a pitch black tunnel.
+You can go east, west, north, northeast or northwest.
+> west
+
+> west
+
+Pitch Black Tunnel
+You're in a pitch black tunnel.
+You can go east, north, northwest or northeast.
+> northwest
+
+> northwest
+
+Pitch Black Tunnel
+You're in a pitch black tunnel.
+You can go east, west, southeast, northeast or southwest.
+
+You feel your strength slowly fading ...
+> southwest
+
+> southwest
+
+Pitch Black Tunnel
+You're in a pitch black tunnel.
+You can go north, northeast, west or south.
+> south
+
+> south
+
+Pitch Black Tunnel
+You're in a pitch black tunnel.
+You can go north, south, southwest or northwest.
+> southwest
+
+> southwest
+
+Less Pitch Black Tunnel
+Its not quite pitch black.
+You can go northeast, east or west.
+> west
+
+> west
+
+Dimly Lit Room
+You find yourself in a dimly lit room. Above you you can see a trap door with a lock on it. The little light in the room is coming from the cracks in sides of the trap door.  There is a trapdoor in the ceiling with a lock on it.
+You can go east or up.
+> hit lock with sword
+
+> hit lock with sword
+You break the lock with the sword.
+> open trapdoor
+
+> open trapdoor
+You open the trap door.
+> up
+
+> up
+
+Storage Room
+You are in a small cramped room which is clearly used as a storage area, although it is quite empty at the moment.  A door leads to the south.  There is a trapdoor on the floor.
+You can go down or south.
+You can see a Broom.
+> south
+
+> south
+
+Chapel
+You are in a small Chapel. Rows of seats lead up to the front of the Chapel along a thin aisle. Candles adorn the walls and send flickering shadows dancing about the room. At the front of the Chapel is a raised podium and a white altar with more candles on it. To the north is a small door. And the large Chapel entrance is behind you.  Pastor Haywidth is kneeling by the altar, praying silently.
+You can go out or north.
+
+Your arms and legs feel like lead ...
+> out
+
+> out
+
+Salvation Street
+You are standing outside a small but quite magnificent Chapel. The street is cobbled and cleaner than in the rest of the village. It leads east to Gift Street.
+You can go in or east.
+> east
+
+> east
+
+Gift Street
+You have a magnificent view of the Chapel to the west, standing proudly on slightly elevated ground from the rest of the village. To the north is the bakery. The streets lead west, north and southeast.
+You can go southeast, west or north.
+> southeast
+
+> southeast
+
+Penny Street
+You are standing on a cobbled street outside a house. A streed leads east to the village square and two more lead northwest and southwest. You can see a carpenters house to the southwest.
+You can go northwest, east, southwest or in.
+> east
+
+> east
+
+Hamsworth Square
+You are in the village square. In the middle is a small fountain, long gone dry. You can see the lake to the east. Streets lead to the north, northeast, east, south and west.
+You can go south, east, north, west or northeast.
+> south
+
+> south
+
+Brown Ale Street
+You are standing on a dusty street littered with shattered glass, probably from broken bottles. You are outside Brown Ale's Tavern.  To the north is the village square. A road leads south into the countryside.
+You can go north, south or in.
+> in
+
+> in
+
+Brown Ales Tavern
+You are in a dimly lit tavern. The place is a mess. Most of the tables and chairs have been overturned, and the floor is covered with spilt mead and glass.  Mr Brown Ale is standing behind the counter, clearning mugs with a dirty cloth.  A flute player is slumped into one of the chairs, nursing a cup of mead.  Mr Strongham is sitting in the corner puffing deeply on a pipe.
+You can go out.
+> give flute to player
+
+> give flute to player
+You give the flute to the Flute Player. A look of joy spreads over his face. He brings the flute to his lips and begins playing a wonderful melody. As he does so, you feel a great weight lifted from your shoulders. The beconing darkness retreats from your mind. You feel free again.
+
+... And so the curse of Gazaroth
+Did meet its mortal bane
+And Gazaroth the sorcerer
+Was never seen again
+
+The villagers they long rejoiced
+Their hearts were filled with light
+But the traveler left quietly
+In the middle of the night
+
+Much evil in this world we face
+And I just hope you'll remember
+The rare and long forgotten tale
+Of the weary, lonesome traveler.
+
+You have won the game.
+[state=Finished]

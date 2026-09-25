@@ -1,0 +1,213 @@
+.ui-widget-header
+ {
+   font-family: Fondamento, Narkism, Times New Roman, serif;
+   border: none;
+   background: transparent;
+   color: black;
+ }
+#txtCommand
+ {
+   font-family: Fondamento, Narkism, Times New Roman, serif;
+   background-color: transparent;
+   color: black;
+ }
+ .ui-accordion-header
+ {
+    background: transparent;
+ }
+ .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+   color:black;
+ }
+ .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+   border: 2px solid black;
+ }
+ .ui-widget-content {
+   border: 2px solid black;
+   background: transparent ;
+   color: #000;
+ }
+ .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+   border: 2px solid black;
+   background: transparent;
+   font-weight: bold;
+   color: black;
+ }
+ .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+   color: transparent;
+ }
+ div#gamePanes
+ {
+    background: transparent;
+ }
+
+Create Your Character
+
+Welcome to Encyclopedia of Elementals!  For help with commands or navigation, simply type "help" after you've completed the character creation survey.
+
+Enter your character's first name.
+> Hawk
+
+Choose your gender:
+
+1 - Male
+2 - Female
+> 1
+
+You are male.
+
+Choose your aspect:
+
+1 - Fire
+2 - Light
+3 - Force
+> 1
+
+You are connected with the aspect of Fire.
+
+Choose an input color:
+1 - Dark Green
+2 - Midnight Blue
+3 - Fire Brick
+4 - Deep Pink
+> 1
+
+Your bed
+You awake suddenly, sitting upright in bed. You're covered in sweat and your heart is beating quickly. You decide there is little chance that you'll be able to get back to sleep.
+You can get out of bed.
+> get up
+
+~ get up
+
+Bedroom
+You can just make out the outlines of the doorway and your furniture with the moonlight from the window. The wooden boards beneath your feet are cold. Where are your slippers?
+You see a nightstand and your bed.
+You can go to the hallway.
+> open nightstand
+
+~ open nightstand
+You pull the drawer open.
+There's your glow powder and your spellbook.
+> take glow powder
+
+~ take glow powder
+There's a chance you might want this to light your way.  You let it hang off of your belt.
+> look under bed
+
+~ look under bed
+Under your bed are a few native dust bunnies and your slippers.  Right where they always are.
+> take slippers
+
+~ take slippers
+You put your slippers on to protect you from the cold wooden floor.
+> go hallway
+
+~ go hallway
+
+Hallway
+The hallway is empty, but the torchlight leaves you feeling secure. Of the many doors in this hallway's walls there are none with any interesting contents. Your destination is on the other side of the castle.
+You can go to bedroom or the main hall.
+> go main hall
+
+~ go main hall
+
+The Main Hall
+This enormous hall, complete with tapestries, rugs, gaudy throne, and giant doors, seems eerie and desolate when empty at night. You've managed to wander in here when the guards aren't about, so there's no need for stealth.
+You can go to the mysterious wing or to the hallway.
+> x throne
+
+~ x throne
+Majestic. Eloquent. Bejeweled. With glass jewels.
+> x tapestry
+
+~ x tapestry
+These tapestries depict the glorious conquest of... someone.
+> go mysterious wing
+
+~ go mysterious wing
+
+The Mysterious Wing
+From outside appearances, it appears to be like any other hallway in the castle. But there has been too much rumor about this place to go without investigation. The torchlight is bright enough to give one doubts about the secrets this place could be hiding, but you're intent on finding something.
+You can go to the main hall.
+> x torch
+
+~ x torch
+The torches are all burning along the wall.  Now that you look at it, you notice that one of the sconces looks different from the others.
+> pull torch
+
+~ pull torch
+You try to take the torch out of its sconce, but as you pull, the torch tilts and reveals a secret passage!
+> go secret passage
+
+~ go secret passage
+
+A Secret Passage
+Inside this passage is too dark to see. You feel along the walls, but the room seems to dead end before very long with no doors. You need to find some way to light up the passage.
+> use glow powder
+
+~ use glow powder
+You take some of the glow powder in your hands and sprinkle it around the room as you walk.  That makes things easier!  You can always reassess your surroundings if you look around.
+> x loose rock
+
+~ x loose rock
+This rock, apparently part of the opposite wall in this hidden passage, appears to be lacking the mortar of all the other rocks making up the wall.
+> push rock
+
+~ push rock
+The stone gives as you push it, acting as a button.  This wall swings back, revealing a library lit by an ominous glow.
+> go forbidden library
+
+~ go forbidden library
+
+The Forbidden Library
+This room is lit by a chandelier burning candles with black flames. The dark glow illuminates the room in a terrifying light. The size of the room makes it impressive to have been hidden so well, and its volume is crowded with shelves filled to bursting with books of various topics both secret and taboo.
+You can see bookshelves and a table.
+You can go to the secret passage.
+> x bookshelves
+
+~ x bookshelves
+These shelves are crammed with books of topics varying from banned alchemical studies to secret military strategies currently employed by the nation's armies. Just a quick glance at the topics covered reveals the reason for this room's discretion.
+> x table
+
+~ x table
+An ordinary oak table.  There is a fair amount of dust in this room, probably because it is kept secret from the maids, but the table is mostly dust-free.  It must have been used recently.
+On it, there is an open book.
+> take open book
+
+~ take open book
+You pick up the book and read the title.  "Encyclopedia of Elementals."  Of all the books in the library, this one catches your eye in a special way, and you can't seem to bring yourself to put it down.  So you decide to take it with you.
+As you do, you hear a loud crash come from somewhere else in the castle, but the volume is such that your ears are ringing all the same.  You quickly tuck the book under your arm and decide that you should attempt to return to your quarters to avoid suspicion.
+> x Encyclopedia of Elementals
+
+~ x Encyclopedia of Elementals
+This somewhat large book contains information on creatures known as "Elementals." You can't make heads or tails out of half of what the book is saying, but the creatures seem fascinating and somehow familiar. Perhaps someone else would know what this stuff means.
+> go secret passage
+
+~ go secret passage
+
+A Secret Passage
+You can hear sounds coming from the main part of the castle that sound like screams.  You should proceed with caution.
+There is a secret doorway.
+You can go to the mysterious wing or the forbidden library.
+> go mysterious wing
+
+~ go mysterious wing
+
+The Mysterious Wing
+The hall that was so silent and still a few minutes ago is ablaze and filled with castle staff running past you towards the Main Hall!
+You can go to the main hall or a secret passage.
+> go main hall
+
+~ go main hall
+
+The Main Hall
+You run into the Main Hall to find that it has been completely destroyed.  The back half of the room has collapsed completely into a fiery mess of lumber and stone.
+Pinned under some of the wooden beams that supported the castle is a lone man who is clearly alive and struggling to get up.  You could help him, but the front gate out of the castle is so close.  No one else appears to notice the man or you in the chaos, and you don't have much time before the castle comes down around you.
+You can run away through the gate, or you can try to help the man.
+You can see a dropped halberd, rubble, some wooden beams and the trapped man.
+You can go to the mysterious wing, to the hallway or outisde.
+The ceiling begins to crumble and dust falls all around you.  You don't have much time left!
+The ceiling is collapsing!  Run away!
+The flaming supports in the room give way and the castle collapses on both you and the man you were trying to save!
+
+Game Over
+[state=Finished]
