@@ -6,9 +6,6 @@
 # the floor door, the cottage and the beach -- to the genuine THE END (all
 # students saved, epilogue at the Port Querubin police station) and `finish`.
 #
-# The Grislewood snare double-MoveObjects inside wait{}; Spatterlight matches
-# QuestViva #2177/#2182 so Kitchen's on-ready map-calc places the cage before
-# the second teleport (errors=0).
 x me
 x wand
 x spellbook
