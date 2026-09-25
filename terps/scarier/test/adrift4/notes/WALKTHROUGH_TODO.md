@@ -221,19 +221,14 @@ verdict quoted from the game's own shipped text: `aparty.taf`, `delight.taf`,
 `Buffy Before the Date.taf`, `ssteacher.taf`, `sibling seduction.taf`,
 `Choices.taf`, `plains.taf`, `A Dream Come True.taf`.
 
-⚠️ **Contradictions found 2026-09-25, unresolved:**
-- `Hunting Ground.taf` (declined for non-consensual sexualized violence
-  culminating in murder, which is *not* the no-minors criterion) and
-  `British.Fox.and.the.Celebrity.Abductions.taf` both used to head this list,
-  yet both are **wired**: rows `huntingground` and `britishfox` (43/50), with
-  goldens *and* `runner_transcripts/` committed in `cf78747dc` (local, not
-  pushed) and no `.gitignore` entry — unlike every other AIF row below.
-- `fantasyworld.taf` is on the declines list further down (Carrie is
-  explicitly 16) but has had a live row since August (the route uses the game's
-  own NOSEX switch and scores 0/500), with its golden committed.
+**Rows kept despite the list above (owner call, 2026-09-25):** `Hunting Ground.taf`
+(row `huntingground`), `British.Fox.and.the.Celebrity.Abductions.taf` (`britishfox`,
+43/50) and `fantasyworld.taf` (NOSEX route, 0/500) stay wired, with the solution,
+golden and `runner_transcripts/` gitignored like the AIF rows below. britishfox was
+already ignored; the other two were untracked with `git rm --cached`
+(fantasyworld's files had already been pushed, so they remain in history).
 
-Each needs an owner decision: keep the row (and gitignore the explicit text),
-or drop it. `BeThere.taf` is excluded as
+`BeThere.taf` is excluded as
 an ADRIFT 5 duplicate (deleted from `games/`).  Downloaded walkthroughs that
 were left unwired because the TAF itself names under-21 characters:
 `enc4.taf` (ex-girlfriend Tammi "a year younger than you", explicit sexual

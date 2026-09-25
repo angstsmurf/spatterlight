@@ -305,3 +305,15 @@
 /goldens/britishfox_solution.txt
 /goldens/britishfox_solution.expected.txt
 /runner_transcripts/**/britishfox.*
+
+# Hunting Ground.taf: non-consensual sexualized violence, deliberately not
+# committed.
+/goldens/huntingground_solution.txt
+/goldens/huntingground_solution.expected.txt
+/runner_transcripts/**/huntingground.*
+
+# fantasyworld.taf (AIF): explicit text, deliberately not committed.  The row
+# plays the game's own NOSEX route; the notes file stays tracked.
+/goldens/fantasyworld_solution.txt
+/goldens/fantasyworld_solution.expected.txt
+/runner_transcripts/**/fantasyworld.*

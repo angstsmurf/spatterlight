@@ -3,8 +3,8 @@
 - **Engine:** ADRIFT 4 (`fantasyworld.taf`, September 2001). The author signs
   himself only as *chlestron*; the readme calls the game *"my Adrift game
   lamely called The Quest"*. 250 tasks, 59 rooms, 45 NPCs, 63 objects, 8
-  events. Adult game — the first command in the route is the author's own
-  `NOSEX` switch, which turns all of that off.
+  events. The game has an optional mature-content mode; the first command in
+  the route is the author's own `NOSEX` switch, which turns it off.
 - **Result:** **WIN** (`Congratulations!`). There is no score; the game's own
   progress meter is experience points, and the route finishes on **8535**,
   turn undead 3 / climb 3 / magic missile 1.
@@ -144,10 +144,10 @@ file has no blank lines).
     can scratch it — and lead it west to the **Shade** in the Dark Room, which
     can. Three turns of waiting and it falls apart; `get heart`, take the
     heart up to the jailer for the key, `open door`.
-23. **The sacrifice.** At the Base of Mountain, `ask harmon about book` makes
-    the King demand a virgin. `suggest king` is the only answer that spends
-    nobody you have met — he finds his own child to bleed, the gate opens, and
-    the demon takes him.
+23. **The summoning.** At the Base of Mountain, `ask harmon about book` makes
+    the King demand a sacrifice. `suggest king` is the only answer that spends
+    nobody you have met — the gate opens on the King's own terms, and the
+    demon takes him.
 24. **The alliance.** Now `ask merna about demon`, `ask jedimah about demon`,
     `ask caroline about demon`, and `ask dragon about demon` **twice** — the
     second asking produces the **Ruby Box**. `put dryad's kiss in box` and
@@ -196,7 +196,7 @@ file has no blank lines).
   ending: the dragon leaves of its own accord, alive, and the hero keeps his
   word without killing anything.
 - **The temple guard's five turns.** `kill ghost` starts EVENT 0
-  (`pissedTempleGuard`, 5 turns) whose affected task is TASK 51
+  (the angry-temple-guard event, 5 turns) whose affected task is TASK 51
   `Templekillsplayer` — an unrestricted `ACT type=6 v1=2`, i.e. instant death,
   scoped to rooms 23/24/25. `turn ghost` does not cancel it. The route spends
   exactly four turns inside the fortress after the kill, which is why the
@@ -214,13 +214,12 @@ file has no blank lines).
 - **The Elizabeth branch is the other half of the fork.** `throw ruby box into
   gate` has two versions: TASK 151 wants the **Dark Gem**, TASK 152 wants
   **Jedimah's Holy Symbol**, and both want the Dryad's Kiss. The Holy Symbol
-  comes from `pleasure statue` in the Temple of Jedimah, which needs Aline
-  unarmoured and is the entry point to the game's adult content. The mirror
-  route reaches the same object slot with no such requirement, which is why
-  `nosex` and the Dark Gem go together.
-- **Debug commands left in.** `gamestatus` and `arousalstatus` are documented;
-  `iamcheatinggimmeexperience` (TASK 135, +2000 exp) and
-  `iamcheatinggimmearousal` (TASK 40) are not. `summon muse` spawns the
+  comes from a task in the Temple of Jedimah that belongs to the mature-content
+  mode. The mirror route reaches the same object slot with no such
+  requirement, which is why `nosex` and the Dark Gem go together.
+- **Debug commands left in.** Two status commands are documented;
+  `iamcheatinggimmeexperience` (TASK 135, +2000 exp) and a second cheat for
+  the mature-content meter (TASK 40) are not. `summon muse` spawns the
   in-game hint character next to Aline — the readme explains that ADRIFT will
   not let the author spawn an NPC into the player's own room.
 - **`wait` is not one turn.** SCARE's library `wait` runs several turns at
