@@ -11,7 +11,7 @@
 #import "Game.h"
 #import "GlkStyle.h"
 #import "Interpreter.h"
-#import "Theme.h"
+#import "Preferences.h"
 
 #include "glk.h"
 #include "glkimp.h"
@@ -29,12 +29,15 @@
 @dynamic border;
 @dynamic borderBehavior;
 @dynamic borderColor;
+@dynamic borderColorDark;
 @dynamic bufferBackground;
+@dynamic bufferBackgroundDark;
 @dynamic bufferCellHeight;
 @dynamic bufferCellWidth;
 @dynamic bufferMarginX;
 @dynamic bufferMarginY;
 @dynamic bufLinkColor;
+@dynamic bufLinkColorDark;
 @dynamic bufLinkStyle;
 @dynamic bZAdjustment;
 @dynamic bZTerminator;
@@ -53,7 +56,9 @@
 @dynamic errorHandling;
 @dynamic flicker;
 @dynamic gridBackground;
+@dynamic gridBackgroundDark;
 @dynamic gridLinkColor;
+@dynamic gridLinkColorDark;
 @dynamic gridLinkStyle;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
@@ -75,6 +80,7 @@
 @dynamic smoothScroll;
 @dynamic spaceFormat;
 @dynamic spacingColor;
+@dynamic spacingColorDark;
 @dynamic vODelayOn;
 @dynamic vOHackDelay;
 @dynamic vOSpeakCommand;
@@ -371,6 +377,50 @@
             return YES;
     }
     return NO;
+}
+
+#pragma mark - Light / dark color variants
+
+- (NSColor *)sp_colorLight:(NSColor *)light dark:(NSColor *)dark {
+    if ([Preferences resolvedAppearance] == kDarkAppearance)
+        return dark ?: light;
+    return light ?: dark;
+}
+
+- (void)sp_setColor:(NSColor *)color lightKey:(NSString *)lightKey darkKey:(NSString *)darkKey {
+    if ([Preferences resolvedAppearance] == kDarkAppearance)
+        [self setValue:color forKey:darkKey];
+    else
+        [self setValue:color forKey:lightKey];
+}
+
+- (NSColor *)resolvedBufferBackground {
+    return [self sp_colorLight:self.bufferBackground dark:self.bufferBackgroundDark];
+}
+- (NSColor *)resolvedGridBackground {
+    return [self sp_colorLight:self.gridBackground dark:self.gridBackgroundDark];
+}
+- (NSColor *)resolvedBorderColor {
+    return [self sp_colorLight:self.borderColor dark:self.borderColorDark];
+}
+- (NSColor *)resolvedSpacingColor {
+    return [self sp_colorLight:self.spacingColor dark:self.spacingColorDark];
+}
+- (NSColor *)resolvedBufLinkColor {
+    return [self sp_colorLight:self.bufLinkColor dark:self.bufLinkColorDark];
+}
+- (NSColor *)resolvedGridLinkColor {
+    return [self sp_colorLight:self.gridLinkColor dark:self.gridLinkColorDark];
+}
+
+- (void)setResolvedBufferBackground:(NSColor *)color {
+    [self sp_setColor:color lightKey:@"bufferBackground" darkKey:@"bufferBackgroundDark"];
+}
+- (void)setResolvedGridBackground:(NSColor *)color {
+    [self sp_setColor:color lightKey:@"gridBackground" darkKey:@"gridBackgroundDark"];
+}
+- (void)setResolvedBorderColor:(NSColor *)color {
+    [self sp_setColor:color lightKey:@"borderColor" darkKey:@"borderColorDark"];
 }
 
 @end

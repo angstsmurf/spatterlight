@@ -95,7 +95,7 @@
         return;
     NSColor *color;
     if (bc == zcolor_Default) {
-        color = self.glkctl.theme.bufferBackground;
+        color = self.glkctl.theme.resolvedBufferBackground;
         bgnd = color.integerColor;
     } else {
         bgnd = bc;
