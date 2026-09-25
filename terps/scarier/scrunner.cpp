@@ -8640,7 +8640,30 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   if (status && repeat_found && !repeat_pending)
     game->is_admin = FALSE;
-  if (silent_task_390)
+  /*
+   * The silent task's DontUnderstand and its lost turn are one store in
+   * run390: generaltasks 46063E-46065A, `If msg = "" And var_350 = 0 Then
+   * msg = DontUnderstand: GoTo 46067F`, and the jump lands past the calls to
+   * characters() and events().  var_350 is the scan of every character's
+   * Name and first Alias over the line (4605EB-460638,
+   * lib_line_names_npc_390()), present or not.  So a silent task's line that
+   * names a character keeps its empty buffer AND its turn, and characters()
+   * runs over it -- whose ask block (4597FE) writes the topic reply, or the
+   * no-response answer over the empty buffer (459B46).  Measured on A Day In
+   * Toronto (toronto.taf, 3.90; run390x runner_transcripts/toronto.txt T9):
+   * task 3 `ask waiter about burger` has no CompleteText and only moves the
+   * burger into the room, and the Runner answers the line with the Waiter's
+   * topic "ok", where the substitution alone gives the game's "huh?".
+   *
+   * What the Runner shows when the buffer is STILL empty after characters()
+   * -- a silent task on a non-ask line naming a character, or the character
+   * out of the room (459941) -- is not measured: it prints that empty buffer
+   * (4606D0), and Scarier keeps the DontUnderstand text there, the turn
+   * being ticked all the same.
+   */
+  const scr_bool silent_names_npc_390 =
+      silent_task_390 && lib_line_names_npc_390 (game, string);
+  if (silent_task_390 && !silent_names_npc_390)
     game->is_admin = TRUE;
 
   /*
@@ -8648,12 +8671,17 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * talk-to-about line; see lib_ask_npc_topic_after_task_390().  4.0 leaves
    * the task's text alone.
    */
-  if (task_claimed
+  if ((task_claimed || silent_names_npc_390)
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
       && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
       && (uip_match ("ask %character% about %text%", string, game)
           || uip_match ("talk to %character% about %text%", string, game)))
-    lib_ask_npc_topic_after_task_390 (game, task_mark);
+    {
+      if (lib_ask_npc_topic_after_task_390 (game, task_mark,
+                                            silent_names_npc_390)
+          && silent_names_npc_390)
+        status = TRUE;
+    }
 
   /*
    * 4.0: a line a task answered that also names a term two present

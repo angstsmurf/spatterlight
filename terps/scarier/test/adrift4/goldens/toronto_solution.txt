@@ -3,8 +3,11 @@
 # ending of any kind, so this is a tour, not a win.  Lines 1-2 answer the
 # name and gender prompts.
 # Parser notes (all Runner-faithful, not bugs):
-#  - `ask waiter about burger` prints "huh?" but DOES put the burger in the
-#    room: a 3.9 task with no completion text answers DontUnderstand.
+#  - `ask waiter about burger` runs a task with no completion text that puts
+#    the burger in the room, and is answered with the Waiter's topic "ok":
+#    run390 skips the DontUnderstand substitution when the line names a
+#    character, so characters() still runs and its ask block writes the topic
+#    reply (run390x runner_transcripts/toronto.txt T9; ported 2026-09-26).
 #  - Objects match by their FULL raw name: `x bird` / `take uniform` fail,
 #    `x big fake bird` / `take astronaught uniform` work.  The tower pamplet
 #    is authored "tower pamplet " (trailing space) and cannot be referenced

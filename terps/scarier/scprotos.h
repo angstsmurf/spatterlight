@@ -1102,7 +1102,10 @@ extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
 extern scr_bool lib_npc_400_raise_for_line_string (scr_gameref_t game,
                                                    const scr_char *line);
 extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,
-                                                  size_t mark);
+                                                  size_t mark,
+                                                  scr_bool over_empty_buffer);
+extern scr_bool lib_line_names_npc_390 (scr_gameref_t game,
+                                        const scr_char *input);
 extern scr_bool lib_put_where_question_400 (scr_gameref_t game,
                                            std::string *question);
 extern scr_bool lib_input_contains_word (const scr_char *input,

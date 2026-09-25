@@ -272,7 +272,15 @@ below as not yet ported.
   raiders (empty-command task, run400 cannot load) are missing. Three new
   engine divergences, not harness artefacts (every feed command echoed):
   - **toronto** T9 `ask waiter about burger`: Runner "ok" (an author task
-    matched), scarier "huh?" -- a task-command match scarier misses.
+    matched), scarier "huh?". PORTED 2026-09-26: the task matched on both
+    sides and printed nothing; run390's DontUnderstand substitution
+    (generaltasks 46063E-46065A) is skipped when the line names a
+    character's Name or first Alias (the var_350 scan, 4605EB-460638), so
+    characters() and events() still run, and the ask block (4597FE) writes
+    the Waiter's topic "ok" over the empty buffer -- and the line is a turn.
+    `lib_line_names_npc_390()` + the `over_empty_buffer` arm of
+    `lib_ask_npc_topic_after_task_390()`; golden re-blessed, recompare
+    identical, no other golden moved.
   - **tempest7** T138 `ask girl her name`: Runner prefixes the reply with
     the character's descriptor "(A pretty girl)", scarier with the proper
     name "(Miranda)".

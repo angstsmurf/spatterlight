@@ -21175,6 +21175,10 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
   return answer;
 }
 
+static void lib_print_npc_no_response (scr_gameref_t game, scr_int npc);
+static scr_bool lib_npc_named_in_line (scr_gameref_t game, scr_int npc,
+                                       const scr_char *input);
+
 static scr_bool
 lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
                    scr_bool hint_when_silent)
@@ -21241,6 +21245,21 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
     }
 
   /* NPC has no response. */
+  lib_print_npc_no_response (game, npc);
+  return TRUE;
+}
+
+/*
+ * lib_print_npc_no_response()
+ *
+ * The no-topic answer of every ask: "<Name> does not respond to your
+ * question." (run390 459B46, run400 47FB83).
+ */
+static void
+lib_print_npc_no_response (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
   pf_buffer_string (filter,
@@ -21248,7 +21267,6 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
                                 " does not respond to your question.\n",
                                 " does not respond to my question.\n",
                                 " does not respond to %player%'s question.\n"));
-  return TRUE;
 }
 
 scr_bool
@@ -21281,12 +21299,25 @@ lib_cmd_talk_to_npc_about (scr_gameref_t game)
  * "Stu shakes his head, as if he doesn't understand the question.", and run390
  * shows Stu's topic reply alone on every one of them.
  *
+ * The task that ran may also have printed NOTHING: then the buffer the ask
+ * block finds is empty, and with no topic the no-response answer (459B46) is
+ * written after all.  That is the toronto case (A Day In Toronto, 3.90; run390x
+ * runner_transcripts/toronto.txt T9): task 3 `ask waiter about burger` has no
+ * CompleteText and only moves the burger in, and the Runner answers the line
+ * with the Waiter's topic "ok" where the silent-task rule alone would have
+ * printed the game's DontUnderstand "huh?".  How a silent task's line reaches
+ * characters() at all is run_all_commands()' business: see the note on
+ * lib_line_names_npc_390().
+ *
  * Called once uip_match() has matched "ask %character% about %text%" or its
  * talk-to twin.  Replies, cutting the buffer back to mark first, and returns
- * TRUE; prints nothing and returns FALSE when no present NPC or topic answers.
+ * TRUE; prints nothing and returns FALSE when no present NPC or topic answers
+ * -- unless over_empty_buffer says the buffer is empty at mark, when the
+ * present NPC's no-response answer is printed instead and TRUE returned.
  */
 scr_bool
-lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark)
+lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark,
+                                  scr_bool over_empty_buffer)
 {
   scr_int index_, npc, count, topic;
 
@@ -21307,11 +21338,47 @@ lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark)
 
   topic = lib_npc_find_topic (game, npc);
   if (topic == -1)
-    return FALSE;
+    {
+      if (!over_empty_buffer)
+        return FALSE;
+      pf_truncate (gs_get_filter (game), mark);
+      var_set_ref_character (gs_get_vars (game), npc);
+      lib_print_npc_no_response (game, npc);
+      return TRUE;
+    }
 
   pf_truncate (gs_get_filter (game), mark);
   var_set_ref_character (gs_get_vars (game), npc);
   return lib_npc_reply_to (game, npc, topic);
+}
+
+/*
+ * lib_line_names_npc_390()
+ *
+ * run390 generaltasks' end-of-line scan of the characters, 4605EB-460638: for
+ * every NPC in the game, present or not, `c(Name, 0) Or c(Alias(0), 0)` --
+ * the same Name-or-first-Alias whole-word test as lib_npc_named_in_line().
+ * Its result (var_350) is the second term of the DontUnderstand substitution
+ * at 46063E-46065A, `If msg = "" And var_350 = 0 Then msg = DontUnderstand:
+ * GoTo 46067F`, which also jumps the calls to characters() and events().  So
+ * a line that names a character keeps its empty buffer, and characters() and
+ * events() still run for it: it is a turn, and the ask block 4597FE gets to
+ * write into the buffer.  The one measured reach is a silent task's ask line
+ * (toronto T9, see lib_ask_npc_topic_after_task_390()); 4.0 has the same
+ * two-term test at 48B573 but its characters() is gated on the task-ran flag,
+ * so nothing there ever fills the buffer.
+ */
+scr_bool
+lib_line_names_npc_390 (scr_gameref_t game, const scr_char *input)
+{
+  scr_int npc;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      if (lib_npc_named_in_line (game, npc, input))
+        return TRUE;
+    }
+  return FALSE;
 }
 
 

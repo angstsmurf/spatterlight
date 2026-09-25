@@ -541,7 +541,7 @@ tom_ceader	tom_ceader.rtf	driven:Adrift_294_tom_ceader_rt.rtf+tail	3.80	run380x.
 too_much_exercise	too_much_exercise.txt	driven:Adrift_134_too_much_exercise_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 topaz	topaz.txt	driven:Adrift_147_topaz_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 tophat	tophat.txt	driven:Adrift_433_tophat_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-toronto	toronto.txt	driven:Adrift_309_toronto_rt.txt	3.90	run390x.exe	1234	0	Bob~male		yes	1 differing turn(s)
+toronto	toronto.txt	driven:Adrift_328_toronto_rt.txt	3.90	run390x.exe	1234	0	Bob~male		yes	identical on every turn.
 toxically_earth	toxically_earth.txt	harvested-native-0-draws:Adrift_521_toxically_earth.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 tq3	tq3.txt	driven:Adrift_217_tq3_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 trabula	trabula.txt	driven:Adrift_143_trabula_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.

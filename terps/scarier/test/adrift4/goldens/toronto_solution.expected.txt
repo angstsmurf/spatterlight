@@ -77,7 +77,7 @@ its a very small building not many people are here you think maby a Mcdonalds
 would be better untill you smell the nice smell of burgers  Waiter is here.
 
 > ask waiter about burger
-huh?
+ok
 
 > eat burger
 You eat the burger.  Not bad, but it could do with a pinch of salt!
