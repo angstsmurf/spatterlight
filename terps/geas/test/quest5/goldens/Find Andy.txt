@@ -1,0 +1,1074 @@
+Find Andy
+Little Britain (Tribute)
+
+by ian Thomson
+
+You are a paramedic responding to an emergency call and have just been dropped off by an ambulance who has had to go away on another job. As you enter the house, you notice Lou (Andy's carer) is very distressed and is examining a wheelchair.
+
+Lou pleads with you : “Thank goodness you are here!....Andy has gone missing! I was just having 40 winks and when I woke up I noticed Andy was gone!"
+
+Lou begins fiddling with the wheelchair and says : "Before my nap, I had apologized to Andy that I couldn't take him to the library today as I have to wait for the council to arrive to fit his brand new bath. I suspect Andy has tried to crawl by himself, all the way to the Library....Oh the silly boy!"
+
+Lou suddenly rummages in his pockets and produces a card. He promptly but gently thrusts it into your hand and says : “If you can go to the library and find Andy, use this card to get his reserved book for him while I fix his wheelchair."
+
+Lou squints his face as he peers at the wheelchair then says : "If you leave Andy to read his book at the Library, you can come and collect his fixed wheelchair from me and then bring Andy back home."
+
+You are in a Hallway.
+You can see Lou (He holds a wheelchair).
+You can go north, south, east, west or southeast.
+> west
+
+> west
+
+You are in a Porch.
+You can see a Torch.
+You can go east or southwest.
+> southwest
+
+> southwest
+
+You are in the Street.
+You can go west, south or northeast.
+> south
+
+> south
+
+You are in a Plaza.
+You can go north, south, east or west.
+> east
+
+> east
+
+You are in an Office.
+You can see Carol, a Desk (on which there is a PC, a Monitor, a Keyboard and a Mouse), a Locker and a door.
+You can go east or west.
+> give card to carol
+
+> give card to carol
+Carol rudely snatches the library card from you, stares at it for a second, grabs a book from a locker and thrusts the card and book into your hands.
+> west
+
+> west
+
+You are in a Plaza.
+You can go north, south, east or west.
+> north
+
+> north
+
+You are in the Street.
+You can go west, south or northeast.
+> northeast
+
+> northeast
+
+You are in a Porch.
+You can see a Torch and a wheelchair.
+You can go east or southwest.
+> get wheelchair
+
+> get wheelchair
+You pick it up.
+> east
+
+> east
+
+You are in a Hallway.
+You can go north, south, east, west or southeast.
+> north
+
+> north
+
+You are in a Living Room.
+You can see a TV.
+You can go south or north.
+> north
+
+> north
+
+You are in a Kitchen.
+You can see a Sink, a Fork and a tap.
+You can go south.
+> get fork
+
+> get fork
+You pick it up.
+> south
+
+> south
+
+You are in a Living Room.
+You can see a TV.
+You can go south or north.
+> south
+
+> south
+
+You are in a Hallway.
+You can go north, south, east, west or southeast.
+> west
+
+> west
+
+You are in a Porch.
+You can see a Torch.
+You can go east or southwest.
+> southwest
+
+> southwest
+
+You are in the Street.
+You can go west, south or northeast.
+> west
+
+> west
+
+You are in a Reception.
+You can see Ray.
+You can go east or north.
+The reception counter looks very antiquated.
+> say jelly
+
+> say jelly
+Ray hands you the chocolate cake with a huge grin on his face.
+> east
+
+> east
+
+You are in the Street.
+You can go west, south or northeast.
+> south
+
+> south
+
+You are in a Plaza.
+You can go north, south, east or west.
+> south
+
+> south
+
+You are on a Path.
+You can go north or south.
+> south
+
+> south
+
+You are in the shade of The Hanging Tree.
+You can go north, up, east or west.
+> east
+
+> east
+
+You are in a Park.
+You can go east, north or west.
+> east
+
+> east
+
+You are at a Fete.
+You can go east, west, north or south.
+> north
+
+> north
+
+You are Inside a Marquee.
+You can see Maggie, Judy and a Table.
+You can go south.
+> give chocolate cake to maggie
+
+> give chocolate cake to maggie
+Just as Maggie is about to take the chocolate cake from you, Judy whispers to her that the cake was from Ray the mad Scottish man and points at his dirty fingernail marks that are still on the cake.
+Maggie vomits a huge waterfall-like spray and though you manage to dodge the main blast, you now stink of sick!
+> south
+
+> south
+
+You are at a Fete.
+You can go east, west, north or south.
+> west
+
+> west
+
+You are in a Park.
+You can go east, north or west.
+> west
+
+> west
+
+You are in the shade of The Hanging Tree.
+You can go north, up, east or west.
+> north
+
+> north
+
+You are on a Path.
+You can go north or south.
+> north
+
+> north
+
+You are in a Plaza.
+You can go north, south, east or west.
+> west
+
+> west
+
+You are beside a Mansion Gate.
+You can see Dennis, The gate and The Mansion.
+You can go west or east.
+> say sweeney minder
+
+> say sweeney minder
+Dennis smiles and says : "I can now officially let you in to the Mansion."
+> west
+
+> west
+
+You are in a Driveway.
+You can see gravel, Feefee and The Mansion.
+You can go east or west.
+> west
+
+> west
+
+You are in a Lobby.
+You can go east or up.
+> up
+
+> up
+
+You are in a Long Gallery.
+You can see portraits, the ceiling and double doors.
+You can go down, west, north or south.
+> north
+
+> north
+
+You are in a Study.
+You can see a mirror, a cardboard cutout and a wardrobe.
+You can go south.
+> press thumbprint
+
+> press thumbprint
+The mirror rises up to reveal a safe with lit display panel and buttons!
+> 538659
+
+> 538659
+You pull out a Certificate that was the only thing inside the safe!
+> south
+
+> south
+
+You are in a Long Gallery.
+You can see portraits, the ceiling and double doors.
+You can go down, west, north or south.
+> west
+
+> west
+
+You are in a Lounge.
+You can see a pillar, a bust, a fireplace and a chiffonier.
+You can go north, west, southwest or east.
+> north
+
+> north
+
+You are in a Ballroom.
+You can see a dance floor.
+You can go north or south.
+> north
+
+> north
+
+You are in a Pantry.
+You can see a cabinet.
+You can go north or south.
+> use fork
+
+> use fork
+After a bit of poking and struggling...you manage to get the drawer open at last! ...You have found a tiny key!
+> south
+
+> south
+
+You are in a Ballroom.
+You can see a dance floor.
+You can go north or south.
+> south
+
+> south
+
+You are in a Lounge.
+You can see a pillar, a bust, a fireplace and a chiffonier.
+You can go north, west, southwest or east.
+> east
+
+> east
+
+You are in a Long Gallery.
+You can see portraits, the ceiling and double doors.
+You can go down, west, north or south.
+> down
+
+> down
+
+You are in a Lobby.
+You can go east or up.
+> east
+
+> east
+
+You are in a Driveway.
+You can see gravel, Feefee and The Mansion.
+You can go east or west.
+> east
+
+> east
+
+You are beside a Mansion Gate.
+You can see Dennis, The gate and The Mansion.
+You can go west or east.
+> east
+
+> east
+
+You are in a Plaza.
+You can go north, south, east or west.
+> east
+
+> east
+
+You are in an Office.
+You can see Carol, a Desk (on which there is a PC, a Monitor, a Keyboard and a Mouse), a Locker and a door.
+You can go east or west.
+Carol is about to lick a fudge, then suddenly puts it on the desk, covers her nose and says: “Oh gaaad! You stink of sick. You have completely put me off that now!!”
+> give certificate to carol
+
+> give certificate to carol
+Carol rudely snatches the certificate from you and clicks her mouse a few times while staring at the screen.
+The door to Fat Fighters suddenly opens and Carol screws up her face at you.
+> get fudge
+
+> get fudge
+You pick up the fudge.
+> east
+
+> east
+
+You are in a room for Fat Fighters.
+You can see Marjorie, chairs and a chart.
+You can go west.
+> give fudge to marjorie
+
+> give fudge to marjorie
+Marjorie grabs and eats the fudge instantly, then hands you a lipstick saying : “Here is my last courtesy lipstick”.
+You are about to leave the room, when you catch a glimpse of Vicky outside running south across the bridge clutching something wrapped in bright yellow plastic.
+> west
+
+> west
+
+You are in an Office.
+You can see Carol, a Desk (on which there is a PC, a Monitor, a Keyboard and a Mouse), a Locker and a door.
+You can go east or west.
+Carol is holding her nose with one hand and looking disinterested at the computer monitor. She is also holding out the open palm of her other hand and says sarcastically : “Do you have a library card or fat fighters certificate?”
+> west
+
+> west
+
+You are in a Plaza.
+You can go north, south, east or west.
+> south
+
+> south
+
+You are on a Path.
+You can go north or south.
+> south
+
+> south
+
+You are in the shade of The Hanging Tree.
+You can go north, up, east or west.
+> east
+
+> east
+
+You are in a Park.
+You can go east, north or west.
+> east
+
+> east
+
+You are at a Fete.
+You can go east, west, north or south.
+> south
+
+> south
+
+You are on a Bridge.
+You can see a Bridge, a Stream and Water.
+You can go down, south or north.
+> south
+
+> south
+
+You are on a Trail.
+You can see a pamphlet.
+You can go north or southeast.
+> southeast
+
+> southeast
+
+You are at The Old Well.
+You can see a well.
+You can go south, down, northwest or west.
+> west
+
+> west
+
+You are on a Bridleway.
+You can see a track and dirt.
+You can go west or east.
+It is a well trodden dirt track made by people and mainly horses.
+> west
+
+> west
+
+You are in an Overgrown Meadow.
+You can see weeds.
+You can go west or east.
+It is full of all kinds of weeds.
+> look weeds
+
+> look weeds
+You don’t see anything of interest except for some dock Leaves.
+It contains Dock Leaves.
+> get dock leaves
+
+> get dock leaves
+You pick it up.
+> west
+
+> west
+
+You are in a Grove.
+You can see Daffyd, Trees, Nettles, Thistles and a Placard.
+You can go east, south or up.
+It is a small woodland area.
+> give dock leaves to daffyd
+
+> give dock leaves to daffyd
+Daffyd taps the leaves onto his legs, squeezing the sap out to relieve his pain.
+He then heads off into his shack nearby muttering something about Vicky not being worth the pain.
+> up
+
+> up
+
+You are inside a Holly Bush.
+You can see a Hut.
+You can go northwest or down.
+> northwest
+
+> northwest
+
+You are Inside a Hut.
+You can see Vicky.
+You can go down or southeast.
+This is Vicky’s hideout. It is a simple wooden hut with no windows and a chute that you can slide down to the Quarry below.
+
+> give wheelchair to vicky
+
+> give wheelchair to vicky
+Vicky dumps what she was holding and awkwardly gets into the wheelchair and launches herself down the steep metal chute very fast.
+She suddenly loses control and  falls out in to the quarry below! Vicky swears as she dusts herself off and limps away quickly towards the Hanging Tree.
+> get shirt
+
+> get shirt
+You pick up the shirt.
+> get radio
+
+> get radio
+You pick it up.
+> down
+
+> down
+
+You are in a Quarry.
+You can see a slope, lots of , a wig and a wheelchair.
+You can go north or up.
+This is just a wide expanse of flat ground surrounded by a sandstone boundary.
+> get wig
+
+> get wig
+You pick it up.
+> north
+
+> north
+
+You are in a Dump.
+You can go north or south.
+> north
+
+> north
+
+You are in a Glade.
+You can see grass and Horse.
+You can go south or east.
+> east
+
+> east
+
+You are in the shade of The Hanging Tree.
+You can see Vicky.
+You can go north, up, east or west.
+> north
+
+> north
+
+You are on a Path.
+You can go north or south.
+> north
+
+> north
+
+You are in a Plaza.
+You can go north, south, east or west.
+> north
+
+> north
+
+You are in the Street.
+You can go west, south or northeast.
+> west
+
+> west
+
+You are in a Reception.
+You can see Ray and a counter (on which there is a phone).
+You can go east or north.
+> give radio to ray
+
+> give radio to ray
+Ray hands you the magic beans and is very excited you have retrieved his old radio.
+He appears to be hearing something from the radio, but YOU cannot hear anything!”
+> east
+
+> east
+
+You are in the Street.
+You can go west, south or northeast.
+> south
+
+> south
+
+You are in a Plaza.
+You can go north, south, east or west.
+> south
+
+> south
+
+You are on a Path.
+You can go north or south.
+> south
+
+> south
+
+You are in the shade of The Hanging Tree.
+You can see Vicky.
+You can go north, up, east or west.
+> east
+
+> east
+
+You are in a Park.
+You can go east, north or west.
+> east
+
+> east
+
+You are at a Fete.
+You can go east, west, north or south.
+> south
+
+> south
+
+You are on a Bridge.
+You can see a Bridge, a Stream and Water.
+You can go down, south or north.
+> south
+
+> south
+
+You are on a Trail.
+You can see a pamphlet.
+You can go north or southeast.
+> southeast
+
+> southeast
+
+You are at The Old Well.
+You can see a well.
+You can go south, down, northwest or west.
+> west
+
+> west
+
+You are on a Bridleway.
+You can see a track and dirt.
+You can go west or east.
+It is a well trodden dirt track made by people and mainly horses.
+> west
+
+> west
+
+You are in an Overgrown Meadow.
+You can see weeds.
+You can go west or east.
+It is full of all kinds of weeds.
+> west
+
+> west
+
+You are in a Grove.
+You can see Trees, Nettles, Thistles and a Placard.
+You can go east, south or up.
+It is a small woodland area.
+> south
+
+> south
+
+You are in an Allotment.
+You can see a Greenhouse, a crow and a Shack.
+You can go south, north or west.
+There is a scarecrow here but nothing for it to scare crows away from!
+> west
+
+> west
+
+You are inside a Shack.
+You can see a Telescope and Daffyd.
+You can go east or down.
+> give shirt to daffyd
+
+> give shirt to daffyd
+Daffyd says in a welsh accent : "Oh,...it's all creased, I shall have to get my mother to iron this properly before I wear it ! Daffyd then folds the plastic shirt and squeakily squeezes it inside the back of his bright yellow tight fitting plastic shorts then smiles at you.
+Daffyd then fumbles inside the front of his shorts.
+Daffyd hands you a crumpled pink postcard.  In a welsh accent, he says : “There you go. This will get you in to the event at the Mansion. I was at a party there last week and I’m not bothered about going there this time.”
+> down
+
+> down
+
+You are in a a Basement.
+You can see a Chest.
+You can go up.
+> unlock chest
+
+> unlock chest
+The Chest is Unlocked.
+You open the chest and at first glance it seems completely empty apart from what looked like a paper bottom.
+You manage to grab a corner and pull the paper and pick it up to reveal it is a Film Script which is a bit scrunched.
+You open it.
+> up
+
+> up
+
+You are inside a Shack.
+You can see a Telescope and Daffyd.
+You can go east or down.
+> give key to daffyd
+
+> give key to daffyd
+Daffyd slides the key away safely inside the lip of his tight-fitting plastic bright yellow shorts!
+> east
+
+> east
+
+You are in an Allotment.
+You can see a Greenhouse, a Scarecrow, a crow and a Shack.
+You can go south, north or west.
+Looks like it has been abandoned for some time!
+> north
+
+> north
+
+You are in a Grove.
+You can see Trees, Nettles, Thistles and a Placard.
+You can go east, south or up.
+It is a small woodland area.
+> up
+
+> up
+
+You are inside a Holly Bush.
+You can see a Hut.
+You can go northwest or down.
+> northwest
+
+> northwest
+
+You are Inside a Hut.
+You can go down or southeast.
+This is Vicky’s hideout. It is a simple wooden hut with no windows and a chute that you can slide down to the Quarry below.
+
+> down
+
+> down
+
+You are in a Quarry.
+You can see a slope, lots of  and a wheelchair.
+You can go north or up.
+This is just a wide expanse of flat ground surrounded by a sandstone boundary.
+> north
+
+> north
+
+You are in a Dump.
+You can go north or south.
+> north
+
+> north
+
+You are in a Glade.
+You can see grass and Horse.
+You can go south or east.
+> east
+
+> east
+
+You are in the shade of The Hanging Tree.
+You can see Vicky.
+You can go north, up, east or west.
+> north
+
+> north
+
+You are on a Path.
+You can go north or south.
+> north
+
+> north
+
+You are in a Plaza.
+You can go north, south, east or west.
+> west
+
+> west
+
+You are beside a Mansion Gate.
+You can see Dennis, The gate and The Mansion.
+You can go west or east.
+> give film script to dennis
+
+> give film script to dennis
+Dennis grabs the Film Script and his face lights up. After he flicks through the script for a minute, you tap him on the shoulder and he stops and then hands you a lightsaber and excitedly stuffs the script into his cardboard tube.
+> east
+
+> east
+
+You are in a Plaza.
+You can go north, south, east or west.
+> south
+
+> south
+
+You are on a Path.
+You can go north or south.
+> south
+
+> south
+
+You are in the shade of The Hanging Tree.
+You can see Vicky.
+You can go north, up, east or west.
+> east
+
+> east
+
+You are in a Park.
+You can go east, north or west.
+> north
+
+> north
+
+You are in a Welly Throw Area.
+You can see a Poster, a Flag and a Rope.
+You can go south.
+> take rope
+
+> take rope
+You pick it up.
+> south
+
+> south
+
+You are in a Park.
+You can go east, north or west.
+> east
+
+> east
+
+You are at a Fete.
+You can go east, west, north or south.
+> south
+
+> south
+
+You are on a Bridge.
+You can see a Bridge, a Stream and Water.
+You can go down, south or north.
+> south
+
+> south
+
+You are on a Trail.
+You can see a pamphlet.
+You can go north or southeast.
+> southeast
+
+> southeast
+
+You are at The Old Well.
+You can see a well.
+You can go south, down, northwest or west.
+> use rope
+
+> use rope
+After sussing out how to tie the rope securely, you safely manage to enable safe movement down the well.
+> down
+
+> down
+
+You are at the Bottom of Well.
+You can see a Toy and a Hole.
+You can go east or up.
+> use lightsaber
+
+> use lightsaber
+The light from the lightsaber is sufficient to allow safe passage through the dark cave.
+> east
+
+> east
+Keep a hold of the lightsaber as you will need it to get through the cave safely !
+
+You are in a Cave.
+You can see a Hole.
+You can go north or west.
+The light sabre provides just enough light to allow you to pass through the cave safely.
+> north
+
+> north
+
+You are in a Sewer.
+You can see sewage, a Drain and a Hole.
+You can go north or south.
+It is very damp in here and a little bit smelly.
+> north
+
+> north
+
+You are in a Tunnel.
+You can see an orifice.
+You can go north or south.
+> north
+
+> north
+
+You are near some Ruins.
+You can see Anne, ruins and a cottage.
+You can go south.
+These appear to be the foundations of an old cottage.
+> give necklace to anne
+
+> give necklace to anne
+Anne frantically grabs the necklace, whips off her dress and runs off ! Her dress glides gracefully down onto part of the ruins after she is well out of sight.
+> get dress
+
+> get dress
+You pick up the dress.
+> wear dress
+
+> wear dress
+After a bit of confusion, you eventually work out how to squeeze into the pink Dress...and are now wearing the Dress...just !
+> wear lipstick
+
+> wear lipstick
+You slap on the Lipstick and feel strangely empowered!
+> wear wig
+
+> wear wig
+After a few mishaps on the correct way to get the thing attached to your head, you successfully adorn the Wig !
+> south
+
+> south
+
+You are in a Tunnel.
+You can see an orifice.
+You can go north or south.
+> south
+
+> south
+
+You are in a Sewer.
+You can see sewage, a Drain and a Hole.
+You can go north or south.
+It is very damp in here and a little bit smelly.
+> use lightsaber
+
+> use lightsaber
+The light from the lightsaber is sufficient to allow safe passage through the dark cave.
+> south
+
+> south
+Keep a hold of the lightsaber as you will need it to get through the cave safely !
+
+You are in a Cave.
+You can see a Hole.
+You can go north or west.
+The light sabre provides just enough light to allow you to pass through the cave safely.
+> west
+
+> west
+
+You are at the Bottom of Well.
+You can see a Toy and a Hole.
+You can go east or up.
+> up
+
+> up
+
+You are at The Old Well.
+You can see a well and a rope.
+You can go south, down, northwest or west.
+> northwest
+
+> northwest
+
+You are on a Trail.
+You can see a pamphlet.
+You can go north or southeast.
+> north
+
+> north
+
+You are on a Bridge.
+You can see a Bridge, a Stream and Water.
+You can go down, south or north.
+> north
+
+> north
+
+You are at a Fete.
+You can go east, west, north or south.
+> west
+
+> west
+
+You are in a Park.
+You can go east, north or west.
+> west
+
+> west
+
+You are in the shade of The Hanging Tree.
+You can see Vicky.
+You can go north, up, east or west.
+> north
+
+> north
+
+You are on a Path.
+You can go north or south.
+> north
+
+> north
+
+You are in a Plaza.
+You can go north, south, east or west.
+> west
+
+> west
+
+You are beside a Mansion Gate.
+You can see Dennis, The gate and The Mansion.
+You can go west or east.
+> west
+
+> west
+
+You are in a Driveway.
+You can see gravel, Feefee and The Mansion.
+You can go east or west.
+> west
+
+> west
+
+You are in a Lobby.
+You can go east or up.
+> up
+
+> up
+
+You are in a Long Gallery.
+You can see portraits, the ceiling and double doors.
+You can go down, west, north or south.
+> west
+
+> west
+
+You are in a Lounge.
+You can see a pillar, a bust, a fireplace and a chiffonier.
+You can go north, west, southwest or east.
+> west
+
+> west
+
+You are in a Parlour.
+You can see Emily and a Door.
+You can go east or down.
+> give postcard to emily
+
+> give postcard to emily
+Emily studies you carefully as she walks gracefully around you.
+Emily politely opens the door and gestures for you to go down to the Patio. she stares at you with wide eyes and beams a huge smile of approval.
+> down
+
+> down
+
+You are in a Patio.
+You can see a Gazebo, Ladies, a Fountain and a hedge.
+You can go up.
+As you enter the Patio, many Ladies turn around and welcome you by giving a round of applause.... You stand absolutely still and smile awkwardly waiting for them to finish...
+... As the applause subsides, you are suddenly conscious of Emily posing, smiling and powdering her nose behind you. She was clearly the one everyone was clapping for...not you!
+> look hedge
+
+> look hedge
+The hedge is extremely high and thick. There seems to be some unusual movement coming from a crevice deep inside the hedge!
+> look crevice
+
+> look crevice
+You glance into the crevice and see what looks like the heel of a boot or welly jammed inside the hedge!
+> get ball
+
+> get ball
+You try to clasp Andy's bald head but find that it is firmly stuck too far in the depths of the hedge. As you try to work out what to do next, you suddenly see his bare feet emerge at the bottom of the hedge!
+> pull feet
+
+> pull feet
+After a bit of a struggle, you manage to get a very good tight hold of both of Andy's feet. You clasp them together firmly and can now try to carefully "pull Andy" out .
+> pull andy
+
+> pull andy
+You pull Andy with all your might! Andy successfully comes tumbling out in one piece and lands on top of you!
+
+You are so exhausted and relieved you achieved his rescue that you close your eyes and allow Andy to roll off to one side of you. You hear all the laughing and think it was because Andy had landed on you.
+When you open your eyes, you see everyone pointing at Andy!
+
+Andy is but naked with shreds of a crumpled old shower curtain wrapped around his neck like an old fashioned clown! He has bright red jam stains all around his mouth and a hairy welly is on his head!
+
+CONGRATULATIONS...YOU HAVE FOUND ANDY and can safely return him to Lou.
+You have completed the game. You could try again to gain a better score if you didn't get the maximum score possible of 1000 points!
+
+Bonus points if you find all 4 of Bubbles Devere's X-Husband secret references! Also, did you give Daffyd his lost key and Dennis his lost hat?
+
+Your company pager has just lit up with another job : A new Irish client called Father Ted Crilly is requesting your urgent help. Apparently , Father Jack Hackett has gone missing again somewhere on Craggy island!
+[state=Finished]
