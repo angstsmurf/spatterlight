@@ -19,6 +19,8 @@ extern NSString * const SpatterlightAppearanceOverrideKey;
 /// Override if set, else system appearance.
 + (kAppearanceType)resolvedAppearance;
 
++ (void)migratePerThemeDarkColorsIfNeededInContext:(NSManagedObjectContext *)context;
+
 - (void)configureStylesTabAppearanceControls;
 - (void)syncDarkModeSwitchFromResolvedMode;
 
