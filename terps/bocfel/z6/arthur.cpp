@@ -75,6 +75,7 @@ ArthurTables at;
 #define K_PIC_ISLAND_DOOR 158   // Island door stamp
 #define K_PIC_ISLAND_DOOR_OFF 159 // Offset reference for the island door stamp
 #define K_PIC_STONE_2 9         // Stone stamp (has platform-specific offset fix)
+#define K_PIC_BOAR 93           // Charging boar stamp (MCGA/EGA offset rectangle is one pixel short)
 
 
 extern Window *mainwin, *curwin;
@@ -216,6 +217,21 @@ void arthur_draw_room_image(int picnum) {
         // The Amiga version of the stone image seems to have an incorrect offset
         if (picnum == K_PIC_STONE_2 && graphics_type == kGraphicsTypeAmiga)
             width -= 4;
+
+        // The offset rectangle (picture 92) for the charging boar is one
+        // MCGA pixel too narrow: the stamp includes part of the tree rather
+        // than relying on transparency, and with the game's value that tree
+        // lands one pixel left of the room's tree. Verified by pixel-matching
+        // the stamp's tree strip against room picture 89: MCGA fits at 35
+        // (rectangle says 34), and EGA, at double horizontal resolution,
+        // fits at 70 (rectangle says 68). CGA, Amiga, Mac and Apple II data
+        // have not been checked, so they are left alone.
+        if (picnum == K_PIC_BOAR) {
+            if (graphics_type == kGraphicsTypeBlorb || graphics_type == kGraphicsTypeVGA)
+                width++;
+            else if (graphics_type == kGraphicsTypeEGA)
+                width += 2;
+        }
 
         x += width;
         y += height;
