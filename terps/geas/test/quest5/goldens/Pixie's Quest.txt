@@ -1,0 +1,338 @@
+WARNING:This game contains explicit language, adult situations, scary monsters, puzzles, middle-aged people, one hot lady, computer programming, more explicit language, and lots of other things that are inappropriate for people under the age of 18.Do you agree that you are 18 years of age or older and that nothing at all offends you?
+
+(Enter YES or NO)(Remember: Santa Claus is watching you!)
+> yes
+Cave
+You have made your way through most of the Wumpus cavern and are nearing in on the most foul creature itself. You recheck your sword: sharp as ever. Your shield: at the ready. Your armor:  not a single gap.
+You can see a red fox.
+
+There is an exit to the east.
+
+You are startled when a fox jumps up onto a rock in front of you. You quickly draw your sword to defend yourself, then chuckle at being startled by an animal. Just as you relax a bit, the fox stands on its hind legs, and places a Robin Hood-like hat on his head.  He then draws a two-foot rapier, swishes it around, and takes a fencing pose facing you.
+> east
+
+> east
+
+Outside of the Cavern's Entrance
+You have now made your way to the cavern of the Wumpus. Looking in, you do not see the creature, but you can tell this is its lair. Cautiously, you make your way inside, carefully stepping over the skulls and bones of past explorers, swearing to avoid making the same mistakes they made... whatever they were.
+
+You can go east.
+> east
+
+> east
+
+Cavern Entrance
+This is the lair of the most feared Wumpus, and unlike most of the other caverns and tunnels, this one is massive!!!
+
+The cavernous roof towers over 40 feet above you! The far wall is over 100 feet away! There is a very large tunnel that leads off to the More, which seems to be how the creature makes its way here. Looking about the cavern itself, you do not find the Wumpus.  The floor is uneven, but not enough to provide enough cover for it to hide from you. You make your way down towards the center of the cavern to the large brown grass covered hill. You carefully make your way around the hill keeping an eye out for where the creature could be. Without warning, the hill moves! It starts to get bigger!
+
+ More.
+> more
+
+> more
+
+Wumpus Cavern
+The hill keeps getting bigger, and then the large head appears! It is tall, but narrow, and, as it cocks it's head to one side, you see one eye, which is at least four feet across! It looks at you, and, with a beeping-sounding roar, it rises up to its full height so that its long, bunny-rabbit ears scrape across the roof.
+
+It roars again with its beeping sound and rushes down at you!!!
+
+As it nears in on you with more beeping sonic attacks, it opens it's cavernous maw and...
+
+ Beeping.
+> beeping
+
+> beeping
+
+Your Bedroom
+You sit upright in your bed, breathing hard and clutching your chest! Your covers are scattered around your bed, and your pillow is on your dresser on the other side of the room.  After a few moments, you settle down and push the button on your alarm clock, at which point, the beeping stops.
+
+You get up, get dressed and notice a piece of paper on the floor, which you pick up and read...
+"Quest Towers, 3rd floor, 12:00 noon."
+
+You flip the note over again looking for any other clues. Finding none, you wad up the note and throw it in the trashcan. "2 points!" you yell... then you remember the party last night. The group you work with said they almost had the project finished, but they needed your final run through -- your input on a couple of problems they were having. (They figured your input would solve the problems.)
+
+Looking at your clock, you realize you only have about 30 minutes to get there on time. So, you grab your inventory items, you rush out the door, grab a passing taxi, and arrive at the Quest Towers with 10 minutes to spare.
+
+PRESS ANY KEY TO CONTINUE
+
+Startingup
+ startingup2.
+
+Startingup2
+
+Pixie's Quest
+by Dark Lizerd, XanMag, and K.V.
+
+This game is for The Pixie. Thanks for everything you do!
+
+    PRESS ANY KEY TO BEGIN
+
+Hub
+So, this is the hub, the nerve center of something that seems very important...
+There are several people wandering around here, working on different things.
+(Sometimes together, sometimes alone.)
+
+There is a strange, seemingly out of place doorway to the east, which casts an orange light on the floor just this side of it. There is a green field of grass with a desk, which is in the shade of an umbrella and sitting so that it is framed by the doorway. Someone wearing a dark cloak, which covers most of his features, is frantically working at the desk, moving papers around, and sometimes losing one to the ground below. Standing beside him is what looks like a short person covered in fur and wearing a leather skirt.
+
+In the southwest corner, by the water cooler, there are two people drinking and talking. When they notice that you are watching them, they excuse themselves and return to work.
+
+You can see XanMag, HK, a brochure, The Quest Forum, the group project, Richard Headkid's desk, post 23346 and a strange doorway.
+
+RH appears out of nowhere, stashes a strange pouch into his pocket, and gets to work on the group project.
+
+> look
+
+> look
+Hub
+
+There are several people wandering around here, working on different things.
+(Sometimes together, sometimes alone.)
+
+There is a strange, seemingly out of place doorway to the east, which casts an orange light on the floor just this side of it. There is a green field of grass with a desk, which is in the shade of an umbrella and sitting so that it is framed by the doorway. Someone wearing a dark cloak, which covers most of his features, is frantically working at the desk, moving papers around, and sometimes losing one to the ground below. Standing beside him is what looks like a short person covered in fur and wearing a leather skirt.
+
+You can see XanMag, HK, a brochure, The Quest Forum, the group project, Richard Headkid's desk, post 23346, a strange doorway and Richard Headkid.
+
+> enter strange doorway
+
+> enter strange doorway
+Before taking a step, you notice a keypad just next to the door and immediately dismiss it as a red herring...
+
+You step through the doorway and feel like you just stepped onto a descending elevator . You stumble a few steps before catching your balance, but you still feel light headed.
+
+[ Quest complete: Visit Dark Lizerd's world ]
+
+DL's Room
+You are in a large field covered by an off-green grass, and a pale orange sun hangs in the cloudless sky over head. Before you is a desk with scattered papers all around. There is an umbrella shading the desk.
+Behind the desk is a person working hard on some sort of problem.  You watch as he picks up one paper, looks at another, then scribbles a note on both before setting them to the side. You watch as one of the papers slides off the edge of the desk and floats softly to the ground. You watch as the creature grabs a paper from the ground and hands it to the person behind the desk, who  nods his head after taking the paper.
+In the corners of the room are trees casting dark shadows underneath. Every now and then, you think you see something move!
+
+You can see DarkLizerd, a papers, a desk, an umbrella and creature.
+
+You can go west, north, east or south.
+> examine desk
+
+> examine desk
+The desk is made out of a dark wood, oak perhaps. On top are several piles of papers with strange writings and scribbles everywhere.  Over to one side, sitting on a stack of papers, is a floating, spinning globe of a planet you don't recognize. He watches you for a moment before speaking. "That is a globe of my home world, where we are now. If you like it, take it, I got more around here."
+
+[ YOUR SCORE HAS INCREASED BY 1 ]
+> take globe
+
+> take globe
+You reach for the globe, but your hand passes right through it. Although you could not get it, it felt like your hand passed through a bubble of water, but your hand is still dry!
+"Here," he says and reaches out and touches a disk that you didn't notice under the globe, and the planet disappears.
+> take planet disk
+
+> take planet disk
+You pick it up.
+
+[ Quest complete: Find the Planet Disk ]
+> west
+
+> west
+You stumble out through the door and almost fall down. You feel like a heavy weight is pressing down on you. (strange!)
+
+Hub
+So, this is the hub, the nerve center of something that seems very important...
+There are several people wandering around here, working on different things.
+(Sometimes together, sometimes alone.)
+
+In the southwest corner, by the water cooler, there are two people drinking and talking. When they notice that you are watching them, they excuse themselves and return to work.
+ Dark Lizerd is wandering around here looking like he is hiding from someone. Funny that you did not notice him before. 'He must be really good at hiding in plain sight!' you say to yourself.
+
+You can see XanMag, HK, a keypad, Dark Lizerd, a brochure, The Quest Forum, the group project, Richard Headkid's desk, post 23346, a strange doorway and Richard Headkid.
+
+"Hey, Pixie!" booms Richard Headkid. "What'cha got there?
+"Is that a planet disk?!?!
+"Can I see it? Please???"
+
+> give disk to rh
+
+> give disk to rh
+
+[ Quest complete: Let a friend check out that planet disk. ]
+As soon as you hand the disk over to RH, he produces a Strange Pouch, reaches one hand into it, and disappears!
+
+(You now have access to his desk.)
+
+> examine richard headkid's desk
+
+> examine richard headkid's desk
+
+It contains a PC and a strange PNG.
+> switch on pc
+
+> switch on pc
+
+You switch on the monitor as well.
+
+The PC whirrs to life...
+
+A new shade of black appears on the screen, then a message slowly appears...
+
+[  YOUR SCORE HAS INCREASED BY 1  ]
+> examine screen
+
+> examine screen
+As soon as you look at it, the screen goes blank, but it sounds as if it's still powered on.
+
+DON'T PANIC!!!PRESS THE ANY KEY TO CONTINUE
+
+> press any key
+
+> press any key
+You have initiated blue_Telemat-booth.js...
+
+Reality flickers around you for a brief moment.
+
+Once you regain your focus, you see a message on the screen.
+
+Hi there, Pixie!
+
+You should use cat filename.txt or print filename.txt to view some files! (The newest one on the drive right now is README.txt.)
+
+(You should probably peruse blue_Telemat-booth.txt as well...)
+
+I hope you like the game so far!
+
+Best of luck!
+Richard Headkid
+
+[ Your score has increased by 10 ]
+> travel
+
+> travel
+Travel to where?
+1: The Land of Confusion
+> 1
+You travel in some unspecified manner...
+
+[ Quest complete: Visit KV's gateway. ]
+
+The Land of Confusion
+This is a small room, consisting of nothing more than a desk.
+You can see KV, KV's desk, a blue Telemat booth, a projector and a canvas screen.
+
+You can go north.
+> north
+
+> north
+
+Meadow
+This is a peaceful place, covered in lush, green grass.
+You can see a strange-looking bird.
+
+> ride bird
+
+> ride bird
+As soon as you mount the ostrapode, she takes off like a bat out of hell!
+
+You wrap your arms around her neck and hold on for dear life as she darts up a nearby hill.
+
+Just before you reach the top, her pace slows a little, and you start to relax a little. Then, the ostrapode does something that takes you completely off guard:
+She leaps up into the air!
+
+The sky
+
+As the ostrapode glides effortlessy through the air, you look to the east and spot Richard Headkid riding a flying carpet just before he disappears from view.
+> look
+
+> look
+The sky
+You can see a strange-looking bird.
+
+Suddenly, she seems to realize that she's defying the laws of gravity, and the ostrapode panics and begins to fling herself around, causing you to lose your grip from around her neck.
+
+As you plummet towards impending doom, you wonder: 'Why, exactly, are these guys working on this shit instead of the REAL group project?'
+
+Just then, reality flickers around you again.
+
+You are still barrelling down through the sky, but you notice that you are no longer accompanied by the ostrapode. You swing your arms and legs in unison to spin yourself around, and you see a Land Rover just above you.
+You immediately wish you'd just stayed back in the hub and never gave The Dickhead Kid that damned disk in the first place.
+
+Just as you realize how much of a waste that particular wish was, you decide it best to wish for one more thing, but the point quickly becomes moot as you and the Land Rover smash into a rocky promontory.
+
+Darkness
+You can't see anything, smell anything, hear anything, or taste anything.
+
+> look
+
+> look
+Darkness
+You can't see anything, smell anything, hear anything, or taste anything.
+
+> feel
+
+> feel
+You feel around in the dark.
+
+After a moment or two, just after abandoning any hopes of finding anything, something far off in the distance catches your eye.
+
+It looks like a faraway flicker of light...
+
+You strain to get a better look, but it is what it is: a faraway flicker.
+
+Just as you begin to contemplate entering UNDO, you notice that the light is slowly growing nearer.
+
+After just a few moments, a man with a lamp appears.
+
+"You've proven your worth just by making it this far," he says, and, now that he's close enough, you can see that it's none other than ALEX WARREN!
+
+ "Don't let this darkness slow you down," says Alex.
+
+He flashes a grin and passes you the lamp.  "You may as well take this," he says. "It's a little buggy, and it switches itself off at random sometimes, but, besides that, it's a good lamp."
+
+You take the lamp, giving Alex a slight nod, and, with that, he says, "cheers!" and moves on to other things.
+
+You wish Alex the best (as do we all), then you get back to the task at hand. Now that you have a light source (which, of course, just switched itself off), you're bound to use it!
+> use lamp
+
+> use lamp
+A soft glow emanates from the lamp, then slowly grows brighter, revealing your surroundings.  As you glance to and fro in an attempt to acclimate, the lamp begins to hum.
+
+The humming is driving you insane! Growing louder and louder by the second, until, finally...
+
+Your surroundings, however, remain not game.pov.parent.dark
+
+'Huh,' you think to yourself (as if you'd think anything to anyone else), 'I hope I wasn't going to need that for anything else!'
+
+The Imaginarium
+You can see a Strange Pouch, a glitch, Richard Headkid and The God Device.
+
+RH is standing here, looking slightly confused.
+
+"Hi, Pix," he says, his eyes on his feet. "My hidden item is in the hub. And so is the disk. I put it in the pouch, and everything that goes into that thing goes directly to the hub for some reason."
+
+A rabbit sits just a few feet away from you, watching your every move.
+
+> take pouch
+
+> take pouch
+You pick it up.
+> search pouch
+
+> search pouch
+You reach into the pouch and find yourself in:
+
+Hub
+
+There are several people wandering around here, working on different things.
+(Sometimes together, sometimes alone.)
+
+ Dark Lizerd is wandering around here looking like he is hiding from someone. Funny that you did not notice him before. 'He must be really good at hiding in plain sight!' you say to yourself.
+
+You can see XanMag, HK, a keypad, Dark Lizerd, a brochure, The Quest Forum, the group project, a blue Telemat booth, post 23346, a strange doorway, planet disk, KV and KV's desk.
+
+YOU HAVE A NEW ALERT!
+
+"Pixie!" KV walks up and hands you a token.
+
+"That's just a small token of my appreciation, sir!
+
+"I don't know why I made you go through all that just to get it...
+"(I think it may have been XanMag's fault...)"
+
+[  YOUR SCORE HAS INCREASED BY 10  ]
+
+[ Quest complete: Search the Strange Pouch. ]
+[  YOUR SCORE HAS INCREASED BY 10  ]
+[state=Running]
