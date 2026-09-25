@@ -198,6 +198,8 @@ static Preferences *prefs = nil;
     // We may or may not have created the Default and Old themes already above.
     // Then these won't be recreated below.
     [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
+
+    [Preferences migratePerThemeDarkColorsIfNeededInContext:managedObjectContext];
 }
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
