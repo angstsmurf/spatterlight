@@ -411,6 +411,7 @@ sandy_meta_number	sandy_meta_number.txt	driven:Adrift_397_sandy_meta_number_rt.t
 sbwd2	sbwd2.txt	driven:Adrift_332_sbwd2_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 scandal	scandal.txt	driven:Adrift_484_scandal_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
 sceneofthecrime	sceneofthecrime.txt	driven:Adrift_333_sceneofthecrime_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+schoolday	schoolday.txt	driven:Adrift_284_schoolday_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 screen_savers	screen_savers.txt	driven:Adrift_170_screen_savers_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 seaside	seaside.txt	driven:Adrift_503_seaside_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 secidenoddcomp	secidenoddcomp.txt	driven:Adrift_405_secidenoddcomp_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

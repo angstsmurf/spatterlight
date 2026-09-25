@@ -40,7 +40,7 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest (2026-09-25):** 540 identical on every turn, 33 identical
+- **Manifest (2026-09-25):** 541 identical on every turn, 33 identical
   apart from whitespace, 13 with a report (govard's report is the two
   Runner artefacts under "Deliberate deviations"; after its two run390
   ports the Runner and Scarier both win 300/310 turn for turn). Every differing row is
