@@ -1645,6 +1645,7 @@ pf_empty (scr_filterref_t filter)
 
 /*
  * pf_buffer_reference()
+ * pf_rebuffer_reference()
  *
  * Buffer one of the 4.0 Runner's bracketed reference lines -- "(a trophy)"
  * for a pronoun, "(look)" for "again" -- as its own line, and note where it
@@ -1656,18 +1657,58 @@ pf_empty (scr_filterref_t filter)
  * SCARIER's own terminators.  Only that one collapse is switched off: the
  * hidden-prefix barrier would also stop a walk announcement joining the
  * paragraph (see pf_buffer_paragraph_join()), which the Runner still does.
+ *
+ * The line is printed there and then: run400's Proc_21_19_47B568 is the
+ * window printer, and its first act is the output filter Proc_21_20_44C7DC
+ * (47A4DF), the %tag% pass then the ALR walk, so the line reads the
+ * variables as they stand BEFORE the command runs; run390 prints its echo
+ * through Proc_2_28_45CBD0, which is the 3.9 output filter itself.  The
+ * turn's own text is filtered later, at a completing 4.0 task's refilter
+ * and at the flush, by which time an action may have changed a variable
+ * the antecedent reads.  Measured on The Tempest (tempest7.taf 4.00,
+ * run400x runner_transcripts/tempest7.txt T138): `ask girl her name` with
+ * the girl's Name "[GIRL=%miranda%]" echoes "(A pretty girl)" -- miranda 0
+ * through ALR [GIRL=0] -- and the task's own action then sets miranda 2,
+ * which a flush-time filter turned into "(Miranda)".  So the line is
+ * filtered and frozen as it is buffered, the way lib_print_room_exits()
+ * does for the room block (pf_print_so_far()); pf_rebuffer_reference()
+ * puts back a line that was already printed and filtered, without
+ * filtering it again.
  */
+static void
+pf_buffer_reference_line (scr_filterref_t filter, const scr_char *text)
+{
+  pf_buffer_string (filter, "(");
+  pf_buffer_string (filter, text);
+  pf_buffer_string (filter, ")\n");
+}
+
 void
-pf_buffer_reference (scr_filterref_t filter, const scr_char *text)
+pf_buffer_reference (scr_filterref_t filter, const scr_char *text,
+                     scr_var_setref_t vars, scr_prop_setref_t bundle)
+{
+  assert (pf_is_valid (filter));
+  assert (text && vars && bundle);
+
+  pf_buffer_reference_line (filter, text);
+  pf_print_so_far (filter, vars, bundle);
+  if (!filter->is_muted)
+    filter->reference_at = (scr_int) filter->buffer.size ();
+}
+
+void
+pf_rebuffer_reference (scr_filterref_t filter, const scr_char *text)
 {
   assert (pf_is_valid (filter));
   assert (text);
 
-  pf_buffer_string (filter, "(");
-  pf_buffer_string (filter, text);
-  pf_buffer_string (filter, ")\n");
+  pf_buffer_reference_line (filter, text);
   if (!filter->is_muted)
-    filter->reference_at = (scr_int) filter->buffer.size ();
+    {
+      filter->frozen = filter->buffer.size ();
+      filter->printed_to = (scr_int) filter->frozen;
+      filter->reference_at = (scr_int) filter->buffer.size ();
+    }
 }
 
 

@@ -409,8 +409,11 @@ extern const scr_char *pf_get_buffer (scr_filterref_t filter);
 extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
 /* Hide the buffer from the paragraph-spacing helpers while version 4.0 task
    actions run, the way pf_transfer_buffer() does for pre-4.0. */
-extern void pf_buffer_reference (scr_filterref_t filter,
-                                 const scr_char *text);
+extern void pf_buffer_reference (scr_filterref_t filter, const scr_char *text,
+                                 scr_var_setref_t vars,
+                                 scr_prop_setref_t bundle);
+extern void pf_rebuffer_reference (scr_filterref_t filter,
+                                   const scr_char *text);
 extern std::string pf_leading_reference (scr_filterref_t filter);
 extern size_t pf_hide_prefix (scr_filterref_t filter);
 extern void pf_reveal_prefix (scr_filterref_t filter, size_t previous);

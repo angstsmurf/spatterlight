@@ -283,7 +283,20 @@ below as not yet ported.
     identical, no other golden moved.
   - **tempest7** T138 `ask girl her name`: Runner prefixes the reply with
     the character's descriptor "(A pretty girl)", scarier with the proper
-    name "(Miranda)".
+    name "(Miranda)". PORTED 2026-09-26: the girl's Name is
+    "[GIRL=%miranda%]" (ALR [GIRL=0] -> "A pretty girl", [GIRL=2] ->
+    "Miranda") and the task's own action sets miranda 2. run400 prints the
+    bracketed antecedent straight to the window through Proc_21_19_47B568,
+    whose first act (47A4DF) is the output filter Proc_21_20_44C7DC -- the
+    %tag% pass then the ALR walk -- so the echo reads the variable as it
+    stood BEFORE the command; Scarier filtered the whole turn at the flush,
+    after the action. run390's echo goes through Proc_2_28_45CBD0, the 3.9
+    output filter itself. `pf_buffer_reference()` now takes vars/bundle and
+    filters-and-freezes the line as it buffers it (`pf_print_so_far()`, the
+    room-exits precedent); `pf_rebuffer_reference()` puts the already-printed
+    "(to Nobody)" back ahead of a "Which X" prompt without filtering it
+    twice. Golden re-blessed (gitignored), recompare identical, no other
+    ADRIFT 4 golden moved.
   - **wonderland** T0 `get knife`: Runner "The ethereal knife is too heavy
     for you to carry at the moment.", scarier took it. PORTED 2026-09-25:
     run400's loader keeps an NPC-HELD object's [2E] as the NPC index

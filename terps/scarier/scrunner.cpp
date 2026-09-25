@@ -8936,7 +8936,7 @@ run_player_input (scr_gameref_t game)
        * measured.
        */
       if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-        pf_buffer_reference (filter, prior_element);
+        pf_buffer_reference (filter, prior_element, gs_get_vars (game), bundle);
 
       /* Make the last element the current input element. */
       strncpy (line_element, prior_element, LINE_BUFFER_SIZE);

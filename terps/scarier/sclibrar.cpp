@@ -5634,8 +5634,8 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
 
     pf_empty (filter);
     if (!echo.empty ())
-      pf_buffer_reference (filter,
-                           echo.substr (1, echo.size () - 3).c_str ());
+      pf_rebuffer_reference (filter,
+                             echo.substr (1, echo.size () - 3).c_str ());
   }
   pf_buffer_string (filter, "Which ");
   pf_buffer_string (filter, prompt_term);

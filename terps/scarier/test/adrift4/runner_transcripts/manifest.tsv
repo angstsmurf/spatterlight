@@ -493,7 +493,7 @@ taot3	taot3.txt	driven:Adrift_307_taot3_rt.txt	3.90	run390x.exe	1234	0			yes	ide
 target	target.txt	driven:Adrift_353_target_rt.txt	4.00	run400x.exe	212	0		SCR_SEED=212	yes	identical on every turn.
 tcom	tcom.txt	harvested-native-0-draws:Adrift_519_tcom.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 teaw	teaw.txt	driven:Adrift_326_teaw_rt.txt	4.00	run400x.exe	1234	2	Player		yes	identical on every turn.
-tempest7	tempest7.txt	driven:Adrift_308_tempest7_rt.txt	4.00	run400x.exe	1234	2		SCR_RNG=xoshiro	yes	1 differing turn(s)
+tempest7	tempest7.txt	driven:Adrift_325_tempest7_rt.txt	4.00	run400x.exe	1234	2		SCR_RNG=xoshiro	yes	identical on every turn.
 templeofthesun	templeofthesun.txt	driven:Adrift_447_templeofthesun_rt.txt	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 temporfell	temporfell.txt	driven:Adrift_285_temporfell_rt.txt	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro	no	10+ differing turn(s), 1 lost command(s)
 tenebraesemper	tenebraesemper.txt	driven:Adrift_413_tenebraesemper_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

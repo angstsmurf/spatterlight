@@ -3535,7 +3535,8 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * Measured on wrecked (3.80, run380x Adrift_274, 2026-09-14).
            */
           pf_buffer_reference (gs_get_filter (game),
-                               echo ? echo : replacement.c_str ());
+                               echo ? echo : replacement.c_str (),
+                               gs_get_vars (game), gs_get_bundle (game));
 
           /*
            * Splice the replacement in for the matched extent, and lower-case
@@ -3954,7 +3955,8 @@ uip_print_ask_echo (scr_gameref_t game, const scr_char *string)
     return FALSE;
 
   pf_buffer_reference (gs_get_filter (game),
-                       uip_last_npc_name (game, game->last_npc));
+                       uip_last_npc_name (game, game->last_npc),
+                       gs_get_vars (game), gs_get_bundle (game));
   return TRUE;
 }
 
@@ -3983,7 +3985,8 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
         {
           const std::string echo = std::string ("to ") + name;
 
-          pf_buffer_reference (gs_get_filter (game), echo.c_str ());
+          pf_buffer_reference (gs_get_filter (game), echo.c_str (),
+                               gs_get_vars (game), bundle);
           command += " to ";
           command += lowered_name;
           lowered = uip_lowered (command.c_str ());
@@ -3996,7 +3999,8 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
     {
       /* The echo is printed up front now; see uip_print_ask_echo(). */
       if (!echo_printed)
-        pf_buffer_reference (gs_get_filter (game), name);
+        pf_buffer_reference (gs_get_filter (game), name,
+                             gs_get_vars (game), bundle);
       command = "ask " + lowered_name + " about " + command.substr (skip);
       modified = TRUE;
     }
