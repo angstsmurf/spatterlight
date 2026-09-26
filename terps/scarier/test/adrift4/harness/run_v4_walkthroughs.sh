@@ -1431,6 +1431,19 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # 1234) is now identical on every turn; Lamanluie's extra cut at T55 follows
 # from the same stats.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
+# The same route, carried to the end with the engine's targeted game patches
+# on: Crynasalda leaves the Ice Totem, `invoke elementals` opens the earth
+# cluster, Carnifern's defence is fightable, and the chant has a room and a
+# command.  From the faithful route it differs only in deferring `eat cake`
+# to the pre-Acuru meal (base strength 23 rather than 16) and in what the
+# totem unlocks.  The endgame is three guardians -- Griffon, Carnifern, the
+# Spirit Paladin -- fought with the golden axe Acuru leaves, at defence 30
+# (Scales + Grass Amulet worn), which none of the three can get through; the
+# four `wait`s are the Spirit event confiscating the dagger, which is what
+# opens the way up.  The artifacts go ON the Granite Tablet, not on the
+# floor: task 29's four restrictions are all "on top of" surface 0, exactly
+# as the room's own message asks.  95 of 95.
+spirits_flight_patched_solution.txt|The_Spirits_Flight.taf|You scored 95 out of the maximum 95!|SCR_ASSUME_PATCHES=1
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
 # identical.  Re-driven 2026-09-05 against today's engine
 # (Adrift_48_srsintro.txt, feed cmdfile_w_srsintro.txt, PRE=0): still 12/12

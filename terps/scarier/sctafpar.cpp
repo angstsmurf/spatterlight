@@ -3788,12 +3788,14 @@ typedef struct
 
 /*
  * 'I' change an integer that is present and holds from_integer; 'A' add an
- * integer to a path that holds nothing at all; 'S' change a string that is
- * present and holds from_string; 'V' verify a string and change nothing,
- * which is how an edit pins down the task it thinks it is editing.
+ * integer to a path that holds nothing at all; 'N' add a string to a path
+ * that holds nothing at all; 'S' change a string that is present and holds
+ * from_string; 'V' verify a string and change nothing, which is how an edit
+ * pins down the task it thinks it is editing.
  */
 #define PATCH_SET(path, from, to)   { path, 'I', (from), (to), NULL, NULL }
 #define PATCH_ADD(path, to)         { path, 'A', 0, (to), NULL, NULL }
+#define PATCH_ADD_STRING(path, to)  { path, 'N', 0, 0, NULL, (to) }
 #define PATCH_STRING(path, from, to) { path, 'S', 0, 0, (from), (to) }
 #define PATCH_VERIFY(path, value)   { path, 'V', 0, 0, (value), NULL }
 
@@ -3953,6 +3955,64 @@ static const scr_patch_edit_t PATCH_BLOOD_RELATIVES[] = {
   PATCH_STRING ("Tasks/385/Command/0", "exam desk", "x desk")
 };
 
+/*
+ * The Spirit's Flight (Andy Ko & Karen Kwan).  Four elemental guardians die
+ * and leave their artifact behind: Fergo's task drops the Orb of Storms,
+ * Kelorano's the Amber of Flames, Acuru's the Grass Amulet.  Crynasalda,
+ * the water guardian, is the one whose task forgets to.  Her completion text
+ * says it happens -- "the water elemental leaves her body and transforms
+ * itself into an object" -- and her task does move the Sea Serpent's Scales
+ * onto the player, but no action in the file moves the Ice Totem, whose only
+ * two appearances in the whole game are as a restriction: it can be required
+ * but never obtained.  That seals "invoke elementals" (task 21), and with it
+ * the only exit into the earth cluster, so the game stops at 50 of 95.  The
+ * added action is the one tasks 1 and 18 already carry, aimed at the totem:
+ * drop it in the room the player is standing in.
+ *
+ * The chant then has to be sayable.  Task 29, the game's sole end-game
+ * action, is where "Type: 0" -- "no rooms" -- so it can run nowhere, and
+ * nothing executes it either.  Its own four restrictions say where it was
+ * meant to run: all four artifacts in room 0, the Stone Circle, which is
+ * where task 28's "pull trigger" transports the player, and whose
+ * task-28 description ends "Replace the artifacts on the Granite Tablet and
+ * say The Chant".  Give it that one room.
+ *
+ * Even in that room, though, the chant as the author typed it can never
+ * reach a task.  Its one command is the four-line verse the tome in the
+ * High Wizard's Tower prints, commas, full stops and all, and every Runner
+ * from 3.9 up cuts input at the first "," and at the first ". " before it
+ * looks at any task (run_find_split_pre400()), so the line arrives as
+ * eleven fragments, each its own turn -- "wind", "water", ... and a "north"
+ * that walks the player out of the circle.  The verse is unsayable by
+ * construction, in run390 as much as here.  So the task gets a second
+ * command, the one the game's own message asks the player for, leaving the
+ * verse in place as command 0.
+ *
+ * Last, Carnifern.  The three guardians between the player and the Spirit
+ * Paladin are built alike -- Griffon 20/20/20, the Paladin 30/30/27 -- but
+ * Carnifern's Defense is 250 where its Stamina and Strength are 25 and 20.
+ * Damage is strength less defence, and the best the player can reach is 25
+ * with the golden axe's 10 on top, so nothing ever hurts it; its KilledTask
+ * is what opens the way on, and the game ends there.  Read as the stray
+ * trailing zero it looks like, 25 puts it between its two siblings.
+ */
+static const scr_patch_edit_t PATCH_SPIRITS_FLIGHT[] = {
+  PATCH_VERIFY ("Tasks/12/Command/0", "Crynasalda t1"),
+  PATCH_ADD ("Tasks/12/Actions/6/Type", 0),
+  PATCH_ADD ("Tasks/12/Actions/6/Var1", 4),
+  PATCH_ADD ("Tasks/12/Actions/6/Var2", 6),
+  PATCH_ADD ("Tasks/12/Actions/6/Var3", 0),
+  PATCH_VERIFY ("Tasks/29/Command/0",
+                "Wind, water, fire, earth. Joy, pain, power, mirth."
+                " The spirit's calling, in peace they rest."
+                " The elementals four, north, suth, east, and west"),
+  PATCH_SET ("Tasks/29/Where/Type", 0, 1),
+  PATCH_ADD ("Tasks/29/Where/Room", 0),
+  PATCH_ADD_STRING ("Tasks/29/Command/1", "say the chant"),
+  PATCH_VERIFY ("NPCs/16/Name", "Carnifern"),
+  PATCH_SET ("NPCs/16/Battle/Defense", 250, 25)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -3989,7 +4049,11 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               PATCH_HOUSE),
   PATCH_GAME ("<font size=1>Blood Relatives", "davidw",
               "the desk task now uses the word the game's own synonym leaves",
-              PATCH_BLOOD_RELATIVES)
+              PATCH_BLOOD_RELATIVES),
+  PATCH_GAME ("The Spirit's Flight", "Andy Ko & Karen Kwan",
+              "the water guardian now leaves her artifact, the chant has a"
+              " circle and a sayable command, and Carnifern can be fought",
+              PATCH_SPIRITS_FLIGHT)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 
@@ -4045,7 +4109,7 @@ parse_patch_edit (scr_prop_setref_t bundle,
     }
   format_get[count + 3] = NUL;
 
-  is_string = (edit->mode == 'S' || edit->mode == 'V');
+  is_string = (edit->mode == 'S' || edit->mode == 'V' || edit->mode == 'N');
   format_get[0] = is_string ? PROP_STRING : PROP_INTEGER;
   format_get[1] = '<';
   format_get[2] = '-';
@@ -4072,6 +4136,16 @@ parse_patch_edit (scr_prop_setref_t bundle,
       if (apply)
         {
           vt_value.integer = edit->to_integer;
+          prop_put (bundle, format_put, vt_value, vt_key);
+        }
+      return TRUE;
+
+    case 'N':
+      if (prop_get (bundle, format_get, &vt_rvalue, vt_key))
+        return FALSE;
+      if (apply)
+        {
+          vt_value.string = edit->to_string;
           prop_put (bundle, format_put, vt_value, vt_key);
         }
       return TRUE;
