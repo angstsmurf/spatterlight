@@ -1,13 +1,13 @@
 # Welcome to Wonderland (wonderland / wonderland.taf) -- ADRIFT 4.00. Alice
 # in a nightmare Wonderland: gnome mines, drill, Red Queen. Every character
 # has Accuracy and Agility 0, so every blow misses (0 > 0 fails) in run400 and
-# in scarier; the row no longer sets SCR_ASSUME_COMBAT=1 (dropped 2026-09-25,
-# it only hid the misses). The Red Queen holds the iron key to the last room.
-# Scarier once won it (215) with the assist;
-# run400 never lets `get knife` succeed -- the NPC-held rod, letter, key and
-# Staff of Hearts phantom-weigh the knife to 94 against MaxWt 90 (2026-09-25),
-# so the route stalls at the Card Guard's locked door and the golden records
-# that, unwinnable (the Guard's blows all miss; nobody dies).
+# in faithful scarier. The Red Queen holds the iron key to the last room, and
+# run400 never lets `get knife` succeed either -- the NPC-held rod, letter, key
+# and Staff of Hearts phantom-weigh the knife to 94 against MaxWt 90
+# (2026-09-25). So the game is unwinnable as authored, and both of the assists
+# it needs are defaulted on for it by the known-game table in os_glk.cpp
+# (2026-09-26). The row runs the same pair -- SCR_ASSUME_COMBAT=1 plus
+# SCR_ASSUME_CAPACITY=1, the harness hook added with it -- and wins: 215.
 get knife
 get note
 read note

@@ -497,6 +497,8 @@ extern void gs_set_runner_phantom_held (scr_gameref_t gs, scr_bool flag);
 extern void gs_carried_adjust (scr_gameref_t gs, scr_int weight, scr_int size);
 extern scr_bool gs_runner_possessed (scr_gameref_t gs, scr_int object);
 extern void gs_carried_recompute (scr_gameref_t gs);
+extern void gs_set_capacity_assist (scr_bool flag);
+extern scr_bool gs_get_capacity_assist (void);
 extern scr_int gs_event_count (scr_gameref_t gs);
 extern void gs_set_event_state (scr_gameref_t gs, scr_int event, scr_int state);
 extern void gs_set_event_time (scr_gameref_t gs, scr_int event, scr_int etime);

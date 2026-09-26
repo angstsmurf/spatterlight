@@ -39,9 +39,12 @@ Public API is `scr_set_combat_assist` / `scr_get_combat_assist` and
   3.9/3.8-signature games are deliberately absent — the engine's legacy hit
   model repairs their combat unconditionally.
 - **Headless harness** — `SCR_ASSUME_COMBAT` / `SCR_ASSUME_MOVES` /
-  `SCR_ASSUME_REPEATS` / `SCR_ASSUME_ROOMS` env vars in
-  `test/adrift4/harness/seed.cpp`. The harness has no hook for `capacity`
-  (a per-game flag, set after the game loads).
+  `SCR_ASSUME_REPEATS` / `SCR_ASSUME_ROOMS` / `SCR_ASSUME_CAPACITY` env vars in
+  `test/adrift4/harness/seed.cpp`. Capacity is a per-game flag, so its var
+  cannot set it directly from a pre-main constructor: `scr_set_capacity_assist`
+  (scinterf.cpp) sets a process-wide default (`gs_capacity_assist`,
+  scgamest.cpp) that `gs_create` gives each new game. Added 2026-09-26, which
+  is what lets the wonderland row win (215) instead of stalling at `get knife`.
 
 Faithful default is unchanged: with no metacommand, no auto-list match and no
 env var, Scarier stays byte-faithful to run400.exe.

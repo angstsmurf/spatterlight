@@ -10456,8 +10456,10 @@ tempest7_solution.txt|tempest7.taf|Congratulations, you have won!|SCR_RNG=xoshir
 # Imagings: demo, no score/ending; deepest point Church Road.
 imagings_solution.txt|imagings.taf||
 # Welcome to Wonderland: UNWINNABLE in run400 -- the ethereal knife is phantom-weighed
-# by the NPC-held rod/Staff chain (94 > MaxWt 90) and never taken, so no marker.
-wonderland_solution.txt|wonderland.taf||
+# by the NPC-held rod/Staff chain (94 > MaxWt 90) and never taken, and every blow
+# misses (Accuracy/Agility 0).  Both assists are defaulted on for this game by the
+# known-game table in os_glk.cpp, so the row runs them too: WIN 215 (2026-09-26).
+wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_ASSUME_CAPACITY=1 SCR_SKIP_WAITKEY=1
 # Short-lived: unwinnable by design, MaxScore 0.
 shortlived_solution.txt|shortlived.taf||
 # The Monster in the Mirror: WIN 100/100.

@@ -200,6 +200,8 @@ extern void scr_set_repeat_assist (scr_bool flag);
 extern scr_bool scr_get_repeat_assist (void);
 extern void scr_set_room_assist (scr_bool flag);
 extern scr_bool scr_get_room_assist (void);
+extern void scr_set_capacity_assist (scr_bool flag);
+extern scr_bool scr_get_capacity_assist (void);
 
 /* Locale control and query functions. */
 extern scr_bool scr_set_locale (const scr_char *name);

@@ -34,6 +34,31 @@
 #include "scgamest.h"
 
 /*
+ * Optional "capacity assist" default (opt-in, off by default).  The per-game
+ * flag gs->capacity_recompute selects the legacy recompute-from-held-objects
+ * accounting instead of the Runner's running total, and is normally flipped
+ * per session by `glk capacity on` or by the known-game assist table, both of
+ * which act on a game that already exists.  Hosts with no game in hand when
+ * they choose -- the headless harness, which reads SCR_ASSUME_CAPACITY in its
+ * pre-main constructor -- set this default instead, and every game created
+ * afterwards starts with the assist on.
+ */
+static scr_bool gs_capacity_assist = FALSE;
+
+void
+gs_set_capacity_assist (scr_bool flag)
+{
+  gs_capacity_assist = flag;
+}
+
+scr_bool
+gs_get_capacity_assist (void)
+{
+  return gs_capacity_assist;
+}
+
+
+/*
  * gs_carried_recompute()
  *
  * Seed the player's carried weight and size totals from the objects
@@ -1245,12 +1270,13 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->undo_available = FALSE;
 
   /* Carried-load tracking off until seeded below; default to Runner-faithful
-   * running totals rather than the legacy per-check recompute. */
+   * running totals rather than the legacy per-check recompute, unless the
+   * capacity assist default asks for the recompute (see gs_capacity_assist). */
   game->carried_weight = 0;
   game->carried_size = 0;
   game->carried_ready = FALSE;
   game->carried_suspend = FALSE;
-  game->capacity_recompute = FALSE;
+  game->capacity_recompute = gs_capacity_assist;
   game->runner_phantom_held = TRUE;
 
   /* Create rooms state array. */

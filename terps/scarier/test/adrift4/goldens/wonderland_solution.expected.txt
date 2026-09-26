@@ -11,7 +11,7 @@ hangs a pungent, musty smell.  Also here is an ethereal knife and a small
 note.  You can only move north.
 
 > get knife
-The ethereal knife is too heavy for you to carry at the moment.
+You take the ethereal knife.
 
 > get note
 You take the small note.
@@ -55,28 +55,22 @@ home to a colony of Gnomes.  They all appear fatigued and overworked, almost
 as if they were slaves.  There is a locked door here that leads east.  Before
 you stands a gruesome combination of a man and a traditional playing-card.
 He appears to be carrying a large iron rod.  You can move east and west.  The
-vile Card Guard attacks you with the large iron rod, but you manage to avoid
-it.
+vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
+chops you with the large iron rod.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the vile Card Guard with the ethereal knife.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
+chops you with the large iron rod.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the vile Card Guard with the ethereal knife.  Card Guard falls down,
+dead.
 
 > look
 
@@ -84,20 +78,24 @@ Entrance to mines
 You are now in what appears to be the entrance to a large mining complex.
 From the characters that are running all about, you can guess that it is also
 home to a colony of Gnomes.  They all appear fatigued and overworked, almost
-as if they were slaves.  There is a locked door here that leads east.  Before
-you stands a gruesome combination of a man and a traditional playing-card.
-He appears to be carrying a large iron rod.  You can move east and west.  The
-vile Card Guard attacks you with the large iron rod, but you manage to avoid
-it.
+as if they were slaves.  There is a locked door here that leads east.  Also
+here is a large iron rod, a worn, old letter and a small key.  You can move
+east and west.
 
 > get all
-There is nothing worth taking here.
+You take the large iron rod, the worn, old letter and the small key.
 
 > read letter
-You see no such thing.
+Alice:  Congratulations!  Perhaps it would be wise of me to tell you how to
+check your condition.  Type 'status' to evaluate yourself on such things as
+health, hit-strength, and defense.  Speaking of health, it would be wise to
+drink that bottle that was dropped.  What else... oh dear me!  I forgot to
+tell you about the key.  To use the key that the card guard dropped, type
+'unlock door with key.'  I believe that is all for now... perhaps I will meet
+you later to further guide you.  ~CC
 
 > unlock door with key
-I don't understand what you mean!
+You use the key to unlock the door.
 
 > e
 You move east.
@@ -192,26 +190,21 @@ your south is the gnome encampment, to the north is a large vault, and the
 the east and west are tunnels that lead through the mine.  Before you stands
 a gruesome combination of a man and a traditional playing-card.  He appears
 to be carrying a large iron rod.  You can move north, east, south and west.
+The vile Card Guard chops you with the large iron rod.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+You cut the vile Card Guard with the ethereal knife.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the vile Card Guard with the ethereal knife.  The vile Card Guard
+chops you with the large iron rod.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+You cut the vile Card Guard with the ethereal knife.
 
 > attack card guard with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the vile Card Guard with the ethereal knife.  Card Guard falls down,
+dead.
 
 > look
 
@@ -220,18 +213,15 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  Before you stands
-a gruesome combination of a man and a traditional playing-card.  He appears
-to be carrying a large iron rod.  You can move north, east, south and west.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+the east and west are tunnels that lead through the mine.  Also here is a
+piece of parchment and a large iron rod.  You can move north, east, south and
+west.
 
 > get all
-There is nothing worth taking here.  The vile Card Guard attacks you with the
-large iron rod, but you manage to avoid it.
+You take the piece of parchment and the large iron rod.
 
 > read parchment
-You see no such thing.
+Combonatiun: 25, 17, 38
 
 > n
 You move north.
@@ -273,11 +263,8 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  Before you stands
-a gruesome combination of a man and a traditional playing-card.  He appears
-to be carrying a large iron rod.  You can move north, east, south and west.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+the east and west are tunnels that lead through the mine.  You can move
+north, east, south and west.
 
 > e
 You move east.
@@ -333,11 +320,8 @@ You enter the front area of the mining complex.  Tunnels of stone twist and
 turn in all directions, and there are gnome workers scattered about.  Your
 pinny is being marked with dirt as you brush up against the tunnel walls.  To
 your south is the gnome encampment, to the north is a large vault, and the
-the east and west are tunnels that lead through the mine.  Before you stands
-a gruesome combination of a man and a traditional playing-card.  He appears
-to be carrying a large iron rod.  You can move north, east, south and west.
-The vile Card Guard attacks you with the large iron rod, but you manage to
-avoid it.
+the east and west are tunnels that lead through the mine.  You can move
+north, east, south and west.
 
 > w
 You move west.
@@ -407,20 +391,14 @@ torches light the room (dimly, but enough to see), and pillars reach sky high
 to support the boundless ceiling.  The floor appears to be almost like a
 chess-board in colour.  There are two doors here, one to the north-west and
 to the north-east.  Red Pawn is here.  You can move south, northeast and
-northwest.  A small Red Pawn attacks you with the small sword, but you manage
-to avoid it.
+northwest.  A small Red Pawn cuts you with the small sword, but it doesn't
+seem to do any damage.
 
 > attack red pawn with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-A small Red Pawn attacks you with the small sword, but you manage to avoid
-it.
+You cut a small Red Pawn with the ethereal knife.  Red Pawn falls down, dead.
 
 > attack red pawn with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-A small Red Pawn attacks you with the small sword, but you manage to avoid
-it.
+Red Pawn isn't here!
 
 > nw
 You move northwest.
@@ -484,52 +462,45 @@ You feel like if you don't hurry, one might disappear under you and send you
 falling (yet again) into the nightmare abyss.  Before you sits the throne to
 end all thrones, reaching skyward like the great blackened spire it is.
 Before you stands the Red Queen herself, the keeper of nightmares, the reason
-why you are here.
+why you are here.  The horrific Red Queen shoots you with the great Staff of
+Hearts, but it doesn't seem to do any damage.
 
 > eat mushroom
 You eat the mushroom.  Such a warm little delight!  Tastes kind of strange
-though... oh well.  You feel miraculous!  The horrific Red Queen attacks you
-with the great Staff of Hearts, but you manage to avoid it.
+though... oh well.  You feel miraculous!
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the horrific Red Queen with the ethereal knife.  The horrific Red
+Queen shoots you with the great Staff of Hearts, but it doesn't seem to do
+any damage.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The horrific Red Queen attacks you with the great Staff of Hearts, but you
-manage to avoid it.
+You cut the horrific Red Queen with the ethereal knife.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the horrific Red Queen with the ethereal knife.  The horrific Red
+Queen shoots you with the great Staff of Hearts, but it doesn't seem to do
+any damage.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The horrific Red Queen attacks you with the great Staff of Hearts, but you
-manage to avoid it.
+You cut the horrific Red Queen with the ethereal knife.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the horrific Red Queen with the ethereal knife.  The horrific Red
+Queen shoots you with the great Staff of Hearts, but it doesn't seem to do
+any damage.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The horrific Red Queen attacks you with the great Staff of Hearts, but you
-manage to avoid it.
+You cut the horrific Red Queen with the ethereal knife.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
+You cut the horrific Red Queen with the ethereal knife.  The horrific Red
+Queen shoots you with the great Staff of Hearts, but it doesn't seem to do
+any damage.
 
 > attack red queen with knife
-You must be in the same room as the ethereal knife to be able to do anything
-with it.
-The horrific Red Queen attacks you with the great Staff of Hearts, but you
-manage to avoid it.
+You cut the horrific Red Queen with the ethereal knife.  Red Queen falls
+down, dead.
 
 > look
 
@@ -542,24 +513,34 @@ of which seem ridiculously large.  All of the chess-board floor times seem to
 float in mid-air, some of which simply break apart and fade from existence.
 You feel like if you don't hurry, one might disappear under you and send you
 falling (yet again) into the nightmare abyss.  Before you sits the throne to
-end all thrones, reaching skyward like the great blackened spire it is.
-Before you stands the Red Queen herself, the keeper of nightmares, the reason
-why you are here.
+end all thrones, reaching skyward like the great blackened spire it is.  Also
+here are The great Staff of Hearts and a small iron key.
 
 > get all
-There is nothing worth taking here.  The horrific Red Queen attacks you with
-the great Staff of Hearts, but you manage to avoid it.
+You take the small iron key.  Your hands are full.
 
 > unlock door with iron key
-You don't have the key.
+You unlock the strange little door and reveal a strange little room
 
 > e
-You can't go in any direction!
-The horrific Red Queen attacks you with the great Staff of Hearts, but you
-manage to avoid it.
+You move east.
+
+Nightmare Gate
+You are now in a rather small, though rather discomforting room.  It looks
+much like the sort of room you'd expect to be put in at an insane asylum,
+expect the quilted pads alternate from black to red.  There is also a crudely
+manifested button on the west wall.  You can only move west.
 
 > push button
-You push, but nothing happens.
+You push the button...
+Your world falls apart... you are thrown back in the nightmare tempest... why
+does this happen to you?  Why can't you be a normal little girl, instead of
+having all of these horrible visions?  Its all over... but wait... or is it?
+The Tempest has put you someplace different... someplace utterly horrifying.
+Before you stands not only the next part of your adventure... but the rest of
+Wonderland.
+You scored 215 out of the maximum 10!
+That is 2150% of the game!
+You finished -205 points short.
 
-> quit
-Do you really want to quit? [Y/N]
+[Press any key to end]

@@ -1,4 +1,4 @@
-# Welcome to Wonderland — walkthrough (**WIN** 215, needs `SCR_ASSUME_COMBAT=1`)
+# Welcome to Wonderland — walkthrough (**WIN** 215, needs `SCR_ASSUME_COMBAT=1` + `SCR_ASSUME_CAPACITY=1`)
 
 - **Engine:** ADRIFT 4.00, `wonderland.taf` (7 KB, 27 rooms, 12 tasks, 4 NPCs).
   Alice falls back into a nightmare Wonderland: a card-guarded gnome mine,
@@ -8,7 +8,14 @@
   rest of Wonderland."*).
 - **Result:** WIN, 215 points, 78 commands. The win text comes from TASK 11
   `push button` (EndGame, +100) in the Nightmare Gate (room 26).
-- **Row:** `wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1`
+- **Row:** `wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_ASSUME_CAPACITY=1 SCR_SKIP_WAITKEY=1`
+- **Assists:** both of them, and both are defaulted on for this game in the
+  app by `GSC_GAME_ASSIST_TABLE` (os_glk.cpp, 2026-09-26), so the GUI plays
+  the same route without typing anything. `SCR_ASSUME_CAPACITY` is the harness
+  hook added on 2026-09-26 for the capacity switch (`glk capacity on`): unlike
+  the other four it is per-game state, so the env var sets the default that
+  each newly created game picks up (`gs_capacity_assist`, scgamest.cpp).
+  Without it the route stalls at command 1, `get knife` — see below.
 
 ## Why the combat assist is needed (same case as athylon)
 
@@ -24,6 +31,21 @@ the Throne Room door, +25) requires the iron key, and the exit E to room 26
 is gated on it. So the game can't be won in faithful play. With the assist the
 fights play out on strength against defence, and the author clearly intended
 that: the notes teach `attack (target) with (weapon)` and `status`.
+
+## Why the capacity assist is needed
+
+Command 1 of the route is `get knife`, and in faithful play it never succeeds:
+"The ethereal knife is too heavy for you to carry at the moment." The player's
+MaxWt is 90 and the knife weighs 4, but run400's running carried-load total
+also counts objects held or worn by NPCs whose parent chain passes through the
+player-visible accounting (the rod, the letter, the small key and the Red
+Queen's Staff of Hearts), which puts the total at 94 before the knife is
+picked up. The real Runner does the same, so the game is genuinely unwinnable
+as authored — the knife is the only weapon, and every ending needs kills.
+
+`glk capacity on` (harness `SCR_ASSUME_CAPACITY=1`) switches the accounting
+back to the legacy recompute-from-held-objects, which weighs only what the
+player actually carries, so the knife is takeable and the route runs.
 
 ## Scoring (every `ACT type=4`)
 

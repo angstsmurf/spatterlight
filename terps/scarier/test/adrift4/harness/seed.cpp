@@ -30,6 +30,10 @@ __attribute__((constructor)) static void seed_det(void) {
     scr_set_repeat_assist(1);
   if (getenv("SCR_ASSUME_ROOMS"))
     scr_set_room_assist(1);
+  /* Capacity is per-game state, so this sets the default new games pick up;
+     the GUI equivalent is `glk capacity on` after the game has loaded. */
+  if (getenv("SCR_ASSUME_CAPACITY"))
+    scr_set_capacity_assist(1);
   if (getenv("SCR_TRACE_TASKS")) {
     task_debug_trace(1);
     restr_debug_trace(1);

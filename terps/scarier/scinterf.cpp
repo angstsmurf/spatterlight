@@ -1733,3 +1733,35 @@ scr_get_room_assist (void)
 {
   return task_get_room_assist ();
 }
+
+
+/*
+ * scr_set_capacity_assist()
+ *
+ * Enable or disable the optional "capacity assist" default for games created
+ * from here on.  It is the same switch as scr_set_game_capacity_recompute(),
+ * which a host normally applies to the game it just loaded (`glk capacity on`,
+ * or the known-broken-game table); this one exists for hosts that must choose
+ * before any game exists, such as the headless harness reading an environment
+ * variable before main().  Off by default; opt-in only, as the recompute
+ * deliberately diverges from the Runner's running totals.
+ */
+void
+scr_set_capacity_assist (scr_bool flag)
+{
+  gs_set_capacity_assist (flag);
+}
+
+
+/*
+ * scr_get_capacity_assist()
+ *
+ * Return the current capacity-assist default (see scr_set_capacity_assist()).
+ * This is the default for new games, not the setting of any loaded game --
+ * for that, see scr_get_game_capacity_recompute().
+ */
+scr_bool
+scr_get_capacity_assist (void)
+{
+  return gs_get_capacity_assist ();
+}
