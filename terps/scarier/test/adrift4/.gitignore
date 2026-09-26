@@ -317,3 +317,53 @@
 /goldens/fantasyworld_solution.txt
 /goldens/fantasyworld_solution.expected.txt
 /runner_transcripts/**/fantasyworld.*
+
+# Escape Pod (AIF): explicit text, deliberately not committed.
+/goldens/escapepod_solution.txt
+/goldens/escapepod_solution.expected.txt
+/runner_transcripts/**/escapepod.*
+
+# Handyman (AIF): explicit text, deliberately not committed.
+/goldens/handyman_solution.txt
+/goldens/handyman_solution.expected.txt
+/runner_transcripts/**/handyman.*
+
+# XClue (AIF): explicit text, deliberately not committed.
+/goldens/xclue_solution.txt
+/goldens/xclue_solution.expected.txt
+/runner_transcripts/**/xclue.*
+
+# ovaloffice.taf (AIF): explicit text, deliberately not committed.
+/goldens/ovaloffice_solution.txt
+/goldens/ovaloffice_solution.expected.txt
+/runner_transcripts/**/ovaloffice.*
+
+# Planescape: Encounters 1 (AIF): explicit text, deliberately not committed.
+/goldens/planescape_solution.txt
+/goldens/planescape_solution.expected.txt
+/runner_transcripts/**/planescape.*
+
+# studio.taf (AIF): explicit text, deliberately not committed.
+/goldens/studio_solution.txt
+/goldens/studio_solution.expected.txt
+/runner_transcripts/**/studio.*
+
+# fun town.taf (AIF): explicit text, deliberately not committed.
+/goldens/funtown_solution.txt
+/goldens/funtown_solution.expected.txt
+/runner_transcripts/**/funtown.*
+
+# RodneyandthePrincess40v3-1.taf (AIF): explicit text, deliberately not committed.
+/goldens/rodneyprincess_solution.txt
+/goldens/rodneyprincess_solution.expected.txt
+/runner_transcripts/**/rodneyprincess.*
+
+# salvation.taf (AIF): explicit text, deliberately not committed.
+/goldens/salvation_solution.txt
+/goldens/salvation_solution.expected.txt
+/runner_transcripts/**/salvation.*
+
+# christmas present 1.0.taf (AIF): explicit text, deliberately not committed.
+/goldens/christmaspresent_solution.txt
+/goldens/christmaspresent_solution.expected.txt
+/runner_transcripts/**/christmaspresent.*

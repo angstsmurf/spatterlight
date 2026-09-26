@@ -7488,6 +7488,47 @@ aegis_solution.txt|Aegis.taf| END|SCR_SKIP_WAITKEY=1
 # self-inflicted authoring dead task, not an interpreter divergence; it
 # contributes no unique content. 58 commands, no env vars.
 warlock_solution.txt|warlock.taf|The laboratory stands empty. No sign of demonic presences save a chalk-drawn|
+# EscapePod.taf (AIF): solution/golden gitignored (adult content -- consenting
+# adult crew members Hensley and Verrin, individually and together; the
+# in-fiction *red*/*green* commands are an explicit consensual safe-word
+# system, reinforcing rather than undermining the consent framing). Full
+# 300/300 score achieved -- confirmed exact design maximum by summing every
+# positive ChangeScore action in the task dump. Two structural gotchas: an
+# oxygen-depletion death clock (an undocumented ~105-turn budget, not the
+# nominal 250-300 range) forced pruning a naive 373-command route down to a
+# minimal 122-command one via ablation; and the "fix panel" win-gate checks a
+# variable that is silently re-randomized every turn by an always-on internal
+# event, so the reversed-word "rigged dice" cheat commands are red herrings --
+# the route just repeats `fix panel` until the per-turn reroll lands >=15
+# (3 attempts here). The parallel slap/spank-Verrin tasks are deliberately
+# excluded (score<0; Verrin explicitly objects/retaliates, unlike the
+# consensual slap/spank-Hensley tasks which are included). 126 commands, no
+# env vars.
+escapepod_solution.txt|EscapePod.taf|Well done - you scored maximum points!|
+# Handyman.taf (AIF): solution/golden gitignored (adult content -- a college
+# handyman/fraternity-house framing with several consenting adult women:
+# Sandy, Betty, Ashley, Tina, Zoe, Freya, and Becka). Full 200/200 score
+# (100%). Straightforward linear fix-the-house-then-satisfy-everyone
+# structure; no cheats, deaths, or unreachable content. 97 commands, no env
+# vars.
+handyman_solution.txt|Handyman.taf|You scored 200 out of the maximum 200!|
+# xclue1.0a.taf (XClue, AIF): solution/golden gitignored (adult content --
+# the closing sequence involves a mildly risque confrontation/comfort scene
+# with adult character Ms. Peacock; no minor-indicator content). Clue-style
+# whodunit with no conventional scoring (game reports a fixed "100 out of
+# maximum 0"); the derived route is the complete solve-then-clear-Peacock
+# ending, the single intended resolution. 7 commands, no env vars.
+xclue_solution.txt|xclue1.0a.taf|THE END|
+# Oval Office (AIF): Bill Clinton-esque president and a 25-year-old intern,
+# consensual office-based scoring loop across 3 rooms gated by a hidden
+# "meeting" state variable (do-before/do-after a reopen-meeting trigger).
+# 32/32, deterministic, no red flags.
+ovaloffice_solution.txt|ovaloffice.taf|You scored 32 out of the maximum 32!|
+# Planescape: Encounters 1 (AIF): adult thief seduces and drugs a Bariaur
+# (goat-centaur Planescape race, sapient/adult, self-disclosed as
+# "could be considered bestiality") to steal a hidden map. 15/15,
+# deterministic, no red flags beyond the game's own disclaimer.
+planescape_solution.txt|Planescape-Encounters1.taf|You scored 15 out of the maximum 15!|
 # studio.taf (AIF): explicit text, deliberately not committed. Photo-studio
 # framing story -- a professional photographer directs two adult models,
 # "Shelby" and an assistant "Brittany," through an escalating series of
@@ -7504,6 +7545,49 @@ warlock_solution.txt|warlock.taf|The laboratory stands empty. No sign of demonic
 # out-of-room task 74 sharing the pattern draws "You can't do that here!"
 # and the 4-point shoot can never run. Ported 2026-09-26.
 studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
+# fun town.taf (AIF): explicit text, deliberately not committed. 20-task
+# scored content (10 points each) across a hub-and-spoke resort map;
+# no formal EndGame reachable -- the game's only WIN action ("open
+# treasure chest") requires a 20-entry gate chain that includes a
+# DEATH-only unprotected-sex task as a prerequisite, so the chest can
+# never actually be opened by any surviving playthrough (confirmed by
+# attempting it at a full 200/200 score). Treated as best-effort:
+# 200/200, the maximum survivable score. One unresolved side-quirk left
+# in the script as harmless: "strip in dungeon" fails despite both
+# named NPCs apparently present (RESTR type=3 dual-NPC-presence
+# encoding not fully pinned down), but the actually-scored follow-up
+# commands succeed regardless since they carry no such RESTR. 211
+# commands, no env vars.
+funtown_solution.txt|fun town.taf|Sorry, there is no way to open the chest before you accumulate 200 points.|
+# RodneyandthePrincess40v3-1.taf (AIF): fantasy rescue-adventure -- player
+# fights goblins/orcs, frees a captive adult princess (Fiona), and the
+# ending is a single consensual reward scene. No age markers found in the
+# source; screened clean. 33-command walkthrough, full 45/45 score, no
+# gotchas -- combat and puzzle steps resolve deterministically in one pass.
+rodneyprincess_solution.txt|RodneyandthePrincess40v3-1.taf|Congratulations on getting your reward!|
+# salvation.taf (AIF): military/post-conflict setting -- player preps gear
+# and weapons at a base, then reunites with an adult partner (Maja,
+# visibly pregnant) at a pub for a single consensual intimate scene before
+# a "going home" ending. No age markers found; screened clean. 52-command
+# walkthrough. 0/0 score system (no points in this game) -- the ending's
+# "100% of the game" is the engine's own completion phrasing, not a point
+# ceiling. No gotchas: linear, no branching or timed content encountered.
+salvation_solution.txt|salvation.taf|Thanks for playing.|
+# christmas present 1.0.taf (AIF): contemporary domestic setting -- a
+# husband's wife arranges an escort ("Amber") as his Christmas gift, and
+# a third adult ("Eli") joins partway through; all three named adults are
+# explicitly consenting throughout, and the game's own in-fiction help
+# text frames the content as a consensual adult fantasy. No age markers
+# found; screened clean. 116-command walkthrough across 4 rooms, 440/440
+# score. Gotchas: the doorbell for the 2nd NPC (Eli) is a separate event
+# from the 1st and needs its own explicit "answer the door"; one item
+# (feather) must be handed to whichever NPC a given task targets, not just
+# held by the player; per-room "repeat until scored" ladders are 2 calls
+# deep except one room where a same-input task-number collision (a room
+# mislabeled in the game's own task data) needs a 3rd call, and one room's
+# scored command needs an ALTCMD-phrasing substitute because its primary
+# phrasing is a straight parser miss in that room only.
+christmaspresent_solution.txt|christmas present 1.0.taf|Thank you for playing.  Merry Christmas and  a Prosperous New Year!|
 # For_Love_of_Digby.taf: black-comedy puzzlebox about TV-obsessed shut-in
 # Ivan, confined to a single room (The Lounge), racing a 119-turn deadline to
 # get a battery into the TV remote before his beloved show "Digby The

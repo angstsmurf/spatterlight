@@ -1123,7 +1123,7 @@ You don't see the girl here!
 You don't see the girl here!  A pretty girl tiptoes into view.
 
 > ask girl her name
-(Miranda)
+(A pretty girl)
 The girl appears to be on the edge of flight, but she blushes and whispers:
 
 "My name is Miranda, fair sir!"

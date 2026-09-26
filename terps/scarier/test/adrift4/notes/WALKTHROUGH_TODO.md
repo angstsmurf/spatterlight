@@ -14,26 +14,16 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
 
     git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md
 
-## Where things stand (2026-09-25)
+## Where things stand (2026-09-26)
 
-- **598 rows, 598 PASS**, exit 0 (40 s wall) — no FAIL, no SKIP, no NEEDGOLD,
-  no NOSCRIPT. `proba` passes again.
-- **Open work: 36 unwired games.** `ee50c8de9` (2026-09-22) pinned 262 more
-  games and `cf78747dc` added `Relife.taf`; the wiring commits since then
-  covered the ones with downloaded walkthroughs. Of the 121 `.taf` files still
-  without a row, 83 are content declines (53 earlier, 30 new) and 38 have been
-  screened (see
-  *Content policy*, 2026-09-25):
-  - **23 clean:** zanoza, Dolg, Govard, Govard2, shablon, CS2, NAT_01,
-    WanderersGoW 0.04, Relife (Russian, cp1251), smercenary, tempest7,
-    hdigit1, The_World_According_to_CBN, toronto, the_view_is_better_here,
-    virtual, imagings, wonderland, shortlived, monster, hammurabi, TAOT3,
-    Last_Knight.
-  - **13 AIF between adults** (gitignore the solution and golden when wired):
-    EscapePod, Handyman, xclue1.0a, ovaloffice, Planescape-Encounters1,
-    latework, RodneyandthePrincess40v3-1, salvation, christmas present 1.0,
-    studio, fun town, Legend of Akhbar, VGM1_3.
-  - **2 pending an owner call:** ghostjustice, bluesky.
+- **631 rows, 631 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
+  NOSCRIPT. The 23 screened-clean and 10 of the 13 screened-AIF-between-adults
+  games (see below) are now wired, on top of the 598-row baseline from
+  2026-09-25.
+- **Open work: 2 unwired-but-screened games**, both pending an owner call:
+  ghostjustice, bluesky. Of the remaining `.taf` files without a row, 86 are
+  now content declines (83 earlier + 3 new 2026-09-26: `latework.taf`,
+  `Legend of Akhbar.taf`, `VGM1_3.taf` — see *Content policy*).
 
   None has a source walkthrough in `downloaded/`, so every route is derived
   from scratch.
@@ -215,11 +205,13 @@ A narration-depicted minor counts even if the player cannot participate
 refusal of a child NPC is clean (suzy). Dark non-sexual themes wire normally
 (thelasthour, ForestHouse3, Patient7, A View to a Home).
 
-**12 permanent declines** — never committed, no `.gitignore` entry, each
+**15 permanent declines** — never committed, no `.gitignore` entry, each
 verdict quoted from the game's own shipped text: `aparty.taf`, `delight.taf`,
 `awakening.taf`, `enc1.taf`, `enc2.taf`, `windy.taf`,
 `Buffy Before the Date.taf`, `ssteacher.taf`, `sibling seduction.taf`,
-`Choices.taf`, `plains.taf`, `A Dream Come True.taf`.
+`Choices.taf`, `plains.taf`, `A Dream Come True.taf`, `latework.taf`,
+`Legend of Akhbar.taf`, `VGM1_3.taf` (the last 3 added 2026-09-26; full
+verdicts below under *2026-09-26 declines*).
 
 **Rows kept despite the list above (owner call, 2026-09-25):** `Hunting Ground.taf`
 (row `huntingground`), `British.Fox.and.the.Celebrity.Abductions.taf` (`britishfox`,
@@ -249,7 +241,10 @@ gamma, Temple_Of_The_Sun, amy, The_Strange_Tale_of_Dr_Wilkins, BSG TWENTY TWO
 Final, warlock, BarneysProblem, Dear Diary, Dear Diary 2, Riding_Home, hcw,
 Scandal, cldone, magicshow, goblin, ss whore, Sex is Mental, The Worst Game In
 The World, DOA_X_B_S, The Silver Maiden, Trapped With A Girl, Practice Policy,
-To Be King, Harem Prologue, Duchess of Desire, Sorority House, Filthy Bill.
+To Be King, Harem Prologue, Duchess of Desire, Sorority House, Filthy Bill,
+EscapePod, Handyman, xclue1.0a, ovaloffice, Planescape-Encounters1,
+RodneyandthePrincess40v3-1, salvation, christmas present 1.0, studio, fun town
+(wired 2026-09-26).
 
 Further GAMES_WITH_HINTS declines (TAF text): `Deadly Climax 1.0 final.taf`
 (Asia a "fifteen year old pupil"; Jo compared to thirteen); `party.taf`
@@ -327,6 +322,39 @@ old enough to be in the casino" — the consequences/Hotown1 around-18 pattern);
 `Drone Academy.taf` (partner Kadey has no stated age; "watch this young girl
 masturbating", "those little teenie bopper whores" — the darkfantasy pattern).
 
+**2026-09-26 declines, surfaced during full derivation of the "13 AIF between
+adults" batch** (all three had cleared the earlier pre-screening pass on a
+narrower check; live play / the full task dump surfaced content the
+pre-screen missed — same verbatim-quote standard as above):
+`latework.taf` — a magazine image found in a desk drawer is described as
+depicting two people "who do not look much older than 15"; independently,
+the endgame is built around an explicit "type yes to force the act, type no
+to stop" branch internally labeled (via its alternate-command list) as a
+rape action, with the character's dialogue across the preceding scene
+showing repeated refusal, pleading and crying — not merely non-consent-coded
+but authored as such by the game's own internal labeling. Either finding
+alone would be disqualifying; both are present. Permanent decline,
+non-negotiable regardless of any future instruction to include it.
+`Legend of Akhbar.taf` — the task dump's harem area (ROOM 14/19) contains an
+NPC named literally "Harem girl" and room-description text that calls the
+same background characters "young girls giggling" in one sentence and
+"young women" in the next, with no explicit adult age ever stated for
+either reading. An initial relayed "include it" decision (favoring the
+"young women" reading to resolve the contradiction) was overridden: picking
+the charitable reading to route around an unresolved age-adjacent signal is
+exactly the kind of judgment call this policy exists to keep out of the
+walkthrough-derivation loop. Permanent decline.
+`VGM1_3.taf` ("The GameMaster: Resident Lust") — a separate character
+("Jill") from the one originally screened ("Rebecca", who reads clean) has
+an 11-plus-task sexual-content sequence textually revealed, only after the
+fact in the culminating task's completion text, to have taken place while
+she was involuntarily incapacitated by a third party's power; an earlier
+task's own guard text describes her at that point as "out of it mentally",
+and once the effect lifts she reacts with fear/hostility and says she
+"couldn't help" what happened. Not a skippable side-branch — a later task
+requires the full sequence before the character will speak further, and an
+item from her storyline is needed to finish the game. Permanent decline.
+
 **Pending owner call (not derived, not declined):**
 `ghostjustice.taf` — Candi is judged "around 21 or 22" by the narrator, but
 the sex scene is her "little girl routine" ("Her words and mannerisms might be
@@ -336,13 +364,17 @@ than to mount's adult-in-costume. Everyone else is adult (Susan "20 years old").
 job while "Your family went on holiday", a neighbour calls him "son", and Maria
 "is about your own age". Nothing frames a minor, but nothing establishes an adult.
 
-**Screened AIF between adults, not yet wired** (13; gitignore solution and
-golden when wired): EscapePod (Jenna "a twenty-year old ensign"), Handyman
-("You are a 21 year old man", college sorority), xclue1.0a, ovaloffice ("25-year
-old intern"), Planescape-Encounters1, latework, RodneyandthePrincess40v3-1,
+**Screened AIF between adults — all wired 2026-09-26** except 3 that turned
+out on full derivation to require permanent decline (see below): EscapePod
+(Jenna "a twenty-year old ensign"), Handyman ("You are a 21 year old man",
+college sorority), xclue1.0a, ovaloffice ("25-year old intern"),
+Planescape-Encounters1 (self-disclosed "could be considered bestiality";
+confirmed on full play to be an adult, sapient Bariaur NPC, not literal
+animal — a consensual heist/honeypot con), RodneyandthePrincess40v3-1,
 salvation, christmas present 1.0, studio (Shelby "I'm 19-years old and I'm
-attending college"; the one "teen" line is about her), fun town, Legend of
-Akhbar, VGM1_3 (Rebecca "barely out of her teens").
+attending college"; the one "teen" line is about her), fun town (best-effort
+200/200 — the game's own literal WIN action is gated behind a DEATH-only
+task and can never actually fire; an authoring bug, not a missed puzzle).
 
 **Screened clean** (23): `zanoza`, `Dolg`, `Govard`, `Govard2`, `shablon`,
 `CS2`, `NAT_01`, `WanderersGoW 0.04`, `Relife` (the nine cp1251 Russian games;

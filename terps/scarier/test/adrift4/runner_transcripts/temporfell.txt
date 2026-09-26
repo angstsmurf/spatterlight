@@ -467,8 +467,8 @@ You've got to stop sleeping so much.  It's really confusing you as to whether yo
 
 You are on a round metal platform inside some sort of large hole in the ground.  Towering walls of earth surround you in every direction.  Several unidentified metal tools are half buried in the dirt around you.  Set up against the bank to your south is a tall metal apparatus that stretches the full height of the bank.  Something glinting on the ground catches your eye.
 
-> 
-I don't understand what you're trying to do.
+> wait
+Time passes...
 
 > wait
 Time passes...

@@ -376,7 +376,16 @@ suzypowers	competition2011__adrift__powers__how suzy got her powers.taf	4.00	run
 rockband	Rock Band.taf	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You did it! You stopped Gigantor and saved the world (and Rock Band!)	23
 aegis	Aegis.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	 END	17
 warlock	warlock.taf	3.90	run390x.exe	1234	0			The laboratory stands empty. No sign of demonic presences save a chalk-drawn	0
+escapepod	EscapePod.taf	3.90	run390x.exe	1234	0			Well done - you scored maximum points!	1382
+handyman	Handyman.taf	3.90	run390x.exe	1234	0	Player		You scored 200 out of the maximum 200!	0
+xclue	xclue1.0a.taf	3.90	run390x.exe	1234	0			THE END	5
+ovaloffice	ovaloffice.taf	4.00	run400x.exe	1234	0	Bill		You scored 32 out of the maximum 32!	1
+planescape	Planescape-Encounters1.taf	3.90	run390x.exe	1234	0			You scored 15 out of the maximum 15!	1
 studio	studio.taf	3.90	run390x.exe	1234	0	Player		You scored 96 out of the maximum 100!	7
+funtown	fun town.taf	4.00	run400x.exe	1234	0	Player		Sorry, there is no way to open the chest before you accumulate 200 points.	3
+rodneyprincess	RodneyandthePrincess40v3-1.taf	4.00	run400x.exe	1234	0			Congratulations on getting your reward!	84
+salvation	salvation.taf	3.90	run390x.exe	1234	0			Thanks for playing.	1
+christmaspresent	christmas present 1.0.taf	4.00	run400x.exe	1234	0	Player		Thank you for playing.  Merry Christmas and  a Prosperous New Year!	5
 digby	For_Love_of_Digby.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	For Love Of Digby winds to a close.	1335
 sigurd	Sigurd_Fafnesbane.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	gold is glittering in the leather sack in your luggage.	5
 unfortunately	Unfortunately.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	An ending to be sure - and the best one in the game to boot!	183

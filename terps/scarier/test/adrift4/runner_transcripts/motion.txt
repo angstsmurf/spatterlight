@@ -9933,10 +9933,6 @@ O-----------O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O
     
 The Drive
 
-> 
-    
-The Drive
-
 R then Enter = turn clockwise
 
 L then Enter = turn counter-clockwise
@@ -9960,6 +9956,10 @@ O-------------------------------------------------------------------------|    |
 O--------------------------------------------------------------------------: : : :-------O--O------O
 O-----------O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O-O
 
+
+> 
+    
+The Drive
 
 R then Enter = turn clockwise
 
