@@ -1852,7 +1852,7 @@ You take the shopping bag.
 
 > look in bag
 Someone has obviously dropped a shopping bag in this area, as they ran for
-the exits.  Inside the shopping bag is a teddy bear, a bottle of vinegar and
+the exits.  Inside the shopping bag are a teddy bear, a bottle of vinegar and
 a lemon.
 
 > take vinegar

@@ -742,7 +742,7 @@ doesn't mean anything?
 
 > open desk
 Your old desk at school generally had an assortment of weapons in it: knives,
-bayonets and maces being your favouritesssss. The owner of this desk clearly
+bayonets and maces being your favourites. The owner of this desk clearly
 wasn't of the same temperament as you, though, as all you find inside are
 some ancient flowers (now withered away), a bible and a small, empty bottle.
 After a moment's hesitation, you take the bible and the bottle, and leave the
@@ -970,7 +970,7 @@ Treasure this, as a gift from a divine princess to a lowly servant.
 L"
 
 > get the tiger
-You take The Tiger.
+You take the Tiger.
 
 > w
 
@@ -2148,9 +2148,9 @@ The moment you touch the portrait, it slides neatly to one side. A safe,
 previously hidden, is revealed set into the wall behind the portrait.
 
 > x window
-The window appears similar to some you have seen in churches over the
-yearsssss*. Except this one doesn't depict the Life of Jesus in wonderfully
-diverse colours.
+The window appears similar to some you have seen in churches over the years*.
+Except this one doesn't depict the Life of Jesus in wonderfully diverse
+colours.
 
 It depicts the Life of Grishtak.
 

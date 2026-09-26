@@ -38,7 +38,7 @@ the bathroom and to the north is the main room of the house, the living room.
 Beethro's really big sword is here.
 
 > get sword
-Beethro take the really big sword.
+Beethro takes the really big sword.
 
 > n
 Beethro moves north.
@@ -122,7 +122,7 @@ the north.
 There is an iron stake lying on the ground here.
 
 > get iron stake
-Beethro take the iron stake.
+Beethro takes the iron stake.
 
 > n
 Beethro moves north.

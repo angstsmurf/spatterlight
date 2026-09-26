@@ -895,27 +895,23 @@ obj_appears_plural (scr_gameref_t game, scr_int object)
   name = prop_get_string (bundle, "S<-sis", vt_key);
   length = strlen (name);
 
+  /*
+   * Scarier deliberately keeps SCARE's case-insensitive nest instead of the
+   * measured chain (deviation policy): the chain's only visible effect is
+   * wrong agreement -- "some fungus are", "A bag of apples are", "the NAILS
+   * is" -- so "a"/"an" (any case) or an empty prefix is singular, and
+   * otherwise a name ending in "s" but not "us" is plural.
+   */
   is_plural = FALSE;
-
-  if (length > 0 && name[length - 1] == 's')
+  if (!(scr_strempty (prefix)
+        || scr_compare_word (prefix, "a", 1)
+        || scr_compare_word (prefix, "an", 2)))
     {
-      if (strncmp (prefix, "some", 4) == 0)
-        is_plural = TRUE;
-
-      /*
-       * VB6 Mid(name, Len(name) - 1, 1) is a runtime error for a name of one
-       * character, so a Short of exactly "s" faults the Runner rather than
-       * answering; nothing in the corpus has one, and not being plural is the
-       * closest thing to an answer available here.
-       */
-      if (length > 1 && name[length - 2] != 'u')
+      if (length > 0
+          && scr_tolower (name[length - 1]) == 's'
+          && (length < 2 || scr_tolower (name[length - 2]) != 'u'))
         is_plural = TRUE;
     }
-
-  if (strcmp (prefix, "a") == 0 || strncmp (prefix, "a ", 2) == 0)
-    is_plural = FALSE;
-  if (strcmp (prefix, "an") == 0 || strncmp (prefix, "an ", 3) == 0)
-    is_plural = FALSE;
 
   return is_plural;
 }

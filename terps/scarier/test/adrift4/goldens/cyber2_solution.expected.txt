@@ -48,7 +48,7 @@ Teleporter Room
 You are in the teleporter room.  You can only move north.
 
 > open teleporter
-You open The Teleporter.
+You open the Teleporter.
 
 > use teleporter
 you are teleported!

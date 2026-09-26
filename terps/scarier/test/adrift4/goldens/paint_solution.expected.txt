@@ -385,25 +385,14 @@ carrying a VERY large hammer.
    "DAMNATION!" he roars (and, overhead, lightning crackles and thunder
 booms. "JORMUNGAND THE WORLD WYRM WAS IN A FOUL MOOD AND THAT WASN'T EVEN THE
 START OF MY PROBLEMS." He points a fist the size of a battering ram and
-demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
-battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
-fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
-TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
-DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
-demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
-battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
-fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
-TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
-DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
-demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
-battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!"
+demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!"
    "Blimey, boss!" gasps Ted. "Have you seen the size of that fellow?"
    "SULLY NOT THE FORM OF THOR WITH THY UNCLEAN EYES, MORTAL!" booms Thor.
 "LEST THOU WOULDST BRING DOWN THE WRATH OF THE GOD OF THUNDER 'PON THY
 LICE-RIDDEN HEAD!"
    Ted frowns, puzzling things over.
    "I think he's threatening to kill you, Ted," you say.
-   Ted nods. "I had a feeling that might be the case.""""""""""
+   Ted nods. "I had a feeling that might be the case."
    Stan gawps at the figure.
 
 > wait
@@ -521,7 +510,7 @@ it up, slings it over his shoulder and reaches into his pocket.
    He counts out £300 and hands it to you.
    "Good doing business with you, fellow. You come across any more gems like
 this, you let ol' Stavros know and he'll slip you another couple hundred quid
-for it.""""""""
+for it."
    "Couple-"
    You count the money and, sure enough, there's just £200 there.
    Before you can do anything, Stavros gives you a swift nod and departs.

@@ -131,7 +131,7 @@ Legos, several Nintendo DS's, and a portable TV. Man, these kids... The way
 you came is back south.  Also here is a drawer.
 
 > open drawer
-You open the drawer.  Inside the drawer is some sheets, some gum and a
+You open the drawer.  Inside the drawer are some sheets, some gum and a
 remote.
 
 > get remote
@@ -155,7 +155,7 @@ some 'missing' homework, and a AA battery. Kodak, by the look of it.
 ..::You've earned 10 points!::..
 
 > get battery
-Which battery.  The Energizer battery or the Kodak battery?
+Which battery?  The Energizer battery or the Kodak battery?
 
 > s
 You move south.

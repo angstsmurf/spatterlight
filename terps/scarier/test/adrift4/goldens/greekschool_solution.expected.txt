@@ -50,7 +50,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-  You can only move west.
+You can only move west.
 
 > west
 You move west.
@@ -97,13 +97,13 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-  You can only move west.
+You can only move west.
 
 > examine desk
 Ostensibly a locale for your study habits, your desk came with the room,
 meaning that it was purchased on sale during the 1960's. It succeeds
 admirably in its main task, which is to keep your computer, lamp, and coffee
-maker off of the ground.  On your desk is Your green Backpack, a ballpoint
+maker off of the ground.  On your desk are Your green Backpack, a ballpoint
 pen, mailbox key and your wallet.
 
 > open dresser
@@ -164,7 +164,7 @@ This hallway is the only way into your room, and also the only way to the
 outside door downstairs. The sketchy lighting and cracked plaster captures
 the personality of Simons-Law perfectly. There are three doors and a
 staircase leading down.
-  You can move north and down.
+You can move north and down.
 
 > down
 You move down.
@@ -770,7 +770,7 @@ This hallway is the only way into your room, and also the only way to the
 outside door downstairs. The sketchy lighting and cracked plaster captures
 the personality of Simons-Law perfectly. There are three doors and a
 staircase leading down.
-  You can move north and down.
+You can move north and down.
 
 > north
 You move north.
@@ -786,7 +786,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-  You can move south and west.
+You can move south and west.
 
 > study for quiz
 Quickly compiling all of your notes, you memorize vocab and paradigms, doing
@@ -801,7 +801,7 @@ This hallway is the only way into your room, and also the only way to the
 outside door downstairs. The sketchy lighting and cracked plaster captures
 the personality of Simons-Law perfectly. There are three doors and a
 staircase leading down.
-  You can move north and down.
+You can move north and down.
 
 > down
 You move down.
@@ -1079,7 +1079,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-  Also here is Jimmy's note.  You can move south and west.
+Also here is Jimmy's note.  You can move south and west.
 
 > south
 You move south.
@@ -1089,7 +1089,7 @@ This hallway is the only way into your room, and also the only way to the
 outside door downstairs. The sketchy lighting and cracked plaster captures
 the personality of Simons-Law perfectly. There are three doors and a
 staircase leading down.
-  You can move north and down.
+You can move north and down.
 
 > down
 You move down.
@@ -1396,7 +1396,7 @@ This hallway is the only way into your room, and also the only way to the
 outside door downstairs. The sketchy lighting and cracked plaster captures
 the personality of Simons-Law perfectly. There are three doors and a
 staircase leading down.
-  You can move north and down.
+You can move north and down.
 
 > north
 You move north.
@@ -1412,7 +1412,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-  Also here is Jimmy's note.  You can move south and west.
+Also here is Jimmy's note.  You can move south and west.
 
 > install program
 Your computer is up it, if just barely. It's a good thing this wasn't version

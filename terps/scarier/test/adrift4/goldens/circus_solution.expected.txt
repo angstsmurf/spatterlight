@@ -66,7 +66,7 @@ carny is here, working the ring toss game.
 Game difficulty is now set to Easy.
 
 > open case
-You open the camera case.  Inside the camera case is the videocamera, the
+You open the camera case.  Inside the camera case are the videocamera, the
 battery and the videotape.
 
 > n

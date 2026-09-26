@@ -75,7 +75,7 @@ moving behind you that isn't there, if only for an instant.
 A stairway at the end of the hallway leads up to the landing, and to the rest
 of the house.
 
-  You can only move up.
+You can only move up.
 Though expecting a visitor, your heart still jumps when you hear a loud knock
 against the glass of the main door...
 
@@ -122,7 +122,7 @@ all doors, except that of the Master Bedroom and the attic, have been locked.
   On closer inspection, the attic door appears to be closed, much to your
 annoyance, as you had expressly asked your staff to leave it open.
 
-  You can move north and down.
+You can move north and down.
 
 > north
 You move north.
@@ -143,7 +143,7 @@ The door leads out to the landing to the south.
 You feel sure that the dresser moved slightly, but pass it off as your
 imagination playing tricks on you.
 
-  You can only move south.
+You can only move south.
 Suddenly, Madame Sousa freezes and places a shaking hand to her temple.
 
 "Are you quite alright?" you enquire in a concerned tone.
@@ -163,7 +163,7 @@ there..."
 You open the dresser.  The Attic Key is inside the dresser.
 
 > take key
-You take The Attic Key from the dresser.
+You take the Attic Key from the dresser.
 
 > south
 You move south.
@@ -180,10 +180,10 @@ all doors, except that of the Master Bedroom and the attic, have been locked.
   On closer inspection, the attic door appears to be closed, much to your
 annoyance, as you had expressly asked your staff to leave it open.
 
-  You can move north and down.
+You can move north and down.
 
 > unlock attic door with key
-You unlock attic door with The Attic Key.
+You unlock attic door with the Attic Key.
 
 > open attic door
 You open attic door.
@@ -209,7 +209,7 @@ just how bad it will be...
 
 A single candle sits upon the table.
 
-  You can only move down.
+You can only move down.
 On entering the room, Madame Sousa surveys the attic briefly, then breathes
 in deeply and nods in satisfaction.
 
@@ -318,7 +318,7 @@ In light
 There is literally nothing here. It is as if you are in a great white expanse
 of light. No sky. No floor. There is just emptiness here...
 
-  Emily is here.
+Emily is here.
 
 > yes
 

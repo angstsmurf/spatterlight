@@ -227,7 +227,7 @@ were going to make it worth my while!" you say. "Oh yeah, sure, uh... hang on a 
 right back," says Wendy walking off to the bathroom. She left her purse!
 
 > open purse
-You open Wendy's purse.  Inside Wendy's purse is some lipstick, a mirror,
+You open Wendy's purse.  Inside Wendy's purse are some lipstick, a mirror,
 $100 cash and some mace.
 
 > take cash
@@ -488,8 +488,8 @@ There are a few bags of rubbish lieing on the ground next to the dumpster.  A
 plastic bag is on lots of rubbish.
 
 > open bag
-You open the plastic bag.  Inside the plastic bag is a crowbar, an old dress,
-a porno magazine and a half smoked cigarette.
+You open the plastic bag.  Inside the plastic bag are a crowbar, an old
+dress, a porno magazine and a half smoked cigarette.
 
 > take crowbar
 You take a crowbar from the plastic bag.
@@ -537,7 +537,7 @@ northeast.
 
 > x small package
 This is a small package titled "Gunjaville Pharmacy", it has already been
-ripped open.  Inside the small package is a letter, a jar of sleep pills and
+ripped open.  Inside the small package are a letter, a jar of sleep pills and
 a jar of pain killer pills.
 
 > take sleep pills

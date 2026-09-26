@@ -759,7 +759,7 @@ He speaks:
 you wish to look upon my face? Leave now, or take the MASK away, if you
 dare..."
 
-  You can only move out.
+You can only move out.
 
 > score
 Your score is 75 out of a maximum of 100.  (75%)

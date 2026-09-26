@@ -203,7 +203,7 @@ The monster's body vanish as soon as you killed them. You see a crack in the
 roof. A flashlight is on the ground.  Also here is A Flashlight.
 
 > get flashlight
-You take A Flashlight.
+You take the Flashlight.
 
 > use flashlight
 You can see that the crack is really a slightly opened door. Do you dare
@@ -253,7 +253,7 @@ you scum. No more hints for you mister.  Also here is Full Suit of Armor and
 Awesome Sword.
 
 > use teleporter
-You enter the Battle Dome of Dr. Myanus Hurts.  You manage to avoid The Great
+You enter the Battle Dome of Dr. Myanus Hurts.  You manage to avoid the Great
 Doctor's attack.
 
 > s
@@ -283,7 +283,7 @@ avoid Wauk's attack.  Sue manages to avoid Quzar's attack.
 You move south.
 
 Battle Dome  (Dr. Myanus Hurts)
-Let's Fight!!!  Dr. Myanus Hurts and Quzar are here.  You manage to avoid The
+Let's Fight!!!  Dr. Myanus Hurts and Quzar are here.  You manage to avoid the
 Great Doctor's attack.  The Great Doctor manages to avoid Quzar's attack.
 
 > score

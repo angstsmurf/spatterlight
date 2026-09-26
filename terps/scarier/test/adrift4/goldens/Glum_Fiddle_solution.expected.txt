@@ -238,7 +238,7 @@ Time passes...
 
 > x pile of boulders
 The boulders are piled up across a small area of the valley.  On the pile of
-boulders is a large pink, tasseled cushion, a lace doily, an oil lamp, a
+boulders are a large pink, tasseled cushion, a lace doily, an oil lamp, a
 silver tray, a silver teapot, a wooden plank and a set of china cups.
 
 > take cushion

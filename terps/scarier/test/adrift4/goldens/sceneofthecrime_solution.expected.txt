@@ -1753,7 +1753,7 @@ enough for the likes of you, eh?"
 I take Talbot's wallet.
 
 > open wallet
-I open Talbot's wallet.  Inside Talbot's wallet is Talbot's key, Talbot's
+I open Talbot's wallet.  Inside Talbot's wallet are Talbot's key, Talbot's
 library card and a bill.
 
 > get key

@@ -372,7 +372,7 @@ A Dark tunnel
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
-  Also here is a small boulder.
+Also here is a small boulder.
 
 > take boulder
 I take the small boulder.

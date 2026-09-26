@@ -43,7 +43,7 @@ The lantern's glow provides a little comfort against the dark unknown of the
 Labyrinth.
 
 > open chest
-Inside the battered wooden chest is a leather backpack, a small knife and
+Inside the battered wooden chest are a leather backpack, a small knife and
 servicable clothes.
 
 > wear clothes

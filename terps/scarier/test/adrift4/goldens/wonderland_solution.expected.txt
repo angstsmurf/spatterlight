@@ -489,7 +489,7 @@ why you are here.
 > eat mushroom
 You eat the mushroom.  Such a warm little delight!  Tastes kind of strange
 though... oh well.  You feel miraculous!  The horrific Red Queen attacks you
-with The great Staff of Hearts, but you manage to avoid it.
+with the great Staff of Hearts, but you manage to avoid it.
 
 > attack red queen with knife
 You must be in the same room as the ethereal knife to be able to do anything
@@ -498,7 +498,7 @@ with it.
 > attack red queen with knife
 You must be in the same room as the ethereal knife to be able to do anything
 with it.
-The horrific Red Queen attacks you with The great Staff of Hearts, but you
+The horrific Red Queen attacks you with the great Staff of Hearts, but you
 manage to avoid it.
 
 > attack red queen with knife
@@ -508,7 +508,7 @@ with it.
 > attack red queen with knife
 You must be in the same room as the ethereal knife to be able to do anything
 with it.
-The horrific Red Queen attacks you with The great Staff of Hearts, but you
+The horrific Red Queen attacks you with the great Staff of Hearts, but you
 manage to avoid it.
 
 > attack red queen with knife
@@ -518,7 +518,7 @@ with it.
 > attack red queen with knife
 You must be in the same room as the ethereal knife to be able to do anything
 with it.
-The horrific Red Queen attacks you with The great Staff of Hearts, but you
+The horrific Red Queen attacks you with the great Staff of Hearts, but you
 manage to avoid it.
 
 > attack red queen with knife
@@ -528,7 +528,7 @@ with it.
 > attack red queen with knife
 You must be in the same room as the ethereal knife to be able to do anything
 with it.
-The horrific Red Queen attacks you with The great Staff of Hearts, but you
+The horrific Red Queen attacks you with the great Staff of Hearts, but you
 manage to avoid it.
 
 > look
@@ -548,14 +548,14 @@ why you are here.
 
 > get all
 There is nothing worth taking here.  The horrific Red Queen attacks you with
-The great Staff of Hearts, but you manage to avoid it.
+the great Staff of Hearts, but you manage to avoid it.
 
 > unlock door with iron key
 You don't have the key.
 
 > e
 You can't go in any direction!
-The horrific Red Queen attacks you with The great Staff of Hearts, but you
+The horrific Red Queen attacks you with the great Staff of Hearts, but you
 manage to avoid it.
 
 > push button

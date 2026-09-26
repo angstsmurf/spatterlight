@@ -199,7 +199,7 @@ furnishings hath been stuffed into ye corners.
 Ye can returneth to yon courtyard to ye north.
 
 > unlock table
-Ye unlock ye dirty table with ye grimy key.
+Ye unlocketh ye dirty table with ye grimy key.
 
 Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon
 stewpot.  Man... ye betteth yon stew shall tasteth inexorably funky by now.
@@ -238,7 +238,7 @@ Ye believeth ye hath fixed yon belt resizing device!
 
 > x rack
 'Tis ye rack for belt-holding.  Ah, ye thinketh ye get it now.  This place
-must be ye olde beltery!  On ye belt rack is ye magic belt, ye
+must be ye olde beltery!  On ye belt rack are ye magic belt, ye
 intercontinental title and yon other belts.
 
 > get belt
@@ -1555,7 +1555,7 @@ gleamingly in its jamb!  Also here is ye golden key.
 Ye taketh ye golden key.
 
 > unlock door
-Ye unlock yon golden door with ye golden key.
+Ye unlocketh yon golden door with ye golden key.
 
 Thereafter ye discardeth ye golden key with nary a second thought.
 

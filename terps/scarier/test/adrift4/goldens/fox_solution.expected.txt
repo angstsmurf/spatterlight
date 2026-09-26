@@ -102,10 +102,10 @@ You are about to move east, when a troll pops out from under the bridge.  The
 Small Troll hits you.
 
 > kill troll
-You hit The Small Troll with the mage staff.  The Small Troll hits you.
+You hit the Small Troll with the mage staff.  The Small Troll hits you.
 
 > kill troll
-You hit The Small Troll with the mage staff.
+You hit the Small Troll with the mage staff.
 
 > e
 You move east.

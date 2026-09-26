@@ -169,7 +169,7 @@ east.
 
 > x table
 It's a very old rickety table.  It has no table cloth and you can see years
-of dirty stains on it.  On the table is a cup, an old sandwich and a
+of dirty stains on it.  On the table are a cup, an old sandwich and a
 paperback.
 
 > look under table
@@ -507,8 +507,8 @@ stop.
 
 > x desk
 An old battered desk.  It is that type of furniture which probably looked old
-and battered when it was new.  The desk is closed.  On the desk is a notepad,
-a pen and a note.
+and battered when it was new.  The desk is closed.  On the desk are a
+notepad, a pen and a note.
 
 > get notepad
 The Station Master stops you.  I suggest you try to get rid of him.
@@ -896,7 +896,7 @@ You take the bag of shopping.
 
 > x bag of shopping
 It is one of those plastic bags given out by Supermarkets.  Inside the bag of
-shopping is a pair of tights, a tin of pet food, a can of deodorant and a
+shopping are a pair of tights, a tin of pet food, a can of deodorant and a
 pair of gloves.
 
 > east
@@ -1126,7 +1126,7 @@ umsteigen means to change. "
 think.
 
 > where is young girl
-Young Girl is bridge.  (Right next to you silly!)
+Young Girl is bridge.  (Right next to you, silly!)
 
 > se
 You move southeast.

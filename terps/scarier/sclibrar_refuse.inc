@@ -312,7 +312,7 @@ lib_hit_arm_pre390 (scr_gameref_t game)
         }
       else
         lib_print_wrapped_object (game, "I don't think ", pick,
-                                  " would be a very affective weapon!\n");
+                                  " would be a very effective weapon!\n");
       return TRUE;
     }
   return FALSE;

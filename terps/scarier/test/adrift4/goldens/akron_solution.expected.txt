@@ -90,10 +90,10 @@ not a very cheerful place.  Also here is a spiffy tuxedo.
 You pick up the spiffy tuxedo.
 
 > remove sweatshirt
-You remove a grubby sweatshirt.
+You remove the grubby sweatshirt.
 
 > remove jeans
-You remove a pair of ragged jeans.
+You remove the pair of ragged jeans.
 
 > wear tuxedo
 You put the tuxedo on. Boy, do you look good.
@@ -218,7 +218,7 @@ into the lobby is back to the east.  Also here is a wedding ring.
 You pick up the wedding ring.
 
 > wear wedding ring
-You put on a wedding ring.
+You put on the wedding ring.
 
 > east
 You move east.

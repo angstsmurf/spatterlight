@@ -118,7 +118,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-  You can move north and south.
+You can move north and south.
 
 > stand on phone
 You stand on the DRIFT-O-Com.  DARWIN enters from the south.
@@ -203,7 +203,7 @@ short room divider partially conceals a chrome toilet and wash basin, but
 still gives a nice view through the window.  A wardrobe built into the wall
 blends right in, and has a small vent beneath it with some writing just above
 it.
-  You can only move northwest.
+You can only move northwest.
 
 > open wardrobe
 You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside
@@ -415,7 +415,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-  You can move north and south.
+You can move north and south.
 
 > s
 You move south.
@@ -538,7 +538,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
@@ -599,7 +599,7 @@ fancy ship.  You can only move south.
 > where is sweeper
 ADRIFT-O-Sweep is
 the adrift-o-lift
-.  (Right next to you silly!)
+.  (Right next to you, silly!)
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 

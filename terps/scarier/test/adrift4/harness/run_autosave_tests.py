@@ -551,12 +551,12 @@ def build_cases():
           maze_route[:24] + ["look", "undo", "read it"], [25, 26],
           expect=["(a trophy)"])
 
-    # A 4.0 "Which tree.  ...?" still open when the game is closed, answered
+    # A 4.0 "Which tree?  ...?" still open when the game is closed, answered
     # after the relaunch.
     equiv("which-question", os.path.join(HERE, "p4CO.taf"),
           ["look", "chop tree", "red", "chop tree", "zzz", "x tree",
            "chop keys", "x keys", "chop rock", "x rock", "look"],
-          [2, 4, 6, 7, 9], expect=["Which tree."])
+          [2, 4, 6, 7, 9], expect=["Which tree?"])
 
     # The question prefix: "Wear what?", "...with?", "Give what?" and the
     # battle's "Who do you want to attack?" all make the next line a

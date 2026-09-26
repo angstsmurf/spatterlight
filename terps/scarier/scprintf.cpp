@@ -539,6 +539,17 @@ pf_replace_alr (const scr_char *string, std::string &out,
   if (entry.original[0] == NUL)
     return FALSE;
 
+  /*
+   * Where the replacement contains the original (a self-containing ALR), note
+   * each offset the original sits at inside it, so that a match which is
+   * already part of an earlier expansion can be recognised below.
+   */
+  std::vector<size_t> self_offsets;
+  const size_t replacement_length = strlen (replacement);
+  for (cursor = strstr (replacement, entry.original);
+       cursor; cursor = strstr (cursor + 1, entry.original))
+    self_offsets.push_back (cursor - replacement);
+
   /* Run through the marker string looking for things to replace. */
   std::string result;
   replaced = FALSE;
@@ -546,6 +557,39 @@ pf_replace_alr (const scr_char *string, std::string &out,
   for (cursor = strstr (marker, entry.original);
        cursor; cursor = strstr (marker, entry.original))
     {
+      scr_bool expanded;
+
+      /*
+       * Deliberate deviation from run400: a version 4.0 turn walks its text
+       * once per completing task and again at the flush (pf_refilter()), so
+       * the Runner re-expands a self-containing ALR on every walk -- humbug's
+       * "Okay.  Okay.  I put the sweet on the plinth.", sophie's exits list
+       * with eight "north (to the farmhouse)", private_eye's doubled "I've
+       * seen him in hurt from time to time.".  That is a display accident, so
+       * Scarier leaves alone a match that already sits inside a complete
+       * copy of its replacement: each walk still runs, but a self-containing
+       * ALR expands a given piece of text only once.
+       */
+      expanded = FALSE;
+      for (size_t index_ = 0; index_ < self_offsets.size (); index_++)
+        {
+          const size_t offset = self_offsets[index_];
+
+          if ((size_t) (cursor - string) >= offset
+              && strncmp (cursor - offset, replacement,
+                          replacement_length) == 0)
+            {
+              expanded = TRUE;
+              break;
+            }
+        }
+      if (expanded)
+        {
+          result.append (marker, cursor + entry.original_length - marker);
+          marker = cursor + entry.original_length;
+          continue;
+        }
+
       /* Append the text up to the match, then the replacement. */
       result.append (marker, cursor - marker);
       result.append (replacement);
@@ -766,6 +810,91 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
       else
         position++;
     }
+}
+
+
+/*
+ * pf_alr_rewrites_span()
+ *
+ * TRUE if some ALR original, matched at a position before 'start' in 'text',
+ * runs over the whole of text[start, end) -- the original may carry on past
+ * the end of 'text', provided the part inside it agrees.  The library asks
+ * this of its bare third-person messages ("Irvine open ") to see whether the
+ * game's author has already rewritten the verb with an ALR written against
+ * the Runner's own un-conjugated output ("Irvine open" -> "Irvine uncloses");
+ * see lib_conjugate_third_person().
+ */
+scr_bool
+pf_alr_rewrites_span (scr_prop_setref_t bundle, const scr_char *text,
+                      size_t start, size_t end)
+{
+  scr_vartype_t vt_key;
+  scr_int alr_count;
+  size_t length;
+
+  vt_key.string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  if (alr_count == 0)
+    return FALSE;
+  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+    pf_alr_cache_build (bundle, alr_count);
+
+  length = strlen (text);
+  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+      size_t position;
+
+      if (entry.original_length == 0)
+        continue;
+      for (position = 0; position < start && position < length; position++)
+        {
+          size_t overlap;
+
+          if (position + entry.original_length < end)
+            continue;
+          overlap = length - position;
+          if (overlap > entry.original_length)
+            overlap = entry.original_length;
+          if (memcmp (text + position, entry.original, overlap) == 0)
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+/*
+ * pf_alr_mentions()
+ *
+ * TRUE if any ALR Original contains text verbatim (case-sensitive, the way
+ * ALRs match).  A game whose ALRs quote a Runner-shaped phrase -- "assassin
+ * manages " in Les Feux de l'enfer -- was written against that exact shape,
+ * so callers use this to keep the Runner's text there rather than a
+ * deliberately cleaned-up one; see battle_print_npc_name().
+ */
+scr_bool
+pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
+{
+  scr_vartype_t vt_key;
+  scr_int alr_count;
+
+  if (!text || text[0] == NUL)
+    return FALSE;
+  vt_key.string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  if (alr_count == 0)
+    return FALSE;
+  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+    pf_alr_cache_build (bundle, alr_count);
+
+  for (size_t index_ = 0; index_ < pf_alr_cache.size (); index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+
+      if (entry.original_length > 0 && strstr (entry.original, text))
+        return TRUE;
+    }
+  return FALSE;
 }
 
 static scr_char *
@@ -1117,6 +1246,11 @@ pf_output_untagged (const scr_char *string)
  * (Adrift_30_humbug.txt:841) while the library's own put, in the same
  * transcript, says "Okay.  I put the watch onto the rectangular table." with
  * a single "Okay.".
+ *
+ * Scarier deliberately does not reproduce that multiplication (deviation
+ * policy): pf_replace_alr() leaves a self-containing ALR's original alone
+ * where it already sits inside a copy of its replacement, so every walk still
+ * runs -- variables still freeze where they did -- but "Okay." prints once.
  *
  * Versions 3.8 and 3.7 cannot reach any of this: neither schema in
  * sctafpar.cpp carries an ALRs section, so those games have no ALRs at all.
@@ -1528,6 +1662,10 @@ pf_print_so_far (scr_filterref_t filter,
  * them, which is why "CT n=%n%" comes out as the value the task's own action
  * has just set, and why "%w%" (holding "ball") comes out with both walks
  * applied to its value.
+ *
+ * Scarier keeps the extra walks but deliberately not their "qqq": a
+ * self-containing ALR does not re-expand text it has already expanded (see
+ * pf_replace_alr()), since the repeats are a display accident.
  */
 void
 pf_refilter (scr_filterref_t filter,

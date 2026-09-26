@@ -265,7 +265,7 @@ Near the table, a dead man in a heavy black canvas jumpsuit and workboots is
 lying facedown on the floor in a slowly spreading pool of blood. The new
 smells of cordite and blood overlay an ingrained stench of disinfectant in
 this desperately cold room.
-  Genevive is here.
+Genevive is here.
 
 Genevive removes the blob of stickum from the door and gently settles it shut
 against the trip wire.

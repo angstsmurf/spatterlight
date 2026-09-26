@@ -31,7 +31,7 @@ the dashboard and glovebox seem intact - although they are smeared with your
 blood...
 
 > open glovebox
-You open the glovebox.  Inside the glovebox is your penknife, your mobile
+You open the glovebox.  Inside the glovebox are your penknife, your mobile
 phone and your mobile phone charger.
 
 > get all from glovebox

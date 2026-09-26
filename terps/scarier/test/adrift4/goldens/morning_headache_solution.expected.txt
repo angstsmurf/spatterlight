@@ -138,7 +138,7 @@ living room, or north to the bathroom.
 
 > x night table
 A small black night table whitch stand beside your bed.  On the night table
-is the picture, a book and a cellular phone.
+are the picture, a book and a cellular phone.
 
 > take cellular phone
 You take a cellular phone from the night table.

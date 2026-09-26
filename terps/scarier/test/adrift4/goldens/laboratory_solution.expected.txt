@@ -32,7 +32,7 @@ This is the lost and found room. Any items that get lost in the complex end
 up in the cabinet here.  You can only move east.
 
 > open cabinet
-You open the cabinet.  Inside the cabinet is pass card, wad of gum and a
+You open the cabinet.  Inside the cabinet are pass card, wad of gum and a
 shoe.
 
 > get gum

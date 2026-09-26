@@ -130,7 +130,7 @@ You relieve yourself. You now feel much better.
 Your hands feel much cleaner.
 
 > open medicine cabinet
-You open the medicine cabinet.  Inside the medicine cabinet is the tube of
+You open the medicine cabinet.  Inside the medicine cabinet are the tube of
 toothpaste, the toothbrush and the bottle of mouthwash.
 
 > get toothbrush

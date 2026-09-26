@@ -82,7 +82,7 @@ up Stefcho try to slap it  Stefcho e tuk
 You drop the lighter.
 
 > slap Stefcho
-You hit skull, but it doesn't seem to do any damage.
+You hit the skull, but it doesn't seem to do any damage.
 
 > get lighter
 You pick up the lighter.

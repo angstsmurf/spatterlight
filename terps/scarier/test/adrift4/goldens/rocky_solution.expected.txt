@@ -329,7 +329,7 @@ You, your wife and daughter begin running away from Dan and Nancy. Which
 way??
 
 Home
-  Family is here.
+Family is here.
 
 > w
 You move west.

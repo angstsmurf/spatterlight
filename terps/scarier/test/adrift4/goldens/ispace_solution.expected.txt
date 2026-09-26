@@ -17,7 +17,7 @@ I move east.
 Living room
 This is a place for living.But what type of living can be done without the
 flashing box and his seller man
-  Also here is a hammer.
+Also here is a hammer.
 
 > get hammer
 I pick up the hammer.

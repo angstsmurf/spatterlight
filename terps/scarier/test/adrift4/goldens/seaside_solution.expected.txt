@@ -7,7 +7,7 @@ much-awaited trip to the seaside. This will be where you catch the bus home
 when you have finished your visit, but first you need to find the beach...
 
 Portobello Town Hall & Crossroads
-  You can move north, east, west and northeast.
+You can move north, east, west and northeast.
 
 > w
 You move west.
@@ -161,7 +161,7 @@ nostalgic and ultimately facing extinction. They are doing quite a nice soup
 pack today where you can buy a leek, small turnip and carrot for the price of
 1/3 of a trendy take-away latte.
 
-  You can move north, south and in.
+You can move north, south and in.
 
 > in
 You move in.
@@ -212,7 +212,7 @@ nostalgic and ultimately facing extinction. They are doing quite a nice soup
 pack today where you can buy a leek, small turnip and carrot for the price of
 1/3 of a trendy take-away latte.
 
-  You can move north, south and in.
+You can move north, south and in.
 
 > n
 You move north.
@@ -356,7 +356,7 @@ wood-fronted chemist.   You can move north, west and in.
 You move west.
 
 Portobello Town Hall & Crossroads
-  You can move north, east, west and northeast.
+You can move north, east, west and northeast.
 
 > get bus
 You get the No. 26 bus back to town.

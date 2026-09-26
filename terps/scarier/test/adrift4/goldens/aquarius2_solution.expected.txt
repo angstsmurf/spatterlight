@@ -46,7 +46,7 @@ here.
 Fenrik disappears but he leaves behind a wondrous looking Sword.
 
 > take sword
-You pick up The Wondrous Sword.
+You pick up the Wondrous Sword.
 
 > w
 You move west.
@@ -113,8 +113,8 @@ Radiant Magical Stone.
 You can't eat Edible Plant.
 
 > take stone
-Which Stone.  A Shiny Magical Stone, A Glowing Magical Stone or A Radiant
-Magical Stone?
+Which Stone?  The Shiny Magical Stone, the Glowing Magical Stone or the
+Radiant Magical Stone?
 
 > w
 You move west.
@@ -270,7 +270,7 @@ You are on the Narrow Path. It doesn't look as if your getting anywhere but
 you must press on.  A Void Mutant is here.  You can move north and south.
 
 > take potion
-You pick up A Magical Potion.
+You pick up the Magical Potion.
 
 > drink potion
 You drink the Potion and feel Much Stronger.
@@ -311,8 +311,8 @@ emanating from within it.  You can move north and south.
 You pick up Sorcerer Slayer.
 
 > take stone
-Which Stone.  A Shiny Magical Stone, A Glowing Magical Stone, A Radiant
-Magical Stone or A Golden Magical Stone?
+Which Stone?  The Shiny Magical Stone, the Glowing Magical Stone, the Radiant
+Magical Stone or the Golden Magical Stone?
 
 > drink potion
 You can't do that here!

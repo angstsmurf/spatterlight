@@ -119,8 +119,7 @@ You take the plunger.
 You move west.
 
 Upstairs Hall
-  Also here is a toy box.  Sam is here.  You can move east, south, up and
-down.
+Also here is a toy box.  Sam is here.  You can move east, south, up and down.
 
 > go down
 You move down.
@@ -205,8 +204,8 @@ Kay is here.  You can move north, south and west.
 You move south.
 
 Garden
-  Also here is a shed door, a sledge hammer, a football, a car and a
-mushroom.  Jade is here.  You can only move north.
+Also here is a shed door, a sledge hammer, a football, a car and a mushroom.
+Jade is here.  You can only move north.
 
 > get sledge hammer
 You take the sledge hammer.
@@ -238,7 +237,7 @@ You take the drill from the workbench.
 You move north.
 
 Garden
-  Also here is a shed door, a football, a car and a mushroom.  Jade is here.
+Also here is a shed door, a football, a car and a mushroom.  Jade is here.
 You can move north and south.
 
 > n
@@ -278,8 +277,7 @@ understairs cupboard and a coat.  You can move north, east, south and up.
 You move up.
 
 Upstairs Hall
-  Also here is a toy box.  Sam is here.  You can move east, south, up and
-down.
+Also here is a toy box.  Sam is here.  You can move east, south, up and down.
 
 > s
 You move south.
@@ -304,7 +302,7 @@ You take your debit card.
 You move north.
 
 Your Road
-  You can move south and west.
+You can move south and west.
 
 > w
 You move west.

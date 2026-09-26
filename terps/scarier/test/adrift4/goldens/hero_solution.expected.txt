@@ -280,7 +280,7 @@ into the washing machine has about a 50/50 chance of coming out in one piece,
 although there's only a 10% of that one piece being anything vaguely the same
 as it was when it went in. A couple of buttons above the circular door start
 and stop the machine but which one is which you can't seem to remember right
-now.  A small hoover is on the washing machine, and inside is your jeans.
+now.  A small hoover is on the washing machine, and inside are your jeans.
 
 > get hoover
 You take the small hoover from the washing machine.
@@ -395,9 +395,9 @@ of Bosses to decide what is done and what isn't; what laws are passed and
 what aren't; who is arrested and who isn't. Torrin Plaza is also the home of
 the police who enforce the law with an iron fist (when they're not busy
 taking bribes and make life hard for overworked and underpaid super heroes,
-that is, that is, that is). Here is where fortunes are made and lost in a
-matter of minutes and where people rise from the gutters to the heights of
-power in a similar time frame.
+that is). Here is where fortunes are made and lost in a matter of minutes and
+where people rise from the gutters to the heights of power in a similar time
+frame.
 
 Torrin Plaza: The Heart Of The City
 Large buildings tower into the sky around the perimeter of Torrin Plaza,

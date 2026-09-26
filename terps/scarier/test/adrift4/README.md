@@ -105,7 +105,7 @@ python3 harness/run_autosave_tests.py -v undo   # only cases matching "undo", wi
   - The rest cover what the saved game itself does not hold, which the
     container's session section (`run_session_state()` in `scrunner.cpp`)
     carries: the line `again` repeats, the command history past its 64-entry
-    ring, pronouns (also in the undo buffer), an open 4.0 "Which tree.  ...?"
+    ring, pronouns (also in the undo buffer), an open 4.0 "Which tree?  ...?"
     question together with the list it offered (what decides "That is still
     ambiguous!" on the next tie), the question prefix ("Wear what?",
     "...with?", the battle's "Who do you want to attack?"), brief/verbose and

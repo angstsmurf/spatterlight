@@ -224,7 +224,7 @@ Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
-  The wizard is here.  Wizard strides off toward the hotel and enters it.
+The wizard is here.  Wizard strides off toward the hotel and enters it.
 
 > e
 You move east.
@@ -236,7 +236,7 @@ faces is still intact.  The front desk counter is bare, the room mailboxes
 are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
-  The wizard is here.  Wizard strides off to the east.
+The wizard is here.  Wizard strides off to the east.
 
 > e
 You move east.
@@ -250,7 +250,7 @@ resilient and very easy on the feet.  The hall is "L" shaped with the long
 part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
-  The wizard is here.  Wizard strides off to the north.
+The wizard is here.  Wizard strides off to the north.
 
 > n
 You move north.
@@ -981,7 +981,7 @@ Water from the drain tube accumulates into a pool of water about waist deep,
 which flows out north into a river.  There is enough stone not eroded
 partially surrounding the pool which you can walk on.    Thankfully you were
 able to avoid falling into the pool.
-  A canoe is partly in the water.
+A canoe is partly in the water.
 
 > move canoe into water
 The canoe is floating in the water.

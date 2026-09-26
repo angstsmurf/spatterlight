@@ -766,9 +766,11 @@ npc_announce (scr_gameref_t game, scr_int npc,
   is_400 = npc_version (game) >= TAF_VERSION_400;
   dir = npc_wherefrom (game, other_room, gs_playerroom (game));
 
+  /* Deliberate deviation: 3.7 prints the sentinel ("Alice walks off to not
+     moved."); Scarier drops that departure in every version, as 3.8+ do. */
   if (is_exit)
     {
-      if (strcmp (dir, NOT_MOVED) == 0 && npc_version (game) > TAF_VERSION_370)
+      if (strcmp (dir, NOT_MOVED) == 0)
         return;
       if (strcmp (dir, NOWHERE) == 0 && !is_400)
         return;
@@ -780,16 +782,17 @@ npc_announce (scr_gameref_t game, scr_int npc,
   vt_key[2].string = "Name";
   name = prop_get_string (bundle, "S<-sis", vt_key);
 
-  /* Print NPC exit/entry details, run on from the turn's text so far. */
-  if (is_400)
+  /* Print NPC exit/entry details, run on from the turn's text so far.
+     Deliberate deviation: the name leads a sentence, so Scarier capitalises
+     it in every version (3.7-3.9 print a lowercase Name raw), and joins with
+     pspace's guard everywhere, so 3.7/3.8 never make four spaces.  A
+     lowercase Name the game's ALRs quote keeps the Runner's shape. */
+  if (is_400 || !pf_alr_mentions (bundle, name))
     pf_new_sentence (filter);
-  if (npc_version (game) >= TAF_VERSION_390)
-    pf_buffer_join (filter, name);
-  else
-    pf_buffer_join_always (filter, name);
+  pf_buffer_join (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
-  if (strcmp (dir, NOWHERE) != 0)
+  if (strcmp (dir, NOWHERE) != 0 && strcmp (dir, NOT_MOVED) != 0)
     {
       if (is_exit)
         pf_buffer_string (filter, strcmp (dir, "outside") == 0 ? " " : " to ");
@@ -866,7 +869,12 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
    * is kept: it can differ only in that leading-whitespace case, which
    * nothing can depend on.
    */
-  pf_buffer_join_always (filter, name);
+  /* Deliberate deviation: capitalised, and joined with pspace's guard, like
+     npc_announce() -- no four spaces, no lowercase sentence start (unless
+     the game's ALRs quote the Name as the Runner prints it). */
+  if (!pf_alr_mentions (bundle, name))
+    pf_new_sentence (filter);
+  pf_buffer_join (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
   pf_buffer_character (filter, '.');

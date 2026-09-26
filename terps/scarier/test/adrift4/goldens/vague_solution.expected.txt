@@ -128,7 +128,7 @@ A cabin door is behind you and closed, which is odd as you definitely did not
 close it moments ago.
 
 > open cabinet
-You open the cabinet.  Inside the cabinet is a wallet, a luggage slip, a
+You open the cabinet.  Inside the cabinet are a wallet, a luggage slip, a
 fountain pen and a brooch.
 
 > get wallet

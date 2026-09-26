@@ -960,7 +960,7 @@ _____________________________
 
 > look at specimen table
 Its black, once sleek and polished surface is now covered with the graffiti
-of age and experiment.  On the specimen table is a specimen cage, a Geiger
+of age and experiment.  On the specimen table are a specimen cage, a Geiger
 counter, a pair of gas goggles, a flashlight and a bug translating helmet.
 
 > get flashlight

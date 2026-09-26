@@ -63,7 +63,7 @@ Also here is a brown suitcase.  You can only move up.
 You pick up the brown suitcase.
 
 > open bag
-You open the brown suitcase.  Inside the brown suitcase is a 9mm hand gun, a
+You open the brown suitcase.  Inside the brown suitcase are a 9mm hand gun, a
 lazer watch and a mind learner.
 
 > take learner

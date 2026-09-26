@@ -676,6 +676,18 @@ case, and their goldens are re-blessed. The row comments in
 
 ## Deliberate deviations (measured, not ported)
 
+- **A self-containing ALR expands a piece of text only once (4.0).** run400
+  walks the whole turn buffer at the end of every completing task and again
+  at the flush (pf_refilter(), 33e35af69), so an ALR whose Replacement
+  contains its Original re-expands on every walk: humbug "Okay.  Okay.  I put
+  the sweet on the plinth.", sophie's exits list with eight "north (to the
+  farmhouse)", private_eye's doubled "I've seen him in hurt from time to
+  time.", chooseyourown/halloweenhijinks `""`, JGrim "Looking good. Looking
+  good.". The extra walks (and the variable freezing they bring) stay;
+  pf_replace_alr() just skips a match that already sits inside a copy of its
+  replacement. Rows re-blessed: humbug, sophie, sophie_comp, private_eye,
+  chooseyourown, halloweenhijinks, JGrim, shardsofmemory, thewoods,
+  spot_of_bother, deadreckoning, paint, hero, onnafa, lca, warlord.
 - **Runner cp1251 NPC attack lines under the English locale: «чёрную
   собаку hits me.» (govard T34-45, 3.90).** The game authors «Чёрная
   собака меня укусила.» as the dog's attack line; the Runner's UCase-based
@@ -816,6 +828,124 @@ case, and their goldens are re-blessed. The row comments in
   handlers already keep the turn's text where the Runner's callers put it
   back, and nothing measured differs (`thetest`, 3.90, matches on every
   turn). The other turn-sectioning joins are in the index.
+- **Definite object names fold the author's article, in any case and in
+  every version (`lib_print_object_np`).** The Runner matches the Prefix
+  case-sensitively, so a capital Prefix prints mid-sentence ("You take The
+  Grim Reaper's Scythe.", afdfr; "You drop A Bow of Icy Arrows.", yeh;
+  "Which Stone.  A Shiny Magical Stone, A Glowing ...", aquarius2), and a
+  Short that begins with its own article doubles it ("You take the The horn
+  of the angels.", shadowpeak). Scarier prints "the" for any a/an/the/blank
+  Prefix and for "some" from 3.9 on, keeps "some" below 3.9, and drops a
+  leading article from the Short. Battle command lines keep the Runner
+  spelling (`lib_compare_article_binary`) because they are re-parsed.
+- **Pre-3.9 wear/remove/put-all confirmations name the object definitely.**
+  The Runner uses the raw indefinite Prefix ("You put on a underwear.",
+  life_of_mike; "You remove a grubby sweatshirt.", akron; "I put on a
+  scuba outfit.", wrecked). Scarier says "the", as SCARE did. Refusals
+  ("You are already wearing a hat", "not holding") keep the Runner's name.
+- **"(Getting off X first)" always names X.** The Runner prints "that" for
+  a 3.9+ parent the player hasn't seen (gateway, dickynoodle) and the raw
+  capital Prefix ("A Stool", xfiles). Scarier prints the definite name.
+- **"<name> is here." starts with a capital in every version.** Below 4.0
+  the Runner joins it lowercase ("except down.  a monkey is here.",
+  twilight; spacerun, thenightmoon, enigma, g7056). Scarier capitalises
+  the sentence as SCARE did; the 4.0 UCase is unchanged.
+- **Which-prompts ask a question: "Which ball?  The red ball or the blue
+  ball?"** Every Runner prints "Which ball.  ...?", and the 3.7/3.8
+  examines() form is "Which <Short> would you like to examine.  ...?". A
+  4.0 empty character Prefix also leaves its space in the list ("Which
+  woman.   woman or  woman?"). Scarier asks with "?" and drops the stray
+  space (`lib_which_head()` in sclibrar_disambig.inc). When the prompt
+  appears is unchanged. Exception: a game that has any ALR whose Original
+  starts "Which " keeps the Runner's full stop and spacing, so that the
+  author's rewrite still fires (cursed's 58 ALRs, DragonShrine,
+  thelasthour, the yoncastle pair, asteroid_after, Vendetta).
+  `lib_which_runner_form()` makes that choice.
+- **Pre-4.0 "You are already wearing the hat." keeps its full stop.**
+  run370-390 leave the sentence open (530366627 ported the '\0'
+  terminator). 4.0 keeps its "!".
+- **The ask-format hint ends with a full stop.** "... [character] about
+  [subject]"." with the stop, in both the [ ] and &lt;&gt; forms. The
+  Runner has no stop there (cda02a97c). Kept unstopped in any 3.8+ game
+  with an ALR Original containing `[subject]"` (lib_ask_format_character):
+  ~25 games (Back Home, IceCream, panic, xycanthus, ...) replace the
+  unstopped hint with their own sentence, and the stop would double it.
+- **"You can't attack X with Y." keeps its full stop.**
+  lib_battle_cant_attack. The Runner leaves the sentence open (1a203c31b).
+- **"(Right next to you, silly!)" keeps the vocative comma.** All four
+  Runners print "you silly!" with no comma (014c0f5c3). Kept comma-less
+  in any game with an ALR Original containing "silly!)" (Fugitive,
+  IceCream, panic, The Dead Man, ... 12 games), so those ALRs still fire.
+- **Pre-4.0 `take X and Y` after an overwritten answer starts a new
+  sentence.** The Runner overwrites "You pick up " with "You are already
+  wearing the hat!" (or "can't see ... from here!" / "You've already
+  got ..."). A later object is then appended straight onto that:
+  "...hat!the stone.". Scarier adds "  You pick up " before it
+  (lib_take_and_pre400). Which objects get taken is unchanged; no corpus
+  row reaches it. Checked by hand on ALEXIS.TAF: "You are already wearing
+  the magic cube!  You pick up the nice food."
+- **Third-person library verbs are conjugated ("SoMorph takes the
+  catnip.").** The Runner splices the bare second-person verb after
+  `%player%` ("SoMorph take", maincourse). Scarier conjugates it
+  (`lib_conjugate_third_person`), except where a game ALR rewrites the bare
+  form (herrdoktor, iqsfot, albert), so authored fixes still fire and
+  yonastoundingcastle's "Ye unlocketh" comes back. Same rule for battle
+  ("SoMorph hits Jones", "manages to avoid"), "%player% hasn't been yet",
+  and "I am / You are already sitting on the floor" (Runner: "I are").
+- **Battle names get an article and sentence case.** The Runner splices
+  "<Prefix> <Alias>" raw ("You stab The serpentine guardian", "You stab
+  zombie", "Wraith hits you") and capitalises only five leading sites.
+  Scarier keeps the Runner's choice of Name/alias but lowercases a leading
+  article mid-sentence, gives a bare lowercase alias "the", and capitalises
+  every sentence-leading name (shadowpeak, spirits_flight, noximion). A
+  name the game's ALRs quote keeps the raw shape (les_feux "assassin
+  manages "). The player's possessive follows the perspective ("my
+  attack"), not the Runner's literal "your".
+- **"I don't think X would be a very effective weapon!"** The Runner's
+  "affective" misspelling is not copied; "Player can't attack X with Y" gets
+  its full stop.
+- **Walk announcements are always capitalised and single-joined.** 3.7-3.9
+  print a lowercase Name raw and 3.7/3.8 (and the 4.0 hidden-stop line) join
+  with an unguarded "  ", giving four spaces (super_liam); 3.7 prints
+  "Alice walks off to not moved." (alices_restaurant). Scarier capitalises
+  (unless an ALR quotes the Name), joins with pspace's guard, and drops the
+  "not moved" departure as 3.8+ do.
+- **Contents listings agree in number: "Inside the desk are X and Y."**
+  The Runner prints a literal " is " whatever the count (humbug "On the
+  triangular table is some swimming goggles, a watch, ..."; run400 46A7C7).
+  This applies to the lib listers, the pre-3.9 open lister, the joined
+  ", and inside is" and the `%in_X%`/`%on_X%` prefixed forms. Scarier
+  agrees (`lib_select_list_plurality`, `var_select_list_plurality`).
+  A listing keeps the literal when one of its game's ALR Originals holds
+  "Inside/On [the] <that container> is", ", and inside is", or a bare
+  " is ", so that those ALRs still fire (deadman, hero, Hamper, les_feux,
+  dolg; `lib_alrs_see_list_verb`).
+- **Pre-3.9 inventory lists held containers and surfaces as at 3.9+.**
+  whatisin1 prints "Inside the tray is a key." for a held surface.
+  run370 also lists a closed container's contents. Scarier prints
+  "On the tray ..." and nothing for a closed container. The run370
+  contents are still marked seen, as the Runner's listing would mark
+  them (bdc0210ef text reverted, seen kept).
+- **obj_appears_plural is SCARE's rule.** The measured chain is
+  case-sensitive and ignores "us" (496c115f2). It only showed as wrong
+  agreement, e.g. "some fungus are", "A bag of apples are", "the NAILS
+  is". Scarier keeps SCARE's rule: an empty/"a"/"an" prefix (any case)
+  is singular; otherwise a name ending in "s" but not "us" is plural.
+- **Pre-3.9 take-from with nothing there.** The Runner says "There is
+  nothing inside <raw name>." even for a surface. At 3.8 it says a bare
+  "You take " when nothing is taken (968f57a74). Scarier says "There is
+  nothing on/inside the X." in both cases. The turn and the dispatch are
+  unchanged.
+- **Room-block literal "  " at a line start.** The Runner's two literal
+  spaces ahead of "Also here", the joined "... are here." and the exits
+  sentence open a line with two spaces after a break or a bare heading
+  (maincourse "  SoMorph can move north, south and west."; 39e65a2c6).
+  Scarier leaves them out there, and when nothing precedes them
+  (`lib_buffer_literal_gap`). A game whose ALR
+  Original begins with a space or spans a break keeps them, because
+  perspectives' ' Also here is a gun. ' only matches with the gap. lair's
+  "  Chad the vampire and Lara are here." stays: the break there is its
+  own `<d5>` ALR, which is replaced after the room block is built.
 
 ---
 

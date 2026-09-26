@@ -39,7 +39,7 @@ You move west.
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
-  Also here is a bunch of red berries.
+Also here is a bunch of red berries.
 
 > get berries
 You pick up the bunch of red berries.
@@ -95,7 +95,7 @@ see what happened to the boat, but the stern is under water.  The slant of
 the deck makes it difficult, but not hard to make your way around. However,
 every time you move, you can feel the boat move also. Maybe it's not a good
 idea to stay aboard the boat for long.
-  Also here is a couple of tires.
+Also here is a couple of tires.
 
 Your stomach is growling. You'd better get something to eat.
 
@@ -253,7 +253,7 @@ and compass. Maps and papers are scattered all over the place,  along with
 empty food packages. In the corner is a sort of makeshift hammock. It looks
 like someone slept here for a little bit. A short set of stairs leads
 downwards from here.
-  Also here is a flare gun, a flare cartridge and a map.
+Also here is a flare gun, a flare cartridge and a map.
 
 > get map
 You pick up the map.
@@ -264,7 +264,7 @@ You move down.
 You descend the steps and make your way to the engine room, which is flooded
 up to your waist with seawater. Flotsam and jetsam floats past you in the
 water. There is a strong smell of gasoline here.
-  Also here is a first aid kit, a life preserver and a dented gas can.
+Also here is a first aid kit, a life preserver and a dented gas can.
 
 > get dented gas can
 You pick up the dented gas can.
@@ -278,7 +278,7 @@ and compass. Maps and papers are scattered all over the place,  along with
 empty food packages. In the corner is a sort of makeshift hammock. It looks
 like someone slept here for a little bit. A short set of stairs leads
 downwards from here.
-  Also here is a flare gun and a flare cartridge.
+Also here is a flare gun and a flare cartridge.
 
 > east
 You move east.
@@ -512,7 +512,7 @@ and compass. Maps and papers are scattered all over the place,  along with
 empty food packages. In the corner is a sort of makeshift hammock. It looks
 like someone slept here for a little bit. A short set of stairs leads
 downwards from here.
-  Also here is a flare gun and a flare cartridge.
+Also here is a flare gun and a flare cartridge.
 Even though it is nighttime, you can dimly make out your surroundings.
 
 > down
@@ -521,7 +521,7 @@ You move down.
 You descend the steps and make your way to the engine room, which is flooded
 up to your waist with seawater. Flotsam and jetsam floats past you in the
 water. There is a strong smell of gasoline here.
-  Also here is a first aid kit and a life preserver.
+Also here is a first aid kit and a life preserver.
 
 > dive
 
@@ -530,7 +530,7 @@ You duck under the water.
 You are swimming underwater in the engine room. Your eyes sting because of
 oil and gas in the water and you find it hard to stay under. Before you is
 the ship's engine.
-  Also here is a scratched gas can.
+Also here is a scratched gas can.
 
 > get scratched gas can
 You pick up the scratched gas can.
@@ -541,7 +541,7 @@ You move up.
 You descend the steps and make your way to the engine room, which is flooded
 up to your waist with seawater. Flotsam and jetsam floats past you in the
 water. There is a strong smell of gasoline here.
-  Also here is a first aid kit and a life preserver.
+Also here is a first aid kit and a life preserver.
 
 > up
 You move up.
@@ -552,7 +552,7 @@ and compass. Maps and papers are scattered all over the place,  along with
 empty food packages. In the corner is a sort of makeshift hammock. It looks
 like someone slept here for a little bit. A short set of stairs leads
 downwards from here.
-  Also here is a flare gun and a flare cartridge.
+Also here is a flare gun and a flare cartridge.
 Even though it is nighttime, you can dimly make out your surroundings.
 
 In the darkness you can hear the stirrings of nocturnal creatures.
@@ -808,7 +808,7 @@ You move in.
 
 You are now in a small cave about ten feet long and five feet wide.  There's
 not much room here, but it could make a passable shelter if one was needed.
-  Also here is a skeleton.
+Also here is a skeleton.
 
 > move skeleton
 

@@ -137,16 +137,19 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
     case MOVE_SIT_FLOOR:
       if (lib_co_contains (line, "on") || lib_co_contains (line, "in"))
         {
-          /* run400 46B3BC-46B43E, run390 444086-44410F. */
+          /* run400 46B3BC-46B43E, run390 444086-44410F.  The Runners put
+             the pronoun before a fixed " are", giving "I are" and
+             "%player% are"; Scarier deliberately agrees the copula
+             (deviation policy). */
           if (position == 1 && parent == -1)
             {
               pf_buffer_string (filter,
-                                lib_select_response (game, "You", "I",
-                                                     "%player%"));
+                                lib_select_response (game, "You are", "I am",
+                                                     "%player% is"));
               pf_buffer_string (filter,
                                 lib_co_contains (line, "floor")
-                                ? " are already sitting on the floor!\n"
-                                : " are already sitting on the ground!\n");
+                                ? " already sitting on the floor!\n"
+                                : " already sitting on the ground!\n");
               return TRUE;
             }
           lib_print_response_message (game,

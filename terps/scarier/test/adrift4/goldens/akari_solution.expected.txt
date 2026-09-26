@@ -39,7 +39,7 @@ I unplug it. With the TV broken, it's no use leaving it plugged in anyway.
 
 > x table
 A table... well, actually a former desk, but I don't use it for writing but
-for storage. It has a drawer.  On the table is my PS2, my black jeans and my
+for storage. It has a drawer.  On the table are my PS2, my black jeans and my
 DVDs.
 
 > take metal album
@@ -58,11 +58,11 @@ I close my stereo system.
 Yay. It is now on and music is playing.
 
 > open drawer
-I open the drawer.  Inside the drawer is my wristwatch, a photograph and a
+I open the drawer.  Inside the drawer are my wristwatch, a photograph and a
 ball pen.
 
 > look in drawer
-A drawer. It part of my table.  The drawer is open.  Inside the drawer is my
+A drawer. It part of my table.  The drawer is open.  Inside the drawer are my
 wristwatch, a photograph and a ball pen.
 
 > look at photo
@@ -169,12 +169,12 @@ Our little kitchen. There is a microwave oven, a fridge, our sink and a
 cupboard here. Our living room is to the south.
 
 > open cupboard
-I open the cupboard.  Inside the cupboard is the dishes, my tea mug and a bag
-of green tea.
+I open the cupboard.  Inside the cupboard are the dishes, my tea mug and a
+bag of green tea.
 
 > look in cupboard
-A simple cupboard.  The cupboard is open.  Inside the cupboard is the dishes,
-my tea mug and a bag of green tea.
+A simple cupboard.  The cupboard is open.  Inside the cupboard are the
+dishes, my tea mug and a bag of green tea.
 
 > take mug
 I take my tea mug from the cupboard.
@@ -212,7 +212,7 @@ south-east and my dad's room is to the south. To the north-east is our store
 room.
 
 > look in wardrobe
-A wardrobe for coats and stuff.  Inside the wardrobe is my school uniform, a
+A wardrobe for coats and stuff.  Inside the wardrobe are my school uniform, a
 coathanger and my denim jacket.
 
 > take jacket

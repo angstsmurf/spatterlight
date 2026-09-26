@@ -30,7 +30,7 @@ Beat down and dead grass marks where your village's people worked and played
 for so many years.  Now it  feels as if these paths will never be walked on
 again.
 
-  You can move east, south and southeast.
+You can move east, south and southeast.
 
 > s
 You move south.
@@ -40,7 +40,7 @@ A once marvel of order and technological amazement to you, the shop now lies
 in disarray.  Broken metal is strewn about and your old friend, the
 Blacksmith, is no longer in sight.
 
-  You see a crowbar.  You can move north, east and south.
+You see a crowbar.  You can move north, east and south.
 
 > get crowbar
 You take the crowbar.
@@ -51,7 +51,7 @@ You move east.
 Village Square
 The sky is dark.  The town is eerily empty.
 
-  You can move north, east, south, west, northeast, southeast, southwest and
+You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 > sw
@@ -63,8 +63,8 @@ appear damaged by strange magic.
 
 You see an Alien.
 
-  You can move north, east and northeast.  Alien hits you, but it doesn't
-seem to do any damage.
+You can move north, east and northeast.  Alien hits you, but it doesn't seem
+to do any damage.
 
 > ghost
 You have disembodied.
@@ -82,7 +82,7 @@ You move northeast.
 Village Square
 The sky is dark.  The town is eerily empty.
 
-  You can move north, east, south, west, northeast, southeast, southwest and
+You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 > ne
@@ -93,7 +93,7 @@ As you stand next to the small hill above a once tranquil valley, you look to
 the sky and feel through your very soul an erie darkness.  You see that
 darkness is from an ominous and unusual cloud.  A ship.
 
-  You can move south, west and southwest.
+You can move south, west and southwest.
 
 > stand on hill
 You stand on the hill.
@@ -107,7 +107,7 @@ your feet.  You are on the Alien Ship.
 
 You see an Alien Officer.
 
-  You can only move south.  Alien officer manages to avoid Alien's attack.
+You can only move south.  Alien officer manages to avoid Alien's attack.
 Alien officer hits Alien, but it doesn't seem to do any damage.
 
 > s
@@ -117,7 +117,7 @@ In Corridor
 A hexagonal tunnel stretches around you.  Cold and evil permeate the air.
 There is a computer screen on the wall.
 
-  You can move north, east and west.
+You can move north, east and west.
 
 > w
 You move west.
@@ -133,7 +133,7 @@ Corner
 The corridor veers left.  You can see other alien ships out a window on your
 right.
 
-  You can move east and south.
+You can move east and south.
 
 > s
 You move south.
@@ -144,7 +144,7 @@ door.  Looks like whatever is to the west is pretty important.  Hey, how can
 you have cardinal directions on a spaceship, anyway?  You see a control
 panel.
 
-  You can move north and east.
+You can move north and east.
 
 > use crowbar in bulkhead
 You have held the bulkhead door open with the crowbar.

@@ -21,7 +21,7 @@ The briefing room is somewhat dark with terain maps plastered on the walls.
 The General is seated at his desk.
 
 There is a door to the west
-  Also here is General Robert's Desk.  General Roberts is here.
+Also here is General Robert's Desk.  General Roberts is here.
 
 > w
 You move west.
@@ -144,7 +144,7 @@ light.
 
 [Pilot] Sir we are already to go. Just give me the word to launch when you
 are ready
-  Also here is a remote beacon.
+Also here is a remote beacon.
 
 > get beacon
 You take the remote beacon.
@@ -249,7 +249,7 @@ Outpost 11 Conference Room
 A huge glossy brown mahogany conference table lies in the middle of this
 room. White office chairs surround the table.
 
-To the north is the Lobby.  one of the captors is here.
+To the north is the Lobby.  One of the captors is here.
 
 > shoot captor with pistol
 You shoot Captor with the pistol.  Captor hits you, but it doesn't seem to do

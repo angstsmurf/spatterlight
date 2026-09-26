@@ -99,7 +99,7 @@ leads westwards down a corridor.  You can only move west.
 > look in garbage
 This is a smelly heap of trash, it consists mainly of feces and other
 excretions, there is some scrap wood and metal here aswell and you're sure
-you just saw a skull.  A small book is on the pile of garbage, and inside is
+you just saw a skull.  A small book is on the pile of garbage, and inside are
 some trash and a copper key.
 
 > get copper key
@@ -139,7 +139,7 @@ You move west.
 Goblin guard room
 This smelly room reminds you of the prison cell! There are two torches nailed
 into the wall and a stone chair on the northern wall. There is a brown door
-to the east and a long passageway to the west.  a goblin guard is here.  You
+to the east and a long passageway to the west.  A goblin guard is here.  You
 can move east and west.  A goblin guard hits you, but it doesn't seem to do
 any damage.
 
@@ -237,7 +237,7 @@ northern wall.  You can only move west.
 
 > x desk
 This stone desk is quite smooth and someone is most likely to be using it
-often since there is a half full ink vial in it.  On the stone desk is a
+often since there is a half full ink vial in it.  On the stone desk are a
 piece of parchment, a tiny ink pen and a red apple.
 
 > get apple

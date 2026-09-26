@@ -576,6 +576,24 @@ var_print_list (scr_gameref_t game, const var_list_t &list)
 
 
 /*
+ * var_select_list_plurality()
+ *
+ * " is " or " are " for the prefixed "Inside/On <object> is <list>." form:
+ * plural for two or more objects, else by the one object's plurality.
+ */
+static const scr_char *
+var_select_list_plurality (scr_gameref_t game, scr_int associate,
+                           const var_list_t &list)
+{
+  if (lib_alrs_see_list_verb (game, associate))
+    return " is ";
+  if (list.size () > 1)
+    return " are ";
+  return var_select_plurality (game, list[0], " is ", " are ");
+}
+
+
+/*
  * var_use_alternate_format()
  *
  * Pick between the Runner's two listing styles for the contents of a
@@ -658,10 +676,13 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
         }
       else
         {
-          /* " is ", never " are " -- see lib_list_in_object_normal(). */
+          /*
+           * The Runner's " is " is a literal whatever the count; Scarier
+           * keeps agreement -- see lib_list_in_object_normal().
+           */
           var_append_temp (vars, prefix);
           var_print_object_np (game, associate);
-          var_append_temp (vars, " is ");
+          var_append_temp (vars, var_select_list_plurality (game, associate, list));
           var_print_list (game, list);
         }
       var_append_temp (vars, ".");
@@ -723,7 +744,7 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
         {
           var_append_temp (vars, "On ");
           var_print_object_np (game, associate);
-          var_append_temp (vars, " is ");
+          var_append_temp (vars, var_select_list_plurality (game, associate, list));
           var_print_list (game, list);
         }
     }
@@ -772,7 +793,7 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
         {
           var_append_temp (vars, "Inside ");
           var_print_object_np (game, associate);
-          var_append_temp (vars, " is ");
+          var_append_temp (vars, var_select_list_plurality (game, associate, list));
           var_print_list (game, list);
         }
       var_append_temp (vars, ".");

@@ -680,10 +680,29 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  *
  * The pre-3.9 branch below already compares with strcmp/strncmp, and run370
  * and run380 are the same VB, so this makes all four Runners agree.
+ *
+ * Scarier deliberately does not follow the Runner here (deviation policy):
+ * an author's capital article mid-sentence ("You drop A Bow of Icy Arrows.",
+ * "(Getting off A Stool first)") is a display accident, so the comparison
+ * folds case and every spelling becomes "the".
  */
 static scr_bool
 lib_compare_article (const scr_char *string, const scr_char *word,
                      scr_int length)
+{
+  assert (string && word);
+
+  return scr_compare_word (string, word, length);
+}
+
+/*
+ * The Runner's own case-sensitive test, for the one caller that builds a
+ * command line rather than text: the battle "with" prefix re-parsed on the
+ * next turn (lib_battle_definite_name), which keeps the measured spelling.
+ */
+static scr_bool
+lib_compare_article_binary (const scr_char *string, const scr_char *word,
+                            scr_int length)
 {
   assert (string && word);
 
@@ -699,6 +718,7 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3], vt_version[1];
   const scr_char *prefix, *normalized, *name;
+  scr_bool is_pre_390;
 
   vt_version[0].string = "Version";
 
@@ -723,65 +743,51 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * divergence table in RUNNER_TESTS_TODO.md, settled 2026-08-14.
    */
   normalized = prefix;
-  if (prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390)
-    {
-      /*
-       * Pre-3.9 is Form1.tense(), and it is a much smaller thing: three
-       * literal tests and no default (run370 @420F28, run380 @425FA8, the two
-       * byte-identical).  An exact "a" becomes "the"; a prefix opening "a " or
-       * "an " has that much replaced by "the "; anything else -- a bare "an",
-       * a "some" -- comes back untouched.  So run370 answers `take implement
-       * of destruction` with "You pick up an implement of destruction." where
-       * 3.9 and 4.0 say "the".  Measured live under Wine 2026-08-24 on
-       * arlo.taf.
-       *
-       * tense() has no empty-prefix branch either, but pre-3.9 still comes
-       * out with "the", because the empty prefix never reaches it: the .taf
-       * loader rewrites it on the way in.  run380 @4481B2 reads the Prefix
-       * line and, `If (var_3C8(0) = vbNullString) Then var_3C8(0) = "a"`,
-       * substitutes a literal "a" (run370 @43F5DA does the same).  So pre-3.9
-       * an empty prefix simply *is* an "a" prefix, and both of scarier's
-       * existing defaults -- "the " here, "a " in lib_print_object below --
-       * already fall out of it correctly.  4.0 turns out to do it too, at
-       * loc_4900EC in its own object loader (mdlSpreadTheLoad.bas:7599), so
-       * the substitution is not a pre-3.9 quirk at all; it is only that the
-       * defaults here make it invisible.
-       *
-       * Measured live under Wine 2026-08-24 on mikes.taf (3.80) in run380,
-       * whose dresser, toilet, poop and vans all carry an empty Prefix
-       * (deobfuscated straight out of the .taf, so this is not inference):
-       * `take vans` answers "You pick up the pair of vans.", `take poop`
-       * "You take a poop from the toilet.", `take all from dresser` "You
-       * take a socks, a shirt, a underwear and a pair of pants from the
-       * dresser."  Note "a underwear" -- the substituted article is never
-       * inflected to "an", exactly as lib_print_object's own default isn't.
-       */
-      if (strcmp (prefix, "a") == 0)
-        pf_buffer_string (filter, "the ");
-      else if (strncmp (prefix, "a ", 2) == 0)
-        {
-          pf_buffer_string (filter, "the ");
-          pf_buffer_string (filter, prefix + 2);
-          pf_buffer_character (filter, ' ');
-        }
-      else if (strncmp (prefix, "an ", 3) == 0)
-        {
-          pf_buffer_string (filter, "the ");
-          pf_buffer_string (filter, prefix + 3);
-          pf_buffer_character (filter, ' ');
-        }
-      else
-        {
-          pf_buffer_string (filter, prefix);
-          pf_buffer_character (filter, ' ');
-        }
-    }
-  else if (lib_compare_article (prefix, "a", 1))
+  is_pre_390 = prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390;
+
+  /*
+   * Pre-3.9 is Form1.tense(), and it is a much smaller thing: three
+   * literal tests and no default (run370 @420F28, run380 @425FA8, the two
+   * byte-identical).  An exact "a" becomes "the"; a prefix opening "a " or
+   * "an " has that much replaced by "the "; anything else -- a bare "an",
+   * a "some" -- comes back untouched.  So run370 answers `take implement
+   * of destruction` with "You pick up an implement of destruction." where
+   * 3.9 and 4.0 say "the".  Measured live under Wine 2026-08-24 on
+   * arlo.taf.
+   *
+   * tense() has no empty-prefix branch either, but pre-3.9 still comes
+   * out with "the", because the empty prefix never reaches it: the .taf
+   * loader rewrites it on the way in.  run380 @4481B2 reads the Prefix
+   * line and, `If (var_3C8(0) = vbNullString) Then var_3C8(0) = "a"`,
+   * substitutes a literal "a" (run370 @43F5DA does the same).  So pre-3.9
+   * an empty prefix simply *is* an "a" prefix, and both of scarier's
+   * existing defaults -- "the " here, "a " in lib_print_object below --
+   * already fall out of it correctly.  4.0 turns out to do it too, at
+   * loc_4900EC in its own object loader (mdlSpreadTheLoad.bas:7599), so
+   * the substitution is not a pre-3.9 quirk at all; it is only that the
+   * defaults here make it invisible.
+   *
+   * Measured live under Wine 2026-08-24 on mikes.taf (3.80) in run380,
+   * whose dresser, toilet, poop and vans all carry an empty Prefix
+   * (deobfuscated straight out of the .taf, so this is not inference):
+   * `take vans` answers "You pick up the pair of vans.", `take poop`
+   * "You take a poop from the toilet.", `take all from dresser` "You
+   * take a socks, a shirt, a underwear and a pair of pants from the
+   * dresser."  Note "a underwear" -- the substituted article is never
+   * inflected to "an", exactly as lib_print_object's own default isn't.
+   *
+   * Scarier deliberately normalizes a bare "an" (and the "the"/capital
+   * spellings below) in every version all the same (deviation policy):
+   * "You pick up an implement of destruction." names an object already
+   * in hand as if it were a new one.  Only the grammatical "some" keeps
+   * its pre-3.9 spelling.
+   */
+  if (lib_compare_article (prefix, "a", 1))
     {
       normalized = prefix + 1;
       pf_buffer_string (filter, "the");
     }
-  else if (lib_compare_article (prefix, "an", 2))
+  else if (scr_compare_word (prefix, "an", 2))
     {
       normalized = prefix + 2;
       pf_buffer_string (filter, "the");
@@ -808,10 +814,24 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * thing 3.9 is known to have added to tense is the "some" pair, so the
    * 3.90 games in the corpus (The Spirit's Flight, whose Spirit Dagger and
    * Orb of Storms both carry a "The" prefix) follow 4.0 here.
+   *
+   * Scarier deliberately keeps a "the" branch anyway (deviation policy): "You
+   * take The Grim Reaper's Scythe." is a capital mid-sentence and nothing
+   * more, so an authored "The" is folded like the pre-b607dd8 code did.
    */
-  else if (lib_compare_article (prefix, "some", 4))
+  else if (lib_compare_article (prefix, "the", 3))
+    {
+      normalized = prefix + 3;
+      pf_buffer_string (filter, "the");
+    }
+  else if (!is_pre_390 && lib_compare_article (prefix, "some", 4))
     {
       normalized = prefix + 4;
+      pf_buffer_string (filter, "the");
+    }
+  else if (scr_strempty (prefix))
+    {
+      normalized = "";
       pf_buffer_string (filter, "the");
     }
 
@@ -823,14 +843,11 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * authored whitespace-only prefix, which the loader trims to nothing after
    * declining to substitute an "a" into it -- probe ISARE's single-space
    * rings answers `where rings` with " rings are test arena.", leading space
-   * and no article (run400, Adrift_isare.txt, 2026-09-07).  The pre-3.9
-   * branch above has already emitted its own prefix and separator.
+   * and no article (run400, Adrift_isare.txt, 2026-09-07).  Scarier
+   * deliberately gives that empty prefix a "the" instead (deviation policy).
    */
-  if (prop_get_integer (bundle, "I<-s", vt_version) >= TAF_VERSION_390)
-    {
-      pf_buffer_string (filter, normalized);
-      pf_buffer_character (filter, ' ');
-    }
+  pf_buffer_string (filter, normalized);
+  pf_buffer_character (filter, ' ');
 
   /*
    * Print the object's name, verbatim.  Inherited SCARE looked for a leading
@@ -867,9 +884,35 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    *
    * The loader's whitespace trims -- trailing spaces off Prefix, leading ones
    * off Short -- are modelled too, in parse_trim_object_names().
+   *
+   * Scarier deliberately strips a leading article off the Short all the same
+   * (deviation policy), as SCARE did: "the The horn of the angels" and "The
+   * the Memo" are doubled articles, nothing more.  Only an article followed
+   * by more of the name goes, with the spaces after it, so the old "the  horn"
+   * double space does not come back either.
    */
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);
+  {
+    static const struct { const scr_char *word; scr_int length; } articles[] = {
+      {"a", 1}, {"an", 2}, {"the", 3}, {"some", 4}
+    };
+    size_t index_;
+
+    for (index_ = 0; index_ < sizeof (articles) / sizeof (articles[0]);
+         index_++)
+      {
+        if (scr_compare_word (name, articles[index_].word,
+                              articles[index_].length)
+            && !scr_strempty (name + articles[index_].length))
+          {
+            name += articles[index_].length;
+            while (scr_isspace (*name))
+              name++;
+            break;
+          }
+      }
+  }
   pf_buffer_string (filter, name);
 }
 
@@ -919,6 +962,11 @@ lib_print_object (scr_gameref_t game, scr_int object)
  * Measured live under Wine 2026-08-24, akron.taf (3.80) in run380: "You remove
  * a grubby sweatshirt." and "You remove a pair of ragged jeans." where the
  * same game in Scarier said "the".
+ *
+ * Scarier deliberately keeps "the" in the success reports all the same
+ * (deviation policy) -- an indefinite article on the object just removed,
+ * worn or put away reads as if it were some other one -- so this printer is
+ * left to the refusals ("You are not wearing a hat!"), where it reads fine.
  */
 static void
 lib_print_object_raw (scr_gameref_t game, scr_int object)
@@ -1178,7 +1226,129 @@ lib_get_death_message (scr_gameref_t game)
  * Where a message reads Ary(5) rather than Ary(0) the third-person string
  * carries the internal %player_pronoun% token instead (see scvars.cpp);
  * pre-4.0 never reaches either, because lib_get_perspective() clamps.
+ *
+ * Scarier deliberately does not print the Runner's "%player% take the acorn."
+ * (deviation policy: a subject-verb disagreement is a display accident).  The
+ * source keeps the Runner's bare literals, and lib_select_response() hands
+ * them to lib_conjugate_third_person(), which conjugates the verb -- except
+ * where the game ships an ALR that already rewrites the bare verb, as
+ * herrdoktor, iqsfot and Albert is Lost do ("Irvine open" -> "Irvine
+ * uncloses"): there the bare text is what the author's ALR expects, and
+ * conjugating it first gave SCARE's old "takess" and "unclosess".
  */
+
+/*
+ * lib_conjugate_verb()
+ *
+ * The third person singular of a bare second-person verb word, or an empty
+ * string when the word is not one to conjugate (a modal, or already third
+ * person).
+ */
+static std::string
+lib_conjugate_verb (const std::string &word)
+{
+  static const scr_char *const KEEP[] = {
+    "is", "was", "has", "does", "can", "can't", "cannot", "could", "couldn't",
+    "must", "might", "may", "will", "won't", "would", "wouldn't", "should",
+    "shouldn't", "isn't", "wasn't", "hasn't", "doesn't", "already", "not",
+    NULL
+  };
+  static const scr_char *const IRREGULAR[][2] = {
+    {"don't", "doesn't"}, {"haven't", "hasn't"}, {"aren't", "isn't"},
+    {"are", "is"}, {"have", "has"}, {"do", "does"}, {"go", "goes"},
+    {NULL, NULL}
+  };
+  scr_int index_;
+  const size_t length = word.length ();
+
+  if (length == 0)
+    return std::string ();
+  for (index_ = 0; KEEP[index_]; index_++)
+    {
+      if (word == KEEP[index_])
+        return std::string ();
+    }
+  for (index_ = 0; IRREGULAR[index_][0]; index_++)
+    {
+      if (word == IRREGULAR[index_][0])
+        return IRREGULAR[index_][1];
+    }
+  if (word[length - 1] == 's' || word.find ('\'') != std::string::npos)
+    return std::string ();
+
+  if (word[length - 1] == 'x' || word[length - 1] == 'z'
+      || word[length - 1] == 'o'
+      || (length > 1 && (word.compare (length - 2, 2, "sh") == 0
+                         || word.compare (length - 2, 2, "ch") == 0)))
+    return word + "es";
+  if (length > 1 && word[length - 1] == 'y'
+      && !strchr ("aeiou", word[length - 2]))
+    return word.substr (0, length - 1) + "ies";
+  return word + "s";
+}
+
+/*
+ * lib_conjugate_third_person()
+ *
+ * Conjugate the verb after a leading "%player% " (or the "'ve" of a leading
+ * "%player%'ve") in a third-person library literal; see the comment above.
+ * Returns the literal itself when there is nothing to change.
+ */
+static const scr_char *
+lib_conjugate_third_person (scr_gameref_t game, const scr_char *literal)
+{
+  static const scr_char PLAYER[] = "%player%";
+  enum { RING_SIZE = 16 };
+  static std::string ring[RING_SIZE];
+  static scr_int ring_next = 0;
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const size_t prefix = sizeof (PLAYER) - 1;
+  const scr_char *rest, *playername;
+  std::string word, conjugated, bare;
+  size_t word_length, name_length;
+
+  if (!literal || strncmp (literal, PLAYER, prefix) != 0)
+    return literal;
+  rest = literal + prefix;
+
+  if (strncmp (rest, "'ve ", 4) == 0)
+    {
+      /* "%player%'ve already got " -> "%player% has already got ". */
+      word_length = 3;
+      conjugated = " has";
+    }
+  else
+    {
+      if (rest[0] != ' ')
+        return literal;
+      for (word_length = 1;
+           rest[word_length] && (islower ((unsigned char) rest[word_length])
+                                 || rest[word_length] == '\'');
+           word_length++)
+        ;
+      word.assign (rest + 1, word_length - 1);
+      conjugated = lib_conjugate_verb (word);
+      if (conjugated.empty ())
+        return literal;
+      conjugated = " " + conjugated;
+    }
+
+  /* Leave the bare verb to a game ALR written to rewrite it. */
+  playername = prop_get_global_string (bundle, "PlayerName");
+  if (scr_strempty (playername))
+    playername = "Anonymous";
+  name_length = strlen (playername);
+  bare = std::string (playername) + rest;
+  if (pf_alr_rewrites_span (bundle, bare.c_str (),
+                            rest[0] == ' ' ? name_length + 1 : name_length,
+                            name_length + word_length))
+    return literal;
+
+  ring_next = (ring_next + 1) % RING_SIZE;
+  ring[ring_next] = std::string (PLAYER) + conjugated + (rest + word_length);
+  return ring[ring_next].c_str ();
+}
+
 static const scr_char *
 lib_select_response (scr_gameref_t game,
                      const scr_char *second_person,
@@ -1199,7 +1369,7 @@ lib_select_response (scr_gameref_t game,
       response = second_person;
       break;
     case LIB_THIRD_PERSON:
-      response = third_person;
+      response = lib_conjugate_third_person (game, third_person);
       break;
     default:
       scr_error ("lib_select_response:"
@@ -1216,6 +1386,130 @@ lib_select_plurality (scr_gameref_t game, scr_int object,
                       const scr_char *singular, const scr_char *plural)
 {
   return obj_appears_plural (game, object) ? plural : singular;
+}
+
+/*
+ * lib_select_list_plurality()
+ *
+ * The verb that agrees with a gathered list: plural for two or more
+ * objects, else by the one object's own plurality.  The contents listings
+ * ("Inside the desk are ...", "On the table are ...") use this where the
+ * Runner prints a literal " is " whatever the count; Scarier deliberately
+ * keeps the agreement (see WINE-TRANSCRIPTS-TODO.md, deliberate deviations).
+ */
+/*
+ * lib_alrs_see_list_verb()
+ *
+ * TRUE if one of the game's ALRs could be matching the Runner's literal
+ * " is " in the contents listing of this container: an Original holding
+ * "Inside/On [the] <its short name> is" ("Inside the first aid kit is a
+ * large bandage roll, ...", deadman; "On <X> is ", dolg), the joined
+ * ", and inside is",
+ * or a bare " is " (les_feux translates it).  Such a listing keeps the
+ * Runner's " is " so the same ALRs fire -- which ALRs fire is game
+ * behaviour, not text shape.
+ */
+static scr_bool
+lib_alrs_word_before (const scr_char *text, const scr_char *end,
+                      const scr_char *word)
+{
+  const size_t length = strlen (word);
+
+  return (size_t) (end - text) >= length
+         && scr_strncasecmp (end - length, word, length) == 0
+         && (end - length == text || !scr_isalpha (end[-(scr_int) length - 1]));
+}
+
+static scr_bool
+lib_alrs_prefixed (const scr_char *text, const scr_char *end)
+{
+  const scr_char *word_end;
+  scr_int pass;
+
+  /*
+   * "Inside/On <name>", allowing up to four words between: an article and
+   * the rest of the object's prefix ("Inside the first aid kit is").
+   */
+  for (pass = 0; pass < 5; pass++)
+    {
+      while (end > text && end[-1] == ' ')
+        end--;
+      if (lib_alrs_word_before (text, end, "inside")
+          || lib_alrs_word_before (text, end, "on"))
+        return TRUE;
+      word_end = end;
+      while (end > text && end[-1] != ' ')
+        end--;
+      if (end == word_end)
+        break;
+    }
+  return FALSE;
+}
+
+static scr_bool
+lib_alrs_text_has (const scr_char *text, const scr_char *first,
+                   const scr_char *second, scr_bool prefixed)
+{
+  const size_t first_length = strlen (first);
+  const size_t second_length = strlen (second);
+  const scr_char *cursor;
+
+  for (cursor = text; *cursor; cursor++)
+    {
+      if (scr_strncasecmp (cursor, first, first_length) == 0
+          && scr_strncasecmp (cursor + first_length,
+                              second, second_length) == 0
+          && (!prefixed || lib_alrs_prefixed (text, cursor)))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+scr_bool
+lib_alrs_see_list_verb (scr_gameref_t game, scr_int container)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int alr_count, alr;
+  const scr_char *name;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = container;
+  vt_key[2].string = "Short";
+  name = prop_get_string (bundle, "S<-sis", vt_key);
+
+  vt_key[0].string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  for (alr = 0; alr < alr_count; alr++)
+    {
+      const scr_char *original;
+
+      vt_key[1].integer = alr;
+      vt_key[2].string = "Original";
+      original = prop_get_string (bundle, "S<-sis", vt_key);
+      if ((!scr_strempty (name)
+           && lib_alrs_text_has (original, name, " is", TRUE))
+          || lib_alrs_text_has (original, "inside", " is", FALSE))
+        return TRUE;
+      original += strspn (original, " ");
+      if (scr_strncasecmp (original, "is", 2) == 0
+          && strspn (original + 2, " ") == strlen (original + 2))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+static const scr_char *
+lib_select_list_plurality (scr_gameref_t game, scr_int container,
+                           const lib_list_t &list,
+                           const scr_char *singular, const scr_char *plural)
+{
+  if (lib_alrs_see_list_verb (game, container))
+    return singular;
+  if (list.size () > 1)
+    return plural;
+  return list.empty () ? singular
+                       : lib_select_plurality (game, list[0], singular, plural);
 }
 
 
@@ -1408,8 +1702,7 @@ lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
   lib_print_clause (game, has_printed,
                     second_person, first_person, third_person);
   lib_print_list (game, list, print_item, conjunction);
-  /* '\0' for the arms that leave the sentence open, as the pre-4.0 wear
-     handler's "<You> are already wearing <object>" does. */
+  /* '\0' leaves the sentence open (no caller does so at present). */
   if (terminator != '\0')
     pf_buffer_character (filter, terminator);
   return TRUE;

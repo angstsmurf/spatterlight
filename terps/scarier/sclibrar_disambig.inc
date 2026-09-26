@@ -24,6 +24,67 @@ static scr_int lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
                                          const scr_char *input);
 
 /*
+ * lib_which_runner_form()
+ * lib_which_head()
+ *
+ * The Runners word every ambiguity question as a statement followed by a
+ * question -- "Which <term>.  <list>?", 3.7/3.8 examines() "Which <Short>
+ * would you like to examine.  <list>?" -- and at 4.0 an empty character
+ * Prefix leaves its space in the list ("Which woman.   woman or  woman?").
+ * Scarier deliberately asks "Which <term>?  <list>?" instead, with no
+ * stray spaces (deviation policy: the full stop is a display accident, not
+ * text worth matching).  The exception is a game whose authors wrote ALRs
+ * against the Runner's form -- cursed's 58 "Which <term>.  <list>?"
+ * rewrites, asteroid_after's satellite prompts, Vendetta's "Which girl",
+ * DragonShrine's "Which painting." -- where the Runner's form is kept so
+ * that the author's replacement fires.  Any ALR Original starting "Which "
+ * opts the game in.
+ */
+static scr_bool
+lib_which_runner_form (scr_gameref_t game)
+{
+  static scr_prop_setref_t cached_bundle = NULL;
+  static scr_bool cached_result = FALSE;
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key;
+  scr_int alr_count, index_;
+
+  if (bundle == cached_bundle)
+    return cached_result;
+
+  cached_bundle = bundle;
+  cached_result = FALSE;
+  vt_key.string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
+  for (index_ = 0; index_ < alr_count; index_++)
+    {
+      const scr_char *original;
+
+      original = prop_get_indexed_string (bundle, "ALRs", index_, "Original");
+      if (original && strncmp (original, "Which ", 6) == 0)
+        {
+          cached_result = TRUE;
+          break;
+        }
+    }
+  return cached_result;
+}
+
+/* "Which <head>?  " (Scarier) or "Which <head>.  " (the Runner's form). */
+static void
+lib_which_head (scr_gameref_t game, const scr_char *head,
+                const scr_char *tail)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, "Which ");
+  pf_buffer_string (filter, head);
+  if (tail)
+    pf_buffer_string (filter, tail);
+  pf_buffer_string (filter, lib_which_runner_form (game) ? ".  " : "?  ");
+}
+
+/*
  * How a pre-4.0 Runner settles a line naming two present characters.  It
  * never asks: characters() is one loop over every NPC in index order, and
  * each verb's arm either assigns the message outright, so the LAST named
@@ -741,9 +802,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
       pf_rebuffer_reference (filter,
                              echo.substr (1, echo.size () - 3).c_str ());
   }
-  pf_buffer_string (filter, "Which ");
-  pf_buffer_string (filter, prompt_term);
-  pf_buffer_string (filter, ".  ");
+  lib_which_head (game, prompt_term, NULL);
 
   room = gs_playerroom (game);
   listed = 0;
@@ -1385,9 +1444,7 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
         }
     }
 
-  pf_buffer_string (filter, "Which ");
-  pf_buffer_string (filter, term);
-  pf_buffer_string (filter, ".  ");
+  lib_which_head (game, term, NULL);
 
   pf_new_sentence (filter);
   for (index_ = 0; index_ < (scr_int) objects.size (); index_++)
@@ -2424,9 +2481,7 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
       for (index_ = 0; npc_term[index_] != NUL; index_++)
         lower += (scr_char) tolower ((unsigned char) npc_term[index_]);
 
-      pf_buffer_string (filter, "Which ");
-      pf_buffer_string (filter, term);
-      pf_buffer_string (filter, ".  ");
+      lib_which_head (game, term, NULL);
       pf_new_sentence (filter);
       for (index_ = 0; index_ < (scr_int) namesakes.size (); index_++)
         {
@@ -2445,8 +2500,13 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
            * defaults only OBJECT prefixes to "a"; asteroid_after's and
            * Vendetta's ALRs are written against the spaced form.
            */
-          pf_buffer_string (filter, prefix);
-          pf_buffer_character (filter, ' ');
+          /* Scarier drops the empty Prefix's space unless the game's ALRs
+           * were written against the spaced form (lib_which_runner_form). */
+          if (!scr_strempty (prefix) || lib_which_runner_form (game))
+            {
+              pf_buffer_string (filter, prefix);
+              pf_buffer_character (filter, ' ');
+            }
           pf_buffer_string (filter, lower.c_str ());
         }
       pf_buffer_string (filter, "?\n");
@@ -2966,11 +3026,10 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
   if (count > 1 && taf_version < TAF_VERSION_390
       && (strcmp (verb, "examine") == 0 || strcmp (verb, "read") == 0))
     {
-      pf_buffer_string (filter, "Which ");
-      pf_buffer_string (filter,
-                        prop_get_indexed_string (gs_get_bundle (game),
-                                                 "Objects", object, "Short"));
-      pf_buffer_string (filter, " would you like to examine.  ");
+      lib_which_head (game,
+                      prop_get_indexed_string (gs_get_bundle (game),
+                                               "Objects", object, "Short"),
+                      " would you like to examine");
       pf_new_sentence (filter);
       listed = 0;
       for (index_ = 0; index_ < gs_object_count (game); index_++)

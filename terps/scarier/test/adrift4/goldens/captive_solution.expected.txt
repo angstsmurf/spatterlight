@@ -137,7 +137,7 @@ will find you up here.
 
 > x nest
 The birds nest is fairly small. It seems to be deserted.   Inside the birds
-nest is some blue string, the coin and the small golden key.
+nest are some blue string, the coin and the small golden key.
 
 > get key
 You take the small golden key from the birds nest.

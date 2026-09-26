@@ -24,7 +24,7 @@ Also here is a supply chest.  I can only move up.
 
 > x chest
 A large wooden chest that I keep my fishing supplies in.  The supply chest is
-open.  Inside the supply chest is an emergency kit, a long harpoon and some
+open.  Inside the supply chest are an emergency kit, a long harpoon and some
 fishing weights.
 
 > get harpoon
@@ -56,7 +56,7 @@ There's an opening in a rock wall and a path to the east.
 
 The Creature is here!
 
-  I can move north, east, west and in.
+I can move north, east, west and in.
 
 > look
 
@@ -66,8 +66,7 @@ There's an opening in a rock wall and a path to the east.
 
 The Creature is here!
 
-  I can move north, east, west and in.  The Creature scurried away to the
-east.
+I can move north, east, west and in.  The Creature scurried away to the east.
 
 > throw harpoon at the creature
 The creature isn't here.
@@ -90,7 +89,7 @@ There's an opening in a rock wall and a path to the east.
 
 The Creature is here!
 
-  I can move north, east, west and in.
+I can move north, east, west and in.
 
 > throw harpoon at the creature
 Okay, I killed the creature.

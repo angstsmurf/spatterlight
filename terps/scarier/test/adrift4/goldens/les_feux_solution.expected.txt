@@ -149,7 +149,7 @@ une autre se trouve
 en lettres élégantes en or. La porte de droite est faite de pierre solide
 sans aucune poignée
 où système d'ouverture.
-  Vous pouvez seulement vous déplacer vers le Sud.
+Vous pouvez seulement vous déplacer vers le Sud.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -159,7 +159,7 @@ UN TUNNEL DE PIERRE
 Ce tunnel de pierre continue à descendre en pente douce en direction du sud.
 Vos pas résonne sur la roche froide, les murs qui se trouvent tout autour de
 vous sont grises et ternes.
-  Sorties évidentes: Nord et Sud.
+Sorties évidentes: Nord et Sud.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -174,7 +174,7 @@ vous avez l'impression
 d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
 tunnel remonte vers
 l'entrée du cachot souterrain.
-  Sorties évidentes: nord, Est, Sud et Ouest.
+Sorties évidentes: nord, Est, Sud et Ouest.
 
 > w
 Vous vous déplacez vers l'Ouest.
@@ -187,7 +187,7 @@ trottent à travers la pièce. Les murs sont en pierres apparentes et l'endroit
 est assez frais.
 Vous avez du mal à discerner les angles de la pièce qui sont dans l'ombre.
 Une femme est assise dans un coin d'ombre.
-  Vous pouvez seulement vous déplacer vers l'Est.
+Vous pouvez seulement vous déplacer vers l'Est.
 
 > open sac
 Vous ouvrez un sac à dos.  Des potions de guérison est  dans un sac à dos.
@@ -252,7 +252,7 @@ vous avez l'impression
 d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
 tunnel remonte vers
 l'entrée du cachot souterrain.
-  Sorties évidentes: nord, Est, Sud et Ouest.
+Sorties évidentes: nord, Est, Sud et Ouest.
 
 > e
 Vous vous déplacez vers l'Est.
@@ -267,7 +267,7 @@ qui constituent les murs et le sol sont grises et froides. Dans un coin de
 pénombre vous pouvez
 voir un coffre en bois.
 Un assassin est tapis dans l'ombre...
-  Vous pouvez seulement vous déplacer vers l'Ouest.
+Vous pouvez seulement vous déplacer vers l'Ouest.
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
@@ -376,7 +376,7 @@ vous avez l'impression
 d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
 tunnel remonte vers
 l'entrée du cachot souterrain.
-  Sorties évidentes: nord, Est, Sud et Ouest.
+Sorties évidentes: nord, Est, Sud et Ouest.
 
 Des cris strident retentissent...
 
@@ -396,7 +396,7 @@ Il n'était pas là auparavant ...
 Avant même que vous ne pensiez à ouvrir ce coffre - il se déplace!
 Quelque chose est là dedans, quelque chose de grand - et cela n'est pas
 réconfortant !
-  Sorties évidentes: Nord et Ouest.
+Sorties évidentes: Nord et Ouest.
 
 Des cris strident retentissent...
 
@@ -484,7 +484,7 @@ de l'ouest.
 Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
 et au nord
 un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
-  Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
 
 Des cris strident retentissent...
 
@@ -502,7 +502,7 @@ et découvrez un cadavre
 gonflé, mort depuis longtemps. Le cadavre est paré avec des lambeaux
 antiques. La chair de la chose
 est recouverte de larves se tortillant et des mouches grasses les survolent.
-  Sorties évidentes: Nord et Sud.
+Sorties évidentes: Nord et Sud.
 
 Des cris strident retentissent...
 
@@ -576,7 +576,7 @@ de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
 Un Démon d'éffroi est ici, prêt à vous attaquer !
-  Vous pouvez seulement vous déplacer vers le Sud.
+Vous pouvez seulement vous déplacer vers le Sud.
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > open porte
@@ -655,7 +655,7 @@ fait
 de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
-  Sorties évidentes: Nord et Sud.  Vous avez pris rapidement dans le sac une
+Sorties évidentes: Nord et Sud.  Vous avez pris rapidement dans le sac une
 chaine en bronze.
 
 > go north
@@ -677,7 +677,7 @@ pourquoi; Vous êtes sur le chemin d'un magasin! Vous reconnaissez celà, parce
 que vous
 regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
 sud.
-  Sorties évidentes: Nord-Est et Sud-Ouest.
+Sorties évidentes: Nord-Est et Sud-Ouest.
 
 > open porte
 Avant même que vous ne puissiez même toucher la porte, un petit homme faché
@@ -845,7 +845,7 @@ entendre au nord, le passage continue de manière identique à cette place vers
 le sud,
 tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
 Une petite roche traine au milieu du chemin.
-  Sorties évidentes: nord, Sud et Sud-Ouest.
+Sorties évidentes: nord, Sud et Sud-Ouest.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -855,7 +855,7 @@ IMPASSE
 Le tunnel tourne rapidement vers le sud et finit bientôt dans une impasse
 sans traits
 distinctifs. Une petite plaque en fer sur le mur attire votre attention.
-  Vous pouvez seulement vous déplacer vers le Nord.
+Vous pouvez seulement vous déplacer vers le Nord.
 
 > push bouton droit
 Avec un léger sentiment d'effroi, vous tendez une main tremblante vers le
@@ -879,7 +879,7 @@ entendre au nord, le passage continue de manière identique à cette place vers
 le sud,
 tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
 Une petite roche traine au milieu du chemin.
-  Sorties évidentes: nord, Sud et Sud-Ouest.
+Sorties évidentes: nord, Sud et Sud-Ouest.
 
 > n
 Vous vous déplacez vers le Nord.
@@ -893,7 +893,7 @@ plus
 fort en direction de l'ouest tandis qu'au sud il s'assourdit. Directement
 devant
 vous, à demi-caché par la saleté et les ténèbres, se trouve un piège.
-  Sorties évidentes: Sud et Ouest.
+Sorties évidentes: Sud et Ouest.
 
 > get cristal
 D'un geste précis, vous descendez lentement votre bras en prenant soin
@@ -919,7 +919,7 @@ sale. Vous pouvez
 voir trois sorties, une éclairée au nord, l'autre vers l'ouest dans un
 couloir sale et la dernière
 à l'est qui donne dans un tunnel.
-  Sorties évidentes: nord, Est et Ouest.
+Sorties évidentes: nord, Est et Ouest.
 
 > swim
 
@@ -971,7 +971,7 @@ Vous êtes dans l'unique pièce d'une cabane en bois qui a été construite dans
 un arbre. L'endroit est petit et offre le minimum de confort. Vous pouvez
 voir
 une table, une chaise et une paillasse dans le coin à gauche.
-  Vous pouvez seulement vous déplacer vers le Bas.
+Vous pouvez seulement vous déplacer vers le Bas.
 
 > search
 Vous chercher dans le tas de foin en disperçant la paille dans toute
@@ -1027,7 +1027,7 @@ sale. Vous pouvez
 voir trois sorties, une éclairée au nord, l'autre vers l'ouest dans un
 couloir sale et la dernière
 à l'est qui donne dans un tunnel.
-  Sorties évidentes: nord, Est et Ouest.
+Sorties évidentes: nord, Est et Ouest.
 
 > e
 Vous vous déplacez vers l'Est.
@@ -1041,7 +1041,7 @@ plus
 fort en direction de l'ouest tandis qu'au sud il s'assourdit. Directement
 devant
 vous, à demi-caché par la saleté et les ténèbres, se trouve un piège.
-  Sorties évidentes: Sud et Ouest.
+Sorties évidentes: Sud et Ouest.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -1054,7 +1054,7 @@ entendre au nord, le passage continue de manière identique à cette place vers
 le sud,
 tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
 Une petite roche traine au milieu du chemin.
-  Sorties évidentes: nord, Sud et Sud-Ouest.
+Sorties évidentes: nord, Sud et Sud-Ouest.
 
 > sw
 Vous vous déplacez vers le Sud-Ouest.
@@ -1077,7 +1077,7 @@ regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
 sud.
 Un petit homme à l'air hautin est devant la porte.
 Un skinned est ici.  Un truant du chaos est ici, l'air menaçant.
-  Sorties évidentes: Nord-Est et Sud-Ouest.
+Sorties évidentes: Nord-Est et Sud-Ouest.
 Vous arrivez à éviter l'attaque du skinned.
 Vous arrivez à éviter l'attaque du truant.
 
@@ -1090,7 +1090,7 @@ de l'ouest.
 Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
 et au nord
 un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
-  Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -1103,7 +1103,7 @@ aucun indice ne peut vous dire ce que compose cette caverne.
 Vous entendez un grognement grave quelque part devant vous.
 
 Vous trébuchez sur un objet doux !
-  Vous pouvez seulement vous déplacer vers le Nord.
+Vous pouvez seulement vous déplacer vers le Nord.
 
 > jouer note mi mi
 Vous jouez les notes: "MI MI"
@@ -1138,7 +1138,7 @@ de l'ouest.
 Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
 et au nord
 un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
-  Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
 
 > w
 Vous vous déplacez vers l'Ouest.
@@ -1158,7 +1158,7 @@ un autre rebord semblable à celui
 où vous êtes, à plusieurs pieds dans l'obscurité et vous pouvez voir une
 grande peinture de quelqu'un et
 un sentier étroit à la gauche de ce rebord.
-  Vous pouvez seulement vous déplacer vers l'Est.
+Vous pouvez seulement vous déplacer vers l'Est.
 
 > accrocher corde sur grappin
 

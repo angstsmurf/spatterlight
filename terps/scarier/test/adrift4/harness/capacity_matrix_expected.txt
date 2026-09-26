@@ -157,13 +157,13 @@ e12.
 >You put the d2 inside the c52t.
 >The e1 can't fit inside the c52t at the moment.
 >The e2 can't fit inside the c13t at the moment.
->A probe c12t.  Inside the c12t is a a1, a a2, a a3, a a4, a a5, a a6, a a7, a
-a8 and a a9.
->A probe c52t.  Inside the c52t is a b1, a b2, a b3, a b4, a b5, a b6, a b7, a
-b8, a b9, a b10, a b11, a b12 and a d2.
->A probe c13t.  Inside the c13t is a c1, a c2, a c3, a c4, a c5, a c6, a c7, a
-c8, a c9, a c10, a c11 and a c12.
->A probe c22x.  Inside the c22x is a f1, a f2, a f3, a f4, a f5 and a f6.
+>A probe c12t.  Inside the c12t are a a1, a a2, a a3, a a4, a a5, a a6, a a7,
+a a8 and a a9.
+>A probe c52t.  Inside the c52t are a b1, a b2, a b3, a b4, a b5, a b6, a b7,
+a b8, a b9, a b10, a b11, a b12 and a d2.
+>A probe c13t.  Inside the c13t are a c1, a c2, a c3, a c4, a c5, a c6, a c7,
+a c8, a c9, a c10, a c11 and a c12.
+>A probe c22x.  Inside the c22x are a f1, a f2, a f3, a f4, a f5 and a f6.
 >A probe c12m.  A d1 is inside the c12m.
 >A probe c12b.
 >Do you really want to quit? [Y/N] 

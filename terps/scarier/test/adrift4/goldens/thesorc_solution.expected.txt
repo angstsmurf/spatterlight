@@ -822,15 +822,15 @@ You move north.
 The Throne Room
 You are in the throne room. This is it. The final showdown. You Vs. King.
 You'd better have a damn good weapon.......  The King of Jonador is here.
-Sarum hits The Evil King.  The Evil King hits Sarum, but it doesn't seem to
+Sarum hits the Evil King.  The Evil King hits Sarum, but it doesn't seem to
 do any damage.
 
 > attack king with staff
-You hit The Evil King with Master Staff.  Sarum hits The Evil King.  The Evil
+You hit the Evil King with Master Staff.  Sarum hits the Evil King.  The Evil
 King hits Sarum, but it doesn't seem to do any damage.
 
 > hit king with staff
-You hit The Evil King with Master Staff.  You Throw one last spell at him,
+You hit the Evil King with Master Staff.  You Throw one last spell at him,
 and he is finally dead. You see a large case in the corner.
 
 > kill king with staff

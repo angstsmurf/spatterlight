@@ -31,6 +31,8 @@
 #include <stddef.h>
 #include <string.h>
 
+#include <string>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -977,9 +979,10 @@ enum {
 };
 
 /*
- * battle_print_npc_name()
+ * battle_npc_name()
  *
- * Print an NPC as a battle message names it.  The Runner's two attack
+ * Build (into name) an NPC as a battle message names it, returning TRUE when
+ * the game's ALRs quote that name in the Runner's raw shape.  The Runner's two attack
  * procedures do not use the NPC's Name: given a first alias they narrate the
  * fight with "<Prefix> <Alias[0]>" instead -- Orient Express calls its enemy
  * "Igotta Bigbottom" in the room listing but "the large man" in every blow,
@@ -1015,40 +1018,75 @@ enum {
  * string "doesn't seem to do any damage" is absent from both binaries), so
  * battle_legacy only ever meant 3.9 here.
  */
-static void
-battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
+static scr_bool
+battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
+                 std::string &name)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *alias, *prefix;
+  std::string runner;
   scr_vartype_t vt_key[4];
 
-  if (naming == BATTLE_NAME_NAME
-      || (naming == BATTLE_NAME_ENEMY_ALIAS && battle_attitude (game, npc) != 2))
+  alias = NULL;
+  if (!(naming == BATTLE_NAME_NAME
+        || (naming == BATTLE_NAME_ENEMY_ALIAS
+            && battle_attitude (game, npc) != 2)))
     {
-      lib_print_npc_np (game, npc);
-      return;
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = npc;
+      vt_key[2].string = "Alias";
+      vt_key[3].integer = 0;
+      alias = prop_get_child_count (bundle, "I<-sis", vt_key) > 0
+              ? prop_get_string (bundle, "S<-sisi", vt_key) : NULL;
     }
-
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Alias";
-  vt_key[3].integer = 0;
-  alias = prop_get_child_count (bundle, "I<-sis", vt_key) > 0
-          ? prop_get_string (bundle, "S<-sisi", vt_key) : NULL;
   if (!alias || alias[0] == '\0')
     {
-      lib_print_npc_np (game, npc);
-      return;
+      const scr_char *npc_name;
+
+      npc_name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      name = npc_name ? npc_name : "";
+      return pf_alr_mentions (bundle, name.c_str ());
     }
 
   prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
   if (prefix && prefix[0] != '\0')
+    runner = std::string (prefix) + " " + alias;
+  else
+    runner = alias;
+
+  /*
+   * Deliberate deviation: the Runner splices "<Prefix> <Alias>" raw, so an
+   * authored "The serpentine" prints its capital mid-sentence ("You stab The
+   * serpentine guardian") and an alias with no prefix loses its article ("You
+   * stab hound of hades").  Scarier keeps the Runner's choice of alias but
+   * gives it a grammatical shape: a leading article is lowercased here (the
+   * caller capitalises a name that leads a sentence), and a bare lowercase
+   * alias gets "the".  A game whose ALRs quote the Runner's shape (Les Feux
+   * de l'enfer: "assassin manages " -> "L'assassin se debrouille") keeps it,
+   * uncapitalised too, since the author's replacements are written to it.
+   */
+  if (pf_alr_mentions (bundle, runner.c_str ()))
     {
-      pf_buffer_string (filter, prefix);
-      pf_buffer_character (filter, ' ');
+      name = runner;
+      return TRUE;
     }
-  pf_buffer_string (filter, alias);
+  if (prefix && prefix[0] != '\0')
+    {
+      name = runner;
+      if (scr_compare_word (prefix, "the", 3)
+          || scr_compare_word (prefix, "a", 1)
+          || scr_compare_word (prefix, "an", 2))
+        name[0] = scr_tolower (name[0]);
+    }
+  else if (alias[0] >= 'a' && alias[0] <= 'z'
+           && !scr_compare_word (alias, "the", 3)
+           && !scr_compare_word (alias, "a", 1)
+           && !scr_compare_word (alias, "an", 2)
+           && !scr_compare_word (alias, "some", 4))
+    name = std::string ("the ") + alias;
+  else
+    name = alias;
+  return FALSE;
 }
 
 /*
@@ -1058,7 +1096,7 @@ battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
  * and SUBJECT_CAPITALISED for a subject ("You" / "Goblin"), OBJECT for an
  * object/lowercase form ("you" / "Goblin"), POSSESSIVE for a possessive
  * ("your" / "Goblin's").  naming picks how an NPC is named; see
- * battle_print_npc_name().
+ * battle_npc_name().
  *
  * The player's forms follow Globals/Perspective, because the Runner splices
  * them from the same seven-element pronoun array the library uses -- filled by
@@ -1115,9 +1153,16 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
 
   if (npc < 0)
     {
+      /* Deliberate deviation: the Runner's "your" is literal in every
+         perspective ("I hit ... The witch manages to avoid your attack.");
+         Scarier matches the possessive to the perspective. */
       if (form == BATTLE_FORM_POSSESSIVE)
         {
-          pf_buffer_string (filter, "your");
+          const scr_int perspective = lib_get_perspective (game);
+          pf_buffer_string (filter,
+                            (perspective == LIB_FIRST_PERSON) ? "my"
+                            : (perspective == LIB_THIRD_PERSON) ? "%player%'s"
+                            : "your");
           return;
         }
 
@@ -1143,9 +1188,19 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
       return;
     }
 
-  if (form == BATTLE_FORM_SUBJECT_CAPITALISED)
-    pf_new_sentence (filter);
-  battle_print_npc_name (game, npc, naming);
+  /* Deliberate deviation: every SUBJECT site leads its sentence, so Scarier
+     capitalises all of them, not only the Runner's five; the Runner's raw
+     "a soldier manages to avoid your attack." is a display accident.  A name
+     the game's ALRs quote keeps the Runner's shape; see battle_npc_name(). */
+  {
+    std::string name;
+    const scr_bool pinned = battle_npc_name (game, npc, naming, name);
+
+    if (form == BATTLE_FORM_SUBJECT_CAPITALISED
+        || (form == BATTLE_FORM_SUBJECT && !pinned))
+      pf_new_sentence (filter);
+    pf_buffer_string (filter, name.c_str ());
+  }
   if (form == BATTLE_FORM_POSSESSIVE)
     pf_buffer_string (filter, "'s");
 }
@@ -1381,9 +1436,15 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
   const scr_filterref_t filter = gs_get_filter (game);
   /* The player's blow is Proc_11_1 (3.9: dohit) and an NPC's is Proc_11_2
      (3.9: chardohit), and they name their combatants by different rules --
-     neither of them version-gated; see battle_print_npc_name(). */
+     neither of them version-gated; see battle_npc_name(). */
   const scr_int naming = (attacker == BATTLE_PLAYER) ? BATTLE_NAME_ALIAS
                          : BATTLE_NAME_ENEMY_ALIAS;
+  /* Deliberate deviation: the Runner splices the player's verbs bare after
+     Ary(0), so a third-person game reads "Anonymous stab the goblin".
+     Scarier conjugates them; `bare` is TRUE only where "you"/"I" leads. */
+  const scr_bool third = (lib_get_perspective (game) == LIB_THIRD_PERSON);
+  const scr_bool bare_attacker = (attacker < 0 && !third);
+  const scr_bool bare_target = (target < 0 && !third);
   scr_int method;
 
   method = (weapon >= 0) ? battle_object_battle (game, weapon, "Method") : -1;
@@ -1445,7 +1506,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                                   BATTLE_FORM_SUBJECT_CAPITALISED, naming);
           if (method == 5)
             {
-              pf_buffer_string (filter, (attacker < 0) ? " throw "
+              pf_buffer_string (filter, bare_attacker ? " throw "
                                                        : " throws ");
               lib_print_object_np (game, weapon);
               pf_buffer_string (filter, " at ");
@@ -1456,7 +1517,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
             {
               pf_buffer_character (filter, ' ');
               pf_buffer_string (filter, BATTLE_METHOD_VERBS[method]);
-              if (attacker >= 0)
+              if (!bare_attacker)
                 pf_buffer_character (filter, 's');
               pf_buffer_character (filter, ' ');
               battle_print_combatant (game, target,
@@ -1466,7 +1527,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
             }
           else
             {
-              pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
+              pf_buffer_string (filter, bare_attacker ? " hit " : " hits ");
               battle_print_combatant (game, target,
                                       BATTLE_FORM_OBJECT, naming);
             }
@@ -1498,7 +1559,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       if (method < 0)
         {
           battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
-          pf_buffer_string (filter, (target < 0) ? " manage to avoid "
+          pf_buffer_string (filter, bare_target ? " manage to avoid "
                                                  : " manages to avoid ");
           battle_print_combatant (game, attacker,
                                   BATTLE_FORM_POSSESSIVE, naming);
@@ -1508,7 +1569,10 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       else if (attacker < 0)
         {
           battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
-          pf_buffer_string (filter, " manages to avoid your attack with ");
+          pf_buffer_string (filter, " manages to avoid ");
+          battle_print_combatant (game, attacker,
+                                  BATTLE_FORM_POSSESSIVE, naming);
+          pf_buffer_string (filter, " attack with ");
           lib_print_object_np (game, weapon);
           pf_buffer_character (filter, '.');
           pf_buffer_answer_break (filter);
@@ -1549,7 +1613,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
             }
           else
             battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
-          pf_buffer_string (filter, (target < 0) ? " manage to avoid it."
+          pf_buffer_string (filter, bare_target ? " manage to avoid it."
                                                  : " manages to avoid it.");
           pf_buffer_answer_break (filter);
         }

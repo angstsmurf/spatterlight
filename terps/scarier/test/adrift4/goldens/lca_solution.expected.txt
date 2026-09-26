@@ -766,9 +766,9 @@ machine?"
    "You might think so. But new rules are coming into force all the time.
 Murder: three years imprisonment. Terrorism: eighteen months imprisonment.
 Operatic singing: twenty years imprisonment." He smiles. "Damaging a vending
-machine with malicious intent intent intent intent: life imprisonment. No
-possibility of parole. Yes." He clenches his hands into fists. "When the
-guilty party is caught, they will be punished to the full extent of the law."
+machine with malicious intent: life imprisonment. No possibility of parole.
+Yes." He clenches his hands into fists. "When the guilty party is caught,
+they will be punished to the full extent of the law."
    "Er, well, good luck with catching them," you say, hoping you haven't left
 any evidence lying around.
 
@@ -1268,7 +1268,7 @@ studio.
    "I know," you say, patting his head. "It freaked me out as well."
 
 > chop tree
-Which tree.  The tree or the tree?
+Which tree?  The tree or the tree?
 
 > n
 

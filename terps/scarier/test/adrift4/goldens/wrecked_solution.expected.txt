@@ -481,7 +481,7 @@ I am in the pool room.  There is a large swimming pool here.  I can move in
 and out.
 
 > wear scuba outfit
-I put on a scuba outfit.
+I put on the scuba outfit.
 
 > in
 I move in.
@@ -525,7 +525,7 @@ the youth of Ambersville.  Biff and Boff are here.  I can move north, east,
 west and in.
 
 > remove outfit
-I remove a scuba outfit.
+I remove the scuba outfit.
 
 > go in
 I move in.
@@ -868,7 +868,7 @@ I tie the anchor onto the piece of rope.
 I throw the anchor overboard.
 
 > wear scuba outfit
-I put on a scuba outfit.
+I put on the scuba outfit.
 
 > out
 I move out.
@@ -896,8 +896,8 @@ door.  It fits perfectly.  I twist the amulet, and the door springs open.
 
 > x cabinet
 The cabinet is made from wood, but appears to be much stronger than I would
-have thought.  The door is open.  Inside the old wooden cabinet is an old log
-book and a large bronze key.
+have thought.  The door is open.  Inside the old wooden cabinet are an old
+log book and a large bronze key.
 
 > get all from it
 (the old wooden cabinet)

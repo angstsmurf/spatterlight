@@ -733,8 +733,13 @@ lib_list_in_object_normal (scr_gameref_t game,
        * string is a literal, at run400 46A7C7 and run390 43E245's sibling.
        * Measured on humbug.taf, 2026-08-24: run400 prints "On the triangular
        * table is some swimming goggles, a watch, a musket and a china doll."
+       * Scarier deliberately keeps number agreement instead ("... table are
+       * some swimming goggles, ..."): the literal is a display accident, not
+       * behaviour (deviation policy).
        */
-      pf_buffer_string (filter, " is ");
+      pf_buffer_string (filter,
+                        lib_select_list_plurality (game, container, list,
+                                                   " is ", " are "));
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
@@ -816,7 +821,11 @@ lib_list_in_object_joined (scr_gameref_t game, scr_int container)
     }
   if (!list.empty ())
     {
-      pf_buffer_string (filter, ", and inside is ");
+      /* The Runner's literal is ", and inside is "; Scarier agrees. */
+      pf_buffer_string (filter,
+                        lib_select_list_plurality (game, container, list,
+                                                   ", and inside is ",
+                                                   ", and inside are "));
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
@@ -944,8 +953,13 @@ lib_list_on_object_normal (scr_gameref_t game, scr_int supporter,
         pf_buffer_string (filter, "  ");
       pf_buffer_string (filter, "On ");
       lib_print_object_np (game, supporter);
-      /* " is " unconditionally -- see lib_list_in_object_normal(). */
-      pf_buffer_string (filter, " is ");
+      /*
+       * The Runner's " is " is unconditional; Scarier agrees with the list
+       * -- see lib_list_in_object_normal().
+       */
+      pf_buffer_string (filter,
+                        lib_select_list_plurality (game, supporter, list,
+                                                   " is ", " are "));
       lib_print_list (game, list, lib_print_object, " and ");
       if (!omit_period)
         pf_buffer_character (filter, '.');

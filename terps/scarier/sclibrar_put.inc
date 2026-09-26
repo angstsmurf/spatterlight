@@ -933,13 +933,12 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * (Adrift_983:60/57).  Only the list is raw -- the container that
        * follows it is definite in both.  3.9 and 4.0 normalise throughout
        * ("the torch, the lamp, ..." Adrift_980:50, "the torch and the lamp"
-       * Adrift_981:11), so this is the pre-3.9 all-form alone.
+       * Adrift_981:11), so this is the pre-3.9 all-form alone.  Scarier
+       * deliberately names them definitely there too (deviation policy):
+       * "You put an torch and a lamp inside the box." is the raw prefix
+       * leaking into a success report.
        */
-      lib_print_list (game, list,
-                      is_all_form && prop_get_taf_version (gs_get_bundle (game))
-                                     < TAF_VERSION_390
-                      ? lib_print_object : lib_put_print_object_or_that,
-                      " and ");
+      lib_print_list (game, list, lib_put_print_object_or_that, " and ");
       pf_buffer_string (filter, " inside ");
       lib_print_object_np (game, container);
       pf_buffer_character (filter, '.');

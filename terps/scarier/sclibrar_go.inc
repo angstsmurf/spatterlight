@@ -178,7 +178,9 @@ lib_go (scr_gameref_t game, scr_int direction)
    * (3.90) seats the player on a chair only a task's text mentions, and
    * run390x answers `east` with "(Getting off that first)" (Adrift_163,
    * 2026-09-14).  run370/380 concatenate the name directly, with no seen
-   * test.
+   * test.  Scarier deliberately names the object in every version
+   * (deviation policy): the player is sitting on it, so hiding its name
+   * behind "that" only loses information.
    *
    * Before 3.9 moveroom looks only at the position (run370 422FD0, run380
    * the same): a player standing on an object walks off it with no line, and
@@ -195,11 +197,7 @@ lib_go (scr_gameref_t game, scr_int direction)
   else if (gs_playerparent (game) != -1)
     {
       pf_buffer_string (filter, "(Getting off ");
-      if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
-          && !gs_object_seen (game, gs_playerparent (game)))
-        pf_buffer_string (filter, "that");
-      else
-        lib_print_object_np (game, gs_playerparent (game));
+      lib_print_object_np (game, gs_playerparent (game));
       pf_buffer_string (filter, " first)\n");
     }
   else if (gs_playerposition (game) != 0)

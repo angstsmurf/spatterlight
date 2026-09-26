@@ -208,7 +208,7 @@ You put the sack of jelly beans inside the Easter basket.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet and
-a keychain.  Inside the Easter basket is a strip of candy dots, a creme egg,
+a keychain.  Inside the Easter basket are a strip of candy dots, a creme egg,
 the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans
 and a lollipop.  A few bills and a couple of photographs are inside your
 wallet.
@@ -222,7 +222,7 @@ the old saying goes."
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
-keychain and Max's list.  Inside the Easter basket is a strip of candy dots,
+keychain and Max's list.  Inside the Easter basket are a strip of candy dots,
 a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack
 of jelly beans and a lollipop.  A few bills and a couple of photographs are
 inside your wallet.
@@ -261,7 +261,7 @@ presents it to you with a flourish.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
-keychain, a macaroon and Max's list.  Inside the Easter basket is a strip of
+keychain, a macaroon and Max's list.  Inside the Easter basket are a strip of
 candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow
 chicks, a sack of jelly beans and a lollipop.  A few bills and a couple of
 photographs are inside your wallet.
@@ -271,7 +271,7 @@ You put the macaroon inside the Easter basket.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
-keychain and Max's list.  Inside the Easter basket is a strip of candy dots,
+keychain and Max's list.  Inside the Easter basket are a strip of candy dots,
 a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack
 of jelly beans, a macaroon and a lollipop.  A few bills and a couple of
 photographs are inside your wallet.
@@ -360,7 +360,7 @@ There is something scrawled in the pixie dust.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
-your wallet, a keychain and Max's list.  Inside the Easter basket is a strip
+your wallet, a keychain and Max's list.  Inside the Easter basket are a strip
 of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow
 marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
 bills and a couple of photographs are inside your wallet.
@@ -377,10 +377,10 @@ beneath her.  You take the bronze token.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
-your wallet, a keychain, a token and Max's list.  Inside the Easter basket is
-a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow
-chicks, a sack of jelly beans, a macaroon and a lollipop.  A few bills and a
-couple of photographs are inside your wallet.
+your wallet, a keychain, a token and Max's list.  Inside the Easter basket
+are a candy coin, a creme egg, the tiny chocolate eggs, the yellow
+marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
+bills and a couple of photographs are inside your wallet.
 
 > x gumball machine
 A metal pole supports the classic-looking machine, a clear glass globe atop a
@@ -397,16 +397,16 @@ purple gumball as it rolls out.
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
 your wallet, a keychain, a gumball and Max's list.  Inside the Easter basket
-is a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow
-chicks, a sack of jelly beans, a macaroon and a lollipop.  A few bills and a
-couple of photographs are inside your wallet.
+are a candy coin, a creme egg, the tiny chocolate eggs, the yellow
+marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
+bills and a couple of photographs are inside your wallet.
 
 > put gumball in basket
 You put the gumball inside the Easter basket.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
-your wallet, a keychain and Max's list.  Inside the Easter basket is a candy
+your wallet, a keychain and Max's list.  Inside the Easter basket are a candy
 coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a
 sack of jelly beans, a macaroon, a gumball and a lollipop.  A few bills and a
 couple of photographs are inside your wallet.

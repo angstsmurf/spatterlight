@@ -87,23 +87,23 @@ superbone_ali@yahoo.com.
 Nope!
 
 > open desk
-You open Your Desk.  Inside Your Desk is Gun Holster, Your Cell Phone, Neatly
-Wrapped Gift and Your Badge.
+You open Your Desk.  Inside Your Desk are Gun Holster, Your Cell Phone,
+Neatly Wrapped Gift and Your Badge.
 
 > x desk
 This is your desk, the appitomy of clutter and despair.  Your Desk is open.
-Your Coffee Mug and The Memo are on Your Desk, and inside is Gun Holster,
+Your Coffee Mug and The Memo are on Your Desk, and inside are Gun Holster,
 Your Cell Phone, Neatly Wrapped Gift and Your Badge.
 
 > take all from desk
 You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,
-Your Badge and The Memo from Your Desk.
+Your Badge and the Memo from Your Desk.
 
 > clean desk
 Oh, good for you, Agent Mulder!
 
 > burn memo
-I don't understand what you want me to do with The Memo.
+I don't understand what you want me to do with the Memo.
 
 > strip
 You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
@@ -184,7 +184,7 @@ could be found in Bellefleur, Oregon.  Case File 10193 is open.  The
 Warehouse Key is inside Case File 10193.
 
 > take warehouse key
-You take The Warehouse Key from Case File 10193.
+You take the Warehouse Key from Case File 10193.
 
 > examine warehouse key
 This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"
@@ -309,7 +309,7 @@ classic,  "One" by Filter starts drifting through the air and you return to a
 seat at the bar.
 
 > u
-(Getting off A Stool first)
+(Getting off the Stool first)
 You move up.
 
 Your Apartment
@@ -568,7 +568,7 @@ furniture here.  You can hear and indistinct song from the era playing in the
 backround.  Also here is A Buzzer.  You can only move out.
 
 > buzzer
-I don't understand what you want me to do with A Buzzer.
+I don't understand what you want me to do with the Buzzer.
 
 > out
 You move out.

@@ -5,6 +5,71 @@
  */
 
 /*
+ * lib_alrs_see_gap()
+ *
+ * TRUE if any of the game's ALRs could match across the Runner's literal
+ * two-space gap after a line break: an Original that opens with a space, or
+ * one that spans a break.  perspectives' ' Also here is a gun. ' is one --
+ * it only fires on the Runner's "<br><br>  Also here is a gun.  " -- and
+ * which ALRs fire is game behaviour, not text shape.
+ */
+static scr_bool
+lib_alrs_see_gap (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int alr_count, alr;
+
+  vt_key[0].string = "ALRs";
+  alr_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  for (alr = 0; alr < alr_count; alr++)
+    {
+      const scr_char *original, *cursor;
+
+      vt_key[1].integer = alr;
+      vt_key[2].string = "Original";
+      original = prop_get_string (bundle, "S<-sis", vt_key);
+      if (original[0] == ' ' || strchr (original, '\n'))
+        return TRUE;
+      for (cursor = strchr (original, '<'); cursor;
+           cursor = strchr (cursor + 1, '<'))
+        {
+          if (scr_strncasecmp (cursor, "<br>", 4) == 0)
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_buffer_literal_gap()
+ *
+ * The Runner's room lister hard-codes two spaces ahead of "Also here", the
+ * joined "... is here." sentence and the exits sentence -- literals, not
+ * pspace() -- so after a block that ends in a line break, or a bare
+ * heading, its line opens with two spaces.  Scarier deliberately keeps the
+ * join but not that indent (deviation policy): the gap is left out where
+ * the buffer is empty or already stands at the start of a line, unless an author ALR
+ * could be matching on it (lib_alrs_see_gap), which keeps the Runner's text
+ * so the same ALRs fire.  The exits sentence passes guarded FALSE: no corpus
+ * ALR matches on its gap, and les_feux's leading-space ALRs would otherwise
+ * keep every French exits line indented.
+ */
+static void
+lib_buffer_literal_gap (scr_gameref_t game, scr_bool guarded)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *buffered = pf_get_buffer (filter);
+
+  if ((buffered && buffered[0] != '\0'
+       && !pf_text_ends_with_break (buffered))
+      || (guarded && lib_alrs_see_gap (game)))
+    pf_buffer_string (filter, "  ");
+}
+
+
+/*
  * lib_print_room_contents()
  *
  * Print a list of the contents of a room.
@@ -104,10 +169,11 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
        * Runner's string simply carried on.
        */
       pf_undo_auto_break (filter);
+      lib_buffer_literal_gap (game, TRUE);
       pf_buffer_string (filter,
                         lib_select_plurality (game, list[0],
-                                              "  Also here is ",
-                                              "  Also here are "));
+                                              "Also here is ",
+                                              "Also here are "));
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_string (filter, ".");
     }
@@ -156,7 +222,9 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
              * append the raw Name.  Nothing downstream capitalises, so an
              * author's own " is here." text keeps its case in every version.
              * twilight (3.80) prints "a monkey is here.", goldilocks (4.0)
-             * "My Fairy Godmother is here."
+             * "My Fairy Godmother is here."  Scarier deliberately still opens
+             * the sentence with a capital in every version (deviation
+             * policy); see the pf_new_sentence() below.
              */
             std::string name = prop_get_indexed_string (bundle, "NPCs",
                                                         npc, "Name");
@@ -197,7 +265,9 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
          * the string already ends with.  Take back our own terminator first.
          */
         pf_undo_auto_break (filter);
-        pf_buffer_string (filter, "  ");
+        lib_buffer_literal_gap (game, TRUE);
+        /* A sentence opening in lower case is a display accident. */
+        pf_new_sentence (filter);
         for (index_ = 0; index_ < joined.size (); index_++)
           {
             if (index_ > 0)
@@ -936,7 +1006,9 @@ lib_cmd_print_room_exits (scr_gameref_t game)
  * "... Bob is here.  You can only move north." at all four versions
  * (Adrift_269_3g37.rtf and 270_3g38.rtf are the scrollback itself), and
  * egghunt's empty-Long rooms print "The Holy City" then "  You can move
- * north, south and west." (runner_transcripts/egghunt.txt).
+ * north, south and west." (runner_transcripts/egghunt.txt).  Scarier
+ * deliberately drops the two spaces where they would open a line
+ * (deviation policy; see lib_buffer_literal_gap).
  */
 void
 lib_print_room_exits (scr_gameref_t game, scr_int room)
@@ -948,7 +1020,7 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
       && lib_room_has_exits (game, room))
     {
       pf_undo_auto_break (filter);
-      pf_buffer_string (filter, "  ");
+      lib_buffer_literal_gap (game, FALSE);
       pf_print_so_far (filter, gs_get_vars (game), bundle);
       lib_print_exits_list (game, room);
     }

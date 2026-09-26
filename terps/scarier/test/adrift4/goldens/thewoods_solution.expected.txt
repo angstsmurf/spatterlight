@@ -133,7 +133,6 @@ drawers, the yellow paint cracked and breaking off in jagged flakes. In one
 corner was a large fridge, streaked with cobwebs.
 
 I could move out into the back yard or east into the front room.
-
 I could see a window key and a tin of paint.
 
 > look at sink
@@ -903,7 +902,6 @@ There was a row of open graves in the centre of the clearing. A large broad
 shouldered man with dark hair was digging a third. He had his back to me and
 was wearing black denim and mud spattered black boots. Hanging from his belt
 was a machete, the blade caked with dried blood.
-
 I could see a long shovel on the ground in front of me.
 
 > look

@@ -28,8 +28,8 @@ a cellar too.
 A magic cube appears in your hands.
 
 > x old oak table
-The table is beautifully made, very heavy and solid.  On the old oak table is
-a diary, a brass lantern, a woven cloak and some nice food.
+The table is beautifully made, very heavy and solid.  On the old oak table
+are a diary, a brass lantern, a woven cloak and some nice food.
 
 > get all from table
 You take the diary, the brass lantern, the woven cloak and the nice food from

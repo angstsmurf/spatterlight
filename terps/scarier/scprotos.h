@@ -388,6 +388,11 @@ extern void pf_strip_tags (scr_char *string);
 extern void pf_strip_tags_for_hints (scr_char *string);
 extern scr_char *pf_filter (const scr_char *string,
                            scr_var_setref_t vars, scr_prop_setref_t bundle);
+extern scr_bool pf_alr_mentions (scr_prop_setref_t bundle,
+                                 const scr_char *text);
+extern scr_bool pf_alr_rewrites_span (scr_prop_setref_t bundle,
+                                      const scr_char *text,
+                                      size_t start, size_t end);
 extern scr_char *pf_filter_for_info (const scr_char *string,
                                     scr_var_setref_t vars);
 extern void pf_flush (scr_filterref_t filter,
@@ -664,6 +669,9 @@ extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
 extern scr_bool lib_room_alt_darkens (scr_gameref_t game, scr_int room);
 extern void lib_print_object_np (scr_gameref_t game, scr_int object);
+/* An ALR could be matching the Runner's literal " is " in a listing. */
+extern scr_bool lib_alrs_see_list_verb (scr_gameref_t game,
+                                        scr_int container);
 extern void lib_print_npc_np (scr_gameref_t game, scr_int npc);
 /* "I'm afraid you are dead!", or its first-person form for a pre-4.0 game. */
 extern const scr_char *lib_get_death_message (scr_gameref_t game);

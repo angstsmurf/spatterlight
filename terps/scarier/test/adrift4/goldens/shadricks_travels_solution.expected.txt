@@ -108,7 +108,7 @@ supper if I let that happen."  Hanson standing as far back as he can on a
 large rock, trying to keep his distance from the bear.
 
 > climb tree
-Which tree.  The old oak tree or the pine tree?
+Which tree?  The old oak tree or the pine tree?
 
 > climb oak tree
 You can't climb the old oak tree.

@@ -142,9 +142,9 @@ he continues, '156 seconds left, my friend. Tick-tock.'
 > x table
 Three players and the dealer sit around the table, paused midgame. Cards are
 scattered in front of the players, but there is a circular divot in front of
-the dealer.  On the pontoon table is the jack of diamonds, the king of clubs,
-the queen of hearts, the queen of spades, the ace of spades, the four of
-diamonds, the seven of clubs, the two of hearts and the nine of clubs.
+the dealer.  On the pontoon table are the jack of diamonds, the king of
+clubs, the queen of hearts, the queen of spades, the ace of spades, the four
+of diamonds, the seven of clubs, the two of hearts and the nine of clubs.
 
 > take jack
 You take the jack of diamonds from the pontoon table.

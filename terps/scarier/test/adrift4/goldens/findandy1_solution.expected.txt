@@ -15,7 +15,7 @@ Bathroom
 
 There are metal handles attatched to the walls to help Andy use the toilet
 safely.
-  Also here is a Toilet and a carer called Lou.  You can only move west.
+Also here is a Toilet and a carer called Lou.  You can only move west.
 
 > use toilet
 As well as the HORROR of the jobby, you also saw a Fatfighters Membership
@@ -26,7 +26,7 @@ You move west.
 
 Hotel Reception
 
-  Ray is here.  You can move east and west.
+Ray is here.  You can move east and west.
 
 > ask Ray about Andy
 answer his riddle by typing "say _ _ _ _ _ " What is he?
@@ -55,7 +55,7 @@ You move west.
 
 Jam Tasting Tent
 
-  Also here is a lady called Judy, a lady called Maggy and a lot of Jam.  You
+Also here is a lady called Judy, a lady called Maggy and a lot of Jam.  You
 can only move east.
 
 > give cake to maggy
@@ -74,7 +74,7 @@ You move south.
 
 Field
 
-  Also here is a Scarecrow.  Vicky is here.  You can only move north.
+Also here is a Scarecrow.  Vicky is here.  You can only move north.
 
 > get chocolates
 You take the chocolates.
@@ -111,7 +111,7 @@ You move east.
 
 Community Centre
 
-  Also here is a lady called Carol.  You can only move west.
+Also here is a lady called Carol.  You can only move west.
 
 > use card
 You can now enter Fat Fighters.

@@ -74,10 +74,11 @@ Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > open refrigerator
-You open the big white refrigerator.  Inside the big white refrigerator is an
-old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large
-bottle of mustard and a moxie.  Your ears are rudely awakened by the sound of
-a skill saw screaming and scraping through some lumber off  in the distance.
+You open the big white refrigerator.  Inside the big white refrigerator are
+an old bottle of milk (you think), old meat, a bottle of heinz ketchup, a
+large bottle of mustard and a moxie.  Your ears are rudely awakened by the
+sound of a skill saw screaming and scraping through some lumber off  in the
+distance.
 
 > get meat
 You take old meat from the big white refrigerator.  You take all of the
@@ -88,7 +89,7 @@ You've already got some tarnished knives!  The sound of a skill saw ripping
 lumber finally fades to  stillness.
 
 > open kitchen cupboard
-You open the kitchen cupboard.  Inside the kitchen cupboard is yummy
+You open the kitchen cupboard.  Inside the kitchen cupboard are yummy
 pop-tarts and a can of corn.
 
 > get pop-tarts
@@ -144,7 +145,7 @@ solitaire in the corner.  The window coverings are some cruddy old bamboo
 roll-up blinds.  Also here is a thin mattress.  Kevin is here.
 
 > open storage chest
-You open the wooden storage chest.  Inside the wooden storage chest is a
+You open the wooden storage chest.  Inside the wooden storage chest are a
 skill saw, a crow bar, a crappy baseball glove and an old baseball bat.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
@@ -445,7 +446,7 @@ There is a large tree in shallow center field and the backs of the cottages
 on Oakland Ave. angle away to the west.  Billy is here.
 
 > wear crappy baseball glove
-You put on a crappy baseball glove.  Your ears are rudely awakened by the
+You put on the crappy baseball glove.  Your ears are rudely awakened by the
 sound of a skill saw screaming and scraping through some lumber off  in the
 distance.
 

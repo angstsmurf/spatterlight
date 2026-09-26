@@ -473,12 +473,12 @@ You are carrying a note and a diary.
 
 > open cupboard
 A musty food smell wafts over you as the cupboard opens.  Inside the cupboard
-is a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
+are a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
 honey and a mug.
 
 > look in cupboard
 A chipped and stained cupboard.  The cupboard is open.  Inside the cupboard
-is a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
+are a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
 honey and a mug.
 
 > examine jar
@@ -1043,7 +1043,8 @@ see a wooden trapdoor, a piece of chalk and a petrol can.
 
 > examine workbench
 This large workbench shows its years of long use in the many scars and nicks
-on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+on its surface.  On the large workbench are a wood chisel, an axe and a
+drill.
 
 The voice of Cathy's grandfather shatters the silence saying, "BEWARE.
 SOMETHING HAS OPENED A RIFT AND ENTERED THE MASTER BEDROOM".
@@ -1052,11 +1053,13 @@ neighbors".
 
 > search workbench
 This large workbench shows its years of long use in the many scars and nicks
-on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+on its surface.  On the large workbench are a wood chisel, an axe and a
+drill.
 
 > look on workbench
 This large workbench shows its years of long use in the many scars and nicks
-on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+on its surface.  On the large workbench are a wood chisel, an axe and a
+drill.
 
 > get chisel
 You take the wood chisel from the large workbench.
@@ -1493,7 +1496,7 @@ also see a large bookcase.
 
 > examine bookcase
 A large wooden bookcase with strange carvings along its sides.  A pipette is
-on the large bookcase, and inside is a record,
+on the large bookcase, and inside are a record,
 a book entitled Nos accommodatum essee pulvis,
 a book entitled Medicas herbas inquirit,
 a book entitled Lepidoptera,
@@ -1505,7 +1508,7 @@ a book entitled Tempus domitus and a notebook.
 
 > search bookcase
 A large wooden bookcase with strange carvings along its sides.  A pipette is
-on the large bookcase, and inside is a record,
+on the large bookcase, and inside are a record,
 a book entitled Nos accommodatum essee pulvis,
 a book entitled Medicas herbas inquirit,
 a book entitled Lepidoptera,
@@ -1517,7 +1520,7 @@ a book entitled Tempus domitus and a notebook.
 
 > look in bookcase
 A large wooden bookcase with strange carvings along its sides.  A pipette is
-on the large bookcase, and inside is a record,
+on the large bookcase, and inside are a record,
 a book entitled Nos accommodatum essee pulvis,
 a book entitled Medicas herbas inquirit,
 a book entitled Lepidoptera,

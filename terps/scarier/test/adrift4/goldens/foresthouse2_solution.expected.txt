@@ -31,8 +31,8 @@ And punishment is something you try to avoid.
 You turn on the lamp, illuminating your room.
 
 > open dresser
-You open the dresser.  Inside the dresser is the socks, the thick sweater and
-mother's desk key.
+You open the dresser.  Inside the dresser are the socks, the thick sweater
+and mother's desk key.
 
 > take socks
 You take the socks from the dresser.

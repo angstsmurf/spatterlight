@@ -780,7 +780,7 @@ You put the wood inside the pit.
 
 > x cauldron
 The cauldron hangs at one of the spit, over a large pit.  Inside the cauldron
-is a purple flower, a red potion, a blue potion and the green potion.
+are a purple flower, a red potion, a blue potion and the green potion.
 
 > light fire
 

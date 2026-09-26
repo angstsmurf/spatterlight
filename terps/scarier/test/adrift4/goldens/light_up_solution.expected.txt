@@ -1452,7 +1452,7 @@ into the north wall. There is no visible door.  Also here is a blank box.
 I take the blank box.
 
 > open blank box
-I open the blank box.  Inside the blank box is a red orb, an orange orb, a
+I open the blank box.  Inside the blank box are a red orb, an orange orb, a
 yellow orb, a green orb, a blue orb, an indigo orb and a violet orb.
 
 > take red orb
@@ -2439,7 +2439,7 @@ drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > attack riven
-Which riven.  Red riven or Blue riven?
+Which riven?  Red riven or Blue riven?
 
 > take double-lighter
 I am already carrying the double-lighter.  Scotty hits Red riven.  Donna hits
@@ -2459,7 +2459,7 @@ Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
 > attack riven
-Which riven.  Red riven or Blue riven?
+Which riven?  Red riven or Blue riven?
 
 > take double-lighter
 I am already carrying the double-lighter.  Lina hits Red riven.  Scotty hits
@@ -2482,7 +2482,7 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 > attack riven
-Which riven.  Red riven or Blue riven?
+Which riven?  Red riven or Blue riven?
 
 > take double-lighter
 I am already carrying the double-lighter.  Lina hits Red riven.  Scotty hits
@@ -2498,7 +2498,7 @@ Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > attack riven
-Which riven.  Red riven or Blue riven?
+Which riven?  Red riven or Blue riven?
 
 > take double-lighter
 I am already carrying the double-lighter.  Lina hits Blue riven.  Scotty hits

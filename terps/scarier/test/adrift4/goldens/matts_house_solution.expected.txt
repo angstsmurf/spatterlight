@@ -38,7 +38,7 @@ refridgerator, an oven, a cupboard, and a water faucet  You can move east,
 south, west, out and southeast.
 
 > open refridgerator
-You open the Refridgerator.  Inside the Refridgerator is a Root Beer, a
+You open the Refridgerator.  Inside the Refridgerator are a Root Beer, a
 Apple, a Turkey and a Soup Container.
 
 > eat apple

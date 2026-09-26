@@ -61,7 +61,7 @@ cheap, and so are we!"
 
 SoMorph not impressed.
 
-  SoMorph can only move north.
+SoMorph can only move north.
 
 > north
 (Standing up first)
@@ -81,7 +81,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-  SoMorph can move north, south and west.
+SoMorph can move north, south and west.
 Somorph thinking that Brian did this.
 
 Brian not like Somorph. Brian rival for Somorph's job on home planet
@@ -107,14 +107,14 @@ he not seem very friendly to SoMorph.
 
 SoMorph can go South to corridor.
 
-  Also here is some catnip.  Frank is here.  SoMorph can only move south.
+Also here is some catnip.  Frank is here.  SoMorph can only move south.
 Or maybe SoMorph got drunk?
 
 Somorph cannot remember much. Just in case, SoMorph will have words with
 Brian when Somorph get home.
 
 > take catnip
-SoMorph take the catnip.
+SoMorph takes the catnip.
 
 > south
 SoMorph moves south.
@@ -133,7 +133,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-  SoMorph can move north, south and west.
+SoMorph can move north, south and west.
 Somorph think he not on planet Omorphos any more.
 
 Somorph on some ship. Must change course to go home.
@@ -185,15 +185,15 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-  Cat is here.  SoMorph can move north, south and west.  SoMorph manage to
+Cat is here.  SoMorph can move north, south and west.  SoMorph manages to
 avoid Jones's attack.
 
 > attack cat
-SoMorph hit Jones, but it doesn't seem to do any damage.  SoMorph manage to
+SoMorph hits Jones, but it doesn't seem to do any damage.  SoMorph manages to
 avoid Jones's attack.
 
 > attack cat
-SoMorph hit Jones.
+SoMorph hits Jones.
 With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
 
 Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
@@ -210,11 +210,11 @@ SeMorph think Cat make fun appetiser...
 Somorph think he need loo now...
 
 > take cat fur
-SoMorph take the cat fur.
+SoMorph takes the cat fur.
 SoMorph really need to go toilet...
 
 > open door
-SoMorph open the bathroom door.
+SoMorph opens the bathroom door.
 SoMorph need loo badly!
 
 > east
@@ -236,14 +236,14 @@ SoMorph chuckles.
 
 SoMorph see bathroom door open. Corridor to West.
 
-  SoMorph can only move west.
+SoMorph can only move west.
 SoMorph try hold it in...
 
 > close door
-SoMorph close the bathroom door.
+SoMorph closes the bathroom door.
 
 > open loo
-SoMorph open the toilet.
+SoMorph opens the toilet.
 
 > use toilet
 SoMorph decide SoMorph *really* need to go the loo.
@@ -279,7 +279,7 @@ SoMorph getting headache.
 SoMorph hopes sphincters will re-align soon. Makes SoMorph feel queesy...
 
 > open door
-SoMorph open the bathroom door.
+SoMorph opens the bathroom door.
 
 > west
 SoMorph moves west.
@@ -298,7 +298,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom. SoMorph see bathroom door is open.
 
-  Human is here.  SoMorph can move north, east, south and west.  Human runs
+Human is here.  SoMorph can move north, east, south and west.  Human runs
 screaming to the east.
 
 > look
@@ -317,7 +317,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom. SoMorph see bathroom door is open.
 
-  SoMorph can move north, east, south and west.
+SoMorph can move north, east, south and west.
 
 > look
 
@@ -335,14 +335,14 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom. SoMorph see bathroom door is open.
 
-  SoMorph can move north, east, south and west.  Human runs screaming from
-the east.
+SoMorph can move north, east, south and west.  Human runs screaming from the
+east.
 
 > attack human
-SoMorph hit Alan Davies.
+SoMorph hits Alan Davies.
 
 > attack human
-SoMorph hit Alan Davies.
+SoMorph hits Alan Davies.
 With mighty swipe of tentacle, SoMorph kill Alan Davies till he dead!
 
 Then SoMorph poke Alan Davies with tentacle for few minutes. To be sure...
@@ -362,7 +362,7 @@ Later, SoMorph put human head in mouth and bites it off body.
 There is much blood, which help SoMorph chew rest of human down.
 
 > remove cat fur
-SoMorph remove the cat fur.
+SoMorph removes the cat fur.
 SoMorph think SoMorph ate too much.
 
 SoMorph steady self against wall with tentacle, and hack up something.
@@ -389,7 +389,7 @@ he not seem very friendly to SoMorph.
 
 SoMorph can go South to corridor.
 
-  Frank is here.  SoMorph can only move south.
+Frank is here.  SoMorph can only move south.
 
 > main course
 

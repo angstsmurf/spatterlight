@@ -53,7 +53,7 @@ your meals. This is, in effect, your 'kitchen'. A fridge isn't needed when
 you live in a perpetually icy climate so anything that needs to be frozen is
 kept outside. Built into one side of the area is a grill to cook food on
 during those rare occasions when the electricity is working. Off to one side
-of this is your poorly-stocked pantry.  On the small area is a bottle of
+of this is your poorly-stocked pantry.  On the small area are a bottle of
 water, a sandwich and a dishrag.
 
 > get bottle of water

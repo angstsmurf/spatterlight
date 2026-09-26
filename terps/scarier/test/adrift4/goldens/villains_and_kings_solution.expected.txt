@@ -94,7 +94,7 @@ over there in the corner too.  Yup, its still the first day.  You can move
 west and in.
 
 > x Weapon Rack
-This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack is
+This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack are
 Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
 
 > take sword
@@ -184,7 +184,7 @@ You can move north and south.  The guy hits you, but it doesn't seem to do
 any damage.
 
 > attack guy
-You cut The guy with Kinda Sharp Sword.  You killed the Bastard Trying to
+You cut the guy with Kinda Sharp Sword.  You killed the Bastard Trying to
 Kill You.  It wasn't hard, but it was sure fun.  Now that he is dead, you can
 search his body or somthing, right?
 

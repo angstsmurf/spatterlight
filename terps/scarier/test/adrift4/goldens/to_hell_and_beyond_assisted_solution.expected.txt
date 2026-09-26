@@ -137,7 +137,7 @@ can move east and south.
 You move east.
 
 Oran 1
-  You can move east and west.
+You can move east and west.
 
 > e
 You move east.
@@ -323,25 +323,25 @@ You can see a manhole here.  Trace is here.  You can move north and west.
 You move north.
 
 Tinev docks 4
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
 
 Tinev docks 5
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
 
 Tinev cliff
-  You can move south and up.
+You can move south and up.
 
 > u
 You move up.
 
 In front of old mansion
-  Also here is a crowbar.  You can move west, down and in.
+Also here is a crowbar.  You can move west, down and in.
 
 > take crowbar
 You take the crowbar.
@@ -350,19 +350,19 @@ You take the crowbar.
 You move down.
 
 Tinev cliff
-  You can move south and up.
+You can move south and up.
 
 > s
 You move south.
 
 Tinev docks 5
-  You can move north and south.
+You can move north and south.
 
 > s
 You move south.
 
 Tinev docks 4
-  You can move north and south.
+You can move north and south.
 
 > s
 You move south.
@@ -381,25 +381,25 @@ Your score is 23 out of a maximum of 373.  (6%)
 You move north.
 
 Tinev docks 4
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
 
 Tinev docks 5
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
 
 Tinev cliff
-  You can move south and up.
+You can move south and up.
 
 > u
 You move up.
 
 In front of old mansion
-  You can move west, down and in.
+You can move west, down and in.
 
 > in
 You move in.
@@ -593,7 +593,7 @@ you can do anything.
 You move west.
 
 Ship ledge 1
-  You can move east and west.
+You can move east and west.
 
 > w
 You move west.
@@ -655,7 +655,7 @@ You are standing in a hallway.  You can move east, south and west.
 You move east.
 
 Ship hallway 4
-  You can move east, south and west.
+You can move east, south and west.
 
 > s
 You move south.
@@ -671,7 +671,7 @@ You take the key.
 You move north.
 
 Ship hallway 4
-  You can move east, south and west.
+You can move east, south and west.
 
 > e
 You move east.
@@ -743,7 +743,7 @@ west.
 You move north.
 
 Forest 1
-  You can move north and south.
+You can move north and south.
 
 > n
 You move north.
@@ -1121,9 +1121,9 @@ south, west and down.
 You move north.
 
 Grassland
-  Big scorpion is here.  You can move north and south.  Trace hits Big
-scorpion with the Whip.  Enevez hits Big scorpion with the Staff.  You kill
-the scorpion and collect your bounty. 75 gold coins.
+Big scorpion is here.  You can move north and south.  Trace hits Big scorpion
+with the Whip.  Enevez hits Big scorpion with the Staff.  You kill the
+scorpion and collect your bounty. 75 gold coins.
 
 > n
 You move north.
@@ -1267,7 +1267,7 @@ Luckily the gate is open. The path is clear.  You can move east and west.
 You move west.
 
 Mika road to castle 1
-  You can move east and west.
+You can move east and west.
 
 > w
 You move west.
@@ -1293,7 +1293,7 @@ locked.  You can move west and out.
 You move west.
 
 Castle 1
-  You can move east and up.
+You can move east and up.
 
 > u
 You move up.

@@ -78,7 +78,7 @@ the back hall.  A staircase leads down to the cellar.  A back door leads out
 to the yard.
 
 > open pantry
-You open the pantry.  Inside the pantry is a loaf of bread, a bag of rice, a
+You open the pantry.  Inside the pantry are a loaf of bread, a bag of rice, a
 bottle of wine, a sack of flour and a spice rack.
 
 > take bread

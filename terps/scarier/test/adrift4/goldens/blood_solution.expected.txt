@@ -140,7 +140,7 @@ You are suddenly overwhelmed by a complete feeling of misery and briefly you
 have a flashback of your wife lying on the floor.  Charlie stretches.
 
 > x counter
-The old counter has seen some service.  On the counter is a peanut, a meat
+The old counter has seen some service.  On the counter are a peanut, a meat
 pie, a bottle of perfume and a booklet.
 
 > buy perfume

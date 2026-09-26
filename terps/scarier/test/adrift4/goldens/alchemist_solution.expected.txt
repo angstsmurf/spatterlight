@@ -869,7 +869,7 @@ My score is 40 out of a maximum of 0.  (0%)
 > x table
 The table is a strong one, made of solid wood. It is several meters long and
 covered with various alchemistic equipment of no use and value.  On the table
-is the bowl, the flask of mercury and an iron ore.
+are the bowl, the flask of mercury and an iron ore.
 
 > get bowl
 I take the bowl from the table.

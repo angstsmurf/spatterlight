@@ -32,7 +32,7 @@ a message lies in the middle if this room  Also here is A message.  You can
 only move west.
 
 > get message
-You take A message.
+You take the message.
 
 > w
 You move west.
@@ -164,7 +164,7 @@ occupies the middle of the hall.  You can only move north.
 
 > examine table
 This table is utterly huge! it stretches right the way down the room, with
-various things on top.  On the huge table is a golden chalice, a hunk of old
+various things on top.  On the huge table are a golden chalice, a hunk of old
 meat, a fat cigar and a hunk of edible meat.
 
 > get chalice

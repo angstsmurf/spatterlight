@@ -952,7 +952,7 @@ an overhead arbor.  Through the gate to the south you can see the orchard
 while the main path lies to the north.  An impressive Victorian style home,
 betwixt beautiful gardens and greenery, dominates the view to the north.  A
 very large maple tree guards the orchard entrance.
-  Also here is a large stone.
+Also here is a large stone.
 
 > climb tree
 
@@ -1020,7 +1020,7 @@ betwixt beautiful gardens and greenery, dominates the view to the north.  A
 very large maple tree guards the orchard entrance.
   A sturdy Jute rope hangs down from one of the thick branches of the maple
 tree.
-  Also here is a large stone, a strong knife and a small stick.
+Also here is a large stone, a strong knife and a small stick.
 
 > untie rope
 
@@ -1077,7 +1077,7 @@ Victorian style home in the distance to the north.
 
 Set up in the grass, about forty feet away, is what appears to be a small pup
 tent.
-  Also here is a Victorian bulldog.
+Also here is a Victorian bulldog.
 
 > x tent
 
@@ -1464,7 +1464,7 @@ servants to pass food through form the kitchen to the dining room, creating
 the minimum of intrusion and allowing the guests very little view of the
 working space of the house.  Surprisingly, considering the furnished state of
 the rest of the house, this room is entirely unfitted.
-  Also here is an empty wooden canteen.
+Also here is an empty wooden canteen.
 
 > get canteen
 You take the empty wooden canteen.
@@ -1638,7 +1638,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-  Also here is a small shovel.  A mangy looking crow is here.
+Also here is a small shovel.  A mangy looking crow is here.
 
 > w
 You duck into the woodshed to the west.
@@ -1650,7 +1650,7 @@ sloped roof.  There is about a cord of wood here in a stack measuring about
 four feet wide by four feet high by eight feet long.  On the ground beside
 the pile of wood there is an old wooden box.  A large stump protrudes from
 the earth beside the box.
-  Also here is a large bucket.
+Also here is a large bucket.
 
 > get bucket
 You take the large bucket.
@@ -1669,7 +1669,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-  Also here is a small shovel.  A mangy looking crow is here.
+Also here is a small shovel.  A mangy looking crow is here.
 
 > sw
 You move southwest following the footpath along the terrace on the side of
@@ -2520,7 +2520,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-  Also here is a small shovel.  A mangy looking crow is here.
+Also here is a small shovel.  A mangy looking crow is here.
 
 > w
 You duck into the woodshed to the west.
@@ -2589,7 +2589,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-  Also here is a small shovel.  A mangy looking crow is here.
+Also here is a small shovel.  A mangy looking crow is here.
 
 > get shovel
 You take the small shovel.
@@ -3638,7 +3638,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-  Also here are the iron chains and a broken padlock.
+Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -3688,7 +3688,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-  Also here are the iron chains and a broken padlock.
+Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -4226,7 +4226,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 
 > nw
 You move northwest.
@@ -4294,7 +4294,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 
 > ne
 You move northeast.
@@ -4365,7 +4365,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 
 > d
 You move down.
@@ -4537,7 +4537,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 
 > ne
 You move northeast.
@@ -4573,7 +4573,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 
 You can barely hear the church bells ringing out three o'clock in the
 morning.
@@ -4659,7 +4659,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 The butler is here.
 
 > d
@@ -4858,7 +4858,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-  Also here are the iron chains and a broken padlock.
+Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -5016,7 +5016,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-  Also here are the iron chains and a broken padlock.
+Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -5537,7 +5537,7 @@ variety of different texts.  On the cobblestone floor is a large pentacle
 painted in some kind of red substance.  White candles stand at each of the
 five points of the star, providing sufficient light by which to see.  A
 choking, almost toxic, odour permeates the stale air in here.
-  Also here is the leather bound book.
+Also here is the leather bound book.
 
 > x pentagram
 
@@ -5618,7 +5618,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 The butler is here.
 
 > d
@@ -6379,7 +6379,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-  Also here is the foot stool.
+Also here is the foot stool.
 The butler is here.
 
 > d
@@ -6467,7 +6467,7 @@ The Queen Anne design of this elaborate wardrobe features solid oak
 construction with a cherry veneer finish, brass hardware, and curved leg
 styling.  A large red faded stain is visible on one of the doors to the
 cabinet.
-  The resplendent armoire is open.  Inside the resplendent armoire is a
+  The resplendent armoire is open.  Inside the resplendent armoire are a
 caving helmet with headlamp, a bellows and an air mattress.
 
 > get headlamp
@@ -6754,7 +6754,7 @@ proper.  Pools of water dot the cavern floor and in many places cave coral
 coats the exposed rocks.  The tunnel extends further down and to the south
 through a very small opening that you might just be able to squeeze through.
 The mouth of the cave is up and to the north.
-  Also here is a skeleton key, a pocket watch and a box of matches.
+Also here is a skeleton key, a pocket watch and a box of matches.
 
 > get skeleton key
 You take the skeleton key.

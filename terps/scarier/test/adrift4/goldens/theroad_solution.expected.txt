@@ -80,7 +80,7 @@ came up with. Beside one log is a backpack.
 You take the backpack.
 
 > open backpack
-You open the backpack.  Inside the backpack is a note, a flashlight and a
+You open the backpack.  Inside the backpack are a note, a flashlight and a
 student ID card.
 
 > get flashlight

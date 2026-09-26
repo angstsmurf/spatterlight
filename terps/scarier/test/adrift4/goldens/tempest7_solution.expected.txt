@@ -60,7 +60,7 @@ from side to side as the room tilts.
 There is a small window looking out onto the sea to the south, and a door to
 the west.
 
-  Also here is a small cask.
+Also here is a small cask.
 
 > open window
 The cabin window is open.  Sea water is splashing through it into the room!
@@ -784,7 +784,7 @@ flame.  After a while, the liquid in the retort starts to bubble.
 
 > x table
 The table is stained with blotches of spilled liquids, and burnt in places.
-On the stained table is a glass retort, an oil burner and some flasks.
+On the stained table are a glass retort, an oil burner and some flasks.
 
 > x retort
 At the very centre of the alchemical equipment is a large retort, with a wide
@@ -883,7 +883,7 @@ beauty.  You see Helen of Troy, Cleopatra, Nefertiti and many more, all
 merely for an instant.  Every face is full of ardent passion and longing.
 
 It seems you could go in most directions from here.
-  Also here is a red spell.
+Also here is a red spell.
 
 > get spell
 You take the red spell.

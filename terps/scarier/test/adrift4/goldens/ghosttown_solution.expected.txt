@@ -285,7 +285,7 @@ and sharp.
 A sturdy wooden box with rusted iron corners stands in the corner and the
 opening leading back into the living room is to the west of you.
   There's a hole in the floor where the box with the logs once was.
-  Also here are some wooden logs.  Ninette is here.
+Also here are some wooden logs.  Ninette is here.
 
 > i
 You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
@@ -336,7 +336,7 @@ front, and the floor is strewn with broken splinters of wood that probably
 once made up the drawers.
 Behind you a gaping hole in the wall leads east to the kitchen, and a ragged
 blanket covers an exit to the north, leading into yet another room.
-  Ninette is here.
+Ninette is here.
 
 > x ninette
 Ninette is a pretty woman in her late twenties.
@@ -526,7 +526,7 @@ nods down as you start to doze off.
 Suddenly you jerk wide awake, catching a break in the trees a short distance
 ahead. You're not quite sure if this is what you're looking for... and
 yet.......
-  Ninette is here.
+Ninette is here.
 
 > x path
 You squint your eyes, trying to penetrate the darkness and the rain.
@@ -565,7 +565,7 @@ You desperately look around to find something solid to hold on to, finally
 grabbing the edge of the dashboard hard enough to turn your knuckles white.
 Ninette is holding tightly onto the steering wheel, trying her best to steer
 the car along the narrow path.
-  Ninette is here.
+Ninette is here.
 
 > s
 You move south.
@@ -588,7 +588,7 @@ it seems like the trees are not as close together. The path also extends off
 to the north towards the paved roadway.
 Ninette has stopped the car, and is looking at you for directions, as your
 guess is as good as hers.
-  Ninette is here.
+Ninette is here.
 
 > s
 You move south.
@@ -611,7 +611,7 @@ Looking to the south, it appears as if the path has abruptly been cut off and
 the silhouette of a town is delicately balancing on the edge.
 As you look closer you see that the path continues down what appears to be an
 almost vertical slope.
-  Ninette is here.
+Ninette is here.
 
 > leave car
 Ninette looks at you, then she reaches out and turns off the ignition.
@@ -683,7 +683,7 @@ heat.
 The dry bushes on either side of the slope still bear the marks of Ninettes'
 landing earlier, and the dry air burns in your throat and lungs as you
 breathe. This is not a very hospitable environment.
-  Ninette is here.
+Ninette is here.
 
 > e
 You move east.
@@ -712,7 +712,7 @@ charred beams of timber stretching towards the sky  as an accusing finger,
 and to the south is the old livery stable, walls almost caving in, bleached
 and dried by the merciless sun. Behind you, to the west, the trail continues
 away from the town, leading back up to the plateau from where you came.
-  Ninette is here.
+Ninette is here.
 
 > e
 You move east.
@@ -1107,7 +1107,7 @@ the carpet, although worn to pieces still covers the floor.
 A few tables and couches are placed in the lobby and to the right of the
 reception counter a stair leads up to the floors upstairs. Behind the counter
 is a door, almost invisible against the bleached wallpaper.
-  Ninette is here.
+Ninette is here.
 
 > ninette follow
 You ask Ninette to come with you...
@@ -1137,7 +1137,7 @@ the carpet, although worn to pieces still covers the floor.
 A few tables and couches are placed in the lobby and to the right of the
 reception counter a stair leads up to the floors upstairs. Behind the counter
 is a door, almost invisible against the bleached wallpaper.
-  Ninette is here.
+Ninette is here.
 
 > n
 You move north.
@@ -1211,7 +1211,7 @@ cigarettes mingled with cheap perfume and sweaty bodies, tickles your
 nostrils.
 The stairway leading up to the first floor is now dimly lit by a burning
 kerosene lamp as is the corridor on the first floor.
-  Also here is A lump of hard grease.  Ninette is here.
+Also here is A lump of hard grease.  Ninette is here.
 
 > u
 You move up.
@@ -1420,14 +1420,14 @@ cigarettes mingled with cheap perfume and sweaty bodies, tickles your
 nostrils.
 The stairway leading up to the first floor is now dimly lit by a burning
 kerosene lamp as is the corridor on the first floor.
-  Also here is A lump of hard grease.  Ninette is here.
+Also here is A lump of hard grease.  Ninette is here.
 
 > fill lamp
 You carefully pour the kerosene into the empty lamp, and when you're done you
 toss away the now empty container.
 
 > get grease
-You take A lump of hard grease.
+You take the lump of hard grease.
 
 > n
 You move north.
@@ -1903,7 +1903,7 @@ narrows. To your right is a door, leading in to a room.
 There is not much to say about this area of the corridor. The creepy feeling
 that started when you came up the stairs is stronger here and you feel the
 unknown presence of something indefinable.
-  Also here is a rusty Iron bar.  Ninette is here.
+Also here is a rusty Iron bar.  Ninette is here.
 
 > w
 You move west.
@@ -2398,7 +2398,7 @@ The ground here is quite muddy and you have to constantly shift your weight
 from foot to foot to avoid sinking deeper into the brownish substance and the
 wall consists of loose dirt which looks like it is ready to cave in at the
 slightest touch.
-  Also here is a length of rope.
+Also here is a length of rope.
 
 > move safe
 You press your shoulder against the safe and push as hard you can.
@@ -2478,7 +2478,7 @@ The ground here is quite muddy and you have to constantly shift your weight
 from foot to foot to avoid sinking deeper into the brownish substance and the
 wall consists of loose dirt which looks like it is ready to cave in at the
 slightest touch.
-  Also here is a length of rope.
+Also here is a length of rope.
 
 > get gun
 You reach into the safe and grap the gun.
@@ -2544,7 +2544,7 @@ witnesses of the ones that stayed behind.
 To the north of you, a small path leads in through a wooden gate, up to a
 church, and across the street to the south, lays another building... one of
 the few remaining buildings that are still relatively intact.
-  Ninette is here.
+Ninette is here.
 
 > ninette follow
 You ask Ninette to come with you...

@@ -58,7 +58,7 @@ In the bottom of the boat you find your old rucksack.
 You take the rucksack.
 
 > open rucksack
-You open the rucksack.  Inside the rucksack is a torch (flashlight), a
+You open the rucksack.  Inside the rucksack are a torch (flashlight), a
 thermos flask and a notepad.
 
 > get torch
@@ -123,7 +123,7 @@ steps lead up.  The door to the lighthouse is wide open and blowing in the
 wind.
 
 > open cupboard
-You open the cupboard. Inside the battered cupboard is a sou'wester hat, a
+You open the cupboard. Inside the battered cupboard are a sou'wester hat, a
 weatherproof coat and some weatherproof boots.
 
 As you open the cupboard you notice immediately that it only contains one
@@ -155,7 +155,7 @@ steps lead up and down.  An old toolbox is sitting near the generator.
 You hear the sound of running footsteps.
 
 > open toolbox
-You open the toolbox.  Inside the toolbox is a broken spark plug, a
+You open the toolbox.  Inside the toolbox are a broken spark plug, a
 screwdriver and a spanner.
 
 > get spanner
@@ -178,8 +178,8 @@ battered old locker. Some stone steps lead up and down.  You can also see a
 boat hook and a fire extinguisher.
 
 > open locker
-You open the old locker.  Inside the old locker is some ear defenders, a hard
-hat, some safety guidelines and a flare gun.
+You open the old locker.  Inside the old locker are some ear defenders, a
+hard hat, some safety guidelines and a flare gun.
 
 > get flare gun
 You take the flare gun from the old locker.
@@ -225,7 +225,7 @@ You put on the coat.
 Somebody calls your name, turning round quickly you see nothing.
 
 > open cupboard
-You open the cupboard.  Inside the cupboard is a woolly jumper, some thermal
+You open the cupboard.  Inside the cupboard are a woolly jumper, some thermal
 underwear and a pair of socks.
 
 > x bunk
@@ -251,7 +251,7 @@ down.
 
 > look on table
 The round metal table is just about large enough for three people to sit at.
-On the round table is the lighthouse log book, a plate and a mug.
+On the round table are the lighthouse log book, a plate and a mug.
 
 > get log book
 You take the lighthouse log book from the round table.
@@ -280,7 +280,7 @@ down.  You can also see an old bucket.
 Is that footsteps echoing on the stones steps?
 
 > x work bench
-You can see the work bench.  On the work bench is the weather journal, the
+You can see the work bench.  On the work bench are the weather journal, the
 radio and an ashtray.
 
 > get weather journal

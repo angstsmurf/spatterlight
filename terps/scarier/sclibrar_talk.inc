@@ -21,7 +21,12 @@
  * The generic hint has no full stop after its closing quote in any release
  * (run400 488D6E-488D8C appends only Chr(34)); measured on run370, run380 and
  * run390, p3xNPCAMB `ask` (Adrift_194/195/196).  The per-character hint does
- * append "." (run400 47F8C4).
+ * append "." (run400 47F8C4).  Scarier deliberately ends both with the full
+ * stop (deviation policy: a missing stop is a display accident), except in a
+ * game with an ALR on the hint -- two dozen games replace the Runner's
+ * unstopped 'Use the format "ask [character] about [subject]"' with a
+ * sentence of their own, which the stop would double ("no response..") --
+ * where the Runner's form is kept.
  */
 static const scr_char *
 lib_ask_format_subject (scr_gameref_t game)
@@ -33,9 +38,13 @@ lib_ask_format_subject (scr_gameref_t game)
 static const scr_char *
 lib_ask_format_character (scr_gameref_t game)
 {
-  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_380)
+    return "Use the format \"ask &lt;character&gt; about &lt;subject&gt;\".\n";
+  return pf_alr_mentions (bundle, "[subject]\"")
          ? "Use the format \"ask [character] about [subject]\"\n"
-         : "Use the format \"ask &lt;character&gt; about &lt;subject&gt;\"\n";
+         : "Use the format \"ask [character] about [subject]\".\n";
 }
 
 

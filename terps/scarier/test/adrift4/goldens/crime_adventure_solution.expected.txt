@@ -101,7 +101,7 @@ You move north.
 In spare bedroom of Fenwicks house. There is a dresser here.
 
 > open dresser
-You open the dresser.  Inside the dresser is a penny and a golf ball.
+You open the dresser.  Inside the dresser are a penny and a golf ball.
 
 > get penny
 You take a penny from the dresser.

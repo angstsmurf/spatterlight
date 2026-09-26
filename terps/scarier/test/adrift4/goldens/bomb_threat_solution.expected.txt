@@ -91,7 +91,7 @@ This is a simple office room. You can see out of the windows, which is quite
 high up. There is a desk, a bin and a cabinet here.  You can only move north.
 
 > open desk
-You open the desk.  Inside the desk is a pen, a calculator and a key.
+You open the desk.  Inside the desk are a pen, a calculator and a key.
 
 > take key
 You take a key from the desk.
@@ -171,7 +171,7 @@ the room and a large workbench in the center.  You can only move south.
 
 > x tool racks
 There are lots of tool racks which each have a set of tools on them.  On tool
-racks is a saw, a hammer, jar of nails and some pliers.
+racks are a saw, a hammer, jar of nails and some pliers.
 
 > take pliers
 You take some pliers from tool racks.

@@ -195,7 +195,7 @@ down
   Rancid the butler is here.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Privy
 
@@ -230,7 +230,7 @@ get the cleaning done all the same."
    "Aye, if I have to."
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Main Hall
 
@@ -253,7 +253,7 @@ down
   Rancid the butler is here.  Doris follows you from the north-east.
 
 > ne
-            You move northeast.
+   You move northeast.
 
 Privy
 
@@ -306,7 +306,7 @@ get the cleaning done all the same."
    "Aye, if I have to."
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Main Hall
 
@@ -376,7 +376,7 @@ down
 guardroom.
 
 > n
-         You move north.
+   You move north.
 
 Guardroom
 
@@ -581,7 +581,7 @@ Exits lie: north, east, west, southeast and southwest
   Bill follows you from the north.  Ben follows you from the north.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Winding Road
 
@@ -602,7 +602,7 @@ Exits lie: northwest, southeast and south
 from the north-west.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Murky Crossroads
 
@@ -647,7 +647,7 @@ you can enter Korbintown now if you like."
 from crowns made of crap! Heh, heh, heh!"
 
 > s
-      You move south.
+   You move south.
 
 Korbintown
 
@@ -668,7 +668,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 north.
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Constipated Badger
 
@@ -778,7 +778,7 @@ I shoved my axe up your ass and gave it a twist?"
 carrying a small bell, a rake and an empty beer mug.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Korbintown
 
@@ -835,7 +835,7 @@ Exits lie: (as the arm indicate) northwest, east and south
 follows you from the south.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Winding Road
 
@@ -856,7 +856,7 @@ Exits lie: northwest, southeast and south
 from the south-east.  Toto follows you from the south-east.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Junction
 
@@ -919,8 +919,8 @@ come across that isn't completely useless. Yours for nothing more than an
 empty beer mug."
 
 > give empty beer mug to perry
-      You can't take anything from the empty beer mug.     "A fair trade as
-I'm sure you'll agree," says Perry as you hand him the empty beer mug and he
+   You can't take anything from the empty beer mug.     "A fair trade as I'm
+sure you'll agree," says Perry as you hand him the empty beer mug and he
 hands you the mace of might.
    Too fair a trade? You wonder.
    "And just to make myself feel better for giving you such rubbish, have
@@ -948,7 +948,7 @@ Exits lie: north, east, west, southeast and southwest
 follows you from the north.
 
 > sw
-            You move southwest.
+   You move southwest.
 
 Dark Woods
 
@@ -1003,7 +1003,7 @@ carrying. His items are scattered around his bloodied corpse.
 You take the bag of gold.
 
 > se
-            You move southeast.
+   You move southeast.
 
 Dark Woods
 
@@ -1057,7 +1057,7 @@ Exits lie: north and southwest
 follows you from the north.  Toto follows you from the north.
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Dark Woods
 
@@ -1075,7 +1075,7 @@ Exits lie: northeast and northwest
  Toto follows you from the north-east.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Dark Woods
 
@@ -1122,7 +1122,7 @@ off and left it. Some folk are just downright strange."
 respect for your authority.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Dark Woods
 
@@ -1140,7 +1140,7 @@ Exits lie: southeast and southwest
  Toto follows you from the south-east.
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Dark Woods
 
@@ -1163,7 +1163,7 @@ the same as a twig you might pluck from any tree in the woods but you suspect
 that there is more to this one than meets the eye.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Dark Woods
 
@@ -1181,7 +1181,7 @@ Exits lie: southeast and southwest
  Toto follows you from the south-west.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Dark Woods
 
@@ -1217,7 +1217,7 @@ Exits lie: east and southeast
 follows you from the east.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Dark Woods
 
@@ -1235,7 +1235,7 @@ Exits lie: northeast and northwest
  Toto follows you from the north-west.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Dark Woods
 
@@ -1289,7 +1289,7 @@ Exits lie: south and northwest
 follows you from the south.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Dark Woods
 
@@ -1310,7 +1310,7 @@ south-east.  Ben follows you from the south-east.  Toto follows you from the
 south-east.
 
 > sw
-            You move southwest.
+   You move southwest.
 
 Dark Woods
 
@@ -1433,7 +1433,7 @@ Exits lie: east and northeast
 follows you from the east.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Dark Woods
 
@@ -1454,7 +1454,7 @@ south-west.  Ben follows you from the south-west.  Toto follows you from the
 south-west.
 
 > ne
-            You move northeast.
+   You move northeast.
 
 Junction
 
@@ -1472,7 +1472,7 @@ Exits lie: north, east, west, southeast and southwest
  Toto follows you from the south-west.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Winding Road
 
@@ -1545,7 +1545,7 @@ Exits lie: northwest, southeast and south
 the south.  Toto follows you from the south.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Murky Crossroads
 
@@ -1581,7 +1581,7 @@ Exits lie: north and south
 follows you from the north.
 
 > s
-      You move south.
+   You move south.
 
 Korbintown
 
@@ -1602,7 +1602,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 north.  Toto follows you from the north.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Strange Building
 
@@ -1623,7 +1623,7 @@ south-east.
 > d
    "All hail the possum who is morbid!" intones Gondo.
    "Yeah, and don't you forget it!" pipes in Boris.
-      You move down.
+   You move down.
 
 Ladder
 
@@ -1783,7 +1783,7 @@ Exits lie: up and down
 from below.
 
 > u
-      You move up.
+   You move up.
 
 Strange Building
 
@@ -1822,7 +1822,7 @@ Bill follows you from below.  Ben follows you from below.  Toto follows you
 from below.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Korbintown
 
@@ -1846,7 +1846,7 @@ from the north-west.  Toto follows you from the north-west.
    You put on the red wig.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Temple of Red Harry
 
@@ -1906,7 +1906,7 @@ on your face how much that means to you." Thomas gives you another smile.
 "Right. Off with you then. Return when you've got the items."
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Korbintown
 
@@ -1927,7 +1927,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 from the south-east.  Toto follows you from the south-east.
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Constipated Badger
 
@@ -1958,7 +1958,7 @@ typical trollish fashion.
 You take the mug of beer.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Korbintown
 
@@ -2015,7 +2015,7 @@ Exits lie: (as the arm indicate) northwest, east and south
 follows you from the south.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Winding Road
 
@@ -2086,7 +2086,7 @@ Exits lie: northwest, southeast and south
 the south.  Toto follows you from the south.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Murky Crossroads
 
@@ -2208,7 +2208,7 @@ Exits lie: north and south
 follows you from the north.
 
 > s
-      You move south.
+   You move south.
 
 Korbintown
 
@@ -2229,7 +2229,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 north.  Toto follows you from the north.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Temple of Red Harry
 
@@ -2257,7 +2257,7 @@ Excellent! You have done well, stranger. The next time you are in these
 parts, Red Harry himself would have words with you."
 
 > nw
-            You move northwest.
+   You move northwest.
 
 Korbintown
 
@@ -2278,7 +2278,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 from the south-east.  Toto follows you from the south-east.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Temple of Red Harry
 
@@ -2329,12 +2329,12 @@ floor. "I'd have handed that to you," he explains, "but I've always enjoyed
 making people bend over and pick stuff up. I think it comes from my mispent
 youth in Harrenden Jail or something. Anyway, as I was saying, I've got a
 little job for you. There's a fortress east of the marsh, grisly place by all
-accounts. One of my ancestors left some priceless manuscripts there -
-I'm not sure how much they're worth but I doubt it's much - and I've been
-looking to get them back for quite some time now. Only the problem is that
-the marsh is just such a damned dangerous place that no one I've sent has yet
-managed to reach the other side, find the fortress and retrieve the
-manuscripts. Until you came along."
+accounts. One of my ancestors left some priceless manuscripts there -    I'm
+not sure how much they're worth but I doubt it's much - and I've been looking
+to get them back for quite some time now. Only the problem is that the marsh
+is just such a damned dangerous place that no one I've sent has yet managed
+to reach the other side, find the fortress and retrieve the manuscripts.
+Until you came along."
    You glance at the fallen key and say, "so you want me to risk life and
 limb to fetch you these manuscripts?"
    Harry snaps his fingers. "Got it in one! That key will let you into the
@@ -2345,7 +2345,7 @@ eggs or the like - you find lying around, feel free to keep."
 I don't think Harry would appreciate being handled.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Korbintown
 
@@ -2461,7 +2461,7 @@ Exits lie: northeast, southeast and west
 follows you.  Toto follows you.
 
 > ne
-      You move northeast.
+   You move northeast.
 
 Fortress Gates
 
@@ -2656,7 +2656,7 @@ You take the priceless manuscripts.
 throughout the fortress.
 
 > e
-      You move east.
+   You move east.
 
 Ruined Hall
 
@@ -2697,7 +2697,7 @@ follows you from the west.  Ben follows you from the west.  Toto follows you
 from the west.
 
 > s
-      You move south.
+   You move south.
 
 Birthing Chamber
 
@@ -2851,7 +2851,7 @@ Exits lie: north and southwest
 follows you from the north.
 
 > sw
-      You move southwest.
+   You move southwest.
 
 Muddy Path
 
@@ -2870,7 +2870,7 @@ north-east.  Ben follows you from the north-east.  Toto follows you from the
 north-east.
 
 > w
-      You move west, and soon become lost in the marsh again.
+   You move west, and soon become lost in the marsh again.
 
 Marsh
 
@@ -2945,7 +2945,7 @@ Exits lie: north and south
 follows you from the north.
 
 > s
-      You move south.
+   You move south.
 
 Korbintown
 
@@ -2966,7 +2966,7 @@ Exits lie: northwest, north, east, southwest, south and southeast
 north.  Toto follows you from the north.
 
 > se
-      You move southeast.
+   You move southeast.
 
 Temple of Red Harry
 
@@ -3002,7 +3002,7 @@ have some score points for being such a decent chap."
    "No, you cannot!"
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Korbintown
 
@@ -3059,7 +3059,7 @@ Exits lie: (as the arm indicate) northwest, east and south
 follows you from the south.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Winding Road
 
@@ -3080,7 +3080,7 @@ Exits lie: northwest, southeast and south
 from the south-east.  Toto follows you from the south-east.
 
 > nw
-      You move northwest.
+   You move northwest.
 
 Junction
 
@@ -3146,7 +3146,7 @@ you from the south.
 the dragon said he'd wait for you. If you haven't got the egg, well..."
 
 > u
-      You move up.
+   You move up.
 
 The Spire
 

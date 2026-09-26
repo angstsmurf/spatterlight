@@ -252,7 +252,7 @@ lib_cmd_locate_object (scr_gameref_t game)
                         lib_select_response (game,
                              " somewhere you haven't been yet.\n",
                              " somewhere I haven't been yet.\n",
-                             " somewhere %player_pronoun% haven't been yet.\n"));
+                             " somewhere %player_pronoun% hasn't been yet.\n"));
       return TRUE;
     }
 
@@ -368,7 +368,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
                         lib_select_response (game,
                              " is somewhere that you haven't been yet.\n",
                              " is somewhere that I haven't been yet.\n",
-                             " is somewhere that %player_pronoun% haven't been yet.\n"));
+                             " is somewhere that %player_pronoun% hasn't been yet.\n"));
       return TRUE;
     }
 
@@ -382,7 +382,11 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * The clause itself was disabled upstream; all four Runners print it, and
    * there is no comma before "silly" -- the literals are "  (Right next to "
    * and " silly!)" with the perspective pronoun spliced between them
-   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).
+   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).  Scarier deliberately
+   * keeps the vocative comma (deviation policy), except in a game with an ALR
+   * written against the Runner's "silly!)" -- Fugitive, IceCream, panic, The
+   * Dead Man and eight more rewrite or blank the clause -- where the Runner's
+   * form is kept so that the author's replacement still fires.
    */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
@@ -391,11 +395,18 @@ lib_cmd_locate_npc (scr_gameref_t game)
   pf_buffer_string (filter, ".");
   if (room == gs_playerroom (game))
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                          "  (Right next to you silly!)",
-                                          "  (Right next to me silly!)",
-                                          "  (Right next to %player% silly!)"));
+      if (pf_alr_mentions (gs_get_bundle (game), "silly!)"))
+        pf_buffer_string (filter,
+                          lib_select_response (game,
+                                            "  (Right next to you silly!)",
+                                            "  (Right next to me silly!)",
+                                            "  (Right next to %player% silly!)"));
+      else
+        pf_buffer_string (filter,
+                          lib_select_response (game,
+                                            "  (Right next to you, silly!)",
+                                            "  (Right next to me, silly!)",
+                                            "  (Right next to %player%, silly!)"));
     }
   pf_buffer_answer_break (filter);
   return TRUE;

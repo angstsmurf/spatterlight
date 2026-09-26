@@ -27,7 +27,7 @@ star.
 
 > open compartment
 You open the small storage compartment.  Inside the small storage compartment
-is the environmental suit, the PLS-1 and the rations.
+are the environmental suit, the PLS-1 and the rations.
 
 > take suit
 You take the environmental suit from the small storage compartment.

@@ -53,8 +53,8 @@ contents are of little interest to you.  The wallet is on your dresser.
 You take the wallet from your dresser.
 
 > examine bookshelf
-On your bookshelf is the math book, the philosophy book, the C++ book and the
-literature book.
+On your bookshelf are the math book, the philosophy book, the C++ book and
+the literature book.
 
 > take math book
 You take the math book from your bookshelf.
@@ -81,7 +81,7 @@ An inaccurate clock rests atop Steve's dresser, claiming the time is
 currently 0:00 - military time. The top drawer is locked but you've never
 seen Steve with a key - not that you would ever look through his stuff.
 Steve's dresser is open.  Steve's alarm clock is on Steve's dresser, and
-inside is the gold key and the silver key.
+inside are the gold key and the silver key.
 
 > take gold key
 You take the gold key from Steve's dresser.

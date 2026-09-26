@@ -416,7 +416,7 @@ I drop the trowel.
 
 > look table
 It looks rather rustic, which is to say that it looks like a bunch of logs
-crudely nailed together.  On the dining table is a spoon, a large bowl, a
+crudely nailed together.  On the dining table are a spoon, a large bowl, a
 medium-sized bowl and a tiny little bowl.
 
 > get spoon
@@ -473,7 +473,7 @@ I take the packet of frozen pork chops from the freezer.
 Take what?
 
 > x shelves
-One of the bears is obviously into DIY.  On the shelf is a box of porridge
+One of the bears is obviously into DIY.  On the shelf are a box of porridge
 oats, a matchbox and a wedge of cheese.
 
 > get box

@@ -277,7 +277,7 @@ The Mermaid follows you from outside.
 boom.  He blows up with a loud explosion.  Then everything starts to blur.
 You find yourself standing, in a lit chamber.
 You are standing in a small room.  On the floor there is a button.  You don't
-worry know what to do.    The Mermaid follows you.
+worry know what to do.  The Mermaid follows you.
 
 > press button
 You push the button, and you feel yourself lift into the air.  You float
@@ -435,7 +435,7 @@ only decent visitors Main West has had all year.  That's too much.  You then
 fire your laser gun, and the worm explodes in a burst of light.  Good, you
 feel yourself being lifted off the ground again.
 You stand in a lit room.  There are torches on the walls.  In the center is a
-button.  It is red.  There is nothing else of interest here.    The Mermaid
+button.  It is red.  There is nothing else of interest here.  The Mermaid
 follows you.
 
 > press red button
@@ -532,7 +532,7 @@ is here.  You can only move west.  The Mermaid follows you from the west.
 > press button
 zoom You are carried away.  You land in a dark room
 You are standing in a dark room.  You can see a ladder.  So all you can do is
-climb up.    The Mermaid follows you.
+climb up.  The Mermaid follows you.
 
 > up
 Oh no!  You are being sucked up threw a tunnel.  You stand in a room.  A huge
@@ -540,7 +540,7 @@ robot comes forward and says.  Ha Ha, I am going to enjoy killing you Liam.
 Ha! Ha!.  He then aims his hand at the mermaid, and she explodes.  You are
 filled with a rage that is unimaginable.
 You are standing in a torch lit room.  Rite now you need to focus on beating
-x1.    The Mermaid follows you.
+x1.  The Mermaid follows you.
 
 > shoot x1
 there is a huge explosion that shakes the whole room.  The next instant x1 is

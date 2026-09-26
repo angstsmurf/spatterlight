@@ -667,7 +667,7 @@ Okay.  I lean the ladder against the wall.
 
 > X table
 The oval display table is finely crafted from highly polished wood.  On the
-oval table is an amphora, a tennis racquet and a slate.
+oval table are an amphora, a tennis racquet and a slate.
 
 > Get amphora
 Okay.  I have taken the amphora from the oval table.
@@ -707,7 +707,7 @@ there is a triangular table.  I can only move west.
 
 > X table
 The triangular display table is finely crafted from highly polished wood.  On
-the triangular table is some swimming goggles, a watch, a musket and a china
+the triangular table are some swimming goggles, a watch, a musket and a china
 doll.
 
 > Get watch
@@ -751,7 +751,7 @@ written "DO NOT OPEN" in large letters above the keyhole.
 
 > X table
 The crescent-shaped display table is finely crafted from highly polished
-wood.  On the crescent table is a claw, a swimming cap and a bronze key.
+wood.  On the crescent table are a claw, a swimming cap and a bronze key.
 
 > Get claw
 Okay.  I have taken the claw from the crescent table.
@@ -1137,7 +1137,7 @@ Click.  The display case springs open.
 
 > X case
 The rectangular display table is finely crafted from highly polished wood.
-On the rectangular table is an amphora, some swimming goggles, a watch, a
+On the rectangular table are an amphora, some swimming goggles, a watch, a
 claw and a swimming cap.
 
 > Get all from case
@@ -1353,7 +1353,7 @@ large eyes are streaming in the stinging fog.  It tries to wave the fog away
 with its tentacles.
 
 > Put sweet on plinth
-Okay.  Okay.  I put the sweet on the plinth.
+Okay.  I put the sweet on the plinth.
 
 > Drop watch
 Okay.  I have dropped the watch.  The octopus's large eyes are streaming in
@@ -2432,7 +2432,7 @@ fish bobs to the surface.
 
 > X wine
 A fine red wine.  It has been a good year for Chateau Widdershins.  Inside
-the wine is a golden casket, a fish and a bone.
+the wine are a golden casket, a fish and a bone.
 
 > Get casket
 Okay.  I have taken the golden casket from the wine.
@@ -2667,8 +2667,8 @@ The dispenser is an ageing box-shaped device.  There are some buttons on it.
 There is a slot in the side of the dispenser.
 
 > Put coin in slot
-Okay.  Okay.  I put the coin in the slot.  The dispenser gives an
-appreciative wheeze.
+Okay.  I put the coin in the slot.  The dispenser gives an appreciative
+wheeze.
 
 > X buttons
 There are 5 buttons on the dispenser, each with a number and legend:
@@ -5125,9 +5125,8 @@ A large metal door prevents me from going east.  There is a small wooden
 stool here.  Exits are south and west.
 
 > Put bag on stool
-Okay.  Okay.  I put the bag of porridge on the stool.  There is a harsh
-grating noise from the east.  Slowly but surely the metal door begins to
-slide open.
+Okay.  I put the bag of porridge on the stool.  There is a harsh grating
+noise from the east.  Slowly but surely the metal door begins to slide open.
 
 > E
 
@@ -5738,8 +5737,8 @@ front an ornate letter "S has been engraved.  "No time to lose," cries
 Dennis, "We've got a fire to put out."
 
 > Put sapphire in chute
-Okay.  Okay.  Okay.  I put the sapphire inside the S chute.  "No time to
-lose," cries Dennis, "We've got a fire to put out."
+Okay.  I put the sapphire inside the S chute.  "No time to lose," cries
+Dennis, "We've got a fire to put out."
 
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the sapphire
@@ -5881,7 +5880,7 @@ The chute is quite narrow and made out of wood.  It leads down into darkness.
 front an ornate letter "R" has been engraved.
 
 > Put ruby in chute
-Okay.  Okay.  I put the ruby inside the R chute.
+Okay.  I put the ruby inside the R chute.
 
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the ruby

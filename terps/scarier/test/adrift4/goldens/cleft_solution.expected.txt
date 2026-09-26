@@ -279,8 +279,8 @@ You cut the duct tape.
 You drop the Stanley knife.
 
 > open loose box
-You open the loose box.  Inside the loose box is a Hard hat, a length of rope
-and a lamp.
+You open the loose box.  Inside the loose box are a Hard hat, a length of
+rope and a lamp.
 
 > get rope
 You take a length of rope from the loose box.
@@ -482,7 +482,7 @@ wire cage is affixed to the wall.  The bulb is flashing wildly.  Also here is
 packing case.
 
 > open case
-You open packing case.  Inside packing case is chocolate bar, a banana and
+You open packing case.  Inside packing case are chocolate bar, a banana and
 gold coin.
 
 > get coin

@@ -3070,7 +3070,7 @@ lib_take_and_pre400 (scr_gameref_t game)
   const scr_int room = gs_playerroom (game);
   const scr_char *you;
   scr_int object, candidates, taken, rewrite_parent;
-  scr_bool overwritten, appended, cant_see, hands_full;
+  scr_bool overwritten, appended, cant_see, hands_full, picking;
   size_t mark;
 
   if (taf_version >= TAF_VERSION_400 || !line
@@ -3105,6 +3105,7 @@ lib_take_and_pre400 (scr_gameref_t game)
   mark = pf_buffer_length (filter);
   pf_buffer_string (filter, you);
   pf_buffer_string (filter, " pick up ");
+  picking = TRUE;
 
   taken = 0;
   rewrite_parent = -1;
@@ -3125,6 +3126,7 @@ lib_take_and_pre400 (scr_gameref_t game)
           if (overwritten)
             {
               pf_truncate (filter, mark);
+              picking = FALSE;
               pf_buffer_string (filter,
                                 lib_select_response (game,
                                                      "You've already got ",
@@ -3143,6 +3145,7 @@ lib_take_and_pre400 (scr_gameref_t game)
           if (taf_version >= TAF_VERSION_380)
             {
               pf_truncate (filter, mark);
+              picking = FALSE;
               pf_buffer_string (filter,
                                 lib_select_response (game,
                                                      "You are already wearing ",
@@ -3183,6 +3186,17 @@ lib_take_and_pre400 (scr_gameref_t game)
               lib_note_antecedent_390 (game, object);   /* 4550F0 */
               taken++;
               candidates--;
+              /* The Runner appends the name straight after an overwritten
+               * answer ("You are already wearing a hat!the stone.");
+               * Scarier deliberately starts a fresh "  You pick up "
+               * sentence there (deviation policy). */
+              if (!picking)
+                {
+                  pf_buffer_string (filter, "  ");
+                  pf_buffer_string (filter, you);
+                  pf_buffer_string (filter, " pick up ");
+                  picking = TRUE;
+                }
               lib_print_object_np (game, object);
               pf_buffer_string (filter,
                                 candidates > 1 ? ", "
@@ -3198,6 +3212,7 @@ lib_take_and_pre400 (scr_gameref_t game)
           else
             {
               pf_truncate (filter, mark);
+              picking = FALSE;
               pf_buffer_string (filter, you);
               pf_buffer_string (filter, " can't see ");
               if (taf_version >= TAF_VERSION_390)

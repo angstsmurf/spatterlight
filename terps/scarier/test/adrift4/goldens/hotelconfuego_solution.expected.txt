@@ -169,7 +169,7 @@ mind.  Joe opens the purse and finds nothing but a tube of lipstick and a
 mirror.
 
 > take mirror
-Joe take the small mirror from the purse.
+Joe takes the small mirror from the purse.
 
 > s
 Joe moves south.

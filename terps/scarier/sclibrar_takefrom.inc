@@ -95,15 +95,20 @@ lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
  * object is, and run370 has no other literal, so a surface gets it too:
  * `get all from tray`, the tray an empty supporter, is "There is nothing
  * inside a tray." in run370x and run380x (p37TFSW/p38TFSW,
- * Adrift_187/188_ptfsw2_3x.rtf, 2026-09-19).
+ * Adrift_187/188_ptfsw2_3x.rtf, 2026-09-19).  Scarier deliberately keeps
+ * grammatical text instead (deviation policy): the object is named
+ * definitely, and a plain surface has nothing "on" it, not "inside" it.
  */
 static void
 lib_take_from_nothing_inside_pre390 (scr_gameref_t game, scr_int associate)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  pf_buffer_string (filter, "There is nothing inside ");
-  lib_print_object (game, associate);
+  if (obj_is_surface (game, associate) && !obj_is_container (game, associate))
+    pf_buffer_string (filter, "There is nothing on ");
+  else
+    pf_buffer_string (filter, "There is nothing inside ");
+  lib_print_object_np (game, associate);
   pf_buffer_character (filter, '.');
 }
 
@@ -119,15 +124,13 @@ lib_take_from_nothing_inside_pre390 (scr_gameref_t game, scr_int associate)
  * test, so the bare "You take " goes out, trailing space and all.  `get
  * coin from bag` with the coin in hand: run370x "There is nothing inside a
  * bag.", run380x "You take " (p37TFSW/p38TFSW, Adrift_187/188_ptfsw2_3x.rtf,
- * 2026-09-19).
+ * 2026-09-19).  Scarier deliberately gives 3.8 the 3.7 sentence rather
+ * than the half-sentence (deviation policy).
  */
 static void
 lib_take_from_nothing_taken_pre390 (scr_gameref_t game, scr_int associate)
 {
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
-    lib_take_from_nothing_inside_pre390 (game, associate);
-  else
-    pf_buffer_string (gs_get_filter (game), lib_take_from_verb (game));
+  lib_take_from_nothing_inside_pre390 (game, associate);
 }
 
 

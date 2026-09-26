@@ -434,7 +434,7 @@ Command not understood. Try something else.
 
 > open door
 At first, the door appears locked. The handle refuses to turn, and even when
-you put effort into it, it remains stubbornly closedly closed.
+you put effort into it, it remains stubbornly closed.
    But then you hear a sound from behind you. Nervously, you glance back over
 your shoulder… and see a corpse walking towards you!
 ...press a key...

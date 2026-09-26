@@ -132,7 +132,7 @@ Space ship port
 This room is huge. You can hear the humming of a force field which is
 stopping you from floating into outer space. This place is used to dock space
 ships and pods. It doesn't look like any of your freinds made it here though.
- Also here is a dead man.  a blue alien is here.  You can only move east.
+ Also here is a dead man.  A blue alien is here.  You can only move east.
 Adam shoots the blue alien with the lazer rifle.  The blue alien hits Adam.
 
 > shoot alien
@@ -280,7 +280,7 @@ You move east.
 Staff office
 This office looks as if it was the scene of a ransacking. There is a desk
 here that has been toppled over, papers and compter components lie scattered
-over the floor. There is a small panel on the wall.  a red alien is here.
+over the floor. There is a small panel on the wall.  A red alien is here.
 You can only move west.  Adam shoots the red alien with the lazer rifle.  The
 red alien hits you.
 

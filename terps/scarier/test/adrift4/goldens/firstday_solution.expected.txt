@@ -64,7 +64,7 @@ You take a gallon of milk from the refrigerator.
 > look at table
 The sturdy table is made from wood, and is near the back door.  Mom usually
 uses the table when she has to cut vegetables up to make salad, or something.
- On the Kitchen table is a cereal bowl, a spoon and a box of Frooties.
+ On the Kitchen table are a cereal bowl, a spoon and a box of Frooties.
 
 > take bowl
 You take a cereal bowl from the Kitchen table.

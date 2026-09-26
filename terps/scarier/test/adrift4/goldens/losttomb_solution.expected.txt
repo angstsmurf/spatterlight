@@ -39,7 +39,7 @@ bunk and a nightstand.  Also here is your rucksack.
 You pick up your rucksack.
 
 > open rucksack
-You open your rucksack.  Inside your rucksack is a box of matches, a pencil,
+You open your rucksack.  Inside your rucksack are a box of matches, a pencil,
 a notebook, a water bottle, a rope and a stick of dynamite.
 
 > x nightstand

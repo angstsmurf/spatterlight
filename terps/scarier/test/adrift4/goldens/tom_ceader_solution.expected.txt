@@ -18,7 +18,7 @@ drivable .  Also here is a swade breifcase.  You can move east and in.
 You pick up the swade breifcase.
 
 > open case
-You open the swade breifcase.  Inside the swade breifcase is 150 dollars and
+You open the swade breifcase.  Inside the swade breifcase are 150 dollars and
 walter ppk pistol.
 
 > take money

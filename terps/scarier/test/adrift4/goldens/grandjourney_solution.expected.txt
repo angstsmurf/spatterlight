@@ -759,7 +759,7 @@ fire going?
 If you can get my fire started again, I will make your sword even stronger
 than it is."
 
-  You can only move out.
+You can only move out.
 
 > put straw on forge
 You put the small pile of hay and straw on the glowing embers of the fire in
@@ -780,7 +780,7 @@ If you can find me some Gold, I could use that to turn this small thing into
 the mighty Guilded Sword!!! Give me some Gold and I will get to work straight
 away!"
 
-  You can only move out.
+You can only move out.
 
 > out
 You move out.
@@ -837,7 +837,7 @@ The inn is only one room, and has nothing but a bed and a small chest for
 people to put their things in during their stay.
 Sometimes things get left in the chest from people who have left in a
 hurry....
-  You can only move down.
+You can only move down.
 
 > x chest
 This is a small chest that people can use to put their things in during their
@@ -913,7 +913,7 @@ If you can find me some Gold, I could use that to turn this small thing into
 the mighty Guilded Sword!!! Give me some Gold and I will get to work straight
 away!"
 
-  You can only move out.
+You can only move out.
 
 > give gold to blacksmith
 You give the Gold to the Blacksmith.
@@ -1004,7 +1004,7 @@ Their instincts are very sharp - they only attack the enemy of their leader.
 If they choose you as their leader, they will follow you into battle and
 never leave your side until they die.
 There is a red Lever here.
-  Rebel1 is here.  You can only move up.
+Rebel1 is here.  You can only move up.
 
 > pull lever
 You pull the Lever.

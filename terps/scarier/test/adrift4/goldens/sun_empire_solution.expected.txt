@@ -195,7 +195,7 @@ Jeriah Eldon exits to the south.
 > x stainless steel lab table
 The levels of the table are as easily accessible as the other.  The steel
 table is used to hold experiments and lab equipment.  On the stainless steel
-lab table is a genetic sampler, a growth vat and an electron microscope.
+lab table are a genetic sampler, a growth vat and an electron microscope.
 
 > get all from stainless steel lab table
 You take the genetic sampler, the growth vat and the electron microscope from

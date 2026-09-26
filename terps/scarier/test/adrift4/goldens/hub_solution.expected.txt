@@ -67,7 +67,7 @@ anyway.
 The sofa is a three-seater, taking up a large part of the middle of the
 living room. Marta bought it from a sofa-shop in Kensington. Her new salary
 has been kitting our terrace out in a manner not really fitting to its size.
-On the sofa is a can of fosters, a can of becks and some crumbs.
+On the sofa are a can of fosters, a can of becks and some crumbs.
 
 > take fosters
 I take the can of fosters from the sofa.

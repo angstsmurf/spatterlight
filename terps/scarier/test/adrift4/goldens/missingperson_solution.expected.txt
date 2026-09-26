@@ -327,7 +327,7 @@ I open the cabinet.  The photo box is inside the cabinet.
 I take the photo box from the cabinet.
 
 > open box
-I open the photo box.  Inside the photo box is the pic2, the pic3 and the
+I open the photo box.  Inside the photo box are the pic2, the pic3 and the
 pic4.
 
 > get pic2
@@ -386,7 +386,7 @@ by examing the city map.
 
 > examine bookshelf
 A huge dark-color wood bookshelf with a lot of books on it.  Inside the
-bookshelf is a city map, a book titled missing person and the picture.
+bookshelf are a city map, a book titled missing person and the picture.
 
 > get map
 I take the city map from the bookshelf.
@@ -422,7 +422,7 @@ I may have spent the best time of my life in this old castle.
 I move in.
 
 Cabin
-  A gardener is here.
+A gardener is here.
 
 > examine gardener
 The gardener saw me and shouted: "Oh my god, you are Fled's friend!....How
@@ -592,7 +592,7 @@ The door is opened. Marry looks surperising at the door. "My god, Joel? Come
 in please. This apartment always welcome you back."
 
 Old apartment
-  Marry is here.
+Marry is here.
 
 > ask marry about clare
 I haven't received any mails from her after 1932. It's so good to see you

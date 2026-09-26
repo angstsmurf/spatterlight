@@ -58,7 +58,7 @@ My favourite music fills the room.
 My score is 3 out of a maximum of 8.  (37%)
 
 > open chest
-I open the lacquered chest.  Inside the lacquered chest is a kimono, a
+I open the lacquered chest.  Inside the lacquered chest are a kimono, a
 yukata, a ceremonial dress and my hairpins.
 
 > remove nightgown
@@ -80,9 +80,9 @@ I take my hairpins from the lacquered chest.
 I put on my hairpins.
 
 > open dresser
-I open the dresser.  Inside the dresser is my bandana, my Yamamoto blouse, my
-Prada belt, my Gucci handbag, a perfume flask, a makeup kit, a Kenzo jacket,
-a Dior skirt and a jewelry box.
+I open the dresser.  Inside the dresser are my bandana, my Yamamoto blouse,
+my Prada belt, my Gucci handbag, a perfume flask, a makeup kit, a Kenzo
+jacket, a Dior skirt and a jewelry box.
 
 > take handbag
 I take my Gucci handbag from the dresser.
@@ -490,7 +490,7 @@ The room directly next to our main entrance. The shoe shelf containing my
 shoes is here.
 
 > open bag
-I open the tennis bag.  Inside the tennis bag is my bandana, my Yamamoto
+I open the tennis bag.  Inside the tennis bag are my bandana, my Yamamoto
 blouse, my Prada belt, a perfume flask, a Kenzo jacket, a Dior skirt and my
 jewelry.
 

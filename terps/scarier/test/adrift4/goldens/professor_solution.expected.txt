@@ -105,7 +105,7 @@ larger inventions. A shelf along the wall holds more of your inventions.
 
 > examine shelves
 The shelves hold several contraptions that you have invented.  Some didn't
-work as well as you had hoped for.  On the shelves is a leg to stand on, a
+work as well as you had hoped for.  On the shelves are a leg to stand on, a
 handy dandy extra hand, the sloppy jalopy, a portable doorknob and a pollen
 popper upper.
 

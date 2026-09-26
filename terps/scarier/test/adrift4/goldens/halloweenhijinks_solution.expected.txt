@@ -443,7 +443,7 @@ south-east.
 
 > x body
 "Yeh, let's rob 'im!" coos Lisa. "See wot ee's got!"
-   ""I'm not robbing him, Lisa," you say testily. "I'm... I'm, well..."
+   "I'm not robbing him, Lisa," you say testily. "I'm... I'm, well..."
    "Wot?"
    "Just be quiet. I'm trying to see what he's got."
    Ignoring her protests, you gingerly search through the pockets of the dead

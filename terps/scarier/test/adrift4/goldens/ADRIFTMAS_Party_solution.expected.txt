@@ -493,7 +493,7 @@ inside the wardrobe.
 
 > x wardrobe
 The wardrobe is an fairly new and made from a finely polished wood.    The
-wardrobe is open.  The suitcase is on the wardrobe, and inside is a leather
+wardrobe is open.  The suitcase is on the wardrobe, and inside are a leather
 jacket and an assortment of shoes.
 
 > get suitcase
@@ -558,7 +558,7 @@ leather chairs and a small table.  Also to the northeast is a small bathroom.
 large entry is two floor length mirrors, that adorn the sides of the hand
 carved double doors that lead to the outside.
 
-  You can move north, east, south, west and out.
+You can move north, east, south, west and out.
 
 > s
 You move south.

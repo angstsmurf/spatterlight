@@ -654,7 +654,8 @@ static void lib_battle_continue_after_kill (scr_gameref_t game, scr_int npc,
  * Name & " with " & the object's mode-0 name, no full stop.  " is not a
  * weapon!" is wield's (47E93F), not attack's.  A real turn.  Measured
  * 2026-09-13 on p4BATTLEWPN (Adrift_1144): "Player can't attack Gargoyle #3
- * with the rock".
+ * with the rock".  Scarier deliberately closes the sentence with a full stop
+ * (deviation policy).
  */
 static void
 lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
@@ -670,6 +671,7 @@ lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
   pf_buffer_string (filter, name ? name : "");
   pf_buffer_string (filter, " with ");
   lib_print_object_np (game, object);
+  pf_buffer_character (filter, '.');
   pf_buffer_answer_break (filter);
 }
 
@@ -938,7 +940,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
        * very affective weapon!" verbatim (measured 2026-08-17).
        */
       lib_print_wrapped_object (game, "I don't think ",
-                                object, " would be a very affective weapon!\n");
+                                object, " would be a very effective weapon!\n");
     }
   return TRUE;
 }
@@ -1499,7 +1501,9 @@ lib_checkverb_bare_400 (scr_gameref_t game, const scr_char *verb,
   return TRUE;
 }
 
-/* The mode-0 name, as lib_print_object_np() prints it from 3.9 on. */
+/* The mode-0 name, as the Runner spells it from 3.9 on.  This one is a
+   command line re-parsed next turn, not text, so it keeps the Runner's
+   spelling where lib_print_object_np() deliberately tidies it. */
 static std::string
 lib_battle_definite_name (scr_gameref_t game, scr_int object)
 {
@@ -1511,11 +1515,11 @@ lib_battle_definite_name (scr_gameref_t game, scr_int object)
   name = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (!prefix)
     prefix = "";
-  if (lib_compare_article (prefix, "a", 1))
+  if (lib_compare_article_binary (prefix, "a", 1))
     result = std::string ("the") + (prefix + 1);
-  else if (lib_compare_article (prefix, "an", 2))
+  else if (lib_compare_article_binary (prefix, "an", 2))
     result = std::string ("the") + (prefix + 2);
-  else if (lib_compare_article (prefix, "some", 4))
+  else if (lib_compare_article_binary (prefix, "some", 4))
     result = std::string ("the") + (prefix + 4);
   else
     result = prefix;

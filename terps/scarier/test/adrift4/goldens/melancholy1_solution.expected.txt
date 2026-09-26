@@ -29,25 +29,25 @@ Please enter your name:
 > Player
 
 Classroom
-  Teacher is here.  I can only move out.
+Teacher is here.  I can only move out.
 
 > out
 I move out.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > e
 I move east.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > e
 I move east.
 
 Corridor
-  Also here is a Vending Machine.  I can only move west.
+Also here is a Vending Machine.  I can only move west.
 
 > use vending machine
 The lights in the corridors suddenly go out.
@@ -67,19 +67,19 @@ better go check".
 I move west.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > w
 I move west.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > in
 I move in.
 
 Classroom
-  Also here is a Blood Splatters.  I can only move out.
+Also here is a Blood Splatters.  I can only move out.
 
 > examine blood splatters
 "What the.....", I start to whisper but don't finish.
@@ -117,7 +117,7 @@ now.
 I move in.
 
 Classroom
-  Also here is a Blood Splatters.  I can only move out.
+Also here is a Blood Splatters.  I can only move out.
 
 > take wooden stake
 I take a Wooden Stake from the Teacher's Desk.
@@ -126,19 +126,19 @@ I take a Wooden Stake from the Teacher's Desk.
 I move out.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > e
 I move east.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > e
 I move east.
 
 Corridor
-  Also here is a Vending Machine.  I can move west and out.
+Also here is a Vending Machine.  I can move west and out.
 
 > out
 I move out.
@@ -217,7 +217,7 @@ talk with me, so I'd better go speak to him.
 > look
 
 Classroom
-  Shindo is here.  I can only move out.
+Shindo is here.  I can only move out.
 
 > speak to shindo
 "What did you want me for Sir?", I inquire.
@@ -264,19 +264,19 @@ this chance to get home and have a good think about what's been happening.
 I move out.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > e
 I move east.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > e
 I move east.
 
 Corridor
-  Also here is a Vending Machine.  I can move west and out.
+Also here is a Vending Machine.  I can move west and out.
 
 > out
 I move out.
@@ -364,25 +364,25 @@ look inviting.  I can move south and in.
 I move in.
 
 Corridor
-  Also here is a Vending Machine.  I can move west and out.
+Also here is a Vending Machine.  I can move west and out.
 
 > w
 I move west.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > w
 I move west.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > in
 I move in.
 
 Classroom
-  I can only move out.
+I can only move out.
 
 > search
 I get to work looking through the classroom. Hoping for any clue. I go
@@ -396,19 +396,19 @@ around.
 I move out.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > e
 I move east.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > e
 I move east.
 
 Corridor
-  Also here is a Vending Machine.  I can move west and out.
+Also here is a Vending Machine.  I can move west and out.
 
 > out
 I move out.
@@ -629,25 +629,25 @@ We'd better get there quick and take our seats.
 I move in.
 
 Corridor
-  Also here is a Vending Machine.  I can move west and out.
+Also here is a Vending Machine.  I can move west and out.
 
 > w
 I move west.
 
 Corridor
-  I can move east and west.
+I can move east and west.
 
 > w
 I move west.
 
 Corridor
-  I can move east and in.
+I can move east and in.
 
 > in
 I move in.
 
 Classroom
-  I can only move out.
+I can only move out.
 
 > take seats
 We arrive in class and we quickly take our seats. It's no joke, she sits two

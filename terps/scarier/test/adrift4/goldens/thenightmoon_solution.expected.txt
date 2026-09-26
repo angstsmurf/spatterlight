@@ -19,7 +19,7 @@ the country is very quiet though and you would expect an open farming
 comunity instead of a protected hamlet. There is a large signboard swinging
 in the breeze just above you which states the village's name, there is also a
 cobbled stone path leading south-eastwards towards the village centre and a
-small dirt path running around the southern wall surrounding the village.  a
+small dirt path running around the southern wall surrounding the village.  A
 guard is here.  You can move south and southeast.
 
 > se
@@ -47,7 +47,7 @@ Ruined houses
 The rubble around here looks as if it were once a collection houses, now it
 is just a charred husk. You can hear squeaking coming from the rubble which
 is most likely rats. A few puddles have formed in pot holes around the walls
-of the derilict buildings.  a giant rat is here.  You can only move south.  A
+of the derilict buildings.  A giant rat is here.  You can only move south.  A
 giant rat hits you.
 
 > attack rat with longsword
@@ -79,7 +79,7 @@ You move in.
 Inside smithy
 This room is well decorated with shelves and racks of weapons, shields and
 metal ware. The low cieling is blackened from the heat coming out of the
-large kiln in the corner. There is a small door leading outside from here.  a
+large kiln in the corner. There is a small door leading outside from here.  A
 well built man is here.  You can only move out.
 
 > give dead giant rat to smith
@@ -151,7 +151,7 @@ Hermit's hut
 This hut is small and cozy, it has a warm glow about it and the fire place is
 burning merrily on. There is a small bed and a table in here with two chairs
 surrounding the table. An ornate rug covers most of the floor in this little
-circular hut.   an old hermit is here.  You can only move out.
+circular hut.   An old hermit is here.  You can only move out.
 
 > ask hermit about secret entrance
 You enquire the hermit about the secret entrance into the mansion and he gets
@@ -406,7 +406,7 @@ You move down.
 
 Prison
 This place reeks! Yeuch! There is a cell door here, a small stool and some
-steps leading upwards to the library.  a skeleton guard is here.  You can
+steps leading upwards to the library.  A skeleton guard is here.  You can
 only move up.  The skeleton cuts you with the nasty looking rapier.
 
 > attack skeleton guard with longsword

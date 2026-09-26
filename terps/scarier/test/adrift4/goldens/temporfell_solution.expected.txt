@@ -443,7 +443,7 @@ closet, they will be tossed off the ship without a helmet.
 --  The Captain
 
 > examine containers
-Which containers.  The cooled V-Unit container or the containers?
+Which containers?  The cooled V-Unit container or the containers?
 
 > examine keypad
 Your typical keypad from zero to nine.  A 'clear' key is in the bottom left
@@ -551,10 +551,10 @@ Please be more specific.  There is a right label, a middle label and a left
 label.
 
 > examine unit
-Which unit.  The left door, the middle door or the right door?
+Which unit?  The left door, the middle door or the right door?
 
 > open door
-Which door.  The left door, the middle door, the right door or the glass,
+Which door?  The left door, the middle door, the right door or the glass,
 security door?
 
 > examine right label

@@ -166,10 +166,13 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                         verb->does[0],
                         verb->does[1],
                         verb->does[2]);
-      lib_print_list (game, list,
-                      verb->raw_prefix_pre_390
-                      && prop_get_taf_version (bundle) < TAF_VERSION_390
-                      ? lib_print_object_raw : lib_print_object_np, " and ");
+      /*
+       * raw_prefix_pre_390 records the Runner's pre-3.9 raw-prefix report
+       * ("You remove a grubby sweatshirt."); Scarier deliberately names the
+       * object definitely here in every version (deviation policy, see
+       * lib_print_object_raw).
+       */
+      lib_print_list (game, list, lib_print_object_np, " and ");
       if (verb->onto)
         {
           pf_buffer_string (filter, verb->onto);
@@ -1482,16 +1485,16 @@ lib_wear_backend (scr_gameref_t game)
    * objects.  Measured on the pwear probe carried across all four Runners
    * (2026-08-23); the empty-prefix default is a bare "a" even before a vowel,
    * measured separately on pwearv.  See RUNNER_TESTS_TODO.md section 4.
+   *
+   * Scarier deliberately uses the definite form in every version (deviation
+   * policy): "You put on a underwear." is the substituted article at its
+   * worst, and an indefinite one on the object just put on reads wrong.
    */
   has_printed |= lib_print_object_list (game, has_printed, list, " and ", '.',
                                         "You put on ",
                                         "I put on ",
                                         "%player% put on ",
-                                        prop_get_taf_version
-                                        (gs_get_bundle (game))
-                                        >= TAF_VERSION_390
-                                        ? lib_print_object_np
-                                        : lib_print_object);
+                                        lib_print_object_np);
 
   /* Note any remaining multiple references left out of the wear operation. */
   list.clear ();
@@ -1520,10 +1523,12 @@ lib_wear_backend (scr_gameref_t game)
    * (cmdfile_p2verb3.txt cells 9 and 22, Adrift_255_2x37.rtf /
    * 256_2x38.rtf / 257_2x39.txt, 2026-09-21): "You are already wearing a
    * hat" twice over at 3.7 and 3.8, "You are already wearing the hat" at
-   * 3.9, in every case with the sentence left open.
+   * 3.9, in every case with the sentence left open.  Scarier deliberately
+   * keeps the full stop there (deviation policy: the open sentence is a
+   * display accident, not text worth matching).
    */
   has_printed |= lib_print_object_list (game, has_printed, list, " and ",
-                                        lib_is_version_400 (game) ? '!' : '\0',
+                                        lib_is_version_400 (game) ? '!' : '.',
                                         "You are already wearing ",
                                         "I am already wearing ",
                                         "%player% is already wearing ",
@@ -2430,9 +2435,6 @@ lib_cmd_remove_multiple (scr_gameref_t game)
 }
 
 
-static scr_bool lib_list_in_object_pre_390 (scr_gameref_t game,
-                                            scr_int container);
-
 /*
  * lib_cmd_inventory()
  *
@@ -2536,20 +2538,37 @@ lib_cmd_inventory (scr_gameref_t game)
        * run380x -- and run380 skips a closed container where run370 lists
        * its contents too ("Inside the chest is a ring." with the chest
        * closed; p37TKB/p38TKB cells 2/157, Adrift_207/208_ptkb, 2026-09-20).
+       * Scarier deliberately keeps its own listing at every version instead
+       * (deviation policy): a surface's contents are "on" it, and a closed
+       * container shows nothing, as everywhere else in the game.  What the
+       * Runner's listing reveals is still revealed -- a run370 closed
+       * container's contents are marked seen though not printed.
        */
       const scr_int inventory_version = prop_get_taf_version (gs_get_bundle (game));
       for (object = 0; object < gs_object_count (game); object++)
         {
           if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
             continue;
-          if (inventory_version >= TAF_VERSION_390)
-            lib_list_in_on_object (game, object, TRUE);
-          else if ((obj_is_container (game, object)
-                    || obj_is_surface (game, object))
-                   && !(inventory_version >= TAF_VERSION_380
-                        && obj_is_container (game, object)
-                        && gs_object_openness (game, object) > OBJ_OPEN))
-            lib_list_in_object_pre_390 (game, object);
+          if (inventory_version < TAF_VERSION_390
+              && (obj_is_container (game, object)
+                  || obj_is_surface (game, object))
+              && !(inventory_version >= TAF_VERSION_380
+                   && obj_is_container (game, object)
+                   && gs_object_openness (game, object) > OBJ_OPEN))
+            {
+              scr_int contained;
+
+              for (contained = 0; contained < gs_object_count (game);
+                   contained++)
+                {
+                  if ((gs_object_position (game, contained) == OBJ_IN_OBJECT
+                       || gs_object_position (game, contained)
+                          == OBJ_ON_OBJECT)
+                      && gs_object_parent (game, contained) == object)
+                    gs_set_object_seen (game, contained, TRUE);
+                }
+            }
+          lib_list_in_on_object (game, object, TRUE);
         }
       pf_buffer_answer_break (filter);
     }
@@ -2617,9 +2636,16 @@ lib_list_in_object_pre_390 (scr_gameref_t game, scr_int container)
   if (list.empty ())
     return FALSE;
 
+  /*
+   * The Runner prints a literal " is " whatever the count.  Scarier
+   * deliberately makes the verb agree with the list instead (deviation
+   * policy; see lib_select_list_plurality).
+   */
   pf_buffer_string (filter, "  Inside ");
   lib_print_object_np (game, container);
-  pf_buffer_string (filter, " is ");
+  pf_buffer_string (filter,
+                    lib_select_list_plurality (game, container, list,
+                                               " is ", " are "));
   lib_print_list (game, list, lib_print_object, " and ");
   pf_buffer_character (filter, '.');
   return TRUE;

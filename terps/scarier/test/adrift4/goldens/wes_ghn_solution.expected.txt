@@ -175,7 +175,7 @@ through the now bloodstained glass doors of the foyer and the door in front
 of you is bolted shut. Above you is a figure on a balcony that seems to be
 waving at you...
 
-  You can only move south.
+You can only move south.
 
 > closely examine figure
 You just barely discern an African American man holding a large bazooka-like
@@ -246,7 +246,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move east, south and west.
+You can move east, south and west.
 
 > summon scythe
 A black mist spirals out of your chest and jettisons towards your hand,
@@ -393,7 +393,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move east, south and west.
+You can move east, south and west.
 
 > e
 You move east.
@@ -523,7 +523,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move east, south and west.
+You can move east, south and west.
 
 > w
 You move west.
@@ -639,7 +639,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move east, south and west.
+You can move east, south and west.
 
 > slash dr micheals portrait
 You lift your scythe and then swing hard at the portrait. It cracks in two
@@ -876,7 +876,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move north, east, south and west.
+You can move north, east, south and west.
 
 > w
 You move west.
@@ -925,7 +925,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move north, east, south and west.
+You can move north, east, south and west.
 
 > n
 You move north.
@@ -1098,7 +1098,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move north, east, south and west.
+You can move north, east, south and west.
 
 > s
 You move south.
@@ -1132,7 +1132,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-  You can move north, east, south and west.
+You can move north, east, south and west.
 
 > e
 You move east.

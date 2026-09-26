@@ -470,7 +470,7 @@ east, which leads to a corridor.
 
 > exam shelf
 Narrow and fairly long, the wooden shelf is about shoulder height.  On the
-shelf is some apollo, some ares, some athena, some demeter, some hades, some
+shelf are some apollo, some ares, some athena, some demeter, some hades, some
 helios, some hera, some hermes and some zeus.
 
 > get all from shelf

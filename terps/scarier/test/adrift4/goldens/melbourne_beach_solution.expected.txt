@@ -68,7 +68,7 @@ There is a bathroom to the west, and the hallway is to the east.  Also here
 is an instrument case.
 
 > open case
-You open the instrument case.  Inside the instrument case is a small bottle,
+You open the instrument case.  Inside the instrument case are a small bottle,
 a spit rag and a Monette trumpet.
 
 > get trumpet
