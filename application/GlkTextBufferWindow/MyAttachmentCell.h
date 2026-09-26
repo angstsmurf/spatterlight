@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSUInteger ruleMaxWidth;
 @property NSSize naturalSize;
 
+/** CSS_Image border-style:solid snapshotted when the image was drawn. */
+@property BOOL cssWantsSolidBorder;
+
 // Resolve a 0.7.6 imagerule against an available width. Exposed for margin
 // images, whose size is resolved once at draw time instead.
 + (NSSize)resolveImageRule:(NSUInteger)imagerule

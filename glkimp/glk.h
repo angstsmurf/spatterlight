@@ -33,6 +33,8 @@ typedef int32_t glsi32;
 #define GLK_MODULE_DATETIME
 #define GLK_MODULE_RESOURCE_STREAM
 #define GLK_MODULE_GARGLKTEXT
+#define GLK_MODULE_CSS_BASIC
+#define GLK_MODULE_CSS_SUPPORTS
 
 /* Define a macro for a function attribute that indicates a function that
  never returns. (E.g., glk_exit().) We try to do this only in C compilers
@@ -81,6 +83,9 @@ typedef struct glk_schannel_struct *schanid_t;
 #define gestalt_GraphicsCharInput (23)
 #define gestalt_DrawImageScale (24)
 #define gestalt_GarglkText (0x1100)
+#define gestalt_CSSBasic (0x1110)
+#define gestalt_WebBrowser (0x1111)   /* UI is a web browser; assume Baseline CSS */
+#define gestalt_CSSSupports (0x1119)  /* local/synchronous glk_css_supports */
 
 #define evtype_None (0)
 #define evtype_Timer (1)
@@ -498,6 +503,42 @@ extern void garglk_set_zcolors(glui32 fg, glui32 bg);
 extern void garglk_set_zcolors_stream(strid_t str, glui32 fg, glui32 bg);
 extern void garglk_set_reversevideo(glui32 reverse);
 extern void garglk_set_reversevideo_stream(strid_t str, glui32 reverse);
+
+#ifdef GLK_MODULE_CSS_BASIC
+#define CSS_Span (0)
+#define CSS_Paragraph (1)
+#define CSS_Hyperlink (2)
+#define CSS_Image (3)
+#define CSS_Input (4)
+#define CSS_Window (5)
+
+extern void glk_css_hint_set(glui32 wintype, glui32 csstarget, glui32 style,
+    const char *prop, glui32 proplen, const char *val, glui32 vallen);
+extern void glk_css_hint_set_num(glui32 wintype, glui32 csstarget, glui32 style,
+    const char *prop, glui32 proplen, glsi32 val);
+extern void glk_css_hint_clear(glui32 wintype, glui32 csstarget, glui32 style,
+    const char *prop, glui32 proplen);
+
+extern void glk_css_inline_set(glui32 csstarget, const char *prop, glui32 proplen,
+    const char *val, glui32 vallen);
+extern void glk_css_inline_set_num(glui32 csstarget, const char *prop, glui32 proplen,
+    glsi32 val);
+extern void glk_css_inline_clear(glui32 csstarget, const char *prop, glui32 proplen);
+
+extern void glk_css_hint_clear_all_by_style(glui32 wintype, glui32 style);
+extern void glk_css_hint_clear_all_by_window(glui32 wintype);
+extern void glk_css_hint_clear_all_inline(void);
+#endif /* GLK_MODULE_CSS_BASIC */
+
+#ifdef GLK_MODULE_CSS_SUPPORTS
+/* Returns 1 if the library will honor this property/value via CSS Basic setters.
+ * prop/val are UTF-8 buffers (not NUL-terminated). Empty val (vallen == 0)
+ * asks whether the property is known at all. font-family accepts any
+ * syntactically plausible family list (does not probe installed fonts). */
+extern glui32 glk_css_supports(const char *prop, glui32 proplen,
+    const char *val, glui32 vallen);
+extern glui32 glk_css_supports_num(const char *prop, glui32 proplen, glsi32 val);
+#endif /* GLK_MODULE_CSS_SUPPORTS */
 
 /* non standard keycodes */
 #define keycode_Erase               (0xffffef7f)

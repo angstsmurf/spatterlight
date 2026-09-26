@@ -20,8 +20,10 @@ const char *msgnames[] = {
     "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "PAUSE",
     "UNPAUSE",         "BEEP",
     "SETLINK",         "INITLINK",         "CANCELLINK",  "SETZCOLOR",
-    "SETREVERSE",      "QUOTEBOX",         "SHOWERROR",   "CANPRINT",
-    "PURGEIMG",        "MENU",
+    "SETREVERSE",      "CSSHINT",          "CLEARCSSHINT","CLEARALLCSSHINT",
+    "SETCSSINLINE",    "CLEARCSSINLINE",   "CLEARALLCSSHINTBYWINDOW", "CLEARALLCSSINLINE",
+    "QUOTEBOX",        "SHOWERROR",
+    "CANPRINT",        "PURGEIMG",         "MENU",
 
     "NEXTEVENT",       "EVTARRANGE",       "EVTREDRAW",   "EVTLINE",
     "EVTKEY",          "EVTMOUSE",         "EVTTIMER",    "EVTHYPER",

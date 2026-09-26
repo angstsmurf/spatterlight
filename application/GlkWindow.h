@@ -41,6 +41,27 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 @property NSInteger currentHyperlink;
 
 @property NSArray *styleHints;
+/** CSS Basic span hints copied from the controller when the window opens. */
+@property NSArray<NSDictionary *> *cssSpanHints;
+@property NSArray<NSDictionary *> *cssParaHints;
+@property NSArray<NSDictionary *> *cssHyperlinkHints;
+/** CSS_Window hints copied at window open. */
+@property NSMutableDictionary<NSString *, NSString *> *cssWindowHints;
+/** CSS_Input hints copied at window open. */
+@property NSMutableDictionary<NSString *, NSString *> *cssInputHints;
+/** CSS_Image hints copied at window open. */
+@property NSMutableDictionary<NSString *, NSString *> *cssImageHints;
+/** YES when cssInputHints request border-style:solid and doStyles is on. */
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL cssInputWantsSolidBorder;
+/** Effective CSS_Image border-style for the next drawn image (inline overrides hint). */
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL cssImageWantsSolidBorderForNextDraw;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineCSS;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineParaCSS;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineHyperlinkCSS;
+/** Inline CSS_Input props (override snapshotted cssInputHints while set). */
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineInputCSS;
+/** Inline CSS_Image props (apply to the next drawn image). */
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineImageCSS;
 @property Theme *theme;
 
 @property NSMutableDictionary *pendingTerminators;
@@ -88,8 +109,30 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue;
+/// Remove glyph-run NSBackgroundColor from newline characters. AppKit extends
+/// that attribute to the end of the line fragment for '\\n', which makes span
+/// reverse/background look like a content-box fill. Paragraph GlkParaBackground
+/// is left alone (block fills are intentional).
+- (void)stripSpanBackgroundFromNewlines:(NSMutableAttributedString *)attStr;
 /// Style-table attributes only (theme +/- stylehints). Does not fold zcolor or reverse video.
 - (NSDictionary *)baseAttributesForStyle:(NSUInteger)stylevalue;
+/// Theme +/- stylehints, plus CSS_Window inheritance and per-style CSS span/para hints
+/// when doStyles is on. Used by style_measure for computed colours.
+- (NSMutableDictionary *)computedStyleAttributesForStyle:(NSUInteger)stylevalue;
+/// Effective CSS_Window background-color (resolves -iftf-reverse-video). Nil if unset.
+- (nullable NSColor *)effectiveCssWindowBackgroundColor;
+/// Apply CSS_Window chrome (border-style) to this view when doStyles is on.
+- (void)applyCSSWindowChrome;
+/// Apply window CSS span/para hints onto a mutable attributes dictionary when doStyles is on.
+- (void)applyCSSHintsToAttributes:(NSMutableDictionary *)attributes
+                         forStyle:(NSUInteger)stylevalue
+                       reverseOut:(nullable BOOL *)reverseOut;
+/// Re-apply a preserved @"GlkCSS" property map (and optional reverse) onto attributes when doStyles is on.
+- (void)applyPreservedInlineCSS:(NSDictionary *)css
+                   toAttributes:(NSMutableDictionary *)attributes;
+- (void)applyPreservedInlineCSS:(NSDictionary *)css
+                   toAttributes:(NSMutableDictionary *)attributes
+                 allowParagraph:(BOOL)allowParagraph;
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n;
 - (void)drawImage:(NSImage *)buf
@@ -108,6 +151,8 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCharRequest;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasLineRequest;
+/** Re-draw live CSS_Input chrome (e.g. border) after inline Input CSS changes. */
+- (void)refreshCSSInputChrome;
 
 - (void)sendCommandLine:(NSString *)command;
 - (void)sendKeypress:(unsigned)ch;

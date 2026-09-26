@@ -43,6 +43,24 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSMutableArray *gridStyleHints;
 @property NSMutableArray *bufferStyleHints;
 
+/* CSS Basic hint stores: style_NUMSTYLES dictionaries of property→value.
+   Span, paragraph, and hyperlink hints are kept separately. */
+@property NSMutableArray<NSMutableDictionary *> *bufferCssSpanHints;
+@property NSMutableArray<NSMutableDictionary *> *bufferCssParaHints;
+@property NSMutableArray<NSMutableDictionary *> *bufferCssHyperlinkHints;
+@property NSMutableArray<NSMutableDictionary *> *gridCssSpanHints;
+@property NSMutableArray<NSMutableDictionary *> *gridCssParaHints;
+@property NSMutableArray<NSMutableDictionary *> *gridCssHyperlinkHints;
+/** CSS_Window hints, per wintype. */
+@property NSMutableDictionary<NSString *, NSString *> *bufferCssWindowHints;
+@property NSMutableDictionary<NSString *, NSString *> *gridCssWindowHints;
+/** CSS_Input hints, per wintype (style arg ignored). */
+@property NSMutableDictionary<NSString *, NSString *> *bufferCssInputHints;
+@property NSMutableDictionary<NSString *, NSString *> *gridCssInputHints;
+/** CSS_Image hints, per wintype (style arg ignored). */
+@property NSMutableDictionary<NSString *, NSString *> *bufferCssImageHints;
+@property NSMutableDictionary<NSString *, NSString *> *gridCssImageHints;
+
 @property(readonly, getter=isAlive) BOOL alive;
 
 @property(readonly) NSTimeInterval storedTimerLeft;
