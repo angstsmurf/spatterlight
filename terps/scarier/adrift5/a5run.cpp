@@ -3110,24 +3110,38 @@ save_fd_game (sb_t *b, a5_run_t *run, int lean)
      into model-candidate order) changes which world a random
      MoveCharacter-ToLocationGroup jump lands on after a restore (Skybreak).
 
-     Filter the live list ONCE per group rather than calling group_count +
-     group_member_at(j): both of those rescan the whole gm array (a strcmp per
-     entry) to answer one question, so the pair cost (n_groups + n_gm) x n_gm
-     strcmps -- quadratic in total membership, on a save that runs every turn to
-     feed the undo stack.  Walking gm directly emits exactly the same members in
-     exactly the same order (both are gm-order filters on the group key), so the
-     serialised bytes are unchanged; it just drops the rescans. */
-  for (i = 0; i < adv->n_groups; i++)
-    {
-      const a5_group_t *g = &adv->groups[i];
-      int j;
-      sb_puts (b, "<Group>\n");
-      sb_elem (b, "Key", g->key);
-      for (j = 0; j < st->n_gm; j++)
-        if (streq (st->gm[j].grp, g->key))
-          sb_elem (b, "Member", st->gm[j].key);
-      sb_puts (b, "</Group>\n");
-    }
+     Bucket the live list ONCE, in a single pass, rather than filtering gm per
+     group: a per-group filter costs n_groups x n_gm strcmps per save (Fortress
+     of Fear: 195 groups x 2002 memberships = 390K compares per turn), and this
+     save runs every turn to feed the undo stack -- it was over half the
+     snapshot's cost.  Bucketing walks gm once and emits every group's members
+     in gm order, i.e. exactly the bytes the per-group filter produced. */
+  {
+    std::unordered_map<std::string, int> gidx;
+    std::vector<std::vector<int> > members ((size_t) adv->n_groups);
+    int j;
+    for (i = 0; i < adv->n_groups; i++)
+      if (adv->groups[i].key != NULL)
+        gidx[adv->groups[i].key] = i;
+    for (j = 0; j < st->n_gm; j++)
+      {
+        if (st->gm[j].grp == NULL)
+          continue;
+        std::unordered_map<std::string, int>::const_iterator it
+          = gidx.find (st->gm[j].grp);
+        if (it != gidx.end ())
+          members[(size_t) it->second].push_back (j);
+      }
+    for (i = 0; i < adv->n_groups; i++)
+      {
+        const std::vector<int> &m = members[(size_t) i];
+        sb_puts (b, "<Group>\n");
+        sb_elem (b, "Key", adv->groups[i].key);
+        for (size_t k = 0; k < m.size (); k++)
+          sb_elem (b, "Member", st->gm[m[k]].key);
+        sb_puts (b, "</Group>\n");
+      }
+  }
 
   sb_elem_l (b, "Turns", st->turns);
 }
