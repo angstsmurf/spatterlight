@@ -1,0 +1,185 @@
+# The patched route (SCR_ASSUME_PATCHES=1).  Two field-level repairs in the
+# built-in patch table make the endgame reachable: task 36 "rope cliff" stops
+# being Repeatable so its identical ReverseCommand can untie the rope again
+# (the airport's own exits are all gated on the rope NOT being tied), and
+# Hamish -- "He needs to be killed" -- gets the KilledTask the author left at
+# 0, pointing at task 43 ^^smugglerdiesevent^^, which is what opens the hair
+# shop north of the bridge.
+#
+# The route also has to work within the author's economy, which is tight
+# enough that the faithful walkthrough's Super Atomic Blaster is unaffordable:
+# 100 to start plus the vault's 750 is all the money in the game, the tape
+# player costs 500, and "buy hair" tests for 150 still in hand (it never
+# deducts it), leaving 200 for weapons.  So this route buys the 100 Gun and
+# two lots of 50 armour instead -- the first lot is swallowed by run390's
+# "cap a raise at the attribute's max" rule, since the player's max defence
+# starts at 0, so the second is what actually lifts defence to 1.
+#
+# Hamish has 50 stamina and 50 defence; giving the King the tapes drops his
+# defence to 0, so the Gun's 13 takes four shots, and he strikes first every
+# round for 10 - 1.  With 39 max stamina that is three shots per visit, hence
+# the two detours to the kitchen: "take food" is Repeatable with no repeat
+# text and the ants event that would have ended it affects no task, so the
+# cupboard heals +5 a turn for the whole game.
+#
+# 95 is the ceiling, not 100: "buy hair" carries two +5 actions and ADRIFT
+# scores a task once, so the second never lands, while MaxScore counts both.
+stand
+look under bed
+open dresser
+get socks
+s
+w
+attack drunk
+attack drunk
+attack drunk
+attack drunk
+get key
+s
+s
+unlock vault
+123456789
+5764
+n
+w
+w
+ring bell
+wait
+wait
+buy armour
+buy armour
+buy gun
+get gun
+e
+e
+e
+fight jenkins
+drop sword
+shoot jenkins with gun
+shoot jenkins with gun
+ride ferry
+e
+n
+e
+look through arch
+wait
+wait
+talk king
+yes
+s
+e
+n
+n
+w
+u
+ape
+are
+ore
+owe
+owl
+d
+e
+s
+e
+e
+dig
+d
+show sock to rabbit
+u
+w
+s
+s
+w
+w
+rope cliff
+u
+rope cliff
+w
+get briefcases
+s
+w
+get tapes
+ring 987
+s
+s
+w
+w
+w
+w
+w
+n
+buy tape player
+s
+e
+n
+e
+open cupboard
+take food
+take food
+take food
+take food
+take food
+take food
+take food
+take food
+w
+s
+e
+ride ferry
+e
+n
+e
+n
+give tape king
+s
+w
+n
+n
+n
+e
+n
+shoot hamish with gun
+shoot hamish with gun
+shoot hamish with gun
+s
+w
+s
+s
+s
+s
+w
+w
+w
+n
+e
+take food
+take food
+take food
+take food
+take food
+take food
+take food
+take food
+w
+s
+e
+ride ferry
+e
+n
+n
+n
+n
+e
+n
+shoot hamish with gun
+n
+buy hair
+s
+s
+w
+s
+s
+s
+e
+n
+talk king

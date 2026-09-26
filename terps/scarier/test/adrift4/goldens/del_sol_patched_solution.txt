@@ -1,0 +1,61 @@
+# Del Sol, patched (Del Sol.taf, SCR_ASSUME_PATCHES=1) -- the same four school
+# periods as the faithful row, but with the built-in patch table repairing the
+# three author bugs that made the game unscorable and unwinnable: kissing_jarvin
+# now starts at 0 (so Physics' `no` runs task 14, +10, instead of task 18's
+# "LIAR" twin), task 4 execs the orphaned task 27 (`# bring hina`, +10, which
+# also brings Hina into the nightmare to fight on your side), and the
+# nightmare MoReLaND carries task 26 (`# super win`) as her KilledTask.
+#
+# `make out with jarvin` is dropped from the faithful route and replaced by a
+# fifteenth `work` (same turn cost, same woodshop_dream): kissing it sets
+# kissing_jarvin to 1 and there is no way to clear it before Physics, so its
+# +1 and task 14's +10 are mutually exclusive.  45 of 46 is therefore the real
+# ceiling -- the author's MaxScore counts both branches.
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+help
+yes
+work
+z
+z
+z
+take notes
+pay attention
+pass note
+write note to hina
+no
+help
+gamble
+z
+z
+z
+z
+z
+z
+chill out
+practice
+check out
+make out
+z
+z
+z
+z
+z
+z
+z
+z
+z
+attack moreland with slingshot
+attack moreland with slingshot

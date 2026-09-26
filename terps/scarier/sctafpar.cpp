@@ -4107,6 +4107,117 @@ static const scr_patch_edit_t PATCH_COBL[] = {
   PATCH_ADD ("Objects/34/Where/Room", 15)
 };
 
+/*
+ * DeL SoL MADNESS (Alvin Echeverria).  Four school periods on a fixed clock,
+ * then a chemistry nightmare to fight out of.  MaxScore is 46; 26 is all the
+ * game can hand out, and the missing twenty and the win are three unfilled
+ * fields.
+ *
+ * Hina's note in Physics asks "Did you make out with Jarvin today in
+ * woodshop?".  Task 14 (`no`, +10) wants kissing_jarvin == 0 and task 18
+ * ("You are such a LIAR, Noslen") wants it >= 1 -- a clean pair, except the
+ * variable is initialised to 1, so a truthful no is always called a lie and
+ * the ten points cannot be scored.  Nothing sets the variable to 0 either:
+ * the only decrement is PE's `practice` (-2), a period later than the
+ * Physics-only task that reads it, and the PE trio practice/check out/make
+ * out nets exactly zero -- which is the balance the author was writing for.
+ *
+ * Task 27 (`# bring hina`, +10, also kissing_jarvin == 0) is orphaned: its
+ * `#` command cannot be typed, no event's affTask names it and no type-5 exec
+ * action reaches it.  Its text -- "Hina has seen that you truly love her and
+ * has come to help you beat the evil sponges" -- and its action, move Hina to
+ * the player, both belong to the moment task 4 (`# move to chem dream`) drops
+ * the player and the sponges into room 6, so task 4 gets the exec.
+ *
+ * The win, task 26 (`# super win`), is gated to room 6 and dispatched by a
+ * KilledTask -- carried by NPC 9, the waking Ms Moreland, who has no battle
+ * stats at all, stands in room 3 and is never moved, so the dispatch is
+ * refused for ineligibility and dies silently (verified in run400).  The
+ * nightmare's own MoReLaND, NPC 10, is the one in room 6 with the stats, and
+ * her KilledTask is unset; the slingshot from woodshop kills her in a few
+ * throws.  She gets the task her waking twin was given by mistake.
+ */
+static const scr_patch_edit_t PATCH_DEL_SOL[] = {
+  PATCH_VERIFY ("Variables/3/Name", "kissing_jarvin"),
+  PATCH_STRING ("Variables/3/Value", "1", "0"),
+  PATCH_VERIFY ("Tasks/4/Command/0", "# move to chem dream"),
+  PATCH_VERIFY ("Tasks/27/Command/0", "# bring hina"),
+  PATCH_ADD ("Tasks/4/Actions/4/Type", 5),
+  PATCH_ADD ("Tasks/4/Actions/4/Var1", 0),
+  PATCH_ADD ("Tasks/4/Actions/4/Var2", 27),
+  PATCH_VERIFY ("NPCs/10/Name", "MoReLaND"),
+  PATCH_VERIFY ("NPCs/9/Name", "Moreland"),
+  PATCH_SET ("NPCs/10/Battle/KilledTask", 0, 27)
+};
+
+/*
+ * Filthy Bill Does Everyone But His Mother (Filthy Bill Lee).  Six conquests
+ * open the Orgy-Fest Room and the game's one ending; five of them work.  The
+ * sixth, Jen in Neener's Pub, wants the french tickler worn (task 19
+ * restriction 3, dynamic object 2, "worn by player"), and the tickler is
+ * object 2 with InitialPosition 2 -- inside the raggedy old coat, object 14,
+ * which NPC 5, the Bum, is wearing.
+ *
+ * `give whiskey to bum` (task 14) is where the coat was meant to come off:
+ * its text has the bum puke on himself and pass out against the wall, and the
+ * Bum's AltText, gated on that same task, is "The bum is passed out against
+ * the wall. Leave him alone."  But its only action is a battle-attribute
+ * change, nothing else in the file ever names the coat, and the library
+ * refuses to take a worn object off an NPC unless a battle kills them (the
+ * Bum has 9999 stamina and is never a battle target).  So the tickler is
+ * sealed for the whole game and the orgy's six-conquest restriction can never
+ * be met.
+ *
+ * The passing-out task gets a second action: drop the coat, contents and all,
+ * on the floor of 1st Street (North), the room the task itself is gated to.
+ */
+static const scr_patch_edit_t PATCH_FILTHYBILL[] = {
+  PATCH_VERIFY ("Tasks/14/Command/0", "give whiskey to bum"),
+  PATCH_VERIFY ("Objects/14/Short", "coat"),
+  PATCH_VERIFY ("Objects/2/Short", "french tickler"),
+  PATCH_VERIFY ("NPCs/5/Name", "Bum"),
+  PATCH_ADD ("Tasks/14/Actions/1/Type", 0),
+  PATCH_ADD ("Tasks/14/Actions/1/Var1", 14),
+  PATCH_ADD ("Tasks/14/Actions/1/Var2", 0),
+  PATCH_ADD ("Tasks/14/Actions/1/Var3", 11)
+};
+
+/*
+ * The Quest For More Hair, or AMU Part 1: The Smugglers (Matt, Dark Baron;
+ * the .taf still carries the generator's placeholder, quotes and all).
+ * MaxScore is 100, 60 is reachable, and the last forty and the ending are
+ * behind two unfilled fields.
+ *
+ * `rope cliff` (task 36) is Reversible with itself as its reverse command:
+ * tie the rope to climb, type it again to untie and walk away.  Both
+ * directions are gated by the same restriction, "rope held by player", and
+ * the forward action moves the rope to hidden -- so the moment it succeeds
+ * its own reverse becomes impossible.  The Airport's south and west exits
+ * are the ones that need it undone, so the briefcases, the ring 987 phone
+ * call, the tapes and the tape player -- twenty points -- are walled off
+ * behind a task that can only ever be done once.  The rope stays in hand
+ * instead of vanishing, which is what "you will have to de-attach the rope
+ * if you want to go far away" describes anyway.
+ *
+ * Hamish the evil smuggler (NPC 9) stands in room 44 with 50 stamina and is
+ * the game's last fight, and task 43 (`^^smugglerdiesevent^^`, +5, gated to
+ * room 44) is written for the moment he dies -- "The smuggler dies, as he
+ * does so he says..." with "You need to get to the hair shop!" after it.
+ * Nothing runs it: its `^^...^^` command cannot be typed, there are no
+ * events in the file, and Hamish's KilledTask is unset.  He gets it, and
+ * with it the hair shop, `buy hair` (+10) and `talk king` (+5), the ending.
+ */
+static const scr_patch_edit_t PATCH_LIQID[] = {
+  PATCH_VERIFY ("Tasks/36/Command/0", "*rope* *cliff*"),
+  PATCH_VERIFY ("Tasks/36/ReverseCommand/0", "*rope* *cliff*"),
+  PATCH_VERIFY ("Objects/19/Short", "Rope"),
+  PATCH_SET ("Tasks/36/Repeatable", 1, 0),
+  PATCH_SET ("Tasks/36/Actions/0/Var2", 0, 4),
+  PATCH_VERIFY ("Tasks/43/Command/0", "^^smugglerdiesevent^^"),
+  PATCH_VERIFY ("NPCs/9/Name", "Hamish"),
+  PATCH_SET ("NPCs/9/Battle/KilledTask", 0, 44)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4158,7 +4269,19 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("<centre>Crazy Old Bag Lady</centre>", "Sprite",
               "the newsagent's counter stands in the Corner Shop, so the"
               " newspapers left on it can be picked up",
-              PATCH_COBL)
+              PATCH_COBL),
+  PATCH_GAME ("DeL SoL MADNESS", "Alvin Echeverria",
+              "the note answer scores, Hina joins the nightmare, and the"
+              " nightmare Moreland carries the win",
+              PATCH_DEL_SOL),
+  PATCH_GAME ("Filthy Bill Does Everyone But His Mother", "Filthy Bill Lee",
+              "the bum's coat falls to the street when he passes out, so the"
+              " french tickler sealed inside it can be reached",
+              PATCH_FILTHYBILL),
+  PATCH_GAME ("'!NameOfGame!'", "Matt, Dark Baron",
+              "the cliff rope can be untied again, and killing Hamish runs"
+              " the smuggler's death task that opens the hair shop",
+              PATCH_LIQID)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

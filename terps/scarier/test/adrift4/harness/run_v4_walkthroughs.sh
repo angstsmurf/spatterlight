@@ -1259,12 +1259,24 @@ xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # KilledTask is the *waking* Ms Moreland, who spends the whole game in room 3
 # and is never moved, so killing her dispatches nothing (verified live in
 # run400 -- see battle_kill() in scbattle.cpp).  The nightmare's own MoReLaND
-# has no KilledTask, and with every combatant missing every swing the closing
-# battle is a stalemate, so the walkthrough ends on `score`.
+# has no KilledTask at all, so shooting her down -- which does work, two
+# slingshot hits -- dispatches nothing and leaves the dream running, and the
+# walkthrough ends on `score`.
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
+# Del Sol, patched: the table repairs all three bugs above.  Variables/3/Value
+# (kissing_jarvin) 1 -> 0, so the Physics `no` reaches task 14 (+10) instead of
+# task 18's LIAR twin and PE's practice/check out/make out still land it back
+# on 0; task 4 (`# move to chem dream`) gains a type-5 exec of task 27
+# (`# bring hina`, +10), which is also what walks Hina into the nightmare to
+# fight beside you; and the nightmare MoReLaND (NPCs/10) gains task 26
+# (`# super win`) as her Battle/KilledTask, so the slingshot now ends the game.
+# The route drops `make out with jarvin` for a fifteenth `work` -- kissing sets
+# kissing_jarvin and nothing clears it before Physics, so that +1 and task 14's
+# +10 are exclusive, making 45 the real ceiling behind the author's 46.
+del_sol_patched_solution.txt|Del Sol.taf|You scored 45 out of the maximum 46!|SCR_ASSUME_PATCHES=1
 #
 # inverness: 75 of 205, and 75 is the whole scorable pool.  The witches' box
 # poses one riddle, chosen once at start-up: task 43 $initriddle (Repeatable
@@ -10491,19 +10503,32 @@ ebonysworld_solution.txt|ebonysworld.taf|Your score is 1450 out of a maximum of 
 ebonysworld_patched_solution.txt|ebonysworld.taf|the colony is saved|SCR_ASSUME_PATCHES=1
 # liqid.taf (The Quest For More Hair or AMU Part 1: The Smugglers):
 # content-reviewed comic fantasy quest, no sexual content, no minors.
-# 60/100 = real reachable ceiling; no ending is reachable (the marker is
-# Jenkins' surrender, not a game ending).  Town part as before (vault
-# 123456789/5764, blaster only, fight jenkins, drop sword, shoot jenkins
-# with blaster), then palace arch + talk king + yes (rope), Frad
-# ape/are/ore/owe/owl (shovel), dig in the cave, show sock to rabbit,
-# rope cliff (+5) and up to the Airport, where the game soft-locks.
-# Unreachable 40: `rope cliff` hides the rope, but it needs the rope held
-# and so does its reverse, so it can never be undone; the Airport S/W exits
-# need it undone -> briefcases/ring 987/tapes/tape player (20) are out.
-# Hamish's KilledTask is 0 and nothing runs ^^smugglerdiesevent^^, so the
-# hair shop, buy hair (10) and the talk-king win (5) are out too.
+# 60/100 = the ceiling with the patches off, and no ending is reachable
+# then (the marker is Jenkins' surrender, not a game ending).  Town part as
+# before (vault 123456789/5764, blaster only, fight jenkins, drop sword,
+# shoot jenkins with blaster), then palace arch + talk king + yes (rope),
+# Frad ape/are/ore/owe/owl (shovel), dig in the cave, show sock to rabbit,
+# rope cliff (+5) and up to the Airport, where the unpatched game
+# soft-locks.  Out of reach, 40 points: task 36 `rope cliff` is Repeatable
+# with no repeat text, so its forward direction stays eligible for ever and
+# its identical ReverseCommand is never selected; the Airport's own S and W
+# exits are gated on the rope NOT being tied -> briefcases, ring 987, the
+# tapes and the tape player (20) are out.  Hamish's KilledTask is 0 and
+# nothing else runs ^^smugglerdiesevent^^, so the hair shop, buy hair (10)
+# and the talk-king win (5) are out too.
 # Mushrooms teleport to an inescapable loop room -- avoid.
 liqid_solution.txt|liqid.taf|I surrender, you win!|
+# The same game with the engine's targeted game patches on: task 36 stops
+# being Repeatable, so the identical ReverseCommand can untie the rope
+# again, and Hamish -- "He needs to be killed" -- gets the KilledTask the
+# author left at 0, pointing at task 43 ^^smugglerdiesevent^^, which opens
+# the hair shop.  The route buys the Gun and two lots of armour instead of
+# the blaster, because the author's 850 denmarkarians do not stretch to
+# blaster + tape player and still leave the 150 that `buy hair` tests for,
+# and it heals at the kitchen cupboard between bouts with Hamish, who
+# strikes first every round.  95/100, not 100: `buy hair` carries two +5
+# actions and ADRIFT scores a task once.
+liqid_patched_solution.txt|liqid.taf|You scored 95 out of the maximum 100!|SCR_ASSUME_PATCHES=1
 # mages.taf: content-reviewed magic-school RPG sim, no sexual content, no
 # minors -- confirmed via SCR_DUMP_TASKS the game has no formal win at all
 # (`WINTEXT []` is empty; it is an open-ended stats sim of health, hygiene,
@@ -10663,6 +10688,12 @@ weirdstuff2_solution.txt|weirdstuff2.taf||
 # task's all-six-conquests restriction can never be satisfied. Same class
 # of authoring dead end as ebonysworld/illegalsocks in this same batch.
 filthybill_solution.txt|filthybill.taf|I appreciate your help with Dave|
+# The same route with the engine's targeted game patches on: `give whiskey to
+# bum` now also drops the coat on the floor of 1st Street (North), so the
+# french tickler inside it can be taken and worn, Jen becomes the sixth
+# conquest, and the Orgy-Fest Room's all-six restriction is satisfiable --
+# 1000 of 1000, the game's one ending.
+filthybill_patched_solution.txt|filthybill.taf|Well done - you scored maximum points!|SCR_ASSUME_PATCHES=1
 # Temporfell, a demo (temporfell_demo.taf): sci-fi tech-demo ending in a
 # "Thanks for testing!" screen, not a scored win. Full walkthrough: suit up,
 # navigate to Node and complete the panel-fix side quest (optional, left in
