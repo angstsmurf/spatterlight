@@ -1,0 +1,16 @@
+feed        159 commands
+runner      159 turns echoed
+scarier     159 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 73  w
+  run400   You move west. Security Office You are in a security office of some kind. There are various pieces of equipment with no obvious purpose, however you can recognise a destroyed video played and a phone. Also here are A set of Tapes.
+  scarier  You move west. Security Office You are in a security office of some kind. There are various pieces of equipment with no obvious purpose, however you can recognise a destroyed video played and a phone. You can also see A set of Tapes.
+
+turn 74  get tapes
+  run400   You take A set of Tapes.
+  scarier  You take the set of Tapes.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

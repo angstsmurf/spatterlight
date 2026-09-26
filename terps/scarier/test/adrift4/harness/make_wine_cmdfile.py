@@ -23,6 +23,8 @@ import re
 import subprocess
 import sys
 
+import make_patched_taf
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
@@ -81,7 +83,6 @@ def without_hints(raw, taf, env):
 def main():
     solution, out = sys.argv[1], sys.argv[2]
     row = row_for(solution)
-    taf = os.path.join(ROOT, "games", row[1])
     env = dict(os.environ)
     # A row's env is ONE field per assignment in most rows but 25 of them
     # (warlord, reluctantvampire, house, hcw, ...) space-join two inside a
@@ -90,10 +91,14 @@ def main():
     # worse, hid the SKIP wiring: the replay then stopped at every <waitkey>
     # and ate the next solution line as the answer, so the generated feed was
     # a desynced run of the game (warlord lost 77 blanks, 2026-09-07).
-    for field in row[3:]:
-        for assignment in field.split():
-            name, _, value = assignment.partition("=")
-            env[name] = value
+    assignments = [a for field in row[3:] for a in field.split()]
+    # A patched row is driven on a copy of the .taf with the patch baked in,
+    # so the Runner plays the same game the replay does: take the engine
+    # switch off the replay and hand it the same file (make_patched_taf.py).
+    taf, assignments = make_patched_taf.game_for(solution, row[1], assignments)
+    for assignment in assignments:
+        name, _, value = assignment.partition("=")
+        env[name] = value
     env["SCR_MARK_WAITKEY"] = "1"
     env["SCR_MARK_WAIT"] = "1"
     skip = "SCR_SKIP_WAITKEY" in env

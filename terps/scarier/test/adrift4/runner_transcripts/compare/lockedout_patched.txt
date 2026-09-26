@@ -1,0 +1,18 @@
+feed        47 commands
+runner      45 turns echoed
+scarier     45 turns, feed[0] is scarier turn 0
+
+closing     feed[45:] quit|y -- the session's own quit; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 18  open drawer
+  run400   You open the drawer. Inside the drawer is some sheets, some gum and a remote.
+  scarier  You open the drawer. Inside the drawer are some sheets, some gum and a remote.
+
+turn 24  get battery
+  run400   Which battery. The Energizer battery or the Kodak battery?
+  scarier  Which battery? The Energizer battery or the Kodak battery?
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,49 @@
+feed        152 commands
+runner      152 turns echoed
+scarier     154 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 10  get dagger
+  run400   You pick up The Spirit Dagger.
+  scarier  You pick up the Spirit Dagger.
+
+turn 16  south
+  run400   You walk south. Breezy Path The path leads to a cliff top to the south and Whistle Hamlet to the north. A fierce wind blows. Moyru is here. Lamanluie cuts An evil witch with the old rusty broken blood-stained scimitar.
+  scarier  You walk south. Breezy Path The path leads to a cliff top to the south and Whistle Hamlet to the north. A fierce wind blows. Moyru is here. Lamanluie cuts an evil witch with the old rusty broken blood-stained scimitar.
+
+turn 17  attack moyru
+  run400   You stab An evil witch with The Spirit Dagger. Moyru cackles one last time before her body melts into a puddle of water.
+  scarier  You stab an evil witch with the Spirit Dagger. Moyru cackles one last time before her body melts into a puddle of water.
+
+turn 22  up
+  run400   You climb up. Ridge of Storms You emerge from the cavern to find yourself up in the clouds on a ridge. This must be the ridge of storms. Fergo is here. You can only move down. A winged guardian stabs you with Fletched Spear. Lamanluie cuts A winged guardian with the old rusty broken blood-stained scimitar.
+  scarier  You climb up. Ridge of Storms You emerge from the cavern to find yourself up in the clouds on a ridge. This must be the ridge of storms. Fergo is here. You can only move down. A winged guardian stabs you with Fletched Spear. Lamanluie cuts a winged guardian with the old rusty broken blood-stained scimitar.
+
+turn 23  attack fergo
+  run400   You stab A winged guardian with The Spirit Dagger. Fergo collapses. The wind elemental leaves his body and transforms itself into an object. The Fletched Spear floats magically into your hands. The ridge is no longer windy. However, a gust of wind clears the clouds behind you, showing the path out.
+  scarier  You stab a winged guardian with the Spirit Dagger. Fergo collapses. The wind elemental leaves his body and transforms itself into an object. The Fletched Spear floats magically into your hands. The ridge is no longer windy. However, a gust of wind clears the clouds behind you, showing the path out.
+
+turn 24  get orb
+  run400   You pick up The Orb of Storms.
+  scarier  You pick up the Orb of Storms.
+
+turn 26  north
+  run400   You walk north. Breezy Path The path leads to a cliff top to the south and Whistle Hamlet to the north. A steady wind blows. Morana is here. You can only move south. Lamanluie cuts An evil sorceress with the old rusty broken blood-stained scimitar.
+  scarier  You walk north. Breezy Path The path leads to a cliff top to the south and Whistle Hamlet to the north. A steady wind blows. Morana is here. You can only move south. Lamanluie cuts an evil sorceress with the old rusty broken blood-stained scimitar.
+
+turn 27  attack morana
+  run400   You stab An evil sorceress with The Spirit Dagger. Morana screeches before she disappears in a puff of smoke.
+  scarier  You stab an evil sorceress with the Spirit Dagger. Morana screeches before she disappears in a puff of smoke.
+
+turn 37  south
+  run400   You walk south. Water Tunnel A thin tunnel under the water. Serpanern is here. You can only move north. Lamanluie cuts The tunnel beast with the old rusty broken blood-stained scimitar. The tunnel beast hits you.
+  scarier  You walk south. Water Tunnel A thin tunnel under the water. Serpanern is here. You can only move north. Lamanluie cuts the tunnel beast with the old rusty broken blood-stained scimitar. The tunnel beast hits you.
+
+turn 38  attack serpanern
+  run400   You stab The tunnel beast with The Spirit Dagger. It's body shrivels and is instantly consumed by fishes.
+  scarier  You stab the tunnel beast with the Spirit Dagger. It's body shrivels and is instantly consumed by fishes.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

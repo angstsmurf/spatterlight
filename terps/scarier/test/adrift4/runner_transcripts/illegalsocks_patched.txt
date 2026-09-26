@@ -1,0 +1,197 @@
+
+> use floppy disk
+Welcome to the mission disk. Great work on that last mission with the flying poo. Here is your new mission; Way back in June, Dr. Myanus Hurts was sent to jail for selling illeagl socks. He broke out last week, and it's up to you to find him! Go Gadget Go!!!
+
+> n
+(Getting off Your Bed first)
+You move north.
+Hallway
+To the south is your room, to the north is the living room, and to the west is the kitchen.
+
+> n
+You move north.
+Living Room
+Here is the living room, here you see a TV, a couch, a book, and some popcorn.  Also here is The Book.  Mom is here.
+
+> get book
+You now hold the book. People seem to like this book. 
+
+> get mom's card
+Here Petter, take my card. Becareful not to lose or sell this!!!
+
+> s
+You move south.
+Hallway
+To the south is your room, to the north is the living room, and to the west is the kitchen.
+
+> w
+You move west.
+Kitchen
+Nothing is in here except a locked door to the north.
+
+> use card
+You have opened the door. You may now enter! 
+
+> n
+You move north.
+Underground Lair
+It is very dark and creepy in here. The door behind you closes and you can not get out. To the west is a room.  Roar, the mission instructor is here.
+
+> w
+You move west.
+Item Room.
+Many items are in here.   Also here are Can of Gas, Gold Key and a $100.
+
+> get all
+You take Can of Gas, Gold Key and the $100.
+
+> e
+You move east.
+Underground Lair
+A door opens to the north.  Roar, the mission instructor is here.
+
+> n
+You move north.
+Outside
+You see many things. To the south is the lair, to the east is a sidewalk.
+
+> e
+You move east.
+Sidewalk
+You see an odd fellow. He is selling something. You can buy it, or you can go north to the park.
+
+> buy
+You have bought a ToastStation, today's hottest video game console. To bad you don't have any games with it.   :-(
+
+> n
+You move north.
+Park
+All you see is a teleporter.
+
+> use teleporter
+You've been transported to a dark a spooky room.
+
+> n
+You move north.
+Battle Dome (Sam)
+As soon as you enter, the door behind you shuts. You can't see much for a second, then a figure appears. He says, "Welcome to the Battle Dome. I am Sam, and I understand you are here to stop Dr. Myanus Hurts. (chuckles) Well, if you want to do that, you must fight me. Lets fight!!!"    Sam is here.
+
+> search sam
+You killed Sam. He had a cool sword, and now it's yours.
+
+> s
+You move south.
+Pitfall
+Beware, pits are everywhere!!! You must jump to get to the other end.
+
+> jump
+You jumped the pitfalls one by one.Goto your west and into the battle dome, or goto your east and into the teleport room.
+
+> w
+You move west.
+Battle Dome (Tim/Tom)
+Tom and Tim want to fight you. Beware!!!  Tim and Tom are here.  You manage to avoid Old Tim's attack.  You manage to avoid Young Tom's attack.
+
+> search tim
+You killed Tim. Sadly, he holds nothing.  You manage to avoid Old Tim's attack.
+
+> search tom
+You killed Tom by cutting off his neck. Yucky! You find Wreck Monkey for the Toaststation!!! He also had armor!!!  You manage to avoid Old Tim's attack.  You manage to avoid Young Tom's attack.
+
+> e
+You move east.
+Pitfall
+Beware, pits are everywhere!!! You must jump to get to the other end.
+
+> e
+You move east.
+Teleport Room
+You see a teleporter, but it's quite different from the one you saw earlier.
+
+> use teleporter
+You have stumbled into your "best" friend's bedroom, Dr. Myanus Hurts!!! Examine his house fast, for everyone is at the anus convention.Hurry or you may die!
+
+> put cd-roms in computer
+The screen says; I have broke out, and cops are everywhere. I have no choice but to destroy everything in my house! Only one room will stay. I can't say which room it is, for cops or snoops may be reading this. Note: The device to blow everything up is in the behind the "poster".          End 
+
+> move poster
+You see the device, you grab it, but which room is right?
+
+> take toaststation controller
+You are already carrying the Toaststation.
+
+> n
+You move north.
+The doc's Kitchen
+You only see one thing, and door leading down the floor. 
+
+> d
+You move down.
+Basement
+This is the Doc's basement. It dark and scary. Is the this the room that won't blow up? You see a door to the east, that looks locked. 
+
+> use key
+You open the door, and 5 monsters attack you!!! You mange to attack and kill them, but you lose 3 HP. :-(  
+
+> e
+You move east.
+Basement 2
+The monster's body vanish as soon as you killed them. You see a crack in the roof. A flashlight is on the ground.  Also here is A Flashlight.
+
+> get flashlight
+You take A Flashlight.
+
+> use flashlight
+You can see that the crack is really a slightly opened door. Do you dare enter, or do you wish to try your luck at the switch?
+
+> u
+You move up.
+Mission Room
+Not much in this place but a map and some guns on the walls. A door leads to the east. Hey, matches!  Also here is a Matches.
+
+> get matches
+You take the Matches.
+
+> use gas
+You light the matches and the room comes up in flame. Oddly enough, it stops after a few seconds of burning. A door is found north.
+
+> n
+You move north.
+Secret Room
+It's dark and cold. The door from behind is gone. The lights come on, and Dr. Myanus Hurts is here. He has a device in his hands just like you do. But his has a blue button. He says, "Well Petter, it seems like you don't like me. I have watched yuor every move, you every blink, every breath, and now you must die. With the press of one of these buttons, the earth will be destroyed. But the other one, just the house, but one room. I know which button does what, do you? Of course not. Hahahahahahaha. Well, lets get down to it. I must kill you to go on with my plan. You see, my plan is to blow up the earth. Not to sell illeagal socks. That's old news. I'm asking you to join me. If you join me, go to the door on the East, and I see you there. Or you can go to the west, and meet 5 of my men, who will kill you on the spot. What do you say?" And with those words, he and his device disappears. East for evil, west for good. Which one?
+
+> e
+You move east.
+Evil
+You enter the room, and see a speakerphone. You hear Dr. Myanus Hurts say, "Hahahahahahaha, your and fool to think I let you join my side. You must battle me now. See in the Secret Room Get the weapons and use the teleporter. We will battle there." What were you thinking, joining the Dr. I hope you die you scum. No more hints for you mister.  Also here is Full Suit of Armor and Awesome Sword.
+
+> use teleporter
+You enter the Battle Dome of Dr. Myanus Hurts.  You manage to avoid The Great Doctor's attack.
+
+> s
+You move south.
+Good
+5 men looking to kill you, and your good pal Quzar to help you kill them. You also see a door leading to the south, but don't go there until you've killed the baddies.  Bob, Sue, Juck, Trace, Wauk and Quzar are here.  Quzar manages to avoid Wauk's attack.  Wauk manages to avoid Quzar's attack.
+
+> get sword
+You killed Wauk and he has an awesome sword.  You manage to avoid Bob's attack.  Quzar manages to avoid Sue's attack.  Quzar manages to avoid Trace's attack.  You manage to avoid Wauk's attack.  Bob manages to avoid Quzar's attack.
+
+> get armor
+You killed Trace, and he had a Full Suit of Armor.  You manage to avoid Wauk's attack.
+
+> points
+You just got 100 points.  You manage to avoid Sue's attack.  You manage to avoid Wauk's attack.  Sue manages to avoid Quzar's attack.
+
+> s
+You move south.
+Battle Dome  (Dr. Myanus Hurts)
+Let's Fight!!!  Dr Myanus Hurts and Quzar are here.  You manage to avoid The Great Doctor's attack.  The Great Doctor manages to avoid Quzar's attack.
+
+> attack dr myanus hurts with awesome sword
+I don't understand what you want to do with Dr Myanus Hurts.
+
+> attack dr myanus hurts with awesome sword
+I don't understand what you want to do with Dr Myanus Hurts.
+
+> score
+Your score is 745 out of a maximum of 2155.  (34%)

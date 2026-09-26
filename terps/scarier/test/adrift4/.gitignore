@@ -354,6 +354,7 @@
 /goldens/funtown_patched_solution.txt
 /goldens/funtown_patched_solution.expected.txt
 /runner_transcripts/**/funtown.*
+/runner_transcripts/**/funtown_patched.*
 
 # RodneyandthePrincess40v3-1.taf (AIF): explicit text, deliberately not committed.
 /goldens/rodneyprincess_solution.txt

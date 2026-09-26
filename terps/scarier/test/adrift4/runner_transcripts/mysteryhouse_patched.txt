@@ -1,0 +1,103 @@
+
+> n
+You move north.
+T-Road
+You see MysteryHouse is to east, and this road continue down North.  You can move north, east and south.
+
+> e
+You move east.
+MysteryHouse Enterance
+You see a sign.  You can move west and in.
+
+> in
+You move in.
+LivingRoom
+You are in the living room of MysteryHouse with a sofa.  You can move north and out.
+
+> examine sofa
+You see a key on the sofa.  
+LivingRoom
+You are in the living room of MysteryHouse with a sofa.  You can move north and out.  a key is on the sofa
+
+> get key
+got it.
+
+> n
+You move north.
+BedRoom
+You are in the Bed Room of MysteryHouse. There is a Bed and a Wall here.  You can move north and south.
+
+> n
+You move north.
+Den
+You are in the Den of the MysteryHouse. There are a desk, a chair, a bookshelf and a wall.  You can only move south.
+
+> x desk
+A Desk, wait, is there something there?  A Matches is on the Desk.
+
+> get matches
+You take a Matches from the Desk.
+
+> x bookshelf
+A bookshelf full of books.   A Candle is on the Bookshelf.
+
+> get candle
+You take a Candle from the Bookshelf.
+
+> move bookshelf
+There is a passage beyond it
+
+> e
+You move east.
+Dark Passage Start
+Whoa! Dark Here.  You can move north, east, up and down.
+
+> light candle
+You can see more clearly now.  
+Dark Passage Start
+Whoa! Dark Here.  You are in a Dark passage with a wall.  You can move north, east, south, up and down.
+
+> s
+You move south.
+Dark Passage
+You are in a Dark Passage with Wall. Only one direction is right.  You can move north, east, south, west, up and down.
+
+> s
+You move south.
+Dark Passage End
+You are in a Dark Passage End with wall.  You can move north, east, west, up and down.
+
+> push button
+The stone door opens.
+
+> s
+You move south.
+Treasure Room
+Whoa! a Room with a treasure Chest in the middle  Also here is a Treasure Chest.  You can only move west.
+
+> get Treasure Chest
+You pick up the Treasure Chest.
+
+> open chest
+Wow! A Chest full of what???
+
+> w
+You move west.
+Pipe
+Tight Squeeze!  You can only move west.
+
+> w
+You move west.
+Starting Road
+You are on a road. There is a Sign.  You can only move north.
+
+> drop treasure Chest
+You dropped it  You got out of this world! But what world is it??
+Find out in epison 2.
+
+epison 2 coming for download in http://skyline.hostistry.com
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

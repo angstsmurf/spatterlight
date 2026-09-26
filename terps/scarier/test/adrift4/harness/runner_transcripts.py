@@ -7,6 +7,11 @@ popup answers and file version.
     python3 harness/runner_transcripts.py harvest   # reuse xoshiro captures that already match
     python3 harness/runner_transcripts.py jobs [out] # xoshiro_par.sh job file for the rest
     python3 harness/runner_transcripts.py collect   # compare fresh drives, copy, manifest
+
+plan, jobs and collect take tags: given some, they touch only those rows and
+leave every other row of plan.tsv / the job file / manifest.tsv alone.  Work a
+few rows that way rather than rewriting the lot -- the .taf corpus, the pfx and
+these two .tsv files are shared with whatever else is running on this machine.
     python3 harness/runner_transcripts.py recompare [tag...]  # re-compare stored transcripts
     python3 harness/runner_transcripts.py dumpjobs [tag...]   # dump_par.sh job file
                                                     # (default: every row that
@@ -24,6 +29,9 @@ Per row:
   * env     -- the row's SCR_* settings are applied to the compare.  The Runner
                has no equivalent of SCR_SKIP_WAITKEY (the feed carries the
                pause answers instead) or of SCR_ASSUME_COMBAT/_MOVES.
+               SCR_ASSUME_PATCHES is different: it is a data change, so it is
+               baked into a copy of the .taf (make_patched_taf.py) and both
+               sides play that file, switch off.
 
 "harvest" reuses a transcript only when a session log records that
 xoshiro_par.sh drove it with the row's current seed AND it compares identical
@@ -41,6 +49,8 @@ import re
 import shutil
 import subprocess
 import sys
+
+import make_patched_taf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -117,26 +127,34 @@ def plan_one(row):
             "draws": str(len(re.findall(rb"RND #", trace)))}
 
 
-def plan():
+def plan(tags=None):
     os.makedirs(FEEDS, exist_ok=True)
     os.makedirs(OUT, exist_ok=True)
+    wanted = [r for r in rows() if not tags or r[0] in set(tags)]
+    for tag in sorted(set(tags or []) - {r[0] for r in wanted}):
+        print("unknown   %s" % tag)
     with concurrent.futures.ThreadPoolExecutor(8) as pool:
-        planned = list(pool.map(plan_one, rows()))
+        planned = list(pool.map(plan_one, wanted))
+    order = [r[0] for r in rows()]
+    keep = {p["tag"]: p for p in (read_plan() if tags and os.path.exists(PLAN) else [])}
+    keep.update({p["tag"]: p for p in planned})
     with open(PLAN, "w", encoding="utf-8") as fh:
         fh.write("\t".join(PLAN_FIELDS) + "\n")
-        for p in planned:
-            fh.write("\t".join(p[k] for k in PLAN_FIELDS) + "\n")
-    print("planned %d rows -> %s" % (len(planned), PLAN))
+        for tag in sorted(keep, key=lambda t: order.index(t) if t in order else -1):
+            fh.write("\t".join(keep[tag].get(k, "") for k in PLAN_FIELDS) + "\n")
+    print("planned %d row(s), %d in %s" % (len(planned), len(keep), PLAN))
 
 
 def compare(p, transcript):
     """(identical?, verdict line, full report) for one transcript."""
+    taf, assignments = make_patched_taf.game_for(p["tag"], p["taf"],
+                                                 p["env"].split())
     args = [sys.executable, os.path.join(HERE, "compare_wine_transcript.py"),
-            "--taf", os.path.join(ROOT, "games", p["taf"]),
+            "--taf", taf,
             "--feed", os.path.join(FEEDS, p["tag"] + ".txt"),
             "--runner", transcript, "--limit", "10",
             "--env", "SCR_RNG=xoshiro", "--env", "SCR_SEED=" + p["seed"]]
-    for assignment in p["env"].split():
+    for assignment in assignments:
         if not assignment.startswith("SCR_SEED="):
             args += ["--env", assignment]
     for answer in p["popups"].split("~") if p["popups"] else []:
@@ -273,20 +291,22 @@ def harvest():
 
 def job_line(p, suffix):
     copy = os.path.join(PFX, "w_%s.taf" % p["tag"])
-    source = os.path.join(ROOT, "games", p["taf"])
+    source, _ = make_patched_taf.game_for(p["tag"], p["taf"], p["env"].split())
     if not os.path.exists(copy):
         shutil.copy2(source, copy)
     elif not filecmp.cmp(copy, source, shallow=False):
-        sys.exit("%s differs from games/%s; refusing to overwrite" % (copy, p["taf"]))
+        sys.exit("%s differs from %s; refusing to overwrite" % (copy, source))
     return "|".join([p["tag"] + suffix, os.path.basename(copy),
                      "%s/%s.txt" % (FEEDS_REL, p["tag"]), p["exe"], p["seed"],
                      p["pre"], p["popups"]])
 
 
-def jobs(out):
+def jobs(out, tags=None):
     entries = read_manifest()
     lines = []
     for p in read_plan():
+        if tags and p["tag"] not in set(tags):
+            continue
         if p["tag"] in entries and entries[p["tag"]]["verdict"].startswith("identical"):
             continue
         lines.append(job_line(p, JOB_SUFFIX))
@@ -313,7 +333,7 @@ def dumpjobs(tags, out):
     print("%d job(s) -> %s" % (len(lines), out))
 
 
-def collect():
+def collect(tags=None):
     planned = {p["tag"]: p for p in read_plan()}
     entries = read_manifest()
     summary = os.path.join(WINE, "par", "summary_xoshiro.txt")
@@ -323,6 +343,8 @@ def collect():
             job, rc, transcript = line.rstrip("\n").split("|")[:3]
             tag = job[:-len(JOB_SUFFIX)]
             path = os.path.join(PFX, transcript)
+            if tags and tag not in set(tags):
+                continue
             if tag in planned and rc == "0" and transcript and os.path.getsize(path):
                 done.append((tag, path))
             else:
@@ -342,7 +364,7 @@ def collect():
             adopt(planned[tag], path, "driven", identical, verdict, report, entries)
             print("%-9s %-32s %s" % ("identical" if identical else "DIFFERS", tag, verdict))
     write_manifest(entries)
-    missing = sorted(set(planned) - set(entries))
+    missing = sorted((set(tags) if tags else set(planned)) - set(entries))
     print("%d/%d rows in %s; missing: %s" % (len(entries), len(planned), OUT,
                                              " ".join(missing) or "none"))
     check_ignored(entries)
@@ -394,17 +416,19 @@ def check_ignored(entries):
 if __name__ == "__main__":
     command = sys.argv[1] if len(sys.argv) > 1 else ""
     if command == "plan":
-        plan()
+        plan(sys.argv[2:])
     elif command == "harvest":
         harvest()
     elif command == "jobs":
-        jobs(sys.argv[2] if len(sys.argv) > 2 else os.path.join(WINE, "xoshiro_jobs_runner_transcripts.txt"))
+        jobs(next((a for a in sys.argv[2:] if a.endswith(".txt")),
+                  os.path.join(WINE, "xoshiro_jobs_runner_transcripts.txt")),
+             [a for a in sys.argv[2:] if not a.endswith(".txt")])
     elif command == "dumpjobs":
         dumpjobs([a for a in sys.argv[2:] if not a.endswith(".txt")],
                  next((a for a in sys.argv[2:] if a.endswith(".txt")),
                       os.path.join(WINE, "dump_jobs.txt")))
     elif command == "collect":
-        collect()
+        collect(sys.argv[2:])
     elif command == "recompare":
         recompare(sys.argv[2:])
     else:

@@ -1,0 +1,16 @@
+feed        41 commands
+runner      41 turns echoed
+scarier     43 turns, feed[0] is scarier turn 1
+
+RULE 2 -- every feed command was echoed.
+
+turn 10  x Weapon Rack
+  run400   This Weapon rack holds a few weapons. Big surprise. Inside Weapon Rack is Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
+  scarier  This Weapon rack holds a few weapons. Big surprise. Inside Weapon Rack are Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
+
+turn 21  attack guy
+  run400   You cut The guy with Kinda Sharp Sword. You killed the Bastard Trying to Kill You. It wasn't hard, but it was sure fun. Now that he is dead, you can search his body or somthing, right?
+  scarier  You cut the guy with Kinda Sharp Sword. You killed the Bastard Trying to Kill You. It wasn't hard, but it was sure fun. Now that he is dead, you can search his body or somthing, right?
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

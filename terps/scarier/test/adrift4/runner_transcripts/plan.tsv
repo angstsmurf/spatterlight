@@ -55,6 +55,7 @@ think2	Theannihilationofthink2.taf	3.90	run390x.exe	1234	0	Hero~male		Think.com 
 toxically_earth	Toxically_Earth.taf	3.90	run390x.exe	1234	0			Thanks for playing RON: TOXICALLY EARTH	0
 xfiles	The_X-Files_A_New_Beginning.taf	4.00	run400x.exe	1234	0			Welcome to the Resistance.	23
 del_sol	Del Sol.taf	4.00	run400x.exe	1234	0			Your score is 26 out of a maximum of 46.	146
+del_sol_patched	Del Sol.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_PATCHES=1	You scored 45 out of the maximum 46!	155
 inverness	inverness.taf	3.90	run390x.exe	2	0		SCR_SEED=2	You hear Macbeth and his wife leave the room.	157
 les_feux	Les Feux de l'enfer.taf	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	Votre score est 75 sur un maximum de 115.	475
 lifesimulation	lifesimulation.taf	3.90	run390x.exe	1234	0	Hero~male		Your score is 0 out of a maximum of 0.	13
@@ -64,6 +65,7 @@ phoenix_destiny	Phoenix_Destiny.taf	3.90	run390x.exe	1234	13	Hero~male		Gold: 10
 questi	QuestI.taf	4.00	run400x.exe	1234	0			Your score is 10 out of a maximum of 10.	16
 shadow_of_the_past	Shadow_Of_The_Past.taf	4.00	run400x.exe	1234	0			You now realize that the statue was you from a past life.	30
 spirits_flight	The_Spirits_Flight.taf	3.90	run390x.exe	1234	0	Hero~male		Your score is 50 out of a maximum of 95.	510
+spirits_flight_patched	The_Spirits_Flight.taf	3.90	run390x.exe	1234	0	Hero~male	SCR_ASSUME_PATCHES=1	You scored 95 out of the maximum 95!	748
 srsintro	SRSintro.taf	4.00	run400x.exe	1234	1				7
 the_nonsense_machine_6000	The_Nonsense_Machine_6000.taf	3.90	run390x.exe	1234	0				18
 the_town_of_azra	The_Town_Of_Azra.taf	4.00	run400x.exe	1234	3	Hero		Number of turns passed: 26	37
@@ -75,6 +77,7 @@ to_hell_and_beyond	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0			You have ent
 to_hell_and_beyond_assisted	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	You are now ruler of Beyond	2066
 to_hell_and_beyond_assisted_max	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	You are now ruler of Beyond	2240
 villains_and_kings	Villains_And_Kings.taf	3.90	run390x.exe	1234	0	male		Your score is 30 out of a maximum of 37.	22
+villains_and_kings_patched	Villains_And_Kings.taf	3.90	run390x.exe	1234	0	male	SCR_ASSUME_PATCHES=1	Your score is 31 out of a maximum of 37.	22
 wes_ghn	WesGHN.taf	4.00	run400x.exe	2	6		SCR_SEED=2	You've Won the Game!	216
 argh	ARGH_sGreatEscape.taf	4.00	run400x.exe	1234	0			You scored 100 out of the maximum 125!	3
 spam	SPAM.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Spam King	3
@@ -89,6 +92,7 @@ invasion_shirts	Invasion of the Second-Hand Shirts.taf	4.00	run400x.exe	1234	0		
 adriftorama	adriftorama.taf	4.00	run400x.exe	18	2		SCR_SEED=18 SCR_SKIP_WAITKEY=1	*****You Win!*****	5816
 wax_worx	wax_worx.taf	4.00	run400x.exe	1234	0			[PRESS ANY KEY TO DIE]	830
 sommeril	sommeril.taf	4.00	run400x.exe	1234	0			www.angelfire.com/games5/sommeril	29
+sommeril_patched	sommeril.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_PATCHES=1	You scored 95 out of the maximum 100!	29
 dragonshrine	DragonShrineR43.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	ended the Curse of Dragon Shrine	252
 shardsofmemory	shardsofmemory.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	My adventure has ended, and in victory besides	176
 TheADRIFTProject	TheADRIFTProject.taf	4.00	run400x.exe	1234	2	Drifter~male	SCR_SKIP_WAITKEY=1	the entire ADRIFT community greet you	1215
@@ -144,6 +148,7 @@ unraveling_god	unravel.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	smile as 
 unraveling_god_lou	unravel.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	smile fades and you feel the beginnings of fear.	10
 mishmash	mishmash.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have lived up to your name and survived again!	500
 the_hangover	hangover.taf	3.90	run390x.exe	1234	0			Your score is 5 out of a maximum of 7.	0
+the_hangover_patched	hangover.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	You scored 7 out of the maximum 7	0
 troll	Troll.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	clean by dinner time, I'll bust your head in!	87
 spot_of_bother	A_Spot_of_Bother.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	a grand total of 100 out of 100	1645
 beanstalk	Beanstalk.taf	4.00	run400x.exe	1234	0			*** You have won ***	2
@@ -242,8 +247,10 @@ journ2	Journ2.taf	3.90	run390x.exe	2	0		SCR_SEED=2	You are carrying the King of 
 murder_great_falls	mudergreatfalls.taf	3.90	run390x.exe	1234	2	Sam~male	SCR_SKIP_WAITKEY=1	Ken is found guilty of triple homicide.	0
 vampire	Vampire.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	Your score is 70 out of a maximum of 100.	425
 vampire_repeatassist	Vampire.taf	3.90	run390x.exe	1234	1		SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	470
+vampire_patched	Vampire.taf	3.90	run390x.exe	1234	1		SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	470
 merry_murders	Merry_Murders.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	My score is 120 out of a maximum of 135.	1
 merry_murders_repeatassist	Merry_Murders.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1	You scored 135 out of the maximum 135!	2
+merry_murders_patched	Merry_Murders.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1	You scored 135 out of the maximum 135!	2
 thewoods	thewoods.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	0
 captive	Captive.taf	3.90	run390x.exe	1234	0			You scored 100 out of the maximum 100!	520
 wonderwombat	wonderwombat.taf	3.90	run390x.exe	3	2		SCR_SEED=3 SCR_SKIP_WAITKEY=1	THUMPER KICKS ASS!!!	6768
@@ -300,6 +307,7 @@ businessasusual	Business As Usual.taf	4.00	run400x.exe	1234	0			You Won, Of Cour
 ohhuman	Oh_Human.taf	4.00	run400x.exe	1234	0			Congratulations!  You beat the game!	5
 ohhuman_200	Oh_Human.taf	4.00	run400x.exe	1234	0			Your score is 200 out of a maximum of 200	6
 sandy	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
+sandy_patched	Sandy.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_PATCHES=1	Yes! You finally got the doll!	1
 sandy_meta_number	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
 ptgood	competition2006__adrift__ptgood__PTGOOD.taf	4.00	run400x.exe	1234	0			You win! Yay!	1
 phoneb	Phoneb.taf	4.00	run400x.exe	1234	0			Committing its final act of mercy	1
@@ -318,6 +326,7 @@ foresthouse2	TheForestHouse_2.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Yo
 shetland	The_Shetland_Enigma.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	distress broadcaster	22
 takeone	takeone.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	it only took 1 take	123
 tenebraesemper	TenebraeSemper.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You take the loaded pistol from Lauren's dresser.	6
+tenebraesemper_patched	TenebraeSemper.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	[Ending 4 of 5]	7
 helsing	Helsing.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	But not tonight	1
 worstgame	WorstGameInTheWorld.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Another game then? If you dare?	18
 spooked	Spooked_The_Wonders_of_Science.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Congratulations you won!	3
@@ -359,6 +368,7 @@ dusk	dusk.taf	4.00	run400x.exe	1234	0			Most importantly you finally saw a tree 
 thehunter	The_Hunter.taf	4.00	run400x.exe	1234	0	Hunter~male		You scored 50 out of the maximum 50!	4
 will	Will.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	6
 cobl	COBL.taf	4.00	run400x.exe	28	0		SCR_SEED=28 SCR_SKIP_WAITKEY=1	Your score is 160 out of a maximum of 230.  (69%)	107
+cobl_patched	COBL.taf	4.00	run400x.exe	28	0		SCR_SEED=28 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	You scored 230 out of the maximum 230!	107
 puzzlebox	puzzlebox.taf	4.00	run400x.exe	1	0		SCR_SEED=1	shouts, "Get out and stay out!"  The door slams shut.  You are free!	153
 amy	amy.taf	4.00	run400x.exe	1234	0	Chris	SCR_SKIP_WAITKEY=1	You've reached the end of this adventure - congratulations.	11
 cluelessbob	In_the_Claws_of_Clueless_Bob.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	score of 12 - well done. You didn't resort to the hints at all. If not, maybe	42
@@ -384,6 +394,7 @@ ovaloffice	ovaloffice.taf	4.00	run400x.exe	1234	0	Bill		You scored 32 out of the
 planescape	Planescape-Encounters1.taf	3.90	run390x.exe	1234	0			You scored 15 out of the maximum 15!	1
 studio	studio.taf	3.90	run390x.exe	1234	0	Player		You scored 96 out of the maximum 100!	7
 funtown	fun town.taf	4.00	run400x.exe	1234	0	Player		Sorry, there is no way to open the chest before you accumulate 200 points.	3
+funtown_patched	fun town.taf	4.00	run400x.exe	1234	0	Player	SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	3
 rodneyprincess	RodneyandthePrincess40v3-1.taf	4.00	run400x.exe	1234	0			Congratulations on getting your reward!	84
 salvation	salvation.taf	3.90	run390x.exe	1234	0			Thanks for playing.	1
 christmaspresent	christmas present 1.0.taf	4.00	run400x.exe	1234	0	Player		Thank you for playing.  Merry Christmas and  a Prosperous New Year!	5
@@ -406,6 +417,7 @@ deadreckoning	DeadReckoning.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	this
 cldone	cldone.taf	3.90	run390x.exe	3	0	Player	SCR_SEED=3	Well done - you scored maximum points!	3
 scandal	Scandal.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Admiral Byng resigns from his	66
 bloodrelatives	Blood_Relatives.taf	4.00	run400x.exe	1234	0			you did find your bed	1
+bloodrelatives_patched	Blood_Relatives.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_PATCHES=1	Using the big bronze key, you open the door.	1
 paint	Paint.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	Well done! You've reached the best ending in the game!	1812
 hcw	hcw.taf	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Well, you didn't conquer the world today. But there's always tomorrow.	8
 yadfa	YADFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	gained yourself a nice (haunted) castle. Not bad for a day's work.	336
@@ -424,6 +436,7 @@ datewithdeath	datewithdeath.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	And 
 alchemist	alchemist.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	That is 100% of the game	3035
 onnafa	ONNAFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	your score turned out at 82	1027
 house	House.taf	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You are not holding the wood.	2340
+house_patched	House.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	2431
 lca	Lights_Camera_Action.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	best ending in the game!	5160
 mutaydid	mutaydid.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	That is 100% of the game	61
 seaside	ADayAtTheSeaside.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	20
@@ -499,6 +512,7 @@ bigspy2	bigspy2.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	It's again time 
 findandy1	findandy1.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 1000 out of the maximum 1000!	34
 darkriver	The_Dark_River_1.4.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 12 out of the maximum 12!	1
 lockedout	lockedout.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 90 out of the maximum 110!	0
+lockedout_patched	lockedout.taf	3.90	run390x.exe	1234	1		SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1	You scored 110 out of the maximum 110!	0
 bigspy3	bigspy3.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Narrator can not ask whether this is end of our hero	1
 goldbe	Gold_B_and_E_v1.2.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 32 out of the maximum 35!	2
 deathhouse	deathhouse.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 42 out of the maximum 42!	157
@@ -587,16 +601,21 @@ villagelove	The Village of Love and Lust.taf	4.00	run400x.exe	1234	0	Player	SCR_
 mwf	mwf.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Time passes...	1
 superstud	The new Superstud.taf	4.00	run400x.exe	1234	0	Player	SCR_SKIP_WAITKEY=1	you win the prize which is me	189
 bedlam	bedlam.taf	3.90	run390x.exe	1234	0			These type of vehicles usually require keys to operate	0
+bedlam_patched	bedlam.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	You have just completed the Bedlam preview	0
 crimelife	crimelife.taf	4.00	run400x.exe	1234	0	Petter~male		You just got waxed by a punk gangsta	22
 dbaa	dbaa!(intro).taf	4.00	run400x.exe	1234	1			Bring me something else!	1585
 dickynoodle	DickyNoodle.TAF	3.90	run390x.exe	1234	0			You untie your loving Uncle Noodle	0
 dishduty	dishduty_intro(3).taf	4.00	run400x.exe	1234	0	Petter~male		You can't wash that.	19
 illegalsocks	illegalsocks.taf	4.00	run400x.exe	1234	0	Petter~male		Your score is 745 out of a maximum of 2155.	720
+illegalsocks_patched	illegalsocks.taf	4.00	run400x.exe	1234	0	Petter~male	SCR_ASSUME_PATCHES=1	The Great Doctor manages to avoid your attack with Awesome Sword	747
 ebonysworld	ebonysworld.taf	3.90	run390x.exe	1234	0			Your score is 1450 out of a maximum of 0.	0
+ebonysworld_patched	ebonysworld.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	the colony is saved	0
 liqid	liqid.taf	3.90	run390x.exe	1234	0			I surrender, you win!	6
+liqid_patched	liqid.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	You scored 95 out of the maximum 100!	16
 mages	mages.taf	3.90	run390x.exe	1234	0			a magic rating of 20, and your mana=50.	279
 monsterisland	MonsterIsland.taf	4.00	run400x.exe	1234	0			Ameila and I rushed to her plane and we flew off to safety.	1269
 mysteryhouse	MysteryHouse.taf	3.90	run390x.exe	1234	0			You drop the Treasure Chest.	0
+mysteryhouse_patched	MysteryHouse.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	You got out of this world!	0
 newbie	newbie.taf	3.90	run390x.exe	1234	0			You go throo the wall	0
 hotelconfuego	1_Hotel_con_Fuego.taf	4.00	run400x.exe	1234	5			Well, that's the end of the demo.	53
 teaw	TEAW_(introcomp).taf	4.00	run400x.exe	1234	2	Player		YOU ARE GOING TO DIE	23
@@ -606,6 +625,7 @@ thewill	The_Will.taf	3.90	run390x.exe	1234	1			You have completed The Will and i
 twentyone	Twenty-one.taf	4.00	run400x.exe	1234	0			survived long enough to get the best ending	17
 weirdstuff2	weirdstuff2.taf	4.00	run400x.exe	1234	0				47
 filthybill	filthybill.taf	3.90	run390x.exe	1234	0			studded cocks	0
+filthybill_patched	filthybill.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	0
 temporfell	temporfell_demo.taf	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro	Thanks for testing	346
 thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	You scored 360 out of the maximum 400!	643
 zanoza	zanoza.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	Ïîçäðàâëÿþ ñ ïîáåäîé	866
@@ -615,6 +635,7 @@ wonderland	wonderland.taf	4.00	run400x.exe	1234	0				169
 shortlived	shortlived.taf	4.00	run400x.exe	1234	0	Player~male			1
 monstermirror	monster.taf	3.90	run390x.exe	1234	0			So you figured it out	0
 taot3	TAOT3.taf	3.90	run390x.exe	1234	0				1
+taot3_patched	TAOT3.taf	3.90	run390x.exe	1234	0		SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	1
 lastknight	Last_Knight.taf	3.90	run390x.exe	1234	0	Player			0
 govard2	Govard2.taf	3.90	run390x.exe	1234	0			ãîòîâ ê ðåøàþùåé áèòâå	7140
 dolg	Dolg.taf	3.90	run390x.exe	1234	0			ÿ è ðàñïëàòèëñÿ ñ Áàðíè	2521

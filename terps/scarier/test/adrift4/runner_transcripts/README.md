@@ -57,6 +57,21 @@ the Runner's side of that golden.
 - **Env with no Runner equivalent:** `SCR_ASSUME_COMBAT` and
   `SCR_ASSUME_MOVES` exist only in Scarier. They are applied to the
   comparison, not to the drive.
+- **`SCR_ASSUME_PATCHES` is different: it is a data change**, so it can be
+  driven. `harness/make_patched_taf.py` bakes the `sctafpar.cpp` patch table's
+  own edits for that game into a copy of the .taf under `games/patched/`
+  (gitignored, rebuilt on demand from the table), and then the drive *and* the
+  replay both play that file with the switch off -- so the Runner is reading
+  the same broken-field fixes the engine would have applied in memory. The
+  copy is a field rewrite only: no task, object, room, NPC or variable is
+  added or removed, so the Runner loads it like any other file.
+  - On a **3.90/3.80** game a patch that changes the file's byte count moves
+    one random draw. The 3.x codec's LCG is advanced once per file byte and
+    `vbrnd(load)` reads it, which seeds random event start times. The Runner
+    reads the same patched bytes, so Runner and Scarier still agree; it is the
+    *golden* (original file + `SCR_ASSUME_PATCHES`) that can diverge. Two rows
+    do: `taot3_patched` and `spirits_flight_patched` differ from their goldens
+    in random-event timing while still reaching their win markers.
 - **A fresh drive can be worse than the one it replaces.** Re-driving a row
   is not free: `hyper_b_s` came back truncated where the archived capture was
   whole. Compare before you keep one, and if the new capture is worse,
@@ -122,6 +137,41 @@ one of these holds:
   text.
 
 The `source` column in the manifest says which.
+
+## Patched rows
+
+The 21 `*_patched` rows were driven on 2026-09-26 (`games/patched/*.taf`, feed
+and seed from the patched golden). **Twenty of the 21 reach their win marker in
+the real Runner**, which is the point of the exercise: the patch table's field
+edits are not a Scarier convenience, they fix the release in any engine that
+reads the file. Fourteen rows compare identical (two of those apart from
+whitespace); the seven that differ do so in classes that have nothing to do
+with the patch:
+
+- Five (`spirits_flight`, `tenebraesemper`, `villains_and_kings`, `lockedout`,
+  `liqid`) differ only in the Runner text accidents that `4e8ff9752` reverted
+  on purpose -- the literal `" is "` in a multi-object "Inside ... is", the
+  Runner's literal `Prefix` case ("You take A Flashlight.", "You stab An evil
+  witch"), "Which battery." for "Which battery?", "Also here are" for "You can
+  also see". Their faithful rows show the same turns when re-compared today;
+  the `identical` verdicts stored against them predate that commit.
+- `house` shows the same two classes its faithful row already shows (empty
+  Runner output on plain movement turns, and the cold-event beats landing a
+  turn apart).
+- `illegalsocks_patched` is the only row whose marker the Runner never
+  reaches, and it is worth reading in full, because **the patch itself is
+  confirmed there**: on the patched file `attack dr myanus hurts` makes run400
+  answer "What do you want to attack Dr Myanus Hurts with?", so the Doctor is
+  a legal target at last, which is exactly what taking the "." out of his Name
+  was for. What run400 then refuses is the weapon: probed live on the patched
+  file, `attack dr myanus hurts with awesome sword`, the alias form (`attack
+  doctor with ...`), answering its own "with what?" prompt, and dropping the
+  Cool Sword first all end in "I don't understand what you want to do with Dr
+  Myanus Hurts." or an unanswerable "Which Sword. Cool Sword or Awesome
+  Sword?" -- `status` says "You are wielding nothing" and `x awesome sword`
+  says "You see no such thing" in both engines, i.e. neither sword is in the
+  player's scope. Scarier resolves that disambiguation anyway and swings, so
+  this row's marker is Scarier-only text and a scope lead in its own right.
 
 ## Rows without a transcript
 

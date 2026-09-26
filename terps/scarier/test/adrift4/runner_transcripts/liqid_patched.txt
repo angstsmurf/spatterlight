@@ -1,0 +1,740 @@
+
+> stand
+You stand up from the Bed.
+
+> look under bed
+You look under your bed, and find your sword, you pick it up make dramatic poses with it. (Yes, typical game) (footnote 1).
+
+> open dresser
+You open the Dresser.  A Pair of Socks is inside the Dresser.
+
+> get socks
+You take a Pair of Socks from the Dresser.
+
+> s
+You move south.
+Kitchen
+You are in your kitchen, you can see your food stacked cupboard. You can leave the house to the west.
+
+> w
+You move west.
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  Drunk is here.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  You finish off the drunk, and his body lies on the ground. You bend down to inspect it but it vanishes in a puff of smoke leaving only the key which the drunk has been holding behind.
+
+  
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  There is no sign of the drunk's body.  You can also see a Key.  Drunk is here.
+
+> get key
+You take the Key.
+
+> s
+You move south.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> s
+You move south.
+Bank
+You are in the bank and it was somewhat very deserted until I put in the receptionist and the desk. But the vault is still here. You can return to the square by going north.  The Receptionist is here.
+
+> unlock vault
+You insert the key into the vault and turn it. The vault springs open but there is a nine-digit number code thing.
+
+> 123456789
+You type in 123456789, and it is accepted, however it now wants a four digit number.
+
+> 5764
+You type in 5764 and the vault springs to life, it whizzes, fizzes, hums, makes beep noises, they quotes some Shakespear (footnote 2) before finnally giving you some more Denmarkians.
+
+> n
+You move north.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> w
+You move west.
+Precinct
+You are in the town's newly installed shopping precinct. There is a blacksmiths to the west, a goosebury brothers™ to the north and a pit of eternal doom™ to the south.  There is a sign on the door of the Goosebury Brothers.
+
+> w
+You move west.
+Blacksmith's
+You are in the local black smiths, there are various bits of equipment round and about and smoke is wisping from the doorway to the west were Joe's workroom is. You aren't aloud the there, and you know it (by the way). Oh yes I almost forgot, there is Joe's old workbench whatamacallit in the middle of the room. You can leave to the east but not the west.
+
+> ring bell
+You ring the bell but nothing happens.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Joe walks towards you from the west.  You here footsteps from behind, so you turn around, its Joe. He picks you up by the neck then brings you (and himself) back to the Blacksmiths. He stares at you, staying strong and silent but gives you a look thats say quite clearly, "Why did you do that?".
+
+> buy armour
+You buy some armour.
+
+> buy armour
+You buy some armour.
+
+> buy gun
+You buy a gun. Joe puts it on the bench.
+
+> get gun
+You take a Gun from the Old Workbench.
+
+> e
+You move east.
+Precinct
+You are in the town's newly installed shopping precinct. There is a blacksmiths to the west, a goosebury brothers™ to the north and a pit of eternal doom™ to the south.  There is a sign on the door of the Goosebury Brothers.
+
+> e
+You move east.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> e
+You move east.
+River Bank
+You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or cross to the other side to the east via the ferry.  The ferry man will not allow you across unless you fight him.  Jenkins is here.
+
+> fight jenkins
+The ferry man rises and says, "Arggg! Prepare to die a long death! Arggg!"  The ferry man cuts you with the Schmitar.
+
+> drop sword
+You drop the Sword.  The ferry man cuts you with the Schmitar.
+
+> shoot jenkins with gun
+You shoot the ferry man with the Gun.  The ferry man cuts you with the Schmitar.
+
+> shoot jenkins with gun
+You shoot the ferry man with the Gun.  The ferry man looks at you then says, "I surrender, you win!" He means that you have won and that he will be aloud across to the other side of the river.
+
+> ride ferry
+You hop onto the ferry and the ferry man eagerly rows you across to the other side.
+
+  
+Other Side of the River 
+You are on the other side of the river. You go west via the ferry to the other side of the river or go to the North of East into the depths of a forest. A huge cliff blocks the country to the south.  You are now on the other side of the river.
+
+> e
+You move east.
+Forest 
+A huge cliff is to the south.
+
+> n
+You move north.
+Forest 
+There is nothing of interest here.
+
+> e
+You move east.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> look through arch
+You peer through the arch and see that the palace is surrounded by guards and that they are of supreme training. However a drummer shouts, "Guard Change In One Minute".  
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.  You have one minute (6 goes) before the guard changes.  You must prepare to go through to the palace.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The drummer shouts, "Attention! About Turn! Left! Right!". You rush into the palace.  The guards are too busy to see you sprint past.  
+Inside the Palace
+You are inside the King's Palace. The King's Thrown is up some steps. None of the guards are bothered about you being in here.  There are some jewels here.  The Great + Glorious King is here.  The King's Guards are here.  Nobody seems to mind you being in here! Weird!
+
+> talk king
+You: Er... Sorry to interupt but er... why are you not killing me or something? 
+
+King:Ahhh! Liqid! At last, my dear old friend! I am wanting to ask you a favour! Will you help me?
+
+> yes
+King: An odd way to spell it but it will do... 
+
+Anyway back to the business... 
+
+Recently some marrow smugglers have been detected in this region, I know what your thinking, "Surely with your army he must have caught them!" But I haven't they'd always been one step ahead, so Iv'e decided to hire a spy. Unfortunately no-one I know is into that kind of thing so I sent out my guards to find a townsman. 
+
+They found You! I need you to capture them... Oh! By the way! If you need to go anywhere just use the secret tunnels below you, but I'd be careful I think its quite dark. Oh yes! I have some stuff for you. 
+
+The king gives you a rope.
+
+> s
+You move south.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> e
+You move east.
+Forest 
+There is a clump of mushrooms here.
+
+> n
+You move north.
+Forest 
+A stone wall abriefly stops the forest to the west.
+
+> n
+You move north.
+Forest 
+There is a clump of mushrooms here.
+
+> w
+You move west.
+Forest 
+A stone wall briefly stops the forest to the south. A huge tree is here with a ladder going up it.
+
+> u
+You move up.
+Frad's House
+You are in a tree house.  Frad is here.
+
+> ape
+Ape, thats the first one.
+
+> are
+Thats good.
+
+> ore
+Thats getting close.
+
+> owe
+Almost there!
+
+> owl
+Wahoo! Now i'm an owl! I remember where I put it, I buried it in a cave in the woods. Heres a shovel to help you find it.  
+Frad's House
+You are in a tree house.  Frad is here.  Frad is now an owl!
+
+> d
+You move down.
+Forest 
+A stone wall briefly stops the forest to the south. A huge tree is here with a ladder going up it.
+
+> e
+You move east.
+Forest 
+There is a clump of mushrooms here.
+
+> s
+You move south.
+Forest 
+A stone wall abriefly stops the forest to the west.
+
+> e
+You move east.
+Forest 
+A huge cliff is to the east with a cave in it.
+
+> e
+You move east.
+Cave
+It is very dark.
+
+> dig
+You dig a hole in the ground for a long time, suddenly the ground breaks, making a passage downwards.
+
+> d
+You move down.
+Rabbit Warren
+It is dark!
+
+> show sock to rabbit
+You approach the rabbit with the sock. He cowers into the corner then says, "Keep it away! Away!" You continue to get closer, "Maybe we can do a deal!" You stop and he says, "Many years ago, our warren raided the bank, we wiped out all of them but a receptionist, I even doubt if she still lived. But we managed to torture the number required for the vault out of him, but he as a precaution did not know the other number. You see the vault required 2 numbers and a key. We only knew the second number which is 5764".  
+Rabbit Warren
+It is dark!  The rabbits know leave you alone.
+
+> u
+You move up.
+Cave
+It is very dark.
+
+> w
+You move west.
+Forest 
+A huge cliff is to the east with a cave in it.
+
+> s
+You move south.
+Forest 
+A huge cliff is to the east.
+
+> s
+You move south.
+Forest 
+A huge cliff curves from the north to the west or alternatively from the west to the north.
+
+> w
+You move west.
+Forest 
+A huge cliff is to the south.  
+
+In your house, a long way away, some ants come.  
+
+These ants are hungry and they crawl into your cupboard. They start eating the food. They are of infinite number so they eat all the food. Gutted!
+
+> w
+You move west.
+Forest 
+A huge cliff is to the south.
+
+> rope cliff
+You tie the rope to your waist then lasso it over a convenient (yet entirely coincidental) pillar rock at the top. You can now go up and down the cliff but you will have to de-attach the rope if you want to go far away.  And don't say I didn't warn you when you cant move anywhere!
+
+> u
+You move up.
+Airport
+You are in a airport.   It is very busy and crowded. There are terminals to the South and West.
+
+> rope cliff
+You are now free to move except up the cliff.
+
+> w
+You move west.
+Platform 9 and ¾™
+You are in a airport terminal but it appears almost to be a railway platform. The crowd is less dense here and the annoying announcements are gone.  You can also see a Briefcases.
+
+> get briefcases
+You bend over to take the briefcases when the entire airport is blown to bits by a recently planted terrorist bomb. Unlucky!
+
+  
+Airport
+You are in a airport.  All taht remains of the airport is now rubble. Without the rope you are limited to going south and west.  With a minor concusion and a annoying itch on your back, you have managed to make your way back to the center of the airport.  
+
+A long, long way away a door opens.
+
+> s
+You move south.
+Terminal 7 and a bit
+You are in the terminal seven and a bit.  It is now utter nothing. You can return to the main rubble to the north or go into a security office to the west, the door which was going to stay closed seems to have been blown off. Damn it!  
+
+The figure then moves away.  
+
+> w
+You move west.
+Security Office
+You are in a security office of some kind. There are various pieces of equipment with no obvious purpose, however you can recognise a destroyed video played and a phone.  Also here are A set of Tapes.
+
+> get tapes
+You take A set of Tapes.
+
+> ring 987
+You: Hello?
+King: Liqid! Where are you?
+You:I'm at the Airport
+King: Any trouble?
+Well its just been blown up by some smugglers and I'm stuck here thats all.
+King:Thats bad, do you need collecting?
+You:(sarcasm)No...
+King:Bye bye then!
+You:Wait!
+King:I'll be write over!
+
+30 minutes later...
+
+  
+Inside the Palace
+You are inside the King's Palace. The King's Thrown is up some steps. None of the guards are bothered about you being in here.  There are some jewels here.  The Great + Glorious King is here.  The King's Guards are here.  You are back inside the King's Palace.
+
+> s
+You move south.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> s
+You move south.
+Forest 
+A huge cliff is to the south.
+
+> w
+You move west.
+Forest 
+A huge cliff is to the south.
+
+> w
+You move west.
+Other Side of the River 
+You are on the other side of the river. You go west via the ferry to the other side of the river or go to the North of East into the depths of a forest. A huge cliff blocks the country to the south.
+
+> w
+You move west.
+River Bank
+You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or cross to the other side to the east via the ferry.  You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or go east via the ferry.  You can also see a Sword.  Jenkins the ferry man is here.
+
+> w
+You move west.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> w
+You move west.
+Precinct
+You are in the town's newly installed shopping precinct. There is a blacksmiths to the west, a goosebury brothers™ to the north and a pit of eternal doom™ to the south.  The door into the Goosebury Brothers™ is now open.
+
+> n
+You move north.
+Goosebury Brothers™
+You are in a Goosebury Brothers™ (makers of fine magical equipment) store.  The only thing worth buying here is a tape player. The staff appear not to be around but you can still buy it using the magical order system, just type "buy tape player".
+
+> buy tape player
+You buy the tape player. I don't know why you want it but who cares?
+
+> s
+You move south.
+Precinct
+You are in the town's newly installed shopping precinct. There is a blacksmiths to the west, a goosebury brothers™ to the north and a pit of eternal doom™ to the south.  The door into the Goosebury Brothers™ is now open.
+
+> e
+You move east.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> n
+You move north.
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  There is no sign of the drunk's body.
+
+> e
+You move east.
+Kitchen
+You are in your kitchen, you can see your food stacked cupboard. You can leave the house to the west.
+
+> open cupboard
+You open the Cupboard.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> w
+You move west.
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  There is no sign of the drunk's body.
+
+> s
+You move south.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> e
+You move east.
+River Bank
+You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or cross to the other side to the east via the ferry.  You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or go east via the ferry.  You can also see a Sword.  Jenkins the ferry man is here.
+
+> ride ferry
+You hop onto the ferry and the ferry man eagerly rows you across to the other side.
+
+  
+Other Side of the River 
+You are on the other side of the river. You go west via the ferry to the other side of the river or go to the North of East into the depths of a forest. A huge cliff blocks the country to the south.  You are now on the other side of the river.
+
+> e
+You move east.
+Forest 
+A huge cliff is to the south.
+
+> n
+You move north.
+Forest 
+There is nothing of interest here.
+
+> e
+You move east.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> n
+You move north.
+Inside the Palace
+You are inside the King's Palace. The King's Thrown is up some steps. None of the guards are bothered about you being in here.  There are some jewels here.  The Great + Glorious King is here.  The King's Guards are here.
+
+> give tape king
+You give the tapes to the King. You also give him the player. The King plays the tape, I can't remember the exact words but in the end they decide to blow up the airport after trying to get there marrow back from a security woman. It also tells you that they escaped to the north.
+
+> s
+You move south.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> w
+You move west.
+Forest 
+There is nothing of interest here.
+
+> n
+You move north.
+Forest 
+A stone wall abriefly stops the forest to the east.
+
+> n
+You move north.
+Forest 
+There is a weird kind of plant here. The forest continues in all directions.
+
+> n
+You move north.
+Forest 
+The is nothing of interest here. To the north is the river.
+
+> e
+You move east.
+Forest 
+The is nothing of interest here. To the north is the river which has a bridge going over it.
+
+> n
+You move north.
+On The Bridge
+You are on the bridge going over the river. It lies uniterupted till the sea says the ferry man! Hah! he's wrong! You can return to the forest to the south or go north to what looks like (play music) a Hair Shop!  A growling smuggler stops you going north.  Hamish the evil smuggler is here.  The evil smuggler hits you.
+
+> shoot hamish with gun
+You shoot the evil smuggler with the Gun.  The evil smuggler hits you.
+
+> shoot hamish with gun
+You shoot the evil smuggler with the Gun.  The evil smuggler hits you.
+
+> shoot hamish with gun
+You shoot the evil smuggler with the Gun.  The evil smuggler hits you.
+
+> s
+You move south.
+Forest 
+The is nothing of interest here. To the north is the river which has a bridge going over it.
+
+> w
+You move west.
+Forest 
+The is nothing of interest here. To the north is the river.
+
+> s
+You move south.
+Forest 
+There is a weird kind of plant here. The forest continues in all directions.
+
+> s
+You move south.
+Forest 
+A stone wall abriefly stops the forest to the east.
+
+> s
+You move south.
+Forest 
+There is nothing of interest here.
+
+> s
+You move south.
+Forest 
+A huge cliff is to the south.
+
+> w
+You move west.
+Other Side of the River 
+You are on the other side of the river. You go west via the ferry to the other side of the river or go to the North of East into the depths of a forest. A huge cliff blocks the country to the south.
+
+> w
+You move west.
+River Bank
+You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or cross to the other side to the east via the ferry.  You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or go east via the ferry.  You can also see a Sword.  Jenkins the ferry man is here.
+
+> w
+You move west.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> n
+You move north.
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  There is no sign of the drunk's body.
+
+> e
+You move east.
+Kitchen
+You are in your kitchen, you can see your food stacked cupboard. You can leave the house to the west.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> take food
+You take the food, you feel less hungry now. But you wonder if the food supply will ever run out.
+
+> w
+You move west.
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south to the village square.  There is no sign of the drunk's body.
+
+> s
+You move south.
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your house, to the east the stream, the south the bank and to the west the newly installed ultra modern shopping centre.
+
+> e
+You move east.
+River Bank
+You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or cross to the other side to the east via the ferry.  You are on the west bank of the river which is flowing north to south. It is uninterupted and  there is no bridge but there is a ferry man. You can return to the west or go east via the ferry.  You can also see a Sword.  Jenkins the ferry man is here.
+
+> ride ferry
+You hop onto the ferry and the ferry man eagerly rows you across to the other side.
+
+  
+Other Side of the River 
+You are on the other side of the river. You go west via the ferry to the other side of the river or go to the North of East into the depths of a forest. A huge cliff blocks the country to the south.  You are now on the other side of the river.
+
+> e
+You move east.
+Forest 
+A huge cliff is to the south.
+
+> n
+You move north.
+Forest 
+There is nothing of interest here.
+
+> n
+You move north.
+Forest 
+A stone wall abriefly stops the forest to the east.
+
+> n
+You move north.
+Forest 
+There is a weird kind of plant here. The forest continues in all directions.
+
+> n
+You move north.
+Forest 
+The is nothing of interest here. To the north is the river.
+
+> e
+You move east.
+Forest 
+The is nothing of interest here. To the north is the river which has a bridge going over it.
+
+> n
+You move north.
+On The Bridge
+You are on the bridge going over the river. It lies uniterupted till the sea says the ferry man! Hah! he's wrong! You can return to the forest to the south or go north to what looks like (play music) a Hair Shop!  A growling smuggler stops you going north.  Hamish the evil smuggler is here.  The evil smuggler hits you.
+
+> shoot hamish with gun
+You shoot the evil smuggler with the Gun.  The smuggler dies, as he does so he says 
+"My death... It is just a minor set back... I shall return! Then and then, will my plan be complete! Ha ha ha ha ha ha ha!" 
+He stays on the ground with blood smeared over his face.  
+On The Bridge
+You are on the bridge going over the river. It lies uniterupted till the sea says the ferry man! Hah! he's wrong! You can return to the forest to the south or go north to what looks like (play music) a Hair Shop!  The smuggler lies on the ground with blood smeared over his face.  Hamish the evil smuggler is here.  You need to get to the hair shop!
+
+> n
+You move north.
+Hair Shop
+You are in a hair shop.  You can buy some hair if you want to.
+
+> buy hair
+You buy the hair, expensive but a triumph for the game. You put on the hair! It feels great! All you need to do now is go to the king.
+
+> s
+You move south.
+On The Bridge
+You are on the bridge going over the river. It lies uniterupted till the sea says the ferry man! Hah! he's wrong! You can return to the forest to the south or go north to what looks like (play music) a Hair Shop!  The smuggler lies on the ground with blood smeared over his face.
+
+> s
+You move south.
+Forest 
+The is nothing of interest here. To the north is the river which has a bridge going over it.
+
+> w
+You move west.
+Forest 
+The is nothing of interest here. To the north is the river.
+
+> s
+You move south.
+Forest 
+There is a weird kind of plant here. The forest continues in all directions.
+
+> s
+You move south.
+Forest 
+A stone wall abriefly stops the forest to the east.
+
+> s
+You move south.
+Forest 
+There is nothing of interest here.
+
+> e
+You move east.
+Forest 
+There is a huge palace to the North, a arch in the huge stone wall to the North gives you passage.
+
+> n
+You move north.
+Inside the Palace
+You are inside the King's Palace. The King's Thrown is up some steps. None of the guards are bothered about you being in here.  There are some jewels here.  The Great + Glorious King is here.  The King's Guards are here.
+
+> talk king
+You show off to the king your new hair who says, "Liqid, I thank you for your services. May you live long and prosper," he continues, "I hope I will always remember your services and I hope you never have to see another marrow".  Well thats it! Theres no more! I hope you liked it!
+Please email me with any comments.
+If you didn't like it then please don't hesitate to get lost!
+Any way the sequel, AMU Part 2: The Curse of the Zog Marrow will be here soon, but in the mean time relax, stay cool, enjoy!
+In case your wondering what AMU is it is a division of the Anti Marrow Society located at www.antimarrow.tripod.com please visit it.
+Also email me if you want to get my clothes system.
+
+Relax, Stay Cool, Enjoy!
+Be evil, be cool, be [RAO]
+Matt, Dark Baron
+You scored 95 out of the maximum 100!
+That is 95% of the game!
+You finished 5 points short.
+
+[Press any key to end]

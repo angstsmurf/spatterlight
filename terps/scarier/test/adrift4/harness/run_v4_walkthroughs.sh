@@ -1998,7 +1998,17 @@ sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # ("The wind on your wet body makes you shiver"), as in
 # runner_transcripts/cursed.txt:976-983.  The route waits two turns first.
 # Identical to the Runner on every turn; still ends at 93 of 101 points.
-cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
+# Raised 2026-09-26 to 95/101, the fox ceiling.  `w`, `x tapestries`, `e` right
+# after the throne room (+1, task 447), and one `z` fewer before
+# `hide under cart` so the cart is still there.  `ask king about gaxin` replaces
+# the first interlude filler (+1, task 1014; needs no question pending and
+# kings_state 0).  The other 6 points are out of reach for the fox:
+# - clothes line (+2): the Dock and the barrels are rat-only ("in your
+#   current state");
+# - escaping the darkness (+2): the rat/snake Part Three start, room 174;
+# - asking about Alsanter/Sulanar (+1 +1, tasks 1015/1016): nothing calls
+#   either task, so the points are dead.
+cursed_solution.txt|cursed.taf|You achieved a score of 95 out of a possible|SCR_SKIP_WAITKEY=1
 # 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
 # 2026-09-07, re-blessed: it does not.  run400 (Adrift_273_easter.txt:304-308)
 # prints NOTHING between the winning `show basket to shopkeeper` and the
@@ -3898,7 +3908,26 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # 131/132 echoed (the lost one is the final `hide`, which a .rtf never
 # holds), no differing turns, draws 6 = 6.  Seed 212 dies in the chase at
 # `turn on radio` identically on both sides.
-great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!|SCR_SEED=2
+# Raised 2026-09-26 from 1460 to 1480/1860, the winning ceiling.  The +5
+# pickup tasks 0/2/39 (`take stun-gun`/`take wallet`/`take t-shirt`) never
+# match a typed `take` (3.80 take->get rewrite), so the route types their
+# `pick up X` alternatives; the following `get X` still does the moving.
+# `eat bar` (+5) follows `give chocolate to mrs walters`, which leaves the
+# bar in the inventory.  The dead `search coat` in the bedroom is gone:
+# task 14 needs Julie's coat in room 8 and her walks never leave the living
+# room.  The other 380: `drink vintage` (task 36, where=0, no room), `drink
+# mouthwash` (+50, a death EndGame), and the three +100 alternative endings
+# (pay Matthews 43, showroom drive 47, `turn right` 53 + railway drive 69),
+# each worth less than the radio/fence/hide tail.  Marker is the score line.
+# run380x seed 2 (Adrift_304_great_escape_rt.rtf) agrees on every turn and
+# on the 1380 `score` but two: turn 20's "is" for a three-item list (our
+# grammar) and turn 15, where run380 PRINTS task 39's restriction-2 fail
+# "You can't do that yet." yet still runs it (+5 counted, the shirt never
+# again listed in the bedroom).  Likeliest reading, unprobed: the Runner
+# matches the task a second time through ALTCMD `pick up t shirt`, the shirt
+# is no longer in room 9, and that fail text replaces the completion text.
+# A Runner text accident; Scarier keeps the completion text (deliberate).
+great_escape_solution.txt|great.taf|You scored 1480 out of the maximum 1860!|SCR_SEED=2
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
@@ -9749,11 +9778,21 @@ doa_xbs_solution.txt|DOA_X_B_S.taf|You scored 10 out of the maximum 10!|
 # medallion, not a second room on the same run.  One medallion is enough
 # to increment VAR d and fire the EndGame.
 silvermaiden_solution.txt|The Silver Maiden.taf|You cast your ultimate spell at Velle.|
-# Inside Job (3.90).  Solution: the author's 14 hinted tasks, taking the
-# media-player shortcut (`play nplh`) that fires the type=6 EndGame.  The
-# scream-awake ending is intentional; scoring is not the point (590 of
-# 14198).  No waitkeys on the intro.
-insidejob_solution.txt|insidejob.taf|You scored 590 out of the maximum 14198!|
+# Inside Job (3.90).  Solution: every scoring task that doesn't end the
+# game, then the right song (`play nplh`, +500) fires the type=6 EndGame.
+# The scream-awake ending is intentional; the game itself says scoring is
+# not the point.  614 of 14198 is the most a winning game can score
+# (re-derived 2026-09-26; the old 7-command shortcut scored 590):
+# 13584 of the declared maximum is task 21 `select pinball`, which kills
+# you (EndGame v1=2), so 14198 would need both endings.  The small
+# tasks: My Computer (+5), Control Panel (+5), `close` (+1),
+# accessories (+5), `search for *` (+1), `read document` (+2) after
+# `press documents`, and the wrong songs JB/HB (+1 each) and MLL (+3),
+# each of which drops you back on the desktop; `press start menu` and
+# `click on media player` bring you back to the library.  Scores are
+# awarded once per task, so nothing can be farmed.  No waitkeys on the
+# intro.
+insidejob_solution.txt|insidejob.taf|You scored 614 out of the maximum 14198!|
 # The Doomed World of Aquarius, Part 1 (3.90).  Solution: `goodbye` to clear
 # Malcor, `secretweapon97531` (author cheat, raises weapon stats) straight
 # away so every fight is a first-swing kill: first ogre (T1) and eat its meat
@@ -9792,9 +9831,12 @@ makeshift_solution.txt|makeshift-magician.taf|your magic career is probably over
 # The Doomed World of Aquarius, Part 2 (3.90).  Solution: politeness
 # (farewell/goodbye), jump, push rock, push button, then cheat code
 # 0987654321 for the secret weapon and attack through the void fights.
-# `no` then `attack malcor` is the type=6 win (195/200; the missing 5 is
-# an unused plant/potion bonus).  No waitkeys on the intro.
-aquarius2_solution.txt|AquariusPart2Ver1.taf|You scored 195 out of the maximum 200!|
+# `no` then `attack malcor` is the type=6 win, 200/200.  `take plant`
+# before `eat plant` (+5, task 1, needs the plant held) was the missing 5;
+# the old route ate it straight off the floor ("You can't eat Edible
+# Plant.") and stopped at 195 (re-derived 2026-09-26).  Scores are awarded
+# once, so the cave monster's plant is left alone.  No waitkeys on the intro.
+aquarius2_solution.txt|AquariusPart2Ver1.taf|You scored 200 out of the maximum 200!|
 # The Adventures of Space Boy! Volume II (4.00).  Chapter-end win: fountain
 # coins, casino tray, fourteen `play slots` under the harness xoshiro seed
 # until the jackpot ALR, wait one turn so event #move winnings fires, collect
@@ -10560,6 +10602,16 @@ illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of
 # blow ever lands, and the numbers behind them (the Doctor 40 stamina/35
 # strength/20 defence against the player's 10/8/8) say the player loses the
 # moment they do.  That is a game that needs rebalancing, not a data fix.
+# Driven through run400 on the patched file 2026-09-26: the patch works there
+# too -- "attack dr myanus hurts" now gets "What do you want to attack Dr
+# Myanus Hurts with?" -- but no phrasing of the weapon reaches the swing (full
+# name, alias, answering that prompt, or dropping the Cool Sword first all end
+# in "I don't understand what you want to do with Dr Myanus Hurts." or an
+# unanswerable "Which Sword."), because neither sword is in the player's scope:
+# `status` says "You are wielding nothing" and `x awesome sword` says "You see
+# no such thing" in both engines.  Scarier disambiguates and swings anyway, so
+# the marker below is Scarier-only text -- a scope lead, not a patch defect
+# (runner_transcripts/README.md, "Patched rows").
 illegalsocks_patched_solution.txt|illegalsocks.taf|The Great Doctor manages to avoid your attack with Awesome Sword|SCR_ASSUME_PATCHES=1
 # ebonysworld.taf (Ebony's World): content-reviewed fantasy/comic adventure,
 # no sexual content, no minors. UNWINNABLE -- confirmed via SCR_TRACE_VARS=all:

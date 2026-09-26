@@ -1,0 +1,16 @@
+feed        44 commands
+runner      44 turns echoed
+scarier     44 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  examine bookshelf
+  run400   On your bookshelf is the math book, the philosophy book, the C++ book and the literature book.
+  scarier  On your bookshelf are the math book, the philosophy book, the C++ book and the literature book.
+
+turn 10  look in steve's dresser
+  run400   An inaccurate clock rests atop Steve's dresser, claiming the time is currently 0:00 - military time. The top drawer is locked but you've never seen Steve with a key - not that you would ever look through his stuff. Steve's dresser is open. Steve's alarm clock is on Steve's dresser, and inside is the gold key and the silver key.
+  scarier  An inaccurate clock rests atop Steve's dresser, claiming the time is currently 0:00 - military time. The top drawer is locked but you've never seen Steve with a key - not that you would ever look through his stuff. Steve's dresser is open. Steve's alarm clock is on Steve's dresser, and inside are the gold key and the silver key.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)
