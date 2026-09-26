@@ -1,3 +1,5 @@
+take bath
+touch leper
 w
 drink water
 e
@@ -8,6 +10,5 @@ move idol
 in
 take sapphire
 n
+score
 stab valludu
-quit
-y

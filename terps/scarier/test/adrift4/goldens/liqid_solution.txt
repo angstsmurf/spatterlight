@@ -1,5 +1,7 @@
 stand
 look under bed
+open dresser
+get socks
 s
 w
 attack drunk
@@ -18,12 +20,7 @@ w
 ring bell
 wait
 wait
-buy armour
-buy spear
-buy gun
 buy blaster
-get spear
-get gun
 get blaster
 e
 e
@@ -32,5 +29,39 @@ fight jenkins
 drop sword
 shoot jenkins with blaster
 ride ferry
-look
+e
+n
+e
+look through arch
+wait
+wait
+talk king
+yes
+s
+e
+n
+n
+w
+u
+ape
+are
+ore
+owe
+owl
+d
+e
+s
+e
+e
+dig
+d
+show sock to rabbit
+u
+w
+s
+s
+w
+w
+rope cliff
+u
 score

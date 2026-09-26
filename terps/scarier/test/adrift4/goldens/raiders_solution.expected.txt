@@ -7,19 +7,26 @@ You are at the base of a large ship. Men are working nearby to complete the
 caulking of the hull. There are piles of food nearby on a straw mat. The ship
 is almost ready to depart!  You can move north, south and west.
 
+> take bath
+ahhhhh that feels better!  You manage to avoid Priest 's attack.  You manage
+to avoid Leper's attack.
+
+> touch leper
+you are a leper! you cannot get rid of the disease, because there is no
+medicine here.  You manage to avoid Priest 's attack.  You manage to avoid
+Leper's attack.
+
 > w
 You move west.
 
 Pile of food
 A great deal of food is spread out on a large straw mat.  Also here is a
 pork, a water, a urn, a ale, a wine, a grapes and a bread.  You can only move
-east.  You manage to avoid Priest 's attack.  You manage to avoid Leper's
-attack.
+east.
 
 > drink water
-You obtain superstrength.  You manage to avoid Priest 's attack.  You manage
-to avoid Leper's attack.  YOu are extremely strong. No one can hurt you right
-now!
+You obtain superstrength.  YOu are extremely strong. No one can hurt you
+right now!
 
 > e
 You move east.
@@ -27,8 +34,9 @@ You move east.
 Large Loaded ship
 You are at the base of a large ship. Men are working nearby to complete the
 caulking of the hull. There are piles of food nearby on a straw mat. The ship
-is almost ready to depart!  You have great bulging muscles.  You can move
-north, south and west.
+is almost ready to depart!  Leper is here.  hungry  You have great bulging
+muscles.  You can move north, south and west.  You manage to avoid Priest 's
+attack.  You manage to avoid Leper's attack.
 
 > s
 You move south.
@@ -44,8 +52,8 @@ You move north.
 
 Shore
 You are on a shore somewhere else on the British Isles.   Also here is a
-Wishing stone.  Native guide is here.  You can move north, east, south and
-west.
+Wishing stone.  Native guide is here.  You have great bulging muscles.  You
+can move north, east, south and west.
 
 > e
 You move east.
@@ -72,13 +80,16 @@ You move north.
 
 Thicket
 This area is so overgrown you cannot walk.   Valludu is here.  You can only
-move south.
+move south.  You manage to avoid Valludu's attack.
+
+> score
+Your score is 100 out of a maximum of 100.  (100%)
 
 > stab valludu
 You are real brave, buddy!
 Hurray you have beat the evil monster valludu. You have won the game!
-You scored 0 out of the maximum 100!
-That is 0% of the game!
-You finished 100 points short.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

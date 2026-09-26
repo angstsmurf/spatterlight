@@ -22,6 +22,206 @@ sentenced to death. In the corner there is a statue just big enough for you
 to hide behind.There are doors leading north, north east, east, south and
 west.
 
+> look at someone
+You look at the person hiding behind the statue and you see that it is your
+partner in crime who was also sentenced to a life in the dungeons. He must
+have escaped aswell.
+
+> ne
+You move northeast.
+
+Store room
+You look around and notice that you are in a large store room. The store room
+is cluttered with jousting sticks and armour. In the corner there is a
+cabinet.
+
+> open cabinet
+You open Medium sized cabinet.  Tiny key and Large Key are inside Medium
+sized cabinet.
+
+> get tiny key
+You take Tiny key from Medium sized cabinet.
+
+> get large key
+You take Large Key from Medium sized cabinet.
+
+> sw
+You move southwest.
+
+Hallway
+You are in a busy hallway. If anyone sees you here you will immediately be
+sentenced to death. In the corner there is a statue just big enough for you
+to hide behind.There are doors leading north, north east, east, south and
+west.
+
+> e
+You move east.
+
+East wing
+When you go east you find yourself in the East wing which is where the King's
+special visitors sleep. If you don't get a move on you will be caught and,
+well, you know what will happen. In the eastern corner there is a door.
+
+> e
+You move east.
+
+Side room
+You go north and find yourself in a small side room. You aren't sure what the
+purpose of this room is, but you can see a chair in the eastern corner and a
+table at the opposite side of the room.
+
+> x table
+It is a table with various things scattered on it. A crowbar lies on it
+looking very out of place.  A Crowbar is on the Table.
+
+> get crowbar
+You take the Crowbar from the Table.
+
+> w
+You move west.
+
+East wing
+When you go east you find yourself in the East wing which is where the King's
+special visitors sleep. If you don't get a move on you will be caught and,
+well, you know what will happen. In the eastern corner there is a door.
+
+> w
+You move west.
+
+Hallway
+You are in a busy hallway. If anyone sees you here you will immediately be
+sentenced to death. In the corner there is a statue just big enough for you
+to hide behind.There are doors leading north, north east, east, south and
+west.
+
+> w
+You move west.
+
+Grand court room
+You look around and see a throne in the center of the room, placed beside the
+throne are several chairs for important relations of the king. The chairs are
+currently empty but you can just see someone crouched behind the throne,
+maybe you should get a closer look. You may go west.
+
+> w
+You move west.
+
+West wing
+When you go through the door you are lead to the West wing which is where the
+Prince and Princess sleep, you see a large cupboard in the corner. If you get
+caught here you will most certainly be sentenced to death.
+
+> drop tiny key
+You drop Tiny key.
+
+> open cupboard
+The cupboard is locked!
+
+> unlock cupboard
+You unlock the cupboard and a large figure topples out.
+
+> e
+You move east.
+
+Grand court room
+You look around and see a throne in the center of the room, placed beside the
+throne are several chairs for important relations of the king. The chairs are
+currently empty but you can just see someone crouched behind the throne,
+maybe you should get a closer look. You may go west.
+
+> e
+You move east.
+
+Hallway
+You are in a busy hallway. If anyone sees you here you will immediately be
+sentenced to death. In the corner there is a statue just big enough for you
+to hide behind.There are doors leading north, north east, east, south and
+west.
+
+> n
+You move north.
+
+Courtyard
+You look around and see a cluster of trees to the west, and a trapdoor below
+you that is emmitting a terrible smell. The trees are so high that you could
+probably see the whole kingdom if you climbed them.
+
+> open trapdoor
+You open the trapdoor and you are led to a sewerage pipe.
+
+> d
+You move down.
+
+Sewerage pipe
+It is dark and smelly in here, when you take a step, your feet slip on
+whatever that substance is on the floor. You fall down and see someone lying
+on the floor in front of you. It is another one of your group members.
+
+> u
+You move up.
+
+Courtyard
+You look around and see a cluster of trees to the west, and a trapdoor below
+you that is emmitting a terrible smell. The trees are so high that you could
+probably see the whole kingdom if you climbed them.
+
+> e
+You move east.
+
+Training Area
+This must be the place where the knights train for their battles. To your
+east is a storage shed. Around you, the kights are too busy training to
+notice you, this is lucky because if they saw you...
+
+> e
+You move east.
+
+Storage tent
+This is where the knights keep their armour and weapons, it is bigger in here
+than it appeared outside. There is a flap leading to the north.
+
+> n
+You move north.
+
+Storage tent 2
+This shed is much the same as the last, except there is someone crouched in
+the corner.
+
+> look at person crouched in corner
+It is one of your group members.
+
+> s
+You move south.
+
+Storage tent
+This is where the knights keep their armour and weapons, it is bigger in here
+than it appeared outside. There is a flap leading to the north.
+
+> w
+You move west.
+
+Training Area
+This must be the place where the knights train for their battles. To your
+east is a storage shed. Around you, the kights are too busy training to
+notice you, this is lucky because if they saw you...
+
+> w
+You move west.
+
+Courtyard
+You look around and see a cluster of trees to the west, and a trapdoor below
+you that is emmitting a terrible smell. The trees are so high that you could
+probably see the whole kingdom if you climbed them.
+
+> s
+You move south.
+
+Hallway
+You are in a busy hallway. If anyone sees you here you will immediately be
+sentenced to death. In the corner there is a statue just big enough for you
+to hide behind.There are doors leading north, north east, east, south and
+west.
+
 > s
 You move south.
 
@@ -30,12 +230,15 @@ On the round table are some mugs that probably shouldn't have been left
 there. Inside the mugs is some sweet smelling liquid that makes you quite
 thirsty. You see a hole in the roof.  Also here is a Mugs.
 
+> score
+Your score is 4 out of a maximum of 5.  (80%)
+
 > climb through hole
 You climb through the hole and find yourself in a secret room. Your last
 companion is in here.
 
-You scored 1 out of the maximum 5!
-That is 20% of the game!
-You finished 4 points short.
+You scored 5 out of the maximum 5!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

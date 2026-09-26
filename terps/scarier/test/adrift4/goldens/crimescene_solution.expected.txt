@@ -15,6 +15,30 @@ blood on it.There's a desk in the corner of the room.Inspector Jameson is
 looking through a box.To the East is the kitchen and to the West is the
 bedroom.  Inspector is here.
 
+> search body
+You look through the body's pockets and pull out a gun.
+
+> use magnifying glass on gun
+You examine the gun closely and find a small piece of hair on it...
+
+> examine blood
+The blood has dried out
+
+> take blood
+You pull a plastic bag out of your jacket and scoop up some of the blood.
+
+> look at window
+You look at the window and pull a piece of wood from a glass shard...
+
+> look under body
+Nothing under the body except shards of glass...
+
+> look at table
+There's some dry blood on it
+
+> score
+Your score is 28 out of a maximum of 80.  (35%)
+
 > east
 You move east.
 
@@ -25,6 +49,16 @@ cupboards are open and empty. Dr.Sam Williams is examining the kitchen table.
 
 > look under table
 You duck under the table and find a piece of paper taped underneath it.
+
+> show wood to sam
+"Let's see.This wood probaly came from a baseball bat or some type of
+paddle."
+
+> show hair to sam
+"I'll take this back to the lab and do some tests on it."
+
+> score
+Your score is 48 out of a maximum of 80.  (60%)
 
 > west
 You move west.
@@ -63,12 +97,15 @@ You open the desk and pull out a folder.
 You open the folder and pull out two things from inside, a pile of money and
 a letter
 
+> score
+Your score is 63 out of a maximum of 80.  (78%)
+
 > give evidence to inspector
 "Great work detective. I think we can arrest this Trent fellow."  With all
 the evidence,you're able to prove to the jury that Trent smashed the window
 to the apartment,then shot from outside and hit the sleeping Jimmy.Good job!
-You scored 35 out of the maximum 80!
-That is 43% of the game!
-You finished 45 points short.
+You scored 78 out of the maximum 80!
+That is 97% of the game!
+You finished 2 points short.
 
 [Press any key to end]

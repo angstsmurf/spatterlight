@@ -367,3 +367,7 @@
 /goldens/christmaspresent_solution.txt
 /goldens/christmaspresent_solution.expected.txt
 /runner_transcripts/**/christmaspresent.*
+
+# Here Today Gone to Hell (AIF): explicit text, deliberately not committed.
+/goldens/heretoday_solution.txt
+/goldens/heretoday_solution.expected.txt

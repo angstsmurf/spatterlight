@@ -82,8 +82,108 @@ to your west and a dense forest of pine trees in all other directions.
 your survival gear and then use your radio to contact Search and Rescue.  The
 sooner they get the rescue birds turning, the sooner you'll be out of here.
 
+> north
+You move north.
+
+Northern Pine Forest
+The northern area of the forest begins to thin out dramtically.  The terrain
+begins to get steeper the farther you go.  Numerous rocks and boulders sit in
+large piles like small mountains.
+
+As you survey your surroundings you begin to hear noises.  You focus and
+start to pick out rattling sounds, metallic clanking like equipment on the
+move.  Then you hear the voices, shouting, foriegn words.  There must be an
+enemy patrol moving close by but it's difficult to tell which direction it's
+coming from, the trees and rocks make it sound as if they're all around you.
+
+> in
+        You run towards the large rocks and wedge yourself into the crevice.
+        As you force yourself deeper into the crevice the sounds get louder.
+You freeze, holding your breath, not even blinking.  Men start walking past
+your hiding place, enemy soldiers.  As they file past you pray that none of
+them notice the crevice,  you're in the shadows but all it would take is a
+closer look by a thorough examineer.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+        You watch silently as the patrol of atleast two dozen passes by,
+heading in the general direction of the crash site.  It feels as though an
+hour has passed, but after a several minutes the patrol has passed and the
+noises fade away.  You allow yourself a deep breath but wait several minutes
+more to ensure they get a good distance away as well as to regain your
+composure.  You have one thing to your advantage, you think to yourself,  The
+enemy has superior numbers but they're noisy and undisciplined in the field.
+
+> out
+You move out.
+
+Northern Pine Forest
+        The northern area of the forest begins to thin out dramtically.  The
+terrain starts to get steeper the farther you go and numerous rocks and
+boulders sit in large clusters and piles that you must move around or over.
+Through the trees and foliage you can make out a large mountain range to the
+west and the crest of a low ridgeline well north of your position.  Directly
+to the north you can see the begining of a small trail snaking up the
+ridgeline.  The forest surrounds you in every other direction and the crash
+site is to the south.
+
 > east
 You move east.
+
+North-Eastern Pine Forest
+The north-eastern area of the forest is less dense with foliage as it
+encroaches on the mountainside.  Many  trees appear to have fallen down and
+are laying in piles on either side of a man made path through the woods.  The
+path leads north and south, and looks recently used with small plants and
+shrubs crushed flat against the ground.  There is a smell in the air you
+can't quite identify, it's almost as if someone were cooking over a fire.  As
+you concentrate and focus your senses you can hear talking and occasional
+laughter.  There is also a continuous humming sound, like machinery running.
+Through the trees and foliage you can make out a small ridgeline rising into
+the air well to the north.    The forest surrounds you in every other
+direction and the crash site is to the south-west.
+
+> in
+        You pick a large pile of fallen trees on the edge of the trail and
+clamber between a small gap made by two large trunks.  Its cramped and damp
+under the rotting logs and branches but it blends well with your camoflauge.
+Between the gaps in the logs you can see the forest all around you while
+remaining completely hidden.  As you squirm around inside the shelter created
+by the pile of trees you peer through the  gaps between branches.  As you
+look north your heart skips a beat.  Down the path created by the fallen
+trees you see men moving around in a small clearing, but it's not the men
+that your eyes are glued to.  Amidst the commotion sit's a large green tank.
+This is not just any tank though, where a turret and cannon would usually sit
+rests a large radar array and multiple rail launched missles.  You examine
+your memory, what you are looking at is an SA-13 SAM system mounted on an
+MTL-B chasis, a lethal surface to air weapon system simply refered to with
+the NATO designator "Gopher".
+
+> out
+You move out.
+
+North-Eastern Pine Forest
+        The north-eastern area of the forest is less dense with vegetation as
+it encroaches on the mountainside.  Many large piles of trees lay on either
+side of a wide man made path.  The path leads north where the SAM site is
+located and south throught the forest.  Past the SAM site, through the trees
+and foliage, you can make out a low ridgeline rising into the skyline well to
+the north.  The forest surrounds you in every other direction and the crash
+site is to the south-west.
+        You start to see rays of sunlight piercing the thick gray clouds.
+The overcast sky seems to be clearing up slightly with the occasional hint of
+blue skies between breaks in the dark veil.  You're not sure but you think
+you just heard the low roar of an aircraft engine but it disappears and
+you're not  really sure it was ever there.
+        You hear the sound again.  This time there is no doubt, there is an
+aircraft near your position but you can't see anything yet.
+
+> south
+You move south.
 
 Eastern Pine Forest
         The eastern half of the forest is dense with large trees and
@@ -103,6 +203,15 @@ artillery bombardment.  There isn't a tree left standing over ten feet and
 large rocks look as though they simply shattered.  The ground is covered in a
 thick deposit of black and gray ash and small bit's of debris are strewn
 everywhere.
+        The drone of the approaching aircraft is getting louder as the
+seconds pass.  Then you see it, a small reconnaissance aircraft skimming the
+bottom of the broken cloud layer.  You frantically dig for your pen flare
+wasting valuable time when you drop a flare cartridge on the ground.
+Suddenly a loud blast erupts from the northern end of the valley.  You watch
+in horror as a missle streaks up from the valley floor and races towards the
+friendly aircraft.  Luckily the pilot skillfully dodges the threat while
+deploying decoy flares to confuse the missile.  The SAM arcs aimlessly into
+the sky with out a target and disappears into the clouds.
 
 > south
 You move south.
@@ -116,10 +225,11 @@ and exposed roots jutting from the blackened landscape.  There are bit's of
 equipment and debris scattered around, possibly weapons, or gear, maybe an
 old tent.  The pieces of debris are unidentifiable.  The only object that
 appears to not be completely obliterated is the hulk of a large truck.
-
-        A single shot suddenly rings out, echoing across the valley.  You
-hear a loud snap as a bullet slices through the air dangerously close to you.
- It must be sniper, but luckily not a very good one.
+        The reconnaissance aircraft doesn't attempt to make another pass
+through the valley.  It aggressively pulls up into the clouds and disappears
+and the low roar turn into a hum and then disappears all together.  Just as
+abruptly the clouds begin to thicken and gradually blanket the valley once
+more.
 
 > in
 You move in.
@@ -165,13 +275,6 @@ South-West Lake Shore
 400 yards in length.  The water does not appear to be very deep or very
 clean.  The shore extends to the north to a large hill.  To the west is the
 forest and to the south east is a small marsh.
-        You start to see rays of sunlight piercing the thick gray clouds.
-The overcast sky seems to be clearing up slightly with the occasional hint of
-blue skies between breaks in the dark veil.  You're not sure but you think
-you just heard the low roar of an aircraft engine but it disappears and
-you're not  really sure it was ever there.
-        You hear the sound again.  This time there is no doubt, there is an
-aircraft near your position but you can't see anything yet.
 
 > north
 You move north.
@@ -185,17 +288,12 @@ the lake, is a small village.  An old wooden boat is sitting on the ground
 where it had previously been concealed.  Small clumps bushes and shrubs line
 the edge of the forest.
 
+> move bushes
+        You move the dead bushes out of the way to reveal an old wooden boat.
+ A local villager must have hidden it there.
+
 > take boat
 You take the old boat.
-        The drone of the approaching aircraft is getting louder as the
-seconds pass.  Then you see it, a small reconnaissance aircraft skimming the
-bottom of the broken cloud layer.  You frantically dig for your pen flare
-wasting valuable time when you drop a flare cartridge on the ground.
-Suddenly a loud blast erupts from the northern end of the valley.  You watch
-in horror as a missle streaks up from the valley floor and races towards the
-friendly aircraft.  Luckily the pilot skillfully dodges the threat while
-deploying decoy flares to confuse the missile.  The SAM arcs aimlessly into
-the sky with out a target and disappears into the clouds.
 
 > south
 You move south.
@@ -205,11 +303,6 @@ South-West Lake Shore
 400 yards in length.  The water does not appear to be very deep or very
 clean.  The shore extends to the north to a large hill.  To the west is the
 forest and to the south east is a small marsh.
-        The reconnaissance aircraft doesn't attempt to make another pass
-through the valley.  It aggressively pulls up into the clouds and disappears
-and the low roar turn into a hum and then disappears all together.  Just as
-abruptly the clouds begin to thicken and gradually blanket the valley once
-more.
 
 > southeast
 You move southeast.
@@ -220,6 +313,9 @@ the lake.  The water is murky and the bottom is covered in thick mud.  Reeds
 and other vegetation are growing up out of the water in large green clumps.
 The water appears to get deeper as it merges with a swamp to the east.  To
 the north west lies the lake shore.
+
+> take high caliber bullet
+        You take the bullet from the mud.
 
 > drop boat
 You drop the old boat.
@@ -255,17 +351,14 @@ You then turn the knife in the wound and quickly pull it out allowing
 torrents of blood to spurt and drain from the gaping hole in his throat.  The
 life drains from him before your very eyes and he crumples to the ground in a
 rapidly expanding pool of blood.  You wipe your knife off on his dirty
-fatigues and place it back in your vest.
+fatigues and place it back in your vest.          Another rifle shot pierces
+the air.  This time the round impacts in the ground near you sending up a
+geyser of dirt.  If the sniper keeps it up hes going to get lucky eventually.
+ You had better find a way to deal with him.
 
-> x soldier
-        It's the body of the soldier who's throat you slit.  His eyes are
-still wide open in shock.  The ragged wound in his throat slowly drips
-rivulets of blood.  You quickly pat down his filthy uniform for anything
-useful.    There is a single large caliber bullet in one of the gaurds
-pockets.
-
-> take bullet
-You take the bullet from dead soldier.
+> take dead soldier
+        You pick the corpse up but it is incredibly heavy and you just don't
+have the energy to drag around a dead body.
 
 > in
 You move in.
@@ -284,6 +377,13 @@ underneath
 
 > take sniper rifle
         You pull the sniper rifle out of the pile of hay.
+
+> take documents
+        You take the documents off the table and put them in your flight
+suit.
+
+> take maps
+        You take the maps off the table and put them in your flight suit.
 
 > load sniper rifle
         You insert the bullet into the chamber of the sniper rifle.
@@ -310,10 +410,7 @@ clearing.  Also here is an old boat.
 You sit down on the old boat.
 
 > west
-        You slowly paddle you way back to the marsh.                  Another
-rifle shot pierces the air.  This time the round impacts in the ground near
-you sending up a geyser of dirt.  If the sniper keeps it up hes going to get
-lucky eventually.  You had better find a way to deal with him.
+        You slowly paddle you way back to the marsh.
 
 > northwest
 (Getting off the old boat first)
@@ -423,14 +520,12 @@ You move southwest.
 Narrow Mountain Pass
         You're on a narrow mountain pass literally carved into the terrain.
 On one side is the steep face of the mountain and on the other side a sheer
-cliff dropping down to the valley below.     As you look below  your heart
-skips a beat.  In a small clearing you see men moving around, but it's not
-the men that your eyes are glued to.  Amidst the commotion sit's a large
-green tank.  This is not just any tank though, where a turret and cannon
-would usually sit rests a large radar array and multiple rail launched
-missles.  You examine your memory, what you are looking at is an SA-13 SAM
-system mounted on an MTL-B chasis, a lethal surface to air weapon system
-simply refered to with the NATO designator "Gopher".
+cliff dropping down to the valley below.   Looking down you can see the small
+clearing hiding the SAM site.  The SA-13 "gopher" is sitting in the middle of
+the site with a few tents scattered  around the edges of the tree line.  You
+have an excellent line of sight from here and the enemysoldiers below seems
+unaware of your presence.  The trail back down the mountain lies to the south
+west and the ridge lies further up the the pass to the north east.
 
 > fire rpg at SA-13
         You've never handled an RPG before but when you heft it up on your
@@ -516,8 +611,8 @@ feel a lump form in your throat and a chill shoots up your spine as the beast
 breaks contact with the earth and pounds it's way into the air.  After that,
 the aircraft settles into a rythmic shuffle and as the plane rocks you, the
 drone of the engines sing you into a deep sleep.
-You scored 140 out of the maximum 260!
-That is 53% of the game!
-You finished 120 points short.
+You scored 215 out of the maximum 260!
+That is 82% of the game!
+You finished 45 points short.
 
 [Press any key to end]

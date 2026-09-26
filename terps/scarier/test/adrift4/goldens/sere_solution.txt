@@ -1,5 +1,13 @@
 1
+north
+in
+wait
+wait
+out
 east
+in
+out
+south
 south
 south
 in
@@ -8,19 +16,22 @@ out
 north
 east
 north
+move bushes
 take boat
 south
 southeast
+take high caliber bullet
 drop boat
 sit in boat
 e
 n
 stab soldier
-x soldier
-take bullet
+take dead soldier
 in
 ex hay
 take sniper rifle
+take documents
+take maps
 load sniper rifle
 out
 south

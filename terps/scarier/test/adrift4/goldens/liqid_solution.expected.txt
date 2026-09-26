@@ -24,6 +24,12 @@ You stand up from the Bed.
 You look under your bed, and find your sword, you pick it up make dramatic
 poses with it. (Yes, typical game) (footnote 1).
 
+> open dresser
+You open the Dresser.  A Pair of Socks is inside the Dresser.
+
+> get socks
+You take a Pair of Socks from the Dresser.
+
 > s
 You move south.
 
@@ -129,23 +135,8 @@ you (and himself) back to the Blacksmiths. He stares at you, staying strong
 and silent but gives you a look thats say quite clearly, "Why did you do
 that?".
 
-> buy armour
-You buy some armour.
-
-> buy spear
-You buy a spear. Joe puts it on the bench.
-
-> buy gun
-You buy a gun. Joe puts it on the bench.
-
 > buy blaster
 You buy the super, mega atomic blaster. Joe puts it on the bench.
-
-> get spear
-You take a Spear from the Old Workbench.
-
-> get gun
-You take a Gun from the Old Workbench.
 
 > get blaster
 You take a Super Atomic Blaster from the Old Workbench.
@@ -198,15 +189,240 @@ other side of the river or go to the North of East into the depths of a
 forest. A huge cliff blocks the country to the south.  You are now on the
 other side of the river.
 
-> look
+> e
+You move east.
 
-Other Side of the River
-You are on the other side of the river. You go west via the ferry to the
-other side of the river or go to the North of East into the depths of a
-forest. A huge cliff blocks the country to the south.
+Forest
+A huge cliff is to the south.
+
+> n
+You move north.
+
+Forest
+There is nothing of interest here.
+
+> e
+You move east.
+
+Forest
+There is a huge palace to the North, a arch in the huge stone wall to the
+North gives you passage.
+
+> look through arch
+You peer through the arch and see that the palace is surrounded by guards and
+that they are of supreme training. However a drummer shouts, "Guard Change In
+One Minute".
+
+Forest
+There is a huge palace to the North, a arch in the huge stone wall to the
+North gives you passage.  You have one minute (6 goes) before the guard
+changes.  You must prepare to go through to the palace.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The drummer shouts, "Attention! About Turn! Left! Right!". You rush into the
+palace.  The guards are too busy to see you sprint past.
+
+Inside the Palace
+You are inside the King's Palace. The King's Thrown is up some steps. None of
+the guards are bothered about you being in here.  There are some jewels here.
+ The Great + Glorious King is here.  The King's Guards are here.  Nobody
+seems to mind you being in here! Weird!
+
+> talk king
+You: Er... Sorry to interupt but er... why are you not killing me or
+something?
+
+King:Ahhh! Liqid! At last, my dear old friend! I am wanting to ask you a
+favour! Will you help me?
+
+> yes
+King: An odd way to spell it but it will do...
+
+Anyway back to the business...
+
+Recently some marrow smugglers have been detected in this region, I know what
+your thinking, "Surely with your army he must have caught them!" But I
+haven't they'd always been one step ahead, so Iv'e decided to hire a spy.
+Unfortunately no-one I know is into that kind of thing so I sent out my
+guards to find a townsman.
+
+They found You! I need you to capture them... Oh! By the way! If you need to
+go anywhere just use the secret tunnels below you, but I'd be careful I think
+its quite dark. Oh yes! I have some stuff for you.
+
+The king gives you a rope.
+
+> s
+You move south.
+
+Forest
+There is a huge palace to the North, a arch in the huge stone wall to the
+North gives you passage.
+
+> e
+You move east.
+
+Forest
+There is a clump of mushrooms here.
+
+> n
+You move north.
+
+Forest
+A stone wall abriefly stops the forest to the west.
+
+> n
+You move north.
+
+Forest
+There is a clump of mushrooms here.
+
+> w
+You move west.
+
+Forest
+A stone wall briefly stops the forest to the south. A huge tree is here with
+a ladder going up it.
+
+> u
+You move up.
+
+Frad's House
+You are in a tree house.  Frad is here.
+
+> ape
+Ape, thats the first one.
+
+> are
+Thats good.
+
+> ore
+Thats getting close.
+
+> owe
+Almost there!
+
+> owl
+Wahoo! Now i'm an owl! I remember where I put it, I buried it in a cave in
+the woods. Heres a shovel to help you find it.
+
+Frad's House
+You are in a tree house.  Frad is here.  Frad is now an owl!
+
+> d
+You move down.
+
+Forest
+A stone wall briefly stops the forest to the south. A huge tree is here with
+a ladder going up it.
+
+> e
+You move east.
+
+Forest
+There is a clump of mushrooms here.
+
+> s
+You move south.
+
+Forest
+A stone wall abriefly stops the forest to the west.
+
+> e
+You move east.
+
+Forest
+A huge cliff is to the east with a cave in it.
+
+> e
+You move east.
+
+Cave
+It is very dark.
+
+> dig
+You dig a hole in the ground for a long time, suddenly the ground breaks,
+making a passage downwards.
+
+> d
+You move down.
+
+Rabbit Warren
+It is dark!
+
+> show sock to rabbit
+You approach the rabbit with the sock. He cowers into the corner then says,
+"Keep it away! Away!" You continue to get closer, "Maybe we can do a deal!"
+You stop and he says, "Many years ago, our warren raided the bank, we wiped
+out all of them but a receptionist, I even doubt if she still lived. But we
+managed to torture the number required for the vault out of him, but he as a
+precaution did not know the other number. You see the vault required 2
+numbers and a key. We only knew the second number which is 5764".
+
+Rabbit Warren
+It is dark!  The rabbits know leave you alone.
+
+> u
+You move up.
+
+Cave
+It is very dark.
+
+> w
+You move west.
+
+Forest
+A huge cliff is to the east with a cave in it.
+
+> s
+You move south.
+
+Forest
+A huge cliff is to the east.
+
+> s
+You move south.
+
+Forest
+A huge cliff curves from the north to the west or alternatively from the west
+to the north.
+
+> w
+You move west.
+
+Forest
+A huge cliff is to the south.
+
+> w
+You move west.
+
+Forest
+A huge cliff is to the south.
+
+> rope cliff
+You tie the rope to your waist then lasso it over a convenient (yet entirely
+coincidental) pillar rock at the top. You can now go up and down the cliff
+but you will have to de-attach the rope if you want to go far away.  And
+don't say I didn't warn you when you cant move anywhere!
+
+> u
+You move up.
+
+Airport
+You are in a airport.   It is very busy and crowded. There are terminals to
+the South and West.
+
+In your house, a long way away, some ants come.
+
+These ants are hungry and they crawl into your cupboard. They start eating
+the food. They are of infinite number so they eat all the food. Gutted!
 
 > score
-Your score is 30 out of a maximum of 100.  (30%)
+Your score is 60 out of a maximum of 100.  (60%)
 
 > quit
 Do you really want to quit? [Y/N]

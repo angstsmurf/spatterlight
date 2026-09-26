@@ -147,54 +147,236 @@ the noble looking Chief is here.  A shining angel of light is hovering in
 this place.  The glorious light bathes you and you feel the pleasure of the
 Great One.  You can move north, east, south, west and in.
 
+> w
+You move west.
+
+The passageway running north to south.
+You are in a passage way lit by torches on the rough walls. To the north and
+south are wooden doors that are not locked and to the east is the entrance
+into the huge cavern.  The glorious light bathes you and you feel the
+pleasure of the Great One.  You can move north, east and south.  Legna the
+Shining Angel floats towards you from the east.
+
 > n
 You move north.
 
-The pioneer cave.
-This is a simple cave with a metal door to the north with the word 'Pioneers
-enter here' on it.  The glorious light bathes you and you feel the pleasure
-of the Great One.  You can only move south.
+The Shepherd's Cave.
+This is a small cave with pictures in chalk of Shepherd's leading their sheep
+on the walls. Doors are to your south and west. The west door has 'To
+Shepherd's Way' written on it.   The glorious light bathes you and you feel
+the pleasure of the Great One.  You can only move south.
 
 > use key
 The door unlocks and swings open. You hear other doors all over the cavern
 complex locking with a roaring 'click' sound.  You feel the whole mountain
 trembling. It must be an earthquake!
 
+> w
+You move west.
+
+The Shepherd's Room.
+This is not so much a room as a barn full of Sheep.  Also here is a
+shepherd's staff and a leather slingshot.  The glorious light bathes you and
+you feel the pleasure of the Great One.  Pieces of the mountain are dropping
+onto the floor due to the earthquake.  You can only move east.
+
+> get staff
+You take the shepherd's staff.
+
+> get slingshot
+You take the leather slingshot.
+
+> e
+You move east.
+
+The Shepherd's Cave.
+This is a small cave with pictures in chalk of Shepherd's leading their sheep
+on the walls. Doors are to your south and west. The west door has 'To
+Shepherd's Way' written on it.   The glorious light bathes you and you feel
+the pleasure of the Great One.  Pieces of the mountain are dropping onto the
+floor due to the earthquake.  You can move south and west.
+
+> s
+You move south.
+
+The passageway running north to south.
+You are in a passage way lit by torches on the rough walls. To the north and
+south are wooden doors that are not locked and to the east is the entrance
+into the huge cavern.  The glorious light bathes you and you feel the
+pleasure of the Great One.  Pieces of the mountain are dropping onto the
+floor due to the earthquake.  You can only move east.  The earthquake is
+over.
+
+> e
+You move east.
+
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming
+through a hole in the ceiling many hundreds of feet above you. The cavern has
+a large fresh water pond with an island in the middle and vegitation all
+around.   Exits are roughly carved doorways to your west,east, north and
+south. There are tunnel entrances in the undergrowth that seem cleverly
+designed to let people come through them into the cavern but you cannot open
+the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif
+the noble looking Chief is here.  The glorious light bathes you and you feel
+the pleasure of the Great One.  You can move east, south, west and in.
+
+> e
+You move east.
+
+In a musty cave
+You are in a dimly lit, musty smelling cave. Bones lie on the stony ground
+and you hear an eerie wailing sound echoing around you. Exits lie east and
+west and the east exit has a glimmer of daylight. There is a lift door with a
+button on the south cave face with a note attached saying 'Press lift button
+if you are going on the Trainer's mission Step 4.'  Besides the lift is a
+narrow tunnel leading southwards.  Also here is a leg bone.  The glorious
+light bathes you and you feel the pleasure of the Great One.  You can move
+east, south and west.  Suddenly a shining white dove decends on you and the
+Spirit of the Great One overpowers you. You are filled with great joy and
+start praising the Great One in another tongue. You feel strengthened to do
+the Great One's bidding.
+
+> s
+You move south.
+
+The Seer's Entrance.
+This is a small passageway with doors to your west and east. The eastern door
+is the entance to the Seer's place and needs a key. On the north wall there
+is a narrow tunnel heading north.  You can move north, east and west.
+
+> e
+You move east.
+
+The Seer's Place
+This is a room full of equipment to see a far.  Also here is full diving
+equipment and a powerful telescope.  You can only move west.
+
+> drop necklace
+You drop the carved necklace.
+
+> remove shoes
+You remove your smelly shoes.
+
+> drop shoes
+You drop your smelly shoes.
+
+> get diving equipment
+You take full diving equipment.
+
+> wear diving equipment
+You put on full diving equipment.
+
+> get telescope
+You take the powerful telescope.
+
+> w
+You move west.
+
+The Seer's Entrance.
+This is a small passageway with doors to your west and east. The eastern door
+is the entance to the Seer's place and needs a key. On the north wall there
+is a narrow tunnel heading north.  You can move north, east and west.
+
 > n
 You move north.
 
-The Pioneer Room.
-You are in a room that looks like it's an army briefing room with maps and
-the like. There is also a large wooden explorer's box with a lid in one
-corner. To the north is a window with a hot air balloon waiting patiently,
-the basket just at the right height for you to step into it.  Also here is an
-old map.  The glorious light bathes you and you feel the pleasure of the
-Great One.  Pieces of the mountain are dropping onto the floor due to the
-earthquake.  You can move north and south.
+In a musty cave
+You are in a dimly lit, musty smelling cave. Bones lie on the stony ground
+and you hear an eerie wailing sound echoing around you. Exits lie east and
+west and the east exit has a glimmer of daylight. There is a lift door with a
+button on the south cave face with a note attached saying 'Press lift button
+if you are going on the Trainer's mission Step 4.'  Besides the lift is a
+narrow tunnel leading southwards.  Also here is a leg bone.  A shining angel
+of light is hovering in this place.  You can move east, south and west.
 
-> get map
-You take the old map.
+> w
+You move west.
 
-> open box
-You open the explorer's box.  A navigational compass is inside the explorer's
-box.
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming
+through a hole in the ceiling many hundreds of feet above you. The cavern has
+a large fresh water pond with an island in the middle and vegitation all
+around.   Exits are roughly carved doorways to your west,east, north and
+south. There are tunnel entrances in the undergrowth that seem cleverly
+designed to let people come through them into the cavern but you cannot open
+the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif
+the noble looking Chief is here.  You can move east, south, west and in.
 
-> get compass
-You take the navigational compass from the explorer's box.
+> in
+You move in.
 
-> n
-You move north.
+In the pond.
+You are swimming in the pond in the cavern which is quite deep. The water is
+crystal clear and on the bottom of the pond you can see something. There is
+an underground tunnel you can dive into (type 'dive into tunnel' - this is
+for Seer's mission Step 4)).  Also here is a pair of oars and an old boot.
+You can move up and out.
 
-A hotair balloon.
-This is a hot air balloon waiting to take you on the Pioneer's mission. The
-pilot says he will take you to a sea platform to start your mission. The
-pilot informs you to type in 'start mission' if you are quite ready. This is
-Pioneer mission step 4.  Pieces of the mountain are dropping onto the floor
-due to the earthquake.  You can only move south.  The earthquake is over.
+> u
+You move up.
 
-> start mission
-'Yes Sir!", says the pilot and he takes you to a sea platform at the base of
-the mountain to start your mission.
+On a small island.
+You are on a small island with many palm trees. A small sanctuary is hidden
+in the trees with a sign besides it.  You can only move in.
+
+> in
+You move in.
+
+In the Sanctuary
+You are in a very holy place and you feel the presence of the Divine. It is a
+place of prayer with no seats but kneeling cushions only and a golden altar
+by the far wall. On the altar is a note that reads 'For the Shepherd's
+Mission step 4 just push the altar!'  By the altar there is a tunnel you may
+be able to go in if you are allowed.  Also here is a golden prayer cushion.
+Reyarp, the cloaked man, is kneeling before the altar.  You can move in and
+out.
+
+> push the altar
+You push the altar to reveal a secret opening. On entering you slide down and
+down and finally onto a sea platform at the bottom of the mountain.
+
+> u
+You move up.
+
+In a musty cave
+You are in a dimly lit, musty smelling cave. Bones lie on the stony ground
+and you hear an eerie wailing sound echoing around you. Exits lie east and
+west and the east exit has a glimmer of daylight. There is a lift door with a
+button on the south cave face with a note attached saying 'Press lift button
+if you are going on the Trainer's mission Step 4.'  Besides the lift is a
+narrow tunnel leading southwards.  Also here is a leg bone.  You can move
+east, south and west.
+
+> w
+You move west.
+
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming
+through a hole in the ceiling many hundreds of feet above you. The cavern has
+a large fresh water pond with an island in the middle and vegitation all
+around.   Exits are roughly carved doorways to your west,east, north and
+south. There are tunnel entrances in the undergrowth that seem cleverly
+designed to let people come through them into the cavern but you cannot open
+the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif
+the noble looking Chief is here.  A shining angel of light is hovering in
+this place.  You can move east, south, west and in.
+
+> in
+You move in.
+
+In the pond.
+You are swimming in the pond in the cavern which is quite deep. The water is
+crystal clear and on the bottom of the pond you can see something. There is
+an underground tunnel you can dive into (type 'dive into tunnel' - this is
+for Seer's mission Step 4)).  Also here is a pair of oars and an old boot.
+You can move up and out.
+
+> dive into tunnel
+You dive into an underwater tunnel that goes down and down until you are
+spewed out onto a sea platform.
+
+> look
 
 A sea platform.
 You are at the base of a mountain to your west  (Mount Noiz) standing on a
@@ -207,72 +389,86 @@ only move up.
 > get sweets
 You take the bag of sweets.
 
-> show map
-Well, well! This is uncharted territory for me but I can tell you how to get
-there. Just keep going eastwards in my ship until you come to a Jetty. Go
-now, here are the keys to my ship....you get in and launch off eastwards...
+> dive
+You dive in the sea from the patform and go down into the undersea world. You
+dive under an undersea 'ceiling' that makes it impossible to surface except
+back at the sea platform and maybe a few other places.
 
-The Sea of Nis 1
-You are in the Sea of Nis. To your west is a small platform at the base of
-Mount Noiz. Eastwards lies the sea as far as you can see. North and south you
-can also only see sea. You are travelling in Rotcerid's small ship.  You can
-move north, east, south and west.  A large eacle annoys you by continally
-swooping down at you.
+Undersea 1.
+To your west is the root of Mount Noiz under the sea. The way north is
+blocked by a barbed wire net! You can swin east and south.  You can move
+east, south and up.  A shark appears and keeps poking you with it's nose!
 
 > s
 You move south.
 
-The Sea of Nis 5
-You are in the Sea of Nis on a small ship. Mount Noiz is towering over you to
-the west and you can see distant land to your south. To your north and east
-the sea stretches as far as you can see.  The eagle seems to be eyeing
-something you are carrying.  You can move north, east and south.
+Undersea 5.
+To your west is the base of the mountain and a minefield is to your east. You
+can only swin north or south.  The shark looks pretty mean!  You can move
+north and south.
 
 > s
 You move south.
 
-The Sea of Nis 6
-You are in the sea of Nis on a small ship. Mount Noiz looms high to your west
-and a cliff face coming out from the mountain towers to your south. To your
-east is a beach leading onto an outcropping from the base of the mountain.
-Sea stretches as far as you can see to the north.  The eagle seems to be
-eyeing something you are carrying.  You can move north and east.
+Undersea 6.
+The mountain's base stretches from your west to your south and there is an
+underwater cave onthe south face. To the east you can swin up onto a beach.
+The shark looks pretty mean!  You can move north, east and south.
+
+> s
+You move south.
+
+An underground cave 1.
+You are in an underground cave. There is a large rockpool which leads out to
+the sea to your north and no other exits.  Also here is a crystal ball.  You
+can only move north.
+
+> look
+
+An underground cave 1.
+You are in an underground cave. There is a large rockpool which leads out to
+the sea to your north and no other exits.  Also here is a crystal ball.  You
+can only move north.
+
+> get crystal ball
+You take the crystal ball.
+
+> n
+You move north.
+
+Undersea 6.
+The mountain's base stretches from your west to your south and there is an
+underwater cave onthe south face. To the east you can swin up onto a beach.
+You can move north, east and south.
 
 > e
 You move east.
 
-A beach.
-This is a beach on an outcropping coming from the base of Mount Noiz. The sea
-of Nis lies to your west, north and east. To the south is a dense jungle.
-Rotcerid's ship is moored on the northern side of the beach.  You can move
-north, east, south and west.
+The sea leading to a beach.
+You can swim up to a beach here or west towards the mountain or east further
+out. To the north is a minefield that's too dangerous to navigate.  You can
+move east, west and up.
 
-> look
-
-A beach.
-This is a beach on an outcropping coming from the base of Mount Noiz. The sea
-of Nis lies to your west, north and east. To the south is a dense jungle.
-Rotcerid's ship is moored on the northern side of the beach.  You can move
-north, east, south and west.
-
-> look
-
-A beach.
-This is a beach on an outcropping coming from the base of Mount Noiz. The sea
-of Nis lies to your west, north and east. To the south is a dense jungle.
-Rotcerid's ship is moored on the northern side of the beach.  You can move
-north, east, south and west.
-
-> look
+> u
+You move up.
 
 A beach.
 This is a beach on an outcropping coming from the base of Mount Noiz. The sea
 of Nis lies to your west, north and east. To the south is a dense jungle.
 Rotcerid's ship is moored on the northern side of the beach.  Also here is a
-navigational compass.  You can move north, east, south and west.
+powerful telescope.  You can move north, east, south, west and down.
 
-> get compass
-You take the navigational compass.
+> remove diving equipment
+You remove full diving equipment.
+
+> drop diving equipment
+You drop full diving equipment.
+
+> drop crystal ball
+You drop the crystal ball.
+
+> get telescope
+You take the powerful telescope.
 
 > n
 You move north.
@@ -291,24 +487,125 @@ You are travelling on the small ship in the sea of Nis. Mount Noiz looms tall
  to the west and the sea stretches endlessly to the east. Distant land can be
 seen to the north and south.  You can move north, east, south and west.
 
+> w
+You move west.
+
+The Sea of Nis 1
+You are in the Sea of Nis. To your west is a small platform at the base of
+Mount Noiz. Eastwards lies the sea as far as you can see. North and south you
+can also only see sea. You are travelling in Rotcerid's small ship.  You can
+move north, east, south and west.
+
+> w
+You move west.
+
+A sea platform.
+You are at the base of a mountain to your west  (Mount Noiz) standing on a
+sea platform. A lift leads upwards. A vast sea (of Nis) stretches out to your
+east. A small ship is moored here. The eerie wailing sound you heard from
+above is the sea crying for you to rescue the lost souls.  Your missions
+Director, Rotcerid, stands here with you.  You can move up and down.
+
+> show staff
+Rotcerid leads you into his small ship and shows you how to oeprate it then
+he waves goodbye to you as you sail off.
+
+The Sea of Nis 1
+You are in the Sea of Nis. To your west is a small platform at the base of
+Mount Noiz. Eastwards lies the sea as far as you can see. North and south you
+can also only see sea. You are travelling in Rotcerid's small ship.  You can
+move north, east, south and west.  A swarm of giant bees is attacking you!
+
+> n
+You move north.
+
+The Sea of Nis 23.
+You are in the sea of Nis in a small ship. To your west towers Mount Noiz and
+sea stretches in all other directions. In the distance to the North East to
+see an island.  The bees look pretty angry!  You can move north, east and
+south.  The bees have now had their fill and gone off. However they flew off
+with your slingshot (if you have it) in the directionof the island to the
+north east !
+
+> n
+You move north.
+
+The sea of Nis 22.
+You are in the sea of Nis in a small ship. The mountain looms high to your
+west and the sheer cliff face of an island is to your east. Sea stretches
+north and south.  You can move north and south.
+
+> n
+You move north.
+
+The sea of Nis 21.
+You are in the Sea of Nis in a small ship. The mountain towers to your west
+and the way north is blocked by sharp rocks. To your east is the sheer cliff
+face of an island. The sea stretches southward.  Also here is a bottle of
+potion.  You can only move south.
+
+> look
+
+The sea of Nis 21.
+You are in the Sea of Nis in a small ship. The mountain towers to your west
+and the way north is blocked by sharp rocks. To your east is the sheer cliff
+face of an island. The sea stretches southward.  Also here is a bottle of
+potion.  You can only move south.
+
+> get potion
+You take the bottle of potion.
+
+> s
+You move south.
+
+The sea of Nis 22.
+You are in the sea of Nis in a small ship. The mountain looms high to your
+west and the sheer cliff face of an island is to your east. Sea stretches
+north and south.  You can move north and south.
+
+> s
+You move south.
+
+The Sea of Nis 23.
+You are in the sea of Nis in a small ship. To your west towers Mount Noiz and
+sea stretches in all other directions. In the distance to the North East to
+see an island.  You can move north, east and south.
+
 > e
 You move east.
 
-The Sea of Nis 3.
-You are on the small ship in the middle of the sea of Nis. Mount Noiz is in
-the distant west and you can just make out signs of a settlement to the east.
- You can move north, east, south and west.
+The sea of Nis 24.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
 
 > e
 You move east.
 
-The Sea of Nis 4.
-You are in the small ship on the sea of Nis. Mount Noiz can barely be seen to
-the west and you see a large settlement coming up on the east.  You can move
-north, east, south and west.
+The sea of Nis 25.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
 
 > e
 You move east.
+
+The sea of Nis 26.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
+
+> e
+You move east.
+
+The Sea of Nis 27.
+You are in the sea of Nis in a small ship. To your south is the jetty of a
+floating sea settlement. To your north west is an island. The way east is
+blocked by a metal barrier and the way west is sea as far as you can see.
+You can move north, south and west.
+
+> s
+You move south.
 
 The Dehcaernu Jetty.
 This is the westernmost jetty for the Dehcaernu people. No one is here except
@@ -334,48 +631,554 @@ and shops built on stilts over the sea. West is the entry point and east in
 the market. North and south are various narrow buildings on the overall
 longhouse.  You can move north, east, south and west.
 
-> e
-You move east.
+> w
+You move west.
 
-The Market Place.
-This is the bustling market place of the settlement. The seller before you
-has a stall full of long wooden rods called 'speaking rods'.  Relles, the
-main seller is there.  You can only move west.
-
-> give relles compass
-Relles smiles and gladly takes the compass. He puts one of the speaking rods
-in your hands.
+The Dehcaernu entry point.
+At the end of the jetty to the west, this is the entry point to the Dehcaernu
+settlement. You see the settlement stretched out eastwards,  a longhouse on
+stilts over the Waters of Nis.  There is a Dehcaernu guard sitting in a small
+guardpost.  You can only move west.
 
 > w
 You move west.
 
-The Dehcaernu Settlement.
-You are in the main Dehcaenu Settlement which is a long wooden row of houses
-and shops built on stilts over the sea. West is the entry point and east in
-the market. North and south are various narrow buildings on the overall
-longhouse.  You can move north, east, south and west.
+The Dehcaernu Jetty.
+This is the westernmost jetty for the Dehcaernu people. No one is here except
+you. Rotcerid's small ship is here.  Also here is a black cap.  You can move
+north, east, south and west.
 
 > n
 You move north.
 
-The Tribal Council Place.
-This is an open area where all the heads of the houses are gathered for a
-tribal council. They all sit in a circle and one elder goes into the middle,
-taps his long pole on the ground and eveyone listens to what he has to say or
-watches the message he draws in the dust.  Ranog, the Tribal Chief of the
-Dehcaernu stands in your midst.  It looks like a battle with all the natives
-beating each other with their sticks.  You can only move south.
+The Sea of Nis 27.
+You are in the sea of Nis in a small ship. To your south is the jetty of a
+floating sea settlement. To your north west is an island. The way east is
+blocked by a metal barrier and the way west is sea as far as you can see.
+You can move north, south and west.
 
-> use speaking rod
-All action stops and all eyes turn on you as you tap the rod on the floor.
-They wait for you to draw something in the dust or speak. What will you do ?
-Ecaep walks towards you.  Relles walks towards you.
+> n
+You move north.
 
-> draw a picture of mount noiz
-Suddenly Chief Ranog gets up and says (through the interpreter Ecaep) that he
-wants to follow you to Mount Noiz. He and Ecaep proceed to follow you to
-Mount Noiz in your ship......  Nam Rehsif majestically walks towards you.
-Reyarp walks towards you.  Ranog walks towards you.  Ecaep walks towards you.
+The sea of Nis 28.
+You are in the sea of nis in a small ship. To your west is the sheer cliff
+face of an island. The east is blocked by a metal barrier running north to
+south and sea stretches as far as you can sea north and south.  You can move
+north and south.
+
+> n
+You move north.
+
+The sea of Nis 29.
+You are in the sea of Nis in a small boat. There is an island harbour to your
+west. North and east are blocked by a metal barrier. To the south the sea
+stretches out.  You can move south and west.
+
+> w
+You move west.
+
+The Island Harbour.
+This is a beautiful natural harbour to the east of this beautiful paradise
+island. The sea stretches out to your east and you can explore the island to
+the north, west and south. Your small ship is moored in the harbour.  You can
+move north, east, south and west.
+
+> s
+You move south.
+
+Open pastures 1.
+You are in the southeast corner of the island where there's open pastures
+that fall away to steep cliffs to the east and south overlooking the sea.
+Also here is a leather slingshot.  You can move north and west.
+
+> get slingshot
+You take the leather slingshot.
+
+> give rees telescope
+The old man smiles in appreciation and then takes out a blindfold which he
+gives to you saying ' this is the seer's blindfold. Wear this to prophesy.
+
+> w
+You move west.
+
+Open Pastures 2.
+You are on the south coast of the island with a steep drop into the sea to
+the south. The pasture stretches in all other directions.  You can move
+north, east and west.
+
+> w
+You move west.
+
+Open pastures 3.
+You are in the south west corner of the island which falls into the sea to
+your west and south (sheer cliffs). On the open pastures here is a Sanctuary
+with a fish carved over the front entrance. It seems to have been attacked by
+some creature. Pastures stretch north and east.  Also here is a baby cot.
+You can move north and east.
+
+> n
+You move north.
+
+Open pastures 4.
+You are on the west side of the island. Pastures stretch in all other
+directions. To your west is a steep drop into the sea.  You can move north,
+east and south.
+
+> n
+You move north.
+
+Open pastures 6.
+You are in the north west part of the island. To your west is a steep drop
+into the sea. To your north is a rock face with a cave entrance with a sign
+saying 'Natas' Cave'. Green pastures stretch East and South.  A huge stone
+blocks the cave entrance.  You can move east and south.
+
+> use potion
+You drink the potion and feel your whole body explode with strength. You pick
+up the huge rock like it's a pebble and throw it into the sea. The cave
+entrance is now unblocked and you go inside.
+
+Natas' Cave 1.
+You are in a huge cavern. The main entrance with daylight streaming through
+is to your south which you cannot leave until Natas is destroyed. There is a
+tunnel to the east.  Many Nem Rehsif are held captive here, chained together
+in one corner.   A huge red demon with sharp horns and fangs in here.  The
+Nem Rehsif are here.  You can only move east.  Natas walks off to the east.
+
+> use slingshot
+Natas, the red demon falls to the ground and hisses. He crawls to one side of
+the room then dissapears in a puff of red smoke.
+
+> look
+
+Natas' Cave 1.
+You are in a huge cavern. The main entrance with daylight streaming through
+is to your south which you cannot leave until Natas is destroyed. There is a
+tunnel to the east.  Many Nem Rehsif are held captive here, chained together
+in one corner.   The Nem Rehsif are here.  You can move east and south.
+
+> e
+You move east.
+
+Natas' cave 2.
+You in a huge cave with tunnels leading west and east. This seems to be a
+huge eating area with bones scattered everywhere.  You can move east and
+west.
+
+> e
+You move east.
+
+Natas' cave 3.
+You are in an huge cave with many boxes and chest that all seem tightly
+closed. The only exit is through a tunnel to the west. There is a huge metal
+locker here also.  You can only move west.
+
+> look
+
+Natas' cave 3.
+You are in an huge cave with many boxes and chest that all seem tightly
+closed. The only exit is through a tunnel to the west. There is a huge metal
+locker here also.  You can only move west.
+
+> open locker
+You open the large locker.  A pair of cutters is inside the large locker.
+
+> get cutters
+You take the pair of cutters from the large locker.
+
+> w
+You move west.
+
+Natas' cave 2.
+You in a huge cave with tunnels leading west and east. This seems to be a
+huge eating area with bones scattered everywhere.  You can move east and
+west.
+
+> w
+You move west.
+
+Natas' Cave 1.
+You are in a huge cavern. The main entrance with daylight streaming through
+is to your south which you cannot leave until Natas is destroyed. There is a
+tunnel to the east.  Many Nem Rehsif are held captive here, chained together
+in one corner.   The Nem Rehsif are here.  You can move east and south.
+
+> use metal cutters
+You use the metal cutters to free the Nem Rehsif and they all thank you and
+run out of the cave back to their sanctuary.  The Nem Rehsif. walks off.
+
+> s
+You move south.
+
+Open pastures 6.
+You are in the north west part of the island. To your west is a steep drop
+into the sea. To your north is a rock face with a cave entrance with a sign
+saying 'Natas' Cave'. Green pastures stretch East and South.  The entrance to
+the cave is unblocked.  You can move north, east and south.
+
+> s
+You move south.
+
+Open pastures 4.
+You are on the west side of the island. Pastures stretch in all other
+directions. To your west is a steep drop into the sea.  You can move north,
+east and south.
+
+> e
+You move east.
+
+Open pastures 5.
+You are in the middle of the island. Open pastures stretch in all directions.
+The harbour is to your east.  An old bent over man called Rees is here.  You
+can move north, east, south and west.
+
+> e
+You move east.
+
+The Island Harbour.
+This is a beautiful natural harbour to the east of this beautiful paradise
+island. The sea stretches out to your east and you can explore the island to
+the north, west and south. Your small ship is moored in the harbour.  You can
+move north, east, south and west.
+
+> e
+You move east.
+
+The sea of Nis 29.
+You are in the sea of Nis in a small boat. There is an island harbour to your
+west. North and east are blocked by a metal barrier. To the south the sea
+stretches out.  You can move south and west.
+
+> s
+You move south.
+
+The sea of Nis 28.
+You are in the sea of nis in a small ship. To your west is the sheer cliff
+face of an island. The east is blocked by a metal barrier running north to
+south and sea stretches as far as you can sea north and south.  You can move
+north and south.
+
+> s
+You move south.
+
+The Sea of Nis 27.
+You are in the sea of Nis in a small ship. To your south is the jetty of a
+floating sea settlement. To your north west is an island. The way east is
+blocked by a metal barrier and the way west is sea as far as you can see.
+You can move north, south and west.
+
+> w
+You move west.
+
+The sea of Nis 26.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
+
+> w
+You move west.
+
+The sea of Nis 25.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
+
+> w
+You move west.
+
+The sea of Nis 24.
+You are in the sea of Nis in a small ship. To your north is the sheer cliff
+face of an island. Sea stretches as far as you can see in all other
+directions.  You can move east, south and west.
+
+> s
+You move south.
+
+The Sea of Nis 2.
+You are travelling on the small ship in the sea of Nis. Mount Noiz looms tall
+ to the west and the sea stretches endlessly to the east. Distant land can be
+seen to the north and south.  You can move north, east, south and west.
+
+> w
+You move west.
+
+The Sea of Nis 1
+You are in the Sea of Nis. To your west is a small platform at the base of
+Mount Noiz. Eastwards lies the sea as far as you can see. North and south you
+can also only see sea. You are travelling in Rotcerid's small ship.  You can
+move north, east, south and west.
+
+> w
+You move west.
+
+A sea platform.
+You are at the base of a mountain to your west  (Mount Noiz) standing on a
+sea platform. A lift leads upwards. A vast sea (of Nis) stretches out to your
+east. A small ship is moored here. The eerie wailing sound you heard from
+above is the sea crying for you to rescue the lost souls.  Your missions
+Director, Rotcerid, stands here with you.  You can move up and down.
+
+> u
+You move up.
+
+In a musty cave
+You are in a dimly lit, musty smelling cave. Bones lie on the stony ground
+and you hear an eerie wailing sound echoing around you. Exits lie east and
+west and the east exit has a glimmer of daylight. There is a lift door with a
+button on the south cave face with a note attached saying 'Press lift button
+if you are going on the Trainer's mission Step 4.'  Besides the lift is a
+narrow tunnel leading southwards.  Also here is a leg bone.  A shining angel
+of light is hovering in this place.  You can move east, south and west.
+
+> drop staff
+You drop the shepherd's staff.
+
+> drop slingshot
+You drop the leather slingshot.
+
+> drop cutters
+You drop the pair of cutters.  Legna the Shining Angel floats off to the
+west.
+
+> w
+You move west.
+
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming
+through a hole in the ceiling many hundreds of feet above you. The cavern has
+a large fresh water pond with an island in the middle and vegitation all
+around.   Exits are roughly carved doorways to your west,east, north and
+south. There are tunnel entrances in the undergrowth that seem cleverly
+designed to let people come through them into the cavern but you cannot open
+the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif
+the noble looking Chief is here.  A shining angel of light is hovering in
+this place.  You can move east, south, west and in.
+
+> s
+You move south.
+
+The dead end.
+This passage way leads to what looks like a dead end. On closer inspection
+you see there are two camoflagued doors. The southern one has 'The Reacher's
+Way' on it and the eastern one has 'The Way of the Seer' on it. There is also
+a dark passageway leading to the west which may be too narrow to squeeze
+through. To the north is the entrance to the main cavern.  You can move north
+and west.
+
+> w
+You move west.
+
+The Trainer's Cave.
+This is a small cave with pictures of teacher's training groups of men, women
+and children. Doors are to the north and west and a passageway runs to the
+east . The western door as the words 'Trainer's Entrance' written on it.  You
+can move north, east and west.
+
+> w
+You move west.
+
+The Trainer's Room.
+This is a classroom with a study desk in one corner and other teaching
+equipment.  Also here is a pointing stick.  You can only move east.
+
+> get pointing stick
+You take the pointing stick.
+
+> open desk
+You open the study desk.  A training manual is inside the study desk.
+
+> get manual
+You take the training manual from the study desk.
+
+> e
+You move east.
+
+The Trainer's Cave.
+This is a small cave with pictures of teacher's training groups of men, women
+and children. Doors are to the north and west and a passageway runs to the
+east . The western door as the words 'Trainer's Entrance' written on it.  You
+can move north, east and west.
+
+> e
+You move east.
+
+The dead end.
+This passage way leads to what looks like a dead end. On closer inspection
+you see there are two camoflagued doors. The southern one has 'The Reacher's
+Way' on it and the eastern one has 'The Way of the Seer' on it. There is also
+a dark passageway leading to the west which may be too narrow to squeeze
+through. To the north is the entrance to the main cavern.  A shining angel of
+light is hovering in this place.  You can move north and west.
+
+> n
+You move north.
+
+In a huge cavern with a large pond.
+You are in the main cavern of Mount Noiz which is lit by daylight coming
+through a hole in the ceiling many hundreds of feet above you. The cavern has
+a large fresh water pond with an island in the middle and vegitation all
+around.   Exits are roughly carved doorways to your west,east, north and
+south. There are tunnel entrances in the undergrowth that seem cleverly
+designed to let people come through them into the cavern but you cannot open
+the cover to go down through them.  Also here is a bulky sack.  Nam Rehsif
+the noble looking Chief is here.  You can move east, south, west and in.
+
+> e
+You move east.
+
+In a musty cave
+You are in a dimly lit, musty smelling cave. Bones lie on the stony ground
+and you hear an eerie wailing sound echoing around you. Exits lie east and
+west and the east exit has a glimmer of daylight. There is a lift door with a
+button on the south cave face with a note attached saying 'Press lift button
+if you are going on the Trainer's mission Step 4.'  Besides the lift is a
+narrow tunnel leading southwards.  Also here is a leg bone, a shepherd's
+staff, a leather slingshot and a pair of cutters.  You can move east, south
+and west.
+
+> press lift button
+The lift door opens and when you get in it plummets down at quite a speed.
+You stagger out at the bottom of the mountain onto a sea platform ready to
+start you Trainer's mission. As you are so dizzy you drop some of your items
+into the sea.
+
+A sea platform.
+You are at the base of a mountain to your west  (Mount Noiz) standing on a
+sea platform. A lift leads upwards. A vast sea (of Nis) stretches out to your
+east. A small ship is moored here. The eerie wailing sound you heard from
+above is the sea crying for you to rescue the lost souls.  Your missions
+Director, Rotcerid, stands here with you.  You can move up and down.
+
+> show manual
+He leads you into the ship, shows you how to operate it and says, 'Off you
+go. You must find something a trainer wears first and then go and teach your
+class to the south.
+
+The Sea of Nis 1
+You are in the Sea of Nis. To your west is a small platform at the base of
+Mount Noiz. Eastwards lies the sea as far as you can see. North and south you
+can also only see sea. You are travelling in Rotcerid's small ship.  You can
+move north, east, south and west.
+
+> s
+You move south.
+
+The Sea of Nis 5
+You are in the Sea of Nis on a small ship. Mount Noiz is towering over you to
+the west and you can see distant land to your south. To your north and east
+the sea stretches as far as you can see.  You can move north, east and south.
+
+> e
+You move east.
+
+The sea of Nis 7.
+You are in the Sea of Nis in a small ship. To your distant west mount Noiz
+looms out of the water. North and east the sea stretches as far as your eye
+can see. To your south is a beach on the edge of what looks to be an
+outcropping from Mount Noiz.  You can move north, east, south and west.
+
+> s
+You move south.
+
+A beach.
+This is a beach on an outcropping coming from the base of Mount Noiz. The sea
+of Nis lies to your west, north and east. To the south is a dense jungle.
+Rotcerid's ship is moored on the northern side of the beach.  Also here is a
+crystal ball.  You can move north, east, south, west and down.
+
+> get crystal ball
+You take the crystal ball.
+
+> wear blindfold
+You put on the seer's blindfold.
+
+> s
+You move south.
+
+A Jungle (1).
+You are in a dense jungle and cannot see anything but trees in all directions
+except that to the east in a steep cliff overlooking the sea of Nis.  You can
+move north, south and west.
+
+> s
+You move south.
+
+A Jungle (2).
+You are in a dense jungle. In all directions the jugle stretches except to
+the east where a cliff overlooks the sea of Nis.  You can move north, south
+and west.
+
+> s
+You move south.
+
+A Jungle (3).
+You are in a dense jungle. The jungle stretches west and north but a steep
+cliff overlooks the sea of Nis to your south and east. There is a hole in the
+ground here with a flight of stone steps leading downwards.  You can move
+north, west and down.
+
+> w
+You move west.
+
+A Jungle (4).
+You are in a that stretches north and east. A cliff drops down to your south
+and the mountain face rises high to your west.  Also here is yellow card.
+Rehcaet, the beautiful wise looking female teacher is here.  You can move
+north and east.  Rehcaet walks off to the north.
+
+> n
+You move north.
+
+A Jungle (6).
+You are in a dense jungle that stretches in all directions except to the west
+which is blocked by the towering mountain face.  Rehcaet, the beautiful wise
+looking female teacher is here.  You can move north, east and south.  Rehcaet
+walks off to the north.
+
+> n
+You move north.
+
+A Jungle (5).
+You are in a dense jungle stretching east and south. To your north is a steep
+cliff dropping down over the sea of Nis. To your west is the towering face of
+Mount Noiz. There is a cave entrace to the west.  Rehcaet, the beautiful wise
+looking female teacher is here.  You can move east, south and west.
+
+> wait
+Time passes...
+Rehcaet walks off to the east.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Rehcaet walks towards you from the south.
+
+> give rehcaet training manual
+She smiles a broad smile and thanks you profusely for the Training Manual.
+She then leads you by the hand to her teaching cave....
+
+The Teaching Cave.
+You are in a brightly lit cave which is like a classroom. Over twenty
+disciples sit at desks waiting to be taught. At the front of the class is a
+huge board with a diagram on it. You recognize the diagram as one that is
+explained in the Training Manual.  You can only move east.  Rehcaet walks
+towards you from the east.  A monkey comes out from the jungle and into the
+cave and starts running around you!
+
+> use oracle
+You look into the oracle and prophesy over the group of disciples that they
+are to go as a team to reach the Dehcaernu.  The disciples leap to their feet
+and affirm what you say. They know this is a vision for the furture and hey
+still must prepare more. Their leader congratulates you on finishing your
+mission and takes  you by a secret pathway to the top of Mount Noiz.
+
+The top of Mount Noiz.
+You have arrived back to Mount Noiz and Nam Rehsif has seen that you have
+completed your task. Many other Nem Rehsif are gathered on the mountain top
+to see you receive a special garland of honour. Just type ' receive garland'
+to finish!
 
 > receive garland
 You gladly receive the garland and a loud fanfare of trumpets fills the air
@@ -386,8 +1189,8 @@ You have finished your mission.
 
 There are four other missions in this one adventure you may or may not have
 already accomplished. Try another one....
-You scored 170 out of the maximum 680!
-That is 25% of the game!
-You finished 510 points short.
+You scored 400 out of the maximum 680!
+That is 58% of the game!
+You finished 280 points short.
 
 [Press any key to end]

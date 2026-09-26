@@ -1,15 +1,44 @@
-# Liqid — walkthrough (**best reachable state, score 30/100**)
+# Liqid — walkthrough (**best reachable state, score 60/100**)
 
 - **Title:** *The Quest For More Hair or AMU Part 1: The Smugglers*.
-- **Engine:** ADRIFT, second person, battle system enabled. A large opening
-  area (bedroom/village/bank/blacksmiths/river crossing) gates a much bigger
-  quest (a palace subplot, Frad's riddle, a cave/rabbit warren, a rope-cliff
-  mechanic, and an airport tapes/bomb puzzle) confirmed via `SCR_DUMP_TASKS`
-  to be far larger than this walkthrough attempts.
-- **Result:** the walkthrough clears the opening area's two real obstacles
-  and stops at the far bank of the river (30/100), a natural checkpoint
-  before the much larger remaining quest. Wired as
+- **Engine:** ADRIFT 3.90, second person, battle system enabled.
+- **Result:** 60/100, the real reachable ceiling. The route clears the town
+  (30 points), crosses the river, and then plays the palace, Frad's riddle,
+  the cave/rabbit warren and the rope cliff (+30). It ends at the Airport,
+  where the game soft-locks. Wired as
   `liqid_solution.txt|liqid.taf|I surrender, you win!`, no env.
+  There is no reachable ending.
+
+## Why 60 is the ceiling (40 points unreachable)
+
+- **Airport chain, 20 points (T37 briefcases, T38 `ring 987`, T39 give tapes to
+  the King, T40 buy the tape player).** `rope cliff` (T36) hides the rope
+  (move to hidden). Its restriction is "rope held", and the reverse command
+  (the same `rope cliff`) is checked against that same restriction, so the
+  task can never be undone. The Airport's S/W exits and Forest 1c's N/E/W
+  exits both need T36 NOT done. After roping you can only move between
+  Forest 1c and the Airport. Goosebury Brothers (T40) opens only through
+  event "Goose", which T37 starts. So all four tasks are out of reach.
+  The ReverseMessage ("You are now free to move except up the cliff") shows
+  the author meant the reversal to work. Both run390's checktask and run400's
+  pre-matcher test restrictions for reverse matches too, so the Runner
+  should block it as Scarier does.
+- **Smuggler/hair ending, 20 points (T43 smuggler dies 5, T44 buy hair 10,
+  T45 talk to the King with the hair = the only EndGame win).** Hamish's
+  Battle KilledTask is 0, and no event or action executes
+  `^^smugglerdiesevent^^`. The Bridge's north exit to the Hair Shop needs T43.
+  The only way in is to type the internal `^^...^^` command, which is a
+  loophole and is not used here.
+- `rope cliff` therefore has to be the LAST scoring action. The mushrooms
+  (`eat/take mushroom` in Forest 2d/4d) teleport you into an inescapable
+  loop room, so avoid them.
+
+## Money
+
+The start gives 100 and the vault gives 750. Only the blaster (250) is
+needed: once `fight jenkins` has run and the Sword is dropped,
+`shoot jenkins with blaster` wins outright. Armour, spear and gun are not
+needed.
 
 ## The two puzzles
 
@@ -30,11 +59,23 @@ Even then, shooting does nothing until the scripted `fight jenkins` sets his
 hostile combat state; once fought, `shoot jenkins with blaster` wins the
 fight outright ("I surrender, you win!") and crosses the river.
 
+## After the river (new, 2026-09-26)
+
+- Palace (Forest 2c, R21): `look through arch` (+5). The guard-change event
+  carries you in two turns later. `talk king` (+5), then `yes` gets the rope.
+- Frad (up the ladder in Forest 4c): `ape`, `are`, `ore`, `owe`, `owl` (+5,
+  shovel).
+- Cave (east of Forest 3e): `dig` (+5), `d`, `show sock to rabbit` (+5; the
+  socks come from the bedroom dresser at the start), `u`.
+- Forest 1c: `rope cliff` (+5), `u` to the Airport. You are soft-locked here.
+
 ## The walkthrough
 
 ```
 stand
 look under bed
+open dresser
+get socks
 s
 w
 attack drunk
@@ -53,12 +94,7 @@ w
 ring bell
 wait
 wait
-buy armour
-buy spear
-buy gun
 buy blaster
-get spear
-get gun
 get blaster
 e
 e
@@ -67,6 +103,40 @@ fight jenkins
 drop sword
 shoot jenkins with blaster
 ride ferry
-look
+e
+n
+e
+look through arch
+wait
+wait
+talk king
+yes
+s
+e
+n
+n
+w
+u
+ape
+are
+ore
+owe
+owl
+d
+e
+s
+e
+e
+dig
+d
+show sock to rabbit
+u
+w
+s
+s
+w
+w
+rope cliff
+u
 score
 ```

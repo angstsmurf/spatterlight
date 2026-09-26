@@ -14,6 +14,44 @@ Small bare room.
 A small bare room about 7' tall and 2' square. There is a door to the north.
 You can only move north.
 
+> n
+(Standing up first)
+You move north.
+
+A small room with chairs and a table in the middle.
+A small, dark, room with a table and three legged chairs in the middle.  Also
+here is a Table, wooden chair and a Beechies gum pack.  SCUEY is in the room.
+ You can move south, west and southwest.  As you approach SCUEY, his face
+turns white, and he looks up at the ceiling and lets out a scream.
+
+> w
+You move west.
+
+Living Room
+You have entered the living room. There is a large TV on a drawer in the far
+side of the room. Surround sound speakers are set around the room. A couch is
+on the opposite side as the TV.   Also here is a drawer, a couch and surround
+sound speakers.  Carlos and Jose are here.  You can move east and south.
+Carlos hits you.  Jose hits you.
+
+> open drawer
+You open the drawer.  A Star Trek Tapes is inside the drawer.
+
+> take star trek tapes
+You have stolen the Star Trek tapes! Suddenly the tapes vanish from your
+hands as if they were beamed away with a transporter!   Then... you hear a
+strange, high-pitched, humming noise. You look around. Your vision is
+starting to sparkle. The noise is getting louder...   You can't move! Your
+vision is fading. Then, when your vision comes back, you find your self back
+in the room with chairs and a table with SCUEY. He is holding the Star Trek
+tapes you stole. "Good job!", SCUEY says. "You got the tapes."  "Here, you
+can have this phaser and communicator. The captain is waiting for us. I'd
+like for you to give the order. (type Energize when you want to beam up.)
+Then, suddenly the man takes one final jump and goes stiff in mid-air and
+stops screaming... He falls to the ground with a thud and passes out. Then,
+right out of nowhere a note appears in your hand. You don't understand where
+it came from.
+
 > open communicator
 You open the communicator.
 
@@ -38,12 +76,83 @@ You are in an elevator on the U.S.S. Enterprise. An intercom panel with
 switches is to the right of the door. Computer: "Please state destination or
 deck number."
 
+> bridge
+Computer: "Destination confirmed. Approaching Bridge." The elevator comes to
+a stop and the doors hiss open. You have arrived at the Bridge.
+
+Bridge
+You are on the bridge of the U.S.S. Enterprise. There is a large screen at
+the front of the Bridge with yellow lights moving across the bottom of it.
+Captain James Kirk is sitting in the Captain's Chair. Spock, Uhura, Sulu, and
+Checkov are all at their stations.  The captain turns in his chair to face
+you.  "Welcome to the bridge... Mr.?" "Jim, I think I'd better perform an
+analysis on this man... He's some kind of alien. I don't recognize what kind.
+Also, I think he's had some injuries. He doesn't know who he is or why he's
+here," said Dr. McCoy. "Alright Bones, but make it quick. I'd like to tell
+him about a possible assignment in Star Fleet." You reply, "Wha...?" "Follow
+me to Sick Bay," Dr. McCoy says.  Also here is Captain's chair.  Capt.Kirk,
+Uhura, Sulu, Chekov and Scotty are here.  You can only move southwest.
+
+> sw
+You move southwest.
+
+Elevator
+You are in an elevator on the U.S.S. Enterprise. An intercom panel with
+switches is to the right of the door. Computer: "Please state destination or
+deck number."
+
+> sick bay
+Computer: "Destination confirmed. Approaching Sick Bay." The elevator comes
+to a stop and the doors hiss open. You arrive in a corridor leading to Sick
+Bay.
+
+Sick Bay corridor
+You are in a hall way leading to the elevator closest to Sick Bay on this
+level.  You can move northeast and southwest.
+
+> sw
+You move southwest.
+
+Sick Bay
+You are in a room with many cots in it. There is a display case hung on the
+wall with scalpels and various medical instruments on the wall. There are
+health moniters above each cot with arrows moving up and down. A small
+computer moniter is mounted on each cot. McCoy is carrying some sort of
+injector.   "Are you ready for an analysis?" McCoy asks.  You can only move
+northeast.
+
+> yes
+"Here, let me inject some of this into you. It will help you heal... Well,
+you do seem to have some head injuries, but I still can't figure out what you
+are. Do you remember anything from your past?" McCoy says. "No," you reply.
+"Well, maybe we're the first to meet an alien of your species. I don't know."
+"Bones..." says the Kirk on the intercom. Dr. McCoy goes over to the
+intercom, punches a switch. "McCoy here." "Bones," Kirk says,"are you
+finished with that annalysis yet?" "Yes Captain, I just finished." McCoy
+answers. "Good. Bones, bring him up here. Kirk, out." McCoy switches off the
+intercom. "Well, let's go back to the bridge."
+
+> ne
+You move northeast.
+
+Sick Bay corridor
+You are in a hall way leading to the elevator closest to Sick Bay on this
+level.  Dr.McCoy is here.  You can move northeast and southwest.
+
+> ne
+You move northeast.
+
+Elevator
+You are in an elevator on the U.S.S. Enterprise. An intercom panel with
+switches is to the right of the door. Computer: "Please state destination or
+deck number."
+
 > engineering
 Computer: "Destination confirmed. Approaching Engineering."  The elevator
 suddenly stops.  Computer: "Elevator malfunction."  Next Episode --  The Star
 Trek Chain Reaction: Episode 2 Klingon Space
-You scored 6 out of the maximum 20!
-That is 30% of the game!
-You finished 14 points short.
+You scored 20 out of the maximum 20!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

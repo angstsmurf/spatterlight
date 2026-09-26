@@ -1,0 +1,52 @@
+Petter
+male
+use floppy disk
+n
+n
+get book
+get mom's card
+s
+w
+use card
+n
+w
+get all
+e
+n
+e
+buy
+n
+use teleporter
+n
+search sam
+s
+jump
+w
+search tim
+search tom
+e
+e
+use teleporter
+put cd-roms in computer
+move poster
+take toaststation controller
+n
+d
+use key
+e
+get flashlight
+use flashlight
+u
+get matches
+use gas
+n
+e
+use teleporter
+s
+get sword
+get armor
+points
+s
+attack dr myanus hurts with awesome sword
+attack dr myanus hurts with awesome sword
+score

@@ -33,6 +33,15 @@ structure. Within it's walls dwells the Mayor Of Noodleville (aka your
 uncle). He's a noble man but a lonely one. There's a very big door in front
 of you.  You can move north and northeast.
 
+> knock on door
+You knock on the big ass wooden door, and it opens wide revealing the ghastly
+face of your uncle's assistant. He hands you a note, and closes the door
+quietly.
+
+> read note
+You read the note, and as the words written upon it grip you; you let it
+slide from your fingers and it's carried off in the wind.
+
 > n
 You move north.
 
@@ -369,20 +378,51 @@ here you can "Drive North"
 > drive north
 You drive KITT North to North St.
 
-> drive east
-You drive east, and well unfortunately you end up driving directly into a
-carload of nuns (boy is YOUR face red). But fear not for even though the nuns
-are all dead you have been swiftly taken into the loving arms of the cast of
-"ER".  Now at the point you're probably wondering "wait aren't i supposed to
-be looking for my uncle?"... well yes you are. Consider THIS the scenic
-route. Besides ... you can pick up some helpful objects that will make
-finding your uncle MUCH easier. For example there are a few items on the
-route out of the hospital that will assist you when you get ripped from
-TVLand ! and dumped at the BACKDOOR of haunted mineshaft (you would've been
-able to go through the front door a LOT earlier had you explored more so
-basically the game has just became a whole hell of a lot harder). So you're
-still en route to finding Uncle Noodle but patience young man and you truly
-will be rewarded greatly.
+> drive south
+You drive south, and boom ... it's "Three's Company" !. Yes yes yes that
+classic television show is back ... in THIS game.
+
+> d
+You move down.
+
+The Roper's Apartment
+You're standing in the living room of everyone's favorite caretaker's ... The
+Ropers. Who are also quite dead on the floor i might add. You're thinking it
+might be a good time to call a cab and get the hell outta this place.  You
+can move north and up.
+
+> call cab
+You call for a cab and you are immediately transported to the classiest of
+classics .... "Taxi"
+
+> n
+You move north.
+
+Cheer's !
+The whole gang is here .... Rebecca, Norm, Carla, Sam, Woody, Cliff, Dr.
+Frasier Crane, and his lovely wife Dr. Lilith Crane. You get the feeling that
+your uncle is VERY near.  Also here is a sign.  You can only move north.
+
+> n
+You move north.
+
+Cheer's Pool Room
+You step into the pool room. It's curiously unoccupied and yet somehow you
+wonder ... is it really ? .... you will need the chainsaw in this room but i
+won't tell you how :o) ... you DID get the chainsaw didn't you ? ... if not
+no worry you just made the game a whole hell of a lot longer if you don't
+have it. You'll have to leave "Cheer's" if you don't have the chainsaw. If
+you DON'T have the chainsaw simply type LEAVE BAR (and no i still won't tell
+you how to use the chainsaw to save your uncle)  You can only move south.
+
+> leave bar
+You walk outside (feeling rather stupid). Stepping to cross the street, you
+don't notice the car and *BAM* ... you're struck down in the street like an
+idiot. But fear not ...  You're in a private hospital room. It looks like
+most other hospital rooms (and smells the same too) and it's check out time
+!. The doctor's have given you a completely clean bill of health, and you're
+now free. You wonder if perhaps there are clues to your missing uncle's
+whereabouts here in the hospital ?
 
 > n
 You move north.
@@ -407,6 +447,10 @@ You move down.
 Hospital Underground Parking
 It's dark, it's skanky,  and you don't feel very safe in this place.  Junkie
 is here.  You can move north and up.
+
+> give junkie syringe
+You give the syringe to the junkie and he thanks you profusely. Perhaps he'll
+be able to give you a little more information ?.
 
 > n
 You move north.
@@ -434,8 +478,8 @@ You're uncle is now FREE and BACK to his job as Mayor Of Noodleville.
 Congratulations Player !!.
 
 Coming Soon ..... more adventures with Dicky Noodle :-)
-You scored 67 out of the maximum 120!
-That is 55% of the game!
-You finished 53 points short.
+You scored 78 out of the maximum 120!
+That is 65% of the game!
+You finished 42 points short.
 
 [Press any key to end]

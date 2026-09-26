@@ -1,6 +1,0 @@
-e
-s
-e
-start the show
-quit
-y

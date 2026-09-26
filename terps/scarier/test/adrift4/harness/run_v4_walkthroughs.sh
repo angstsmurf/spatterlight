@@ -1867,7 +1867,7 @@ mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike A
 chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.|SCR_SKIP_WAITKEY=1
 # fantasyworld's 0 out of 500 is not an unfinished route: every one of the
 # game's 71 ChangeScore actions (490 points of the declared 500) hangs off an
-# adult sub-quest task -- `kiss <NPC>`, `fuck <NPC>` and the rest, one +4 per
+# adult sub-quest task -- one +4 per explicit NPC
 # scene.  Nothing on the quest line scores at all.  The route below opens with
 # the game's own NOSEX switch, which disables those scenes wholesale, so a
 # perfect quest-line run scores exactly zero by construction.  Surveyed
@@ -1957,7 +1957,7 @@ sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # and finishes a turn later, so `nw` straight after `wag tail` is refused
 # ("The wind on your wet body makes you shiver"), as in
 # runner_transcripts/cursed.txt:976-983.  The route waits two turns first.
-# Identical to the Runner on every turn; still 33 points at the end of Part One.
+# Identical to the Runner on every turn; still ends at 93 of 101 points.
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
 # 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
 # 2026-09-07, re-blessed: it does not.  run400 (Adrift_273_easter.txt:304-308)
@@ -7539,7 +7539,7 @@ planescape_solution.txt|Planescape-Encounters1.taf|You scored 15 out of the maxi
 # prerequisite props (lamps, candles, lighter, vibrator) are staged. No
 # authoring quirks encountered. 120 commands, no env vars.
 # 96/100 is the Runner's ceiling (run390x runner_transcripts/studio.txt
-# T110): task 111 `shelby lick brittany's tits` carries a "Player must be in
+# T110): task 111 (an explicit Shelby/Brittany act) carries a "Player must be in
 # same room as Player" restriction ("What?"), which run390's passrest fails
 # SILENTLY (early exit 4522CC before the FailMessage copy), so the earlier
 # out-of-room task 74 sharing the pattern draws "You can't do that here!"
@@ -7549,7 +7549,7 @@ studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
 # scored content (10 points each) across a hub-and-spoke resort map;
 # no formal EndGame reachable -- the game's only WIN action ("open
 # treasure chest") requires a 20-entry gate chain that includes a
-# DEATH-only unprotected-sex task as a prerequisite, so the chest can
+# DEATH-only explicit task as a prerequisite, so the chest can
 # never actually be opened by any surviving playthrough (confirmed by
 # attempting it at a full 200/200 score). Treated as best-effort:
 # 200/200, the maximum survivable score. One unresolved side-quirk left
@@ -7799,7 +7799,7 @@ trickortreat_solution.txt|Trick or Treat.taf|You flee to freedom.|SCR_SKIP_WAITK
 volant_solution.txt|volant.taf|You have won! Good for you!|
 # Dear Diary.taf by Wotan-Anubis (AIF): a 3.90 coming-out romance -- dump
 # Erik, fall for his sister Erin, win her over across a swim/dinner/movie
-# date, and reach the "fuck erin" ending. Derived via SCR_DUMP_TASKS'
+# date, and reach the closing explicit scene. Derived via SCR_DUMP_TASKS'
 # structural dump (55 tasks) plus interactive replay through harness/scare,
 # with SCR_TRACE_JUDY confirming Erin's real per-scene room (22 "Under the
 # Trees" by default; the invite-swim/dinner/movie tasks each physically
@@ -7809,11 +7809,11 @@ volant_solution.txt|volant.taf|You have won! Good for you!|
 # sum to exactly the game's own stated max (contains a `rape %character%`
 # task pattern that is a deliberate author refusal printing a disgusted
 # non-cooperation message and doing nothing; the walkthrough never invokes
-# it). "Fucking Amal" on Erin's shelf in the Video Archive isn't
+# it). The explicitly titled film on Erin's shelf in the Video Archive isn't
 # referenceable by name until `examine erin's shelf` first lists it (the
 # object *seen* model). 300/300 (100%) confirmed via the game's own final
 # score summary. 134 commands, no env vars.
-deardiary_solution.txt|Dear Diary.taf|FUCK YOU ERIK|
+deardiary_solution.txt|Dear Diary.taf|Boy, I needed to get that off my chest.|
 # Riding_Home.taf (AIF): 2008 Mini-Comp entry by Raul, explicit text between
 # consenting adults (blind protagonist Andy, bus driver Erica, passenger/
 # photographer Krystal), golden gitignored per the warlock/gamma/croft
@@ -7834,7 +7834,7 @@ deardiary_solution.txt|Dear Diary.taf|FUCK YOU ERIK|
 # reaching 90 before the bus stops is mandatory, not optional. Once home,
 # `call krystal` embeds her arrival in its own completion text; `kiss
 # krystal` must precede both `strip krystal` and `strip` (self), which must
-# both precede the win command `fuck krystal` (+10). 57 commands,
+# both precede the win command, the final explicit task (+10). 57 commands,
 # `SCR_SKIP_WAITKEY=1` (a `<PRESSKEY>` pause on the closing cutscene).
 # Guards the run400 loader's [2E] clear for player-held objects (Proc_19_5
 # 4906A2-4906BA, gs_create's runner_parent seed): the held cane is object 0
@@ -7859,7 +7859,7 @@ riding_home_solution.txt|Riding_Home.taf|You have won "Riding Home."|SCR_SKIP_WA
 # interactive replay through harness/scare. Prom-night side quests (all
 # optional but all required for max score): the fancy digital camera starts
 # inside the locked red locker and Kanbe's dialogue-flavour flask must be
-# given to Jake to knock him out and drop the locker key; the dildo starts
+# given to Jake to knock him out and drop the locker key; the sex toy starts
 # inside Kate's purse (left with her in the Girl's Bathroom after the private
 # kiss) and must be pocketed before the purse is returned to Kate; giving
 # Kanbe's camera back earns a replacement Polaroid (needed later for the
@@ -7869,9 +7869,10 @@ riding_home_solution.txt|Riding_Home.taf|You have won "Riding Home."|SCR_SKIP_WA
 # Y`) has listed the contents first -- hits the purse, then the locker.
 # `ask erin about music` sends her to the Girl's Bathroom for the private
 # `kiss erin`; `go home` requires Erin present and carries both her and the
-# player onto The Bus; the bus's `erin rub pussy` is the escalation task that
+# player onto The Bus; an explicit task on the bus is the escalation that
 # transports both of them, now undressed, into My Bedroom for the closing
-# scene chain, ending on `fuck erin` (+20) then `sleep` (+10, EndGame). 300/300
+# scene chain, ending on the final explicit task (+20) then `sleep` (+10,
+# EndGame). 300/300
 # (100%) confirmed via the game's own closing score summary. 68 commands,
 # `SCR_SKIP_WAITKEY=1` (the game's own opening StartupText pauses on a
 # `<waitkey>` before the first room is even shown; without it every command
@@ -7955,8 +7956,8 @@ fullcircle_solution.txt|Full_Circle.taf|Full Circle has ended.|SCR_SEED=2 SCR_SK
 #     eats one line of stdin, desyncing every command after it.
 halloweenhijinks_solution.txt|HalloweenHijinks.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
 # BarneysProblem.taf (AIF, adult content -- see /goldens/.gitignore): Barney
-# has "Bollockus Explodingus" and must have sex with as many of the town's
-# women as possible before his balls literally explode. Score is a checklist
+# has "Bollockus Explodingus" and must sleep with as many of the town's
+# women as possible before he literally explodes. Score is a checklist
 # of ~42 discrete acts (summing to 121, cross-checked against the .taf's own
 # CompleteText hint dump) plus at least one unlisted bonus (the "man attacked
 # by police" truncheon EVENT scores +1 on its own, on top of the checklist's
@@ -7978,15 +7979,15 @@ halloweenhijinks_solution.txt|HalloweenHijinks.taf|Well done! You've reached the
 #     revisits the Park after the Interrogation Room content to trigger it.
 #   - Alicia's holding-cell rescue plan (`talk alicia`, option 4, `shazam`)
 #     drops the player back in Town Centre; her actual "reward" scenes
-#     (fuck/assfuck/kiss/suck) are in her bedroom (Alicia's House, `u`), not
+#     (the explicit acts) are in her bedroom (Alicia's House, `u`), not
 #     the cell, and require VAR36>1 (set by `shazam`) to reach.
 #   - Sarah's Bedroom fires an unconditional dialogue menu on entry with a
 #     `cmd=[*]` wildcard task that intercepts *every* other command
-#     ("Answer the fucking question, asswipe") until answered -- any option
+#     (a profane "answer the question" nag) until answered -- any option
 #     except #3 (a scoring trap that kicks the player back downstairs) clears
 #     it; only then does `give choc to sarah` (the actual +10 scoring task)
 #     register.
-#   - Jodie's "kiss/fuck/assfuck/suck" scoring task is gated on syrup having
+#   - Jodie's explicit scoring task is gated on syrup having
 #     already been given to her (`give syrup to jodie` first); reaching her
 #     sick-in-bed scene needs a second, self-referential `u` while already
 #     standing in her bedroom (Jodie's House), not a room transition.
@@ -8079,22 +8080,19 @@ deadreckoning_solution.txt|DeadReckoning.taf|this is the best of the lot. Well d
 #     turn and eats whatever line comes next as `%player%`, not as a
 #     command -- the script's first line must be a name, not a verb.
 #   - In Miranda's Loft, three `wait`s let her emerge in lingerie. From there
-#     11 distinct acts each carry a one-time +1 (SingleScore, version 390):
-#     kiss miranda, fuck miranda's tits, touch/miranda touch/suck miranda's
-#     pussy, miranda fuck me, two successive `fuck miranda` calls (TASK36
-#     then TASK37 -- the second call is a *different* task, gated on the
-#     first being done, not a repeat), miranda suck/touch cock, touch cock.
-#     `fuck miranda's tits`/`miranda suck cock`/`miranda touch cock`/`touch
-#     cock` additionally require slacks off, and `miranda fuck me` requires
-#     both sweater and slacks off. Six more acts (touch/suck miranda's tits,
-#     touch/spank/miranda touch ass) are flavour-only (no score) but still
-#     bump `mir`, same as every scoring act above.
-#   - The finale, `fuck miranda's ass` (+4, ends the game), is double-gated:
-#     TASK37 (the second `fuck miranda`) must be done, AND `mir` must reach
+#     11 distinct explicit acts each carry a one-time +1 (SingleScore,
+#     version 390), including the same command typed twice (TASK36 then
+#     TASK37 -- the second call is a *different* task, gated on the first
+#     being done, not a repeat).  Four of them additionally require slacks
+#     off, and one requires both sweater and slacks off. Six more acts are
+#     flavour-only (no score) but still bump `mir`, same as every scoring
+#     act above.
+#   - The finale (+4, ends the game) is double-gated:
+#     TASK37 (the repeated act) must be done, AND `mir` must reach
 #     >=15 -- restr type=4 v1=3 decodes to Variables[3-2]=`mir` per
 #     scdump.cpp's "RESTR type=4 names it by index + 2" comment. Doing all 17
 #     mir-bumping acts above once each leaves mir=17, comfortably clearing
-#     the threshold. `suck/kiss miranda's ass` is a permanent refusal (no
+#     the threshold. One further act is a permanent refusal (no
 #     ACT block at all) and must not be attempted.
 # 34 commands, no env vars. Final run: score 30 out of the maximum 30 (100%),
 # ending "Well done - you scored maximum points!"
@@ -9081,23 +9079,23 @@ seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
 reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy
 # breeding/fetish AIF (OSS spy "Agent Gale" infiltrates Castle von
-# Bonerstein disguised as an "SS whore" to steal Operation Rheinmaiden's
+# Bonerstein disguised in an SS costume to steal Operation Rheinmaiden's
 # plans). All 7 ACT type=4 score points are reachable in one run: break the
 # ashtray and cut the ropes with the shard (Klaus's cell), pour the acid
 # flask on the cell lock, get Klaus to reveal the escape plan (`ask klaus
 # about execution` before `ask klaus about orders`, unlocking `give orders
 # to klaus` -- asking about orders first soft-locks that exchange), dress
-# in the SS-whore outfit and `tell klaus i'm ready` to be moved to Oberst's
+# in the SS costume and `tell klaus i'm ready` to be moved to Oberst's
 # Chambers, then `turn around` / `crawl to bonerstein` / `lay across
-# bonerstein's lap` and repeat `suck cock` (a "his meter" counter, var66,
-# needs to reach 12) until the engine auto-fires the climax and awards the
-# after-sex point. The messenger's satchel (with the vial of Klaus's
+# bonerstein's lap` and repeat the explicit act (a "his meter" counter,
+# var66, needs to reach 12) until the engine auto-fires the end of the
+# scene and awards its point. The messenger's satchel (with the vial of Klaus's
 # elixir) arrives 4 turns later; the schnapps bottle is in the Radio
 # Room's locked trunk (key: the skeleton key found by searching the
 # uniform); the snifter is in the Oberst's own desk. `remodulate
 # transmitter` (Radio Room, no restriction) before mixing schnapps +
 # elixir in the snifter and giving it to Bonerstein makes the following
-# `suck cock` (a separate, higher-priority task once the snifter is in its
+# explicit act (a separate, higher-priority task once the snifter is in its
 # "served" state) zombify him outright (statevb -> 23) instead of just
 # resetting for another round. While zombified, `search behind portrait`
 # reveals a wall safe, `ask bonerstein about combination` gets him to
@@ -9170,7 +9168,7 @@ warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_
 # starts the match; picking cells 1, 3, 5, 7 wins immediately via the 3-5-7
 # anti-diagonal (Zombie gets 2, 4, 6) before its 4th move. No numeric score
 # track (always "0 out of a maximum of 0"); the win is the only ending state.
-# A swear-jar Easter egg exists (`fuck ...` etc triggers a comedic refusal)
+# A swear-jar Easter egg exists (profanity triggers a comedic refusal)
 # but is unused here since it's not needed for progress.
 tictactoe_solution.txt|Tic-Tac-Toe.taf|Congratulations, you won!|
 # El ascensor (Spanish, one-room short game, MaxScore=0/no scoring): a bitter
@@ -9418,7 +9416,15 @@ ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmeri
 #     spaced two-word direction (Proc_19_29_475638, run400.bas ~63400), so
 #     "south east" falls to the anywhere-task `* east *` (task 31, "open
 #     water") in the river rooms instead of taking the exit.
-sere_solution.txt|S.E.R.E.taf|You scored 140 out of the maximum 260!|SCR_SKIP_WAITKEY=1
+# 215/260 route (was 140): adds hide in rocks, patrol leaves, tree pile,
+# move bushes, documents, maps, plus two vestigial tasks that use the
+# game's own command text: "take high caliber bullet" (marsh, no bullet
+# described) and "take dead soldier" (says you can't carry him, still
+# scores); 195 without them.  Pool is 250 vs 260 declared; "contact SAR"
+# (25) excludes the flare's prerequisite, and that task's second +10 is
+# dropped by one-score-per-task.  The author's-route notes above describe
+# the old 140 walkthrough (Runner also shows 140 on it).
+sere_solution.txt|S.E.R.E.taf|You scored 215 out of the maximum 260!|SCR_SKIP_WAITKEY=1
 # Escape to Freedom (Richard Otter's 2005 port of Mario Moeller's 1989 game).
 # Solution: the walkthrough bundled in freedom.zip
 # (downloaded/EscapeToFreedom_walkthrough.txt).  Departures:
@@ -9527,7 +9533,7 @@ akari_solution.txt|AkarisStory.taf|You scored 13 out of the maximum 13!|
 crossworlds2_solution.txt|Crossworlds Part 2.taf|You scored 75 out of the maximum 75!|SCR_SKIP_WAITKEY=1
 # Crossworlds Part 4 - Scream For Me (BBBen).  Solution: the author's own
 # walkthrough (AIF community archive).  Slash-alternatives in the source
-# ("rub/lick X's tits", "X rub tits/ass/pussy") are expanded into separate
+# (the explicit "rub/lick" lines) are expanded into separate
 # commands; typographic apostrophes normalised to "'".  Needs
 # SCR_SKIP_WAITKEY=1 -- the intro ends on a "[Press any key to continue.]"
 # prompt that otherwise eats the walkthrough's first real command line (same
@@ -9541,7 +9547,7 @@ crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maxim
 # that max score needs the scripted capture-and-escape route, not the
 # alternate "subdue Grace" branch (mutually exclusive, lower-scoring).
 # Chain: Welsh Fox intro -> Grace's-office seduction/capture -> dungeon
-# jailors scene, concealing a key (`put * key in ass`) past the post-scene
+# jailors scene, concealing a key on her person past the post-scene
 # search -> collar removal alone in the cell -> jailbreak (`open door`
 # triggers the alarm) -> full dungeon loot run -> a costume/item-retrieval
 # side-trip back to Grace's Office via the rear Computer-Room route, killing
@@ -9553,7 +9559,7 @@ crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maxim
 # exact count that triggers the lust-overwhelm escape without spending extra
 # turns (and therefore extra RNG draws) that shift the later outdoor-patrol
 # gauntlet's damage rolls into a KO -- fewer reps never escapes, more just
-# wastes turns. Then per-captive bespoke triggers (oral for Ulgham, "tell
+# wastes turns. Then per-captive bespoke triggers (an explicit act for Ulgham, "tell
 # her it was sabrina" for Jones, a sex toy for Omega-Bones, the dungeon
 # catsuit for Sinclair) and a `call <name>`-every-room escort out the back
 # door/gate route (the front-hallway route has an unresolved balcony-gunman
@@ -9608,10 +9614,10 @@ trappedwithagirl_solution.txt|trappedwithagirl.taf|There is a huge explosion.|
 # the cheques from her locker, the prep/OR sequence, peep the shower via
 # six `look at girls`, drug and cage Brutus, confront Emma (`tell emma
 # about shower` -- the hinted "her and claire" line is eaten by the
-# parser), then the OR scene ending in `fuck Emma`.  After the first
-# spanking, `claire lie on table` gates off the earlier repeatable lick
-# so the later `claire lick emma's pussy` / `emma punish claire` pair can
-# fire (the missing 10).  `fuck claire's ass` twice is a lose.  330/330.
+# parser), then the OR scene ending in the explicit Emma task.  After the first
+# spanking, `claire lie on table` gates off the earlier repeatable act
+# so the later Claire/Emma act and `emma punish claire` pair can fire (the
+# missing 10).  Repeating one Claire act twice is a lose.  330/330.
 # Intro waitkeys need SCR_SKIP_WAITKEY=1.
 practicepolicy_solution.txt|practice policy.taf|You scored 330 out of the maximum 330!|SCR_SKIP_WAITKEY=1
 # The Makeshift Magician (3.90, One Room Comp).  Kids' birthday party; not
@@ -9638,11 +9644,19 @@ sbwd2_solution.txt|sbwdII.taf|follow soon!|
 # laser plans, tidy Ghost traces, phone Trotter.  Chapter EndGame at 77/102.
 # Intro waitkeys need SCR_SKIP_WAITKEY=1.
 chasingrussian_solution.txt|ChasingTheRussian_noSound.taf|You've completed this chapter of the adventure.|SCR_SKIP_WAITKEY=1
-# The Nem Rehsif (4.00).  Pioneer mission only (170/680).  Shoes start worn
-# with Parent -1; scgamest.cpp treats that as the player so `remove shoes`
-# can open the sanctuary.  After `show map` wait three looks on the beach
-# for the eagle to drop the compass, then Relles / speaking rod / garland.
-# Do not give the key to Legna (lose).  No intro waitkeys.
+# The Nem Rehsif (4.00).  400/680: Shepherd + Seer + Trainer tasks, Seer
+# finale.  `use key` is single-use (the "shalom" reverse is Reversible 0)
+# and locks the Pioneer/Shepherd/Reacher corridors, but the Seer's place
+# (18 E) and Trainer's room (dead end W W) open only once the key is used.
+# Key in the Shepherd cave; push altar, dive into tunnel, dive, crystal
+# ball (cave 84), the shark leaves the telescope on the beach; show staff,
+# potion, sweets, slingshot (bees drop it in pastures 1), Rees telescope
+# (blindfold), potion/slingshot/cutters; back up for stick + manual, lift,
+# show manual, give Rehcaet the manual, use oracle.  One finale only (all
+# 30, room 31 has no exits), so 400 is the ceiling.  Weight limit 90:
+# stash staff/slingshot/cutters in the musty cave.  Shoes start worn
+# with Parent -1 (scgamest.cpp treats that as the player).  Never give
+# the key to Legna.  No intro waitkeys.
 nem_solution.txt|nem.taf|Congratulations! Well done good and faithful servant!|
 # To Be King v1.8 (AIF).  Adult court intrigue; TAF never ages the Queen or
 # the princes as under-21.  Solution/golden gitignored.  Richard path:
@@ -9679,8 +9693,17 @@ cityinfear_solution.txt|CityInFear.taf|Put it there... Captain|SCR_SKIP_WAITKEY=
 # pit in Low Cave (amber stone), arrow in the vault (toolkit), singing
 # sword in the Narrow Passage, then pedestal.  Magic trap is the bog (skip).
 labyrinth_solution.txt|labyrinth.taf|The ceiling above bursts into light|SCR_SKIP_WAITKEY=1
-# Brain Dead Weekend.  HHGG gag: fish/chef, tank/clerk, fried fish/captain,
-# give the four mix items, drink the blaster.  Marker is the gulp shout.
+# Brain Dead Weekend. HHGG gag: fish/chef, tank/clerk, give utensils to
+# the barkeep (he keeps the spoon), fried fish/captain, gas and tooth,
+# drink the blaster. Marker is the gulp shout. -6/5 is the winning
+# ceiling: drinking (T1) is the only ending and costs -9; positives are
+# gas, chef, plate handoff (+3) plus two mutually exclusive +1s that each
+# consume the utensil bundle -- "x utensils" (T12) or handing the bundle
+# to the captain (T10). Either one strands the spoon: T15 "give * spoon * "
+# ends in a space after the last '*', so the run400 matcher's tail
+# Right(line," ") never matches a trimmed line, and T16 needs the bundle.
+# With no spoon the barkeep never mixes. 4/5 is only reachable by never
+# drinking (no win). Runner-identical (runner_transcripts/bdw.txt).
 bdw_solution.txt|BDW.taf|WHOO!  WHOO!  WHEE!  WHAA!|
 # Colossal Cave (Crowther/Woods 350, ADRIFT 4 port advent350b.taf).
 # Win is EndGame dead_type=3: drop the rusty-marked dynamite rod in the
@@ -9750,9 +9773,14 @@ mm2_solution.txt|Monster in the Mirror 2.taf|I hope you enjoyed these short game
 cloak_solution.txt|cloak.taf|*** You have won ***|SCR_SKIP_WAITKEY=1
 # Bounty Hunter.  Gun, Roddy, bottle-for-ticket, vent, Donny, Jake.
 bountyhunter_solution.txt|bountyhunter.taf|You scored 30 out of the maximum 30!|SCR_SKIP_WAITKEY=1
-# Escape from Camelot.  Dungeon tile into the hallway, then the hole
-# under the round table is the type=6 win (empty WINTEXT).
-camelot_solution.txt|Escape_from_Camelot.taf|You scored 1 out of the maximum 5!|SCR_SKIP_WAITKEY=1
+# Escape from Camelot.  Full 5/5.  Tile hole into the hallway, look at
+# someone (+1); store-room cabinet: tiny key (task 17 opens the storage
+# tent's east exit) and Large Key; side room: x table before get crowbar.
+# West wing: drop the tiny key first so `unlock cupboard` hits the scoring
+# Large-Key task (+1), not the tiny-key twin; open trapdoor with the
+# crowbar (+1); storage tent 2 person (+1); the round-table hole is the
+# type=6 win (+1, empty WINTEXT).
+camelot_solution.txt|Escape_from_Camelot.taf|You scored 5 out of the maximum 5!|SCR_SKIP_WAITKEY=1
 # Cumberbund (1_axia.taf). Search the three hiding places; the end-game
 # event fires once var0 hits 3. Waitkeys on the closer.
 cumberbund_solution.txt|1_axia.taf|twelve years ago and you killed her|SCR_SKIP_WAITKEY=1
@@ -9798,10 +9826,21 @@ goldbe_solution.txt|Gold_B_and_E_v1.2.taf|You scored 32 out of the maximum 35!|S
 # for the cabinet; wait out the graveyard cycle; Charles then the baby
 # auto-take their gifts. Full 42/42. Waitkeys.
 deathhouse_solution.txt|deathhouse.taf|You scored 42 out of the maximum 42!|SCR_SKIP_WAITKEY=1
-# Here Today Gone to Hell. Walk to the stage and start the show. Optional
-# van scene is adult and not required. Waitkeys.
+# Here Today Gone to Hell (Sugarcubes/Bjork). AIF; solution/golden
+# gitignored. Only two tasks: task 0, the man's "favor" in the Black Van
+# (+1500, the sole scoring task, unrestricted; an explicit scene between
+# adults, typed as the game's own command text)
+# and task 1 "Start the show" on the stage, which ends the game. Route:
+# e, n x5 to the van, ask man about instruments/favor, the van task,
+# s x6, e, start the show. Full 1500/1500. The instruments are flavour
+# only; no task needs them. Waitkeys.
 heretoday_solution.txt|heretoday.taf|The band rips into "Tidal Wave"|SCR_SKIP_WAITKEY=1
-# Raiders. Water for strength, sapphire behind the idol, stab Valludu.
+# Raiders. Take bath then touch leper (+100), water for strength,
+# sapphire behind the idol, stab Valludu. Full 100/100: task 37
+# "touch leper" (anywhere, needs task 36 "take bath" done) is the
+# game's only ChangeScore action. The Leper NPC is in the start room
+# from turn 1 and is hostile but misses. `score` goes before the
+# stab because the game ends on it.
 raiders_solution.txt|raiders.taf|Hurray you have beat the evil monster valludu|SCR_SKIP_WAITKEY=1
 # Heroes. Drink the pub beer, fly the boots, warehouse alien, hayloft orb.
 heroes_solution.txt|heroes.taf|the least we could do, Rob|SCR_SKIP_WAITKEY=1
@@ -9833,8 +9872,12 @@ obsession_solution.txt|obsession.taf|Congratulations, you fulfilled your|SCR_SKI
 ziva_solution.txt|Ziva.taf|You scored 240 out of the maximum 240!|SCR_SKIP_WAITKEY=1
 # Rocky Raccoon. Fish for the cat, attack Dan and Nancy, sewer escape.
 rocky_solution.txt|Rocky_Raccon_Game.taf|safely rescued your family|SCR_SKIP_WAITKEY=1
-# Smoke Demo (AIF): dress disguise into the village. Gitignored goldens.
-smokedemo_solution.txt|Smoke Demo.taf|You scored 20 out of the maximum 45!|SCR_SKIP_WAITKEY=1
+# Smoke Demo (AIF): 45/45 max. Boat (sex toy), eat sand, throw it, material;
+# telescope from the cliff, hemp+tree, telescope on hemp (the three score
+# easter eggs are the game's own "Demo Easter Egg n of 3" tasks, paid once);
+# rope down the cliff, wear material, Bonnie trades Smoke 2 for the toy,
+# dress past Babs. Gitignored goldens.
+smokedemo_solution.txt|Smoke Demo.taf|You scored 45 out of the maximum 45!|SCR_SKIP_WAITKEY=1
 # Homeless Harry (AIF): Lysol for Willy. Gitignored goldens.
 homelessharry_solution.txt|Homeless Harry.taf|Yay, you won the game!|SCR_SKIP_WAITKEY=1
 # Gosha Adventure (AIF): aspirin, Masha, Plan for Vovan. Gitignored goldens.
@@ -9847,11 +9890,21 @@ sentor_solution.txt|sentor.taf|You became a favourite man of KALI|SCR_SKIP_WAITK
 marmalade_solution.txt|Marmalade_Skies.taf|You have been saved.|SCR_SKIP_WAITKEY=1
 # The Crash. Bandage, ski the cliff, nails, boots off the body, patch the boat.
 thecrash_solution.txt|thecrash.taf|Your cell phone rings!|SCR_SKIP_WAITKEY=1
-# Locuras. Hierba, cama, crucigrama Freud/Bucéfalo/Calvitero, diván. 100/200.
-locuras_solution.txt|Locuras.taf|Tu ego te lo agradece.|SCR_SKIP_WAITKEY=1
+# Locuras. Hierba, camita, fumar, volar, crucigrama Freud/Bucefalo/Calvitero,
+# estoy vivo, no estoy (Limbo), salvar el planeta. 175/200 = reachable max.
+# Two exclusive winning endings: divan (+5) vs salvar planeta (+50). The
+# oasis pool (saltar 5 + bucear 15) only comes from "ir al oasis" on the
+# terrace and never returns there, which costs fumar..calvitero (60), so it
+# is skipped. Divan-ending best would be 130 (no estoy, estoy vivo, divan).
+locuras_solution.txt|Locuras.taf|You scored 175 out of the maximum 200!|SCR_SKIP_WAITKEY=1
 # home1-2.taf (AIF): Faith; lie on bed then sleep. Gitignored goldens.
 home12_solution.txt|home1-2.taf|You scored 152 out of the maximum 163!|SCR_SKIP_WAITKEY=1
-# Star Trek Chain Reaction ep1. Communicator, Energize, elevator Engineering.
+# Star Trek Chain Reaction ep1. 20/20 (max). Drawer tapes in the living room
+# (+10, beams you back with phaser+communicator), open communicator, Energize
+# (+3), elevator bridge then sick bay, sw, yes to McCoy's analysis (+4), back
+# ne ne to the elevator, engineering (+3). "Elevator malfunction." is task 7's
+# Type 6 end-game action + WinText (episode 2 teaser), so it is the real ending.
+# Task 5 'yes' is Repeatable (+4 each) -- farmable, deliberately not farmed.
 startrek1_solution.txt|thestartrekchainreactionepisode1thehornetsnest.taf|Elevator malfunction.|SCR_SKIP_WAITKEY=1
 # Vengance (AIF). Gitignored goldens.
 vengance_solution.txt|Vengance.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
@@ -9864,10 +9917,17 @@ urbandragon_solution.txt|urbandragon.taf|afford your own houseboat|SCR_SKIP_WAIT
 # Stainless Steel Rat (rat.taf). Cop/button, board, ticket punch, armored car, Inskipp.
 rat_solution.txt|rat.taf|Congratulation! You have successfully completed the first part|SCR_SKIP_WAITKEY=1
 # ghost.taf (AIF). Yellow basil, Hamlet, evidence, Sarah. Gitignored goldens.
+# 100/100 (max). Open all three spice bottles once (+1 each, repeatable),
+# then after the yellow bottle answer `you` (not `food`; the two exclude
+# each other) and do each of the cook's seven repeatable +5 acts once (the
+# game gives her as mid 20s), then the one-shot +10 act that ends the scene
+# and drops the silver key. The declared 100 = 52 (old route) + 3 + 35 + 10,
+# i.e. each repeatable counted once; no farming. Two of the cook commands
+# fill the game's own `*` wildcard patterns rather than literal text.
 ghost_solution.txt|ghost.taf|As if you could ever forget.|SCR_SKIP_WAITKEY=1
 # Wasteland bunker teaser. Keys, start the truck, winch the blast doors, west.
 wasteland_solution.txt|wasteland.taf|shadow of tall mountains|SCR_SKIP_WAITKEY=1
-# Ginger (AIF). EVENT after `fuck tits`. Gitignored goldens.
+# Ginger (AIF). EVENT after the explicit task. Gitignored goldens.
 ginger_solution.txt|Ginger.taf|Yep, when it rains it pours.|SCR_SKIP_WAITKEY=1
 # Spooked 2. Rope-rock, 212188 trunk, hook+dresser, ask then get head.
 spooked2_solution.txt|Spooked2.taf|Congratulations you won with a score of 23 out of 23!|SCR_SKIP_WAITKEY=1
@@ -9889,7 +9949,12 @@ thesorc_solution.txt|thesorc.taf|Congratulations-You've Done It!|SCR_SKIP_WAITKE
 afp_solution.txt|AFP.taf|resting your head against the cushions|SCR_SKIP_WAITKEY=1
 # cellpart1 teaser. Wait for door, Genevive handshake, cabinet.
 cellpart1_solution.txt|cellpart1.taf|gingerly step over the booby trap|SCR_SKIP_WAITKEY=1
-# Pizza Beast (AIF). Ring doorbell, ray gun, zap Zamyatin, red switch, Lia.
+# Pizza Beast (AIF). 12/12 = full maximum. Ring doorbell, ray gun, zap
+# Zamyatin (+1), then the eleven one-shot explicit Sheena tasks (+1 each,
+# typed as the game's own command text, which `help` teaches) before the
+# red switch, which ends the game. Score tasks 9, 24, 29-35,
+# 42, 45, 46; none repeatable. Score is checked before the switch.
+# Gitignored goldens.
 pb_solution.txt|PB.taf|freed the girls|SCR_SKIP_WAITKEY=1
 # When the Lights Go Out. Oil the trapdoor, cave, city of the lights.
 lightsgoout_solution.txt|lightsgoout.taf|Welcome to the City of The Lights|SCR_SKIP_WAITKEY=1
@@ -9919,7 +9984,12 @@ bta_solution.txt|bta.taf|It's only a demo.|SCR_SKIP_WAITKEY=1
 athylon_solution.txt|athylon.taf|End of Game!!!|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
 # Amnesia Kid. Styrofoam, banana tree, M-80 bookshelf, horsie, Tom's map, scientist pod.
 amnesiakid_solution.txt|amnesiakid.taf|Some kind of strange pod|SCR_SKIP_WAITKEY=1
-# The Successor. Blue bunk pack, android menu, Dyson binoculars, holodeck card, elevator.
+# The Successor. Blue bunk pack, android menu, Dyson binoculars,
+# holodeck card, elevator. 0/80 is the ceiling: none of the 107 tasks
+# has a ChangeScore (Type 4) action, so MaxScore 80 is header-only.
+# The author tracks progress in the Discoveries variable (bits
+# 1/2/4/8/16, as listed in the manual object), which never reaches
+# the score.
 successor_solution.txt|The_Successor.taf|Godspeed on a life beyond your imagination!|SCR_SKIP_WAITKEY=1
 # Wizards Playground. Elf/light, four remote heaven bolts, troll tooth to Rex.
 wizards_solution.txt|Wizards_Playground.taf|You give him the troll tooth. "Very good. Here have some gold."|SCR_SKIP_WAITKEY=1
@@ -9952,13 +10022,25 @@ proba_solution.txt|proba.taf|âûøëè èç ýòîé êâàðòèðû|SCR_SKIP_WAITKEY=1
 akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
 # Nightmare on Elm Street (Russian). Valve, coffee, alarm, go to work.
 elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
-# Crime Scene. Paper under the kitchen table, Tom's key, folder, show the inspector.
+# Crime Scene. 78/80. Living room: search body, glass on gun, examine blood,
+# take blood, window, under body, table; kitchen: under table, wood+hair to Sam;
+# Tom's key, desk, folder, give evidence to inspector (+15, win).
+# Missing 2 = task 0 'look at door' (hall): its six junk actions move the player
+# to room -2 and scarier dies (gs_move_player_to_room: invalid room, -2).
+# The Runner dies on it too: run390 under Wine (2026-09-26, fast.sh feeds
+# `look at door` and `look` + `look at door`) pops "Run-time error '9':
+# Subscript out of range" and exits at that command. 78/80 is the ceiling.
+# 'take blood' is claimed by task 7 (+5); task 16 (same text, 0) is shadowed.
 crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
-# A Day at School (SchoolDay): comedic, non-sexual school-survival game -- no
-# romantic/sexual content anywhere in the TAF text. Homework to bedroom desk
-# and backpack, deliver+answer both classroom tests (pi digits, 5!), run from
-# Eric at recess, go to the main hall, go home. Ends 3/6 -- the alternate
-# fight/befriend-Charlie branches are unneeded for the win.
+# A Day at School (SchoolDay): comedic, non-sexual school-survival game --
+# no romantic/sexual content anywhere in the TAF text. 6/6 = full maximum.
+# Keep the homework in hand (task 10 needs it held), kick Charlie once then
+# befriend him (+1 +1), sit, "place my homework on my desk" (+1; in Scarier
+# "put homework on desk" is claimed by the built-in put and never reaches
+# task 10, so the pi test never starts -- Runner behaviour unmeasured),
+# 3.141592653 (+1), insult his dad at recess (+1, instead of run), 120 (+1),
+# go, go home. Score tasks are 3/8/9/10/23/27, one point each; kick-Charlie
+# is repeatable until befriended, but it is kicked only once here.
 schoolday_solution.txt|SchoolDay.taf|YOU WIN!!!!!|SCR_SKIP_WAITKEY=1
 # Sorority House (AIF): re-reviewed 2026-09-24 -- previously left unwired,
 # flagged (INDEX.md) for "non-consensual" and (WALKTHROUGH_TODO.md) for a
@@ -9990,7 +10072,7 @@ freshman_solution.txt|freshman.taf|Five times.  That last time was a doozy!|SCR_
 # goldens/prostitute_solution.txt and its .expected.txt are gitignored, this
 # row is the committed artefact.
 # WIN, 16 commands -- linear motel-room scene (call Lacey, pay her, undress
-# her, work through her tasks in dependency order, then "assfuck lacey" fires
+# her, work through her tasks in dependency order, then the final act fires
 # the game's own end-game action and prints its WinText).
 prostitute_solution.txt|prostitute.taf|Congradulations, you did it!|SCR_SKIP_WAITKEY=1
 # Loving Family.taf (AIF): content-reviewed 2026-09-24 -- player is stated to
@@ -9999,9 +10081,9 @@ prostitute_solution.txt|prostitute.taf|Congradulations, you did it!|SCR_SKIP_WAI
 # sororityHouse/croft/amy/magicshow terms: goldens/lovingfamily_solution.txt
 # and its .expected.txt are gitignored, this row is the committed artefact.
 # WIN, 5 commands -- go from Your Room to the Game/Tv Room (e, d, e) and type
-# "fuck kriztina": TASK 40 (the game's own EndGame-win task) has zero
+# the Kriztina command: TASK 40 (the game's own EndGame-win task) has zero
 # restrictions attached, an apparent authoring oversight vs. the otherwise-
-# gated "fuck jackie" task, but firing it is a genuine engine-recognized win,
+# gated Jackie task, but firing it is a genuine engine-recognized win,
 # not a workaround -- the full content-gated Mother/Heidi/Jackie/Kriztina
 # storyline was deliberately not exercised.
 lovingfamily_solution.txt|Loving Family.taf|Again Congrats and thanks for playing|SCR_SKIP_WAITKEY=1
@@ -10015,7 +10097,7 @@ lovingfamily_solution.txt|Loving Family.taf|Again Congrats and thanks for playin
 # text; exhaustively tried take/get/open/unlock/break/smash/move/pick and
 # all ask-topic variants with no success -- this appears to be unfinished/
 # broken content in this amateur game. The walkthrough instead completes
-# the self-contained Dorna questline in the hideout (kiss/rub/remove/fuck
+# the self-contained Dorna questline in the hideout (an explicit
 # sequence gated by task restrictions) to its natural conclusion, where
 # Dorna's scene ends and she leaves ("she takes her clothes and walks
 # away"); after that point the only reachable location is a dead-end loop
@@ -10079,7 +10161,7 @@ villagelove_solution.txt|The Village of Love and Lust.taf|overworked yourself an
 # to 150 turns with no effect on the gated `kiss sophie inn` task), and the
 # fireplace refuses further fuel once maxed -- a genuine soft-lock, not a
 # harness limitation. The walkthrough demonstrates the fire-trick unlock and
-# the full Sophie tits-climax scene (yielding the one obtainable ale), hands
+# the full Sophie scene (yielding the one obtainable ale), hands
 # that ale to Carradine for partial (not final) progress, then settles into
 # a deterministic, stable repeating `wait` loop ("Time passes...") used as
 # the marker.
@@ -10098,11 +10180,11 @@ mwf_solution.txt|mwf.taf|Time passes...|SCR_SKIP_WAITKEY=1
 # the day/night schedule, sidestepping this game's very fiddly day-cycle
 # navigation entirely: alternating `come here gillian`/`talk to gillian` at
 # the Night Club (reachable e, s, w from the Bus Stop) raises her relation
-# well past the top "Favorite Sexual Position" threshold in under 90 turns,
+# well past the top relationship threshold in under 90 turns,
 # with `ask gillian something` interleaved to harvest each newly unlocked
 # topic (confirmed via `notes gillian`: birthday 24 October/Scorpio, job
-# Cashier, colors Green/Pink/Red, movie Wild Things, measurements Breast
-# 89/Hip 87/Waist 54, position Missionary). Navigating to her room (Palm
+# Cashier, colors Green/Pink/Red, movie Wild Things, and the adult
+# topics). Navigating to her room (Palm
 # Spring Square n, Palm Spring Hotel in, Hotel Reception nw) crosses a
 # one-shot "Miss Palm Spring Beach" contest event that briefly reroutes
 # "in"/exits back to the Beach; `i choose gillian` resolves it. Once all
@@ -10174,11 +10256,17 @@ dbaa_solution.txt|dbaa!(intro).taf|Bring me something else!|
 # the Moolah Room's 7 safe cash piles -- the "pile of twenties" is the one
 # always-lethal pile), buys the penthouse room, and takes its remote --
 # which one-shots the player into "TVLand" at Mel's Diner. From there it's a
-# straight line: sit/order/eat at the diner, ride KITT two Drive-commands
-# north then east (a scripted detour dumping the player at a hospital
-# discharge room), north to the hallway, in and down to the underground
-# parking, one more north to find the trail of cheese, and `follow trail`
-# jumps straight to the Victory room to `untie uncle` and win at 67/120.
+# straight line: sit/order/eat at the diner, ride KITT `drive north` then
+# `drive south` (+3; `drive east` is -4) to Three's Company, `d`, `call cab`
+# (+3) to Taxi, n n to the Cheers pool room and, WITHOUT the chainsaw,
+# `leave bar` (-8) into the hospital; take the syringe, in/d, `give junkie
+# syringe` (+7), n, `follow trail` (+7), `untie uncle`: 78/120 (opens with
+# knock on door + read note, +1 each). 78 is the ceiling: the candle trapdoor
+# seals the casino/TVLand branch and the mineshaft/Earth Ship branch (ghost,
+# cows, alien, Gorgo, start ship: 68 total) also ends at Victory, so they
+# can't be combined. 120 = every positive task once across BOTH branches; the
+# missing 42 = Earth Ship's own 34 + the leave-bar -8. South/cab/leave-bar/
+# junkie (+12) beats east/junkie (+10) and chainsaw (+6).
 dickynoodle_solution.txt|DickyNoodle.TAF|You untie your loving Uncle Noodle|
 # dishduty_intro(3).taf (Dish Duty, IntroComp 2009): a domestic-horror/glitch
 # teaser -- the player's spouse asks them to wash the dishes, and the scene
@@ -10247,24 +10335,19 @@ illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of
 # insufficient) pipe-room startup.
 ebonysworld_solution.txt|ebonysworld.taf|Your score is 1450 out of a maximum of 0.|
 # liqid.taf (The Quest For More Hair or AMU Part 1: The Smugglers):
-# content-reviewed comic fantasy quest, no sexual content, no minors. Best
-# reachable state, not the full ~45-room quest -- confirmed via
-# SCR_DUMP_TASKS the remaining content (palace subplot, Frad's riddle, the
-# cave/rabbit warren, a rope-cliff mechanic, and an airport tapes/bomb
-# puzzle) is far larger than the opening area this walkthrough completes.
-# The walkthrough demonstrates the two puzzles that block casual play: the
-# bank vault (any 9-digit code, then the fixed 4-digit code 5764, for +750
-# Denmarkians) and the ferry man Jenkins, previously miscategorised as
-# unwinnable. Buying gear from Joe's Blacksmiths only places items on the
-# workbench (`buy spear` etc. never adds to inventory -- a separate `get`
-# is required), and the currently wielded weapon is whichever was equipped
-# first (the Sword found under the bed); `shoot jenkins` with the Sword
-# wielded always answers "You can't shoot with the Sword!". Dropping the
-# Sword makes later attack verbs prompt "What do you want to attack Jenkins
-# with?", answerable inline as `shoot jenkins with blaster`. Combat only
-# actually resolves after the scripted `fight jenkins` sets his hostile
-# state; once fought, `shoot jenkins with blaster` wins instantly ("I
-# surrender, you win!"), landing on the Other Side of the River at 30/100.
+# content-reviewed comic fantasy quest, no sexual content, no minors.
+# 60/100 = real reachable ceiling; no ending is reachable (the marker is
+# Jenkins' surrender, not a game ending).  Town part as before (vault
+# 123456789/5764, blaster only, fight jenkins, drop sword, shoot jenkins
+# with blaster), then palace arch + talk king + yes (rope), Frad
+# ape/are/ore/owe/owl (shovel), dig in the cave, show sock to rabbit,
+# rope cliff (+5) and up to the Airport, where the game soft-locks.
+# Unreachable 40: `rope cliff` hides the rope, but it needs the rope held
+# and so does its reverse, so it can never be undone; the Airport S/W exits
+# need it undone -> briefcases/ring 987/tapes/tape player (20) are out.
+# Hamish's KilledTask is 0 and nothing runs ^^smugglerdiesevent^^, so the
+# hair shop, buy hair (10) and the talk-king win (5) are out too.
+# Mushrooms teleport to an inescapable loop room -- avoid.
 liqid_solution.txt|liqid.taf|I surrender, you win!|
 # mages.taf: content-reviewed magic-school RPG sim, no sexual content, no
 # minors -- confirmed via SCR_DUMP_TASKS the game has no formal win at all
@@ -10389,7 +10472,7 @@ weirdstuff2_solution.txt|weirdstuff2.taf||
 # Orgy-Fest Room and gets "Someone is missing here." -- confirming the win
 # task's all-six-conquests restriction can never be satisfied. Same class
 # of authoring dead end as ebonysworld/illegalsocks in this same batch.
-filthybill_solution.txt|filthybill.taf|studded cocks|
+filthybill_solution.txt|filthybill.taf|I appreciate your help with Dave|
 # Temporfell, a demo (temporfell_demo.taf): sci-fi tech-demo ending in a
 # "Thanks for testing!" screen, not a scored win. Full walkthrough: suit up,
 # navigate to Node and complete the panel-fix side quest (optional, left in

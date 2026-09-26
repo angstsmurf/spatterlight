@@ -1,10 +1,22 @@
 north
+search body
+use magnifying glass on gun
+examine blood
+take blood
+look at window
+look under body
+look at table
+score
 east
 look under table
+show wood to sam
+show hair to sam
+score
 west
 west
 ask tom about key
 east
 open desk with key
 open folder
+score
 give evidence to inspector

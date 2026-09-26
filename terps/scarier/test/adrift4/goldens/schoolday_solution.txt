@@ -2,16 +2,17 @@ up
 examine desk
 take homework
 take backpack
-put homework in backpack
 down
 go to school
+kick charlie
+befriend charlie
 go to classroom
 sit at desk
-put my homework on my desk
+place my homework on my desk
 3.141592653
 wait
 go to recess
-run
+insult his dad
 go to class
 sit at desk
 120

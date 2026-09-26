@@ -26,9 +26,6 @@ You take your homework from your bedroom desk.
 > take backpack
 You take your backpack.
 
-> put homework in backpack
-You put your homework inside your backpack.
-
 > down
 You move down.
 
@@ -42,6 +39,13 @@ Ok, you arrive at school for your torture (education)!!!
 School
 Where you go for torture (education).  You can GO TO your CLASSROOM or you
 can SKIP CLASS.  Eric the bully is here.  Charlie is at school today.
+
+> kick charlie
+Ouch,That hurt!!!!!
+
+> befriend charlie
+Ok, charlie is now your friend.  You can ask him for homework if you forgot
+yours.
 
 > go to classroom
 You are at your class now.
@@ -57,14 +61,21 @@ You are at your desk.  The teacher walks through the door.
 out your homework and put it on your desk."If you don't have your homework
 you're screwed.  If you are Charlie's friend, you can ask him for a copy.
 
-> put my homework on my desk
-You put your homework onto your school desk.
+> place my homework on my desk
+Your school work is now on your desk.  We are taking a test now:
+
+      Question:  What are the first 10 digits of pie?
 
 > 3.141592653
-What do you want to do?!?
+You got it right!!!  1 point for you.  Ok, the test is over.  Teacher: "Class
+will now continue."  You are learning right now so you have 1 turn to do
+anything.  Just type wait if you don't want to get in trouble.  Or you might
+want to: Go potty, Make spitballs, pass notes, draw pictures, or play
+calculator games
 
 > wait
 Time passes...
+It is now recess time.  You should go to recess.
 
 > go to recess
 Time for recess beware the bully...  It's Eric the big, bad bully.  You might
@@ -72,9 +83,9 @@ want to run away (if you want to live).  You might also think about: Kicking
 Him, Punching him, Insulting him, maybe shooting him with a random gun that
 appears in you hand.
 
-> run
-You ran away from Eric and were not killed.  Great job!  The bell rings and
-recess is over.  Go back to class.
+> insult his dad
+You hit Eric in his weak spot, his dad.  Eric starts crying and runs away.
+The bell rings and recess is over.  Go back to class.
 
 > go to class
 It's time for class again.  Class is starting again sit at your seat.
@@ -95,8 +106,8 @@ You are now in the main hall.
 Youw win!!!
 Yay!!! you survived school with the bullies, and the tests, and the
 classmates, and and and and...  Anyways...  YOU WIN!!!!!
-You scored 1 out of the maximum 6!
-That is 16% of the game!
-You finished 5 points short.
+You scored 6 out of the maximum 6!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

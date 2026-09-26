@@ -1,6 +1,17 @@
+n
+w
+open drawer
+take star trek tapes
 open communicator
 Energize
 w
+bridge
+sw
+sick bay
+sw
+yes
+ne
+ne
 engineering
 quit
 y

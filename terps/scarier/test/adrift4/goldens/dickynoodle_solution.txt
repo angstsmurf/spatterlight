@@ -1,3 +1,5 @@
+knock on door
+read note
 n
 take key
 s
@@ -45,11 +47,17 @@ eat food
 n
 n
 drive north
-drive east
+drive south
+d
+call cab
+n
+n
+leave bar
 n
 take syringe
 in
 d
+give junkie syringe
 n
 follow trail
 untie uncle

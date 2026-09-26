@@ -9,6 +9,6 @@ freud
 bucefalo
 calvitero
 estoy vivo
-acostarse en el divan
-quit
-y
+no estoy
+score
+salvar el planeta

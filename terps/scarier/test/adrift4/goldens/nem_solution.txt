@@ -12,34 +12,137 @@ in
 in
 get necklace
 out
-n
-use key
-n
-get map
-open box
-get compass
-n
-start mission
-get sweets
-show map
-s
-s
-e
-look
-look
-look
-get compass
-n
-n
-e
-e
-e
-e
-give sweets to guard
-e
-give relles compass
 w
 n
-use speaking rod
-draw a picture of mount noiz
+use key
+w
+get staff
+get slingshot
+e
+s
+e
+e
+s
+e
+drop necklace
+remove shoes
+drop shoes
+get diving equipment
+wear diving equipment
+get telescope
+w
+n
+w
+in
+u
+in
+push the altar
+u
+w
+in
+dive into tunnel
+look
+get sweets
+dive
+s
+s
+s
+look
+get crystal ball
+n
+e
+u
+remove diving equipment
+drop diving equipment
+drop crystal ball
+get telescope
+n
+n
+w
+w
+show staff
+n
+n
+n
+look
+get potion
+s
+s
+e
+e
+e
+e
+s
+e
+give sweets to guard
+w
+w
+n
+n
+n
+w
+s
+get slingshot
+give rees telescope
+w
+w
+n
+n
+use potion
+use slingshot
+look
+e
+e
+look
+open locker
+get cutters
+w
+w
+use metal cutters
+s
+s
+e
+e
+e
+s
+s
+w
+w
+w
+s
+w
+w
+u
+drop staff
+drop slingshot
+drop cutters
+w
+s
+w
+w
+get pointing stick
+open desk
+get manual
+e
+e
+n
+e
+press lift button
+show manual
+s
+e
+s
+get crystal ball
+wear blindfold
+s
+s
+s
+w
+n
+n
+wait
+wait
+wait
+give rehcaet training manual
+use oracle
 receive garland

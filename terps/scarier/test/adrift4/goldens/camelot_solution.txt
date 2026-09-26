@@ -1,5 +1,37 @@
 look at tiles
 lift tile
 d
+look at someone
+ne
+open cabinet
+get tiny key
+get large key
+sw
+e
+e
+x table
+get crowbar
+w
+w
+w
+w
+drop tiny key
+open cupboard
+unlock cupboard
+e
+e
+n
+open trapdoor
+d
+u
+e
+e
+n
+look at person crouched in corner
 s
+w
+w
+s
+s
+score
 climb through hole
