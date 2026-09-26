@@ -3746,6 +3746,338 @@ parse_add_version (scr_prop_setref_t bundle, scr_tafref_t taf)
 
 
 /*
+ * Targeted game patches
+ *
+ * A few published ADRIFT games are unwinnable for want of a byte or two in
+ * their own data -- an action the author never filled in, a variable index
+ * off by one, an NPC name the parser can't split.  The general "assist"
+ * switches can't help there: the game isn't asking the engine to do anything
+ * the Runner does differently, it is simply asking for the wrong thing.  What
+ * those games need is the correction the author would have made, so this
+ * table carries them, and applies them to the parsed property bundle just
+ * before it is made readonly.
+ *
+ * Rules the table sticks to, so that a patched game stays a game the engine
+ * (and its saved games) can reason about:
+ *
+ *   o Match on GameName and GameAuthor, and then on content: every edit
+ *     names the value the broken release holds, and a game that does not
+ *     still hold all of them is left alone, silently.  A later release, a
+ *     fan fix, or a same-named game by the same author therefore runs
+ *     faithfully, and nothing here can half-apply.
+ *
+ *   o Edit fields only.  Values change, and an action may be added to a task
+ *     that has none, but no task, object, room, NPC or variable is ever added
+ *     or removed, so every index the engine and the save format hold on to
+ *     keeps meaning what it meant.
+ *
+ * Off by default; parse_set_game_patches() turns it on, and a host that does
+ * so can ask parse_get_applied_patch() what, if anything, it ended up doing.
+ */
+enum { PATCH_PATH_LENGTH = 64, PATCH_MAX_KEYS = 8 };
+
+typedef struct
+{
+  const scr_char *path;       /* Bundle path, e.g. "Tasks/19/Actions/0/Var1" */
+  scr_char mode;              /* See below. */
+  scr_int from_integer;       /* Value the broken release holds. */
+  scr_int to_integer;         /* Value to write instead. */
+  const scr_char *from_string;
+  const scr_char *to_string;
+} scr_patch_edit_t;
+
+/*
+ * 'I' change an integer that is present and holds from_integer; 'A' add an
+ * integer to a path that holds nothing at all; 'S' change a string that is
+ * present and holds from_string; 'V' verify a string and change nothing,
+ * which is how an edit pins down the task it thinks it is editing.
+ */
+#define PATCH_SET(path, from, to)   { path, 'I', (from), (to), NULL, NULL }
+#define PATCH_ADD(path, to)         { path, 'A', 0, (to), NULL, NULL }
+#define PATCH_STRING(path, from, to) { path, 'S', 0, 0, (from), (to) }
+#define PATCH_VERIFY(path, value)   { path, 'V', 0, 0, (value), NULL }
+
+/*
+ * Ebony's World (Laurie Griffiths).  Winning needs the dial pair, the lever
+ * and the valve all set, but "turn valve on"/"turn valve off" were built by
+ * copying the lever tasks and changing only the text: both still test and
+ * write variable 2, the lever, instead of variable 3, the valve.  The valve
+ * can therefore never be opened, and worse, the valve commands undo the
+ * lever, which the route has already set.  Restriction Var1 is the variable
+ * index plus two; action Var1 is the index itself.
+ */
+static const scr_patch_edit_t PATCH_EBONYS_WORLD[] = {
+  PATCH_VERIFY ("Tasks/19/Command/0", "turn valve on"),
+  PATCH_SET ("Tasks/19/Restrictions/0/Var1", 4, 5),
+  PATCH_SET ("Tasks/19/Actions/0/Var1", 2, 3),
+  PATCH_VERIFY ("Tasks/20/Command/0", "turn valve off"),
+  PATCH_SET ("Tasks/20/Restrictions/0/Var1", 4, 5),
+  PATCH_SET ("Tasks/20/Actions/0/Var1", 2, 3)
+};
+
+/*
+ * Bedlam (Wild N Mild).  "ask barbara about keys" describes Barbara fetching
+ * the car keys and throwing them at you, but the task has no actions at all,
+ * so the keys never move.  "start car", the game's ending, wants them held
+ * (its restriction is object location, dynamic object 15, held by player),
+ * and without them the preview can't be finished.  The added action is the
+ * one the neighbouring "take mitts" task uses, pointed at the keys.
+ */
+static const scr_patch_edit_t PATCH_BEDLAM[] = {
+  PATCH_VERIFY ("Tasks/37/Command/0", "ask barbara about keys"),
+  PATCH_ADD ("Tasks/37/Actions/0/Type", 0),
+  PATCH_ADD ("Tasks/37/Actions/0/Var1", 18),
+  PATCH_ADD ("Tasks/37/Actions/0/Var2", 4),
+  PATCH_ADD ("Tasks/37/Actions/0/Var3", 0)
+};
+
+/*
+ * Mystery House (KeKe Studio).  "open chest" answers "Wow! A Chest full of
+ * what???" but, again, carries no actions, so the chest stays closed.  The
+ * game ends on "drop treasure Chest", whose first restriction is that the
+ * chest (stateful object 0) is open, so the win is unreachable.  The added
+ * action opens it: change object status, stateful object 0, openness open.
+ */
+static const scr_patch_edit_t PATCH_MYSTERY_HOUSE[] = {
+  PATCH_VERIFY ("Tasks/3/Command/0", "open chest"),
+  PATCH_ADD ("Tasks/3/Actions/0/Type", 2),
+  PATCH_ADD ("Tasks/3/Actions/0/Var1", 0),
+  PATCH_ADD ("Tasks/3/Actions/0/Var2", 0)
+};
+
+/*
+ * Illegal Socks (Trace).  The game's two villain NPCs are both named
+ * "Dr. Myanus Hurts".  Version 4.0 splits an NPC's full name on ". ", taking
+ * what follows as the name proper, so the engine ends up looking for a
+ * character called "Myanus Hurts" and "attack dr" finds nobody to fight.  An
+ * alias can't rescue it -- the 4.0 battle target match deliberately doesn't
+ * fall back on aliases -- so the stop is the name itself.  Dropping the full
+ * stop leaves the name as the author wrote it everywhere it is printed from
+ * room and object text, which spells it out in full anyway.
+ */
+static const scr_patch_edit_t PATCH_ILLEGAL_SOCKS[] = {
+  PATCH_STRING ("NPCs/6/Name", "Dr. Myanus Hurts", "Dr Myanus Hurts"),
+  PATCH_STRING ("NPCs/13/Name", "Dr. Myanus Hurts", "Dr Myanus Hurts")
+};
+
+typedef struct
+{
+  const scr_char *name;            /* Globals/GameName */
+  const scr_char *author;          /* Globals/GameAuthor */
+  const scr_char *summary;         /* One line, for a host to show. */
+  const scr_patch_edit_t *edits;
+  scr_int edit_count;
+} scr_patch_game_t;
+
+#define PATCH_GAME(name, author, summary, edits) \
+  { name, author, summary, edits, sizeof (edits) / sizeof (edits[0]) }
+
+static const scr_patch_game_t PATCH_TABLE[] = {
+  PATCH_GAME ("ebonys world", "laurie griffiths",
+              "the valve commands now set the valve, not the lever",
+              PATCH_EBONYS_WORLD),
+  PATCH_GAME ("BEDLAM", "Wild N Mild",
+              "asking Barbara about the keys now hands them over",
+              PATCH_BEDLAM),
+  PATCH_GAME ("MysteryHouse", "KeKe Studio",
+              "opening the chest now actually opens it",
+              PATCH_MYSTERY_HOUSE),
+  PATCH_GAME ("Illeagal Socks", "Trace",
+              "the villain's name is now one the parser can match",
+              PATCH_ILLEGAL_SOCKS)
+};
+enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
+
+/* Patching setting, and a note of the patch applied by the last parse. */
+static scr_bool parse_patches_enabled = FALSE;
+static const scr_patch_game_t *parse_applied_patch = NULL;
+
+
+/*
+ * parse_patch_edit()
+ *
+ * Check, and on demand carry out, one table edit.  Returns TRUE if the bundle
+ * holds what the edit expects to find.  Called once over a game's edits to
+ * check them all, and only then, if every one agreed, a second time to apply.
+ */
+static scr_bool
+parse_patch_edit (scr_prop_setref_t bundle,
+                  const scr_patch_edit_t *edit, scr_bool apply)
+{
+  scr_char buffer[PATCH_PATH_LENGTH];
+  scr_char format_get[PATCH_MAX_KEYS + 4], format_put[PATCH_MAX_KEYS + 4];
+  scr_vartype_t vt_key[PATCH_MAX_KEYS], vt_value, vt_rvalue;
+  const scr_char *cursor;
+  scr_int count;
+  scr_bool is_string;
+
+  if (strlen (edit->path) >= sizeof (buffer))
+    scr_fatal ("parse_patch_edit: path too long, %s\n", edit->path);
+  strcpy (buffer, edit->path);
+
+  /*
+   * Split the path on '/' into key elements, in place.  An element of all
+   * digits is an integer key, anything else a string key; both kinds point
+   * into buffer, which outlives the prop calls below.
+   */
+  count = 0;
+  for (cursor = strtok (buffer, "/"); cursor; cursor = strtok (NULL, "/"))
+    {
+      if (count == PATCH_MAX_KEYS)
+        scr_fatal ("parse_patch_edit: path too deep, %s\n", edit->path);
+
+      if (strspn (cursor, "0123456789") == strlen (cursor))
+        {
+          vt_key[count].integer = atol (cursor);
+          format_get[count + 3] = PROP_KEY_INTEGER;
+        }
+      else
+        {
+          vt_key[count].string = cursor;
+          format_get[count + 3] = PROP_KEY_STRING;
+        }
+      count++;
+    }
+  format_get[count + 3] = NUL;
+
+  is_string = (edit->mode == 'S' || edit->mode == 'V');
+  format_get[0] = is_string ? PROP_STRING : PROP_INTEGER;
+  format_get[1] = '<';
+  format_get[2] = '-';
+  strcpy (format_put, format_get);
+  format_put[1] = '-';
+  format_put[2] = '>';
+
+  switch (edit->mode)
+    {
+    case 'I':
+      if (!prop_get (bundle, format_get, &vt_rvalue, vt_key)
+          || vt_rvalue.integer != edit->from_integer)
+        return FALSE;
+      if (apply)
+        {
+          vt_value.integer = edit->to_integer;
+          prop_put (bundle, format_put, vt_value, vt_key);
+        }
+      return TRUE;
+
+    case 'A':
+      if (prop_get (bundle, format_get, &vt_rvalue, vt_key))
+        return FALSE;
+      if (apply)
+        {
+          vt_value.integer = edit->to_integer;
+          prop_put (bundle, format_put, vt_value, vt_key);
+        }
+      return TRUE;
+
+    case 'S':
+    case 'V':
+      if (!prop_get (bundle, format_get, &vt_rvalue, vt_key)
+          || !vt_rvalue.string
+          || strcmp (vt_rvalue.string, edit->from_string) != 0)
+        return FALSE;
+      if (apply && edit->mode == 'S')
+        {
+          /* String table values are literals, so putting the pointer is
+             enough; the bundle never frees what it didn't allocate. */
+          vt_value.string = edit->to_string;
+          prop_put (bundle, format_put, vt_value, vt_key);
+        }
+      return TRUE;
+
+    default:
+      scr_fatal ("parse_patch_edit: unknown mode '%c'\n", edit->mode);
+    }
+
+  return FALSE;
+}
+
+
+/*
+ * parse_apply_game_patches()
+ *
+ * Look the freshly parsed game up in the patch table, and if it is there and
+ * still holds every value its entry expects, apply that entry's edits.
+ */
+static void
+parse_apply_game_patches (scr_prop_setref_t bundle)
+{
+  const scr_char *name, *author;
+  scr_int game, edit;
+
+  parse_applied_patch = NULL;
+  if (!parse_patches_enabled)
+    return;
+
+  name = prop_get_global_string (bundle, "GameName");
+  author = prop_get_global_string (bundle, "GameAuthor");
+  if (!name || !author)
+    return;
+
+  for (game = 0; game < PATCH_TABLE_SIZE; game++)
+    {
+      const scr_patch_game_t *const entry = PATCH_TABLE + game;
+
+      if (strcmp (name, entry->name) != 0
+          || strcmp (author, entry->author) != 0)
+        continue;
+
+      /* Check every edit before making any of them. */
+      for (edit = 0; edit < entry->edit_count; edit++)
+        {
+          if (!parse_patch_edit (bundle, entry->edits + edit, FALSE))
+            {
+              if (parse_trace)
+                {
+                  scr_trace ("Parse: patch for \"%s\" skipped, %s differs\n",
+                             entry->name, entry->edits[edit].path);
+                }
+              return;
+            }
+        }
+
+      for (edit = 0; edit < entry->edit_count; edit++)
+        parse_patch_edit (bundle, entry->edits + edit, TRUE);
+
+      if (parse_trace)
+        scr_trace ("Parse: patched \"%s\": %s\n", entry->name, entry->summary);
+
+      parse_applied_patch = entry;
+      return;
+    }
+}
+
+
+/*
+ * parse_set_game_patches()
+ * parse_get_game_patches()
+ * parse_get_applied_patch()
+ *
+ * Turn the patch table on or off, and report what the last parse did with it.
+ * The applied-patch note is cleared by every parse, so it always describes
+ * the game most recently loaded.
+ */
+void
+parse_set_game_patches (scr_bool flag)
+{
+  parse_patches_enabled = flag;
+}
+
+scr_bool
+parse_get_game_patches (void)
+{
+  return parse_patches_enabled;
+}
+
+const scr_char *
+parse_get_applied_patch (void)
+{
+  return parse_applied_patch ? parse_applied_patch->summary : NULL;
+}
+
+
+/*
  * parse_game()
  *
  * Parse a game into a set properties.  Return TRUE on success, FALSE if
@@ -3800,6 +4132,11 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
 
   /* Add a note of the TAF file version. */
   parse_add_version (parse_bundle, parse_taf);
+
+  /* Correct the few games with a data bug that makes them unwinnable; a
+     no-op unless patching is on and this is one of them.  Last, because it
+     wants the game complete, and before solidify, which freezes it. */
+  parse_apply_game_patches (parse_bundle);
 
   /* Trim excess allocations from properties. */
   prop_solidify (parse_bundle);

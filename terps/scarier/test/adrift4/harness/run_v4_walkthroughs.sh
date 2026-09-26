@@ -10204,6 +10204,12 @@ superstud_solution.txt|The new Superstud.taf|you win the prize which is me|SCR_S
 # phone cord, the washing machine and clothes) and ends at the true dead end:
 # opening and sitting in the car, then trying to start it without keys.
 bedlam_solution.txt|bedlam.taf|These type of vehicles usually require keys to operate|
+# The same route with the engine's targeted game patches on -- the missing
+# action is restored, Barbara's keys arrive, and the preview can be finished.
+# `start car` is typed twice because the game has two of them: task 31, the
+# "you have no keys" message, is in the same room and matches first, and it is
+# not repeatable, so the second try falls through to task 38, the ending.
+bedlam_patched_solution.txt|bedlam.taf|You have just completed the Bedlam preview|SCR_ASSUME_PATCHES=1
 # crimelife.taf (Crime Life): content-reviewed dark-comedy crime sim, no
 # sexual content, no minors targeted (the walkthrough never interacts with
 # the "Punk Kid"/"Old Woman" NPCs even though the game itself lets you). Every
@@ -10315,6 +10321,16 @@ dishduty_solution.txt|dishduty_intro(3).taf|You can't wash that.|
 # here can never resolve either) -- 745 of 2155 (34%), the game's own score
 # report is the marker.
 illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of 2155.|
+# The same route with the engine's targeted game patches on.  The patch takes
+# the "." out of the boss NPC's Name, which is what stops 4.0's input splitter
+# cutting "attack dr. myanus hurts" in half, and the Doctor is a legal target
+# at last: the fight runs, and this row's marker is the Runner-shaped miss it
+# now prints instead of "Who do you want to attack?".  It is still not a win,
+# and no patch here can make it one -- every Accuracy in the game is 0, so no
+# blow ever lands, and the numbers behind them (the Doctor 40 stamina/35
+# strength/20 defence against the player's 10/8/8) say the player loses the
+# moment they do.  That is a game that needs rebalancing, not a data fix.
+illegalsocks_patched_solution.txt|illegalsocks.taf|The Great Doctor manages to avoid your attack with Awesome Sword|SCR_ASSUME_PATCHES=1
 # ebonysworld.taf (Ebony's World): content-reviewed fantasy/comic adventure,
 # no sexual content, no minors. UNWINNABLE -- confirmed via SCR_TRACE_VARS=all:
 # the final task, TASK 26 ("flip switch" in the Conference room), requires
@@ -10334,6 +10350,11 @@ illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of
 # animal, the reed/pond/elixir sequence, and the full (correct but
 # insufficient) pipe-room startup.
 ebonysworld_solution.txt|ebonysworld.taf|Your score is 1450 out of a maximum of 0.|
+# The same route with the engine's targeted game patches on: the two valve
+# tasks now write and test the valve's own variable, so the pipe room can be
+# set as the endgame wants it and `flip switch` gives Bardo his thank-you --
+# the game's one ending, at the same 1450 points.
+ebonysworld_patched_solution.txt|ebonysworld.taf|the colony is saved|SCR_ASSUME_PATCHES=1
 # liqid.taf (The Quest For More Hair or AMU Part 1: The Smugglers):
 # content-reviewed comic fantasy quest, no sexual content, no minors.
 # 60/100 = real reachable ceiling; no ending is reachable (the marker is
@@ -10389,6 +10410,10 @@ monsterisland_solution.txt|MonsterIsland.taf|And the beginning of a village down
 # real puzzle (the sofa's key, the bookshelf's secret passage after lighting
 # a candle, the button opening the vault) and ends at this proven dead end.
 mysteryhouse_solution.txt|MysteryHouse.taf|You drop the Treasure Chest.|
+# The same route with the engine's targeted game patches on: "open chest" gets
+# the action it was missing, so the chest really is open when the route drops
+# it, and the game prints its WINTEXT.
+mysteryhouse_patched_solution.txt|MysteryHouse.taf|You got out of this world!|SCR_ASSUME_PATCHES=1
 # Newbie.taf: comedic two-room parody of bad amateur game design, no score
 # (0 of 0, "Well done - you scored maximum points!"). WON: press the secret
 # button, then walk west twice. The room's own exit-refusal ("You can only

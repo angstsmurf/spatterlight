@@ -34,6 +34,11 @@ __attribute__((constructor)) static void seed_det(void) {
      the GUI equivalent is `glk capacity on` after the game has loaded. */
   if (getenv("SCR_ASSUME_CAPACITY"))
     scr_set_capacity_assist(1);
+  /* Targeted per-game data fixes for the handful of games whose own data
+     makes them unwinnable; matched on name, author and on the broken value
+     still being there, so it is a no-op for every other game. */
+  if (getenv("SCR_ASSUME_PATCHES"))
+    scr_set_game_patches(1);
   if (getenv("SCR_TRACE_TASKS")) {
     task_debug_trace(1);
     restr_debug_trace(1);

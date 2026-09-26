@@ -67,3 +67,31 @@ about the keys she never actually hands over, and finally the garage (washing
 machine, a change of clothes) and the car itself, ending at the genuine dead
 end: sitting in the car and trying to start it with no keys, which is as far
 as this preview build's content goes.
+
+## With the engine's game patches on
+
+Bedlam is one of the four games in Scarier's targeted game-patch table
+(`PATCH_TABLE` in `sctafpar.cpp`, applied at the end of `parse_game()` just
+before `prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`).
+The patch matches on the game's name and author *and* on Task 37 still
+carrying the command `ask barbara about keys`, then gives that task the one
+action its author left out:
+
+```
+Tasks/37/Actions/0  Type=0 (move object) Var1=18 Var2=4 Var3=0
+```
+
+i.e. a move-object action whose Var1=18 selects dynamic object 15 (the move
+handler takes Var1−3), which is object 30, "your car keys"; Var2=4 is "held
+by" and Var3=0 is the player. Nothing is inserted or removed anywhere else,
+so every task, object and variable keeps its index and old saved games still
+load.
+
+With that in place Barbara really does hand the keys over and the preview can
+be finished. One wrinkle in the route: `start car` has to be typed **twice**.
+The game has two tasks with that command, and task 31 — the "these type of
+vehicles usually require keys" message, restricted to sitting in the car —
+matches first. It is not repeatable, so the second `start car` falls through
+to task 38, the ending. Wired as
+`bedlam_patched_solution.txt|bedlam.taf|You have just completed the Bedlam preview|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row above; both are kept.

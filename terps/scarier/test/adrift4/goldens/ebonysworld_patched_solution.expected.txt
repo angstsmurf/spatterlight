@@ -1,0 +1,291 @@
+Loading game...
+
+ebonys world
+ to do things just type what you want to do if you can`t i will tell you some
+things you can do are
+ look (gives you desctriptions of the room you are in)
+look at ..........(gives you description of certain item)
+take ........(lets you pick things up)
+talk to ....... about talking (lets you find out what subjects you can talk
+about)
+you will be able to do other things but you will have to figure them out
+yourself
+
+> move picture
+there are some x-ray specs
+
+> get x-ray specs
+You pick up the x-ray specs.
+
+> wear x-ray specs
+You put on the x-ray specs.
+
+> n
+You move north.
+
+Key room
+hey look a keyhole in this room with steel walls and a door to the
+south.behind a pot is a key  Also here is a key.
+
+> get key
+You pick up the key.
+
+> use key with lock
+good you did it  woohoo
+
+> s
+You move south.
+
+Hall
+Its got a door to the north and west and a picture above a mantle piece
+.Most of the walls seem a bit bare
+
+> w
+You move west.
+
+Entrance
+just the entrance to the small cottage east is the hall south is outside  .in
+the corner theres a little coat stand  i would go back you missed somthing
+
+> s
+You move south.
+
+Forrest path 1
+north is the small cottage and south is more path.  around there are trees
+and thats about it   Also here is a sharp stick.
+
+> get sharp stick
+You pick up the sharp stick.
+
+> s
+You move south.
+
+Forrest path 2
+north is more path and west is a street.  and again there are trees all
+around  Bragen is here.
+
+> w
+You move west.
+
+Street
+looks like a run down street with a flashy casino to the north of it and a
+path to the east.  all that and a bum with a bottle near him i wouldn`t want
+to live near here and a few casino chips  Also here is a casino chips and a
+bottle.  A Bum is here.
+
+> get casino chips
+You pick up the casino chips.
+
+> get bottle
+You pick up the bottle.
+
+> n
+You move north.
+
+Casino black jack room
+a black jack room with a bar and one table with a street to the south and a
+strange looking rug.  i wouldnt trust the man at the table he looks shifty
+The Dealer is here.
+
+> swap chips for beer
+here have a bear i`ll take them chips then
+
+> put beer in bottle
+You put the beer inside the bottle.
+
+> slide rug
+hey a stair way
+
+> d
+You move down.
+
+Sewer 1
+this dose not smell nice at all i would try to get out soon you can only go
+west  Bragen is here.
+
+> w
+You move west.
+
+Sewer 2
+this dose not smell nice at all i would try to get out soon you can only go
+north or east
+
+> n
+You move north.
+
+Sewer 3
+this dose not smell nice at all i would try to get out soon hey a ladder and
+a tunnel to the west
+
+> w
+You move west.
+
+Sewer 4
+finnally a light up above quick get out of hear
+
+> u
+You move up.
+
+Beach
+perfect golden sands a seaman(he looks a bit drunk)  with a boat and a sewer
+down below  .oh theres some sea up north and i think theres an island ooh
+sandcastle to
+
+> give beer to seaman
+you got the boat
+
+> open boat
+You open the boat.
+
+> sail boat
+you sail off and reach the beach of the island
+
+> w
+You move west.
+
+Hut entrance
+it souds like somthing horrible is happening behind the curtain in the next
+room better check it out
+
+> n
+You move north.
+
+Main hut
+theres someone useing strange bolts of electricity on an animal you can get
+out to the south and a staircase goes somewhere down below  Ebony is here.
+
+> take animal
+this animals dangerous
+
+> d
+You move down.
+
+Hut basment
+its concrete with strange square on the floor
+
+> use sharp stick with strange square
+a hole is below it leads to some kind of lab so you jump down
+
+> put animal in cage
+the animal is in the cage
+
+> turn switch
+the animal is burn to a crisp but then it appears in the water tank  soon a
+strange light hovers down and and transports you to a strange place
+
+> w
+You move west.
+
+Above pond
+the pond seems to go down forever oh and there are a few reeds near it  Also
+here is a reeds.
+
+> get reeds
+You pick up the reeds.
+
+> swim in pond
+you swim down until about six feet under you see a cave with an air bubble in
+and quickly scoot in
+
+> w
+You move west.
+
+Under water lab ground floor
+seems like people have been working hard there are bottles and potions
+everywhere maybe you could sneek one out  Also here is a HAR elexir.  The
+professer is here.
+
+> get HAR elexir
+You pick up the HAR elexir.
+
+> e
+You move east.
+
+Underwater cave
+this is a strange place underwater with air all around seems like somthings
+liveing here  Jake is here.
+
+> n
+You move north.
+
+Main hall
+its got a srairway up, a kitchen west and a garded room to the north.  whoa
+somone rich must live here.
+
+> u
+You move up.
+
+Landing
+back down is the main hall, a laundry room to the east, the master bedroom to
+west and a spare bedroom to the north.  so many rooms which one to go through
+
+> w
+You move west.
+
+Master bed room
+this seems to be one nice place the bed is a six poster bed with gold tassles
+and a rope near it.  go east to the landing
+
+> lie on bed
+You lie down on the bed.
+
+> pull cord
+the bed flips over and you fall into a glittering room
+
+> x urn
+its made of solid gold looks like someones ashes would be buried in it  A
+warp stone quarter is inside the urn.
+
+> get warp stone quarter
+You take a warp stone quarter from the urn.
+
+> drink HAR elexir
+you drink it and start floating up then you go through the hole in the
+ceiling
+
+> e
+you start going east but you fall into a small hole and now your in a hot
+cavern
+
+> n
+You move north.
+
+Pipe room
+back west is the main cave here is a lot of pipes with dials levers and
+valves on them
+
+> turn dial to high
+you set the dial to high
+
+> turn dial to on
+gas starts coming out off the lower pipe
+
+> flip lever up
+you flip the lever up
+
+> turn valve on
+you switch the valve on
+
+> s
+You move south.
+
+Volcano cave
+north is a room with alot of pipes in and to the east is a kind of conference
+room.  this is a strange place that seems to be formed from lava and some
+kind of droppings
+
+> e
+You move east.
+
+Conference room
+theres a very worried looking person in the corner and a table in the middle
+Bardo is here.
+
+> flip switch
+bardo says "thank you they have stopped the colony is saved"  but what about
+the last two quarters of the warp stone.........
+You scored 1450 out of the maximum 0!
+That is 100% of the game!
+You finished -1450 points short.
+
+[Press any key to end]

@@ -271,6 +271,9 @@ enum
 
 extern scr_bool parse_game (scr_tafref_t taf, scr_prop_setref_t bundle);
 extern void parse_debug_trace (scr_bool flag);
+extern void parse_set_game_patches (scr_bool flag);
+extern scr_bool parse_get_game_patches (void);
+extern const scr_char *parse_get_applied_patch (void);
 
 /* Game state structure for modules that use it. */
 typedef struct scr_game_s *scr_gameref_t;

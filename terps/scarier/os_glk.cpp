@@ -4328,6 +4328,40 @@ gsc_command_room_assist (const char *argument)
 
 
 /*
+ * gsc_command_patches()
+ *
+ * Turn the engine's targeted game patches on and off.  A few published games
+ * are unwinnable because of a bug in their own data -- a task action the
+ * author never filled in, a variable index copied from the wrong task -- and
+ * the engine carries the corrections for those, matched on the game's name
+ * and author and on the broken data still being there.  On by default here;
+ * a game outside the table, or one whose data has since been fixed, is never
+ * touched.  Patching happens while the game is read, so a change takes effect
+ * the next time the game is loaded.
+ */
+static scr_bool gsc_patches_enabled = TRUE;
+
+static void
+gsc_set_patches (scr_bool state)
+{
+  gsc_patches_enabled = state;
+  scr_set_game_patches (state);
+}
+
+static void
+gsc_command_patches (const char *argument)
+{
+  gsc_command_toggle (argument, "patches", "Glk game patches are",
+                      gsc_patches_enabled, gsc_set_patches,
+                      "; a game known to be unwinnable because of a bug in its"
+                      " own data is corrected as it loads.  Reload the game for"
+                      " this to take effect.\n",
+                      "; games load exactly as published.  Reload the game for"
+                      " this to take effect.\n", FALSE);
+}
+
+
+/*
  * gsc_command_verbose()
  *
  * Turn the game's verbose room descriptions on and off.  This mirrors the
@@ -5080,6 +5114,8 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    "repeat assist",               GSC_USAGE_ONOFF},
   {"roomassist",     gsc_command_room_assist,    TRUE,  FALSE, FALSE,
    "room assist",                 GSC_USAGE_ONOFF},
+  {"patches",        gsc_command_patches,        TRUE,  FALSE, FALSE,
+   "game patches",                GSC_USAGE_ONOFF},
   {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE,
    "verbose descriptions",        GSC_USAGE_ONOFF},
   {"version",        gsc_command_version,        FALSE, TRUE,  FALSE,
@@ -5510,6 +5546,27 @@ gsc_command_help (const char *command)
                          " 3.9 game the setting does nothing.  For a game known"
                          " to be uncompletable without it, it is switched on"
                          " automatically at startup.\n");
+    }
+
+  else if (matched->handler == gsc_command_patches)
+    {
+      gsc_normal_string ("Corrects games broken by their own data.\n\nA few"
+                         " published ADRIFT games cannot be finished because"
+                         " of a bug in the game file itself -- a task that"
+                         " describes handing you something but was left with"
+                         " no action to do it, a control that writes the wrong"
+                         " variable.  SCARIER carries the correction for each"
+                         " of those games and applies it as the game loads,"
+                         " which is what ");
+      gsc_standout_string ("glk patches on");
+      gsc_normal_string (" (the default) does; use ");
+      gsc_standout_string ("glk patches off");
+      gsc_normal_string (" to play the game exactly as published.  Only the"
+                         " handful of games in the engine's table are ever"
+                         " touched, and only while they still hold the broken"
+                         " value, so a later or already-fixed release runs"
+                         " unaltered.  Reload the game for a change to this"
+                         " setting to take effect.\n");
     }
 
   else if (matched->handler == gsc_command_combat_assist)
@@ -6907,6 +6964,10 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
       return TRUE;
     }
 
+  /* Patching happens as the game is read, so the setting has to be in place
+     before it is; "glk patches off" then applies from the next load on. */
+  scr_set_game_patches (gsc_patches_enabled);
+
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
     {
@@ -7037,6 +7098,19 @@ gsc_main (void)
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
   gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+
+  /* Say so if this game was one the engine's patch table corrects, and how to
+     play it as published instead.  Same conditions as the assist note below:
+     not on an autorestore, where it is already in the restored transcript. */
+  if (!autorestore && scr_get_applied_game_patch ())
+    {
+      gsc_normal_string ("[A bug in this game's own data has been corrected: ");
+      gsc_normal_string (scr_get_applied_game_patch ());
+      gsc_normal_string (".  Type ");
+      gsc_standout_string ("glk patches off");
+      gsc_normal_string (" and reload the game to play it exactly as its"
+                         " author left it.]\n\n");
+    }
 
   /* Mention any assists switched on automatically for this known game (see
      gsc_apply_known_game_assists), and how to get faithful behaviour back.

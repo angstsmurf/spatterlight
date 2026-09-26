@@ -128,3 +128,35 @@ points
 s
 score
 ```
+
+## With the engine's game patches on — still unwinnable
+
+Illegal Socks is one of the four games in Scarier's targeted game-patch table
+(`PATCH_TABLE` in `sctafpar.cpp`, applied at the end of `parse_game()` just
+before `prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`).
+The patch matches on the game's name and author *and* on both copies of the
+boss NPC still being named with the period, then takes it out:
+
+```
+NPCs/6/Name    "Dr. Myanus Hurts" -> "Dr Myanus Hurts"
+NPCs/13/Name   "Dr. Myanus Hurts" -> "Dr Myanus Hurts"
+```
+
+That is the whole fix for the *naming* bug: with no `". "` in the Name, 4.0's
+`run_find_split_400` no longer cuts `attack dr myanus hurts` in half, the
+literal whole-`Name` test in `lib_battle_npc_is_target` matches, and the
+Doctor becomes a legal attack target for the first time.
+
+**It is still not winnable, and no data patch here can make it so.** With the
+name fixed the fight actually starts, but it cannot be won on the author's own
+numbers: every Accuracy in the game is 0 (so with faithful combat no blow ever
+lands in either direction), and with the combat assist on to force hits, the
+Doctor's 40 stamina / 35 strength / 20 defence against the player's 10 / 8 / 8
+(+20 defence from the Full Suit of Armor) means his hit does 7 and kills in
+two, while the player's 8 strength never beats his 20 defence at all. That is
+a game that needs rebalancing, not a field fix, and rebalancing is outside
+what this table does. The patched row therefore uses faithful combat and
+asserts the miss line the fight now prints instead of "Who do you want to
+attack?":
+`illegalsocks_patched_solution.txt|illegalsocks.taf|The Great Doctor manages to avoid your attack with Awesome Sword|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row above; both are kept.

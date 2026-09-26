@@ -98,3 +98,30 @@ e
 flip switch
 score
 ```
+
+## With the engine's game patches on
+
+Ebony's World is one of the four games in Scarier's targeted game-patch table
+(`PATCH_TABLE` in `sctafpar.cpp`, applied at the end of `parse_game()` just
+before `prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`).
+The patch matches on the game's name and author *and* on tasks 19 and 20 still
+carrying the commands `turn valve on` / `turn valve off`, then repoints both
+of them from the lever's variable to the valve's own:
+
+```
+Tasks/19/Restrictions/0/Var1  4 -> 5     (test valve, not lever)
+Tasks/19/Actions/0/Var1       2 -> 3     (write valve, not lever)
+Tasks/20/Restrictions/0/Var1  4 -> 5
+Tasks/20/Actions/0/Var1       2 -> 3
+```
+
+Only field values change — no task, object or variable is added or removed —
+so indexes stay stable and old saved games still load.
+
+With that in place the pipe room can be set the way TASK 26 wants it
+(`dial1==3`, `dial2==2`, `lever==2`, `valve==2`) and `flip switch` finally
+fires the game's one ending: Bardo's thank-you and "the colony is saved", at
+the same 1450 points. The patched route is the faithful one with the trailing
+`score` dropped (the game ends before it). Wired as
+`ebonysworld_patched_solution.txt|ebonysworld.taf|the colony is saved|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row above; both are kept.

@@ -1765,3 +1765,50 @@ scr_get_capacity_assist (void)
 {
   return gs_get_capacity_assist ();
 }
+
+
+/*
+ * scr_set_game_patches()
+ *
+ * Enable or disable targeted game patches.  A few published games are
+ * unwinnable because of a bug in their own data -- a task action the author
+ * never filled in, a variable index copied from the wrong task -- and the
+ * engine carries a small table of the corrections for those, matched on the
+ * game's name and author and on the broken data still being there.  A game
+ * not in the table, or one whose data has since been fixed, is untouched.
+ * Off by default; opt-in only, as a patched game is not the shipped game.
+ *
+ * Patches are applied while a game is parsed, so this must be set before the
+ * game is created for it to have any effect on that game.
+ */
+void
+scr_set_game_patches (scr_bool flag)
+{
+  parse_set_game_patches (flag);
+}
+
+
+/*
+ * scr_get_game_patches()
+ *
+ * Return the current game patches setting (see scr_set_game_patches()).
+ */
+scr_bool
+scr_get_game_patches (void)
+{
+  return parse_get_game_patches ();
+}
+
+
+/*
+ * scr_get_applied_game_patch()
+ *
+ * Return a one-line description of the patch applied to the game most
+ * recently created, or NULL if it was left as shipped.  Hosts use it to say
+ * what they did; it is cleared and reset by every game creation.
+ */
+const scr_char *
+scr_get_applied_game_patch (void)
+{
+  return parse_get_applied_patch ();
+}
