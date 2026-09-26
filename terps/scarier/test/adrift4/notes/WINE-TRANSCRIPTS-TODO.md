@@ -676,6 +676,30 @@ case, and their goldens are re-blessed. The row comments in
 
 ## Deliberate deviations (measured, not ported)
 
+- **Player conveniences the 3.7/3.8 Runners lack are kept (restored
+  2026-09-26).** Each was a Runner port that took a working command away:
+  - `undo` works at 3.7 and 3.8 exactly as at 3.9/4.0 ("Undone." and the
+    replayed turn). run370 has no `undo` and run380 always answers "I can't
+    undo your blundering." (6314d19d4).
+  - `z` waits at every version. It is not in the Runner vocabulary until
+    3.90; run380 answers "Say again?".
+  - `look X`, `look me` and `look all` examine at 3.7/3.8, as `x` does.
+    run370/run380 send them to therest's "Nothing special." whatever they
+    name (ac634f414, 55f577bb1).
+  - A 3.7/3.8 line is split at a comma, as at 3.9. run370/run380 split only
+    at "then" (fa9e22d0e). The Runner rule stays for any line a task
+    command matches whole, including tasks in another room, so arlo's
+    `kill, kill, kill` / `hello, customer`, tra's mirror rhyme and
+    wrecked's `out (Redstown, no ticket)` still reach their tasks. See
+    run_comma_splits_pre390().
+  Game tasks are matched before the library, so a game's own `undo`, `z` or
+  `look X` task still wins (Cut_the_Red_Wire's `[undo]`). No 3.7/3.8 corpus
+  game has an `undo` or `z` task, and the `look` tasks in cave, twilight,
+  tra and haunt all come ahead of the examine rows. No 3.7/3.8 game has
+  an ALR on "Undone.", "Time passes...", "Nothing special." or the undo
+  refusals. The suite is unchanged (630 PASS): no walkthrough typed any of
+  these. Runner-transcript compares
+  of 3.7/3.8 probes that use them will differ from now on.
 - **A self-containing ALR expands a piece of text only once (4.0).** run400
   walks the whole turn buffer at the end of every completing task and again
   at the flush (pf_refilter(), 33e35af69), so an ALR whose Replacement

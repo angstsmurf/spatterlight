@@ -127,12 +127,14 @@ run_then_in_line_pre400 (const scr_char *line, scr_int length,
  * starts at, or -1 when the line holds no cut.
  */
 static scr_int
-run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail)
+run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail,
+                       scr_bool comma_splits)
 {
   const scr_char *found;
   scr_int head = (scr_int) strlen (line), cut = -1, sep_length = 0;
 
-  if (version >= TAF_VERSION_390)
+  /* 3.7/3.8 commas are a deviation; see run_comma_splits_pre390(). */
+  if (version >= TAF_VERSION_390 || comma_splits)
     {
       found = strchr (line, ',');
       if (found)
@@ -140,6 +142,9 @@ run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail)
           head = cut = (scr_int) (found - line);
           sep_length = 1;
         }
+    }
+  if (version >= TAF_VERSION_390)
+    {
       for (found = line; found - line + 1 < head; found++)
         {
           if (found[0] == '.' && found[1] == ' ')
@@ -960,13 +965,14 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[wait] %number%", lib_cmd_wait_number},
   {"[wait]", lib_cmd_wait},
 #else
-  /* `z` only entered the Runner vocabulary at 3.90 (index/verbs.py; cave.taf
-   * run380 live 2026-08-31 answers it "Say again?"), so its rows decline
-   * below that version and the word falls through to the unknown reply. */
-  {"[wait] %number%", lib_cmd_wait_number},
-  {"[wait]", lib_cmd_wait},
-  {"z %number%", lib_cmd_wait_number_390},
-  {"z", lib_cmd_wait_390},
+  /*
+   * `z` only entered the Runner vocabulary at 3.90 (index/verbs.py; cave.taf
+   * run380 live 2026-08-31 answers it "Say again?").  Deliberate deviation:
+   * Scarier waits on it at every version.  A game's own `z` task still wins,
+   * tasks being matched first, and no 3.7/3.8 corpus game has one.
+   */
+  {"[wait/z] %number%", lib_cmd_wait_number},
+  {"[wait/z]", lib_cmd_wait},
 #endif
   {"save", lib_cmd_save},
   {"[restore/load]", lib_cmd_restore},
@@ -2457,14 +2463,14 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
     return FALSE;
 
   /*
-   * A winner opening the line has had its own row, except a 3.7/3.8 look
-   * that examines declined: therest's look arm answers it here.
+   * A winner opening the line has had its own row.  That includes a 3.7/3.8
+   * `look X`, which the Runner leaves to therest's look arm ("Nothing
+   * special." for anything at all, run370 434E2A, run380 44439D/43C69D;
+   * p37EXAM/p38EXAM, run370x plookobj37, run380x plookobj38).  Deliberate
+   * deviation: Scarier examines it, as from 3.9.
    */
   winner = run_therest_winner_pre400 (version, string, &offset);
-  if (!winner
-      || (offset == 0
-          && !(strcmp (winner, "look") == 0
-               && lib_look_is_not_examine_pre390 (game))))
+  if (!winner || offset == 0)
     return FALSE;
 
   /*
@@ -8841,6 +8847,47 @@ run_typed_line_task_commands (scr_gameref_t game, const scr_char *string,
 
 
 /*
+ * run_comma_splits_pre390()
+ *
+ * Deliberate deviation: 3.7/3.8 split a line at a comma, as SCARE did and
+ * 3.9 does, where run370/run380 never do (run_find_split_pre400()).  The
+ * Runner rule stands wherever a task command matches the whole line, so a
+ * game that wrote a comma into a command keeps it: arlo's `kill, kill, kill`
+ * and `hello, customer`, tra's `mirror mirror on the wall, who's the fairest
+ * of them all`, wrecked's `out (Redstown, no ticket)`, and any `say *` that
+ * takes a comma in what is said.  The test is the plain matcher on the
+ * unfiltered line, ahead of the synonym and pronoun rewrites.
+ */
+static scr_bool
+run_comma_splits_pre390 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_task_commands_guard task_commands;
+  const scr_int task_count = gs_task_count (game);
+  scr_int task;
+
+  if (!strchr (line, ','))
+    return FALSE;
+
+  for (task = 0; task < task_count; task++)
+    {
+      for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
+        {
+          for (const scr_char *pattern :
+               run_task_command_patterns (game, task, forwards))
+            {
+              if (pattern[strspn (pattern, WHITESPACE)] == SPECIAL_PATTERN)
+                continue;
+              if (scr_strcasecmp (pattern, line) == 0
+                  || uip_match (pattern, line, game))
+                return FALSE;
+            }
+        }
+    }
+  return TRUE;
+}
+
+
+/*
  * run_player_input()
  *
  * Take a line of player input and buffer it.  Split the line into elements
@@ -9030,7 +9077,10 @@ run_player_input (scr_gameref_t game)
            */
           const scr_int version = prop_get_taf_version (bundle);
 
-          length = run_find_split_pre400 (version, line_buffer, &extent);
+          length = run_find_split_pre400 (version, line_buffer, &extent,
+                                          version < TAF_VERSION_390
+                                          && run_comma_splits_pre390
+                                               (game, line_buffer));
           if (length < 0)
             length = extent = (scr_int) strlen (line_buffer);
           else if (length == 0 && version == TAF_VERSION_390

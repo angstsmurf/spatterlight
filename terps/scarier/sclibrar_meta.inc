@@ -278,19 +278,14 @@ lib_cmd_undo (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
-  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
 
-  /* 3.70 does not know the word; let the game answer instead. */
-  if (version < TAF_VERSION_380)
-    return FALSE;
-
-  /* 3.80 knows it and refuses, always. */
-  if (version < TAF_VERSION_390)
-    {
-      pf_buffer_string (filter, "I can't undo your blundering.\n");
-      game->is_admin = TRUE;
-      return TRUE;
-    }
+  /*
+   * Deliberate deviation: 3.70 and 3.80 undo as 3.9/4.0 do.  The 3.70
+   * Runner does not know the word and 3.80 refuses it every time, but an
+   * interpreter that can undo should; a game's own `undo` task still wins,
+   * because tasks are matched before the library (Cut_the_Red_Wire).  No
+   * 3.7/3.8 corpus game names undo in a task.
+   */
 
   /*
    * 3.9's undo leaves the turn counter where it is: Adrift_1161's `turns`
@@ -1036,34 +1031,6 @@ lib_cmd_wait (scr_gameref_t game)
   return TRUE;
 }
 
-
-/*
- * lib_cmd_wait_390()
- * lib_cmd_wait_number_390()
- *
- * `z` is not in the pre-3.9 Runner vocabulary: the verb harvest finds the
- * "z" literal only from run390 on (index/verbs.py; run390_3.bas 45FCB0),
- * and run380 live answers `z` with "Say again?" -- measured 2026-08-31 on
- * cave.taf, where every `z` in the solution fell dead and the egg-hatch
- * timeline drifted.  These wrap the wait handlers for the `z` rows and
- * decline below 3.90, so `z` falls through to the ordinary unknown-command
- * reply -- which is already "Say again?" here.
- */
-scr_bool
-lib_cmd_wait_390 (scr_gameref_t game)
-{
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    return FALSE;
-  return lib_cmd_wait (game);
-}
-
-scr_bool
-lib_cmd_wait_number_390 (scr_gameref_t game)
-{
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    return FALSE;
-  return lib_cmd_wait_number (game);
-}
 
 scr_bool
 lib_cmd_wait_number (scr_gameref_t game)

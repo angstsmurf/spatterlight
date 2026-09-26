@@ -6,41 +6,6 @@
  */
 
 /*
- * lib_look_is_not_examine_pre390()
- *
- * Does a 3.7/3.8 line the library's examine rows matched on a bare "look"
- * miss examines altogether?  Their entry test is c() on x, examine, look at,
- * ex, exam and read, plus look in from 3.8 (run370 434E2A, run380 43C69D),
- * and plain "look" is none of them, so `look coin` goes on to therest()'s
- * look arm (run380 44439D) and answers "Nothing special." whether the coin
- * is here, elsewhere, never seen or not an object at all; `look me` and
- * `look all` the same.  3.7 has no "look in" either, and its therest()
- * refuses an absent object first ("You can't see the statue.").  p37EXAM/
- * p38EXAM, run370x plookobj37 / run380x plookobj38 (`cmdfile_plookobj.txt`)
- * and pxcomma37b / pxcomma38b (`cmdfile_pxcomma2.txt`).  From 3.9 examines
- * takes a plain look too.
- */
-scr_bool
-lib_look_is_not_examine_pre390 (scr_gameref_t game)
-{
-  static const scr_char *const ENTRY[] = {
-    "x", "examine", "look at", "ex", "exam", "read", NULL
-  };
-  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-  const scr_char *input = run_get_dispatch_input ();
-  const scr_char *const *word;
-
-  if (version >= TAF_VERSION_390 || !input
-      || run_c_word_pre400 (version, input, "look") < 0)
-    return FALSE;
-  for (word = ENTRY; *word; word++)
-    if (run_c_word_pre400 (version, input, *word) >= 0)
-      return FALSE;
-  return !(version >= TAF_VERSION_380
-           && run_c_word_pre400 (version, input, "look in") >= 0);
-}
-
-/*
  * lib_cmd_examine_self()
  *
  * Show the long description of a player.
@@ -54,10 +19,6 @@ lib_cmd_examine_self (scr_gameref_t game)
   scr_int task, object;
   lib_list_t list;
   const scr_char *description, *position = NULL;
-
-  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
 
   /*
    * The darkness fork again, this time on its `x me` arm: run390 44C424
@@ -659,10 +620,6 @@ lib_cmd_examine_npc (scr_gameref_t game)
 {
   scr_int npc;
   scr_bool is_ambiguous, was_admin;
-
-  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc_pick (game, "examine", &is_ambiguous,
@@ -1672,10 +1629,6 @@ lib_cmd_examine_object (scr_gameref_t game)
   scr_int object, task, npc;
   scr_bool is_described, is_ambiguous, should_be;
   const scr_char *description, *resource;
-
-  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
 
   /* A 4.0 tie that referencedob settles on an absent object. */
   if (lib_examine_tied_absent_400 (game))

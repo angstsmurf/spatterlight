@@ -770,10 +770,6 @@ lib_cmd_profanity_pre_400 (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_all (scr_gameref_t game)
 {
-  /* Pre-3.9 `look all`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
-
   return lib_print_message (game, "Please examine one object at a time.\n");
 }
 
@@ -936,10 +932,6 @@ lib_npc_examine_absent (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
-  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
-
   /*
    * A bare `x`, `ex` or `examine` never reaches this tail from 3.9 on:
    * examines exits on it at once (run400 471340, run390 44B758).  run400's
@@ -1092,10 +1084,6 @@ lib_cmd_look_anywhere_pre_400 (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_absent (scr_gameref_t game)
 {
-  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
-  if (lib_look_is_not_examine_pre390 (game))
-    return FALSE;
-
   /* Pre-3.9; see lib_absent_named_object_pre_390(). */
   const scr_int object = lib_absent_named_object_pre_390 (game);
 
