@@ -4207,6 +4207,12 @@ gsc_command_abbreviations (const char *argument)
  * Only run400 keeps a running total, so the switch bites only in a 4.0 game;
  * see obj_uses_running_load() for the probe that establishes that.
  */
+static scr_bool
+gsc_get_capacity (void)
+{
+  return scr_get_game_capacity_recompute (gsc_game);
+}
+
 static void
 gsc_set_capacity (scr_bool state)
 {
@@ -5501,7 +5507,9 @@ gsc_command_help (const char *command)
       gsc_standout_string ("count");
       gsc_normal_string (" reports.  Only a 4.0 Runner keeps such a total;"
                          " earlier ones recompute anyway, so for a 3.7, 3.8 or"
-                         " 3.9 game the setting does nothing.\n");
+                         " 3.9 game the setting does nothing.  For a game known"
+                         " to be uncompletable without it, it is switched on"
+                         " automatically at startup.\n");
     }
 
   else if (matched->handler == gsc_command_combat_assist)
@@ -5552,7 +5560,9 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk repeatassist off");
       gsc_normal_string (" to turn it off.  This deliberately deviates from"
                          " the original ADRIFT Runner, and does nothing in a"
-                         " 4.0 game.\n");
+                         " 4.0 game.  For a few games known to be"
+                         " uncompletable without it, the assist is switched"
+                         " on automatically at startup.\n");
     }
 
   else if (matched->handler == gsc_command_room_assist)
@@ -5566,7 +5576,9 @@ gsc_command_help (const char *command)
       gsc_normal_string (" to let such tasks run in every room, and ");
       gsc_standout_string ("glk roomassist off");
       gsc_normal_string (" to turn it off.  This deliberately deviates from"
-                         " the original ADRIFT Runner.\n");
+                         " the original ADRIFT Runner.  For a few games known"
+                         " to be uncompletable without it, the assist is"
+                         " switched on automatically at startup.\n");
     }
 
   else if (matched->handler == gsc_command_verbose)
@@ -6496,65 +6508,132 @@ gsc_get_ending_option (void)
 /*
  * gsc_apply_known_game_assists()
  *
- * Hardcoded per-game assist defaults.  A few catalogued ADRIFT 4.0 games are
+ * Hardcoded per-game assist defaults.  A few catalogued ADRIFT games are
  * unwinnable, or have whole goal chains unreachable, in the faithful Runner
  * behaviour because of the exact authoring accidents the opt-in assists were
- * written for:
+ * written for.  Each row below was measured on the headless harness against
+ * the game's walkthrough, with and without the assist (2026-09-26):
  *
- *  - The Town of Azra: a 3.9 game upgraded to the 4.0 file format, leaving
- *    every character's Accuracy and Agility at 0, so under the 4.0
- *    accuracy>agility hit test no attack ever lands and every combat-gated
- *    goal is closed.
- *  - To hell & beyond: the same unconfigured combat, plus progression move
- *    tasks whose "To:" combo was left unset -- faithfully ignored, the player
- *    never leaves the mansion and neither ending is reachable.
- *  - The X-Files: A New Beginning: completable, but the move summoning Dean
- *    when the player pushes his diner's buzzer has an unset "To:" combo, so
- *    the diner's owner (and all his conversation) never appears in the game.
- *  - HYPER Battle System: completable, but the move bringing the Flare Rat
- *    into the Attack Menu when the player attacks has the same unset "To:"
- *    combo, so the opponent is never visibly present during its own battle
+ *  - Combat assist.  Every character's Accuracy and Agility left at 0, so
+ *    under the 4.0 accuracy>agility hit test no attack ever lands.
+ *    The Town of Azra (a 3.9 game upgraded to the 4.0 format) and The tunnels
+ *    of Athylon cannot be won; in Enigma Creature every fight is an endless
+ *    exchange of dodges, though the tasks around them still finish the game.
+ *  - Move assist.  Move tasks whose "To:" combo was left unset, which the
+ *    Runner ignores.  To hell & beyond (with combat too): the player never
+ *    leaves the mansion.  The X-Files: A New Beginning: the move summoning
+ *    Dean to his diner, so he and his conversation never appear.  HYPER
+ *    Battle System: the move bringing the Flare Rat into the Attack Menu
  *    (cosmetic only -- the fight is driven by variables, not presence).
+ *  - Repeat assist.  Pre-4.0 games where a finished task blocks a command
+ *    the game needs again.  The Vampire with a Conscience and The Merry
+ *    Murders wall at 70/100 and 120/135; in The Long Journey Home and
+ *    Inverness Castle a spent catch-all task answers every later command,
+ *    even "quit", with "You have already done that."
+ *  - Room assist.  A task left set to run in no room at all.  Space Run's
+ *    ending is behind one; in The Hangover it is the doctor taking the fries
+ *    (5/7 without, 6/7 with -- a separate bug still blocks the last point).
+ *  - Capacity recompute.  Welcome to Wonderland: the characters' held
+ *    objects phantom-weigh the ethereal knife past the player's limit in the
+ *    4.0 running total, so the game's only weapon cannot be taken; with it
+ *    and combat assist the game is won.
+ *
+ * Not listed, although their walkthrough rows once carried an assist: games
+ * where it measured no difference (g7056, Ghoster, Noximion; combat in Space
+ * Run) and Goldilocks, whose route the capacity switch breaks.  True
+ * 3.9/3.8-signature games (e.g. Villains and Kings) are deliberately not
+ * listed either: their combat is repaired unconditionally by the engine's
+ * legacy hit model.
  *
  * For these known games the matching assists default to on, applied at game
- * start; "glk combatassist off" / "glk moveassist off" still turn them off,
- * and a one-line notice is printed at startup (see gsc_main).  True 3.9/3.8-
- * signature games (e.g. Villains and Kings) are deliberately NOT listed:
- * their combat is repaired unconditionally by the engine's legacy hit model.
+ * start; "glk <assist> off" still turns each one off, and a one-line notice is
+ * printed at startup (see gsc_main).
  *
  * Games are recognised by the TAF's GameName and GameAuthor, compared
  * case-insensitively, so every release of a game is covered (the two known
  * Town of Azra releases differ only in CompileDate).  Author strings are the
  * TAF's raw Windows-1252 bytes.
  */
+enum
+{
+  GSC_ASSIST_COMBAT = 1 << 0,
+  GSC_ASSIST_MOVE = 1 << 1,
+  GSC_ASSIST_REPEAT = 1 << 2,
+  GSC_ASSIST_ROOM = 1 << 3,
+  GSC_ASSIST_CAPACITY = 1 << 4
+};
+
 typedef const struct
 {
   const char * const game_name;    /* TAF GameName. */
   const char * const game_author;  /* TAF GameAuthor. */
-  const scr_bool combat_assist;    /* Default combat assist on. */
-  const scr_bool move_assist;      /* Default move assist on. */
+  const int assists;               /* GSC_ASSIST_* to default on. */
   const char * const reason;       /* Startup notice: why assists are on. */
 } gsc_game_assist_t;
 
 static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
-  {"The Town of Azra", "S. P. Tencza", TRUE, FALSE,
+  {"The Town of Azra", "S. P. Tencza", GSC_ASSIST_COMBAT,
    "This game's combat cannot be won as authored"},
-  {"To hell & beyond", "Steingr\xedmur J\xf3nsson", TRUE, TRUE,
+  {"The tunnels of Athylon", "Anonymous", GSC_ASSIST_COMBAT,
+   "This game's combat cannot be won as authored"},
+  {"Enigma Creature", "Matthew Moya", GSC_ASSIST_COMBAT,
+   "This game's combat cannot be won as authored"},
+  {"To hell & beyond", "Steingr\xedmur J\xf3nsson",
+   GSC_ASSIST_COMBAT | GSC_ASSIST_MOVE,
    "This game cannot be completed as authored"},
-  {"The X-Files: A New Beginning", "Superbone Ali", FALSE, TRUE,
+  {"The X-Files: A New Beginning", "Superbone Ali", GSC_ASSIST_MOVE,
    "A character in this game never appears as authored"},
   /* The GameName is the game's <wait>-animated title screen with the tags
      stripped, hence the run-together "1.1Copyright". */
   {"HYPER Battle System Version 1.1Copyright 2002 Seciden Mencarde",
-   "Seciden Mencarde", FALSE, TRUE,
+   "Seciden Mencarde", GSC_ASSIST_MOVE,
    "A character in this game never appears as authored"},
-  {NULL, NULL, FALSE, FALSE, NULL}
+  {"The Vampire with a Conscience", "Ole Olsen", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"The Merry Murders", "Mel S.", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"The Long Journey Home", "Danny Chabino", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"Inverness Castle", "David Good", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"Space Run", "Matthew Moya", GSC_ASSIST_ROOM,
+   "This game cannot be completed as authored"},
+  {"The Hangover", "Red Conine", GSC_ASSIST_ROOM,
+   "Part of this game cannot be reached as authored"},
+  {"Welcome to Wonderland", "The Cheshire Cat (Michael Suhar)",
+   GSC_ASSIST_COMBAT | GSC_ASSIST_CAPACITY,
+   "This game cannot be completed as authored"},
+  {NULL, NULL, 0, NULL}
 };
 
-/* Which assists were switched on automatically, and the matched table row's
-   reason wording, for the startup notice. */
-static scr_bool gsc_combat_assist_auto = FALSE;
-static scr_bool gsc_move_assist_auto = FALSE;
+/* Each assist's name for the startup notice, the command that turns it back
+   off, and its getter and setter, in the order the notice lists them. */
+typedef const struct
+{
+  const int flag;
+  const char * const name;
+  const char * const off_command;
+  scr_bool (*const get_state) (void);
+  void (*const set_state) (scr_bool);
+} gsc_assist_switch_t;
+
+static gsc_assist_switch_t GSC_ASSIST_SWITCHES[] = {
+  {GSC_ASSIST_COMBAT, "combat assist", "glk combatassist off",
+   scr_get_combat_assist, scr_set_combat_assist},
+  {GSC_ASSIST_MOVE, "move assist", "glk moveassist off",
+   scr_get_move_assist, scr_set_move_assist},
+  {GSC_ASSIST_REPEAT, "repeat assist", "glk repeatassist off",
+   scr_get_repeat_assist, scr_set_repeat_assist},
+  {GSC_ASSIST_ROOM, "room assist", "glk roomassist off",
+   scr_get_room_assist, scr_set_room_assist},
+  {GSC_ASSIST_CAPACITY, "carrying capacity recompute", "glk capacity off",
+   gsc_get_capacity, gsc_set_capacity},
+  {0, NULL, NULL, NULL, NULL}
+};
+
+/* Which assists were switched on automatically (GSC_ASSIST_* bits), and the
+   matched table row's reason wording, for the startup notice. */
+static int gsc_assists_auto = 0;
 static const char *gsc_assist_auto_reason = NULL;
 
 static void
@@ -6562,6 +6641,7 @@ gsc_apply_known_game_assists (scr_game game)
 {
   const char *name, *author;
   gsc_game_assist_t *entry;
+  gsc_assist_switch_t *assist;
 
   name = scr_get_game_name (game);
   author = scr_get_game_author (game);
@@ -6573,20 +6653,49 @@ gsc_apply_known_game_assists (scr_game game)
       if (scr_strcasecmp (name, entry->game_name) == 0
           && scr_strcasecmp (author, entry->game_author) == 0)
         {
-          if (entry->combat_assist && !scr_get_combat_assist ())
+          for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
             {
-              scr_set_combat_assist (TRUE);
-              gsc_combat_assist_auto = TRUE;
+              if ((entry->assists & assist->flag) && !assist->get_state ())
+                {
+                  assist->set_state (TRUE);
+                  gsc_assists_auto |= assist->flag;
+                }
             }
-          if (entry->move_assist && !scr_get_move_assist ())
-            {
-              scr_set_move_assist (TRUE);
-              gsc_move_assist_auto = TRUE;
-            }
-          if (gsc_combat_assist_auto || gsc_move_assist_auto)
+          if (gsc_assists_auto)
             gsc_assist_auto_reason = entry->reason;
           break;
         }
+    }
+}
+
+
+/*
+ * gsc_print_auto_assists()
+ *
+ * Print a list of the automatically enabled assists, as "A", "A and B" or
+ * "A, B and C", using each one's name or its off command.
+ */
+static void
+gsc_print_auto_assists (scr_bool commands)
+{
+  gsc_assist_switch_t *assist;
+  int remaining = 0, printed = 0;
+
+  for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
+    remaining += (gsc_assists_auto & assist->flag) != 0;
+
+  for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
+    {
+      if (!(gsc_assists_auto & assist->flag))
+        continue;
+      if (printed > 0)
+        gsc_normal_string (remaining == 1 ? " and " : ", ");
+      if (commands)
+        gsc_standout_string (assist->off_command);
+      else
+        gsc_normal_string (assist->name);
+      printed++;
+      remaining--;
     }
 }
 
@@ -6933,26 +7042,19 @@ gsc_main (void)
      gsc_apply_known_game_assists), and how to get faithful behaviour back.
      Not on an autorestore: the note is already in the restored transcript,
      and there is no window to print it to yet. */
-  if (!autorestore && (gsc_combat_assist_auto || gsc_move_assist_auto))
+  if (!autorestore && gsc_assists_auto)
     {
+      const scr_bool several = (gsc_assists_auto & (gsc_assists_auto - 1)) != 0;
+
       gsc_normal_char ('[');
       gsc_normal_string (gsc_assist_auto_reason
                          ? gsc_assist_auto_reason
                          : "This game cannot be completed as authored");
       gsc_normal_string (", so ");
-      if (gsc_combat_assist_auto && gsc_move_assist_auto)
-        gsc_normal_string ("combat assist and move assist have");
-      else if (gsc_combat_assist_auto)
-        gsc_normal_string ("combat assist has");
-      else
-        gsc_normal_string ("move assist has");
+      gsc_print_auto_assists (FALSE);
+      gsc_normal_string (several ? " have" : " has");
       gsc_normal_string (" been enabled.  Type ");
-      if (gsc_combat_assist_auto)
-        gsc_standout_string ("glk combatassist off");
-      if (gsc_combat_assist_auto && gsc_move_assist_auto)
-        gsc_normal_string (" and ");
-      if (gsc_move_assist_auto)
-        gsc_standout_string ("glk moveassist off");
+      gsc_print_auto_assists (TRUE);
       gsc_normal_string (" to restore the original ADRIFT Runner"
                          " behaviour.]\n\n");
     }

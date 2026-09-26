@@ -28,14 +28,20 @@ Public API is `scr_set_combat_assist` / `scr_get_combat_assist` and
 - **Metacommands** — `glk combatassist on|off` and `glk moveassist on|off` in
   `os_glk.cpp` (`GSC_COMMAND_TABLE`), each with an on-switch faithfulness
   warning, both listed in `glk summary` and `glk help`.
-- **Per-game auto-defaults** — the `gsc_game_assist_t` table in `os_glk.cpp`
-  turns the matching assist on at game start for the handful of known-broken
-  games (matched on the TAF's GameName + GameAuthor, so every release is
-  covered), printing a one-line notice explaining why. `glk ...assist off`
-  still overrides. True 3.9/3.8-signature games are deliberately absent — the
-  engine's legacy hit model repairs their combat unconditionally.
-- **Headless harness** — `SCR_ASSUME_COMBAT` / `SCR_ASSUME_MOVES` env vars in
-  `test/adrift4/harness/seed.cpp`.
+- **Per-game auto-defaults** — the `GSC_GAME_ASSIST_TABLE` in `os_glk.cpp`
+  turns the matching assists on at game start for the known-broken games
+  (matched on the TAF's GameName + GameAuthor, so every release is covered),
+  printing a one-line notice explaining why. It covers all five switches —
+  combat, move, repeat, room and `capacity` — as a `GSC_ASSIST_*` bitmask;
+  each row was measured with and without its assist on the headless harness
+  (2026-09-26; the table comment lists what each game gains, and the games
+  deliberately left out). `glk <assist> off` still overrides. True
+  3.9/3.8-signature games are deliberately absent — the engine's legacy hit
+  model repairs their combat unconditionally.
+- **Headless harness** — `SCR_ASSUME_COMBAT` / `SCR_ASSUME_MOVES` /
+  `SCR_ASSUME_REPEATS` / `SCR_ASSUME_ROOMS` env vars in
+  `test/adrift4/harness/seed.cpp`. The harness has no hook for `capacity`
+  (a per-game flag, set after the game loads).
 
 Faithful default is unchanged: with no metacommand, no auto-list match and no
 env var, Scarier stays byte-faithful to run400.exe.
