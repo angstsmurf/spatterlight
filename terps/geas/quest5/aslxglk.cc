@@ -2039,6 +2039,23 @@ bool run_question_ui(Interp &in, const std::string &q, bool &answer)
     }
 }
 
+/* The EXPRESSION form of GetInput: the engine blocks inside eval for the
+ * next command line. Host-owned like a pending `get input` (the line never
+ * reaches the parser), so it draws the same "> " prompt the prompt loop
+ * draws for one, and host-echoes the accepted line. */
+bool run_input_ui(Interp &in, std::string &text)
+{
+    for (;;) {
+        InResult r = read_line(in, true, "\n> ");
+        if (r.kind == InEnd::State)
+            return false;                     /* timer ended the world */
+        if (r.kind == InEnd::Line || r.kind == InEnd::Command) {
+            text = r.text;
+            return true;
+        }
+    }
+}
+
 /* ---------------------------------------------------------- save/restore -- */
 
 std::string core_dir_path();   /* defined in the core section below */
@@ -3370,6 +3387,10 @@ void install_host_hooks(Interp &in, bool &restart_requested)
     in.ask_provider = [&in](const std::string &q, bool &answer) -> bool {
         [[maybe_unused]] AutosaveSuspend no_autosave;
         return run_question_ui(in, q, answer);
+    };
+    in.input_provider = [&in](std::string &text) -> bool {
+        [[maybe_unused]] AutosaveSuspend no_autosave;
+        return run_input_ui(in, text);
     };
     in.request_save = [&in] { do_save_ui(in); };
     /* Core's `restart` command (via JS.eval window.location.reload).  The

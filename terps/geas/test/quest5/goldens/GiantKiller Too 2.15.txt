@@ -1130,7 +1130,7 @@ You are in the Calculator Challenge tent. There is an exit to the west.
 A voice says, "I'm going to pick a number between 1 and 100, "4", I think. What must I multiply 4 by to get 100 point something? "
 
 > 25.1
-You hear a voice say "You have entered 25.1, which when multiplied by 4 gives 100,4..."
+You hear a voice say "You have entered 25.1, which when multiplied by 4 gives 100.4..."
 "...which is the right answer! Congratulations!! "
 
 Your browser does not support the audio tag.

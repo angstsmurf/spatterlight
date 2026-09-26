@@ -307,10 +307,28 @@ static Stmt parse_one_statement(const std::string &line, Interp &interp) {
         return s;
     }
 
+    // ScriptFactory.CreateScript tries every KEYWORD constructor before the
+    // SetScriptConstructor, so a keyword statement whose arguments contain a
+    // bare '=' is a call, never an assignment -- GiantKiller Too's
+    // `do (object, "ondrop", QuickParams ("successful", not oldparent = object.parent))`.
+    // The keywords handled above are already dispatched; these are the ones
+    // that fall through to the generic Call below (plus "JS." functions).
+    static const char *const kCallKeywords[] = {
+        "create exit", "create timer", "create turnscript", "create", "destroy",
+        "dictionary add", "dictionary remove", "do", "error", "finish",
+        "insert", "invoke", "list add", "list remove", "picture", "play sound",
+        "request", "requestsave", "requestspeak", "rundelegate", "set",
+        "start transaction", "stop sound", "undo",
+    };
+    bool keyword_call = line.compare(0, 3, "JS.") == 0;
+    for (const char *k : kCallKeywords)
+        if (!keyword_call && starts_with_word(line, k)) keyword_call = true;
+
     // Assignment: "x = expr", "obj.prop = expr", or the script-literal form
     // "x => { script }" (which stores the RHS as a Script value, SetScriptScript).
     bool is_script_assign = false;
-    size_t eq = assign_eq_pos(line, is_script_assign);
+    size_t eq = keyword_call ? std::string::npos
+                             : assign_eq_pos(line, is_script_assign);
     if (eq != std::string::npos) {
         s.kind = Stmt::Kind::Assign;
         std::string lhs = rt_trim(line.substr(0, eq));

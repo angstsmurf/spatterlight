@@ -428,9 +428,21 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **85 passed, 1 failed**.
-The goldens are the *native* engine's transcripts, so every failure is a
-native/oracle disagreement with a known owner:
+`./check_golden.sh` against v6.0.0-beta.57 (2026-09-26): **160 passed, 0 failed**.
+The goldens are the oracle's own transcripts (regenerated with
+`update_golden.sh`, or by driving one game from its `overrides/` script), so a
+native/oracle disagreement shows up in `../run_replays.sh`, not here.
+
+qvh pins the **invariant culture** (Program.cs, right after the usage check).
+QuestViva parses expressions with `InvariantCulture` but *formats* a double
+with the current culture when a script concatenates one into a string, so on a
+Swedish machine GiantKiller Too's voice reported `100,4` for `25.1 * 4`. The
+two GiantKiller goldens were re-driven with the pin (2026-09-26, one line each);
+no other golden formats a double. Without the pin a golden regenerated on a
+machine with a `,` decimal separator would silently differ from one made
+elsewhere.
+
+One native/oracle disagreement is permanent:
 
 - *The Acreage (pub 6.29 revision)* — a **deliberate deviation** for Quest Viva
   issue #2189 (open, filed 2026-09-04): CoreGrid only charts rooms it reaches by
@@ -444,8 +456,16 @@ native/oracle disagreement with a known owner:
   native engine instead charts such a room on arrival (`chart_uncharted_room` in
   `aslx-runtime.cc`: re-run the pass from the room the player came from, for an
   exit revealed after they entered it — the issue's Woo Rebooted case — else
-  seed it alone at the origin of a fresh z layer). The golden therefore has no
-  error lines there and the oracle's five are the expected diff.
+  seed it alone at the origin of a fresh z layer). The golden was hand-trimmed
+  of those five lines when the deviation landed (ab1a75855), which made this
+  check the one carrying the diff; since 06fb78056 the golden is the oracle's
+  verbatim output again, so the five error lines are IN the golden, this check
+  is clean, and the native sweep shows them as its expected five-line diff on
+  the Acreage row instead. The same deviation accounts for the *Woo Rebooted
+  3.7* row (seven lines) and for the 45 `Grid_GetGridCoordinateForPlayer` /
+  `DictionaryItem … key 'x'` error lines in *GiantKiller Too 2.15* (five
+  uncharted-room arrivals): those are the only diffs `../run_replays.sh` is
+  expected to show.
 
 The two *Xanadu* games (*In the Compound — Revenge*, *The World's Only Hope*)
 used to fail here too, and were long mislabelled "RNG-stream and wait-echo

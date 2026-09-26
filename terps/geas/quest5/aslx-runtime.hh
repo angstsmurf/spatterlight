@@ -217,7 +217,13 @@ public:
     Rng &rng() { return rng_; }
 
     // Run a raw script source string (a function body / command script) in ctx.
-    void run_script(const std::string &source, Context &ctx);
+    // `scope` names the script ATTRIBUTE the source was read from (see
+    // field_scope): the compiled body -- and so its `firsttime` flags -- is
+    // cached per (scope, source), the way QuestViva keeps one FirstTimeScript
+    // instance per attribute. Empty for a script with no owning attribute
+    // (an `invoke`d value), which shares by source text alone.
+    void run_script(const std::string &source, Context &ctx,
+                    const std::string &scope = std::string());
 
     // Evaluate an expression source string in ctx.
     Value eval(const std::string &source, Context &ctx);
@@ -489,8 +495,11 @@ public:
     // Return `src` with already-run `firsttime` blocks baked out (a run
     // firsttime becomes its `otherwise` body, or nothing) -- QuestViva's
     // FirstTimeScript.Save behaviour, reproduced so an exported native save does
-    // not re-fire one-time text. `src` unchanged when nothing has run.
-    std::string bake_firsttime_source(const std::string &src);
+    // not re-fire one-time text. `src` unchanged when nothing has run. `scope`
+    // is the attribute the source is being written from (see field_scope),
+    // so the flags of THAT instance are baked.
+    std::string bake_firsttime_source(const std::string &src,
+                                      const std::string &scope = std::string());
     // Sniff for a native ASLX save (leading XML whose first element is <asl
     // ... original=...>, or our "Saved by Geas" marker comment).
     static bool is_native_save_data(const char *data, size_t len);
@@ -584,6 +593,16 @@ public:
     // form reports an error.
     std::function<bool(const std::string &question, bool &answer)> ask_provider;
 
+    // Synchronous provider for the EXPRESSION form of GetInput
+    // (ExpressionOwner.GetInput, which AWAITS the next command line
+    // mid-expression and returns it as a string; the line bypasses the
+    // parser -- WorldModel.SendCommand's command-override branch). Same
+    // contract as the two above: the host supplies the line in place (the
+    // next script line in harnesses, host-echoed like a command; a nested
+    // prompt in Glk). Return true with `line` set; false means no line is
+    // available and yields "". Unset, the expression form reports an error.
+    std::function<bool(std::string &line)> input_provider;
+
     // -- timers (TimerRunner port, TODO §3) -----------------------------------
     // Quest timers are <timer> elements with `enabled`/`interval`/`trigger`/
     // `script` fields against a game.timeelapsed clock; the enable/disable/
@@ -615,6 +634,15 @@ public:
     // types most-recent-first). Returns nullptr if unresolved.
     const Value *resolve_field(Element *e, const std::string &name);
 
+    // The firsttime scope of attribute `attr` as seen from `e`: scope_key of
+    // the element whose OWN field the chain resolves to (a type, for an
+    // inherited script -- QuestViva's one FirstTimeScript on the type's field
+    // is shared by every object inheriting it). Empty when unresolved.
+    std::string field_scope(Element *e, const std::string &attr);
+    static std::string scope_key(const std::string &owner, const std::string &attr) {
+        return owner + '\x1E' + attr;
+    }
+
     World &world() { return world_; }
 
     // True once the 20-error circuit breaker has fired (scriptErrorsFatal):
@@ -636,8 +664,16 @@ private:
     Rng rng_;
     Rng *current_rng_ = nullptr;  // active per-expression stream (eval_expr)
 
-    // Compiled-statement cache, keyed by source string (Quest caches too).
+    // Compiled-statement cache, keyed by source string (Quest caches too), or
+    // by "<scope>\x1F<source>" for a script run from an owning attribute --
+    // see run_script. The compiled body carries the `firsttime` flags, so the
+    // scope is what keeps two attributes with identical text from sharing
+    // them.
     std::map<std::string, std::shared_ptr<std::vector<Stmt>>> script_cache_;
+    // firsttime flags restored from a save written before scoping (keyed by
+    // source alone): seed for every scoped instance of that source compiled
+    // afterwards, so one-time text does not re-fire across the upgrade.
+    std::map<std::string, std::vector<bool>> legacy_firsttime_;
     std::map<std::string, std::shared_ptr<Expr>> expr_cache_;
 
     // Compiled-regex cache, keyed by the caller's cacheID (Quest's RegexCache
@@ -648,7 +684,8 @@ private:
     std::shared_ptr<CompiledRegex> compiled_regex(const std::string &pattern,
                                                   const std::string *cache_id);
 
-    std::shared_ptr<std::vector<Stmt>> compile_script(const std::string &src);
+    std::shared_ptr<std::vector<Stmt>> compile_script(
+        const std::string &src, const std::string &scope = std::string());
     std::shared_ptr<Expr> compile_expr(const std::string &src);
 
     void exec_block(const std::vector<Stmt> &stmts, Context &ctx);

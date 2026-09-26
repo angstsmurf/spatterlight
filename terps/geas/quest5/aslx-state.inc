@@ -8,8 +8,12 @@
 // every live element of the mutable family (object / exit / command / verb /
 // game / turnscript / timer) with its identity (elem_type, inherits,
 // anonymous, sort_index) and own fields as full recursive Values, plus the
-// `firsttime` flags (keyed by script source text, preorder within each cached
-// script body). Static elements (functions, types, delegates, walkthroughs)
+// `firsttime` flags (keyed by the script cache key -- "<scope>\x1F<source>"
+// for a script run from an owning attribute, the bare source text otherwise;
+// preorder within each cached script body). A save from before scoping keys
+// every body by source alone; restore seeds legacy_firsttime_ from those so
+// each scoped instance compiled later starts with the same flags. Static
+// elements (functions, types, delegates, walkthroughs)
 // come back verbatim from the reload and are not recorded; templates likewise.
 // Undo history, RNG streams and the error counters reset on restore, exactly
 // as they do across QuestViva's save/load (a saved game starts with empty undo
@@ -467,14 +471,39 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
 
     // firsttime flags: compiling the source re-populates the cache slot the
     // save keyed on; a body that no longer parses identically is skipped.
+    // An unscoped key (pre-scoping save, or an `invoke`d script) also seeds
+    // legacy_firsttime_, applied to every scoped instance of that source --
+    // the ones already compiled here and now, and (in compile_script) the
+    // ones compiled later.
+    legacy_firsttime_.clear();
     for (auto &ft : fts) {
-        auto body = compile_script(ft.first);
+        std::string scope, src = ft.first;
+        size_t sep = src.find('\x1F');
+        if (sep != std::string::npos) {
+            scope = src.substr(0, sep);
+            src = src.substr(sep + 1);
+        }
+        auto body = compile_script(src, scope);
         if (!body)
             continue;
         std::vector<std::shared_ptr<bool>> flags;
         collect_firsttime(*body, flags);
         for (size_t i = 0; i < flags.size() && i < ft.second.size(); ++i)
             *flags[i] = ft.second[i];
+        if (scope.empty()) {
+            legacy_firsttime_[src] = ft.second;
+            const std::string tail = '\x1F' + src;
+            for (auto &kv : script_cache_) {
+                if (kv.first.size() <= tail.size() ||
+                    kv.first.compare(kv.first.size() - tail.size(), tail.size(),
+                                     tail) != 0)
+                    continue;
+                std::vector<std::shared_ptr<bool>> sf;
+                collect_firsttime(*kv.second, sf);
+                for (size_t i = 0; i < sf.size() && i < ft.second.size(); ++i)
+                    *sf[i] = ft.second[i];
+            }
+        }
     }
 
     // Per-(element,attr) merged-listextend slots may hold pre-restore state.

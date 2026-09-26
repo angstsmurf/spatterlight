@@ -1053,6 +1053,26 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vbool(answer);
     }
 
+    // ExpressionOwner.GetInput -- the EXPRESSION form of `get input`, which
+    // QuestViva AWAITS: the next command line is handed to the expression
+    // instead of the parser (SendCommand's command-override branch, so no
+    // HandleCommand, no turn scripts for that line). The 540-580 versions
+    // refuse it outright with a script error (the async engine could not
+    // suspend inside an expression there); 600+ and the legacy <540 games
+    // (the corpus users are all ASL 520) get the line.
+    if (fn == "getinput" && n == 0) {
+        if (world_.asl_version >= 540 && world_.asl_version < 600)
+            error("The 'GetInput' function is not supported for games with "
+                  "WorldModel version 540\xE2\x80\x93" "580. Use the 'get input' "
+                  "script command instead, or set the game's WorldModel version "
+                  "to 600 or later.");
+        if (!input_provider)
+            error("GetInput (expression form) requires a host input provider");
+        std::string line;
+        if (!input_provider(line)) return vstr("");
+        return vstr(line);
+    }
+
     if (fn == "getrandomint" && n == 2)
         return vint(active_rng().between(iarg(0), iarg(1)));
     if (fn == "getrandomdouble" && n == 0)

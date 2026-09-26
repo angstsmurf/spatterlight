@@ -1080,11 +1080,36 @@ static bool starts_with_word(const std::string &line, const std::string &kw) {
 // Forward-declared recursive statement compiler (defined in the .inc below).
 static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp);
 
-std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src) {
-    auto it = script_cache_.find(src);
+namespace {
+// Defined in aslx-state.inc (included below): preorder firsttime flags.
+void collect_firsttime(const std::vector<Stmt> &body,
+                       std::vector<std::shared_ptr<bool>> &out);
+}  // namespace
+
+std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src,
+                                                          const std::string &scope) {
+    // QuestViva compiles each script ATTRIBUTE into its own IScript tree, so
+    // two attributes with identical text hold two FirstTimeScript instances
+    // (each with its own m_hasRun). Victorian Detective's 24 gamebook pages
+    // all carry `firsttime { IncreaseCounter ("DR") }`; sharing one compiled
+    // body by source text ran the block once for the whole game. Key by the
+    // owning attribute when the caller knows it.
+    std::string key = scope.empty() ? src : scope + '\x1F' + src;
+    auto it = script_cache_.find(key);
     if (it != script_cache_.end()) return it->second;
     auto v = std::make_shared<std::vector<Stmt>>(parse_statements(src, *this));
-    script_cache_[src] = v;
+    if (!scope.empty()) {
+        // A save written before scoping recorded the flags by source alone;
+        // seed this instance from it so restored one-time text stays spent.
+        auto lg = legacy_firsttime_.find(src);
+        if (lg != legacy_firsttime_.end()) {
+            std::vector<std::shared_ptr<bool>> flags;
+            collect_firsttime(*v, flags);
+            for (size_t i = 0; i < flags.size() && i < lg->second.size(); ++i)
+                *flags[i] = lg->second[i];
+        }
+    }
+    script_cache_[key] = v;
     return v;
 }
 
@@ -1119,10 +1144,11 @@ void Interp::script_boundary(Context &ctx, Body body) {
     --script_depth_;
 }
 
-void Interp::run_script(const std::string &source, Context &ctx) {
+void Interp::run_script(const std::string &source, Context &ctx,
+                        const std::string &scope) {
     if (script_errors_fatal_) return;
     script_boundary(ctx, [&] {
-        auto stmts = compile_script(source);
+        auto stmts = compile_script(source, scope);
         exec_block(*stmts, ctx);
     });
 }
@@ -1662,7 +1688,7 @@ void Interp::fire_changed_script(Element *e, const std::string &attr,
     Context local;
     local.locals["oldvalue"] = oldval;
     local.locals["this"] = vobj(e->name);
-    run_script(scr->str, local);
+    run_script(scr->str, local, field_scope(e, "changed" + attr));
 }
 
 void Interp::print_via_core(const std::string &text, Context &ctx) {
@@ -1715,6 +1741,12 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
                 size_t lt = text.rfind('<', e - 1);
                 if (lt == std::string::npos) break;
                 std::string tag = text.substr(lt + 1, e - lt - 2);
+                // An <img> strips to nothing under qvh too, but it IS visible
+                // content for the Glk front end (v540+ `picture`), so it
+                // keeps its line like text would.
+                if (tag.compare(0, 3, "img") == 0 &&
+                    (tag.size() == 3 || !std::isalnum((unsigned char)tag[3])))
+                    break;
                 size_t j = 2;
                 if (tag.compare(0, 2, "br") == 0) {
                     while (j < tag.size() && (tag[j] == ' ' || tag[j] == '\t')) j++;
@@ -1725,6 +1757,13 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
                 // it and keep looking at what precedes it.
                 e = lt;
             }
+            // The whole text was tags that strip to nothing (a gamebook
+            // option with an empty display text: `<command input="Murder2">
+            // </command>`, Fun Tiemz / minecraft adventure). qvh's Emit
+            // skips an empty stripped chunk outright -- no '\n' appended --
+            // so pass the markup through without the line break rather than
+            // print a blank line.
+            if (e == 0 && !ends_nl) { print(text); return; }
             print(ends_nl ? text : text + "\n");
         }
     }
@@ -2330,7 +2369,7 @@ void Interp::tick(int seconds) {
         Context local;
         local.locals["this"] = vobj(d.first->name);
         try {
-            run_script(d.second, local);
+            run_script(d.second, local, field_scope(d.first, "script"));
         } catch (TurnSuspended &ts) {
             // A suspended timer script suspends the whole batch
             // (TickAsyncInternal's await chain) -- including the pane
@@ -2406,7 +2445,7 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
     }
     Value self; self.type = Value::Type::ObjectRef; self.str = obj->name;
     local.locals["this"] = self;
-    in.run_script(impl->str, local);
+    in.run_script(impl->str, local, in.field_scope(obj, delname));
     return local.return_value;
 }
 
@@ -2654,6 +2693,29 @@ static void collect_field_chain(World &w, Element *e, const std::string &name,
     for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
         collect_field_chain(w, w.find(*it), name, base, exts, path);
     path.pop_back();
+}
+
+// The element whose OWN (non-extend) field `name` resolves to from `e`: the
+// same traversal as collect_field_chain's base-value search.
+static const Element *find_field_owner(World &w, Element *e, const std::string &name,
+                                       std::vector<const Element *> &path) {
+    if (!e) return nullptr;
+    for (const Element *p : path)
+        if (p == e) return nullptr;
+    path.push_back(e);
+    const Element *owner = nullptr;
+    if (const Value *own = e->field(name); own && !own->list_extend)
+        owner = e;
+    for (auto it = e->inherits.rbegin(); !owner && it != e->inherits.rend(); ++it)
+        owner = find_field_owner(w, w.find(*it), name, path);
+    path.pop_back();
+    return owner;
+}
+
+std::string Interp::field_scope(Element *e, const std::string &attr) {
+    std::vector<const Element *> path;
+    const Element *owner = find_field_owner(world_, e, attr, path);
+    return owner ? scope_key(owner->name, attr) : std::string();
 }
 
 const Value *Interp::resolve_field(Element *e, const std::string &name) {
@@ -3118,7 +3180,7 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     if (body && body->type == Value::Type::Script) {
         frames_.push_back(name);
         try {
-            run_script(body->str, local);
+            run_script(body->str, local, scope_key(fn->name, "script"));
         } catch (...) {
             // Only the depth-cap guard throws out of run_script; keep the
             // frame stack balanced on that path.
@@ -3679,6 +3741,9 @@ bool Interp::exec_statement_command(const std::string &name,
         // script that may add a field to `obj`, reallocating its fields vector
         // and dangling the `scr` pointer resolve_field returned into it.
         std::string script = scr->str;
+        // The firsttime scope is the attribute the script was read from
+        // (resolved now, for the same dangling reason).
+        std::string scope = field_scope(obj, action);
         Context local;
         if (args.size() >= 3) {
             Value params = ev(2);
@@ -3688,7 +3753,7 @@ bool Interp::exec_statement_command(const std::string &name,
         // DoScript passes the object as thisElement (WorldModel.RunScriptAsync
         // binds it as the "this" parameter).
         local.locals["this"] = vobj(obj->name);
-        run_script(script, local);
+        run_script(script, local, scope);
         return true;
     }
     if (name == "invoke") {

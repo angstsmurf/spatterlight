@@ -211,7 +211,11 @@ int main(int argc, char **argv) {
     }
     Interp in(w);
     std::string transcript;
+    // ASLX_RAW=1: mirror every print's raw HTML to stderr, for chasing a
+    // transcript diff back to the markup that produced it.
+    static const bool raw_trace = std::getenv("ASLX_RAW") != nullptr;
     auto emit = [&](const std::string &html) {
+        if (raw_trace) fprintf(stderr, "RAW[%s]\n", html.c_str());
         std::string t = strip_html(html);
         if (t.empty()) return;
         transcript += t;
@@ -373,6 +377,23 @@ int main(int argc, char **argv) {
             std::string l = cmd;
             if (l.compare(0, 7, "answer:") == 0) l = nr_trim(l.substr(7));
             answer = (l == "yes" || l == "y" || l == "true" || l == "1");
+            return true;
+        }
+        return false;  // script exhausted
+    };
+
+    // The EXPRESSION form of GetInput blocks mid-script for the next command
+    // line. The oracle driver feeds it its next script line through
+    // SendCommand -- echoed "> line" like any command (the engine's own echo
+    // never happens: the override branch bypasses HandleCommand) -- so echo
+    // and feed the same way here.
+    in.input_provider = [&](std::string &text) -> bool {
+        while (li < lines.size()) {
+            std::string cmd = nr_trim(lines[li++]);
+            if (cmd.empty() || cmd[0] == '#') continue;
+            steps++;
+            if (echo) line_out("> " + cmd);
+            text = cmd;
             return true;
         }
         return false;  // script exhausted

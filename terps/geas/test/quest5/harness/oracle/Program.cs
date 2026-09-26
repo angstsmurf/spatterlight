@@ -33,6 +33,19 @@ if (args.Length < 1)
     return 2;
 }
 
+// Ground truth is culture-neutral. QuestViva formats a double with the CURRENT
+// culture when a script concatenates it into a string (`"..." + 25.1 * 4`),
+// so on a Swedish machine GiantKiller Too's voice said "100,4"; the games were
+// written (and the native engine prints) with the invariant "100.4". Expression
+// PARSING already uses InvariantCulture inside QuestNCalcExpressionFactory, so
+// this only touches formatting.
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
+    System.Globalization.CultureInfo.InvariantCulture;
+System.Globalization.CultureInfo.DefaultThreadCurrentUICulture =
+    System.Globalization.CultureInfo.InvariantCulture;
+System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
+
 var transcript = new StringBuilder();
 var emitCount = 0;
 var errorCount = 0;

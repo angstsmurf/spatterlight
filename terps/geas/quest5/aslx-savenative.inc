@@ -443,8 +443,8 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
 void write_value(SaveWriter &w, Interp &in, const Value &v, int depth = 0);
 
 void write_field(SaveWriter &w, Interp &in, const World &world,
-                 const std::string &elem_type, const std::string &attr,
-                 const Value &v) {
+                 const std::string &elem_type, const std::string &elem_name,
+                 const std::string &attr, const Value &v) {
     using T = Value::Type;
     (void)world; (void)elem_type;
     bool simple = simple_attr_name(attr);
@@ -490,7 +490,10 @@ void write_field(SaveWriter &w, Interp &in, const World &world,
                              v.declared_type != "script")
                                 ? v.declared_type
                                 : "script";
-        w.leaf(tag, scalar_attrs(type, false), in.bake_firsttime_source(v.str),
+        // Own script attribute: bake the flags of THIS element's instance
+        // (the firsttime scope its runs were cached under).
+        w.leaf(tag, scalar_attrs(type, false),
+               in.bake_firsttime_source(v.str, Interp::scope_key(elem_name, attr)),
                true);
         return;
     }
@@ -708,7 +711,7 @@ void write_fields(SaveWriter &w, Interp &in, const World &world,
     }
     for (const auto &kv : e->fields) {
         if (ignore_field(e->elem_type, kv.first)) continue;
-        write_field(w, in, world, e->elem_type, kv.first, kv.second);
+        write_field(w, in, world, e->elem_type, e->name, kv.first, kv.second);
     }
 }
 
@@ -717,8 +720,22 @@ void write_fields(SaveWriter &w, Interp &in, const World &world,
 // Return `src` with already-run firsttime blocks baked out, or unchanged when
 // none has run (the common case: ordinary scripts stay verbatim). See the
 // firsttime-baking block above for the transform.
-std::string Interp::bake_firsttime_source(const std::string &src) {
-    auto body = compile_script(src);
+//
+// Only a body that has RUN can hold a set flag, and running caches it, so a
+// source with no cache entry (under its scope, or unscoped -- the `invoke`
+// path and scriptdictionary items) is returned verbatim without compiling.
+std::string Interp::bake_firsttime_source(const std::string &src,
+                                          const std::string &scope) {
+    std::shared_ptr<std::vector<Stmt>> body;
+    if (!scope.empty()) {
+        auto it = script_cache_.find(scope + '\x1F' + src);
+        if (it != script_cache_.end()) body = it->second;
+    }
+    if (!body) {
+        auto it = script_cache_.find(src);
+        if (it == script_cache_.end()) return src;
+        body = it->second;
+    }
     std::vector<std::shared_ptr<bool>> flags;
     collect_firsttime(*body, flags);
     bool any = false;
@@ -909,7 +926,8 @@ std::string Interp::save_game_native(const std::string &original_file) {
             a.emplace_back("type", rt->str);
         const Value *sc = e->field("script");
         std::string body = sc && sc->type == Value::Type::Script
-                               ? bake_firsttime_source(sc->str)
+                               ? bake_firsttime_source(sc->str,
+                                                       scope_key(e->name, "script"))
                                : std::string();
         w.leaf("function", a, body, !body.empty());
     }

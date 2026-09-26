@@ -1418,6 +1418,102 @@ static void test_number_parse_oracle() {
     w.errors.clear();
 }
 
+// GetInput() -- the EXPRESSION form of `get input` (ExpressionOwner.GetInput):
+// the host hands over the next command line in place; ASL 540-580 refuse it
+// with QuestViva's script error. Escape from Byron Bay, System Restore and The
+// Last Survivor (all ASL 520) read their access codes / player name this way.
+static void test_getinput_expression() {
+    World w;
+    w.asl_version = 520;
+    Interp in(w);
+    in.input_provider = [](std::string &l) { l = "Robin"; return true; };
+    CHECK_STR(evals(in, "GetInput()"), "Robin");
+    CHECK_STR(evals(in, "\"Hi \" + GetInput() + \"!\""), "Hi Robin!");
+    in.input_provider = [](std::string &) { return false; };
+    CHECK_STR(evals(in, "GetInput()"), "");   // no line: string.Empty
+    w.asl_version = 550;
+    bool threw = false;
+    try {
+        evals(in, "GetInput()");
+    } catch (const std::exception &e) {
+        threw = std::string(e.what()).find(
+                    "not supported for games with WorldModel version 540") !=
+                std::string::npos;
+    }
+    CHECK(threw);
+    w.errors.clear();
+}
+
+// firsttime flags live per script ATTRIBUTE, not per source text: QuestViva
+// compiles each attribute into its own FirstTimeScript (m_hasRun per
+// instance). Victorian Detective's 24 gamebook pages carry the identical
+// `firsttime { IncreaseCounter ("DR") }` and each must fire once.
+static void test_firsttime_per_attribute() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+    run(in, "create (\"a\")\ncreate (\"b\")\ncreate (\"cnt\")\ncnt.n = 0");
+    run(in, "a.greet => { firsttime { cnt.n = cnt.n + 1 } }");
+    run(in, "b.greet => { firsttime { cnt.n = cnt.n + 1 } }");
+    run(in, "do (a, \"greet\")\ndo (a, \"greet\")");
+    CHECK_STR(evals(in, "cnt.n"), "1");
+    run(in, "do (b, \"greet\")\ndo (b, \"greet\")");
+    CHECK_STR(evals(in, "cnt.n"), "2");
+    // A different attribute on the same object is its own instance too.
+    run(in, "a.wave => { firsttime { cnt.n = cnt.n + 1 } }");
+    run(in, "do (a, \"wave\")");
+    CHECK_STR(evals(in, "cnt.n"), "3");
+    // The snapshot save keeps the flags apart: after a round-trip, a's greet
+    // stays spent while a fresh c with the same text still fires.
+    std::string save = in.save_game("x.aslx");
+    run(in, "create (\"c\")");
+    run(in, "c.greet => { firsttime { cnt.n = cnt.n + 1 } }");
+    run(in, "do (c, \"greet\")");
+    CHECK_STR(evals(in, "cnt.n"), "4");
+    CHECK(w.errors.empty());
+
+    // The keyword-before-assignment rule (ScriptFactory tries the keyword
+    // constructors first): a `do`/`set` call whose arguments contain a bare
+    // `=` is a call, not an assignment. Core's drop command does exactly this
+    // (`do (object, "ondrop", QuickParams ("successful", not oldparent =
+    // object.parent))`).
+    run(in, "set (a, \"flag\", 1 = 1)");
+    CHECK_STR(evals(in, "a.flag"), "True");
+    run(in, "a.ondrop => { cnt.ok = successful }");
+    run(in, "d = NewDictionary()\ndictionary add (d, \"successful\", not a = b)\n"
+            "do (a, \"ondrop\", d)");
+    CHECK_STR(evals(in, "cnt.ok"), "True");
+    // ...while a plain variable that merely STARTS with a keyword's letters
+    // is still an assignment.
+    run(in, "done = 5\nsetting = 6\nerrors = 7");
+    CHECK(w.errors.empty());
+    (void)save;
+}
+
+// Pre-540 print of a text that is nothing but tags (a gamebook option with an
+// empty display text: `<command input="Murder2"></command>`) emits NOTHING --
+// qvh's Emit skips an empty stripped chunk without appending '\n'. Fun Tiemz
+// and minecraft adventure (ASL 520) each had a spurious blank line here.
+static void test_print_all_tags_empty() {
+    World w;
+    w.asl_version = 520;
+    Interp in(w);
+    Context ctx;
+    in.clear_output();
+    in.run_script("msg (\"<command input=\\\"Murder2\\\"></command>\")", ctx);
+    CHECK_STR(in.output(), "<command input=\"Murder2\"></command>");  // no '\n'
+    in.clear_output();
+    in.run_script("msg (\"<b></b><br/>\")", ctx);   // a br tail still yields its newline
+    CHECK_STR(in.output(), "<b></b><br/>");
+    in.clear_output();
+    in.run_script("msg (\"<b>x</b>\")", ctx);
+    CHECK_STR(in.output(), "<b>x</b>\n");
+    in.clear_output();
+    in.run_script("msg (\"<img src=\\\"a.png\\\" />\")", ctx);  // visible: keeps its line
+    CHECK_STR(in.output(), "<img src=\"a.png\" />\n");
+    CHECK(w.errors.empty());
+}
+
 // Parser recursion caps: pathological nesting must surface as a script/parse
 // error, not a stack overflow on first (lazy) compile. And Rng::between must
 // survive extreme spans without SIGFPE/UB.
@@ -1903,6 +1999,9 @@ int main() {
     test_save_restore();
     test_save_hostile();
     test_number_parse_oracle();
+    test_getinput_expression();
+    test_firsttime_per_attribute();
+    test_print_all_tags_empty();
     test_parser_depth_caps();
     test_attribute_names_deep();
     test_finish_turn_deferred_across_prompts();
