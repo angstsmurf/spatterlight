@@ -4013,6 +4013,100 @@ static const scr_patch_edit_t PATCH_SPIRITS_FLIGHT[] = {
   PATCH_SET ("NPCs/16/Battle/Defense", 250, 25)
 };
 
+/*
+ * Tenebrae Semper (Seciden Menarde).  Written for EctoComp's three-hour
+ * slot, and the half of it that happens at night can never be entered.
+ * Task 16, the stairwell door in the Science Center Hallway, narrates the
+ * whole move -- "you see a forest path beyond ... you're already on the
+ * path" -- and carries no actions at all, so the player stays in the
+ * hallway.  Everything past it is in room 6 and room 7: event 2 waits
+ * seven turns and then executes task 17, the beast, which is a room 6
+ * task; task 19 shoots the beast and moves to room 7; task 23 examines the
+ * pillow and moves back to room 6; and task 24, the game's only win
+ * (EndGame v1 = 0, "Ending 4 of 5"), is a room 6 task too.  The added
+ * action is the one tasks 19 and 23 already carry, aimed at the forest
+ * path, and it starts the countdown the event is waiting on as well.
+ *
+ * Task 35 is the same omission a second time.  Its name is "# Go back to
+ * science center", it answers `down` in the third-floor hallway once the
+ * notebook trip is over, and it says "You walk across campus back to the
+ * science center" -- but it carries no actions either, and the two tasks
+ * that do walk there, 7 and 33, are both one-shot.  So a player who takes
+ * the author's own route through the classroom cannot reach the stairwell
+ * door a second time, whatever else is fixed.  It gets the same action,
+ * aimed at SC-124.
+ */
+static const scr_patch_edit_t PATCH_TENEBRAE_SEMPER[] = {
+  PATCH_VERIFY ("Tasks/16/CompleteText",
+                "You enter the stairwell and climb to the upper floor. You"
+                " open the door there, but rather than the expected hallway,"
+                " you see a forest path beyond. You hesitate; your mind must"
+                " be playing tricks on you. Probably best if you don't step"
+                " through the door... but you're already on the path. The"
+                " stairwell - and the rest of the science building - has"
+                " vanished."),
+  PATCH_ADD ("Tasks/16/Actions/0/Type", 1),
+  PATCH_ADD ("Tasks/16/Actions/0/Var1", 0),
+  PATCH_ADD ("Tasks/16/Actions/0/Var2", 0),
+  PATCH_ADD ("Tasks/16/Actions/0/Var3", 6),
+  PATCH_VERIFY ("Tasks/35/CompleteText",
+                "You walk across campus back to the science center."),
+  PATCH_ADD ("Tasks/35/Actions/0/Type", 1),
+  PATCH_ADD ("Tasks/35/Actions/0/Var1", 0),
+  PATCH_ADD ("Tasks/35/Actions/0/Var2", 0),
+  PATCH_ADD ("Tasks/35/Actions/0/Var3", 5)
+};
+
+/*
+ * The Annihilation of Think.com 3 (Pofty).  A numbered-choice chase, each
+ * choice a task that moves the player to the room holding the next pair of
+ * choices.  Task 20, choice B at the FINAL RESTING PLACE, is the one that
+ * forgets: "Nexus confronts you, then turns and runs to your left" should
+ * land the player in room 18, the Small cache, whose description asks the
+ * last question of the game ("1. grab the sword and stab him or 2. Attack
+ * him with Bil the Red iguana?").  No exit reaches room 18 and no task
+ * moves anyone there, so the two tasks that live in it -- the last death
+ * and task 22, the game's single point and its only winning EndGame --
+ * cannot run, and the file tops out at 0 of 1.
+ */
+static const scr_patch_edit_t PATCH_TAOT3[] = {
+  PATCH_VERIFY ("Tasks/20/CompleteText",
+                "You keep hooking him at a safe distance and kick his sword"
+                " to David, Nexus confronts yo, then turns and runs to your"
+                " left."),
+  PATCH_ADD ("Tasks/20/Actions/0/Type", 1),
+  PATCH_ADD ("Tasks/20/Actions/0/Var1", 0),
+  PATCH_ADD ("Tasks/20/Actions/0/Var2", 0),
+  PATCH_ADD ("Tasks/20/Actions/0/Var3", 18)
+};
+
+/*
+ * Crazy Old Bag Lady (Sprite).  Four townspeople have to be recruited before
+ * the Golden Trolley can be hauled out of the river, and the hobos want
+ * newspapers for their help.  Task 40, "talk to shop gal", ends with
+ * "leaving her newspaper on the counter.  Searching behind the counter, you
+ * find stacks of old newspapers.  Perfect!" and duly moves the newspapers
+ * onto object 34, the counter -- but the counter is a static whose room list
+ * is ROOMLIST_NO_ROOMS, so it stands in no room at all and nothing placed on
+ * it is ever in scope again.  The newspapers cannot be taken, the hobos are
+ * never paid, "People helping" stops at 3, and the game's only ending is out
+ * of reach at 160 of 230.  The Corner Shop's own description says where the
+ * counter belongs ("a cash register on the counter"), and every other fixture
+ * in the game carries the one room it is written into, so the patch gives the
+ * counter the Corner Shop (room 14, stored one-based).
+ */
+static const scr_patch_edit_t PATCH_COBL[] = {
+  PATCH_VERIFY ("Objects/34/Short", "counter"),
+  PATCH_VERIFY ("Objects/34/Description",
+                "The old and battered counter has an equally battered cash"
+                " register on it. It looks like it wouldn't stand up to a"
+                " well-placed kick, but nobody's tried to rob it yet..."
+                " probably because it's actually just a poorly written object"
+                " that can't actually be opened. Handy, that."),
+  PATCH_SET ("Objects/34/Where/Type", 0, 1),
+  PATCH_ADD ("Objects/34/Where/Room", 15)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4053,7 +4147,18 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("The Spirit's Flight", "Andy Ko & Karen Kwan",
               "the water guardian now leaves her artifact, the chant has a"
               " circle and a sayable command, and Carnifern can be fought",
-              PATCH_SPIRITS_FLIGHT)
+              PATCH_SPIRITS_FLIGHT),
+  PATCH_GAME ("Tenebrae Semper", "Seciden Menarde",
+              "the stairwell door opens onto the forest path, and the walk"
+              " back across campus arrives",
+              PATCH_TENEBRAE_SEMPER),
+  PATCH_GAME ("The Annihilation of Think.com 3", "Pofty",
+              "choice B now leads to the room the last choice is asked in",
+              PATCH_TAOT3),
+  PATCH_GAME ("<centre>Crazy Old Bag Lady</centre>", "Sprite",
+              "the newsagent's counter stands in the Corner Shop, so the"
+              " newspapers left on it can be picked up",
+              PATCH_COBL)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

@@ -1,0 +1,51 @@
+# Tenebrae Semper (tenebraesemper / TenebraeSemper.taf) -- ADRIFT 4.00,
+# played with the engine's built-in game patches on (SCR_ASSUME_PATCHES=1).
+# Tasks 16 and 35 describe walking somewhere ("you're already on the path",
+# "you walk across campus back to the science center") but the release gave
+# neither an action, so the player never moved and the game stalled after the
+# pistol. Patched, `up` in the stairwell reaches the forest path and the walk
+# back reaches the Science Center, so the story runs to its ending.
+open desk
+get pen
+examine my dresser
+take wallet
+examine bookshelf
+take math book
+examine steve's dresser
+set steve's clock hour to 7
+set steve's clock minute to 42
+open steve's dresser
+look in steve's dresser
+take gold key
+north
+down
+north
+unlock stairwell door with gold key
+open stairwell door
+south
+sit chair
+get notebook
+open door
+north
+pull sheet
+south
+down
+take gold key
+north
+west
+up
+north
+unlock lauren's dresser with gold key
+open lauren's dresser
+take pistol
+south
+down
+down
+north
+up
+wait
+wait
+wait
+shoot beast
+x pillow
+shoot man

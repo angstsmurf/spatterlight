@@ -1,0 +1,137 @@
+# Crazy Old Bag Lady (cobl / COBL.taf) -- ADRIFT 4.00, played with the
+# engine's built-in game patches on (SCR_ASSUME_PATCHES=1).  Object 34, the
+# newsagent's counter, is a static with an empty room list, so the newspapers
+# TASK40 puts on it land nowhere and the hobos -- the fourth and last of the
+# four recruitments -- can never be paid.  The patch puts the counter in the
+# Corner Shop, where the room's own description has always said it is.  The
+# route is the faithful 160/230 walkthrough plus the shop-gal date errand
+# (guy, then gal), `take newspapers`, `give newspapers to hobos`, and then
+# the ending the file has always had: `blow whistle` at the riverbank to
+# gather all four helpers, `throw grapnel into river`.  WIN 230/230.
+3
+n
+take cup
+look in bin
+search rubbish
+look
+look in rubbish
+get medicine
+s
+get water from pond
+e
+talk to mad cat lady
+give medicine to mad cat lady
+talk to mad cat lady
+give water to mad cat lady
+w
+s
+e
+e
+s
+take key
+n
+w
+w
+n
+e
+give key to mad cat lady
+score
+e
+look
+i
+take rope
+look in sofa
+look under sofa
+look behind sofa
+i
+w
+w
+w
+n
+x golden trolley
+s
+s
+s
+talk to scary mumbling man
+n
+n
+e
+look
+score
+talk to scary mumbling man
+i
+score
+n
+e
+open dumpster
+take candelabra
+tie rope to candelabra
+score
+i
+look
+look in dumpster
+x candelabra
+take candelabra
+i
+tie candelabra to rope
+score
+i
+w
+s
+talk to ollie
+look under bench
+give bindle to ollie
+score
+talk to hobo
+score
+s
+e
+e
+talk to shop guy
+w
+w
+w
+w
+talk to shop gal
+score
+e
+n
+e
+e
+e
+x cat
+talk to mad cat lady
+w
+w
+w
+n
+x cat
+s
+e
+e
+e
+score
+w
+w
+talk to scary mumbling man
+n
+score
+s
+s
+e
+e
+talk to shop guy
+w
+w
+w
+w
+talk to shop gal
+take newspapers
+e
+n
+e
+give newspapers to hobos
+w
+n
+blow whistle
+throw grapnel into river

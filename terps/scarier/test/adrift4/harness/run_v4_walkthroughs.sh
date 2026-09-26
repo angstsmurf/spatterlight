@@ -6571,6 +6571,18 @@ takeone_solution.txt|takeone.taf|it only took 1 take|SCR_SKIP_WAITKEY=1
 # inventory-wiping "sit chair" mechanic, the notebook subplot) ending on
 # retrieving Lauren's pistol. 34 commands, `SCR_SKIP_WAITKEY=1`.
 tenebraesemper_solution.txt|TenebraeSemper.taf|You take the loaded pistol from Lauren's dresser.|SCR_SKIP_WAITKEY=1
+# Tenebrae Semper, patched: the same file with the engine's built-in game
+# patches on.  Two tasks narrate a walk and then move nobody -- TASK16, the
+# stairwell door ("you're already on the path", the forest), and TASK35, the
+# walk back across campus -- so the release strands the player in the Science
+# Center Hallway however it is played.  Both are one-shot, so once they are
+# spent there is no second way over.  The patch gives each the move-player
+# action its text describes (rooms 6 and 5); nothing else about the file
+# changes.  The route is the faithful golden without its `up` (which now
+# teleports), then back down to the science center and up the stairwell, and
+# the story runs to its ending: the beast, the pillow, the man.  45 commands,
+# `[Ending 4 of 5]`.
+tenebraesemper_patched_solution.txt|TenebraeSemper.taf|[Ending 4 of 5]|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Helsing ("Steve Van Helsing: Process Server", 9776 bytes, 4.00): WON, no
 # score system (zero ACT type=4), the game's only ending. TASK 13 (`ask *
 # about *` wildcard, talk to Frankenstein's monster) and TASK 19 (the
@@ -7238,6 +7250,17 @@ will_solution.txt|Will.taf|Well done - you scored maximum points!|
 # Seeded 2026-09-13: the unseeded run stopped reaching 160 under the RNG-parity rules;
 # seed 21 does (1-200 scan: 21, 30, 38, 39, 48).
 cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SEED=28 SCR_SKIP_WAITKEY=1
+# COBL, patched: object 34, the newsagent's counter, is a static whose room
+# list is ROOMLIST_NO_ROOMS, so it stands in no room and the newspapers TASK40
+# moves onto it ("Searching behind the counter, you find stacks of old
+# newspapers.  Perfect!") are out of scope forever -- the fourth recruitment
+# never completes, "People helping" stops at 3 and the ending is unreachable.
+# The Corner Shop's description has always placed it ("a cash register on the
+# counter"), so the patch gives the counter that one room.  The faithful route
+# then continues: the shop-gal date errand, `take newspapers`, `give
+# newspapers to hobos`, `blow whistle` at the riverbank, `throw grapnel into
+# river`.  WIN 230/230.
+cobl_patched_solution.txt|COBL.taf|You scored 230 out of the maximum 230!|SCR_SEED=28 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # puzzlebox.taf (The Puzzle Box, Richard Otter, ORGComp 2007; 4.00): a
 # sequential 10-stage combination-lock puzzle box, no scoring system, single
 # ACT type=6 EndGame. All target values are fixed .taf constants (no RNG),
@@ -10685,6 +10708,14 @@ shortlived_solution.txt|shortlived.taf||
 monstermirror_solution.txt|monster.taf|So you figured it out|
 # The Annihilation of Think.com 3: 0/1, the only win (task 22) is unreachable.
 taot3_solution.txt|TAOT3.taf||
+# The Annihilation of Think.com 3, patched: TASK20 (choice B, "kick his sword
+# to David ... he turns and runs to your left") is the one link in the chase
+# that forgets to move the player, so room 18 "Small cache" -- which asks the
+# last question and holds TASK22, the game's only point and its only winning
+# EndGame -- is unreachable and the file tops out at 0 of 1.  With the move
+# restored the last pair of choices can be answered: WIN 1/1.  No
+# SCR_SKIP_WAITKEY here; the golden's blank lines eat the <waitkey>s.
+taot3_patched_solution.txt|TAOT3.taf|Well done - you scored maximum points!|SCR_ASSUME_PATCHES=1
 # Last Knight: abandoned opening, no tasks; answers the name prompt only.
 lastknight_solution.txt|Last_Knight.taf||
 # Govard. Zabvenie part 2 (3.90, Russian): WIN 22/22. Lion/gargoyle/bear fights

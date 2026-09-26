@@ -1,0 +1,49 @@
+# The Annihilation of Think.com 3 (taot3 / TAOT3.taf) -- ADRIFT 3.90, played
+# with the engine's built-in game patches on (SCR_ASSUME_PATCHES=1). Task 20,
+# the "kick his sword to David" branch, now carries the move-player action the
+# release forgot, so choice B lands in room 18 "Small cache" instead of
+# leaving the player where they stood. The final 1/B pair can then be
+# answered and task 22 -- the game's only point, and its only win -- fires.
+# The route is the faithful walkthrough plus `2` and five blank lines to eat
+# the five <waitkey>s in task 22's completion text. Earlier blank lines eat
+# <waitkey>s as in the faithful golden.
+examine girl
+x emma
+
+
+2
+put ring on altar
+
+n
+n
+n
+n
+w
+search body
+
+e
+swipe card
+n
+n
+n
+n
+examine nexus
+1
+A
+
+
+
+
+look
+e
+
+d
+n
+1
+B
+2
+
+
+
+
+

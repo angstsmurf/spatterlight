@@ -1,0 +1,344 @@
+Loading game...
+
+Tenebrae Semper
+
+Tenebrae Semper
+An Interactive Fiction Formed in
+Exactly 3 Hours for EctoComp 2010
+
+By Seciden Mencarde
+
+WARNING: This game contains scenes
+which may be considered violent and
+disturbing. If you are offended by this
+sort of material, please do not continue.
+Otherwise, press a key to begin.
+
+(Author's Note: The game claims that there are five possible endings, but
+only three have been implemented in this version - endings 2, 3, and 4 - due
+to time constraints.)
+
+The moonlight barely illuminates the dirt trail cutting through the forest.
+You're on your way back to the dorm, cutting through this trail to get there.
+
+You hear a scream, and it stops you. "Help!" It's a girl.
+
+You run toward the scream through the darkness, leaping with each step to
+avoid tripping over any roots or rocks. The darkness grows darker, and the
+scream never gets nearer...
+
+Something is beeping, very loud, piercing into your ears. You open your eyes
+slowly. Oh. It's your dorm. You've probably overslept again.
+
+The blaring noise starts to piss you off, so you slam your fist around trying
+to find the sleep button. You eventually hit the alarm clock, but too hard -
+it falls off your desk and hits the tile floor, cracking into pieces. Well,
+at least it stopped.
+
+You growl as you slide out of bed. Tuesdays suck. You grab your clothes, take
+a shower, and come back to the room. You say to yourself, "All right, get
+ready. Probably only a few minutes till class."
+
+> open desk
+You open your desk.  The pens are inside your desk.
+
+> get pen
+You take a pen from the drawer.
+
+> examine my dresser
+A dresser with several drawers, though given that you're already dressed, its
+contents are of little interest to you.  The wallet is on your dresser.
+
+> take wallet
+You take the wallet from your dresser.
+
+> examine bookshelf
+On your bookshelf are the math book, the philosophy book, the C++ book and
+the literature book.
+
+> take math book
+You take the math book from your bookshelf.
+
+> examine steve's dresser
+An inaccurate clock rests atop Steve's dresser, claiming the time is
+currently 0:00 - military time. The top drawer is locked but you've never
+seen Steve with a key - not that you would ever look through his stuff.
+Steve's dresser is locked.  Steve's alarm clock is on Steve's dresser.
+
+> set steve's clock hour to 7
+You change the hour on Steve's clock to 7.
+
+> set steve's clock minute to 42
+You change the minute on Steve's clock to 42.  You hear a "click" - did the
+dresser unlock?
+
+> open steve's dresser
+You open Steve's dresser.  The gold key and the silver key are inside Steve's
+dresser.
+
+> look in steve's dresser
+An inaccurate clock rests atop Steve's dresser, claiming the time is
+currently 0:00 - military time. The top drawer is locked but you've never
+seen Steve with a key - not that you would ever look through his stuff.
+Steve's dresser is open.  Steve's alarm clock is on Steve's dresser, and
+inside are the gold key and the silver key.
+
+> take gold key
+You take the gold key from Steve's dresser.
+
+> north
+You move north.
+
+Dorm Hall - Third Floor
+This wing of the third floor has rooms 310-319, the communal bathroom, and
+the only stairwell on the floor. It's unfortunate that you're stuck with the
+elevator since people are constantly going up and down your hallway to reach
+the stairs, but it's convenient to have them so close to your room, too. Your
+room lies south.
+
+> down
+You run down the stairs and out the dorm's front doors. The campus is oddly
+quiet for a Tuesday. It feels more like the weekend, when everyone goes home.
+You shrug it off; you're probably just late and everyoe else is in class.
+Eventually you arrive at the science building and enter quietly into room
+SC-124.
+
+> north
+You move north.
+
+Science Center Hallway
+This hallway is lined with several doors. One door to the south leads to the
+offices, SC-110 to SC-119. Two doors to the north are SC-121 and SC-123,
+while two doors to the south are SC-122 and SC-124. At the east end of the
+hallway is the door to the stairwell, while the exit lies west.
+
+> unlock stairwell door with gold key
+You unlock the stairwell door with the gold key.
+
+> open stairwell door
+You open the stairwell door.
+
+> south
+You move south.
+
+Classroom SC-124
+Long tables make up the rows in this room, one on each side of an aisle
+seating three or four students. The room doesn't fill because there are so
+few students, so the place is rather spacious and enjoyable. At the front of
+the room is an enormous desk where the professor often sits when the class is
+doing group activities. Just remembering those makes you scoff. You wonder
+why no one is here, as you thought you were late.  A clock hangs on the wall,
+ticking quite loudly.
+
+> sit chair
+You sit in your chair, deciding to wait for the rest of the class to show up.
+A thought strikes your mind: you've forgotten your notebook! You left it in
+Lauren's room last night when you were studying. You bolt out of the
+classroom, leaving your stuff behind, and run back toward the dorm.
+
+> get notebook
+You get on one knee and reach for the notebook. As soon as your fingers touch
+it, the notebook vanishes into Lauren's room. The door creeks open slightly.
+
+> open door
+You push the door and it opens.
+
+> north
+You move north.
+
+Room 419 (Lauren's Room)
+Very few kids are fortunate enough to have a single room, and Lauren is one
+of them. Her bed is perfectly made, and her desk is perfectly parallel to her
+dresser, both pushed against the wall. Her bookshelf is filled with all sorts
+of books - mostly novels - since she's a literature major. Her door leads
+south into the hallway.
+
+> pull sheet
+You pull back the bedsheet to find your black notebook underneath. You take
+it.
+
+> south
+You move south.
+
+Dorm Hall - Fourth Floor
+This wing of the fourth floor is also a gateway to the stairwell  with a
+communal bathroom, an elevator, and rooms 410-419, the last of which is
+Lauren's room to the north. You've loved the girl since you first met her,
+but you haven't been able to make any advancements; something in your mind
+has been holding you back.
+
+> down
+You rush down the stairs - don't have time for the elevator - all the way
+across campus, and into SC-124 again.
+
+> take gold key
+You take the gold key from the table.
+
+> north
+You move north.
+
+Science Center Hallway
+This hallway is lined with several doors. One door to the south leads to the
+offices, SC-110 to SC-119. Two doors to the north are SC-121 and SC-123,
+while two doors to the south are SC-122 and SC-124. At the east end of the
+hallway is the door to the stairwell, while the exit lies west.
+
+> west
+You make your way back to the dorm, now convinced that you won't be having
+class.
+
+> up
+You move up.
+
+Dorm Hall - Fourth Floor
+This wing of the fourth floor is also a gateway to the stairwell  with a
+communal bathroom, an elevator, and rooms 410-419, the last of which is
+Lauren's room to the north. You've loved the girl since you first met her,
+but you haven't been able to make any advancements; something in your mind
+has been holding you back.
+
+> north
+You move north.
+
+Room 419 (Lauren's Room)
+Very few kids are fortunate enough to have a single room, and Lauren is one
+of them. Her bed is perfectly made, and her desk is perfectly parallel to her
+dresser, both pushed against the wall. Her bookshelf is filled with all sorts
+of books - mostly novels - since she's a literature major. Her door leads
+south into the hallway.
+
+> unlock lauren's dresser with gold key
+You unlock Lauren's dresser with the gold key.
+
+> open lauren's dresser
+You open Lauren's dresser.  The loaded pistol is inside Lauren's dresser.
+
+> take pistol
+You take the loaded pistol from Lauren's dresser.
+
+> south
+You move south.
+
+Dorm Hall - Fourth Floor
+This wing of the fourth floor is also a gateway to the stairwell  with a
+communal bathroom, an elevator, and rooms 410-419, the last of which is
+Lauren's room to the north. You've loved the girl since you first met her,
+but you haven't been able to make any advancements; something in your mind
+has been holding you back.
+
+> down
+You move down.
+
+Dorm Hall - Third Floor
+This wing of the third floor has rooms 310-319, the communal bathroom, and
+the only stairwell on the floor. It's unfortunate that you're stuck with the
+elevator since people are constantly going up and down your hallway to reach
+the stairs, but it's convenient to have them so close to your room, too. Your
+room lies south.
+
+> down
+You walk across campus back to the science center.
+
+> north
+You move north.
+
+Science Center Hallway
+This hallway is lined with several doors. One door to the south leads to the
+offices, SC-110 to SC-119. Two doors to the north are SC-121 and SC-123,
+while two doors to the south are SC-122 and SC-124. At the east end of the
+hallway is the door to the stairwell, while the exit lies west.
+
+> up
+You enter the stairwell and climb to the upper floor. You open the door
+there, but rather than the expected hallway, you see a forest path beyond.
+You hesitate; your mind must be playing tricks on you. Probably best if you
+don't step through the door... but you're already on the path. The stairwell
+- and the rest of the science building - has vanished.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+You continue traveling northward through the path, and it all still looks
+very much the same, until you come across a faint outline on the ground.
+Looking closer, you see that it is a girl: you can see the slender figure and
+the long, flowing hair. She looks a lot like Lara.
+
+Something grunts in the darkness beyond.
+
+A creature steps forward from the shadow, as if made of it, crawling on five
+thick legs that whisp like tendrils of darkness. Its eyes glow red and lock
+onto you. A sound half like a chuckle and half like a roar echoes around the
+forest as if there are several of these beasts. It stands and waits for you
+to react.
+
+> shoot beast
+You point the gun at the beast and pull the trigger. The beast dissipates
+into the air like it were only black fog.
+
+> x pillow
+You look closer at the stain on the pillow. It's very dark and caked on. You
+immediately think it's blood, but it can't be. You touch it and your mind
+clicks like you've reached the solution to a problem you've been working on
+for eternity, throwing your consciousness, blanking the world before your
+eyes and flashing memories like dreams before you...
+
+Again, the forest path, but the beast is gone. Laura lies on the ground. Yes,
+it is Laura, and it is not now. You begin to remember your previous school,
+your love, her betrayal...
+
+And here you stand, answering the call. You ran to the scream like any
+courageous young man would, hoping to save whoever might be in danger. But
+the man holds a gun to her head, a hand to her hip. The sight's details defy
+description; you haven't the stomach to even think about what you're seeing.
+
+Now what do you do? What did you do? What is this guilt inside of you that
+builds like a sickness?
+
+She betrayed you, and you won't ever forgive her for that. Is she worth
+risking your life? You hold a gun in your hand; he holds a gun in his. The
+path is still open to the south, still beckoning you to safety.
+
+What now?
+
+> shoot man
+You point the pistol at the man's head and pull the trigger. He drops Lauren.
+She scrambles over to you and grabs hold of your leg as the man falls to the
+ground. You look down at her, her face buried in your leg, and then at the
+now-still man collapsed before you.
+
+You open your eyes to see Steve walking out of the dorm room. "Lauren?" you
+say.
+
+He turns around and lets the door shut behind him. "Who?"
+
+You shake your head and sit up. You're in your bed, the sheets ruffled
+wildly. Was it all a dream? No, your hand is still shaking from the recoil of
+the gun, and your sweaty palms smell of metal from gripping it too tightly.
+
+Steve walks closer to you. "Are you all right, man?"
+
+You shake your head. "Don't be late for class."
+
+"I was heading out early, anyway. Who's Lauren?"
+
+You look at the blank wall opposite the end of your bed. That's a very good
+question. "I... don't know."
+
+"Well, when you figure it out, let me know. Must be important if you're
+dreaming about her."
+
+You shake your head again and try to picture the events of the past day: the
+empty classroom, the beast in the forest, the blood on the pillow. A strange
+experience, more than a dream, but...
+
+Who is Lauren?
+
+THE END
+[Ending 4 of 5]
+
+[Press any key to end]
