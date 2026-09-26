@@ -26,3 +26,161 @@ unlock gate
 open gate
 get banana
 s
+# The shack: musket, and the bowl/mold/notecard on the table (the table
+# must be examined before its contents can be taken).
+e
+get musket
+x table
+get bowl
+get mold
+get notecard
+# The vampire bat circles cemetery -> village -> pier -> dirt road ->
+# hidden, one room per turn, and chases the player back to the jungle on
+# meeting. Leaving the shack on the turn it is hidden reaches the
+# blacksmith's shop (which it never enters) without meeting it.
+w
+s
+e
+x blacksmith
+x bench
+get garlic
+# Wearing the garlic (+50) switches the bat to a harmless walk.
+wear garlic
+get mallet
+put mold on bench
+# Black powder: potassium nitrate from the florist's box, charcoal from the
+# camp site's fire pit (plus the tent stake), sulphur from the dark lower
+# cave, found by the light of a flare. All three in the bowl = powder (+300).
+w
+s
+s
+get box
+open box
+get nitrate
+drop box
+n
+u
+x tent
+x pit
+get stake
+get charcoal
+d
+n
+n
+n
+w
+n
+d
+twist flare
+get deposits
+put nitrate in bowl
+put charcoal in bowl
+put deposits in bowl
+# Lead musket balls: the fishing weights from the boat's chest melt in the
+# vat (+100) and cast in the mold on the bench (+100).
+u
+s
+w
+d
+x chest
+get weights
+u
+e
+e
+s
+s
+e
+put weights in vat
+pour lead into mold
+x mold
+get balls
+load gun with lead ball
+# Frankenstein's monster guards the castle: eating the banana leaves the
+# peel, and dropping it in front of him makes him slip (+500), which gives
+# time to shoot the drawbridge switch with the lead ball (+200).
+w
+s
+u
+eat banana
+u
+n
+drop peel
+shoot switch
+in
+x table
+get stick
+w
+u
+open coffin
+# Staking Dracula needs the stake and the mallet (+500); it frees the bronze
+# key.
+stake dracula
+get key
+d
+d
+twist flare
+get tubing
+n
+unlock door
+w
+e
+s
+u
+e
+out
+s
+d
+d
+n
+e
+# The silver candlestick makes one silver ball (+100 melt, +100 cast).
+put stick in vat
+pour silver into mold
+x mold
+get ball
+load gun with silver ball
+# The blacksmith's apron stays on his body: carrying it makes the bucket
+# too heavy to take. Siphon the motor's fuel into the bucket with the
+# tubing (+100).
+w
+w
+get bucket
+e
+n
+n
+w
+w
+siphon gas into bucket
+e
+e
+s
+s
+s
+u
+u
+n
+in
+w
+d
+n
+w
+pour gas into generator
+press start
+e
+n
+press button
+in
+# Freeing Ameila sends the Wolfman to the pier, where her seaplane is.
+# Shooting him with the silver ball (+500) wins: 2650, every scoring task.
+out
+s
+s
+u
+e
+out
+s
+d
+d
+n
+w
+shoot wolfman

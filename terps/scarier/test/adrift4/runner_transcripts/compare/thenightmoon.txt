@@ -1,0 +1,46 @@
+feed        76 commands
+runner      76 turns echoed
+scarier     78 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 2  n
+  run400   You move north. Ruined houses The rubble around here looks as if it were once a collection houses, now it is just a charred husk. You can hear squeaking coming from the rubble which is most likely rats. A few puddles have formed in pot holes around the walls of the derilict buildings. a giant rat is here. You can only move south. A giant rat hits you.
+  scarier  You move north. Ruined houses The rubble around here looks as if it were once a collection houses, now it is just a charred husk. You can hear squeaking coming from the rubble which is most likely rats. A few puddles have formed in pot holes around the walls of the derilict buildings. A giant rat is here. You can only move south. A giant rat hits you.
+
+turn 7  in
+  run400   You move in. Inside smithy This room is well decorated with shelves and racks of weapons, shields and metal ware. The low cieling is blackened from the heat coming out of the large kiln in the corner. There is a small door leading outside from here. a well built man is here. You can only move out.
+  scarier  You move in. Inside smithy This room is well decorated with shelves and racks of weapons, shields and metal ware. The low cieling is blackened from the heat coming out of the large kiln in the corner. There is a small door leading outside from here. A well built man is here. You can only move out.
+
+turn 13  w
+  run400   You move west. Village wall (centre) This is the path that surrounds the southern edge of the village wall. There are not alot of footprints here as the path is probably not well used. a vacant looking skeleton is here. You can move east and northwest.
+  scarier  You move west. Village wall (centre) This is the path that surrounds the southern edge of the village wall. There are not alot of footprints here as the path is probably not well used. A vacant looking skeleton is here. You can move east and northwest.
+
+turn 20  in
+  run400   You move in. Hermit's hut This hut is small and cozy, it has a warm glow about it and the fire place is burning merrily on. There is a small bed and a table in here with two chairs surrounding the table. An ornate rug covers most of the floor in this little circular hut. an old hermit is here. You can only move out.
+  scarier  You move in. Hermit's hut This hut is small and cozy, it has a warm glow about it and the fire place is burning merrily on. There is a small bed and a table in here with two chairs surrounding the table. An ornate rug covers most of the floor in this little circular hut. An old hermit is here. You can only move out.
+
+turn 28  attack elf with longsword -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   You hit a dark elf with your longsword. The dark elf stumbles backwards into one of the comfortable reading chairs, it's robes hang losely from it's body and you can now see it is a he. "Uurgh..." the drow coughs up blood and tries to pull himself up but fails. "Well... done..." he struggles with the human words. "I am beaten... the least I can do is answer your questions about this place before I pass into the next... world." He sits, waiting for you.You hit injured dark elf with your longsword. The drow is dying...
+  scarier  You hit a dark elf with your longsword. The dark elf stumbles backwards into one of the comfortable reading chairs, it's robes hang losely from it's body and you can now see it is a he. "Uurgh..." the drow coughs up blood and tries to pull himself up but fails. "Well... done..." he struggles with the human words. "I am beaten... the least I can do is answer your questions about this place before I pass into the next... world." He sits, waiting for you. You hit injured dark elf with your longsword. The drow is dying...
+
+turn 54  d
+  run400   You move down. Prison This place reeks! Yeuch! There is a cell door here, a small stool and some steps leading upwards to the library. a skeleton guard is here. You can only move up.
+  scarier  You move down. Prison This place reeks! Yeuch! There is a cell door here, a small stool and some steps leading upwards to the library. A skeleton guard is here. You can only move up.
+
+turn 71  attack vampire with bastard sword
+  run400   I really don't think there's any need for language like that! Count valdimir hits you.
+  scarier  You hit count valdimir with bastard sword. Count valdimir hits you.
+
+turn 72  attack vampire with bastard sword
+  run400   I really don't think there's any need for language like that! Count valdimir hits you.
+  scarier  You hit count valdimir with bastard sword. Count valdimir hits you.
+
+turn 73  attack vampire with bastard sword
+  run400   I really don't think there's any need for language like that! Count valdimir hits you.
+  scarier  You hit count valdimir with bastard sword. Count valdimir hits you.
+
+1 turn(s) differed by whitespace only -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,25 +1,45 @@
 # The Will (thewill / The_Will.taf) -- ADRIFT 3.90, ambrosine@mindspring.com,
-# 2001. 150-point treasure hunt across ~50 rooms (yard, house, woods, tunnels).
-# Best-reachable partial: 35/150. Blank line 1 eats the intro's <waitkey>
-# ("Press any key when ready to play.").
+# 2001. Treasure hunt across ~50 rooms (yard, house, woods, tunnels, river).
+# FULL WIN: all sixteen treasures on the Gallery's oriental rug collapse it
+# (+10) and `d` down the revealed stairway (+10) ends the game with the
+# WinText. Every scoring task in the data fires, 155 in all against the game's
+# declared maximum of 150 (27 tasks at 5 plus two at 10), so the summary reads
+# "You scored 155 out of the maximum 150." / "You finished -5 points short."
+# -- the Runner prints a negative shortfall the same way. The blank line after
+# this header answers the intro's "Press any key when ready to play."
 #
-# Front Gate is locked; the fix is two one-shot consumables used IN ORDER:
-# `unlock gate` (breaks off the entrance key) then `oil gate` (empties the
-# oilcan, found via `search hedges` at the Northwest Corner of Yard) then
-# `open gate` -- skipping either step leaves the hinges "too rusty" or the
-# lock unturned.  The open gate's exit is "u" (up), not the compass direction
-# suggested by the room text.
+# Seen objects: things listed only through %in_X%/%on_X% room text answer
+# "What do you want to take?" until the holder is examined -- `x cabinet`
+# (crowbar), `x safe` (mug), `x table` (lamp), `x grate` (carving),
+# `x computer` (crystal disk); the wooden pedestal after the sculpture breaks
+# needs a `look`. The pocket watch comes straight out after `open clock`.
 #
-# The house interior gates several prominent objects (crowbar on the Inside
-# Shack cabinet, a pocket watch inside the Hallway's grandfather clock, a
-# battery charger in the cabinet drawer) behind a plain `get X`/`take X from Y`
-# that always answers "What do you want to take?"/"You can't do that." --
-# these did not yield to any lever/tool/verb tried and are left unsolved here.
-# The one similar-looking puzzle that DOES have a solution: the Inside Shack's
-# cabinet leans and its drawer won't budge until you `move pillows` in the
-# Living Room (finds a matchbook) and `level cabinet with matchbook` back at
-# the shack -- `open drawer` then works, but the battery charger inside is
-# "securely fastened" and still can't be taken.
+# Order constraints:
+# - Charge the flashlight early: `level cabinet with matchbook` in the shack,
+#   `open drawer`, `get matchbook` (it comes back and the drawer stays open),
+#   `put flashlight in charger`. The Cellar is dark; the flashlight is lit in
+#   the Kitchen and then NEVER switched off. Once `unlight flashlight` has run,
+#   an event clears the "light flashlight" task at the end of every turn, and
+#   the Foot of Hill's east exit is gated on that task.
+# - The carving is taken while the umbrella is still hooked on the steam pipe.
+# - `feed puppy steak` at the doghouse, then `get dogbone`.
+# - The shovel appears in the Toolshed after `push button` in the Study;
+#   `dig soil with shovel` in the Vegetable Garden, `open bag` leaves the
+#   rubberband in hand for `wrap band around valve` / `turn valve with wrench`
+#   at the Courtyard fountain (pearl).
+# - Chasm: carry the lit flashlight east from the Foot of Hill, take the ring,
+#   `drop flashlight` (aims it across the chasm), go back round through the
+#   Toolshed hole with the oil lamp lit (a lit flashlight burns out going down
+#   the hole). At the Narrow Squeeze `drop all` (the crack needs empty hands),
+#   `n`, take the nugget, `throw nugget` across, `s`, `get all`, `d` slides
+#   back to the Foot of Hill; put the lamp out before `e` (a lit lamp or match
+#   ignites the gas), collect nugget and flashlight.
+# - River: `open umbrella` at the Cliff drifts down to River's Edge; swim
+#   w/s/s/e to the lily and back, `climb up` the vine.
+# - "insert" is a game synonym for "put", so the boot disk goes in with
+#   `put disk in computer` ("insert disk" becomes "put disk" and matches
+#   nothing).
+
 w
 n
 search hedges
@@ -29,31 +49,236 @@ unlock gate
 oil gate
 open gate
 u
+w
 n
-open door
-n
-n
-move statue
-n
-open window
+put umbrella in hole
+open umbrella
+get necklace
+get umbrella
 s
 e
-move pillows
+n
+raise flag
+open door
+n
+open clock
+get watch
+n
+move statue
 w
+get wrench
+e
+e
+move pillows
+n
+move painting
+103221
+x safe
+get mug
+e
+open fridge
+get meat
+n
+get flashlight
 s
+w
+w
+open window
+put watch on rug
+put necklace on rug
+put mug on rug
+drop oilcan
 s
+u
+n
+open toilet
+stuff will in toilet
+flush toilet
+get earring
 s
+w
+push armoire
+s
+get vase
+n
+e
+e
+push button
+read computer
+w
+d
+n
+put earring on rug
+put vase on rug
 d
 w
 s
 s
+s
 w
+x cabinet
+get crowbar
 level cabinet with matchbook
 open drawer
+get matchbook
+put flashlight in charger
 e
 e
+get ashes
+n
+get pickaxe
+s
 e
 climb tree
 shake branches
 d
-get emerald
+get egg
+w
+w
+n
+n
+n
+e
+u
+put egg on rug
+break sculpture with pickaxe
+drop pickaxe
+look
+get wooden pedestal
+s
+u
+stand on pedestal
+look at sparkle
+get off pedestal
+w
+throw ashes at mirror
+e
+d
+n
+put crown on rug
+drop pedestal
+e
+e
+light flashlight
+d
+put meat on grate
+get steak
+put umbrella on pipe
+open grate with crowbar
+x grate
+get carving
+get umbrella
+u
+w
+x table
+get lamp
+w
+put carving on rug
+drop crowbar
+s
+s
+s
+open mailbox
+get stamp
+s
+d
+e
+n
+enter tear
+get shovel
+enter tear
+s
+w
+u
+e
+dig soil with shovel
+open bag
+get clover
+drop shovel
+w
+wrap band around valve
+turn valve with wrench
+x fountain
+get pearl
+drop wrench
+d
+w
+s
+feed puppy steak
+get dogbone
+s
+e
+n
+e
+get ring
+drop flashlight
+w
+s
+w
+n
+n
+e
+e
+n
+enter tear
+light lamp
+d
+s
+u
+e
+s
+u
+get disk
+e
+d
+e
+drop all
+n
+get nugget
+throw nugget
+s
+get all
+d
+extinguish lamp
+e
+get nugget
+get flashlight
+w
+s
+e
+e
+open umbrella
+w
+s
+s
+e
+get lily
+w
+n
+n
+climb up
+w
+n
+n
+e
+u
+n
+n
+n
+u
+e
+put disk in computer
+x computer
+get crystal disk
+w
+d
+n
+put stamp on rug
+put dogbone on rug
+put clover on rug
+put nugget on rug
+put pearl on rug
+put lily on rug
+put ring on rug
+put crystal disk on rug
+d

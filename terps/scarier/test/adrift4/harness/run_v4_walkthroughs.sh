@@ -10520,18 +10520,25 @@ liqid_solution.txt|liqid.taf|I surrender, you win!|
 # 0); variables are addressed by index (var_indexed_name), so the `#pass
 # out` event no longer fires on turn 0 and `sleep` is refused.
 mages_solution.txt|mages.taf|a magic rating of 20, and your mana=50.|
-# MonsterIsland.taf: content-reviewed Frankenstein/Dracula monster-hunting
-# comic adventure, no sexual content, no minors (the walkthrough never
-# reaches the game's ending, where an NPC's sexual orientation is revealed
-# in a throwaway line). Best reachable state, not the full game -- confirmed
-# via SCR_DUMP_TASKS the remaining content (a molten lead/silver bullet-
-# casting puzzle, a generator/gas mechanic, and separate Frankenstein/
-# vampire-bat/Dracula boss fights) is a large, mostly self-contained second
-# half. The walkthrough salvages the wrecked ship (harpoon, first aid kit,
-# flares), kills the beach creature by repeated harpoon throws, takes its
-# key, and unlocks/opens the jungle-path gate into the old cemetery -- the
-# natural stopping point before the shack/village/Frankenstein content.
-monsterisland_solution.txt|MonsterIsland.taf|And the beginning of a village down the road to the south.|
+# MonsterIsland.taf: Frankenstein/Dracula monster-hunting comic adventure.
+# Full win at 2650, every ChangeScore task in the game (SCR_DUMP_TASKS); the
+# game's own `score` reads "maximum of 0", so there is no score line to
+# match. The walkthrough salvages the wrecked ship, kills the beach creature
+# with the harpoon and opens the cemetery gate; times the vampire bat's
+# five-turn circuit to reach the blacksmith's garlic unmet; mixes black
+# powder (florist nitrate, camp charcoal, sulphur found by flare-light in the
+# lower cave); casts lead balls from the boat's fishing weights; trips
+# Frankenstein with the banana peel and shoots the drawbridge switch; stakes
+# Dracula for the bronze key; casts a silver ball from the castle
+# candlestick; siphons the boat's gas into the generator to power the jail
+# cell; frees Ameila; and shoots the Wolfman at her seaplane. Wins on the
+# default seed and on SCR_SEED=1, 2, 3, 7 and 42.  Objects on a surface are
+# out of scope until the surface is examined, so the route examines each
+# one first.
+# Runner (run400x, runner_transcripts/monsterisland.txt): the whole route
+# matches, win included, except two "Inside/On X is" list lines that
+# Scarier prints as "are" on purpose.
+monsterisland_solution.txt|MonsterIsland.taf|Ameila and I rushed to her plane and we flew off to safety.|
 # MysteryHouse.taf: content-reviewed short haunted-house puzzle, no sexual
 # content, no minors. UNWINNABLE as authored -- confirmed via
 # SCR_DUMP_TASKS: TASK 3 ("open chest") only prints "Wow! A Chest full of
@@ -10580,9 +10587,22 @@ hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the dem
 # "Your gas mask is GONE and YOU ARE GOING TO DIE..." text). Wired as the
 # unavoidable ending of the intro demo.
 teaw_solution.txt|TEAW_(introcomp).taf|YOU ARE GOING TO DIE|
-# clod_demo.taf (CloD Demo): menu-driven tech demo. Best reachable, not a win --
-# the Pedestal Room past the archway death-trap is the deepest safe stop.
-cloddemo_solution.txt|clod_demo.taf||
+# clod_demo.taf (CloD Demo): menu-driven tech demo, full win 140/140. The
+# ending is task 741's EndGame (run by 742 "Enter the dark passage"), reached
+# once task 923 (emerald in socket 2, ruby in socket 4) removes the slab; the
+# other three gem layouts (917-922) are fatal. The emerald is under the
+# tunnel skull (poke it with the stick from the bush), the ruby in the Privy
+# chamberpot (magnifying glass, then the long-glove); the tarnished key for
+# the Privy door comes out of the dragon statue. Deterministic, no env needed.
+# After the ruby goes in, two blank lines answer the slab text's own
+# press-enter prompt. The solution's first line is blank: it answers the
+# intro <waitkey>, so the Wine feed gets PRE=1 and stays in step.
+# Runner (run400x, runner_transcripts/cloddemo.txt): wins 140/140 the same
+# way. One turn differs, the ruby turn: its slab text has a real-time <wait>
+# between two press-enter pauses, the driver answered one of them itself, and
+# the feed's spare blank line reached the game as an empty command ("Please
+# type appropriate control symbol"). A driver timing artefact, not the engine.
+cloddemo_solution.txt|clod_demo.taf|You scored 140 out of the maximum 140!|
 # The_Night_That_Dripped_Blood.taf. Full WIN, 100/100 -- Monk's wages
 # (couch/remote/screws/radio noise-cover), the note-before-newspaper
 # bookshop unlock, the Blue-Boar book gating Glenn's Ghost-Train presence,
@@ -10593,16 +10613,24 @@ cloddemo_solution.txt|clod_demo.taf||
 # game); characters()' kiss block still answers "I'm not sure she would
 # appreciate that!" ahead of the WinText (lib_cmd_kiss_ended_400).
 night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the maximum 100!|
-# The Will (The_Will.taf): 150-point yard/house/woods treasure hunt, ~50 rooms.
-# Best-reachable partial, 35/150 -- see the solution file's header for the
-# unlock/oil/open-gate sequence and the pillows-matchbook-cabinet chain; the
-# crowbar/pocket-watch/battery-charger puzzles did not yield to any tool or
-# verb tried and are left unsolved.  No win marker: play ends mid-hunt, not
-# at a scripted conclusion.
-# Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
-# since 2026-09-24.  %in_clock% / %in_drawer% in room text list nothing while
-# the container is closed (whatisinon gate, see var_get_system in_).
-thewill_solution.txt|The_Will.taf||
+# The Will (The_Will.taf): yard/house/woods/tunnels treasure hunt, ~50 rooms.
+# FULL WIN: all sixteen treasures on the Gallery rug collapse it (+10), and
+# `d` down the stairway (+10) prints the WinText. Every scoring task in the
+# data fires: 155 points against a declared maximum of 150 (27 tasks at 5
+# plus two at 10), so the summary ends "You finished -5 points short.", which
+# is how the Runner prints a negative shortfall. The flashlight is lit in the
+# Kitchen and never switched off: after `unlight flashlight` an event clears
+# the "light flashlight" task every turn, and the Foot of Hill's east exit is
+# gated on it. "insert" is a game synonym for "put", so the boot disk goes in
+# with `put disk in computer`. A blank line answers the intro <waitkey>.
+# Deterministic across seeds, no env needed.  %in_clock% / %in_drawer% in
+# room text list nothing while the container is closed (whatisinon gate, see
+# var_get_system in_).
+# Runner (run390x, runner_transcripts/thewill.txt): wins the same way; one
+# turn differs.  At the Narrow Squeeze `get all` run390 lists the eight
+# floor objects first and then "You take the jade clover." as its own
+# sentence; Scarier prints the clover first.  Unexplained, still open.
+thewill_solution.txt|The_Will.taf|You have completed The Will and inherited a fortune.|
 # Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
 # and cane are mandatory survival gear; escape corridor then let the
 # countdown expire. See notes/TwentyOne_walkthrough.md.
@@ -10650,45 +10678,50 @@ filthybill_solution.txt|filthybill.taf|I appreciate your help with Dave|
 # there fires the unconditional demo-end task. SCR_RNG=xoshiro for determinism.
 temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # The Night That The Moon Shone Grey (thenightmoon.taf): vampire-hunter quest,
-# ~400 points. Best-reachable, blocked at a seemingly unwinnable fight -- see
-# below. Route: kill the Giant rat, then `give dead giant rat to smith` is
-# the ONLY working phrasing for the reward task (confirmed via
-# SCR_TRACE_TASKS: the task's ALTCMD requires the literal 2-adjective object
-# phrase "dead giant rat" together with "smith", not "adrian" -- every
-# rat/adrian combination silently falls through to the generic library
-# fallback "Adrian doesn't seem interested..." without the task ever being
-# attempted). Ask the hermit about the secret entrance, open the secret
-# door, fight the Dark elf in the Library (dies scripted in 2 hits), move
-# the rug to open the Prison trapdoor. Detour via the Landing/Upper hallway
-# to the Tower room -- the healing powder there is invisible until
-# `examine table` reveals it -- and to the Coffin room, where `open box`,
-# `look in box`, `examine man` are all required in sequence before `take
-# key` will parse the small key inside the dead man. Back in the Library,
-# take and drink the healing potion the dead elf drops (also not in scope
-# until some turns after the kill). Then fight the Skeleton guard in the
-# Prison: its bare alias "skeleton" resolves to the wrong, absent NPC (a
-# different "Skeleton" elsewhere), so `attack skeleton guard with
-# longsword` (the full name) is required just to target it at all. The guard
-# used to be unkillable (22 hits landed, the 23rd killed the player, and
-# "skeleton's death" TASK 11 never fired). That was two Scarier bugs, both
-# ported from the run390 decompile, and the run is now identical to the Wine
-# Runner (runner_transcripts/thenightmoon.txt) on every turn:
+# 400 points. WON, 360/400, the Runner's ceiling too. Two +20 awards are out
+# of reach. Task 12 "wolf's remains": the Wolf starts hidden and only task 4
+# "moving wolf to random room" places it, but nothing runs task 4 (the
+# "Baying at the moon" event has TaskAffected 0), so it never appears. Task
+# 17 `behead drow`: it wants the referenced object held AND the dark elf's
+# body in the Library. `behead drow` references nothing (run390x "Who?"),
+# and `behead dark elf` references the body, which cannot be both held and
+# lying in the Library (run390x "You do not have dead dark elf.").
+# Route: kill the Giant rat and `give dead giant rat to smith` (the only
+# phrasing task 23's ALTCMD accepts); detour to the Village wall and `fight
+# skeleton with longsword` -- attack/kill/hit/stab all match task 5's
+# %character% patterns, which only change attitude, while `fight` goes to
+# the battle system and kills it in one hit (+20). Hermit -> secret door ->
+# Library (dark elf, rug), Tower room powder (`examine table` first), Coffin
+# room key (`open box`, `look in box`, `examine man` before `take key`),
+# back for the elf's potion, then the skeleton guard: its bare alias
+# "skeleton" resolves to the other, absent Skeleton, so it takes `attack
+# skeleton guard with longsword`. The guard used to be unkillable; that was
+# two Scarier bugs, both ported from the run390 decompile:
 #  (1) run390 checktask's %character% arm (44AD48-44ADC2) walks every NPC
 #      with no break: each hit stores the reference (the last hit wins), but
 #      the Replace spelling the command fires on the FIRST hit only. That
-#      makes it the 3.9 twin of the pre-4.0 %object% substitution veto. At
-#      T50 "Guard" (the skeleton guard's first Name) is what the command gets
-#      spelled with, so TASK 11's "attack guard" matches and the fight counts.
+#      makes it the 3.9 twin of the pre-4.0 %object% substitution veto. On
+#      the first `attack skeleton guard` "Guard" (the skeleton guard's first
+#      Name) is what the command gets spelled with, so TASK 11's "attack
+#      guard" matches and the fight counts.
 #  (2) run390 killchar (42D344-42D40C) overwrites the command line with the
 #      KilledTask's Command(0) and runs tasks(1); dobattle's no-break target
-#      loop (44CC1C-44D1D5) then tests every LATER NPC against that line. At
-#      T23 the dark elf's KilledTask "drow giving in" makes the loop strike
-#      the Drow too ("You hit injured dark elf with your longsword.").
-# The guard crumbles at T51. The rest of the command tail repeats the attack,
-# which gets "Guard isn't here!  Skeleton guard isn't here!", as it does in
-# the Runner. The walkthrough stops there; it could now be extended past the
-# Prison. SCR_RNG=xoshiro.
-thenightmoon_solution.txt|thenightmoon.taf|The skeleton crumbles to dust|SCR_RNG=xoshiro
+#      loop (44CC1C-44D1D5) then tests every LATER NPC against that line. On
+#      the second `attack elf` the dark elf's KilledTask "drow giving in"
+#      makes the loop strike the Drow too ("You hit injured dark elf with
+#      your longsword.").
+# After the guard: `look` before `take keys` (dropped objects are unseen
+# until listed), `open cell`, take the bastard sword (HitValue 25), `astrania
+# follow me` so task 29's "Astrania not alone" holds, unlock the Upper
+# hallway door, `who are you`, four hits on the count ("vampire dying"),
+# then `stake count valdimir` before "Vampire recovering" ends. Every seed
+# 1-20 wins at 360. SCR_RNG=xoshiro.
+# Runner (run390x, runner_transcripts/thenightmoon.txt): DELIBERATE
+# DEVIATION on the four `attack vampire with bastard sword` turns. run390's
+# profanity arm (45F8E4) fires on "bastard" anywhere in the line and prints
+# "I really don't think there's any need for language like that!" ahead of
+# the hit; Scarier prints only the hit. The hits land the same in both.
+thenightmoon_solution.txt|thenightmoon.taf|You scored 360 out of the maximum 400!|SCR_RNG=xoshiro
 # 2026-09-25 batch: derived walkthroughs for content-clean unwired games
 # (notes/<Game>_walkthrough.md for each). zanoza: WIN 28/29, marker is the
 # cp1251 task-91 win text.

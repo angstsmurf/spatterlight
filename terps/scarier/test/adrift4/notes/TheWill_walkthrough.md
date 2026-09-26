@@ -1,46 +1,63 @@
-# The Will — walkthrough (**best reachable state**)
+# The Will -- walkthrough (**full win**)
 
 - **Engine:** ADRIFT 3.90 Release 19 (`ambrosine@mindspring.com`, 2001).
-  A 150-point treasure hunt: the player's late uncle's fenced yard leads
-  into the house (hallway/foyer/gallery/living room/dining room/kitchen and
-  an upstairs), and separately into a woods area (shack, hill, tunnels)
-  behind the yard. Confirmed via `SCR_DUMP_TASKS`/`SCR_DUMP_OBJLOC` to be a
-  large game (~50 rooms, 200+ tasks) with several two-step consumable and
-  cross-room puzzles.
-- **Result:** best-reachable partial, **35/150**. The route opens the front
-  gate, gets into the house, scores the newel statue and the gallery window,
-  finds the matchbook and uses it to fix the shack's leaning cabinet, then
-  detours to the woods for the emerald egg. Wired as
-  `thewill_solution.txt|The_Will.taf||`, no env, no win marker (the script
-  ends mid-hunt, not at a scripted conclusion).
+  A treasure hunt: the player's late uncle's fenced yard leads into the
+  house (hallway/foyer/gallery/living room/dining room/kitchen, an upstairs
+  and a cellar), and separately into a woods area (shack, hill, tunnels,
+  chasm, river) behind the yard. ~50 rooms, 200+ tasks.
+- **Result:** **FULL WIN.** All sixteen treasures on the Gallery's oriental
+  rug collapse it (+10) and `d` down the revealed stairway (+10) prints the
+  WinText. Every scoring task in the data fires -- 27 tasks at +5 plus those
+  two at +10 -- for **155 against a declared maximum of 150**, so the summary
+  reads "You scored 155 out of the maximum 150." / "You finished -5 points
+  short." (how the Runner prints a negative shortfall). Wired as
+  `thewill_solution.txt|The_Will.taf|You have completed The Will and inherited a fortune.|`,
+  no env; deterministic across seeds.
 - **The intro's `<waitkey>`** ("Press any key when ready to play.") eats the
-  solution's first line; line 1 is blank to absorb it (confirmed with
-  `SCR_MARK_WAITKEY=1`).
-- **Front Gate is locked** and needs two one-shot consumables, in order:
-  `unlock gate` (breaks the entrance key off in the lock) then `oil gate`
-  (empties the oilcan, found via `search hedges` at the Northwest Corner of
-  Yard) then `open gate`. Skipping either leaves the hinges "too rusty" or
-  the lock un-turned. The open gate's exit is **up**, not the compass
-  direction the room text implies.
-- **The Inside Shack's cabinet** leans and its drawer won't open until it is
-  leveled. The lever is the matchbook found by `move pillows` in the Living
-  Room (east of the Foyer) — carry it back to the shack and `level cabinet
-  with matchbook`, then `open drawer`.
-- **Left unsolved:** the crowbar (on the shack's cabinet), the pocket watch
-  (inside the Hallway's grandfather clock) and the battery charger (in the
-  cabinet drawer) all answer plain `get`/`take X from Y` with "What do you
-  want to take?"/"You can't do that." `SCR_TRACE_FLAGS=256` shows the
-  crowbar and watch never even reach a task's restriction check (a genuine
-  parser-level refusal, not a scripted one); no lever, tool, or verb tried
-  freed any of the three. The clock's own restriction chain gates a
-  matchbook-style take on an integer variable ("hour") that nothing found
-  on this route sets.
-- **Content note:** the route never reaches any content requiring a check;
-  no minors appear anywhere in the game text searched.
+  solution's first line, so line 1 is blank. The old partial solution lacked
+  it and its first `w` was eaten.
+- **Front Gate:** `unlock gate` (breaks the entrance key off in the lock),
+  `oil gate` (the oilcan comes from `search hedges` at the Northwest Corner
+  of Yard), `open gate`. The open gate's exit is **up**.
+- **Seen objects:** things listed only through `%in_X%`/`%on_X%` room text
+  answer "What do you want to take?" until their holder is examined -- `x
+  cabinet` (crowbar), `x safe` (mug), `x table` (lamp), `x grate` (carving),
+  `x computer` (crystal disk); the wooden pedestal after the sculpture breaks
+  needs a `look`. The pocket watch comes straight out after `open clock`.
+- **Flashlight:** charge it early (`level cabinet with matchbook` in the
+  shack, `open drawer`, `get matchbook`, `put flashlight in charger`), light
+  it in the Kitchen and **never switch it off**: after `unlight flashlight`
+  (task 103) event 19 clears task 101 ("light flashlight") every turn, and
+  the Foot of Hill's east exit is gated on task 101. Whether the Runner
+  behaves the same there is unverified (the route never tries it).
+- **Other order constraints:** take the carving while the umbrella is still
+  hooked on the steam pipe; `feed puppy steak` before `get dogbone`; the
+  shovel appears in the Toolshed after `push button` in the Study, and `open
+  bag` after digging leaves the rubberband in hand for `wrap band around
+  valve` / `turn valve with wrench` at the fountain (pearl).
+- **Chasm:** carry the lit flashlight east from the Foot of Hill, take the
+  ring, `drop flashlight` (aims it across), go round through the Toolshed
+  hole with the oil lamp lit (a lit flashlight burns out going down). At
+  the Narrow Squeeze `drop all` (the crack needs empty hands), `n`, take the
+  nugget, `throw nugget`, `s`, `get all`, `d`; `extinguish lamp` before `e`
+  (a lit lamp or match ignites the gas), then collect nugget and flashlight.
+- **River:** `open umbrella` at the Cliff drifts down to River's Edge; swim
+  w/s/s/e to the lily and back, `climb up` the vine.
+- **"insert" is a game synonym for "put"**, so the boot disk goes in with
+  `put disk in computer` ("insert disk" becomes "put disk" and matches
+  nothing).
+- **Runner check:** run390x drove the whole 242-command route
+  (`runner_transcripts/thewill.txt`, 2026-09-26) and wins identically except
+  one turn: at the Narrow Squeeze `get all` run390 lists the eight floor
+  objects and then "You take the jade clover." as its own sentence, while
+  Scarier prints the clover first. Unexplained, still open.
+- **Content note:** nothing requiring a check; no minors appear in the game
+  text.
 
 ## The walkthrough
 
 ```
+
 w
 n
 search hedges
@@ -50,32 +67,237 @@ unlock gate
 oil gate
 open gate
 u
+w
 n
-open door
-n
-n
-move statue
-n
-open window
+put umbrella in hole
+open umbrella
+get necklace
+get umbrella
 s
 e
-move pillows
+n
+raise flag
+open door
+n
+open clock
+get watch
+n
+move statue
 w
+get wrench
+e
+e
+move pillows
+n
+move painting
+103221
+x safe
+get mug
+e
+open fridge
+get meat
+n
+get flashlight
 s
+w
+w
+open window
+put watch on rug
+put necklace on rug
+put mug on rug
+drop oilcan
 s
+u
+n
+open toilet
+stuff will in toilet
+flush toilet
+get earring
 s
+w
+push armoire
+s
+get vase
+n
+e
+e
+push button
+read computer
+w
+d
+n
+put earring on rug
+put vase on rug
 d
 w
 s
 s
+s
 w
+x cabinet
+get crowbar
 level cabinet with matchbook
 open drawer
+get matchbook
+put flashlight in charger
 e
 e
+get ashes
+n
+get pickaxe
+s
 e
 climb tree
 shake branches
 d
-get emerald
+get egg
+w
+w
+n
+n
+n
+e
+u
+put egg on rug
+break sculpture with pickaxe
+drop pickaxe
+look
+get wooden pedestal
+s
+u
+stand on pedestal
+look at sparkle
+get off pedestal
+w
+throw ashes at mirror
+e
+d
+n
+put crown on rug
+drop pedestal
+e
+e
+light flashlight
+d
+put meat on grate
+get steak
+put umbrella on pipe
+open grate with crowbar
+x grate
+get carving
+get umbrella
+u
+w
+x table
+get lamp
+w
+put carving on rug
+drop crowbar
+s
+s
+s
+open mailbox
+get stamp
+s
+d
+e
+n
+enter tear
+get shovel
+enter tear
+s
+w
+u
+e
+dig soil with shovel
+open bag
+get clover
+drop shovel
+w
+wrap band around valve
+turn valve with wrench
+x fountain
+get pearl
+drop wrench
+d
+w
+s
+feed puppy steak
+get dogbone
+s
+e
+n
+e
+get ring
+drop flashlight
+w
+s
+w
+n
+n
+e
+e
+n
+enter tear
+light lamp
+d
+s
+u
+e
+s
+u
+get disk
+e
+d
+e
+drop all
+n
+get nugget
+throw nugget
+s
+get all
+d
+extinguish lamp
+e
+get nugget
+get flashlight
+w
+s
+e
+e
+open umbrella
+w
+s
+s
+e
+get lily
+w
+n
+n
+climb up
+w
+n
+n
+e
+u
+n
+n
+n
+u
+e
+put disk in computer
+x computer
+get crystal disk
+w
+d
+n
+put stamp on rug
+put dogbone on rug
+put clover on rug
+put nugget on rug
+put pearl on rug
+put lily on rug
+put ring on rug
+put crystal disk on rug
+d
 ```

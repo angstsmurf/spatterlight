@@ -1,4 +1,47 @@
 
+> 1
+
+Introduction
+
+Long ago in the kingdom of Brelsamore, the terrible sorceress Zivulda demanded that the king relinquish the throne to her zombie overlord Gridlorch.  When the king refused, Zivulda threatened that she would cover the sun with Vile Darkness forever if the king did not change his mind within a fortnight.
+
+At the King's orders, Heroes of the Crown have issued forth from Wendellwich Castle to stop Zivulda, but none of them have returned from her horrible dungeons in Mount Gravinwort.
+
+When no more heroes were left and the end of a fortnight drew nigh, the King turned to the College of Wizardry for help.  Wizards, however, have traditionally been unbothered by politics.  Even amidst events as threatening the impending Darkness, the wizards have vowed to maintain their apolitical stance.  
+
+And so it was that, with the clock ticking down to the sorceress's deadline, the wizards chose to send Clod-- the College of Wizardry's Second Archmage's apprentice's janitor's apprentice-- to delve into the dungeons of Zivulda and save the day with nothing but a sword and what few items he could fit into his tunic.
+
+The sun still shines on Brelsamore... but for how long?
+
+
+[press enter to return to Start Menu]  
+Clod's Quest: The Dungeons of Zivulda
+
+
+Clod's Quest:
+The Dungeons of Zivulda
+***********************************************************
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a fantasy adventure.
+Demo v1.00: March 2009.
+
+
+       > INTRODUCTION
+ START  
+   OPTIONS
+
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) LEARN how to play.
+~~~~~~~~~~~~~~~~~~~~~~~
+Please enter ' \ 1 or 2 on your keyboard and press enter, as per the guide above.  
+
 > \
 Clod's Quest: The Dungeons of Zivulda
 
@@ -40,57 +83,6 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
 
   What do you do?
   < Lift the iron portcullis >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 
-Please type appropriate control symbol ('  \  1 or 2) and press enter.  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 1
-You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,6 +234,260 @@ EQUIPPED: NOTHING
 ~~~~~~~~~~~~~~~~~~~~~~~
   
 
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Attack the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Attack the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Attack the dead bush >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You slice up the bush, sending shrub lizards scurrying out from under a shower of leaf shreds and stick shrapnel.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.  A stick lies on the ground nearby.
+
+  What do you do?
+  < Attack the stick >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: SWORD
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.  A stick lies on the ground nearby.
+
+  What do you do?
+  < Pick up the stick >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You pick up the stick and manage to fit it snugly under your tunic.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
+
+  What do you do?
+  < Reach into the dead bush stump >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    STICK
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
 > \
 
 --------------------
@@ -255,7 +501,7 @@ EQUIPPED: NOTHING
 		    SWORD
 		   > MAGNIFYING GLASS  For thorough examination.
 		    POTION OF STRENGTH
-		    
+		    STICK
 		    
 		   _________
 
@@ -283,11 +529,435 @@ EQUIPPED: NOTHING
 		    SWORD
 		    MAGNIFYING GLASS
 		   > POTION OF STRENGTH  Bulk up with this P.o.S.!
-		    
+		    STICK
 		    
 		   _________
 
 		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		   > STICK  Pointy branch, ideal for poking.
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		   > STICK  Pointy branch, ideal for poking.
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
+
+  What do you do?
+  < Poke the dead bush stump >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
+
+  What do you do?
+  < Poke the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
+
+  What do you do?
+  < Poke the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You poke the stick at the statue and manage to knock a tarnished key out from between the dragon's teeth.
+
+It lands in the grass nearby.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.  A tarnished key lies on the ground.
+
+  What do you do?
+  < Poke the tarnished key >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    STICK
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    POTION OF STRENGTH
+		    STICK
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+		    STICK
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		   > STICK  Pointy branch, ideal for poking.
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		   > STICK  Pointy branch, ideal for poking.
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.  A tarnished key lies on the ground.
+
+  What do you do?
+  < Take the tarnished key >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You take the tarnished key.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    STICK
+		    TARNISHED KEY
+		   _________
+
+		   Your inventory is full.
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    POTION OF STRENGTH
+		    STICK
+		    TARNISHED KEY
+		   _________
+
+		   Your inventory is full.
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+		    STICK
+		    TARNISHED KEY
+		   _________
+
+		   Your inventory is full.
 		   You have 0 save(s).
 
 
@@ -312,8 +982,8 @@ EQUIPPED: NOTHING
 
 		   > SWORD  Be careful with this thing!
 		    MAGNIFYING GLASS
-		    
-		    
+		    STICK
+		    TARNISHED KEY
 		    
 		   _________
 
@@ -339,57 +1009,7 @@ EQUIPPED: NOTHING
 --------------------
 LOCATION: DUNGEON ENTRANCE
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 1
-You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 1
-You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
 
   What do you do?
   < Reach for the dragon's head statue >
@@ -412,35 +1032,10 @@ EQUIPPED: NOTHING
 --------------------
 LOCATION: DUNGEON ENTRANCE
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
 
   What do you do?
-  < Reach into the dead bush >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 1
-OUCH!  A shrub lizard bit you.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
-
-  What do you do?
-  < Reach into the dead bush >
+  < Reach into the dead bush stump >
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -454,13 +1049,13 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
   
 Dungeon Entrance
 --------------------
-HEALTH: @@
+HEALTH: @@@
 LIVES:  @@@
 EQUIPPED: NOTHING
 --------------------
 LOCATION: DUNGEON ENTRANCE
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush stump.
 
   What do you do?
   < Lift the iron portcullis >
@@ -481,13 +1076,13 @@ Unfortunately, the effects of the strength potion fade immediately after and you
 [press enter to continue]  
 Dungeon Entrance
 --------------------
-HEALTH: @@
+HEALTH: @@@
 LIVES:  @@@
 EQUIPPED: NOTHING
 --------------------
 LOCATION: DUNGEON ENTRANCE
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush stump.
 
   What do you do?
   < Go into the entrance >
@@ -500,68 +1095,182 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
 ~~~~~~~~~~~~~~~~~~~~~~~
   
 
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach into the dead bush >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
 > 1
-OUCH!  A shrub lizard bit you.
+You boldly stroll into the dungeons of Zivulda.
 
 [press enter to continue]  
-Dungeon Entrance
+Entryway Tunnel
 --------------------
-HEALTH: @
+HEALTH: @@@
 LIVES:  @@@
 EQUIPPED: NOTHING
 --------------------
-LOCATION: DUNGEON ENTRANCE
+LOCATION: ENTRYWAY TUNNEL
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A worm-infested skull stares up at you from the indoor entry mat with a slack-jawed expression-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the entrance to the west and an ornate archway leads east into another room.
 
   What do you do?
-  < Reach into the dead bush >
+  < Leave through the entrance >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+As you pass through the entrance, the iron portcullis crashes shut behind you!
+
+You have earned 1 save!
+
+[press enter to continue]  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A worm-infested skull stares up at you from the indoor entry mat with a slack-jawed expression-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A worm-infested skull stares up at you from the indoor entry mat with a slack-jawed expression-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Poke the iron portcullis >
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -573,18 +1282,18 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
 
 > \
   
-Dungeon Entrance
+Entryway Tunnel
 --------------------
-HEALTH: @
+HEALTH: @@@
 LIVES:  @@@
-EQUIPPED: NOTHING
+EQUIPPED: STICK
 --------------------
-LOCATION: DUNGEON ENTRANCE
+LOCATION: ENTRYWAY TUNNEL
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A worm-infested skull stares up at you from the indoor entry mat with a slack-jawed expression-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
 
   What do you do?
-  < Go into the entrance >
+  < Poke the exit sign >
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -596,41 +1305,18 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
 
 > \
   
-Dungeon Entrance
+Entryway Tunnel
 --------------------
-HEALTH: @
+HEALTH: @@@
 LIVES:  @@@
-EQUIPPED: NOTHING
+EQUIPPED: STICK
 --------------------
-LOCATION: DUNGEON ENTRANCE
+LOCATION: ENTRYWAY TUNNEL
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A worm-infested skull stares up at you from the indoor entry mat with a slack-jawed expression-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
 
   What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @
-LIVES:  @@@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach into the dead bush >
+  < Poke the worm-infested skull >
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -641,247 +1327,2049 @@ You stand at the foot of the imposingly sheer monolith of black rock that is Mou
   
 
 > 1
-OUCH!  A shrub lizard bit you.
+You poke the worm-infested skull with the stick, causing it to roll over and reveal a shiny emerald!
 
-*** YOU HAVE DIED! ***
+[press enter to continue]  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A fleck of light reflects off an emerald once hidden under the worm-infested skull lying on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Poke the emerald >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: STICK
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    TARNISHED KEY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  A fleck of light reflects off an emerald once hidden under the worm-infested skull lying on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Bag the emerald >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You pluck the rectangular, green gem off the floor and stuff it into your tunic.  
+
+[press enter to continue]  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Pass through the ornate archway >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Wipe boots on the indoor entry mat >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You daintily smear the muck from your boots onto the indoor entry mat.  The mat turns out to be pleasantly absorbent.
+
+[press enter to continue]  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Wipe boots on the indoor entry mat >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Remove the exit sign >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Clean out the worm-infested skull >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Entryway Tunnel
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: ENTRYWAY TUNNEL
+
+No doubt, the entryway tunnel is a trite convention in dungeon-building, but even the likes of Zivulda must provide adventurers a place to wipe off their boots.  First place in the All-Kingdom Creepy Decor Festival, a worm-infested skull lies on its side near the indoor entry mat-- a not too subtle reminder to those who would track mud into the dungeon.  An exit sign hangs above the iron portcullis to the west and an ornate archway leads east into another room.
+
+  What do you do?
+  < Pass through the ornate archway >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You pass through the ornate archway into the room beyond.
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Pass through the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    TARNISHED KEY
+		    EMERALD
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    TARNISHED KEY
+		    EMERALD
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    TARNISHED KEY
+		    EMERALD
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > TARNISHED KEY  Rusty & decrepit.
+		    EMERALD
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > TARNISHED KEY  Rusty & decrepit.
+		    EMERALD
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the pedastal >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the first socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the second socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the third socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the fourth socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the rays of light >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: TARNISHED KEY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Unlock the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You unlock the heavy wooden door and discard the key.
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door blocks the way to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Open the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You open the heavy wooden door.
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Enter the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You enter the room beyond the heavy wooden door.
+
+[press enter to continue]  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Leave through the heavy wooden door >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Examine the heavy wooden door >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Examine the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+Upon closer inspection... oh, ew... there appears to be a ruby inside the chamber pot.
+
+[press enter to continue]  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Examine the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: MAGNIFYING GLASS
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Reach into the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Pocket the ruby >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf with an old, crusty long-glove on it.  The door out lies open to the south.
+ 
+  What do you do?
+  < Grab the crusty long-glove >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You swipe the crusty long-glove from the shelf and stuff it into your tunic.
+
+[press enter to continue]  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf.  The door out lies open to the south.
+ 
+  What do you do?
+  < Reach into the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		    CRUSTY LONG-GLOVE
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    CRUSTY LONG-GLOVE
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    EMERALD
+		    CRUSTY LONG-GLOVE
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > EMERALD  Rectangular, green gem.
+		    CRUSTY LONG-GLOVE
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		   > CRUSTY LONG-GLOVE  C.L. for short.
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: C.L. GLOVE
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		   > CRUSTY LONG-GLOVE  C.L. for short.
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: C.L. GLOVE
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot, inside of which hides a marvelous ruby.  On the eastern wall is a shelf.  The door out lies open to the south.
+ 
+  What do you do?
+  < Reach into the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You reach into the chamberpot and pull out the red, teardrop-cut gem.
+
+You discard the crusty long-glove, which looks like it's finally about to fall apart, anyway.
+
+[press enter to continue]  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf.  The door out lies open to the south.
+ 
+  What do you do?
+  < Reach into the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf.  The door out lies open to the south.
+ 
+  What do you do?
+  < Reach into the chamberpot >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Privy
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PRIVY
+
+Now you know why Zivulda locked this place behind such a heavy door-- it absolutely reeks!  Your nose crinkles in an attempt to run screaming from the stenches spewing out of the chamberpot.  On the eastern wall is a shelf.  The door out lies open to the south.
+ 
+  What do you do?
+  < Leave through the heavy wooden door >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You retreat to the pedastal room.
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Enter the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+Your nose thanks you.  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    EMERALD
+		    RUBY
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    EMERALD
+		    RUBY
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    EMERALD
+		    RUBY
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > EMERALD  Rectangular, green gem.
+		    RUBY
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > EMERALD  Rectangular, green gem.
+		    RUBY
+		   _________
+
+		   Your inventory is full.
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Use emerald on the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Use emerald the stone slab >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Pass through the ornate archway >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Use emerald on the pedastal >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Use emerald on the first socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: EMERALD
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north, and to the south an enormous stone slab stands against the wall.
+ 
+  What do you do?
+  < Use emerald on the second socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+The emerald fits perfectly into the second socket.
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  A beam of light reflects off the emerald in the second socket and points at the stone slab against the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Remove emerald from the second socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    STICK
+		    RUBY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    STICK
+		    RUBY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > STICK  Pointy branch, ideal for poking.
+		    RUBY
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > RUBY  Teardrop-shaped, red gem.
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: RUBY
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    STICK
+		   > RUBY  Teardrop-shaped, red gem.
+		    
+		   _________
+
+		   
+		   You have 1 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 2
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: RUBY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  A beam of light reflects off the emerald in the second socket and points at the stone slab against the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Use ruby on the second socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: RUBY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  A beam of light reflects off the emerald in the second socket and points at the stone slab against the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Use ruby on the third socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: RUBY
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  A beam of light reflects off the emerald in the second socket and points at the stone slab against the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Use ruby on the fourth socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+The ruby fits perfectly into the fourth socket.
+
+[press enter to continue]  
+Pedastal Room
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  Light reflecting off the gemstones on the pedastal beams onto the stone slab against the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Remove ruby from the fourth socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+The rays reflecting from the gemstones set in the pedastal pool on the stone slab, growing brighter and brighter until the whole slab glows white with magical energy... with a flash, the stone slab disappears!
+
+[press enter to continue]  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  Light reflecting off the gemstones on the pedastal illuminates the dark passage in the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Remove ruby from the fourth socket >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  Light reflecting off the gemstones on the pedastal illuminates the dark passage in the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Make shadow puppets the rays of light >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  Light reflecting off the gemstones on the pedastal illuminates the dark passage in the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Enter the heavy wooden door >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Pedastal Room
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: PEDASTAL ROOM
+
+The marble pedastal at the centre of this room looks like a lectern from the College of Wizardry, except it has four sockets lined across the top.  Arbitrarily, you name them the first, second, third, and fourth sockets, from right-to-left.  Rays of light fall into each socket from four lined-up holes in the ceiling.  Light reflecting off the gemstones on the pedastal illuminates the dark passage in the southern wall.  An ornate archway leads west to the entryway tunnel, a heavy wooden door lies open to the north.
+ 
+  What do you do?
+  < Enter the dark passage >
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You follow the rays of light into the dark passage.
+
+[press enter to continue]  
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DIMLY-LIT LANDING
+
+Though the light from the gemstones does enter this place, the landing is still eerily dim and cave-like.  The closeness of the rough-hewn stone walls and lowness of the ceiling cause you to catch your breath.  A stairway leads down into deeper recesses of darkness, or you could always return to the light and safety of the good ol' Pedastal Room.
+ 
+  What do you do?
+  < Leave the dark passage >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+As you cross the threshold of the dark passage, the stone slab re-appears behind you, shutting out all the light, and ending the demo!
 
 [press enter to continue]
 
 
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
+*  *  *  *  *
+Congratulations!
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+You've reached the end of this short demo.
 
-  What do you do?
-  < Reach for the dragon's head statue >
+Unfortunately, the rest of Clod's Quest is still in development, but I hope you've enjoyed this sneak peek.  As you've seen, it is quite different from traditionally Adventure-formatted interactive fiction.  As I'd like to encourage more 'DRIFTers to break the mould, I've left the Clod's Quest demo without a password.  If you like, you can open it up in the ADRIFT Generator and have a look to see how it was put together.
 
+If you really enjoyed this experience, perhaps you may even be inspired to download & register your own copy of ADRIFT 4.0!  It's easy to use and, remember, Clod's Quest is just one example of what ADRIFT 4.0 can do over version 3.9.  There's so much more waiting to be done with this program... show the world what you're made of & make your game with ADRIFT 4.0!
 
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-    
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
+Please feel free to post your thoughts on this game demo on the ADRIFT Adventures page OR at the ADRIFT forum OR by sending Duncan_B a message through the ADRIFT forum.  Even if you don't have a comment about this game specifically, we'd love to hear from you on the forum, so drop on by and introduce yourself.
 
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
+Thanks for playing,
+&
+Happy 'DRIFTing!
 
-  What do you do?
-  < Reach for the dragon's head statue >
+*  *  *  *  *
 
+You scored 140 out of the maximum 140!
+That is 100% of the game!
+Well done - you scored maximum points!
 
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-With a poof of smoke, you re-appear.  A mysterious voice calls out, "Be careful, Clod!  You only have two lives left!"  
-
-> 
-Please type appropriate control symbol ('  \  1 or 2) and press enter.  
-
-> 1
-You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach into the dead bush >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Go into the entrance >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach into the dead bush >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Go into the entrance >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> \
-  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> 1
-You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
-
-[press enter to continue]  
-Dungeon Entrance
---------------------
-HEALTH: @@@
-LIVES:  @@
-EQUIPPED: NOTHING
---------------------
-LOCATION: DUNGEON ENTRANCE
-
-You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, no longer blocked by the iron portcullis.  Above the entrance, a dragon's head statue broods over your predicament.  You have found a way inside... but dare you enter the Dungeons of Zivulda?  Off to the side of the entrance is a dead bush.
-
-  What do you do?
-  < Reach for the dragon's head statue >
-
-
-~~~~~~~~~~~~~~~~~~~~~~~
-(' or \) CHANGE selection.
-(1) CHOOSE selection.
-(2) INVENTORY.
-~~~~~~~~~~~~~~~~~~~~~~~
-  
-
-> quit
-
-> 
-Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+[Press enter to end]

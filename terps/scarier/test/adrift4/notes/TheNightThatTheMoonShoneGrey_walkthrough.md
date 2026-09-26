@@ -1,80 +1,80 @@
 # The Night That The Moon Shone Grey (thenightmoon.taf)
 
-Vampire-hunter quest, ~400 points. **Best-reachable, unwinnable verdict** —
-walkthrough ends on the death screen at the Skeleton guard fight in the
-Prison, having scored 120/400 (30%).
+Vampire-hunter quest (ADRIFT 3.90), 400 points: thirteen +20 tasks,
+"vampire dying" +40 and "stake count valdimir" +100. **WON, 360/400**, which
+is also the Runner's ceiling. Wired as
+`thenightmoon_solution.txt|thenightmoon.taf|You scored 360 out of the maximum 400!|SCR_RNG=xoshiro`;
+every SCR_SEED 1-20 wins at 360.
 
-## Route to the blocking point
+## The two dead +20 awards
 
-1. `attack rat with longsword`, `take rat` — kill the Giant rat, take the
-   corpse.
-2. Navigate to the smithy and `give dead giant rat to smith` — this is the
-   ONLY working phrasing for the reward task (obtains the silver stake).
-   Confirmed via `SCR_TRACE_TASKS=1`: the task's ALTCMD requires the
-   literal two-adjective phrase "dead giant rat" together with "smith", not
-   "adrian" and not "rat" alone — every other combination silently falls
-   through to the generic library fallback ("Adrian doesn't seem
-   interested...") without the task ever being attempted.
-3. Navigate to the hermit's hut, `ask hermit about secret entrance`
-   (teleports to the Fields), `open secret door` (reaches the Guard room).
-4. In the Library: `search bookcase` spawns a Dark elf; `attack elf with
-   longsword` x2 kills it (scripted 2-hit kill). `move rug` opens the
-   Prison trapdoor.
-5. Detour via Landing/Upper hallway/Flight of stairs to the Tower room:
-   `take healing powder` fails ("Take what?") until `examine table` is
-   issued first — the object is not in scope until the table is examined.
-6. Continue to the Coffin room: `open box`, then `look in box` (reveals "A
-   dead man is inside the brown box"), then `examine man` (reveals "A
-   small key is inside the dead man"), then `take key`. Each reveal step
-   is required in sequence before the next noun becomes resolvable.
-7. Return to the Library: `take potion` / `drink healing potion`. The
-   potion the Dark elf dropped is NOT takeable immediately after the kill
-   ("Take what?") — it only becomes scope-visible after a substantial
-   number of intervening turns (a delayed EVENT reveal, not an immediate
-   scope change), which is why the route detours to the Tower/Coffin rooms
-   before doubling back for it.
-8. Descend to the Prison — the Skeleton guard attacks unprovoked on the
-   very first turn after entry.
+- **Task 12 "wolf's remains":** the Wolf (NPC 8) starts hidden and only
+  task 4 "moving wolf to random room" places it, but nothing runs task 4
+  (the "Baying at the moon" event has TaskAffected 0; no walk, KilledTask or
+  execute-task action names it), so the wolf never appears.
+- **Task 17 `behead drow`:** it wants the REFERENCED object held AND the
+  dark elf's body in the Library. `behead drow` references nothing (run390x
+  "Who?"); `behead dark elf` references the body, which cannot be held and
+  lie in the Library at once (run390x "You do not have dead dark elf.").
+  Scarier used to award task 17: a "referenced object is held" restriction
+  with no referenced object fell into the any-object loop. Fixed 2026-09-26
+  in `screstrs.cpp` -- it now fails below TAF 4.00, silently at 3.90, per
+  run390 passrest (451CDD).
 
-## The Skeleton guard fight — unwinnable
+## Route
 
-- The bare alias `attack skeleton with longsword` resolves to the wrong,
-  absent NPC (a different "Skeleton" elsewhere in the game) and fails
-  ("You are not in the same place as them!"). The fuller name `attack
-  skeleton guard with longsword` is required just to target the right NPC.
-- Even with that fix, the fight cannot be won by any means tried:
-  - Full stamina via the healing potion beforehand, plus a second full
-    heal via `eat healing powder` mid-fight — survived to 22 attacks, died
-    on the 23rd (confirmed reproducibly via bisection under fixed
-    `SCR_RNG=xoshiro`).
-  - `SCR_ASSUME_COMBAT=1` combat assist — no improvement.
-  - Taking the village-gate armour/shield first — both are actually
-    unobtainable despite being listed as "Dynamic" objects in the `rooms
-    *` debugger dump (`take armour`/`take shield` both fail with "Take
-    what?"); they appear to belong to/be held by the Guard NPC, never
-    freely lying in the room.
-  - Bypassing the fight (typing `take keys` without attacking) — the NPC
-    is hostile regardless and kills the player within ~2 turns.
-- Root cause (via `SCR_TRACE_TASKS=1`): `attack %character% with
-  %object%` (TASK 5) is one single generic library task shared by every
-  enemy in the game, and only ever performs `ACT type=7 v1=0 v2=0 v3=2`
-  ("changing battle attribute 0 of NPC by/to 2") per hit. TASK 11
-  ("skeleton's death", a silent trigger with the crumble-to-dust ending
-  text) never once appears in the trace log, regardless of attack count
-  (tested up to 30 attacks) — its trigger condition is never satisfied by
-  this generic attack task, so the Skeleton guard has no reachable death
-  condition via ordinary combat.
-- Diagnostic note: issuing `status` mid-fight (SCARE's actual battle-status
-  command; `stats`/`statusline` are not recognized) appears to consume a
-  "free" turn for the hostile NPC — removing all `status` calls from the
-  script measurably improved survival, so the final golden script contains
-  none.
+1. `attack rat with longsword`, `take rat`, then at the smithy `give dead
+   giant rat to smith` -- the ONLY phrasing task 23's ALTCMD accepts ("dead
+   giant rat" plus "smith"; "adrian" or bare "rat" fall through to the
+   library's "Adrian doesn't seem interested...").
+2. Detour to the Village wall and `fight skeleton with longsword` (+20).
+   attack/kill/hit/stab all match task 5's `%character%` patterns, which
+   only change attitude; `fight` goes to the battle system and kills the
+   skeleton in one hit.
+3. Hermit's hut: `ask hermit about secret entrance`, `open secret door`.
+   Library: `search bookcase` spawns the dark elf, `attack elf with
+   longsword` x2, `move rug` opens the Prison trapdoor.
+4. Tower room: `examine table` before `take healing powder`. Coffin room:
+   `open box`, `look in box`, `examine man`, `take key` -- each reveal is
+   needed before the next noun resolves.
+5. Back in the Library, `take potion`, `drink healing potion`, then `d` to
+   the Prison.
+6. The skeleton guard: the bare alias "skeleton" resolves to the other,
+   absent Skeleton, so it takes `attack skeleton guard with longsword` (two
+   hits). The guard used to be unkillable; that was two Scarier bugs, both
+   ported from the run390 decompile:
+   - run390 checktask's `%character%` arm (44AD48-44ADC2) walks every NPC
+     with no break: the last hit is stored as the reference, but the
+     command is re-spelled on the FIRST hit only (the 3.9 twin of the
+     pre-4.0 `%object%` substitution veto). "Guard", the guard's first
+     Name, is what the line gets spelled with, so TASK 11's "attack guard"
+     matches and the fight counts.
+   - run390 killchar (42D344-42D40C) overwrites the command line with the
+     KilledTask's Command(0) and runs tasks(1); dobattle's no-break target
+     loop (44CC1C-44D1D5) then tests every LATER NPC against that line, so
+     on the second `attack elf` the dark elf's KilledTask "drow giving in"
+     makes the loop strike the Drow too.
+7. `look` before `take keys` (dropped objects are unseen until listed),
+   `open cell` (+20, frees Astrania), take the bastard sword (HitValue 25
+   against the longsword's 15).
+8. `astrania follow me` so task 29's "Astrania not alone" holds, `unlock
+   door with key`, `in`, `who are you` (+20, fight moves to the Rooftop
+   ledge), four `attack vampire with bastard sword` (the fourth runs
+   "vampire dying", +40), then `stake count valdimir` (+100) before
+   "Vampire recovering" (2-3 turns) finishes.
 
-## Unreached content
+The exact commands are in `goldens/thenightmoon_solution.txt`.
 
-Everything beyond the Skeleton guard (the vampire fight — Tasks 31–34,
-"who are you" / "vampire dying" / "stake count valdimir" — and the win
-condition) was mapped from the static TASK dump but never reached or
-tested live, since the Skeleton guard blocks all further progress.
+## Runner check
+
+run390x (`runner_transcripts/thenightmoon.txt`) wins at 360. The differences
+are all deliberate or cosmetic:
+
+- "a giant rat is here" is lowercase in the Runner; Scarier capitalises it.
+- One whitespace-only turn.
+- **Deliberate deviation:** on the four `attack vampire with bastard sword`
+  turns run390's profanity arm (45F8E4, "bastard" anywhere in the line)
+  prints "I really don't think there's any need for language like that!"
+  ahead of the hit. Scarier doesn't port it; the hits land identically.
 
 SCR_RNG=xoshiro required for determinism.

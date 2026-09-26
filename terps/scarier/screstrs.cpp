@@ -332,7 +332,26 @@ restr_pass_task_object_location (scr_gameref_t game,
   else if (var1 == 1)
     object = -1;                /* Any object */
   else if (var1 == 2)
-    object = var_get_ref_object (vars);
+    {
+      /*
+       * "The referenced object" with no object referenced fails; it is not
+       * the any-object loop below.  run390 passrest 451CDD-451CF4: Var1 = 2
+       * and MemVar_4681A8 = &HFF sets the result to 0.  thenightmoon task 17
+       * (`behead drow`, "referenced object held by player") passed here
+       * whenever the player held anything; run390x answers "Who?".
+       *
+       * run400 fails the same way (480B6F), but there any matching %object%
+       * command binds the reference (task_match_object 458E6C), whichever
+       * task it belongs to.  labyrinth task 119 `* put * sword * pedestal *`
+       * passes in run400 because task 120's `* put * %object% * pedestal *`
+       * has bound the sword.  Scarier does not bind across tasks, so at 4.00
+       * the any-object loop stands in for that.
+       */
+      object = var_get_ref_object (vars);
+      if (object < 0
+          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+        return FALSE;
+    }
   else if (var1 >= 3)
     /*
      * Confirmed against run400.exe 2026-08-01: Var1 - 3 indexes the DYNAMIC
@@ -1357,6 +1376,21 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
     {
       vt_key[4].string = "Var1";
       if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0)
+        return NULL;
+    }
+
+  /*
+   * The location form's "referenced object" (Var1 2) with none referenced is
+   * silent too: thenightmoon `behead drow` (task 17, "You do not have
+   * %object%.") gets run390x's "Who?", not the FailMessage.
+   */
+  vt_key[4].string = "Type";
+  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0
+      && prop_get_taf_version (bundle) == TAF_VERSION_390
+      && var_get_ref_object (gs_get_vars (game)) < 0)
+    {
+      vt_key[4].string = "Var1";
+      if (prop_get_integer (bundle, "I<-sisis", vt_key) == 2)
         return NULL;
     }
 

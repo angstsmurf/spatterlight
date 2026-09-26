@@ -165,5 +165,858 @@ been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
 the east.  And the beginning of a village down the road to the south.  I can
 move north, east and south.
 
-> quit
-Do you really want to quit? [Y/N]
+> e
+I move east.
+
+Abandon shack
+A long deserted shack that someone called home.  There's a wobbly table next
+to an unlit fireplace on the far wall and a book shelf to the side.  Also
+here is an old-fashioned musket.  I can only move west.
+
+> get musket
+I take the old-fashioned musket.
+
+> x table
+It's a crude table made out of wooden planks.  On the wobbly table are a
+tattered notecard, a steel mold and a wooden bowl.
+
+> get bowl
+I take the wooden bowl from the wobbly table.
+
+> get mold
+I take the steel mold from the wobbly table.
+
+> get notecard
+I take the tattered notecard from the wobbly table.
+
+> w
+I move west.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most
+of the names on the graves have been worn off.  Some of these graves have
+been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
+the east.  And the beginning of a village down the road to the south.  I can
+move north, east and south.
+
+> s
+I move south.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  I can move north, east, south and west.
+
+> e
+I move east.
+
+Inside the Blacksmith's shop
+The shop is in pretty good condition  There's a vat over a blazing-hot  iron
+forge here, a work bench and assorted tools to work metal.
+The body of the Blacksmith is here.  I can only move west.
+
+> x blacksmith
+A strong man in his 50's.  He appears to have been bitten in the throat by
+some kind of animal.  A heavy apron and a necklace of garlic are on the body
+of the blacksmith.
+
+> x bench
+It's a sturdy wooden table.  A wooden mallet is on the work bench.
+
+> get garlic
+I take the necklace of garlic from the body of the blacksmith.
+
+> wear garlic
+I put it on.  I smell like a pizza now.
+
+> get mallet
+I take the wooden mallet from the work bench.
+
+> put mold on bench
+I put the steel mold onto the work bench.
+
+> w
+I move west.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  I can move north, east, south and west.
+
+> s
+I move south.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  I
+can move north, south and up.
+
+> s
+I move south.
+
+A florist shop
+A long deserted flower shop with most of the walls are missing.  I see a
+bunch of dead plants on the shelves.    Also here is a cardboard box.  I can
+only move north.
+
+> get box
+I take the cardboard box.
+
+> open box
+I open the cardboard box.  Some potassium nitrate is inside the cardboard
+box.
+
+> get nitrate
+I take the potassium nitrate from the cardboard box.
+
+> drop box
+I drop the cardboard box.
+
+> n
+I move north.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  I
+can move north, south and up.
+
+> u
+I move up.
+
+A camp site
+I'm on a sloping, dirt path.  Somebody was camping here.  There's a big, old
+tent and the remains of a fire pit.  I can move up, down and in.
+
+> x tent
+A hundred year old canvas strung up to make a simple tent.  The old tent is
+open.  A tent stake is on the old tent.
+
+> x pit
+It's not much more than just a bunch of rocks in a circle.  Some bits of
+charcoal is inside the fire pit.
+
+> get stake
+I take the tent stake from the old tent.
+
+> get charcoal
+I take the bits of charcoal from the fire pit.
+
+> d
+I move down.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  I
+can move north, south and up.
+
+> n
+I move north.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  The vampire bat is keeping its' distance.
+I can move north, east, south and west.  A vampire bat flew to the south.
+
+> n
+I move north.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most
+of the names on the graves have been worn off.  Some of these graves have
+been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
+the east.  And the beginning of a village down the road to the south.  I can
+move north, east and south.  A vampire bat flew in.
+
+> n
+I move north.
+
+A path through the jungle
+I am in a jungle on an east-west path running paralllel to the shore.  There
+are many palm trees and plants around.  There's an open gate of a cementary
+to the south.  I can move south and west.
+
+> w
+I move west.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.
+There's an opening in a rock wall and a path to the east.  Also here is a
+dead creature.  I can move north, east, west and in.
+
+> n
+I move north.
+
+Cave by the lagoon
+I am in a dark cave by the lagoon.  Fishbones are scattered around.  I can
+move south, down and out.
+
+> d
+I move down.
+
+Deeper into the cave
+It's dark, too dark to see anything.  And it's cold and doesn't smell very
+good here.  I can only move up.
+
+> twist flare
+A flare is lit!
+
+> get deposits
+I take the sulphur deposits.
+
+> put nitrate in bowl
+I put the potassium nitrate inside the wooden bowl.
+
+> put charcoal in bowl
+I put the bits of charcoal inside the wooden bowl.
+
+> put deposits in bowl
+I put the sulphur deposits inside the wooden bowl.
+
+Okay.  I mixed them all together and made black powder.
+
+> u
+I move up.
+
+Cave by the lagoon
+I am in a dark cave by the lagoon.  Fishbones are scattered around.  I can
+move south, down and out.
+
+> s
+I move south.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.
+There's an opening in a rock wall and a path to the east.  Also here is a
+dead creature.  I can move north, east, west and in.
+
+The flare went out.
+
+> w
+I move west.
+
+The deck of my fishing boat
+Most of my boat is washed up on the shore.  The outboard motor is still
+intact.  To the east is the lagoon.  The main cabin is below deck.  I can
+move east and down.
+
+> d
+I move down.
+
+The main cabin
+This was the main cabin of my boat.  Much of it was destroyed in the storm.
+Also here is a supply chest.  I can only move up.
+
+> x chest
+A large wooden chest that I keep my fishing supplies in.  The supply chest is
+open.  Some fishing weights are inside the supply chest.
+
+> get weights
+I take the fishing weights from the supply chest.
+
+> u
+I move up.
+
+The deck of my fishing boat
+Most of my boat is washed up on the shore.  The outboard motor is still
+intact.  To the east is the lagoon.  The main cabin is below deck.  I can
+move east and down.
+
+> e
+I move east.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.
+There's an opening in a rock wall and a path to the east.  Also here is a
+dead creature.  I can move north, east, west and in.
+
+> e
+I move east.
+
+A path through the jungle
+I am in a jungle on an east-west path running paralllel to the shore.  There
+are many palm trees and plants around.  There's an open gate of a cementary
+to the south.  I can move south and west.
+
+> s
+I move south.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most
+of the names on the graves have been worn off.  Some of these graves have
+been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
+the east.  And the beginning of a village down the road to the south.  The
+vampire bat is keeping its' distance.  I can move north, east and south.  A
+vampire bat flew to the south.
+
+> s
+I move south.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  The vampire bat is keeping its' distance.
+I can move north, east, south and west.  A vampire bat flew to the south.
+
+> e
+I move east.
+
+Inside the Blacksmith's shop
+The shop is in pretty good condition  There's a vat over a blazing-hot  iron
+forge here, a work bench and assorted tools to work metal.
+The body of the Blacksmith is here.  I can only move west.
+
+> put weights in vat
+I put the fishing weights inside the vat.
+The fishing weights melted into a puddle of molten lead.
+
+> pour lead into mold
+Okay, I poured the lead into mold.
+The lead cooled and harden into a bunch of little round musket balls.
+
+> x mold
+A steel mold used to make little round musket balls.  Lead musket balls are
+inside the steel mold.
+
+> get balls
+I take lead musket balls from the steel mold.
+
+> load gun with lead ball
+Okay.  The gun is loaded with a lead ball.
+
+> w
+I move west.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  I can move north, east, south and west.
+
+> s
+I move south.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  I
+can move north, south and up.
+
+> u
+I move up.
+
+A camp site
+I'm on a sloping, dirt path.  Somebody was camping here.  There's a big, old
+tent and the remains of a fire pit.  I can move up, down and in.
+
+> eat banana
+
+Well, I could use more the fibre in my diet.  Tastey.
+
+> u
+I move up.
+
+Standing on top of a hill.
+I have a good view of the lagoon from up here.  I can see my ship wreck and a
+seaplane below me.  There's something moving around by the plane.
+To the north is a medieval castle.  I can move north and down.
+
+> n
+I move north.
+
+In front of a castle entrance
+There's a 12 foot moat between me and the front door.  Across the moat is a
+drawbridge and a switch on the castle wall.  The drawbridge is up, so I can't
+go in.
+
+Frankenstein's monster is here!
+
+I can only move south.
+
+Frankenstein took a swing at me!  I ducked and ran out of the way.
+
+> drop peel
+I drop the banana peel.
+
+Frankenstein slipped on the banana peel and landed on his ass!  Ha ha ha!
+
+> shoot switch
+*BANG*
+
+I shot the switch and the drawbridge came down.
+
+> in
+I move in.
+
+A dining room inside the Castle
+It's sparsely dectorated with a large table in the middle.  A few old
+portraits adorn the walls.  There's a staircase to the west.  I can move west
+and out.
+
+> x table
+The table is covered with a blood-red cloth and looks like it could sit
+twenty people.  A silver candel stick is on the large dining room table.
+
+> get stick
+I take the silver candel stick from the large dining room table.
+
+> w
+I move west.
+
+Winding stairway
+I'm on a landing of a long winding staircase.  Moonlight is streaming through
+a small window above me.  I can move east, up and down.
+
+> u
+I move up.
+
+The master bedroom
+I'm in a spacious, gothic bedroom.  But instead of a bed, there's a coffin in
+the middle of the room.  I can only move down.
+
+> open coffin
+I open the coffin.  Count Dracula is inside the coffin.
+
+> stake dracula
+Oooh!  There's blood everywhere!  He's dead.
+
+> get key
+Okay, I took the key.
+
+> d
+I move down.
+
+Winding stairway
+I'm on a landing of a long winding staircase.  Moonlight is streaming through
+a small window above me.  I can move east, up and down.
+
+> d
+I move down.
+
+In a dungeon
+I am at the bottom of the stairs.  I can't make out anything.  It's too dark.
+ I can move north and up.
+
+> twist flare
+A flare is lit!
+
+> get tubing
+I take plastic tubing.
+
+> n
+I move north.
+
+Underground tunnel
+I am in a long winding tunnel.  There's a locked door to the west.  I can
+move north and south.
+
+> unlock door
+The door is now unlocked.
+
+> w
+I move west.
+
+A small storage room
+This appears to be the castle's mechanical room.  There's a bunch of pipes
+and a rusty, old water heater and an electrical box here.  In front of me is
+a fairly new gas-powered generator.  I can only move east.
+
+> e
+I move east.
+
+Underground tunnel
+I am in a long winding tunnel.  The door to the west is now unlocked.  I can
+move north, south and west.
+
+> s
+I move south.
+
+In a dungeon
+I am at the bottom of the stairs.  I'm in some kind of a laboratory.  There
+are all kinds of weird machines and test tubes.  I can move north and up.
+
+The flare went out.
+
+> u
+I move up.
+
+Winding stairway
+I'm on a landing of a long winding staircase.  Moonlight is streaming through
+a small window above me.  I can move east, up and down.
+
+> e
+I move east.
+
+A dining room inside the Castle
+It's sparsely dectorated with a large table in the middle.  A few old
+portraits adorn the walls.  There's a staircase to the west.  I can move west
+and out.
+
+> out
+I move out.
+
+In front of a castle entrance
+There's a 12 foot moat between me and the front door.  Across the moat is a
+drawbridge and a switch on the castle wall.  The drawbridge is down.  Also
+here is a banana peel.
+
+Frankenstein's monster is here!
+
+I can move south and in.
+
+> s
+I move south.
+
+Standing on top of a hill.
+I have a good view of the lagoon from up here.  I can see my ship wreck and a
+seaplane below me.  There's something moving around by the plane.
+To the north is a medieval castle.  I can move north and down.
+
+> d
+I move down.
+
+A camp site
+I'm on a sloping, dirt path.  Somebody was camping here.  There's a big, old
+tent and the remains of a fire pit.  I can move up, down and in.
+
+> d
+I move down.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  The
+vampire bat is keeping its' distance.  I can move north, south and up.  A
+vampire bat flew.
+
+> n
+I move north.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  I can move north, east, south and west.  A
+vampire bat flew in from the north.
+
+> e
+I move east.
+
+Inside the Blacksmith's shop
+The shop is in pretty good condition  There's a vat over a blazing-hot  iron
+forge here, a work bench and assorted tools to work metal.
+The body of the Blacksmith is here.  I can only move west.
+
+> put stick in vat
+I put the silver candel stick inside the vat.
+The candel stick melted into a puddle of molten silver.
+
+> pour silver into mold
+Okay, I poured the silver into mold.
+Oops!  I spilled most of the silver into the fire.  The silver cooled and
+harden into a single little round musket ball.
+
+> x mold
+A steel mold used to make little round musket balls.  A single, silver musket
+ball is inside the steel mold.
+
+> get ball
+I take the single, silver musket ball from the steel mold.
+
+> load gun with silver ball
+Okay.  The gun is loaded with the silver ball.
+
+> w
+I move west.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  The vampire bat is keeping its' distance.
+I can move north, east, south and west.  A vampire bat flew to the south.
+
+> w
+I move west.
+
+A wooden pier
+A seaplane is docked to a long wooden pier looking out over the ocean.  Also
+here is a metal bucket.  I can only move east.
+
+> get bucket
+I take the metal bucket.
+
+> e
+I move east.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  The vampire bat is keeping its' distance.
+I can move north, east, south and west.  A vampire bat flew to the south.
+
+> n
+I move north.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most
+of the names on the graves have been worn off.  Some of these graves have
+been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
+the east.  And the beginning of a village down the road to the south.  I can
+move north, east and south.  A vampire bat flew in.
+
+> n
+I move north.
+
+A path through the jungle
+I am in a jungle on an east-west path running paralllel to the shore.  There
+are many palm trees and plants around.  There's an open gate of a cementary
+to the south.  I can move south and west.
+
+> w
+I move west.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.
+There's an opening in a rock wall and a path to the east.  Also here is a
+dead creature.  I can move north, east, west and in.
+
+> w
+I move west.
+
+The deck of my fishing boat
+Most of my boat is washed up on the shore.  The outboard motor is still
+intact.  To the east is the lagoon.  The main cabin is below deck.  I can
+move east and down.
+
+> siphon gas into bucket
+Okay.  The bucket has all the gas in it.
+
+> e
+I move east.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.
+There's an opening in a rock wall and a path to the east.  Also here is a
+dead creature.  I can move north, east, west and in.
+
+> e
+I move east.
+
+A path through the jungle
+I am in a jungle on an east-west path running paralllel to the shore.  There
+are many palm trees and plants around.  There's an open gate of a cementary
+to the south.  I can move south and west.
+
+> s
+I move south.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most
+of the names on the graves have been worn off.  Some of these graves have
+been dug up.  Piles of dirt and caskets lie about.  There's an old shack to
+the east.  And the beginning of a village down the road to the south.  The
+vampire bat is keeping its' distance.  I can move north, east and south.  A
+vampire bat flew to the south.
+
+> s
+I move south.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  The vampire bat is keeping its' distance.
+I can move north, east, south and west.  A vampire bat flew to the south.
+
+> s
+I move south.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  The
+vampire bat is keeping its' distance.  I can move north, south and up.  A
+vampire bat flew.
+
+> u
+I move up.
+
+A camp site
+I'm on a sloping, dirt path.  Somebody was camping here.  There's a big, old
+tent and the remains of a fire pit.  I can move up, down and in.
+
+> u
+I move up.
+
+Standing on top of a hill.
+I have a good view of the lagoon from up here.  I can see my ship wreck and a
+seaplane below me.  There's something moving around by the plane.
+To the north is a medieval castle.  I can move north and down.
+
+> n
+I move north.
+
+In front of a castle entrance
+There's a 12 foot moat between me and the front door.  Across the moat is a
+drawbridge and a switch on the castle wall.  The drawbridge is down.  Also
+here is a banana peel.
+
+Frankenstein's monster is here!
+
+I can move south and in.
+
+> in
+I move in.
+
+A dining room inside the Castle
+It's sparsely dectorated with a large table in the middle.  A few old
+portraits adorn the walls.  There's a staircase to the west.  I can move west
+and out.
+
+> w
+I move west.
+
+Winding stairway
+I'm on a landing of a long winding staircase.  Moonlight is streaming through
+a small window above me.  I can move east, up and down.
+
+> d
+I move down.
+
+In a dungeon
+I am at the bottom of the stairs.  I can't make out anything.  It's too dark.
+ I can move north and up.
+
+> n
+I move north.
+
+Underground tunnel
+I am in a long winding tunnel.  The door to the west is now unlocked.  I can
+move north, south and west.
+
+> w
+I move west.
+
+A small storage room
+This appears to be the castle's mechanical room.  There's a bunch of pipes
+and a rusty, old water heater and an electrical box here.  In front of me is
+a fairly new gas-powered generator.  I can only move east.
+
+> pour gas into generator
+Okay, I put the gas in the generator.
+
+> press start
+I pressed it.  The generator is working.
+
+> e
+I move east.
+
+Underground tunnel
+I am in a long winding tunnel.  The door to the west is now unlocked.  I can
+move north, south and west.
+
+> n
+I move north.
+
+Outside a jail cell
+I am at the end of the tunnel.  There's a jail cell in front of me.
+Off to the side, there's a button with a sign that  says, "Unlock Cell Door."
+
+A woman's voice from inside the cell said, "Help me."
+I can only move south.
+
+> press button
+I pressed it.  The cell door opened.
+
+> in
+I move in.
+
+Inside the jail cell
+It's dark, damp and dirty.
+Ameila is here with me.  I can only move out.
+She said, "Hey!  If you get me out of here, I can fly us off the island!"
+
+> out
+I move out.
+
+Outside a jail cell
+I am at the end of the tunnel.  There's a jail cell in front of me.
+Off to the side, there's a button with a sign that  says, "Unlock Cell Door."
+ I can move south and in.
+
+> s
+I move south.
+
+Underground tunnel
+I am in a long winding tunnel.  The door to the west is now unlocked.  I can
+move north, south and west.
+
+> s
+I move south.
+
+In a dungeon
+I am at the bottom of the stairs.  I can't make out anything.  It's too dark.
+ I can move north and up.
+
+> u
+I move up.
+
+Winding stairway
+I'm on a landing of a long winding staircase.  Moonlight is streaming through
+a small window above me.  I can move east, up and down.
+
+> e
+I move east.
+
+A dining room inside the Castle
+It's sparsely dectorated with a large table in the middle.  A few old
+portraits adorn the walls.  There's a staircase to the west.  I can move west
+and out.
+
+> out
+I move out.
+
+In front of a castle entrance
+There's a 12 foot moat between me and the front door.  Across the moat is a
+drawbridge and a switch on the castle wall.  The drawbridge is down.  Also
+here is a banana peel.
+
+Frankenstein's monster is here!
+
+I can move south and in.
+
+> s
+I move south.
+
+Standing on top of a hill.
+I have a good view of the lagoon from up here.  I can see my ship wreck and a
+seaplane below me.  There's something moving around by the plane.
+To the north is a medieval castle.  I can move north and down.
+
+> d
+I move down.
+
+A camp site
+I'm on a sloping, dirt path.  Somebody was camping here.  There's a big, old
+tent and the remains of a fire pit.  I can move up, down and in.
+
+> d
+I move down.
+
+A dirt road
+There's a path leading up a hill and the remains of a shop to the south.  I
+can move north, south and up.  A vampire bat flew in from the north.
+
+> n
+I move north.
+
+The remains of a village
+A disaster struck here many years ago.  Most of the cottages are destroyed.
+Tall weeds are growing in the streets.  There's a blacksmith shop to the east
+and other buildings to the south.  I can move north, east, south and west.
+
+> w
+I move west.
+
+A wooden pier
+A seaplane is docked to a long wooden pier looking out over the ocean.
+The Wolfman is here!  I can only move east.
+
+> shoot wolfman
+Okay.
+* BANG *
+
+He howled a bit, then died.
+Ameila and I rushed to her plane and we flew off to safety.
+Unfortunately, I found out later that, Ameila was a lesbian, so we didn't
+hook up after our adventure together.
+
+[Press any key to end]

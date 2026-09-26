@@ -1,0 +1,16 @@
+feed        163 commands
+runner      163 turns echoed
+scarier     163 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  x chest
+  run400   A large wooden chest that I keep my fishing supplies in. The supply chest is open. Inside the supply chest is an emergency kit, a long harpoon and some fishing weights.
+  scarier  A large wooden chest that I keep my fishing supplies in. The supply chest is open. Inside the supply chest are an emergency kit, a long harpoon and some fishing weights.
+
+turn 30  x table
+  run400   It's a crude table made out of wooden planks. On the wobbly table is a tattered notecard, a steel mold and a wooden bowl.
+  scarier  It's a crude table made out of wooden planks. On the wobbly table are a tattered notecard, a steel mold and a wooden bowl.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

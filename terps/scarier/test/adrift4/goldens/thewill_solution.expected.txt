@@ -20,85 +20,38 @@ directions, and a thick hedgerow behind you marks the boundary of the
 property. The lawn continues between the fence and the hedges to the east and
 west.  Through the closed gate you see an overgrown courtyard.
 
-> n
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
+> w
+You move west.
 
-> search hedges
-You feel around in the prickly hedges but come away with nothing but scraped
-knuckles.
-
-> s
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
-
-> e
-You move east.
-
-Southeast Corner of Yard
-The swath of grass that runs between the fence and the hedges turns from west
-to south here. Through the fence to the northwest you can see what appears to
-be some kind of garden.
-
-> unlock gate
-You can't do that, atleast not here and not now.
-
-> oil gate
-You can't do that, atleast not here and not now.
-
-> open gate
-You can't do that, atleast not here and not now.
-
-> u
-Moving in that direction isn't possible right now, but you are free to go
-north and west.
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
 
 > n
 You move north.
 
-Northeast Corner of Yard
-You have come upon an old toolshed nestled up against the thick row of
-hedges.  The lawn continues along the fence line to the south and west. The
-rear corner of the house is visible through the fence.
+Northwest Corner of Yard
+The yard turns from east to south at this point. The hedges here are even
+taller than the others you have seen. You can just make out what might be an
+arboretum beyond the fence.  Out of the corner of your eye you spot a glint
+of silver deep in the hedges.
 
-> open door
-You can't do that, atleast not here and not now.
-
-> n
-Moving in that direction isn't possible right now, but you are free to go
-south and west.
-
-> n
-Moving in that direction isn't possible right now, but you are free to go
-south and west.
-
-> move statue
-You can't do that, atleast not here and not now.
-
-> n
-Moving in that direction isn't possible right now, but you are free to go
-south and west.
-
-> open window
-You can't do that, atleast not here and not now.
+> search hedges
+You feel around in the hedges...
+You grab hold of an object and pull it out.
+It looks like an oilcan.
 
 > s
 You move south.
 
-Southeast Corner of Yard
-The swath of grass that runs between the fence and the hedges turns from west
-to south here. Through the fence to the northwest you can see what appears to
-be some kind of garden.
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
 
 > e
-Moving in that direction isn't possible right now, but you are free to go
-north and west.
-
-> move pillows
-You can't do that, atleast not here and not now.
-
-> w
-You move west.
+You move east.
 
 Front Gate
 You are standing before the front gate of your late uncle's house. A tall
@@ -107,24 +60,407 @@ directions, and a thick hedgerow behind you marks the boundary of the
 property. The lawn continues between the fence and the hedges to the east and
 west.  Through the closed gate you see an overgrown courtyard.
 
-> s
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
+> unlock gate
+You insert the oddly shaped key into the keyhole and turn it. You hear the
+lock click just before the key breaks off in the keyhole.
 
-> s
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
+> oil gate
+Your pour the last of the oil from the can onto the rusty door hinge.
 
-> s
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
+> open gate
+You push hard against the gate and it finally swings open with a creak.
 
-> d
-Moving in that direction isn't possible right now, but you are free to go
-east and west.
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> u
+You move up.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  and its fountain dry.  The front
+gate is back down the hill. To the north you can see the front porch of the
+house. The walkway leads to the east and west.
 
 > w
 You move west.
+
+Flower Garden
+You are standing on a piece of ground that I'm guessing was once appropriated
+to the cultivation of  flowers. Now only unsightly weeds grow here. A
+flagstone walkway leads east to the courtyard and an open space is visible to
+the north.
+
+> n
+You move north.
+
+Arboretum
+The path from the south ends at this secluded space that was surely once a
+place where trees and shrubs were cultivated for exhibition. Now it is baren.
+ A small round table, with a hole in it's center, sits in the middle of the
+space.  Lying nearby you can also see a large umbrella.
+
+> put umbrella in hole
+You put the large umbrella inside the hole.
+
+> open umbrella
+You open the large umbrella and hear something fall out onto the table below.
+A silver necklace is in plain view on the small round table.
+
+> get necklace
+You take a silver necklace from the small round table.
+
+> get umbrella
+You close the umbrella and pick up it.
+
+> s
+You move south.
+
+Flower Garden
+You are standing on a piece of ground that I'm guessing was once appropriated
+to the cultivation of  flowers. Now only unsightly weeds grow here. A
+flagstone walkway leads east to the courtyard and an open space is visible to
+the north.
+
+> e
+You move east.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  and its fountain dry.  The front
+gate is back down the hill. To the north you can see the front porch of the
+house. The walkway leads to the east and west.
+
+> n
+You move north.
+
+Front Porch
+The front porch runs across the entire length of the house. Next to the front
+door is a  mailbox.   The front door is closed at present.
+
+> raise flag
+You raise the weathered red flag with some difficulty.
+
+> open door
+You open the door.
+
+> n
+You move north.
+
+Hallway
+This dimly lit hallway leads from the front porch to the interior of the
+house. The eerie silence of the house is broken by the irregular ticking of a
+grandfather clock sitting in one corner of the hallway.
+
+> open clock
+You open the grandfather clock.  A titanium pocket watch is visible inside
+the open grandfather clock.
+
+> get watch
+You take a titanium pocket watch from the grandfather clock.
+
+Did you hear that?  I thought I heard a noise coming from the front porch.
+
+> n
+You move north.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north.
+
+> move statue
+As you move the statue you hear a grinding sound from the west.  You turn
+towards the sound and see that a passage has opened up under the staircase.
+
+> w
+You move west.
+
+Niche
+You have to duck your head to enter this small niche under the staircase.
+Lying nearby you can also see a wrench.
+
+> get wrench
+You take the wrench.
+
+> e
+You move east.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> e
+You move east.
+
+Living Room
+This once formal living room now holds only a pillow-laden sofa and a small
+coffee table.  You can see other rooms to the north and west.
+
+> move pillows
+You manage to slide your hand under the surprising heavy pillows and find a
+matchbook which you pick up.
+
+> n
+You move north.
+
+Dining Room
+Great dinner parties could have once been held in this room, which can be
+exited to the east, west and south.  The rear wall is dominated by a large
+oil painting. A dining table sits below the painting, covered in dust. An
+unlit oil lamp is in plain view on the dining table.
+
+> move painting
+You swing the painting open, revealing a small combination safe in the wall.
+
+> 103221
+You enter the combination on the keypad and the safe swings open. A bronze
+mug is visible inside the open wall safe.
+
+> x safe
+The safe is open.  A bronze mug is visible inside the open wall safe.
+
+> get mug
+You take a bronze mug from the wall safe.
+
+> e
+You move east.
+
+Kitchen
+Usually, this is the room of the house set apart for the process of preparing
+food for the table. It's hard to imagine this relic of a kitchen ever serving
+the large dining room to the west. The only appliance still in working order
+here is the refrigerator.   A small pantry is visible to the north, and a
+dark staircase, from which heat radiates, descends down.
+
+> open fridge
+You open the refrigerator.  A hunk of frozen meat is visible inside the open
+refrigerator.
+
+> get meat
+You take a hunk of frozen meat from the refrigerator.
+
+> n
+You move north.
+
+Pantry
+This is nothing more than a small room for storing foods or wines.  Lying
+nearby you can also see an unlit flashlight.
+
+> get flashlight
+You take the unlit flashlight.
+
+> s
+You move south.
+
+Kitchen
+Usually, this is the room of the house set apart for the process of preparing
+food for the table. It's hard to imagine this relic of a kitchen ever serving
+the large dining room to the west. The only appliance still in working order
+here is the refrigerator.   A small pantry is visible to the north, and a
+dark staircase, from which heat radiates, descends down.
+
+> w
+You move west.
+
+Dining Room
+Great dinner parties could have once been held in this room, which can be
+exited to the east, west and south.  An oil painting on the rear wall has
+swung open revealing a combination safe behind it.   A dining table sits
+below the painting, covered in dust. An unlit oil lamp is in plain view on
+the dining table.
+
+> w
+You move west.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and a picture
+window provides a view of the back gate.
+
+An oriental rug covers the center of the floor.  Sitting to one side of the
+rug is a pedestal on which a marble sculpture is prominently displayed.
+
+> open window
+The window opens, disappearing as it does, leaving a large opening in the
+rear wall. Handily, the rear gate swings open as well.
+
+> put watch on rug
+You put the titanium pocket watch onto the oriental rug.
+
+> put necklace on rug
+You put the silver necklace onto the oriental rug.
+
+> put mug on rug
+You put the bronze mug onto the oriental rug.
+
+> drop oilcan
+You drop the empty oilcan.
+
+> s
+You move south.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> u
+You move up.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+Amid the fan blades you see a ruby sparkle.
+
+> n
+You move north.
+
+Bathroom
+This small tile room off the upstairs hall contains a shower, sink and
+toilet.  The toilet is making an odd gurgling sound.
+
+> open toilet
+You open the toilet.
+
+> stuff will in toilet
+Okay, you've managed to stuff the will into the toilet's drain.
+
+> flush toilet
+You flush the toilet. The will must be blocking the drain....brown water
+overflows onto the bathroom floor. Amid the water you spy something
+unexpected - a diamond earring.
+
+> get earring
+You take the diamond earring.
+
+> s
+You move south.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+Amid the fan blades you see a ruby sparkle.
+
+> w
+You move west.
+
+Bedroom
+You have arrived in a room, used primarily for sleeping, that lies just off
+the west end of the hallway. It is furnished with a double bed, an armoire,
+and a floor-length mirror.
+
+> push armoire
+You slide the armoire to one side, revealing a small closet behind it.
+
+> s
+You move south.
+
+Closet
+A closet is, of course, a small room or recess used for storage. This one
+qualifies more as a recess I would say since there is barely room to turn
+around in here. The only way out is go to back north to the bedroom.  Lying
+nearby you can also see an opal vase.
+
+> get vase
+You take the opal vase.
+
+> n
+You move north.
+
+Bedroom
+You have arrived in a room, used primarily for sleeping, that lies just off
+the west end of the hallway. It is furnished with a double bed, an armoire,
+and a floor-length mirror.  The armoire has been moved to one side, revealing
+a small closet to the south.
+
+> e
+You move east.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+Amid the fan blades you see a ruby sparkle.
+
+> e
+You move east.
+
+Study
+The east end of the hallway leads to this room that must have once been used
+for reading and writing and studying.  All that remains now is a simple table
+on which an antique computer rests.   A small round window overlooks the shed
+in the northeast corner of the yard.
+
+> push button
+As you press the button you hear a grinding sound come from the direction of
+the shed outside.
+
+> read computer
+
+INSERT BOOT DISK
+
+> w
+You move west.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+Amid the fan blades you see a ruby sparkle.
+
+> d
+You move down.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> n
+You move north.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug covers the center of the floor. Weighing down the oriental
+rug is a titanium pocket watch, a silver necklace and a bronze mug. Sitting
+to one side of the rug is a pedestal on which a marble sculpture is
+prominently displayed.  Lying nearby you can also see the empty oilcan.
+
+> put earring on rug
+You put the diamond earring onto the oriental rug.
+
+> put vase on rug
+You put the opal vase onto the oriental rug.
+
+> d
+Backyard
+You are directly behind the house, in the middle of the backyard. There is a
+second gate in the fence here.  The gate is wide open allowing a short walk
+up a hill to an opening in the house's rear wall.
+
+> w
+You move west.
+
+Northwest Corner of Yard
+The yard turns from east to south at this point. The hedges here are even
+taller than the others you have seen. You can just make out what might be an
+arboretum beyond the fence.
+
+> s
+You move south.
 
 Southwest Corner of Yard
 A break in the hedges here reveals a dirt path leading south. The yard
@@ -157,12 +493,28 @@ The shack has just this one room and  houses only a small single-drawer metal
 cabinet which is leaning to one side. A crowbar is in plain view on the
 cabinet.
 
+> x cabinet
+The cabinet is made of metal and is leaning slightly to one side, perhaps
+because one of its feet is missing. There is a large drawer built into the
+cabinet.   A crowbar is in plain view on the cabinet.
+
+> get crowbar
+You take a crowbar from the cabinet.
+
 > level cabinet with matchbook
-With what?
+You position the matchbook under the missing foot leveling the cabinet.
 
 > open drawer
-You pull on the drawer but it won't open. It appears to be hitting up against
-one side of the cabinet.
+The drawer slides open.  A battery charger is visible inside the open cabinet
+drawer.
+
+> get matchbook
+Making sure that the drawer is open first, you remove the matchbook from
+beneath the cabinet.
+
+> put flashlight in charger
+You put the flashlight in the charger and within minutes, it is fully
+charged.
 
 > e
 You move east.
@@ -180,6 +532,29 @@ Tall trees of various types nearly block out the sunlight here. The forest is
 impenitrable to the south, but spaces between the trees allow you to continue
 along the east-west path. To the north the trees end suddenly.  Lying nearby
 you can also see a small pile of ashes.
+
+> get ashes
+You take the small pile of ashes.
+
+> n
+You move north.
+
+Foot of Hill
+A steep hill suddenly surrounds you barring further travel in any direction
+except back the way you came. A faint odor of gas wafts from a dark opening
+in the base of the hill to the east.  Lying nearby you can also see a
+pickaxe.
+
+> get pickaxe
+You take the pickaxe.
+
+> s
+You move south.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
 
 > e
 You move east.
@@ -208,8 +583,1024 @@ The trees are more widely spaced in this area of the woods letting in more
 sunlight.  The east-west path curves to go around a large oak.  Lying nearby
 you can also see an emerald egg.
 
-> get emerald
+> get egg
 You take the emerald egg.
 
-> quit
-Do you really want to quit? [Y/N]
+> w
+You move west.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
+
+> w
+You move west.
+
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a
+proper forest further to the east.  Just west of here a wooden shack is
+nestled under one of the taller trees.
+
+> n
+You move north.
+
+Dirt Path
+From a break in the hedges to the north, the dirt path leads toward a grove
+of trees to the south. Just off the side of the path, nearly hidden by weeds,
+stands a small doghouse. An ivory dogbone is visible inside the open
+doghouse.  A puppy, its fur matted with leaves, its bones showing through
+it's skin, stands guard outside the doghouse.
+
+> n
+You move north.
+
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
+
+> n
+You move north.
+
+Northwest Corner of Yard
+The yard turns from east to south at this point. The hedges here are even
+taller than the others you have seen. You can just make out what might be an
+arboretum beyond the fence.
+
+> e
+You move east.
+
+Backyard
+You are directly behind the house, in the middle of the backyard. There is a
+second gate in the fence here.  The gate is wide open allowing a short walk
+up a hill to an opening in the house's rear wall.
+
+> u
+You move up.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug covers the center of the floor. Weighing down the oriental
+rug is a titanium pocket watch, a silver necklace, a diamond earring, an opal
+vase and a bronze mug. Sitting to one side of the rug is a pedestal on which
+a marble sculpture is prominently displayed.  Lying nearby you can also see
+the empty oilcan.
+
+> put egg on rug
+You put the emerald egg onto the oriental rug.
+
+> break sculpture with pickaxe
+You swing the pointed end of the pickaxe down on the sculpture shattering it
+into pieces. The pedestal skitters away under the force of the blow barely
+avoiding being splintered as well.
+
+> drop pickaxe
+You drop the pickaxe.
+
+> look
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug, littered with tiny pieces of marble, covers the center of
+the floor. Weighing down the oriental rug is a titanium pocket watch, a
+silver necklace, a diamond earring, an emerald egg, an opal vase and a bronze
+mug.  Lying nearby you can also see a pickaxe, the empty oilcan and a wooden
+pedestal.
+
+> get wooden pedestal
+You take the wooden pedestal.
+
+> s
+You move south.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> u
+You move up.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+Amid the fan blades you see a ruby sparkle.
+
+> stand on pedestal
+You put the pedestal down then stand on it.
+
+> look at sparkle
+Standing on the pedestal, and on your tiptoes, you pull something out from
+between the fan blades...it's a ruby crown.
+
+> get off pedestal
+You take the wooden pedestal.
+
+> w
+(Getting off the wooden pedestal first)
+You move west.
+
+Bedroom
+You have arrived in a room, used primarily for sleeping, that lies just off
+the west end of the hallway. It is furnished with a double bed, an armoire,
+and a floor-length mirror.  The armoire has been moved to one side, revealing
+a small closet to the south.
+
+> throw ashes at mirror
+The ashes stick to the oily writing making the previously transparent writing
+readable. It looks like a series of numbers...103221.
+
+> e
+You move east.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+
+> d
+You move down.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> n
+You move north.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug, littered with tiny pieces of marble, covers the center of
+the floor. Weighing down the oriental rug is a titanium pocket watch, a
+silver necklace, a diamond earring, an emerald egg, an opal vase and a bronze
+mug.  Lying nearby you can also see a pickaxe and the empty oilcan.
+
+> put crown on rug
+You put the ruby crown onto the oriental rug.
+
+> drop pedestal
+You drop the wooden pedestal.
+
+> e
+You move east.
+
+Dining Room
+Great dinner parties could have once been held in this room, which can be
+exited to the east, west and south.  An oil painting on the rear wall has
+swung open revealing a combination safe behind it.   A dining table sits
+below the painting, covered in dust. An unlit oil lamp is in plain view on
+the dining table.
+
+> e
+You move east.
+
+Kitchen
+Usually, this is the room of the house set apart for the process of preparing
+food for the table. It's hard to imagine this relic of a kitchen ever serving
+the large dining room to the west. The only appliance still in working order
+here is the refrigerator.   A small pantry is visible to the north, and a
+dark staircase, from which heat radiates, descends down.
+
+> light flashlight
+You turn the freshly charged flashlight on.
+
+> d
+You move down.
+
+Cellar
+You have descended to the lowermost portion of the house, below ground level,
+ where the furnace that heats the house is stored. Beads of sweat form on
+your forehead almost immediately from the heat and humidity.  You have to
+move gingerly as a broken pipe running from the furnace is spewing hot steam
+directly over a grate in the floor.
+
+> put meat on grate
+You toss the frozen meat onto the steam-blasted grate. It sputters and
+spatters as it defrosts, and with a final pop a raw steak lands on the floor
+nearby.
+
+> get steak
+You take the raw steak.
+
+> put umbrella on pipe
+You open the umbrella and hook it over the pipe, temporarily preventing the
+steam from blasting directly over the grate.
+
+> open grate with crowbar
+You pry open the grate with the crowbar.An onxy carving is lying beneath the
+grate.
+
+> x grate
+The grate is a barrier with crossed bars that blocks passage to what is
+beyond it.  The grate is open.  An onxy carving is lying beneath the grate.
+
+> get carving
+You take an onxy carving from the grate.
+
+> get umbrella
+You retrieve the umbrella, shake out the water, and close it.  Steam once
+again shoots out of the pipe toward the grate.
+
+> u
+You move up.
+
+Kitchen
+Usually, this is the room of the house set apart for the process of preparing
+food for the table. It's hard to imagine this relic of a kitchen ever serving
+the large dining room to the west. The only appliance still in working order
+here is the refrigerator.   A small pantry is visible to the north, and a
+dark staircase, from which heat radiates, descends down.
+
+> w
+You move west.
+
+Dining Room
+Great dinner parties could have once been held in this room, which can be
+exited to the east, west and south.  An oil painting on the rear wall has
+swung open revealing a combination safe behind it.   A dining table sits
+below the painting, covered in dust. An unlit oil lamp is in plain view on
+the dining table.
+
+> x table
+Dining tables are usually laid out with tableware for a meal. This table is
+layered with dust instead.  An unlit oil lamp is in plain view on the dining
+table.
+
+> get lamp
+You take an unlit oil lamp from the dining table.
+
+> w
+You move west.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug, littered with tiny pieces of marble, covers the center of
+the floor. Weighing down the oriental rug is a titanium pocket watch, a
+silver necklace, a ruby crown, a diamond earring, an emerald egg, an opal
+vase and a bronze mug.  Lying nearby you can also see a pickaxe, the empty
+oilcan and a wooden pedestal.
+
+> put carving on rug
+You put the onxy carving onto the oriental rug.
+
+> drop crowbar
+You drop the crowbar.
+
+> s
+You move south.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> s
+You move south.
+
+Hallway
+This dimly lit hallway leads from the front porch to the interior of the
+house. The eerie silence of the house is broken by the irregular ticking of a
+grandfather clock sitting in one corner of the hallway.
+
+> s
+You move south.
+
+Front Porch
+The front porch runs across the entire length of the house. Next to the front
+door is a vandalized mailbox.   The front door stands open.
+
+> open mailbox
+You open the mailbox.  A rare stamp is visible inside the open mailbox.
+
+> get stamp
+You take a rare stamp from the mailbox.
+
+> s
+You move south.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  and its fountain dry.  The front
+gate is back down the hill. To the north you can see the front porch of the
+house. The walkway leads to the east and west.
+
+> d
+You move down.
+
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> e
+You move east.
+
+Southeast Corner of Yard
+The swath of grass that runs between the fence and the hedges turns from west
+to south here. Through the fence to the northwest you can see what appears to
+be some kind of garden.
+
+> n
+You move north.
+
+Northeast Corner of Yard
+You have come upon an old toolshed nestled up against the thick row of
+hedges.  The small tear has appeared in the side of the shed. The lawn
+continues along the fence line to the south and west. The rear corner of the
+house is visible through the fence.
+
+> enter tear
+Inside Toolshed
+You have squeezed through the tear. There is very little room to move here,
+as there is a sizeable hole in the middle of the shed's floor. Scratched on
+the floor next to the hole is a drawing of a battery, surrounded by a red
+circle, through which a diagonal red line is drawn.  Lying nearby you can
+also see a shovel.
+
+> get shovel
+You take the shovel.
+
+> enter tear
+You squeeze back through the tear.
+
+Northeast Corner of Yard
+You have come upon an old toolshed nestled up against the thick row of
+hedges.  The small tear has appeared in the side of the shed. The lawn
+continues along the fence line to the south and west. The rear corner of the
+house is visible through the fence.
+
+> s
+You move south.
+
+Southeast Corner of Yard
+The swath of grass that runs between the fence and the hedges turns from west
+to south here. Through the fence to the northwest you can see what appears to
+be some kind of garden.
+
+> w
+You move west.
+
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> u
+You move up.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  and its fountain dry.  The front
+gate is back down the hill. To the north you can see the front porch of the
+house. The walkway leads to the east and west.
+
+> e
+You move east.
+
+Vegetable Garden
+You have come upon an area that I imagine was once a thriving vegetable
+garden.   Now only untended soil remains. A flagstone walkway leads west to
+the courtyard.
+
+> dig soil with shovel
+You dig in the soil with the shovel until you break a sweat... You are
+rewarded for you efforts when you turn up something...It's some sort of old
+cloth bag.
+
+> open bag
+As you remove the rubberband to open the bag, the rotting bag disintegrates
+and something falls to the ground leaving you holding nothing but the
+rubberband.
+
+> get clover
+You take the jade clover.
+
+> drop shovel
+You drop the shovel.
+
+> w
+You move west.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  and its fountain dry.  The front
+gate is back down the hill. To the north you can see the front porch of the
+house. The walkway leads to the east and west.
+
+> wrap band around valve
+You wrap the rubberband around the valve stem several times.
+
+> turn valve with wrench
+With the rubberband wrapped around the valve stem, the wrench fits snugly and
+you are able to open the valve. Water begins flowing through the fountain.
+
+> x fountain
+The fountain is once again flowing freely.  A black pearl is bobbing atop the
+waters of the fountain.
+
+> get pearl
+You take a black pearl from the fountain.
+
+> drop wrench
+You drop the wrench.
+
+> d
+You move down.
+
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> w
+You move west.
+
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
+
+> s
+You move south.
+
+Dirt Path
+From a break in the hedges to the north, the dirt path leads toward a grove
+of trees to the south. Just off the side of the path, nearly hidden by weeds,
+stands a small doghouse. An ivory dogbone is visible inside the open
+doghouse.  A puppy, its fur matted with leaves, its bones showing through
+it's skin, stands guard outside the doghouse.
+
+> feed puppy steak
+The puppy yipes with excitement, eats the raw steak, and bounds off into the
+woods.
+
+> get dogbone
+You reach into the doghouse and pick up the ivory dogbone.
+
+> s
+You move south.
+
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a
+proper forest further to the east.  Just west of here a wooden shack is
+nestled under one of the taller trees.
+
+> e
+You move east.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
+
+> n
+You move north.
+
+Foot of Hill
+A steep hill suddenly surrounds you barring further travel in any direction
+except back the way you came. A faint odor of gas wafts from a dark opening
+in the base of the hill to the east.
+
+> e
+You move east.
+
+West Edge of Chasm
+You are on the western edge of deep chasm that splits this cavern in two. The
+sound of rushing water echoes up from the depths of the chasm.  The remainer
+of the cavern, across the chasm to the east, is pitch dark.  Lying nearby you
+can also see a gold ring.
+
+> get ring
+You take the gold ring.
+
+> drop flashlight
+You lay the lit flashlight down on the cave floor and aim it toward the dark
+side of the room.
+
+West Edge of Chasm
+You are on the western edge of deep chasm that splits this cavern in two. The
+sound of rushing water echoes up from the depths of the chasm.  You can just
+make out a narrow ledge on the other side of the chasm.
+
+> w
+You move west.
+
+Foot of Hill
+A steep hill suddenly surrounds you barring further travel in any direction
+except back the way you came. A faint odor of gas wafts from a dark opening
+in the base of the hill to the east.
+
+> s
+You move south.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
+
+> w
+You move west.
+
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a
+proper forest further to the east.  Just west of here a wooden shack is
+nestled under one of the taller trees.
+
+> n
+You move north.
+
+Dirt Path
+From a break in the hedges to the north, the dirt path leads toward a grove
+of trees to the south. Just off the side of the path, nearly hidden by weeds,
+stands a small doghouse.
+
+> n
+You move north.
+
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
+
+> e
+You move east.
+
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> e
+You move east.
+
+Southeast Corner of Yard
+The swath of grass that runs between the fence and the hedges turns from west
+to south here. Through the fence to the northwest you can see what appears to
+be some kind of garden.
+
+> n
+You move north.
+
+Northeast Corner of Yard
+You have come upon an old toolshed nestled up against the thick row of
+hedges.  The small tear has appeared in the side of the shed. The lawn
+continues along the fence line to the south and west. The rear corner of the
+house is visible through the fence.
+
+> enter tear
+Inside Toolshed
+You have squeezed through the tear. There is very little room to move here,
+as there is a sizeable hole in the middle of the shed's floor. Scratched on
+the floor next to the hole is a drawing of a battery, surrounded by a red
+circle, through which a diagonal red line is drawn.
+
+> light lamp
+You take the lamp, strike a match and light the lamp.
+
+> d
+You carefully lower yourself into the hole until you are dangling by your
+fingertips, then drop down to the floor below.
+
+End of Tunnel
+You seem to be at the end of an abandoned mine shaft. Light filters in
+through the hole high above your head. A sign hangs over a dark passage
+leading south.
+
+> s
+You move south.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. A faint light can be seen coming from the north. There are more dark
+tunnels leading in various directions.
+
+> u
+You move up.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.
+
+> e
+You move east.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.
+
+> s
+You move south.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.
+
+> u
+You move up.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.  Lying
+nearby you can also see a floppy disk.
+
+> get disk
+You take the floppy disk.
+
+> e
+You move east.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.
+
+> d
+You move down.
+
+Tunnel
+You are in a confusing series of damp perpendicular tunnels excavated in the
+earth. There are more dark tunnels leading in various directions.
+
+> e
+You move east.
+
+Narrow Squeeze
+The shaft narrows to the north. The sound of flowing water mingled with the
+faint odor of gas comes from that direction. The main tunnel continues back
+to the west and a steep rocky slope leads down.
+
+> drop all
+You drop the rare stamp, the matchbook, the burning oil lamp, the large
+umbrella, the ivory dogbone, the jade clover, the floppy disk, the black
+pearl and the gold ring.
+
+> n
+You hold your breath, suck in your tummy, and squeeze through the crack.
+
+East Edge of Chasm
+Thanks to the light coming from the flashlight you wisely left on the other
+side of the chasm, you can see that you are on a narrow ledge on the eastern
+edge of a chasm. The narrow opening through which you entered is to the
+south.  Lying nearby you can also see a platinum nugget.
+
+> get nugget
+You take the platinum nugget.
+
+> throw nugget
+You hurl the nugget as far as you can and hear it land on the floor of the
+cavern across the chasm.
+
+> s
+You squeeze back through the crack.
+
+Narrow Squeeze
+It's too dangerous to move about in the dark.  Lying nearby you can also see
+a rare stamp, a matchbook, a burning oil lamp, a large umbrella, an ivory
+dogbone, a jade clover, a floppy disk, a black pearl and a gold ring.
+
+> get all
+You take the jade clover.
+
+You take the rare stamp, the matchbook, the burning oil lamp, the large
+umbrella, the ivory dogbone, the floppy disk, the black pearl and the gold
+ring.
+
+> d
+You slide down the steep slope and land with a thud.
+
+Foot of Hill
+A steep hill suddenly surrounds you barring further travel in any direction
+except back the way you came. A faint odor of gas wafts from a dark opening
+in the base of the hill to the east.
+
+> extinguish lamp
+A puff of smoke curls from the extinguished lamp.
+
+> e
+You move east.
+
+West Edge of Chasm
+You are on the western edge of deep chasm that splits this cavern in two. The
+sound of rushing water echoes up from the depths of the chasm.  You can just
+make out a narrow ledge on the other side of the chasm.  Lying nearby you can
+also see a lit flashlight and a platinum nugget.
+
+> get nugget
+You take the platinum nugget.
+
+> get flashlight
+You retrieve the flashlight.
+
+> w
+You move west.
+
+Foot of Hill
+A steep hill suddenly surrounds you barring further travel in any direction
+except back the way you came. A faint odor of gas wafts from a dark opening
+in the base of the hill to the east.
+
+> s
+You move south.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
+
+> e
+You move east.
+
+East Edge of Wood
+The trees are more widely spaced in this area of the woods letting in more
+sunlight.  The east-west path curves to go around a large oak.
+
+> e
+You move east.
+
+Cliff
+The forest ends abruptly at the top of a rocky cliff.  Wind howls up from
+depths of the cliff bottom nearly knocking you off your feet.
+
+> open umbrella
+As you start to open the umbrella the updraft catches it.
+{{HOLD ON}}
+
+You drift down to the base of the cliff.
+
+River's Edge
+You are at the base of a cliff on the eastern end of a narrow strip of land
+that follows a fast flowing river. The current along the shore looks
+particularly treacherous.  A rock juts out from the middle of the river. A
+sapphire lily is caught in one of the crags of the rock.
+
+> w
+You move west.
+
+River's Edge
+You are at the base of a cliff on the western end of a narrow strip of land
+that follows the path of a river. A hearty vine has take root in the
+crumbling wall of the cliff.
+
+> s
+You wade into the river and start swiming.
+
+In the River (close to shore)
+You are swiming close to shore in a wide river. The shore lies north. The
+river continues to the east and west although there are rapids to the west
+that I wouldn't recommend you take on.
+
+> s
+You move south.
+
+In the River (far from shore)
+You are swiming in the middle of the river. The shore lies to your north and
+the river continues to the east and west. Once again, I must point out that
+there are rapids to the west that I doubt you would survive.
+
+> e
+You move east.
+
+In the River (far from shore)
+You are swiming in the river far from shore. The current flows back to the
+west. The shoreline north of you is protected by a dangerous current. Between
+you and the shore a rock juts out of the water. A sapphire lily is caught in
+one of the crags of the rock.
+
+> get lily
+You take the sapphire lily.
+
+> w
+You move west.
+
+In the River (far from shore)
+You are swiming in the middle of the river. The shore lies to your north and
+the river continues to the east and west. Once again, I must point out that
+there are rapids to the west that I doubt you would survive.
+
+> n
+You move north.
+
+In the River (close to shore)
+You are swiming close to shore in a wide river. The shore lies north. The
+river continues to the east and west although there are rapids to the west
+that I wouldn't recommend you take on.
+
+> n
+You move north.
+
+River's Edge
+You are at the base of a cliff on the western end of a narrow strip of land
+that follows the path of a river. A hearty vine has take root in the
+crumbling wall of the cliff.
+
+> climb up
+You grab hold of the vines and climb up, barely pulling yourself over the
+cliff face. You stumble blindly through some underbrush until you find
+youself in a forest.
+
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is
+impenitrable to the south, but spaces between the trees allow you to continue
+along the east-west path. To the north the trees end suddenly.
+
+> w
+You move west.
+
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a
+proper forest further to the east.  Just west of here a wooden shack is
+nestled under one of the taller trees.
+
+> n
+You move north.
+
+Dirt Path
+From a break in the hedges to the north, the dirt path leads toward a grove
+of trees to the south. Just off the side of the path, nearly hidden by weeds,
+stands a small doghouse.
+
+> n
+You move north.
+
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard
+continues between the fence and the hedgerow to the north and east. You can
+see what looks like a small flower garden through the fence.
+
+> e
+You move east.
+
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall
+wrought-iron fence, to which the gate is attached, encloses the house in both
+directions, and a thick hedgerow behind you marks the boundary of the
+property. The lawn continues between the fence and the hedges to the east and
+west.  An open gate allows a short walk up a hill to a courtyard.
+
+> u
+You move up.
+
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its
+flagstone walkway is broken and uneven,  but at least the fountain is once
+again flowing invitingly.  The front gate is back down the hill. To the north
+you can see the front porch of the house. The walkway leads to the east and
+west.  Lying nearby you can also see a wrench.
+
+> n
+You move north.
+
+Front Porch
+The front porch runs across the entire length of the house. Next to the front
+door is a vandalized mailbox.   The front door stands open.
+
+> n
+You move north.
+
+Hallway
+This dimly lit hallway leads from the front porch to the interior of the
+house. The eerie silence of the house is broken by the irregular ticking of a
+grandfather clock sitting in one corner of the hallway.
+
+> n
+You move north.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> u
+You move up.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+
+> e
+You move east.
+
+Study
+The east end of the hallway leads to this room that must have once been used
+for reading and writing and studying.  All that remains now is a simple table
+on which an antique computer rests.   A small round window overlooks the shed
+in the northeast corner of the yard.
+
+> put disk in computer
+You insert the boot disk into the computer. The floppy drive wheezes and
+grinds for a few seconds then goes silent as smoke pours out.
+
+When the smoke clears you see a crystal disk sitting on top of the computer.
+
+> x computer
+This charred computer is, or more correctly was, nothing more than a machine
+for performing calculations automatically.  It has a small cracked screen and
+a single disk drive which has a boot disk melted inside.  A crystal disk is
+in plain view on the ancient computer.
+
+> get crystal disk
+You take a crystal disk from the ancient computer.
+
+> w
+You move west.
+
+Upstairs Hallway
+The staircase from downstairs ends at a short hallway with doorways to the
+north, east and west. A  fan hangs from the ceiling high over your head.
+
+> d
+You move down.
+
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand
+staircase, its bannister ending at a newel with a small statue on top,
+ascends up into the darkness.   Hallways lead south, east and north and a low
+opening is visible to the west.
+
+> n
+You move north.
+
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's
+attempts at art. The walls are lined with drawings and collages, none of
+which appeal to your taste. Arched doorways lead east and south and an
+opening in the wall where the window was allows a short walk down to the back
+yard.
+
+An oriental rug, littered with tiny pieces of marble, covers the center of
+the floor. Weighing down the oriental rug is a titanium pocket watch, an onxy
+carving, a silver necklace, a ruby crown, a diamond earring, an emerald egg,
+an opal vase and a bronze mug.  Lying nearby you can also see a pickaxe, a
+crowbar, the empty oilcan and a wooden pedestal.
+
+> put stamp on rug
+You put the rare stamp onto the oriental rug.
+
+> put dogbone on rug
+You put the ivory dogbone onto the oriental rug.
+
+> put clover on rug
+You put the jade clover onto the oriental rug.
+
+> put nugget on rug
+You put the platinum nugget onto the oriental rug.
+
+> put pearl on rug
+You put the black pearl onto the oriental rug.
+
+> put lily on rug
+You put the sapphire lily onto the oriental rug.
+
+> put ring on rug
+You put the gold ring onto the oriental rug.
+
+> put crystal disk on rug
+You put the crystal disk onto the oriental rug.
+The rug has collapsed under the weight of the treasures, revealing a stairway
+leading down.
+
+> d
+
+You head down into the brilliantly lighted passageway and arrive at a
+treasure trove. Not only are all the treasures you collected here, but the
+room is also filled from floor to ceiling with cold hard cash.
+
+Congratulations. You have completed The Will and inherited a fortune.
+
+You scored 155 out of the maximum 150.
+That is 103% of the game.
+You finished -5 points short.
+
+[Press any key to end]

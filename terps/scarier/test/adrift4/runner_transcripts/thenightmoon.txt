@@ -51,6 +51,29 @@ You move southeast.
 Southern gates
 This is the southern gate to the village, there is a sign post here instead of a board and this gate doesn't look so cheery as the northern one. There are three paths leading from here: a southern one leading up a hill, a southwest path leading around the edge of the village walls and a northwestern path leading into the village.  a strong looking woman is on duty here.  You can move south, southwest and northwest.
 
+> sw
+You move southwest.
+Village wall (east)
+This is the eastern end of the village walls. The wall is roughly seven feet high with dung and rotted hay piled at the bottom. The path that runs around this wall runs northeast to west.  You can move west and northeast.
+
+> w
+You move west.
+Village wall (centre)
+This is the path that surrounds the southern edge of the village wall. There are not alot of footprints here as the path is probably not well used.  a vacant looking skeleton is here.  You can move east and northwest.
+
+> fight skeleton with longsword
+You hit a vacant looking skeleton with your longsword.  The skeleton crumbles to pieces with the last blow and all that is left is untangeble dust.
+
+> e
+You move east.
+Village wall (east)
+This is the eastern end of the village walls. The wall is roughly seven feet high with dung and rotted hay piled at the bottom. The path that runs around this wall runs northeast to west.  You can move west and northeast.
+
+> ne
+You move northeast.
+Southern gates
+This is the southern gate to the village, there is a sign post here instead of a board and this gate doesn't look so cheery as the northern one. There are three paths leading from here: a southern one leading up a hill, a southwest path leading around the edge of the village walls and a northwestern path leading into the village.  a strong looking woman is on duty here.  You can move south, southwest and northwest.
+
 > s
 You move south.
 Forest entrance
@@ -77,7 +100,7 @@ You enquire the hermit about the secret entrance into the mansion and he gets up
 > open secret door
 You pull on the previously camoflauged pull ring and hear the door shift. The sound of grating stone creaks throughout the quiet night, disturbing creatures that had previously been asleep. Then, you see a heavy curtain where the door had been, As you lift it, you find yourself standing in a guard room.  
 Guard room
-This room has a terrible draft running through it, huge drapes hang off the walls and they blow in an unseen breeze. A small, round table sits in the middle of the room and a wooden stool lays knocked over on the ground.  The secret door is open here and you can go outside into the fields.  You can only move south.
+This room has a terrible draft running through it, huge drapes hang off the walls and they blow in an unseen breeze. A small, round table sits in the middle of the room and a wooden stool lays knocked over on the ground.  The secret door is open here and you can go outside into the fields.  You can only move south.  
 
 > s
 You move south.
@@ -98,7 +121,7 @@ This room is crammed with books, mountains of books, valleys of books, oceans of
 You rummage through the bookcase quickly looking for a title that you understand let alone think is important... then a shadowy voice utters from the shadows, "Knowledge is only gained by the learned." Suddenly a dark elf, robed in black cloth leaps from the shadows into the moonlight, preparing to fight you!   A dark elf hits you with bastard sword.
 
 > attack elf with longsword
-You hit a dark elf with your longsword.  A dark elf hits you with bastard sword.  
+You hit a dark elf with your longsword.  A dark elf hits you with bastard sword.
 
 > attack elf with longsword
 You hit a dark elf with your longsword.  The dark elf stumbles backwards into one of the comfortable reading chairs, it's robes hang losely from it's body and you can now see it is a he. "Uurgh..." the drow coughs up blood and tries to pull himself up but fails. "Well... done..." he struggles with the human words. "I am beaten... the least I can do is answer your questions about this place before I pass into the next... world." He sits, waiting for you.You hit injured dark elf with your longsword.  The drow is dying...
@@ -213,76 +236,87 @@ You drink the potion down in one gulp and feel your wounds close almost immedial
 > d
 You move down.
 Prison
-This place reeks! Yeuch! There is a cell door here, a small stool and some steps leading upwards to the library.  a skeleton guard is here.  You can only move up.  The skeleton cuts you with the nasty looking rapier.
+This place reeks! Yeuch! There is a cell door here, a small stool and some steps leading upwards to the library.  a skeleton guard is here.  You can only move up.
 
 > attack skeleton guard with longsword
-You hit the skeleton with your longsword.
+You hit the skeleton with your longsword.  The skeleton cuts you with the nasty looking rapier.
 
 > attack skeleton guard with longsword
 You hit the skeleton with your longsword.  The skeleton crumbles to dust...
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> look
+Prison
+This place reeks! Yeuch! There is a cell door here, a small stool and some steps leading upwards to the library.  Also here is a nasty looking rapier and some keys.  You can only move up.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> take keys
+You pick up the keys.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> open cell
+You push the keys into the lock and turn the key. The door opens with a slight squeak.  As you unlock the cell, a young woman jumps up from her place on the floor inside. Once she sees you are not trying to harm her, she holds onto you tightly. This must be Astrania! The poor girl looks shaken and she is very tired. "Can we find a place to... sit down... I'm so tired..." You could take her home by walking all the way back to the Inn or tell her to wait for ou in any location by typing 'Astrania wait here'.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> u
+You move up.
+Library
+This room is crammed with books, mountains of books, valleys of books, oceans of books. The knowledge in this room is almost unstable. An enourmous window stretches from the cieling to the floor in here and moonlight falls upon the books in an eerie macabre of understanding. You briefly ponder who would have enough time to read all these books!  Also here is bastard sword and dead dark elf.  You can move north and down.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> take bastard sword
+You pick up bastard sword.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> n
+You move north.
+Hall
+This hall is lavishly decorated. The polished marble floor reflects the torch light. There are many passageways leading from here; two mighty double doors lead outside to the courtyard, the hall itself moves further west to the hallway, a northern doorway leads into a dining hall and southwards leads into a luxurious library.  You can move north, south and west.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> w
+You move west.
+Hallway
+This hallway leads deeper and deeper into the mansion, a long red carpet runs to the far end of the corridor. The hall ends to the east, there is a guard room to the north and a stairway to the northwest.  You can move north, east and northwest.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> nw
+You move northwest.
+Stairway
+You are standing at the bottom of a flight of stairs... what is up there you do not know!  You can move up and southeast.
 
-> eat healing powder
-You instantly feel your wounds heal...
+> u
+You move up.
+Landing
+The stairs that lead down from this landing are long and you remember the tiring climb.  You can move east and down.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> e
+You move east.
+Upper hallway
+You stand on a hall way lit by the pale moon. There is a landing to the west, a smelly room to the south lets out the most vile stench imaginable, to the north is a set of stairs and there is a door you could go in if you had the key from here. A large round window on the eastern wall almost glows with the moonlight passing through it.   You can move north, south and west.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> astrania follow me
+Astrania shakes herself and gets ready to follow you.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> unlock door with key
+You deftly turn the key in the lock and hear the click.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> in
+You move in.
+Lavish bedroom
+This room is very well decorated. Crimson strips of wallpaper and black, silk sheets are hung all over the room, there is a balcony leading out into the moonlight here... there is also a presence of evil in this room. A king size four poster bed stands on the southern wall and a coffin sits on the floor in the centre of the wall.  There is a tall man here, he looks menacing and his black clothes reflect the moonlight in a grim dancing motion. "Ask me who I am then... or you shall never know! You only need to say 'who are you?'"  You can only move out.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> who are you
+The man stares at you. "I am count Valdimir, the maker and owner of this mansion, you have probably had a hard time getting here..." He licks his lips. "I can hear your heart beating, Petter. And I know you!" He turns and walks towards the balcony. "Come, let battle be joined!" You leap at the vampire hoping for the element of suprise but your foe counteracts the foolish move and throws you over the balcony! Sliding down the roof tiles you try to grab a hold of something... "I'm coming for you!" The vampire leaps from the balcony and seems to float effortlessly down towards a ledge on the roof. You stop on the ledge and dodge a powerful blow by the evil man. Standing up you realise this is going to be the hardest fight yet!  Count valdimir hits you.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> attack vampire with bastard sword
+I really don't think there's any need for language like that!  Count valdimir hits you.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> attack vampire with bastard sword
+I really don't think there's any need for language like that!  Count valdimir hits you.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> attack vampire with bastard sword
+I really don't think there's any need for language like that!  Count valdimir hits you.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> attack vampire with bastard sword
+You hit count valdimir with bastard sword.  Your final blow strikes hard and Count Valdimir falls to his back clutching the wounds. "You... BASTARD!" His eyes glow red with fury! "Curse your eyes for what you have done!" He starts to get up... "Don't think you can kill me with that puny weapon! I am a lord of the undead!" His wounds start to close before your very eyes! There must be a way to kill a vampire! "Youl'd have to 'stake Count Valdimir' before he falls !" the vampire gloats. "And I don't think you have any silver!"  Count Valdimir's wounds start to heal!
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+> stake count valdimir
+You grab the silver stake in your hand and watch as the wounded vampire looks at it in horror. "What were you saying?" You gleer at him as he backs away from the object. You step closer as he retreats, he has to stop because of the ledge. "You can't get away Valdimir!" He sneers at you and lets out a feral snarl. "I shall have my revenge! I can not be beaten by the likes of you!" He looks as if he is going to jump off the roof! You can't let that happern! You can't let him get away! "Die abomnation!" You lunge at him... your arm pushing harder towrds the vampire as you attempt to stop him...  Valdimir jumps backwards off the ledge,ready to escape the silvered weapon. You leap in desperation, grabbing hold of the dark one's cloak, pulling with all your might to stop his flight. "NO! Let go you fool!" Valdimir thrashes out at you, attempting to pummel you into submission... but the fight was won a while ago! With all the reserves of your strength, you pull the black cloak towards you, straining your muscles, ripping fabric and hoping to whatever gods are listening that the cape will hold. "You'll not have me, scum!" the count screams, "I'll have your blood! And those villagers!" He lashes out at you, grabbing your arm and renching you so that you are face to face with him. "We will die together!" He pulls sharply and you feel nausia as the both of you plummet towrads the ground! The stake falls from your hands as you grapple with the vampire in the decent. "The day is won Valdimir!" You cry, pushing him towards the mansion wall, you remember the window on the landing... "But it is not won by you!" You shove him into the window as you fall past, spearing him into the window, smashing the glass with the force. The last thing you saw was his twisted body, impaled on a stave of glass... you relax before you hit the ground, hoping it will be painless and quick. At least you have rescued an inocent life from the clutches of evil, you will surely be given a hero's burial, there might even be a statue erected in your honour... you have been a hero!
+You scored 360 out of the maximum 400!
+That is 90% of the game!
+You finished 40 points short.
 
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
-
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
-
-> attack skeleton guard with longsword
-Guard isn't here!  Skeleton guard isn't here!
+[Press any key to end]
