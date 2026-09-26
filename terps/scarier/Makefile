@@ -93,6 +93,10 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scarier.h scprotos.h scgamest.h
 
+# The library's topic fragments, #included by sclibrar.cpp.
+LIBINC	= $(wildcard sclibrar_*.inc)
+sclibrar.o: $(LIBINC)
+
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
 # the Glk port has somewhere to put a map, so these stay out of $(OBJECTS).

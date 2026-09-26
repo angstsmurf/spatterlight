@@ -980,7 +980,6 @@ extern scr_bool lib_cmd_sell_object (scr_gameref_t game);
 extern scr_bool lib_cmd_sell_other (scr_gameref_t game);
 extern scr_bool lib_cmd_sell_what (scr_gameref_t game);
 extern scr_bool lib_cmd_shake_object (scr_gameref_t game);
-extern scr_bool lib_cmd_shake_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_shake_other (scr_gameref_t game);
 extern scr_bool lib_cmd_shake_what (scr_gameref_t game);
 extern scr_bool lib_cmd_shout (scr_gameref_t game);

@@ -41,6 +41,8 @@ A5_RAND_OBJ := test/adrift5/harness/a5_randomness.o
 # All interpreter sources, plus the os-layer stubs the battle harness needs.
 # mapdraw.cpp is the engine-neutral map model/rasteriser scmap.cpp draws into.
 SRC  := $(wildcard sc*.cpp) mapdraw.cpp
+# sclibrar.cpp #includes these; they are dependencies, never compiled alone.
+LIBINC  := $(wildcard sclibrar_*.inc)
 STUBS   := sxstubs.cpp sxglob.cpp sxutils.cpp
 HARNESS := test/adrift4/harness/battle_test.cpp
 
@@ -357,19 +359,19 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 $(SAN_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 	$(CC) -O2 -w -I../cheapglk $(SAN_FLAGS) -c -o $@ $(COMMON)/randomness.c
 
-$(BIN): $(SRC) $(STUBS) $(HARNESS)
+$(BIN): $(SRC) $(LIBINC) $(STUBS) $(HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $@
 
-$(PREC_BIN): $(SRC) $(OS_STUBS) $(PREC_HARNESS)
+$(PREC_BIN): $(SRC) $(LIBINC) $(OS_STUBS) $(PREC_HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(PREC_HARNESS) $(LDLIBS) -o $@
 
-$(BADP_BIN): $(SRC) $(OS_STUBS) $(BADP_HARNESS)
+$(BADP_BIN): $(SRC) $(LIBINC) $(OS_STUBS) $(BADP_HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(BADP_HARNESS) $(LDLIBS) -o $@
 
-$(CORRUPT_BIN): $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS)
+$(CORRUPT_BIN): $(SRC) $(LIBINC) $(OS_STUBS) $(CORRUPT_HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS) $(LDLIBS) -o $@
 
-$(QUIT_BIN): $(SRC) $(OS_STUBS) $(QUIT_HARNESS)
+$(QUIT_BIN): $(SRC) $(LIBINC) $(OS_STUBS) $(QUIT_HARNESS)
 	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(QUIT_HARNESS) $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
@@ -418,7 +420,7 @@ $(A5MAP_BIN): $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5
 #   make -f Makefile.headless scmap
 #   ./test/adrift4/harness/scmap_dump path/to/game.taf [script.txt] -o map.ppm [-all] [-grid]
 scmap: $(SCMAP_BIN)
-$(SCMAP_BIN): $(SRC) $(OS_STUBS) $(SCMAP_HARNESS) scmap.h mapdraw.h
+$(SCMAP_BIN): $(SRC) $(LIBINC) $(OS_STUBS) $(SCMAP_HARNESS) scmap.h mapdraw.h
 	$(CXX) $(CXXFLAGS) $(SRC) $(OS_STUBS) $(SCMAP_HARNESS) $(LDLIBS) -o $@
 
 # Self-contained matcher regression test (no game data); part of `test`.
@@ -524,7 +526,7 @@ wherebless: $(CAP_BIN) $(WHERE_TAF)
 	  echo "blessed test/adrift4/harness/$${probe}_expected.txt"; \
 	done
 
-$(CAP_BIN): $(SRC) os_ansi.cpp test/adrift4/harness/seed.cpp
+$(CAP_BIN): $(SRC) $(LIBINC) os_ansi.cpp test/adrift4/harness/seed.cpp
 	$(CXX) $(CXXFLAGS) $(SRC) os_ansi.cpp \
 	    test/adrift4/harness/seed.cpp $(LDLIBS) -o $@
 
