@@ -3860,6 +3860,99 @@ static const scr_patch_edit_t PATCH_ILLEGAL_SOCKS[] = {
   PATCH_STRING ("NPCs/13/Name", "Dr. Myanus Hurts", "Dr Myanus Hurts")
 };
 
+/*
+ * Sandy's Lost Doll (Sandy).  Three "look in toilet" tasks run in sequence,
+ * counting the variable "mom" up as mother catches you at it, and the third
+ * ends the game.  The first two test "mom" properly (restriction Var1 = 2,
+ * variable 0), but the third tests Var1 = 0, which is not a variable at all:
+ * it is the number the player's command referred to.  Nothing in this game
+ * has a %number% in its pattern, so that value is 0 for ever, the third look
+ * is refused, and the game cannot be finished.  Var1 = 2 is what the other
+ * two tasks say the author meant.
+ */
+static const scr_patch_edit_t PATCH_SANDY[] = {
+  PATCH_VERIFY ("Tasks/8/Command/0", "look in toilet"),
+  PATCH_SET ("Tasks/8/Restrictions/0/Var1", 0, 2)
+};
+
+/*
+ * The Hangover (Red Conine).  The two tasks the endgame turns on carry a
+ * room list of type 0 -- "no rooms" -- so neither can run anywhere at all,
+ * while every other room-scoped task in the game names its one room.  Give
+ * them the rooms their own text describes: task 10 the Psycho Hospital
+ * Cafeteria (room 20), where the Doctor is, and task 14 the Form Process
+ * Office (room 14), where the game's own task 13 puts the Platypus.
+ *
+ * Two more tasks need a hand.  Task 8, "open the filing cabinet", scores its
+ * point and says the cabinet is open, but carries no action to open it, so
+ * the first approval form stays shut inside -- Mystery House's bug exactly.
+ * The added action opens it (stateful object 2).
+ *
+ * Task 10 needs one more thing.  Its text has the doctor hand over both his
+ * keys and "the second approval form", but its actions move only the keys,
+ * and task 14 wants all three forms.  The added action moves the second form
+ * (dynamic object 9) to the player, alongside the keys the task already
+ * gives, which is the difference between 6 of 7 points and the game's win.
+ */
+static const scr_patch_edit_t PATCH_HANGOVER[] = {
+  PATCH_VERIFY ("Tasks/8/Command/0", "open the filing cabinet"),
+  PATCH_ADD ("Tasks/8/Actions/1/Type", 2),
+  PATCH_ADD ("Tasks/8/Actions/1/Var1", 2),
+  PATCH_ADD ("Tasks/8/Actions/1/Var2", 0),
+  PATCH_VERIFY ("Tasks/10/Command/0", "give the doctor some french fries"),
+  PATCH_SET ("Tasks/10/Where/Type", 0, 1),
+  PATCH_ADD ("Tasks/10/Where/Room", 20),
+  PATCH_ADD ("Tasks/10/Actions/4/Type", 0),
+  PATCH_ADD ("Tasks/10/Actions/4/Var1", 12),
+  PATCH_ADD ("Tasks/10/Actions/4/Var2", 4),
+  PATCH_ADD ("Tasks/10/Actions/4/Var3", 0),
+  PATCH_VERIFY ("Tasks/14/Command/0", "give approval notes to platypus"),
+  PATCH_SET ("Tasks/14/Where/Type", 0, 1),
+  PATCH_ADD ("Tasks/14/Where/Room", 14)
+};
+
+/*
+ * HOUSE (Matthew Wiltshire).  The fire needs "put wood in fireplace", and
+ * task 459 is the task written for it, but no spelling can reach it: "place"
+ * is the game's own synonym for "put", so every spelling enters the library's
+ * put, which rebuilds the line in its canonical form -- "put the wood in the
+ * fireplace" -- before the task patterns see it, and the task's pattern has
+ * no slot for that "the".  The wood therefore goes into the fireplace as an
+ * ordinary container and the fire stays unlit ("You need some wood or coal to
+ * make a proper fire."), which costs the potion, the safe, the clock and the
+ * escape: 19 of 30 instead of the game's win.  The added {the} is the optional
+ * word the neighbouring slot already has, moved one noun to the left.
+ */
+static const scr_patch_edit_t PATCH_HOUSE[] = {
+  PATCH_STRING ("Tasks/459/Command/0",
+                "[put/place/drop] {some} [wood] {in/into/in to} {the}"
+                " [fireplace/fire place]",
+                "[put/place/drop] {some} {the} [wood] {in/into/in to} {the}"
+                " [fireplace/fire place]")
+};
+
+/*
+ * Blood Relatives (davidw).  Two of the game's thirteen points hang off the
+ * bronze key, which only task 391 ("open drawer") can produce, and task 391
+ * first wants task 385 done.  Task 385's pattern is "exam desk" -- but the
+ * game's own synonym table rewrites the player's "exam" (and "examine") to
+ * "x" before any task pattern is tried, and that rewrite is never applied to
+ * the patterns themselves, so the words stored here are words no player can
+ * type.  "x desk" is what the synonym leaves; task 385 is the only one of the
+ * game's dead "exam ..." patterns that gates a scoring task, so it is the
+ * only one this touches.
+ *
+ * The vault ending stays out of reach, and deliberately so: task 344, the
+ * door into it, tests "referenced number == 1", and no pattern in the game
+ * has a %number% for a player to fill in -- but nothing in the data says
+ * which variable the author meant instead, and guessing one would be a
+ * rewrite, not a correction.
+ */
+static const scr_patch_edit_t PATCH_BLOOD_RELATIVES[] = {
+  PATCH_VERIFY ("Tasks/391/Command/0", "open drawer"),
+  PATCH_STRING ("Tasks/385/Command/0", "exam desk", "x desk")
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -3884,7 +3977,19 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               PATCH_MYSTERY_HOUSE),
   PATCH_GAME ("Illeagal Socks", "Trace",
               "the villain's name is now one the parser can match",
-              PATCH_ILLEGAL_SOCKS)
+              PATCH_ILLEGAL_SOCKS),
+  PATCH_GAME ("Sandy's Lost Doll<cls>", "Sandy",
+              "the last look in the toilet now tests the right thing",
+              PATCH_SANDY),
+  PATCH_GAME ("The Hangover", "Red Conine",
+              "the doctor and the platypus now have rooms to be given things in",
+              PATCH_HANGOVER),
+  PATCH_GAME ("<center>HOUSE<center>", "Matthew Wiltshire",
+              "the fireplace task now matches the line the put parser writes",
+              PATCH_HOUSE),
+  PATCH_GAME ("<font size=1>Blood Relatives", "davidw",
+              "the desk task now uses the word the game's own synonym leaves",
+              PATCH_BLOOD_RELATIVES)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

@@ -325,8 +325,13 @@ scr_dump_structure_once (scr_gameref_t game)
     gk[0].string = "Globals";
     gk[1].string = "Perspective";
     if (prop_get (bundle, "I<-ss", &gv, gk)) perspective = gv.integer;
-    fprintf (stderr, "GAME version=%ld perspective=%ld\n",
-             version, perspective);
+    /* Name and author verbatim: the game-patch table in sctafpar.cpp matches
+       on this exact pair, so an entry is written by copying it from here. */
+    const scr_char *game_name = prop_get_global_string (bundle, "GameName");
+    const scr_char *game_author = prop_get_global_string (bundle, "GameAuthor");
+    fprintf (stderr, "GAME version=%ld perspective=%ld name=[%s] author=[%s]\n",
+             version, perspective,
+             game_name ? game_name : "", game_author ? game_author : "");
   }
 
   /* Variable table.  ACT type=3 names a variable by this index directly;

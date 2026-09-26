@@ -1,0 +1,16 @@
+open coffin
+x petunia
+x henry's painting
+u
+s
+s
+x desk
+open drawer
+get bronze key
+n
+n
+d
+open door
+u
+n
+tidy room
