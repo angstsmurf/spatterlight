@@ -65,6 +65,7 @@ examine painting
 examine statue
 pull thread
 press button
+take book
 examine statue
 stand on leg to stand on
 inventory

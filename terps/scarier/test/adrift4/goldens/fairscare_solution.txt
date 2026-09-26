@@ -15,6 +15,7 @@ w
 look at table
 take candle
 w
+open cabinet
 7
 13
 24
@@ -55,6 +56,7 @@ w
 take bacon
 in
 give bacon to owl
+open cage
 in
 open clock
 sword

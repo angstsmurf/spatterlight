@@ -8,6 +8,7 @@ hide in fridge
 n
 pick up windex
 w
+take phone
 take soap
 use windex on killer
 use screwdriver on killer

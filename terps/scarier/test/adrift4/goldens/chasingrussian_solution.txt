@@ -6,7 +6,7 @@ look under drawer
 read card
 open door
 n
-x mailbox
+x mail box
 get envelope
 s
 open envelope
@@ -21,11 +21,14 @@ open safe
 shred orders
 shred envelope
 w
+close closet
+lock closet
 n
 w
 s
 knock door
 1
+eat cookie
 5
 n
 e
@@ -40,15 +43,19 @@ open gate
 e
 pick lock
 open door
-s
-give cookie to dog
-s
-look under rug
-unlock door
-open door
+open metal gate
 e
-u
+open garage door
+n
+get ladder
+s
 w
+use ladder
+climb ladder
+open window
+go through window
+close window
+s
 type anna
 1
 1
@@ -66,18 +73,24 @@ b
 3
 e
 d
+unlock door
+open door
 w
 close door
 lock door
-drop key
 n
+give cookie to dog
 n
 close door
 lock door
-w
-s
+get ladder
 e
+n
+drop ladder
 s
+close garage door
+s
+sw
 w
 push button
 s

@@ -108,6 +108,9 @@ You move west.
 Kitchen
 You smell something nasty cooking in a big cooking pot, near the cabinet.
 
+> open cabinet
+You can not open the cabinet. It is held shut by the lock.
+
 > 7
 You turn the dial on the lock clockwise to 7.
 
@@ -296,6 +299,12 @@ back and forth in front of the opening.
 > give bacon to owl
 The owl takes the bacon and flies off with it.
 
+> open cage
+You open the cage.  The wolf chases after the bacon the owl is holding. The
+owl flies high into the air to keep away from the wolf. The dumb wolf keeps
+trying to jump in the air to get it. But the wolf can't jump that high. Now
+it looks like the owl is no longer guarding the opening in the wall.
+
 > in
 You move in.
 
@@ -344,8 +353,8 @@ Now you can live in relaxation.
 
  (The password to edit this game in the Adrift Generator is "boss".)
 
-You scored 18 out of the maximum 20!
-That is 90% of the game!
-You finished 2 points short.
+You scored 20 out of the maximum 20!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

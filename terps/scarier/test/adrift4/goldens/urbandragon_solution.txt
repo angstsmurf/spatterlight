@@ -14,6 +14,7 @@ e
 s
 give bottle to gus
 ask gus about baxter
+open dumpster
 n
 e
 n

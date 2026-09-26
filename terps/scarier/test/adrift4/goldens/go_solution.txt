@@ -9,6 +9,7 @@ get plastic object
 open door
 w
 u
+read small door
 push plastic object in panel
 open wardrobe
 get shovel

@@ -13,6 +13,7 @@ wear shield
 kick bookcase
 in
 get metal object
+pull protrusion
 out
 s
 e
@@ -27,6 +28,14 @@ kill strange person with sword
 kill strange person with sword
 look
 get paper
+s
+give paper to guard
+bash handcuffs
+nw
+e
+pull brick
+w
+s
 s
 give cigarette and paper to guard
 w

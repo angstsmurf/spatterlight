@@ -1,0 +1,12 @@
+feed        87 commands
+runner      87 turns echoed
+scarier     87 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 13  examine shelves
+  run400   The shelves hold several contraptions that you have invented. Some didn't work as well as you had hoped for. On the shelves is a leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable doorknob and a pollen popper upper.
+  scarier  The shelves hold several contraptions that you have invented. Some didn't work as well as you had hoped for. On the shelves are a leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable doorknob and a pollen popper upper.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

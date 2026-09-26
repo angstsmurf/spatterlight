@@ -63,11 +63,12 @@ south.  The street in front of your office goes east and west.  The traffic
 looks heavy today so you probably shouldn't cross the street here.  Also here
 is a mail box.
 
-> x mailbox
-You see no such thing.
+> x mail box
+The metal mail box is attached to the wall next to the door to your office.
+A envelope is inside the mail box.
 
 > get envelope
-Take what?
+You take the envelope from the mail box.
 
 > s
 You move south.
@@ -82,7 +83,8 @@ Your office has a closet to the east.  The door to go outside is to the
 North.  Also here is a small card.
 
 > open envelope
-You don't have an envelope
+You open the envelope. Inside are your orders.  You take the orders from the
+envelope.
 
 > unlock closet
 You unlock the closet with the silver key.
@@ -102,10 +104,24 @@ machine, a paper shredder, a coil of rope, a black backpack and lock picks.
 You take lock picks.
 
 > decode orders
-You don't have any orders to decipher
+The message has been decoded
 
 > read orders
-You don't have the orders
+These must be the orders for your next assignment.
+
+Russian spy Dr. Martin Stoyonov has just moved in to a house down the street
+from your office.  He bought the house at #23 Elm Street.
+
+Dr. Stoyonov has stolen the plans to a new space based laser weapon. We
+cannot allow those plans to get to our enemies.
+
+Your Orders: Get into his house and find those plans.  When you have them
+return to your office and call me.  I'll have somebody pick them up.
+
+Don't let yourself be discovered.  Mr. Stoyonov must not know that you've
+been to his house.
+
+Signed: Captain Trotter
 
 > open safe
 You must enter the proper code on the number pad. What is the code?
@@ -114,7 +130,8 @@ You must enter the proper code on the number pad. What is the code?
 The safe is open.
 
 > shred orders
-I don't think I remember seeing that in the CIA handbook.
+The shredder grabs your orders and pulls them into the blades.  A grinding
+noise starts as the paper is cut, ground up and pulverized into dust.
 
 > shred envelope
 The shredder grabs the envelope and pulls them into the blades.  A grinding
@@ -136,6 +153,13 @@ flyers.  A window allows sunlight in from the south.
 
 Your office has a closet to the east.  The door to go outside is to the
 North.  Also here is a small card.
+
+> close closet
+You close the closet.
+
+> lock closet
+You close and lock the closet door.  That should keep prying eyes away from
+your secrets.
 
 > n
 You move north.
@@ -196,6 +220,9 @@ Mrs. Beazley gives you the cookie.
 roses look today.
 4 ] Where would #23 Elm be.  Would you know?
 5 ] Well, Have a nice day Mrs. Beazley.  I must be going now.
+
+> eat cookie
+Mmm.  That's really good.
 
 > 5
 Well you take care dear.  It's so nice of you to come visit me like that.
@@ -277,6 +304,8 @@ flowers on the porch.  There is, however, a wooden porch swing.
 
 Steps to your left lead to a path.  Steps to your right lead to the driveway.
 
+Yep, this is Dr. Stoyonov's house.  #23 Elm Street
+
 > w
 You move west.
 
@@ -315,59 +344,72 @@ house.  It only takes you a minute to open the lock.
 > open door
 You open back door.
 
-> s
-Kitchen
-Dr. Stoyonov's kitchen looks like a professional chef's kitchen.  All the
-appliances are stainless steel and the countertops are a deep green marble.
-The terracotta tile floor add a southwestern flair to the room.
-
-The door to the backyard is to the north and an opening to the front room is
-to the south.
-  A big scary dog is here and he's barking and snarling at you.  He looks
-like he wants to tear your arms off.
-
-> give cookie to dog
-The dog sniffs at the cookie for a bit and then takes a bite.  He likes it.
-It only takes a few seconds for him to woof down the cookie, but now he
-thinks you're a friend so he stops growling and curls up in the corner of the
-room.
-
-> s
-Library
-The library has some bookcases in it, but there aren't very many books.  Dr.
-Stoyonov must have just moved in.
-
-An overstuffed chair with a side table sits in the corner.  A fireplace is
-built into the west wall.  To the east, where a stairwell would logically be,
-is an ornate carved wooden door.
-
-> look under rug
-You lift the corner of the Persian rug to see if there's anything underneath.
- You can see some dust, a couple of peanut shells, and a black key.
-
-You take the key.
-
-> unlock door
-You unlock ornate door with black key.
-
-> open door
-You open ornate door.
+> open metal gate
+You open metal gate.
 
 > e
 You move east.
 
-Lower stairwell
-You are in the lower part of the stairwell that leads up to the 2nd floor.
-An Ornate door is to the west.
+North end of the driveway
+The driveway continues behind the house.  A metal gate to the west leads to
+the back yard.  The garage is to the north.
 
-> u
-You move up.
+> open garage door
+You open the garage door.
 
-Upper stairwell
-The stairwell leads down to the first floor.  The office is to the west.
+> n
+Garage
+Dr. Stoyonov's garage.  It's a bit messy, but then again, so is your garage.
+Also here are old paint cans, a push broom, a rake, garbage cans, a wooden
+ladder and an old car engine.
+
+> get ladder
+You take the ladder.
+
+> s
+You move south.
+
+North end of the driveway
+The driveway continues behind the house.  A metal gate to the west leads to
+the back yard.  The garage is to the north.
 
 > w
 You move west.
+
+Dr. Stoyonov's Backyard
+Dr. Stoyonov's back yard doesn't look any different from  your typical
+non-Russian-Spy's backyard.  The lawn is nicely mowed.  A large oak tree
+shades the backyard.  The oak tree is encircled by a metal bench and a ring
+of flowers is planted underneath the bench.
+
+A wooden gate to the path is to the west. A metal gate to the driveway is to
+the east.  The backdoor of the house is to the south and a 2nd story window
+is above the door.
+
+> use ladder
+You lean the ladder against the back of Dr. Stoyonov's house directly under
+the upstairs window.
+
+> climb ladder
+You climb the ladder to the upstairs window.
+
+> open window
+You opened the upstairs window.
+
+> go through window
+You crawl through the upstairs window.  You're In!
+
+Upstairs bedroom
+The upstairs master bedroom.  The bed is luxurious (Dr. Stoyonov must be
+making some serious money stealing plans).  There is an overstuffed chair in
+the corner with a small table next to it.   The master bathroom is to the
+east.  There is a door to the south. There is a large window to the north.
+
+> close window
+You've closed the bedroom window.
+
+> s
+You move south.
 
 Dr. Stoyonov's Office
 This appears to be Dr. Stoyonov's office.  He has several bookcases in the
@@ -533,6 +575,15 @@ Lower stairwell
 You are in the lower part of the stairwell that leads up to the 2nd floor.
 An Ornate door is to the west.
 
+> unlock door
+From this side of the door you can simply turn the handle on the deadbolt and
+unlock the door.
+
+The door is unlocked.
+
+> open door
+You open ornate door.
+
 > w
 You move west.
 
@@ -551,9 +602,6 @@ You close ornate door.
 Not wanting anyone to know that you were in the house, you use the lock picks
 to lock the ornate door.  The Ghost always covers his tracks.
 
-> drop key
-You lift the Persian carpet and put the black key back where you found it.
-
 > n
 You move north.
 
@@ -564,8 +612,14 @@ The terracotta tile floor add a southwestern flair to the room.
 
 The door to the backyard is to the north and an opening to the front room is
 to the south.
-  The big dog is curled up in the corner of the kitchen.  He's not growling
-but he's watching you carefully.
+  A big scary dog is here and he's barking and snarling at you.  He looks
+like he wants to tear your arms off.
+
+> give cookie to dog
+The dog sniffs at the cookie for a bit and then takes a bite.  He likes it.
+It only takes a few seconds for him to woof down the cookie, but now he
+thinks you're a friend so he stops growling and curls up in the corner of the
+room.
 
 > n
 Dr. Stoyonov's Backyard
@@ -585,36 +639,45 @@ You close back door.
 Not wanting anyone to know that you were in the house, you use the lock picks
 to lock the door.  The Ghost always covers his tracks.
 
-> w
-You move west.
-
-North end of path
-The path continues around the house.  The path to the front porch is to the
-south. The backyard of the house is through a gate to the east.
-
-> s
-You move south.
-
-Path around house
-A garden path leads around the west side of the house to the back yard.
-There are a few pots of flowers along the path.  You pass by a couple of
-windows on the side of the house
+> get ladder
+You are already carrying the wooden ladder.
 
 > e
 You move east.
 
-#23 Elm Street.  Front Porch
-The front porch of this old Victorian house is painted white and has 2 wooden
-columns painted a pale blue.  The front door is painted pale blue to match
-the columns.  On either side of the door is a window.
+North end of the driveway
+The driveway continues behind the house.  A metal gate to the west leads to
+the back yard.  The garage is to the north.
 
-Unlike most of the other houses on this street there are no potted plants or
-flowers on the porch.  There is, however, a wooden porch swing.
+> n
+Garage
+Dr. Stoyonov's garage.  It's a bit messy, but then again, so is your garage.
+Also here are old paint cans, a push broom, a rake, garbage cans and an old
+car engine.
 
-Steps to your left lead to a path.  Steps to your right lead to the driveway.
+> drop ladder
+You put the wooden ladder back where you found it in the garage.
 
 > s
 You move south.
+
+North end of the driveway
+The driveway continues behind the house.  A metal gate to the west leads to
+the back yard.  The garage is to the north.
+
+> close garage door
+You close the garage door.
+
+> s
+You move south.
+
+Driveway
+The gravel driveway leads north to the back of the house.  It curves to the
+southwest to get to the street.   There are some windows on this side of the
+house.
+
+> sw
+You move southwest.
 
 North side of Elm Street, Far east end
 You're at the eastern limit of town.  Beyond here the road just goes into the
@@ -725,8 +788,8 @@ DuoDave
 
 Thanks Guys
 
-You scored 67 out of the maximum 102!
-That is 65% of the game!
-You finished 35 points short.
+You scored 102 out of the maximum 102!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

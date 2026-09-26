@@ -1,16 +1,16 @@
-feed        57 commands
-runner      57 turns echoed
-scarier     58 turns, feed[0] is scarier turn 1
+feed        66 commands
+runner      66 turns echoed
+scarier     67 turns, feed[0] is scarier turn 1
 
 RULE 2 -- every feed command was echoed.
 
-turn 17  s
+turn 4  get message
+  run400   You take A message.
+  scarier  You take the message.
+
+turn 18  s
   run400   You move south. Fighting room blah Strange person is here. You can move north and south. You manage to avoid a stranger's attack.
   scarier  You move south. Fighting room blah Strange person is here. You can move north and south. A stranger hits you.
-
-turn 18  kill strange person with sword
-  run400   a stranger manages to avoid your attack with the large, sharp sword. You manage to avoid a stranger's attack.
-  scarier  You cut a stranger with the large, sharp sword. A stranger hits you.
 
 turn 19  kill strange person with sword
   run400   a stranger manages to avoid your attack with the large, sharp sword. You manage to avoid a stranger's attack.
@@ -34,15 +34,15 @@ turn 23  kill strange person with sword
 
 turn 24  kill strange person with sword
   run400   a stranger manages to avoid your attack with the large, sharp sword. You manage to avoid a stranger's attack.
-  scarier  You cut a stranger with the large, sharp sword.
+  scarier  You cut a stranger with the large, sharp sword. A stranger hits you.
 
 turn 25  kill strange person with sword
   run400   a stranger manages to avoid your attack with the large, sharp sword. You manage to avoid a stranger's attack.
-  scarier  Strange person isn't here!
+  scarier  You cut a stranger with the large, sharp sword.
 
-turn 26  look
-  run400   Fighting room blah Strange person is here. You can move north and south. You manage to avoid a stranger's attack.
-  scarier  Fighting room blah Also here is a piece of paper. You can move north and south.
+turn 26  kill strange person with sword
+  run400   a stranger manages to avoid your attack with the large, sharp sword. You manage to avoid a stranger's attack.
+  scarier  Strange person isn't here!
 
 ... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the

@@ -447,6 +447,18 @@ the bottom corner of the canvas.
 > press button
 You press the button and hear a noise behind you.
 
+> take book
+You try to take the book from the shelf, but it appears to be stuck. Just
+then a bookmark falls from the book.  You pick it up and read it.
+
+A door without a knob isn't a door at all. Is it really just a wall? What I
+refer is not a wall, but I fear it will fall.
+
+W. Clangor
+
+Just as you are finished reading the bookmark, it seems to crumble into dust.
+ Within a fraction of a second, there is no trace left of the old paper.
+
 > examine statue
 There are a couple of statues on the library shelves.  One looks to be a
 miniature replica of the town's founder, that is located just outside the
@@ -583,7 +595,7 @@ your seat on the IOCC board was given to Burton, who also had an entry.  Too
 bad you'll never what it was.
 
 Better luck next time.
-You scored 151 out of the maximum 229!
-That is 65% of the game!
+You scored 154 out of the maximum 229!
+That is 67% of the game!
 
 [Press any key to end]

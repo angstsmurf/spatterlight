@@ -33,11 +33,11 @@ apokalupsis	apokalupsis.txt	driven:Adrift_449_apokalupsis_rt.txt	4.00	run400x.ex
 aquarius1	aquarius1.txt	driven:Adrift_284_aquarius1_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 aquarius2	aquarius2.txt	driven:Adrift_285_aquarius2_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 archie	archie.txt	harvested-native-0-draws:Adrift_494_archie.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-argh	argh.txt	driven:Adrift_197_argh_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+argh	argh.txt	driven:Adrift_305_argh_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 asdfa	asdfa.txt	driven:Adrift_240_asdfa_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 asteroidafter	asteroidafter.txt	driven:Adrift_379_asteroidafter_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 asylum	asylum.txt	harvested-native-0-draws:Adrift_712_asylum.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
-athylon	athylon.txt	driven:Adrift_320_athylon_rt.txt	4.00	run400x.exe	1234	0	Petter	SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+athylon	athylon.txt	driven:Adrift_304_athylon_rt.txt	4.00	run400x.exe	1234	0	Petter	SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
 average	average.txt	driven:Adrift_353_average_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 backhome	backhome.txt	harvested-xoshiro:Adrift_135_backhome_x.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 bandera	bandera.txt	driven:Adrift_513_bandera_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -79,7 +79,7 @@ cbn2	cbn2.txt	driven:Adrift_238_cbn2_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WA
 cell	cell.txt	driven:Adrift_341_cell_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cellar	cellar.txt	driven:Adrift_316_cellar_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cellpart1	cellpart1.txt	driven:Adrift_348_cellpart1_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-chasingrussian	chasingrussian.txt	driven:Adrift_308_chasingrussian_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+chasingrussian	chasingrussian.txt	driven:Adrift_304_chasingrussian_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 chicago	chicago.txt	driven:Adrift_282_chicago_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 chicken	chicken.txt	driven:Adrift_231_chicken_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 choosethreehour	choosethreehour.txt	driven:Adrift_423_choosethreehour_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -394,7 +394,7 @@ princess_in_the_tower	princess_in_the_tower.txt	driven:Adrift_133_princess_in_th
 private_eye	private_eye.txt	driven:Adrift_283_private_eye_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 proba	proba.txt	driven:Adrift_284_proba_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 professional	professional.txt	driven:Adrift_307_professional_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-professor	professor.txt	driven:Adrift_359_professor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+professor	professor.txt	driven:Adrift_306_professor_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
 prostitute	prostitute.txt	driven:Adrift_285_prostitute_rt.txt	4.00	run400x.exe	1234	0	Steve	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 provenance	provenance.txt	driven:Adrift_358_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ptbad	ptbad.txt	driven:Adrift_247_ptbad_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -475,7 +475,7 @@ sophie	sophie.txt	driven:Adrift_225_sophie_rt.txt	4.00	run400x.exe	1234	0		SCR_S
 sophie_comp	sophie_comp.txt	driven:Adrift_226_sophie_comp_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 sororityHouse	sororityHouse.txt	driven:Adrift_282_sororityHouse_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 space_boy	space_boy.txt	driven:Adrift_172_space_boy_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-spacerun	spacerun.txt	driven:Adrift_321_spacerun_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_ASSUME_COMBAT=1 SCR_ASSUME_ROOMS=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+spacerun	spacerun.txt	driven:Adrift_304_spacerun_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_ASSUME_COMBAT=1 SCR_ASSUME_ROOMS=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
 spam	spam.txt	driven:Adrift_198_spam_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 spirits_flight	spirits_flight.txt	driven:Adrift_184_spirits_flight_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 spooked	spooked.txt	driven:Adrift_416_spooked_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

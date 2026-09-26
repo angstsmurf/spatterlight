@@ -7,12 +7,16 @@ w
 d
 pull lever
 get cube
+look at cube
 w
 w
 get crystal
 e
 e
 n
+w
+get flower
+e
 n
 d
 n
@@ -26,7 +30,7 @@ n
 e
 n
 w
-get flower
+give flower to lady
 e
 u
 u

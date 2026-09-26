@@ -266,6 +266,8 @@ put thyme in kettle
 # no alias -- so 4.0's put/drop list parser rewrites the line to "put web "
 # and the catch-all speaks for the kettle instead.  Kept as coverage.
 put web in kettle
+# ...so the cobweb goes in by its own name.
+put cobweb in kettle
 put honey in kettle
 reveal thy secret
 use pipette on kettle

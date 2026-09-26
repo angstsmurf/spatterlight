@@ -1,14 +1,15 @@
 in
 make pitstop
 out
+take cell phone
+take twix bar
+eat candy
 out
-get bat
-get bat
+take baseball bat
 in
 d
 open entertainment center
-get note
-get note
+turn on stereo
 tear up note
 out
 ask shannon to elaborate
@@ -25,6 +26,7 @@ e
 e
 in
 hit slick with bat
+tie up slick
 call cops
 get tv
 out
@@ -33,5 +35,3 @@ in
 place tv on shelf
 turn on tv
 embrace emily
-quit
-y

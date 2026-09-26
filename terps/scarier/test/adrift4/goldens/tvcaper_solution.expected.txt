@@ -41,6 +41,15 @@ photo of an incredibly hot, sexy girl. Looking at it reminds you of last
 weekend and you smile slowly, thinking of all the fun you'll have once Emily
 gets off work...  You can move down, in and out.
 
+> take cell phone
+You take Nokia cell phone from small nightstand.
+
+> take twix bar
+You take the Twix bar from small nightstand.
+
+> eat candy
+You eat the twix bar, revelling in the cafeine rush that follows.
+
 > out
 You move out.
 
@@ -48,11 +57,8 @@ Hall Closet
 This walk-in closet could hold quite a lot more than it currently contains.
 Also here is a Baseball Bat.  You can only move in.
 
-> get bat
-Take what?
-
-> get bat
-Take what?
+> take baseball bat
+You take the Baseball Bat.
 
 > in
 You move in.
@@ -80,11 +86,9 @@ heard down here a while ago wasn't your imagination. You realize also that it
 was probably connected with the disappearance of your TV! Rage flows through
 you and you decide it's time to get nasty.
 
-> get note
-Take what?
-
-> get note
-Take what?
+> turn on stereo
+You switch on your stereo and, to your great delight, pounding rock music
+bursts from the exceptional speakers.
 
 > tear up note
 With a surge of contempt you tear up Slick's note. You decide right then and
@@ -200,10 +204,21 @@ the center of the large space. Slik stands guard over it.  Slick is here.
 You can only move out.
 
 > hit slick with bat
-You need a bat first.
+Calling upon your long-dormant skills, you deliver a well-placed blow to
+Slick's midsection with your trusty bat. The burly youth topples over and
+clutches at his stomach. He regards you with a look of mingled hate and fury,
+then collapses to the ground, gasping for breath.
+
+> tie up slick
+Using some rope you find among the stolen property, you carefully bind
+Slick's wrists and ankles. He glares up at you as you work, but he's still
+too incapacitated to offer any real resistance.
 
 > call cops
-Shouldn't you make sure he doesn't get away first?
+You pull out your cell phone and quickly call 911. You explain that you have
+Slick in your custody at his wherehouse. You supply the address, disconnect
+the call and wait with the still incapacitated Slick for the cops to arrive.
+When at last they do, they haul the burly youth off the property.
 
 > get tv
 You take Bigscreen TV.
@@ -249,8 +264,8 @@ switch on the TV.
 You take your girlfriend in your arms and move to the couch. With your TV
 firmly in its proper place, you can now enjoy the rest of the night...
 Rockin' man!
-You scored 714 out of the maximum 839!
-That is 85% of the game!
-You finished 125 points short.
+You scored 839 out of the maximum 839!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

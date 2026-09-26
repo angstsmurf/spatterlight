@@ -1,15 +1,24 @@
-# ARGH's Great Escape (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 98/125.
-# 98 is the reachable maximum, not 125: the game has five +25 ChangeScore
+# ARGH's Great Escape (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 100/125.
+# 100 is the reachable maximum, not 125: the game has five +25 ChangeScore
 # actions but two of them (tasks 9 and 10) are alternative `south/escape`
-# endings, so at most four can ever fire -- and starting the beaver event
-# costs a mandatory -2 (task 0 "#Hit bars" is the event's startTask).
+# endings, so at most four can ever fire.  Task 9 (the nurse-disguise exit)
+# needs the beaver still worn, and task 6 (feed him the medicine, +25) sends
+# him off through the bars, so 9 and 6 exclude each other; task 10 needs
+# task 6 done.  Hitting the bars (task 0, -2) is NOT needed: it never
+# started anything -- the beaver event is StarterType 2 (random delay,
+# StartTime=EndTime=6) and runs off the clock alone.  The old route fed the
+# drumstick on turn 3, before the beaver had even fallen (task 3 has no
+# beaver-present restriction); here two `z` (WaitTurns=3 each) let him drop
+# in during the second wait and he is fed in front of us.  Never type
+# `south` in the infirmary before feeding the medicine (task 11, -2 and a
+# knock-out).
 #   +25 feed the drumstick to the beaver   (task 3)
-#   +25 wear the beaver                    (task 8)
+#   +25 wear the beaver                    (task 8, scores once)
 #   +25 feed the medicine to the beaver    (task 6)
 #   +25 escape south                       (task 10)
-#    -2 hit the bars                       (task 0)
 take drumstick
-hit bars with drumstick
+z
+z
 feed beaver the drumstick
 take beaver
 x rock table

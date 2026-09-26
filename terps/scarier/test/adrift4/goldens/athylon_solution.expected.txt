@@ -78,6 +78,10 @@ out.
 > get metal object
 you take the a strange, twisted metal object
 
+> pull protrusion
+You pull the protrusion on the metal object and a thing rockets off,
+producing a large bang and a lot smoke!
+
 > out
 You move out.
 
@@ -136,6 +140,54 @@ blah  Also here is a piece of paper.  You can move north and south.
 
 > get paper
 You take the piece of paper.
+
+> s
+You move south.
+
+Guarded gate
+The corridor ends with a large gate, guarded by a large and hulking armoured
+monstrosity.  Guard is here.  You can only move north.
+
+> give paper to guard
+You give the guard the paper, he looks at it, then you... he realises who you
+are! He drags you off into a prison cell.
+
+> bash handcuffs
+You bash the handcuffs together and some sparks drop on to the chair,
+creating a small fire. somewhere an alarm rings and the door swings open, ya
+gonna have to be fast!
+
+> nw
+You move northwest.
+
+Passage
+This is a dank passage, hot because of the flames. The wall is lined with
+bricks.  The fire is getting bigger.  You can move east, south and southeast.
+
+> e
+You move east.
+
+Passage
+This is a dank passage, hot because of the flames. The wall is lined with
+bricks.  The fire is getting bigger.  You can move north, west and northeast.
+
+> pull brick
+You tug the brick and a section of wall falls away, you fall through, gasping
+for air because of the fumes... When you look back up the wall is back in
+place.
+
+> w
+You move west.
+
+Crossing
+This room is dank and you here a shuffling somewhere.  Also here is an
+unconcious beggar.  You can move north, east, south and west.
+
+> s
+You move south.
+
+Fighting room
+blah  You can move north and south.
 
 > s
 You move south.
@@ -225,9 +277,8 @@ south and west.
 You move north.
 
 Fields
-Field...zzzzzzzzzzzzzz fields are pretty boring!  You can move north, east,
-south, west and northeast.  Beast bounds towards you, slavering like mad.  A
-foul beast hits you, but it doesn't seem to do any damage.
+Field...zzzzzzzzzzzzzz fields are pretty boring!  A beast is here.  You can
+move north, east, south, west and northeast.  Beast bounds off.
 
 > n
 You move north.
@@ -318,8 +369,8 @@ of the game in this version as this is named "the *tunnels* of Athylon"
 therefore you are not allowed to actually enter the town of Athylon, so see
 ya in the next game! Well done! [press any key]  You can only move east.
 
-You scored 17 out of the maximum 25!
-That is 68% of the game!
-You finished 8 points short.
+You scored 25 out of the maximum 25!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

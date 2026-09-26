@@ -9017,12 +9017,14 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # the {the} slot the library's canonical rebuild needs, so `put wood in
 # fireplace` reaches the task the author wrote for it, the newspaper catches,
 # and the kettle boils -- the puzzle the faithful row above proves is dead.
-# This row is NOT a win, and the patch is not what stops it: the route is
-# killed by the giant wasp a dozen turns later, exactly as the faithful row
-# is, and re-deriving the 284-command route around the wasp is a walkthrough
-# job, not a data one.  The marker is the fire, which is all this patch
-# claims.
-house_patched_solution.txt|House.taf|In no time at all you have a decent fire going.|SCR_SEED=1 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
+# From there the old 30/30 route wins again, with one added line: `put cobweb
+# in kettle` (the `web` line before it names nothing, see the solution).
+# Seed 2, not 1: once the armour chases Damien out (task 666) event 66 sends
+# a random monster at the house every 20-25 turns until the safe-house check,
+# and at seed 1 the pick is the giant wasp, which follows the lit match
+# upstairs and stings Cathy in the master bedroom (death, 19/30).  Seeds 1-40:
+# 34 win at 30/30; 1, 12, 19, 20, 24 and 39 lose to a monster.
+house_patched_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
 # title "Lights, Camera, Action!"). The film has to be shot on four sets in

@@ -358,6 +358,29 @@ here. Four doors lead out of here: one to the north reading 'Stairs to Sector
 B', the southern one has no label, the western one says 'Shower Room' and the
 eastern room is labeled 'Customs'.   You can move east, south and west.
 
+> push button
+You press the button and wait for the reaction. Then the door that lead to
+the stairs clicks open.
+
+> n
+You move north.
+
+Stairs
+These stairs look like they have been hit by a bomb! There is rubble and
+shrapnel everywhere!  A purple alien is here.  You can only move south.  Adam
+shoots the purple alien with the lazer rifle.  The creature flies backwards
+from the fatal blow before crashing into the nearby wall.
+
+> s
+You move south.
+
+Alien search recieving room
+This room is like a receptionists room. There is a desk and a wall panel
+here. Four doors lead out of here: one to the north reading 'Stairs to Sector
+B', the southern one has no label, the western one says 'Shower Room' and the
+eastern room is labeled 'Customs'.   You can move north, east, south and
+west.
+
 > w
 You move west.
 
@@ -394,15 +417,31 @@ Alien search recieving room
 This room is like a receptionists room. There is a desk and a wall panel
 here. Four doors lead out of here: one to the north reading 'Stairs to Sector
 B', the southern one has no label, the western one says 'Shower Room' and the
-eastern room is labeled 'Customs'.   You can move east, south and west.
+eastern room is labeled 'Customs'.   You can move north, east, south and
+west.
+
+> pull lever
+You yank the lever and wait... suddenly you hear the splashing of water in
+the shower room. You procede into it and let the showers cleanse your uniform
+of alien impurities.
+
+> w
+You move west.
+
+Alien search recieving room
+This room is like a receptionists room. There is a desk and a wall panel
+here. Four doors lead out of here: one to the north reading 'Stairs to Sector
+B', the southern one has no label, the western one says 'Shower Room' and the
+eastern room is labeled 'Customs'.   You can move north, east, south and
+west.
 
 > s
 You move south.
 
 Inner corridor
-This corridor leads deeper and deeper into the ship.  There is a neon sign
-over head flashing: "Unclean! Unclean! Please procede to Alien Search
-Recieving Room for directions!"  You can move north, east and west.
+This corridor leads deeper and deeper into the ship.  The neon sign now
+flashes: "All Aspects Clean. You may proceed."  You can move north, east and
+west.
 
 > e
 You move east.
@@ -423,8 +462,8 @@ This lift has a button panel on the northern wall.  You can only move out.
 You push the button and watch as the doors close on sector C. That was a
 tough one... you can only wonder what could be on sectors A and B... but
 you'll have to wait for the full version to find out!
-You scored 245 out of the maximum 290!
-That is 84% of the game!
-You finished 45 points short.
+You scored 290 out of the maximum 290!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

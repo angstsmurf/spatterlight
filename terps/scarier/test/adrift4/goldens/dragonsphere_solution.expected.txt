@@ -50,6 +50,9 @@ down into Dragonbane, the city of dragons.
 > get cube
 Picked up the black cube.
 
+> look at cube
+You see the cube has something written on it.
+
 > w
 You move west.
 
@@ -84,6 +87,24 @@ a black cube. Also, a yellow glow comes from the west.
 
 > n
 You move north.
+
+Dragonbane Palace
+Dragonbane Palace. Said to have housed the Dragon Sphere which was protected
+by dragons.
+
+> w
+You move west.
+
+Palace Garden
+This is the palace garden. The plants have long-since died, but everything
+still looks lovely. You notice a pinkish color coming from the corner of the
+garden. It's a flower, but a crystal one.   Also here is crystal flower.
+
+> get flower
+You picked up the crystal flower.
+
+> e
+You move east.
 
 Dragonbane Palace
 Dragonbane Palace. Said to have housed the Dragon Sphere which was protected
@@ -186,8 +207,9 @@ the garden. She is looking at a crystal rose, the same one you found in the
 future. She looks like she wants the flower, but she does'nt want to pick it.
 Maybe you could give her yours.
 
-> get flower
-Take what?
+> give flower to lady
+You give the flower to the girl. She smiles and thanks you, then runs into
+the castle. Now you can continue on your quest.
 
 > e
 You move east.
@@ -343,8 +365,8 @@ about to leave, everything around you turns black and you lose consiousness.
 You won the game!   Coming soon from Kameetrei@aol.com: Dragon Sphere, battle
 for peace (coming in mid-2001)
 You have found the Dragon Sphere and destroyed the Evil! Excellent work!
-You scored 115 out of the maximum 140!
-That is 82% of the game!
-You finished 25 points short.
+You scored 140 out of the maximum 140!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

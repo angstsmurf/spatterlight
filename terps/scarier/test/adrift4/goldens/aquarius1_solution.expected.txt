@@ -28,13 +28,26 @@ place to be.  The evil Malcor is here!
 > goodbye
 The evil sorcerer suddenly vanishes into a puff of smoke and you are alone.
 
+> secretweapon97531
+Here you go chris :)
+
 > e
 You move east.
 
 Forest Path
 This is a dark forest path surrounded by some of the tallest trees you have
 ever seen. You can barely see the sky or the sunlight.  An Ugly Green Ogre is
-here.  You can move north and west.  Ogre hits you.
+here.  You can move north and west.
+
+> attack ogre
+You hit Ogre with Secret Weapon.  The ogres body falls to the ground and
+disintegrates. You see only the Meat of it left behind.
+
+> get ogre meat
+You pick up the pile of Ogre Meat.
+
+> eat ogre meat
+You feel fully refreshed after that good meal.
 
 > n
 You move north.
@@ -49,7 +62,8 @@ You move north.
 North of clearing
 This is an area just north of the clearing and in the distance you can see
 what appears to be a large castle. You will have to move closer to be sure.
-A Larger green Ogre is here.  You can move north and south.  Ogre hits you.
+A Larger green Ogre is here.  You can move north and south.  Ogre hits you,
+but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -90,6 +104,12 @@ Second floor Balcony
 You are on the second floor balcony. You can enter the forboding castle from
 here.  Also here is Magical Potion.  You can move north and down.
 
+> get potion
+You pick up Magical Potion.
+
+> drink potion
+You feel stronger. Check your "Status".
+
 > n
 You move north.
 
@@ -97,6 +117,16 @@ Second Floor Entrance to Castle
 This is the Entrance you found to the castle. It is somewhat dark yet you are
 surprised by the natural illumination the walls are giving off.  An evil
 armour wearing Knight is here.  You can move south and west.
+
+> attack knight
+You hit Knight with Secret Weapon.  The Knights body falls to the ground and
+disintegrates. You see a bag of food there now.
+
+> get food
+You pick up the Bag of Food.
+
+> eat food
+You feel very refreshed.
 
 > w
 You move west.
@@ -164,9 +194,6 @@ End of hallway
 You finally reach the end of the hallway. The room you heard the screams come
 from is to your East.  You can only move east.
 
-> secretweapon97531
-Here you go chris :)
-
 > e
 You move east.
 
@@ -230,8 +257,8 @@ be able to find out soon when Part2 of Aquarius is released. Until then I
 leave you with those dreaded words.
 
 ......To Be Continued........
-You scored 60 out of the maximum 95!
-That is 63% of the game!
-You finished 35 points short.
+You scored 85 out of the maximum 95!
+That is 89% of the game!
+You finished 10 points short.
 
 [Press any key to end]

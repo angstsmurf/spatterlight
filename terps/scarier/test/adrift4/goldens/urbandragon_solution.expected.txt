@@ -144,6 +144,10 @@ good."
 warrant. You quicky read it over and it states that Baxter Jones owns a
 private houseboat at the Docks.
 
+> open dumpster
+You push open the dumpster and look inside. There's a corpse of a man inside,
+a bullet has been shot into his chest.
+
 > n
 You move north.
 
@@ -241,8 +245,8 @@ the phone by the bed. The police come and you show them the secret stash
 hidden in the bottom of the boat. The police congratulate you as you have
 stopped one of the most ruthless druglords in the state.  Good job officer,
 you've won the respect of the city and can now afford your own houseboat.
-You scored 120 out of the maximum 130!
-That is 92% of the game!
-You finished 10 points short.
+You scored 130 out of the maximum 130!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

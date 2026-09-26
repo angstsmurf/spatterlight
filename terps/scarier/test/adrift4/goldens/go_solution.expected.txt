@@ -71,6 +71,9 @@ during the thunderstorm. There is a large steel door to the west. You mention
 some kind of panel near it. There is also a small door to the east.  You can
 move west and down.
 
+> read small door
+The engraving says: 'WC. Temporary closed'.
+
 > push plastic object in panel
 You hear a loud noise and mention that the large steel door opens. You see
 the way to uncle Ben's room. You go in.
@@ -474,8 +477,8 @@ time in your life!
 Thank you for playing this adventure.  If you have any comments, questions,
 wishes, suggestions, advices etc. then just send me an e-mail at
 xenia@mail.lv .
-You scored 189 out of the maximum 190!
-That is 99% of the game!
-You finished 1 points short.
+You scored 190 out of the maximum 190!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

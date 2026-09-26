@@ -527,6 +527,9 @@ here.
 You push the button and the closet opens. You look inside and take a pair of
 wirecutters from a box.
 
+> take fork
+You take the fork out of the sink and place it in your pocket.
+
 > use wirecutters on wires
 You snip the wires from the tv and place them into your pocket.
 
@@ -580,8 +583,8 @@ the window and look out. You see space all around you and you can see Earth
 floating a million miles away. You can see the reflection of the time machine
 in the corner of the room in the shiny glass...
 
-You scored 170 out of the maximum 175!
-That is 97% of the game!
-You finished 5 points short.
+You scored 175 out of the maximum 175!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

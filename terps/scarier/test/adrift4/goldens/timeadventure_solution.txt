@@ -70,6 +70,7 @@ take battery
 s
 e
 push button
+take fork
 use wirecutters on wires
 use wires on battery
 w

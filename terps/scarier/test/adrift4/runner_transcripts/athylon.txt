@@ -53,6 +53,9 @@ This room is unnatural, unnatural in the way that the walls seem to be very para
 > get metal object
 you take the a strange, twisted metal object
 
+> pull protrusion
+You pull the protrusion on the metal object and a thing rockets off, producing a large bang and a lot smoke!
+
 > out
 You move out.
 Shield/armour room
@@ -108,6 +111,30 @@ Take what?  You manage to avoid a stranger's attack.
 You move south.
 Guarded gate
 The corridor ends with a large gate, guarded by a large and hulking armoured monstrosity.  Guard is here.  You can only move north.
+
+> give paper to guard
+Give what?
+
+> bash handcuffs
+Give what?
+
+> nw
+You can only move north.
+
+> e
+You can only move north.
+
+> pull brick
+You pull, but nothing happens.
+
+> w
+You can only move north.
+
+> s
+You can only move north.
+
+> s
+You can only move north.
 
 > give cigarette and paper to guard
 You show him the cigarette, but he just grunts and doesn't look up.

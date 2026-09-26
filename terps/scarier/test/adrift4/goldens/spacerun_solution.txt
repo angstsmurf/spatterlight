@@ -44,12 +44,17 @@ twist wires together
 e
 e
 n
+push button
+n
+s
 w
 push button
 n
 pull lever
 s
 e
+pull lever
+w
 s
 e
 in

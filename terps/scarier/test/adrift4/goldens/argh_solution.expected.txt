@@ -25,13 +25,15 @@ you to fit through.  Also here is a drumstick.
 > take drumstick
 You take the drumstick.
 
-> hit bars with drumstick
-A guard comes in from out of nowhere and hits you over the head with a club.
+> z
+Time passes...
 
-"ARGH! No leave! No Noise!"
+> z
+Time passes...
 
-With your head spinning, you watch as the three guards (at least that is what
-you see) leave the cave, leaving you alone once again."
+        Something from above catches your attention.  A beaver falls through
+the hole in the top of the cave.  He looks very hungry, and is looking at you
+intently.
 
 > feed beaver the drumstick
 
@@ -91,8 +93,8 @@ life of ARGH.  The beaver didn't have it so well either.  He became very sick
 and also died.  His fangs were mounted on the outside of Boulder Rock Prison
 in your honor.
 
-You scored 98 out of the maximum 125!
-That is 78% of the game!
-You finished 27 points short.
+You scored 100 out of the maximum 125!
+That is 80% of the game!
+You finished 25 points short.
 
 [Press any key to end]

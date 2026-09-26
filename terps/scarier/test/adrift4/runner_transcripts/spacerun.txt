@@ -179,36 +179,57 @@ You can only move south.
 > n
 You can only move south.
 
-> w
-You can only move south.
-
 > push button
 You can't do that here!
 
 > n
 You can only move south.
 
-> pull lever
-You can't do that here!
-
 > s
 You move south.
 Recieving area
 This room looks like a reception. It is a recieving area but there is no one to recieve you. There is a receptionists desk here and three doors leading north, east and west. There is also a key card swiper on the northern wall.  You can move north, east and west.
 
-> e
-You move east.
-Staff office
-This office looks as if it was the scene of a ransacking. There is a desk here that has been toppled over, papers and compter components lie scattered over the floor. There is a small panel on the wall.  Also here is a dead alien.  You can only move west.
+> w
+You move west.
+Lock down area
+This corridor runs south/north. There are also two doors to the east and west. The west one is labeled Space Ship Port and the other is labeled Recieving room.  You can move east, south and west.
+
+> push button
+You can't do that here!
+
+> n
+You can't go in that direction, but you can move east, south and west.
+
+> pull lever
+You can't do that here!
 
 > s
-You can only move west.
+You move south.
+Lock down area
+This area is made of a simple concrete. The edges of all the walls are taped with the classic yellow and black striped caution tape. A large door stands on the south end of the corridor.  You can move north and south.
 
 > e
-You can only move west.
+You can't go in that direction, but you can move north and south.
+
+> pull lever
+You can't do that here!
+
+> w
+You can't go in that direction, but you can move north and south.
+
+> s
+You move south.
+Crash area
+Two metal doors lead from this room, one to the north and the othe to the east. The ceiling has a gaping hole in it where your drop pod crashed. The wreckage from the crash lies in a smoking heap, the fumes conglamorating on the force field that prevents you from flying off into space.  The northern door is locked down.  You can move north and east.
+
+> e
+You move east.
+Control room
+This room has many buttons, flashing lights and desks with broken computers on them. You guess this damage must have been caused by your crash. There are three doors here, all labled: to the north is the Key Card Storage Room, to the south is the Air Control Room and to the west is a corridor labled 'Lock Down Corridor. There is a hand scanner on the wall here.  You can move north, south and west.
 
 > in
-You can only move west.
+You can't go in that direction, but you can move north, south and west.
 
 > push button
 You can't do that here!
