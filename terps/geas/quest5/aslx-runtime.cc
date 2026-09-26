@@ -1016,6 +1016,11 @@ std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     return e;
 }
 
+namespace {
+// Defined in aslx-state.inc (included below): preorder expression roots.
+void collect_expr_roots(std::vector<Stmt> &body, std::vector<ExprP> &out);
+}  // namespace
+
 void Interp::capture_rng_streams(
     std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out)
 {
@@ -1030,6 +1035,22 @@ void Interp::capture_rng_streams(
                              std::array<uint32_t, 4>{e->rng->s[0], e->rng->s[1],
                                                      e->rng->s[2], e->rng->s[3]});
     }
+    // Expressions embedded in compiled script bodies (msg (...), the RHS of an
+    // assignment, an if condition, ...) are compiled by the statement parser,
+    // not through expr_cache_, so each is a separate stream even when its text
+    // matches a cached one.  Key: "\x01<script key>\x1D<ordinal>".
+    for (auto &kv : script_cache_) {
+        if (!kv.second) continue;
+        std::vector<ExprP> roots;
+        collect_expr_roots(*kv.second, roots);
+        for (size_t i = 0; i < roots.size(); i++) {
+            const ExprP &e = roots[i];
+            if (!e->rng) continue;
+            out.emplace_back('\x01' + kv.first + '\x1D' + std::to_string(i),
+                             std::array<uint32_t, 4>{e->rng->s[0], e->rng->s[1],
+                                                     e->rng->s[2], e->rng->s[3]});
+        }
+    }
 }
 
 void Interp::restore_rng_streams(
@@ -1042,10 +1063,37 @@ void Interp::restore_rng_streams(
             continue;
         }
         ExprP e;
-        try {
-            e = compile_expr(entry.first);
-        } catch (const std::runtime_error &) {
-            continue;  // captured from a source that no longer compiles
+        if (entry.first[0] == '\x01') {
+            // A script-body root: recompile the script (same cache key the
+            // capture walked) and pick the root by ordinal.
+            size_t sep = entry.first.rfind('\x1D');
+            if (sep == std::string::npos) continue;
+            std::string key = entry.first.substr(1, sep - 1);
+            size_t ordinal = (size_t) std::strtoul(entry.first.c_str() + sep + 1,
+                                                   nullptr, 10);
+            std::string scope, src = key;
+            size_t sc = key.find('\x1F');
+            if (sc != std::string::npos) {
+                scope = key.substr(0, sc);
+                src = key.substr(sc + 1);
+            }
+            std::shared_ptr<std::vector<Stmt>> body;
+            try {
+                body = compile_script(src, scope);
+            } catch (const std::exception &) {
+                continue;
+            }
+            if (!body) continue;
+            std::vector<ExprP> roots;
+            collect_expr_roots(*body, roots);
+            if (ordinal >= roots.size()) continue;
+            e = roots[ordinal];
+        } else {
+            try {
+                e = compile_expr(entry.first);
+            } catch (const std::runtime_error &) {
+                continue;  // captured from a source that no longer compiles
+            }
         }
         if (!e)
             continue;

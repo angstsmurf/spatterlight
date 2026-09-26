@@ -253,6 +253,37 @@ void collect_firsttime(const std::vector<Stmt> &body,
     }
 }
 
+// Preorder walk of a compiled script body collecting every expression ROOT
+// (each carries its own lazily-seeded RNG stream, see Expr::rng).  The
+// statement parser compiles these with compile_expr_str, outside expr_cache_,
+// so the autosave's RNG capture has to reach them through the script cache;
+// the ordinal in this walk is the stream's identity within its script key.
+// Same order on capture and restore, because both walk a compile of the same
+// source text.
+void collect_expr_roots(std::vector<Stmt> &body, std::vector<ExprP> &out) {
+    for (Stmt &s : body) {
+        if (s.expr) out.push_back(s.expr);
+        if (s.obj) out.push_back(s.obj);
+        if (s.from) out.push_back(s.from);
+        if (s.to) out.push_back(s.to);
+        if (s.step) out.push_back(s.step);
+        if (s.list) out.push_back(s.list);
+        for (ExprP &a : s.call_args)
+            if (a) out.push_back(a);
+        collect_expr_roots(s.body, out);
+        for (auto &ei : s.elseifs) {
+            if (ei.first) out.push_back(ei.first);
+            collect_expr_roots(ei.second, out);
+        }
+        collect_expr_roots(s.else_body, out);
+        for (auto &c : s.cases) {
+            for (ExprP &m : c.first)
+                if (m) out.push_back(m);
+            collect_expr_roots(c.second, out);
+        }
+    }
+}
+
 }  // namespace
 
 bool Interp::is_save_data(const char *data, size_t len) {

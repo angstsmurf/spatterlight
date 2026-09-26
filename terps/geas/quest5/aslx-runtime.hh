@@ -467,12 +467,15 @@ public:
 
     // -- Spatterlight autosave: exact RNG capture/restore ---------------------
     // The deterministic RNG streams: the fallback stream (empty key) plus
-    // every compiled expression's lazily-created stream, keyed by expression
-    // source (expr_cache_ dedups by source, so the key identifies the stream
-    // exactly).  restore recompiles each source into the cache and overwrites
-    // its stream, so the next draw continues where the capture left off;
-    // expressions absent from the capture keep their fresh lazy seed.  Used
-    // only by the Glk frontend's autosave -- a QuestViva save carries no RNG.
+    // every compiled expression's lazily-created stream.  An eval()'d
+    // expression is keyed by its source (expr_cache_ dedups by source, so the
+    // key identifies the stream exactly); a root embedded in a compiled
+    // script body -- which the statement parser compiles outside that cache --
+    // by "\x01<script cache key>\x1D<ordinal in collect_expr_roots order>".
+    // restore recompiles each key into its cache and overwrites the stream, so
+    // the next draw continues where the capture left off; expressions absent
+    // from the capture keep their fresh lazy seed.  Used only by the Glk
+    // frontend's autosave -- a QuestViva save carries no RNG.
     void capture_rng_streams(
         std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out);
     void restore_rng_streams(

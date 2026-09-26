@@ -256,7 +256,13 @@
   prompt's randomness is exactly the saved one.  Engine-level round-trip
   proven (capture -> draw -> restore -> identical draws, including into a
   fresh Interp); headless untouched (`make check` green, native replay
-  still 56/57).
+  still 56/57).  2026-09-26: the capture had only walked `expr_cache_`,
+  and the statement parser compiles its expressions (`msg (...)`, an
+  assignment's RHS, an if condition) OUTSIDE that cache, so a
+  `GetRandomInt` inside a script body restarted from the seed on relaunch
+  (test/autosave `q5-rng` caught it).  Those roots are now captured too,
+  keyed "\x01<script cache key>\x1D<ordinal>" over `collect_expr_roots`
+  (aslx-state.inc); `test_rng_streams_survive_capture` covers both kinds.
 - **Quest 4 UNDO history survives an autorestore** (petter pointed at
   Bocfel, which writes its whole save stacks -- Undo/MSav chunks -- into
   its autosave).  The undo ring is flat snapshots, so it serializes

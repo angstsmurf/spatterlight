@@ -176,7 +176,7 @@ syntax:
 
 # The aslx tests open their fixtures by a path relative to their own directory
 # (../fixtures/...), so run them from there rather than from here.
-check: syntax $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
+check: syntax drivesync $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 	cd $(Q4) && ./geas_unit_tests
 	cd $(Q5) && ./aslx_loader_test
 	cd $(Q5) && ./aslx_runtime_test
@@ -213,4 +213,22 @@ gamesfetch:
 	@Q4_GAMES_DIR="$(Q4_GAMES_DIR)" Q5_GAMES_DIR="$(Q5_GAMES_DIR)" \
 	  sh ./fetch_games.sh fetch
 
-.PHONY: all syntax check asan clean gamescheck gamesfetch
+# Spatterlight autosave/autorestore regression, both engines. Not part of
+# check: it needs the Xcode build of the terp (the autosave code is compiled
+# only under SPATTERLIGHT) and a few seconds per case. `--build` runs
+# xcodebuild first; without it the suite refuses a terp older than the sources.
+autosave:
+	python3 autosave/run_autosave_tests.py --build
+
+# glkdrive.py (the fake Spatterlight app the autosave suites drive the terps
+# with) is terp-agnostic and lives in both test trees so each stays
+# self-contained; the copies must not drift apart again.  Scarier's tree has
+# no Makefile, so the comparison lives here.
+SCARIER_DRIVE := ../../scarier/test/glkdrive.py
+drivesync:
+	@if [ -e $(SCARIER_DRIVE) ] && ! cmp -s glkdrive.py $(SCARIER_DRIVE); then \
+	    echo "drivesync: glkdrive.py differs from $(SCARIER_DRIVE) -- copy one over the other"; \
+	    exit 1; \
+	fi
+
+.PHONY: all syntax check asan clean gamescheck gamesfetch autosave drivesync

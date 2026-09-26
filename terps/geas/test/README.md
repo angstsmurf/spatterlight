@@ -14,7 +14,12 @@ Each half holds `fixtures/` (small hand-written games that are ours, committed),
 Only engine-agnostic things stay at this level: this README,
 [`GAMES.md`](GAMES.md) and `fetch_games.sh` (the corpora, for both engines), the
 `Makefile` that builds both halves, `questglk_unit_tests.cc` (the helpers both
-Glk frontends share, `../questglk-common.inc`) and `glkdrive.py`.
+Glk frontends share, `../questglk-common.inc`), `glkdrive.py` (a fake
+Spatterlight app that drives the built terp over the glkimp protocol) and
+`autosave/`, the one suite that spans both engines (below). `glkdrive.py` is
+terp-agnostic and is the same file as `terps/scarier/test/glkdrive.py`, kept
+byte-identical so each tree stays self-contained; `make check` fails if the
+two copies drift, so edit one and copy it over the other.
 
 ## Build
 
@@ -27,6 +32,8 @@ make clean
 
 make gamescheck # verify both game corpora against their manifests
 make gamesfetch # download whatever of them is still online
+
+make autosave   # Spatterlight autosave/autorestore, both engines (Xcode build)
 ```
 
 Everything `make check` runs is self-contained — no game corpus — so it is the
@@ -50,6 +57,57 @@ walkthroughs, and broke the app build. `make syntax` runs `-fsyntax-only` over
 each source on its own — including `geasglk.cc`, `quest5/aslxglk.cc` and
 `geasglkterm.c`, which no harness here compiles at all — in a few seconds, and
 is a prerequisite of `make check`.
+
+## Spatterlight autosave (`autosave/run_autosave_tests.py`)
+
+Everything above runs the engines through the in-repo harnesses and CheapGlk.
+The autosave and autorestore code never gets there: it is compiled only into
+the Spatterlight build of the terp (`#ifdef SPATTERLIGHT`,
+`../geasglk-autosave.mm` and the `ASLXGLK-AUTOSAVE` blob in
+`../quest5/aslxglk.cc`) and talks to `libglkimp`. This suite tests it the way
+the app exercises it. `glkdrive.py` plays the app: it launches
+`build/Debug/geas` with the library, answers the protocol, feeds scripted
+input, and ends each session with the window-closed event (`EVTQUIT`), which is
+the exit that keeps the autosave, so the next launch of the same game
+autorestores.
+
+```sh
+make autosave                                   # builds the terp, runs all cases
+python3 autosave/run_autosave_tests.py -v       # existing build; -v prints diffs
+python3 autosave/run_autosave_tests.py q5-      # name filter
+python3 autosave/run_autosave_tests.py --terp path/to/geas
+```
+
+The check is equivalence, not goldens: a script played in one session must
+print, command for command, what it prints when the process is killed and
+relaunched after chosen commands, with determinism on. Only the main text
+window is compared, because the status line and the side pane are repainted at
+boot on a relaunch. Every relaunch must also open and delete the same number
+of windows (the boot windows are replaced by the restored ones) and print
+nothing before its first input. The autosave directory is the app's
+(`~/Library/Application Support/Spatterlight/Quest Files/Autosaves/`), under a
+`geas-autosave-test-*` signature that is created and removed per case.
+
+The two probe games in `autosave/` (`probe4.asl`, `probe5.aslx`) have one
+command per piece of state a relaunch has to carry. The cases:
+
+| | Quest 4 (`geasglk.cc`) | Quest 5 (`quest5/aslxglk.cc`) |
+| --- | --- | --- |
+| relaunch after every command | `q4-every-command` | `q5-every-command` |
+| RNG position | `q4-rng` | `q5-rng` (the fallback stream and every per-expression stream, including those inside script bodies) |
+| variables / attributes | `q4-variable` | `q5-attribute` |
+| undo history | `q4-undo` | (no engine undo) |
+| real-time timers | `q4-timer`, `q4-timer-midcycle` (XFAIL: a tick that did not fire is not re-saved) | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
+| prompts the game can be closed on | `q4-question`, `q4-menu` (no autosave; the relaunch resumes at the turn prompt) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-wait` (same) |
+| hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
+| walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |
+| damaged container | `q4-corrupt` (discarded, fresh boot), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt` |
+
+Walkthrough cases are skipped when the game is absent from `games/`.
+Restored transcripts are not re-sent as link runs, so a link clicked after a
+relaunch is addressed by number (`link:PEER:N`) rather than by text; see the
+`glkdrive.py` docstring for the script vocabulary (`tick:N`, `key:X`,
+`click:TEXT`, `link:N`).
 
 ## Shared frontend helpers (`questglk_unit_tests.cc`)
 

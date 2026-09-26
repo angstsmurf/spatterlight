@@ -1330,13 +1330,19 @@ struct Loader {
         } else if (type == "object") {
             v.type = Value::Type::ObjectRef; v.str = trim(text);
         } else if (type == "simplestringlist") {
+            // The whole text is the attribute's, so it IS template-substituted
+            // (QuestViva's GameLoader hands SimpleStringListLoader
+            // GetTemplateContents): Core's `[LookAt];[Take]` displayverbs
+            // become "Look at;Take", which is what the verb menus show and
+            // what "Take apple" is built from.  The nested-<value> list types
+            // below are the ones whose entries stay raw.
             v.type = Value::Type::StringList;
-            fill_list(v, simple_list_values(text));
+            fill_list(v, simple_list_values(tmpl(text)));
         } else if (type == "listextend") {
             // A list that appends to the inherited same-named list. Core uses it
             // heavily for displayverbs/inventoryverbs on its object types.
             v.type = Value::Type::StringList;
-            fill_list(v, simple_list_values(text));
+            fill_list(v, simple_list_values(tmpl(text)));
             v.list_extend = true;
         } else if (type == "stringlist") {
             // Homogeneous string list: entries are strings from raw <value>

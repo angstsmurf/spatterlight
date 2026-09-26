@@ -233,9 +233,12 @@ test_timer_roundtrip ()
 
 /* ---- the autosave's undo history rides the same wire format as a save file,
    and since the readers were gathered into SaveReader it rides the same reader
-   code too -- so a mistake there would show up here rather than only in a
-   Spatterlight autorestore, which no test can drive.  Nothing else in the suite
-   loads a history. ---- */
+   code too -- so a mistake there shows up here, in a unit test, before it
+   shows up as a relaunch that forgot its undo history in
+   test/autosave/run_autosave_tests.py (the q4-undo and q4-bad-undo cases,
+   which drive the Spatterlight build of the terp end to end but need the app
+   build and a few seconds per case).  Nothing else in this suite loads a
+   history. ---- */
 void
 test_undo_history_roundtrip ()
 {

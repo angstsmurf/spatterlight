@@ -739,6 +739,55 @@ static void test_rng_determinism() {
     CHECK(s1.find_first_not_of("0123456789,") == std::string::npos);
 }
 
+// The Spatterlight autosave carries every RNG stream: the eval() cache's and
+// the ones embedded in compiled script bodies (which the statement parser
+// compiles OUTSIDE that cache, so a roll in `msg (...)` is its own stream).
+// A fresh Interp given the capture must continue both sequences exactly where
+// the source Interp left them, not restart from the seed.
+static void test_rng_streams_survive_capture() {
+    World w; w.asl_version = 550;
+    const std::string script = "msg (\"r\" + GetRandomInt(1, 1000000))";
+    auto drive = [&](Interp &in, int n, std::string &script_out, std::string &eval_out) {
+        in.print = [&](const std::string &s) { script_out += s + ","; };
+        for (int i = 0; i < n; ++i) {
+            Context c;
+            in.run_script(script, c);
+            eval_out += Interp::to_string(in.eval("GetRandomInt(1, 1000000)", c)) + ",";
+        }
+    };
+    // Reference: one Interp, six draws of each kind.
+    Interp ref(w);
+    std::string ref_s, ref_e;
+    drive(ref, 6, ref_s, ref_e);
+
+    // Three draws, capture, three more in a NEW Interp seeded from the capture.
+    Interp a(w);
+    std::string a_s, a_e;
+    drive(a, 3, a_s, a_e);
+    std::vector<std::pair<std::string, std::array<uint32_t, 4>>> streams;
+    a.capture_rng_streams(streams);
+    CHECK(streams.size() >= 3);   // fallback + eval'd root + script-body root
+    bool saw_script_root = false;
+    for (const auto &e : streams)
+        if (!e.first.empty() && e.first[0] == '\x01') saw_script_root = true;
+    CHECK(saw_script_root);
+
+    Interp b(w);
+    b.restore_rng_streams(streams);
+    std::string b_s, b_e;
+    drive(b, 3, b_s, b_e);
+    CHECK_STR(a_s + b_s, ref_s);
+    CHECK_STR(a_e + b_e, ref_e);
+
+    // Without the restore the second half restarts from the seed (the bug the
+    // capture exists to prevent) -- guards against a trivially passing check.
+    Interp c(w);
+    std::string c_s, c_e;
+    drive(c, 3, c_s, c_e);
+    CHECK(c_s == a_s);
+    CHECK(c_s != b_s);
+}
+
 // End-to-end boot: load a game plus the full Core library, run InitInterface +
 // StartGame, and confirm the whole pipeline (default types, parent field, the
 // text processor via msg->OutputText, ~all the primitives) runs with zero
@@ -2022,6 +2071,7 @@ int main() {
     test_input_model();
     test_update_lists();
     test_rng_determinism();
+    test_rng_streams_survive_capture();
 
     if (g_failures == 0) {
         std::cout << "aslx_runtime_test: all checks passed\n";
