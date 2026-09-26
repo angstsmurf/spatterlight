@@ -4218,6 +4218,89 @@ static const scr_patch_edit_t PATCH_LIQID[] = {
   PATCH_SET ("NPCs/9/Battle/KilledTask", 0, 44)
 };
 
+/*
+ * The Vampire with a Conscience (Ole Olsen).  Two hours in the Oslo Plaza
+ * before the grand vampire convention, and one unticked checkbox between
+ * the game and its ending.
+ *
+ * Task 61 is the way back east out of Bozo's backyard into the nightclub:
+ * its commands are the four spellings of east, it is gated to room 11 and
+ * its one action moves the player to room 6.  The backyard has no exits of
+ * its own, so the task is the only way out -- and it has to be taken twice,
+ * once after planting the stick in the container's handles and once after
+ * raising Jon from the coffin.  The author knew: the CompleteText reads
+ * "You enter the nightclub again." and the RepeatText holds a single space,
+ * a blank turn put there to hide "You have already done that.".  What the
+ * author did not do was tick Repeatable, so the second east is claimed by
+ * the pre-4.0 spent-task rule, prints the blank line, and the game walls at
+ * 70 of 100 in the backyard with Jon awake and nowhere to take him
+ * (RUNNER-MEASURED 2026-08-31, run390 Adrift_3_vampire.txt).  Ticking the
+ * box is what the CompleteText already claims: the RepeatText is
+ * whitespace, so the task re-runs forwards and says its line again.
+ */
+static const scr_patch_edit_t PATCH_VAMPIRE[] = {
+  PATCH_VERIFY ("Tasks/61/Command/0", "east"),
+  PATCH_VERIFY ("Tasks/61/CompleteText", "You enter the nightclub again."),
+  PATCH_VERIFY ("Tasks/61/RepeatText", " "),
+  PATCH_SET ("Tasks/61/Repeatable", 0, 1)
+};
+
+/*
+ * The Merry Murders (Mel S.).  A seven-act whodunit at the SynTex Christmas
+ * party, 135 points of which the last fifteen are behind a door that cannot
+ * be walked through.
+ *
+ * Task 46 unlocks the Archives door from the Computer Lab: "I stuck the key
+ * into the door, and twisted it. The lock opened, allowing me access into
+ * the archives."  It only unlocks -- it has no movement action -- and the
+ * Computer Lab's north exit is gated on the task being done, so the player
+ * is meant to type the unlock and then walk.  But the task's first command
+ * slot is `n` itself, so the unlock consumes the walk: the spent task then
+ * claims every later `n` in the room ("I have already done that.") and the
+ * Archives, the Hidden Room and the roof finale are unreachable at 120 of
+ * 135 (RUNNER-MEASURED 2026-08-31, run390 Adrift_3_merry_murders.txt).  The
+ * slot is redundant -- the same task is reached by `open door`, `unlock
+ * door` and four `use key` spellings, all of them in the list already -- so
+ * it is renamed to a phrase that is not a direction, and north goes back to
+ * being north.
+ */
+static const scr_patch_edit_t PATCH_MERRY_MURDERS[] = {
+  PATCH_VERIFY ("Tasks/46/CompleteText",
+                "I stuck the key into the door, and twisted it. The lock"
+                " opened, allowing me access into the archives."),
+  PATCH_VERIFY ("Tasks/46/Command/3", "open door"),
+  PATCH_STRING ("Tasks/46/Command/0", "n", "unlock the archive door")
+};
+
+/*
+ * Fun Town (Mandrake).  A hub-and-spoke resort of twenty ten-point episodes,
+ * a declared MaxScore of exactly 200, a treasure chest in a cave, and a
+ * WinText that congratulates the player for accumulating "the full 200
+ * possible points needed to win the game".  Task 117, `open treasure chest`,
+ * is the file's only EndGame v1=0, and it asks for all twenty episodes by
+ * task number -- twenty Type 2 restrictions, each with the same "Sorry,
+ * there is no way to open the chest before you accumulate 200 points."
+ *
+ * Nineteen of the twenty named tasks award their ten points.  The twentieth,
+ * restriction 17, names task 105 (index 104), `* fuc* in Room #1 * no
+ * condom`, which awards nothing and ends the game: its last action is
+ * EndGame v1=2, a death.  Its twin one slot further on, task 106 (index
+ * 105), `* fuc* in Room #1 * with condom`, is the survivable half of the
+ * same scene, awards the ten points the chest's arithmetic needs, and is not
+ * in the gate at all -- its own refusal text spells the pair out, "Thank God
+ * you remembered to wear a condom....  You would have died otherwise."  So
+ * the chest asks the player to be dead, and a full 200/200 playthrough is
+ * told it has not accumulated 200 points (confirmed at 200/200 in the
+ * faithful row).  The restriction is moved one task along, onto the twin
+ * that scores, and the twenty awards then sum to the declared MaxScore.
+ */
+static const scr_patch_edit_t PATCH_FUNTOWN[] = {
+  PATCH_VERIFY ("Tasks/117/Command/0", "* open * treasure * chest *"),
+  PATCH_VERIFY ("Tasks/104/Command/0", "* fuc* in Room #1 * no condom"),
+  PATCH_VERIFY ("Tasks/105/Command/0", "* fuc* in Room #1 * with condom"),
+  PATCH_SET ("Tasks/117/Restrictions/17/Var1", 105, 106)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4281,7 +4364,19 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("'!NameOfGame!'", "Matt, Dark Baron",
               "the cliff rope can be untied again, and killing Hamish runs"
               " the smuggler's death task that opens the hair shop",
-              PATCH_LIQID)
+              PATCH_LIQID),
+  PATCH_GAME ("The Vampire with a Conscience", "Ole Olsen",
+              "the way east out of Bozo's backyard can be taken again, as its"
+              " own \"You enter the nightclub again.\" promises",
+              PATCH_VAMPIRE),
+  PATCH_GAME ("The Merry Murders", "Mel S.",
+              "unlocking the Archives door no longer eats the `n` that walks"
+              " through it",
+              PATCH_MERRY_MURDERS),
+  PATCH_GAME ("Fun Town", "Mandrake",
+              "the treasure chest asks for the episode that scores rather"
+              " than its twin that kills you",
+              PATCH_FUNTOWN)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

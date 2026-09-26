@@ -3541,7 +3541,7 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SEED=391 SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
-# dinosaur and the entire verb set is EAT.  87 commands, WIN, 63/74.
+# dinosaur and the entire verb set is EAT.  82 commands, WIN, 63/74.
 #
 # The engine facts behind the route, from SCR_DUMP_TASKS:
 #   * win  = TASK 177 `eat platter`, which chains TASK 178..186; TASK 186 is
@@ -3567,7 +3567,7 @@ iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SC
 #     eight ending "you taste..." paragraphs (TASK 179 moss, TASK 185 roots)
 #     are gated on two of them and can therefore never print.
 #   * The air sac is a one-shot fuse, and that is the whole reason for the
-#     five `eat air sac` in a row near the end.  `eat air sac` (TASK 86) sets
+#     two `eat air sac` in a row near the end.  `eat air sac` (TASK 86) sets
 #     carcassEdible=1, which does double duty: it suppresses the ocean drown
 #     timer (TASK 101 only runs when carcassEdible==0) and it is the gate on
 #     TASK 123.  EVENT 17 has restart=0, so the *first* sac you ever eat
@@ -3586,7 +3586,14 @@ iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SC
 # Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 # Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
 # check; identical to Adrift_1086_mangiasaur.txt under xoshiro until the Runner's game ends.
-mangiasaur_solution.txt|Mangiasaur.taf|Thanks for playing Mangiasaur!|SCR_SEED=1
+# Re-derived 2026-09-26: the event-roll change of 2026-08-17 (9eb166326, upper
+# bound exclusive) moved the bat to the 6th `eat moss` and the dweller's food
+# to after `eat rug`, and the route was re-blessed at 24/74 on the marker alone.
+# Six moss, rug before food, and two sacs (the fuse pops on the first) give 63.
+# The marker is now the final score line, so a drift like that fails the row.
+# run400x on the new route: identical on every turn, also 63/74
+# (runner_transcripts/mangiasaur.txt).
+mangiasaur_solution.txt|Mangiasaur.taf|You scored 63 out of the maximum 74!|SCR_SEED=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- A FINE DAY FOR REAPING (James Webb / revgiblet, IFComp 2007).
 # You are Death, and five souls are due today.  Each soul has two or three
@@ -5409,6 +5416,12 @@ vampire_solution.txt|Vampire.taf|Your score is 70 out of a maximum of 100.|SCR_S
 # the backyard again, and the pre-2026-09-13 route wins 100/100.  Non-faithful
 # by design; the row above is the Runner's.
 vampire_repeatassist_solution.txt|Vampire.taf|You scored 100 out of the maximum 100!|SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1
+# And the same route with the built-in game patch instead (SCR_ASSUME_PATCHES=1,
+# on by default in the Glk build): task 61's Repeatable box is ticked, which is
+# what its own "You enter the nightclub again." already promised, so the second
+# `e` out of the backyard is not claimed and no global assist is needed.  The
+# script is the repeatassist one, unchanged.
+vampire_patched_solution.txt|Vampire.taf|You scored 100 out of the maximum 100!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 
 # The Merry Murders -- ADRIFT 3.90, 69,489 bytes, December 16 2003.  A seven-act
 # locked-floor whodunit at the SynTex Christmas party: every act ends with one
@@ -5438,6 +5451,12 @@ merry_murders_solution.txt|Merry_Murders.taf|My score is 120 out of a maximum of
 # player walks in, and the pre-2026-09-13 route wins 135/135.  Non-faithful
 # by design; the row above is the Runner's.
 merry_murders_repeatassist_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1
+# And the same route with the built-in game patch instead (SCR_ASSUME_PATCHES=1,
+# on by default in the Glk build): task 46's redundant `n` command slot is
+# renamed, so the Archives unlock is typed as `open door` and the `n` after it
+# is the walk the Computer Lab's north exit was written for.  One line of the
+# repeatassist script changes; no global assist is needed.
+merry_murders_patched_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 
 # The Woods Are Dark -- ADRIFT 3.90, 71,216 bytes, Cannibal 2003.  A haunted
 # cottage in Black Hill: 23 rooms, 82 tasks, no events and no clocks, so the
@@ -7628,6 +7647,13 @@ studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
 # commands succeed regardless since they carry no such RESTR. 211
 # commands, no env vars.
 funtown_solution.txt|fun town.taf|Sorry, there is no way to open the chest before you accumulate 200 points.|
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): the chest's gate names the surviving twin of the
+# Room #1 episode rather than the death-only one, so the twenty ten-point awards
+# sum to the declared MaxScore and the chest opens.  The script is the faithful
+# one, unchanged; only the golden and this row's env differ.  Not committed for
+# the same reason as the row above.
+funtown_patched_solution.txt|fun town.taf|Well done - you scored maximum points!|SCR_ASSUME_PATCHES=1
 # RodneyandthePrincess40v3-1.taf (AIF): fantasy rescue-adventure -- player
 # fights goblins/orcs, frees a captive adult princess (Fiona), and the
 # ending is a single consensual reward scene. No age markers found in the
@@ -9660,11 +9686,12 @@ crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maxim
 # hazard, avoided) to the Abandoned Farmhouse, where all four rescues fire.
 # Finally `in`/`close britmobile door`/`start engine`/`return to
 # headquarters` drives home, and the corridor walk north into the
-# Controller's Office ends the game. Scores 21/50 -- the remaining points are
-# behind an unexplored Eugene/computer-terminal evidence puzzle (password
-# "butterscotch", per static analysis, never live-tested); Grace herself
-# necessarily evades capture since arresting her is the OTHER, mutually
-# exclusive branch. Needs SCR_SKIP_WAITKEY=1 for the same family of
+# Controller's Office ends the game. Scores 43/50 (21/50 when first wired;
+# the route now also does the Eugene/computer-terminal evidence puzzle,
+# password "butterscotch", and the 2026-09-24 ports). The last 7 points are
+# not yet accounted for; Grace herself necessarily evades capture since
+# arresting her is the OTHER, mutually exclusive branch. Needs
+# SCR_SKIP_WAITKEY=1 for the same family of
 # unattended-prompt reasons as CW2/CW4 above.
 britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 43 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # Dead or Alive Xtreme Beach Sex (captain_cranky_pants2000, 4.00).  AIF,
@@ -9829,7 +9856,7 @@ bdw_solution.txt|BDW.taf|WHOO!  WHOO!  WHEE!  WHAA!|
 # Win is EndGame dead_type=3: drop the rusty-marked dynamite rod in the
 # SW repository (room 125) and blast after the cave closes.  Route is a
 # Wheeler-style 350-point list adapted for xoshiro dwarves (`throw axe`
-# loops) and this port's verbs (`water plant`, `free bird`).  307/350.
+# loops) and this port's verbs (`water plant`, `free bird`).  300/350.
 advent350b_solution.txt|advent350b.taf|*** You have won! ***|SCR_SKIP_WAITKEY=1
 # Adventure Strikes When You Least Expect It (tiny 4.00 puzzle).  Harden
 # cheese with varnish, hook the crowbar through the bathroom window, saw

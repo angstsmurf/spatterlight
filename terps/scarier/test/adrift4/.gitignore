@@ -351,6 +351,8 @@
 # fun town.taf (AIF): explicit text, deliberately not committed.
 /goldens/funtown_solution.txt
 /goldens/funtown_solution.expected.txt
+/goldens/funtown_patched_solution.txt
+/goldens/funtown_patched_solution.expected.txt
 /runner_transcripts/**/funtown.*
 
 # RodneyandthePrincess40v3-1.taf (AIF): explicit text, deliberately not committed.
