@@ -38,5 +38,5 @@ scenery — nothing on the route touches them.
 
 `Door` never had an IFDB walkthrough link, because the author shipped the
 walkthrough inside the comp archive rather than publishing it separately. Same
-story as *Silk Noil* and *The Wheels Must Turn* — see the note at the top of
-`downloaded/INDEX.md`.
+story as *Silk Noil* and *The Wheels Must Turn* — see
+`notes/downloaded_walkthroughs.md`.

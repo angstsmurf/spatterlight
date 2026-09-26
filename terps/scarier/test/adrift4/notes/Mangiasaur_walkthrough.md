@@ -23,7 +23,7 @@
 - **Sources:** `downloaded/Mangiasaur_clubfloyd.html` — the ClubFloyd session
   of 2012-02-12 (the page's own URL says `intfic_clubfloyd_20120202`, which
   disagrees with its own title; the URL is what allthingsjacq.com actually
-  serves, so `INDEX.md` keeps it). 247 commands, a winning oracle in the sense
+  serves, so `notes/downloaded_walkthroughs.md` keeps it). 247 commands, a winning oracle in the sense
   that the group did eventually reach `eat platter`, but it is group flailing
   with `undo` in it and about half the commands are jokes, so it is unusable
   as a replay. It confirmed the shape of the endgame (spear → hole → down →
