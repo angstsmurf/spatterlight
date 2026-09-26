@@ -1834,7 +1834,25 @@ transcript names are in the code comment next to the named function, in
     a line silently and get_piece answers DontUnderstand. `[4.0]` 3monkeys
     T41 (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
-    (093a12d5e)
+    (093a12d5e). So must one after a closing `%object%` (`polish %object% `
+    matches nothing), but not one after a wildcard or group: House task 190
+    `*get *cathy* ` answers `get cathy`. `[all]` p3xBEYOND/p4BEYOND
+    (make_beyondprobe.py, 2026-09-26)
+  - Pre-4.0 `%object%` commands are substituted and then compared for
+    equality at 3.9 too, not only below it, and run390 never substitutes a
+    static (`zap statue` is the catch-all even after `x statue`). run370
+    has the same result by another route; run380 and run400 bind statics
+    (ZAPPED, statue unmoved). `[3.9]` p39BEYOND (2026-09-26)
+  - A silent task claims the line at 3.7 and 3.8 as well as at 3.9, and the
+    answer is DontUnderstand (`wave cape slowly`). It comes BEFORE the take
+    and drop handlers: run370 `take orb` runs silent "take orb" twice and
+    the orb stays; run390 `drop cape to the floor` with the cape on the
+    floor scores and says "I don't understand.", not "You don't have...".
+    If the cape is held, drops() answers "Drop what?" (3.7/3.8/3.9) and
+    run390's takes() answers "Take what?" (lib_move_what_after_silent_task_pre400).
+    Below 3.9 it is still a turn. `[3.7-3.9]` p3xBEYOND (2026-09-26)
+  - The silent-literal peek (193593e7b) is 4.0 only. Pre-4.0 Runners run and
+    score the silent literal task. `[3.7-3.9]` p3xBEYOND (2026-09-26)
   - Before 4.0 a `*` command is DECIDED by checkwild, not merely vetoed by
     it (run390 checktask 44B10D takes its answer as the match flag, and
     44B0E2 compares a starless command for equality): prefix before the

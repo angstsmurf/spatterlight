@@ -970,6 +970,71 @@ lib_drop_what_pre390 (scr_gameref_t game)
 
 
 /*
+ * lib_move_what_after_silent_task_pre400()
+ *
+ * A pre-4.0 take or drop line that a task matched, where the task ran and
+ * printed nothing.  drops() dispatches the task from inside its held-or-worn
+ * walk (run380 438F4F, run370 430D38; run390 runs it at the checktask gate
+ * 44562A) and, the task being silent, writes "Drop what?" into the still
+ * empty buffer (438FE6 / 430DCF / 445F0B), the walk's handled flag claiming
+ * the line.  The library print loop is gated shut by the match (4386F5), so
+ * nothing is dropped.  run390's takes() answers the same way, "Take what?"
+ * with nothing taken.  Measured 2026-09-26 on p3xBEYOND
+ * (make_beyondprobe.py; Adrift_282_b37.rtf, Adrift_284_b38.rtf,
+ * Adrift_285_b39.txt): silent literal tasks "drop cape to the floor" (+250)
+ * and "drop cape gently" (+100) with the cape held score and answer "Drop
+ * what?" at 3.7, 3.8 and 3.9, the cape still in hand; "take orb" (+5) with
+ * the orb on the floor is "Take what?" at 3.9, the orb left there.  3.8's
+ * take row outranks the task (the orb is taken, no score), and 3.7's is
+ * "I don't understand." after two runs of the task -- neither is handled
+ * here; 3.7's is the silent-task claim's in run_all_commands().
+ */
+scr_bool
+lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *const line = run_get_dispatch_input ();
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_int object;
+
+  if (!line || version >= TAF_VERSION_400)
+    return FALSE;
+
+  if (version == TAF_VERSION_390
+      && (lib_co_contains (line, "get") || lib_co_contains (line, "take")
+          || lib_co_contains (line, "pick"))
+      && !lib_co_contains (line, "from")
+      && !lib_co_contains (line, "get on")
+      && !lib_co_contains (line, "get down"))
+    {
+      pf_buffer_string (filter, "Take what?");
+      pf_buffer_answer_break (filter);
+      return TRUE;
+    }
+
+  if (!(lib_co_contains (line, "drop")
+        || lib_co_contains (line, "put down")
+        || lib_co_contains (line, "leave")
+        || (lib_co_contains (line, "put") && lib_co_contains (line, "down"))))
+    return FALSE;
+  if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if ((gs_object_position (game, object) == OBJ_HELD_PLAYER
+           || gs_object_position (game, object) == OBJ_WORN_PLAYER)
+          && lib_co_pre400 (game, line, object, 0))
+        {
+          pf_buffer_string (filter, "Drop what?");
+          pf_buffer_answer_break (filter);
+          return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+/*
  * lib_drop_and_arm_collect_pre400()
  *
  * The "and" arm's own walk (run390 4457A0-445813): it never parses the list,

@@ -350,7 +350,13 @@ def build(version):
 
     # ----------------------------------------------------------------- TASKS
     s(len(TASKS))
-    for command, text in TASKS:
+    for task in TASKS:
+        # (command, text) or (command, text, opts): opts may carry "score"
+        # and "move_ref" (1-based room the referenced object is moved to).
+        command, text = task[0], task[1]
+        opts = task[2] if len(task) > 2 else {}
+        score = opts.get("score", 0)
+        move_ref = opts.get("move_ref")
         if version >= 400:
             s(1); s(command)              # V$Command count, then the command
         else:
@@ -370,14 +376,28 @@ def build(version):
             s(3)                          # Where: all rooms
             s("")                         # Question
             s(0)                          # Restrictions
-            s(0)                          # Actions
+            actions = []
+            if move_ref is not None:      # Type 0: move ref obj (2) to room
+                actions.append((0, 2, 0, move_ref))
+            if score:
+                actions.append((4, score))
+            s(len(actions))               # Actions
+            for a in actions:
+                for x in a:
+                    s(x)
             if version >= 400:
                 s("")                     # RestrMask
         else:
-            s(0)                          # Score
+            s(score)                      # Score
             s(0)                          # SingleScore
-            for _ in range(6):            # [6]<TASK_MOVE>Movements
-                s(0); s(0)
+            for m in range(6):            # [6]<TASK_MOVE>Movements
+                if m == 0 and move_ref is not None:
+                    # Var1 2 = referenced object; Var2 = room + 1 at 3.8
+                    # (0 hidden, 1 player room), + 2 at 3.7 (held by
+                    # player sits at 1).
+                    s(2); s(move_ref + (2 if version == 370 else 1))
+                else:
+                    s(0); s(0)
                 if version >= 380:
                     s(0)                  # Var3 -- 3.7 has none
             s(0)                          # Reversible

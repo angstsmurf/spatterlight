@@ -926,7 +926,7 @@ static void
 uip_parse_list (scr_ptnoderef_t list)
 {
   scr_ptnoderef_t child, node;
-  scr_bool literal_only = TRUE;
+  scr_bool literal_only = TRUE, last_was_object = FALSE;
 
   /* Add elements until a list terminator token is encountered. */
   child = list;
@@ -943,10 +943,14 @@ uip_parse_list (scr_ptnoderef_t list)
           /*
            * A space between the end of a plain literal pattern and the end
            * of the pattern is a space the input must have; see
-           * uip_match_whitespace().  Groups and wildcards make it moot, so
-           * only a pattern of nothing but words carries the mark.
+           * uip_match_whitespace().  So is one after a closing %object%:
+           * p4BEYOND's `polish %object% ` matches nothing in run400, `polish
+           * orb` being the object catch-all (make_beyondprobe.py,
+           * Adrift_305_b40.txt, 2026-09-26), as in all three older Runners.
+           * Not after a group or a wildcard: House's task 190 `*get *cathy* `
+           * answers `get cathy` (runner_transcripts/house.txt:146).
            */
-          if (literal_only && child != list
+          if ((literal_only || last_was_object) && child != list
               && child->type == NODE_WHITESPACE)
             child->type = NODE_HARD_WHITESPACE;
 
@@ -983,6 +987,10 @@ uip_parse_list (scr_ptnoderef_t list)
           if (node->type != NODE_WORD && node->type != NODE_WHITESPACE
               && node->type != NODE_DOUBLE_WHITESPACE)
             literal_only = FALSE;
+          if (node->type != NODE_WHITESPACE
+              && node->type != NODE_DOUBLE_WHITESPACE
+              && node->type != NODE_GROUP_DOUBLE_WHITESPACE)
+            last_was_object = node->type == NODE_OBJECT_REFERENCE;
           if (child == list)
             {
               child->left_child = node;

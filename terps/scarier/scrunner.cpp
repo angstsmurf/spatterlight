@@ -5142,6 +5142,8 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
 
           if (version >= TAF_VERSION_390 && !gs_object_seen (game, index))
             continue;
+          if (version == TAF_VERSION_390 && obj_is_static (game, index))
+            continue;
 
           /* The object's Short first ... */
           name = prop_get_indexed_string (bundle, "Objects", index, "Short");
@@ -5509,7 +5511,7 @@ run_match_task_commands (scr_gameref_t game,
               || numeric
               || variable
               || literal_ref
-              || (is_matched && version < TAF_VERSION_390
+              || (is_matched
                   && strstr (pattern, "%object%") != NULL)
               /*
                * A 3.9 %character% command is decided the same way, not by
@@ -8305,12 +8307,36 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
          the take it stood in for has had its turn: no silent-literal peek
          to hand the line back to it. */
       run_matcher_second_pass = outer_twice;
-      status = run_game_commands_in_parser_context (game, task_string,
-                                                    FALSE, !outer_twice);
+      status = run_game_commands_in_parser_context (
+                   game, task_string, FALSE,
+                   !outer_twice
+                   && run_get_version (gs_get_bundle (game))
+                      >= TAF_VERSION_400);
       run_matcher_second_pass = FALSE;
       if (run_any_task_ran_this_command ())
         run_takes_second_pass_370 (game, string, task_string, task_mark);
+      /* A silent task on a take or drop line: the handler's own "Take
+         what?" / "Drop what?" claims it (see the helper). */
+      if (!status && run_any_task_ran_this_command ()
+          && pf_buffer_length (filter) == task_mark
+          && lib_move_what_after_silent_task_pre400 (game))
+        status = TRUE;
     }
+  /*
+   * Below 4.0 a task the dispatcher ran that printed nothing, and that no
+   * "Take what?" / "Drop what?" claimed, keeps the take and drop handlers
+   * out as well: the line is the silent claim's below.  p3xBEYOND
+   * (make_beyondprobe.py, 2026-09-26): run370 `take orb` with the orb on the
+   * floor runs silent task "take orb" twice and answers "I don't
+   * understand.", the orb left there (Adrift_285_c37.rtf); run390 `drop cape
+   * to the floor` with the cape on the floor scores the silent task and says
+   * "I don't understand." rather than "You don't have the red cape!"
+   * (Adrift_287_c39.txt).
+   */
+  const scr_bool silent_before_priority = !claimed_before_tasks && !status
+      && run_any_task_ran_this_command ()
+      && pf_buffer_length (filter) == task_mark
+      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
   /*
    * The take and drop rows live in the priority table, not in the library
    * cascade below, and pre-4.0 takes() and drops() are entered on their verb
@@ -8344,7 +8370,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
            && run_two_verb_line_400 (game, string, priority_hoisted))
     priority_line = priority_hoisted.c_str ();
 
-  if (!status && !put_first && !inv_listed && !repeat_pending)
+  if (!status && !put_first && !inv_listed && !repeat_pending
+      && !silent_before_priority)
     {
       const size_t goto_mark = pf_buffer_length (filter);
       std::vector<scr_int> goto_places;
@@ -8421,11 +8448,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * the_hangover it also keeps the filing cabinet shut: the task matched and
    * did nothing, so the library never opens it and the approval form stays
    * inside.  See the note "Measured 2026-08-23 (make_39_doneprobe.py" above.
+   *
+   * run370 and run380 claim the same way (p3xBEYOND, 2026-09-26: silent task
+   * "wave cape slowly" +1000 is "I don't understand." where the object
+   * catch-all would say "... with the red cape.", Adrift_285_c37.rtf,
+   * Adrift_286_c38.rtf), but there the line stays a turn: neither has the
+   * not-a-turn byte below 3.90.
    */
   const scr_bool silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
       && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
 
   /*
@@ -8669,7 +8701,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   const scr_bool silent_names_npc_390 =
       silent_task_390 && lib_line_names_npc_390 (game, string);
-  if (silent_task_390 && !silent_names_npc_390)
+  if (silent_task_390 && !silent_names_npc_390
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     game->is_admin = TRUE;
 
   /*

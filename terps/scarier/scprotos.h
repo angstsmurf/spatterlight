@@ -744,6 +744,7 @@ extern scr_bool lib_task_prematches_input (scr_gameref_t game,
 extern scr_int lib_task_prematch_kind_input (scr_gameref_t game,
                                              scr_int class_filter);
 extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
+extern scr_bool lib_move_what_after_silent_task_pre400 (scr_gameref_t game);
 extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
                                            const scr_char *line);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
