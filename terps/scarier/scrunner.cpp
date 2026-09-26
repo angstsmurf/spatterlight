@@ -5575,6 +5575,29 @@ run_match_task_commands (scr_gameref_t game,
                                           literal);
         }
 
+      /*
+       * run390's %object% walk stores every hit in the per-turn referenced
+       * object MemVar_4681A8 (44AB0D, 44AB90) before checkwild or the
+       * equality test is reached, so a %object% command that then fails to
+       * match still leaves its object referenced for the rest of the turn.
+       * thenightmoon's task 17 is literal `behead dark elf`, but its
+       * restriction "the referenced object must be held" answers "You do not
+       * have dead dark elf." there (run390x Adrift_304_nmprobe2_rt.txt), the
+       * body having been bound by a %object% command checked earlier.
+       */
+      if (!is_matched && version == TAF_VERSION_390
+          && strstr (pattern, "%object%") != NULL)
+        {
+          std::string literal;
+          scr_int ref_object, ref_character;
+
+          if (run_pre400_substitute_references (game, matched_input, pattern,
+                                                literal, &ref_object,
+                                                &ref_character)
+              && ref_object >= 0)
+            var_set_ref_object (gs_get_vars (game), ref_object);
+        }
+
       /* Stop searching if we find a match. */
       if (is_matched)
         {

@@ -526,7 +526,7 @@ thesisters	thesisters.txt	driven:Adrift_280_thesisters_rt.txt	4.00	run400x.exe	1
 thesorc	thesorc.txt	driven:Adrift_346_thesorc_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thetest	thetest.txt	driven:Adrift_189_thetest_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thetest_win	thetest_win.txt	driven:Adrift_190_thetest_win_rt.txt	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	yes	identical on every turn.
-thewill	thewill.txt	driven:Adrift_305_thewill_rt.txt	3.90	run390x.exe	1234	1			yes	1 differing turn(s)
+thewill	thewill.txt	driven:Adrift_305_thewill_rt.txt	3.90	run390x.exe	1234	1			yes	identical on every turn.
 thewoods	thewoods.txt	harvested-native-0-draws:Adrift_729_thewoods.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 think2	think2.txt	driven:Adrift_174_think2_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 thorn	thorn.txt	driven:Adrift_148_thorn_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.

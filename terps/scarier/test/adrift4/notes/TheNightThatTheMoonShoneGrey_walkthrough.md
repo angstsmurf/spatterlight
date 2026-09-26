@@ -15,7 +15,9 @@ every SCR_SEED 1-20 wins at 360.
 - **Task 17 `behead drow`:** it wants the REFERENCED object held AND the
   dark elf's body in the Library. `behead drow` references nothing (run390x
   "Who?"); `behead dark elf` references the body, which cannot be held and
-  lie in the Library at once (run390x "You do not have dead dark elf.").
+  lie in the Library at once (run390x "You do not have dead dark elf.";
+  Scarier gives the same since 2026-09-26, when 3.9's rule that any
+  `%object%` command's name walk binds the turn's reference was ported).
   Scarier used to award task 17: a "referenced object is held" restriction
   with no referenced object fell into the any-object loop. Fixed 2026-09-26
   in `screstrs.cpp` -- it now fails below TAF 4.00, silently at 3.90, per

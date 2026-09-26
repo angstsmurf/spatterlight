@@ -28,8 +28,10 @@
   shack, `open drawer`, `get matchbook`, `put flashlight in charger`), light
   it in the Kitchen and **never switch it off**: after `unlight flashlight`
   (task 103) event 19 clears task 101 ("light flashlight") every turn, and
-  the Foot of Hill's east exit is gated on task 101. Whether the Runner
-  behaves the same there is unverified (the route never tries it).
+  the Foot of Hill's east exit is gated on task 101. run390x agrees: an
+  off/on cycle right after the first lighting leaves `e` at the Foot of Hill
+  refused ("At present your only way out appears to be south."; feed
+  cmdfile_willflash.txt, Adrift_304_willflash.txt, 2026-09-26).
 - **Other order constraints:** take the carving while the umbrella is still
   hooked on the steam pipe; `feed puppy steak` before `get dogbone`; the
   shovel appears in the Toolshed after `push button` in the Study, and `open
@@ -47,10 +49,10 @@
   `put disk in computer` ("insert disk" becomes "put disk" and matches
   nothing).
 - **Runner check:** run390x drove the whole 242-command route
-  (`runner_transcripts/thewill.txt`, 2026-09-26) and wins identically except
-  one turn: at the Narrow Squeeze `get all` run390 lists the eight floor
-  objects and then "You take the jade clover." as its own sentence, while
-  Scarier prints the clover first. Unexplained, still open.
+  (`runner_transcripts/thewill.txt`, 2026-09-26) and is identical on every
+  turn. The one earlier difference, the Narrow Squeeze `get all` (task 142
+  claims the clover), was a Scarier ordering bug: run390, like run400, puts
+  the library's take line before the task's text. Fixed 2026-09-26.
 - **Content note:** nothing requiring a check; no minors appear in the game
   text.
 

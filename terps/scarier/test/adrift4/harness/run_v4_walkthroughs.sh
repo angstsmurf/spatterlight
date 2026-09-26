@@ -10621,15 +10621,18 @@ night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the ma
 # is how the Runner prints a negative shortfall. The flashlight is lit in the
 # Kitchen and never switched off: after `unlight flashlight` an event clears
 # the "light flashlight" task every turn, and the Foot of Hill's east exit is
-# gated on it. "insert" is a game synonym for "put", so the boot disk goes in
+# gated on it (run390x agrees: `unlight flashlight`, `light flashlight` after
+# the first lighting, and `e` at the Foot of Hill is refused; feed
+# cmdfile_willflash.txt, Adrift_304_willflash.txt, 2026-09-26).  "insert" is
+# a game synonym for "put", so the boot disk goes in
 # with `put disk in computer`. A blank line answers the intro <waitkey>.
 # Deterministic across seeds, no env needed.  %in_clock% / %in_drawer% in
 # room text list nothing while the container is closed (whatisinon gate, see
 # var_get_system in_).
-# Runner (run390x, runner_transcripts/thewill.txt): wins the same way; one
-# turn differs.  At the Narrow Squeeze `get all` run390 lists the eight
-# floor objects first and then "You take the jade clover." as its own
-# sentence; Scarier prints the clover first.  Unexplained, still open.
+# Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
+# since 2026-09-26.  At the Narrow Squeeze `get all` task 142 claims the
+# clover, and run390 puts the library's take line in front of the task's
+# text, as run400 does (sclibrar_take.inc, the saved-buffer branch).
 thewill_solution.txt|The_Will.taf|You have completed The Will and inherited a fortune.|
 # Twenty-one.taf: horror chase vignette. Full WIN -- silver flask, glasses
 # and cane are mandatory survival gear; escape corridor then let the
@@ -10685,7 +10688,9 @@ temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # 17 `behead drow`: it wants the referenced object held AND the dark elf's
 # body in the Library. `behead drow` references nothing (run390x "Who?"),
 # and `behead dark elf` references the body, which cannot be both held and
-# lying in the Library (run390x "You do not have dead dark elf.").
+# lying in the Library (run390x "You do not have dead dark elf.", and
+# Scarier too since 2026-09-26: a 3.9 %object% walk binds the reference
+# even when its command then fails to match, scrunner.cpp).
 # Route: kill the Giant rat and `give dead giant rat to smith` (the only
 # phrasing task 23's ALTCMD accepts); detour to the Village wall and `fight
 # skeleton with longsword` -- attack/kill/hit/stab all match task 5's

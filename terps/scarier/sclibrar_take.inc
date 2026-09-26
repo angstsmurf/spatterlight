@@ -1118,10 +1118,15 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                * after the library's line.  fullcircle `get all`, with a
                * `get *branch*` task, answers "You take the helm and the
                * locket.  You take the branch."  (Adrift_1053_fullcircle.txt
-               * line 356.)
+               * line 356.)  run390 orders it the same way: The Will's
+               * `get all` at the Narrow Squeeze, where task 142 `* get *
+               * clover` claims the clover, answers "You take the rare stamp,
+               * ... and the gold ring.  You take the jade clover." (run390x,
+               * runner_transcripts/thewill.txt T197).
                */
               scr_owned_string saved;
-              if (has_printed && total == 0 && lib_is_version_400 (game))
+              if (has_printed && total == 0
+                  && (lib_is_version_400 (game) || lib_is_version_390 (game)))
                 saved.reset (pf_transfer_buffer (filter));
               else if (has_printed)
                 pf_buffer_string (filter, total == 0 ? "\n" : "  ");

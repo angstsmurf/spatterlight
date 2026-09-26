@@ -1290,11 +1290,9 @@ a rare stamp, a matchbook, a burning oil lamp, a large umbrella, an ivory
 dogbone, a jade clover, a floppy disk, a black pearl and a gold ring.
 
 > get all
-You take the jade clover.
-
 You take the rare stamp, the matchbook, the burning oil lamp, the large
 umbrella, the ivory dogbone, the floppy disk, the black pearl and the gold
-ring.
+ring.  You take the jade clover.
 
 > d
 You slide down the steep slope and land with a thud.
