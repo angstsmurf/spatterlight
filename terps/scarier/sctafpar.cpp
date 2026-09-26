@@ -4301,6 +4301,95 @@ static const scr_patch_edit_t PATCH_FUNTOWN[] = {
   PATCH_SET ("Tasks/117/Restrictions/17/Var1", 105, 106)
 };
 
+/*
+ * Sommeril, H. Lee Parten
+ *
+ * The game is a hunt for the five torn pages of a book, and the wet page is
+ * the fish's.  Dropping the fish into the fountain runs task 18, which moves
+ * the fish into the fountain's room and the WET PAGE into the FOUNTAIN, and
+ * says so: "A wet page has floated to the surface of the water."  Task 6,
+ * "take wet page", is the page's ten points, and it also tells the fish to
+ * dive -- "With a flick of his tail, the fish swims out of sight, deep into
+ * the dark water."
+ *
+ * Task 6's one restriction asks that the WET PAGE be held by the FISH.  An
+ * NPC never holds it: task 18 put it inside the FOUNTAIN, which is where the
+ * task's own text says it is floating, so the restriction is false at the
+ * only moment the task can be typed.  The task is refused, the line falls
+ * through to the library take, and the player is told "You take the WET PAGE
+ * from the FOUNTAIN." without the ten points and without the fish diving.
+ * With the page taken the task can never be reached again, and the game is
+ * stranded ten short of the 95 its scoring tasks can sum to.
+ *
+ * The restriction is moved from the fish onto the fountain the fish is in:
+ * "inside" rather than "held by", and the FOUNTAIN, the sixth container, in
+ * place of the first NPC.  Both are the one dropdown pair on the Generator's
+ * object-location restriction, so this is the selection the author's own
+ * text describes.
+ */
+static const scr_patch_edit_t PATCH_SOMMERIL[] = {
+  PATCH_VERIFY ("Tasks/6/Command/0", "take wet page"),
+  PATCH_VERIFY ("Tasks/6/CompleteText",
+                "With a flick of his tail, the fish swims out of sight, deep"
+                " into the dark water."),
+  PATCH_VERIFY ("Tasks/18/AdditionalMessage",
+                "The fish swims in small circles near the edge of the"
+                " fountain. A wet page has floated to the surface of the"
+                " water."),
+  PATCH_SET ("Tasks/6/Restrictions/0/Var2", 1, 4),
+  PATCH_SET ("Tasks/6/Restrictions/0/Var3", 2, 6)
+};
+
+/*
+ * Locked Out, Graeme Allen
+ *
+ * The last twenty points are task 20, "put rock on lid": the rock that broke
+ * the box open earlier is weighted onto the trash can lid so the raccoons
+ * stay out, and the task announces its own award, "..::You've earned 20
+ * points!::..".  It carries no restrictions.
+ *
+ * Its Where is "No rooms", so the task is allowed to run nowhere at all.  A
+ * player standing in the alley with the rock in hand and the lid in front of
+ * them types the command the task was written for and gets the library's
+ * "You put the large rock onto trash can lid." instead: the rock lands on
+ * the lid, the raccoon line is never printed, and the game tops out at
+ * 90/110 with no way to reach the twenty it still advertises.
+ *
+ * The Where is opened to "All rooms".  The task has no other gate, but it is
+ * unrepeatable and names both objects in its command, so it can only be
+ * completed once, in the one place the rock and the lid are together.
+ */
+static const scr_patch_edit_t PATCH_LOCKEDOUT[] = {
+  PATCH_VERIFY ("Tasks/20/Command/0", "put rock on lid"),
+  PATCH_VERIFY ("Tasks/20/CompleteText",
+                "You place the rock you used to bash the life out of your"
+                " little box earlier on top of the trash can lid. You get the"
+                " feeling that it will prevent the raccons from getting in"
+                " the trash again."),
+  PATCH_SET ("Tasks/20/Where/Type", 0, 3)
+};
+
+/*
+ * Villains and Kings, Neal, the GREAT
+ *
+ * The soap on a rope sits inside the Broken Window, and task 5,
+ * "take * soap * * *", is the point for fishing it out: it moves the soap
+ * into the player's hands, awards one, and answers "you snatch up the soap.
+ * good for you."  Its one restriction asks that the window be open, and its
+ * refusal is written for a player who has not opened it yet -- "your keen
+ * sense of smell detects soap, yet you do not see any."
+ *
+ * Its Where is "No rooms", so the task never runs anywhere.  The library
+ * take hands the soap over instead, unscored, and the game's declared 37
+ * cannot be beaten by more than 36.  The Where is opened to "All rooms";
+ * the window restriction is what the task was gated on, and it still is.
+ */
+static const scr_patch_edit_t PATCH_VILLAINS_AND_KINGS[] = {
+  PATCH_VERIFY ("Tasks/5/Command/0", "take * soap * * *"),
+  PATCH_VERIFY ("Tasks/5/CompleteText", "you snatch up the soap.  good for you."),
+  PATCH_SET ("Tasks/5/Where/Type", 0, 3)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4376,7 +4465,20 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("Fun Town", "Mandrake",
               "the treasure chest asks for the episode that scores rather"
               " than its twin that kills you",
-              PATCH_FUNTOWN)
+              PATCH_FUNTOWN),
+  PATCH_GAME ("\"Sommeril\" by H. Lee Parten<br>", "H. Lee Parten",
+              "taking the wet page looks for it in the fountain the fish"
+              " dropped it in, rather than in the fish's hands",
+              PATCH_SOMMERIL),
+  PATCH_GAME ("<font size=+5><center><i><b><u>Locked Out</u></b></i></center>",
+              "Graeme Allen (www.postbrickfilms.com/littlebrick)",
+              "weighting the trash can lid down with the rock is allowed in"
+              " the alley it can be done in",
+              PATCH_LOCKEDOUT),
+  PATCH_GAME ("Villains and Kings", "Neal, the GREAT",
+              "taking the soap out of the broken window is allowed in the"
+              " room the window is in",
+              PATCH_VILLAINS_AND_KINGS)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

@@ -1,0 +1,55 @@
+# The patched route (SCR_ASSUME_PATCHES=1).  One field in the built-in patch
+# table: task 20 `put rock on lid`, the last twenty points, has its Where set
+# to "No rooms" and so can run nowhere; the line falls to the library put and
+# the raccoon-proofing is never credited.  With the Where opened to all rooms
+# the task fires in the alley, and the route below is the faithful one with
+# the single command it was written for added after the trash is cleaned:
+# 90 -> 110, the declared maximum.
+#
+s
+s
+look in grass
+get rock
+n
+n
+break lock with rock
+open box
+look in box
+get baseball
+w
+n
+w
+throw ball
+throw baseball
+throw baseball at ladder
+u
+n
+open drawer
+get remote
+dig in tub of Lego
+open lego piece
+get battery
+look under dresser
+get battery
+s
+d
+s
+e
+e
+put batteries in remote
+use remote
+e
+turn on light
+clean trash
+put rock on lid
+ne
+look behind pile of furniture
+get crowbar
+sw
+w
+n
+w
+n
+smash window
+quit
+y

@@ -1607,6 +1607,13 @@ to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now 
 # (run400 restriction_check leaves at 480F9E/480FA6), and the referenced
 # object is cleared before each typed line (48A004 / run390 45EC66).
 villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): task 5 `take soap` is allowed to run in the room
+# the broken window is in rather than in no room at all, and the one point it
+# awards lands -- 31/37, the ceiling the note above works out.  The script is
+# the faithful one minus the no-op `take golden soap`, which the author's
+# wildcard command matches once the task can run.
+villains_and_kings_patched_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a maximum of 37.|SCR_ASSUME_PATCHES=1
 # WesGHN's old "UNWINNABLE 30/100, orphaned gold ring" verdict was wrong
 # (2026-08-02): event 1 [Davidshand] -- started by `ring bell`, misread in the
 # original dump because EVENT o2/o3 print RAW 1-based refs -- drops the severed
@@ -1733,6 +1740,13 @@ wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 # the page still scores its own +5.  95 - 10 = 85, exactly this row's score,
 # and the route below takes everything else in the pool.  Surveyed 2026-09-13.
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): task 6's restriction asks the fountain the fish
+# dropped the page in rather than the fish's own hands, so `take wet page`
+# runs the task instead of falling to the library take, the fish dives, and
+# the ten points land.  The script is the faithful one, unchanged; only the
+# golden and this row's env differ.  95/100 is the whole scoring pool.
+sommeril_patched_solution.txt|sommeril.taf|You scored 95 out of the maximum 100!|SCR_ASSUME_PATCHES=1
 # Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
 # identical, then the long cutscene after "read incantation" (turn 106)
 # swallows the next fed command (rule 2, see wine-runner-soundalert-desync) and
@@ -9999,6 +10013,12 @@ darkriver_solution.txt|The_Dark_River_1.4.taf|You scored 12 out of the maximum 1
 # in the treehouse, crowbar behind the garage furniture. Waitkeys.
 # 90/110: library PUT consumes "put rock on lid" (+20) before the task.
 lockedout_solution.txt|lockedout.taf|You scored 90 out of the maximum 110!|SCR_SKIP_WAITKEY=1
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): task 20 `put rock on lid` is allowed to run in
+# the alley it was written for rather than in no room at all, so the twenty
+# points it announces are awarded and the game reaches its declared 110.  The
+# script is the faithful one plus the single command the task names.
+lockedout_patched_solution.txt|lockedout.taf|You scored 110 out of the maximum 110!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 # The Big Spy Fiction ch.3. Ask the prisoner, bone the henchman, call the
 # lawyer, then mace and the lair's self-destruction. Waitkeys.
 bigspy3_solution.txt|bigspy3.taf|Narrator can not ask whether this is end of our hero|SCR_SKIP_WAITKEY=1

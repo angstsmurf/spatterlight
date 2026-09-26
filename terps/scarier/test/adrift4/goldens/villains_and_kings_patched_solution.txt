@@ -1,0 +1,53 @@
+# The patched route (SCR_ASSUME_PATCHES=1).  One field in the built-in patch
+# table: task 5 `take * soap * * *`, the point for fishing the soap on a rope
+# out of the broken window, has its Where set to "No rooms" and so can run
+# nowhere; the library take hands the soap over unscored.  With the Where
+# opened to all rooms the task fires and the game reaches 31/37, the ceiling
+# the faithful row's note works out.  The route is the faithful one minus its
+# line 25 `take golden soap`, a no-op there ("You've already got Golden
+# soap!") that the author's wildcard command now matches -- the golden soap is
+# already in hand from searching the assassin, so nothing is lost by not
+# typing it.
+#
+male
+
+take note
+n
+open window
+n
+give note to king
+s
+s
+s
+e
+x Weapon Rack
+take sword
+wield sword
+w
+n
+n
+n
+w
+push tile
+e
+s
+attack guy
+search guy
+n
+give the golden soap to king
+s
+x Cracked Broken Window
+take soap on a rope
+x window
+close window
+n
+give soap on a rope to king
+take doughnut
+s
+s
+s
+w
+n
+w
+use radio
+score
