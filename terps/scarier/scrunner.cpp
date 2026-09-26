@@ -8122,9 +8122,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * that before put_drop_list ever ran.
    */
   task_string = string;
-  if (put_first && !status && !refused && run_priority_unnamed_put
-      && run_unnamed_put_fragment (string, fragment))
-    task_string = fragment.c_str ();
+  if (put_first && !status && !refused && run_priority_unnamed_put)
+    {
+      /* A plain "drop X" has no preposition to split at, so its fragment is
+         the whole rewritten line; see lib_drop_named_400(). */
+      if (run_unnamed_put_fragment (string, fragment))
+        task_string = fragment.c_str ();
+      else
+        {
+          fragment = run_normalise_put_line (string);
+          task_string = fragment.c_str ();
+        }
+    }
 
   /*
    * get_outer's "empty " rewrite sits between put_drop_list and the

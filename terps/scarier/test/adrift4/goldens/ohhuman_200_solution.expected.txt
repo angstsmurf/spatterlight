@@ -1,0 +1,110 @@
+Loading game...
+
+Oh, Human
+by Abbi Park
+
+Darkness
+The walls are barely visible, but you seem to be in a small, square room.
+
+> go through hole
+As you begin to reach toward the hole, you hear a rushing sound and are
+propelled straight through the hole to whatever is on the other side.  You
+also hear clunking noises, as if large objects were being moved around.  The
+hole closes behind you, and the rushing sound stops.  When you look back,
+there is no evidence of the hole you came from.
+
+A crisp, clear female voice announces, "Good job.  That is worth ten points."
+
+> drop device
+You set the device down on the floor.  The light follows it, staying a few
+feet away from it.  You feel better now.
+
+> get light
+Carefully, so as to not hurt your hand, you reach out and grab the circular
+light, placing your thumb and fingers on each side and avoiding touching the
+edge with your palm.  It takes a lot of effort to break the bond between the
+light and the device, but after a while of struggling, you finally manage to
+pull it free, and the light no longer responds to the device's call.
+
+> push crate
+You try to push the crate away from its spot on the wall, revealing... oh,
+hey, there's a hole behind where the crate was.  How completely unexpected.
+Just as you are thinking this, you must have gotten too close to the hole,
+because the now-familiar noises start up, and you're sucked through the the
+hole to the other side.
+
+The voice announces, "Great job.  That is worth 20 points."
+
+> stand on box
+You stand on the box.
+
+> go through hole
+As you reach toward the hole, you hear the same noises you heard last time,
+and are once again propelled through to the other side with no evidence of
+the hole behind you when you arrive.
+
+The voice announces, "Nice job.  That is worth 30 points."
+
+For a few seconds there, you thought you heard muted voices, but now there is
+only silence.
+
+> look
+
+The Fourth Room
+The crate is here.  Above that is a hole.
+
+> stand on crate
+You stand on the crate.
+
+> go through hole
+Yet again, you reach toward the hole, the noises start up, and you are
+propelled through it to the other side.
+
+The voice announces, "Good.  That is worth 40 points."
+
+> wait
+You wait a bit...
+
+> put crate on box
+(Taking the crate first)
+You put the crate onto the box.
+
+> stand on crate
+You stand on the crate.
+
+> climb ladder
+From the crate, you climb up onto the ladder.  You can reach the hole from
+here.
+
+> go through hole
+As you begin to reach toward the hole, you hear a rushing sound and are
+propelled straight through the hole and down a moderately steep, slanted
+wall.  When you look back, you realize there's no way you could climb back up
+it even if you wanted to.
+
+As you walk into the new room, a man and a woman in suits rush up to greet
+you and shake your hand warmly.  A third person, in jeans and a normal shirt,
+hangs back for a few seconds and then leaves the room.  You stare curiously
+at him for a bit, and then forget about him as your attention is drawn
+elsewhere.
+
+"Congratulations!" the greeters exclaim in unison, smiling ecstatically.
+
+Then the woman takes over.  You recognize her voice as the one who announced
+the score changes.  "We just want you to know that you've received the
+highest score possible, okay?  We couldn't be more excited for you," she
+gushes.
+
+"I knew you could do it!" the man adds confidently, grinning.
+
+The woman speaks up again.  "Okay, now we're all very busy, and I'm sure you
+have things to do, so, once again, congratulations, and good luck in all your
+future endeavors!"  With that, she guides you to the door, opens it, and
+shoves you outside, locking the door behind you.  You stagger a bit, but
+regain your balance and wonder what all that was about.
+
+> score
+Your score is 200 out of a maximum of 200.  (100%)
+
+> quit
+Do you really want to quit? [Y/N]

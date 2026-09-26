@@ -476,6 +476,9 @@ A flight of winding steps lead upwards, a door leads out and a corridor leads ea
 > buy wine
    Vulgur takes your money card, swipes it along his bar, grunts "that'll do nicely," and hands you a mug of wine.
 
+> buy beer
+   Vulgur takes your money card, swipes it along his bar, grunts "that'll do nicely," and hands you a mug of beer that looks ever so slightly off colour.
+
 > out
 Vildung Square
 
@@ -484,7 +487,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-
+   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
 
 > sw
 You move southwest.
@@ -495,7 +498,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.     A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+   The rain... will it ever stop?
 
 > s
 Deep, dark woods
@@ -505,7 +508,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-
+   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
 
 > s
 You move south.
@@ -516,7 +519,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
+
 
 > se
 Gorge
@@ -536,7 +539,7 @@ A path leads into the woods to the northwest
    "Your mother's very worried about you."
    "Duh!" says Lughead.
    You start to say something else but stop. Lughead Newby, for this is he if you were ever in any doubt, seems a little slow and you doubt you're going to get anything more than "duh!" from him now he's got his precious doll back.
-   A funny thing happens when you try to leave - Lughead follows you, hero-worship in his eyes. It seems you've gained a travelling companion whether you want one or not.
+   A funny thing happens when you try to leave - Lughead follows you, hero-worship in his eyes. It seems you've gained a travelling companion whether you want one or not.     Several birds fly past, each giving you a threatening look.
 
 > nw
 You move northwest.
@@ -547,7 +550,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   A bear growls loudly closeby but you can't see where it's coming from.
+
 
 > n
 You move north.
@@ -558,7 +561,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-
+   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
 
 > n
 You move north.
@@ -569,7 +572,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-   The rain... will it ever stop?     A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+
 
 > ne
 You move northeast.
@@ -580,7 +583,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > w
 You move west.
@@ -591,7 +594,7 @@ Merrick RowYou're on Merrick Row, a little street of no great importance off to 
 
 Vildung Square is east, a house lies north and the dark alley northwest
 
-   The rain seems to let up for a moment then comes down worse than ever.
+
 
 > n
 Aggie Newby's cottage
@@ -621,7 +624,7 @@ Merrick RowYou're on Merrick Row, a little street of no great importance off to 
 
 Vildung Square is east, a house lies north and the dark alley northwest
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
+   The rain... will it ever stop?
 
 > e
 You move east.
@@ -632,7 +635,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain... will it ever stop?
+
 
 > in
 You move in.
@@ -662,6 +665,9 @@ The main room lies west
 
   Father Kringle is here.     "Oh, my head!" moans Father Kringle. "Oh, my poor head! I knew I shouldn't have had those last seventeen pints but the temptation was too strong... I'm a terrible man... I don't deserve to live... I'm a terrible, terrible person..."
    He breaks down sobbing in what must be the worst piece of ham acting you've ever seen.
+
+> give beer to kringle
+   "Ah, the perfect cure for hangover," he says. He gulps back the beer, grimaces, looks like he's about to collapse, but then recovers and says, "I needed that!"
 
 > x table
    On one of the ruined tables you come across a steak which someone must have been eating when the fighting broke out. After wiping away the worst of the bloodstains and spilled brain matter, it looks fairly edible so you take it with you.
@@ -728,7 +734,7 @@ Cemetery GatesYou're at the gates of an ancient, murky cemetery that looks like 
 
 Bourbon Avenue lies south and the cemetery northeast
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
+
 
 > smash gates
    Using your great strength you attack the gates, batter them into the ground, and storm into the cemetery.  
@@ -739,7 +745,7 @@ CemeteryYou're in the cemetery. And a more grim and desolate place you have neve
 
 The rest of the world lies southwest whereas that crypt is to the east and the gravedigger's hut in
 
-  An owl hoots somewhere in the cemetery.
+  You hear a weird sound off to one side but it doesn't look as if there's anything there.
 
 > e
 Lucifer's crypt
@@ -790,7 +796,7 @@ CemeteryYou're in the cemetery. And a more grim and desolate place you have neve
 
 The rest of the world lies southwest whereas that crypt is to the east and the gravedigger's hut in
 
-
+   A zombie pops his head up through the soil, has a look around, then sinks back under.
 
 > sw
 You move southwest.
@@ -801,7 +807,7 @@ Cemetery GatesYou're at the gates of an ancient, murky cemetery that looks like 
 
 Bourbon Avenue lies south and the cemetery northeast
 
-
+   The rain... will it ever stop?
 
 > s
 You move south.
@@ -823,7 +829,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > se
 You move southeast.
@@ -858,7 +864,7 @@ A door leads northwest into the big, bad world
    "A wise purchase," remarks Wendell as he hands over, of all things, a small statue of a frog.
 
 > x card
-   A slim piece of card which tells you, in a way that is quite magical and incomprehensible to you, just how much money you have in the world. The balance currently stands at 5 pieces of gold.
+   A slim piece of card which tells you, in a way that is quite magical and incomprehensible to you, just how much money you have in the world. The balance currently stands at 4 pieces of gold.
 
 > nw
 You move northwest.
@@ -869,7 +875,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > w
 You move west.
@@ -885,13 +891,13 @@ Vildung Square is east, a house lies north and the dark alley northwest
 > give bomb to kids
    You hand over the bomb.
    "Cool!" says the girl. "Just fink how many teachers we can kill wiv this baby!"
-   Another kid wanders off and taps the bomb with his knife. "Not bad, mister. Maybe you aren't so bad fer a git. C'mon, fellers, let's go torch somefin!"     The rain seems to let up for a moment then comes down worse than ever.
+   Another kid wanders off and taps the bomb with his knife. "Not bad, mister. Maybe you aren't so bad fer a git. C'mon, fellers, let's go torch somefin!"     The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
 
 > give love to kids
    You hand over the true love.
    One of the kids looks at it for a moment then lowers his knife. "Fellows," he says to the others. "I think the time has come for us to abandon our evil ways and join the path of light."
    The others consider this for a second then one says, "good point. Let's go and find some old lady and help her with her shopping."
-   The kids wander off down the street singing a joyful ltitle song to themselves, all thoughts of mindless violence gone from their minds.
+   The kids wander off down the street singing a joyful ltitle song to themselves, all thoughts of mindless violence gone from their minds.     The rain... will it ever stop?
 
 > e
 You move east.
@@ -902,7 +908,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
+
 
 > in
 You move in.
@@ -957,7 +963,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain seems to let up for a moment then comes down worse than ever.
+   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
 
 > se
 You move southeast.
@@ -979,7 +985,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
+
 
 > sw
 You move southwest.
@@ -990,7 +996,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > s
 Deep, dark woods
@@ -1000,7 +1006,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
+   A bear growls loudly closeby but you can't see where it's coming from.
 
 > sw
 You move southwest.
@@ -1021,7 +1027,7 @@ More deep, dark woods...You're in the midst of deep, dark woods that seem to loo
 
 Paths lead in... lots of directions!
 
-   A bear growls loudly closeby but you can't see where it's coming from.
+   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
 
 > nw
    As you wander northwest, you trip and stumble over a fallen tree and badly graze your hands. After some choice cursing, you venture on...  
@@ -1084,7 +1090,7 @@ More deep, dark woods...You're in the midst of deep, dark woods that seem to loo
 
 Paths lead in... lots of directions!
 
-   A bear growls loudly closeby but you can't see where it's coming from.
+   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
 
 > se
 You move southeast.
@@ -1106,7 +1112,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
+   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
 
 > ne
 You move northeast.
@@ -1128,7 +1134,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+   The rain... will it ever stop?     Several birds fly past, each giving you a threatening look.
 
 > ne
 You move northeast.
@@ -1139,7 +1145,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
+
 
 > e
 You move east.
@@ -1150,7 +1156,7 @@ East GatesYou've come to the east gates of town which, as is usual in these circ
 
 Exits lie east and west
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > e
 Crossroads
@@ -1187,7 +1193,7 @@ From here you can go northwest, southwest, south, east and in
 > give medicine to mob
    "Truly you are a god amongst men," says the mob man as you hand over the pig medicine. "A strange one as well, carrying around a vial of pig medicine all that time on the slight off chance that you might need it."
    "I've played these sort of games before," you say with a knowing smile.
-   "Ah," says the man. "That explains it all."     Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+   "Ah," says the man. "That explains it all."     Several birds fly past, each giving you a threatening look.
 
 > e
 You move east.
@@ -1227,7 +1233,7 @@ Village pathYou're following a winding little path that leads to a village green
 
     The path leads off to the west and southeast and the coach lies inwards
 
-   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
 
 > w
 You move west.
@@ -1319,7 +1325,7 @@ CrossroadsYou're standing at a crossroads just outside town. For some reason the
 
 Exits lie pretty much as the scarecrow is indicating
 
-   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
 
 > w
 You move west.
@@ -1341,7 +1347,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain seems to let up for a moment then comes down worse than ever.
+   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
 
 > sw
 You move southwest.
@@ -1352,7 +1358,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-
+   The rain... will it ever stop?
 
 > s
 Deep, dark woods
@@ -1362,7 +1368,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   A bear growls loudly closeby but you can't see where it's coming from.
+   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
 
 > sw
 You move southwest.
@@ -1383,7 +1389,7 @@ More deep, dark woods...You're in the midst of deep, dark woods that seem to loo
 
 Paths lead in... lots of directions!
 
-   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
+   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
 
 > nw
 More deep, dark woods
@@ -1453,7 +1459,7 @@ More deep, dark woods...You're in the midst of deep, dark woods that seem to loo
 
 Paths lead in... lots of directions!
 
-   Spookily, you see a weird figure go running through the trees some distance away but when you look again it's not there anymore.
+   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
 
 > n
 You move north.
@@ -1475,7 +1481,7 @@ Deep, dark woods...You're in the midst of deep, dark woods that seem to loom on 
 
 Paths lead in... lots of directions!
 
-   Somewhere in the distance you hear a tree falling down. It makes quite a crash.
+   A bear growls loudly closeby but you can't see where it's coming from.
 
 > n
 You move north.
@@ -1486,7 +1492,7 @@ The road out of townYou're following the road out of town which leads, surprisin
 
 Dark wood lies to the south, the centre of town is northeast and the big building stands westwards
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > ne
 You move northeast.
@@ -1518,7 +1524,7 @@ Cemetery GatesYou're at the gates of an ancient, murky cemetery that looks like 
 
 Bourbon Avenue lies south and the cemetery northeast
 
-
+   The rain... will it ever stop?
 
 > ne
 Cemetery
@@ -1528,10 +1534,10 @@ CemeteryYou're in the cemetery. And a more grim and desolate place you have neve
 
 The rest of the world lies southwest whereas that crypt is to the east and the gravedigger's hut in
 
-   A zombie pops his head up through the soil, has a look around, then sinks back under.
+
 
 > open hut
-   The door swings open. A horrible smell wafts out of the hut.    You hear a weird sound off to one side but it doesn't look as if there's anything there.
+   The door swings open. A horrible smell wafts out of the hut.    An owl hoots somewhere in the cemetery.
 
 > in
 Gravedigger's hut
@@ -1567,7 +1573,7 @@ CemeteryYou're in the cemetery. And a more grim and desolate place you have neve
 
 The rest of the world lies southwest whereas that crypt is to the east and the gravedigger's hut in
 
-   A zombie pops his head up through the soil, has a look around, then sinks back under.
+
 
 > sw
 You move southwest.
@@ -1578,7 +1584,7 @@ Cemetery GatesYou're at the gates of an ancient, murky cemetery that looks like 
 
 Bourbon Avenue lies south and the cemetery northeast
 
-
+   The rain... will it ever stop?
 
 > s
 You move south.
@@ -1600,7 +1606,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain... will it ever stop?
+   The rain seems to let up for a moment then comes down worse than ever.
 
 > e
 You move east.
@@ -1621,7 +1627,7 @@ CrossroadsYou're standing at a crossroads just outside town. For some reason the
 
 Exits lie pretty much as the scarecrow is indicating
 
-   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+   Several birds fly past, each giving you a threatening look.
 
 > ne
 You move northeast.
@@ -1684,7 +1690,7 @@ Winding pathYou're following a winding path as it wends its way through rolling 
 
 The path leads north and southeast
 
-   Several birds fly past, each giving you a threatening look.
+   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
 
 > se
 You move southeast.
@@ -1742,7 +1748,7 @@ More winding pathThe winding path you've been following curves here, and in the 
 
 The path leads northwest and south
 
-   Several birds fly past, each giving you a threatening look.
+   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
 
 > s
 You move south.
@@ -1806,7 +1812,7 @@ More winding pathThe winding path you've been following curves here, and in the 
 
 The path leads northwest and south
 
-   Several birds fly past, each giving you a threatening look.
+   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
 
 > nw
 You move northwest.
@@ -1828,7 +1834,7 @@ CrossroadsYou're standing at a crossroads just outside town. For some reason the
 
 Exits lie pretty much as the scarecrow is indicating
 
-   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
 
 > ne
 You move northeast.
@@ -1850,7 +1856,7 @@ Village greenYou're at the northern end of a village green. A short step south o
 
 From here you can go northwest, southwest, south, east and in    
 
-   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+   Several birds fly past, each giving you a threatening look.
 
 > in
 You move in.
@@ -1888,7 +1894,7 @@ Village pathYou're following a winding little path that leads to a village green
 
     The path leads off to the west and southeast and the coach lies inwards
 
-   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+   Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
 
 > se
 You move southeast.
@@ -1909,7 +1915,7 @@ JunctionYou've come to a junction where several paths meet. At the very centre o
    "Now, I imagine you're expecting a reward?" Baribar says.
    "Well, if it's not too much trouble..."
    Baribar shakes his head sadly. "Unfortunately it is. You see the problem is that I've not been able to do a proper job these last few years on account of having one leg longer than the other so I've never really been able to save up much in the way of cash or useful items that you might need. So I'm afraid the only reward you're likely to get here is my thanks. So thanks."
-   That's the last time, you decide, you do a favour for someone without making sure they're rich beforehand.     Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+   That's the last time, you decide, you do a favour for someone without making sure they're rich beforehand.     Several birds fly past, each giving you a threatening look.
 
 > climb hedge
 Ploughed field
@@ -1929,6 +1935,9 @@ The only exit is out over the hedge
 
    Alas, a quick examination shows that Vahla is dead as well.
 
+> get blade
+You take Vahla's blade.
+
 > out
 You move out.
 Junction
@@ -1938,7 +1947,7 @@ JunctionYou've come to a junction where several paths meet. At the very centre o
 
     From the junction you can go northwest, south and southeast
 
-  Baribar the peasant is here.
+  Baribar the peasant is here.     Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
 
 > se
 You move southeast.
@@ -1982,6 +1991,33 @@ Dip in the landYou're standing at the very edge of a vast dip in the land. Befor
 Exits lie west and (of course) down. A very long way down
 
 
+
+> cut rope
+   You slice through the end of the rope and free it from the stone.
+
+> chop tree with blade
+   You hack at the tree with Vahla's blade and soon you have chopped it so it is lying on the ground. A bit of ingenuity now, and you could well find yourself travelling down this tree to the bottom of the dip in the land.
+
+> climb tree
+   The moment you climb on the fallen tree, it starts to slide down the side of the dip. You give a high-pitched shriek in fear (and hope that none of your friends are nearby to see you make a fool of yourself) and hang on for dear life.
+
+   Scenery rushes past you at a rapid rate, all far too swiftly for you to be able to get a look at what you're passing by. Not that you're really trying right then. You're just holding on and praying you don't lose your grip.
+
+   Finally, after what seems like an age, but is probably no more than a minute or two, you see the bottom of the dip coming up before you. It comes up fast.
+
+   VERY FAST!
+
+   You have time for one quick cry of "oh, shi-" which is fortunately cut off before you finish it, before you slam into the bottom of the dip with bone-breaking force (not in the literal sense thankfully) into solid earth. At this point, you decide it high time to lose consciousness...  
+Gravel pit
+
+
+Gravel pitYou're in a gravel pit at the base of a truly massive cliff which soars into the sky above you. The top is lost in the clouds and if you hadn't already been to the top of it you'd wonder if there even was a top. There is little to see in the gravel pit - aside from lots of gravel, of course - but rising to the east is what appears to be a large fortress. It is a little indistinct from this distance.
+
+The only exit is east
+
+
+
+   When you come to, you don't feel well. Not at all. The chopped down tree appears to have been smashed into a thousand and one pieces. You however have faired a little better. But you feel like you've been smashed into a thousand and one pieces.
 
 > jump
    You throw yourself into space...
@@ -2067,6 +2103,9 @@ The hallway extends northwest and east to that doorway
 
 
 
+> unlo door
+   Inserting the key into the door, you swing it open.
+
 > e
 Torture chamber
 
@@ -2075,12 +2114,7 @@ Torture chamberYou're in the nastiest location in the game by far (which is cert
 
 A door leads west
 
-  Uncle Grumble is here.     "About bloody time you got here!" Grumble thunders upon seeing you. "Where the hell have you been?"
-   Of all the things you expected - praise, abject thanks, even a pitiful "ta very much" - this wasn't it.
-   "Hey!" you say. "I risked life and limb to rescue you! You could at least be a bit grateful!"
-   Grumble sneers. "Rescue me? You? You couldn't rescue a fart if your life depended on it! Ha! I was on the verge of escaping when you bumbled along there and made a damn great noise opening that door. You've probably alerted every guard in the place to my escape attempt, you flaming fool!"
-   Something about his tone, particularly after all the hassle you've been through to rescue him, gets to you. "Look here. I rescued you and that's all there is to it. I've trekked over half of Harrenden to find you. And if you don't mind me saying, you were locked in a torture chamber before I came along."
-   For a moment a look of unease passes across Grumble's face and he glances worriedly at the 'torture' machines. "They had me on that bloody bike twice a day, they did," he mutters. "Said they wanted to keep me 'fit'. Fit? Have you ever heard such a foul word? Well..." He shakes his head and the fire seems to come back into his tone. "They ain't gonna get away it, no sir! I'm gonna murder myself a couple of bastards before I'm finished with this place. You can lead the way, nephew, but make sure you keep clear when the bloodshed begins. Now, all I need is a weapon to get me started and I'll be well away..."
+  Uncle Grumble is here.
 
 > give bludrinker to grumble
    "Ah, the old family heirloom!" Grumble says as he takes the weapon. "This oughta even the odds a bit."
@@ -2089,7 +2123,7 @@ A door leads west
 Marble hallway
 
 
-Marble hallwayYou're in a long, marble hallway, the sides of which are lined with tall, stone statues (all of whom, quite worryingly, are carrying swords and look like they could spring to life at any moment). Light streams through a window set high up in the south wall but even so this is a pretty dark and dismal place. There is a steel doorway barring the way to the east.
+Marble hallwayYou're in a long, marble hallway, the sides of which are lined with tall, stone statues (all of whom, quite worryingly, are carrying swords and look like they could spring to life at any moment). Light streams through a window set high up in the south wall but even so this is a pretty dark and dismal place. A steel door lies open at the east end of the hall, showing a grim and depressing room beyond.
 
 The hallway extends northwest and east to that doorway
 
@@ -2212,7 +2246,7 @@ The only exit is east
 Dip in the land
 
 
-Dip in the landYou're standing at the very edge of a vast dip in the land. Before you, the world seems to be spread out pretty much like a jigsaw (there are even a couple of pieces missing). The only problem is getting down there - the drop looks to be just over a mile. There is a rope hanging down the side of the dip which someone has tied around a large stone. At the very edge of the dip is a tree that is growing precariously, its branches spread out over the edge.
+Dip in the landYou're standing at the very edge of a vast dip in the land. Before you, the world seems to be spread out pretty much like a jigsaw (there are even a couple of pieces missing). The only problem is getting down there - the drop looks to be just over a mile.  
 
 Exits lie west and (of course) down. A very long way down
 
@@ -2249,7 +2283,7 @@ JunctionYou've come to a junction where several paths meet. At the very centre o
 
     From the junction you can go northwest, south and southeast
 
-  Baribar the peasant is here.     Several birds are fluttering overhead. Remembering what happened last time, you keep an eye out for them.
+  Baribar the peasant is here.
 
 > nw
 You move northwest.
@@ -2260,7 +2294,7 @@ Village pathYou're following a winding little path that leads to a village green
 
     The path leads off to the west and southeast and the coach lies inwards
 
-
+   Several birds fly past, each giving you a threatening look.
 
 > w
 You move west.
@@ -2271,7 +2305,7 @@ Village greenYou're at the northern end of a village green. A short step south o
 
 From here you can go northwest, southwest, south, east and in    
 
-   Several birds fly past, each giving you a threatening look.
+
 
 > nw
 You move northwest.
@@ -2293,7 +2327,7 @@ CrossroadsYou're standing at a crossroads just outside town. For some reason the
 
 Exits lie pretty much as the scarecrow is indicating
 
-   A little birdie flies down from the sky, flutters around your head for a while, then poops on your shoulder before flying away.
+
 
 > w
 You move west.
@@ -2304,7 +2338,7 @@ East GatesYou've come to the east gates of town which, as is usual in these circ
 
 Exits lie east and west
 
-   The rain seems to let up for a moment then comes down worse than ever.
+   The rain goes on and on...     There is a crash of thunder from above and a moment later it starts to rain all over you.
 
 > w
 You move west.
@@ -2315,7 +2349,7 @@ Vildung SquareYou're standing just outside the Sleazepit in Vildung Square. Ther
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-
+   The rain... will it ever stop?
 
 > in
 You move in.
@@ -2360,8 +2394,8 @@ A flight of winding steps lead down
    You sit in the main room of the Sleazepit and nurse your latest beer. This is one of the many that either Grumble or Chad bought you (you forget which) in recognition of your "sterling efforts in reuniting a couple of friends who had a little falling out". Nothing seems to be mentioned of the 23,000 guards that Grumble slew or the expense that Chad went to in hiring them. Strange as it seems, the two of them are best of friends again and little thing like "logic" and "common sense" don't seem to matter a whole lot to them.
    You sip at your beer and reflect on a job well done...
 
-   But how well did you do? Your score is 208. If this is less than the maximum for your character (see the instructions at the start of the game for more information on this) you might want to try again. Or maybe you're just happy to have got through it in one piece.
+   But how well did you do? Your score is 226. If this is less than the maximum for your character (see the instructions at the start of the game for more information on this) you might want to try again. Or maybe you're just happy to have got through it in one piece.
    Either way... well done!!!
 
 > score
-Your score is 208 out of a maximum of 404.  (51%)
+Your score is 226 out of a maximum of 404.  (55%)

@@ -726,6 +726,23 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
       scr_int kind;
 
       object = lib_seen_named_object_400 (game, input);
+      /*
+       * Named nothing at all: put_drop_list's name_object (46E5D8) takes
+       * the same 46E142 exit as a put-in's unnamed direct object, with the
+       * whole line as the fragment (no preposition, split = Len(line) at
+       * 459C55), so the line it leaves installed is the "put X" rewrite.
+       * With a put/drop-class task pre-matching the typed line the Runner
+       * stays silent and the tasks never see "drop": advent350b's `drop
+       * bear` at the troll is "I don't understand what you want to do with
+       * large cave bear.", where task 112 "[drop/free] bear" would have run
+       * (run400x Adrift_304_advent350b_rt.txt T275, and the same answer with
+       * task 112's restriction failing; `free bear` runs it).  With none,
+       * the line goes on to the library's "Drop what?" as before.  See
+       * run_priority_unnamed_put_object().
+       */
+      if (object == -1 && run_in_priority_pass ()
+          && lib_task_prematches_input (game, 2))
+        run_priority_unnamed_put_object ();
       if (object == -1 || obj_indirectly_in_room (game, object,
                                                   gs_playerroom (game)))
         return FALSE;

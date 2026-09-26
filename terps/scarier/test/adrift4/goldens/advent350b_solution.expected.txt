@@ -186,6 +186,9 @@ end and a little bird.
 A threatening little dwarf comes out of the shadows!
 The dwarf throws a nasty little axe at you, misses, curses, and runs away.
 
+> get axe
+You take the dwarvish axe.
+
 > w
 You move west.
 
@@ -203,8 +206,8 @@ You move east.
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage, a black
-rod with a rusty star on the end and a little bird.
+directions.  Also here is a wicker cage, a black rod with a rusty star on the
+end and a little bird.
 
 > n
 You move north.
@@ -213,12 +216,8 @@ Low N/S Passage
 You are in a low N/S passage at a hole in the floor. The hole goes down to an
 E/W passage.  There are bars of silver here!
 
-A threatening little dwarf comes out of the shadows!
-
 > get silver
 You take the bars of silver.
-
-Tiring of this, the dwarf slips away.
 
 [ Your score just went up by seven points. ]
 
@@ -229,8 +228,6 @@ At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
-
-A hollow voice says, "Plugh."
 
 > plugh
 Inside Building
@@ -257,6 +254,8 @@ You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
 
+A hollow voice says, "Plugh."
+
 > s
 You move south.
 
@@ -269,8 +268,8 @@ You move south.
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage, a black
-rod with a rusty star on the end and a little bird.
+directions.  Also here is a wicker cage, a black rod with a rusty star on the
+end and a little bird.
 
 > e
 You move east.
@@ -293,10 +292,13 @@ steps".  There is a large sparkling nugget of gold here!
 > get gold
 You take the large gold nugget.
 
+A threatening little dwarf comes out of the shadows!
+
 [ Your score just went up by seven points. ]
 
 > n
 You move north.
+The dwarf stalks after you...
 
 In Hall of Mists
 You are at one end of a vast hall stretching forward out of sight to the
@@ -306,13 +308,18 @@ almost as if alive. A cold wind blows up the staircase. There is a passage at
 the top of a dome behind you.
 Rough stone steps lead up the dome.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > n
 You move north.
+The dwarf stalks after you...
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage, a black
-rod with a rusty star on the end and a little bird.
+directions.  Also here is a wicker cage, a black rod with a rusty star on the
+end and a little bird.
+
+Tiring of this, the dwarf slips away.
 
 > n
 You move north.
@@ -320,6 +327,13 @@ You move north.
 Low N/S Passage
 You are in a low N/S passage at a hole in the floor. The hole goes down to an
 E/W passage.
+
+Out from the shadows behind you pounces a bearded pirate!
+"Har, har," he chortles. "I'll just take all this booty and hide it away with
+me chest deep in the maze!"
+He snatches your treasure and vanishes into the gloom.
+
+[ Your score just went down by five points. ]
 
 > n
 You move north.
@@ -329,38 +343,208 @@ You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
 
-A hollow voice says, "Plugh."
+> s
+You move south.
+
+Low N/S Passage
+You are in a low N/S passage at a hole in the floor. The hole goes down to an
+E/W passage.
+
+> s
+You move south.
+
+Hall of the Mountain King
+You are in the hall of the mountain king, with passages off in all
+directions.  Also here is a wicker cage, a black rod with a rusty star on the
+end and a little bird.
+
+> w
+You move west.
+
+In West Side Chamber
+You are in the west side chamber of the hall of the mountain king. A passage
+continues west and up here.
+
+> w
+You move west.
+
+N/S and E/W Crossover
+You are at a crossover of a high N/S passage and a low E/W one.
+
+> w
+You move west.
+
+At East End of Long Hall
+You are at the east end of a very long hall apparently without side chambers.
+To the east a low wide crawl slants up. To the north a round two foot hole
+slants down.
+
+> e
+You move east.
+
+At West End of Hall of Mists
+You are at the west end of the hall of mists. A low wide crawl continues west
+and another goes north. To the south is a little passage 6 feet off the
+floor.  There is a small, square pad embedded into the wall here.
+
+> s
+You move south.
+
+Maze
+You are in a maze of twisty little passages, all alike.
+
+> e
+You move east.
+
+Maze
+You are in a maze of twisty little passages, all alike.
+
+A threatening little dwarf comes out of the shadows!
+
+> s
+You move south.
+The dwarf stalks after you...
+
+Maze
+You are in a maze of twisty little passages, all alike.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> n
+You move north.
+The dwarf stalks after you...
+
+Dead End
+This is the pirate's dead end.  Also here is a large gold nugget and a
+treasure chest.  You've found the pirate's treasure chest!
+
+> get chest
+You take the treasure chest.
+
+[ Your score just went up by seven points. ]
+
+> get all
+You take the large gold nugget.
+
+[ Your score just went up by five points. ]
+
+> out
+You move out.
+The dwarf stalks after you...
+
+Maze
+You are in a maze of twisty little passages, all alike.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> throw axe at dwarf
+Missed! The little dwarf dodges out of the way of the axe.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> get axe
+You take the dwarvish axe.
+
+Tiring of this, the dwarf slips away.
+
+> n
+You move north.
+
+At Brink of Pit
+You are on the brink of a thirty foot pit with a massive orange column down
+one wall. You could climb down here but you could not get back up.
+The maze continues at this level.
+
+> d
+You move down.
+
+Orange River Chamber
+You are in a splendid chamber thirty feet high. The walls are frozen rivers
+of orange stone. An awkward canyon and a good passage exit from east and west
+sides of the chamber.
+
+> e
+You move east.
+
+Sloping E/W Canyon
+You are in an awkward sloping east/west canyon.
+
+> e
+You move east.
+
+In Debris Room
+You are in a debris room filled with stuff washed in from the surface. A low
+wide passage with cobbles becomes plugged with mud and debris here, but an
+awkward canyon leads upward and west.
+A note on the wall says, "Magic word XYZZY."
+
+> xyzzy
+Inside Building
+You are inside a building, a well house for a large spring.  Also here is
+some bars of silver, some precious jewelry and a rare coins.
+
+> drop chest
+You drop the treasure chest.
+
+[ Your score just went up by seven points. ]
+
+> plugh
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+A threatening little dwarf comes out of the shadows!
 
 > plugh
 Inside Building
 You are inside a building, a well house for a large spring.  Also here is
-some bars of silver, some precious jewelry and a rare coins.
+some bars of silver, some precious jewelry, a rare coins and a treasure
+chest.
 
 > drop gold
 You drop the large gold nugget.
 
 [ Your score just went up by five points. ]
 
+> look
+
+Inside Building
+You are inside a building, a well house for a large spring.  Also here is a
+large gold nugget, some bars of silver, some precious jewelry, a rare coins
+and a treasure chest.
+
 > plugh
 At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
+A threatening little dwarf hides in the shadows.
+
+A hollow voice says, "Plugh."
+
+The dwarf throws a nasty little knife at you, but misses!
 
 > s
 You move south.
+The dwarf stalks after you...
 
 Low N/S Passage
 You are in a low N/S passage at a hole in the floor. The hole goes down to an
 E/W passage.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > s
 You move south.
+The dwarf stalks after you...
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage, a black
-rod with a rusty star on the end and a little bird.
+directions.  Also here is a wicker cage, a black rod with a rusty star on the
+end and a little bird.
+
+Tiring of this, the dwarf slips away.
 
 > get rod
 You take the black rod with a rusty star on the end.
@@ -422,8 +606,7 @@ You move north.
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage and a
-little bird.
+directions.  Also here is a wicker cage and a little bird.
 
 > n
 You move north.
@@ -440,13 +623,11 @@ You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
 
-A hollow voice says, "Plugh."
-
 > plugh
 Inside Building
 You are inside a building, a well house for a large spring.  Also here is a
-large gold nugget, some bars of silver, some precious jewelry and a rare
-coins.
+large gold nugget, some bars of silver, some precious jewelry, a rare coins
+and a treasure chest.
 
 > drop diamonds
 You drop the diamonds.
@@ -474,8 +655,7 @@ You move south.
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage and a
-little bird.
+directions.  Also here is a wicker cage and a little bird.
 
 > sw
 You move southwest.
@@ -516,442 +696,6 @@ You move east.
 
 Hall of the Mountain King
 You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage and a
-little bird.
-
-> n
-You move north.
-
-Low N/S Passage
-You are in a low N/S passage at a hole in the floor. The hole goes down to an
-E/W passage.
-
-> n
-You move north.
-
-At "Y2"
-You are in a large room, with a passage to the south, a passage to the west,
-and a wall of broken rock to the east. There is a large "Y2" on a rock in the
-room's center.
-
-> plugh
-Inside Building
-You are inside a building, a well house for a large spring.  Also here is a
-black rod with a rusty star on the end, a large gold nugget, some diamonds,
-some bars of silver, some precious jewelry and a rare coins.
-
-> drop rug
-You drop the Persian rug.
-
-[ Your score just went up by nine points. ]
-
-> get jewelry
-You take the precious jewelry.
-
-[ Your score just went down by five points. ]
-
-> plugh
-At "Y2"
-You are in a large room, with a passage to the south, a passage to the west,
-and a wall of broken rock to the east. There is a large "Y2" on a rock in the
-room's center.
-
-> s
-You move south.
-
-Low N/S Passage
-You are in a low N/S passage at a hole in the floor. The hole goes down to an
-E/W passage.
-
-> s
-You move south.
-
-Hall of the Mountain King
-You are in the hall of the mountain king, with passages off in all
-directions.  There is a little axe here.  Also here is a wicker cage and a
-little bird.
-
-> get axe
-You take the dwarvish axe.
-
-A threatening little dwarf comes out of the shadows!
-
-> sw
-You move southwest.
-The dwarf stalks after you...
-
-Secret E/W Canyon Above Tight Canyon
-You are in a secret canyon which here runs E/W. It crosses over a very tight
-canyon 15 feet below. If you go down you may not be able to get back up.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> w
-You move west.
-The dwarf stalks after you...
-
-Secret Canyon
-You are in a secret canyon which exits to the north and east.  The body of a
-huge green dead dragon is lying off to one side.
-
-Tiring of this, the dwarf slips away.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-Tiring of this, the dwarf slips away.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-Tiring of this, the dwarf slips away.
-
-> get axe
-You take the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-Tiring of this, the dwarf slips away.
-
-> get axe
-You take the dwarvish axe.
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> get axe
-You take the dwarvish axe.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-Tiring of this, the dwarf slips away.
-
-> get axe
-You take the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You killed a little dwarf! The body vanishes in a cloud of greasy black
-smoke.
-
-> get axe
-You take the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You killed a little dwarf! The body vanishes in a cloud of greasy black
-smoke.
-
-> get axe
-You take the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-Out from the shadows behind you pounces a bearded pirate!
-"Har, har," he chortles. "I'll just take all this booty and hide it away with
-me chest deep in the maze!"
-He snatches your treasure and vanishes into the gloom.
-
-[ Your score just went down by five points. ]
-
-> e
-You move east.
-
-Secret E/W Canyon Above Tight Canyon
-You are in a secret canyon which here runs E/W. It crosses over a very tight
-canyon 15 feet below. If you go down you may not be able to get back up.
-
-A threatening little dwarf comes out of the shadows!
-
-> e
-You move east.
-The dwarf stalks after you...
-
-Hall of the Mountain King
-You are in the hall of the mountain king, with passages off in all
-directions.  Also here is a wicker cage and a little bird.
-
-Tiring of this, the dwarf slips away.
-
-> e
-You move east.
-
-In Hall of Mists
-You are at one end of a vast hall stretching forward out of sight to the
-west. There are openings to either side. Nearby, a wide stone staircase leads
-downward. The hall is filled with wisps of white mist swaying to and fro
-almost as if alive. A cold wind blows up the staircase. There is a passage at
-the top of a dome behind you.
-Rough stone steps lead up the dome.
-
-> w
-You move west.
-
-On East Bank of Fissure
-You are on the east bank of a fissure slicing clear across the hall. The mist
-is quite thick here, and the fissure is too wide to jump.  A crystal bridge
-now spans the fissure.
-
-> w
-You move west.
-
-West Side of Fissure
-You are on the west side of the fissure in the hall of mists.  A crystal
-bridge now spans the fissure.
-
-> n
-You move north.
-
-At West End of Hall of Mists
-You are at the west end of the hall of mists. A low wide crawl continues west
-and another goes north. To the south is a little passage 6 feet off the
-floor.  There is a small, square pad embedded into the wall here.
-
-> s
-You move south.
-
-Maze
-You are in a maze of twisty little passages, all alike.
-
-> e
-You move east.
-
-Maze
-You are in a maze of twisty little passages, all alike.
-
-> s
-You move south.
-
-Maze
-You are in a maze of twisty little passages, all alike.
-
-> n
-You move north.
-
-Dead End
-This is the pirate's dead end.  Also here is some precious jewelry and a
-treasure chest.  You've found the pirate's treasure chest!
-
-> get chest
-You take the treasure chest.
-
-[ Your score just went up by seven points. ]
-
-> get jewelry
-You take the precious jewelry.
-
-[ Your score just went up by five points. ]
-
-> out
-You move out.
-
-Maze
-You are in a maze of twisty little passages, all alike.
-
-> n
-You move north.
-
-At Brink of Pit
-You are on the brink of a thirty foot pit with a massive orange column down
-one wall. You could climb down here but you could not get back up.
-The maze continues at this level.
-
-> d
-You move down.
-
-Orange River Chamber
-You are in a splendid chamber thirty feet high. The walls are frozen rivers
-of orange stone. An awkward canyon and a good passage exit from east and west
-sides of the chamber.
-
-> w
-You move west.
-
-At Top of Small Pit
-At your feet is a small pit breathing traces of white mist. A west passage
-ends here except for a small crack leading on.
-Rough stone steps lead down the pit.
-
-> d
-You move down.
-
-In Hall of Mists
-You are at one end of a vast hall stretching forward out of sight to the
-west. There are openings to either side. Nearby, a wide stone staircase leads
-downward. The hall is filled with wisps of white mist swaying to and fro
-almost as if alive. A cold wind blows up the staircase. There is a passage at
-the top of a dome behind you.
-Rough stone steps lead up the dome.
-
-> n
-You move north.
-
-Hall of the Mountain King
-You are in the hall of the mountain king, with passages off in all
 directions.  Also here is a wicker cage and a little bird.
 
 > n
@@ -975,17 +719,13 @@ A hollow voice says, "Plugh."
 Inside Building
 You are inside a building, a well house for a large spring.  Also here is a
 black rod with a rusty star on the end, a large gold nugget, some diamonds,
-some bars of silver, a rare coins and a Persian rug.
+some bars of silver, some precious jewelry, a rare coins and a treasure
+chest.
 
-> drop jewelry
-You drop the precious jewelry.
+> drop rug
+You drop the Persian rug.
 
-[ Your score just went up by five points. ]
-
-> drop chest
-You drop the treasure chest.
-
-[ Your score just went up by seven points. ]
+[ Your score just went up by nine points. ]
 
 > plugh
 At "Y2"
@@ -1007,20 +747,28 @@ Dirty Passage
 You are in a dirty broken passage. To the east is a crawl. To the west is a
 large passage. Above you is a hole to another passage.
 
+A threatening little dwarf comes out of the shadows!
+
 > w
 You move west.
+The dwarf stalks after you...
 
 In Dusty Rock Room
 You are in a large room full of dusty rocks. There is a big hole in the
 floor. There are cracks everywhere, and a passage leading east.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > d
 You move down.
+The dwarf stalks after you...
 
 At Complex Junction
 You are at a complex junction. A low hands and knees passage from the north
 joins a higher crawl from the east to make a walking passage going west.
 There is also a large room above. The air is damp here.
+
+Tiring of this, the dwarf slips away.
 
 > w
 You move west.
@@ -1073,11 +821,8 @@ You are at the west end of the twopit room. There is a large hole in the wall
 above the pit at this end of the room.
 The top of a 12-foot-tall beanstalk is poking out of the west pit.
 
-A threatening little dwarf comes out of the shadows!
-
 > e
 You move east.
-The dwarf stalks after you...
 
 At East End of Twopit Room
 You are at the east end of the twopit room. The floor here is littered with
@@ -1086,18 +831,13 @@ bypassing the pits to connect passages from east and west. There are holes
 all over, but the only big one is on the wall directly over the west pit
 where you can't get to it.
 
-The dwarf throws a nasty little knife at you, but misses!
-
 > e
 You move east.
-The dwarf stalks after you...
 
 In Swiss Cheese Room
 You are in a room whose walls resemble swiss cheese. Obvious passages go
 west, east, ne, and nw. Part of the room is occupied by a large bedrock
 block.
-
-Tiring of this, the dwarf slips away.
 
 > ne
 You move northeast.
@@ -1121,29 +861,38 @@ In Dusty Rock Room
 You are in a large room full of dusty rocks. There is a big hole in the
 floor. There are cracks everywhere, and a passage leading east.
 
+A threatening little dwarf comes out of the shadows!
+
 > e
 You move east.
+The dwarf stalks after you...
 
 Dirty Passage
 You are in a dirty broken passage. To the east is a crawl. To the west is a
 large passage. Above you is a hole to another passage.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > u
 You move up.
+The dwarf stalks after you...
 
 Low N/S Passage
 You are in a low N/S passage at a hole in the floor. The hole goes down to an
 E/W passage.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > n
 You move north.
+The dwarf stalks after you...
 
 At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
 
-A hollow voice says, "Plugh."
+The dwarf throws a nasty little knife at you, but misses!
 
 > plugh
 Inside Building
@@ -1160,20 +909,29 @@ At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
+A threatening little dwarf hides in the shadows.
+
+The dwarf throws a nasty little knife at you, but misses!
 
 > s
 You move south.
+The dwarf stalks after you...
 
 Low N/S Passage
 You are in a low N/S passage at a hole in the floor. The hole goes down to an
 E/W passage.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > d
 You move down.
+The dwarf stalks after you...
 
 Dirty Passage
 You are in a dirty broken passage. To the east is a crawl. To the west is a
 large passage. Above you is a hole to another passage.
+
+Tiring of this, the dwarf slips away.
 
 > w
 You move west.
@@ -1280,11 +1038,8 @@ You are at the west end of the twopit room. There is a large hole in the wall
 above the pit at this end of the room.
 There is a huge beanstalk growing out of the west pit up to the hole.
 
-A threatening little dwarf comes out of the shadows!
-
 > d
 You move down.
-The dwarf stalks after you...
 
 In West Pit
 You are at the bottom of the western pit in the twopit room. There is a large
@@ -1298,8 +1053,6 @@ In Narrow Corridor
 You are in a long, narrow corridor stretching out of sight to the west. At
 the eastern end is a hole through which you can see a profusion of leaves.
 
-Tiring of this, the dwarf slips away.
-
 > w
 You move west.
 
@@ -1312,28 +1065,38 @@ here, full of golden eggs!
 > get eggs
 You take the nest of golden eggs.
 
+A threatening little dwarf comes out of the shadows!
+
 [ Your score just went up by seven points. ]
 
 > n
 You move north.
+The dwarf stalks after you...
 
 Immense N/S Passage
 You are at one end of an immense north/south passage.  The way north is
 barred by a massive, rusty, iron door.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > oil door
 The oil has freed up the hinges so that the door will now move, although it
 requires some effort.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > n
 (first wrenching the door open)
 You move north.
+The dwarf stalks after you...
 
 In Cavern With Waterfall
 You are in a magnificent cavern with a rushing stream, which cascades over a
 sparkling waterfall into a roaring whirlpool which disappears through a hole
 in the floor. Passages exit to the south and west.  There is a
 jewel-encrusted trident here!
+
+Tiring of this, the dwarf slips away.
 
 > get trident
 You take the jeweled trident.
@@ -1497,6 +1260,8 @@ You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
 
+A hollow voice says, "Plugh."
+
 > plugh
 Inside Building
 You are inside a building, a well house for a large spring.  Also here is a
@@ -1524,6 +1289,8 @@ At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
+
+A hollow voice says, "Plugh."
 
 > s
 You move south.
@@ -1561,43 +1328,79 @@ Bedquilt
 You are in bedquilt, a long east/west passage with holes everywhere. To
 explore at random select north, south, up, or down.
 
+A threatening little dwarf comes out of the shadows!
+
 > w
 You move west.
+The dwarf stalks after you...
 
 In Swiss Cheese Room
 You are in a room whose walls resemble swiss cheese. Obvious passages go
 west, east, ne, and nw. Part of the room is occupied by a large bedrock
 block.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > e
 You move east.
+The dwarf stalks after you...
 
 In Soft Room
 You are in the soft room. The walls are covered with heavy curtains, the
 floor with a thick pile carpet. Moss covers the ceiling.  A small velvet
 pillow lies on the floor.
 
+Tiring of this, the dwarf slips away.
+
 > get pillow
 You take the velvet pillow.
 
+A threatening little dwarf comes out of the shadows!
+
 > w
 You move west.
+The dwarf stalks after you...
 
 In Swiss Cheese Room
 You are in a room whose walls resemble swiss cheese. Obvious passages go
 west, east, ne, and nw. Part of the room is occupied by a large bedrock
 block.
 
+The dwarf throws a nasty little knife at you, but misses!
+
+> nw
+You have crawled around in some little holes and wound up back in the main
+passage.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> nw
+You have crawled around in some little holes and wound up back in the main
+passage.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> nw
+You have crawled around in some little holes and wound up back in the main
+passage.
+
+The dwarf throws a nasty little knife at you, but misses!
+
 > nw
 You move northwest.
+The dwarf stalks after you...
 
 Oriental Room
 This is the oriental room. Ancient oriental cave drawings cover the walls. A
 gently sloping passage leads upward to the north, another passage leads se,
 and a hands and knees crawl leads west.  Also here is a ming vase.
 
+The dwarf throws a nasty little knife at you, but misses!
+
 > get vase
 You take the ming vase.
+
+Tiring of this, the dwarf slips away.
 
 [ Your score just went up by seven points. ]
 
@@ -1630,8 +1433,12 @@ You drop the small bottle.
 > drop axe
 You drop the dwarvish axe.
 
+A threatening little dwarf comes out of the shadows!
+
 > drop pillow
 You drop the velvet pillow.
+
+Tiring of this, the dwarf slips away.
 
 > drop vase
 You drop the ming vase.
@@ -1653,24 +1460,6 @@ emerald here the size of a plover's egg!
 You take the emerald the size of a plover's egg.
 
 [ Your score just went up by seven points. ]
-
-> ne
-You move northeast.
-
-Darkness
-It is pitch dark, you can't see a thing.
-
-> look
-
-Darkness
-It is pitch dark, you can't see a thing.
-
-> s
-You move south.
-
-Plover Room
-You're in a small chamber lit by an eerie green light. An extremely narrow
-tunnel exits to the west. A dark corridor leads northeast.
 
 > drop emerald
 You drop the emerald the size of a plover's egg.
@@ -1732,28 +1521,20 @@ You are in a room whose walls resemble swiss cheese. Obvious passages go
 west, east, ne, and nw. Part of the room is occupied by a large bedrock
 block.
 
-A threatening little dwarf comes out of the shadows!
-
 > ne
 You move northeast.
-The dwarf stalks after you...
 
 Bedquilt
 You are in bedquilt, a long east/west passage with holes everywhere. To
 explore at random select north, south, up, or down.
 
-The dwarf throws a nasty little knife at you, but misses!
-
 > e
 You move east.
-The dwarf stalks after you...
 
 At Complex Junction
 You are at a complex junction. A low hands and knees passage from the north
 joins a higher crawl from the east to make a walking passage going west.
 There is also a large room above. The air is damp here.
-
-Tiring of this, the dwarf slips away.
 
 > u
 You move up.
@@ -1783,6 +1564,8 @@ At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
+
+A threatening little dwarf comes out of the shadows!
 
 > plugh
 Inside Building
@@ -1805,6 +1588,9 @@ At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
 room's center.
+A threatening little dwarf hides in the shadows.
+
+Tiring of this, the dwarf slips away.
 
 > plover
 Plover Room
@@ -1816,27 +1602,6 @@ emerald the size of a plover's egg.
 You take the emerald the size of a plover's egg.
 
 [ Your score just went up by five points. ]
-
-> ne
-You move northeast.
-
-The Dark Room
-You're in the dark-room. A corridor leading south is the only exit.  A
-massive stone tablet imbedded in the wall reads: "Congratulations on bringing
-light into the dark-room!"  There is a platinum pyramid here, 8 inches on a
-side!
-
-> get pyramid
-You take the platinum pyramid.
-
-[ Your score just went up by seven points. ]
-
-> s
-You move south.
-
-Plover Room
-You're in a small chamber lit by an eerie green light. An extremely narrow
-tunnel exits to the west. A dark corridor leads northeast.
 
 > plover
 At "Y2"
@@ -1857,301 +1622,19 @@ You drop the emerald the size of a plover's egg.
 
 [ Your score just went up by nine points. ]
 
-> drop pyramid
-You drop the platinum pyramid.
-
-[ Your score just went up by nine points. ]
-
-> get coins
-You take the rare coins.
-
-[ Your score just went down by five points. ]
-
-> plugh
-At "Y2"
-You are in a large room, with a passage to the south, a passage to the west,
-and a wall of broken rock to the east. There is a large "Y2" on a rock in the
-room's center.
-
-> s
-You move south.
-
-Low N/S Passage
-You are in a low N/S passage at a hole in the floor. The hole goes down to an
-E/W passage.
-
-> s
-You move south.
-
-Hall of the Mountain King
-You are in the hall of the mountain king, with passages off in all
-directions.  Also here is a wicker cage and a little bird.
-
-> e
-You move east.
-
-In Hall of Mists
-You are at one end of a vast hall stretching forward out of sight to the
-west. There are openings to either side. Nearby, a wide stone staircase leads
-downward. The hall is filled with wisps of white mist swaying to and fro
-almost as if alive. A cold wind blows up the staircase. There is a passage at
-the top of a dome behind you.
-Rough stone steps lead up the dome.
-
-> w
-You move west.
-
-On East Bank of Fissure
-You are on the east bank of a fissure slicing clear across the hall. The mist
-is quite thick here, and the fissure is too wide to jump.  A crystal bridge
-now spans the fissure.
-
-Your lamp is getting dim.
-
-> w
-You move west.
-
-West Side of Fissure
-You are on the west side of the fissure in the hall of mists.  A crystal
-bridge now spans the fissure.
-
-> n
-You move north.
-
-At West End of Hall of Mists
-You are at the west end of the hall of mists. A low wide crawl continues west
-and another goes north. To the south is a little passage 6 feet off the
-floor.  There is a small, square pad embedded into the wall here.
-
-A threatening little dwarf comes out of the shadows!
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> get axe
-You take the dwarvish axe.
-
-Tiring of this, the dwarf slips away.
-
-> w
-You move west.
-
-At East End of Long Hall
-You are at the east end of a very long hall apparently without side chambers.
-To the east a low wide crawl slants up. To the north a round two foot hole
-slants down.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> w
-You move west.
-
-At West End of Long Hall
-You are at the west end of a very long featureless hall. The hall joins up
-with a narrow north/south passage.  There is a small, square pad embedded
-into the wall here.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> s
-You move south.
-
-Maze
-You are in a maze of twisty little passages, all different.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> s
-You move south.
-
-Maze
-You are in a maze of twisting little passages, all different.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> e
-You move east.
-
-Maze
-You are in a little maze of twisting passages, all different.
-
-A threatening little dwarf comes out of the shadows!
-
-> throw axe at dwarf
-Missed! The little dwarf dodges out of the way of the axe.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> get axe
-You take the dwarvish axe.
-
-The dwarf throws a nasty little knife at you, but misses!
-
-> s
-You move south.
-The dwarf stalks after you...
-
-Dead End, near vending machine
-You have reached a dead end. There is a massive vending machine here.
-Hmmm... There is a message here scrawled in the dust in a flowery script.
-
-> throw axe at dwarf
-You don't see a dwarf here.
-
-> get axe
-You are already carrying the dwarvish axe.
-
-> put coins in vending
-Soon after you insert the coins in the coin slot, the vending machine makes a
-grinding sound, and a set of fresh batteries falls at your feet.
-
-[ Your score just went down by five points. ]
-
-> get batteries
-You take the pair fresh batteries.
-
-> turn off lantern
-You switch the brass lantern off.
-
-It is now pitch dark in here!
-
-> put batteries in lantern
-I'm taking the liberty of replacing the batteries.
-
-> turn on lantern
-You switch the brass lantern on.
-
-Dead End, near vending machine
-You have reached a dead end. There is a massive vending machine here.
-Hmmm... There is a message here scrawled in the dust in a flowery script.
-Some worn-out batteries have been discarded nearby.
-
-> n
-You move north.
-
-Maze
-You are in a little maze of twisting passages, all different.
-A threatening little dwarf hides in the shadows.
-
-Tiring of this, the dwarf slips away.
-
-> sw
-You move southwest.
-
-Maze
-You are in a maze of twisting little passages, all different.
-
-> w
-You move west.
-
-Maze
-You are in a maze of twisty little passages, all different.
-
-> d
-You move down.
-
-At West End of Long Hall
-You are at the west end of a very long featureless hall. The hall joins up
-with a narrow north/south passage.  There is a small, square pad embedded
-into the wall here.
-
-> e
-You move east.
-
-At East End of Long Hall
-You are at the east end of a very long hall apparently without side chambers.
-To the east a low wide crawl slants up. To the north a round two foot hole
-slants down.
-
-> e
-You move east.
-
-At West End of Hall of Mists
-You are at the west end of the hall of mists. A low wide crawl continues west
-and another goes north. To the south is a little passage 6 feet off the
-floor.  There is a small, square pad embedded into the wall here.
-
-> e
-You move east.
-
-West Side of Fissure
-You are on the west side of the fissure in the hall of mists.  A crystal
-bridge now spans the fissure.
-
-> e
-You move east.
-
-On East Bank of Fissure
-You are on the east bank of a fissure slicing clear across the hall. The mist
-is quite thick here, and the fissure is too wide to jump.  A crystal bridge
-now spans the fissure.
-
-> e
-You move east.
-
-In Hall of Mists
-You are at one end of a vast hall stretching forward out of sight to the
-west. There are openings to either side. Nearby, a wide stone staircase leads
-downward. The hall is filled with wisps of white mist swaying to and fro
-almost as if alive. A cold wind blows up the staircase. There is a passage at
-the top of a dome behind you.
-Rough stone steps lead up the dome.
-
-> n
-You move north.
-
-Hall of the Mountain King
-You are in the hall of the mountain king, with passages off in all
-directions.  Also here is a wicker cage and a little bird.
-
-> n
-You move north.
-
-Low N/S Passage
-You are in a low N/S passage at a hole in the floor. The hole goes down to an
-E/W passage.
-
-> n
-You move north.
-
-At "Y2"
-You are in a large room, with a passage to the south, a passage to the west,
-and a wall of broken rock to the east. There is a large "Y2" on a rock in the
-room's center.
-
-> plugh
-Inside Building
-You are inside a building, a well house for a large spring.  Also here is a
-black rod with a rusty star on the end, a velvet pillow, a large gold nugget,
-some diamonds, some bars of silver, some precious jewelry, a Persian rug, a
-treasure chest, a nest of golden eggs, a jeweled trident, a ming vase, an
-emerald the size of a plover's egg, a platinum pyramid and a glistening
-pearl.
-
 > get eggs
 You take the nest of golden eggs.
 
 [ Your score just went down by nine points. ]
 
 > plugh
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+> look
+
 At "Y2"
 You are in a large room, with a passage to the south, a passage to the west,
 and a wall of broken rock to the east. There is a large "Y2" on a rock in the
@@ -2186,8 +1669,11 @@ You are at a complex junction. A low hands and knees passage from the north
 joins a higher crawl from the east to make a walking passage going west.
 There is also a large room above. The air is damp here.
 
+A threatening little dwarf comes out of the shadows!
+
 > w
 You move west.
+The dwarf stalks after you...
 
 Bedquilt
 You are in bedquilt, a long east/west passage with holes everywhere. To
@@ -2327,28 +1813,6 @@ The walls are quite warm here. From the north can be heard a steady roar, so
 loud that the entire cave seems to be trembling. Another passage leads south,
 and a low crawl goes east.
 
-> e
-You move east.
-
-In Chamber of Boulders
-You are in a small chamber filled with large boulders. The walls are very
-warm, causing the air in the room to be almost stifling from the heat. The
-only exit is a crawl heading west, through which is coming a low rumbling.
-Also here is a selection of rare spices.
-
-> get spices
-You take the selection of rare spices.
-
-[ Your score just went up by seven points. ]
-
-> w
-You move west.
-
-At Junction With Warm Walls
-The walls are quite warm here. From the north can be heard a steady roar, so
-loud that the entire cave seems to be trembling. Another passage leads south,
-and a low crawl goes east.
-
 > s
 You move south.
 
@@ -2381,218 +1845,492 @@ room. The only exit is the way you came in.
 There is a ferocious cave bear eyeing you from the far end of the room! The
 bear is held back by a solid gold chain.
 
-A sepulchral voice reverberating through the cave says, "Cave closing soon.
-All adventurers exit immediately through main office."
-
-[ Your score just went up by twenty-five points. ]
-
 > feed food to bear
 The bear eagerly wolfs down your food, after which he seems to calm down
 considerably and even becomes rather friendly.
 
 > unlock chain
-You don't have anything to unlock the chain with.
+You unlock the chain, and set the tame bear free.
 
 > get chain
-It's locked to the friendly bear.
+You take the golden chain.
+
+[ Your score just went up by seven points. ]
+
+> get bear
+Ok, the bear's now following you around.
+
+> w
+You move west. The bear lumbers along behind you.
+
+In Front of Barren Room
+You are standing at the entrance to a large, barren room. A sign posted above
+the entrance reads: "Caution! Bear in room!"
+
+> w
+You move west. The bear lumbers along behind you.
+
+In Limestone Passage
+You are walking along a gently sloping north/south passage lined with oddly
+shaped limestone formations.
+
+> u
+You move up. The bear lumbers along behind you.
+
+At Fork in Path
+The path forks here. The left fork leads northeast. A dull rumbling seems to
+get louder in that direction. The right fork leads southeast down a gentle
+slope. The main corridor enters from the west.
+
+> ne
+You move northeast. The bear lumbers along behind you.
+
+At Junction With Warm Walls
+The walls are quite warm here. From the north can be heard a steady roar, so
+loud that the entire cave seems to be trembling. Another passage leads south,
+and a low crawl goes east.
+
+> e
+You move east. The bear lumbers along behind you.
+
+In Chamber of Boulders
+You are in a small chamber filled with large boulders. The walls are very
+warm, causing the air in the room to be almost stifling from the heat. The
+only exit is a crawl heading west, through which is coming a low rumbling.
+Also here is a selection of rare spices.
+
+> get spices
+You take the selection of rare spices.
+
+[ Your score just went up by seven points. ]
+
+> w
+You move west. The bear lumbers along behind you.
+
+At Junction With Warm Walls
+The walls are quite warm here. From the north can be heard a steady roar, so
+loud that the entire cave seems to be trembling. Another passage leads south,
+and a low crawl goes east.
+
+> s
+You move south. The bear lumbers along behind you.
+
+At Fork in Path
+The path forks here. The left fork leads northeast. A dull rumbling seems to
+get louder in that direction. The right fork leads southeast down a gentle
+slope. The main corridor enters from the west.
+
+> w
+You move west. The bear lumbers along behind you.
+
+In Corridor
+You're in a long east/west corridor. A faint rumbling noise can be heard in
+the distance.
+
+> w
+You move west. The bear lumbers along behind you.
+
+On NE Side of Chasm
+You are on the far side of the chasm. A northeast path leads away from the
+chasm on this side.
+The troll is nowhere to be seen.
+
+> sw
+The troll steps out from beneath the bridge and blocks your way.
+
+> free bear
+The bear lumbers toward the troll, who lets out a startled shriek and
+scurries away. The bear soon gives up the pursuit and wanders back.
+
+> sw
+You cross the rickety bridge.
+
+On SW Side of Chasm
+You are on one side of a large, deep chasm. A heavy white mist rising up from
+below obscures all view of the far side. A southwest path leads away from the
+chasm into a winding corridor.
+A rickety wooden bridge extends across the chasm, vanishing into the mist. A
+sign posted on the bridge reads, "Stop! Pay troll!"
+
+> d
+You move down.
+
+Sloping Corridor
+You are in a long winding corridor sloping out of sight in both directions.
+
+> d
+You move down.
+
+Large Low Room
+You are in a large low room. Crawls lead north, se, and sw.
+
+> se
+You move southeast.
+
+Oriental Room
+This is the oriental room. Ancient oriental cave drawings cover the walls. A
+gently sloping passage leads upward to the north, another passage leads se,
+and a hands and knees crawl leads west.
+
+> se
+You move southeast.
+
+In Swiss Cheese Room
+You are in a room whose walls resemble swiss cheese. Obvious passages go
+west, east, ne, and nw. Part of the room is occupied by a large bedrock
+block.
+
+> w
+You move west.
+
+At East End of Twopit Room
+You are at the east end of the twopit room. The floor here is littered with
+thin rock slabs, which make it easy to descend the pits. There is a path here
+bypassing the pits to connect passages from east and west. There are holes
+all over, but the only big one is on the wall directly over the west pit
+where you can't get to it.
+
+> w
+You move west.
+
+At West End of Twopit Room
+You are at the west end of the twopit room. There is a large hole in the wall
+above the pit at this end of the room.
+There is a huge beanstalk growing out of the west pit up to the hole.
+
+> d
+You move down.
+
+In West Pit
+You are at the bottom of the western pit in the twopit room. There is a large
+hole in the wall about 25 feet above you.  There is a gigantic beanstalk
+stretching all the way up to the hole.
+
+> climb plant
+You clamber up the plant and scurry through the hole at the top.
+
+In Narrow Corridor
+You are in a long, narrow corridor stretching out of sight to the west. At
+the eastern end is a hole through which you can see a profusion of leaves.
+
+> w
+You move west.
+
+Giant Room
+You are in the giant room. The ceiling here is too high up for your lamp to
+show it. Cavernous passages lead east, north, and south. On the west wall is
+scrawled the inscription, "Fee fie foe foo" [sic].
+
+> fee
+Ok.
+
+> fie
+Ok.
+
+> foe
+Ok.
+
+> foo
+Ok.
+A large nest full of golden eggs suddenly appears out of nowhere!
+
+> get eggs
+You take the nest of golden eggs.
+
+[ Your score just went up by five points. ]
+
+> s
+You move south.
+
+In Narrow Corridor
+You are in a long, narrow corridor stretching out of sight to the west. At
+the eastern end is a hole through which you can see a profusion of leaves.
+
+A threatening little dwarf comes out of the shadows!
+
+> e
+You move east.
+The dwarf stalks after you...
+
+In West Pit
+You are at the bottom of the western pit in the twopit room. There is a large
+hole in the wall about 25 feet above you.  There is a gigantic beanstalk
+stretching all the way up to the hole.
+
+> u
+You move up.
+The dwarf stalks after you...
+
+At West End of Twopit Room
+You are at the west end of the twopit room. There is a large hole in the wall
+above the pit at this end of the room.
+There is a huge beanstalk growing out of the west pit up to the hole.
+
+The dwarf throws a nasty little knife at you, but misses!
+
+> e
+You move east.
+The dwarf stalks after you...
+
+At East End of Twopit Room
+You are at the east end of the twopit room. The floor here is littered with
+thin rock slabs, which make it easy to descend the pits. There is a path here
+bypassing the pits to connect passages from east and west. There are holes
+all over, but the only big one is on the wall directly over the west pit
+where you can't get to it.
+
+Tiring of this, the dwarf slips away.
+
+> e
+You move east.
+
+In Swiss Cheese Room
+You are in a room whose walls resemble swiss cheese. Obvious passages go
+west, east, ne, and nw. Part of the room is occupied by a large bedrock
+block.
+
+> ne
+You move northeast.
+
+Bedquilt
+You are in bedquilt, a long east/west passage with holes everywhere. To
+explore at random select north, south, up, or down.
+
+> e
+You move east.
+
+At Complex Junction
+You are at a complex junction. A low hands and knees passage from the north
+joins a higher crawl from the east to make a walking passage going west.
+There is also a large room above. The air is damp here.
+
+> u
+You move up.
+
+In Dusty Rock Room
+You are in a large room full of dusty rocks. There is a big hole in the
+floor. There are cracks everywhere, and a passage leading east.
+
+> e
+You move east.
+
+Dirty Passage
+You are in a dirty broken passage. To the east is a crawl. To the west is a
+large passage. Above you is a hole to another passage.
+
+> u
+You move up.
+
+Low N/S Passage
+You are in a low N/S passage at a hole in the floor. The hole goes down to an
+E/W passage.
+
+> n
+You move north.
+
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+A hollow voice says, "Plugh."
+
+> plugh
+Inside Building
+You are inside a building, a well house for a large spring.  Also here is a
+black rod with a rusty star on the end, a velvet pillow, a large gold nugget,
+some diamonds, some bars of silver, some precious jewelry, a rare coins, a
+Persian rug, a treasure chest, a jeweled trident, a ming vase, an emerald the
+size of a plover's egg and a glistening pearl.
+
+> drop chain
+You drop the golden chain.
+
+[ Your score just went up by nine points. ]
+
+> drop spices
+You drop the selection of rare spices.
+
+[ Your score just went up by nine points. ]
+
+> drop eggs
+You drop the nest of golden eggs.
+
+[ Your score just went up by nine points. ]
+
+> plugh
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+> plover
+Plover Room
+You're in a small chamber lit by an eerie green light. An extremely narrow
+tunnel exits to the west. A dark corridor leads northeast.
+
+> ne
+You move northeast.
+
+The Dark Room
+You're in the dark-room. A corridor leading south is the only exit.  A
+massive stone tablet imbedded in the wall reads: "Congratulations on bringing
+light into the dark-room!"  There is a platinum pyramid here, 8 inches on a
+side!
+
+A sepulchral voice reverberating through the cave says, "Cave closing soon.
+All adventurers exit immediately through main office."
+
+[ Your score just went up by twenty-five points. ]
+
+> get pyramid
+You take the platinum pyramid.
+
+[ Your score just went up by seven points. ]
+
+> s
+You move south.
+
+Plover Room
+You're in a small chamber lit by an eerie green light. An extremely narrow
+tunnel exits to the west. A dark corridor leads northeast.
+
+> plover
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+> plugh
+Inside Building
+You are inside a building, a well house for a large spring.  Also here is a
+black rod with a rusty star on the end, a velvet pillow, a large gold nugget,
+some diamonds, some bars of silver, some precious jewelry, a rare coins, a
+Persian rug, a treasure chest, a nest of golden eggs, a jeweled trident, a
+ming vase, an emerald the size of a plover's egg, a glistening pearl, a
+selection of rare spices and a golden chain.
+
+Your lamp is getting dim.
+
+> drop pyramid
+You drop the platinum pyramid.
+
+[ Your score just went up by nine points. ]
+
+> plugh
+At "Y2"
+You are in a large room, with a passage to the south, a passage to the west,
+and a wall of broken rock to the east. There is a large "Y2" on a rock in the
+room's center.
+
+> s
+You move south.
+
+Low N/S Passage
+You are in a low N/S passage at a hole in the floor. The hole goes down to an
+E/W passage.
+
+> d
+You move down.
+
+Dirty Passage
+You are in a dirty broken passage. To the east is a crawl. To the west is a
+large passage. Above you is a hole to another passage.
+
+> w
+You move west.
+
+In Dusty Rock Room
+You are in a large room full of dusty rocks. There is a big hole in the
+floor. There are cracks everywhere, and a passage leading east.
+
+> d
+You move down.
+
+At Complex Junction
+You are at a complex junction. A low hands and knees passage from the north
+joins a higher crawl from the east to make a walking passage going west.
+There is also a large room above. The air is damp here.
+
+> e
+You move east.
+
+In Anteroom
+You are in an anteroom leading to a large passage to the east. Small passages
+go west and up. The remnants of recent digging are evident.
+A sign in midair here says "Cave under construction beyond this point.
+Proceed at own risk. [Witt Construction Company]"  There are a few recent
+issues of "Spelunker Today" magazine here.
+
+> get magazines
+You take the few recent issues of "Spelunker Today".
+
+> e
+You move east.
+
+At Witt's End
+You are at Witt's End. Passages lead off in *all* directions.
+
+> drop magazines
+You drop the few recent issues of "Spelunker Today".  You really are at wit's
+end.
+
+[ Your score just went up by one point. ]
+
+> turn lamp off
+You switch the brass lantern off.
+
+It is now pitch dark in here!
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 > look
 
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
-
-> look
-
-In Barren Room
-You are inside a barren room. The center of the room is completely empty
-except for some dust. Marks in the dust lead away toward the far end of the
-room. The only exit is the way you came in.
-There is a gentle cave bear sitting placidly in one corner. The bear is held
-back by a solid gold chain.
+Darkness
+It is pitch dark, you can't see a thing.
 
 [ Your score just went up by ten points. ]
 
@@ -2600,6 +2338,198 @@ The sepulchral voice intones, "The cave is now closed."
 As the echoes fade, there is a blinding flash of light (and a small puff of
 orange smoke)...
 As your eyes refocus, you look around...
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
+
+NE End of Repository
+You are at the northeast end of an immense room, even larger than the giant
+room. It appears to be a repository for the "Adventure" program. Massive
+torches far overhead bathe the room with smoky yellow light. Scattered about
+you can be seen a pile of bottles (all of them empty), a nursery of young
+beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with
+rusty stars on their ends, and a collection of brass lanterns. Off to one
+side a great many dwarves are sleeping on the floor, snoring loudly. A sign
+nearby reads: "Do not disturb the dwarves!"
+There is an empty bottle here.  An immense mirror is hanging against one
+wall, and stretches to the other end of the room, where various other sundry
+objects can be glimpsed dimly in the distance.  Also here is a brass lantern,
+a black rod with a rusty star on the end and a giant clam.
+
+> look
 
 NE End of Repository
 You are at the northeast end of an immense room, even larger than the giant
@@ -2807,8 +2737,8 @@ the conquering adventurer off into the sunset.
 
   *** You have won! ***
 
-In that game you scored 300 out of a possible 350, in 422 turns, earning you
-the rank of Master, second class.
+In that game you scored 350 out of a possible 350, in 358 turns, earning you
+the rank of Grandmaster Adventurer!
 
 Would you like to RESTART, RESTORE a saved game, or QUIT?
 

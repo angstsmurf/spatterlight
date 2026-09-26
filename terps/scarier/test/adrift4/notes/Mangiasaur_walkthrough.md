@@ -1,4 +1,4 @@
-# Mangiasaur — walkthrough (**WIN, 63/74, 87 commands**)
+# Mangiasaur — walkthrough (**WIN, 63/74, 82 commands**)
 
 - **Game:** *Mangiasaur* by DCBSupafly, ADRIFT Spring Comp 2011. You are a newly
   woken dinosaur alone in the forest, and the entire verb set is **EAT**.
@@ -78,7 +78,7 @@ eatenBushes, eatenRoots, hunterHasSpear**. Consequences worth knowing:
 
 ## Four timing facts that cost derivation time
 
-### 1. The air sac is a **one-shot** fuse, and that is why the route eats five in a row
+### 1. The air sac is a **one-shot** fuse, and that is why the route eats two in a row
 
 `eat air sac` (TASK 86) sets `carcassEdible = 1`. That one variable does two
 unrelated jobs:
@@ -111,9 +111,9 @@ Two dead ends this produced before the route settled:
 The fix is to make the one-shot fire while you are standing somewhere safe,
 and then eat one more sac: eat sac #1, dive immediately, clear the ocean in
 six turns, surface, and then eat sacs in the valley until the fuse pops. After
-it has popped, `carcassEdible` stays 1 for the rest of the game. Five sacs
-(commands 71–75) is exactly enough under the harness seed — the fuse fires on
-command 74 and the sac on 75 sticks.
+it has popped, `carcassEdible` stays 1 for the rest of the game. Two sacs
+(commands 69–70) are enough under the harness seed — the fuse fires on
+command 69 and the sac on 70 sticks.
 
 ### 2. `burp on sap` is not a door, it is the ride
 
@@ -126,9 +126,10 @@ behind the valley.
 
 ### 3. The cavern's bat and the canopy's moth are pure turn-counting
 
-* The bat (EVENT 11, 3–20 turns) arrives on the **8th** `eat moss`, and TASK 52
-  needs it present. Seven fillers is one turn early and you get *"The hunger
-  makes you crazy. Try again."*; eight is exact under the harness seed.
+* The bat (EVENT 11, 3–20 turns) arrives on the **6th** `eat moss`, and TASK 52
+  needs it present. Arrive a turn early and you get *"You can tell they're
+  all around you, but you can't find any near enough to catch."*; it leaves
+  again on the 8th, so six is the one to use under the harness seed.
 * `eat moth` (TASK 39) needs `timeSinceChirp <= 1`, and `chirp` (TASK 33) sets
   it to 0. The ticker that raises it is EVENT 10, whose **pause task is TASK 38
   `# Chirp Empty Response`** — the version of `chirp` that runs in every room
@@ -168,7 +169,7 @@ TASK 89.
 
 ## The route
 
-87 commands. `goldens/mangiasaur_solution.txt`. Score in brackets is the
+82 commands. `goldens/mangiasaur_solution.txt`. Score in brackets is the
 running total.
 
 | # | Command(s) | What it does |
@@ -177,22 +178,34 @@ running total.
 | 25 | `eat cocoon` | **+3**, and TASK 24 sets `canFly`, which is the gate on the canopy↔floor exits (TASK 26) **[7]** |
 | 26–27 | `look`, `eat bird` | one filler turn; the small green bird (EVENT 4) arrives on it. `eat bird` is **+2** and +6 size **[9]** |
 | 28–30 | `d`, `s`, `eat bug` | down to the Forest Floor, south into the Cavern, **+1** **[10]** |
-| 31–38 | `eat moss` ×8 | **+1** on the first. Eight is exact: the bat lands on the 8th **[11]** |
-| 39 | `eat bat` | **+4**, +6 size, and TASK 54 sets `canChirp` **[15]** |
-| 40–41 | `chirp`, `eat rodent` | the chirp reveals a rodent; eating it is **+3** and sets `canDig` **[18]** |
-| 42–45 | `n`, `u`, `chirp`, `eat moth` | back up to the canopy. This chirp is what freezes the chirp ticker (see above); the moth is **+5**, the biggest single award in the game **[23]** |
-| 46–48 | `d`, `eat slug`, `eat scale crawler` | Forest Floor: **+1**, **+2** and +16 size **[26]** |
-| 49–54 | `e`, `eat grass`, `eat beetles`, `eat bark`, `eat sap`, `eat herd beast` | Valley Pass. The grass reveals the air sacs and the beetles; the beetles are **+1** and set `sharpTeeth`, which is the gate on bark; the bark is **+1** and leaks the sap; the sap is **+1**; the herd beast is **+1** and +20 size (it needs `size >= 30`) **[31]** |
-| 55–59 | `in`, `eat torch`, `eat food`, `eat rug`, `dig` | Small Adobe Hut. The torch is **+3** and sets `canBurp`; eating it is also what makes the dweller offer food (EVENT 31 fires on the same turn), **+1**; the rug is **+1** and uncovers the hole; `dig` needs `canDig` and opens the way down **[36]** |
-| 60–63 | `out`, `eat air sac`, `in`, `d` | **+2**, and this is sac #1 — the fuse starts here and the dive has to be immediate **[38]** |
-| 64–65 | `eat shrimp`, `eat wispy stalk plant` | **+3**, **+2**, both while the water is still bright **[43]** |
-| 66–68 | `eat tentacle net` ×3 | **+2** on the first; the three of them take `oceanLight` 6→3 and put the baby shark in the water **[45]** |
-| 69 | `eat shark` | **+5**, +size, and it chases you straight back up into the hut **[50]** |
-| 70–75 | `out`, `eat air sac` ×5 | Valley Pass. The one-shot breathe fuse fires on command 74; the sac on 75 is the one that sticks, and `carcassEdible` is 1 from here to the end |
-| 76 | `burp on sap` | the rocket tree — lands you on the Mesa Top |
-| 77–82 | `eat slither hopper`, `eat buzz bird`, `eat carcass`, `eat vomit`, `eat bristle bush`, `eat roots` | **+1**, **+1** (and the buzz birds abandon the carcass they were guarding), **+5**, **+3**, **+1**, **+2** **[63]** |
-| 83–84 | `eat spear`, `vomit spear into hole` | the hunter holds the spear out rather than fight; swallowing it and coughing it back up wedges it in the small hole, and the flat rock slides open (TASK 140) |
-| 85–87 | `d`, `score`, `eat platter` | Hall of Humans. EVENT 30 fires on the way down and TASK 176 puts the platter in front of you; `score` records 63/74 in the golden; `eat platter` → **WIN** |
+| 31–36 | `eat moss` ×6 | **+1** on the first. The bat lands on the 6th **[11]** |
+| 37 | `eat bat` | **+4**, +6 size, and TASK 54 sets `canChirp` **[15]** |
+| 38–39 | `chirp`, `eat rodent` | the chirp reveals a rodent; eating it is **+3** and sets `canDig` **[18]** |
+| 40–43 | `n`, `u`, `chirp`, `eat moth` | back up to the canopy. This chirp is what freezes the chirp ticker (see above); the moth is **+5**, the biggest single award in the game **[23]** |
+| 44–46 | `d`, `eat slug`, `eat scale crawler` | Forest Floor: **+1**, **+2** and +16 size **[26]** |
+| 47–52 | `e`, `eat grass`, `eat beetles`, `eat bark`, `eat sap`, `eat herd beast` | Valley Pass. The grass reveals the air sacs and the beetles; the beetles are **+1** and set `sharpTeeth`, which is the gate on bark; the bark is **+1** and leaks the sap; the sap is **+1**; the herd beast is **+1** and +20 size (it needs `size >= 30`) **[31]** |
+| 53–57 | `in`, `eat torch`, `eat rug`, `eat food`, `dig` | Small Adobe Hut. The torch is **+3** and sets `canBurp`; eating it is also what makes the dweller offer food, which appears at the end of the next turn (so the rug comes first); the rug is **+1** and uncovers the hole; the food is **+1**; `dig` needs `canDig` and opens the way down **[36]** |
+| 58–61 | `out`, `eat air sac`, `in`, `d` | **+2**, and this is sac #1 — the fuse starts here and the dive has to be immediate **[38]** |
+| 62–63 | `eat shrimp`, `eat wispy stalk plant` | **+3**, **+2**, both while the water is still bright **[43]** |
+| 64–66 | `eat tentacle net` ×3 | **+2** on the first; the three of them take `oceanLight` 6→3 and put the baby shark in the water **[45]** |
+| 67 | `eat shark` | **+5**, +size, and it chases you straight back up into the hut **[50]** |
+| 68–70 | `out`, `eat air sac` ×2 | Valley Pass. The one-shot breathe fuse fires on command 69; the sac on 70 is the one that sticks, and `carcassEdible` is 1 from here to the end |
+| 71 | `burp on sap` | the rocket tree — lands you on the Mesa Top |
+| 72–77 | `eat slither hopper`, `eat buzz bird`, `eat carcass`, `eat vomit`, `eat bristle bush`, `eat roots` | **+1**, **+1** (and the buzz birds abandon the carcass they were guarding), **+5**, **+3**, **+1**, **+2** **[63]** |
+| 78–79 | `eat spear`, `vomit spear into hole` | the hunter holds the spear out rather than fight; swallowing it and coughing it back up wedges it in the small hole, and the flat rock slides open (TASK 140) |
+| 80–82 | `d`, `score`, `eat platter` | Hall of Humans. EVENT 30 fires on the way down and TASK 176 puts the platter in front of you; `score` records 63/74 in the golden; `eat platter` → **WIN** |
+
+## Re-derived 2026-09-26
+
+The event-roll change of 2026-08-17 (commit 9eb166326: event lengths and delays
+exclude the upper bound) moved the bat to the 6th `eat moss` and the dweller's
+food one turn later. The golden was re-blessed at 24/74 because the win marker
+still matched. The route was re-timed as described above (six moss, rug before
+food, two sacs), and the harness marker is now `You scored 63 out of the maximum
+74!`, so a timing drift like that fails the row.
+
+The Wine Runner (run400x, xoshiro seed 1) plays the new route identically on
+every turn and also ends at 63/74 (`runner_transcripts/mangiasaur.txt`).
 
 ## Reproducing
 

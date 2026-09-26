@@ -422,7 +422,8 @@ Each pinned by a corpus game; the Wine-measured ones are indexed in
 - `SYNONYM` rewrites run **before** task matching (relojero, croft
   `make_39_synprobe.py`/`pSYN.taf`/`synA.png`/`synB.png`, Vardock, Worst Game,
   Seance `n`, Blood_Relatives `exam`, warlock, Business As Usual, Grumble
-  `[unlock] -> [open]`).
+  `[unlock] -> [open]`). The gate needs a whole word, so an abbreviation such
+  as Grumble's `unlo door` reaches an `unlo*` task the synonym would block.
 - Lowest-index match wins (`run_game_commands_common()`); a lower unrestricted
   task with a trailing `*` eats the line (croft T117 vs T123; Journ2 T22 vs
   T25; Merry Murders T37 vs T39; Grumble T63 vs T459; Marooned T14 vs T24).
@@ -599,7 +600,7 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | gorxungula | won, SKIP | `restart` from the death screen gives the coin |
 | lobster | death >6000, **no SKIP** | blanks are pauses |
 | Business As Usual | won | SYNONYM nouns → "go to X"; `take all`/`drop all` |
-| Oh_Human | 60/200 | `theroom==4` |
+| Oh_Human | 60/200 door; 200/200 ladder (ohhuman_200) | `theroom==4`; `look` then `wait` for event 3 |
 | Skydiver | 1000/1000 | MaxScore 0 → closing-line marker |
 | the_road | won, 42, SKIP | — |
 | Perfect Spy | 10/10 | transient form flags |
@@ -702,7 +703,7 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | blood (Otter) | 140/140, 87, SKIP | TASK 724→5→41 stop chain; marker `You managed to score 140 out of 140.`; gloves mandatory; Alison's bracelet sets three clues; kill teleports to Cemetery |
 | mind of master | WON, 29, SKIP | "You are victorious, whoever you might" |
 | magicshow (AIF) | 67/67 + magic 47/47, 152, SKIP | 18 `z` after `take hoops` until Tiffany leaves (EVENT 0, time 27); deck rides in the hat — `take hat`/`wear hat` after `get rabbit from hat`; marker `Well done - you scored maximum points!` |
-| Whatever Happened to Uncle Grumble | 208/404, 260, SKIP | hero `a` (`var8==0`); −50 bomb trap T224 (give bomb *then* love); T280/T459/T388 unreachable; endgame `no`,`wait`,`give nulgas potion to grumble`,`u`; marker `Your score is 208 out of a maximum of 404` |
+| Whatever Happened to Uncle Grumble | 226/404, 267, SKIP | hero `a` (`var8==0`); −50 bomb trap T224 (give bomb *then* love); T280/T459 unreachable; T388 via `unlo door` (synonym bypass); +beer to Kringle, Dip `cut rope`/`chop tree with blade`/`climb tree` (2026-09-26); endgame `no`,`wait`,`give nulgas potion to grumble`,`u`; marker `Your score is 226 out of a maximum of 404` |
 | CowboyBlues | 113/401, 271 | row `cowboyblues_solution.txt\|CowboyBlues.taf\|how does it feel to be a hero then, Fingle Bodge?\|`; terminal room 35 via T591; `var0` 0=difficult 1=medium 2=easy; `blow whistle` first command in Jake's hideout; third `get key` is death |
 | requiem | won, 74, SKIP | "you have reached the game's best ending" |
 | WithoutAClue | won, 125, SKIP | "you've managed to finish the game" |

@@ -6284,9 +6284,9 @@ lobster_solution.txt|lobster.taf|Next: WORLD DOMINATION!
 # you have all you can carry...") prints instead of "is too much for you to
 # carry".  Identical to runner_transcripts/businessasusual.txt on every turn.
 businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
-# Oh, Human (60/200, escape-room dead-end trap): the ladder/box-on-crate 100pt
-# branch is provably unreachable, so drop the electrical device to free the
-# light, cut through the walls at theroom==4, and exit through the door.
+# Oh, Human, door ending (60/200): drop the electrical device to free the
+# light, cut through the walls at theroom==4, and exit through the door.  The
+# door is worth no points (holes 10+20+30); ohhuman_200 below takes the ladder.
 # `drop device` is the row that pins the not-held arm of the 4.0 named-drop
 # port (2026-09-08, WINE-TRANSCRIPTS-TODO.md divergence (c)): the device is on
 # the floor, so the library alone would answer "You are not holding the
@@ -6294,6 +6294,16 @@ businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
 # rebuilt "drop the device" to the tasks over multiple_references too, and
 # task 6 takes it.
 ohhuman_solution.txt|Oh_Human.taf|Congratulations!  You beat the game!
+# Oh, Human, ladder ending (200/200, re-derived 2026-09-26; the old comment
+# called it unreachable).  `look` in the Fourth Room so the crate is seen, then
+# stand on it for the 40pt hole (task 3).  Event 3 needs one turn (`wait`) to
+# bring the box and crate to the First Room; put the crate on the box, stand on
+# it, climb the ladder (task 4) and go through the hole: task 5, +100, the
+# greeters' "highest score possible".  Neither ending ends the game -- both
+# leave you in The End, and this one's room text is "Conratulations.  You...
+# won?" (sic) -- so the marker is the score line.  Identical to
+# runner_transcripts/ohhuman_200.txt on every turn.
+ohhuman_200_solution.txt|Oh_Human.taf|Your score is 200 out of a maximum of 200
 # Sandy's Lost Doll (1286 bytes, 4.00): 6 rooms, 9 tasks, no score, zero
 # declared objects. UNWINNABLE as authored -- the toilet-check win task's
 # RESTR type=4 Var1=0 tests the command's referenced NUMBER (not the `mom`
@@ -8611,12 +8621,12 @@ cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fin
 # witch's-cottage broom-for-potion / spellbook-for-key exchange, the Copse
 # treetop and train-tracks subquest for the teleport ring (without it the
 # gravel pit is a one-way trap), and a travelling companion (Vahla,
-# recruited with a mug of wine). Full 260-command win: pick hero "a", clear
+# recruited with a mug of wine). Full 267-command win: pick hero "a", clear
 # the orcs in Oscoe's Sleazepit, work the town errands, take the fortress
 # via the locked-door bug at the west wall, free Grumble and end on the
 # healing-potion reconciliation ("no" -> "wait" -> give nulgas potion),
 # which is worth +10 and lets the true love go to the street kids instead.
-# Scores 208 out of the header's nominal 404 -- and past the 195 the intro
+# Scores 226 out of the header's nominal 404 -- and past the 195 the intro
 # claims is hero "a"'s maximum, so that claimed per-hero maximum is wrong.
 # Notable author bugs met on the way, all documented in
 # notes/WALKTHROUGH_TODO.md: Farmer Haggis' two field tasks have their
@@ -8625,8 +8635,24 @@ cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fin
 # Merrick Row east after handing over the bomb but before the true love
 # docks a silent -50; and "x orcs" (+1) is permanently shadowed by a
 # lower-indexed task that claims the same command.
-# 260 commands, SCR_SKIP_WAITKEY=1. Final score 208 out of a maximum of 404
-# (51%).
+# 267 commands, SCR_SKIP_WAITKEY=1. Final score 226 out of a maximum of 404
+# (55%).
+# Re-derived 2026-09-26 from 208 to 226 (+18), all hero "a" tasks the old
+# route skipped: `buy beer` + `give beer to kringle` (+4, T104; the wine
+# goes to Vahla); `get blade` off Vahla's body after `kill rufus`, then at
+# the Dip `cut rope` (+1), `chop tree with blade` (+3, T341) and `climb
+# tree` (+5; T344 prints the Gravel pit but leaves you in the Dip, so the
+# old `jump` still follows); and `unlo door` in the Marble hallway (+5,
+# T388, Nulga's torture-chamber key). T388 is NOT unreachable: the game's
+# SYNONYM unlock -> open rewrites `unlock door` before task matching, but
+# the synonym only fires on a whole word, so the abbreviation `unlo` gets
+# through to the task's `unlo*` pattern. The other 178 points are
+# per-hero/per-weapon variants of one fight (orcs, guards, thug, Rufus,
+# bandits, Chad), either-or pairs (wine/beer, open/smash gate, package,
+# fruit seller, priest reward, horn to Boore/guard, ring/telescope,
+# potion/love ending), hero b/c-only tasks (Boswell drawing, nulgas,
+# stick, Kringle joining + armour), the dead Haggis bonus and `x orcs`.
+# Paying the bandits (+5) nets 2 less than `show head`.
 # Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc), three lines,
 # all confirmed against Adrift_329_grumble.txt: the bandits are now listed on
 # the East road (:1960, the task's actions put them there) and "Uncle Grumble
@@ -8637,7 +8663,7 @@ cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fin
 # mirror` (task 500) only shows "More winding path" and scores; the player
 # stays in Saldor's home, so the button there is seen but absent, and 4.0's
 # therest clause refuses pull on it just as it does push (warlord).
-grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 out of a maximum of 404|SCR_SKIP_WAITKEY=1
+grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 226 out of a maximum of 404|SCR_SKIP_WAITKEY=1
 # magicshow.taf (AIF, adult content -- see /goldens/.gitignore): a hypnosis/
 # stage-magic themed game. The player (stage magician "Justin") performs a
 # theatre act (hat/rabbit, card, sawing-a-girl-in-half, hypnosis/table, and
@@ -9855,9 +9881,20 @@ bdw_solution.txt|BDW.taf|WHOO!  WHOO!  WHEE!  WHAA!|
 # Colossal Cave (Crowther/Woods 350, ADRIFT 4 port advent350b.taf).
 # Win is EndGame dead_type=3: drop the rusty-marked dynamite rod in the
 # SW repository (room 125) and blast after the cave closes.  Route is a
-# Wheeler-style 350-point list adapted for xoshiro dwarves (`throw axe`
-# loops) and this port's verbs (`water plant`, `free bird`).  300/350.
-advent350b_solution.txt|advent350b.taf|*** You have won! ***|SCR_SKIP_WAITKEY=1
+# Full 350/350 (Grandmaster, 358 turns): no vending machine (batteries
+# cost the coins), so the original lamp must last.  Pyramid is taken last
+# (finding it starts the closing); the magazines go to Witt's End after the
+# pyramid is deposited, then `turn lamp off` and wait in the dark for the
+# closing teleport (lamp death in the cave is Game Over, task 84).  The chest
+# only appears after a random pirate visit, so the route detours from Y2
+# after the steal: w w w e s e s n get chest, back via xyzzy (not down the
+# small pit with the gold -- task 469).  Derived by an adaptive driver (axe
+# throws before fatal dwarf knives, retried Swiss Cheese nw); any edit
+# reshuffles the RNG, so re-derive rather than hand-edit.  The troll goes
+# with `free bear`, not `drop bear`: run400 rewrites a drop line to "put
+# bear" before the tasks see it, so task 112 "[drop/free] bear" never
+# matches (lib_drop_named_400()).  Runner-identical, run400x seed 1234.
+advent350b_solution.txt|advent350b.taf|In that game you scored 350 out of a possible 350|SCR_SKIP_WAITKEY=1
 # Adventure Strikes When You Least Expect It (tiny 4.00 puzzle).  Harden
 # cheese with varnish, hook the crowbar through the bathroom window, saw
 # the front door, set off the hallway fire alarm.  One-room-comp scale.

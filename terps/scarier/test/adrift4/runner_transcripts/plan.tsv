@@ -170,7 +170,7 @@ second_chance	second chance.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	cong
 private_eye	Private Eye.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You achieved a score of 4.	1
 plague	The Plague - Redux.taf	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	spilling zombie blood once	5840
 iqsfot	iqsfot.taf	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	Thus one courageous space cadet saved the fish	1449
-mangiasaur	Mangiasaur.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Thanks for playing Mangiasaur!	342
+mangiasaur	Mangiasaur.taf	4.00	run400x.exe	1	0		SCR_SEED=1	You scored 63 out of the maximum 74!	375
 afdfr	AFDFR.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Life is good for Death.	159
 akron	akron.taf	3.80	run380x.exe	1234	0			you brave adventurer, saved yourself	0
 cave	cave.taf	3.80	run380x.exe	1234	0			You scored 1000 out of the maximum 1000!	9
@@ -298,6 +298,7 @@ gorxungula	gorxungula.taf	4.00	run400x.exe	1234	2	Lophese~male	SCR_SKIP_WAITKEY=
 lobster	lobster.taf	4.00	run400x.exe	1234	0			Next: WORLD DOMINATION!	124
 businessasusual	Business As Usual.taf	4.00	run400x.exe	1234	0			You Won, Of Course	79
 ohhuman	Oh_Human.taf	4.00	run400x.exe	1234	0			Congratulations!  You beat the game!	5
+ohhuman_200	Oh_Human.taf	4.00	run400x.exe	1234	0			Your score is 200 out of a maximum of 200	6
 sandy	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
 sandy_meta_number	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
 ptgood	competition2006__adrift__ptgood__PTGOOD.taf	4.00	run400x.exe	1234	0			You win! Yay!	1
@@ -412,7 +413,7 @@ requiem	competition2006__adrift__requiem__requiem.taf	4.00	run400x.exe	1234	0		S
 mindofmaster	competition2007__adrift__mindofmaster__mind of master.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You are victorious, whoever you might	357
 withoutaclue	WithoutAClue.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	you've managed to finish the game	1094
 cowboyblues	CowboyBlues.taf	4.00	run400x.exe	1234	0			how does it feel to be a hero then, Fingle Bodge?	1118
-grumble	Whatever_Happened_to_Uncle_Grumble.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Your score is 208 out of a maximum of 404	468
+grumble	Whatever_Happened_to_Uncle_Grumble.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Your score is 226 out of a maximum of 404	480
 magicshow	magicshow.taf	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	19
 goblin	goblin.taf	3.90	run390x.exe	1234	0			Oh, and before we forget- Congratulations, gobbo. Or, should we say...	1803
 mould	mould.taf	4.00	run400x.exe	1	0		SCR_SEED=1 WINE_FEED_NO_HINTS=1	Congratulations on winning The Potter and the Mould	161
@@ -470,7 +471,7 @@ sceneofthecrime	Scene of the Crime.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY
 cityinfear	CityInFear.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Put it there... Captain	327
 labyrinth	labyrinth.taf	4.00	run400x.exe	1234	0	P~male	SCR_SKIP_WAITKEY=1	The ceiling above bursts into light	175
 bdw	BDW.taf	4.00	run400x.exe	1234	0			WHOO!  WHOO!  WHEE!  WHAA!	1
-advent350b	advent350b.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	*** You have won! ***	2737
+advent350b	advent350b.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	In that game you scored 350 out of a possible 350	2364
 adventstrikes	AdventStrikes.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	found your way out.	8
 jasonevans	jasonevans.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	The town that is gone forever.	0
 jason2	jason2.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	Your fright factor is	1

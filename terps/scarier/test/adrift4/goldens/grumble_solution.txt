@@ -58,6 +58,7 @@ e
 ne
 in
 buy wine
+buy beer
 out
 sw
 s
@@ -74,6 +75,7 @@ e
 in
 give wine to vahla
 e
+give beer to kringle
 x table
 w
 out
@@ -220,11 +222,15 @@ se
 give leg to barii
 climb hedge
 kill rufus
+get blade
 out
 se
 e
 show head
 e
+cut rope
+chop tree with blade
+climb tree
 jump
 e
 e
@@ -233,6 +239,7 @@ e
 out
 sw
 se
+unlo door
 e
 give bludrinker to grumble
 w

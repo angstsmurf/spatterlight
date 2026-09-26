@@ -1,0 +1,15 @@
+go through hole
+drop device
+get light
+push crate
+stand on box
+go through hole
+look
+stand on crate
+go through hole
+wait
+put crate on box
+stand on crate
+climb ladder
+go through hole
+score

@@ -26,6 +26,7 @@ drop rod
 s
 get jewelry
 n
+get axe
 w
 get coins
 e
@@ -46,8 +47,31 @@ n
 n
 n
 n
+s
+s
+w
+w
+w
+e
+s
+e
+s
+n
+get chest
+get all
+out
+throw axe at dwarf
+get axe
+n
+d
+e
+e
+xyzzy
+drop chest
+plugh
 plugh
 drop gold
+look
 plugh
 s
 s
@@ -79,103 +103,6 @@ n
 n
 plugh
 drop rug
-get jewelry
-plugh
-s
-s
-get axe
-sw
-w
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-get axe
-throw axe at dwarf
-e
-e
-e
-w
-w
-n
-s
-e
-s
-n
-get chest
-get jewelry
-out
-n
-d
-w
-d
-n
-n
-n
-plugh
-drop jewelry
-drop chest
 plugh
 s
 d
@@ -259,6 +186,9 @@ e
 get pillow
 w
 nw
+nw
+nw
+nw
 get vase
 n
 w
@@ -271,9 +201,6 @@ drop vase
 drop lamp
 e
 get emerald
-ne
-look
-s
 drop emerald
 w
 get lamp
@@ -297,61 +224,12 @@ drop vase
 plugh
 plover
 get emerald
-ne
-get pyramid
-s
 plover
 plugh
 drop emerald
-drop pyramid
-get coins
-plugh
-s
-s
-e
-w
-w
-n
-throw axe at dwarf
-get axe
-w
-throw axe at dwarf
-get axe
-w
-throw axe at dwarf
-get axe
-s
-throw axe at dwarf
-get axe
-s
-throw axe at dwarf
-get axe
-e
-throw axe at dwarf
-get axe
-s
-throw axe at dwarf
-get axe
-put coins in vending
-get batteries
-turn off lantern
-put batteries in lantern
-turn on lantern
-n
-sw
-w
-d
-e
-e
-e
-e
-e
-n
-n
-n
-plugh
 get eggs
 plugh
+look
 s
 d
 w
@@ -375,9 +253,6 @@ ne
 ne
 e
 ne
-e
-get spices
-w
 s
 d
 s
@@ -385,6 +260,67 @@ e
 feed food to bear
 unlock chain
 get chain
+get bear
+w
+w
+u
+ne
+e
+get spices
+w
+s
+w
+w
+sw
+free bear
+sw
+d
+d
+se
+se
+w
+w
+d
+climb plant
+w
+fee
+fie
+foe
+foo
+get eggs
+s
+e
+u
+e
+e
+ne
+e
+u
+e
+u
+n
+plugh
+drop chain
+drop spices
+drop eggs
+plugh
+plover
+ne
+get pyramid
+s
+plover
+plugh
+drop pyramid
+plugh
+s
+d
+w
+d
+e
+get magazines
+e
+drop magazines
+turn lamp off
 look
 look
 look

@@ -1594,6 +1594,11 @@ lib_cmd_drop_what (scr_gameref_t game)
   if (lib_cmd_drop_absent_pre390 (game))
     return TRUE;
 
+  /* name_object stayed silent for a drop that named nothing with a task
+     pre-matching (see lib_drop_named_400()); the catch-all answers. */
+  if (lib_is_version_400 (game) && run_priority_put_was_unnamed ())
+    return FALSE;
+
   /*
    * 4.0 seen-absent unique winner: "You are not holding the uniform."
    * (definite form).  Measured escape_to_new_york turn 156 `drop uniform`

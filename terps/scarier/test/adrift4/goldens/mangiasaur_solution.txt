@@ -34,8 +34,6 @@ eat moss
 eat moss
 eat moss
 eat moss
-eat moss
-eat moss
 eat bat
 chirp
 eat rodent
@@ -54,8 +52,8 @@ eat sap
 eat herd beast
 in
 eat torch
-eat food
 eat rug
+eat food
 dig
 out
 eat air sac
@@ -68,9 +66,6 @@ eat tentacle net
 eat tentacle net
 eat shark
 out
-eat air sac
-eat air sac
-eat air sac
 eat air sac
 eat air sac
 burp on sap
