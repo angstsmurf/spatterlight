@@ -1,7 +1,23 @@
 look out monitor
+click on my computer icon
+open control panel folder
+close
 pull up tool bar
 press start menu
 press programs
+press accessories
+search for exit
+press documents
+read document
 click on media player
 click on media library
+play jb
+press start menu
+click on media player
+play hb
+press start menu
+click on media player
+play mll
+press start menu
+click on media player
 play nplh

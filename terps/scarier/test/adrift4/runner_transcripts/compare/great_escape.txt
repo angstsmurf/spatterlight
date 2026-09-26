@@ -1,0 +1,16 @@
+feed        132 commands
+runner      132 turns echoed
+scarier     132 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 15  pick up t-shirt
+  run400   You can't do that yet.
+  scarier  You pick up the t-shirt and put it on. It is surprisingly fresh and smells of springtime (whatever that smells like.)
+
+turn 20  open medicine cabinet
+  run400   You open the medicine cabinet. Inside the medicine cabinet is the tube of toothpaste, the toothbrush and the bottle of mouthwash.
+  scarier  You open the medicine cabinet. Inside the medicine cabinet are the tube of toothpaste, the toothbrush and the bottle of mouthwash.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

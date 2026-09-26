@@ -1,5 +1,5 @@
 e
-take wallet
+pick up wallet
 get wallet
 open wallet
 get mobile-phone
@@ -10,10 +10,10 @@ up
 get crowbar
 e
 get trousers
-take stun-gun
+pick up stun-gun
 get stun-gun
 watch tv
-take t-shirt
+pick up t-shirt
 e
 use shower
 use toilet
@@ -36,6 +36,7 @@ w
 n
 e
 give chocolate to mrs walters
+eat bar
 call ambulance
 wait
 wait
@@ -47,7 +48,6 @@ wait
 invite julie in
 up
 e
-search coat
 w
 down
 converse with julie

@@ -50,11 +50,11 @@ landing. You feel that it would be innappropriate to venture out of the house
 at this point without at least a pair of well-washed trousers.  Also here is
 the wallet, the letter and the mobile-phone.
 
-> take wallet
-You pick up the wallet.
+> pick up wallet
+You have your wallet
 
 > get wallet
-You've already got the wallet!
+You pick up the wallet.
 
 > open wallet
 You open the wallet revealing a crisp tenner, your Piddlington bank credit
@@ -95,11 +95,11 @@ Also here are the pair of trousers and the t-shirt.
 > get trousers
 You pick up the pair of trousers.
 
-> take stun-gun
-You take the stun-gun from the pair of trousers.
+> pick up stun-gun
+You pick up the Sparkshot 500, it feels cool to the touch.
 
 > get stun-gun
-You've already got the stun-gun!
+You take the stun-gun from the pair of trousers.
 
 > watch tv
 You switch on the TV. There isn't much on, a chat show, a gardening program.
@@ -109,8 +109,9 @@ the screen you realise that you have seen that painting before. You try to
 think where you saw that painting before, then suddenly it hits you. You have
 seen that very painting in your neighbour's flat!
 
-> take t-shirt
-You pick up the t-shirt.
+> pick up t-shirt
+You pick up the t-shirt and put it on. It is surprisingly fresh and smells of
+springtime (whatever that smells like.)
 
 > e
 You move east.
@@ -245,6 +246,9 @@ perfectly innocent woman (albeit a smelly and annoying one), I hope you're
 feeling pleased with yourself. Anyway, looking on the bright side, at least
 you can take the painting now.
 
+> eat bar
+You eat the chocolate bar. It tastes very nice.
+
 > call ambulance
 You dial 999 in a frenzy of guilt and panic. The telephonist on the other end
 seems a bit bored. "Yes?" she says wearily. "Um," you begin "My next door
@@ -314,9 +318,6 @@ Your bedroom has a small bed in it and an ageing, rickety chair in the corner
 of the room. There are piles of clothes on the floor. The windows look out
 over another dreary day.   From here you can go either east to the lands of
 fresh minty flavour (aka your bathroom) or west to your upstairs landing.
-
-> search coat
-You don't have the right equipment.
 
 > w
 You move west.
@@ -918,7 +919,7 @@ chase is over, but maybe you could still get away with it...  The sirens are
 getting louder and louder...
 
 > score
-Your score is 1360 out of a maximum of 1860.  (73%)
+Your score is 1380 out of a maximum of 1860.  (74%)
 
 > hide
 As the sirens draw closer you hide yourself in the long grass of the field.
@@ -929,8 +930,8 @@ sound of your breathing. Eventually, after what seems like an eternity, they
 give up and drive off. You wait for about five more minutes and then you get
 up, slowly. You check that there is no-one there. There isn't. You let out a
 cry of joy, you have made it, you have escaped!!
-You scored 1460 out of the maximum 1860!
-That is 78% of the game!
-You finished 400 points short.
+You scored 1480 out of the maximum 1860!
+That is 79% of the game!
+You finished 380 points short.
 
 [Press any key to end]

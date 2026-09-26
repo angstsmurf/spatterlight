@@ -3,17 +3,17 @@
 - **Engine:** ADRIFT 4.0. *Cursed*, by **Nick Rogers** (IFComp 2011, placed
   equal 13th; the wired build is the post-comp **2.1.10**, 1 Sep 2012).
 - **Game file:** `cursed.taf` (symlinked into `games/`).
-- **Solution:** `goldens/cursed_solution.txt` — 298 commands.
-- **Result:** ★ **WON**, **93 / 101**, `The End` on the Battlements.
+- **Solution:** `goldens/cursed_solution.txt` — 307 commands.
+- **Result:** ★ **WON**, **95 / 101** (the fox ceiling), `The End` on the Battlements.
 - **Row:**
-  `cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1`
+  `cursed_solution.txt|cursed.taf|You achieved a score of 95 out of a possible|SCR_SKIP_WAITKEY=1`
 - **Row env:** **`SCR_SKIP_WAITKEY=1`** — the game paginates every chapter
   break and most cut-scenes with `[ Press any key ]`; without it one solution
   line stops being one command and the whole script desyncs.
 
 Derived from the ClubFloyd transcript of 31 Jan / 7 & 14 Feb 2013
-(AllThingsJacq.com, *NightFloyd*), which also finishes on **93/101** — see
-[The missing 8 points](#the-missing-8-points).
+(AllThingsJacq.com, *NightFloyd*), which finishes on **93/101**. Two more
+points were added on 2026-09-26; see [The missing 8 points](#the-missing-8-points).
 
 Torrin, ward of King Rithusar of Rylane, is convicted of murdering Prince
 Alsanter and is "mercifully" cursed by the court wizard Rixomas into the shape
@@ -29,22 +29,23 @@ barn, mill, mountain) → Interlude (the lair) → Part Three (back into the
 castle) → Epilogue (you play *King Rithusar*).
 
 Score checkpoints along the committed script:
-3 → 8 → 10 → 20 → 24 → 27 → 28 → 33 → 34 → 35 → 40 → 55 → 58 → 63 → 73 → 83 →
-**93**.
+4 → 9 → 11 → 21 → 26 → 29 → 30 → 35 → 36 → 37 → 42 → 57 → 60 → 65 → 75 → 85 →
+**95**.
 
-### Part One — Mistake in Identity (20 pts)
+### Part One — Mistake in Identity (21 pts)
 
-`fox`, then the meeting hall: `push pedestal`, `pull curtain`,
+`fox`, then `n`, `w`, `x tapestries` (+1), `e` and the meeting hall: `push pedestal`, `pull curtain`,
 `put curtain in fire`, `hide behind curtain` draws the guards away (+3). Out
 through the stable: `roll barrel`, `pull rope` (+5 escaping the castle),
 `hide under cart` / `follow cart`. In the city, `open latch` frees the sheep
 (+2), the rake must be dragged five times (`drag rake se` ×5), the sack ripped
 six times, then `open gate` and `dig under scaffolding` gets you out (+10).
 
-### Interlude — Conversations with the King (4 pts)
+### Interlude — Conversations with the King (5 pts)
 
 You are Rixomas. The whole interlude is a yes/no interrogation; the committed
 answers are six `yes` then twelve `no`, which is what scores the 4 points.
+The first `yes` (before any question) is `ask king about gaxin` instead (+1).
 
 ### Part Two — Lost in Transformation (31 pts)
 
@@ -198,14 +199,28 @@ need re-blessing.
 
 ### The missing 8 points
 
-`full score` at the end lists 24 scoring items totalling 93 of the 101
-available. The unaccounted 8 are not in the ClubFloyd transcript either — that
-session played all three chapters over three evenings, tried the alternative
-animals, and still finished on 93. The most likely home for them is the King
-interlude ("4 points for your responses to the king's questions" reads like a
-partial award), but nothing in the transcript or the shipped `cursed_hints.taf`
-confirms a better answer set, and re-deriving that interlude would desync every
-later beat in the script. 93/101 is the documented result.
+The ClubFloyd route stops at 93. Two of the missing 8 points are available to
+the fox and are now in the route (2026-09-26):
+
+- **Tapestries (+1, task 447):** `x tapestries` in the Plain hallway, `w` of
+  the Antechamber just after the throne room. The three extra turns make you
+  late for the cart, so the courtyard waits before `hide under cart` drop from
+  six `z` to five.
+- **Lord Gaxin (+1, task 1014):** `ask king about gaxin` in the interlude.
+  Asking while a question is pending only gets "You might consider answering
+  my question first", so the ask replaces the first filler `yes`, before the
+  king asks anything. It also needs `kings_state` to be 0: answer yes to Q1
+  and no to Q2, which the route already does.
+
+The other 6 are out of the fox's reach:
+
+- **Cutting the clothes line (+2, task 450):** reached from the Dock (north of
+  the narrow passage east of the road) and the stack of barrels. Both refuse
+  the fox "in your current state", so this is a rat-path point.
+- **Escaping the darkness (+2, task 2343):** room 174 is the rat/snake start
+  of Part Three.
+- **Asking about Alsanter and Sulanar (+1 +1, tasks 1015/1016):** no task or
+  event runs either one, so these points are dead in 2.1.10.
 
 ### Other footguns
 

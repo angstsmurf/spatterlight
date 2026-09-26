@@ -538,6 +538,48 @@ they're miles away...
 recommended that you save the game at this point so you can easily restore it
 if necessary. ]
 
+> w
+You trot west.
+
+Plain hallway
+The walls of this otherwise plain hallway are decorated with tapestries, and
+a number of small statues on pedestals stand at regular intervals down the
+length of the hallway. The hallway itself runs along the side of the castle,
+with a passage to the east at the northern end, and a small door, which is
+closed, blocking the exit to the south.
+
+> x tapestries
+The tapestries depict, in vivid colour, scenes from historic battles when
+kings of Rylane from ages past fought against their enemies and won. Most of
+the tapestries are quite old. One, however, is new. In the woven threads is a
+picture of two men in battle: on the right, King Rithusar of Rylane, sword
+raised high in a two handed grip, about the strike down the man on the left,
+Horalas, King of Gord. The war with Gord took place around ten years ago, and
+this scene would have occurred near the end of the war.
+   The skill in this tapestry is stunning. The faces of each combatant have
+been captured with exquisite detail; Rithusar has an almost saint-like,
+unblemished visage, the royal dragon on his tunic almost seems alive, while
+Horalas' face seems more demonic, cast in shadows, smeared with blood and
+grime, the hawk image on his tunic almost cowering in response.
+
+[ Your score just went up by one. ]
+
+> e
+You trot east.
+
+Antechamber
+This well appointed room seems significantly larger now than it used to. It
+is dominated by the towering, ornately carved doors which occupy almost the
+entire south wall, and by a thick carpet that covers the stone floor with
+intricate designs and patterns. In the two far corners opposite the throne
+room doors stand two massive suits of armour, one made from silver, and the
+other apparently from gold.
+   Apart from the doors to the throne room, which are currently closed, there
+are cavernous exits to the east and west, although you can see that both
+hallways make a sharp turn to the south after a short distance, and a
+slightly smaller passage leads north.
+   Your vulpine hearing detects some sounds -- movement to the east.
+
 > n
 You trot north.
 
@@ -613,6 +655,11 @@ and turns her attention to picking up pieces of the vase.
 > z
 You wait for something to happen.
 
+   Your vulpine hearing detects some sounds -- movement to the south.
+
+   Your vulpine hearing detects some sounds -- movement to the south.
+
+   Your vulpine hearing detects some sounds -- movement to the south.
    The servant exits to the south.
 
 > out
@@ -649,20 +696,14 @@ To the south, up a small series of stone steps, lies the entrance to the
 meeting hall.
    There is a large stack of barrels just off to the left, along with some
 discarded and empty crates, and a single wooden plank.
-
-   A cart, pulled by a large grey horse, arrives from the northern end of the
-courtyard.
-
-   A servant rushes in from the west, oblivious to your presence, and
-approaches the cart.
-   "Another load for ya," the driver says to the servant.
-   "Thanks," he replies.
-   The servant grabs one of the sacks from the rear of the cart, heaves it
-onto his shoulder, then disappears back to the west, heading for the castle
-storeroom.
+   There is a horse-drawn cart standing nearby, the driver idly holding the
+reins of a large, grey draught horse.
+   A servant arrives from the west, walking straight past you without
+looking, and grabs a sack from the cart, before heading back towards the
+storage room again.
 
 > score
-Your score is 3 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 4 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > e
@@ -713,31 +754,6 @@ meeting hall.
 discarded and empty crates, and a single wooden plank.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
-   There is a horse-drawn cart standing nearby, the driver idly holding the
-reins of a large, grey draught horse.
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   The servant rushes in from the west, and grabs another sack from the rear
-of the cart.
-   "That's the lot," the driver says. "See you after the execution."
-   The servant hurries off carrying the sack.
-   With a flick of the reins, the cart driver urges his horse on, and the
-cart makes its way north.
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
-
-> z
-You wait for something to happen.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
    Your vulpine hearing detects some sounds -- movement to the south.
    You hear the sound of the portcullis being raised.
    You can hear a horse neighing in distress coming from the northern end of
@@ -747,17 +763,28 @@ the courtyard. You also hear hooves beating on the flagstones.
 You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
    You hear the sound of the portcullis being lowered.
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+> z
+You wait for something to happen.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
+
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
 > z
 You wait for something to happen.
@@ -767,12 +794,14 @@ You wait for something to happen.
 the courtyard. You also hear hooves beating on the flagstones.
 
    Your vulpine hearing detects some sounds -- movement to the south.
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    Your vulpine hearing detects some sounds -- movement to the south.
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   You hear the sound of the portcullis being raised.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > z
 You wait for something to happen.
@@ -784,23 +813,9 @@ northern end of the courtyard.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
-   You hear the sound of the portcullis being raised.
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
-
-> z
-You wait for something to happen.
-
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
-
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
 
 > z
 You wait for something to happen.
@@ -814,17 +829,16 @@ approaches the cart.
    The servant grabs one of the sacks from the rear of the cart, heaves it
 onto his shoulder, then disappears back to the west, heading for the castle
 storeroom.
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
    A servant appears from the west, grabs a sack from the cart and takes it
 away. He appears so focused on his work he doesn't seem to see you at all.
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
 > hide under cart
 With the archers distracted by the agitated horse, you slip unnoticed beneath
@@ -933,7 +947,7 @@ cover can be seen to the northwest. There is also a small drainage pipe here,
 about a foot in diameter, which runs eastwards underneath the road.
 
 > score
-Your score is 8 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 9 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > nw
@@ -1131,7 +1145,7 @@ sheep, and the bleating of the sheep trying not to be caught.
 [ Your score just went up by two. ]
 
 > score
-Your score is 10 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 11 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > nw
@@ -1314,7 +1328,7 @@ with the only exit being a door in the west wall.
 might want to discuss. Simply enter the topic name to ask about it. ]
 
 > score
-Your score is 20 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 21 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > topics
@@ -1322,11 +1336,21 @@ You suspect the king might want to talk about some of the following things:
    Torrin
    Princess Tevona
 
-> yes
-A strange thought comes to your mind, but you quickly dismiss it. It really
-made no sense.
-   The wind rattles against the windows, making both you and the king jump
-slightly.
+> ask king about gaxin
+"Did I hear Lord Gaxin say he's returning to Sylaph tomorrow?" you ask.
+   "I believe he did say that," the king replies.
+   "I think he wants another feast at the king's table," you say with a
+smile.
+   The king laughs. A real laugh. "Yes, Gaxin does like his food, doesn't he?
+But also I think he wants to ask for more regional aid, and he's been holding
+back until after the Torrin's trial. I imagine I might get an earful
+tomorrow."
+   Your success in getting the king to laugh is short lived. The haunted look
+returns quickly as he turns his attention back to the fire.
+
+[ Your score just went up by one. ]
+   An soft, eerie sound reaches your ears as the wind blows across the top of
+the chimney.
 
 > yes
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1334,6 +1358,10 @@ made no sense.
    The king glances quickly at your glass of wine.
    "Don't forget your wine, Rixomas," he says with a small smile. He then
 turns his attention back to the fire.
+
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
+made no sense.
 
    A silence had fallen, but the king breaks it by asking in a whisper, "What
 have I done?"
@@ -1360,6 +1388,8 @@ of you."
 What life have I bestowed on him? What hope does he have for the future?"
    "Some life is better than no life," you answer philosophically. "As long
 as there is life, there is hope."
+   You feel a draft from under the door and it makes you shiver. You pull
+your cloak around yourself even tighter.
 
 > yes
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1377,15 +1407,9 @@ with some concern.
    The king looks at you with questions about the veracity of your answer
 clearly on his mind, but he doesn't pursue it.
 
-> yes
-A strange thought comes to your mind, but you quickly dismiss it. It really
-made no sense.
-
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-   You feel a draft from under the door and it makes you shiver. You pull
-your cloak around yourself even tighter.
    "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
 waste." He then returns his gaze to the fire.
 
@@ -1396,6 +1420,8 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
+   The wind rattles against the windows, making both you and the king jump
+slightly.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1404,8 +1430,6 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-   An soft, eerie sound reaches your ears as the wind blows across the top of
-the chimney.
 
    You are lost in contemplation of the fire when Rithusar breaks into your
 thoughts.
@@ -1450,6 +1474,8 @@ returns to the fire.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
+   You feel a draft from under the door and it makes you shiver. You pull
+your cloak around yourself even tighter.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1458,8 +1484,6 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-   The wind rattles against the windows, making both you and the king jump
-slightly.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1476,8 +1500,8 @@ made no sense.
 > z
 You wait for something to happen.
 
-   An soft, eerie sound reaches your ears as the wind blows across the top of
-the chimney.
+   The fire pops loudly, sending a few embers and ash whirling around the
+hearth.
 
 > z
 You wait for something to happen.
@@ -1554,56 +1578,49 @@ All you can see are trees.
 
 Your vulpine hearing detects some sounds nearby.
 
-Your vulpine eyes detect movement nearby. Your vulpine senses detect an odour
-nearby.
-
 > think
 It is so hard to think, your mind wanders constantly, randomly...but you
 think you feel something...
-Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
-movement nearby. Your vulpine senses detect an odour nearby.
+Your vulpine eyes detect movement nearby. Your vulpine senses detect an odour
+nearby.
 
 > feel
 You can feel your feet.
+Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
+movement nearby. Your vulpine senses detect an odour nearby.
+
+> feel feet
+You can feel your feet, and beneath them you can feel the ground.
 Your vulpine senses detect an odour nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine eyes detect movement nearby. Your vulpine eyes
 detect movement nearby.
 
-> feel feet
-You can feel your feet, and beneath them you can feel the ground.
+> feel ground
+The ground is covered in grass.
 Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
 movement nearby. Your vulpine hearing detects some sounds nearby. Your
 vulpine hearing detects some sounds nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine senses detect an odour nearby.
 
-> feel ground
-The ground is covered in grass.
+> feel grass
+The grass is thick and soft, cool to the touch. In various places you can see
+clumps of small white flowers.
 Your vulpine eyes detect movement nearby. Your vulpine hearing detects
 something like a horn sound nearby. Your vulpine eyes detect movement nearby.
 Your vulpine eyes detect movement nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine eyes detect movement nearby. Your vulpine senses
 detect an odour nearby.
 
-> feel grass
-The grass is thick and soft, cool to the touch. In various places you can see
-clumps of small white flowers.
-Your vulpine senses detect an odour nearby. Your vulpine eyes detect movement
-nearby. ... My nose ... Your vulpine hearing detects some sounds nearby. Your
-vulpine hearing detects something like a horn sound nearby. Your vulpine eyes
-detect movement nearby. Your vulpine hearing detects some sounds nearby. ...
-I need to ... Your vulpine senses detect an odour nearby. Your vulpine eyes
-detect movement nearby.
-
 > smell
 The flowers are giving off a gentle, sweet fragrance that mingles with the
 crisp, alpine smell of the pines trees all around which you hear creaking in
 a strong wind.
-Your vulpine hearing detects some sounds nearby. Your vulpine senses detect
-an odour nearby. Your vulpine eyes detect movement nearby. Your vulpine
-senses detect an odour nearby. Your vulpine hearing detects some sounds
-nearby. Your vulpine hearing detects some sounds nearby. Your vulpine senses
-detect an odour nearby. Your vulpine hearing detects some sounds nearby. Your
-vulpine eyes detect movement nearby.
+Your vulpine senses detect an odour nearby. Your vulpine eyes detect movement
+nearby. ... My ears ... Your vulpine hearing detects some sounds nearby. Your
+vulpine hearing detects something like a horn sound nearby. Your vulpine eyes
+detect movement nearby. Your vulpine hearing detects some sounds nearby. ...
+I can ... Your vulpine senses detect an odour nearby. Your vulpine eyes
+detect movement nearby.
 
 > listen
 A wind is blowing through the forest making eerie howling sounds in the
@@ -1643,7 +1660,7 @@ south. And with it is the sound of a horn.
    You notice your scent has been left behind you.
 
 > score
-Your score is 24 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 26 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
    Somewhere to the south, over the sound of the wind in the trees, you can
 hear dogs barking excitedly not far away.
@@ -1773,7 +1790,7 @@ southern view entirely but stops quite unexpectedly a short distance away.
 of the wind can be felt below.
 
 > score
-Your score is 27 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 29 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > n
@@ -1943,7 +1960,7 @@ lower end of the plank, ready to be launched.
 [ Your score just went up by one. ]
 
 > score
-Your score is 28 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 30 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
 > out
@@ -2088,7 +2105,7 @@ and then falls still.
 [ Your score just went up by five. ]
 
 > score
-Your score is 33 out of a maximum of 101. Enter FULL SCORE to see a complete
+Your score is 35 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
    Your vulpine hearing detects some sounds -- movement outside the barn.
 
@@ -3150,6 +3167,7 @@ with the rich, acrid smell.
 
 > invisible
 You think about invisibility, and immediately you disappear.
+   The dog sneezes a couple of times, whimpers, then settles down again.
 
 > w
 You gingerly step past the dog, your invisible feet silent on the stone
@@ -3339,7 +3357,6 @@ archway marks the exit to the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
    Lord Vonisor enters from the west.
-   Lord Vonisor rubs the back of his head impatiently.
 
 > n
 You trot north.
@@ -3386,6 +3403,8 @@ the crown prince of Rylane.
 "Lord Vonisor," you begin, "would you open this door?"
    "Absolutely," Lord Vonisor says, before stepping forward and opening the
 door.
+   Lord Vonisor pulls out his sword and checks the blade for any marks and
+flaws. He returns the blade to the scabbard.
 
 > n
 As you move to enter the door, Lord Vonisor steps forward and says, "It looks
@@ -3403,10 +3422,8 @@ the far wall with curtains drawn.
 of rich green which has been spoiled by a dark, sinister stain near the edge.
     A passage leads westwards, while the door back to the corridor stands
 open to the south.
-   Standing a short distance away is Lord Vonisor, who is looking at you but
-is obviously ready for anything.
-   Lord Vonisor pulls out his sword and checks the blade for any marks and
-flaws. He returns the blade to the scabbard.
+   Lord Vonisor is standing nearby, with a determination in his stance as if
+he is ready to attack the first enemy to come into view.
 
 > smell
 You can smell a faint, but very distinct odour here, past the mustiness that
@@ -3448,6 +3465,7 @@ of light provided by a series of torches mounted on the wall. On the floor of
 polished stone, running the entire length of the corridor, is a plush carpet.
 No features of any sort mark the corridor walls here.
    Lord Vonisor enters from the east.
+   Lord Vonisor fiddles with his sword hilt.
 
 > w
 You trot west.
@@ -3470,7 +3488,6 @@ Princess out of this --"
 to the door and knocks on it gently. When there is no answer he opens it very
 carefully and peers inside.
    "You're right," he says. "No one there. Be my guest."
-   Lord Vonisor rubs the back of his head impatiently.
 
 > in
 You trot in.
@@ -3501,6 +3518,7 @@ running from floor to ceiling, and extends about six inches into the room.
 buttress, and as you look closer your vulpine eyes notice a small indentation
 in the corner where the buttress meets the wall. Something about this mark
 looks alien, out of place.
+   Lord Vonisor taps his foot on the ground for a moment or two.
 
 > x indentation
 The indentation is almost invisible, blending into the surrounding stonework
@@ -3956,7 +3974,7 @@ The End
 
 [ Your score just went up by ten. ]
 
-You have completed the game. You achieved a score of 93 out of a possible
+You have completed the game. You achieved a score of 95 out of a possible
 101.
 Would you like to RESTART, RESTORE, UNDO a turn, or QUIT?
 

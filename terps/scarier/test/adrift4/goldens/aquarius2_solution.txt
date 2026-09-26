@@ -1,6 +1,7 @@
 n
 0987654321
 attack monster
+take plant
 eat plant
 n
 n
@@ -14,7 +15,6 @@ n
 e
 e
 attack monster
-eat plant
 take stone
 w
 w

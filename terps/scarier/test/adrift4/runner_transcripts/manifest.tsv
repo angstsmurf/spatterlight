@@ -31,7 +31,7 @@ amy	amy.txt	driven:Adrift_455_amy_rt.txt	4.00	run400x.exe	1234	0	Chris	SCR_SKIP_
 angeldevilhuman	angeldevilhuman.txt	driven:Adrift_385_angeldevilhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 apokalupsis	apokalupsis.txt	driven:Adrift_449_apokalupsis_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 aquarius1	aquarius1.txt	driven:Adrift_284_aquarius1_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
-aquarius2	aquarius2.txt	driven:Adrift_285_aquarius2_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+aquarius2	aquarius2.txt	driven:Adrift_304_aquarius2_rt.txt	3.90	run390x.exe	1234	0			yes	4 differing turn(s)
 archie	archie.txt	harvested-native-0-draws:Adrift_494_archie.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 argh	argh.txt	driven:Adrift_305_argh_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 asdfa	asdfa.txt	driven:Adrift_240_asdfa_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -114,7 +114,7 @@ crossworlds4	crossworlds4.txt	driven:Adrift_311_crossworlds4_rt.txt	3.90	run390x
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 cs2	cs2.txt	driven:Adrift_327_cs2_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
 cumberbund	cumberbund.txt	driven:Adrift_312_cumberbund_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-cursed	cursed.txt	driven:Adrift_128_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+cursed	cursed.txt	driven:Adrift_304_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
 cyber2	cyber2.txt	driven:Adrift_157_cyber2_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 cybercow	cybercow.txt	driven:Adrift_159_cybercow_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
@@ -223,7 +223,7 @@ gotcha	gotcha.txt	driven:Adrift_345_gotcha_rt.txt	3.90	run390x.exe	1234	0	Petter
 govard	govard.txt	driven:Adrift_326_govard_rt.txt	3.90	run390x.exe	1234	1			yes	8 differing turn(s)
 govard2	govard2.txt	driven:Adrift_282_govard2_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 grandjourney	grandjourney.txt	driven:Adrift_307_grandjourney_rt.txt	3.90	run390x.exe	1234	0	Petter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-great_escape	great_escape.rtf	driven:Adrift_293_great_escape_rt.rtf+tail	3.80	run380x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
+great_escape	great_escape.rtf	driven:Adrift_304_great_escape_rt.rtf+tail	3.80	run380x.exe	2	0		SCR_SEED=2	yes	2 differing turn(s)
 greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	identical on every turn.
 griswold	griswold.txt	driven:Adrift_152_griswold_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 grumble	grumble.txt	driven:Adrift_304_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
@@ -268,7 +268,7 @@ imagination	imagination.txt	driven:Adrift_239_imagination_rt.txt	4.00	run400x.ex
 imagings	imagings.txt	driven:Adrift_286_imagings_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 impulso	impulso.txt	harvested-native-0-draws:Adrift_699_impulso.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 inmemory	inmemory.txt	driven:Adrift_312_inmemory_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
-insidejob	insidejob.txt	driven:Adrift_282_insidejob_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+insidejob	insidejob.txt	driven:Adrift_304_insidejob_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 invasion_shirts	invasion_shirts.txt	driven:Adrift_206_invasion_shirts_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 inverness	inverness.txt	driven:Adrift_177_inverness_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
 iqsfot	iqsfot.txt	driven:Adrift_282_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	identical on every turn.

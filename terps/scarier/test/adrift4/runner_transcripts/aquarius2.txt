@@ -10,8 +10,11 @@ Here you go Chris :)  Monster hits you, but it doesn't seem to do any damage.
 > attack monster
 You shoot Monster with Secret Weapon.  The void Monster falls to the ground and disintegrates. All that is left behind is some sort of edible plant. 
 
+> take plant
+You pick up Edible Plant.
+
 > eat plant
-You can't eat Edible Plant.
+You feel completely Refreshed.
 
 > n
 You move north.
@@ -62,13 +65,10 @@ You are in a Strange cave. Like the walls of the Castle you visited before the w
 > e
 You move east.
 Inner Cave
-This is the Inner section of the Cave. It is slightly darker than the last but still illuminated.  A Cave Monster is here.
+This is the Inner section of the Cave. It is slightly darker than the last but still illuminated.  A Cave Monster is here.  Monster hits you, but it doesn't seem to do any damage.
 
 > attack monster
 You shoot Monster with Secret Weapon.  The Cave monster falls to the ground and disintegrates. All that is left is some sort of edible plant and A Radiant Magical Stone.
-
-> eat plant
-You can't eat Edible Plant.
 
 > take stone
 Which Stone.  A Shiny Magical Stone, A Glowing Magical Stone or A Radiant Magical Stone?
@@ -218,8 +218,8 @@ He begins by saying "Congratulations Brave warrior. I never doubted that you wou
 
 
                                                           THE END
-You scored 195 out of the maximum 200!
-That is 97% of the game!
-You finished 5 points short.
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

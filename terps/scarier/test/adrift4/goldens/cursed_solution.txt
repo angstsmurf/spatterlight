@@ -1,9 +1,10 @@
 # Cursed (Nick Rogers, 2012) -- ADRIFT 4.0.
-# Verified win: 93/101, "The End" on the Battlements.
+# Verified win: 95/101, "The End" on the Battlements.
 # Run with SCR_SKIP_WAITKEY=1 (the game has many "[ Press any key ]" pauses).
 #
 # Derived from the ClubFloyd transcript of 31 Jan / 7 & 14 Feb 2013
-# (AllThingsJacq.com), which also finishes on 93/101.
+# (AllThingsJacq.com), which finishes on 93/101. +2 added 2026-09-26
+# (tapestries, Lord Gaxin); see notes/Cursed_walkthrough.md.
 # --- Prologue: the cottage (eleven years ago) ---
 take axe
 chop wood
@@ -52,6 +53,9 @@ z
 z
 fox
 n
+w
+x tapestries
+e
 n
 push pedestal
 pull curtain
@@ -65,7 +69,6 @@ e
 roll barrel
 pull rope
 w
-z
 z
 z
 z
@@ -107,7 +110,7 @@ n
 score
 # --- Interlude: Conversations with the King ---
 topics
-yes
+ask king about gaxin
 yes
 yes
 yes

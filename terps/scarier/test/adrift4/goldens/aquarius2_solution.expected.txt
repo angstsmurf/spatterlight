@@ -23,8 +23,11 @@ Here you go Chris :)  Monster hits you, but it doesn't seem to do any damage.
 You shoot Monster with Secret Weapon.  The void Monster falls to the ground
 and disintegrates. All that is left behind is some sort of edible plant.
 
+> take plant
+You pick up Edible Plant.
+
 > eat plant
-You can't eat Edible Plant.
+You feel completely Refreshed.
 
 > n
 You move north.
@@ -102,15 +105,13 @@ You move east.
 
 Inner Cave
 This is the Inner section of the Cave. It is slightly darker than the last
-but still illuminated.  A Cave Monster is here.
+but still illuminated.  A Cave Monster is here.  Monster hits you, but it
+doesn't seem to do any damage.
 
 > attack monster
 You shoot Monster with Secret Weapon.  The Cave monster falls to the ground
 and disintegrates. All that is left is some sort of edible plant and A
 Radiant Magical Stone.
-
-> eat plant
-You can't eat Edible Plant.
 
 > take stone
 Which Stone?  The Shiny Magical Stone, the Glowing Magical Stone or the
@@ -358,8 +359,8 @@ warrior than I ever was. This world owes you their Lives. And so do I. Now
 lets get you to your Village and Family".....................
 
                                                           THE END
-You scored 195 out of the maximum 200!
-That is 97% of the game!
-You finished 5 points short.
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]
