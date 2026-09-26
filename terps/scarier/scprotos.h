@@ -145,6 +145,10 @@ extern void scr_set_platform_random (void);
 extern void scr_set_runner_random (void);
 extern scr_bool scr_is_congruential_random (void);
 extern scr_bool scr_is_runner_random (void);
+extern scr_bool scr_get_runner_random_state (scr_uint words[4],
+                                             scr_uint *draws);
+extern void scr_set_runner_random_state (const scr_uint words[4],
+                                         scr_uint draws);
 extern double scr_vb_rnd (void);
 extern void scr_seed_random (scr_uint new_seed);
 extern scr_int scr_rand (void);
@@ -1085,10 +1089,14 @@ extern std::string lib_co_400_npc_answer_line (const scr_char *line);
 extern std::string lib_co_400_object_answer_line (const scr_char *line);
 extern void lib_co_400_get_question (scr_bool *pending, std::string *term,
                                      std::string *command,
-                                     std::vector<scr_int> *candidates);
+                                     std::vector<scr_int> *candidates,
+                                     scr_bool *offered,
+                                     std::vector<scr_int> *offered_list);
 extern void lib_co_400_set_question (scr_bool pending, const std::string &term,
                                      const std::string &command,
-                                     const std::vector<scr_int> &candidates);
+                                     const std::vector<scr_int> &candidates,
+                                     scr_bool offered,
+                                     const std::vector<scr_int> &offered_list);
 extern void lib_battle_who_get_prefix (std::string *pending,
                                        std::string *at_line);
 extern void lib_battle_who_set_prefix (const std::string &pending,

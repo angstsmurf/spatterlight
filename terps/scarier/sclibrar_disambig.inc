@@ -1090,28 +1090,54 @@ lib_co_400_reset (void)
 /*
  * The question as it stands between two lines, for a Spatterlight autosave;
  * see run_session_state().  The rest lives only while a line is dispatched.
+ *
+ * Two things cross the line boundary, matching generaltasks' two memory
+ * cells: the question itself (494234), and the list the last prompt OFFERED
+ * (4941F4), which is what "That is still ambiguous!" compares the next
+ * line's tie against.  The offered list is reported only when the next
+ * lib_co_400_begin_line() will keep it -- the last element flagged an
+ * ambiguity -- since otherwise that call drops it before anything reads it.
+ * Without it a relaunch answered `chop tree` / `zzz` with the whole prompt
+ * again where a live session says "That is still ambiguous!".
  */
 void
 lib_co_400_get_question (scr_bool *pending, std::string *term,
                          std::string *command,
-                         std::vector<scr_int> *candidates)
+                         std::vector<scr_int> *candidates,
+                         scr_bool *offered,
+                         std::vector<scr_int> *offered_list)
 {
   *pending = lib_co_400_pending;
   *term = lib_co_400_term;
   *command = lib_co_400_command;
   *candidates = lib_co_400_candidates;
+  *offered = lib_co_400_flagged && lib_co_400_prompt_seen;
+  if (*offered)
+    *offered_list = lib_co_400_prompt_list;
+  else
+    offered_list->clear ();
 }
 
 void
 lib_co_400_set_question (scr_bool pending, const std::string &term,
                          const std::string &command,
-                         const std::vector<scr_int> &candidates)
+                         const std::vector<scr_int> &candidates,
+                         scr_bool offered,
+                         const std::vector<scr_int> &offered_list)
 {
   lib_co_400_reset ();
   lib_co_400_pending = pending;
   lib_co_400_term = term;
   lib_co_400_command = command;
   lib_co_400_candidates = candidates;
+  if (offered)
+    {
+      /* As the prompt left them (48BB53), with the flag that carries the
+         list past the next begin_line. */
+      lib_co_400_prompt_list = offered_list;
+      lib_co_400_prompt_seen = TRUE;
+      lib_co_400_flagged = TRUE;
+    }
 }
 
 /*

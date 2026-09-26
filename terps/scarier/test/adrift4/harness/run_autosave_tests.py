@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Spatterlight autosave/autorestore regression for Scarier's ADRIFT <=4
-engine (gsc_main + the SCARAUTO4 container in os_glk.cpp).
+"""Spatterlight autosave/autorestore regression for both of Scarier's
+engines: ADRIFT <=4 (gsc_main + the SCARAUTO4 container in os_glk.cpp) and
+ADRIFT 5 (gsc_a5_main + the SCARAUTO5 container).
 
 Unlike everything else in this directory it does NOT use harness/scare: the
 autosave code is compiled only into the Spatterlight build of the terp
@@ -64,6 +65,10 @@ SCARIER = os.path.normpath(os.path.join(ADRIFT4, "..", ".."))
 REPO = os.path.normpath(os.path.join(SCARIER, "..", ".."))
 GAMES = os.path.join(ADRIFT4, "games")
 GOLDENS = os.path.join(ADRIFT4, "goldens")
+ADRIFT5 = os.path.join(SCARIER, "test", "adrift5")
+A5_GAMES = os.path.join(ADRIFT5, "games")
+A5_PROBES = os.path.join(ADRIFT5, "probes")
+A5_GOLDENS = os.path.join(ADRIFT5, "goldens")
 
 sys.path.insert(0, os.path.join(SCARIER, "test"))
 import glkdrive  # noqa: E402
@@ -105,8 +110,10 @@ class Session(glkdrive.Driver):
         elif cmd == glkdrive.NEWWIN:
             self.newwin += 1
             self.wintypes[a2] = a1
+            self.events.append(("newwin",))
         elif cmd == glkdrive.DELWIN:
             self.delwin += 1
+            self.events.append(("delwin",))
         elif cmd == glkdrive.AUTOSAVE:
             self.events.append(("autosave",))
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
@@ -136,6 +143,17 @@ class Session(glkdrive.Driver):
                     win = ev[1]
                 cur.append(ev[2])
         return pre, ["".join(c) for c in chunks]
+
+    def windows_before_input(self):
+        """(opened, closed) before the first line input: the autorestore's
+        own window traffic, not that of a RESTART played later on."""
+        opened = closed = 0
+        for ev in self.events:
+            if ev[0] == "in":
+                break
+            opened += ev[0] == "newwin"
+            closed += ev[0] == "delwin"
+        return opened, closed
 
     def autosaved_last_prompt(self):
         """True when an AUTOSAVE came after the last line input (i.e. at the
@@ -293,9 +311,10 @@ def case_equivalence(terp, case, res, verbose):
             check_process(res, s, label)
             pre, chunks = s.chunks()
             if index > 0:
-                if s.newwin or s.delwin:
+                opened, closed = s.windows_before_input()
+                if opened or closed:
                     res.fail("%s: autorestore opened %d and closed %d windows"
-                             % (label, s.newwin, s.delwin))
+                             % (label, opened, closed))
                 printed = "".join(t for w, t in pre if w in bufwins).strip()
                 if printed:
                     res.fail("%s: printed into a buffer window before input"
@@ -372,10 +391,11 @@ def case_damaged_container(terp, case, res, verbose):
             return
         with open(path, "rb") as f:
             data = f.read()
+        magic = data[:data.index(b"\n") + 1]     # SCARAUTO4 or SCARAUTO5
 
         if case["damage"] == "garbage":
             with open(path, "wb") as f:
-                f.write(b"SCARAUTO4\n12\nnot a game!!0\n0\n")
+                f.write(magic + b"12\nnot a game!!0\n0\n")
             s2 = run_session(terp, game, ["look"], sig, work)
             check_process(res, s2, "session 2")
             if s2.events and any(e[0] == "in" for e in s2.events):
@@ -392,8 +412,8 @@ def case_damaged_container(terp, case, res, verbose):
 
         elif case["damage"] == "no-undo-tail":
             # Keep the magic line and the engine chunk only.
-            eol = data.index(b"\n", len(b"SCARAUTO4\n"))
-            length = int(data[len(b"SCARAUTO4\n"):eol])
+            eol = data.index(b"\n", len(magic))
+            length = int(data[len(magic):eol])
             with open(path, "wb") as f:
                 f.write(data[:eol + 1 + length])
             s2 = run_session(terp, game, case["second"], sig, work)
@@ -409,12 +429,34 @@ def case_damaged_container(terp, case, res, verbose):
 
 
 def solution(name):
+    """An ADRIFT 4 walkthrough.  os_ansi (harness/scare) skips a line whose
+    first non-blank character is '#' -- the solution files carry prose
+    comments -- so the same lines must not be typed here, where the terp is
+    os_glk and would parse the prose (haunt's three comment lines were three
+    spare turns, and its wolves caught the player).  Blank lines ARE turns."""
     with open(os.path.join(GOLDENS, name), encoding="latin-1") as f:
-        return [line.rstrip("\r\n") for line in f]
+        lines = [line.rstrip("\r\n") for line in f]
+    return [l for l in lines if not l.lstrip(" \t").startswith("#")]
 
 
 def game(name):
     return os.path.join(GAMES, name)
+
+
+def a5_solution(name):
+    """An ADRIFT 5 walkthrough: a5run_dump skips blank and '#' lines, so a
+    blank line here is not a turn (unlike an ADRIFT 4 script)."""
+    with open(os.path.join(A5_GOLDENS, name), encoding="utf-8") as f:
+        lines = [line.rstrip("\r\n") for line in f]
+    return [l for l in lines if l and not l.startswith("#")]
+
+
+def a5_game(name):
+    return os.path.join(A5_GAMES, name)
+
+
+def a5_probe(name):
+    return os.path.join(A5_PROBES, name)
 
 
 def spread(script, parts):
@@ -442,13 +484,21 @@ def build_cases():
 
     # Whole walkthroughs, relaunched at three points, one per engine era.
     walk("maze-4.00", maze, "adrift_maze_solution.txt")
-    # great.taf is out: its route, seeded for harness/scare, dies in the
-    # car chase here and the session never finishes.  Les Feux's route is seeded for
-    # harness/scare too: here the ghoul survives its five attacks and kills
-    # the player on the next move, so the walk stops after the fights before
-    # it (assassin, ogre and the ghoul's own).
+    # Routes that depend on the RNG (Les Feux's fights, Great Escape's car
+    # chase) need their stream: run_v4_walkthroughs.sh plays them under
+    # SCR_RNG=xoshiro with each row's SCR_SEED, and the Spatterlight build
+    # reads both variables, so the cases set them.  Its default generator is
+    # a different one (erkyrath_random, scutils.cpp), under which Les Feux's
+    # character rolls differ from the very first command and the route dies
+    # in the shop; a seed alone replays nothing.
+    # The `expect` strings are the rows' win markers: the route must reach
+    # its ending here too, or the stream is not the one it was derived on.
     walk("les-feux-4.00-battle", game("Les Feux de l'enfer.taf"),
-         "les_feux_solution.txt", stop=91)
+         "les_feux_solution.txt", env={"SCR_SEED": "45", "SCR_RNG": "xoshiro"},
+         expect=["Votre score est 75 sur un maximum de 115."])
+    walk("great-escape-4.00", game("great.taf"), "great_escape_solution.txt",
+         env={"SCR_SEED": "2", "SCR_RNG": "xoshiro"},
+         expect=["cry of joy, you have made it, you have escaped!!"])
     # WesGHN plays ./phantasm.mid at its first prompt, which is how its
     # SIGTRAP (glkimp's loadsound snprintf size) was found.
     walk("wesghn-4.00-sound", game("WesGHN.taf"), "wes_ghn_solution.txt")
@@ -569,6 +619,114 @@ def build_cases():
                       second=["undo", "look"],
                       expect=["I can't undo",
                               "You can move north, east and west"]))
+
+    # ---- ADRIFT 5 --------------------------------------------------------
+    # Same checks against gsc_a5_main and the SCARAUTO5 container.  The
+    # committed synthetic probes (test/adrift5/probes) carry most of it, so
+    # the cases run without the downloaded corpus; the corpus walks SKIP
+    # when their game is absent.
+
+    def a5_walk(name, gamefile, sol, parts=4, stop=None, **kw):
+        if not os.path.exists(os.path.join(A5_GOLDENS, sol)):
+            cases.append(dict(kind=None, name=name, game=gamefile,
+                              missing=sol))
+            return
+        script = a5_solution(sol)[:stop]
+        equiv(name, gamefile, script, spread(script, parts), **kw)
+
+    events = a5_probe("events.taf")
+    walkprobe = a5_probe("walk.taf")
+    ambiguity = a5_probe("ambiguity.taf")
+
+    # Events (start/pause/resume/stop, the after-delay and turn-based kinds),
+    # NPC walks, and RAND-driven variables and moves: each lives in the save
+    # XML, and the RNG state with it.
+    a5_walk("a5-events", events, "ProbeEvents_walkthrough.txt")
+    a5_walk("a5-walk", walkprobe, "ProbeWalk_walkthrough.txt")
+    a5_walk("a5-randomness", a5_probe("randomness.taf"),
+            "ProbeRandomness_walkthrough.txt", parts=3)
+    a5_walk("a5-variables", a5_probe("variables.taf"),
+            "ProbeVariables_walkthrough.txt")
+    # Whole games from the corpus: a Blorb with graphics and a status line,
+    # and Hunt the Wumpus, whose bats, pits and arrows are all RAND.
+    a5_walk("a5-4rooms", a5_game("4rooms.blorb"), "4rooms_walkthrough.txt",
+            parts=3)
+    a5_walk("a5-alien-diver", a5_game("AlienDiver.blorb"),
+            "AlienDiver_walkthrough.txt")
+    a5_walk("a5-wumpus-random", a5_game("Wumpus.taf"),
+            "Wumpus_walkthrough.txt")
+    a5_walk("a5-beginners-cave", a5_game("BeginnersCave.taf"),
+            "BeginnersCave_walkthrough.txt")
+
+    # Relaunch after every single command.
+    script = a5_solution("ProbeWalk_walkthrough.txt")[:12]
+    equiv("a5-walk-every-command", walkprobe, script,
+          list(range(1, len(script))))
+
+    # The undo stack (a5run_undo_peek / a5run_undo_push_blob) crosses the
+    # relaunch, including after undos already taken, and drains to "can't
+    # undo" at the same point either way.
+    equiv("a5-undo-across-relaunch", events,
+          ["wait", "start after", "wait", "wait", "undo", "undo", "look",
+           "undo", "look", "undo", "undo", "undo", "undo", "undo", "look"],
+          [3, 5, 7, 9, 12])
+    # UNDO at the game-over prompt, relaunched just before the fatal command
+    # and just after the undo; the undos after that reach back into
+    # snapshots taken in earlier sessions.  No cut lands on the game-over
+    # prompt itself: that one never autosaves.  (The container's last-turn
+    # text, a5run_get/set_turn_text, has no visible effect here: the Glk
+    # build answers a successful UNDO with a fresh room view,
+    # gsc_a5_undo_look, and only a5run_dump's endgame path replays it.)
+    equiv("a5-undo-after-end", a5_probe("undo_after_end.taf"),
+          ["wait", "pause", "wait", "win", "undo", "undo", "undo", "wait",
+           "wait"],
+          [3, 5, 6], expect=["undone"])
+
+    # The pronoun a bare "it" resolves to, set before the relaunch and
+    # used after it.
+    rooms = a5_game("4rooms.blorb")
+    equiv("a5-pronouns", rooms,
+          ["west", "x chest", "open it", "close it", "look in it"], [2, 3],
+          expect=["(the wooden chest)"])
+    # An in-game save/restore before the relaunch, and a restore after it.
+    equiv("a5-save-restore", rooms,
+          ["west", "open chest", "save", "east", "restore", "look", "east",
+           "restore", "look", "undo", "look"],
+          [3, 5, 6, 7, 8], savepath="checkpoint.sav",
+          expect=["Game saved.", "Game restored."])
+    # Restart, then relaunch into the restarted game.
+    equiv("a5-restart", rooms,
+          ["west", "open chest", "restart", "look", "west", "look in chest"],
+          [2, 3, 4], expect=["closed"])
+
+    # Answered "Which key?" questions, relaunched only at settled prompts.
+    equiv("a5-ambiguity", ambiguity, a5_solution(
+        "ProbeAmbiguity_walkthrough.txt"), [2, 3, 5, 9])
+    # Relaunched while the question is open (cuts 2 and 6 fall between
+    # "get key" and its answer): the container's pending chunk carries the
+    # question, so the answer is taken as one, not as a fresh command.
+    equiv("a5-which-open", ambiguity,
+          ["i", "get key", "blue", "i", "drop key", "get key", "red", "i"],
+          [2, 6], expect=["Which"])
+    # ... and when the question is the very first thing typed.
+    equiv("a5-which-open-first", ambiguity,
+          ["get key", "blue", "i"], [1], expect=["Which"])
+    # A bare verb remembered across the relaunch ("Get what?").
+    equiv("a5-bare-verb-open", ambiguity,
+          ["get", "blue key", "i", "drop", "blue key", "i"], [1, 4],
+          expect=["what?"])
+
+    cases.append(dict(kind=case_damaged_container,
+                      name="a5-corrupt-container", game=events,
+                      damage="garbage", first=["wait", "wait"],
+                      fresh=["look"], intro="Events Test"))
+    cases.append(dict(kind=case_damaged_container,
+                      name="a5-truncated-undo-tail", game=events,
+                      damage="no-undo-tail",
+                      first=["wait", "start after", "wait"],
+                      second=["undo", "wait", "wait", "wait"],
+                      expect=["no more undo is available",
+                              "Delayed event is ending."]))
     return cases
 
 
@@ -582,9 +740,10 @@ def stage_default_terp(tmp):
         if not os.path.exists(path):
             sys.exit("run_autosave_tests: %s missing; pass --build or --terp"
                      % path)
-    newest = max(os.path.getmtime(os.path.join(SCARIER, f))
-                 for f in os.listdir(SCARIER)
-                 if f.endswith((".cpp", ".h", ".mm")))
+    newest = max(os.path.getmtime(os.path.join(d, f))
+                 for d in (SCARIER, os.path.join(SCARIER, "adrift5"))
+                 for f in os.listdir(d)
+                 if f.endswith((".cpp", ".inc", ".h", ".mm")))
     if os.path.getmtime(terp) < newest:
         sys.exit("run_autosave_tests: %s is older than the engine sources;"
                  " pass --build (or --terp)" % terp)
@@ -640,7 +799,18 @@ def main():
                       % (case["name"], os.path.basename(case["game"])))
                 continue
             res = Result()
-            case["kind"](terp, case, res, verbose)
+            # A case's own environment (a route's SCR_SEED) reaches the terp
+            # through glkdrive, which passes os.environ on.
+            saved = {k: os.environ.get(k) for k in case.get("env", {})}
+            os.environ.update(case.get("env", {}))
+            try:
+                case["kind"](terp, case, res, verbose)
+            finally:
+                for k, v in saved.items():
+                    if v is None:
+                        os.environ.pop(k, None)
+                    else:
+                        os.environ[k] = v
             if case.get("xfail"):
                 status = "XFAIL" if res.problems else "XPASS"
                 bad = not res.problems

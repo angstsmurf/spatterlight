@@ -9571,8 +9571,9 @@ run_player_input (scr_gameref_t game)
  *   - the pronouns, in the game and in the one-turn undo buffer, and the
  *     parser's pronoun echo flags;
  *   - a question the next line answers: the 4.0 ambiguity prompt (see
- *     lib_co_400_raise()) and the question prefix ("Who do you want to
- *     attack?", "Wear what?", "...with?");
+ *     lib_co_400_raise()) together with the list it offered, which decides
+ *     "That is still ambiguous!" against the prompt, and the question
+ *     prefix ("Who do you want to attack?", "Wear what?", "...with?");
  *   - the output each undo state replays after "Undone." (see
  *     lib_cmd_undo()): the finished turn's, still to be taken by the next
  *     line; the undo game's; and one per memo ring entry, oldest first, set
@@ -9676,8 +9677,8 @@ run_session_state (scr_gameref_t game)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
   std::string out, term, command, prefix, prefix_at_line, with_prefix;
-  std::vector<scr_int> candidates;
-  scr_bool is_pending, used, definite;
+  std::vector<scr_int> candidates, offered_list;
+  scr_bool is_pending, offered, used, definite;
 
   run_session_put (out, "name",
                    prop_get_global_string (bundle, "PlayerName"));
@@ -9717,7 +9718,8 @@ run_session_state (scr_gameref_t game)
                        + ' ' + entry);
     }
 
-  lib_co_400_get_question (&is_pending, &term, &command, &candidates);
+  lib_co_400_get_question (&is_pending, &term, &command, &candidates,
+                           &offered, &offered_list);
   if (is_pending)
     {
       run_session_put (out, "which_term", term);
@@ -9725,6 +9727,10 @@ run_session_state (scr_gameref_t game)
       run_session_put (out, "which_candidates",
                        run_session_join (candidates));
     }
+  /* The list the last prompt offered outlives the question: a line that
+     ties on it again gets "That is still ambiguous!", not the prompt. */
+  if (offered)
+    run_session_put (out, "which_offered", run_session_join (offered_list));
   lib_battle_who_get_prefix (&prefix, &prefix_at_line);
   run_session_put (out, "prefix", prefix);
   run_session_put (out, "prefix_at_line", prefix_at_line);
@@ -9738,10 +9744,10 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
-  std::string which_term, which_command, which_candidates;
+  std::string which_term, which_command, which_candidates, which_offered;
   std::string prefix, prefix_at_line, with_prefix;
-  scr_bool has_which = FALSE, has_prefix = FALSE, has_history = FALSE;
-  scr_bool has_with_prefix = FALSE;
+  scr_bool has_which = FALSE, has_offered = FALSE, has_prefix = FALSE;
+  scr_bool has_history = FALSE, has_with_prefix = FALSE;
   scr_int ring_text = 0;
   scr_vartype_t vt_key[2];
   size_t pos = 0;
@@ -9823,6 +9829,8 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         which_command = value;
       else if (key == "which_candidates")
         which_candidates = value;
+      else if (key == "which_offered")
+        which_offered = value, has_offered = TRUE;
       else if (key == "prefix")
         prefix = value, has_prefix = TRUE;
       else if (key == "prefix_at_line")
@@ -9831,16 +9839,21 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         with_prefix = value, has_with_prefix = TRUE;
     }
 
-  if (has_which)
+  if (has_which || has_offered)
     {
-      const std::vector<scr_int> candidates
+      std::vector<scr_int> candidates
           (run_session_split (which_candidates, (size_t) -1, NULL));
+      std::vector<scr_int> offered
+          (run_session_split (which_offered, (size_t) -1, NULL));
       scr_bool valid = TRUE;
 
       for (scr_int candidate : candidates)
         valid = valid && candidate >= 0 && candidate < gs_object_count (game);
+      for (scr_int candidate : offered)
+        valid = valid && candidate >= 0 && candidate < gs_object_count (game);
       if (valid)
-        lib_co_400_set_question (TRUE, which_term, which_command, candidates);
+        lib_co_400_set_question (has_which, which_term, which_command,
+                                 candidates, has_offered, offered);
     }
   if (has_prefix)
     lib_battle_who_set_prefix (prefix, prefix_at_line);

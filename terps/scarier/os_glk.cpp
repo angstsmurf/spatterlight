@@ -8216,8 +8216,10 @@ gsc_sc_apply_all (const std::string &data)
  * gsc_a5_apply_all()
  *
  * The ADRIFT 5 container: the engine's save XML (a5run_save, RNG state
- * included), the last turn's composed output, and the undo snapshot stack
- * (oldest first) with its parallel turn texts.
+ * included), the last turn's composed output, the undo snapshot stack
+ * (oldest first) with its parallel turn texts, and last the parser's
+ * cross-turn continuation (a5run_pending_save: an open "Which X?" question
+ * or a remembered bare verb), which the save format itself does not carry.
  */
 static std::string
 gsc_a5_serialize_all (void)
@@ -8251,6 +8253,11 @@ gsc_a5_serialize_all (void)
       gsc_container_put_chunk (out, undo_blob, blob_length);
       gsc_container_put_chunk (out, turn_text, turn_length);
     }
+
+  length = 0;
+  blob = a5run_pending_save (gsc_a5_run, &length);
+  gsc_container_put_chunk (out, blob == NULL ? "" : blob, length);
+  free (blob);
   return out;
 }
 
@@ -8285,6 +8292,11 @@ gsc_a5_apply_all (const std::string &data)
       a5run_undo_push_blob (gsc_a5_run, chunk.data (), chunk.size (),
                             turn_chunk.data (), turn_chunk.size ());
     }
+
+  /* Absent from an autosave written before the question was carried; the
+     game then resumes at a fresh prompt, as it always did. */
+  if (gsc_container_get_chunk (data, &pos, &chunk))
+    a5run_pending_restore (gsc_a5_run, chunk.data (), chunk.size ());
   return true;
 }
 
@@ -8338,6 +8350,15 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
     st->rng_usenative = usenative;
     for (ch = 0; ch < 4; ch++)
       st->rng_state[ch] = (count == 4 && words) ? words[ch] : 0;
+  }
+  /* The Runner-compatible generator keeps its words apart from those. */
+  {
+    scr_uint words[4] = { 0, 0, 0, 0 }, draws = 0;
+
+    st->rng_runner = scr_get_runner_random_state (words, &draws) ? 1 : 0;
+    for (ch = 0; ch < 4; ch++)
+      st->rng_runner_state[ch] = st->rng_runner ? words[ch] : 0;
+    st->rng_runner_draws = st->rng_runner ? draws : 0;
   }
 }
 
@@ -8408,6 +8429,12 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
                           st->rng_state[2], st->rng_state[3] };
       erkyrath_random_set_detstate (st->rng_usenative, words, 4);
     }
+  if (st->rng_runner == 1)
+    {
+      scr_uint words[4] = { st->rng_runner_state[0], st->rng_runner_state[1],
+                            st->rng_runner_state[2], st->rng_runner_state[3] };
+      scr_set_runner_random_state (words, st->rng_runner_draws);
+    }
   /* Not stashed: gsc_map_taken, assist flags and locale are re-derived at
      startup; the walk-in-progress state is deliberately dropped (a restored
      session simply stops walking); gsc_map itself is authored data (ADRIFT
@@ -8431,9 +8458,11 @@ gsc_autosave_game_path (void)
  * ask the window server to snapshot the GUI under the same tag.  Called at
  * every top-level command prompt, after the prompt is printed but before
  * line input is requested, and again after a real-time tick that changed
- * state and reprinted the prompt.  Skips prompts that would not restore
- * coherently: engine-level ones (a pending disambiguation), the pre-intro
- * name/gender prompts, and the debugger's.
+ * state and reprinted the prompt.  An open "Which X?" question is saved
+ * with the game on both engines (which_* / which_offered on the ADRIFT 4
+ * side, the pending chunk on the ADRIFT 5 side), so the only prompts
+ * skipped are those that would not restore coherently: the pre-intro
+ * name/gender prompts and the debugger's.
  */
 static void
 gsc_autosave (void)
@@ -8444,8 +8473,7 @@ gsc_autosave (void)
     return;
   if (gsc_is_a5)
     {
-      if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run)
-          || a5run_input_pending (gsc_a5_run))
+      if (gsc_a5_run == NULL || a5run_is_over (gsc_a5_run))
         return;
       state = gsc_a5_serialize_all ();
     }

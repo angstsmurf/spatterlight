@@ -391,6 +391,7 @@ scr_congruential_rand (scr_uint new_seed)
 static uint32_t runner_table[4];
 static unsigned int runner_draws = 0;
 static scr_bool runner_trace = FALSE;
+static scr_bool runner_seeded = FALSE;
 
 static void
 runner_seed (uint32_t seed)
@@ -433,7 +434,6 @@ runner_word (void)
 static scr_int
 scr_runner_rand (scr_uint new_seed)
 {
-  static scr_bool is_seeded = FALSE;
   uint32_t w;
 
   if (new_seed > 0)
@@ -441,14 +441,14 @@ scr_runner_rand (scr_uint new_seed)
       runner_seed ((uint32_t) new_seed);
       runner_draws = 0;
       runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
-      is_seeded = TRUE;
+      runner_seeded = TRUE;
       return 0;
     }
-  if (!is_seeded)
+  if (!runner_seeded)
     {
       runner_seed (1234);
       runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
-      is_seeded = TRUE;
+      runner_seeded = TRUE;
     }
 
   w = runner_word ();
@@ -510,6 +510,46 @@ scr_bool
 scr_is_runner_random (void)
 {
   return scr_rand_function == scr_runner_rand;
+}
+
+/*
+ * scr_get_runner_random_state()
+ * scr_set_runner_random_state()
+ *
+ * The Runner-compatible generator's exact position, for the Spatterlight
+ * autosave: its words live here, not in the shared erkyrath_random() state
+ * the autosave already carries, so a session that plays under SCR_RNG=xoshiro
+ * would otherwise restart its stream from the seed at every relaunch.  The
+ * getter returns FALSE (and stores nothing) unless that generator is the
+ * active one; the setter selects it and places it, seeded, at `words`.
+ */
+scr_bool
+scr_get_runner_random_state (scr_uint words[4], scr_uint *draws)
+{
+  int ix;
+
+  if (!scr_is_runner_random ())
+    return FALSE;
+  if (!runner_seeded)
+    scr_runner_rand (1234);
+  for (ix = 0; ix < 4; ix++)
+    words[ix] = runner_table[ix];
+  if (draws)
+    *draws = runner_draws;
+  return TRUE;
+}
+
+void
+scr_set_runner_random_state (const scr_uint words[4], scr_uint draws)
+{
+  int ix;
+
+  scr_set_runner_random ();
+  for (ix = 0; ix < 4; ix++)
+    runner_table[ix] = (uint32_t) words[ix];
+  runner_draws = draws;
+  runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+  runner_seeded = TRUE;
 }
 
 void

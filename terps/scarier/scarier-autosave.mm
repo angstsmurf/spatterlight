@@ -158,6 +158,12 @@ static void scarier_library_archive(TempLibrary *library, NSCoder *encoder)
     for (int i = 0; i < 4; i++)
         [encoder encodeInt32:(int32_t)st->rng_state[i]
                       forKey:[NSString stringWithFormat:@"scarier_rng_state%d", i]];
+    [encoder encodeInt32:st->rng_runner forKey:@"scarier_rng_runner"];
+    for (int i = 0; i < 4; i++)
+        [encoder encodeInt32:(int32_t)st->rng_runner_state[i]
+                      forKey:[NSString stringWithFormat:@"scarier_rng_runner_state%d", i]];
+    [encoder encodeInt32:(int32_t)st->rng_runner_draws
+                  forKey:@"scarier_rng_runner_draws"];
 }
 
 static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
@@ -194,6 +200,14 @@ static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
     for (int i = 0; i < 4; i++)
         st->rng_state[i] = (uint32_t)[decoder
             decodeInt32ForKey:[NSString stringWithFormat:@"scarier_rng_state%d", i]];
+    st->rng_runner =
+        [decoder containsValueForKey:@"scarier_rng_runner"]
+            ? [decoder decodeInt32ForKey:@"scarier_rng_runner"] : -1;
+    for (int i = 0; i < 4; i++)
+        st->rng_runner_state[i] = (uint32_t)[decoder decodeInt32ForKey:
+            [NSString stringWithFormat:@"scarier_rng_runner_state%d", i]];
+    st->rng_runner_draws =
+        (uint32_t)[decoder decodeInt32ForKey:@"scarier_rng_runner_draws"];
 }
 
 /* ---- save ---------------------------------------------------------------- */

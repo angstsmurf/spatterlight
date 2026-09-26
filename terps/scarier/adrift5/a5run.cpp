@@ -3982,6 +3982,130 @@ a5run_input_pending (a5_run_t *run)
          && (run->amb_active || !run->remembered_verb.empty ());
 }
 
+/* The cross-turn parser continuation as a byte string, for the Spatterlight
+   autosave (see a5run.h).  A run of "<key> <length>\n<bytes>\n" records, the
+   framing scrunner's session state uses; unknown keys are skipped on the way
+   back, so records can be added without invalidating an older autosave. */
+static void
+pending_put (std::string &out, const char *key, const std::string &value)
+{
+  out += key;
+  out += ' ';
+  out += std::to_string ((unsigned long) value.size ());
+  out += '\n';
+  out += value;
+  out += '\n';
+}
+
+char *
+a5run_pending_save (a5_run_t *run, size_t *out_len)
+{
+  std::string out;
+
+  if (run == NULL)
+    return NULL;
+  if (run->amb_active)
+    {
+      pending_put (out, "amb_task", std::to_string ((long) run->amb_task_index));
+      pending_put (out, "amb_command",
+                   std::to_string ((long) run->amb_command_index));
+      pending_put (out, "amb_input", run->amb_input);
+      pending_put (out, "amb_ref_name", run->amb_ref_name);
+      pending_put (out, "amb_ref_type", std::string (1, run->amb_ref_type));
+      pending_put (out, "amb_word", run->amb_word);
+      for (const std::string &key : run->amb_keys)
+        pending_put (out, "amb_key", key);
+    }
+  if (!run->remembered_verb.empty ())
+    pending_put (out, "remembered_verb", run->remembered_verb);
+
+  char *blob = (char *) malloc (out.size () + 1);
+  if (blob == NULL)
+    return NULL;
+  memcpy (blob, out.data (), out.size ());
+  blob[out.size ()] = '\0';
+  if (out_len != NULL)
+    *out_len = out.size ();
+  return blob;
+}
+
+int
+a5run_pending_restore (a5_run_t *run, const char *data, size_t len)
+{
+  const std::string state (data == NULL ? "" : data, data == NULL ? 0 : len);
+  long task = -1, command = -1;
+  std::string input, ref_name, word, verb;
+  std::vector<std::string> keys;
+  char ref_type = 'o';
+  int has_amb = 0;
+  size_t pos = 0;
+
+  if (run == NULL)
+    return 0;
+  while (pos < state.size ())
+    {
+      const size_t space = state.find (' ', pos);
+      const size_t eol = (space == std::string::npos)
+                         ? space : state.find ('\n', space);
+      unsigned long length;
+
+      if (eol == std::string::npos || state.size () - eol < 2)
+        return 0;
+      length = strtoul (state.c_str () + space + 1, NULL, 10);
+      if (length > state.size () - eol - 2
+          || state[eol + 1 + length] != '\n')
+        return 0;
+
+      const std::string key (state, pos, space - pos);
+      const std::string value (state, eol + 1, length);
+      pos = eol + 1 + length + 1;
+
+      if (key == "amb_task")
+        task = strtol (value.c_str (), NULL, 10), has_amb = 1;
+      else if (key == "amb_command")
+        command = strtol (value.c_str (), NULL, 10);
+      else if (key == "amb_input")
+        input = value;
+      else if (key == "amb_ref_name")
+        ref_name = value;
+      else if (key == "amb_ref_type" && !value.empty ())
+        ref_type = value[0];
+      else if (key == "amb_word")
+        word = value;
+      else if (key == "amb_key")
+        keys.push_back (value);
+      else if (key == "remembered_verb")
+        verb = value;
+    }
+
+  run->amb_active = 0;
+  run->amb_task_index = run->amb_command_index = -1;
+  run->amb_keys.clear ();
+  run->amb_input.clear ();
+  run->amb_ref_name.clear ();
+  run->amb_word.clear ();
+  run->remembered_verb = verb;
+  if (has_amb)
+    {
+      /* The remembered task and command pattern index this game's tables;
+         a question that no longer fits them is dropped, not half-restored. */
+      if (task < 0 || task >= run->adv->n_tasks
+          || command < 0
+          || command >= run->adv->tasks[task].n_commands
+          || (ref_type != 'o' && ref_type != 'c') || keys.empty ())
+        return 0;
+      run->amb_active = 1;
+      run->amb_task_index = (int) task;
+      run->amb_command_index = (int) command;
+      run->amb_input = input;
+      run->amb_ref_name = ref_name;
+      run->amb_ref_type = ref_type;
+      run->amb_word = word;
+      run->amb_keys = keys;
+    }
+  return 1;
+}
+
 /* Render the current room view as a standalone piece of display text -- the
    stock Look task's view (darkness override and Look-aggregate segments
    included) run through the normal end-of-turn pipeline (ALRs, deferred

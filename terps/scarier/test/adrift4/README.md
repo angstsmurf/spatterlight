@@ -85,7 +85,8 @@ missing SKIP rather than fail.
 
 `harness/run_autosave_tests.py` is the one tool here that does **not** use
 `harness/scare`: autosave and autorestore exist only in the Spatterlight build
-(`#ifdef SPATTERLIGHT` in `os_glk.cpp`, plus libglkimp). It runs
+(`#ifdef SPATTERLIGHT` in `os_glk.cpp`, plus libglkimp). It covers both
+engines -- the ADRIFT 5 cases (named `a5-*`) live here too. It runs
 `build/Debug/scarier` under `test/glkdrive.py`'s fake app. Each session ends
 with EVTQUIT, the window-closed exit that keeps the autosave, so the next
 session autorestores.
@@ -105,14 +106,39 @@ python3 harness/run_autosave_tests.py -v undo   # only cases matching "undo", wi
     container's session section (`run_session_state()` in `scrunner.cpp`)
     carries: the line `again` repeats, the command history past its 64-entry
     ring, pronouns (also in the undo buffer), an open 4.0 "Which tree.  ...?"
-    question, the question prefix ("Wear what?", "...with?", the battle's
-    "Who do you want to attack?"), brief/verbose and score notification, and
-    the typed player name. An `expect` string proves the one-session run
-    reached that state.
+    question together with the list it offered (what decides "That is still
+    ambiguous!" on the next tie), the question prefix ("Wear what?",
+    "...with?", the battle's "Who do you want to attack?"), brief/verbose and
+    score notification, and the typed player name. An `expect` string proves
+    the one-session run reached that state.
+  - A walk whose route depends on the RNG (Les Feux's fights, Great Escape's
+    car chase) sets the case's `env`:
+    the headless goldens are recorded under `SCR_RNG=xoshiro` with the row's
+    `SCR_SEED`, and the Spatterlight build reads both variables. Its default
+    generator is a different one (`erkyrath_random`), so a seed alone does not
+    replay a headless route. That generator's words are stashed with the
+    library state (`rng_runner*` in `scarier-autosave.h`), so the stream
+    continues across the relaunch.
   - `AUTOSAVE_TEST_STRIP_SESSION=1` cuts the session section out of every
     autosave between sessions, as an older build would have written it. Those
     cases must then fail, which shows they depend on it.
-- **Checks on every relaunch.** It must open or close no windows, print
+- **ADRIFT 5 (`a5-*`).** The same equivalence checks against `gsc_a5_main`
+  and the `SCARAUTO5` container. Most cases play the committed probes in
+  `../adrift5/probes/` (events, NPC walks, randomness, variables, ambiguity,
+  undo after the end), so they run without the corpus. Corpus walks (4rooms,
+  Alien Diver, Wumpus, Beginners Cave) SKIP when the game is absent. Other
+  cases cover a relaunch after every command, the undo stack across
+  relaunches, pronouns, in-game save/restore, restart, and a corrupt or
+  truncated container.
+  - ADRIFT 5 has no session section. Its pronouns are in the save XML.
+  - An open "Which key?" or a remembered bare verb ("Get what?") is not in
+    the save XML, so the container ends with a pending chunk
+    (`a5run_pending_save`). The `a5-which-open*` and `a5-bare-verb-open`
+    cases relaunch between the question and its answer; the answer must
+    still be taken as one. An older container without the chunk resumes at
+    a fresh prompt.
+- **Checks on every relaunch.** It must open or close no windows before its
+  first input (a RESTART played later may reopen the graphics window), print
   nothing before its first input, and have autosaved at the prompt it closed
   on.
 - **Other cases.** No autosave at the startup name prompt; a corrupt container

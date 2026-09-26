@@ -99,6 +99,13 @@ struct ScarierGlkFrontendState {
      * an autorestore.  -1 = not recorded (an older autosave). */
     int rng_usenative = -1;
     uint32_t rng_state[4] = { 0, 0, 0, 0 };
+    /* The engine's Runner-compatible generator (SCR_RNG=xoshiro, scutils.cpp
+     * scr_runner_rand), which keeps its own words outside erkyrath_random:
+     * 1 = it was active, with its words and draw count; 0 = it was not;
+     * -1 = not recorded. */
+    int rng_runner = -1;
+    uint32_t rng_runner_state[4] = { 0, 0, 0, 0 };
+    uint32_t rng_runner_draws = 0;
 };
 
 void gsc_stash_frontend_state(ScarierGlkFrontendState *st);
