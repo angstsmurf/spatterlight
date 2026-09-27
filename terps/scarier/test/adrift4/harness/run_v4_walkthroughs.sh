@@ -9210,22 +9210,27 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # 2026-09-27: `open bathroom door` is "You can't see the bathroom door." --
 # the line names the whole door, not just "door" (deliberate deviation).
 # 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the web task fires, which moves the scripted death path by one turn; same win.
-# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): task 459 fires from `put wood in fireplace` ("Your hands are full.  You dump the wood into the fireplace."), so the fire puzzle is alive unpatched.  The route was built round the dead fire; it now drifts after the fire and dies 19/30 instead of 18/30.  Marker moved from the Runner's refusal "You are not holding the wood." to the task's line.
-house_solution.txt|House.taf|You dump the wood into the fireplace.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
-# The same route with the engine's targeted game patches on.  Task 459 gains
-# the {the} slot the library's canonical rebuild needs, so `put wood in
-# fireplace` reaches the task the author wrote for it, the newspaper catches,
-# and the kettle boils -- the puzzle the faithful row above proves is dead.
-# From there the old 30/30 route wins again, with one added line: `put cobweb
-# in kettle` (the `web` line before it names nothing, see the solution).
+# 2026-09-27, PATCH_HOUSE retired: once the typed put line could reach
+# task 459 (deliberate deviation, notes/WINE-TRANSCRIPTS-TODO.md), the
+# patch that gave it the rebuild's {the} slot had nothing left to do.  This
+# row now plays the old house_patched route, unpatched: `put wood in
+# fireplace` answers "Your hands are full.  You dump the wood into the
+# fireplace.", the newspaper catches, the kettle boils, and the old 30/30
+# route wins again, with one added line: `put cobweb in kettle` (the `web`
+# line before it is kept as coverage, see the solution).  The stock Runner
+# still answers the fire line with "You are not holding the wood." and the
+# puzzle stays dead there (above); runner_transcripts/house.txt is the drive
+# of this route against a patched copy of the .taf, the closest Runner
+# oracle it has.
 # Seed 2, not 1: once the armour chases Damien out (task 666) event 66 sends
 # a random monster at the house every 20-25 turns until the safe-house check,
 # and at seed 1 the pick is the giant wasp, which follows the lit match
 # upstairs and stings Cathy in the master bedroom (death, 19/30).  Seeds 1-40:
 # 34 win at 30/30; 1, 12, 19, 20, 24 and 39 lose to a monster.
-# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the cobweb goes into the boiling water.
-# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): `pour honey in kettle` loses the contradictory "The jar of honey is too big to fit inside the large cast iron kettle." ahead of the task text.  This route now wins 30/30 unpatched too.
-house_patched_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
+# 2026-09-27 re-blessed: the typed put line also drops the contradictory
+# "The jar of honey is too big to fit inside the large cast iron kettle."
+# ahead of `pour honey`'s task text.
+house_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
 # title "Lights, Camera, Action!"). The film has to be shot on four sets in

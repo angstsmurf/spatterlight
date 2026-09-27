@@ -249,8 +249,7 @@ hiker	hiker.txt	driven:Adrift_370_hiker_rt.txt	4.00	run400x.exe	1234	2			yes	ide
 home12	home12.txt	driven:Adrift_329_home12_rt.txt	3.90	run390x.exe	1234	0	Petter	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 homelessharry	homelessharry.txt	driven:Adrift_282_homelessharry_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 hotelconfuego	hotelconfuego.txt	driven:Adrift_313_hotelconfuego_rt.txt	4.00	run400x.exe	1234	5			yes	identical on every turn.
-house	house.txt	driven:Adrift_318_house_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
-house_patched	house_patched.txt	driven:Adrift_318_house_patched_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	yes	10+ differing turn(s)
+house	house.txt	driven:Adrift_318_house_patched_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
 howitstarted	howitstarted.txt	driven:Adrift_140_howitstarted_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 hub	hub.txt	driven:Adrift_130_hub_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 humbug	humbug.txt	driven:Adrift_130_humbug_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

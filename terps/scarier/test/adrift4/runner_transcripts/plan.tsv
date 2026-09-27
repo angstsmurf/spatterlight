@@ -436,8 +436,7 @@ hero	competition2004__adrift__hero__hero.taf	4.00	run400x.exe	1234	0		SCR_SKIP_W
 datewithdeath	datewithdeath.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	And you have a whole life ahead of you to live	7933
 alchemist	alchemist.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	That is 100% of the game	3035
 onnafa	ONNAFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	your score turned out at 82	1027
-house	House.taf	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You are not holding the wood.	2340
-house_patched	House.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	Well done - you scored maximum points!	2431
+house	House.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	2431
 lca	Lights_Camera_Action.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	best ending in the game!	5160
 mutaydid	mutaydid.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	That is 100% of the game	61
 seaside	ADayAtTheSeaside.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	20

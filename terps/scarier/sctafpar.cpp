@@ -3914,26 +3914,6 @@ static const scr_patch_edit_t PATCH_HANGOVER[] = {
 };
 
 /*
- * HOUSE (Matthew Wiltshire).  The fire needs "put wood in fireplace", and
- * task 459 is the task written for it, but no spelling can reach it: "place"
- * is the game's own synonym for "put", so every spelling enters the library's
- * put, which rebuilds the line in its canonical form -- "put the wood in the
- * fireplace" -- before the task patterns see it, and the task's pattern has
- * no slot for that "the".  The wood therefore goes into the fireplace as an
- * ordinary container and the fire stays unlit ("You need some wood or coal to
- * make a proper fire."), which costs the potion, the safe, the clock and the
- * escape: 19 of 30 instead of the game's win.  The added {the} is the optional
- * word the neighbouring slot already has, moved one noun to the left.
- */
-static const scr_patch_edit_t PATCH_HOUSE[] = {
-  PATCH_STRING ("Tasks/459/Command/0",
-                "[put/place/drop] {some} [wood] {in/into/in to} {the}"
-                " [fireplace/fire place]",
-                "[put/place/drop] {some} {the} [wood] {in/into/in to} {the}"
-                " [fireplace/fire place]")
-};
-
-/*
  * Blood Relatives (davidw).  Two of the game's thirteen points hang off the
  * bronze key, which only task 391 ("open drawer") can produce, and task 391
  * first wants task 385 done.  Task 385's pattern is "exam desk" -- but the
@@ -4421,9 +4401,6 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("The Hangover", "Red Conine",
               "the doctor and the platypus now have rooms to be given things in",
               PATCH_HANGOVER),
-  PATCH_GAME ("<center>HOUSE<center>", "Matthew Wiltshire",
-              "the fireplace task now matches the line the put parser writes",
-              PATCH_HOUSE),
   PATCH_GAME ("<font size=1>Blood Relatives", "davidw",
               "the desk task now uses the word the game's own synonym leaves",
               PATCH_BLOOD_RELATIVES),

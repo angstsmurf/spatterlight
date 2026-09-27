@@ -1211,7 +1211,14 @@ case, and their goldens are re-blessed. The row comments in
   reached through run_all_commands() is gone too. Re-blessed:
   house (the fire lights unpatched; marker moved to the task's line),
   house_patched, hub (the soup task fires), zacksmackfoot, thelasthour.
-  House's own route wins 30/30 without SCR_ASSUME_PATCHES.
+  House's own route wins 30/30 without SCR_ASSUME_PATCHES, so PATCH_HOUSE
+  is retired: the house row now plays the old house_patched route (seed
+  2) unpatched, and the house_patched row, golden and Runner transcript
+  are folded into it (runner_transcripts/house.txt is still the
+  patched-.taf drive of that route). A task that claims a put after the
+  take report is now its own clause on both paths, the canonical rebuild's
+  included: "Your hands are full.  You dump the wood ...", where 4.0's
+  rebuild claim used to print "full.You".
 ---
 
 ## Rules measured and ported (index)

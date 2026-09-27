@@ -830,6 +830,10 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
 
   /* The insides handler pre-matches its rebuilt line in mode 2 (@465D39):
    * only tasks carrying the put/drop flag are consulted. */
+  /* The take report ahead of it, if any, is a clause of its own:
+     "Your hands are full.  You dump the wood ..." (House, patched). */
+  const scr_bool joined = pf_buffer_tentative_join (gs_get_filter (game));
+
   run_set_task_class_filter (2);
   lib_rebuilt_raw_dispatch = TRUE;
   status = lib_try_game_command_common (game, verb, object,
@@ -837,6 +841,9 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
                                         FALSE, TRUE);
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
+
+  if (joined)
+    pf_retract_tentative_join (gs_get_filter (game));
   return status;
 }
 
