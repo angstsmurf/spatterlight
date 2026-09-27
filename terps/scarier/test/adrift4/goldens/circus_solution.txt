@@ -1,26 +1,57 @@
 Easy
 open case
-n
-buy 4 tokens
 s
+play wheel
+n
+n
+buy 10 tokens
+buy peanut
+buy popcorn
+buy crackers
+buy crackers
+buy crackers
+buy crackers
+buy crackers
+s
+s
+w
+plug in pac
+play pac
+e
+n
 e
 play duck pond
 play duck pond
 play duck pond
 play duck pond
 w
+give crackers to wemmie
+give crackers to wemmie
+give crackers to wemmie
+play ring
+play ring
+play ring
+play ring
+drink coke
+w
+show mirror to bill
+give popcorn to bill
+take money
+e
+e
+e
+ask reading
+w
+s
+give tip to cecily
+nw
 n
-sell 10 points
-buy peanut
-buy peanut
-buy peanut
-buy peanut
 ne
 look under bleachers
 down
-# Pringles wanders; spam until he is here to take the peanut.  Ten tries is the
-# measured minimum under SCR_SEED=12 -- nine still misses him and costs the
-# knife, and with it six points.
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
 give peanut to pringles
 give peanut to pringles
 give peanut to pringles
@@ -37,41 +68,17 @@ take knife
 up
 sw
 sell knife
-sell 10 points
-sell 10 points
-buy 6 tokens
-s
-w
-show mirror to bill
-e
-e
-e
-ask reading
-w
-w
-n
 n
 n
 n
 e
 turn lock 13
-turn lock 9
+turn lock 10
 turn lock 5
 open trunk
 take videocamera
 w
 n
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
-ask barb about tape
 ask barb about tape
 s
 s
@@ -86,24 +93,23 @@ n
 n
 use camera
 home
-# --- DETERMINISTIC FULL WIN (seed 2): 64/140, ending "...plants a Willow tree in your name" ---
-# Run with: SC_SEED=2 sh play.sh ../../games/circus.taf circus_solution.txt   (path per your tree)
-# Seed 1 (default) is UNWINNABLE: fundeath=1 => funhouse west = instant clown heart-attack death.
-# Seeds 1 and 9 die (fundeath==1, ~1/11 of seeds); seed 2 has fundeath=8 (survivable).
+# --- DETERMINISTIC FULL WIN, 140/140 (run with SCR_SEED=2 SCR_SKIP_WAITKEY=1) ---
+# Full score = every one-time scoring task, and no points sold back to Marie.
 #
-# ECONOMY: token granularity forces buying 10 tokens ($5) for the 9 spent (4 duck + 1 funhouse
-# + 4 reading). Start $2; the gap is closed by the peanut->Pringles->toy-knife chain
-# (buy peanut $1 -> give to the monkey Pringles in room14 for the toy knife +10pts -> SELL the
-# knife to Marie for +$2 +5pts), plus selling the ticket/knife points back for cash.
+# ECONOMY: the first `play wheel` always wins (playwheel==0 gates the winning task 58):
+# +5 and $2 -> $11.  That pays for 10 tokens (4 duck pond, 1 Ms. Pac-Man, 1 ring toss,
+# 1 funhouse, 2 reading on Easy) and all three foods, so nothing is sold.  Later income:
+# Bill's tip jar (+$5) and the toy knife (+$2).
 #
-# NPC TIMING is handled by "spam until present": Joe the peanut vendor and Barb the lion tamer
-# both wander, so buy-peanut (room0) and ask-barb-about-tape (room4) are repeated until the NPC
-# walks into the room. This is robust to turn-count drift. Pringles & Bill stay put (reliable).
+# SIDE TASKS on top of the old 64-point route: wheel +5; buy popcorn +3, buy crackers +3;
+# `plug in pac` + `play pac` +3 (needs pacshock != 2 at #initialize; on seed 12 it is 2
+# and the game steals your purse instead, so that seed tops out at 137); crackers to
+# Wemmie +6; ring toss +6 (the third toss after buying rings wins) and `drink coke` +5;
+# `give popcorn to bill` +5 sends Bill off, so `take money` +5 works; `give tip to
+# cecily` +5.  Never eat anything: each food is a random-death roll.
 #
-# COMBO IS RANDOMISED per game: the trunk combo = the three tarot-card numbers revealed by
-# `ask reading` (and re-readable with `x first/second/third card` at the fortune teller).
-# Under seed 2 the cards are XIII / IX / V  => turn lock 13, 9, 5.  Re-derive for other seeds.
+# NPC TIMING: Joe the vendor, Wemmie, Pringles and Barb all wander; each gift/purchase is
+# repeated until the NPC is present.  The counts are the measured minimum for seed 2.
 #
-# WIN = videodone (use camera in room4 with the videocamera LOADED: put battery in camera +
-# put tape in camera) then `home`. The tape lives in the lion cage (Barb fetches it; do NOT
-# open any cage = death) and the battery is on the Platform (do NOT `jump` = death).
+# COMBO is the three tarot numerals from `ask reading`: seed 2 deals XIII / X / V.
+# Seeds 1, 9, ... (fundeath==1) die on the first funhouse `west`.

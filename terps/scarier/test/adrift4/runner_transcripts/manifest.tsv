@@ -89,7 +89,8 @@ chooseyourown	chooseyourown.txt	driven:Adrift_223_chooseyourown_rt.txt	4.00	run4
 chosen	chosen.txt	harvested-xoshiro:Adrift_133_chosen_x.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 christmaspresent	christmaspresent.txt	driven:Adrift_316_christmaspresent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
 cibass	cibass.txt	driven:Adrift_356_cibass_rt.txt	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-circus	circus.txt	driven:Adrift_154_circus_rt.txt	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+circus	circus.txt	driven:Adrift_305_circus_rt.txt	3.90	run390x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+circus_sold_points	circus_sold_points.txt	driven:Adrift_306_circus_sold_points_rt.txt	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 cityinfear	cityinfear.txt	driven:Adrift_309_cityinfear_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 cldone	cldone.txt	driven:Adrift_483_cldone_rt.txt	3.90	run390x.exe	3	0	Player	SCR_SEED=3	yes	identical on every turn.
 cleft	cleft.txt	driven:Adrift_215_cleft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.

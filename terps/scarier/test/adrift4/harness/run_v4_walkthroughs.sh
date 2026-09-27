@@ -610,7 +610,14 @@ bomb_threat_solution.txt|Bomb Threat.taf|Or have you...|SCR_SEED=9
 # run390 checktask 44B4DD): the four `ask barb about tape` after she has handed
 # it over are "You have already done that." -- run390 agrees
 # (Adrift_1025_circus.txt).  Still wins.
-circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
+circus_sold_points_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
+# Re-derived 2026-09-27 at 140/140 (was 64, above, kept for its Barb-absent asks and
+# spent-task lines).  The old route sold 30 points back to Marie for tokens; the first
+# `play wheel` always wins $10 (playwheel==0), which pays for everything, and the route
+# adds every one-time side task: popcorn/crackers, Ms. Pac-Man, crackers to Wemmie, ring
+# toss + coke, popcorn to Bill + his tip jar, a tip for Cecily.  Seed 2, not 12: on seed
+# 12 pacshock==2, so `play pac` steals the purse on Easy (137 ceiling there).
+circus_solution.txt|circus.taf|You scored 140 out of the maximum 140!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.

@@ -30,7 +30,8 @@ griswold	Griswold.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	And there you 
 mhpquest	mhpquest.taf	3.90	run390x.exe	1234	0			You have saved Crystal's life	0
 archie	Archie's Birthday V 1-2.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	To be continued	0
 bomb_threat	Bomb Threat.taf	3.90	run390x.exe	9	0		SCR_SEED=9	Or have you...	403
-circus	circus.taf	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	Congratulations.  You completed the game	1346
+circus	circus.taf	3.90	run390x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	You scored 140 out of the maximum 140!	1494
+circus_sold_points	circus.taf	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	Congratulations.  You completed the game	1346
 colony	Colony.taf	3.90	run390x.exe	1234	0			You scored 200 out of the maximum 200!	20
 cyber	cyber.taf	4.00	run400x.exe	1234	0			THE END,or is it?	25
 cyber2	cyber2.taf	4.00	run400x.exe	1234	0			you have beaton Cyber Warp 2!	44

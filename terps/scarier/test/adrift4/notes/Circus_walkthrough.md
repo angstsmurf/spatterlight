@@ -1,4 +1,4 @@
-# Menagerie! (`circus.taf`) — ★ WON 64/140 (deterministic, seed 12)
+# Menagerie! (`circus.taf`) — ★ WON 140/140 (deterministic, seed 2)
 
 David Good's **"Menagerie!"** (v1.03, 2001; WON 1st place, ADRIFT Spring 2001
 Minicomp). Native **ADRIFT 3.90.17**. You are **Willow Murphy**, a PETA spy sent
@@ -7,11 +7,42 @@ without getting caught**. 18 rooms, 158 tasks, 16 NPCs, 18 events. Difficulty
 (Easy/Medium/Hard, Medium default) gates timers + the stored max (Easy max = 140).
 
 **Status: ★ SOLVED — deterministic full WIN banked** in
-`goldens/circus_solution.txt` (run with `SCR_SEED=12`; ending *"...PETA plants a
+`goldens/circus_solution.txt` (140/140, run with `SCR_SEED=2`; the 64-point route is
+`goldens/circus_sold_points_solution.txt`, `SCR_SEED=12`; ending *"...PETA plants a
 Willow tree in your name"*). The economy that had this parked is closed by the
 **toy-knife chain** (below); NPC timing is handled by *spam-until-present*.
 
-## The winning route (annotated)
+## ★ Full score 140/140 (2026-09-27, `SCR_SEED=2`)
+
+The route below this section is the old 64-point route (it is kept as the
+`circus_sold_points` harness row, seed 12). 140 is the sum of every one-time
+scoring task, with **no points sold**. Selling costs 10 points per $1, and the old
+route sold 30.
+
+- **Money: `play wheel` first.** Task 58 (the win) needs `playwheel`==0, and
+  winning sets it to 1, so the **first** spin always pays $10 (+5). The start $2
+  becomes $11. That buys 10 tokens (duck 4, Pac-Man 1, ring 1, funhouse 1, reading 2
+  on Easy) and all three foods. Bill's tip jar (+$5) and the knife (+$2) come on top.
+- **Side tasks the old route skipped:**
+  - `buy popcorn` and `buy crackers`, +3 each; `buy peanut` was already in the route.
+  - Ms. Pac-Man (arcade, west of Midway South): `plug in pac`, `play pac`, +3.
+  - `give crackers to wemmie`, +6.
+  - Ring toss: `play ring` buys three rings, and the **third** toss wins (ringtossplay==2 on Easy), +6. Then `drink coke`, +5.
+  - `give popcorn to bill`, +5. Bill goes for a drink, so `take money` works, +5 and +$5. The old note that the tip jar is unobtainable was wrong.
+  - `give tip to cecily` (Outdoor Stage), +5.
+- **Never eat** the food. Tasks 16–18 are +10, but each is a death (choking, elephant, poisoned batch).
+- **Seed choice:** `pacshock` (var46) is rolled at `#initialize`. When it is 2, `play
+  pac` on Easy runs task 100 instead, which steals the purse. That's the case on seed 12,
+  whose ceiling is therefore 137. Seeds 2/4/6/7/13 all reached 140 with the same
+  adaptive route; the tarot combo for seed 2 is XIII/X/V → 13, 10, 5.
+- **Correction:** task 50, the low tier, **does** give +20, like 48/49. All three
+  home tiers give +20, so `thescore` only picks the ending text. Repeat `use camera`
+  adds nothing: the +10 comes only on a task's first run.
+- The Pringles/Barb/vendor/Wemmie spam counts are the measured minimum for seed 2.
+  The route was built adaptively (scratch `ci_build.py`: spam each NPC action until
+  it succeeds, and parse the card numerals from `ask reading`).
+
+## The old 64-point route (annotated; now the `circus_sold_points` row)
 
 1. **`Easy`**, `open case`. Bootstrap the **ticket**: `n`→entrance, `buy 4 tokens`
    ($2→4 tok), `s`,`e`→duck pond, **`play duck pond` ×4** (the ticket is always the
@@ -61,7 +92,7 @@ Win = type-6 `v1=0` (WIN) on `*home*`/`*car*` — **tasks 48/49/50**, three scor
 all requiring **`videodone` (var22) == 1**:
 - **task 48**: `videodone==1` AND `thescore (var31) >= escore1 (var51=120)` → +20, best.
 - **task 49**: `videodone==1` AND `escore2 (var52=90) <= thescore < escore1` → +20, mid.
-- **task 50**: `videodone==1` AND `thescore < escore2 (90)` → WIN, lowest tier (no +20).
+- **task 50**: `videodone==1` AND `thescore < escore2 (90)` → +20, WIN, lowest tier.
 
 So the **core win = set `videodone`, then go `home`** — `videodone` only ever becomes 1
 via **`use camera`** in room 4 (Animal Cages), tasks 31/32/33 (each +10 score, +10
@@ -89,7 +120,7 @@ videotape present, plus a `swords` (var57) condition (set by play, normally sati
    `show mirror to bill` (task66, +5) — uses the "wacky mirror" already in the funhouse;
    Bill (NPC8) is there. **This is mandatory**: it is a hard prerequisite of the reading.
    (`take money` = task67 needs **Bill NOT in the room**, and *nothing moves Bill* — so
-   the funhouse "$5 tip" appears **unobtainable**; do not count on it.)
+   the funhouse "$5 tip" appears unobtainable. **Wrong:** `give popcorn to bill` sends him away, see the 140 section.)
 2. **Fortune Teller (room11)**, `ask reading` (task4, +6): costs **4 tokens**
    (`readingcosts` var63=4) and **requires task66 done**. Deals three tarot cards
    whose numerals ARE the trunk combo (randomised per game; re-read with
