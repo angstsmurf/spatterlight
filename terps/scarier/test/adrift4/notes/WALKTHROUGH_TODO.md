@@ -16,38 +16,49 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
 
 ## Where things stand (2026-09-27)
 
-- Full suite: **657/657 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
+- Full suite: **658/658 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
   NOSCRIPT. `VGM1_3.taf` (re-screened clean 2026-09-27, see *Content policy*)
   is now wired: WON 45/56 (80%), the true ceiling — the declared 56
   double-counts two mutually exclusive branches (see
   `notes/VGM1_3_walkthrough.md`, gitignored, AIF).
 - **Three games joined the built-in patch table on 2026-09-27** (`PATCH_TABLE`
-  in `sctafpar.cpp`, 23 games now), each keeping its faithful row and gaining a
-  `SCR_ASSUME_PATCHES=1` one that reaches the declared maximum: FunHouse
-  310→410 (task 10 `take money` was the third of three hundred-dollar tasks
-  and had an empty room list), Goldilocks – Breaking & Entering 32→35 (task 46
-  `get egg` tested "the referenced object" its pattern never binds; task 53
-  `tie rope to bar` had no actions while its dead twin carried the score) and
-  The Crime Scene 78→80 (task 0 `look at door` moved the player to room -2,
-  which kills Scarier and the Runner alike, instead of just paying its +2).
-  Candidates were found by sweeping all 700 `.taf` files for the two
-  known-sweepable shapes — a typed, consequential task with `Where` =
+  in `sctafpar.cpp`; 24 games now, counting Melbourne Beach below), each keeping
+  its faithful row and gaining a `SCR_ASSUME_PATCHES=1` one that reaches the
+  declared maximum: FunHouse 310→410 (task 10 `take money` was the third of
+  three hundred-dollar tasks and had an empty room list), Goldilocks – Breaking
+  & Entering 32→35 (task 46 `get egg` tested "the referenced object" its pattern
+  never binds; task 53 `tie rope to bar` had no actions while its dead twin
+  carried the score) and The Crime Scene 78→80 (task 0 `look at door` moved the
+  player to room -2, which kills Scarier and the Runner alike, instead of just
+  paying its +2). Candidates were found by sweeping all 700 `.taf` files for the
+  two known-sweepable shapes — a typed, consequential task with `Where` =
   NO_ROOMS, and a restriction on a "referenced" thing no pattern binds — then
   filtered against the goldens that score short of their declared maximum.
   `TheADRIFTProject.taf` was rejected the same day: its missing ten points are
   task 69 `#Put Transmitter on Darwin`, whose Where is also NO_ROOMS, but the
   transmitter and receiver are hidden objects nothing in the file ever places,
-  and the author's own `#NOTES` task still lists "Make some sort of
-  transmitter" as a to-do. Placing an object the author never placed is
-  authoring, not unblocking, so 90/100 stands.
-- **Lead from the same sweep, not a patch:** `Melbourne Beach.taf` scores 38 of
-  41 and task 48 `turn* drier` (+1, room 15, one ordinary object restriction,
-  no dead `Where`) is never typed by the route — it looks like a walkthrough
-  gap rather than a data bug, and is worth a pass. The other two points look
-  like the coffee triple (tasks 39/41/42, +1 each for the same drink), which is
-  unverified. `CrimeScene.taf`'s faithful row is in the same family and was
-  left faithful on purpose: its missing +2 needs the patch above, because
-  typing `look at door` kills the Runner too.
+  and the author's own `#NOTES` task still lists "Make some sort of transmitter"
+  as a to-do. Placing an object the author never placed is authoring, not
+  unblocking, so 90/100 stands.
+- **That lead resolved, 2026-09-27 (user report: "can't turn on drier, because
+  it gets rewritten as 'turn on dryer'"):** `Melbourne Beach.taf`'s missing +1
+  *is* a data bug after all, and the 24th patch-table entry. The author's
+  synonyms 3 and 4 are an inverse pair (`dryer`→`drier`, `drier`→`dryer`) and
+  the Runner applies the table as a sequence, so both spellings reach the tasks
+  as `dryer` and task 48's `turn* drier` is out of reach of any ordinary line —
+  the line falls to task 56, eight slots along, same room, same restriction,
+  same first action, no ChangeScore. The patch re-spells the pattern
+  (`turn* dryer`) and repairs the slip in the same task's second action
+  (`Var1 28`, the *dirty* clothes, → `25`, the dry ones, as 56 has) — without
+  that second edit, forcing the task through the synonym gate with
+  `turn driers drier` costs the fold (+5), because `wash clothes` cannot be
+  repeated. The coffee triple is now settled too, and is *not* patchable: the
+  red cup is hidden until the Captain trade, which requires `drink oil` done,
+  which is exactly what the red-cup scoring task forbids, and the third twin's
+  +1 is paid for by that task's own −1. So 39 of 41 is the real ceiling, and
+  `melbourne_patched_solution.txt` reaches it. `CrimeScene.taf`'s faithful row
+  is in the same family and was left faithful on purpose: its missing +2 needs
+  the patch above, because typing `look at door` kills the Runner too.
 - **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
   `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
   mangled every pre-existing non-ASCII byte run elsewhere in the file (7

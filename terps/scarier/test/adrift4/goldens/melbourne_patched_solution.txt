@@ -1,0 +1,101 @@
+# Melbourne Beach, with the built-in patch table on (SCR_ASSUME_PATCHES=1).
+# The faithful script with one command re-spelt: `turn on drier` where the
+# faithful route types `dry clothes`.  Task 48 is the Laundry's last point and
+# is patterned `turn* drier`, but the game's own synonym table rewrites the
+# word to `dryer` whichever way it is spelt -- synonym 3 dryer->drier, synonym
+# 4 drier->dryer, applied in that order -- so the line falls through to task
+# 56, the unscored twin, and the +1 cannot be had in either engine.  Patched,
+# the pattern reads the way the rewrite leaves it, and the task's second action
+# fills the drum with the dry clothes instead of the dirty ones it names.
+# 39 of 41, which is this game's true ceiling: of the four `drink coffee`
+# twins only one can ever score without the `drink oil` penalty that pays for
+# the second.  See the PATCH_MELBOURNE_BEACH comment in sctafpar.cpp.
+
+open dresser
+get jeans
+wear jeans
+open closet
+get shirt
+wear shirt
+pet kitty
+w
+w
+open case
+get trumpet
+get bottle
+open bottle
+oil trumpet
+e
+s
+s
+sw
+s
+open purse
+get keys
+n
+e
+e
+unlock car
+open car
+in
+get folder
+out
+w
+w
+give trumpet to judy
+give music to judy
+ne
+n
+n
+s
+e
+read book
+w
+s
+sw
+e
+get dirty clothes
+open washer
+put dirty clothes in washer
+wash clothes
+get wet clothes
+open dryer
+put wet clothes in dryer
+turn on drier
+get dry clothes
+fold clothes
+w
+get pot
+pour coffee
+drink coffee
+ne
+nw
+play chess
+play chess
+play chess
+se
+sw
+e
+e
+in
+get opener
+open garage door
+drive car
+out
+e
+n
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+play volleyball
+s
+e
+e
+w
+w
+se
+use shower

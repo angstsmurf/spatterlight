@@ -4479,6 +4479,57 @@ static const scr_patch_edit_t PATCH_GOLDILOCKS_BE[] = {
   PATCH_ADD ("Tasks/53/Actions/0/Var1", 1)
 };
 
+/*
+ * Melbourne Beach, David Good.
+ *
+ * Seventeen ChangeScore tasks sum to the declared 41, and the one worth the
+ * Laundry's last point cannot be typed at all.  The synonym table ends with a
+ * pair the author clearly meant as "either spelling will do": synonym 3
+ * rewrites `dryer` to `drier`, synonym 4 rewrites `drier` back to `dryer`.
+ * The Runner applies the table as a sequence, each rule rewriting the
+ * previous rule's output -- see pf_filter_input() in scprintf.cpp, and the
+ * Vardock Bates transcript that pins the order -- so both spellings arrive at
+ * the tasks as `dryer`, and task 48's pattern `turn* drier` is out of reach of
+ * any ordinary line, in run390 exactly as here.  "turn on drier" falls instead
+ * to task 56 eight slots along, the same room and the same restriction and the
+ * same first action but no ChangeScore, and answers "You set the dryer for an
+ * appropriate period of time and turn it on." -- measured, score unmoved.
+ * The only line that does reach 48 is one built to defeat the rewrite's
+ * whole-word gate, `turn driers drier`, and taking it is a trap: see below.
+ *
+ * So the pattern is re-spelt to what the rewrite actually produces, which is
+ * also what 56 already accepts (`turn* dr*`); 48 is the lower-numbered and
+ * takes the line back.  Its second action needs the same repair to be worth
+ * having: 56 puts the dry clothes into the dryer (dynamic object 22, action
+ * Var1 25), while 48 names Var1 28, three higher -- the dirty clothes the
+ * wash cycle has just hidden -- and hauls those back into the drum with the
+ * dry ones left nowhere.  That is the trap in the forced line: `wash clothes`
+ * cannot be repeated, so there is no second load to dry, and the fold (+5)
+ * goes for a point.  Fixed, the task does what its twin does, and what its
+ * own "You turn on the drier." says it does.
+ *
+ * That is one point and not three, because the other two are beyond any
+ * route.  `drink coffee` is written four times over, once per cup and once
+ * per state of `drink oil` (task 7, the game's only penalty; a task-state
+ * restriction names it 8, one-based).  Tasks 41 (yellow cup, oil not drunk)
+ * and 42 (red cup, oil not drunk) would be the pair to have, but the red cup
+ * stays hidden until the Captain trade in task 36, and that wants the oil
+ * drunk -- which shuts 42 and opens 39, whose point the -1 then pays for.  At
+ * most two of the three ever score, and never for more than one point net.
+ * 39 of 41 is the ceiling; faithful, the route reaches 38.
+ */
+static const scr_patch_edit_t PATCH_MELBOURNE_BEACH[] = {
+  PATCH_VERIFY ("Synonyms/3/Original", "dryer"),
+  PATCH_VERIFY ("Synonyms/3/Replacement", "drier"),
+  PATCH_VERIFY ("Synonyms/4/Original", "drier"),
+  PATCH_VERIFY ("Synonyms/4/Replacement", "dryer"),
+  PATCH_VERIFY ("Tasks/48/CompleteText",
+                "You turn on the drier.  What a great guest, you even help"
+                " out with the laundry. "),
+  PATCH_STRING ("Tasks/48/Command/0", "turn* drier", "turn* dryer"),
+  PATCH_SET ("Tasks/48/Actions/1/Var1", 28, 25)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4577,7 +4628,11 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "taking the egg looks at the refrigerator it is in, and tying"
               " the rope to the window bars scores the point its dead twin"
               " carries",
-              PATCH_GOLDILOCKS_BE)
+              PATCH_GOLDILOCKS_BE),
+  PATCH_GAME ("Melbourne Beach", "David Good",
+              "turning on the drier is spelled the way the game's own"
+              " synonyms rewrite it, and dries the clothes the wash left",
+              PATCH_MELBOURNE_BEACH)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

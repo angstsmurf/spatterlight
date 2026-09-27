@@ -967,7 +967,17 @@ maincourse_solution.txt|Main Course.taf|Congratulations! You're on your way home
 # every one of them is rule 1 (this Wine run had Verbose OFF, so re-entry is
 # brief) or RNG: $randwalks picks the NPC enter/exit verb, and `play chess`
 # picks a winner.
+# 38/41 is the ceiling as shipped; the patched row below banks the drier's +1.
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): task 48 `turn* drier` is re-spelt `turn* dryer`,
+# the spelling the game's own synonym pair leaves both spellings as, and its
+# second action fills the drum with the dry clothes instead of the dirty ones
+# three dynamic slots along.  `turn on drier` then scores the Laundry's last
+# point rather than falling through to unscored task 56.  39 of 41, and that is
+# the ceiling: the red coffee cup stays hidden until the Captain trade, which
+# wants `drink oil` done, and that -1 pays for the point the second cup scores.
+melbourne_patched_solution.txt|Melbourne Beach.taf|You scored 39 out of the maximum 41!|SCR_ASSUME_PATCHES=1
 # Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same
 # line the fixed engine now prints.  The old golden had "Gimme Atip is here.",

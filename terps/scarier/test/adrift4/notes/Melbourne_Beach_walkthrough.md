@@ -5,12 +5,15 @@
   Compass, IF Archive, or CASA.
 - **Engine:** ADRIFT 3.90 (no Battle System — this is a domestic slice-of-life
   game, so no combat-assist is involved).
-- **Result:** **WIN, max reachable 38/41 — deterministic.** The win is rinsing
-  the sand off your feet at the beach shower after a morning of helping out
-  around your friends' house.
-- Solution file: `goldens/melbourne_beach_solution.txt`. No start-up prompts.
-- **The three unreachable points (41 − 38) are all faithful game-data limits —
-  see the closing note.**
+- **Result:** **WIN, 38/41 as shipped, 39/41 with the engine's game patch on —
+  deterministic.** The win is rinsing the sand off your feet at the beach shower
+  after a morning of helping out around your friends' house.
+- Solution files: `goldens/melbourne_beach_solution.txt` (faithful) and
+  `goldens/melbourne_patched_solution.txt` (`SCR_ASSUME_PATCHES=1`). No
+  start-up prompts.
+- **The three points beyond the faithful 38 are all game-data limits: one is a
+  typo the patch repairs, the other two are beyond any route — see the closing
+  note.**
 
 The win screen:
 
@@ -55,8 +58,11 @@ command until the NPC is present (see the notes) — robust under determinism.
   (in-game hint confirms this). The folder is in the car; fetch it, then give
   Judy first the trumpet (+5), then the folder (+10). `give music to judy`
   requires `give trumpet to judy` to be done first.
-- **Dryer auto-correct.** Typing anything with "drier" is normalised to
-  "dryer"; `turn on dryer` is the +1 laundry task (see the closing note).
+- **Dryer auto-correct.** The game's two synonyms `dryer -> drier` and
+  `drier -> dryer` run one after the other, so every line ends up saying
+  "dryer". `turn on drier`, `turn on dryer` and `turn drier` all run the plain
+  `dry clothes` task (task 56, 0 points), never the +1 `turn* drier` task
+  (task 48) -- see the closing note, and the patch section below.
 - **The computer is a death trap** (`touch computer` drops you "inside the
   computer", and a wrong move there ends the game) — never needed; avoid it.
 - **The beach shower needs sandy feet** (set by walking *east onto the Beach*).
@@ -177,21 +183,30 @@ se
 use shower        (+2, and "Congratulations!" — the win)
 ```
 
-Total **38/41**, ending on the win.
+Total **38/41**, ending on the win. With the engine's game patches on,
+replacing the `dry clothes` line with `turn on drier` makes it **39/41** —
+that is `goldens/melbourne_patched_solution.txt`.
 
-## The three unreachable points (41 − 38) — all faithful game data
+## The three points above 38 — all game data, one of them a typo
 
 The stored maximum is 41, the sum of all seventeen positive ChangeScore tasks.
 Three of those points cannot be banked in any faithful interpretation (verified
 against the `.taf` task/restriction/action tables, which SCARE evaluates
-identically to the original 3.90 Runner):
+identically to the original 3.90 Runner). The first is a typo and is patched;
+the other two are contradictions no patch can honestly resolve:
 
-1. **Turn-on-dryer (+1) vs. fold clothes (+5) are mutually exclusive.**
-   `wash clothes` is **non-repeatable**, so the single load produces exactly one
-   batch of wet clothes. `turn on dryer` (+1) consumes that batch (it hides the
-   wet clothes and merely recycles the *dirty* ones back into the dryer), and so
-   does drying-then-folding (+5). You can take one or the other, never both. The
-   walkthrough takes **fold (+5)**, forgoing the +1 — a net gain of 4.
+1. **Turn-on-drier (+1) is unreachable by any ordinary command, and costs the
+   fold (+5) when forced.** Task 48's command is `turn* drier`, but the
+   synonym pair above rewrites every "drier" to "dryer" before tasks are
+   matched, so the typed line never matches (the Runner applies synonyms in
+   sequence too). Rechecked 2026-09-27: it can be forced only through the
+   Runner's synonym gate, which skips a synonym whose first hit is followed by
+   a letter, e.g. `turn driers drier` (+1). Task 48 then hides the wet
+   clothes and puts the *dirty* ones back into the dryer. `wash clothes` is
+   **non-repeatable**, so there is no second batch to dry and fold: the route
+   ends at 34, not 38. The walkthrough takes **fold (+5)**. This one is a
+   plain typo in the task's command, and the engine's game patch repairs it
+   (below); with the patch on, the walkthrough banks both.
 
 2. **Coffee #2 — the red cup (+1) — is a logical contradiction.** The red coffee
    cup starts hidden and is revealed by exactly one action in the game: `give
@@ -205,16 +220,44 @@ identically to the original 3.90 Runner):
    ChangeScore (it is the poison half of a poison/cure gag). +1 − 1 = **net 0**,
    so it can never raise the score above what you get by leaving the oil alone.
 
-Net effect: the highest reachable score is **38**, whether or not you bother
-with the (dangerous, computer-bound) oil/Captain subplot. The yellow-cup coffee
-(+1) is the only coffee point that is a real, penalty-free gain, and the
-walkthrough takes it.
+Net effect: the highest reachable score faithful is **38**, whether or not you
+bother with the (dangerous, computer-bound) oil/Captain subplot. The yellow-cup
+coffee (+1) is the only coffee point that is a real, penalty-free gain, and the
+walkthrough takes it. Points 2 and 3 are genuine design contradictions and are
+left alone; point 1 is a typo, and is repaired below.
+
+## With the engine's game patches on — 39/41
+
+Melbourne Beach is in Scarier's targeted game-patch table (`PATCH_TABLE` in
+`sctafpar.cpp`, applied at the end of `parse_game()` just before
+`prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`). The
+patch matches on name and author, pins both halves of the synonym pair and task
+48's own completion text, and then makes two edits:
+
+```
+Tasks/48/Command/0       "turn* drier" -> "turn* dryer"
+Tasks/48/Actions/1/Var1  28 -> 25
+```
+
+The first re-spells the pattern to what the game's own synonyms actually produce
+— the spelling task 56 already accepts — and 48, being the lower-numbered task,
+takes the line back. The second repairs the slip that made the forced line a
+trap: 48's second action moved dynamic object 28 (the *dirty* clothes) into the
+dryer where its twin 56 moves 25 (the dry ones), so the route lost the fold.
+With both, `turn on drier` scores its +1, `get dry clothes` still answers "You
+take some dry clothes from the dryer." and the fold (+5) follows as usual.
+
+The patched row is the faithful script with `dry clothes` replaced by `turn on
+drier`:
+`melbourne_patched_solution.txt|Melbourne Beach.taf|You scored 39 out of the maximum 41!|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept. 39 is then the game's true ceiling,
+the remaining 2 being the two coffee points above.
 
 ## Determinism / footguns
 
 - Built and run with the deterministic headless SCARE (`harness/build.sh`,
   seed 1234). The full solution reproduces **38/41 + "Congratulations!"**
-  identically across runs.
+  identically across runs (**39/41** for the patched row).
 - The opening **"press any key"** prompt eats the first input line — the
   solution begins with a blank line to absorb it.
 - **Judy and David wander** and their walks consume RNG, so their position on a
