@@ -4937,6 +4937,42 @@ static const scr_patch_edit_t PATCH_HOUSE_OF_HORROR[] = {
   PATCH_SET ("Tasks/109/Restrictions/0/Var3", 0, 36)
 };
 
+/*
+ * The Studio, Christopher Cole.
+ *
+ * Twenty-seven ChangeScore tasks sum to the declared 100, and the four points
+ * of the Bedroom shoot's opening act can never be scored.
+ *
+ * Task 110 is the Bedroom's staging of a scene the Main Studio already has:
+ * task 73, the same command pattern written the same way, thirty-seven slots
+ * earlier and locked to room 0.  73 is the task that claims the line, and out
+ * of its room it answers "You can't do that here!", so the only way 110 ever
+ * runs is on the fall-through past a room list that rules 73 out.  110 *is*
+ * reached -- what stops it there is its own first restriction, a character test
+ * addressing Var1 = 0, "the Player", against Var3 = 0, "the Player": the Player
+ * must be in the same room as the Player.  Version 3.90's passrest leaves that
+ * exit with the result still zero and without copying the FailMessage ("What?"),
+ * so the restriction fails silently, the fall-through lands back on 73's
+ * refusal, and the four points are gone.  SCARE reproduces that exit
+ * deliberately (restr_pass_task_char() in screstrs.cpp, and
+ * runner_transcripts/studio.txt pins it), so the faithful ceiling is 96.
+ *
+ * Var1 = 2 is Shelby, the first of the game's two characters, and that is what
+ * the restriction was meant to say.  Its two immediate neighbours, tasks 111
+ * and 112, stage the two acts that follow, and both carry Var1 = 2 against
+ * Var3 = 0 behind the identical "What?" -- Shelby must be in the same room as
+ * the Player.  Addressed the way 111 and 112 are, 110 runs where the route
+ * already stands and the game scores the 100 it declares.
+ */
+static const scr_patch_edit_t PATCH_STUDIO[] = {
+  PATCH_VERIFY ("NPCs/0/Name", "Shelby"),
+  PATCH_VERIFY ("Tasks/73/Restrictions/3/FailMessage",
+                "You've got plenty of pics of that."),
+  PATCH_VERIFY ("Tasks/110/Restrictions/0/FailMessage", "What?"),
+  PATCH_VERIFY ("Tasks/111/Restrictions/0/FailMessage", "What?"),
+  PATCH_SET ("Tasks/110/Restrictions/0/Var1", 0, 2)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -5085,7 +5121,12 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("House Of Horror", "Thomas Mulkerrins",
               "the bag of doubloons is counted in the room it is carried to,"
               " like the other eight treasures",
-              PATCH_HOUSE_OF_HORROR)
+              PATCH_HOUSE_OF_HORROR),
+  PATCH_GAME ("The Studio", "Christopher Cole",
+              "the Bedroom shoot's opening act asks for Shelby to be in the"
+              " room, as the two acts after it do, not for the Player to be"
+              " where the Player is",
+              PATCH_STUDIO)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

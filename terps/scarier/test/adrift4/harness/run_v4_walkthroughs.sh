@@ -7807,22 +7807,30 @@ ovaloffice_solution.txt|ovaloffice.taf|You scored 32 out of the maximum 32!|
 # "could be considered bestiality") to steal a hidden map. 15/15,
 # deterministic, no red flags beyond the game's own disclaimer.
 planescape_solution.txt|Planescape-Encounters1.taf|You scored 15 out of the maximum 15!|
-# studio.taf (AIF): explicit text, deliberately not committed. Photo-studio
+# studio.taf (AIF): adult content, deliberately not committed. Photo-studio
 # framing story -- a professional photographer directs two adult models,
-# "Shelby" and an assistant "Brittany," through an escalating series of
-# solo and joint nude/explicit photo and video shoots. Straightforward
-# linear task-unlock structure, no branching endings and no
-# EndGame/death traps -- all 10 scored tasks (10 points each) are
-# reachable in a single unbroken sequence once each shoot's
-# prerequisite props (lamps, candles, lighter, vibrator) are staged. No
-# authoring quirks encountered. 120 commands, no env vars.
+# "Shelby" and an assistant "Brittany", through an escalating series of
+# photo and video shoots. Straightforward linear task-unlock structure, no
+# branching endings and no EndGame/death traps -- all the scored tasks are
+# reachable in a single unbroken sequence once each shoot's prerequisite
+# props (lamps, candles, lighter) are staged. No authoring quirks
+# encountered. 120 commands, no env vars.
 # 96/100 is the Runner's ceiling (run390x runner_transcripts/studio.txt
-# T110): task 111 (an explicit Shelby/Brittany act) carries a "Player must be in
-# same room as Player" restriction ("What?"), which run390's passrest fails
+# T110): task 111, the Bedroom shoot's opening act, carries a "Player must be
+# in same room as Player" restriction ("What?"), which run390's passrest fails
 # SILENTLY (early exit 4522CC before the FailMessage copy), so the earlier
 # out-of-room task 74 sharing the pattern draws "You can't do that here!"
 # and the 4-point shoot can never run. Ported 2026-09-26.
 studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1,
+# PATCH_STUDIO in sctafpar.cpp): the restriction above is re-addressed from
+# Var1 = 0 ("the Player") to Var1 = 2 ("Shelby"), which is what the task's own
+# neighbours -- tasks 112 and 113, the two acts that follow in the same
+# shoot -- say behind the identical "What?". Nothing in the route moves: the
+# line is already there on the turn it belongs and simply stops being refused,
+# so this golden is the faithful one byte for byte, and 100/100 is the game's
+# true ceiling.
+studio_patched_solution.txt|studio.taf|You scored 100 out of the maximum 100!|SCR_ASSUME_PATCHES=1
 # fun town.taf (AIF): explicit text, deliberately not committed. 20-task
 # scored content (10 points each) across a hub-and-spoke resort map;
 # no formal EndGame reachable -- the game's only WIN action ("open
@@ -9925,13 +9933,14 @@ crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maxim
 # scored" line is ever printed).  So:
 #   * T333 (+1) -- the no-op `attack guard` in the mansion basement was
 #     swapped in place for `ring bell`.  One command replaced, no shift.
-#   * T52 "# Beverley cums" (+2) -- the Welsh Fox bedroom scene that opens
-#     the game is escalated to her climax (4x `rub welsh fox's ass`, 5x `rub
-#     welsh fox's pussy`, 3x `ass` again, then `welsh fox fuck british fox`,
-#     which is the ALTCMD that fires the task).  The 13 added turns are paid
-#     for by deleting 13 zero-point HQ flavour commands BEFORE the sensitive
-#     region (the magpie/navy-fox/mathilda/sharon fondling lines and
-#     `x outer guards`), chosen so the net draw offset lands in a safe zone.
+#   * T52 "# Beverley cums" (+2) -- the Welsh Fox scene that opens the game is
+#     played out to its end instead of being broken off: a 13-command
+#     escalation ladder (two arousal-raising actions repeated, one of which
+#     draws twice from the RNG and one not at all, then the ALTCMD that fires
+#     the task; see lines 10-22 of the golden).  Those 13 added turns are paid
+#     for by deleting 13 zero-point HQ flavour lines BEFORE the sensitive
+#     region -- the four HQ-corridor NPC encounters and `x outer guards` --
+#     chosen so the net draw offset lands in a safe zone.
 #
 # The remaining 4 points are not reachable on this branch: T460 "# Sneak"
 # (+1) and T189 "# BF works off some frustration" (+2) are structurally

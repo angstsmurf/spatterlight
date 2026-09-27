@@ -343,9 +343,11 @@
 /goldens/planescape_solution.expected.txt
 /runner_transcripts/**/planescape.*
 
-# studio.taf (AIF): explicit text, deliberately not committed.
+# studio.taf (AIF): adult content, deliberately not committed.
 /goldens/studio_solution.txt
 /goldens/studio_solution.expected.txt
+/goldens/studio_patched_solution.txt
+/goldens/studio_patched_solution.expected.txt
 /runner_transcripts/**/studio.*
 
 # fun town.taf (AIF): explicit text, deliberately not committed.

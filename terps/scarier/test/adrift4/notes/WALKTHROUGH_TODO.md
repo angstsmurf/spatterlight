@@ -153,6 +153,25 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
     short." The pattern is re-spelt `hit Stefcho`, what the rewrite leaves
     behind; a task that matches the line is dispatched ahead of the battle
     library. Same shape as Melbourne Beach, Crime Scene 2 and The Fugitive.
+- **A sixth joined on 2026-09-27, *The Studio* 96→100/100**, taking the table
+  to **35 games, 212 edits**. Twenty-seven ChangeScore tasks sum to the declared
+  100, and the four points of the Bedroom shoot's opening act were out of reach.
+  Task 110 is the Bedroom's staging of a scene the Main Studio already has as
+  task 73 — the same command pattern, thirty-seven slots earlier, locked to room
+  0 — so 73 claims the line and, out of its room, answers "You can't do that
+  here!". 110 *is* still reached on the fall-through; what stops it there is its
+  own first restriction, a character test addressing Var1 = 0, "the Player",
+  against Var3 = 0, "the Player": the Player must be in the same room as the
+  Player. 3.90's `passrest` leaves that exit with the result still zero and
+  without copying the FailMessage ("What?"), so the refusal is silent, the
+  fall-through lands back on 73's message, and the points are gone. SCARE
+  reproduces that exit deliberately (`restr_pass_task_char`), so 96 is the
+  faithful ceiling — `runner_transcripts/studio.txt` pins it. Var1 = 2 is
+  Shelby, and that is what the restriction was meant to say: tasks 111 and 112,
+  the two acts that follow in the same shoot, both carry Var1 = 2 against
+  Var3 = 0 behind the identical "What?". `Restrictions/0/Var1` 0 → 2 is the
+  whole repair, and the patched row is the faithful script **byte for byte** —
+  the line was already on the turn it belongs to and simply stops being refused.
   Two entries from the same shortlist were re-measured and **rejected**: *The
   X-Files* (its missing 3 were a route bug in the walkthrough, not the data —
   the stray `n` after the van's journey event, now fixed, 299/299 faithful) and
@@ -178,9 +197,10 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   "Take what?". Route now ends "Well done - you scored maximum points!".
   Still short, but now fully accounted for, is *British Fox*, raised from 43/50
   to **46/50** on 2026-09-27: `ring bell` swapped in place of the no-op basement
-  `attack guard` banks T333 (+1), and escalating the opening Welsh Fox bedroom
-  scene to her climax banks T52 "# Beverley cums" (+2), paid for by deleting 13
-  zero-point HQ flavour commands so the route stays turn-for-turn neutral (its
+  `attack guard` banks T333 (+1), and playing the opening Welsh Fox scene out to
+  its end instead of breaking it off banks T52 "# Beverley cums" (+2), paid for
+  by deleting 13 zero-point HQ flavour lines so the route stays turn-for-turn
+  neutral (its
   later damage rolls are RNG-stream sensitive: measured safe draw offsets
   0,+1..+4,+7,+8; -1,+5,+6 all end in recapture). The remaining 4 are branch
   facts, not route bugs: T460 (+1) and T189 (+2) are structurally excluded once
