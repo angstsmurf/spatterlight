@@ -4,9 +4,11 @@ ADRIFT game by Daniel Hiebert (2003), winner of the ADRIFT Summer Comp 2003.
 Derived by playing the game to completion under SCARE (deterministic seed) and
 cross-checked against the game's internal scoring table.
 
-**Result: 140 / 145 points** and the winning ending ("Congratulations!").
-The single remaining point is **unobtainable in the shipped game** — a logic bug
-in the game's own task data (not a SCARE bug), documented at the end.
+**Result: 140 / 145 points** and the winning ending ("Congratulations!") as
+shipped, **145 / 145 with the engine's game patch on.** The five remaining
+points are **unobtainable in the shipped game** — a logic bug in the game's own
+task data (not a SCARE bug), documented at the end, along with the patch that
+repairs it.
 
 You play Tangee Simone, chief engineer at a genetics institute. After a routine
 DNA analysis, the lab is overrun by hostile Orgaan soldiers. The optimal run
@@ -155,7 +157,7 @@ must be done now.
 
 ---
 
-## The one unobtainable point (a game-data bug, not a SCARE bug)
+## The one unobtainable task, +5 (a game-data bug, not a SCARE bug)
 
 The game's internal scoring table totals exactly 145. Exactly one of the 24
 scoring tasks can never fire in the shipped data:
@@ -174,7 +176,43 @@ scoring tasks can never fire in the shipped data:
   `screstrs.c`). Skynd is therefore unreachable in the original Runner too.
 
 So **140/145 is the maximum** obtainable in any faithful interpreter; the final
-point is lost to a bug in the game itself.
+five points are lost to a bug in the game itself.
+
+Skynd is in fact worth ten: task 9, `#Death of Skynd`, is another ChangeScore 5,
+fired by the battle system when he goes down (usually to Malthew, once the
+captain has been freed). The shipped game lets you have that half and not the
+sample; the patch below lets you have both, which is where the last five come
+from.
+
+## With the engine's game patches on — 145/145
+
+Sun Empire is in Scarier's targeted game-patch table (`PATCH_TABLE` in
+`sctafpar.cpp`, applied at the end of `parse_game()` just before
+`prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`). The
+patch matches on name and author, pins task 58's mask (Skyrv's, the correct
+twin) and both of task 59's "Skynd is not here to take a genetic sample from."
+fail messages, and then makes one edit:
+
+```
+Tasks/59/RestrMask   "#A#A(#A#)" -> "#A#A(#O#)"
+```
+
+One character: the inner operator becomes the OR its twin has. Nothing else
+about the task moves — same command, same +5, same refusals when the sampler is
+elsewhere or the sample already taken — and `get sample from skynd` now works
+exactly where `get sample from skyrv` does, in the middle of the firefight the
+two of them start.
+
+The patched route is the faithful script plus two commands beside
+`get sample from skyrv`: `get sample from skynd`, and one `z`. The wait is
+needed because the extra turn shifts the battle stream, and without it Malthew
+never lands the killing blow inside the route's remaining turns — so the +5 for
+the sample would simply replace the +5 for the death (swept over 0–12 waits on
+`SCR_SEED=10`; 1, 4, 5, 6 and 9 all bank both, and 1 is the shortest).
+
+`sun_empire_patched_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 145 out of the maximum 145!|SCR_SEED=10 SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept. 145 is then the game's true ceiling —
+every one of the 24 scoring tasks is reachable.
 
 > Note: "Sample Nadine" (+5) *does* score, even though the game prints
 > "you cannot obtain a genetic sample off of Antonai." That line is flavor —

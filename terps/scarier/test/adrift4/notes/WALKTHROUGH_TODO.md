@@ -16,13 +16,14 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
 
 ## Where things stand (2026-09-27)
 
-- Full suite: **658/658 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
+- Full suite: **670/670 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
   NOSCRIPT. `VGM1_3.taf` (re-screened clean 2026-09-27, see *Content policy*)
   is now wired: WON 45/56 (80%), the true ceiling — the declared 56
   double-counts two mutually exclusive branches (see
   `notes/VGM1_3_walkthrough.md`, gitignored, AIF).
 - **Three games joined the built-in patch table on 2026-09-27** (`PATCH_TABLE`
-  in `sctafpar.cpp`; 24 games now, counting Melbourne Beach below), each keeping
+  in `sctafpar.cpp`; 29 games at that point, counting Melbourne Beach and the
+  three further ones below — 34 by the end of the day, see below), each keeping
   its faithful row and gaining a `SCR_ASSUME_PATCHES=1` one that reaches the
   declared maximum: FunHouse 310→410 (task 10 `take money` was the third of
   three hundred-dollar tasks and had an empty room list), Goldilocks – Breaking
@@ -59,6 +60,107 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   `melbourne_patched_solution.txt` reaches it. `CrimeScene.taf`'s faithful row
   is in the same family and was left faithful on purpose: its missing +2 needs
   the patch above, because typing `look at door` kills the Runner too.
+- **Three more games joined the patch table later the same day
+  (2026-09-27), on the user's "add more games to the patch table":** each keeps
+  its faithful row and gains a `SCR_ASSUME_PATCHES=1` one.
+  - *Professor Von Witt's Fabulous Flying Machine* 154→**229/229**, the whole
+    declared maximum and the win. The green button has three endings: task 52
+    (not aboard), task 53 (aboard) and task 54 (aboard *and* holding the bottle
+    cap), which is the flight that wins, +75 and EndGame 0. 53's one
+    restriction is a subset of 54's two and 53 has the lower number, so it
+    claimed every press — the author's own bundled walkthrough holds the cap
+    and still gets 53. 53 gains the complement gate it lacks (cap NOT held,
+    Var2 = 7), and its `RestrMask` goes `#` → `#A#`, since a mask that names
+    one restriction leaves the rest unevaluated. Not one command of the
+    faithful script changes.
+  - *The Adventures of Space Boy! Volume I* 1009→**1039/1374**. Task 11, the
+    Ice Gloves, is patterned `{take\get} {them/it/} {the} gloves` — a
+    backslash where every other alternation in the game has a slash — so no
+    line could match and the library take handed the gloves over unscored. One
+    character; the take-family pre-match then gives `take gloves` to the task.
+    The rest of the gap is not patchable: the declared 1374 is 55 more than the
+    game's own ChangeScore pool, the cape's +250 drop is a command the 4.0
+    library answers without asking the tasks, and the two +30 transporter
+    buttons are exclusive with `enter transporter` (+50).
+  - *The Night The Moon Shone Grey* 360→**380/400**. Task 17 `behead drow`
+    wants the elf's body lying in the Library *and* "the referenced object"
+    held, and every `behead` spelling binds that reference to the body itself,
+    so it asked for the corpse to be carried and on the floor at once ("You do
+    not have dead dark elf.", run390 too). The second restriction becomes
+    Var1 = 1, "any object" held — the blade in hand its own
+    `behead dark elf with %object%` command and "You do not have %object%."
+    were written for. The patched row adds the single command `behead drow`.
+    The game's other missing +20 is **left alone**: task 12 is the wolf's
+    KilledTask, the wolf starts hidden, and the only thing that would place it
+    is task 4, which the "Baying at the moon" event forgets to run
+    (TaskAffected 0) and which would drop it in one unpredictable room on one
+    turn with no restart. Pointing the event at it would scatter a point, not
+    unblock one.
+- **Five more games joined the patch table the same day (2026-09-27), on the
+  user's "add patches for the suitable candidate games":** the shortlist in
+  `UNREACHABLE.md` was re-measured game by game and five of its entries turned
+  out to be one-edit author slips with the repair already pinned down. The
+  table now stands at **34 games, 207 edits** (`harness/patchtable.py` counts
+  it). Each keeps its faithful row and gains a `SCR_ASSUME_PATCHES=1` one, and
+  four of the five patched rows are the faithful script command for command —
+  the data was the only thing in the way.
+  - *The Twilight* 485→**500/500**. Task 59's single 3.8 object-state
+    restriction reads "object 57 inside container 7": container 7 is the gas
+    stove and object 57 is the stove as well, so the author named the holder
+    twice and never named the moldy cheese sitting immediately before it in the
+    object list. A static object is inside nothing, so `cook cheese` answered
+    "You can't do that yet." in run380 too, and the game's own T113 tally said
+    485. The conversion already lands the test on the cheese (a static's index
+    falls back to the preceding dynamic object,
+    `parse_fixup_v380_objstate_restr`), so the repair is the holder the author
+    meant to leave in place: `Restrictions/0/Var3` 0 → 7. The faithful script
+    already types `put cheese in stove` then `cook cheese`, and the largest
+    single score in the game is the +15 it was refusing.
+  - *House Of Horror* 145→**155/155**. Tasks 101–109 tally the nine treasures,
+    ten points each, one restriction each: "this treasure is in room 36", *Home
+    Free!*. Eight say 36; task 109, the bag of doubloons, says 0 — and a zero
+    in that field is not a room but the object-location restriction's "is
+    hidden" test (`restr_object_in_place`). The doubloons start hidden and the
+    only thing that places them is the blunderbuss shot that kills the zombie,
+    so as shipped they could be carried home or counted, never both, and either
+    trade capped the game at 145. `Restrictions/0/Var3` 0 → 36 and 109 asks
+    what its eight siblings ask.
+  - *Sun Empire: Quest for the Founders (Part I)* 140→**145/145**. Task 59's
+    mask `#A#A(#A#)` asks for Skynd alive in the room **and** his corpse on the
+    floor; its twin task 58 for Skyrv writes the same pair with OR and can be
+    sampled either side of the killing. One character — the inner operator
+    becomes the OR — and the sample can be pressed while the Orgaan is still
+    standing. Skynd is worth ten: task 9 `#Death of Skynd` pays the other five,
+    and as shipped only the death was reachable. The patched row adds two
+    commands, `get sample from skynd` and one `z`: the extra turn shifts the
+    battle stream, and without the wait Malthew never lands the killing blow
+    inside the route, so the sample's +5 merely replaces the death's (swept
+    0–12 waits on `SCR_SEED=10`; 1, 4, 5, 6 and 9 all bank both).
+  - *Terrified* 60→**65/65**. Task 89 is the +5 for climbing the compound
+    fence — no command a player types ("- score for getting over fence"), no
+    restrictions, one ChangeScore — and is executed by each of the four tasks
+    that cross the fence (gloves, rag, shirt, trousers). Every one of them
+    moves the player west out of room 19 *first*, and 89's own Where is that
+    one room, so it could never run; nothing else in the file executes it.
+    `Where/Type` 1 → 3 (ALL_ROOMS), which is what a scoring task called by
+    another task wants, and its four callers stay the only things that run it.
+  - *Sentor* 12→**13/13**. Task 2 wakes Stefcho the talking skull and is
+    patterned `slap Stefcho`, but 3.90 rewrites `slap` to `hit` before any task
+    is matched — one of the Runner's own built-ins (`BUILTIN[]` in
+    `scprintf.cpp`), not a synonym of this game's, which has none at all — so
+    the line reached the battle library instead ("You hit the skull, but it
+    doesn't seem to do any damage.") and the game ended "You finished 1 points
+    short." The pattern is re-spelt `hit Stefcho`, what the rewrite leaves
+    behind; a task that matches the line is dispatched ahead of the battle
+    library. Same shape as Melbourne Beach, Crime Scene 2 and The Fugitive.
+  Two entries from the same shortlist were re-measured and **rejected**: *The
+  X-Files* (its missing 3 were a route bug in the walkthrough, not the data —
+  the stray `n` after the van's journey event, now fixed, 299/299 faithful) and
+  *NAT_01* (осмотреть and рассмотреть both contain "см", so its `*см*` task
+  patterns were always reachable and the committed route already scores the
+  maximum). *Marooned* was re-read too: T24 is a duplicate of T14, which
+  already pays the same +10 for the same act, so those ten are phantom maximum
+  rather than blocked score and patching them would pay twice.
 - **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
   `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
   mangled every pre-existing non-ASCII byte run elsewhere in the file (7
@@ -683,7 +785,7 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | Spooked | 8/8, SKIP | — |
 | video.tape | won, 1850, SKIP | `RESTR type=0 v2=4` relics in bowl; weight 90 |
 | Regrets | won, SKIP | — |
-| Terrified | 60/65 | T89 `where` after move |
+| Terrified | 60/65 faithful, 65/65 patched | T89 `where` after move (patched 2026-09-27) |
 | rain | won, SKIP | `ACT type=0` raw−1 vs `ACT type=1` 0-based |
 | howitstarted | 6/6 | — |
 | Station XIII | 200/9 | stale MaxScore; `wt<=108` |
@@ -804,8 +906,9 @@ Textident Evil, Impulso, Montahue Scott (3/3), A Morning With A Headache
 (115/115), Sleaze City, Albridge Manor, The Lost Mines, The Dark Tower (T8
 `turn on power`), Report Espionage, Far From Home, S Tar Dus T, Silk Noil;
 Asylum, The Wheels Must Turn, Life (UNFINISHABLE demonstration row — no
-`ACT type=6`, no `ACT type=4`), Renuntio, House Of Horror (145/155 proven
-ceiling: T109 tests OBJ_HIDDEN), Where Is Richard? (1000/1000); Salutations,
+`ACT type=6`, no `ACT type=4`), Renuntio, House Of Horror (145/155 faithful
+ceiling: T109 tests OBJ_HIDDEN; 155/155 patched 2026-09-27), Where Is
+Richard? (1000/1000); Salutations,
 A Day at the Iachini House (115 of 140 authored), La hija del relojero,
 Veteran Knowledge ×2 (`vetknow2.taf` differs in three strings), The Lost Tomb
 (175/175), The Long Journey Home, Murder in Great Falls (200/200), The Vampire
@@ -842,7 +945,7 @@ line; `tomorrow` typed bare; pull the altar), dr-who-vortex-lust (150/150;
 | `akron.taf` | Akron |
 | `cave.taf` | Cave of Wonders |
 | `haunt.taf` | House of the Damned |
-| `twilight.taf` | The Twilight |
+| `twilight.taf` | The Twilight (485/500 faithful, 500/500 patched) |
 | `haunted.taf` | The Haunted House (Campbell Wild, Jun 1999 — the oldest) |
 | `great.taf` | The Great Escape |
 | `secret.taf` | Tom Ceader: Escape from the south |

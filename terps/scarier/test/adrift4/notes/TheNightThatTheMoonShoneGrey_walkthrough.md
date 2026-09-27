@@ -1,8 +1,9 @@
 # The Night That The Moon Shone Grey (thenightmoon.taf)
 
 Vampire-hunter quest (ADRIFT 3.90), 400 points: thirteen +20 tasks,
-"vampire dying" +40 and "stake count valdimir" +100. **WON, 360/400**, which
-is also the Runner's ceiling. Wired as
+"vampire dying" +40 and "stake count valdimir" +100. **WON, 360/400 as
+shipped** — also the Runner's ceiling — **and 380/400 with the engine's game
+patch on** (see the closing section). Wired as
 `thenightmoon_solution.txt|thenightmoon.taf|You scored 360 out of the maximum 400!|SCR_RNG=xoshiro`;
 every SCR_SEED 1-20 wins at 360.
 
@@ -22,6 +23,38 @@ every SCR_SEED 1-20 wins at 360.
   with no referenced object fell into the any-object loop. Fixed 2026-09-26
   in `screstrs.cpp` -- it now fails below TAF 4.00, silently at 3.90, per
   run390 passrest (451CDD).
+
+## With the engine's game patches on — 380/400
+
+The beheading is a data bug, and the game is in Scarier's targeted game-patch
+table (`PATCH_TABLE` in `sctafpar.cpp`, off unless `glk patches on` /
+`SCR_ASSUME_PATCHES=1`). The patch matches on name and author, pins task 17's
+first command and both fail messages, and makes one edit:
+
+```
+Tasks/17/Restrictions/1/Var1  2 -> 1     ("the referenced object" -> "any object")
+```
+
+Restriction 1 is the weapon test — "You do not have %object%.", written for the
+task's third command `behead dark elf with %object%` — and asking it of "the
+referenced object" is what made it unsatisfiable, since every `behead` spelling
+binds the reference to the body that restriction 0 needs lying in the Library.
+Asked of *any* object held, it means what the fail message says: a blade in
+your hand. `behead drow`, the author's own first command, then scores its +20,
+and nothing else in the task moves.
+
+The patched row is the faithful script plus that one command, `behead drow`
+after `move rug` in the Library:
+`thenightmoon_patched_solution.txt|thenightmoon.taf|You scored 380 out of the maximum 400!|SCR_RNG=xoshiro SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept.
+
+**The wolf's +20 is deliberately not patched.** Task 4 could be wired to the
+"Baying at the moon" event by giving it a TaskAffected, but the event fires once
+on turn 8, 9 or 10, has no restart, and task 4 moves the wolf to a *random*
+room; the point that came of it would be wherever the RNG put it, with no
+author's route to it. Repairing a one-character command or a contradictory
+restriction is unblocking; conjuring an encounter the author never scheduled is
+authoring. So 380 is the patched ceiling.
 
 ## Route
 

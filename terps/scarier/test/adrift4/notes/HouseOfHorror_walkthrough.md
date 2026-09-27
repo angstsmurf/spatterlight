@@ -3,11 +3,14 @@
 - **Engine:** ADRIFT 3.90 (`hhorror.taf`, 51,820 bytes, from
   `https://www.adrift.co/files/games/hhorror.taf`). **36 rooms, 7 NPCs, 125
   tasks, 46 events, 14 variables.** Max score 155.
-- **Result:** ★ **WON at 145/155** — and **145 is the ceiling**. The last ten
-  points are an author bug, not a missed move; see below.
+- **Result:** ★ **WON at 145/155 as shipped — 145 is the faithful ceiling —
+  and 155/155 with the engine's game patch on.** The last ten points are an
+  author bug, not a missed move; see below.
 - **Solution:** `goldens/hhorror_solution.txt` (144 commands, zero parser
   failures). Golden blessed, in `run_v4_walkthroughs.sh` with
   `SCR_SKIP_WAITKEY=1`. Win marker: `It has been a long and frightful night`
+- **Patched solution:** `goldens/hhorror_patched_solution.txt` — the same
+  commands, with `SCR_ASSUME_PATCHES=1`. 155/155.
 - **Provenance:** no published walkthrough. Derived from `SCR_DUMP_TASKS`,
   `SCR_DUMP_OBJLOC` and play.
 
@@ -43,9 +46,32 @@ The doubloons start hidden (`OBJLOC obj=11 pos=-1`) and T81 moves them **onto**
 the zombie's corpse (`ACT type=0 v1=14 v2=3 v3=1` — onto surface 0). So from
 the instant they become obtainable they stop being hidden, and T109 can never
 pass. Leaving them hidden — never shooting the zombie — *does* score the +10,
-but forfeits T81's +20, so that trade is ten points worse. 145 is the ceiling
-and the route reaches it. The same shape as the +2 stranded behind an EndGame
-action in *Three Monkeys One Cage*.
+but forfeits T81's +20, so that trade is ten points worse. 145 is the faithful
+ceiling and the route reaches it. The same shape as the +2 stranded behind an
+EndGame action in *Three Monkeys One Cage*. This one is a plain missing room
+number, though, and the engine's game patch restores it — below.
+
+## With the engine's game patches on — 155/155
+
+House Of Horror is in Scarier's targeted game-patch table (`PATCH_TABLE` in
+`sctafpar.cpp`, applied at the end of `parse_game()` just before
+`prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`). The
+patch matches on name and author, pins T108's and T109's command strings (`8`
+and `9`, the tally tasks' placeholder patterns) and the doubloons' own object
+name, and then makes one edit:
+
+```
+Tasks/109/Restrictions/0/Var3   0 -> 36
+```
+
+which is what T101–T108 all say. Nothing else about the task moves: it still
+runs on the turn after `drive`, still pays ten, still asks only that its own
+treasure came out of the house. The route does not change either — it already
+shoots the zombie and takes the doubloons off the corpse — so the patched row
+is the faithful script with the env flag added:
+`hhorror_patched_solution.txt|hhorror.taf|You scored 155 out of the maximum 155!|SCR_SEED=50 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept. 155 is then the game's true ceiling
+— with the patch on, every one of the sixteen scoring tasks is reachable.
 
 ## How the ending works
 

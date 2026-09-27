@@ -1,0 +1,98 @@
+# Sun Empire: Quest for the Founders (Part I), with the built-in patch table
+# on (SCR_ASSUME_PATCHES=1).  The faithful script with two commands added in
+# the middle of the laboratory firefight: `get sample from skynd` beside the
+# sample taken off Skyrv, and one `z` to let Malthew finish the Orgaan off.
+# Skynd is worth ten points -- five for the genetic sample, five for his death
+# -- and as shipped only the death can be had: task 59's restriction mask
+# "#A#A(#A#)" asks for Skynd alive in the room AND his corpse on the floor,
+# where its twin task 58 for Skyrv writes the same pair with OR and can be
+# sampled either side of the killing.  Patched, the inner operator is the OR
+# its twin has, and the sample can be pressed while the Orgaan is still
+# standing; the added `z` keeps the battle rolls where the route needs them,
+# since the extra turn shifts the stream that decides when Malthew lands the
+# killing blow.
+# 145 of 145, the game's maximum (the faithful route stops at 140).
+use print pod
+e
+d
+n
+e
+s
+open door
+sw
+open trunk
+x clothes trunk
+get all from clothes trunk
+take clothes
+ne
+n
+w
+z
+z
+z
+z
+z
+z
+give id pass to jeriah
+x pdd
+x stainless steel lab table
+get all from stainless steel lab table
+get sample from me
+get sample from limb
+perform dna analysis
+e
+n
+e
+take grenade
+w
+s
+w
+s
+u
+w
+talk to mark
+ask mark to follow me
+e
+d
+n
+x mark
+x mark
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+take rifle
+get sample from skyrv
+get sample from skynd
+z
+get sample from orgaan soldier
+get sample from guard
+get sample from mark
+s
+get sample from jeriah
+get sample from orgaan soldier
+u
+w
+answer vidcom
+open drawer
+take data chip
+download data
+w
+throw grenade
+n
+e
+get sample from nadine
+e
+talk to malthew
+get sample from malthew
+w
+w
+s
+shoot windows
+w

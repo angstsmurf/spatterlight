@@ -1,4 +1,5 @@
-# Space Boy's First Adventure — walkthrough (**WON, 1009/1374**, deterministic)
+# Space Boy's First Adventure — walkthrough (**WON, 1009/1374 as shipped,
+1039/1374 with the engine's game patch on**, deterministic)
 
 > **DONE 2026-06-27; extended to the ceiling 2026-09-05.** Full win banked &
 > verified (`goldens/space_boy_solution.txt`). All four power items (Flight
@@ -7,6 +8,8 @@
 > EPISODES OF ACTION WITH SPACE BOY AND WONDER DOG!"*).
 > **1009/1374 (73%) is the ceiling for a run that never repeats a scoring
 > task** — see *Where the missing 365 points went* below.
+> With the built-in patch table on (`SCR_ASSUME_PATCHES=1`) the same script
+> reaches **1039** — see *With the engine's game patches on* below.
 > Run: `sh harness/play.sh games/"Space Boy's First Adventure.taf" goldens/space_boy_solution.txt`
 
 
@@ -178,6 +181,33 @@ net +20 against the red button).
    gloves` falls through to the library take with no score in the original Runner
    too. SCARE's `.taf` decoder is not at fault (it renders `/` correctly for the
    other 8 tasks). **Net: the +30 is lost to a shipped author bug.**
+
+## With the engine's game patches on — 1039/1374
+
+*Space Boy's First Adventure* is in Scarier's targeted game-patch table
+(`PATCH_TABLE` in `sctafpar.cpp`, applied at the end of `parse_game()`, off
+unless `glk patches on` / `SCR_ASSUME_PATCHES=1`). The patch matches on name and
+author, pins task 11's completion text, and makes one edit:
+
+```
+Tasks/11/Command/0  "{take\get} {them/it/} {the} gloves"
+                 -> "{take/get} {them/it/} {the} gloves"
+```
+
+One character — the backslash of *Resolved findings* 1 becomes the slash every
+other take/get task in the game uses. A get/take line that a take-family task
+matches is handed to the task before the library take ever runs (run400's
+`get_piece` at 473A34, ahead of the dispatcher at 48A481), so the script's own
+`take gloves` in the Ice Room now answers "You have the gloves." and banks the
+**+30**.
+
+The patched row is the faithful script, command for command:
+`space_boy_patched_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept. **1039/1374** is then the ceiling:
+the remaining 335 are the 55 the declared maximum adds to the game's own
+ChangeScore pool, the cape's +250 drop that the 4.0 library answers itself, and
+one of the two exclusive +30 transporter buttons — none of them a typo, so none
+of them patched.
 
 ## Optional follow-up
 - Nothing is left that a non-repeating run can reach. Higher totals exist only

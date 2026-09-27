@@ -1,0 +1,160 @@
+# Space Boy's First Adventure, with the built-in patch table on
+# (SCR_ASSUME_PATCHES=1).  Not one command differs from the faithful row: the
+# script already types `take gloves` in the Castle's Ice Room, and the reason
+# that never scored is task 11's own pattern, `{take\get} {them/it/} {the}
+# gloves` -- a backslash where the author meant a slash, which no typed line
+# can contain, so the library take fetched the gloves for free.  Patched, the
+# alternation reads `{take/get}`, the take-family pre-match hands the line to
+# task 11 ahead of the library, and the gloves come with their +30.
+# 1039 of 1374.  The rest of the gap is not a typo: the ChangeScore pool is
+# only 1319 to begin with, the cape's +250 drop is a command the 4.0 library
+# answers without asking the tasks, and the two +30 transporter buttons cannot
+# both be pressed on a route that also takes `enter transporter` (+50).
+# 1319 - 250 - 30 = 1039.  See the PATCH_SPACE_BOY comment in sctafpar.cpp.
+# --- Phase 1: Flight Boots (up the oak tree) ---
+n
+read computer
+s
+s
+sw
+s
+climb up oak tree
+take boots
+wear boots
+climb down tree
+# --- Phase 2: to the flight hub (Living Room -> Front Yard -> Landing Platform) ---
+n
+ne
+n
+e
+e
+# --- Phase 3: fly NORTH to the Castle, solve the tile/safe puzzle, get Ice Gloves ---
+fly north
+e
+ne
+examine old painting
+sw
+e
+take book page
+read book page
+w
+s
+take small bottle
+drink orange liquid
+s
+take whiteredblue tile
+put whiteredblue tile on control panel
+in
+take gloves
+wear gloves
+# --- Phase 4: leave the Castle (grow back), return to hub, fly SOUTH ---
+out
+take tiny bottle
+drink bluish liquid
+n
+w
+s
+fly south
+# --- Phase 5: Volcano Islands — Fire God statue puzzle, Heat Goggles ---
+read sign
+w
+read plaque
+d
+shout ell
+shout aay
+shout vee
+shout aay aay
+shout ach
+nw
+take feet
+se
+ne
+take legs
+sw
+se
+take chest
+nw
+sw
+take arms
+ne
+s
+take head
+n
+u
+assemble statue
+put statue on base
+freeze wall
+south
+take goggles
+wear goggles
+fly ne
+n
+fly east
+read sign
+enter cave
+take small shovel
+read small sign
+dig a hole in sand
+dig more
+w
+take stick
+read note
+light stick with goggles
+w
+s
+w
+w
+n
+melt ice with goggles
+light stick with goggles
+n
+w
+n
+freeze fire with ice gloves
+e
+e
+u
+e
+n
+take phased ion bridge
+out
+w
+w
+w
+s
+in
+out
+install bridge
+in
+push blue button
+out
+e
+take fork
+w
+use fork on hole
+read paper
+take belt
+wear belt
+u
+w
+w
+press button
+e
+e
+enter transporter
+out
+sw
+w
+move huge rock
+take key
+e
+ne
+n
+unlock door
+open room door
+take cape
+# Kept as in-transcript evidence for the task-72 note above: the library's
+# own drop claims this and the +250 task never runs.
+drop cape to the floor
+w
+read scribbled note

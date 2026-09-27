@@ -1,0 +1,109 @@
+# The Night That The Moon Shone Grey, with the built-in patch table on
+# (SCR_ASSUME_PATCHES=1).  The faithful script with one command added, `behead
+# drow` in the Library once the dark elf has died there.  Task 17's twenty
+# points are unreachable as shipped: its first restriction wants the elf's body
+# lying in the Library and its second wants "the referenced object" held, and a
+# `behead` line binds the reference to that same body, so the task asks for the
+# corpse to be carried and on the floor at once ("You do not have dead dark
+# elf." to every spelling, in run390 too).  Patched, the second restriction
+# asks for any object held -- the blade in hand the fail message and the
+# `behead dark elf with %object%` command were written for -- and the line
+# scores.
+# 380 of 400.  The last +20 stays out: task 12 is the wolf's KilledTask, the
+# wolf starts hidden, and the only thing that would place it is task 4, which
+# the "Baying at the moon" event forgets to run (TaskAffected 0) and which
+# would drop it in a random room on a single turn anyway.
+# SCR_RNG=xoshiro.  See the PATCH_NIGHTMOON comment in sctafpar.cpp.
+Petter
+male
+se
+e
+n
+attack rat with longsword
+take rat
+s
+s
+in
+give dead giant rat to smith
+out
+n
+se
+# Detour to the Village wall (centre) for the vacant skeleton (NPC 6, "skeleton's
+# death" task 11, +20).  `attack/kill/hit/stab skeleton` all match task 5's
+# %character% patterns (the line contains NPC 6's Name "Skeleton"), which only
+# sets its attitude and never lands a blow; `fight` is a battle verb task 5
+# does not list, so the line goes to the battle system and one hit kills it.
+sw
+w
+fight skeleton with longsword
+e
+ne
+s
+w
+w
+in
+ask hermit about secret entrance
+open secret door
+s
+e
+s
+search bookcase
+attack elf with longsword
+attack elf with longsword
+move rug
+behead drow
+n
+w
+nw
+u
+e
+n
+u
+examine table
+take healing powder
+d
+s
+s
+open box
+look in box
+examine man
+take key
+n
+w
+d
+se
+e
+s
+take potion
+drink healing potion
+d
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+# The skeleton guard is dust.  Its rapier and keys drop to the floor but are
+# not referenceable until a room listing has shown them, so `look` first.
+look
+take keys
+# Task 20 (+20) frees Astrania.
+open cell
+u
+# Bastard sword: HitValue 25 against the longsword's 15.
+take bastard sword
+n
+w
+nw
+u
+e
+# Task 29 needs Astrania "not alone"; `Astrania follow me` brings her to the
+# player's room for one step.
+astrania follow me
+unlock door with key
+in
+# Task 31 (+20) moves the fight to the Rooftop ledge.
+who are you
+attack vampire with bastard sword
+attack vampire with bastard sword
+attack vampire with bastard sword
+attack vampire with bastard sword
+# The fourth hit runs "vampire dying" (+40) and starts "Vampire recovering"
+# (2-3 turns); the stake must go in before it finishes.
+stake count valdimir

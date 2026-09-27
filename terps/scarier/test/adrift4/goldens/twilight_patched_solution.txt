@@ -1,0 +1,128 @@
+# The Twilight, with the built-in patch table on (SCR_ASSUME_PATCHES=1).  The
+# faithful script, command for command: it already types `put cheese in stove`
+# and then `cook cheese`, and as shipped the second one answers "You can't do
+# that yet." every time.  Task 59's single 3.8 object-state restriction reads
+# "object 57 inside container 7"; container 7 is the gas stove and object 57
+# is the stove as well, so the author named the holder twice and never named
+# the moldy cheese that sits immediately before it in the object list.  A
+# static object is inside nothing, so the test cannot pass -- in run380 no
+# more than here.  Patched, the test asks for the cheese in the stove, which
+# is what the walkthrough has just done, and the largest single score in the
+# game is paid.
+# 500 of 500, the game's maximum (the faithful route stops at 485).
+w
+s
+listen
+ask gale about mansion
+ask gale about flower
+n
+e
+w
+down
+s
+look pools
+take knife
+down
+act like monkey
+take key
+give key to gale
+e
+e
+look under bridge
+w
+w
+s
+down
+take pole
+up
+n
+e
+cast at island
+w
+w
+throw wood at elemental
+w
+take watch
+e
+e
+n
+open door
+n
+n
+take poker
+n
+e
+look on refrigerator
+take spatula
+open refrigerator
+take cheese
+open stove
+put cheese in stove
+cook cheese
+take cheese
+n
+down
+dig
+take balloon
+up
+s
+fill balloon
+w
+s
+s
+up
+n
+w
+open closet
+take doll
+pull doll head
+e
+e
+look under tub
+take ball
+w
+n
+e
+open wardrobe
+take suit
+open dresser
+take photo
+w
+s
+s
+down
+n
+ask ghost about suit
+show photo to ghost
+e
+put ball in pocket
+take bell
+w
+s
+up
+n
+n
+w
+use bell on clock
+look in compartment
+take hilt
+make dagger
+e
+up
+w
+pry piano with poker
+take amulet
+e
+e
+use dagger on lamp
+w
+s
+use amulet
+up
+use dagger
+put knife in box
+s
+give flower to gale
+score
+s
+e

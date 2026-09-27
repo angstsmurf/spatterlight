@@ -1,0 +1,99 @@
+# Professor Von Witt's Fabulous Flying Machine, with the built-in patch table
+# on (SCR_ASSUME_PATCHES=1).  The command list is the faithful row's, letter
+# for letter -- the game's own bundled walkthrough plus `take book` -- because
+# nothing the player types was ever the problem.  Task 54, the flight that
+# wins (+75, EndGame 0), wants the machine ridden and the bottle cap held;
+# task 53 wants only the machine ridden, ends the game with the professor lost
+# over the lake, and being the lower-numbered task takes the button press
+# first however well prepared the player is.  Patched, 53 also requires the
+# cap NOT held -- the case it was written for -- and the button finally sorts
+# the two endings the way the author's restrictions say it should.
+# 229 of 229, the declared maximum; faithful the same script scores 154.
+# See the PATCH_PROFESSOR comment in sctafpar.cpp.
+south
+south
+knock on peabody's door
+ask lady about pie
+north
+east
+give basket to mr beaker
+take meat
+take juice
+drink juice
+take juice
+west
+west
+examine shelves
+take pollen popper upper
+take hand
+take leg to stand on
+take doorknob
+east
+give jasper's Jazzy Jungle Juice to shelly
+examine mailbox on-a Rope
+take mail
+examine mail
+read mail
+south
+knock on peabody's door
+give fruit to lady
+throw pie at burton
+north
+se
+ring bell
+give coupon to clerk
+nw
+south
+knock on milos door
+give hammer to milo
+examine window box
+pick pretty flowers
+north
+north
+tie rope to tree
+down
+feed fish
+swim
+put flowers in pollen popper upper
+use balloon on contraption
+examine contraption
+look
+examine area
+examine contraption
+east
+east
+examine shelves
+take reggie's Remedy Rust Resolvent
+west
+west
+examine contraption
+clean contraption
+examine contraption
+use door knob on contraption
+read letter
+east
+sw
+examine painting
+examine statue
+pull thread
+press button
+take book
+examine statue
+stand on leg to stand on
+inventory
+pull lever
+examine mortamer ulysses franklin
+ask mortamer ulysses franklin about form
+stand on leg to stand on
+pull lever
+look
+move contraption
+give milo a hand
+move contraption
+look
+examine contraption
+sit on contraption
+examine contraption
+ride contraption
+examine button
+press button

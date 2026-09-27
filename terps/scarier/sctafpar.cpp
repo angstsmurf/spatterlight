@@ -4647,6 +4647,296 @@ static const scr_patch_edit_t PATCH_FUGITIVE[] = {
   PATCH_STRING ("Tasks/73/Command/0", "look * mirror", "l * mirror")
 };
 
+/*
+ * Professor Von Witt's Fabulous Flying Machine, Mystery.
+ *
+ * The green button ends the game three ways, and the best of the three cannot
+ * be pressed.  Task 52 is the button with the machine unridden -- "task 52
+ * must NOT be done", one-based, so task 51, the climb aboard -- and the
+ * contraption trundles off into the crowd without you.  Task 53 is the button
+ * while riding, and it flies away with you, "never seen again".  Task 54 is
+ * the same button, riding, and the bottle cap held (dynamic object 11, so
+ * Var1 = 14), and it is the win: EndGame Var1 = 0, and the game's largest
+ * ChangeScore, 75 of a declared 229 that twenty-three tasks sum to exactly.
+ * But 53's single restriction is a subset of 54's two and 53 has the lower
+ * number, so the dispatcher stops there every time, whatever the player is
+ * carrying.  The author's own bundled walkthrough is the proof: it holds the
+ * cap when it presses the button and still gets 53's ending, and the game
+ * ships with 154 of 229 as its ceiling.
+ *
+ * What 53 is missing is the complement of the gate 54 adds -- the case it was
+ * written for is riding WITHOUT the cap -- so it gains it: object restriction
+ * Var1 = 14 again, Var2 = 7, the negated "held by the player" (6..11 are the
+ * negated forms, and the runner evaluates them for a named object; see
+ * restr_pass_task_object_location()).  RestrMask goes from "#" to "#A#" with
+ * it, because a mask that names one restriction leaves any others
+ * unevaluated.  Nothing else moves: 52, 53 and 54 keep their commands, their
+ * endings and their scores, and the cap becomes what its place in 54 always
+ * said it was -- the one thing that decides which way the flight goes.
+ *
+ * With that, the bundled walkthrough's own command list wins on 229 of 229.
+ */
+static const scr_patch_edit_t PATCH_PROFESSOR[] = {
+  PATCH_VERIFY ("Tasks/52/Command/0",
+                "[press/push/hit]{the}{small}{green}[button]"),
+  PATCH_VERIFY ("Tasks/53/Command/0",
+                "[press/push/hit]{the}{small}{green}[button]"),
+  PATCH_VERIFY ("Tasks/53/Command/3", "* hit * button *"),
+  PATCH_VERIFY ("Tasks/54/Command/0",
+                "[push/press/hit]{the}{small}{green}[button]"),
+  PATCH_STRING ("Tasks/53/RestrMask", "#", "#A#"),
+  PATCH_ADD ("Tasks/53/Restrictions/1/Type", 0),
+  PATCH_ADD ("Tasks/53/Restrictions/1/Var1", 14),
+  PATCH_ADD ("Tasks/53/Restrictions/1/Var2", 7),
+  PATCH_ADD ("Tasks/53/Restrictions/1/Var3", 0),
+  PATCH_ADD_STRING ("Tasks/53/Restrictions/1/FailMessage", "")
+};
+
+/*
+ * The Adventures of Space Boy! Volume I, David Parish.
+ *
+ * Task 11 hands over the Ice Gloves in the Castle's Ice Room and is worth
+ * thirty points, and its command is `{take\get} {them/it/} {the} gloves` --
+ * a backslash where every other alternation in the game has a slash.  The
+ * pattern parser has no meaning for it, so the only line that could match is
+ * one containing the literal `take\get`, which nothing types; the line falls
+ * through to the library take instead, which fetches the gloves perfectly
+ * well and scores nothing.  Both engines behave the same way, and the game
+ * plays through to its ending with the thirty missing, so the slip is
+ * invisible unless the score is counted.
+ *
+ * The one character is corrected.  A get/take line that a take-family task
+ * matches is dispatched to the task before the library take ever sees it
+ * (run400 get_piece 473A34 ahead of the dispatcher at 48A481, modelled in
+ * run_priority_commands()), so `take gloves` now runs task 11: the same
+ * "You have the gloves.", the same move of the gloves into the player's
+ * hands, and the thirty points the author wrote for it.
+ *
+ * That leaves the declared 1374 still out of reach, and not by a patchable
+ * margin.  The twenty-three ChangeScore tasks sum to 1319, fifty-five short
+ * of the advertised maximum before anything else is said; task 72, the cape
+ * dropped on the floor for 250, is a command the 4.0 library's own drop
+ * answers outright without asking the tasks (see
+ * run_task_reachable_by_library_callback()); and the two +30 transporter
+ * buttons cannot both be pressed on one route, because the Moon Base's
+ * `enter transporter` (+50) brings the player home instead of the red button
+ * that would.  1039 of 1374 is the honest ceiling, and the walkthrough row
+ * reaches it.
+ */
+static const scr_patch_edit_t PATCH_SPACE_BOY[] = {
+  PATCH_VERIFY ("Tasks/11/CompleteText", "You have the gloves."),
+  PATCH_STRING ("Tasks/11/Command/0",
+                "{take\\get} {them/it/} {the} gloves",
+                "{take/get} {them/it/} {the} gloves")
+};
+
+/*
+ * The Night The Moon Shone Grey, Matthew Moya.
+ *
+ * Task 17 beheads the dark elf's body in the Library he loved, and is worth
+ * twenty of the declared 400.  Its two restrictions cannot both hold.  The
+ * first is the one the puzzle is about -- dynamic object 19, the dead dark
+ * elf, in room 30, "The dark elf's body must be in the library he loved so
+ * much." -- and the second asks for "the referenced object" to be held by the
+ * player, "You do not have %object%.", plainly meant as "and a blade in your
+ * hand", the task's third command being `behead dark elf with %object%`.  But
+ * the reference a `behead` line leaves behind is the body, not the weapon:
+ * `behead dark elf` binds it directly, and `behead dark elf with longsword`
+ * binds it too, because the earlier pattern's %object% walk runs first (run390
+ * checktask, modelled in run_task_match_command()).  So the second
+ * restriction asks for the corpse to be carried while the first asks for it to
+ * be lying in the Library, and the task answers "You do not have dead dark
+ * elf." to every spelling.  `behead drow`, the author's own first command, has
+ * no object in it at all and fails the same restriction for the opposite
+ * reason -- in run390 with no reference bound it simply fails (451CDD).
+ *
+ * The weapon test is therefore written the only way the data can say it
+ * without naming one weapon out of the game's several: Var1 = 1, "any object",
+ * held by the player.  The blade in hand is still required, the body must
+ * still be in the Library, and `behead drow` with a sword drawn now scores its
+ * twenty.
+ *
+ * The game's other missing twenty is left alone, because repairing it would
+ * not put a point within reach so much as scatter it.  Task 12, "wolf's
+ * remains", is the wolf's KilledTask, and the wolf starts hidden; the only
+ * thing that places it is task 4, "moving wolf to random room", and the
+ * "Baying at the moon" event that howls about wolves on turn 8, 9 or 10 has
+ * TaskAffected 0 -- no task at all.  Pointing the event at task 4 would drop
+ * the wolf into one unpredictable room out of the twenty the event covers, on
+ * one turn, with no restart, and no author's route to it; the howl stays the
+ * empty threat the shipped data makes it.  With the beheading, 380 of 400.
+ */
+static const scr_patch_edit_t PATCH_NIGHTMOON[] = {
+  PATCH_VERIFY ("Tasks/17/Command/0", "behead drow"),
+  PATCH_VERIFY ("Tasks/17/Restrictions/0/FailMessage",
+                "The dark elf's body must be in the library he loved so much."),
+  PATCH_VERIFY ("Tasks/17/Restrictions/1/FailMessage",
+                "You do not have %object%."),
+  PATCH_SET ("Tasks/17/Restrictions/1/Var1", 2, 1)
+};
+
+/*
+ * Sentor, "Escape from Dead side and returning to the erth for revenge. ".
+ *
+ * Task 2 wakes Stefcho, the little skull who talks, and it carries one of the
+ * thirteen points the game declares.  Its command is `slap Stefcho`, and no
+ * line typed at the prompt can ever be it: version 3.90 rewrites `slap` to
+ * `hit` before any task sees the input.  This one is not the game's own doing
+ * -- Sentor has no synonyms at all -- but one of the Runner's built-in
+ * rewrites, alongside `everything` -> `all` and `apart from` -> `but`
+ * (BUILTIN[] in scprintf.cpp, and the probe matrix recorded there: a task
+ * spelled with the POST-rewrite text is the one that fires, so the rewrite
+ * runs ahead of task matching, not after it).  `slap stefcho` therefore
+ * arrives as `hit stefcho`, the battle library answers "You hit the skull,
+ * but it doesn't seem to do any damage.", and the game ends "You finished 1
+ * points short."
+ *
+ * The pattern is re-spelt `hit Stefcho`, what the rewrite leaves behind.  A
+ * task that matches the line is dispatched before the battle library sees it,
+ * so the skull opens its eyes -- "-Welkome back master." -- and Sentor can be
+ * finished on 13 of 13.
+ */
+static const scr_patch_edit_t PATCH_SENTOR[] = {
+  PATCH_VERIFY ("Tasks/2/CompleteText",
+                "You slap the litle skull And it open his eyes."
+                "         -Welkome back master."),
+  PATCH_VERIFY ("Tasks/2/Hint1",
+                "Ani shamarosai tozi marzeliv sunliv cherep."),
+  PATCH_STRING ("Tasks/2/Command/0", "slap Stefcho", "hit Stefcho")
+};
+
+/*
+ * Sun Empire: Quest for the Founders (Part I), Daniel Hiebert.
+ *
+ * The genetic sampler is the game's collection puzzle -- a task per
+ * creature, five points each -- and the sample off Skynd, the second of the
+ * two Orgaan who storm the laboratory, cannot be taken.  Its task and Skyrv's
+ * are the same task written twice, four restrictions apiece: the sampler held,
+ * the sample not already taken, the live NPC in the room, and the corpse
+ * object in the room.  The last two are never true together, since the corpse
+ * is what replaces the NPC.  Skyrv's mask joins its pair with OR --
+ * "#A#A(#O#)" -- so either half carries it and the sample can be pressed
+ * before the death or after it.  Skynd's says "#A#A(#A#)", and asks for the
+ * Orgaan to be alive in the room and dead on the floor at once.  The same
+ * expression is evaluated by the Runner (restr_pass_task_restrictions() here,
+ * evaluaterestrictions there), so Skynd's five points are out of reach in
+ * run400 too, and the game ships with "You finished 5 points short." as its
+ * best ending.
+ *
+ * One character: the inner operator becomes the OR its twin has.  Nothing else
+ * about the task moves -- same command, same five points, same refusals when
+ * the sampler is elsewhere or the sample already taken -- and `get sample from
+ * skynd` now works exactly where `get sample from skyrv` does, in the middle
+ * of the firefight the two of them start.  With it, 145 of 145.
+ */
+static const scr_patch_edit_t PATCH_SUN_EMPIRE[] = {
+  PATCH_VERIFY ("Tasks/58/RestrMask", "#A#A(#O#)"),
+  PATCH_VERIFY ("Tasks/59/Restrictions/2/FailMessage",
+                "Skynd is not here to take a genetic sample from."),
+  PATCH_VERIFY ("Tasks/59/Restrictions/3/FailMessage",
+                "Skynd is not here to take a genetic sample from."),
+  PATCH_STRING ("Tasks/59/RestrMask", "#A#A(#A#)", "#A#A(#O#)")
+};
+
+/*
+ * Terrified, Eric T. Dorrath.
+ *
+ * Climbing the fence out of the compound is worth five of the declared
+ * sixty-five, and the five are awarded by a task of their own: task 89, no
+ * command a player would type ("- score for getting over fence"), no
+ * restrictions, one action, ChangeScore 5.  Four tasks cross that fence --
+ * with the gloves, the rag, the shirt or the trousers wrapped round your hands
+ * -- and each of them ends by executing 89.  Each also moves the player out of
+ * room 19 first, and it is the move that is written first.  Task 89's own
+ * scope is "one room, 19", so by the time it runs the player is already on the
+ * other side of the fence and the task cannot run at all.  Nothing else in the
+ * file executes it, and no route reaches the five points.
+ *
+ * The scope is widened to "all rooms", which is what a scoring task called by
+ * another task wants in the first place; its four callers stay the only things
+ * that ever run it, and they still only run where the fence is.  The rest of
+ * the game is untouched, and the fence crossing pays what the author wrote for
+ * it: 65 of 65.
+ */
+static const scr_patch_edit_t PATCH_TERRIFIED[] = {
+  PATCH_VERIFY ("Tasks/89/Command/0", "- score for getting over fence"),
+  PATCH_VERIFY ("Tasks/84/CompleteText",
+                "The gloves help you to carefully climb over the fence and"
+                " move west."),
+  PATCH_VERIFY ("Tasks/85/CompleteText",
+                "Wrapping the rag around your hands you carefully climb over"
+                " the fence and move west."),
+  PATCH_SET ("Tasks/89/Where/Type", 1, 3)
+};
+
+/*
+ * The Twilight, PJK.
+ *
+ * Cooking the moldy cheese in the kitchen stove is the largest single score in
+ * the game, fifteen of five hundred, and the task refuses every time: "You
+ * can't do that yet."  Version 3.8 gives a task one object-state restriction,
+ * written as an object, a relation and a target, and this one reads "object 57
+ * inside container 7".  Container 7 is the gas stove, counting the seven
+ * containers in file order, and that is right; object 57, one-based, is the
+ * stove as well.  The author picked the holder twice and never named the
+ * cheese, which is object 56 and sits immediately before it in the list.
+ *
+ * A static object is in nothing and held by nobody, so the test cannot pass --
+ * in run380 no more than here (parse_fixup_v380_objstate_restr() records what
+ * the Runner does with a static named in this field, measured against
+ * runner_transcripts/twilight.rtf, where `put cheese in stove` then `cook
+ * cheese` answers "You can't do that yet." exactly as the shipped file does
+ * here).  The game's own tally says so too: task 113 prints "Your score is 485
+ * out of a maximum of 500" on a route that has done everything else.
+ *
+ * The conversion lands the test on the cheese already -- the preceding dynamic
+ * object is what a static's index falls back to -- so the repair is the holder
+ * the author meant to leave in place: the container index, zeroed by the
+ * fallback, goes back to 7, the stove.  `put cheese in stove` and then `cook
+ * cheese`, the two commands the walkthrough already types, now fire the task
+ * the CompleteText was written for ("you fire it up, and cook the moldy cheese
+ * in the oven"), and The Twilight can be finished on 500 of 500.
+ */
+static const scr_patch_edit_t PATCH_TWILIGHT[] = {
+  PATCH_VERIFY ("Objects/55/Short", "cheese"),
+  PATCH_VERIFY ("Objects/56/Short", "stove"),
+  PATCH_VERIFY ("Tasks/59/CompleteText",
+                "Finding a match in a small tin on top of the stove, you fire"
+                " it up, and cook the moldy cheese in the oven.  It turns a"
+                " nice brown color."),
+  PATCH_VERIFY ("Tasks/59/Restrictions/0/FailMessage",
+                "You can't do that yet."),
+  PATCH_SET ("Tasks/59/Restrictions/0/Var3", 0, 7)
+};
+
+/*
+ * House Of Horror, Thomas Mulkerrins.
+ *
+ * The nine treasures are tallied by nine tasks of their own, tasks 101 to 109,
+ * one per treasure, each ten points, each a single restriction: "this treasure
+ * is in room 36" -- Home Free!, the drive away that ends the game.  Eight of
+ * them say 36.  Task 109, the bag of doubloons, says 0, and a zero there is
+ * not a room at all: the object-location restriction reads it as "hidden"
+ * (restr_object_in_place(), where var3 == 0 tests OBJ_HIDDEN and never touches
+ * the room).  The doubloons do start hidden, and the one thing that places
+ * them is the blunderbuss shot that kills the zombie, which drops them onto
+ * his corpse.  From that moment they exist, can be carried and can be driven
+ * home -- and can never again satisfy task 109.  Not shooting the zombie keeps
+ * the ten, at the cost of the twenty his task pays, so the shipped game's
+ * ceiling is 145 of 155 either way.
+ *
+ * The missing room number is restored, and 109 asks what its eight siblings
+ * ask.  The zombie is still shot, the doubloons are still picked up off the
+ * corpse, and the nine treasures carried out of the house are now worth the
+ * ninety the tally was built to pay: 155 of 155.
+ */
+static const scr_patch_edit_t PATCH_HOUSE_OF_HORROR[] = {
+  PATCH_VERIFY ("Tasks/108/Command/0", "8"),
+  PATCH_VERIFY ("Tasks/109/Command/0", "9"),
+  PATCH_VERIFY ("Objects/11/Short", "doubloons"),
+  PATCH_SET ("Tasks/109/Restrictions/0/Var3", 0, 36)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4759,7 +5049,43 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("The Fugitive", "arctica0@hotmail.com",
               "looking in a car's mirror is spelled the way the game's own"
               " synonyms rewrite it",
-              PATCH_FUGITIVE)
+              PATCH_FUGITIVE),
+  PATCH_GAME ("Professor Von Witt's Fabulous Flying Machine", "Mystery",
+              "pressing the green button while holding the bottle cap now"
+              " flies the machine, instead of the ending written for pressing"
+              " it without",
+              PATCH_PROFESSOR),
+  PATCH_GAME ("                   The Adventures of Space Boy! Volume I",
+              "David Parish (c) 2005",
+              "taking the ice gloves now scores, the task's alternation"
+              " written with a slash instead of a backslash",
+              PATCH_SPACE_BOY),
+  PATCH_GAME ("The Night The Moon Shone Grey", "Matthew Moya",
+              "beheading the dark elf asks for a blade in hand, not for his"
+              " body to be carried and lying in the Library at once",
+              PATCH_NIGHTMOON),
+  PATCH_GAME ("Sentor", "Escape from Dead side and returning to the erth"
+              " for revenge. ",
+              "waking Stefcho is spelled the way version 3.90 rewrites the"
+              " word, so the skull can be slapped awake",
+              PATCH_SENTOR),
+  PATCH_GAME ("Sun Empire: Quest for the Founders (Part I) (C) Copyright 2003"
+              " - All Rights Reserved", "Daniel Hiebert",
+              "sampling Skynd asks for the Orgaan alive or dead, as sampling"
+              " Skyrv does, not both at once",
+              PATCH_SUN_EMPIRE),
+  PATCH_GAME ("Terrified", "Eric T. Dorrath",
+              "the score for climbing the fence is awarded in the room the"
+              " crossing leaves you in",
+              PATCH_TERRIFIED),
+  PATCH_GAME ("The Twilight", "PJK",
+              "cooking the cheese asks for the cheese to be in the stove,"
+              " rather than the stove to be inside itself",
+              PATCH_TWILIGHT),
+  PATCH_GAME ("House Of Horror", "Thomas Mulkerrins",
+              "the bag of doubloons is counted in the room it is carried to,"
+              " like the other eight treasures",
+              PATCH_HOUSE_OF_HORROR)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

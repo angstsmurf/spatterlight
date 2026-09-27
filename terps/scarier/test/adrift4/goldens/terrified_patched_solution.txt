@@ -1,0 +1,67 @@
+# Terrified, with the built-in patch table on (SCR_ASSUME_PATCHES=1).  The
+# faithful script, command for command -- the five points it was missing are
+# awarded by a task no player types.  Task 89 ("- score for getting over
+# fence", no restrictions, ChangeScore 5) is executed by each of the four
+# tasks that cross the compound fence, and each of them moves the player west
+# out of room 19 before making the call; task 89's own scope is that one room,
+# so it can never run.  Patched, the scope is "all rooms", which is what a
+# scoring task called by another task wants, and the crossing pays what the
+# author wrote for it.
+# 65 of 65, the game's maximum.
+n
+e
+e
+s
+x bench
+take key
+take brick
+x knife
+remove boots
+n
+n
+n
+x bush
+use rag with brick
+s
+s
+s
+smash window
+e
+take spade
+x carpet
+w
+n
+n
+n
+n
+unlock gate
+w
+dig
+n
+e
+smash door
+e
+x bench
+take gloves
+w
+w
+w
+x fence
+wear gloves
+w
+s
+x line
+take jeans
+take sweater
+n
+e
+e
+s
+w
+x bonfire
+put trousers on fire
+put shirt on fire
+wear jeans
+wear sweater
+s
+score

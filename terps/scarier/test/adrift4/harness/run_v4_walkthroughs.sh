@@ -1078,6 +1078,16 @@ secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly saili
 # case that run_task_reachable_by_library_callback() in scrunner.cpp exists
 # for -- the library's drop claims "drop cape to the floor" outright.
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
+# The same script with the engine's game patches on (PATCH_SPACE_BOY in
+# sctafpar.cpp), command for command: the script already types `take gloves`,
+# and what kept task 11's +30 out of reach was the task's own pattern,
+# `{take\get} ... gloves`, a backslash where the author meant a slash.  With
+# the alternation repaired the take-family pre-match gives the line to the task
+# instead of the library take.  1039 of 1374; the remaining gap is the 55 the
+# declared maximum adds to its own ChangeScore pool, the cape's +250 drop that
+# the 4.0 library answers itself, and one of the two exclusive +30 transporter
+# buttons.
+space_boy_patched_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES|SCR_ASSUME_PATCHES=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
@@ -1114,6 +1124,17 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # not count as a turn -- the battle and siren after them shift back one turn,
 # now identical to a fresh run400x drive (389 = 389 draws).  Still 140.
 sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 140 out of the maximum 145!|SCR_SEED=10
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1): task
+# 59's restriction mask "#A#A(#A#)" becomes "#A#A(#O#)", the mask its twin task
+# 58 already carries for Skyrv, so sampling Skynd asks for the Orgaan alive in
+# the room OR his corpse on the floor rather than both at once.  Skynd is worth
+# ten -- five for the sample, five for his death (task 9, "#Death of Skynd") --
+# and as shipped only the death is reachable.  The patched script adds `get
+# sample from skynd` beside Skyrv's and one `z`: the extra turn shifts the
+# battle stream, and without the wait Malthew never lands the killing blow
+# inside the route's remaining turns (swept k=0..12 on SCR_SEED=10: k=1 is the
+# first that banks both).  145 of 145.
+sun_empire_patched_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 145 out of the maximum 145!|SCR_SEED=10 SCR_ASSUME_PATCHES=1
 # Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 # (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
 # identical, tail only.  First row driven with the feed generator's new
@@ -3900,6 +3921,15 @@ haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # conversion had moved the test onto the cheese; parse_fixup_v380_objstate_restr
 # now makes a static Obj2 always fail.
 twilight_solution.txt|twilight.taf|Your score is 485 out of a maximum of 500
+# And the same route, command for command, with the built-in game patch
+# (SCR_ASSUME_PATCHES=1): task 59's 3.8 object-state restriction names the gas
+# stove twice -- "object 57 inside container 7", where 57 is the stove and the
+# moldy cheese is the object before it -- so `cook cheese` answers "You can't
+# do that yet." in both engines and the game's own tally says 485.  Patched,
+# the restriction asks for the cheese inside container 7, which the script's
+# `put cheese in stove` has just arranged, and the fifteen points land.
+# 500 of 500.
+twilight_patched_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500|SCR_ASSUME_PATCHES=1
 # Measured 2026-09-05 in run380 (`Adven_1_haunted.rtf`, 116 commands, the
 # winning `open gate` last): 115/115 echoed, 0 differences.  Its two events
 # are RNG-timed but have no room list, so nothing they do is visible.
@@ -5106,6 +5136,15 @@ renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_
 # once -- task_move_phantom_object() in sctasks.cpp.  One dark-room line and
 # three zombie attacks move; the Runner compare is now identical.
 hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SEED=50 SCR_SKIP_WAITKEY=1
+# And the same route, command for command, with the built-in game patch
+# (SCR_ASSUME_PATCHES=1): task 109's restriction, the bag of doubloons half of
+# the nine-treasure tally, asks for room 0 where its eight siblings ask for
+# room 36, and a zero in that field is the restriction's "is hidden" test
+# instead of a room at all.  The doubloons start hidden and are placed by the
+# blunderbuss shot that kills the zombie, so as shipped they can be carried
+# home or counted, never both.  Patched, 109 asks for room 36 like the rest.
+# 155 of 155.
+hhorror_patched_solution.txt|hhorror.taf|You scored 155 out of the maximum 155!|SCR_SEED=50 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Where Is Richard?: a 1000/1000 win in 68 commands, and the corpus's cleanest
 # witness for the one-level container nesting in "held by the player".  The
 # cupcake that kills the spider is inside the backpack, the backpack was
@@ -6077,6 +6116,16 @@ provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2
 # the object's own Prefix.  See notes/WINE-TRANSCRIPTS-TODO.md, "FIXED
 # 2026-08-25 -- the 4.0 seen-but-absent resolver".
 professor_solution.txt|Professor.taf|You scored 154 out of the maximum 229!
+# The same script with the engine's game patches on (PATCH_PROFESSOR in
+# sctafpar.cpp): not one command changes, because nothing typed was ever the
+# obstacle.  Task 53 (the button pressed while riding -- the machine flies off
+# with the professor never to be seen again) carries a subset of task 54's
+# restrictions and the lower number, so it always claimed the press; 54 is the
+# win, +75 and EndGame 0, and it wants the bottle cap held.  The patch gives 53
+# the complement gate it lacks -- cap NOT held -- so the walkthrough, which
+# holds the cap throughout, gets the flight the author wrote for it.
+# 229 of 229, and the faithful 154 row above is kept.
+professor_patched_solution.txt|Professor.taf|You scored 229 out of the maximum 229!|SCR_ASSUME_PATCHES=1
 # The Wingman (AIF), by Dark Horse, 2011 minicomp.  The game ships its own
 # walkthrough.txt (bar-scene command list plus a topic-list of body-part
 # verbs for the bedroom scene, warning that two of its scoring commands are
@@ -6813,6 +6862,14 @@ regrets_solution.txt|Regrets.taf|The game has ended.|SCR_SKIP_WAITKEY=1
 # -- no automatic end-of-game summary, so the route ends with an explicit
 # `score`. 57 commands, no env vars.
 terrified_solution.txt|Terrified.taf|The game has ended and you have won!|
+# And the same route, command for command, with the built-in game patch
+# (SCR_ASSUME_PATCHES=1): task 89 is the +5 for climbing the compound fence and
+# is executed by each of the four tasks that cross it, every one of which moves
+# the player west out of room 19 first -- and 89's own scope is that single
+# room, so it never runs (see the note above).  Patched, its scope is all
+# rooms, the way a scoring task called by another task wants it, and its four
+# callers stay the only things that run it.  65 of 65.
+terrified_patched_solution.txt|Terrified.taf|Your score is 65 out of a maximum of 65|SCR_ASSUME_PATCHES=1
 # Bringing the Rain / rain.taf (3157 bytes, 4.00): WON, the game's only
 # ending, no score system. Footguns: one task only matches its pattern a
 # full turn after the triggering event, not immediately; an ALTCMD list of
@@ -10261,6 +10318,16 @@ matt_solution.txt|matt.taf|You scored 161 out of the maximum 161!|SCR_SKIP_WAITK
 # "slap Stefcho" is unreachable, since 3.90 rewrites slap -> hit before
 # task matching.
 sentor_solution.txt|sentor.taf|You became a favourite man of KALI|SCR_SKIP_WAITKEY=1
+# And the same route, command for command, with the built-in game patch
+# (SCR_ASSUME_PATCHES=1): task 2 wakes Stefcho the talking skull and is
+# patterned `slap Stefcho`, but 3.90 rewrites `slap` to `hit` before tasks are
+# matched -- one of the Runner's own built-ins (BUILTIN[] in scprintf.cpp), not
+# a synonym of this game's, which has none -- so the line reaches the battle
+# library instead ("it doesn't seem to do any damage.") and the game ends "You
+# finished 1 points short."  Patched, the pattern is re-spelt `hit Stefcho`,
+# what the rewrite leaves behind, and the task takes the line first.
+# 13 of 13.
+sentor_patched_solution.txt|sentor.taf|You scored 13 out of the maximum 13!|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Marmalade Skies. Suit, bar-vault columns, recode transmitter. 150/150.
 marmalade_solution.txt|Marmalade_Skies.taf|You have been saved.|SCR_SKIP_WAITKEY=1
 # The Crash. Bandage, ski the cliff, nails, boots off the body, patch the boat.
@@ -11032,6 +11099,17 @@ temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
 # "I really don't think there's any need for language like that!" ahead of
 # the hit; Scarier prints only the hit. The hits land the same in both.
 thenightmoon_solution.txt|thenightmoon.taf|You scored 360 out of the maximum 400!|SCR_RNG=xoshiro
+# The same script with the engine's game patches on (PATCH_NIGHTMOON in
+# sctafpar.cpp) and one command added, `behead drow` after the rug in the
+# Library.  Task 17's two restrictions contradict each other as shipped: the
+# body must lie in the Library, and "the referenced object" must be held, and
+# every `behead` spelling binds that reference to the body itself.  The patch
+# asks instead for any object held -- the blade in hand the task's own
+# `behead dark elf with %object%` command and its "You do not have %object%."
+# were written for.  380 of 400; the wolf's +20 is left alone, its placing task
+# being one the "Baying at the moon" event never runs and would run into a
+# random room.
+thenightmoon_patched_solution.txt|thenightmoon.taf|You scored 380 out of the maximum 400!|SCR_RNG=xoshiro SCR_ASSUME_PATCHES=1
 # 2026-09-25 batch: derived walkthroughs for content-clean unwired games
 # (notes/<Game>_walkthrough.md for each). zanoza: WIN 28/29, marker is the
 # cp1251 task-91 win text.

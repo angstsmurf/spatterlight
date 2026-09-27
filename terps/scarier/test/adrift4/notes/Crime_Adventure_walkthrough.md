@@ -1,4 +1,4 @@
-# Crime Adventure — walkthrough (**WIN, 95/95 — full score**)
+# Crime Adventure — walkthrough (**WIN, 65/95 — and 65 is the 3.80 ceiling**)
 
 - **Game:** *Crime Adventure* by M. Whitmore (`mwhitmore12@yahoo.co.uk`). You
   are outside a seedy arcade when a car screeches up and someone bundles Mrs
@@ -9,7 +9,13 @@
   Fenwick is there safe and sound. Well there you have it. Mrs Fenwick was in no
   danger at all, it was a friend who picked her up at the booth (she was in a
   rush)."*
-- **Score: 95 out of 95 — every point in the game**, in **90 commands**.
+- **Score: 65 out of 95**, in **90 commands** — and **65 is the real maximum in
+  a 3.8 Runner**, not a missed puzzle. The other 30 points are all gated behind
+  the arcade cash, which ADRIFT 3.8 will not let you pick up (see
+  [§2](#2-the-cash-cannot-be-picked-up-in-38--and-that-costs-30-points)). A
+  3.90/4.00 Runner has no such gate and would score the full 95: **this is a
+  version divergence, not an author bug**, so there is nothing here for the
+  engine's patch table to repair.
 - **Harness row:**
   `crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend`
   (no env), PASSing golden.
@@ -53,12 +59,17 @@ first, so ADRIFT runs it and the scored one never fires:
 
 `*` matches any words, so `wear golf shoes` matches task 14 too, and task 14
 wins on order. Both tasks are non-repeatable, though — so the fix is to **do
-each thing twice**:
+each thing twice**. In this 3.80 file only the **stew** half of that pattern
+ever pays: the shoes are bought with the arcade cash, and §2 below shows the
+cash can never be held, so tasks 14 *and* 15 both answer *"You don't have enough
+money"* however many times you type them. The route still types
+wear/remove/wear, because that is what the measured run380 transcript does and
+the refusals are its record of the gate.
 
 ```
-wear golf shoes      <- task 14 fires, 0 points, task 14 is now spent
+wear golf shoes      <- task 14 would fire, 0 points, spending task 14
 remove shoes
-wear golf shoes      <- task 15 fires, +10
+wear golf shoes      <- task 15 would fire, +10   (neither fires in 3.8)
 ```
 
 The stew is the same shape, with a twist: task 12's own action drops the
@@ -71,21 +82,50 @@ get saucepan
 give stew to mr fenwick    <- task 17, +10, and he hands over the putter again
 ```
 
-**A player who types each command once finishes the game at 75/95** and has no
-way of knowing what the missing 20 were for. Verified by running the route with
-the duplicates removed: 55 at the chair, 75 at the ending.
+**A player who types the stew `give` once finishes the game at 55/95** and has
+no way of knowing what the missing 10 was for. Measured 2026-09-27 by running
+the route with the second `give stew to mr fenwick` removed: **35** at the
+`score` turn instead of 45, and 55 at the ending.
 
-### 2. The scoring `get cash` does not actually give you the cash
+### 2. The cash cannot be picked up in 3.8 — and that costs 30 points
 
 Task 19 (`get cash` in the arcade, +5) has exactly one action — add 5 points. It
 prints
 
 > You grab the £30.00 from the machine
 
-and leaves the cash inside the casino. Since the task is non-repeatable, a
-second `get cash` falls through to the library and really takes it (`get money`
-works too). And the cash **is** load-bearing: it is the held-object restriction
-on both `buy shoes` (task 16) and `wear golf shoes` (task 15).
+and **leaves the cash inside the casino**. The +5 is banked all the same, since
+the task does not care whether the object moves. Taking it for real is another
+matter, and in a 3.80 file it is impossible:
+
+* the task is non-repeatable, so a second `get cash` falls through to the
+  library take;
+* the cash (obj 26) sits **inside the casino machine** (obj 25), a *dynamic*
+  container, and pre-3.9 refuses a take out of a dynamic container the player is
+  not holding or wearing (`run380 insides()` @446CAB/446CFB — the jb2000 row);
+* the casino is class 4 = burden **7** against this game's MaxCarried **5**, so
+  it can never be held, empty hands or not.
+
+So the second `get cash` answers *"You are not holding a casino."*, and the cash
+is unreachable. With it die every task that carries the held-cash restriction
+(`RESTR type=0 obj26=[cash] v2=1`) — tasks 13/14/15/16, the shoe purchase and
+both `wear golf shoes` copies — and task 20 `putt golf ball`, which needs the
+shoes worn:
+
+| Dead in 3.8 | Points | What the game answers |
+| --- | --- | --- |
+| `buy shoes` (task 16) | 5 | *"You don't have enough money"* |
+| `wear golf shoes` (task 15) | 10 | *"You don't have enough money"* |
+| `putt golf ball` (task 20) | 15 | *"You aren't wearing the right clothing."* |
+
+**30 points dead, 65/95 the true maximum.** Every one of those refusals is
+verbatim run380 text, measured on this very game (`Adven_1_crime.rtf`,
+2026-09-04: the whole solution echoed, zero engine differences).
+
+The win survives it. `putt golf ball` is *supposed* to open the way down, but the
+underground passage is reachable anyway — `down` from the back yard answers *"You
+move down. In a underground passage."* — so the chair, the ceiling and the
+ending are all still banked. Only the points are lost.
 
 ### 3. ADRIFT 3.8's pooled burden model is tight enough to block the route
 
@@ -93,12 +133,14 @@ on both `buy shoes` (task 16) and `wear golf shoes` (task 15).
 3.8 pooled burden: **limit 5**, and the putter alone costs **3** (everything
 else portable in this game costs 1). Worn items count.
 
-That makes putter + golf ball + worn golf shoes = **exactly 5**, and the route
-has to be planned around it in two places:
+That makes putter + golf ball + worn golf shoes = **exactly 5** — the budget the
+author was writing to, even though the shoes are never actually worn here — and
+the route still has to be planned around the limit in two places:
 
-* the **cash** must be dropped (the route does it in the kitchen) before the
-  saucepan is carried to the dining room — otherwise the putter arrives and
-  there is no room to pick the saucepan back up for the second `give`;
+* the route's `drop cash` in the kitchen is a **leftover from the 3.9 reading**
+  of this game, where the cash really is carried and would have to be put down
+  before the putter arrives. In 3.8 it answers *"You don't have a penny!"* and
+  costs nothing; it is kept because the measured transcript has it;
 * the **golf ball** must be dropped before `get saucepan`, and the **putter and
   ball** both dropped before `get chair` in the final room.
 
@@ -137,7 +179,7 @@ be opened or loaded — `switch on cooker` starts the event wherever the saucepa
 is, one `wait` finishes the stew (*"The oven has finnished making the stew"*),
 and `switch off cooker` is the task the two `give` tasks actually check for.
 
-## The route, and where the 95 points are
+## The route, and where the 65 points are
 
 | Where | Command | Points |
 | --- | --- | --- |
@@ -145,19 +187,25 @@ and `switch off cooker` is the task the two `give` tasks actually check for.
 | Master bedroom | `read diary` | 0 (hint) |
 | Spare bedroom | `open dresser`, `get penny`, `get golf ball` | 0 |
 | Arcade | `use penny on machine` | **10** |
-| Arcade | `get cash` (then `get cash` again to really take it) | **5** |
-| Shoe Store | `buy shoes` | **5** |
-| Shoe Store | `wear golf shoes` / `remove shoes` / `wear golf shoes` | **10** |
+| Arcade | `get cash` (the second one refuses: *"You are not holding a casino."*) | **5** |
+| Shoe Store | `buy shoes` | 0 — *dead in 3.8, worth 5 in 3.9+* |
+| Shoe Store | `wear golf shoes` / `remove shoes` / `wear golf shoes` | 0 — *dead in 3.8, worth 10 in 3.9+* |
 | Kitchen | four ingredients into the saucepan, `switch on cooker`, `wait`, `switch off cooker` | 0 |
 | Dining room | `give food to mr fenwick` (→ putter) | **10** |
 | Dining room | `get saucepan`, `give stew to mr fenwick` | **10** |
-| Back yard | `putt golf ball` (opens the hole) | **15** |
+| Back yard | `putt golf ball` | 0 — *dead in 3.8, worth 15 in 3.9+; `down` works without it* |
 | Room, below | `move chair under ceiling` | **10** |
 | Room, below | `stand on chair` | **20** → WIN |
 
-Total **95**. The ending prints no score line, so the route runs `score` on the
-turn before `stand on chair`; the golden records **75/95** there and the last 20
-arrive with the win.
+Total **65** in 3.8, 95 under a 3.90/4.00 Runner. The ending prints no score
+line, so the route runs `score` on the turn before `stand on chair`; the golden
+records **45/95** there and the last 20 arrive with the win.
+
+The solution file is kept **exactly as measured** — byte-identical to
+`~/adrift-battle/runner/wine/cmdfile_w_crime.txt` — so the commands the 3.8 gate
+kills (`get cash` #2, `buy shoes`, `wear golf shoes` ×2, `remove shoes`,
+`drop cash`, `putt golf ball`) are left in deliberately: they are the row's
+record of the divergence. Do not "tidy" them away.
 
 ## Reproducing
 
