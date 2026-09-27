@@ -9913,14 +9913,35 @@ crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maxim
 # hazard, avoided) to the Abandoned Farmhouse, where all four rescues fire.
 # Finally `in`/`close britmobile door`/`start engine`/`return to
 # headquarters` drives home, and the corridor walk north into the
-# Controller's Office ends the game. Scores 43/50 (21/50 when first wired;
+# Controller's Office ends the game. Scores 46/50 (21/50 when first wired;
 # the route now also does the Eugene/computer-terminal evidence puzzle,
-# password "butterscotch", and the 2026-09-24 ports). The last 7 points are
-# not yet accounted for; Grace herself necessarily evades capture since
-# arresting her is the OTHER, mutually exclusive branch. Needs
+# password "butterscotch", and the 2026-09-24 ports).
+#
+# The last two points were recovered 2026-09-27.  Both edits had to be
+# turn-for-turn NEUTRAL: the outdoor-patrol and dungeon-escort damage rolls
+# downstream are RNG-stream sensitive, and a sweep of forced offsets found
+# 0,+1,+2,+3,+4,+7,+8 safe while -1,+5,+6 all end in recapture (signature:
+# the basement `attack guard` answers from the wrong actor and no "You
+# scored" line is ever printed).  So:
+#   * T333 (+1) -- the no-op `attack guard` in the mansion basement was
+#     swapped in place for `ring bell`.  One command replaced, no shift.
+#   * T52 "# Beverley cums" (+2) -- the Welsh Fox bedroom scene that opens
+#     the game is escalated to her climax (4x `rub welsh fox's ass`, 5x `rub
+#     welsh fox's pussy`, 3x `ass` again, then `welsh fox fuck british fox`,
+#     which is the ALTCMD that fires the task).  The 13 added turns are paid
+#     for by deleting 13 zero-point HQ flavour commands BEFORE the sensitive
+#     region (the magpie/navy-fox/mathilda/sharon fondling lines and
+#     `x outer guards`), chosen so the net draw offset lands in a safe zone.
+#
+# The remaining 4 points are not reachable on this branch: T460 "# Sneak"
+# (+1) and T189 "# BF works off some frustration" (+2) are structurally
+# excluded once she is captured, and Grace herself necessarily evades capture
+# since arresting her is the OTHER, mutually exclusive branch.  T564
+# "# Point for Eugene" (+1) is reachable in principle but not without
+# re-deriving the whole RNG-sensitive gauntlet.  Needs
 # SCR_SKIP_WAITKEY=1 for the same family of
 # unattended-prompt reasons as CW2/CW4 above.
-britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 43 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+britishfox_solution.txt|British.Fox.and.the.Celebrity.Abductions.taf|You scored 46 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # Dead or Alive Xtreme Beach Sex (captain_cranky_pants2000, 4.00).  AIF,
 # solution/golden gitignored.  Solution: the author's command list
 # (downloaded/DOAXBS_solution.txt) after a "Player" name at the intro

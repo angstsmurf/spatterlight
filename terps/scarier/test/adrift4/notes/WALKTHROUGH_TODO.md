@@ -176,9 +176,16 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   `x rack` first: until the rack is examined its contents are out of the take
   resolver's reach and both `take checker mix` and the alias `take mix` answer
   "Take what?". Route now ends "Well done - you scored maximum points!".
-  Still short and still correct at 43/50 is *British Fox*, the only row whose
-  gap is not yet fully explained: T189, T333 and T564 (+4 between them) never
-  execute on the route, and a further 3 points sit in scoring tasks that do run.
+  Still short, but now fully accounted for, is *British Fox*, raised from 43/50
+  to **46/50** on 2026-09-27: `ring bell` swapped in place of the no-op basement
+  `attack guard` banks T333 (+1), and escalating the opening Welsh Fox bedroom
+  scene to her climax banks T52 "# Beverley cums" (+2), paid for by deleting 13
+  zero-point HQ flavour commands so the route stays turn-for-turn neutral (its
+  later damage rolls are RNG-stream sensitive: measured safe draw offsets
+  0,+1..+4,+7,+8; -1,+5,+6 all end in recapture). The remaining 4 are branch
+  facts, not route bugs: T460 (+1) and T189 (+2) are structurally excluded once
+  she is captured, Grace's arrest is the other, mutually exclusive branch, and
+  T564 (+1) would need the whole RNG-sensitive gauntlet re-derived.
 - **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
   `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
   mangled every pre-existing non-ASCII byte run elsewhere in the file (7
