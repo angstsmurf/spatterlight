@@ -505,6 +505,76 @@ continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
 north, east, south, west, in and southwest.  Your legs are sore.
 
+> in
+You move in.
+
+Alan Dale Motel - Bellefleur, OR
+This is the Alan Dale Motel.  There's a small counter here against the wall,
+but no one in sight.  There's a stairway here.  You can move up and out.
+
+> u
+You move up.
+
+Room 8
+This is the small room you and the Lone Gunmen are renting while you stay in
+Bellefleur.  Fully outfitted with computer equipment, you wonder how long
+this will last.  At least the window offers a nice view of the town.  Also
+here is A Folding Table and A Phone Book.  You can only move down.
+
+> touch labtop
+Always the rebel, you mock Langly sarcastically as you pet his computer.  He
+comes at you from across the room.  "Hey man, what the hell do you think
+you're doing?!!"  Skinner tries to grab him but he's too fast and shoves you
+hard on the shoulders.  He pushes you harder then you anticipated and you
+stumble backwards over a computer wire.
+
+SMACK!
+
+You wake up with a bag of ice on your head.  Skinner and the Lone Gunmen peer
+down at you, worried.  Frohike is yelling at Byers, "Man, punkass.  If Scully
+ever hears you did this, she's going to kick your ass."  Skinner shuts them
+up. "I think he's coming around.  Nathan, do you hear me?"  Your head is sore
+but you nod.  They help you out.  Langly moves to other side of the room.
+
+> sleep
+The Lone Gunmen decide to call it quits for the day.  Your lodgings are
+decided first.  "The kid's sleeping on the floor," Langly declares.  Skinner
+says, "I've got the recliner."  Frohike states, "We'll take the bed then, I
+guess."  Skinner kills the lights and the only illumination left in the room
+comes from the labtop on the folding table.
+ "'Night, Narc, Hippie Jerk."
+"Goodnight, Langly.  Goodnight, Frohike."
+"'Night Punkass.  Goodnight, Byers.  'Night Will, 'Night Skinman."
+"Don't call me that.  Shut the hell up.  Good night, everybody."
+The night passes peacefully enough save the snoring of the old men in the
+room with you.  You drift in and out of sleep.
+
+> take phone book
+You take the Phone Book.
+
+> open phone book
+You open the Phone Book.
+
+> look up byers
+You search through the phone book for the name but it must be unlisted.
+Doesn't anyone in this damn community have a telephone?
+
+> d
+(Standing up first)
+You move down.
+
+Alan Dale Motel - Bellefleur, OR
+This is the Alan Dale Motel.  There's a small counter here against the wall,
+but no one in sight.  There's a stairway here.  You can move up and out.
+
+> out
+You move out.
+
+Outside Alan Dale Motel - Bellefleur, OR
+You're standing outside of a small motel.  The place is worn down but seems
+well kept.  There is a man sitting in a dark car here.  You can move north,
+east, west and in.
+
 > n
 You move north.
 
@@ -515,41 +585,6 @@ street.  The town is very old-fashioned.  Throughout town, there's a post
 office, a hardware store, and a small diner.  There's a sheriff office here
 as well.  Also here is VW Van.  You can move east, south, west, northeast,
 southeast, southwest and northwest.
-
-> in
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
-
-> u
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
-
-> touch labtop
-You can't touch that.
-
-> sleep
-Zzzzz.  Bored are you?
-
-> take phone book
-Take what?
-
-> open phone book
-You can't open that.
-
-> look up byers
-Have X-Ray vision, do you?
-
-> d
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
-
-> out
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
-
-> n
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
 
 > se
 You move southeast.
@@ -755,8 +790,8 @@ to be such a strong and smart young man, or to be sad that I can't protect
 you anymore.  Either way," your father says as he extends his hand to you,
 "Welcome to the Resistance."  You smile without knowing why as you grip it in
 return.
-You scored 296 out of the maximum 299!
-That is 98% of the game!
-You finished 3 points short.
+You scored 299 out of the maximum 299!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

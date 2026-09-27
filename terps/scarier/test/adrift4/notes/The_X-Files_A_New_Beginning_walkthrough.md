@@ -96,7 +96,10 @@ Hub town around a Town Square. Pick up the optional points, get directions, then
 the van takes you to the forest for the finale:
 
 ```
-e, n                        -> Outside Alan Dale Motel
+e                           filler turn while the cross-country Event finishes;
+                            it auto-teleports you to Outside Alan Dale Motel
+                            (not an "n" -- Town Square is a dead end here since
+                            the only exit out of it is gated until later)
 in                          -> Alan Dale Motel
 u                           -> the Gunmen's rented room (Langly's laptop, phone book)
 touch labtop                +1   (triggers a Byers scuffle; you wake with ice)
@@ -150,7 +153,23 @@ byers`** (done in the room-21 block of the solution). Then the +1 scores ("…it
 must be unlisted. Doesn't anyone in this damn community have a telephone?").
 
 So **there is no SCARE bug here, and no engine obstacle anywhere in the game** —
-every scoring task is reachable. The verified result is a full **299 / 299**.
+every scoring task is reachable.
 (Aside, confirmed while chasing this: ADRIFT's `*` wildcard is zero-or-more, and
 both the 3.9 and 4.0 Runners — `run390.txt`/`run400.txt` — match this pattern;
 SCARE matches it too. The earlier "wildcard quirk" theory was wrong.)
+
+## The route bug that actually cost the 3 points (fixed 2026-09-27)
+
+The restrictions above were always fine; what was actually broken was the
+**route into room 21** ("Room 8", the Gunmen's rented room). `get in the van`
+starts a 0–5 turn "journey to Bellefleur" Event; when it finishes it silently
+teleports the player to *Outside Alan Dale Motel* (a hidden admin task's
+action, not a room description). The old solution script issued a stray `n`
+right after the filler `e`, which — from Outside Alan Dale Motel — moves
+*north* to Town Square instead of `in` to the motel. Every command after that
+(`in`, `u`, `touch labtop`, `sleep`, `take/open phone book`, `look up byers`)
+then executed from the wrong room and silently failed, losing exactly the 3
+points from Tasks 14 ("Touch Langly's Labtop"), 16 ("*Sleep") and 22 ("Look up
+*%character%*"). Deleting that one stray `n` (`goldens/xfiles_solution.txt`)
+fixes the route with no other changes downstream; the walkthrough now scores a
+verified **299 / 299**.
