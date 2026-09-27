@@ -211,9 +211,14 @@ that have nothing to do with the patch:
   Scarier asks "Which Sword?  Cool Sword or Awesome Sword?" and swings on the
   repeat, because it matches the Short without regard to case and has no such
   gate: `lib_battle_scan_with()`'s walk-every-named-object/last-weapon-wins is
-  measured on thesorc, a **3.90** game, and over-fires at 4.0. The engine is
-  left as it is -- the 3.90 behaviour it models is itself measured, and the 4.0
-  rule above is not implemented.
+  measured on thesorc, a **3.90** game, and over-fires at 4.0. That is kept as
+  a **deliberate deviation**, documented in the comment above
+  `lib_battle_scan_with()`: the 4.0 rule is a parser accident rather than a
+  design -- a Short the .taf capitalises can never be typed, and an object
+  whose Alias is its neighbour's Short can never be wielded -- so honouring it
+  would refuse commands the game was written to accept. The divergence is
+  one-directional, Scarier accepting strictly more phrasings and never fewer,
+  and this row is the only place in the corpus it shows.
 
 ## Rows without a transcript
 

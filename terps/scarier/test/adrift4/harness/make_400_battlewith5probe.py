@@ -107,8 +107,13 @@ Two corollaries for Illegal Socks, whose swords are exactly G's:
     row now uses.
   * Scarier swings there instead because it matches the Short without regard
     to case and has no such gate, so it binds a weapon run400 never finds.
-    lib_battle_scan_with() is left as the measured 3.90 walk (thesorc); this
-    rule is 4.0 only and is not implemented.
+    That is a DELIBERATE DEVIATION and not a bug to be fixed from this probe:
+    lib_battle_scan_with() keeps the measured 3.90 walk (thesorc) at 4.0 too.
+    The rule above is a parser accident rather than a design -- it makes an
+    author's own naming unreachable -- so honouring it would refuse commands
+    the game was written to accept, and the divergence it leaves is
+    one-directional: Scarier accepts strictly more phrasings, never fewer.
+    See the comment above lib_battle_scan_with() in sclibrar_battle.inc.
 
 Commands: v4_full_rerun_cmds/battlewith5a.txt, with 5c/5i/5j/5k/5l/5m/5n.txt
 for the variants that name other objects or another NPC; 5b and 5d..5h reuse

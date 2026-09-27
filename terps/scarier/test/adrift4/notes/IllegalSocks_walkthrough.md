@@ -211,6 +211,14 @@ phrasing that reaches the Awesome Sword in run400.
 Scarier asks "Which Sword?  Cool Sword or Awesome Sword?" and swings on the
 repeat, because it matches the Short without regard to case and has no such
 gate: `lib_battle_scan_with()`'s walk-every-named-object / last-weapon-wins was
-measured on thesorc, a 3.90 game, and over-fires at 4.0. The engine is left
-alone -- the 3.90 walk it models is itself measured, and the 4.0 rule above is
-not implemented.
+measured on thesorc, a 3.90 game, and over-fires at 4.0.
+
+That is kept as a **deliberate deviation**, written up in the comment above
+`lib_battle_scan_with()` in `sclibrar_battle.inc`. The 4.0 rule is a parser
+accident rather than a design: it makes an author's own naming unreachable --
+here it hides both swords behind their capitalised Shorts and then throws out
+the one object that did match -- so honouring it would refuse commands the game
+was written to accept. The divergence is one-directional, Scarier accepting
+strictly more phrasings and never fewer, and this game is the only place in the
+corpus where it shows. The golden plays `with sword2` regardless, which binds
+under both models, so the row is Runner-measured either way.

@@ -1615,17 +1615,32 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
  * break, so the last one named wins; anything else is refused on the way
  * (lib_battle_cant_attack()).  Returns the weapon, or -1.
  *
- * That walk is measured on thesorc, a 3.90 game, and 4.0 is NOT the same: it
- * puts the term after " with " through the ordinary 4.0 object scorer and
- * lets the strict maximum decide, so a term that names two objects equally
- * ("awesome sword" for Illegal Socks' Cool Sword/Alias "Sword" and Awesome
- * Sword/Alias "Sword2", 2 each) binds nothing and dies turn-free in the
- * character catch-all, while we ask "Which Sword?" and swing on the repeat.
- * Measured live in run400 (Adrift_305_socks6 / Adrift_306_socks7 /
- * Adrift_305_battlew2 / Adrift_305_battlew3, 2026-09-27); the table and the
- * one case that does not yet fit the rule are in
- * test/adrift4/harness/make_400_battlewith3probe.py.  Left as the 3.90
- * behaviour until that case is understood.
+ * That walk is measured on thesorc, a 3.90 game, and 4.0 is NOT the same.
+ * Measured over 68 cases in run400 (Adrift_305_socks6 / Adrift_306_socks7 /
+ * Adrift_305..309_battlew2..battlew5n, 2026-09-27), 4.0 binds the weapon like
+ * this: a word matches a Short case-SENSITIVELY but an Alias or a Prefix word
+ * without regard to case, always whole; an object is a candidate only if its
+ * Short or an Alias matched, never a Prefix alone; it scores the number of
+ * distinct input words it answers to; the highest score wins, a tie going to
+ * the last such object; and the winner is then REFUSED if every word it
+ * matched is also answered by another object, or its matched Alias is another
+ * object's name, or it matched by Alias while another candidate exists.  A
+ * refusal is turn-free, and the catch-all naming it comes from a second,
+ * ordinary resolver (lib_verb_object_name_score()'s shape), whose own ties
+ * name nothing and so give the character catch-all.  The full record -- the
+ * variant table, every measurement and the predictions that confirmed it --
+ * is test/adrift4/harness/make_400_battlewith5probe.py.
+ *
+ * Deliberate deviation: Scarier keeps the 3.90 walk at 4.0 as well.  The 4.0
+ * rule is a parser accident rather than a design -- it makes an author's own
+ * naming unreachable (a Short the .taf capitalises can never be typed, and an
+ * object whose Alias is its neighbour's Short can never be wielded), so
+ * implementing it would refuse commands the game was written to accept.  The
+ * visible cost is small and one-directional: where run400 dies turn-free in a
+ * catch-all we ask "Which Sword?" and swing on the repeat, i.e. we accept
+ * strictly more phrasings and never fewer.  Illegal Socks is the one corpus
+ * game it shows up in, and its golden plays `with sword2`, which binds under
+ * both models (test/adrift4/notes/IllegalSocks_walkthrough.md).
  */
 static scr_int
 lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
