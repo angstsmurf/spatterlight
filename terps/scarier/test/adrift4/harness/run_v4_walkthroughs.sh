@@ -6246,6 +6246,7 @@ p2p_solution.txt|P2P.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY
 # notes/WINE-TRANSCRIPTS-TODO.md.
 # 2026-09-06: PUTBIG400 measured and ported -- turn 3 prints the size
 # refusal and task 7's text on one line, re-blessed.
+# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): the slot task's text is no longer preceded by the contradictory "Your penknife is too big to fit inside the slot.".
 zacksmackfoot_solution.txt|zacksmackfoot.taf|THE END . . . . . for now!|SCR_SKIP_WAITKEY=1
 # Boiled Eggs (no scoring, single win ending): pump Louise's dialogue tree
 # for the spare-key location and Joe's box, unlock the front door, hide
@@ -6908,6 +6909,7 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # probe PSTAT, Adrift_941/942_pstat -- see lib_put_named_filter(),
 # lib_put_implicit_take() and lib_put_nothing_carried_400(), and the PSTAT
 # section of notes/WINE-TRANSCRIPTS-TODO.md.  Byte-identical after the port.
+# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): `put knife in hole` loses the contradictory "The little knife can't fit inside the little hole at the moment." ahead of the task's put line.
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
@@ -7455,6 +7457,7 @@ cluelessbob_solution.txt|In_the_Claws_of_Clueless_Bob.taf|score of 12 - well don
 # that inside the saucepan." instead of running task 12's authored text
 # (runner_transcripts/hub.txt:285). See lib_put_fragment_present_object()
 # and lib_put_print_object_or_that() in sclibrar.cpp.
+# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): `put soup in pan` fires the soup task ("The soup slides easy out of the can ...") instead of the library's "I put that inside the saucepan.".
 hub_solution.txt|hub.taf|driveway, and take off down the suburban street, not once looking back.|
 # YNKaboom.taf ("The Ascot"): pure yes/no CYOA, no formal score system (0
 # ChangeScore actions; 5 EndGame endings differentiated only by an
@@ -9207,7 +9210,8 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # 2026-09-27: `open bathroom door` is "You can't see the bathroom door." --
 # the line names the whole door, not just "door" (deliberate deviation).
 # 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the web task fires, which moves the scripted death path by one turn; same win.
-house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
+# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): task 459 fires from `put wood in fireplace` ("Your hands are full.  You dump the wood into the fireplace."), so the fire puzzle is alive unpatched.  The route was built round the dead fire; it now drifts after the fire and dies 19/30 instead of 18/30.  Marker moved from the Runner's refusal "You are not holding the wood." to the task's line.
+house_solution.txt|House.taf|You dump the wood into the fireplace.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # The same route with the engine's targeted game patches on.  Task 459 gains
 # the {the} slot the library's canonical rebuild needs, so `put wood in
 # fireplace` reaches the task the author wrote for it, the newspaper catches,
@@ -9220,6 +9224,7 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # upstairs and stings Cathy in the master bedroom (death, 19/30).  Seeds 1-40:
 # 34 win at 30/30; 1, 12, 19, 20, 24 and 39 lose to a monster.
 # 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the cobweb goes into the boiling water.
+# 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): `pour honey in kettle` loses the contradictory "The jar of honey is too big to fit inside the large cast iron kettle." ahead of the task text.  This route now wins 30/30 unpatched too.
 house_patched_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game

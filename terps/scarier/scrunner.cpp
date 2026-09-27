@@ -8964,6 +8964,22 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
 }
 
 /*
+ * run_passing_task_commands()
+ *
+ * run_game_task_commands() without the restriction-failure pass: only a task
+ * whose restrictions pass can claim the line, and a FailMessage never does.
+ * For lib_try_typed_put_line_400(), whose look-up the Runner never makes --
+ * there a failing task must not take the line away from the library put the
+ * game may be waiting on (deadman's `put hand on plate`, "You'll need an
+ * additional thumbprint.").
+ */
+scr_bool
+run_passing_task_commands (scr_gameref_t game, const scr_char *string)
+{
+  return run_game_commands_common (game, string, FALSE, TRUE, FALSE);
+}
+
+/*
  * run_typed_line_task_commands()
  *
  * Offer a line to the tasks the way run390 does from inside a library

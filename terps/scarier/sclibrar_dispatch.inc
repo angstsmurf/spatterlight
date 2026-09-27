@@ -840,6 +840,60 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
   return status;
 }
 
+/*
+ * lib_try_typed_put_line_400()
+ *
+ * The typed line of a one-object 4.0 put, offered to the put-family tasks
+ * after the canonical rebuild above has missed them all.  run400 never does
+ * this -- the rebuild is the handler's only look-up, and its refusal or move
+ * then claims the line -- so a task written for exactly what the player
+ * typed can be unreachable: House's task 459 "[put/place/drop] {some} [wood]
+ * {in/into/in to} {the} [fireplace/fire place]" matches `put wood in
+ * fireplace` word for word but has no slot for the rebuild's first "the",
+ * and the Runner answers "You are not holding the wood." with the fire left
+ * unlaid; with the wood already in hand the library's own put claims it,
+ * and the fire is just as dead.  Deliberate deviation (2026-09-27): the
+ * author's task wins -- but only a task that runs.  A task whose
+ * restrictions fail leaves the put to the library, message or no message:
+ * see run_passing_task_commands().  It also wins ahead of the size and
+ * capacity refusals, which run400 prints before a task the rebuild did
+ * reach through run_all_commands() ("Your penknife is too big to fit inside
+ * the slot.  A quick push and the button ...", zacksmackfoot).
+ */
+static scr_bool
+lib_try_typed_put_line_400 (scr_gameref_t game)
+{
+  const scr_char *const typed = run_get_dispatch_input ();
+  scr_bool status;
+
+  assert (lib_is_version_400 (game));
+  if (!typed)
+    return FALSE;
+
+  /*
+   * Task matching re-binds the references, and a miss must leave them as
+   * the handler had them.
+   */
+  const std::vector<scr_bool> references = game->object_references;
+  const std::vector<scr_bool> multiple = game->multiple_references;
+
+  /* The take report ahead of it, if any, is a clause of its own. */
+  const scr_bool joined = pf_buffer_tentative_join (gs_get_filter (game));
+
+  run_set_task_class_filter (2);
+  status = run_passing_task_commands (game, typed);
+  run_set_task_class_filter (0);
+
+  if (joined)
+    pf_retract_tentative_join (gs_get_filter (game));
+  if (!status)
+    {
+      game->object_references = references;
+      game->multiple_references = multiple;
+    }
+  return status;
+}
+
 static scr_bool
 lib_try_game_command_with_npc (scr_gameref_t game,
                                const scr_char *verb, scr_int object,

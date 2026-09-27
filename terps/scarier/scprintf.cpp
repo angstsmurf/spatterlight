@@ -2419,6 +2419,42 @@ pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_buffer_tentative_join()
+ * pf_retract_tentative_join()
+ *
+ * pf_buffer_join_always()'s separator for text that may never come: the
+ * first appends "  " when buffered text would need it and says whether it
+ * did; the second takes it back again if nothing followed it.  For a caller
+ * that can only tell whether some code prints by running it -- the buffer
+ * is filtered and moved about while tasks run, so a length taken before is
+ * no guide to where their text starts.
+ */
+scr_bool
+pf_buffer_tentative_join (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->is_muted || filter->buffer.size () <= filter->hidden
+      || pf_text_ends_with_break (filter->buffer.c_str ())
+      || filter->buffer.back () == ' ')
+    return FALSE;
+
+  pf_append_string (filter, "  ");
+  return TRUE;
+}
+
+void
+pf_retract_tentative_join (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  const size_t length = filter->buffer.size ();
+  if (length >= filter->hidden + 2
+      && filter->buffer.compare (length - 2, 2, "  ") == 0)
+    filter->buffer.resize (length - 2);
+}
+
+/*
  * pf_buffer_pspace()
  *
  * The pspace() sub by itself, for a caller that needs the separator without

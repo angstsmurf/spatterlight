@@ -393,8 +393,7 @@ I eat the soup. Just few gulps...
 Drink the last soup from the bowl...
 
 > put knife in hole
-The little knife can't fit inside the little hole at the moment.  I put the
-knife in the mouse hole.
+I put the knife in the mouse hole.
 
 > x door
 It's a wooden door in the western wall.  The spyhole is in the door.

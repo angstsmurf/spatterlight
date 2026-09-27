@@ -1669,8 +1669,7 @@ You drop the cobweb into the boiling water.
 You drop the cobweb into the boiling water.
 
 > put honey in kettle
-The jar of honey is too big to fit inside the large cast iron kettle.  You
-pour some of the sticky honey into the boiling water.
+You pour some of the sticky honey into the boiling water.
 
 > reveal thy secret
 You take a deep breath and say,

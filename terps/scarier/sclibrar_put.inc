@@ -717,6 +717,17 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
         }
     }
 
+  /* The typed line, when the rebuild missed; see
+     lib_try_typed_put_line_400(). */
+  if (!task_claimed && pending.size () == 1
+      && lib_try_typed_put_line_400 (game))
+    {
+      game->object_references[pending.front ()] = FALSE;
+      game->multiple_references[pending.front ()] = FALSE;
+      has_printed = TRUE;
+      task_claimed = TRUE;
+    }
+
   /*
    * 4.0's self-container test, in insides' own place: after the take phase
    * and the tasks() call at 465EB5, after the possession test at 465EED --
@@ -3525,6 +3536,17 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
           has_printed = TRUE;
           task_claimed = TRUE;
         }
+    }
+
+  /* The typed line, when the rebuild missed; see
+     lib_try_typed_put_line_400(). */
+  if (!task_claimed && pending.size () == 1
+      && lib_try_typed_put_line_400 (game))
+    {
+      game->object_references[pending.front ()] = FALSE;
+      game->multiple_references[pending.front ()] = FALSE;
+      has_printed = TRUE;
+      task_claimed = TRUE;
     }
 
   /*

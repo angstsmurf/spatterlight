@@ -1195,6 +1195,23 @@ case, and their goldens are re-blessed. The row comments in
   turn), bandera, govard (three wear lines get the task's "Sdelano!").
   JGrim, sommeril, icecream, tenebraesemper, iachini and Glum Fiddle got
   their original wording back.
+- **The typed put line reaches the author's task (2026-09-27).** At 4.0
+  the put handler offers tasks only its canonical rebuild of the line
+  ("put the wood in the fireplace"). A task written for what the player
+  typed can then never fire. House's task 459 has no slot for the
+  rebuild's first "the", so run400 answers `put wood in fireplace` with
+  "You are not holding the wood." (or, wood in hand, the library's put),
+  and the fire puzzle is dead. When the rebuild misses for a one-object
+  put, Scarier now offers the typed line to the put-family tasks as well
+  (lib_try_typed_put_line_400). Only a task whose restrictions pass can
+  claim it; a failing restriction leaves the put to the library, message
+  or no message (deadman's `put hand on plate`, TheADRIFTProject's " Not
+  yet."). The claim comes ahead of the size and capacity refusals, so the
+  contradictory "too big to fit" line that run400 prints before a task
+  reached through run_all_commands() is gone too. Re-blessed:
+  house (the fire lights unpatched; marker moved to the task's line),
+  house_patched, hub (the soup task fires), zacksmackfoot, thelasthour.
+  House's own route wins 30/30 without SCR_ASSUME_PATCHES.
 ---
 
 ## Rules measured and ported (index)

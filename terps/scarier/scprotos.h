@@ -370,6 +370,8 @@ extern void pf_buffer_join (scr_filterref_t filter,
                             const scr_char *string);
 extern void pf_buffer_join_always (scr_filterref_t filter,
                                   const scr_char *string);
+extern scr_bool pf_buffer_tentative_join (scr_filterref_t filter);
+extern void pf_retract_tentative_join (scr_filterref_t filter);
 extern void pf_buffer_hard_break (scr_filterref_t filter);
 extern void pf_buffer_join_pending (scr_filterref_t filter);
 extern void pf_clear_join_pending (scr_filterref_t filter);
@@ -1068,6 +1070,8 @@ extern scr_bool run_does_command_match (scr_gameref_t game,
                                         scr_int *match_kind = NULL);
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_lenient_task_matching (void);
+extern scr_bool run_passing_task_commands (scr_gameref_t game,
+                                           const scr_char *string);
 extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);

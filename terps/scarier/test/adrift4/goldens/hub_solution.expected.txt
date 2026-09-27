@@ -425,7 +425,8 @@ I put the can opener on the minestrone soup can, and turn the lever. A lovely
 smell of tomato and garlic wafts out.
 
 > put soup in pan
-I put that inside the saucepan.
+The soup slides easy out of the can and into the saucepan. I throw the can
+into the bin.
 
 > press on
 I press the 'on' button.  The hob is starts glowing red.
