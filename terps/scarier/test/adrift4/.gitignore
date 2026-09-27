@@ -381,3 +381,15 @@
 /goldens/vgm1_3_solution.expected.txt
 /runner_transcripts/**/vgm1_3.*
 /notes/VGM1_3_walkthrough.md
+
+# Ghost Justice (AIF): explicit text, deliberately not committed.
+/goldens/ghostjustice_solution.txt
+/goldens/ghostjustice_solution.expected.txt
+/runner_transcripts/**/ghostjustice.*
+/notes/ghostjustice_walkthrough.md
+
+# Blue Sky (AIF): explicit text, deliberately not committed.
+/goldens/bluesky_solution.txt
+/goldens/bluesky_solution.expected.txt
+/runner_transcripts/**/bluesky.*
+/notes/bluesky_walkthrough.md

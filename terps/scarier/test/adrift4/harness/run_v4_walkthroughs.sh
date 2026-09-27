@@ -11197,6 +11197,14 @@ smercenary_solution.txt|smercenary.taf||SCR_RNG=xoshiro
 # declared 56, which double-counts two mutually exclusive branches (see the
 # solution file header). AIF, adults throughout.
 vgm1_3_solution.txt|VGM1_3.taf|You scored 45 out of the maximum 56!|
+# Ghost Justice (ghostjustice.taf), Purple Dragon: WIN, 100/100, in 182
+# commands. Kill-not-torture branch for Margaret (proven 0-point either
+# way). Deterministic across 3 runs. See goldens/ghostjustice_solution.txt.
+ghostjustice_solution.txt|ghostjustice.taf|You scored 100 out of the maximum 100!|
+# Blue Sky (bluesky.taf), v. 0.5: WIN, in 74 commands. Declared max score
+# is 0 (no `ACT type=4` anywhere); win marker is the game's WINTEXT header.
+# Deterministic across 3 runs. See notes/bluesky_walkthrough.md.
+bluesky_solution.txt|bluesky.taf|You have finished Blue Sky (v. 0.5)|
 EOF
 
 

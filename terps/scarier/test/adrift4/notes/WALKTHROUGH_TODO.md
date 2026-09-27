@@ -521,14 +521,28 @@ on, and a decline resting on more than one ground must survive the removal of
 any single one. `Hunting Ground.taf` is the control case — it is kept wired
 (owner call, 2026-09-25) on exactly the ground VGM1_3 was refused for.
 
-**Pending owner call (not derived, not declined):**
-`ghostjustice.taf` — Candi is judged "around 21 or 22" by the narrator, but
-the sex scene is her "little girl routine" ("Her words and mannerisms might be
-those of a little girl"). That is closer to graduation's schoolgirl-coding
-than to mount's adult-in-costume. Everyone else is adult (Susan "20 years old").
+**2026-09-27: `ghostjustice.taf` owner call resolved, confirmed directly (not
+just relayed) — clean, finalized as wired.** Candi is judged "around 21 or 22"
+by the narrator; her "little girl routine" during the scene ("Her words and
+mannerisms might be those of a little girl") is age-play/kink framing on a
+stated adult, not a claim that she is one. Everyone else is adult (Susan "20
+years old"). Derived and wired 2026-09-27: **WON, 100/100 (100%), in 182
+commands**, deterministic across 3 runs — see
+`notes/ghostjustice_walkthrough.md` (gitignored, AIF). Margaret's climax
+branches into "kill her" vs. "torture her"; the route takes "kill her" for
+content-policy reasons (routing around graphic non-consensual content),
+proven zero-cost against the full score census (the torture branch, TASK228–
+276, carries no `ACT type=4` markers at all).
+
 `bluesky.taf` — no age is stated anywhere; the player stays at home on a summer
 job while "Your family went on holiday", a neighbour calls him "son", and Maria
-"is about your own age". Nothing frames a minor, but nothing establishes an adult.
+"is about your own age". Nothing frames a minor, but nothing establishes an
+adult either. **2026-09-27: confirmed directly — proceed, treated the same as
+every other "no signal either way" AIF game in this corpus.** Derived and
+wired 2026-09-27: **WIN, in 74 commands**, deterministic across 3 runs — see
+`notes/bluesky_walkthrough.md` (gitignored, AIF). The game declares a maximum
+score of 0 (no `ACT type=4` anywhere in the file); the win marker is the
+game's WINTEXT header, `You have finished Blue Sky (v. 0.5)`.
 
 **Screened AIF between adults — all wired 2026-09-26** except 3 that turned
 out on full derivation to require permanent decline (see below): EscapePod
