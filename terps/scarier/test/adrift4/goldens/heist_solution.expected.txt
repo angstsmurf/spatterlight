@@ -83,6 +83,12 @@ I start to lift up the rack. Surely enough there is a gun.
 > take gun
 I take the gun from the rack.
 
+> x rack
+A rack of food.   A checker mix is on the rack.
+
+> take checker mix
+I take the checker mix from the rack.
+
 > n
 I move north.
 
@@ -92,6 +98,9 @@ light. The counter sits at the front of the room, behind it is the old
 shopkeeper Mr. White. This is a one room market, with a small stand with
 treats on it. To my right is an automatic door. There is a pretty big cash
 register on the counter. South is the back of the store.
+
+> buy checker mix
+I go up to the register and buy the checker mix. It was 2 dollars.
 
 > threaten white
 I pull out the pistol and threaten Mr. White, he freaks out and says, "Okay!
@@ -115,8 +124,8 @@ All I have to do is step on the mat and my heist will be complete.
 > step on mat
 I step on the mat....
 
-You scored 7 out of the maximum 8!
-That is 87% of the game!
-You finished 1 points short.
+You scored 8 out of the maximum 8!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

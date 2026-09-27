@@ -10196,9 +10196,18 @@ laboratory_solution.txt|laboratory.taf|Find out what happens in "Escape from the
 # The Big Spy Fiction ch.1. ATM cash, buy wine, send the guard to the
 # diner, cut the lock-gadget out of the clothes with mall scissors.
 bigspy1_solution.txt|bigspy1.taf|Kindly run the second chapter|SCR_SKIP_WAITKEY=1
-# Heist. Author `short` route minus checker-mix (that buy also needs
-# money==2, same as the candy, so 8/8 is mutually exclusive). Waitkeys.
-heist_solution.txt|heist.taf|You scored 7 out of the maximum 8!|SCR_SKIP_WAITKEY=1
+# Heist. Author `short` route plus the checker-mix point the author's own
+# intro dares you to find ("there is a secret thing you can do which is
+# not mentioned in the walkthroughs ... until you do it you'll never reach
+# the maximum score").  Corrected 2026-09-27: the two buys are NOT
+# mutually exclusive -- T0 and T4 both test money >= 2 (RESTR type=4 v1=2
+# v2=3 v3=2) and neither spends the variable, so the candy bar and the
+# checker mix can both be bought.  The mix sits on the back-room rack and
+# needs `x rack` before `take checker mix`: until the rack is examined its
+# contents are out of the take resolver's reach and the line answers
+# "Take what?" -- the same for the alias `mix`.  8/8, "Well done - you
+# scored maximum points!".  Waitkeys.
+heist_solution.txt|heist.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Office Breakout. Coffee + holepunch through door/vent/elevator, then
 # pepsi+coffee on the lobby fire. Full 60/60. Waitkeys on the closer.
 officebreak_solution.txt|officebreak.taf|You scored 60 out of the maximum 60!|SCR_SKIP_WAITKEY=1

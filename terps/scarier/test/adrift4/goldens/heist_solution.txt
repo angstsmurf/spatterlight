@@ -9,7 +9,10 @@ take rope
 e
 lift rack
 take gun
+x rack
+take checker mix
 n
+buy checker mix
 threaten white
 tie up white
 open cash register

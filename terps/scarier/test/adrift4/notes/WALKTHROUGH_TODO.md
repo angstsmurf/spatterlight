@@ -161,6 +161,24 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   maximum). *Marooned* was re-read too: T24 is a duplicate of T14, which
   already pays the same +10 for the same act, so those ten are phantom maximum
   rather than blocked score and patching them would pay twice.
+- **Score-shortfall sweep, 2026-09-27.** Every `goldens/*_solution.expected.txt`
+  was re-read for its closing tally and the 83 rows that end below their declared
+  maximum were triaged against their manifest comments. All but one are accounted
+  for as phantom maxima (a declared `MaxScore` above the sum of the file's own
+  ChangeScore actions, or a sum over mutually exclusive endings), as documented
+  author bugs (see `UNREACHABLE.md`), as the faithful half of a patched pair, or
+  as a deliberate content-policy omission. The one genuine route gap was
+  **Heist**, 7→**8/8**: the author's intro dares the player to find a "secret
+  thing … not mentioned in the walkthroughs", which is T4 `buy checker mix`, and
+  the old manifest comment wrongly called it exclusive with the candy bar. T0 and
+  T4 both test *money >= 2* (`RESTR type=4 v1=2 v2=3 v3=2`) and neither spends
+  the variable, so both buys land. The mix sits on the back-room rack and needs
+  `x rack` first: until the rack is examined its contents are out of the take
+  resolver's reach and both `take checker mix` and the alias `take mix` answer
+  "Take what?". Route now ends "Well done - you scored maximum points!".
+  Still short and still correct at 43/50 is *British Fox*, the only row whose
+  gap is not yet fully explained: T189, T333 and T564 (+4 between them) never
+  execute on the route, and a further 3 points sit in scoring tasks that do run.
 - **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
   `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
   mangled every pre-existing non-ASCII byte run elsewhere in the file (7
