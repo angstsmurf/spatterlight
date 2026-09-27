@@ -4288,9 +4288,9 @@ gsc_command_move_assist (const char *argument)
  * non-faithful aid for pre-4.0 games where a finished task claims a command
  * the player needs again: the Runner answers "You have already done that."
  * (or the task's RepeatText) ahead of movement and the library, which in e.g.
- * The Vampire With A Conscience and The Merry Murders blocks the only way
- * on.  When on, those commands go on to the ordinary handlers.  Off by
- * default; 4.0 games are unaffected.
+ * The Long Journey Home and Inverness Castle blocks the only way on.  When
+ * on, those commands go on to the ordinary handlers.  Off by default; 4.0
+ * games are unaffected.
  */
 static void
 gsc_command_repeat_assist (const char *argument)
@@ -6583,10 +6583,14 @@ gsc_get_ending_option (void)
  *    Battle System: the move bringing the Flare Rat into the Attack Menu
  *    (cosmetic only -- the fight is driven by variables, not presence).
  *  - Repeat assist.  Pre-4.0 games where a finished task blocks a command
- *    the game needs again.  The Vampire with a Conscience and The Merry
- *    Murders wall at 70/100 and 120/135; in The Long Journey Home and
- *    Inverness Castle a spent catch-all task answers every later command,
- *    even "quit", with "You have already done that."
+ *    the game needs again.  In The Long Journey Home and Inverness Castle a
+ *    spent catch-all task answers every later command, even "quit", with
+ *    "You have already done that."  The Vampire with a Conscience and The
+ *    Merry Murders wall at 70/100 and 120/135 on the same class of bug, but
+ *    each is a single bad field, so the patch table repairs them instead and
+ *    they are not listed below: one notice, and no session-wide change to
+ *    spent-task handling.  After "glk patches off" their walls are back, and
+ *    "glk repeatassist on" is then the way past them.
  *  - Room assist.  A task left set to run in no room at all.  Space Run's
  *    ending is behind one; in The Hangover it is the doctor taking the fries
  *    (5/7 without, 6/7 with -- a separate bug still blocks the last point).
@@ -6645,10 +6649,6 @@ static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
   {"HYPER Battle System Version 1.1Copyright 2002 Seciden Mencarde",
    "Seciden Mencarde", GSC_ASSIST_MOVE,
    "A character in this game never appears as authored"},
-  {"The Vampire with a Conscience", "Ole Olsen", GSC_ASSIST_REPEAT,
-   "This game cannot be completed as authored"},
-  {"The Merry Murders", "Mel S.", GSC_ASSIST_REPEAT,
-   "This game cannot be completed as authored"},
   {"The Long Journey Home", "Danny Chabino", GSC_ASSIST_REPEAT,
    "This game cannot be completed as authored"},
   {"Inverness Castle", "David Good", GSC_ASSIST_REPEAT,
