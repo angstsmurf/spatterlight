@@ -388,10 +388,18 @@ lib_try_game_command_common (scr_gameref_t game,
    * `take stone`) rule out a canonical-verb rebuild as well as a typed-verb
    * one.  Only the bare-name form below survives, and only for one object.
    */
+  /*
+   * Deliberate deviation (2026-09-27): on a line no task matches the
+   * Runner's way (run_lenient_task_matching()), the retry is made at every
+   * version and with the canonical verb, so a task spelled `take a pebble`
+   * answers `take pebble` below 4.0 too, and TenebraeSemper's `get * pen(s)`
+   * answers `take pens`.
+   */
+  const scr_bool lenient = run_lenient_task_matching ();
   const scr_bool no_prefixed_retry
-    = prop_get_taf_version (bundle) < TAF_VERSION_400;
+    = prop_get_taf_version (bundle) < TAF_VERSION_400 && !lenient;
 
-  if (use_typed_verb)
+  if (use_typed_verb && !lenient)
     verb = lib_typed_verb (verb);
   scr_vartype_t vt_key[3];
   scr_char buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];

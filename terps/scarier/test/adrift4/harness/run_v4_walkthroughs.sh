@@ -70,6 +70,7 @@ FILTER="${1:-}"
 # mis-parses heredocs inside $() when the content's quote count is odd --
 # an apostrophe in a marker would break the whole script.)
 map_rows() { cat <<'EOF'
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the original `put ice cream in cone` reaches its task again (the 4.0 put parser no longer clobbers the line to a fragment).
 icecream_solution.txt|IceCream.taf||SCR_SKIP_WAITKEY=1
 # Measured live in run400 under Wine (2026-08-24), full 8-command replay,
 # Verbose ON: the Runner prints only "Huey the Contractor walks by and
@@ -1263,6 +1264,7 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # 2026-09-27: `take phone book` (there is no phone book) is "Take what?": the
 # line names more than the cell phone's "phone", so it no longer takes the
 # phone from the backpack as run400 does (deliberate deviation, key ring).
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `burn memo` and `push buzzer` now fire their tasks; 285 -> 296/299.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering
@@ -1496,6 +1498,7 @@ the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 # armor" is sought in "rawhide armor".  run390's checkwild 4346A8 never cuts
 # the line, so the 3.9 twin still buys.  uip_wildcard_match_400().  The $90
 # stays in the purse to the end.  Now identical to the Runner on every turn.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `buy rawhide armor` buys and `wear` works.
 the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # Azra ships as two files and they are NOT the same game to play.  The
 # underscored IF Archive build is a 4.00-signature upconversion of the author's
@@ -1761,6 +1764,7 @@ wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 # restriction can never hold, so those 10 points can never be banked; reading
 # the page still scores its own +5.  95 - 10 = 85, exactly this row's score,
 # and the route below takes everything else in the pool.  Surveyed 2026-09-13.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `get placemat` is the original wording again, and the `x pile of dust ` task (trailing space) fires.
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
 # default in the Glk build): task 6's restriction asks the fountain the fish
@@ -1768,6 +1772,7 @@ sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # runs the task instead of falling to the library take, the fish dives, and
 # the ten points land.  The script is the faithful one, unchanged; only the
 # golden and this row's env differ.  95/100 is the whole scoring pool.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the `x pile of dust ` task (trailing space) fires.
 sommeril_patched_solution.txt|sommeril.taf|You scored 95 out of the maximum 100!|SCR_ASSUME_PATCHES=1
 # Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
 # identical, then the long cutscene after "read incantation" (turn 106)
@@ -1921,7 +1926,9 @@ ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And t
 # "(Taking that first)" / "You put that inside the hessian sack." lead
 # (Adrift_583): that was the put's implicit take of an object the failed
 # `take` never picked up.  With the takes working, run400 names the object.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the takes reach TASK 19 without first examining the boulders, so that line is gone; Glum's timing shifts, same win.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `in` works again despite TASK 91's trailing space.
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-07: re-driven in run400 with the corrected feed
 # (Adrift_435_mysteryofcaves.txt, 115/115 echoed) -- IDENTICAL on every turn.
@@ -5200,6 +5207,7 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # %item%` and `give %item% to %character%` (row above); Riding_Home's
 # `{your/%NewPlayer%'s}` is dead in the real Runner, the marker being
 # lower-cased while the variable's Name is not.  All three goldens unmoved.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `put sheet in dryer` reaches T18 again.
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=202
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
@@ -6684,6 +6692,7 @@ takeone_solution.txt|takeone.taf|it only took 1 take|SCR_SKIP_WAITKEY=1
 # demonstrates the fullest reachable content (clock-code lock,
 # inventory-wiping "sit chair" mechanic, the notebook subplot) ending on
 # retrieving Lauren's pistol. 34 commands, `SCR_SKIP_WAITKEY=1`.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `take pens` is the original wording again (no typed-verb/prefixed-retry block).
 tenebraesemper_solution.txt|TenebraeSemper.taf|You take the loaded pistol from Lauren's dresser.|SCR_SKIP_WAITKEY=1
 # Tenebrae Semper, patched: the same file with the engine's built-in game
 # patches on.  Two tasks narrate a walk and then move nobody -- TASK16, the
@@ -9197,6 +9206,7 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # re-run".
 # 2026-09-27: `open bathroom door` is "You can't see the bathroom door." --
 # the line names the whole door, not just "door" (deliberate deviation).
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the web task fires, which moves the scripted death path by one turn; same win.
 house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # The same route with the engine's targeted game patches on.  Task 459 gains
 # the {the} slot the library's canonical rebuild needs, so `put wood in
@@ -9209,6 +9219,7 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # and at seed 1 the pick is the giant wasp, which follows the lit match
 # upstairs and stings Cathy in the master bedroom (death, 19/30).  Seeds 1-40:
 # 34 win at 30/30; 1, 12, 19, 20, 24 and 39 lose to a monster.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the cobweb goes into the boiling water.
 house_patched_solution.txt|House.taf|Well done - you scored maximum points!|SCR_SEED=2 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
@@ -9503,6 +9514,7 @@ egghunt_solution.txt|Egg_Hunt.taf|You scored 950 out of the maximum 1000!|
 # `observar`/`examinar cuerpo` in the starting room is also a scored action.
 # Reaches the true 100/100 maximum score ("Well done - you got maximum
 # points!"), zero parser-error/refusal lines anywhere in the transcript.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `x marife` works (no case-sensitive name tail).
 bandera_solution.txt|Bandera.taf|Well done - you puntosd maximum points!|SCR_SKIP_WAITKEY=1
 # wumpusRun.taf (IF-Comp 2006, "The Wumpus Run") -- a Hunt-the-Wumpus themed
 # cave crawl: 20 rooms, no numeric score (MaxScore 0). Clue rooms report a
@@ -11000,6 +11012,7 @@ dolg_solution.txt|Dolg.taf|я и расплатился с Барни|
 # Govard. Zabvenie part 1 (3.90, Russian): WIN 300/310. Line 1 is blank for the
 # intro waitkey; fists on the jailer until he drops; the gambling phase depends
 # on the xoshiro stream. See notes/Govard_walkthrough.md.
+# 2026-09-27 re-blessed, lenient task matching (deliberate deviation): three wear lines answer with the task text instead of the library.
 govard_solution.txt|Govard.taf|На этом первая часть приключений|
 # Место преступления 2 (3.90, Russian): best reachable 23/70, no win.
 cs2_solution.txt|CS2.taf||

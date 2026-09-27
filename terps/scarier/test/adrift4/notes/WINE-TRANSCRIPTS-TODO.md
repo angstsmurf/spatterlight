@@ -1153,6 +1153,48 @@ case, and their goldens are re-blessed. The row comments in
   - Before 4.0, `put all except X in/on Y` leaves X out, and 3.7's `drop
     all except X` keeps X. run370-390 insides() has no exception list, and
     run370's drops() has no "but" (566c6b985, p37PUT/p38PUT/p39PUT).
+- **Lenient task matching when nothing matches strictly (2026-09-27).**
+  Several Runner ports kept the author's own task commands from firing
+  on natural phrasings. Scarier now matches every line strictly first,
+  exactly as the Runner does. Only when no task command matches the line
+  (run_line_matches_task_strictly(), forwards and reverse, references
+  restored afterwards) does it match again with the rules below relaxed
+  (run_all_commands, scr_lenient_tasks_guard, uip_set_lenient_tasks). So
+  every line the Runner gives to a task still goes to the same task; only
+  lines the Runner would pass to the library or refuse can reach a task.
+  - 3.9+ strict `%object%` binding (seen-only at 4.0, case-sensitive at
+    4.0) is dropped for the retry. Glum Fiddle's takes reach TASK 19
+    without `x pile of boulders` first; xfiles `burn memo`/`push buzzer`
+    fire (285 -> 296/299); azra `buy rawhide armor` buys.
+  - A trailing space in a task command (NODE_HARD_WHITESPACE) becomes
+    optional: JGrim `in` (TASK 91 "in "), sommeril `x pile of dust`.
+  - The 4.0 equality/wildcard arm, the pre-4.0 substitute-then-compare
+    arm and the 3.9 no-match reference block are skipped in the retry.
+  - The resolver's case-sensitive name tail (uip_case_folds_name) is
+    off: bandera `x marife`.
+  - Before 3.9, the NPC-name check accepts any chosen NPC, as at 3.9.
+  - `%character%` patterns stay strict even in the retry. thenightmoon's
+    task 5 "As you strike %character%" otherwise fired on hostile rats
+    and elves and lost the win.
+  - Not a pass-two relaxation, removed outright:
+    - The 3.7 permanent task-command rewrite (run_370_rewrite_task_command)
+      is not ported.
+    - At 4.0 the put/drop list parser no longer clobbers the task string
+      with the unresolved fragment ("put sheet "). Tasks see the line as
+      typed: icecream `put ice cream in cone`, iachini `put sheet in
+      dryer`, advent350b `drop bear`.
+    - The pre-3.90 drop gate (lib_drop_task_blocked_pre390 /
+      lib_drop_what_pre390) is not ported (cave `leave pool`, timmy).
+    - In a lenient line, lib_try_game_command_common allows the 3.9
+      prefixed retry and keeps the verb as parsed instead of the typed
+      verb: Tenebrae `take pens`, `take a pebble`.
+  The 3.8 take->get rewrite, the 3735220c5 synonym gate and the `stats`
+  removal are kept. Re-blessed: icecream, xfiles, the_town_of_azra,
+  sommeril(+patched), Glum_Fiddle, JGrim, iachini, tenebraesemper,
+  house(+patched; the web task fires, so house's death path moves by one
+  turn), bandera, govard (three wear lines get the task's "Sdelano!").
+  JGrim, sommeril, icecream, tenebraesemper, iachini and Glum Fiddle got
+  their original wording back.
 ---
 
 ## Rules measured and ported (index)

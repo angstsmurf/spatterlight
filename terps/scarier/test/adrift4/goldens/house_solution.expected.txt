@@ -1681,20 +1681,13 @@ There is no boiling water in the kettle.
 Cathy dodges the wasp with a neat side step.
 
 > put web in kettle
-I don't understand what you want me to do with the large cast iron kettle.
+There is no boiling water in the kettle.
+
+The wasp is backing Cathy up against the wall.
 
 > put honey in kettle
 The jar of honey is too big to fit inside the large cast iron kettle.  There
 is no boiling water in the kettle.
-
-The wasp is backing Cathy up against the wall.
-
-> reveal thy secret
-You take a deep breath and say,
-reveal thy secret
-reveal thy secret
-reveal thy secret
-Nothing happens and you begin to wonder if you have missed something.
 
 The wasp jabs its sting towards Cathy.  The wasps sting is both unexpected
 and fatal.  You do not live for long.  Your spirit is sundered from your body
@@ -1738,6 +1731,9 @@ right and at the moment that someone appears to be you.  But still....there
 are rules.  Break them and you're done for.
 
 She plays her first domino.  It is a double six.
+
+> reveal thy secret
+Huh?
 
 > use pipette on kettle
 I don't understand what you want me to do with the pipette.

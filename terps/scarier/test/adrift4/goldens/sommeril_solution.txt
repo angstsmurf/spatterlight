@@ -44,7 +44,7 @@ n
 take fish
 w
 x placemat
-take placemat
+get placemat
 e
 n
 n

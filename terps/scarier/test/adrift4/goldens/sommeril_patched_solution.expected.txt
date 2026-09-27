@@ -467,7 +467,9 @@ PILE OF DUST,  probably an inch deep in places, is spread under the corpse.
 You can only move south.
 
 > x pile of dust
-A RING is inside the PILE OF DUST.
+The pile of dust  is probably composed of dead skin, bone marrow and rotted
+cloth, and is almost an inch deep in places. There is a RING inside the PILE
+OF DUST.
 
 > x PILE OF DUST
 A RING is inside the PILE OF DUST.

@@ -604,6 +604,7 @@ extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
 extern void uip_set_strict_reference (scr_bool strict, scr_bool match_case);
 extern void uip_set_containment (scr_bool enabled);
+extern void uip_set_lenient_tasks (scr_bool lenient);
 extern void uip_set_binary_input (scr_bool binary);
 extern void uip_set_task_commands (scr_bool task_commands);
 extern scr_bool uip_wildcard_match_400 (const scr_char *pattern,
@@ -744,7 +745,6 @@ extern scr_bool lib_task_prematches_input (scr_gameref_t game,
                                            scr_int class_filter);
 extern scr_int lib_task_prematch_kind_input (scr_gameref_t game,
                                              scr_int class_filter);
-extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
 extern scr_bool lib_move_what_after_silent_task_pre400 (scr_gameref_t game);
 extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
                                            const scr_char *line);
@@ -1067,6 +1067,7 @@ extern scr_bool run_does_command_match (scr_gameref_t game,
                                         scr_bool check_restrictions = FALSE,
                                         scr_int *match_kind = NULL);
 extern void run_set_task_class_filter (scr_int mode);
+extern scr_bool run_lenient_task_matching (void);
 extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);

@@ -1662,9 +1662,10 @@ also see a wooden trapdoor and an axe.
 You drop the thyme into the boiling water.
 
 > put web in kettle
-I don't understand what you want me to do with the large cast iron kettle.
+You drop the cobweb into the boiling water.
 
 > put cobweb in kettle
+(Taking the cobweb first)
 You drop the cobweb into the boiling water.
 
 > put honey in kettle

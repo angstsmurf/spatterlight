@@ -4178,8 +4178,8 @@ typedef struct
 {
   scr_bool known[2];                          /* indexed [forwards] */
   std::vector<const scr_char *> patterns[2];
-  /* 3.7 rewrites a matched command in place; the rewritten text lives here
-     and patterns[] points into it.  See run_370_rewrite_task_command(). */
+  /* A command whose markers were lower-cased lives here, and patterns[]
+     points into it.  See run_lower_command_markers(). */
   std::vector<std::string> rewritten[2];
 } scr_task_commands_t;
 
@@ -4304,7 +4304,7 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
 
 
 /*
- * run_370_rewrite_task_command()
+ * 3.7's permanent task-command rewrite -- not ported.
  *
  * 3.7 substitutes a task command's %object% INTO THE TASK, and the rewrite
  * outlives the turn.  run370's checktask (4332CA) copies the command aside
@@ -4333,22 +4333,12 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
  * feeds normally (Adrift_objref380.rtf, objref380b.rtf) -- so this is 3.7's
  * alone.  The rewrite belongs to the loaded game rather than to game state:
  * like the Runner's own task record it is not undone by UNDO and not
- * restored from a save, so it lives in the pattern cache.
+ * restored from a save.
+ *
+ * Deliberate deviation (2026-09-27): not ported.  After one `eat apple`, a
+ * task `eat %object%` would answer nothing but the apple for the rest of the
+ * session, which only ever takes an author's task away from the player.
  */
-static void
-run_370_rewrite_task_command (scr_gameref_t game, scr_int task,
-                              scr_bool forwards, scr_int command,
-                              const std::string &text)
-{
-  const int direction = forwards ? 1 : 0;
-  scr_task_commands_t *cached;
-
-  run_task_command_patterns (game, task, forwards);
-  cached = &run_cache[task];
-  cached->rewritten[direction][command] = text;
-  cached->patterns[direction][command] =
-      cached->rewritten[direction][command].c_str ();
-}
 
 /*
  * run_forget_game()
@@ -4417,6 +4407,9 @@ static scr_bool run_rerun_skips_tasks = FALSE;
 /* 3.9 runs a prefix rerun as joined and compares task commands against it
    space for space; see run_match_task_commands(). */
 static scr_bool run_rerun_exact_spaces = FALSE;
+/* Set for a line no task matches the Runner's way; see
+   run_line_matches_task_strictly(). */
+static scr_bool run_lenient_tasks = FALSE;
 
 /*
  * The steps of a `go <place>` walk still to be typed, and what to say on
@@ -5293,6 +5286,20 @@ run_match_task_commands (scr_gameref_t game,
        * match it; for those, retry the match against the player's actual
        * input, stashed by run_all_commands().
        */
+      /*
+       * Deliberate deviation: on a line no task matches the Runner's way,
+       * a command is matched leniently -- the tolerant tree, none of the
+       * Runner's substitute-and-compare below; see
+       * run_line_matches_task_strictly().  A %character% command stays
+       * strict: thenightmoon's `attack giant rat with longsword` would
+       * otherwise run task 5's warning for striking a friend, which no
+       * Runner ever shows, and lose the game.
+       */
+      const scr_bool lenient = run_lenient_tasks
+                               && strstr (pattern, "%character%") == NULL;
+      if (lenient && version >= TAF_VERSION_390)
+        uip_set_strict_reference (FALSE, FALSE);
+
       const scr_char *matched_input = string;
       if (pattern[first] == SPECIAL_PATTERN)
         ;
@@ -5309,6 +5316,9 @@ run_match_task_commands (scr_gameref_t game,
         }
       else
         is_matched = uip_match (pattern, string, game);
+
+      if (lenient && version >= TAF_VERSION_390)
+        uip_set_strict_reference (TRUE, version >= TAF_VERSION_400);
 
       const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
       const scr_bool group = strpbrk (pattern, "[{") != NULL;
@@ -5372,7 +5382,7 @@ run_match_task_commands (scr_gameref_t game,
        * the two would buy one cell that needs a typed line carrying both a
        * double space and a bracket.
        */
-      if (version >= TAF_VERSION_400
+      if (version >= TAF_VERSION_400 && !lenient
           && (refs & ~(RUN_REF_NUMBER | RUN_REF_VARIABLE)) == 0)
         {
           if (numeric || variable)
@@ -5501,7 +5511,7 @@ run_match_task_commands (scr_gameref_t game,
        * every one of them is in a 4.00 file.  Below 4.00 the bracketed
        * lines are all ALR keys and display text ("[month=1]", "[talk=3]").
        */
-      if (version < TAF_VERSION_400
+      if (version < TAF_VERSION_400 && !lenient
           && (wild
               || group
               || numeric
@@ -5532,7 +5542,6 @@ run_match_task_commands (scr_gameref_t game,
               run_pre400_substitute_references (game, matched_input, pattern,
                                                 literal, &ref_object,
                                                 &ref_character);
-          const scr_bool substituted = checkable && literal != pattern;
 
           if (checkable && wild)
             is_matched = uip_wildcard_match_pre400
@@ -5564,11 +5573,9 @@ run_match_task_commands (scr_gameref_t game,
                 }
             }
 
-          /* 3.7 keeps the substitution it just made, for good, when the
-             command matched on it -- run_370_rewrite_task_command(). */
-          if (is_matched && substituted && version < TAF_VERSION_380)
-            run_370_rewrite_task_command (game, task, forwards, command,
-                                          literal);
+          /* Deliberate deviation: 3.7 keeps the substitution it just made,
+             for good, when the command matched on it -- see the note above
+             run_forget_game() -- and Scarier does not. */
         }
 
       /*
@@ -5581,7 +5588,7 @@ run_match_task_commands (scr_gameref_t game,
        * have dead dark elf." there (run390x Adrift_304_nmprobe2_rt.txt), the
        * body having been bound by a %object% command checked earlier.
        */
-      if (!is_matched && version == TAF_VERSION_390
+      if (!is_matched && version == TAF_VERSION_390 && !lenient
           && strstr (pattern, "%object%") != NULL)
         {
           std::string literal;
@@ -6043,6 +6050,92 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
               && run_match_task_commands (game, task, string, FALSE, FALSE)))
         break;
     }
+}
+
+
+/*
+ * run_line_matches_task_strictly()
+ *
+ * Deliberate deviation, the gate for it (2026-09-27).  TRUE if any task the
+ * player could run here has a command that matches the line the Runner's
+ * way.  When none does, run_all_commands() gives the whole line lenient
+ * task matching: the tolerant %object% matcher Scarier had before the
+ * Runner ports -- articles, Prefixes, aliases and case forgiven, no seen
+ * gate, no pre-4.0 substitute-then-compare -- a forgiven trailing space in a
+ * command (uip_set_lenient_tasks()), and, in the library's retries, the
+ * canonical verb and the pre-4.0 Prefix form (lib_try_game_command_common()).
+ * Every line the Runner matches keeps the Runner's answer; only lines it
+ * would turn away from every task are looked at again.
+ *
+ * The walk is a peek: the references it binds are put back, so the real
+ * dispatch starts from the state it always did.
+ */
+static scr_bool
+run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const std::vector<scr_bool> object_references = game->object_references;
+  const std::vector<scr_bool> npc_references = game->npc_references;
+  const scr_int ref_object = var_get_ref_object (vars);
+  const scr_int ref_character = var_get_ref_character (vars);
+  const scr_int ref_number = var_get_ref_number (vars);
+  const std::string ref_text (var_get_ref_text (vars));
+  const scr_int task_count = gs_task_count (game);
+  scr_bool matched = FALSE;
+  scr_int task;
+
+  for (task = 0; task < task_count && !matched; task++)
+    {
+      if (!task_where_allows_run (game, task))
+        continue;
+      matched = run_match_task_commands (game, task, string, TRUE, FALSE)
+                || run_match_task_commands (game, task, string, FALSE, FALSE);
+    }
+
+  game->object_references = object_references;
+  game->npc_references = npc_references;
+  var_set_ref_object (vars, ref_object);
+  var_set_ref_character (vars, ref_character);
+  var_set_ref_number (vars, ref_number);
+  var_set_ref_text (vars, ref_text.c_str ());
+  return matched;
+}
+
+
+/*
+ * scr_lenient_tasks_guard
+ *
+ * Turns lenient task matching on or off for one run_all_commands() line,
+ * and puts back what was there before when the line is done.
+ */
+class scr_lenient_tasks_guard
+{
+public:
+  explicit scr_lenient_tasks_guard (scr_bool lenient)
+    : saved_ (run_lenient_tasks)
+  {
+    run_lenient_tasks = lenient;
+    uip_set_lenient_tasks (lenient);
+  }
+
+  ~scr_lenient_tasks_guard ()
+  {
+    run_lenient_tasks = saved_;
+    uip_set_lenient_tasks (saved_);
+  }
+
+  scr_lenient_tasks_guard (const scr_lenient_tasks_guard &) = delete;
+  scr_lenient_tasks_guard &
+  operator= (const scr_lenient_tasks_guard &) = delete;
+
+private:
+  const scr_bool saved_;
+};
+
+scr_bool
+run_lenient_task_matching (void)
+{
+  return run_lenient_tasks;
 }
 
 
@@ -7760,7 +7853,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   std::vector<std::string> put_clauses;
   scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
-  std::string fragment;
   scr_int prior_npc;
 
   /*
@@ -7870,6 +7962,15 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * the same.  Both read the register before the noting, so remember what
    * it held for the rewrite further down.
    */
+  /* Deliberate deviation: see run_line_matches_task_strictly().  The peek
+     runs strictly, so the flag is cleared for it first. */
+  const scr_bool outer_lenient = run_lenient_tasks;
+  run_lenient_tasks = FALSE;
+  uip_set_lenient_tasks (FALSE);
+  const scr_bool line_lenient = !run_line_matches_task_strictly (game, string);
+  run_lenient_tasks = outer_lenient;
+  const scr_lenient_tasks_guard lenient_tasks (line_lenient);
+
   prior_npc = game->last_npc;
   ask_echo = uip_print_ask_echo (game, string);
   uip_note_named_npcs (game, string);
@@ -8112,24 +8213,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   /*
    * A 4.0 put-in whose direct object named nothing has already rewritten the
    * command line the tasks are dispatched against, and the Runner never puts
-   * it back -- run_priority_unnamed_put_object() has the whole of it.  The
-   * task passes get the fragment; the standard table, further down, still
-   * gets the line as typed, because the catch-all's noun was resolved from
-   * that before put_drop_list ever ran.
+   * it back -- run_priority_unnamed_put_object() has the whole of it -- so
+   * IceCream's own `put ice cream in cone` and advent350b's `drop bear` never
+   * reach the tasks written for them.  Deliberate deviation (2026-09-27): the
+   * task passes get the line as typed.
    */
   task_string = string;
-  if (put_first && !status && !refused && run_priority_unnamed_put)
-    {
-      /* A plain "drop X" has no preposition to split at, so its fragment is
-         the whole rewritten line; see lib_drop_named_400(). */
-      if (run_unnamed_put_fragment (string, fragment))
-        task_string = fragment.c_str ();
-      else
-        {
-          fragment = run_normalise_put_line (string);
-          task_string = fragment.c_str ();
-        }
-    }
 
   /*
    * run400's get_outer (4582D8) sits between put_drop_list and the
@@ -8302,14 +8391,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 
   /*
    * Below 3.90 a drop line's one and only look at the task matcher is the
-   * one inside drops(), and drops() only dispatches from an object walk
-   * that skips everything not held or worn.  Name nothing in hand and the
-   * matched task is silenced along with the library refusal it gated, and
-   * the empty buffer is filled with "Drop what?" (run380 438FE6, run370
-   * 430DCF).  See lib_drop_what_pre390().
+   * one inside drops(), which silences a matched task when nothing named is
+   * in hand -- deliberately not ported; see sclibrar_drop.inc.
    */
-  if (!status && !refused && lib_drop_what_pre390 (game))
-    status = TRUE;
 
   /*
    * A put line with no in/on split that a task pre-matches reaches

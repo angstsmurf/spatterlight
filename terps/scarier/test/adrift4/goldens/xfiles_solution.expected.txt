@@ -103,7 +103,8 @@ Your Badge and the Memo from Your Desk.
 Oh, good for you, Agent Mulder!
 
 > burn memo
-I don't understand what you want me to do with the Memo.
+You incinerate the The Memo with a Zippo you found somewhere.  It gives you a
+warm feeling inside.
 
 > strip
 You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
@@ -568,7 +569,8 @@ furniture here.  You can hear and indistinct song from the era playing in the
 backround.  Also here is A Buzzer.  You can only move out.
 
 > buzzer
-I don't understand what you want me to do with the Buzzer.
+Your incurable curiosity gets the better part of you again and you reach out
+and push the buzzer.
 
 > out
 You move out.
@@ -753,8 +755,8 @@ to be such a strong and smart young man, or to be sad that I can't protect
 you anymore.  Either way," your father says as he extends his hand to you,
 "Welcome to the Resistance."  You smile without knowing why as you grip it in
 return.
-You scored 285 out of the maximum 299!
-That is 95% of the game!
-You finished 14 points short.
+You scored 296 out of the maximum 299!
+That is 98% of the game!
+You finished 3 points short.
 
 [Press any key to end]

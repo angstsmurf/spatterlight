@@ -1,5 +1,5 @@
 open desk
-get pen
+take pens
 examine my dresser
 take wallet
 examine bookshelf

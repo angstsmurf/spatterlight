@@ -1252,6 +1252,28 @@ uip_set_task_commands (scr_bool task_commands)
   uip_task_commands = task_commands;
 }
 
+/*
+ * uip_set_lenient_tasks()
+ *
+ * Deliberate deviation.  Set by run_all_commands() for a line that no task
+ * command matches the Runner's way (run_line_matches_task_strictly()): the
+ * author's tasks then get a second, forgiving look at it, so a phrasing the
+ * Runner turns away -- an article, a Prefix, an alias, a capital, a stray
+ * space the author left at the end of a command -- still reaches the task
+ * written for it.  A line the Runner does match is untouched, so no answer
+ * the Runner gives changes; only its refusals do.  Here it forgives a
+ * command's trailing space (uip_match_whitespace()) and a character name a
+ * SYNONYM put a capital back into (uip_case_folds_name()); the strict
+ * %object% binding is simply not turned on (run_match_task_commands()).
+ */
+static scr_bool uip_lenient_tasks = FALSE;
+
+void
+uip_set_lenient_tasks (scr_bool lenient)
+{
+  uip_lenient_tasks = lenient;
+}
+
 
 /*
  * uip_wildcard_match_400()
@@ -1529,8 +1551,11 @@ uip_match_whitespace (scr_bool hard)
    * (the_cat_in_the_tree, skydiver, apokalupsis, wax_worx, vendetta, hub,
    * magicshow, house, valley) fail the same way if the space is made to
    * count there.  uip_parse_list() marks the ones that do count.
+   *
+   * Deliberate deviation: on a line no task matches the Runner's way, the
+   * stray space is forgiven -- see uip_set_lenient_tasks().
    */
-  if (hard)
+  if (hard && !uip_lenient_tasks)
     return FALSE;
 
   /*
@@ -2605,6 +2630,9 @@ uip_case_folds_name_in (const scr_char *command, const scr_char *name)
 static scr_bool
 uip_case_folds_name (const scr_char *name)
 {
+  /* Deliberate deviation: see uip_set_lenient_tasks(). */
+  if (uip_lenient_tasks)
+    return TRUE;
   return uip_case_folds_name_in (uip_string, name);
 }
 
@@ -3715,7 +3743,7 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
         }
     }
 
-  if (is_390)
+  if (is_390 || uip_lenient_tasks)
     return chosen != NULL;
   return chosen && uip_case_folds_name_in (command, chosen);
 }

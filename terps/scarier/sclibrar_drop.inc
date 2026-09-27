@@ -862,7 +862,7 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
 
 
 /*
- * lib_drop_task_blocked_pre390()
+ * The pre-3.90 drop gate -- not ported.
  *
  * Below 3.90 a drop line gets exactly ONE look at the task matcher, and
  * that look is inside drops().  run380 438659 (run370 430475 is the same
@@ -926,62 +926,12 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
  * with nothing in hand (Adrift_dropgate39.txt, Adrift_dropgate39b.txt).
  * Hence the 3.90 cut.  Only the one-object arm is measured; the "all" and
  * "and" arms rewrite the line per object and are left alone.
+  *
+ * Deliberate deviation (2026-09-27): not ported.  It only ever takes an
+ * author's task away -- cave's `leave pool` and timmy's `leave the police
+ * station` answer "Drop what?" while the player holds anything at all -- so
+ * a drop line reaches the tasks in the ordinary passes whatever is in hand.
  */
-static scr_bool
-lib_drop_task_blocked_pre390 (scr_gameref_t game)
-{
-  const scr_char *const line = run_get_dispatch_input ();
-  scr_bool carrying;
-  scr_int object;
-
-  if (!line
-      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-    return FALSE;
-
-  /* drops()' own entry test, and then only its one-object arm. */
-  if (!(lib_co_contains (line, "drop")
-        || lib_co_contains (line, "put down")
-        || lib_co_contains (line, "leave")
-        || (lib_co_contains (line, "put") && lib_co_contains (line, "down"))))
-    return FALSE;
-  if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
-    return FALSE;
-
-  carrying = FALSE;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) != OBJ_HELD_PLAYER
-          && gs_object_position (game, object) != OBJ_WORN_PLAYER)
-        continue;
-
-      /* The object walk would dispatch the task on this one. */
-      if (lib_co_pre400 (game, line, object, 0))
-        return FALSE;
-      carrying = TRUE;
-    }
-
-  /* Empty-handed the handler never claims, so the line goes on to the
-     ordinary task pass. */
-  if (!carrying)
-    return FALSE;
-
-  /* Nothing to dispatch with; a task that matched is silenced, and the
-     library print loop it gated stays shut too. */
-  return lib_task_prematches_input (game, 0);
-}
-
-scr_bool
-lib_drop_what_pre390 (scr_gameref_t game)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  if (!lib_drop_task_blocked_pre390 (game))
-    return FALSE;
-
-  pf_buffer_string (filter, "Drop what?");
-  pf_buffer_answer_break (filter);
-  return TRUE;
-}
 
 
 /*
