@@ -362,7 +362,7 @@ lib_cmd_drop_all (scr_gameref_t game)
 }
 
 
-static scr_int lib_verb_object_name_score (scr_gameref_t game,
+scr_int lib_verb_object_name_score (scr_gameref_t game,
                                            scr_int object,
                                            const scr_char *input);
 static std::string::size_type lib_put_split_400 (scr_gameref_t game,
@@ -1223,8 +1223,8 @@ lib_cmd_leave_multiple_pre400 (scr_gameref_t game)
 
 
 static void lib_question_prefix_from_line (scr_gameref_t game);
-static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
-static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
+scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
                                     const scr_char *input);
 
 /*

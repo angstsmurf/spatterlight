@@ -217,10 +217,10 @@ lib_cmd_examine_self (scr_gameref_t game)
  * wall" earns nothing from `x wall`; it is the alias "wall" that scores.
  * 0 means the object was never a candidate at all (var_9E).
  */
-static scr_int lib_verb_object_name_score (scr_gameref_t game,
+scr_int lib_verb_object_name_score (scr_gameref_t game,
                                            scr_int object,
                                            const scr_char *input);
-static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
+scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
                                                    const scr_char *input,
                                                    std::vector<scr_int> *tied,
                                                    scr_bool present_only);
@@ -294,7 +294,7 @@ lib_absent_seen_object (scr_gameref_t game)
   return object;
 }
 
-static scr_bool
+scr_bool
 lib_cant_see_absent_object (scr_gameref_t game,
                             const scr_char *suffix, scr_bool is_definite)
 {
@@ -361,8 +361,8 @@ lib_cant_see_absent_object (scr_gameref_t game,
  * game is 3.9 or later, the line names nothing, or something it names is
  * within reach -- that one belongs to the ordinary handlers above these rows.
  */
-static scr_int
-lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last = FALSE)
+scr_int
+lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last)
 {
   const scr_char *input = run_get_dispatch_input ();
   scr_int object, first;
@@ -392,7 +392,7 @@ lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last = FALSE)
   return first;
 }
 
-static scr_bool
+scr_bool
 lib_cant_see_named_pre_390 (scr_gameref_t game, scr_int object,
                             scr_bool is_definite, const scr_char *suffix)
 {
@@ -1333,7 +1333,7 @@ lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
   return result;
 }
 
-static scr_int
+scr_int
 lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
 {
   return lib_examine_referencedob_ex_400 (game, input, FALSE);
@@ -1390,7 +1390,7 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
 }
 
 
-static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
+scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
                                     const scr_char *input);
 
 /*
@@ -1459,7 +1459,7 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
  * is_described.  Pre-4.0 `read` is answered inside examines() and falls
  * into this same tail; see lib_read_object().
  */
-static scr_bool
+scr_bool
 lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -1572,10 +1572,10 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
  * Returns the object, -2 for "one object at a time", or -3 when pass one
  * kept fewer than two and the ordinary path should run.
  */
-static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
+scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
 
-static scr_int
+scr_int
 lib_examine_crowded_390 (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);

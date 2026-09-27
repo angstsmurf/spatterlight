@@ -88,13 +88,16 @@ adrift5/%.o: adrift5/%.cpp
 
 # Scarier objects and headers.
 OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
-	  scinterf.o scparser.o sclibrar.o scrunner.o scrun_split.o	\
-	  scrun_respell.o scrun_match.o scrun_dispatch.o scevents.o	\
+	  scinterf.o scparser.o sclibrar.o sclibrar_print.o sclibrar_room.o	\
+	  sclibrar_meta.o sclibrar_go.o sclibrar_topic.o sclibrar_read.o	\
+	  sclibrar_verbs.o sclibrar_sitstand.o sclibrar_misc.o sclibrar_talk.o	\
+	  scrunner.o scrun_split.o scrun_respell.o scrun_match.o scrun_dispatch.o	\
+	  scevents.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
-HEADERS	= scarier.h scprotos.h scgamest.h scrunner.h
+HEADERS	= scarier.h scprotos.h scgamest.h scrunner.h sclibrar.h
 
-# The library's topic fragments, #included by sclibrar.cpp.
+# The library's core topic fragments, #included by sclibrar.cpp.
 LIBINC	= $(wildcard sclibrar_*.inc)
 sclibrar.o: $(LIBINC)
 

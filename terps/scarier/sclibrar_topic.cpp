@@ -1,8 +1,44 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Asking NPCs about topics.
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
  */
+
+/*
+ * Asking NPCs about topics.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+
 
 /*
  * lib_subject_in_text_390()
@@ -103,7 +139,7 @@ lib_npc_topic_response (scr_gameref_t game, scr_int npc, scr_int topic)
   return prop_get_string (bundle, "S<-sisis", vt_key);
 }
 
-static scr_bool
+scr_bool
 lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -122,7 +158,7 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
 }
 
 
-static const scr_char *lib_ask_format_subject (scr_gameref_t game);
+const scr_char *lib_ask_format_subject (scr_gameref_t game);
 
 /*
  * lib_ask_npc_about()
@@ -164,7 +200,7 @@ static const scr_char *lib_ask_format_subject (scr_gameref_t game);
  * (run380x): `ask her about good time` gets Suzie's "me, myself" reply, since
  * "time" contains "me".
  */
-static scr_int
+scr_int
 lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -227,7 +263,7 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 }
 
 static void lib_print_npc_no_response (scr_gameref_t game, scr_int npc);
-static scr_bool lib_npc_named_in_line (scr_gameref_t game, scr_int npc,
+scr_bool lib_npc_named_in_line (scr_gameref_t game, scr_int npc,
                                        const scr_char *input);
 
 static scr_bool

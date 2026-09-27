@@ -1,8 +1,44 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Room contents, room descriptions and exits.
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
  */
+
+/*
+ * Room contents, room descriptions and exits.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+
 
 /*
  * lib_alrs_see_gap()
@@ -784,7 +820,7 @@ static const scr_char *const DIRNAMES_4[] = {
   "north", "east", "south", "west", "up", "down", "in", "out",
   NULL
 };
-static const scr_char *const DIRNAMES_8[] = {
+const scr_char *const DIRNAMES_8[] = {
   "north", "east", "south", "west", "up", "down", "in", "out",
   "northeast", "southeast", "southwest", "northwest",
   NULL
@@ -818,7 +854,7 @@ lib_direction_name (scr_int direction)
  * Return the direction names list for the game's compass, eight point or
  * four.
  */
-static const scr_char *const *
+const scr_char *const *
 lib_compass_names (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -834,7 +870,7 @@ lib_compass_names (scr_gameref_t game)
  * Return TRUE if the given room defines an exit in the given direction and
  * nothing currently blocks its use.
  */
-static scr_bool
+scr_bool
 lib_room_exit_available (scr_gameref_t game, scr_int room, scr_int direction)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -855,7 +891,7 @@ lib_room_exit_available (scr_gameref_t game, scr_int room, scr_int direction)
  * Return TRUE and write the destination of the player room's exit in the
  * given direction, FALSE if the room defines no such exit.
  */
-static scr_bool
+scr_bool
 lib_room_exit_destination (scr_gameref_t game,
                            scr_int direction, scr_int *destination)
 {
@@ -1045,7 +1081,7 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
  * towards you from the north." for a revisit; and akron.taf (3.80) in run380,
  * 25 room entries, again no heading anywhere.
  */
-static void
+void
 lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
 {
   const scr_filterref_t filter = gs_get_filter (game);

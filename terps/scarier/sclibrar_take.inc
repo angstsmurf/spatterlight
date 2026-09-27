@@ -2466,7 +2466,7 @@ lib_isheld_390 (scr_gameref_t game, scr_int object)
   return FALSE;
 }
 
-static scr_bool
+scr_bool
 lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
                scr_int mode)
 {
@@ -3481,8 +3481,8 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * hat!" at 3.8 (cmdfile_p2give.txt cell 5, Adrift_269_3g37.rtf,
  * 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt, 2026-09-21).
  */
-static scr_int lib_npc_find_topic (scr_gameref_t game, scr_int npc);
-static scr_bool lib_npc_reply_to (scr_gameref_t game, scr_int npc,
+scr_int lib_npc_find_topic (scr_gameref_t game, scr_int npc);
+scr_bool lib_npc_reply_to (scr_gameref_t game, scr_int npc,
                                   scr_int topic);
 
 /*
@@ -3558,7 +3558,7 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 }
 
 
-static scr_int lib_player_parent_here (scr_gameref_t game);
+scr_int lib_player_parent_here (scr_gameref_t game);
 
 /*
  * lib_take_multiple_common()

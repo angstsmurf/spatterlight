@@ -1082,7 +1082,7 @@ lib_cmd_repair_other (scr_gameref_t game)
  *
  * Central handler for doing something, but unsure to what.
  */
-static scr_bool
+scr_bool
 lib_what (scr_gameref_t game, const scr_char *verb)
 {
   const scr_filterref_t filter = gs_get_filter (game);

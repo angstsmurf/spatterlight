@@ -1,8 +1,44 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Wield, kiss, buy, break, smell, sell and eat.
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
  */
+
+/*
+ * Wield, kiss, buy, break, smell, sell and eat.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+
 
 /*
  * lib_cmd_wield()

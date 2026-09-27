@@ -1,8 +1,44 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Movement: compass directions and "go to" a named place.
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
  */
+
+/*
+ * Movement: compass directions and "go to" a named place.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+
 
 /*
  * Direction enumeration.  Used by movement commands, to multiplex them all
@@ -495,8 +531,8 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  */
 scr_bool lib_go_place_off = FALSE;
 
-static scr_bool lib_co_contains (const scr_char *command, const scr_char *term);
-static scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
+scr_bool lib_co_contains (const scr_char *command, const scr_char *term);
+scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
                                   scr_vartype_t *vt_key,
                                   const scr_char *category, scr_int index);
 
@@ -506,7 +542,7 @@ static scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
  * The game's own word in 3.70 command slot SLOT (MemVar_4460FC(SLOT)),
  * lower-cased; empty from 3.8 on, which has no command block.
  */
-static std::string
+std::string
 lib_command_slot_370 (scr_prop_setref_t bundle, scr_int slot)
 {
   std::string alias;

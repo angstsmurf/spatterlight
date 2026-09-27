@@ -103,14 +103,13 @@ lib_which_head (scr_gameref_t game, const scr_char *head,
  * question, which is also what 4.0 does in its own way.  Scarier asks at
  * every version (deliberate deviation), so the pick is a record only.
  */
-enum { NPC_PICK_ASK, NPC_PICK_FIRST, NPC_PICK_LAST };
 
-static scr_int lib_disambiguate_npc_pick (scr_gameref_t game,
+scr_int lib_disambiguate_npc_pick (scr_gameref_t game,
                                           const scr_char *verb,
                                           scr_bool *is_ambiguous,
                                           scr_int pick);
 
-static scr_int
+scr_int
 lib_disambiguate_npc (scr_gameref_t game,
                       const scr_char *verb, scr_bool *is_ambiguous)
 {
@@ -125,7 +124,7 @@ lib_disambiguate_npc (scr_gameref_t game,
  * leaves behind.  Call before lib_disambiguate_npc(), which clears the
  * references it filters out.  -1 for none.
  */
-static scr_int
+scr_int
 lib_last_named_npc (scr_gameref_t game)
 {
   scr_int index_, npc;
@@ -164,7 +163,7 @@ lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc)
   return TRUE;
 }
 
-static scr_int
+scr_int
 lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
                            scr_bool *is_ambiguous, scr_int pick)
 {
@@ -366,7 +365,7 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
  * score of Proc_21_58_463640, see lib_absent_seen_object()) and never raises this
  * prompt from the dispatcher, so the port stops at 3.9.
  */
-static scr_bool
+scr_bool
 lib_co_contains (const scr_char *command, const scr_char *term)
 {
   scr_int term_length, index_;
@@ -631,7 +630,7 @@ lib_co_names_prefix (scr_gameref_t game, const scr_char *line, scr_int object)
  * list, and return its count -- ready for a "vt_key[3].integer = alias"
  * loop fetching each one with "S<-sisi".
  */
-static scr_int
+scr_int
 lib_alias_prepare (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
                    const scr_char *category, scr_int index)
 {
@@ -647,7 +646,7 @@ lib_alias_prepare (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
  *
  * The object's/NPC's first Alias string, or NULL if it has none.
  */
-static const scr_char *
+const scr_char *
 lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
                  const scr_char *category, scr_int index)
 {
@@ -1392,9 +1391,9 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * element at all -- see lib_co_400_raise_for_short_tie().
  */
 static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
-static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
+scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
-static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
+scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
                                                    const scr_char *input,
                                                    std::vector<scr_int> *tied,
                                                    scr_bool present_only);
@@ -1995,7 +1994,7 @@ static const scr_char *lib_co_400_name_word (scr_gameref_t game,
                                              const scr_char *input);
 static scr_int lib_co_400_present_namesakes (scr_gameref_t game,
                                              const scr_char *word);
-static scr_int lib_examine_referencedob_400 (scr_gameref_t game,
+scr_int lib_examine_referencedob_400 (scr_gameref_t game,
                                              const scr_char *input);
 static scr_int lib_examine_referencedob_ex_400 (scr_gameref_t game,
                                                 const scr_char *input,
@@ -2930,9 +2929,9 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * resolved into just one object.  The resolver function can normally be the
  * same as the function used to filter objects for multiple references.
  */
-static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
+scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
-static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 /* The container mode 4 admits from; see lib_resolve_admit_parent(). */
 static scr_int lib_resolve_parent_400 = -1;
 static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
@@ -3885,7 +3884,7 @@ pre400_take_done:
   return -1;
 }
 
-static scr_int
+scr_int
 lib_disambiguate_object (scr_gameref_t game,
                          const scr_char *verb, scr_bool *is_ambiguous)
 {

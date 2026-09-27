@@ -70,7 +70,7 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * ALEXIS.TAF's forest dwelling goblin is why this matters: its Name is
  * "Forester Goblin" and `attack goblin` names it only by the alias.
  */
-static scr_bool
+scr_bool
 lib_npc_named_in_line (scr_gameref_t game, scr_int npc, const scr_char *input)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -100,7 +100,7 @@ lib_npc_named_in_line (scr_gameref_t game, scr_int npc, const scr_char *input)
  * the_pk_girl's peddler is Named "the peddler" with aliases man, peddler,
  * so only the 4.0 test finds him in `ask peddler about silo`.
  */
-static scr_bool
+scr_bool
 lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1115,7 +1115,7 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
   return FALSE;
 }
 
-static scr_int lib_verb_object_name_score (scr_gameref_t game,
+scr_int lib_verb_object_name_score (scr_gameref_t game,
                                            scr_int object,
                                            const scr_char *input);
 
@@ -1147,7 +1147,7 @@ static scr_int lib_verb_object_name_score (scr_gameref_t game,
  * the same variable; that one is not ported.  Whether an empty line would be
  * continued is not measured, and it is not here.
  */
-static std::string lib_battle_who_pending;
+std::string lib_battle_who_pending;
 static std::string lib_battle_who_at_line;
 static scr_bool lib_battle_who_unanswered = FALSE;
 

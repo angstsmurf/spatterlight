@@ -41,38 +41,17 @@
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
-
-
-/* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
-static const scr_char COMMA = ',';
-enum
-{ SECS_PER_MINUTE = 60,
-  MINS_PER_HOUR = 60,
-  SECS_PER_HOUR = 3600
-};
-enum { LIB_ALLOCATION_AVOIDANCE_SIZE = 128 };
-
-/*
- * A gathered list of objects, NPCs, or directions, and the printer used for
- * one of its elements.  See lib_print_list() below.
- */
-typedef std::vector<scr_int> lib_list_t;
-typedef void (*lib_print_item_t) (scr_gameref_t game, scr_int item);
-
-/* Trace flag, set before running. */
-static scr_bool lib_trace = FALSE;
+#include "sclibrar.h"
 
 
 /*
- * The library proper, split by topic.  The fragments are one translation
- * unit and share this file's statics, so their order matters: each may use
- * anything defined in the ones before it.
+ * The core of the library, split by topic.  These fragments are one
+ * translation unit and share their statics, so their order matters: each
+ * may use anything defined in the ones before it.  The peripheral topics
+ * (sclibrar_print.cpp, _room, _meta, _go, _topic, _read, _verbs, _sitstand,
+ * _misc and _talk) are translation units of their own; sclibrar.h declares
+ * what crosses between them and this file.
  */
-#include "sclibrar_print.inc"
-#include "sclibrar_room.inc"
-#include "sclibrar_meta.inc"
-#include "sclibrar_go.inc"
 #include "sclibrar_disambig.inc"
 #include "sclibrar_examine.inc"
 #include "sclibrar_dispatch.inc"
@@ -80,13 +59,7 @@ static scr_bool lib_trace = FALSE;
 #include "sclibrar_takefrom.inc"
 #include "sclibrar_drop.inc"
 #include "sclibrar_open.inc"
-#include "sclibrar_topic.inc"
 #include "sclibrar_put.inc"
-#include "sclibrar_read.inc"
 #include "sclibrar_battle.inc"
-#include "sclibrar_verbs.inc"
-#include "sclibrar_sitstand.inc"
-#include "sclibrar_misc.inc"
-#include "sclibrar_talk.inc"
 #include "sclibrar_refuse.inc"
 #include "sclibrar_verbobj.inc"

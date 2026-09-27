@@ -1,9 +1,49 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
+ */
+
+/*
  * Room alternates and room names, object and NPC name printing,
  * version/perspective helpers, response selection and list printing.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files share.
  */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+
+
+/* Trace flag, set before running. */
+scr_bool lib_trace = FALSE;
+
 
 /*
  * lib_warn_battle_system()
@@ -86,7 +126,7 @@ lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgroup)
  *
  * Return TRUE if a particular alternate room description should be used.
  */
-static scr_bool
+scr_bool
 lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -394,7 +434,7 @@ lib_room_alt_darkens (scr_gameref_t game, scr_int room)
   return lib_room_object_alt_fires (game, room, FALSE);
 }
 
-static scr_bool
+scr_bool
 lib_room_is_dark (scr_gameref_t game, scr_int room)
 {
   return lib_room_object_alt_fires (game, room, TRUE);
@@ -408,7 +448,7 @@ lib_room_is_dark (scr_gameref_t game, scr_int room)
  * the alts list when generating room names or descriptions.  Returns -1 if
  * no alt overrides the default room long description.
  */
-static scr_int
+scr_int
 lib_find_starting_alt (scr_gameref_t game, scr_int room)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -571,7 +611,7 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
  *      run380 @4374E1 (objects) and @440BDF (characters)
  *      run400 @468143 (objects) and @47FD19 (characters)
  */
-static void
+void
 lib_print_room_name_lower (scr_gameref_t game, scr_int room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -700,7 +740,7 @@ lib_compare_article (const scr_char *string, const scr_char *word,
  * command line rather than text: the battle "with" prefix re-parsed on the
  * next turn (lib_battle_definite_name), which keeps the measured spelling.
  */
-static scr_bool
+scr_bool
 lib_compare_article_binary (const scr_char *string, const scr_char *word,
                             scr_int length)
 {
@@ -916,7 +956,7 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
   pf_buffer_string (filter, name);
 }
 
-static void
+void
 lib_print_object (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -968,7 +1008,7 @@ lib_print_object (scr_gameref_t game, scr_int object)
  * worn or put away reads as if it were some other one -- so this printer is
  * left to the refusals ("You are not wearing a hat!"), where it reads fine.
  */
-static void
+void
 lib_print_object_raw (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -1063,7 +1103,7 @@ lib_get_perspective (scr_gameref_t game)
  * library messages were reworded in 4.0 and the Runners never share them
  * across versions.
  */
-static scr_bool
+scr_bool
 lib_is_version_400 (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
@@ -1083,7 +1123,7 @@ lib_is_version_400 (scr_gameref_t game)
  * event prints TICK. after each of those (Adrift_1161_p39admin.txt).  4.0
  * has its own, longer, list.
  */
-static scr_bool
+scr_bool
 lib_is_version_390 (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
@@ -1113,7 +1153,7 @@ lib_is_version_390 (scr_gameref_t game)
  * clear, history, where); verbs 3.8 does not know at all keep their 4.0
  * behaviour.
  */
-static void
+void
 lib_set_admin (scr_gameref_t game)
 {
   game->is_admin = prop_get_taf_version (gs_get_bundle (game))
@@ -1143,7 +1183,7 @@ lib_set_admin (scr_gameref_t game)
  * therest()'s "With what?" check on the second noun of <verb> X with Y
  * (run370 43EAA8 @43CFBE, run380 4455B4 @443AB6).
  */
-static scr_bool
+scr_bool
 lib_matcher_requires_seen (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390;
@@ -1337,7 +1377,7 @@ lib_conjugate_third_person (scr_gameref_t game, const scr_char *literal)
   return ring[ring_next].c_str ();
 }
 
-static const scr_char *
+const scr_char *
 lib_select_response (scr_gameref_t game,
                      const scr_char *second_person,
                      const scr_char *first_person,
@@ -1369,7 +1409,7 @@ lib_select_response (scr_gameref_t game,
   return response;
 }
 
-static const scr_char *
+const scr_char *
 lib_select_plurality (scr_gameref_t game, scr_int object,
                       const scr_char *singular, const scr_char *plural)
 {
@@ -1487,7 +1527,7 @@ lib_alrs_see_list_verb (scr_gameref_t game, scr_int container)
   return FALSE;
 }
 
-static const scr_char *
+const scr_char *
 lib_select_list_plurality (scr_gameref_t game, scr_int container,
                            const lib_list_t &list,
                            const scr_char *singular, const scr_char *plural)
@@ -1511,7 +1551,7 @@ lib_select_list_plurality (scr_gameref_t game, scr_int container,
  * variants selecting the prefix by Perspective.  These fold a three-call
  * sequence repeated throughout the module.
  */
-static void
+void
 lib_print_wrapped_object (scr_gameref_t game, const scr_char *prefix,
                           scr_int object, const scr_char *suffix)
 {
@@ -1522,7 +1562,7 @@ lib_print_wrapped_object (scr_gameref_t game, const scr_char *prefix,
   pf_buffer_string (filter, suffix);
 }
 
-static void
+void
 lib_print_wrapped_npc (scr_gameref_t game, const scr_char *prefix,
                        scr_int npc, const scr_char *suffix)
 {
@@ -1533,7 +1573,7 @@ lib_print_wrapped_npc (scr_gameref_t game, const scr_char *prefix,
   pf_buffer_string (filter, suffix);
 }
 
-static void
+void
 lib_print_response_object (scr_gameref_t game,
                            const scr_char *second_person,
                            const scr_char *first_person,
@@ -1546,7 +1586,7 @@ lib_print_response_object (scr_gameref_t game,
                             object, suffix);
 }
 
-static void
+void
 lib_print_response_npc (scr_gameref_t game,
                         const scr_char *second_person,
                         const scr_char *first_person,
@@ -1565,14 +1605,14 @@ lib_print_response_npc (scr_gameref_t game,
  * Buffer a fixed response message and indicate a handled command; the whole
  * action of the many chit-chat handlers near the end of the module.
  */
-static scr_bool
+scr_bool
 lib_print_message (scr_gameref_t game, const scr_char *message)
 {
   pf_buffer_string (gs_get_filter (game), message);
   return TRUE;
 }
 
-static scr_bool
+scr_bool
 lib_print_response_message (scr_gameref_t game,
                             const scr_char *second_person,
                             const scr_char *first_person,
@@ -1592,7 +1632,7 @@ lib_print_response_message (scr_gameref_t game,
  * printed this turn, the clause is set off from it by two spaces; the rest is
  * either a fresh sentence, or the phrase appropriate to the perspective.
  */
-static void
+void
 lib_new_clause (scr_gameref_t game, scr_bool has_printed)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -1602,7 +1642,7 @@ lib_new_clause (scr_gameref_t game, scr_bool has_printed)
   pf_new_sentence (filter);
 }
 
-static void
+void
 lib_print_clause (scr_gameref_t game, scr_bool has_printed,
                   const scr_char *second_person,
                   const scr_char *first_person,
@@ -1628,7 +1668,7 @@ lib_print_clause (scr_gameref_t game, scr_bool has_printed,
  * printing as they iterate, so that the clause introducing the list can be
  * chosen from the finished list rather than reconstructed on the fly.
  */
-static void
+void
 lib_print_list (scr_gameref_t game, const lib_list_t &list,
                 lib_print_item_t print_item, const scr_char *conjunction)
 {
@@ -1644,7 +1684,7 @@ lib_print_list (scr_gameref_t game, const lib_list_t &list,
     }
 }
 
-static void
+void
 lib_print_name_list (scr_gameref_t game, const lib_list_t &list,
                      const scr_char *const *names,
                      const scr_char *conjunction)
@@ -1673,14 +1713,14 @@ lib_print_name_list (scr_gameref_t game, const lib_list_t &list,
  * Names are normalized ("the ...") unless the caller asks for lib_print_object
  * instead; the pre-3.9 wear report is the one place that does.
  */
-static scr_bool
+scr_bool
 lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
                        const lib_list_t &list,
                        const scr_char *conjunction, scr_char terminator,
                        const scr_char *second_person,
                        const scr_char *first_person,
                        const scr_char *third_person,
-                       lib_print_item_t print_item = lib_print_object_np)
+                       lib_print_item_t print_item)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
@@ -1704,7 +1744,7 @@ lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
  * gone walkabout and offers a changed description, return that; otherwise
  * return the standard inroom text.
  */
-static const scr_char *
+const scr_char *
 lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1768,9 +1808,8 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
  * see the note in lib_print_room_contents().  Exact and case-sensitive, as
  * measured: "Golf is here!" and "Hotel IS HERE." are not folded.
  */
-enum { LIB_NPC_HERE_LENGTH = 9 };       /* strlen (" is here.") */
 
-static scr_bool
+scr_bool
 lib_npc_text_is_default (const scr_char *description)
 {
   static const scr_char *const SUFFIX = " is here.";
@@ -1800,7 +1839,7 @@ lib_npc_text_is_default (const scr_char *description)
  * "Also here is a Topaz." to a room that had just described the sword
  * (measured in run400 under Wine 2026-09-05, Adrift_46.txt turn 11).
  */
-static scr_bool
+scr_bool
 lib_inroomdesc_is_absent (const scr_char *inroomdesc)
 {
   return inroomdesc == NULL || inroomdesc[0] == NUL;

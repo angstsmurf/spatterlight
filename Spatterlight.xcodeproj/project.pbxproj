@@ -1040,6 +1040,16 @@
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
 		F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B7891237714D4C19104EE325 /* sclibrar.cpp */; };
+		579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000013 /* sclibrar_talk.cpp */; };
+		5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000012 /* sclibrar_misc.cpp */; };
+		67B56162D60EBAAB84AF9D24 /* sclibrar_sitstand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */; };
+		A42A9783CDD36891E0DE5FD7 /* sclibrar_verbs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000010 /* sclibrar_verbs.cpp */; };
+		8DC1ABC3D328048D2C4D82E6 /* sclibrar_read.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000E /* sclibrar_read.cpp */; };
+		2BFB7655F77D5E26E713C2D5 /* sclibrar_topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000C /* sclibrar_topic.cpp */; };
+		F9AAABD75CC870D29036DDE6 /* sclibrar_go.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000004 /* sclibrar_go.cpp */; };
+		58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000003 /* sclibrar_meta.cpp */; };
+		5AF4A13E29CFB22A4FE69C16 /* sclibrar_room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000002 /* sclibrar_room.cpp */; };
+		F8753300DF418D00B872E6FB /* sclibrar_print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000001 /* sclibrar_print.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
 		FA11B0010000000000000003 /* LibraryOrganizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11B0010000000000000002 /* LibraryOrganizer.m */; };
 		MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = MAPDRAW00000000000000002 /* mapdraw.cpp */; };
@@ -3039,10 +3049,10 @@
 		AC8E0000000000000000F11E /* archetype.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = archetype.c; sourceTree = "<group>"; };
 		B0C28DFE777A2A70B7F78AF6 /* screstrs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = screstrs.cpp; sourceTree = "<group>"; };
 		B7891237714D4C19104EE325 /* sclibrar.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000001 /* sclibrar_print.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_print.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000002 /* sclibrar_room.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_room.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000003 /* sclibrar_meta.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_meta.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000004 /* sclibrar_go.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_go.inc; sourceTree = "<group>"; };
+		5C1B1A000000000000000001 /* sclibrar_print.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_print.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000002 /* sclibrar_room.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_room.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000003 /* sclibrar_meta.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_meta.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000004 /* sclibrar_go.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_go.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000005 /* sclibrar_disambig.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_disambig.inc; sourceTree = "<group>"; };
 		5C1B1A000000000000000006 /* sclibrar_examine.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_examine.inc; sourceTree = "<group>"; };
 		5C1B1A000000000000000007 /* sclibrar_dispatch.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_dispatch.inc; sourceTree = "<group>"; };
@@ -3050,14 +3060,14 @@
 		5C1B1A000000000000000009 /* sclibrar_takefrom.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_takefrom.inc; sourceTree = "<group>"; };
 		5C1B1A00000000000000000A /* sclibrar_drop.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_drop.inc; sourceTree = "<group>"; };
 		5C1B1A00000000000000000B /* sclibrar_open.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_open.inc; sourceTree = "<group>"; };
-		5C1B1A00000000000000000C /* sclibrar_topic.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_topic.inc; sourceTree = "<group>"; };
+		5C1B1A00000000000000000C /* sclibrar_topic.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_topic.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000D /* sclibrar_put.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_put.inc; sourceTree = "<group>"; };
-		5C1B1A00000000000000000E /* sclibrar_read.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_read.inc; sourceTree = "<group>"; };
+		5C1B1A00000000000000000E /* sclibrar_read.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_read.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000F /* sclibrar_battle.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_battle.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000010 /* sclibrar_verbs.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_verbs.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000011 /* sclibrar_sitstand.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_sitstand.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000012 /* sclibrar_misc.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_misc.inc; sourceTree = "<group>"; };
-		5C1B1A000000000000000013 /* sclibrar_talk.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_talk.inc; sourceTree = "<group>"; };
+		5C1B1A000000000000000010 /* sclibrar_verbs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbs.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_sitstand.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000012 /* sclibrar_misc.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_misc.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000013 /* sclibrar_talk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_talk.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000014 /* sclibrar_refuse.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_refuse.inc; sourceTree = "<group>"; };
 		5C1B1A000000000000000015 /* sclibrar_verbobj.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sclibrar_verbobj.inc; sourceTree = "<group>"; };
 		B865055FE24752E15286600C /* sctasks.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks.cpp; sourceTree = "<group>"; };
@@ -4293,10 +4303,10 @@
 				8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */,
 				066545D7B54AED7A90A3003E /* scparser.cpp */,
 				B7891237714D4C19104EE325 /* sclibrar.cpp */,
-				5C1B1A000000000000000001 /* sclibrar_print.inc */,
-				5C1B1A000000000000000002 /* sclibrar_room.inc */,
-				5C1B1A000000000000000003 /* sclibrar_meta.inc */,
-				5C1B1A000000000000000004 /* sclibrar_go.inc */,
+				5C1B1A000000000000000001 /* sclibrar_print.cpp */,
+				5C1B1A000000000000000002 /* sclibrar_room.cpp */,
+				5C1B1A000000000000000003 /* sclibrar_meta.cpp */,
+				5C1B1A000000000000000004 /* sclibrar_go.cpp */,
 				5C1B1A000000000000000005 /* sclibrar_disambig.inc */,
 				5C1B1A000000000000000006 /* sclibrar_examine.inc */,
 				5C1B1A000000000000000007 /* sclibrar_dispatch.inc */,
@@ -4304,14 +4314,14 @@
 				5C1B1A000000000000000009 /* sclibrar_takefrom.inc */,
 				5C1B1A00000000000000000A /* sclibrar_drop.inc */,
 				5C1B1A00000000000000000B /* sclibrar_open.inc */,
-				5C1B1A00000000000000000C /* sclibrar_topic.inc */,
+				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
 				5C1B1A00000000000000000D /* sclibrar_put.inc */,
-				5C1B1A00000000000000000E /* sclibrar_read.inc */,
+				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
 				5C1B1A00000000000000000F /* sclibrar_battle.inc */,
-				5C1B1A000000000000000010 /* sclibrar_verbs.inc */,
-				5C1B1A000000000000000011 /* sclibrar_sitstand.inc */,
-				5C1B1A000000000000000012 /* sclibrar_misc.inc */,
-				5C1B1A000000000000000013 /* sclibrar_talk.inc */,
+				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
+				5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */,
+				5C1B1A000000000000000012 /* sclibrar_misc.cpp */,
+				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
 				5C1B1A000000000000000014 /* sclibrar_refuse.inc */,
 				5C1B1A000000000000000015 /* sclibrar_verbobj.inc */,
 				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
@@ -8159,6 +8169,16 @@
 				6721E9E796626F0B9D599492 /* scinterf.cpp in Sources */,
 				A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */,
 				F4E620D1D98ABB1032579FB0 /* sclibrar.cpp in Sources */,
+				579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */,
+				5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */,
+				67B56162D60EBAAB84AF9D24 /* sclibrar_sitstand.cpp in Sources */,
+				A42A9783CDD36891E0DE5FD7 /* sclibrar_verbs.cpp in Sources */,
+				8DC1ABC3D328048D2C4D82E6 /* sclibrar_read.cpp in Sources */,
+				2BFB7655F77D5E26E713C2D5 /* sclibrar_topic.cpp in Sources */,
+				F9AAABD75CC870D29036DDE6 /* sclibrar_go.cpp in Sources */,
+				58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */,
+				5AF4A13E29CFB22A4FE69C16 /* sclibrar_room.cpp in Sources */,
+				F8753300DF418D00B872E6FB /* sclibrar_print.cpp in Sources */,
 				173BCAC39A06DA931B4F8506 /* scrunner.cpp in Sources */,
 				4C44E5DB3A10C6F1FE7545B4 /* scrun_dispatch.cpp in Sources */,
 				39C9AC2CFBECF80768383253 /* scrun_match.cpp in Sources */,

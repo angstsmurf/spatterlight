@@ -1771,7 +1771,7 @@ lib_cmd_put_all_on (scr_gameref_t game)
  */
 static scr_bool lib_cmd_unclear_object (scr_gameref_t game);
 static scr_bool lib_is_put_where_line_400 (scr_gameref_t game);
-static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 
 static scr_bool
 lib_put_fragment_names_nothing (scr_gameref_t game)

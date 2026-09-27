@@ -40,7 +40,7 @@
  * for the first present, seen one -- unmeasured, and left to the caller's
  * own choice.
  */
-static scr_int
+scr_int
 lib_verb_object_name_score (scr_gameref_t game,
                             scr_int object, const scr_char *input)
 {
@@ -226,7 +226,7 @@ lib_verb_object_resolve_400_scan (scr_gameref_t game, const scr_char *input,
   return best_count > 1 ? -1 : object;
 }
 
-static scr_int
+scr_int
 lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
                                     std::vector<scr_int> *tied,
                                     scr_bool present_only)
