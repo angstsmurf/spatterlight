@@ -5,9 +5,12 @@
 - **Engine:** ADRIFT 4 (Battle System present — the carnival NPCs swing at each
   other and at you in the funhouse — but **no fight has to be won**; you only
   pass through, so no combat-assist is needed).
-- **Result:** **WIN, max reachable 310/410 — deterministic.** The win is the
-  scripted hand-off of a hidden cassette to the ticket man.
-- Solution file: `goldens/funhouse_solution.txt`. No start-up prompts.
+- **Result:** **WIN, 310/410 as shipped, 410/410 with the engine's game patch
+  on — deterministic.** The win is the scripted hand-off of a hidden cassette
+  to the ticket man.
+- Solution files: `goldens/funhouse_solution.txt` (faithful) and
+  `goldens/funhouse_patched_solution.txt` (`SCR_ASSUME_PATCHES=1`). No
+  start-up prompts.
 
 The win screen:
 
@@ -76,19 +79,43 @@ simple game gated only by *which room* a task runs in):
   `take hundred dollars` +100 (booth), `pick up money` +100 (all rooms) — the
   three reachable ones, summing to **310**.
 
-## Why 310 is the maximum (the locked 100)
+## Why 310 is the maximum as shipped (the locked 100)
 
-The game's stored max score is **410**, and the dump shows two *more* +100
-ChangeScore tasks — `take money` (task 10) and `take drink` (task 13) — that
-would account for the gap. Both, however, have their room-list set to
-**NO_ROOMS** (`Where` type 0), so they can never fire from a typed command;
-they can only run if some other task *executes* them. **No task in the game has
-a type-5 (execute-task) action**, so neither is ever reachable — they are
-orphaned, exactly the dead-task pattern seen elsewhere in this corpus. Typing
-`take drink`/`take money` just invokes the generic library "take" (no points;
-and the matching death task `spill drink` makes the drink a trap, not a prize).
-Honest maximum is therefore **310/410**, faithful to the data and the original
-Runner.
+The game's stored max score is **410**, and the whole pool is four type-4
+ChangeScore actions: `take ring` +110 and **three** +100 tasks that all pay out
+for picking up the same hundred-dollar bill at the booth — `take hundred
+dollars` (task 12, room 0), `pick up money` (task 11, all rooms) and `take
+money` (task 10). 110 + 3×100 is exactly 410, so the author meant all three
+phrasings to be typed and paid; none of them carries a restriction.
+
+Task 10's room list is **NO_ROOMS** (`Where` type 0), so it can never fire from
+a typed command; it could only run if another task *executed* it, and **no task
+in the game has a type-5 (execute-task) action**. So the third hundred is
+orphaned and the honest faithful ceiling is **310/410** — exactly what the
+original Runner scores too. (Seven other tasks share the empty room list, task
+13 `take drink` among them; none of those has any action at all, so nothing but
+this one hundred is lost. `take drink` just falls to the library take, and the
+matching death task `spill drink` makes the drink a trap, not a prize.)
+
+## With the engine's game patches on — 410/410
+
+FunHouse is in Scarier's targeted game-patch table (`PATCH_TABLE` in
+`sctafpar.cpp`, applied at the end of `parse_game()` just before
+`prop_solidify`, off unless `glk patches on` / `SCR_ASSUME_PATCHES=1`). The
+patch matches on name and author, pins task 10's text and both its twins'
+commands, and opens the one field:
+
+```
+Tasks/10/Where/Type   0 (NO_ROOMS) -> 3 (ALL_ROOMS)
+```
+
+That is task 11's own room list, one slot along, and task 10 is unrepeatable,
+so the hundred is still paid exactly once. The patched row is the faithful
+script plus the single command the task names:
+`funhouse_patched_solution.txt|FunHouse.taf|You scored 410 out of the maximum 410!|SCR_ASSUME_PATCHES=1`,
+alongside the faithful row; both are kept. The only other difference in the
+golden is one turn of Battle System RNG shifting, because the run is a turn
+longer.
 
 ## Hazards avoided
 

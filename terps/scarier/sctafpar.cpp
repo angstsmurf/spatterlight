@@ -4370,6 +4370,115 @@ static const scr_patch_edit_t PATCH_VILLAINS_AND_KINGS[] = {
   PATCH_SET ("Tasks/5/Where/Type", 0, 3)
 };
 
+/*
+ * The Crime Scene, Mel S.
+ *
+ * Fifteen tasks carry a ChangeScore and they sum to exactly the declared
+ * MaxScore of 80.  Fourteen of them are the detective work the walkthrough
+ * does; the fifteenth is task 0 `look at door` (+2) in the Hall, the very
+ * first clue in the game -- "The door doesn't appear to have been forced
+ * open...".
+ *
+ * That task also carries six identical leftover action rows: move the player
+ * (Var1 0) "to room" (Var2 0) room Var3 = -2, which is no room at all.  ADRIFT
+ * writes an unmade choice as a negative combo index, so these are six blank
+ * rows the author never filled in -- and the destination kind, not the
+ * destination, is what was left unset: with Var2 = 0 both engines take the
+ * "to room" branch and index the room array with -2.  Scarier dies on
+ * gs_move_player_to_room's bounds check; the real Runner dies harder, with
+ * "Run-time error '9': Subscript out of range" (measured under Wine on
+ * 2026-09-26, run390 fed `look at door` in the Hall), so the two points are
+ * unreachable as shipped no matter which engine reads the file.
+ *
+ * Var2 is set to -1 on all six, the value both engines read as "no
+ * destination was chosen" and ignore -- the Runner's Select Case falls
+ * through, and task_move_player's default branch traces and returns.  What is
+ * left of the task is its message and its +2, which is what a `look at door`
+ * clue was always meant to be.  Task 1 `look under couch` has the same six
+ * rows copied into it and is left alone: it scores nothing, and typing it in
+ * the Living Room, with or without the magnifying glass it asks for, falls
+ * through to the library's "Nothing special." instead of completing -- so its
+ * copy of the rows never runs.
+ */
+static const scr_patch_edit_t PATCH_CRIME_SCENE[] = {
+  PATCH_VERIFY ("Tasks/0/Command/0", "look at door"),
+  PATCH_VERIFY ("Tasks/0/CompleteText",
+                "The door doesn't appear to have been forced open..."),
+  PATCH_SET ("Tasks/0/Actions/1/Var2", 0, -1),
+  PATCH_SET ("Tasks/0/Actions/2/Var2", 0, -1),
+  PATCH_SET ("Tasks/0/Actions/3/Var2", 0, -1),
+  PATCH_SET ("Tasks/0/Actions/4/Var2", 0, -1),
+  PATCH_SET ("Tasks/0/Actions/5/Var2", 0, -1),
+  PATCH_SET ("Tasks/0/Actions/6/Var2", 0, -1)
+};
+
+/*
+ * FunHouse, C. A. Gist
+ *
+ * The declared MaxScore is 410 and four ChangeScore actions sum to it: the
+ * ring (+110) and three +100 tasks that all pay out for the hundred-dollar
+ * bill at the ticket booth.  The author wired one phrasing per task rather
+ * than one task with three phrasings -- task 12 `take hundred dollars`
+ * (Where: room 0), task 11 `pick up money` (all rooms) and task 10 `take
+ * money` -- and none of the three carries a restriction, so all three are
+ * meant to be typed and the arithmetic only reaches 410 if they are.
+ *
+ * Task 10's Where is "No rooms", so the third hundred can never be banked and
+ * the game tops out at 310 (the faithful row's score).  Its Where is opened
+ * to "All rooms", which is what task 11, the twin one slot along, already
+ * holds; the task is unrepeatable, so the hundred is still paid once.  Seven
+ * other tasks in this game share the empty room list and are left alone: none
+ * of them scores, and the patch table does not tidy, it unblocks.
+ */
+static const scr_patch_edit_t PATCH_FUNHOUSE[] = {
+  PATCH_VERIFY ("Tasks/10/Command/0", "take money"),
+  PATCH_VERIFY ("Tasks/10/CompleteText", "You deserve it!"),
+  PATCH_VERIFY ("Tasks/11/Command/0", "pick up money"),
+  PATCH_VERIFY ("Tasks/12/Command/0", "take hundred dollars"),
+  PATCH_SET ("Tasks/10/Where/Type", 0, 3)
+};
+
+/*
+ * Goldilocks - Breaking & Entering, L.C.N.
+ *
+ * Fourteen ChangeScore tasks sum to the declared 35, and two of them are
+ * unreachable, three points in all.
+ *
+ * The golden egg (+2) sits inside the refrigerator, and task 46 `get egg` is
+ * the task that pockets it -- "You pickup the golden egg and put it in your
+ * sack." -- gated on one object-state restriction whose fail message is
+ * "There is no egg here.".  That restriction addresses Var1 = 0, which is not
+ * the refrigerator but "the referenced object", and the task's pattern has no
+ * %object% in it to bind one, so the test can never pass, the line falls
+ * through to the library take, and the egg is handed over unscored.  Var1 = 2
+ * is the refrigerator, the second of the game's two stateful objects, and
+ * Var2 = 0 is the openness the fail message describes: with the fridge open
+ * the egg is there, with it shut it is not.
+ *
+ * The rope (+1) is the same pair of tasks written twice.  Task 52 has the
+ * score and the action that hides the tied rope but Where "No rooms"; task
+ * 53, the re-write, has the Large Bedroom, a wider pattern that also accepts
+ * "bars", and the gate the puzzle needs -- task 51, the tabasco poured over
+ * the window bars, must be done, "That would be pointless." otherwise -- but
+ * no actions at all.  53 is the one that runs, and it is where the missing
+ * point belongs: it gains the ChangeScore its dead twin carries.  Moving the
+ * rope is deliberately not copied with it; 52 sends the rope to hidden, and
+ * the climb down that follows names it.
+ */
+static const scr_patch_edit_t PATCH_GOLDILOCKS_BE[] = {
+  PATCH_VERIFY ("Tasks/46/CompleteText",
+                "You pickup the golden egg and put it in your sack."),
+  PATCH_VERIFY ("Tasks/46/Restrictions/0/FailMessage", "There is no egg here."),
+  PATCH_SET ("Tasks/46/Restrictions/0/Var1", 0, 2),
+  PATCH_VERIFY ("Tasks/53/CompleteText",
+                "You quickly tie the tope to the small piece of bar poking out"
+                " of the window frame."),
+  PATCH_VERIFY ("Tasks/53/Restrictions/0/FailMessage",
+                "That would be pointless.<br>"),
+  PATCH_ADD ("Tasks/53/Actions/0/Type", 4),
+  PATCH_ADD ("Tasks/53/Actions/0/Var1", 1)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4455,7 +4564,20 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("Villains and Kings", "Neal, the GREAT",
               "taking the soap out of the broken window is allowed in the"
               " room the window is in",
-              PATCH_VILLAINS_AND_KINGS)
+              PATCH_VILLAINS_AND_KINGS),
+  PATCH_GAME ("The Crime Scene", "Mel S.",
+              "looking at the hall door scores its two points instead of"
+              " moving the player to room -2",
+              PATCH_CRIME_SCENE),
+  PATCH_GAME ("FunHouse", "C. A. Gist",
+              "the third hundred-dollar task can be typed on the midway, so"
+              " the declared 410 can be scored",
+              PATCH_FUNHOUSE),
+  PATCH_GAME ("<b>Goldilocks - Breaking & Entering<b>", "L.C.N.",
+              "taking the egg looks at the refrigerator it is in, and tying"
+              " the rope to the window bars scores the point its dead twin"
+              " carries",
+              PATCH_GOLDILOCKS_BE)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

@@ -1,0 +1,209 @@
+Loading game...
+
+Goldilocks - Breaking & Entering
+
+The forest has been terrorised for years by a dysfunctional family of bears,
+known as The Three Bears, living deep within the forest. Which is why you,
+Goldilocks, cat-burglar extraordinare, has decided to pay them a little
+visit. The way you see it, you break in, steal what you can, and net yourself
+a neat little profit while the bears are out roaming the forest, looking for
+small woodland creatures to trample.
+
+In Front of a Cottage in the Forest
+You are standing in front of a rather large cottage, its white washed walls
+and yellow straw roof stands out from the surrounding forest. A short garden
+path leads from the fence to the front door, through a overgrown garden. The
+front door appears to be closed, with no doorknob or any other means to pull
+it open.
+
+> x cottage
+A cast iron sign with the house number, six-six-seven, has been hung on the
+front door. A barred window faces the garden and there is a numeric security
+lock and keypad on the front door. It would appear that the bears have beefed
+up their security.
+
+> enter 667
+You hear a click from the door as it slowly swings inwards.
+
+> in
+As you enter the cottage the door swings shut behind you. With a loud click
+the door locks itself.
+
+Hallway
+There hallway is a mess, shoes and jackets in all shapes and sizes litter the
+floor.  A barred window facing the garden, lets in a little sunlight. There
+is a doorway to the north and a set of stairs leading upstairs. A large
+reinforced door leads outside.
+
+A coat stand, with a large bulging coat hanging on it, stands in a corner
+here.
+
+> get coat
+You take the large coat, revealing a golden fleece underneath! You throw the
+worthless coat on the floor.
+
+> x fleece
+The golden fleece is soft to the touch and smells faintly of wool. A small
+label on the back tells you it can't be machine washed.
+
+> get fleece
+You take the golden fleece and put it in your sack.
+
+> get rope
+You untie the ropeand take it, as you never know when a long piece of rope
+might come in handy.
+
+> n
+You move north.
+
+Living Room
+The living room has a large table set in the centre, with three chairs around
+it. A tv with a coat hanger attached to the antenna stands on a small coffee
+table in the corner, with a three-seater couch in front of it. To the south
+there is a doorway, leading to the hallway, and to the east there is a
+doorway leading to the kitchen.
+
+> eat large bowl
+You wolf down the large bowl of porridge. Luckily for you it appears to be
+just the right temperature.
+
+> get large spoon
+You take the large golden spoon and put it in your sack.
+
+> get small spoon
+You take the small golden spoon and put it in your sack.
+
+> get medium spoon
+You take the medium golden spoon and put it in your sack.
+
+> sit on couch
+You sit down on the couch, but can't get comfortable. It feels like there is
+something lumpy in the couch.
+
+> look in hole
+You look into the hole and see a sword hilt.
+
+> take sword hilt from inside the hole in the three-seater couch
+You grab the hilt and pull. And out comes a golden jewel encrusted short
+sword!
+
+> e
+You move east.
+
+Kitchen
+The kitchen has not been cleaned for years by the looks of it. Several piles
+of dirty dishes are in the sink, and the counter tops as well as the oven are
+all covered in various greasy stains. A refrigerator stands in one corner.
+There is a doorway to the west leading to the living room. A trapdoor is set
+in the floor here .
+
+A bottle of Extra Hot Tabasco Sauce lies dripping on the counter, where a
+small hole is quickly forming.
+
+> get tabasco
+You take the bottle of Tabasco Sauce, carefuly not to spill any on yourself.
+
+> open fridge
+You open the refrigerator.  A golden egg is inside the refrigerator.
+
+> get egg
+You pickup the golden egg and put it in your sack.
+
+> pour tabasco on padlock
+You pour half the bottle onto the padlock. Within minutes the sauce has eaten
+away the padlock.
+
+> open trapdoor
+You open the tapdoor.
+
+> d
+You move down.
+
+Dank Cellar
+The cellar is rather small and dank, a small barred window lets in a little
+light from outside. The walls are bare except for some chains that have been
+stuck through a hoop in the wall. There is a slight bump in the middle of the
+dirt floor.
+
+> dig bump
+You dig with your hands, and soon hit something. Brushing away some of the
+dirt you find what appears to be several bones and three silver rings.
+
+> get rings
+You take the three rings and brush of some of the dirt before putting them in
+your sack.
+
+> u
+You move up.
+
+Kitchen
+The kitchen has not been cleaned for years by the looks of it. Several piles
+of dirty dishes are in the sink, and the counter tops as well as the oven are
+all covered in various greasy stains. A refrigerator stands in one corner.
+There is a doorway to the west leading to the living room. A trapdoor is set
+in the floor here .
+
+> w
+You move west.
+
+Living Room
+The living room has a large table set in the centre, with three chairs around
+it. A tv with a coat hanger attached to the antenna stands on a small coffee
+table in the corner, with a three-seater couch in front of it. To the south
+there is a doorway, leading to the hallway, and to the east there is a
+doorway leading to the kitchen.
+
+> s
+You move south.
+
+Hallway
+There hallway is a mess, shoes and jackets in all shapes and sizes litter the
+floor.  A barred window facing the garden, lets in a little sunlight. There
+is a doorway to the north and a set of stairs leading upstairs. A large
+reinforced door leads outside.
+
+A coat stand stands in a corner here.
+
+> u
+You move up.
+
+Large Bedroom
+The large bedroom is a mess of clothes and crinkled food wrappers. The entire
+room smells of unwashed socks and junk food grease. Three beds stand along
+the eastern wall. A window with bars on the inside  lets some light into the
+dingy room.
+
+> pour tabasco on bars
+You pour the rest of the bottle of Extra Hot Tabasco on the bars in front of
+the window. Within seconds the bars are gone, except a tiny stub of one of
+the bars.
+
+> open window
+You open the window.
+
+> tie rope to bar
+You quickly tie the tope to the small piece of bar poking out of the window
+frame.
+
+> climb down rope
+You quickly climb down the rope and disappear into the forest. Another day,
+another sack full of stolen loot, which is all in a days work for:
+ Goldilocks - cat-burglar extraordinare!
+
+This was my first attempt at an Interactive Fiction Game, hope you enjoyed
+it.
+
+  - L.C.N.
+-------------------------------------------------------------------
+
+Thanks to:
+Jack "Kasabian" Meichan, Liquide and J  - The Brave Beta Testers.
+
+Statistics:
+
+It took you 31 turns to complete the game.
+You scored 35 out of the maximum 35!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -841,6 +841,14 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 # tasks in this game (2, 5, 13, 14, 18, 19, 22, 30) and looks like a Generator
 # default the author never filled in.
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): task 10 `take money`, the third of the author's
+# three hundred-dollar tasks, is allowed to run in all rooms the way its twin
+# task 11 already is, instead of in no room at all.  The script is the faithful
+# one plus that one command, and the +100 it pays takes the game to its
+# declared 410.  The other seven empty-room-list tasks are left as shipped --
+# none of them scores.
+funhouse_patched_solution.txt|FunHouse.taf|You scored 410 out of the maximum 410!|SCR_ASSUME_PATCHES=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
@@ -10149,6 +10157,17 @@ bigspy3_solution.txt|bigspy3.taf|Narrator can not ask whether this is end of our
 # the padlock and bars, rope out the bedroom. 32/35 (library GET takes
 # the fridge egg before the +2 task). Waitkeys.
 goldbe_solution.txt|Gold_B_and_E_v1.2.taf|You scored 32 out of the maximum 35!|SCR_SKIP_WAITKEY=1
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build), commands unchanged -- both patched tasks are
+# already typed here, they just did not pay out.  Task 46 `get egg` tested "the
+# referenced object" (Var1 0) for openness although its pattern binds no
+# object, so it always failed and the library take handed the egg over
+# unscored; it now tests the refrigerator the egg is in, which is what its
+# "There is no egg here." fail message describes (+2).  Task 53 `tie rope to
+# bar` is the live half of a twin-task split -- the dead task 52 carries the
+# score, task 53 the room and the tabasco gate but no actions at all -- and it
+# gains the ChangeScore (+1).  35 of 35.
+goldbe_patched_solution.txt|Gold_B_and_E_v1.2.taf|You scored 35 out of the maximum 35!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 # Death House. Sit to play the organ, steel key for the attic box, rusty
 # for the cabinet; wait out the graveyard cycle; Charles then the baby
 # auto-take their gifts. Full 42/42. Waitkeys.
@@ -10380,7 +10399,17 @@ elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
 # `look at door` and `look` + `look at door`) pops "Run-time error '9':
 # Subscript out of range" and exits at that command. 78/80 is the ceiling.
 # 'take blood' is claimed by task 7 (+5); task 16 (same text, 0) is shadowed.
+# 78/80 is the ceiling as shipped; the patched row below banks the two.
 crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
+# And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
+# default in the Glk build): the six blank move-player rows on task 0 are read
+# as "no destination chosen" (Var2 -1) instead of "to room -2", so `look at
+# door` is just its clue and its +2, and the script is the faithful one plus
+# that one command.  80 of 80.  Task 1 `look under couch` carries the same six
+# rows and is left as shipped -- it scores nothing, and typing it in the Living
+# Room, with or without the magnifying glass, falls through to the library's
+# "Nothing special." rather than completing.
+crimescene_patched_solution.txt|CrimeScene.taf|You scored 80 out of the maximum 80!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 # A Day at School (SchoolDay): comedic, non-sexual school-survival game --
 # no romantic/sexual content anywhere in the TAF text. 6/6 = full maximum.
 # Keep the homework in hand (task 10 needs it held), kick Charlie once then

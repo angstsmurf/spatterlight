@@ -1,0 +1,30 @@
+# Crime Scene, with the built-in patch table on (SCR_ASSUME_PATCHES=1).
+# The faithful script, plus the one command it could not type: `look at door`,
+# the Hall clue that scores +2 and takes the game to its declared 80.  As
+# shipped that task's six blank action rows move the player to room -2 and both
+# engines die on it (see the PATCH_CRIME_SCENE comment in sctafpar.cpp); with
+# the rows read as "no destination chosen" the task is just its message and its
+# two points.
+look at door
+north
+search body
+use magnifying glass on gun
+examine blood
+take blood
+look at window
+look under body
+look at table
+score
+east
+look under table
+show wood to sam
+show hair to sam
+score
+west
+west
+ask tom about key
+east
+open desk with key
+open folder
+score
+give evidence to inspector

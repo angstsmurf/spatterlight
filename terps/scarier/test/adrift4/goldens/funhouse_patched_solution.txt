@@ -1,0 +1,25 @@
+# FunHouse, with the built-in patch table on (SCR_ASSUME_PATCHES=1).
+# The faithful script with `take money` added at the ticket booth.  The author
+# wrote one task per phrasing of picking up the hundred-dollar bill and all
+# three pay +100; `take money` is task 10, whose empty room list means it can
+# never run as shipped, so the faithful row stops at 310 of the declared 410.
+# With the room list opened the third hundred lands and the game reaches 410.
+south
+take hundred dollars
+pick up money
+take money
+east
+north
+east
+east
+north
+take ring
+south
+take kewbie doll
+take cassette
+west
+west
+south
+west
+score
+give ticket man cassette
