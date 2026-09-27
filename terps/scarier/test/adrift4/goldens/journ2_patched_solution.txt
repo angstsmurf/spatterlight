@@ -1,0 +1,120 @@
+# The Long Journey Home, the FEMALE career, with the built-in patch table on
+# (SCR_ASSUME_PATCHES=1) and the repeat assist on (SCR_ASSUME_REPEATS=1).
+# 30 of a declared 90 in 40 commands, and the game is still UNFINISHABLE --
+# see goldens/journ2_solution.txt for the faithful row, which bricks in the
+# Lair at 5/90, and for the three walls that make 90 unreachable by anyone.
+#
+# WHY TWO SWITCHES.  They fix two different things and neither fixes the other:
+#
+#  * SCR_ASSUME_REPEATS=1 gets you out of the Lair.  Task 3 `#6 creature looks`
+#    is a one-shot whose last pattern is a bare `*`, and pre-4.0's spent-task
+#    claim (run_spent_task_390(), run390 checktask 44B4DD) then answers every
+#    later command in that room with "You have already done that." -- the real
+#    Runner's own ceiling, 5/90, and Scarier's since 2026-09-13.  No data edit
+#    repairs it: tasks 4 and 5, the Creature's one-shot card handover, claim all
+#    twenty direction words on exactly the same terms, so neutering task 3 only
+#    moves the brick one task down.  The assist is the honest way past it.
+#  * SCR_ASSUME_PATCHES=1 gives the female player her +10 in Rage.  Task 24
+#    `#12 release pressure (f)` is `where=0` (runnable nowhere) and its command
+#    list holds only the author's internal label, and task 22 -- the "you
+#    haven't cleared the debris yet" refusal, three slots lower and carrying no
+#    restrictions at all -- steals every phrasing of the valve from both twins.
+#    PATCH_JOURN2 in sctafpar.cpp puts task 24 in room 9 with the four valve
+#    patterns task 25 already has, and gates task 22 on the debris still being
+#    there.  Full reasoning is in the comment above the entry.
+#
+# WHAT THE FEMALE CAREER IS WORTH.  The same 30 either way, which is the point
+# worth being clear about: unpatched she can reach Terror instead and light the
+# torch (T75, +10) but comes home with nothing, because T75 drops no card where
+# the male T74 drops the King of Spades and `EXIT room=20 N gateTask=74` gates
+# the Gnarled Woods' only way back on the male task.  Patched she comes to Rage
+# instead and banks
+#
+#   T69  +5   `down` the well, once the rope is tied and dropped
+#   T11  +10  `climb` out of Despaire, once `dig` has cut a foothold
+#   T12  +5   `chop brush with shovel` at the edge of the pit
+#   T24  +10  `open valve`, the female release of the pressure
+#
+# with three of the game's eight cards in hand -- the Queen of Hearts, the
+# Queen of Clubs and the Queen of Diamonds.  The two trips are mutually
+# exclusive: Rage is entered by raft from the Reservoir and left only through
+# `EXIT room=9 N -> dest=7 gateTask=25 wantDone=1`, which names the MALE twin,
+# so the last `n` below is refused with "You can't go in any direction!" and
+# she ends in the room where her points are.  Rage goes last for that reason.
+#
+# FOUR THINGS THE FEMALE HALF DOES GET RIGHT, all of them twins where the
+# lower-indexed task is hers, so forward first-match hands her the right one:
+#  * T7 (`* dig *`, Queen of Clubs) before the male T8;
+#  * T10's climb is restricted on the MALE dig and fails silently, so `climb`
+#    falls through to T11, her +10, one slot later;
+#  * T4 hands her the Queen of Hearts in the Lair where T5 hands his King;
+#  * T24 sits before T25, so once it can run at all it wins the valve.
+#  Her +10 also asks for the longer chain -- clear the debris, close the valve,
+#  mount the fittings, then open it -- which is the sequence the author's own
+#  hint text describes and which the male T25 does not require.
+#
+# Parser notes for the four lines that are not self-explanatory:
+#  * `close valve` runs task 23, which has no completion text and no actions at
+#    all, so the turn is silent and the game answers with its own
+#    DontUnderstand string, "Hmmmmm.  Try something different."  It DID run:
+#    `mount pipe` on the next line is task 20, gated on task 23 being done.
+#  * the first `s` in the Lair is eaten by the Creature (T4, one-shot, matches
+#    all twenty direction words and does not move you).
+#  * one command -- any command -- in the slippery slope runs T6 (bare `*`),
+#    which slides you into Despaire and drops the shovel in after you.
+#  * the mirror is not a doorway until EVENT 0 fires T32, on a random turn in
+#    its `start=12..14` window; eleven `z`s under the harness's
+#    SCR_RNG=xoshiro stream with SCR_SEED=2.
+#
+# --- The bedroom: pick a gender, then wait for the mirror -------------------
+female
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+go through mirror
+#
+# --- The Island: rope down the well (+5) -----------------------------------
+n
+take rope
+tie rope to palm
+drop rope in well
+down
+#
+# --- Through the Lair to Sorrow; the Creature eats the second `s` ----------
+s
+s
+e
+se
+#
+# --- Despaire: dig a foothold, take her card, climb out (+10), chop (+5) ---
+take shovel
+dig
+take queen of clubs
+climb
+chop brush with shovel
+#
+# --- Back through the Lair, south to the Reservoir, raft into Rage ---------
+nw
+w
+s
+s
+get on raft
+#
+# --- Rage: the female release of the pressure (+10), then the sealed exit --
+get mast
+remove debris
+close valve
+mount pipe
+open valve
+take queen of diamonds
+n
+i
+score

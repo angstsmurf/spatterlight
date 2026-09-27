@@ -180,6 +180,31 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   maximum). *Marooned* was re-read too: T24 is a duplicate of T14, which
   already pays the same +10 for the same act, so those ten are phantom maximum
   rather than blocked score and patching them would pay twice.
+- **A seventh joined the same day, *The Long Journey Home* — a second, female
+  career opened from 20 to 30/90**, taking the table to **36 games, 230 edits**.
+  The 90 is two careers: the first move is `male` or `female`, and each scoring
+  act exists twice, the female twin always at the lower task index. Rage's valve
+  is the exception. Its female twin, task 24 `#12 release pressure (f)`, is
+  `Where/Type` 0 (NO_ROOMS — `task_where_allows_run()` returns a flat FALSE, so
+  nothing can ever run it) and its only `Command/0` is that author's label, not a
+  phrasing a player could type; the male twin 25 carries the four real ones
+  (`* turn * valve *`, `open`, `release`, `use`). Three slots above both sits
+  task 22, the unrestricted debris refusal, which repeats all four patterns and
+  therefore claims every spelling of the line for *both* genders once the debris
+  is gone — so even the male +10 was unreachable. `PATCH_JOURN2` gives 24 a room
+  (9, Rage) and the four commands, and hangs 22's one missing restriction on it:
+  type 2, Var1 = 19, Var2 = 1 — "task 18 (`#12 remove debris`) must NOT be
+  done" — with an empty FailMessage, so the refusal goes quiet and the forward
+  scan falls through to the twin the way the author's own T18/T19 and T20/T21
+  pairs already do. The female row needs `SCR_ASSUME_REPEATS=1` as well: the
+  Lair is still walled by the spent T3 catch-all (T4/T5 claim all 20 direction
+  words the same way, so that half is not data-fixable). Ceiling for a female
+  career is 30 either way — T69 +5, T11 +10, T12 +5, T24 +10, three Queens in
+  hand — because Rage's exit gate names the *male* twin, so she ends in the room
+  she just scored in. Left alone deliberately: an ADRIFT exit can name only one
+  task, so opening that door for her would shut it on him. Not derived: the same
+  T22 repair unblocks the male T25, which would take a male career to 40 and
+  still walk out.
 - **Score-shortfall sweep, 2026-09-27.** Every `goldens/*_solution.expected.txt`
   was re-read for its closing tally and the 83 rows that end below their declared
   maximum were triaged against their manifest comments. All but one are accounted
@@ -756,6 +781,7 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | Row | Now | Why |
 |---|---|---|
 | `journ2_solution.txt\|Journ2.taf\|You are carrying the King of Hearts.` | 5/90, 23 cmds | spent T3 catch-all claims every Lair command (run390-true); old 30/90 route commented inside the solution |
+| `journ2_patched_solution.txt\|Journ2.taf\|Your score is 30 out of a maximum of 90.\|SCR_SEED=2 SCR_ASSUME_REPEATS=1 SCR_ASSUME_PATCHES=1` | 30/90, 41 cmds | female career (`female` on move one); `PATCH_JOURN2` gives Rage's female valve twin T24 a room and the four typable phrasings and quiets T22's debris claim, REPEATS gets past the same spent T3 Lair brick; 30 is the female ceiling — Rage's exit gate names the male twin |
 | `vampire_solution.txt\|Vampire.taf\|Your score is 70 out of a maximum of 100.\|SCR_SKIP_WAITKEY=1` | 70/100 | spent T61 claim; was 100/100 |
 | `merry_murders` marker `My score is 120 out of a maximum of 135.` | 120/135 | spent T46 claims the second archives `n`; winning tail in git history |
 | `crime_adventure` | 65/95, 90 cmds | 3.8 `insides()` take gate; byte-identical to `cmdfile_w_crime.txt` / `Adven_1_crime.rtf` |

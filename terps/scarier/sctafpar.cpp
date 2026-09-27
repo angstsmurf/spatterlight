@@ -4973,6 +4973,88 @@ static const scr_patch_edit_t PATCH_STUDIO[] = {
   PATCH_SET ("Tasks/110/Restrictions/0/Var1", 0, 2)
 };
 
+/*
+ * The Long Journey Home, Danny Chabino.
+ *
+ * Ten ChangeScore awards sum to the declared 90, and three of them are
+ * male/female twins -- tasks 10/11 climbing out of Despaire, 74/75 lighting
+ * the torch in Terror, 24/25 releasing the pressure in Rage -- between which
+ * the game makes you choose on the first move, in the bedroom, with `male` or
+ * `female` (VAR 1 [gender]).  90 is therefore two careers and not one, and the
+ * female half of the twin at the bottom of the game cannot be reached at all.
+ *
+ * Task 24 `#12 release pressure (f)` is that female twin: it wants VAR 1 == 2
+ * and task 20 (`mount pipe fitting`) done, it blows the Queen of Diamonds into
+ * Rage, and it awards +10.  Two things stop it ever running.  Its Where list
+ * is ROOMLIST_NO_ROOMS, which task_where_allows_run() in sctasks.cpp answers
+ * with a flat FALSE -- the task is runnable in no room at all -- and its
+ * command list holds nothing but the author's own internal label, where the
+ * male task 25 carries the four patterns a player would actually type
+ * (`* turn * valve *`, `* open * valve *`, `* release * valve *`,
+ * `* use * valve *`).  Both are repaired as the male twin is written: Where
+ * becomes the one room 9, Rage, which is where task 25 stands and the only
+ * room the task's own text can happen in, and the four patterns are copied
+ * across.
+ *
+ * That is still not enough, because the valve is stolen before either twin
+ * sees it.  Task 22 `#12 turn valve debris here` is the author's "you haven't
+ * cleared the debris yet" refusal, and it carries those same four patterns
+ * with NO restrictions at all, three slots lower down, so forward first-match
+ * answers every phrasing of the valve with "the valve will not move with the
+ * debris in the way" forever -- with the debris cleared and the pipe fittings
+ * mounted, and for a male player too.  The author got the same shape right
+ * twice in this one room: task 18 (`remove debris` holding the mast) sits
+ * before task 19 (the same words bare-handed, which kills you), and task 20
+ * (`mount pipe fitting`, gated on the valve being closed) before task 21 (`the
+ * heat ... makes it impossible to mount the pipe fittings`).  So task 22 gains
+ * the condition its own text states: task state, task 18 must NOT be done,
+ * with an empty FailMessage, so that once the debris is gone the line falls
+ * through to 23, 24 and 25 exactly as it falls through to 22 before then.
+ *
+ * With that a female player banks 30 of the 90 and carries the Queen of
+ * Diamonds out of the puzzle the author's own hint text describes -- clear the
+ * debris, close the valve, mount the fittings, open the valve -- which is the
+ * chain task 24 asks for and task 25 does not.  The game stays unwinnable and
+ * nothing here pretends otherwise.  Rage's only exit is gated on task 25
+ * SPECIFICALLY (`EXIT room=9 N -> dest=7 gateTask=25 wantDone=1`), so she ends
+ * in the room where her points are; the two other female twins are broken in
+ * their own ways (task 75 drops no card where task 74 drops the King of
+ * Spades, and the Gnarled Woods' only way back is gated on task 74); and the
+ * card game that would end the game has no command that starts it, for anyone.
+ * 30 is what the patched female career is worth, the same as the unpatched
+ * one, which reaches Terror instead and comes home with nothing.  The male
+ * task 25, unstolen, is worth 10 more to a male player, who can still walk out
+ * of Rage.
+ *
+ * The route also needs the repeat assist, which is not a patch: the Lair's
+ * task 3 is a one-shot with a bare `*` pattern, and pre-4.0's spent-task claim
+ * (run_spent_task_390()) then answers every later command in that room with
+ * "You have already done that.", which is where the faithful row stops at
+ * 5/90.  No data edit repairs that -- tasks 4 and 5 claim all twenty direction
+ * words on the same terms -- so the walkthrough row carries
+ * SCR_ASSUME_REPEATS=1 alongside SCR_ASSUME_PATCHES=1.
+ */
+static const scr_patch_edit_t PATCH_JOURN2[] = {
+  PATCH_VERIFY ("Tasks/22/Command/0", "#12 turn valve debris here"),
+  PATCH_VERIFY ("Tasks/24/Command/0", "#12 release pressure (f)"),
+  PATCH_VERIFY ("Tasks/25/Command/0", "#12 release pressure"),
+  PATCH_VERIFY ("Tasks/25/Command/1", "* turn * valve *"),
+  PATCH_VERIFY ("Tasks/25/Command/2", "* open * valve *"),
+  PATCH_VERIFY ("Tasks/25/Command/3", "* release * valve *"),
+  PATCH_VERIFY ("Tasks/25/Command/4", "* use * valve *"),
+  PATCH_ADD_STRING ("Tasks/22/RestrMask", "#"),
+  PATCH_ADD ("Tasks/22/Restrictions/0/Type", 2),
+  PATCH_ADD ("Tasks/22/Restrictions/0/Var1", 19),
+  PATCH_ADD ("Tasks/22/Restrictions/0/Var2", 1),
+  PATCH_ADD_STRING ("Tasks/22/Restrictions/0/FailMessage", ""),
+  PATCH_SET ("Tasks/24/Where/Type", 0, 1),
+  PATCH_ADD ("Tasks/24/Where/Room", 9),
+  PATCH_ADD_STRING ("Tasks/24/Command/1", "* turn * valve *"),
+  PATCH_ADD_STRING ("Tasks/24/Command/2", "* open * valve *"),
+  PATCH_ADD_STRING ("Tasks/24/Command/3", "* release * valve *"),
+  PATCH_ADD_STRING ("Tasks/24/Command/4", "* use * valve *")
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -5126,7 +5208,12 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "the Bedroom shoot's opening act asks for Shelby to be in the"
               " room, as the two acts after it do, not for the Player to be"
               " where the Player is",
-              PATCH_STUDIO)
+              PATCH_STUDIO),
+  PATCH_GAME ("The Long Journey Home", "Danny Chabino",
+              "the female twin of the valve in Rage is runnable nowhere and"
+              " has no command a player could type, and the debris refusal"
+              " above it steals every phrasing of the valve from both twins",
+              PATCH_JOURN2)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

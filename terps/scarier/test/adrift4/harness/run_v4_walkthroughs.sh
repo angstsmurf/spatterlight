@@ -5472,6 +5472,28 @@ losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # `score` itself is claimed in the Lair (Adrift_3_journ2_t5.txt).  The old
 # 30/90 route is commented out inside the solution.  Unwinnable either way.
 journ2_solution.txt|Journ2.taf|You are carrying the King of Hearts.|SCR_SEED=2
+# PATCHED + REPEAT-ASSISTED 2026-09-27: the FEMALE career, 30 of the 90, with
+# the Queen of Diamonds in hand.  Two switches for two different walls.
+# SCR_ASSUME_REPEATS gets past the Lair brick above, and no data edit can do it
+# instead -- tasks 4 and 5, the Creature's one-shot card handover, claim all
+# twenty direction words on the same terms task 3 claims everything, so
+# neutering task 3 only moves the brick one task down.  PATCH_JOURN2 repairs the
+# female twin of the valve in Rage: task 24 `#12 release pressure (f)` goes from
+# `where=0` (runnable nowhere) into room 9 and gains the four valve patterns
+# task 25 already carries, and task 22 -- the unrestricted "you haven't cleared
+# the debris yet" refusal that steals every phrasing of the valve from BOTH
+# twins -- is gated on the debris still being there, which is what its own text
+# says.  Her ceiling is 30 either way: unpatched she can go to Terror instead
+# and light the torch (+10) but comes home with nothing, since the female torch
+# drops no card and the woods' way back is gated on the male one.  What the
+# patch buys is that the 30 is the puzzle the author's own hint text describes
+# -- clear the debris, close the valve, mount the fittings, open the valve --
+# and the Queen of Diamonds.  Rage stays one-way for her: `EXIT room=9 N
+# gateTask=25` names the MALE twin, so the route ends in Rage on a refused `n`,
+# and the game is still unwinnable for anyone, the card game having no command
+# that starts it.  The male career is worth 10 more with the same patch, since
+# task 25 unstolen is a task he can walk out of Rage on; not derived here.
+journ2_patched_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.|SCR_SEED=2 SCR_ASSUME_REPEATS=1 SCR_ASSUME_PATCHES=1
 # Murder in Great Falls (no author recorded anywhere -- no author byte-field
 # in the .taf and none in games.manifest.tsv; released 24 Nov 2001) is a
 # three-day police procedural: Donald Wisker is found dead behind the college,
