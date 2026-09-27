@@ -1,7 +1,7 @@
 # ADRIFT 4 vs ADRIFT 5 in Scarier
 
 How the two engines Scarier carries differ, subsystem by subsystem. Semantics
-*arbitrated against the real Runners* live in `RUNNER_TESTS_TODO.md` §4; this
+*arbitrated against the real Runners* live in `test/adrift4/notes/RUNNER_TESTS_TODO.md` §4; this
 file describes the code as it stands. Last checked against the sources
 2026-08-10.
 
@@ -30,7 +30,7 @@ The v4 path stores an opaque `scr_game_s *` handle. The v5 path stores `a5_adven
 
 Four sub-versions distinguished by a 14-byte magic signature (`VERSION_HEADER_SIZE`; the four differ only in the last two bytes):
 - **v4.0**: payload is **zlib-compressed** (deflate). Embedded resources (sounds, graphics) may follow the game data; `parse_add_resources_offset()` records their byte offset.
-- **v3.9 / v3.8 / v3.7**: payload is **XOR-obfuscated** using the Visual Basic PRNG (`taf_random()`, seeded at `PRNG_INITIAL_STATE = 0x00a09e86`), with no length header and no trailer, so the plaintext may change length freely. 3.70 support was added 2026-08-04 and every inferred field was then measured against the genuine `run370.exe` (`RUNNER_TESTS_TODO.md` §6).
+- **v3.9 / v3.8 / v3.7**: payload is **XOR-obfuscated** using the Visual Basic PRNG (`taf_random()`, seeded at `PRNG_INITIAL_STATE = 0x00a09e86`), with no length header and no trailer, so the plaintext may change length freely. 3.70 support was added 2026-08-04 and every inferred field was then measured against the genuine `run370.exe` (`test/adrift4/notes/RUNNER_TESTS_TODO.md` §6).
 
 A v4.0 file is `[14-byte signature][8 ASCII digits][zlib stream][15-byte trailer]`. The digits are `filesize - 14` in decimal, and the trailer is `0x00`, twelve bytes, `CR LF`. Those twelve bytes are the author's 8-character password as `password[0:4] + "Wild" + password[4:8]` (Campbell **Wild**, ADRIFT's author), XOR-obfuscated with the *same* Visual Basic PRNG the v3.9/3.8 files use, indexed by absolute file offset — i.e. the stream is advanced `filesize - 14` times and then applied to the twelve bytes. `run400.exe` decodes it at load and rejects the file with "Error - Not an Adventure file." unless characters 5-8 are `Wild`. Scarier reads neither the size field nor the trailer, which is why it happily loads a file the Runner would refuse; anything that *writes* a `.taf` must reproduce both.
 
@@ -126,7 +126,7 @@ Media is a **side-channel**: `<img src="…">` and `<audio play|stop|pause src="
 
 ### ADRIFT 4 (`scparser.cpp`)
 
-Single-pass recursive-descent tokenizer (`uip_tokenize_start()`, `uip_next_token()`). Patterns stored as strings with `%text%`, `%object%`, `%character%`, `%number%`, `[optional]`, `{alt/choices}` grammar. Tried against the `V$Command[]` list per task. Two hardcoded built-in command tables in `scrunner.cpp` handle `take`, `drop`, `examine`, `go`, `wear`, `attack … with`, etc.: `PRIORITY_COMMANDS[]` is scanned *before* author tasks and `STANDARD_COMMANDS[]` after. The split is load-bearing, not cosmetic — it is how the Runner's rule that a completable `put`/`drop X in/on Y` beats a matched-but-failing task is reproduced (`RUNNER_TESTS_TODO.md` §4). Match is case-insensitive. Locale synonym expansion via `sclocale.cpp`.
+Single-pass recursive-descent tokenizer (`uip_tokenize_start()`, `uip_next_token()`). Patterns stored as strings with `%text%`, `%object%`, `%character%`, `%number%`, `[optional]`, `{alt/choices}` grammar. Tried against the `V$Command[]` list per task. Two hardcoded built-in command tables in `scrunner.cpp` handle `take`, `drop`, `examine`, `go`, `wear`, `attack … with`, etc.: `PRIORITY_COMMANDS[]` is scanned *before* author tasks and `STANDARD_COMMANDS[]` after. The split is load-bearing, not cosmetic — it is how the Runner's rule that a completable `put`/`drop X in/on Y` beats a matched-but-failing task is reproduced (`test/adrift4/notes/RUNNER_TESTS_TODO.md` §4). Match is case-insensitive. Locale synonym expansion via `sclocale.cpp`.
 
 ### ADRIFT 5 (`a5parse.cpp`)
 
