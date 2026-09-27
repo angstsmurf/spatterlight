@@ -2,7 +2,7 @@
 
    Spatterlight autosave/autorestore for the Scarier terp -- the ADRIFT <=4
    engine (gsc_main) and the ADRIFT 5 engine (gsc_a5_main) -- adapted from
-   the geas implementation (terps/geas/geasglk-autosave.mm), which is in
+   the Question implementation (terps/question/questionglk-autosave.mm), which is in
    turn adapted from Bocfel's, which follows Andrew Plotkin's IosGlk
    autosave design.
 

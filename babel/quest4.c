@@ -29,7 +29,7 @@ static unsigned char *find_string(unsigned char *storyvp,  int32 extent, char *s
 /* A compiled Quest file begins with its container header, and three versions
  * exist: QCGF001 is the Quest 2.x era format, 002 adds three more text-mode
  * block types, and 003 appends a resource catalogue. Quest reads all three with
- * one decompiler (LoadCASFile, V4Game.cs:1921) and so does geas (readfile.cc,
+ * one decompiler (LoadCASFile, V4Game.cs:1921) and so does Question (readfile.cc,
  * "Three compiled-game container versions exist"), so claim all three. Only 002
  * used to be claimed here, which left QCGF001 games (Bargain, MagicSwordP1) and
  * QCGF003 ones (Beyond Exile 2.2, Forward and Back) unrecognised even though

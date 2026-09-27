@@ -33,7 +33,7 @@ static void setdefaultworkdir(char **string)
                                      @"fizmo": @"Fizmo",
                                      @"bocfel": @"Bocfel",
                                      @"comprehend": @"Comprehend",
-                                     @"geas": @"Quest",
+                                     @"question": @"Quest",
                                      @"jacl": @"JACL",
                                      @"plus": @"Plus",
                                      @"scottfree": @"ScottFree",

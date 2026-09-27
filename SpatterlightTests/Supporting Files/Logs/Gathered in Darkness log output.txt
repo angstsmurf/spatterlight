@@ -1,6 +1,6 @@
 === Spatterlight Interpreter Log ===
 Game: Gatheredindarkness.cas
-Interpreter: geas
+Interpreter: question
 
 [MSG] cmd=HELLO a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=1 a3=0 len=0

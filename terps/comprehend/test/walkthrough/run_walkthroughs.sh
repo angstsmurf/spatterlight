@@ -1,7 +1,7 @@
 #!/bin/sh
 # run_walkthroughs.sh -- play the committed Comprehend command scripts against
 # their games and print a PASS/FAIL table, modelled on
-# geas/test/run_walkthroughs.sh.
+# question/test/run_walkthroughs.sh.
 #
 #   ./run_walkthroughs.sh [games-dir]
 #
@@ -10,7 +10,7 @@
 # argument. Scripts live in ./scripts and are the "raw" form: one input per line.
 #
 # Each entry names a win marker -- a line the interpreter only prints once the
-# script has driven the game to that point -- exactly as the geas runner's
+# script has driven the game to that point -- exactly as the Question runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
 # NOTE on coverage: all five games are now FULL playthroughs to their win lines

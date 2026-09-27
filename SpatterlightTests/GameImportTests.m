@@ -760,7 +760,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
              commandScriptName:@"Czech"];
 }
 
-- (void)testGeas {
+- (void)testQuestion {
     [self importAndRunGameFile:@"Gatheredindarkness.cas"
              commandScriptName:@"Gathered in Darkness"];
 }

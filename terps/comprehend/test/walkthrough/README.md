@@ -1,14 +1,14 @@
 # Comprehend headless walkthrough tests
 
 A small text regression harness for the Comprehend interpreter, modelled on
-`terps/geas/test`. It drives the existing headless build (`comprehend_hl`) from a
+`terps/question/test`. It drives the existing headless build (`comprehend_hl`) from a
 command script and checks the transcript for a **win marker** -- a line the game
 only prints once the script has driven it to that point. This is far more robust
 than diffing a byte-exact golden transcript: it pins the behaviour that matters
 (the game reaches a known state) without breaking on incidental wording changes.
 
 The games are **not** in this repo (copyrighted); point the runner at your own
-copies. The command scripts in `scripts/` are the "raw" form geas also commits:
+copies. The command scripts in `scripts/` are the "raw" form Question also commits:
 one input per line, `#`-comments and blank lines ignored.
 
 ## Build
@@ -44,7 +44,7 @@ The whole table:
 The interpreter has no real-time clock here, but turn timers still tick: the
 Coveted Mirror hourglass runs down per turn and, when it expires, the jailer
 teleports you back to the throne -- so a full Coveted Mirror walkthrough only
-completes if the script bribes the jailer on a strict cadence (the geas runner
+completes if the script bribes the jailer on a strict cadence (the Question runner
 solves the same class of problem with `--tick`). The committed
 `scripts/covetedmirror.txt` **manages that cadence**: the hourglass is variable
 `0x11` (starts 74, -1 per recognised turn); the script reaches the barrel hub

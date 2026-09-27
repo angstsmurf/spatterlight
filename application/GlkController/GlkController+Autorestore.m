@@ -308,7 +308,7 @@
                                      @"level9" : @"Level 9",
                                      @"magscrolls" : @"Magnetic",
                                      @"quest4" : @"Quest",
-                                     // Both Quest versions share one folder: the Geas terp runs
+                                     // Both Quest versions share one folder: the Question terp runs
                                      // both and cannot distinguish them when naming its own
                                      // work/autosave dir (glkimp fileref.m keys off the program
                                      // name's first word, "quest" for either). Per-game signature

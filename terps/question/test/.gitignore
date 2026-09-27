@@ -1,0 +1,37 @@
+# Harness binaries. They build beside their own sources, so the paths are
+# per-engine; the *.dSYM rule is global because a debug build drops one next to
+# whichever binary produced it.
+/quest4/harness/question_walkthrough_runner
+/quest4/harness/question_unit_tests
+/quest4/harness/question_profile_loop
+/quest4/harness/casdump
+/quest4/harness/randomness.o
+/quest5/harness/aslx_loader_test
+/quest5/harness/aslx_runtime_test
+/quest5/harness/aslx_replay
+/quest5/harness/aslx_linkcapture
+/quest5/harness/aslxglk_smoke
+/quest5/harness/aslxglk_link_tests
+/questglk_unit_tests
+*.dSYM/
+
+# Copyrighted third-party material — games and other people's walkthroughs —
+# kept local-only. The fixtures/ games and the goldens/ command scripts are
+# ours, and are committed.
+/quest4/games/
+/quest5/games/
+/quest5/downloaded/
+
+# Four of the corpus games are pornographic, and a transcript is nothing but
+# the game's own prose, so these four are kept local-only like the games they
+# came from. The command scripts beside them stay committed: those are ours,
+# and they describe the machinery without reproducing any of the text.
+# run_walkthroughs.sh --bless regenerates the transcripts from a local corpus.
+/quest4/goldens/Enterprising in space - transcript.txt
+/quest4/goldens/Freshman Fantastic Boy - transcript.txt
+/quest4/goldens/Posh - transcript.txt
+/quest4/goldens/Schoolgirl Jan Ken Pon - transcript.txt
+
+# Archives downloaded by fetch_games.sh on the way to the game corpora
+# (see GAMES.md); the corpora themselves are ignored above.
+/.game-cache/

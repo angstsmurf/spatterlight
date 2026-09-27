@@ -1,7 +1,7 @@
 # Standalone Makefile for the Archetype interpreter port.
 #
 # This builds an `archetype` binary linked against Spatterlight's prebuilt
-# libglkimp.dylib and libglkmain.a, mirroring how advsys/geas/etc. are
+# libglkimp.dylib and libglkmain.a, mirroring how advsys/question/etc. are
 # wired up via Spatterlight.xcodeproj.
 #
 # Useful for iterating on the port without touching the .pbxproj; for a

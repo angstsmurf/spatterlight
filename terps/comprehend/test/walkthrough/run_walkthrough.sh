@@ -1,11 +1,11 @@
 #!/bin/sh
 # run_walkthrough.sh -- play one Comprehend game from a command script and check
-# for a win marker, the same idea as geas/test/geas_walkthrough_runner.
+# for a win marker, the same idea as question/test/question_walkthrough_runner.
 #
 #   run_walkthrough.sh <gameid> <game-file> <script> <win-marker>
 #
 # <script> is one input per line (blank lines and #-comments ignored); this is
-# the "raw" form geas commits.  It is fed to comprehend_hl via COMPREHEND_SCRIPT
+# the "raw" form Question commits.  It is fed to comprehend_hl via COMPREHEND_SCRIPT
 # and the whole transcript is scanned for <win-marker>.  Exit status is 0 when
 # the marker is seen, else 1 (so it slots straight into run_walkthroughs.sh / CI).
 #

@@ -1,0 +1,1451 @@
+/*$Id: //depot/prj/question/master/code/questionglk.cc#10 $
+  questionglk.cc
+
+  User interface bridge from Question Core to Glk.
+
+  Copyright (C) 2006 David Jones.  Distribution or modification in any
+  form permitted.
+
+  Some code is taken from the public domain
+  http://www.eblong.com/zarf/glk/model.c written by Andrew Plotkin.
+
+  By the way, I can't write C++.  Sorry about that.
+
+
+  Glk Window arrangement.
+
+    +-------------------+
+    |         B         |
+    +-----------+---+---+
+    |     M     | D | O |
+    |           |   |   |
+    +-----------+---+---+
+    |         I         |
+    +-------------------+
+
+  B is a one line status bar (a TextGrid), kept in the global bannerwin.  It
+  shows the current room name (left) and the game's status variables such as
+  score/health/money (right).  It's optional, null if unavailable.  The game's
+  title/author/version banner is printed once into the main window at startup,
+  not here.
+  M is the main window where the text of the game appears.  Kept in the
+  global variable mainglkwin.
+  I is a one line "input window" where the user inputs their commands.
+  Kept in the global variable inputwin, it's optional, and if not separate
+  is set to mainglkwin.
+  O is an optional right-hand pane (objwin) listing the current room's objects
+  and exits; it is opened only when there is something to list and closed
+  otherwise (see update_objwin).  D (gfxwin) is a thin graphics window drawn in
+  the text colour as a divider between M and O.
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <map>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <initializer_list>
+
+#include "QuestionRunner.hh"
+
+#ifdef SPATTERLIGHT
+/* Spatterlight autosave/autorestore (questionglk-autosave.mm). */
+#include "questionglk-autosave.h"
+#endif
+
+/* Presentation helpers shared with the Quest 5 frontend (aslxglk.cc): the
+ * status banner, side pane + divider, transcript metaverb, save-file
+ * prompts, string/UTF-8 utilities and resource registration. */
+#include "questglk-common.inc"
+using namespace questglk;
+
+class QuestionGlkInterface : public QuestionInterface
+{
+protected:
+    virtual std::string get_file (const std::string &) const;
+    virtual QuestionResult print_normal (const std::string &);
+    virtual QuestionResult print_newline ();
+
+    virtual void set_foreground (const std::string &);
+    virtual void set_background (const std::string &);
+    virtual QuestionResult set_style (const QuestionFontStyle &);
+
+    virtual std::string get_string ();
+    virtual uint make_choice (const std::string &, std::vector<std::string>);
+    virtual QuestionResult play_sound (const std::string &filename, bool looped, bool sync);
+    virtual QuestionResult show_image (const std::string &filename, const std::string &resolution,
+				   const std::string &caption, ...);
+    virtual QuestionResult wait_keypress (const std::string &);
+    virtual bool has_objects_window ();
+
+  virtual std::string absolute_name (const std::string &, const std::string &) const;
+public:
+    QuestionGlkInterface() { ; }
+};
+
+static void glk_put_cstring(const char *);
+
+/* The native Quest 5 engine (aslxglk.cc).  glk_main below sniffs the story
+ * file and dispatches .aslx/.quest games there; .asl/.cas stay here. */
+extern "C" int aslx_is_quest5_file(const char *path);
+extern "C" void aslx_glk_main(const char *path);
+
+extern "C" {
+
+#include <assert.h>
+#include "glk.h"
+#ifdef SPATTERLIGHT
+/* Full window/stream structs: autosave needs the serialization tags. */
+#include "glkimp.h"
+/* The shared RNG (seeded by question-runner's set_game): autosave carries its
+ * exact state so a deterministic session replays identically across an
+ * autorestore, like Bocfel's seed + call-count replay. */
+#include "randomness.h"
+#endif
+
+/* The windows of the arrangement drawn at the top of this file.  Nothing
+ * outside this frontend touches them (the autosave module works from the
+ * serialization tags it is handed), so they stay file-local. */
+static winid_t mainglkwin = nullptr;
+static winid_t inputwin = nullptr;
+static winid_t bannerwin = nullptr;
+static winid_t objwin = nullptr;         /* right-hand pane: room objects + menus */
+static winid_t gfxwin = nullptr;         /* thin divider between main and objwin */
+static strid_t inputwinstream = nullptr;
+static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
+static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
+static bool g_output_seen = false;       /* set when print_* actually writes to the window */
+static bool g_use_objpane = false;       /* host supports a side pane; objwin may be
+                                          * momentarily closed (when empty) yet still "in use" */
+static bool g_hyperlinks = false;        /* host supports clickable hyperlinks in a
+                                          * text buffer (the object pane's entries) */
+
+/* One click action per objwin hyperlink, indexed by (link value - 1).  Rebuilt
+ * on every update_objwin: an object unfolds its verb menu in the pane (the
+ * Quest 5 pane does the same), a verb from that menu and an exit each run
+ * their command (a direction, "out", or "go to <place>") as if typed. */
+struct ObjLink {
+    std::string command;     /* run this as if typed */
+    std::string toggle_key;  /* or: unfold/fold this object's verb menu */
+    bool prefill = false;    /* or: `command` is an unfinished command -- put it
+                              * in the input line and let the player complete it
+                              * (a verb still missing its second noun) */
+};
+static std::vector<ObjLink> g_objlinks;
+
+/* Internal name of the object whose verb menu is currently unfolded in the
+ * pane, or empty.  The original Windows Quest 4 pops the menu on a
+ * right-click; a Glk pane has nowhere to pop one, so the verbs appear as an
+ * indented list under the object and clicking the name again folds it away.
+ * One at a time, as in the Quest 5 pane. */
+static std::string g_objwin_expanded;
+
+extern const char *storyfilename;  /* defined in questionglkterm.c */
+extern int use_inputwindow;
+
+/* Spatterlight's "slow draw / real-time delays" preference, defined in the
+ * glkimp layer. When off (as in the deterministic import tests) we skip the
+ * real-time timer heartbeat below. */
+extern int gli_sa_delays;
+
+static int ignore_lines = 0;  /* count of lines to ignore in game output */
+
+/* True while set_game() boots the game ahead of an autorestore: the intro is
+ * about to be replaced wholesale by the restored state, so all output is
+ * swallowed and any input the startscript asks for (a name prompt, a "press
+ * any key" pause) is auto-answered instead of blocking. */
+static bool g_autorestore_booting = false;
+
+static void draw_banner();
+static void update_objwin(QuestionRunner *gr);
+static void fill_divider();
+static void ensure_objwin_open();
+static void close_objwin();
+static bool run_turn_loop(QuestionRunner *gr, bool &autorestored);
+
+/* True when the trimmed, case-folded line is one of `forms`.  The frontend's
+ * metaverbs each claim a handful of spellings; matching them all one way keeps
+ * the trimming and case folding from drifting between them. */
+static bool
+is_command(const std::string &raw, std::initializer_list<const char *> forms)
+{
+    std::string c = lower(trim(raw));
+    for (const char *f : forms)
+        if (c == f)
+            return true;
+    return false;
+}
+
+/* True when the file's first bytes are the local-file-header zip magic. */
+static bool
+file_starts_with_zip_magic(const char *path)
+{
+    FILE *f = fopen(path, "rb");
+    if (!f)
+        return false;
+    unsigned char m[4] = { 0, 0, 0, 0 };
+    size_t n = fread(m, 1, sizeof m, f);
+    fclose(f);
+    return n == sizeof m && memcmp(m, "PK\x03\x04", 4) == 0;
+}
+
+static std::string g_last_objlist;   /* last room-object list echoed to a transcript */
+static std::string g_status_line;    /* status vars joined for the banner, rebuilt each turn */
+static std::string g_room_name;      /* current room name, shown left-aligned in the banner */
+
+/* Handle the transcript metaverb ("transcript"/"script" on/off).  Returns true
+ * if the command was a transcript command (and should not reach the game).  A
+ * running transcript echoes every line printed to the main window to the file. */
+static bool
+handle_transcript_command(const std::string &raw)
+{
+    int on = match_transcript_command(raw);
+    if (!on)
+        return false;
+    toggle_transcript(on, mainglkwin, &transcriptstr);
+    return true;
+}
+
+/* Prompt for a save file and restore it.  Returns true if the game state was
+ * successfully restored (and is now running). */
+static bool
+do_restore(QuestionRunner *gr)
+{
+    std::string data;
+    if (!prompt_read_save(data))
+        return false;
+    if (gr->load_state(data)) {
+        glk_put_string((char *) "\nGame restored.\n");
+        return true;
+    }
+    glk_put_string((char *) "Sorry, that does not look like a saved game for this story.\n");
+    return false;
+}
+
+/* Handle the SAVE / RESTORE metaverbs.  Returns true if the command was one of
+ * them (and should not reach the game).  The whole game state goes through a
+ * single Glk file; Question does the (de)serialising. */
+static bool
+handle_saverestore_command(const std::string &raw, QuestionRunner *gr)
+{
+    bool save = match_save_command(raw);
+    if (!save && !match_restore_command(raw))
+        return false;
+
+    if (save)
+        prompt_write_save(gr->save_state());
+    else
+        do_restore(gr);
+    return true;
+}
+
+/* Handle the STATUS metaverb: print the status variables in full.  The banner
+ * only has one grid line and cuts a long status down from the left, so this is
+ * the way to read the fields that scrolled off it. */
+static bool
+handle_status_command(const std::string &raw)
+{
+    if (!match_status_command(raw))
+        return false;
+    print_status_report(g_status_line, utf8_valid(g_status_line));
+    return true;
+}
+
+/* Handle the QUIT metaverb: print a farewell and ask the loop to stop, rather
+ * than letting the game end the session silently. */
+static bool
+handle_quit_command(const std::string &raw, bool &quitting)
+{
+    if (!is_command(raw, { "quit", "q", "quit game" }))
+        return false;
+
+    glk_put_cstring(QUIT_FAREWELL);
+    quitting = true;
+    return true;
+}
+
+/* Handle the RESTART metaverb: clear the screen and start the game over. */
+static bool
+handle_restart_command(const std::string &raw, QuestionRunner *gr)
+{
+    if (!is_command(raw, { "restart", "restart game" }))
+        return false;
+
+    glk_window_clear(mainglkwin);
+    gr->restart();
+    return true;
+}
+
+/* Handle the #HELP metaverb: list the system commands available on top of the
+ * game's own.  Only some of them are this port's -- SAVE, RESTORE, RESTART,
+ * QUIT, the transcript pair and #HELP itself; UNDO, OOPS, VERBS, ABOUT and
+ * HELP are the engine's (question-runner.cc).  What they have in common, and what
+ * the player wants from this list, is that they work in any game rather than
+ * being one game's invention, so the list names them all and the heading
+ * claims no more than that.
+ *
+ * Kept distinct from the game's plain HELP (which prints Quest's in-game quick
+ * help) so it never shadows it. */
+static bool
+handle_help_command(const std::string &raw)
+{
+    if (!match_help_command(raw))
+        return false;
+
+    print_system_commands(
+        "  QUIT     (Q)      Stop playing and leave Question.\n",
+        "  OOPS <word>       Re-run your last command with a mistyped object\n"
+        "                    word replaced by <word>.\n",
+        "  VERBS <object>    List the actions available for an object.\n",
+        "  ABOUT             Show the game's title, author, version and info.\n");
+    return true;
+}
+
+/* Run one line of player input: a frontend metaverb if it is one, otherwise
+ * the game's own parser.  Both the typed-line and the clicked-hyperlink paths
+ * come here, so the two cannot drift apart over which commands the frontend
+ * claims. */
+static void
+run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting)
+{
+    if (handle_transcript_command(cmd) ||
+        handle_saverestore_command(cmd, gr) ||
+        handle_restart_command(cmd, gr) ||
+        handle_help_command(cmd) ||
+        handle_status_command(cmd) ||
+        handle_quit_command(cmd, quitting))
+        return;
+
+    /* The runner echoes its own "> cmd" into the main text; when input shares
+     * that window the prompt and echo are already on screen, so swallow it. */
+    if (inputwin == mainglkwin)
+        ignore_lines = 2;
+    gr->run_command(cmd);
+}
+
+/* Print the top-level "> " prompt.  A separate input window holds nothing but
+ * the line being typed, so it is cleared first; sharing the main window
+ * instead leaves a blank line between the last game text and the prompt. */
+static void
+print_prompt()
+{
+    if (inputwin != mainglkwin)
+        glk_window_clear(inputwin);
+    else
+        glk_put_cstring("\n");
+    glk_put_string_stream(inputwinstream, (char *) "> ");
+}
+
+/* After the game ends, ask the player what to do.  Returns a POSTGAME_*
+ * choice; the menu text and matching are shared with the Quest 5 frontend. */
+static int
+post_game_menu()
+{
+    post_game_menu_print();
+    if (g_manual_echo)
+        glk_set_echo_line_event(inputwin, 1);   /* auto-echo the choice */
+    char b[64];
+    for (;;) {
+        glk_put_string_stream(inputwinstream, (char *) "> ");
+        glk_request_line_event(inputwin, b, (sizeof b) - 1, 0);
+        event_t ev;
+        do {
+            glk_select(&ev);
+            if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+                draw_banner();
+                fill_divider();
+            }
+        } while (!(ev.type == evtype_LineInput && ev.win == inputwin));
+        if (int c = post_game_menu_match(std::string(b, (int) ev.val1)))
+            return c;
+        post_game_menu_reprompt();
+    }
+}
+
+/* The game has ended (death or win): offer undo / restore / restart / quit
+ * until one of them takes, instead of just closing the session.  Returns true
+ * when the player is back in a running game, false when they chose to quit. */
+static bool
+run_post_game_menu(QuestionRunner *gr)
+{
+    for (;;) {
+        switch (post_game_menu()) {
+        case POSTGAME_UNDO:
+            if (gr->undo())
+                return true;                /* resurrected; resume play */
+            glk_put_cstring(NOTHING_TO_UNDO);
+            break;
+        case POSTGAME_RESTORE:
+            if (do_restore(gr))
+                return true;                /* restored; resume play */
+            break;
+        case POSTGAME_RESTART:
+            glk_window_clear(mainglkwin);
+            gr->restart();
+            return true;
+        default:                            /* QUIT */
+            glk_put_cstring(QUIT_FAREWELL);
+            return false;
+        }
+    }
+}
+
+void glk_main(void)
+{
+    /* Quest 5 games (.quest zip with game.aslx inside, or raw <asl> XML) run
+     * on the native aslx engine, a separate runner sharing this frontend. */
+    if (storyfilename && aslx_is_quest5_file(storyfilename)) {
+        aslx_glk_main(storyfilename);
+        return;
+    }
+
+    glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_ReverseColor, 1);
+    /* Open the main window. */
+    mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+    if (!mainglkwin) {
+        /* It's possible that the main window failed to open. There's
+            nothing we can do without it, so exit. */
+        return; 
+    }
+    glk_set_window(mainglkwin);
+
+    if (!storyfilename) {
+        glk_put_cstring("No game name or more than one game name given.\n"
+                        "Try -h for help.\n");
+        return;
+    }
+
+    /* A zip that got this far is not a playable .quest: the Quest 5 sniff
+     * above already rejected it (no game.aslx inside), and the classic ASL
+     * parser would read the binary as one long comment and present an empty,
+     * dead game.  A wrapper archive holding a .quest is the usual case --
+     * say so rather than opening a blank window. */
+    if (file_starts_with_zip_magic(storyfilename)) {
+        glk_put_cstring("This file is a zip archive, not a Quest game.\n"
+                        "If it contains a .quest or .asl game file, unpack it "
+                        "first and open that.\n");
+        return;
+    }
+
+    glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+    bannerwin = glk_window_open(mainglkwin,
+                                winmethod_Above | winmethod_Fixed,
+                                1, wintype_TextGrid, 0);
+
+    if (use_inputwindow)
+        inputwin = glk_window_open(mainglkwin,
+                                   winmethod_Below | winmethod_Fixed,
+                                   1, wintype_TextBuffer, 0);
+    else
+        inputwin = NULL;
+
+    if (!inputwin)
+        inputwin = mainglkwin;
+
+    inputwinstream = glk_window_get_stream(inputwin);
+
+    /* A right-hand pane listing the objects/characters in the current room
+     * (and, later, menus).  Open it once to probe whether the host supports a
+     * side pane, then close it again: update_objwin manages it dynamically,
+     * opening it only when it has something to list and closing it (reclaiming
+     * the width) when empty.  Probing-then-closing avoids leaving an empty pane
+     * on screen during the game's intro / name prompt, which runs (and renders)
+     * before the first update_objwin.  If it can't be opened we fall back to
+     * listing objects in the main text (see has_objects_window). */
+    ensure_objwin_open();
+    g_use_objpane = (objwin != nullptr);
+    close_objwin();
+
+    /* Clickable hyperlinks for the object-pane entries (objects and exits), as
+     * in the Quest 5 frontend.  Only when the host both draws and accepts
+     * hyperlink input in a text buffer -- otherwise the pane stays plain text. */
+    g_hyperlinks = glk_gestalt(gestalt_Hyperlinks, 0) &&
+                   glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
+
+    /* We can turn off Glk's automatic line-input echo and echo entered text
+     * ourselves; this is used for the command loop so that a timer cancelling
+     * the input doesn't leave a stray newline and partial line on screen.
+     * (get_string keeps auto-echo on -- it never cancels for a timer -- so its
+     * input echoes inline at the prompt.)  echo is toggled per request. */
+    g_manual_echo = (inputwin == mainglkwin) &&
+                    glk_gestalt(gestalt_LineInputEcho, 0);
+
+    if (!glk_gestalt(gestalt_Timer, 0))
+        glk_put_cstring("\nNote -- The underlying Glk library does not support"
+                        " timers.  If this game tries to use timers, then some"
+                        " functionality may not work correctly.\n\n");
+
+    QuestionRunner *gr = QuestionRunner::get_runner(new QuestionGlkInterface());
+
+    /* When a Spatterlight autosave exists, boot the game silently (output
+     * swallowed, startscript prompts auto-answered) and then replace the
+     * whole state -- engine and Glk library both -- with the saved one.
+     * The app restores the window contents from its own GUI snapshot. */
+    bool autorestored = false;
+#ifdef SPATTERLIGHT
+    if (question_autosave_exists()) {
+        g_autorestore_booting = true;
+        gr->set_game(storyfilename);
+        autorestored = question_restore_autosave(gr);
+        g_autorestore_booting = false;
+        if (!autorestored) {
+            /* Bad autosave (now deleted).  The silent boot above already
+             * consumed the game's intro, so restart in a fresh process
+             * rather than continuing from a polluted state. */
+            win_reset();
+            exit(0);
+        }
+    } else
+#endif
+        gr->set_game(storyfilename);
+
+#ifdef GLK_MODULE_GARGLKTEXT
+    {
+        /* Tell the host UI the game's title.  get_banner() returns
+         * "<name>, v<version> | <author>"; pass just the leading name part. */
+        std::string title = gr->get_banner();
+        std::string::size_type cut = title.find(", v");
+        std::string::size_type bar = title.find(" | ");
+        if (bar != std::string::npos && (cut == std::string::npos || bar < cut))
+            cut = bar;
+        if (cut != std::string::npos)
+            title.erase(cut);
+        if (!title.empty())
+            garglk_set_story_title(title.c_str());
+    }
+#endif
+
+    /* The game's title/version/author banner is printed once into the main
+     * window by the runner (set_game), before the game's own opening text --
+     * the status bar is reserved for the current room name (left) and any
+     * status vars (right). */
+    draw_banner();
+    update_objwin(gr);
+
+    /* Only arm the 1-second heartbeat if the game actually defines timers and
+     * real-time delays are enabled. Question used to request timer events
+     * unconditionally. The set of timers is fixed at load time, so a timerless
+     * game never needs the heartbeat at all. And when real-time delays are off
+     * -- as in the deterministic import tests --
+     * suppressing the wall-clock ticks keeps the glk_select/NEXTEVENT count in
+     * the input loop deterministic even for games that do use timers (e.g.
+     * Gathered in Darkness). Gating on gli_sa_delays rather than gli_determinism
+     * leaves room to still exercise a game's real-time events deterministically. */
+    if (gr->has_timers() && gli_sa_delays)
+        glk_request_timer_events(1000);
+    else if (autorestored)
+        /* updateFromLibraryLate re-armed the saved timer interval; cancel it
+         * if the current preferences say no real-time events. */
+        glk_request_timer_events(0);
+
+    for (;;) {
+        if (run_turn_loop(gr, autorestored))
+            break;                          /* the player quit mid-game */
+        if (!run_post_game_menu(gr))
+            break;                          /* ...or chose to at the ending */
+        /* Undone, restored or restarted: the bar, the pane and its divider
+         * all still describe the state that was left behind. */
+        if (gr->is_running()) {
+            draw_banner();
+            update_objwin(gr);
+            fill_divider();
+        }
+    }
+}
+
+/* The turn loop: print the prompt, wait for a line of input (or a click on a
+ * pane entry, or a timer tick), run it, refresh the bar and the pane -- until
+ * the game ends or the player quits, which is what the return value reports.
+ *
+ * `autorestored` is set on entry when the session was just restored from an
+ * autosave, whose restored transcript already ends with a prompt; it is
+ * cleared here so the next turn prompts normally. */
+static bool
+run_turn_loop(QuestionRunner *gr, bool &autorestored)
+{
+    char buf[200];
+    bool quitting = false;
+
+    while (gr->is_running() && !quitting) {
+        if (autorestored) {
+            /* The restored transcript already ends with the old prompt;
+             * just re-request input below without printing another. */
+            autorestored = false;
+        } else {
+            print_prompt();
+#ifdef SPATTERLIGHT
+            /* Autosave at every top-level prompt: after the prompt is printed
+             * (so the GUI snapshot ends with it) but before input is requested
+             * (so the saved windows carry no pending request and a restore
+             * just re-requests input here). */
+            question_do_autosave(gr);
+#endif
+        }
+
+        /* Echo off for the command line, so a timer cancelling it is clean. */
+        if (g_manual_echo)
+            glk_set_echo_line_event(inputwin, 0);
+        glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
+
+        event_t ev;
+        ev.type = evtype_None;
+
+        while(ev.type != evtype_LineInput) {
+            glk_select(&ev);
+
+            switch(ev.type) {
+            case evtype_LineInput:
+                if(ev.win == inputwin) {
+                    std::string cmd = std::string(buf, ev.val1);
+                    /* Auto-echo is off, so echo the entered command ourselves at
+                     * the prompt (which was already printed above), so every
+                     * command -- including the metaverbs below -- shows up. */
+                    if (g_manual_echo)
+                        echo_input_line(cmd, false);
+                    run_or_handle_command(cmd, gr, quitting);
+                }
+                break;
+
+            case evtype_Timer:
+                if (gr->timer_will_fire()) {
+                    /* A timer fires (and may print or end the game) on this
+                     * tick.  Cancel the pending input first -- glk forbids
+                     * printing to a window with a live line-input request.
+                     * With echo off the cancel prints nothing and leaves the
+                     * "> " prompt in place (it is before the input fence). */
+                    event_t ce;
+                    glk_cancel_line_event(inputwin, &ce);
+                    /* Retract that stale prompt so the timer's text lands
+                     * after the previous game text instead of ON the prompt
+                     * line, with a single fresh prompt below -- like the
+                     * reference runner.  Main-window input only (a separate
+                     * input window is cleared per turn and strands nothing);
+                     * best-effort: if the window tail is not exactly the
+                     * prompt (no echo control, so the typed text is still on
+                     * screen), today's behaviour is kept.  Typed text comes
+                     * back either way, as preloaded input (ce.val1). */
+                    bool retracted = inputwin == mainglkwin &&
+                                     unput_tail_exact(mainglkwin, U"\n> ");
+                    g_output_seen = false;
+                    gr->tick_timers();
+                    draw_banner();
+                    if (gr->is_running()) {
+                        /* If the timer printed something (e.g. surviving the
+                         * dynamite), show a fresh prompt.  After a retract
+                         * one is always owed; a silent timer then gets back
+                         * the exact "\n> " just removed.  With neither (the
+                         * interval-0 mayor-door check under a failed or
+                         * non-Spatterlight retract) the existing prompt is
+                         * left alone. */
+                        if (g_output_seen || retracted)
+                            print_prompt();
+#ifdef SPATTERLIGHT
+                        /* The timer changed game state while we sat at the
+                         * prompt; refresh the autosave (it skips itself when
+                         * the autosave-on-timer preference is off). */
+                        question_do_autosave(gr);
+#endif
+                        glk_request_line_event(inputwin, buf,
+                                               (sizeof buf) - 1, ce.val1);
+                    }
+                } else {
+                    /* Just counting down: no output, so the live input is fine. */
+                    gr->tick_timers();
+                }
+                break;
+
+            case evtype_Hyperlink:
+                /* A click on an object-pane entry runs its command as if typed
+                 * (objects -> "verbs <object>", exits -> their navigation). */
+                if (g_hyperlinks && ev.win == objwin &&
+                    ev.val1 >= 1 && ev.val1 <= (glui32) g_objlinks.size()) {
+                    /* By value: the toggle path rebuilds g_objlinks. */
+                    const ObjLink act = g_objlinks[ev.val1 - 1];
+                    if (!act.toggle_key.empty()) {
+                        /* An object name: fold its verb menu open or shut and
+                         * repaint the pane (which re-arms its hyperlink).  No
+                         * turn passes, so the live line input stays as it is
+                         * and the loop keeps waiting for the real input. */
+                        g_objwin_expanded = g_objwin_expanded == act.toggle_key
+                            ? std::string() : act.toggle_key;
+                        update_objwin(gr);
+#ifdef SPATTERLIGHT
+                        /* The fold state rides in the autosave
+                         * (question_stash_frontend_state's objwin_expanded), but
+                         * toggling passes no turn, so without a refresh here
+                         * the newest snapshot predates it and a relaunch comes
+                         * back folded.  The live line request has to be
+                         * cancelled across the write -- an archived PENDING
+                         * request would collide with the one a restore makes
+                         * -- and re-armed with anything already typed preloaded
+                         * (ce.val1), exactly as the prefill and timer paths do. */
+                        {
+                            event_t ce;
+                            ce.val1 = 0;
+                            glk_cancel_line_event(inputwin, &ce);
+                            question_do_autosave(gr);
+                            glk_request_line_event(inputwin, buf,
+                                                   (sizeof buf) - 1, ce.val1);
+                        }
+#endif
+                        break;
+                    }
+                    if (act.prefill) {
+                        /* A verb whose command is not finished yet ("give red
+                         * herring to ").  Put it in the input line and hand
+                         * the line back to the player to name the second
+                         * object, instead of running it as it stands.  No turn
+                         * passes; the loop keeps waiting, and the LineInput it
+                         * eventually gets carries the whole line, prefix and
+                         * all. */
+                        event_t ce;
+                        glk_cancel_line_event(inputwin, &ce);
+                        glui32 n = (glui32) act.command.size();
+                        if (n < (sizeof buf) - 1) {
+                            memcpy(buf, act.command.data(), n);
+                            buf[n] = '\0';
+                        } else {
+                            n = 0;
+                        }
+                        glk_request_line_event(inputwin, buf,
+                                               (sizeof buf) - 1, n);
+                        /* Clearing the pane below would drop its hyperlink
+                         * request, so re-arm it here where nothing is redrawn. */
+                        if (g_hyperlinks && objwin)
+                            glk_request_hyperlink_event(objwin);
+                        break;
+                    }
+                    std::string cmd = act.command;
+                    /* Cancel the live line input first -- Glk forbids printing to
+                     * a window with a pending request; with echo off the cancel
+                     * leaves nothing on screen. */
+                    event_t ce;
+                    glk_cancel_line_event(inputwin, &ce);
+                    /* Echo the clicked command so the player sees what ran.  With
+                     * input in the main window the "> " prompt is already there
+                     * and run_command's own "> cmd" echo is suppressed
+                     * (run_or_handle_command's ignore_lines), so echo the command
+                     * here -- there is no typed text for the library to echo.
+                     * With a separate input window run_command prints its own
+                     * "> cmd" into the main text (ignore_lines stays 0), so no
+                     * manual echo. */
+                    if (inputwin == mainglkwin)
+                        echo_input_line(cmd, false);
+                    run_or_handle_command(cmd, gr, quitting);
+                    /* Treat the click as this turn's input so the loop exits,
+                     * refreshes the pane (re-arming the link) and re-prompts. */
+                    ev.type = evtype_LineInput;
+                } else if (g_hyperlinks && objwin) {
+                    /* Out-of-range (pane changed under the click): just re-arm. */
+                    glk_request_hyperlink_event(objwin);
+                }
+                break;
+
+            case evtype_Arrange:
+            case evtype_Redraw:
+                draw_banner();
+                update_objwin(gr);
+                fill_divider();
+                break;
+            }
+
+            /* A timer (e.g. World's End's dynamite) may have ended the game
+             * while we were waiting at the prompt.  Stop now and show the
+             * ending, rather than leaving the prompt up.  (The Timer case has
+             * already cancelled the line request in that case.) */
+            if (!gr->is_running())
+                break;
+        }
+        /* The command (or a timer) may have changed room; refresh the bar
+         * and the room-objects pane. */
+        draw_banner();
+        update_objwin(gr);
+    }
+    return quitting;
+}
+
+} /* extern "C" */
+
+static void
+draw_banner()
+{
+  /* The current room name, left-aligned, and the status vars right-aligned.
+   * (The game's title/version/author banner is shown once at startup in the
+   * main window, not here.)  Classic games carry no encoding declaration:
+   * when the text is well-formed UTF-8 (which includes plain ASCII, where
+   * both modes agree) use codepoint-aware writes and measurement so accented
+   * names render and right-align correctly; anything else is passed through
+   * as Latin-1 bytes, as before. */
+  bool utf8 = utf8_valid(g_room_name) && utf8_valid(g_status_line);
+  draw_status_banner(bannerwin, g_room_name, g_status_line, utf8);
+}
+
+/* Open the right-hand pane (and its divider), if not already open and the host
+ * supports it.  Mirrors the startup arrangement so it can be reopened after the
+ * pane was closed for an empty room. */
+static void
+ensure_objwin_open()
+{
+    open_side_pane_windows(mainglkwin, &objwin, &gfxwin);
+}
+
+/* Close the pane and its divider so the main window reclaims the full width. */
+static void
+close_objwin()
+{
+    close_side_pane_windows(&objwin, &gfxwin);
+}
+
+/* Write one pane entry (on its own line) to the objwin stream.  When the host
+ * supports hyperlinks the label is made clickable: its link value is its
+ * 1-based index in g_objlinks, and a click either runs `command` as if the
+ * player had typed it or folds `toggle_key`'s verb menu open and shut (see the
+ * evtype_Hyperlink handling in glk_main).  An indented entry is a verb inside
+ * such an unfolded menu. */
+static void
+put_objwin_link(strid_t s, const std::string &label, const std::string &command,
+                const std::string &toggle_key = std::string(),
+                bool indent = false, bool prefill = false)
+{
+    glui32 linkval = 0;
+    if (g_hyperlinks) {
+        g_objlinks.push_back({command, toggle_key, prefill});
+        linkval = (glui32) g_objlinks.size();
+    }
+    if (indent)
+        glk_put_string_stream(s, (char *) "    ");
+    /* Encoding sniff per label, as in draw_banner: names from UTF-8-authored
+     * games are written codepoint-aware, Latin-1 ones pass through as bytes
+     * (ASCII is identical either way). */
+    put_pane_link(s, label, linkval, utf8_valid(label));
+}
+
+/* Redraw the right-hand pane, laid out like the Quest 5 pane: what you carry
+ * under "Inventory", what is here (objects, then the places you can enter)
+ * under "Places and Objects", and the directional exits under "Compass".
+ * The pane (and its divider) is shown only when it has something to list; the
+ * room-name header alone does not justify it, so a room with nothing at all
+ * closes the pane and gives the width back to the main text.
+ * If a transcript is running, also echo the room list to it (the pane is not
+ * part of the main window's echo stream), but only when it changes. */
+static void
+update_objwin(QuestionRunner *gr)
+{
+    /* Gather everything first so we can decide whether the pane has any real
+     * content before opening or closing it. */
+    std::string room = cap_first(gr->get_location());
+    g_room_name = room;
+
+    v2string contents = gr->get_room_contents();
+    v2string inventory = gr->get_inventory();
+    /* An unfolded verb menu belongs to an object the pane lists; drop it once
+     * that object is gone (dropped somewhere else, another room, a restart).
+     * Taking one moves it from the room list to the inventory list, where it
+     * stays listed -- and stays unfolded, its menu now offering "Drop". */
+    if (!g_objwin_expanded.empty()) {
+        bool still_here = false;
+        for (const v2string *list : { &contents, &inventory })
+            for (const std::vector<std::string> &item : *list)
+                if (item.size() > 2 && item[2] == g_objwin_expanded)
+                    still_here = true;
+        if (!still_here)
+            g_objwin_expanded.clear();
+    }
+    std::string flat;
+    for (std::vector<std::string> &item : contents) {
+        if (item.empty())
+            continue;
+        if (!flat.empty())
+            flat += ", ";
+        flat += item[0];
+    }
+
+    /* Each exit is a {display label, click command} pair. */
+    v2string exits = gr->get_room_exits();
+    std::string flatexits;
+    for (std::vector<std::string> &exit : exits) {
+        if (exit.empty() || exit[0].empty())
+            continue;
+        if (!flatexits.empty())
+            flatexits += ", ";
+        flatexits += exit[0];
+    }
+
+    /* Status variables (Quest's "collectables": money/health/score etc.,
+     * defined via `define variable ... display <...>`).  Show them right-aligned
+     * in the status bar instead of the object pane. */
+    vstring status = gr->get_status_vars();
+    std::string flatstatus;
+    g_status_line.clear();
+    for (std::string &var : status) {
+        if (var.empty())
+            continue;
+        if (!flatstatus.empty())
+            flatstatus += ", ";
+        flatstatus += var;
+        if (!g_status_line.empty())
+            g_status_line += " | ";
+        g_status_line += var;
+    }
+    draw_banner();
+
+    /* Split the exits the way the Quest 5 pane does: bare directions (and the
+     * OUT exit) are the compass, while a named place you can walk into is
+     * listed with the objects.  A place's command is "go to <target>"; a
+     * compass entry's is the direction itself. */
+    v2string compass, places;
+    for (std::vector<std::string> &exit : exits) {
+        if (exit.empty() || exit[0].empty())
+            continue;
+        const std::string &command = exit.size() > 1 ? exit[1] : exit[0];
+        if (command.rfind("go to ", 0) == 0)
+            places.push_back(exit);
+        else
+            compass.push_back(exit);
+    }
+
+    /* Show the pane only when it has something to list. */
+    bool show = !flat.empty() || !flatexits.empty() || !inventory.empty();
+    if (g_use_objpane) {
+        if (show)
+            ensure_objwin_open();
+        else
+            close_objwin();
+    }
+
+    /* Rebuild the click-command table for the pane's hyperlinks from scratch;
+     * the entries below append to it in draw order (its indices are the link
+     * values). */
+    g_objlinks.clear();
+
+    if (objwin) {
+        glk_window_clear(objwin);
+        strid_t s = glk_window_get_stream(objwin);
+
+        /* Section headers, separated by a blank line -- but the first section
+         * sits at the very top of the pane, whichever one it turns out to be
+         * (an empty section is not drawn at all). */
+        bool first = true;
+        auto header = [&](const char *title) {
+            if (!first)
+                glk_put_char_stream(s, '\n');
+            first = false;
+            put_pane_header(s, title, false);
+        };
+
+        /* One object entry.  Clicking it unfolds its verb menu below the name,
+         * matching the Quest 5 pane. */
+        auto put_object = [&](std::vector<std::string> &item) {
+            if (item.empty())
+                return;
+            std::string oname = item.size() > 2 ? item[2] : item[0];
+            put_objwin_link(s, cap_first(item[0]), "", oname);
+            if (oname != g_objwin_expanded)
+                return;
+            /* The unfolded menu: one indented entry per verb.  Each carries the
+             * command the player would type ("Look at hat"); a verb still
+             * missing a second noun ("Give to...") carries the start of one,
+             * for the input line rather than the parser. */
+            for (const std::vector<std::string> &verb :
+                     gr->get_object_verbs(oname)) {
+                if (verb.empty() || verb[0].empty())
+                    continue;
+                bool more = verb.size() > 2 && verb[2] == "1";
+                put_objwin_link(s, verb[0],
+                                verb.size() > 1 ? verb[1] : verb[0],
+                                std::string(), true, more);
+            }
+        };
+
+        /* An exit entry: no verb menu, the click just runs its navigation
+         * command (a direction, "out", or "go to <place>"). */
+        auto put_exit = [&](std::vector<std::string> &exit) {
+            put_objwin_link(s, cap_first(exit[0]),
+                            exit.size() > 1 ? exit[1] : exit[0]);
+        };
+
+        if (!inventory.empty()) {
+            header(PANE_INVENTORY);
+            for (std::vector<std::string> &item : inventory)
+                put_object(item);
+        }
+
+        if (!contents.empty() || !places.empty()) {
+            header(PANE_PLACES_OBJECTS);
+            for (std::vector<std::string> &item : contents)
+                put_object(item);
+            for (std::vector<std::string> &place : places)
+                put_exit(place);
+        }
+
+        if (!compass.empty()) {
+            header(PANE_COMPASS);
+            for (std::vector<std::string> &exit : compass)
+                put_exit(exit);
+        }
+        fill_divider();
+
+        /* Re-arm the pane's hyperlink input: clearing the window above drops any
+         * pending request, and reopening it (for a previously empty room) makes
+         * a fresh window with none.  The main input loop consumes the event. */
+        if (g_hyperlinks)
+            glk_request_hyperlink_event(objwin);
+    }
+
+    std::string key = room + "\x01" + flat + "\x01" + flatexits + "\x01" + flatstatus;
+    if (transcriptstr && key != g_last_objlist) {
+        std::string line = "[ " + (room.empty() ? std::string("Here") : room) +
+            ": " + (flat.empty() ? std::string("nothing") : flat) +
+            (flatexits.empty() ? std::string("") : "; exits: " + flatexits) +
+            (flatstatus.empty() ? std::string("") : "; status: " + flatstatus) +
+            " ]\n";
+        glk_put_string_stream(transcriptstr, (char *) line.c_str());
+    }
+    g_last_objlist = key;
+}
+
+bool
+QuestionGlkInterface::has_objects_window ()
+{
+    /* True whenever the host is using a side pane, even if it is momentarily
+     * closed for an empty room -- so the runner consistently routes object and
+     * exit listings to the pane rather than duplicating them in the main text. */
+    return g_use_objpane;
+}
+
+/* Paint the divider window in the current text colour.  Graphics windows are
+ * blanked on resize, so this is also called on Arrange/Redraw. */
+static void
+fill_divider()
+{
+    fill_side_divider(mainglkwin, gfxwin);
+}
+
+static void
+glk_put_cstring(const char *s)
+{
+    /* The cast to remove const is necessary because glk_put_string
+     * receives a "char *" despite the fact that it could equally well use
+     * "const char *". */
+    glk_put_string((char *)s);
+}
+
+QuestionResult
+QuestionGlkInterface::print_normal (const std::string &s)
+{
+    if (g_autorestore_booting)
+        return r_success;
+    if(!ignore_lines)
+      {
+	glk_put_cstring(s.c_str());
+	g_output_seen = true;
+      }
+    return r_success;
+}
+
+QuestionResult
+QuestionGlkInterface::print_newline ()
+{
+    if (g_autorestore_booting)
+        return r_success;
+    if (!ignore_lines)
+      {
+	glk_put_cstring("\n");
+	g_output_seen = true;
+      }
+    else
+      {
+	ignore_lines--;
+      }
+    return r_success;
+}
+
+
+QuestionResult
+QuestionGlkInterface::set_style (const QuestionFontStyle &style)
+{
+    // Glk styles are defined before the window opens, so at this point we can only
+    // pick the most suitable style, not define a new one.
+    glui32 match;
+    if (style.is_italic && style.is_bold)
+      {
+	match = style_Alert;
+      }
+    else if (style.is_italic)
+      {
+	match = style_Emphasized;
+      }
+    else if (style.is_bold)
+      {
+	match = style_Subheader;
+      }
+    else if (style.is_underlined)
+      {
+	match = style_User2;
+      }
+    else
+      {
+	match = style_Normal;
+      }
+
+    glk_set_style_stream(glk_window_get_stream(mainglkwin), match);
+    return r_success;
+}
+
+/* Quest's per-passage colour changes have nowhere to go: a Glk window's
+ * colours come from stylehints fixed before it opens, and the host's theme
+ * owns them anyway.  The text keeps the player's chosen colours. */
+void
+QuestionGlkInterface::set_foreground (const std::string &)
+{
+}
+
+void
+QuestionGlkInterface::set_background (const std::string &)
+{
+}
+
+
+/* Read a whole file (a game's .asl source, or a library it !includes). */
+std::string
+QuestionGlkInterface::get_file (const std::string &fname) const
+{
+  std::ifstream ifs (fname.c_str(), std::ios::in | std::ios::binary);
+  if (! ifs.is_open())
+    {
+      /* Report to the log, not the game window: a missing file is usually a
+       * standard Quest library the game !includes (e.g. Typelib.qlb) that Question
+       * either implements natively or doesn't need, so the player should never
+       * see a raw "Couldn't open <path>" line. */
+      std::cerr << "Couldn't open " << fname << "\n";
+      return "";
+    }
+  std::ostringstream ss;
+  ss << ifs.rdbuf();
+  return ss.str();
+}
+
+/* Show the message (if any) and wait for a single keypress.  Used for the
+ * intro's "|w" and the game's "wait <...>" pauses. */
+QuestionResult
+QuestionGlkInterface::wait_keypress (const std::string &msg)
+{
+  if (g_autorestore_booting)
+    return r_success;
+  if (!msg.empty())
+    print_formatted(msg);
+  glk_request_char_event(mainglkwin);
+  /* A click on a pane hyperlink also dismisses the wait, like any keypress
+   * (matching the Quest 5 frontend); the click's command is not run here. */
+  if (g_hyperlinks && objwin)
+    glk_request_hyperlink_event(objwin);
+  event_t ev;
+  for (;;)
+    {
+      glk_select(&ev);
+      if (ev.type == evtype_CharInput && ev.win == mainglkwin)
+        break;
+      if (ev.type == evtype_Hyperlink && ev.win == objwin)
+        {
+          glk_cancel_char_event(mainglkwin);
+          break;
+        }
+      if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+        {
+          draw_banner();
+          fill_divider();
+        }
+      /* timers deliberately ignored: the game is paused for the keypress */
+    }
+  return r_success;
+}
+
+std::string
+QuestionGlkInterface::get_string ()
+{
+  /* An autorestore boot can't block on input; any non-empty canned answer
+   * satisfies a "what is your name?"-style startscript loop, and the whole
+   * resulting state is about to be replaced by the restored one. */
+  if (g_autorestore_booting)
+    return "x";
+  char buf[200];
+  /* Use Glk's own echo here: get_string ignores timers, so it never cancels
+   * its input, and auto-echo places the entry inline at the prompt. */
+  if (g_manual_echo)
+      glk_set_echo_line_event(inputwin, 1);
+  glk_request_line_event(inputwin, buf, (sizeof buf) - 1, 0);
+  while(1) {
+    event_t ev;
+
+    glk_select(&ev);
+
+    if (ev.type == evtype_LineInput && ev.win == inputwin) {
+      return std::string(buf, ev.val1);
+    }
+    /* All other events, including timer, are deliberately
+     * ignored.
+     */
+  }
+}
+
+uint
+QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::string> v)
+{
+    if (g_autorestore_booting)
+        return 0;
+
+    size_t n = v.size();
+    if (n == 0)
+        return 0;   /* nothing to choose between; the caller's own fallback */
+
+    /* Only clear a *separate* input window; if input shares the main window
+     * this would wipe the whole screen before every menu. */
+    if (inputwin != mainglkwin)
+        glk_window_clear(inputwin);
+
+    glk_put_cstring(label.c_str());
+    glk_put_cstring("\n");
+    for (size_t i = 0; i < n; ++i)
+      {
+	std::string line = std::to_string(i + 1) + ": " + v[i] + "\n";
+	glk_put_cstring(line.c_str());
+      }
+
+    std::string prompt = "Choose [1-" + std::to_string(n) + "]> ";
+    glk_put_string_stream(inputwinstream, (char *) prompt.c_str());
+
+    /* Anything unparseable or out of range is clamped to a valid entry, so
+     * the caller always gets an index it can use. */
+    int choice = atoi(get_string().c_str());
+    if (choice < 1)
+      choice = 1;
+    if ((size_t) choice > n)
+      choice = (int) n;
+
+    /* The chosen line was already echoed by get_string; just leave a blank
+     * line after the menu. */
+    glk_put_cstring("\n");
+
+    return choice - 1;
+}
+
+/* Resolve `rel_name` against the directory holding `parent` (the story file),
+ * so a game's "images/map.jpg" finds the file next to the game rather than in
+ * the process's working directory.  A relative parent, or an already-absolute
+ * name, is left to be opened as it stands. */
+std::string QuestionGlkInterface::absolute_name (const std::string &rel_name, const std::string &parent) const {
+  if (parent.empty() || parent[0] != '/')
+    {
+      return rel_name;
+    }
+
+  if (!rel_name.empty() && rel_name[0] == '/')
+    {
+      return rel_name;
+    }
+  std::vector<std::string> path;
+  uint dir_start = 1, dir_end;
+  while (dir_start < parent.length())
+    {
+      dir_end = dir_start;
+      while (dir_end < parent.length() && parent[dir_end] != '/')
+	{
+	  dir_end ++;
+	}
+      path.push_back (parent.substr (dir_start, dir_end - dir_start));
+      dir_start = dir_end + 1;
+    }
+  /* Drop the story file's own name, leaving the directory holding it.  (A
+   * parent of just "/" contributes no components at all.) */
+  if (!path.empty())
+    {
+      path.pop_back();
+    }
+  dir_start = 0;
+  std::string tmp;
+  while (dir_start < rel_name.length())
+    {
+      dir_end = dir_start;
+      while (dir_end < rel_name.length() && rel_name[dir_end] != '/')
+	{
+	  dir_end ++;
+	}
+      tmp = rel_name.substr (dir_start, dir_end - dir_start);
+      dir_start = dir_end + 1;
+      if (tmp == ".")
+	{
+	  continue;
+	}
+      else if (tmp == "..")
+	{
+	  /* ".." at the root has nowhere to go; stay there. */
+	  if (!path.empty())
+	    {
+	      path.pop_back();
+	    }
+	}
+      else
+	{
+	  path.push_back (tmp);
+	}
+    }
+  std::string rv;
+  for (const auto &i: path)
+    {
+      rv += "/" + i;
+    }
+  return rv;
+}
+
+/* Audio and images go through the by-name resource registration shared with
+ * the Quest 5 frontend (register_path_resource in questglk-common.inc). */
+
+static schanid_t question_soundchannel = NULL;
+
+QuestionResult
+QuestionGlkInterface::play_sound (const std::string &filename, bool looped, bool /*sync*/)
+{
+  if (g_autorestore_booting)
+    return r_success;
+
+  /* Quest's "sync" flag blocks until the sound finishes; we play
+   * asynchronously to avoid stalling the turn loop. */
+
+  /* An empty filename is Question's request to stop all sound. */
+  if (filename.empty())
+    {
+      stop_single_sound (&question_soundchannel);
+      return r_success;
+    }
+
+  std::string parent = storyfilename ? storyfilename : "";
+  std::string path = absolute_name (filename, parent);
+
+  /* Assign each distinct file a stable resource number and load it once. */
+  static std::map<std::string, int> sound_ids;
+  int resno = register_path_resource (sound_ids, path, true);
+  if (!resno)
+    {
+      std::cerr << "play_sound: cannot open " << path << "\n";
+      return r_not_supported;
+    }
+
+  /* One sound at a time: a new sound replaces the previous one.  An
+   * interrupted sound resumes after an autorestore via the APP's own
+   * machinery (its GUI snapshot archives the playing channel and
+   * SoundHandler restartAll replays it from the file, which for these
+   * games is a real file next to the story); the terp must not replay it
+   * itself -- the app replaces its sound handler during restore, orphaning
+   * anything already playing beyond the reach of any stop. */
+  if (!play_single_sound (&question_soundchannel, (glui32) resno, looped, 0))
+    return r_not_supported;   /* sound disabled or unsupported */
+  return r_success;
+}
+
+QuestionResult
+QuestionGlkInterface::show_image (const std::string &filename, const std::string &resolution,
+			     const std::string & /*caption*/, ...)
+{
+  if (g_autorestore_booting)
+    return r_success;
+  if (filename.empty())
+    return r_not_supported;
+  /* Need a Glk that can draw images inline in the text-buffer window. */
+  if (!glk_gestalt (gestalt_Graphics, 0) ||
+      !glk_gestalt (gestalt_DrawImage, wintype_TextBuffer))
+    return r_not_supported;
+
+  std::string parent = storyfilename ? storyfilename : "";
+  std::string path = absolute_name (filename, parent);
+
+  static std::map<std::string, int> image_ids;
+  int resno = register_path_resource (image_ids, path, false);
+  if (!resno)
+    {
+      std::cerr << "show_image: cannot open " << path << "\n";
+      return r_not_supported;
+    }
+
+  /* Draw on its own line in the main window.  Honour the optional "<W>x<H>"
+   * display size Quest attaches to a picture ("file@523x348"); fall back to the
+   * image's native size when it is absent or unparseable. */
+  glk_put_char (0x0a);
+  glui32 w = 0, h = 0;
+  std::string::size_type x = resolution.find_first_of ("xX");
+  if (x != std::string::npos)
+    {
+      w = (glui32) strtoul (resolution.c_str(), nullptr, 10);
+      h = (glui32) strtoul (resolution.c_str() + x + 1, nullptr, 10);
+    }
+  if (w > 0 && h > 0)
+    glk_image_draw_scaled (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0, w, h);
+  else
+    glk_image_draw (mainglkwin, (glui32) resno, imagealign_InlineCenter, 0);
+  glk_put_char (0x0a);
+  return r_success;
+}
+
+#ifdef SPATTERLIGHT
+
+/* Autosave support (questionglk-autosave.mm): capture the frontend's Glk object
+ * references as serialization tags, and re-point them at the restored
+ * objects after the library state has been rebuilt. */
+
+void
+question_stash_frontend_state (QuestionGlkFrontendState *st)
+{
+    st->mainwintag = mainglkwin ? mainglkwin->tag : 0;
+    st->inputwintag = inputwin ? inputwin->tag : 0;
+    st->bannerwintag = bannerwin ? bannerwin->tag : 0;
+    st->objwintag = objwin ? objwin->tag : 0;
+    st->gfxwintag = gfxwin ? gfxwin->tag : 0;
+    st->transcripttag = transcriptstr ? transcriptstr->tag : 0;
+    st->soundchanneltag = question_soundchannel ? question_soundchannel->tag : 0;
+    st->use_objpane = g_use_objpane ? 1 : 0;
+    st->objwin_expanded = g_objwin_expanded;
+
+    /* The exact RNG state (xoshiro words + which generator is active), so a
+     * deterministic session's randomness continues where it left off. */
+    int usenative = 1;
+    glui32 *words = nullptr;
+    int count = 0;
+    erkyrath_random_get_detstate(&usenative, &words, &count);
+    st->rng_usenative = usenative;
+    for (int i = 0; i < 4; i++)
+        st->rng_state[i] = (count == 4 && words) ? words[i] : 0;
+}
+
+void
+question_recover_frontend_state (const QuestionGlkFrontendState *st)
+{
+    mainglkwin = gli_window_for_tag(st->mainwintag);
+    inputwin = gli_window_for_tag(st->inputwintag);
+    if (!inputwin)
+        inputwin = mainglkwin;
+    bannerwin = gli_window_for_tag(st->bannerwintag);
+    objwin = gli_window_for_tag(st->objwintag);
+    gfxwin = gli_window_for_tag(st->gfxwintag);
+    inputwinstream = inputwin ? glk_window_get_stream(inputwin) : nullptr;
+    transcriptstr = gli_stream_for_tag(st->transcripttag);
+    question_soundchannel = gli_schan_for_tag(st->soundchanneltag);
+    g_use_objpane = st->use_objpane != 0;
+    g_objwin_expanded = st->objwin_expanded;
+    /* Restore the RNG to its saved position.  The silent autorestore boot
+     * (set_game) re-seeded and drew from it; this puts it back exactly where
+     * the autosave left it.  In native (non-deterministic) mode the flag
+     * keeps the native generator selected and the words are inert. */
+    if (st->rng_usenative >= 0) {
+        glui32 words[4] = { st->rng_state[0], st->rng_state[1],
+                            st->rng_state[2], st->rng_state[3] };
+        erkyrath_random_set_detstate(st->rng_usenative, words, 4);
+    }
+    /* Not stashed: g_manual_echo and g_hyperlinks are re-derived from
+     * gestalts at startup and don't change; g_last_objlist and g_objlinks
+     * are rebuilt by the first update_objwin. */
+}
+
+#endif /* SPATTERLIGHT */

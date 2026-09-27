@@ -39,7 +39,7 @@
  * gli_determinism, win_*) are C; this is a C++ translation unit, so include
  * them with C linkage.  This also gives the glk_main / glkunix_startup_code /
  * glkunix_arguments definitions below C linkage so the C glkimp host can find
- * them (matching the bocfel / geas C++ ports). */
+ * them (matching the bocfel / Question C++ ports). */
 extern "C" {
 #include "glk.h"
 }
@@ -7399,7 +7399,7 @@ gsc_a5_start_real_time (a5_run_t *run)
  * matches, so failure always degrades to "leave the text alone".  It
  * retracts from the CURRENT output stream, so point that at the main window
  * first and put it back after.  Returns TRUE when the full string was
- * removed.  (Same retract the geas frontends use; see
+ * removed.  (Same retract the Question frontends use; see
  * questglk-common.inc unput_window_tail.)
  */
 static int

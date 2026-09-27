@@ -10,7 +10,7 @@
 //  std::out_of_range into bocfel's terminate handler (SIGABRT at the first
 //  prompt, or instantly at launch when an autosave existed).
 //
-//  Like GeasRegressionTests, this unity-includes the terp source directly,
+//  Like QuestionRegressionTests, this unity-includes the terp source directly,
 //  with just enough Glk stubbed out to drive both the empty-channels and the
 //  loaded-channels paths.
 //

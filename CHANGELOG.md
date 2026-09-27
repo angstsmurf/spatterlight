@@ -22,7 +22,7 @@
 - Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins.
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
 
-### Geas (Quest)
+### Question (Quest)
 
 #### Quest 5
 - Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run.
@@ -74,11 +74,11 @@
 - The source tree now includes a hand-written specification of the Adrift 5 adventure and save file format, contributed by Dan Fabulich (@dfabulich).
 - Support for the `<del>` tag, so games can erase text they printed earlier, even across turns.
 
-### Geas (Quest)
+### Question (Quest)
 - Both Quest engines are faster after a profiling pass over their per-turn hot spots: about a fifth off Quest 4 replay times, with movement-heavy games like *Shipwrecked* several times quicker, and a smaller gain in Quest 5.
 
 #### Quest 4
-- The Quest 4 engine was settled against the original: every game in a 111-game test corpus is replayed through both Geas and Quest Viva and the transcripts compared, with the real Quest 4.1.5 under Wine as tie-breaker on disputed lines. 100 of the 111 transcripts are now byte-identical, and every remaining difference is a documented, deliberate improvement over bugs in the original.
+- The Quest 4 engine was settled against the original: every game in a 111-game test corpus is replayed through both Question and Quest Viva and the transcripts compared, with the real Quest 4.1.5 under Wine as tie-breaker on disputed lines. 100 of the 111 transcripts are now byte-identical, and every remaining difference is a documented, deliberate improvement over bugs in the original.
 - Game text is decoded as Windows-1252. Accented letters and typographic quotes are printed accurately.
 - Quest's standard library is bundled, so games that ask for it get their correct synonyms and verbs; *A certain Oscar* now plays as intended.
 - Containers behave as in the original: looking at or opening one lists its contents, a container given to a character keeps its contents, and a closed container refuses PUT — fixing *Barbarian*'s pedestal puzzle.
@@ -142,8 +142,8 @@ The SCARE interpreter has been replaced by Scarier, a C++ fork of the old Adrift
 - Many of the *glk* meta-commands (*transcript*, *inputlog*, *summary* and so on) from Adrift 4 / SCARE are available in Adrift 5 games as well.
 - Status side panel in *Alien Diver*.
 
-### Geas (Quest)
-The new Geas interpreter actually plays most Quest games (up to and including version 5) to completion.
+### Question (Quest)
+The new Question interpreter actually plays most Quest games (up to and including version 5) to completion.
 - Displays pictures, plays MIDI and MOD music.
 - Animated grid map display.
 - Autosaves and autorestores.
@@ -153,8 +153,8 @@ The new Geas interpreter actually plays most Quest games (up to and including ve
 - OOPS (Quest 4 only.)
 - Real-time events.
 - No support for text colors, custom fonts, or CSS effects.
-- Some Quest 5 games use a lot of JavaScript, which Geas struggles with.
-- In games written before Quest 3.91 (about half of the known pre-Quest 5 games) Geas tries a little harder than the original runner to understand which noun the player is referring to. No unwanted side effects found so far.
+- Some Quest 5 games use a lot of JavaScript, which Question struggles with.
+- In games written before Quest 3.91 (about half of the known pre-Quest 5 games) Question tries a little harder than the original runner to understand which noun the player is referring to. No unwanted side effects found so far.
 
 ### Comprehend
 A port of the ScummVM Comprehend interpreter, for the Penguin Software / Polarware adventures *Transylvania*, *The Crimson Crown*, *Oo-Topos*, *The Coveted Mirror*, and *Talisman: Challenging the Sands of Time*. All games are playable from start to finish.
