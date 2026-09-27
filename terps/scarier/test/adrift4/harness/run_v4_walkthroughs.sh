@@ -2781,6 +2781,12 @@ locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with
 # destroys (and firing the loaded one is fatal), and only the dented gas can's
 # lighting task starts the Rescue event, so the scratched can's pour/light
 # pair is mutually exclusive with winning.
+# Checked 2026-09-27: task 34 (`throw *gas can*`, +10, where=0 no room) is
+# the dented can's (obj 34) copy of task 33, which needs the scratched can
+# (obj 35) and is the throw that runs.  Task 35 (the flare-gun shot) requires
+# task 34, not 33, so feeding the shark never unlocks it -- an authoring slip,
+# but not worth a patch: throwing the dented can gives up the Rescue event,
+# and task 35 is blocked by the flare gun anyway.
 # 3.80.  Re-blessed 2026-08-24 with the other eighteen pre-3.9 rows; the
 # five measured wording rules are written up above the akron row below.
 # Re-blessed 2026-08-25 for the loader's whitespace trims.  run400's object
