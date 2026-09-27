@@ -3350,13 +3350,12 @@ lib_cmd_put_on_that_390 (scr_gameref_t game)
  * c("all")'s arm and puts everything.  p37PUT / p38PUT / p39PUT `put all
  * except stone in cupboard` put the stone too (run370x / run380x / run390x
  * Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt,
- * 2026-09-19).
+ * 2026-09-19).  Deliberate deviation: Scarier keeps the exception at every
+ * version, in and on alike.
  */
 scr_bool
 lib_cmd_put_in_except_multiple (scr_gameref_t game)
 {
-  if (!lib_is_version_400 (game))
-    return lib_cmd_put_all_in (game);
   return lib_put_in_multiple_common (game, TRUE);
 }
 
@@ -3784,8 +3783,6 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 scr_bool
 lib_cmd_put_on_except_multiple (scr_gameref_t game)
 {
-  if (!lib_is_version_400 (game))
-    return lib_cmd_put_all_on (game);
   return lib_put_on_multiple_common (game, TRUE);
 }
 

@@ -45,7 +45,6 @@ lib_move_to_room (scr_gameref_t game, scr_int object, scr_int target)
 {
   (void) target;
   gs_object_to_room (game, object, gs_playerroom (game));
-  lib_note_antecedent_390 (game, object);       /* run390 drops 445BE6 */
 }
 
 static void
@@ -53,7 +52,6 @@ lib_move_to_player (scr_gameref_t game, scr_int object, scr_int target)
 {
   (void) target;
   gs_object_player_get (game, object);
-  lib_note_antecedent_390 (game, object);       /* run390 removes 439E68 */
 }
 
 static void
@@ -1177,6 +1175,7 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
  * carrying anything." (run380 4388E6), never a complaint about the
  * exception: p37PUT / p38PUT `drop all except coin` with nothing held (run370x
  * / run380x Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, 2026-09-19).
+ * Deliberate deviation: 3.7 keeps the exception too, as 3.8 does.
  */
 scr_bool
 lib_cmd_drop_except_multiple (scr_gameref_t game)
@@ -1185,8 +1184,6 @@ lib_cmd_drop_except_multiple (scr_gameref_t game)
 
   if (lib_is_version_400 (game))
     return lib_drop_multiple_common (game, TRUE);
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
-    return lib_cmd_drop_all (game);
 
   gs_set_multiple_references (game);
   if (lib_apply_filter (game, lib_drop_filter, -1, FALSE, NULL) == 0)
@@ -1553,7 +1550,6 @@ lib_wear_backend (scr_gameref_t game)
 
       list.push_back (object);
       gs_object_player_wear (game, object);
-      lib_note_antecedent_390 (game, object);   /* run390 wears 43D043 */
     }
 
   /*
@@ -1727,6 +1723,23 @@ lib_cmd_wear_all (scr_gameref_t game)
 }
 
 
+/* How many of a 4.0 resolver tie the player could put on. */
+static scr_int
+lib_wear_tie_wearables (scr_gameref_t game, const std::vector<scr_int> &tied)
+{
+  scr_int count = 0;
+  std::size_t index_;
+
+  if (tied.size () < 2)
+    return 0;
+  for (index_ = 0; index_ < tied.size (); index_++)
+    {
+      if (lib_wear_filter (game, tied[index_], -1))
+        count++;
+    }
+  return count;
+}
+
 /*
  * lib_wear_multiple_common()
  *
@@ -1754,15 +1767,22 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
    * the refusal, no turn: p4WTIE `wear stone` with both stones on the
    * floor is "Which stone.  The red stone or the blue stone?" (run400
    * Adrift_it1, 2026-09-21).
+   *
+   * Deliberate deviation: a tie with exactly one held wearable among the
+   * tied objects wears that one, through the ordinary parse below, as it
+   * did before 782dab11e.  beer's `wear jumper` puts on the woolly jumper.
    */
   if (!is_except && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
       const scr_char *input = run_get_dispatch_input ();
+      std::vector<scr_int> tied;
 
       if (input && !lib_input_contains_word (input, "all")
           && !lib_input_contains_word (input, "and")
-          && lib_verb_object_resolve_400_string (game, input, NULL, TRUE) < 0
-          && lib_verb_object_resolve_400_string (game, input, NULL, FALSE) < 0)
+          && lib_verb_object_resolve_400_string (game, input, &tied, TRUE) < 0
+          && lib_wear_tie_wearables (game, tied) != 1
+          && lib_verb_object_resolve_400_string (game, input, &tied, FALSE) < 0
+          && lib_wear_tie_wearables (game, tied) != 1)
         {
           lib_question_prefix_from_line (game);
           if (lib_co_400_raise_for_pending_tie (game))
@@ -1941,7 +1961,6 @@ lib_wear_yields_to_put_390 (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
-  size_t length;
 
   if (version >= TAF_VERSION_400)
     {
@@ -1955,14 +1974,12 @@ lib_wear_yields_to_put_390 (scr_gameref_t game)
 
   if (!lib_wear_is_put_line_380 (game))
     return FALSE;
-  if (version < TAF_VERSION_390)
-    return TRUE;
 
-  /* Right(line, 2) = "on": only the trailing spelling leaves insides()
-     without a target, and only its question lets wears() speak. */
-  length = strlen (line);
-  if (length < 2 || scr_strcasecmp (line + length - 2, "on") != 0)
-    return TRUE;
+  /*
+   * Deliberate deviation: at 3.80 and 3.90 either spelling is a wear
+   * whenever wears() could act, as at 4.0.  The Runners' answers, "You
+   * can't do that!" (3.80 both, 3.90 `put on hat`), are described above.
+   */
   return !lib_wear_would_act_390 (game);
 }
 

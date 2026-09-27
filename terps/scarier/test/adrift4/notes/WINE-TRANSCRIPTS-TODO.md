@@ -971,6 +971,188 @@ case, and their goldens are re-blessed. The row comments in
   "  Chad the vampire and Lara are here." stays: the break there is its
   own `<d5>` ALR, which is replaced after the room block is built.
 
+- **Parser conveniences restored from Runner ports (2026-09-27).** Each
+  of these ports only made Scarier understand less:
+  - `go <room>` walks there at 3.7/3.8, as at 3.9/4.0, and bare `goto`
+    lists the exits. run370/run380 take only "goto"/"go to" in
+    gotoplace() and answer `go kitchen` with "Just a direction will do."
+    (the `go *` row, lib_cmd_just_a_direction_pre_390, is gone). See
+    lib_goto_line_enters(). Many 3.7/3.8 tasks start "go " (arlo `go
+    home`, cave `go in raft`, twilight `go *mansion`...), but tasks are
+    matched before the library, so they still win; a line no task takes
+    gets "You can't get there from here." instead of the nudge.
+  - `get off`, `get down`, `get off X` and `get down off X` dismount at
+    every version, with the 3.9 wording. The 3.7/3.8 Runners answer
+    `get off` with "Take what?", and below 4.0 `get off stool` while
+    standing on the stool takes it (climbing off first, run370x/run380x/
+    run390x p3xSIT). Scarier only leaves the take reading while the
+    player is on something (lib_take_multiple_common); off it, `get off
+    X` still takes X, as in the Runner. A 3.7/3.8 parent the player
+    walked away from counts as none (lib_player_parent_here()). thewill
+    typed `get off pedestal` on the pedestal to take it, so its route now
+    adds `get pedestal`; it is the one turn where it differs from
+    runner_transcripts/thewill.txt.
+  - `examine room`, `look room`, `look at room` and `x the room` show the
+    room at 3.7/3.8. run370/run380 look only for `l`, `look`, `x room`
+    and `x location` and answer the rest "Nothing special." (55f577bb1,
+    p37EXAM/p38EXAM). Bare `x`, `look at` and `look around` keep the
+    Runner's "Nothing special.". See lib_cmd_look_typed().
+  - `lay down` and `lay on X` lie at every version, as `lie` does. Only
+    run400 knows `lay`; run370-run390 answer "I don't understand." and
+    the catch-all (e5c0a91e5, p37SIT..p39SIT). The one pre-4.0 `lay` task
+    that is not a lie (marooned `lay *seal in *water`) still comes first.
+  - `empty X` takes everything out of X below 4.0, as `get all from X`
+    does. run370-run390 have no `empty` verb and answer "I don't
+    understand what you want me to do with the box." (d6dad4626, p39DARK).
+    Only the %object% rows take it: a line that names nothing known
+    (`empty beer into bowl` where lasthurrah's task is not live) keeps the
+    catch-all. See lib_take_from_empty_verb(). Pre-4.0 `empty` tasks
+    (cave, casino, goblin, lasthurrah, ...) come first as before.
+  - At 3.7, `take`/`pick up` reach into containers as at 3.8: `take gem
+    from box`, `take all from bag` and `take nut` with the nut in a held
+    bag. run370's insides() takes only lines saying get or remove, so
+    these were "I don't understand what you want me to do with the box."
+    or "Take what?" (968f57a74, p37TFSW). lib_take_from_line_370() is now
+    always TRUE.
+  - A leading `slap` hits at 4.0 as at 3.7-3.9. run400 rewrites only
+    " slap " with spaces on both sides, so `slap gizmo` is its nonsense-
+    verb answer (2d279920f, easter/Azra). See lib_slap_declines(). The
+    4.0 games with `slap` tasks (House, CIBASS, Full_Circle, ...) match
+    them first.
+  - `put on hat` and `put hat on` wear a held hat at 3.8/3.9 as at 3.7
+    and 4.0 (and answer "already wearing" for a worn one). run380 claims
+    both spellings in insides() with "You can't do that!", run390 the
+    leading one (3c1fa1317, 712a9defa, p38TWO/p39TWO). A hat that cannot
+    be worn from where it is keeps the put refusal. See
+    lib_wear_yields_to_put_390(). Many 3.9 games have `put on X` tasks
+    for the same reason (Melbourne Beach, enc1, plains...).
+  - `touch`, `shake` and `rub` get their refusals at every version ("You
+    can't touch the stone.", "You shake the stone, but nothing happens.",
+    "You can't rub the stone.") instead of the catch-all's "I don't
+    understand what you want me to do with the stone.". Only run390+ has
+    a touch arm, only run380+ a shake arm and only run400 a rub arm
+    (ba22b3040, 83c4a19c0, p37TASK..p39TASK). Bare `rub` below 4.0 is
+    answered as that version's other bare verbs are.
+  - Any non-article word of an object's Prefix tells it from a namesake:
+    `take old pin` and `take old red pin` pick the "old red" pin from a
+    "new red" one, and `take big gem` the big gem at 3.7/3.8. The Runners'
+    co() weighs one Prefix word (3.7/3.8 the last after dropping the
+    first, 3.9/4.0 the last) and their %object% matcher needs the words
+    to run on to the name, so they answered "Take what?" or "Which pin?",
+    or took both (6b436ef85, p37TAKEP..p4TAKEP). A word two namesakes
+    share (`take red pin`) is a tie: 3.8-4.0 ask "Which pin?", 3.7 says
+    "Take what?". The 3.7/3.8 Runners take both and run390 the old pin.
+    See lib_co_names_prefix() and uip_build_candidate(); task %object%
+    matching is unchanged (bare name).
+  - A character's Prefix counts below 4.0, and namesake characters are
+    asked about: with Ann "a red", Bob "a blue" and Cid "a red" guard
+    present, `x blue guard`, `hit blue guard` and `ask blue guard about
+    key` mean Bob, and `x guard` asks "Please be more clear, who do you
+    want to examine?  Ann, Bob or Cid?". run370-run390 know a character
+    only by Name or first Alias, take the first or last one by index
+    (`x blue guard` was Cid, `hit blue guard` Ann), and `ask` wants the
+    name right after "ask ", so `ask blue guard about key` and `ask the
+    guard about key` were "You can't talk to that." (cda02a97c,
+    464a7083b, 73f037e31; p39PFX, p3xNPCAMB). See
+    lib_disambiguate_npc_pick() and uip_build_entities(). Task
+    %character% matching is unchanged (bare Name).
+  - A name inside a longer name on the line does not count: `take key
+    ring` takes the key ring with a key present, and `put key on key
+    ring` still names the key. The Runners test each Short and Alias by
+    whole-word containment, so the key answers to "key ring" too. run370
+    said "Take what?", 3.8-4.0 asked "Which key?" or took both (9ea39d2e9,
+    08e6a71c9; scratch p37KR..p4KR). The parser now keeps only the
+    references with the longest match (uip_match_entity(), not in strict
+    task matching), and the library's own rescans skip a term that
+    lib_co_term_shadowed() finds inside another object's longer name.
+    That covers the co() scans, the 3.7 crowd, lib_co_pre400() and
+    lib_verb_object_name_score(). The same rule quiets the end-of-turn
+    "Which keys?" prompt (3.7-3.9). mikes' `take truck keys`, with "truck
+    keys" and "mustang keys" both aliased "keys", takes the truck keys
+    and says so, where run380 takes them and then replaces the turn's
+    text with "Which keys.  The mustang keys or the truck keys?"
+    (fac37056e, Adven_8_mikes.rtf). Goldens that changed:
+    - life_of_mike prints the take.
+    - wilkins' `drop tincture of alice` and the rest drop what they name.
+      run400's prompt dropped the base tincture by accident, so the
+      route now drops it by name.
+    - warlord's `x tapestry three` examines it.
+    - house's `open bathroom door` is "You can't see the bathroom door.".
+    - lockedout's `get battery` (3.9) takes it from the Lego piece, not
+      "not inside the tub of Lego!".
+    - xfiles' `take phone book` (there is none) is "Take what?" rather
+      than taking the cell phone.
+    - hub's `x/open lower right cupboard` acts on the lower cupboard
+      (a8896f6ac). run400 asks "Which right cupboard." and refuses the
+      open, because the upper cupboard's "right cupboard" is inside the
+      lower one's alias. The walkthrough uses the game's wording again;
+      see lib_co_400_raise_for_contained_aliases().
+  - Below 4.0, a namesake crowd counts only the objects the verb can act
+    on: loose ones for take, held for drop, held-not-worn for wear, and
+    worn for remove. With a red hat held and a blue one on the floor,
+    `drop hat` drops the red hat and `take hat` takes the blue one, and
+    `wear hat` puts on the red one. When nothing fits, every present
+    namesake counts, as before. run390 narrows take and drop only, run380
+    nothing, and the end-of-turn scan never narrows, so run380 answered
+    "Which hat?" and did nothing, and run390 asked the same after
+    dropping the hat (p38TASK/p39TASK; scratch p3xKW). See
+    lib_co_mode_fits(), lib_co_pre400() and lib_runner_co_scan(). The
+    scan counts by the state at the top of the line
+    (lib_co_note_line_top()), because by the end of the turn the hat is
+    already on the floor. troll's T64 `drop cup` and aquarius2's `take
+    stone` now print what they did.
+  - At 3.7, wear and remove know every object's Aliases. run370's
+    wears()/removes() call replacealias(0), so only object #0's Alias
+    counted, and `wear sweater` for any other object was "Wear what?"
+    (08e6a71c9, p37SLOT2). The block is gone from
+    lib_disambiguate_object_common().
+
+  - A Short or Alias authored with a trailing space ("necko wafers ")
+    answers to its words, and a name is found past a first hit that sits
+    inside a longer word (`x keyring key` finds "key"). The Runner's c()
+    matches the raw name with InStr and judges only the first hit, so
+    superliam's `take necko wafers` was "Take what?" in run380 (27782bdb1).
+    The fix is in uip_compare_reference() and lib_co_contains(). Strict
+    task matching is unchanged, and the take prints the Short as authored
+    ("the pack of necko wafers .").
+  - With the Battle System on, a line that the grammar resolves to one
+    character strikes that character, whichever Alias named it and
+    whichever battle verb came first. dobattle's own target test is Name
+    only at 4.0 and Name or first Alias at 3.9, and it needs its first
+    listed verb to come before the name. Anything else was "Who do you
+    want to attack?": Shadowpeak's `attack cat` (Named "Shadow", 9efee2485)
+    and Ghoster's `kill attack robot` (ff004159c). lib_battle_unnamed_target()
+    is gone; a line naming several characters still uses dobattle's test.
+    The three Shadowpeak walks' `attack golem` fillers are `wait` now.
+  - At 4.0, a `wear X` tie that holds exactly one held wearable wears it.
+    run400 wears() marks only the whole line's 463640 winner, so beer's
+    `wear jumper` (the held woolly jumper against the fountain's people,
+    alias jumper) was "Wear what?" (782dab11e). The beer walkthrough types
+    `wear jumper` again. A tie between two held wearables still asks.
+  - At 3.9, take-from uses the parser's container, and a bare take of
+    something inside a container takes it from there. run390 insides()
+    picks the container by an index-order slot walk, and takes() first
+    rewrites the bare take to "... from <parent>" (8811c2b76, lockedout
+    T22). lib_take_from_slot_390() is gone. No golden moved.
+  - At 3.9, "it" follows the general assignment. run390's co() pre-pass
+    leaves "it" on the last named object in index order unless a take,
+    drop, wear, remove, examine or read names its own object. So after
+    `get jet` from the open cabinet, "it" was the cabinet (8f7dc3d7a).
+    crossworlds4's `read it`/`get it` now act on the vial of jet, and T29
+    echoes "(a microwave)". The probe files (make_39_itprobe.py,
+    cmdfile_p39it.txt) stay as the record of the Runner rule.
+  - At 3.9, everything/slap/except/apart from are rewritten as whole
+    words, not as run390's substring Replace()s, so `x exception` no
+    longer becomes `x bution` (84e923733). 4.0's space-padded forms are
+    unchanged.
+  - At 4.0, a whole-word "empty" in the middle of a line is left alone.
+    run400 get_outer's `Replace(line, "empty ", "get all from ")` gave
+    onnafa's `give empty beer mug to perry` a "You can't take anything
+    from the empty beer mug." first (6095ff3b0).
+    lib_empty_rewrite_400() is gone; onnafa is re-blessed.
+  - Before 4.0, `put all except X in/on Y` leaves X out, and 3.7's `drop
+    all except X` keeps X. run370-390 insides() has no exception list, and
+    run370's drops() has no "but" (566c6b985, p37PUT/p38PUT/p39PUT).
 ---
 
 ## Rules measured and ported (index)
@@ -3064,7 +3246,8 @@ transcript names are in the code comment next to the named function, in
   answers `talk to blue guard` with 'Use the format "ask Cid about
   [subject]".' run400 47F8F7 has no such test: 4.0 binds by containment and
   the contest, so the same line is "BOB KEY.". `[<4.0]` p39PFX, p4PFX
-  (`lib_pre_400_ask_column`, 2026-09-20)
+  (2026-09-20). Removed 2026-09-27: Scarier asks at every version (see
+  Deliberate deviations).
 - **3.9's examine is referencedob(), not the parser.** examines() takes
   whatever referencedob() (42DEF8) returns. Pass one counts the objects
   co(obj, 0) accepts -- so the last word of an object's own Prefix settles
@@ -3255,7 +3438,8 @@ transcript names are in the code comment next to the named function, in
     (`lib_sitstand_anywhere`). Volant `stand your ground` is "You are
     already standing!".
   - `lay` is a lie word in run400 only: 3.7-3.9 `lay down` is "I don't
-    understand." and `lay on stool` the catch-all (`lib_lay_pre400`).
+    understand." and `lay on stool` the catch-all. Not ported: Scarier
+    lies at every version (see Deliberate deviations).
   - 3.7/3.8 `x me` with an empty PlayerDesc is one string; "circumstances."
     gets its full stop only before the sitting or lying clause, and standing
     on an object is "...the circumstances  You are standing on a stool."

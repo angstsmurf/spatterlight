@@ -452,14 +452,15 @@ unlock steel door with brooch
 open steel door
 n
 n
-# --- COLOS the stone golem blocks the iron steps (104->105). Hit him with the
-# Seeker sword until nearly spent, then say the password 'carom' (anagram of
-# Morac) to finish him (+5). Eat the venison to top up Stamina.
-attack golem
-attack golem
-attack golem
-attack golem
-attack golem
+# --- COLOS the stone golem blocks the iron steps (104->105). Five waits (the
+# Runner-derived `attack golem` filler, which Scarier now carries out), then say
+# the password 'carom' (anagram of Morac) to finish him (+5). Eat the venison to
+# top up Stamina.
+wait
+wait
+wait
+wait
+wait
 say carom
 eat venison
 # --- DESCEND for the sceptre (timer spent now, lower castle safe). The sceptre

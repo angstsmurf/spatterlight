@@ -630,8 +630,6 @@ extern void uip_begin_antecedent_400 (void);
 extern void uip_note_antecedent_400 (scr_int object, scr_int form,
                                      scr_int stage);
 extern scr_bool uip_pronoun_was_used (void);
-extern void uip_note_handler_antecedent_390 (scr_int object);
-extern void uip_note_take_from_390 (scr_int parent);
 extern void uip_commit_antecedent_400 (scr_gameref_t game);
 extern scr_char *uip_rewrite_references (scr_gameref_t game,
                                          const scr_char *string,
@@ -742,8 +740,6 @@ extern scr_bool lib_cmd_take_from_except_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_nowhere_all (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_nowhere (scr_gameref_t game);
-extern scr_int lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string,
-                                      std::string *task_line);
 extern scr_bool lib_task_prematches_input (scr_gameref_t game,
                                            scr_int class_filter);
 extern scr_int lib_task_prematch_kind_input (scr_gameref_t game,
@@ -909,7 +905,6 @@ extern scr_bool lib_cmd_talk_to_npc_about (scr_gameref_t game);
 extern scr_bool lib_cmd_talk_to_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game);
 extern scr_bool lib_cmd_just_a_direction (scr_gameref_t game);
-extern scr_bool lib_cmd_just_a_direction_pre_390 (scr_gameref_t game);
 extern scr_bool lib_cmd_block_object (scr_gameref_t game);
 extern scr_bool lib_cmd_block_other (scr_gameref_t game);
 extern scr_bool lib_cmd_block_what (scr_gameref_t game);

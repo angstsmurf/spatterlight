@@ -48,9 +48,14 @@
 - **"insert" is a game synonym for "put"**, so the boot disk goes in with
   `put disk in computer` ("insert disk" becomes "put disk" and matches
   nothing).
+- **`get off pedestal` while standing on it:** the Runner (every version
+  below 4.0) takes the pedestal, climbing off first; Scarier dismounts, a
+  deliberate deviation (2026-09-27), so the route follows it with `get
+  pedestal`.
 - **Runner check:** run390x drove the whole 242-command route
   (`runner_transcripts/thewill.txt`, 2026-09-26) and is identical on every
-  turn. The one earlier difference, the Narrow Squeeze `get all` (task 142
+  turn except for the extra `get pedestal` above (the Runner's single
+  `get off pedestal` does both). The one earlier difference, the Narrow Squeeze `get all` (task 142
   claims the clover), was a Scarier ordering bug: run390, like run400, puts
   the library's take line before the task's text. Fixed 2026-09-26.
 - **Content note:** nothing requiring a check; no minors appear in the game
@@ -170,6 +175,7 @@ u
 stand on pedestal
 look at sparkle
 get off pedestal
+get pedestal
 w
 throw ashes at mirror
 e

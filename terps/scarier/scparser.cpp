@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -144,33 +145,11 @@ static scr_int uip_antecedent_object = -1;
 static scr_int uip_antecedent_form = UIP_IT_INDEFINITE;
 static scr_int uip_antecedent_stage = -1;
 
-/*
- * run390's handlers write the antecedent after generaltasks' co() pre-pass,
- * so on a 3.9 line the last handler write wins outright; see
- * uip_assign_antecedent_390().
- */
-static scr_int uip_handler_object_390 = -1;
-static scr_int uip_take_from_parent_390 = -1;
-
 void
 uip_begin_antecedent_400 (void)
 {
   uip_antecedent_object = -1;
   uip_antecedent_stage = -1;
-  uip_handler_object_390 = -1;
-  uip_take_from_parent_390 = -1;
-}
-
-void
-uip_note_handler_antecedent_390 (scr_int object)
-{
-  uip_handler_object_390 = object;
-}
-
-void
-uip_note_take_from_390 (scr_int parent)
-{
-  uip_take_from_parent_390 = parent;
 }
 
 void
@@ -2150,11 +2129,10 @@ uip_compare_reference (const scr_char *words)
 
       /*
        * If at space, advance over whitespace in words list.  Stop when we
-       * hit the end of the words list -- unless the whitespace itself runs
-       * to the end.
+       * hit the end of the words list.
        *
-       * Whitespace at the very end of a name is not forgiven: the real
-       * Runner's c() matches the RAW stored Short/Alias with InStr and
+       * Whitespace at the very end of a name is not forgiven by the real
+       * Runner: its c() matches the RAW stored Short/Alias with InStr and
        * requires the character after the match to be a space, comma or
        * end-of-input (run380.bas '429048; run390's c() LCases but keeps the
        * same shape; the 4.0 strict comparator above already refuses), so a
@@ -2163,14 +2141,13 @@ uip_compare_reference (const scr_char *words)
        * delivers.  Measured live 2026-08-31 on superliam.taf (3.80): object
        * Short "necko wafers " makes `take necko wafers` answer "Take
        * what?" in run380.exe, while the (task-matched) `eat necko wafers`
-       * still works.
+       * still works.  Deliberate deviation: Scarier forgives it outside
+       * strict task matching, so the wafers can be taken.
        */
       if (scr_isspace (words[wpos]) && words[wpos] != NUL)
         {
           while (scr_isspace (words[wpos]) && words[wpos] != NUL)
             wpos++;
-          if (words[wpos] == NUL)
-            return 0;
         }
       if (words[wpos] == NUL)
         break;
@@ -2294,6 +2271,34 @@ uip_build_candidate (scr_uip_candidate_t *candidate,
       candidate->forms.push_back (composed.substr (word + 1));
     }
 
+  /*
+   * Deliberate deviation: any one Prefix word before the name, too, so
+   * `take old pin` finds the "old red" pin.  The Runners' co() and the
+   * forms above both need the words to run on up to the name.  Articles
+   * are skipped, and a form already present is not added again.
+   */
+  {
+    const size_t prefix_length = strlen (prefix);
+    size_t start, end;
+
+    for (start = 0; start < prefix_length; start = end + 1)
+      {
+        std::string form;
+
+        end = composed.find (' ', start);
+        if (end == std::string::npos || end > prefix_length)
+          end = prefix_length;
+        if (end == start
+            || uip_skip_article (composed.substr (start).c_str (), 0) > 0)
+          continue;
+
+        form = composed.substr (start, end - start) + ' ' + name;
+        if (std::find (candidate->forms.begin (), candidate->forms.end (),
+                       form) == candidate->forms.end ())
+          candidate->forms.push_back (form);
+      }
+  }
+
   /* The bare name, unless a wholly empty prefix already made it form 0. */
   if (candidate->forms.back () != name)
     candidate->forms.push_back (name);
@@ -2318,7 +2323,6 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
                     const scr_char *class_key, const scr_char *name_key)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_bool is_npc_class = strcmp (class_key, "NPCs") == 0;
   scr_int index_;
 
   entities.clear ();
@@ -2336,19 +2340,13 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
       vt_key[2].string = "Prefix";
       prefix = prop_get_string (bundle, "S<-sis", vt_key);
       /*
-       * A character's Prefix is 4.0's alone.  Below it, characters() knows
-       * a character by `c(Name) Or c(Alias(0))` and nothing else (run390
-       * 459109), and the Prefix is read only to compose an answer -- there
-       * is no lastword() test for characters the way there is for objects
-       * (run390 42DA40 is called from co() only).  So `x blue guard` at 3.9
-       * is just `x guard`, Cid, and `ask blue guard about key` is "You
-       * can't talk to that." -- p39PFX, run390x Adrift_1211, 2026-09-20.
-       * 4.0 keeps the forms: they lose nothing there, since 454454's
-       * Prefix contest settles the same crowd (p4PFX, Adrift_1210).
+       * A character's Prefix is 4.0's alone in the Runners.  Below it,
+       * characters() knows a character by `c(Name) Or c(Alias(0))` and
+       * nothing else (run390 459109), so `x blue guard` at 3.9 is just `x
+       * guard` (p39PFX, run390x Adrift_1211, 2026-09-20).  Scarier builds
+       * the forms at every version (deliberate deviation), so the Prefix
+       * picks the guard.
        */
-      if (is_npc_class
-          && prop_get_taf_version (bundle) < TAF_VERSION_400)
-        prefix = "";
       vt_key[2].string = name_key;
       name = prop_get_string (bundle, "S<-sis", vt_key);
       uip_build_candidate (&entity.name, prefix, name);
@@ -2704,8 +2702,8 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * contest, simply lets the last NPC in index order win: run390 answers
    * `x blue guard`, `x a blue guard` and a bare `blue guard` with Cid's
    * description, the same as `x guard` (Adrift_1211).  What it does NOT
-   * have is a "<Prefix> <Name>" form to match positionally; see
-   * uip_build_entities(), which builds those from 4.0 only.
+   * have is a "<Prefix> <Name>" form to match positionally; Scarier builds
+   * those at every version (deliberate deviation, see uip_build_entities()).
    *
    * At 4.0 only a PRESENT, SEEN character binds.  npc_in_command's loop
    * at 45E6C5
@@ -2778,6 +2776,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   max_extent = 0;
   scr_bool strict_first_bound = FALSE;
   entity_count = cache.size ();
+  std::vector<scr_int> matched_extent (entity_count, 0);
   for (scr_int scope = 0; scope < (strict_scoped ? 2 : 1) && max_extent == 0;
        scope++)
     {
@@ -2899,10 +2898,13 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           if (extent > 0 && uip_match_remainder (node, extent))
             {
               if (uip_trace)
-                scr_trace ("UIParser: matched\n");
+                scr_trace ("UIParser: matched (pass %d, extent %ld)\n",
+                           pass, (long) extent);
 
               /* Increase the maximum match extent if required. */
               max_extent = (extent > max_extent) ? extent : max_extent;
+              if (extent > matched_extent[index])
+                matched_extent[index] = extent;
 
               /*
                * Save match in variables and game.  A 4.0 task command's
@@ -2938,6 +2940,34 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
         }
     }
     }
+    }
+
+  /*
+   * Deliberate deviation: in a library command the match continues from the
+   * longest extent, so a shorter name that also matched is not what the
+   * player typed: `take key ring` with a "key" and a "key ring" here is the
+   * key ring.  The Runners' co() counts every Short the line contains and
+   * gives up on the pair ("Take what?" below 4.0, "It is not clear which
+   * key ring you are referring to." at 4.0).
+   */
+  if (max_extent > 0 && !uip_strict_reference)
+    {
+      scr_int last = -1;
+
+      for (index = 0; index < entity_count; index++)
+        {
+          if (matched_extent[index] > 0 && matched_extent[index] < max_extent)
+            references[index] = FALSE;
+          if (references[index])
+            last = index;
+        }
+      if (last != -1)
+        {
+          if (is_character)
+            var_set_ref_character (vars, last);
+          else
+            var_set_ref_object (vars, last);
+        }
     }
 
   /* On match, advance position and return successfully. */
@@ -3529,9 +3559,9 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
            * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
            * mode 1 (authored Prefix).  Lines no handler names an object on
-           * keep co()'s mode-0 "the X" from the pre-pass (43B69E), so 3.9
-           * has the definite form too -- see uip_assign_antecedent_390()
-           * and the p39IT probe (crossworlds4 "(the microwave)").  (An earlier
+           * keep co()'s mode-0 "the X" from its pre-pass (43B69E), a form
+           * Scarier doesn't model: see uip_assign_pronouns() on 8f7dc3d7a.
+           * (An earlier
            * reading of run390 had
            * it keeping showbrackets only for the "ask about"/"talk about"
            * rewrite at loc_459036/459107 and echoing nothing -- wrong.)
@@ -4154,165 +4184,6 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
 
 
 /*
- * uip_assign_antecedent_390()
- *
- * run390's object antecedent on a line.  Before any handler, generaltasks
- * calls co(obj, 0) for EVERY object (45F318-45F430), and co() ends
- * (43B626-43B6B0) by storing the mode-0 name, tense(Prefix & " " & Short)
- * -- "the X" -- for an object whose Short, or failing that Alias, is a
- * whole word of the line, that is present and seen, and that has no present
- * seen namesake (the crowd arms are not modelled).  So the LAST such object
- * in index order wins, not the last one named.  A handler that acts then
- * stores the authored mode-1 name: examines/read (44BE52, refusals too),
- * takes' pick-up from the floor (455067, the "and" arm 4550F0), drops
- * (445BE6), wears (43D043) and removes (439E68) -- see
- * uip_note_handler_antecedent_390().  Take-from, put, open/close, tasks and
- * the unknown-verb reply leave the pre-pass's.  A line through a pronoun is
- * no different: the pronoun has already been spliced into it.
- *
- * Measured with make_39_itprobe.py (run390x Adrift_p39it.txt, 2026-09-24):
- * `open it` (a task) then `search it` "(the microwave)"; `get jet` from
- * the open cabinet, rewritten to take-from, "(the cabinet)" -- the vial
- * comes first in index order -- where `get coin` from the crate listed
- * before it is "(the coin)"; `put coin in crate` "(the coin)"; `read it`
- * on the cabinet "(the cabinet)" then `get it` "(a cabinet)"; `get ball`,
- * `drop ball`, `x jet`, `read jet` all "a".  crossworlds4 T29/T240/T241.
- */
-/*
- * run390 c(term, "") (4334B0) on the lower-cased line: the first occurrence
- * with a start or space before it decides, by whether the line ends or a
- * space, comma or full stop follows.  An empty term never matches.
- */
-static scr_bool
-uip_line_has_word_390 (const scr_char *line, const scr_char *term)
-{
-  std::string needle (term);
-  const scr_char *scan;
-
-  for (auto &c : needle)
-    c = scr_tolower (c);
-  if (needle.empty ())
-    return FALSE;
-
-  for (scan = strstr (line, needle.c_str ()); scan;
-       scan = strstr (scan + 1, needle.c_str ()))
-    {
-      scr_char next;
-
-      if (scan != line && scan[-1] != ' ')
-        continue;
-      next = scan[needle.size ()];
-      return next == NUL || next == ' ' || next == ',' || next == '.';
-    }
-  return FALSE;
-}
-
-/* The 3.9 record's one Alias, or NULL. */
-static const scr_char *
-uip_object_alias_390 (scr_prop_setref_t bundle, scr_int object)
-{
-  scr_vartype_t vt_key[4];
-
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  if (prop_get_child_count (bundle, "I<-sis", vt_key) < 1)
-    return NULL;
-  vt_key[3].integer = 0;
-  return prop_get_string (bundle, "S<-sisi", vt_key);
-}
-
-/* co()'s obhere() And seen byte. */
-static scr_bool
-uip_object_present_seen_390 (scr_gameref_t game, scr_int object)
-{
-  return gs_object_seen (game, object)
-         && obj_indirectly_in_room (game, object, gs_playerroom (game));
-}
-
-static void
-uip_assign_antecedent_390 (scr_gameref_t game, const scr_char *line)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int handler = uip_handler_object_390;
-  std::string rewritten;
-  scr_int object, other, found = -1;
-
-  uip_handler_object_390 = -1;
-
-  /*
-   * takes' rewrite (4552EE) is what the rest of the line meets: `get jet`
-   * of a vial in the open cabinet becomes `get jet from ` & LCase(name(
-   * cabinet, 1)), and the cabinet is named on it.
-   */
-  if (uip_take_from_parent_390 >= 0)
-    {
-      const scr_char *prefix = prop_get_indexed_string (bundle, "Objects",
-                                   uip_take_from_parent_390, "Prefix");
-
-      rewritten = line;
-      rewritten += " from ";
-      rewritten += prefix;
-      rewritten += " ";
-      rewritten += prop_get_indexed_string (bundle, "Objects",
-                                            uip_take_from_parent_390,
-                                            "Short");
-      for (auto &c : rewritten)
-        c = scr_tolower (c);
-      line = rewritten.c_str ();
-      uip_take_from_parent_390 = -1;
-    }
-
-  if (handler >= 0)
-    {
-      game->it_object = handler;
-      game->it_form = UIP_IT_INDEFINITE;
-      game->it_npc = -1;
-      return;
-    }
-
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      const scr_char *term, *alias;
-      scr_int count;
-
-      term = prop_get_indexed_string (bundle, "Objects", object, "Short");
-      if (!uip_line_has_word_390 (line, term))
-        {
-          alias = uip_object_alias_390 (bundle, object);
-          if (!alias || !uip_line_has_word_390 (line, alias))
-            continue;
-          term = alias;
-        }
-      if (!uip_object_present_seen_390 (game, object))
-        continue;
-
-      count = 0;
-      for (other = 0; other < gs_object_count (game); other++)
-        {
-          const scr_char *other_alias = uip_object_alias_390 (bundle, other);
-
-          if ((scr_strcasecmp (prop_get_indexed_string (bundle, "Objects",
-                                                        other, "Short"),
-                               term) == 0
-               || (other_alias && scr_strcasecmp (other_alias, term) == 0))
-              && uip_object_present_seen_390 (game, other))
-            count++;
-        }
-      if (count <= 1)
-        found = object;
-    }
-
-  if (found >= 0)
-    {
-      game->it_object = found;
-      game->it_form = UIP_IT_DEFINITE;
-      game->it_npc = -1;
-    }
-}
-
-
-/*
  * uip_assign_pronouns()
  *
  * Search a player command for object and NPC names, and assign any found to
@@ -4354,12 +4225,16 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
   uip_commit_antecedent_400 (game);
   uip_pronoun_used = FALSE;
 
-  if (prop_get_taf_version (bundle) == TAF_VERSION_390)
-    {
-      uip_assign_antecedent_390 (game, string);
-      uip_pending_definite = FALSE;
-      return;
-    }
+  /*
+   * run390 points "it" by a co() pre-pass (generaltasks 45F318-45F430): the
+   * LAST object in index order that the line names, present, seen and with
+   * no present namesake, unless a take, drop, wear, remove, examine or read
+   * then names its own object.  So `get jet` from the open cabinet (takes'
+   * auto-"from" rewrite, 4552EE) left "it" on the cabinet, and a put, open
+   * or task line on whichever object came last in the file (make_39_itprobe
+   * .py, crossworlds4 T240/T241, 8f7dc3d7a).  Deliberate deviation: 3.9 uses
+   * the assignment below, which follows the objects the line names.
+   */
 
   /* Save var references so we can restore them later. */
   saved_ref_object = var_get_ref_object (vars);

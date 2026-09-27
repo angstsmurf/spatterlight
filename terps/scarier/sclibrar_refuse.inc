@@ -29,17 +29,15 @@ lib_cmd_kill_other (scr_gameref_t game)
  * that." (run370 43E850, run380 44535C); 3.9 gives each verb its own.
  * p37/p38NPCAMB `cmdfile_pbareverb.txt`, run370x Adrift_202_pbareverb37.rtf,
  * run380x Adrift_201_pbareverb38.rtf, 2026-09-19.
+ *
+ * Deliberate deviation: Scarier gives touch and shake their 3.9 arms at
+ * every version, and rub its 4.0 one (see lib_cmd_rub_object()), so the
+ * player learns the verb was understood.
  */
 static scr_bool
 lib_bare_verb_pre390 (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
-}
-
-static scr_bool
-lib_no_shake_arm (scr_gameref_t game)
-{
-  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380;
 }
 
 static const scr_char *
@@ -367,8 +365,6 @@ lib_cmd_pull_object (scr_gameref_t game)
 scr_bool
 lib_cmd_shake_object (scr_gameref_t game)
 {
-  if (lib_no_shake_arm (game))
-    return FALSE;
   return lib_nothing_happens_object (game, "shake", "shakes");
 }
 
@@ -415,8 +411,6 @@ lib_cmd_pull_other (scr_gameref_t game)
 scr_bool
 lib_cmd_shake_other (scr_gameref_t game)
 {
-  if (lib_no_shake_arm (game))
-    return FALSE;
   return lib_nothing_happens_other (game, "shake", "shakes");
 }
 
@@ -565,13 +559,12 @@ lib_cmd_move_object (scr_gameref_t game)
  * is the object catch-all's "I don't understand what you want me to do with
  * the coin." and `rub,coin` (no whole word "coin") "I don't understand."
  * (p37TASK/p38TASK, Adrift_176_ptaskc_37.rtf, Adrift_177_ptaskc_38.rtf;
- * p39TASK Adrift_179_ptaskc_39.txt, 2026-09-19).
+ * p39TASK Adrift_179_ptaskc_39.txt, 2026-09-19).  Deliberate deviation:
+ * Scarier has the rub arm at every version.
  */
 scr_bool
 lib_cmd_rub_object (scr_gameref_t game)
 {
-  if (!lib_is_version_400 (game))
-    return FALSE;
   return lib_cant_do_object (game, "rub");
 }
 
@@ -590,8 +583,6 @@ lib_cmd_suck_object (scr_gameref_t game)
 scr_bool
 lib_cmd_touch_object (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return FALSE;
   return lib_cant_do_object (game, "touch");
 }
 
@@ -865,8 +856,6 @@ lib_cmd_sit_other (scr_gameref_t game)
 scr_bool
 lib_cmd_lie_other (scr_gameref_t game)
 {
-  if (lib_lay_pre400 (game))
-    return FALSE;
   if (lib_checkverb_bare_400 (game, "lie on", "Lie on")
       || lib_checkverb_bare_400 (game, "lie in", "Lie in")
       || lib_checkverb_bare_400 (game, "lay on", "Lay on")
@@ -914,8 +903,6 @@ lib_cmd_stop_other (scr_gameref_t game)
 scr_bool
 lib_cmd_rub_other (scr_gameref_t game)
 {
-  if (!lib_is_version_400 (game))
-    return FALSE;
   return lib_cant_do_other (game, "rub");
 }
 
@@ -934,8 +921,6 @@ lib_cmd_turn_other (scr_gameref_t game)
 scr_bool
 lib_cmd_touch_other (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return FALSE;
   return lib_cant_do_other (game, "touch");
 }
 
@@ -1391,10 +1376,11 @@ lib_cmd_rub_what (scr_gameref_t game)
    * No Runner below 4.0 has a rub arm, so a bare `rub` is left for the
    * catch-all -- and at 3.9 for the pending "<Verb> what?" prefix:
    * `repair` / `rub` is "I don't think you can repair that." (run390x
-   * Adrift_202_pbareverb39.txt T23-24).
+   * Adrift_202_pbareverb39.txt T23-24).  Deliberate deviation: Scarier
+   * answers it as the other bare verbs of each version.
    */
-  if (!lib_is_version_400 (game))
-    return FALSE;
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_rub_other (game);
   return lib_what (game, "Rub");
 }
 

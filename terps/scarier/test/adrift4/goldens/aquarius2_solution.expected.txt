@@ -114,8 +114,7 @@ and disintegrates. All that is left is some sort of edible plant and A
 Radiant Magical Stone.
 
 > take stone
-Which Stone?  The Shiny Magical Stone, the Glowing Magical Stone or the
-Radiant Magical Stone?
+You pick up the Radiant Magical Stone.
 
 > w
 You move west.
@@ -312,8 +311,7 @@ emanating from within it.  You can move north and south.
 You pick up Sorcerer Slayer.
 
 > take stone
-Which Stone?  The Shiny Magical Stone, the Glowing Magical Stone, the Radiant
-Magical Stone or the Golden Magical Stone?
+You pick up the Golden Magical Stone.
 
 > drink potion
 You can't do that here!

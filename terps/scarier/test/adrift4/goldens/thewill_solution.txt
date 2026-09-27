@@ -150,6 +150,7 @@ u
 stand on pedestal
 look at sparkle
 get off pedestal
+get pedestal
 w
 throw ashes at mirror
 e

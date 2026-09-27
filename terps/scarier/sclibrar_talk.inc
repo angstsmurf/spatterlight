@@ -84,7 +84,7 @@ lib_ask_format_character (scr_gameref_t game)
  * equivalent of.
  */
 /*
- * lib_pre_400_ask_column()
+ * No ask column.
  *
  * run390 459882 and its 3.7/3.8 twins open the characters() conversation
  * block with a POSITION test, the one place in the whole handler that cares
@@ -108,43 +108,10 @@ lib_ask_format_character (scr_gameref_t game)
  *
  * MEASURED p39PFX (run390x, Adrift_1211) against p4PFX (run400x,
  * Adrift_1210), cmdfile_ppfx.txt turns 7 and 8.
+ *
+ * Deliberate deviation: Scarier has no column test, so `ask blue guard
+ * about key` and `ask the guard about key` are asked at every version.
  */
-static scr_bool
-lib_pre_400_ask_column (scr_gameref_t game, scr_int npc, scr_int column)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *line = run_get_dispatch_input ();
-  scr_vartype_t vt_key[4];
-  scr_int form;
-
-  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
-    return TRUE;
-  if (!line || (scr_int) strlen (line) <= column)
-    return FALSE;
-
-  for (form = 0; form < 2; form++)
-    {
-      const scr_char *name;
-      scr_int posn, length;
-
-      name = form == 0
-             ? prop_get_indexed_string (bundle, "NPCs", npc, "Name")
-             : lib_first_alias (bundle, vt_key, "NPCs", npc);
-      if (!name || name[0] == '\0')
-        continue;
-
-      /* InStr: the FIRST occurrence is the one that has to sit at column. */
-      length = strlen (name);
-      for (posn = 0; line[posn] != '\0'; posn++)
-        if (scr_strncasecmp (line + posn, name, length) == 0)
-          break;
-      if (line[posn] != '\0' && posn == column)
-        return TRUE;
-    }
-
-  return FALSE;
-}
-
 scr_bool
 lib_cmd_ask_npc (scr_gameref_t game)
 {
@@ -155,10 +122,6 @@ lib_cmd_ask_npc (scr_gameref_t game)
   npc = lib_disambiguate_npc_pick (game, "ask", &is_ambiguous, NPC_PICK_LAST);
   if (npc == -1)
     return is_ambiguous;
-
-  /* Pre-4.0 wants the name at column 5, right after "ask ". */
-  if (!lib_pre_400_ask_column (game, npc, 4))
-    return FALSE;
 
   /* Incomplete ask command, so offer help and return. */
   lib_print_wrapped_npc (game, "Use the format \"ask ",

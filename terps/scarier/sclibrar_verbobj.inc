@@ -50,10 +50,13 @@ lib_verb_object_name_score (scr_gameref_t game,
   scr_int alias_count, alias, score;
   scr_char *copy, *word, *next;
 
+  /* A name the line holds only inside a longer one does not score; see
+     lib_co_term_shadowed() (deliberate deviation). */
   score = 0;
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (shortname && shortname[0] != NUL
-      && lib_input_contains_word_400 (input, shortname))
+      && lib_input_contains_word_400 (input, shortname)
+      && !lib_co_term_shadowed (game, input, object, shortname))
     score = 1;
 
   alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
@@ -64,7 +67,8 @@ lib_verb_object_name_score (scr_gameref_t game,
       vt_key[3].integer = alias;
       alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
       if (alias_name && alias_name[0] != NUL
-          && lib_input_contains_word_400 (input, alias_name))
+          && lib_input_contains_word_400 (input, alias_name)
+          && !lib_co_term_shadowed (game, input, object, alias_name))
         {
           score++;
           break;

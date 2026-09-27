@@ -100,7 +100,8 @@ lib_which_head (scr_gameref_t game, const scr_char *head,
  *
  * talk to, where is, 3.9 kiss and 3.7/3.8 take and take-from test no room
  * at all and are settled by their callers.  NPC_PICK_ASK keeps SCARE's own
- * question, which is also what 4.0 does in its own way.
+ * question, which is also what 4.0 does in its own way.  Scarier asks at
+ * every version (deliberate deviation), so the pick is a record only.
  */
 enum { NPC_PICK_ASK, NPC_PICK_FIRST, NPC_PICK_LAST };
 
@@ -198,9 +199,11 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
    * `x the red guard` examines Cid ("the red") over Ann ("a big red") and
    * Bob ("a red"), where all three answer to "guard"; see
    * lib_npc_400_prefix_score().  Pre-4.0 has no such contest at all -- see
-   * NPC_PICK_FIRST/NPC_PICK_LAST below -- so this is 4.0 only.
+   * NPC_PICK_FIRST/NPC_PICK_LAST below -- but Scarier holds it at every
+   * version (deliberate deviation): `x blue guard` is Bob, not the last
+   * guard by index.
    */
-  if (count > 1 && lib_is_version_400 (game) && run_get_dispatch_input ())
+  if (count > 1 && run_get_dispatch_input ())
     {
       const scr_char *line = run_get_dispatch_input ();
       scr_int best, kept;
@@ -268,24 +271,14 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
       return -1;
     }
 
-  /* Pre-4.0 never asks; see NPC_PICK_FIRST/NPC_PICK_LAST above. */
-  if (pick != NPC_PICK_ASK && !lib_is_version_400 (game))
-    {
-      npc = -1;
-      for (index_ = 0; index_ < gs_npc_count (game); index_++)
-        {
-          if (game->npc_references[index_])
-            {
-              npc = index_;
-              if (pick == NPC_PICK_FIRST)
-                break;
-            }
-        }
-      var_set_ref_character (vars, npc);
-      if (is_ambiguous)
-        *is_ambiguous = FALSE;
-      return npc;
-    }
+  /*
+   * Deliberate deviation: pre-4.0 asks too.  The Runners never do -- each
+   * characters() arm takes the first or the last character named, per
+   * NPC_PICK_FIRST/NPC_PICK_LAST above -- so `hit guard` with two guards
+   * here hit whichever the index order gave.  The callers still name the
+   * Runner's pick, as a record of it.
+   */
+  (void) pick;
 
   /* 4.0 asks its own question instead; see lib_npc_400_raise_for_line(). */
   if (lib_is_version_400 (game) && lib_npc_400_raise_for_line (game))
@@ -381,7 +374,19 @@ lib_co_contains (const scr_char *command, const scr_char *term)
   if (!command || !term || term[0] == NUL)
     return FALSE;
 
+  /*
+   * Deliberate deviations: the Runner's c() takes InStr's FIRST hit and
+   * fails if that one is not word-bounded, so "key" is never found in
+   * `x keyring key`; and it matches the raw stored name, so a Short
+   * authored with a trailing space ("necko wafers ", superliam) is never
+   * found at all.  Scarier looks on past a bad hit and ignores trailing
+   * blanks.
+   */
   term_length = strlen (term);
+  while (term_length > 0 && scr_isspace (term[term_length - 1]))
+    term_length--;
+  if (term_length == 0)
+    return FALSE;
   for (index_ = 0; command[index_] != NUL; index_++)
     {
       scr_char after;
@@ -392,9 +397,76 @@ lib_co_contains (const scr_char *command, const scr_char *term)
         continue;
 
       after = command[index_ + term_length];
-      return after == NUL || after == ' ' || after == ',';
+      if (after == NUL || after == ' ' || after == ',')
+        return TRUE;
     }
   return FALSE;
+}
+
+/*
+ * lib_co_term_shadowed()
+ *
+ * Deliberate deviation: TRUE when the line holds the object's term only
+ * inside a longer Short or Alias of another object -- `take key ring` with a
+ * "key" and a "key ring" does not name the key, nor `take truck keys` the
+ * "mustang keys" aliased "keys".  The Runners' co() counts both, and gives
+ * up on the pair or asks which.  Each longer name is blanked out of a copy
+ * of the line, so `put key on key ring` still names the key.
+ */
+static scr_bool
+lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
+                      scr_int object, const scr_char *term)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const size_t term_length = term ? strlen (term) : 0;
+  std::string rest;
+  scr_bool shadowed = FALSE;
+  scr_int other;
+
+  if (!line || term_length == 0 || !lib_co_contains (line, term))
+    return FALSE;
+
+  rest = line;
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      if (other == object)
+        continue;
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", other);
+      for (alias = -1; alias < alias_count; alias++)
+        {
+          const scr_char *name;
+          size_t length, posn;
+
+          if (alias < 0)
+            name = prop_get_indexed_string (bundle, "Objects", other,
+                                            "Short");
+          else
+            {
+              vt_key[3].integer = alias;
+              name = prop_get_string (bundle, "S<-sisi", vt_key);
+            }
+          if (!name || strlen (name) <= term_length
+              || !lib_co_contains (name, term))
+            continue;
+
+          length = strlen (name);
+          for (posn = 0; posn + length <= rest.size (); posn++)
+            {
+              if (scr_strncasecmp (rest.c_str () + posn, name, length) != 0
+                  || (posn > 0 && rest[posn - 1] != ' ')
+                  || (posn + length < rest.size ()
+                      && rest[posn + length] != ' '
+                      && rest[posn + length] != ','))
+                continue;
+              rest.replace (posn, length, length, '#');
+              shadowed = TRUE;
+            }
+        }
+    }
+  return shadowed && !lib_co_contains (rest.c_str (), term);
 }
 
 static const scr_char *
@@ -409,11 +481,12 @@ lib_co_lastword (const scr_char *string)
 }
 
 /*
- * lib_co_prefix_word()
+ * lib_co_names_prefix()
  *
- * The one Prefix word co() matches against the typed line when a term has
- * several present namesakes.  3.90 and 4.00 take the last word of the whole
- * Prefix; 3.70 and 3.80 drop its FIRST word first, so a Prefix of one word
+ * Whether the typed line names the object's Prefix, when a term has several
+ * present namesakes.  The Runners' co() matches one Prefix word: 3.90 and
+ * 4.00 take the last word of the whole Prefix; 3.70 and 3.80 drop its
+ * FIRST word first, so a Prefix of one word
  * -- "a", "the", or a bare adjective like "big" -- distinguishes nothing at
  * all, and a "big red" tells nothing apart from a "small red".
  *
@@ -443,23 +516,112 @@ lib_co_lastword (const scr_char *string)
  * pin` failing at 3.90 as well is what makes 3.90's word the last of the
  * WHOLE Prefix and not the first-dropped one.  4.00 is the word score
  * instead (lib_verb_object_name_score()), which counts every Prefix word.
+ *
+ * Deliberate deviation: Scarier asks instead whether the line names some
+ * word of the Prefix other than an article, and no word that only another
+ * object of the same Short has in its Prefix, and no other object of that
+ * Short passes the same test.  So `take big gem` picks the big gem at
+ * 3.70/3.80, and `take old pin` and `take old red pin` the old red pin
+ * everywhere, where the Runners refuse, ask "Which pin?" or take both; and
+ * `take red pin` asks "Which pin?" everywhere, where 3.70/3.80 take both
+ * and 3.90 the old pin.
  */
-static const scr_char *
-lib_co_prefix_word (scr_gameref_t game, scr_int object)
+static scr_bool
+lib_co_is_article (const std::string &word)
+{
+  return scr_strcasecmp (word.c_str (), "a") == 0
+         || scr_strcasecmp (word.c_str (), "an") == 0
+         || scr_strcasecmp (word.c_str (), "the") == 0
+         || scr_strcasecmp (word.c_str (), "some") == 0;
+}
+
+static std::vector<std::string>
+lib_co_prefix_words (scr_gameref_t game, scr_int object)
 {
   const scr_char *prefix;
+  std::vector<std::string> words;
+  size_t start, end;
 
   prefix = prop_get_indexed_string (gs_get_bundle (game), "Objects", object,
                                     "Prefix");
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    {
-      const scr_char *space = prefix ? strchr (prefix, ' ') : NULL;
+  if (!prefix)
+    return words;
 
-      if (!space)
-        return NULL;
-      prefix = space + 1;
+  const std::string text (prefix);
+  for (start = 0; start < text.size (); start = end + 1)
+    {
+      end = text.find (' ', start);
+      if (end == std::string::npos)
+        end = text.size ();
+      if (end > start && !lib_co_is_article (text.substr (start, end - start)))
+        words.push_back (text.substr (start, end - start));
     }
-  return lib_co_lastword (prefix);
+  return words;
+}
+
+/* TRUE if the line names a Prefix word that only another object of the same
+   Short has: `take old pin` rules out the new red pin. */
+static scr_bool
+lib_co_prefix_excluded (scr_gameref_t game, const scr_char *line,
+                        scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const std::vector<std::string> own = lib_co_prefix_words (game, object);
+  const scr_char *shortname;
+  scr_int other;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      const scr_char *name
+        = prop_get_indexed_string (bundle, "Objects", other, "Short");
+
+      if (other == object || !name || !shortname
+          || scr_strcasecmp (name, shortname) != 0)
+        continue;
+      for (const std::string &word : lib_co_prefix_words (game, other))
+        {
+          if (std::find (own.begin (), own.end (), word) == own.end ()
+              && lib_co_contains (line, word.c_str ()))
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+static scr_bool
+lib_co_prefix_named (scr_gameref_t game, const scr_char *line, scr_int object)
+{
+  scr_bool named = FALSE;
+
+  for (const std::string &word : lib_co_prefix_words (game, object))
+    named |= lib_co_contains (line, word.c_str ());
+  return named && !lib_co_prefix_excluded (game, line, object);
+}
+
+static scr_bool
+lib_co_names_prefix (scr_gameref_t game, const scr_char *line, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *shortname;
+  scr_int other;
+
+  if (!lib_co_prefix_named (game, line, object))
+    return FALSE;
+
+  /* A namesake the line names just as well is a tie: `take red pin`. */
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      const scr_char *name
+        = prop_get_indexed_string (bundle, "Objects", other, "Short");
+
+      if (other != object && name && shortname
+          && scr_strcasecmp (name, shortname) == 0
+          && lib_co_prefix_named (game, line, other))
+        return FALSE;
+    }
+  return TRUE;
 }
 
 /*
@@ -578,7 +740,8 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
   scr_int other, present;
 
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname))
+  if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname)
+      || lib_co_term_shadowed (game, line, object, shortname))
     return FALSE;
   /* takes() acts on nothing on a "from" line (43648C), so its take-from
      lines are no crowd. */
@@ -593,7 +756,8 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
 
       if (lib_co_candidate (game, other, room)
           && lib_object_held_pre380 (game, other) == want_held
-          && !scr_strempty (name) && lib_co_contains (line, name))
+          && !scr_strempty (name) && lib_co_contains (line, name)
+          && !lib_co_term_shadowed (game, line, other, name))
         present++;
     }
   return present > 1;
@@ -622,6 +786,36 @@ lib_names_object_370 (scr_gameref_t game, const scr_char *line,
         return TRUE;
     }
   return FALSE;
+}
+
+/* TRUE if every Short and Alias of the object that the line names sits
+   inside a longer name another object answers to -- "key" in `take key
+   ring`.  Deliberate deviation: the Runner counts the key into the crowd
+   and answers "Take what?"; Scarier leaves it out.  See
+   lib_co_term_shadowed(). */
+static scr_bool
+lib_names_only_shadowed_370 (scr_gameref_t game, const scr_char *line,
+                             scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *name;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
+
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!scr_strempty (name) && lib_co_contains (line, name)
+      && !lib_co_term_shadowed (game, line, object, name))
+    return FALSE;
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (name) && lib_co_contains (line, name)
+          && !lib_co_term_shadowed (game, line, object, name))
+        return FALSE;
+    }
+  return TRUE;
 }
 
 /*
@@ -664,6 +858,101 @@ lib_takes_offers_tasks_370 (scr_gameref_t game, const scr_char *line)
   return FALSE;
 }
 
+static scr_bool lib_isheld_390 (scr_gameref_t game, scr_int object);
+
+/*
+ * lib_co_mode_fits()
+ *
+ * Whether an object is on the side a co() mode recounts: 1 loose (take),
+ * 2 isheld (drop), 3 held and not worn (wear), 4 worn (remove).
+ */
+static scr_bool
+lib_co_mode_fits (scr_gameref_t game, scr_int object, scr_int mode)
+{
+  switch (mode)
+    {
+    case 1:
+      return !obj_is_static (game, object)
+             && gs_object_position (game, object) == gs_playerroom (game) + 1;
+    case 2:
+      return lib_isheld_390 (game, object);
+    case 3:
+      return gs_object_position (game, object) == OBJ_HELD_PLAYER;
+    case 4:
+      return gs_object_position (game, object) == OBJ_WORN_PLAYER;
+    default:
+      return TRUE;
+    }
+}
+
+/*
+ * Which objects fitted the line's co() mode when the line began.  The
+ * end-of-turn scan runs after the handler has acted -- `drop hat` has put
+ * the held hat on the floor by then -- so it counts by this snapshot.
+ */
+static scr_int lib_co_top_mode = 0;
+static std::vector<scr_bool> lib_co_top_fits;
+
+static scr_bool
+lib_co_mode_fitted (scr_gameref_t game, scr_int object, scr_int mode)
+{
+  if (mode == lib_co_top_mode && mode != 0
+      && object < (scr_int) lib_co_top_fits.size ())
+    return lib_co_top_fits[object];
+  return lib_co_mode_fits (game, object, mode);
+}
+
+/* The co() mode for a line's leading verb, as lib_co_mode_fits() reads it. */
+static scr_int
+lib_co_verb_mode (const scr_char *line)
+{
+  while (*line && scr_isspace (*line))
+    line++;
+  const scr_char *end = line;
+  while (*end && !scr_isspace (*end))
+    end++;
+  const std::string word (line, end - line);
+  const scr_char *rest = end;
+  while (*rest && scr_isspace (*rest))
+    rest++;
+  if (scr_strcasecmp (word.c_str (), "drop") == 0)
+    return 2;
+  if (scr_strcasecmp (word.c_str (), "wear") == 0
+      || scr_strcasecmp (word.c_str (), "don") == 0)
+    return 3;
+  if (scr_strcasecmp (word.c_str (), "remove") == 0
+      || scr_strcasecmp (word.c_str (), "doff") == 0)
+    return 4;
+  if (scr_strcasecmp (word.c_str (), "take") == 0
+      || scr_strcasecmp (word.c_str (), "get") == 0
+      || scr_strcasecmp (word.c_str (), "pick") == 0)
+    return scr_strncasecmp (rest, "off", 3) == 0
+           && (rest[3] == NUL || scr_isspace (rest[3])) ? 4 : 1;
+  return 0;
+}
+
+/*
+ * The co() mode the present namesakes answering to term are counted by:
+ * the verb's own, or 0 (every one) when none fits it -- lib_co_pre400()'s
+ * recount.
+ */
+static scr_int
+lib_co_effective_mode (scr_gameref_t game, const scr_char *term,
+                       scr_int mode)
+{
+  const scr_int room = gs_playerroom (game);
+  scr_int object;
+
+  for (object = 0; mode != 0 && object < gs_object_count (game); object++)
+    {
+      if (lib_co_candidate (game, object, room)
+          && lib_co_object_answers_to (game, object, term)
+          && lib_co_mode_fitted (game, object, mode))
+        return mode;
+    }
+  return 0;
+}
+
 /*
  * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
  * *prompt_term the last flagged object's term, *list_term the term the list
@@ -684,6 +973,15 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
   if (!command)
     return FALSE;
   room = gs_playerroom (game);
+
+  /*
+   * Deliberate deviation: the Runner counts every present namesake, so with
+   * a red hat held and a blue one on the floor `drop hat` is "Which hat?"
+   * (run380 before dropping, run390 after dropping the red hat).  Scarier
+   * counts only the ones the verb can act on, as lib_co_pre400() does, and
+   * a single one needs no asking.
+   */
+  const scr_int mode = lib_co_verb_mode (command);
 
   for (object = 0; object < gs_object_count (game); object++)
     {
@@ -714,15 +1012,17 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
                 }
             }
         }
-      if (!term)
+      if (!term || lib_co_term_shadowed (game, command, object, term))
         continue;
 
       /* Count present objects whose Short or Alias is exactly that term. */
+      const scr_int term_mode = lib_co_effective_mode (game, term, mode);
       present = 0;
       for (other = 0; other < gs_object_count (game); other++)
         {
           if (lib_co_candidate (game, other, room)
-              && lib_co_object_answers_to (game, other, term))
+              && lib_co_object_answers_to (game, other, term)
+              && lib_co_mode_fitted (game, other, term_mode))
             present++;
         }
 
@@ -733,7 +1033,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
               first_term = term;
               first_present = present;
             }
-          if (lib_co_contains (command, lib_co_prefix_word (game, object)))
+          if (lib_co_names_prefix (game, command, object))
             resolved = TRUE;
           else if (!resolved)
             flagged_term = term;
@@ -769,8 +1069,10 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * "Which <term>.  <list>?" @4607BC/460832.  The difference is the seen
    * gate in lib_co_candidate(): troll.taf T64 `drop cup`, with Sid's seen
    * small cup on the bar and the carried empty cup, is "Which cup. The small
-   * cup or the empty cup?" in run390 (runner_transcripts/troll).  4.0 has
-   * its own handler-scoped prompt.
+   * cup or the empty cup?" in run390 (runner_transcripts/troll).  Scarier
+   * counts only the cups the drop can act on and prints the drop
+   * (deliberate deviation, see lib_runner_co_scan()).  4.0 has its own
+   * handler-scoped prompt.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     return FALSE;
@@ -806,10 +1108,13 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
 
   room = gs_playerroom (game);
   listed = 0;
+  const scr_int list_mode
+    = lib_co_effective_mode (game, list_term, lib_co_verb_mode (command));
   for (object = 0; object < gs_object_count (game); object++)
     {
       if (!lib_co_candidate (game, object, room)
-          || !lib_co_object_answers_to (game, object, list_term))
+          || !lib_co_object_answers_to (game, object, list_term)
+          || !lib_co_mode_fitted (game, object, list_mode))
         continue;
 
       if (listed > 0)
@@ -1943,13 +2248,19 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
                                                            object, "Short")))
         return FALSE;
 
+      /* Deliberate deviation: an alias the line holds only inside another
+         object's longer name does not make a candidate; see
+         lib_co_term_shadowed(). */
       hit = FALSE;
       alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
       for (alias = 0; alias < alias_count && !hit; alias++)
         {
+          const scr_char *name;
+
           vt_key[3].integer = alias;
-          hit = lib_co_contains (input, prop_get_string (bundle, "S<-sisi",
-                                                         vt_key));
+          name = prop_get_string (bundle, "S<-sisi", vt_key);
+          hit = lib_co_contains (input, name)
+                && !lib_co_term_shadowed (game, input, object, name);
         }
       if (hit)
         candidates.push_back (object);
@@ -2646,8 +2957,14 @@ static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
 void
 lib_co_note_line_top (scr_gameref_t game)
 {
-  (void) game;
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object;
+
   lib_co_prompt_370_blocked = FALSE;
+  lib_co_top_mode = line ? lib_co_verb_mode (line) : 0;
+  lib_co_top_fits.assign (gs_object_count (game), FALSE);
+  for (object = 0; object < gs_object_count (game); object++)
+    lib_co_top_fits[object] = lib_co_mode_fits (game, object, lib_co_top_mode);
 }
 
 /*
@@ -2790,7 +3107,9 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
    * narrow.  Measured on p38TASK/p39TASK (Adrift_184_pname_38.rtf,
    * Adrift_182_pname2_38.rtf, Adrift_185_pname_39.txt,
-   * Adrift_185_pname2_39.txt, 2026-09-19).
+   * Adrift_185_pname2_39.txt, 2026-09-19).  Scarier narrows take and drop
+   * at 3.8 too, and wear and remove at both (deliberate deviation), so
+   * that `wear hat` puts on the red hat.
    *
    * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
    * same co(obj, 0), so the last Prefix word settles a crowd for it too:
@@ -2808,13 +3127,16 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       const scr_char *line = run_get_dispatch_input ();
       scr_int mode = 0, kept = 0;
 
-      if (taf_version >= TAF_VERSION_390)
-        {
-          if (strcmp (verb, "drop") == 0)
-            mode = 2;
-          else if (strcmp (verb, "take") == 0)
-            mode = 1;
-        }
+      /* The wear and remove modes, and all four at 3.8, are Scarier's
+         (deliberate deviation); see lib_co_pre400(). */
+      if (strcmp (verb, "drop") == 0)
+        mode = 2;
+      else if (strcmp (verb, "take") == 0)
+        mode = 1;
+      else if (strcmp (verb, "wear") == 0)
+        mode = 3;
+      else if (strcmp (verb, "remove") == 0)
+        mode = 4;
       for (index_ = 0; index_ < gs_object_count (game); index_++)
         {
           if (game->object_references[index_]
@@ -3052,65 +3374,11 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * replacealias(0) -- a literal 0 (LitI2_Byte at 42C48A / 42958A), not the
    * argument-less every-object form takes() uses -- so only object #0's
    * Alias ever becomes a Short, and every other object must be named by
-   * its Short.  `don ball` holding a red and a blue ball, both aliased
+   * its Short: `don ball` holding a red and a blue ball, both aliased
    * "ball", is "Wear what?" (p37SLOT2 cmdfile_pslot37b.txt,
-   * Adrift_pslot37b.rtf, 2026-09-21).
+   * Adrift_pslot37b.rtf, 2026-09-21).  Deliberate deviation: Scarier lets
+   * every Alias name the object, as 3.8 does.
    */
-  if (count > 0 && taf_version < TAF_VERSION_380
-      && (strcmp (verb, "wear") == 0 || strcmp (verb, "remove") == 0)
-      && run_get_dispatch_input ())
-    {
-      const scr_char *line = run_get_dispatch_input ();
-      std::string rewritten;
-      scr_int kept = 0;
-
-      if (gs_object_count (game) > 0)
-        {
-          const scr_char *alias;
-          scr_vartype_t vt_key[4];
-
-          alias = lib_first_alias (bundle, vt_key, "Objects", 0);
-          if (!scr_strempty (alias) && lib_co_contains (line, alias))
-            {
-              const scr_char *found = strstr (line, alias);
-
-              if (found)
-                {
-                  rewritten.assign (line, found - line);
-                  rewritten += prop_get_indexed_string (bundle, "Objects", 0,
-                                                        "Short");
-                  rewritten += found + strlen (alias);
-                  line = rewritten.c_str ();
-                }
-            }
-        }
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          const scr_char *shortname;
-
-          if (!game->object_references[index_])
-            continue;
-          shortname = prop_get_indexed_string (bundle, "Objects", index_,
-                                               "Short");
-          if (scr_strempty (shortname) || !lib_co_contains (line, shortname))
-            game->object_references[index_] = FALSE;
-          else
-            {
-              object = index_;
-              kept++;
-            }
-        }
-      if (kept == 0)
-        {
-          lib_what (game, strcmp (verb, "wear") == 0 ? "Wear" : "Remove");
-          lib_co_prompt_370_blocked = TRUE;
-          if (is_ambiguous)
-            *is_ambiguous = TRUE;
-          return -1;
-        }
-      count = kept;
-    }
-
   if (count > 1 && taf_version < TAF_VERSION_380)
     {
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
@@ -3162,7 +3430,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    *   3.70 has no co() at all, so a crowd is objects sharing a SHORT the
    *     line names (lib_namesake_crowded_pre380), and the filter runs here:
    *     each crowded namesake keeps its reference only if the last word of
-   *     its Prefix is typed (lib_co_prefix_word).  With none left the turn
+   *     its Prefix is typed (lib_co_names_prefix).  With none left the turn
    *     is takes'/drops' own "Take what?" / "Drop what?" -- the "Which ...
    *     would you like to take" strings at 430866 are dead code -- and the
    *     line is answered, so no end-of-turn co() question follows it.
@@ -3205,7 +3473,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
               if (game->object_references[index_]
                   || obj_is_static (game, index_)
                   || !lib_co_candidate (game, index_, gs_playerroom (game))
-                  || !lib_names_object_370 (game, line, index_))
+                  || !lib_names_object_370 (game, line, index_)
+                  || lib_names_only_shadowed_370 (game, line, index_))
                 continue;
               game->object_references[index_] = TRUE;
               count++;
@@ -3260,9 +3529,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
               if (lib_object_held_pre380 (game, index_) == is_take
                   || (lib_namesake_crowded_pre380 (game, line, index_,
                                                    !is_take)
-                      && !lib_co_contains (line,
-                                           lib_co_prefix_word (game,
-                                                               index_))))
+                      && !lib_co_names_prefix (game, line, index_)))
                 game->object_references[index_] = FALSE;
               else
                 kept++;
@@ -3366,7 +3633,9 @@ pre400_take_done:
    * `x lower right cupboard` (aliases "lower right cupboard" and "right
    * cupboard" on one, "right cupboard" on the other) answers "Which right
    * cupboard.  The right lower cupboard or the right upper cupboard?"
-   * (Adrift_128_p_hub_adj.txt, runner_transcripts/hub.txt).
+   * (Adrift_128_p_hub_adj.txt, runner_transcripts/hub.txt).  Scarier lets
+   * the longer alias pick (deliberate deviation), so that line examines
+   * the lower cupboard.
    */
   if (count == 1 && lib_is_version_400 (game)
       && strcmp (verb, "examine") == 0

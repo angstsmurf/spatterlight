@@ -55,9 +55,6 @@ lib_read_tail_pre400 (scr_gameref_t game, scr_int object)
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     lib_examine_tail (game, object, TRUE);
   pf_buffer_character (gs_get_filter (game), '\n');
-  /* run390 examines 44BE52, just ahead of the tail: `read it` on the
-   * unreadable cabinet, then `get it`, echoes "(a cabinet)". */
-  lib_note_antecedent_390 (game, object);
 }
 
 scr_bool

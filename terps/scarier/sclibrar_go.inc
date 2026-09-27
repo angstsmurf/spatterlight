@@ -317,28 +317,6 @@ lib_cmd_just_a_direction (scr_gameref_t game)
 }
 
 
-/*
- * lib_cmd_just_a_direction_pre_390()
- *
- * `go <somewhere>` only reaches the Runner's gotoplace() from 3.9 on.  In 3.7
- * and 3.8 the sub is guarded on the whole word `goto`, or on a line starting
- * "go to" with more after it, and nothing else (run370 loc_42B994, run380
- * loc_431B8D); 3.9 and 4.0 relaxed the second half of that test to a bare
- * `go ` prefix (run390 loc_43C764, run400 loc_46494C).  So under the older
- * Runners a `go bedroom` is not a room request at all -- it reaches no
- * direction and no place, and generaltasks answers it with the nudge above.
- * (`go tower` does start "go to", and asks for a place called "go tower";
- * see lib_cmd_go_place().)
- */
-scr_bool
-lib_cmd_just_a_direction_pre_390 (scr_gameref_t game)
-{
-  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-    return FALSE;
-
-  return lib_cmd_just_a_direction (game);
-}
-
 scr_bool
 lib_cmd_go_northeast (scr_gameref_t game)
 {
@@ -495,7 +473,9 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  * 4.0) or "go to" (3.7, 3.8: a bare prefix test, so `go tower` enters and
  * asks for a place called "go tower").  "goto", "go to" and "go" alone
  * leave.  It then cuts "goto ", "go to " and (3.9+) "go " from the front, in
- * that order, each wherever c() finds the word, and matches what is left
+ * that order, each wherever c() finds the word.  Deliberate deviation:
+ * Scarier takes and cuts "go " at 3.7/3.8 too, see lib_goto_line_enters().
+ * It matches what is left
  * against the lower-cased room names: exactly first, and when that does not
  * give exactly one reachable room, as a substring.  4.0 counts only rooms
  * the player has visited.
@@ -575,6 +555,13 @@ lib_goto_alias (scr_prop_setref_t bundle)
  * or a line starting "go ", below it `(c("goto") And line<>"goto")`, a line
  * starting "go to" longer than five, or 3.7's own goto word; the bare words
  * leave at once.
+ *
+ * Deliberate deviation: a 3.7/3.8 line starting "go " enters too, as from
+ * 3.9.  The 3.7 and 3.8 Runners guard gotoplace on the whole word `goto`
+ * or a "go to" prefix only (run370 loc_42B994, run380 loc_431B8D), so `go
+ * bedroom` got generaltasks' "Just a direction will do." there, and `go
+ * tower` asked for a place called "go tower".  Tasks are matched first, so
+ * a game's own `go X` task still wins.
  */
 scr_bool
 lib_goto_line_enters (scr_gameref_t game, const scr_char *input)
@@ -598,9 +585,10 @@ lib_goto_line_enters (scr_gameref_t game, const scr_char *input)
     }
   if (!(has_word ("goto") && line != "goto")
       && !(line.compare (0, 5, "go to") == 0 && line.size () > 5)
+      && line.compare (0, 3, "go ") != 0
       && !(!alias.empty () && has_word (alias.c_str ())))
     return FALSE;
-  return !(line == "goto" || line == "go to"
+  return !(line == "goto" || line == "go to" || line == "go"
            || (!alias.empty () && line == alias));
 }
 
@@ -718,7 +706,8 @@ lib_cmd_go_place (scr_gameref_t game)
     drop_front (5);
   if (has_word ("go to"))
     drop_front (6);
-  if (version >= TAF_VERSION_390 && has_word ("go"))
+  /* 3.9+; and a deviation below it, see lib_goto_line_enters(). */
+  if (has_word ("go"))
     drop_front (3);
   text = line;
   uip_renote_named_npcs (game, line.c_str (), FALSE);

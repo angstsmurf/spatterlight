@@ -3655,11 +3655,15 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
       {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380, FALSE},
       {"take", "get", TAF_VERSION_380, TAF_VERSION_380, FALSE},
       {"except", "but", TAF_VERSION_380, TAF_VERSION_380, FALSE},
-      /* Replace(), substring, in the Runners' own order. */
-      {"everything", "all", TAF_VERSION_390, TAF_VERSION_390, TRUE},
-      {"slap", "hit", TAF_VERSION_390, TAF_VERSION_390, TRUE},
-      {"except", "but", TAF_VERSION_390, TAF_VERSION_390, TRUE},
-      {"apart from", "but", TAF_VERSION_390, TAF_VERSION_390, TRUE},
+      /*
+       * Replace(), substring, in the Runners' own order.  Deliberate
+       * deviation: Scarier makes 3.9's four whole-word rewrites, so a name
+       * like `exception` or `unslap` survives the line.
+       */
+      {"everything", "all", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+      {"slap", "hit", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+      {"except", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
+      {"apart from", "but", TAF_VERSION_390, TAF_VERSION_390, FALSE},
       {" everything ", " all ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
       {" slap ", " hit ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
       {" but ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},

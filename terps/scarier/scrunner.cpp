@@ -830,16 +830,12 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    *   get down  "Take what?"         "not standing on ..."  "not standing on ..."
    *   get off   "Take what?"         "not standing on ..."  "not standing on ..."
    *
-   * SCARE has only the file, so it gates on the .taf version as a proxy for
-   * the Runner the game was written for -- the same proxy every other
-   * version-gated row here uses.  The pre-3.9 "Take what?" then falls out
-   * on its own: lib_cmd_get_off()/lib_cmd_get_down() decline below 3.9 and
-   * the command drops through to the bare-verb row
-   * `[get/take/pick up/pick] *` -> lib_cmd_get_what further down.
+   * Deliberate deviation: Scarier takes all three at every version, with
+   * the 3.9 behaviour, rather than the pre-3.9 "Take what?" (see
+   * lib_cmd_get_off()).
    *
-   * `get on %object%` arrived at the same time and is gated with them; it
-   * is a `stand on` synonym that refuses differently.  See
-   * lib_cmd_get_on_object().
+   * `get on %object%` arrived at the same time; it is a `stand on` synonym
+   * that refuses differently.  See lib_cmd_get_on_object().
    */
   {"get on %object%", lib_cmd_get_on_object},
   {"get {down/up} off %object%", lib_cmd_get_off_object},
@@ -951,15 +947,15 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /*
    * gotoplace() itself, which tests the whole line: "goto" anywhere, or a
-   * line starting "go " (3.9+) or "go to" (3.7, 3.8).  See
-   * lib_cmd_go_place().  What it leaves is a bare `goto`, which nothing
-   * answers (DontUnderstand in run380x Adrift_133_pgoto38b.rtf, run390x
-   * Adrift_134_pgoto39b.txt, run400x Adrift_133_p4goto.txt), and under 3.7 and
-   * 3.8 a `go X` that does not start "go to", which gets the nudge -- see
-   * lib_cmd_just_a_direction_pre_390().
+   * line starting "go " (3.9+, and a deviation below; see
+   * lib_goto_line_enters()) or "go to" (3.7, 3.8).  See lib_cmd_go_place().
+   * What it leaves is a bare `goto`, which the Runner answers with
+   * DontUnderstand (run380x Adrift_133_pgoto38b.rtf, run390x
+   * Adrift_134_pgoto39b.txt, run400x Adrift_133_p4goto.txt).  Deliberate
+   * deviation: Scarier lists the exits, as SCARE did.
    */
   {"*", lib_cmd_go_place},
-  {"go *", lib_cmd_just_a_direction_pre_390},
+  {"goto", lib_cmd_print_room_exits},
   {"[exits/directions/where]", lib_cmd_print_room_exits},
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[wait] %number%", lib_cmd_wait_number},
@@ -7764,8 +7760,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   std::vector<std::string> put_clauses;
   scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
-  std::string fragment, empty_line;
-  scr_int prior_npc, empty_result;
+  std::string fragment;
+  scr_int prior_npc;
 
   /*
    * Adrift command matching is just weird, perhaps broken.  In theory, a
@@ -8136,19 +8132,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     }
 
   /*
-   * get_outer's "empty " rewrite sits between put_drop_list and the
-   * dispatcher; see lib_empty_rewrite_400().  A refusal leaves its join
-   * pending for whatever answers the typed line next.
+   * run400's get_outer (4582D8) sits between put_drop_list and the
+   * dispatcher, and its first act is `If c("empty") Then line = Replace(line,
+   * "empty ", "get all from ")`: a whole-word "empty" ANYWHERE turns the line
+   * into a take-from, so onnafa's `give empty beer mug to perry` first says
+   * "You can't take anything from the beer mug." and `x empty beer mug`
+   * with the mug gone is "I don't understand where you want to get things
+   * from." (6095ff3b0).  Deliberate deviation: Scarier leaves a line that
+   * only names an "empty ..." object alone; a line starting with "empty" is
+   * the take-from rows' either way.
    */
-  empty_result = 0;
-  if (!status && !refused && !put_first && !repeat_pending)
-    {
-      empty_result = lib_empty_rewrite_400 (game, string, &empty_line);
-      if (empty_result == 1)
-        status = TRUE;
-      else if (empty_result == 3)
-        task_string = empty_line.c_str ();
-    }
 
   /*
    * get_outer (4582D8) runs at 48A46D, BEFORE the task dispatcher at 48A481.
@@ -8178,7 +8171,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       outer_line = outer_battle.c_str ();
     }
   if (!status && !refused && !put_first && !repeat_pending && !inv_listed
-      && empty_result == 0
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && (strncmp (outer_line, "get ", 4) == 0
           || strncmp (outer_line, "take ", 5) == 0
@@ -8841,9 +8833,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       lib_npc_400_raise_for_line_string (game, string);
       status = TRUE;
     }
-
-  if (empty_result == 2)
-    pf_clear_join_pending (filter);
 
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();

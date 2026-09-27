@@ -1655,9 +1655,6 @@ lib_cmd_examine_object (scr_gameref_t game)
    */
   gs_set_object_seen (game, object, TRUE);
 
-  /* run390 examines names it too, in mode 1 (44BE52). */
-  lib_note_antecedent_390 (game, object);
-
   /* 4.0 names a present object to the antecedent setter (471749-471789). */
   if (lib_is_version_400 (game)
       && (obj_indirectly_in_room (game, object, gs_playerroom (game))

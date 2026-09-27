@@ -197,7 +197,7 @@ pack of necko wafers .  You can only move out.  The Mermaid follows you from
 outside.
 
 > take necko wafers
-Take what?
+You pick up the pack of necko wafers .
 
 > eat necko wafers
 you eat the necko wafers.  You then see a flash of light.  And on the floor

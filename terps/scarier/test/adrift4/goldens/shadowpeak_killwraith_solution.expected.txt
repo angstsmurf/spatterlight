@@ -2190,30 +2190,31 @@ Colos, the stone golem, is here.
 You can only move south.  "Colos at your service, sir, but first, the
 password, if you please," booms the golem.  Seeker hums!
 
-> attack golem
-Who do you want to attack?
+> wait
+Time passes...
 Seeker hums!
 Seeker hums!
 
-> attack golem
-Who do you want to attack?  Gargoyle #1 flies in.  Gargoyle #1 attacks you
-with the military fork, but you manage to avoid it.  Seeker hums!
+> wait
+Time passes...
+Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but
+you manage to avoid it.  Seeker hums!
 Seeker hums!
 
-> attack golem
-Who do you want to attack?
+> wait
+Time passes...
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 "What is the password?" booms the golem again.  Seeker hums!
 
-> attack golem
-Who do you want to attack?
+> wait
+Time passes...
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 The golem looks like it’s getting impatient.  Seeker hums!
 
-> attack golem
-Who do you want to attack?
+> wait
+Time passes...
 Seeker hums!
 Colos seems to have gotten sick of waiting. Deciding you don't know the
 password after all, the golem attempts to squash you with its huge fists.

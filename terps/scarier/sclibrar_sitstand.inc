@@ -436,7 +436,6 @@ lib_cmd_stand_on_object (scr_gameref_t game)
   return lib_stand_sit_lie (game, MOVE_STAND);
 }
 
-static scr_bool lib_has_get_off (scr_gameref_t game);
 
 /*
  * lib_cmd_get_on_object()
@@ -457,12 +456,12 @@ static scr_bool lib_has_get_off (scr_gameref_t game);
  * Microwave Man answers `get on glass` with "I don't understand what you
  * want me to do with the shard of glass.", where `stand on glass` refuses.
  * Declining here reproduces that fall-through.
+ *
+ * Deliberate deviation: 3.7/3.8 take it too; see lib_cmd_get_off().
  */
 scr_bool
 lib_cmd_get_on_object (scr_gameref_t game)
 {
-  if (!lib_has_get_off (game))
-    return FALSE;
   return lib_stand_sit_lie (game, MOVE_GET_ON);
 }
 
@@ -508,20 +507,16 @@ lib_cmd_sit_on_floor (scr_gameref_t game)
   return lib_stand_sit_lie (game, MOVE_SIT_FLOOR);
 }
 
-static scr_bool lib_lay_pre400 (scr_gameref_t game);
-
 scr_bool
 lib_cmd_lie_on_object (scr_gameref_t game)
 {
-  if (lib_lay_pre400 (game))
-    return FALSE;
   return lib_stand_sit_lie (game, MOVE_LIE);
 }
 
 scr_bool
 lib_cmd_lie_on_floor (scr_gameref_t game)
 {
-  if (lib_floor_named () || lib_lay_pre400 (game))
+  if (lib_floor_named ())
     return FALSE;
   return lib_stand_sit_lie (game, MOVE_LIE_FLOOR);
 }
@@ -585,32 +580,20 @@ lib_cmd_stand_scan_370 (scr_gameref_t game)
 scr_bool
 lib_cmd_lie_scan_370 (scr_gameref_t game)
 {
-  if (lib_lay_pre400 (game))
-    return FALSE;
   return lib_sit_stand_lie_scan_370 (game, MOVE_LIE);
 }
 
 
 /*
- * lib_lay_pre400()
- *
- * TRUE for a line whose verb is `lay` in a pre-4.0 game.  Only run400's lie
- * block tests c("lay") (46BACE, beside c("lie") at 46BAC1); run370, run380
- * and run390 have no such word, so `lay down` is "I don't understand." and
- * `lay on stool` "I don't understand what you want me to do with the stool."
- * (p37SIT..p4SIT, cmdfile_p3738sit4.txt: run370x Adrift_168_psit4_37.rtf,
- * run380x Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
- * Adrift_171_psit4_4.txt, 2026-09-19).  The [lie/lay] rows decline on it.
+ * `lay` is a lie at every version.  Only run400's lie block tests c("lay")
+ * (46BACE, beside c("lie") at 46BAC1); run370, run380 and run390 have no
+ * such word, so `lay down` is "I don't understand." and `lay on stool` "I
+ * don't understand what you want me to do with the stool." (p37SIT..p4SIT,
+ * cmdfile_p3738sit4.txt: run370x Adrift_168_psit4_37.rtf, run380x
+ * Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
+ * Adrift_171_psit4_4.txt, 2026-09-19).  Deliberate deviation: Scarier's
+ * [lie/lay] rows take it below 4.0 too.
  */
-static scr_bool
-lib_lay_pre400 (scr_gameref_t game)
-{
-  const scr_char *line = run_get_dispatch_input ();
-
-  return line && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
-         && scr_strncasecmp (line, "lay", 3) == 0
-         && (line[3] == NUL || line[3] == ' ');
-}
 
 
 /*
@@ -1288,13 +1271,15 @@ lib_cmd_get_off_object (scr_gameref_t game)
    * Before 4.0 the line reaches takes() first: its entry test excludes only
    * c("get on") and c("get down") (run390 4544C6), and generaltasks leaves on
    * a take that happened (45F439) before sitstand (45F50D) runs.  3.7/3.8
-   * have no get-off at all, so `get off stool` IS a take: "You pick up the
-   * stool.", "You can't take a chair.", "You've already got a stool!"
-   * (run370x/run380x p3738sit3, 2026-09-19).  In 3.9 a take that happened
-   * stands; any other take answer is overwritten by sitstand's below.
+   * have no get-off at all, so there `get off stool` IS a take, even when
+   * the player is on the stool: "You pick up the stool.", "You can't take a
+   * chair.", "You've already got a stool!" (run370x/run380x p3738sit3,
+   * 2026-09-19).  Deliberate deviation: they get the 3.9 behaviour, where a
+   * take that happened stands and any other take answer is overwritten by
+   * sitstand's below (see lib_cmd_get_off()).
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
-      && (!lib_has_get_off (game) || gs_playerparent (game) == -1))
+      && lib_player_parent_here (game) == -1)
     {
       const scr_filterref_t filter = gs_get_filter (game);
       const scr_char *line = run_get_dispatch_input ();
@@ -1312,8 +1297,6 @@ lib_cmd_get_off_object (scr_gameref_t game)
           var_set_ref_text (gs_get_vars (game), rest + 5);
           taken = lib_cmd_take_multiple (game);
         }
-      if (!lib_has_get_off (game))
-        return taken;
       held_after = 0;
       for (object = 0; object < gs_object_count (game); object++)
         held_after += gs_object_position (game, object) == OBJ_HELD_PLAYER;
@@ -1321,8 +1304,6 @@ lib_cmd_get_off_object (scr_gameref_t game)
         return TRUE;
       pf_truncate (filter, mark);
     }
-  else if (!lib_has_get_off (game))
-    return FALSE;
 
   /*
    * 3.9+ get-off asks about the parent before it looks at the name: `get
@@ -1330,7 +1311,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
    * (run400 46B702, run390 4443E1; run390x Adrift_168_p39sit3.txt, run400x
    * Adrift_169_p4sit3.txt, 2026-09-19).
    */
-  if (gs_playerparent (game) == -1)
+  if (lib_player_parent_here (game) == -1)
     return lib_print_response_message (game,
                                 "You are not standing on anything!\n",
                                 "I am not standing on anything!\n",
@@ -1342,7 +1323,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
     return is_ambiguous;
 
   /* Reject the attempt if the player is not on the given object. */
-  if (gs_playerparent (game) != object)
+  if (lib_player_parent_here (game) != object)
     {
       lib_print_response_object (game,
                                  "You are not standing on ",
@@ -1365,10 +1346,24 @@ lib_cmd_get_off_object (scr_gameref_t game)
   return TRUE;
 }
 
-static scr_bool
-lib_has_get_off (scr_gameref_t game)
+/*
+ * lib_player_parent_here()
+ *
+ * The object the player stands, sits or lies on, for get-off.  Before 3.9
+ * walking off leaves the parent in place (see lib_go()), so there a parent
+ * that is not in the player's room is a stale one, and the player is on
+ * nothing.
+ */
+static scr_int
+lib_player_parent_here (scr_gameref_t game)
 {
-  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390;
+  const scr_int parent = gs_playerparent (game);
+
+  if (parent != -1
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      && !obj_indirectly_in_room (game, parent, gs_playerroom (game)))
+    return -1;
+  return parent;
 }
 
 scr_bool
@@ -1377,15 +1372,14 @@ lib_cmd_get_off (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
 
   /*
-   * Not a verb before 3.9.  run380 on Wrecked answers a bare `get off` with
-   * "Take what?", i.e. the take handler, so decline and let the take family
-   * keep it.
+   * `get off`, `get down` and `get on X` arrived in the Runner at 3.9;
+   * run370 and run380 have neither literal, so `get off` there is the take
+   * handler's "Take what?" (run380 on Wrecked, microwaveman).  Deliberate
+   * deviation: Scarier understands them at every version, with the 3.9
+   * behaviour.  A game's own task still wins, tasks being matched first.
    */
-  if (!lib_has_get_off (game))
-    return FALSE;
-
   /* Reject the attempt if the player is not on anything. */
-  if (gs_playerparent (game) == -1)
+  if (lib_player_parent_here (game) == -1)
     {
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -1412,16 +1406,12 @@ lib_cmd_get_off (scr_gameref_t game)
 /*
  * lib_cmd_get_down()
  *
- * `get down` shares the Runner's dismount branch with `get off`, so it is
- * gated the same way: both arrived in 3.9.  Under run380, `get down` and
- * `get off` are answered "Take what?" -- the take handler, not sitstand --
- * and declining here reproduces that, because the take family is matched
- * first and only falls through once it has failed to resolve an object.
+ * `get down` shares the Runner's dismount branch with `get off`: both
+ * arrived in 3.9, and Scarier takes both at every version (see
+ * lib_cmd_get_off()).
  */
 scr_bool
 lib_cmd_get_down (scr_gameref_t game)
 {
-  if (!lib_has_get_off (game))
-    return FALSE;
   return lib_cmd_get_off (game);
 }

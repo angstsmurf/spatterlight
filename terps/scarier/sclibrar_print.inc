@@ -1091,18 +1091,6 @@ lib_is_version_390 (scr_gameref_t game)
   return version >= TAF_VERSION_390 && version < TAF_VERSION_400;
 }
 
-/*
- * A run390 handler that acted names its object to the antecedent in mode 1,
- * the authored Prefix, after generaltasks' co() pre-pass; see
- * uip_assign_antecedent_390() in scparser.cpp.
- */
-static void
-lib_note_antecedent_390 (scr_gameref_t game, scr_int object)
-{
-  if (lib_is_version_390 (game))
-    uip_note_handler_antecedent_390 (object);
-}
-
 
 /*
  * lib_set_admin()

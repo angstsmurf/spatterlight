@@ -51,6 +51,11 @@ lib_cmd_look (scr_gameref_t game)
  * Adrift_173_pbare37.rtf / Adrift_175_pbare37b.rtf, run380x
  * Adrift_172_pbare38.rtf / Adrift_174_pbare38b.rtf
  * (`cmdfile_p3738bare.txt`, `cmdfile_p3738bare2.txt`).
+ *
+ * Deliberate deviation: below 3.9 any line this row matches that names the
+ * room or location looks, so `examine room`, `look at room` and `x the
+ * room` show the room instead of "Nothing special.".  The bare forms keep
+ * the Runner's answer.
  */
 scr_bool
 lib_cmd_look_typed (scr_gameref_t game)
@@ -76,6 +81,13 @@ lib_cmd_look_typed (scr_gameref_t game)
                || lib_is_version_390 (game) || lib_is_version_400 (game));
            entry++)
         is_look = scr_strcasecmp (line, *entry) == 0;
+      if (!is_look && !lib_is_version_390 (game) && !lib_is_version_400 (game))
+        {
+          const scr_char *last = strrchr (line, ' ');
+          last = last ? last + 1 : line;
+          is_look = scr_strcasecmp (last, "room") == 0
+                    || scr_strcasecmp (last, "location") == 0;
+        }
       scr_free (line);
       if (!is_look)
         return FALSE;

@@ -523,22 +523,22 @@ You can't go in that direction, but you can move north and east.
 You'd need to enter the fireplace if you want to explore in that direction.
 
 > open bathroom door
-You can't open that.
+You can't see the bathroom door.
 
 > open bathroom door
-You can't open that.
+You can't see the bathroom door.
 
 > open small bedroom door
-You can't open that.
+You can't see the small bedroom door.
 
 > open small bedroom door
-You can't open that.
+You can't see the small bedroom door.
 
 > open master bedroom door
-You can't open that.
+You can't see the master bedroom door.
 
 > open master bedroom door
-You can't open that.
+You can't see the master bedroom door.
 
 > look
 

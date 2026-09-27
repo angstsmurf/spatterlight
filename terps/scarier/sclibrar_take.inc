@@ -1099,12 +1099,6 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
               /* A successful library take spends OnlyWhenNotMoved mode 1
                * (run400 `takes` @0047BF66).  Nothing else does. */
               gs_set_object_unmoved (game, object, FALSE);
-              /* run390 takes 455067; a take from a parent is rewritten to
-               * take-from (4552EE), which writes nothing. */
-              if (parent == -1)
-                lib_note_antecedent_390 (game, object);
-              else if (lib_is_version_390 (game))
-                uip_note_take_from_390 (parent);
             }
 
           if (!list.empty ())
@@ -1755,16 +1749,16 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
  * held bag is "You get a nut from the bag." for `get nut` and "Take what?"
  * for `take nut` (p37TFSW, run370x Adrift_189_ptfsw3_37.rtf, 2026-09-19).
  * TRUE if the typed line would reach insides().
+ *
+ * Deliberate deviation: Scarier gives 3.7 run380's gate, so `take gem from
+ * box`, `take nut` from a held bag and `empty bag` work there as they do at
+ * 3.8.  Always TRUE; the 3.7 branches that test it are kept for the record.
  */
 static scr_bool
 lib_take_from_line_370 (scr_gameref_t game)
 {
-  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-  const scr_char *input = run_get_dispatch_input ();
-
-  return input
-         && (run_c_word_pre400 (version, input, "get") >= 0
-             || run_c_word_pre400 (version, input, "remove") >= 0);
+  (void) game;
+  return TRUE;
 }
 
 
@@ -2499,7 +2493,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
             term = alias_name;
         }
     }
-  if (!term)
+  if (!term || lib_co_term_shadowed (game, line, object, term))
     return FALSE;
   if (taf_version < TAF_VERSION_380)
     return TRUE;
@@ -2512,45 +2506,36 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
           && lib_co_object_answers_to (game, other, term))
         count++;
     }
-  if (count > 1 && mode == 1 && taf_version >= TAF_VERSION_390)
-    {
-      scr_int loose = 0;
-
-      for (other = 0; other < gs_object_count (game); other++)
-        {
-          if (lib_co_object_answers_to (game, other, term)
-              && !obj_is_static (game, other)
-              && gs_object_position (game, other) == room + 1)
-            loose++;
-        }
-      if (loose > 0)
-        count = loose;
-    }
   /*
+   * Mode 1 is takes()' (run390): the recount is over the loose namesakes.
    * Mode 2 is drops()' (run390 4458CF): the recount is over isheld()
    * (42A34C) -- held, worn, or in or on a parent that isheld, recursively,
    * no openness test.  So `drop hat` with the red hat in hand and the blue
-   * one on the floor recounts to one and drops the red hat -- under the
-   * end-of-turn "Which hat." all the same, generaltasks' mode-0 scan
-   * having flagged it -- while red worn and blue held recounts to two and
-   * drops nothing (p39TASK, Adrift_185_pname_39.txt / Adrift_185_pname2_39.txt,
-   * 2026-09-19).
+   * one on the floor recounts to one and drops the red hat, while red worn
+   * and blue held recounts to two and drops nothing (p39TASK,
+   * Adrift_185_pname_39.txt / Adrift_185_pname2_39.txt, 2026-09-19).
+   *
+   * Deliberate deviation: run380 has no modes, and no Runner narrows wear
+   * or remove, so `wear hat` with the red hat held and the blue one on the
+   * floor wears nothing under "Which hat."  Scarier recounts at 3.8 too,
+   * and mode 3 (wear: held, not worn) and mode 4 (remove: worn) do the
+   * same for those verbs.  See lib_co_mode_fits().
    */
-  if (count > 1 && mode == 2 && taf_version >= TAF_VERSION_390)
+  if (count > 1 && mode != 0)
     {
-      scr_int held = 0;
+      scr_int fitting = 0;
 
       for (other = 0; other < gs_object_count (game); other++)
         {
           if (lib_co_object_answers_to (game, other, term)
-              && lib_isheld_390 (game, other))
-            held++;
+              && lib_co_mode_fits (game, other, mode))
+            fitting++;
         }
-      if (held > 0)
-        count = held;
+      if (fitting > 0)
+        count = fitting;
     }
   if (count > 1)
-    return lib_co_contains (line, lib_co_prefix_word (game, object));
+    return lib_co_names_prefix (game, line, object);
   if (taf_version >= TAF_VERSION_390)
     return lib_co_candidate (game, object, room);
   return TRUE;
@@ -2624,7 +2609,7 @@ lib_take_crowd_pre400 (scr_gameref_t game, scr_bool *crowded)
           || !lib_co_pre400 (game, line, object, 1))
         continue;
       counted++;
-      if (lib_co_contains (line, lib_co_prefix_word (game, object)))
+      if (lib_co_names_prefix (game, line, object))
         {
           acting++;
           last_acting = object;
@@ -2721,7 +2706,11 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
       if (gs_object_position (game, object) != OBJ_HELD_PLAYER
           && gs_object_position (game, object) != OBJ_WORN_PLAYER)
         continue;
-      if (lib_take_co_pre400 (game, line, object))
+      /* Deliberate deviation: a held namesake whose Prefix the line rules
+         out (`take old pin`, the new red pin in hand) does not speak; see
+         lib_co_names_prefix(). */
+      if (lib_take_co_pre400 (game, line, object)
+          && !lib_co_prefix_excluded (game, line, object))
         speaker = object;
     }
   if (speaker == -1)
@@ -3188,7 +3177,6 @@ lib_take_and_pre400 (scr_gameref_t game)
             {
               gs_object_player_get (game, object);
               gs_set_object_unmoved (game, object, FALSE);
-              lib_note_antecedent_390 (game, object);   /* 4550F0 */
               taken++;
               candidates--;
               /* The Runner appends the name straight after an overwritten
@@ -3570,11 +3558,7 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 }
 
 
-static scr_int lib_take_from_slot_390 (scr_gameref_t game,
-                                       const scr_char *line);
-static scr_bool lib_take_from_resolved (scr_gameref_t game, scr_int associate,
-                                        scr_bool is_except,
-                                        scr_int references);
+static scr_int lib_player_parent_here (scr_gameref_t game);
 
 /*
  * lib_take_multiple_common()
@@ -3589,6 +3573,22 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
   scr_bool parsed = FALSE;
+
+  /*
+   * `get off X` reaches the take rows first, and below 4.0 takes() names X
+   * over the whole line, so a player standing on the stool picked it up
+   * (run370x/run380x/run390x p3xSIT).  Deliberate deviation: while the
+   * player is on something, leave the line to lib_cmd_get_off_object().
+   */
+  if (!is_except && lib_player_parent_here (game) != -1)
+    {
+      const scr_char *line = run_get_dispatch_input ();
+
+      if (line && (scr_strncasecmp (line, "get off ", 8) == 0
+                   || scr_strncasecmp (line, "get down off ", 13) == 0
+                   || scr_strncasecmp (line, "get up off ", 11) == 0))
+        return FALSE;
+    }
 
   /*
    * A take line holding "from" that the take-from rows above declined --
@@ -3820,42 +3820,9 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    * run390 takes() rewrites a bare take of something in or on an object to
    * "<line> from <parent's Prefix Short>" (4552EE) and hands it to
    * insides(), whose container slot walk may pick another object the
-   * rewritten line names; see lib_take_from_slot_390().
+   * rewritten line names (8811c2b76).  Deliberate deviation: Scarier takes
+   * the object the line named from where it is.
    */
-  if (!is_except && references == 1
-      && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
-    {
-      const scr_prop_setref_t bundle = gs_get_bundle (game);
-      scr_int index_;
-
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        if (game->multiple_references[index_])
-          break;
-      if (index_ < gs_object_count (game)
-          && (gs_object_position (game, index_) == OBJ_IN_OBJECT
-              || gs_object_position (game, index_) == OBJ_ON_OBJECT))
-        {
-          const scr_int parent = gs_object_parent (game, index_);
-          const scr_char *prefix, *line;
-          std::string rewritten;
-          scr_int slot;
-          size_t at;
-
-          line = run_get_dispatch_input ();
-          prefix = prop_get_indexed_string (bundle, "Objects", parent,
-                                            "Prefix");
-          rewritten = std::string (line ? line : "") + " from ";
-          if (prefix[0] != NUL)
-            rewritten += std::string (prefix) + " ";
-          rewritten += prop_get_indexed_string (bundle, "Objects", parent,
-                                                "Short");
-          for (at = 0; at < rewritten.size (); at++)
-            rewritten[at] = scr_tolower (rewritten[at]);
-          slot = lib_take_from_slot_390 (game, rewritten.c_str ());
-          if (slot >= 0 && slot != parent)
-            return lib_take_from_resolved (game, slot, FALSE, references);
-        }
-    }
 
   /* Note single-object takes; the backend words some refusals differently. */
   lib_take_single_named = !is_except && references == 1;

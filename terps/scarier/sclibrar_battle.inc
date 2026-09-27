@@ -572,7 +572,7 @@ lib_attack_absent_npc (scr_gameref_t game)
 }
 
 /*
- * lib_battle_unnamed_target()
+ * dobattle's own reference test for a single target -- not ported.
  *
  * dobattle picks its target with its own reference test, not the parser's.
  * run400 walks the NPCs and tests the Name (field 0) alone -- 47EB2D pushes
@@ -599,48 +599,11 @@ lib_attack_absent_npc (scr_gameref_t game)
  * the Runner answers "Who do you want to attack?" (runner_transcripts
  * ghoster turn 21); `attack attack robot` strikes.
  *
- * Returns TRUE having printed, when the Battle System is on at 3.90+ and the
- * NPC the grammar resolved is not one dobattle would strike.
+ * Deliberate deviation: Scarier strikes the character the grammar resolved,
+ * by any Alias and whatever battle verb comes first, where the Runner
+ * answers "Who do you want to attack?".  A line naming several characters
+ * still goes through dobattle's test (lib_battle_strike_loop()).
  */
-static void lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
-                                  const scr_char *verb);
-static scr_int lib_battle_line_verb_index (const scr_char *input);
-static scr_bool lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
-                                          const scr_char *input,
-                                          scr_int verb_index);
-
-static scr_bool
-lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *input = run_get_dispatch_input ();
-  const scr_char *name;
-  scr_int verb_index;
-  scr_bool named;
-
-  if (prop_get_taf_version (bundle) < TAF_VERSION_390
-      || !battle_is_enabled (game) || !input)
-    return FALSE;
-
-  verb_index = lib_battle_line_verb_index (input);
-  if (verb_index >= 0)
-    named = lib_battle_npc_is_target (game, npc, input, verb_index);
-  else if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
-    {
-      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-      named = name && name[0] != NUL && lib_input_contains_word (input, name);
-    }
-  else
-    named = lib_npc_named_in_line (game, npc, input);
-  if (named)
-    return FALSE;
-
-  if (verb_index >= 0)
-    lib_battle_who_raise (game, input, lib_battle_line_verb (game, input));
-  pf_buffer_string (gs_get_filter (game), "Who do you want to attack?\n");
-  return TRUE;
-}
-
 static scr_bool lib_battle_attack_many (scr_gameref_t game,
                                         scr_bool with_object);
 static scr_bool lib_battle_line_names_many (scr_gameref_t game);
@@ -712,10 +675,6 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
         return TRUE;
       return is_ambiguous;
     }
-
-  /* dobattle's own reference test must name it too. */
-  if (lib_battle_unnamed_target (game, npc))
-    return TRUE;
 
   /*
    * A "with" after the target (47EBDE, var_8A = 2) makes the blow the
@@ -827,10 +786,6 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
         return TRUE;
       return is_ambiguous;
     }
-
-  /* dobattle's own reference test must name it too. */
-  if (lib_battle_unnamed_target (game, npc))
-    return TRUE;
 
   /*
    * dobattle (run390 44CD63-44CE44, run400 47EC16) walks every object the
@@ -2032,9 +1987,10 @@ lib_cmd_attack_npc_with (scr_gameref_t game)
  * with `slap` is never rewritten.  That is why run400 answers `slap gizmo`
  * with the "I'm afraid that I wasn't anticipating that particular input."
  * a nonsense verb gets, while run390 gives it the combat dispatch (both
- * measured live 2026-08-18, on easter.taf and The Town of Azra).  So these
- * decline on 4.0 and behave as `hit` -- not `attack` -- everywhere else:
- * `hit` carries battle attack index 2, `attack`/`kick` carry -1.
+ * measured live 2026-08-18, on easter.taf and The Town of Azra).
+ * Deliberate deviation: Scarier takes a leading `slap` at 4.0 too, so these
+ * behave as `hit` -- not `attack` -- everywhere: `hit` carries battle attack
+ * index 2, `attack`/`kick` carry -1.
  *
  * `smack` and `strike` are synonyms at no version: neither literal occurs
  * anywhere in run370.bas, run380.bas, run390 Form1.frm or run400.bas.
@@ -2042,7 +1998,8 @@ lib_cmd_attack_npc_with (scr_gameref_t game)
 static scr_bool
 lib_slap_declines (scr_gameref_t game)
 {
-  return lib_is_version_400 (game);
+  (void) game;
+  return FALSE;
 }
 
 scr_bool

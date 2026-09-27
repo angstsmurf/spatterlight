@@ -249,6 +249,10 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # harness/shadowpeak_village.py (46 turns) and the Damastus chase re-derived with
 # harness/shadowpeak_chase.py; the original castle-race pad and everything downstream of
 # the maze were left untouched and still line up.  Still wins.
+# 2026-09-27: the five `attack golem` filler turns before `say carom` are `wait` now.
+# Scarier strikes a character the grammar resolves, by any Alias (deliberate deviation;
+# run400 names the golem "Colos" only and answers "Who do you want to attack?"), and
+# real blows moved the RNG.  `wait` keeps every later turn where it was.  Still wins.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -271,6 +275,10 @@ shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SE
 # harness/shadowpeak_village.py (46 turns), a 12-turn castle-race pad (also keeps the
 # downstream Quentis/horn and Edna walkers correctly timed), and the Damastus chase
 # re-derived with harness/shadowpeak_chase.py.  Still wins.
+# 2026-09-27: the five `attack golem` filler turns before `say carom` are `wait` now.
+# Scarier strikes a character the grammar resolves, by any Alias (deliberate deviation;
+# run400 names the golem "Colos" only and answers "Who do you want to attack?"), and
+# real blows moved the RNG.  `wait` keeps every later turn where it was.  Still wins.
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -302,6 +310,10 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # the Morac ambush under xoshiro.  Re-swept upstream to seed 1, village phase re-derived
 # with harness/shadowpeak_village.py (19 turns), a 9-turn castle-race pad, and the
 # Damastus chase re-derived with harness/shadowpeak_chase.py.  Still wins.
+# 2026-09-27: the five `attack golem` filler turns before `say carom` are `wait` now.
+# Scarier strikes a character the grammar resolves, by any Alias (deliberate deviation;
+# run400 names the golem "Colos" only and answers "Who do you want to attack?"), and
+# real blows moved the RNG.  `wait` keeps every later turn where it was.  Still wins.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -1248,6 +1260,9 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # and the route stalled.  Scarier now does the same (lib_take_scored_400() ahead
 # of task pass 1).  `climb in the van` runs task 26 and wins in run400x
 # (Adrift_128_p_xfclimb.txt:309, "Welcome to the Resistance.", 285 of 299).
+# 2026-09-27: `take phone book` (there is no phone book) is "Take what?": the
+# line names more than the cell phone's "phone", so it no longer takes the
+# phone from the backpack as run400 does (deliberate deviation, key ring).
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering
@@ -2472,6 +2487,9 @@ the_hangover_patched_solution.txt|hangover.taf|You scored 7 out of the maximum 7
 # is the QUIET half of the 3.9 post-put sweep -- the basin claims it, task 51's
 # second restriction fails silently, and the put text stands (run390 462553-
 # 462760 with 4626B6; probes Adrift_128_trolldrop / Adrift_130_trollfire).
+# 2026-09-27: T64 `drop cup` drops the one cup held and says so, where run390
+# drops it under "Which cup.  The small cup or the empty cup?" (deliberate
+# deviation: the prompt counts only the namesakes the verb can act on).
 troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
 # A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
 # transcript needed exactly ONE repair in 270 commands: a second `push door` in
@@ -4033,6 +4051,9 @@ microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 10
 # take" prompts; the hangover run390 transcript (`Adrift_*_hangover.txt`,
 # `open cabinet` with two cabinets present) shows no prompt.  Porting the
 # 3.8 rule globally regressed six 3.90 goldens, hence the `< 3.90` gate.
+# 2026-09-27: cmd 27 no longer asks: the line names "truck keys" in full, so
+# the "keys" alias both sets share is settled (deliberate deviation); Scarier prints
+# the take instead, the one turn that differs from run380.
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 # Measured 2026-08-31 against run380.exe live (Adven_1_superliam.rtf, feed
 # cmdfile_w_superliam.txt, 85/85 echoed, save at the 85th command).  Two
@@ -4045,6 +4066,8 @@ life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 #    "necko wafers " (trailing space) is unreferenceable, so `take necko
 #    wafers` answers "Take what?"; the task-matched eat still fires and the
 #    Runner wins 3250/3250 (uip_compare_reference trailing-space rule).
+# 2026-09-27: `take necko wafers` takes them: the Short's trailing space no
+# longer hides the name, where run380 says "Take what?" (deliberate deviation).
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # The 3.7 confirmation of the empty-M1 room-alt start rule (see the
 # lair-of-the-cybercow rows): measured live in run370 under Wine, cmd 34 is now
@@ -7182,6 +7205,9 @@ dayattheoffice_solution.txt|DayAtTheOffice.taf|I'll have a tea, black with two s
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the woolly jumper prints its InRoomDesc "Strewn
 # amongst the debris is a wolly jumper." instead of being listed.  Confirmed in
 # Adrift_269_beer line 42.
+# 2026-09-27: T11 is `wear jumper` again.  run400 answers "Wear what?" (the held woolly
+# jumper ties the fountain's people, alias jumper); Scarier wears the one held wearable
+# of a tie (deliberate deviation, reverting 782dab11e's walkthrough change).
 beer_solution.txt|beer.taf|You search the dirt and find a pouch.|
 # Mr_Fluffykins_Most_Harrowing_Misadventure.taf (4.00): a Choose-Your-Own-
 # Adventure gamebook wearing a parser -- one nominal room, three variables,
@@ -7407,9 +7433,10 @@ cluelessbob_solution.txt|In_the_Claws_of_Clueless_Bob.taf|score of 12 - well don
 # hose/toilet-paper phrasing, wrong hob order) that had to be corrected.
 # "toilet paper" collides with the scenery noun "toilet" -- use the
 # registered alias. 112 commands, no env vars needed. T70-75 say
-# `x/open right lower cupboard`, not "lower right": run400 asks "Which right
-# cupboard." for the latter and refuses `open` (runner_transcripts/hub.txt),
-# and Scarier now does the same. T79 `put soup in pan`: the minestrone soup
+# `x/open lower right cupboard`: run400 asks "Which right cupboard." and
+# refuses `open` (runner_transcripts/hub.txt); since 2026-09-27 Scarier lets
+# the longer alias pick (deliberate deviation), so the walkthrough uses the
+# game's own wording again. T79 `put soup in pan`: the minestrone soup
 # sits inside the tin can task 11 opened, revealed by no listing of its own,
 # so run400's %text% matcher (seen-gated, TAF_VERSION >= 3.90) cannot name
 # it -- but its mode 2 fallback scores present objects directly, ignoring
@@ -7499,6 +7526,9 @@ dreamquest_solution.txt|Dream Quest.taf|Well done - you scored maximum points!|
 # and T117 `drop tincture of wai lin` drops the base tincture, so those
 # tinctures stay held and the run ends on 114/95 as the Runner's does.
 # Identical to runner_transcripts/wilkins.txt on every turn.
+# 2026-09-27: the `drop tincture of X` lines now drop what they name instead
+# of asking (deliberate deviation, key ring); run400's prompt dropped the base
+# tincture by accident, so the walkthrough drops it by name after them.
 wilkins_solution.txt|The_Strange_Tale_of_Dr_Wilkins.taf|My score is 114 out of a maximum of 95.|
 # darkness.taf: single-location (lighthouse) exploration/repair game.
 # Score comes from four sources: 7 of 8 "mystery notes" (the keeper's hat
@@ -9079,6 +9109,9 @@ alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # anything from the empty beer mug." ahead of Perry's trade text. run400
 # get_outer (458073) rewrites "empty " to "get all from " on every line, and
 # the take-from refuses the non-container mug (runner_transcripts/onnafa.txt:626).
+# 2026-09-27: that refusal is gone again.  Scarier leaves a line that only names an
+# "empty ..." object alone (deliberate deviation from get_outer's rewrite, 6095ff3b0),
+# so T68 is Perry's trade text alone.
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # Full win, 30/30 (confirmed max via exhaustive audit of every ACT type=4
 # scoring task in the SCR_DUMP_TASKS structural dump). Collects the starting
@@ -9162,6 +9195,8 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # (Adrift_381_house.txt) that is 45 blank turns and everything downstream of
 # the desync they cause.  See notes/WINE-TRANSCRIPTS-TODO.md, "the 48-row
 # re-run".
+# 2026-09-27: `open bathroom door` is "You can't see the bathroom door." --
+# the line names the whole door, not just "door" (deliberate deviation).
 house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # The same route with the engine's targeted game patches on.  Task 459 gains
 # the {the} slot the library's canonical rebuild needs, so `put wood in
@@ -9357,6 +9392,8 @@ sswhore_solution.txt|ss whore.taf|You scored 7 out of the maximum 7!|SCR_SKIP_WA
 # Re-blessed 2026-09-14, score 100 -> 99: 4.0 auto-"from" take port.  T104/
 # T112/T122 `get treat`/`get bone`/`get cudgel` now print "The stove is bolted to the floor." and
 # Merrick answers "That's no use to me," as run400 does (Adrift_1059, 99).
+# 2026-09-27: `x tapestry three` examines it: the longer name is not
+# swallowed by the plain "tapestry" (deliberate deviation, key ring).
 warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # Tic-Tac-Toe (small joke game): the trial-by-tic-tac-toe against an Undead
 # Rob Zombie. Three leading filler lines (any text) are silently swallowed by
@@ -9736,6 +9773,10 @@ crossworlds2_solution.txt|Crossworlds Part 2.taf|You scored 75 out of the maximu
 # family of bug as the CW2 name-prompt trap above, just a keypress instead of
 # a name).  With that flag, the literal walkthrough plays clean start to
 # finish: 100/100, 100%.
+# 2026-09-27: after `get jet` from the open cabinet, `read it`/`get it` act on the vial of
+# jet, and T29's echo is "(a microwave)".  run390 leaves "it" on the cabinet (its co()
+# pre-pass takes the last object in index order); Scarier follows the objects the line
+# names (deliberate deviation, 8f7dc3d7a).  Still 100/100.
 crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
 # British Fox and the Celebrity Abductions (Sirene).  Solution: hand-derived
 # (no author walkthrough survives online) by live static+dynamic analysis of
@@ -9843,6 +9884,9 @@ makeshift_solution.txt|makeshift-magician.taf|your magic career is probably over
 # the old route ate it straight off the floor ("You can't eat Edible
 # Plant.") and stopped at 195 (re-derived 2026-09-26).  Scores are awarded
 # once, so the cave monster's plant is left alone.  No waitkeys on the intro.
+# 2026-09-27: `take stone` with one stone loose and the rest held takes it and
+# says so, where the Runner takes it under "Which Stone?" (deliberate
+# deviation: the prompt counts only the namesakes the verb can act on).
 aquarius2_solution.txt|AquariusPart2Ver1.taf|You scored 200 out of the maximum 200!|
 # The Adventures of Space Boy! Volume II (4.00).  Chapter-end win: fountain
 # coins, casino tray, fourteen `play slots` under the harness xoshiro seed
@@ -10061,6 +10105,8 @@ darkriver_solution.txt|The_Dark_River_1.4.taf|You scored 12 out of the maximum 1
 # Locked Out. Rock in the lawn grass, miss then hit the ladder, batteries
 # in the treehouse, crowbar behind the garage furniture. Waitkeys.
 # 90/110: library PUT consumes "put rock on lid" (+20) before the task.
+# 2026-09-27: `get battery` takes it from the Lego piece rather than
+# refusing on the tub (deliberate deviation, key ring).
 lockedout_solution.txt|lockedout.taf|You scored 90 out of the maximum 110!|SCR_SKIP_WAITKEY=1
 # And the same route with the built-in game patch (SCR_ASSUME_PATCHES=1, on by
 # default in the Glk build): task 20 `put rock on lid` is allowed to run in
@@ -10807,7 +10853,9 @@ night_solution.txt|The_Night_That_Dripped_Blood.taf|You scored 100 out of the ma
 # room text list nothing while the container is closed (whatisinon gate, see
 # var_get_system in_).
 # Runner (run390x, runner_transcripts/thewill.txt): identical on every turn
-# since 2026-09-26.  At the Narrow Squeeze `get all` task 142 claims the
+# since 2026-09-26 except `get off pedestal` (standing on it): the Runner
+# takes it, Scarier dismounts (deliberate deviation), hence the extra `get
+# pedestal`.  At the Narrow Squeeze `get all` task 142 claims the
 # clover, and run390 puts the library's take line in front of the task's
 # text, as run400 does (sclibrar_take.inc, the saved-buffer branch).
 thewill_solution.txt|The_Will.taf|You have completed The Will and inherited a fortune.|

@@ -130,7 +130,7 @@ This is your parent's room. There is a bed and a dresser, nothing too
 important.  You can only move east.
 
 > take truck keys
-Which keys?  The mustang keys or the truck keys?
+You take a truck keys from the closet.
 
 > east
 You move east.

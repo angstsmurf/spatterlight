@@ -530,10 +530,10 @@ You can't touch that.
 Zzzzz.  Bored are you?
 
 > take phone book
-You take Your Cell Phone from Your Backpack.
+Take what?
 
 > open phone book
-Your Cell Phone is already open!
+You can't open that.
 
 > look up byers
 Have X-Ray vision, do you?

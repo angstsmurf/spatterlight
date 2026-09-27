@@ -706,10 +706,12 @@ Standing on the pedestal, and on your tiptoes, you pull something out from
 between the fan blades...it's a ruby crown.
 
 > get off pedestal
+You get off the wooden pedestal.
+
+> get pedestal
 You take the wooden pedestal.
 
 > w
-(Getting off the wooden pedestal first)
 You move west.
 
 Bedroom

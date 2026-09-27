@@ -398,11 +398,11 @@ unlock steel door with brooch
 open steel door
 n
 n
-attack golem
-attack golem
-attack golem
-attack golem
-attack golem
+wait
+wait
+wait
+wait
+wait
 say carom
 eat venison
 s
