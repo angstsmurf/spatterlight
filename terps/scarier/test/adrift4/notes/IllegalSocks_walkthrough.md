@@ -176,18 +176,41 @@ The golden plays that command for exactly this reason.
 carried at the Battle Dome in both engines (`i` agrees line for line; the Cool
 Sword starts hidden but a task hands it over), and "You are wielding nothing"
 is just what either engine prints before a first successful strike. It is 4.0
-weapon-term resolution. Cool Sword (Short "Sword", Alias "Sword") and Awesome
-Sword (Short "Sword", Alias "Sword2") both score 2 on "awesome sword" under
-4.0's scorer (Short as a whole word = 1, first matching Alias +1, +1 per
-matching Prefix word), and on a tie run400 resolves no object at all: the
-command dies in the character catch-all "I don't understand what you want to do
-with Dr Myanus Hurts." and takes no turn (Adrift_306_socks7.txt; the same
-against the one-word Quzar, so the duplicate NPC names are not in it). A strict
-winner that is not a usable weapon dies in the *object* catch-all instead ("...
-what you want me to do with Full Suit of Armor."), also turn-free. Scarier asks
-"Which Sword?  Cool Sword or Awesome Sword?" and swings on the repeat, i.e.
-`lib_battle_scan_with()`'s walk-every-named-object / last-weapon-wins -- which
-was measured on thesorc, a 3.90 game -- over-fires at 4.0. The isolated probe
-is `harness/make_400_battlewith{2,3}probe.py`; its docstring has the measured
-table and the one case that still does not fit, so the engine is left alone for
-now.
+weapon-term resolution, and the probe series
+`harness/make_400_battlewith{2,3,4,5}probe.py` has now measured the rule over
+68 cases -- the fifth generator's docstring is the full record. Two parts of it
+decide this game:
+
+- **run400 compares an object's Short case-sensitively** to the lower-cased
+  input, while it compares Aliases and Prefix words without regard to case. A
+  Short stored capitalised is therefore unreachable by typing, and Illegal
+  Socks capitalises everything. Both swords' Short is "Sword", so neither
+  answers to "sword" that way; only Cool Sword's Alias "Sword" does. Awesome
+  Sword's Alias is "Sword2", and its Prefix "Awesome" cannot make it a
+  candidate, so the Awesome Sword is not in the running at all.
+- **The winner then has to pass an ambiguity gate**, and Cool Sword fails it:
+  it matched through an Alias that is another object's name (the Awesome
+  Sword's Short). Nothing binds.
+
+The catch-all that follows comes from a separate, ordinary name resolver --
+Short 1, first matching Alias +1, +1 per matching Prefix word, and a Prefix
+match enough on its own -- under which the two swords tie at 1. A tie there
+names no object, which is why the message is the *character* catch-all "I don't
+understand what you want to do with Dr Myanus Hurts." and takes no turn
+(Adrift_306_socks7.txt; the same against the one-word Quzar, so the duplicate
+NPC names are not in it). A strict winner there that is not a usable weapon
+gives the *object* catch-all instead ("... what you want me to do with Full
+Suit of Armor."), also turn-free.
+
+The capitalisation half shows up outside the battle path too: `with armor`
+finds no object at all although the Leather Armor is worn, while `with full
+suit of armor` reaches the Full Suit through its three Prefix words
+(Adrift_305_socks6.txt). So `with sword2` is not a workaround, it is the only
+phrasing that reaches the Awesome Sword in run400.
+
+Scarier asks "Which Sword?  Cool Sword or Awesome Sword?" and swings on the
+repeat, because it matches the Short without regard to case and has no such
+gate: `lib_battle_scan_with()`'s walk-every-named-object / last-weapon-wins was
+measured on thesorc, a 3.90 game, and over-fires at 4.0. The engine is left
+alone -- the 3.90 walk it models is itself measured, and the 4.0 rule above is
+not implemented.

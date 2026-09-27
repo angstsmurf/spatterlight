@@ -49,13 +49,14 @@ never happens:
 Scarier instead asks "Which Sword?  Cool Sword or Awesome Sword?" and swings
 on the repeat, so at 4.0 lib_battle_scan_with() over-fires.
 
-One case stays unexplained, which is why this probe is kept: the strict winner
-for `with sword`/`with cool sword` here IS a carried weapon (`i` lists it) and
-run400 still refuses it with the object catch-all; and the tie on `with awesome
-sword` swings here, where the structurally identical tie in Illegal Socks does
-not.  Ruled out as the difference: the Prefix shape (W2 vs W3 behave alike),
-the NPC name (Quzar is one word and refuses too), and scope -- both swords are
-carried in both engines at the point of the command.
+Two cases here looked wrong when this probe was first run and are now
+explained; see make_400_battlewith5probe.py, which bisects them and states the
+measured 4.0 rule.  In short: `with cool sword` names a carried weapon and is
+still refused because the Cool Sword matched through an Alias that is the
+Awesome Sword's Short, which disqualifies it; and `with awesome sword` swings
+here but not in Illegal Socks because Illegal Socks capitalises its Shorts,
+and run400 compares the Short to the input case-sensitively, so there the
+Awesome Sword is not a candidate at all.
 
 Commands: v4_full_rerun_cmds/battlewith2.txt.
 

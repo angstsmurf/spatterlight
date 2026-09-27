@@ -1,68 +1,51 @@
 #!/usr/bin/env python3
-"""ADRIFT 4.0 probe: what does dobattle's " with " scan do with a CROWD?
+"""ADRIFT 4.0 probe: WHY does run400 refuse a carried weapon it did resolve?
 
-Scarier models the scan on run390 44CD63-44CE44 / run400 47EC16 as "walk every
-object the text after ' with ' names, no break, last weapon wins"
-(lib_battle_scan_with()), measured on thesorc, a 3.90 game.  Illegal Socks
-(4.00) contradicts that at 4.0: with the Cool Sword (Short "Sword", Alias
-"Sword") and the Awesome Sword (Short "Sword", Alias "Sword2") both held,
-run400 strikes for `attack dr myanus hurts with sword2` -- one object named --
-but refuses `with sword`, `with cool sword` and `with awesome sword`, each of
-which names both, with no swing and no turn (Adrift_305_socks6 /
-Adrift_306_socks7, 2026-09-27).
+make_400_battlewith{2,3}probe.py left one case unexplained.  In both probes and
+in Illegal Socks, run400 refuses `attack <npc> with cool sword` with the OBJECT
+catch-all ("I don't understand what you want me to do with cool sword.", no
+turn) even though the Cool Sword is carried, is flagged Weapon, and is the
+strict winner of 4.0's name score -- while `with sword2` and `with club`, also
+strict winners, are wielded and swung.
 
-This probe isolates the rule without Illegal Socks' other oddities: three
-weapons held, one gargoyle to hit.
+The one property the refused object has in both games, and the working ones do
+not, is that its Alias DUPLICATES its own Short ("Sword"/"Sword").  This probe
+tests that directly, on a weapon whose Short nothing else shares, with three
+controls beside it:
 
-    object 0  "cool" sword         alias "sword"    HitValue 30
-    object 1  "awesome" sword      alias "sword2"   HitValue 40
-    object 2  "a" club             no alias         HitValue 50
+    object 0  "cool" sword    alias "sword"   HitValue 30   Alias == Short
+    object 1  "awesome" sword alias "sword2"  HitValue 40
+    object 2  "a" club        alias "club"    HitValue 50   Alias == Short, and
+                                                            Short is unique
+    object 3  "a" axe         alias "axe2"    HitValue 60   control
+    object 4  "a" mace        no alias        HitValue 70   control
+    object 5  "a" pike        alias "spear"   HitValue 80   control
 
-Result (Wine, run400x, 2026-09-27; Adrift_305_battlew2.txt and
-Adrift_305_battlew3.txt are identical turn for turn, so the multi-word Prefix
-makes no difference):
+All six are held, all Weapon with Method 2, so `status`'s "wielding" line and
+the (hit) bonus name whichever object the engine actually bound.  If the
+Alias == Short reading is right, `with club` is refused with the object
+catch-all while `with axe`, `with mace` and `with spear` all swing.
 
-    attack gargoyle with sword          I don't understand what you want me to
-                                        do with [the] cool sword.   [no swing]
-    attack gargoyle with cool sword     same
-    attack gargoyle with awesome sword  Player hit Gargoyle with [the] awesome
-                                        sword.                      [hit 40]
-    attack gargoyle with sword club     Player hit Gargoyle with the club. [50]
-    attack gargoyle with sword2         ... with [the] awesome sword.      [40]
-    attack gargoyle with club           ... with the club.                 [50]
+`with axe pike` and `with pike axe` are the second question: they score 1 each
+and nothing else, so they say which way 4.0 breaks a tie -- last object named
+(pike, 80), first (axe, 60), or the phrase's head noun (word order would make
+the two commands differ).
 
-So 4.0 puts the weapon term through the ordinary 4.0 object scorer (Short as a
-whole word = 1, first matching Alias +1, +1 per matching Prefix word) and lets
-the strict maximum decide -- it never walks the crowd, and "last weapon wins"
-never happens:
+The gargoyle has 9999 stamina so it survives every swing in the script.
 
-  * a strict winner that is a usable weapon is wielded and swung (`sword2`,
-    `club`; `sword2` in Illegal Socks);
-  * a strict winner that is NOT usable ends the command with the OBJECT
-    catch-all "I don't understand what you want me to do with X." and takes no
-    turn (Illegal Socks `with full suit of armor`, which is not a weapon);
-  * a tie leaves no object at all and the command ends with the CHARACTER
-    catch-all "I don't understand what you want to do with <NPC>.", again with
-    no turn (Illegal Socks `with armor` -- two Armors at 1 each -- and `with
-    awesome sword`, Adrift_306_socks7.txt).
+Measured (run400x, Adrift_305_battlew4.txt): `with club`, `with axe`, `with
+mace` and `with spear` ALL swing, so "Alias duplicates its own Short" is not
+the disqualifier -- the real gate, settled in make_400_battlewith5probe.py, is
+an Alias that is ANOTHER object's name.  `with sword` is still refused with the
+object catch-all naming the cool sword.  The tie question is answered: `with
+axe pike` and `with pike axe` both bind the pike, so 4.0 breaks a tie on the
+last object in object order and ignores word order.
 
-Scarier instead asks "Which Sword?  Cool Sword or Awesome Sword?" and swings
-on the repeat, so at 4.0 lib_battle_scan_with() over-fires.
-
-Two cases here looked wrong when this probe was first run and are now
-explained; see make_400_battlewith5probe.py, which bisects them and states the
-measured 4.0 rule.  In short: `with cool sword` names a carried weapon and is
-still refused because the Cool Sword matched through an Alias that is the
-Awesome Sword's Short, which disqualifies it; and `with awesome sword` swings
-here but not in Illegal Socks because Illegal Socks capitalises its Shorts,
-and run400 compares the Short to the input case-sensitively, so there the
-Awesome Sword is not a candidate at all.
-
-Commands: v4_full_rerun_cmds/battlewith3.txt.
+Commands: v4_full_rerun_cmds/battlewith4.txt.
 
 Build:
-    python3 make_400_battlewith3probe.py p4BATTLEW3.plain
-    python3 taftool.py pack p4BATTLEW3.plain p4TAKE.taf p4BATTLEW3.taf
+    python3 make_400_battlewith4probe.py p4BATTLEW4.plain
+    python3 taftool.py pack p4BATTLEW4.plain p4TAKE.taf p4BATTLEW4.taf
 """
 import sys
 
@@ -73,12 +56,12 @@ def s(x):  L.append(str(x))
 def ml(x): L.append(x); L.append(SEP)
 
 # ---- HEADER ----
-ml("Battle with-crowd probe.")
+ml("Battle with-alias probe.")
 s(0)                                        # StartRoom
 ml("Won.")
 
 # ---- GLOBAL ----
-s("Battle With Crowd Probe")
+s("Battle With Alias Probe")
 s("Scarier probe")
 s("I don't understand.")
 s(2)                                        # Perspective (second person)
@@ -141,10 +124,13 @@ def obj(prefix, short, aliases, descr, weapon, method, hit):
     s(0); s(hit); s(method); s(20)          # Protection HitValue Method Accuracy
     s(""); s(0)                             # InRoomDesc OnlyWhenNotMoved
 
-s(3)
+s(6)
 obj("cool", "sword", ["sword"], "A cool sword.", 1, 2, 30)
 obj("awesome", "sword", ["sword2"], "An awesome sword.", 1, 2, 40)
-obj("a", "club", [], "A plain club.", 1, 2, 50)
+obj("a", "club", ["club"], "A plain club.", 1, 2, 50)
+obj("a", "axe", ["axe2"], "A plain axe.", 1, 2, 60)
+obj("a", "mace", [], "A plain mace.", 1, 2, 70)
+obj("a", "pike", ["spear"], "A plain pike.", 1, 2, 80)
 
 # ---- TASKS / EVENTS ----
 s(0)
@@ -160,7 +146,7 @@ s(""); s(0); s(0); s(0); s(0)               # AltText Task Topics Walks ShowEnte
 s("Gargoyle is here.")
 s(2)                                        # Gender (it)
 s(1)                                        # Attitude (1 = neutral)
-s(500); s(500)                              # Stamina
+s(9999); s(9999)                            # Stamina (survives every swing)
 s(8);  s(8)                                 # Strength
 s(10); s(10)                                # Accuracy
 s(3);  s(3)                                 # Defense
@@ -172,6 +158,6 @@ s(0); s(0); s(0); s(0); s(0)                # RoomGroups Synonyms Variables ALRs
 s("2026")
 
 body = ("\r\n".join(L) + "\r\n").encode("latin-1")
-out = sys.argv[1] if len(sys.argv) > 1 else "p4BATTLEW3.plain"
+out = sys.argv[1] if len(sys.argv) > 1 else "p4BATTLEW4.plain"
 open(out, "wb").write(body)
 print("wrote %s (%d bytes, %d lines)" % (out, len(body), len(L)))

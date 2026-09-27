@@ -182,24 +182,38 @@ that have nothing to do with the patch:
   it finds two. Both of Scarier's battle paths already require
   `OBJ_HELD_PLAYER` anyway.
 
-  What actually differs is **4.0 weapon-term resolution**. Cool Sword (Short
-  "Sword", Alias "Sword") and Awesome Sword (Short "Sword", Alias "Sword2") tie
-  at score 2 on "awesome sword" under 4.0's scorer (Short as a whole word = 1,
-  first matching Alias +1, +1 per matching Prefix word), and a tie resolves to
-  no object at all in run400: the command dies in the character catch-all "I
-  don't understand what you want to do with Dr Myanus Hurts." and takes no turn
-  (Adrift_306_socks7.txt; the same against the one-word Quzar, so duplicate NPC
-  names are not in it). A strict winner that is not a usable weapon dies in the
-  *object* catch-all instead ("... what you want me to do with Full Suit of
-  Armor."), also without a turn. Scarier asks "Which Sword?  Cool Sword or
-  Awesome Sword?" and swings on the repeat, so `lib_battle_scan_with()`'s
-  walk-every-named-object/last-weapon-wins -- measured on thesorc, a **3.90**
-  game -- over-fires at 4.0. The probe that isolates it is
-  `harness/make_400_battlewith{2,3}probe.py` (three held weapons, one gargoyle,
-  Adrift_305_battlew2/battlew3.txt); its docstring carries the full measured
-  table and the one case still unexplained, where the probe swings on a tie
-  that Illegal Socks refuses. The engine is left as it is until that last case
-  is understood -- the 3.90 behaviour it currently models is itself measured.
+  What actually differs is **4.0 weapon-term resolution**, and the probe series
+  `harness/make_400_battlewith{2,3,4,5}probe.py` has now measured the rule (68
+  cases; the fifth generator's docstring is the full record). Two of its parts
+  decide this row. First, run400 compares an object's **Short case-sensitively**
+  to the lower-cased input, where it compares Aliases and Prefix words without
+  regard to case, so a Short stored capitalised can never be typed -- and
+  Illegal Socks capitalises everything. Both swords have the Short "Sword", so
+  neither answers to "sword" that way; only Cool Sword's Alias "Sword" does,
+  Awesome Sword's "Sword2" does not, and a Prefix match alone never makes a
+  candidate. Second, the winner has to pass an ambiguity gate, and Cool Sword
+  fails it: it matched through an Alias that is another object's name. So
+  `attack dr myanus hurts with awesome sword` binds nothing, and the catch-all
+  that follows comes from a separate, ordinary name resolver (Short 1, first
+  matching Alias +1, +1 per matching Prefix word, a Prefix enough on its own)
+  where the two swords tie at 1 -- a tie names no object, which is why the
+  message is the *character* catch-all "I don't understand what you want to do
+  with Dr Myanus Hurts." and takes no turn (Adrift_306_socks7.txt; the same
+  against the one-word Quzar, so duplicate NPC names are not in it). A strict
+  winner there that is not a usable weapon gives the *object* catch-all instead
+  ("... what you want me to do with Full Suit of Armor."), also without a turn.
+  The capitalisation half is independently visible outside the battle path:
+  `with armor` finds no object at all although the Leather Armor is worn, while
+  `with full suit of armor` reaches the Full Suit through its Prefix words
+  (Adrift_305_socks6.txt). `with sword2` is therefore the only phrasing that
+  reaches the Awesome Sword, which is what this row's golden plays.
+
+  Scarier asks "Which Sword?  Cool Sword or Awesome Sword?" and swings on the
+  repeat, because it matches the Short without regard to case and has no such
+  gate: `lib_battle_scan_with()`'s walk-every-named-object/last-weapon-wins is
+  measured on thesorc, a **3.90** game, and over-fires at 4.0. The engine is
+  left as it is -- the 3.90 behaviour it models is itself measured, and the 4.0
+  rule above is not implemented.
 
 ## Rows without a transcript
 
