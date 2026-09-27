@@ -20,10 +20,12 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   NOSCRIPT. The 23 screened-clean and 10 of the 13 screened-AIF-between-adults
   games (see below) are now wired, on top of the 598-row baseline from
   2026-09-25.
-- **Open work: 2 unwired-but-screened games**, both pending an owner call:
-  ghostjustice, bluesky. Of the remaining `.taf` files without a row, 86 are
-  now content declines (83 earlier + 3 new 2026-09-26: `latework.taf`,
-  `Legend of Akhbar.taf`, `VGM1_3.taf` — see *Content policy*).
+- **Open work: 3 unwired-but-screened games.** ghostjustice and bluesky are
+  pending an owner call; `VGM1_3.taf` was declined on 2026-09-26 and
+  re-screened clean on 2026-09-27 (see *Content policy*), so its walkthrough
+  is simply not derived yet. Of the remaining `.taf` files without a row, 85
+  are now content declines (83 earlier + 2 new 2026-09-26: `latework.taf`,
+  `Legend of Akhbar.taf` — see *Content policy*).
 
   None has a source walkthrough in `downloaded/`, so every route is derived
   from scratch.
@@ -205,13 +207,13 @@ A narration-depicted minor counts even if the player cannot participate
 refusal of a child NPC is clean (suzy). Dark non-sexual themes wire normally
 (thelasthour, ForestHouse3, Patient7, A View to a Home).
 
-**15 permanent declines** — never committed, no `.gitignore` entry, each
+**14 permanent declines** — never committed, no `.gitignore` entry, each
 verdict quoted from the game's own shipped text: `aparty.taf`, `delight.taf`,
 `awakening.taf`, `enc1.taf`, `enc2.taf`, `windy.taf`,
 `Buffy Before the Date.taf`, `ssteacher.taf`, `sibling seduction.taf`,
 `Choices.taf`, `plains.taf`, `A Dream Come True.taf`, `latework.taf`,
-`Legend of Akhbar.taf`, `VGM1_3.taf` (the last 3 added 2026-09-26; full
-verdicts below under *2026-09-26 declines*).
+`Legend of Akhbar.taf` (the last 2 added 2026-09-26; full verdicts below
+under *2026-09-26 declines*).
 
 **Rows kept despite the list above (owner call, 2026-09-25):** `Hunting Ground.taf`
 (row `huntingground`), `British.Fox.and.the.Celebrity.Abductions.taf` (`britishfox`,
@@ -323,18 +325,23 @@ old enough to be in the casino" — the consequences/Hotown1 around-18 pattern);
 masturbating", "those little teenie bopper whores" — the darkfantasy pattern).
 
 **2026-09-26 declines, surfaced during full derivation of the "13 AIF between
-adults" batch** (all three had cleared the earlier pre-screening pass on a
+adults" batch** (both had cleared the earlier pre-screening pass on a
 narrower check; live play / the full task dump surfaced content the
-pre-screen missed — same verbatim-quote standard as above):
-`latework.taf` — a magazine image found in a desk drawer is described as
-depicting two people "who do not look much older than 15"; independently,
-the endgame is built around an explicit "type yes to force the act, type no
-to stop" branch internally labeled (via its alternate-command list) as a
-rape action, with the character's dialogue across the preceding scene
-showing repeated refusal, pleading and crying — not merely non-consent-coded
-but authored as such by the game's own internal labeling. Either finding
-alone would be disqualifying; both are present. Permanent decline,
-non-negotiable regardless of any future instruction to include it.
+pre-screen missed — same verbatim-quote standard as above.  A third game
+declined that day, `VGM1_3.taf`, was re-screened on 2026-09-27 and is *not* a
+decline; see the note after the two verdicts):
+`latework.taf` — the magazine found in the desk drawer is the game's own
+gating item (the walkthrough cannot route around it: reading it, then
+paging through it, is what starts the only plot line), and the page the
+player is made to turn to reads "There is an image of a girl and a boy, they
+do not look much older than 15. They are standing on the floor and the boy
+is pounding the girls ass." That is sexual content depicting minors in the
+shipped text, on the criterion above. Permanent decline, non-negotiable
+regardless of any future instruction to include it. (The original verdict
+also cited the endgame's forced-act branch. That is a non-consent finding,
+which is *not* a ground under the stated criterion — see the re-screen note
+below — so the decline rests on the minors finding alone, which is
+sufficient by itself.)
 `Legend of Akhbar.taf` — the task dump's harem area (ROOM 14/19) contains an
 NPC named literally "Harem girl" and room-description text that calls the
 same background characters "young girls giggling" in one sentence and
@@ -344,16 +351,25 @@ either reading. An initial relayed "include it" decision (favoring the
 the charitable reading to route around an unresolved age-adjacent signal is
 exactly the kind of judgment call this policy exists to keep out of the
 walkthrough-derivation loop. Permanent decline.
-`VGM1_3.taf` ("The GameMaster: Resident Lust") — a separate character
-("Jill") from the one originally screened ("Rebecca", who reads clean) has
-an 11-plus-task sexual-content sequence textually revealed, only after the
-fact in the culminating task's completion text, to have taken place while
-she was involuntarily incapacitated by a third party's power; an earlier
-task's own guard text describes her at that point as "out of it mentally",
-and once the effect lifts she reacts with fear/hostility and says she
-"couldn't help" what happened. Not a skippable side-branch — a later task
-requires the full sequence before the character will speak further, and an
-item from her storyline is needed to finish the game. Permanent decline.
+
+**2026-09-27 re-screen: `VGM1_3.taf` is not a decline.** Its 2026-09-26
+verdict ("The GameMaster: Resident Lust" — the Jill sequence is revealed
+after the fact to have happened while she was involuntarily incapacitated by
+a third party's power, and it is not skippable) rested *entirely* on
+non-consent, which the criterion at the head of this section explicitly
+disclaims. A full age scan of the game's 91,530 characters of plaintext
+(4.0 zlib body, via `harness/taf_pattern_scan.py`) finds no minor: the only
+hits are "some minor modifications" on a game controller, "A twelve inch
+serrated blade", "This here is Company Thirteen" and "for what seems like
+ages" — no school, teen, child, student or daughter text anywhere. It is
+therefore screened clean and merely un-derived, like ghostjustice and
+bluesky, and its row is open work rather than a refusal.  The same scan
+re-verified latework's quote above verbatim, so that decline stands.
+
+Two lessons from the pair: a verdict must name which stated ground it rests
+on, and a decline resting on more than one ground must survive the removal of
+any single one. `Hunting Ground.taf` is the control case — it is kept wired
+(owner call, 2026-09-25) on exactly the ground VGM1_3 was refused for.
 
 **Pending owner call (not derived, not declined):**
 `ghostjustice.taf` — Candi is judged "around 21 or 22" by the narrator, but
