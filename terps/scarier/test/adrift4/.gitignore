@@ -375,3 +375,9 @@
 # Here Today Gone to Hell (AIF): explicit text, deliberately not committed.
 /goldens/heretoday_solution.txt
 /goldens/heretoday_solution.expected.txt
+
+# The GameMaster: Resident Lust (AIF): explicit text, deliberately not committed.
+/goldens/vgm1_3_solution.txt
+/goldens/vgm1_3_solution.expected.txt
+/runner_transcripts/**/vgm1_3.*
+/notes/VGM1_3_walkthrough.md

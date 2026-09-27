@@ -11062,6 +11062,11 @@ hammurabi_solution.txt|hammurabi.taf|Congratulations, Hammurabi!|
 # Space Mercenary v0.1: menu demo, no score, empty WINTEXT, all 27 EndGames are
 # failures; route ends at the unhandled Lork audience menu. RNG-tuned.
 smercenary_solution.txt|smercenary.taf||SCR_RNG=xoshiro
+
+# The GameMaster: Resident Lust: WIN, 45/56 (80%) -- the true ceiling, not the
+# declared 56, which double-counts two mutually exclusive branches (see the
+# solution file header). AIF, adults throughout.
+vgm1_3_solution.txt|VGM1_3.taf|You scored 45 out of the maximum 56!|
 EOF
 
 

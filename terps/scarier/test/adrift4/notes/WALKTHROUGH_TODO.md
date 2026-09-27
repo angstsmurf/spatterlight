@@ -14,18 +14,27 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
 
     git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md
 
-## Where things stand (2026-09-26)
+## Where things stand (2026-09-27)
 
-- **631 rows, 631 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
-  NOSCRIPT. The 23 screened-clean and 10 of the 13 screened-AIF-between-adults
-  games (see below) are now wired, on top of the 598-row baseline from
-  2026-09-25.
-- **Open work: 3 unwired-but-screened games.** ghostjustice and bluesky are
-  pending an owner call; `VGM1_3.taf` was declined on 2026-09-26 and
-  re-screened clean on 2026-09-27 (see *Content policy*), so its walkthrough
-  is simply not derived yet. Of the remaining `.taf` files without a row, 85
-  are now content declines (83 earlier + 2 new 2026-09-26: `latework.taf`,
-  `Legend of Akhbar.taf` — see *Content policy*).
+- Full suite: **653/653 PASS**, exit 0 — no FAIL, no SKIP, no NEEDGOLD, no
+  NOSCRIPT. `VGM1_3.taf` (re-screened clean 2026-09-27, see *Content policy*)
+  is now wired: WON 45/56 (80%), the true ceiling — the declared 56
+  double-counts two mutually exclusive branches (see
+  `notes/VGM1_3_walkthrough.md`, gitignored, AIF).
+- **2026-09-27 footgun hit while adding the row:** the `Edit` tool round-trips
+  `run_v4_walkthroughs.sh` as UTF-8, but the file is cp1251 — this silently
+  mangled every pre-existing non-ASCII byte run elsewhere in the file (7
+  unrelated Russian-game win markers) into U+FFFD on the first attempt,
+  surfacing as spurious `REGRESSIONS:` on govard/govard2/dolg/nat01/relife/
+  zanoza/proba. Fixed by `git checkout --` the file back to pristine and
+  re-inserting the new row with raw byte splicing (Python `rb`/`wb`, no
+  encoding), verified with `git diff` showing only the intended 5-line
+  insertion. **Never use `Edit` (or any UTF-8-text tool) on this file again —
+  splice bytes directly.**
+- **Open work: 2 unwired-but-screened games**, both pending an owner call:
+  `ghostjustice.taf`, `bluesky.taf`. Of the remaining `.taf` files without a
+  row, 85 are content declines (83 earlier + 2 from 2026-09-26:
+  `latework.taf`, `Legend of Akhbar.taf` — see *Content policy*).
 
   None has a source walkthrough in `downloaded/`, so every route is derived
   from scratch.
@@ -246,7 +255,8 @@ The World, DOA_X_B_S, The Silver Maiden, Trapped With A Girl, Practice Policy,
 To Be King, Harem Prologue, Duchess of Desire, Sorority House, Filthy Bill,
 EscapePod, Handyman, xclue1.0a, ovaloffice, Planescape-Encounters1,
 RodneyandthePrincess40v3-1, salvation, christmas present 1.0, studio, fun town
-(wired 2026-09-26).
+(wired 2026-09-26); The GameMaster: Resident Lust (`VGM1_3.taf`, wired
+2026-09-27 after its 2026-09-27 re-screen below).
 
 Further GAMES_WITH_HINTS declines (TAF text): `Deadly Climax 1.0 final.taf`
 (Asia a "fifteen year old pupil"; Jo compared to thirteen); `party.taf`
@@ -362,8 +372,8 @@ disclaims. A full age scan of the game's 91,530 characters of plaintext
 hits are "some minor modifications" on a game controller, "A twelve inch
 serrated blade", "This here is Company Thirteen" and "for what seems like
 ages" — no school, teen, child, student or daughter text anywhere. It is
-therefore screened clean and merely un-derived, like ghostjustice and
-bluesky, and its row is open work rather than a refusal.  The same scan
+therefore screened clean, like ghostjustice and bluesky. Derived and wired
+2026-09-27: WON 45/56 (80%), see `notes/VGM1_3_walkthrough.md`. The same scan
 re-verified latework's quote above verbatim, so that decline stands.
 
 Two lessons from the pair: a verdict must name which stated ground it rests
