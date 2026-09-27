@@ -10609,16 +10609,25 @@ illegalsocks_solution.txt|illegalsocks.taf|Your score is 745 out of a maximum of
 # blow ever lands, and the numbers behind them (the Doctor 40 stamina/35
 # strength/20 defence against the player's 10/8/8) say the player loses the
 # moment they do.  That is a game that needs rebalancing, not a data fix.
-# Driven through run400 on the patched file 2026-09-26: the patch works there
-# too -- "attack dr myanus hurts" now gets "What do you want to attack Dr
-# Myanus Hurts with?" -- but no phrasing of the weapon reaches the swing (full
-# name, alias, answering that prompt, or dropping the Cool Sword first all end
-# in "I don't understand what you want to do with Dr Myanus Hurts." or an
-# unanswerable "Which Sword."), because neither sword is in the player's scope:
-# `status` says "You are wielding nothing" and `x awesome sword` says "You see
-# no such thing" in both engines.  Scarier disambiguates and swings anyway, so
-# the marker below is Scarier-only text -- a scope lead, not a patch defect
-# (runner_transcripts/README.md, "Patched rows").
+# Driven through run400 on the patched file 2026-09-26/27: the patch works
+# there too -- "attack dr myanus hurts" now gets "What do you want to attack Dr
+# Myanus Hurts with?" -- and so does the swing below.  `attack dr myanus hurts
+# with sword2` prints exactly this row's marker in run400, in one turn, and
+# `status` then reads "You are wielding Awesome Sword", hit 28 (20)
+# (Adrift_305_socks6.txt line 119).  The weapon is named by its unique Alias on
+# purpose, because `with awesome sword` is where the engines part, and it is
+# NOT a scope problem: both swords are carried at that point in both engines
+# (`i` agrees line for line), and "wielding nothing" is just what either prints
+# before a first successful strike.  What differs is 4.0 weapon-term
+# resolution.  Cool Sword (Short "Sword", Alias "Sword") and Awesome Sword
+# (Short "Sword", Alias "Sword2") tie at score 2 on "awesome sword", and on a
+# tie run400 resolves no object at all: the command dies in the character
+# catch-all "I don't understand what you want to do with Dr Myanus Hurts." and
+# takes no turn (Adrift_306_socks7.txt; same against the one-word Quzar).
+# Scarier asks "Which Sword?  Cool Sword or Awesome Sword?" and swings on the
+# repeat, i.e. lib_battle_scan_with()'s walk-and-last-wins (a 3.90 measurement)
+# over-fires at 4.0 -- see harness/make_400_battlewith3probe.py for the
+# isolated probe and runner_transcripts/README.md, "Patched rows".
 illegalsocks_patched_solution.txt|illegalsocks.taf|The Great Doctor manages to avoid your attack with Awesome Sword|SCR_ASSUME_PATCHES=1
 # ebonysworld.taf (Ebony's World): content-reviewed fantasy/comic adventure,
 # no sexual content, no minors. UNWINNABLE -- confirmed via SCR_TRACE_VARS=all:

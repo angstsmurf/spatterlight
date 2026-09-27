@@ -160,3 +160,34 @@ asserts the miss line the fight now prints instead of "Who do you want to
 attack?":
 `illegalsocks_patched_solution.txt|illegalsocks.taf|The Great Doctor manages to avoid your attack with Awesome Sword|SCR_ASSUME_PATCHES=1`,
 alongside the faithful row above; both are kept.
+
+## The swing is Runner-measured -- and names the sword by its Alias
+
+Driven through run400 under Wine on the patched file (2026-09-26/27): the patch
+works there too (`attack dr myanus hurts` now answers "What do you want to
+attack Dr Myanus Hurts with?"), and the marker above is the Runner's own text.
+`attack dr myanus hurts with sword2` strikes in one turn and prints "The Great
+Doctor manages to avoid your attack with Awesome Sword."; `status` then reads
+"You are wielding Awesome Sword", hit 28 (20) (Adrift_305_socks6.txt line 119).
+The golden plays that command for exactly this reason.
+
+`with awesome sword` -- the obvious phrasing, and the one the golden used first
+-- is where the engines part, and **not because of scope**: both swords are
+carried at the Battle Dome in both engines (`i` agrees line for line; the Cool
+Sword starts hidden but a task hands it over), and "You are wielding nothing"
+is just what either engine prints before a first successful strike. It is 4.0
+weapon-term resolution. Cool Sword (Short "Sword", Alias "Sword") and Awesome
+Sword (Short "Sword", Alias "Sword2") both score 2 on "awesome sword" under
+4.0's scorer (Short as a whole word = 1, first matching Alias +1, +1 per
+matching Prefix word), and on a tie run400 resolves no object at all: the
+command dies in the character catch-all "I don't understand what you want to do
+with Dr Myanus Hurts." and takes no turn (Adrift_306_socks7.txt; the same
+against the one-word Quzar, so the duplicate NPC names are not in it). A strict
+winner that is not a usable weapon dies in the *object* catch-all instead ("...
+what you want me to do with Full Suit of Armor."), also turn-free. Scarier asks
+"Which Sword?  Cool Sword or Awesome Sword?" and swings on the repeat, i.e.
+`lib_battle_scan_with()`'s walk-every-named-object / last-weapon-wins -- which
+was measured on thesorc, a 3.90 game -- over-fires at 4.0. The isolated probe
+is `harness/make_400_battlewith{2,3}probe.py`; its docstring has the measured
+table and the one case that still does not fit, so the engine is left alone for
+now.

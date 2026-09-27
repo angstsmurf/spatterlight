@@ -47,6 +47,5 @@ get sword
 get armor
 points
 s
-attack dr myanus hurts with awesome sword
-attack dr myanus hurts with awesome sword
+attack dr myanus hurts with sword2
 score

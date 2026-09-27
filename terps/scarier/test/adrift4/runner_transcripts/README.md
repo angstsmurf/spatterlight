@@ -141,12 +141,15 @@ The `source` column in the manifest says which.
 ## Patched rows
 
 The 21 `*_patched` rows were driven on 2026-09-26 (`games/patched/*.taf`, feed
-and seed from the patched golden). **Twenty of the 21 reach their win marker in
-the real Runner**, which is the point of the exercise: the patch table's field
-edits are not a Scarier convenience, they fix the release in any engine that
-reads the file. Fourteen rows compare identical (two of those apart from
-whitespace); the seven that differ do so in classes that have nothing to do
-with the patch:
+and seed from the patched golden). **All 21 reach their win marker in the real
+Runner** -- twenty on that drive, and `illegalsocks_patched` on the follow-up
+probe drive of 2026-09-27 that settled its weapon phrasing (below;
+Adrift_305_socks6.txt, the same route with `with sword2` for `with awesome
+sword`, which is now what the golden plays). That is the point of the
+exercise: the patch table's field edits are not a Scarier convenience, they fix
+the release in any engine that reads the file. Fourteen rows compare identical
+(two of those apart from whitespace); the seven that differ do so in classes
+that have nothing to do with the patch:
 
 - Five (`spirits_flight`, `tenebraesemper`, `villains_and_kings`, `lockedout`,
   `liqid`) differ only in the Runner text accidents that `4e8ff9752` reverted
@@ -158,20 +161,45 @@ with the patch:
 - `house` shows the same two classes its faithful row already shows (empty
   Runner output on plain movement turns, and the cold-event beats landing a
   turn apart).
-- `illegalsocks_patched` is the only row whose marker the Runner never
-  reaches, and it is worth reading in full, because **the patch itself is
-  confirmed there**: on the patched file `attack dr myanus hurts` makes run400
-  answer "What do you want to attack Dr Myanus Hurts with?", so the Doctor is
-  a legal target at last, which is exactly what taking the "." out of his Name
-  was for. What run400 then refuses is the weapon: probed live on the patched
-  file, `attack dr myanus hurts with awesome sword`, the alias form (`attack
-  doctor with ...`), answering its own "with what?" prompt, and dropping the
-  Cool Sword first all end in "I don't understand what you want to do with Dr
-  Myanus Hurts." or an unanswerable "Which Sword. Cool Sword or Awesome
-  Sword?" -- `status` says "You are wielding nothing" and `x awesome sword`
-  says "You see no such thing" in both engines, i.e. neither sword is in the
-  player's scope. Scarier resolves that disambiguation anyway and swings, so
-  this row's marker is Scarier-only text and a scope lead in its own right.
+- `illegalsocks_patched` was the one row whose marker the 2026-09-26 drive
+  missed, and
+  it is worth reading in full, because **the patch itself is confirmed there**:
+  on the patched file `attack dr myanus hurts` makes run400 answer "What do you
+  want to attack Dr Myanus Hurts with?", so the Doctor is a legal target at
+  last, which is exactly what taking the "." out of his Name was for. Only the
+  weapon phrasing was wrong. Re-probed 2026-09-27, `attack dr myanus hurts with
+  sword2` -- the Awesome Sword's unique Alias -- strikes in run400 in one turn
+  and prints this row's marker verbatim (`status` then reads "You are wielding
+  Awesome Sword", hit 28 (20); Adrift_305_socks6.txt line 119), so the golden
+  now uses that command and the row's marker is Runner-measured text.
+
+  The earlier reading of this row ("neither sword is in the player's scope",
+  from "You are wielding nothing" and an "x awesome sword" that seemed to find
+  nothing) was **wrong**, and the scope lead it suggested does not exist: both
+  swords are carried at the Battle Dome in both engines (`i` agrees line for
+  line), "wielding nothing" is simply what either engine prints before a first
+  successful strike, and run400's `x awesome sword` answers "Which Sword." --
+  it finds two. Both of Scarier's battle paths already require
+  `OBJ_HELD_PLAYER` anyway.
+
+  What actually differs is **4.0 weapon-term resolution**. Cool Sword (Short
+  "Sword", Alias "Sword") and Awesome Sword (Short "Sword", Alias "Sword2") tie
+  at score 2 on "awesome sword" under 4.0's scorer (Short as a whole word = 1,
+  first matching Alias +1, +1 per matching Prefix word), and a tie resolves to
+  no object at all in run400: the command dies in the character catch-all "I
+  don't understand what you want to do with Dr Myanus Hurts." and takes no turn
+  (Adrift_306_socks7.txt; the same against the one-word Quzar, so duplicate NPC
+  names are not in it). A strict winner that is not a usable weapon dies in the
+  *object* catch-all instead ("... what you want me to do with Full Suit of
+  Armor."), also without a turn. Scarier asks "Which Sword?  Cool Sword or
+  Awesome Sword?" and swings on the repeat, so `lib_battle_scan_with()`'s
+  walk-every-named-object/last-weapon-wins -- measured on thesorc, a **3.90**
+  game -- over-fires at 4.0. The probe that isolates it is
+  `harness/make_400_battlewith{2,3}probe.py` (three held weapons, one gargoyle,
+  Adrift_305_battlew2/battlew3.txt); its docstring carries the full measured
+  table and the one case still unexplained, where the probe swings on a tie
+  that Illegal Socks refuses. The engine is left as it is until that last case
+  is understood -- the 3.90 behaviour it currently models is itself measured.
 
 ## Rows without a transcript
 

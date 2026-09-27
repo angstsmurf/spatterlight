@@ -1614,6 +1614,18 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
  * the line names, for each target.  A weapon becomes the weapon, with no
  * break, so the last one named wins; anything else is refused on the way
  * (lib_battle_cant_attack()).  Returns the weapon, or -1.
+ *
+ * That walk is measured on thesorc, a 3.90 game, and 4.0 is NOT the same: it
+ * puts the term after " with " through the ordinary 4.0 object scorer and
+ * lets the strict maximum decide, so a term that names two objects equally
+ * ("awesome sword" for Illegal Socks' Cool Sword/Alias "Sword" and Awesome
+ * Sword/Alias "Sword2", 2 each) binds nothing and dies turn-free in the
+ * character catch-all, while we ask "Which Sword?" and swing on the repeat.
+ * Measured live in run400 (Adrift_305_socks6 / Adrift_306_socks7 /
+ * Adrift_305_battlew2 / Adrift_305_battlew3, 2026-09-27); the table and the
+ * one case that does not yet fit the rule are in
+ * test/adrift4/harness/make_400_battlewith3probe.py.  Left as the 3.90
+ * behaviour until that case is understood.
  */
 static scr_int
 lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,

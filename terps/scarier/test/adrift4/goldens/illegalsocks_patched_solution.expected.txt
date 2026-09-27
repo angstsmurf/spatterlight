@@ -286,10 +286,7 @@ Battle Dome  (Dr. Myanus Hurts)
 Let's Fight!!!  Dr Myanus Hurts and Quzar are here.  You manage to avoid the
 Great Doctor's attack.  The Great Doctor manages to avoid Quzar's attack.
 
-> attack dr myanus hurts with awesome sword
-Which Sword?  Cool Sword or Awesome Sword?
-
-> attack dr myanus hurts with awesome sword
+> attack dr myanus hurts with sword2
 The Great Doctor manages to avoid your attack with Awesome Sword.  You manage
 to avoid the Great Doctor's attack.  The Great Doctor manages to avoid
 Quzar's attack.
