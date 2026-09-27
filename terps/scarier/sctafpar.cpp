@@ -4530,6 +4530,123 @@ static const scr_patch_edit_t PATCH_MELBOURNE_BEACH[] = {
   PATCH_SET ("Tasks/48/Actions/1/Var1", 28, 25)
 };
 
+/*
+ * Mesto prestupleniya 2 ("Crime Scene 2"), Sirius.  Russian, cp1251; the
+ * strings below are escaped so this file stays ASCII.
+ *
+ * The game's synonym table translates the player's Russian verbs into the
+ * English the library parses -- vzyat' to get, otkryt' to open, razbit' to
+ * smash, yug to south, sever to north -- and the Runner applies the table to
+ * the typed line before any task sees it (run390 45F18C, the gate ported as
+ * pf_apply_synonym()).  But seventeen task commands are written with the
+ * Russian verb itself, so nothing typed can ever reach them, in run390
+ * exactly as here (the faithful row is word-for-word identical to a Wine
+ * run390 transcript).  Among them are every evidence pickup (the glass, the
+ * cartridge case, the knife, the documents), the wardrobe, the cane, the
+ * mirror and the safe, and every `yug` that drives the second act out of the
+ * house: to the lab, where the evidence is handed over, and to the police
+ * station, where the report that ends the game is written.  Shipped, the
+ * game tops out at 23 of 70 with no win.
+ *
+ * Each command is re-spelt with the verb its own synonym leaves behind, so
+ * `vzyat' stakan` now arrives as `get stakan` and finds the task written for
+ * it.  Nothing else changes: the restrictions, actions and texts are the
+ * author's, including the sever/yug tasks' gates (Rozhe's protest, the lab
+ * guard's badge check) that the library walk used to skip.
+ */
+static const scr_patch_edit_t PATCH_CRIME_SCENE_2[] = {
+  PATCH_VERIFY ("Synonyms/5/Original", "\xfe\xe3"),
+  PATCH_VERIFY ("Synonyms/5/Replacement", "south"),
+  PATCH_VERIFY ("Synonyms/6/Original", "\xf1\xe5\xe2\xe5\xf0"),
+  PATCH_VERIFY ("Synonyms/6/Replacement", "north"),
+  PATCH_VERIFY ("Synonyms/25/Original", "\xe2\xe7\xff\xf2\xfc"),
+  PATCH_VERIFY ("Synonyms/25/Replacement", "get"),
+  PATCH_VERIFY ("Synonyms/54/Original", "\xee\xf2\xea\xf0\xfb\xf2\xfc"),
+  PATCH_VERIFY ("Synonyms/54/Replacement", "open"),
+  PATCH_VERIFY ("Synonyms/67/Original", "\xf0\xe0\xe7\xe1\xe8\xf2\xfc"),
+  PATCH_VERIFY ("Synonyms/67/Replacement", "smash"),
+  PATCH_STRING ("Tasks/0/Command/0",
+                "\xf1\xe5\xe2\xe5\xf0",
+                "north"),
+  PATCH_STRING ("Tasks/10/Command/0",
+                "\xf0\xe0\xe7\xe1\xe8\xf2\xfc \xe7\xe5\xf0\xea\xe0\xeb\xee",
+                "smash \xe7\xe5\xf0\xea\xe0\xeb\xee"),
+  PATCH_STRING ("Tasks/11/Command/0",
+                "\xee\xf2\xea\xf0\xfb\xf2\xfc \xf8\xea\xe0\xf4",
+                "open \xf8\xea\xe0\xf4"),
+  PATCH_STRING ("Tasks/13/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xf2\xf0\xee\xf1\xf2\xfc",
+                "get \xf2\xf0\xee\xf1\xf2\xfc"),
+  PATCH_STRING ("Tasks/15/Command/0",
+                "\xf0\xe0\xe7\xe1\xe8\xf2\xfc \xe7\xe5\xf0\xea\xe0\xeb\xee \xf2\xf0\xee\xf1\xf2\xfc*",
+                "smash \xe7\xe5\xf0\xea\xe0\xeb\xee \xf2\xf0\xee\xf1\xf2\xfc*"),
+  PATCH_STRING ("Tasks/19/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xf1\xf2\xe0\xea\xe0\xed",
+                "get \xf1\xf2\xe0\xea\xe0\xed"),
+  PATCH_STRING ("Tasks/28/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xe3\xe8\xeb\xfc\xe7*",
+                "get \xe3\xe8\xeb\xfc\xe7*"),
+  PATCH_STRING ("Tasks/29/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xed\xee*",
+                "get \xed\xee*"),
+  PATCH_STRING ("Tasks/58/Command/0",
+                "\xee\xf2\xea\xf0\xfb\xf2\xfc \xf1\xe5\xe9\xf4 \xea\xeb\xfe\xf7*",
+                "open \xf1\xe5\xe9\xf4 \xea\xeb\xfe\xf7*"),
+  PATCH_STRING ("Tasks/60/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xe4\xee\xea\xf3\xec\xe5\xed\xf2*",
+                "get \xe4\xee\xea\xf3\xec\xe5\xed\xf2*"),
+  PATCH_STRING ("Tasks/61/Command/0",
+                "\xfe\xe3",
+                "south"),
+  PATCH_STRING ("Tasks/66/Command/0",
+                "\xfe\xe3",
+                "south"),
+  PATCH_STRING ("Tasks/68/Command/0",
+                "\xf1\xe5\xe2\xe5\xf0",
+                "north"),
+  PATCH_STRING ("Tasks/71/Command/0",
+                "\xfe\xe3",
+                "south"),
+  PATCH_STRING ("Tasks/79/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xe1\xf3\xec\xe0\xe3*",
+                "get \xe1\xf3\xec\xe0\xe3*"),
+  PATCH_STRING ("Tasks/80/Command/0",
+                "\xe2\xe7\xff\xf2\xfc \xf0\xf3\xf7\xea*",
+                "get \xf0\xf3\xf7\xea*"),
+  PATCH_STRING ("Tasks/81/Command/0",
+                "\xee\xf2\xea\xf0\xfb\xf2\xfc \xf1\xf2\xee\xeb",
+                "open \xf1\xf2\xee\xeb")
+};
+
+/*
+ * The Fugitive, Renata Burianova (arctica0@hotmail.com).
+ *
+ * Task 73, `look * mirror` in the three drivable cars, is worth ten points
+ * and cannot be typed.  Synonym 49 rewrites `look` to `l` (the author making
+ * the one-letter form work everywhere), and the Runner applies the table to
+ * the typed line before any task sees it (run390 45F18C, pf_apply_synonym()),
+ * so `look in mirror` reaches the tasks as `l in mirror`; `see` and `stare`
+ * are rewritten to `look` only after that, and synonym 112 turns what they
+ * leave into `x`.  Nothing typed carries the literal `look`, in run390
+ * exactly as here, and the game tops out at 656 of 666.
+ *
+ * The pattern is re-spelt `l * mirror`, what synonym 49 leaves behind.  The
+ * ceiling does not move: the mirror is in the cars, and the taxi is the only
+ * ride with a driver to `fight` for his pistol (+10), which is what turns the
+ * punkers' ambush into the one that leaves the beer (+10).  The choice of
+ * vehicle is exclusive, so a car route that banks the mirror still gives up
+ * twenty; the patch makes the car the author's lesser choice rather than a
+ * silent one.
+ */
+static const scr_patch_edit_t PATCH_FUGITIVE[] = {
+  PATCH_VERIFY ("Synonyms/49/Original", "look"),
+  PATCH_VERIFY ("Synonyms/49/Replacement", "l"),
+  PATCH_VERIFY ("Tasks/73/CompleteText",
+                "You see a weary, tired face looking back at you. You need"
+                " more sleep, that's for sure."),
+  PATCH_STRING ("Tasks/73/Command/0", "look * mirror", "l * mirror")
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -4632,7 +4749,17 @@ static const scr_patch_game_t PATCH_TABLE[] = {
   PATCH_GAME ("Melbourne Beach", "David Good",
               "turning on the drier is spelled the way the game's own"
               " synonyms rewrite it, and dries the clothes the wash left",
-              PATCH_MELBOURNE_BEACH)
+              PATCH_MELBOURNE_BEACH),
+  PATCH_GAME ("\xcc\xe5\xf1\xf2\xee \xef\xf0\xe5\xf1\xf2\xf3\xef\xeb\xe5\xed\xe8\xff 2",
+              "Sirius",
+              "the evidence, the safe and the drives to the lab and the"
+              " office are spelled the way the game's own synonyms rewrite"
+              " them",
+              PATCH_CRIME_SCENE_2),
+  PATCH_GAME ("The Fugitive", "arctica0@hotmail.com",
+              "looking in a car's mirror is spelled the way the game's own"
+              " synonyms rewrite it",
+              PATCH_FUGITIVE)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

@@ -86,6 +86,31 @@ before synonyms, or the game was shipped untested. Wine run390 (2026-09-25)
 behaves exactly as Scarier does on every line of the solution, so it is
 not a Scarier divergence; the 47 points stay out of reach.
 
+## The patched row: 70/70, a win (2026-09-27)
+
+`PATCH_CRIME_SCENE_2` in `sctafpar.cpp` is applied only under
+`SCR_ASSUME_PATCHES=1`, which is on by default in the Glk build. It first
+checks synonyms 5 юг, 6 север, 25 взять, 54 открыть and 67 разбить. It
+then re-spells the 17 shadowed task commands (T0, T10, T11, T13, T15, T19,
+T28, T29, T58, T60, T61, T66, T68, T71, T79, T80, T81) with the English
+the synonyms leave behind, e.g. `get трость` and `open сейф ключ*`.
+
+- Row: `cs2_patched_solution.txt|CS2.taf|You scored 70 out of the mximum 70!|SCR_ASSUME_PATCHES=1`.
+  "mximum" is the ALR `a`→"" leak.
+- The route is the faithful one plus `разбить зеркало тростью` (+5) and
+  `взять документы` (+4). It is cut after `как успехи?` (+10, needs all
+  five pieces of evidence; moves you to room 0).
+- The second act:
+  1. `юг` to the car (room 10), then `лаборатория` (13).
+  2. `север` past the badge check (T68), then up and east to Марош.
+  3. `отдать улики` (+5).
+  4. Back to 13, then `юг` (T71) to the police station (17).
+  5. N, E, up, W, W, N to the office (25).
+  6. `открыть стол`, `взять бумагу`, `взять ручку`, `написать отчет`
+     (+5, win).
+- An author gap: the safe opens without the mirror being broken first.
+- The faithful `cs2_solution.txt` row is unchanged at 23/70.
+
 ## Other observations
 
 - **You can leave the crime scene at once.** `лаборатория` (T67, where=2,

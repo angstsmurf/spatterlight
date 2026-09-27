@@ -4418,6 +4418,13 @@ lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SC
 # done that." (the spent Thel task's pattern matches) instead of the movement
 # refusal.  Still wins.
 fugitive_solution.txt|Fugitive.taf|This is the proof of innocence|SCR_SKIP_WAITKEY=1
+# 2026-09-27 patched (SCR_ASSUME_PATCHES=1): task 73's `look * mirror` is
+# spelt `l * mirror`, what the game's own synonym 49 (look -> l) makes of every
+# typed `look`, so the car's mirror scores +10.  The mirror is only in the
+# cars, so this route drives your own car and walks the maze from where it
+# stops, giving up the taxi fight (+10) and the beer (+10): 646 of 666, while
+# 656 (the faithful row) stays the ceiling -- the vehicles are exclusive.
+fugitive_patched_solution.txt|Fugitive.taf|You scored 646 out of the maximum 666!|SCR_ASSUME_PATCHES=1 SCR_SKIP_WAITKEY=1
 
 # --- 2026-08-04: the six games whose downloaded/ source is a ClubFloyd log or
 # a hints file rather than a command list.  None of the six had a route; all
@@ -11071,6 +11078,12 @@ dolg_solution.txt|Dolg.taf|я и расплатился с Барни|
 govard_solution.txt|Govard.taf|На этом первая часть приключений|
 # Место преступления 2 (3.90, Russian): best reachable 23/70, no win.
 cs2_solution.txt|CS2.taf||
+# 2026-09-27 patched (SCR_ASSUME_PATCHES=1): seventeen task commands spelt
+# with a Russian verb or direction the game's own synonyms rewrite into English
+# are re-spelt in that English.  The mirror, the documents, the report to the
+# chief, the evidence to the lab and the final report all score: 70/70, a win.
+# ("mximum" is the game's own ALR a -> "" eating the a.)
+cs2_patched_solution.txt|CS2.taf|You scored 70 out of the mximum 70!|SCR_ASSUME_PATCHES=1
 # Шаблон детектива (3.90, Russian): author sandbox, coverage walk, no scoring.
 shablon_solution.txt|shablon.taf||
 # Странники: врата миров 0.04 (3.90, Russian): end of demo, 29/29, no type-6 win.

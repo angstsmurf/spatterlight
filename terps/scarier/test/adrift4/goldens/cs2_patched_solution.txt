@@ -1,0 +1,94 @@
+# Mesto prestupleniya 2 (CS2.taf), with the built-in patch table on
+# (SCR_ASSUME_PATCHES=1).  Seventeen task commands written with the Russian
+# verb the game's own synonyms rewrite away (vzyat'/otkryt'/razbit'/yug/sever)
+# are re-spelt with the English the synonyms leave behind.  The faithful route
+# plus: the mirror smashed with the cane (+5), the documents from the safe
+# (+4), then `kak uspekhi?` with all five pieces of evidence (+10), `yug` to
+# the car, the lab (north past the badge check, up, east), `otdat' uliki` to
+# Marosh (+5), back down and `yug` to the police station, up to your office,
+# and `napisat' otchet` (+5, the win).  70 of 70.
+говорить Роже
+кто убитый?
+кто прибыл?
+допросишь соседей?
+посмотри наверху
+север
+говорить патрульный
+когда приехали?
+где напарник?
+осмотреть зеркало
+осмотреть шкаф
+открыть шкаф
+взять трость
+разбить зеркало
+разбить зеркало тростью
+осмотреть дверцу
+запад
+осмотреть стол
+осмотреть стаканы
+взять стакан
+осмотреть стулья
+осмотреть буфет
+осмотреть пиво
+осмотреть тайник
+осмотреть окно
+выглянуть в окно
+ne
+говорить патрульный
+как зовут?
+что трогал?
+подозрения?
+вызови паталогоанатома
+осмотреть шкафчик
+восток
+осмотреть кровать
+осмотреть тумбочку
+осмотреть стол
+осмотреть стулья
+осмотреть стул
+разломать стул
+юг
+осмотреть труп
+осмотреть книги
+взять гильзу
+взять нож
+осмотреть стекло
+запад
+открыть сейф ключом
+взять документы
+вв
+запад
+осмотреть унитаз
+восток
+восток
+осмотреть шкафчик
+осмотреть тюбик
+осмотреть зеркало
+осмотреть ванну
+запад
+север
+говорить Роже
+как успехи?
+score
+юг
+лаборатория
+север
+вв
+восток
+говорить Марош
+отдать улики
+запад
+вн
+юг
+юг
+север
+восток
+вв
+запад
+запад
+север
+открыть стол
+взять бумагу
+взять ручку
+score
+написать отчет

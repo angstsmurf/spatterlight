@@ -41,6 +41,21 @@ Printfilter: synonym "l in mirror"
 TASK 73 has no alternative command and no other task references it. The real
 run400 rewrites the same way. So the ceiling is **656**, and this route hits it.
 
+**Patched row (2026-09-27).** `PATCH_FUGITIVE` (`sctafpar.cpp`,
+`SCR_ASSUME_PATCHES=1`) first checks synonym 49 `look`→`l` and T73's
+text. It then re-spells T73 as `l * mirror`, the way the synonym leaves
+every typed `look`.
+- The mirror sits only in the cars (rooms 18/21/22), so the patch doesn't
+  raise the ceiling. The mirror's +10 costs the taxi's `fight` (+10) and
+  the beer (+10).
+- `fugitive_patched_solution.txt` shows it working: `get my car`,
+  `look in mirror`, `out`, then `south east south south west north west
+  west south east south` from where the car stops to the station.
+  `get in train` comes at once, since the walk lands on the train's
+  arrival. From `jump out` on it is the faithful route.
+- It wins at 646/666. The row's marker is
+  `You scored 646 out of the maximum 666!`.
+
 The last command before the win is a deliberate `score`, so the golden pins the
 running total (346) as well as the ending: 346 + 310 for `break seal` = 656.
 
