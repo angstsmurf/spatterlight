@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Battle System attacks and the who/with question continuations.
  */
+
+/*
+ * Battle System attacks and the who/with question continuations.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_battle_player_strike()
@@ -1188,7 +1209,7 @@ lib_battle_who_note_unanswered (void)
   lib_battle_who_unanswered = TRUE;
 }
 
-static void
+void
 lib_battle_who_store (const std::string &pending)
 {
   lib_battle_who_pending = pending;
@@ -1303,7 +1324,7 @@ lib_with_prefix_390_begin_element (void)
 }
 
 /* Called where therest prints "With what?", on the line as it was run. */
-static void
+void
 lib_with_prefix_390_note (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
@@ -1359,7 +1380,7 @@ lib_with_prefix_390_end_element (void)
  * run390's wears sets its prefix too (43D289) and its removes does not;
  * neither is measured, so this stays 4.0.
  */
-static void
+void
 lib_question_prefix_from_line (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
@@ -1424,7 +1445,7 @@ lib_question_with_rule (scr_gameref_t game, const scr_char *line)
 }
 
 /* checkverb's bare verb: "<Label> what?" and the line as the prefix. */
-static scr_bool
+scr_bool
 lib_checkverb_bare_400 (scr_gameref_t game, const scr_char *verb,
                         const scr_char *label)
 {

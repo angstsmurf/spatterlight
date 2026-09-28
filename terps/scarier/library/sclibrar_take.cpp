@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Carrying capacity, "count", and taking objects.
  */
+
+/*
+ * Carrying capacity, "count", and taking objects.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_carried_burden()
@@ -196,7 +217,7 @@ lib_cmd_count (scr_gameref_t game)
  *
  * Return TRUE if the given object is too heavy for the player to carry.
  */
-static scr_bool
+scr_bool
 lib_object_too_heavy (scr_gameref_t game, scr_int object)
 {
   scr_int player_limit, weight, object_weight;
@@ -240,7 +261,7 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object)
  * A 3.7 or 3.8 game never reaches here: the pooled burden has no weight axis
  * and lib_object_too_heavy() stands down for it.
  */
-static void
+void
 lib_print_too_heavy (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -271,7 +292,7 @@ lib_print_too_heavy (scr_gameref_t game, scr_int object)
  *
  * Return TRUE if the given object is too large for the player to carry.
  */
-static scr_bool
+scr_bool
 lib_object_too_large (scr_gameref_t game, scr_int object)
 {
   scr_int player_limit, size, object_size;
@@ -693,7 +714,7 @@ lib_take_refusal_redispatch_400 (scr_gameref_t game)
 /* Set when a "take from <object>" command named exactly one object; cleared
    by the backend.  Only that single-named form echoes the taken object's
    raw prefix in pre-4.0 games (see the wording comment in the backend). */
-static scr_bool lib_take_from_single_named = FALSE;
+scr_bool lib_take_from_single_named = FALSE;
 
 /*
  * lib_take_from_verb()
@@ -714,7 +735,7 @@ static scr_bool lib_take_from_single_named = FALSE;
  * phrase from the same place in the Runner and moves with it; that half is
  * the census's, not a measurement.
  */
-static const scr_char *
+const scr_char *
 lib_take_from_verb (scr_gameref_t game)
 {
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
@@ -751,7 +772,7 @@ lib_take_from_verb (scr_gameref_t game)
  * held directly: a container nested inside a carried one has position
  * &HF6, not 0, and is refused like any other.
  */
-static scr_bool
+scr_bool
 lib_take_container_unheld (scr_gameref_t game, scr_int container)
 {
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
@@ -763,7 +784,7 @@ lib_take_container_unheld (scr_gameref_t game, scr_int container)
            || gs_object_position (game, container) == OBJ_WORN_PLAYER);
 }
 
-static void
+void
 lib_print_not_holding (scr_gameref_t game, scr_int container,
                        const scr_char *suffix)
 {
@@ -835,35 +856,9 @@ lib_print_cannot_reach (scr_gameref_t game, scr_int container)
   pf_buffer_string (filter, "!");
 }
 
-/*
- * lib_drain_multiple_references_if()
- * lib_drain_multiple_references()
- *
- * Fill 'list' with every object still marked in the multiple references,
- * clearing each as it's collected; the filtered form takes only the objects
- * 'keep' accepts and leaves the rest marked.  Shared body for the take, wear,
- * move and put backends' reports of the objects left over ("You are not
- * holding ...", "You can't take ...", "You can't wear ...").
- */
-template <typename Keep>
-static void
-lib_drain_multiple_references_if (scr_gameref_t game, scr_int object_count,
-                                  lib_list_t &list, Keep keep)
-{
-  scr_int object;
-
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object] || !keep (object))
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
-}
-
-static void
+/* The unfiltered form of lib_drain_multiple_references_if(), whose doc
+   comment sits with the template in sclibrar_internal.h. */
+void
 lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
                                lib_list_t &list)
 {
@@ -878,7 +873,7 @@ lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
  * The printer for an object named in a refusal: the composed name from 3.9,
  * the raw Prefix & " " & Short before it (run380 43E03E).
  */
-static lib_print_item_t
+lib_print_item_t
 lib_object_printer_390 (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
@@ -1720,13 +1715,13 @@ lib_take_backend (scr_gameref_t game)
   lib_take_backend_common (game, -1, FALSE, FALSE);
 }
 
-static void
+void
 lib_take_from_object_backend (scr_gameref_t game, scr_int associate)
 {
   lib_take_backend_common (game, associate, TRUE, FALSE);
 }
 
-static void
+void
 lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
 {
   lib_take_backend_common (game, associate, FALSE, TRUE);
@@ -1760,7 +1755,7 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
  * Helper function for deciding if an object may be acquired in this context.
  * Returns TRUE if an object may be acquired, FALSE otherwise.
  */
-static scr_bool
+scr_bool
 lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
 {
   assert (unused == -1);
@@ -1831,9 +1826,6 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
              || gs_object_seen (game, object));
 }
 
-
-static scr_bool lib_take_from_filter (scr_gameref_t game, scr_int object,
-                                      scr_int associate);
 
 /*
  * lib_take_all_sweep_390()
@@ -1939,7 +1931,7 @@ lib_cmd_take_all (scr_gameref_t game)
  * the name the object answered to, Short before Alias, which is what
  * mdlSpreadTheLoad.Sub_20_43 at 00046BFC hands the ambiguity message.
  */
-static scr_int
+scr_int
 lib_take_absent_score (scr_gameref_t game, scr_int object,
                        const scr_char *input, const scr_char **term)
 {
@@ -2202,15 +2194,7 @@ lib_cmd_take_absent (scr_gameref_t game)
 
 
 /* Set by lib_cmd_get_what() only; see the scored fallback below. */
-static scr_bool lib_take_scored_fallback = FALSE;
-
-static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
-                                                scr_int object,
-                                                const scr_char *input,
-                                                scr_bool last_alias);
-static scr_int lib_take_resolve_400_string (scr_gameref_t game,
-                                            const scr_char *input,
-                                            std::vector<scr_int> *tied);
+scr_bool lib_take_scored_fallback = FALSE;
 
 /*
  * lib_take_tie_400()
@@ -2220,7 +2204,7 @@ static scr_int lib_take_resolve_400_string (scr_gameref_t game,
  * pending object, else the Which question.  Returns FALSE, having printed
  * nothing, only for a list the Runner would run together.
  */
-static scr_bool
+scr_bool
 lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
                   scr_int last_tied, const std::vector<scr_int> &marked,
                   scr_int mark_count)
@@ -2338,7 +2322,7 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
  * `get garbage container`, off the floor, runs nothing (Adrift_1186).
  * run370 has no sweep, and run390 none either.
  */
-static void
+void
 lib_take_from_task_sweep_380 (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -2427,7 +2411,7 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  */
 /* run390 isheld() @42A34C: field 22 is 0 (held), &H9C (worn), or &HF6/&HEC
  * (in/on) with a parent that isheld; nothing else counts. */
-static scr_bool
+scr_bool
 lib_isheld_390 (scr_gameref_t game, scr_int object)
 {
   scr_int depth;
@@ -2825,7 +2809,7 @@ lib_instr_nocase (const scr_char *line, const scr_char *name)
  * Short by now).  Names absent from the line count for nothing.  FALSE when
  * none of the names is on the line.
  */
-static scr_bool
+scr_bool
 lib_name_instr_range (scr_gameref_t game, const scr_char *line,
                       scr_int object, scr_int *lowest, scr_int *highest)
 {
@@ -2874,7 +2858,7 @@ lib_name_instr_range (scr_gameref_t game, const scr_char *line,
  * a surface is never "here" to it.  A static object is here when its room
  * list holds the player's room.
  */
-static scr_bool
+scr_bool
 lib_obhere_380 (scr_gameref_t game, scr_int object)
 {
   const scr_int room = gs_playerroom (game);
@@ -2917,7 +2901,7 @@ lib_obhere_380 (scr_gameref_t game, scr_int object)
  * present to it -- `get nut from statue` names the statue, not the nut
  * (p37TKA, run370x Adrift_205_ptka_37.rtf cell 122, 2026-09-20).
  */
-static scr_bool
+scr_bool
 lib_present_370 (scr_gameref_t game, scr_int object)
 {
   const scr_int room = gs_playerroom (game);
@@ -2946,7 +2930,7 @@ lib_present_370 (scr_gameref_t game, scr_int object)
  * The words of a take-from line before its "from" (at offset at), minus the
  * verb word and the "up" of "pick up": the names the line gives, trimmed.
  */
-static std::string
+std::string
 lib_take_from_head (const scr_char *line, scr_int at)
 {
   std::string head (line, (size_t) at);
@@ -2995,12 +2979,6 @@ lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
   return !lib_take_container_unheld (game, slot);
 }
 
-
-static scr_bool lib_take_from_and_line (scr_gameref_t game);
-static scr_bool lib_take_from_and (scr_gameref_t game);
-static scr_bool lib_take_from_trailing (scr_gameref_t game);
-static void lib_take_from_empty (scr_gameref_t game, scr_int associate,
-                                 scr_bool is_except);
 
 /*
  * lib_take_and_pre400()
@@ -3420,7 +3398,7 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * themselves (lib_take_and_pre400, lib_drop_and_arm_collect_pre400) and are
  * left alone here.
  */
-static scr_bool
+scr_bool
 lib_move_named_whole_line_pre400 (scr_gameref_t game,
                                   scr_bool (*resolver) (scr_gameref_t,
                                                         scr_int, scr_int),
@@ -3542,14 +3520,13 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 }
 
 
-
 /*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
  * is_except -- every one of them but those listed.
  */
-static scr_bool
+scr_bool
 lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);

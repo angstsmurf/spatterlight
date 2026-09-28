@@ -22,10 +22,10 @@
 #define SCLIBRAR_H
 
 /*
- * Internal header of the library, shared by sclibrar.cpp (which #includes
- * the core topic fragments) and the peripheral topic files sclibrar_*.cpp.
- * Nothing here is part of the interface the rest of Scarier uses; that stays
- * in scprotos.h.
+ * Internal header of the library, shared by all the topic files
+ * sclibrar_*.cpp.  Nothing here is part of the interface the rest of Scarier
+ * uses; that stays in scprotos.h.  What the eleven core topic files share
+ * only among themselves is in sclibrar_internal.h.
  */
 
 #include <string>
@@ -71,7 +71,7 @@ enum lib_with_clause_t
 /* sclibrar_room.cpp */
 extern const scr_char *const DIRNAMES_8[];
 
-/* sclibrar_battle.inc (in sclibrar.cpp) */
+/* sclibrar_battle.cpp */
 extern std::string lib_battle_who_pending;
 
 
@@ -166,7 +166,7 @@ extern void lib_describe_player_room (scr_gameref_t game,
 extern std::string lib_command_slot_370 (scr_prop_setref_t bundle,
                                          scr_int slot);
 
-/* sclibrar_disambig.inc (in sclibrar.cpp) */
+/* sclibrar_disambig.cpp */
 extern scr_int lib_disambiguate_npc (scr_gameref_t game, const scr_char *verb,
                                      scr_bool *is_ambiguous);
 extern scr_int lib_last_named_npc (scr_gameref_t game);
@@ -187,7 +187,7 @@ extern scr_int lib_disambiguate_object (scr_gameref_t game,
                                         const scr_char *verb,
                                         scr_bool *is_ambiguous);
 
-/* sclibrar_examine.inc (in sclibrar.cpp) */
+/* sclibrar_examine.cpp */
 extern scr_bool lib_cant_see_absent_object (scr_gameref_t game,
                                             const scr_char *suffix,
                                             scr_bool is_definite);
@@ -203,11 +203,11 @@ extern scr_bool lib_examine_tail (scr_gameref_t game, scr_int object,
                                   scr_bool is_described);
 extern scr_int lib_examine_crowded_390 (scr_gameref_t game);
 
-/* sclibrar_take.inc (in sclibrar.cpp) */
+/* sclibrar_take.cpp */
 extern scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
 
-/* sclibrar_open.inc (in sclibrar.cpp) */
+/* sclibrar_open.cpp */
 extern lib_with_clause_t
 lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument);
 
@@ -216,7 +216,7 @@ extern scr_bool lib_npc_reply_to (scr_gameref_t game, scr_int npc,
                                   scr_int topic);
 extern scr_int lib_npc_find_topic (scr_gameref_t game, scr_int npc);
 
-/* sclibrar_battle.inc (in sclibrar.cpp) */
+/* sclibrar_battle.cpp */
 extern scr_bool lib_npc_named_in_line (scr_gameref_t game, scr_int npc,
                                        const scr_char *input);
 extern scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
@@ -228,10 +228,10 @@ extern scr_int lib_player_parent_here (scr_gameref_t game);
 /* sclibrar_talk.cpp */
 extern const scr_char * lib_ask_format_subject (scr_gameref_t game);
 
-/* sclibrar_refuse.inc (in sclibrar.cpp) */
+/* sclibrar_refuse.cpp */
 extern scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 
-/* sclibrar_verbobj.inc (in sclibrar.cpp) */
+/* sclibrar_verbobj.cpp */
 extern scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
 extern scr_int

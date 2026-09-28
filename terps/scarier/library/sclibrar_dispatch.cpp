@@ -15,11 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
+ */
+
+/*
  * Retrying library commands as game tasks, and parsing "all"/"except"
  * multiple-object lists.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
  */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_save_game_references()
@@ -220,10 +241,6 @@ lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
  * look-ups, 2 for the put/drop family, 0 for none; see
  * run_set_task_class_filter().
  */
-static scr_bool lib_task_prematches_line (scr_gameref_t game,
-                                          const scr_char *input,
-                                          scr_int class_filter,
-                                          scr_int *match_kind = NULL);
 
 scr_bool
 lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
@@ -248,7 +265,7 @@ lib_task_prematch_kind_input (scr_gameref_t game, scr_int class_filter)
 }
 
 /* The same pre-match on a line the Runner has rewritten in place. */
-static scr_bool
+scr_bool
 lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
                           scr_int class_filter, scr_int *match_kind)
 {
@@ -286,14 +303,14 @@ lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
  * on "I don't understand what you mean." -- task 243 `put * susan *` misses
  * the same way on the rebuilt put.  A line with no capitals is unchanged.
  */
-static scr_bool lib_rebuilt_raw_dispatch = FALSE;
+scr_bool lib_rebuilt_raw_dispatch = FALSE;
 
 /*
  * Set by lib_try_game_command_take_from_parent_400() only: the take piece
  * 46302C exits on a pre-match return of 1 and lets a 2 (a silent task)
  * dispatch and then fall through to the library take (@462C71-462C85).
  */
-static scr_bool lib_rebuilt_silent_continues = FALSE;
+scr_bool lib_rebuilt_silent_continues = FALSE;
 
 /*
  * Set by the static take refusal only (get_piece 473A34 @473241): a pre-match
@@ -306,7 +323,7 @@ static scr_bool lib_rebuilt_silent_continues = FALSE;
  * task 9's message (Adrift_p4profmail7 T15).  A first-pass hit still
  * dispatches the rebuilt line case-kept (Adrift_p4profmail2 T24).
  */
-static scr_bool lib_rebuilt_fallback_typed = FALSE;
+scr_bool lib_rebuilt_fallback_typed = FALSE;
 
 static scr_bool
 lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
@@ -575,7 +592,7 @@ lib_try_game_command_common (scr_gameref_t game,
   return status;
 }
 
-static scr_bool
+scr_bool
 lib_try_game_command_short (scr_gameref_t game,
                             const scr_char *verb, scr_int object)
 {
@@ -591,7 +608,7 @@ lib_try_game_command_short (scr_gameref_t game,
  * Adrift_1_moprobe.txt, 2026-08-29/30).  Only the pre-action retry above is
  * verb-literal.
  */
-static scr_bool
+scr_bool
 lib_try_game_command_short_canonical (scr_gameref_t game,
                                       const scr_char *verb, scr_int object)
 {
@@ -623,7 +640,7 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
  * 2026-09-20) -- and keeps only the bare-name retry, the typed line having
  * already been past the tasks before the library sees it.
  */
-static scr_bool
+scr_bool
 lib_try_game_command_short_definite (scr_gameref_t game,
                                      const scr_char *verb, scr_int object)
 {
@@ -686,7 +703,7 @@ lib_try_game_command_short_definite (scr_gameref_t game,
  * hit runs that line through the task dispatcher and claims; the library
  * take only follows a miss.
  */
-static scr_bool
+scr_bool
 lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
 {
   scr_bool status;
@@ -743,7 +760,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
  * *looked_up says whether the object qualified; when it did, this look-up
  * is the only one the take gives the tasks.
  */
-static scr_bool
+scr_bool
 lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
                                            scr_bool *looked_up)
 {
@@ -788,7 +805,7 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
   return status;
 }
 
-static scr_bool
+scr_bool
 lib_try_game_command_with_object (scr_gameref_t game,
                                   const scr_char *verb, scr_int object,
                                   const scr_char *preposition,
@@ -834,7 +851,7 @@ lib_try_game_command_with_object (scr_gameref_t game,
  * bean in a jar` matched and passing (2026-09-20), and there the typed line
  * has already been through the tasks before the library sees it.
  */
-static scr_bool
+scr_bool
 lib_try_game_command_with_object_400 (scr_gameref_t game,
                                       const scr_char *verb, scr_int object,
                                       const scr_char *preposition,
@@ -883,7 +900,7 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
  * reach through run_all_commands() ("Your penknife is too big to fit inside
  * the slot.  A quick push and the button ...", zacksmackfoot).
  */
-static scr_bool
+scr_bool
 lib_try_typed_put_line_400 (scr_gameref_t game)
 {
   const scr_char *const typed = run_get_dispatch_input ();
@@ -917,7 +934,7 @@ lib_try_typed_put_line_400 (scr_gameref_t game)
   return status;
 }
 
-static scr_bool
+scr_bool
 lib_try_game_command_with_npc (scr_gameref_t game,
                                const scr_char *verb, scr_int object,
                                const scr_char *preposition, scr_int npc)
@@ -1008,7 +1025,7 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
  * Parses object lists such as "object" and "object and object" and returns
  * the multiple objects in the game's multiple_references.
  */
-static scr_bool
+scr_bool
 lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
                             scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int),
                             scr_int resolver_arg,
@@ -1114,7 +1131,7 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
  * left them with nothing to work on: "You are not holding anything[ else]",
  * or the wearing form, rounded off by `tail`.
  */
-static void
+void
 lib_print_nothing_held (scr_gameref_t game, scr_bool worn,
                         scr_bool add_else, const scr_char *tail)
 {
@@ -1144,7 +1161,7 @@ lib_print_nothing_held (scr_gameref_t game, scr_bool worn,
  * The "put the box in the box" case: the object list named the very object
  * the command acts through.  Complains and returns TRUE where it did.
  */
-static scr_bool
+scr_bool
 lib_multiple_retains_associate (scr_gameref_t game, scr_int associate,
                                 const scr_char *verb)
 {
@@ -1170,7 +1187,7 @@ lib_multiple_retains_associate (scr_gameref_t game, scr_int associate,
  * `is_except` inverts the sense of the parsed list: its objects are the ones
  * to leave behind, and everything else the filter admits is referenced.
  */
-static scr_int
+scr_int
 lib_apply_filter (scr_gameref_t game,
                   scr_bool (*filter) (scr_gameref_t, scr_int, scr_int),
                   scr_int filter_arg, scr_bool is_except, scr_int *references)

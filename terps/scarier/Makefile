@@ -93,7 +93,12 @@ LIBDIR	= library
 RUNDIR	= runner
 OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scinterf.o scparser.o						\
-	  $(LIBDIR)/sclibrar.o $(LIBDIR)/sclibrar_print.o		\
+	  $(LIBDIR)/sclibrar_disambig.o $(LIBDIR)/sclibrar_examine.o	\
+	  $(LIBDIR)/sclibrar_dispatch.o $(LIBDIR)/sclibrar_take.o	\
+	  $(LIBDIR)/sclibrar_takefrom.o $(LIBDIR)/sclibrar_drop.o	\
+	  $(LIBDIR)/sclibrar_open.o $(LIBDIR)/sclibrar_put.o		\
+	  $(LIBDIR)/sclibrar_battle.o $(LIBDIR)/sclibrar_refuse.o	\
+	  $(LIBDIR)/sclibrar_verbobj.o $(LIBDIR)/sclibrar_print.o	\
 	  $(LIBDIR)/sclibrar_room.o $(LIBDIR)/sclibrar_meta.o		\
 	  $(LIBDIR)/sclibrar_go.o $(LIBDIR)/sclibrar_topic.o		\
 	  $(LIBDIR)/sclibrar_read.o $(LIBDIR)/sclibrar_verbs.o		\
@@ -106,11 +111,7 @@ OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
 HEADERS	= scarier.h scprotos.h scgamest.h $(RUNDIR)/scrunner.h	\
-	  $(LIBDIR)/sclibrar.h
-
-# The library's core topic fragments, #included by sclibrar.cpp.
-LIBINC	= $(wildcard $(LIBDIR)/sclibrar_*.inc)
-$(LIBDIR)/sclibrar.o: $(LIBINC)
+	  $(LIBDIR)/sclibrar.h $(LIBDIR)/sclibrar_internal.h
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only

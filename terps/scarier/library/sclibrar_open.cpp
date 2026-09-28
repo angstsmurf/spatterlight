@@ -15,14 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * "with" clauses, open, close, lock and unlock.
  */
 
-/* Defined in the later fragments sclibrar_battle.inc and sclibrar_refuse.inc. */
-static void lib_with_prefix_390_note (scr_gameref_t game);
-static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
+/*
+ * "with" clauses, open, close, lock and unlock.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_with_clause_400()
@@ -48,7 +65,7 @@ static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
  * serves 3.70 and 3.80 as well; see lib_with_clause_390().
  */
 
-static scr_int
+scr_int
 lib_with_half_400 (scr_gameref_t game, const scr_char *half)
 {
   scr_int object;
@@ -337,7 +354,7 @@ lib_with_arm_390 (scr_gameref_t game)
  * instrument>." for a line lib_with_clause_400() applies to; *handled is
  * FALSE when it does not apply, and the return is then meaningless.
  */
-static scr_bool
+scr_bool
 lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
                       const scr_char *particle, scr_bool *handled)
 {
@@ -838,25 +855,7 @@ lib_attempt_key_acquisition (scr_gameref_t game, scr_int object)
 }
 
 
-/*
- * The verb-specific half of lock and unlock.  The two commands run the same
- * steps -- disambiguate the object, check its openness, look up the key it
- * takes, check the player holds that key, then flip the state -- and differ
- * only in the openness they act on, the openness they leave behind, and the
- * words they print.
- */
-typedef struct
-{
-  scr_int required_openness;      /* Openness the verb acts on */
-  scr_int new_openness;           /* Openness it leaves behind */
-  const scr_char *verb;           /* "lock", for disambiguation */
-  const scr_char *nothing_to;     /* " anything to lock " */
-  const scr_char *wrong_state[2]; /* Singular and plural state refusal */
-  const scr_char *cant[3];        /* "You can't lock ", and so on */
-  const scr_char *does[3];        /* "You lock ", and so on */
-} lib_lock_verb_t;
-
-static const lib_lock_verb_t LIB_UNLOCK_VERB = {
+const lib_lock_verb_t LIB_UNLOCK_VERB = {
   OBJ_LOCKED, OBJ_CLOSED,
   "unlock",
   " anything to unlock ",
@@ -865,7 +864,7 @@ static const lib_lock_verb_t LIB_UNLOCK_VERB = {
   {"You unlock ", "I unlock ", "%player% unlock "}
 };
 
-static const lib_lock_verb_t LIB_LOCK_VERB = {
+const lib_lock_verb_t LIB_LOCK_VERB = {
   OBJ_CLOSED, OBJ_LOCKED,
   "lock",
   " anything to lock ",
@@ -931,8 +930,6 @@ lib_lock_check_openness (scr_gameref_t game, scr_int object,
 }
 
 
-static scr_int lib_verb_object_resolve_400 (scr_gameref_t game);
-
 /*
  * lib_lock_backend()
  *
@@ -982,7 +979,7 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * or -1 when the present pass matched or tied, when the head names nothing
  * seen, or when the object has no Openable/Key for the arm to work on.
  */
-static scr_int
+scr_int
 lib_lock_absent_object_400 (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1021,7 +1018,7 @@ lib_lock_absent_object_400 (scr_gameref_t game)
   return object;
 }
 
-static scr_bool
+scr_bool
 lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                   scr_bool with_key)
 {

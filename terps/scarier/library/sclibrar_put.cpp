@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Putting objects in and on other objects.
  */
+
+/*
+ * Putting objects in and on other objects.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_check_put_recursion()
@@ -1799,8 +1820,6 @@ lib_cmd_put_all_on (scr_gameref_t game)
  * Runner, so run400 names it and never rewrites the line, while Scarier's
  * parse rejects it for sitting inside the can.  Ask the scorer directly.
  */
-static scr_bool lib_cmd_unclear_object (scr_gameref_t game);
-static scr_bool lib_is_put_where_line_400 (scr_gameref_t game);
 
 static scr_bool
 lib_put_fragment_names_nothing (scr_gameref_t game)
@@ -2922,7 +2941,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * which is also what it answers for the closed and the reachable-container
  * arms, both unmeasured from here.
  */
-static scr_int
+scr_int
 lib_instr (const scr_char *line, const scr_char *term)
 {
   scr_int length, index_;

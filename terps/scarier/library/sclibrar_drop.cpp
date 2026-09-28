@@ -15,45 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * The shared move backend, drop, give, wear, remove and inventory.
  */
 
 /*
- * The verb-specific half of drop, remove, and put-on.  All three list the
- * objects they acted on, then list the ones they had to leave alone, and
- * differ only in how an object moves and in the words around the lists.
+ * The shared move backend, drop, give, wear, remove and inventory.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
  */
-typedef struct
-{
-  void (*move) (scr_gameref_t game, scr_int object, scr_int target);
-  const scr_char *onto;       /* " onto ", or NULL where there is no target */
-  const scr_char *does[3];    /* "You drop ", and so on */
-  const scr_char *lacks[3];   /* "You are not holding ", and so on */
-  scr_char lacks_end;         /* Terminator for the "not holding" list */
-  /*
-   * Below 3.9 the leftovers are not a list at all.  run380's drops()
-   * (@438DD5-438E13) and its remove handler (@430076-4300C8) each walk the
-   * objects in index order and, for the first name-match they cannot act
-   * on, set the turn's message ONLY IF IT IS STILL EMPTY: "<You> don't have
-   * <raw prefix> <short>!" and "<You> <are> not wearing <raw prefix>
-   * <short>!" -- so a second unactionable object is never named, and none
-   * is once something was dropped or removed on the same line.  run370 is
-   * the same code (drop @430BD4, remove @429954).  NULL keeps the list.
-   */
-  const scr_char *lacks_pre_390[3];
-  scr_char lacks_end_pre_390;
-  /*
-   * run390's drops() keeps that shape -- the first object it cannot drop,
-   * and only while nothing has been said -- but names it through the
-   * definite helper Proc_2_36_42B0E8 (445CD4-445D0F): p39EXAM `drop stone`
-   * with the stone on the floor, and `drop coin` with the coin in the open
-   * crate, are "You don't have the stone!" and "... the coin!" (run390
-   * Adrift_1167, 2026-09-14).  Its remove handler is unmeasured.
-   */
-  scr_bool lacks_single_390;
-} lib_move_verb_t;
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 static void
 lib_move_to_room (scr_gameref_t game, scr_int object, scr_int target)
@@ -94,7 +80,7 @@ static const lib_move_verb_t LIB_REMOVE_VERB = {
   FALSE
 };
 
-static const lib_move_verb_t LIB_PUT_ON_VERB = {
+const lib_move_verb_t LIB_PUT_ON_VERB = {
   lib_move_onto, " onto ",
   {"You put ", "I put ", "%player% put "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
@@ -151,7 +137,7 @@ lib_move_try_commands (scr_gameref_t game, const scr_char *command,
  * when every referenced object went to a game command there is nothing of the
  * library's on the line, and run400's drop routine leaves without adding one.
  */
-static scr_bool
+scr_bool
 lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                   scr_int target, scr_bool has_printed)
 {
@@ -377,12 +363,6 @@ lib_cmd_drop_all (scr_gameref_t game)
 }
 
 
-static std::string::size_type lib_put_split_400 (scr_gameref_t game,
-                                                 const std::string &line,
-                                                 scr_bool has_all,
-                                                 scr_bool on_test,
-                                                 scr_bool *on_branch);
-
 /*
  * lib_name_object_resolve_400()
  *
@@ -466,14 +446,8 @@ static std::string::size_type lib_put_split_400 (scr_gameref_t game,
  * MARKED filled), or -2 when nothing scored in the last pass either, the
  * fallback the existing path covers.
  */
-static scr_bool lib_resolve_admit_take (scr_gameref_t game, scr_int object,
-                                        scr_int pass);
-static scr_bool lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object,
-                                         scr_int pass);
-static scr_bool lib_resolve_admit_parent (scr_gameref_t game, scr_int object,
-                                          scr_int pass);
 
-static scr_int
+scr_int
 lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
                              scr_int mode, scr_int *pending,
                              scr_int *last_tied,
@@ -593,7 +567,7 @@ lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
  * The name 446C74 gives an object in the line: its Short when that is a
  * whole word of it, else the first alias that is.
  */
-static const scr_char *
+const scr_char *
 lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
                          const scr_char *input, scr_bool last_alias)
 {
@@ -653,7 +627,7 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
  * (lib_co_400_raise_for_short_tie(), still used for a " with " half),
  * which could not say why the hut and the shed never park an object.
  */
-static scr_bool
+scr_bool
 lib_co_400_raise_for_pending_tie (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
@@ -689,8 +663,6 @@ lib_co_400_raise_for_pending_tie (scr_gameref_t game)
  * multiple references with *REFERENCES 1, or *REFERENCES -1 to leave the
  * line to the ordinary parse.
  */
-static scr_int lib_seen_named_object_400 (scr_gameref_t game,
-                                          const scr_char *input);
 
 static scr_bool
 lib_drop_named_400 (scr_gameref_t game, scr_int *references)
@@ -1234,8 +1206,6 @@ lib_cmd_leave_multiple_pre400 (scr_gameref_t game)
 }
 
 
-static void lib_question_prefix_from_line (scr_gameref_t game);
-
 /*
  * 4.0's give NPC loop (488AE8-488B5C) walks every character for a present,
  * seen one the line refers to anywhere (45E99C mode 0), so a continued
@@ -1394,7 +1364,7 @@ lib_cmd_give_object_npc (scr_gameref_t game)
  * Set by lib_cmd_give_object() when 3.9's give leaves the line to the object
  * catch-all; the `give *` row right below it then declines too, once.
  */
-static scr_bool lib_give_defer_catch_all = FALSE;
+scr_bool lib_give_defer_catch_all = FALSE;
 
 scr_bool
 lib_cmd_give_object (scr_gameref_t game)
@@ -1788,7 +1758,7 @@ lib_cmd_wear_except_multiple (scr_gameref_t game)
  * target and the object's own question wins.  Both fall out of the ordinary
  * put handlers once the wear declines.
  */
-static scr_bool
+scr_bool
 lib_wear_is_put_line_380 (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
@@ -1826,7 +1796,7 @@ static scr_bool lib_remove_filter (scr_gameref_t game, scr_int object,
  * The object walk is each Runner's own: co() over the whole line below 4.0,
  * the 463640 scorer at 4.0 (see lib_wear_multiple_common()).
  */
-static scr_bool
+scr_bool
 lib_wear_would_act_390 (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
@@ -2649,7 +2619,7 @@ lib_cmd_inventory (scr_gameref_t game)
  * listed object seen; whatisin2, the static case, does not.  run370 is the
  * same pair (@42B78E).
  */
-static scr_bool
+scr_bool
 lib_list_in_object_pre_390 (scr_gameref_t game, scr_int container)
 {
   const scr_filterref_t filter = gs_get_filter (game);

@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * Taking objects from containers, supporters and NPCs.
  */
+
+/*
+ * Taking objects from containers, supporters and NPCs.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_take_from_filter()
@@ -26,7 +47,7 @@
  * Helper function for deciding if an object may be acquired in this context.
  * Returns TRUE if an object may be acquired, FALSE otherwise.
  */
-static scr_bool
+scr_bool
 lib_take_from_filter (scr_gameref_t game, scr_int object, scr_int associate)
 {
   /*
@@ -156,7 +177,7 @@ lib_take_from_nothing_taken_pre390 (scr_gameref_t game, scr_int associate)
  * Common error handling for when nothing is taken from a container or
  * supporter object.
  */
-static void
+void
 lib_take_from_empty (scr_gameref_t game, scr_int associate, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -585,7 +606,7 @@ lib_take_from_nowhere_named_390 (scr_gameref_t game, const scr_char *named)
  * with the slot armed (p39TKB cell 158).  3.7/3.8 have their one "You can't
  * do that!" (p37TKB/p38TKB cell 158).  Adrift_207-210_ptkb, 2026-09-20.
  */
-static scr_bool
+scr_bool
 lib_take_from_trailing (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
@@ -614,7 +635,7 @@ lib_take_from_trailing (scr_gameref_t game)
  * insides() tests c("and") over the whole line (run390 462FD2, run380
  * 4468B3).
  */
-static scr_bool
+scr_bool
 lib_take_from_and_line (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
@@ -1005,7 +1026,7 @@ lib_take_from_and_400 (scr_gameref_t game)
  *
  * The take-from "and" line, by version; see the three above.
  */
-static scr_bool
+scr_bool
 lib_take_from_and (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));

@@ -15,11 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
+ */
+
+/*
  * Examining the player, NPCs and objects, absent-object refusals, and
  * the listing of container/supporter contents.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
  */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_cmd_examine_self()
@@ -807,7 +828,7 @@ lib_list_in_object_joined (scr_gameref_t game, scr_int container)
  * a poop." where 3.9 and 4.0 would say "A poop is inside the toilet."  The
  * same replay shows it again on `look in mailbox`.
  */
-static scr_bool
+scr_bool
 lib_list_in_object (scr_gameref_t game, scr_int container,
                     scr_bool is_described, scr_bool joined)
 {
@@ -1010,7 +1031,7 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter,
  * container-then-surface pair of sentences here rather than take a wording
  * their Runner cannot produce.
  */
-static scr_bool
+scr_bool
 lib_list_in_on_object (scr_gameref_t game, scr_int object,
                        scr_bool is_described)
 {
@@ -1154,7 +1175,7 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
  * Returns the object, -1 for &HFF, -2 for &HFE, and -3 when pass B met a
  * crowded name and the answer is the unmodelled arm's.
  */
-static const scr_char *
+const scr_char *
 lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1178,7 +1199,7 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
   return word;
 }
 
-static scr_int
+scr_int
 lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
 {
   scr_int object, count;
@@ -1194,7 +1215,7 @@ lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
   return count;
 }
 
-static scr_int
+scr_int
 lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
                                  scr_bool crowd_contest)
 {
@@ -1330,7 +1351,6 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
 }
 
 
-
 /*
  * lib_examine_npc_overwrite_400()
  *
@@ -1369,7 +1389,7 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
  * `x dave with stone` answers "A quiet man." (run370x Adrift_198_pnpcwith37,
  * run380x Adrift_199_pnpcwith38), not the stone's description.
  */
-static scr_int
+scr_int
 lib_examine_npc_overwrite_400 (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();

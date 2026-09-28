@@ -15,11 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
+ */
+
+/*
  * Stock refusals: nothing happens, can't do, don't think, and the
  * "<verb> what?" family.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
  */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_cmd_kill_other()
@@ -168,9 +189,6 @@ lib_nothing_happens_other (scr_gameref_t game,
                                      verb_general, verb_third_person, FALSE);
 }
 
-
-static scr_bool lib_catch_all_names_pre390 (scr_gameref_t game,
-                                            scr_int object);
 
 /*
  * lib_hit_arm_pre390()
@@ -494,7 +512,7 @@ lib_cant_do_object (scr_gameref_t game, const scr_char *verb)
   return lib_cant_do_common (game, verb, TRUE, "");
 }
 
-static scr_bool
+scr_bool
 lib_cant_do_other (scr_gameref_t game, const scr_char *verb)
 {
   return lib_cant_do_common (game, verb, FALSE, "");
@@ -1424,7 +1442,7 @@ lib_cmd_wash_what (scr_gameref_t game)
  * (p4PUT `put zzz in box`, Adrift_953); an unknown or absent CONTAINER is
  * answered earlier, by lib_cmd_put_container_400().
  */
-static scr_bool
+scr_bool
 lib_cmd_unclear_object (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -1479,7 +1497,7 @@ lib_first_named_object_pre_390 (scr_gameref_t game)
  * plain "what?" the same as no match at all.  Returns the unique winner's
  * index, or -1 for none or a tie.
  */
-static scr_int
+scr_int
 lib_seen_named_object_400 (scr_gameref_t game, const scr_char *input)
 {
   scr_int object, best_score, best_count, best_object;

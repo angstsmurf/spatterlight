@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
- * 4.0 noun scoring and the unhandled verb-object / verb-NPC catch-alls.
  */
+
+/*
+ * 4.0 noun scoring and the unhandled verb-object / verb-NPC catch-alls.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
+ */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_verb_object_resolve_400()
@@ -126,7 +147,7 @@ lib_verb_object_name_score (scr_gameref_t game,
 typedef scr_bool (*lib_resolve_admit_t) (scr_gameref_t game,
                                          scr_int object, scr_int pass);
 
-static scr_bool
+scr_bool
 lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object, scr_int pass)
 {
   if (!gs_object_seen (game, object))
@@ -162,7 +183,7 @@ lib_resolve_held_400 (scr_gameref_t game, scr_int object)
     }
 }
 
-static scr_bool
+scr_bool
 lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
 {
   if (obj_is_static (game, object) || !gs_object_seen (game, object))
@@ -176,7 +197,7 @@ lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
  * Mode 1 with a container named (463161-463224, arg <> &HFF): visible where
  * it is (44B578) and its parent the container.  Nothing else is tested.
  */
-static scr_bool
+scr_bool
 lib_resolve_admit_parent (scr_gameref_t game, scr_int object, scr_int pass)
 {
   const scr_int parent = lib_resolve_parent_400;
@@ -253,7 +274,7 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
 }
 
 /* Mode 1: two passes, the second only after no unique winner (46360D). */
-static scr_int
+scr_int
 lib_take_resolve_400_string (scr_gameref_t game, const scr_char *input,
                              std::vector<scr_int> *tied)
 {
@@ -294,7 +315,7 @@ lib_verb_object_note_line_top (scr_gameref_t game)
                              : -2;
 }
 
-static scr_int
+scr_int
 lib_verb_object_resolve_400 (scr_gameref_t game)
 {
   return lib_verb_object_resolve_400_common (game, NULL);
@@ -325,7 +346,7 @@ lib_verb_object_resolve_400 (scr_gameref_t game)
  * handlers, as the Runner's " in "/" on " tests may be preceded by a
  * rewrite we have not read.
  */
-static scr_bool
+scr_bool
 lib_is_put_where_line_400 (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
@@ -512,7 +533,7 @@ lib_phrase_has_word (const std::string &line, const scr_char *word)
  * goes on with no preposition at all.  *ON_BRANCH, when asked for, says
  * whether that test ran.
  */
-static std::string::size_type
+std::string::size_type
 lib_put_split_400 (scr_gameref_t game, const std::string &line,
                    scr_bool has_all, scr_bool on_test, scr_bool *on_branch)
 {
@@ -958,7 +979,7 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
  * is the gem's catch-all in both older Runners -- so the scan below reads
  * the Aliases at both versions, unlike lib_co_pre400().
  */
-static scr_bool
+scr_bool
 lib_catch_all_names_pre390 (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);

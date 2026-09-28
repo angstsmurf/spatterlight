@@ -15,11 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * Part of sclibrar.cpp, which #includes it; not compiled on its own.
+ */
+
+/*
  * NPC and object disambiguation, and the 4.0 "which do you mean"
  * question machinery.
+ *
+ * Split out of sclibrar.cpp; see sclibrar.h for what the library files
+ * share and sclibrar_internal.h for what the core files share.
  */
+
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "scarier.h"
+#include "scprotos.h"
+#include "scgamest.h"
+#include "sclibrar.h"
+#include "sclibrar_internal.h"
 
 /*
  * lib_disambiguate_npc()
@@ -30,14 +51,6 @@
  * -1 with *is_ambiguous FALSE if requested, otherwise print a message then
  * return -1.
  */
-static scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
-static scr_bool lib_input_contains_word_400 (const scr_char *input,
-                                             const scr_char *word);
-static const scr_char *lib_co_400_name_word (scr_gameref_t game,
-                                             scr_int object,
-                                             const scr_char *input);
-static scr_int lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
-                                         const scr_char *input);
 
 /*
  * lib_which_runner_form()
@@ -164,7 +177,7 @@ lib_last_named_npc (scr_gameref_t game)
  * "Cora is not here!" (run370x Adrift_194, run380x Adrift_195), where 3.9
  * says "Take what?".  TRUE once it has answered for an absent character.
  */
-static scr_bool
+scr_bool
 lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc)
 {
   const scr_filterref_t filter = gs_get_filter (game);
@@ -427,7 +440,7 @@ lib_co_contains (const scr_char *command, const scr_char *term)
  * up on the pair or asks which.  Each longer name is blanked out of a copy
  * of the line, so `put key on key ring` still names the key.
  */
-static scr_bool
+scr_bool
 lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
                       scr_int object, const scr_char *term)
 {
@@ -483,7 +496,7 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
   return shadowed && !lib_co_contains (rest.c_str (), term);
 }
 
-static const scr_char *
+const scr_char *
 lib_co_lastword (const scr_char *string)
 {
   const scr_char *space;
@@ -575,7 +588,7 @@ lib_co_prefix_words (scr_gameref_t game, scr_int object)
 
 /* TRUE if the line names a Prefix word that only another object of the same
    Short has: `take old pin` rules out the new red pin. */
-static scr_bool
+scr_bool
 lib_co_prefix_excluded (scr_gameref_t game, const scr_char *line,
                         scr_int object)
 {
@@ -613,7 +626,7 @@ lib_co_prefix_named (scr_gameref_t game, const scr_char *line, scr_int object)
   return named && !lib_co_prefix_excluded (game, line, object);
 }
 
-static scr_bool
+scr_bool
 lib_co_names_prefix (scr_gameref_t game, const scr_char *line, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -675,7 +688,7 @@ lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
 
 /* Set once a 3.7 library handler has settled the line's object; see
  * lib_co_note_line_top(). */
-static scr_bool lib_co_prompt_370_blocked = FALSE;
+scr_bool lib_co_prompt_370_blocked = FALSE;
 
 /* TRUE if the object's Short or Alias is exactly the term. */
 static scr_bool
@@ -703,7 +716,7 @@ lib_named_answers_to (scr_gameref_t game, const scr_char *class_,
   return FALSE;
 }
 
-static scr_bool
+scr_bool
 lib_co_object_answers_to (scr_gameref_t game, scr_int object,
                           const scr_char *term)
 {
@@ -716,7 +729,7 @@ lib_co_object_answers_to (scr_gameref_t game, scr_int object,
  * test the object's seen byte (field 44) beside obhere; run380 co() has no
  * such test.
  */
-static scr_bool
+scr_bool
 lib_co_candidate (scr_gameref_t game, scr_int object, scr_int room)
 {
   if (!obj_indirectly_in_room (game, object, room))
@@ -877,15 +890,13 @@ lib_takes_offers_tasks_370 (scr_gameref_t game, const scr_char *line)
   return FALSE;
 }
 
-static scr_bool lib_isheld_390 (scr_gameref_t game, scr_int object);
-
 /*
  * lib_co_mode_fits()
  *
  * Whether an object is on the side a co() mode recounts: 1 loose (take),
  * 2 isheld (drop), 3 held and not worn (wear), 4 worn (remove).
  */
-static scr_bool
+scr_bool
 lib_co_mode_fits (scr_gameref_t game, scr_int object, scr_int mode)
 {
   switch (mode)
@@ -1069,8 +1080,6 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
     *present_count = first_present;
   return TRUE;
 }
-
-static void lib_battle_who_store (const std::string &pending);
 
 scr_bool
 lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
@@ -1423,11 +1432,11 @@ static scr_bool lib_co_400_spend = FALSE;
 
 /* A handler's own prompt (name_object's, not the generaltasks scan's) was
    raised by this line element; see lib_openclose_with_half_400(). */
-static scr_bool lib_co_400_named_raised = FALSE;
+scr_bool lib_co_400_named_raised = FALSE;
 
 /* therest's with-split scored this element and so owns Me(424); see
    lib_openclose_with_half_raise_400(). */
-static scr_bool lib_co_400_therest_split = FALSE;
+scr_bool lib_co_400_therest_split = FALSE;
 
 /*
  * MemVar_4941F4, and whether this element flagged an ambiguity at all.
@@ -1443,7 +1452,7 @@ static scr_bool lib_co_400_therest_split = FALSE;
  */
 static std::vector<scr_int> lib_co_400_prompt_list;
 static scr_bool lib_co_400_prompt_seen = FALSE;
-static scr_bool lib_co_400_flagged = FALSE;
+scr_bool lib_co_400_flagged = FALSE;
 
 void
 lib_co_400_reset (void)
@@ -1566,12 +1575,6 @@ lib_co_400_begin_line (scr_bool is_new_line)
  * "(the blue stone)" (Adrift_it1/it2, 2026-09-21).  This is also the
  * "I don't understand what you want me to do with" reply's antecedent.
  */
-static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
-                                            const scr_char *input,
-                                            scr_int mode, scr_int *pending,
-                                            scr_int *last_tied,
-                                            std::vector<scr_int> *marked,
-                                            scr_int *mark_count);
 
 void
 lib_antecedent_begin_line_400 (scr_gameref_t game, const scr_char *line)
@@ -1794,7 +1797,7 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
     lib_co_400_named_raised = TRUE;
 }
 
-static void
+void
 lib_co_400_raise (scr_gameref_t game, const scr_char *term,
                   const std::vector<scr_int> &objects)
 {
@@ -1802,7 +1805,7 @@ lib_co_400_raise (scr_gameref_t game, const scr_char *term,
 }
 
 /* name_object's prompt; see lib_co_400_raise_common(). */
-static void
+void
 lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
                         const std::vector<scr_int> &objects)
 {
@@ -1865,12 +1868,7 @@ lib_with_half_tied_400 (scr_gameref_t game, const scr_char *half,
   return object;
 }
 
-static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
-                                                scr_int object,
-                                                const scr_char *input,
-                                                scr_bool last_alias);
-
-static scr_bool
+scr_bool
 lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
                           std::vector<scr_int> *crowd, scr_int *pending,
                           scr_int *head_object)
@@ -1924,7 +1922,7 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
 }
 
 /* The with-split's tail question; see lib_with_split_crowd_400(). */
-static scr_bool
+scr_bool
 lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
                                 const std::vector<scr_int> &crowd)
 {
@@ -1991,11 +1989,6 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
  * shed` ends on "The hut or the shed?" again, the list 48B6FF compares, so
  * "That is still ambiguous!".
  */
-static scr_int lib_co_400_present_namesakes (scr_gameref_t game,
-                                             const scr_char *word);
-static scr_int lib_examine_referencedob_ex_400 (scr_gameref_t game,
-                                                const scr_char *input,
-                                                scr_bool crowd_contest);
 
 /* Me(428) as co() builds it, for its substring test. */
 static std::string
@@ -2050,7 +2043,7 @@ lib_co_400_prefix_hits (scr_gameref_t game, scr_int object,
  * to the word scores its object's Prefix words in the line; the strict
  * maximum above zero wins, anything else is -1.
  */
-static scr_int
+scr_int
 lib_co_400_prefix_contest (scr_gameref_t game, const scr_char *word,
                            const scr_char *input, scr_int room)
 {
@@ -2102,7 +2095,7 @@ lib_co_400_prefix_contest (scr_gameref_t game, const scr_char *word,
  * make it: *ME is Me(424), *LIST Me(428), *LIST_OK whether that list is one
  * we can render (see lib_co_400_raise_for_references()).
  */
-static void
+void
 lib_co_400_walk_step (scr_gameref_t game, scr_int object,
                       const scr_char *input, scr_int *me,
                       std::vector<scr_int> *list, scr_bool *list_ok)
@@ -2388,9 +2381,7 @@ lib_co_400_scan_term_400 (scr_gameref_t game, const std::vector<scr_int> &tied,
   return replacement;
 }
 
-static scr_bool lib_co_400_raise_for_pending_tie (scr_gameref_t game);
-
-static scr_bool
+scr_bool
 lib_co_400_raise_for_short_tie (scr_gameref_t game,
                                 const std::vector<scr_int> &tied)
 {
@@ -2536,7 +2527,7 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
  * only from takes, drops, referencedob, examines and co, all objects.  Its
  * characters() picks by index order instead; see NPC_PICK_FIRST/LAST.
  */
-static scr_int
+scr_int
 lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
                           const scr_char *input)
 {
@@ -2682,7 +2673,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
   return found;
 }
 
-static scr_bool
+scr_bool
 lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
                             std::vector<scr_int> *namesakes_out)
 {
@@ -2809,7 +2800,7 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
     }
 }
 
-static scr_bool
+scr_bool
 lib_npc_400_raise_for_line (scr_gameref_t game)
 {
   return lib_npc_400_raise_for_line_in (game, run_get_dispatch_input ());
@@ -2910,7 +2901,7 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * same as the function used to filter objects for multiple references.
  */
 /* The container mode 4 admits from; see lib_resolve_admit_parent(). */
-static scr_int lib_resolve_parent_400 = -1;
+scr_int lib_resolve_parent_400 = -1;
 
 /*
  * lib_co_note_line_top()
@@ -3010,7 +3001,7 @@ lib_first_named_pre400 (scr_gameref_t game, scr_int fallback)
   return best >= 0 ? best : fallback;
 }
 
-static scr_int
+scr_int
 lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                                scr_bool (*resolver)
                                    (scr_gameref_t, scr_int, scr_int),
@@ -3959,7 +3950,7 @@ lib_input_contains_word (const scr_char *input, const scr_char *word)
   return lib_input_contains_word_ended (input, word, " ");
 }
 
-static scr_bool
+scr_bool
 lib_input_contains_word_400 (const scr_char *input, const scr_char *word)
 {
   return lib_input_contains_word_ended (input, word, " ,.?");
