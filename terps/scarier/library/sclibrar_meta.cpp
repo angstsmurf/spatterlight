@@ -401,7 +401,7 @@ lib_format_elapsed_time (scr_int timestamp, scr_char *buffer, size_t length)
 
   /* Separate the timestamp out into components. */
   hr = timestamp / SECS_PER_HOUR;
-  min = (timestamp % SECS_PER_HOUR) / MINS_PER_HOUR;
+  min = (timestamp % SECS_PER_HOUR) / SECS_PER_MINUTE;
   sec = timestamp % SECS_PER_MINUTE;
 
   if (hr > 0)
@@ -809,7 +809,7 @@ lib_cmd_help (scr_gameref_t game)
   if_print_string (", and ");
   lib_print_string_italics ("Quit");
   if_print_string (
-    " commands to save and restore games, undo a move, and leave the "
+    " commands to save and restore games, undo a move, and leave the"
     " game.  Use ");
   lib_print_string_italics ("History");
   if_print_string (" and ");
@@ -846,7 +846,8 @@ lib_cmd_license (scr_gameref_t game)
   lib_print_string_bold ("SCARIER");
   if_print_string (" is ");
   lib_print_string_italics (
-    "Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford");
+    "Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford,"
+    " Copyright (C) 2026  Petter Sj\xf6lund");
   if_print_string (".\n\n");
 
   if_print_string (
@@ -870,8 +871,8 @@ lib_cmd_license (scr_gameref_t game)
     " Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301"
     " USA\n\n");
 
-  if_print_string ("Please report any bugs, omissions, or misfeatures to ");
-  lib_print_string_italics ("simon_baldwin@yahoo.com");
+  if_print_string ("Please report any bugs, omissions, or misfeatures at ");
+  lib_print_string_italics ("https://github.com/angstsmurf/spatterlight/issues");
   if_print_string (".\n");
 
   game->is_admin = TRUE;

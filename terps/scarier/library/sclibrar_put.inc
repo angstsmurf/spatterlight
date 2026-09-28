@@ -1820,7 +1820,6 @@ lib_cmd_put_all_on (scr_gameref_t game)
  */
 static scr_bool lib_cmd_unclear_object (scr_gameref_t game);
 static scr_bool lib_is_put_where_line_400 (scr_gameref_t game);
-scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 
 static scr_bool
 lib_put_fragment_names_nothing (scr_gameref_t game)
@@ -1946,8 +1945,6 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * 3.7 and 3.8 keep what they had.
  */
 static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
-static void lib_put_sweep_390 (scr_gameref_t game, const scr_char *input,
-                               size_t from);
 
 /*
  * lib_put_refusal_first_390()
@@ -3236,7 +3233,6 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  * line whose whole-word preposition is followed by an object name is left to
  * the ordinary rows.
  */
-static scr_bool lib_put_on_is_valid (scr_gameref_t game, scr_int supporter);
 
 static scr_int
 lib_put_target_390 (scr_gameref_t game, const scr_char *line)
@@ -3625,10 +3621,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
    */
   verb = LIB_PUT_ON_VERB;
   if (is_pre_390)
-    {
-      verb.onto = " on ";
-      verb.raw_prefix_pre_390 = is_all_form;
-    }
+    verb.onto = " on ";
 
   lib_move_backend (game, &verb, supporter, has_printed);
 

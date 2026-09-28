@@ -47,36 +47,6 @@ scr_bool lib_trace = FALSE;
 
 
 /*
- * lib_warn_battle_system()
- *
- * Display a warning when the battle system is detected in a game.  Print
- * directly rather than using the printfilter to avoid possible clashes
- * with ALRs.
- */
-void
-lib_warn_battle_system (void)
-{
-  if_print_tag (SCR_TAG_FONT, "size=16");
-  if_print_string ("SCARIER WARNING");
-  if_print_tag (SCR_TAG_ENDFONT, "");
-
-  if_print_string (
-    "\n\nThe game uses Adrift's Battle System, something not fully supported"
-    " by this release of SCARIER.\n\n");
-
-  if_print_string (
-    "SCARIER will still run the game, but it will not create character"
-    " battles where they would normally occur.  For some games, this may"
-    " be perfectly okay, as the Battle System is sometimes turned on"
-    " by accident in a game, but never actually used.  For others, though,"
-    " the omission of this feature may be more serious.\n\n");
-
-  if_print_string ("Please press a key to continue...\n\n");
-  if_print_tag (SCR_TAG_WAITKEY, "");
-}
-
-
-/*
  * lib_random_roomgroup_member()
  *
  * Return a random member of a roomgroup.

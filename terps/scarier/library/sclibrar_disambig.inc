@@ -123,10 +123,6 @@ lib_which_head (scr_gameref_t game, const scr_char *head,
  * every version (deliberate deviation), so the pick is a record only.
  */
 
-scr_int lib_disambiguate_npc_pick (scr_gameref_t game,
-                                          const scr_char *verb,
-                                          scr_bool *is_ambiguous,
-                                          scr_int pick);
 
 scr_int
 lib_disambiguate_npc (scr_gameref_t game,
@@ -1070,7 +1066,6 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
 }
 
 static void lib_battle_who_store (const std::string &pending);
-static void lib_with_prefix_390_note (scr_gameref_t game);
 
 scr_bool
 lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
@@ -1409,13 +1404,6 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * `chop tree and chop tree and chop tree` prints nothing for its third
  * element at all -- see lib_co_400_raise_for_short_tie().
  */
-static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
-scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
-                                           const scr_char *input);
-scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
-                                                   const scr_char *input,
-                                                   std::vector<scr_int> *tied,
-                                                   scr_bool present_only);
 
 /* The open question, and the object an answer resolved it to. */
 static scr_bool lib_co_400_pending = FALSE;
@@ -1872,12 +1860,6 @@ lib_with_half_tied_400 (scr_gameref_t game, const scr_char *half,
   return object;
 }
 
-static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
-                                            const scr_char *input,
-                                            scr_int mode, scr_int *pending,
-                                            scr_int *last_tied,
-                                            std::vector<scr_int> *marked,
-                                            scr_int *mark_count);
 static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
                                                 scr_int object,
                                                 const scr_char *input,
@@ -2004,23 +1986,8 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
  * shed` ends on "The hut or the shed?" again, the list 48B6FF compares, so
  * "That is still ambiguous!".
  */
-static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
-                                            const scr_char *input,
-                                            scr_int mode, scr_int *pending,
-                                            scr_int *last_tied,
-                                            std::vector<scr_int> *marked,
-                                            scr_int *mark_count);
-static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
-                                                scr_int object,
-                                                const scr_char *input,
-                                                scr_bool last_alias);
-static const scr_char *lib_co_400_name_word (scr_gameref_t game,
-                                             scr_int object,
-                                             const scr_char *input);
 static scr_int lib_co_400_present_namesakes (scr_gameref_t game,
                                              const scr_char *word);
-scr_int lib_examine_referencedob_400 (scr_gameref_t game,
-                                             const scr_char *input);
 static scr_int lib_examine_referencedob_ex_400 (scr_gameref_t game,
                                                 const scr_char *input,
                                                 scr_bool crowd_contest);
@@ -2954,22 +2921,8 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * resolved into just one object.  The resolver function can normally be the
  * same as the function used to filter objects for multiple references.
  */
-scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
-                               scr_int object, scr_int mode);
-scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 /* The container mode 4 admits from; see lib_resolve_admit_parent(). */
 static scr_int lib_resolve_parent_400 = -1;
-static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
-                                            const scr_char *input,
-                                            scr_int mode,
-                                            scr_int *pending,
-                                            scr_int *last_tied,
-                                            std::vector<scr_int> *marked,
-                                            scr_int *mark_count);
-static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
-                                                scr_int object,
-                                                const scr_char *input,
-                                                scr_bool last_alias);
 
 /*
  * lib_co_note_line_top()

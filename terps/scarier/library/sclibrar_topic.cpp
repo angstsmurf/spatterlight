@@ -159,7 +159,6 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
 }
 
 
-const scr_char *lib_ask_format_subject (scr_gameref_t game);
 
 /*
  * lib_ask_npc_about()
@@ -264,8 +263,6 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 }
 
 static void lib_print_npc_no_response (scr_gameref_t game, scr_int npc);
-scr_bool lib_npc_named_in_line (scr_gameref_t game, scr_int npc,
-                                       const scr_char *input);
 
 static scr_bool
 lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,

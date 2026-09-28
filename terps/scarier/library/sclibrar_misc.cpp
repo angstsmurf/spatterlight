@@ -1359,7 +1359,6 @@ lib_cmd_sleep (scr_gameref_t game)
  * and '... [subject]".' (run380x Adrift_199_pnpcwith38).  The last character
  * named wins, as for lib_cmd_talk_to_npc().
  */
-const scr_char *lib_ask_format_subject (scr_gameref_t game);
 
 static scr_bool
 lib_talk_hint_anywhere_pre390 (scr_gameref_t game)

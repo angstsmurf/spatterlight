@@ -532,10 +532,6 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  */
 scr_bool lib_go_place_off = FALSE;
 
-scr_bool lib_co_contains (const scr_char *command, const scr_char *term);
-scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
-                                  scr_vartype_t *vt_key,
-                                  const scr_char *category, scr_int index);
 
 /*
  * lib_command_slot_370()

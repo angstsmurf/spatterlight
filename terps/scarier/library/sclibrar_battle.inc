@@ -960,20 +960,6 @@ static const struct
   {"throw", 5}, {NULL, 0}
 };
 
-/* var_90's index in LIB_BATTLE_VERBS, or -1 when the line holds none. */
-static scr_int
-lib_battle_line_verb_index (const scr_char *input)
-{
-  scr_int verb_index;
-
-  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
-    {
-      if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
-        return verb_index;
-    }
-  return -1;
-}
-
 /* Case-insensitive InStr, 1-based, 0 for no hit. */
 static scr_int
 lib_battle_instr (const scr_char *input, const scr_char *word)
@@ -1131,9 +1117,6 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
   return FALSE;
 }
 
-scr_int lib_verb_object_name_score (scr_gameref_t game,
-                                           scr_int object,
-                                           const scr_char *input);
 
 /*
  * lib_battle_who_*()
@@ -2011,50 +1994,33 @@ lib_cmd_attack_npc_with (scr_gameref_t game)
  * `smack` and `strike` are synonyms at no version: neither literal occurs
  * anywhere in run370.bas, run380.bas, run390 Form1.frm or run400.bas.
  */
-static scr_bool
-lib_slap_declines (scr_gameref_t game)
-{
-  (void) game;
-  return FALSE;
-}
-
 scr_bool
 lib_cmd_slap_npc (scr_gameref_t game)
 {
-  if (lib_slap_declines (game))
-    return FALSE;
   return lib_cmd_hit_npc (game);
 }
 
 scr_bool
 lib_cmd_slap_npc_with (scr_gameref_t game)
 {
-  if (lib_slap_declines (game))
-    return FALSE;
   return lib_cmd_hit_npc_with (game);
 }
 
 scr_bool
 lib_cmd_slap_object (scr_gameref_t game)
 {
-  if (lib_slap_declines (game))
-    return FALSE;
   return lib_cmd_hit_object (game);
 }
 
 scr_bool
 lib_cmd_slap_other (scr_gameref_t game)
 {
-  if (lib_slap_declines (game))
-    return FALSE;
   return lib_cmd_hit_other (game);
 }
 
 scr_bool
 lib_cmd_slap_what (scr_gameref_t game)
 {
-  if (lib_slap_declines (game))
-    return FALSE;
   return lib_cmd_hit_what (game);
 }
 

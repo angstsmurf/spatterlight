@@ -32,7 +32,6 @@ typedef struct
   const scr_char *does[3];    /* "You drop ", and so on */
   const scr_char *lacks[3];   /* "You are not holding ", and so on */
   scr_char lacks_end;         /* Terminator for the "not holding" list */
-  scr_bool raw_prefix_pre_390;/* Print the authored prefix below 3.9 */
   /*
    * Below 3.9 the leftovers are not a list at all.  run380's drops()
    * (@438DD5-438E13) and its remove handler (@430076-4300C8) each walk the
@@ -80,7 +79,7 @@ static const lib_move_verb_t LIB_DROP_VERB = {
   lib_move_to_room, NULL,
   {"You drop ", "I drop ", "%player% drop "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.', FALSE,
+  '.',
   /* run380 @438E13: `MemVar_44F108(0) & " don't have " & ...` -- the
    * third-person form really is "<name> don't have". */
   {"You don't have ", "I don't have ", "%player% don't have "}, '!', TRUE
@@ -90,7 +89,7 @@ static const lib_move_verb_t LIB_REMOVE_VERB = {
   lib_move_to_player, NULL,
   {"You remove ", "I remove ", "%player% remove "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
-  '!', TRUE,
+  '!',
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "}, '!',
   FALSE
 };
@@ -99,7 +98,7 @@ static const lib_move_verb_t LIB_PUT_ON_VERB = {
   lib_move_onto, " onto ",
   {"You put ", "I put ", "%player% put "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.', FALSE,
+  '.',
   {NULL, NULL, NULL}, '.', FALSE
 };
 
@@ -181,9 +180,9 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                         verb->does[1],
                         verb->does[2]);
       /*
-       * raw_prefix_pre_390 records the Runner's pre-3.9 raw-prefix report
-       * ("You remove a grubby sweatshirt."); Scarier deliberately names the
-       * object definitely here in every version (deviation policy, see
+       * The Runner's pre-3.9 report uses the authored prefix ("You remove
+       * a grubby sweatshirt."); Scarier deliberately names the object
+       * definitely here in every version (deviation policy, see
        * lib_print_object_raw).
        */
       lib_print_list (game, list, lib_print_object_np, " and ");
@@ -378,9 +377,6 @@ lib_cmd_drop_all (scr_gameref_t game)
 }
 
 
-scr_int lib_verb_object_name_score (scr_gameref_t game,
-                                           scr_int object,
-                                           const scr_char *input);
 static std::string::size_type lib_put_split_400 (scr_gameref_t game,
                                                  const std::string &line,
                                                  scr_bool has_all,
@@ -1239,9 +1235,6 @@ lib_cmd_leave_multiple_pre400 (scr_gameref_t game)
 
 
 static void lib_question_prefix_from_line (scr_gameref_t game);
-scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
-scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
-                                    const scr_char *input);
 
 /*
  * 4.0's give NPC loop (488AE8-488B5C) walks every character for a present,

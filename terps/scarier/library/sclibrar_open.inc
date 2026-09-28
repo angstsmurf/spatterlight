@@ -20,10 +20,9 @@
  * "with" clauses, open, close, lock and unlock.
  */
 
-scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
-                                                   const scr_char *input,
-                                                   std::vector<scr_int> *tied,
-                                                   scr_bool present_only);
+/* Defined in the later fragments sclibrar_battle.inc and sclibrar_refuse.inc. */
+static void lib_with_prefix_390_note (scr_gameref_t game);
+static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
 
 /*
  * lib_with_clause_400()
@@ -851,8 +850,6 @@ typedef struct
   scr_int required_openness;      /* Openness the verb acts on */
   scr_int new_openness;           /* Openness it leaves behind */
   const scr_char *verb;           /* "lock", for disambiguation */
-  const scr_char *verb_with;      /* "lock that with", ditto */
-  const scr_char *prompt;         /* Asked when no key was referenced */
   const scr_char *nothing_to;     /* " anything to lock " */
   const scr_char *wrong_state[2]; /* Singular and plural state refusal */
   const scr_char *cant[3];        /* "You can't lock ", and so on */
@@ -861,8 +858,7 @@ typedef struct
 
 static const lib_lock_verb_t LIB_UNLOCK_VERB = {
   OBJ_LOCKED, OBJ_CLOSED,
-  "unlock", "unlock that with",
-  "What do you want to unlock that with?\n",
+  "unlock",
   " anything to unlock ",
   {" is not locked!\n", " are not locked!\n"},
   {"You can't unlock ", "I can't unlock ", "%player% can't unlock "},
@@ -871,8 +867,7 @@ static const lib_lock_verb_t LIB_UNLOCK_VERB = {
 
 static const lib_lock_verb_t LIB_LOCK_VERB = {
   OBJ_CLOSED, OBJ_LOCKED,
-  "lock", "lock that with",
-  "What do you want to lock that with?\n",
+  "lock",
   " anything to lock ",
   {" is already locked!\n", " are already locked!\n"},
   {"You can't lock ", "I can't lock ", "%player% can't lock "},
@@ -1137,44 +1132,28 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    */
   if (with_key && !absent_400)
     {
-      if (!lib_is_version_400 (game))
-        {
-          const scr_var_setref_t vars = gs_get_vars (game);
+      /*
+       * A present object reads its key out of the " with " half exactly
+       * as the absent arm above does -- openclose scores that text with
+       * 463640 (475CB0) and never consults the parser's references, so
+       * a half that names nothing AND a half that ties both leave var_88
+       * at -1 and take the keyless branch, silently.  p4WTIE (run400,
+       * Adrift_wtie3/4/5, 2026-09-20): with the coin as the box's key,
+       * `unlock box with stone` and `unlock box with gems` -- two "stone"
+       * Shorts, two "gems" aliases -- are "You unlock the box with the
+       * coin." just like `unlock box with zzz`, and `lock box with stone`
+       * is the lock twin.  A half that resolves to the wrong object is
+       * still the flat "You can't unlock the box with the knife.".  So
+       * 4.0 asks nothing here, and SCARE's old "<verb> that with what?"
+       * prompt -- in no Runner's string pool -- is gone: sswhore's
+       * `unlock drawer with key` invented it.
+       */
+      const scr_char *input = run_get_dispatch_input ();
+      const scr_char *tail = input ? strstr (input, " with ") : NULL;
 
-          if (!uip_match ("%object%", var_get_ref_text (vars), game))
-            {
-              pf_buffer_string (filter, verb->prompt);
-              return TRUE;
-            }
-          key = lib_disambiguate_object (game, verb->verb_with, NULL);
-          if (key == -1)
-            return TRUE;
-        }
-      else
-        {
-          /*
-           * A present object reads its key out of the " with " half exactly
-           * as the absent arm above does -- openclose scores that text with
-           * 463640 (475CB0) and never consults the parser's references, so
-           * a half that names nothing AND a half that ties both leave var_88
-           * at -1 and take the keyless branch, silently.  p4WTIE (run400,
-           * Adrift_wtie3/4/5, 2026-09-20): with the coin as the box's key,
-           * `unlock box with stone` and `unlock box with gems` -- two "stone"
-           * Shorts, two "gems" aliases -- are "You unlock the box with the
-           * coin." just like `unlock box with zzz`, and `lock box with stone`
-           * is the lock twin.  A half that resolves to the wrong object is
-           * still the flat "You can't unlock the box with the knife.".  So
-           * 4.0 asks nothing here, and SCARE's old "<verb> that with what?"
-           * prompt -- in no Runner's string pool -- is gone: sswhore's
-           * `unlock drawer with key` invented it.
-           */
-          const scr_char *input = run_get_dispatch_input ();
-          const scr_char *tail = input ? strstr (input, " with ") : NULL;
-
-          key = tail ? lib_with_half_400 (game, tail + 6) : -1;
-          if (key < 0)
-            with_key = FALSE;
-        }
+      key = tail ? lib_with_half_400 (game, tail + 6) : -1;
+      if (key < 0)
+        with_key = FALSE;
     }
 
   /* React to the request based on openness state. */

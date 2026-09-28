@@ -1752,7 +1752,7 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
 
 
 /*
- * lib_take_from_line_370()
+ * run370's insides() gate -- a deliberate deviation.
  *
  * run370's insides() is entered only by a line holding c("get") and
  * c("from"), or c("remove") and c("from") (43A745) -- run380's gate
@@ -1764,18 +1764,12 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
  * box." while `take gem` and `pick up gem` are "Take what?", and a nut in a
  * held bag is "You get a nut from the bag." for `get nut` and "Take what?"
  * for `take nut` (p37TFSW, run370x Adrift_189_ptfsw3_37.rtf, 2026-09-19).
- * TRUE if the typed line would reach insides().
  *
- * Deliberate deviation: Scarier gives 3.7 run380's gate, so `take gem from
- * box`, `take nut` from a held bag and `empty bag` work there as they do at
- * 3.8.  Always TRUE; the 3.7 branches that test it are kept for the record.
+ * Scarier gives 3.7 run380's gate instead, so `take gem from box`, `take
+ * nut` from a held bag and `empty bag` work there as they do at 3.8, and
+ * nothing in the take, take-from or take-from-character paths tests the
+ * line's verb.  This note is the record of what run370 did.
  */
-static scr_bool
-lib_take_from_line_370 (scr_gameref_t game)
-{
-  (void) game;
-  return TRUE;
-}
 
 
 /*
@@ -1802,7 +1796,7 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * run380's takes() rewrite of a plain "take X" into "take X from
    * <parent>" (loc_43E47B; see lib_take_container_unheld).  run370 has the
    * same rewrite (4368C4), but its insides() only takes a get or remove
-   * line (lib_take_from_line_370), so for take or pick up a bare take
+   * line (see the run370 insides() note above), so for take or pick up a bare take
    * naming something that sits in or on another object names nothing at all
    * and falls to the catch-all.  Measured on the same turn of two probes,
    * `take coin` with the coin inside an open box standing on the cave
@@ -1813,11 +1807,6 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * is untouched -- run370 plays `get coin from box` perfectly well
    * (Adrift_986:27) and applies the same hold gate to it (Adrift_987:18).
    */
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
-      && !lib_take_from_line_370 (game))
-    return obj_directly_in_room (game, object, gs_playerroom (game))
-           && !obj_is_static (game, object);
-
   return obj_indirectly_in_room (game, object, gs_playerroom (game))
          && !obj_is_static (game, object)
          && !(gs_object_position (game, object) == OBJ_HELD_PLAYER
@@ -3497,9 +3486,6 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * hat!" at 3.8 (cmdfile_p2give.txt cell 5, Adrift_269_3g37.rtf,
  * 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt, 2026-09-21).
  */
-scr_int lib_npc_find_topic (scr_gameref_t game, scr_int npc);
-scr_bool lib_npc_reply_to (scr_gameref_t game, scr_int npc,
-                                  scr_int topic);
 
 /*
  * lib_take_ask_overwrite_400()
@@ -3574,7 +3560,6 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 }
 
 
-scr_int lib_player_parent_here (scr_gameref_t game);
 
 /*
  * lib_take_multiple_common()
@@ -3793,39 +3778,6 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
           break;
       if (line && target < gs_object_count (game)
           && !lib_take_co_pre400 (game, line, target))
-        {
-          gs_clear_multiple_references (game);
-          return FALSE;
-        }
-    }
-
-  /*
-   * 3.7 has no bare take that reaches inside anything, unless the line says
-   * get; see lib_take_filter.
-   * Drop what the noun named in or on another object -- run370's takes()
-   * never had it as a candidate -- and, if that empties the line, decline
-   * the row so it falls to the catch-all the Runner reaches: `take coin`
-   * with the coin in an open box on the floor answers "Take what?"
-   * (p37DARK, Adrift_987:48 / Adrift_988:41, 2026-09-12).
-   */
-  if (!is_except
-      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
-      && !lib_take_from_line_370 (game))
-    {
-      scr_int index_;
-
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          if (!game->multiple_references[index_])
-            continue;
-          if (gs_object_position (game, index_) != OBJ_IN_OBJECT
-              && gs_object_position (game, index_) != OBJ_ON_OBJECT)
-            continue;
-          game->multiple_references[index_] = FALSE;
-          references--;
-        }
-
-      if (references == 0)
         {
           gs_clear_multiple_references (game);
           return FALSE;

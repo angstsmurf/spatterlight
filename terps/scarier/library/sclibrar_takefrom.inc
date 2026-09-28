@@ -301,9 +301,10 @@ lib_take_from_empty_verb (scr_gameref_t game)
  * understand what you want me to do with the coin." and `get all from
  * stone` "... with the stone." (p37TFSW, run370x Adrift_185_ptfsw_37.rtf,
  * 2026-09-19), where run380 says "You can't take anything from the stone!".
- * A line without get or remove never reaches insides() at all
- * (lib_take_from_line_370), so it gets the same catch-all whatever the
- * source is.  An object the player has not been shown is "What <Short>?",
+ * A line without get or remove never reaches insides() at all, so it gets
+ * the same catch-all whatever the source is -- a gate Scarier deliberately
+ * does not apply (see the run370 insides() note in sclibrar_take.inc).  An
+ * object the player has not been shown is "What <Short>?",
  * as in lib_cmd_verb_object().  TRUE once this has answered; FALSE for any
  * other version or object.
  */
@@ -316,7 +317,7 @@ lib_take_from_answer_370 (scr_gameref_t game, scr_int associate)
   scr_int object;
 
   if (prop_get_taf_version (bundle) >= TAF_VERSION_380
-      || (lib_take_from_line_370 (game) && associate >= 0
+      || (associate >= 0
           && (obj_is_container (game, associate)
               || obj_is_surface (game, associate))))
     return FALSE;
@@ -658,17 +659,13 @@ lib_take_from_and_line (scr_gameref_t game)
 static scr_bool
 lib_take_from_slot_pre390 (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_int version = prop_get_taf_version (bundle);
   const scr_char *line = run_get_dispatch_input ();
   scr_int object, count, slot, slot_lowest, any;
   scr_bool is_and, is_all;
 
   if (!line)
     return FALSE;
-  if (version < TAF_VERSION_380 && !lib_take_from_line_370 (game))
-    return lib_take_from_answer_370 (game, -1);
 
   count = 0;
   slot = -1;
@@ -1451,10 +1448,12 @@ lib_take_from_npc_filter (scr_gameref_t game, scr_int object, scr_int associate)
  * Adrift_194, run380x Adrift_195), and with Ann and Bob both guards here and
  * Cora a third, `take stone from guard` is Cora's too (Adrift_192,
  * Adrift_193_pnpcamb37b).  At 3.7 a line without get or remove never
- * reaches insides() (lib_take_from_line_370), so the take arm's answer
- * stands: `take stone from dave` is "I don't think   would appreciate being
- * handled." (Adrift_194).  3.9 picks the last PRESENT character instead
- * ("Bob is not carrying the stone!", Adrift_193_pnpcamb39).
+ * reaches insides(), so the take arm's answer stands: `take stone from
+ * dave` is "I don't think   would appreciate being handled." (Adrift_194);
+ * Scarier deliberately gives 3.7 run380's gate there (see the run370
+ * insides() note in sclibrar_take.inc).  3.9 picks the last PRESENT
+ * character instead ("Bob is not carrying the stone!",
+ * Adrift_193_pnpcamb39).
  *
  * TRUE once this has answered.  Otherwise *npc is the character to take
  * from, or -1 to leave it to lib_disambiguate_npc_pick().
@@ -1473,12 +1472,6 @@ lib_take_from_npc_pre390 (scr_gameref_t game, scr_int *npc)
     return TRUE;
 
   var_set_ref_character (gs_get_vars (game), *npc);
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
-      && !lib_take_from_line_370 (game))
-    {
-      lib_print_take_npc_refusal (game, *npc);
-      return TRUE;
-    }
   return FALSE;
 }
 
