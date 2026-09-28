@@ -1065,23 +1065,21 @@ run_runner_resource_draws (scr_prop_setref_t bundle,
                             "GraphicEmbedded");
 }
 
+/*
+ * run_runner_event_draws()
+ *
+ * The event starts every Runner draws while loading (run390 46616F/4661BF,
+ * run400 491628/491678): for each event with a random starter, one DRAW
+ * between Time1 and Time2 (StarterType 1, the load time) or between
+ * StartTime and EndTime (StarterType 2, the start time).
+ */
 static void
-run_runner_legacy_load_draws (scr_gameref_t game)
+run_runner_event_draws (scr_gameref_t game,
+                        scr_int (*draw) (scr_int lo, scr_int hi))
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   scr_int index_;
-
-  /*
-   * A 3.9 game draws NOTHING from the game stream while loading: run390
-   * seeds with Timer only at the end of openadv (467013), after the codec's
-   * `Randomize 1976`, so its event starts (46616F/4661BF, the same formulas
-   * as run400's) and Speed 1 attack counters (466A43) come from the codec's
-   * own LCG, continued from the last file byte -- deterministic, and replayed
-   * here from the decoder's state (taf_runtime_rnd).  Events are read before
-   * NPCs.  No temp-file draw, no stamina draws, no embedded resources.
-   */
-  taf_runtime_rnd_reset ();
 
   for (index_ = 0; index_ < gs_event_count (game); index_++)
     {
@@ -1099,9 +1097,7 @@ run_runner_legacy_load_draws (scr_gameref_t game)
           lo = prop_get_integer (bundle, "I<-sis", vt_key);
           vt_key[2].string = "Time2";
           hi = prop_get_integer (bundle, "I<-sis", vt_key);
-          gs_set_event_loadtime (game, index_,
-                                 lo + (scr_int) floor (scr_vb_rnd ()
-                                                       * (hi - lo)));
+          gs_set_event_loadtime (game, index_, draw (lo, hi));
           break;
 
         case 2:
@@ -1109,16 +1105,36 @@ run_runner_legacy_load_draws (scr_gameref_t game)
           lo = prop_get_integer (bundle, "I<-sis", vt_key);
           vt_key[2].string = "EndTime";
           hi = prop_get_integer (bundle, "I<-sis", vt_key);
-          gs_set_event_time (game, index_,
-                             lo + (scr_int) floor (scr_vb_rnd ()
-                                                   * (hi - lo)));
+          gs_set_event_time (game, index_, draw (lo, hi));
           break;
 
         default:
           break;
         }
     }
+}
 
+/* Int(Rnd * (hi - lo)) + lo, from the codec's LCG; see below. */
+static scr_int
+run_legacy_event_draw (scr_int lo, scr_int hi)
+{
+  return lo + (scr_int) floor (scr_vb_rnd () * (hi - lo));
+}
+
+static void
+run_runner_legacy_load_draws (scr_gameref_t game)
+{
+  /*
+   * A 3.9 game draws NOTHING from the game stream while loading: run390
+   * seeds with Timer only at the end of openadv (467013), after the codec's
+   * `Randomize 1976`, so its event starts (46616F/4661BF, the same formulas
+   * as run400's) and Speed 1 attack counters (466A43) come from the codec's
+   * own LCG, continued from the last file byte -- deterministic, and replayed
+   * here from the decoder's state (taf_runtime_rnd).  Events are read before
+   * NPCs.  No temp-file draw, no stamina draws, no embedded resources.
+   */
+  taf_runtime_rnd_reset ();
+  run_runner_event_draws (game, run_legacy_event_draw);
   battle_preroll_legacy (game);
 }
 
@@ -1147,38 +1163,7 @@ run_runner_load_draws (scr_gameref_t game)
   battle_preroll_player_stamina (game);
 
   /* 491628 / 491678: event starts. */
-  for (index_ = 0; index_ < gs_event_count (game); index_++)
-    {
-      scr_int startertype, lo, hi;
-
-      vt_key[0].string = "Events";
-      vt_key[1].integer = index_;
-      vt_key[2].string = "StarterType";
-      startertype = prop_get_integer (bundle, "I<-sis", vt_key);
-
-      switch (startertype)
-        {
-        case 1:
-          vt_key[2].string = "Time1";
-          lo = prop_get_integer (bundle, "I<-sis", vt_key);
-          vt_key[2].string = "Time2";
-          hi = prop_get_integer (bundle, "I<-sis", vt_key);
-          gs_set_event_loadtime (game, index_,
-                                 scr_randomint_exclusive (lo, hi));
-          break;
-
-        case 2:
-          vt_key[2].string = "StartTime";
-          lo = prop_get_integer (bundle, "I<-sis", vt_key);
-          vt_key[2].string = "EndTime";
-          hi = prop_get_integer (bundle, "I<-sis", vt_key);
-          gs_set_event_time (game, index_, scr_randomint_exclusive (lo, hi));
-          break;
-
-        default:
-          break;
-        }
-    }
+  run_runner_event_draws (game, scr_randomint_exclusive);
 
   /* 4920B1: NPC stamina. */
   battle_preroll_npc_stamina (game);

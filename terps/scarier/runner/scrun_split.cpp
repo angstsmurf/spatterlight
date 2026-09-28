@@ -427,3 +427,23 @@ run_squeeze_spaces (const scr_char *string, scr_char *buffer)
     }
   *out = NUL;
 }
+
+
+/*
+ * run_instr()
+ *
+ * Case-insensitive InStr: the offset of the first WORD in LINE, or -1.
+ */
+scr_int
+run_instr (const scr_char *line, const scr_char *word)
+{
+  const size_t length = strlen (word);
+  const scr_char *scan;
+
+  for (scan = line; *scan != NUL; scan++)
+    {
+      if (scr_strncasecmp (scan, word, length) == 0)
+        return scan - line;
+    }
+  return -1;
+}

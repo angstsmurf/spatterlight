@@ -1364,7 +1364,7 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
 }
 
 /*
- * run_replace_all()
+ * run_normalise_put_line()
  * run_unnamed_put_fragment()
  *
  * Rebuild the command line run400's put_drop_list leaves behind when the
@@ -1384,31 +1384,15 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
  * example of either: the word after its " and " is "put", not an object, so
  * the top-level splitter cuts it into two commands (run_find_split_400()).
  */
-static std::string
-run_replace_all (const std::string &string,
-                 const scr_char *from, const scr_char *to)
-{
-  const std::string pattern (from), replacement (to);
-  std::string result = string;
-  std::string::size_type at = 0;
-
-  while ((at = result.find (pattern, at)) != std::string::npos)
-    {
-      result.replace (at, pattern.length (), replacement);
-      at += replacement.length ();
-    }
-  return result;
-}
-
 std::string
 run_normalise_put_line (const scr_char *string)
 {
   std::string line (string);
 
-  line = run_replace_all (line, "drop ", "put ");
-  line = run_replace_all (line, "inside", "in");
-  line = run_replace_all (line, "into", "in");
-  line = run_replace_all (line, "onto", "on");
+  run_replace_all (line, "drop ", "put ");
+  run_replace_all (line, "inside", "in");
+  run_replace_all (line, "into", "in");
+  run_replace_all (line, "onto", "on");
   return line;
 }
 
@@ -1780,6 +1764,20 @@ run_c_word_pre400 (scr_int version, const scr_char *line, const scr_char *word)
   return -1;
 }
 
+/*
+ * run_c_word()
+ *
+ * c(word) at any version: 4.0's whole-word test (lib_input_contains_word())
+ * or the pre-4.0 first-hit rule above.
+ */
+scr_bool
+run_c_word (scr_int version, const scr_char *line, const scr_char *word)
+{
+  return version >= TAF_VERSION_400
+         ? lib_input_contains_word (line, word)
+         : run_c_word_pre400 (version, line, word) >= 0;
+}
+
 
 /* In therest() order; '?' marks an arm that needs an empty message. */
 static const scr_char *const THEREST_ARMS_380[] = {
@@ -2068,9 +2066,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
   const scr_char *const *word;
   const auto has_word = [&] (const scr_char *what) -> scr_bool
     {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (string, what)
-             : run_c_word_pre400 (version, string, what) >= 0;
+      return run_c_word (version, string, what);
     };
 
   if (game->pending_endgame != 0 || !has_word ("score")
@@ -2147,9 +2143,7 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
   const scr_char *const *word;
   const auto has_word = [&] (const scr_char *what) -> scr_bool
     {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (string, what)
-             : run_c_word_pre400 (version, string, what) >= 0;
+      return run_c_word (version, string, what);
     };
 
   if (game->pending_endgame != 0 || !has_word ("wait"))

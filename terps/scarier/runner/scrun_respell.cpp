@@ -224,9 +224,7 @@ run_goto_line_class (scr_gameref_t game, const scr_char *line)
 
   const auto has_word = [&] (const scr_char *w) -> scr_bool
     {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (line, w)
-             : run_c_word_pre400 (version, line, w) >= 0;
+      return run_c_word (version, line, w);
     };
   const auto any = [&] (const scr_char *const *words) -> scr_bool
     {
@@ -554,22 +552,6 @@ run_battle_respell (scr_gameref_t game, const scr_char *line, scr_int kind,
   return rest.empty () ? std::string (head) : std::string (head) + " " + rest;
 }
 
-/* Case-insensitive InStr, 0-based, -1 for no hit. */
-static scr_int
-run_battle_instr (const scr_char *line, const scr_char *word)
-{
-  const size_t length = strlen (word);
-  const scr_char *scan;
-
-  for (scan = line; *scan != NUL; scan++)
-    {
-      if (scr_strncasecmp (scan, word, length) == 0)
-        return scan - line;
-    }
-  return -1;
-}
-
-
 /* The standard rows' answer to LINE, taken back out of the buffer. */
 static std::string
 run_battle_answer (scr_gameref_t game, const std::string &line)
@@ -703,7 +685,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
     answer = run_battle_answer (game, std::string ("talk to ") + name);
   if (name && (kinds & RUN_BATTLE_ASK)
       && (version >= TAF_VERSION_400
-          || run_battle_instr (typed, name) == 4))
+          || run_instr (typed, name) == 4))
     {
       const scr_int about = run_c_word_pre400 (version, typed, "about");
       std::string line = std::string ("ask ") + name;

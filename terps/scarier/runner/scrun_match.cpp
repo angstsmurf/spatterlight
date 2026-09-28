@@ -527,7 +527,7 @@ run_line_names_word (const std::string &line, const scr_char *name)
 
 /* Put WITH in place of every FIND in TEXT, the way VB's Replace() with a
    count of -1 does. */
-static void
+void
 run_replace_all (std::string &text, const scr_char *find,
                  const scr_char *with)
 {
@@ -2182,20 +2182,6 @@ run_set_task_class_filter (scr_int mode)
 }
 
 static scr_bool
-run_pattern_contains (const scr_char *pattern, const scr_char *word)
-{
-  const size_t length = strlen (word);
-  const scr_char *cursor;
-
-  for (cursor = pattern; *cursor; cursor++)
-    {
-      if (scr_strncasecmp (cursor, word, length) == 0)
-        return TRUE;
-    }
-  return FALSE;
-}
-
-static scr_bool
 run_task_passes_class_filter (scr_gameref_t game, scr_int task)
 {
   static const scr_char *const TAKE_WORDS[] = { "get", "take", "pick" };
@@ -2217,9 +2203,9 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
         is_take = is_put = TRUE;
       for (index_ = 0; index_ < 3; index_++)
         {
-          if (run_pattern_contains (pattern, TAKE_WORDS[index_]))
+          if (run_instr (pattern, TAKE_WORDS[index_]) >= 0)
             is_take = TRUE;
-          if (run_pattern_contains (pattern, PUT_WORDS[index_]))
+          if (run_instr (pattern, PUT_WORDS[index_]) >= 0)
             is_put = TRUE;
         }
     }

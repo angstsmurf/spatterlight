@@ -202,6 +202,7 @@ extern scr_int run_find_split_400 (scr_gameref_t game, const scr_char *line,
                                    scr_int *sep_length);
 extern scr_int run_get_version (const scr_prop_setref_t bundle);
 extern void run_squeeze_spaces (const scr_char *string, scr_char *buffer);
+extern scr_int run_instr (const scr_char *line, const scr_char *word);
 
 /* scrun_respell.cpp */
 extern scr_int run_goto_line_class (scr_gameref_t game, const scr_char *line);
@@ -232,6 +233,8 @@ extern scr_bool run_standard_commands (scr_gameref_t game,
 /* scrun_match.cpp */
 extern const std::vector<const scr_char *> &
 run_task_command_patterns (scr_gameref_t game, scr_int task, scr_bool forwards);
+extern void run_replace_all (std::string &text, const scr_char *find,
+                             const scr_char *with);
 extern scr_bool run_any_task_ran_this_command (void);
 extern void run_restriction_cache_task_pick (scr_gameref_t game,
                                              const scr_char *string);

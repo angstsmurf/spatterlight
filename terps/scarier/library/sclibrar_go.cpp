@@ -605,9 +605,7 @@ lib_goto_line_enters (scr_gameref_t game, const scr_char *input)
 
   const auto has_word = [&] (const scr_char *word) -> scr_bool
     {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (line.c_str (), word)
-             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
+      return run_c_word (version, line.c_str (), word);
     };
 
   if (version >= TAF_VERSION_390)
@@ -689,9 +687,7 @@ lib_cmd_go_place (scr_gameref_t game)
 
   const auto has_word = [&] (const scr_char *word) -> scr_bool
     {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (line.c_str (), word)
-             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
+      return run_c_word (version, line.c_str (), word);
     };
   const auto drop_front = [&] (size_t length)
     {
