@@ -1,0 +1,16 @@
+feed        911 commands
+runner      911 turns echoed
+scarier     913 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 439  get off
+  run400   Take what?
+  scarier  You get off the foot stool.
+
+turn 595  x armoire
+  run400   The Queen Anne design of this elaborate wardrobe features solid oak construction with a cherry veneer finish, brass hardware, and curved leg styling. A large red faded stain is visible on one of the doors to the cabinet. The resplendent armoire is open. Inside the resplendent armoire is a caving helmet with headlamp, a bellows and an air mattress.
+  scarier  The Queen Anne design of this elaborate wardrobe features solid oak construction with a cherry veneer finish, brass hardware, and curved leg styling. A large red faded stain is visible on one of the doors to the cabinet. The resplendent armoire is open. Inside the resplendent armoire are a caving helmet with headlamp, a bellows and an air mattress.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

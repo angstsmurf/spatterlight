@@ -32,7 +32,7 @@ They are not interchangeable.
   (`GSC_GAME_ASSIST_TABLE` in `os_glk.cpp`, matched on GameName+GameAuthor),
   with a one-line startup notice; `glk <assist> off` restores faithful
   behaviour.  The headless harness does NOT apply that table.
-- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 36 games, 230 edits.  It
+- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 37 games, 238 edits.  It
   changes GAME DATA, content-verified edit by edit, and repairs the author's
   slip itself.  ON BY DEFAULT in the glk build (`glk patches off`, then reload,
   to play a game exactly as its author left it), with a one-line notice; opt-in
@@ -106,7 +106,8 @@ right repair.
 | Locked Out | — | 90/110 | 110/110 | Short points fixed by patch |
 | The Crime Scene | — | 78/80 | 80/80 | Short points fixed by patch |
 | Goldilocks - Breaking & Entering | — | 32/35 | 35/35 | Short points fixed by patch |
-| ALEXIS, Cowboy Blues, A Day In The Life Of A Super Hero, The Alchemist, Full Circle, Provenance | — | — | — | Short by route choice (section 4) |
+| Provenance | — | 285/300 | 300/300 | Short points fixed by patch |
+| ALEXIS (Easy), Cowboy Blues | — | — | — | Short at their real ceiling (section 4) |
 | The Warlord, The Princess & The Bulldog | warlord.taf | 99/100 | same | Short — Runner-faithful take answer |
 | The Prostitute, Loving Family, fantasyworld (AIF) | — | — | — | Short by content policy (section 4) |
 | Insidejob, JimPond, Grumble, Great Escape, ARGH's Great Escape, Cursed, Crime Adventure, VGM1_3 and 21 more | — | — | — | Phantom maximum (section 5) |
@@ -432,26 +433,29 @@ Scene** 78/80 → 80/80 · **Goldilocks - Breaking & Entering** 32/35 → 35/35.
 
 ### Short by route choice
 
-The points exist and nothing in the data blocks them; the committed route
-leaves them on the table.  Candidates for a higher route, not bugs.
+Every route-choice row was re-derived for the most points on 2026-09-28 (see
+Resolved for the ones that now reach full score).  What remains is a real
+ceiling, or a deliberate second row.
 
-- **ALEXIS** — 55/65 on Easy (carry the cube), 58/65 on Hard (wear it).  The
-  gap is the four flee-kills (wolf, bridgekeeper, king, eagle = 12) on the
-  Hard route.  Both rows are pinned by a lantern that dies after command 35 in
-  every replay, and trimming further shifts the combat rolls into a loss.
-- **Cowboy Blues** — 113/401, a full win.  The easy setting caps the closing
-  bonus at +10, and the many optional side-quests are left out.
-- **A Day In The Life Of A Super Hero** (hero.taf) — 92/200.  The author's own
-  walkthrough plus five safe bonuses; the game's own text admits it "won't
-  allow you to get the maximum score".
-- **The Alchemist** — 490/500 ("That is 100% of the game!").  T128, giving the
-  flying star to the magician, needs a fresh horse trip the win doesn't.
-- **Full Circle** — 51/52.  One memory-fragment pickup (most likely the broken
-  bridge crossing) is never walked.
-- **Provenance** — 260/300, a win; the readme says outright the goal is not
-  the maximum.
-- **thetest** — 20/25 on the win row: task 1 `listen` in Room 0 (gated on
-  `#run`) is skipped.  The 5/25 row is a deliberate early-game checkpoint.
+- **ALEXIS** (Easy row, carry the cube) — 57/65, the Easy ceiling: every
+  scored task except the difficulty bonus, which only Hard pays.  The Hard row
+  now scores 65/65.
+- **Cowboy Blues** — 177/401 (was 113), a full win.  Only easy is winnable: on
+  hard the marble never appears (T375/T384), so there is no Shem map (T313) and
+  T1 seals the cave; on medium there is no battery (T365-T367).  So the
+  medium/hard closing bonuses (T604 +20, T605 +30) are unreachable, and 401 is
+  not a real maximum.  The one point left, T721 (eat bread, +1), exists only
+  via the `cheat` command.
+- **Provenance** — 285/300 (was 260), a win.  The remaining 15 are blocked.
+  T142 `give strawberry to crow` (+10) needs the skeleton key held.  Its
+  prerequisite, T141, feeds the key to the crow, and only T143 gives it back,
+  but T143 itself needs T142 — a circular gate.  T505 (+5, rub the ball at the
+  Orchard Entrance) is shadowed by the earlier repeatable T504, which has the
+  same command and covers room 7.  Both are PATCHED (2026-09-28): T142's key
+  restriction now reads "not held" and T504 drops room 7, so
+  `provenance_patched_solution.txt` (SCR_ASSUME_PATCHES=1) scores 300/300.
+- **thetest** — the 5/25 row is a deliberate early-game checkpoint; the win
+  row scores 25/25.
 - **lair-of-the-cybercow** — the 6/10 row is the deliberate dark-path branch;
   the sibling win row scores 10/10.
 - **The Circus** — the 64/140 sold-points row is kept beside the 140/140 one.
@@ -594,6 +598,22 @@ In Toronto), DetectiveTemplate.taf and shablon.taf (Russian author sandboxes).
   run400).
 - "No ending exists" calls overturned: **Cowboy Blues** and **YADFA** end by
   moving you into a terminal room, not by an EndGame action.
+- Route-choice rows raised to full score 2026-09-28: **The Alchemist**
+  490 → 500/500 (`get star` after `drink potion`, then `give star to
+  magician`; no extra horse trip needed); **Full Circle** 49 → 52/52 (the row
+  had drifted from 51 when its logbook draws lost Entry 8; `get corpse` plus
+  realigned draws); **thetest** 20 → 25/25 (`west` / `listen` / `east` after
+  the colour door); **ALEXIS** Hard 58 → 65/65 (cube off between fights for the
+  four flee-kills); **A Day In The Life Of A Super Hero** 92 → 208 on the
+  author's "out of 200", whose 200 undercounts its own pool.
+  All eight raised rows (these five plus ALEXIS Easy, Cowboy Blues and
+  Provenance) were re-driven in the Wine Runners the same day and reach the
+  same scores; runner_transcripts/ differ only by Scarier's deliberate
+  deviations (plural "are" before a list, hero's un-tripled "that is",
+  Provenance's `get off` dismount).
+  The patched Provenance row (300/300, `provenance_patched_solution.txt`) was
+  driven through run400 on the baked `games/patched/provenance_patched.taf`
+  and scores 300/300 there too, with the same two deviations.
 
 ## Notes on method
 

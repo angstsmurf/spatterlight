@@ -71,11 +71,9 @@ s
 nw
 nw
 ne
-score
-i
-look
 untie corpse
 get cloak
+get corpse
 push rock e
 e
 push rock e

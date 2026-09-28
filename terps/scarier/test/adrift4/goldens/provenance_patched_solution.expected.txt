@@ -3559,6 +3559,100 @@ the path meanders off to the south onto a small footbridge that spans a small
 creek towards the front lawn and orchard.  The path also leads to the east
 and west along the front of the house.
 
+> s
+You follow the brick path south and onto a cobble stone foot bridge.
+
+On A Small Foot Bridge
+
+You are standing on an arched cobblestone footbridge that spans a small creek
+flowing through the property.  The stream itself flows from the northeast to
+the southwest down the gentle slope of the land.  You can see the full
+splendor of a magnificent Victorian home to the north while across the stream
+you can see the front lawn and orchard.  The brick walkway continues on to
+the southeast.
+
+> se
+You move southeast.
+
+On A Brick Walkway
+
+You are on the brick walkway that connects the various areas of the property.
+ A small footbridge that spans a small creek is to the northwest and the gate
+to the orchard is to the south.  The path also continues to the southeast
+along the hedges and leads out to the road.
+
+> s
+You move south along the walkway to the orchard entrance.
+
+At The Orchard Entrance
+
+You have come to the entranceway to the orchard that is guarded by an
+improvidently decorated rose arbor and gate.  The gate itself is of double
+door design with a scooped top edge and hangs from square posts that support
+an overhead arbor.  Through the gate to the south you can see the orchard
+while the main path lies to the north.  An impressive Victorian style home,
+betwixt beautiful gardens and greenery, dominates the view to the north.  A
+very large maple tree guards the orchard entrance.
+
+> rub crystal ball
+
+You rub your hands over the globe and instantly the clear glass takes on a
+smoky appearance.
+
+When the smoke clears a scene in miniature is played out inside the crsytal
+ball.  A slender, hooded, figure stands beside a large maple tree with their
+hands tied behind their back.  The fact that the person is wearing a dress
+makes you assume that it is a woman.  A small step ladder sits on the ground
+beside her and a noose is hanging from a thick, low hanging branch.  A tall
+man dressed all in black approaches from the north.  As he gets closer you
+notice that he is carrying a large knife in one hand and a cigar in the
+other.  His hat is tilted down over his face so you cannot identify him.  As
+he nears the woman she begins to shake and appears to be pleading to the man.
+ He grabs her by the shoulders and walks up the three steps of the step
+ladder with her, guiding her to the top.  He slips the noose over her head,
+tightens it around her neck, and descends the ladder back to the ground.  He
+pauses for a moment to puff on his cigar.  Then, without warning, he kicks
+the step ladder out from underneath the woman's feet and she falls a short
+distance before the rope stops her fall.  She writhes around in agony for
+several long minutes before finally falling silent; slowly swaying back and
+forth from the makeshift gallows.  Satisfied that the evil deed is done the
+man in black turns and walks slowly back towards the house and the scene in
+the crystal ball ends in a swirling cloud of smoke.
+
+> n
+You travel north onto a brick walkway.
+
+On A Brick Walkway
+
+You are on the brick walkway that connects the various areas of the property.
+ A small footbridge that spans a small creek is to the northwest and the gate
+to the orchard is to the south.  The path also continues to the southeast
+along the hedges and leads out to the road.
+
+> nw
+You follow the path northwest onto a cobblestone foot bridge in front of the
+house.
+
+On A Small Foot Bridge
+
+You are standing on an arched cobblestone footbridge that spans a small creek
+flowing through the property.  The stream itself flows from the northeast to
+the southwest down the gentle slope of the land.  You can see the full
+splendor of a magnificent Victorian home to the north while across the stream
+you can see the front lawn and orchard.  The brick walkway continues on to
+the southeast.
+
+> n
+You move north.
+
+On A Brick Path
+
+You are on a brick walkway that winds off in several directions.  The main
+entrance to the house lies to the north on the veranda.  The main branch of
+the path meanders off to the south onto a small footbridge that spans a small
+creek towards the front lawn and orchard.  The path also leads to the east
+and west along the front of the house.
+
 > i
 You are wearing a brown tweed suit, and you are carrying a skeleton key, a
 pocket watch, a copper lantern, a box of matches, a crystal ball, the map of
@@ -3637,6 +3731,9 @@ A thick, impassable forest lines the grove to the east.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
+
+The single ring of a distant church bell pierces the night signalling one
+o'clock in the morning.
 
 > n
 You move north.
@@ -3733,9 +3830,6 @@ the spacious backyard.  A large marble fountain is visible to the southwest.
 The path splits off from here leading northwest towards some wooden
 structures in the distance and to the southeast to a small stable.  A grove
 of cherry trees stands in the northeastern corner of the yard.
-
-The single ring of a distant church bell pierces the night signalling one
-o'clock in the morning.
 
 > sw
 You travel south and west towards the fountain at the side of the house.
@@ -4048,6 +4142,9 @@ the minimum of intrusion and allowing the guests very little view of the
 working space of the house.  Surprisingly, considering the furnished state of
 the rest of the house, this room is entirely unfitted.
 
+You hear the faraway ringing of the church bells indicating that it is two
+o'clock in the morning.
+
 > w
 You make your way into the kitchen to the west.
 
@@ -4131,9 +4228,6 @@ the shelves to get a better view and, as you do so, you bump into a small
 foot stool stashed away beneath the shelf.  Scrawled into the years old layer
 of dust are the words: I'm in the attic.
 
-You hear the faraway ringing of the church bells indicating that it is two
-o'clock in the morning.
-
 > get stool
 
 You take the foot stool.
@@ -4158,6 +4252,8 @@ To the east you can see the library while the kitchen is through the butler's
 pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
+
+The butler is here.
 
 > w
 You proceed west to the butler's pantry.
@@ -4525,6 +4621,9 @@ You open the large desk.  A brass key is inside the large desk.
 > get brass key
 You take the brass key from the large desk.
 
+You can barely hear the church bells ringing out three o'clock in the
+morning.
+
 > x bust
 
 Mounted on a solid sterling silver base this marble bust is remarkable in its
@@ -4571,8 +4670,6 @@ pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
 
-The butler is here.
-
 > w
 You proceed west to the butler's pantry.
 
@@ -4602,6 +4699,8 @@ protect against fire.  The butler's pantry is to the west.  A small staircase
 leads from beside the main pantry (which you could step into) to the upper
 floor.
 
+The butler is here.
+
 > u
 You climb the stairs to the second floor.
 
@@ -4613,10 +4712,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-Also here is the foot stool.
-
-You can barely hear the church bells ringing out three o'clock in the
-morning.
+Also here is the foot stool.  The butler enters from below.
 
 > ne
 You move northeast.
@@ -4735,7 +4831,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-Also here is the foot stool.  The butler enters from the north-west.
+Also here is the foot stool.  The butler enters from the north-east.
 
 > get stool
 
@@ -4933,6 +5029,9 @@ A thick, impassable forest lines the grove to the east.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
+
+Four o'clock in the morning is indicated by the faint ringing of church bells
+in the distance.
 
 > n
 You move north.
@@ -5307,6 +5406,9 @@ The hedge and the forest are almost one at this point.  The hedge extends far
 to the west toward the main house while in the distance to the east you can
 see a large wooden sign staked in the ground.
 
+The almost inaudible sound of church bells signals five o'clock in the
+morning.
+
 > w
 You move west.
 
@@ -5378,9 +5480,6 @@ entrance to the house lies to the north on the veranda.  The main branch of
 the path meanders off to the south onto a small footbridge that spans a small
 creek towards the front lawn and orchard.  The path also leads to the east
 and west along the front of the house.
-
-The almost inaudible sound of church bells signals five o'clock in the
-morning.
 
 > n
 You climb the stairs of the porch to the front door of the house.
@@ -5708,9 +5807,6 @@ bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
 
-The butler is here.
-The butler exits to the south.
-
 > d
 You move down.
 
@@ -5762,6 +5858,9 @@ pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
 
+The butler is here.
+The butler exits to the south.
+
 > s
 You leave the dining room through the archway to the south.
 
@@ -5776,6 +5875,8 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
+
+The butler is here.
 
 > n
 You move north into the dining room.
@@ -5797,7 +5898,6 @@ To the east you can see the library while the kitchen is through the butler's
 pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
-The butler enters.
 
 > w
 You proceed west to the butler's pantry.
@@ -5867,9 +5967,6 @@ pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
 
-The butler is here.
-The butler exits to the south.
-
 > s
 You leave the dining room through the archway to the south.
 
@@ -5884,8 +5981,6 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
-
-The butler is here.
 
 > s
 Exiting the parlor to the south you make your way towards the front door.
@@ -6039,6 +6134,59 @@ house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
 A mangy looking crow is here.
+
+> get strawberry
+
+You bend down and brush back some of the leaves of the plant.  With delicate
+precision you pinch off a ripe strawberry from the vine.
+
+> x crow
+
+The crow looks emaciated, its feathers rough and crawling with god only knows
+what hideous diseases.  Its dark nacreous eyes are fixed on your every
+movement.
+
+The repulsive creature bobs its head up and down a few times as if it getting
+ready to take flight.  Your body stiffens in anticipation that it may fly
+towards you.
+
+With two beats of its pathetic wings the awful winged beast is upon you and
+with an extraordinary degree of precision it plucks the key right out of your
+hand and lands back on the creepy looking scarecrow.  The creature lifts its
+head, opens its mouth, and swallows the key whole. Then the animal cackles at
+you and begins slowly pacing back and forth on the outspread arms of the
+scarecrow.
+
+The haggard looking crow skulks back and forth along the outstretched arms of
+the scarecrow cawing at you loudly.
+
+> give strawberry to crow
+
+You hold the strawberry out at arms length in a show of beneficence.  The
+fouled bird cocks its head to the side and, for a moment, looks at you in
+quizzical fashion.  You drop the sweet berry onto the ground and back away
+slowly; maintaining eye contact with the wretched animal.
+
+The crow then jumps down onto the ground and snatches the ripe berry up in
+its beak.  It begins to devour the luscious fruit, alternating between
+peckish bites and cautious looks.
+
+The crow pauses for a moment and then squawks at you menacingly.
+
+> catch crow
+
+With the tattered bird occupied with its snack you move in quickly to catch
+it.  The sagacious crow senses the impending doom and jumps back with a loud
+cackle attempting to dodge your advance.  Despite your shrewd attempt at
+capturing the animal it retreats back to the safety of the scarecrow.
+However, the assault must have given it a good fright as it has regurgitated
+the key back onto the ground.
+
+The crow skitters back and forth along the arms of the scarecrow chortling at
+you loathingly.
+
+> get skeleton key
+You take the skeleton key.
 
 > e
 You move east into the gazebo.
@@ -6466,6 +6614,8 @@ A large chest of drawers occupies the wall directly opposite the bed.  The
 room appears to be 'lived in'.  All kinds of artifacts used for personal
 grooming are atop the dresser.
 
+The butler is here.
+
 > n
 You move north.
 
@@ -6528,6 +6678,8 @@ To the east you can see the library while the kitchen is through the butler's
 pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
+
+The butler is here.
 
 > s
 You leave the dining room through the archway to the south.
@@ -6594,6 +6746,9 @@ is on the porch in front of the door.  Down the stairs to the south is a
 brick walkway that leads off in several different directions.  Further off in
 the distance, you can see the front lawn and orchard.
 
+From somewhere in the distance eight o'clock in the morning is chimed out by
+the church bells.
+
 > s
 You make your way down the front steps that lead from the porch to the front
 yard.
@@ -6605,9 +6760,6 @@ entrance to the house lies to the north on the veranda.  The main branch of
 the path meanders off to the south onto a small footbridge that spans a small
 creek towards the front lawn and orchard.  The path also leads to the east
 and west along the front of the house.
-
-From somewhere in the distance eight o'clock in the morning is chimed out by
-the church bells.
 
 > w
 You follow the path west along the front of the house.
@@ -7219,33 +7371,33 @@ Inside A Hedge Maze
 You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
 
-> e
-You move east.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> e
-You move east.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> n
-You move north.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
 As the morning wears on, ten o'clock is signalled by the church bells in the
 distance.
 
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
 > n
 You move north.
 
@@ -7512,22 +7664,6 @@ Cypress and stands about ten feet in height making it impossible to see over.
 
 > s
 You move south.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> w
-You move west.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> w
-You move west.
 
 Inside A Hedge Maze
 
@@ -7543,6 +7679,22 @@ You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
 
 Eleven o'clock in the morning is sounded out by the remote church bells.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
 
 > w
 You move west.
@@ -7798,13 +7950,13 @@ You put the copper lantern onto the altar.
 > get shovel
 You take the small shovel from the rugged rucksack.
 
+Midday is announced by the drawn out chiming of distant church bells.
+
 > put shovel on altar
 You put the small shovel onto the altar.
 
 > get binoculars
 You take the pair of binoculars from the rugged rucksack.
-
-Midday is announced by the drawn out chiming of distant church bells.
 
 > put binoculars on altar
 You put the pair of binoculars onto the altar.
@@ -8056,24 +8208,24 @@ Inside A Hedge Maze
 You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
 
-> e
-You move east.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> n
-You move north.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
 A lone gong of the far off church bells signals one o'clock in the afternoon.
 
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
 > w
 You move west.
 
@@ -8377,6 +8529,9 @@ Inside A Hedge Maze
 
 You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
+
+Two distant rings of the church bells indicates that it is two o'clock in the
+afternoon.
 
 > w
 You move west.
@@ -8398,9 +8553,6 @@ entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
    Also here is a raincoat and a bosun's whistle.
-
-Two distant rings of the church bells indicates that it is two o'clock in the
-afternoon.
 
 > look
 
@@ -9191,8 +9343,8 @@ expression of pain mixed with extacy.
 He collapses into a lifeless heap leaving you to ponder his words.
 
 Look for PROVENANCE II in the summer of 2006!!!
-You scored 285 out of the maximum 300!
-That is 95% of the game!
-You finished 15 points short.
+You scored 300 out of the maximum 300!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

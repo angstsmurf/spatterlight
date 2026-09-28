@@ -236,10 +236,23 @@ You pull open the fridge door and inside it see the iron, some milk, a sandwich 
 > get all from fridge
 You take the iron, the milk, the sandwich and the carrot from the fridge.  
 
+> move fridge
+Lugging the fridge around is never easy due to its considerable bulk but you strain your super hero muscles and drag it across the floor a few inches. Something drops to the floor from behind it.  
+
+> look behind fridge
+A lottery ticket lies on the floor behind the fridge. It looks to have been stuck to the back of the fridge although why someone would do that you can't imagine. It certainly can't be your lottery ticket as you spend every last penny you make on repairs to your Masked Defender costume. Lottery tickets are a luxury you just can't afford.
+   All the same you take it with you. Maybe your super powers will turn the lottery numbers in your favour this week.  
+
+> x ticket
+The lottery ticket bears the stamp of a sleazy little corner shop in the hard part of the town. The name of the shop rings a bill although for a second you're unable to remember just why. But then you recall a lolly being thrown at your head and a manianal little pair of hands trying to pull your ears off.
+   Little Orphan Alice! The shop belongs to her granny.
+   Well, well, just why is this lottery ticket in your apartment? Perhaps you ought to investigate.  
+
 > s
 You head to the door and take a look at the destinations currently available to you.
 
 (1)  Stay here
+(6)  The corner shop
 (9)  Torrin Plaza
 
 
@@ -323,6 +336,60 @@ Large buildings tower into the sky around the perimeter of Torrin Plaza, widely 
    You quickly snatch the knuckledusters off him while the pizza delivery kid still has a few teeth left.
    Muttering over this injustice, the duty sergeant drags the protesting kid inside the station and books him.
 
+> se
+Outside The House Of Bosses
+The main entrance of the House of Bosses lies before you: an archway of magnificent proportions but one, alas, you are never likely to see on account of the unfortunate rule that super heroes are banned from entering its sacred grounds. A couple of sturdy guards stand either side of the archway, the guns they are carrying indicating that your chances of getting inside will be slim at best.
+   Northwest takes you back to Torrin Plaza while southeast leads inside the House of Bosses.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   One of the guards groans. He nudges the other. He, too, groans.
+   A moment later, a strange figure comes stalking in from the main area of the plaza, cursing, snarling and generally looking like he's out for trouble. Strangest of all, he's dressed in the robes of a priest!
+   "You're all sinners!" he cries, brandishing the staff he carries in one hand (a bible occupies the other) at the guards. "You're sinners and you'll burn in the fiery pits of eternal damnation for your sins!"
+   "You're not welcome here, Father Bumble," says one of the guards. "I've told you-"
+   "My orders come from on high, heathen!" Father Bumble snaps. "I don't listen to the babblings of sinners!"
+
+> pray
+Father Bumble stops in mid-rant and turns to you.
+   "A believer!" he cries. "I have discovered a believer! Oh, what a joyous occasion! I thought city a hellhole of evil and corruption! But here I have a believer!"
+   You're a little taking back by this, not to mention Father Bumble's strange habit of hugging you devoutly and then insisting you take his bible.
+   "Read it well and read it good, my friend," he says, "as the words contained therein are poison to the wicked and the cursed!"
+   Clapping you on the back, and jahhing several teeth in the process, the deranged priest wanders away.
+   One of the guards glances at you standing there with the bible in your hand and mutters to the other: "hellfire, that's two nutters we've got now..."  
+
+> nw
+
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza, widely regarded as the true heart of the city. Uniformed policemen patrol in groups here, weapons close to hand, while overhead fly several copters. A wide, tree-lined avenue crosses the Plaza from one side to the other, bisected at the midway part by a tree-less avenue. The two halves when viewed from above are supposed to reveal a symbol showing the true meaning of the city's heritage but rumours have it that it actually looks like a couple of avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City Rag, southwest to the Police Station, southeast to the House of Bosses, northeast to the City Jail, while a little road to the east leads back to your apartment.
+
+> nw
+
+Outside The Offices Of The City Rag
+The main building of the City Rag rises above you into the afternoon skyline, throwing everything into shadow. Steps lead up to the main doors but only journalists are allowed inside. Anyone else tends to get their name and face on the cover of the next edition of the Rag, generally under the headline: "Terrorist Identity Revealed". A hot dog vendor stands on the steps, trying to sell his wares to any interested parties, while at the base of the steps is a kid carrying a stack of papers and shouting out headlines seemingly on a random basis.
+   To the southeast lies the centre of Torrin Plaza.  
+
+> show id to vendor
+The vendor's face falls. "Awww, you're not gonna do me for spitting in me hot dogs, are you?"
+   You raise an eyebrow.
+   "Not," he adds quickly, "that I ever have spat in me hot dogs but I'll, er, be especially careful where I spit in future."  
+
+> se
+
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza, widely regarded as the true heart of the city. Uniformed policemen patrol in groups here, weapons close to hand, while overhead fly several copters. A wide, tree-lined avenue crosses the Plaza from one side to the other, bisected at the midway part by a tree-less avenue. The two halves when viewed from above are supposed to reveal a symbol showing the true meaning of the city's heritage but rumours have it that it actually looks like a couple of avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City Rag, southwest to the Police Station, southeast to the House of Bosses, northeast to the City Jail, while a little road to the east leads back to your apartment.
+
 > e
 At Home In Your Less Than Glamorous Apartment
 Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Your ever reliable sidekick, Smelly the parrot, is here.  
@@ -333,6 +400,7 @@ You head to the door and take a look at the destinations currently available to 
 (1)  Stay here
 (3)  Chabbow Street
 (5)  Mirkhaven Avenue
+(6)  The corner shop
 (9)  Torrin Plaza
 
 
@@ -400,6 +468,7 @@ You head to the door and take a look at the destinations currently available to 
 (1)  Stay here
 (3)  Chabbow Street
 (5)  Mirkhaven Avenue
+(6)  The corner shop
 (9)  Torrin Plaza
 
 
@@ -414,6 +483,9 @@ You take your jeans from the washing machine.
 > wear jeans
 Now isn't the time. The Paper Boys have to be brought to justice and you certainly can't do that in a pair of scruffy old jeans.
    But as you try, something scrunches in one of the pockets. Curious, you reach into the pocket and pull out a scrap of paper which looks to be an article from a newspaper.  
+   "Look what I found, Guv'nor," says Smelly and drops a doll and a toy soldier onto the floor.
+   "Have you been stealing toys from kids again, Smelly?" you ask with a sigh.
+   "Course not, Guv'nor," he says, looking a big sheepish. "Like I said. I, er, found 'em."
 
 > read article
 Under a headline reading "Strange Happenings At The Horror Mall" you read about how a ghostly figure has been spotted several days running at the Horror Mall (owned by foreign businessman Mr Horror and his wife and sometime concubine Mrs Horror) on the east side of town. This ghostly figure runs around the mall, yelling obscenities at customers and swiping candy.
@@ -426,6 +498,7 @@ You head to the door and take a look at the destinations currently available to 
 (3)  Chabbow Street
 (4)  Horror Mall
 (5)  Mirkhaven Avenue
+(6)  The corner shop
 (9)  Torrin Plaza
 
 
@@ -444,19 +517,60 @@ No noticeable change comes over the customers but you think they might be less i
    "It was the doings of the Gardener," says Mr Horror to a little old lady.
    Your ears prick up at the mention of this demented super villain who planned to rule the world by burying everyone in his back garden. The chances of fitting 5,000,000,000+ corpses in his little 4' x 4' plot of land was something he obviously hadn't thought out too well and the police caught him just as he was interring his twenty-third corpse.
 
+> get eraser
+You take the eraser.
+   Mr Horror reaches out and takes the pencil.
+   "I thought they were supposed to stay there until the rightful owner collects them," you say.
+   "They are," agrees Mr Horror cheerfully. "You hand that eraser over and I'll put the eraser back."
+   You admit he has a point and quietly pocket the eraser.  
+   "A right nasty piece of word was the Gardener," Mr Horror goes on. "Hate and rage were all he knew and he knew them well. His plan was a masterwork in its simplicity and yet was let down by one simple flaw." He pauses. "It was crap."
+
+> wait
+Time passes...
+
+   Mr Horror continues: "irredeemably crap, unfortunately for our poor Gardener. When the police swooped on him he was caught in the act and his protestations that he was 'putting them in the garden for their own good' just didn't wash. Locked up he was. Never to see the light of day again."
+
+> wait
+Time passes...
+
+   "Or so people believe," says Mr Horror. "For recently there have been murmurings that the Gardener has escaped. Only last week, someone was buried in Chalkholme Cemetery. Coincidence? Or something more sinister? Only time will tell."
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   "And then there was tale of the Cat," Mr Horror says. "Has a more ferocious super villain ever seen the light of day before? A foot tall he was, with fangs perhaps a centimetre long and despite his answering to the name of Mr Tinkles it was obvious something more was afoot."
+
+> wait
+Time passes...
+
+   "The Cat was a super villain without equal in terms of ferocity and downright evil. He would often prowl the moonlit city streets and scratch the ankles of anyone he came across. None were safe from his foul depredations: human, animal, even other cats. Indeed, he seemed to hold a special hatred for other cats due to their refusal to help him out in what he considered a holy quest to rid the world of everyone but himself."
+
+> wait
+Time passes...
+
+   "Mad he was," adds Mr Horror. "Mad and dangerous. He thrived on combat and often fought for no other reason than to inflict injuries on those he hated. Which, considering the kind of beast he was, was pretty much everyone."
+
+> wait
+Time passes...
+
+   "This most devious of super villains can often be found at the milk factory on Chabbow Road," Mr Horror goes on, "where he stalks members of staff with evil abandon. Many are the times when they venture down a dark corridor and never return. Or return with hideous bite marks covering their entire bodies." Mr Horror shakes his head in despair. "A tragic tale and no mistake. The place is deserted now for none dare tread where the Cat has walked."
+
 > s
 "You're leaving?" asks Mr Horror as you head for the door. "But you haven't bought anything."
    "What's for sale?" you ask.
    "Er… nothing. But I'd still appreciate you staying if it's all the same."
    You decide to stay.  
-   "A right nasty piece of word was the Gardener," Mr Horror goes on. "Hate and rage were all he knew and he knew them well. His plan was a masterwork in its simplicity and yet was let down by one simple flaw." He pauses. "It was crap."
 
 > s
 "But you can't… leave!" cries Mr Horror.
    "Why?"
    "Er… my friendly personality and welcoming demeanour?"
    You sense something is wrong here. Maybe you should stay after all.  
-   Mr Horror continues: "irredeemably crap, unfortunately for our poor Gardener. When the police swooped on him he was caught in the act and his protestations that he was 'putting them in the garden for their own good' just didn't wash. Locked up he was. Never to see the light of day again."
+   "I fear for the safety of my customers sometimes," says Mr Horror. "What with the ghost prowling the shops late at night. In fact it's a wonder they aren't all dead."
+   This he relates to an elderly fellow who is looking more and more like he wishes he did his shopping somewhere else.
 
 > s
 You make it to the door before feeling Mr Horror's hand closing on your arm.
@@ -551,10 +665,7 @@ Mr Horror makes a startling recovery and returns to work fully five minutes afte
 
 
 At Home In Your Less Than Glamorous Apartment
-Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Your ever reliable sidekick, Smelly the parrot, is here.  
-   "Look what I found, Guv'nor," says Smelly and drops a doll and a toy soldier onto the floor.
-   "Have you been stealing toys from kids again, Smelly?" you ask with a sigh.
-   "Course not, Guv'nor," he says, looking a big sheepish. "Like I said. I, er, found 'em."
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll and a toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.  
 
 > s
 You head to the door and take a look at the destinations currently available to you.
@@ -563,6 +674,8 @@ You head to the door and take a look at the destinations currently available to 
 (3)  Chabbow Street
 (4)  Horror Mall
 (5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
 (9)  Torrin Plaza
 
 
@@ -633,12 +746,20 @@ Time passes...
    "Meow," it says, swaying from side to side as it does. It has traces of scummy milk around its mouth and you also detect, with your super smelling abilities, the undeniable stench of the sandwich you threw into the vat. It seems the Cat drank some of the milk contaminated by your sandwich and is a little worse for wear.
    "Meow!" it hisses at you. It takes a lurching step towards you, raises one paw as if to swipe you one, then falls forward on its face. It is asleep before it even hits the floor.
 
+> stroke cat
+It's asleep but it seems to purr lightly so maybe it enjoys being stroked.  
+
 > throw net over cat
 Realising you have to render the Cat helpless if you are to stand a chance against it, you throw the net.
    Asleep and unable to stop you, the Cat is covered by the net. Before it can wake up and go for your throat, you wrap the ends of the net together. The Cat is securely trapped.
    You give it a nudge to wake it up.
    "Meow," it says, staring at you with hate-filled eyes from within the net. "Meow!"
    You decide now might be a good time to question it.  
+
+> ask cat about crossing lady
+"Meow," it says.
+   You translate this as: maniacal hatred! The crossing lady once tried to have the Cat run over when he muscled in on her patch. He knows she hangs around at a hard bar in the shady part of town but as the only word he knows is milk he can't tell you what the name of the bar is.
+   A pity, you reflect, the bar wasn't called the Milk Tavern. That might have got you somewhere.  
 
 > ask cat about paper boys
 "Meow," it says.
@@ -678,6 +799,9 @@ But it seems he is very much alive…
    "Is there no one else who can handle him?" you ask, knowing what the answer will be.
    "Not this time, guv'nor," says Smelly with a sigh. "The other super heroes have been uncontactable since word of the Smell got out." He looks you in the eye. "There's just you."  
 
+> get toy soldier
+You take the toy soldier.  
+
 > s
 You head to the door and take a look at the destinations currently available to you.
 
@@ -686,6 +810,415 @@ You head to the door and take a look at the destinations currently available to 
 (3)  Chabbow Street
 (4)  Horror Mall
 (5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+
+> 6
+You set off for the part of town commonly known as the Dump. While you've been assured in the past by city historians that this is because there are several scrap yards in the area, you've always suspected the real reason is because of the general appearance of the streets and buildings here. Gangs of spindly youths stalk the street wielding crowbars and axes which they tend to throw at rival gangs, policemen and, given the opportunity, any super heroes who happen to wander along. Being a super hero in the Dump is not considered a positive thing. No, it's more a target.
+
+[more]
+
+  
+A Grimy Street Outside The Sleaziest Corner Shop In Town
+A wooden sign hangs from the wall above you, creaking as it swings back and forth in the breeze. The sign reads "Slurble Emporium" and it is widely regarded as the sleaziest, most disreputable corner shop in town; quite a feat considering what it's up against. The windows of the shop are darkened to hide the produce sold within although not even the darkening can mask the unwholesome smell which drifts from the bowels of Slurble Emporium.
+   A doorway leads inside while heading west will take you back to your apartment.  Ratty, Ruff and Shutityebrat are here.  
+   "Who's dat weird lookin' oldie?" says one of the kids, a little blonde girl aged about five wearing ripped jeans and carrying a hammer in one hand and a bottle of hard liquor in the other.
+   "He's a super zero!" barks one of the others who bears an uncanny resemblance to a particularly hairy dog.
+   "Hero not zero, you nonking quark!" grunts another of the kids. This one is bigger than the others and wears a crash helmet with a rat insignia painted on it. "Oi, hero! You don't half look like a quonging flinkle in that gear!"
+   The others fall over themselves laughing at this.
+   You recognise this bunch from mug shots you have seen plastered on wanted boards around the city: the big one is Ratty, the small dog-like one is Ruff and the girl is Shutityebrat.
+
+> read bible
+You read a few passages from the bible.
+   "Wow!" says Shutityebrat. "That wuz bootiful!"
+   "Yeah," says Ruff. "It speaks, like, ter yer inner soul an' brings together all the harmonies o' the universe."
+   "A life of crime isn't the life for us, friends," says Ratty. "Come, let's go to the older people's home and see if there's anyone who needs some shopping doing or floors scrubbing."
+   "Right on!" cries Ruff. "We'll scrub them floors so hard they won't know hit 'em!"
+   The three reformed kids head off down the street, a better life awaiting them.
+
+> in
+
+The Sleaziest Corner Shop In Town
+Amidst fifty year old cans of beans, stuffed mummy heads and bags of nothing, you find yourself in the sleaziest corner shop in town. Every surface in here appears to have gone for a few dozen years without a good clean and the very atmosphere smells of disuse. Questionable products line a row of shelves at the back of the shop, near to which the owner, Mrs Muggle, is smoking a foul black pipe at the counter. Several customers move back and forth, arguing under their breath about what to buy.
+   A door leads outside to the street.  
+
+> show id to customers
+Most of the customers don't seem very impressed but one young fellow fairly beams with hero worship as he sees your ID. He carefully puts back whatever he was trying to steal and heads on his way, a reformed citizen.  
+
+> read bible
+You read a few passages from the bible - and when you come to the Ten Commandments it produces a dramatic effect!
+   "I wasn't gonna steal anythin', honest!" gasps one spotty-faced teenager over by the beans. "I mean, I was just gonna take 'em home, eat 'em, and then bring the can back, empty like, but it weren't really stealin'."
+   "Out, you little toerag!" snaps Mrs Muggle, pointing at the door. "And don't let me catch you in here again if you don't want my boot up your backside!"
+   The youth flees.  
+
+> show id to muggle
+"Damn super heroes," says Mrs Muggle. "Coming in here and flashing their ID and thinking it gives 'em the right to free beans." She sighs then yells into the back of the shop: "Alice! Come and serve this super hero! I ain't messing me hands up with him!" She looks back to you. "No offence meant."
+   Before you can say anything, Mrs Muggle's assistant comes skipping out of the back of the shop. She sees you - and her face goes pale!
+   "You!" she gasps.
+   "You!" you gasp - for this is no other than Little Orphan Alice, the world's deadliest little girl.
+   Faster than the eye can see, Alice's hand dips into the pocket of her jacket and pulls out a knife.
+   "Alice!" snaps Mrs Muggle. "What have I told you about pulling knifes on customers?"
+   "Can it, gran!" is Alice's hissed response. "Me and the weirdo have some unfinished business to take care of."
+   "Not in me damn shop, you ain't! It's bad for business. Take your trouble outside or there's no TV for you tonight!"
+   Alice curses under her breath then heads for the door. "I'll be waiting for you outside, Defender," she calls over her shoulder. "Get your will prepared!"
+   The door slams behind her.
+   "Oh, that girl!" fumes Mrs Muggle. "The times I've told her not to go round slamming the door." She looks at you. "When you've finished killing her, send her back in here and I'll give her the telling off of her life."  
+   "Wotta dump!" mutters one of the customers.
+   Mrs Muggle nods. "Can't disagree with you there, fellow."
+
+> out
+A Grimy Street Outside The Sleaziest Corner Shop In Town
+A wooden sign hangs from the wall above you, creaking as it swings back and forth in the breeze. The sign reads "Slurble Emporium" and it is widely regarded as the sleaziest, most disreputable corner shop in town; quite a feat considering what it's up against. The windows of the shop are darkened to hide the produce sold within although not even the darkening can mask the unwholesome smell which drifts from the bowels of Slurble Emporium.
+   A doorway leads inside while heading west will take you back to your apartment.  Little Orphan Alice is standing by the shop doorway, a nasty look on her face, a knife clutched in her hand.  
+   As you emerge from the shop, you see Alice standing there, waiting for you. A knife is in her hand.
+   "We can do this easy or hard, Alice," you say, kind of hoping she'll lean towards the former.
+   "Hah!" snorts the little girl. She waves the knife before her face. "Easy and hard - all the same to me. Put 'em up, Defender. This city's about to lose its lousiest super hero."
+
+> give soldier to alice
+"Hey, wicked!" she says. "I had one of these once but it got wrecked 'cos I kept shooting it."
+   "Does this mean you'll come quietly?" you ask.
+   "Like hell." She stuffs the toy soldier in her pocket. "Ta and all that but I'm still gonna stab you a few times."
+
+> give ticket to alice
+Her eyes light up. "Hey! Cool! Me very own lottery ticket. Just think of the trouble I can cause if I was a millionaire!"
+   Realising she has a very good point there, you start to snatch the lottery ticket back but Alice is quicker and grabs it from you.
+   "Doesn't mean we're friends, though," she says. "Ta for the lottery ticket and the millions I'll get with it but I'm still gonna stab you."  
+   Alice frowns, the knife wavering.
+   "You know…" she says slowly. "I got me toy soldier, I got me lottery ticket - what am I wasting my life for with all this crime?"
+   "You could lead the life of a saint," you say, "helping others, caring for the needy, looking after-"
+   "Partying!" cries Alice. "And shutting down schools! And sacking headmasters! Woo-hoo! I'm not wasting me time here in this dead end job! I'm off to lead a life o' partyin' an' debauchery!"
+   The little girl goes off dancing down the street, alternatively whooping and clapping her hands. Her knife she tosses aside and you're sure it's just pure coincidence that it misses a poor old pensioner by a hand's width.
+
+> w
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+
+> 5
+Situated in the murkier part of the city, Mirkhaven Avenue is an area which seems to have remained in the last century. While it has a certain, it also has a certain grime, and you're in two minds about which of them wins out in the end.
+
+
+Mirkhaven Avenue
+Mirkhaven Avenue is in a part of town which, strangely enough, is always dark. Clouds cover the sky which is pitch black, even in the middle of the day. The sun is hidden, buried away behind several miles of thick, rain-filled clouds. The Avenue itself leads east and west and is lit intermittently by the kind of dingy gas lamps you always imagine were around in Sherlock Holmes' day. In fact the tavern you're standing outside of - The Orc's Head - looks more like a tavern from medieval times than anything else. A door leading inside is to the south. Looking to the north you see your apartment a long way off.
+   Chatting to each other in the light of the gas lamps are some ladies of the night.
+
+> show id to ladies
+"Ooh, makes us feel safer knowing you're around," says one lady of the night.
+
+> ask ladies about gardener
+"I hear he's taken up residence in that cemetery place," says one lady.
+   "Chalkholme Cemetery?" queries the other.
+   "That's the place. Nasty piece of work he is and no mistake. No respect for his elders."
+
+> talk to ladies
+"Oh, hello there, love," says one, cackling maniacally. "You looking for a good time?"
+
+   1: "I sure am, ladies. What do you suggest?"
+   2: "Not right now. I'm looking for a super villain."
+   3: "Tell me about this place. It looks unusually dark and dismal."
+
+> 2
+"Why - what's this super villain got that we ain't?" asks one of the ladies.
+
+   1: "It's not for anything like that, ladies. She is a foul criminal and needs to be brought to justice."
+
+> 1
+"Oh, right. I saw her in the tavern a while back. Looked like she was sizing some bloke up."
+   "Well to do gentleman he was as well," says the other lady of the night. "I've have gone for him myself only he don't like remarkably ugly women."
+   "Yes, well," says the first lady. "You go in there and see if the fellow's alright, will you? Go ask Erik about her and you'll get no hassle from the bouncers."
+   You thank the lady.
+
+> talk to ladies
+"Oh, hello there, love," says one, cackling maniacally. "You looking for a good time?"
+   You guess they must only have one chst up line and this is it.
+
+   1: "I sure am, ladies. What do you suggest?"
+   2: "Not right now. I'm looking for a super villain."
+   3: "Tell me about this place. It looks unusually dark and dismal."
+
+> 3
+"Oh, it's not so bad once you get used to the rats and the leeches and the thugs and the muggers and the inhuman monsters what stalk the night and threaten to rip your face off as soon as look at you," says one lady.
+   "Aye," agrees the other, "right fine place it is."
+
+   1: "Wouldn't you ladies be better off finding a profession that doesn't require you to be out till all hours?"
+
+> 1
+"Such as?"
+
+   1: "Solving crimes."
+   2: "Crossword puzzles."
+   3: "Knitting."
+
+> 3
+"Hmmm. That sounds quite interesting. Knitting, you say."
+   "But what are we going to knit with?" asks the second lady.
+   "Hmm. Good point. Unless, of course..." She looks at you.
+   "Unfortunately I don't have any knitting on me right now," you say.
+   Their faces fall.
+   "But if I come across any," you add quickly, "I'll be sure to let you have it."
+
+> s
+In The Festering Pit Known As The Orc's Head
+Thick smoke obscures your eyes as you look around the murky interior of the Orc's Head, the city's hardest tavern. Here, fights are common place and no one sets foot through the doorway without a weapon close to hand. Through the murk, you catch sight of the bartender, a huge fellow with an eye patch, serving drinks. Further on, a pasty faced singer stands on a barrel, belting out a tuneless ditty that even with twenty pints of mead inside you probably still sounds really dire. The customers look a rough lot. The way they're arguing with each other and throwing beer mugs about gives the impression that violence is about to erupt at any moment.
+   A doorway leads outside into the gloom of Mirkhaven Avenue.
+
+> show id to bartender
+A hush falls over the Orc's Head.
+   "You come to shut us down?" asks the bartender, and 27 eyes glare hatred at you.
+   "Er..." You glance around and swallow nervously. Several times. "No. I was just coming to say what a great pub this is."
+   An uproar almost sweeps you off your feet!
+   "See?" yells the bartender. "Even the super hero types reckon me pub's a mighty fine one! Woo-hoo! Free beers for everyone!"
+   Another hush.
+   "Only joking," the bartender adds.  
+
+> ask erik about lady
+His face falls. "You been talking to them damn trouble causers outside?" he says, clearly not happy. "Well, let me tell you-"
+   "She said you were to help me out," you say, figuring a little while lie won't hurt. "She said you were to point out the crossing lady to me."
+   "I can't," mutters Erik.
+   You raise an eyebrow.
+   "She ain't here," says Erik.
+   You raise the eyebrow further.
+   "She's in Torrin Plaza. Goes there sometimes to see if she can trick anyone into getting themselves run over. You want her, that's where you'll find her. Now leave me alone. I've got customers to serve."  
+
+> n
+
+Mirkhaven Avenue
+Mirkhaven Avenue is in a part of town which, strangely enough, is always dark. Clouds cover the sky which is pitch black, even in the middle of the day. The sun is hidden, buried away behind several miles of thick, rain-filled clouds. The Avenue itself leads east and west and is lit intermittently by the kind of dingy gas lamps you always imagine were around in Sherlock Holmes' day. In fact the tavern you're standing outside of - The Orc's Head - looks more like a tavern from medieval times than anything else. A door leading inside is to the south. Looking to the north you see your apartment a long way off.
+   Chatting to each other in the light of the gas lamps are some ladies of the night.
+
+> n
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+
+> 9
+
+   A windswept slab of concrete is how you always picture Torrin Plaza, the true heart of the city. Here are where the powers that be meet in the House of Bosses to decide what is done and what isn't; what laws are passed and what aren't; who is arrested and who isn't. Torrin Plaza is also the home of the police who enforce the law with an iron fist (when they're not busy taking bribes and make life hard for overworked and underpaid super heroes, that is, that is, that is). Here is where fortunes are made and lost in a matter of minutes and where people rise from the gutters to the heights of power in a similar time frame.
+
+  
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza, widely regarded as the true heart of the city. Uniformed policemen patrol in groups here, weapons close to hand, while overhead fly several copters. A wide, tree-lined avenue crosses the Plaza from one side to the other, bisected at the midway part by a tree-less avenue. The two halves when viewed from above are supposed to reveal a symbol showing the true meaning of the city's heritage but rumours have it that it actually looks like a couple of avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City Rag, southwest to the Police Station, southeast to the House of Bosses, northeast to the City Jail, while a little road to the east leads back to your apartment.
+
+> se
+
+Outside The House Of Bosses
+The main entrance of the House of Bosses lies before you: an archway of magnificent proportions but one, alas, you are never likely to see on account of the unfortunate rule that super heroes are banned from entering its sacred grounds. A couple of sturdy guards stand either side of the archway, the guns they are carrying indicating that your chances of getting inside will be slim at best.
+   Northwest takes you back to Torrin Plaza while southeast leads inside the House of Bosses.  
+
+> nw
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza, widely regarded as the true heart of the city. Uniformed policemen patrol in groups here, weapons close to hand, while overhead fly several copters. A wide, tree-lined avenue crosses the Plaza from one side to the other, bisected at the midway part by a tree-less avenue. The two halves when viewed from above are supposed to reveal a symbol showing the true meaning of the city's heritage but rumours have it that it actually looks like a couple of avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City Rag, southwest to the Police Station, southeast to the House of Bosses, northeast to the City Jail, while a little road to the east leads back to your apartment.  
+   As you arrive back at the centre of Torrin Plaza, you happen to catch sight of someone out of the corner of your eye.
+   The Crossing Lady!
+   She stands, seemingly innocent, chuckling to herself, and then turns and saunters off to the northeast. You're not sure what she's up to but it's bount to be no good.
+
+> ne
+
+At The Front Wall Of The City Jail
+Despite obscuring the skyline, the City Jail isn't an especially impressive looking place. It's just huge. If buildings had super heroes in the same way that humans did then this one would be called Mr Colossal or The Gigantic Man. Having said that, aside from a smattering of windows marking the front façade and a door leading inside, the Jail is an amazingly blank and uninviting place.
+   A door leads inside while a road leads away to the centre of Torrin Plaza to the southwest.  The crossing lady stands by the door leading into the prison.
+
+> show id to lady
+The crossing lady's eyes narrow.
+   "The Masked Defender, eh?" she says, looking you up and down. "I was expecting someone a bit..."
+   "Taller?" you hazard.
+   "Nah." She thinks. "Better looking. No offence, fellow, but you look like a poor man's answer to the Mr Ugly Contest."
+   Not wanting to let her words get to you, you quickly move to block the exit.
+   "You're under arrest, crossing lady," you say. "I'd suggest you surrender."
+   She darts a look at Torrin Plaza, and the police station beyond.
+   "Fair enough," she mutters. "I know when I'm beaten."
+   Surprised at how easy it is, you escort her to the police station and have the cops there book her in.In fact, it's not until after you set foot back in Torrin Plaza that you stop to wonder about how easy it is. A horrid thought occurs to you.
+   Slowly, not wanting to see what you're bound to see, you raise the super hero ID to your face and... yep. The crossing lady has defaced it with a marker pen, giving you a lopsided smile and a pair of horns. The humiliation is painful to say the least.
+
+[more]
+
+  
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza, widely regarded as the true heart of the city. Uniformed policemen patrol in groups here, weapons close to hand, while overhead fly several copters. A wide, tree-lined avenue crosses the Plaza from one side to the other, bisected at the midway part by a tree-less avenue. The two halves when viewed from above are supposed to reveal a symbol showing the true meaning of the city's heritage but rumours have it that it actually looks like a couple of avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City Rag, southwest to the Police Station, southeast to the House of Bosses, northeast to the City Jail, while a little road to the east leads back to your apartment.
+
+> e
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+
+> 5
+Situated in the murkier part of the city, Mirkhaven Avenue is an area which seems to have remained in the last century. While it has a certain, it also has a certain grime, and you're in two minds about which of them wins out in the end.
+
+
+Mirkhaven Avenue
+Mirkhaven Avenue is in a part of town which, strangely enough, is always dark. Clouds cover the sky which is pitch black, even in the middle of the day. The sun is hidden, buried away behind several miles of thick, rain-filled clouds. The Avenue itself leads east and west and is lit intermittently by the kind of dingy gas lamps you always imagine were around in Sherlock Holmes' day. In fact the tavern you're standing outside of - The Orc's Head - looks more like a tavern from medieval times than anything else. A door leading inside is to the south. Looking to the north you see your apartment a long way off.
+   Chatting to each other in the light of the gas lamps are some ladies of the night.
+
+> s
+
+In The Festering Pit Known As The Orc's Head
+Thick smoke obscures your eyes as you look around the murky interior of the Orc's Head, the city's hardest tavern. Here, fights are common place and no one sets foot through the doorway without a weapon close to hand. Through the murk, you catch sight of the bartender, a huge fellow with an eye patch, serving drinks. Further on, a pasty faced singer stands on a barrel, belting out a tuneless ditty that even with twenty pints of mead inside you probably still sounds really dire. The customers look a rough lot. The way they're arguing with each other and throwing beer mugs about gives the impression that violence is about to erupt at any moment.
+   A doorway leads outside into the gloom of Mirkhaven Avenue.  
+
+> show id to singer
+"Hmmm," says the singer, nodding slightly, "now that a more distinctive super hero ID if ever I did see one. I bet Satan Guy has one similar to that."
+   "But I can't use this!" you protest. "People just laugh at me."
+   "Yes, I can see where that might be a problem." The singer frowns. "Tell you what, get me a bite to eat - hungry work this singing lark - and an eraser and I'll see what I can do."  
+   "I hear the Smell's back," says one drunk.
+   "That's a lie!" says another. "I changed me underpants last month and you know it!"
+   "I meant the super villain known as the Smell."
+   The second one frowns. "Oh. Right." He ponders this. "I was lying about the underpants actually."
+
+> give carrot to singer
+"Hey, not bad," says the singer as he bites into the sandwich, proving that whatever he has in vocal talents he certainly lacks in his taste in food.  
+
+> give eraser to singer
+"Hmm," he says. "A bit shabby but I guess it'll do the trick."  
+
+"I think I have everything I need," says the singer. He takes your super hero ID and peers at it intently. "Stand well back. This could turn messy."
+   Several minutes of frantic scrubbing with the eraser, cursing, swearing, and general whining about the poor status of the lowly singer follow. But, gradually, you can see your ID returning to its former condition. Gone are the horns, gone are the-
+   "Done!" announces the singer, handing you back the ID. "Sorry I couldn't do anything with the face - I'm a genius, sure, but there's a limit to what I can handle - but I'm sure you'll do just fine."
+
+> n
+
+Mirkhaven Avenue
+Mirkhaven Avenue is in a part of town which, strangely enough, is always dark. Clouds cover the sky which is pitch black, even in the middle of the day. The sun is hidden, buried away behind several miles of thick, rain-filled clouds. The Avenue itself leads east and west and is lit intermittently by the kind of dingy gas lamps you always imagine were around in Sherlock Holmes' day. In fact the tavern you're standing outside of - The Orc's Head - looks more like a tavern from medieval times than anything else. A door leading inside is to the south. Looking to the north you see your apartment a long way off.
+   Chatting to each other in the light of the gas lamps are some ladies of the night.
+
+> n
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+
+> 7
+Chalkholme Cemetery: the very name is enough to instill fear in most of the city residents. Evil things lurk here, things with no name, things that howl and scream in the dark. It is the sort of place where even super heroes fear to tread.
+
+
+Inside The Grounds Of Chalkholme Cemetery
+Chalkholme Cemetery: several miles of wasteland with several thousand corpses buried beneath its seemingly placid surface. It seems a peaceful place for the most part but you often wonder at the stories which circulate about Chalkholme: the inhuman monsters which stalk the grounds after dark, the undead said to abduct visitors and the number of graves which become disturbed. Several rundown gravestones are close to where you stand while there are several thousands others further along a path to the west. Heading east will take you out of here and back to your apartment.
+
+> read bible
+You read a few passages from the bible.
+   Nothing much seems to happen but you feel reassured somewhat.
+
+> w
+
+A Burial Mound In Chalkholme Cemetery
+The ground has been formed here into a large burial mound rising to a height of fifteen feet. On the top of this an archway has been constructed, although for what purpose you cannot say as it definitely wasn't a subject covered at the Super Hero Academy you attended. Gravestones dot the surface of the mound while an imposing steel door in the centre leads inside. Or would only it's currently closed and appears to have been in this condition for many a long year.
+   A path leads past the burial mound and splits into branches heading southwest and northwest while the path you followed to reach this place heads back to the east.
+
+> knock on door
+You knock a couple of times. Nothing seems to happen.
+
+[more]
+
+Until a chute suddenly opens in the ground and you drop down into the darkness…
+
+[more]
+
+  
+Inside The Sinister Burial Mound
+The burial mound is surprisingly cheerful inside, although how cheerful you find it pretty much depends on the current situation. Several strange suits hang from the ceiling; to each is attached a lamp which makes the inside of the mound quite bright although the wind blowing in through a grate high in the wall causes the lamps to swing back and forth, causing eerie shadows to be cast over everything. A roaring log fire occupies the other wall. Add to this the rocking chair and TV positioned in front of it and you have a comfy little place, albeit strange considering its location.
+   The chute you fell through is in the ceiling but it's out of reach.  The super villain known as the Gardener stands close by, a scythe clutched in his hands.  
+   You pick yourself up, dust down your super hero outfit, and manage to duck aside at the last moment as a scythe passes through the air where your head was a moment ago!
+   "You're faster than I thought you'd be," croaks a voice from the shadows.
+   Something moves into the light and stands there, a scythe clutched in its hands, a twisted expression on its face.
+   "But I ain't met the hero yet what I couldn't bury," says the Gardener, chuckling at his own dry wit.
+   "Your reign of terror ends here, evil one!" you cry (this being the sort of thing it is traditional to cry at such times).
+   The Gardener sneers. "Yeah, same here, pal. You got a scythe of your own then? Too bad. Here, have mine!"
+   He lunges suddenly, missing you by a half inch.
+   You will have to act fast.  
+
+> get cowboy outfit
+"Keep your filthy hands off me outfits!" snaps the Gardener, his face livid. "You've got a nerve coming in here like that and pawing through me outfits!"  
+
+> get cowboy outfit
+You reach out and take hold of the cowboy outfit. The Gardener snarls in fury and charges at you, raises the scythe on high - then stops.
+   "Not the cowboy outfit," he says. "No, I can't slash the cowboy outfit to bits." He sighs, dropping the scythe at his feet. "It ain't right."
+   Keeping hold of the cowboy outfit, you quickly tie the Gardener up and then rummage around his burial mound home till you find his mobile (cunningly concealed in a box of shovels). With this you call the police.
+   "How did you know I liked cowboys?" asks the Gardener morosely as the pair of you wait for the cops to show up.
+   "I'm a super hero," is your reply. "Of course I knew."
+   Before long, the cops show up and take the Gardener into custody. His scythe they take as evidence, as well as the outfits, the box of shovels, and a carton of brandy.
+   "Evidence," says one officer who is already uncorking one bottle. "I suspect I may have to pull an all-nighter to get through this little lot."
+   And that is that. The police escort you out of the burial mound (which is now considered a crime scene) and leave you alone in the cemetery with nothing more by way of reward than a clap on the back and a promise to remember you the next time there's a whipround at the station for super heroes.
+
+  
+A Burial Mound In Chalkholme Cemetery
+The ground has been formed here into a large burial mound rising to a height of fifteen feet. On the top of this an archway has been constructed, although for what purpose you cannot say as it definitely wasn't a subject covered at the Super Hero Academy you attended. Gravestones dot the surface of the mound while an imposing steel door in the centre leads inside. Or would only it's currently closed and appears to have been in this condition for many a long year.
+   A path leads past the burial mound and splits into branches heading southwest and northwest while the path you followed to reach this place heads back to the east.
+
+> e
+
+Inside The Grounds Of Chalkholme Cemetery
+Chalkholme Cemetery: several miles of wasteland with several thousand corpses buried beneath its seemingly placid surface. It seems a peaceful place for the most part but you often wonder at the stories which circulate about Chalkholme: the inhuman monsters which stalk the grounds after dark, the undead said to abduct visitors and the number of graves which become disturbed. Several rundown gravestones are close to where you stand while there are several thousands others further along a path to the west. Heading east will take you out of here and back to your apartment.
+
+> e
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
 (8)  Grolsch Boulevard
 (9)  Torrin Plaza
 
@@ -705,6 +1238,10 @@ Some of them take heart in knowing that you are here but the rest just groan and
 
 > show officers id
 "Good to have you with us, MD," says one. "Far better to have one of your, er, calibre around for these, er, suicide missions than my regular soldiers."
+
+> read bible
+You read a few passages from the bible.
+   "Thanks," says an army officer. "That's reassuring at a time like this."
 
 > n
 Knowing you have no choice in the matter, you head towards the Smell. Several army personnel give cheers as you go, while several others start drawing bets on how long you last before your nose explodes.
@@ -736,7 +1273,7 @@ The soap hits him on the shoulder and he jerks back as if struck by a hammer!
 
 
 At Home In Your Less Than Glamorous Apartment
-Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll and a toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.  
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
 
 > s
 You head to the door and take a look at the destinations currently available to you.
@@ -746,6 +1283,8 @@ You head to the door and take a look at the destinations currently available to 
 (3)  Chabbow Street
 (4)  Horror Mall
 (5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
 (8)  Grolsch Boulevard
 (9)  Torrin Plaza
 
@@ -764,6 +1303,12 @@ A high wall surrounds the perimeter of Grimmen Park, not so much to keep people 
 By The Statue Of The Mayor In Grimmen Park
 Pride of place in Grimmen Park is given to a wide open area, at the centre of which is a statue of the city mayor. Several benches have been set at the edges of the open area to allow visitors to the park a wonderful place to rest themselves while they study the statue, although the current park residents seem to regard the statue more as a bit of target practice than a site to be viewed. Several paths lead deeper into the park to the southwest and northwest and the gate leading to the rest of the world is out.
 
+> look under bench
+Three of the benches are bare underneath but the fourth has some knitting there. Suspecting some dear old granny might have dropped it by mistake, you take it with you in case you run across her so you can hand it back.
+
+> get knitting
+You are already carrying the knitting.
+
 > nw
 A Pair Of Train Tracks In Grimmen Park
 Quite why Grimmen Park has a pair of train tracks here you don't know, particularly in light of the strange fact that they aren't actually connected to anything and the nearest train station is twenty miles away. Tied to them at this precise moment is a postman and the Paper Boys are dancing around him, taunting him with "choo-choo!" noises and the like. A path leads back to the southeast.  
@@ -780,32 +1325,17 @@ Quite why Grimmen Park has a pair of train tracks here you don't know, particula
    You consider the situation. "Something tells me you're going to kill me no matter what I do."
    "Good point," says Pog. "Okay, lads. Gerrim!"The Paper Boys start closing in on you.
 
-> wait
-Time passes...
+> show id
+Pog grimaces. "Hellfire, lads. He's got one of them there official-looking ID thingies."
+   Pig shrugs. "Let's kill 'im anyway!"
+   Pog shrugs himself. "Yeah. Good point. Kill him!"
+   The ID ploy seems to have failed but at least you slowed them down for a second or two.  
 
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-   "Let's kill 'im!" grunts Pug. "C'mon, Pog, you know it makes sense!"
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-One of the Paper Boys pulls a knife out and holds it to your throat!
-   "Prepare ter meet yer maker, snotty!" he cries and brings the knife slashing down-
-   Only for a piece of chalk to come flying out of the bushes to one side and catch him painfully behind the ear! He yelps in pain and turns with the knife in hand.
-   Out of the bushes steps none other than the Headmaster, one of the greatest of all super heroes. Reputedly a man with a sense of honour as sharp as his dry wit, the aged fellow with the steely-grey hair is an imposing sight. The Paper Boys cringe back as he stalks towards them, his cane held high.
+> read bible
+You read a few passages from the bible.
+   The Paper Boys at first seem unaffected by the good book but then Peg says, "hey, fellers. That's quite nice, y'know," and Pog lowers his fist (which had been raised to give you a black eye or two).
+   Out of the bushes to one side of the train tracks flies a piece of chalk and hits him painfully behind the ear!
+   From the bushes steps none other than the Headmaster, one of the greatest of all super heroes. Reputedly a man with a sense of honour as sharp as his dry wit, the aged fellow with the steely-grey hair is an imposing sight. The Paper Boys cringe back as he stalks towards them, his cane held high.
 
 [more]
 
@@ -822,17 +1352,14 @@ One of the Paper Boys pulls a knife out and holds it to your throat!
 
 
    This awful threat hanging over them, the Paper Boys stagger from the park. They pass by you without so much as a glance. The Headmaster, however, pauses as he reaches you.
-   "The Masked Defender?" he says with a sigh. "I thought as much. One of the new 'brand' of super heroes who think that a fancy costume can more than compensate for a distinct lack of ability."
-   "I was about to arrest them," you say.
-   One hard-looking eyebrow raises slightly. "Indeed? And what, pray tell, prevented you from leaping into the fray and tackling them all at once? Ah, I seem to recall they dangled you over a bridge this morning. No doubt you're still having heart palpitations." A sneer. "We had better super heroes when I was starting out. Granny would have eaten you for breakfast."
-   And with those hurtful words, he leaves. The thwack! of his cane can be heard several times as the Headmaster and his prisoners recede into the distance.
-   Of the poor unfortunate postman, no one seems unduly concerned about him.
+   "The Masked Defender?" he says. "I have to confess that I never thought much to you. I thought you were one of the new 'brand' of super heroes who think that a fancy costume can more than compensate for a distinct lack of ability. But I am impressed with what you did here today. You handled the situation with admirable ingenuity and I suspect even Granny herself might want to congratulate you on your efforts. Stop by her cottage sometime."
+   With a nod of his grey-haired head, he herds the Paper Boys out of the park and you decide to return to your apartment to plan your next move.
 
 [more]
 
   
 At Home In Your Less Than Glamorous Apartment
-Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll and a toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.  
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
 
 > s
 You head to the door and take a look at the destinations currently available to you.
@@ -842,6 +1369,42 @@ You head to the door and take a look at the destinations currently available to 
 (3)  Chabbow Street
 (4)  Horror Mall
 (5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+(12)  Granny's Cottage
+
+
+> 5
+Situated in the murkier part of the city, Mirkhaven Avenue is an area which seems to have remained in the last century. While it has a certain, it also has a certain grime, and you're in two minds about which of them wins out in the end.
+
+
+Mirkhaven Avenue
+Mirkhaven Avenue is in a part of town which, strangely enough, is always dark. Clouds cover the sky which is pitch black, even in the middle of the day. The sun is hidden, buried away behind several miles of thick, rain-filled clouds. The Avenue itself leads east and west and is lit intermittently by the kind of dingy gas lamps you always imagine were around in Sherlock Holmes' day. In fact the tavern you're standing outside of - The Orc's Head - looks more like a tavern from medieval times than anything else. A door leading inside is to the south. Looking to the north you see your apartment a long way off.
+   Chatting to each other in the light of the gas lamps are some ladies of the night.
+
+> give knitting to ladies
+You hand over the knitting you found earlier to the ladies of the night.
+   "Excellent!" cries the first lady. "A life of knitting awaits." She frowns. "But later. For now I think we'll just hang around on this street corner for a while longer."
+
+> n
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath, sink, sofa, fridge and washing machine. There used to be a TV but you had to sell it to pay for your Masked Defender costume. An archway to the south leads out into the hallway outside your apartment while another exit you sometimes use is the window in the western wall. The drop beyond it is a little dizzying but it's quicker than the stairs.  Also here is a doll.  Your ever reliable sidekick, Smelly the parrot, is here.  
+
+> n
+The only real exit available is to the south.  
+
+> s
+You head to the door and take a look at the destinations currently available to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(6)  The corner shop
+(7)  Chalkholme Cemetery
 (8)  Grolsch Boulevard
 (9)  Torrin Plaza
 (12)  Granny's Cottage
@@ -882,27 +1445,11 @@ During this period of enforced darkness, you hear the sound of cats and dogs and
    And then you are tipped out of the sack into a small, bare room. Of Granny and the unseen Thicko there is no sign.
    "You here to see the Tax Collector as well?" says a tall, thin teenager standing in one corner of the room dressed in leather biker's gear. "The name's Grimm the Hellwarden, but you can call me Steve if you want." He smiles. "I'm gonna be a super villain and burn me old school down."
 
-> talk to steve
-"It's gonna be so wicked when I'm a proper super villain," says Grimm. "No lines, no detention. Hell, I ain't even gonna clean me room no matter what me mum says."
-
-   1: "There's nothing great about being a super villain. You should consider being a super hero instead."
-   2: "Steve, I need your help. The Tax Collector is a despicable super villain who needs bringing to justice. Can I rely on you?"
-   3: "Tell me more about being a super villain. It sounds quite appealing."
-
-> 2
-"What - you want me to fight with you against the Tax Collector? Man, you're whacked! He's the boss. The dude! You can't fight him! He's me hero!"
-
-   1: "He's a murdering super villain who needs locking up. I need your help. Are you with me?"
-   2: "Let's talk about something else."
-
-> 1
-Steve shakes his head. "Man, you really are whacked!"
-   He suddenly springs into the centre of the room, does a karate move which makes him look like a constipated chicken, then faces you.
-   "You're for the graveyard, pal!" Steve yells. "C'mon, have at you!"  
-
-> hit steve
-As he comes charging at you, you bop him one on the nose and he goes crashing into the door, smashing through it with his head and falls into the corridor beyond. Upon seeing his nose has started to bleed, the fearsome super villain who will one day be known as Grimm the Hell Warden, bursts into hysterical tears and throws a tantrum.
-   You ignore him as best you can. His cries will surely bring the Tax Collector and his army of thugs running so you quickly duck out of the waiting room yourself and do your best to conceal yourself in the maze of corridors outside.
+> show id to steve
+Steve takes one look at the defaced ID and gives a yell of fear that he is locked in a room with a super hero.
+   "Man!" he cries. "I'm outta here!"
+   Lowering his head, Steve charges the door and goes slamming into it, no doubt hoping to smash his way through and escape from you. Unfortunately he didn't expect the door to be quite so hard so instead of smashing through the door, he smashes into the door and goes rebounding off. He is unconscious before his empty head even hits the floor.
+   On the plus side, his ill thought out charge has weakened the door enough to allow you to force it open and sneak out.
 
 [more]
 
@@ -920,8 +1467,8 @@ You land with a thud several feet away from the Tax Collector who regards you wi
    "I had expected better from you, Masked Defender," he says coldly. "I had expected a daring raid or perhaps a stealthy assassination attempt or maybe even a full on assault against my arsenal of weapons and minions. But instead this." He shakes his head. "I had thought better of you."
    "I'm here to bring you in, Tax Collector," you say. "You conspired with the Paper Boys to have me killed and-"
    "And many more things besides," the super villain interrupts. "My minions have wreaked true havoc in this pitiful city for weeks now: the Pizza Delivery Kid, the Smell, the Paper Boys... Ah, the but list goes on."  
-   "You're forgetting that I've stopped three of those villains," you say. "They're rotting away in jail cells up and down the country."
-   A flicker of unbridled rage spasms across the Tax Collector's face. "Yes. I heard. My plans have taken a setback certainly. But no matter. I have the strength to defeat the likes of you, Masked Defender. But enough of that for now. You will be bringing no one to justice because your life ends here." A smile briefly flickers across the Tax Collector's face. "Come then. Let us fight, MD. Just you and I. To the victor the spoils. To the loser..."  
+   "You're forgetting that I've stopped most of them," you say. "They're rotting away in jail cells up and down the country."
+   A flicker of unbridled rage spasms across the Tax Collector's face. "Yes. I heard. My plans... in ruins..." He curses and regains control. "No matter. I have the strength to defeat the likes of you, Masked Defender. But enough of that for now. You will be bringing no one to justice because your life ends here." A smile briefly flickers across the Tax Collector's face. "Come then. Let us fight, MD. Just you and I. To the victor the spoils. To the loser..."  
    What to do?
 
 (1)  Attack the Tax Collector
@@ -967,55 +1514,6 @@ You grab a maths book and rip its binding off at the same time as the Tax Collec
 (2)  Use an item
 (3)  Destroy some of the scenery  
 
-> 2
-What will you use?
-
-(A1)  A newspaper
-(A2)  A marble
-(A3)  An iron
-(A4)  A sandwich
-(A5)  Your super hero ID
-(A6)  A net
-(A7)  A pencil
-(A8)  A hot dog
-(A9)  Some knuckledusters
-(A10)  The bible
-(A11)  Try something else  
-
-> a3
-You lob the iron at the Tax Collector who is a fraction of a second too slow in dodging. It hits him in the middle of the face and sends him reeling back.
-   What to do?
-
-(1)  Attack the Tax Collector
-(2)  Use an item
-(3)  Destroy some of the scenery  
-
-> 2
-What will you use?
-
-(A1)  A newspaper
-(A2)  A marble
-(A3)  An iron
-(A4)  A sandwich
-(A5)  Your super hero ID
-(A6)  A net
-(A7)  A pencil
-(A8)  A hot dog
-(A9)  Some knuckledusters
-(A10)  The bible
-(A11)  Try something else  
-
-> a9
-Slipping on the knuckledusters, you aim a solid punch at the Tax Collector's face. He brings his ruler up to stop you and the two weapons meet in midair, the force of this sending you reeling backwards.
-   "My... ruler," cries the Tax Collector, sounding distraught. "You've put a dent in it."
-   He sounds as if you had put a dent in him instead.
-   A pity the force of the blow shattered the knuckledusters but you feel you've certainly got some use out of them.
-   What to do?
-
-(1)  Attack the Tax Collector
-(2)  Use an item
-(3)  Destroy some of the scenery  
-
 Suddenly the Tax Collector staggers and slips to one knee.
    "No!" he cries, one hand clutched to his chest. "Damn this weak heart of mine! It's not made for... for active... stuff like this... it's made for... for..."
    But whatever his heart is made for you'll never know. The Tax Collector gives a gurgle of pain, his face goes a bright purple colour, he throws one arm up (the class super villain dying pose) and then crashes down before you.
@@ -1034,6 +1532,18 @@ But know well that though one master super villain is defeated, there are others
   
 End Game
 You stand in emptiness, the game over. If you want to play again, type "restart" or "load" to restore a previously saved game.
+
+> 2
+Sorry. That isn't a command generally found in the Good Book of Super Heroes. You'll have to try something else.
+
+> a3
+Sorry. That isn't a command generally found in the Good Book of Super Heroes. You'll have to try something else.
+
+> 2
+Sorry. That isn't a command generally found in the Good Book of Super Heroes. You'll have to try something else.
+
+> a9
+Sorry. That isn't a command generally found in the Good Book of Super Heroes. You'll have to try something else.
 
 > statusline
 Sorry. That isn't a command generally found in the Good Book of Super Heroes. You'll have to try something else.

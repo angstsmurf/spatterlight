@@ -317,6 +317,94 @@ You move northwest.
 Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small wooden huts to the north, east,  southeast and south. The huts are covered with mud and branches. A wide path leads west to a junction. A small path leads southwest towards the sea.  Natalya is here.  Serond is standing on your right.
 
+> wear steel vest
+You put on the steel vest.
+
+> wear cloak
+You put on the woven cloak.
+
+> remove cube
+You remove the magic cube.
+
+> sw
+You move southwest.
+Kedarn pass
+The path is well trodden and you can feel the spray of the sea on your face. Northeast will take you to a village. Southwest will take you to Kedarn harbour.
+
+> sw
+You move southwest.
+Kedarn Harbour
+The sea stretches out for miles. There is a river flowing into the sea west of you. It is too difficult to get to. Northwest will take you to the entrance of Kedarn forest. Northeast will take you towards a village.  You can also see a gold coin.  Billy the fisherman is perched on the end of the dock here.  A small child leaps out of the trees. He hits your hand, making coins scatter out of your purse onto the floor. He grabs as many coins as he can and runs off.
+
+> nw
+You move northwest.
+Entrance of Kedarn Forest
+ You are standing at the entrance of Kedarn Forest, the darkest, most dangerous forest in Dalskee. The trees tower far above your head and you can hear strange noises coming from within the forest. There is a faint trail going through the forest to the north. To the southwest there is a large stone bridge. Southeast of here leads to Kedarn harbour.
+
+> sw
+You move southwest.
+The Bridge of Tonerith
+The large stone bridge extends across the wide river. The sound of rushing water is almost deafening. A mist of spray from the river blows against your face. The bridge is covered in Ivy and moss. The bridge crosses the river towards Kedarn forest to the northeast. West will take you to Tonerith junction.  There is a large dwarven bridgekeeper blocking your way across the bridge.  The Bridgekeeper is here.
+
+> attack bridgekeeper with cube
+You hit an angry dwarf with the magic cube.  An angry dwarf chops you with the iron axe.
+
+> attack bridgekeeper
+You hit an angry dwarf with the magic cube.  The dwarf, with his last ounce of strength lifts himself to the side of the bridge. He removes his shirt and axe and then he slumps over the wall and falls into the river with a huge splash.
+
+> w
+You move west.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the river east of here and a path to the north, running alongside the river. Tonerith pass runs west of here.
+
+> w
+You move west.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north of here but there is no path running there. You can here the sound of rushing water in the distance.  There is a grey wolf circling you.
+
+> wait
+Time passes...
+A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf with the magic cube.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf with the magic cube.  The wolf limps away, badly hurt. It won't be likely to bother you again.
+
+> e
+You move east.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the river east of here and a path to the north, running alongside the river. Tonerith pass runs west of here.
+
+> e
+You move east.
+The Bridge of Tonerith
+The large stone bridge extends across the wide river. The sound of rushing water is almost deafening. A mist of spray from the river blows against your face. The bridge is covered in Ivy and moss. The bridge crosses the river towards Kedarn forest to the northeast. West will take you to Tonerith junction.  There are scrape marks on the side of the bridge walls where the dwarf fell into the water.  You can also see an iron axe, a dwarven armour shirt and some gold coins.
+
+> ne
+You move northeast.
+Entrance of Kedarn Forest
+ You are standing at the entrance of Kedarn Forest, the darkest, most dangerous forest in Dalskee. The trees tower far above your head and you can hear strange noises coming from within the forest. There is a faint trail going through the forest to the north. To the southwest there is a large stone bridge. Southeast of here leads to Kedarn harbour.
+
+> se
+You move southeast.
+Kedarn Harbour
+The sea stretches out for miles. There is a river flowing into the sea west of you. It is too difficult to get to. Northwest will take you to the entrance of Kedarn forest. Northeast will take you towards a village.  You can also see a gold coin.  Billy the fisherman is perched on the end of the dock here.
+
+> ne
+You move northeast.
+Kedarn pass
+The path is well trodden and you can feel the spray of the sea on your face. Northeast will take you to a village. Southwest will take you to Kedarn harbour.
+
+> ne
+You move northeast.
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small wooden huts to the north, east,  southeast and south. The huts are covered with mud and branches. A wide path leads west to a junction. A small path leads southwest towards the sea.  Natalya is here.  Serond is standing on your right.
+
+> wear cube
+You put on the magic cube.
+
 > w
 You move west.
 Kedarn junction
@@ -332,7 +420,7 @@ You move southeast.
 Kedarn forest clearing
 You stand in the middle of a barren circle. All around the trees seem to be closing in. West will take you down a tiny path. Another clearer path leads northwest.  You can also see the Kedarn stone.  There is a Forester Goblin hanging from a tree here.  A forest dwelling goblin shoots you with the bow and arrow, but it doesn't seem to do any damage.
 
-> attack goblin
+> attack goblin with spade
 You hit a forest dwelling goblin with the metal spade.  A forest dwelling goblin shoots you with the bow and arrow, but it doesn't seem to do any damage.
 
 > attack goblin
@@ -367,28 +455,22 @@ You move northwest.
 Longmore pass
 The ground has turned extremely wet and appears to get even wetter furthur Northwest. Southeast goes to a track junction. In the far distance you can see mountains.
 
+> remove cube
+You remove the magic cube.
+
 > nw
 You move northwest.
 Longmore marshes
-The ground is extremely boggy here. Every footstep is a difficult strain. With all the water, it is difficult to see where any path goes. As you trudge through the marsh your eyes are fixed to the ground to try and be able to get through the ground. You can trudge northwest, southeast or attempt another direction.  The Longmore marsh king is here.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
+The ground is extremely boggy here. Every footstep is a difficult strain. With all the water, it is difficult to see where any path goes. As you trudge through the marsh your eyes are fixed to the ground to try and be able to get through the ground. You can trudge northwest, southeast or attempt another direction.  The Longmore marsh king is here.  A swamp monster stabs you with the pointy stick.
+
+> attack monster with cube
+You hit a swamp monster with the magic cube.  A swamp monster stabs you with the pointy stick.
 
 > attack monster
-You hit a swamp monster with the metal spade.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
+You hit a swamp monster with the magic cube.  A swamp monster stabs you with the pointy stick.
 
 > attack monster
-You hit a swamp monster with the metal spade.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
-
-> attack monster
-You hit a swamp monster with the metal spade.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
-
-> attack monster
-You hit a swamp monster with the metal spade.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
-
-> attack monster
-You hit a swamp monster with the metal spade.  A swamp monster stabs you with the pointy stick, but it doesn't seem to do any damage.
-
-> attack monster
-You hit a swamp monster with the metal spade.  The swamp monster slowly melts into the marsh. It then dissapears.
+You hit a swamp monster with the magic cube.  The swamp monster slowly melts into the marsh. It then dissapears.
 
 > ne
 You move northeast.
@@ -431,13 +513,10 @@ Somlost Ravine
 You are standing on the edge of a huge ravine. Below you the cliff drops about 60ft down onto jagged rocks. The ravine is about 30ft wide and impossible to jump across. Jumping down would result in immediate death. West will take you along a path.  There is an eagle above you circling around your head.  A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You hit a large eagle with the metal spade.  A large eagle hits you, but it doesn't seem to do any damage.
+You hit a large eagle with the magic cube.  The eagle makes a last flap of it's enormous wings and falls deep into the ravine out of view.
 
-> attack eagle
-You hit a large eagle with the metal spade.  A large eagle hits you, but it doesn't seem to do any damage.
-
-> attack eagle
-You hit a large eagle with the metal spade.  The eagle makes a last flap of it's enormous wings and falls deep into the ravine out of view.
+> wear cube
+You put on the magic cube.
 
 > w
 You move west.
@@ -500,7 +579,7 @@ The large footbridge is behind you now as you look to the huge mountain in front
 > e
 You move east.
 Uron Dark Path
-This long path is completely shadowed. The little light that there is comes from far off in the distance. There are sharp jagged rocks on each side of the path. West will take you towards the bridge. Northeast will take you further up the mountain.
+This long path is completely shadowed. The little light that there is comes from far off in the distance. There are sharp jagged rocks on each side of the path. West will take you towards the bridge. Northeast will take you further up the mountain.  You drop to the floor feeling very ill.
 
 > ne
 You move northeast.
@@ -510,7 +589,7 @@ The path turns marshier here, great pools of boiling mud litter the path. The sm
 > nw
 You move northwest.
 Uron Dark Path
-The air is very dense now, the smog fills your nostrils with foul air. There are pools of slime and mud all around here. Southeast will take you down the mountain. Northeast will take you up.  The air has become extremely dense and choking.
+The air is very dense now, the smog fills your nostrils with foul air. There are pools of slime and mud all around here. Southeast will take you down the mountain. Northeast will take you up.
 
 > ne
 You move northeast.
@@ -523,18 +602,18 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the air appears less dense. It is replaced with a feeling that you are unwanted. There is a large wooden door that looks extremely thick. The path leads South down the mountain.
 
 > say the password
-The words seem to have moved the doors a little. They must be unlocked. They could probably be opened now.  Haron follows you.  A knight catches up to you and smiles. Clearing his throat he says: 
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I have brought a gift from Natalya."  Haron hands you a phial.
+The words seem to have moved the doors a little. They must be unlocked. They could probably be opened now.
 
 > open door
-The doors slowly creak open. A darkness that seems to come out of the doors, consumes you.
+The doors slowly creak open. A darkness that seems to come out of the doors, consumes you.  Haron follows you.  A knight catches up to you and smiles. Clearing his throat he says: 
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I have brought a gift from Natalya."  Haron hands you a phial.
 
 > n
 You move north.
 Uron Castle Main Hall
-The hall is huge and has Gargoyles around the ceiling. When looking at one, another seems to move out of the corner of your eye.  Out will take you back outside. North will take you into a long room. West will take you into a corridor. East will take you into a smaller room.  Larnt is here.  Haron follows you from the south.  The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
+The hall is huge and has Gargoyles around the ceiling. When looking at one, another seems to move out of the corner of your eye.  Out will take you back outside. North will take you into a long room. West will take you into a corridor. East will take you into a smaller room.  Larnt is here.  Haron follows you from the south.  The dark knight cuts Haron with the blade from Uron.
 
-> attack larnt
+> attack larnt with spade
 You hit the dark knight with the metal spade.  Haron cuts the dark knight with the elven sword.  The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
 
 > attack larnt
@@ -624,7 +703,7 @@ As you pass through the door, Urgorn creates a spell that shuts the exit to the 
  Just us now, no escape.  Haron follows you from the south.
 
 > attack urgorn
-You hit the dark lord with the metal spade.  Haron cuts the dark lord with the elven sword.  The dark lord shoots Haron with the ball of fire.
+You hit the dark lord with the metal spade.  Haron cuts the dark lord with the elven sword.  The dark lord shoots you with the ball of fire, but it doesn't seem to do any damage.
 
 > attack urgorn
 You hit the dark lord with the metal spade.
@@ -671,8 +750,8 @@ and...
 You for playing this game.
 
 
-You scored 58 out of the maximum 65!
-That is 89% of the game!
-You finished 7 points short.
+You scored 65 out of the maximum 65!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

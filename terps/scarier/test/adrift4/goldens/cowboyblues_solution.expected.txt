@@ -802,21 +802,49 @@ try and restrain yourself, okay? No need for this kind of bad publicity."
    Higgold wanders off, muttering as he does so about your poor tactics for
 dealing with the bank robber.
 
-> score
-Your score is 19 out of a maximum of 401.  (4%)
+> find broom
+You start a systematic search for the broom - which unfortunately ends in
+bitter disappointment as you fail to find even a hint of it. On the plus
+side, however, you do come across one of the pieces of evidence you're after.
+It seems that the employee responsible for stealing the bank funds is not a
+dwarf! Interesting. But a bit pointless as well because the bank doesn't
+employ any dwarves.
 
-> look
+> find broom
+You fail to find the broom again but trapped under a box is a single dollar
+which is happy to take up residence in your possession in return for its
+freedom.
 
-Broom Closet/Your Office
+> x table
+Lying on the table in plain sight of you is a piece of the evidence you need.
+Eagerly you snatch it up and discover that the employee who has been stealing
+funds from the bank is not blind. Now if not for the annoying fact that the
+bank doesn't have any blind employees that bit of evidence would doubtless be
+very interesting. As it is, it's slightly less useless than a comb to a bald
+man.
 
-BROOM CLOSET/YOUR OFFICE
-Four feet by five, the broom closet has doubled as your office (and
-occasionally as a toilet) since your arrival at the bank. To say it is
-crammed would be the understatement of the year. In here are boxes and
-cartons and sacks and chairs and the odd table that no one wanted. There's
-even a broom somewhere although whether it's hidden behind your cabinet or
-stuck under your desk is a mystery. You can go: south (to the main room of
-the bank)
+> x carton
+Taking a peek inside the carton, you come across part of the evidence that
+Higgold was after. It seems the employee who has been stealing funds from the
+bank is a male employee. Well, under normal circumstances that would narrow
+the search down but as the bank hasn't got any female employees it's not as
+helpful as it might have been.
+
+> open box
+You open a box completely at random and find it contains: nothing at all.
+Darn! What a waste of time!
+
+> open box
+You open another box and find nothing more exciting than a tennis ball which
+falls to the floor.
+
+> open box
+Ah-ha! This box contains a couple of dollars which you quickly swipe before
+whoever left them there realises and comes back for them.
+
+> open box
+Another box also contains two dollars. At this rate you'll be rich by the end
+of the day!
 
 > s
 You move south.
@@ -832,10 +860,92 @@ occasional dead body sprawled in the corner for no apparent reason...
 somewhere but you're never sure exactly where. You can go: north (to a broom
 closet), northeast (to the back room) and south (to Stonetomb Square)
 
-> se
-You can't go in that direction, but you can move north, south and northeast.
+> ne
+You move northeast.
 
-> look
+Back Room
+
+BACK ROOM
+The 'safe' room of the bank, minus anything that might reasonably be
+described as a safe. The money, such as there is, seems to be piled up on
+several groaning tables. The east wall is taken up by a large glass window
+which allows anyone here an excellent look at the outside world (and vice
+versa). You can go: southwest (to the main room of the bank)
+
+  Higgold is here.
+
+> talk higgold
+"I've got the evidence," you say.
+   Higgold frowns. "You... have?" he asks hesitantly.
+   "Yep. Three lots which were cunningly hidden in my office. One lot
+confirms that the person who's been stealing funds from the bank isn't a
+dwarf - which rules out precisely no one as we don't have any dwarves working
+here. Another lot confirms that the thief isn't a woman - which also doesn't
+mean a lot as we don't have any female employees. And the third lot of
+evidence states that the thief isn't blind - which also doesn't prove a thing
+as we haven't got any blind employees. So the conclusion is obvious."
+   Higgold frowns some more and seems a little on edge. "And... what might
+that be, Buddge?"
+   "That it's a test," you say.
+   Higgold considers this, glances around as if wondering whether he can make
+a run for it without you noticing, then sighs. "Crap," he mutters. "Yes, it
+was a test."
+   "Can I ask why?"
+   "Of course you can."
+   You wait.
+   And Higgold waits.
+   So in the end you are obliged to ask: "why?"
+   "Head office decided it was time I gave you more responsibility," Higgold
+says uneasily. "So they made me devise a simple test for you. I thought: hell
+with that! You might pass it. So I came up with my own test and hid the
+evidence in your office. Not a good hiding place, I admit, but when you've
+got a writer who's really stingy with locations it's difficult knowing where
+to hide things. A bank of epic proportions was called for here really, two
+hundred locations with thousands of hiding places. But... it wasn't to be. So
+I hid the evidence in your office and hoped you wouldn't find it. But you
+did. Damn. I blame head office for wanting to give you more responsibility.
+God alone knows why they want that. Don't get me wrong, Bledge, I consider
+you to be an excellent employee insofar as making the tea is concerned but I
+don't think you're ready for the big move up the corporate ladder that this
+sort of thing entails."
+   "Head office do."
+   "Yes, yes. Quite." Higgold sighs and then curses and then sighs some more.
+"Oh, hell. The promotion's yours if you want it. You get a pay rise effective
+as of the end of next year, a day's extra holiday a year-"
+   "I don't get any holidays," you point out.
+   "Well, you get one now. And the other bonus is twice as much work to get
+through."
+   "And what else?"
+   Higgold shrugs. "That's it, Bunge. More work, a pay increase that doesn't
+mean a thing and a day off - which you'll be expected to take when the bank's
+closed I might add. Welcome to the world of banking."
+
+> talk higgold
+"So you want to chitchat, eh?" says Higgold. He sighs deeply. "Very well, ask
+away and I'll do my best to answer your questions in the most sarcastic
+manner I can manage."
+
+   1)  Do I really not get any other bonuses due to my promotion?
+   2)  What work needs to be done?
+   3)  I quit.
+   4)  I need a loan to cover my crime-fighting lifestyle.
+   5)  I want a bigger office.
+
+> 1
+"Oh, hell!" hisses Higgold. "Yes, yes, yes! There was another bonus! Head
+office insisted I give you this." He hands over $10. "They said it was a
+precursor to the vast amount of money you'd soon be earning."
+   "$10 doesn't seem like a lot," you say.
+   "Well, no," says Higgold who, you notice, is sweating quite a bit.
+"Actually it was $1,000 dollars but the rest went on a few sundry expenses."
+   "What sundry expenses?"
+   "Er... me."
+
+   1)  You, you thieving son of a- I'm going to- Just you wait till I- Oh,
+hell with it. Let me ask you something else.
+
+> sw
+You move southwest.
 
 Stonetomb Bank
 
@@ -850,24 +960,6 @@ closet), northeast (to the back room) and south (to Stonetomb Square)
 
 > s
 You move south.
-
-Stonetomb Square
-
-STONETOMB SQUARE
-You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
-guillotine have been erected here for many a year and a weekly tradition is
-the old game of "who's next for the head basket?", generally played with
-whoever is unfortunate enough to be around at the time. A row of stalls line
-the rest of the square although none of them appear to be selling much. The
-stallowners are standing around looking lost.
-   Roads branch off from the square in many directions. You can go: north (to
-Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
-southeast (to the sheriff's office), south (to Blood Alley) and west (to
-Babbage Street)
-
-  Toby is here, smiling happily as people rush by him on all sides.
-
-> look
 
 Stonetomb Square
 
@@ -899,26 +991,6 @@ sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
   Sheriff Calhoun is here.
 
-> look
-
-Sheriff's Office
-
-SHERIFF'S OFFICE
-For such a violent town, Stonetomb has a decidely modest sheriff's office
-consisting of just two rooms (one of these being where you're standing right
-now and the other where they lock the criminals up). A noticeboard off to one
-side displays a list of all the recent lawbreakers currently wanted by the
-sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
-
-  Sheriff Calhoun is here.
-
-> i
-You are wearing a bullet proof vest, and you are carrying your wallet, a
-brutally sharp knife, a book of poetry and a credit card.
-
-> score
-Your score is 19 out of a maximum of 401.  (4%)
-
 > x noticeboard
 You do. It's blank.
    "Should it be like that?" you ask the sheriff.
@@ -940,7 +1012,7 @@ well... beer won out."
    2)  No
 
 > score
-Your score is 19 out of a maximum of 401.  (4%)
+Your score is 37 out of a maximum of 401.  (9%)
 
 > 1
 "Excellent!" the sheriff says. He grabs your hand and shakes it until your
@@ -951,7 +1023,7 @@ on myself only it's more a deputy's job than a sheriff's. Come back here when
 it's done."
 
 > score
-Your score is 19 out of a maximum of 401.  (4%)
+Your score is 37 out of a maximum of 401.  (9%)
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
@@ -1086,7 +1158,7 @@ intention is focused on the knife.
 drunks to cart him down to the cells at the sheriff's office.
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 40 out of a maximum of 401.  (9%)
 
 > se
 You move southeast.
@@ -1167,7 +1239,7 @@ I'll be needing them."
 The meeting, it seems, is over.
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 40 out of a maximum of 401.  (9%)
 
 > nw
 You move northwest.
@@ -1259,7 +1331,7 @@ Mason)
    3)  Do you have any info on the criminal gangs in this fair town of ours?
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 40 out of a maximum of 401.  (9%)
 
 > 1
 "Sure have. Just a dollar each. You interested?"
@@ -1276,7 +1348,7 @@ shudder.
    1)  Let me ask you something else.
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 40 out of a maximum of 401.  (9%)
 
 > 1
 "Hello again, superhero," says Mauree with a smirk.
@@ -1284,6 +1356,26 @@ Your score is 22 out of a maximum of 401.  (5%)
    1)  Have you got any lollies for sale?
    2)  How's life treating you?
    3)  Do you have any info on the criminal gangs in this fair town of ours?
+
+> 2
+"Not so good," says Mauree with a sad shake of her head. "Bomba's been
+hassling me again."
+
+   1)  (yawn!) Very interesting. Let me ask you something else.
+   2)  Who's this Bomba?
+
+> 2
+"Oh, he's a local thug," says Mauree. "He's had it in for me ever since the
+day I shopped him to the cops for burning down the warehouse on Chalk
+Street."
+   "But Mad Jake and his gang burnt down the warehouse," you say.
+   Mauree shrugs. "Whatever. Thing is, Bomba's been giving me grief ever
+since and he just won't let up. It got so bad I couldn't even sell my lollies
+in the town square and had to come out here instead. If you'd be good enough
+to deal with for him it'd be a real nice gesture."
+
+   1)  I'll have to think about it. In the meantime, let me ask you something
+else.
 
 > ne
 You move northeast.
@@ -1318,7 +1410,31 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-  Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne, Spam and Eccles are here.  "Won't nobody help me?"
+Eccles is saying as he wanders back and forth across the saloon, clutching at
+people and begging for their assistance. "Would you let the poor man suffer
+just because he imprisoned some of your relatives for no reason, sold others
+into slavery and used to have a 'kill-a-Stonetomb-villager-for-a-laugh'
+contest? Have none of you got any decency? Ah-"
+   It seems Eccles has seen you because he comes rushing over.
+   "You!" he says. "You have the look of a would-be crime-fighter about you,
+friend. Would you be so kind as to help me out in my hour of need?"
+   "What's wrong?" you ask, more to pass the time than because you have any
+intention of helping him out.
+   "It's my employer, the poor Lord Dimm. His sword has broken and he needs a
+replacement one only his father, the Lord Dimmer, has banned him from
+borrowing funds from the family treasury after he spent close to $20,000,000
+on wine, women and more wine just over a year ago."
+   "Why does he need a sword?"
+   Eccles beams with pride. "A very modern man is my employer. Some lords
+consider it adequate to beat their servants with wooden sticks but Lord Dimm
+knows that only a sound thrashing within an inch of their lives with a stout
+steel sword gets the best performance from a servant. But now, alas, his
+sword is broken..." Eccles looks about to cry. "So you see my predicament."
+
+   1)  And you expect me to buy you a new sword so that your employer can go
+around beating the living daylights out of his servants with it?
+   2)  Get out of my face, Eccles. I haven't the time for this.
 
 > look
 
@@ -1336,13 +1452,13 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-  Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne, Spam and Eccles are here.
 
 > give lolly to cestus
 Give the lolly to who?
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 40 out of a maximum of 401.  (9%)
 
 > se
 You move southeast.
@@ -1391,7 +1507,26 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-  Toby is here, smiling happily as people rush by him on all sides.
+  Bomba is here looking for someone to pound into the ground.  Toby is here,
+smiling happily as people rush by him on all sides.
+
+> arrest bomba
+"Bomba!" you call. "You're under arrest!"
+   Bomba turns to sneer at you. "You an' whose army, weirdo?"
+   "This army, sonofabitch!" grunts the sheriff where he is watching from the
+doorway to his office.
+   Bomba takes one look at the sheriff and mutters, "aw, crap!" although in
+all honesty it's the rifle the sheriff is pointing at him and not so much the
+sheriff that has him so annoyed. "I wuz just mindin' me business, sheriff.
+Ain't caused no one no trouble fer at least half an hour-"
+   The sheriff motions with the rifle. "In the cells, pal. NOW!"
+   Bomba grumbles but even he knows better than to argue with a man with a
+rifle.
+   "You did well there, Bodge," the sheriff says a minute later when he's
+finished locking Bomba up. "Always pays to use the power of the law instead
+of just running up and kicking a guy in the nuts till he goes down." He
+pauses, thinks on that and adds, "well, sometimes anyway. Of course, having a
+rifle also helps." He pats you on the back and disappears inside his office.
 
 > s
 You move south.
@@ -1549,32 +1684,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.  "Won't nobody
-help me?" Eccles is saying as he wanders back and forth across the saloon,
-clutching at people and begging for their assistance. "Would you let the poor
-man suffer just because he imprisoned some of your relatives for no reason,
-sold others into slavery and used to have a
-'kill-a-Stonetomb-villager-for-a-laugh' contest? Have none of you got any
-decency? Ah-"
-   It seems Eccles has seen you because he comes rushing over.
-   "You!" he says. "You have the look of a would-be crime-fighter about you,
-friend. Would you be so kind as to help me out in my hour of need?"
-   "What's wrong?" you ask, more to pass the time than because you have any
-intention of helping him out.
-   "It's my employer, the poor Lord Dimm. His sword has broken and he needs a
-replacement one only his father, the Lord Dimmer, has banned him from
-borrowing funds from the family treasury after he spent close to $20,000,000
-on wine, women and more wine just over a year ago."
-   "Why does he need a sword?"
-   Eccles beams with pride. "A very modern man is my employer. Some lords
-consider it adequate to beat their servants with wooden sticks but Lord Dimm
-knows that only a sound thrashing within an inch of their lives with a stout
-steel sword gets the best performance from a servant. But now, alas, his
-sword is broken..." Eccles looks about to cry. "So you see my predicament."
-
-   1)  And you expect me to buy you a new sword so that your employer can go
-around beating the living daylights out of his servants with it?
-   2)  Get out of my face, Eccles. I haven't the time for this.
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
 
 > look
 
@@ -1602,7 +1712,7 @@ from my little nap in the alley. Bah!" he sneers. "What do you want?"
    2)  Just passing the time until someone more interesting arrives.
 
 > score
-Your score is 22 out of a maximum of 401.  (5%)
+Your score is 50 out of a maximum of 401.  (12%)
 
 > give lolly to cestus
 "Aah, my favourite!" cries Cestus, snatching the lolly off you. "Sickly and
@@ -1630,7 +1740,7 @@ adventure, Bodge. It doesn't have to make sense."
    1)  Er, fine. Let me ask you something else.
 
 > score
-Your score is 28 out of a maximum of 401.  (6%)
+Your score is 56 out of a maximum of 401.  (13%)
 
 > 1
 "Ask away, my lolly giving friend!" says Cestus.
@@ -1640,6 +1750,74 @@ Your score is 28 out of a maximum of 401.  (6%)
    3)  How do I get into the office at the arcade?
    4)  I need some cash.
    5)  Where are the sheriff's slippers?
+
+> 3
+"Easy as pie that one," says Cestus. "My, if you're having problems with
+something as simple as that you'll never anywhere towards the end of the
+game. That's when it gets hard."
+   "So are you going to tell me or not?" you ask, a little put out by his
+cutting sarcasm (true though it may well be).
+   Cestus sighs. "I'd ask the kids if I were you. Of course, you could try
+breaking the door down."
+   "Breaking the door down, eh?"
+   "Yep." Cestus mulls over this for a few seconds then adds, "won't work but
+feel free to give it a shot all the same."
+
+   1)  Let me ask you something else.
+
+> 1
+"Ask away, my lolly giving friend!" says Cestus.
+
+   1)  Tell me about Mad Jake.
+   2)  I'm having trouble getting anywhere.
+   3)  How do I get into the office at the arcade?
+   4)  I need some cash.
+   5)  Where are the sheriff's slippers?
+
+> 1
+"Ah, a dangerous one he is and no mistake," says Cestus. "You should be wary
+of crossing him at all and only a real fool with a death wish would try and
+take him down. Why'd you want to know about him?"
+   "I'm trying to take him down," you say uneasily.
+   "Ah," says Cestus. He frowns. "Well, you're a braver man than most and I'm
+sure we'll find you a nice spot in the cemetery when - I mean if - anything
+goes wrong."
+   "Any advice then?"
+   "I hear he hangs around near Oliver Koran's Coral but I wouldn't mess with
+him till you've dealt with his allies first. You don't want to tangle with
+the whole gang at the same time. One of 'em - forget his name but it rhymes
+with Rat - is said to be planning to rob the bank. He might be as good a one
+as any to start with."
+
+   1)  Let me ask you something else.
+
+> 1
+"Ask away, my lolly giving friend!" says Cestus.
+
+   1)  Tell me about Mad Jake.
+   2)  I'm having trouble getting anywhere.
+   3)  How do I get into the office at the arcade?
+   4)  I need some cash.
+   5)  Where are the sheriff's slippers?
+
+> 4
+"Don't we all?" says Cestus. "Your best bet, my friend, is to examine every
+possible object in the game as I've heard a strange rumour that cash can be
+found in the weirdest of places. Like under a rock at the side of the long
+and dusty road..."
+   "Why would there be cash under a rock at the side of the long and dusty
+road?" you ask.
+   Cestus shrugs. "Beats me. But I heard about it so I'd get there pronto if
+I was you. Or not pronto if you like 'cos as you might have noticed people in
+this town don't tend to move about much so you can take your time getting to
+the rock if you like. Aside from that, it's always a good idea to talk to
+everyone you meet and do what they want."
+   "And I'll get paid for this?"
+   "Yeah, right." Cestus snorts. "Probably not, but you never know. And the
+worst that'll happen is that half the people will take a swing at you or try
+to kill you so you've lost nothing really."
+
+   1)  Interesting. Let me ask you something else.
 
 > se
 You move southeast.
@@ -1713,7 +1891,7 @@ tedious details out of the way..." He pauses, looks around and then sighs.
 found the slippers without your help."
 
 > score
-Your score is 32 out of a maximum of 401.  (7%)
+Your score is 66 out of a maximum of 401.  (16%)
 
 > s
 "You ain't going in there unless you're wearing the official badge of the
@@ -1726,7 +1904,7 @@ You see no such thing.
 Take what?
 
 > score
-Your score is 32 out of a maximum of 401.  (7%)
+Your score is 66 out of a maximum of 401.  (16%)
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
@@ -1795,7 +1973,7 @@ your hands.
 a crowbar we're talking about here.)
 
 > score
-Your score is 33 out of a maximum of 401.  (8%)
+Your score is 67 out of a maximum of 401.  (16%)
 
 > talk quiff
 "Ask away and I shall dazzle you with my boundless knowledge about every
@@ -1808,7 +1986,7 @@ conversation stone dead before it even begins.
    4)  You're just a blowhard aren't you, pal?
 
 > score
-Your score is 33 out of a maximum of 401.  (8%)
+Your score is 67 out of a maximum of 401.  (16%)
 
 > 2
 "Everything I know, eh? Everything." Quiff flexes his fingers, rubs his
@@ -1822,7 +2000,7 @@ planning to indulge in a spot of kidnapping."
    3)  Where is the kidnapping due to take place?
 
 > score
-Your score is 33 out of a maximum of 401.  (8%)
+Your score is 67 out of a maximum of 401.  (16%)
 
 > 3
 "Her name is Cherie and she is due to be kidnapped somewhere on Murder Avenue
@@ -1838,7 +2016,7 @@ in this dank, godforsaken cesspool populated by the true dregs of society-"
    1)  I'll do just that. But before I go, can I ask you some more questions?
 
 > score
-Your score is 37 out of a maximum of 401.  (9%)
+Your score is 71 out of a maximum of 401.  (17%)
 
 > 1
 "Ask away and I shall dazzle you with my boundless knowledge about every
@@ -1936,7 +2114,7 @@ surprisingly, and a little shockingly as well, a dead body falls out onto the
 ground. Out of its hands falls a will.
 
 > score
-Your score is 40 out of a maximum of 401.  (9%)
+Your score is 74 out of a maximum of 401.  (18%)
 
 > i
 You are wearing a bullet proof vest and a badge, and you are carrying your
@@ -1952,7 +2130,7 @@ wallet, a brutally sharp knife, a book of poetry, a crowbar, a credit card
 and a will.
 
 > score
-Your score is 40 out of a maximum of 401.  (9%)
+Your score is 74 out of a maximum of 401.  (18%)
 
 > s
 You move south.
@@ -2001,33 +2179,66 @@ sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
   Sheriff Calhoun is here.
 
-> talk sheriff
-"I'll speak to you when you find me my darn slippers."
+> talk sheriff now
+"What do you want to know, weirdo?" the sheriff asks.
 
-> score
-Your score is 40 out of a maximum of 401.  (9%)
+   1)  Are there any unclaimed bounties that I can, er, claim?
+   2)  What's next, sheriff?
+   3)  Can I take part in the next big drugs bust when lots of drugs go
+"missing"?
+   4)  Earlier on I found a dead body in my wardrobe. What should I do about
+it?
 
-> nw
-You move northwest.
+> 4
+"A dead body, eh?" says the sheriff. "Sounds... interesting. Show me where
+you found it."
 
-Stonetomb Square
+Your House
 
-STONETOMB SQUARE
-You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
-guillotine have been erected here for many a year and a weekly tradition is
-the old game of "who's next for the head basket?", generally played with
-whoever is unfortunate enough to be around at the time. A row of stalls line
-the rest of the square although none of them appear to be selling much. The
-stallowners are standing around looking lost.
-   Roads branch off from the square in many directions. You can go: north (to
-Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
-southeast (to the sheriff's office), south (to Blood Alley) and west (to
-Babbage Street)
+YOUR HOUSE
+As locations go in which to start an adventure, this is not the most
+thrilling one you could hope for. Your 'house' actually consists of two
+rooms, one on top of each other (the upper 'floor' being off limits due to a
+slight problem with the stairs). Crammed into here are your bed, tv,
+wardrobe, desk, dining room table, kitchen sink, bath and various other
+sundry items.  A window looks out onto the street outside. You can go: south
+(through the front door)
 
-  Toby is here, smiling happily as people rush by him on all sides.
+  Also here is a dead body.  "Hmmm, I'd say the fellow's dead," the sheriff
+says upon seeing the corpse.
+   "I guessed that myself, sheriff," you say. "The 'dead' in the item
+description kind of gave it away."
+   The sheriff flashes you a steely look. "Watch that mouth, weirdo, if you
+don't want to suddenly find yourself on the receiving end of my fist.
+Anyway..." He turns back to the body. "Elderly male. Dead. No obvious signs
+of viciousness or brutality. Hmmm. This looks suspiciously like Senile Old
+War Veteran Charlie."
+   "Who's Senile Old War Veteran Charlie?"
+   "Well, he's this war veteran who's old and senile. And his name's-"
+   "Charlie?" you hazard a guess.
+   "Well done. He's got - or had I should say - this weird habit of hiding
+from his relatives who are forever on the verge of trying to get him
+committed to a lunatic asylum so they can make off with all his money. I'm
+guessing he picked your wardrobe to hide."
+   "But why?"
+   "Probably saw the way you dressed and realised your wardrobe was somewhere
+that didn't get a lot of use." The sheriff frowns. "And then the poor old
+coot went and died. Unfortunate really. Hmmm, what's that poking out of his
+pocket?" He bends down and snatches up a piece of paper. "Ah, his will." He
+quickly reads it. "Nope, I'm not mentioned anywhere. Here, you take it."
+   You take the will. "Now what happens, sheriff?"
+   "Now I'm heading back to the office. You can do pretty much what you want,
+weirdo."
+   "No, I mean about the dead body."
+   The sheriff gives the corpse a once over. "Doesn't look like he's going
+anywhere to me."
+   "But you can't just leave him lying there! In my house!"
+   "Course I can. Just watch me."
+   And you watch him as he wanders off and leaves you alone with the dead
+body of Senile Old War Veteran Charlie.
 
-> w
-You move west.
+> s
+You move south.
 
 Babbage Street
 
@@ -2102,7 +2313,7 @@ at the warehouse my grandfather used to frequent. Best of luck though I can't
 imagine what kind of use you'll get out of it."
 
 > score
-Your score is 43 out of a maximum of 401.  (10%)
+Your score is 82 out of a maximum of 401.  (20%)
 
 > i
 You are wearing a bullet proof vest and a badge, and you are carrying your
@@ -2136,6 +2347,366 @@ his own. But that's all I know!" he adds angrily. "Damn, I hate people trying
 to stereotype me!"
 
    1)  You've been a big help, Spam. Let me question you some more.
+
+> 1
+"How's the crime-fighting business, pardner?"
+
+   1)  It's going pretty well.
+   2)  I need information on Mad Jake and the Thuggs and figured you'd be the
+best person in town to talk to.
+   3)  Seems quiet in here today.
+   4)  Anything you need a hand with?
+
+> 3
+"That's because poor Quiff got himself arrested again," says Spam.
+   "Poor Quiff," adds Normal. "Wasn't his fault was it, Spam?"
+   "Not at all," replies Spam. "Granted, he was guilty and they did have
+evidence but that doesn't mean a thing."
+
+   1)  What happened to Quiff?
+   2)  Let's talk about something else.
+
+> 1
+"Quiff's the best of us!" chimes in Normal. "And I'll swing for the man who
+says otherwise!"
+   "He's actually a bit of a git," says Spam.
+   Normal glares at him then shrugs. "Yeah, you're probably right."
+   "So what happened to Quiff?" you ask, trying to steer the conversation
+back on course.
+   "Sad things really. He got arrested for supposedly murdering some guy who
+tampered with his mail," says Spam. "Tragic case really."
+   "Yep," says Normal, "but he doesn't like being referred to as a 'tragic
+case' so be careful what you say about him."
+   Spam nods. "Sheriff's got him down in the cells at the sheriff's office
+and despite what we've said in his defence-"
+   "Or not said," adds Normal.
+   "-Quiff's still locked up. Never even managed to finish his-" Spam
+hesitates then reaches behind the bar and picks up a package which he hands
+to you. "Be mighty obliged if you could find time to deliver that to him,
+Bodge. He's probably going spare with worry over it by now."
+   "Takes his 'business' very seriously does our Quiff," says Normal.
+   "So will you deliver the package to him?" asks Spam.
+
+   1)  I'll have to think about it. In the meantime, let's talk about
+something else.
+
+> 1
+"How's the crime-fighting business, pardner?"
+
+   1)  It's going pretty well.
+   2)  I need information on Mad Jake and the Thuggs and figured you'd be the
+best person in town to talk to.
+   3)  Seems quiet in here today.
+   4)  Anything you need a hand with?
+
+> 4
+"There is one thing," says Spam. "Now, normally I wouldn't mention it but the
+other week I got turned down by a girl."
+   Normal falls off his stool.
+   "Doesn't happen very often," Spam goes on, ignoring Normal's antics, "but
+it kinda hurts when it does. What I want to know is why she turned me down."
+
+   1)  You want me to track her down and beat the truth out of her?
+   2)  You want me to find out what I can about her?
+   3)  Sorry, sounds like too much hard work. Let me ask you something else.
+
+> 1
+"Beating's her probably going to extremes," says Spam. "After all, she's
+obviously got enough problems as it is if she turned me down."
+   Normal falls off his stool again.
+   "But if you could just find her and find out why she didn't want to go out
+with me - well, that'd be swell."
+
+   1)  I'll have to think about it. In the meantime, let me ask you something
+else.
+
+> se
+You move southeast.
+
+Corner of Fifth and Mason
+
+CORNER OF FIFTH AND MASON
+You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
+Several people of the female variety eye you up from the saloon, making you
+blush an amusing shade of red. The saloon itself is a murky brown colour, the
+outer walls not having seen a decent coat of paint in many a long year. A
+piece of tree bark cunningly fashioned into a (vague) door shape leads
+inwards. You can go: east (to Babbage Street), southwest (to a long dusty
+road) and northwest (to the saloon)
+
+  Jeb is here looking as cool as ever.
+
+> e
+You move east.
+
+Babbage Street
+
+BABBAGE STREET
+You're on Babbage Street just outside your (for want of a better word)
+'house'. What a depressing state it is. Maybe when the cowboy business takes
+off big time - which you have complete confidence it will - you'll be able to
+buy yourself something with a bit more style.
+   Across from your house is the local arcade where you whiled away many
+years of your mispent youth. You can go: north (to your house), south (to the
+arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
+
+> e
+You move east.
+
+Stonetomb Square
+
+STONETOMB SQUARE
+You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
+guillotine have been erected here for many a year and a weekly tradition is
+the old game of "who's next for the head basket?", generally played with
+whoever is unfortunate enough to be around at the time. A row of stalls line
+the rest of the square although none of them appear to be selling much. The
+stallowners are standing around looking lost.
+   Roads branch off from the square in many directions. You can go: north (to
+Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
+southeast (to the sheriff's office), south (to Blood Alley) and west (to
+Babbage Street)
+
+  Toby is here, smiling happily as people rush by him on all sides.
+
+> se
+You move southeast.
+
+Sheriff's Office
+
+SHERIFF'S OFFICE
+For such a violent town, Stonetomb has a decidely modest sheriff's office
+consisting of just two rooms (one of these being where you're standing right
+now and the other where they lock the criminals up). A noticeboard off to one
+side displays a list of all the recent lawbreakers currently wanted by the
+sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
+
+  Sheriff Calhoun is here.
+
+> s
+You move south.
+
+Cells
+
+CELLS
+You're in the cells of the sheriff's office, surrounded on all sides by
+barred enclosures which contain the worst scum in the history of Stonetomb:
+murderers, thieves, mime artists... No type of lowlife isn't without
+representation here.
+   Each four by four cell contains a dozen or more prisoners, a comfortable
+bed (or 'pile of bricks' if you prefer), a slop bucket, a sink and a toilet
+(or the 'sink' again). The smell, as such, isn't at all pleasant. Peering out
+from one of the cells is a man in the uniform of the Stonetomb Mail Delivery
+Service who you recognise as Quiff. You can go: north (to the sheriff's
+office)
+
+> give package to quiff
+You hand over the package to Quiff who gives a quick "woo-hoo!" He opens it
+and several envelopes and parcels cascade to the floor.
+   "Is that drugs?" asks a fellow prisoner. "'Cos if it is I want some for
+meself."
+   "Drugs?" gasps Quiff, sounding both indignant and furious at the same
+time. "The US Postal Service does not transport drugs, my fine friend, no
+more than it transports severed body parts in conveniently sized parcels-" He
+quickly glances at you. "Or so I hear anyway." Quiff rapidly gathers up all
+the fallen letters and parcels and stuffs them inside his uniform. "Well,
+thank you, officer. You can let Spam know the mail will be delivered just as
+soon as I free myself from this hellhole on earth."
+   "And when will that be?" you ask.
+   Quiff considers the request, scribbles some calculations on the wall,
+ponders his calculcations for a bit, then says, "about 781 years or
+nearabouts. Might be less if they find me innocent of course."
+   "And is there a good chance of that?"
+   "A very good chance I would say. Aside from a signed confession,
+fingerprint, video and witness evidence, as well as 42 statements, the
+prosecution do not have a leg to stand on. Rest assured, Quifford Quaven will
+be delivering the mail before you can say supercala- supercg- er, a very long
+word."
+
+> n
+You move north.
+
+Sheriff's Office
+
+SHERIFF'S OFFICE
+For such a violent town, Stonetomb has a decidely modest sheriff's office
+consisting of just two rooms (one of these being where you're standing right
+now and the other where they lock the criminals up). A noticeboard off to one
+side displays a list of all the recent lawbreakers currently wanted by the
+sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
+
+  Sheriff Calhoun is here.
+
+> nw
+You move northwest.
+
+Stonetomb Square
+
+STONETOMB SQUARE
+You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
+guillotine have been erected here for many a year and a weekly tradition is
+the old game of "who's next for the head basket?", generally played with
+whoever is unfortunate enough to be around at the time. A row of stalls line
+the rest of the square although none of them appear to be selling much. The
+stallowners are standing around looking lost.
+   Roads branch off from the square in many directions. You can go: north (to
+Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
+southeast (to the sheriff's office), south (to Blood Alley) and west (to
+Babbage Street)
+
+  Toby is here, smiling happily as people rush by him on all sides.
+
+> ne
+You move northeast.
+
+Murder Avenue
+
+MURDER AVENUE
+You find yourself approaching the rougher side of town, a little place that
+is known around these parts as Murder Avenue. In olden times this was a
+popular hotspot for gunfights, knifefights and, on occasions, poin-ted stick
+fights. The very mud the avenue is made from is said to be veined with blood
+and the odd body part that came loose in all the excitement.
+   Of course, all that was years ago and so all you see now is a drab,
+rundown street crowded on either side by drab, rundown buildings. Murder
+Avenue extends a little way ahead to its most notorious building. You can go:
+east (to Ok's Coral), north (to Scabbit Lane) and southwest (to Stonetomb
+Square)
+
+> e
+You move east.
+
+Outside OK's Coral
+
+OUTSIDE OK'S CORAL
+There are few buildings as feared and shunned in Stonetomb as OK's Coral
+(with the obvious exception of the school of course). Before it was shut down
+some fifty years ago it was a den of thieves, murderers, cutthroats and
+general all round lowlives. Even today it has a fearsome reputation as it's
+pretty much guaranteed that any dangerously homicidal gangs currently
+terrorising the town are likely to be holed up here.
+   Through the ancient swinging doors of the Coral, you can catch glimpses of
+a seriously murky interior. The windows give you precious little else to go
+on due to them either being boarded up or painted black, but you can sense
+the sheer nastiness emanating from this place. You can go: north (into OK's
+Coral) and west (to Murder Avenue)
+
+  Lola is here.
+
+> talk lola
+Lola sighs. "Oh, has hopeless bartender with the unbeliavbly big opinion of
+himself and the overpowering aftershave that makes me want to throw up sent
+you to beg me for another date to fill his deranged life and give it some
+meaning?" She sneers. "Forget it. Tell the loser I turned him down because
+he's a loser."
+
+> w
+You move west.
+
+Murder Avenue
+
+MURDER AVENUE
+You find yourself approaching the rougher side of town, a little place that
+is known around these parts as Murder Avenue. In olden times this was a
+popular hotspot for gunfights, knifefights and, on occasions, poin-ted stick
+fights. The very mud the avenue is made from is said to be veined with blood
+and the odd body part that came loose in all the excitement.
+   Of course, all that was years ago and so all you see now is a drab,
+rundown street crowded on either side by drab, rundown buildings. Murder
+Avenue extends a little way ahead to its most notorious building. You can go:
+east (to Ok's Coral), north (to Scabbit Lane) and southwest (to Stonetomb
+Square)
+
+> sw
+You move southwest.
+
+Stonetomb Square
+
+STONETOMB SQUARE
+You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
+guillotine have been erected here for many a year and a weekly tradition is
+the old game of "who's next for the head basket?", generally played with
+whoever is unfortunate enough to be around at the time. A row of stalls line
+the rest of the square although none of them appear to be selling much. The
+stallowners are standing around looking lost.
+   Roads branch off from the square in many directions. You can go: north (to
+Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
+southeast (to the sheriff's office), south (to Blood Alley) and west (to
+Babbage Street)
+
+  Toby is here, smiling happily as people rush by him on all sides.
+
+> w
+You move west.
+
+Babbage Street
+
+BABBAGE STREET
+You're on Babbage Street just outside your (for want of a better word)
+'house'. What a depressing state it is. Maybe when the cowboy business takes
+off big time - which you have complete confidence it will - you'll be able to
+buy yourself something with a bit more style.
+   Across from your house is the local arcade where you whiled away many
+years of your mispent youth. You can go: north (to your house), south (to the
+arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
+
+> w
+You move west.
+
+Corner of Fifth and Mason
+
+CORNER OF FIFTH AND MASON
+You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
+Several people of the female variety eye you up from the saloon, making you
+blush an amusing shade of red. The saloon itself is a murky brown colour, the
+outer walls not having seen a decent coat of paint in many a long year. A
+piece of tree bark cunningly fashioned into a (vague) door shape leads
+inwards. You can go: east (to Babbage Street), southwest (to a long dusty
+road) and northwest (to the saloon)
+
+  Jeb is here looking as cool as ever.
+
+> nw
+You move northwest.
+
+Saloon
+
+SALOON
+The best (and only) saloon in town is a tawdry shadow of its former self. The
+fights that have raged here over the years have taken their toll on the
+interior and these days it's pretty much a collection of broken chairs,
+tables and lots of dust. As such, the only people to be found here are the
+drunks who have nowhere else to go, the card players and the ones here for
+'other' amusements.
+   The bar is a square situated in the centre of the main area, in which the
+bartender - a former sports star you gather - is combing his hair and
+admiring the female customers.  You can go: southeast (to the corner of Fifth
+and Mason)
+
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.  "Hey, thanks
+for delivering the package to Quiff, man," says Spam as you step into the
+saloon. "Much obliged."
+   "The least I could do," you say.
+   "Nah," says Normal, "the least you could have done would be to throw it on
+the ground the moment you were out of Spammy's sight."
+   Spam waves that spurious accusation aside and hands you some cash. "Much
+obliged, pardner. You ever need a favour, you just come speak to your uncle
+Spam."
+
+> talk spam
+"So," he says, posing before a little handheld mirror, "what did Lola say?"
+
+   1)  She thinks you're a loser, Spam, that's why she turned you down.
+   2)  She's dying of a fatal disease and didn't want to burden you with the
+horrors of her death.
+
+> 2
+"That sounds about right," says Spam. "After all, I knew there had to be a
+damn good reason for her turning me down. No woman in her right mind could
+resist me."
+   Dyanne bursts into hysterical laughter.
+   When it has died down, Spam says, "well, thanks, friend. I guess it's nice
+to know she was dying after all and that it's not me losing my charm."
 
 > se
 You move southeast.
@@ -2242,7 +2813,7 @@ the ground and afterwards he becomes strangely silent.
 be.
 
 > score
-Your score is 58 out of a maximum of 401.  (14%)
+Your score is 110 out of a maximum of 401.  (27%)
 
 > i
 You are wearing a bullet proof vest and a badge, and you are carrying your
@@ -2269,7 +2840,7 @@ open. And find inside the deflection helmet Dyanne mentioned as well as a
 manual. You take both with you.
 
 > score
-Your score is 60 out of a maximum of 401.  (14%)
+Your score is 112 out of a maximum of 401.  (27%)
 
 > i
 You are wearing a bullet proof vest and a badge, and you are carrying your
@@ -2325,54 +2896,22 @@ like Drongo when he gets angry."
    Egbert scowls. "I haven't the time or the patience for these games. Give
 me the helmet. Now. Or I'll have Drongo and Gash pry it from your dead body."
 
-> give helmet
-"Much obliged," says Egbert, slipping the helmet on. "Now, let's go cause
-some mayhem, boys."
+> give cash to egbert
+"$25," says Egbert. "A small price to pay for your life I guess."
+   "I had to really struggle to come across all that cash," you point out.
+   Egbert shrugs. "Yeah, well that's what you get for having a writer who's
+real stingy with that sort of thing. Now, let's go cause some mayhem, boys."
    "Shall we whack his ass anyway, boss?" Drongo asks, clearly looking
 forward to 'whacking your ass'.
-   Egbert considers it then shrugs. "Nah. He's hardly worth it. And without
-this helmet to protect him he'll be getting his ass whacked in no time
-anyway."
+   Egbert considers it then shrugs. "Nah. He's hardly worth it. He'll most
+likely end up dead before long anyway."
    And on that unsettling note, the dwarf and his companions depart.
+
+> wear helmet
+You put on the deflection helmet.
 
 > w
 You move west.
-
-Stonetomb Square
-
-STONETOMB SQUARE
-You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
-guillotine have been erected here for many a year and a weekly tradition is
-the old game of "who's next for the head basket?", generally played with
-whoever is unfortunate enough to be around at the time. A row of stalls line
-the rest of the square although none of them appear to be selling much. The
-stallowners are standing around looking lost.
-   Roads branch off from the square in many directions. You can go: north (to
-Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
-southeast (to the sheriff's office), south (to Blood Alley) and west (to
-Babbage Street)
-
-  Toby is here, smiling happily as people rush by him on all sides.
-
-> ne
-You move northeast.
-
-Murder Avenue
-
-MURDER AVENUE
-You find yourself approaching the rougher side of town, a little place that
-is known around these parts as Murder Avenue. In olden times this was a
-popular hotspot for gunfights, knifefights and, on occasions, poin-ted stick
-fights. The very mud the avenue is made from is said to be veined with blood
-and the odd body part that came loose in all the excitement.
-   Of course, all that was years ago and so all you see now is a drab,
-rundown street crowded on either side by drab, rundown buildings. Murder
-Avenue extends a little way ahead to its most notorious building. You can go:
-east (to Ok's Coral), north (to Scabbit Lane) and southwest (to Stonetomb
-Square)
-
-> sw
-You move southwest.
 
 Stonetomb Square
 
@@ -2445,6 +2984,42 @@ happens along."
 third.
    "And not just stood around and done nothing," finishes a fourth.
    You wisely decide to keep quiet.
+
+> sw
+You move southwest.
+
+Stonetomb Square
+
+STONETOMB SQUARE
+You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
+guillotine have been erected here for many a year and a weekly tradition is
+the old game of "who's next for the head basket?", generally played with
+whoever is unfortunate enough to be around at the time. A row of stalls line
+the rest of the square although none of them appear to be selling much. The
+stallowners are standing around looking lost.
+   Roads branch off from the square in many directions. You can go: north (to
+Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
+southeast (to the sheriff's office), south (to Blood Alley) and west (to
+Babbage Street)
+
+  Toby is here, smiling happily as people rush by him on all sides.
+
+> ne
+You move northeast.
+
+Murder Avenue
+
+MURDER AVENUE
+You find yourself approaching the rougher side of town, a little place that
+is known around these parts as Murder Avenue. In olden times this was a
+popular hotspot for gunfights, knifefights and, on occasions, poin-ted stick
+fights. The very mud the avenue is made from is said to be veined with blood
+and the odd body part that came loose in all the excitement.
+   Of course, all that was years ago and so all you see now is a drab,
+rundown street crowded on either side by drab, rundown buildings. Murder
+Avenue extends a little way ahead to its most notorious building. You can go:
+east (to Ok's Coral), north (to Scabbit Lane) and southwest (to Stonetomb
+Square)
 
 > n
 You move north.
@@ -2602,12 +3177,12 @@ you're ugly."
    Alissa, Effingham and the guards depart.
 
 > score
-Your score is 68 out of a maximum of 401.  (16%)
+Your score is 122 out of a maximum of 401.  (30%)
 
 > i
-You are wearing a bullet proof vest and a badge, and you are carrying your
-wallet, a brutally sharp knife, a book of poetry, a crowbar, a credit card,
-the warehouse key, a circular key and the manual.
+You are wearing a bullet proof vest, a badge and the deflection helmet, and
+you are carrying your wallet, a brutally sharp knife, a book of poetry, a
+crowbar, a credit card, the warehouse key, a circular key and the manual.
 
 > get voucher
 You take the voucher.
@@ -3412,6 +3987,24 @@ things to examine. In fact, take away the winding tunnel just ahead of you
 and there'd be nothing here at all. You can go: north (to the winding tunnel)
 and up (to the Coral)
 
+> open box
+You open a box at random and find a lovely collection of dust.
+
+> open box
+Another box also contains dust.
+
+> open box
+Another box also contains dust.
+
+> open box
+Another box also contains dust.
+
+> open box
+Another box also contains dust.
+
+> open box
+Ah! You find $5 in this box which you quickly swipe!
+
 > n
 You move north.
 
@@ -3458,6 +4051,19 @@ good time to say your prayers, Bodge."
    You realise you have only seconds to act as his finger tightens on the
 trigger.
 
+> n
+You can only move south.
+
+> use helmet
+Acting with split second timing, you activate the deflection helmet's powers
+- and then they are really put to the test when Jake fires the Herokiller!
+   The bullet - almost as large as your fist - comes streaking across the
+cavern towards you, getting closer and closer, closer, closer... and then
+abruptly veers out of the way and explodes into a wall to one side!
+   "Ah crap!" curses Jake. "You got yourself one of them damned deflection
+helmets! Well, let's see how well it deflects another shot from my baby..."
+   He starts to frantically reload.
+
 > blow whistle
 Remembering the whistle you got from Eccles - and his assurance that it
 worked on people of low background - you raise it to your lips and give a
@@ -3468,8 +4074,22 @@ harsh toot on it. The effect is instantaneous.
    The high-pitched whine - barely audible to you - drives Jake to his knees.
    "Gaah, stop it, stop it!" he wails. He lunges forward and grabs the
 Herokiller. "I'll make you stop it, damn you!"
-   You give a long, drawn-out blast on the whistle and Jake drops the
-Herokiller again, covers his ears with his hands and just howls and howls...
+   You consider another blast on the whistle but it doesn't seem to be having
+the effect on Jake that you had hoped for.
+
+> kill jake
+Before Jake can finish reloading the Herokiller, you go charging across the
+cavern at him with the brutally sharp knife held high. Jake gives a curse,
+throws the Herokiller to the ground and reaches for his own brutally sharp
+knife - but you are faster!
+   You slash down and stab him in the shoulder!
+
+"AaaahahaaghghhAAHAGAHAAHAAahaaahaaahaahaahhghghghghghghghghghghghghghhgahhrhr
+grhrgrhrgrhrghhahaha!" he wails.
+   You gather it hurt quite a bit.
+   You raise the knife to deliver the final blow but it seems the fight has
+well and truly gone out of Jake. It's just a simple matter of arresting him
+now and the day is yours...
 
 Mayor's House
 
@@ -3521,7 +4141,7 @@ when you've mastered them can you really say you've beat the game."
 amazing empty mansion.
 
 > score
-Your score is 113 out of a maximum of 401.  (28%)
+Your score is 177 out of a maximum of 401.  (44%)
 
 > quit
 Do you really want to quit? [Y/N]

@@ -18,8 +18,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCTAFPAR = os.path.normpath(os.path.join(HERE, "..", "..", "..", "sctafpar.cpp"))
 
-# PATCH_SET/ADD/ADD_STRING/STRING/VERIFY, as sctafpar.cpp defines them.
-MODES = {"SET": "I", "ADD": "A", "ADD_STRING": "N", "STRING": "S", "VERIFY": "V"}
+# PATCH_SET/SET_BOOL/ADD/ADD_STRING/STRING/VERIFY, as sctafpar.cpp defines them.
+MODES = {"SET": "I", "SET_BOOL": "B", "ADD": "A", "ADD_STRING": "N", "STRING": "S", "VERIFY": "V"}
 
 
 def _strings(text):
@@ -80,7 +80,7 @@ def _split_args(text):
 
 def _edits(body):
     out = []
-    for m in re.finditer(r"PATCH_(SET|ADD_STRING|ADD|STRING|VERIFY)\s*\(", body):
+    for m in re.finditer(r"PATCH_(SET_BOOL|SET|ADD_STRING|ADD|STRING|VERIFY)\s*\(", body):
         depth, i = 1, m.end()
         instr = False
         while depth:
@@ -103,7 +103,7 @@ def _edits(body):
         edit = {"mode": MODES[kind], "kind": kind, "path": path,
                 "from_integer": 0, "to_integer": 0,
                 "from_string": None, "to_string": None}
-        if kind == "SET":
+        if kind in ("SET", "SET_BOOL"):
             edit["from_integer"] = int(args[1])
             edit["to_integer"] = int(args[2])
         elif kind == "ADD":

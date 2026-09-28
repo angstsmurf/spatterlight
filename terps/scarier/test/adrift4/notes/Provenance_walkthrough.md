@@ -1,4 +1,25 @@
-# Provenance — walkthrough (**WIN, 260/300**)
+# Provenance — walkthrough (**WIN, 285/300**, the unpatched ceiling; **300/300 patched**)
+
+> **Patched 2026-09-28: 300/300**, 913 commands —
+> `provenance_patched_solution.txt`, run with `SCR_ASSUME_PATCHES=1`.  The
+> PATCH_TABLE entry changes T142's skeleton-key restriction from "held by the
+> player" to "NOT held by the player" (T141 has fed the key to the crow), and
+> drops room 7 from T504's room list so T505 answers the Orchard Entrance rub.
+> Two detours on the faithful route: `s, se, s, rub crystal ball, n, nw, n` from
+> the Brick Path with the ball in hand, and `get strawberry, x crow, give
+> strawberry to crow, catch crow, get skeleton key` on entering the Vegetable
+> Garden after the dining room (earlier, the butler leaves before `ask butler
+> about drain`).
+
+> **Update 2026-09-28: 260 → 285/300**, 901 commands.  Added `set table`
+> after opening both cupboards (T493) and `ask butler about drain` in the dining
+> room (T510), both in place of butler-wait `z`s; `open stove` / `light stove`
+> (T494); `rub crystal ball` in the Master Bedroom (T501); and `get stool` after
+> the attic, then `stand on stool` in the Kitchen (T130).  Each is +5.  Standing
+> on the stool first silently locks T131 and the attic.  Unreachable unpatched: T142
+> (+10; circular skeleton-key gate through T141/T143) and T505 (+5; shadowed by
+> the repeatable T504).  The "260/300 is a win" section below is history.
+
 
 - **Author:** Corey W Arnett, v1.12.16, © MMV (the shipped `provenance.taf` is
   dated 02-10-2006). You inherit a house from a man you have never met, and the

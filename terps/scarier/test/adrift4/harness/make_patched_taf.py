@@ -12,7 +12,7 @@ the file this writes cannot drift from what the engine does.  A .taf is edited
 as a line array: every untouched line is carried over byte for byte, and only
 three shapes of change are made --
 
-  * rewrite one value line (SET / STRING);
+  * rewrite one value line (SET / SET_BOOL / STRING);
   * append element(s) to a tagged vector, bumping its count line (ADD);
   * insert the `#Room` line a ROOM_LIST0 gains when its Type goes 0 -> 1.
 
@@ -100,6 +100,18 @@ class Recorder(Parser):
         if terminal[0] not in "ZFTE":
             self._note(terminal[1:], terminal[0], line,
                        self._scope.get(terminal[1:]))
+
+    def _special(self, special: str) -> None:
+        # a Type 2 room list is one boolean line per room; note each one so a
+        # SET_BOOL can rewrite a single room's flag
+        line = self.stream.i
+        super()._special(special)
+        rooms = self._scope.get("Rooms")
+        if special in ("{ROOM_LIST0}", "{ROOM_LIST1}") and \
+                int(self._scope.get("Type", 0)) == 2 and rooms is not None:
+            for index, value in enumerate(rooms):
+                self.terms[key(self.path + ["Rooms", index])] = {
+                    "line": line + index, "kind": "B", "value": value}
 
     def _class_ref(self, class_: str) -> None:
         m = re.match(r"<([^>]+)>(.*)$", class_)
@@ -283,8 +295,8 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
                                  % (path, edit["from_string"], actual))
             continue
 
-        if mode in ("SET", "STRING"):
-            want = edit["from_integer"] if mode == "SET" else edit["from_string"]
+        if mode in ("SET", "SET_BOOL", "STRING"):
+            want = edit["from_string"] if mode == "STRING" else edit["from_integer"]
             if norm(actual) != want:
                 raise PatchError("%s: wanted %r, file has %r"
                                  % (path, want, actual))
@@ -292,7 +304,10 @@ def plan(rec: Recorder, game: dict, lines: list[str], edits: list[dict]):
             if record is None:
                 raise PatchError("%s: no file line holds this value" % path)
             at = record["line"]
-            to = edit["to_integer"] if mode == "SET" else edit["to_string"]
+            to = edit["to_string"] if mode == "STRING" else edit["to_integer"]
+            if mode == "SET_BOOL" and record["kind"] != "B":
+                raise PatchError("%s: %s cannot rewrite a %r line"
+                                 % (path, mode, record["kind"]))
             if mode == "STRING":
                 if record["kind"] != "$":
                     raise PatchError("%s: not a single-line string" % path)
@@ -400,7 +415,7 @@ def diff(a, b, path=(), out=None):
 def verify(before: dict, after: dict, edits: list[dict]) -> list[str]:
     wanted = {}
     for edit in edits:
-        if edit["kind"] == "SET":
+        if edit["kind"] in ("SET", "SET_BOOL"):
             wanted[edit["path"]] = (edit["from_integer"], edit["to_integer"])
         elif edit["kind"] == "STRING":
             wanted[edit["path"]] = (edit["from_string"], edit["to_string"])

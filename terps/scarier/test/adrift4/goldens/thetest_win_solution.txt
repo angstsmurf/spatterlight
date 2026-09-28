@@ -1,7 +1,8 @@
 # The Test (David Whyld) -- four of its puzzles are randomised, so this route
 # only holds at SCR_RNG=xoshiro SCR_SEED=8.  Re-derive it with
 # `python3 harness/thetest_solve.py <seed>`: the colour lock is brute-forced
-# (seed 8 needs 57 tries under xoshiro), the door code is read back off the
+# (seed 8 needs 57 tries under xoshiro), `west` / `listen` / `east` banks
+# task 1's 5 points back in Room 0, the door code is read back off the
 # phone, the number shouted at the robot guard is its own triangular counter,
 # and the broken teleporter has to land in the Morse Room.
 open clothes
@@ -72,26 +73,13 @@ unlock door
 unlock door
 unlock door
 unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
-unlock door
+west
+listen
+east
 dial 987
 enter 2252710
 east
 shout 1
-shout 1
-shout 1
-shout 3
 shout 3
 shout 3
 shout 3
@@ -131,14 +119,15 @@ shout 21
 shout 21
 shout 21
 shout 21
-shout 91
-shout 91
-shout 91
-shout 91
-shout 91
+shout 171
+shout 171
+shout 171
+shout 171
+shout 171
 take key
 take teleporter
 west
+teleport
 teleport
 look
 tiddlywink

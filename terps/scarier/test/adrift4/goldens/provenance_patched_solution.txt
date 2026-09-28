@@ -326,6 +326,13 @@ s
 s
 climb out
 s
+s
+se
+s
+rub crystal ball
+n
+nw
+n
 i
 e
 n
@@ -541,6 +548,11 @@ n
 n
 n
 ne
+get strawberry
+x crow
+give strawberry to crow
+catch crow
+get skeleton key
 e
 e
 e

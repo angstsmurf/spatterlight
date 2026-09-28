@@ -3838,13 +3838,15 @@ typedef struct
 } scr_patch_edit_t;
 
 /*
- * 'I' change an integer that is present and holds from_integer; 'A' add an
+ * 'I' change an integer that is present and holds from_integer; 'B' the same
+ * for a boolean, such as one room's flag in a Where room list; 'A' add an
  * integer to a path that holds nothing at all; 'N' add a string to a path
  * that holds nothing at all; 'S' change a string that is present and holds
  * from_string; 'V' verify a string and change nothing, which is how an edit
  * pins down the task it thinks it is editing.
  */
 #define PATCH_SET(path, from, to)   { path, 'I', (from), (to), NULL, NULL }
+#define PATCH_SET_BOOL(path, from, to) { path, 'B', (from), (to), NULL, NULL }
 #define PATCH_ADD(path, to)         { path, 'A', 0, (to), NULL, NULL }
 #define PATCH_ADD_STRING(path, to)  { path, 'N', 0, 0, NULL, (to) }
 #define PATCH_STRING(path, from, to) { path, 'S', 0, 0, (from), (to) }
@@ -5106,6 +5108,43 @@ static const scr_patch_edit_t PATCH_JOURN2[] = {
   PATCH_ADD_STRING ("Tasks/24/Command/4", "* use * valve *")
 };
 
+/*
+ * Provenance (Corey W Arnett).  MaxScore is 300 and the most any route can
+ * bank is 285: two scoring tasks can never run, each for want of one field.
+ *
+ * The crow on the scarecrow.  Task 141 (`x crow`, holding the skeleton key)
+ * has the crow pluck the key out of your hand and swallow it, and moves the
+ * key to hidden.  Task 142 (`give strawberry to crow`, +10) then wants
+ * task 141 done -- and the key *held by the player*, restriction 1, Var2 1.
+ * Only task 143 (`catch crow`) brings the key back up, and task 143 wants
+ * task 142 done, so the three form a loop that can never be entered.  Every
+ * other clause of task 142 is written for the crow that has already eaten
+ * the key: its two refusals are the same scene word for word ("the crow shows
+ * no interest in the strawberry ... more and more agitated"), and its text
+ * has the bird jump down for the berry, which is what lets task 143 frighten
+ * the key back out of it.  So the key restriction was meant the other way
+ * round: Var2 7, not held by the player, which task 141 has already made
+ * true, and the chain runs strawberry, catch, key.
+ *
+ * The crystal ball.  Rubbing it plays a vision chosen by room: task 502 in
+ * room 174, task 503 in room 172, task 505 (+5) in room 7, and task 504, the
+ * repeatable "Clouds swirl up inside but moments later they dissipate", as
+ * the fallback everywhere else.  But 504 was given every room, room 7
+ * included, and sits one slot above 505, so first-match answers the rub in
+ * room 7 with the fallback forever.  502 and 503 work only because they come
+ * before it.  Task 504 loses room 7, the one room its own later twin claims.
+ */
+static const scr_patch_edit_t PATCH_PROVENANCE[] = {
+  PATCH_VERIFY ("Tasks/141/Command/0", "* x * crow *"),
+  PATCH_VERIFY ("Tasks/142/Command/0", "* give * crow * strawberry *"),
+  PATCH_VERIFY ("Tasks/143/Command/0", "* catch * crow *"),
+  PATCH_SET ("Tasks/142/Restrictions/1/Var2", 1, 7),
+  PATCH_VERIFY ("Tasks/504/Command/0", "* rub * crystal ball *"),
+  PATCH_VERIFY ("Tasks/505/Command/0", "* rub * crystal ball *"),
+  PATCH_VERIFY ("Objects/2/Short", "key"),
+  PATCH_SET_BOOL ("Tasks/504/Where/Rooms/7", 1, 0)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -5264,7 +5303,12 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "the female twin of the valve in Rage is runnable nowhere and"
               " has no command a player could type, and the debris refusal"
               " above it steals every phrasing of the valve from both twins",
-              PATCH_JOURN2)
+              PATCH_JOURN2),
+  PATCH_GAME ("PROVENANCE", "Corey W Arnett",
+              "the strawberry is offered to the crow that has swallowed the"
+              " key, and the crystal ball's vision in room 7 is no longer"
+              " answered by the fallback rub",
+              PATCH_PROVENANCE)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 
@@ -5321,7 +5365,8 @@ parse_patch_edit (scr_prop_setref_t bundle,
   format_get[count + 3] = NUL;
 
   is_string = (edit->mode == 'S' || edit->mode == 'V' || edit->mode == 'N');
-  format_get[0] = is_string ? PROP_STRING : PROP_INTEGER;
+  format_get[0] = is_string ? PROP_STRING
+                  : edit->mode == 'B' ? PROP_BOOLEAN : PROP_INTEGER;
   format_get[1] = '<';
   format_get[2] = '-';
   strcpy (format_put, format_get);
@@ -5337,6 +5382,17 @@ parse_patch_edit (scr_prop_setref_t bundle,
       if (apply)
         {
           vt_value.integer = edit->to_integer;
+          prop_put (bundle, format_put, vt_value, vt_key);
+        }
+      return TRUE;
+
+    case 'B':
+      if (!prop_get (bundle, format_get, &vt_rvalue, vt_key)
+          || !vt_rvalue.boolean != !edit->from_integer)
+        return FALSE;
+      if (apply)
+        {
+          vt_value.boolean = edit->to_integer != 0;
           prop_put (bundle, format_put, vt_value, vt_key);
         }
       return TRUE;

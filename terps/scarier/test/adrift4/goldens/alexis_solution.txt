@@ -120,6 +120,7 @@ give stones to larnt
 e
 e
 ne
+attack narn
 nw
 ne
 n
@@ -130,6 +131,9 @@ attack larnt
 n
 x long table
 get all from long table
+s
+e
+touch ball
 s
 w
 u

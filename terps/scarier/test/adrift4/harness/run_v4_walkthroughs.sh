@@ -449,6 +449,13 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # draws none (alexis_tr_trace.txt), which put every later battle roll and
 # Haron's arrival a turn out of phase.  Now equal draws on every turn, and
 # the recompare against Adrift_145_alexis_rt differs only at T99's text.
+# Raised 2026-09-28, 151 -> 155 commands, 55 -> 57/65, the Easy ceiling (every
+# scored task but the Hard-only difficulty bonus).  `attack narn` in Nelone
+# mountain pass banks task 25 (+1; repeatable, but scores once).  `touch ball`
+# (task 31, +1) does NOT throw you back to the bridge: it lands in a random
+# castle room, so the route goes `s`, `e`, `touch ball` (Long room at seed 1),
+# `s` before the old `w`, `u`.  That landing narrows the winning seeds to 1 and 4.
+# All insertions follow command 35, so the lantern timing is untouched.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
@@ -477,6 +484,14 @@ alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 # (the deliberate deviation) but is no longer a turn, as in run390.  Same T99 `open chest`: the recompare
 # is down to that one turn's text, and the T124 event line and early ending
 # are gone.
+# Raised 2026-09-28, 159 -> 177 commands, 58 -> 65/65, the full score.  The
+# cube stays worn except for the four flee-kills, taking it off BETWEEN fights:
+# `wear steel vest` / `wear cloak` first (Hard starts at 60/80 stamina and armed
+# enemies hit for 25; Defence 13 makes it 12), then `remove cube` and `attack X
+# with cube` for the bridgekeeper (task 8, +5), wolf (task 9, +2, caught on its
+# 3-hidden/5-in-the-Pass walk), Longmore king (task 17, +2) and eagle (task 22,
+# +3).  A bare `attack` keeps the LAST weapon used, so `attack X with spade`
+# switches back once the cube is worn again.  Wins at every seed 1-8.
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
 # feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
@@ -1594,6 +1609,13 @@ thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKI
 # Room of Eternal Dialing, with task 14 `unlock door` confined to room 0, is "You
 # can't do that here!" (runner_transcripts/thetest_win.txt T68-77), not the old
 # "You can't unlock the door.".  Still 20/25; identical to the Runner on every turn.
+# Raised 2026-09-28 to 25/25, 191 -> 131 commands: `west` / `listen` / `east`
+# right after the colour door opens banks task 1 (+5), which only answers in
+# Room 0 after event 0 has run #run (turn 3).  The extra turns re-roll the rest,
+# re-derived with harness/thetest_solve.py (which now inserts the three lines):
+# still 57 unlock tries, code 2252710, last shout 171, two teleports.  Re-driven
+# in run390x the same day: runner_transcripts/thetest_win.txt is identical on
+# every turn, 25/25.
 thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1 SCR_SEED=8
 # Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
@@ -6102,7 +6124,31 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # splitting maul is too heavy for you to carry at the moment.", as in
 # runner_transcripts/provenance.txt; the row is identical to run400 on every
 # turn apart from the keypress prompt.
+# Raised 2026-09-28, 892 -> 901 commands, 260 -> 285/300.  Points are all
+# ChangeScore actions (35 tasks, summing to exactly 300).  Added: `set table`
+# after opening both cupboards (T493 +5) and `ask butler about drain` while he
+# is in the dining room (T510 +5), both replacing butler-wait `z`s one for one;
+# `open stove` / `light stove` (T494 +5); `rub crystal ball` in the Master
+# Bedroom (T501 +5); `get stool` AFTER the attic trip, then `stand on stool` in
+# the Kitchen (T130 +5 -- standing on it first silently locks T131 and the
+# attic).  285 is the unpatched ceiling: T142 `give strawberry to crow` (+10) needs the
+# skeleton key held, which T141 (its own prerequisite) feeds to the crow, and
+# only T143 (which needs T142) returns it -- a circular gate; T505 (+5, rub the
+# ball at the Orchard Entrance) is shadowed by the earlier repeatable T504,
+# which shares its command and covers room 7.  The patched row below repairs
+# both.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
+# And with the built-in game patch (SCR_ASSUME_PATCHES=1, on by default in the
+# Glk build), 2026-09-28: T142's key restriction reads "not held" (Var2 7), so
+# the crow that has swallowed the key takes the strawberry, and T504 loses
+# room 7, so T505 answers the rub at the Orchard Entrance.  913 commands, the
+# faithful route plus two detours: `s`/`se`/`s`, `rub crystal ball`, back, from
+# the Brick Path with the ball in hand (T505 +5); and in the Vegetable
+# Garden on the way to the caves, key still held, `get strawberry`, `x crow`,
+# `give strawberry to crow` (T142 +10), `catch crow`, `get skeleton key`.  The
+# crow detour has to come after the dining room: five turns earlier and the
+# butler has left before `ask butler about drain`, and the map with him.
+provenance_patched_solution.txt|provenance.taf|You scored 300 out of the maximum 300!|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
 # "Professor walkthrough.txt" (annotated transcript).  Replays VERBATIM,
@@ -8234,6 +8280,14 @@ deardiary2_solution.txt|Dear Diary 2.taf|Well done - you scored maximum points!|
 # this solution completes) are all confirmed via matching SCORE deltas
 # during derivation. 222 commands, `SCR_SKIP_WAITKEY=1` (multiple
 # `<waitkey>`-driven "press a key to continue" cutscenes throughout).
+# Raised 2026-09-28, 222 -> 220 commands, to 52/52.  The row had drifted to 49:
+# its 21 `read logbook` draws no longer showed Entry 8, so the logbook bonus
+# (T724, +2) never fired.  Dropping the three diagnostic `score` / `i` / `look`
+# lines and adding `get corpse` after `get cloak` (T373 wakes it; the next `e`
+# walks it into the quicksand, T374 +1) realigns the draws so the same 21 reads
+# cover all ten entries.  The broken-bridge crossing (T33) was always walked;
+# all 12 memory fragments are recovered, the 12th by the ending (T641).  The
+# status line's "/50" is cosmetic.
 fullcircle_solution.txt|Full_Circle.taf|Full Circle has ended.|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # HalloweenHijinks.taf: Halloween comedy -- a kid (dressed as a scarecrow)
 # and little sister Lisa (a wasp) go trick-or-treating on aptly-named Murder
@@ -8821,6 +8875,19 @@ withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR
 # Re-blessed 2026-09-13 for 991a5f8d9's give-to-absent-NPC answer: `give lolly to
 # cestus` with Cestus elsewhere now says "Give the lolly to who?" (was "Please be more
 # clear, who do you want to give to?").
+# Raised 2026-09-28 to 177/401 (was 113).  Easy is the only winnable setting:
+# on hard the marble never appears (T375/T384), so no Shem map (T313) and T1
+# seals the cave; on medium there is no battery (T365/T366/T367).  So the
+# medium/hard closing bonuses (T604 +20, T605 +30) are unreachable and 401 is
+# no real maximum.  Added: the office evidence and Higgold (T253 T256 T242 T234
+# T237 T263 T276), Bomba lured by Mauree and arrested (T164 +10), three more
+# Cestus questions (+6), the sheriff's dead-body option (T509 +5; `talk
+# sheriff now`, since spent T54 claims every `talk sheriff`), the package /
+# Quiff / saloon / Lola-via-Spam chain (T202 T186 T4 T3, +18), paying Egbert
+# (T563 +2), the cave box (T698 +2), and the longer `use helmet` / `blow
+# whistle` / `kill jake` ending (23 instead of 15).  The cave fall's waitkey
+# eats one line, hence a blank line there.  Only T721 (eat bread, +1; the bread
+# exists only via `cheat`) is left: 177 is the practical ceiling.
 cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fingle Bodge?|
 # Whatever Happened to Uncle Grumble (comedic fantasy, hero "a" = tall and
 # strapping): rescue Uncle Grumble from Chad Sinister-Sinister's fortress
@@ -9112,6 +9179,17 @@ rking_solution.txt|rking.taf|Overall, your score was 100 out of a total of 100.|
 # Re-blessed 2026-09-07: the `undo` answer is now "Undone." and nothing else --
 # no Runner reprints the restored room's name.  See lib_cmd_undo() and
 # notes/WINE-TRANSCRIPTS-TODO.md.
+# Raised 2026-09-28, 116 -> 191 commands, 92 -> 208 on the author's "out of
+# 200" (the 200 undercounts the pool).  Side trips added to the B WALK route:
+# Alice (378), the crossing lady (1340), the cowboy outfit (570) and bible
+# readings at the shop (1405) and the Paper Boys (1409), +10 each; `get eraser`
+# (126, 130); `show id` bonuses (1360; 866 +6 replaces the 865 +2 `hit steve`);
+# lottery ticket, pray, the ladies/Erik/singer threads and knitting (743).
+# 208 is the ceiling: exclusive pairs 184/185, 1017/1018, 650/651, 433/434,
+# 741/743/757, 701 vs 704 and 865/869 vs 866 always take the higher; the evil
+# Paper Boys branch (412+727 = 8) rules out 1409 (+10); the buzzer (628, 765)
+# exists only via the cheat; the net (629, 764, 1067) is spent on the cat; 732
+# is never triggered; penalties 747/1341/1400/1058 avoided.
 hero_solution.txt|competition2004__adrift__hero__hero.taf|the world is a better place for your actions|SCR_SKIP_WAITKEY=1
 # Derived 2026-08-31 from the game's own built-in `B WALK` bare-bones
 # walkthrough (available from turn 1), with one fix: the built-in text
@@ -9185,6 +9263,12 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 # before 4.0 as well.  `distract king` is the task's "distract * king *".
 # Re-driven the same day: runner_transcripts/alchemist.txt is identical on
 # every turn through the win.
+# Raised 2026-09-28 to 500/500 (518 -> 520 commands): `get star` after `drink
+# potion` (T70 drops the flying star on the mountain top, where you stand) and
+# `give star to magician` after `give dust to magician` (T128, +10).  No extra
+# horse trip is needed.  Re-driven in run390x the same day at 500/500:
+# runner_transcripts/alchemist.txt matches on every turn except T102's
+# "On the table are ..." (Scarier's deliberate plural list verb).
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
 # the privy as backstory) and hand it back to the dragon at the castle

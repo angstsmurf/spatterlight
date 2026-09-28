@@ -177,6 +177,7 @@ wait
 wait
 wait
 drink potion
+get star
 touch star
 get dust
 down
@@ -191,6 +192,7 @@ east
 north
 in
 give dust to magician
+give star to magician
 out
 south
 west

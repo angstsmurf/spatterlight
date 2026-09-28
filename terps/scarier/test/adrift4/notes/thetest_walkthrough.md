@@ -1,5 +1,12 @@
 # The Test — walkthrough (WINNABLE — old "unwinnable" verdict was wrong)
 
+> **Update 2026-09-28: the win row now scores 25/25** (131 commands).  `west` /
+> `listen` / `east`, straight after the colour door opens, banks task 1 (+5);
+> event 0 has run `#run` by then (turn 3).  `harness/thetest_solve.py` inserts
+> the three lines and re-derived the rest at seed 8: 57 unlock tries, code
+> 2252710, last shout 171, two teleports.  The 20/25 text below is history.
+
+
 - **Author:** unknown (a short, whimsical ADRIFT 3.9 "puzzle box"; the narrator
   is a chatty in-game voice). No published walkthrough.
 - **Engine:** ADRIFT 3.9 (Battle System on — the Robot Guard really hits you).

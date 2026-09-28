@@ -940,7 +940,7 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | volant | WON, 60 | second `talk to techthon` |
 | BarneysProblem (AIF) | 114/121, 133, SKIP | marker `BABYLON` |
 | HalloweenHijinks | 8 treats, 89, SKIP | — |
-| Full_Circle | 51/52, 222, SKIP | "Full Circle has ended."; embedded CompleteText walkthrough |
+| Full_Circle | 52/52, 220, SKIP | "Full Circle has ended."; embedded CompleteText walkthrough |
 | Dear Diary (AIF) | 300/300, 134, SKIP | marker `FUCK YOU ERIK` |
 | Riding_Home (AIF) | 100/100, 57, SKIP | `GameProgress`≥90 before the bus |
 | Dear Diary 2 (AIF) | 300/300, 68, SKIP | — |
@@ -955,14 +955,14 @@ where a later rule moved the row. `SKIP` = `SCR_SKIP_WAITKEY=1`.
 | mind of master | WON, 29, SKIP | "You are victorious, whoever you might" |
 | magicshow (AIF) | 67/67 + magic 47/47, 152, SKIP | 18 `z` after `take hoops` until Tiffany leaves (EVENT 0, time 27); deck rides in the hat — `take hat`/`wear hat` after `get rabbit from hat`; marker `Well done - you scored maximum points!` |
 | Whatever Happened to Uncle Grumble | 226/404, 267, SKIP | hero `a` (`var8==0`); −50 bomb trap T224 (give bomb *then* love); T280/T459 unreachable; T388 via `unlo door` (synonym bypass); +beer to Kringle, Dip `cut rope`/`chop tree with blade`/`climb tree` (2026-09-26); endgame `no`,`wait`,`give nulgas potion to grumble`,`u`; marker `Your score is 226 out of a maximum of 404` |
-| CowboyBlues | 113/401, 271 | row `cowboyblues_solution.txt\|CowboyBlues.taf\|how does it feel to be a hero then, Fingle Bodge?\|`; terminal room 35 via T591; `var0` 0=difficult 1=medium 2=easy; `blow whistle` first command in Jake's hideout; third `get key` is death |
+| CowboyBlues | 177/401, easy-only ceiling | row `cowboyblues_solution.txt\|CowboyBlues.taf\|how does it feel to be a hero then, Fingle Bodge?\|`; terminal room 35 via T591; `var0` 0=difficult 1=medium 2=easy; `blow whistle` first command in Jake's hideout; third `get key` is death |
 | requiem | won, 74, SKIP | "you have reached the game's best ending" |
 | WithoutAClue | won, 125, SKIP | "you've managed to finish the game" |
 | The Potter and the Mould | 150/150, 333 | row `mould_solution.txt\|mould.taf\|Congratulations on winning The Potter and the Mould\|`; terminal room 103; clay dog shaken via `push red`,`n`,`close south`,`n`,`d` then `d s s e u w`; boss `5 2 3 1`, final `2` |
 | rking | 100/100, 111, SKIP | — |
-| hero | 92/200, 116, SKIP | "the world is a better place for your actions" |
+| hero | 208/200, 191, SKIP | "the world is a better place for your actions" |
 | datewithdeath | won, 303, SKIP | hidden `ritual` var; "And you have a whole life ahead of you to live" |
-| alchemist | 490/500, 518, SKIP | "That is 100% of the game"; flying star unreachable |
+| alchemist | 500/500, 520, SKIP | "That is 100% of the game"; `get star` after `drink potion` |
 | ONNAFA | 76, 188, SKIP | fake agent completion caught; `RESTR type=4 v1` footgun |
 | House | 30/30, 284, `SCR_SEED=1 SCR_SKIP_WAITKEY=1` | charmed snuff box (task 340 `noinimod on sah emit`) defeats both aging tasks; empty and open the box first; marker `YOU HAVE COMPLETED HOUSE.`; `examine notebook` not `read`; `look` after `wind clock hands back` is load-bearing; `%drunk% west.` is the game's bug |
 | Lights, Camera, Action! (Whyld) | score 85 best ending, 261 | no EndGame; room 22; marker `best ending in the game!`; `pull creeper` after `kick saucer`; give trident *after* both haunted-house trips (T237 strands Witherspoon); `talk daisy` twice, `talk violetta` ×4; murder strand mandatory (T704) |

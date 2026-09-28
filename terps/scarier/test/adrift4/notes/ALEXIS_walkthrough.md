@@ -1,4 +1,22 @@
-# Alexis: Dalskee — walkthrough (WON, 55/65; win verified deterministic)
+# Alexis: Dalskee — walkthrough (WON: 57/65 Easy, 65/65 Hard; deterministic)
+
+> **Update 2026-09-28 — both rows raised; the sections below are the earlier
+> derivation and are superseded where they disagree.**
+> - **Easy / carry (alexis, SCR_SEED=1): 55 → 57/65**, 155 commands.  `attack
+>   narn` in Nelone mountain pass banks task 25 (+1; a second Narn scores
+>   nothing).  `touch ball` (task 31, +1) does NOT go to r10 as the table below
+>   says: it lands in a random castle room, so the route goes `s`, `e`, `touch
+>   ball` (Long room at seed 1), `s`, then `w`, `u`.  57 is every scored task
+>   but the Hard-only difficulty bonus.  Winning seeds are now 1 and 4.
+> - **Hard / worn (alexis_worn_cube, SCR_SEED=2): 58 → 65/65**, 177 commands.
+>   Swapping the cube out works when done BETWEEN fights, not mid-fight: `wear
+>   steel vest`, `wear cloak` (Defence 13, so armed hits cost 12 of the Hard
+>   start's 60 stamina), then `remove cube` + `attack X with cube` for the
+>   bridgekeeper (+5), wolf (+2; it walks 3 turns hidden / 5 in Tonerith Pass),
+>   Longmore king (+2) and eagle (+3), `wear cube` after.  A bare `attack` keeps
+>   the last weapon, so `attack X with spade` switches back.  Wins at seeds 1-8.
+> - Both insertions come after command 35, so the lantern timing below still holds.
+
 
 > **Two routes are documented here.** The **main route** below *carries* the
 > magic cube (HitValue 50, fast clean kills) on **Easy** → **55/65**. An

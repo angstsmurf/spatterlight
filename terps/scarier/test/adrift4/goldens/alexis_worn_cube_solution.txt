@@ -76,10 +76,31 @@ x elven cupboard
 get all from cupboard
 wear elven armour
 nw
+wear steel vest
+wear cloak
+remove cube
+sw
+sw
+nw
+sw
+attack bridgekeeper with cube
+attack bridgekeeper
+w
+w
+wait
+attack wolf
+attack wolf
+e
+e
+ne
+se
+ne
+ne
+wear cube
 w
 s
 se
-attack goblin
+attack goblin with spade
 attack goblin
 attack goblin
 attack goblin
@@ -88,11 +109,9 @@ nw
 n
 w
 nw
+remove cube
 nw
-attack monster
-attack monster
-attack monster
-attack monster
+attack monster with cube
 attack monster
 attack monster
 ne
@@ -106,8 +125,7 @@ nw
 e
 e
 attack eagle
-attack eagle
-attack eagle
+wear cube
 w
 w
 nw
@@ -128,7 +146,7 @@ n
 say the password
 open door
 n
-attack larnt
+attack larnt with spade
 attack larnt
 attack larnt
 n

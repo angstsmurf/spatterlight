@@ -630,28 +630,6 @@ EXITS: East, Southwest
 At the side of the path you have been following is a tall tree, withered and ancient, from which hangs the dead and rotting body of a man. It swings back and forth in the light breeze, emitting a creaking sound which would be chilling even if not caused by such a grisly spectre. The corpse is clad in a worn black cloak.  
    There is a large rock here.  
 
-> score
-You have a score of 17 out of 52.  
-
-> i
-You are carrying:
-
-_	helm {Patches of rust have already claimed parts of this helm, yet the rest is sturdy enough. While unlikely to stop a forceful blow, this at least ought to turn it from a killing strike to merely a wounding one. There is an unusual glass faceplate on the helm, unlike any you have seen before. It is currently lowered. A faint light emanates from it.}
-  _	locket {A silver locket, quite expensive you would imagine, though you're unlikely to find anyone around here willing to pay a price for it. You would normally be able to open and close it, but it has been damaged and remains permanently open. In the interior a detailed drawing of a man with straggly hair who is smiling happily. He appears to be wearing some kind of sailor's outfit.}
-  _	golden skull {Smaller than a grown man's. Perhaps a child's? But why the gold colour? The skull is made of bone and seems wholly normal, aside from the unusual colour.}
-_	torch {The torch blazes with a light that seems unnatural in its intensity, not to mention the fact that it is blue in colour and smells faintly of radiation. You're not altogether sure how safe it is being near this torch for any length of time.}
-
-
-> look
-
-Hanging Tree
-[Score: 17/50] [Locations visited: 15/43] [Fragments of memory recovered: 3/12] [Decisions made: 76] 
-
-EXITS: East, Southwest
-
-At the side of the path you have been following is a tall tree, withered and ancient, from which hangs the dead and rotting body of a man. It swings back and forth in the light breeze, emitting a creaking sound which would be chilling even if not caused by such a grisly spectre. The corpse is clad in a worn black cloak.  
-   There is a large rock here.  
-
 > untie corpse
 You are reluctant to approach the corpse, but equally reluctant to leave it hanging like that, fodder for any passing crow who might take a fancy to it. So you climb the tree and proceed to unfasten the ropes keeping the corpse in place. As it happens, they are rotted through and break the moment you touch them. The body drops to the ground with a thud that would doubtless be painful indeed for a living creature.
    A sudden wind stirs up and you fancy you hear a voice whisper "...thank you..."  
@@ -660,19 +638,32 @@ You are reluctant to approach the corpse, but equally reluctant to leave it hang
 An unpleasant business, but you grit your teeth and tug the cloak away from the corpse. As you do, you can't help but notice the way the corpse almost seems to... laugh at you.
    But you shrug aside the feeling. The cloak seems... familiar. From somewhere. It seems more right that it should be in your possession and not that of the corpse's. Something, some little feeling, some gut instinct, even makes you wonder if the cloak might not be yours.  
 
+> get corpse
+Fighting back a sensation of nausea, you reach out to the corpse - and then stumble back in horror as its eyes open!
+   It looks around, seemingly disorientated, then looks at you. Its eyes narrow.
+   "Come back, have you, sir?" it hisses, spitting the final word out. "Damn you! We followed you and you left us to die!"
+   You start to say something but the words die in your throat.
+   The corpse rises unsteadily to its feet, swaying from side to side. You didn't notice before, but there is a gaping wound in its neck. Some kind of bite mark.
+   "I thought... you were dead..." you say.
+   The corpse laughs bitterly. "Dead? We're all dead! You killed us! Or don't you remember? Have you forgotten what you did to us?"
+   You shake your head in dismay. "I... don't-"
+   The corpse clenches its fists - for a moment you fear it will attack you - then it looks around suddenly, as if hearing something, and goes stumbling away to the east.  
+
 > push rock e
 You roll the large rock to the east.  
 
 > e
 
-
 Quicksand
-[Score: 19/50] [Locations visited: 16/43] [Fragments of memory recovered: 3/12] [Decisions made: 80] 
+[Score: 20/50] [Locations visited: 15/43] [Fragments of memory recovered: 3/12] [Decisions made: 78] 
 
 EXITS: East, West
 
 The path ahead of you is covered by sand. Quicksand. Step into it and you could well be sucked down to an early and unpleasant grave. On the far side, you can see what looks like a fast-flowing river, just visible through the trees.  
    There is a large rock here.  
+   The corpse stands at the edge of the quicksand.
+   "Perhaps..." you hear it mutter. "Perhaps this will work."
+   And then before you can say or do anything, it steps into the quicksand and sinks from view.  
 
 > push rock e
 You roll the large rock into the quicksand. It sinks into the sand and disappears quickly from sight, disappearing altogether after just a few seconds.  
@@ -696,7 +687,7 @@ The memory fades.
   
 
 River Bank
-[Score: 20/50] [Locations visited: 16/43] [Fragments of memory recovered: 4/12] [Decisions made: 82] 
+[Score: 21/50] [Locations visited: 16/43] [Fragments of memory recovered: 4/12] [Decisions made: 80] 
 
 EXITS: North, South, West
 
@@ -706,7 +697,7 @@ The bank of a fast-flowing river. Perhaps fifty feet wide, the river rushes past
 
 
 By a Wrecked Ship
-[Score: 20/50] [Locations visited: 18/43] [Fragments of memory recovered: 4/12] [Decisions made: 83] 
+[Score: 21/50] [Locations visited: 18/43] [Fragments of memory recovered: 4/12] [Decisions made: 81] 
 
 EXITS: North, Southeast, In
 
@@ -726,7 +717,7 @@ You are the only one alive. Magarick was bitten by a snake and began to transfor
 The memory fades.  
 
 Waterfall
-[Score: 21/50] [Locations visited: 18/43] [Fragments of memory recovered: 5/12] [Decisions made: 84] 
+[Score: 22/50] [Locations visited: 18/43] [Fragments of memory recovered: 5/12] [Decisions made: 82] 
 
 EXITS: Northwest
 
@@ -736,7 +727,7 @@ To the southeast, the river you have been following ends abruptly at a waterfall
 
 
 By a Wrecked Ship
-[Score: 21/50] [Locations visited: 19/43] [Fragments of memory recovered: 5/12] [Decisions made: 85] 
+[Score: 22/50] [Locations visited: 19/43] [Fragments of memory recovered: 5/12] [Decisions made: 83] 
 
 EXITS: North, Southeast, In
 
@@ -745,7 +736,7 @@ A sea-faring ship has been washed ashore here; it is broken in places and the co
 > in
 
 Hold
-[Score: 21/50] [Locations visited: 19/43] [Fragments of memory recovered: 5/12] [Decisions made: 86] 
+[Score: 22/50] [Locations visited: 19/43] [Fragments of memory recovered: 5/12] [Decisions made: 84] 
 
 EXITS: Out, Up
 
@@ -753,7 +744,7 @@ The hold is poorly lit but the hole in one wall allows you to see enough to make
    You hear a sound from above, as though someone was moving around in the upper part of the boat.  
 
 > score
-You have a score of 21 out of 52.  
+You have a score of 22 out of 52.  
 
 > i
 You are carrying:
@@ -768,7 +759,7 @@ _	torch {The torch blazes with a light that seems unnatural in its intensity, no
 > look
 
 Hold
-[Score: 21/50] [Locations visited: 20/43] [Fragments of memory recovered: 5/12] [Decisions made: 89] 
+[Score: 22/50] [Locations visited: 20/43] [Fragments of memory recovered: 5/12] [Decisions made: 87] 
 
 EXITS: Out, Up
 
@@ -794,7 +785,7 @@ You climb up the ladder quickly and have just reached the top when someone gives
   
 
 Cabin
-[Score: 23/50] [Locations visited: 20/43] [Fragments of memory recovered: 5/12] [Decisions made: 92] 
+[Score: 24/50] [Locations visited: 20/43] [Fragments of memory recovered: 5/12] [Decisions made: 90] 
 
 EXITS: Up, Down
 
@@ -829,6 +820,22 @@ You crouch down and peer under the bed, wondering if something might be hidden t
 > read logbook
 You open the logbook to a random page and read:  
 
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a waterfall. How did it come to be here, miles away from the cove where it was anchored? What kind of magic could do such a thing? No one knows...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 10
+
+... the design is Kandish. The temple. Of course, I should have expected it. The rhyme in the clearing was Kandish, the totem pole Kandish, why should the temple now be Kandish, too, even though it lies on the far side of the world from Kandor? I feel not that I am discovering something new, but simply returning to a place I have already visited many, many times before...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
 Entry 10
 
 ... the design is Kandish. The temple. Of course, I should have expected it. The rhyme in the clearing was Kandish, the totem pole Kandish, why should the temple now be Kandish, too, even though it lies on the far side of the world from Kandor? I feel not that I am discovering something new, but simply returning to a place I have already visited many, many times before...
@@ -845,9 +852,25 @@ Entry 7
 > read logbook
 You open the logbook to a random page and read:  
 
+Entry 3
+
+... abominations. At first it seemed they were monsters of the island, warped by the magic here, but on one we found coins in a pouch of Kandish make; another wore clothes, tattered rags though they were. The abominations are, or once were, humans, though none of us like to speculate on how they suffered such a change. Does a similar fate await... 
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
 Entry 5
 
 ... my actions seem circular. Repetitious. Everything I do, every move I make, every decision I reach, seems one I have made before. I found my helm, buried where I had buried it for reasons unknown to me now; my cloak, on the corpse of Halstings; my sword... which I threw into the quicksand, putting it forever beyond my reach. Its blade is red with blood – who I have killed and then forgotten?...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a waterfall. How did it come to be here, miles away from the cove where it was anchored? What kind of magic could do such a thing? No one knows...
 
 
 > read logbook
@@ -861,9 +884,79 @@ Entry 2
 > read logbook
 You open the logbook to a random page and read:  
 
-Entry 10
+Entry 5
 
-... the design is Kandish. The temple. Of course, I should have expected it. The rhyme in the clearing was Kandish, the totem pole Kandish, why should the temple now be Kandish, too, even though it lies on the far side of the world from Kandor? I feel not that I am discovering something new, but simply returning to a place I have already visited many, many times before...
+... my actions seem circular. Repetitious. Everything I do, every move I make, every decision I reach, seems one I have made before. I found my helm, buried where I had buried it for reasons unknown to me now; my cloak, on the corpse of Halstings; my sword... which I threw into the quicksand, putting it forever beyond my reach. Its blade is red with blood – who I have killed and then forgotten?...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 1
+
+... primitives would worship of the skull. Golden in colour it was, and the size of that of a child, though for certain it came from no child of human descent. Prayers would be offered with the skull in the possession of the worshipper, and, on occasion, or so it seemed, they would be answered...  
+
+> score
+You have a score of 27 out of 52.  
+
+> i
+You are carrying:
+
+_	cloak {Black in colour, though faded almost to grey, the cloak is torn in many places. It seems colder than the grave to the touch.}
+_	crucifix {A crucifix, though an unusual one. It is carved from a lump of black metal and is icily cold to the touch. It feels unpleasant and you can't help but wonder if keeping it close to you is a bad idea.}
+_	helm {Patches of rust have already claimed parts of this helm, yet the rest is sturdy enough. While unlikely to stop a forceful blow, this at least ought to turn it from a killing strike to merely a wounding one. There is an unusual glass faceplate on the helm, unlike any you have seen before. It is currently lowered. A faint light emanates from it.}
+  _	locket {A silver locket, quite expensive you would imagine, though you're unlikely to find anyone around here willing to pay a price for it. You would normally be able to open and close it, but it has been damaged and remains permanently open. In the interior a detailed drawing of a man with straggly hair who is smiling happily. He appears to be wearing some kind of sailor's outfit.}
+  _	logbook {Many, many years old, and worn heavily by the passing of the ages. Did this belong to the captain of this ship?}
+  _	golden skull {Smaller than a grown man's. Perhaps a child's? But why the gold colour? The skull is made of bone and seems wholly normal, aside from the unusual colour.}
+_	torch {The torch blazes with a light that seems unnatural in its intensity, not to mention the fact that it is blue in colour and smells faintly of radiation. You're not altogether sure how safe it is being near this torch for any length of time.}
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 8
+
+... my memories are confused, contradictory. I remember, clearly, a fight with Halstings when I stabbed him through the chest, though I do not remember why I did this. I also remember, clearly, Halstings leaping to his death over a waterfall, insisting we were all dead so it didn't matter anyway. I further remember, equally as clearly, the beast that Carson became tearing Halstings apart. How can all of these be true? Or are none of them? Am I simply mad?...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 3
+
+... abominations. At first it seemed they were monsters of the island, warped by the magic here, but on one we found coins in a pouch of Kandish make; another wore clothes, tattered rags though they were. The abominations are, or once were, humans, though none of us like to speculate on how they suffered such a change. Does a similar fate await... 
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a waterfall. How did it come to be here, miles away from the cove where it was anchored? What kind of magic could do such a thing? No one knows...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 5
+
+... my actions seem circular. Repetitious. Everything I do, every move I make, every decision I reach, seems one I have made before. I found my helm, buried where I had buried it for reasons unknown to me now; my cloak, on the corpse of Halstings; my sword... which I threw into the quicksand, putting it forever beyond my reach. Its blade is red with blood – who I have killed and then forgotten?...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a waterfall. How did it come to be here, miles away from the cove where it was anchored? What kind of magic could do such a thing? No one knows...
+
+
+> read logbook
+You open the logbook to a random page and read:  
+
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was told was impossible. Magic powers it, and it is self-repairing, and can last a lifetime. Yet within days of arriving in this strange place, it has ceased to function altogether. I lack the means to repair it, a device of magic and science which I do not fully understand. We are trapped here...
 
 
 > read logbook
@@ -893,64 +986,9 @@ Entry 9
 > read logbook
 You open the logbook to a random page and read:  
 
-Entry 10
+Entry 3
 
-... the design is Kandish. The temple. Of course, I should have expected it. The rhyme in the clearing was Kandish, the totem pole Kandish, why should the temple now be Kandish, too, even though it lies on the far side of the world from Kandor? I feel not that I am discovering something new, but simply returning to a place I have already visited many, many times before...
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 7
-
-... Halstings believes we are dead and this island simply a figment of our collective imaginations. He points to the things we both cannot be, and yet are. The cave, the totem pole, the bridge which repairs itself... other things... I have ordered him to keep his mad delusions to himself, lest he incite a panic in the crew, but here, in this place, far from the power of my mentor, he seems to have grown brave. I could punish him, but he is popular amongst the crew and they have been pushed far already. The last thing I need is a mutiny as I would be forced to kill them. Something I can do easily, though I can hardly sail the ship home on my own...
-
-
-> score
-You have a score of 26 out of 52.  
-
-> i
-You are carrying:
-
-_	cloak {Black in colour, though faded almost to grey, the cloak is torn in many places. It seems colder than the grave to the touch.}
-_	crucifix {A crucifix, though an unusual one. It is carved from a lump of black metal and is icily cold to the touch. It feels unpleasant and you can't help but wonder if keeping it close to you is a bad idea.}
-_	helm {Patches of rust have already claimed parts of this helm, yet the rest is sturdy enough. While unlikely to stop a forceful blow, this at least ought to turn it from a killing strike to merely a wounding one. There is an unusual glass faceplate on the helm, unlike any you have seen before. It is currently lowered. A faint light emanates from it.}
-  _	locket {A silver locket, quite expensive you would imagine, though you're unlikely to find anyone around here willing to pay a price for it. You would normally be able to open and close it, but it has been damaged and remains permanently open. In the interior a detailed drawing of a man with straggly hair who is smiling happily. He appears to be wearing some kind of sailor's outfit.}
-  _	logbook {Many, many years old, and worn heavily by the passing of the ages. Did this belong to the captain of this ship?}
-  _	golden skull {Smaller than a grown man's. Perhaps a child's? But why the gold colour? The skull is made of bone and seems wholly normal, aside from the unusual colour.}
-_	torch {The torch blazes with a light that seems unnatural in its intensity, not to mention the fact that it is blue in colour and smells faintly of radiation. You're not altogether sure how safe it is being near this torch for any length of time.}
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 7
-
-... Halstings believes we are dead and this island simply a figment of our collective imaginations. He points to the things we both cannot be, and yet are. The cave, the totem pole, the bridge which repairs itself... other things... I have ordered him to keep his mad delusions to himself, lest he incite a panic in the crew, but here, in this place, far from the power of my mentor, he seems to have grown brave. I could punish him, but he is popular amongst the crew and they have been pushed far already. The last thing I need is a mutiny as I would be forced to kill them. Something I can do easily, though I can hardly sail the ship home on my own...
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 4
-
-... communication device, shaped like a pendant, has failed, a thing I was told was impossible. Magic powers it, and it is self-repairing, and can last a lifetime. Yet within days of arriving in this strange place, it has ceased to function altogether. I lack the means to repair it, a device of magic and science which I do not fully understand. We are trapped here...
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no weapon, despite its appearance. A door would be found, and a key would be needed. The spike would serve as the key...
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no weapon, despite its appearance. A door would be found, and a key would be needed. The spike would serve as the key...
+... abominations. At first it seemed they were monsters of the island, warped by the magic here, but on one we found coins in a pouch of Kandish make; another wore clothes, tattered rags though they were. The abominations are, or once were, humans, though none of us like to speculate on how they suffered such a change. Does a similar fate await... 
 
 
 > read logbook
@@ -961,53 +999,11 @@ Entry 6
 ... Halstings does not believe the cave is simply the former home of pirates or bandits. He points to the mirror, the grate we have been unable to open, the strange barrier which sometimes forms over the mouth – these are not the work of pirates or bandits. He is right as well. The barrier is a form of magic I have seen my mentor employ often. A form he once taught to me...
 
 
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 1
-
-... primitives would worship of the skull. Golden in colour it was, and the size of that of a child, though for certain it came from no child of human descent. Prayers would be offered with the skull in the possession of the worshipper, and, on occasion, or so it seemed, they would be answered...  
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 3
-
-... abominations. At first it seemed they were monsters of the island, warped by the magic here, but on one we found coins in a pouch of Kandish make; another wore clothes, tattered rags though they were. The abominations are, or once were, humans, though none of us like to speculate on how they suffered such a change. Does a similar fate await... 
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 1
-
-... primitives would worship of the skull. Golden in colour it was, and the size of that of a child, though for certain it came from no child of human descent. Prayers would be offered with the skull in the possession of the worshipper, and, on occasion, or so it seemed, they would be answered...  
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 3
-
-... abominations. At first it seemed they were monsters of the island, warped by the magic here, but on one we found coins in a pouch of Kandish make; another wore clothes, tattered rags though they were. The abominations are, or once were, humans, though none of us like to speculate on how they suffered such a change. Does a similar fate await... 
-
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 1
-
-... primitives would worship of the skull. Golden in colour it was, and the size of that of a child, though for certain it came from no child of human descent. Prayers would be offered with the skull in the possession of the worshipper, and, on occasion, or so it seemed, they would be answered...  
-
-> read logbook
-You open the logbook to a random page and read:  
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no weapon, despite its appearance. A door would be found, and a key would be needed. The spike would serve as the key...
-
+You lower the logbook, understanding finally dawning. You recognise the handwriting because it is your handwriting. This is your logbook. The ship you found it on was your ship. But...
+   But you don't remember writing a word of it.  
 
 > score
-You have a score of 26 out of 52.  
+You have a score of 29 out of 52.  
 
 > i
 You are carrying:
@@ -1025,7 +1021,7 @@ _	torch {The torch blazes with a light that seems unnatural in its intensity, no
 
 
 Deck
-[Score: 26/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 123] 
+[Score: 29/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 121] 
 
 EXITS: West, Down
 
@@ -1041,7 +1037,7 @@ When the man sees you holding up the locket, he grows calm. He murmurs, "Kedric?
 
 
 Cabin
-[Score: 27/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 125] 
+[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 123] 
 
 EXITS: Up, Down
 
@@ -1051,7 +1047,7 @@ The wall of this cabin has been smashed in, affording you a view of the forest t
 
 
 Hold
-[Score: 27/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 126] 
+[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered: 6/12] [Decisions made: 124] 
 
 EXITS: Out, Up
 
@@ -1072,7 +1068,7 @@ The memory fades.
   
 
 By a Wrecked Ship
-[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered: 7/12] [Decisions made: 127] 
+[Score: 31/50] [Locations visited: 22/43] [Fragments of memory recovered: 7/12] [Decisions made: 125] 
 
 EXITS: North, Southeast, In
 
@@ -1082,7 +1078,7 @@ A sea-faring ship has been washed ashore here; it is broken in places and the co
 
 
 River Bank
-[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered: 7/12] [Decisions made: 128] 
+[Score: 31/50] [Locations visited: 22/43] [Fragments of memory recovered: 7/12] [Decisions made: 126] 
 
 EXITS: North, South, West
 
@@ -1092,7 +1088,7 @@ The bank of a fast-flowing river. Perhaps fifty feet wide, the river rushes past
 
 
 By a Broken Bridge
-[Score: 28/50] [Locations visited: 23/43] [Fragments of memory recovered: 7/12] [Decisions made: 129] 
+[Score: 31/50] [Locations visited: 23/43] [Fragments of memory recovered: 7/12] [Decisions made: 127] 
 
 EXITS: North, South, East
 
@@ -1102,7 +1098,7 @@ A bridge, broken in the centre, spans the river. The gap looks to be just shy of
 
 
 Riverside Path
-[Score: 28/50] [Locations visited: 24/43] [Fragments of memory recovered: 7/12] [Decisions made: 130] 
+[Score: 31/50] [Locations visited: 24/43] [Fragments of memory recovered: 7/12] [Decisions made: 128] 
 
 EXITS: Northwest, South
 
@@ -1112,7 +1108,7 @@ The path splits here, one branch heading northwest and the other back to the sou
 
 
 Grotto
-[Score: 28/50] [Locations visited: 25/43] [Fragments of memory recovered: 7/12] [Decisions made: 131] 
+[Score: 31/50] [Locations visited: 25/43] [Fragments of memory recovered: 7/12] [Decisions made: 129] 
 
 EXITS: Southeast
 
@@ -1129,7 +1125,7 @@ The moment you touch the spike, the creature's head lifts. Red eyes open and loc
 You take the black spike.  
 
 > score
-You have a score of 29 out of 52.  
+You have a score of 32 out of 52.  
 
 > i
 You are carrying:
@@ -1146,7 +1142,7 @@ _	torch {The torch blazes with a light that seems unnatural in its intensity, no
 > look
 
 Grotto
-[Score: 29/50] [Locations visited: 25/43] [Fragments of memory recovered: 7/12] [Decisions made: 136] 
+[Score: 32/50] [Locations visited: 25/43] [Fragments of memory recovered: 7/12] [Decisions made: 134] 
 
 EXITS: Southeast
 
@@ -1169,7 +1165,7 @@ A flash of memory...
 The memory fades.  
 
 Riverside Path
-[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered: 8/12] [Decisions made: 137] 
+[Score: 33/50] [Locations visited: 25/43] [Fragments of memory recovered: 8/12] [Decisions made: 135] 
 
 EXITS: Northwest, South
 
@@ -1183,7 +1179,7 @@ You manifest the power, wondering what it will be this time. The first time it w
 
 
 By a Broken Bridge
-[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered: 8/12] [Decisions made: 139] 
+[Score: 33/50] [Locations visited: 25/43] [Fragments of memory recovered: 8/12] [Decisions made: 137] 
 
 EXITS: North, South, East
 
@@ -1202,7 +1198,7 @@ You walk towards the bridge. Your feet become lighter and lighter as you walk, a
   
 
 Eastern River Bank
-[Score: 31/50] [Locations visited: 25/43] [Fragments of memory recovered: 9/12] [Decisions made: 140] 
+[Score: 34/50] [Locations visited: 25/43] [Fragments of memory recovered: 9/12] [Decisions made: 138] 
 
 EXITS: East, West
 
@@ -1225,7 +1221,7 @@ The vision ends. With it, you also notice that your enhanced sight and vision ha
 
 
 Outside the Temple
-[Score: 31/50] [Locations visited: 27/43] [Fragments of memory recovered: 9/12] [Decisions made: 141] 
+[Score: 34/50] [Locations visited: 27/43] [Fragments of memory recovered: 9/12] [Decisions made: 139] 
 
 EXITS: West
 
@@ -1242,7 +1238,7 @@ The moment the spike is slid into the slot, a force seizes hold of it and yanks 
   
 
 Temple Entrance
-[Score: 32/50] [Locations visited: 27/43] [Fragments of memory recovered: 10/12] [Decisions made: 143] 
+[Score: 35/50] [Locations visited: 27/43] [Fragments of memory recovered: 10/12] [Decisions made: 141] 
 
 EXITS: North, South
 
@@ -1259,12 +1255,12 @@ The memory fades.
 
 
 > score
-You have a score of 32 out of 52.  
+You have a score of 35 out of 52.  
 
 > look
 
 Temple Entrance
-[Score: 32/50] [Locations visited: 28/43] [Fragments of memory recovered: 10/12] [Decisions made: 145] 
+[Score: 35/50] [Locations visited: 28/43] [Fragments of memory recovered: 10/12] [Decisions made: 143] 
 
 EXITS: North, South
 
@@ -1274,7 +1270,7 @@ Dust covers every surface within the temple; particles are stirred by your passi
 
 
 Dusty Passageway
-[Score: 32/50] [Locations visited: 28/43] [Fragments of memory recovered: 10/12] [Decisions made: 146] 
+[Score: 35/50] [Locations visited: 28/43] [Fragments of memory recovered: 10/12] [Decisions made: 144] 
 
 EXITS: South, East
 
@@ -1303,7 +1299,7 @@ You approach the wall and pass through, as if it is not there at all.
   
 
 Mirror Room
-[Score: 35/50] [Locations visited: 29/43] [Fragments of memory recovered: 10/12] [Decisions made: 151] 
+[Score: 38/50] [Locations visited: 29/43] [Fragments of memory recovered: 10/12] [Decisions made: 149] 
 
 EXITS: South
 
@@ -1319,7 +1315,7 @@ The mirror is the centrepiece to this room, and, indeed, the only thing in here 
 
 
 Dusty Passageway
-[Score: 36/50] [Locations visited: 30/43] [Fragments of memory recovered: 10/12] [Decisions made: 153] 
+[Score: 39/50] [Locations visited: 30/43] [Fragments of memory recovered: 10/12] [Decisions made: 151] 
 
 EXITS: North, South, East
 
@@ -1329,7 +1325,7 @@ The decaying remains of several bodies lie on the floor of this passage; a punge
 
 
 Well
-[Score: 36/50] [Locations visited: 30/43] [Fragments of memory recovered: 10/12] [Decisions made: 154] 
+[Score: 39/50] [Locations visited: 30/43] [Fragments of memory recovered: 10/12] [Decisions made: 152] 
 
 EXITS: East, West
 
@@ -1339,7 +1335,7 @@ A stone well has been built in the centre of this chamber, though there is no bu
 
 
 Dark Passageway
-[Score: 36/50] [Locations visited: 31/43] [Fragments of memory recovered: 10/12] [Decisions made: 155] 
+[Score: 39/50] [Locations visited: 31/43] [Fragments of memory recovered: 10/12] [Decisions made: 153] 
 
 EXITS: South, West
 
@@ -1349,7 +1345,7 @@ It is difficult to see much here, despite lighted panels on the walls offering i
 
 
 Disused Gallery
-[Score: 36/50] [Locations visited: 32/43] [Fragments of memory recovered: 10/12] [Decisions made: 156] 
+[Score: 39/50] [Locations visited: 32/43] [Fragments of memory recovered: 10/12] [Decisions made: 154] 
 
 EXITS: North, South
 
@@ -1369,7 +1365,7 @@ You see depictions of battle in all of the drawings: people dying, powerful magi
 
 
 Dark Passageway
-[Score: 37/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 158] 
+[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 156] 
 
 EXITS: South, West
 
@@ -1379,7 +1375,7 @@ It is difficult to see much here, despite lighted panels on the walls offering i
 
 
 Well
-[Score: 37/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 159] 
+[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 157] 
 
 EXITS: East, West
 
@@ -1392,7 +1388,7 @@ It drops out of sight, landing somewhere unseen a few seconds later.
 
 
 Dusty Passageway
-[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 161] 
+[Score: 41/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 159] 
 
 EXITS: North, South, East
 
@@ -1402,7 +1398,7 @@ The decaying remains of several bodies lie on the floor of this passage; a punge
 
 
 Temple Entrance
-[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 162] 
+[Score: 41/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 160] 
 
 EXITS: North, South
 
@@ -1412,7 +1408,7 @@ Dust covers every surface within the temple; particles are stirred by your passi
 
 
 Prayer Room
-[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 163] 
+[Score: 41/50] [Locations visited: 33/43] [Fragments of memory recovered: 10/12] [Decisions made: 161] 
 
 EXITS: North, East
 
@@ -1430,12 +1426,12 @@ You offer up a prayer, not sure if there is any point but-
    The presence fades away.  
 
 > score
-You have a score of 39 out of 52.  
+You have a score of 42 out of 52.  
 
 > look
 
 Prayer Room
-[Score: 39/50] [Locations visited: 34/43] [Fragments of memory recovered: 10/12] [Decisions made: 167] 
+[Score: 42/50] [Locations visited: 34/43] [Fragments of memory recovered: 10/12] [Decisions made: 165] 
 
 EXITS: North, East
 
@@ -1449,7 +1445,7 @@ You rise to your feet and move east.
   
 
 Echoing Chamber
-[Score: 39/50] [Locations visited: 34/43] [Fragments of memory recovered: 10/12] [Decisions made: 168] 
+[Score: 42/50] [Locations visited: 34/43] [Fragments of memory recovered: 10/12] [Decisions made: 166] 
 
 EXITS: East, West
 
@@ -1477,7 +1473,7 @@ The final voice is clearer than the others. And familiar. It is one you have hea
 
 
 A Bend in the Passage
-[Score: 40/50] [Locations visited: 35/43] [Fragments of memory recovered: 10/12] [Decisions made: 171] 
+[Score: 43/50] [Locations visited: 35/43] [Fragments of memory recovered: 10/12] [Decisions made: 169] 
 
 EXITS: North, West
 
@@ -1505,7 +1501,7 @@ The symbols tell of a religious ceremony conducted here in the temple in ages pa
 
 
 Disused Gallery
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 175] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 173] 
 
 EXITS: North, South
 
@@ -1515,7 +1511,7 @@ Once this might have been a gallery of some kind, with drawings on the stone wal
 
 
 Dark Passageway
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 176] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 174] 
 
 EXITS: South, West
 
@@ -1525,7 +1521,7 @@ It is difficult to see much here, despite lighted panels on the walls offering i
 
 
 Well
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 177] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 175] 
 
 EXITS: East, West
 
@@ -1538,7 +1534,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 
 
 Dusty Passageway
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 179] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 177] 
 
 EXITS: North, South, East
 
@@ -1548,7 +1544,7 @@ The decaying remains of several bodies lie on the floor of this passage; a punge
 
 
 Temple Entrance
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 180] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 178] 
 
 EXITS: North, South
 
@@ -1563,7 +1559,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 
 
 Prayer Room
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 182] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 180] 
 
 EXITS: North, East
 
@@ -1573,7 +1569,7 @@ Something about the layout of this room - a central area, cleared of obstruction
 
 
 Echoing Chamber
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 183] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 181] 
 
 EXITS: East, West
 
@@ -1586,7 +1582,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 
 
 A Bend in the Passage
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 185] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 183] 
 
 EXITS: North, West
 
@@ -1596,7 +1592,7 @@ The passage bends here, heading north and west. Symbols mark the walls here, whe
 
 
 Disused Gallery
-[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 186] 
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 184] 
 
 EXITS: North, South
 
@@ -1610,7 +1606,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 
 
 Dark Passageway
-[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 188] 
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 186] 
 
 EXITS: South, West
 
@@ -1626,7 +1622,7 @@ The shadows move independently of your own movements, darting back and forth in 
 
 
 Well
-[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 190] 
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 188] 
 
 EXITS: East, West
 
@@ -1638,7 +1634,7 @@ You don't see the shadow when you first step into the well room, but then it mov
 
 
 Dusty Passageway
-[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 191] 
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 189] 
 
 EXITS: North, South, East
 
@@ -1650,7 +1646,7 @@ As you step into the dusty passageway, one shadow detaches itself from the other
 
 
 Temple Entrance
-[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 192] 
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered: 10/12] [Decisions made: 190] 
 
 EXITS: North, South
 
@@ -1679,12 +1675,12 @@ A flash of memory...
 The vision fades and you find yourself kneeling before the sarcophagus. The runes, when you look at them once more, appear foreign to you. Whatever understanding the shadow afforded you is gone, too.  
 
 > score
-You have a score of 43 out of 52.  
+You have a score of 46 out of 52.  
 
 > look
 
 Temple Entrance
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 195] 
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 193] 
 
 EXITS: North, South
 
@@ -1703,7 +1699,7 @@ _	helm {Patches of rust have already claimed parts of this helm, yet the rest is
 
 
 Dusty Passageway
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 197] 
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 195] 
 
 EXITS: North, South, East
 
@@ -1713,7 +1709,7 @@ The decaying remains of several bodies lie on the floor of this passage; a punge
 
 
 Well
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 198] 
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 196] 
 
 EXITS: East, West
 
@@ -1723,7 +1719,7 @@ A stone well has been built in the centre of this chamber, though there is no bu
 
 
 Dark Passageway
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 199] 
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 197] 
 
 EXITS: South, West
 
@@ -1733,7 +1729,7 @@ It is difficult to see much here, despite lighted panels on the walls offering i
 
 
 Disused Gallery
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 200] 
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 198] 
 
 EXITS: North, South
 
@@ -1750,12 +1746,12 @@ The gargoyle is a squat creature, barely four feet tall and hunched over to make
    The wall behind the gargoyle opens, revealing another chamber to the east.  
 
 > score
-You have a score of 44 out of 52.  
+You have a score of 47 out of 52.  
 
 > look
 
 Disused Gallery
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 204] 
+[Score: 47/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 202] 
 
 EXITS: North, South, East
 
@@ -1764,7 +1760,7 @@ Once this might have been a gallery of some kind, with drawings on the stone wal
 > e
 
 Crypt
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 205] 
+[Score: 47/50] [Locations visited: 36/43] [Fragments of memory recovered: 11/12] [Decisions made: 203] 
 
 EXITS: West
 
@@ -1784,12 +1780,12 @@ But, strangely, leaves you unharmed. The glow which surrounded you before now va
    "Ah, Kedric, only you could bypass the wardings," says a voice from nowhere, the voice of your mentor. "I had hoped the intruder was you. Come, visit me. The way is now open."  
 
 > score
-You have a score of 45 out of 52.  
+You have a score of 48 out of 52.  
 
 > look
 
 Crypt
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 209] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 207] 
 
 EXITS: West
 
@@ -1808,7 +1804,7 @@ _	helm {Patches of rust have already claimed parts of this helm, yet the rest is
 
 
 Disused Gallery
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 211] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 209] 
 
 EXITS: North, South, East
 
@@ -1818,7 +1814,7 @@ Once this might have been a gallery of some kind, with drawings on the stone wal
 
 
 Dark Passageway
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 212] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 210] 
 
 EXITS: South, West
 
@@ -1828,7 +1824,7 @@ It is difficult to see much here, despite lighted panels on the walls offering i
 
 
 Well
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 213] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 211] 
 
 EXITS: East, West
 
@@ -1838,7 +1834,7 @@ A stone well has been built in the centre of this chamber, though there is no bu
 
 
 Dusty Passageway
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 214] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 212] 
 
 EXITS: North, South, East
 
@@ -1848,7 +1844,7 @@ The decaying remains of several bodies lie on the floor of this passage; a punge
 
 
 Temple Entrance
-[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 215] 
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 213] 
 
 EXITS: North, South
 
@@ -1860,12 +1856,12 @@ As you go to open the sarcophagus, a voice speaks: "Ah, you return, Kedric. Welc
    "Come," speaks the voice of your master. "We have much to discuss."  
 
 > score
-You have a score of 46 out of 52.  
+You have a score of 49 out of 52.  
 
 > look
 
 Temple Entrance
-[Score: 46/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 218] 
+[Score: 49/50] [Locations visited: 37/43] [Fragments of memory recovered: 11/12] [Decisions made: 216] 
 
 EXITS: North, South
 
@@ -1915,7 +1911,7 @@ If you'd like to try again, simply type RESTART. To check how well you did, type
 Many thanks for playing.  
 
 > score
-You have a score of 49 out of 52.  
+You have a score of 52 out of 52.  
 
 > look
 That cannot be done here.  

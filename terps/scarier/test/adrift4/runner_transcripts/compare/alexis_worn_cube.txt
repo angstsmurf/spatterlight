@@ -1,0 +1,12 @@
+feed        177 commands
+runner      177 turns echoed
+scarier     177 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 3  x old oak table
+  run400   The table is beautifully made, very heavy and solid. On the old oak table is a diary, a brass lantern, a woven cloak and some nice food.
+  scarier  The table is beautifully made, very heavy and solid. On the old oak table are a diary, a brass lantern, a woven cloak and some nice food.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

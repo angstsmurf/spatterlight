@@ -874,6 +874,10 @@ smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Serond follows you.
 Serond shoots a large Narn with the oak staff.  A large Narn hits Serond.
 
+> attack narn
+You hit a large Narn with the magic cube.  The Narn flops over on to it's
+side as it dissolves into the ground.
+
 > nw
 You move northwest.
 
@@ -905,7 +909,10 @@ could probably be opened now.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
-consumes you.
+consumes you.  Haron follows you.  A knight catches up to you and smiles.
+Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."  Haron hands you a phial.
 
 > n
 You move north.
@@ -916,16 +923,12 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Serond
 follows you from the south.  Serond shoots the dark knight with the oak
-staff.  Haron follows you.  A knight catches up to you and smiles. Clearing
-his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."  Haron hands you a phial.  The dark knight
-cuts Haron with the blade from Uron.
+staff.  Haron follows you from the south.  Haron cuts the dark knight with
+the elven sword.  The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
-You hit the dark knight with the magic cube.  Serond shoots the dark knight
-with the oak staff.  Larnt drops to the floor with a spine chilling shriek as
-he dissolves into the ground.
+You hit the dark knight with the magic cube.  Larnt drops to the floor with a
+spine chilling shriek as he dissolves into the ground.
 
 > n
 You move north.
@@ -943,6 +946,33 @@ on the long table.
 
 > get all from long table
 You take the small key from the long table.
+
+> s
+You move south.
+
+Uron Castle Main Hall
+The hall is huge and has Gargoyles around the ceiling. When looking at one,
+another seems to move out of the corner of your eye.  Out will take you back
+outside. North will take you into a long room. West will take you into a
+corridor. East will take you into a smaller room.  You can also see a blade
+from Uron.  Serond follows you from the north.  Haron follows you from the
+north.
+
+> e
+You move east.
+
+Uron Castle Small room
+This room is smaller than the others but not lighter. It feels like the walls
+are pushing towards you. There is a deep feeling of hatred here. West will
+take you into the Main Hall. There is a circular table in the centre of the
+room.  Serond follows you from the west.  Haron follows you from the west.
+
+> touch ball
+As you get closer to the ball, your hand feels heavy, as you fight against
+your hand, you get closer and closer to the ball. Suddenly there is a
+blinding flash.  You lose all orientation as you feel whisked off your feet.
+Everything is a blur.  Then you land.  Serond follows you.  Haron follows
+you.
 
 > s
 You move south.
@@ -1104,8 +1134,8 @@ and...
 
 You for playing this game.
 
-You scored 55 out of the maximum 65!
-That is 84% of the game!
-You finished 10 points short.
+You scored 57 out of the maximum 65!
+That is 87% of the game!
+You finished 8 points short.
 
 [Press any key to end]

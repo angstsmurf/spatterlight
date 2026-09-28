@@ -1,0 +1,12 @@
+feed        520 commands
+runner      520 turns echoed
+scarier     520 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 102  x table
+  run400   The table is a strong one, made of solid wood. It is several meters long and covered with various alchemistic equipment of no use and value. On the table is the bowl, the flask of mercury and an iron ore.
+  scarier  The table is a strong one, made of solid wood. It is several meters long and covered with various alchemistic equipment of no use and value. On the table are the bowl, the flask of mercury and an iron ore.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

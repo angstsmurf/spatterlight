@@ -18,10 +18,10 @@ akari	akari.txt	driven:Adrift_309_akari_rt.txt	3.90	run390x.exe	1234	0			yes	ide
 akron	akron.rtf	driven:Adrift_288_akron_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 akron_rus	akron_rus.txt	driven:Adrift_285_akron_rus_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 albert_is_lost	albert_is_lost.txt	driven:Adrift_351_albert_is_lost_rt.txt	4.00	run400x.exe	42	2		SCR_SEED=42 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-alchemist	alchemist.txt	driven:Adrift_128_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+alchemist	alchemist.txt	driven:Adrift_313_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 alex	alex.txt	driven:Adrift_332_alex_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
-alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_146_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
+alexis	alexis.txt	driven:Adrift_305_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	1 differing turn(s)
+alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_306_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	1 differing turn(s)
 aliasagent	aliasagent.txt	driven:Adrift_142_aliasagent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
 alices_restaurant	alices_restaurant.rtf	driven:Adrift_302_alices_restaurant_rt.rtf+tail	3.70	run370x.exe	1234	0			yes	identical on every turn.
 allhallowseve	allhallowseve.txt	driven:Adrift_391_allhallowseve_rt.txt	4.00	run400x.exe	1234	8		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -101,7 +101,7 @@ cobl	cobl.txt	driven:Adrift_453_cobl_rt.txt	4.00	run400x.exe	28	0		SCR_SEED=28 S
 cobl_patched	cobl_patched.txt	driven:Adrift_315_cobl_patched_rt.txt	4.00	run400x.exe	28	0		SCR_SEED=28 SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	yes	identical on every turn.
 colony	colony.txt	driven:Adrift_155_colony_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 confession	confession.txt	driven:Adrift_128_confession_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-cowboyblues	cowboyblues.txt	driven:Adrift_491_cowboyblues_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
+cowboyblues	cowboyblues.txt	driven:Adrift_311_cowboyblues_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
 crashland	crashland.txt	driven:Adrift_311_crashland_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 crime_adventure	crime_adventure.rtf	driven:Adrift_279_crime_adventure_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 crimelife	crimelife.txt	driven:Adrift_314_crimelife_rt.txt	4.00	run400x.exe	1234	0	Petter~male		yes	identical on every turn.
@@ -201,7 +201,7 @@ freshman	freshman.txt	driven:Adrift_286_freshman_rt.txt	4.00	run400x.exe	1234	1	
 frog	frog.txt	driven:Adrift_230_frog_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 frustrated	frustrated.txt	driven:Adrift_472_frustrated_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 fugitive	fugitive.txt	driven:Adrift_307_fugitive_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-fullcircle	fullcircle.txt	driven:Adrift_480_fullcircle_rt.txt	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+fullcircle	fullcircle.txt	driven:Adrift_309_fullcircle_rt.txt	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 funhouse	funhouse.txt	driven:Adrift_162_funhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 funtown	funtown.txt	driven:Adrift_313_funtown_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
 funtown_patched	funtown_patched.txt	driven:Adrift_316_funtown_patched_rt.txt	4.00	run400x.exe	1234	0	Player	SCR_ASSUME_PATCHES=1	yes	identical on every turn.
@@ -241,7 +241,7 @@ headless	headless.txt	driven:Adrift_309_headless_rt.txt	4.00	run400x.exe	1234	1	
 heist	heist.txt	driven:Adrift_318_heist_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 helsing	helsing.txt	driven:Adrift_414_helsing_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 heretoday	heretoday.txt	driven:Adrift_304_heretoday_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-hero	hero.txt	driven:Adrift_317_hero_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+hero	hero.txt	driven:Adrift_312_hero_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
 heroes	heroes.txt	driven:Adrift_306_heroes_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 herrdoktor	herrdoktor.txt	driven:Adrift_386_herrdoktor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 hhorror	hhorror.txt	driven:Adrift_332_hhorror_rt.txt	3.90	run390x.exe	50	0		SCR_SEED=50 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -410,7 +410,8 @@ proba	proba.txt	driven:Adrift_284_proba_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP
 professional	professional.txt	driven:Adrift_307_professional_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 professor	professor.txt	driven:Adrift_306_professor_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
 prostitute	prostitute.txt	driven:Adrift_285_prostitute_rt.txt	4.00	run400x.exe	1234	0	Steve	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-provenance	provenance.txt	driven:Adrift_358_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+provenance	provenance.txt	driven:Adrift_308_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+provenance_patched	provenance_patched.txt	driven:Adrift_305_provenance_patched_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1	yes	2 differing turn(s)
 ptbad	ptbad.txt	driven:Adrift_247_ptbad_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 ptgood	ptgood.txt	driven:Adrift_398_ptgood_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 puzzlebox	puzzlebox.txt	driven:Adrift_454_puzzlebox_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
@@ -545,7 +546,7 @@ theseance	theseance.txt	driven:Adrift_430_theseance_rt.txt	4.00	run400x.exe	1234
 thesisters	thesisters.txt	driven:Adrift_280_thesisters_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thesorc	thesorc.txt	driven:Adrift_346_thesorc_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thetest	thetest.txt	driven:Adrift_189_thetest_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-thetest_win	thetest_win.txt	driven:Adrift_190_thetest_win_rt.txt	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	yes	identical on every turn.
+thetest_win	thetest_win.txt	driven:Adrift_307_thetest_win_rt.txt	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	yes	identical on every turn.
 thewill	thewill.txt	driven:Adrift_305_thewill_rt.txt	3.90	run390x.exe	1234	1			yes	identical on every turn.
 thewoods	thewoods.txt	harvested-native-0-draws:Adrift_729_thewoods.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 think2	think2.txt	driven:Adrift_174_think2_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.

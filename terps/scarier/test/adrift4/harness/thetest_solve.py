@@ -76,6 +76,10 @@ def main():
     else:
         raise SystemExit("the door never opened -- try another seed")
 
+    # task 1 `listen` (+5) only answers in Room 0 once event 0 has run #run,
+    # so step back through the open door for it
+    route += ["west", "listen", "east"]
+
     # the phone dictates the door code
     route.append("dial 987")
     transcript, _ = play(seed, route)
