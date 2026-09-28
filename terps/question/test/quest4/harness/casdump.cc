@@ -34,6 +34,14 @@
 #include "../../../questionfile.cc"
 #include "../../../question-state.cc"
 #include "../../../question-runner.cc"
+#include "../../../question-vars.cc"
+#include "../../../question-objects.cc"
+#include "../../../question-rooms.cc"
+#include "../../../question-session.cc"
+#include "../../../question-parse.cc"
+#include "../../../question-script.cc"
+#include "../../../question-functions.cc"
+#include "../../../question-panes.cc"
 
 /* Just enough interface for the loader: file access and a place for load-time
  * diagnostics to land.  Errors readfile reports through print_normal go to

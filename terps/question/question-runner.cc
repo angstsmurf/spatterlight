@@ -35,6 +35,7 @@
 #include <cstring>
 #include "general.hh"
 #include "istring.hh"
+#include "question-internal.hh"
 
 /* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
    otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
@@ -53,33 +54,10 @@ class QuestionInterface;
 
 using namespace std;
 
-/* Bumps a nesting counter for as long as it is alive, so every early `return`
-   out of run_script still unwinds it.  See kMaxScriptDepth. */
-namespace {
-  struct ScriptDepth {
-    int &d;
-    explicit ScriptDepth (int &depth) : d (depth) { ++ d; }
-    ~ScriptDepth () { -- d; }
-    ScriptDepth (const ScriptDepth &) = delete;
-    ScriptDepth &operator= (const ScriptDepth &) = delete;
-  };
-}
+const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
+const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
 
-static const string dir_names[] = {"north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "out"};
-static const string short_dir_names[] = {"n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "out"};
-
-/* The verbs the engine dispatches itself, beyond the universal ones.
- * `key` is the action/property name a game file stores; `phrases` are the
- * surface forms a player may type for it; `use_default` marks a verb that falls
- * back to the object's anonymous default action when nothing else handles it.
- *
- * Shared by the two places that must agree about them: try_match, which
- * dispatches a typed command, and object_verbs, which lists the verbs an object
- * responds to.  They used to keep separate tables, so a verb added to one was
- * silently missing from the other. */
-struct verb_def { const char *key; std::vector<const char *> phrases; bool use_default; };
-
-static const std::vector<verb_def> &builtin_verbs ()
+const std::vector<verb_def> &builtin_verbs ()
 {
   static const std::vector<verb_def> table =
     {
@@ -109,17 +87,9 @@ QuestionRunner *QuestionRunner::get_runner (QuestionInterface *gi) {
   return new question_implementation (gi);
 }
 
-/* The rest of question_implementation, split by area into single-TU sections (the
- * same layout as quest5's aslx-*.inc units).  Each file's header says what it
- * holds; the order is the order the code sat in when this was one file. */
-#include "question-vars.inc"
-#include "question-objects.inc"
-#include "question-rooms.inc"
-#include "question-state.inc"
-#include "question-parse.inc"
-#include "question-script.inc"
-#include "question-functions.inc"
-#include "question-panes.inc"
+/* The rest of question_implementation is split by area into the other
+ * question-*.cc units (vars, objects, rooms, session, parse, script,
+ * functions, panes); question-internal.hh declares what they share. */
 
 void question_implementation::tick_timers()
 {

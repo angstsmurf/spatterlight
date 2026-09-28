@@ -45,6 +45,14 @@
 		55368B76272BF24700740A0A /* questionglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* questionglkterm.c */; };
 		55368B77272BF24700740A0A /* questionfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6B272BF24700740A0A /* questionfile.cc */; };
 		55368B78272BF24700740A0A /* question-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B70272BF24700740A0A /* question-runner.cc */; };
+		82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */ = {isa = PBXBuildFile; fileRef = 37866468D5231E111EE74225 /* question-vars.cc */; };
+		6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0DC680911AC3DA7F2C06CD24 /* question-objects.cc */; };
+		F1C1DC8B328A727F1723BE31 /* question-rooms.cc in Sources */ = {isa = PBXBuildFile; fileRef = B2AA4AA2C2B0729996055C32 /* question-rooms.cc */; };
+		83BC8563C42D67BAC7BBC310 /* question-session.cc in Sources */ = {isa = PBXBuildFile; fileRef = A92950C009BF4A39CF12625D /* question-session.cc */; };
+		6BBB799774C4BAA0320E0E45 /* question-parse.cc in Sources */ = {isa = PBXBuildFile; fileRef = 21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */; };
+		C5E84B5FD2E5F0F4CBF5F172 /* question-script.cc in Sources */ = {isa = PBXBuildFile; fileRef = 187C9F883FBC372D4B34BBDE /* question-script.cc */; };
+		8AB02FA685E1EECA635C6363 /* question-functions.cc in Sources */ = {isa = PBXBuildFile; fileRef = F63940E32BB62C9B58F823F2 /* question-functions.cc */; };
+		F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 590D911A50D862B9538A05DA /* question-panes.cc */; };
 		55368B79272BF27D00740A0A /* question in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 55368B5B272BF1C500740A0A /* question */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.swift */; };
@@ -1794,6 +1802,15 @@
 		55368B6E272BF24700740A0A /* question-impl.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-impl.hh"; sourceTree = "<group>"; };
 		55368B6F272BF24700740A0A /* reserved_words.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reserved_words.hh; sourceTree = "<group>"; };
 		55368B70272BF24700740A0A /* question-runner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-runner.cc"; sourceTree = "<group>"; };
+		37866468D5231E111EE74225 /* question-vars.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-vars.cc"; sourceTree = "<group>"; };
+		0DC680911AC3DA7F2C06CD24 /* question-objects.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-objects.cc"; sourceTree = "<group>"; };
+		B2AA4AA2C2B0729996055C32 /* question-rooms.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-rooms.cc"; sourceTree = "<group>"; };
+		A92950C009BF4A39CF12625D /* question-session.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-session.cc"; sourceTree = "<group>"; };
+		21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-parse.cc"; sourceTree = "<group>"; };
+		187C9F883FBC372D4B34BBDE /* question-script.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script.cc"; sourceTree = "<group>"; };
+		F63940E32BB62C9B58F823F2 /* question-functions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-functions.cc"; sourceTree = "<group>"; };
+		590D911A50D862B9538A05DA /* question-panes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-panes.cc"; sourceTree = "<group>"; };
+		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
 		55A01EDA2B188142003D7C18 /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		55A01EDB2B188178003D7C18 /* sha2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
 		55A01EDC2B189325003D7C18 /* BlorbResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlorbResource.swift; sourceTree = "<group>"; };
@@ -4189,6 +4206,15 @@
 				55368B6E272BF24700740A0A /* question-impl.hh */,
 				55368B64272BF24700740A0A /* QuestionRunner.hh */,
 				55368B70272BF24700740A0A /* question-runner.cc */,
+				37866468D5231E111EE74225 /* question-vars.cc */,
+				0DC680911AC3DA7F2C06CD24 /* question-objects.cc */,
+				B2AA4AA2C2B0729996055C32 /* question-rooms.cc */,
+				A92950C009BF4A39CF12625D /* question-session.cc */,
+				21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */,
+				187C9F883FBC372D4B34BBDE /* question-script.cc */,
+				F63940E32BB62C9B58F823F2 /* question-functions.cc */,
+				590D911A50D862B9538A05DA /* question-panes.cc */,
+				0949D315816F8163CB2CD887 /* question-internal.hh */,
 				55368B67272BF24700740A0A /* question-state.hh */,
 				55368B5E272BF24700740A0A /* question-state.cc */,
 				55368B66272BF24700740A0A /* question-util.hh */,
@@ -8249,6 +8275,14 @@
 				C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */,
 				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
 				55368B78272BF24700740A0A /* question-runner.cc in Sources */,
+				82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */,
+				6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */,
+				F1C1DC8B328A727F1723BE31 /* question-rooms.cc in Sources */,
+				83BC8563C42D67BAC7BBC310 /* question-session.cc in Sources */,
+				6BBB799774C4BAA0320E0E45 /* question-parse.cc in Sources */,
+				C5E84B5FD2E5F0F4CBF5F172 /* question-script.cc in Sources */,
+				8AB02FA685E1EECA635C6363 /* question-functions.cc in Sources */,
+				F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */,
 				55368B77272BF24700740A0A /* questionfile.cc in Sources */,
 				55368B71272BF24700740A0A /* question-util.cc in Sources */,
 				55368B76272BF24700740A0A /* questionglkterm.c in Sources */,

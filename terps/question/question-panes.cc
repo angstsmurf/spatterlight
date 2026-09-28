@@ -1,9 +1,53 @@
-// question-panes.inc -- Side panes and text substitution: the inventory/room-
-// contents/exits/status panes, the pre-2.80 item and collectable tables, and
-// $...$ evaluation (eval_string and friends).
-//
-// Split out of question-runner.cc, which #includes it (same single-TU layout
-// as the quest5/aslx-*.inc units); the code is unchanged from the split.
+/***************************************************************************
+ *                                                                         *
+ * Copyright (C) 2006 by Mark J. Tilford                                   *
+ *                                                                         *
+ * This file is part of Geas.                                              *
+ *                                                                         *
+ * Geas is free software; you can redistribute it and/or modify            *
+ * it under the terms of the GNU General Public License as published by    *
+ * the Free Software Foundation; either version 2 of the License, or       *
+ * (at your option) any later version.                                     *
+ *                                                                         *
+ * Geas is distributed in the hope that it will be useful,                 *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ * GNU General Public License for more details.                            *
+ *                                                                         *
+ * You should have received a copy of the GNU General Public License       *
+ * along with Geas; if not, write to the Free Software                     *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *                                                                         *
+ ***************************************************************************/
+
+/* question-panes.cc -- Side panes and text substitution: the inventory,
+ * room-contents, exits and status panes, the pre-2.80 item and collectable
+ * tables, and $...$ evaluation (eval_string and friends).
+ *
+ * Part of question_implementation; question-runner.cc holds the rest of the
+ * preamble and question-internal.hh what these units share. */
+
+#include "QuestionRunner.hh"
+#include "readfile.hh"
+#include "question-state.hh"
+#include "question-util.hh"
+#include <set>
+#include <unordered_map>
+#include "question-impl.hh"
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include "general.hh"
+#include "istring.hh"
+
+class QuestionInterface;
+
+using namespace std;
+
+#include "question-internal.hh"
 
 v2string question_implementation::get_inventory ()
 {

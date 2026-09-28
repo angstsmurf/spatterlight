@@ -31,6 +31,14 @@ extern "C" {
 #include "../terps/question/questionfile.cc"
 #include "../terps/question/question-state.cc"
 #include "../terps/question/question-runner.cc"
+#include "../terps/question/question-vars.cc"
+#include "../terps/question/question-objects.cc"
+#include "../terps/question/question-rooms.cc"
+#include "../terps/question/question-session.cc"
+#include "../terps/question/question-parse.cc"
+#include "../terps/question/question-script.cc"
+#include "../terps/question/question-functions.cc"
+#include "../terps/question/question-panes.cc"
 
 namespace {
 

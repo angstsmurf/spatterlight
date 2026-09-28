@@ -90,6 +90,14 @@
    compiles randomness.c alongside this file; nothing here has to substitute a
    generator of its own. */
 #include "../../../question-runner.cc"
+#include "../../../question-vars.cc"
+#include "../../../question-objects.cc"
+#include "../../../question-rooms.cc"
+#include "../../../question-session.cc"
+#include "../../../question-parse.cc"
+#include "../../../question-script.cc"
+#include "../../../question-functions.cc"
+#include "../../../question-panes.cc"
 
 namespace {
 

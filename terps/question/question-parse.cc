@@ -1,9 +1,53 @@
-// question-parse.inc -- Player input: synonym substitution, the turn loop
-// (run_turn/run_command), command and object matching against defined
-// commands, and the built-in verb handlers (try_match).
-//
-// Split out of question-runner.cc, which #includes it (same single-TU layout
-// as the quest5/aslx-*.inc units); the code is unchanged from the split.
+/***************************************************************************
+ *                                                                         *
+ * Copyright (C) 2006 by Mark J. Tilford                                   *
+ *                                                                         *
+ * This file is part of Geas.                                              *
+ *                                                                         *
+ * Geas is free software; you can redistribute it and/or modify            *
+ * it under the terms of the GNU General Public License as published by    *
+ * the Free Software Foundation; either version 2 of the License, or       *
+ * (at your option) any later version.                                     *
+ *                                                                         *
+ * Geas is distributed in the hope that it will be useful,                 *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ * GNU General Public License for more details.                            *
+ *                                                                         *
+ * You should have received a copy of the GNU General Public License       *
+ * along with Geas; if not, write to the Free Software                     *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *                                                                         *
+ ***************************************************************************/
+
+/* question-parse.cc -- Player input: synonym substitution, the turn loop
+ * (run_turn/run_command), command and object matching against defined
+ * commands, and the built-in verb handlers (try_match).
+ *
+ * Part of question_implementation; question-runner.cc holds the rest of the
+ * preamble and question-internal.hh what these units share. */
+
+#include "QuestionRunner.hh"
+#include "readfile.hh"
+#include "question-state.hh"
+#include "question-util.hh"
+#include <set>
+#include <unordered_map>
+#include "question-impl.hh"
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include "general.hh"
+#include "istring.hh"
+
+class QuestionInterface;
+
+using namespace std;
+
+#include "question-internal.hh"
 
 /* Synonym matching follows Quest (V4Game.Part2.cs:4143-4164): the typed command
  * is lowercased before this runs, and each synonym's left-hand word is searched
@@ -161,7 +205,7 @@ std::string question_implementation::get_banner ()
  * letter would no longer match the object of that name.  The test is the same
  * one the loader uses, and for the same reason: a line that is already
  * well-formed UTF-8 -- which every pure-ASCII line is -- is left alone. */
-static string input_to_utf8 (const string &s)
+string input_to_utf8 (const string &s)
 {
   return text_is_utf8 (s) ? s : cp1252_to_utf8 (s);
 }

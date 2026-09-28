@@ -1,9 +1,66 @@
-// question-state.inc -- Whole-game state: restart, undo, save and load, game
-// start-up (set_game), and the regen_var_* refreshes that rebuild the
-// variable-backed object and exit lists after state changes.
-//
-// Split out of question-runner.cc, which #includes it (same single-TU layout
-// as the quest5/aslx-*.inc units); the code is unchanged from the split.
+/***************************************************************************
+ *                                                                         *
+ * Copyright (C) 2006 by Mark J. Tilford                                   *
+ *                                                                         *
+ * This file is part of Geas.                                              *
+ *                                                                         *
+ * Geas is free software; you can redistribute it and/or modify            *
+ * it under the terms of the GNU General Public License as published by    *
+ * the Free Software Foundation; either version 2 of the License, or       *
+ * (at your option) any later version.                                     *
+ *                                                                         *
+ * Geas is distributed in the hope that it will be useful,                 *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ * GNU General Public License for more details.                            *
+ *                                                                         *
+ * You should have received a copy of the GNU General Public License       *
+ * along with Geas; if not, write to the Free Software                     *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *                                                                         *
+ ***************************************************************************/
+
+/* question-session.cc -- Whole-game state: restart, undo, save and load,
+ * game start-up (set_game), and the regen_var_* refreshes that rebuild the
+ * variable-backed object and exit lists after state changes.
+ *
+ * Part of question_implementation; question-runner.cc holds the rest of the
+ * preamble and question-internal.hh what these units share. */
+
+#include "QuestionRunner.hh"
+#include "readfile.hh"
+#include "question-state.hh"
+#include "question-util.hh"
+#include <set>
+#include <unordered_map>
+#include "question-impl.hh"
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include "general.hh"
+#include "istring.hh"
+
+/* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
+   otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
+   runner links common_utils/randomness.c too, so a seeded run draws the same
+   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
+   the same numbers on any platform.  That is what lets the corpus transcripts
+   in test/quest4/goldens be diffed at all. */
+extern "C" {
+#include "randomness.h"
+}
+#ifdef SPATTERLIGHT
+extern "C" int gli_determinism;
+#endif
+
+class QuestionInterface;
+
+using namespace std;
+
+#include "question-internal.hh"
 
 bool question_implementation::timer_will_fire ()
 {
@@ -930,7 +987,7 @@ void question_implementation::regen_var_dirs()
  * common synonym target.  A single-word synonym (e.g. KQ5's "take = get") must
  * not rewrite the lead word of one of these, or "take off cloak" turns into
  * "get off cloak" and never matches the take-off command/verb. */
-static bool is_phrasal_verb_lead (const string &phrase)
+bool is_phrasal_verb_lead (const string &phrase)
 {
   static const char *phrasals[] =
     { "take off", "put on", "put in", "put down", "pick up", "get off",
