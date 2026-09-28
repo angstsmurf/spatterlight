@@ -4,6 +4,14 @@ Every game in the ADRIFT 4 corpus (`test/adrift4/`) that cannot be won, cannot
 reach its declared maximum, or has no ending at all.  Merged 2026-09-28 from
 `UNWINNABLE.md` and `UNREACHABLE.md` (last refreshed 2026-09-27); where the two
 disagreed, the newer measurement and the per-game walkthrough note win.
+Completed the same day against every golden's closing tally: each row that ends
+below its declared maximum is listed below with the verdict from its manifest
+comment in `harness/run_v4_walkthroughs.sh`.  Unscored games (no tally in the
+golden) are covered only by section 6.
+
+Out of scope: the ~85 `.taf` files with no walkthrough row because they were
+declined on content grounds (14 of them permanently) — see *Content policy* in
+`WALKTHROUGH_TODO.md`.
 
 Scores are what the committed walkthrough rows score in the seeded headless
 harness (suite: 672/672 PASS), cross-checked against each row's manifest
@@ -98,7 +106,10 @@ right repair.
 | Locked Out | — | 90/110 | 110/110 | Short points fixed by patch |
 | The Crime Scene | — | 78/80 | 80/80 | Short points fixed by patch |
 | Goldilocks - Breaking & Entering | — | 32/35 | 35/35 | Short points fixed by patch |
-| Insidejob, JimPond, Grumble, Great Escape, ARGH's Great Escape, Cursed, Crime Adventure | — | — | — | Phantom maximum (see below) |
+| ALEXIS, Cowboy Blues, A Day In The Life Of A Super Hero, The Alchemist, Full Circle, Provenance | — | — | — | Short by route choice (section 4) |
+| The Warlord, The Princess & The Bulldog | warlord.taf | 99/100 | same | Short — Runner-faithful take answer |
+| The Prostitute, Loving Family, fantasyworld (AIF) | — | — | — | Short by content policy (section 4) |
+| Insidejob, JimPond, Grumble, Great Escape, ARGH's Great Escape, Cursed, Crime Adventure, VGM1_3 and 21 more | — | — | — | Phantom maximum (section 5) |
 | ~33 sandboxes, intros and demos | — | — | — | No ending by design (see below) |
 
 ---
@@ -184,6 +195,10 @@ be taken.  Unwinnable in run400 as well, so the wall is the Runner's.  Capacity
 runs the same pair.
 
 **The tunnels of Athylon** — combat assist: no win → WIN, 25/25.
+
+**The Town of Azra** — combat assist (4.00 release).  Lets the fights land;
+the game still has no ending (section 6), and the 3.90 release's combat works
+as authored with no assist.
 
 **Space Run** — room assist (a task left set to run in no room): no win → WIN,
 290/290.  (Combat assist measured, no difference.)
@@ -343,7 +358,10 @@ holiness caps at 90 while the +50 ending needs 100; one pool needs dead
 **Marooned** — 80/140, the ceiling (re-measured 2026-09-27).  T24 is not a
 lost point: T14 already pays the same +10 for the same act, so T24's 10 are
 phantom maximum.  The real blocks are T35 (needs a flare gun that loading
-destroys), T27 and the T9/T28 pair.  Route physics are the measured real 3.80
+destroys), T27 and the T9/T28 pair.  T35 also requires T34, the dented can's
+copy of the shark throw (T33 is the scratched can's), which has no room set —
+an authoring slip, but no patch: throwing the dented can forfeits the Rescue
+event, and T35 is blocked by the flare gun anyway.  Route physics are the measured real 3.80
 pooled-burden model.  Capacity assist: no change.
 
 **The Search For Mr Smith** — 90/100, a win.  Task 22 (`###bear dead`, +10)
@@ -412,6 +430,50 @@ Where=NO_ROOMS and lost its line to the library put; opened to all rooms.
 Witt** 154/229 → 229/229 · **FunHouse** 310/410 → 410/410 · **The Crime
 Scene** 78/80 → 80/80 · **Goldilocks - Breaking & Entering** 32/35 → 35/35.
 
+### Short by route choice
+
+The points exist and nothing in the data blocks them; the committed route
+leaves them on the table.  Candidates for a higher route, not bugs.
+
+- **ALEXIS** — 55/65 on Easy (carry the cube), 58/65 on Hard (wear it).  The
+  gap is the four flee-kills (wolf, bridgekeeper, king, eagle = 12) on the
+  Hard route.  Both rows are pinned by a lantern that dies after command 35 in
+  every replay, and trimming further shifts the combat rolls into a loss.
+- **Cowboy Blues** — 113/401, a full win.  The easy setting caps the closing
+  bonus at +10, and the many optional side-quests are left out.
+- **A Day In The Life Of A Super Hero** (hero.taf) — 92/200.  The author's own
+  walkthrough plus five safe bonuses; the game's own text admits it "won't
+  allow you to get the maximum score".
+- **The Alchemist** — 490/500 ("That is 100% of the game!").  T128, giving the
+  flying star to the magician, needs a fresh horse trip the win doesn't.
+- **Full Circle** — 51/52.  One memory-fragment pickup (most likely the broken
+  bridge crossing) is never walked.
+- **Provenance** — 260/300, a win; the readme says outright the goal is not
+  the maximum.
+- **thetest** — 20/25 on the win row: task 1 `listen` in Room 0 (gated on
+  `#run`) is skipped.  The 5/25 row is a deliberate early-game checkpoint.
+- **lair-of-the-cybercow** — the 6/10 row is the deliberate dark-path branch;
+  the sibling win row scores 10/10.
+- **The Circus** — the 64/140 sold-points row is kept beside the 140/140 one.
+
+### Short, and faithful to the Runner
+
+- **The Warlord, The Princess & The Bulldog** — 99/100 (was 100 before the
+  2026-09-14 4.0 auto-"from" take port).  `get treat` / `get bone` / `get
+  cudgel` answer "The stove is bolted to the floor." and Merrick "That's no use
+  to me," exactly as run400 does (Adrift_1059, 99).
+
+### Short by content policy (AIF)
+
+- **The Prostitute** — 37/38.  T0 (TV, +1) is reachable but kept out of the
+  golden on content grounds.
+- **Loving Family** — 5/110, a win.  T40, the EndGame task, has no
+  restrictions (an apparent authoring oversight), and the content-gated
+  storyline is deliberately not exercised.
+- **fantasyworld** — 0/500 by construction: all 71 ChangeScore actions (490 of
+  the 500) hang off the adult sub-quest, and the route opens with the game's
+  own NOSEX switch.
+
 ## 5. The declared maximum is a phantom
 
 Not broken tasks: the stored maximum is a sum over things that can never all
@@ -431,6 +493,50 @@ happen, so the shortfall is arithmetic, not a bug.
 - **Crime Adventure** — 65/95, the REAL ceiling for a 3.80 game: the arcade
   cash is behind the measured 3.80 size/weight gate, which a 3.90/4.00 Runner
   does not have (55/95 single-typing).  Nothing in the data is wrong.
+- **The GameMaster: Resident Lust** (VGM1_3, AIF) — 45/56, a win.  The
+  declared 56 double-counts two mutually exclusive branches.
+- **All Hallows Eve** — 23/26.  3 points belong to a mutually exclusive
+  alternate ending.  run400 agrees.
+- **The Average Life** — 30/35.  Task 5 `shoot` (+5, death) and task 6 `refuse`
+  (+10, the win) are the two room-7 endings.
+- **Brain Dead Weekend** — -6/5.  Drinking (T1, -9) is the only ending; the
+  two +1s for the utensil bundle are exclusive, and either strands the spoon:
+  T15 `give * spoon * ` ends in a space the run400 matcher can never match, so
+  the barkeep never mixes.  4/5 only by never drinking.  Runner-identical.
+- **The Dead Man** — 41/43.  The last 2 are task 19 `shoot myself`, a death.
+- **Dicky Noodle** — 78/120.  120 is every positive task across BOTH endings;
+  the candle trapdoor seals the casino/TVLand branch off from the Earth Ship
+  one (68), and both end at Victory.
+- **Dragon Shrine** — 95/100.  Task 38 `#Stir Potion` (+5, the wrong way) and
+  task 39 (+25, the right way) are exclusive; the game's own tally says "5
+  points short".
+- **Egg Hunt** — 950/1000.  Every scored task sums to 950.
+- **Govard** — 300/310.  Tasks 31 and 32 (bread, cheese for the old woman, +10
+  each) block each other; the game says «Вы недобрали 10 очк.»
+- **How to Conquer the World** (hcw, AIF) — 11/13.  Two pairs of scoring tasks
+  are exclusive alternates.
+- **Locuras** — 175/200.  Two exclusive winning endings (divan +5, salvar
+  planeta +50), and the oasis pool costs 60 elsewhere.
+- **The Nem Rehsif** — 400/680.  `use key` is single-use and seals the
+  Pioneer/Shepherd/Reacher corridors; one finale only.
+- **Pete's Punkin Junkinator** — 505/575.  The game ends the instant a 4th of
+  six punkins is made, so only the best 4-of-6 subset is reachable.
+- **SERE** — 215/260.  The task pool is 250; "contact SAR" (25) excludes the
+  flare's prerequisite, and its second +10 is dropped by one-score-per-task.
+- **The Successor** — 0/80.  None of its 107 tasks has a ChangeScore action;
+  progress lives in the Discoveries variable.
+- **tq3** — 60/2400.  Five of fifteen tasks score, 60 in all.
+- **Troll!** — 185/190.  Tasks 80 and 82 consume the same "fourtune" object
+  and 80 is compulsory, so 82's 5 are dead.
+- **The Timmy Reid Adventure** — 360/372.  The only way into the station is to
+  be arrested, and both steps are penalties (-2, -10).
+- **The Wingman** (AIF) — 95/121.  Three exclusive winning finishers; the best
+  two score 95.
+- **Zombie Cow** — 100/130.  Two exclusive +30 endings.
+- **DayAtTheOffice** — wins with a performance rating one above its own
+  scale; the in-game score tops out below the declared 60.
+- **YADFA** — the other way round: 243 against a declared 231 (93 scoring
+  tasks sum to 314 with overlapping awards).
 - Also counted above: Del Sol's 46th point, Marooned's T24, Quest For More
   Hair's second `buy hair` +5, Mangiasaur's T123, To Hell & Beyond's T86/T87.
 

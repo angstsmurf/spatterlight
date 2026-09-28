@@ -98,7 +98,7 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
     unblock one.
 - **Five more games joined the patch table the same day (2026-09-27), on the
   user's "add patches for the suitable candidate games":** the shortlist in
-  `UNREACHABLE.md` was re-measured game by game and five of its entries turned
+  `UNREACHABLE.md` (now `INCOMPLETE.md`) was re-measured game by game and five of its entries turned
   out to be one-edit author slips with the repair already pinned down. The
   table now stands at **34 games, 207 edits** (`harness/patchtable.py` counts
   it). Each keeps its faithful row and gains a `SCR_ASSUME_PATCHES=1` one, and
@@ -210,7 +210,7 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
   maximum were triaged against their manifest comments. All but one are accounted
   for as phantom maxima (a declared `MaxScore` above the sum of the file's own
   ChangeScore actions, or a sum over mutually exclusive endings), as documented
-  author bugs (see `UNREACHABLE.md`), as the faithful half of a patched pair, or
+  author bugs (see `INCOMPLETE.md`), as the faithful half of a patched pair, or
   as a deliberate content-policy omission. The one genuine route gap was
   **Heist**, 7→**8/8**: the author's intro dares the player to find a "secret
   thing … not mentioned in the walkthroughs", which is T4 `buy checker mix`, and
