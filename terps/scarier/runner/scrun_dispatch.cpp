@@ -3846,21 +3846,16 @@ run_comma_splits_pre390 (scr_gameref_t game, const scr_char *line)
 
 
 /*
- * run_player_input()
+ * The typed line still to run, and the element of it being run now.
+ * run_player_input() owns both; run_input_reset() clears them.
+ */
+static scr_char run_line_buffer[LINE_BUFFER_SIZE];
+static scr_char run_line_element[LINE_BUFFER_SIZE];
+
+/*
+ * run_is_repeat_word()
  *
- * Take a line of player input and buffer it.  Split the line into elements
- * separated by periods.  For the first element, try to match it to either a
- * task or a standard command, and return TRUE if it matched, FALSE otherwise.
- *
- * On subsequent calls, successively work with the next line element until
- * none remain.  In this case, prompt for more player input and continue as
- * above.
- *
- * For the case of "again" or "g", rerun the last successful command element.
- *
- * One extra special special case; if called with a game that is not running,
- * this is a signal to reset all noted line input to initial conditions, and
- * just return.  Sorry about the ugliness.
+ * The words that repeat the last element; see run_player_input().
  */
 static scr_bool
 run_is_repeat_word (scr_gameref_t game, const scr_char *element)
@@ -3881,208 +3876,227 @@ run_is_repeat_word (scr_gameref_t game, const scr_char *element)
   return FALSE;
 }
 
-scr_bool
-run_player_input (scr_gameref_t game)
+/*
+ * run_input_reset()
+ *
+ * Resets all noted line input to initial conditions, for a game that is
+ * not running.
+ */
+static void
+run_input_reset (void)
 {
-  static scr_char line_buffer[LINE_BUFFER_SIZE];
-  static scr_char line_element[LINE_BUFFER_SIZE];
-  scr_char *const prior_element = run_prior_element;
+  memset (run_line_buffer, NUL, sizeof (run_line_buffer));
+  memset (run_prior_element, NUL, sizeof (run_prior_element));
+  memset (run_line_element, NUL, sizeof (run_line_element));
+  run_typed_line.clear ();
+  run_previous_typed_line.clear ();
+  lib_co_400_reset ();
+  lib_battle_who_reset ();
+  lib_with_prefix_390_reset ();
+  lib_put_reset ();
+  run_cancel_goto_walk ();
+}
 
-  const scr_filterref_t filter = gs_get_filter (game);
+/*
+ * run_repeat_element()
+ *
+ * `again`: makes the last element the current one.  Returns FALSE, with
+ * the complaint printed, when there is nothing to repeat.
+ */
+static scr_bool
+run_repeat_element (scr_gameref_t game)
+{
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_memo_setref_t memento = gs_get_memento (game);
-  scr_bool is_rerunning, was_undo_available, status;
-  scr_bool is_new_line = FALSE;
-  const scr_char *command;
 
-  /* Special case; reset statics if the game isn't running. */
-  if (!game->is_running)
+  game->do_again = FALSE;
+
+  /* Check there is a last element to repeat. */
+  if (run_prior_element[0] == NUL)
     {
-      memset (line_buffer, NUL, sizeof (line_buffer));
-      memset (run_prior_element, NUL, sizeof (run_prior_element));
-      memset (line_element, NUL, sizeof (line_element));
-      run_typed_line.clear ();
-      run_previous_typed_line.clear ();
-      lib_co_400_reset ();
-      lib_battle_who_reset ();
-      lib_with_prefix_390_reset ();
-      lib_put_reset ();
-      run_cancel_goto_walk ();
-      return TRUE;
+      pf_buffer_string (gs_get_filter (game),
+                        "You can hardly repeat that.\n");
+      return FALSE;
     }
 
   /*
-   * Save the settings of the game's do_again and undo_available flags for
-   * later checks.
+   * 4.0 with "References in brackets" ticked (the setting Scarier
+   * models) echoes the command it is about to repeat, in round brackets
+   * on its own line: run400 generaltasks loc_48A058 walks the history
+   * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
+   * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  run390
+   * echoes it the same way: p39WITH `probe`, `again` -> "(probe)" then
+   * "PROBE OK." (Adrift_1163, 2026-09-14).  3.8 and earlier are not
+   * measured.
    */
-  is_rerunning = game->do_again;
-  was_undo_available = game->undo_available;
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    pf_buffer_reference (gs_get_filter (game), run_prior_element,
+                         gs_get_vars (game), bundle);
 
-  /* See if the player asked to rerun a command element. */
-  if (game->do_again)
+  /* Make the last element the current input element. */
+  strncpy (run_line_element, run_prior_element, LINE_BUFFER_SIZE);
+  return TRUE;
+}
+
+/*
+ * run_read_line()
+ *
+ * Reads a new line of player input if none is buffered -- or the rest of
+ * the line a pre-4.0 walk held back -- and otherwise separates output so
+ * far with a newline.  Returns TRUE when a line was read.
+ */
+static scr_bool
+run_read_line (scr_gameref_t game)
+{
+  scr_bool is_new_line = FALSE;
+
+  /*
+   * A pre-4.0 walk is over: the rest of the line it held back runs now,
+   * in the same turn as the arrival.  See run_goto_rest.
+   */
+  if (run_line_buffer[0] == NUL && !run_goto_rest.empty ()
+      && run_goto_steps.empty () && !run_goto_arrival_due)
     {
-      game->do_again = FALSE;
+      strncpy (run_line_buffer, run_goto_rest.c_str (), LINE_BUFFER_SIZE - 1);
+      run_line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
+      run_goto_rest.clear ();
+    }
 
-      /* Check there is a last element to repeat. */
-      if (prior_element[0] == NUL)
-        {
-          pf_buffer_string (filter, "You can hardly repeat that.\n");
-          return FALSE;
-        }
+  if (run_line_buffer[0] == NUL)
+    {
+      if_read_line (run_line_buffer, sizeof (run_line_buffer));
+      is_new_line = TRUE;
+
+      /* run400 48A2EA: a new typed line, no event ticked yet. */
+      evt_clear_ticked_events (game);
 
       /*
-       * 4.0 with "References in brackets" ticked (the setting Scarier
-       * models) echoes the command it is about to repeat, in round brackets
-       * on its own line: run400 generaltasks loc_48A058 walks the history
-       * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
-       * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  run390
-       * echoes it the same way: p39WITH `probe`, `again` -> "(probe)" then
-       * "PROBE OK." (Adrift_1163, 2026-09-14).  3.8 and earlier are not
-       * measured.
+       * Every Runner lower-cases the whole typed line before it parses
+       * anything: run400 Form1 loc_45C5D1..45C5E5 echoes `"> " & cmd`
+       * first and only then assigns `cmd = LCase(cmd)`, pushing the
+       * lower-cased copy into the command history array as well
+       * (run390 loc_436235..436249, run380 loc_426FA9, run370
+       * loc_422091 -- unconditional in all four, no version gate).
+       * The echo is unaffected because it happens above the LCase, and
+       * Glk echoes the input line for us here.
+       *
+       * This matters because the game's own SYNONYM rewrites run AFTER
+       * it, so an author's replacement text is the only thing that can
+       * put an upper-case letter back into a command -- which is what
+       * makes a character unreferenceable in uip_case_folds_name().
        */
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-        pf_buffer_reference (filter, prior_element, gs_get_vars (game), bundle);
+      for (scr_char *cursor = run_line_buffer; *cursor != NUL; cursor++)
+        *cursor = scr_tolower (*cursor);
+      run_previous_typed_line = run_typed_line;
+      run_typed_line = run_line_buffer;
+    }
+  else
+    if_print_character ('\n');
+  return is_new_line;
+}
 
-      /* Make the last element the current input element. */
-      strncpy (line_element, prior_element, LINE_BUFFER_SIZE);
+/*
+ * run_cut_element()
+ *
+ * Cuts the next element off the front of the line buffer, and makes it
+ * the current input element.
+ */
+static void
+run_cut_element (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int length, extent;
+
+  /*
+   * Find the length of the next input line element.  At 4.0, unless the
+   * line buffer is empty, we always take the first character, even if
+   * it's a separator.  This catches odd input like "." and turns it into
+   * a parser complaint, rather than treating it as two empty commands
+   * with a separator between them.
+   */
+  scr_int sep_length = 1;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    {
+      /*
+       * 4.0 cuts the line at the first separator, in pass order, whose
+       * tail does not begin with an object name; see
+       * run_find_split_400().  The separator goes, and any whitespace
+       * after it: that prevents "i. ." looking like "i" and ""; it
+       * instead looks like "i" and ".", and results in a parser
+       * complaint.
+       */
+      const scr_int split = (run_line_buffer[0] == NUL)
+                            ? -1
+                            : run_find_split_400 (game, run_line_buffer,
+                                                  &sep_length);
+
+      length = (split < 0) ? (scr_int) strlen (run_line_buffer) : split;
+      extent = length;
+      extent += (run_line_buffer[length] == NUL) ? 0 : sep_length;
+      extent += strspn (run_line_buffer + extent, WHITESPACE);
     }
   else
     {
-      scr_int length, extent;
+      /*
+       * Pre-4.0 keeps its tail as the Runner does, less one leading
+       * space, and the head may be empty (`then look`); see
+       * run_find_split_pre400().
+       */
+      const scr_int version = prop_get_taf_version (bundle);
 
-      /*
-       * If there's none buffered, read a new line of player input.  Other-
-       * wise, separate output so far with a newline.
-       */
-      /*
-       * A pre-4.0 walk is over: the rest of the line it held back runs now,
-       * in the same turn as the arrival.  See run_goto_rest.
-       */
-      if (line_buffer[0] == NUL && !run_goto_rest.empty ()
-          && run_goto_steps.empty () && !run_goto_arrival_due)
+      length = run_find_split_pre400 (version, run_line_buffer, &extent,
+                                      version < TAF_VERSION_390
+                                      && run_comma_splits_pre390
+                                           (game, run_line_buffer));
+      if (length < 0)
+        length = extent = (scr_int) strlen (run_line_buffer);
+      else if (length == 0 && version == TAF_VERSION_390
+               && strncmp (run_line_buffer, "then", 4) == 0)
         {
-          strncpy (line_buffer, run_goto_rest.c_str (), LINE_BUFFER_SIZE - 1);
-          line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
-          run_goto_rest.clear ();
+          const std::string queue = run_empty_then_head_390 (run_line_buffer);
+
+          strncpy (run_line_buffer, queue.c_str (), LINE_BUFFER_SIZE - 1);
+          run_line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
+          length = extent = (scr_int) strlen (run_line_buffer);
         }
-
-      if (line_buffer[0] == NUL)
-        {
-          if_read_line (line_buffer, sizeof (line_buffer));
-          is_new_line = TRUE;
-
-          /* run400 48A2EA: a new typed line, no event ticked yet. */
-          evt_clear_ticked_events (game);
-
-          /*
-           * Every Runner lower-cases the whole typed line before it parses
-           * anything: run400 Form1 loc_45C5D1..45C5E5 echoes `"> " & cmd`
-           * first and only then assigns `cmd = LCase(cmd)`, pushing the
-           * lower-cased copy into the command history array as well
-           * (run390 loc_436235..436249, run380 loc_426FA9, run370
-           * loc_422091 -- unconditional in all four, no version gate).
-           * The echo is unaffected because it happens above the LCase, and
-           * Glk echoes the input line for us here.
-           *
-           * This matters because the game's own SYNONYM rewrites run AFTER
-           * it, so an author's replacement text is the only thing that can
-           * put an upper-case letter back into a command -- which is what
-           * makes a character unreferenceable in uip_case_folds_name().
-           */
-          for (scr_char *cursor = line_buffer; *cursor != NUL; cursor++)
-            *cursor = scr_tolower (*cursor);
-          run_previous_typed_line = run_typed_line;
-          run_typed_line = line_buffer;
-        }
-      else
-        if_print_character ('\n');
-
-      /*
-       * Find the length of the next input line element.  At 4.0, unless the
-       * line buffer is empty, we always take the first character, even if
-       * it's a separator.  This catches odd input like "." and turns it into
-       * a parser complaint, rather than treating it as two empty commands
-       * with a separator between them.
-       */
-      scr_int sep_length = 1;
-
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
-        {
-          /*
-           * 4.0 cuts the line at the first separator, in pass order, whose
-           * tail does not begin with an object name; see
-           * run_find_split_400().  The separator goes, and any whitespace
-           * after it: that prevents "i. ." looking like "i" and ""; it
-           * instead looks like "i" and ".", and results in a parser
-           * complaint.
-           */
-          const scr_int split = (line_buffer[0] == NUL)
-                                ? -1
-                                : run_find_split_400 (game, line_buffer,
-                                                      &sep_length);
-
-          length = (split < 0) ? (scr_int) strlen (line_buffer) : split;
-          extent = length;
-          extent += (line_buffer[length] == NUL) ? 0 : sep_length;
-          extent += strspn (line_buffer + extent, WHITESPACE);
-        }
-      else
-        {
-          /*
-           * Pre-4.0 keeps its tail as the Runner does, less one leading
-           * space, and the head may be empty (`then look`); see
-           * run_find_split_pre400().
-           */
-          const scr_int version = prop_get_taf_version (bundle);
-
-          length = run_find_split_pre400 (version, line_buffer, &extent,
-                                          version < TAF_VERSION_390
-                                          && run_comma_splits_pre390
-                                               (game, line_buffer));
-          if (length < 0)
-            length = extent = (scr_int) strlen (line_buffer);
-          else if (length == 0 && version == TAF_VERSION_390
-                   && strncmp (line_buffer, "then", 4) == 0)
-            {
-              const std::string queue = run_empty_then_head_390 (line_buffer);
-
-              strncpy (line_buffer, queue.c_str (), LINE_BUFFER_SIZE - 1);
-              line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
-              length = extent = (scr_int) strlen (line_buffer);
-            }
-        }
-
-      /*
-       * Make this the current input element, and remove it and the
-       * separator from the front of the line buffer.
-       */
-      memcpy (line_element, line_buffer, length);
-      line_element[length] = NUL;
-      memmove (line_buffer,
-               line_buffer + extent, strlen (line_buffer) - extent + 1);
-
-      /*
-       * The Runner strips one trailing space from the head it keeps (the
-       * splitter's loop at 4596E1), so `x coin , x hat` leaves "x coin",
-       * not "x coin ".
-       */
-      if (length > 0 && line_element[length - 1] == ' ')
-        line_element[length - 1] = NUL;
     }
 
   /*
-   * 3.9 counts line elements, not turns: generaltasks adds one to its turn
-   * counter MemVar_4681A4 at its very top (45EC5B), as run380 does to
-   * MemVar_44F138 (441A21), before the not-a-turn flag is even cleared, so
-   * `turns`, a DontUnderstand line and a blank line all count.  Every jump back for the next queued element (4609F9) lands
-   * above the increment too.  `again` does not: run390 answers the `turns`
-   * that follows 18 elements with 19 twice over (Adrift_1161_p39admin.txt).
-   * The end-of-turn tail in run_main_loop() leaves the counter alone at 3.9.
-   * The increment sits after the line is read, so an autosave taken at the
-   * prompt and restored there never counts a line twice.
+   * Make this the current input element, and remove it and the
+   * separator from the front of the line buffer.
    */
-  if (!is_rerunning && run_counts_line_elements (game))
+  memcpy (run_line_element, run_line_buffer, length);
+  run_line_element[length] = NUL;
+  memmove (run_line_buffer,
+           run_line_buffer + extent, strlen (run_line_buffer) - extent + 1);
+
+  /*
+   * The Runner strips one trailing space from the head it keeps (the
+   * splitter's loop at 4596E1), so `x coin , x hat` leaves "x coin",
+   * not "x coin ".
+   */
+  if (length > 0 && run_line_element[length - 1] == ' ')
+    run_line_element[length - 1] = NUL;
+}
+
+/*
+ * run_count_element()
+ *
+ * 3.9 counts line elements, not turns: generaltasks adds one to its turn
+ * counter MemVar_4681A4 at its very top (45EC5B), as run380 does to
+ * MemVar_44F138 (441A21), before the not-a-turn flag is even cleared, so
+ * `turns`, a DontUnderstand line and a blank line all count.  Every jump
+ * back for the next queued element (4609F9) lands above the increment
+ * too.  `again` does not: run390 answers the `turns` that follows 18
+ * elements with 19 twice over (Adrift_1161_p39admin.txt).  The
+ * end-of-turn tail in run_main_loop() leaves the counter alone at 3.9.
+ * The increment sits after the line is read, so an autosave taken at the
+ * prompt and restored there never counts a line twice.
+ */
+static void
+run_count_element (scr_gameref_t game)
+{
+  if (run_counts_line_elements (game))
     {
       game->turns++;
 
@@ -4096,27 +4110,32 @@ run_player_input (scr_gameref_t game)
        * 4601A5 never fires for a "With what?" or "Wear what?" answer
        * (`knife`, `coin` each count once in the same drive).
        */
-      if (scr_strcasecmp (line_element, "both") == 0
+      if (scr_strcasecmp (run_line_element, "both") == 0
           && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
         game->turns++;
     }
+}
 
-  /* Copy the current game to the temporary undo buffer, along with the
-     output that the turn just finished left it with. */
-  gs_copy (game->temporary, game);
-  run_temporary_text = pf_take_printed (gs_get_filter (game));
-  game->player_moved_by_command = FALSE;
+/*
+ * run_element_command()
+ *
+ * The command the element runs as: the element filtered for synonyms and
+ * pronouns, and glued onto the previous line when it begins "with ".
+ */
+static void
+run_element_command (scr_gameref_t game, std::string &command)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /*
    * Filter the input element for synonyms, then for pronouns.  Both are
-   * scr_malloc'd, so own them with RAII -- run_all_commands() below can throw
-   * (run_loop_halt / scr_fatal_error), and the old manual scr_free()s sat after
-   * that call, leaking on the throw.  .get() still feeds the raw char* to the
-   * pointer-aliasing logic that decides which buffer "wins".
+   * scr_malloc'd, so own them with RAII; .get() feeds the raw char* to the
+   * pointer-aliasing logic that decides which buffer "wins", and COMMAND
+   * takes a copy of the winner.
    */
-  scr_owned_string filtered (pf_filter_input (line_element, bundle));
+  scr_owned_string filtered (pf_filter_input (run_line_element, bundle));
   scr_owned_string replaced (uip_replace_pronouns (game,
-      filtered ? filtered.get () : line_element));
+      filtered ? filtered.get () : run_line_element));
 
   /*
    * If filtering didn't replace synonyms, and no pronouns were replaced, use
@@ -4126,7 +4145,8 @@ run_player_input (scr_gameref_t game)
    * run_all_commands().
    */
   command = replaced ? scr_normalize_string (replaced.get ())
-            : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
+            : (filtered ? scr_normalize_string (filtered.get ())
+                        : run_line_element);
 
   /*
    * 3.8 on, an element beginning "with " is glued onto the line typed before
@@ -4137,14 +4157,21 @@ run_player_input (scr_gameref_t game)
    * description at 3.9 (run390x Adrift_200_pnpcwith39) and "Nothing
    * special." at 3.8 (run380x Adrift_199_pnpcwith38).
    */
-  std::string with_history;
   if (prop_get_taf_version (bundle) >= TAF_VERSION_380
-      && strncmp (command, "with ", 5) == 0)
-    {
-      with_history = run_previous_typed_line + " " + command;
-      command = with_history.c_str ();
-    }
+      && strncmp (command.c_str (), "with ", 5) == 0)
+    command = run_previous_typed_line + " " + command;
+}
 
+/*
+ * run_element_begin()
+ *
+ * The per-element stores made before the command is run: the open
+ * questions are noted, and the referenced object and character forgotten.
+ */
+static void
+run_element_begin (scr_gameref_t game, const scr_char *command,
+                   scr_bool is_new_line)
+{
   /*
    * Upstream SCARE echoed the rewritten command in italic square brackets,
    * for synonyms and for pronouns alike.  No Runner does that: run370 and
@@ -4193,300 +4220,337 @@ run_player_input (scr_gameref_t game)
    * other end.  We kept the older Runners' references across the line and
    * printed "ZORKED a red rock."
    */
-  var_set_ref_object (vars, -1);
-  var_set_ref_character (vars, -1);
+  var_set_ref_object (gs_get_vars (game), -1);
+  var_set_ref_character (gs_get_vars (game), -1);
+}
 
-  /*
-   * The repeat words are tested on the whole line before any task gets it:
-   * run400 89FE2 and run390 45F094 sit above tasks(0) (45F48B), run380 441B79
-   * and run370 43B3C9 likewise, but without `g`.  So a task that listens for
-   * `g` can never see it typed from 3.90 on; shadowpeak's riddle (TASK 404,
-   * answer `g`) repeats the previous command in run400 (2026-09-14).  Below
-   * 3.90 the `g` row in the standard table stays a Scarier abbreviation and
-   * keeps its place after the tasks.
-   */
-  if (!is_rerunning && run_is_repeat_word (game, line_element))
-    status = lib_cmd_again (game);
-  else
-    /* Try the command line element against command matchers. */
-    status = run_all_commands (game, command);
+/*
+ * run_element_questions()
+ *
+ * An open "Who do you want to attack?" continues a line nothing answered:
+ * the battle prefix goes in front and the line runs again, its own output
+ * discarded.  See lib_battle_who_continuation() in sclibrar.cpp.  The
+ * "With what?" question rule and 3.9's own with-prefix continuation
+ * follow.  Returns the element's final status.
+ */
+static scr_bool
+run_element_questions (scr_gameref_t game, const scr_char *command,
+                       scr_bool status)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const std::string rerun (lib_battle_who_continuation (command, status));
 
-  /*
-   * An open "Who do you want to attack?" continues a line nothing answered:
-   * the battle prefix goes in front and the line runs again, its own output
-   * discarded.  See lib_battle_who_continuation() in sclibrar.cpp.
-   */
-  {
-    const std::string rerun (lib_battle_who_continuation (command, status));
-
-    if (!rerun.empty ())
-      {
-        const scr_bool is_400 = prop_get_taf_version (bundle)
-                                >= TAF_VERSION_400;
-        std::string collapsed (rerun);
-        size_t pair;
-
-        /*
-         * 4.0 runs the joined line with its spaces collapsed and past the
-         * task matcher; 3.9 runs it as joined, and its task matcher sees
-         * every space: p39WITHQ's `saw rope` / `knife` fires the task wired
-         * `saw rope with  knife` and not its one-space twin (run390x
-         * Adrift_p39withq.txt, 2026-09-25).
-         */
-        if (is_400)
-          while ((pair = collapsed.find ("  ")) != std::string::npos)
-            collapsed.erase (pair, 1);
-
-        pf_empty (filter);
-        game->is_admin = FALSE;
-        run_rerun_skips_tasks = is_400 && collapsed != rerun;
-        run_rerun_exact_spaces = !is_400
-            && rerun.find ("  ") != std::string::npos;
-        status = run_all_commands (game, collapsed.c_str ());
-        run_rerun_skips_tasks = FALSE;
-        run_rerun_exact_spaces = FALSE;
-
-        /*
-         * 3.9's prefix rerun (4601A5-4601C4) is a GoTo 45EC4B, above the
-         * element counter at 45EC5B, so the joined line counts as one more
-         * element: on p39WITHQ every continued `knife` and `sword` moves
-         * `turns` by two, the `knife` after "Whittle it with what?" -- no
-         * prefix, the object catch-all -- by one.  See run_player_input().
-         */
-        if (prop_get_taf_version (bundle) == TAF_VERSION_390)
-          game->turns++;
-      }
-
-    /*
-     * A turn that ends asking "With what?" or "...with?" leaves the line
-     * plus " with " as the question prefix (3.9 and 4.0), and at 4.0 is not
-     * a turn -- task text included.  See lib_question_with_rule() in
-     * sclibrar.cpp.
-     */
-    if (status
-        && lib_question_with_rule (game, rerun.empty () ? command
-                                                        : rerun.c_str ()))
-      game->is_admin = TRUE;
-
-    /*
-     * 3.9: an open "With what?" continues a line nothing understood, as
-     * `<prefix><line>` and through therest only -- the task matcher never
-     * sees the joined line.  See lib_with_prefix_390_continuation() in
-     * sclibrar.cpp.
-     */
-    if (rerun.empty ())
-      {
-        const std::string joined (lib_with_prefix_390_continuation (command,
-                                                                    status));
-
-        if (!joined.empty ())
-          {
-            pf_empty (filter);
-            run_rerun_skips_tasks = TRUE;
-            status = run_all_commands (game, joined.c_str ());
-            run_rerun_skips_tasks = FALSE;
-          }
-      }
-    lib_with_prefix_390_end_element ();
-  }
-
-  /*
-   * 4.0: with an ambiguity question open, a line that did nothing is an
-   * answer to it rather than a line the game misunderstood.  "Did nothing"
-   * is either of the two refusals that end a turn empty-handed -- the
-   * DontUnderstand path below, and the unhandled-verb catch-all in
-   * lib_cmd_verb_object() -- and the turn's own output goes with it, the way
-   * the 3.8 prompt replaces a turn wholesale (pf_empty() in
-   * lib_co_ambiguity_prompt()).  A line that DID something runs normally and
-   * simply spends the question: run400 answers `x tree rock` / `x rock` with
-   * "A plain thing." and not with the refusal (Adrift_930).
-   *
-   * Answering does not score the answer against the prompt's candidates at
-   * all: generaltasks splices the typed words into the stored command in
-   * front of its term and re-runs the whole line (48B097-48B15B for an
-   * object, 48B15E-48B197 when the command does not hold the term), which
-   * is how `chop tree` / `chop keys` ends in a SECOND full prompt naming
-   * the keys as well as the trees -- the rebuilt `chop chop keys tree`
-   * names them.  "That is still ambiguous!" is then the re-run's own raise
-   * meeting the list the last prompt left behind, not an answer this slot
-   * gives.  Measured on p4CO.taf, Adrift_927, Adrift_929 and Adrift_co11 --
-   * see lib_co_400_object_answer_line().
-   *
-   * 48B15B jumps to 489FEB, the top of the ELEMENT loop, which clears the
-   * element's reply and the question but NOT what the last prompt offered
-   * (48BB53's 4941F4, cleared only at the end of an element that flagged
-   * nothing).  lib_co_400_take_question() is that top: it drops the
-   * question the re-run must not answer a second time, and leaves that
-   * list standing so that the re-run's own raise can meet it.
-   */
-  if (lib_co_400_question_pending () && !scr_strempty (command)
-      && (!status || lib_co_400_line_refused ()))
+  if (!rerun.empty ())
     {
-      const std::string rerun (lib_co_400_pending_is_npc ()
-                               ? lib_co_400_npc_answer_line (command)
-                               : lib_co_400_object_answer_line (command));
-
-      lib_co_400_take_question ();
-      pf_empty (filter);
+      const scr_bool is_400 = prop_get_taf_version (bundle)
+                              >= TAF_VERSION_400;
+      std::string collapsed (rerun);
+      size_t pair;
 
       /*
-       * 489FEB is above the stores that mark a line administrative, so the
-       * re-run starts a turn of its own and the answer is counted by what
-       * the rebuilt line does -- not by the prompt that asked for it.
-       * p4WTIE, run400 Adrift_wtie8 turn 10: `cut rope with stone` is the
-       * question and no turn, and `red stone` runs `cut rope with red
-       * stone`, answers "You don't have the red stone." and ticks.  A
-       * re-run that asks again marks itself (lib_co_400_raise_common()),
-       * and so does the still-ambiguous arm below, so only a line that did
-       * something reaches the clock.
+       * 4.0 runs the joined line with its spaces collapsed and past the
+       * task matcher; 3.9 runs it as joined, and its task matcher sees
+       * every space: p39WITHQ's `saw rope` / `knife` fires the task wired
+       * `saw rope with  knife` and not its one-space twin (run390x
+       * Adrift_p39withq.txt, 2026-09-25).
        */
+      if (is_400)
+        while ((pair = collapsed.find ("  ")) != std::string::npos)
+          collapsed.erase (pair, 1);
+
+      pf_empty (gs_get_filter (game));
       game->is_admin = FALSE;
+      run_rerun_skips_tasks = is_400 && collapsed != rerun;
+      run_rerun_exact_spaces = !is_400
+          && rerun.find ("  ") != std::string::npos;
+      status = run_all_commands (game, collapsed.c_str ());
+      run_rerun_skips_tasks = FALSE;
+      run_rerun_exact_spaces = FALSE;
 
-      status = run_all_commands (game, rerun.c_str ());
-      if (!status)
-        {
-          pf_empty (filter);
-          lib_co_400_print_still_ambiguous (game);
-          status = TRUE;
-        }
-
-      line_buffer[0] = NUL;
-      return status;
+      /*
+       * 3.9's prefix rerun (4601A5-4601C4) is a GoTo 45EC4B, above the
+       * element counter at 45EC5B, so the joined line counts as one more
+       * element: on p39WITHQ every continued `knife` and `sword` moves
+       * `turns` by two, the `knife` after "Whittle it with what?" -- no
+       * prefix, the object catch-all -- by one.  See run_count_element().
+       */
+      if (prop_get_taf_version (bundle) == TAF_VERSION_390)
+        game->turns++;
     }
 
+  /*
+   * A turn that ends asking "With what?" or "...with?" leaves the line
+   * plus " with " as the question prefix (3.9 and 4.0), and at 4.0 is not
+   * a turn -- task text included.  See lib_question_with_rule() in
+   * sclibrar.cpp.
+   */
+  if (status
+      && lib_question_with_rule (game, rerun.empty () ? command
+                                                      : rerun.c_str ()))
+    game->is_admin = TRUE;
+
+  /*
+   * 3.9: an open "With what?" continues a line nothing understood, as
+   * `<prefix><line>` and through therest only -- the task matcher never
+   * sees the joined line.  See lib_with_prefix_390_continuation() in
+   * sclibrar.cpp.
+   */
+  if (rerun.empty ())
+    {
+      const std::string joined (lib_with_prefix_390_continuation (command,
+                                                                  status));
+
+      if (!joined.empty ())
+        {
+          pf_empty (gs_get_filter (game));
+          run_rerun_skips_tasks = TRUE;
+          status = run_all_commands (game, joined.c_str ());
+          run_rerun_skips_tasks = FALSE;
+        }
+    }
+  lib_with_prefix_390_end_element ();
+  return status;
+}
+
+/*
+ * run_element_co_answer_400()
+ *
+ * 4.0: with an ambiguity question open, a line that did nothing is an
+ * answer to it rather than a line the game misunderstood.  "Did nothing"
+ * is either of the two refusals that end a turn empty-handed -- the
+ * DontUnderstand path below, and the unhandled-verb catch-all in
+ * lib_cmd_verb_object() -- and the turn's own output goes with it, the way
+ * the 3.8 prompt replaces a turn wholesale (pf_empty() in
+ * lib_co_ambiguity_prompt()).  A line that DID something runs normally and
+ * simply spends the question: run400 answers `x tree rock` / `x rock` with
+ * "A plain thing." and not with the refusal (Adrift_930).
+ *
+ * Answering does not score the answer against the prompt's candidates at
+ * all: generaltasks splices the typed words into the stored command in
+ * front of its term and re-runs the whole line (48B097-48B15B for an
+ * object, 48B15E-48B197 when the command does not hold the term), which
+ * is how `chop tree` / `chop keys` ends in a SECOND full prompt naming
+ * the keys as well as the trees -- the rebuilt `chop chop keys tree`
+ * names them.  "That is still ambiguous!" is then the re-run's own raise
+ * meeting the list the last prompt left behind, not an answer this slot
+ * gives.  Measured on p4CO.taf, Adrift_927, Adrift_929 and Adrift_co11 --
+ * see lib_co_400_object_answer_line().
+ *
+ * 48B15B jumps to 489FEB, the top of the ELEMENT loop, which clears the
+ * element's reply and the question but NOT what the last prompt offered
+ * (48BB53's 4941F4, cleared only at the end of an element that flagged
+ * nothing).  lib_co_400_take_question() is that top: it drops the
+ * question the re-run must not answer a second time, and leaves that
+ * list standing so that the re-run's own raise can meet it.
+ *
+ * Returns TRUE when the line was the answer, with STATUS the re-run's.
+ */
+static scr_bool
+run_element_co_answer_400 (scr_gameref_t game, const scr_char *command,
+                           scr_bool &status)
+{
+  if (!lib_co_400_question_pending () || scr_strempty (command)
+      || (status && !lib_co_400_line_refused ()))
+    return FALSE;
+
+  const std::string rerun (lib_co_400_pending_is_npc ()
+                           ? lib_co_400_npc_answer_line (command)
+                           : lib_co_400_object_answer_line (command));
+
+  lib_co_400_take_question ();
+  pf_empty (gs_get_filter (game));
+
+  /*
+   * 489FEB is above the stores that mark a line administrative, so the
+   * re-run starts a turn of its own and the answer is counted by what
+   * the rebuilt line does -- not by the prompt that asked for it.
+   * p4WTIE, run400 Adrift_wtie8 turn 10: `cut rope with stone` is the
+   * question and no turn, and `red stone` runs `cut rope with red
+   * stone`, answers "You don't have the red stone." and ticks.  A
+   * re-run that asks again marks itself (lib_co_400_raise_common()),
+   * and so does the still-ambiguous arm below, so only a line that did
+   * something reaches the clock.
+   */
+  game->is_admin = FALSE;
+
+  status = run_all_commands (game, rerun.c_str ());
   if (!status)
     {
-      const scr_char *message;
-
-      /*
-       * An EMPTY line element complains too.  Upstream SCARE guarded this
-       * whole block with `if (!scr_strempty (command))`, so a bare Return
-       * printed nothing.  Both Runners answer one with DontUnderstand:
-       * `cmdfile_stardust.txt` and `cmdfile_xfiles.txt` are the only CRLF
-       * feeds in the Wine harness, so every command in those two runs went in
-       * followed by an extra empty Return, and run390 answered all 115 of
-       * them with S_Tar_Dus's ALR for the message ("I are confused.  DURHH!",
-       * Adrift_38_stardust.txt) and run400 all 22 of xfiles' ("Nope!",
-       * Adrift_31_xfiles.txt).  No walk or event line follows one, so the
-       * turn does not tick either -- which the FALSE return below already
-       * gives us, run_main_loop() ticking only on TRUE.  Only a genuinely
-       * empty input line gets here: the splitter above takes the first
-       * character even when it is a separator, so "." and "i. ." were
-       * complaints before this and still are.
-       */
-
-      /*
-       * 4.0: a line that names a character and was ended by a task says
-       * nothing at all.  run400's tail tests two conditions together --
-       * `48B573: If MemVar_4941B0 = "" And var_29C = 0 Then
-       * MemVar_4941B0 = MemVar_4941A8` -- where var_29C is set by the walk
-       * over the characters at 48B53C-48B569 (uip_line_names_npc() here) and
-       * MemVar_4941A8 is the game's DontUnderstand text.  Outside an ending
-       * the second condition never shows: a line naming a present character
-       * that nothing else answered gets the catch-all from characters()
-       * instead, so the buffer is not empty.  Once a task has ended the game
-       * that catch-all is suppressed (4805CD, see lib_cmd_verb_npc()), and
-       * the empty buffer meets var_29C = 1 and prints nothing.
-       *
-       * easter.taf's winning `show basket to shopkeeper` is the measured
-       * case: run400 Adrift_273_easter.txt:304-308 goes straight from the
-       * task's text to the WinText.  Gated on the ending so the general
-       * shape of the test cannot disturb an ordinary line.
-       */
-      if (game->pending_endgame != 0
-          && run_get_version (bundle) == TAF_VERSION_400
-          && uip_line_names_npc (game, line_element))
-        {
-          line_buffer[0] = NUL;
-          return status;
-        }
-
-      /*
-       * Command line element not understood.  Own the escaped copy with
-       * RAII (as the sibling code above does): var_set_ref_text() can throw
-       * (scr_fatal_error), and the old manual scr_free() after it leaked on
-       * the throw.
-       */
-      scr_owned_string escaped (pf_escape (scr_normalize_string (line_element)));
-      var_set_ref_text (vars, escaped.get ());
-      message = prop_get_global_string (bundle, "DontUnderstand");
-      pf_buffer_string (filter, message);
-      pf_buffer_character (filter, '\n');
-
-      /*
-       * A line element that's not understood leaves the rest of the line
-       * alone.  Upstream SCARE threw the remaining elements out here; no
-       * Runner does.  run400 re-reads its queue at the very END of
-       * generaltasks (48BCF2, `If MemVar_4942E4 <> "" Then MemVar_494174 =
-       * MemVar_4942E4 : GoTo 489FEB`), below every exit the DontUnderstand
-       * text can take: `wave zzz and yyy` on the p4AND probe answers NO IDEA
-       * twice (Adrift_955).  run390 answers `zzz, look` with NO IDEA and
-       * the room (Adrift_1191), run380 `zzz then look` with "I don't
-       * understand." and the room (Adven_5.rtf).
-       */
-
-      /*
-       * 4.0: and what the setter was handed on the way down still stands --
-       * openclose's loop runs above therest's DontUnderstand, so `cut rope
-       * with gems` answers NO IDEA and leaves "it" at the emerald (p4WTIE,
-       * Adrift_it2).  See uip_note_antecedent_400() in scparser.cpp.
-       */
-      if (run_get_version (bundle) >= TAF_VERSION_400)
-        {
-          uip_commit_antecedent_400 (game);
-          uip_set_pronoun_flags (FALSE, FALSE);
-        }
-      /* 3.9: generaltasks' co() pre-pass ran before anything answered. */
-      else if (run_get_version (bundle) == TAF_VERSION_390)
-        uip_assign_pronouns (game, command);
-      return status;
+      pf_empty (gs_get_filter (game));
+      lib_co_400_print_still_ambiguous (game);
+      status = TRUE;
     }
-  else
+  return TRUE;
+}
+
+/*
+ * run_element_not_understood()
+ *
+ * Nothing answered the element: the game's DontUnderstand text, or
+ * nothing at all after a 4.0 ending.
+ */
+static void
+run_element_not_understood (scr_gameref_t game, const scr_char *command)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *message;
+
+  /*
+   * An EMPTY line element complains too.  Upstream SCARE guarded this
+   * whole block with `if (!scr_strempty (command))`, so a bare Return
+   * printed nothing.  Both Runners answer one with DontUnderstand:
+   * `cmdfile_stardust.txt` and `cmdfile_xfiles.txt` are the only CRLF
+   * feeds in the Wine harness, so every command in those two runs went in
+   * followed by an extra empty Return, and run390 answered all 115 of
+   * them with S_Tar_Dus's ALR for the message ("I are confused.  DURHH!",
+   * Adrift_38_stardust.txt) and run400 all 22 of xfiles' ("Nope!",
+   * Adrift_31_xfiles.txt).  No walk or event line follows one, so the
+   * turn does not tick either -- which the FALSE return below already
+   * gives us, run_main_loop() ticking only on TRUE.  Only a genuinely
+   * empty input line gets here: the splitter above takes the first
+   * character even when it is a separator, so "." and "i. ." were
+   * complaints before this and still are.
+   */
+
+  /*
+   * 4.0: a line that names a character and was ended by a task says
+   * nothing at all.  run400's tail tests two conditions together --
+   * `48B573: If MemVar_4941B0 = "" And var_29C = 0 Then
+   * MemVar_4941B0 = MemVar_4941A8` -- where var_29C is set by the walk
+   * over the characters at 48B53C-48B569 (uip_line_names_npc() here) and
+   * MemVar_4941A8 is the game's DontUnderstand text.  Outside an ending
+   * the second condition never shows: a line naming a present character
+   * that nothing else answered gets the catch-all from characters()
+   * instead, so the buffer is not empty.  Once a task has ended the game
+   * that catch-all is suppressed (4805CD, see lib_cmd_verb_npc()), and
+   * the empty buffer meets var_29C = 1 and prints nothing.
+   *
+   * easter.taf's winning `show basket to shopkeeper` is the measured
+   * case: run400 Adrift_273_easter.txt:304-308 goes straight from the
+   * task's text to the WinText.  Gated on the ending so the general
+   * shape of the test cannot disturb an ordinary line.
+   */
+  if (game->pending_endgame != 0
+      && run_get_version (bundle) == TAF_VERSION_400
+      && uip_line_names_npc (game, run_line_element))
+    {
+      run_line_buffer[0] = NUL;
+      return;
+    }
+
+  /*
+   * Command line element not understood.  Own the escaped copy with
+   * RAII (as the sibling code above does): var_set_ref_text() can throw
+   * (scr_fatal_error), and the old manual scr_free() after it leaked on
+   * the throw.
+   */
+  scr_owned_string escaped
+      (pf_escape (scr_normalize_string (run_line_element)));
+  var_set_ref_text (gs_get_vars (game), escaped.get ());
+  message = prop_get_global_string (bundle, "DontUnderstand");
+  pf_buffer_string (filter, message);
+  pf_buffer_character (filter, '\n');
+
+  /*
+   * A line element that's not understood leaves the rest of the line
+   * alone.  Upstream SCARE threw the remaining elements out here; no
+   * Runner does.  run400 re-reads its queue at the very END of
+   * generaltasks (48BCF2, `If MemVar_4942E4 <> "" Then MemVar_494174 =
+   * MemVar_4942E4 : GoTo 489FEB`), below every exit the DontUnderstand
+   * text can take: `wave zzz and yyy` on the p4AND probe answers NO IDEA
+   * twice (Adrift_955).  run390 answers `zzz, look` with NO IDEA and
+   * the room (Adrift_1191), run380 `zzz then look` with "I don't
+   * understand." and the room (Adven_5.rtf).
+   */
+
+  /*
+   * 4.0: and what the setter was handed on the way down still stands --
+   * openclose's loop runs above therest's DontUnderstand, so `cut rope
+   * with gems` answers NO IDEA and leaves "it" at the emerald (p4WTIE,
+   * Adrift_it2).  See uip_note_antecedent_400() in scparser.cpp.
+   */
+  if (run_get_version (bundle) >= TAF_VERSION_400)
+    {
+      uip_commit_antecedent_400 (game);
+      uip_set_pronoun_flags (FALSE, FALSE);
+    }
+  /* 3.9: generaltasks' co() pre-pass ran before anything answered. */
+  else if (run_get_version (bundle) == TAF_VERSION_390)
+    uip_assign_pronouns (game, command);
+}
+
+/*
+ * run_element_note_undo()
+ *
+ * The element was answered: unless administrative, back up any valid
+ * undo, copy the temporary game into the undo buffer, and assign the
+ * pronouns the command used ready for the next element.
+ */
+static void
+run_element_note_undo (scr_gameref_t game, const scr_char *command,
+                       scr_bool was_undo_available)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  /*
+   * Unless administrative, back up any valid undo, copy the temporary
+   * game into the undo buffer, flag the undo buffer as available, and
+   * assign any pronouns used in the command ready for the next iteration.
+   */
+  /*
+   * An undo, restore or restart is never itself backed up: at 3.9 undo
+   * and restore are real turns (see lib_is_version_390() in sclibrar.cpp),
+   * and backing up an undo would re-arm the buffer it just spent.
+   */
+  if (!game->is_admin && !game->do_restart && !game->do_restore
+      && !(was_undo_available && !game->undo_available))
+    {
+      if (game->undo_available)
+        memo_save_game (gs_get_memento (game), game->undo,
+                        run_undo_text.c_str ());
+
+      gs_copy (game->undo, game->temporary);
+      run_undo_text = run_temporary_text;
+      game->undo_available = TRUE;
+
+      uip_assign_pronouns (game, command);
+    }
+  else if (run_get_version (bundle) >= TAF_VERSION_400
+           && !game->do_restart && !game->do_restore)
     {
       /*
-       * Unless administrative, back up any valid undo, copy the temporary
-       * game into the undo buffer, flag the undo buffer as available, and
-       * assign any pronouns used in the command ready for the next iteration.
+       * A 4.0 line that was not a turn -- a question, "see no such
+       * thing" -- still leaves what the setter was handed; see
+       * uip_note_antecedent_400() in scparser.cpp.
        */
-      /*
-       * An undo, restore or restart is never itself backed up: at 3.9 undo
-       * and restore are real turns (see lib_is_version_390() in sclibrar.cpp),
-       * and backing up an undo would re-arm the buffer it just spent.
-       */
-      if (!game->is_admin && !game->do_restart && !game->do_restore
-          && !(was_undo_available && !game->undo_available))
-        {
-          if (game->undo_available)
-            memo_save_game (memento, game->undo, run_undo_text.c_str ());
-
-          gs_copy (game->undo, game->temporary);
-          run_undo_text = run_temporary_text;
-          game->undo_available = TRUE;
-
-          uip_assign_pronouns (game, command);
-        }
-      else if (run_get_version (bundle) >= TAF_VERSION_400
-               && !game->do_restart && !game->do_restore)
-        {
-          /*
-           * A 4.0 line that was not a turn -- a question, "see no such
-           * thing" -- still leaves what the setter was handed; see
-           * uip_note_antecedent_400() in scparser.cpp.
-           */
-          uip_commit_antecedent_400 (game);
-          uip_set_pronoun_flags (FALSE, FALSE);
-        }
-      else if (run_get_version (bundle) == TAF_VERSION_390
-               && !game->do_restart && !game->do_restore)
-        uip_assign_pronouns (game, command);
+      uip_commit_antecedent_400 (game);
+      uip_set_pronoun_flags (FALSE, FALSE);
     }
+  else if (run_get_version (bundle) == TAF_VERSION_390
+           && !game->do_restart && !game->do_restore)
+    uip_assign_pronouns (game, command);
+}
+
+/*
+ * run_element_finish()
+ *
+ * After an answered element: the history, the rest of the line a walk
+ * holds back, the restart/restore/undo special case, and the element
+ * `again` will repeat.
+ */
+static void
+run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
+                    scr_bool was_undo_available)
+{
+  const scr_memo_setref_t memento = gs_get_memento (game);
 
   /*
    * If do_again is set, we'll come round with the prior command in line
    * element in a moment, so save nothing for that case.  Otherwise save the
    * command in the history.
    */
-  if (!scr_strempty (line_element) && !game->do_again)
+  if (!scr_strempty (run_line_element) && !game->do_again)
     {
       /*
        * If this is a failed redo, redo_sequence will be set but do_again will
@@ -4498,8 +4562,9 @@ run_player_input (scr_gameref_t game)
         {
           scr_int timestamp;
 
-          timestamp = var_get_elapsed_seconds (vars);
-          memo_save_command (memento, line_element, timestamp, game->turns);
+          timestamp = var_get_elapsed_seconds (gs_get_vars (game));
+          memo_save_command (memento, run_line_element, timestamp,
+                             game->turns);
         }
       else
         game->redo_sequence = 0;
@@ -4511,11 +4576,11 @@ run_player_input (scr_gameref_t game)
    * until the arrival; run400's first step empties the queue.  See
    * run_goto_rest.
    */
-  if (run_goto_next < run_goto_steps.size () && line_buffer[0] != NUL)
+  if (run_goto_next < run_goto_steps.size () && run_line_buffer[0] != NUL)
     {
-      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-        run_goto_rest = line_buffer;
-      line_buffer[0] = NUL;
+      if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+        run_goto_rest = run_line_buffer;
+      run_line_buffer[0] = NUL;
     }
 
   /*
@@ -4526,24 +4591,24 @@ run_player_input (scr_gameref_t game)
   if (game->do_restart || game->do_restore
       || (was_undo_available && !game->undo_available))
     {
-      line_buffer[0] = NUL;
+      run_line_buffer[0] = NUL;
       run_cancel_goto_walk ();
-      return status;
+      return;
     }
 
   /* If not empty, consider as saving for "again" calls and in the history. */
-  if (!scr_strempty (line_element))
+  if (!scr_strempty (run_line_element))
     {
       /*
        * Unless "again", note this line element as prior input.  "Again" shows
        * up as do_again set in the game, where it wasn't when we entered here.
        */
       if (!game->do_again && !is_rerunning)
-        strncpy (prior_element, line_element, LINE_BUFFER_SIZE);
+        strncpy (run_prior_element, run_line_element, LINE_BUFFER_SIZE);
 
       /*
        * If this was a request to run a command from the history, copy that
-       * command into the prior_element for the next iteration.  The library
+       * command into run_prior_element for the next iteration.  The library
        * should have verified the value in redo_sequence, so fetching the
        * command string should not fail.
        */
@@ -4553,7 +4618,7 @@ run_player_input (scr_gameref_t game)
 
           redo_command = memo_find_command (memento, game->redo_sequence);
           if (redo_command)
-            strncpy (prior_element, redo_command, LINE_BUFFER_SIZE);
+            strncpy (run_prior_element, redo_command, LINE_BUFFER_SIZE);
           else
             {
               scr_error ("run_player_input: invalid redo sequence request\n");
@@ -4562,6 +4627,99 @@ run_player_input (scr_gameref_t game)
           game->redo_sequence = 0;
         }
     }
+}
 
+/*
+ * run_player_input()
+ *
+ * Take a line of player input and buffer it.  Split the line into elements
+ * separated by periods.  For the first element, try to match it to either a
+ * task or a standard command, and return TRUE if it matched, FALSE otherwise.
+ *
+ * On subsequent calls, successively work with the next line element until
+ * none remain.  In this case, prompt for more player input and continue as
+ * above.
+ *
+ * For the case of "again" or "g", rerun the last successful command element.
+ *
+ * One extra special special case; if called with a game that is not running,
+ * this is a signal to reset all noted line input to initial conditions, and
+ * just return.  Sorry about the ugliness.
+ */
+scr_bool
+run_player_input (scr_gameref_t game)
+{
+  scr_bool is_rerunning, was_undo_available, status;
+  scr_bool is_new_line = FALSE;
+  std::string command;
+
+  /* Special case; reset statics if the game isn't running. */
+  if (!game->is_running)
+    {
+      run_input_reset ();
+      return TRUE;
+    }
+
+  /*
+   * Save the settings of the game's do_again and undo_available flags for
+   * later checks.
+   */
+  is_rerunning = game->do_again;
+  was_undo_available = game->undo_available;
+
+  /* See if the player asked to rerun a command element. */
+  if (game->do_again)
+    {
+      if (!run_repeat_element (game))
+        return FALSE;
+    }
+  else
+    {
+      is_new_line = run_read_line (game);
+      run_cut_element (game);
+    }
+
+  /* `again` is no element of its own; see run_count_element(). */
+  if (!is_rerunning)
+    run_count_element (game);
+
+  /* Copy the current game to the temporary undo buffer, along with the
+     output that the turn just finished left it with. */
+  gs_copy (game->temporary, game);
+  run_temporary_text = pf_take_printed (gs_get_filter (game));
+  game->player_moved_by_command = FALSE;
+
+  run_element_command (game, command);
+  run_element_begin (game, command.c_str (), is_new_line);
+
+  /*
+   * The repeat words are tested on the whole line before any task gets it:
+   * run400 89FE2 and run390 45F094 sit above tasks(0) (45F48B), run380 441B79
+   * and run370 43B3C9 likewise, but without `g`.  So a task that listens for
+   * `g` can never see it typed from 3.90 on; shadowpeak's riddle (TASK 404,
+   * answer `g`) repeats the previous command in run400 (2026-09-14).  Below
+   * 3.90 the `g` row in the standard table stays a Scarier abbreviation and
+   * keeps its place after the tasks.
+   */
+  if (!is_rerunning && run_is_repeat_word (game, run_line_element))
+    status = lib_cmd_again (game);
+  else
+    /* Try the command line element against command matchers. */
+    status = run_all_commands (game, command.c_str ());
+
+  status = run_element_questions (game, command.c_str (), status);
+
+  if (run_element_co_answer_400 (game, command.c_str (), status))
+    {
+      run_line_buffer[0] = NUL;
+      return status;
+    }
+  if (!status)
+    {
+      run_element_not_understood (game, command.c_str ());
+      return status;
+    }
+  run_element_note_undo (game, command.c_str (), was_undo_available);
+  run_element_finish (game, is_rerunning, was_undo_available);
   return status;
 }
