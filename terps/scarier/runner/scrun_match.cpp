@@ -1441,58 +1441,38 @@ run_match_task_commands (scr_gameref_t game,
 
 
 /*
- * run_task_is_unrestricted()
- * run_task_is_loudly_restricted()
+ * run_task_restriction()
  *
- * Helpers for run_game_commands_common().
+ * Helper for run_game_commands_common().
  *
- * Adapters for uncovering task restriction state.  The first returns TRUE
- * if the task is unrestricted, and can therefore run unimpeded.  The second
- * returns TRUE iff the task is restricted and has a fail message that
- * indicates why it fails; such tasks, if run, produce their failure message
- * and don't change state.
+ * Adapter for uncovering task restriction state.  An unrestricted task can
+ * run unimpeded; a loudly restricted one has a fail message that indicates
+ * why it fails, and if run produces that message and changes no state; a
+ * silently restricted one has no such message.  Restrictions that fail to
+ * parse count as loudly restricted: the task must not run, and the loud
+ * arm is the one that reports it.
  */
-static scr_bool
-run_task_is_unrestricted (scr_gameref_t game, scr_int task)
+enum run_restriction_t
+{
+  RUN_UNRESTRICTED, RUN_RESTRICTED_LOUDLY, RUN_RESTRICTED_SILENTLY
+};
+
+static run_restriction_t
+run_task_restriction (scr_gameref_t game, scr_int task)
 {
   scr_bool restrictions_passed;
   const scr_char *fail_message;
 
-  /*
-   * Evaluate task restrictions, and if they fail to parse for some reason,
-   * return as if restrictions did not pass.
-   */
   if (!restr_eval_task_restrictions (game, task,
                                      &restrictions_passed, &fail_message))
     {
-      scr_error ("run_task_is_unrestricted: restrictions error, %ld\n", task);
-      return FALSE;
+      scr_error ("run_task_restriction: restrictions error, %ld\n", task);
+      return RUN_RESTRICTED_LOUDLY;
     }
 
-  /* Return TRUE if the task is unrestricted. */
-  return restrictions_passed;
-}
-
-static scr_bool
-run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
-{
-  scr_bool restrictions_passed;
-  const scr_char *fail_message;
-
-  /*
-   * Evaluate task restrictions, and if they fail to parse for some reason,
-   * return as if restrictions did not pass.
-   */
-  if (!restr_eval_task_restrictions (game, task,
-                                     &restrictions_passed, &fail_message))
-    {
-      scr_error ("run_task_is_loudly_restricted:"
-                " restrictions error, %ld\n", task);
-      return TRUE;
-    }
-
-  /* Return TRUE if the task is restricted and indicates why. */
-  return !restrictions_passed && (fail_message != NULL);
+  if (restrictions_passed)
+    return RUN_UNRESTRICTED;
+  return fail_message ? RUN_RESTRICTED_LOUDLY : RUN_RESTRICTED_SILENTLY;
 }
 
 
@@ -1995,7 +1975,7 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                                        is_forwards, is_library))
             {
               if (is_runnable_directional
-                  && run_task_is_unrestricted (game, task))
+                  && run_task_restriction (game, task) == RUN_UNRESTRICTED)
                 {
                   /*
                    * In the peek pass, a silent, literal task does not win --
@@ -2107,7 +2087,8 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                       break;
                     }
 
-                  if (run_task_is_loudly_restricted (game, task))
+                  if (run_task_restriction (game, task)
+                      == RUN_RESTRICTED_LOUDLY)
                     {
                       run_note_task_ran (game, task);
                       if (task_run_task (game, task, is_forwards))
@@ -2668,7 +2649,7 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
     {
       /* No command text to dispatch; run the task directly. */
       if (task_can_run_task_directional (game, eventtask, TRUE)
-          && run_task_is_unrestricted (game, eventtask))
+          && run_task_restriction (game, eventtask) == RUN_UNRESTRICTED)
         {
           run_note_dispatched_task_ran (game);
           task_run_task (game, eventtask, TRUE);
@@ -2707,7 +2688,7 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
       if (!is_matched)
         continue;
 
-      if (run_task_is_unrestricted (game, task))
+      if (run_task_restriction (game, task) == RUN_UNRESTRICTED)
         {
 #ifdef SCARIER_DUMP_TOOLS
           {
@@ -3294,7 +3275,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
           && !run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
           && (version < TAF_VERSION_400
-              || (run_task_is_unrestricted (game, task)
+              || (run_task_restriction (game, task) == RUN_UNRESTRICTED
                   && !scr_strempty (prop_get_indexed_string
                                       (bundle, "Tasks", task, "RepeatText"))))
           && run_match_task_commands (game, task, string, TRUE, FALSE))
