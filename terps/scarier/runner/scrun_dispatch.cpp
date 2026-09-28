@@ -2400,110 +2400,108 @@ run_npc_row_blocked (const scr_commands_t *command)
 
 
 /*
- * run_all_commands()
- * run_game_task_commands()
+ * run_put_class_guard
  *
- * Alternative facets of run_game_commands_common().  The first is used by the
- * main user input handling loop; the latter by the library when looking for
- * game commands that override standard actions.
+ * Confines the put rows to their class test for one run_all_commands() line
+ * (run_put_class_only), and lets them go again when the line is done.
  */
-static scr_bool
-run_all_commands (scr_gameref_t game, const scr_char *string)
+struct run_put_class_guard
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_bool status, ask_echo, put_first, put_contained, refused;
-  std::vector<std::string> put_clauses;
-  scr_bool repeat_found, repeat_pending, inv_listed;
-  const scr_char *task_string;
-  scr_int prior_npc;
+  explicit run_put_class_guard (scr_bool on) { run_put_class_only = on; }
+  ~run_put_class_guard () { run_put_class_only = FALSE; }
+  run_put_class_guard (const run_put_class_guard &) = delete;
+  run_put_class_guard &operator= (const run_put_class_guard &) = delete;
+};
 
-  /*
-   * Adrift command matching is just weird, perhaps broken.  In theory, a
-   * game can override system commands with a properly constructed task and
-   * set of command matchers.  However, the Runner isn't terribly consistent
-   * in when this will work and when not, and some games rely on that in-
-   * consistency.  In particular, a game with a "* object" task that has
-   * failing restrictions will not be able to override the system's "take
-   * object", whereas a game's "take object", under the same circumstances,
-   * will.  Yet if the restrictions pass, a game's "* object" overrides the
-   * system's "take object" with no apparent difficulty.
-   *
-   * For example, "The Woods Are Dark" has a "* ball *" task with the
-   * restriction "must be holding ball".  Without special casing it, there's
-   * no way to get the ball in the first place.
-   *
-   * Trying to find the right way to do things here, then, has been tricky.
-   * Here's the current process:  First, try "priority" system commands; ones
-   * that move objects to inventory.  These system commands will call back
-   * into trying game commands for objects taken or dropped, and in those
-   * tries, allow overrides only if the game task is explicit about what it's
-   * doing -- it doesn't start with "*", or it does but explicitly names a
-   * verb (see run_match_task_commands() for the run400 probe results behind
-   * that rule) -- and handle restrictions in those tries.  Next, run game
-   * commands directly, ignoring any cases where restrictions fail to let the
-   * task run.  After that, retry all game commands again with restrictions
-   * enabled.  And finally, try all other standard library commands.
-   *
-   * Priority commands go BEFORE the direct game-command pass (not after, as
-   * an earlier version of this had it): probe DONE, task 72 in "Space Boy's
-   * First Adventure" is the literal, unrestricted, textless command "drop
-   * cape to the floor" (+250 score, no message).  run400 answers the typed
-   * command with the library's ordinary "Player drop the cape." and the
-   * score UNCHANGED (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23) -- the task
-   * never runs at all, even though its own literal pattern matches the raw
-   * input exactly.  A same-shaped task using a bare object with no trailing
-   * words ("* drop * rock *", i.e. equivalent to the library's own
-   * canonical "drop <object>" callback string) DOES run silently alongside
-   * the library's message (Adrift_2_pET.txt).  So it is specifically the
-   * priority command's own callback -- matching only its constructed
-   * "verb OBJECT" short form, not the raw typed line -- that gets first
-   * refusal on a recognised system verb; a task whose pattern extends past
-   * that short form (trailing words the library only swallows as free
-   * %text%) is never reached once the library has already claimed and
-   * finished the command.  Swapping the two passes reproduces that: on a
-   * recognised system verb, run_priority_commands() (and its short-form
-   * task callback) gets the first and often the only look, and the direct,
-   * ignore-restrictions task pass only sees what the priority commands
-   * didn't recognise as a system verb at all (so "etcontrol"-style
-   * non-system task commands are unaffected).
-   *
-   * But that swap alone regresses the same game's task 27, "{take/get}
-   * {them/boots}" (CompleteText "Taken."): the callback's constructed short
-   * form is built from the object's display Short name ("get pair of Flight
-   * Boots"), never from an alias like "boots", so the callback attempt fails
-   * for a reason unrelated to task 72's "trailing words" problem, and
-   * priority's own generic take now wins a task the golden walkthrough (and,
-   * definitionally, the pre-swap Runner-matching behaviour this port has
-   * always had) says must win instead.  (The bare swap is not a near miss:
-   * it fails 75 of the 262 corpus walkthroughs, because scarier's callback
-   * string is weaker than the Runner's -- Short name only, no aliases -- so
-   * far more tasks are unreachable here than there.)  So a peek at the direct
-   * task pass runs BEFORE priority after all, and task 72's shape is excluded
-   * from it: silent (no CompleteText, ShowRoomDesc, AdditionalMessage or
-   * status-setting action) AND unreachable from any library short form for
-   * any object ("drop cape" / "drop the cape" can never satisfy a pattern
-   * that insists on "to the floor").  Both halves are needed -- silence alone
-   * loses "Sommeril" task 35 and 3 more walkthroughs, unreachability alone
-   * loses 27 of them.
-   *
-   * Excluding a task means abandoning the ENTIRE peek, not reading past it to
-   * the next task.  ADRIFT resolves a command to the lowest-indexed matching
-   * task, so stepping over a match to let a later task win invents a Runner
-   * behaviour that does not exist: "The Forum" task 1 (silent literal "x ...
-   * hand", which falls through to the library's own examine) was being
-   * skipped in favour of task 2, "[examine/read/x/l/look]{at}[%object%]",
-   * whose CompleteText then answered every examine in the game.  That cost
-   * 8 corpus walkthroughs (forum, forum2, cursed, iqsfot, sommeril, funhouse
-   * and both to_hell_and_beyond replays) until the peek was made all-or-
-   * nothing.  On abandonment priority gets its look next, and if it does not
-   * claim the command the immediately following unexcluded pass re-matches
-   * from task 0, unchanged from the original order.
-   */
-  /*
-   * The carrying-capacity accounting toggle is exposed as a Glk port command
-   * ("glk capacity"), handled in the front end before input ever reaches the
-   * interpreter, so there is no administrative meta-command to match here.
-   */
+/*
+ * run_line_t
+ *
+ * One typed line on its way through run_all_commands(): the passes the
+ * Runner's generaltasks makes over it, in its order, and the flags those
+ * passes hand each other.  run() is the sequence; every pass is a method of
+ * its own, documented where it is defined below.
+ */
+class run_line_t
+{
+public:
+  run_line_t (scr_gameref_t game_, const scr_char *string_)
+    : game (game_), filter (gs_get_filter (game_)), string (string_) {}
+  run_line_t (const run_line_t &) = delete;
+  run_line_t &operator= (const run_line_t &) = delete;
+
+  scr_bool run ();
+
+private:
+  void reset ();
+  scr_bool lenient ();
+  scr_bool spent_claim_390 ();
+  void put_prepass ();
+  void put_pass ();
+  void get_outer_400 ();
+  void task_peek ();
+  void priority_pass ();
+  void task_passes ();
+  void battle_pass ();
+  void library ();
+  void settle ();
+  scr_bool finish (scr_bool result);
+
+  const scr_gameref_t game;
+  const scr_filterref_t filter;
+  const scr_char *const string;
+
+  /* status is TRUE once a handler has answered the line; refused, once a
+     put has printed a refusal and left the line to the task passes. */
+  scr_bool status = FALSE, refused = FALSE;
+  /* The register uip_rewrite_references() reads, as the line found it, and
+     whether the "(<npc>)" echo came out; see spent_claim_390(). */
+  scr_int prior_npc = -1;
+  scr_bool ask_echo = FALSE;
+  /* A spent 4.0 task's RepeatText answers the line (repeat_found) and, with
+     no survivor handler, keeps the priority rows off it (repeat_pending). */
+  scr_bool repeat_found = FALSE, repeat_pending = FALSE;
+  /* put_drop_list's view of the line: the hoisted line it reads, its
+     clauses, whether a named put row has it first, and the battle verbs
+     beside it; see put_prepass(). */
+  std::string put_hoisted;
+  const scr_char *put_line = string;
+  std::vector<std::string> put_clauses;
+  scr_bool put_first = FALSE, put_contained = FALSE;
+  scr_int battle_kinds = 0;
+  /* The inventory listing printed ahead of the tasks; see put_pass(). */
+  scr_bool inv_listed = FALSE;
+  /* The line the task passes dispatch against. */
+  const scr_char *task_string = string;
+  /* get_outer's view of a 4.0 take line, and what its get_piece did; see
+     get_outer_400(). */
+  std::string outer_battle;
+  const scr_char *outer_line = string;
+  scr_bool outer_twice = FALSE, outer_silent = FALSE;
+  size_t outer_mark = 0;
+  /* Where the buffer stood when the task dispatcher got the line, and what
+     the passes before and after it settled; see task_peek() and
+     task_passes(). */
+  size_t task_mark = 0;
+  scr_bool claimed_before_tasks = FALSE, silent_before_priority = FALSE;
+  scr_bool task_claimed = FALSE, silent_task_390 = FALSE;
+  scr_bool silent_names_npc_390 = FALSE;
+  /* The line the take and drop rows read, and its goto class; see
+     priority_pass(). */
+  std::string priority_hoisted, priority_goto_rest;
+  const scr_char *priority_line = string;
+  scr_int priority_goto = RUN_GOTO_NONE;
+  /* Whether the library cascade got the line at all; see battle_pass(). */
+  scr_bool reached_library = FALSE;
+};
+
+/*
+ * run_line_t::reset()
+ *
+ * The per-line stores generaltasks makes before it looks at the line.
+ */
+void
+run_line_t::reset ()
+{
   run_dispatch_input = string;
 #ifdef SCARIER_DUMP_TOOLS
   run_trace_last_input = string;
@@ -2515,15 +2513,17 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   lib_co_note_line_top (game);
   obj_mark_npc_parts_seen (game);
   lib_prepass_seen_3738 (game, string);
-  /*
-   * The "(<npc>)" an "ask about" / "talk about" echoes comes out ahead of
-   * everything, task matching included; see uip_print_ask_echo().  The
-   * characters this line names are noted here too: run400 notes them inside
-   * characters(), which every line reaches (48B56E is below the task
-   * dispatch's exits), so a task-answered line names its characters just
-   * the same.  Both read the register before the noting, so remember what
-   * it held for the rewrite further down.
-   */
+}
+
+/*
+ * run_line_t::lenient()
+ *
+ * Whether the line matches a task only leniently, for the lenient-task
+ * guard run() holds over the whole line.
+ */
+scr_bool
+run_line_t::lenient ()
+{
   /* Deliberate deviation: see run_line_matches_task_strictly().  The peek
      runs strictly, so the flag is cleared for it first. */
   const scr_bool outer_lenient = run_lenient_tasks;
@@ -2531,8 +2531,28 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   uip_set_lenient_tasks (FALSE);
   const scr_bool line_lenient = !run_line_matches_task_strictly (game, string);
   run_lenient_tasks = outer_lenient;
-  const scr_lenient_tasks_guard lenient_tasks (line_lenient);
+  return line_lenient;
+}
 
+/*
+ * run_line_t::spent_claim_390()
+ *
+ * The ask/talk echo and the character noting that come out ahead of
+ * everything, then the pre-4.0 spent task's claim on the line.  Returns
+ * TRUE when that claim ends the line.
+ */
+scr_bool
+run_line_t::spent_claim_390 ()
+{
+  /*
+   * The "(<npc>)" an "ask about" / "talk about" echoes comes out ahead of
+   * everything, task matching included; see uip_print_ask_echo().  The
+   * characters this line names are noted here too: run400 notes them inside
+   * characters(), which every line reaches (48B56E is below the task
+   * dispatch's exits), so a task-answered line names its characters just
+   * the same.  Both read the register before the noting, so remember what
+   * it held for the rewrite in library().
+   */
   prior_npc = game->last_npc;
   ask_echo = uip_print_ask_echo (game, string);
   uip_note_named_npcs (game, string);
@@ -2555,12 +2575,21 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         {
           if (!run_spent_survivor_390 (game, string))
             run_spent_claim_390 (game, message);
-          run_dispatch_input = NULL;
-          run_tasks_ran_this_command.clear ();
           return TRUE;
         }
     }
+  return FALSE;
+}
 
+/*
+ * run_line_t::put_prepass()
+ *
+ * What the passes below need to know before any of them speaks: whether
+ * a spent task answers the line, and put_drop_list's view of it.
+ */
+void
+run_line_t::put_prepass ()
+{
   /*
    * 4.0 puts are the exception to the peek: the library's put-in / put-on
    * gets the line BEFORE any task does, and a task only ever answers a put
@@ -2605,7 +2634,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * they are still a turn, though, because the dispatcher sets its handled
    * byte before the character pass overwrites the message (`x bob` on a
    * spent task ticks the probe's event, where a plain NPC examine does not
-   * -- Adrift_951, and see run_note_repeat_survivor_turn below).
+   * -- Adrift_951, and see the survivor's turn in settle()).
    */
   repeat_found = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
                  && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
@@ -2613,27 +2642,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   run_repeat_found_400 = repeat_found;
 
   /*
-   * put_drop_list's own clause loop, carved before anything else looks at
-   * the line: run400 enters the routine on the whole-word "put"/"drop"
-   * alone, so whether the line has a NAMED put row is asked of the first
-   * CLAUSE, which is what the Runner actually resolves.  See
-   * lib_put_clauses_400() and the block below.
-   */
-  put_clauses.clear ();
-  /*
    * put_drop_list is one of the handlers 4.0 enters on its verb ANYWHERE in
    * the line, so this pre-pass reads the same hoisted line the library does
    * further down -- `blorp drop coin` is "You drop the coin.", not the
    * leftover-word answer the line as typed scores.  See run_hoist_verb_line().
    */
-  std::string put_hoisted;
-  const scr_char *put_line = string;
   /* A battle verb beside another handler's word; see run_battle_line().
-     4.0's put_drop_list, like get_outer below, takes its word anywhere on
+     4.0's put_drop_list, like get_outer_400(), takes its word anywhere on
      such a line: `hit bob drop coin` with the coin loose is "You are not
      holding the coin.", no blow. */
-  const scr_int battle_kinds = repeat_pending
-                               ? 0 : run_battle_line_class (game, string);
+  battle_kinds = repeat_pending ? 0 : run_battle_line_class (game, string);
   if ((battle_kinds & RUN_BATTLE_DROP)
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
@@ -2650,10 +2668,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   else if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
            && run_hoist_verb_line (game, string, put_hoisted))
     put_line = put_hoisted.c_str ();
+  /*
+   * put_drop_list's own clause loop, carved before anything else looks at
+   * the line: run400 enters the routine on the whole-word "put"/"drop"
+   * alone, so whether the line has a NAMED put row is asked of the first
+   * CLAUSE, which is what the Runner actually resolves.  See
+   * lib_put_clauses_400() and put_pass().
+   */
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
     lib_put_clauses_400 (game, put_line, put_clauses);
-  put_contained = FALSE;
   if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
       || repeat_pending)
     put_first = FALSE;
@@ -2661,14 +2685,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     put_first = run_is_put_command_400 (game, put_line, &put_contained);
   else
     put_first = run_is_put_command (game, put_clauses[0].c_str ());
-  struct put_class_guard
-  {
-    explicit put_class_guard (scr_bool on) { run_put_class_only = on; }
-    ~put_class_guard () { run_put_class_only = FALSE; }
-  } const put_class (!put_first && !repeat_pending
-                     && lib_put_held_unsplit_400 (game, put_line));
-  status = FALSE;
-  refused = FALSE;
+}
+
+/*
+ * run_line_t::put_pass()
+ *
+ * The handlers run400 runs above the task dispatcher: put_drop_list's
+ * take-from, the inventory listing and the named put rows, clause by
+ * clause.
+ */
+void
+run_line_t::put_pass ()
+{
   if (!repeat_pending && run_put_take_400 (game, string))
     {
       status = TRUE;
@@ -2772,6 +2800,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
             }
         }
     }
+}
+
+/*
+ * run_line_t::get_outer_400()
+ *
+ * run400's get_outer, between put_drop_list and the task dispatcher: a
+ * take line's own pre-match against the take-family tasks, and the take
+ * it makes when they decline.
+ */
+void
+run_line_t::get_outer_400 ()
+{
   /*
    * A 4.0 put-in whose direct object named nothing has already rewritten the
    * command line the tasks are dispatched against, and the Runner never puts
@@ -2810,10 +2850,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * coin (or refuses) and strikes nothing, `take hit bob` names nothing to
    * take and is a blow.  See run_battle_line().
    */
-  std::string outer_battle;
-  const scr_char *outer_line = string;
-  scr_bool outer_twice = FALSE;
-  size_t outer_mark = 0;
   if ((battle_kinds & RUN_BATTLE_TAKE)
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
@@ -2946,7 +2982,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
             status = outer_take ();
         }
     }
+}
 
+/*
+ * run_line_t::task_peek()
+ *
+ * The task dispatcher's first look at the line, ahead of the take and
+ * drop rows: the all-or-nothing peek of the design note in
+ * run_all_commands().
+ */
+void
+run_line_t::task_peek ()
+{
   if (!status && !refused
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     run_restriction_cache_task_pick (game, task_string);
@@ -2969,8 +3016,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       pf_buffer_join_pending (filter);
     }
 
-  const size_t task_mark = pf_buffer_length (filter);
-  const scr_bool claimed_before_tasks = status;
+  task_mark = pf_buffer_length (filter);
+  claimed_before_tasks = status;
   if (!status && !refused)
     {
       /* get_piece's run does not count as the dispatcher's one task, and
@@ -3003,10 +3050,21 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * "I don't understand." rather than "You don't have the red cape!"
    * (Adrift_287_c39.txt).
    */
-  const scr_bool silent_before_priority = !claimed_before_tasks && !status
+  silent_before_priority = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
       && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+}
+
+/*
+ * run_line_t::priority_pass()
+ *
+ * The priority rows -- the takes and drops that move objects to and from
+ * inventory -- on the line they read, with gotoplace's turn after them.
+ */
+void
+run_line_t::priority_pass ()
+{
   /*
    * The take and drop rows live in the priority table, not in the library
    * cascade below, and pre-4.0 takes() and drops() are entered on their verb
@@ -3017,9 +3075,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * the coin.  See run_hoist_verb_line(), and lib_move_named_whole_line_pre400()
    * for the noun half that then has to find "coin" past the nonsense word.
    */
-  std::string priority_hoisted, priority_goto_rest;
-  const scr_char *priority_line = string;
-  scr_int priority_goto = RUN_GOTO_NONE;
   if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
       /* A leading goto word is no verb to takes() and drops(); see
@@ -3080,7 +3135,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        * refusal-only put among them -- the 4.0 closed-container refusal
        * from lib_put_in_closed_400(), a size or capacity refusal -- has
        * printed its refusal and left the line for the task passes exactly
-       * as a named row's does above.  Settle it the same way, or the
+       * as a named row's does in put_pass().  Settle it the same way, or the
        * STANDARD_COMMANDS twin below prints the refusal a second time:
        * probe PCLOSED `put all in chest` with the chest shut and a stone in
        * hand is one "The chest is closed!" (Adrift_1195.txt:7).
@@ -3092,6 +3147,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           pf_buffer_join_pending (filter);
         }
     }
+}
+
+/*
+ * run_line_t::task_passes()
+ *
+ * The task dispatcher proper: once ignoring failed restrictions, once
+ * with them, and what a task that ran and printed nothing means below
+ * 4.0.
+ */
+void
+run_line_t::task_passes ()
+{
   if (!status)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, FALSE);
@@ -3099,8 +3166,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       && !run_defer_loud_tasks_to_movement (game, task_string))
     status = run_game_commands_in_parser_context (game, task_string,
                                                   TRUE, FALSE);
-  const scr_bool task_claimed = !claimed_before_tasks && status
-                                && run_any_task_ran_this_command ();
+  task_claimed = !claimed_before_tasks && status
+                 && run_any_task_ran_this_command ();
   /*
    * 3.9: a task that ran and printed nothing claims the line in run390 --
    * tasks() returns it, generaltasks skips everything below the dispatcher,
@@ -3109,8 +3176,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * (2026-09-19; ALEXIS.TAF T99 `open chest`, task 14 `open * chest` with no
    * CompleteText, draws nothing in run390x per alexis_tr_trace.txt, and
    * ticking there put every later battle roll a turn out of phase), then the
-   * claim (2026-09-20), which is the `!silent_task_390` guard on the library
-   * block below: status stays FALSE, so run_process_input_line() prints
+   * claim (2026-09-20), which is the `!silent_task_390` guard on library():
+   * status stays FALSE, so run_process_input_line() prints
    * DontUnderstand, and nothing between here and there speaks.
    *
    * It is what run390 answers `read diary` in everything, `piss` in life,
@@ -3125,11 +3192,22 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * Adrift_286_c38.rtf), but there the line stays a turn: neither has the
    * not-a-turn byte below 3.90.
    */
-  const scr_bool silent_task_390 = !claimed_before_tasks && !status
+  silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
       && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+}
 
+/*
+ * run_line_t::battle_pass()
+ *
+ * dobattle's stamina recovery and the battle line itself, and the claims
+ * a refusal, an inventory listing or get_piece's double run make on a
+ * line no task answered.
+ */
+void
+run_line_t::battle_pass ()
+{
   /*
    * dobattle (run400 Proc_11_4_47F084), called from generaltasks at 48A4A2
    * when the Battle System is on, opens with the stamina recovery loop for
@@ -3180,163 +3258,186 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * get_outer was its take.  Whatever either run printed answers it;
    * nothing at all is DontUnderstand (p4TDBL `get eel`, Adrift_282_p4tdbl).
    */
-  const scr_bool outer_silent = outer_twice && !status;
+  outer_silent = outer_twice && !status;
   if (outer_silent && pf_buffer_length (filter) > outer_mark)
     status = TRUE;
   if (!status && !silent_task_390 && !outer_silent && battle_kinds)
     status = run_battle_line (game, string, battle_kinds);
-  const scr_bool reached_library = !status && !silent_task_390
-                                   && !outer_silent;
-  if (!status && !silent_task_390 && !outer_silent)
-    {
-      /*
-       * Only now, with every task pass declined, does the Runner rewrite a
-       * "give X" with no "to", or an "ask about" / "talk about", around the
-       * last character a library command named (uip_rewrite_references()).
-       * The order matters: run400's input routine dispatches typed-command
-       * tasks at 48A481 (Proc_19_24_44CCE0), well before the give rewrite at
-       * loc_48A98A and the Proc_19_0_480674 call at 48B56E that holds the
-       * ask/talk rewrite, and a matched task jumps past both (GoTo 48B4E3).
-       * So "Sommeril"'s literal task "ask about glass framed page" keeps
-       * answering even with the Gargoyle as the last-named character;
-       * rewriting first turned it into "ask gargoyle about ..." and lost the
-       * task to the library's generic reply.  Its "(GARGOYLE)" is printed
-       * all the same, up at the top of this routine -- only the rewritten
-       * STRING is the library's; see uip_print_ask_echo().
-       *
-       * The Runner records the characters a line names inside Proc_19_0
-       * (loc_47F3A2) as well, after both rewrites -- so a rewrite always
-       * sees the register as the previous command left it.  That noting is
-       * done up at the top of this routine now, because characters() runs
-       * on every line; see uip_note_named_npcs().
-       */
-      scr_owned_string rewritten (uip_rewrite_references (game, string,
-                                                         prior_npc, ask_echo));
-      const scr_char *library_string =
-          rewritten ? rewritten.get () : string;
-      std::string sitstand_rest, openclose_rest;
-      run_dispatch_input = library_string;
-      /*
-       * 4.0 enters its library handlers on the whole verb ANYWHERE in the
-       * line, so a line whose verb is not at the head is answered with the
-       * verb hoisted to the front; see run_hoist_verb_line().
-       */
-      /*
-       * A goto line with one other verb: the verb's handler answers with
-       * gotoplace switched off, and gotoplace has its turn after the block;
-       * see run_goto_line_class().
-       */
-      const scr_int goto_class = run_goto_line_class (game, string);
-      const size_t goto_mark = pf_buffer_length (gs_get_filter (game));
-      std::vector<scr_int> goto_places;
-      std::string goto_rest;
-      if (goto_class != RUN_GOTO_NONE)
-        {
-          scr_int object;
+  reached_library = !status && !silent_task_390 && !outer_silent;
+}
 
-          lib_go_place_off = TRUE;
-          for (object = 0; object < gs_object_count (game); object++)
-            {
-              goto_places.push_back (gs_object_position (game, object));
-              goto_places.push_back (gs_object_parent (game, object));
-            }
-          /* A leading goto word is no verb to the handlers above
-             gotoplace: `goto cave take box` is the take's. */
-          if (run_goto_strip_head (game, library_string, goto_rest))
-            {
-              library_string = goto_rest.c_str ();
-              run_dispatch_input = library_string;
-            }
-        }
-      std::string hoisted;
-      if (run_hoist_verb_line (game, library_string, hoisted))
+/*
+ * run_line_t::library()
+ *
+ * The standard library cascade, on the line rewritten around the last
+ * character named and hoisted the way 4.0's handlers read it, with the
+ * already-done refusals slotted where the Runner has them.
+ */
+void
+run_line_t::library ()
+{
+  if (status || silent_task_390 || outer_silent)
+    return;
+
+  /*
+   * Only now, with every task pass declined, does the Runner rewrite a
+   * "give X" with no "to", or an "ask about" / "talk about", around the
+   * last character a library command named (uip_rewrite_references()).
+   * The order matters: run400's input routine dispatches typed-command
+   * tasks at 48A481 (Proc_19_24_44CCE0), well before the give rewrite at
+   * loc_48A98A and the Proc_19_0_480674 call at 48B56E that holds the
+   * ask/talk rewrite, and a matched task jumps past both (GoTo 48B4E3).
+   * So "Sommeril"'s literal task "ask about glass framed page" keeps
+   * answering even with the Gargoyle as the last-named character;
+   * rewriting first turned it into "ask gargoyle about ..." and lost the
+   * task to the library's generic reply.  Its "(GARGOYLE)" is printed
+   * all the same, up at the top of this routine -- only the rewritten
+   * STRING is the library's; see uip_print_ask_echo().
+   *
+   * The Runner records the characters a line names inside Proc_19_0
+   * (loc_47F3A2) as well, after both rewrites -- so a rewrite always
+   * sees the register as the previous command left it.  That noting is
+   * done up at the top of this routine now, because characters() runs
+   * on every line; see uip_note_named_npcs().
+   */
+  scr_owned_string rewritten (uip_rewrite_references (game, string,
+                                                     prior_npc, ask_echo));
+  const scr_char *library_string =
+      rewritten ? rewritten.get () : string;
+  std::string sitstand_rest, openclose_rest;
+  run_dispatch_input = library_string;
+  /*
+   * 4.0 enters its library handlers on the whole verb ANYWHERE in the
+   * line, so a line whose verb is not at the head is answered with the
+   * verb hoisted to the front; see run_hoist_verb_line().
+   */
+  /*
+   * A goto line with one other verb: the verb's handler answers with
+   * gotoplace switched off, and gotoplace has its turn after the block;
+   * see run_goto_line_class().
+   */
+  const scr_int goto_class = run_goto_line_class (game, string);
+  const size_t goto_mark = pf_buffer_length (gs_get_filter (game));
+  std::vector<scr_int> goto_places;
+  std::string goto_rest;
+  if (goto_class != RUN_GOTO_NONE)
+    {
+      scr_int object;
+
+      lib_go_place_off = TRUE;
+      for (object = 0; object < gs_object_count (game); object++)
         {
-          library_string = hoisted.c_str ();
+          goto_places.push_back (gs_object_position (game, object));
+          goto_places.push_back (gs_object_parent (game, object));
+        }
+      /* A leading goto word is no verb to the handlers above
+         gotoplace: `goto cave take box` is the take's. */
+      if (run_goto_strip_head (game, library_string, goto_rest))
+        {
+          library_string = goto_rest.c_str ();
           run_dispatch_input = library_string;
         }
-      /*
-       * Pre-4.0 the already-done refusal outranks the standard library; see
-       * the note on run_task_refusal().  The room half still runs after it.
-       */
-      if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
-        {
-          /* With the repeat assist on, the already-done answer waits for
-             the post-library pass, after movement and the library. */
-          if (!run_repeat_assist)
-            status = run_task_refusal (game, library_string,
-                                       REFUSAL_PASS_PRE);
-        }
-      else if (repeat_pending)
-        {
-          /*
-           * Matched on the line as typed, the way the probe above did and
-           * the way run400's dispatcher does: the give and ask/talk rewrites
-           * below loc_48A98A are further down the routine than 48A481.
-           */
-          status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
-        }
-      /* sitstand enters on its words anywhere; see lib_sitstand_anywhere(). */
-      if (!status)
-        {
-          status = lib_sitstand_anywhere (game, run_line_for_anywhere,
-                                          &sitstand_rest);
-          if (!status && !sitstand_rest.empty ())
-            {
-              /* The move is made; the rest of the line goes on without
-                 the sit words, the shape the ask/talk rows know. */
-              library_string = sitstand_rest.c_str ();
-              run_dispatch_input = library_string;
-            }
-        }
-      /*
-       * openclose is the next Call generaltasks makes, and it makes it on
-       * every line; see lib_openclose_anywhere().  A handler below it that
-       * will speak for the line gets it with the open/close word cut out.
-       */
-      if (!status)
-        {
-          status = lib_openclose_anywhere (game, string, run_line_for_anywhere,
-                                           &openclose_rest);
-          if (!status && !openclose_rest.empty ())
-            {
-              library_string = openclose_rest.c_str ();
-              run_dispatch_input = library_string;
-            }
-        }
-      /* whereis is below examines and above therest; see
-         lib_whereis_anywhere(). */
-      if (!status)
-        status = lib_whereis_anywhere (game, run_line_for_anywhere);
-      if (!status)
-        status = run_score_anywhere (game, library_string);
-      if (!status)
-        status = run_therest_absent_370 (game, library_string);
-      if (!status)
-        status = run_wait_anywhere (game, library_string);
-      if (!status)
-        status = run_standard_verb_commands (game, library_string);
-      /*
-       * The out-of-room refusal sits INSIDE the library, one line above
-       * run390's Call therest() -- so it outranks the generic catch-alls and
-       * loses to every dedicated handler above it.
-       */
-      if (!status)
-        status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
-      if (!status)
-        status = run_standard_give_npc_commands (game, library_string);
-      /* run390's therest opens with its "with" arm. */
-      if (!status)
-        status = lib_with_arm_390 (game);
-      if (!status)
-        status = run_therest_pre400 (game, library_string);
-      if (!status)
-        status = run_standard_fallback_commands (game, library_string);
-      if (!status)
-        status = run_task_refusal (game, library_string, REFUSAL_PASS_POST);
-      if (goto_class != RUN_GOTO_NONE)
-        status = run_goto_after (game, string, goto_class, goto_mark,
-                                 goto_places, status);
     }
+  std::string hoisted;
+  if (run_hoist_verb_line (game, library_string, hoisted))
+    {
+      library_string = hoisted.c_str ();
+      run_dispatch_input = library_string;
+    }
+  /*
+   * Pre-4.0 the already-done refusal outranks the standard library; see
+   * the note on run_task_refusal().  The room half still runs after it.
+   */
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      /* With the repeat assist on, the already-done answer waits for
+         the post-library pass, after movement and the library. */
+      if (!run_repeat_assist)
+        status = run_task_refusal (game, library_string,
+                                   REFUSAL_PASS_PRE);
+    }
+  else if (repeat_pending)
+    {
+      /*
+       * Matched on the line as typed, the way put_prepass()'s probe did and
+       * the way run400's dispatcher does: the give and ask/talk rewrites
+       * below loc_48A98A are further down the routine than 48A481.
+       */
+      status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
+    }
+  /* sitstand enters on its words anywhere; see lib_sitstand_anywhere(). */
+  if (!status)
+    {
+      status = lib_sitstand_anywhere (game, run_line_for_anywhere,
+                                      &sitstand_rest);
+      if (!status && !sitstand_rest.empty ())
+        {
+          /* The move is made; the rest of the line goes on without
+             the sit words, the shape the ask/talk rows know. */
+          library_string = sitstand_rest.c_str ();
+          run_dispatch_input = library_string;
+        }
+    }
+  /*
+   * openclose is the next Call generaltasks makes, and it makes it on
+   * every line; see lib_openclose_anywhere().  A handler below it that
+   * will speak for the line gets it with the open/close word cut out.
+   */
+  if (!status)
+    {
+      status = lib_openclose_anywhere (game, string, run_line_for_anywhere,
+                                       &openclose_rest);
+      if (!status && !openclose_rest.empty ())
+        {
+          library_string = openclose_rest.c_str ();
+          run_dispatch_input = library_string;
+        }
+    }
+  /* whereis is below examines and above therest; see
+     lib_whereis_anywhere(). */
+  if (!status)
+    status = lib_whereis_anywhere (game, run_line_for_anywhere);
+  if (!status)
+    status = run_score_anywhere (game, library_string);
+  if (!status)
+    status = run_therest_absent_370 (game, library_string);
+  if (!status)
+    status = run_wait_anywhere (game, library_string);
+  if (!status)
+    status = run_standard_verb_commands (game, library_string);
+  /*
+   * The out-of-room refusal sits INSIDE the library, one line above
+   * run390's Call therest() -- so it outranks the generic catch-alls and
+   * loses to every dedicated handler above it.
+   */
+  if (!status)
+    status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
+  if (!status)
+    status = run_standard_give_npc_commands (game, library_string);
+  /* run390's therest opens with its "with" arm. */
+  if (!status)
+    status = lib_with_arm_390 (game);
+  if (!status)
+    status = run_therest_pre400 (game, library_string);
+  if (!status)
+    status = run_standard_fallback_commands (game, library_string);
+  if (!status)
+    status = run_task_refusal (game, library_string, REFUSAL_PASS_POST);
+  if (goto_class != RUN_GOTO_NONE)
+    status = run_goto_after (game, string, goto_class, goto_mark,
+                             goto_places, status);
+}
+
+/*
+ * run_line_t::settle()
+ *
+ * The stores generaltasks makes after the library: the survivor's turn,
+ * the 3.9 silent task's lost turn and topic reply, and the 4.0 namesake
+ * and with-half questions.
+ */
+void
+run_line_t::settle ()
+{
   /*
    * A survivor answered a line the dispatcher had already claimed: the
    * message is the library's but the turn is the refusal's, so an answer
@@ -3369,8 +3470,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * (4606D0), and Scarier keeps the DontUnderstand text there, the turn
    * being ticked all the same.
    */
-  const scr_bool silent_names_npc_390 =
-      silent_task_390 && lib_line_names_npc_390 (game, string);
+  silent_names_npc_390 = silent_task_390
+                         && lib_line_names_npc_390 (game, string);
   if (silent_task_390 && !silent_names_npc_390
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     game->is_admin = TRUE;
@@ -3479,11 +3580,152 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       lib_npc_400_raise_for_line_string (game, string);
       status = TRUE;
     }
+}
 
+/*
+ * run_line_t::finish()
+ *
+ * Clears the per-line stores and returns RESULT.
+ */
+scr_bool
+run_line_t::finish (scr_bool result)
+{
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();
+  return result;
+}
 
-  return status;
+/*
+ * run_line_t::run()
+ *
+ * The passes in generaltasks' order.  The two guards live here so that
+ * they hold for the whole line, and the design note in
+ * run_all_commands() says why the passes stand where they do.
+ */
+scr_bool
+run_line_t::run ()
+{
+  reset ();
+  const scr_lenient_tasks_guard lenient_tasks (lenient ());
+  if (spent_claim_390 ())
+    return finish (TRUE);
+
+  put_prepass ();
+  const run_put_class_guard put_class
+      (!put_first && !repeat_pending
+       && lib_put_held_unsplit_400 (game, put_line));
+  put_pass ();
+  get_outer_400 ();
+  task_peek ();
+  priority_pass ();
+  task_passes ();
+  battle_pass ();
+  library ();
+  settle ();
+  return finish (status);
+}
+
+/*
+ * run_all_commands()
+ * run_game_task_commands()
+ *
+ * Alternative facets of run_game_commands_common().  The first is used by the
+ * main user input handling loop; the latter by the library when looking for
+ * game commands that override standard actions.
+ */
+static scr_bool
+run_all_commands (scr_gameref_t game, const scr_char *string)
+{
+  /*
+   * Adrift command matching is just weird, perhaps broken.  In theory, a
+   * game can override system commands with a properly constructed task and
+   * set of command matchers.  However, the Runner isn't terribly consistent
+   * in when this will work and when not, and some games rely on that in-
+   * consistency.  In particular, a game with a "* object" task that has
+   * failing restrictions will not be able to override the system's "take
+   * object", whereas a game's "take object", under the same circumstances,
+   * will.  Yet if the restrictions pass, a game's "* object" overrides the
+   * system's "take object" with no apparent difficulty.
+   *
+   * For example, "The Woods Are Dark" has a "* ball *" task with the
+   * restriction "must be holding ball".  Without special casing it, there's
+   * no way to get the ball in the first place.
+   *
+   * Trying to find the right way to do things here, then, has been tricky.
+   * Here's the current process:  First, try "priority" system commands; ones
+   * that move objects to inventory.  These system commands will call back
+   * into trying game commands for objects taken or dropped, and in those
+   * tries, allow overrides only if the game task is explicit about what it's
+   * doing -- it doesn't start with "*", or it does but explicitly names a
+   * verb (see run_match_task_commands() for the run400 probe results behind
+   * that rule) -- and handle restrictions in those tries.  Next, run game
+   * commands directly, ignoring any cases where restrictions fail to let the
+   * task run.  After that, retry all game commands again with restrictions
+   * enabled.  And finally, try all other standard library commands.
+   *
+   * Priority commands go BEFORE the direct game-command pass (not after, as
+   * an earlier version of this had it): probe DONE, task 72 in "Space Boy's
+   * First Adventure" is the literal, unrestricted, textless command "drop
+   * cape to the floor" (+250 score, no message).  run400 answers the typed
+   * command with the library's ordinary "Player drop the cape." and the
+   * score UNCHANGED (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23) -- the task
+   * never runs at all, even though its own literal pattern matches the raw
+   * input exactly.  A same-shaped task using a bare object with no trailing
+   * words ("* drop * rock *", i.e. equivalent to the library's own
+   * canonical "drop <object>" callback string) DOES run silently alongside
+   * the library's message (Adrift_2_pET.txt).  So it is specifically the
+   * priority command's own callback -- matching only its constructed
+   * "verb OBJECT" short form, not the raw typed line -- that gets first
+   * refusal on a recognised system verb; a task whose pattern extends past
+   * that short form (trailing words the library only swallows as free
+   * %text%) is never reached once the library has already claimed and
+   * finished the command.  Swapping the two passes reproduces that: on a
+   * recognised system verb, run_priority_commands() (and its short-form
+   * task callback) gets the first and often the only look, and the direct,
+   * ignore-restrictions task pass only sees what the priority commands
+   * didn't recognise as a system verb at all (so "etcontrol"-style
+   * non-system task commands are unaffected).
+   *
+   * But that swap alone regresses the same game's task 27, "{take/get}
+   * {them/boots}" (CompleteText "Taken."): the callback's constructed short
+   * form is built from the object's display Short name ("get pair of Flight
+   * Boots"), never from an alias like "boots", so the callback attempt fails
+   * for a reason unrelated to task 72's "trailing words" problem, and
+   * priority's own generic take now wins a task the golden walkthrough (and,
+   * definitionally, the pre-swap Runner-matching behaviour this port has
+   * always had) says must win instead.  (The bare swap is not a near miss:
+   * it fails 75 of the 262 corpus walkthroughs, because scarier's callback
+   * string is weaker than the Runner's -- Short name only, no aliases -- so
+   * far more tasks are unreachable here than there.)  So a peek at the direct
+   * task pass runs BEFORE priority after all, and task 72's shape is excluded
+   * from it: silent (no CompleteText, ShowRoomDesc, AdditionalMessage or
+   * status-setting action) AND unreachable from any library short form for
+   * any object ("drop cape" / "drop the cape" can never satisfy a pattern
+   * that insists on "to the floor").  Both halves are needed -- silence alone
+   * loses "Sommeril" task 35 and 3 more walkthroughs, unreachability alone
+   * loses 27 of them.
+   *
+   * Excluding a task means abandoning the ENTIRE peek, not reading past it to
+   * the next task.  ADRIFT resolves a command to the lowest-indexed matching
+   * task, so stepping over a match to let a later task win invents a Runner
+   * behaviour that does not exist: "The Forum" task 1 (silent literal "x ...
+   * hand", which falls through to the library's own examine) was being
+   * skipped in favour of task 2, "[examine/read/x/l/look]{at}[%object%]",
+   * whose CompleteText then answered every examine in the game.  That cost
+   * 8 corpus walkthroughs (forum, forum2, cursed, iqsfot, sommeril, funhouse
+   * and both to_hell_and_beyond replays) until the peek was made all-or-
+   * nothing.  On abandonment priority gets its look next, and if it does not
+   * claim the command the immediately following unexcluded pass re-matches
+   * from task 0, unchanged from the original order.
+   */
+  /*
+   * The carrying-capacity accounting toggle is exposed as a Glk port command
+   * ("glk capacity"), handled in the front end before input ever reaches the
+   * interpreter, so there is no administrative meta-command to match here.
+   */
+  run_line_t line (game, string);
+
+  return line.run ();
 }
 
 scr_bool
