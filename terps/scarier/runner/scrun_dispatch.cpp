@@ -959,7 +959,7 @@ run_in_put_clause_loop (void)
   return run_put_clause_loop_active;
 }
 
-void
+static void
 run_priority_defer (void)
 {
   assert (run_priority_pass_active);

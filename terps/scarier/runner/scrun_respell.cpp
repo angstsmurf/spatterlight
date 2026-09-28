@@ -216,7 +216,6 @@ run_goto_line_class (scr_gameref_t game, const scr_char *line)
   };
   static const scr_char *const OPEN[] = { "open", "close", NULL };
   const scr_int version = run_get_version (gs_get_bundle (game));
-  const scr_char *const *word;
   scr_int found = RUN_GOTO_NONE, groups = 0;
 
   if (!line || strchr (line, ',') || strchr (line, '.')
@@ -569,7 +568,6 @@ run_battle_instr (const scr_char *line, const scr_char *word)
     }
   return -1;
 }
-
 
 
 /* The standard rows' answer to LINE, taken back out of the buffer. */

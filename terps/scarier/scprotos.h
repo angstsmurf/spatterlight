@@ -1150,7 +1150,6 @@ extern void lib_prepass_seen_3738 (scr_gameref_t game,
                                    const scr_char *command);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
-extern void run_priority_defer (void);
 extern scr_bool run_priority_defer_if_active (void);
 extern void run_priority_refuse (void);
 extern void run_priority_unnamed_put_object (void);
@@ -1181,7 +1180,6 @@ extern scr_bool run_get_end_keyprompt (void);
 extern void run_set_repeat_assist (scr_bool flag);
 extern scr_bool run_get_repeat_assist (void);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
-extern void run_debug_trace (scr_bool flag);
 extern void run_get_attributes (scr_gameref_t game,
                                 const scr_char **game_name,
                                 const scr_char **game_author,
