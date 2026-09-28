@@ -185,7 +185,6 @@ evt_cached_where_room_boolean (scr_gameref_t game, scr_int event, scr_int room)
   scr_event_props_t *cached = evt_cache_entry (game, event);
   scr_vartype_t vt_key[5];
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool result;
 
   vt_key[0].string = "Events";
   vt_key[1].integer = event;

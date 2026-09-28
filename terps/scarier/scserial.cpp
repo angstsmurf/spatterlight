@@ -42,7 +42,6 @@
 /* Assorted definitions and constants. */
 static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
-static const scr_char NUL = '\0';
 
 /*
  * Legacy sentinel that introduced SCARIER's old private Battle System block,

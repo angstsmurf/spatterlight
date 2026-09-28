@@ -315,7 +315,6 @@ prop_find_child (scr_prop_noderef_t parent, scr_int type, scr_vartype_t name)
   /* See if this node has any children. */
   if (parent->child_list)
     {
-      scr_int index_;
       scr_prop_noderef_t child;
 
       /* Do the lookup based on name type. */

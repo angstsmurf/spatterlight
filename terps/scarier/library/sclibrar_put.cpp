@@ -1385,8 +1385,7 @@ lib_put_target_takes_on (scr_gameref_t game, scr_int target, scr_bool typed_on)
 /* The put-on half of the pipeline, defined with the rest of its family. */
 static scr_bool lib_put_on_is_valid (scr_gameref_t game, scr_int supporter);
 static lib_put_outcome_t lib_put_on_backend (scr_gameref_t game,
-                                             scr_int supporter,
-                                             scr_bool is_all_form);
+                                             scr_int supporter);
 
 
 /*
@@ -1662,7 +1661,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
 
   outcome = {};
   if (objects > 0)
-    outcome = is_on ? lib_put_on_backend (game, container, TRUE)
+    outcome = is_on ? lib_put_on_backend (game, container)
                     : lib_put_in_backend (game, container, TRUE);
   else
     {
@@ -2454,7 +2453,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
 
   outcome = {};
   if (objects > 0 || references > 0)
-    outcome = is_on ? lib_put_on_backend (game, container, FALSE)
+    outcome = is_on ? lib_put_on_backend (game, container)
                     : lib_put_in_backend (game, container, FALSE);
   else
     lib_print_nothing_held (game, FALSE, FALSE, ".");
@@ -3373,8 +3372,7 @@ lib_cmd_put_in_multiple (scr_gameref_t game)
  * deemed not actionable are flagged in multiple_references.
  */
 static lib_put_outcome_t
-lib_put_on_backend (scr_gameref_t game, scr_int supporter,
-                    scr_bool is_all_form)
+lib_put_on_backend (scr_gameref_t game, scr_int supporter)
 {
   const scr_bool is_pre_390 =
       prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
@@ -3686,7 +3684,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                               &references);
   outcome = {};
   if (objects > 0 || references > 0)
-    outcome = lib_put_on_backend (game, supporter, is_except);
+    outcome = lib_put_on_backend (game, supporter);
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 

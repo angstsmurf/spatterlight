@@ -137,9 +137,8 @@ void
 os_print_tag (scr_int tag, const scr_char *argument)
 {
   scr_int index_;
-  const scr_char *unused;
-  unused = argument;
 
+  (void) argument;
   switch (tag)
     {
     case SCR_TAG_CLS:
@@ -257,13 +256,10 @@ void
 os_play_sound (const scr_char *filepath,
                scr_int offset, scr_int length, scr_bool is_looping)
 {
-  const scr_char *unused1;
-  scr_int unused2, unused3;
-  scr_bool unused4;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
-  unused4 = is_looping;
+  (void) filepath;
+  (void) offset;
+  (void) length;
+  (void) is_looping;
 }
 
 void
@@ -275,8 +271,7 @@ void
 os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 {
 #ifdef LINUX_GRAPHICS
-  const scr_char *unused1;
-  unused1 = filepath;
+  (void) filepath;
 
   if (length > 0 && strlen (game_file) < 768)
     {
@@ -290,11 +285,9 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
       system ("( sleep 10; rm /tmp/scarier.jpg ) >/dev/null 2>&1 &");
     }
 #else
-  const scr_char *unused1;
-  scr_int unused2, unused3;
-  unused1 = filepath;
-  unused2 = offset;
-  unused3 = length;
+  (void) filepath;
+  (void) offset;
+  (void) length;
 #endif
 }
 

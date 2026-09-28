@@ -413,19 +413,6 @@ npc_room_in_roomgroup (scr_gameref_t game, scr_int room, scr_int group)
 }
 
 
-/* List of direction names, for printing entry/exit messages. */
-static const scr_char *const DIRNAMES_4[] = {
-  "the north", "the east", "the south", "the west", "above", "below",
-  "inside", "outside",
-  NULL
-};
-static const scr_char *const DIRNAMES_8[] = {
-  "the north", "the east", "the south", "the west", "above", "below",
-  "inside", "outside",
-  "the north-east", "the south-east", "the south-west", "the north-west",
-  NULL
-};
-
 /*
  * npc_random_adjacent_roomgroup_member()
  *
@@ -445,12 +432,10 @@ npc_random_adjacent_roomgroup_member (scr_gameref_t game,
   if (room == -1)
     return -1;
 
-  /* How many exits to consider? */
+  /* How many exits to consider: north, east, south, west, up, down, in
+     and out, plus the four diagonals on an eight-point compass. */
   eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
-  if (eightpointcompass)
-    length = sizeof (DIRNAMES_8) / sizeof (DIRNAMES_8[0]) - 1;
-  else
-    length = sizeof (DIRNAMES_4) / sizeof (DIRNAMES_4[0]) - 1;
+  length = eightpointcompass ? 12 : 8;
 
   /* Poll adjacent rooms. */
   vt_key[0].string = "Rooms";
@@ -600,8 +585,9 @@ npc_roomgroup_walk_dest (scr_gameref_t game, scr_int room, scr_int group)
  * as seen from roomto.  "Alice walks off to the north." therefore means the
  * room Alice is heading for has a south exit back into the player's room.  On
  * a symmetric map that is the same answer SCARE's old forward scan of the
- * player's own room gave; on a one-way map it is not.  This table is
- * DIRNAMES_8 reversed, index for index.
+ * player's own room gave; on a one-way map it is not.  This table holds
+ * the opposite of each exit, in exit order (north, east, south, west, up,
+ * down, in, out, then the four diagonals).
  */
 static const scr_char *const WHEREFROM_DIRNAMES[] = {
   "the south", "the west", "the north", "the east", "below", "above",

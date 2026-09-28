@@ -2927,8 +2927,8 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           if (extent > 0 && uip_match_remainder (node, extent))
             {
               if (uip_trace)
-                scr_trace ("UIParser: matched (pass %d, extent %ld)\n",
-                           pass, (long) extent);
+                scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
+                           (long) pass, (long) extent);
 
               /* Increase the maximum match extent if required. */
               max_extent = (extent > max_extent) ? extent : max_extent;
@@ -4033,7 +4033,6 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
                         scr_int prior_npc, scr_bool echo_printed)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = prop_get_taf_version (bundle);
   const scr_char *name = uip_last_npc_name (game, prior_npc);
   const std::string lowered_name = uip_lowered (name);
   std::string command (string);
