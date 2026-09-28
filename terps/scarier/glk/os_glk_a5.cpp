@@ -1212,7 +1212,12 @@ gsc_a5_main (void)
               /* The banner's four answers, however they were asked for: typed
                  as themselves, or reached with "glk ..." (which is how they are
                  still available to a game that has taken the words for its
-                 own).  Anything else is ignored, and the banner asks again. */
+                 own).  Anything else is ignored, and the banner asks again.
+                 This does not go through gsc_a5_meta_perform: here whether
+                 UNDO or RESTORE worked decides whether the banner is left,
+                 QUIT has no turn loop to return to, and a failed UNDO is
+                 answered as gsc_main's banner answers it, not with the
+                 mid-game gsc_undo_refusal. */
               gsc_meta_t answer = GSC_META_NONE;
 
               gsc_a5_put_prompt ("\nPlease enter RESTART, RESTORE, UNDO or QUIT.\n");

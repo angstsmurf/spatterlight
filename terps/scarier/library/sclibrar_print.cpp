@@ -643,12 +643,16 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
 
 
 /*
+ * lib_definite_object_name()
  * lib_print_object_np
  * lib_print_object
  *
  * Convenience functions to print out an object's name, with a "normalized"
  * prefix -- any "a"/"an"/"some" is replaced by "the" -- and with the full
- * prefix.
+ * prefix.  lib_definite_object_name builds the normalized form as a string,
+ * for %theobject% too (scvars.cpp): run400 expands that marker through the
+ * same name builder in the same normalizing mode, Proc_21_31_448710 mode 0
+ * called from Proc_21_15_4619CC at 461540.
  *
  * Pre-3.9 normalizes far less, and the branch below spells out exactly what
  * Form1.tense() does instead.  "some" is the case that was measured first:
@@ -722,11 +726,10 @@ lib_compare_article_binary (const scr_char *string, const scr_char *word,
 }
 
 
-void
-lib_print_object_np (scr_gameref_t game, scr_int object)
+std::string
+lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string result;
   scr_vartype_t vt_key[3], vt_version[1];
   const scr_char *prefix, *normalized, *name;
   scr_bool is_pre_390;
@@ -796,12 +799,12 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
   if (lib_compare_article (prefix, "a", 1))
     {
       normalized = prefix + 1;
-      pf_buffer_string (filter, "the");
+      result += "the";
     }
   else if (scr_compare_word (prefix, "an", 2))
     {
       normalized = prefix + 2;
-      pf_buffer_string (filter, "the");
+      result += "the";
     }
   /*
    * No "the" branch.  The Runner's normalizer only ever rewrites the three
@@ -833,17 +836,17 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
   else if (lib_compare_article (prefix, "the", 3))
     {
       normalized = prefix + 3;
-      pf_buffer_string (filter, "the");
+      result += "the";
     }
   else if (!is_pre_390 && lib_compare_article (prefix, "some", 4))
     {
       normalized = prefix + 4;
-      pf_buffer_string (filter, "the");
+      result += "the";
     }
   else if (scr_strempty (prefix))
     {
       normalized = "";
-      pf_buffer_string (filter, "the");
+      result += "the";
     }
 
   /*
@@ -857,8 +860,8 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * and no article (run400, Adrift_isare.txt, 2026-09-07).  Scarier
    * deliberately gives that empty prefix a "the" instead (deviation policy).
    */
-  pf_buffer_string (filter, normalized);
-  pf_buffer_character (filter, ' ');
+  result += normalized;
+  result += ' ';
 
   /*
    * Print the object's name, verbatim.  Inherited SCARE looked for a leading
@@ -924,7 +927,16 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
           }
       }
   }
-  pf_buffer_string (filter, name);
+  result += name;
+  return result;
+}
+
+void
+lib_print_object_np (scr_gameref_t game, scr_int object)
+{
+  pf_buffer_string (gs_get_filter (game),
+                    lib_definite_object_name (gs_get_bundle (game),
+                                              object).c_str ());
 }
 
 void

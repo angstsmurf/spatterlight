@@ -44,13 +44,15 @@ static const glui32 GSC_PORT_VERSION = 0x00010400;
  *
  * Prompt for a log file and open a stream on it, in the way all three of the
  * logging commands below want it done.  `must_exist` is for the read log,
- * which reads back a file rather than writing one.  Returns NULL, having
- * already complained under `label`, where the player cancelled the prompt or
- * the file would not open.
+ * which reads back a file rather than writing one, and `is_unicode` for the
+ * transcript, which is echoed every character the main window gets -- a
+ * Latin-1 stream would write anything past U+00FF as '?', where a unicode
+ * text stream writes UTF-8.  Returns NULL, having already complained under
+ * `label`, where the player cancelled the prompt or the file would not open.
  */
 static strid_t
 gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
-                     scr_bool must_exist)
+                     scr_bool must_exist, scr_bool is_unicode)
 {
   frefid_t fileref;
   strid_t stream;
@@ -68,7 +70,8 @@ gsc_open_log_stream (const char *label, glui32 usage, glui32 mode,
       return NULL;
     }
 
-  stream = glk_stream_open_file (fileref, (glui32) mode, 0);
+  stream = is_unicode ? glk_stream_open_file_uni (fileref, (glui32) mode, 0)
+                      : glk_stream_open_file (fileref, (glui32) mode, 0);
   glk_fileref_destroy (fileref);
   if (!stream)
     {
@@ -112,7 +115,8 @@ gsc_command_logging (const char *argument, const char *name,
           return;
         }
 
-      *stream = gsc_open_log_stream (label, usage, mode, must_exist);
+      *stream = gsc_open_log_stream (label, usage, mode, must_exist,
+                                     is_transcript);
       if (!*stream)
         return;
 
@@ -1169,18 +1173,30 @@ gsc_command_hints (const char *argument)
 
 
 /* Glk subcommands and handler functions. */
+/* Glk subcommand flags. */
+enum
+{
+  GSC_CMD_ARGUMENT = 1 << 0,  /* The command takes an argument. */
+  GSC_CMD_A5 = 1 << 1,        /* Offered in the a5 loop as well. */
+  GSC_CMD_ALIAS = 1 << 2,     /* Another name for an entry listed above. */
+  GSC_CMD_ACTION = 1 << 3,    /* Does something rather than carrying a
+                                 setting, so has nothing to report. */
+  GSC_CMD_STATUS = 1 << 4     /* Reports its setting on "status"; an empty
+                                 argument makes it act instead. */
+};
+
 typedef const struct
 {
   const char * const command;                     /* Glk subcommand. */
   void (* const handler) (const char *argument);  /* Subcommand handler. */
-  const int takes_argument;                       /* Argument flag. */
-  const int in_adrift5;                           /* Offered in the a5 loop. */
-  const int is_alias;                             /* Another name for an
-                                                     entry listed above. */
+  const int flags;                                /* GSC_CMD_* flags. */
   const char * const usage_subject;               /* Noun for the synopsis. */
   const char * const * const usage_options;       /* Arguments accepted, NULL
                                                      terminated; NULL for a
                                                      command taking none. */
+  const char * const help;                        /* Its "glk help" entry;
+                                                     `...` marks the spans
+                                                     shown in standout. */
 } gsc_command_t;
 typedef gsc_command_t *gsc_commandref_t;
 
@@ -1194,86 +1210,311 @@ static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
                                              "zoom [in | out | auto]", NULL};
 static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
 
+/* The "glk help" entry for each command, printed by gsc_command_help().  Text
+   between backquotes is shown in standout, as a command to type. */
+static const char GSC_HELP_SUMMARY[] =
+  "Prints a summary of all the current Glk Scarier settings.\n";
+
+static const char GSC_HELP_MAP[] =
+  "Shows the game's map beside the story, as the ADRIFT Runner does: the"
+  " rooms you have visited, the ways between them, and where you are"
+  " now.\n\n"
+  "Use `glk map on` to show the map and `glk map off` to hide it again;"
+  " plain `map` toggles it too, unless the game uses MAP for something of"
+  " its own.\n\n"
+  "Some ADRIFT 5 games ask to open with their map already showing, and this"
+  " one may be one of them; either way, whichever of `glk map on` or `glk"
+  " map off` you use last is remembered for this game, and the next session"
+  " starts that way.  A map with nothing on it yet -- during a title or"
+  " options screen, say -- waits rather than opening empty, and appears as"
+  " soon as you reach somewhere it can show.\n\n"
+  "For games with wide maps, `glk map top` (or `glk map above`) moves the"
+  " map to a band across the top of the screen, above the status line; `glk"
+  " map right` puts it back beside the story.  This is remembered for the"
+  " game as well, so the map comes back where you left it.\n\n"
+  "The map is normally drawn as shaded cards mixed from the two colours of"
+  " the story text.  `glk map colour` picks the room you are in out in"
+  " amber instead -- the runner's yellow -- and typing it again (or `glk"
+  " map colour off`) returns to the standard colours.  This is remembered"
+  " for the game too.\n\n"
+  "The map zooms itself to fit its window.  Use `glk zoom in` and `glk zoom"
+  " out` to zoom by hand instead; the view then pans to keep you on-screen."
+  "  `glk zoom auto` restores the automatic fit.\n";
+
+static const char GSC_HELP_ZOOM[] =
+  "Zooms the game's map, which otherwise fits itself to its window.\n\n"
+  "Use `glk zoom in` and `glk zoom out` to zoom by hand; the view then pans"
+  " to keep you on-screen.  Plain `glk zoom` zooms in, and `glk zoom auto`"
+  " (or `glk zoom default`) restores the automatic fit.  Each is also"
+  " understood with a map prefix, as in `glk map zoom in`.\n";
+
+static const char GSC_HELP_SCRIPT[] =
+  "Logs the game's output to a file.\n\n"
+  "Use `glk script on` to begin logging game output, and `glk script off`"
+  " to end it; plain `glk script` begins logging too.  Glk Scarier will ask"
+  " you for a file when you turn scripts on.  `glk script status` says"
+  " whether logging is currently on.\n\n"
+  "The word `transcript` may be used in place of `script` in any of these,"
+  " as in `glk transcript on`.\n";
+
+static const char GSC_HELP_INPUTLOG[] =
+  "Records the commands you type into a game.\n\n"
+  "Use `glk inputlog on`, to begin recording your commands, and `glk"
+  " inputlog off` to turn off input logs; plain `glk inputlog` begins"
+  " recording too, and `glk inputlog status` says whether recording is"
+  " currently on.  You can play back recorded commands into a game with the"
+  " `glk readlog` command.\n";
+
+static const char GSC_HELP_READLOG[] =
+  "Plays back commands recorded with `glk inputlog on`.\n\n"
+  "Use `glk readlog on`, or just `glk readlog`.  Command play back stops at"
+  " the end of the file.  You can also play back commands from a text file"
+  " created using any standard editor.  `glk readlog status` says whether"
+  " play back is currently on.\n";
+
+static const char GSC_HELP_ABBREVIATIONS[] =
+  "Controls abbreviation expansion.\n\n"
+  "Glk Scarier automatically expands several standard single letter"
+  " abbreviations for you; for example, \"x\" becomes \"examine\".  Use"
+  " `glk abbreviations on` to turn this feature on, and `glk abbreviations"
+  " off` to turn it off.  While the feature is on, you can bypass"
+  " abbreviation expansion for an individual game command by prefixing it"
+  " with a single quote.  Abbreviations never override the game's own"
+  " commands: if the game already recognises the single letter you typed"
+  " (for example as a battle or menu choice), it is passed through"
+  " unchanged.\n";
+
+static const char GSC_HELP_CAPACITY[] =
+  "Controls how your carried load is accounted for.\n\n"
+  "By default Scarier keeps a running total as you take and drop, like the"
+  " ADRIFT Runner.  Use `glk capacity on` to recompute it instead from what"
+  " you are holding (legacy SCARE behaviour), and `glk capacity off` to go"
+  " back.  It changes when a take is refused as too much to carry, and what"
+  " `count` reports.  Only a 4.0 Runner keeps such a total; earlier ones"
+  " recompute anyway, so for a 3.7, 3.8 or 3.9 game the setting does"
+  " nothing.  For a game known to be uncompletable without it, it is"
+  " switched on automatically at startup.\n";
+
+static const char GSC_HELP_PATCHES[] =
+  "Corrects games broken by their own data.\n\n"
+  "A few published ADRIFT games cannot be finished because of a bug in the"
+  " game file itself -- a task that describes handing you something but was"
+  " left with no action to do it, a control that writes the wrong variable."
+  "  Scarier carries the correction for each of those games and applies it"
+  " as the game loads, which is what `glk patches on` (the default) does;"
+  " use `glk patches off` to play the game exactly as published.  Only the"
+  " handful of games in the engine's table are ever touched, and only while"
+  " they still hold the broken value, so a later or already-fixed release"
+  " runs unaltered.  Reload the game for a change to this setting to take"
+  " effect.\n";
+
+static const char GSC_HELP_COMBAT_ASSIST[] =
+  "Helps with broken combat.\n\n"
+  "Some amateur ADRIFT games left every character's Accuracy and Agility at"
+  " 0, so no attack ever lands and combat stalemates forever.  Use `glk"
+  " combatassist on` to give such games an automatic hit, letting combat"
+  " play out on the author's strength-vs-defence basis, and `glk"
+  " combatassist off` to turn it off.  This deliberately deviates from the"
+  " original ADRIFT Runner; games that do configure combat are never"
+  " affected.  For a few games known to be uncompletable without it, the"
+  " assist is switched on automatically at startup.\n";
+
+static const char GSC_HELP_MOVE_ASSIST[] =
+  "Helps with a broken move task.\n\n"
+  "A few games were authored with a move's destination room left unset; the"
+  " original ADRIFT Runner ignores such a move, which can make the game"
+  " impossible to finish.  Use `glk moveassist on` to honour these moves to"
+  " the named room, and `glk moveassist off` to turn it off.  This"
+  " deliberately deviates from the original ADRIFT Runner.  For a few games"
+  " known to be uncompletable without it, the assist is switched on"
+  " automatically at startup.\n";
+
+static const char GSC_HELP_REPEAT_ASSIST[] =
+  "Helps with a finished task that blocks the way.\n\n"
+  "In games made with ADRIFT 3.9 or earlier, a task that has been done"
+  " answers every later command that matches it with \"You have already"
+  " done that.\", even when that command is a move the game needs again,"
+  " which can make the game impossible to finish.  Use `glk repeatassist"
+  " on` to let such commands through to movement and the other built-in"
+  " commands, and `glk repeatassist off` to turn it off.  This deliberately"
+  " deviates from the original ADRIFT Runner, and does nothing in a 4.0"
+  " game.  For a few games known to be uncompletable without it, the assist"
+  " is switched on automatically at startup.\n";
+
+static const char GSC_HELP_ROOM_ASSIST[] =
+  "Helps with a task that can never run.\n\n"
+  "A few games were authored with a task set to run in no room at all; the"
+  " original ADRIFT Runner answers it with \"You can't do that here!\""
+  " wherever you are, which can make the game impossible to finish.  Use"
+  " `glk roomassist on` to let such tasks run in every room, and `glk"
+  " roomassist off` to turn it off.  This deliberately deviates from the"
+  " original ADRIFT Runner.  For a few games known to be uncompletable"
+  " without it, the assist is switched on automatically at startup.\n";
+
+static const char GSC_HELP_VERBOSE[] =
+  "Controls verbose room descriptions.\n\n"
+  "Use `glk verbose on` to make the game always give long descriptions of"
+  " locations, even ones you have visited before, and `glk verbose off` to"
+  " give long descriptions only for places never before visited.  This"
+  " mirrors the ADRIFT Runner's Verbose option, and works even when a game"
+  " defines its own \"verbose\" command.\n";
+
+static const char GSC_HELP_VERSION[] =
+  "Prints the version numbers of the Glk library and the Glk Scarier port.\n";
+
+static const char GSC_HELP_COMMANDS[] =
+  "Turn off Glk commands.\n\n"
+  "Use `glk commands off` to disable all Glk commands, including this one. "
+  " Once turned off, there is no way to turn Glk commands back on while"
+  " inside the game.\n";
+
+static const char GSC_HELP_COLOUR[] =
+  "Shows the story in the colours ADRIFT would have used.\n\n"
+  "Use `glk colour on` to clear the screen to black and draw what follows"
+  " in the game's own colours -- the ADRIFT Runner's green replies and red"
+  " typed text for an ADRIFT 4 game, or the colours the author chose for an"
+  " ADRIFT 5 one -- honouring any colour the game asks for as it goes.  Use"
+  " `glk colour off` to clear the screen again and go back to the colours"
+  " of the interpreter's own theme. \n\n"
+  "Games written for a black screen can be hard to read without this, so a"
+  " game that sets colours of its own, or that would show text too close to"
+  " the interpreter's own colours to read, starts with this turned on.\n";
+
+static const char GSC_HELP_META[] =
+  "Takes back a turn, restores a saved game, starts over, or stops"
+  " playing.\n\n"
+  "`glk undo`, `glk restore`, `glk restart` and `glk quit` do just what the"
+  " game's own commands of those names do.  They are here for the places"
+  " where those are out of reach: a game that asks a question of its own --"
+  " for your name, say -- takes anything you type as the answer, and would"
+  " read `quit` as the name you had chosen.  A Glk command is recognised at"
+  " any prompt.\n";
+
+static const char GSC_HELP_HINTS[] =
+  "Shows the hints the game's author wrote, as the ADRIFT Runner's Hints"
+  " window does.\n\n"
+  "Each hint asks its question first, then offers a subtle answer and,"
+  " after that, one that simply tells you; answer `N` to either and the"
+  " next hint comes up.  Only the hints for puzzles you have reached are"
+  " listed.\n\n"
+  "`glk hint` abbreviates to the same command.  Many games answer a plain"
+  " `hint` with hints of their own, which are a different thing and are"
+  " worth trying too.\n";
+
+static const char GSC_HELP_LICENSE[] =
+  "Prints Glk Scarier's software license.\n";
+
 static void gsc_command_summary (const char *argument);
 
-/* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
+/* Commands not flagged GSC_CMD_A5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
    capacity, combatassist, moveassist, repeatassist, roomassist (4.0 Battle
    System / task quirks), and
    verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game).
 
-   Entries flagged is_alias are alternative names for a command listed above
-   them.  They are found by the dispatcher and by "glk help", but left out of
-   the command listing and the summary poll, so that the alias neither pads
-   the list nor makes its command report itself twice. */
+   Entries flagged GSC_CMD_ALIAS are alternative names for a command listed
+   above them.  They are found by the dispatcher and by "glk help", but left
+   out of the command listing and the summary poll, so that the alias neither
+   pads the list nor makes its command report itself twice.
+
+   "help" has no entry of its own in "glk help": asking for help on help
+   prints the command list, as plain "glk help" does. */
 static gsc_command_t GSC_COMMAND_TABLE[] = {
-  {"summary",        gsc_command_summary,        FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"script",         gsc_command_script,         TRUE,  TRUE,  FALSE,
-   "script",                      GSC_USAGE_ONOFFSTATUS},
-  {"transcript",     gsc_command_script,         TRUE,  TRUE,  TRUE,
-   "transcript",                  GSC_USAGE_ONOFFSTATUS},
-  {"inputlog",       gsc_command_inputlog,       TRUE,  TRUE,  FALSE,
-   "input logging",               GSC_USAGE_ONOFFSTATUS},
-  {"readlog",        gsc_command_readlog,        TRUE,  TRUE,  FALSE,
-   "read log",                    GSC_USAGE_ONOFFSTATUS},
-  {"abbreviations",  gsc_command_abbreviations,  TRUE,  FALSE, FALSE,
-   "abbreviation expansions",     GSC_USAGE_ONOFF},
-  {"capacity",       gsc_command_capacity,       TRUE,  FALSE, FALSE,
-   "carrying capacity recompute", GSC_USAGE_ONOFF},
-  {"combatassist",   gsc_command_combat_assist,  TRUE,  FALSE, FALSE,
-   "combat assist",               GSC_USAGE_ONOFF},
-  {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE, FALSE,
-   "move assist",                 GSC_USAGE_ONOFF},
-  {"repeatassist",   gsc_command_repeat_assist,  TRUE,  FALSE, FALSE,
-   "repeat assist",               GSC_USAGE_ONOFF},
-  {"roomassist",     gsc_command_room_assist,    TRUE,  FALSE, FALSE,
-   "room assist",                 GSC_USAGE_ONOFF},
-  {"patches",        gsc_command_patches,        TRUE,  FALSE, FALSE,
-   "game patches",                GSC_USAGE_ONOFF},
-  {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE,
-   "verbose descriptions",        GSC_USAGE_ONOFF},
-  {"version",        gsc_command_version,        FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"map",            gsc_command_map,            TRUE,  TRUE,  FALSE,
-   "map",                         GSC_USAGE_MAP},
-  {"zoom",           gsc_command_zoom,           TRUE,  TRUE,  FALSE,
-   "zoom",                        GSC_USAGE_ZOOM},
-  {"commands",       gsc_command_commands,       TRUE,  TRUE,  FALSE,
-   "commands",                    GSC_USAGE_ONOFF},
+  {"summary", gsc_command_summary,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_SUMMARY},
+  {"script", gsc_command_script,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
+   "script", GSC_USAGE_ONOFFSTATUS, GSC_HELP_SCRIPT},
+  {"transcript", gsc_command_script,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
+   "transcript", GSC_USAGE_ONOFFSTATUS, GSC_HELP_SCRIPT},
+  {"inputlog", gsc_command_inputlog,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
+   "input logging", GSC_USAGE_ONOFFSTATUS, GSC_HELP_INPUTLOG},
+  {"readlog", gsc_command_readlog,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
+   "read log", GSC_USAGE_ONOFFSTATUS, GSC_HELP_READLOG},
+  {"abbreviations", gsc_command_abbreviations,
+   GSC_CMD_ARGUMENT,
+   "abbreviation expansions", GSC_USAGE_ONOFF, GSC_HELP_ABBREVIATIONS},
+  {"capacity", gsc_command_capacity,
+   GSC_CMD_ARGUMENT,
+   "carrying capacity recompute", GSC_USAGE_ONOFF, GSC_HELP_CAPACITY},
+  {"combatassist", gsc_command_combat_assist,
+   GSC_CMD_ARGUMENT,
+   "combat assist", GSC_USAGE_ONOFF, GSC_HELP_COMBAT_ASSIST},
+  {"moveassist", gsc_command_move_assist,
+   GSC_CMD_ARGUMENT,
+   "move assist", GSC_USAGE_ONOFF, GSC_HELP_MOVE_ASSIST},
+  {"repeatassist", gsc_command_repeat_assist,
+   GSC_CMD_ARGUMENT,
+   "repeat assist", GSC_USAGE_ONOFF, GSC_HELP_REPEAT_ASSIST},
+  {"roomassist", gsc_command_room_assist,
+   GSC_CMD_ARGUMENT,
+   "room assist", GSC_USAGE_ONOFF, GSC_HELP_ROOM_ASSIST},
+  {"patches", gsc_command_patches,
+   GSC_CMD_ARGUMENT,
+   "game patches", GSC_USAGE_ONOFF, GSC_HELP_PATCHES},
+  {"verbose", gsc_command_verbose,
+   GSC_CMD_ARGUMENT,
+   "verbose descriptions", GSC_USAGE_ONOFF, GSC_HELP_VERBOSE},
+  {"version", gsc_command_version,
+   GSC_CMD_A5,
+   NULL, NULL, GSC_HELP_VERSION},
+  {"map", gsc_command_map,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ACTION,
+   "map", GSC_USAGE_MAP, GSC_HELP_MAP},
+  {"zoom", gsc_command_zoom,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ACTION,
+   "zoom", GSC_USAGE_ZOOM, GSC_HELP_ZOOM},
+  {"commands", gsc_command_commands,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5,
+   "commands", GSC_USAGE_ONOFF, GSC_HELP_COMMANDS},
   /* "color" is a full alias rather than a prefix: neither spelling is a
      prefix of the other, so each resolves on its own, at the cost of "glk col"
      matching both and reporting itself ambiguous.  The plurals are what a
      player who has just read "Glk Adrift colours are..." is likely to type
      back; they are prefixed by the singulars, and rely on gsc_command_lookup()
      preferring an exact spelling to keep "glk colour" unambiguous. */
-  {"colour",         gsc_command_colour,         TRUE,  TRUE,  FALSE,
-   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
-  {"colours",        gsc_command_colour,         TRUE,  TRUE,  TRUE,
-   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
-  {"color",          gsc_command_colour,         TRUE,  TRUE,  TRUE,
-   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
-  {"colors",         gsc_command_colour,         TRUE,  TRUE,  TRUE,
-   "Adrift colours",              GSC_USAGE_ONOFFSTATUS},
+  {"colour", gsc_command_colour,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
+   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+  {"colours", gsc_command_colour,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
+   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+  {"color", gsc_command_colour,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
+   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+  {"colors", gsc_command_colour,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
+   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
   /* The four meta-commands.  "restore" and "restart" share a prefix, so each
      needs five letters to resolve; "quit" answers to "glk q". */
-  {"undo",           gsc_command_undo,           FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"restore",        gsc_command_restore,        FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"restart",        gsc_command_restart,        FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"quit",           gsc_command_quit,           FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
+  {"undo", gsc_command_undo,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_META},
+  {"restore", gsc_command_restore,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_META},
+  {"restart", gsc_command_restart,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_META},
+  {"quit", gsc_command_quit,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_META},
   /* No "hint" alias row: it would be redundant, as a bare prefix of the sole
      "hints" row it already resolves. */
-  {"hints",          gsc_command_hints,          FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"license",        gsc_command_license,        FALSE, TRUE,  FALSE,
-   NULL,                          NULL},
-  {"help",           gsc_command_help,           TRUE,  TRUE,  FALSE,
-   NULL,                          NULL},
-  {NULL, NULL, FALSE, FALSE, FALSE, NULL, NULL}
+  {"hints", gsc_command_hints,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_HINTS},
+  {"license", gsc_command_license,
+   GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, GSC_HELP_LICENSE},
+  {"help", gsc_command_help,
+   GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ACTION,
+   NULL, NULL, NULL},
+  {NULL, NULL, 0, NULL, NULL, NULL}
 };
 
 
@@ -1282,36 +1523,12 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
  *
  * Return TRUE if a Glk command table entry applies to the engine driving the
  * current game: everything for ADRIFT <=4 (scare), only the entries flagged
- * in_adrift5 for ADRIFT 5 (the a5 loop).
+ * GSC_CMD_A5 for ADRIFT 5 (the a5 loop).
  */
 static int
 gsc_command_in_scope (gsc_commandref_t entry)
 {
-  return !gsc_is_a5 || entry->in_adrift5;
-}
-
-
-/*
- * gsc_command_is_action()
- *
- * True for the Glk commands that do something when invoked rather than
- * carrying a setting.  They have nothing to report, so "glk summary" -- which
- * polls every other handler with an empty argument -- has to leave them alone:
- * asking after the settings must not display the help, or quit the game.
- */
-static int
-gsc_command_is_action (gsc_commandref_t entry)
-{
-  return entry->handler == gsc_command_summary
-         || entry->handler == gsc_command_license
-         || entry->handler == gsc_command_help
-         || entry->handler == gsc_command_map
-         || entry->handler == gsc_command_zoom
-         || entry->handler == gsc_command_hints
-         || entry->handler == gsc_command_undo
-         || entry->handler == gsc_command_restore
-         || entry->handler == gsc_command_restart
-         || entry->handler == gsc_command_quit;
+  return !gsc_is_a5 || (entry->flags & GSC_CMD_A5);
 }
 
 
@@ -1415,24 +1632,56 @@ gsc_command_summary (const char *argument)
   /*
    * Call handlers that have status to report with an empty argument,
    * prompting each to print its current setting.  The logging commands and
-   * the colour mode act rather than report on an empty argument, so those four
-   * are polled with an explicit "status" instead; the commands that only ever
-   * act (gsc_command_is_action) are not called at all.
+   * the colour mode act rather than report on an empty argument, so those
+   * (GSC_CMD_STATUS) are polled with an explicit "status" instead.  The
+   * commands that only ever act (GSC_CMD_ACTION) are not called at all:
+   * asking after the settings must not display the help, or quit the game.
    */
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
     {
-      int is_log;
-
-      if (gsc_command_is_action (entry)
-            || entry->is_alias
-            || !gsc_command_in_scope (entry))
+      if ((entry->flags & (GSC_CMD_ACTION | GSC_CMD_ALIAS))
+          || !gsc_command_in_scope (entry))
         continue;
 
-      is_log = entry->handler == gsc_command_script
-               || entry->handler == gsc_command_inputlog
-               || entry->handler == gsc_command_readlog
-               || entry->handler == gsc_command_colour;
-      entry->handler (is_log ? "status" : "");
+      entry->handler ((entry->flags & GSC_CMD_STATUS) ? "status" : "");
+    }
+}
+
+
+/*
+ * gsc_command_help_print()
+ *
+ * Print a command's "glk help" entry, showing the spans between backquotes in
+ * standout and the rest as normal text.
+ */
+static void
+gsc_command_help_print (const char *help)
+{
+  int standout;
+  assert (help);
+
+  standout = FALSE;
+  while (*help)
+    {
+      size_t length;
+      char *span;
+
+      length = strcspn (help, "`");
+      span = (char *) gsc_malloc (length + 1);
+      memcpy (span, help, length);
+      span[length] = '\0';
+      if (standout)
+        gsc_standout_string (span);
+      else
+        gsc_normal_string (span);
+      free (span);
+
+      help += length;
+      if (*help == '`')
+        {
+          help++;
+          standout = !standout;
+        }
     }
 }
 
@@ -1460,7 +1709,7 @@ gsc_command_help (const char *command)
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
           if (gsc_command_in_scope (entry)
-              && !entry->is_alias
+              && !(entry->flags & GSC_CMD_ALIAS)
               && entry->handler != gsc_command_zoom)
             last = entry;
         }
@@ -1469,7 +1718,7 @@ gsc_command_help (const char *command)
       for (entry = GSC_COMMAND_TABLE; entry->command; entry++)
         {
           if (!gsc_command_in_scope (entry)
-              || entry->is_alias
+              || (entry->flags & GSC_CMD_ALIAS)
               || entry->handler == gsc_command_zoom)
             continue;
 
@@ -1498,363 +1747,14 @@ gsc_command_help (const char *command)
       return;
     }
 
-  if (matched->handler == gsc_command_summary)
-    {
-      gsc_normal_string ("Prints a summary of all the current Glk Scarier"
-                         " settings.\n");
-    }
-
-  else if (matched->handler == gsc_command_map)
-    {
-      gsc_normal_string ("Shows the game's map beside the story, as the"
-                         " ADRIFT Runner does: the rooms you have visited,"
-                         " the ways between them, and where you are now.\n\nUse ");
-      gsc_standout_string ("glk map on");
-      gsc_normal_string (" to show the map and ");
-      gsc_standout_string ("glk map off");
-      gsc_normal_string (" to hide it again; plain ");
-      gsc_standout_string ("map");
-      gsc_normal_string (" toggles it too, unless the game uses MAP for"
-                         " something of its own.\n\nSome ADRIFT 5 games ask"
-                         " to open with their map already showing, and this"
-                         " one may be one of them; either way, whichever of ");
-      gsc_standout_string ("glk map on");
-      gsc_normal_string (" or ");
-      gsc_standout_string ("glk map off");
-      gsc_normal_string (" you use last is remembered for this game, and the"
-                         " next session starts that way.  A map with nothing"
-                         " on it yet -- during a title or options screen, say"
-                         " -- waits rather than opening empty, and appears as"
-                         " soon as you reach somewhere it can show.\n\nFor"
-                         " games with wide maps, ");
-      gsc_standout_string ("glk map top");
-      gsc_normal_string (" (or ");
-      gsc_standout_string ("glk map above");
-      gsc_normal_string (") moves the map to a band across the top of the"
-                         " screen, above the status line; ");
-      gsc_standout_string ("glk map right");
-      gsc_normal_string (" puts it back beside the story.  This is remembered"
-                         " for the game as well, so the map comes back where"
-                         " you left it.\n\nThe map is normally drawn as"
-                         " shaded cards mixed from the two colours of the"
-                         " story text.  ");
-      gsc_standout_string ("glk map colour");
-      gsc_normal_string (" picks the room you are in out in amber instead --"
-                         " the runner's yellow -- and typing it again (or ");
-      gsc_standout_string ("glk map colour off");
-      gsc_normal_string (") returns to the standard colours.  This is"
-                         " remembered for the game too.\n\nThe map zooms"
-                         " itself to fit its window.  Use ");
-      gsc_standout_string ("glk zoom in");
-      gsc_normal_string (" and ");
-      gsc_standout_string ("glk zoom out");
-      gsc_normal_string (" to zoom by hand instead; the view then pans to"
-                         " keep you on-screen.  ");
-      gsc_standout_string ("glk zoom auto");
-      gsc_normal_string (" restores the automatic fit.\n");
-    }
-
-  else if (matched->handler == gsc_command_zoom)
-    {
-      gsc_normal_string ("Zooms the game's map, which otherwise fits itself"
-                         " to its window.\n\nUse ");
-      gsc_standout_string ("glk zoom in");
-      gsc_normal_string (" and ");
-      gsc_standout_string ("glk zoom out");
-      gsc_normal_string (" to zoom by hand; the view then pans to keep you"
-                         " on-screen.  Plain ");
-      gsc_standout_string ("glk zoom");
-      gsc_normal_string (" zooms in, and ");
-      gsc_standout_string ("glk zoom auto");
-      gsc_normal_string (" (or ");
-      gsc_standout_string ("glk zoom default");
-      gsc_normal_string (") restores the automatic fit.  Each is also"
-                         " understood with a map prefix, as in ");
-      gsc_standout_string ("glk map zoom in");
-      gsc_normal_string (".\n");
-    }
-
-  else if (matched->handler == gsc_command_script)
-    {
-      gsc_normal_string ("Logs the game's output to a file.\n\nUse ");
-      gsc_standout_string ("glk script on");
-      gsc_normal_string (" to begin logging game output, and ");
-      gsc_standout_string ("glk script off");
-      gsc_normal_string (" to end it; plain ");
-      gsc_standout_string ("glk script");
-      gsc_normal_string (" begins logging too.  Glk Scarier will ask you for a"
-                         " file when you turn scripts on.  ");
-      gsc_standout_string ("glk script status");
-      gsc_normal_string (" says whether logging is currently on.\n\nThe word ");
-      gsc_standout_string ("transcript");
-      gsc_normal_string (" may be used in place of ");
-      gsc_standout_string ("script");
-      gsc_normal_string (" in any of these, as in ");
-      gsc_standout_string ("glk transcript on");
-      gsc_normal_string (".\n");
-    }
-
-  else if (matched->handler == gsc_command_inputlog)
-    {
-      gsc_normal_string ("Records the commands you type into a game.\n\nUse ");
-      gsc_standout_string ("glk inputlog on");
-      gsc_normal_string (", to begin recording your commands, and ");
-      gsc_standout_string ("glk inputlog off");
-      gsc_normal_string (" to turn off input logs; plain ");
-      gsc_standout_string ("glk inputlog");
-      gsc_normal_string (" begins recording too, and ");
-      gsc_standout_string ("glk inputlog status");
-      gsc_normal_string (" says whether recording is currently on.  You can"
-                         " play back recorded commands into a game with the ");
-      gsc_standout_string ("glk readlog");
-      gsc_normal_string (" command.\n");
-    }
-
-  else if (matched->handler == gsc_command_readlog)
-    {
-      gsc_normal_string ("Plays back commands recorded with ");
-      gsc_standout_string ("glk inputlog on");
-      gsc_normal_string (".\n\nUse ");
-      gsc_standout_string ("glk readlog on");
-      gsc_normal_string (", or just ");
-      gsc_standout_string ("glk readlog");
-      gsc_normal_string (".  Command play back stops at the end of the"
-                         " file.  You can also play back commands from a"
-                         " text file created using any standard editor.  ");
-      gsc_standout_string ("glk readlog status");
-      gsc_normal_string (" says whether play back is currently on.\n");
-    }
-
-  else if (matched->handler == gsc_command_abbreviations)
-    {
-      gsc_normal_string ("Controls abbreviation expansion.\n\nGlk Scarier"
-                         " automatically expands several standard single"
-                         " letter abbreviations for you; for example, \"x\""
-                         " becomes \"examine\".  Use ");
-      gsc_standout_string ("glk abbreviations on");
-      gsc_normal_string (" to turn this feature on, and ");
-      gsc_standout_string ("glk abbreviations off");
-      gsc_normal_string (" to turn it off.  While the feature is on, you"
-                         " can bypass abbreviation expansion for an"
-                         " individual game command by prefixing it with a"
-                         " single quote.  Abbreviations never override the"
-                         " game's own commands: if the game already recognises"
-                         " the single letter you typed (for example as a"
-                         " battle or menu choice), it is passed through"
-                         " unchanged.\n");
-    }
-
-  else if (matched->handler == gsc_command_capacity)
-    {
-      gsc_normal_string ("Controls how your carried load is accounted for.\n\n"
-                         "By default Scarier keeps a running total as you take"
-                         " and drop, like the ADRIFT Runner.  Use ");
-      gsc_standout_string ("glk capacity on");
-      gsc_normal_string (" to recompute it instead from what you are holding"
-                         " (legacy SCARE behaviour), and ");
-      gsc_standout_string ("glk capacity off");
-      gsc_normal_string (" to go back.  It changes when a take is refused as"
-                         " too much to carry, and what ");
-      gsc_standout_string ("count");
-      gsc_normal_string (" reports.  Only a 4.0 Runner keeps such a total;"
-                         " earlier ones recompute anyway, so for a 3.7, 3.8 or"
-                         " 3.9 game the setting does nothing.  For a game known"
-                         " to be uncompletable without it, it is switched on"
-                         " automatically at startup.\n");
-    }
-
-  else if (matched->handler == gsc_command_patches)
-    {
-      gsc_normal_string ("Corrects games broken by their own data.\n\nA few"
-                         " published ADRIFT games cannot be finished because"
-                         " of a bug in the game file itself -- a task that"
-                         " describes handing you something but was left with"
-                         " no action to do it, a control that writes the wrong"
-                         " variable.  Scarier carries the correction for each"
-                         " of those games and applies it as the game loads,"
-                         " which is what ");
-      gsc_standout_string ("glk patches on");
-      gsc_normal_string (" (the default) does; use ");
-      gsc_standout_string ("glk patches off");
-      gsc_normal_string (" to play the game exactly as published.  Only the"
-                         " handful of games in the engine's table are ever"
-                         " touched, and only while they still hold the broken"
-                         " value, so a later or already-fixed release runs"
-                         " unaltered.  Reload the game for a change to this"
-                         " setting to take effect.\n");
-    }
-
-  else if (matched->handler == gsc_command_combat_assist)
-    {
-      gsc_normal_string ("Helps with broken combat.\n\nSome amateur ADRIFT games"
-                         " left every character's Accuracy and Agility at 0, so"
-                         " no attack ever lands and combat stalemates forever."
-                         "  Use ");
-      gsc_standout_string ("glk combatassist on");
-      gsc_normal_string (" to give such games an automatic hit, letting combat"
-                         " play out on the author's strength-vs-defence basis,"
-                         " and ");
-      gsc_standout_string ("glk combatassist off");
-      gsc_normal_string (" to turn it off.  This deliberately deviates from the"
-                         " original ADRIFT Runner; games that do configure"
-                         " combat are never affected.  For a few games known"
-                         " to be uncompletable without it, the assist is"
-                         " switched on automatically at startup.\n");
-    }
-
-  else if (matched->handler == gsc_command_move_assist)
-    {
-      gsc_normal_string ("Helps with a broken move task.\n\nA few games were"
-                         " authored with a move's destination room left unset;"
-                         " the original ADRIFT Runner ignores such a move, which"
-                         " can make the game impossible to finish.  Use ");
-      gsc_standout_string ("glk moveassist on");
-      gsc_normal_string (" to honour these moves to the named room, and ");
-      gsc_standout_string ("glk moveassist off");
-      gsc_normal_string (" to turn it off.  This deliberately deviates from the"
-                         " original ADRIFT Runner.  For a few games known to"
-                         " be uncompletable without it, the assist is switched"
-                         " on automatically at startup.\n");
-    }
-
-  else if (matched->handler == gsc_command_repeat_assist)
-    {
-      gsc_normal_string ("Helps with a finished task that blocks the way.\n\n"
-                         "In games made with ADRIFT 3.9 or earlier, a task"
-                         " that has been done answers every later command"
-                         " that matches it with \"You have already done"
-                         " that.\", even when that command is a move the"
-                         " game needs again, which can make the game"
-                         " impossible to finish.  Use ");
-      gsc_standout_string ("glk repeatassist on");
-      gsc_normal_string (" to let such commands through to movement and the"
-                         " other built-in commands, and ");
-      gsc_standout_string ("glk repeatassist off");
-      gsc_normal_string (" to turn it off.  This deliberately deviates from"
-                         " the original ADRIFT Runner, and does nothing in a"
-                         " 4.0 game.  For a few games known to be"
-                         " uncompletable without it, the assist is switched"
-                         " on automatically at startup.\n");
-    }
-
-  else if (matched->handler == gsc_command_room_assist)
-    {
-      gsc_normal_string ("Helps with a task that can never run.\n\nA few games"
-                         " were authored with a task set to run in no room at"
-                         " all; the original ADRIFT Runner answers it with"
-                         " \"You can't do that here!\" wherever you are, which"
-                         " can make the game impossible to finish.  Use ");
-      gsc_standout_string ("glk roomassist on");
-      gsc_normal_string (" to let such tasks run in every room, and ");
-      gsc_standout_string ("glk roomassist off");
-      gsc_normal_string (" to turn it off.  This deliberately deviates from"
-                         " the original ADRIFT Runner.  For a few games known"
-                         " to be uncompletable without it, the assist is"
-                         " switched on automatically at startup.\n");
-    }
-
-  else if (matched->handler == gsc_command_verbose)
-    {
-      gsc_normal_string ("Controls verbose room descriptions.\n\nUse ");
-      gsc_standout_string ("glk verbose on");
-      gsc_normal_string (" to make the game always give long descriptions of"
-                         " locations, even ones you have visited before, and ");
-      gsc_standout_string ("glk verbose off");
-      gsc_normal_string (" to give long descriptions only for places never"
-                         " before visited.  This mirrors the ADRIFT Runner's"
-                         " Verbose option, and works even when a game defines"
-                         " its own \"verbose\" command.\n");
-    }
-
-  else if (matched->handler == gsc_command_version)
-    {
-      gsc_normal_string ("Prints the version numbers of the Glk library"
-                         " and the Glk Scarier port.\n");
-    }
-
-  else if (matched->handler == gsc_command_commands)
-    {
-      gsc_normal_string ("Turn off Glk commands.\n\nUse ");
-      gsc_standout_string ("glk commands off");
-      gsc_normal_string (" to disable all Glk commands, including this one."
-                         "  Once turned off, there is no way to turn Glk"
-                         " commands back on while inside the game.\n");
-    }
-
-  else if (matched->handler == gsc_command_colour)
-    {
-      gsc_normal_string ("Shows the story in the colours ADRIFT would have"
-                         " used.\n\nUse ");
-      gsc_standout_string ("glk colour on");
-      gsc_normal_string (" to clear the screen to black and draw what follows"
-                         " in the game's own colours -- the ADRIFT Runner's"
-                         " green replies and red typed text for an ADRIFT 4"
-                         " game, or the colours the author chose for an"
-                         " ADRIFT 5 one -- honouring any colour the game asks"
-                         " for as it goes.  Use ");
-      gsc_standout_string ("glk colour off");
-      gsc_normal_string (" to clear the screen again and go back to the"
-                         " colours of the interpreter's own theme.");
-      gsc_normal_string (" \n\nGames written for a black"
-                         " screen can be hard to read without this, so a game"
-                         " that sets colours of its own, or that would show"
-                         " text too close to the interpreter's own colours to"
-                         " read, starts with this turned on.\n");
-    }
-
-  else if (matched->handler == gsc_command_undo
-           || matched->handler == gsc_command_restore
-           || matched->handler == gsc_command_restart
-           || matched->handler == gsc_command_quit)
-    {
-      gsc_normal_string ("Takes back a turn, restores a saved game, starts"
-                         " over, or stops playing.\n\n");
-      gsc_standout_string ("glk undo");
-      gsc_normal_string (", ");
-      gsc_standout_string ("glk restore");
-      gsc_normal_string (", ");
-      gsc_standout_string ("glk restart");
-      gsc_normal_string (" and ");
-      gsc_standout_string ("glk quit");
-      gsc_normal_string (" do just what the game's own commands of those"
-                         " names do.  They are here for the places where"
-                         " those are out of reach: a game that asks a question"
-                         " of its own -- for your name, say -- takes anything"
-                         " you type as the answer, and would read ");
-      gsc_standout_string ("quit");
-      gsc_normal_string (" as the name you had chosen.  A Glk command is"
-                         " recognised at any prompt.\n");
-    }
-
-  else if (matched->handler == gsc_command_hints)
-    {
-      gsc_normal_string ("Shows the hints the game's author wrote, as the"
-                         " ADRIFT Runner's Hints window does.\n\nEach hint"
-                         " asks its question first, then offers a subtle"
-                         " answer and, after that, one that simply tells you;"
-                         " answer ");
-      gsc_standout_string ("N");
-      gsc_normal_string (" to either and the next hint comes up.  Only the"
-                         " hints for puzzles you have reached are listed.\n\n");
-      gsc_standout_string ("glk hint");
-      gsc_normal_string (" abbreviates to the same command.  Many games answer"
-                         " a plain ");
-      gsc_standout_string ("hint");
-      gsc_normal_string (" with hints of their own, which are a different"
-                         " thing and are worth trying too.\n");
-    }
-
-  else if (matched->handler == gsc_command_license)
-    {
-      gsc_normal_string ("Prints Glk Scarier's software license.\n");
-    }
-
-  else if (matched->handler == gsc_command_help)
+  if (matched->handler == gsc_command_help)
     {
       gsc_command_help ("");
       return;
     }
 
+  if (matched->help)
+    gsc_command_help_print (matched->help);
   else
     gsc_normal_string ("There is no help available on that Glk command."
                        "  Sorry.\n");
@@ -1946,7 +1846,7 @@ gsc_command_escape (const char *string)
 
           matched->handler (argument);
 
-          if (!matched->takes_argument && strlen (argument) > 0)
+          if (!(matched->flags & GSC_CMD_ARGUMENT) && strlen (argument) > 0)
             {
               gsc_normal_string ("[The ");
               gsc_standout_string (matched->command);

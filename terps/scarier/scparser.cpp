@@ -2738,6 +2738,106 @@ uip_record_entity_match (scr_gameref_t game, scr_var_setref_t vars,
 
 
 /*
+ * uip_candidate_extent()
+ *
+ * Match one name or alias of a %character% or %object% candidate (alias -1
+ * for the name itself) against the input: in place at uip_posn on pass 0, by
+ * whole-word containment anywhere in the line on pass 1, when a match takes
+ * the rest of the input (input_end).  input_lead is the input's lead
+ * character, which a positional match's leads must include.  Returns the
+ * match's extent, or 0 for no match.
+ */
+static scr_int
+uip_candidate_extent (const scr_uip_candidate_t &candidate, scr_int alias,
+                      scr_bool is_character, scr_int pass,
+                      scr_char input_lead, scr_int input_end)
+{
+  scr_int extent;
+
+  /*
+   * A 3.9 task's %character% is the Name and nothing else.  run400
+   * substitutes the Name (4691A9) and then walks the Alias array (4691F8);
+   * run390's checktask reads `.global_0` only, in both of its loops (44AD5C,
+   * 44B334), and never touches the alias.  Eve is aliased "spook" in
+   * p39CHREF: run390 answers `frob spook` with the library -- "Who?" before
+   * she is met, "Eve is not here!" after -- where run400 runs the task
+   * (2026-09-20).
+   */
+  if (uip_strict_reference && is_character && alias >= 0
+      && prop_get_taf_version (gs_get_bundle (uip_get_game ()))
+         < TAF_VERSION_400)
+    return 0;
+
+  if (uip_trace)
+    scr_trace ("UIParser: trying %s%s\n",
+               alias < 0 ? "" : "alias ", candidate.plain);
+
+  if (pass == 0)
+    {
+      if (!uip_strict_reference
+          && candidate.leads.find (input_lead) == std::string::npos)
+        return 0;
+
+      extent = uip_compare_candidate (candidate);
+    }
+  else
+    extent = uip_contains_words (candidate.plain) ? input_end : 0;
+
+  /*
+   * A character has to survive the resolver's case-sensitive tail test as
+   * well -- see uip_case_folds_name().  Task commands go through a different
+   * Runner routine and are exempt.
+   */
+  if (extent > 0 && is_character && !uip_strict_reference
+      && !uip_case_folds_name (candidate.plain))
+    extent = 0;
+
+  return extent;
+}
+
+
+/*
+ * uip_drop_shorter_matches()
+ *
+ * After a library command's %character% or %object% has matched, unreference
+ * every entity whose match was shorter than max_extent, and make the last one
+ * left the reference proper.
+ *
+ * Deliberate deviation: in a library command the match continues from the
+ * longest extent, so a shorter name that also matched is not what the player
+ * typed: `take key ring` with a "key" and a "key ring" here is the key ring.
+ * The Runners' co() counts every Short the line contains and gives up on the
+ * pair ("Take what?" below 4.0, "It is not clear which key ring you are
+ * referring to." at 4.0).
+ */
+static void
+uip_drop_shorter_matches (scr_var_setref_t vars, scr_bool is_character,
+                          std::vector<scr_bool> &references,
+                          const std::vector<scr_int> &matched_extent,
+                          scr_int max_extent)
+{
+  const scr_int entity_count = matched_extent.size ();
+  scr_int index, last;
+
+  last = -1;
+  for (index = 0; index < entity_count; index++)
+    {
+      if (matched_extent[index] > 0 && matched_extent[index] < max_extent)
+        references[index] = FALSE;
+      if (references[index])
+        last = index;
+    }
+  if (last != -1)
+    {
+      if (is_character)
+        var_set_ref_character (vars, last);
+      else
+        var_set_ref_object (vars, last);
+    }
+}
+
+
+/*
  * uip_match_entity()
  * uip_match_character()
  * uip_match_object()
@@ -2916,7 +3016,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           for (index = 0; index < entity_count; index++)
             {
               const scr_uip_entity_t &entity = cache[index];
-              scr_int alias_count, alias, extent;
+              scr_int alias_count, alias;
 
               if (!uip_entity_admitted (game, is_character, index,
                                         scope, strict_scoped, pass))
@@ -2929,50 +3029,11 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
               alias_count = entity.aliases.size ();
               for (alias = -1; alias < alias_count; alias++)
                 {
-                  const scr_uip_candidate_t &candidate =
-                      alias < 0 ? entity.name : entity.aliases[alias];
-
-                  /*
-                   * A 3.9 task's %character% is the Name and nothing else.
-                   * run400 substitutes the Name (4691A9) and then walks the
-                   * Alias array (4691F8); run390's checktask reads `.global_0`
-                   * only, in both of its loops (44AD5C, 44B334), and never
-                   * touches the alias.  Eve is aliased "spook" in p39CHREF:
-                   * run390 answers `frob spook` with the library -- "Who?"
-                   * before she is met, "Eve is not here!" after -- where
-                   * run400 runs the task (2026-09-20).
-                   */
-                  if (uip_strict_reference && is_character && alias >= 0
-                      && prop_get_taf_version (gs_get_bundle (game))
-                         < TAF_VERSION_400)
-                    continue;
-
-                  if (uip_trace)
-                    scr_trace ("UIParser: trying %s%s\n",
-                               alias < 0 ? "" : "alias ", candidate.plain);
-
-                  if (pass == 0)
-                    {
-                      if (!uip_strict_reference
-                          && candidate.leads.find (input_lead)
-                             == std::string::npos)
-                        continue;
-
-                      extent = uip_compare_candidate (candidate);
-                    }
-                  else
-                    extent = uip_contains_words (candidate.plain)
-                             ? input_end : 0;
-
-                  /*
-                   * A character has to survive the resolver's case-sensitive
-                   * tail test as well -- see uip_case_folds_name().  Task
-                   * commands go through a different Runner routine and are
-                   * exempt.
-                   */
-                  if (extent > 0 && is_character && !uip_strict_reference
-                      && !uip_case_folds_name (candidate.plain))
-                    extent = 0;
+                  const scr_int extent =
+                      uip_candidate_extent (alias < 0 ? entity.name
+                                                      : entity.aliases[alias],
+                                            alias, is_character, pass,
+                                            input_lead, input_end);
 
                   if (extent > 0 && uip_match_remainder (node, extent))
                     {
@@ -2995,33 +3056,9 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
         }
     }
 
-  /*
-   * Deliberate deviation: in a library command the match continues from the
-   * longest extent, so a shorter name that also matched is not what the
-   * player typed: `take key ring` with a "key" and a "key ring" here is the
-   * key ring.  The Runners' co() counts every Short the line contains and
-   * gives up on the pair ("Take what?" below 4.0, "It is not clear which
-   * key ring you are referring to." at 4.0).
-   */
   if (max_extent > 0 && !uip_strict_reference)
-    {
-      scr_int last = -1;
-
-      for (index = 0; index < entity_count; index++)
-        {
-          if (matched_extent[index] > 0 && matched_extent[index] < max_extent)
-            references[index] = FALSE;
-          if (references[index])
-            last = index;
-        }
-      if (last != -1)
-        {
-          if (is_character)
-            var_set_ref_character (vars, last);
-          else
-            var_set_ref_object (vars, last);
-        }
-    }
+    uip_drop_shorter_matches (vars, is_character, references, matched_extent,
+                              max_extent);
 
   /* On match, advance position and return successfully. */
   if (max_extent > 0)

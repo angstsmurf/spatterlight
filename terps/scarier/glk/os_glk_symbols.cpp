@@ -386,7 +386,7 @@ gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
           && glk_gestalt (gestalt_CharOutput,
                           unicode) == gestalt_CharOutput_ExactPrint)
         {
-          gsc_put_char_uni (unicode, NULL);
+          glk_put_char_uni (unicode);
           continue;
         }
 

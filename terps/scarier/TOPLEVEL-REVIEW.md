@@ -13,7 +13,7 @@ whole-corpus map manifest byte-identical to a clean HEAD build.  (Note:
 `test/run_map_corpus.sh` itself reports FAIL against
 test/map_corpus_golden.txt both before and after -- the golden predates
 32ff2819e "add shades to default color scheme" and the test-tree reorg, so it
-needs a deliberate `-b` re-bless; not done here.)
+needs a deliberate `-b` re-bless; done in round 2.)
 
 - Error paths: sctafpar parse_taf_fail() and the whole scserial load side
   now throw (`parse_taf_error_t`, `ser_tas_error_t`) instead of longjmp, so
@@ -60,7 +60,7 @@ transcripts identical.  Behaviour-preserving throughout; all uncommitted.
   scexpr expr_tokenize_guard (RAII) replaces the paired set/clear;
   scr_lowercase in scutils replaces the hand-rolled loops.
 - sctasks/screstrs/scevents/scnpcs/scbattle: task_selector_npc replaces one
-  NPC selector ladder (the other copies are still owed, see 3.C below);
+  NPC selector ladder (the other copies followed in round 3);
   restr_cache_sync / evt_cache_sync share one shape; evt_cache_entry,
   evt_taf_version, evt_gate_task_is_complete, npc_walk_chartask,
   battle_kill_drained extracted; gs_carried_suspend_guard (RAII) declared
@@ -113,7 +113,8 @@ Suite signature identical, `make -j8` and `xcodebuild -target scarier` clean.
   trace line), the battle-attribute arm, and screstrs npc1/npc2.
   Latent, NOT changed: the move-NPC "same room as referenced NPC" arm has
   no unset-reference guard, so gs_npc_location(-1) asserts; the object
-  movers abandon instead.  Unmeasured at the Runner.
+  movers abandon instead.  Unmeasured at the Runner.  (MEASURED and FIXED
+  after round 6; see "Still open".)
 - scvars: var_find_object_by_short (status_/marker scans), var_clear_temp /
   var_set_temp, var_number_text (%t_number%/%t_var%), var_openness_word
   (obstatus/status_), var_object_is_stateful + var_set_temp_state
@@ -236,7 +237,123 @@ stderr apart from the WALK loop fix below.
   scarier Debug+Release, the 7 transcripts identical, suite signature
   unchanged.
 
-Still open: nothing from the review itself.
+## Applied 2026-09-28, round 6 (the refactors left open after round 5)
+
+- Step 5 splits, all four:
+  - expr_eval_action (scexpr.cpp, 524 -> 65 lines) is a dispatch switch
+    over seven group functions that hold the old case bodies verbatim:
+    expr_eval_push_value, _numeric_function, _numeric_operator,
+    _division, _power, _string_function, _string_operator.
+  - map_render (mapdraw.cpp, 366 -> 42) sets up a render_ctx_t and runs
+    the three passes as render_links (render_link per node),
+    render_exit_stubs and render_node.
+  - task_move_object (sctasks.cpp, 308 -> 141) keeps the guards, the
+    carried-weight accounting, the credit and the stamp; the destination
+    switch is task_move_object_to, with case 4 in task_move_object_held_by.
+    An abandoned move returns FALSE and still leaves through the suspend
+    guard.
+  - uip_match_entity (scparser.cpp, 282 -> 220): the per-alias extent
+    test is uip_candidate_extent, and the longest-match pruning (with its
+    "Deliberate deviation" comment) is uip_drop_shorter_matches.
+- Step 7 command table (glk/os_glk_commands.cpp, 2080 -> 1871 lines):
+  each GSC_COMMAND_TABLE row carries its help text, with backticks marking
+  standout spans (gsc_command_help_print), and a flags word
+  (GSC_CMD_ARGUMENT / _A5 / _ALIAS / _ACTION / _STATUS) replaces the three
+  booleans and the hand lists in gsc_command_is_action (removed) and
+  gsc_command_summary.  gsc_command_help is 75 lines.  Verified by the
+  help output of every command, style runs included, against the pre-change
+  binary for ADRIFT 4 and 5.
+- Section 7 a5 duplicates: the two undo-failure strings match the two
+  banners they copy (gsc_main's endgame banner and the mid-game
+  gsc_undo_refusal), so they stay.  The endgame banner loop keeps its own
+  dispatch; a comment in gsc_a5_main now says why (success of UNDO/RESTORE
+  decides whether the banner is left, QUIT has no turn loop to return to).
+- 2.8 was already done in round 2 (uip_wildcard_prepare is shared; what
+  differs between _400 and _pre400 is the intended matching rule), as was
+  the GSC_A5_DISPLAY_MARKS strchr change.
+- The empty "Module notes: o ..." blocks are gone from all eleven files
+  that had one (scdebug, screstrs, scserial, scobjcts, scnpcs, scmemos,
+  sxutils, scgamest, scresour, scprops, scinterf).
+- Verified: suite signature unchanged (adrift4 706 ok, adrift5 174 ok,
+  MATCH=173); map corpus 1760 views and a5maptest 6 views match; make -j8
+  and make glkscarier with no warnings; the seven cheapglk transcripts are
+  byte-identical; xcheck on the changed files and xcodebuild Debug succeed.
+
+## Still open (as of 2026-09-28, after round 6)
+
+No refactoring is left, and every item that waited on a Runner
+measurement is done:
+- DONE after round 6: the move-NPC action with no referenced character.
+  Measured in run400 with test/adrift4/harness/make_400_mvrefprobe.py
+  (p4MVREF, Adrift_30[5-7]_mvref_[a-e].txt).  An unset moved NPC (Var1 =
+  1) leaves the action silently (48CDB8).  An unset "same room as" target,
+  for an NPC or for the player, indexes the NPC array with &HFF (48CEA9);
+  execute_action's error handler (48E74D) prints "** ERROR - Subscript out
+  of range! **" on its own line and abandons that one action.  The task's
+  other actions and its text still run, and the reference does not
+  outlive the turn that set it.  Scarier asserted in both NPC cases; both
+  now return from the action (sctasks.cpp task_run_move_npc_action), and
+  the error text is a deliberate deviation.  The player case was already
+  a silent no-op.  Suite signature unchanged.
+- DONE after round 6: the old TODO in glk/os_glk_locale.cpp ("unicode
+  output currently disrupts transcript output").  The transcript was a
+  Latin-1 file stream, so gsc_put_char_uni detached the echo and wrote an
+  ASCII substitute instead.  Tested before the fix: ADRIFT 4 curly quotes
+  came out as straight ASCII, ADRIFT 5 (gsc_a5_put_string, echo attached)
+  as '?', Cyrillic (Relife) as GOST transliteration, and typed Cyrillic
+  input as "?????????".  gsc_open_log_stream now opens the transcript with
+  glk_stream_open_file_uni (the input and read logs stay Latin-1), and
+  gsc_put_char_uni is gone: every character reaches the transcript
+  as UTF-8, the same text as the screen.  glkimp's TempStream keeps the
+  unicode flag, so autorestore is unaffected.  Screen output (7 Glk
+  transcripts) is byte-identical; suite signature unchanged.
+- DONE after round 6: 2.4 and 2.7, measured in run400 with
+  test/adrift4/harness/make_400_oninprobe.py (p4ONIN, Adrift_305_onin.txt).
+  substitute_percent_tags (47A3DC) runs one index-order Short loop for
+  all four markers.  %state_ (47A0B2) takes only objects with states, and
+  none of them go through the parser's visibility.  The probe's
+  out-of-sight box 0 and Alpha's lever and knob win from Bravo too
+  ("up high", "dull"; Scarier said "right side" and "[State_
+  unavailable]").  whatisinon (obhere, Proc_21_44_452E9C) lists nothing
+  for an object not here: from Bravo, OI/IN/ON of Alpha's box are empty.
+  scvars.cpp now has one var_resolve_marker_object with an object filter
+  (any/openable/stateful) and one var_get_listing for in_/on_/onin_,
+  gated on obj_indirectly_in_room from 3.9.  The nested clause is ", and
+  inside is <list>" whatever the count ("A plate and a bowl are on the
+  crate, and inside is a key and a ring."); Scarier prints that shape with
+  agreement ("inside are", deviation policy).  This replaces "..., and a
+  pen is inside ." with its stray space.  Suite signature unchanged.
+  The probe's run400 room text is followed, after the exits, by
+  sentences like "A plate and a bowl are on the crate, ...".  That is not a
+  room-description feature (first misread as one).  It is a leak:
+  whatisinon appends its listing to the main output buffer MemVar_4941B0
+  and only copies it out with Replace() (46A8F9).  The %in_/%on_/%onin_
+  callers (479919-479D0B) never restore the buffer, so every non-empty
+  marker listing is printed a second time wherever the buffer next
+  flushes.  Evidence: Bravo's box 1 (cup, pen) is never listed; only the
+  crate, rack and tin, which are Bravo's three %onin_ markers, are.  Alpha
+  gets three sentences for its one box, in %in_, %on_, %onin_ evaluation
+  order.  Duplicated text is a Runner accident and is not ported
+  (deviation policy).
+  onin_'s in-half now has the open-container gate that in_ has.
+  whatisinon's in-branch (46A421) is shared by mode 0 (in) and mode 2
+  (onin), and tests container, global_52 < 6 and obhere.  Measured with
+  the probe's closed chest and jar (p4ONIN2, Adrift_305_onin2.txt):
+  "A hat is on the chest." while shut, "..., and inside is a sock." once
+  open; the jar is [] until opened.  Scarier listed the sock and the bean
+  through the closed lids.  Now var_shows_contents() in scvars.cpp.  Suite
+  signature unchanged.
+- DONE after round 6: 2.6.  The scvars ladders were already one
+  (var_definite_name).  run400 expands %theobject% (3.9+ only) through
+  the same name builder as every definite object name,
+  Proc_21_31_448710 mode 0 called from Proc_21_15_4619CC at 461540.  So
+  %theobject% now calls the library's lib_definite_object_name
+  (sclibrar_print.cpp, split out of lib_print_object_np), and
+  var_definite_name is gone.  That drops two unmeasured drifts: the scvars
+  copy folded "some" before 3.9 and stripped a Short's leading article
+  even when nothing followed it, keeping the space ("the  horn").
+  scparser.cpp's "it" echo ladder stays separate on purpose: it builds a
+  command line, with its own measured rules.  Suite signature unchanged.
 
 Covered: every top-level file (sections 1-7), including scdebug.cpp in
 full; plus a strict-warning sweep of everything.
@@ -343,15 +460,18 @@ full; plus a strict-warning sweep of everything.
 - 2.4 scvars.cpp in_/on_/onin_/state_ (1062-1110, 1267-1300, 1302-1328,
   1404-1469) share the resolve/clear-temporary/restore skeleton (~40 lines).
   Keep the asymmetry (in_/on_ scan Short first; onin_/state_ don't) as a
-  parameter — it is unmeasured.
+  parameter — it is unmeasured.  (DONE after round 6: measured, and there
+  is no asymmetry; see "Still open".)
 - 2.5 scvars.cpp:1205-1214 vs :1435-1445 obj_state_name copy block.
 - 2.6 article ladder ×4 in scvars (461-482, 499-506, 1613-1641, 1656-1663);
   theobject arm is var_print_object_np rewritten.  Cross-file copies in
   scparser.cpp:3465 and library/sclibrar_print.cpp:726 are measured — don't
-  merge across files without a measurement pass.
+  merge across files without a measurement pass.  (DONE after round 6:
+  %theobject% shares the library's builder; see "Still open".)
 - 2.7 scvars.cpp:648-691 var_list_at_object vs :714-807 var_list_onin_object
   ("on" half and "in" fallback are the same body); nested ", and inside is"
-  clause (764-782) is unmeasured, leave text alone.
+  clause (764-782) is unmeasured, leave text alone.  (DONE after round 6:
+  measured; see "Still open".)
 - 2.8 scparser.cpp:1307-1329 vs :1387-1408 wildcard_match_400/pre400: same
   ~20-line preamble.
 - 2.9 scparser.cpp:1804-1826 uip_match_wildcard vs :1889-1907 uip_match_text:
@@ -759,11 +879,11 @@ L / none (mechanical moves).
   autorestore-failure block :7152-7159 == :10732-10740.
 - Undo-failure wording :10600-10602 vs :10920-10923; endgame banner loop
   :10806-10851 re-implements the GSC_META_* dispatch of gsc_a5_meta_perform
-  :10586-10614.
+  :10586-10614.  (Round 6: kept, documented in gsc_a5_main.)
 - gsc_command_is_action's handler list and gsc_command_summary's is_log
   list duplicate GSC_COMMAND_TABLE knowledge; gsc_command_help :5332-5755
   (423 lines of if/else prose) -> a `help` string per row.  Removes two
-  lists that must be kept in sync.  M / low.
+  lists that must be kept in sync.  M / low.  APPLIED, round 6.
 - os_show_graphic x4, os_play/stop_sound x3: inherent to the #if ladder,
   collapses if the dead platform branches go.
 
@@ -784,7 +904,8 @@ L / none (mechanical moves).
   autosave is intentional.
 - Only literal TODO in the three files: os_glk.cpp:1181 "Using unicode
   output currently disrupts transcript output" (gsc_put_char_uni detaches
-  and reattaches the transcript stream).  Not re-tested.
+  and reattaches the transcript stream).  (FIXED after round 6: the
+  transcript is now a unicode stream; see "Still open".)
 
 ### Simplifications
 - gsc_a5_display :8859-8868 15-way `*p != A5_*_MARK` chain -> `strchr

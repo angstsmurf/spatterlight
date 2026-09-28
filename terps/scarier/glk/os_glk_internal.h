@@ -261,7 +261,6 @@ extern int gsc_autorestore_wanted (void);
 extern const scr_bool gsc_has_unicode;
 extern scr_bool gsc_main_at_line_start;
 extern void gsc_set_locale (const scr_char *name);
-extern void gsc_put_char_uni (glui32 unicode, const char *ascii);
 extern void gsc_put_string (const scr_char *string);
 extern void gsc_put_string_alternate (const scr_char *string);
 extern glui32 gsc_status_printed_width (const scr_char *string);

@@ -551,6 +551,216 @@ task_selector_npc (scr_var_setref_t vars, scr_int var)
 
 
 /*
+ * task_move_object_held_by()
+ *
+ * The "held by" destination of task_move_object_to(): var3 is 0 for the
+ * player, else a character selector.  Returns FALSE if the move was abandoned.
+ */
+static scr_bool
+task_move_object_held_by (scr_gameref_t game, scr_int object, scr_int var3,
+                          scr_bool is_v400, scr_bool *stamp_seen)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+
+  if (var3 == 0)            /* Player */
+    {
+      gs_object_player_get (game, object);
+      gs_set_object_runner_parent (game, object, -1);   /* 48C5E0 */
+      *stamp_seen = TRUE;
+    }
+  else                      /* Ref character or NPC id */
+    {
+      const scr_int npc = task_selector_npc (vars, var3);
+
+      /*
+       * No referenced character: run400 abandons the move entirely,
+       * skipping the rest of its mover including the post-move seen
+       * re-check (Proc_19_10 tests its referenced-character global
+       * against the &HFF unset marker and exits, loc_48C650-48C65C).
+       */
+      if (npc < 0)
+        return FALSE;
+
+      /* For an NPC id, run400 alone stamps a present object before
+         this move too. */
+      if (var3 != 1 && is_v400
+          && obj_indirectly_in_room (game, object, gs_playerroom (game)))
+        gs_set_object_seen (game, object, TRUE);
+      gs_object_npc_get (game, object, npc);
+      gs_set_object_runner_parent (game, object, npc);   /* 48C676/48C6E5 */
+      /* 3.9 never stamps an object handed to a character (run390
+         execute_action @456099-4560DA writes fields 22 and 42 only). */
+      *stamp_seen = is_v400
+                    && obj_indirectly_in_room (game, object,
+                                               gs_playerroom (game));
+    }
+
+  return TRUE;
+}
+
+
+/*
+ * task_move_object_to()
+ *
+ * The destination half of task_move_object(): move the object where var2 and
+ * var3 say, noting in stamp_seen whether the Runner would stamp it seen for
+ * that destination.  was_possessed, weight and size are the object's before
+ * the move, for the "into object" double subtract.  Returns FALSE if the move
+ * was abandoned for want of a referenced character, in which case the caller
+ * skips the rest of the mover.
+ */
+static scr_bool
+task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
+                     scr_int var3, scr_bool was_possessed, scr_int weight,
+                     scr_int size, scr_bool is_v400, scr_bool *stamp_seen)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+
+  *stamp_seen = FALSE;
+  switch (var2)
+    {
+    case 0:                    /* To room */
+      if (var3 == 0)
+        {
+          if (task_trace)
+            scr_trace ("Task: moving object %ld to hidden\n", object);
+
+          gs_object_make_hidden (game, object);
+        }
+      else
+        {
+          if (task_trace)
+            {
+              scr_trace ("Task: moving object %ld to room %ld\n",
+                        object, var3 - 1);
+            }
+
+          /* var3 != 0 here (the var3 == 0 "hidden" case is handled above). */
+          gs_object_to_room (game, object, var3 - 1);
+          *stamp_seen = (var3 - 1 == gs_playerroom (game));
+        }
+      /* Proc_19_10 writes &HFF to the container field on both paths
+         (48C431); see the runner_parent note in scgamest.cpp. */
+      gs_set_object_runner_parent (game, object, -1);
+      break;
+
+    case 1:                    /* To roomgroup part */
+      if (task_trace)
+        {
+          scr_trace ("Task: moving object %ld to random room in group %ld\n",
+                    object, var3);
+        }
+
+      {
+        scr_int dest = lib_random_roomgroup_member (game, var3);
+        if (dest >= 0)           /* Empty group: leave the object in place. */
+          gs_object_to_room (game, object, dest);
+      }
+      gs_set_object_runner_parent (game, object, -1);   /* 48C471 */
+      break;
+
+    case 2:                    /* Into object */
+      if (task_trace)
+        scr_trace ("Task: moving object %ld into %ld\n", object, var3);
+
+      /*
+       * Runner quirk, faithfully kept: the "into object" branch repeats the
+       * possession-gated subtract (Proc_19_10 loc_48C48B) before it moves the
+       * object, on top of the universal one above -- the object is still in
+       * the player's possession when the gate re-runs, so a task that moves a
+       * carried object into a container takes its size and weight off the
+       * totals twice.  The "onto" branch has no such second subtract.
+       */
+      if (was_possessed)
+        gs_carried_adjust (game, -weight, -size);
+      gs_object_move_into (game, object, obj_container_object (game, var3));
+      *stamp_seen = gs_object_seen (game, obj_container_object (game, var3));
+      break;
+
+    case 3:                    /* Onto object */
+      if (task_trace)
+        scr_trace ("Task: moving object %ld onto %ld\n", object, var3);
+
+      gs_object_move_onto (game, object, obj_surface_object (game, var3));
+      *stamp_seen = gs_object_seen (game, obj_surface_object (game, var3));
+      break;
+
+    case 4:                    /* Held by */
+      if (task_trace)
+        scr_trace ("Task: moving object %ld to held by %ld\n", object, var3);
+
+      if (!task_move_object_held_by (game, object, var3, is_v400, stamp_seen))
+        return FALSE;
+      break;
+
+    case 5:                    /* Worn by */
+      if (task_trace)
+        scr_trace ("Task: moving object %ld to worn by %ld\n", object, var3);
+
+      if (var3 == 0)            /* Player */
+        {
+          gs_object_player_wear (game, object);
+          gs_set_object_runner_parent (game, object, -1);   /* 48C745 */
+          *stamp_seen = TRUE;
+        }
+      else                      /* Ref character or NPC id */
+        {
+          const scr_int npc = task_selector_npc (vars, var3);
+
+          /* Unset referenced character: abandoned, as in the "held by"
+             case above (Proc_19_10 loc_48C79D-48C7A9). */
+          if (npc < 0)
+            return FALSE;
+          gs_object_npc_wear (game, object, npc);
+          gs_set_object_runner_parent (game, object, npc);   /* 48C7C3/48C7F9 */
+        }
+      break;
+
+    case 6:                    /* Same room as */
+      {
+        scr_int room, npc;
+
+        if (task_trace)
+          {
+            scr_trace ("Task: moving object %ld to same room as %ld\n",
+                      object, var3);
+          }
+
+        if (var3 == 0)          /* Player */
+          room = gs_playerroom (game);
+        else                    /* Ref character or NPC id */
+          {
+            npc = task_selector_npc (vars, var3);
+
+            /* Unset referenced character: abandoned, as in the "held by"
+               case above. */
+            if (npc < 0)
+              return FALSE;
+            room = gs_npc_location (game, npc) - 1;
+          }
+        gs_object_to_room (game, object, room);
+        gs_set_object_runner_parent (game, object, -1);   /* 48C815 */
+        *stamp_seen = (room == gs_playerroom (game));
+        break;
+      }
+
+    default:
+      /*
+       * Unset (combo index -1) or unknown object move destination; ignored, as
+       * the Runner does, rather than treated as fatal.  See the matching note in
+       * task_run_move_npc_action.
+       */
+      if (task_trace)
+        scr_trace ("Task: ignoring move with unset/unknown"
+                  " object move type %ld\n", var2);
+      break;
+    }
+
+  return TRUE;
+}
+
+
+/*
  * task_move_object()
  *
  * Move an object to a place.
@@ -558,8 +768,6 @@ task_selector_npc (scr_var_setref_t vars, scr_int var)
 static void
 task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-
   /*
    * Ignore negative object indexes, as evt_move_object() does.  Var1 = 2 is
    * "the referenced object", and a task reached by redirection (or matched by
@@ -643,184 +851,18 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     const scr_int size = obj_get_size (game, object);
     const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
     const scr_bool is_v400 = taf_version >= TAF_VERSION_400;
-    scr_bool stamp_seen = FALSE;
+    scr_bool stamp_seen;
 
+    /* The suspend guard lifts the tracker's suspension on the way out,
+       an abandoned move included. */
     {
-    gs_carried_suspend_guard suspend (game);
-    if (was_possessed)
-      gs_carried_adjust (game, -weight, -size);
+      gs_carried_suspend_guard suspend (game);
 
-  /* Select action depending on var2. */
-  switch (var2)
-    {
-    case 0:                    /* To room */
-      if (var3 == 0)
-        {
-          if (task_trace)
-            scr_trace ("Task: moving object %ld to hidden\n", object);
-
-          gs_object_make_hidden (game, object);
-        }
-      else
-        {
-          if (task_trace)
-            {
-              scr_trace ("Task: moving object %ld to room %ld\n",
-                        object, var3 - 1);
-            }
-
-          /* var3 != 0 here (the var3 == 0 "hidden" case is handled above). */
-          gs_object_to_room (game, object, var3 - 1);
-          stamp_seen = (var3 - 1 == gs_playerroom (game));
-        }
-      /* Proc_19_10 writes &HFF to the container field on both paths
-         (48C431); see the runner_parent note in scgamest.cpp. */
-      gs_set_object_runner_parent (game, object, -1);
-      break;
-
-    case 1:                    /* To roomgroup part */
-      if (task_trace)
-        {
-          scr_trace ("Task: moving object %ld to random room in group %ld\n",
-                    object, var3);
-        }
-
-      {
-        scr_int dest = lib_random_roomgroup_member (game, var3);
-        if (dest >= 0)           /* Empty group: leave the object in place. */
-          gs_object_to_room (game, object, dest);
-      }
-      gs_set_object_runner_parent (game, object, -1);   /* 48C471 */
-      break;
-
-    case 2:                    /* Into object */
-      if (task_trace)
-        scr_trace ("Task: moving object %ld into %ld\n", object, var3);
-
-      /*
-       * Runner quirk, faithfully kept: the "into object" branch repeats the
-       * possession-gated subtract (Proc_19_10 loc_48C48B) before it moves the
-       * object, on top of the universal one above -- the object is still in
-       * the player's possession when the gate re-runs, so a task that moves a
-       * carried object into a container takes its size and weight off the
-       * totals twice.  The "onto" branch has no such second subtract.
-       */
       if (was_possessed)
         gs_carried_adjust (game, -weight, -size);
-      gs_object_move_into (game, object, obj_container_object (game, var3));
-      stamp_seen = gs_object_seen (game, obj_container_object (game, var3));
-      break;
-
-    case 3:                    /* Onto object */
-      if (task_trace)
-        scr_trace ("Task: moving object %ld onto %ld\n", object, var3);
-
-      gs_object_move_onto (game, object, obj_surface_object (game, var3));
-      stamp_seen = gs_object_seen (game, obj_surface_object (game, var3));
-      break;
-
-    case 4:                    /* Held by */
-      if (task_trace)
-        scr_trace ("Task: moving object %ld to held by %ld\n", object, var3);
-
-      if (var3 == 0)            /* Player */
-        {
-          gs_object_player_get (game, object);
-          gs_set_object_runner_parent (game, object, -1);   /* 48C5E0 */
-          stamp_seen = TRUE;
-        }
-      else                      /* Ref character or NPC id */
-        {
-          const scr_int npc = task_selector_npc (vars, var3);
-
-          /*
-           * No referenced character: run400 abandons the move entirely,
-           * skipping the rest of its mover including the post-move seen
-           * re-check (Proc_19_10 tests its referenced-character global
-           * against the &HFF unset marker and exits, loc_48C650-48C65C).
-           * The suspend guard lifts the tracker's suspension on the way out.
-           */
-          if (npc < 0)
-            return;
-
-          /* For an NPC id, run400 alone stamps a present object before
-             this move too. */
-          if (var3 != 1 && is_v400
-              && obj_indirectly_in_room (game, object, gs_playerroom (game)))
-            gs_set_object_seen (game, object, TRUE);
-          gs_object_npc_get (game, object, npc);
-          gs_set_object_runner_parent (game, object, npc);   /* 48C676/48C6E5 */
-          /* 3.9 never stamps an object handed to a character (run390
-             execute_action @456099-4560DA writes fields 22 and 42 only). */
-          stamp_seen = is_v400
-                       && obj_indirectly_in_room (game, object,
-                                                  gs_playerroom (game));
-        }
-      break;
-
-    case 5:                    /* Worn by */
-      if (task_trace)
-        scr_trace ("Task: moving object %ld to worn by %ld\n", object, var3);
-
-      if (var3 == 0)            /* Player */
-        {
-          gs_object_player_wear (game, object);
-          gs_set_object_runner_parent (game, object, -1);   /* 48C745 */
-          stamp_seen = TRUE;
-        }
-      else                      /* Ref character or NPC id */
-        {
-          const scr_int npc = task_selector_npc (vars, var3);
-
-          /* Unset referenced character: abandoned, as in the "held by"
-             case above (Proc_19_10 loc_48C79D-48C7A9). */
-          if (npc < 0)
-            return;
-          gs_object_npc_wear (game, object, npc);
-          gs_set_object_runner_parent (game, object, npc);   /* 48C7C3/48C7F9 */
-        }
-      break;
-
-    case 6:                    /* Same room as */
-      {
-        scr_int room, npc;
-
-        if (task_trace)
-          {
-            scr_trace ("Task: moving object %ld to same room as %ld\n",
-                      object, var3);
-          }
-
-        if (var3 == 0)          /* Player */
-          room = gs_playerroom (game);
-        else                    /* Ref character or NPC id */
-          {
-            npc = task_selector_npc (vars, var3);
-
-            /* Unset referenced character: abandoned, as in the "held by"
-               case above. */
-            if (npc < 0)
-              return;
-            room = gs_npc_location (game, npc) - 1;
-          }
-        gs_object_to_room (game, object, room);
-        gs_set_object_runner_parent (game, object, -1);   /* 48C815 */
-        stamp_seen = (room == gs_playerroom (game));
-        break;
-      }
-
-    default:
-      /*
-       * Unset (combo index -1) or unknown object move destination; ignored, as
-       * the Runner does, rather than treated as fatal.  See the matching note in
-       * task_run_move_npc_action.
-       */
-      if (task_trace)
-        scr_trace ("Task: ignoring move with unset/unknown"
-                  " object move type %ld\n", var2);
-      break;
-    }
-
+      if (!task_move_object_to (game, object, var2, var3, was_possessed,
+                                weight, size, is_v400, &stamp_seen))
+        return;
     }
 
     /* Post-move credit: into the player's hands or onto their back. */
@@ -1142,8 +1184,11 @@ task_run_move_npc_action (scr_gameref_t game,
     }
   else
     {
-      /* NPC -- first find which NPC to move about. */
+      /* NPC -- first find which NPC to move about.  With no referenced
+         character, run400 leaves the action at once (48CDB8, Exit Sub). */
       npc = task_selector_npc (vars, var1);
+      if (npc < 0)
+        return;
 
       /* Decide where to move the NPC to. */
       switch (var2)
@@ -1195,7 +1240,17 @@ task_run_move_npc_action (scr_gameref_t game,
               task_move_npc_to_room (game, npc, gs_playerroom (game));
               break;
             default:           /* ...referenced or specified NPC */
+              /*
+               * With no referenced character, run400 indexes its NPC array
+               * with the unset marker (48CEA9), and execute_action's error
+               * handler prints "** ERROR - Subscript out of range! **" and
+               * abandons this one action; the task's other actions still
+               * run (measured, p4MVREF probe).  Deliberate deviation: the
+               * action is dropped silently, without the Runner's error text.
+               */
               ref_npc = task_selector_npc (vars, var3);
+              if (ref_npc < 0)
+                return;
               if (task_trace)
                 {
                   scr_trace ("Task: moving NPC %ld to same room as %sNPC %ld\n",

@@ -383,34 +383,6 @@ gsc_set_locale (const scr_char *name)
 
 
 /*
- * gsc_put_char_uni()
- *
- * Wrapper around glk_put_char_uni().  Handles, inelegantly, the problem of
- * having to write transcripts as ascii.
- */
-void
-gsc_put_char_uni (glui32 unicode, const char *ascii)
-{
-  /* If there is an transcript stream, temporarily disconnect it. */
-  if (gsc_transcript_stream)
-    glk_window_set_echo_stream (gsc_main_window, NULL);
-
-  glk_put_char_uni (unicode);
-
-  /* Print ascii to the transcript, then reattach it. */
-  if (gsc_transcript_stream)
-    {
-      if (ascii)
-        glk_put_string_stream (gsc_transcript_stream, (char *) ascii);
-      else
-        glk_put_char_stream (gsc_transcript_stream, '?');
-
-      glk_window_set_echo_stream (gsc_main_window, gsc_transcript_stream);
-    }
-}
-
-
-/*
  * Tracks whether the next character written to the main window would start a
  * new line, i.e. the last thing printed there was a newline.  Used by
  * os_show_graphic() to avoid emitting a redundant leading break (and a blank
@@ -487,19 +459,15 @@ gsc_put_char_locale (scr_char ch,
       /*
        * If no usable iso 8859-1 representation, see if unicode is enabled and
        * if the Glk library can print the character exactly.  If yes, output
-       * the character that way.
-       *
-       * TODO Using unicode output currently disrupts transcript output.  Any
-       * echo stream connected for a transcript here will be a text rather than
-       * a unicode stream, so probably won't output the character correctly.
-       * For now, if there's a transcript, we try to write ascii output.
+       * the character that way.  The transcript is a unicode stream
+       * (gsc_open_log_stream), so the echo writes it too.
        */
       if (gsc_unicode_enabled)
         {
           if (glk_gestalt (gestalt_CharOutput,
                            unicode) == gestalt_CharOutput_ExactPrint)
             {
-              gsc_put_char_uni (unicode, ascii);
+              glk_put_char_uni (unicode);
               return;
             }
         }

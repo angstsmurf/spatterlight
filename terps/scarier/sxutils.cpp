@@ -18,12 +18,6 @@
  * USA
  */
 
-/*
- * Module notes:
- *
- * o ...
- */
-
 #include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>

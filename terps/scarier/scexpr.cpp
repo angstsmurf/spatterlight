@@ -633,18 +633,17 @@ expr_eval_abs (scr_int value)
 static jmp_buf expr_parse_error;
 
 /*
- * expr_eval_action()
+ * expr_eval_push_value()
  *
- * Evaluate the effect of a token into the values stack.
+ * Push the value of an integer, string, or variable token.
  */
 static void
-expr_eval_action (scr_int token)
+expr_eval_push_value (scr_int token)
 {
   scr_vartype_t token_value;
 
   switch (token)
     {
-      /* Handle tokens representing stack pushes. */
     case TOK_INTEGER:
       expr_current_token_value (&token_value);
       expr_eval_push_integer (token_value.integer);
@@ -683,7 +682,23 @@ expr_eval_action (scr_int token)
         break;
       }
 
-      /* Handle tokens representing functions returning numeric. */
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
+
+
+/*
+ * expr_eval_numeric_function()
+ *
+ * Evaluate a function returning numeric: if, max, min, either, instr, len,
+ * and val.
+ */
+static void
+expr_eval_numeric_function (scr_int token)
+{
+  switch (token)
+    {
     case TOK_IF:
       {
         scr_int test, val1, val2;
@@ -812,7 +827,23 @@ expr_eval_action (scr_int token)
         break;
       }
 
-      /* Handle tokens representing unary numeric operations. */
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
+
+
+/*
+ * expr_eval_numeric_operator()
+ *
+ * Evaluate a unary numeric operation, or any binary one but division, mod,
+ * and power.
+ */
+static void
+expr_eval_numeric_operator (scr_int token)
+{
+  switch (token)
+    {
     case TOK_UMINUS:
       expr_eval_push_integer (-(expr_eval_pop_integer ()));
       break;
@@ -824,7 +855,6 @@ expr_eval_action (scr_int token)
       expr_eval_push_integer (expr_eval_abs (expr_eval_pop_integer ()));
       break;
 
-      /* Handle tokens representing most binary numeric operations. */
     case TOK_ADD:
     case TOK_SUBTRACT:
     case TOK_MULTIPLY:
@@ -892,7 +922,22 @@ expr_eval_action (scr_int token)
         break;
       }
 
-      /* Handle division and modulus separately; they're "eccentric". */
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
+
+
+/*
+ * expr_eval_division()
+ *
+ * Evaluate division or mod, handled separately since they're "eccentric".
+ */
+static void
+expr_eval_division (scr_int token)
+{
+  switch (token)
+    {
     case TOK_DIVIDE:
     case TOK_MOD:
       {
@@ -949,58 +994,78 @@ expr_eval_action (scr_int token)
         break;
       }
 
-      /* Handle power individually, to avoid needing a maths library. */
-    case TOK_POWER:
-      {
-        scr_int val1, val2, result;
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
 
-        /* Extract the two values to work on. */
-        val2 = expr_eval_pop_integer ();
-        val1 = expr_eval_pop_integer ();
 
-        /* Handle negative and zero power values first, as special cases. */
-        if (val2 == 0)
-          result = 1;
-        else if (val2 < 0)
-          {
-            if (val1 == 0)
-              {
-                scr_error ("expr_eval_action: attempt to divide by zero\n");
-                result = 0;
-              }
-            else if (val1 == 1)
-              result = val1;
-            else if (val1 == -1)
-              result = (-val2 & 1) ? val1 : -val1;
-            else
-              result = 0;
-          }
-        else
-          {
-            /* Raise to positive powers using the Russian Peasant algorithm. */
-            while ((val2 & 1) == 0)
-              {
-                val1 = val1 * val1;
-                val2 >>= 1;
-              }
+/*
+ * expr_eval_power()
+ *
+ * Evaluate power, handled individually to avoid needing a maths library.
+ */
+static void
+expr_eval_power (void)
+{
+  scr_int val1, val2, result;
 
-            result = val1;
-            val2 >>= 1;
-            while (val2 > 0)
-              {
-                val1 = val1 * val1;
-                if (val2 & 1)
-                  result = result * val1;
-                val2 >>= 1;
-              }
-          }
+  /* Extract the two values to work on. */
+  val2 = expr_eval_pop_integer ();
+  val1 = expr_eval_pop_integer ();
 
-        /* Put result back at top of stack. */
-        expr_eval_push_integer (result);
-        break;
-      }
+  /* Handle negative and zero power values first, as special cases. */
+  if (val2 == 0)
+    result = 1;
+  else if (val2 < 0)
+    {
+      if (val1 == 0)
+        {
+          scr_error ("expr_eval_action: attempt to divide by zero\n");
+          result = 0;
+        }
+      else if (val1 == 1)
+        result = val1;
+      else if (val1 == -1)
+        result = (-val2 & 1) ? val1 : -val1;
+      else
+        result = 0;
+    }
+  else
+    {
+      /* Raise to positive powers using the Russian Peasant algorithm. */
+      while ((val2 & 1) == 0)
+        {
+          val1 = val1 * val1;
+          val2 >>= 1;
+        }
 
-      /* Handle tokens representing functions returning string. */
+      result = val1;
+      val2 >>= 1;
+      while (val2 > 0)
+        {
+          val1 = val1 * val1;
+          if (val2 & 1)
+            result = result * val1;
+          val2 >>= 1;
+        }
+    }
+
+  /* Put result back at top of stack. */
+  expr_eval_push_integer (result);
+}
+
+
+/*
+ * expr_eval_string_function()
+ *
+ * Evaluate a function returning string: left, right, mid, and str.
+ */
+static void
+expr_eval_string_function (scr_int token)
+{
+  switch (token)
+    {
     case TOK_LEFT:
     case TOK_RIGHT:
       {
@@ -1092,8 +1157,22 @@ expr_eval_action (scr_int token)
         break;
       }
 
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
 
-      /* Handle tokens representing unary string operations. */
+
+/*
+ * expr_eval_string_operator()
+ *
+ * Evaluate a string operation: upper, lower, proper, and concatenation.
+ */
+static void
+expr_eval_string_operator (scr_int token)
+{
+  switch (token)
+    {
     case TOK_UPPER:
     case TOK_LOWER:
     case TOK_PROPER:
@@ -1134,7 +1213,6 @@ expr_eval_action (scr_int token)
         break;
       }
 
-      /* Handle token representing binary string operation. */
     case TOK_CONCATENATE:
       {
         scr_char *text1, *text2;
@@ -1158,6 +1236,79 @@ expr_eval_action (scr_int token)
         expr_eval_push_alloced_string (text1);
         break;
       }
+
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+    }
+}
+
+
+/*
+ * expr_eval_action()
+ *
+ * Evaluate the effect of a token into the values stack.
+ */
+static void
+expr_eval_action (scr_int token)
+{
+  switch (token)
+    {
+    case TOK_INTEGER:
+    case TOK_STRING:
+    case TOK_VARIABLE:
+      expr_eval_push_value (token);
+      break;
+
+    case TOK_IF:
+    case TOK_MAX:
+    case TOK_MIN:
+    case TOK_EITHER:
+    case TOK_INSTR:
+    case TOK_LEN:
+    case TOK_VAL:
+      expr_eval_numeric_function (token);
+      break;
+
+    case TOK_UMINUS:
+    case TOK_UPLUS:
+    case TOK_ABS:
+    case TOK_ADD:
+    case TOK_SUBTRACT:
+    case TOK_MULTIPLY:
+    case TOK_AND:
+    case TOK_OR:
+    case TOK_EQUAL:
+    case TOK_GREATER:
+    case TOK_LESS:
+    case TOK_NOT_EQUAL:
+    case TOK_GREATER_EQ:
+    case TOK_LESS_EQ:
+    case TOK_RANDOM:
+      expr_eval_numeric_operator (token);
+      break;
+
+    case TOK_DIVIDE:
+    case TOK_MOD:
+      expr_eval_division (token);
+      break;
+
+    case TOK_POWER:
+      expr_eval_power ();
+      break;
+
+    case TOK_LEFT:
+    case TOK_RIGHT:
+    case TOK_MID:
+    case TOK_STR:
+      expr_eval_string_function (token);
+      break;
+
+    case TOK_UPPER:
+    case TOK_LOWER:
+    case TOK_PROPER:
+    case TOK_CONCATENATE:
+      expr_eval_string_operator (token);
+      break;
 
     default:
       scr_fatal ("expr_eval_action: bad token, %ld\n", token);

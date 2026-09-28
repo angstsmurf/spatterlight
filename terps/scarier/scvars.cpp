@@ -525,81 +525,19 @@ var_set_temp_state (scr_gameref_t game, scr_var_setref_t vars, scr_int object)
 
 
 /*
- * var_definite_name()
  * var_print_object_np
  * var_print_object
  *
- * An object's name with its article replaced by "the" (%theobject%), and
- * convenience functions to append an object's name, with "the" and with its
- * own prefix, to variables temporary.
+ * Convenience functions to append an object's name, with "the" and with its
+ * own prefix, to variables temporary.  The definite form is the library's
+ * (lib_definite_object_name), which is also what %theobject% expands to.
  */
-static std::string
-var_definite_name (scr_prop_setref_t bundle, scr_int object)
-{
-  const scr_char *prefix, *normalized, *name;
-  std::string result;
-
-  prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
-
-  /*
-   * Try the same shenanigans as done by the equivalent function in the
-   * library.
-   */
-  normalized = prefix;
-  if (scr_compare_word (prefix, "a", 1))
-    {
-      normalized = prefix + 1;
-      result = "the";
-    }
-  else if (scr_compare_word (prefix, "an", 2))
-    {
-      normalized = prefix + 2;
-      result = "the";
-    }
-  else if (scr_compare_word (prefix, "the", 3))
-    {
-      normalized = prefix + 3;
-      result = "the";
-    }
-  else if (scr_compare_word (prefix, "some", 4))
-    {
-      normalized = prefix + 4;
-      result = "the";
-    }
-  else if (scr_strempty (prefix))
-    result = "the ";
-
-  /* As with the library, handle the remaining prefix. */
-  if (!scr_strempty (normalized))
-    {
-      result += normalized;
-      result += ' ';
-    }
-  else if (normalized > prefix)
-    result += ' ';
-
-  /*
-   * Add the object's name, again, as with the library, stripping any
-   * leading article
-   */
-  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (scr_compare_word (name, "a", 1))
-    name += 1;
-  else if (scr_compare_word (name, "an", 2))
-    name += 2;
-  else if (scr_compare_word (name, "the", 3))
-    name += 3;
-  else if (scr_compare_word (name, "some", 4))
-    name += 4;
-  result += name;
-  return result;
-}
-
 static void
 var_print_object_np (scr_gameref_t game, scr_int object)
 {
   var_append_temp (gs_get_vars (game),
-                   var_definite_name (gs_get_bundle (game), object).c_str ());
+                   lib_definite_object_name (gs_get_bundle (game),
+                                             object).c_str ());
 }
 
 static void
@@ -801,11 +739,36 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
     }
 }
 
+/*
+ * var_shows_contents()
+ *
+ * Only an open container lists its contents.  run390 fills %in_<object>%
+ * through whatisinon() (loop at 0045B3CC), whose in-branch (00443A46)
+ * requires the container flag and an openness other than closed, the same
+ * gate as the room lister in lib_list_in_on_object().  thewill
+ * (runner_transcripts/thewill.txt): the Hallway's "%in_clock%" prints
+ * nothing while the clock is shut, where we listed the pocket watch
+ * "inside the open grandfather clock".
+ *
+ * %onin_<object>% goes through the very same branch.  run400's whatisinon
+ * (46A950) enters its in-half at 46A421 for any mode but 1 (on), so for
+ * mode 0 (in) and mode 2 (onin) alike, and tests global_33 (container),
+ * global_52 < 6 (openness: not closed, not locked) and obhere at 46A424-
+ * 46A44A.  A closed container's %onin_% therefore names only what is on it.
+ */
+static scr_bool
+var_shows_contents (scr_gameref_t game, scr_int container)
+{
+  return obj_is_container (game, container)
+         && gs_object_openness (game, container) <= OBJ_OPEN;
+}
+
 static void
 var_list_in_object (scr_gameref_t game, scr_int container)
 {
-  var_list_at_object (game, container, OBJ_IN_OBJECT, "Inside ",
-                      " is inside ", " are inside ");
+  if (var_shows_contents (game, container))
+    var_list_at_object (game, container, OBJ_IN_OBJECT, "Inside ",
+                        " is inside ", " are inside ");
 }
 
 static void
@@ -834,28 +797,30 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
   if (supporting)
     var_list_at_clause (game, associate, list, "On ", " is on ", " are on ");
 
-  /* List out the objects contained in this object. */
-  list = var_collect_at_object (game, associate, OBJ_IN_OBJECT);
+  /* List out the objects contained in this object, if it is open. */
+  if (var_shows_contents (game, associate))
+    list = var_collect_at_object (game, associate, OBJ_IN_OBJECT);
+  else
+    list.clear ();
   if (!list.empty ())
     {
       /*
-       * The nested clause -- something on the surface as well as in it -- is
-       * left as SCARE wrote it.  run400 reaches it with var_9E set and prints
-       * a prefixed ", and inside is <list>" there (see lib_list_in_object()),
-       * but no corpus row and no Runner replay exercises it, so the shape is
-       * unmeasured and this is not the change to guess it in.  The unnested
-       * clause is the one %in_<object>% would have produced, so it goes
-       * through the same selector.
+       * With something on the surface as well, the contents run onto the
+       * same sentence.  MEASURED 2026-09-28, run400 on p4ONIN.taf
+       * (Adrift_305_onin.txt; make_400_oninprobe.py): "A plate and a bowl
+       * are on the crate, and inside is a key and a ring." and "... on the
+       * rack, and inside is a nail." -- whatisinon's literal ", and inside
+       * is " whatever the count, as in lib_list_in_object_joined().  Scarier
+       * keeps agreement there, and so here.  The unnested clause is the one
+       * %in_<object>% would have produced, so it goes through the same
+       * selector.
        */
       if (supporting)
         {
-          var_append_temp (vars, ", and ");
-          var_print_list (game, list);
+          var_append_temp (vars, ", and inside");
           var_append_temp (vars,
-                           list.size () == 1
-                           ? var_select_plurality (game, list[0],
-                                                   " is inside ", " are inside ")
-                           : " are inside");
+                           var_select_list_plurality (game, associate, list));
+          var_print_list (game, list);
         }
       else
         var_list_at_clause (game, associate, list, "Inside ",
@@ -900,13 +865,20 @@ var_return_string (const scr_char *value, scr_int *type, scr_vartype_t *vt_rvalu
  * var_find_object_by_short()
  *
  * Find the lowest-indexed object whose Short, alone or after its Prefix and
- * a space, equals `name` ignoring case, optionally skipping objects that
- * are not openable.  -1 if none.  The shared scan behind var_status_object()
- * and var_marker_object_by_short() below.
+ * a space, equals `name` ignoring case, skipping objects the filter rules
+ * out.  -1 if none.  The shared scan behind var_status_object() and
+ * var_resolve_marker_object() below.
  */
+typedef enum
+{
+  VAR_ANY_OBJECT,
+  VAR_OPENABLE_OBJECT,
+  VAR_STATEFUL_OBJECT
+} var_object_filter_t;
+
 static scr_int
 var_find_object_by_short (scr_gameref_t game, const scr_char *name,
-                          scr_bool openable_only)
+                          var_object_filter_t filter)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object;
@@ -916,9 +888,12 @@ var_find_object_by_short (scr_gameref_t game, const scr_char *name,
       const scr_char *prefix, *shortname;
       std::string prefixed;
 
-      if (openable_only
+      if (filter == VAR_OPENABLE_OBJECT
           && prop_get_indexed_integer (bundle, "Objects", object,
                                        "Openable") == 0)
+        continue;
+      if (filter == VAR_STATEFUL_OBJECT
+          && !var_object_is_stateful (bundle, object))
         continue;
 
       shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
@@ -990,20 +965,23 @@ var_find_object_by_short (scr_gameref_t game, const scr_char *name,
 static scr_int
 var_status_object (scr_gameref_t game, const scr_char *name)
 {
-  return var_find_object_by_short (game, name, TRUE);
+  return var_find_object_by_short (game, name, VAR_OPENABLE_OBJECT);
 }
 
 
 /*
- * var_marker_object_by_short()
+ * var_resolve_marker_object()
  *
- * Find the LOWEST-indexed object whose Short (with or without its Prefix)
- * equals `name` exactly, the same binary Replace-on-Short scan as
- * var_status_object() above but with no Openable filter -- General.bas
- * 4798A7-479A31 runs it for every %in_<name>%/%on_<name>% marker regardless
- * of what kind of object <name> names.  Returns -1 for no exact-Short match,
- * which the caller then falls back to uip_match() for (aliases, pronouns,
- * and anything else the parser alone can resolve).
+ * Point the referenced object at the object an %in_<name>%, %on_<name>%,
+ * %onin_<name>% or %state_<name>% marker names, and return TRUE, or FALSE
+ * if nothing answers to <name>.  The LOWEST-indexed object whose Short (with
+ * or without its Prefix) equals `name` exactly wins, the same binary
+ * Replace-on-Short scan as var_status_object() above: General.bas
+ * 4798A7-479A31 runs it for %in_ and %on_ regardless of what kind of object
+ * <name> names, 479BD5 the same for %onin_, and 47A0B2 for %state_ over
+ * the objects that have a current state.  With no exact-Short match the
+ * caller's name goes to uip_match() instead (aliases, pronouns, and
+ * anything else the parser alone can resolve).
  *
  * MEASURED escape_to_new_york turn 72 `open desk` (Ticket run400 xoshiro
  * trace 2026-09-12): the room's Long reads %in_desk% and two objects carry
@@ -1012,10 +990,69 @@ var_status_object (scr_gameref_t game, const scr_char *name)
  * uip_match()'s last-match-wins walk had been picking the high one whenever
  * both were in scope.
  */
-static scr_int
-var_marker_object_by_short (scr_gameref_t game, const scr_char *name)
+static scr_bool
+var_resolve_marker_object (scr_gameref_t game, const scr_char *name,
+                           var_object_filter_t filter)
 {
-  return var_find_object_by_short (game, name, FALSE);
+  const scr_int matched = var_find_object_by_short (game, name, filter);
+
+  if (matched == -1)
+    return uip_match ("%object%", name, game);
+
+  gs_get_vars (game)->referenced_object = matched;
+  return TRUE;
+}
+
+
+/*
+ * var_get_listing()
+ *
+ * The %in_<name>%, %on_<name>% and %onin_<name>% markers: resolve <name>,
+ * list what is in or on it with `lister`, and hand the listing back, leaving
+ * the referenced object as it was.  `marker` and `unavailable` are for the
+ * error paths.
+ *
+ * MEASURED 2026-09-28, run400 on p4ONIN.taf (Adrift_305_onin.txt;
+ * make_400_oninprobe.py): two boxes, the low-indexed one in Alpha, and
+ * from Bravo all three markers come back empty.  The low box wins, as the
+ * name scan says, and whatisinon() (46A950) lists nothing for it because
+ * it tests obhere (452E9C) first: an object away from the player's room
+ * has no contents to report.  whatisinon is a 3.9 routine, so the test
+ * stops there.
+ */
+static scr_bool
+var_get_listing (scr_var_setref_t vars, const scr_char *name,
+                 const scr_char *marker, const scr_char *unavailable,
+                 void (*lister) (scr_gameref_t, scr_int),
+                 scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+  const scr_int saved_ref_object = vars->referenced_object;
+  scr_int object;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for %s\n", marker);
+      return var_return_string (unavailable, type, vt_rvalue);
+    }
+  if (!var_resolve_marker_object (game, name + strlen (marker),
+                                  VAR_ANY_OBJECT))
+    {
+      scr_error ("var_get_system: invalid object for %s\n", marker);
+      return var_return_string (unavailable, type, vt_rvalue);
+    }
+  object = vars->referenced_object;
+
+  /* Clear any current temporary for appends, and list into it. */
+  var_clear_temp (vars);
+  if (prop_get_taf_version (vars->bundle) < TAF_VERSION_390
+      || obj_indirectly_in_room (game, object, gs_playerroom (game)))
+    lister (game, object);
+
+  /* Restore saved referenced object and return. */
+  vars->referenced_object = saved_ref_object;
+  return var_return_string (vars->temporary, type, vt_rvalue);
 }
 
 
@@ -1118,53 +1155,8 @@ var_get_system (scr_var_setref_t vars,
     }
 
   else if (strncmp (name, "in_", 3) == 0)
-    {
-      scr_int saved_ref_object = vars->referenced_object;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for in_\n");
-          return var_return_string ("[In_ unavailable]", type, vt_rvalue);
-        }
-
-      /*
-       * An exact Short match picks the LOWEST-indexed object, same as
-       * %status_%; only fall back to the parser's %object% match (last
-       * match wins) when no object's Short names it exactly.  See
-       * var_marker_object_by_short().
-       */
-      {
-        scr_int matched = var_marker_object_by_short (game, name + 3);
-        if (matched != -1)
-          vars->referenced_object = matched;
-        else if (!uip_match ("%object%", name + 3, game))
-          {
-            scr_error ("var_get_system: invalid object for in_\n");
-            return var_return_string ("[In_ unavailable]", type, vt_rvalue);
-          }
-      }
-
-      /* Clear any current temporary for appends. */
-      var_clear_temp (vars);
-
-      /*
-       * Write what's in the object into temporary -- but only for an open
-       * container.  run390 fills %in_<object>% through whatisinon() (loop at
-       * 0045B3CC), whose in-branch (00443A46) requires the container flag and
-       * an openness other than closed, the same gate as the room lister in
-       * lib_list_in_on_object().  thewill (runner_transcripts/thewill.txt):
-       * the Hallway's "%in_clock%" prints nothing while the clock is shut,
-       * where we listed the pocket watch "inside the open grandfather clock".
-       */
-      if (obj_is_container (game, vars->referenced_object)
-          && gs_object_openness (game, vars->referenced_object) <= OBJ_OPEN)
-        var_list_in_object (game, vars->referenced_object);
-
-      /* Restore saved referenced object and return. */
-      vars->referenced_object = saved_ref_object;
-      return var_return_string (vars->temporary, type, vt_rvalue);
-    }
+    return var_get_listing (vars, name, "in_", "[In_ unavailable]",
+                            var_list_in_object, type, vt_rvalue);
 
   else if (strcmp (name, "maxscore") == 0)
     {
@@ -1282,65 +1274,12 @@ var_get_system (scr_var_setref_t vars,
     }
 
   else if (strncmp (name, "on_", 3) == 0)
-    {
-      scr_int saved_ref_object = vars->referenced_object;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for on_\n");
-          return var_return_string ("[On_ unavailable]", type, vt_rvalue);
-        }
-
-      /* Same lowest-index Short match, before uip_match(); see the in_ arm. */
-      {
-        scr_int matched = var_marker_object_by_short (game, name + 3);
-        if (matched != -1)
-          vars->referenced_object = matched;
-        else if (!uip_match ("%object%", name + 3, game))
-          {
-            scr_error ("var_get_system: invalid object for on_\n");
-            return var_return_string ("[On_ unavailable]", type, vt_rvalue);
-          }
-      }
-
-      /* Clear any current temporary for appends. */
-      var_clear_temp (vars);
-
-      /* Write what's on the object into temporary. */
-      var_list_on_object (game, vars->referenced_object);
-
-      /* Restore saved referenced object and return. */
-      vars->referenced_object = saved_ref_object;
-      return var_return_string (vars->temporary, type, vt_rvalue);
-    }
+    return var_get_listing (vars, name, "on_", "[On_ unavailable]",
+                            var_list_on_object, type, vt_rvalue);
 
   else if (strncmp (name, "onin_", 5) == 0)
-    {
-      scr_int saved_ref_object = vars->referenced_object;
-
-      /* Check there's enough information to return a value. */
-      if (!game)
-        {
-          scr_error ("var_get_system: no game for onin_\n");
-          return var_return_string ("[Onin_ unavailable]", type, vt_rvalue);
-        }
-      if (!uip_match ("%object%", name + 5, game))
-        {
-          scr_error ("var_get_system: invalid object for onin_\n");
-          return var_return_string ("[Onin_ unavailable]", type, vt_rvalue);
-        }
-
-      /* Clear any current temporary for appends. */
-      var_clear_temp (vars);
-
-      /* Write what's on/in the object into temporary. */
-      var_list_onin_object (game, vars->referenced_object);
-
-      /* Restore saved referenced object and return. */
-      vars->referenced_object = saved_ref_object;
-      return var_return_string (vars->temporary, type, vt_rvalue);
-    }
+    return var_get_listing (vars, name, "onin_", "[Onin_ unavailable]",
+                            var_list_onin_object, type, vt_rvalue);
 
   else if (strcmp (name, "player") == 0)
     {
@@ -1426,7 +1365,12 @@ var_get_system (scr_var_setref_t vars,
           scr_error ("var_get_system: no game for state_\n");
           return var_return_string ("[State_ unavailable]", type, vt_rvalue);
         }
-      if (!uip_match ("%object%", name + 6, game))
+      /*
+       * The lowest-indexed stateful namesake, anywhere: from Bravo, p4ONIN's
+       * %state_lever% reads the Alpha lever, and %state_knob% the Alpha knob
+       * past a stateless one in view (Adrift_305_onin.txt).
+       */
+      if (!var_resolve_marker_object (game, name + 6, VAR_STATEFUL_OBJECT))
         {
           scr_error ("var_get_system: invalid object for state_\n");
           return var_return_string ("[State_ unavailable]", type, vt_rvalue);
@@ -1561,8 +1505,8 @@ var_get_system (scr_var_setref_t vars,
       if (vars->referenced_object != -1)
         {
           /* Return object name prefixed with "the"... */
-          var_set_temp (vars, var_definite_name (bundle,
-                                                 vars->referenced_object).c_str ());
+          var_set_temp (vars, lib_definite_object_name (bundle,
+                                        vars->referenced_object).c_str ());
 
           return var_return_string (vars->temporary, type, vt_rvalue);
         }
