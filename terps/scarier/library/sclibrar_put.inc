@@ -21,34 +21,37 @@
  */
 
 /*
- * lib_check_put_in_recursion()
+ * lib_check_put_recursion()
  *
- * Checks for infinite recursion when placing an object in an object.  Returns
- * TRUE if no recursion detected.
+ * Checks for infinite recursion when placing an object in, or for is_on
+ * onto, an object.  Returns TRUE if no recursion detected.
  */
 static scr_bool
-lib_check_put_in_recursion (scr_gameref_t game,
-                            scr_int object, scr_int container, scr_bool report)
+lib_check_put_recursion (scr_gameref_t game, scr_int object, scr_int target,
+                         scr_bool report, scr_bool is_on)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *const preposition = is_on ? "onto" : "inside";
   scr_int check;
 
   /* Avoid the obvious possibility of infinite recursion. */
-  if (container == object)
+  if (target == object)
     {
       if (report)
         {
           pf_buffer_string (filter,
                             lib_select_response (game,
-                                "You can't put an object inside itself!",
-                                "I can't put an object inside itself!",
-                                "%player% can't put an object inside itself!"));
+                                                 "You can't put an object ",
+                                                 "I can't put an object ",
+                                                 "%player% can't put an object "));
+          pf_buffer_string (filter, preposition);
+          pf_buffer_string (filter, " itself!");
         }
       return FALSE;
     }
 
   /* Avoid the subtle possibility of infinite recursion. */
-  check = container;
+  check = target;
   while (gs_object_position (game, check) == OBJ_ON_OBJECT
          || gs_object_position (game, check) == OBJ_IN_OBJECT)
     {
@@ -59,10 +62,11 @@ lib_check_put_in_recursion (scr_gameref_t game,
             {
               pf_buffer_string (filter,
                                 lib_select_response (game,
-                                    "You can't put an object inside one",
-                                    "I can't put an object inside one",
-                                    "%player% can't put an object inside one"));
-              pf_buffer_string (filter, " it's on or in!");
+                                                     "You can't put an object ",
+                                                     "I can't put an object ",
+                                                     "%player% can't put an object "));
+              pf_buffer_string (filter, preposition);
+              pf_buffer_string (filter, " one it's on or in!");
             }
           return FALSE;
         }
@@ -704,7 +708,8 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * already inside the object.  The 4.0 test sits after the deferred
        * task pass below.
        */
-      if (!lib_check_put_in_recursion (game, object, container, !has_printed))
+      if (!lib_check_put_recursion (game, object, container, !has_printed,
+                                    FALSE))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
@@ -780,8 +785,8 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
       if (!game->object_references[pending_object])
         continue;
 
-      if (!lib_check_put_in_recursion (game, pending_object, container,
-                                       !has_printed))
+      if (!lib_check_put_recursion (game, pending_object, container,
+                                       !has_printed, FALSE))
         {
           game->object_references[pending_object] = FALSE;
           has_printed = TRUE;
@@ -1162,11 +1167,11 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
 
 
 /*
- * lib_put_in_finish()
- * lib_put_on_finish()
+ * lib_put_finish()
  *
  * End the put's line and settle its claim from the backend's outcome; see
- * lib_put_outcome_t.  A 4.0 put that printed nothing (statics only, see
+ * lib_put_outcome_t.  Only the container backend ever reports a
+ * refusal-only outcome; see lib_put_in_refused().  A 4.0 put that printed nothing (statics only, see
  * lib_put_drop_statics_400()) is left unclaimed with no line ending, for
  * the task pass to answer.
  *
@@ -1182,7 +1187,7 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
  * "I don't understand what you mean.".
  */
 static scr_bool
-lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
+lib_put_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
@@ -1200,36 +1205,19 @@ lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
   return lib_put_in_refused (game, outcome.is_refusal_only);
 }
 
-static scr_bool
-lib_put_on_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-
-  if (outcome.is_silent && lib_is_version_400 (game))
-    return FALSE;
-  if (outcome.is_announce_only && lib_is_version_400 (game))
-    {
-      pf_buffer_string (filter, prop_get_global_string (gs_get_bundle (game),
-                                                        "DontUnderstand"));
-      pf_buffer_answer_break (filter);
-      return TRUE;
-    }
-  if (!outcome.is_tasks_only)
-    pf_buffer_answer_break (filter);
-  return TRUE;
-}
-
 
 /*
- * lib_put_in_filter()
- * lib_put_in_not_container_filter()
+ * lib_put_multiple_filter()
+ * lib_put_multiple_resolve_filter()
+ * lib_put_except_filter()
  *
- * Helper functions for deciding if an object may be put in another this
- * context.  Returns TRUE if an object may be manipulated, FALSE otherwise.
- * The named form is much the wider of the two; see lib_put_named_filter().
+ * Helper functions for deciding if an object may be put in or on another in
+ * this context, in the shape the multiple-object parser and lib_apply_filter()
+ * take.  Returns TRUE if an object may be manipulated, FALSE otherwise.  The
+ * named form is much the wider; see lib_put_named_filter().
  */
 static scr_bool
-lib_put_in_filter (scr_gameref_t game, scr_int object, scr_int unused)
+lib_put_multiple_filter (scr_gameref_t game, scr_int object, scr_int unused)
 {
   assert (unused == -1);
 
@@ -1238,18 +1226,19 @@ lib_put_in_filter (scr_gameref_t game, scr_int object, scr_int unused)
 
 /* The resolver twin of the above; see lib_put_resolve_filter(). */
 static scr_bool
-lib_put_in_resolve_filter (scr_gameref_t game, scr_int object, scr_int unused)
+lib_put_multiple_resolve_filter (scr_gameref_t game, scr_int object,
+                                 scr_int unused)
 {
   assert (unused == -1);
 
   return lib_put_resolve_filter (game, object);
 }
 
+/* The except form: everything held but the target itself. */
 static scr_bool
-lib_put_in_not_container_filter (scr_gameref_t game,
-                                 scr_int object, scr_int container)
+lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
 {
-  return lib_put_all_filter (game, object, container);
+  return lib_put_all_filter (game, object, target);
 }
 
 
@@ -1377,11 +1366,6 @@ static scr_bool lib_put_on_is_valid (scr_gameref_t game, scr_int supporter);
 static lib_put_outcome_t lib_put_on_backend (scr_gameref_t game,
                                              scr_int supporter,
                                              scr_bool is_all_form);
-static scr_bool lib_put_on_filter (scr_gameref_t game,
-                                   scr_int object, scr_int unused);
-static scr_bool lib_put_on_not_supporter_filter (scr_gameref_t game,
-                                                 scr_int object,
-                                                 scr_int supporter);
 
 
 /*
@@ -1625,10 +1609,8 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
-  objects = lib_apply_filter (game,
-                              is_on ? lib_put_on_not_supporter_filter
-                                    : lib_put_in_not_container_filter,
-                              container, FALSE, NULL);
+  objects = lib_apply_filter (game, lib_put_except_filter, container, FALSE,
+                              NULL);
   gs_clear_multiple_references (game);
 
   /*
@@ -1765,8 +1747,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
                                    container, ".");
     }
 
-  return is_on ? lib_put_on_finish (game, outcome)
-               : lib_put_in_finish (game, outcome);
+  return lib_put_finish (game, outcome);
 }
 
 
@@ -2443,9 +2424,8 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
     }
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_filter (game,
-                              is_on ? lib_put_on_filter : lib_put_in_filter,
-                              -1, FALSE, &references);
+  objects = lib_apply_filter (game, lib_put_multiple_filter, -1, FALSE,
+                              &references);
   for (object = 0; object < object_count; object++)
     {
       if (game->object_references[object])
@@ -2460,8 +2440,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   else
     lib_print_nothing_held (game, FALSE, FALSE, ".");
 
-  status = is_on ? lib_put_on_finish (game, outcome)
-                 : lib_put_in_finish (game, outcome);
+  status = lib_put_finish (game, outcome);
   lib_put_task_sweep_390 (game, container, moving, sweep_from);
 
   /*
@@ -2482,7 +2461,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
 
 
 /*
- * lib_put_already_inside_400()
+ * lib_put_already_400()
  *
  * Version 4.0 only.  An object already sitting in the container the player
  * has just named is refused before the container is looked at at all, and
@@ -2499,60 +2478,9 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
  * lib_put_implicit_take() already carries into the "You are not holding ..."
  * report.
  *
- * Returns TRUE if it consumed every named object, so the caller is done.
- */
-static scr_bool
-lib_put_already_inside_400 (scr_gameref_t game, scr_int container)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object, object_count, left;
-  scr_bool has_printed;
-
-  if (!lib_is_version_400 (game)
-      || !obj_indirectly_held_by_player (game, container))
-    return FALSE;
-
-  object_count = gs_object_count (game);
-  has_printed = FALSE;
-  left = 0;
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
-        {
-          lib_new_clause (game, has_printed);
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter,
-                            lib_select_plurality (game, object,
-                                                  " is", " are"));
-          pf_buffer_string (filter, " already inside ");
-          lib_print_object_np (game, container);
-          pf_buffer_character (filter, '!');
-          game->multiple_references[object] = FALSE;
-          has_printed = TRUE;
-          continue;
-        }
-      left++;
-    }
-
-  if (has_printed && left == 0)
-    {
-      pf_buffer_answer_break (filter);
-      return TRUE;
-    }
-  return FALSE;
-}
-
-
-/*
- * lib_put_already_on_400()
- *
- * The surface twin of the above, and it splits the same way on whether the
- * SUPPORTER is in the player's hands.  Measured on p4SURF under run400,
- * 2026-09-12, all with the coin sitting on the table:
+ * The surface half (is_on) splits the same way on whether the SUPPORTER is
+ * in the player's hands.  Measured on p4SURF under run400, 2026-09-12, all
+ * with the coin sitting on the table:
  *
  *   table held      put coin on table   The coin is already on the table!
  *                                       (Adrift_991:7, and again at :10 once
@@ -2561,20 +2489,20 @@ lib_put_already_inside_400 (scr_gameref_t game, scr_int container)
  *                                       (Adrift_991:18, after `drop table`)
  *
  * and the same pair on the nut and the table, Adrift_993:7/9.  " is already
- * on " is in run400 and in no earlier Runner; the floor case is the take
- * phase's own skip, which lib_put_implicit_take() already reports.
+ * on " is in run400 and in no earlier Runner too.
  *
  * Returns TRUE if it consumed every named object, so the caller is done.
  */
 static scr_bool
-lib_put_already_on_400 (scr_gameref_t game, scr_int supporter)
+lib_put_already_400 (scr_gameref_t game, scr_int target, scr_bool is_on)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int position = is_on ? OBJ_ON_OBJECT : OBJ_IN_OBJECT;
   scr_int object, object_count, left;
   scr_bool has_printed;
 
   if (!lib_is_version_400 (game)
-      || !obj_indirectly_held_by_player (game, supporter))
+      || !obj_indirectly_held_by_player (game, target))
     return FALSE;
 
   object_count = gs_object_count (game);
@@ -2585,16 +2513,16 @@ lib_put_already_on_400 (scr_gameref_t game, scr_int supporter)
       if (!game->multiple_references[object])
         continue;
 
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == supporter)
+      if (gs_object_position (game, object) == position
+          && gs_object_parent (game, object) == target)
         {
           lib_new_clause (game, has_printed);
           lib_print_object_np (game, object);
           pf_buffer_string (filter,
                             lib_select_plurality (game, object,
                                                   " is", " are"));
-          pf_buffer_string (filter, " already on ");
-          lib_print_object_np (game, supporter);
+          pf_buffer_string (filter, is_on ? " already on " : " already inside ");
+          lib_print_object_np (game, target);
           pf_buffer_character (filter, '!');
           game->multiple_references[object] = FALSE;
           has_printed = TRUE;
@@ -2774,8 +2702,8 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool parsed = references == 1
                     || lib_parse_multiple_objects (game,
                                    is_except ? "retain" : "move",
-                                   is_except ? lib_put_in_not_container_filter
-                                             : lib_put_in_resolve_filter,
+                                   is_except ? lib_put_except_filter
+                                             : lib_put_multiple_resolve_filter,
                                    is_except ? container : -1, &references);
 
   /*
@@ -2856,7 +2784,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
             {
               gs_clear_multiple_references (game);
               game->multiple_references[shut] = TRUE;
-              if (lib_put_already_inside_400 (game, container))
+              if (lib_put_already_400 (game, container, FALSE))
                 return TRUE;
               gs_clear_multiple_references (game);
             }
@@ -2900,7 +2828,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
     return TRUE;
 
   /* 4.0's take phase speaks before the container is examined at all. */
-  if (!is_except && lib_put_already_inside_400 (game, container))
+  if (!is_except && lib_put_already_400 (game, container, FALSE))
     return TRUE;
 
   /* Validate the container object to put into (deferred -> unhandled). */
@@ -2914,8 +2842,8 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Filter objects into references, then handle with the backend. */
   objects = lib_apply_filter (game,
-                              is_except ? lib_put_in_not_container_filter
-                                        : lib_put_in_filter,
+                              is_except ? lib_put_except_filter
+                                        : lib_put_multiple_filter,
                               is_except ? container : -1, is_except,
                               &references);
   outcome = {};
@@ -2924,7 +2852,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
-  return lib_put_in_finish (game, outcome);
+  return lib_put_finish (game, outcome);
 }
 
 
@@ -3416,59 +3344,6 @@ lib_cmd_put_in_multiple (scr_gameref_t game)
 
 
 /*
- * lib_check_put_on_recursion()
- *
- * Checks for infinite recursion when placing an object on an object.  Returns
- * TRUE if no recursion detected.
- */
-static scr_bool
-lib_check_put_on_recursion (scr_gameref_t game,
-                            scr_int object, scr_int supporter, scr_bool report)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int check;
-
-  /* Avoid the obvious possibility of infinite recursion. */
-  if (supporter == object)
-    {
-      if (report)
-        {
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                  "You can't put an object onto itself!",
-                                  "I can't put an object onto itself!",
-                                  "%player% can't put an object onto itself!"));
-        }
-      return FALSE;
-    }
-
-  /* Avoid the subtle possibility of infinite recursion. */
-  check = supporter;
-  while (gs_object_position (game, check) == OBJ_ON_OBJECT
-         || gs_object_position (game, check) == OBJ_IN_OBJECT)
-    {
-      check = gs_object_parent (game, check);
-      if (check == object)
-        {
-          if (report)
-            {
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                      "You can't put an object onto one",
-                                      "I can't put an object onto one",
-                                      "%player% can't put an object onto one"));
-              pf_buffer_string (filter, " it's on or in!");
-            }
-          return FALSE;
-        }
-    }
-
-  /* No infinite recursion detected. */
-  return TRUE;
-}
-
-
-/*
  * lib_put_on_backend()
  *
  * Common backend handler for placing objects on supporters.  Places all
@@ -3533,7 +3408,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
 
       /* Reject and remove attempts to place objects on themselves; the
        * 4.0 test sits after the deferred task pass (see lib_put_in_backend). */
-      if (!lib_check_put_on_recursion (game, object, supporter, !has_printed))
+      if (!lib_check_put_recursion (game, object, supporter, !has_printed,
+                                    TRUE))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
@@ -3599,8 +3475,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
       if (!game->object_references[pending_object])
         continue;
 
-      if (!lib_check_put_on_recursion (game, pending_object, supporter,
-                                       !has_printed))
+      if (!lib_check_put_recursion (game, pending_object, supporter,
+                                       !has_printed, TRUE))
         {
           game->object_references[pending_object] = FALSE;
           has_printed = TRUE;
@@ -3634,39 +3510,6 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
                                           - length_before)
                                 == lib_put_announce_bytes;
   return outcome;
-}
-
-
-/*
- * lib_put_on_filter()
- * lib_put_on_not_supporter_filter()
- *
- * Helper functions for deciding if an object may be put on another this
- * context.  Returns TRUE if an object may be manipulated, FALSE otherwise.
- * The named form is much the wider of the two; see lib_put_named_filter().
- */
-static scr_bool
-lib_put_on_filter (scr_gameref_t game, scr_int object, scr_int unused)
-{
-  assert (unused == -1);
-
-  return lib_put_named_filter (game, object);
-}
-
-/* The resolver twin of the above; see lib_put_resolve_filter(). */
-static scr_bool
-lib_put_on_resolve_filter (scr_gameref_t game, scr_int object, scr_int unused)
-{
-  assert (unused == -1);
-
-  return lib_put_resolve_filter (game, object);
-}
-
-static scr_bool
-lib_put_on_not_supporter_filter (scr_gameref_t game,
-                                 scr_int object, scr_int supporter)
-{
-  return lib_put_all_filter (game, object, supporter);
 }
 
 
@@ -3795,8 +3638,8 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
     ;
   else if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
                                         is_except
-                                        ? lib_put_on_not_supporter_filter
-                                        : lib_put_on_resolve_filter,
+                                        ? lib_put_except_filter
+                                        : lib_put_multiple_resolve_filter,
                                         is_except ? supporter : -1,
                                         &references))
     return FALSE;
@@ -3804,7 +3647,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
     return TRUE;
 
   /* 4.0's take phase speaks before the supporter is examined at all. */
-  if (!is_except && lib_put_already_on_400 (game, supporter))
+  if (!is_except && lib_put_already_400 (game, supporter, TRUE))
     return TRUE;
 
   /* Validate the supporter object to put into. */
@@ -3818,8 +3661,8 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Filter objects into references, then handle with the backend. */
   objects = lib_apply_filter (game,
-                              is_except ? lib_put_on_not_supporter_filter
-                                        : lib_put_on_filter,
+                              is_except ? lib_put_except_filter
+                                        : lib_put_multiple_filter,
                               is_except ? supporter : -1, is_except,
                               &references);
   outcome = {};
@@ -3828,7 +3671,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
-  return lib_put_on_finish (game, outcome);
+  return lib_put_finish (game, outcome);
 }
 
 
