@@ -2959,7 +2959,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * line naming a real container never reaches it; see STANDARD_PUT_COMMANDS.
  */
 /*
- * lib_put_co_position()
+ * lib_instr()
  * lib_put_co_named_term()
  * lib_put_co_reachable()
  * lib_put_co_refusal_pre390()
@@ -2995,7 +2995,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * arms, both unmeasured from here.
  */
 static scr_int
-lib_put_co_position (const scr_char *line, const scr_char *term)
+lib_instr (const scr_char *line, const scr_char *term)
 {
   scr_int length, index_;
 
@@ -3064,13 +3064,13 @@ lib_put_co_further_right (scr_gameref_t game, const scr_char *line,
   for (chosen_name = 0; chosen_name < 2; chosen_name++)
     {
       const scr_int chosen_at =
-          lib_put_co_position (line, chosen_names[chosen_name]);
+          lib_instr (line, chosen_names[chosen_name]);
 
       if (chosen_at == 0)
         continue;
       for (name = 0; name < 2; name++)
         {
-          const scr_int at = lib_put_co_position (line, names[name]);
+          const scr_int at = lib_instr (line, names[name]);
 
           if (at > chosen_at && at > past)
             return TRUE;
@@ -3239,7 +3239,7 @@ lib_put_target_390 (scr_gameref_t game, const scr_char *line)
 {
   const scr_bool on = lib_co_contains (line, "on")
                       || lib_co_contains (line, "onto");
-  const scr_int past = lib_put_co_position (line, on ? "on" : "in");
+  const scr_int past = lib_instr (line, on ? "on" : "in");
   scr_int object, chosen;
   scr_bool pinned;
 
@@ -3256,8 +3256,8 @@ lib_put_target_390 (scr_gameref_t game, const scr_char *line)
               prop_get_indexed_string (gs_get_bundle (game),
                                        "Objects", object, "Short");
 
-          if (lib_put_co_position (line, shortname) > past
-              || lib_put_co_position (line, lib_put_co_alias (game, object))
+          if (lib_instr (line, shortname) > past
+              || lib_instr (line, lib_put_co_alias (game, object))
                  > past)
             {
               chosen = object;

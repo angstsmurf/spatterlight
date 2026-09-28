@@ -1197,68 +1197,67 @@ lib_what (scr_gameref_t game, const scr_char *verb)
  *
  * Assorted "what?" messages.
  */
+/*
+ * lib_what_or_other()
+ *
+ * The bare form of most refused verbs: the version's "<Verb> what?" from
+ * 3.9 (see lib_what()), and the verb's own catch-all reply below it.
+ */
+static scr_bool
+lib_what_or_other (scr_gameref_t game, const scr_char *verb,
+                   scr_bool (*other) (scr_gameref_t game))
+{
+  if (lib_bare_verb_pre390 (game))
+    return other (game);
+  return lib_what (game, verb);
+}
+
 scr_bool
 lib_cmd_block_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_block_other (game);
-  return lib_what (game, "Block");
+  return lib_what_or_other (game, "Block", lib_cmd_block_other);
 }
 
 scr_bool
 lib_cmd_break_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_break_other (game);
-  return lib_what (game, "Break");
+  return lib_what_or_other (game, "Break", lib_cmd_break_other);
 }
 
 scr_bool
 lib_cmd_destroy_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_break_other (game);
-  return lib_what (game, "Destroy");
+  return lib_what_or_other (game, "Destroy", lib_cmd_break_other);
 }
 
 scr_bool
 lib_cmd_smash_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_break_other (game);
-  return lib_what (game, "Smash");
+  return lib_what_or_other (game, "Smash", lib_cmd_break_other);
 }
 
 scr_bool
 lib_cmd_buy_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_buy_other (game);
-  return lib_what (game, "Buy");
+  return lib_what_or_other (game, "Buy", lib_cmd_buy_other);
 }
 
 scr_bool
 lib_cmd_clean_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_clean_other (game);
-  return lib_what (game, "Clean");
+  return lib_what_or_other (game, "Clean", lib_cmd_clean_other);
 }
 
 scr_bool
 lib_cmd_climb_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_climb_other (game);
-  return lib_what (game, "Climb");
+  return lib_what_or_other (game, "Climb", lib_cmd_climb_other);
 }
 
 scr_bool
 lib_cmd_cut_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_cut_other (game);
-  return lib_what (game, "Cut");
+  return lib_what_or_other (game, "Cut", lib_cmd_cut_other);
 }
 
 scr_bool
@@ -1279,9 +1278,7 @@ lib_cmd_drink_what (scr_gameref_t game)
 scr_bool
 lib_cmd_fix_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_fix_other (game);
-  return lib_what (game, "Fix");
+  return lib_what_or_other (game, "Fix", lib_cmd_fix_other);
 }
 
 /*
@@ -1300,89 +1297,67 @@ lib_cmd_hit_what (scr_gameref_t game)
 scr_bool
 lib_cmd_kick_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_kick_other (game);
-  return lib_what (game, "Kick");
+  return lib_what_or_other (game, "Kick", lib_cmd_kick_other);
 }
 
 scr_bool
 lib_cmd_light_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_light_other (game);
-  return lib_what (game, "Light");
+  return lib_what_or_other (game, "Light", lib_cmd_light_other);
 }
 
 scr_bool
 lib_cmd_lift_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_lift_other (game);
-  return lib_what (game, "Lift");
+  return lib_what_or_other (game, "Lift", lib_cmd_lift_other);
 }
 
 scr_bool
 lib_cmd_mend_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_mend_other (game);
-  return lib_what (game, "Mend");
+  return lib_what_or_other (game, "Mend", lib_cmd_mend_other);
 }
 
 scr_bool
 lib_cmd_move_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_move_other (game);
-  return lib_what (game, "Move");
+  return lib_what_or_other (game, "Move", lib_cmd_move_other);
 }
 
 scr_bool
 lib_cmd_press_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_press_other (game);
-  return lib_what (game, "Press");
+  return lib_what_or_other (game, "Press", lib_cmd_press_other);
 }
 
 scr_bool
 lib_cmd_pull_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_pull_other (game);
-  return lib_what (game, "Pull");
+  return lib_what_or_other (game, "Pull", lib_cmd_pull_other);
 }
 
 scr_bool
 lib_cmd_push_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_push_other (game);
-  return lib_what (game, "Push");
+  return lib_what_or_other (game, "Push", lib_cmd_push_other);
 }
 
 scr_bool
 lib_cmd_repair_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_repair_other (game);
-  return lib_what (game, "Repair");
+  return lib_what_or_other (game, "Repair", lib_cmd_repair_other);
 }
 
 scr_bool
 lib_cmd_sell_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_sell_other (game);
-  return lib_what (game, "Sell");
+  return lib_what_or_other (game, "Sell", lib_cmd_sell_other);
 }
 
 scr_bool
 lib_cmd_shake_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_shake_other (game);
-  return lib_what (game, "Shake");
+  return lib_what_or_other (game, "Shake", lib_cmd_shake_other);
 }
 
 scr_bool
@@ -1395,57 +1370,43 @@ lib_cmd_rub_what (scr_gameref_t game)
    * Adrift_202_pbareverb39.txt T23-24).  Deliberate deviation: Scarier
    * answers it as the other bare verbs of each version.
    */
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_rub_other (game);
-  return lib_what (game, "Rub");
+  return lib_what_or_other (game, "Rub", lib_cmd_rub_other);
 }
 
 scr_bool
 lib_cmd_stop_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_stop_other (game);
-  return lib_what (game, "Stop");
+  return lib_what_or_other (game, "Stop", lib_cmd_stop_other);
 }
 
 scr_bool
 lib_cmd_suck_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_suck_other (game);
-  return lib_what (game, "Suck");
+  return lib_what_or_other (game, "Suck", lib_cmd_suck_other);
 }
 
 scr_bool
 lib_cmd_touch_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_touch_other (game);
-  return lib_what (game, "Touch");
+  return lib_what_or_other (game, "Touch", lib_cmd_touch_other);
 }
 
 scr_bool
 lib_cmd_turn_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_turn_other (game);
-  return lib_what (game, "Turn");
+  return lib_what_or_other (game, "Turn", lib_cmd_turn_other);
 }
 
 scr_bool
 lib_cmd_unblock_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_unblock_other (game);
-  return lib_what (game, "Unblock");
+  return lib_what_or_other (game, "Unblock", lib_cmd_unblock_other);
 }
 
 scr_bool
 lib_cmd_wash_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_wash_other (game);
-  return lib_what (game, "Wash");
+  return lib_what_or_other (game, "Wash", lib_cmd_wash_other);
 }
 
 /*
@@ -1880,15 +1841,11 @@ lib_cmd_wear_what (scr_gameref_t game)
 scr_bool
 lib_cmd_lock_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_lock_other (game);
-  return lib_what (game, "Lock");
+  return lib_what_or_other (game, "Lock", lib_cmd_lock_other);
 }
 
 scr_bool
 lib_cmd_unlock_what (scr_gameref_t game)
 {
-  if (lib_bare_verb_pre390 (game))
-    return lib_cmd_unlock_other (game);
-  return lib_what (game, "Unlock");
+  return lib_what_or_other (game, "Unlock", lib_cmd_unlock_other);
 }

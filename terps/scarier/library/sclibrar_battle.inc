@@ -960,21 +960,6 @@ static const struct
   {"throw", 5}, {NULL, 0}
 };
 
-/* Case-insensitive InStr, 1-based, 0 for no hit. */
-static scr_int
-lib_battle_instr (const scr_char *input, const scr_char *word)
-{
-  const scr_int length = strlen (word);
-  const scr_char *scan;
-
-  for (scan = input; *scan != NUL; scan++)
-    {
-      if (scr_strncasecmp (scan, word, length) == 0)
-        return (scr_int) (scan - input) + 1;
-    }
-  return 0;
-}
-
 static scr_bool
 lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
                           const scr_char *input, scr_int verb_index)
@@ -996,8 +981,8 @@ lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
   if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
     return FALSE;
 
-  return lib_battle_instr (input, LIB_BATTLE_VERBS[verb_index].verb)
-         < lib_battle_instr (input, named_by);
+  return lib_instr (input, LIB_BATTLE_VERBS[verb_index].verb)
+         < lib_instr (input, named_by);
 }
 
 static std::vector<scr_int>

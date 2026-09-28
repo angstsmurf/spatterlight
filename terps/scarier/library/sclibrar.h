@@ -129,6 +129,11 @@ extern void lib_print_clause (scr_gameref_t game, scr_bool has_printed,
                               const scr_char *second_person,
                               const scr_char *first_person,
                               const scr_char *third_person);
+extern void lib_collect_children (scr_gameref_t game, scr_int parent,
+                                  scr_int position, lib_list_t &list);
+extern scr_int lib_reveal_children (scr_gameref_t game, scr_int parent,
+                                    scr_int position, lib_list_t &list);
+extern scr_int lib_count_npc_references (scr_gameref_t game, scr_int *npc);
 extern void lib_print_list (scr_gameref_t game, const lib_list_t &list,
                             lib_print_item_t print_item,
                             const scr_char *conjunction);

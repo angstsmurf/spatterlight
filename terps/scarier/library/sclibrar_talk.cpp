@@ -178,19 +178,9 @@ lib_cmd_ask_npc (scr_gameref_t game)
 static scr_int
 lib_any_named_npc (scr_gameref_t game)
 {
-  scr_int index_, npc, count;
+  scr_int npc;
 
-  count = 0;
-  npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
-    {
-      if (game->npc_references[index_])
-        {
-          count++;
-          npc = index_;
-        }
-    }
-  return count == 1 ? npc : -1;
+  return lib_count_npc_references (game, &npc) == 1 ? npc : -1;
 }
 
 scr_bool

@@ -679,30 +679,35 @@ static scr_bool lib_co_prompt_370_blocked = FALSE;
 
 /* TRUE if the object's Short or Alias is exactly the term. */
 static scr_bool
-lib_co_object_answers_to (scr_gameref_t game, scr_int object,
-                          const scr_char *term)
+lib_named_answers_to (scr_gameref_t game, const scr_char *class_,
+                      scr_int index_, const scr_char *name_field,
+                      const scr_char *term)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *shortname;
   scr_vartype_t vt_key[4];
+  const scr_char *name;
   scr_int alias_count, alias;
 
-  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (shortname && scr_strcasecmp (shortname, term) == 0)
+  name = prop_get_indexed_string (bundle, class_, index_, name_field);
+  if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
     return TRUE;
 
-  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  alias_count = lib_alias_prepare (bundle, vt_key, class_, index_);
   for (alias = 0; alias < alias_count; alias++)
     {
-      const scr_char *alias_name;
-
       vt_key[3].integer = alias;
-      alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (alias_name && alias_name[0] != NUL
-          && scr_strcasecmp (alias_name, term) == 0)
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
         return TRUE;
     }
   return FALSE;
+}
+
+static scr_bool
+lib_co_object_answers_to (scr_gameref_t game, scr_int object,
+                          const scr_char *term)
+{
+  return lib_named_answers_to (game, "Objects", object, "Short", term);
 }
 
 /*
@@ -2471,24 +2476,7 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
 static scr_bool
 lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
-  const scr_char *name;
-  scr_int alias_count, alias;
-
-  name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-  if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
-    return TRUE;
-
-  alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
-  for (alias = 0; alias < alias_count; alias++)
-    {
-      vt_key[3].integer = alias;
-      name = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
-        return TRUE;
-    }
-  return FALSE;
+  return lib_named_answers_to (game, "NPCs", npc, "Name", term);
 }
 
 /*

@@ -1534,18 +1534,9 @@ lib_wear_backend (scr_gameref_t game)
                                         lib_print_object_np);
 
   /* Note any remaining multiple references left out of the wear operation. */
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (gs_object_position (game, object) != OBJ_WORN_PLAYER)
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references_if
+    (game, object_count, list, [game] (scr_int item)
+     { return gs_object_position (game, item) == OBJ_WORN_PLAYER; });
 
   /*
    * The 4.0 Runner ends this with "!" (4638FE: ... & var_CC where var_CC is
@@ -1569,31 +1560,16 @@ lib_wear_backend (scr_gameref_t game)
                                         "You are already wearing ",
                                         "I am already wearing ",
                                         "%player% is already wearing ",
-                                        prop_get_taf_version
-                                        (gs_get_bundle (game))
-                                        >= TAF_VERSION_390
-                                        ? lib_print_object_np
-                                        : lib_print_object_raw);
+                                        lib_object_printer_390 (game));
 
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references_if
+    (game, object_count, list, [game] (scr_int item)
+     { return gs_object_position (game, item) != OBJ_HELD_PLAYER; });
 
   /* Pre-3.9 wears() names these by Prefix & " " & Short (run380 433218,
    * 4331B1): p38EXAM `wear stone` with the stone on the floor is "You are not
    * holding a stone." (Adrift_1165, and run370 Adrift_1166). */
-  const lib_print_item_t wear_item =
-    prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
-    ? lib_print_object_np : lib_print_object_raw;
+  const lib_print_item_t wear_item = lib_object_printer_390 (game);
 
   has_printed |= lib_print_object_list (game, has_printed, list, " or ", '.',
                                         "You are not holding ",

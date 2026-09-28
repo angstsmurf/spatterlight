@@ -460,7 +460,6 @@ static scr_bool
 lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   scr_bool wearing;
   lib_list_t list;
 
@@ -469,16 +468,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
    * this reveals the objects -- the Runner marks NPC possessions seen
    * only when they're listed to the player.
    */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) == OBJ_WORN_NPC
-          && gs_object_parent (game, object) == npc)
-        {
-          list.push_back (object);
-          gs_set_object_seen (game, object, TRUE);
-        }
-    }
-  wearing = !list.empty ();
+  wearing = lib_reveal_children (game, npc, OBJ_WORN_NPC, list) > 0;
   if (wearing)
     {
       lib_new_clause (game, is_described);
@@ -488,16 +478,7 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
     }
 
   /* Find and list each object owned by the NPC. */
-  list.clear ();
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) == OBJ_HELD_NPC
-          && gs_object_parent (game, object) == npc)
-        {
-          list.push_back (object);
-          gs_set_object_seen (game, object, TRUE);
-        }
-    }
+  lib_reveal_children (game, npc, OBJ_HELD_NPC, list);
   if (!list.empty ())
     {
       if (!wearing)
@@ -675,17 +656,10 @@ lib_list_in_object_normal (scr_gameref_t game,
                            scr_int container, scr_bool is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   lib_list_t list;
 
   /* List out the containers contained in this container. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Contained? */
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
-        list.push_back (object);
-    }
+  lib_collect_children (game, container, OBJ_IN_OBJECT, list);
   if (!list.empty ())
     {
       if (is_described)
@@ -725,17 +699,10 @@ lib_list_in_object_alternate (scr_gameref_t game,
                               scr_int container, scr_bool is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   lib_list_t list;
 
   /* List out the objects contained in this object. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Contained? */
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
-        list.push_back (object);
-    }
+  lib_collect_children (game, container, OBJ_IN_OBJECT, list);
   if (!list.empty ())
     {
       lib_new_clause (game, is_described);
@@ -775,16 +742,10 @@ static scr_bool
 lib_list_in_object_joined (scr_gameref_t game, scr_int container)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   lib_list_t list;
 
   /* List out the objects contained in this container. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
-        list.push_back (object);
-    }
+  lib_collect_children (game, container, OBJ_IN_OBJECT, list);
   if (!list.empty ())
     {
       /* The Runner's literal is ", and inside is "; Scarier agrees. */
@@ -851,7 +812,8 @@ lib_list_in_object (scr_gameref_t game, scr_int container,
                     scr_bool is_described, scr_bool joined)
 {
   scr_bool use_alternate_format = FALSE;
-  scr_int object, count;
+  scr_int count;
+  lib_list_t list;
 
   /*
    * Count the objects this container holds.  Listing a container's
@@ -859,16 +821,7 @@ lib_list_in_object (scr_gameref_t game, scr_int container,
    * object's seen flag here, and until then the object can't be referred
    * to at all (in version 3.9 and later games).
    */
-  count = 0;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == container)
-        {
-          count++;
-          gs_set_object_seen (game, object, TRUE);
-        }
-    }
+  count = lib_reveal_children (game, container, OBJ_IN_OBJECT, list);
 
   /*
    * A surface listing for this same object has just been printed, so the
@@ -902,17 +855,10 @@ lib_list_on_object_normal (scr_gameref_t game, scr_int supporter,
                            scr_bool is_described, scr_bool omit_period)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   lib_list_t list;
 
   /* List out the objects standing on this surface. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Standing on? */
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == supporter)
-        list.push_back (object);
-    }
+  lib_collect_children (game, supporter, OBJ_ON_OBJECT, list);
   if (!list.empty ())
     {
       if (is_described)
@@ -946,17 +892,10 @@ lib_list_on_object_alternate (scr_gameref_t game, scr_int supporter,
                               scr_bool is_described, scr_bool omit_period)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
   lib_list_t list;
 
   /* List out the objects standing on this object. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Standing on? */
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == supporter)
-        list.push_back (object);
-    }
+  lib_collect_children (game, supporter, OBJ_ON_OBJECT, list);
   if (!list.empty ())
     {
       lib_new_clause (game, is_described);
@@ -1003,23 +942,15 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter,
                     scr_bool is_described, scr_bool omit_period)
 {
   scr_bool use_alternate_format = FALSE;
-  scr_int object, count;
+  scr_int count;
+  lib_list_t list;
 
   /*
    * Count the objects this surface holds, marking each one seen as we
    * go -- as with containers, the listing is what reveals the contents
    * to the parser.
    */
-  count = 0;
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == supporter)
-        {
-          count++;
-          gs_set_object_seen (game, object, TRUE);
-        }
-    }
+  count = lib_reveal_children (game, supporter, OBJ_ON_OBJECT, list);
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     use_alternate_format = FALSE;

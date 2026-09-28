@@ -836,28 +836,53 @@ lib_print_cannot_reach (scr_gameref_t game, scr_int container)
 }
 
 /*
+ * lib_drain_multiple_references_if()
  * lib_drain_multiple_references()
  *
  * Fill 'list' with every object still marked in the multiple references,
- * clearing each as it's collected.  Shared body for the take, wear, move and
- * put backends' reports of the objects left over ("You are not holding ...",
- * "You can't take ...", "You can't wear ...").
+ * clearing each as it's collected; the filtered form takes only the objects
+ * 'keep' accepts and leaves the rest marked.  Shared body for the take, wear,
+ * move and put backends' reports of the objects left over ("You are not
+ * holding ...", "You can't take ...", "You can't wear ...").
  */
+template <typename Keep>
 static void
-lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
-                               lib_list_t &list)
+lib_drain_multiple_references_if (scr_gameref_t game, scr_int object_count,
+                                  lib_list_t &list, Keep keep)
 {
   scr_int object;
 
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
-      if (!game->multiple_references[object])
+      if (!game->multiple_references[object] || !keep (object))
         continue;
 
       list.push_back (object);
       game->multiple_references[object] = FALSE;
     }
+}
+
+static void
+lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
+                               lib_list_t &list)
+{
+  lib_drain_multiple_references_if (game, object_count, list,
+                                    [] (scr_int) { return TRUE; });
+}
+
+
+/*
+ * lib_object_printer_390()
+ *
+ * The printer for an object named in a refusal: the composed name from 3.9,
+ * the raw Prefix & " " & Short before it (run380 43E03E).
+ */
+static lib_print_item_t
+lib_object_printer_390 (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+         ? lib_print_object_np : lib_print_object_raw;
 }
 
 
@@ -1389,18 +1414,9 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    */
   if (is_associate_npc)
     {
-      list.clear ();
-      for (object = 0; object < object_count; object++)
-        {
-          if (!game->multiple_references[object])
-            continue;
-
-          if (gs_object_position (game, object) == OBJ_PART_NPC)
-            continue;
-
-          list.push_back (object);
-          game->multiple_references[object] = FALSE;
-        }
+      lib_drain_multiple_references_if
+        (game, object_count, list, [game] (scr_int item)
+         { return gs_object_position (game, item) != OBJ_PART_NPC; });
 
       if (!list.empty ())
         {
@@ -1445,20 +1461,13 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   const scr_bool worn_is_held = lib_is_version_400 (game)
                                 && (lib_take_single_named
                                     || lib_take_and_pieces_400);
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (gs_object_position (game, object) != OBJ_HELD_PLAYER
-          && !(worn_is_held
-               && gs_object_position (game, object) == OBJ_WORN_PLAYER))
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references_if
+    (game, object_count, list, [game, worn_is_held] (scr_int item)
+     {
+       return gs_object_position (game, item) == OBJ_HELD_PLAYER
+              || (worn_is_held
+                  && gs_object_position (game, item) == OBJ_WORN_PLAYER);
+     });
 
   /*
    * 4.0 gives the tasks their look at a held object too, and earlier than
@@ -1539,24 +1548,11 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                           "You've already got ",
                                           "I've already got ",
                                           "%player%'ve already got ",
-                                          prop_get_taf_version
-                                          (gs_get_bundle (game))
-                                          >= TAF_VERSION_390
-                                          ? lib_print_object_np
-                                          : lib_print_object_raw);
+                                          lib_object_printer_390 (game));
 
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      if (gs_object_position (game, object) != OBJ_WORN_PLAYER)
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references_if
+    (game, object_count, list, [game] (scr_int item)
+     { return gs_object_position (game, item) == OBJ_WORN_PLAYER; });
 
   /*
    * No Runner contracts this one.  Every take path builds it as
@@ -1589,29 +1585,17 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                           "You are already wearing ",
                                           "I am already wearing ",
                                           "%player% is already wearing ",
-                                          prop_get_taf_version
-                                          (gs_get_bundle (game))
-                                          >= TAF_VERSION_390
-                                          ? lib_print_object_np
-                                          : lib_print_object_raw);
+                                          lib_object_printer_390 (game));
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
-      list.clear ();
-      for (object = 0; object < object_count; object++)
-        {
-          if (!game->multiple_references[object])
-            continue;
-
-          if (gs_object_position (game, object) != OBJ_HELD_NPC
-              && gs_object_position (game, object) != OBJ_WORN_NPC)
-            continue;
-          if (gs_object_parent (game, object) != npc)
-            continue;
-
-          list.push_back (object);
-          game->multiple_references[object] = FALSE;
-        }
+      lib_drain_multiple_references_if
+        (game, object_count, list, [game, npc] (scr_int item)
+         {
+           return (gs_object_position (game, item) == OBJ_HELD_NPC
+                   || gs_object_position (game, item) == OBJ_WORN_NPC)
+                  && gs_object_parent (game, item) == npc;
+         });
 
       if (!list.empty ())
         {
@@ -1714,9 +1698,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                            /* 3.7/3.8 name it by the raw Prefix: "You can't
                               take a chair." (run380 43E697, run370 4369FF;
                               run370x/run380x p3738sit3, 2026-09-19). */
-                           prop_get_taf_version (gs_get_bundle (game))
-                           >= TAF_VERSION_390
-                           ? lib_print_object_np : lib_print_object_raw);
+                           lib_object_printer_390 (game));
 
   lib_take_single_named = FALSE;
   lib_take_from_single_named = FALSE;

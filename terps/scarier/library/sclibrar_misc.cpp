@@ -313,21 +313,12 @@ lib_cmd_locate_npc (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int index_, count, npc, room;
+  scr_int count, npc, room;
 
   /* A real turn in every Runner; see lib_cmd_locate_object(). */
 
   /* Count the number of NPCs referenced by the last command. */
-  count = 0;
-  npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
-    {
-      if (game->npc_references[index_])
-        {
-          count++;
-          npc = index_;
-        }
-    }
+  count = lib_count_npc_references (game, &npc);
 
   /*
    * If no NPCs identified, be coy about revealing anything; if more than one,
@@ -722,16 +713,7 @@ lib_cmd_status_npc (scr_gameref_t game)
     }
 
   /* Count and identify the NPCs referenced by the command. */
-  count = 0;
-  npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
-    {
-      if (game->npc_references[index_])
-        {
-          count++;
-          npc = index_;
-        }
-    }
+  count = lib_count_npc_references (game, &npc);
 
   if (count == 0)
     {

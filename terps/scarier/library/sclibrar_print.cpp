@@ -1630,6 +1630,67 @@ lib_print_clause (scr_gameref_t game, scr_bool has_printed,
 
 
 /*
+ * lib_collect_children()
+ * lib_reveal_children()
+ *
+ * Gather, in index order, the objects at the given position whose parent is
+ * the given object or NPC: the contents of a container, the load on a
+ * surface, or a character's held or worn possessions.  The reveal form also
+ * marks each one seen, which is what listing them does in the Runner, and
+ * returns how many there were.
+ */
+void
+lib_collect_children (scr_gameref_t game, scr_int parent,
+                      scr_int position, lib_list_t &list)
+{
+  scr_int object;
+
+  list.clear ();
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_position (game, object) == position
+          && gs_object_parent (game, object) == parent)
+        list.push_back (object);
+    }
+}
+
+scr_int
+lib_reveal_children (scr_gameref_t game, scr_int parent,
+                     scr_int position, lib_list_t &list)
+{
+  lib_collect_children (game, parent, position, list);
+  for (const scr_int object : list)
+    gs_set_object_seen (game, object, TRUE);
+  return (scr_int) list.size ();
+}
+
+
+/*
+ * lib_count_npc_references()
+ *
+ * Count the NPCs the command referenced, leaving the last of them in *npc,
+ * or -1 if there was none.
+ */
+scr_int
+lib_count_npc_references (scr_gameref_t game, scr_int *npc)
+{
+  scr_int index_, count;
+
+  count = 0;
+  *npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_])
+        {
+          count++;
+          *npc = index_;
+        }
+    }
+  return count;
+}
+
+
+/*
  * lib_print_list()
  * lib_print_name_list()
  *
