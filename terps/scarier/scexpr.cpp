@@ -29,11 +29,9 @@
  */
 
 #include <assert.h>
-#include <limits.h>
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 
 #include "scarier.h"
 #include "scprotos.h"
@@ -193,6 +191,29 @@ expr_tokenize_end (void)
   expr_index = 0;
   expr_current_token = TOK_NONE;
 }
+
+/*
+ * expr_tokenize_guard
+ *
+ * RAII owner of a tokenization: expr_tokenize_start() on construction,
+ * expr_tokenize_end() on destruction.  A scr_fatal_error thrown by var_get()
+ * or an allocation mid-expression then still clears expr_temporary, so the
+ * next expression in the same process does not trip the assert in
+ * expr_tokenize_start().  Only multi-game processes ever saw that.
+ */
+struct expr_tokenize_guard
+{
+  explicit expr_tokenize_guard (const scr_char *expression)
+  {
+    expr_tokenize_start (expression);
+  }
+  ~expr_tokenize_guard ()
+  {
+    expr_tokenize_end ();
+  }
+  expr_tokenize_guard (const expr_tokenize_guard &) = delete;
+  expr_tokenize_guard &operator= (const expr_tokenize_guard &) = delete;
+};
 
 
 /*
@@ -1166,7 +1187,7 @@ expr_parse_match (scr_int token)
     {
       /* Syntax error. */
       scr_error ("expr_parse_match: syntax error,"
-                " expected %ld, got %ld\n", expr_parse_lookahead, token);
+                " expected %ld, got %ld\n", token, expr_parse_lookahead);
       scr_longjmp (expr_parse_error, 1);
     }
 }
@@ -1184,27 +1205,13 @@ typedef struct
   const scr_int token_count;
   const scr_int tokens[6];
 } scr_precedence_entry_t;
-#if 0
-/*
- * Conventional (BASIC, C) precedence table for the parser.  Exponentiation
- * has the highest precedence, then multiplicative operations, additive,
- * comparisons, and boolean combiners.
- */
-static const scr_precedence_entry_t PRECEDENCE_TABLE[] = {
-  {1, {TOK_OR}},
-  {1, {TOK_AND}},
-  {2, {TOK_EQUAL, TOK_NOT_EQUAL}},
-  {4, {TOK_GREATER, TOK_LESS, TOK_GREATER_EQ, TOK_LESS_EQ}},
-  {2, {TOK_ADD, TOK_SUBTRACT}},
-  {3, {TOK_MULTIPLY, TOK_DIVIDE, TOK_MOD}},
-  {1, {TOK_POWER}},
-  {0, {TOK_NONE}}
-};
-#else
 /*
  * Adrift-like precedence table for the parser.  Exponentiation and modulus
  * operations seem to be implemented at the same level as addition and
- * subtraction, and boolean 'and' and 'or' have equal precedence.
+ * subtraction, and boolean 'and' and 'or' have equal precedence.  This is
+ * deliberately not the conventional (BASIC, C) table, where exponentiation
+ * binds tightest, then multiplicative, additive, comparison, and boolean
+ * combiners in that order; Adrift's evaluator does not do that.
  */
 static const scr_precedence_entry_t PRECEDENCE_TABLE[] = {
   {2, {TOK_OR, TOK_AND}},
@@ -1214,7 +1221,6 @@ static const scr_precedence_entry_t PRECEDENCE_TABLE[] = {
   {2, {TOK_MULTIPLY, TOK_DIVIDE}},
   {0, {TOK_NONE}}
 };
-#endif
 
 
 /*
@@ -1297,6 +1303,36 @@ expr_parse_numeric_expr (void)
 
 
 /*
+ * expr_parse_variable_factor()
+ *
+ * Parse a variable as a numeric or string factor, rejecting one that is
+ * undefined or of the other type.  `caller` and `mismatch` only word the
+ * error trace.
+ */
+static void
+expr_parse_variable_factor (const scr_char *caller, scr_int want,
+                            const scr_char *mismatch)
+{
+  scr_vartype_t token_value, vt_rvalue;
+  scr_int type;
+
+  expr_current_token_value (&token_value);
+  if (!var_get (expr_varset, token_value.string, &type, &vt_rvalue))
+    {
+      scr_error ("%s: undefined variable, %s\n", caller, token_value.string);
+      scr_longjmp (expr_parse_error, 1);
+    }
+  if (type != want)
+    {
+      scr_error ("%s: %s, %s\n", caller, mismatch, token_value.string);
+      scr_longjmp (expr_parse_error, 1);
+    }
+  expr_eval_action (TOK_VARIABLE);
+  expr_parse_match (TOK_VARIABLE);
+}
+
+
+/*
  * expr_parse_numeric_factor()
  *
  * Parse a numeric expression factor.
@@ -1331,28 +1367,9 @@ expr_parse_numeric_factor (void)
       break;
 
     case TOK_VARIABLE:
-      {
-        scr_vartype_t token_value, vt_rvalue;
-        scr_int type;
-
-        expr_current_token_value (&token_value);
-        if (!var_get (expr_varset, token_value.string, &type, &vt_rvalue))
-          {
-            scr_error ("expr_parse_numeric_factor:"
-                      " undefined variable, %s\n", token_value.string);
-            scr_longjmp (expr_parse_error, 1);
-          }
-        if (type != VAR_INTEGER)
-          {
-            scr_error ("expr_parse_numeric_factor:"
-                      " string variable in numeric context, %s\n",
-                      token_value.string);
-            scr_longjmp (expr_parse_error, 1);
-          }
-        expr_eval_action (TOK_VARIABLE);
-        expr_parse_match (TOK_VARIABLE);
-        break;
-      }
+      expr_parse_variable_factor ("expr_parse_numeric_factor", VAR_INTEGER,
+                                  "string variable in numeric context");
+      break;
 
       /* Handle functions as factors. */
     case TOK_ABS:
@@ -1507,28 +1524,9 @@ expr_parse_string_factor (void)
       break;
 
     case TOK_VARIABLE:
-      {
-        scr_vartype_t token_value, vt_rvalue;
-        scr_int type;
-
-        expr_current_token_value (&token_value);
-        if (!var_get (expr_varset, token_value.string, &type, &vt_rvalue))
-          {
-            scr_error ("expr_parse_string_factor:"
-                      " undefined variable, %s\n", token_value.string);
-            scr_longjmp (expr_parse_error, 1);
-          }
-        if (type != VAR_STRING)
-          {
-            scr_error ("expr_parse_string_factor:"
-                      " numeric variable in string context, %s\n",
-                      token_value.string);
-            scr_longjmp (expr_parse_error, 1);
-          }
-        expr_eval_action (TOK_VARIABLE);
-        expr_parse_match (TOK_VARIABLE);
-        break;
-      }
+      expr_parse_variable_factor ("expr_parse_string_factor", VAR_STRING,
+                                  "numeric variable in string context");
+      break;
 
       /* Handle functions as factors. */
     case TOK_UPPER:
@@ -1612,9 +1610,10 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
 {
   assert (assign_type == VAR_INTEGER || assign_type == VAR_STRING);
 
-  /* Reset values stack and start tokenizer. */
+  /* Reset values stack and start the tokenizer; the guard ends it on any
+     exit from this function, a thrown scr_fatal_error included. */
   expr_eval_start (vars);
-  expr_tokenize_start (expression);
+  const expr_tokenize_guard tokenizer (expression);
 
   /* Try parsing an expression, and catch errors. */
   if (scr_setjmp (expr_parse_error) == 0)
@@ -1629,14 +1628,12 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
     }
   else
     {
-      /* Parse error -- clean up tokenizer, collect garbage, and fail. */
-      expr_tokenize_end ();
+      /* Parse error -- collect garbage and fail. */
       expr_eval_garbage_collect ();
       return FALSE;
     }
 
-  /* Clean up tokenizer and return successfully with result. */
-  expr_tokenize_end ();
+  /* Return successfully with result. */
   expr_eval_result (vt_rvalue);
   return TRUE;
 }

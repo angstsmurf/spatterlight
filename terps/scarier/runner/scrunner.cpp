@@ -453,7 +453,7 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
  * Return TRUE if the displayable form of text -- tags stripped and any <br>
  * mapped to a newline -- ends in a newline, ignoring trailing horizontal
  * whitespace.  Used so the startup intro's own trailing line break is not
- * doubled up by SCARIER's paragraph break before the first room.
+ * doubled up by Scarier's paragraph break before the first room.
  */
 static scr_bool
 run_text_ends_in_newline (const scr_char *text)
@@ -508,7 +508,7 @@ run_prompt_restore (scr_gameref_t game, const scr_char *reply)
  * When a game's "prompt for player name" option is set, the Runner asks the
  * player to type a name at game start (InputBox "Please enter your name:") and
  * uses it for the player throughout (%player% substitutions); an empty answer
- * becomes "Anonymous".  SCARIER parsed but never honoured the option, so the
+ * becomes "Anonymous".  Scarier parsed but never honoured the option, so the
  * name stayed at its authored default (often blank -> "Player").  Ask for it
  * here, mirroring the Runner.  Like the gender choice, the answer is stored in
  * the session-persistent property bundle.
@@ -712,7 +712,7 @@ run_main_loop (scr_gameref_t game)
 
       /*
        * Print the game header.  Adrift StartupText conventionally ends with a
-       * <br> tag to set off the intro from the first room.  SCARIER supplies its
+       * <br> tag to set off the intro from the first room.  Scarier supplies its
        * own paragraph break below (the forced newline here plus the leading
        * newline from lib_cmd_look()), so adding a terminator when the text
        * already ends in a line break leaves the first room preceded by two
@@ -729,7 +729,7 @@ run_main_loop (scr_gameref_t game)
       /*
        * Alignment is a local of the Runner's display routine, so it starts out
        * left on every call and no <center> outlives the one string it was
-       * opened in.  SCARIER instead buffers a whole turn's worth of strings and
+       * opened in.  Scarier instead buffers a whole turn's worth of strings and
        * hands the lot to the port as one stream, so a title page that opens
        * <center> and never closes it -- "Cut the Red Wire! No, the Blue Wire!"
        * for one -- would carry on centering the first room description, which

@@ -11298,10 +11298,15 @@ transcript() {  # $1=game path $2=solution path
 # (the wield-model port, 2026-08-01) -- never again.  os_ansi.cpp is in the set
 # too: it is the port that prints the transcript (prompt, echo, line wrap), so
 # editing it changes every golden while matching none of the sc*.cpp globs.
+# library/ and runner/ are searched too: the find once stopped at the top level
+# and missed every edit to the command library and the runner.
+# (Makefile.headless `test` builds $SCARE_BIN from its shared objects before it
+# gets here, so this is the standalone path.)
 SRC_DIR="${SCARE_DIR:-$(cd "$HERE/../../.." && pwd)}"
 if [ ! -x "$SCARE_BIN" ] \
-   || [ -n "$(find "$SRC_DIR" -maxdepth 1 \
+   || [ -n "$(find "$SRC_DIR" "$SRC_DIR/library" "$SRC_DIR/runner" -maxdepth 1 \
               \( -name 'sc*.cpp' -o -name 'os_ansi.cpp' -o -name 'mapdraw.cpp' \
+                 -o -name '*.cpp' -path '*/library/*' -o -name '*.cpp' -path '*/runner/*' \
                  -o -name '*.h' \) \
               -newer "$SCARE_BIN" 2>/dev/null | head -1)" ]; then
   echo "building headless scare harness (build.sh)..." >&2

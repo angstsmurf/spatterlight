@@ -245,6 +245,7 @@ terps/scott/scott_all_audit
 /terps/scarier/adrift5/*.o
 /terps/scarier/library/*.o
 /terps/scarier/runner/*.o
+/terps/scarier/glk/*.o
 /terps/scarier/common_utils/*.o
 /terps/scarier/scarier
 /terps/scarier/glkscarier

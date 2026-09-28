@@ -560,7 +560,7 @@ scr_seed_random (scr_uint new_seed)
   scr_rand_function (new_seed > 0 ? new_seed : 1);
 }
 
-scr_int
+static scr_int
 scr_rand (void)
 {
   scr_int retval;
@@ -752,6 +752,25 @@ scr_normalize_string (scr_char *string)
                    string + cursor, strlen (string + cursor) + 1);
         }
     }
+
+  return string;
+}
+
+
+/*
+ * scr_lowercase()
+ *
+ * Lower-case a string in place, character by character through
+ * scr_tolower(), and return the string address for convenience.
+ */
+scr_char *
+scr_lowercase (scr_char *string)
+{
+  scr_int index_;
+  assert (string);
+
+  for (index_ = 0; string[index_] != NUL; index_++)
+    string[index_] = scr_tolower (string[index_]);
 
   return string;
 }

@@ -31,10 +31,12 @@ set -u
 here=$(cd "$(dirname "$0")" && pwd)
 cache=${SCARIER_GAMES_CACHE:-$here/.game-cache}
 
-if command -v shasum >/dev/null 2>&1; then
-  sha256() { shasum -a 256 "$1" | awk '{print $1}'; }
-elif command -v sha256sum >/dev/null 2>&1; then
+# sha256sum first: verify hashes ~900 files one process each, and shasum is a
+# perl script whose start-up alone made that 15 s against sha256sum's 2 s.
+if command -v sha256sum >/dev/null 2>&1; then
   sha256() { sha256sum "$1" | awk '{print $1}'; }
+elif command -v shasum >/dev/null 2>&1; then
+  sha256() { shasum -a 256 "$1" | awk '{print $1}'; }
 else
   echo "fetch_games.sh: need shasum or sha256sum" >&2
   exit 2

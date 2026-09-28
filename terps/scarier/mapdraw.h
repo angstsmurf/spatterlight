@@ -57,6 +57,12 @@ enum {
 #define MAP_N_DIRS 12
 extern const char *const map_dirs[MAP_N_DIRS];
 
+/* Each direction's unit offset on the plan, (dx, dy) in {-1, 0, 1} with Y
+   downward: North is (0, -1), SouthEast (1, 1).  Up, Down, In and Out have no
+   bearing and sit at (0, 0). */
+extern const int map_dir_dx[MAP_N_DIRS];
+extern const int map_dir_dy[MAP_N_DIRS];
+
 /* Up, Down, In and Out are the "badge" directions: they have no bearing on the
    plan, so they are drawn as icons on the room box rather than as compass
    connectors.  They are contiguous in the enum, which MAP_BADGE exploits to
@@ -78,7 +84,7 @@ map_is_badge_dir (int dir)
 
 /* A point in map units. */
 typedef struct map_pt_s {
-  int x, y, z;
+  int x, y;
 } map_pt_t;
 
 /* One drawn connector leaving a node (clsMap.MapLink). */
@@ -125,7 +131,6 @@ typedef struct map_node_s {
 
 typedef struct map_page_s {
   int key;
-  const char *label;          /* <Label> ("Page 1", ...)                     */
   map_node_t *nodes;
   int n_nodes;
 } map_page_t;
@@ -149,11 +154,6 @@ typedef struct map_s {
 } map_t;
 
 extern void map_free (map_t *map);
-
-/* Find the node for a room.  NULL if the room was never placed on the map:
-   ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
-   passes over rooms the author flagged to hide. */
-extern const map_node_t *map_find (const map_t *map, const char *lockey);
 
 /* --- rendering ---------------------------------------------------------- */
 

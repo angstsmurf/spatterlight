@@ -85,7 +85,7 @@ missing SKIP rather than fail.
 
 `harness/run_autosave_tests.py` is the one tool here that does **not** use
 `harness/scare`: autosave and autorestore exist only in the Spatterlight build
-(`#ifdef SPATTERLIGHT` in `os_glk.cpp`, plus libglkimp). It covers both
+(`#ifdef SPATTERLIGHT` in `glk/os_glk*.cpp`, plus libglkimp). It covers both
 engines -- the ADRIFT 5 cases (named `a5-*`) live here too. It runs
 `build/Debug/scarier` under `test/glkdrive.py`'s fake app. Each session ends
 with EVTQUIT, the window-closed exit that keeps the autosave, so the next

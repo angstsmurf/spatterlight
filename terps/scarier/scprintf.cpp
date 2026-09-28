@@ -436,13 +436,12 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
   std::string buffer;
   std::vector<scr_char> name;
   const scr_char *marker, *cursor;
-  scr_bool buffer_used, is_interpolated;
+  scr_bool is_interpolated;
 
   /*
-   * Begin with an empty buffer (and "unused" flag, mirroring the original lazy
-   * allocation), an unallocated name buffer, and a clear interpolation flag.
+   * Begin with an empty buffer, an unallocated name buffer, and a clear
+   * interpolation flag.
    */
-  buffer_used = FALSE;
   is_interpolated = FALSE;
 
   /* Run through the string looking for variables. */
@@ -455,12 +454,10 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
       scr_char close;
 
       /*
-       * Append up to the percent character to the buffer (amortized O(1)), and
-       * note the buffer as now in use.  If not yet done, allocate a name buffer
-       * guaranteed long enough.
+       * Append up to the percent character to the buffer (amortized O(1)).
+       * If not yet done, allocate a name buffer guaranteed long enough.
        */
       buffer.append (marker, cursor - marker);
-      buffer_used = TRUE;
       if (name.empty ())
         name.resize (strlen (string) + 1);
 
@@ -505,12 +502,12 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
     }
 
   /*
-   * If we used the buffer and interpolated into it, append the remainder of
-   * the string and return it.  If we didn't interpolate successfully (the
+   * Append the remainder of the string (all of it if there was no '%'),
+   * and if we interpolated into it, return it.  If we didn't interpolate successfully (the
    * input contained a rogue '%' character), throw out the buffer as it will be
    * the same as our input, and return NULL.
    */
-  buffer.append (buffer_used ? marker : string);
+  buffer.append (marker);
   if (var_interpolate_user_ordered (vars, buffer))
     is_interpolated = TRUE;
 
@@ -1793,7 +1790,7 @@ pf_empty (scr_filterref_t filter)
  * unchanged, so a task text that opens with "<br>" still puts a blank line
  * between the reference and itself.  Unmarked, the line's newline would make
  * pf_buffer_paragraph() swallow that leading break as if it were one of
- * SCARIER's own terminators.  Only that one collapse is switched off: the
+ * Scarier's own terminators.  Only that one collapse is switched off: the
  * hidden-prefix barrier would also stop a walk announcement joining the
  * paragraph (see pf_buffer_paragraph_join()), which the Runner still does.
  *
@@ -2027,7 +2024,7 @@ pf_text_leads_with_break (const scr_char *text)
  *
  * TRUE if the text ends in a literal newline, as opposed to a "<br>" tag.
  * The distinction is the whole of pf_buffer_paragraph()'s test: a newline in
- * the buffer is one SCARIER put there to end a section of its own, while a
+ * the buffer is one Scarier put there to end a section of its own, while a
  * "<br>" still standing at the end is one the author wrote, and the Runner
  * has it too.
  */
@@ -2046,14 +2043,14 @@ pf_text_ends_with_newline (const scr_char *text)
  * Buffer a block of text that conventionally begins with its own line break(s)
  * for spacing -- Adrift event and atmosphere texts typically start with "<br>"
  * or "<br><br>".  The Runner relies on those leading breaks alone for
- * paragraph spacing, whereas SCARIER also terminates the preceding room
+ * paragraph spacing, whereas Scarier also terminates the preceding room
  * description, exits list, NPC announcement and task text with a newline of
  * its own.  To avoid a doubled blank line, a single leading break is dropped
  * from the text -- but only when the break it would double is one of ours.
  *
  * The buffer says which it is.  Tags are translated at filter time, not here,
  * so an author's trailing "<br>" is still standing verbatim at the end of the
- * buffer, while every break SCARIER supplies is a literal newline.  A trailing
+ * buffer, while every break Scarier supplies is a literal newline.  A trailing
  * "<br>" is therefore the author's, the Runner has it too, and run400 really
  * does print a blank line between it and the next paragraph's "<br>" -- see
  * Ghost town's "...but follows you anyway.<br>" in Adrift_325_ghosttown.txt
@@ -2062,9 +2059,9 @@ pf_text_ends_with_newline (const scr_char *text)
  * pf_buffer_hard_break() records, and the 4.0 bracketed reference line, which
  * pf_buffer_reference() records.  Measured over the whole transcript archive:
  * harness/sweep_wine_breaks.py, and the write-up under "Ported 2026-09-07: a
- * leading <br> is collapsed only against a break of SCARIER's own".
+ * leading <br> is collapsed only against a break of Scarier's own".
  */
-void
+static void
 pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
 {
   const scr_char *buffered;
@@ -2137,7 +2134,7 @@ pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
  * next either supplies its own separator or runs straight on from where the
  * text stopped.  (4.0 does terminate it, which is why the one caller so far,
  * task_print_end_game_message(), asks for this on a pre-4.0 game only.)
- * SCARIER instead ends each section with a newline, which is right for almost
+ * Scarier instead ends each section with a newline, which is right for almost
  * every caller but wrong for the ones that the Runner butts up against the
  * text with nothing in between.  Measured live in run380 finishing
  * microwaveman.taf, where the winning task's "You win the game." and the
@@ -2177,12 +2174,12 @@ pf_undo_auto_break (scr_filterref_t filter)
  * pf_ends_with_double_space() can look through it at the text the Runner
  * really assembled.  Needed for the task ShowRoomDesc block: the pre-4.0
  * Runners store no break after a room description -- the next piece is glued
- * on by the two-space separator logic -- so the newline SCARIER's room
+ * on by the two-space separator logic -- so the newline Scarier's room
  * printer adds there stands where the Runner's string simply stopped.
  * Measured live on superliam.taf in run380 (2026-08-31): tasks 23 ("press
  * button") and 24 ("up") show rooms whose Long ends in two spaces, and the
  * real Runner suppresses both AdditionalMessages ("a cat runs out of a
- * door...", "X1 raising his gunlike arms...") where SCARIER printed them.
+ * door...", "X1 raising his gunlike arms...") where Scarier printed them.
  */
 void
 pf_note_trailing_auto_break (scr_filterref_t filter)
@@ -2319,7 +2316,7 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
    * break; the Runner has no barrier and puts its own break in regardless.
    * Measured: baroo t120/t121, blood t30/t70, cursed t76/t134, thepkgirl
    * t125/t177/t257 and vendetta t113 all break before a task-driven room
-   * heading where SCARIER ran it onto the line above.
+   * heading where Scarier ran it onto the line above.
    */
   buffered = pf_get_buffer (filter);
   if (!buffered || scr_strempty (buffered))

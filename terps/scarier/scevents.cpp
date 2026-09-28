@@ -77,13 +77,14 @@ static std::vector<scr_event_props_t> evt_cache;
 static scr_int evt_cache_version = 0;  /* bundle "Version", 0 = unknown */
 
 /*
+ * evt_cache_sync()
  * evt_cache_entry()
  *
- * Return the cache entry for an event, resetting the cache if it was built
- * for a different game.
+ * Reset the cache if it was built for a different game; the second form
+ * then returns the cache entry for an event.
  */
-static scr_event_props_t *
-evt_cache_entry (scr_gameref_t game, scr_int event)
+static void
+evt_cache_sync (scr_gameref_t game)
 {
   if (evt_cache_game != game)
     {
@@ -94,6 +95,12 @@ evt_cache_entry (scr_gameref_t game, scr_int event)
       evt_cache_version = 0;
       evt_cache_game = game;
     }
+}
+
+static scr_event_props_t *
+evt_cache_entry (scr_gameref_t game, scr_int event)
+{
+  evt_cache_sync (game);
   return &evt_cache[event];
 }
 
@@ -278,12 +285,11 @@ evt_can_see_event_in_room (scr_gameref_t game, scr_int event, scr_int room)
       return evt_cached_where_room_boolean (game, event, room);
 
     default:
-      scr_fatal ("evt_can_see_event: invalid type, %ld\n", type);
-      return FALSE;
+      scr_fatal ("evt_can_see_event_in_room: invalid type, %ld\n", type);
     }
 }
 
-scr_bool
+static scr_bool
 evt_can_see_event (scr_gameref_t game, scr_int event)
 {
   return evt_can_see_event_in_room (game, event, gs_playerroom (game));
@@ -346,43 +352,45 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * by the take/drop handlers and the task mover) -- so the position
        * tracker is suspended for the move.
        */
-      gs_set_carried_suspend (game, TRUE);
-      switch (destination)
-        {
-        case -1:               /* Hidden. */
-          gs_object_make_hidden (game, object);
-          break;
+      {
+        gs_carried_suspend_guard suspend (game);
 
-        case 0:                /* Held by player. */
-          gs_object_player_get (game, object);
-          break;
+        switch (destination)
+          {
+          case -1:               /* Hidden. */
+            gs_object_make_hidden (game, object);
+            break;
 
-        case 1:                /* Same room as player. */
-          gs_object_to_room (game, object, gs_playerroom (game));
-          added = gs_playerroom (game);
-          break;
+          case 0:                /* Held by player. */
+            gs_object_player_get (game, object);
+            break;
 
-        default:
-          if (destination < gs_room_count (game) + 2)
-            {
-              gs_object_to_room (game, object, destination - 2);
-              added = destination - 2;
-            }
-          else
-            {
-              scr_int roomgroup, room;
+          case 1:                /* Same room as player. */
+            gs_object_to_room (game, object, gs_playerroom (game));
+            added = gs_playerroom (game);
+            break;
 
-              roomgroup = destination - gs_room_count (game) - 2;
-              room = lib_random_roomgroup_member (game, roomgroup);
-              if (room >= 0)     /* Empty group: leave the object in place. */
-                {
-                  gs_object_to_room (game, object, room);
-                  added = room;
-                }
-            }
-          break;
-        }
-      gs_set_carried_suspend (game, FALSE);
+          default:
+            if (destination < gs_room_count (game) + 2)
+              {
+                gs_object_to_room (game, object, destination - 2);
+                added = destination - 2;
+              }
+            else
+              {
+                scr_int roomgroup, room;
+
+                roomgroup = destination - gs_room_count (game) - 2;
+                room = lib_random_roomgroup_member (game, roomgroup);
+                if (room >= 0)     /* Empty group: leave the object in place. */
+                  {
+                    gs_object_to_room (game, object, room);
+                    added = room;
+                  }
+              }
+            break;
+          }
+      }
 
       if (room_set)
         {
@@ -440,15 +448,15 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
  * evt_taf_version()
  *
  * Return the game's TAF version.  It is immutable, so it is read once per
- * game and cached (evt_cache_entry synchronizes the cache, including the
+ * game and cached (evt_cache_sync synchronizes the cache, including the
  * version slot, to this game).
  */
 static scr_int
-evt_taf_version (scr_gameref_t game, scr_int event)
+evt_taf_version (scr_gameref_t game)
 {
   scr_int version;
 
-  evt_cache_entry (game, event);
+  evt_cache_sync (game);
   version = evt_cache_version;
   if (version == 0)
     {
@@ -493,11 +501,10 @@ evt_taf_version (scr_gameref_t game, scr_int event)
  * each (runner_transcripts/troll.txt), where we broke before every one.
  */
 static void
-evt_buffer_text (scr_gameref_t game, scr_int event, const scr_char *text)
+evt_buffer_text (scr_gameref_t game, const scr_char *text)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  (void) event;
   pf_buffer_join_line (filter, text);
 }
 
@@ -536,7 +543,7 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
 static scr_bool
 evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 {
-  const scr_int version = evt_taf_version (game, event);
+  const scr_int version = evt_taf_version (game);
 
   if (version < TAF_VERSION_400)
     {
@@ -587,7 +594,7 @@ evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
       starttext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (starttext) && !silent)
         {
-          evt_buffer_text (game, event, starttext);
+          evt_buffer_text (game, starttext);
         }
 
       /* Handle any associated resource. */
@@ -641,204 +648,180 @@ static void evt_tick_event_and_settle (scr_gameref_t game, scr_int event);
 static scr_bool evt_has_starter_task (scr_gameref_t game, scr_int event);
 
 /*
- * evt_finish_event()
+ * evt_run_affected_task()
  *
- * Move an event to FINISHED, or restart it.
+ * Run an event's affected task forwards, as the finishing event's Runner
+ * version does it.
  */
 static void
-evt_finish_event (scr_gameref_t game, scr_int event)
+evt_run_affected_task (scr_gameref_t game, scr_int task)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
-  scr_int obj2, obj2dest, obj3, obj3dest;
-  scr_int task, startertype, restarttype;
-  scr_bool taskfinished;
 
-  if (evt_trace)
-    scr_trace ("Event: finishing event %ld\n", event);
-
-  /* Set up invariant parts of the key. */
-  vt_key[0].string = "Events";
-  vt_key[1].integer = event;
-
-  /* If event is visible, print its finish text. */
-  if (evt_can_see_event (game, event))
+  if (evt_taf_version (game) < TAF_VERSION_400)
     {
-      const scr_char *finishtext;
+      /*
+       * The 3.9 Runner dispatches the task by its command text through
+       * the task matcher rather than running it by index: a runnable
+       * `*` wildcard task earlier in the list steals the execution, and
+       * a restricted match is passed over silently, its FailMessage
+       * unprinted.  The dispatch is not gated on the affected task's
+       * own runnability -- a wildcard can fire even when the affected
+       * task could not run here.  See run_event_task() and
+       * RUNNER_TESTS_TODO.md section 2; "thetest" depends on the
+       * stealing.
+       */
+      if (evt_trace)
+        scr_trace ("Event: event dispatching task %ld forwards\n", task);
 
-      /* Get and print finish text. */
-      vt_key[2].string = "FinishText";
-      finishtext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (finishtext))
-        {
-          evt_buffer_text (game, event, finishtext);
-        }
-
-      /* Handle any associated resource. */
-      vt_key[2].string = "Res";
-      vt_key[3].integer = 4;
-      res_handle_resource (game, "sisi", vt_key);
+      run_event_task (game, task);
     }
+  else if (task_can_run_task_directional (game, task, TRUE))
+    {
+      /*
+       * The 4.0 Runner runs the affected task directly: no wildcard
+       * interception, and failing restrictions print their FailMessage
+       * (which task_run_task does) -- Shadowpeak's ambient bell/rat
+       * lines are exactly such prints.  Both halves verified live
+       * against run390/run400 with the same gen400-converted probe;
+       * see RUNNER_TESTS_TODO.md section 2.
+       */
+      if (evt_trace)
+        scr_trace ("Event: event running task %ld forwards\n", task);
 
-  /* Move event objects to destination. */
-  obj2 = evt_cached_integer (game, event, EVT_OBJ2, "Obj2") - 1;
-  obj2dest = evt_cached_integer (game, event, EVT_OBJ2_DEST, "Obj2Dest") - 1;
-  evt_move_object (game, obj2, obj2dest, FALSE);
+      run_task_run_by_index (game, task);
+    }
+  else if (gs_task_done (game, task) && task_where_allows_run (game, task)
+           && game->is_running)
+    {
+      /*
+       * A completed task cannot run again, but run400's by-index runner
+       * (Proc_19_21_45FB78) walks the restrictions (455C60) BEFORE it
+       * looks at the task's done and repeatable bytes (45FA38), so a
+       * failing restriction still prints its FailMessage.  Called from an
+       * event (arg 2 = 1) a passing one prints nothing, not the
+       * RepeatText.  "Riding Home" pins it
+       * (runner_transcripts/riding_home.txt): event 8 keeps running the
+       * completed "Samantha calls" task 104, and the Runner prints its
+       * "Erica and Krystal continue their conversation" FailMessage on
+       * a later `wait`.
+       */
+      const scr_char *fail_message;
+      scr_bool restrictions_passed;
 
-  obj3 = evt_cached_integer (game, event, EVT_OBJ3, "Obj3") - 1;
-  obj3dest = evt_cached_integer (game, event, EVT_OBJ3_DEST, "Obj3Dest") - 1;
-  evt_move_object (game, obj3, obj3dest, FALSE);
+      if (evt_trace)
+        scr_trace ("Event: event checking completed task %ld\n", task);
 
-  /* See if there is an affected task. */
+      if (restr_eval_task_restrictions_cached (game, task,
+                                               &restrictions_passed,
+                                               &fail_message)
+          && !restrictions_passed && fail_message)
+        pf_buffer_paragraph_line (filter, fail_message);
+    }
+  else
+    {
+      if (evt_trace)
+        scr_trace ("Event: event can't run task %ld forwards\n", task);
+    }
+}
+
+
+/*
+ * evt_finish_affected_task()
+ *
+ * Handle a finishing event's affected task, if it has one: clear it, or run
+ * it forwards and recheck the lower-index events it starts.
+ */
+static void
+evt_finish_affected_task (scr_gameref_t game, scr_int event)
+{
+  scr_int task, other;
+
   task = evt_cached_integer (game, event, EVT_TASK_AFFECTED, "TaskAffected")
          - 1;
-  if (task >= 0 && task < gs_task_count (game))
+  if (task < 0 || task >= gs_task_count (game))
+    return;
+
+  if (evt_cached_boolean (game, event, EVT_TASK_FINISHED, "TaskFinished"))
     {
-      taskfinished = evt_cached_boolean (game, event, EVT_TASK_FINISHED,
-                                         "TaskFinished");
-      if (taskfinished)
-        {
-          /*
-           * The event marks the affected task incomplete.  The reference
-           * Runner does this by clearing the task's completion flag directly
-           * (verified in the ADRIFT 3.9 Runner's checkevent: the "task
-           * finished" branch stores 0 into the affected task's completed
-           * field).  It is not a task "reverse": no reverse message is shown,
-           * and neither the task's Reversible flag nor its "where the task can
-           * be run" room list is consulted.  Gating it like a reverse wrongly
-           * left non-reversible tasks completed -- e.g. in "Lair of the
-           * CyberCow" the "De-Uncle 2 Freedom" event could not clear "put
-           * fairy in robot", so the cellar exit that task seals never
-           * reopened and the player stayed trapped after saying "uncle".
-           */
-          gs_set_task_done (game, task, FALSE);
-          if (evt_trace)
-            scr_trace ("Event: event cleared task %ld\n", task);
-        }
-      else
-        {
-          /*
-           * run380 43A728 (run400 alike): when the affected task is to be
-           * RUN and is not yet complete, the event's own starter-task
-           * snapshot is zeroed first.  It only matters when the affected
-           * task is also this event's starter task, and only until the end
-           * of the pass overwrites it -- i.e. for the lower-index recheck
-           * below and for a same-pass restart -- but it is what the Runner
-           * does.
-           */
-          if (!gs_task_done (game, task))
-            gs_set_event_taskstate (game, event, FALSE);
-        }
-
-      if (taskfinished)
-        {
-          /* Nothing more: the flag is cleared, the task is not run. */
-        }
-      else if (evt_taf_version (game, event) < TAF_VERSION_400)
-        {
-          /*
-           * The 3.9 Runner dispatches the task by its command text through
-           * the task matcher rather than running it by index: a runnable
-           * `*` wildcard task earlier in the list steals the execution, and
-           * a restricted match is passed over silently, its FailMessage
-           * unprinted.  The dispatch is not gated on the affected task's
-           * own runnability -- a wildcard can fire even when the affected
-           * task could not run here.  See run_event_task() and
-           * RUNNER_TESTS_TODO.md section 2; "thetest" depends on the
-           * stealing.
-           */
-          if (evt_trace)
-            scr_trace ("Event: event dispatching task %ld forwards\n", task);
-
-          run_event_task (game, task);
-        }
-      else if (task_can_run_task_directional (game, task, TRUE))
-        {
-          /*
-           * The 4.0 Runner runs the affected task directly: no wildcard
-           * interception, and failing restrictions print their FailMessage
-           * (which task_run_task does) -- Shadowpeak's ambient bell/rat
-           * lines are exactly such prints.  Both halves verified live
-           * against run390/run400 with the same gen400-converted probe;
-           * see RUNNER_TESTS_TODO.md section 2.
-           */
-          if (evt_trace)
-            scr_trace ("Event: event running task %ld forwards\n", task);
-
-          run_task_run_by_index (game, task);
-        }
-      else if (gs_task_done (game, task) && task_where_allows_run (game, task)
-               && game->is_running)
-        {
-          /*
-           * A completed task cannot run again, but run400's by-index runner
-           * (Proc_19_21_45FB78) walks the restrictions (455C60) BEFORE it
-           * looks at the task's done and repeatable bytes (45FA38), so a
-           * failing restriction still prints its FailMessage.  Called from an
-           * event (arg 2 = 1) a passing one prints nothing, not the
-           * RepeatText.  "Riding Home" pins it
-           * (runner_transcripts/riding_home.txt): event 8 keeps running the
-           * completed "Samantha calls" task 104, and the Runner prints its
-           * "Erica and Krystal continue their conversation" FailMessage on
-           * a later `wait`.
-           */
-          const scr_char *fail_message;
-          scr_bool restrictions_passed;
-
-          if (evt_trace)
-            scr_trace ("Event: event checking completed task %ld\n", task);
-
-          if (restr_eval_task_restrictions_cached (game, task,
-                                                   &restrictions_passed,
-                                                   &fail_message)
-              && !restrictions_passed && fail_message)
-            pf_buffer_paragraph_line (filter, fail_message);
-        }
-      else
-        {
-          if (evt_trace)
-            scr_trace ("Event: event can't run task %ld forwards\n", task);
-        }
-
       /*
-       * Both Runners' checkevent (run390 448EB8 at 448D99, run400 470754 at
-       * 47059C) follow the affected task with a loop over every event of a
-       * LOWER index whose starter TaskNum is that task, calling checkevent on
-       * each one again -- while the game is still running -- so an event
-       * that this finish starts is not left to the next tick merely because
-       * the ordered pass had already been past it.  Vardock Bates pins it:
-       * "Movimiento Barcelona-Museo" (event 2) finishes on the first
-       * `esperar` outside the airport, runs the arrival task, and "Mordedura
-       * Taxista" (event 1, started by that task) prints its StartText in the
-       * SAME turn (Adrift_1_vardock_bates.txt, twice).  Without this loop
-       * Scarier printed it a turn later.  Events of a higher index need no
-       * help: the pass reaches them after the task has completed.
+       * The event marks the affected task incomplete.  The reference
+       * Runner does this by clearing the task's completion flag directly
+       * (verified in the ADRIFT 3.9 Runner's checkevent: the "task
+       * finished" branch stores 0 into the affected task's completed
+       * field).  It is not a task "reverse": no reverse message is shown,
+       * and neither the task's Reversible flag nor its "where the task can
+       * be run" room list is consulted.  Gating it like a reverse wrongly
+       * left non-reversible tasks completed -- e.g. in "Lair of the
+       * CyberCow" the "De-Uncle 2 Freedom" event could not clear "put
+       * fairy in robot", so the cellar exit that task seals never
+       * reopened and the player stayed trapped after saying "uncle".
        */
-      if (!taskfinished)
-        {
-          scr_int other;
-
-          for (other = 0; other < event; other++)
-            {
-              if (evt_has_starter_task (game, other)
-                  && evt_cached_integer (game, other, EVT_TASK_NUM, "TaskNum")
-                         == task + 1
-                  && run_is_running (game))
-                {
-                  if (evt_trace)
-                    scr_trace ("Event: re-checking event %ld started by"
-                               " task %ld\n", other, task);
-
-                  evt_tick_event_and_settle (game, other);
-                }
-            }
-        }
+      gs_set_task_done (game, task, FALSE);
+      if (evt_trace)
+        scr_trace ("Event: event cleared task %ld\n", task);
+      return;
     }
 
-  /* Handle possible restart. */
+  /*
+   * run380 43A728 (run400 alike): when the affected task is to be
+   * RUN and is not yet complete, the event's own starter-task
+   * snapshot is zeroed first.  It only matters when the affected
+   * task is also this event's starter task, and only until the end
+   * of the pass overwrites it -- i.e. for the lower-index recheck
+   * below and for a same-pass restart -- but it is what the Runner
+   * does.
+   */
+  if (!gs_task_done (game, task))
+    gs_set_event_taskstate (game, event, FALSE);
+
+  evt_run_affected_task (game, task);
+
+  /*
+   * Both Runners' checkevent (run390 448EB8 at 448D99, run400 470754 at
+   * 47059C) follow the affected task with a loop over every event of a
+   * LOWER index whose starter TaskNum is that task, calling checkevent on
+   * each one again -- while the game is still running -- so an event
+   * that this finish starts is not left to the next tick merely because
+   * the ordered pass had already been past it.  Vardock Bates pins it:
+   * "Movimiento Barcelona-Museo" (event 2) finishes on the first
+   * `esperar` outside the airport, runs the arrival task, and "Mordedura
+   * Taxista" (event 1, started by that task) prints its StartText in the
+   * SAME turn (Adrift_1_vardock_bates.txt, twice).  Without this loop
+   * Scarier printed it a turn later.  Events of a higher index need no
+   * help: the pass reaches them after the task has completed.
+   */
+  for (other = 0; other < event; other++)
+    {
+      if (evt_has_starter_task (game, other)
+          && evt_cached_integer (game, other, EVT_TASK_NUM, "TaskNum")
+                 == task + 1
+          && run_is_running (game))
+        {
+          if (evt_trace)
+            scr_trace ("Event: re-checking event %ld started by"
+                       " task %ld\n", other, task);
+
+          evt_tick_event_and_settle (game, other);
+        }
+    }
+}
+
+
+/*
+ * evt_finish_restart()
+ *
+ * Leave a finished event finished, awaiting its starter task again, or
+ * restarted, as its RestartType and StarterType say.
+ */
+static void
+evt_finish_restart (scr_gameref_t game, scr_int event)
+{
+  scr_int startertype, restarttype;
+
   restarttype = evt_cached_integer (game, event, EVT_RESTART_TYPE,
                                     "RestartType");
+  startertype = evt_get_starter_type (game, event);
 
   /*
    * A ZERO-length event that restarts "after a delay" does not come back at
@@ -879,9 +862,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
    * showed its LookText in every later room description -- it just never
    * finishes again, which evt_tick_event() handles by parking it.
    */
-  if (restarttype == 2
-      && (evt_get_starter_type (game, event) == 1
-          || evt_get_starter_type (game, event) == 3))
+  if (restarttype == 2 && (startertype == 1 || startertype == 3))
     {
       if (evt_trace)
         scr_trace ("Event: restart-after-delay event %ld will not restart\n",
@@ -891,16 +872,12 @@ evt_finish_event (scr_gameref_t game, scr_int event)
 
       gs_set_event_state (game, event, ES_FINISHED);
       gs_set_event_time (game, event, 0);
-      restarttype = -1;
+      return;
     }
 
   switch (restarttype)
     {
-    case -1:                   /* One-shot, handled above. */
-      break;
-
     case 0:                    /* Don't restart. */
-      startertype = evt_get_starter_type (game, event);
       switch (startertype)
         {
         case 1:                /* Immediate. */
@@ -931,9 +908,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
       break;
 
     case 1:                    /* Restart immediately. */
-      if (evt_fixup_v390_v380_immediate_restart (game, event))
-        break;
-      else
+      if (!evt_fixup_v390_v380_immediate_restart (game, event))
         evt_start_event (game, event, FALSE);
       break;
 
@@ -942,7 +917,6 @@ evt_finish_event (scr_gameref_t game, scr_int event)
         scr_int start, end;
 
         /* Only a random-delay starter gets here; the others are one-shots. */
-        startertype = evt_get_starter_type (game, event);
         if (startertype != 2)
           scr_fatal ("evt_finish_event: unknown StarterType\n");
 
@@ -956,6 +930,58 @@ evt_finish_event (scr_gameref_t game, scr_int event)
     default:
       scr_fatal ("evt_finish_event: unknown RestartType\n");
     }
+}
+
+
+/*
+ * evt_finish_event()
+ *
+ * Move an event to FINISHED, or restart it.
+ */
+static void
+evt_finish_event (scr_gameref_t game, scr_int event)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  scr_int obj2, obj2dest, obj3, obj3dest;
+
+  if (evt_trace)
+    scr_trace ("Event: finishing event %ld\n", event);
+
+  /* Set up invariant parts of the key. */
+  vt_key[0].string = "Events";
+  vt_key[1].integer = event;
+
+  /* If event is visible, print its finish text. */
+  if (evt_can_see_event (game, event))
+    {
+      const scr_char *finishtext;
+
+      /* Get and print finish text. */
+      vt_key[2].string = "FinishText";
+      finishtext = prop_get_string (bundle, "S<-sis", vt_key);
+      if (!scr_strempty (finishtext))
+        {
+          evt_buffer_text (game, finishtext);
+        }
+
+      /* Handle any associated resource. */
+      vt_key[2].string = "Res";
+      vt_key[3].integer = 4;
+      res_handle_resource (game, "sisi", vt_key);
+    }
+
+  /* Move event objects to destination. */
+  obj2 = evt_cached_integer (game, event, EVT_OBJ2, "Obj2") - 1;
+  obj2dest = evt_cached_integer (game, event, EVT_OBJ2_DEST, "Obj2Dest") - 1;
+  evt_move_object (game, obj2, obj2dest, FALSE);
+
+  obj3 = evt_cached_integer (game, event, EVT_OBJ3, "Obj3") - 1;
+  obj3dest = evt_cached_integer (game, event, EVT_OBJ3_DEST, "Obj3Dest") - 1;
+  evt_move_object (game, obj3, obj3dest, FALSE);
+
+  evt_finish_affected_task (game, event);
+  evt_finish_restart (game, event);
 
   if (evt_trace)
     scr_trace ("Event: finish event handling done, %ld\n", event);
@@ -1001,7 +1027,7 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
   start = FALSE;
   if (task == 0)
     {
-      if (evt_taf_version (game, event) >= TAF_VERSION_400
+      if (evt_taf_version (game) >= TAF_VERSION_400
           && evt_any_task_in_state (game, TRUE))
         start = TRUE;
     }
@@ -1038,8 +1064,8 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
  * finds player" (task 112), and its finish un-does that very task; Boris's
  * walk re-completes it before the next tick, so run380x restarted the event
  * -- one length roll -- on each of four consecutive ticks of one `wait`,
- * where SCARIER, waiting to SEE the task incomplete at a tick, rolled once.
- * Runner 15 draws that turn, SCARIER 11, and every rain and train after it
+ * where Scarier, waiting to SEE the task incomplete at a tick, rolled once.
+ * Runner 15 draws that turn, Scarier 11, and every rain and train after it
  * shifted.
  *
  * TaskNum 0 has no snapshot in any Runner (their second loop is guarded by
@@ -1099,55 +1125,52 @@ evt_snapshot_starter_tasks (scr_gameref_t game)
     }
 }
 
+/*
+ * The pauser and resumer are the same test over different fields: a gate
+ * task of 1 means "any task", N > 1 task N - 2, and the *Completed flag
+ * says which task state (done or undone) trips the gate.
+ */
+static scr_bool
+evt_gate_task_is_complete (scr_gameref_t game, scr_int event,
+                           scr_int task_field, const scr_char *task_name,
+                           scr_int completed_field,
+                           const scr_char *completed_name)
+{
+  scr_int gatetask;
+  scr_bool completed, gate;
+
+  gatetask = evt_cached_integer (game, event, task_field, task_name);
+  completed = !evt_cached_boolean (game, event, completed_field,
+                                   completed_name);
+
+  gate = FALSE;
+  if (gatetask == 1)
+    {
+      if (evt_any_task_in_state (game, completed))
+        gate = TRUE;
+    }
+  else if (gatetask > 1 && gatetask - 2 < gs_task_count (game))
+    {
+      if (completed == gs_task_done (game, gatetask - 2))
+        gate = TRUE;
+    }
+
+  return gate;
+}
+
 static scr_bool
 evt_pauser_task_is_complete (scr_gameref_t game, scr_int event)
 {
-  scr_int pausetask;
-  scr_bool completed, pause;
-
-  pausetask = evt_cached_integer (game, event, EVT_PAUSE_TASK, "PauseTask");
-  completed = !evt_cached_boolean (game, event, EVT_PAUSER_COMPLETED,
-                                   "PauserCompleted");
-
-  pause = FALSE;
-  if (pausetask == 1)
-    {
-      if (evt_any_task_in_state (game, completed))
-        pause = TRUE;
-    }
-  else if (pausetask > 1 && pausetask - 2 < gs_task_count (game))
-    {
-      if (completed == gs_task_done (game, pausetask - 2))
-        pause = TRUE;
-    }
-
-  return pause;
+  return evt_gate_task_is_complete (game, event, EVT_PAUSE_TASK, "PauseTask",
+                                    EVT_PAUSER_COMPLETED, "PauserCompleted");
 }
 
 static scr_bool
 evt_resumer_task_is_complete (scr_gameref_t game, scr_int event)
 {
-  scr_int resumetask;
-  scr_bool completed, resume;
-
-  resumetask = evt_cached_integer (game, event, EVT_RESUME_TASK,
-                                   "ResumeTask");
-  completed = !evt_cached_boolean (game, event, EVT_RESUMER_COMPLETED,
-                                   "ResumerCompleted");
-
-  resume = FALSE;
-  if (resumetask == 1)
-    {
-      if (evt_any_task_in_state (game, completed))
-        resume = TRUE;
-    }
-  else if (resumetask > 1 && resumetask - 2 < gs_task_count (game))
-    {
-      if (completed == gs_task_done (game, resumetask - 2))
-        resume = TRUE;
-    }
-
-  return resume;
+  return evt_gate_task_is_complete (game, event, EVT_RESUME_TASK,
+                                    "ResumeTask", EVT_RESUMER_COMPLETED,
+                                    "ResumerCompleted");
 }
 
 
@@ -1160,42 +1183,410 @@ evt_resumer_task_is_complete (scr_gameref_t game, scr_int event)
 static void
 evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
 {
+  static const struct
+  {
+    scr_int time_field;
+    const scr_char *time_name, *text_name;
+    scr_int resource;
+  } notifications[2] = {
+    { EVT_PREF_TIME1, "PrefTime1", "PrefText1", 2 },
+    { EVT_PREF_TIME2, "PrefTime2", "PrefText2", 3 }
+  };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
-  scr_int preftime1, preftime2;
-  const scr_char *preftext;
+  scr_int index_;
 
   vt_key[0].string = "Events";
   vt_key[1].integer = event;
 
-  preftime1 = evt_cached_integer (game, event, EVT_PREF_TIME1, "PrefTime1");
-  if (preftime1 == gs_event_time (game, event))
+  /* PrefTime1/PrefText1/Res 2, then PrefTime2/PrefText2/Res 3. */
+  for (index_ = 0; index_ < 2; index_++)
     {
-      vt_key[2].string = "PrefText1";
-      preftext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (preftext))
-        {
-          evt_buffer_text (game, event, preftext);
-        }
+      scr_int preftime;
+      const scr_char *preftext;
 
-      vt_key[2].string = "Res";
-      vt_key[3].integer = 2;
-      res_handle_resource (game, "sisi", vt_key);
+      preftime = evt_cached_integer (game, event,
+                                     notifications[index_].time_field,
+                                     notifications[index_].time_name);
+      if (preftime == gs_event_time (game, event))
+        {
+          vt_key[2].string = notifications[index_].text_name;
+          preftext = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!scr_strempty (preftext))
+            {
+              evt_buffer_text (game, preftext);
+            }
+
+          vt_key[2].string = "Res";
+          vt_key[3].integer = notifications[index_].resource;
+          res_handle_resource (game, "sisi", vt_key);
+        }
+    }
+}
+
+
+/*
+ * evt_pause_is_due()
+ *
+ * TRUE if the event's pauser task has completed but its resumer has not.
+ */
+static scr_bool
+evt_pause_is_due (scr_gameref_t game, scr_int event)
+{
+  return evt_pauser_task_is_complete (game, event)
+         && !evt_resumer_task_is_complete (game, event);
+}
+
+
+/*
+ * evt_tick_waiting()
+ *
+ * One turn of an event counting down to its start.
+ */
+static void
+evt_tick_waiting (scr_gameref_t game, scr_int event)
+{
+  if (evt_trace)
+    scr_trace ("Event: ticking waiting event %ld\n", event);
+
+  /*
+   * Because we also tick an event that goes from waiting to running,
+   * events started here will tick through RUNNING too, and have their
+   * time decremented.  To get around this, so that the timer for one-
+   * shot events doesn't look one lower than it should after this
+   * transition, we need to set the initial time for events that start
+   * as soon as the game starts to one greater than that set by
+   * evt_start_time().  Here's the hack to do that; if the event starts
+   * immediately, its time will already be zero, even before decrement,
+   * which is how we tell which events to apply this hack to.
+   *
+   * Inelegant, but it yields the Runner's timer values, and the
+   * walkthrough corpus validates it.
+   */
+  if (gs_event_time (game, event) == 0)
+    {
+      evt_start_event (game, event, FALSE);
+
+      /* If the event time was set to zero, finish immediately. */
+      if (gs_event_time (game, event) <= 0)
+        evt_finish_event (game, event);
+      else
+        gs_set_event_time (game, event, gs_event_time (game, event) + 1);
+      return;
     }
 
-  preftime2 = evt_cached_integer (game, event, EVT_PREF_TIME2, "PrefTime2");
-  if (preftime2 == gs_event_time (game, event))
+  /*
+   * Decrement the event's time, and if it goes to zero, start running
+   * the event.
+   */
+  gs_decrement_event_time (game, event);
+
+  if (gs_event_time (game, event) <= 0)
     {
-      vt_key[2].string = "PrefText2";
-      preftext = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (preftext))
+      evt_start_event (game, event, FALSE);
+
+      /*
+       * Never finish here.  The Runners' waiting block stores the roll
+       * with NO +1 (run370 431B5D, run380/run390 448395, run400 46FD66)
+       * and falls into the running block in the same call, which
+       * decrements before its `clock = 0` finish test; evt_tick_events()
+       * re-ticks the event through ES_RUNNING for that.  A roll of 1
+       * therefore finishes this turn, and a roll of 0 goes to -1 and
+       * PARKS: started, never finishing, its LookText in every later
+       * room description.  Probed in run400 2026-08-02 on a zero-length
+       * event (probe EV4, Del Sol's "physics distraction 3" shape), and
+       * 2026-09-19 on a length rolled 0 from Time 0..1 (probe pEVROLL
+       * event B, run390x Adrift_1200, run380x Adrift_1201: "B START."
+       * and no "B FINISH.").
+       */
+    }
+}
+
+
+/*
+ * evt_tick_running()
+ *
+ * One turn of a running event: revert, pause, park, count down, finish.
+ */
+static void
+evt_tick_running (scr_gameref_t game, scr_int event)
+{
+  if (evt_trace)
+    scr_trace ("Event: ticking running event %ld\n", event);
+
+  /*
+   * Re-check the starter task; if it's no longer completed, we need
+   * to set the event back to waiting on task.
+   */
+  if (evt_has_starter_task (game, event))
+    {
+      if (evt_starter_task_reverts (game, event))
         {
-          evt_buffer_text (game, event, preftext);
+          if (evt_trace)
+            scr_trace ("Event: starter task not complete\n");
+
+          gs_set_event_state (game, event, ES_AWAITING);
+          gs_set_event_time (game, event, 0);
+          return;
+        }
+    }
+
+  /*
+   * run400's running block -- everything from the pause test down to
+   * the finish test -- runs at most once per turn per event: it is
+   * entered on `state = running And ticked = 0' and sets ticked at
+   * once (46FF48), and the command processor clears the flag at the
+   * top of each typed line (48A2EA) and after every events() pass
+   * (48AC40).  The revert test above is outside the block.  An event
+   * already ticked this turn by an out-of-order checkevent -- the
+   * execute-task action's immediate check, or a finishing event's
+   * lower-index recheck -- is therefore skipped by the ordered pass.
+   * run380 (43A135) and run390 (448714) enter their running blocks
+   * on the state alone, and tick such an event twice.
+   *
+   * "SS Whore" (4.0, Adrift_304_sswhore.txt) pins it: event 12
+   * (Time 1) is started, mid-pass, by an execute-task action inside
+   * event 11's finish, and its own immediate check decrements it to
+   * the roll; the ordered pass then reaches it and must not finish
+   * it a turn early.
+   */
+  if (evt_taf_version (game) >= TAF_VERSION_400)
+    {
+      if (gs_event_ticked (game, event))
+        {
+          if (evt_trace)
+            scr_trace ("Event: event %ld already ticked this turn\n",
+                       event);
+          return;
+        }
+      gs_set_event_ticked (game, event, TRUE);
+    }
+
+  /* If the pauser has completed, but resumer not, pause this event. */
+  if (evt_pause_is_due (game, event))
+    {
+      if (evt_trace)
+        scr_trace ("Event: pause complete\n");
+
+      gs_set_event_state (game, event, ES_PAUSED);
+      return;
+    }
+
+  /*
+   * A zero-length event that got here is parked: it was started off a
+   * clock or by an immediate restart, and in the real Runner it stays
+   * running for the rest of the game -- its LookText keeps appearing in
+   * the room description, and its end never arrives.  Leave the clock
+   * alone, or the decrement below would take it negative and "finish"
+   * an event the Runner never finishes.
+   *
+   * Only a clock of zero parks.  A start that kept run400's +1 (the
+   * "started after its tick this turn" case in ES_AWAITING) holds 1,
+   * and run400's next running block takes it to 0 and finishes the
+   * event like any other.  "Riding Home" pins it
+   * (runner_transcripts/riding_home.txt): event 9 (zero-length,
+   * starter "You get off the bus") is started and finished by the
+   * execute-task check on the bus-stop turn, printing task 118's 90%
+   * FailMessage.  The finish zeroed its snapshot (470548, task 118
+   * stays incomplete), so the ordered pass starts it again with the
+   * +1 kept, and the Runner prints the 90% line a second time after
+   * `enter home`.
+   *
+   * At 4.0 a zero ROLLED from a range parks the same way.  The restart
+   * roll (4705E3-470605) stores Int((Time2 - Time1) * Rnd) + Time1 with
+   * no +1, the next running block takes the clock to -1, and the finish
+   * test at 470251 is `clock = 0`, so the event runs on for good: no
+   * PrefTime text, no finish and no further restart draws.  "Zelda"
+   * pins it (runner_transcripts/zelda.txt): the mask-shop shopkeeper
+   * (event 5, Time 0-15, restart) rolls 0 on the T52 restart, and
+   * run400 never plays the T60 ocarina line and draws 19 fewer numbers
+   * over the game.
+   *
+   * Every Runner has this shape: run390 stores the restart roll at
+   * 448E05, decrements at 44892B and tests `clock = 0` at 448A6B;
+   * run370 43247A / 432068 / 432173 the same.  Probe pEVROLL
+   * (make_39_evrollprobe.py, run390x Adrift_1200_pevroll39.txt, run380x
+   * Adrift_1201_pevroll38.rtf): event A (task starter, RestartType 1,
+   * Time 0..1, so every roll is 0) prints "A FINISH." on the `ping`
+   * turn only, and "A LOOK." shows in every later look.
+   */
+  if (gs_event_time (game, event) <= 0)
+    {
+      if (evt_trace)
+        scr_trace ("Event: zero-length event %ld is parked\n", event);
+      return;
+    }
+
+  /*
+   * Decrement the event's time, and print any notifications for a set
+   * number of turns from the event end.
+   */
+  gs_decrement_event_time (game, event);
+
+  if (evt_can_see_event (game, event))
+    evt_handle_preftime_notifications (game, event);
+
+  /* If the time goes to zero, finish running the event. */
+  if (gs_event_time (game, event) <= 0)
+    evt_finish_event (game, event);
+}
+
+
+/*
+ * evt_tick_awaiting()
+ *
+ * One turn of an event awaiting its starter task.
+ */
+static void
+evt_tick_awaiting (scr_gameref_t game, scr_int event)
+{
+  if (evt_trace)
+    scr_trace ("Event: ticking awaiting event %ld\n", event);
+
+  /*
+   * Check the starter task.  If it's completed -- and was not already
+   * complete at the end of the last pass, see evt_starter_task_may_start
+   * -- start running the event.
+   */
+  if (evt_starter_task_may_start (game, event))
+    {
+      scr_bool already_ticked;
+
+      /*
+       * run400 sets the clock to the roll PLUS ONE at the start
+       * (46FE49) and relies on the running block that follows in the
+       * same checkevent call to take the 1 back.  When the start
+       * comes from an out-of-order checkevent -- a finishing event's
+       * lower-index recheck, or the execute-task action's immediate
+       * check -- AFTER the ordered pass has already ticked this event
+       * this turn, the running block is closed (46FF48, byte 196 is
+       * set) and the +1 survives: the event ends one turn later than
+       * its roll.  "Glum Fiddle" pins it (Adrift_1080_Glum_Fiddle.txt,
+       * seed 1234): "Move Glum to Swamp" (event 0, Time 4, started by
+       * task 36) finishes on the third `wait`, is restarted the same
+       * turn by event 5's finish recheck, and the Runner prints "Glum
+       * suddenly turns and heads south" again on the FIFTH turn after
+       * (`take tray`), not the fourth.  Nothing else of the running
+       * block runs either -- no pause test, no notification, no
+       * finish -- so the start is all that happens here.
+       */
+      already_ticked = evt_taf_version (game) >= TAF_VERSION_400
+                       && gs_event_ticked (game, event);
+
+      evt_start_event (game, event, FALSE);
+
+      if (already_ticked)
+        {
+          if (evt_trace)
+            scr_trace ("Event: event %ld started after its tick this"
+                       " turn, clock %ld + 1\n", event,
+                       gs_event_time (game, event));
+
+          gs_set_event_time (game, event,
+                             gs_event_time (game, event) + 1);
+          return;
         }
 
-      vt_key[2].string = "Res";
-      vt_key[3].integer = 3;
-      res_handle_resource (game, "sisi", vt_key);
+      /*
+       * The Runner's start turn falls straight into the running block
+       * (see above) and so marks the event ticked for this turn.
+       */
+      gs_set_event_ticked (game, event, TRUE);
+
+      /*
+       * If the pauser has completed, but resumer not, immediately
+       * also pause this event.  The Runner tests this before the
+       * start turn's decrement and leaves checkevent() there, so a
+       * pause on the start turn suppresses the notification and
+       * finish checks below.
+       *
+       * It suppresses the decrement too, so the clock keeps the
+       * roll PLUS ONE the start stored (run400 46FFCC pause, 47013E
+       * Exit Sub ahead of the 47013F decrement; run390 44891F and
+       * run380 43A335 are the same shape), and the resume turn's
+       * decrement only brings it back to the roll: an event that
+       * starts paused ends one turn later than its roll after the
+       * resume.  thepkgirl (seed 24) pins it: event 118 "timer until
+       * guitarist leaves monument" (Time 18, pauser 1137 already
+       * done) starts paused on T152 `e`, resumes on T153, and the
+       * Runner starts its successors 119 and 234 on T171, not T170
+       * (46FE28 draws #592/#593); the shifted draw gives event 319 a
+       * 9 instead of an 8, and "somebody passing by slips you a buck"
+       * lands on T312 `south`.
+       */
+      if (evt_pause_is_due (game, event))
+        {
+          if (evt_trace)
+            scr_trace ("Event: pause complete, immediate pause\n");
+
+          gs_set_event_time (game, event,
+                             gs_event_time (game, event) + 1);
+          gs_set_event_state (game, event, ES_PAUSED);
+          return;
+        }
+
+      /*
+       * The start turn is also a tick.  checkevent() is one straight
+       * run of state tests, so an event that goes from "awaiting" to
+       * "running" here falls into the running block in the very same
+       * call: it prints its StartText, then decrements and runs the
+       * two pref-time notifications and the end-of-event test.  The
+       * Runner compensates by setting the clock to the roll plus one
+       * (run370 431BF0, run380 439E78, run390 448428, run400 46FE49
+       * all add the 1; only the task-started path does), so the +1
+       * and the decrement cancel and the event still ends `roll'
+       * turns after it started -- which is why our start-turn-does-
+       * not-tick model has always given the right end time.  What it
+       * cannot give is a notification whose PrefTime equals the whole
+       * rolled length: the Runner compares the post-decrement clock,
+       * i.e. the roll itself, on the start turn, and we never
+       * compared anything on the start turn at all.
+       *
+       * Only this transition needs the block: evt_tick_events()
+       * re-ticks an event that has just gone from waiting or paused
+       * to running, so those paths have always had their start
+       * turn's tick, and the ES_WAITING immediate-start hack's +1 is
+       * there to compensate for that re-tick.  Do not re-tick here as
+       * well -- our clock already holds the roll, which is the value
+       * the Runner only reaches after its start-turn decrement.
+       *
+       * Measured in run400 under Wine, Orient_Express.taf, transcript
+       * Adrift_36_orient_express.txt (2026-08-25).  Turn 43 `use
+       * phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
+       * PrefTime1 = 2) and the Runner prints its StartText and its
+       * PrefText1 on that one turn; the player leaves the event's
+       * single room next turn, so we printed the PrefText1 never.
+       * Turn 46 `give card to habibo' is the same shape with event 3
+       * [Driveby Shooting] (PrefTime1 = 3).
+       */
+      if (evt_can_see_event (game, event))
+        evt_handle_preftime_notifications (game, event);
+
+      /* If the event time was set to zero, finish immediately. */
+      if (gs_event_time (game, event) <= 0)
+        evt_finish_event (game, event);
+    }
+}
+
+
+/*
+ * evt_tick_paused()
+ *
+ * One turn of a paused event: resume once its resumer task completes.
+ */
+static void
+evt_tick_paused (scr_gameref_t game, scr_int event)
+{
+  if (evt_trace)
+    scr_trace ("Event: ticking paused event %ld\n", event);
+
+  /* If the resumer has completed, resume this event. */
+  if (evt_resumer_task_is_complete (game, event))
+    {
+      if (evt_trace)
+        scr_trace ("Event: resume complete\n");
+
+      gs_set_event_state (game, event, ES_RUNNING);
     }
 }
 
@@ -1221,319 +1612,15 @@ evt_tick_event (scr_gameref_t game, scr_int event)
   switch (gs_event_state (game, event))
     {
     case ES_WAITING:
-      {
-        if (evt_trace)
-          scr_trace ("Event: ticking waiting event %ld\n", event);
-
-        /*
-         * Because we also tick an event that goes from waiting to running,
-         * events started here will tick through RUNNING too, and have their
-         * time decremented.  To get around this, so that the timer for one-
-         * shot events doesn't look one lower than it should after this
-         * transition, we need to set the initial time for events that start
-         * as soon as the game starts to one greater than that set by
-         * evt_start_time().  Here's the hack to do that; if the event starts
-         * immediately, its time will already be zero, even before decrement,
-         * which is how we tell which events to apply this hack to.
-         *
-         * Inelegant, but it yields the Runner's timer values, and the
-         * walkthrough corpus validates it.
-         */
-        if (gs_event_time (game, event) == 0)
-          {
-            evt_start_event (game, event, FALSE);
-
-            /* If the event time was set to zero, finish immediately. */
-            if (gs_event_time (game, event) <= 0)
-              evt_finish_event (game, event);
-            else
-              gs_set_event_time (game, event, gs_event_time (game, event) + 1);
-            break;
-          }
-
-        /*
-         * Decrement the event's time, and if it goes to zero, start running
-         * the event.
-         */
-        gs_decrement_event_time (game, event);
-
-        if (gs_event_time (game, event) <= 0)
-          {
-            evt_start_event (game, event, FALSE);
-
-            /*
-             * Never finish here.  The Runners' waiting block stores the roll
-             * with NO +1 (run370 431B5D, run380/run390 448395, run400 46FD66)
-             * and falls into the running block in the same call, which
-             * decrements before its `clock = 0` finish test; evt_tick_events()
-             * re-ticks the event through ES_RUNNING for that.  A roll of 1
-             * therefore finishes this turn, and a roll of 0 goes to -1 and
-             * PARKS: started, never finishing, its LookText in every later
-             * room description.  Probed in run400 2026-08-02 on a zero-length
-             * event (probe EV4, Del Sol's "physics distraction 3" shape), and
-             * 2026-09-19 on a length rolled 0 from Time 0..1 (probe pEVROLL
-             * event B, run390x Adrift_1200, run380x Adrift_1201: "B START."
-             * and no "B FINISH.").
-             */
-          }
-      }
+      evt_tick_waiting (game, event);
       break;
 
     case ES_RUNNING:
-      {
-        if (evt_trace)
-          scr_trace ("Event: ticking running event %ld\n", event);
-
-        /*
-         * Re-check the starter task; if it's no longer completed, we need
-         * to set the event back to waiting on task.
-         */
-        if (evt_has_starter_task (game, event))
-          {
-            if (evt_starter_task_reverts (game, event))
-              {
-                if (evt_trace)
-                  scr_trace ("Event: starter task not complete\n");
-
-                gs_set_event_state (game, event, ES_AWAITING);
-                gs_set_event_time (game, event, 0);
-                break;
-              }
-          }
-
-        /*
-         * run400's running block -- everything from the pause test down to
-         * the finish test -- runs at most once per turn per event: it is
-         * entered on `state = running And ticked = 0' and sets ticked at
-         * once (46FF48), and the command processor clears the flag at the
-         * top of each typed line (48A2EA) and after every events() pass
-         * (48AC40).  The revert test above is outside the block.  An event
-         * already ticked this turn by an out-of-order checkevent -- the
-         * execute-task action's immediate check, or a finishing event's
-         * lower-index recheck -- is therefore skipped by the ordered pass.
-         * run380 (43A135) and run390 (448714) enter their running blocks
-         * on the state alone, and tick such an event twice.
-         *
-         * "SS Whore" (4.0, Adrift_304_sswhore.txt) pins it: event 12
-         * (Time 1) is started, mid-pass, by an execute-task action inside
-         * event 11's finish, and its own immediate check decrements it to
-         * the roll; the ordered pass then reaches it and must not finish
-         * it a turn early.
-         */
-        if (evt_taf_version (game, event) >= TAF_VERSION_400
-            && !getenv ("SCR_TMP_NOTICKED"))
-          {
-            if (gs_event_ticked (game, event))
-              {
-                if (evt_trace)
-                  scr_trace ("Event: event %ld already ticked this turn\n",
-                             event);
-                break;
-              }
-            gs_set_event_ticked (game, event, TRUE);
-          }
-
-        /* If the pauser has completed, but resumer not, pause this event. */
-        if (evt_pauser_task_is_complete (game, event)
-            && !evt_resumer_task_is_complete (game, event))
-          {
-            if (evt_trace)
-              scr_trace ("Event: pause complete\n");
-
-            gs_set_event_state (game, event, ES_PAUSED);
-            break;
-          }
-
-        /*
-         * A zero-length event that got here is parked: it was started off a
-         * clock or by an immediate restart, and in the real Runner it stays
-         * running for the rest of the game -- its LookText keeps appearing in
-         * the room description, and its end never arrives.  Leave the clock
-         * alone, or the decrement below would take it negative and "finish"
-         * an event the Runner never finishes.
-         *
-         * Only a clock of zero parks.  A start that kept run400's +1 (the
-         * "started after its tick this turn" case in ES_AWAITING) holds 1,
-         * and run400's next running block takes it to 0 and finishes the
-         * event like any other.  "Riding Home" pins it
-         * (runner_transcripts/riding_home.txt): event 9 (zero-length,
-         * starter "You get off the bus") is started and finished by the
-         * execute-task check on the bus-stop turn, printing task 118's 90%
-         * FailMessage.  The finish zeroed its snapshot (470548, task 118
-         * stays incomplete), so the ordered pass starts it again with the
-         * +1 kept, and the Runner prints the 90% line a second time after
-         * `enter home`.
-         *
-         * At 4.0 a zero ROLLED from a range parks the same way.  The restart
-         * roll (4705E3-470605) stores Int((Time2 - Time1) * Rnd) + Time1 with
-         * no +1, the next running block takes the clock to -1, and the finish
-         * test at 470251 is `clock = 0`, so the event runs on for good: no
-         * PrefTime text, no finish and no further restart draws.  "Zelda"
-         * pins it (runner_transcripts/zelda.txt): the mask-shop shopkeeper
-         * (event 5, Time 0-15, restart) rolls 0 on the T52 restart, and
-         * run400 never plays the T60 ocarina line and draws 19 fewer numbers
-         * over the game.
-         *
-         * Every Runner has this shape: run390 stores the restart roll at
-         * 448E05, decrements at 44892B and tests `clock = 0` at 448A6B;
-         * run370 43247A / 432068 / 432173 the same.  Probe pEVROLL
-         * (make_39_evrollprobe.py, run390x Adrift_1200_pevroll39.txt, run380x
-         * Adrift_1201_pevroll38.rtf): event A (task starter, RestartType 1,
-         * Time 0..1, so every roll is 0) prints "A FINISH." on the `ping`
-         * turn only, and "A LOOK." shows in every later look.
-         */
-        if (gs_event_time (game, event) <= 0)
-          {
-            if (evt_trace)
-              scr_trace ("Event: zero-length event %ld is parked\n", event);
-            break;
-          }
-
-        /*
-         * Decrement the event's time, and print any notifications for a set
-         * number of turns from the event end.
-         */
-        gs_decrement_event_time (game, event);
-
-        if (evt_can_see_event (game, event))
-          evt_handle_preftime_notifications (game, event);
-
-        /* If the time goes to zero, finish running the event. */
-        if (gs_event_time (game, event) <= 0)
-          evt_finish_event (game, event);
-      }
+      evt_tick_running (game, event);
       break;
 
     case ES_AWAITING:
-      {
-        if (evt_trace)
-          scr_trace ("Event: ticking awaiting event %ld\n", event);
-
-        /*
-         * Check the starter task.  If it's completed -- and was not already
-         * complete at the end of the last pass, see evt_starter_task_may_start
-         * -- start running the event.
-         */
-        if (evt_starter_task_may_start (game, event))
-          {
-            scr_bool already_ticked;
-
-            /*
-             * run400 sets the clock to the roll PLUS ONE at the start
-             * (46FE49) and relies on the running block that follows in the
-             * same checkevent call to take the 1 back.  When the start
-             * comes from an out-of-order checkevent -- a finishing event's
-             * lower-index recheck, or the execute-task action's immediate
-             * check -- AFTER the ordered pass has already ticked this event
-             * this turn, the running block is closed (46FF48, byte 196 is
-             * set) and the +1 survives: the event ends one turn later than
-             * its roll.  "Glum Fiddle" pins it (Adrift_1080_Glum_Fiddle.txt,
-             * seed 1234): "Move Glum to Swamp" (event 0, Time 4, started by
-             * task 36) finishes on the third `wait`, is restarted the same
-             * turn by event 5's finish recheck, and the Runner prints "Glum
-             * suddenly turns and heads south" again on the FIFTH turn after
-             * (`take tray`), not the fourth.  Nothing else of the running
-             * block runs either -- no pause test, no notification, no
-             * finish -- so the start is all that happens here.
-             */
-            already_ticked = evt_taf_version (game, event) >= TAF_VERSION_400
-                             && gs_event_ticked (game, event);
-
-            evt_start_event (game, event, FALSE);
-
-            if (already_ticked)
-              {
-                if (evt_trace)
-                  scr_trace ("Event: event %ld started after its tick this"
-                             " turn, clock %ld + 1\n", event,
-                             gs_event_time (game, event));
-
-                gs_set_event_time (game, event,
-                                   gs_event_time (game, event) + 1);
-                break;
-              }
-
-            /*
-             * The Runner's start turn falls straight into the running block
-             * (see above) and so marks the event ticked for this turn.
-             */
-            gs_set_event_ticked (game, event, TRUE);
-
-            /*
-             * If the pauser has completed, but resumer not, immediately
-             * also pause this event.  The Runner tests this before the
-             * start turn's decrement and leaves checkevent() there, so a
-             * pause on the start turn suppresses the notification and
-             * finish checks below.
-             *
-             * It suppresses the decrement too, so the clock keeps the
-             * roll PLUS ONE the start stored (run400 46FFCC pause, 47013E
-             * Exit Sub ahead of the 47013F decrement; run390 44891F and
-             * run380 43A335 are the same shape), and the resume turn's
-             * decrement only brings it back to the roll: an event that
-             * starts paused ends one turn later than its roll after the
-             * resume.  thepkgirl (seed 24) pins it: event 118 "timer until
-             * guitarist leaves monument" (Time 18, pauser 1137 already
-             * done) starts paused on T152 `e`, resumes on T153, and the
-             * Runner starts its successors 119 and 234 on T171, not T170
-             * (46FE28 draws #592/#593); the shifted draw gives event 319 a
-             * 9 instead of an 8, and "somebody passing by slips you a buck"
-             * lands on T312 `south`.
-             */
-            if (evt_pauser_task_is_complete (game, event)
-                && !evt_resumer_task_is_complete (game, event))
-              {
-                if (evt_trace)
-                  scr_trace ("Event: pause complete, immediate pause\n");
-
-                gs_set_event_time (game, event,
-                                   gs_event_time (game, event) + 1);
-                gs_set_event_state (game, event, ES_PAUSED);
-                break;
-              }
-
-            /*
-             * The start turn is also a tick.  checkevent() is one straight
-             * run of state tests, so an event that goes from "awaiting" to
-             * "running" here falls into the running block in the very same
-             * call: it prints its StartText, then decrements and runs the
-             * two pref-time notifications and the end-of-event test.  The
-             * Runner compensates by setting the clock to the roll plus one
-             * (run370 431BF0, run380 439E78, run390 448428, run400 46FE49
-             * all add the 1; only the task-started path does), so the +1
-             * and the decrement cancel and the event still ends `roll'
-             * turns after it started -- which is why our start-turn-does-
-             * not-tick model has always given the right end time.  What it
-             * cannot give is a notification whose PrefTime equals the whole
-             * rolled length: the Runner compares the post-decrement clock,
-             * i.e. the roll itself, on the start turn, and we never
-             * compared anything on the start turn at all.
-             *
-             * Only this transition needs the block: evt_tick_events()
-             * re-ticks an event that has just gone from waiting or paused
-             * to running, so those paths have always had their start
-             * turn's tick, and the ES_WAITING immediate-start hack's +1 is
-             * there to compensate for that re-tick.  Do not re-tick here as
-             * well -- our clock already holds the roll, which is the value
-             * the Runner only reaches after its start-turn decrement.
-             *
-             * Measured in run400 under Wine, Orient_Express.taf, transcript
-             * Adrift_36_orient_express.txt (2026-08-25).  Turn 43 `use
-             * phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
-             * PrefTime1 = 2) and the Runner prints its StartText and its
-             * PrefText1 on that one turn; the player leaves the event's
-             * single room next turn, so we printed the PrefText1 never.
-             * Turn 46 `give card to habibo' is the same shape with event 3
-             * [Driveby Shooting] (PrefTime1 = 3).
-             */
-            if (evt_can_see_event (game, event))
-              evt_handle_preftime_notifications (game, event);
-
-            /* If the event time was set to zero, finish immediately. */
-            if (gs_event_time (game, event) <= 0)
-              evt_finish_event (game, event);
-          }
-      }
+      evt_tick_awaiting (game, event);
       break;
 
     case ES_FINISHED:
@@ -1548,7 +1635,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          * task-started event that finishes without restarting goes back to
          * AWAITING instead (run380 43A868: `If TaskNum > 0 Then state = 2
          * Else state = 3`), where the snapshot rule decides whether it runs
-         * again -- see evt_starter_task_may_start().  SCARIER used to park
+         * again -- see evt_starter_task_may_start().  Scarier used to park
          * every one-shot here and revive it on seeing the starter task
          * incomplete, which missed an undo-and-redo within one turn.
          */
@@ -1556,20 +1643,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
       break;
 
     case ES_PAUSED:
-      {
-        if (evt_trace)
-          scr_trace ("Event: ticking paused event %ld\n", event);
-
-        /* If the resumer has completed, resume this event. */
-        if (evt_resumer_task_is_complete (game, event))
-          {
-            if (evt_trace)
-              scr_trace ("Event: resume complete\n");
-
-            gs_set_event_state (game, event, ES_RUNNING);
-            break;
-          }
-      }
+      evt_tick_paused (game, event);
       break;
 
     default:
@@ -1685,7 +1759,7 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
   scr_int event;
 
   if (gs_event_count (game) == 0
-      || evt_taf_version (game, 0) < TAF_VERSION_400)
+      || evt_taf_version (game) < TAF_VERSION_400)
     return;
 
   for (event = 0; event < gs_event_count (game); event++)
@@ -1727,7 +1801,7 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
  *
  * Everything else about the event is unchanged, including when it ends: the
  * probe's length-3 event finished on the third command turn in both Runners
- * and in SCARIER.  So this is purely a matter of moving the start earlier and
+ * and in Scarier.  So this is purely a matter of moving the start earlier and
  * dropping its text -- hence the `silent` start here, and the +1 that leaves
  * the following startup tick's decrement landing on the rolled length.
  *
@@ -1763,7 +1837,7 @@ evt_start_load_events (scr_gameref_t game)
        * decrement is the first one it ever sees.
        */
       if (gs_event_time (game, event) > 0
-          && evt_taf_version (game, event) >= TAF_VERSION_390)
+          && evt_taf_version (game) >= TAF_VERSION_390)
         gs_set_event_time (game, event, gs_event_time (game, event) + 1);
     }
 }

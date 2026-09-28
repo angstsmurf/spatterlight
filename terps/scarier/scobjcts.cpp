@@ -33,9 +33,6 @@
 #include "scgamest.h"
 
 
-/* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
-
 /* Trace flag, set before running. */
 static scr_bool obj_trace = FALSE;
 
@@ -82,15 +79,11 @@ obj_is_surface (scr_gameref_t game, scr_int object)
 
 /*
  * obj_nth_object()
- * obj_object_index()
  *
  * Adrift numbers objects of a given kind separately from objects at large,
- * so most kinds need a pair of functions to convert between the two: the
- * n'th object matching some property, and the count of matching objects that
- * precede a given one.  These walk the objects for any such property.
- *
- * They are inverses, in that obj_nth_object (obj_object_index (o)) == o for
- * any matching object o.
+ * so each kind needs a function to convert from that numbering to objects
+ * at large: the n'th object matching some property.  This walks the objects
+ * for any such property.
  */
 typedef scr_bool (*obj_matcherref_t) (scr_gameref_t game, scr_int object);
 
@@ -109,27 +102,11 @@ obj_nth_object (scr_gameref_t game, obj_matcherref_t matches, scr_int n)
   return object - 1;
 }
 
-static scr_int
-obj_object_index (scr_gameref_t game, obj_matcherref_t matches, scr_int objnum)
-{
-  scr_int object, count;
-
-  /* Progress through objects up to objnum. */
-  count = 0;
-  for (object = 0; object < objnum; object++)
-    {
-      if (matches (game, object))
-        count++;
-    }
-  return count;
-}
-
 
 /*
  * obj_container_object()
- * obj_container_index()
  *
- * Convert between object and container numbering.
+ * Convert container numbering to object numbering.
  */
 scr_int
 obj_container_object (scr_gameref_t game, scr_int n)
@@ -137,18 +114,11 @@ obj_container_object (scr_gameref_t game, scr_int n)
   return obj_nth_object (game, obj_is_container, n);
 }
 
-scr_int
-obj_container_index (scr_gameref_t game, scr_int objnum)
-{
-  return obj_object_index (game, obj_is_container, objnum);
-}
-
 
 /*
  * obj_surface_object()
- * obj_surface_index()
  *
- * Convert between object and surface numbering.
+ * Convert surface numbering to object numbering.
  */
 scr_int
 obj_surface_object (scr_gameref_t game, scr_int n)
@@ -156,19 +126,12 @@ obj_surface_object (scr_gameref_t game, scr_int n)
   return obj_nth_object (game, obj_is_surface, n);
 }
 
-scr_int
-obj_surface_index (scr_gameref_t game, scr_int objnum)
-{
-  return obj_object_index (game, obj_is_surface, objnum);
-}
-
 
 /*
  * obj_is_stateful()
  * obj_stateful_object()
- * obj_stateful_index()
  *
- * Convert between object and stateful object numbering.  An object is
+ * Convert stateful object numbering to object numbering.  An object is
  * stateful if it is openable, or if it carries a set of states.
  */
 static scr_bool
@@ -188,12 +151,6 @@ scr_int
 obj_stateful_object (scr_gameref_t game, scr_int n)
 {
   return obj_nth_object (game, obj_is_stateful, n);
-}
-
-scr_int
-obj_stateful_index (scr_gameref_t game, scr_int objnum)
-{
-  return obj_object_index (game, obj_is_stateful, objnum);
 }
 
 
@@ -240,7 +197,7 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
   /* Allocate and take a copy of the state string. */
   string = (decltype(string)) scr_malloc (last - first + 1);
   memcpy (string, states + first, last - first);
-  string[last - first] = NUL;
+  string[last - first] = '\0';
 
   return string;
 }
@@ -577,7 +534,7 @@ obj_get_player_weight_limit (scr_gameref_t game)
  * The refusal is 3.8's only one -- there is no "too heavy" message.  Crime
  * Adventure's kettle (class 2 = 7 against MaxCarried 5) is refused with "Your
  * hands are full." by the real Runner with empty hands, so the pooled check is
- * the one that speaks and lib_object_too_heavy() stands down (see sclibrar.c).
+ * the one that speaks and lib_object_too_heavy() stands down (see library/sclibrar_put.cpp).
  *
  * Objects that never carried a class -- static objects, and objects a 4.0 or
  * 3.9 game supplies -- weigh nothing here; obj_uses_burden_model() keeps the
@@ -716,7 +673,7 @@ obj_get_player_burden_limit (scr_gameref_t game)
  * class-1 one, and is filled by two class-0 ones -- so the Size/weight class
  * is not charged against the container any more than against its carrier.  A
  * Capacity of 0 is full from the start rather than unlimited.  3.8 has only
- * the one refusal for all of this, "The box is full." (see sclibrar.c).
+ * the one refusal for all of this, "The box is full." (see library/sclibrar_put.cpp).
  *
  * Version 3.9 reads only the FIRST digit of the count.  Its loader (run390
  * 46537C-46540C) takes Val(Left(Format(Capacity, "00"), 1)) times the scale
@@ -987,7 +944,6 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
 
     default:
       scr_fatal ("obj_static_in_room: invalid type, %ld\n", type);
-      return FALSE;
     }
 }
 
@@ -1083,7 +1039,7 @@ obj_indirectly_in_room_internal (scr_gameref_t game, scr_int object, scr_int roo
         default:               /* Within a room. */
           if (position > gs_room_count (game) + 1)
             {
-              scr_error ("scr_object_indirectly_in_room:"
+              scr_error ("obj_indirectly_in_room:"
                         " position out of bounds, %ld\n", position);
             }
           return position - 1 == room;

@@ -21,11 +21,12 @@
 /*
  * Module notes:
  *
- * o Some of the "finer" points of pattern matching in relation to "*"
- *   wildcards, and %text%, are unknown.
- *
- * o The inclusion of part or all of prefixes in %character% and %object%
- *   matching may be right; then again, it may not be.
+ * o Pattern matching follows the Runners where it has been measured: the
+ *   "*" wildcard and %text% rules are in uip_wildcard_match_400() /
+ *   uip_wildcard_match_pre400() and uip_match_text(), and %character% /
+ *   %object% matching, prefixes included, in uip_build_entities() and
+ *   uip_match_entity().  Each carries its own measurement notes and the
+ *   deliberate deviations from the Runner are marked as such.
  */
 
 #include <assert.h>
@@ -524,7 +525,7 @@ uip_parse_match (scr_uip_tok_t token)
     {
       /* Syntax error. */
       scr_error ("uip_parse_match: syntax error, expected %ld, got %ld\n",
-                (scr_int) uip_parse_lookahead, (scr_int) token);
+                (scr_int) token, (scr_int) uip_parse_lookahead);
       scr_longjmp (uip_parse_error, 1);
     }
 }
@@ -959,7 +960,7 @@ uip_parse_list (scr_ptnoderef_t list)
            */
           if (uip_parse_group_depth > 0)
             return;
-          /* Fall through. */
+          /* FALLTHROUGH */
 
         default:
           /* Add the next node at the appropriate link. */
@@ -1123,13 +1124,13 @@ uip_debug_dump_node (scr_ptnoderef_t node, scr_int depth)
 }
 
 static void
-uip_debug_dump (void)
+uip_debug_dump (scr_ptnoderef_t tree)
 {
   scr_trace ("UIParser: debug dump follows...\n");
-  if (uip_parse_tree)
+  if (tree)
     {
       scr_trace ("uip_parse_tree = {\n");
-      uip_debug_dump_node (uip_parse_tree, 0);
+      uip_debug_dump_node (tree, 0);
       scr_trace ("}\n");
     }
   else
@@ -1277,6 +1278,38 @@ uip_set_lenient_tasks (scr_bool lenient)
 
 
 /*
+ * uip_wildcard_prepare()
+ *
+ * The preamble shared by the two wildcard matchers below: lower-case the
+ * pattern (and the line when asked), trim the line, and pad it with a space
+ * for a pattern starting "* " or ending " *" when asked.  Returns the
+ * position of the pattern's first '*', or npos for a pattern without one.
+ */
+static size_t
+uip_wildcard_prepare (std::string &pat, std::string &line,
+                      scr_bool lower_line, scr_bool pad)
+{
+  scr_lowercase (&pat[0]);
+  if (lower_line)
+    scr_lowercase (&line[0]);
+  while (!line.empty () && scr_isspace (line.front ()))
+    line.erase (0, 1);
+  while (!line.empty () && scr_isspace (line.back ()))
+    line.pop_back ();
+
+  const size_t first_star = pat.find ('*');
+  if (first_star == std::string::npos)
+    return first_star;
+
+  if (pad && pat.compare (0, 2, "* ") == 0)
+    line.insert (0, " ");
+  if (pad && pat.size () >= 2 && pat.compare (pat.size () - 2, 2, " *") == 0)
+    line.append (" ");
+  return first_star;
+}
+
+
+/*
  * uip_wildcard_match_400()
  *
  * run400's wildcard matcher itself (Proc_19_50_457D68), for a task command
@@ -1307,24 +1340,10 @@ uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
   std::string pat (pattern), line (string);
   scr_bool matched = TRUE;
 
-  for (char &c : pat)
-    c = scr_tolower (c);
-  if (!uip_binary_input)
-    for (char &c : line)
-      c = scr_tolower (c);
-  while (!line.empty () && scr_isspace (line.front ()))
-    line.erase (0, 1);
-  while (!line.empty () && scr_isspace (line.back ()))
-    line.pop_back ();
-
-  const size_t first_star = pat.find ('*');
+  const size_t first_star = uip_wildcard_prepare (pat, line,
+                                                  !uip_binary_input, TRUE);
   if (first_star == std::string::npos)
     return FALSE;
-
-  if (pat.compare (0, 2, "* ") == 0)
-    line.insert (0, " ");
-  if (pat.size () >= 2 && pat.compare (pat.size () - 2, 2, " *") == 0)
-    line.append (" ");
   if (line.substr (0, first_star) != pat.substr (0, first_star))
     matched = FALSE;
 
@@ -1387,23 +1406,9 @@ uip_wildcard_match_pre400 (const scr_char *pattern, const scr_char *string,
 {
   std::string pat (pattern), line (string);
 
-  for (char &c : pat)
-    c = scr_tolower (c);
-  for (char &c : line)
-    c = scr_tolower (c);
-  while (!line.empty () && scr_isspace (line.front ()))
-    line.erase (0, 1);
-  while (!line.empty () && scr_isspace (line.back ()))
-    line.pop_back ();
-
-  const size_t first_star = pat.find ('*');
+  const size_t first_star = uip_wildcard_prepare (pat, line, TRUE, pad);
   if (first_star == std::string::npos)
     return FALSE;
-
-  if (pad && pat.compare (0, 2, "* ") == 0)
-    line.insert (0, " ");
-  if (pad && pat.size () >= 2 && pat.compare (pat.size () - 2, 2, " *") == 0)
-    line.append (" ");
   if (line.substr (0, first_star) != pat.substr (0, first_star))
     return FALSE;
 
@@ -1779,20 +1784,21 @@ uip_match_optional (scr_ptnoderef_t node)
   return TRUE;
 }
 
+/*
+ * uip_match_right_siblings()
+ *
+ * Helper for wildcard and %text% matching.  Match the tree to the right of
+ * the given node at successive character positions after the current one,
+ * and return TRUE with the position advanced to the first that matches, or
+ * FALSE with the position restored.  This is a "minimal munch", which may
+ * or may not be the right thing to be doing here.
+ */
 static scr_bool
-uip_match_wildcard (scr_ptnoderef_t node)
+uip_match_right_siblings (scr_ptnoderef_t node)
 {
   scr_int start_posn, limit, index_;
   scr_bool matched;
   scr_ptnoderef_t list;
-
-  /*
-   * At least one game uses patterns like "thing******...".  Why?  Who knows.
-   * But if we're in a list of wildcards, and not the first, ignore the call;
-   * only the final one needs handling.
-   */
-  if (node->right_sibling && node->right_sibling->type == NODE_WILDCARD)
-    return TRUE;
 
   /* Note the start position for rewind on no match. */
   start_posn = uip_posn;
@@ -1800,18 +1806,15 @@ uip_match_wildcard (scr_ptnoderef_t node)
   /*
    * To make life a little easier, we'll match on the tree to the right of
    * this node by constructing a temporary list node, containing stuff to the
-   * right of the wildcard, and then matching on that.
+   * right of the node, and then matching on that.
    */
   list = uip_new_node (NODE_LIST);
   list->left_child = node->right_sibling;
 
   /*
    * Repeatedly try to match the rest of the tree at successive character
-   * positions, and stop if we succeed.  This is a "minimal munch", which may
-   * or may not be the right thing to be doing here.
-   *
-   * When scanning forward, take care to include the NUL, needed to match
-   * TOK_EOS.
+   * positions, and stop if we succeed.  When scanning forward, take care to
+   * include the NUL, needed to match TOK_EOS.
    */
   matched = FALSE;
   limit = strlen (uip_string) + 1;
@@ -1820,7 +1823,7 @@ uip_match_wildcard (scr_ptnoderef_t node)
       uip_posn = index_;
       if (uip_match_node (list))
         {
-          /* Wildcard match at this point. */
+          /* The rest of the tree matches at this point. */
           uip_posn = index_;
           matched = TRUE;
           break;
@@ -1834,7 +1837,22 @@ uip_match_wildcard (scr_ptnoderef_t node)
   if (!matched)
     uip_posn = start_posn;
 
-  /* Return TRUE whether we matched text or not. */
+  return matched;
+}
+
+static scr_bool
+uip_match_wildcard (scr_ptnoderef_t node)
+{
+  /*
+   * At least one game uses patterns like "thing******...".  Why?  Who knows.
+   * But if we're in a list of wildcards, and not the first, ignore the call;
+   * only the final one needs handling.
+   */
+  if (node->right_sibling && node->right_sibling->type == NODE_WILDCARD)
+    return TRUE;
+
+  /* Match the rest of the tree, and return TRUE whether it matched or not. */
+  uip_match_right_siblings (node);
   return TRUE;
 }
 
@@ -1875,43 +1893,15 @@ uip_match_text (scr_ptnoderef_t node)
 {
   const scr_gameref_t game = uip_get_game ();
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int start_posn, limit, index_;
-  scr_bool matched;
-  scr_ptnoderef_t list;
+  scr_int start_posn;
 
-  /* Note the start position for rewind on no match. */
+  /*
+   * Note the start position, and, as with wildcards, match the rest of the
+   * tree at successive character positions; on no match the position is
+   * restored.
+   */
   start_posn = uip_posn;
-
-  /*
-   * As with wildcards, create a temporary list of the stuff to the right of
-   * the reference node, and match on that.
-   */
-  list = uip_new_node (NODE_LIST);
-  list->left_child = node->right_sibling;
-
-  /*
-   * Again, as with wildcards, repeatedly try to match the rest of the tree at
-   * successive character positions, stopping if we succeed.
-   */
-  matched = FALSE;
-  limit = strlen (uip_string) + 1;
-  for (index_ = uip_posn + 1; index_ < limit; index_++)
-    {
-      uip_posn = index_;
-      if (uip_match_node (list))
-        {
-          /* Text reference match at this point. */
-          uip_posn = index_;
-          matched = TRUE;
-          break;
-        }
-    }
-
-  /* Free the temporary list node. */
-  uip_destroy_node (list);
-
-  /* See if we found a match in the loop. */
-  if (matched)
+  if (uip_match_right_siblings (node))
     {
       /* Found a match; create a string and save the text. */
       std::string string (uip_string + start_posn, uip_posn - start_posn);
@@ -1920,21 +1910,15 @@ uip_match_text (scr_ptnoderef_t node)
        * Adrift seems to save referenced text as all-lowercase; we need to do
        * the same.
        */
-      for (index_ = 0; string[index_] != NUL; index_++)
-        string[index_] = scr_tolower (string[index_]);
+      scr_lowercase (&string[0]);
       var_set_ref_text (vars, string.c_str ());
 
       /* Return TRUE since we matched text. */
       return TRUE;
     }
-  else
-    {
-      /* We didn't match in the loop; restore position. */
-      uip_posn = start_posn;
 
-      /* Return FALSE on no match. */
-      return FALSE;
-    }
+  /* Return FALSE on no match. */
+  return FALSE;
 }
 
 
@@ -2621,8 +2605,7 @@ uip_case_folds_name_in (const scr_char *command, const scr_char *name)
 {
   std::string wanted (name);
 
-  for (auto &c : wanted)
-    c = scr_tolower (c);
+  scr_lowercase (&wanted[0]);
 
   return !wanted.empty ()
          && strstr (command, wanted.c_str ()) != NULL;
@@ -2635,6 +2618,122 @@ uip_case_folds_name (const scr_char *name)
   if (uip_lenient_tasks)
     return TRUE;
   return uip_case_folds_name_in (uip_string, name);
+}
+
+
+/*
+ * uip_entity_admitted()
+ *
+ * The admission gate of uip_match_entity(): may entity `index` be compared
+ * with the input at all in this scope and pass?  Every test below is a
+ * measured Runner rule; none of them looks at the typed text.
+ */
+static scr_bool
+uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
+                     scr_int scope, scr_bool strict_scoped, scr_int pass)
+{
+  /*
+   * A task command's %object% binds only an object the player has seen:
+   * run400's matcher skips any object whose seen byte is clear (458E6C,
+   * gate on [48]), and so does run390's checktask binding (44ABEA,
+   * [44]).  Glum Fiddle `take cushion`, with the cushion lying unlisted
+   * on the pile of boulders, so misses task 19 `[take/get/pick up]
+   * %object%` and the library answers "Take what?" (Adrift_220 T16).
+   */
+  if (uip_strict_reference && !is_character
+      && !gs_object_seen (game, index))
+    return FALSE;
+
+  /* 458E6C's own argument: scope 0 is the present pass, scope 1 the
+     absent one, and scope 1 runs only when scope 0 bound nothing. */
+  if (strict_scoped)
+    {
+      const scr_bool present =
+          obj_indirectly_in_room (game, index, gs_playerroom (game));
+
+      if (scope == 0 ? !present : present)
+    return FALSE;
+    }
+
+  /*
+   * A task command's %character% has a seen gate of its own at 4.0, and
+   * it is the SEEN BYTE ALONE: run400's %character% matcher (468DFC,
+   * loop 469162) admits an NPC on `CInt(npc.global_26) = 1` -- field 26,
+   * the byte npc_in_command() reads as var_DC(26) -- and tests no room
+   * at all.  So a character the player has met and walked away from
+   * still binds, and one never met never does.  p4CHREF `frob eve`,
+   * with Eve in the Cave and unmet, is "I don't understand."; after a
+   * `n` and an `s` the same line runs the task, and `frob dave` typed
+   * in the Cave runs it on the Dave left behind in the Lit Room
+   * (Adrift_chref400b.txt, 2026-09-20).  This is the gate behind xfiles
+   * `look up byers` against task "Look up *%character%*": at the FBI
+   * parking garage the Lone Gunmen have not been met, so run400 answers
+   * with examines' "You see no such thing."
+   * (runner_transcripts/xfiles.txt).
+   *
+   * run390's checktask has no gate whatever -- its loops at 44AD48 and
+   * 44B323 walk the whole NPC array -- so 3.9 binds a character who is
+   * nowhere at all: p39CHREF `frob fay`, Fay having been given no start
+   * room, runs the task (Adrift_chref390b.txt).
+   */
+  if (uip_strict_reference && is_character
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && !gs_npc_seen (game, index))
+    return FALSE;
+
+  /* npc_in_command mode 0: only a present, seen character binds. */
+  if (pass > 0 && is_character
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && !(gs_npc_seen (game, index)
+           && npc_in_room (game, index, gs_playerroom (game))))
+    return FALSE;
+
+  return TRUE;
+}
+
+/*
+ * uip_record_entity_match()
+ *
+ * Save a match in variables and game: reference the entity, and store it as
+ * the referenced character or object unless a 4.0 task command has already
+ * bound its first.
+ */
+static void
+uip_record_entity_match (scr_gameref_t game, scr_var_setref_t vars,
+                         scr_bool is_character, scr_int index,
+                         std::vector<scr_bool> &references,
+                         scr_bool strict_scoped, scr_bool &strict_first_bound)
+{
+  /*
+   * Save match in variables and game.  A 4.0 task command's
+   * %character% keeps the FIRST NPC in index order: run400's
+   * matcher (468DFC, loop 469162) leaves for 469574 on the first
+   * compare that succeeds and stores that index in 49420A.
+   * iqsfot T158 `kick guard` against task 1339 `*kick
+   * *%character%*`, with Drash the Guard (NPC 7, alias guard) and
+   * a guard (NPC 15) both absent: run400 fails "%character% is
+   * not here." as "Drash the Guard is not here."
+   * (runner_transcripts/iqsfot.txt:1240), not "guard is not here."
+   */
+  /*
+   * A 4.0 task command's %object% keeps the FIRST object in
+   * index order too, within the scope pass that found it:
+   * 458E6C Exit Subs on the hit.  p4OBJREF `nurb rock` in the
+   * Lit Room, rocks 0 "a big" and 2 "a red" both present and
+   * seen, is "NURBED a big rock." (Adrift_objref400.txt).
+   */
+  if (!(uip_strict_reference && strict_first_bound))
+    {
+      if (is_character)
+        var_set_ref_character (vars, index);
+      else
+        var_set_ref_object (vars, index);
+    }
+  references[index] = TRUE;
+  if ((is_character || strict_scoped)
+      && prop_get_taf_version (gs_get_bundle (game))
+         >= TAF_VERSION_400)
+    strict_first_bound = TRUE;
 }
 
 
@@ -2809,166 +2908,91 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   for (scr_int scope = 0; scope < (strict_scoped ? 2 : 1) && max_extent == 0;
        scope++)
     {
-  for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
-    {
-      if (pass > 0 && !contain)
-        break;
-
-  for (index = 0; index < entity_count; index++)
-    {
-      const scr_uip_entity_t &entity = cache[index];
-      scr_int alias_count, alias, extent;
-
-      /*
-       * A task command's %object% binds only an object the player has seen:
-       * run400's matcher skips any object whose seen byte is clear (458E6C,
-       * gate on [48]), and so does run390's checktask binding (44ABEA,
-       * [44]).  Glum Fiddle `take cushion`, with the cushion lying unlisted
-       * on the pile of boulders, so misses task 19 `[take/get/pick up]
-       * %object%` and the library answers "Take what?" (Adrift_220 T16).
-       */
-      if (uip_strict_reference && !is_character
-          && !gs_object_seen (game, index))
-        continue;
-
-      /* 458E6C's own argument: scope 0 is the present pass, scope 1 the
-         absent one, and scope 1 runs only when scope 0 bound nothing. */
-      if (strict_scoped)
+      for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
         {
-          const scr_bool present =
-              obj_indirectly_in_room (game, index, gs_playerroom (game));
+          if (pass > 0 && !contain)
+            break;
 
-          if (scope == 0 ? !present : present)
-            continue;
-        }
-
-      /*
-       * A task command's %character% has a seen gate of its own at 4.0, and
-       * it is the SEEN BYTE ALONE: run400's %character% matcher (468DFC,
-       * loop 469162) admits an NPC on `CInt(npc.global_26) = 1` -- field 26,
-       * the byte npc_in_command() reads as var_DC(26) -- and tests no room
-       * at all.  So a character the player has met and walked away from
-       * still binds, and one never met never does.  p4CHREF `frob eve`,
-       * with Eve in the Cave and unmet, is "I don't understand."; after a
-       * `n` and an `s` the same line runs the task, and `frob dave` typed
-       * in the Cave runs it on the Dave left behind in the Lit Room
-       * (Adrift_chref400b.txt, 2026-09-20).  This is the gate behind xfiles
-       * `look up byers` against task "Look up *%character%*": at the FBI
-       * parking garage the Lone Gunmen have not been met, so run400 answers
-       * with examines' "You see no such thing."
-       * (runner_transcripts/xfiles.txt).
-       *
-       * run390's checktask has no gate whatever -- its loops at 44AD48 and
-       * 44B323 walk the whole NPC array -- so 3.9 binds a character who is
-       * nowhere at all: p39CHREF `frob fay`, Fay having been given no start
-       * room, runs the task (Adrift_chref390b.txt).
-       */
-      if (uip_strict_reference && is_character
-          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
-          && !gs_npc_seen (game, index))
-        continue;
-
-      /* npc_in_command mode 0: only a present, seen character binds. */
-      if (pass > 0 && is_character
-          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
-          && !(gs_npc_seen (game, index)
-               && npc_in_room (game, index, gs_playerroom (game))))
-        continue;
-
-      /*
-       * Compare the entity's name, then each of its aliases, both prefixed
-       * and not.  Alias -1 stands for the name itself.
-       */
-      alias_count = entity.aliases.size ();
-      for (alias = -1; alias < alias_count; alias++)
-        {
-          const scr_uip_candidate_t &candidate = alias < 0
-                                                 ? entity.name
-                                                 : entity.aliases[alias];
-
-          /*
-           * A 3.9 task's %character% is the Name and nothing else.  run400
-           * substitutes the Name (4691A9) and then walks the Alias array
-           * (4691F8); run390's checktask reads `.global_0` only, in both of
-           * its loops (44AD5C, 44B334), and never touches the alias.  Eve is
-           * aliased "spook" in p39CHREF: run390 answers `frob spook` with
-           * the library -- "Who?" before she is met, "Eve is not here!"
-           * after -- where run400 runs the task (2026-09-20).
-           */
-          if (uip_strict_reference && is_character && alias >= 0
-              && prop_get_taf_version (gs_get_bundle (game))
-                 < TAF_VERSION_400)
-            continue;
-
-          if (uip_trace)
-            scr_trace ("UIParser: trying %s%s\n",
-                       alias < 0 ? "" : "alias ", candidate.plain);
-
-          if (pass == 0)
+          for (index = 0; index < entity_count; index++)
             {
-              if (!uip_strict_reference
-                  && candidate.leads.find (input_lead) == std::string::npos)
+              const scr_uip_entity_t &entity = cache[index];
+              scr_int alias_count, alias, extent;
+
+              if (!uip_entity_admitted (game, is_character, index,
+                                        scope, strict_scoped, pass))
                 continue;
 
-              extent = uip_compare_candidate (candidate);
-            }
-          else
-            extent = uip_contains_words (candidate.plain) ? input_end : 0;
-
-          /*
-           * A character has to survive the resolver's case-sensitive tail
-           * test as well -- see uip_case_folds_name().  Task commands go
-           * through a different Runner routine and are exempt.
-           */
-          if (extent > 0 && is_character && !uip_strict_reference
-              && !uip_case_folds_name (candidate.plain))
-            extent = 0;
-
-          if (extent > 0 && uip_match_remainder (node, extent))
-            {
-              if (uip_trace)
-                scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
-                           (long) pass, (long) extent);
-
-              /* Increase the maximum match extent if required. */
-              max_extent = (extent > max_extent) ? extent : max_extent;
-              if (extent > matched_extent[index])
-                matched_extent[index] = extent;
-
               /*
-               * Save match in variables and game.  A 4.0 task command's
-               * %character% keeps the FIRST NPC in index order: run400's
-               * matcher (468DFC, loop 469162) leaves for 469574 on the first
-               * compare that succeeds and stores that index in 49420A.
-               * iqsfot T158 `kick guard` against task 1339 `*kick
-               * *%character%*`, with Drash the Guard (NPC 7, alias guard) and
-               * a guard (NPC 15) both absent: run400 fails "%character% is
-               * not here." as "Drash the Guard is not here."
-               * (runner_transcripts/iqsfot.txt:1240), not "guard is not here."
+               * Compare the entity's name, then each of its aliases, both
+               * prefixed and not.  Alias -1 stands for the name itself.
                */
-              /*
-               * A 4.0 task command's %object% keeps the FIRST object in
-               * index order too, within the scope pass that found it:
-               * 458E6C Exit Subs on the hit.  p4OBJREF `nurb rock` in the
-               * Lit Room, rocks 0 "a big" and 2 "a red" both present and
-               * seen, is "NURBED a big rock." (Adrift_objref400.txt).
-               */
-              if (!(uip_strict_reference && strict_first_bound))
+              alias_count = entity.aliases.size ();
+              for (alias = -1; alias < alias_count; alias++)
                 {
-                  if (is_character)
-                    var_set_ref_character (vars, index);
+                  const scr_uip_candidate_t &candidate =
+                      alias < 0 ? entity.name : entity.aliases[alias];
+
+                  /*
+                   * A 3.9 task's %character% is the Name and nothing else.
+                   * run400 substitutes the Name (4691A9) and then walks the
+                   * Alias array (4691F8); run390's checktask reads `.global_0`
+                   * only, in both of its loops (44AD5C, 44B334), and never
+                   * touches the alias.  Eve is aliased "spook" in p39CHREF:
+                   * run390 answers `frob spook` with the library -- "Who?"
+                   * before she is met, "Eve is not here!" after -- where
+                   * run400 runs the task (2026-09-20).
+                   */
+                  if (uip_strict_reference && is_character && alias >= 0
+                      && prop_get_taf_version (gs_get_bundle (game))
+                         < TAF_VERSION_400)
+                    continue;
+
+                  if (uip_trace)
+                    scr_trace ("UIParser: trying %s%s\n",
+                               alias < 0 ? "" : "alias ", candidate.plain);
+
+                  if (pass == 0)
+                    {
+                      if (!uip_strict_reference
+                          && candidate.leads.find (input_lead)
+                             == std::string::npos)
+                        continue;
+
+                      extent = uip_compare_candidate (candidate);
+                    }
                   else
-                    var_set_ref_object (vars, index);
+                    extent = uip_contains_words (candidate.plain)
+                             ? input_end : 0;
+
+                  /*
+                   * A character has to survive the resolver's case-sensitive
+                   * tail test as well -- see uip_case_folds_name().  Task
+                   * commands go through a different Runner routine and are
+                   * exempt.
+                   */
+                  if (extent > 0 && is_character && !uip_strict_reference
+                      && !uip_case_folds_name (candidate.plain))
+                    extent = 0;
+
+                  if (extent > 0 && uip_match_remainder (node, extent))
+                    {
+                      if (uip_trace)
+                        scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
+                                   (long) pass, (long) extent);
+
+                      /* Increase the maximum match extent if required. */
+                      max_extent = (extent > max_extent) ? extent : max_extent;
+                      if (extent > matched_extent[index])
+                        matched_extent[index] = extent;
+
+                      uip_record_entity_match (game, vars, is_character,
+                                               index, references,
+                                               strict_scoped,
+                                               strict_first_bound);
+                    }
                 }
-              references[index] = TRUE;
-              if ((is_character || strict_scoped)
-                  && prop_get_taf_version (gs_get_bundle (game))
-                     >= TAF_VERSION_400)
-                strict_first_bound = TRUE;
             }
         }
-    }
-    }
     }
 
   /*
@@ -3175,11 +3199,10 @@ uip_debug_trace (scr_bool flag)
  * properties, so the set is small and stable: parse each distinct pattern
  * once and keep the tree (matching never mutates it).
  *
- * Cached trees are never destroyed or evicted.  uip_match() can re-enter
- * itself mid-match (%variable% matching can evaluate an "in_..." system
- * variable, which itself matches "%object%"), so eviction could free a tree
- * an outer call is still walking; instead, if the cache ever fills -- which
- * no sane game approaches -- further patterns just fall back to the old
+ * Cached trees are never destroyed or evicted.  Nothing in the matcher calls
+ * back into uip_match() today, but eviction would still be the one way for a
+ * cached tree to vanish under a walk, so if the cache ever fills -- which no
+ * sane game approaches -- further patterns just fall back to the old
  * parse-and-destroy path.  A pattern that fails to parse is cached as NULL
  * so it fails fast when retried.
  */
@@ -3197,7 +3220,7 @@ static std::unordered_map<std::string, scr_ptnoderef_t> uip_tree_cache;
 scr_bool
 uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
 {
-  static scr_char *cleansed;  /* For setjmp safety. */
+  scr_char *cleansed;
   scr_char buffer[UIP_ALLOCATION_AVOIDANCE_SIZE];
   scr_bool match, is_tree_cached;
   scr_ptnoderef_t tree;
@@ -3261,11 +3284,7 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
 
   /* Dump out the pattern tree if requested. */
   if (if_get_trace_flag (SCR_DUMP_PARSER_TREES))
-    {
-      uip_parse_tree = tree;
-      uip_debug_dump ();
-      uip_parse_tree = NULL;
-    }
+    uip_debug_dump (tree);
 
   /* Match the string to the pattern tree. */
   cleansed = uip_cleanse_string (string, buffer, sizeof (buffer));
@@ -3629,8 +3648,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           if (object > -1 && prop_get_taf_version (bundle) < TAF_VERSION_390)
             replacement = name;
           buffer.replace (offset, extent, replacement);
-          for (auto &c : buffer)
-            c = scr_tolower (c);
+          scr_lowercase (&buffer[0]);
           current = buffer.c_str ();
 
           /* Adjust offset to skip over the replacement. */
@@ -3663,8 +3681,7 @@ static std::string
 uip_lowered (const scr_char *string)
 {
   std::string lowered (string);
-  for (auto &c : lowered)
-    c = scr_tolower (c);
+  scr_lowercase (&lowered[0]);
   return lowered;
 }
 
@@ -4343,52 +4360,22 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
 
           if (count == 1)
             {
-              scr_int gender;
-
               /*
                * Version 3.8 games lack NPC gender information, so for this
                * case set "him"/"her" on each match, and never set "it"; this
                * matches the version 3.8 runner.  Version 3.7 has no gender
                * field either (its NPC record is version 3.8's), so it takes
-               * the same treatment.
+               * the same treatment.  (3.9 on never reaches here; see the
+               * version gate above.)
                */
-              if (prop_get_taf_version (bundle) <= TAF_VERSION_380)
+              game->him_npc = npc;
+              game->her_npc = npc;
+              game->it_npc = -1;
+
+              if (uip_trace)
                 {
-                  game->him_npc = npc;
-                  game->her_npc = npc;
-                  game->it_npc = -1;
-
-                  if (uip_trace)
-                    {
-                      scr_trace ("UIParser: 3.8 pronouns"
-                                " 'him' and 'her' assigned %ld\n", npc);
-                    }
-                }
-              else
-                {
-                  /* Find the NPC gender, so we know the pronoun to assign. */
-                  gender = prop_get_indexed_integer (bundle, "NPCs",
-                                                     npc, "Gender");
-
-                  switch (gender)
-                    {
-                    case NPC_MALE:
-                      game->him_npc = npc;
-                      break;
-                    case NPC_FEMALE:
-                      game->her_npc = npc;
-                      break;
-                    case NPC_NEUTER:
-                      game->it_npc = npc;
-                      game->it_object = -1;
-                      break;
-                    default:
-                      scr_error ("uip_assign_pronouns:"
-                                " unknown gender, %ld\n", gender);
-                    }
-
-                  if (uip_trace)
-                    scr_trace ("UIParser: NPC 'him/her/it' assigned %ld\n", npc);
+                  scr_trace ("UIParser: 3.8 pronouns"
+                            " 'him' and 'her' assigned %ld\n", npc);
                 }
             }
         }

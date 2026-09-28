@@ -830,10 +830,10 @@ lib_cmd_help (scr_gameref_t game)
   if_print_string ("\nUse ");
   lib_print_string_italics ("License");
   if_print_string (
-    " to view SCARIER's licensing terms and conditions, and ");
+    " to view Scarier's licensing terms and conditions, and ");
   lib_print_string_italics ("Version");
   if_print_string (
-    " to print both SCARIER's and the game's version number.\n");
+    " to print both Scarier's and the game's version number.\n");
 
   /* A turn in 3.7-3.9; see lib_is_version_390(). */
   game->is_admin = lib_is_version_400 (game);
@@ -843,7 +843,7 @@ lib_cmd_help (scr_gameref_t game)
 scr_bool
 lib_cmd_license (scr_gameref_t game)
 {
-  lib_print_string_bold ("SCARIER");
+  lib_print_string_bold ("Scarier");
   if_print_string (" is ");
   lib_print_string_italics (
     "Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford,"
@@ -1013,7 +1013,7 @@ lib_cmd_version (scr_gameref_t game)
   scr_int major, minor, point;
   const scr_char *version;
 
-  if_print_string ("SCARIER version ");
+  if_print_string ("Scarier version ");
   if_print_string (SCARIER_VERSION SCARIER_PATCH_LEVEL);
   if_print_string (" [Adrift ");
   major = SCARIER_EMULATION / 1000;

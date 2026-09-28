@@ -208,6 +208,24 @@ memo_save_game_callback (void *opaque, const scr_byte *buffer, scr_int length)
 
 
 /*
+ * memo_set_text()
+ *
+ * Replace a memo's recorded output text with a copy of `text`, or with none.
+ */
+static void
+memo_set_text (scr_memoref_t memo, const scr_char *text)
+{
+  scr_free (memo->text);
+  memo->text = NULL;
+  if (text)
+    {
+      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
+      strcpy (memo->text, text);
+    }
+}
+
+
+/*
  * memo_save_game()
  *
  * Store a game in the next memo slot.
@@ -225,13 +243,7 @@ memo_save_game (scr_memo_setref_t memento, scr_gameref_t game,
    */
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
-  scr_free (memo->text);
-  memo->text = NULL;
-  if (text)
-    {
-      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
-      strcpy (memo->text, text);
-    }
+  memo_set_text (memo, text);
 
   /* Serialize the given game into this memo.  Undo memos are in-memory only,
    * rewritten every turn, and read back only by memo_load_game(), so they skip
@@ -453,13 +465,7 @@ memo_set_undo_text (scr_memo_setref_t memento, scr_int index_,
   memo = memo_undo_slot (memento, index_);
   if (!memo)
     return;
-  scr_free (memo->text);
-  memo->text = NULL;
-  if (text)
-    {
-      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
-      strcpy (memo->text, text);
-    }
+  memo_set_text (memo, text);
 }
 
 void
@@ -479,33 +485,6 @@ memo_append_undo (scr_memo_setref_t memento,
   memo_save_game_callback (memo, data, length);
   memento->memo_cursor++;
   memento->memo_cursor %= MEMO_UNDO_TABLE_SIZE;
-}
-
-
-/*
- * memo_clear_games()
- *
- * Forget the memos of saved games.
- */
-void
-memo_clear_games (scr_memo_setref_t memento)
-{
-  scr_int index_;
-  assert (memo_is_valid (memento));
-
-  /* Deallocate every entry. */
-  for (index_ = 0; index_ < MEMO_UNDO_TABLE_SIZE; index_++)
-    {
-      scr_memoref_t memo;
-
-      memo = memento->memo + index_;
-      scr_free (memo->serialized_game);
-      scr_free (memo->text);
-    }
-
-  /* Reset all entries and the cursor. */
-  memset (memento->memo, 0, sizeof (memento->memo));
-  memento->memo_cursor = 0;
 }
 
 

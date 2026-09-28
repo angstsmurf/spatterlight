@@ -3,6 +3,7 @@
 #
 #   sh scproj_regress.sh           # build + run + diff against the golden file
 #   sh scproj_regress.sh --bless   # regenerate the golden file
+#   SCPROJ_BIN=path sh scproj_regress.sh   # use a prebuilt binary, skip the build
 #
 # Builds scproj_test.cpp against the SCARIER sources WITH seed.cpp (fixed RNG),
 # so combat outcomes are reproducible. For each game it arms the player with
@@ -86,9 +87,17 @@ fi
 # matched by the sc*.cpp glob, but scmap.cpp (the ADRIFT 4 map port) calls
 # map_build()/map_free() from it, so the link needs it -- same list build.sh
 # uses.
-( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
-    sxstubs.cpp sxglob.cpp sxutils.cpp \
-    "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
+#
+# SCPROJ_BIN names a binary already built from exactly these sources (the
+# Makefile.headless `scprojregress` target links one from its shared objects),
+# and skips the compile.
+if [ -n "${SCPROJ_BIN:-}" ]; then
+  BIN="$SCPROJ_BIN"
+else
+  ( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
+      sxstubs.cpp sxglob.cpp sxutils.cpp \
+      "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
+fi
 
 run_all() {
   echo "$GAME_LIST" | while IFS= read -r g; do

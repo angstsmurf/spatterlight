@@ -29,15 +29,15 @@ extern "C"
 #endif
 
 /*
- * Base type definitions.  SCARIER integer types need to be at least 32 bits,
+ * Base type definitions.  Scarier integer types need to be at least 32 bits,
  * so using long here is a good bet for almost all ANSI C implementations for
  * 32 and 64 bit platforms; maybe also for any 16 bit ones.  For 64 bit
- * platforms configured for LP64, SCARIER integer types will consume more space
+ * platforms configured for LP64, Scarier integer types will consume more space
  * in data structures.  Values won't wrap identically to 32 bit ones, but
  * games shouldn't be relying on wrapping anyway.  One final note -- in several
- * places, SCARIER allocates 32 bytes into which it will sprintf() a long; this
+ * places, Scarier allocates 32 bytes into which it will sprintf() a long; this
  * is fine for both standard 32 bit and LP64 64 bit platforms, but is unsafe
- * should SCARIER ever be configured for 128 bit definitions of scr_[u]int.
+ * should Scarier ever be configured for 128 bit definitions of scr_[u]int.
  */
 typedef char scr_char;
 typedef unsigned char scr_byte;

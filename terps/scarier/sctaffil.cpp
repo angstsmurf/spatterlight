@@ -419,6 +419,69 @@ taf_append_buffer (scr_tafref_t taf, const scr_byte *buffer, scr_int length)
 
 
 /*
+ * taf_drain_callback()
+ *
+ * The buffered read loop shared by taf_unobfuscate() and taf_read_raw():
+ * pull data from callback() in buffer sized chunks, xor each byte read with
+ * the PRNG if is_obfuscated, and feed complete lines to taf_append_buffer()
+ * until the callback runs dry.  Passes back the total bytes consumed, and
+ * returns the count left unconsumed in the buffer (a partial line).
+ *
+ * The buffer lives on the heap, done to help systems with limited stacks;
+ * its RAII owner frees it if taf_append_buffer throws.
+ */
+static scr_int
+taf_drain_callback (scr_tafref_t taf, scr_read_callbackref_t callback,
+                    void *opaque, scr_bool is_obfuscated,
+                    scr_int *total_bytes)
+{
+  scr_int bytes, used_bytes, index_;
+
+  std::vector<scr_byte> buffer_storage (IN_BUFFER_SIZE);
+  scr_byte *const buffer = buffer_storage.data ();
+  used_bytes = 0;
+  *total_bytes = 0;
+
+  do
+    {
+      /* Try to obtain more data. */
+      bytes = callback (opaque,
+                        buffer + used_bytes, IN_BUFFER_SIZE - used_bytes);
+
+      /* Unobfuscate data read in, where required. */
+      if (is_obfuscated)
+        {
+          for (index_ = 0; index_ < bytes; index_++)
+            buffer[used_bytes + index_] ^= taf_random ();
+        }
+
+      /*
+       * Add data read in to buffer used data, and if data is available,
+       * add it to the TAF.
+       */
+      used_bytes += bytes;
+      if (used_bytes > 0)
+        {
+          scr_int consumed;
+
+          /* Add complete lines from this buffer to the TAF. */
+          consumed = taf_append_buffer (taf, buffer, used_bytes);
+
+          /* Move the unconsumed tail (a partial line) to the buffer start. */
+          memmove (buffer, buffer + consumed, IN_BUFFER_SIZE - consumed);
+
+          /* Note counts of bytes consumed and remaining in the buffer. */
+          used_bytes -= consumed;
+          *total_bytes += consumed;
+        }
+    }
+  while (bytes > 0);
+
+  return used_bytes;
+}
+
+
+/*
  * taf_unobfuscate()
  *
  * Unobfuscate a version 3.9 and version 3.8 TAF file from data read by
@@ -430,7 +493,7 @@ static scr_bool
 taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
                  void *opaque, scr_bool is_gamefile)
 {
-  scr_int bytes, used_bytes, total_bytes, index_;
+  scr_int used_bytes, total_bytes, index_;
 
   /*
    * Reset the PRNG, and synchronize with the header already read.  A saved
@@ -444,49 +507,8 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
         taf_random ();
     }
 
-  /*
-   * Allocate buffer on the heap, done to help systems with limited stacks,
-   * and initialize count of bytes read and used in the buffer to zero.  The
-   * RAII owner frees the buffer if taf_append_buffer or the unterminated-slab
-   * scr_fatal below throws.
-   */
-  std::vector<scr_byte> buffer_storage (IN_BUFFER_SIZE);
-  scr_byte *const buffer = buffer_storage.data ();
-  used_bytes = 0;
-  total_bytes = 0;
-
   /* Unobfuscate in buffer sized chunks. */
-  do
-    {
-      /* Try to obtain more data. */
-      bytes = callback (opaque,
-                        buffer + used_bytes, IN_BUFFER_SIZE - used_bytes);
-
-      /* Unobfuscate data read in. */
-      for (index_ = 0; index_ < bytes; index_++)
-        buffer[used_bytes + index_] ^= taf_random ();
-
-      /*
-       * Add data read in and unobfuscated to buffer used data, and if
-       * unobfuscated data is available, add it to the TAF.
-       */
-      used_bytes += bytes;
-      if (used_bytes > 0)
-        {
-          scr_int consumed;
-
-          /* Add lines from this buffer to the TAF. */
-          consumed = taf_append_buffer (taf, buffer, used_bytes);
-
-          /* Move unused buffer data to buffer start. */
-          memmove (buffer, buffer + consumed, IN_BUFFER_SIZE - consumed);
-
-          /* Note counts of bytes consumed and remaining in the buffer. */
-          used_bytes -= consumed;
-          total_bytes += consumed;
-        }
-    }
-  while (bytes > 0);
+  used_bytes = taf_drain_callback (taf, callback, opaque, TRUE, &total_bytes);
 
   /*
    * Unobfuscation completed, note the total bytes read.  This value is
@@ -530,34 +552,9 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
 static scr_bool
 taf_read_raw (scr_tafref_t taf, scr_read_callbackref_t callback, void *opaque)
 {
-  scr_int bytes, used_bytes, total_bytes;
+  scr_int used_bytes, total_bytes;
 
-  std::vector<scr_byte> buffer_storage (IN_BUFFER_SIZE);
-  scr_byte *const buffer = buffer_storage.data ();
-  used_bytes = 0;
-  total_bytes = 0;
-
-  do
-    {
-      /* Try to obtain more data. */
-      bytes = callback (opaque,
-                        buffer + used_bytes, IN_BUFFER_SIZE - used_bytes);
-
-      used_bytes += bytes;
-      if (used_bytes > 0)
-        {
-          scr_int consumed;
-
-          /* Add complete lines from this buffer to the TAF. */
-          consumed = taf_append_buffer (taf, buffer, used_bytes);
-
-          /* Move the unconsumed tail (a partial line) to the buffer start. */
-          memmove (buffer, buffer + consumed, IN_BUFFER_SIZE - consumed);
-          used_bytes -= consumed;
-          total_bytes += consumed;
-        }
-    }
-  while (bytes > 0);
+  used_bytes = taf_drain_callback (taf, callback, opaque, FALSE, &total_bytes);
 
   taf->total_in_bytes = total_bytes;
 
@@ -816,7 +813,7 @@ taf_populate_from_callback (scr_tafref_t taf,
   else
     {
       /*
-       * A saved game written by SCARIER or by run400.exe is a zlib stream; one
+       * A saved game written by Scarier or by run400.exe is a zlib stream; one
        * written by run390.exe (or by us for a pre-4.0 game) is PRNG-obfuscated.
        * Peek at the first bytes to tell them apart, then read through the
        * replaying wrapper so the peeked bytes are not lost.
@@ -862,8 +859,44 @@ taf_populate_from_callback (scr_tafref_t taf,
   return taf;
 }
 
+/*
+ * taf_populate_raw()
+ *
+ * The populate step behind taf_create_tas_raw(): fill an empty taf from an
+ * uncompressed, unobfuscated stream.  There is nothing to sniff (the caller
+ * already knows it is raw) and nothing to inflate; the version is fixed at
+ * 4.0, matching the layout ser_save_game() always uses for memos.  Same
+ * contract as taf_populate_from_callback(): the taf on success, NULL after
+ * destroying it on a plain read failure.  is_gamefile is unused.
+ */
 static scr_tafref_t
-taf_create_from_callback (scr_read_callbackref_t callback,
+taf_populate_raw (scr_tafref_t taf, scr_read_callbackref_t callback,
+                  void *opaque, scr_bool is_gamefile)
+{
+  (void) is_gamefile;
+
+  taf->version = TAF_VERSION_400;
+  if (!taf_read_raw (taf, callback, opaque))
+    {
+      taf_destroy (taf);
+      return NULL;
+    }
+  return taf;
+}
+
+
+/*
+ * taf_create_from_callback()
+ *
+ * Shared scaffold of the public constructors: create an empty taf, and hand
+ * it to the populate function given along with the callback data.
+ */
+typedef scr_tafref_t (*taf_populate_fn) (scr_tafref_t, scr_read_callbackref_t,
+                                         void *, scr_bool);
+
+static scr_tafref_t
+taf_create_from_callback (taf_populate_fn populate,
+                          scr_read_callbackref_t callback,
                           void *opaque, scr_bool is_gamefile)
 {
   scr_tafref_t taf;
@@ -881,7 +914,7 @@ taf_create_from_callback (scr_read_callbackref_t callback,
    */
   try
     {
-      return taf_populate_from_callback (taf, callback, opaque, is_gamefile);
+      return populate (taf, callback, opaque, is_gamefile);
     }
   catch (...)
     {
@@ -894,54 +927,31 @@ taf_create_from_callback (scr_read_callbackref_t callback,
 /*
  * taf_create()
  * taf_create_tas()
+ * taf_create_tas_raw()
  *
  * Public entry points for taf_create_from_callback().  Return a taf object
- * constructed from either *.TAF (game) or *.TAS (saved game state) file data.
+ * constructed from either *.TAF (game) or *.TAS (saved game state) file data,
+ * or, for the raw form, from an uncompressed, unobfuscated stream -- the
+ * format ser_save_game() writes for undo memos when ser_set_raw_memo() is on.
  */
 scr_tafref_t
 taf_create (scr_read_callbackref_t callback, void *opaque)
 {
-  return taf_create_from_callback (callback, opaque, TRUE);
+  return taf_create_from_callback (taf_populate_from_callback,
+                                   callback, opaque, TRUE);
 }
 
 scr_tafref_t
 taf_create_tas (scr_read_callbackref_t callback, void *opaque)
 {
-  return taf_create_from_callback (callback, opaque, FALSE);
+  return taf_create_from_callback (taf_populate_from_callback,
+                                   callback, opaque, FALSE);
 }
 
-/*
- * taf_create_tas_raw()
- *
- * Build a TAS from an uncompressed, unobfuscated stream -- the format
- * ser_save_game() writes for undo memos when ser_set_raw_memo() is on.  There
- * is nothing to sniff (the caller already knows it is raw) and nothing to
- * inflate; the version is fixed at 4.0, matching the layout ser_save_game()
- * always uses for memos.  Mirrors taf_create_from_callback()'s throw-safety.
- */
 scr_tafref_t
 taf_create_tas_raw (scr_read_callbackref_t callback, void *opaque)
 {
-  scr_tafref_t taf;
-  assert (callback);
-
-  taf = taf_create_empty ();
-  taf->version = TAF_VERSION_400;
-
-  try
-    {
-      if (!taf_read_raw (taf, callback, opaque))
-        {
-          taf_destroy (taf);
-          return NULL;
-        }
-      return taf;
-    }
-  catch (...)
-    {
-      taf_destroy (taf);
-      throw;
-    }
+  return taf_create_from_callback (taf_populate_raw, callback, opaque, FALSE);
 }
 
  

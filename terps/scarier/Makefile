@@ -83,8 +83,8 @@ TEST	= test
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-# ADRIFT 5 engine objects live in adrift5/; -I. lets them pick up the bundled
-# zlib headers unzipped into the Scarier root.
+# ADRIFT 5 engine objects live in adrift5/; -I. lets them include the top-level
+# headers (scarier.h, scprotos.h) by bare name.
 adrift5/%.o: adrift5/%.cpp
 	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
 
@@ -115,7 +115,8 @@ HEADERS	= scarier.h scprotos.h scgamest.h $(RUNDIR)/scrunner.h	\
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
-# the Glk port has somewhere to put a map, so these stay out of $(OBJECTS).
+# the Glk port has somewhere to show a map, but the engine calls
+# scmap_forget_game(), so every build links them.
 MAPOBJECTS = mapdraw.o scmap.o
 MAPHEADERS = mapdraw.h scmap.h
 
@@ -125,8 +126,8 @@ MAPHEADERS = mapdraw.h scmap.h
 COMMON	= ../common_utils
 RANDOBJ	= a5_randomness.o
 
-# ADRIFT 5 engine objects and headers (driven by os_glk.cpp via gsc_a5_main
-# when the loaded file is an ADRIFT 5 game).
+# ADRIFT 5 engine objects and headers (driven by glk/os_glk_a5.cpp via
+# gsc_a5_main when the loaded file is an ADRIFT 5 game).
 A5DIR	= adrift5
 A5OBJECTS = $(A5DIR)/a5blorb.o $(A5DIR)/a5deobf.o $(A5DIR)/a5xml.o	\
 	  $(A5DIR)/a5model.o $(A5DIR)/a5state.o $(A5DIR)/a5restr.o	\
@@ -142,11 +143,6 @@ A5HEADERS = $(A5DIR)/a5blorb.h $(A5DIR)/a5deobf.h $(A5DIR)/a5xml.h	\
 	  $(A5DIR)/a5parse.h $(A5DIR)/a5rand.h $(A5DIR)/a5sb.h		\
 	  $(A5DIR)/a5run.h $(A5DIR)/a5run_internal.h $(A5DIR)/a5map.h
 
-# Scarier verifier objects and headers.
-XOBJECTS= sxmain.o sxutils.o sxglob.o sxtester.o sxscript.o sxfile.o	\
-	  sxstubs.o
-XHEADERS= sxprotos.h
-
 # Default make target is the basic ANSI interpreter.
 all:	scarier
 
@@ -156,18 +152,22 @@ scarier: $(OBJECTS) $(MAPOBJECTS) os_ansi.o
 	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(MAPOBJECTS) os_ansi.o	\
 		$(LDLIBS)
 
-# Option to build the Scarier verifier.
-$(XOBJECTS): $(XHEADERS)
+# Option to build the Glk port of Scarier.  The Glk front end lives in glk/:
+# os_glk.cpp (module state, startup, event loop, linkage) plus the parts split
+# out of it; os_glk_internal.h is what they share.
+OSGLKDIR = glk
+GLKOBJECTS = $(OSGLKDIR)/os_glk.o $(OSGLKDIR)/os_glk_locale.o	\
+	$(OSGLKDIR)/os_glk_status.o $(OSGLKDIR)/os_glk_output.o	\
+	$(OSGLKDIR)/os_glk_symbols.o $(OSGLKDIR)/os_glk_resources.o	\
+	$(OSGLKDIR)/os_glk_commands.o $(OSGLKDIR)/os_glk_input.o	\
+	$(OSGLKDIR)/os_glk_a5.o $(OSGLKDIR)/os_glk_a5_display.o	\
+	$(OSGLKDIR)/os_glk_autosave.o $(OSGLKDIR)/os_glk_map.o
 
-sx: $(OBJECTS) $(XOBJECTS) $(MAPOBJECTS)
-	$(CXX) $(LDFLAGS) -o sx $(OBJECTS) $(XOBJECTS) $(MAPOBJECTS) $(LDLIBS)
-
-# Option to build the Glk port of Scarier.
-glkscarier: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ) os_glk.o
+glkscarier: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ) $(GLKOBJECTS)
 	@$(TEST) -n "$(GLKLIB)" \
 		|| ( echo "Could not include $(GLKPATH)/Make.$(GLK)"; exit 1 )
 	$(CXX) $(LDFLAGS) -o glkscarier $(OBJECTS) $(A5OBJECTS)		\
-		$(MAPOBJECTS) $(RANDOBJ) os_glk.o $(LDLIBS) $(GLKLIBS)
+		$(MAPOBJECTS) $(RANDOBJ) $(GLKOBJECTS) $(LDLIBS) $(GLKLIBS)
 
 $(A5OBJECTS): $(A5HEADERS)
 
@@ -176,7 +176,8 @@ $(MAPOBJECTS): $(MAPHEADERS)
 $(RANDOBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
 	$(CC) $(CFLAGS) -I$(GLKPATH) -c -o $@ $(COMMON)/randomness.c
 
-os_glk.o: os_glk.cpp $(HEADERS) $(A5HEADERS) $(MAPHEADERS)
+$(GLKOBJECTS): %.o: %.cpp $(OSGLKDIR)/os_glk_internal.h $(HEADERS)	\
+		$(A5HEADERS) $(MAPHEADERS)
 	$(CXX) $(GLKARCH) $(CXXFLAGS) -Wno-write-strings			\
 		-I $(GLKDIR)/$(GLK) -c -o $@ $<
 
@@ -192,14 +193,14 @@ scarier_plugin.o: scarier_plugin.c
 PLUGIN_LIBS = -lifppi
 PLUGIN_OBJS = scarier_plugin.o
 scarier-$(VERSION).so: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
-		os_glk.o $(PLUGIN_OBJS)
+		$(GLKOBJECTS) $(PLUGIN_OBJS)
 	$(CXX) -shared -Wl,-u,ifpi_force_link -Wl,-Bsymbolic		\
 		-o $@ $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
-		os_glk.o $(PLUGIN_OBJS) $(PLUGIN_LIBS) -lc
+		$(GLKOBJECTS) $(PLUGIN_OBJS) $(PLUGIN_LIBS) -lc
 
 # Cleanup.
 clean:
-	$(RM) -f scarier sx glkscarier *.o adrift5/*.o library/*.o runner/*.o core core.* *.gcov *.gcno *.gcda
+	$(RM) -f scarier glkscarier *.o adrift5/*.o library/*.o runner/*.o glk/*.o core core.* *.gcov *.gcno *.gcda
 	$(RM) -f scarier_plugin.c scarier-$(VERSION).so
 
 distclean: clean

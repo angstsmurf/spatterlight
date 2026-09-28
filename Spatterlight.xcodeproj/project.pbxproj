@@ -35,6 +35,17 @@
 		40A619690435E0E3210987DB /* a5deobf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401133B22D772C6E0C4276CE /* a5deobf.cpp */; };
 		455DC4917D97AE525260DC00 /* a5state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AB67C13C9D268DDBA2A5918 /* a5state.cpp */; };
 		4E500535C637C160734FA425 /* os_glk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 682A6ED470E4107F583B7D84 /* os_glk.cpp */; };
+		8AD93400C43DDC9920ACE95A /* os_glk_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B344363573905809560F3E02 /* os_glk_map.cpp */; };
+		1F63CA869B31832335D3506D /* os_glk_locale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */; };
+		936D840A8647FDCCAD31E08D /* os_glk_status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5543540277974C1585C839AB /* os_glk_status.cpp */; };
+		04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270E6B209A9E09002DAFC06D /* os_glk_output.cpp */; };
+		044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */; };
+		3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */; };
+		3E2E84B018DE10869B0A956E /* os_glk_commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946A07640B121A5812CB92C3 /* os_glk_commands.cpp */; };
+		CACD7EACBA73D9E051991AD9 /* os_glk_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */; };
+		EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */; };
+		95355B3AD47EAD33C95CB5EF /* os_glk_a5_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */; };
+		FB0EB1BDCB25FDE679E440E7 /* os_glk_autosave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */; };
 		55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
@@ -1830,6 +1841,18 @@
 		621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Autorestore.m"; sourceTree = "<group>"; };
 		6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5expr.cpp; sourceTree = "<group>"; };
 		682A6ED470E4107F583B7D84 /* os_glk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk.cpp; sourceTree = "<group>"; };
+		B344363573905809560F3E02 /* os_glk_map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_map.cpp; sourceTree = "<group>"; };
+		44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_locale.cpp; sourceTree = "<group>"; };
+		5543540277974C1585C839AB /* os_glk_status.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_status.cpp; sourceTree = "<group>"; };
+		270E6B209A9E09002DAFC06D /* os_glk_output.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_output.cpp; sourceTree = "<group>"; };
+		733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_symbols.cpp; sourceTree = "<group>"; };
+		68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_resources.cpp; sourceTree = "<group>"; };
+		946A07640B121A5812CB92C3 /* os_glk_commands.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_commands.cpp; sourceTree = "<group>"; };
+		2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_input.cpp; sourceTree = "<group>"; };
+		EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5.cpp; sourceTree = "<group>"; };
+		3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5_display.cpp; sourceTree = "<group>"; };
+		4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_autosave.cpp; sourceTree = "<group>"; };
+		739C201E861B62158253BFCF /* os_glk_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = os_glk_internal.h; sourceTree = "<group>"; };
 		696FA361A71397E8752D0FB6 /* scmemos.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scmemos.cpp; sourceTree = "<group>"; };
 		6A79E5D609D14956970E49F6 /* GlkTextBufferWindow+Scrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Scrolling.h"; sourceTree = "<group>"; };
 		6AB67C13C9D268DDBA2A5918 /* a5state.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5state.cpp; sourceTree = "<group>"; };
@@ -4339,6 +4362,7 @@
 				066545D7B54AED7A90A3003E /* scparser.cpp */,
 				SCLIBGRP0000000000000001 /* library */,
 				SCRUNGRP0000000000000001 /* runner */,
+				SCGLKGRP0000000000000001 /* glk */,
 				92FBC38D091ED69CB6B5650A /* scevents.cpp */,
 				96800C7329F2706EB62F4306 /* scnpcs.cpp */,
 				1B305C336D7D955664940307 /* scbattle.cpp */,
@@ -4352,7 +4376,6 @@
 				AA889483D559290F70E80C64 /* scutils.cpp */,
 				A16591AA3CA68885CF7C3D4E /* sclocale.cpp */,
 				7044549A9EFF7192B123BF36 /* scdebug.cpp */,
-				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
 				C3A51F0000000000000000B3 /* scarier-autosave.h */,
 				C3A51F0000000000000000B2 /* scarier-autosave.mm */,
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
@@ -4448,6 +4471,26 @@
 				5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */,
 			);
 			path = library;
+			sourceTree = "<group>";
+		};
+		SCGLKGRP0000000000000001 /* glk */ = {
+			isa = PBXGroup;
+			children = (
+				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
+				739C201E861B62158253BFCF /* os_glk_internal.h */,
+				B344363573905809560F3E02 /* os_glk_map.cpp */,
+				44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */,
+				5543540277974C1585C839AB /* os_glk_status.cpp */,
+				270E6B209A9E09002DAFC06D /* os_glk_output.cpp */,
+				733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */,
+				68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */,
+				946A07640B121A5812CB92C3 /* os_glk_commands.cpp */,
+				2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */,
+				EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */,
+				3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */,
+				4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */,
+			);
+			path = glk;
 			sourceTree = "<group>";
 		};
 		SCRUNGRP0000000000000001 /* runner */ = {
@@ -8258,6 +8301,17 @@
 				263A07091928C89161E1C435 /* sclocale.cpp in Sources */,
 				25802386D7FED0D3FDF606C6 /* scdebug.cpp in Sources */,
 				4E500535C637C160734FA425 /* os_glk.cpp in Sources */,
+				8AD93400C43DDC9920ACE95A /* os_glk_map.cpp in Sources */,
+				1F63CA869B31832335D3506D /* os_glk_locale.cpp in Sources */,
+				936D840A8647FDCCAD31E08D /* os_glk_status.cpp in Sources */,
+				04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */,
+				044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */,
+				3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */,
+				3E2E84B018DE10869B0A956E /* os_glk_commands.cpp in Sources */,
+				CACD7EACBA73D9E051991AD9 /* os_glk_input.cpp in Sources */,
+				EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */,
+				95355B3AD47EAD33C95CB5EF /* os_glk_a5_display.cpp in Sources */,
+				FB0EB1BDCB25FDE679E440E7 /* os_glk_autosave.cpp in Sources */,
 				C3A51F0000000000000000B1 /* scarier-autosave.mm in Sources */,
 				BC8473362F031B0E9CE638B8 /* a5blorb.cpp in Sources */,
 				40A619690435E0E3210987DB /* a5deobf.cpp in Sources */,

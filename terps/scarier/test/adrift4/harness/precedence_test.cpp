@@ -92,7 +92,7 @@ static struct step SCRIPT[] = {
 
 static int g_index = 0;
 
-/* --- minimal SCARIER OS port ------------------------------------------------
+/* --- minimal Scarier OS port ------------------------------------------------
    The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours. */
 
 scr_bool

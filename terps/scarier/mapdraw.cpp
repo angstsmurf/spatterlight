@@ -44,6 +44,12 @@ const char *const map_dirs[MAP_N_DIRS] = {
   "In", "Out", "NorthEast", "SouthEast", "SouthWest", "NorthWest"
 };
 
+/* The plan offsets in the same order (see mapdraw.h).  The zeros for the
+   badge directions are what make them the centre of the box in link_point()
+   and no stub at all in draw_out_arrow(). */
+const int map_dir_dx[MAP_N_DIRS] = { 0, 1, 0, -1, 0, 0, 0, 0, 1, 1, -1, -1 };
+const int map_dir_dy[MAP_N_DIRS] = { -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 1, -1 };
+
 /* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
    host's text style instead, so the pane matches the story text in any theme.
    The host passes the two colours in (map_set_palette); until it does, black
@@ -363,7 +369,10 @@ map_free (map_t *map)
   free (map);
 }
 
-const map_node_t *
+/* Find the node for a room.  NULL if the room was never placed on the map:
+   ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
+   passes over rooms the author flagged to hide. */
+static const map_node_t *
 map_find (const map_t *map, const char *lockey)
 {
   int p, n;
@@ -440,12 +449,12 @@ blend (map_surface_t *s, int x, int y, unsigned int rgb, int alpha)
       return;
     }
   dst = s->px[(size_t) y * s->w + x];
-  r = (int) ((rgb >> 16) & 0xFF);
-  g = (int) ((rgb >> 8) & 0xFF);
-  b = (int) (rgb & 0xFF);
-  dr = (int) ((dst >> 16) & 0xFF);
-  dg = (int) ((dst >> 8) & 0xFF);
-  db = (int) (dst & 0xFF);
+  r = rgb_chan (rgb, 16);
+  g = rgb_chan (rgb, 8);
+  b = rgb_chan (rgb, 0);
+  dr = rgb_chan (dst, 16);
+  dg = rgb_chan (dst, 8);
+  db = rgb_chan (dst, 0);
   r = (r * alpha + dr * (255 - alpha)) / 255;
   g = (g * alpha + dg * (255 - alpha)) / 255;
   b = (b * alpha + db * (255 - alpha)) / 255;
@@ -1060,20 +1069,16 @@ link_point (const proj_t *p, const map_node_t *n, int dir, double *x,
             double *y)
 {
   double lx = n->x, ly = n->y, w = n->w, h = n->h;
-  switch (dir)
+  int dx = 0, dy = 0;           /* Up/Down/In/Out: the centre of the box */
+
+  if (dir >= 0 && dir < MAP_N_DIRS)
     {
-    case DIR_N:  *x = lx + w / 2; *y = ly;         break;
-    case DIR_NE: *x = lx + w;     *y = ly;         break;
-    case DIR_E:  *x = lx + w;     *y = ly + h / 2; break;
-    case DIR_SE: *x = lx + w;     *y = ly + h;     break;
-    case DIR_S:  *x = lx + w / 2; *y = ly + h;     break;
-    case DIR_SW: *x = lx;         *y = ly + h;     break;
-    case DIR_W:  *x = lx;         *y = ly + h / 2; break;
-    case DIR_NW: *x = lx;         *y = ly;         break;
-    default:     *x = lx + w / 2; *y = ly + h / 2; break;   /* Up/Down/In/Out */
+      dx = map_dir_dx[dir];
+      dy = map_dir_dy[dir];
     }
-  *x = px_x (p, *x);
-  *y = px_y (p, *y);
+  /* -1, 0, 1 pick the near edge, the middle and the far edge of the box. */
+  *x = px_x (p, lx + w * (1 + dx) / 2);
+  *y = px_y (p, ly + h * (1 + dy) / 2);
 }
 
 /* GetRelativePoint (Map.vb:1659): a point given as a percentage of the node
@@ -1120,46 +1125,42 @@ enum {
   BADGE_NE, BADGE_SE, BADGE_SW, BADGE_NW
 };
 
+/* Where each site sits, as percentages of the node box (GetRelativePoint),
+   in the order of the enum above. */
+typedef struct {
+  double xp, yp;
+} badge_pct_t;
+
+static const badge_pct_t badge_site_pct[] = {
+  { 75, 0 }, { 100, 25 }, { 100, 75 }, { 75, 100 },     /* NNE ENE ESE SSE */
+  { 25, 100 }, { 0, 75 }, { 0, 25 }, { 25, 0 },         /* SSW WSW WNW NNW */
+  { 50, 0 }, { 100, 50 }, { 50, 100 }, { 0, 50 },       /* N E S W         */
+  { 100, 0 }, { 100, 100 }, { 0, 100 }, { 0, 0 }        /* NE SE SW NW     */
+};
+#define N_BADGE_SITES \
+  ((int) (sizeof badge_site_pct / sizeof badge_site_pct[0]))
+
 static void
 badge_pct (int site, double *xp, double *yp)
 {
-  switch (site)
-    {
-    case BADGE_NNE: *xp = 75;  *yp = 0;   break;
-    case BADGE_ENE: *xp = 100; *yp = 25;  break;
-    case BADGE_ESE: *xp = 100; *yp = 75;  break;
-    case BADGE_SSE: *xp = 75;  *yp = 100; break;
-    case BADGE_SSW: *xp = 25;  *yp = 100; break;
-    case BADGE_WSW: *xp = 0;   *yp = 75;  break;
-    case BADGE_WNW: *xp = 0;   *yp = 25;  break;
-    case BADGE_NNW: *xp = 25;  *yp = 0;   break;
-    case BADGE_N:   *xp = 50;  *yp = 0;   break;
-    case BADGE_E:   *xp = 100; *yp = 50;  break;
-    case BADGE_S:   *xp = 50;  *yp = 100; break;
-    case BADGE_W:   *xp = 0;   *yp = 50;  break;
-    case BADGE_NE:  *xp = 100; *yp = 0;   break;
-    case BADGE_SE:  *xp = 100; *yp = 100; break;
-    case BADGE_SW:  *xp = 0;   *yp = 100; break;
-    case BADGE_NW:  *xp = 0;   *yp = 0;   break;
-    default:        *xp = 25;  *yp = 0;   break;
-    }
+  if (site < 0 || site >= N_BADGE_SITES)
+    site = BADGE_NNW;
+  *xp = badge_site_pct[site].xp;
+  *yp = badge_site_pct[site].yp;
 }
+
+/* The compass port of each direction, -1 for the four badge directions. */
+static const int compass_port[MAP_N_DIRS] = {
+  BADGE_N, BADGE_E, BADGE_S, BADGE_W, -1, -1, -1, -1,
+  BADGE_NE, BADGE_SE, BADGE_SW, BADGE_NW
+};
 
 static int
 compass_site (int dir)
 {
-  switch (dir)
-    {
-    case DIR_N:  return BADGE_N;
-    case DIR_E:  return BADGE_E;
-    case DIR_S:  return BADGE_S;
-    case DIR_W:  return BADGE_W;
-    case DIR_NE: return BADGE_NE;
-    case DIR_SE: return BADGE_SE;
-    case DIR_SW: return BADGE_SW;
-    case DIR_NW: return BADGE_NW;
-    default:     return -1;
-    }
+  if (dir < 0 || dir >= MAP_N_DIRS)
+    return -1;
+  return compass_port[dir];
 }
 
 static const map_link_t *
@@ -1540,25 +1541,16 @@ draw_out_arrow (map_surface_t *s, const proj_t *p, const map_node_t *n,
   double x0, y0, x1, y1, dx, dy, len;
   double stub = p->cam->scale * 1.2;
 
+  if (dir < 0 || dir >= MAP_N_DIRS || map_is_badge_dir (dir))
+    return;                     /* Up/Down/In/Out get badges, not stubs */
   link_point (p, n, dir, &x0, &y0);
-  switch (dir)
-    {
-    case DIR_N:  dx = 0;  dy = -1; break;
-    case DIR_NE: dx = 1;  dy = -1; break;
-    case DIR_E:  dx = 1;  dy = 0;  break;
-    case DIR_SE: dx = 1;  dy = 1;  break;
-    case DIR_S:  dx = 0;  dy = 1;  break;
-    case DIR_SW: dx = -1; dy = 1;  break;
-    case DIR_W:  dx = -1; dy = 0;  break;
-    case DIR_NW: dx = -1; dy = -1; break;
-    default: return;            /* Up/Down/In/Out get badges, not stubs */
-    }
+  dx = map_dir_dx[dir];
+  dy = map_dir_dy[dir];
   len = sqrt (dx * dx + dy * dy);
   dx /= len;
   dy /= len;
   x1 = x0 + dx * stub;
   y1 = y0 + dy * stub;
-  ensure_derived_palette ();
   draw_line (s, (int) x0, (int) y0, (int) x1, (int) y1, wd, map_stub,
              alpha, 0);
   draw_arrowhead (s, x1, y1, dx, dy, wd * 2 + 2, map_stub, alpha);
@@ -1573,10 +1565,10 @@ static const int a4_badge_site[MAP_N_BADGES] = {
 };
 
 /* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
-   Form29.doicon for ADRIFT 4 Up/Down).  `xp`/`yp` are percents of the box. */
+   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`. */
 static void
-draw_dir_icon_xy (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                  int dir, double xp, double yp, int alpha)
+draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
+                    int dir, int site, int alpha)
 {
   double cx, cy;
   const char *letter;
@@ -1592,19 +1584,10 @@ draw_dir_icon_xy (map_surface_t *s, const proj_t *p, const map_node_t *n,
     case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; break;
     default: return;
     }
-  rel_point (p, n, xp, yp, &cx, &cy);
+  badge_site_point (p, n, site, &cx, &cy);
   fill_circle (s, (int) cx, (int) cy, r, rgb, alpha);
   draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
              0xFFFFFF, alpha);
-}
-
-static void
-draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                    int dir, int site, int alpha)
-{
-  double xp, yp;
-  badge_pct (site, &xp, &yp);
-  draw_dir_icon_xy (s, p, n, dir, xp, yp, alpha);
 }
 
 /* The ADRIFT 4 runner had two pictures per icon: the normal one when the
@@ -1667,22 +1650,20 @@ site_taken_io (const inout_badge_t *b, int site)
 }
 
 /* Geometric opposite for compass dirs (movement-only twins have no Map Link
-   DestinationAnchor). */
+   DestinationAnchor): the direction whose plan offset is the negation of
+   this one's.  -1 for the badge directions, which have no bearing. */
 static int
 compass_opposite (int dir)
 {
-  switch (dir)
-    {
-    case DIR_N:  return DIR_S;
-    case DIR_E:  return DIR_W;
-    case DIR_S:  return DIR_N;
-    case DIR_W:  return DIR_E;
-    case DIR_NE: return DIR_SW;
-    case DIR_SE: return DIR_NW;
-    case DIR_SW: return DIR_NE;
-    case DIR_NW: return DIR_SE;
-    default:     return -1;
-    }
+  int d;
+
+  if (dir < 0 || dir >= MAP_N_DIRS || map_is_badge_dir (dir))
+    return -1;
+  for (d = 0; d < MAP_N_DIRS; d++)
+    if (map_dir_dx[d] == -map_dir_dx[dir]
+        && map_dir_dy[d] == -map_dir_dy[dir])
+      return d;
+  return -1;
 }
 
 /* When `link` coincides with a compass exit, the port on the destination where
@@ -1825,19 +1806,6 @@ arrival_badge_site (const inout_badge_t *b, const map_node_t *dn,
          : ud_site_primary (dst_anchor, edge);
 }
 
-/* True when `n` authors a Map <Link> whose SourceAnchor is `dir`. */
-static int
-node_has_link_dir (const map_node_t *n, int dir)
-{
-  int l;
-  if (n == NULL)
-    return 0;
-  for (l = 0; l < n->n_links; l++)
-    if (n->links[l].dir == dir)
-      return 1;
-  return 0;
-}
-
 /* Ensure the per-page badge scratch array exists. */
 static inout_badge_t *
 inout_badge_buf (inout_badge_t *b, const map_page_t *page)
@@ -1926,7 +1894,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
 
               if (!node_has_badge_dir (n, dir))
                 continue;
-              if (node_has_link_dir (n, dir))
+              if (find_dir_link (n, dir) != NULL)
                 continue;       /* Link path above already recorded this */
               if (b != NULL && b[i].has[MAP_BADGE (dir)])
                 continue;       /* far badge from someone else's Link */
@@ -2093,30 +2061,7 @@ map_render (const map_t *map, const map_view_t *view,
             link_point (&p, dn, dst_anchor, &x3, &y3);
 
           dist = sqrt ((x3 - x0) * (x3 - x0) + (y3 - y0) * (y3 - y0));
-          if (map->line_links)
-            {
-              /* ADRIFT 4.  Form29.dolink sets the X1/Y1/X2/Y2 of a Line
-                 control, which is a straight segment, and it takes only one
-                 of the two coordinates from the destination: a North or South
-                 link is vertical at the *source* room's centre column and an
-                 East or West one horizontal at the source's centre row,
-                 whatever column or row the destination ended up in.  So a
-                 skewed link sets off towards the destination's row and stops
-                 level with it without ever meeting the box -- which is what
-                 run400 draws.  (The eight-point diagonals need no such fix:
-                 their two anchors are already the corners the runner uses.) */
-              switch (link->dir)
-                {
-                case DIR_N: case DIR_S: x3 = x0; break;
-                case DIR_E: case DIR_W: y3 = y0; break;
-                default: break;
-                }
-              x1 = x0; y1 = y0;
-              x2 = x3; y2 = y3;
-              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
-                           alpha, dash, &phase);
-            }
-          else if (link->n_mids > 0 && link->mids != NULL)
+          if (!map->line_links && link->n_mids > 0 && link->mids != NULL)
             {
               /* Author-dragged <Anchor> midpoints: DrawCurve through
                  start, mids, end (Map.vb RecalculateLinks / DrawLinks).
@@ -2144,24 +2089,49 @@ map_render (const map_t *map, const map_view_t *view,
               y2 = y1;
               free (pts);
             }
-          else if (map_is_badge_dir (link->dir)
-                   || map_is_badge_dir (dst_anchor))
-            {
-              /* No bow: a badge connector is a straight run between the two
-                 badges however far apart they are.  Checked against run500
-                 5.0.36 on Alyas of Starhollow, whose In Longhouse -> By
-                 Longhouse link crosses ten map units diagonally and still
-                 arrives dead straight, where a compass link over that distance
-                 visibly bellies out. */
-              x1 = x0; y1 = y0;
-              x2 = x3; y2 = y3;
-              draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
-                           alpha, dash, &phase);
-            }
           else
             {
-              bezier_assister (&p, n, link->dir, dist, &x1, &y1);
-              bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
+              /* A cubic Bezier from (x0,y0) to (x3,y3); the two control
+                 points decide whether it bows. */
+              if (map->line_links)
+                {
+                  /* ADRIFT 4.  Form29.dolink sets the X1/Y1/X2/Y2 of a Line
+                     control, which is a straight segment, and it takes only
+                     one of the two coordinates from the destination: a North
+                     or South link is vertical at the *source* room's centre
+                     column and an East or West one horizontal at the source's
+                     centre row, whatever column or row the destination ended
+                     up in.  So a skewed link sets off towards the
+                     destination's row and stops level with it without ever
+                     meeting the box -- which is what run400 draws.  (The
+                     eight-point diagonals need no such fix: their two anchors
+                     are already the corners the runner uses.) */
+                  switch (link->dir)
+                    {
+                    case DIR_N: case DIR_S: x3 = x0; break;
+                    case DIR_E: case DIR_W: y3 = y0; break;
+                    default: break;
+                    }
+                  x1 = x0; y1 = y0;
+                  x2 = x3; y2 = y3;
+                }
+              else if (map_is_badge_dir (link->dir)
+                       || map_is_badge_dir (dst_anchor))
+                {
+                  /* No bow: a badge connector is a straight run between the
+                     two badges however far apart they are.  Checked against
+                     run500 5.0.36 on Alyas of Starhollow, whose In Longhouse
+                     -> By Longhouse link crosses ten map units diagonally and
+                     still arrives dead straight, where a compass link over
+                     that distance visibly bellies out. */
+                  x1 = x0; y1 = y0;
+                  x2 = x3; y2 = y3;
+                }
+              else
+                {
+                  bezier_assister (&p, n, link->dir, dist, &x1, &y1);
+                  bezier_assister (&p, dn, dst_anchor, dist, &x2, &y2);
+                }
               draw_bezier (dst, x0, y0, x1, y1, x2, y2, x3, y3, wd, map_link,
                            alpha, dash, &phase);
             }
@@ -2194,7 +2164,7 @@ map_render (const map_t *map, const map_view_t *view,
           int d;
           if (!view_seen (view, n->key))
             continue;
-          for (d = 0; d < 12; d++)
+          for (d = 0; d < MAP_N_DIRS; d++)
             {
               const char *dest;
               /* In/Out and Up/Down are badge icons, not compass stubs. */
@@ -2297,7 +2267,8 @@ map_render (const map_t *map, const map_view_t *view,
               const map_link_t *lk = bl[MAP_BADGE (dir)];
               const inout_badge_t *x = &badges[i];
               if (lk != NULL || x->is_far[MAP_BADGE (dir)]
-                  || (x->has[MAP_BADGE (dir)] && !node_has_link_dir (n, dir)))
+                  || (x->has[MAP_BADGE (dir)]
+                      && find_dir_link (n, dir) == NULL))
                 draw_dir_icon_site (dst, &p, n, dir, x->site[MAP_BADGE (dir)],
                                     lk != NULL ? badge_alpha (view, lk, alpha)
                                                : alpha);
@@ -2381,7 +2352,7 @@ map_walk_step (const map_view_t *view, const char *from, const char *to)
       std::string u = order[head++];
       int d;
 
-      for (d = 0; d < 12; d++)
+      for (d = 0; d < MAP_N_DIRS; d++)
         {
           const char *dest = view->exit_dest (view->ctx, u.c_str (), d);
 

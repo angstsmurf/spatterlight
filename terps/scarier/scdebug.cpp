@@ -321,7 +321,7 @@ debug_help (scr_command_t topic)
       if_print_debug (
         "Run one game turn, then re-enter the debugger.  Useful for games that"
         " intercept empty input lines, which otherwise catch the 'debug'"
-        " command before SCARIER can get to it.\n");
+        " command before Scarier can get to it.\n");
       break;
 
     case DEBUG_QUIT:
@@ -2130,7 +2130,7 @@ debug_check_watchpoints (scr_gameref_t game)
           || gs_playerparent (game) != gs_playerparent (undo))
         {
           if_print_debug ("--- Player watchpoint triggered.\n");
-          triggered |= TRUE;
+          triggered = TRUE;
         }
     }
 
@@ -2501,7 +2501,7 @@ debug_cmd_debugger (scr_gameref_t game)
   if (debug)
     debug_dialog (game);
   else
-    if_print_string ("SCARIER's game debugger is not enabled.  Sorry.\n");
+    if_print_string ("Scarier's game debugger is not enabled.  Sorry.\n");
 
   /*
    * Set as administrative command, so as not to consume a game turn, and
@@ -2539,7 +2539,7 @@ debug_game_started (scr_gameref_t game)
            * It's a new game starting or restarting.  Print a banner, and
            * run the debugger dialog.
            */
-          if_print_debug ("\n--- SCARIER " SCARIER_VERSION SCARIER_PATCH_LEVEL
+          if_print_debug ("\n--- Scarier " SCARIER_VERSION SCARIER_PATCH_LEVEL
                           " Game Debugger\n"
                           "--- Type 'help' for a list of commands.\n");
           debug_dialog (game);
@@ -2650,18 +2650,11 @@ debug_set_enabled (scr_gameref_t game, scr_bool enable)
 {
   const scr_debuggerref_t debug = debug_get_debugger (game);
 
-  /*
-   * If enabling and not already enabled, or disabling and not already
-   * disabled, either initialize or finalize..
-   */
-  if ((enable && !debug) || (!enable && debug))
-    {
-      /* Initialize or finalize debugging, as appropriate. */
-      if (enable)
-        debug_initialize (game);
-      else
-        debug_finalize (game);
-    }
+  /* Initialize or finalize, unless already in the state asked for. */
+  if (enable && !debug)
+    debug_initialize (game);
+  else if (!enable && debug)
+    debug_finalize (game);
 }
 
 scr_bool

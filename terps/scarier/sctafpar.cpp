@@ -34,7 +34,6 @@
 
 #include <assert.h>
 #include <limits.h>
-#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -81,6 +80,13 @@ typedef struct
   const scr_char *const descriptor;
 } scr_parse_schema_t;
 
+/*
+ * The version 4.0 room exit record descriptor; parse_special() matches on
+ * this same constant.
+ */
+static const scr_char V400_ROOM_EXIT_DESC[] =
+  "{V400_ROOM_EXIT:#Dest_#Var1_#Var2_#Var3}";
+
 /* Version 4.0 TAF file properties descriptor table. */
 static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
   {"_GAME_",
@@ -105,8 +111,7 @@ static const scr_parse_schema_t V400_PARSE_SCHEMA[] = {
    "$Short $Long ?GEightPointCompass:[12]<ROOM_EXIT>Exits"
    " ?!GEightPointCompass:[8]<ROOM_EXIT>Exits <RESOURCE>Res V<ROOM_ALT>Alts"
    " ?!GNoMap:BHideOnMap"},
-  {"ROOM_EXIT",
-   "{V400_ROOM_EXIT:#Dest_#Var1_#Var2_#Var3}"},
+  {"ROOM_EXIT", V400_ROOM_EXIT_DESC},
   {"ROOM_ALT",
    "$M1 #Type <RESOURCE>Res1 $M2 #Var2 <RESOURCE>Res2 #HideObjects $Changed"
    " #Var3 #DisplayRoom"},
@@ -465,7 +470,6 @@ parse_select_version (scr_tafref_t taf)
     }
 
   scr_fatal ("parse_select_version: invalid TAF file version\n");
-  return NULL;
 }
 
 
@@ -594,6 +598,31 @@ parse_stack_backtrace (void)
 
 
 /*
+ * parse_stack_format()
+ *
+ * Shared by parse_put_property() and parse_get_property(): retrieve the
+ * adjusted key stack into vt_key, and complete format as the property type,
+ * the two-character direction ("->" or "<-"), then one type character per
+ * stacked key.  Both arrays are sized PARSE_MAX_DEPTH (+ 4 for the format).
+ */
+static void
+parse_stack_format (scr_char format[], scr_vartype_t vt_key[],
+                    scr_char type, const scr_char *direction)
+{
+  scr_int depth;
+
+  /* Retrieve the adjusted stack. */
+  parse_retrieve_stack (format + 3, vt_key, &depth);
+
+  /* Complete the format for the property access. */
+  format[0] = type;
+  format[1] = direction[0];
+  format[2] = direction[1];
+  format[depth + 3] = NUL;
+}
+
+
+/*
  * parse_put_property()
  * parse_get_property()
  *
@@ -604,16 +633,8 @@ parse_put_property (scr_vartype_t vt_value, scr_char type)
 {
   scr_vartype_t vt_key[PARSE_MAX_DEPTH];
   scr_char format[PARSE_MAX_DEPTH + 4];
-  scr_int depth;
 
-  /* Retrieve the adjusted stack. */
-  parse_retrieve_stack (format + 3, vt_key, &depth);
-
-  /* Complete the format for the property put. */
-  format[0] = type;
-  format[1] = '-';
-  format[2] = '>';
-  format[depth + 3] = NUL;
+  parse_stack_format (format, vt_key, type, "->");
 
   /* Store the property under the stacked keys. */
   assert (parse_bundle);
@@ -625,17 +646,9 @@ parse_get_property (scr_vartype_t *vt_rvalue, scr_char type)
 {
   scr_vartype_t vt_key[PARSE_MAX_DEPTH];
   scr_char format[PARSE_MAX_DEPTH + 4];
-  scr_int depth;
   scr_bool status;
 
-  /* Retrieve the adjusted stack. */
-  parse_retrieve_stack (format + 3, vt_key, &depth);
-
-  /* Complete the format for the property put. */
-  format[0] = type;
-  format[1] = '<';
-  format[2] = '-';
-  format[depth + 3] = NUL;
+  parse_stack_format (format, vt_key, type, "<-");
 
   /* Retrieve the property using the stacked keys. */
   assert (parse_bundle);
@@ -842,6 +855,7 @@ parse_put_keyed_string (const scr_char *key, const scr_char *value)
 
 
 /*
+ * parse_put_indexed_property()
  * parse_put_indexed_integer()
  * parse_put_indexed_boolean()
  *
@@ -849,35 +863,38 @@ parse_put_keyed_string (const scr_char *key, const scr_char *value)
  * string and the element index.
  */
 static void
-parse_put_indexed_integer (const scr_char *list_key,
-                           scr_int index_, scr_int value)
+parse_put_indexed_property (const scr_char *list_key, scr_int index_,
+                            scr_vartype_t vt_value, scr_char type)
 {
-  scr_vartype_t vt_key, vt_value;
+  scr_vartype_t vt_key;
 
   vt_key.string = list_key;
   parse_push_key (vt_key, PROP_KEY_STRING);
   vt_key.integer = index_;
   parse_push_key (vt_key, PROP_KEY_INTEGER);
+  parse_put_property (vt_value, type);
+  parse_pop_key ();
+  parse_pop_key ();
+}
+
+static void
+parse_put_indexed_integer (const scr_char *list_key,
+                           scr_int index_, scr_int value)
+{
+  scr_vartype_t vt_value;
+
   vt_value.integer = value;
-  parse_put_property (vt_value, PROP_INTEGER);
-  parse_pop_key ();
-  parse_pop_key ();
+  parse_put_indexed_property (list_key, index_, vt_value, PROP_INTEGER);
 }
 
 static void
 parse_put_indexed_boolean (const scr_char *list_key,
                            scr_int index_, scr_bool value)
 {
-  scr_vartype_t vt_key, vt_value;
+  scr_vartype_t vt_value;
 
-  vt_key.string = list_key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
-  vt_key.integer = index_;
-  parse_push_key (vt_key, PROP_KEY_INTEGER);
   vt_value.boolean = value;
-  parse_put_property (vt_value, PROP_BOOLEAN);
-  parse_pop_key ();
-  parse_pop_key ();
+  parse_put_indexed_property (list_key, index_, vt_value, PROP_BOOLEAN);
 }
 
 
@@ -894,8 +911,8 @@ parse_get_global_boolean (const scr_char *name)
 }
 
 
-/* Parse error jump buffer. */
-static jmp_buf parse_taf_error;
+/* Parse error, thrown by parse_taf_fail() and caught only in parse_game(). */
+struct parse_taf_error_t { };
 
 /* Pushback line, and pushback requested flag. */
 static const scr_char *parse_pushback_line = NULL;
@@ -904,8 +921,8 @@ static scr_bool parse_use_pushback = FALSE;
 /*
  * parse_taf_fail()
  *
- * Report a bad or exhausted TAF stream with a stack backtrace, then longjmp
- * out of the parse.  Does not return.
+ * Report a bad or exhausted TAF stream with a stack backtrace, then throw
+ * out of the parse to parse_game().  Does not return.
  */
 static void
 parse_taf_fail (const scr_char *reason, scr_int line)
@@ -916,7 +933,7 @@ parse_taf_fail (const scr_char *reason, scr_int line)
 {
   scr_error ("%s at line %ld\n", reason, line);
   parse_stack_backtrace ();
-  scr_longjmp (parse_taf_error, 1);
+  throw parse_taf_error_t ();
 }
 
 
@@ -1453,15 +1470,17 @@ static scr_int
 parse_get_v400_resource_offset (const scr_char *name,
                                 scr_int length, scr_int *real_length)
 {
-  scr_char *clean_name;
   scr_uint hash;
   scr_int index_, offset;
 
   /*
    * Take a copy of the name, and remove any trailing "##" looping sound
-   * indicator flag.  Who thinks this junk up?
+   * indicator flag.  Who thinks this junk up?  The copy is owned by RAII
+   * until it is adopted into the table below, so the scr_realloc of that
+   * table throwing (scr_fatal) does not leak it.
    */
-  clean_name = (decltype(clean_name)) scr_malloc (strlen (name) + 1);
+  scr_owned_string owned_name ((scr_char *) scr_malloc (strlen (name) + 1));
+  scr_char *const clean_name = owned_name.get ();
   memcpy (clean_name, name, strlen (name) + 1);
   if (strlen (clean_name) >= 2
       && strcmp (clean_name + strlen (clean_name) - 2, "##") == 0)
@@ -1488,7 +1507,6 @@ parse_get_v400_resource_offset (const scr_char *name,
   if (offset != -1)
     {
       *real_length = parse_resources[index_].length;
-      scr_free (clean_name);
       return offset;
     }
 
@@ -1510,7 +1528,6 @@ parse_get_v400_resource_offset (const scr_char *name,
         scr_trace ("Parse: dangling back-reference %ld for \"%s\"\n",
                    length, clean_name);
 
-      scr_free (clean_name);
       *real_length = 0;
       return 0;
     }
@@ -1536,8 +1553,8 @@ parse_get_v400_resource_offset (const scr_char *name,
                + parse_resources[parse_resources_length - 1].length + 1;
     }
 
-  /* Add details to the table. */
-  parse_resources[parse_resources_length].name = clean_name;
+  /* Add details to the table, which now owns the name. */
+  parse_resources[parse_resources_length].name = owned_name.release ();
   parse_resources[parse_resources_length].hash = hash;
   parse_resources[parse_resources_length].offset = offset;
   parse_resources[parse_resources_length].length = length;
@@ -1667,7 +1684,7 @@ parse_special (const scr_char *special)
     }
 
   /* Parse a version 4.0 optional set of room exit information. */
-  else if (strcmp (special, "{V400_ROOM_EXIT:#Dest_#Var1_#Var2_#Var3}") == 0)
+  else if (strcmp (special, V400_ROOM_EXIT_DESC) == 0)
     parse_optional_exit_record ("#Dest #Var1 #Var2 #Var3");
 
   /* Parse version 3.9 and earlier optional room exit information. */
@@ -2649,6 +2666,283 @@ parse_fixup_v380_objstate_restr (scr_int obj, scr_int ivar1, scr_int ivar2,
 static void parse_fixup_task_actions (scr_bool is_v370);
 
 /*
+ * parse_fixup_v380_task_restrictions()
+ *
+ * Create version 4.0 task restrictions from a version 3.8 task.
+ */
+static void
+parse_fixup_v380_task_restrictions (void)
+{
+  scr_bool holding;
+  scr_int obj2;
+  const scr_char *holdmsg;
+
+  /* Create restrictions for objects not held or absent. */
+  holding = parse_get_keyed_boolean ("HoldingSameRoom");
+  holdmsg = parse_get_keyed_string ("HoldMsg");
+  parse_fixup_v380_obj_restr (holding,
+                              parse_get_keyed_integer ("HoldObj1"),
+                              holdmsg);
+  parse_fixup_v380_obj_restr (holding,
+                              parse_get_keyed_integer ("HoldObj2"),
+                              holdmsg);
+  parse_fixup_v380_obj_restr (holding,
+                              parse_get_keyed_integer ("HoldObj3"),
+                              holdmsg);
+
+  /* Create any task state restriction. */
+  parse_fixup_v380_task_restr (parse_get_keyed_boolean ("TaskNotDone"),
+                               parse_get_keyed_integer ("Task"),
+                               parse_get_keyed_string ("TaskMsg"));
+
+  /* Create any object not worn restrictions. */
+  parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj1"),
+                               parse_get_keyed_string ("WearMsg"));
+  parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj2"),
+                               parse_get_keyed_string ("WearMsg"));
+
+  /* Check for presence/absence of NPCs restriction. */
+  parse_fixup_v380_npc_restr (parse_get_keyed_boolean ("NotInSameRoom"),
+                              parse_get_keyed_integer ("NPC"),
+                              parse_get_keyed_string ("CompanyMsg"));
+
+  /* Create any object location restriction. */
+  parse_fixup_v380_objroom_restr (parse_get_keyed_integer ("Obj1"),
+                                  parse_get_keyed_integer ("Obj1Room"),
+                                  parse_get_keyed_string ("Obj1Msg"));
+
+  /* And finally, any object state restriction. */
+  obj2 = parse_get_keyed_integer ("Obj2");
+  if (obj2 > 0)
+    {
+      parse_fixup_v380_objstate_restr (obj2,
+                                    parse_get_keyed_integer ("Obj2Var1"),
+                                    parse_get_keyed_integer ("Obj2Var2"),
+                                    parse_get_keyed_string ("Obj2Msg"));
+    }
+
+  /* Mask off the restrictions just created. */
+  parse_write_restrmask ();
+}
+
+
+/*
+ * parse_fixup_v380_initial_positions()
+ *
+ * Adjust dynamic object initial positions and parents (where contained
+ * or on surfaces) into version 4.0 range.
+ *
+ * Version 3.7 shares this code.  Its position list is the same one --
+ * hidden, held by the player, inside or on the parent object, the rooms,
+ * then worn -- but it stops there, with no way to start an object on an
+ * NPC, so its Parent is meaningless for the held and worn entries and is
+ * forced to the player below.  Measured in the real Runners: run370 gives
+ * castle.taf's sweatshirt to the player whatever Parent says, and run380
+ * gives tra.taf's red sox hat (Parent 0) and loose change (Parent -1) both
+ * to the player, so version 3.8's holder is one-based with zero -- or the
+ * unset -1 that fills most files -- meaning the player.
+ */
+static void
+parse_fixup_v380_initial_positions (scr_bool is_v370)
+{
+  scr_vartype_t vt_key[3];
+  scr_int object_count, object, room_count;
+
+  /* Get a count of objects, and of rooms for the "worn" entry. */
+  vt_key[0].string = "Objects";
+  object_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+  vt_key[0].string = "Rooms";
+  room_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+  vt_key[0].string = "Objects";
+
+  /*
+   * Build an array of object container/surface types.  A std::vector
+   * frees itself if a prop_*() call below throws (scr_fatal) mid-parse.
+   */
+  std::vector<scr_int> object_type (parse_checked_count (object_count));
+  for (object = 0; object < object_count; object++)
+    {
+      object_type[object] = prop_get_indexed_integer (parse_bundle,
+                                                      "Objects", object,
+                                                      "SurfaceContainer");
+    }
+
+  /* Adjust each object's initial position if necessary. */
+  for (object = 0; object < object_count; object++)
+    {
+      scr_vartype_t vt_value;
+      scr_bool is_static;
+      scr_int initialposition;
+
+      /* Ignore static objects; we only want dynamic ones. */
+      is_static = prop_get_indexed_boolean (parse_bundle, "Objects",
+                                            object, "Static");
+      if (is_static)
+        continue;
+
+      /* If initial position is above on/in, increment. */
+      vt_key[1].integer = object;
+      vt_key[2].string = "InitialPosition";
+      initialposition = prop_get_integer (parse_bundle, "I<-sis", vt_key);
+      if (initialposition > 2)
+        {
+          vt_value.integer = initialposition + 1;
+          prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+        }
+
+      /*
+       * If held or worn, put the holder into version 4.0 range: zero is
+       * the player there too, but an unset -1 is not, and version 3.7
+       * has no holder at all.
+       */
+      if (initialposition == 1 || initialposition == 3 + room_count)
+        {
+          vt_key[2].string = "Parent";
+          if (is_v370 || prop_get_integer (parse_bundle,
+                                           "I<-sis", vt_key) < 0)
+            {
+              vt_value.integer = 0;
+              prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+            }
+          vt_key[2].string = "InitialPosition";
+        }
+
+      /*
+       * If initial position is on or in, decide which, depending on the
+       * type of the parent.  From this, expand initial position into a
+       * version 4.0 value.
+       */
+      if (initialposition == 2)
+        {
+          scr_int count, parent, index_;
+
+          /* Get parent container/surface index. */
+          vt_key[1].integer = object;
+          vt_key[2].string = "Parent";
+          count = prop_get_integer (parse_bundle, "I<-sis", vt_key);
+
+          /*
+           * An unset -1 parent means the first container or surface.
+           * Measured in run380: microwaveman.taf's pistol (obj 2, Parent
+           * -1) is taken "from some aluminum clothes", obj 0, the first
+           * container (Adven_1_microwaveman.rtf).  marooned.taf's pill
+           * (obj 33) is the other corpus case.  Left at -1, the loop
+           * below never runs and parent indexes object_type[-1].
+           */
+          if (count < 0)
+            count = 0;
+
+          /* Convert container/surface index. */
+          for (parent = 0; parent < object_count && count >= 0; parent++)
+            {
+              if (object_type[parent] == V380_OBJ_IS_CONTAINER
+                  || object_type[parent] == V380_OBJ_IS_SURFACE)
+                count--;
+            }
+          parent--;
+
+          /* If parent is a surface, adjust position. */
+          if (object_type[parent] == V380_OBJ_IS_SURFACE)
+            {
+              vt_key[2].string = "InitialPosition";
+              vt_value.integer = initialposition + 1;
+              prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+            }
+
+          /*
+           * For both, adjust parent to be an object index for that type
+           * of object only.
+           */
+          count = 0;
+          for (index_ = 0; index_ < parent; index_++)
+            {
+              if (object_type[index_] == object_type[parent])
+                count++;
+            }
+          vt_key[2].string = "Parent";
+          vt_value.integer = count;
+          prop_put (parse_bundle, "I->sis", vt_value, vt_key);
+        }
+    }
+}
+
+
+/*
+ * parse_fixup_v380_max_score()
+ *
+ * Add up positive scoring tasks to arrive at max score.
+ */
+static void
+parse_fixup_v380_max_score (void)
+{
+  scr_vartype_t vt_key[3], vt_value;
+  scr_int task_count, maxscore, task;
+
+  /* Get a count of tasks. */
+  vt_key[0].string = "Tasks";
+  task_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
+
+  /* Sum positive scoring tasks. */
+  maxscore = 0;
+  for (task = 0; task < task_count; task++)
+    {
+      scr_int score;
+
+      score = prop_get_indexed_integer (parse_bundle, "Tasks",
+                                        task, "Score");
+      if (score > 0)
+        maxscore += score;
+    }
+
+  /* Write MaxScore global property. */
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "MaxScore";
+  vt_value.integer = maxscore;
+  prop_put (parse_bundle, "I->ss", vt_value, vt_key);
+}
+
+
+/*
+ * parse_fixup_v380_meet_object()
+ *
+ * Convert walk meetobject from dynamic index to object.
+ */
+static void
+parse_fixup_v380_meet_object (void)
+{
+  scr_vartype_t vt_gkey;
+  scr_int count, object_count, object;
+
+  /* Get a count of objects. */
+  vt_gkey.string = "Objects";
+  object_count = prop_get_child_count (parse_bundle, "I<-s", &vt_gkey);
+
+  /* Convert dynamic index to object, and rewrite. */
+  count = parse_get_keyed_integer ("MeetObject") - 1;
+  for (object = 0; object < object_count && count >= 0; object++)
+    {
+      scr_bool bstatic;
+
+      bstatic = prop_get_indexed_boolean (parse_bundle, "Objects",
+                                          object, "Static");
+      if (!bstatic)
+        count--;
+    }
+  object--;
+
+  /*
+   * Store the global index one-based: the runtime reads MeetObject and
+   * subtracts one from it (the version 3.9 and 4.0 schemas hold a
+   * one-based dynamic index), so writing a zero-based value here would
+   * leave the walk's ObjectTask watching the preceding object.  In
+   * "House of the Damned" that made the game unwinnable -- the zombie
+   * meeting the whisky bottle in the laboratory is what wins it.
+   */
+  parse_put_keyed_integer ("MeetObject", object + 1);
+}
+
+
+/*
  * parse_fixup_v380()
  *
  * Handler for fixup special items to help with conversions from TAF version
@@ -2698,198 +2992,13 @@ parse_fixup_v380 (const scr_char *fixup)
 
   /* Create version 4.0 task restrictions from a version 3.8 task. */
   else if (strcmp (fixup, "|V380_TASK:_Restrictions_|") == 0)
-    {
-      scr_bool holding;
-      scr_int obj2;
-      const scr_char *holdmsg;
+    parse_fixup_v380_task_restrictions ();
 
-      /* Create restrictions for objects not held or absent. */
-      holding = parse_get_keyed_boolean ("HoldingSameRoom");
-      holdmsg = parse_get_keyed_string ("HoldMsg");
-      parse_fixup_v380_obj_restr (holding,
-                                  parse_get_keyed_integer ("HoldObj1"),
-                                  holdmsg);
-      parse_fixup_v380_obj_restr (holding,
-                                  parse_get_keyed_integer ("HoldObj2"),
-                                  holdmsg);
-      parse_fixup_v380_obj_restr (holding,
-                                  parse_get_keyed_integer ("HoldObj3"),
-                                  holdmsg);
-
-      /* Create any task state restriction. */
-      parse_fixup_v380_task_restr (parse_get_keyed_boolean ("TaskNotDone"),
-                                   parse_get_keyed_integer ("Task"),
-                                   parse_get_keyed_string ("TaskMsg"));
-
-      /* Create any object not worn restrictions. */
-      parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj1"),
-                                   parse_get_keyed_string ("WearMsg"));
-      parse_fixup_v380_wear_restr (parse_get_keyed_integer ("WearObj2"),
-                                   parse_get_keyed_string ("WearMsg"));
-
-      /* Check for presence/absence of NPCs restriction. */
-      parse_fixup_v380_npc_restr (parse_get_keyed_boolean ("NotInSameRoom"),
-                                  parse_get_keyed_integer ("NPC"),
-                                  parse_get_keyed_string ("CompanyMsg"));
-
-      /* Create any object location restriction. */
-      parse_fixup_v380_objroom_restr (parse_get_keyed_integer ("Obj1"),
-                                      parse_get_keyed_integer ("Obj1Room"),
-                                      parse_get_keyed_string ("Obj1Msg"));
-
-      /* And finally, any object state restriction. */
-      obj2 = parse_get_keyed_integer ("Obj2");
-      if (obj2 > 0)
-        {
-          parse_fixup_v380_objstate_restr (obj2,
-                                        parse_get_keyed_integer ("Obj2Var1"),
-                                        parse_get_keyed_integer ("Obj2Var2"),
-                                        parse_get_keyed_string ("Obj2Msg"));
-        }
-
-      /* Mask off the restrictions just created. */
-      parse_write_restrmask ();
-    }
-
-  /*
-   * Adjust dynamic object initial positions and parents (where contained
-   * or on surfaces) into version 4.0 range.
-   *
-   * Version 3.7 shares this code.  Its position list is the same one --
-   * hidden, held by the player, inside or on the parent object, the rooms,
-   * then worn -- but it stops there, with no way to start an object on an
-   * NPC, so its Parent is meaningless for the held and worn entries and is
-   * forced to the player below.  Measured in the real Runners: run370 gives
-   * castle.taf's sweatshirt to the player whatever Parent says, and run380
-   * gives tra.taf's red sox hat (Parent 0) and loose change (Parent -1) both
-   * to the player, so version 3.8's holder is one-based with zero -- or the
-   * unset -1 that fills most files -- meaning the player.
-   */
-  else if (strcmp (fixup, "|V380_OBJECT:_InitialPositions_|") == 0
-           || strcmp (fixup, "|V370_OBJECT:_InitialPositions_|") == 0)
-    {
-      const scr_bool is_v370 =
-          (strcmp (fixup, "|V370_OBJECT:_InitialPositions_|") == 0);
-      scr_vartype_t vt_key[3];
-      scr_int object_count, object, room_count;
-
-      /* Get a count of objects, and of rooms for the "worn" entry. */
-      vt_key[0].string = "Objects";
-      object_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
-      vt_key[0].string = "Rooms";
-      room_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
-      vt_key[0].string = "Objects";
-
-      /*
-       * Build an array of object container/surface types.  A std::vector
-       * frees itself if a prop_*() call below throws (scr_fatal) mid-parse.
-       */
-      std::vector<scr_int> object_type (parse_checked_count (object_count));
-      for (object = 0; object < object_count; object++)
-        {
-          object_type[object] = prop_get_indexed_integer (parse_bundle,
-                                                          "Objects", object,
-                                                          "SurfaceContainer");
-        }
-
-      /* Adjust each object's initial position if necessary. */
-      for (object = 0; object < object_count; object++)
-        {
-          scr_vartype_t vt_value;
-          scr_bool is_static;
-          scr_int initialposition;
-
-          /* Ignore static objects; we only want dynamic ones. */
-          is_static = prop_get_indexed_boolean (parse_bundle, "Objects",
-                                                object, "Static");
-          if (is_static)
-            continue;
-
-          /* If initial position is above on/in, increment. */
-          vt_key[1].integer = object;
-          vt_key[2].string = "InitialPosition";
-          initialposition = prop_get_integer (parse_bundle, "I<-sis", vt_key);
-          if (initialposition > 2)
-            {
-              vt_value.integer = initialposition + 1;
-              prop_put (parse_bundle, "I->sis", vt_value, vt_key);
-            }
-
-          /*
-           * If held or worn, put the holder into version 4.0 range: zero is
-           * the player there too, but an unset -1 is not, and version 3.7
-           * has no holder at all.
-           */
-          if (initialposition == 1 || initialposition == 3 + room_count)
-            {
-              vt_key[2].string = "Parent";
-              if (is_v370 || prop_get_integer (parse_bundle,
-                                               "I<-sis", vt_key) < 0)
-                {
-                  vt_value.integer = 0;
-                  prop_put (parse_bundle, "I->sis", vt_value, vt_key);
-                }
-              vt_key[2].string = "InitialPosition";
-            }
-
-          /*
-           * If initial position is on or in, decide which, depending on the
-           * type of the parent.  From this, expand initial position into a
-           * version 4.0 value.
-           */
-          if (initialposition == 2)
-            {
-              scr_int count, parent, index_;
-
-              /* Get parent container/surface index. */
-              vt_key[1].integer = object;
-              vt_key[2].string = "Parent";
-              count = prop_get_integer (parse_bundle, "I<-sis", vt_key);
-
-              /*
-               * An unset -1 parent means the first container or surface.
-               * Measured in run380: microwaveman.taf's pistol (obj 2, Parent
-               * -1) is taken "from some aluminum clothes", obj 0, the first
-               * container (Adven_1_microwaveman.rtf).  marooned.taf's pill
-               * (obj 33) is the other corpus case.  Left at -1, the loop
-               * below never runs and parent indexes object_type[-1].
-               */
-              if (count < 0)
-                count = 0;
-
-              /* Convert container/surface index. */
-              for (parent = 0; parent < object_count && count >= 0; parent++)
-                {
-                  if (object_type[parent] == V380_OBJ_IS_CONTAINER
-                      || object_type[parent] == V380_OBJ_IS_SURFACE)
-                    count--;
-                }
-              parent--;
-
-              /* If parent is a surface, adjust position. */
-              if (object_type[parent] == V380_OBJ_IS_SURFACE)
-                {
-                  vt_key[2].string = "InitialPosition";
-                  vt_value.integer = initialposition + 1;
-                  prop_put (parse_bundle, "I->sis", vt_value, vt_key);
-                }
-
-              /*
-               * For both, adjust parent to be an object index for that type
-               * of object only.
-               */
-              count = 0;
-              for (index_ = 0; index_ < parent; index_++)
-                {
-                  if (object_type[index_] == object_type[parent])
-                    count++;
-                }
-              vt_key[2].string = "Parent";
-              vt_value.integer = count;
-              prop_put (parse_bundle, "I->sis", vt_value, vt_key);
-            }
-        }
-    }
+  /* Adjust dynamic object initial positions and parents into 4.0 range. */
+  else if (strcmp (fixup, "|V380_OBJECT:_InitialPositions_|") == 0)
+    parse_fixup_v380_initial_positions (FALSE);
+  else if (strcmp (fixup, "|V370_OBJECT:_InitialPositions_|") == 0)
+    parse_fixup_v380_initial_positions (TRUE);
 
   /*
    * Turn on the 3.8 pooled burden model, and convert the carry limit into
@@ -2912,78 +3021,19 @@ parse_fixup_v380 (const scr_char *fixup)
 
   /* Add up positive scoring tasks to arrive at max score. */
   else if (strcmp (fixup, "|V380_GLOBAL:_MaxScore_|") == 0)
-    {
-      scr_vartype_t vt_key[3], vt_value;
-      scr_int task_count, maxscore, task;
-
-      /* Get a count of tasks. */
-      vt_key[0].string = "Tasks";
-      task_count = prop_get_child_count (parse_bundle, "I<-s", vt_key);
-
-      /* Sum positive scoring tasks. */
-      maxscore = 0;
-      for (task = 0; task < task_count; task++)
-        {
-          scr_int score;
-
-          score = prop_get_indexed_integer (parse_bundle, "Tasks",
-                                            task, "Score");
-          if (score > 0)
-            maxscore += score;
-        }
-
-      /* Write MaxScore global property. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "MaxScore";
-      vt_value.integer = maxscore;
-      prop_put (parse_bundle, "I->ss", vt_value, vt_key);
-    }
+    parse_fixup_v380_max_score ();
 
   /* Convert walk meetobject from dynamic index to object. */
   else if (strcmp (fixup, "|V380_WALK:_MeetObject_|") == 0)
-    {
-      scr_vartype_t vt_gkey;
-      scr_int count, object_count, object;
-
-      /* Get a count of objects. */
-      vt_gkey.string = "Objects";
-      object_count = prop_get_child_count (parse_bundle, "I<-s", &vt_gkey);
-
-      /* Convert dynamic index to object, and rewrite. */
-      count = parse_get_keyed_integer ("MeetObject") - 1;
-      for (object = 0; object < object_count && count >= 0; object++)
-        {
-          scr_bool bstatic;
-
-          bstatic = prop_get_indexed_boolean (parse_bundle, "Objects",
-                                              object, "Static");
-          if (!bstatic)
-            count--;
-        }
-      object--;
-
-      /*
-       * Store the global index one-based: the runtime reads MeetObject and
-       * subtracts one from it (the version 3.9 and 4.0 schemas hold a
-       * one-based dynamic index), so writing a zero-based value here would
-       * leave the walk's ObjectTask watching the preceding object.  In
-       * "House of the Damned" that made the game unwinnable -- the zombie
-       * meeting the whisky bottle in the laboratory is what wins it.
-       */
-      parse_put_keyed_integer ("MeetObject", object + 1);
-    }
+    parse_fixup_v380_meet_object ();
 
   /* Convert version 3.8 room data into a version 4.0 alts array. */
   else if (strcmp (fixup, "|V380_ROOM:_Alts_|") == 0)
-    {
-      parse_fixup_v390_v380_room_alts ();
-    }
+    parse_fixup_v390_v380_room_alts ();
 
   /* Error if no fixup special handler available. */
   else
-    {
-      scr_fatal ("parse_fixup_v380: no handler for \"%s\"\n", fixup);
-    }
+    scr_fatal ("parse_fixup_v380: no handler for \"%s\"\n", fixup);
 
   if (parse_trace)
     scr_trace ("Parse: leaving version 3.8 fixup %s\n", fixup);
@@ -5434,15 +5484,15 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   parse_version = parse_select_version (parse_taf);
   parse_depth = 0;
 
-  /* Try parsing, and catch errors from longjmp. */
-  if (scr_setjmp (parse_taf_error) == 0)
+  /* Try parsing, and catch errors thrown by parse_taf_fail(). */
+  try
     {
       /* Parse a complete game. */
       taf_first_line (parse_taf);
       parse_tafline = 0;
       parse_class ("<_GAME_>");
     }
-  else
+  catch (const parse_taf_error_t &)
     {
       /* Error with one of the TAF file lines. */
       parse_clear_v400_resources_table ();
@@ -5450,6 +5500,8 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
       parse_bundle = NULL;
       parse_version = NULL;
       parse_depth = 0;
+      parse_pushback_line = NULL;
+      parse_use_pushback = FALSE;
       return FALSE;
     }
 

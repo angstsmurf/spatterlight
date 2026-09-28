@@ -888,7 +888,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"put *", lib_cmd_put_where_400},
   {"* %character% *", lib_cmd_verb_npc},
 
-  /* SCARIER debugger hook command, placed last just in case... */
+  /* Scarier debugger hook command, placed last just in case... */
   {"{#}debug{ger}", debug_cmd_debugger},
 
   {NULL, NULL}

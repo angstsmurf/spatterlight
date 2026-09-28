@@ -39,7 +39,6 @@
 
 /* Assorted definitions and constants. */
 enum { MAX_NESTING_DEPTH = 32 };
-static const scr_char NUL = '\0';
 
 /* Trace flag, set before running. */
 static scr_bool restr_trace = FALSE;
@@ -173,10 +172,7 @@ restr_object_in_place (scr_gameref_t game,
           return parent_position == OBJ_HELD_PLAYER
                  || parent_position == OBJ_WORN_PLAYER;
         }
-      else if (var3 == 1)       /* Ref character */
-        npc = var_get_ref_character (vars);
-      else
-        npc = var3 - 2;
+      npc = task_selector_npc (vars, var3);
 
       return gs_object_position (game, object) == OBJ_HELD_NPC
              && gs_object_parent (game, object) == npc;
@@ -185,10 +181,8 @@ restr_object_in_place (scr_gameref_t game,
     case 8:                    /* Worn by */
       if (var3 == 0)            /* Player */
         return gs_object_position (game, object) == OBJ_WORN_PLAYER;
-      else if (var3 == 1)       /* Ref character */
-        npc = var_get_ref_character (vars);
-      else
-        npc = var3 - 2;
+      npc = task_selector_npc (vars, var3);
+
 
       return gs_object_position (game, object) == OBJ_WORN_NPC
              && gs_object_parent (game, object) == npc;
@@ -198,10 +192,8 @@ restr_object_in_place (scr_gameref_t game,
       if (var3 == 0)            /* Player */
         return obj_indirectly_in_room (game,
                                        object, gs_playerroom (game));
-      else if (var3 == 1)       /* Ref character */
-        npc = var_get_ref_character (vars);
-      else
-        npc = var3 - 2;
+      npc = task_selector_npc (vars, var3);
+
 
       if (npc < 0)
         return FALSE;
@@ -273,7 +265,6 @@ restr_object_in_place (scr_gameref_t game,
 
     default:
       scr_fatal ("restr_object_in_place: bad var2, %ld\n", var2);
-      return FALSE;
     }
 }
 
@@ -636,10 +627,8 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
 
   /* Decode NPC number, -1 if none. */
   npc1 = npc2 = -1;
-  if (var1 == 1)
-    npc1 = var_get_ref_character (vars);
-  else if (var1 > 1)
-    npc1 = var1 - 2;
+  if (var1 > 0)
+    npc1 = task_selector_npc (vars, var1);
 
   /*
    * "The referenced character" with none referenced fails.  Ordinary
@@ -659,10 +648,8 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
       switch (var2)
         {
         case 0:                /* In same room as */
-          if (var3 == 1)
-            npc2 = var_get_ref_character (vars);
-          else if (var3 > 1)
-            npc2 = var3 - 2;
+          if (var3 > 0)
+            npc2 = task_selector_npc (vars, var3);
           if (var3 == 0)       /* Player */
             return TRUE;
           else if (npc2 < 0)
@@ -694,7 +681,6 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
 
         default:
           scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
-          return FALSE;
         }
     }
   else
@@ -708,10 +694,8 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
         case 0:                /* In same room as */
           if (var3 == 0)
             return npc_in_room (game, npc1, gs_playerroom (game));
-          if (var3 == 1)
-            npc2 = var_get_ref_character (vars);
-          else if (var3 > 1)
-            npc2 = var3 - 2;
+          if (var3 > 0)
+            npc2 = task_selector_npc (vars, var3);
           if (npc2 < 0)
             return FALSE;
           return npc_in_room (game, npc1, gs_npc_location (game, npc2) - 1);
@@ -743,7 +727,6 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
 
         default:
           scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
-          return FALSE;
         }
     }
 }
@@ -829,7 +812,6 @@ restr_pass_task_int_var (scr_gameref_t game,
         default:
           scr_fatal ("restr_pass_task_int_var:"
                     " unknown int comparison, %ld\n", var2);
-          return FALSE;
         }
     }
 }
@@ -861,7 +843,6 @@ restr_pass_task_string_var (scr_int var2,
     default:
       scr_fatal ("restr_pass_task_string_var:"
                 " unknown string comparison, %ld\n", var2);
-      return FALSE;
     }
 }
 
@@ -923,7 +904,6 @@ restr_pass_task_var (scr_gameref_t game,
 
     default:
       scr_fatal ("restr_pass_task_var: invalid variable type, %ld\n", type);
-      return FALSE;
     }
 }
 
@@ -989,9 +969,12 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
     case 5:                    /* Action type (Runner: Sub_20_3 type 5 / sentinel 0xEC). */
       /* No known TAF file emits type 5; the TAF parser does not define it.
        * Don't fatal — return FALSE so the restriction fails silently. */
-      scr_trace ("Restr: task %ld restriction %ld type 5"
-                 " (action-type) not implemented; returning FALSE\n",
-                 task, restriction);
+      if (restr_trace)
+        {
+          scr_trace ("Restr: task %ld restriction %ld type 5"
+                     " (action-type) not implemented; returning FALSE\n",
+                     task, restriction);
+        }
       result = FALSE;
       break;
 
@@ -1060,7 +1043,7 @@ restr_next_token (void)
   while (TRUE)
     {
       /* Return NUL if at string end. */
-      if (restr_expression[restr_index] == NUL)
+      if (restr_expression[restr_index] == '\0')
         return restr_expression[restr_index];
 
       /* Spin on whitespace. */
@@ -1352,14 +1335,17 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
   const scr_char *message;
+  scr_int type;
 
-  /* Get the restriction message. */
+  /* Get the restriction message, and the restriction's type. */
   vt_key[0].string = "Tasks";
   vt_key[1].integer = task;
   vt_key[2].string = "Restrictions";
   vt_key[3].integer = restriction;
   vt_key[4].string = "FailMessage";
   message = prop_get_string (bundle, "S<-sisis", vt_key);
+  vt_key[4].string = "Type";
+  type = prop_get_integer (bundle, "I<-sisis", vt_key);
 
   /*
    * A state restriction on "the referenced object" with no object referenced
@@ -1370,8 +1356,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
    * window`): task 13 `close * * window` stays silent and run390 prints "You
    * close Cracked Broken Window.", not the restriction's "already closed".
    */
-  vt_key[4].string = "Type";
-  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 1
+  if (type == 1
       && prop_get_taf_version (bundle) >= TAF_VERSION_390
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
@@ -1385,8 +1370,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
    * silent too: thenightmoon `behead drow` (task 17, "You do not have
    * %object%.") gets run390x's "Who?", not the FailMessage.
    */
-  vt_key[4].string = "Type";
-  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0
+  if (type == 0
       && prop_get_taf_version (bundle) == TAF_VERSION_390
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
@@ -1401,8 +1385,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
    * Runner's character arm before the message copy (run390 4522CC/4522FD,
    * run400 4811F0/48123D), see restr_pass_task_char().  Studio (3.90) T110.
    */
-  vt_key[4].string = "Type";
-  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 3
+  if (type == 3
       && prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
       scr_int var1, var2, var3;
@@ -1533,6 +1516,7 @@ restr_eval_task_restrictions (scr_gameref_t game,
 
 
 /*
+ * restr_cache_sync()
  * restr_eval_task_restrictions_cached()
  * restr_cache_fallback()
  * restr_cache_reset()
@@ -1571,15 +1555,29 @@ restr_eval_task_restrictions (scr_gameref_t game,
  * husk."
  *
  * The cache is runtime state, not saved: a restore does not touch the task
- * records, while a restart reloads the file (restr_cache_reset()).
+ * records, while a restart reloads the file (restr_cache_reset()).  Like
+ * the task and event property caches it tracks a single game, and is
+ * dropped when asked about a different one.
  */
+static const void *restr_cache_game = NULL;
 static std::vector<std::string> restr_cache;
+
+static void
+restr_cache_sync (scr_gameref_t game)
+{
+  if (restr_cache_game != game)
+    {
+      restr_cache.clear ();
+      restr_cache_game = game;
+    }
+}
 
 scr_bool
 restr_eval_task_restrictions_cached (scr_gameref_t game, scr_int task,
                                      scr_bool *pass,
                                      const scr_char **fail_message)
 {
+  restr_cache_sync (game);
   if (!restr_eval_task_restrictions (game, task, pass, fail_message))
     return FALSE;
 
@@ -1613,6 +1611,7 @@ restr_cache_fallback (scr_gameref_t game, scr_int task,
   scr_int restr_count, restriction;
 
   *fail_message = NULL;
+  restr_cache_sync (game);
 
   vt_key[0].string = "Tasks";
   vt_key[1].integer = task;
@@ -1650,4 +1649,5 @@ void
 restr_cache_reset (void)
 {
   restr_cache.clear ();
+  restr_cache_game = NULL;
 }

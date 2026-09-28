@@ -83,11 +83,7 @@ npc_walk_meetobject_needs_fixup (scr_gameref_t game)
 static scr_int
 npc_version (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key;
-
-  vt_key.string = "Version";
-  return prop_get_integer (bundle, "I<-s", &vt_key);
+  return prop_get_taf_version (gs_get_bundle (game));
 }
 
 
@@ -873,6 +869,35 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
 
 
 /*
+ * npc_walk_chartask()
+ *
+ * Return a walk's CharTask as a task index, -1 for none, and when there is
+ * one its MeetChar in *meetchar: -1 for the player, else a character index.
+ */
+static scr_int
+npc_walk_chartask (scr_gameref_t game, scr_int npc, scr_int walk,
+                   scr_int *meetchar)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int chartask;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Walks";
+  vt_key[3].integer = walk;
+  vt_key[4].string = "CharTask";
+  chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+  if (chartask >= 0)
+    {
+      vt_key[4].string = "MeetChar";
+      *meetchar = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+    }
+  return chartask;
+}
+
+
+/*
  * npc_tick_npc_walk()
  *
  * Helper for npc_tick_npc().
@@ -883,7 +908,7 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[6];
   scr_int roomgroups, movetimes, walkstep, start, dest, destnum;
-  scr_int chartask, objecttask;
+  scr_int chartask, meetchar, objecttask;
   scr_bool is_arrival, is_exact;
 
   if (npc_trace)
@@ -1123,15 +1148,10 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   if (!is_arrival)
     return;
 
-  vt_key[4].string = "CharTask";
-  chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+  chartask = npc_walk_chartask (game, npc, walk, &meetchar);
   if (chartask >= 0)
     {
-      scr_int meetchar;
-
       /* Run meetchar task if appropriate. */
-      vt_key[4].string = "MeetChar";
-      meetchar = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
       if ((meetchar == -1 && gs_player_in_room (game, dest))
           || (meetchar >= 0 && dest == gs_npc_location (game, meetchar) - 1))
         {
@@ -1271,7 +1291,6 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
 void
 npc_tick_npcs (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_gameref_t undo = game->undo;
   scr_int npc;
 
@@ -1341,8 +1360,7 @@ npc_tick_npcs (scr_gameref_t game)
           /* Iterate each NPC's walks. */
           for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
             {
-              scr_vartype_t vt_key[5];
-              scr_int chartask, other;
+              scr_int chartask, meetchar, other;
               scr_bool preempted = FALSE;
 
               /* Ignore finished walks. */
@@ -1369,19 +1387,10 @@ npc_tick_npcs (scr_gameref_t game)
                 continue;
 
               /* Retrieve any character meeting task for the NPC. */
-              vt_key[0].string = "NPCs";
-              vt_key[1].integer = npc;
-              vt_key[2].string = "Walks";
-              vt_key[3].integer = walk;
-              vt_key[4].string = "CharTask";
-              chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+              chartask = npc_walk_chartask (game, npc, walk, &meetchar);
               if (chartask >= 0)
                 {
-                  scr_int meetchar;
-
                   /* Run meetchar task if appropriate. */
-                  vt_key[4].string = "MeetChar";
-                  meetchar = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
                   if (meetchar == -1 &&
                       gs_player_in_room (game, gs_npc_location (game, npc) - 1))
                     {
@@ -1406,7 +1415,7 @@ npc_tick_npcs (scr_gameref_t game)
     }
 
 #ifdef SCARIER_DUMP_TOOLS
-  scr_dump_npc_trace (game);     /* Per-turn NPC-location trace; see scdump.c. */
+  scr_dump_npc_trace (game);     /* Per-turn NPC-location trace; see scdump.cpp. */
 #endif
 }
 

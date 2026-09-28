@@ -248,7 +248,6 @@ gs_move_player_to_room (scr_gameref_t game, scr_int room)
   if (room < 0)
     {
       scr_fatal ("gs_move_player_to_room: invalid room, %ld\n", room);
-      return;
     }
   else if (room < game->room_count)
     game->playerroom = room;
@@ -444,14 +443,14 @@ gs_event_state (scr_gameref_t gs, scr_int event)
 void
 gs_set_event_loadtime (scr_gameref_t gs, scr_int event, scr_int etime)
 {
-  assert (gs_in_range (event, gs->event_count));
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
   gs->events[event].loadtime = etime;
 }
 
 scr_int
 gs_event_loadtime (scr_gameref_t gs, scr_int event)
 {
-  assert (gs_in_range (event, gs->event_count));
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
   return gs->events[event].loadtime;
 }
 
@@ -763,120 +762,88 @@ gs_set_object_runner_parent (scr_gameref_t gs, scr_int object,
   gs->objects[object].runner_parent = runner_parent;
 }
 
+/*
+ * How a mover treats runner_parent: set it outright, or leave any stale
+ * value unless gs_rp_detach() clears it (with or without the worn case).
+ */
+enum gs_rp_mode_t { GS_RP_SET, GS_RP_DETACH, GS_RP_DETACH_WORN };
+
+/*
+ * gs_object_place_unchecked()
+ *
+ * The body every unchecked mover below shares.  Both Runner predicates walk
+ * the parent chain and gs_rp_detach() reads the old position, so all three
+ * run before the move rewrites position and parent.
+ */
 static void
-gs_object_move_onto_unchecked (scr_gameref_t gs, scr_int object, scr_int onto)
+gs_object_place_unchecked (scr_gameref_t gs, scr_int object,
+                           scr_int position, scr_int parent,
+                           gs_rp_mode_t rp_mode, scr_int runner_parent)
 {
   scr_int old_pos = gs->objects[object].position;
   scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  /* Both predicates walk the parent chain, so read them before the move. */
   was_possessed = gs_runner_possessed (gs, object);
   was_worn = gs_runner_worn (gs, object);
-  gs->objects[object].position = OBJ_ON_OBJECT;
-  gs->objects[object].parent = onto;
-  gs->objects[object].runner_parent = onto;
-  gs_carried_track (gs, object, old_pos, OBJ_ON_OBJECT, was_possessed, was_worn);
+  if (rp_mode != GS_RP_SET)
+    gs_rp_detach (gs, object, rp_mode == GS_RP_DETACH_WORN);
+  gs->objects[object].position = position;
+  gs->objects[object].parent = parent;
+  if (rp_mode == GS_RP_SET)
+    gs->objects[object].runner_parent = runner_parent;
+  gs_carried_track (gs, object, old_pos, position, was_possessed, was_worn);
+}
+
+static void
+gs_object_move_onto_unchecked (scr_gameref_t gs, scr_int object, scr_int onto)
+{
+  gs_object_place_unchecked (gs, object, OBJ_ON_OBJECT, onto,
+                             GS_RP_SET, onto);
 }
 
 static void
 gs_object_move_into_unchecked (scr_gameref_t gs, scr_int object, scr_int into)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs->objects[object].position = OBJ_IN_OBJECT;
-  gs->objects[object].parent = into;
-  gs->objects[object].runner_parent = into;
-  gs_carried_track (gs, object, old_pos, OBJ_IN_OBJECT, was_possessed, was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_IN_OBJECT, into,
+                             GS_RP_SET, into);
 }
 
 static void
 gs_object_make_hidden_unchecked (scr_gameref_t gs, scr_int object)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs_rp_detach (gs, object, FALSE);
-  gs->objects[object].position = OBJ_HIDDEN;
-  gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_HIDDEN, was_possessed, was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_HIDDEN, -1, GS_RP_DETACH, -1);
 }
 
 static void
 gs_object_player_get_unchecked (scr_gameref_t gs, scr_int object)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  /* Possession must be read before the move rewrites position and parent. */
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs_rp_detach (gs, object, TRUE);
-  gs->objects[object].position = OBJ_HELD_PLAYER;
-  gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_HELD_PLAYER, was_possessed,
-                    was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_HELD_PLAYER, -1,
+                             GS_RP_DETACH_WORN, -1);
 }
 
 static void
 gs_object_npc_get_unchecked (scr_gameref_t gs, scr_int object, scr_int npc)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs->objects[object].position = OBJ_HELD_NPC;
-  gs->objects[object].parent = npc;
-  gs->objects[object].runner_parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_HELD_NPC, was_possessed, was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_HELD_NPC, npc, GS_RP_SET, -1);
 }
 
 static void
 gs_object_player_wear_unchecked (scr_gameref_t gs, scr_int object)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs_rp_detach (gs, object, FALSE);
-  gs->objects[object].position = OBJ_WORN_PLAYER;
-  gs->objects[object].parent = 0;
-  gs_carried_track (gs, object, old_pos, OBJ_WORN_PLAYER, was_possessed,
-                    was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_WORN_PLAYER, 0,
+                             GS_RP_DETACH, -1);
 }
 
 static void
 gs_object_npc_wear_unchecked (scr_gameref_t gs, scr_int object, scr_int npc)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs->objects[object].position = OBJ_WORN_NPC;
-  gs->objects[object].parent = npc;
-  gs->objects[object].runner_parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_WORN_NPC, was_possessed, was_worn);
+  gs_object_place_unchecked (gs, object, OBJ_WORN_NPC, npc, GS_RP_SET, -1);
 }
 
 static void
 gs_object_to_room_unchecked (scr_gameref_t gs, scr_int object, scr_int room)
 {
-  scr_int old_pos = gs->objects[object].position;
-  scr_bool was_possessed, was_worn;
-  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
-  was_possessed = gs_runner_possessed (gs, object);
-  was_worn = gs_runner_worn (gs, object);
-  gs_rp_detach (gs, object, FALSE);
-  gs->objects[object].position = room + 1;
-  gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, room + 1, was_possessed, was_worn);
+  gs_object_place_unchecked (gs, object, room + 1, -1, GS_RP_DETACH, -1);
 }
 
 void
@@ -1240,54 +1207,197 @@ gs_clear_multiple_references (scr_gameref_t gs)
 
 
 /*
- * gs_populate()
- * gs_create()
+ * gs_populate_dynamic_object()
  *
- * Create and initialize a game state.
+ * Place a non-static object where the TAF starts it, and seed its Runner
+ * [2E] container field the way the Runner's loader does.
  */
 static void
-gs_populate (scr_gameref_t game, scr_var_setref_t vars,
-             scr_prop_setref_t bundle, scr_filterref_t filter)
+gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
+                            scr_int index_)
+{
+  scr_vartype_t vt_key[3];
+  scr_int initialparent, initialposition;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = index_;
+
+  vt_key[2].string = "Parent";
+  initialparent = prop_get_integer (bundle, "I<-sis", vt_key);
+  vt_key[2].string = "InitialPosition";
+  initialposition = prop_get_integer (bundle, "I<-sis", vt_key);
+  switch (initialposition)
+    {
+    case 0:            /* Hidden. */
+      gs_object_make_hidden_unchecked (game, index_);
+      break;
+
+    case 1:            /* Held. */
+      if (initialparent == 0)   /* By player. */
+        gs_object_player_get_unchecked (game, index_);
+      else                      /* By NPC. */
+        {
+          const scr_int npc = initialparent - 1;
+          if (npc >= 0 && npc < game->npc_count)
+            gs_object_npc_get_unchecked (game, index_, npc);
+          else
+            {
+              scr_error ("gs_create: object held by"
+                        " nonexistent NPC, %ld\n", npc);
+              gs_object_make_hidden_unchecked (game, index_);
+            }
+        }
+      break;
+
+    case 2:            /* In container. */
+      {
+        const scr_int container = obj_container_object (game,
+                                                       initialparent);
+        if (container >= 0 && container < game->object_count)
+          gs_object_move_into_unchecked (game, index_, container);
+        else
+          {
+            scr_error ("gs_create: object in"
+                      " nonexistent container, %ld\n", container);
+            gs_object_make_hidden_unchecked (game, index_);
+          }
+      }
+      break;
+
+    case 3:            /* On surface. */
+      {
+        const scr_int surface = obj_surface_object (game,
+                                                   initialparent);
+        if (surface >= 0 && surface < game->object_count)
+          gs_object_move_onto_unchecked (game, index_, surface);
+        else
+          {
+            scr_error ("gs_create: object on"
+                      " nonexistent surface, %ld\n", surface);
+            gs_object_make_hidden_unchecked (game, index_);
+          }
+      }
+      break;
+
+    default:           /* In room, or worn by player/NPC. */
+      if (initialposition >= 4
+          && initialposition < 4 + game->room_count)
+        {
+          gs_object_to_room_unchecked (game,
+                                       index_, initialposition - 4);
+        }
+      else if (initialposition == 4 + game->room_count)
+        {
+          /* 0 is the player; an unset -1 is too.  run380 already
+           * treats Parent -1 on a worn object as the player
+           * (tra.taf), and 4.0 files use the same leftover -1
+           * (nem.taf's starting shoes).  Parent 1+ is NPC n-1. */
+          if (initialparent <= 0)
+            gs_object_player_wear_unchecked (game, index_);
+          else
+            {
+              const scr_int npc = initialparent - 1;
+              if (npc >= 0 && npc < game->npc_count)
+                gs_object_npc_wear_unchecked (game, index_, npc);
+              else
+                {
+                  scr_error ("gs_create: object worn by"
+                            " nonexistent NPC, %ld\n", npc);
+                  gs_object_make_hidden_unchecked (game, index_);
+                }
+            }
+        }
+      else
+        {
+          scr_error ("gs_create: object in out of bounds room, %ld\n",
+                    initialposition - 4 - game->room_count);
+          gs_object_to_room_unchecked (game, index_, -2);
+        }
+    }
+
+  /*
+   * Mirror the Runner's loader: except for in/on placements (where
+   * the movers above already pointed runner_parent at the translated
+   * container object) and NPC-possessed objects (below), [2E] keeps
+   * the raw .taf Parent value verbatim.  For in-room and
+   * not-yet-anywhere objects that value is leftover authoring data,
+   * and for player-held/worn ones it is the player selector, 0 --
+   * either way the Runner's weigh routine happily matches it against
+   * a container's object number, which is the phantom weight this
+   * field exists to reproduce (goldilocks: the worn watch and dress
+   * and the nowhere bottle, all Parent 0, phantom-weigh package
+   * object 0, measured live in run400 2026-08-22).
+   *
+   * NPC-held/worn objects are the exception: their raw Parent is the
+   * NPC selector (npc + 1), and the same live measurements show no
+   * phantom from them -- goldilocks' suitcase (Parent 4) does not
+   * weigh into the spoon (object 4), nor the crown (Parent 1) into
+   * the toaster (object 1) -- so the Runner's loader evidently
+   * clears [2E] on that path, as its give-to-NPC mover does.
+   *
+   * Player-HELD objects are cleared too: run400's object loader
+   * (Proc_19_5, 4906A2-4906BA) writes &HFF over a held object's zero
+   * Parent before 490709 adds it to the running totals; only the worn
+   * path (4907A3) leaves the 0 standing.  riding_home shows it: the
+   * held cane is object 0 and the held laptop case has Parent 0, so
+   * with the raw seed the intro's cane-into-case move made each weigh
+   * the other, and `take cane` out of the open case was refused as too
+   * heavy where run400 takes it.
+   */
+  if (game->objects[index_].position == OBJ_HELD_PLAYER)
+    gs_set_object_runner_parent (game, index_, -1);
+  else if (game->objects[index_].position == OBJ_HELD_NPC
+           || game->objects[index_].position == OBJ_WORN_NPC)
+    {
+      /*
+       * An NPC-HELD object keeps the NPC index in [2E].  run400's
+       * loader does not clear the field on this path: 490749 tests
+       * position 0 with a raw Parent above 0, writes -200 and then
+       * Parent - 1 (490760), and the weigh routine 447680 matches
+       * that value against object numbers like any other.  Measured
+       * on wonderland (2026-09-25): the Card Guard's rod, letter and
+       * key (NPC 0) phantom-weigh the knife (object 0) and the Queen's
+       * Staff of Hearts (81, NPC 3) phantom-weighs the rod (object 3),
+       * so `get knife` in an empty-handed start is 94 > 90, "The
+       * ethereal knife is too heavy for you to carry at the moment."
+       * The goldilocks measurements above tested the wrong targets
+       * (Parent 4 lands on object 3, not 4), so they never saw it.
+       *
+       * NPC-WORN objects get the same seed: the worn branch has the
+       * same Parent - 1 rewrite (490780/490797), and probes against
+       * run400 (p4WORNNPC*, 2026-09-25) refuse `take coin` whenever
+       * an NPC wears an 81-weight cloak with Parent 1 -- whether or
+       * not the NPC is present, the cloak is wearable, or a built-in
+       * give/wear has run in between.  goldilocks' crown (worn by
+       * NPC 0, weight 9) does phantom-weigh the package (object 0)
+       * too: with the package placed in the start room, `take
+       * package` costs 47 in run400 against the seeded-held-only 38.
+       * The earlier "does not weigh" reading was two offsetting
+       * errors: the crown was missing, and the bottle (hidden, raw
+       * Parent 0, weight 9) was still counted after task 54 `water
+       * bean` had moved it to the garden, which in run400 rewrites
+       * its container field (see task_move_object).
+       */
+      gs_set_object_runner_parent (game, index_,
+                                   initialparent > 0
+                                     ? initialparent - 1 : -1);
+    }
+  else if (game->objects[index_].position != OBJ_IN_OBJECT
+           && game->objects[index_].position != OBJ_ON_OBJECT)
+    gs_set_object_runner_parent (game, index_, initialparent);
+}
+
+
+/*
+ * gs_populate_objects()
+ *
+ * Create the objects state array and set each object's starting state.
+ */
+static void
+gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[4];
   scr_int index_;
-
-  game->magic = GAME_MAGIC;
-
-  /* Store the variables, properties bundle, and filter references. */
-  game->vars = vars;
-  game->bundle = bundle;
-  game->filter = filter;
-
-  /* Set memento to NULL for now; it's added later. */
-  game->memento = NULL;
-
-  /* Initialize for no debugger. */
-  game->debugger = NULL;
-
-  /* Initialize the undo buffers to NULL for now. */
-  game->temporary = NULL;
-  game->undo = NULL;
-  game->undo_available = FALSE;
-
-  /* Carried-load tracking off until seeded below; default to Runner-faithful
-   * running totals rather than the legacy per-check recompute, unless the
-   * capacity assist default asks for the recompute (see gs_capacity_assist). */
-  game->carried_weight = 0;
-  game->carried_size = 0;
-  game->carried_ready = FALSE;
-  game->carried_suspend = FALSE;
-  game->capacity_recompute = gs_capacity_assist;
-  game->runner_phantom_held = TRUE;
-
-  /* Create rooms state array. */
-  vt_key[0].string = "Rooms";
-  game->room_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->rooms.resize (game->room_count);
-
-  /* Set up initial rooms states. */
-  for (index_ = 0; index_ < game->room_count; index_++)
-    gs_set_room_seen (game, index_, FALSE);
 
   /* Create objects state array. */
   vt_key[0].string = "Objects";
@@ -1338,173 +1448,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
             }
         }
       else
-        {
-          scr_int initialparent, initialposition;
-
-          vt_key[2].string = "Parent";
-          initialparent = prop_get_integer (bundle, "I<-sis", vt_key);
-          vt_key[2].string = "InitialPosition";
-          initialposition = prop_get_integer (bundle, "I<-sis", vt_key);
-          switch (initialposition)
-            {
-            case 0:            /* Hidden. */
-              gs_object_make_hidden_unchecked (game, index_);
-              break;
-
-            case 1:            /* Held. */
-              if (initialparent == 0)   /* By player. */
-                gs_object_player_get_unchecked (game, index_);
-              else                      /* By NPC. */
-                {
-                  const scr_int npc = initialparent - 1;
-                  if (npc >= 0 && npc < game->npc_count)
-                    gs_object_npc_get_unchecked (game, index_, npc);
-                  else
-                    {
-                      scr_error ("gs_create: object held by"
-                                " nonexistent NPC, %ld\n", npc);
-                      gs_object_make_hidden_unchecked (game, index_);
-                    }
-                }
-              break;
-
-            case 2:            /* In container. */
-              {
-                const scr_int container = obj_container_object (game,
-                                                               initialparent);
-                if (container >= 0 && container < game->object_count)
-                  gs_object_move_into_unchecked (game, index_, container);
-                else
-                  {
-                    scr_error ("gs_create: object in"
-                              " nonexistent container, %ld\n", container);
-                    gs_object_make_hidden_unchecked (game, index_);
-                  }
-              }
-              break;
-
-            case 3:            /* On surface. */
-              {
-                const scr_int surface = obj_surface_object (game,
-                                                           initialparent);
-                if (surface >= 0 && surface < game->object_count)
-                  gs_object_move_onto_unchecked (game, index_, surface);
-                else
-                  {
-                    scr_error ("gs_create: object on"
-                              " nonexistent surface, %ld\n", surface);
-                    gs_object_make_hidden_unchecked (game, index_);
-                  }
-              }
-              break;
-
-            default:           /* In room, or worn by player/NPC. */
-              if (initialposition >= 4
-                  && initialposition < 4 + game->room_count)
-                {
-                  gs_object_to_room_unchecked (game,
-                                               index_, initialposition - 4);
-                }
-              else if (initialposition == 4 + game->room_count)
-                {
-                  /* 0 is the player; an unset -1 is too.  run380 already
-                   * treats Parent -1 on a worn object as the player
-                   * (tra.taf), and 4.0 files use the same leftover -1
-                   * (nem.taf's starting shoes).  Parent 1+ is NPC n-1. */
-                  if (initialparent <= 0)
-                    gs_object_player_wear_unchecked (game, index_);
-                  else
-                    {
-                      const scr_int npc = initialparent - 1;
-                      if (npc >= 0 && npc < game->npc_count)
-                        gs_object_npc_wear_unchecked (game, index_, npc);
-                      else
-                        {
-                          scr_error ("gs_create: object worn by"
-                                    " nonexistent NPC, %ld\n", npc);
-                          gs_object_make_hidden_unchecked (game, index_);
-                        }
-                    }
-                }
-              else
-                {
-                  scr_error ("gs_create: object in out of bounds room, %ld\n",
-                            initialposition - 4 - game->room_count);
-                  gs_object_to_room_unchecked (game, index_, -2);
-                }
-            }
-
-          /*
-           * Mirror the Runner's loader: except for in/on placements (where
-           * the movers above already pointed runner_parent at the translated
-           * container object) and NPC-possessed objects (below), [2E] keeps
-           * the raw .taf Parent value verbatim.  For in-room and
-           * not-yet-anywhere objects that value is leftover authoring data,
-           * and for player-held/worn ones it is the player selector, 0 --
-           * either way the Runner's weigh routine happily matches it against
-           * a container's object number, which is the phantom weight this
-           * field exists to reproduce (goldilocks: the worn watch and dress
-           * and the nowhere bottle, all Parent 0, phantom-weigh package
-           * object 0, measured live in run400 2026-08-22).
-           *
-           * NPC-held/worn objects are the exception: their raw Parent is the
-           * NPC selector (npc + 1), and the same live measurements show no
-           * phantom from them -- goldilocks' suitcase (Parent 4) does not
-           * weigh into the spoon (object 4), nor the crown (Parent 1) into
-           * the toaster (object 1) -- so the Runner's loader evidently
-           * clears [2E] on that path, as its give-to-NPC mover does.
-           *
-           * Player-HELD objects are cleared too: run400's object loader
-           * (Proc_19_5, 4906A2-4906BA) writes &HFF over a held object's zero
-           * Parent before 490709 adds it to the running totals; only the worn
-           * path (4907A3) leaves the 0 standing.  riding_home shows it: the
-           * held cane is object 0 and the held laptop case has Parent 0, so
-           * with the raw seed the intro's cane-into-case move made each weigh
-           * the other, and `take cane` out of the open case was refused as too
-           * heavy where run400 takes it.
-           */
-          if (game->objects[index_].position == OBJ_HELD_PLAYER)
-            gs_set_object_runner_parent (game, index_, -1);
-          else if (game->objects[index_].position == OBJ_HELD_NPC
-                   || game->objects[index_].position == OBJ_WORN_NPC)
-            {
-              /*
-               * An NPC-HELD object keeps the NPC index in [2E].  run400's
-               * loader does not clear the field on this path: 490749 tests
-               * position 0 with a raw Parent above 0, writes -200 and then
-               * Parent - 1 (490760), and the weigh routine 447680 matches
-               * that value against object numbers like any other.  Measured
-               * on wonderland (2026-09-25): the Card Guard's rod, letter and
-               * key (NPC 0) phantom-weigh the knife (object 0) and the Queen's
-               * Staff of Hearts (81, NPC 3) phantom-weighs the rod (object 3),
-               * so `get knife` in an empty-handed start is 94 > 90, "The
-               * ethereal knife is too heavy for you to carry at the moment."
-               * The goldilocks measurements above tested the wrong targets
-               * (Parent 4 lands on object 3, not 4), so they never saw it.
-               *
-               * NPC-WORN objects get the same seed: the worn branch has the
-               * same Parent - 1 rewrite (490780/490797), and probes against
-               * run400 (p4WORNNPC*, 2026-09-25) refuse `take coin` whenever
-               * an NPC wears an 81-weight cloak with Parent 1 -- whether or
-               * not the NPC is present, the cloak is wearable, or a built-in
-               * give/wear has run in between.  goldilocks' crown (worn by
-               * NPC 0, weight 9) does phantom-weigh the package (object 0)
-               * too: with the package placed in the start room, `take
-               * package` costs 47 in run400 against the seeded-held-only 38.
-               * The earlier "does not weigh" reading was two offsetting
-               * errors: the crown was missing, and the bottle (hidden, raw
-               * Parent 0, weight 9) was still counted after task 54 `water
-               * bean` had moved it to the garden, which in run400 rewrites
-               * its container field (see task_move_object).
-               */
-              gs_set_object_runner_parent (game, index_,
-                                           initialparent > 0
-                                             ? initialparent - 1 : -1);
-            }
-          else if (game->objects[index_].position != OBJ_IN_OBJECT
-                   && game->objects[index_].position != OBJ_ON_OBJECT)
-            gs_set_object_runner_parent (game, index_, initialparent);
-        }
+        gs_populate_dynamic_object (game, bundle, index_);
 
       vt_key[2].string = "CurrentState";
       gs_set_object_state (game, index_,
@@ -1572,18 +1516,19 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
       gs_set_object_unmoved (game, index_, unmoved);
       gs_set_object_static_unmoved (game, index_, TRUE);
     }
+}
 
-  /* Create tasks state array. */
-  vt_key[0].string = "Tasks";
-  game->task_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->tasks.resize (game->task_count);
 
-  /* Set up initial tasks states. */
-  for (index_ = 0; index_ < game->task_count; index_++)
-    {
-      gs_set_task_done (game, index_, FALSE);
-      gs_set_task_scored (game, index_, FALSE);
-    }
+/*
+ * gs_populate_events()
+ *
+ * Create the events state array and set each event's starting state.
+ */
+static void
+gs_populate_events (scr_gameref_t game, scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key[3];
+  scr_int index_;
 
   /* Create events state array. */
   vt_key[0].string = "Events";
@@ -1639,10 +1584,22 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
           break;
         }
     }
+}
 
-  /* Create NPCs state array. */
+
+/*
+ * gs_populate_npcs()
+ *
+ * Create the NPCs state array and set each NPC's starting state.
+ */
+static void
+gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key[3];
+  scr_int index_;
+
+  /* Create NPCs state array (npc_count was read before the objects). */
   vt_key[0].string = "NPCs";
-  game->npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
   game->npcs.resize (game->npc_count);
 
   /* Set up initial NPCs states. */
@@ -1673,6 +1630,18 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
       for (walk = 0; walk < walkstep_count; walk++)
         gs_set_npc_walkstep (game, index_, walk, 0);
     }
+}
+
+
+/*
+ * gs_populate_player()
+ *
+ * Set the player's starting room, position, and battle state.
+ */
+static void
+gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key[2];
 
   /* Set up the player portions of the game state. */
   vt_key[0].string = "Header";
@@ -1711,6 +1680,154 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->playerstaminacounter = 0;
   game->playerwield = -1;
   memset (&game->playerbattle, 0, sizeof (game->playerbattle));
+}
+
+
+/*
+ * gs_populate_seen_sweep()
+ *
+ * Stamp the objects the Runner's afteroa reveals in the start room.
+ */
+static void
+gs_populate_seen_sweep (scr_gameref_t game, scr_prop_setref_t bundle)
+{
+  /*
+   * afteroa's start-room seen sweep.
+   *
+   * gs_populate_objects() stamps the seen byte for held and worn objects only,
+   * so on its own it leaves every static unseen -- and that cannot be the whole
+   * rule, because TenebraeSemper.taf (4.00, DispFirstRoom off, so tstart
+   * @0044D68F never calls viewroom and no lister has run) answers `open desk`
+   * on turn ONE with "You open your desk.  The pens are inside your desk.",
+   * although the desk is a Static in the start room with #InitialPosition 0.
+   * The noun resolver co() (@0046486C) needs the byte -- @00464372 ANDs it
+   * into the match -- so something must set it before the first prompt.
+   *
+   * That something is afteroa, the routine the Runner runs between openadv
+   * and tstart.  run400's is at 0046F0B4, and its second loop (@0046EDA5 to
+   * @0046EDE6) walks the whole object table and sets the seen byte
+   * (@0046EDCE) on every object for which Proc_21_53_44B578 (@0044B578) is
+   * true.  That predicate is exactly this port's obj_indirectly_in_room()
+   * against the player's room: obhere() first, then the object is visible if
+   * it is a static that is present (@0044B4CD), or a dynamic held or worn by
+   * the player or an NPC or lying in the room (@0044B4D8-@0044B508), or on
+   * another visible object (@0044B514), or inside one whose openness is below
+   * 6 (@0044B534).  Nothing else in the Runner reveals an object at load.
+   *
+   * run390's afteroa (@00441A54) has the same sweep but a much narrower
+   * predicate, inline at @004418FF-@0044193C: static flag set AND the
+   * presence array covers the player room AND isdark(playerroom) = 0.
+   * Dynamics are not touched there, and neither Runner sweeps before 3.90 --
+   * co() does not read the byte at all in run370 (@004261B4) or run380
+   * (@0042DE60) -- so the sweep is gated at 3.90 and narrowed to statics
+   * below 4.00.  The isdark term is lib_room_alt_darkens(): afteroa calls
+   * isdark() itself (@0044192D), the bare condition ladder at @00433920, so
+   * unlike every other darkness site it carries no HideObjects term -- a room
+   * whose object alt fires without ticking "Hide objects" still starts its
+   * statics unstamped.  A dark start room therefore begins with nothing
+   * referenceable, which is the same rule lib_print_room_description() now
+   * applies on every later look.
+   *
+   * The reading this port shipped with on 2026-08-24 had a static whose
+   * Where/Type was ONE_ROOM starting seen, which is the same answer as this
+   * sweep for a static in the start room but a wrong one for a ONE_ROOM
+   * static anywhere else.  That is the asdfa/CBN/Cellar divergence:
+   * `x cauldron` (Adrift_143), `x desk` (Adrift_149) and `x dust`
+   * (Adrift_172) are all ONE_ROOM statics of some *other* room, all answered
+   * "You see no such thing." by run400 where Scarier had reached its second,
+   * seen-object pass and said "You can't see the <X> from here!".
+   */
+  const scr_int taf_version = prop_get_taf_version (bundle);
+  scr_int index_;
+
+  if (taf_version >= TAF_VERSION_390)
+    {
+      for (index_ = 0; index_ < game->object_count; index_++)
+        {
+          if (gs_object_seen (game, index_))
+            continue;
+
+          if (taf_version < TAF_VERSION_400
+              && (!obj_is_static (game, index_)
+                  || lib_room_alt_darkens (game, game->playerroom)))
+            continue;
+
+          if (obj_indirectly_in_room (game, index_, game->playerroom))
+            gs_set_object_seen (game, index_, TRUE);
+        }
+    }
+}
+
+
+/*
+ * gs_populate()
+ * gs_create()
+ *
+ * Create and initialize a game state.
+ */
+static void
+gs_populate (scr_gameref_t game, scr_var_setref_t vars,
+             scr_prop_setref_t bundle, scr_filterref_t filter)
+{
+  scr_vartype_t vt_key[4];
+  scr_int index_;
+
+  game->magic = GAME_MAGIC;
+
+  /* Store the variables, properties bundle, and filter references. */
+  game->vars = vars;
+  game->bundle = bundle;
+  game->filter = filter;
+
+  /* Set memento to NULL for now; it's added later. */
+  game->memento = NULL;
+
+  /* Initialize for no debugger. */
+  game->debugger = NULL;
+
+  /* Initialize the undo buffers to NULL for now. */
+  game->temporary = NULL;
+  game->undo = NULL;
+  game->undo_available = FALSE;
+
+  /* Carried-load tracking off until seeded below; default to Runner-faithful
+   * running totals rather than the legacy per-check recompute, unless the
+   * capacity assist default asks for the recompute (see gs_capacity_assist). */
+  game->carried_weight = 0;
+  game->carried_size = 0;
+  game->carried_ready = FALSE;
+  game->carried_suspend = FALSE;
+  game->capacity_recompute = gs_capacity_assist;
+  game->runner_phantom_held = TRUE;
+
+  /* Create rooms state array. */
+  vt_key[0].string = "Rooms";
+  game->room_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->rooms.resize (game->room_count);
+
+  /* Set up initial rooms states. */
+  for (index_ = 0; index_ < game->room_count; index_++)
+    gs_set_room_seen (game, index_, FALSE);
+
+  gs_populate_objects (game, bundle);
+
+  /* Create tasks state array. */
+  vt_key[0].string = "Tasks";
+  game->task_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->tasks.resize (game->task_count);
+
+  /* Set up initial tasks states. */
+  for (index_ = 0; index_ < game->task_count; index_++)
+    {
+      gs_set_task_done (game, index_, FALSE);
+      gs_set_task_scored (game, index_, FALSE);
+    }
+
+  gs_populate_events (game, bundle);
+
+  gs_populate_npcs (game, bundle);
+
+  gs_populate_player (game, bundle);
 
   /* Score-change notifications start off.  The TAF does carry a NoScoreNotify
      global, but no Runner reads it: "(Your score has increased by N)" exists
@@ -1780,72 +1897,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    */
   gs_carried_recompute (game);
 
-  /*
-   * afteroa's start-room seen sweep.
-   *
-   * The loader above stamps the seen byte for held and worn objects only, so
-   * on its own it leaves every static unseen -- and that cannot be the whole
-   * rule, because TenebraeSemper.taf (4.00, DispFirstRoom off, so tstart
-   * @0044D68F never calls viewroom and no lister has run) answers `open desk`
-   * on turn ONE with "You open your desk.  The pens are inside your desk.",
-   * although the desk is a Static in the start room with #InitialPosition 0.
-   * The noun resolver co() (@0046486C) needs the byte -- @00464372 ANDs it
-   * into the match -- so something must set it before the first prompt.
-   *
-   * That something is afteroa, the routine the Runner runs between openadv
-   * and tstart.  run400's is at 0046F0B4, and its second loop (@0046EDA5 to
-   * @0046EDE6) walks the whole object table and sets the seen byte
-   * (@0046EDCE) on every object for which Proc_21_53_44B578 (@0044B578) is
-   * true.  That predicate is exactly this port's obj_indirectly_in_room()
-   * against the player's room: obhere() first, then the object is visible if
-   * it is a static that is present (@0044B4CD), or a dynamic held or worn by
-   * the player or an NPC or lying in the room (@0044B4D8-@0044B508), or on
-   * another visible object (@0044B514), or inside one whose openness is below
-   * 6 (@0044B534).  Nothing else in the Runner reveals an object at load.
-   *
-   * run390's afteroa (@00441A54) has the same sweep but a much narrower
-   * predicate, inline at @004418FF-@0044193C: static flag set AND the
-   * presence array covers the player room AND isdark(playerroom) = 0.
-   * Dynamics are not touched there, and neither Runner sweeps before 3.90 --
-   * co() does not read the byte at all in run370 (@004261B4) or run380
-   * (@0042DE60) -- so the sweep is gated at 3.90 and narrowed to statics
-   * below 4.00.  The isdark term is lib_room_alt_darkens(): afteroa calls
-   * isdark() itself (@0044192D), the bare condition ladder at @00433920, so
-   * unlike every other darkness site it carries no HideObjects term -- a room
-   * whose object alt fires without ticking "Hide objects" still starts its
-   * statics unstamped.  A dark start room therefore begins with nothing
-   * referenceable, which is the same rule lib_print_room_description() now
-   * applies on every later look.
-   *
-   * The reading this port shipped with on 2026-08-24 had a static whose
-   * Where/Type was ONE_ROOM starting seen, which is the same answer as this
-   * sweep for a static in the start room but a wrong one for a ONE_ROOM
-   * static anywhere else.  That is the asdfa/CBN/Cellar divergence:
-   * `x cauldron` (Adrift_143), `x desk` (Adrift_149) and `x dust`
-   * (Adrift_172) are all ONE_ROOM statics of some *other* room, all answered
-   * "You see no such thing." by run400 where Scarier had reached its second,
-   * seen-object pass and said "You can't see the <X> from here!".
-   */
-  {
-    const scr_int taf_version = prop_get_taf_version (bundle);
-
-    if (taf_version >= TAF_VERSION_390)
-      {
-        for (index_ = 0; index_ < game->object_count; index_++)
-          {
-            if (gs_object_seen (game, index_))
-              continue;
-
-            if (taf_version < TAF_VERSION_400
-                && (!obj_is_static (game, index_)
-                    || lib_room_alt_darkens (game, game->playerroom)))
-              continue;
-
-            if (obj_indirectly_in_room (game, index_, game->playerroom))
-              gs_set_object_seen (game, index_, TRUE);
-          }
-      }
-  }
+  gs_populate_seen_sweep (game, bundle);
 }
 
 scr_gameref_t
@@ -1927,7 +1979,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
 {
   const scr_prop_setref_t bundle = from->bundle;
   scr_vartype_t vt_key[3];
-  scr_int var_count, var, npc;
+  scr_int var_count, var;
   assert (gs_is_game_valid (to) && gs_is_game_valid (from));
 
   /*
@@ -1991,25 +2043,9 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   assert (to->event_count == from->event_count);
   to->events = from->events;
 
-  /* Copy over NPC states individually, to avoid walks problems. */
-  for (npc = 0; npc < from->npc_count; npc++)
-    {
-      to->npcs[npc].location = from->npcs[npc].location;
-      to->npcs[npc].walk_hidden = from->npcs[npc].walk_hidden;
-      to->npcs[npc].dead = from->npcs[npc].dead;
-      to->npcs[npc].position = from->npcs[npc].position;
-      to->npcs[npc].parent = from->npcs[npc].parent;
-      to->npcs[npc].seen = from->npcs[npc].seen;
-      to->npcs[npc].stamina = from->npcs[npc].stamina;
-      to->npcs[npc].staminacounter = from->npcs[npc].staminacounter;
-      to->npcs[npc].attackcounter = from->npcs[npc].attackcounter;
-      to->npcs[npc].battle = from->npcs[npc].battle;
-      to->npcs[npc].walkstep_count = from->npcs[npc].walkstep_count;
-
-      /* Copy over NPC walks information. */
-      assert (to->npcs[npc].walkstep_count == from->npcs[npc].walkstep_count);
-      to->npcs[npc].walksteps = from->npcs[npc].walksteps;
-    }
+  /* Copy over NPC states, walks included. */
+  assert (to->npc_count == from->npc_count);
+  to->npcs = from->npcs;
 
   /* Copy over player information. */
   to->playerroom = from->playerroom;

@@ -37,8 +37,8 @@
 # `<font face="Wingdings" size=140>V</font>`.  Wingdings is a symbol font, so
 # that byte is a pictogram, not a letter -- 0x56 maps to the glyph named
 # `crossshadow` in the shipped wingding.ttf, i.e. a shadowed Latin cross
-# (U+271E).  Scarier's os_glk.cpp only carries a Webdings translation table, so
-# it prints a bare "V" instead.  Same shape of fix as the Topaz dove.
+# (U+271E).  Scarier's glk/os_glk_symbols.cpp only carries a Webdings translation
+# table, so it prints a bare "V" instead.  Same shape of fix as the Topaz dove.
 z
 z
 z

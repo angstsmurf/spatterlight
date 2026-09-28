@@ -204,13 +204,12 @@ sm_shuffle (sm_layout_t *L, int rno, int dir)
   sm_room_t *r = &L->rooms[rno];
   int d;
 
-  switch (dir)
+  /* The runner's shuffle knows only the four cardinals; asked to move a room
+     diagonally (see sm_set_grid's default case) it leaves it where it is. */
+  if (dir >= DIR_N && dir <= DIR_W)
     {
-    case DIR_N: r->y--; break;
-    case DIR_E: r->x++; break;
-    case DIR_S: r->y++; break;
-    case DIR_W: r->x--; break;
-    default: break;
+      r->x += map_dir_dx[dir];
+      r->y += map_dir_dy[dir];
     }
   r->sb = 1;
 
@@ -250,7 +249,11 @@ sm_shuffle (sm_layout_t *L, int rno, int dir)
 
       /* The runner updates the extent here, inside the neighbour loop, so a
          room shuffled with no qualifying neighbour never re-extends it.  Kept
-         as-is; tidy_up() and the framing pass both re-derive what they need. */
+         as-is: sm_note_extent() is the only thing that grows the extent --
+         from here, and from sm_set_grid() when a room is first placed -- and
+         sm_tidy_up() only shrinks maxx/maxy as it deletes lanes.  Nothing
+         re-derives it, so the extent tidy_up scans and the origin the nodes
+         are measured from are the runner's, gaps and all. */
       sm_note_extent (L, rno);
 
       if (drag == 2)
@@ -275,14 +278,12 @@ sm_sh (sm_layout_t *L, int rno, int *x, int *y, int dir)
   sm_clear_sb (L);
   sm_shuffle (L, rno, dir);
 
-  /* Keep the caller's idea of where `rno` is in step with the move. */
-  switch (dir)
+  /* Keep the caller's idea of where `rno` is in step with the move -- the
+     same four cardinals, and the same no-op for a diagonal. */
+  if (dir >= DIR_N && dir <= DIR_W)
     {
-    case DIR_N: (*y)--; break;
-    case DIR_E: (*x)++; break;
-    case DIR_S: (*y)++; break;
-    case DIR_W: (*x)--; break;
-    default: break;
+      *x += map_dir_dx[dir];
+      *y += map_dir_dy[dir];
     }
 }
 
@@ -451,20 +452,8 @@ sm_set_grid (sm_layout_t *L, int rno, int *px, int *py)
       if (!(dest > 0 && dest != rno && dest <= L->n))
         continue;
 
-      nx = r->x;
-      ny = r->y;
-      switch (d)
-        {
-        case DIR_N:  ny--;        break;
-        case DIR_E:  nx++;        break;
-        case DIR_S:  ny++;        break;
-        case DIR_W:  nx--;        break;
-        case DIR_NE: nx++; ny--;  break;
-        case DIR_SE: nx++; ny++;  break;
-        case DIR_SW: nx--; ny++;  break;
-        case DIR_NW: nx--; ny--;  break;
-        default: break;
-        }
+      nx = r->x + map_dir_dx[d];
+      ny = r->y + map_dir_dy[d];
 
       /* A room already sitting in the target cell only counts as an obstacle
          we must respect if it links back to us; otherwise it is in our way. */
@@ -922,7 +911,8 @@ sm_view_seen (void *ctx, const char *lockey)
 }
 
 /* The name in the room box, filtered and untagged exactly the way the status
-   line's copy of the same name is (scrunner.c run_update_status).  A room's
+   line's copy of the same name is (runner/scrunner.cpp run_update_status).
+   A room's
    Short is raw author text, and authors do put tags in it: warlord.taf names
    its rooms "<d1>Ravine<d2>" and A Spot of Bother "<d1>Hallway<d2>", markers
    the runner's rich-text control simply drops on display.  Handing the raw
@@ -1094,6 +1084,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
   sm_layout_t L;
   map_t *m;
   map_page_t *page;
+  std::vector<int> node_of;     /* room number -> node index, -1 unplaced   */
   int i, d, n, start, x, y, ip;
 
   scmap_last_fail = 0;
@@ -1175,7 +1166,6 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
   m->line_links = 1;            /* Form29.dolink draws with Line controls */
   page = &m->pages[0];
   page->key = 0;
-  page->label = NULL;
 
   /* Everything the layout placed gets a node, seen or not; the renderer is
      what decides to draw only the rooms the player has been to.  (An unseen
@@ -1192,6 +1182,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
   /* One grid cell becomes a room box plus the gap beside it: the runner spaces
      its boxes 1.5 box-widths apart, and we keep that proportion. */
   ip = 0;
+  node_of.assign (n + 1, -1);
   for (i = 1; i <= n; i++)
     {
       map_node_t *node;
@@ -1200,7 +1191,8 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       if (!L.rooms[i].placed)
         continue;
 
-      node = &page->nodes[ip++];
+      node = &page->nodes[ip];
+      node_of[i] = ip++;
       snprintf (key, sizeof key, "%d", (int) sc_room (i));
       node->key = sm_intern (m, key);
       node->x = (L.rooms[i].x - L.minx) * (MAP_NODE_W * 3 / 2);
@@ -1249,11 +1241,14 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
      trailing a stub off towards it, and that stub claimed the direction like
      any other line.  We draw no such stubs, so honouring those claims would
      delete a real connector and leave nothing in its place. */
-  for (ip = 0; ip < page->n_nodes; ip++)
+  for (i = 1; i <= n; i++)
     {
-      map_node_t *node = &page->nodes[ip];
-      int rno = (int) atol (node->key) + 1;
+      map_node_t *node;
       int nl = 0;
+
+      if (node_of[i] < 0)
+        continue;
+      node = &page->nodes[node_of[i]];
 
       node->links = (map_link_t *) calloc (MAP_N_DIRS, sizeof (map_link_t));
       if (node->links == NULL)
@@ -1261,28 +1256,36 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
 
       for (d = 0; d < MAP_N_DIRS; d++)
         {
-          int dest = L.rooms[rno].exits[d];
+          int dest = L.rooms[i].exits[d];
           int is_badge = map_is_badge_dir (d);
-          char key[16];
 
-          if (dest <= 0 || dest > n || dest == rno)
+          if (dest <= 0 || dest > n || dest == i)
             continue;
           if (!is_badge && !L.rooms[dest].placed)
             continue;
 
-          if (!is_badge && L.rooms[rno].seen)
+          if (!is_badge && L.rooms[i].seen)
             {
               if (L.rooms[dest].shown[sm_opp (d)])
                 continue;
-              L.rooms[rno].shown[d] = 1;
+              L.rooms[i].shown[d] = 1;
             }
 
           node->links[nl].dir = d;
           node->links[nl].badge = is_badge;
           node->links[nl].dst_anchor = sm_opp (d);
-          snprintf (key, sizeof key, "%d", (int) sc_room (dest));
-          node->links[nl].dest = sm_intern (m, key);
-          node->links[nl].dotted = L.rooms[rno].restricted[d];
+          /* A placed destination has a node whose key we can share; only a
+             badge into an unplaced room needs a key of its own. */
+          if (node_of[dest] >= 0)
+            node->links[nl].dest = page->nodes[node_of[dest]].key;
+          else
+            {
+              char key[16];
+
+              snprintf (key, sizeof key, "%d", (int) sc_room (dest));
+              node->links[nl].dest = sm_intern (m, key);
+            }
+          node->links[nl].dotted = L.rooms[i].restricted[d];
           nl++;
         }
       node->n_links = nl;

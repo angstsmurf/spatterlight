@@ -102,7 +102,7 @@ fatal_read_callback (void *opaque, scr_byte *buffer, scr_int length)
   return 0;  /* not reached */
 }
 
-/* --- minimal SCARIER OS port (we never actually run a game here) ---
+/* --- minimal Scarier OS port (we never actually run a game here) ---
    The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours. */
 
 scr_bool

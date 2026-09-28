@@ -24,7 +24,7 @@
  * o Standard libc ctype.h functions vary their results according to the
  *   currently set locale.  We want consistent Windows codepage 1252 or
  *   codepage 1251 (WinLatin1 or WinCyrillic) results.  To get this, then,
- *   we have to define the needed functions internally to SCARIER.
+ *   we have to define the needed functions internally to Scarier.
  */
 
 #include <assert.h>
@@ -486,7 +486,7 @@ loc_debug_dump_char_table (const scr_char *label,
   scr_trace ("loc_locale_tables.%s = {\n  ", label);
   for (index_ = 0; index_ < TABLE_SIZE; index_++)
     {
-      scr_trace ("%02lx%s", (scr_int) (scr_byte) table[index_],
+      scr_trace ("%02lx%s", (scr_uint) (scr_byte) table[index_],
                 loc_debug_dump_new_line (index_, count) ? "\n  " : " ");
     }
   scr_trace ("\n}\n");

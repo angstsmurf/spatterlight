@@ -25,8 +25,6 @@
  */
 
 #include <assert.h>
-#include <errno.h>
-#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,12 +42,12 @@ static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
 
 /*
- * Legacy sentinel that introduced SCARIER's old private Battle System block,
+ * Legacy sentinel that introduced Scarier's old private Battle System block,
  * once written (for battle games only) as extra lines after the ADRIFT turns
  * count.  Current saves no longer emit it: the live battle state is interleaved
  * inline in the player and NPC records, matching the Runner's own layout (see
  * ser_save_battle_block and the version-header note below).  The marker is kept
- * only so ser_load_game can still read those older SCARIER saves; it is
+ * only so ser_load_game can still read those older Scarier saves; it is
  * deliberately non-numeric so it can never be mistaken for a numeric ADRIFT
  * field.
  *
@@ -58,7 +56,7 @@ static const scr_char CARRIAGE_RETURN = '\r';
  * a 17-field block inside each NPC's record (after "seen", before the walk
  * steps), both gated on the battle-system flag, with live stamina near the front
  * of each block and the Max/Hi/Lo attributes that the "Change <attribute>" task
- * action can alter following it.  Newer SCARIER saves reproduce that layout (and
+ * action can alter following it.  Newer Scarier saves reproduce that layout (and
  * emit the leading version line below), so they are byte-loadable by the Runner;
  * older saves that predate the change carry the trailing marker block instead.
  */
@@ -81,8 +79,8 @@ static const scr_char *const SER_BATTLE_MARKER_V1 = "ScarierBattleState/1";
  * i.e. the byte 0xAC ('<not>', Chr(172)) followed by the Major version, the
  * Minor zero-padded to three digits, and the Revision zero-padded to two.  For
  * the shipped run400.exe, which reports file version 4.0.0.52, that is exactly
- * "\xAC" "400052".  SCARIER historically omitted this line entirely (its stream
- * started at GameName), so a Runner save and a SCARIER save were mutually
+ * "\xAC" "400052".  Scarier historically omitted this line entirely (its stream
+ * started at GameName), so a Runner save and a Scarier save were mutually
  * unreadable.  We now emit the header so the Runner will accept our saves, and
  * on read we treat the leading 0xAC byte as an unambiguous discriminator: a
  * line beginning with it is a Runner/new-format save whose version line we skip;
@@ -131,22 +129,6 @@ ser_openness_pre_v4 (scr_int openness)
 }
 
 /*
- * Deflate level for the next serialization run.  File saves keep zlib's
- * default level; per-turn undo memos (memo_save_game) select Z_BEST_SPEED
- * instead -- they are in-memory only, overwritten every 16 turns, and the
- * per-turn deflate at the default level profiles as ~20-30% of the whole
- * interpreter.  Either level produces a stream any inflate can read, so
- * save-file compatibility is unaffected.
- */
-static scr_int ser_compression = Z_DEFAULT_COMPRESSION;
-
-void
-ser_set_fast_compression (scr_bool fast)
-{
-  ser_compression = fast ? Z_BEST_SPEED : Z_DEFAULT_COMPRESSION;
-}
-
-/*
  * Raw (uncompressed) mode for the next serialization run.  The undo ring's
  * in-memory memos are a self-contained round trip that never touches disk and
  * never interoperates with a Runner, so they can skip zlib entirely: profiling
@@ -175,54 +157,39 @@ static scr_write_callbackref_t ser_callback = (scr_write_callbackref_t) NULL;
 static void *ser_opaque = NULL;
 
 
+/* Deflate state for the 4.0 save layout, live between ser_flush() calls. */
+static scr_bool ser_deflate_initialized = FALSE;
+static scr_byte *ser_out_buffer = NULL;
+static scr_int ser_out_buffer_size = 0;
+static z_stream ser_stream;
+
+
 /*
  * ser_flush()
+ * ser_flush_abort()
  * ser_buffer_character()
  *
- * Flush pending buffer contents; add a character to the buffer.
+ * Flush pending buffer contents; abandon a serialization run part way through,
+ * so the next one starts clean; add a character to the buffer.
  */
 static void
 ser_flush (scr_bool is_final)
 {
-  static scr_bool initialized = FALSE;
-  static scr_byte *out_buffer = NULL;
-  static scr_int out_buffer_size = 0;
-  static z_stream stream;
-
   scr_int status;
 
   /*
    * A raw memo is passed straight through, uncompressed and unobfuscated --
-   * taf_create_tas_raw() reads it back verbatim.  Like the pre-4.0 branch it
-   * never touches the deflate state, so the 4.0 path below is unaffected.
+   * taf_create_tas_raw() reads it back verbatim.  A pre-4.0 save is not
+   * compressed at all either: the plain text goes out xor'd with the PRNG
+   * keystream, which taf_obfuscate_reset() started in ser_save_game().
+   * Neither touches the deflate state, so the 4.0 path below is unaffected.
    */
-  if (ser_raw_memo)
+  if (ser_raw_memo || ser_pre_v4)
     {
       if (ser_buffer_length > 0)
         {
-          ser_callback (ser_opaque, ser_buffer, ser_buffer_length);
-          ser_buffer_length = 0;
-        }
-
-      if (is_final)
-        {
-          scr_free (ser_buffer);
-          ser_buffer = NULL;
-        }
-      return;
-    }
-
-  /*
-   * A pre-4.0 save is not compressed at all: the plain text goes out xor'd
-   * with the PRNG keystream, which taf_obfuscate_reset() started in
-   * ser_save_game().  Nothing here touches the deflate state, so the 4.0 path
-   * below is unaffected.
-   */
-  if (ser_pre_v4)
-    {
-      if (ser_buffer_length > 0)
-        {
-          taf_obfuscate_buffer (ser_buffer, ser_buffer_length);
+          if (!ser_raw_memo)
+            taf_obfuscate_buffer (ser_buffer, ser_buffer_length);
           ser_callback (ser_opaque, ser_buffer, ser_buffer_length);
           ser_buffer_length = 0;
         }
@@ -236,40 +203,40 @@ ser_flush (scr_bool is_final)
     }
 
   /* If this is an initial call, initialize deflation. */
-  if (!initialized)
+  if (!ser_deflate_initialized)
     {
       /* Allocate an initial output buffer. */
-      out_buffer_size = BUFFER_SIZE;
-      out_buffer = (decltype(out_buffer)) scr_malloc (out_buffer_size);
+      ser_out_buffer_size = BUFFER_SIZE;
+      ser_out_buffer = (decltype(ser_out_buffer)) scr_malloc (ser_out_buffer_size);
 
       /* Initialize Zlib deflation functions. */
-      stream.next_out = out_buffer;
-      stream.avail_out = out_buffer_size;
-      stream.next_in = ser_buffer;
-      stream.avail_in = 0;
+      ser_stream.next_out = ser_out_buffer;
+      ser_stream.avail_out = ser_out_buffer_size;
+      ser_stream.next_in = ser_buffer;
+      ser_stream.avail_in = 0;
 
-      stream.zalloc = Z_NULL;
-      stream.zfree = Z_NULL;
-      stream.opaque = Z_NULL;
+      ser_stream.zalloc = Z_NULL;
+      ser_stream.zfree = Z_NULL;
+      ser_stream.opaque = Z_NULL;
 
-      status = deflateInit (&stream, ser_compression);
+      status = deflateInit (&ser_stream, Z_DEFAULT_COMPRESSION);
       if (status != Z_OK)
         {
           scr_error ("ser_flush: deflateInit: error %ld\n", status);
           ser_buffer_length = 0;
 
-          scr_free (out_buffer);
-          out_buffer = NULL;
-          out_buffer_size = 0;
+          scr_free (ser_out_buffer);
+          ser_out_buffer = NULL;
+          ser_out_buffer_size = 0;
           return;
         }
 
-      initialized = TRUE;
+      ser_deflate_initialized = TRUE;
     }
 
   /* Deflate data from the current output buffer. */
-  stream.next_in = ser_buffer;
-  stream.avail_in = ser_buffer_length;
+  ser_stream.next_in = ser_buffer;
+  ser_stream.avail_in = ser_buffer_length;
 
   /* Loop while deflate output is pending and buffer not emptied. */
   while (TRUE)
@@ -278,34 +245,34 @@ ser_flush (scr_bool is_final)
 
       /* Compress stream data, with finish if this is the final flush. */
       if (is_final)
-        status = deflate (&stream, Z_FINISH);
+        status = deflate (&ser_stream, Z_FINISH);
       else
-        status = deflate (&stream, Z_NO_FLUSH);
+        status = deflate (&ser_stream, Z_NO_FLUSH);
       if (status != Z_STREAM_END && status != Z_OK)
         {
           scr_error ("ser_flush: deflate: error %ld\n", status);
           ser_buffer_length = 0;
 
-          scr_free (out_buffer);
-          out_buffer = NULL;
-          out_buffer_size = 0;
-          initialized = FALSE;
+          scr_free (ser_out_buffer);
+          ser_out_buffer = NULL;
+          ser_out_buffer_size = 0;
+          ser_deflate_initialized = FALSE;
           return;
         }
 
       /* Calculate bytes used, and output. */
-      in_bytes = ser_buffer_length - stream.avail_in;
-      out_bytes = out_buffer_size - stream.avail_out;
+      in_bytes = ser_buffer_length - ser_stream.avail_in;
+      out_bytes = ser_out_buffer_size - ser_stream.avail_out;
 
       /* See if compressed data is available. */
       if (out_bytes > 0)
         {
           /* Write it to save file output through the callback. */
-          ser_callback (ser_opaque, out_buffer, out_bytes);
+          ser_callback (ser_opaque, ser_out_buffer, out_bytes);
 
           /* Reset deflation stream for available space. */
-          stream.next_out = out_buffer;
-          stream.avail_out = out_buffer_size;
+          ser_stream.next_out = ser_out_buffer;
+          ser_stream.avail_out = ser_out_buffer_size;
         }
 
       /* Remove consumed data from the input buffer. */
@@ -317,8 +284,8 @@ ser_flush (scr_bool is_final)
           ser_buffer_length -= in_bytes;
 
           /* Reset deflation stream for consumed data. */
-          stream.next_in = ser_buffer;
-          stream.avail_in = ser_buffer_length;
+          ser_stream.next_in = ser_buffer;
+          ser_stream.avail_in = ser_buffer_length;
         }
 
       /* If final flush, wait until deflate indicates finished. */
@@ -334,7 +301,7 @@ ser_flush (scr_bool is_final)
   if (is_final)
     {
       /* Compression completed. */
-      status = deflateEnd (&stream);
+      status = deflateEnd (&ser_stream);
       if (status != Z_OK)
         scr_error ("ser_flush: warning: deflateEnd: error %ld\n", status);
 
@@ -352,11 +319,28 @@ ser_flush (scr_bool is_final)
        * Free output buffer, and reset flag for reinitialization on the next
        * call.
        */
-      scr_free (out_buffer);
-      out_buffer = NULL;
-      out_buffer_size = 0;
-      initialized = FALSE;
+      scr_free (ser_out_buffer);
+      ser_out_buffer = NULL;
+      ser_out_buffer_size = 0;
+      ser_deflate_initialized = FALSE;
     }
+}
+
+static void
+ser_flush_abort (void)
+{
+  if (ser_deflate_initialized)
+    {
+      (void) deflateEnd (&ser_stream);
+      ser_deflate_initialized = FALSE;
+    }
+  scr_free (ser_out_buffer);
+  ser_out_buffer = NULL;
+  ser_out_buffer_size = 0;
+
+  scr_free (ser_buffer);
+  ser_buffer = NULL;
+  ser_buffer_length = 0;
 }
 
 static void
@@ -487,7 +471,7 @@ ser_buffer_int_special (scr_int value)
 
 /*
  * The Runner stores the four ranged battle attributes in the save in the order
- * Strength, Defence, Accuracy, Agility -- SCARIER's scr_battle_t slots 0, 2, 1, 3
+ * Strength, Defence, Accuracy, Agility -- Scarier's scr_battle_t slots 0, 2, 1, 3
  * (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as max, hi, lo.
  * (Order derived from real run400.exe saves; the original capture notes are no
  * longer in the tree, so re-confirm against a Runner save before changing it.)
@@ -810,23 +794,12 @@ ser_game_is_pre_v4 (scr_prop_setref_t bundle)
  * an undo must not be.  Both are read back by ser_load_game().
  */
 static void
-ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
-                        void *opaque, scr_bool runner_compatible)
+ser_save_game_body (scr_gameref_t game)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   scr_int index_, var_count;
-  assert (callback);
-
-  /* Store the callback and opaque references, for writer functions. */
-  ser_callback = callback;
-  ser_opaque = opaque;
-
-  /* Select the save layout, and start the keystream if it is the pre-4.0 one. */
-  ser_pre_v4 = runner_compatible && ser_game_is_pre_v4 (bundle);
-  if (ser_pre_v4)
-    taf_obfuscate_reset ();
 
   /* Reset the immutable-input cache if this is not the game it was built
    * for; the undo ring calls this every turn, so the reads cached below
@@ -858,7 +831,7 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
 
   /*
    * Write the player block in ADRIFT layout: the player name (the Runner's
-   * first player field, which older SCARIER saves and pre-4.0 saves omit),
+   * first player field, which older Scarier saves and pre-4.0 saves omit),
    * then room, parent, position and gender.
    */
   vt_key[0].string = "Globals";
@@ -1045,8 +1018,45 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
    * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
    * is now written inline, in the player and NPC blocks above, matching the
    * Runner's layout.  We no longer append the private trailing SER_BATTLE_MARKER
-   * block; older SCARIER saves that carry one are still read (see ser_load_game).
+   * block; older Scarier saves that carry one are still read (see ser_load_game).
    */
+
+}
+
+static void
+ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
+                        void *opaque, scr_bool runner_compatible)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  assert (callback);
+
+  /* Store the callback and opaque references, for writer functions. */
+  ser_callback = callback;
+  ser_opaque = opaque;
+
+  /* Select the save layout, and start the keystream if it is the pre-4.0 one. */
+  ser_pre_v4 = runner_compatible && ser_game_is_pre_v4 (bundle);
+  if (ser_pre_v4)
+    taf_obfuscate_reset ();
+
+  /*
+   * Serialize.  A fatal engine error part way through must not leave the
+   * half-written run's state behind for the next call, so tear it down before
+   * letting the error go on to the host boundary.
+   */
+  try
+    {
+      ser_save_game_body (game);
+    }
+  catch (const scr_fatal_error &)
+    {
+      ser_flush_abort ();
+      ser_callback = NULL;
+      ser_opaque = NULL;
+      ser_pre_v4 = FALSE;
+      ser_raw_memo = FALSE;
+      throw;
+    }
 
   /*
    * Flush the last buffer contents, and drop the callback and opaque
@@ -1105,8 +1115,8 @@ ser_save_game_prompted (scr_gameref_t game)
 static scr_tafref_t ser_tas = (scr_tafref_t) NULL;
 static scr_int ser_tasline = 0;
 
-/* Restore error jump buffer. */
-static jmp_buf ser_tas_error;
+/* Restore error, thrown by the readers below and caught in ser_load_game(). */
+struct ser_tas_error_t { };
 
 /*
  * ser_get_string()
@@ -1127,7 +1137,7 @@ ser_get_string (void)
   if (!string)
     {
       scr_error ("ser_get_string: out of TAS data at line %ld\n", ser_tasline);
-      scr_longjmp (ser_tas_error, 1);
+      throw ser_tas_error_t ();
     }
 
   ser_tasline++;
@@ -1146,7 +1156,7 @@ ser_get_int (void)
     {
       scr_error ("ser_get_int:"
                 " invalid integer at line %ld\n", ser_tasline - 1);
-      scr_longjmp (ser_tas_error, 1);
+      throw ser_tas_error_t ();
     }
 
   return value;
@@ -1227,7 +1237,7 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
 /*
  * ser_reject_if()
  *
- * Reject the save currently being restored (via the restore error longjmp) when
+ * Reject the save currently being restored (via the restore error throw) when
  * a value read from the untrusted save file is out of range for this game.  The
  * gs_* accessors only assert their index arguments, which is a no-op under
  * NDEBUG, so without these explicit checks a corrupt save could plant
@@ -1241,7 +1251,7 @@ ser_reject_if (scr_bool out_of_range)
     {
       scr_error ("ser_reject_if:"
                  " index out of range at line %ld\n", ser_tasline - 1);
-      scr_longjmp (ser_tas_error, 1);
+      throw ser_tas_error_t ();
     }
 }
 
@@ -1375,7 +1385,7 @@ ser_get_uint (void)
     {
       scr_error ("ser_get_uint:"
                 " invalid integer at line %ld\n", ser_tasline - 1);
-      scr_longjmp (ser_tas_error, 1);
+      throw ser_tas_error_t ();
     }
 
   return value;
@@ -1396,7 +1406,7 @@ ser_get_boolean (void)
     {
       scr_error ("ser_get_boolean:"
                 " invalid boolean at line %ld\n", ser_tasline - 1);
-      scr_longjmp (ser_tas_error, 1);
+      throw ser_tas_error_t ();
     }
   if (value != 0 && value != 1)
     {
@@ -1409,70 +1419,24 @@ ser_get_boolean (void)
 
 
 /*
+ * ser_load_game_body()
  * ser_load_game()
  *
  * Load a serialized game into the given game by repeated calls to the
- * callback() function.
+ * callback() function.  The body reads into a fresh game and variable set,
+ * handing them back through new_game and new_vars so that the caller can
+ * destroy them whichever way the body left.
  */
-scr_bool
-ser_load_game (scr_gameref_t game,
-               scr_read_callbackref_t callback, void *opaque)
+static void
+ser_load_game_body (scr_gameref_t game,
+                    scr_gameref_t &new_game, scr_var_setref_t &new_vars)
 {
-  static scr_var_setref_t new_vars;  /* For setjmp safety */
-  static scr_gameref_t new_game;     /* For setjmp safety */
-
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   scr_int index_, var_count;
   const scr_char *gamename;
-  scr_bool runner_format = FALSE;
-
-  /* Create a TAF (TAS) reference from callbacks, for reader functions.  A raw
-   * memo (ser_set_raw_memo) skips the sniff/inflate and is read back verbatim;
-   * everything downstream is identical, since the byte stream is the same one
-   * a decompressed 4.0 save would present. */
-  ser_tas = ser_raw_memo ? taf_create_tas_raw (callback, opaque)
-                         : taf_create_tas (callback, opaque);
-  if (!ser_tas)
-    {
-      ser_raw_memo = FALSE;
-      return FALSE;
-    }
-
-  /*
-   * The container tells us the layout: only run390.exe -- and ser_save_game_-
-   * to_file() for a pre-4.0 game -- writes a PRNG-obfuscated save, so an
-   * obfuscated stream is a pre-4.0 Runner save.  Everything else is a zlib
-   * stream, either 4.0 Runner format or legacy SCARE, told apart below by the
-   * version line.  This keeps 4.0-format saves we wrote earlier for a 3.9 game
-   * readable.
-   */
-  ser_pre_v4 = taf_get_version (ser_tas) < TAF_VERSION_400;
-  runner_format = ser_pre_v4;
-
-  /* Reset line counter for error messages. */
-  ser_tasline = 1;
-
-  new_game = NULL;
-  new_vars = NULL;
-
-  /* Set up error handling jump buffer, and handle errors. */
-  if (scr_setjmp (ser_tas_error) != 0)
-    {
-      /* Destroy any temporary game and variables. */
-      if (new_game)
-        gs_destroy (new_game);
-      if (new_vars)
-        var_destroy (new_vars);
-
-      /* Destroy the TAF (TAS) file and return fail status. */
-      taf_destroy (ser_tas);
-      ser_tas = NULL;
-      ser_pre_v4 = FALSE;
-      ser_raw_memo = FALSE;
-      return FALSE;
-    }
+  scr_bool runner_format = ser_pre_v4;
 
   /*
    * Read the first line.  If it begins with the ADRIFT v4 version-line lead
@@ -1497,7 +1461,7 @@ ser_load_game (scr_gameref_t game,
   vt_key[0].string = "Globals";
   vt_key[1].string = "GameName";
   if (strcmp (gamename, prop_get_string (bundle, "S<-ss", vt_key)) != 0)
-    scr_longjmp (ser_tas_error, 1);
+    throw ser_tas_error_t ();
 
   /* Read and verify the counts in the saved game. */
   if (ser_get_int () != gs_room_count (game)
@@ -1505,7 +1469,7 @@ ser_load_game (scr_gameref_t game,
       || ser_get_int () != gs_task_count (game)
       || ser_get_int () != gs_event_count (game)
       || ser_get_int () != gs_npc_count (game))
-    scr_longjmp (ser_tas_error, 1);
+    throw ser_tas_error_t ();
 
   /* Create a variables set and game to restore into. */
   new_vars = var_create (bundle);
@@ -1547,7 +1511,8 @@ ser_load_game (scr_gameref_t game,
   /* Skip player gender. */
   (void) ser_get_int ();
 
-  /* Skip encumbrance details, not currently maintained by the game. */
+  /* Skip encumbrance details; the carried totals are recomputed from the
+     restored inventory once loading is done. */
   (void) ser_get_int ();
   (void) ser_get_int ();
   (void) ser_get_int ();
@@ -1665,7 +1630,7 @@ ser_load_game (scr_gameref_t game,
           startertype = prop_get_indexed_integer (bundle, "Events", index_,
                                                   "StarterType");
           if (startertype != 3)
-            scr_longjmp (ser_tas_error, 1);
+            throw ser_tas_error_t ();
 
           /* Restore the starter-task snapshot (task is a 1-based index). */
           ser_reject_if (task > gs_task_count (new_game));
@@ -1801,17 +1766,83 @@ ser_load_game (scr_gameref_t game,
   new_game->temporary = game->temporary;
   new_game->undo = game->undo;
   gs_copy (game, new_game);
+}
 
-  /* Done with the temporary game and variables. */
-  gs_destroy (new_game);
-  var_destroy (new_vars);
+/*
+ * ser_load_game_finish()
+ *
+ * Destroy the temporary game and variables, if any, and the TAF (TAS) file,
+ * and reset the load state, after a restore that succeeded or failed.
+ */
+static void
+ser_load_game_finish (scr_gameref_t new_game, scr_var_setref_t new_vars)
+{
+  if (new_game)
+    gs_destroy (new_game);
+  if (new_vars)
+    var_destroy (new_vars);
 
-  /* Done with TAF (TAS) file; destroy it and return successfully. */
   taf_destroy (ser_tas);
   ser_tas = NULL;
   ser_pre_v4 = FALSE;
   ser_raw_memo = FALSE;
-  return TRUE;
+}
+
+scr_bool
+ser_load_game (scr_gameref_t game,
+               scr_read_callbackref_t callback, void *opaque)
+{
+  scr_gameref_t new_game = NULL;
+  scr_var_setref_t new_vars = NULL;
+  scr_bool status;
+
+  /* Create a TAF (TAS) reference from callbacks, for reader functions.  A raw
+   * memo (ser_set_raw_memo) skips the sniff/inflate and is read back verbatim;
+   * everything downstream is identical, since the byte stream is the same one
+   * a decompressed 4.0 save would present. */
+  ser_tas = ser_raw_memo ? taf_create_tas_raw (callback, opaque)
+                         : taf_create_tas (callback, opaque);
+  if (!ser_tas)
+    {
+      ser_raw_memo = FALSE;
+      return FALSE;
+    }
+
+  /*
+   * The container tells us the layout: only run390.exe -- and ser_save_game_-
+   * to_file() for a pre-4.0 game -- writes a PRNG-obfuscated save, so an
+   * obfuscated stream is a pre-4.0 Runner save.  Everything else is a zlib
+   * stream, either 4.0 Runner format or legacy SCARE, told apart in the body
+   * by the version line.  This keeps 4.0-format saves we wrote earlier for a
+   * 3.9 game readable.
+   */
+  ser_pre_v4 = taf_get_version (ser_tas) < TAF_VERSION_400;
+
+  /* Reset line counter for error messages. */
+  ser_tasline = 1;
+
+  /*
+   * Restore.  A rejected or exhausted save throws ser_tas_error_t out of the
+   * readers; a fatal engine error is cleaned up after the same way, then goes
+   * on to the host boundary.
+   */
+  try
+    {
+      ser_load_game_body (game, new_game, new_vars);
+      status = TRUE;
+    }
+  catch (const ser_tas_error_t &)
+    {
+      status = FALSE;
+    }
+  catch (const scr_fatal_error &)
+    {
+      ser_load_game_finish (new_game, new_vars);
+      throw;
+    }
+
+  ser_load_game_finish (new_game, new_vars);
+  return status;
 }
 
 

@@ -624,7 +624,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
    * terminator of ours for pf_buffer_join() to pop.  Left unmarked, a room
    * whose description is empty ran its contents straight on after the name:
    *
-   *     Inside the Top Hat  A bunny twitches its whiskers at me  <- SCARIER
+   *     Inside the Top Hat  A bunny twitches its whiskers at me  <- Scarier
    *     Inside the Top Hat                                       <- run400
    *     A bunny twitches its whiskers at me
    *

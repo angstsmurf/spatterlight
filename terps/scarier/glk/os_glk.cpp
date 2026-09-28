@@ -1,0 +1,1706 @@
+/* vi: set ts=2 shiftwidth=2 expandtab:
+ *
+ * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ * Copyright (C) 2026  Petter Sjölund
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
+ */
+
+/*
+ * os_glk.cpp: the Glk front end's module state, utilities, event and file
+ * functions, startup and the ADRIFT <=4 main loop, and the platform linkage.
+ * The rest of the front end is split by topic into the other os_glk*.cpp
+ * files; os_glk_internal.h lists them.
+ *
+ * Module notes:
+ *
+ * o The Glk interface makes no effort to set text colours, background
+ *   colours, and so forth, and minimal effort to set fonts and other style
+ *   effects.
+ */
+
+#include "os_glk_internal.h"
+
+#if defined (SPATTERLIGHT)
+/*
+ * gsc_autorestore_wanted()
+ *
+ * True when this session is about to autorestore, i.e. no window may be
+ * opened before the restore replaces the Glk library state.
+ *
+ * The restore adopts the archived windows wholesale (gli_replace_window_list),
+ * which first CLOSES whatever windows this process has already opened.  On
+ * the host side an open during an autorestore is harmless -- it hands back
+ * the window it already rebuilt from its GUI snapshot rather than making a
+ * second one -- but the matching close is not: it deletes that restored
+ * window for good, and the adopted library never opens it again.  A window
+ * this process re-creates at boot is therefore a window the player loses:
+ * with the map pane open only the map came back (the one window boot does
+ * not touch), and with it closed, nothing did.
+ *
+ * So both engines gate every startup glk_window_open on this and let the
+ * archive supply the windows instead.
+ */
+int
+gsc_autorestore_wanted (void)
+{
+  return scarier_autosave_exists ();
+}
+/* Set after a successful autorestore: the restored transcript already ends
+ * with the old prompt, so the next prompt print is skipped once. */
+int gsc_autorestored = 0;
+/* Set around the debugger's read; a debug prompt is mid-turn, not a state
+ * worth autosaving. */
+int gsc_in_debug_read = 0;
+#endif
+
+#ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
+static char gamefile[1024];
+
+static const char *find_last_of(const char *str, const char *chars)
+{
+  const char *found = NULL;
+  while (*chars != 0) {
+    const char *p = strrchr(str, *chars++);
+    if (p != NULL && (found == NULL || p > found)) {
+      found = p;
+    }
+  }
+
+  return found;
+}
+#endif
+
+
+
+/*---------------------------------------------------------------------*/
+/*  Module variables, miscellaneous other stuff                        */
+/*---------------------------------------------------------------------*/
+
+/* Two windows, one for the main text, and one for a status line. */
+winid_t gsc_main_window = NULL;
+winid_t gsc_status_window = NULL;
+
+/* Whether nothing has been printed to the main window since it was last
+   cleared.  A window that is still empty can be cleared again for free, which
+   is the one moment a background colour change can repaint the pane without
+   costing the player any text; see SCR_TAG_BGCOLOUR. */
+int gsc_main_window_empty = TRUE;
+
+/*
+ * Transcript stream and input log.  These are NULL if there is no current
+ * collection of these strings.
+ */
+strid_t gsc_transcript_stream = NULL;
+strid_t gsc_inputlog_stream = NULL;
+
+/* Input read log stream, for reading back an input log. */
+strid_t gsc_readlog_stream = NULL;
+
+/* Options that may be turned off or set by command line flags. */
+int gsc_commands_enabled = TRUE;
+int gsc_abbreviations_enabled = TRUE;
+int gsc_unicode_enabled = TRUE;
+
+/* ADRIFT <=4 Runner default palette; the ADRIFT 5 loop overwrites these from
+   the adventure when it loads one.  See gsc_set_colour for where the numbers
+   come from. */
+glui32 gsc_colour_background = 0x000000;
+glui32 gsc_colour_output = 0x00ff00;
+glui32 gsc_colour_input = 0xff3232;
+
+/* Whether the game's own palette is in force ("glk colour", set by
+   gsc_set_colour in os_glk_commands.cpp).  The status line picks its style by
+   it too; where the Glk library has no zcolors extension the command is not
+   offered and this stays FALSE. */
+int gsc_colour_enabled = FALSE;
+/* Whether colour mode should be on before the game prints a word: the "-c"
+   command line switch, sparing the player a "glk colour on" at every launch, or
+   a game that asks for its own palette by the colours it was written in (see
+   gsc_colour_detect).  Acted on once the windows exist; see
+   gsc_colour_startup_apply. */
+int gsc_colour_startup = FALSE;
+/* True when Normal colour stylehints were already set before the first window
+   open (the -c path, and the detected one).  gsc_set_colour consumes this so it
+   can skip a pointless rebuild of the just-opened tree. */
+int gsc_colour_hints_preapplied = FALSE;
+/* The colour last named on the story window (gsc_colour_apply), so that drawing
+   the status bar in its own two colours can put the story's back afterwards --
+   a library whose zcolors are global as well as per-stream would otherwise go
+   on painting the story window in the bar's colours.  See gsc_status_end.  Only
+   read while colour mode is on, and gsc_set_colour colours the story window
+   before it turns the mode on, so it is always set by then. */
+glui32 gsc_colour_main_fg = 0;
+
+/* Cached measurement of the story window's style_Normal colours: -1 for not
+   yet measured, 0 for a library that cannot measure, 1 for a filled cache.
+   Measuring is not free -- under Spatterlight every glk_style_measure call is
+   a window flush plus a synchronous round-trip to the application process --
+   and the consumers ask often: gsc_colour_visible once per styled fragment
+   of output, the map redraw once per prompt while its pane is open.  The
+   answer only changes when colour mode itself toggles (gsc_set_colour, which
+   also rebuilds the window tree) or when the library's style preference
+   flips, and the latter reaches us as an Arrange event; those two places
+   reset the state to -1. */
+int gsc_normal_measure_state = -1;
+static glui32 gsc_normal_measured_fg, gsc_normal_measured_bg;
+
+/*
+ * gsc_normal_measure()
+ *
+ * Report the story window's style_Normal text and background colour as the
+ * library measures them -- the game palette when colour mode's stylehints
+ * are being honoured, the theme when they are ignored.  Answers from the
+ * cache above when it is warm; FALSE when the library cannot measure.
+ */
+scr_bool
+gsc_normal_measure (glui32 *fg, glui32 *bg)
+{
+  if (gsc_normal_measure_state < 0)
+    {
+      glui32 mfg, mbg;
+
+      if (glk_style_measure (gsc_main_window, style_Normal,
+                             stylehint_TextColor, &mfg)
+          && glk_style_measure (gsc_main_window, style_Normal,
+                                stylehint_BackColor, &mbg))
+        {
+          gsc_normal_measured_fg = mfg;
+          gsc_normal_measured_bg = mbg;
+          gsc_normal_measure_state = 1;
+        }
+      else
+        gsc_normal_measure_state = 0;
+    }
+
+  if (gsc_normal_measure_state == 0)
+    return FALSE;
+  *fg = gsc_normal_measured_fg;
+  *bg = gsc_normal_measured_bg;
+  return TRUE;
+}
+
+/*
+ * gsc_colour_visible()
+ *
+ * Whether colour mode is on *and* the library is really using the Normal
+ * colours we published as stylehints.  Spatterlight's "Games can set colors
+ * and styles" and Gargoyle's stylehint preference (despite the name, it also
+ * gates zcolors) both leave the story window on the theme while still
+ * accepting our stylehint_set / garglk_set_zcolors calls.  Places where a
+ * colour stands in for a style (the status bar, secondary-colour text) have
+ * to follow the theme too in that case.  The map measures style_Normal
+ * instead, so it tracks whichever palette the library is actually using.
+ *
+ * Detection is portable: after colour mode sets Normal TextColor to the
+ * game's output colour and (re)opens windows, measure that style -- if the
+ * library ignored the hint, measure reports the theme and we treat colours
+ * as not visible.  A preference change reaches us as an Arrange event
+ * (Spatterlight's glkimp compares do_styles), which redraws the bar and map.
+ * The measurement is cached between those events, so the common
+ * per-fragment call costs two comparisons.
+ */
+scr_bool
+gsc_colour_visible (void)
+{
+  glui32 fg, bg;
+
+  if (!gsc_colour_enabled)
+    return FALSE;
+  if (gsc_main_window == NULL)
+    return TRUE;
+
+  /* A library that cannot measure leaves no way to tell; believe the
+     colours are being honoured. */
+  if (!gsc_normal_measure (&fg, &bg))
+    return TRUE;
+  return fg == gsc_colour_output && bg == gsc_colour_background;
+}
+
+/* Adrift game to interpret. */
+scr_game gsc_game = NULL;
+
+/* ADRIFT 5 game.  When the file loaded at startup is an ADRIFT 5 game,
+ * gsc_a5_adv holds the parsed adventure and gsc_is_a5 is set; glk_main then
+ * runs the dedicated a5 turn loop (gsc_a5_main) instead of the scare engine.
+ * The game data itself comes off the startup Glk stream (a5model_load_buffer);
+ * gsc_game_path is the on-disk path, kept for the things that reopen the file
+ * later -- the Blorb resource map (gsc_a5_init_resources) and the autosave
+ * directory's file signature. */
+char gsc_game_path[2048];
+a5_adventure_t *gsc_a5_adv = NULL;
+int gsc_is_a5 = FALSE;
+
+/* A name for this game to file per-game settings under, for the games that
+   carry no IFID to use instead: ADRIFT 4 has none at all, and a few ADRIFT 5
+   games were built without one.  It is derived from the game file's contents
+   (gsc_hash_game_stream), so it follows the game when the file is moved or
+   renamed, and two games never share it the way two files both called
+   "adventure.taf" would.  Empty until the startup code has read the file. */
+char gsc_game_key[40];
+
+/* Current a5 run, kept here so status redraws on window resize can reach it. */
+a5_run_t *gsc_a5_run = NULL;
+
+/* Set when this session drives the game's TimeBased events off a wall-clock
+   1-second Glk timer (the real Runner's tmrEvents_Tick) instead of the
+   engine's deterministic one-tick-per-input substitute.  Decided per run by
+   gsc_a5_start_real_time. */
+int gsc_a5_real_time = FALSE;
+
+/* Set while the opening is replayed only to reach a saved state (the
+   Spatterlight autorestore boot), so a %PopUpInput% naming prompt in it is
+   answered with its default instead of asking the player again. */
+int gsc_a5_popup_silent = FALSE;
+
+/* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
+   lazily as a right-hand text buffer the first time the game routes text to
+   one, then kept open like the official Runner.  This build supports a single
+   side window (games such as Alien Diver use exactly one, "Status"), so every
+   <window NAME> shares it regardless of NAME. */
+winid_t gsc_a5_side_window = NULL;
+
+
+/*---------------------------------------------------------------------*/
+/*  Glk port utility functions                                         */
+/*---------------------------------------------------------------------*/
+
+/*
+ * gsc_put_literal()
+ *
+ * Print a string literal to the current Glk stream.  glk_put_string() takes
+ * a non-const char * for historical reasons but never writes through it, so
+ * this wrapper holds the const_cast needed to pass literals from C++.
+ */
+void
+gsc_put_literal (const char *string)
+{
+  if (gsc_main_window
+      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+    gsc_main_window_empty = FALSE;
+  glk_put_string (const_cast<char *> (string));
+}
+
+
+/*
+ * gsc_fatal()
+ *
+ * Fatal error handler.  The function returns, expecting the caller to
+ * abort() or otherwise handle the error.
+ */
+static void
+gsc_fatal (const char *string)
+{
+  /*
+   * If the failure happens too early for us to have a window, print
+   * the message to stderr.
+   */
+  if (!gsc_main_window)
+    {
+      fprintf (stderr, "\n\nINTERNAL ERROR: %s\n", string);
+
+      fprintf (stderr, "\nPlease record the details of this error, try to"
+                       " note down everything you did to cause it, and email"
+                       " this information to simon_baldwin@yahoo.com.\n\n");
+      return;
+    }
+
+  /* Cancel all possible pending window input events. */
+  glk_cancel_line_event (gsc_main_window, NULL);
+  glk_cancel_char_event (gsc_main_window);
+
+  /* Print a message indicating the error, and exit. */
+  glk_set_window (gsc_main_window);
+  glk_set_style (style_Normal);
+  gsc_put_literal ("\n\nINTERNAL ERROR: ");
+  gsc_put_literal (string);
+
+  gsc_put_literal ("\n\nPlease record the details of this error, try to"
+                   " note down everything you did to cause it, and email"
+                   " this information to simon_baldwin@yahoo.com.\n\n");
+}
+
+
+/*
+ * gsc_hint_window_styles()
+ * gsc_open_main_window()
+ * gsc_open_status_window()
+ *
+ * Window prologue shared by the ADRIFT <=4 and ADRIFT 5 main loops.
+ *
+ * Style hints have to be set before the window they apply to is opened.
+ * Centered text (<center>/<centre> sections) renders through two user styles
+ * hinted for centered justification: User1 plain, User2 bold (Glk styles
+ * don't combine, so <center><b> title lines need their own style).  Right-
+ * aligned text (<right>) uses style_Note with RightFlush.  Italic uses
+ * Emphasized (or Alert when combined with bold).  Libraries that ignore
+ * justification hints show alignment styles as ordinary left-flush text.
+ * User1 on the grid is the reverse-video status line.
+ *
+ * Header and Subheader are hinted the other way, left-flush.  This port uses
+ * them purely as stand-ins for a large <font size=...> and for <b> (see
+ * gsc_set_glk_style()) -- they never mean "this is a heading" -- but a library
+ * is free to render Header as a centered heading, and some do (Spatterlight's
+ * Zoom theme centers it).  Justification is a paragraph attribute, so a single
+ * Header-styled character is enough to centre the whole paragraph it starts:
+ * "The Warlord, The Princess & The Bulldog" opens every room description with
+ * a <font size=+10> drop cap, which centered the entire description under that
+ * theme.  In the Runner nothing but <center>/<right> ever moves text off the
+ * left margin, so pin these two down and leave alignment to those tags alone.
+ *
+ * The status window is a nicety; we can live without it.  It is opened
+ * separately from the main window because the <=4 path prints its
+ * "no game file" complaint in between.
+ */
+void
+gsc_hint_window_styles (void)
+{
+  glk_stylehint_set (wintype_TextBuffer, style_User1,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2,
+                     stylehint_Justification, stylehint_just_Centered);
+  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+
+  glk_stylehint_set (wintype_TextBuffer, style_Note,
+                     stylehint_Justification, stylehint_just_RightFlush);
+
+  glk_stylehint_set (wintype_TextBuffer, style_Header,
+                     stylehint_Justification, stylehint_just_LeftFlush);
+  glk_stylehint_set (wintype_TextBuffer, style_Subheader,
+                     stylehint_Justification, stylehint_just_LeftFlush);
+
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+}
+
+void
+gsc_open_main_window (void)
+{
+  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+  if (!gsc_main_window)
+    {
+      gsc_fatal ("GLK: Can't open main window");
+      glk_exit ();
+    }
+  glk_window_clear (gsc_main_window);
+  glk_set_window (gsc_main_window);
+  glk_set_style (style_Normal);
+}
+
+void
+gsc_open_status_window (void)
+{
+  gsc_status_window = glk_window_open (gsc_main_window,
+                                       winmethod_Above | winmethod_Fixed,
+                                       1, wintype_TextGrid, 0);
+}
+
+
+/*
+ * gsc_malloc()
+ *
+ * Non-failing malloc; call gsc_fatal and exit if memory allocation fails.
+ */
+void *
+gsc_malloc (size_t size)
+{
+  void *pointer;
+
+  pointer = (decltype(pointer)) malloc (size > 0 ? size : 1);
+  if (!pointer)
+    {
+      gsc_fatal ("GLK: Out of system memory");
+      glk_exit ();
+    }
+
+  return pointer;
+}
+
+/*
+ * gsc_realloc()
+ *
+ * Non-failing realloc; call gsc_fatal and exit if memory allocation fails.
+ */
+void *
+gsc_realloc (void *pointer, size_t size)
+{
+  void *result;
+
+  result = realloc (pointer, size > 0 ? size : 1);
+  if (!result)
+    {
+      gsc_fatal ("GLK: Out of system memory");
+      glk_exit ();
+    }
+
+  return result;
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  Glk port event functions                                           */
+/*---------------------------------------------------------------------*/
+
+/* Short delay before restarts; 1s, in 100ms segments. */
+static const glui32 GSC_DELAY_TIMEOUT = 100;
+static const glui32 GSC_DELAY_TIMEOUTS_COUNT = 10;
+
+/*
+ * gsc_short_delay()
+ *
+ * Delay for a short period; used before restarting a completed game, to
+ * improve the display where 'r', or confirming restart, triggers an otherwise
+ * immediate, and abrupt, restart.
+ */
+void
+gsc_short_delay (void)
+{
+  /* Ignore the call if the Glk doesn't have timers. */
+  if (glk_gestalt (gestalt_Timer, 0))
+    {
+      glui32 timeout;
+
+      /* Timeout in small chunks to minimize Glk jitter. */
+      glk_request_timer_events (GSC_DELAY_TIMEOUT);
+      for (timeout = 0; timeout < GSC_DELAY_TIMEOUTS_COUNT; timeout++)
+        {
+          event_t event;
+
+          gsc_event_wait (evtype_Timer, &event);
+        }
+      glk_request_timer_events (0);
+    }
+}
+
+
+/*
+ * gsc_event_wait_2()
+ * gsc_event_wait()
+ *
+ * Process Glk events until one of the expected type, or types, arrives.
+ * Return the event of that type.
+ */
+void
+gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
+{
+  assert (event);
+
+  do
+    {
+      glk_select (event);
+
+      switch (event->type)
+        {
+        case evtype_Arrange:
+        case evtype_Redraw:
+          gsc_refresh_windows ();
+          break;
+
+        case evtype_MouseInput:
+          /* A click on a room starts a walk, and the cancelled line request
+             ends the wait as a LineInput event.  Only for the scare engine:
+             the a5 loop reads its lines through gsc_a5_await_line, and its
+             other waits (a <waitkey>, a popup choice) pass through here with
+             no line request to cancel. */
+          if (!gsc_is_a5)
+            gsc_map_click (event);
+          break;
+        }
+    }
+  while (!(event->type == wait_type_1 || event->type == wait_type_2));
+
+#if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
+  /*
+   * A completed command line ends a turn, so any graphic drawn before it is no
+   * longer a candidate for redraw-after-clear on later turns.
+   */
+  if (event->type == evtype_LineInput)
+    gsc_graphic_drawn_since_input = FALSE;
+#endif
+
+#ifdef GSC_HAVE_TITLE_WINDOW
+  /* The player's first input dismisses any title/cover image window. */
+  if (!gsc_seen_input
+      && (event->type == evtype_LineInput || event->type == evtype_CharInput))
+    {
+      gsc_seen_input = TRUE;
+      gsc_close_title_graphic ();
+    }
+#endif
+}
+
+void
+gsc_event_wait (glui32 wait_type, event_t * event)
+{
+  assert (event);
+
+  gsc_event_wait_2 (wait_type, evtype_None, event);
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  Glk port file functions                                            */
+/*---------------------------------------------------------------------*/
+
+/*
+ * os_open_file()
+ *
+ * Open a file for save or restore, and return a Glk stream for the opened
+ * file.
+ */
+void *
+os_open_file (scr_bool is_save)
+{
+  glui32 usage, fmode;
+  frefid_t fileref;
+  strid_t stream;
+
+  usage = fileusage_SavedGame | fileusage_BinaryMode;
+  fmode = is_save ? filemode_Write : filemode_Read;
+
+  fileref = glk_fileref_create_by_prompt (usage, fmode, 0);
+  if (!fileref)
+    return NULL;
+
+  if (!is_save && !glk_fileref_does_file_exist (fileref))
+    {
+      glk_fileref_destroy (fileref);
+      return NULL;
+    }
+
+  stream = glk_stream_open_file (fileref, fmode, 0);
+  glk_fileref_destroy (fileref);
+
+  return stream;
+}
+
+
+/*
+ * os_write_file()
+ * os_read_file()
+ *
+ * Write/read the given buffered data to/from the open Glk stream.
+ */
+void
+os_write_file (void *opaque, const scr_byte *buffer, scr_int length)
+{
+  strid_t stream = (strid_t) opaque;
+  assert (opaque && buffer);
+
+  glk_put_buffer_stream (stream, (char *) buffer, length);
+}
+
+scr_int
+os_read_file (void *opaque, scr_byte *buffer, scr_int length)
+{
+  strid_t stream = (strid_t) opaque;
+  assert (opaque && buffer);
+
+  return glk_get_buffer_stream (stream, (char *) buffer, length);
+}
+
+
+/*
+ * os_close_file()
+ *
+ * Close the opened Glk stream.
+ */
+void
+os_close_file (void *opaque)
+{
+  strid_t stream = (strid_t) opaque;
+  assert (opaque);
+
+  glk_stream_close (stream, NULL);
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  main() and options parsing                                         */
+/*---------------------------------------------------------------------*/
+
+/* Loading message flush delay timeout. */
+static const glui32 GSC_LOADING_TIMEOUT = 100;
+
+/* Enumerated game end options. */
+enum gsc_end_option { GAME_RESTART, GAME_UNDO, GAME_QUIT };
+
+/*
+ * The following value needs to be passed between the startup_code and main
+ * functions.
+ */
+static const char *gsc_game_message = NULL;
+
+
+/*
+ * gsc_callback()
+ *
+ * Callback function for reading in game and restore file data; fills a
+ * buffer with TAF or TAS file data from a Glk stream, and returns the byte
+ * count.
+ */
+static scr_int
+gsc_callback (void *opaque, scr_byte *buffer, scr_int length)
+{
+  strid_t stream = (strid_t) opaque;
+  assert (stream);
+
+  return glk_get_buffer_stream (stream, (char *) buffer, length);
+}
+
+
+/*
+ * gsc_get_ending_option()
+ *
+ * Offer the option to restart, undo, or quit.  Returns the selected game
+ * end option.  Called on game completion.
+ */
+static enum gsc_end_option
+gsc_get_ending_option (void)
+{
+  const char *echo;
+  enum gsc_end_option option;
+
+  /* Ensure back to normal style, and update status. */
+  gsc_reset_glk_style ();
+  gsc_status_notify ();
+
+  /* Prompt for restart, undo, or quit, and wait for one of the three. */
+  gsc_put_literal ("\nWould you like to RESTART, UNDO a turn, or QUIT? ");
+  switch (gsc_get_choice_key ("RUQ"))
+    {
+    case 'R':
+      echo = "Restart";
+      option = GAME_RESTART;
+      break;
+    case 'U':
+      echo = "Undo";
+      option = GAME_UNDO;
+      break;
+    default:
+      echo = "Quit";
+      option = GAME_QUIT;
+      break;
+    }
+
+  /* Echo the confirmation response, and a new line. */
+  glk_set_style (style_Input);
+  glk_put_string ((char *) echo);
+  glk_set_style (style_Normal);
+  glk_put_char ('\n');
+
+  return option;
+}
+
+
+/*
+ * gsc_apply_known_game_assists()
+ *
+ * Hardcoded per-game assist defaults.  A few catalogued ADRIFT games are
+ * unwinnable, or have whole goal chains unreachable, in the faithful Runner
+ * behaviour because of the exact authoring accidents the opt-in assists were
+ * written for.  Each row below was measured on the headless harness against
+ * the game's walkthrough, with and without the assist (2026-09-26):
+ *
+ *  - Combat assist.  Every character's Accuracy and Agility left at 0, so
+ *    under the 4.0 accuracy>agility hit test no attack ever lands.
+ *    The Town of Azra (a 3.9 game upgraded to the 4.0 format) and The tunnels
+ *    of Athylon cannot be won; in Enigma Creature every fight is an endless
+ *    exchange of dodges, though the tasks around them still finish the game.
+ *  - Move assist.  Move tasks whose "To:" combo was left unset, which the
+ *    Runner ignores.  To hell & beyond (with combat too): the player never
+ *    leaves the mansion.  The X-Files: A New Beginning: the move summoning
+ *    Dean to his diner, so he and his conversation never appear.  HYPER
+ *    Battle System: the move bringing the Flare Rat into the Attack Menu
+ *    (cosmetic only -- the fight is driven by variables, not presence).
+ *  - Repeat assist.  Pre-4.0 games where a finished task blocks a command
+ *    the game needs again.  In The Long Journey Home and Inverness Castle a
+ *    spent catch-all task answers every later command, even "quit", with
+ *    "You have already done that."  The Vampire with a Conscience and The
+ *    Merry Murders wall at 70/100 and 120/135 on the same class of bug, but
+ *    each is a single bad field, so the patch table repairs them instead and
+ *    they are not listed below: one notice, and no session-wide change to
+ *    spent-task handling.  After "glk patches off" their walls are back, and
+ *    "glk repeatassist on" is then the way past them.
+ *  - Room assist.  A task left set to run in no room at all.  Space Run's
+ *    ending is behind one; in The Hangover it is the doctor taking the fries
+ *    (5/7 without, 6/7 with -- a separate bug still blocks the last point).
+ *  - Capacity recompute.  Welcome to Wonderland: the characters' held
+ *    objects phantom-weigh the ethereal knife past the player's limit in the
+ *    4.0 running total, so the game's only weapon cannot be taken; with it
+ *    and combat assist the game is won.
+ *
+ * Not listed, although their walkthrough rows once carried an assist: games
+ * where it measured no difference (g7056, Ghoster, Noximion; combat in Space
+ * Run) and Goldilocks, whose route the capacity switch breaks.  True
+ * 3.9/3.8-signature games (e.g. Villains and Kings) are deliberately not
+ * listed either: their combat is repaired unconditionally by the engine's
+ * legacy hit model.
+ *
+ * For these known games the matching assists default to on, applied at game
+ * start; "glk <assist> off" still turns each one off, and a one-line notice is
+ * printed at startup (see gsc_main).
+ *
+ * Games are recognised by the TAF's GameName and GameAuthor, compared
+ * case-insensitively, so every release of a game is covered (the two known
+ * Town of Azra releases differ only in CompileDate).  Author strings are the
+ * TAF's raw Windows-1252 bytes.
+ */
+enum
+{
+  GSC_ASSIST_COMBAT = 1 << 0,
+  GSC_ASSIST_MOVE = 1 << 1,
+  GSC_ASSIST_REPEAT = 1 << 2,
+  GSC_ASSIST_ROOM = 1 << 3,
+  GSC_ASSIST_CAPACITY = 1 << 4
+};
+
+typedef const struct
+{
+  const char * const game_name;    /* TAF GameName. */
+  const char * const game_author;  /* TAF GameAuthor. */
+  const int assists;               /* GSC_ASSIST_* to default on. */
+  const char * const reason;       /* Startup notice: why assists are on. */
+} gsc_game_assist_t;
+
+static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
+  {"The Town of Azra", "S. P. Tencza", GSC_ASSIST_COMBAT,
+   "This game's combat cannot be won as authored"},
+  {"The tunnels of Athylon", "Anonymous", GSC_ASSIST_COMBAT,
+   "This game's combat cannot be won as authored"},
+  {"Enigma Creature", "Matthew Moya", GSC_ASSIST_COMBAT,
+   "This game's combat cannot be won as authored"},
+  {"To hell & beyond", "Steingr\xedmur J\xf3nsson",
+   GSC_ASSIST_COMBAT | GSC_ASSIST_MOVE,
+   "This game cannot be completed as authored"},
+  {"The X-Files: A New Beginning", "Superbone Ali", GSC_ASSIST_MOVE,
+   "A character in this game never appears as authored"},
+  /* The GameName is the game's <wait>-animated title screen with the tags
+     stripped, hence the run-together "1.1Copyright". */
+  {"HYPER Battle System Version 1.1Copyright 2002 Seciden Mencarde",
+   "Seciden Mencarde", GSC_ASSIST_MOVE,
+   "A character in this game never appears as authored"},
+  {"The Long Journey Home", "Danny Chabino", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"Inverness Castle", "David Good", GSC_ASSIST_REPEAT,
+   "This game cannot be completed as authored"},
+  {"Space Run", "Matthew Moya", GSC_ASSIST_ROOM,
+   "This game cannot be completed as authored"},
+  {"The Hangover", "Red Conine", GSC_ASSIST_ROOM,
+   "Part of this game cannot be reached as authored"},
+  {"Welcome to Wonderland", "The Cheshire Cat (Michael Suhar)",
+   GSC_ASSIST_COMBAT | GSC_ASSIST_CAPACITY,
+   "This game cannot be completed as authored"},
+  {NULL, NULL, 0, NULL}
+};
+
+/* Each assist's name for the startup notice, the command that turns it back
+   off, and its getter and setter, in the order the notice lists them. */
+typedef const struct
+{
+  const int flag;
+  const char * const name;
+  const char * const off_command;
+  scr_bool (*const get_state) (void);
+  void (*const set_state) (scr_bool);
+} gsc_assist_switch_t;
+
+static gsc_assist_switch_t GSC_ASSIST_SWITCHES[] = {
+  {GSC_ASSIST_COMBAT, "combat assist", "glk combatassist off",
+   scr_get_combat_assist, scr_set_combat_assist},
+  {GSC_ASSIST_MOVE, "move assist", "glk moveassist off",
+   scr_get_move_assist, scr_set_move_assist},
+  {GSC_ASSIST_REPEAT, "repeat assist", "glk repeatassist off",
+   scr_get_repeat_assist, scr_set_repeat_assist},
+  {GSC_ASSIST_ROOM, "room assist", "glk roomassist off",
+   scr_get_room_assist, scr_set_room_assist},
+  {GSC_ASSIST_CAPACITY, "carrying capacity recompute", "glk capacity off",
+   gsc_get_capacity, gsc_set_capacity},
+  {0, NULL, NULL, NULL, NULL}
+};
+
+/* Which assists were switched on automatically (GSC_ASSIST_* bits), and the
+   matched table row's reason wording, for the startup notice. */
+static int gsc_assists_auto = 0;
+static const char *gsc_assist_auto_reason = NULL;
+
+static void
+gsc_apply_known_game_assists (scr_game game)
+{
+  const char *name, *author;
+  gsc_game_assist_t *entry;
+  gsc_assist_switch_t *assist;
+
+  name = scr_get_game_name (game);
+  author = scr_get_game_author (game);
+  if (!name || !author)
+    return;
+
+  for (entry = GSC_GAME_ASSIST_TABLE; entry->game_name; entry++)
+    {
+      if (scr_strcasecmp (name, entry->game_name) == 0
+          && scr_strcasecmp (author, entry->game_author) == 0)
+        {
+          for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
+            {
+              if ((entry->assists & assist->flag) && !assist->get_state ())
+                {
+                  assist->set_state (TRUE);
+                  gsc_assists_auto |= assist->flag;
+                }
+            }
+          if (gsc_assists_auto)
+            gsc_assist_auto_reason = entry->reason;
+          break;
+        }
+    }
+}
+
+
+/*
+ * gsc_print_auto_assists()
+ *
+ * Print a list of the automatically enabled assists, as "A", "A and B" or
+ * "A, B and C", using each one's name or its off command.
+ */
+static void
+gsc_print_auto_assists (scr_bool commands)
+{
+  gsc_assist_switch_t *assist;
+  int remaining = 0, printed = 0;
+
+  for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
+    remaining += (gsc_assists_auto & assist->flag) != 0;
+
+  for (assist = GSC_ASSIST_SWITCHES; assist->flag; assist++)
+    {
+      if (!(gsc_assists_auto & assist->flag))
+        continue;
+      if (printed > 0)
+        gsc_normal_string (remaining == 1 ? " and " : ", ");
+      if (commands)
+        gsc_standout_string (assist->off_command);
+      else
+        gsc_normal_string (assist->name);
+      printed++;
+      remaining--;
+    }
+}
+
+
+/*
+ * gsc_hash_game_stream()
+ *
+ * Set gsc_game_key from the contents of the game file, and rewind the stream
+ * so that the loader still sees it whole.
+ *
+ * This is only ever a name to hang a settings file off, never a claim about
+ * the file's contents, so a 64-bit FNV-1a of the bytes with the length hung
+ * on the end is ample: the whole population it has to keep apart is one
+ * player's game folder.  It is deliberately not the Treaty of Babel IFID --
+ * that is a published identifier, and inventing a private one that looks like
+ * it would be worse than an obviously local name.
+ */
+static void
+gsc_hash_game_stream (strid_t stream)
+{
+  static const unsigned long long fnv_offset = 0xcbf29ce484222325ULL;
+  static const unsigned long long fnv_prime = 0x100000001b3ULL;
+  unsigned long long hash = fnv_offset;
+  unsigned long length = 0;
+  char buffer[4096];
+  glui32 count;
+
+  do
+    {
+      glui32 i;
+
+      count = glk_get_buffer_stream (stream, buffer, (glui32) sizeof buffer);
+      for (i = 0; i < count; i++)
+        hash = (hash ^ (unsigned char) buffer[i]) * fnv_prime;
+      length += count;
+    }
+  while (count == sizeof buffer);
+
+  glk_stream_set_position (stream, 0, seekmode_Start);
+  snprintf (gsc_game_key, sizeof gsc_game_key, "%016llx%08lx", hash, length);
+}
+
+
+/*
+ * gsc_startup_code()
+ * gsc_main
+ *
+ * Together, these functions take the place of the original main().  The
+ * first one is called from the platform-specific startup_code(), to parse
+ * and generally handle options.  The second is called from glk_main, and
+ * does the real work of running the game.
+ */
+static int
+gsc_startup_code (strid_t game_stream, strid_t restore_stream,
+                  scr_uint trace_flags, scr_bool enable_debugger,
+                  scr_bool stable_random, const scr_char *locale)
+{
+  winid_t window = NULL;
+  assert (game_stream);
+
+  /* Open a temporary Glk main window. */
+#ifdef SPATTERLIGHT
+  /* Not when an autorestore is coming: during one the host has already
+     rebuilt its windows from its GUI snapshot, and a window this process
+     opens and closes takes the host's restored window of the same peer id
+     down with it (the host reuses an existing peer on open, but a close is
+     unconditional).  See gsc_autorestore_wanted. */
+  if (!gsc_autorestore_wanted ())
+#endif
+    window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+  if (window)
+    {
+      /* Clear and initialize the temporary window. */
+      glk_window_clear (window);
+      glk_set_window (window);
+      glk_set_style (style_Normal);
+
+      /*
+       * Display a brief loading game message; here we have to use a timeout
+       * to ensure that the text is flushed to Glk.
+       */
+      gsc_put_literal ("Loading game...\n");
+      if (glk_gestalt (gestalt_Timer, 0))
+        {
+          event_t event;
+
+          glk_request_timer_events (GSC_LOADING_TIMEOUT);
+          do
+            {
+              glk_select (&event);
+            }
+          while (event.type != evtype_Timer);
+          glk_request_timer_events (0);
+        }
+    }
+
+  /* If the Glk libarary does not support unicode, disable it. */
+  if (!gsc_has_unicode || !glk_gestalt (gestalt_Unicode, 0))
+    gsc_unicode_enabled = FALSE;
+
+  /*
+   * If a locale was requested, set it in the core interpreter now.  This
+   * locale will preempt any auto-detected one found from inspecting the
+   * game on creation.  After game creation, the Glk locale is synchronized
+   * to the core interpreter's locale.
+   */
+  if (locale)
+    scr_set_locale (locale);
+
+  /*
+   * Set tracing flags, then try to create a Scarier game reference from the
+   * TAF file.  Since we need this in our call from glk_main, we have to keep
+   * it in a module static variable.  If we can't open the TAF file, then
+   * we'll set the pointer to NULL, and complain about it later in main.
+   * Passing the message string around like this is a nuisance...
+   */
+  scr_set_trace_flags (trace_flags);
+
+  /*
+   * Select portable, predictable random number generation *before* loading the
+   * game.  Game creation (run_create -> gs_create) draws random initial event
+   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
+   * leave those initial times -- and hence the whole event schedule -- governed
+   * by the unseeded, time-based RNG, making event-heavy games nondeterministic
+   * run to run even with determinism mode on.
+   */
+  if (stable_random)
+    {
+      scr_set_portable_random (TRUE);
+      scr_reseed_random_sequence (scr_default_random_seed ());
+    }
+
+  /* Name the game file, while the stream is still open and at its start: both
+     loaders below want the file from the beginning, and only one of them (the
+     ADRIFT 5 one) finds an IFID inside it. */
+  gsc_hash_game_stream (game_stream);
+
+  /*
+   * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
+   * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
+   * reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5 file, so
+   * we try it first from the already-open Glk stream; on success we run the
+   * dedicated a5 turn loop (gsc_a5_main) and skip the scare path entirely.
+   *
+   * Loading from the Glk stream (rather than fopen of gsc_game_path) is required
+   * for hosts like Emglken that open the story via Dialog with FILESYSTEM=0.
+   */
+  {
+    glui32 file_len;
+    char *file_buf;
+    glui32 got;
+
+    glk_stream_set_position (game_stream, 0, seekmode_End);
+    file_len = glk_stream_get_position (game_stream);
+    glk_stream_set_position (game_stream, 0, seekmode_Start);
+
+    if (file_len > 0)
+      {
+        file_buf = (char *) malloc (file_len);
+        if (file_buf != NULL)
+          {
+            got = glk_get_buffer_stream (game_stream, file_buf, file_len);
+            /* Rewind for the ADRIFT <=4 path if A5 load fails. */
+            glk_stream_set_position (game_stream, 0, seekmode_Start);
+            if (got == file_len)
+              gsc_a5_adv = a5model_load_buffer ((uint8_t *) file_buf, file_len);
+            else
+              free (file_buf);
+          }
+      }
+  }
+
+  if (gsc_a5_adv)
+    {
+      gsc_is_a5 = TRUE;
+      gsc_game = NULL;
+      gsc_game_message = NULL;
+      /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
+         knows nothing about, an ADRIFT 5 adventure carries the author's
+         own colours; colour mode uses those. */
+      gsc_colour_background = gsc_a5_adv->bg_colour;
+      gsc_colour_output = gsc_a5_adv->output_colour;
+      gsc_colour_input = gsc_a5_adv->input_colour;
+#ifdef GSC_HAVE_ZCOLORS
+      /* An adventure that chose its own colours starts in them, as "-c"
+         would; asked here, while the loading window is still up to measure
+         the theme against. */
+      if (gsc_colour_detect (window))
+        gsc_colour_startup = TRUE;
+#endif
+      glk_stream_close (game_stream, NULL);
+      if (restore_stream)
+        glk_stream_close (restore_stream, NULL);
+      if (window)
+        glk_window_close (window, NULL);
+#ifdef GARGLK
+      if (gsc_a5_adv->title && gsc_a5_adv->title[0])
+        {
+          /* The title may carry ADRIFT markup (Trapped's is
+             "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
+             down to plain text before handing it to the host UI, exactly as
+             the in-game title Display does (see a5run.cpp). */
+          char *tp = a5text_render_plain (gsc_a5_adv->title);
+          garglk_set_story_name (tp);
+          garglk_set_story_title (tp);
+          free (tp);
+        }
+#endif
+      return TRUE;
+    }
+
+  /* Patching happens as the game is read, so the setting has to be in place
+     before it is; "glk patches off" then applies from the next load on. */
+  scr_set_game_patches (gsc_patches_enabled);
+
+  gsc_game = scr_game_from_callback (gsc_callback, game_stream);
+  if (!gsc_game)
+    {
+      gsc_game = NULL;
+      gsc_game_message = "Unable to load an Adrift game from the"
+                         " requested file.";
+    }
+  else
+    gsc_game_message = NULL;
+  glk_stream_close (game_stream, NULL);
+
+  /*
+   * If the game was created successfully and there is a restore stream, try
+   * to immediately restore the game from that stream.
+   */
+  if (gsc_game && restore_stream)
+    {
+      if (!scr_load_game_from_callback (gsc_game, gsc_callback, restore_stream))
+        {
+          scr_free_game (gsc_game);
+          gsc_game = NULL;
+          gsc_game_message = "Unable to restore this Adrift game from the"
+                             " requested file.";
+        }
+      else
+        gsc_game_message = NULL;
+    }
+  if (restore_stream)
+    glk_stream_close (restore_stream, NULL);
+
+  /* If successful, set game debugging and synchronize to the core's locale. */
+  if (gsc_game)
+    {
+      scr_set_game_debugger_enabled (gsc_game, enable_debugger);
+      gsc_set_locale (scr_get_locale ());
+
+      /* Default the assists on for known broken games, before the game's
+         battle_start() reads the combat-assist flag. */
+      gsc_apply_known_game_assists (gsc_game);
+
+#ifdef GSC_HAVE_ZCOLORS
+      /* A game whose text was written for the Runner's pane starts in the
+         Runner's palette, as "-c" would; asked here, while the loading window
+         is still up to measure the theme against. */
+      if (gsc_colour_detect (window))
+        gsc_colour_startup = TRUE;
+#endif
+    }
+
+  /* Close the temporary window. */
+  if (window)
+    glk_window_close (window, NULL);
+
+  /* Set title of game, and pass it to the host UI via wintitle().  gsc_game is
+     NULL when the load/restore above failed (gsc_game_message is set instead),
+     and scr_get_game_name would dereference it -- guard as the debugger/locale
+     block above does. */
+#ifdef GARGLK
+    if (gsc_game)
+      {
+        garglk_set_story_name(scr_get_game_name(gsc_game));
+        garglk_set_story_title(scr_get_game_name(gsc_game));
+      }
+#endif
+
+  /* Game set up, perhaps successfully. */
+  return TRUE;
+}
+
+static void
+gsc_main (void)
+{
+  scr_bool is_running;
+  int autorestore = FALSE;
+
+#ifdef SPATTERLIGHT
+  /* A failed game load has no state to restore onto, and needs a window to
+     report itself in -- take the normal path and print the complaint. */
+  autorestore = gsc_game != NULL && gsc_autorestore_wanted ();
+#endif
+
+  /* Ensure Scarier internal types have the right sizes. */
+  if (!(sizeof (scr_byte) == 1 && sizeof (scr_char) == 1
+        && sizeof (scr_uint) >= 4 && sizeof (scr_int) >= 4
+        && sizeof (scr_uint) <= 8 && sizeof (scr_int) <= 8))
+    {
+      gsc_fatal ("GLK: Types sized incorrectly, recompilation is needed");
+      glk_exit ();
+    }
+
+  gsc_hint_window_styles ();
+
+  /* Create the Glk window, and set its stream as the current one.  An
+     autorestore adopts the archived windows below instead: opening any here
+     would cost the player the host's restored ones (see
+     gsc_autorestore_wanted). */
+  if (!autorestore)
+    {
+      /* Starting in colour ("-c", or a game that needs its palette to be
+         read) publishes its colours before the first open. */
+      gsc_colour_startup_prepare ();
+      gsc_open_main_window ();
+
+      /* If there's a problem with the game file, complain now. */
+      if (!gsc_game)
+        {
+          assert (gsc_game_message);
+          gsc_header_string ("Glk Scarier Error\n\n");
+          gsc_normal_string (gsc_game_message);
+          gsc_normal_char ('\n');
+          glk_exit ();
+        }
+
+      gsc_open_status_window ();
+
+      /* Into the game's palette before a word is printed. */
+      gsc_colour_startup_apply ();
+    }
+
+  /* Does the game define a MAP verb of its own?  If so it keeps it, and the
+     map pane is reached with "glk map" instead. */
+  gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+
+  /* Say so if this game was one the engine's patch table corrects, and how to
+     play it as published instead.  Same conditions as the assist note below:
+     not on an autorestore, where it is already in the restored transcript. */
+  if (!autorestore && scr_get_applied_game_patch ())
+    {
+      gsc_normal_string ("[A bug in this game's own data has been corrected: ");
+      gsc_normal_string (scr_get_applied_game_patch ());
+      gsc_normal_string (".  Type ");
+      gsc_standout_string ("glk patches off");
+      gsc_normal_string (" and reload the game to play it exactly as its"
+                         " author left it.]\n\n");
+    }
+
+  /* Mention any assists switched on automatically for this known game (see
+     gsc_apply_known_game_assists), and how to get faithful behaviour back.
+     Not on an autorestore: the note is already in the restored transcript,
+     and there is no window to print it to yet. */
+  if (!autorestore && gsc_assists_auto)
+    {
+      const scr_bool several = (gsc_assists_auto & (gsc_assists_auto - 1)) != 0;
+
+      gsc_normal_char ('[');
+      gsc_normal_string (gsc_assist_auto_reason
+                         ? gsc_assist_auto_reason
+                         : "This game cannot be completed as authored");
+      gsc_normal_string (", so ");
+      gsc_print_auto_assists (FALSE);
+      gsc_normal_string (several ? " have" : " has");
+      gsc_normal_string (" been enabled.  Type ");
+      gsc_print_auto_assists (TRUE);
+      gsc_normal_string (" to restore the original ADRIFT Runner"
+                         " behaviour.]\n\n");
+    }
+
+#ifdef SPATTERLIGHT
+  /* When a Spatterlight autosave exists, replace the whole state -- engine
+     and Glk library both -- with the saved one before entering the
+     interpreter loop.  The game was already created at startup; loading the
+     saved state marks the player's room seen, so run_main_loop skips the
+     intro and drops straight to the command prompt, where os_read_line
+     skips one prompt print (the restored transcript already ends with it).
+     The app restores the window contents from its own GUI snapshot; no
+     window has been opened above, so the restored library supplies them. */
+  if (autorestore)
+    {
+      gsc_autorestore_replace_state (gsc_sc_apply_all);
+      /* The app resumes any interrupted sound and restores the graphics
+         window pixels itself; the engine must not replay them. */
+      scr_note_resources_synced (gsc_game);
+      /* ...and the blank line the engine prints before every prompt is in
+         the restored transcript too (the autosave was taken between it and
+         the prompt), so skip that one reprint as well. */
+      scr_note_autorestored ();
+      glk_set_window (gsc_main_window);
+      glk_set_style (style_Normal);
+      gsc_autorestored = TRUE;
+    }
+#endif
+
+  /* Bring back the map if the player left this game with one.  Before the
+     intro rather than after it, unlike the ADRIFT 5 path: there is no title
+     page here to keep the screen to itself, and opening the pane first spares
+     the opening text being laid out twice.  It usually opens a moment later
+     anyway -- the starting room is not marked seen until it has been
+     described, so there is nothing to draw yet and the first prompt's redraw
+     is what actually reveals it.  An autorestore keeps the archived pane
+     instead, whatever it was. */
+  if (!autorestore)
+    gsc_map_auto_reveal ();
+
+  /* Repeat the game until no more restarts requested. */
+  is_running = TRUE;
+  while (is_running)
+    {
+#ifdef GSC_HAVE_TITLE_WINDOW
+      /* Each (re)start replays the intro, so allow the title window again
+         -- except on the autorestore pass, whose title-window state was
+         just recovered from the archive. */
+#ifdef SPATTERLIGHT
+      if (!gsc_autorestored)
+#endif
+        gsc_seen_input = FALSE;
+#endif
+      /* Run the game until it ends, or the user quits. */
+      gsc_status_notify ();
+      scr_interpret_game (gsc_game);
+
+      /*
+       * If the game did not complete, the user quit explicitly, so leave the
+       * game repeat loop.
+       */
+      if (!scr_has_game_completed (gsc_game))
+        break;
+
+      /*
+       * If reading from an input log, close it now.  We need to request a
+       * user selection, probably modal, and after that we probably don't
+       * want the follow-on readlog data being used as game input.
+       */
+      if (gsc_readlog_stream)
+        {
+          glk_stream_close (gsc_readlog_stream, NULL);
+          gsc_readlog_stream = NULL;
+        }
+
+      /*
+       * Get user selection of restart, undo a turn, or quit completed game.
+       * If undo is unavailable (this should not be possible), degrade to
+       * restart.
+       */
+      switch (gsc_get_ending_option ())
+        {
+        case GAME_RESTART:
+          gsc_short_delay ();
+          scr_restart_game (gsc_game);
+          break;
+
+        case GAME_UNDO:
+          if (scr_is_game_undo_available (gsc_game))
+            {
+              scr_undo_game_turn (gsc_game);
+              gsc_normal_string ("The previous turn has been undone.\n");
+            }
+          else
+            {
+              gsc_normal_string ("Sorry, no undo is available.\n");
+              gsc_short_delay ();
+              scr_restart_game (gsc_game);
+            }
+          break;
+
+        case GAME_QUIT:
+          is_running = FALSE;
+          break;
+        }
+    }
+
+  /* All done -- release game resources. */
+  map_free (gsc_map);
+  gsc_map = NULL;
+  gsc_map_screen_drop ();
+  scr_free_game (gsc_game);
+
+  /* Close any open transcript, input log, and/or read log. */
+  if (gsc_transcript_stream)
+    {
+      glk_stream_close (gsc_transcript_stream, NULL);
+      gsc_transcript_stream = NULL;
+    }
+  if (gsc_inputlog_stream)
+    {
+      glk_stream_close (gsc_inputlog_stream, NULL);
+      gsc_inputlog_stream = NULL;
+    }
+  if (gsc_readlog_stream)
+    {
+      glk_stream_close (gsc_readlog_stream, NULL);
+      gsc_readlog_stream = NULL;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  Linkage between Glk entry/exit calls and the real interpreter      */
+/*---------------------------------------------------------------------*/
+
+/*
+ * Safety flags, to ensure we always get startup before main, and that
+ * we only get a call to main once.
+ */
+static int gsc_startup_called = FALSE,
+           gsc_main_called = FALSE;
+
+
+/*
+ * glk_main()
+ *
+ * Main entry point for Glk.  Here, all startup is done, and we call our
+ * function to run the game, or to report errors if gsc_game_message is set.
+ */
+void
+glk_main (void)
+{
+  assert (gsc_startup_called && !gsc_main_called);
+  gsc_main_called = TRUE;
+
+  /* ADRIFT 5 games run the dedicated a5 turn loop; everything else (ADRIFT
+   * <=4) uses the scare engine. */
+  if (gsc_is_a5)
+    gsc_a5_main ();
+  else
+    gsc_main ();
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  Glk linkage relevant only to the UNIX platform                     */
+/*---------------------------------------------------------------------*/
+
+extern "C" {
+#include "glkstart.h"
+}
+
+/*
+ * Glk arguments for UNIX versions of the Glk interpreter.
+ */
+glkunix_argumentlist_t glkunix_arguments[] = {
+  {(char *) "-nc", glkunix_arg_NoValue,
+   (char *) "-nc        No local handling for Glk special commands"},
+  {(char *) "-na", glkunix_arg_NoValue,
+   (char *) "-na        Turn off abbreviation expansions"},
+  {(char *) "-nu", glkunix_arg_NoValue,
+   (char *) "-nu        Turn off any use of Unicode output"},
+#ifdef GSC_HAVE_ZCOLORS
+  {(char *) "-c", glkunix_arg_NoValue,
+   (char *) "-c         Start in the game's own Adrift colours"},
+#endif
+  {(char *) "-r", glkunix_arg_ValueFollows,
+   (char *) "-r FILE    Restore from FILE on starting the game"},
+  {(char *) "", glkunix_arg_ValueCanFollow,
+   (char *) "filename   game to run"},
+  {NULL, glkunix_arg_End, NULL}
+};
+
+
+/*
+ * glkunix_startup_code()
+ *
+ * Startup entry point for UNIX versions of Glk interpreter.  Glk will call
+ * glkunix_startup_code() to pass in arguments.  On startup, parse arguments
+ * and open a Glk stream to the game, then call the generic gsc_startup_code()
+ * to build a game from the stream.  On error, set the message in
+ * gsc_game_message; the core gsc_main() will report it when it's called.
+ */
+int
+glkunix_startup_code (glkunix_startup_t * data)
+{
+  int argc = data->argc;
+  scr_char **argv = data->argv;
+  int argv_index;
+  scr_char *restore_from;
+  const scr_char *locale;
+  strid_t game_stream, restore_stream;
+  scr_uint trace_flags;
+  scr_bool enable_debugger, stable_random;
+  assert (!gsc_startup_called);
+  gsc_startup_called = TRUE;
+
+#ifdef GARGLK
+  garglk_set_program_name("Scarier " SCARIER_VERSION);
+  garglk_set_program_info("Scarier " SCARIER_VERSION
+      " by Simon Baldwin and Mark J. Tilford");
+#endif
+
+  /* Handle command line arguments. */
+  restore_from = NULL;
+  for (argv_index = 1;
+       argv_index < argc && argv[argv_index][0] == '-'; argv_index++)
+    {
+      if (strcmp (argv[argv_index], "-nc") == 0)
+        {
+          gsc_commands_enabled = FALSE;
+          continue;
+        }
+      if (strcmp (argv[argv_index], "-na") == 0)
+        {
+          gsc_abbreviations_enabled = FALSE;
+          continue;
+        }
+      if (strcmp (argv[argv_index], "-nu") == 0)
+        {
+          gsc_unicode_enabled = FALSE;
+          continue;
+        }
+#ifdef GSC_HAVE_ZCOLORS
+      /* Only offered where the Glk library has the zcolors extension, exactly
+         as "glk colour" is -- accepting it elsewhere would promise a palette
+         that could never arrive. */
+      if (strcmp (argv[argv_index], "-c") == 0)
+        {
+          gsc_colour_startup = TRUE;
+          continue;
+        }
+#endif
+      if (strcmp (argv[argv_index], "-r") == 0)
+        {
+          restore_from = argv[++argv_index];
+          continue;
+        }
+      return FALSE;
+    }
+
+  /* On invalid usage, set a complaint message and return. */
+  if (argv_index != argc - 1)
+    {
+      gsc_game = NULL;
+      if (argv_index < argc - 1)
+        gsc_game_message = "More than one game file"
+                           " was given on the command line.";
+      else
+        gsc_game_message = "No game file was given on the command line.";
+      return TRUE;
+    }
+
+  /* Remember the game file path for hosts that reopen it (graphics/sound via
+   * glkunix_stream_open_pathname). ADRIFT 5 game data itself is loaded from the
+   * Glk stream above via a5model_load_buffer. */
+  snprintf (gsc_game_path, sizeof gsc_game_path, "%s", argv[argv_index]);
+
+  /* Open a stream to the TAF file, complain if this fails. */
+  game_stream = glkunix_stream_open_pathname (argv[argv_index], FALSE, 0);
+  if (!game_stream)
+    {
+      gsc_game = NULL;
+      gsc_game_message = "Unable to open the requested game file.";
+      return TRUE;
+    }
+  else
+    gsc_game_message = NULL;
+
+  /*
+   * If a restore requested, open a stream to the TAF (TAS) file, and
+   * again, complain if this fails.
+   */
+  if (restore_from)
+    {
+      restore_stream = glkunix_stream_open_pathname (restore_from, FALSE, 0);
+      if (!restore_stream)
+        {
+          glk_stream_close (game_stream, NULL);
+          gsc_game = NULL;
+          gsc_game_message = "Unable to open the requested restore file.";
+          return TRUE;
+        }
+      else
+        gsc_game_message = NULL;
+    }
+  else
+    restore_stream = NULL;
+
+  /* Set Scarier trace flags and other general setup from the environment. */
+  if (getenv ("SCR_TRACE_FLAGS"))
+    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), NULL, 0);
+  else
+    trace_flags = 0;
+  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != NULL);
+#if defined (SPATTERLIGHT)
+  stable_random = gli_determinism;
+#else
+  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != NULL);
+#endif
+  locale = getenv ("SCR_LOCALE");
+
+#ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
+#ifdef _WIN32
+    const char *sep = "/\\";
+#else
+    const char *sep = "/";
+#endif
+    const char *slash = find_last_of(argv[argv_index], sep);
+    if (slash == NULL) {
+      snprintf(gamefile, sizeof gamefile, "%s", argv[argv_index]);
+    } else {
+      snprintf(gamefile, sizeof gamefile, "%s", slash + 1);
+  }
+#endif
+
+#ifdef GARGLK
+  glkunix_set_base_file(argv[argv_index]);
+#endif
+
+  /* Use the generic startup code to complete startup. */
+  return gsc_startup_code (game_stream, restore_stream, trace_flags,
+                           enable_debugger, stable_random, locale);
+}
+
+
+/*---------------------------------------------------------------------*/
+/*  Glk linkage relevant only to the Windows platform                  */
+/*---------------------------------------------------------------------*/
+#ifdef GARGLK
+#undef _WIN32
+#endif
+
+#ifdef _WIN32
+
+#include <windows.h>
+
+#include "WinGlk.h"
+#include "resource.h"
+
+/* Windows constants and external definitions. */
+static const unsigned int GSCWIN_GLK_INIT_VERSION = 0x601;
+extern int InitGlk (unsigned int iVersion);
+
+/*
+ * WinMain()
+ *
+ * Entry point for all Glk applications.
+ */
+int WINAPI
+WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
+         LPSTR lpCmdLine, int nCmdShow)
+{
+  /* Attempt to initialize both the Glk library and Scarier. */
+  if (!(InitGlk (GSCWIN_GLK_INIT_VERSION) && winglk_startup_code (lpCmdLine)))
+    return 0;
+
+  /* Run the application; no return from this routine. */
+  glk_main ();
+  glk_exit ();
+  return 0;
+}
+
+
+/*
+ * winglk_startup_code()
+ *
+ * Startup entry point for Windows versions of Glk interpreter.
+ */
+int
+winglk_startup_code (const char *cmdline)
+{
+  const char *filename, *locale;
+  frefid_t fileref;
+  strid_t game_stream;
+  scr_uint trace_flags;
+  scr_bool enable_debugger, stable_random;
+  assert (!gsc_startup_called);
+  gsc_startup_called = TRUE;
+
+  /* Set up application and window. */
+  winglk_app_set_name ("Scarier");
+  winglk_set_menu_name ("&Scarier");
+  winglk_window_set_title ("Scarier Adrift Interpreter");
+  winglk_set_about_text ("Windows Scarier " SCARIER_VERSION);
+  winglk_set_gui (IDI_SCARIER);
+  glk_stylehint_set (wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
+
+  /* Open a stream to the game. */
+  filename = winglk_get_initial_filename (cmdline,
+                             "Select an Adrift game to run",
+                             "Adrift Files (.taf)|*.taf;All Files (*.*)|*.*||");
+  if (!filename)
+    return 0;
+
+  fileref = winglk_fileref_create_by_name (fileusage_BinaryMode
+                                           | fileusage_Data,
+                                           (char *) filename, 0, 0);
+  if (!fileref)
+    return 0;
+
+  game_stream = glk_stream_open_file (fileref, filemode_Read, 0);
+  glk_fileref_destroy (fileref);
+  if (!game_stream)
+    return 0;
+
+  /* Set trace, debugger, and portable random flags. */
+  if (getenv ("SCR_TRACE_FLAGS"))
+    trace_flags = strtoul (getenv ("SCR_TRACE_FLAGS"), NULL, 0);
+  else
+    trace_flags = 0;
+  enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != NULL);
+  stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != NULL);
+  locale = getenv ("SCR_LOCALE");
+
+  /* Use the generic startup code to complete startup. */
+  return gsc_startup_code (game_stream, NULL, trace_flags,
+                           enable_debugger, stable_random, locale);
+}
+#endif /* _WIN32 */

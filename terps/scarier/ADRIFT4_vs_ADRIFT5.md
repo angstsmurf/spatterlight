@@ -6,7 +6,7 @@ file describes the code as it stands. Last checked against the sources
 2026-08-10.
 
 **Where the files are.** The ADRIFT ≤4 engine (`sc*.cpp`, the SCARE lineage) and
-the Glk host (`os_glk.cpp`) sit at the top of `terps/scarier/`. **Every `a5*`
+the Glk host (`glk/os_glk*.cpp`) sit in `terps/scarier/`. **Every `a5*`
 file named below lives in `terps/scarier/adrift5/`.** `a5run.cpp` has since been
 split: `a5run_action.cpp` (task/action execution), `a5run_events.cpp` (events and
 walks), `a5run_conv.cpp` (conversation), `a5run_ref.cpp` (references),
@@ -18,7 +18,7 @@ Specific overrides), with the shared struct in `a5run_internal.h`. References to
 
 ## 1. Detection and Dispatch
 
-Entry point is `glk_main()` in `os_glk.cpp`. `gsc_startup_code()` tries `a5model_load()` first — it returns `NULL` cleanly on any non-v5 file. On success, `gsc_is_a5 = TRUE` and `gsc_a5_main()` is called. On failure, `scr_game_from_callback()` loads the v4 TAF and `gsc_main()` runs.
+Entry point is `glk_main()` in `glk/os_glk.cpp`. `gsc_startup_code()` tries `a5model_load()` first — it returns `NULL` cleanly on any non-v5 file. On success, `gsc_is_a5 = TRUE` and `gsc_a5_main()` is called. On failure, `scr_game_from_callback()` loads the v4 TAF and `gsc_main()` runs.
 
 The v4 path stores an opaque `scr_game_s *` handle. The v5 path stores `a5_adventure_t *gsc_a5_adv` and instantiates an `a5_run_t *` per session.
 
@@ -106,11 +106,11 @@ Output routes through two OS callbacks: `os_print_string()` for text and `os_pri
 
 Media is delivered as `os_play_sound(filepath, offset, length, is_looping)` and `os_show_graphic(filepath, offset, length)` — file-path plus byte offset into the TAF blob.
 
-### ADRIFT 5 (`a5text.cpp`, `a5expr.cpp`, `a5sexpr.cpp`, `a5arith.cpp`)
+### ADRIFT 5 (`a5text.cpp`, `a5expr.cpp`, `a5sexpr.cpp`)
 
 `a5text_describe(st, wrapper_node)` evaluates a `<Description>` DOM node into malloc'd UTF-8 plain text. Iterates `<SingleDescription>` elements, each gated by `<DisplayWhen>` restrictions, containing `<Text>`, `<Property>`, `<Function>`, `<If>`, and `<DisplayOnce>` one-shot segments.
 
-`%reference%` chains like `%Player.Location.ShortDescription%` are resolved by `a5expr_eval()` (`a5expr.cpp`) walking `.`-separated property/function names. Numeric expressions for variable assignments use `a5arith.cpp`. String-typed `SetToExpression` uses `a5sexpr.cpp`, supporting `len`, `left`, `right`, `mid`, `upper`, `lower`, `rand`, `urand`, `oneof`, arithmetic, comparisons, and logic operators.
+`%reference%` chains like `%Player.Location.ShortDescription%` are resolved by `a5expr_eval()` (`a5expr.cpp`) walking `.`-separated property/function names. Numeric and string `SetToExpression` assignments both go through `a5sexpr.cpp`, supporting `len`, `left`, `right`, `mid`, `upper`, `lower`, `rand`, `urand`, `oneof`, arithmetic, comparisons, and logic operators.
 
 ALR replacement runs at two levels: per-fragment inside `a5text_describe`, and at the Display boundary over the full assembled turn output (`alr_boundary_apply()`). Each ALR's `NewText` is itself a rich description block rendered recursively.
 

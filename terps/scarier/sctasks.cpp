@@ -26,7 +26,6 @@
  */
 
 #include <assert.h>
-#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -67,6 +66,7 @@ static scr_bool task_trace = FALSE;
  * fallback pass 2 (run390 generaltasks 45F48B, 460584).
  */
 static scr_int task_dispatch_depth = 0;
+static scr_bool task_in_dispatched_run (void);
 
 /*
  * Optional "move assist" mode (opt-in, off by default; sibling of the Battle
@@ -422,7 +422,6 @@ task_where_allows_run (scr_gameref_t game, scr_int task)
 
     default:
       scr_fatal ("task_where_allows_run: invalid type, %ld\n", type);
-      return FALSE;
     }
 }
 
@@ -438,7 +437,7 @@ task_can_run_task_directional (scr_gameref_t game,
                                scr_int task, scr_bool forwards)
 {
 #ifdef SCARIER_DUMP_TOOLS
-  /* Reusable structural-dump / NPC-trace instrumentation; see scdump.c.
+  /* Reusable structural-dump / NPC-trace instrumentation; see scdump.cpp.
    * Compiled only into the headless walkthrough harness (-DSCARIER_DUMP_TOOLS);
    * a normal Spatterlight build omits this entirely. */
   scr_dump_structure_once (game);
@@ -454,7 +453,8 @@ task_can_run_task_directional (scr_gameref_t game,
  *
  * TRUE for a 3.90 task whose reverse command run390 answers with the task's
  * RepeatText rather than a reversal: reversible, but neither done nor
- * repeatable (checktask 44B4B2).  See run_spent_task_390() in scrunner.c.
+ * repeatable (checktask 44B4B2).  See run_spent_task_390() in
+ * runner/scrun_match.cpp.
  */
 scr_bool
 task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
@@ -477,7 +477,7 @@ task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
  *
  * Pre-4.0 Runners answer a command that matches such a task with a refusal of
  * their own rather than the game's DontUnderstand text; see run_task_refusal()
- * in scrunner.c.
+ * in runner/scrun_match.cpp.
  *
  * Whether the task has already been run is deliberately NOT part of the test.
  * The Runner checks the room ahead of the task's state, and answers a task that
@@ -503,9 +503,9 @@ task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
  *
  * The Runners answer such a command with the task's RepeatText, or with "You
  * have already done that." when there is none; see run_task_refusal() in
- * scrunner.c.  The room half is deliberately part of the test, because a task
- * that is both done and out of its rooms gets the room refusal instead
- * (measured live -- probe task "theta").
+ * runner/scrun_match.cpp.  The room half is deliberately part of the test,
+ * because a task that is both done and out of its rooms gets the room refusal
+ * instead (measured live -- probe task "theta").
  */
 scr_bool
 task_is_done_refused (scr_gameref_t game, scr_int task)
@@ -531,6 +531,22 @@ task_can_run_task (scr_gameref_t game, scr_int task)
    */
   return task_can_run_task_directional (game, task, FALSE)
          || task_can_run_task_directional (game, task, TRUE);
+}
+
+
+/*
+ * task_selector_npc()
+ *
+ * Decode a task action's or restriction's character selector once it is
+ * known not to name the player (0): 1 is the referenced character, -1 when
+ * none is referenced, and N >= 2 is character N - 2.  Callers test the
+ * player value themselves, since what they do for the player differs at
+ * every site.
+ */
+scr_int
+task_selector_npc (scr_var_setref_t vars, scr_int var)
+{
+  return (var == 1) ? var_get_ref_character (vars) : var - 2;
 }
 
 
@@ -629,7 +645,8 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     const scr_bool is_v400 = taf_version >= TAF_VERSION_400;
     scr_bool stamp_seen = FALSE;
 
-    gs_set_carried_suspend (game, TRUE);
+    {
+    gs_carried_suspend_guard suspend (game);
     if (was_possessed)
       gs_carried_adjust (game, -weight, -size);
 
@@ -712,37 +729,29 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
           gs_set_object_runner_parent (game, object, -1);   /* 48C5E0 */
           stamp_seen = TRUE;
         }
-      else if (var3 == 1)       /* Ref character */
+      else                      /* Ref character or NPC id */
         {
-          const scr_int npc = var_get_ref_character (vars);
+          const scr_int npc = task_selector_npc (vars, var3);
 
           /*
            * No referenced character: run400 abandons the move entirely,
            * skipping the rest of its mover including the post-move seen
            * re-check (Proc_19_10 tests its referenced-character global
            * against the &HFF unset marker and exits, loc_48C650-48C65C).
+           * The suspend guard lifts the tracker's suspension on the way out.
            */
           if (npc < 0)
-            {
-              gs_set_carried_suspend (game, FALSE);
-              return;
-            }
-          gs_object_npc_get (game, object, npc);
-          gs_set_object_runner_parent (game, object, npc);   /* 48C676 */
-          /* 3.9 never stamps an object handed to a character (run390
-             execute_action @456099-4560DA writes fields 22 and 42 only). */
-          stamp_seen = is_v400
-                       && obj_indirectly_in_room (game, object,
-                                                  gs_playerroom (game));
-        }
-      else                      /* NPC id */
-        {
-          /* run400 alone stamps a present object before this move too. */
-          if (is_v400
+            return;
+
+          /* For an NPC id, run400 alone stamps a present object before
+             this move too. */
+          if (var3 != 1 && is_v400
               && obj_indirectly_in_room (game, object, gs_playerroom (game)))
             gs_set_object_seen (game, object, TRUE);
-          gs_object_npc_get (game, object, var3 - 2);
-          gs_set_object_runner_parent (game, object, var3 - 2);  /* 48C6E5 */
+          gs_object_npc_get (game, object, npc);
+          gs_set_object_runner_parent (game, object, npc);   /* 48C676/48C6E5 */
+          /* 3.9 never stamps an object handed to a character (run390
+             execute_action @456099-4560DA writes fields 22 and 42 only). */
           stamp_seen = is_v400
                        && obj_indirectly_in_room (game, object,
                                                   gs_playerroom (game));
@@ -759,24 +768,16 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
           gs_set_object_runner_parent (game, object, -1);   /* 48C745 */
           stamp_seen = TRUE;
         }
-      else if (var3 == 1)       /* Ref character */
+      else                      /* Ref character or NPC id */
         {
-          const scr_int npc = var_get_ref_character (vars);
+          const scr_int npc = task_selector_npc (vars, var3);
 
           /* Unset referenced character: abandoned, as in the "held by"
              case above (Proc_19_10 loc_48C79D-48C7A9). */
           if (npc < 0)
-            {
-              gs_set_carried_suspend (game, FALSE);
-              return;
-            }
+            return;
           gs_object_npc_wear (game, object, npc);
-          gs_set_object_runner_parent (game, object, npc);   /* 48C7C3 */
-        }
-      else                      /* NPC id */
-        {
-          gs_object_npc_wear (game, object, var3 - 2);
-          gs_set_object_runner_parent (game, object, var3 - 2);  /* 48C7F9 */
+          gs_set_object_runner_parent (game, object, npc);   /* 48C7C3/48C7F9 */
         }
       break;
 
@@ -792,22 +793,14 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
 
         if (var3 == 0)          /* Player */
           room = gs_playerroom (game);
-        else if (var3 == 1)     /* Ref character */
+        else                    /* Ref character or NPC id */
           {
-            npc = var_get_ref_character (vars);
+            npc = task_selector_npc (vars, var3);
 
             /* Unset referenced character: abandoned, as in the "held by"
                case above. */
             if (npc < 0)
-              {
-                gs_set_carried_suspend (game, FALSE);
-                return;
-              }
-            room = gs_npc_location (game, npc) - 1;
-          }
-        else                    /* NPC id */
-          {
-            npc = var3 - 2;
+              return;
             room = gs_npc_location (game, npc) - 1;
           }
         gs_object_to_room (game, object, room);
@@ -828,7 +821,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       break;
     }
 
-    gs_set_carried_suspend (game, FALSE);
+    }
 
     /* Post-move credit: into the player's hands or onto their back. */
     if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
@@ -1077,10 +1070,8 @@ task_run_move_npc_action (scr_gameref_t game,
             npc = task_same_room_npc_390 (game, var3);
           else if (var3 == 0)  /* ...player! */
             return;
-          else if (var3 == 1)  /* ...referenced NPC */
-            npc = var_get_ref_character (vars);
-          else                 /* ...specified NPC */
-            npc = var3 - 2;
+          else                 /* ...referenced or specified NPC */
+            npc = task_selector_npc (vars, var3);
           if (npc < 0)
             return;
 
@@ -1152,10 +1143,7 @@ task_run_move_npc_action (scr_gameref_t game,
   else
     {
       /* NPC -- first find which NPC to move about. */
-      if (var1 == 1)
-        npc = var_get_ref_character (vars);
-      else
-        npc = var1 - 2;
+      npc = task_selector_npc (vars, var1);
 
       /* Decide where to move the NPC to. */
       switch (var2)
@@ -1206,23 +1194,12 @@ task_run_move_npc_action (scr_gameref_t game,
 
               task_move_npc_to_room (game, npc, gs_playerroom (game));
               break;
-            case 1:            /* ...referenced NPC */
-              ref_npc = var_get_ref_character (vars);
+            default:           /* ...referenced or specified NPC */
+              ref_npc = task_selector_npc (vars, var3);
               if (task_trace)
                 {
-                  scr_trace ("Task: moving NPC %ld to"
-                            " same room as referenced NPC %ld\n", npc, ref_npc);
-                }
-
-              room = gs_npc_location (game, ref_npc) - 1;
-              task_move_npc_to_room (game, npc, room);
-              break;
-            default:           /* ...specified NPC */
-              ref_npc = var3 - 2;
-              if (task_trace)
-                {
-                  scr_trace ("Task: moving NPC %ld to"
-                            " same room as NPC %ld\n", npc, ref_npc);
+                  scr_trace ("Task: moving NPC %ld to same room as %sNPC %ld\n",
+                            npc, var3 == 1 ? "referenced " : "", ref_npc);
                 }
 
               room = gs_npc_location (game, ref_npc) - 1;
@@ -1596,6 +1573,17 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
 {
   scr_bool status = FALSE;
 
+  /*
+   * Var2 is a task index straight from the TAF file; an out-of-range one
+   * would otherwise reach the unchecked game state accessors below.
+   */
+  if (var2 < 0 || var2 >= gs_task_count (game))
+    {
+      if (task_trace)
+        scr_trace ("Task: set-task action names invalid task %ld\n", var2);
+      return FALSE;
+    }
+
   /* Select based on var1. */
   if (var1 == 0)
     {
@@ -1622,8 +1610,7 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
        * run400 48D5DE: after the execute-task action, events started by the
        * executed task are checked at once (4.0 only; see scevents.cpp).
        */
-      if (!getenv ("SCR_TMP_NOIMM"))
-        evt_check_events_started_by_task (game, var2);
+      evt_check_events_started_by_task (game, var2);
     }
   else
     {
@@ -1903,7 +1890,6 @@ task_print_end_game_message (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_version;
   scr_bool is_pre_400;
   scr_int var1;
 
@@ -1918,8 +1904,7 @@ task_print_end_game_message (scr_gameref_t game)
      whole difference between the versions: 4.0 ends a task's text block with a
      line terminator, pre-4.0 does not.  Ours always does (pf_buffer_paragraph_
      line), so for a pre-4.0 game take that terminator back first. */
-  vt_version.string = "Version";
-  is_pre_400 = prop_get_integer (bundle, "I<-s", &vt_version) < TAF_VERSION_400;
+  is_pre_400 = prop_get_taf_version (bundle) < TAF_VERSION_400;
 
   /* Print a message based on var1. */
   switch (var1)
@@ -2009,8 +1994,7 @@ task_print_end_game_message (scr_gameref_t game)
              * notes/WINE-TRANSCRIPTS-TODO.md -- so Scarier prints one space
              * where the Runner prints three, which no compare sees.
              */
-            if (prop_get_integer (bundle, "I<-s", &vt_version)
-                >= TAF_VERSION_390)
+            if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
               pf_buffer_pspace (filter);
             else if (!scr_strempty (wintext))
               pf_buffer_character (filter, ' ');
@@ -2183,13 +2167,11 @@ task_run_change_battle_action (scr_gameref_t game,
        * first guard -- so Joe dies on `escape` (Wine Adrift_outside_statx).
        * A target past the last NPC is skipped.
        */
-      if (var2 == 1)
-        npc = var_get_ref_character (vars);
-      else if (var1 == 8
-               && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+      if (var2 != 1 && var1 == 8
+          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
         npc = var2 - 1;
       else
-        npc = var2 - 2;
+        npc = task_selector_npc (vars, var2);
       if (npc < 0 || npc >= gs_npc_count (game))
         return;
     }
@@ -2648,19 +2630,9 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   /* See if we are trying to repeat a task that's not repeatable. */
   if (gs_task_done (game, task))
     {
-      scr_bool repeatable;
-
-      vt_key[0].string = "Tasks";
-      vt_key[1].integer = task;
-      vt_key[2].string = "Repeatable";
-      repeatable = prop_get_boolean (bundle, "B<-sis", vt_key);
-      if (!repeatable)
+      if (!task_is_repeatable (game, task))
         {
-          const scr_char *repeattext;
-
-          vt_key[2].string = "RepeatText";
-          repeattext = prop_get_string (bundle, "S<-sis", vt_key);
-          if (!scr_strempty (repeattext))
+          if (!task_repeattext_is_empty (game, task))
             {
               if (task_trace)
                 {
@@ -2668,7 +2640,10 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
                             " trying to repeat completed action, aborting\n");
                 }
 
-              pf_buffer_paragraph_line (filter, repeattext);
+              pf_buffer_paragraph_line (filter,
+                                        prop_get_indexed_string (bundle,
+                                                                 "Tasks", task,
+                                                                 "RepeatText"));
               status |= TRUE;
               return status;
             }
@@ -2897,7 +2872,7 @@ task_pop_dispatched_run (void)
   task_dispatch_depth--;
 }
 
-scr_bool
+static scr_bool
 task_in_dispatched_run (void)
 {
   return task_dispatch_depth > 0;
@@ -2991,10 +2966,17 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
       return FALSE;
     }
 
-  /* Increment depth, run the task, then decrement depth. */
-  recursion_depth++;
-  status = task_run_task_unrestricted (game, task, forwards);
-  recursion_depth--;
+  /* Increment depth, run the task, then decrement depth -- also on a throw. */
+  {
+    struct depth_guard
+    {
+      scr_int &depth_;
+      explicit depth_guard (scr_int &depth) : depth_ (depth) { depth_++; }
+      ~depth_guard () { depth_--; }
+    } guard (recursion_depth);
+
+    status = task_run_task_unrestricted (game, task, forwards);
+  }
 
   if (task_trace)
     {

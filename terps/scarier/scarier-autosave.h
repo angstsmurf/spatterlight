@@ -23,22 +23,24 @@
    gsc_a5_main) -- modeled on the Question implementation (questionglk-autosave.*),
    which is in turn modeled on Bocfel's (bocfel-spatterlight/).
 
-   Only the Spatterlight app build compiles scarier-autosave.mm; the call
-   sites in os_glk.cpp sit behind #ifdef SPATTERLIGHT so headless builds are
+   Only the Spatterlight app build compiles scarier-autosave.mm; the Glk
+   front end's side (os_glk_autosave.cpp and the call sites in the other
+   os_glk*.cpp files) sits behind #ifdef SPATTERLIGHT so headless builds are
    unaffected.
 
    Both engines share the same file layout under
    ~/Library/Application Support/Spatterlight/SCARE Files/Autosaves/(HASH)/:
    autosave.glksave holds a small container around the engine's own state
    serialization plus the undo history (see the SCARAUTO4/SCARAUTO5
-   containers in os_glk.cpp), autosave.plist the Glk library state
+   containers in os_glk_autosave.cpp), autosave.plist the Glk library state
    (TempLibrary) with the frontend's window/stream/channel tags appended by
    an archive hook.  A given game file only ever runs on one of the two
    engines, so the shared names never collide.
 
    The split of labour: scarier-autosave.mm owns the files and the plist
-   (Objective-C, app target only); os_glk.cpp owns everything that touches
-   the engines and the Glk globals (containers, stash/recover, call sites).
+   (Objective-C, app target only); os_glk_autosave.cpp owns everything that
+   touches the engines and the Glk globals (containers, stash/recover), and
+   the prompts in os_glk.cpp / os_glk_a5.cpp call it.
 */
 
 #ifndef SCARIER_AUTOSAVE_H
@@ -78,9 +80,9 @@ bool scarier_autosave_read_game(std::string *out);
  * nothing replaced, when the plist is missing or unusable. */
 bool scarier_autosave_restore_library(void);
 
-/* ---- implemented in os_glk.cpp ------------------------------------------- */
+/* ---- implemented in os_glk_autosave.cpp ---------------------------------- */
 
-/* The Glk-facing globals in os_glk.cpp that an autorestore must re-point at
+/* The Glk-facing front-end globals that an autorestore must re-point at
  * the restored Glk objects, carried across the archive as the objects'
  * serialization tags. */
 struct ScarierGlkFrontendState {
@@ -93,6 +95,7 @@ struct ScarierGlkFrontendState {
     int inputlogtag = 0;
     int readlogtag = 0;
     int soundchanneltag = 0;    /* the ADRIFT <=4 single sound channel         */
+    /* 9 = GSC_A5_MAX_CHANNELS (static_assert'd in os_glk_autosave.cpp). */
     int a5_channeltags[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     uint32_t a5_chan_sound[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     int seen_input = 0;         /* first input given (title window dismissed)  */

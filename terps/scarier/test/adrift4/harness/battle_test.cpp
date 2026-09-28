@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * In-repo regression test for the SCARIER Battle System port.
+ * In-repo regression test for the Scarier Battle System port.
  *
  * Loads the synthetic, fully deterministic game test/battle_test.taf (built by
  * make_battle_taf.py) and checks the combat math through the public battle API.
@@ -101,7 +101,7 @@ main (int argc, char **argv)
   game->is_running = TRUE;
 
   /* The checks below are seed-independent (every battle attribute has Lo == Hi),
-   * but force SCARIER's portable RNG with a fixed seed anyway so the test cannot
+   * but force Scarier's portable RNG with a fixed seed anyway so the test cannot
    * be perturbed by the host's rand()/time() state. */
   scr_set_portable_random (TRUE);
   scr_reseed_random_sequence (1);

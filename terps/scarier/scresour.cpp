@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <memory>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -98,6 +100,76 @@ res_compare_resource (scr_resourceref_t from, scr_resourceref_t with)
 
 
 /*
+ * The scratch state res_handle_resource() builds once and both of its
+ * lookups share: the bundle, the format buffer and the key array (one
+ * element longer than the caller's partial key, the last element being the
+ * property name of the moment), and the two globals that decide whether an
+ * offset and length are read or forced to zero.
+ */
+typedef struct scr_res_lookup_s
+{
+  scr_prop_setref_t bundle;
+  scr_char *format;
+  scr_int format_size;
+  const scr_char *partial_format;
+  scr_vartype_t *vt_full;
+  scr_int partial_length;
+  scr_bool embedded;
+  scr_int resource_start_offset;
+} scr_res_lookup_t;
+
+
+/*
+ * res_lookup_resource()
+ *
+ * Helper for res_handle_resource(), shared by its sound and graphics halves.
+ * Reads the resource file name held under file_key; if one is defined,
+ * passes it back with its offset (adjusted by the resource start) and
+ * length, or with both forced to zero where resources are not embedded, and
+ * returns TRUE.  Returns FALSE if no resource file is defined.
+ */
+static scr_bool
+res_lookup_resource (const scr_res_lookup_t *lookup,
+                     const scr_char *file_key, const scr_char *offset_key,
+                     const scr_char *length_key,
+                     const scr_char **file, scr_int *offset, scr_int *length)
+{
+  /* Get the file property from the node supplied. */
+  lookup->vt_full[lookup->partial_length].string = file_key;
+  snprintf (lookup->format, lookup->format_size,
+            "S<-%ss", lookup->partial_format);
+  *file = prop_get_string (lookup->bundle, lookup->format, lookup->vt_full);
+
+  /* If no resource is defined, there is nothing more to find. */
+  if (scr_strempty (*file))
+    return FALSE;
+
+  if (lookup->embedded)
+    {
+      /* Retrieve offset and length. */
+      lookup->vt_full[lookup->partial_length].string = offset_key;
+      snprintf (lookup->format, lookup->format_size,
+                "I<-%ss", lookup->partial_format);
+      *offset = prop_get_integer (lookup->bundle, lookup->format,
+                                  lookup->vt_full)
+                + lookup->resource_start_offset;
+
+      lookup->vt_full[lookup->partial_length].string = length_key;
+      *length = prop_get_integer (lookup->bundle, lookup->format,
+                                  lookup->vt_full);
+    }
+  else
+    {
+      /* Coerce offset and length to zero. */
+      *offset = 0;
+      *length = 0;
+    }
+
+  return TRUE;
+}
+
+
+/*
  * res_handle_resource()
  *
  * General helper for handling graphics and sound resources.  Supplied with a
@@ -119,6 +191,7 @@ res_handle_resource (scr_gameref_t game,
   scr_int partial_length, format_size, resource_start_offset;
   scr_bool embedded;
   scr_char *format;
+  scr_res_lookup_t lookup;
   assert (gs_is_game_valid (game));
   assert (partial_format && vt_partial);
 
@@ -154,10 +227,28 @@ res_handle_resource (scr_gameref_t game,
    */
   partial_length = strlen (partial_format);
   format_size = partial_length + 5;
-  format = (decltype(format)) scr_malloc (format_size);
+  scr_owned_string owned_format ((scr_char *) scr_malloc (format_size));
+  format = owned_format.get ();
 
-  vt_full = (decltype(vt_full)) scr_malloc ((partial_length + 1) * sizeof (vt_partial[0]));
+  /*
+   * Both scratch buffers are RAII-owned, so a prop_get_*() below throwing
+   * (scr_fatal on a missing property) does not leak them.
+   */
+  std::unique_ptr<scr_vartype_t, scr_free_deleter> owned_vt_full
+    ((scr_vartype_t *) scr_malloc ((partial_length + 1)
+                                   * sizeof (vt_partial[0])));
+  vt_full = owned_vt_full.get ();
   memcpy (vt_full, vt_partial, partial_length * sizeof (vt_partial[0]));
+
+  /* Gather the shared lookup state for the two halves below. */
+  lookup.bundle = bundle;
+  lookup.format = format;
+  lookup.format_size = format_size;
+  lookup.partial_format = partial_format;
+  lookup.vt_full = vt_full;
+  lookup.partial_length = partial_length;
+  lookup.embedded = embedded;
+  lookup.resource_start_offset = resource_start_offset;
 
   /* Search for sound resources, and offer if found. */
   if (res_has_sound (game))
@@ -165,33 +256,10 @@ res_handle_resource (scr_gameref_t game,
       const scr_char *soundfile;
       scr_int soundoffset, soundlen;
 
-      /* Get soundfile property from the node supplied. */
-      vt_full[partial_length].string = "SoundFile";
-      snprintf (format, format_size, "S<-%ss", partial_format);
-      soundfile = prop_get_string (bundle, format, vt_full);
-
       /* If a sound is defined, handle it. */
-      if (!scr_strempty (soundfile))
+      if (res_lookup_resource (&lookup, "SoundFile", "SoundOffset", "SoundLen",
+                               &soundfile, &soundoffset, &soundlen))
         {
-          if (embedded)
-            {
-              /* Retrieve offset and length. */
-              vt_full[partial_length].string = "SoundOffset";
-              snprintf (format, format_size, "I<-%ss", partial_format);
-              soundoffset = prop_get_integer (bundle, format, vt_full)
-                            + resource_start_offset;
-
-              vt_full[partial_length].string = "SoundLen";
-              snprintf (format, format_size, "I<-%ss", partial_format);
-              soundlen = prop_get_integer (bundle, format, vt_full);
-            }
-          else
-            {
-              /* Coerce offset and length to zero. */
-              soundoffset = 0;
-              soundlen = 0;
-            }
-
           /*
            * If the sound is the special "##", latch stop, otherwise note
            * details to play on sync.
@@ -215,42 +283,15 @@ res_handle_resource (scr_gameref_t game,
       const scr_char *graphicfile;
       scr_int graphicoffset, graphiclen;
 
-      /* Get graphicfile property from the node supplied. */
-      vt_full[partial_length].string = "GraphicFile";
-      snprintf (format, format_size, "S<-%ss", partial_format);
-      graphicfile = prop_get_string (bundle, format, vt_full);
-
-      /* If a graphic is defined, handle it. */
-      if (!scr_strempty (graphicfile))
+      /* If a graphic is defined, note to show on sync. */
+      if (res_lookup_resource (&lookup, "GraphicFile", "GraphicOffset",
+                               "GraphicLen",
+                               &graphicfile, &graphicoffset, &graphiclen))
         {
-          if (embedded)
-            {
-              /* Retrieve offset and length. */
-              vt_full[partial_length].string = "GraphicOffset";
-              snprintf (format, format_size, "I<-%ss", partial_format);
-              graphicoffset = prop_get_integer (bundle, format, vt_full)
-                              + resource_start_offset;
-
-              vt_full[partial_length].string = "GraphicLen";
-              snprintf (format, format_size, "I<-%ss", partial_format);
-              graphiclen = prop_get_integer (bundle, format, vt_full);
-            }
-          else
-            {
-              /* Coerce offset and length to zero. */
-              graphicoffset = 0;
-              graphiclen = 0;
-            }
-
-          /* Graphics resource retrieved, note to show on sync. */
           res_set_resource (&game->requested_graphic,
                             graphicfile, graphicoffset, graphiclen);
         }
     }
-
-  /* Free allocated memory. */
-  scr_free (format);
-  scr_free (vt_full);
 }
 
 

@@ -15,19 +15,20 @@ ADRIFT 5 games.
 Which engine runs
 -----------------
 
-Dispatch happens at load time in glk_main() (os_glk.cpp). gsc_startup_code()
+Dispatch happens at load time in glk_main() (glk/os_glk.cpp). gsc_startup_code()
 tries the ADRIFT 5 loader first; it returns cleanly on any non-v5 file, in
 which case the ADRIFT 4 (SCARE) path takes over.
 
   * ADRIFT 4 (.taf, v3.8 / v3.9 / v4.0) is handled by the SCARE-derived
-    engine: the sc*.cpp / sx*.cpp sources. v4.0 payloads are zlib-compressed;
+    engine: the sc*.cpp sources (sxstubs/sxglob/sxutils.cpp are the headless
+    harness's os-layer stubs). v4.0 payloads are zlib-compressed;
     v3.8/3.9 are XOR-obfuscated with the Visual Basic PRNG.
 
   * ADRIFT 5 (.taf / .blorb) is handled by the a5*.cpp engine: a Blorb or raw
     container whose Exec chunk is XOR-deobfuscated with a fixed 1024-byte key
     and zlib-inflated to UTF-8 XML, then parsed into the a5 object model.
 
-Both engines share the Glk seam in os_glk.cpp (title screens, side windows,
+Both engines share the Glk seam in glk/ (title screens, side windows,
 real-time timer events, saves) and the erkyrath_random() RNG.
 
 See ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
@@ -37,10 +38,14 @@ See ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
 Building
 --------
 
-The default target builds the Glk interpreter linked against a Glk library
-(see the GLK / GLKDIR variables at the top of Makefile):
+The default target builds the ANSI/stdout interpreter `scarier`, the one the
+golden harness drives; `make glkscarier` builds the Glk interpreter against
+the Glk library named by the GLK / GLKDIR variables at the top of Makefile
+(terps/cheapglk by default).  The Spatterlight app builds its own copy from
+Spatterlight.xcodeproj, target `scarier`:
 
-    make
+    make               # ANSI scarier
+    make glkscarier    # Glk front end
 
 Makefile.headless builds the standalone test and dump harnesses used for
 regression work — an ANSI/stdout runner plus a family of a5* tools:
@@ -51,8 +56,8 @@ regression work — an ANSI/stdout runner plus a family of a5* tools:
     make -f Makefile.headless a5walkthroughs # replay bundled walkthroughs
 
 The ADRIFT 5 engine is validated by diffing headless output against
-FrankenDrift; adrift-walkthroughs/ and test/ hold the walkthrough corpus and
-ground-truth fixtures.
+FrankenDrift; test/adrift4/ and test/adrift5/ hold the game manifests,
+walkthroughs, goldens and harnesses (see test/GAMES.md).
 
 
 License

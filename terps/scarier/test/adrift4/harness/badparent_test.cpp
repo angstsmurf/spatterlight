@@ -19,7 +19,7 @@
  * Regression test for gs_create()'s validation of object parent indices.
  *
  * Some published games place a dynamic object "held by" / "in" a nonexistent
- * NPC or container (e.g. The Timmy Reid Adventure, Blood Relatives).  SCARIER
+ * NPC or container (e.g. The Timmy Reid Adventure, Blood Relatives).  Scarier
  * used to store the out-of-range parent and then assert-crash on the first
  * turn-update (gs_npc_location / gs_object_openness, via obj_setup_initial).
  * gs_create() now validates the parent and hides such objects instead.
@@ -70,7 +70,7 @@ find_object (scr_gameref_t game, const char *name)
   return -1;
 }
 
-/* --- minimal SCARIER OS port; probe the object state at the first prompt ---
+/* --- minimal Scarier OS port; probe the object state at the first prompt ---
    The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours. */
 
 scr_bool

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Spatterlight autosave/autorestore regression for both of Scarier's
-engines: ADRIFT <=4 (gsc_main + the SCARAUTO4 container in os_glk.cpp) and
+engines: ADRIFT <=4 (gsc_main + the SCARAUTO4 container in glk/os_glk_autosave.cpp) and
 ADRIFT 5 (gsc_a5_main + the SCARAUTO5 container).
 
 Unlike everything else in this directory it does NOT use harness/scare: the

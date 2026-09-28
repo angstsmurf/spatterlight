@@ -16,14 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * scdump.c -- reusable structural-dump / trace instrumentation for SCARIER.
+ * scdump.cpp -- reusable structural-dump / trace instrumentation for Scarier.
  *
  * This is developer tooling used to reverse-engineer ADRIFT games when
  * deriving deterministic walkthroughs (see terps/scarier/test/adrift4/).
  * It is gated behind the SCARIER_DUMP_TOOLS build macro and is compiled ONLY
  * into the headless walkthrough harness (harness/build.sh passes
  * -DSCARIER_DUMP_TOOLS).  A normal Spatterlight build never sees this file or
- * the call sites in sctasks.c / scnpcs.c, so there is zero footprint in the
+ * the call sites in sctasks.cpp / scnpcs.cpp, so there is zero footprint in the
  * shipping interpreter.
  *
  * The three entry points, each driven by an environment variable so a run can
@@ -46,7 +46,7 @@
  *                     - object "inside" Var3 is a 1-based container index;
  *                       move-object actions move 1-based room destinations.
  *
- *   SCR_TRACE_TASKS  enable SCARIER's built-in task + restriction tracing (prints
+ *   SCR_TRACE_TASKS  enable Scarier's built-in task + restriction tracing (prints
  *                   the bracket expression and each restriction PASS/FAIL).
  *
  *   SCR_TRACE_JUDY   per-turn one-line dump of every NPC's current room, for
@@ -111,35 +111,79 @@ scdump_object_name (scr_gameref_t game, scr_int obj)
 }
 
 /*
- * scr_dump_structure_once()
+ * scdump_rule_table()
  *
- * One-shot (guarded by a static flag) structural dump, triggered by the
- * SCR_DUMP_TASKS environment variable.  Also honours SCR_TRACE_TASKS.
+ * Print a table of Original -> Replacement rules (ALRs or Synonyms), one
+ * "<label> [orig] -> [repl]" line each.
  */
-void
-scr_dump_structure_once (scr_gameref_t game)
+static void
+scdump_rule_table (scr_prop_setref_t bundle, const scr_char *collection,
+                   const scr_char *label)
 {
-  static scr_bool dumped = FALSE;
-  static scr_bool checked_env = FALSE;
-  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events, dump_alrs;
-  scr_int t, i;
+  scr_vartype_t yk[3];
+  scr_int yc, yi;
 
-  /* This is called from every task_can_run_task_directional() -- per task,
-   * per turn -- and getenv is a locked linear environ scan, so poll the
-   * environment once only (the variables can't change mid-run anyway). */
-  if (!checked_env)
+  yk[0].string = collection;
+  yc = prop_get_child_count (bundle, "I<-s", yk);
+  for (yi = 0; yi < yc; yi++)
     {
-      checked_env = TRUE;
-      trace_tasks = getenv ("SCR_TRACE_TASKS") != NULL;
-      dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
-      dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
-      trace_events = getenv ("SCR_TRACE_EVENTS") != NULL;
-      dump_alrs = getenv ("SCR_DUMP_ALRS") != NULL;
+      const scr_char *orig, *repl;
+      yk[1].integer = yi;
+      yk[2].string = "Original";
+      orig = prop_get_string (bundle, "S<-sis", yk);
+      yk[2].string = "Replacement";
+      repl = prop_get_string (bundle, "S<-sis", yk);
+      fprintf (stderr, "%s [%s] -> [%s]\n",
+               label, orig ? orig : "", repl ? repl : "");
     }
-  if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events
-      && !dump_alrs)
-    return;
+}
 
+
+/*
+ * scdump_battle_ranges()
+ *
+ * Print " <attr>=lo-hi" for the five ranged battle attributes, reading
+ * <attr>Lo/<attr>Hi (4.0) or a single <attr> (3.9) through key[slot], the
+ * rest of the key being the player's or an NPC's Battle record.
+ */
+static void
+scdump_battle_ranges (scr_prop_setref_t bundle, const scr_char *format,
+                      scr_vartype_t key[], scr_int slot)
+{
+  static const scr_char *const attrs[] =
+    { "Stamina", "Strength", "Accuracy", "Defense", "Agility" };
+  scr_vartype_t bv;
+  size_t a;
+
+  for (a = 0; a < sizeof attrs / sizeof attrs[0]; a++)
+    {
+      scr_char name[32];
+      scr_int lo = 0, hi = -1;
+      snprintf (name, sizeof name, "%sHi", attrs[a]);
+      key[slot].string = name;
+      if (prop_get (bundle, format, &bv, key)) hi = bv.integer;
+      snprintf (name, sizeof name, "%sLo", attrs[a]);
+      key[slot].string = name;
+      if (prop_get (bundle, format, &bv, key)) lo = bv.integer;
+      if (hi < 0)
+        {
+          key[slot].string = (scr_char *) attrs[a];
+          if (prop_get (bundle, format, &bv, key)) lo = hi = bv.integer;
+          else hi = 0;
+        }
+      fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
+    }
+}
+
+
+/*
+ * scdump_alr_table()
+ *
+ * SCR_DUMP_ALRS: the ALR table in filter order, length-prefixed.
+ */
+static void
+scdump_alr_table (scr_gameref_t game)
+{
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /*
@@ -150,184 +194,181 @@ scr_dump_structure_once (scr_gameref_t game)
    * Length-prefixed so an original may contain ']' or a newline.  Stops
    * before the task dump.
    */
-  if (dump_alrs && !dump_tasks && !dumped)
-    {
-      scr_vartype_t yk[3];
-      scr_int yc, yi;
+  scr_vartype_t yk[3];
+  scr_int yc, yi;
 
-      dumped = TRUE;
+  yk[0].string = "ALRs";
+  yc = prop_get_child_count (bundle, "I<-s", yk);
+  fprintf (stderr, "ALRCOUNT %ld\n", yc);
+  for (yi = 0; yi < yc; yi++)
+    {
+      scr_int alr;
+      const scr_char *orig, *repl;
+
+      yk[0].string = "ALRs2";
+      yk[1].integer = yi;
+      yk[2].string = "ALRIndex";
+      alr = prop_get_integer (bundle, "I<-sis", yk);
       yk[0].string = "ALRs";
-      yc = prop_get_child_count (bundle, "I<-s", yk);
-      fprintf (stderr, "ALRCOUNT %ld\n", yc);
-      for (yi = 0; yi < yc; yi++)
-        {
-          scr_int alr;
-          const scr_char *orig, *repl;
-
-          yk[0].string = "ALRs2";
-          yk[1].integer = yi;
-          yk[2].string = "ALRIndex";
-          alr = prop_get_integer (bundle, "I<-sis", yk);
-          yk[0].string = "ALRs";
-          yk[1].integer = alr;
-          yk[2].string = "Original";
-          orig = prop_get_string (bundle, "S<-sis", yk);
-          yk[2].string = "Replacement";
-          repl = prop_get_string (bundle, "S<-sis", yk);
-          if (!orig)
-            orig = "";
-          if (!repl)
-            repl = "";
-          fprintf (stderr, "ALR %lu %lu\n",
-                   (unsigned long) strlen (orig),
-                   (unsigned long) strlen (repl));
-          fwrite (orig, 1, strlen (orig), stderr);
-          fwrite (repl, 1, strlen (repl), stderr);
-          fputc ('\n', stderr);
-        }
-      return;
+      yk[1].integer = alr;
+      yk[2].string = "Original";
+      orig = prop_get_string (bundle, "S<-sis", yk);
+      yk[2].string = "Replacement";
+      repl = prop_get_string (bundle, "S<-sis", yk);
+      if (!orig)
+        orig = "";
+      if (!repl)
+        repl = "";
+      fprintf (stderr, "ALR %lu %lu\n",
+               (unsigned long) strlen (orig),
+               (unsigned long) strlen (repl));
+      fwrite (orig, 1, strlen (orig), stderr);
+      fwrite (repl, 1, strlen (repl), stderr);
+      fputc ('\n', stderr);
     }
+}
 
-  if (trace_tasks)
+
+/*
+ * scdump_objloc()
+ *
+ * SCR_DUMP_OBJLOC: object locations, battle properties, carry limits,
+ * and the save-stream shape.
+ */
+static void
+scdump_objloc (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int i;
+
+  for (i = 0; i < gs_object_count (game); i++)
     {
-      task_debug_trace (TRUE);
-      restr_debug_trace (TRUE);
-    }
-
-  /* SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
-   * the object moves an event performs).  Separate from SCR_TRACE_TASKS because
-   * an event that silently never fires is invisible in the task trace. */
-  if (trace_events)
-    evt_debug_trace (TRUE);
-
-  /* SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
-   * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
-   * whose full dump is large). */
-  if (dump_objloc && !dumped)
-    {
-      dumped = TRUE;
-      for (i = 0; i < gs_object_count (game); i++)
-        {
-          scr_vartype_t ok[4], bv;
-          scr_int pos, r, room = -1, hit = 0, acc = 0, prot = 0, method = 0;
-          const scr_char *s = scdump_object_name (game, i);
-          pos = gs_object_position (game, i);
-          for (r = 0; r < gs_room_count (game); r++)
-            if (obj_directly_in_room (game, i, r)) { room = r; break; }
-          ok[0].string = "Objects"; ok[1].integer = i; ok[2].string = "Battle";
-          ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
-          /* A weapon's Accuracy bonus is added straight onto the wielder's
-           * rolled accuracy in battle_eff_accuracy(), so it decides whether a
-           * fight is winnable at all -- print it beside HitValue. */
-          ok[3].string = "Accuracy";        if (prop_get (bundle, "I<-siss", &bv, ok)) acc = bv.integer;
-          ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
-          ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
-          {
-            /* Resolve the ultimate room by chasing parent containers/surfaces
-             * (pos -10/-20) or the holding/wearing NPC (pos -200/-300). */
-            scr_int eff = room, par = gs_object_parent (game, i), guard = 0;
-            if (eff < 0 && (pos == -10 || pos == -20))
-              {
-                scr_int cur = i;
-                while (guard++ < 32 && cur >= 0
-                       && (gs_object_position (game, cur) == -10
-                           || gs_object_position (game, cur) == -20))
-                  cur = gs_object_parent (game, cur);
-                if (cur >= 0)
-                  for (r = 0; r < gs_room_count (game); r++)
-                    if (obj_directly_in_room (game, cur, r)) { eff = r; break; }
-              }
-            if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
-              eff = gs_npc_location (game, par) - 1;
-            /* Raw SizeWeight (tens = size, units = weight) alongside the
-             * scaled values, because "too heavy to carry" verdicts hinge on
-             * the per-game scale bases and those are invisible otherwise. */
-            {
-              scr_int sw = 0, swclass = -1;
-              scr_vartype_t swk[3];
-              swk[0].string = "Objects"; swk[1].integer = i;
-              swk[2].string = "SizeWeight";
-              if (prop_get (bundle, "I<-sis", &bv, swk)) sw = bv.integer;
-              /* A 3.8 game's real datum: the 0..4 class and what it costs
-               * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games. */
-              swk[2].string = "SizeWeightClass";
-              if (prop_get (bundle, "I<-sis", &bv, swk)) swclass = bv.integer;
-              /* The raw .taf Parent field, printed even when Position says the
-               * object is not inside/on anything: the Runner's recursive
-               * weight scan (Sub_22_63) matches children on this field alone,
-               * with no position check, so a stale Parent silently adds an
-               * elsewhere-located object's weight to this container's. */
-              {
-                scr_int rawpar = -1;
-                swk[2].string = "Parent";
-                if (prop_get (bundle, "I<-sis", &bv, swk)) rawpar = bv.integer;
-                fprintf (stderr, "OBJLOC-RAWPAR obj=%ld rawparent=%ld"
-                         " runner_parent=%ld\n",
-                         i, rawpar, gs_object_runner_parent (game, i));
-              }
-              fprintf (stderr,
-                       "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
-                       " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
-                       " acc=%ld prot=%ld method=%ld sw=%ld size=%ld wt=%ld"
-                       " class=%ld burden=%ld [%s]\n",
-                       i, pos, room, par, eff,
-                       (scr_int) obj_is_static (game, i),
-                       (scr_int) gs_object_static_unmoved (game, i),
-                       gs_object_openness (game, i),
-                       gs_object_state (game, i),
-                       hit, acc, prot, method,
-                       sw, obj_get_size (game, i), obj_get_weight (game, i),
-                       swclass,
-                       obj_uses_burden_model (game)
-                         ? obj_get_burden (game, i) : 0,
-                       s ? s : "");
-            }
-          }
-        }
-
-      /* The save-stream shape depends on two things no reader can recover from
-       * the stream itself: whether the Battle System interleaves a battle block
-       * into the player and NPC records, and how many walk steps each NPC has
-       * (written with no count in front of them).  Print both, so a .tas
-       * rewriter -- tas40to39.py -- can walk a save it did not write. */
-      /* The player's carry limits, plus the two per-game geometric scale bases
-       * they are expressed in.  MaxSize/MaxWt are raw "tens*base^units". */
+      scr_vartype_t ok[4], bv;
+      scr_int pos, r, room = -1, hit = 0, acc = 0, prot = 0, method = 0;
+      const scr_char *s = scdump_object_name (game, i);
+      pos = gs_object_position (game, i);
+      for (r = 0; r < gs_room_count (game); r++)
+        if (obj_directly_in_room (game, i, r)) { room = r; break; }
+      ok[0].string = "Objects"; ok[1].integer = i; ok[2].string = "Battle";
+      ok[3].string = "HitValue";        if (prop_get (bundle, "I<-siss", &bv, ok)) hit = bv.integer;
+      /* A weapon's Accuracy bonus is added straight onto the wielder's
+       * rolled accuracy in battle_eff_accuracy(), so it decides whether a
+       * fight is winnable at all -- print it beside HitValue. */
+      ok[3].string = "Accuracy";        if (prop_get (bundle, "I<-siss", &bv, ok)) acc = bv.integer;
+      ok[3].string = "ProtectionValue"; if (prop_get (bundle, "I<-siss", &bv, ok)) prot = bv.integer;
+      ok[3].string = "Method";          if (prop_get (bundle, "I<-siss", &bv, ok)) method = bv.integer;
       {
-        scr_vartype_t gk[2], gv;
-        scr_int max_size = 0, max_wt = 0, sbase = 3, wbase = 3;
-        gk[0].string = "Globals";
-        gk[1].string = "MaxSize";
-        if (prop_get (bundle, "I<-ss", &gv, gk)) max_size = gv.integer;
-        gk[1].string = "MaxWt";
-        if (prop_get (bundle, "I<-ss", &gv, gk)) max_wt = gv.integer;
-        gk[1].string = "SizeMultiple";
-        if (prop_get (bundle, "I<-ss", &gv, gk)) sbase = gv.integer;
-        gk[1].string = "WeightMultiple";
-        if (prop_get (bundle, "I<-ss", &gv, gk)) wbase = gv.integer;
-        fprintf (stderr,
-                 "PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
-                 " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
-                 max_size, max_wt,
-                 obj_get_player_size_limit (game),
-                 obj_get_player_weight_limit (game),
-                 sbase, wbase,
-                 (scr_int) obj_uses_burden_model (game),
-                 obj_uses_burden_model (game)
-                   ? obj_get_player_burden_limit (game) : 0);
+        /* Resolve the ultimate room by chasing parent containers/surfaces
+         * (pos -10/-20) or the holding/wearing NPC (pos -200/-300). */
+        scr_int eff = room, par = gs_object_parent (game, i), guard = 0;
+        if (eff < 0 && (pos == -10 || pos == -20))
+          {
+            scr_int cur = i;
+            while (guard++ < 32 && cur >= 0
+                   && (gs_object_position (game, cur) == -10
+                       || gs_object_position (game, cur) == -20))
+              cur = gs_object_parent (game, cur);
+            if (cur >= 0)
+              for (r = 0; r < gs_room_count (game); r++)
+                if (obj_directly_in_room (game, cur, r)) { eff = r; break; }
+          }
+        if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
+          eff = gs_npc_location (game, par) - 1;
+        /* Raw SizeWeight (tens = size, units = weight) alongside the
+         * scaled values, because "too heavy to carry" verdicts hinge on
+         * the per-game scale bases and those are invisible otherwise. */
+        {
+          scr_int sw = 0, swclass = -1;
+          scr_vartype_t swk[3];
+          swk[0].string = "Objects"; swk[1].integer = i;
+          swk[2].string = "SizeWeight";
+          if (prop_get (bundle, "I<-sis", &bv, swk)) sw = bv.integer;
+          /* A 3.8 game's real datum: the 0..4 class and what it costs
+           * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games. */
+          swk[2].string = "SizeWeightClass";
+          if (prop_get (bundle, "I<-sis", &bv, swk)) swclass = bv.integer;
+          /* The raw .taf Parent field, printed even when Position says the
+           * object is not inside/on anything: the Runner's recursive
+           * weight scan (Sub_22_63) matches children on this field alone,
+           * with no position check, so a stale Parent silently adds an
+           * elsewhere-located object's weight to this container's. */
+          {
+            scr_int rawpar = -1;
+            swk[2].string = "Parent";
+            if (prop_get (bundle, "I<-sis", &bv, swk)) rawpar = bv.integer;
+            fprintf (stderr, "OBJLOC-RAWPAR obj=%ld rawparent=%ld"
+                     " runner_parent=%ld\n",
+                     i, rawpar, gs_object_runner_parent (game, i));
+          }
+          fprintf (stderr,
+                   "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
+                   " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"
+                   " acc=%ld prot=%ld method=%ld sw=%ld size=%ld wt=%ld"
+                   " class=%ld burden=%ld [%s]\n",
+                   i, pos, room, par, eff,
+                   (scr_int) obj_is_static (game, i),
+                   (scr_int) gs_object_static_unmoved (game, i),
+                   gs_object_openness (game, i),
+                   gs_object_state (game, i),
+                   hit, acc, prot, method,
+                   sw, obj_get_size (game, i), obj_get_weight (game, i),
+                   swclass,
+                   obj_uses_burden_model (game)
+                     ? obj_get_burden (game, i) : 0,
+                   s ? s : "");
+        }
       }
-
-      fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
-               (scr_int) battle_is_enabled (game), gs_room_count (game),
-               gs_object_count (game), gs_npc_count (game));
-      for (i = 0; i < gs_npc_count (game); i++)
-        fprintf (stderr, "NPCINFO npc=%ld walksteps=%ld\n",
-                 i, gs_npc_walkstep_count (game, i));
-      return;
     }
 
-  if (!dump_tasks || dumped)
-    return;
-  dumped = TRUE;
+  /* The save-stream shape depends on two things no reader can recover from
+   * the stream itself: whether the Battle System interleaves a battle block
+   * into the player and NPC records, and how many walk steps each NPC has
+   * (written with no count in front of them).  Print both, so a .tas
+   * rewriter -- tas40to39.py -- can walk a save it did not write. */
+  /* The player's carry limits, plus the two per-game geometric scale bases
+   * they are expressed in.  MaxSize/MaxWt are raw "tens*base^units". */
+  {
+    scr_vartype_t gk[2], gv;
+    scr_int max_size = 0, max_wt = 0, sbase = 3, wbase = 3;
+    gk[0].string = "Globals";
+    gk[1].string = "MaxSize";
+    if (prop_get (bundle, "I<-ss", &gv, gk)) max_size = gv.integer;
+    gk[1].string = "MaxWt";
+    if (prop_get (bundle, "I<-ss", &gv, gk)) max_wt = gv.integer;
+    gk[1].string = "SizeMultiple";
+    if (prop_get (bundle, "I<-ss", &gv, gk)) sbase = gv.integer;
+    gk[1].string = "WeightMultiple";
+    if (prop_get (bundle, "I<-ss", &gv, gk)) wbase = gv.integer;
+    fprintf (stderr,
+             "PLAYERLIMITS rawmaxsize=%ld rawmaxwt=%ld size=%ld wt=%ld"
+             " sizebase=%ld wtbase=%ld burdenmodel=%ld maxburden=%ld\n",
+             max_size, max_wt,
+             obj_get_player_size_limit (game),
+             obj_get_player_weight_limit (game),
+             sbase, wbase,
+             (scr_int) obj_uses_burden_model (game),
+             obj_uses_burden_model (game)
+               ? obj_get_player_burden_limit (game) : 0);
+  }
+
+  fprintf (stderr, "SAVEINFO battle=%ld rooms=%ld objects=%ld npcs=%ld\n",
+           (scr_int) battle_is_enabled (game), gs_room_count (game),
+           gs_object_count (game), gs_npc_count (game));
+  for (i = 0; i < gs_npc_count (game); i++)
+    fprintf (stderr, "NPCINFO npc=%ld walksteps=%ld\n",
+             i, gs_npc_walkstep_count (game, i));
+}
+
+
+/*
+ * scdump_globals()
+ *
+ * The header globals and the variable table.
+ */
+static void
+scdump_globals (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /* Header: the two globals every other line has to be read against.
    * perspective is the raw authored value -- pre-4.0 Runners render 1, 2 and 3
@@ -370,6 +411,20 @@ scr_dump_structure_once (scr_gameref_t game)
         fprintf (stderr, "VAR %ld type=%ld [%s]\n", v, type, name ? name : "");
       }
   }
+}
+
+
+/*
+ * scdump_objects()
+ *
+ * The object tables: container indices, states, static rooms, names,
+ * locks, surfaces.
+ */
+static void
+scdump_objects (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int i;
 
   /* Container-index table (1-based "inside" Var3 maps through this). */
   for (i = 0; i < 64; i++)
@@ -538,6 +593,18 @@ scr_dump_structure_once (scr_gameref_t game)
           fprintf (stderr, "CONTAINERIDX idx=%ld obj=%ld [%s]\n", ci++, i, s ? s : "");
       }
   }
+}
+
+
+/*
+ * scdump_rewrite_rules()
+ *
+ * The ALR and synonym tables.
+ */
+static void
+scdump_rewrite_rules (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /*
    * ALRs (output-rewrite rules applied to the finished turn text).
@@ -551,42 +618,23 @@ scr_dump_structure_once (scr_gameref_t game)
    * satellite?` pin run400's ambiguity message and its
    * `tense(Prefix) & " " & Short` list construction without launching Wine.
    */
-  {
-    scr_vartype_t yk[3];
-    scr_int yc, yi;
-    yk[0].string = "ALRs";
-    yc = prop_get_child_count (bundle, "I<-s", yk);
-    for (yi = 0; yi < yc; yi++)
-      {
-        const scr_char *orig, *repl;
-        yk[1].integer = yi;
-        yk[2].string = "Original";
-        orig = prop_get_string (bundle, "S<-sis", yk);
-        yk[2].string = "Replacement";
-        repl = prop_get_string (bundle, "S<-sis", yk);
-        fprintf (stderr, "ALR [%s] -> [%s]\n",
-                 orig ? orig : "", repl ? repl : "");
-      }
-  }
+  scdump_rule_table (bundle, "ALRs", "ALR");
 
   /* Synonyms (input-rewrite rules applied before task/library matching). */
-  {
-    scr_vartype_t yk[3];
-    scr_int yc, yi;
-    yk[0].string = "Synonyms";
-    yc = prop_get_child_count (bundle, "I<-s", yk);
-    for (yi = 0; yi < yc; yi++)
-      {
-        const scr_char *orig, *repl;
-        yk[1].integer = yi;
-        yk[2].string = "Original";
-        orig = prop_get_string (bundle, "S<-sis", yk);
-        yk[2].string = "Replacement";
-        repl = prop_get_string (bundle, "S<-sis", yk);
-        fprintf (stderr, "SYNONYM [%s] -> [%s]\n",
-                 orig ? orig : "", repl ? repl : "");
-      }
-  }
+  scdump_rule_table (bundle, "Synonyms", "SYNONYM");
+}
+
+
+/*
+ * scdump_tasks()
+ *
+ * Tasks: command, Where, Repeatable, restrictions, actions.
+ */
+static void
+scdump_tasks (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int t, i;
 
   /* Tasks: command, Where, Repeatable, restrictions, actions. */
   for (t = 0; t < gs_task_count (game); t++)
@@ -872,6 +920,18 @@ scr_dump_structure_once (scr_gameref_t game)
           fprintf (stderr, "\n");
         }
     }
+}
+
+
+/*
+ * scdump_events()
+ *
+ * Events: starter, starter task, affected task, object moves.
+ */
+static void
+scdump_events (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /* Events: starter, starter task, affected task, object moves. */
   {
@@ -990,6 +1050,18 @@ scr_dump_structure_once (scr_gameref_t game)
         }
       }
   }
+}
+
+
+/*
+ * scdump_battle()
+ *
+ * The player's Battle System ranges, under SCR_DUMP_BATTLE.
+ */
+static void
+scdump_battle (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /* The player's Battle System ranges (Globals.Battle.<attr>Lo/Hi), same
    * shape as the per-NPC BATTLE line below.  A player Stamina of 0..0 is the
@@ -998,37 +1070,29 @@ scr_dump_structure_once (scr_gameref_t game)
    * Proc_11_14 selects 0-stamina targets, Proc_11_0 -> Proc_21_62). */
   if (getenv ("SCR_DUMP_BATTLE"))
     {
-      static const scr_char *const attrs[] =
-        { "Stamina", "Strength", "Accuracy", "Defense", "Agility" };
       scr_vartype_t bk[4], bv;
-      size_t a;
       scr_int rec = 0;
 
       bk[0].string = "Globals"; bk[1].string = "Battle";
       fprintf (stderr, "  BATTLE player system=%s",
                prop_get_global_boolean (bundle, "BattleSystem") ? "on" : "off");
-      for (a = 0; a < sizeof attrs / sizeof attrs[0]; a++)
-        {
-          scr_char key[32];
-          scr_int lo = 0, hi = -1;
-          snprintf (key, sizeof key, "%sHi", attrs[a]);
-          bk[2].string = key;
-          if (prop_get (bundle, "I<-sss", &bv, bk)) hi = bv.integer;
-          snprintf (key, sizeof key, "%sLo", attrs[a]);
-          bk[2].string = key;
-          if (prop_get (bundle, "I<-sss", &bv, bk)) lo = bv.integer;
-          if (hi < 0)
-            {
-              bk[2].string = (scr_char *) attrs[a];
-              if (prop_get (bundle, "I<-sss", &bv, bk)) lo = hi = bv.integer;
-              else hi = 0;
-            }
-          fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
-        }
+      scdump_battle_ranges (bundle, "I<-sss", bk, 2);
       bk[2].string = "Recovery";
       if (prop_get (bundle, "I<-sss", &bv, bk)) rec = bv.integer;
       fprintf (stderr, " recovery=%ld\n", rec);
     }
+}
+
+
+/*
+ * scdump_npcs()
+ *
+ * NPCs and their walks.
+ */
+static void
+scdump_npcs (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /* NPCs and their walks (StartTask/CharTask/MeetChar/ObjectTask/Rooms). */
   {
@@ -1078,32 +1142,12 @@ scr_dump_structure_once (scr_gameref_t game)
          * Only emitted when SCR_DUMP_BATTLE is set, to keep the task dump terse. */
         if (getenv ("SCR_DUMP_BATTLE"))
           {
-            static const scr_char *const attrs[] =
-              { "Stamina", "Strength", "Accuracy", "Defense", "Agility" };
             scr_vartype_t bk[5], bv;
-            size_t a;
             scr_int att = 0, spd = 0, kt = 0;
 
             bk[0].string = "NPCs"; bk[1].integer = n; bk[2].string = "Battle";
             fprintf (stderr, "  BATTLE npc=%ld", n);
-            for (a = 0; a < sizeof attrs / sizeof attrs[0]; a++)
-              {
-                scr_char key[32];
-                scr_int lo = 0, hi = -1;
-                snprintf (key, sizeof key, "%sHi", attrs[a]);
-                bk[3].string = key;
-                if (prop_get (bundle, "I<-siss", &bv, bk)) hi = bv.integer;
-                snprintf (key, sizeof key, "%sLo", attrs[a]);
-                bk[3].string = key;
-                if (prop_get (bundle, "I<-siss", &bv, bk)) lo = bv.integer;
-                if (hi < 0)
-                  {
-                    bk[3].string = (scr_char *) attrs[a];
-                    if (prop_get (bundle, "I<-siss", &bv, bk)) lo = hi = bv.integer;
-                    else hi = 0;
-                  }
-                fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
-              }
+            scdump_battle_ranges (bundle, "I<-siss", bk, 3);
             bk[3].string = "Attitude"; if (prop_get (bundle, "I<-siss", &bv, bk)) att = bv.integer;
             bk[3].string = "Speed";    if (prop_get (bundle, "I<-siss", &bv, bk)) spd = bv.integer;
             bk[3].string = "KilledTask"; if (prop_get (bundle, "I<-siss", &bv, bk)) kt = bv.integer;
@@ -1118,7 +1162,7 @@ scr_dump_structure_once (scr_gameref_t game)
             scr_int loop = 0, st = 0, ct = 0, mo = 0, ot = 0, sp = 0, mc = 0;
             scr_int rc, s;
             nk[3].integer = w;
-            nk[4].string = "Loop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.integer;
+            nk[4].string = "Loop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.boolean;
             nk[4].string = "StartTask";   if (prop_get (bundle, "I<-sisis", &nv, nk)) st = nv.integer;
             nk[4].string = "CharTask";    if (prop_get (bundle, "I<-sisis", &nv, nk)) ct = nv.integer;
             nk[4].string = "MeetObject";  if (prop_get (bundle, "I<-sisis", &nv, nk)) mo = nv.integer;
@@ -1148,6 +1192,18 @@ scr_dump_structure_once (scr_gameref_t game)
           }
       }
   }
+}
+
+
+/*
+ * scdump_exits()
+ *
+ * Room exits and their task gates.
+ */
+static void
+scdump_exits (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   /* Room exits + their task gates.  The exit array is in ADRIFT's own direction
      order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (sclibrar.cpp's
@@ -1266,6 +1322,79 @@ scr_dump_structure_once (scr_gameref_t game)
           }
       }
   }
+}
+
+
+/*
+ * scr_dump_structure_once()
+ *
+ * One-shot (guarded by a static flag) structural dump, triggered by the
+ * SCR_DUMP_TASKS environment variable.  Also honours SCR_TRACE_TASKS.
+ */
+void
+scr_dump_structure_once (scr_gameref_t game)
+{
+  static scr_bool dumped = FALSE;
+  static scr_bool checked_env = FALSE;
+  static scr_bool trace_tasks, dump_objloc, dump_tasks, trace_events, dump_alrs;
+
+  /* This is called from every task_can_run_task_directional() -- per task,
+   * per turn -- and getenv is a locked linear environ scan, so poll the
+   * environment once only (the variables can't change mid-run anyway). */
+  if (!checked_env)
+    {
+      checked_env = TRUE;
+      trace_tasks = getenv ("SCR_TRACE_TASKS") != NULL;
+      dump_objloc = getenv ("SCR_DUMP_OBJLOC") != NULL;
+      dump_tasks = getenv ("SCR_DUMP_TASKS") != NULL;
+      trace_events = getenv ("SCR_TRACE_EVENTS") != NULL;
+      dump_alrs = getenv ("SCR_DUMP_ALRS") != NULL;
+    }
+  if (!trace_tasks && !dump_objloc && !dump_tasks && !trace_events
+      && !dump_alrs)
+    return;
+
+  if (dump_alrs && !dump_tasks && !dumped)
+    {
+      dumped = TRUE;
+      scdump_alr_table (game);
+      return;
+    }
+
+  if (trace_tasks)
+    {
+      task_debug_trace (TRUE);
+      restr_debug_trace (TRUE);
+    }
+
+  /* SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
+   * the object moves an event performs).  Separate from SCR_TRACE_TASKS because
+   * an event that silently never fires is invisible in the task trace. */
+  if (trace_events)
+    evt_debug_trace (TRUE);
+
+  /* SCR_DUMP_OBJLOC: minimal, isolated object-location + battle-property dump
+   * (does NOT touch the heavy task/exit/walk sections, so it is safe on games
+   * whose full dump is large). */
+  if (dump_objloc && !dumped)
+    {
+      dumped = TRUE;
+      scdump_objloc (game);
+      return;
+    }
+
+  if (!dump_tasks || dumped)
+    return;
+  dumped = TRUE;
+
+  scdump_globals (game);
+  scdump_objects (game);
+  scdump_rewrite_rules (game);
+  scdump_tasks (game);
+  scdump_events (game);
+  scdump_battle (game);
+  scdump_npcs (game);
+  scdump_exits (game);
 
   fflush (stderr);
 }

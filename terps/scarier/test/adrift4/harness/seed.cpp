@@ -17,15 +17,15 @@
  */
 
 /*
- * Deterministic-seed shim for the headless SCARIER walkthrough harness.
+ * Deterministic-seed shim for the headless Scarier walkthrough harness.
  *
- * Linked into the standalone ANSI `scarier` build. A constructor forces SCARIER's
+ * Linked into the standalone ANSI `scarier` build. A constructor forces Scarier's
  * portable (platform-independent) RNG and a fixed seed BEFORE main() runs, so
  * the ADRIFT Battle System and any other randomness are reproducible across
  * runs. Without this, the native build seeds rand() from time() and combat
  * outcomes (and scores) vary between identical command sequences.
  *
- * Also opts in to SCARIER's Battle-System "combat assist" when SCR_ASSUME_COMBAT
+ * Also opts in to Scarier's Battle-System "combat assist" when SCR_ASSUME_COMBAT
  * is set in the environment: many of these games leave Accuracy/Agility at 0,
  * which disables combat entirely; the assist makes hits land so combat plays
  * out on the author's intended strength-vs-defence basis (opt-in, non-faithful).

@@ -330,9 +330,9 @@ var_put (scr_var_setref_t vars,
     {
       /*
        * Special case %scarier_version%.  If a game defines this and initializes
-       * it to zero, re-initialize it to SCARIER's version number.  Games that
+       * it to zero, re-initialize it to Scarier's version number.  Games that
        * define %scarier_version%, initially zero, can use this to test if
-       * running under SCARIER or Runner.
+       * running under Scarier or Runner.
        */
       if (strcmp (name, "scarier_version") == 0 && vt_value.integer == 0)
         {
@@ -433,25 +433,113 @@ var_append_temp (scr_var_setref_t vars, const scr_char *string)
 
 
 /*
+ * var_clear_temp()
+ * var_set_temp()
+ *
+ * Empty temporary ahead of var_append_temp() calls, or replace it with a
+ * copy of `string`.
+ */
+static void
+var_clear_temp (scr_var_setref_t vars)
+{
+  vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
+  vars->temporary[0] = NUL;
+}
+
+static void
+var_set_temp (scr_var_setref_t vars, const scr_char *string)
+{
+  vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, strlen (string) + 1);
+  memcpy (vars->temporary, string, strlen (string) + 1);
+}
+
+
+/*
+ * var_number_text()
+ *
+ * The %t_...% spelling of a number: its word from zero to twenty, otherwise
+ * its digits, formatted into temporary.
+ */
+static const scr_char *
+var_number_text (scr_var_setref_t vars, scr_int number)
+{
+  const scr_char *word = var_number_word (number);
+
+  if (word)
+    return word;
+
+  vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
+  snprintf (vars->temporary, 32, "%ld", number);
+  return vars->temporary;
+}
+
+
+/*
+ * var_openness_word()
+ *
+ * "open", "closed" or "locked" for an openable object's openness, `unknown`
+ * for anything else.
+ */
+static const scr_char *
+var_openness_word (scr_gameref_t game, scr_int object, const scr_char *unknown)
+{
+  switch (gs_object_openness (game, object))
+    {
+    case OBJ_OPEN:
+      return "open";
+    case OBJ_CLOSED:
+      return "closed";
+    case OBJ_LOCKED:
+      return "locked";
+    default:
+      return unknown;
+    }
+}
+
+
+/*
+ * var_object_is_stateful()
+ * var_set_temp_state()
+ *
+ * Whether an object has states at all, and copy its current state name into
+ * temporary (FALSE if it has none to give).
+ */
+static scr_bool
+var_object_is_stateful (scr_prop_setref_t bundle, scr_int object)
+{
+  return prop_get_indexed_integer (bundle, "Objects", object,
+                                   "CurrentState") != 0;
+}
+
+static scr_bool
+var_set_temp_state (scr_gameref_t game, scr_var_setref_t vars, scr_int object)
+{
+  scr_char *state = obj_state_name (game, object);
+
+  if (!state)
+    return FALSE;
+  var_set_temp (vars, state);
+  scr_free (state);
+  return TRUE;
+}
+
+
+/*
+ * var_definite_name()
  * var_print_object_np
  * var_print_object
  *
- * Convenience functions to append an object's name, with and without any
- * prefix, to variables temporary.
+ * An object's name with its article replaced by "the" (%theobject%), and
+ * convenience functions to append an object's name, with "the" and with its
+ * own prefix, to variables temporary.
  */
-static void
-var_print_object_np (scr_gameref_t game, scr_int object)
+static std::string
+var_definite_name (scr_prop_setref_t bundle, scr_int object)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
   const scr_char *prefix, *normalized, *name;
+  std::string result;
 
-  /* Get the object's prefix. */
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Prefix";
-  prefix = prop_get_string (bundle, "S<-sis", vt_key);
+  prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
 
   /*
    * Try the same shenanigans as done by the equivalent function in the
@@ -461,41 +549,40 @@ var_print_object_np (scr_gameref_t game, scr_int object)
   if (scr_compare_word (prefix, "a", 1))
     {
       normalized = prefix + 1;
-      var_append_temp (vars, "the");
+      result = "the";
     }
   else if (scr_compare_word (prefix, "an", 2))
     {
       normalized = prefix + 2;
-      var_append_temp (vars, "the");
+      result = "the";
     }
   else if (scr_compare_word (prefix, "the", 3))
     {
       normalized = prefix + 3;
-      var_append_temp (vars, "the");
+      result = "the";
     }
   else if (scr_compare_word (prefix, "some", 4))
     {
       normalized = prefix + 4;
-      var_append_temp (vars, "the");
+      result = "the";
     }
   else if (scr_strempty (prefix))
-    var_append_temp (vars, "the ");
+    result = "the ";
 
   /* As with the library, handle the remaining prefix. */
   if (!scr_strempty (normalized))
     {
-      var_append_temp (vars, normalized);
-      var_append_temp (vars, " ");
+      result += normalized;
+      result += ' ';
     }
   else if (normalized > prefix)
-    var_append_temp (vars, " ");
+    result += ' ';
 
   /*
-   * Print the object's name, again, as with the library, stripping any
+   * Add the object's name, again, as with the library, stripping any
    * leading article
    */
-  vt_key[2].string = "Short";
-  name = prop_get_string (bundle, "S<-sis", vt_key);
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (scr_compare_word (name, "a", 1))
     name += 1;
   else if (scr_compare_word (name, "an", 2))
@@ -504,7 +591,15 @@ var_print_object_np (scr_gameref_t game, scr_int object)
     name += 3;
   else if (scr_compare_word (name, "some", 4))
     name += 4;
-  var_append_temp (vars, name);
+  result += name;
+  return result;
+}
+
+static void
+var_print_object_np (scr_gameref_t game, scr_int object)
+{
+  var_append_temp (gs_get_vars (game),
+                   var_definite_name (gs_get_bundle (game), object).c_str ());
 }
 
 static void
@@ -644,16 +739,12 @@ var_use_alternate_format (scr_gameref_t game, scr_int associate, size_t count)
  * format, and `singular` and `plural` are the phrase joining the list to the
  * associate in the alternate one.
  */
-static void
-var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
-                    const scr_char *prefix,
-                    const scr_char *singular, const scr_char *plural)
+static var_list_t
+var_collect_at_object (scr_gameref_t game, scr_int associate, scr_int position)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object;
   var_list_t list;
+  scr_int object;
 
-  /* List out the objects held by this object. */
   for (object = 0; object < gs_object_count (game); object++)
     {
       /* Contained, or standing on? */
@@ -661,32 +752,52 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
           && gs_object_parent (game, object) == associate)
         list.push_back (object);
     }
+  return list;
+}
+
+static void
+var_list_at_clause (scr_gameref_t game, scr_int associate,
+                    const var_list_t &list, const scr_char *prefix,
+                    const scr_char *singular, const scr_char *plural)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+
+  if (var_use_alternate_format (game, associate, list.size ()))
+    {
+      var_print_list (game, list);
+      var_append_temp (vars,
+                       list.size () == 1
+                       ? var_select_plurality (game, list[0], singular, plural)
+                       : plural);
+
+      /* Print out the container or surface. */
+      var_print_object_np (game, associate);
+    }
+  else
+    {
+      /*
+       * The Runner's " is " is a literal whatever the count; Scarier
+       * keeps agreement -- see lib_list_in_object_normal().
+       */
+      var_append_temp (vars, prefix);
+      var_print_object_np (game, associate);
+      var_append_temp (vars, var_select_list_plurality (game, associate, list));
+      var_print_list (game, list);
+    }
+}
+
+static void
+var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
+                    const scr_char *prefix,
+                    const scr_char *singular, const scr_char *plural)
+{
+  const var_list_t list = var_collect_at_object (game, associate, position);
+
+  /* List out the objects held by this object. */
   if (!list.empty ())
     {
-      if (var_use_alternate_format (game, associate, list.size ()))
-        {
-          var_print_list (game, list);
-          var_append_temp (vars,
-                           list.size () == 1
-                           ? var_select_plurality (game, list[0],
-                                                   singular, plural)
-                           : plural);
-
-          /* Print out the container or surface. */
-          var_print_object_np (game, associate);
-        }
-      else
-        {
-          /*
-           * The Runner's " is " is a literal whatever the count; Scarier
-           * keeps agreement -- see lib_list_in_object_normal().
-           */
-          var_append_temp (vars, prefix);
-          var_print_object_np (game, associate);
-          var_append_temp (vars, var_select_list_plurality (game, associate, list));
-          var_print_list (game, list);
-        }
-      var_append_temp (vars, ".");
+      var_list_at_clause (game, associate, list, prefix, singular, plural);
+      var_append_temp (gs_get_vars (game), ".");
     }
 }
 
@@ -714,51 +825,17 @@ static void
 var_list_onin_object (scr_gameref_t game, scr_int associate)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int object;
   scr_bool supporting;
   var_list_t list;
 
   /* List out the objects standing on this object. */
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Standing on? */
-      if (gs_object_position (game, object) == OBJ_ON_OBJECT
-          && gs_object_parent (game, object) == associate)
-        list.push_back (object);
-    }
+  list = var_collect_at_object (game, associate, OBJ_ON_OBJECT);
   supporting = !list.empty ();
   if (supporting)
-    {
-      if (var_use_alternate_format (game, associate, list.size ()))
-        {
-          var_print_list (game, list);
-          var_append_temp (vars,
-                           list.size () == 1
-                           ? var_select_plurality (game, list[0],
-                                                   " is on ", " are on ")
-                           : " are on ");
-
-          /* Print out the surface. */
-          var_print_object_np (game, associate);
-        }
-      else
-        {
-          var_append_temp (vars, "On ");
-          var_print_object_np (game, associate);
-          var_append_temp (vars, var_select_list_plurality (game, associate, list));
-          var_print_list (game, list);
-        }
-    }
+    var_list_at_clause (game, associate, list, "On ", " is on ", " are on ");
 
   /* List out the objects contained in this object. */
-  list.clear ();
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      /* Contained? */
-      if (gs_object_position (game, object) == OBJ_IN_OBJECT
-          && gs_object_parent (game, object) == associate)
-        list.push_back (object);
-    }
+  list = var_collect_at_object (game, associate, OBJ_IN_OBJECT);
   if (!list.empty ())
     {
       /*
@@ -780,23 +857,9 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
                                                    " is inside ", " are inside ")
                            : " are inside");
         }
-      else if (var_use_alternate_format (game, associate, list.size ()))
-        {
-          var_print_list (game, list);
-          var_append_temp (vars,
-                           list.size () == 1
-                           ? var_select_plurality (game, list[0],
-                                                   " is inside ", " are inside ")
-                           : " are inside ");
-          var_print_object_np (game, associate);
-        }
       else
-        {
-          var_append_temp (vars, "Inside ");
-          var_print_object_np (game, associate);
-          var_append_temp (vars, var_select_list_plurality (game, associate, list));
-          var_print_list (game, list);
-        }
+        var_list_at_clause (game, associate, list, "Inside ",
+                            " is inside ", " are inside ");
       var_append_temp (vars, ".");
     }
   else
@@ -830,6 +893,50 @@ var_return_string (const scr_char *value, scr_int *type, scr_vartype_t *vt_rvalu
   *type = VAR_STRING;
   vt_rvalue->string = value;
   return TRUE;
+}
+
+
+/*
+ * var_find_object_by_short()
+ *
+ * Find the lowest-indexed object whose Short, alone or after its Prefix and
+ * a space, equals `name` ignoring case, optionally skipping objects that
+ * are not openable.  -1 if none.  The shared scan behind var_status_object()
+ * and var_marker_object_by_short() below.
+ */
+static scr_int
+var_find_object_by_short (scr_gameref_t game, const scr_char *name,
+                          scr_bool openable_only)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *prefix, *shortname;
+      std::string prefixed;
+
+      if (openable_only
+          && prop_get_indexed_integer (bundle, "Objects", object,
+                                       "Openable") == 0)
+        continue;
+
+      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      if (scr_strcasecmp (name, shortname) == 0)
+        return object;
+
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+      if (scr_strempty (prefix))
+        continue;
+
+      prefixed.assign (prefix);
+      prefixed.append (1, ' ');
+      prefixed.append (shortname);
+      if (scr_strcasecmp (name, prefixed.c_str ()) == 0)
+        return object;
+    }
+
+  return -1;
 }
 
 
@@ -883,33 +990,7 @@ var_return_string (const scr_char *value, scr_int *type, scr_vartype_t *vt_rvalu
 static scr_int
 var_status_object (scr_gameref_t game, const scr_char *name)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object;
-
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      const scr_char *prefix, *shortname;
-      std::string prefixed;
-
-      if (prop_get_indexed_integer (bundle, "Objects", object, "Openable") == 0)
-        continue;
-
-      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-      if (scr_strcasecmp (name, shortname) == 0)
-        return object;
-
-      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
-      if (scr_strempty (prefix))
-        continue;
-
-      prefixed.assign (prefix);
-      prefixed.append (1, ' ');
-      prefixed.append (shortname);
-      if (scr_strcasecmp (name, prefixed.c_str ()) == 0)
-        return object;
-    }
-
-  return -1;
+  return var_find_object_by_short (game, name, TRUE);
 }
 
 
@@ -934,30 +1015,7 @@ var_status_object (scr_gameref_t game, const scr_char *name)
 static scr_int
 var_marker_object_by_short (scr_gameref_t game, const scr_char *name)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object;
-
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      const scr_char *prefix, *shortname;
-      std::string prefixed;
-
-      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-      if (scr_strcasecmp (name, shortname) == 0)
-        return object;
-
-      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
-      if (scr_strempty (prefix))
-        continue;
-
-      prefixed.assign (prefix);
-      prefixed.append (1, ' ');
-      prefixed.append (shortname);
-      if (scr_strcasecmp (name, prefixed.c_str ()) == 0)
-        return object;
-    }
-
-  return -1;
+  return var_find_object_by_short (game, name, FALSE);
 }
 
 
@@ -1088,8 +1146,7 @@ var_get_system (scr_var_setref_t vars,
       }
 
       /* Clear any current temporary for appends. */
-      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
-      vars->temporary[0] = '\0';
+      var_clear_temp (vars);
 
       /*
        * Write what's in the object into temporary -- but only for an open
@@ -1146,23 +1203,16 @@ var_get_system (scr_var_setref_t vars,
         {
           /* Return object name with its prefix. */
           const scr_char *prefix, *objname;
+          size_t size;
 
           prefix = prop_get_indexed_string (bundle, "Objects",
                                             vars->referenced_object, "Prefix");
-
-          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, strlen (prefix) + 1);
-          memcpy (vars->temporary, prefix, strlen (prefix) + 1);
-
           objname = prop_get_indexed_string (bundle, "Objects",
                                              vars->referenced_object, "Short");
 
-          {
-            size_t used = strlen (vars->temporary);
-            size_t size = used + strlen (objname) + 2;
-
-            vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
-            snprintf (vars->temporary + used, size - used, " %s", objname);
-          }
+          size = strlen (prefix) + strlen (objname) + 2;
+          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
+          snprintf (vars->temporary, size, "%s %s", prefix, objname);
 
           return var_return_string (vars->temporary, type, vt_rvalue);
         }
@@ -1175,10 +1225,6 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "obstate") == 0)
     {
-      scr_vartype_t vt_key[3];
-      scr_bool is_statussed;
-      scr_char *state;
-
       /* Check there's enough information to return a value. */
       if (!game)
         {
@@ -1195,23 +1241,15 @@ var_get_system (scr_var_setref_t vars,
        * If not a stateful object, Runner 4.0.45 crashes; we'll do something
        * different here.
        */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = vars->referenced_object;
-      vt_key[2].string = "CurrentState";
-      is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      if (!is_statussed)
+      if (!var_object_is_stateful (bundle, vars->referenced_object))
         return var_return_string ("stateless", type, vt_rvalue);
 
       /* Get state, and copy to temporary. */
-      state = obj_state_name (game, vars->referenced_object);
-      if (!state)
+      if (!var_set_temp_state (game, vars, vars->referenced_object))
         {
           scr_error ("var_get_system: invalid state for obstate\n");
           return var_return_string ("[Obstate unknown]", type, vt_rvalue);
         }
-      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, strlen (state) + 1);
-      memcpy (vars->temporary, state, strlen (state) + 1);
-      scr_free (state);
 
       /* Return temporary. */
       return var_return_string (vars->temporary, type, vt_rvalue);
@@ -1219,11 +1257,6 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "obstatus") == 0)
     {
-      scr_vartype_t vt_key[3];
-      scr_bool is_openable;
-      scr_int openness;
-      const scr_char *retval;
-
       /* Check there's enough information to return a value. */
       if (!game)
         {
@@ -1237,31 +1270,15 @@ var_get_system (scr_var_setref_t vars,
         }
 
       /* If not an openable object, return unopenable to match Adrift. */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = vars->referenced_object;
-      vt_key[2].string = "Openable";
-      is_openable = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      if (!is_openable)
+      if (prop_get_indexed_integer (bundle, "Objects", vars->referenced_object,
+                                    "Openable") == 0)
         return var_return_string ("unopenable", type, vt_rvalue);
 
       /* Return one of open, closed, or locked. */
-      openness = gs_object_openness (game, vars->referenced_object);
-      switch (openness)
-        {
-        case OBJ_OPEN:
-          retval = "open";
-          break;
-        case OBJ_CLOSED:
-          retval = "closed";
-          break;
-        case OBJ_LOCKED:
-          retval = "locked";
-          break;
-        default:
-          retval = "[Obstatus unknown]";
-          break;
-        }
-      return var_return_string (retval, type, vt_rvalue);
+      return var_return_string (var_openness_word (game,
+                                                   vars->referenced_object,
+                                                   "[Obstatus unknown]"),
+                                type, vt_rvalue);
     }
 
   else if (strncmp (name, "on_", 3) == 0)
@@ -1288,8 +1305,7 @@ var_get_system (scr_var_setref_t vars,
       }
 
       /* Clear any current temporary for appends. */
-      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
-      vars->temporary[0] = '\0';
+      var_clear_temp (vars);
 
       /* Write what's on the object into temporary. */
       var_list_on_object (game, vars->referenced_object);
@@ -1316,8 +1332,7 @@ var_get_system (scr_var_setref_t vars,
         }
 
       /* Clear any current temporary for appends. */
-      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
-      vars->temporary[0] = '\0';
+      var_clear_temp (vars);
 
       /* Write what's on/in the object into temporary. */
       var_list_onin_object (game, vars->referenced_object);
@@ -1404,9 +1419,6 @@ var_get_system (scr_var_setref_t vars,
   else if (strncmp (name, "state_", 6) == 0)
     {
       scr_int saved_ref_object = vars->referenced_object;
-      scr_vartype_t vt_key[3];
-      scr_bool is_statussed;
-      scr_char *state;
 
       /* Check there's enough information to return a value. */
       if (!game)
@@ -1421,11 +1433,7 @@ var_get_system (scr_var_setref_t vars,
         }
 
       /* Verify this is a stateful object. */
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = vars->referenced_object;
-      vt_key[2].string = "CurrentState";
-      is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-      if (!is_statussed)
+      if (!var_object_is_stateful (bundle, vars->referenced_object))
         {
           vars->referenced_object = saved_ref_object;
           scr_error ("var_get_system: stateless object for state_\n");
@@ -1433,16 +1441,12 @@ var_get_system (scr_var_setref_t vars,
         }
 
       /* Get state, and copy to temporary. */
-      state = obj_state_name (game, vars->referenced_object);
-      if (!state)
+      if (!var_set_temp_state (game, vars, vars->referenced_object))
         {
           vars->referenced_object = saved_ref_object;
           scr_error ("var_get_system: invalid state for state_\n");
           return var_return_string ("[State_ unknown]", type, vt_rvalue);
         }
-      vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, strlen (state) + 1);
-      memcpy (vars->temporary, state, strlen (state) + 1);
-      scr_free (state);
 
       /*
        * MEASURED 2026-08-25, run400 on p4STATE.taf (Adrift_1_p4state.txt, all
@@ -1470,8 +1474,7 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strncmp (name, "status_", 7) == 0)
     {
-      scr_int object, openness;
-      const scr_char *retval;
+      scr_int object;
 
       /* Check there's enough information to return a value. */
       if (!game)
@@ -1488,30 +1491,13 @@ var_get_system (scr_var_setref_t vars,
         }
 
       /* Return one of open, closed, or locked. */
-      openness = gs_object_openness (game, object);
-      switch (openness)
-        {
-        case OBJ_OPEN:
-          retval = "open";
-          break;
-        case OBJ_CLOSED:
-          retval = "closed";
-          break;
-        case OBJ_LOCKED:
-          retval = "locked";
-          break;
-        default:
-          retval = "[Status_ unknown]";
-          break;
-        }
-
-      return var_return_string (retval, type, vt_rvalue);
+      return var_return_string (var_openness_word (game, object,
+                                                   "[Status_ unknown]"),
+                                type, vt_rvalue);
     }
 
   else if (strcmp (name, "t_number") == 0)
     {
-      scr_int number;
-      const scr_char *retval;
 
       /*
        * There is no such thing as "no referenced number yet": the Runner
@@ -1521,17 +1507,9 @@ var_get_system (scr_var_setref_t vars,
        * named a number (Adrift_211_nr390.txt, Adrift_212_nr400.txt,
        * 2026-09-20).  We used to print "[Number unknown]".
        */
-      number = vars->referenced_number;
-      if (number >= 0 && number < VAR_NUMBERS_SIZE)
-        retval = VAR_NUMBERS[number];
-      else
-        {
-          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
-          snprintf (vars->temporary, 32, "%ld", number);
-          retval = vars->temporary;
-        }
-
-      return var_return_string (retval, type, vt_rvalue);
+      return var_return_string (var_number_text (vars,
+                                                 vars->referenced_number),
+                                type, vt_rvalue);
     }
 
   else if (strncmp (name, "t_", 2) == 0)
@@ -1554,21 +1532,10 @@ var_get_system (scr_var_setref_t vars,
         }
       else
         {
-          scr_int number;
-          const scr_char *retval;
-
           /* Return the variable value as a string. */
-          number = var->value.integer;
-          if (number >= 0 && number < VAR_NUMBERS_SIZE)
-            retval = VAR_NUMBERS[number];
-          else
-            {
-              vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
-              snprintf (vars->temporary, 32, "%ld", number);
-              retval = vars->temporary;
-            }
-
-          return var_return_string (retval, type, vt_rvalue);
+          return var_return_string (var_number_text (vars,
+                                                     var->value.integer),
+                                    type, vt_rvalue);
         }
     }
 
@@ -1594,77 +1561,8 @@ var_get_system (scr_var_setref_t vars,
       if (vars->referenced_object != -1)
         {
           /* Return object name prefixed with "the"... */
-          scr_vartype_t vt_key[3];
-          const scr_char *prefix, *normalized, *objname;
-          size_t size, used = 0;
-
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = vars->referenced_object;
-          vt_key[2].string = "Prefix";
-          prefix = prop_get_string (bundle, "S<-sis", vt_key);
-
-          /* "the" plus the de-articled prefix, a separating space, and the
-             terminator; never more than the prefix length plus five. */
-          size = strlen (prefix) + 5;
-          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
-          vars->temporary[0] = '\0';
-
-          normalized = prefix;
-          if (scr_compare_word (prefix, "a", 1))
-            {
-              snprintf (vars->temporary + used, size - used, "the");
-              used = strlen (vars->temporary);
-              normalized = prefix + 1;
-            }
-          else if (scr_compare_word (prefix, "an", 2))
-            {
-              snprintf (vars->temporary + used, size - used, "the");
-              used = strlen (vars->temporary);
-              normalized = prefix + 2;
-            }
-          else if (scr_compare_word (prefix, "the", 3))
-            {
-              snprintf (vars->temporary + used, size - used, "the");
-              used = strlen (vars->temporary);
-              normalized = prefix + 3;
-            }
-          else if (scr_compare_word (prefix, "some", 4))
-            {
-              snprintf (vars->temporary + used, size - used, "the");
-              used = strlen (vars->temporary);
-              normalized = prefix + 4;
-            }
-          else if (scr_strempty (prefix))
-            {
-              snprintf (vars->temporary + used, size - used, "the ");
-              used = strlen (vars->temporary);
-            }
-
-          if (!scr_strempty (normalized))
-            {
-              snprintf (vars->temporary + used, size - used, "%s ", normalized);
-              used = strlen (vars->temporary);
-            }
-          else if (normalized > prefix)
-            {
-              snprintf (vars->temporary + used, size - used, " ");
-              used = strlen (vars->temporary);
-            }
-
-          vt_key[2].string = "Short";
-          objname = prop_get_string (bundle, "S<-sis", vt_key);
-          if (scr_compare_word (objname, "a", 1))
-            objname += 1;
-          else if (scr_compare_word (objname, "an", 2))
-            objname += 2;
-          else if (scr_compare_word (objname, "the", 3))
-            objname += 3;
-          else if (scr_compare_word (objname, "some", 4))
-            objname += 4;
-
-          size = used + strlen (objname) + 1;
-          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, size);
-          snprintf (vars->temporary + used, size - used, "%s", objname);
+          var_set_temp (vars, var_definite_name (bundle,
+                                                 vars->referenced_object).c_str ());
 
           return var_return_string (vars->temporary, type, vt_rvalue);
         }
@@ -1715,13 +1613,13 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "version") == 0)
     {
-      /* Return the Adrift emulation level of SCARIER. */
+      /* Return the Adrift emulation level of Scarier. */
       return var_return_integer (SCARIER_EMULATION, type, vt_rvalue);
     }
 
   else if (strcmp (name, "scarier_version") == 0)
     {
-      /* Private system variable, return SCARIER's version number. */
+      /* Private system variable, return Scarier's version number. */
       return var_return_integer (var_get_scarier_version (), type, vt_rvalue);
     }
 
@@ -2268,7 +2166,7 @@ var_get_ref_number (scr_var_setref_t vars)
  *
  * Peek at, and put back, the whole referenced-number state -- the value and
  * the "has one ever been set" flag that %number% substitution tests.  Used by
- * scrunner.c to keep Scarier's own meta commands ("wait 5", "hist 3") from
+ * runner/scrun_dispatch.cpp to keep Scarier's own meta commands ("wait 5", "hist 3") from
  * writing the game's referenced number: they match a %number% pattern, but the
  * real Runner has no such commands and only ever sets its referenced number
  * (run400 MemVar_49420C, written solely by numintext/numintext2 off the

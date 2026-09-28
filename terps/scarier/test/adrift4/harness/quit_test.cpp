@@ -67,7 +67,7 @@ expect (const char *what, int got, int want)
     failures++;
 }
 
-/* --- minimal SCARIER OS port ------------------------------------------------
+/* --- minimal Scarier OS port ------------------------------------------------
    The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours.
    os_confirm() answering yes is what lets the quit confirmation through. */
 

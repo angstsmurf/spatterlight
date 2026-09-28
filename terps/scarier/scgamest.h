@@ -18,11 +18,11 @@
  * USA
  */
 
-#include "scarier.h"
-#include "scprotos.h"
-
 #ifndef SCARIER_GAMESTATE_H
 #define SCARIER_GAMESTATE_H
+
+#include "scarier.h"
+#include "scprotos.h"
 
 #include <vector>
 

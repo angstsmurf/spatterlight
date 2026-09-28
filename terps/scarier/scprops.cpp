@@ -640,6 +640,36 @@ prop_put (scr_prop_setref_t bundle, const scr_char *format,
  * with "->" replaced with "<-".  Returns FALSE if no such property exists.
  */
 /*
+ * prop_find_leaf()
+ *
+ * Shared by prop_put_integer() and prop_put_string(): check a "<-" format,
+ * then walk the keys down from the root, returning the addressed node, or
+ * NULL if no such node exists.  The caller's name goes into the format
+ * error message.
+ */
+static scr_prop_noderef_t
+prop_find_leaf (scr_prop_setref_t bundle, const scr_char *format,
+                const scr_vartype_t vt_key[], const scr_char *caller)
+{
+  scr_prop_noderef_t node;
+  scr_int index_;
+
+  if (!format || format[0] == NUL
+      || format[1] != '<' || format[2] != '-' || format[3] == NUL)
+    scr_fatal ("%s: format error\n", caller);
+
+  node = bundle->root_node;
+  for (index_ = 0; format[index_ + 3] != NUL; index_++)
+    {
+      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
+      if (!node)
+        return NULL;
+    }
+  return node;
+}
+
+
+/*
  * prop_put_integer()
  *
  * Update the integer value of an already-present leaf node, addressed the same
@@ -651,20 +681,11 @@ prop_put_integer (scr_prop_setref_t bundle, const scr_char *format,
                   scr_int value, const scr_vartype_t vt_key[])
 {
   scr_prop_noderef_t node;
-  scr_int index_;
   assert (prop_is_valid (bundle));
 
-  if (!format || format[0] == NUL
-      || format[1] != '<' || format[2] != '-' || format[3] == NUL)
-    scr_fatal ("prop_put_integer: format error\n");
-
-  node = bundle->root_node;
-  for (index_ = 0; format[index_ + 3] != NUL; index_++)
-    {
-      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
-      if (!node)
-        return FALSE;
-    }
+  node = prop_find_leaf (bundle, format, vt_key, "prop_put_integer");
+  if (!node)
+    return FALSE;
   node->property.integer = value;
   return TRUE;
 }
@@ -686,21 +707,12 @@ prop_put_string (scr_prop_setref_t bundle, const scr_char *format,
                  const scr_char *value, const scr_vartype_t vt_key[])
 {
   scr_prop_noderef_t node;
-  scr_int index_;
   scr_char *copy;
   assert (prop_is_valid (bundle));
 
-  if (!format || format[0] == NUL
-      || format[1] != '<' || format[2] != '-' || format[3] == NUL)
-    scr_fatal ("prop_put_string: format error\n");
-
-  node = bundle->root_node;
-  for (index_ = 0; format[index_ + 3] != NUL; index_++)
-    {
-      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
-      if (!node)
-        return FALSE;
-    }
+  node = prop_find_leaf (bundle, format, vt_key, "prop_put_string");
+  if (!node)
+    return FALSE;
 
   /* Take a bundle-owned copy of the value and point the node at it. */
   copy = (decltype(copy)) scr_malloc (strlen (value) + 1);

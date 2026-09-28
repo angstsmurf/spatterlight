@@ -99,7 +99,6 @@ parse_anchors (map_link_t *link, const a5_xml_node_t *lk)
         break;
       link->mids[im].x = node_int (an, "X", 0);
       link->mids[im].y = node_int (an, "Y", 0);
-      link->mids[im].z = node_int (an, "Z", 0);
       im++;
     }
   link->n_mids = im;
@@ -240,7 +239,6 @@ parse_page (map_page_t *page, const a5_xml_node_t *pg,
   int in;
 
   page->key = node_int (pg, "Key", dflt_key);
-  page->label = a5xml_child_text (pg, "Label");
   page->n_nodes = a5xml_count (pg, "Node");
   if (page->n_nodes > 0)
     page->nodes = (map_node_t *) calloc ((size_t) page->n_nodes,

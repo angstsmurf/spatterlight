@@ -73,7 +73,7 @@ if_initialize (void)
           scr_error ("if_initialize: sizeof scr_uint or scr_int"
                     " is more than 8, check compile options\n");
         }
-	  else if (!((scr_uint) -1 > /* DISABLES CODE */ (0)))
+      else if (!((scr_uint) -1 > /* DISABLES CODE */ (0)))
         {
           scr_error ("if_initialize: scr_uint appears not to be unsigned,"
                     " check compile options\n");
@@ -353,7 +353,7 @@ const scr_char *
 scr_scarier_version (void)
 {
   if_initialize ();
-  return "SCARIER " SCARIER_VERSION SCARIER_PATCH_LEVEL;
+  return "Scarier " SCARIER_VERSION SCARIER_PATCH_LEVEL;
 }
 
 scr_int
@@ -396,6 +396,62 @@ if_file_write_callback (void *opaque, const scr_byte *buffer, scr_int length)
 
 
 /*
+ * if_report_fatal()
+ *
+ * Log a fatal engine error caught at the host boundary.  scr_fatal() now throws
+ * scr_fatal_error instead of abort()-ing, so the public entry points below
+ * catch it and return a clean failure (NULL / FALSE / no-op) rather than
+ * crashing the host application on a corrupt or pathological game.  The engine
+ * may leak raw-malloc'd state on this path (not all of it is exception-safe),
+ * but the whole game session is being torn down here anyway.
+ */
+static void
+if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
+{
+  scr_error ("%s: fatal: %s", function_name, error.message.c_str ());
+}
+
+/*
+ * if_guarded()
+ *
+ * Run an entry point's engine call under the host-boundary catch: the value
+ * form returns 'fail' after logging a fatal engine error, the void form just
+ * logs it.  Every scr_*() below that reaches engine code goes through one of
+ * these; an entry that also has to tidy up (close a stream, say) takes the
+ * value and does so afterwards.
+ */
+template <typename F>
+static auto
+if_guarded (const scr_char *function_name, F body, decltype (body ()) fail)
+  -> decltype (body ())
+{
+  try
+    {
+      return body ();
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal (function_name, error);
+      return fail;
+    }
+}
+
+template <typename F>
+static void
+if_guarded (const scr_char *function_name, F body)
+{
+  try
+    {
+      body ();
+    }
+  catch (const scr_fatal_error &error)
+    {
+      if_report_fatal (function_name, error);
+    }
+}
+
+
+/*
  * scr_game_from_filename()
  * scr_game_from_stream()
  * scr_game_from_callback()
@@ -403,10 +459,6 @@ if_file_write_callback (void *opaque, const scr_byte *buffer, scr_int length)
  * Called by the OS-specific layer to create a run context.  The _filename()
  * and _stream() variants are adapters for run_create().
  */
-/* Defined below; logs a fatal engine error caught at the host boundary. */
-static void if_report_fatal (const scr_char *function_name,
-                             const scr_fatal_error &error);
-
 scr_game
 scr_game_from_filename (const scr_char *filename)
 {
@@ -427,15 +479,10 @@ scr_game_from_filename (const scr_char *filename)
       return NULL;
     }
 
-  game = NULL;
-  try
+  game = if_guarded ("scr_game_from_filename", [&] ()
     {
-      game = run_create (if_file_read_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_game_from_filename", error);
-    }
+      return run_create (if_file_read_callback, stream);
+    }, NULL);
   fclose (stream);
 
   return game;
@@ -451,15 +498,10 @@ scr_game_from_stream (FILE *stream)
       return NULL;
     }
 
-  try
+  return if_guarded ("scr_game_from_stream", [&] ()
     {
       return run_create (if_file_read_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_game_from_stream", error);
-      return NULL;
-    }
+    }, NULL);
 }
 
 scr_game
@@ -473,15 +515,10 @@ scr_game_from_callback (scr_int (*callback) (void *, scr_byte *, scr_int),
       return NULL;
     }
 
-  try
+  return if_guarded ("scr_game_from_callback", [&] ()
     {
       return run_create (callback, opaque);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_game_from_callback", error);
-      return NULL;
-    }
+    }, NULL);
 }
 
 
@@ -510,23 +547,6 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
 
 
 /*
- * if_report_fatal()
- *
- * Log a fatal engine error caught at the host boundary.  scr_fatal() now throws
- * scr_fatal_error instead of abort()-ing, so the public entry points below
- * catch it and return a clean failure (NULL / FALSE / no-op) rather than
- * crashing the host application on a corrupt or pathological game.  The engine
- * leaks its raw-malloc'd state on this path (it is not exception-safe -- see the
- * RAII phase, P3), but the whole game session is being torn down here anyway.
- */
-static void
-if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
-{
-  scr_error ("%s: fatal: %s", function_name, error.message.c_str ());
-}
-
-
-/*
  * scr_interpret_game()
  * scr_restart_game()
  * scr_save_game()
@@ -535,12 +555,12 @@ if_report_fatal (const scr_char *function_name, const scr_fatal_error &error)
  * scr_quit_game()
  *
  * Called by the OS-specific layer to run a game loaded into a run context,
- * and to quit the interpreter on demand, if required.  scr_quit_game()
- * is implemented as a longjmp(), so never returns to the caller --
- * instead, the program behaves as if scr_interpret_game() had returned.
- * scr_load_game() will longjmp() if the restore is successful (thus
- * behaving like scr_restart_game()), but will return if the game could not
- * be restored.  scr_undo_game_turn() behaves like scr_load_game().
+ * and to quit the interpreter on demand, if required.  scr_quit_game() asks
+ * the runner to end the game; the program then behaves as if
+ * scr_interpret_game() had returned.  scr_load_game() restarts the run from
+ * the restored state if the restore is successful (thus behaving like
+ * scr_restart_game()), but will return if the game could not be restored.
+ * scr_undo_game_turn() behaves like scr_load_game().
  */
 void
 scr_interpret_game (scr_game game)
@@ -550,14 +570,10 @@ scr_interpret_game (scr_game game)
   if (if_game_error (game_, "scr_interpret_game"))
     return;
 
-  try
+  if_guarded ("scr_interpret_game", [&] ()
     {
       run_interpret (game_);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_interpret_game", error);
-    }
+    });
 }
 
 void
@@ -568,14 +584,10 @@ scr_restart_game (scr_game game)
   if (if_game_error (game_, "scr_restart_game"))
     return;
 
-  try
+  if_guarded ("scr_restart_game", [&] ()
     {
       run_restart (game_);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_restart_game", error);
-    }
+    });
 }
 
 scr_bool
@@ -586,15 +598,10 @@ scr_save_game (scr_game game)
   if (if_game_error (game_, "scr_save_game"))
     return FALSE;
 
-  try
+  return if_guarded ("scr_save_game", [&] ()
     {
       return run_save_prompted (game_);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_save_game", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 scr_bool
@@ -605,15 +612,10 @@ scr_load_game (scr_game game)
   if (if_game_error (game_, "scr_load_game"))
     return FALSE;
 
-  try
+  return if_guarded ("scr_load_game", [&] ()
     {
       return run_restore_prompted (game_);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_load_game", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 scr_bool
@@ -624,15 +626,10 @@ scr_undo_game_turn (scr_game game)
   if (if_game_error (game_, "scr_undo_game_turn"))
     return FALSE;
 
-  try
+  return if_guarded ("scr_undo_game_turn", [&] ()
     {
       return run_undo (game_);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_undo_game_turn", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 void
@@ -643,7 +640,10 @@ scr_quit_game (scr_game game)
   if (if_game_error (game_, "scr_quit_game"))
     return;
 
-  run_quit (game_);
+  if_guarded ("scr_quit_game", [&] ()
+    {
+      run_quit (game_);
+    });
 }
 
 
@@ -671,6 +671,7 @@ scr_save_game_to_filename (scr_game game, const scr_char *filename)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
   FILE *stream;
+  scr_bool status;
 
   if (if_game_error (game_, "scr_save_game_to_filename"))
     return FALSE;
@@ -688,16 +689,11 @@ scr_save_game_to_filename (scr_game game, const scr_char *filename)
       return FALSE;
     }
 
-  scr_bool status = TRUE;
-  try
+  status = if_guarded ("scr_save_game_to_filename", [&] ()
     {
       run_save_to_file (game_, if_file_write_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_save_game_to_filename", error);
-      status = FALSE;
-    }
+      return TRUE;
+    }, FALSE);
   fclose (stream);
 
   return status;
@@ -717,14 +713,10 @@ scr_save_game_to_stream (scr_game game, FILE *stream)
       return;
     }
 
-  try
+  if_guarded ("scr_save_game_to_stream", [&] ()
     {
       run_save_to_file (game_, if_file_write_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_save_game_to_stream", error);
-    }
+    });
 }
 
 void
@@ -743,14 +735,10 @@ scr_save_game_to_callback (scr_game game,
       return;
     }
 
-  try
+  if_guarded ("scr_save_game_to_callback", [&] ()
     {
       run_save (game_, callback, opaque);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_save_game_to_callback", error);
-    }
+    });
 }
 
 scr_bool
@@ -758,7 +746,7 @@ scr_load_game_from_filename (scr_game game, const scr_char *filename)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
   FILE *stream;
-  scr_bool status = FALSE;   /* default when run_restore throws scr_fatal_error */
+  scr_bool status;
 
   if (if_game_error (game_, "scr_load_game_from_filename"))
     return FALSE;
@@ -776,14 +764,10 @@ scr_load_game_from_filename (scr_game game, const scr_char *filename)
       return FALSE;
     }
 
-  try
+  status = if_guarded ("scr_load_game_from_filename", [&] ()
     {
-      status = run_restore (game_, if_file_read_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_load_game_from_filename", error);
-    }
+      return run_restore (game_, if_file_read_callback, stream);
+    }, FALSE);
   fclose (stream);
 
   return status;
@@ -803,15 +787,10 @@ scr_load_game_from_stream (scr_game game, FILE *stream)
       return FALSE;
     }
 
-  try
+  return if_guarded ("scr_load_game_from_stream", [&] ()
     {
       return run_restore (game_, if_file_read_callback, stream);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_load_game_from_stream", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 scr_bool
@@ -830,15 +809,10 @@ scr_load_game_from_callback (scr_game game,
       return FALSE;
     }
 
-  try
+  return if_guarded ("scr_load_game_from_callback", [&] ()
     {
       return run_restore (game_, callback, opaque);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_load_game_from_callback", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 
@@ -871,16 +845,11 @@ scr_save_undo_game_to_callback (scr_game game,
   if (!game_->undo_available)
     return FALSE;
 
-  try
+  return if_guarded ("scr_save_undo_game_to_callback", [&] ()
     {
       ser_save_game (game_->undo, callback, opaque);
       return TRUE;
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_save_undo_game_to_callback", error);
-      return FALSE;
-    }
+    }, FALSE);
 }
 
 scr_bool
@@ -890,7 +859,6 @@ scr_load_undo_game_from_callback (scr_game game,
                                   void *opaque)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool status = FALSE;
 
   if (if_game_error (game_, "scr_load_undo_game_from_callback"))
     return FALSE;
@@ -901,37 +869,34 @@ scr_load_undo_game_from_callback (scr_game game,
       return FALSE;
     }
 
-  try
+  return if_guarded ("scr_load_undo_game_from_callback", [&] ()
     {
-      status = ser_load_game (game_->undo, callback, opaque);
-    }
-  catch (const scr_fatal_error &error)
-    {
-      if_report_fatal ("scr_load_undo_game_from_callback", error);
-      return FALSE;
-    }
+      scr_bool status;
 
-  /*
-   * Re-point the undo game's sibling references.  In normal play every
-   * gs_copy() into the undo buffer comes from game->temporary, whose
-   * temporary/undo pointers were copied from the main game -- so the undo
-   * game's own undo field points at itself.  ser_load_game() instead
-   * preserved whatever the freshly created undo game held (NULL), and a
-   * later "undo" would gs_copy() that NULL into the main game's pointers.
-   */
-  if (status)
-    {
-      game_->undo->temporary = game_->temporary;
-      game_->undo->undo = game_->undo;
-      game_->undo->undo_available = FALSE;
-      /* The buffered state was captured mid-play, and lib_cmd_undo's
-       * gs_copy() propagates is_running into the main game -- but
-       * ser_load_game() leaves it cleared, which would end the session on
-       * the first undo. */
-      game_->undo->is_running = TRUE;
-    }
-  game_->undo_available = status;
-  return status;
+      status = ser_load_game (game_->undo, callback, opaque);
+
+      /*
+       * Re-point the undo game's sibling references.  In normal play every
+       * gs_copy() into the undo buffer comes from game->temporary, whose
+       * temporary/undo pointers were copied from the main game -- so the undo
+       * game's own undo field points at itself.  ser_load_game() instead
+       * preserved whatever the freshly created undo game held (NULL), and a
+       * later "undo" would gs_copy() that NULL into the main game's pointers.
+       */
+      if (status)
+        {
+          game_->undo->temporary = game_->temporary;
+          game_->undo->undo = game_->undo;
+          game_->undo->undo_available = FALSE;
+          /* The buffered state was captured mid-play, and lib_cmd_undo's
+           * gs_copy() propagates is_running into the main game -- but
+           * ser_load_game() leaves it cleared, which would end the session on
+           * the first undo. */
+          game_->undo->is_running = TRUE;
+        }
+      game_->undo_available = status;
+      return status;
+    }, FALSE);
 }
 
 
@@ -987,7 +952,80 @@ scr_free_game (scr_game game)
   if (if_game_error (game_, "scr_free_game"))
     return;
 
-  run_destroy (game_);
+  if_guarded ("scr_free_game", [&] ()
+    {
+      run_destroy (game_);
+    });
+}
+
+
+/*
+ * if_get_attributes()
+ *
+ * The attributes run_get_attributes() can return, in its argument order, and
+ * the one call that fetches them.  'wanted' is a mask of IF_ATTR_* bits; a
+ * field not asked for is passed to the runner as NULL, exactly as the entry
+ * points did by hand, so nothing is looked up or cached on their behalf (the
+ * game name and author are filtered and kept on first request), and is left
+ * zero here.  IF_ATTR_OPTIONS is the trio run_set_attributes() takes back.
+ */
+struct if_attrs_t
+{
+  const scr_char *name;
+  const scr_char *author;
+  const scr_char *compile_date;
+  scr_int turns;
+  scr_int score;
+  scr_int max_score;
+  const scr_char *room;
+  const scr_char *status_line;
+  const scr_char *preferred_font;
+  scr_bool bold_room_names;
+  scr_bool verbose;
+  scr_bool notify_score_change;
+};
+
+enum
+{
+  IF_ATTR_NAME = 1 << 0,
+  IF_ATTR_AUTHOR = 1 << 1,
+  IF_ATTR_COMPILE_DATE = 1 << 2,
+  IF_ATTR_TURNS = 1 << 3,
+  IF_ATTR_SCORE = 1 << 4,
+  IF_ATTR_MAX_SCORE = 1 << 5,
+  IF_ATTR_ROOM = 1 << 6,
+  IF_ATTR_STATUS_LINE = 1 << 7,
+  IF_ATTR_PREFERRED_FONT = 1 << 8,
+  IF_ATTR_BOLD_ROOM_NAMES = 1 << 9,
+  IF_ATTR_VERBOSE = 1 << 10,
+  IF_ATTR_NOTIFY_SCORE_CHANGE = 1 << 11,
+  IF_ATTR_OPTIONS = IF_ATTR_BOLD_ROOM_NAMES | IF_ATTR_VERBOSE
+                    | IF_ATTR_NOTIFY_SCORE_CHANGE
+};
+
+static if_attrs_t
+if_get_attributes (scr_gameref_t game, scr_uint wanted)
+{
+  if_attrs_t attrs = if_attrs_t ();
+
+  run_get_attributes (game,
+                      wanted & IF_ATTR_NAME ? &attrs.name : NULL,
+                      wanted & IF_ATTR_AUTHOR ? &attrs.author : NULL,
+                      wanted & IF_ATTR_COMPILE_DATE
+                        ? &attrs.compile_date : NULL,
+                      wanted & IF_ATTR_TURNS ? &attrs.turns : NULL,
+                      wanted & IF_ATTR_SCORE ? &attrs.score : NULL,
+                      wanted & IF_ATTR_MAX_SCORE ? &attrs.max_score : NULL,
+                      wanted & IF_ATTR_ROOM ? &attrs.room : NULL,
+                      wanted & IF_ATTR_STATUS_LINE ? &attrs.status_line : NULL,
+                      wanted & IF_ATTR_PREFERRED_FONT
+                        ? &attrs.preferred_font : NULL,
+                      wanted & IF_ATTR_BOLD_ROOM_NAMES
+                        ? &attrs.bold_room_names : NULL,
+                      wanted & IF_ATTR_VERBOSE ? &attrs.verbose : NULL,
+                      wanted & IF_ATTR_NOTIFY_SCORE_CHANGE
+                        ? &attrs.notify_score_change : NULL);
+  return attrs;
 }
 
 
@@ -1018,7 +1056,10 @@ scr_is_game_running (scr_game game)
   if (if_game_error (game_, "scr_is_game_running"))
     return FALSE;
 
-  return run_is_running (game_);
+  return if_guarded ("scr_is_game_running", [&] ()
+    {
+      return run_is_running (game_);
+    }, FALSE);
 }
 
 scr_bool
@@ -1031,177 +1072,179 @@ scr_does_command_match (scr_game game, const scr_char *string)
   if (!string)
     return FALSE;
 
-  return run_does_command_match (game_, string);
+  return if_guarded ("scr_does_command_match", [&] ()
+    {
+      return run_does_command_match (game_, string);
+    }, FALSE);
 }
 
 const scr_char *
 scr_get_game_name (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_name"))
     return "[invalid game]";
 
-  run_get_attributes (game_, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_name", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_NAME).name;
+    }, "[invalid game]");
 }
 
 const scr_char *
 scr_get_game_author (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_author"))
     return "[invalid game]";
 
-  run_get_attributes (game_, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL);
-  return retval;
+  return if_guarded ("scr_get_game_author", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_AUTHOR).author;
+    }, "[invalid game]");
 }
 
 const scr_char *
 scr_get_game_compile_date (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_compile_date"))
     return "[invalid game]";
 
-  run_get_attributes (game_, NULL, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_compile_date", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_COMPILE_DATE).compile_date;
+    }, "[invalid game]");
 }
 
 scr_int
 scr_get_game_turns (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_int retval;
 
   if (if_game_error (game_, "scr_get_game_turns"))
     return 0;
 
-  run_get_attributes (game_, NULL, NULL, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_turns", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_TURNS).turns;
+    }, 0);
 }
 
 scr_int
 scr_get_game_score (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_int retval;
 
   if (if_game_error (game_, "scr_get_game_score"))
     return 0;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_score", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_SCORE).score;
+    }, 0);
 }
 
 scr_int
 scr_get_game_max_score (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_int retval;
 
   if (if_game_error (game_, "scr_get_game_max_score"))
     return 0;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_max_score", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_MAX_SCORE).max_score;
+    }, 0);
 }
 
 const scr_char *
 scr_get_game_room (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_room"))
     return "[invalid game]";
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, &retval,
-                      NULL, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_room", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_ROOM).room;
+    }, "[invalid game]");
 }
 
 const scr_char *
 scr_get_game_status_line (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_status_line"))
     return "[invalid game]";
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      &retval, NULL, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_status_line", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_STATUS_LINE).status_line;
+    }, "[invalid game]");
 }
 
 const scr_char *
 scr_get_game_preferred_font (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  const scr_char *retval;
 
   if (if_game_error (game_, "scr_get_game_preferred_font"))
     return "[invalid game]";
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, &retval, NULL, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_preferred_font", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_PREFERRED_FONT).preferred_font;
+    }, "[invalid game]");
 }
 
 scr_bool
 scr_get_game_bold_room_names (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool retval;
 
   if (if_game_error (game_, "scr_get_game_bold_room_names"))
     return FALSE;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, &retval, NULL, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_bold_room_names", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_BOLD_ROOM_NAMES).bold_room_names;
+    }, FALSE);
 }
 
 scr_bool
 scr_get_game_verbose (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool retval;
 
   if (if_game_error (game_, "scr_get_game_verbose"))
     return FALSE;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, NULL, &retval, NULL);
-  return retval;
+  return if_guarded ("scr_get_game_verbose", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_VERBOSE).verbose;
+    }, FALSE);
 }
 
 scr_bool
 scr_get_game_notify_score_change (scr_game game)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool retval;
 
   if (if_game_error (game_, "scr_get_game_notify_score_change"))
     return FALSE;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, NULL, NULL, &retval);
-  return retval;
+  return if_guarded ("scr_get_game_notify_score_change", [&] ()
+    {
+      return if_get_attributes (game_, IF_ATTR_NOTIFY_SCORE_CHANGE)
+               .notify_score_change;
+    }, FALSE);
 }
 
 scr_bool
@@ -1212,7 +1255,10 @@ scr_has_game_completed (scr_game game)
   if (if_game_error (game_, "scr_has_game_completed"))
     return FALSE;
 
-  return run_has_completed (game_);
+  return if_guarded ("scr_has_game_completed", [&] ()
+    {
+      return run_has_completed (game_);
+    }, FALSE);
 }
 
 scr_bool
@@ -1223,7 +1269,10 @@ scr_is_game_undo_available (scr_game game)
   if (if_game_error (game_, "scr_is_game_undo_available"))
     return FALSE;
 
-  return run_is_undo_available (game_);
+  return if_guarded ("scr_is_game_undo_available", [&] ()
+    {
+      return run_is_undo_available (game_);
+    }, FALSE);
 }
 
 
@@ -1238,51 +1287,58 @@ void
 scr_set_game_bold_room_names (scr_game game, scr_bool flag)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool bold, verbose, notify;
 
   if (if_game_error (game_, "scr_set_game_bold_room_names"))
     return;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, &bold, &verbose, &notify);
-  run_set_attributes (game_, flag, verbose, notify);
+  if_guarded ("scr_set_game_bold_room_names", [&] ()
+    {
+      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
+
+      run_set_attributes (game_, flag, attrs.verbose,
+                          attrs.notify_score_change);
+    });
 }
 
 void
 scr_set_game_verbose (scr_game game, scr_bool flag)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool bold, verbose, notify;
 
   if (if_game_error (game_, "scr_set_game_verbose"))
     return;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, &bold, &verbose, &notify);
-  run_set_attributes (game_, bold, flag, notify);
+  if_guarded ("scr_set_game_verbose", [&] ()
+    {
+      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
+
+      run_set_attributes (game_, attrs.bold_room_names, flag,
+                          attrs.notify_score_change);
+    });
 }
 
 void
 scr_set_game_notify_score_change (scr_game game, scr_bool flag)
 {
   const scr_gameref_t game_ = (scr_gameref_t) game;
-  scr_bool bold, verbose, notify;
 
   if (if_game_error (game_, "scr_set_game_notify_score_change"))
     return;
 
-  run_get_attributes (game_, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                      NULL, NULL, &bold, &verbose, &notify);
-  run_set_attributes (game_, bold, verbose, flag);
-}
+  if_guarded ("scr_set_game_notify_score_change", [&] ()
+    {
+      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
 
+      run_set_attributes (game_, attrs.bold_room_names, attrs.verbose, flag);
+    });
+}
 
 /*
  * scr_get_game_capacity_recompute()
  * scr_set_game_capacity_recompute()
  *
  * Query and set how the player's carried load is accounted for.  When FALSE
- * (the default) SCARIER mirrors the real ADRIFT Runner, keeping a running total
+ * (the default) Scarier mirrors the real ADRIFT Runner, keeping a running total
  * updated on take/drop; when TRUE it recomputes the load afresh from currently
  * held objects on each check (legacy SCARE behaviour).
  */
@@ -1323,7 +1379,10 @@ scr_does_game_use_sounds (scr_game game)
   if (if_game_error (game_, "scr_does_game_use_sounds"))
     return FALSE;
 
-  return res_has_sound (game_);
+  return if_guarded ("scr_does_game_use_sounds", [&] ()
+    {
+      return res_has_sound (game_);
+    }, FALSE);
 }
 
 scr_bool
@@ -1334,7 +1393,10 @@ scr_does_game_use_graphics (scr_game game)
   if (if_game_error (game_, "scr_does_game_use_graphics"))
     return FALSE;
 
-  return res_has_graphics (game_);
+  return if_guarded ("scr_does_game_use_graphics", [&] ()
+    {
+      return res_has_graphics (game_);
+    }, FALSE);
 }
 
 
@@ -1385,7 +1447,7 @@ scr_game_scan_strings (scr_game game,
  * scr_get_next_game_hint()
  * scr_get_game_hint_question()
  * scr_get_game_subtle_hint()
- * scr_get_game_sledgehammer_hint()
+ * scr_get_game_unsubtle_hint()
  *
  * Iterate currently available hints, and return strings for a hint.
  */
@@ -1397,7 +1459,10 @@ scr_get_first_game_hint (scr_game game)
   if (if_game_error (game_, "scr_get_first_game_hint"))
     return NULL;
 
-  return run_hint_iterate (game_, NULL);
+  return if_guarded ("scr_get_first_game_hint", [&] ()
+    {
+      return run_hint_iterate (game_, NULL);
+    }, NULL);
 }
 
 scr_game_hint
@@ -1414,7 +1479,10 @@ scr_get_next_game_hint (scr_game game, scr_game_hint hint)
       return NULL;
     }
 
-  return run_hint_iterate (game_, hint_);
+  return if_guarded ("scr_get_next_game_hint", [&] ()
+    {
+      return run_hint_iterate (game_, hint_);
+    }, NULL);
 }
 
 const scr_char *
@@ -1431,7 +1499,10 @@ scr_get_game_hint_question (scr_game game, scr_game_hint hint)
       return NULL;
     }
 
-  return run_get_hint_question (game_, hint_);
+  return if_guarded ("scr_get_game_hint_question", [&] ()
+    {
+      return run_get_hint_question (game_, hint_);
+    }, NULL);
 }
 
 const scr_char *
@@ -1448,7 +1519,10 @@ scr_get_game_subtle_hint (scr_game game, scr_game_hint hint)
       return NULL;
     }
 
-  return run_get_subtle_hint (game_, hint_);
+  return if_guarded ("scr_get_game_subtle_hint", [&] ()
+    {
+      return run_get_subtle_hint (game_, hint_);
+    }, NULL);
 }
 
 const scr_char *
@@ -1465,13 +1539,16 @@ scr_get_game_unsubtle_hint (scr_game game, scr_game_hint hint)
       return NULL;
     }
 
-  return run_get_unsubtle_hint (game_, hint_);
+  return if_guarded ("scr_get_game_unsubtle_hint", [&] ()
+    {
+      return run_get_unsubtle_hint (game_, hint_);
+    }, NULL);
 }
 
 
 /*
  * scr_set_game_debugger_enabled()
- * scr_is_game_debugger_enabled()
+ * scr_get_game_debugger_enabled()
  * scr_run_game_debugger_command()
  *
  * Enable, disable, and query game debugging, and run a single debug command.
@@ -1484,7 +1561,10 @@ scr_set_game_debugger_enabled (scr_game game, scr_bool flag)
   if (if_game_error (game_, "scr_set_game_debugger_enabled"))
     return;
 
-  debug_set_enabled (game_, flag);
+  if_guarded ("scr_set_game_debugger_enabled", [&] ()
+    {
+      debug_set_enabled (game_, flag);
+    });
 }
 
 scr_bool
@@ -1495,7 +1575,10 @@ scr_get_game_debugger_enabled (scr_game game)
   if (if_game_error (game_, "scr_get_game_debugger_enabled"))
     return FALSE;
 
-  return debug_get_enabled (game_);
+  return if_guarded ("scr_get_game_debugger_enabled", [&] ()
+    {
+      return debug_get_enabled (game_);
+    }, FALSE);
 }
 
 scr_bool
@@ -1506,7 +1589,10 @@ scr_run_game_debugger_command (scr_game game, const scr_char *debug_command)
   if (if_game_error (game_, "scr_run_game_debugger_command"))
     return FALSE;
 
-  return debug_run_command (game_, debug_command);
+  return if_guarded ("scr_run_game_debugger_command", [&] ()
+    {
+      return debug_run_command (game_, debug_command);
+    }, FALSE);
 }
 
 

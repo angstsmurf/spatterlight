@@ -22,7 +22,7 @@
  * Module notes:
  *
  * o This module represents just about the simplest platform input/output
- *   code possible for SCARIER.  Actually, it could be simplified still further
+ *   code possible for Scarier.  Actually, it could be simplified still further
  *   by abandoning attempts to word wrap at 78 columns of text, and by
  *   ignoring all tags altogether, though this may stop some games playing
  *   quite like they should.
@@ -270,25 +270,9 @@ os_stop_sound (void)
 void
 os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 {
-#ifdef LINUX_GRAPHICS
-  (void) filepath;
-
-  if (length > 0 && strlen (game_file) < 768)
-    {
-      scr_char buffer[1024];
-
-      sprintf (buffer,
-               "dd if=%s ibs=1c skip=%ld count=%ld obs=100k"
-               " of=/tmp/scarier.jpg 2>/dev/null", game_file, offset, length);
-      system (buffer);
-      system ("xv /tmp/scarier.jpg >/dev/null 2>&1 &");
-      system ("( sleep 10; rm /tmp/scarier.jpg ) >/dev/null 2>&1 &");
-    }
-#else
   (void) filepath;
   (void) offset;
   (void) length;
-#endif
 }
 
 
@@ -372,7 +356,7 @@ os_read_line (scr_char *buffer, scr_int length)
   /*
    * Scripting aid: treat a line whose first non-blank character is '#' as a
    * comment and skip it, reading the next line instead.  This lets walkthrough
-   * solution files carry inline documentation without the SCARIER parser
+   * solution files carry inline documentation without the Scarier parser
    * pulling stray direction/verb tokens out of the prose and firing spurious,
    * timing-desyncing moves.  A '#' is never the start of a valid ADRIFT
    * command, so nothing legitimate is lost.
@@ -428,7 +412,7 @@ os_read_line_debug (scr_char *buffer, scr_int length)
   if (feof (stdin))
     scr_quit_game (game);
 
-  printf ("[SCARIER debug]");
+  printf ("[Scarier debug]");
   return os_read_line (buffer, length);
 }
 

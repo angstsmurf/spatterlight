@@ -21,7 +21,7 @@
 /*
  * Module notes:
  *
- * o ADRIFT's optional Battle System, split out of scnpcs.c.  The public
+ * o ADRIFT's optional Battle System, split out of scnpcs.cpp.  The public
  *   entry points are declared in scprotos.h and the per-character mutable
  *   state (scr_battle_s) lives in scgamest.h.
  */
@@ -72,6 +72,9 @@
 static scr_bool battle_combat_assist = FALSE;
 static scr_bool battle_unconfigured = FALSE;
 
+/* Trace flag, read once from the environment (SCR_TRACE_BATTLE). */
+static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
+
 /*
  * Legacy (version 3.9 / 3.8) combat model.
  *
@@ -85,7 +88,7 @@ static scr_bool battle_unconfigured = FALSE;
  * attack connects, and armour merely absorbs the blow ("...but it doesn't seem
  * to do any damage." when Defence >= Strength).
  *
- * SCARIER otherwise implements the 4.0 model, whose hit test is accuracy >
+ * Scarier otherwise implements the 4.0 model, whose hit test is accuracy >
  * agility.  A 3.9 game has no Accuracy/Agility properties, so both read as 0
  * and the test 0 > 0 never passes, silently making all combat an endless
  * stalemate.  When battle_legacy is set (detected from the game version at
@@ -254,20 +257,6 @@ battle_attribute_range (scr_gameref_t game, scr_int npc,
       return;
     }
   battle_bundle_range (game, npc, base, lo, hi);
-}
-
-/*
- * battle_attribute()
- *
- * Return a fresh random roll of an attribute within its current range.
- */
-scr_int
-battle_attribute (scr_gameref_t game, scr_int npc, const scr_char *base)
-{
-  scr_int lo, hi;
-
-  battle_attribute_range (game, npc, base, &lo, &hi);
-  return scr_randomint (lo, hi);
 }
 
 scr_int
@@ -533,6 +522,25 @@ battle_start (scr_gameref_t game)
 
 
 /*
+ * battle_kill_drained()
+ *
+ * The death sequence shared by a damaging blow and a stamina change that
+ * leaves its target at or below zero: store the drained stamina, then kill.
+ * run390 keeps an NPC's stamina below zero, as its damage path does
+ * (battle_apply_damage); 4.0 and the player floor it at zero.
+ */
+static void
+battle_kill_drained (scr_gameref_t game, scr_int npc, scr_int stamina,
+                     scr_bool visible)
+{
+  if (npc < 0)
+    gs_set_playerstamina (game, 0);
+  else
+    gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
+  battle_kill (game, npc, visible);
+}
+
+/*
  * battle_change_attribute()
  *
  * Apply a type-7 "Change battle attribute" task action to the player (npc < 0)
@@ -593,13 +601,7 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
       if (stamina <= 0
           && (npc >= 0 || !battle_is_legacy_version (game)))
         {
-          /* run390 keeps the NPC's stamina below zero, as the damage path
-           * does (battle_apply_damage). */
-          if (npc < 0)
-            gs_set_playerstamina (game, 0);
-          else
-            gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
-          battle_kill (game, npc, TRUE);
+          battle_kill_drained (game, npc, stamina, TRUE);
           break;
         }
       if (stamina < 0)
@@ -1233,7 +1235,7 @@ battle_npc_battle_task (scr_gameref_t game, scr_int npc, const scr_char *name)
  * battle_kill()
  *
  * Handle a combatant reaching zero stamina.  The player's death ends the game
- * through SCARIER's normal completion path, so the interpreter offers its
+ * through Scarier's normal completion path, so the interpreter offers its
  * restart/restore prompt.  An NPC runs its KilledTask if set, otherwise a
  * default death message is shown; the NPC's held and worn objects are dropped
  * into the room it died in, and the NPC is then removed from play.
@@ -1350,11 +1352,7 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
    */
   if (stamina <= 0)
     {
-      if (npc < 0)
-        gs_set_playerstamina (game, 0);
-      else
-        gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
-      battle_kill (game, npc, visible);
+      battle_kill_drained (game, npc, stamina, visible);
       return;
     }
 
@@ -1488,7 +1486,6 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
        * nor lose HitValue (Proc_11_2 has no equivalent of either).
        */
       const scr_bool player_throw = (method == 5 && attacker < 0);
-      static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
       const scr_int strength = battle_eff_strength (game, attacker,
                                                     (player_throw && !battle_legacy)
                                                         ? -1 : weapon);
@@ -1701,7 +1698,6 @@ battle_select_target (scr_gameref_t game, scr_int npc)
 static void
 battle_recover (scr_gameref_t game, scr_int npc)
 {
-  static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
   scr_int recovery, counter, stamina, maximum;
 
   recovery = battle_get_property (game, npc, "Recovery", 0);
@@ -1916,7 +1912,6 @@ battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon)
 void
 battle_tick_npc (scr_gameref_t game, scr_int npc)
 {
-  static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
   scr_int counter;
 
   if (!battle_is_enabled (game) || gs_npc_stamina (game, npc) <= 0)
