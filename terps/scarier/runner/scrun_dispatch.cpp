@@ -2011,7 +2011,9 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
  * The player's current command element (pronoun-substituted), stashed by
  * run_all_commands() so that library-initiated match attempts can consult
  * the verb the player actually typed alongside the library's canonical
- * constructed command ("get <object>", and so on).
+ * constructed command ("get <object>", and so on).  A pass that runs a
+ * line of its own making points it there for the while with a
+ * run_dispatch_input_guard (scrunner.h).
  */
 const scr_char *run_dispatch_input = NULL;
 
@@ -2027,13 +2029,9 @@ const scr_char *run_dispatch_input = NULL;
 scr_bool
 run_line_for_anywhere (scr_gameref_t game, const scr_char *line)
 {
-  const scr_char *saved = run_dispatch_input;
-  scr_bool status;
+  const run_dispatch_input_guard input (line);
 
-  run_dispatch_input = line;
-  status = run_standard_verb_commands (game, line);
-  run_dispatch_input = saved;
-  return status;
+  return run_standard_verb_commands (game, line);
 }
 
 
@@ -2741,8 +2739,8 @@ run_line_t::put_pass ()
                clause != put_clauses.end (); ++clause)
             {
               const scr_bool is_last = (clause + 1 == put_clauses.end ());
+              const run_dispatch_input_guard input (clause->c_str ());
 
-              run_dispatch_input = clause->c_str ();
               if (run_priority_commands (game, clause->c_str ()))
                 status = TRUE;
               /*
@@ -2782,16 +2780,17 @@ run_line_t::put_pass ()
                 status = TRUE;
             }
           run_put_clause_loop_active = FALSE;
-          run_dispatch_input = string;
           refused = refused && !status;
         }
       else
         {
-          run_dispatch_input = put_line;
-          uip_set_containment (put_contained);
-          status = run_priority_commands (game, put_line);
-          uip_set_containment (FALSE);
-          run_dispatch_input = string;
+          {
+            const run_dispatch_input_guard input (put_line);
+
+            uip_set_containment (put_contained);
+            status = run_priority_commands (game, put_line);
+            uip_set_containment (FALSE);
+          }
           refused = !status && run_priority_refused;
           if (refused)
             {
@@ -2869,16 +2868,15 @@ run_line_t::get_outer_400 ()
          van" is a take of the van; see lib_take_scored_400(). */
       auto outer_take = [&] () -> scr_bool
         {
+          const run_dispatch_input_guard input (outer_line);
           scr_bool taken;
 
-          run_dispatch_input = outer_line;
           taken = run_priority_commands (game, outer_line);
           if (!taken)
             {
               const scr_ref_number_guard ref_number (game);
               taken = lib_take_scored_400 (game);
             }
-          run_dispatch_input = string;
           return taken;
         };
       const scr_int kind = lib_task_prematch_kind_input (game, 1);
@@ -3110,9 +3108,11 @@ run_line_t::priority_pass ()
           }
       const std::vector<scr_int> battle_places
           = battle_kinds ? run_battle_places (game) : std::vector<scr_int> ();
-      run_dispatch_input = priority_line;
-      status = run_priority_commands (game, priority_line);
-      run_dispatch_input = string;
+      {
+        const run_dispatch_input_guard input (priority_line);
+
+        status = run_priority_commands (game, priority_line);
+      }
       /* Below 4.0 a take or drop that only refused is wiped by dobattle,
          which then has the line; 4.0's put_drop_list and get_outer claim
          on a refusal.  See run_battle_line(). */

@@ -558,16 +558,17 @@ run_battle_answer (scr_gameref_t game, const std::string &line)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const size_t mark = pf_buffer_length (filter);
-  const scr_char *saved = run_dispatch_input;
   std::string lower (line);
   size_t index;
 
   /* Typed lines reach the rows lower-cased; so must a Name put in one. */
   for (index = 0; index < lower.size (); index++)
     lower[index] = tolower ((unsigned char) lower[index]);
-  run_dispatch_input = lower.c_str ();
-  run_standard_commands (game, lower.c_str ());
-  run_dispatch_input = saved;
+  {
+    const run_dispatch_input_guard input (lower.c_str ());
+
+    run_standard_commands (game, lower.c_str ());
+  }
   return pf_cut_tail (filter, mark);
 }
 
@@ -578,16 +579,17 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int version = run_get_version (bundle);
   const size_t mark = pf_buffer_length (filter);
-  const scr_char *saved = run_dispatch_input;
   const scr_int npc = lib_battle_line_npc (game, typed);
   const scr_char *const name = npc >= 0
       ? prop_get_indexed_string (bundle, "NPCs", npc, "Name") : NULL;
   std::string answer, said;
   scr_bool struck, admin;
 
-  run_dispatch_input = typed;
-  struck = lib_cmd_attack_npcs (game);
-  run_dispatch_input = saved;
+  {
+    const run_dispatch_input_guard input (typed);
+
+    struck = lib_cmd_attack_npcs (game);
+  }
   if (!struck)
     {
       pf_truncate (filter, mark);
@@ -612,9 +614,11 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
                                    lib_battle_line_verb (game, typed));
       std::string rest;
 
-      run_dispatch_input = line.c_str ();
-      lib_sitstand_anywhere (game, run_line_for_anywhere, &rest);
-      run_dispatch_input = saved;
+      {
+        const run_dispatch_input_guard input (line.c_str ());
+
+        lib_sitstand_anywhere (game, run_line_for_anywhere, &rest);
+      }
       said = pf_cut_tail (filter, mark);
       if (!said.empty ())
         answer = said;
@@ -672,9 +676,11 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
     {
       while (!answer.empty () && answer[answer.size () - 1] == '\n')
         answer.erase (answer.size () - 1);
-      run_dispatch_input = typed;
-      lib_cmd_go_place (game);
-      run_dispatch_input = saved;
+      {
+        const run_dispatch_input_guard input (typed);
+
+        lib_cmd_go_place (game);
+      }
       answer += pf_cut_tail (filter, mark);
     }
 

@@ -3450,9 +3450,12 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
       places.push_back (gs_object_position (game, object));
       places.push_back (gs_object_parent (game, object));
     }
-  run_dispatch_input = take_line.c_str ();
-  const scr_bool status = run_priority_commands (game, take_line.c_str ());
-  run_dispatch_input = string;
+  scr_bool status;
+  {
+    const run_dispatch_input_guard input (take_line.c_str ());
+
+    status = run_priority_commands (game, take_line.c_str ());
+  }
   if (!status)
     {
       pf_truncate (filter, mark);

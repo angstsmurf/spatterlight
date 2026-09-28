@@ -58,6 +58,26 @@ extern std::string run_trace_last_input;
 #endif
 extern scr_bool run_priority_deferred;
 extern const scr_char *run_dispatch_input;
+
+/*
+ * run_dispatch_input_guard
+ *
+ * Points run_dispatch_input at a line of a pass's own making for the scope
+ * of the guard, and puts back the line it found there when the scope ends,
+ * by return or by throw alike.
+ */
+struct run_dispatch_input_guard
+{
+  explicit run_dispatch_input_guard (const scr_char *line)
+    : saved (run_dispatch_input) { run_dispatch_input = line; }
+  ~run_dispatch_input_guard () { run_dispatch_input = saved; }
+  run_dispatch_input_guard (const run_dispatch_input_guard &) = delete;
+  run_dispatch_input_guard &operator= (const run_dispatch_input_guard &)
+      = delete;
+
+private:
+  const scr_char *const saved;
+};
 extern std::string run_goto_arrival;
 extern scr_bool run_goto_arrival_due;
 extern std::vector<scr_bool> run_tasks_ran_this_command;
