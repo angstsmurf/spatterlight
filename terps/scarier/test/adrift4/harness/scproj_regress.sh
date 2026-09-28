@@ -82,10 +82,12 @@ fi
 # Build the deterministic harness (sx* stubs supply the os-layer callbacks;
 # seed.cpp forces SCARIER's portable RNG + fixed seed before main()).  Engine
 # ported C->C++ (sc*.c -> sc*.cpp), so glob the .cpp sources and use clang++.
-# mapdraw.cpp is not matched by the sc*.cpp glob, but scmap.cpp (the ADRIFT 4
-# map port) calls map_build()/map_free() from it, so the link needs it -- same
-# addition build.sh makes.
-( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. sc*.cpp mapdraw.cpp sxstubs.cpp sxglob.cpp sxutils.cpp \
+# The library and the runner live in their own folders; mapdraw.cpp is not
+# matched by the sc*.cpp glob, but scmap.cpp (the ADRIFT 4 map port) calls
+# map_build()/map_free() from it, so the link needs it -- same list build.sh
+# uses.
+( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
+    sxstubs.cpp sxglob.cpp sxutils.cpp \
     "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
 
 run_all() {

@@ -31,9 +31,9 @@ cd "$SCARE"
 # mapdraw.cpp is not matched by the sc*.cpp glob but scmap.cpp (the ADRIFT 4 map
 # port) calls map_free()/map_build() from it. It is plain C++ with no Glk
 # dependency, so linking it here is free -- the ANSI port simply never asks for a
-# map.
+# map.  The command library and the runner live in library/ and runner/.
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
-  sc*.cpp mapdraw.cpp os_ansi.cpp \
+  sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp os_ansi.cpp \
   "$HERE/seed.cpp" \
   -lz -o "$OUT"
 

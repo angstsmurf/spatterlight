@@ -4302,33 +4302,8 @@
 				87010291D59681D38B0F44C5 /* scprintf.cpp */,
 				8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */,
 				066545D7B54AED7A90A3003E /* scparser.cpp */,
-				B7891237714D4C19104EE325 /* sclibrar.cpp */,
-				5C1B1A000000000000000001 /* sclibrar_print.cpp */,
-				5C1B1A000000000000000002 /* sclibrar_room.cpp */,
-				5C1B1A000000000000000003 /* sclibrar_meta.cpp */,
-				5C1B1A000000000000000004 /* sclibrar_go.cpp */,
-				5C1B1A000000000000000005 /* sclibrar_disambig.inc */,
-				5C1B1A000000000000000006 /* sclibrar_examine.inc */,
-				5C1B1A000000000000000007 /* sclibrar_dispatch.inc */,
-				5C1B1A000000000000000008 /* sclibrar_take.inc */,
-				5C1B1A000000000000000009 /* sclibrar_takefrom.inc */,
-				5C1B1A00000000000000000A /* sclibrar_drop.inc */,
-				5C1B1A00000000000000000B /* sclibrar_open.inc */,
-				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
-				5C1B1A00000000000000000D /* sclibrar_put.inc */,
-				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
-				5C1B1A00000000000000000F /* sclibrar_battle.inc */,
-				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
-				5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */,
-				5C1B1A000000000000000012 /* sclibrar_misc.cpp */,
-				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
-				5C1B1A000000000000000014 /* sclibrar_refuse.inc */,
-				5C1B1A000000000000000015 /* sclibrar_verbobj.inc */,
-				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
-				487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */,
-				17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */,
-				599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */,
-				01E120DB9AF3E1E490C38748 /* scrun_split.cpp */,
+				SCLIBGRP0000000000000001 /* library */,
+				SCRUNGRP0000000000000001 /* runner */,
 				92FBC38D091ED69CB6B5650A /* scevents.cpp */,
 				96800C7329F2706EB62F4306 /* scnpcs.cpp */,
 				1B305C336D7D955664940307 /* scbattle.cpp */,
@@ -4410,6 +4385,47 @@
 				F67B5BB98C648FCD4036DFBF /* zoom.cpp */,
 			);
 			path = bocfel;
+			sourceTree = "<group>";
+		};
+		SCLIBGRP0000000000000001 /* library */ = {
+			isa = PBXGroup;
+			children = (
+				B7891237714D4C19104EE325 /* sclibrar.cpp */,
+				5C1B1A000000000000000001 /* sclibrar_print.cpp */,
+				5C1B1A000000000000000002 /* sclibrar_room.cpp */,
+				5C1B1A000000000000000003 /* sclibrar_meta.cpp */,
+				5C1B1A000000000000000004 /* sclibrar_go.cpp */,
+				5C1B1A000000000000000005 /* sclibrar_disambig.inc */,
+				5C1B1A000000000000000006 /* sclibrar_examine.inc */,
+				5C1B1A000000000000000007 /* sclibrar_dispatch.inc */,
+				5C1B1A000000000000000008 /* sclibrar_take.inc */,
+				5C1B1A000000000000000009 /* sclibrar_takefrom.inc */,
+				5C1B1A00000000000000000A /* sclibrar_drop.inc */,
+				5C1B1A00000000000000000B /* sclibrar_open.inc */,
+				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
+				5C1B1A00000000000000000D /* sclibrar_put.inc */,
+				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
+				5C1B1A00000000000000000F /* sclibrar_battle.inc */,
+				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
+				5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */,
+				5C1B1A000000000000000012 /* sclibrar_misc.cpp */,
+				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
+				5C1B1A000000000000000014 /* sclibrar_refuse.inc */,
+				5C1B1A000000000000000015 /* sclibrar_verbobj.inc */,
+			);
+			path = library;
+			sourceTree = "<group>";
+		};
+		SCRUNGRP0000000000000001 /* runner */ = {
+			isa = PBXGroup;
+			children = (
+				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
+				487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */,
+				17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */,
+				599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */,
+				01E120DB9AF3E1E490C38748 /* scrun_split.cpp */,
+			);
+			path = runner;
 			sourceTree = "<group>";
 		};
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
@@ -9760,6 +9776,10 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/terps/scarier",
+				);
 				INSTALL_PATH = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx13*]" = 10.13;
@@ -12602,6 +12622,10 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/terps/scarier",
+				);
 				INSTALL_PATH = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx13*]" = 10.13;

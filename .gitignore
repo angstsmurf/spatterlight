@@ -243,6 +243,8 @@ terps/scott/scott_all_audit
 # harnesses have their own .gitignore files under terps/scarier/test/)
 /terps/scarier/*.o
 /terps/scarier/adrift5/*.o
+/terps/scarier/library/*.o
+/terps/scarier/runner/*.o
 /terps/scarier/common_utils/*.o
 /terps/scarier/scarier
 /terps/scarier/glkscarier

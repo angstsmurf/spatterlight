@@ -35,7 +35,9 @@ CXX	= c++
 DEBUG	=
 CEXTRA	=
 CFLAGS	= -O2 -fPIC $(DEBUG) $(CEXTRA)
-CXXFLAGS = -O2 -fPIC -Wall -W $(DEBUG) $(CEXTRA)
+# -I. lets the command library in library/ and the runner in runner/ find
+# the shared Scarier headers at the root.
+CXXFLAGS = -O2 -fPIC -Wall -W $(DEBUG) $(CEXTRA) -I.
 LDLIBS	= -lz
 LDEXTRA	=
 LDFLAGS	= $(DEBUG) $(LDEXTRA)
@@ -87,19 +89,28 @@ adrift5/%.o: adrift5/%.cpp
 	$(CXX) $(CXXFLAGS) -I. -c -o $@ $<
 
 # Scarier objects and headers.
+LIBDIR	= library
+RUNDIR	= runner
 OBJECTS	= sctafpar.o sctaffil.o scprops.o scvars.o scexpr.o scprintf.o	\
-	  scinterf.o scparser.o sclibrar.o sclibrar_print.o sclibrar_room.o	\
-	  sclibrar_meta.o sclibrar_go.o sclibrar_topic.o sclibrar_read.o	\
-	  sclibrar_verbs.o sclibrar_sitstand.o sclibrar_misc.o sclibrar_talk.o	\
-	  scrunner.o scrun_split.o scrun_respell.o scrun_match.o scrun_dispatch.o	\
+	  scinterf.o scparser.o						\
+	  $(LIBDIR)/sclibrar.o $(LIBDIR)/sclibrar_print.o		\
+	  $(LIBDIR)/sclibrar_room.o $(LIBDIR)/sclibrar_meta.o		\
+	  $(LIBDIR)/sclibrar_go.o $(LIBDIR)/sclibrar_topic.o		\
+	  $(LIBDIR)/sclibrar_read.o $(LIBDIR)/sclibrar_verbs.o		\
+	  $(LIBDIR)/sclibrar_sitstand.o $(LIBDIR)/sclibrar_misc.o	\
+	  $(LIBDIR)/sclibrar_talk.o					\
+	  $(RUNDIR)/scrunner.o $(RUNDIR)/scrun_split.o			\
+	  $(RUNDIR)/scrun_respell.o $(RUNDIR)/scrun_match.o		\
+	  $(RUNDIR)/scrun_dispatch.o					\
 	  scevents.o	\
 	  scnpcs.o scbattle.o scobjcts.o sctasks.o screstrs.o scgamest.o scserial.o\
 	  scresour.o scmemos.o scutils.o sclocale.o scdebug.o
-HEADERS	= scarier.h scprotos.h scgamest.h scrunner.h sclibrar.h
+HEADERS	= scarier.h scprotos.h scgamest.h $(RUNDIR)/scrunner.h	\
+	  $(LIBDIR)/sclibrar.h
 
 # The library's core topic fragments, #included by sclibrar.cpp.
-LIBINC	= $(wildcard sclibrar_*.inc)
-sclibrar.o: $(LIBINC)
+LIBINC	= $(wildcard $(LIBDIR)/sclibrar_*.inc)
+$(LIBDIR)/sclibrar.o: $(LIBINC)
 
 # The map pane: scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the ADRIFT 5
 # one, and both draw into the engine-neutral rasteriser in mapdraw.cpp.  Only
@@ -187,7 +198,7 @@ scarier-$(VERSION).so: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
 
 # Cleanup.
 clean:
-	$(RM) -f scarier sx glkscarier *.o adrift5/*.o core core.* *.gcov *.gcno *.gcda
+	$(RM) -f scarier sx glkscarier *.o adrift5/*.o library/*.o runner/*.o core core.* *.gcov *.gcno *.gcda
 	$(RM) -f scarier_plugin.c scarier-$(VERSION).so
 
 distclean: clean
