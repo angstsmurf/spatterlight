@@ -3,8 +3,10 @@ Scarier
 
 Scarier is a lazy AI C++ clone of SCARE, Simon Baldwin's C clone of jAsea,
 Mark J. Tilford's Java GPL clone of the Adrift 4 Runner, combined with a lazy
-AI C++ clone of the Adrift 5 runner and a lazy AI C++ clone of FrankenDrift,
-a C# frontend for Adrift 5 by Adrian Welcker.
+AI C++ clone of the Adrift 5 Runner.  The ADRIFT 5 half was written from a
+reading of Campbell Wild's Runner source, as released under the BSD license
+in Adrian Welcker's FrankenDrift, and from diffing against FrankenDrift's
+output; it uses no code from either.
 
 In other words, it is a single Glk interpreter that plays both ADRIFT 4 and
 ADRIFT 5 games.
@@ -56,4 +58,7 @@ ground-truth fixtures.
 License
 -------
 
-The Scarier source code is released under the GPL. See COPYING.
+The Scarier source code is released under the GPL. See COPYING.  The files
+derived from SCARE keep its terms, GPL version 2, and carry Simon Baldwin's
+and Mark J. Tilford's copyright beside the 2026 line; everything written for
+Scarier itself is GPL version 2 or later.

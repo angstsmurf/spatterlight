@@ -1,6 +1,7 @@
 /* vi: set ts=2 shiftwidth=2 expandtab:
  *
  * Copyright (C) 2003-2008  Simon Baldwin and Mark J. Tilford
+ * Copyright (C) 2026  Petter Sjölund
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 2 of the GNU General Public License
