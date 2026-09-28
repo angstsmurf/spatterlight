@@ -25,17 +25,20 @@
    autosave design.
 
    At every top-level command prompt the engine-state container built by
-   os_glk.cpp goes into
+   os_glk_autosave.cpp goes into
 
      ~/Library/Application Support/Spatterlight/SCARE Files/Autosaves/(HASH)/autosave.glksave
 
    and the Glk library state into autosave.plist in the same directory.
-   Both are written to temp names and renamed into place, so a crash
-   mid-save leaves the previous good pair intact.  win_autosave() then
-   tells the window server to snapshot the GUI under the same tag.
+   Both are written to temp names first and only then renamed into place,
+   so a failed or interrupted write leaves the previous good pair intact;
+   if the second rename fails, the first is rolled back.  (Only a crash
+   in the instant between the two renames can still split the pair.)
+   win_autosave() then tells the window server to snapshot the GUI under
+   the same tag.
 
    This file owns only the files and the plist; everything engine-side
-   (containers, window tags, call sites) lives in os_glk.cpp behind
+   (containers, window tags) lives in os_glk_autosave.cpp behind
    #ifdef SPATTERLIGHT.
 */
 
@@ -138,6 +141,18 @@ static bool move_into_place(NSString *dirname, NSString *tmpname,
         return false;
     }
     return true;
+}
+
+/* Undo a move_into_place that succeeded: put the -bak file back as the
+ * final one, so the pair on disk is the previous turn's again. */
+static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+
+    [fileManager removeItemAtPath:finalpath error:nil];
+    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
 }
 
 /* ---- the frontend state, as plist archive extras ------------------------- */
@@ -245,8 +260,11 @@ void scarier_autosave_write(const std::string &engine_state)
             return;
         }
 
-        /* 1. The game state. */
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
+        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
+
+        /* 1. The game state, to its temp name. */
         NSData *gamedata = [NSData dataWithBytes:engine_state.data()
                                           length:engine_state.size()];
         NSError *error = nil;
@@ -254,11 +272,9 @@ void scarier_autosave_write(const std::string &engine_state)
             NSLog(@"scarier autosave: game state write failed: %@", error);
             return;
         }
-        if (!move_into_place(dirname, @"autosave-tmp.glksave",
-                             @"autosave.glksave", @"autosave-bak.glksave"))
-            return;
 
-        /* 2. The Glk library state, with the frontend's tags appended. */
+        /* 2. The Glk library state, with the frontend's tags appended, to
+         * its temp name. */
         gsc_stash_frontend_state(&frontend_state);
 
         TempLibrary *library = [[TempLibrary alloc] init];
@@ -272,18 +288,31 @@ void scarier_autosave_write(const std::string &engine_state)
 
         if (!archiveData) {
             NSLog(@"scarier autosave: library serialize failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
-
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
         if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
             NSLog(@"scarier autosave: library write failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
-        move_into_place(dirname, @"autosave-tmp.plist",
-                        @"autosave.plist", @"autosave-bak.plist");
 
-        /* 3. Have the window server snapshot the GUI under the same tag. */
+        /* 3. Both written: rename them into place as a pair.  If the plist
+         * cannot follow the glksave, take the glksave back too, so the
+         * files on disk never mix two turns. */
+        if (!move_into_place(dirname, @"autosave-tmp.glksave",
+                             @"autosave.glksave", @"autosave-bak.glksave")) {
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
+        }
+        if (!move_into_place(dirname, @"autosave-tmp.plist",
+                             @"autosave.plist", @"autosave-bak.plist")) {
+            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
+        }
+
+        /* 4. Have the window server snapshot the GUI under the same tag. */
         win_autosave(library.autosaveTag);
     }
 }

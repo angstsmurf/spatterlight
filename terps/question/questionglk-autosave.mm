@@ -30,9 +30,12 @@
      ~/Library/Application Support/Spatterlight/Quest Files/Autosaves/(HASH)/autosave.glksave
 
    and the Glk library state into autosave.plist in the same directory.
-   Both are written to temp names and renamed into place, so a crash
-   mid-save leaves the previous good pair intact.  win_autosave() then
-   tells the window server to snapshot the GUI under the same tag.
+   Both are written to temp names first and only then renamed into place,
+   so a failed or interrupted write leaves the previous good pair intact;
+   if the second rename fails, the first is rolled back.  (Only a crash
+   in the instant between the two renames can still split the pair.)
+   win_autosave() then tells the window server to snapshot the GUI under
+   the same tag.
 */
 
 extern "C" {
@@ -139,6 +142,18 @@ static bool move_into_place(NSString *dirname, NSString *tmpname,
     return true;
 }
 
+/* Undo a move_into_place that succeeded: put the -bak file back as the
+ * final one, so the pair on disk is the previous turn's again. */
+static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+
+    [fileManager removeItemAtPath:finalpath error:nil];
+    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+}
+
 /* Write the engine state and the Glk library plist (with the given archive
  * hook appending engine-specific extras), then ask the window server to
  * snapshot the GUI under the same tag.  The per-prompt guards
@@ -164,8 +179,11 @@ static void write_autosave_pair(const std::string &engine_state,
             return;
         }
 
-        /* 1. The game state. */
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
+        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
+
+        /* 1. The game state, to its temp name. */
         NSData *gamedata = [NSData dataWithBytes:engine_state.data()
                                           length:engine_state.size()];
         NSError *error = nil;
@@ -173,11 +191,8 @@ static void write_autosave_pair(const std::string &engine_state,
             NSLog(@"question autosave: game state write failed: %@", error);
             return;
         }
-        if (!move_into_place(dirname, @"autosave-tmp.glksave",
-                             @"autosave.glksave", @"autosave-bak.glksave"))
-            return;
 
-        /* 2. The Glk library state. */
+        /* 2. The Glk library state, to its temp name. */
         TempLibrary *library = [[TempLibrary alloc] init];
 
         [TempLibrary setExtraArchiveHook:archive_hook];
@@ -189,18 +204,31 @@ static void write_autosave_pair(const std::string &engine_state,
 
         if (!archiveData) {
             NSLog(@"question autosave: library serialize failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
-
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
         if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
             NSLog(@"question autosave: library write failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
-        move_into_place(dirname, @"autosave-tmp.plist",
-                        @"autosave.plist", @"autosave-bak.plist");
 
-        /* 3. Have the window server snapshot the GUI under the same tag. */
+        /* 3. Both written: rename them into place as a pair.  If the plist
+         * cannot follow the glksave, take the glksave back too, so the
+         * files on disk never mix two turns. */
+        if (!move_into_place(dirname, @"autosave-tmp.glksave",
+                             @"autosave.glksave", @"autosave-bak.glksave")) {
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
+        }
+        if (!move_into_place(dirname, @"autosave-tmp.plist",
+                             @"autosave.plist", @"autosave-bak.plist")) {
+            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
+        }
+
+        /* 4. Have the window server snapshot the GUI under the same tag. */
         win_autosave(library.autosaveTag);
     }
 }
