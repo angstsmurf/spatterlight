@@ -6,6 +6,10 @@
   Copyright (C) 2006 David Jones.  Distribution or modification in any
   form permitted.
 
+  Copyright (C) 2021-2026  Petter Sjölund.  The changes since are free
+  software under the GNU General Public License, version 2 or (at your
+  option) any later version; see COPYING beside this file.
+
   Some code is taken from the public domain
   http://www.eblong.com/zarf/glk/model.c written by Andrew Plotkin.
 
