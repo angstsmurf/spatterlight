@@ -2,10 +2,12 @@
 """ADRIFT 4.0 probe: how %onin_X% and %state_X% pick their object, and what
 %onin_X% prints for something with objects both on and in it.
 
-TOPLEVEL-REVIEW.md 2.4 and 2.7.  scvars.cpp resolves %in_X% and %on_X% by the
-lowest-indexed object whose Short is X (var_marker_object_by_short, measured
-on escape_to_new_york), but %onin_X% and %state_X% through uip_match(), which
-only offers objects the player can see and keeps the LAST match.  run400's
+Top-level review items 2.4 and 2.7 (the review file was removed after
+0d337a103; see that commit).  Before the fix, scvars.cpp resolved %in_X%
+and %on_X% by the lowest-indexed object whose Short is X
+(var_marker_object_by_short, measured on escape_to_new_york), but %onin_X%
+and %state_X% through uip_match(), which only offers objects the player
+can see and keeps the LAST match.  run400's
 substitute_percent_tags (47A3DC) runs the same index-order Short loop for
 all four markers -- %onin_ at 479BD5 with lister mode 2, %state_ at 47A0B2
 over objects whose CurrentState is not 0 -- so this probe puts the
