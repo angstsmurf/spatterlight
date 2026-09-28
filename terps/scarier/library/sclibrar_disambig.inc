@@ -56,11 +56,14 @@ static scr_int lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
  * that the author's replacement fires.  Any ALR Original starting "Which "
  * opts the game in.
  */
+static scr_prop_setref_t lib_which_cached_bundle = NULL;
+static scr_bool lib_which_cached_result = FALSE;
+
 static scr_bool
 lib_which_runner_form (scr_gameref_t game)
 {
-  static scr_prop_setref_t cached_bundle = NULL;
-  static scr_bool cached_result = FALSE;
+  scr_prop_setref_t &cached_bundle = lib_which_cached_bundle;
+  scr_bool &cached_result = lib_which_cached_result;
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key;
   scr_int alr_count, index_;
@@ -1452,6 +1455,12 @@ static scr_bool lib_co_400_flagged = FALSE;
 void
 lib_co_400_reset (void)
 {
+  /*
+   * The "Which" form is cached per bundle; a game reloaded in the same
+   * process can land its bundle at the old address, so forget it here.
+   */
+  lib_which_cached_bundle = NULL;
+  lib_which_cached_result = FALSE;
   lib_co_400_pending = FALSE;
   lib_co_400_was_pending = FALSE;
   lib_co_400_term.clear ();

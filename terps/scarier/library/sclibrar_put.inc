@@ -93,6 +93,20 @@ static scr_int lib_put_seen_absent = -1;
 static scr_int lib_put_present_unseen = -1;
 
 /*
+ * Both admissions last for one command only.  Each put backend's multiple
+ * form holds one of these for its whole run, so the two objects are
+ * forgotten however the command ends.
+ */
+struct lib_put_admission_guard_t
+{
+  ~lib_put_admission_guard_t ()
+  {
+    lib_put_seen_absent = -1;
+    lib_put_present_unseen = -1;
+  }
+};
+
+/*
  * lib_put_print_object_or_that()
  *
  * lib_print_object_np(), except for the one object this command resolved
@@ -1397,6 +1411,25 @@ static scr_bool lib_put_on_not_supporter_filter (scr_gameref_t game,
  * so that their callers claim the line rather than hand it on.
  */
 static scr_bool lib_put_refusal_swept = FALSE;
+
+/*
+ * lib_put_reset()
+ *
+ * Forget every per-command put admission and flag, for a game that is
+ * about to (re)start; run_player_input() calls this beside the other
+ * library resets.  A sweep whose put never reached its verdict, or a
+ * pre-4.0 noun still mid-word when the game ended, would otherwise leak
+ * into the next game's first put.
+ */
+void
+lib_put_reset (void)
+{
+  lib_put_seen_absent = -1;
+  lib_put_present_unseen = -1;
+  lib_put_announce_bytes = 0;
+  lib_put_mid_word_390 = FALSE;
+  lib_put_refusal_swept = FALSE;
+}
 
 static scr_bool
 lib_put_invalid_result (void)
@@ -2737,14 +2770,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
     return lib_put_named_pre400 (game, container, FALSE);
 
   /* Parse the multiple objects list to find the target objects. */
-  struct seen_absent_reset
-    {
-      ~seen_absent_reset ()
-      {
-        lib_put_seen_absent = -1;
-        lib_put_present_unseen = -1;
-      }
-    } seen_absent_guard;
+  lib_put_admission_guard_t admission_guard;
   references = -1;
   if (!is_except && lib_put_named_400 (game, &references))
     return TRUE;
@@ -3768,6 +3794,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Parse the multiple objects list to find the target objects; the 4.0
    * noun goes through name_object's resolver first (lib_put_named_400). */
+  lib_put_admission_guard_t admission_guard;
   references = -1;
   if (!is_except && lib_put_named_400 (game, &references))
     return TRUE;

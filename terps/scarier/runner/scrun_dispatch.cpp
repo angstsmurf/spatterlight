@@ -3671,6 +3671,7 @@ run_player_input (scr_gameref_t game)
       lib_co_400_reset ();
       lib_battle_who_reset ();
       lib_with_prefix_390_reset ();
+      lib_put_reset ();
       run_cancel_goto_walk ();
       return TRUE;
     }

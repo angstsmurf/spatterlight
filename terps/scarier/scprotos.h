@@ -1133,6 +1133,7 @@ extern scr_bool lib_put_where_question_400 (scr_gameref_t game,
 extern scr_bool lib_input_contains_word (const scr_char *input,
                                          const scr_char *word);
 extern void lib_battle_who_reset (void);
+extern void lib_put_reset (void);
 extern void lib_battle_who_begin_element (scr_bool new_line);
 extern void lib_battle_who_note_unanswered (void);
 extern std::string lib_battle_who_continuation (const scr_char *command,
