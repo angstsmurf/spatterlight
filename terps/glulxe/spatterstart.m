@@ -403,6 +403,39 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
     spatterglk_do_autosave(selector, arg0, arg1, arg2);
 }
 
+/* Move tmpname to finalname, keeping the previous finalname as bakname. */
+static BOOL move_into_place(NSString *dirname, NSString *tmpname,
+                            NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *tmppath = [dirname stringByAppendingPathComponent:tmpname];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+    NSError *error = nil;
+
+    [fileManager removeItemAtPath:bakpath error:nil];
+    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
+    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
+        NSLog(@"could not move %@ to final position: %@", tmpname, error);
+        /* Put the previous file back, so it is not left only as -bak. */
+        [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+        return NO;
+    }
+    return YES;
+}
+
+/* Undo a move_into_place that succeeded: put the -bak file back as the
+ * final one, so the pair on disk is the previous turn's again. */
+static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+
+    [fileManager removeItemAtPath:finalpath error:nil];
+    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+}
+
 void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2)
 {
     @autoreleasepool {
@@ -511,6 +544,7 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
 
         if (res) {
             NSLog(@"VM autosave failed!");
+            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
             return;
         }
 
@@ -525,35 +559,28 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
 
         if (!archiveData) {
             NSLog(@"library serialize failed: %@", archiveError);
+            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
             return;
         }
 
         if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
             NSLog(@"library serialize write failed: %@", archiveError);
+            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
             return;
         }
 
-        NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-
-        NSString *oldlibpath = [dirname stringByAppendingPathComponent:@"autosave-bak.plist"];
-        NSString *oldgamepath = [dirname stringByAppendingPathComponent:@"autosave-bak.glksave"];
-
-        NSError *error = nil;
-        /* This is not really atomic, but we're already past the serious failure modes. */
-        [[NSFileManager defaultManager] removeItemAtPath:oldlibpath error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:oldgamepath error:&error];
-        [[NSFileManager defaultManager] moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
-        [[NSFileManager defaultManager] moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
-
-        error = nil;
-        if (![[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:&error]) {
-            NSLog(@"could not move game autosave to final position: %@", error);
+        /* Both written: rename them into place as a pair. If the plist
+         * cannot follow the glksave, take the glksave back too, so the
+         * files on disk never mix two turns. */
+        if (!move_into_place(dirname, @"autosave-tmp.glksave",
+                             @"autosave.glksave", @"autosave-bak.glksave")) {
+            [[NSFileManager defaultManager] removeItemAtPath:tmplibpath error:nil];
             return;
         }
-        error = nil;
-        if (![[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:&error]) {
-            NSLog(@"could not move library autosave to final position: %@", error);
+        if (!move_into_place(dirname, @"autosave-tmp.plist",
+                             @"autosave.plist", @"autosave-bak.plist")) {
+            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
+            [[NSFileManager defaultManager] removeItemAtPath:tmplibpath error:nil];
             return;
         }
 //        NSLog(@"Glulxe created an autosave with tag %u", library.autosaveTag);
