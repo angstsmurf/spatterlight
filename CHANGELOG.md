@@ -2,11 +2,20 @@
 
 ## Unreleased
 
+### Bocfel (Z-code)
+- The core interpreter is updated to Bocfel 2.6, keeping Spatterlight's own V6 support.
+- *Journey* shows a black picture when you reach the Gate to the Plains without a light, instead of leaving the graphics window empty, and the charging boar in *Arthur* now lines up with the tree behind it.
+- Fixes two crashes when resuming from an autosave: one that hit the next autosave in games with sound, and one that hit old autosaves on relaunch. Autosave also works again when its folder does not exist yet.
+
 ### Scarier (Adrift)
 - Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
 - The default map colours are now less flat, with in-between tints added to the previous two.
 
 #### Adrift 3.7 to 4
+- 37 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, are repaired as they load, each by the smallest change that gets past the bug. The fix only applies to the exact release that has the bug, and saved games still load. Use *glk patches off* to play the games as released.
+- Games known to need one of the assists (combat, movement, repeated tasks, room restrictions, capacity) get it turned on automatically, and a notice at startup names each assist and the command that turns it off. The *glk repeatassist* and *glk roomassist* commands are new.
+- Where matching the original runners would only have made the parser understand less, Scarier keeps the more helpful behaviour: UNDO, Z, LOOK X and commas between commands in 3.7 and 3.8 games, GO TO and the other verbs a runner happened not to know, and a *key* that no longer gets confused with a *key ring*. When a command matches none of the game's tasks under the runner's strict rules, it is tried again under looser ones, so a sensible phrasing reaches the author's task.
+- Text stays grammatical where the original runners printed an accident, such as a lost full stop, a doubled space or a verb that does not agree with its subject. The runner's wording is kept only where a game's own text replacements expect it.
 - Adrift 3.7 and 3.8 games are now played by their own runners' rules rather than 3.9's: the earlier wording for taking, putting, opening and refusing, PUT IN and PUT ON as a single handler, container listings, the disambiguation prompt, the refusals for things that are not here, and the descriptions and restrictions those versions evaluate differently.
 - Random numbers are drawn from a stream compatible with the original runners, so games that turn on chance — and the games whose walkthroughs depend on it — play out as they do there.
 - More of the battle system, settled against the 3.9 and 4.0 runners: a blow strikes every character the line names, "Who do you want to attack?" and "What do you want to attack X with?" carry on into the next line, THROW is a battle verb, stamina recovery can revive a fallen character, the narration follows the game's chosen perspective, and a task that changes a character's attitude, speed, strength or defence changes it the way both runners do — a raise stops at the attribute's maximum, an attitude is stored as written, and a 3.9 speed change lands on the character its author meant. *Deaths*, *The Spirit's Flight* and *Secret of the Lost World* now fight the same fights as the original.
@@ -19,19 +28,24 @@
 - All of the above is held in place by a regression suite that replays a walkthrough for more than 400 Adrift games, and by a library of transcripts recorded from the original 3.7, 3.8, 3.9 and 4.0 runners for each of them.
 
 #### Adrift 5
+- Autosave also works while a "Which key?" question or a half-finished command such as "Get what?" is waiting for an answer.
 - Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins.
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
 
 ### Question (Quest)
+- The Quest interpreter formerly called Geas is now called Question. Existing saves and autosaves still load.
 - Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
 
 #### Quest 5
+- *Deeper* no longer hangs while generating its levels.
+- Games that ask for input with `GetInput()`, such as *System Restore*, *Escape from Byron Bay* and *The Last Survivor*, now work, and every page in *Victorian Detective* keeps its own `firsttime` state instead of sharing one.
 - Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run.
 - A "Continue..." link appears while the game is waiting for a keypress.
 - A turnscript can no longer fire between a command's question and its answer, matching the original's turn boundary.
 - Rooms that the map library can never reach on its own — one entered by a script rather than through an exit, or through an exit revealed after the player was already next to it — are charted anyway, so *The Acreage* draws its map instead of printing errors.
 
 ### General
+- Autosave in Bocfel, Glulxe, Scarier and Question now writes the new files completely before replacing the old ones, so a crash or failed write no longer leaves a game state paired with the previous turn's window layout.
 - Spatterlight now answers `glk_style_measure` for size, weight, obliqueness and proportional spacing, so an interpreter that asks about the current theme's fonts gets a real answer.
 - Fixes a crash when loading a sound or image whose resource number is very large, which killed some Adrift games at their first prompt.
 - The Adrift interpreter can take its game data from an already-open file, for ports that have no file system of their own.
