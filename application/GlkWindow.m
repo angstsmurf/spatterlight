@@ -189,7 +189,7 @@
             return nil;
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
             return [style attributesWithHints:self.styleHints[stylevalue]];
-        return style.resolvedAttributeDict;
+        return style.attributeDict;
     }
 
     return styles[stylevalue];
@@ -213,7 +213,7 @@
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
             styles[stylevalue] = [style attributesWithHints:self.styleHints[stylevalue]];
         else
-            styles[stylevalue] = style.resolvedAttributeDict;
+            styles[stylevalue] = style.attributeDict;
     }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
@@ -238,7 +238,7 @@
         attributes[@"ReverseVideo"] = @(YES);
         if (!self.theme.doStyles || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // Current style has stylehint_ReverseColor unset, so we reverse colors
-            attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.resolvedGridBackground : self.theme.resolvedBufferBackground];
+            attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.gridBackground : self.theme.bufferBackground];
         }
     }
 
@@ -386,9 +386,9 @@
     GlkWindow * __weak weakSelf = self;
     NSColor *blockBgCol;
     if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.resolvedGridBackground;
+        blockBgCol = self.theme.gridBackground;
     else
-        blockBgCol = self.theme.resolvedBufferBackground;
+        blockBgCol = self.theme.bufferBackground;
 
     if (self.theme.doStyles) {
         [attStr
@@ -460,9 +460,9 @@
     GlkWindow * __weak weakSelf = self;
     NSColor *blockBgCol;
     if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.resolvedGridBackground;
+        blockBgCol = self.theme.gridBackground;
     else
-        blockBgCol = self.theme.resolvedBufferBackground;
+        blockBgCol = self.theme.bufferBackground;
 
     [attStr
      enumerateAttribute:@"ReverseVideo"

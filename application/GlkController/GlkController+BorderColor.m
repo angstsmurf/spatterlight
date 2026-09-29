@@ -39,7 +39,7 @@
     if (theme.borderBehavior == kAutomatic) {
         self.lastAutoBGColor = color;
     } else {
-        color = theme.resolvedBorderColor;
+        color = theme.borderColor;
         if (self.lastAutoBGColor == nil)
             self.lastAutoBGColor = color;
     }
@@ -51,7 +51,7 @@
         return;
     }
 
-    if (theme.doStyles || [color isEqualToColor:theme.resolvedBufferBackground] || [color isEqualToColor:theme.resolvedGridBackground] || theme.borderBehavior == kUserOverride) {
+    if (theme.doStyles || [color isEqualToColor:theme.bufferBackground] || [color isEqualToColor:theme.gridBackground] || theme.borderBehavior == kUserOverride) {
         self.borderView.layer.backgroundColor = color.CGColor;
 
         [Preferences instance].borderColorWell.color = color;

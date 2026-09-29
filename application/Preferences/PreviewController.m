@@ -66,19 +66,19 @@
         _sampleTextView.frame = frame;
     }
     NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
-    NSMutableDictionary *attributes = _theme.bufSubH.resolvedAttributeDict.mutableCopy;
+    NSMutableDictionary *attributes = _theme.bufSubH.attributeDict.mutableCopy;
 
     NSParagraphStyle *para = _theme.bufferNormal.attributeDict[NSParagraphStyleAttributeName];
     attributes[NSParagraphStyleAttributeName] = para;
     
     [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Palace Gate", nil) attributes:attributes]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@" A tide of perambulators surges north along the crowded Broad Walk. ", nil) attributes:_theme.bufferNormal.resolvedAttributeDict]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(Trinity, Brian Moriarty, Infocom 1986)", nil) attributes:_theme.bufEmph.resolvedAttributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@" A tide of perambulators surges north along the crowded Broad Walk. ", nil) attributes:_theme.bufferNormal.attributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(Trinity, Brian Moriarty, Infocom 1986)", nil) attributes:_theme.bufEmph.attributeDict]];
     [_sampleTextView.textStorage setAttributedString:attrStr];
     [_sampleTextView.layoutManager ensureLayoutForTextContainer:_sampleTextView.textContainer];
     _textHeight.constant = NSHeight(_sampleTextView.frame);
-    _sampleTextView.backgroundColor = _theme.resolvedBufferBackground;
-    self.view.layer.backgroundColor = _theme.resolvedBufferBackground.CGColor;
+    _sampleTextView.backgroundColor = _theme.bufferBackground;
+    self.view.layer.backgroundColor = _theme.bufferBackground.CGColor;
     self.view.needsLayout = YES;
 }
 

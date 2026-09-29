@@ -386,9 +386,9 @@
         return;
     }
     if (glkctl.theme.borderBehavior == kUserOverride)
-        [glkctl setBorderColor:_glkctl.theme.resolvedBorderColor];
+        [glkctl setBorderColor:_glkctl.theme.borderColor];
     else
-        [glkctl setBorderColor:_glkctl.theme.resolvedBufferBackground];
+        [glkctl setBorderColor:_glkctl.theme.bufferBackground];
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {

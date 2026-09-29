@@ -76,15 +76,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t border;
 @property (nonatomic) kBorderColorPrefsType borderBehavior;
 @property (nullable, nonatomic, retain) NSColor *borderColor;
-@property (nullable, nonatomic, retain) NSColor *borderColorDark;
 @property (nullable, nonatomic, retain) NSColor *bufferBackground;
-@property (nullable, nonatomic, retain) NSColor *bufferBackgroundDark;
 @property (nonatomic) double bufferCellHeight;
 @property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
 @property (nullable, nonatomic, retain) NSColor *bufLinkColor;
-@property (nullable, nonatomic, retain) NSColor *bufLinkColorDark;
 @property (nonatomic) int32_t bufLinkStyle;
 @property (nonatomic) int32_t bZAdjustment;
 @property (nonatomic) kBZArrowsPrefsType bZTerminator;
@@ -103,15 +100,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t errorHandling;
 @property (nonatomic) BOOL flicker;
 @property (nullable, nonatomic, retain) NSColor *gridBackground;
-@property (nullable, nonatomic, retain) NSColor *gridBackgroundDark;
 @property (nullable, nonatomic, retain) NSColor *gridLinkColor;
-@property (nullable, nonatomic, retain) NSColor *gridLinkColorDark;
 @property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
 @property (nonatomic) BOOL hardDark;
 @property (nonatomic) BOOL hardLight;
 @property (nonatomic) BOOL hardLightOrDark;
+@property (nullable, nonatomic, retain) NSData *inactiveSideData;
 @property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
@@ -121,13 +117,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t sADisplayStyle;
 @property (nonatomic) int32_t sAInventory;
 @property (nonatomic) int32_t sAPalette;
+@property (nonatomic) BOOL sideIsDark;
 @property (nonatomic) int32_t scrollbackLimit;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) BOOL smoothScroll;
 @property (nonatomic) kSpacesFormatType spaceFormat;
 @property (nullable, nonatomic, retain) NSColor *spacingColor;
-@property (nullable, nonatomic, retain) NSColor *spacingColorDark;
 @property (nonatomic) BOOL vODelayOn;
 @property (nonatomic) double vOHackDelay;
 @property (nonatomic) int32_t vOSpeakCommand;
@@ -176,16 +172,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<GlkStyle *> * _Nonnull allStyles;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCustomStyles;
 
-/// Colors for the active light/dark mode (Preference appearance override or system).
-- (nullable NSColor *)resolvedBufferBackground;
-- (nullable NSColor *)resolvedGridBackground;
-- (nullable NSColor *)resolvedBorderColor;
-- (nullable NSColor *)resolvedSpacingColor;
-- (nullable NSColor *)resolvedBufLinkColor;
-- (nullable NSColor *)resolvedGridLinkColor;
-- (void)setResolvedBufferBackground:(nullable NSColor *)color;
-- (void)setResolvedGridBackground:(nullable NSColor *)color;
-- (void)setResolvedBorderColor:(nullable NSColor *)color;
+// A theme has a light side and a dark side. Usually they are the same
+// attributes. When they differ, the theme's own attributes hold the side
+// for the active appearance, and the other side is stored in inactiveSideData.
+
+/// YES if the light and dark sides are separate.
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasSeparateSides;
+/// Make the light and dark sides separate copies. The active side is dark if activeIsDark is YES.
+- (void)separateSidesWithActiveDark:(BOOL)activeIsDark;
+/// Throw away the inactive side, so that both appearances use the active one.
+- (void)discardInactiveSide;
+/// YES if the inactive side has the same values as the active one.
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL sidesAreIdentical;
+/// Swap sides if needed, so that the theme's attributes hold the side for this appearance.
+- (void)activateSideForDark:(BOOL)dark;
++ (void)activateSidesForDark:(BOOL)dark inContext:(NSManagedObjectContext *)context;
+/// Snapshot of the attributes that differ between the light and dark sides.
+- (NSDictionary *)sideSnapshot;
+/// The stored side that is not in use, in the sideSnapshot format. nil if the sides are the same.
+- (nullable NSDictionary *)inactiveSide;
+/// Store a snapshot as the inactive side. activeIsDark tells which side the theme's attributes hold.
+- (void)setInactiveSide:(nullable NSDictionary *)side activeIsDark:(BOOL)activeIsDark;
+- (void)applySideSnapshot:(NSDictionary *)side;
 
 @end
 

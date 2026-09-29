@@ -19,6 +19,7 @@
 #import "TableViewController.h"
 #import "TableViewController+TableDelegate.h"
 #import "TableViewController+LibraryManagement.h"
+#import "TableViewController+GameActions.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
 
@@ -90,6 +91,10 @@
     // A clone of a non-editable theme that restoreThemeSelection: has not
     // selected in the themes table yet.
     __weak Theme *pendingSelectionTheme;
+    // The shared theme where the user has unchecked "Changes apply to light
+    // and dark mode", but not yet edited anything on the Glk Styles tab.
+    __weak Theme *applyToOneModeTheme;
+    NSString *stylesHeaderBase;
     NSUInteger restoreSelectionAttempts;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
@@ -199,11 +204,14 @@ static Preferences *prefs = nil;
         [defaults setObject:appBuildString forKey:@"LastThemesRebuild"];
     }
 
+    if ([Preferences migrateToThemeSidesIfNeededInContext:managedObjectContext])
+        forceRebuild = YES;
+
     // We may or may not have created the Default and Old themes already above.
     // Then these won't be recreated below.
     [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
 
-    [Preferences migratePerThemeDarkColorsIfNeededInContext:managedObjectContext];
+    [Preferences activateThemeSidesInContext:managedObjectContext];
 }
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
@@ -366,7 +374,7 @@ NSString *fontToString(NSFont *font) {
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
 
-    [self configureStylesTabAppearanceControls];
+    [self configureAppearanceToggleButtons];
 
     [self changeThemeName:theme.name];
 
@@ -403,6 +411,10 @@ NSString *fontToString(NSFont *font) {
         toolbar.selectedItemIdentifier = themesPanel;
 
     _previewShown = [defaults boolForKey:@"ShowThemePreview"];
+
+    // Adding a theme must not bring back the hidden single-mode themes.
+    _arrayController.clearsFilterPredicateOnInsertion = NO;
+    [self applyThemeFilter];
 
     // The tool menu is also the contextual menu of the themes table, where
     // it applies to the clicked theme. Skip the hidden pull-down title item.
@@ -469,7 +481,8 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)noteColorModeChanged:(NSNotification *)notification {
-    [self syncDarkModeSwitchFromResolvedMode];
+    [Preferences activateThemeSidesInContext:_managedObjectContext];
+    [self syncAppearanceToggleButtons];
     _themesHeader.stringValue = [self themeScopeTitle];
     [self updatePrefsPanel];
     [[NSNotificationCenter defaultCenter]
@@ -494,10 +507,10 @@ NSString *fontToString(NSFont *font) {
         [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
         return;
     }
-    clrGridFg.color = theme.gridNormal.resolvedColor;
-    clrGridBg.color = theme.resolvedGridBackground;
-    clrBufferFg.color = theme.bufferNormal.resolvedColor;
-    clrBufferBg.color = theme.resolvedBufferBackground;
+    clrGridFg.color = theme.gridNormal.color;
+    clrGridBg.color = theme.gridBackground;
+    clrBufferFg.color = theme.bufferNormal.color;
+    clrBufferBg.color = theme.bufferBackground;
 
     txtGridMargin.floatValue = (float)theme.gridMarginX;
     txtBufferMargin.floatValue = (float)theme.bufferMarginX;
@@ -520,6 +533,11 @@ NSString *fontToString(NSFont *font) {
 
     _btnOverwriteStyles.enabled = theme.hasCustomStyles;
 
+    if (applyToOneModeTheme != theme)
+        applyToOneModeTheme = nil;
+    _btnApplyToBothModes.state = (theme.hasSeparateSides || applyToOneModeTheme) ? NSOffState : NSOnState;
+    [self updateStylesHeader];
+
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
 
@@ -530,14 +548,14 @@ NSString *fontToString(NSFont *font) {
      [defaults integerForKey:@"SelectedStyle"]];
 
     GlkStyle *selectedStyle = [self selectedStyle];
-    clrAnyFg.color = selectedStyle.resolvedColor;
+    clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
 
     _btnAutoBorderColor.state = theme.borderBehavior == kAutomatic ? NSOnState : NSOffState;
     _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
-    _borderColorWell.color = theme.resolvedBorderColor ?: theme.borderColor;
+    _borderColorWell.color = theme.borderColor;
 
     _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
     _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
@@ -911,6 +929,15 @@ NSString *fontToString(NSFont *font) {
         return;
     }
     restoreSelectionAttempts = 0;
+    if (sender && ![themes containsObject:sender] && [Preferences hidesSingleModeThemes]) {
+        // The theme filter lets the current theme through even if it is a
+        // hidden single-mode theme, such as the theme of the current game.
+        theme = sender;
+        ignoreTableSelectionChanges = YES;
+        [arrayController rearrangeObjects];
+        ignoreTableSelectionChanges = NO;
+        themes = arrayController.arrangedObjects;
+    }
     if (![themes containsObject:sender]) {
         // Fall back to the last theme in the table, but never leave the global
         // nil: everything downstream (changeCurrentGlkController: in particular)
@@ -951,6 +978,13 @@ NSString *fontToString(NSFont *font) {
         if (!selected)
             return;
         theme = selected;
+        if ([Preferences hidesSingleModeThemes]) {
+            // Hide the previous theme if it was only shown because it was current.
+            ignoreTableSelectionChanges = YES;
+            [_arrayController rearrangeObjects];
+            _arrayController.selectedObjects = @[theme];
+            ignoreTableSelectionChanges = NO;
+        }
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
@@ -977,9 +1011,65 @@ NSString *fontToString(NSFont *font) {
     NSString *themeString = [NSString stringWithFormat:@"Settings for theme %@", name];
     _detailsHeader.stringValue = themeString;
     _miscHeader.stringValue = themeString;
-    _stylesHeader.stringValue = themeString;
+    stylesHeaderBase = themeString;
+    [self updateStylesHeader];
     _zcodeHeader.stringValue = themeString;
     _vOHeader.stringValue = themeString;
+}
+
+// The Glk Styles tab header tells which mode is being edited when changes
+// only apply to one of them.
+- (void)updateStylesHeader {
+    NSString *header = stylesHeaderBase ? stylesHeaderBase : [NSString stringWithFormat:@"Settings for theme %@", theme.name];
+    if (_btnApplyToBothModes.state == NSOffState)
+        header = [header stringByAppendingString:([Preferences resolvedAppearance] == kDarkAppearance) ?
+                  NSLocalizedString(@" (dark mode)", nil) : NSLocalizedString(@" (light mode)", nil)];
+    _stylesHeader.stringValue = header;
+}
+
+- (IBAction)changeApplyToBothModes:(id)sender {
+    if (_btnApplyToBothModes.state == NSOffState) {
+        // Nothing changes until the user edits something
+        if (!theme.hasSeparateSides)
+            applyToOneModeTheme = theme;
+        [self updateStylesHeader];
+        return;
+    }
+
+    applyToOneModeTheme = nil;
+
+    if (!theme.hasSeparateSides) {
+        [self updateStylesHeader];
+        return;
+    }
+
+    if (theme.sidesAreIdentical) {
+        [self discardInactiveSide];
+        return;
+    }
+
+    // Keep the checkbox off until the user agrees
+    _btnApplyToBothModes.state = NSOffState;
+
+    NSString *inactiveMode = theme.sideIsDark ? NSLocalizedString(@"light", nil) : NSLocalizedString(@"dark", nil);
+    NSAlert *anAlert = [[NSAlert alloc] init];
+    anAlert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to discard the %@ mode of this theme?", nil), inactiveMode];
+    anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"The current settings will be used in both light and dark mode.", nil)];
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Discard", nil)];
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+    Preferences * __weak weakSelf = self;
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
+        if (result == NSAlertFirstButtonReturn)
+            [weakSelf discardInactiveSide];
+    }];
+}
+
+- (void)discardInactiveSide {
+    Theme *themeToChange = [self cloneThemeIfNotEditableKeepingSides];
+    [themeToChange discardInactiveSide];
+    _btnApplyToBothModes.state = NSOnState;
+    [self updateStylesHeader];
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -1235,9 +1325,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         NSBeep();
         return;
     }
-    Theme *ancestor = themeToRemove.defaultParent;
-    if (!ancestor)
-        ancestor = [self findAncestorThemeOf:themeToRemove];
+    Theme *ancestor = [self visibleAncestorOf:themeToRemove];
     NSSet *orphanedGames = themeToRemove.games;
     NSSet *orphanedThemes = themeToRemove.defaultChild;
     NSUInteger row = arrayController.selectionIndex - 1;
@@ -1284,6 +1372,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     for (Theme *t in fetchedObjects) {
         if (t.games.count || t.defaultChild.count) {
             Theme *ancestor = [self findAncestorThemeOf:t];
+            if (ancestor && ![self themeIsVisible:ancestor])
+                ancestor = [self defaultAutomodeTheme];
             if (ancestor && !ancestor.editable) {
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
@@ -1321,6 +1411,69 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
     NSLog(@"Found no ancestor theme!");
     return nil;
+}
+
+/// The theme to select when t is deleted: the nearest theme it was cloned or
+/// created from that is shown in the themes table, or "Default automode" if
+/// they are all hidden.
+- (nullable Theme *)visibleAncestorOf:(Theme *)t {
+    Theme *ancestor = t.defaultParent;
+    if (!ancestor)
+        ancestor = [self findAncestorThemeOf:t];
+    NSMutableSet *seen = [NSMutableSet set];
+    while (ancestor && ![self themeIsVisible:ancestor] && ![seen containsObject:ancestor]) {
+        [seen addObject:ancestor];
+        ancestor = ancestor.defaultParent;
+    }
+    if (ancestor && ![self themeIsVisible:ancestor])
+        ancestor = [self defaultAutomodeTheme];
+    return ancestor;
+}
+
+#pragma mark Single-mode themes
+
++ (BOOL)hidesSingleModeThemes {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"HideSingleModeThemes"];
+}
+
+/// Single-mode themes, where the light and dark sides are the same, are
+/// hidden while HideSingleModeThemes is on. The current theme is always shown.
+- (BOOL)themeIsVisible:(Theme *)t {
+    return ![Preferences hidesSingleModeThemes] || t == theme || !t.sidesAreIdentical;
+}
+
+- (nullable Theme *)defaultAutomodeTheme {
+    return [_arrayController findThemeByName:@"Default automode"];
+}
+
+- (void)applyThemeFilter {
+    if ([Preferences hidesSingleModeThemes]) {
+        __weak Preferences *weakSelf = self;
+        _arrayController.filterPredicate = [NSPredicate predicateWithBlock:^BOOL(Theme *t, NSDictionary *bindings) {
+            return [weakSelf themeIsVisible:t];
+        }];
+    } else {
+        _arrayController.filterPredicate = nil;
+    }
+}
+
+- (IBAction)toggleSingleModeThemes:(id)sender {
+    BOOL hide = ![Preferences hidesSingleModeThemes];
+    if (hide && theme.sidesAreIdentical) {
+        Theme *automode = [self defaultAutomodeTheme];
+        if (automode)
+            _arrayController.selectedObjects = @[automode];
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:hide forKey:@"HideSingleModeThemes"];
+    ignoreTableSelectionChanges = YES;
+    [self applyThemeFilter];
+    if (theme)
+        _arrayController.selectedObjects = @[theme];
+    ignoreTableSelectionChanges = NO;
+    NSUInteger row = _arrayController.selectionIndex;
+    if (row != NSNotFound)
+        [themesTableView scrollRowToVisible:(NSInteger)row];
+    [_libcontroller rebuildThemesSubmenu];
 }
 
 - (IBAction)togglePreview:(id)sender {
@@ -1378,6 +1531,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else if (action == @selector(editNewEntry:)) {
         return [self themeForMenuCommand:menuItem].editable;
 
+    } else if (action == @selector(toggleSingleModeThemes:)) {
+        menuItem.title = [Preferences hidesSingleModeThemes] ? NSLocalizedString(@"Show Single-Mode Themes", nil) : NSLocalizedString(@"Hide Single-Mode Themes", nil);
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
         ((NSMenuItem*)menuItem).title = title;
@@ -1461,19 +1616,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if ([self selectedStyle] == theme.gridNormal)
             clrAnyFg.color = color;
     } else if (sender == clrGridBg) {
-        if ([theme.resolvedGridBackground isEqualToColor:color])
+        if ([theme.gridBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
-        [themeToChange setResolvedGridBackground:color];
+        themeToChange.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
         if ([self selectedStyle] == theme.bufferNormal)
             clrAnyFg.color = color;
     } else if (sender == clrBufferBg) {
-        if ([theme.resolvedBufferBackground isEqualToColor:color])
+        if ([theme.bufferBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
-        [themeToChange setResolvedBufferBackground:color];
+        themeToChange.bufferBackground = color;
     } else if (sender == clrAnyFg) {
         key = [self selectedStyleName];
     } else if (sender == _borderColorWell) {
@@ -1484,7 +1639,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     GlkStyle *style = nil;
     if (key) {
         style = [theme valueForKey:key];
-        if ([style.resolvedColor isEqualToColor:color])
+        if ([style.color isEqualToColor:color])
             return;
 
         themeToChange = [self cloneThemeIfNotEditable];
@@ -1495,7 +1650,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         }
 
-        style.resolvedColor = color;
+        style.color = color;
     }
 
     style.autogenerated = NO;
@@ -1507,11 +1662,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)changeBorderColor:(NSColor *)color {
-    if ([color isEqualToColor:theme.resolvedBorderColor])
+    if ([color isEqualToColor:theme.borderColor])
         return;
 
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    [themeToChange setResolvedBorderColor:color];
+    themeToChange.borderColor = color;
 }
 
 - (IBAction)swapColors:(id)sender {
@@ -1586,15 +1741,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setInteger:windowType forKey:@"SelectedGlkWindowType"];
     [defaults setInteger:_styleNamePopup.selectedTag forKey:@"SelectedStyle"];
     GlkStyle *selectedStyle = [self selectedStyle];
-    clrAnyFg.color = selectedStyle.resolvedColor;
+    clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
     selectedFontButton = btnAnyFont;
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
-    [self.dummyTextView updateTextWithAttributes:selectedStyle.resolvedAttributeDict];
-    NSMutableDictionary *convertedAttributes = selectedStyle.resolvedAttributeDict.mutableCopy;
+    [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
+    NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
 
     convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
-    theme.resolvedGridBackground : theme.resolvedBufferBackground;
+    theme.gridBackground : theme.bufferBackground;
     [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
@@ -2177,6 +2332,17 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (Theme *)cloneThemeIfNotEditable {
+    Theme *result = [self cloneThemeIfNotEditableKeepingSides];
+    // With "Changes apply to light and dark mode" off, edits only apply to
+    // the side of the current mode.
+    if (_btnApplyToBothModes.state == NSOffState && !result.hasSeparateSides) {
+        [result separateSidesWithActiveDark:([Preferences resolvedAppearance] == kDarkAppearance)];
+        applyToOneModeTheme = nil;
+    }
+    return result;
+}
+
+- (Theme *)cloneThemeIfNotEditableKeepingSides {
     if (!theme.editable) {
         Theme *clonedTheme = theme.clone;
         clonedTheme.editable = YES;
@@ -2237,11 +2403,31 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
-    [prefs cloneThemeIfNotEditable];
+    // Zooming applies to both light and dark mode
+    [prefs cloneThemeIfNotEditableKeepingSides];
 
+    [Preferences scaleStylesOfTheme:theme by:scalefactor];
+
+    if (theme.hasSeparateSides) {
+        BOOL activeIsDark = theme.sideIsDark;
+        [theme activateSideForDark:!activeIsDark];
+        [Preferences scaleStylesOfTheme:theme by:scalefactor];
+        [Preferences rebuildTextAttributes];
+        [theme activateSideForDark:activeIsDark];
+    }
+
+    [Preferences rebuildTextAttributes];
+
+    /* send notification that default size has changed -- resize all windows */
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"DefaultSizeChanged"
+     object:theme];
+}
+
++ (void)scaleStylesOfTheme:(Theme *)themeToScale by:(CGFloat)scalefactor {
     CGFloat fontSize;
 
-    for (GlkStyle *style in theme.allStyles) {
+    for (GlkStyle *style in themeToScale.allStyles) {
         fontSize = style.font.pointSize;
         fontSize *= scalefactor;
         if (fontSize > 0) {
@@ -2271,13 +2457,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
         style.attributeDict = dict;
     }
-
-    [Preferences rebuildTextAttributes];
-
-    /* send notification that default size has changed -- resize all windows */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DefaultSizeChanged"
-     object:theme];
 }
 
 - (void)updatePanelAfterZoom {
@@ -2296,23 +2475,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
     GlkStyle *selectedStyle = nil;
 
     selectedFont = theme.bufferNormal.font;
-    selectedFontColor = theme.bufferNormal.resolvedColor;
-    selectedDocumentColor = theme.resolvedBufferBackground;
+    selectedFontColor = theme.bufferNormal.color;
+    selectedDocumentColor = theme.bufferBackground;
     selectedStyle = theme.bufferNormal;
 
     if (sender == btnGridFont) {
         selectedFont = theme.gridNormal.font;
-        selectedFontColor = theme.gridNormal.resolvedColor;
-        selectedDocumentColor = theme.resolvedGridBackground;
+        selectedFontColor = theme.gridNormal.color;
+        selectedDocumentColor = theme.gridBackground;
         selectedStyle = theme.gridNormal;
     }
     if (sender == btnAnyFont) {
         selectedStyle = [self selectedStyle];
         selectedFont = selectedStyle.font;
-        selectedFontColor = selectedStyle.resolvedColor;
+        selectedFontColor = selectedStyle.color;
         NSInteger windowType = _windowTypePopup.selectedTag;
         selectedDocumentColor = (windowType == wintype_TextGrid) ?
-        theme.resolvedGridBackground : theme.resolvedBufferBackground;
+        theme.gridBackground : theme.bufferBackground;
     }
 
     NSDictionary *attConvDict = @{ NSForegroundColorAttributeName: @"NSColor",
@@ -2325,7 +2504,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
                                    NSFontAttributeName: @"NSFont" };
 
     NSMutableDictionary *attr = [NSMutableDictionary new];
-    NSDictionary *oldAttr = selectedStyle.resolvedAttributeDict;
+    NSDictionary *oldAttr = selectedStyle.attributeDict;
     for (NSString *key in oldAttr.allKeys) {
         NSString *newKey = attConvDict[key];
         if (!newKey)
@@ -2336,7 +2515,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     attr[@"Font"] = selectedFont;
     attr[@"NSDocumentBackgroundColor"] = selectedDocumentColor;
 
-    [self.dummyTextView updateTextWithAttributes:selectedStyle.resolvedAttributeDict];
+    [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
 
     NSFontPanel *fontPanel = [NSFontPanel sharedFontPanel];
     if (fontPanel.delegate != self.dummyTextView || !fontPanel.visible) {

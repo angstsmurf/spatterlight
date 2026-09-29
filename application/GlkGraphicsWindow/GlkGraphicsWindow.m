@@ -101,7 +101,7 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         return;
     NSColor *color;
     if (SPIsZColor(bc, zcolor_Default)) {
-        color = self.glkctl.theme.resolvedBufferBackground;
+        color = self.glkctl.theme.bufferBackground;
         bgnd = color.integerColor;
     } else {
         bgnd = bc;

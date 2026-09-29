@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 + (kZoomDirectionType)zoomDirection;
 
 + (Theme *)currentTheme;
+/// YES while the user hides themes whose light and dark sides are the same.
++ (BOOL)hidesSingleModeThemes;
 
 + (Preferences *)instance;
 
@@ -97,6 +99,7 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 @property (weak) IBOutlet NSBox *divider;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
+@property (weak) IBOutlet NSButton *btnApplyToBothModes;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
 @property (weak) IBOutlet NSButton *swapBufColBtn;
 

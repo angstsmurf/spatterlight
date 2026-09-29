@@ -92,7 +92,7 @@
             if (self.theme.doStyles) {
                 styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
             } else {
-                styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).resolvedAttributeDict;
+                styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
             }
 
             if (!styleDict) {
@@ -146,7 +146,7 @@
         textstorage.delegate = self;
         _textview.textContainerInset =
             NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
-        _textview.backgroundColor = self.theme.resolvedGridBackground;
+        _textview.backgroundColor = self.theme.gridBackground;
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
@@ -181,7 +181,7 @@
             NSLog(@"Error! textstorage is nil!");
         _bufferTextStorage = [textstorage mutableCopy];
         _textview.delegate = self;
-        _textview.insertionPointColor = self.theme.resolvedGridBackground;
+        _textview.insertionPointColor = self.theme.gridBackground;
         textstorage.delegate = self;
         scrollview = _textview.enclosingScrollView;
         scrollview.documentView = _textview;
@@ -338,8 +338,9 @@
             // in order to get an attributes dictionary
             attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
         } else {
-            // We're not doing styles, so use theme attributes with the active light/dark fg
-            attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).resolvedAttributeDict;
+            // We're not doing styles, so use the raw style attributes from
+            // the theme object's attributeDict object
+            attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
         }
 
         if (usingStyles != self.theme.doStyles) {
@@ -481,7 +482,7 @@
     }
 
     if (!bgcolor)
-        bgcolor = self.theme.resolvedGridBackground;
+        bgcolor = self.theme.gridBackground;
 
     if (transparent || bgnd == zcolor_Transparent)
         bgcolor = [NSColor clearColor];
@@ -552,7 +553,7 @@
 
     if (!bgCol) {
         if (bgnd < 0 || !self.theme.doStyles) {
-            bgCol = self.theme.resolvedGridBackground;
+            bgCol = self.theme.gridBackground;
         }
         else {
             bgCol = [NSColor colorFromInteger:bgnd];

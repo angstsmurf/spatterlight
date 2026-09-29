@@ -19,10 +19,14 @@ extern NSString * const SpatterlightAppearanceOverrideKey;
 /// Override if set, else system appearance.
 + (kAppearanceType)resolvedAppearance;
 
-+ (void)migratePerThemeDarkColorsIfNeededInContext:(NSManagedObjectContext *)context;
+/// Run once when moving to light and dark theme sides. Returns YES if the
+/// built-in themes must be rebuilt.
++ (BOOL)migrateToThemeSidesIfNeededInContext:(NSManagedObjectContext *)context;
+/// Swap every theme with separate sides to the side for the current appearance.
++ (void)activateThemeSidesInContext:(NSManagedObjectContext *)context;
 
-- (void)configureStylesTabAppearanceControls;
-- (void)syncDarkModeSwitchFromResolvedMode;
+- (void)configureAppearanceToggleButtons;
+- (void)syncAppearanceToggleButtons;
 
 @end
 

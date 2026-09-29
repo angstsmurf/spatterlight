@@ -442,11 +442,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _gameView.wantsLayer = YES;
     _gameView.layer.masksToBounds = YES;
 
-    _lastAutoBGColor = _theme.resolvedBufferBackground;
+    _lastAutoBGColor = _theme.bufferBackground;
     if (_theme.borderBehavior == kUserOverride)
-        [self setBorderColor:_theme.resolvedBorderColor];
+        [self setBorderColor:_theme.borderColor];
     else
-        [self setBorderColor:_theme.resolvedBufferBackground];
+        [self setBorderColor:_theme.bufferBackground];
 
     NSString *autosaveLatePath = [[self appSupportDir]
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -1949,8 +1949,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     }
 
-    if (theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:theme.resolvedBorderColor]) {
-        [self setBorderColor:theme.resolvedBorderColor];
+    if (theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:theme.borderColor]) {
+        [self setBorderColor:theme.borderColor];
     } else if (theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
         [self setBorderColor:_lastAutoBGColor];
     }

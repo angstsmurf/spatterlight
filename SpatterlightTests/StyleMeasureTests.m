@@ -120,9 +120,9 @@
 - (NSInteger)themeColorForBufferStyle:(GlkStyle *)style hint:(NSUInteger)hint {
     NSColor *color;
     if (hint == stylehint_TextColor)
-        color = style.resolvedAttributeDict[NSForegroundColorAttributeName];
+        color = style.attributeDict[NSForegroundColorAttributeName];
     else
-        color = style.resolvedAttributeDict[NSBackgroundColorAttributeName] ?: self.theme.resolvedBufferBackground;
+        color = style.attributeDict[NSBackgroundColorAttributeName] ?: self.theme.bufferBackground;
     XCTAssertNotNil(color);
     return color.integerColor;
 }
@@ -130,9 +130,9 @@
 - (NSInteger)themeColorForGridStyle:(GlkStyle *)style hint:(NSUInteger)hint {
     NSColor *color;
     if (hint == stylehint_TextColor)
-        color = style.resolvedAttributeDict[NSForegroundColorAttributeName];
+        color = style.attributeDict[NSForegroundColorAttributeName];
     else
-        color = style.resolvedAttributeDict[NSBackgroundColorAttributeName] ?: self.theme.resolvedGridBackground;
+        color = style.attributeDict[NSBackgroundColorAttributeName] ?: self.theme.gridBackground;
     XCTAssertNotNil(color);
     return color.integerColor;
 }

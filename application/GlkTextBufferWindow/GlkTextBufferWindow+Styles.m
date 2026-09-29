@@ -39,11 +39,11 @@
             NSLog(@"recalcBackground: No theme!");
             return;
         }
-        if (!self.theme.resolvedBufferBackground) {
+        if (!self.theme.bufferBackground) {
             NSLog(@"recalcBackground: No self.theme.bufferBackground!");
             return;
         }
-        bgcolor = self.theme.resolvedBufferBackground;
+        bgcolor = self.theme.bufferBackground;
     }
     _textview.backgroundColor = bgcolor;
 
@@ -84,8 +84,9 @@
             // in order to get an attributes dictionary
             attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
         } else {
-            // We're not doing styles, so use theme attributes with the active light/dark fg
-            attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).resolvedAttributeDict;
+            // We're not doing styles, so use the raw style attributes from
+            // the theme object's attributeDict object
+            attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
 
         if (usingStyles != self.theme.doStyles) {

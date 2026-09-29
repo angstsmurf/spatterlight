@@ -264,7 +264,7 @@
         scrollview.drawsBackground = YES;
         NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
         if (!bgcolor)
-            bgcolor = self.theme.resolvedBufferBackground;
+            bgcolor = self.theme.bufferBackground;
         scrollview.backgroundColor = bgcolor;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = YES;
