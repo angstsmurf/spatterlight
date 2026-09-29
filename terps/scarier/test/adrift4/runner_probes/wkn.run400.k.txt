@@ -1,0 +1,31 @@
+
+> z
+Time passes...
+Bob BOB ENTERS. from the north.  CHARTASK FIRED.
+
+> jn
+JUMP NORTH.
+
+> js
+JUMP SOUTH.
+
+> z
+Time passes...
+Bob BOB LEAVES. to the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+Bob BOB ENTERS. from the north.  CHARTASK FIRED.
+
+> jn
+JUMP NORTH.
+
+> js
+JUMP SOUTH.
+
+> z
+Time passes...
+Bob BOB LEAVES. to the north.

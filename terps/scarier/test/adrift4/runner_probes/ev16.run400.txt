@@ -1,0 +1,45 @@
+
+> turns
+You have taken 0 turns so far.
+
+> x bob
+A probe NPC.
+
+> turns
+You have taken 0 turns so far.
+
+> x carl
+There's nothing special about Carl.
+
+> turns
+You have taken 0 turns so far.
+
+> look at bob
+A probe NPC.
+
+> turns
+You have taken 0 turns so far.
+
+> examine bob
+A probe NPC.
+
+> turns
+You have taken 0 turns so far.
+
+> x me
+A test fighter.
+
+> turns
+You have taken 1 turns so far.
+
+> x dave
+Player see no such thing.
+
+> turns
+You have taken 1 turns so far.
+
+> z
+Time passes...
+
+> turns
+You have taken 2 turns so far.

@@ -1,0 +1,72 @@
+
+> count
+N=0.
+
+> i
+Player is carrying a gem.
+
+> get ball
+Player take the ball.  BOBTEXT.
+
+> count
+N=1.
+
+> i
+Player is carrying a ball and a gem.
+
+> get cup
+CUPTEXT.
+
+> count
+N=2.
+
+> i
+Player is carrying a ball and a gem.
+
+> get pen
+Player take the pen.  BOBTEXT.
+
+> count
+N=3.
+
+> i
+Player is carrying a ball, a pen and a gem.
+
+> get pen
+Player is already carrying the pen.
+
+> count
+N=3.
+
+> i
+Player is carrying a ball, a pen and a gem.
+
+> get rock
+Player take the rock.
+
+> count
+N=4.
+
+> i
+Player is carrying a ball, a pen, a rock and a gem.
+
+> get gem
+BOBTEXT.Player is already carrying the gem.
+
+> count
+N=5.
+
+> i
+Player is carrying a ball, a pen, a rock and a gem.
+
+> drop ball
+Player drop the ball.  
+
+> get ball
+Player take the ball.  BOBTEXT.
+
+> count
+N=6.
+
+> i
+Player is carrying a ball, a pen, a rock and a gem.

@@ -54,8 +54,8 @@
  * (`search`, `wave` and `throw` are "I don't understand." because no arm
  * holds those words outside dobattle; `give` is the shape that shows the two
  * halves are separate, printing the "(to Nobody)" echo and then "Give
- * what?".)  Measured 2026-09-20 on p4REW with cmdfile_pcasc.txt, run400x
- * Adrift_251_casc40.txt.
+ * what?".)  Measured 2026-09-20 on p4REW with make_rewriteprobe.py, run400x
+ * runner_probes/rew.run400.casc.txt.
  *
  * Scarier's table is anchored at the head, so the port is a rewrite rather
  * than a re-plumbing: hoist the verb to the front and let the ordinary rows
@@ -67,13 +67,13 @@
  * Scarier: takes, drops, wears, removes and examines (HOIST_VERBS_PRE400
  * carries their words and the addresses).  Everything else already matches
  * its word anywhere, which is why `blorp drink`, `blorp push`, `blorp sit`
- * and `blorp read` already agreed.  run370x Adrift_250_casc37b.rtf and
- * run380x Adrift_249_casc38.rtf answer `blorp take` "Take what?", `blorp
- * drop` "Drop what?", `blorp wear` "Wear what?", `blorp remove` "Remove
- * what?" and `blorp examine` "Nothing special."; run390x
- * Adrift_250_casc39.txt the same five.  What is left after the hoist at
- * those versions is the NOUN half -- `blorp take coin` is "You pick up the
- * coin." because takes()/drops() resolve with co() over the whole line,
+ * and `blorp read` already agreed.  run370x runner_probes/rew.run370.casc.rtf
+ * and run380x runner_probes/rew.run380.casc.rtf answer `blorp take` "Take
+ * what?", `blorp drop` "Drop what?", `blorp wear` "Wear what?", `blorp remove`
+ * "Remove what?" and `blorp examine` "Nothing special."; run390x
+ * runner_probes/rew.run390.casc.txt the same five.  What is left after the
+ * hoist at those versions is the NOUN half -- `blorp take coin` is "You pick
+ * up the coin." because takes()/drops() resolve with co() over the whole line,
  * where Scarier reads the text after the verb -- and run390's `blorp put`,
  * which answers "Give what?"; both are open leads.
  *
@@ -169,9 +169,8 @@ static const scr_char *const *const HOIST_TABLES_400[] = {
  * ("&&&") drops whatever was said before it.  So on a line that holds a goto
  * and one other verb, the other verb's handler answers first and gotoplace
  * then either stays out (the handler claimed), adds its message with no
- * break, or walks.  Measured on p37ORD..p4ORD with cmdfile_p2goto.txt
- * (run370x Adrift_275_5g37.rtf, run380x Adrift_276_5g38.rtf, run390x
- * Adrift_277_5g39.txt, run400x Adrift_278_5g40.txt, 2026-09-21):
+ * break, or walks.  Measured on p37ORD..p4ORD with make_orderprobe.py
+ * (run370x..run400x runner_probes/ord.run*.goto.*, 2026-09-21):
  *   x/examine goto cave        "Nothing special." (4.0 "You see no such
  *                              thing."), no goto: examines claims
  *   take goto cave             "Take what?Unknown place." (3.7 walks)
@@ -192,7 +191,7 @@ static const scr_char *const *const HOIST_TABLES_400[] = {
  * no verb or two of them, a splitter, or give, wait or the inventory, which
  * answer as the Runner does left to that order.  sit/stand/lie and score
  * are RUN_GOTO_KEEP: "You sit down on the ground.Unknown place." at every
- * version (cmdfile_p2rest.txt, Adrift_277_9t37.rtf .. 281_9t40.txt).
+ * version (make_orderprobe.py, runner_probes/ord.run*.rest.*).
  */
 
 scr_int
@@ -398,9 +397,10 @@ run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
  * first of attack, fight, kill, kick, chop, cut, hit, shoot, stab and throw
  * that the line holds as a whole word -- is set, it ASSIGNS "" to the
  * buffer (run390 44CBFD, run400 47EAEF) before its target loop.  Measured
- * 2026-09-21 on p39BORD/p4BORD (make_battleorderprobe.py) with
- * cmdfile_p2batt.txt and cmdfile_p2batt2.txt, run390x Adrift_277_6b39.txt /
- * Adrift_277_7b39.txt and run400x Adrift_278_6b40.txt / Adrift_278_7b40.txt:
+ * 2026-09-21 on p39BORD/p4BORD (make_battleorderprobe.py), run390x
+ * runner_probes/bord.run390.batt.txt / runner_probes/bord.run390.batt2.txt and
+ * run400x runner_probes/bord.run400.batt.txt /
+ * runner_probes/bord.run400.batt2.txt:
  *
  *  - Above it, a take or drop that acts claims the line and no blow is
  *    struck.  4.0's get_outer and put_drop_list read their word anywhere on
@@ -885,10 +885,10 @@ run_hoist_any_verb_at (scr_gameref_t game, const scr_char *word)
  * coin, but nothing happens.", `kick hit coin` and `hit kick coin` both the
  * hit.
  *
- * Measured 2026-09-21 on p4REW with cmdfile_p2verb.txt (run400x
- * Adrift_254_2v40.txt) and on p4TWO with cmdfile_p2verb3.txt
- * (Adrift_258_2x40.txt); the cells that carry the rule, coin loose unless
- * said otherwise:
+ * Measured 2026-09-21 on p4REW (make_twoverbprobe.py, run400x
+ * runner_probes/rew.run400.verb.txt) and on p4TWO
+ * (runner_probes/two.run400.verb3.txt); the cells that carry the rule, coin
+ * loose unless said otherwise:
  *
  *   `take drop coin`   "You are not holding the coin."   put_drop_list
  *   `drop take coin`   the same
@@ -949,9 +949,9 @@ static const scr_int RUN_400_ORDER[] = {
  * deliberately does not see them, so that `blorp x coin` is left exactly as
  * it was.  examines() enters on c("l") wherever it stands, but reads x, ex
  * and exam at the HEAD only (Proc_21_37_447B18): `give x hat bob` is give's
- * "Bob doesn't seem interested in the hat." (p4ORD cmdfile_p2give.txt,
- * run400x Adrift_272_3g40.txt) and `open x box` openclose's "You open the
- * box.".
+ * "Bob doesn't seem interested in the hat." (p4ORD make_orderprobe.py,
+ * run400x runner_probes/ord.run400.give.txt) and `open x box` openclose's "You
+ * open the box.".
  */
 static const scr_char *const HOIST_VERBS_400_EXAMINE_HEADS[] = {
   "l", NULL
@@ -1111,9 +1111,9 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
    * `x take all`, `push take all` and `wear take all` are "You take the
    * coin and the box.", `drop x all` "You drop the hat and the coin.", and
    * `x take coin and hat` with the hat held "You take the coin. You are
-   * already carrying the hat.".  p4ORD cmdfile_p2rest.txt (run400x
-   * Adrift_281_9t40.txt, 2026-09-21).  A put, and a line holding both, are
-   * not measured.
+   * already carrying the hat.".  p4ORD make_orderprobe.py (run400x
+   * runner_probes/ord.run400.rest.txt, 2026-09-21).  A put, and a line holding
+   * both, are not measured.
    */
   if (list)
     {
@@ -1272,8 +1272,9 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
        * had the line: with the coin in hand `push take coin` is "You've
        * already got a coin!", not the push arm's "but nothing happens",
        * and `push examine coin` is the coin's description at 3.7, 3.8 and
-       * 3.9 alike.  p3xREW cmdfile_p2verb.txt cells 31, 35 and 39
-       * (Adrift_251_2v37.rtf, 252_2v38.rtf, 253_2v39.txt, 2026-09-21).
+       * 3.9 alike.  p3xREW make_twoverbprobe.py cells 31, 35 and 39
+       * (runner_probes/rew.run370.verb.rtf, runner_probes/rew.run380.verb.rtf,
+       * runner_probes/rew.run390.verb.txt, 2026-09-21).
        */
       if (scan == string
           && !(run_get_version (gs_get_bundle (game)) < TAF_VERSION_400

@@ -1,0 +1,31 @@
+
+> n
+You move north.
+Faust Street Junction
+You are standing beneath a street sign - an ornate, Victorian -looking piece of ironwork with a gaslight at its top, proclaims this "FAUST STREET". 
+ Looking ahead northward, the entire village is spread out before you, and you can just discern a HUGE BUILDING with a TOWER at the far end of the street.  You can move north and south.
+
+> n
+You move north.
+Lower Faust Street
+This area of the street is dedicated mostly to an open air CAFE to the west. The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.  You can see the bulging silver form of a FISH in the gutter.  You can move north, south and west.
+
+> w
+You move west.
+Cafe
+Outside the entrance of a small edifice is a single circular TABLE and CHAIR on which has been placed a pristine white TABLECLOTH which flutters lightly in the breeze. It has a table setting for one person, with a shiny white PLATE on a PLACEMAT.   Also here is a MENU.  A WAITER is here.  You can only move east.
+
+> x placemat
+The placemat is actually one of the pages from your book.
+
+> get placemat
+Take what?
+
+> take placemat
+The placemat slides from under the plate easily.
+
+> get placemat page
+You are already carrying the PLACEMAT.
+
+> i
+You are carrying a PLACEMAT.

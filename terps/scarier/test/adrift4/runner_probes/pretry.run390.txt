@@ -1,0 +1,72 @@
+
+> probe
+PROBE OK.
+
+> take pebble
+You pick up the pebble.
+
+> zzq1
+PEBBLE HELD.
+
+> drop pebble
+You drop the pebble.
+
+> get pebble
+You pick up the pebble.
+
+> zzq1
+PEBBLE HELD.
+
+> drop pebble
+You drop the pebble.
+
+> take stone
+You pick up the stone.
+
+> zzq4
+STONE HELD.
+
+> drop stone
+You drop the stone.
+
+> get stone
+You pick up the stone.
+
+> zzq4
+STONE HELD.
+
+> drop stone
+You drop the stone.
+
+> put bean in jar
+You put the bean inside the jar.
+
+> zzq2
+BEAN IN JAR.
+
+> drop coin
+You drop the coin.
+
+> zzq3
+COIN NOT HELD.
+
+> take coin
+You pick up the coin.
+
+> put down coin
+You drop the coin.
+
+> zzq3
+COIN NOT HELD.
+
+> zzt
+TAKEPFX.
+
+> zzg
+GETPFX.
+
+> zzp
+PUTPFX.
+
+> zzd
+DROPPFX.

@@ -1,0 +1,97 @@
+
+> probe
+PROBE OK.
+
+> wear hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> take off hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> wear hat
+You are already wearing the hat!
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> take hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> wear hat
+You are already wearing the hat!
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> drop hat
+You drop the hat.  
+
+> i
+You are carrying nothing.
+
+> wear hat
+You are not holding the hat.
+
+> remove take hat
+You take the hat.
+
+> i
+You are carrying a hat.
+
+> wear hat
+You put on the hat.
+
+> take remove hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> wear hat
+You are already wearing the hat!
+
+> x take hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> wear hat
+You are already wearing the hat!
+
+> drop take hat
+You drop the hat.  
+
+> i
+You are carrying nothing.
+
+> take hat
+You take the hat.
+
+> wear hat
+You put on the hat.
+
+> x take off hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> take coin then take off hat
+You take the coin.
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin.
+
+> probe
+PROBE OK.

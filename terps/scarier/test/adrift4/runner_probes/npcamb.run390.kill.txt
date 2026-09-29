@@ -1,0 +1,156 @@
+
+> probe
+PROBE OK.
+
+> take stone
+You pick up the stone.
+
+> kill dave
+Now that isn't very nice.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> punch dave
+Who do you think you are, Mike Tyson?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> fight dave
+There is nothing worth fighting here.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> slap dave
+Dave avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit dave
+Dave avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kick stone
+You kick the stone, but nothing happens.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill stone
+Now that isn't very nice.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> punch stone
+Who do you think you are, Mike Tyson?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit stone
+You hit the stone, but nothing happens.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill
+Now that isn't very nice.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> punch
+Who do you think you are, Mike Tyson?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit
+Hit what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill cora
+Now that isn't very nice.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit cora
+Cora is not here!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack cora
+Cora is not here!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill zzz
+Now that isn't very nice.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit zzz
+You hit, but nothing happens.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> probe
+PROBE OK.

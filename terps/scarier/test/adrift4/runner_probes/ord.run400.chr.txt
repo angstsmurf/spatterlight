@@ -1,0 +1,108 @@
+
+> probe
+PROBE OK.
+
+> take bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> take hat bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> drop hat
+You drop the hat.  
+
+> take hat bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> take coin bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> drop coin
+You drop the coin.  
+
+> take nut bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> take zzz bob
+I don't think Bob would appreciate being handled.
+
+> take hat coin bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> drop hat
+You drop the hat.  
+
+> drop coin
+You drop the coin.  
+
+> get hat bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> drop hat
+You drop the hat.  
+
+> pick up hat bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> drop hat
+You drop the hat.  
+
+> take hat from bob
+Bob is not carrying the hat!
+
+> i
+You are carrying nothing.
+
+> take bob hat
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat.
+
+> drop hat
+You drop the hat.  
+
+> ask bob about hat
+Bob says, 'That is a fine hat.'
+
+> take ask bob about hat
+Bob says, 'That is a fine hat.'
+
+> i
+You are carrying a hat.
+
+> x bob hat
+An ordinary man.
+
+> take box bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a box.
+
+> probe
+PROBE OK.

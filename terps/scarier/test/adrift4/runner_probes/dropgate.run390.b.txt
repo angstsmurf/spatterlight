@@ -1,0 +1,18 @@
+
+> probe
+PROBE OK.
+
+> drop qqq
+Drop what?
+
+> drop a pebble
+You don't have the pebble!
+
+> drop bean
+You drop the bean.
+
+> probe
+PROBE OK.
+
+> i
+You are carrying a cloak.

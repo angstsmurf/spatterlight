@@ -1,0 +1,63 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You pick up the torch.
+
+> n
+You move north.
+Dark Cave
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+> x box
+A wooden box.  The box is open.  A coin is inside the box.
+
+> x stone
+A grey stone.
+
+> s
+You move south.
+Lit Room
+A bright room.  You can only move north.
+
+> put lamp in box
+Put the lamp inside what?
+
+> put stone in lamp
+You can't do that!
+
+> put stone in box
+You can't do that!
+
+> n
+You move north.
+Dark Cave
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+> put coin in torch
+You can't put anything inside the torch.
+
+> take coin
+You take a coin from the box.
+
+> put coin in torch
+You can't put anything inside the torch.
+
+> put torch in coin
+You can't put anything inside the coin.
+
+> put all in box
+You put the torch, the lamp, the stone, the pebble and the coin inside the box.
+
+> put all in stone
+You can't put anything inside the stone.
+
+> drop all
+You are not carrying anything.
+
+> put all in box
+Nothing will fit inside the box.
+
+> probe
+PROBE OK.

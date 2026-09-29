@@ -1,0 +1,45 @@
+
+> look
+Alpha
+Alpha.  ST=[closed]  You can only move east.
+
+> e
+You move east.
+Bravo
+Bravo.  ST=[closed]  You can move east and west.
+
+> open door
+You open the door.
+
+> look
+Bravo
+Bravo.  ST=[closed]  You can move east and west.
+
+> w
+You move west.
+Alpha
+Alpha.  ST=[closed]  You can only move east.
+
+> open door
+You open the door.
+
+> e
+You move east.
+Bravo
+Bravo.  ST=[open]  You can move east and west.
+
+> close door
+You close the door.
+
+> look
+Bravo
+Bravo.  ST=[open]  You can move east and west.
+
+> e
+You move east.
+Charlie
+Charlie.  ST=[open]  You can only move west.
+
+> look
+Charlie
+Charlie.  ST=[open]  You can only move west.

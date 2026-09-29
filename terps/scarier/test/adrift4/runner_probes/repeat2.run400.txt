@@ -1,0 +1,116 @@
+
+> take coin
+You take the coin.  TICK.
+
+> take hat
+You take the hat.  TICK.
+
+> i
+You are carrying a coin and a hat.  C1 i.  TICK.
+
+> i
+You are carrying a coin and a hat.  TICK.
+
+> drop coin
+You drop the coin.  TICK.
+
+> drop coin
+You are not holding the coin.  TICK.
+
+> put coin on desk
+(Taking the coin first)
+You put the coin onto the desk.  TICK.
+
+> put coin on desk
+You are not holding the coin.  TICK.
+
+> get out
+C4 get out.  TICK.
+
+> get out
+R4 get out.  TICK.
+
+> ask bob about hat
+C5 ask bob about hat.  TICK.
+
+> ask bob about hat
+R5 ask bob about hat.  TICK.
+
+> talk
+C6 talk.  TICK.
+
+> talk
+R6 talk.  TICK.
+
+> talk to bob
+C7 talk to bob.  TICK.
+
+> talk to bob
+Use the format "ask Bob about [subject]".  TICK.
+
+> wear hat
+C8 wear hat.  TICK.
+
+> wear hat
+R8 wear hat.  TICK.
+
+> look
+C9 look.  TICK.
+
+> look
+R9 look.  TICK.
+
+> wait
+C10 wait.  TICK.
+
+> wait
+R10 wait.  TICK.
+
+> score
+C11 score.  TICK.
+
+> score
+R11 score.  TICK.
+
+> open desk
+C12 open desk.  TICK.
+
+> open desk
+R12 open desk.  TICK.
+
+> read desk
+C13 read desk.  TICK.
+
+> read desk
+R13 read desk.  TICK.
+
+> give coin to bob
+C14 give coin to bob.  TICK.
+
+> give coin to bob
+R14 give coin to bob.  TICK.
+
+> x bob
+C15 x bob.  TICK.
+
+> x bob
+A patient bystander.  TICK.
+
+> east
+You move east.
+Bravo
+The second room.  You can only move west.  TICK.
+
+> zzz
+C16 zzz.  TICK.
+
+> west
+You move west.
+Alpha
+The first room.  Bob is here.  You can only move east.  TICK.
+
+> zzz
+NO IDEA.
+
+> look
+R9 look.  TICK.

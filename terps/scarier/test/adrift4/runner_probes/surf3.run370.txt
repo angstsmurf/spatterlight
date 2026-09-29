@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0 MS Sans Serif;}}
+{\colortbl;\red255\green50\blue50;\red0\green255\blue0;}
+{\*\generator Wine Riched20 2.0;}
+\pard\sl-240\slmult1 \cf1\lang1033\fs24\f0 Probe 370SURF\par
+\cf2 A synthetic put-ON probe.\par
+\cf1 \par
+probe\par
+\cf2 PROBE OK.\par
+\cf1 \par
+take torch\par
+\cf2 You pick up an torch.\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.\par
+\cf1 \par
+x table\par
+\cf2 A low table.  On the table is a coin.\par
+\cf1 \par
+s\par
+\cf2 You move south.\par
+A bright room.  You can only move north.\par
+\cf1 \par
+put lamp on table\par
+\cf2 You are not holding a table.\par
+\cf1 \par
+put stone on lamp\par
+\cf2 You can't put anything on the lamp.\par
+\cf1 \par
+put stone on table\par
+\cf2 You are not holding a table.\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.\par
+\cf1 \par
+put coin on torch\par
+\cf2 You can't put anything on an torch.\par
+\cf1 \par
+take coin\par
+\cf2 Take what?\par
+\cf1 \par
+put coin on torch\par
+\cf2 You can't put anything on an torch.\par
+\cf1 \par
+put torch on coin\par
+\cf2 You can't put anything on the coin.\par
+\cf1 \par
+put all on table\par
+\cf2 You are not holding a table.\par
+\cf1 \par
+put all on stone\par
+\cf2 You can't put anything on the stone.\par
+\cf1 \par
+drop all\par
+\cf2 You drop an torch and the lamp.\par
+\cf1 \par
+put all on table\par
+\cf2 You are not holding a table.\par
+\cf0\fs17 \par
+}

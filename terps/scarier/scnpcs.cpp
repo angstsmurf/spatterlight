@@ -289,16 +289,16 @@ npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
  *     walk: Bob never arrives, "You cannot see Bob from here.", and the
  *     CharTask never fires.  run400 walks the same NPC in on turn one.
  *
- *   - "Melbourne Beach" (3.90) under run390, Adrift_37_melbourne_beach.txt
- *     (2026-08-25) -- Judy's walk is a SIX-stop non-looping game-start walk
- *     (Kitchen 10, Eating area 10, Den 5, Judy's bedroom 15, follow 5,
- *     Outside den 1).  Scarier used to walk her, which put her in her
- *     bedroom on turns 26-40; the Runner still has her in her start room
- *     (the Kitchen) on turn 18, and all twenty `give trumpet to judy` in the
- *     bedroom on turns 36-55 answer with task 17's third restriction, "You
- *     can't do that in your present company." -- the "player in the same
- *     room as Judy" test, failing.  No shift of the walk's start can fit
- *     both observations; the walk simply never runs.
+ *   - "Melbourne Beach" (3.90) under run390,
+ *     runner_probes/melbourne_beach.run390.txt (2026-08-25) -- Judy's walk is
+ *     a SIX-stop non-looping game-start walk (Kitchen 10, Eating area 10, Den
+ *     5, Judy's bedroom 15, follow 5, Outside den 1).  Scarier used to walk
+ *     her, which put her in her bedroom on turns 26-40; the Runner still has
+ *     her in her start room (the Kitchen) on turn 18, and all twenty `give
+ *     trumpet to judy` in the bedroom on turns 36-55 answer with task 17's
+ *     third restriction, "You can't do that in your present company." -- the
+ *     "player in the same room as Judy" test, failing.  No shift of the
+ *     walk's start can fit both observations; the walk simply never runs.
  *
  * So the rule is the wide one after all.  Only the game-start (StartTask 0)
  * case is covered: a walk a TASK starts is seeded by npc_start_npc_walk()
@@ -701,8 +701,9 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
  * and that is why eight of its first fifty turns say nothing about Grumble.
  * Buffered on a line of its own, as this used to be, no such ALR can ever
  * match.  Measured with harness/make_400_walkalrprobe.py under run400
- * (Adrift_47.txt): its cross-the-join ALRs both fire, and the single-space
- * twin of one of them does not, so the separator really is two spaces.
+ * (runner_probes/walkalr.run400.txt): its cross-the-join ALRs both fire,
+ * and the single-space twin of one of them does not, so the separator
+ * really is two spaces.
  *
  * Whether the Name is capitalised is a version split of its own, and one the
  * join makes visible: 3.7, 3.8 and 3.9 concatenate the Name verbatim
@@ -957,10 +958,11 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
    * inside it, and between exact ticks nothing at all runs.  Escape to New
    * York measured it: Master-at-Arms King wanders roomgroup 10 on a Times=3
    * stop with CharTask "- caught with the goods <1>", and under xoshiro draw
-   * parity (Adrift_1122, seed 1234) run400 prints its warning on the tick he
-   * arrives and on the player's entries only, where Scarier printed it on
-   * every co-located turn (turns 62/63/93 extra, 69/92 twice).  Ticket's own
-   * xoshiro transcript (Adrift_1036, seed 2) has the girl speak on the
+   * parity (runner_probes/escape_to_new_york.run400.txt, seed 1234) run400
+   * prints its warning on the tick he arrives and on the player's entries
+   * only, where Scarier printed it on every co-located turn (turns 62/63/93
+   * extra, 69/92 twice).  Ticket's own xoshiro transcript
+   * (runner_probes/ticket.run400.txt, seed 2) has the girl speak on the
    * player's entries plus turns 64/68/72/76/84/88 -- the 4-turn ticks.
    *
    * Follow-player stops (walk probe K, live in BOTH Runners 2026-08-02,
@@ -1119,21 +1121,23 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
    * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose
    * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
    * A pelican flocked toward me.." and Scarier printing nothing.  Measured
-   * with harness/make_400_walkhiddenprobe.py under run400 (Adrift_910.txt,
-   * 2026-09-07): of three walkers all arriving in the player's room, the one
-   * on the Skydiver's shape (nowhere already, Hidden stop, then the room)
-   * announces "Hid wanders in." with no direction, the one that arrives from
-   * a never-touched zero says nothing, and the one leaving a real room
-   * announces with a direction.  The middle cell is what keeps "old <> 0" in
-   * the gate; this stamp is what lets the first past it.
+   * with harness/make_400_walkhiddenprobe.py under run400
+   * (runner_probes/walkhidden.run400.txt, 2026-09-07): of three walkers all
+   * arriving in the player's room, the one on the Skydiver's shape (nowhere
+   * already, Hidden stop, then the room) announces "Hid wanders in." with no
+   * direction, the one that arrives from a never-touched zero says nothing,
+   * and the one leaving a real room announces with a direction.  The middle
+   * cell is what keeps "old <> 0" in the gate; this stamp is what lets the
+   * first past it.
    *
    * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
-   * run390 (Adrift_911.txt, 2026-09-07) reproduces the cells exactly, so the
-   * stamp is unconditional there too (run390 loc_45ABB8, gate loc_45A99B).
-   * ALEXIS.TAF is the 3.90 corpus row that moves with it -- seeded, hence
-   * unmeasurable itself, which is what the probe stands in for.  3.7 has no
-   * "old <> 0" term in its gate at all (run370 @43955E), so the stamp is
-   * invisible there; 3.8 shares 3.9's gate (run380 @4416F4).
+   * run390 (runner_probes/walkhidden.run390.txt, 2026-09-07) reproduces the
+   * cells exactly, so the stamp is unconditional there too (run390
+   * loc_45ABB8, gate loc_45A99B).  ALEXIS.TAF is the 3.90 corpus row that
+   * moves with it -- seeded, hence unmeasurable itself, which is what the
+   * probe stands in for.  3.7 has no "old <> 0" term in its gate at all
+   * (run370 @43955E), so the stamp is invisible there; 3.8 shares 3.9's gate
+   * (run380 @4416F4).
    */
   if (is_exact && destnum == 0)
     gs_set_npc_walk_hidden (game, npc, TRUE);
@@ -1297,9 +1301,9 @@ npc_tick_npcs (scr_gameref_t game)
    * tick, so an NPC the player walks in on and who walks off the same tick
    * was never seen, and dobattle's "<Name> isn't here!" -- which needs the
    * seen byte -- fell through to DontUnderstand.  Measured 2026-09-13 on
-   * Shadowpeak under run400x (Adrift_1128 turn 180): `u` into the oak tree
-   * lists Haraxis, who skitters off below; `attack haraxis` then answers
-   * "Haraxis isn't here!".
+   * Shadowpeak under run400x (runner_probes/shadowpeak.run400.b.txt turn
+   * 180): `u` into the oak tree lists Haraxis, who skitters off below;
+   * `attack haraxis` then answers "Haraxis isn't here!".
    */
   if (npc_version (game) >= TAF_VERSION_390)
     {
@@ -1327,13 +1331,14 @@ npc_tick_npcs (scr_gameref_t game)
    * rightly never looks at ObjectTask.
    *
    * Only the movement COMMAND counts.  Probe N (2026-09-13, run400
-   * Adrift_1149/1150) walks in on the same mid-stay walker with typed n/s,
-   * which fires the CharTask, and with tasks whose only action moves the
-   * player, which does not.  run400 reads MeetChar nowhere but the walk tick
-   * itself (468B6F/468B9D/468BC6), so the meet rides on the move command,
-   * not on a later "player room changed" check.  Shadowpeak's `examine web`
-   * (task 124, a player-move action onto Haraxis's web room) printed an
-   * extra "Seeker hums!" here until this was gated.
+   * runner_probes/wkn.run400.t.txt and runner_probes/wkn.run400.k.txt) walks
+   * in on the same mid-stay walker with typed n/s, which fires the CharTask,
+   * and with tasks whose only action moves the player, which does not.
+   * run400 reads MeetChar nowhere but the walk tick itself
+   * (468B6F/468B9D/468BC6), so the meet rides on the move command, not on a
+   * later "player room changed" check.  Shadowpeak's `examine web` (task
+   * 124, a player-move action onto Haraxis's web room) printed an extra
+   * "Seeker hums!" here until this was gated.
    *
    * Running this before ticking the NPCs, rather than after, is what puts
    * the messages in the Runner's order; the probes above and the walkthrough

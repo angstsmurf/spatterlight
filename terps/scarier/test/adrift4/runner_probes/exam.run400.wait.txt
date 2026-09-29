@@ -1,0 +1,67 @@
+
+> n
+You move north.
+North Room
+Another bare room.  Also here is a statue.  You can only move south.
+
+> wait stone
+Time passes...
+
+> wait for stone
+Time passes...
+
+> please wait
+Time passes...
+
+> wait here
+Time passes...
+
+> waiting
+I don't understand.
+
+> z stone
+You can't see the stone.
+
+> wait
+Time passes...
+
+> s
+You move south.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+> wait stone
+Time passes...
+
+> take stone wait
+You take the stone.
+
+> drop stone
+You drop the stone.  
+
+> open stone wait
+You can't open the stone!
+
+> push stone wait
+Time passes...
+
+> x stone wait
+You see nothing special about the stone.
+
+> look wait
+You see no such thing.
+
+> goto hall wait
+Time passes...
+Unknown place.
+
+> wait goto hall
+Time passes...
+Unknown place.
+
+> turn wait
+Time passes...
+
+> look
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.

@@ -1,0 +1,61 @@
+
+> push stone
+You push the stone.
+
+> push, stone
+Push what?
+You push the stone.
+
+> push,stone
+Push what?
+You push the stone.
+
+> push , stone
+Push what?
+You push the stone.
+
+> push stone,
+You push the stone.
+
+> rub coin
+You rub something.
+
+> rub, coin
+You rub something.
+I don't understand what you want me to do with the coin.
+
+> rub,coin
+You rub something.
+I don't understand what you want me to do with the coin.
+
+> poke stone
+You poke it.
+
+> poke, stone
+I don't understand.
+I don't understand what you want me to do with the stone.
+
+> poke,stone
+I don't understand.
+I don't understand what you want me to do with the stone.
+
+> say hello, world
+Not surprisingly, no-one takes any notice of you.
+I don't understand.
+
+> say hello world
+That's the most interesting thing I've ever heard!
+
+> say hello,world
+No-one listens to your rabblings.
+I don't understand.
+
+> say hello , world
+No-one listens to your rabblings.
+I don't understand.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

@@ -1,0 +1,162 @@
+
+> probe
+PROBE OK.
+
+> take drop coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> drop take coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> take examine coin
+You take the coin.
+
+> i
+You are carrying a coin.
+
+> examine take coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin.
+
+> drop examine coin
+You drop the coin.  
+
+> i
+You are carrying nothing.
+
+> examine drop coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> take wear coin
+You take the coin.
+
+> i
+You are carrying a coin.
+
+> wear take coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin.
+
+> drop remove coin
+You drop the coin.  
+
+> i
+You are carrying nothing.
+
+> remove drop coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> wear remove coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> remove wear coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> x get coin
+You take the coin.
+
+> i
+You are carrying a coin.
+
+> get x coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin.
+
+> take push coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin.
+
+> push take coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin.
+
+> drop push coin
+You drop the coin.  
+
+> i
+You are carrying nothing.
+
+> push drop coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> examine push coin
+A gold coin.
+
+> i
+You are carrying nothing.
+
+> push examine coin
+A gold coin.
+
+> i
+You are carrying nothing.
+
+> push pull coin
+You pull the coin, but nothing happens.
+
+> pull push coin
+You pull the coin, but nothing happens.
+
+> kick hit coin
+You hit the coin, but nothing happens.
+
+> hit kick coin
+You hit the coin, but nothing happens.
+
+> take drop
+Drop what?
+
+> i
+You are carrying nothing.
+
+> drop take
+Drop what?
+
+> i
+You are carrying nothing.
+
+> wear examine
+You see no such thing.
+
+> i
+You are carrying nothing.
+
+> examine wear
+You see no such thing.
+
+> ii
+You see no such thing.
+
+> probe
+PROBE OK.

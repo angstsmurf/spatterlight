@@ -1,0 +1,428 @@
+
+> game
+Tiny Gatehouse
+All around you gorse, gnarled trees and tough, spiky grass struggles to grow. A tiny cottage nestles between a couple of large boulders. Blackberry vines trail across the boulders and the mossy roof of the cottage. A sign in front of the cottage has two boards on it, one pointing at the cottage saying 'Gait-Huose', and the other pointing to the east toward the entrance to a large cave, saying 'Caive'. The signs were painted in a rough hand with black paint. 
+
+  An Irish Wolfhound is by the tiny gatehouse  
+
+> say cow
+
+'A cow.' You say.
+
+'Is that your final answer?'
+
+'Well, yes.' You think hard if there is some kind of a trick, but it does seem ridiculously easy.
+
+'Second question.' The dog pauses, looks down as if to gather strength, and says, 'What kind of witch lives on the beach?'
+
+You think. Hard.
+
+
+
+> say sandwich
+
+'A sandwich!' you exclaim triumphantly. 
+
+'Very good for you. You are a very intellegent organism.' The dog sits down heavily. 'Last question:
+
+Mary had a little lamb,
+A little bread and a little jam,
+A little pie and a little cake,
+Then Mary had a stomach... what?
+
+
+
+> say ache
+
+'Ache!' you shriek. This is almost as much fun as saving your parents will be.
+
+'Agh.' The dog moves off the path. 'You got it. And that's all Mr Fiddle wanted. He'll see you now.'
+
+A loud creaking noise causes you to jump, and the great iron gate opens wide, seemingly of it's own accord.
+
+
+The dog stands up, wagging his tail slowly, and walks into the path in front of you. He carefully takes a sturdy wide-legged stance. You consider patting him, but don't.
+
+'Good boy', you say.
+
+The dog cocks and ear and twists his head a bit to the side. 'Well, yes, I suppose I am.' he says.
+
+Press any key
+
+You gasp and gape at him. 'Uhm, du, uhnh...'
+
+'I'm sorry, I don't understand you. And here I thought you spoke the King's Harashnian.' The dog licks it's chops.
+
+'You're a talking dog.' you say. Hm. Stranger things have happened you suppose.
+
+'I'm not just a talking dog. I'm the guard dog. That...' the dog indicates the tiny cottage with his nose,' Is my guardhouse.' 
+
+'But the sign says gatehouse, or means to.' you reply.
+
+'Gatehouse, guardhouse, same thing! Anyway, if you want to go through that gate into the cave, you first have to get by me.'
+
+You look past the dog at the giant iron gate. It is surely too heavy to push - it isn't even suspended by hinges.
+
+'And how do I do that?'
+
+The dog sighs, and looks sheepish. 'If I had my way, you'd have to outrun me, fight me off, or at least try to poison me with a juicy steak. But no. All you have to do is answer a couple of simple questions.'
+
+'Oh. Well, fire away.' No need to get violent if you can just use your brains, you decide.
+
+Press any key
+
+'What' asks the dog, 'Goes 'moo', produces milk, and eats grass?'
+(use format 'say ...')
+
+
+> say hello
+'Um, er, hello?' you say timidly.
+
+'WRONG!' barks the dog and promptly disappears into his house.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+As you stare at the imposing and impossible gate, you hear a little bell ringing. Looking back along the path towards the village, you see a tiny pony and trap being driven towards you.
+
+The little man driving the trap pulls up outside the tiny cottage. You rush up to him.
+
+'Please sir! I need help. My parents have been kidnapped by the Giant, and this dog needs to open the gate for me.'
+
+'Oh, I see you were too stupid to answer his three questions.'
+
+You hang your head in shame and nod.
+
+'You're the first person I ever heard of who was that stupid.' The little man sighs. 'Well, you're the first person I ever heard of who even tried, so don't feel too bad. I'll talk to the dog.'
+
+'Thank you!' You almost let your male persona slip for a moment, but remember just in time not to jump up on tiptoe and squeal.
+
+Press a key
+
+The little man takes a large sack out of the trap and carries it into the gatehouse. Several minutes later he comes out.
+
+'Dog is not happy. He says Mr Fiddle is dumb enough that even dumber people shouldn't be visiting him. Then again, it's so rare that he ever gets any visitors, you are probably better than nothing at all. He's opening the gate now.'
+
+With a screech and a groan, the gate opens, seemingly of it's own accord. As you gaze in wonder, the man and trap leave.  
+
+> wait
+Time passes...
+
+> e
+Cave entrance
+At least 20 feet high, the entrance to the cave has a massive wrought iron gate that spans it's width and reaches far above your head. The interior of the cave is pitch black, in stark contrast to the bright day outside.
+
+The tiny gatehouse is west, and giant's valley is east.  An Ogre sits gloomily, his eyes shining redly.  
+
+The Ogre blinks, and the reddish light disappears for a moment.
+
+Then he opens his eyes again and makes a sickening slobbery sound.
+
+'Little person,' he rumbles. 'How are you to-day.' He doesn't ask it as a question, but says the words as if reading them off a prompt (as if Ogres can read).
+
+'W-well, thank you.' you manage to stammer. 
+
+'I live here. Welcome to my home. Mr Fiddle will see you soon. First you must listen to my poem. I have to finish it right before you can go on.'
+
+'Oh, okay. So... you wrote it?' You try to sound enthusiastic as wafts of vile-smelling body odour assails you every time the thing moves around.
+
+'No, of course not.' suddenly the Ogre seems to be speaking in his own, normal voice. 'If I had my way, I'd just rip your arms off and suck the blood off the ragged ends. But...' and here he's back to his recital. 'Mr Fiddle is bigger than me, and kindly lets me live here. Here's the poem.'
+
+Press a key
+
+A centipede was happy quite,
+Until a frog in fun
+Said, "Pray, which leg comes after which?"
+This raised her mind to such a pitch,
+She lay distracted in the ditch,
+Considering how to run.
+
+There's a pause and you wonder if that's it. The Ogre blinks again. 'Um, that was nice!' you say.
+
+ 'Did I get it right?' the Ogre asks. 
+
+'Yes, yes, perfectly!'  
+
+
+> e
+You move east.
+Pile of boulders
+Glum Fiddle's valley is a large space between steep cliff faces that reach up to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a mass of boulders, of all sizes, some deeply embedded in the ground, some piled up on top of each other. It would seem that all the boulders in the valley have been collected and dumped here. In a clear patch of earth, a large ring of stones encloses a smoldering fire.
+
+There's a pigsty to the north, a briar patch to the east, a patch of forest to the southeast, and a swamp to the south. The cave entrance is to the west.  
+
+The giant is loitering around, examining his domain.  
+
+As you and Glum face each other over the pile of boulders, he gives a mild grin and flourishes an arm. 'Please, sit in my parlor!' He exclaims, loudly enough to be heard as far as the great city. You try to find a boulder that isn't too sharp, but it's nearly impossible. Glum continues to stand.   
+
+> take branch
+You take a branch by the cool end.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+Glum suddenly turns and heads south.  
+
+> wait
+Time passes...
+
+> take cushion
+Take what?  
+
+> take doily
+Take what?  
+
+> take lamp
+Take what?  
+
+> take tray
+Take what?  
+
+Glum suddenly turns and heads south.  
+
+> take teapot
+Take what?  
+
+> take cups
+Take what?  
+
+> take plank
+Take what?  
+
+> light lamp with branch
+You don't have the oil lamp.  
+
+> put cushion in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> put doily in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> put lamp in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> put tray in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> put teapot in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> put cups in sack
+(Taking that first)
+You put that inside the hessian sack.  
+
+> n
+You move north.
+Pigsty
+To the north of the boulders, at the lower end of the valley, is a simple pigsty - a low corral of stout logs, a sea of mud within, and a rank stench. Two pigs root and grunt in the mud, and several large barrels, presumably holding slops, are lined up on the outside of the sty. 
+
+A cool breeze comes from the east, where a glacier terminates, pushing boulders ahead of it in its inexorable path down the mountain.  
+
+> open gate
+You open the gate and the pigs, large friendly beasts, rush out and begin rooting around outside the sty. One of them knocks over one of the barrels, which is partly full of barley, and the two pigs tuck in.  
+
+> drop plank
+You are not holding that.  
+
+> s
+You move south.  
+Pile of boulders
+Glum Fiddle's valley is a large space between steep cliff faces that reach up to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a mass of boulders, of all sizes, some deeply embedded in the ground, some piled up on top of each other. It would seem that all the boulders in the valley have been collected and dumped here. In a clear patch of earth, a large ring of stones encloses a smoldering fire.
+
+There's a pigsty to the north, a briar patch to the east, a patch of forest to the southeast, and a swamp to the south. The cave entrance is to the west.  
+
+> s
+You move south.
+Swamp
+A swamp fills the lower end of the valley - it must be a sinkhole of somekind. Wafts of warm, rotten air are almost visible in the thin air of the mountain valley.  There seems to be more slime than water in the swamp, what you can see of it between stands of some kind of swamp bush.
+
+The pile of boulders is visible to the north, and a stand of trees is to the east.  
+
+Glum, standing nearby, seems to be having a bright idea, face lighting up, finger in mid-air. But then it goes away, and he frowns.  
+
+> take slime in teapot
+You scoop up some slime from the marsh with the teapot.  
+
+> n
+You move north.
+Pile of boulders
+Glum Fiddle's valley is a large space between steep cliff faces that reach up to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a mass of boulders, of all sizes, some deeply embedded in the ground, some piled up on top of each other. It would seem that all the boulders in the valley have been collected and dumped here. In a clear patch of earth, a large ring of stones encloses a smoldering fire.
+
+There's a pigsty to the north, a briar patch to the east, a patch of forest to the southeast, and a swamp to the south. The cave entrance is to the west.  
+
+> w
+You move west.
+Cave entrance
+At least 20 feet high, the entrance to the cave has a massive wrought iron gate that spans it's width and reaches far above your head. The interior of the cave is pitch black, in stark contrast to the bright day outside.
+
+The tiny gatehouse is west, and giant's valley is east.  An Ogre sits gloomily, his eyes shining redly.  
+
+
+> take doily from sack
+Take what?  
+
+The Ogre takes a deep breath, and, without preamble, goes:
+
+Thank you, pretty cow, that made
+Pleasant milk to soak my bread
+Every day and every night,
+Warm, and fresh, and sweet, and white.
+
+Do not chew the hemlock rank,
+Growing on the weedy bank;
+But the yellow cowslips eat,
+That will make it very sweet.
+
+Where the purple violet grows,
+Where the bubbling water flows,
+Where the grass is fresh and fine,
+Pretty cow, go there and dine.
+
+What is it with cows? You wonder.
+
+
+> unravel doily
+You pull on the frayed edge of the doily and unravel it to one very long, thin piece of cotton. It's been waxed, so it's particularly strong.  
+
+
+> tie doily to stalagmites
+You tie the cotton around the stalagmites at about waist height. If the giant comes charging in here, hopefully it'll trip him up. You suddenly remember the Ogre, faithful enough to Glum to recite poetry to newcomers.
+
+'Ogre!' You call out. He grunts, but doesn't look at you. 'See this trap I've made? This is for the two pigs I let loose.' The Ogre looks round, a gleam in his eye.
+
+'Pigs? Those things squeal all the time, I can hear 'em. I can smell 'em sometimes, too!'
+
+'Well, they're pretty clever those pigs. So if they come in here, this trap will trip them up and toss them straight to you. When you've had your fill of Mr Fiddle's pork, you can just say they fell right into your lap. Think of it as a parting gift of thanks for the lovely poetry.'
+
+'Aww,' The Ogre almost smiles. 'That's awful thoughtful. I'd'a never thought'a that.'
+
+'Now, hide around that corner so they don't know you're here.'
+
+The Ogre does as he's told, and your parents pat you on the back and say 'chip off the old block' and 'I knew she'd be clever from the womb.' 
+
+
+> e
+You move east.
+Pile of boulders
+Glum Fiddle's valley is a large space between steep cliff faces that reach up to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a mass of boulders, of all sizes, some deeply embedded in the ground, some piled up on top of each other. It would seem that all the boulders in the valley have been collected and dumped here. In a clear patch of earth, a large ring of stones encloses a smoldering fire.
+
+There's a pigsty to the north, a briar patch to the east, a patch of forest to the southeast, and a swamp to the south. The cave entrance is to the west.  
+
+> n
+You move north.
+Pigsty
+To the north of the boulders, at the lower end of the valley, is a simple pigsty - a low corral of stout logs, a sea of mud within, and a rank stench. Two pigs root and grunt in the mud, and several large barrels, presumably holding slops, are lined up on the outside of the sty. 
+
+A cool breeze comes from the east, where a glacier terminates, pushing boulders ahead of it in its inexorable path down the mountain.  
+
+> e
+You are dismayed to see a great chasm in the earth at the end of the glacier, at least 10 feet wide. There is no possibility of jumping across.  
+
+> cut the ropes with the dagger
+I don't understand what you want me to do with the dagger.
+
+> w
+You can only move south.  
+
+> get in barrel
+  You get in the barrel, but it is so boring in there, you get out again.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> get out of barrel
+  You aren't in the barrel.  
+
+> s
+You move south.  
+Pile of boulders
+Glum Fiddle's valley is a large space between steep cliff faces that reach up to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a mass of boulders, of all sizes, some deeply embedded in the ground, some piled up on top of each other. It would seem that all the boulders in the valley have been collected and dumped here. In a clear patch of earth, a large ring of stones encloses a smoldering fire.
+
+There's a pigsty to the north, a briar patch to the east, a patch of forest to the southeast, and a swamp to the south. The cave entrance is to the west.  
+
+> w
+You move west.
+Cave entrance
+At least 20 feet high, the entrance to the cave has a massive wrought iron gate that spans it's width and reaches far above your head. The interior of the cave is pitch black, in stark contrast to the bright day outside.
+
+The tiny gatehouse is west, and giant's valley is east.  
+
+> n
+You can't go in that direction, but you can move east and west.  
+
+> take teapot from sack
+Take what?  
+
+> pour slime on the ground
+I don't understand what you mean.
+
+> n
+You can't go in that direction, but you can move east and west.  
+
+> take cups from sack
+Take what?  
+
+> drop cups
+You drop that.  
+
+> d
+You can't go in that direction, but you can move east and west.  
+
+> take tray from sack
+Take what?  
+
+> drop tray
+You drop that.  
+
+> take cushion from sack
+Take what?  
+
+> throw cushion
+I don't understand what you mean.
+
+> jump
+Wheee-boinng.  
+
+> 
+I don't understand what you mean.
+
+> 
+I don't understand what you mean.

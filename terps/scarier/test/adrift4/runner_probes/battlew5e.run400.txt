@@ -1,0 +1,42 @@
+
+> i
+You are carrying cool sword, awesome sword and a club.
+
+> attack gargoyle with awesome sword
+You hit Gargoyle with awesome sword.
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	500		500		500
+Hit strength:ilmfeeee	10-10		10		50		(40)
+Accuracy:iilmee fttts	60-60		60		80		(20)
+Defense value:iirmttt	5-5		5		5		(0)
+Agility:eeemee rfetts 	5-5		5		5
+Stamina: ileeerfeetts 	You are wielding awesome sword.
+
+> attack gargoyle with sword2
+You hit Gargoyle with awesome sword.
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	500		500		500
+Hit strength:ilmfeeee	10-10		10		50		(40)
+Accuracy:iilmee fttts	60-60		60		80		(20)
+Defense value:iirmttt	5-5		5		5		(0)
+Agility:eeemee rfetts 	5-5		5		5
+Stamina: ileeerfeetts 	You are wielding awesome sword.
+
+> attack gargoyle with cool sword
+I don't understand what you want me to do with cool sword.
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	500		500		500
+Hit strength:ilmfeeee	10-10		10		50		(40)
+Accuracy:iilmee fttts	60-60		60		80		(20)
+Defense value:iirmttt	5-5		5		5		(0)
+Agility:eeemee rfetts 	5-5		5		5
+Stamina: ileeerfeetts 	You are wielding awesome sword.
+
+> turns
+You have taken 2 turns so far.

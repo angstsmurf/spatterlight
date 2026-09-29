@@ -1,0 +1,43 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a boots, a cactus, some gloves, some walrus, a beads, an eggs, A shoes, the keys, the NAILS, a big pins, Some socks and  rings.
+
+> where boots
+The boots is test arena.
+
+> where cactus
+The cactus is test arena.
+
+> where gloves
+The gloves are test arena.
+
+> where walrus
+The walrus are test arena.
+
+> where beads
+The beads is test arena.
+
+> where eggs
+The eggs is test arena.
+
+> where shoes
+A shoes are test arena.
+
+> where keys
+The keys are test arena.
+
+> where NAILS
+The NAILS is test arena.
+
+> where pins
+The big pins is test arena.
+
+> where socks
+Some socks are test arena.
+
+> where rings
+ rings are test arena.
+
+> score
+Player's score is 0 out of a maximum of 0.  (0%)

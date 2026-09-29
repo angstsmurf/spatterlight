@@ -295,9 +295,9 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * c("give"), a present NPC, and then every object whose name appears
    * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380
    * 440E8C, run370 438F79), so `give cathy diary` and `give diary cathy`
-   * both offer the diary.  House (4.00) Adrift_102 2026-09-06: `give cathy
-   * diary` gets the same reply as `give diary to cathy`.  Scarier used to
-   * fall to "Give the diary to who?".
+   * both offer the diary.  House (4.00) runner_probes/house.run400.b.txt
+   * 2026-09-06: `give cathy diary` gets the same reply as `give diary to
+   * cathy`.  Scarier used to fall to "Give the diary to who?".
    */
   {"give %character% %object%", lib_cmd_give_object_npc},
   {"give %object% %character%", lib_cmd_give_object_npc},
@@ -438,9 +438,10 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * line starting "go " (3.9+, and a deviation below; see
    * lib_goto_line_enters()) or "go to" (3.7, 3.8).  See lib_cmd_go_place().
    * What it leaves is a bare `goto`, which the Runner answers with
-   * DontUnderstand (run380x Adrift_133_pgoto38b.rtf, run390x
-   * Adrift_134_pgoto39b.txt, run400x Adrift_133_p4goto.txt).  Deliberate
-   * deviation: Scarier lists the exits, as SCARE did.
+   * DontUnderstand (run380x runner_probes/goto.run380.b.rtf, run390x
+   * runner_probes/goto.run390.b.txt, run400x
+   * runner_probes/goto.run400.txt).  Deliberate deviation: Scarier lists
+   * the exits, as SCARE did.
    */
   {"*", lib_cmd_go_place},
   {"goto", lib_cmd_print_room_exits},
@@ -607,8 +608,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * `take ornate key` and four more all answer "Take what?" on turns where a
  * task matching the line exists in another room and `give stones to larnt` on
  * the same row answers "You can't do that here!" instead of therest()'s "Give
- * what?" (Adrift_486_alexis_worn_cube.txt).  Hence a table of its own, run at
- * the end of run_standard_verb_commands().
+ * what?" (runner_probes/alexis_worn_cube.run390.txt).  Hence a table of its
+ * own, run at the end of run_standard_verb_commands().
  */
 /*
  * run390's insides() -- the whole "take X from Y" handler -- answers before
@@ -617,10 +618,11 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * COMMANDS rather than a row inside it: `remove coin from zzzz` is run390's
  * "Get the coin from what?" and run400's "I don't understand where you want
  * to get things from.", never scarier's "You are not wearing the coin!"
- * (p39DARK/p4TFROM, Adrift_972/973, 2026-09-10).  Both rows end in a wildcard
- * because the container slot resolved nothing; the %object% rows for the same
- * shapes are up in PRIORITY_COMMANDS and have already declined by here.  See
- * lib_cmd_take_from_nowhere().
+ * (p39DARK/p4TFROM, runner_probes/tfrom.run400.feed2.txt,
+ * runner_probes/dark.run390.feed5.txt, 2026-09-10).  Both rows end in a
+ * wildcard because the container slot resolved nothing; the %object% rows for
+ * the same shapes are up in PRIORITY_COMMANDS and have already declined by
+ * here.  See lib_cmd_take_from_nowhere().
  */
 static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
   {"[[get/take/remove/extract/pick] [all/everything] from/empty] *",
@@ -1022,14 +1024,14 @@ run_priority_refuse (void)
  * catch-all -- whose noun was resolved up front from the original line --
  * answers instead: "I don't understand what you want to do with the cone."
  *
- * Measured on IceCream.taf in run400 (Adrift_900_icecream2.txt, 2026-09-07),
- * whose three `put/place/set [the] ice cream in/on [the] cone` tasks share
- * one pattern: `put ice cream in cone` and `put the ice cream in the cone`
- * both come out as the catch-all, while `place ice cream in cone` runs the
- * task (place never enters put_drop_list) and `put ice cream on cone` runs
- * it too -- the "on" branch has an escape of its own at 459C39 that zeroes
- * the split when the fragment resolves to nothing, so the line reaches the
- * tasks intact.  The clobber is the "in" form only.
+ * Measured on IceCream.taf in run400 (runner_probes/icecream.run400.put.txt,
+ * 2026-09-07), whose three `put/place/set [the] ice cream in/on [the] cone`
+ * tasks share one pattern: `put ice cream in cone` and `put the ice cream in
+ * the cone` both come out as the catch-all, while `place ice cream in cone`
+ * runs the task (place never enters put_drop_list) and `put ice cream on
+ * cone` runs it too -- the "on" branch has an escape of its own at 459C39
+ * that zeroes the split when the fragment resolves to nothing, so the line
+ * reaches the tasks intact.  The clobber is the "in" form only.
  *
  * The put-in handler signals the fragment with this, and run_all_commands()
  * runs the task passes against the fragment in its place.
@@ -1144,7 +1146,8 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
  * matches.
  *
  * Which side of the line a row falls on was measured on p4REPEAT2.taf and
- * p4REPEAT3.taf (run400 Adrift_951/952, 2026-09-08), where every one of the
+ * p4REPEAT3.taf (run400 runner_probes/repeat2.run400.txt,
+ * runner_probes/repeat3.run400.txt, 2026-09-08), where every one of the
  * probe's cells is a task whose command is the typed line, none of them
  * done, all with a RepeatText:
  *
@@ -1237,11 +1240,11 @@ run_is_put_command_400 (scr_gameref_t game, const scr_char *string,
  * 48A481 -- so its listing is in the message buffer before any task runs,
  * and a task that then matches the same line has its CompleteText APPENDED
  * to the listing rather than replacing it.  Measured on p4REPEAT2/3
- * (Adrift_951/952, 2026-09-08): the first `i` answers "You are carrying a
- * coin and a hat.  C1 i.", and `inv` / `inventory` the same way.  (The
- * listing is also why a spent task's RepeatText never survives here -- the
- * 44CC7D store is gated on the buffer still being empty; that is the
- * survivor table's first row.)
+ * (runner_probes/repeat2.run400.txt, runner_probes/repeat3.run400.txt,
+ * 2026-09-08): the first `i` answers "You are carrying a coin and a hat.  C1
+ * i.", and `inv` / `inventory` the same way.  (The listing is also why a
+ * spent task's RepeatText never survives here -- the 44CC7D store is gated
+ * on the buffer still being empty; that is the survivor table's first row.)
  */
 static scr_bool
 run_is_inventory_command (scr_gameref_t game, const scr_char *string)
@@ -1270,8 +1273,9 @@ run_is_inventory_command (scr_gameref_t game, const scr_char *string)
  * away from the standard library.  Measured 2026-09-08 with p4REPEAT.taf,
  * p4REPEAT2.taf and p4REPEAT3.taf (make_400_repeatprobe.py and
  * make_400_repeatprobe2.py, 30-odd one-cell tasks all done, non-repeatable
- * and carrying a RepeatText, each typed twice) under run400, feeds
- * cmdfile_rep1-3, transcripts Adrift_950-952.
+ * and carrying a RepeatText, each typed twice) under run400, transcripts
+ * runner_probes/repeat.run400.txt, runner_probes/repeat2.run400.txt and
+ * runner_probes/repeat3.run400.txt.
  *
  * run400 prints a done non-repeatable task's RepeatText inside the task
  * dispatcher at 48A481 (Proc_19_24_44CCE0) and then jumps to loc_48B4E3,
@@ -1500,10 +1504,12 @@ run_try_command_table (scr_commandsref_t command,
        * every row.  Measured live on House (4.00), 2026-09-06: the silent
        * task "# attention on cathy grave vision" (`*cathy*`, once only) runs
        * on the first `get cathy` and the library then says "Take what?"
-       * (Adrift_93/95); `x cathy` on that first mention gets "You see no
-       * such thing." (Adrift_98); with the task spent, both fall to the NPC
-       * handlers -- "I don't think girl would appreciate being handled."
-       * and her description.
+       * (runner_probes/house.run400.t93.txt,
+       * runner_probes/house.run400.girl.txt); `x cathy` on that first
+       * mention gets "You see no such thing."
+       * (runner_probes/house.run400.t98.txt); with the task spent, both fall
+       * to the NPC handlers -- "I don't think girl would appreciate being
+       * handled." and her description.
        *
        * The rows that survive a task are the ones the Runner reaches by
        * another route: give is handled in the input routine at 48A98A with
@@ -1511,14 +1517,14 @@ run_try_command_table (scr_commandsref_t command,
        * "<player> can't talk to that." buffer that generaltasks_verbs seeds
        * at 488C65 whenever no object took the ask (run390 tests no flag at
        * all at 4597FE) -- Humbug's silent scoring task `ask * hacker about
-       * * humbug` still gets the hacker's reply (Adrift_4_humbug.txt);
-       * kiss (47F7E7) is gated on the buffer, not the flag; and the
-       * end-of-handler "I don't understand what you want to do with"
-       * fallback at 4805DA asks for an empty buffer rather than the flag.
-       * (It does have one other guard, added here 2026-09-07:
-       * `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub` above it takes it
-       * off a line that a task has just ended the game on -- see
-       * lib_cmd_verb_npc().)
+       * * humbug` still gets the hacker's reply
+       * (runner_probes/humbug.run400.b.txt); kiss (47F7E7) is gated on the
+       * buffer, not the flag; and the end-of-handler "I don't understand
+       * what you want to do with" fallback at 4805DA asks for an empty
+       * buffer rather than the flag.  (It does have one other guard, added
+       * here 2026-09-07: `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub`
+       * above it takes it off a line that a task has just ended the game on
+       * -- see lib_cmd_verb_npc().)
        */
       if (npc_blocked && run_npc_row_blocked (command))
         continue;
@@ -1842,14 +1848,15 @@ run_therest_arm_at (scr_int version, const scr_char *word)
  * and each arm overwrites the message the one before it wrote, so the LAST
  * arm whose keyword the line holds answers (run380 443CBB-445521; run390
  * 45D465-45EB86, where most arms go through checkverb 42A504 with the same
- * c() test).  Measured on p38ASK/p39ASK with cmdfile_pkw.txt (run380x
- * Adrift_128_pkw38.rtf, run390x Adrift_130_pkw39.txt): `zzz push stone`,
- * `stone jump` and `zzz cut stone` answer the verb wherever it stands;
- * `push and pull stone` and `push stone pull` pull, `push stone and kick`
- * kicks, `buy stone kiss` kisses, `drink push stone` pushes and `climb stone
- * and sit on stone` sits.  talk, block and lock only write an empty message,
- * so they lose to any earlier arm.  The arms that live above therest() (open,
- * read, ...) have answered before any of this runs.
+ * c() test).  Measured on p38ASK/p39ASK with harness/make_38_askprobe.py and
+ * make_39_askprobe.py (run380x runner_probes/ask.run380.kw.rtf, run390x
+ * runner_probes/ask.run390.kw.txt): `zzz push stone`, `stone jump` and `zzz
+ * cut stone` answer the verb wherever it stands; `push and pull stone` and
+ * `push stone pull` pull, `push stone and kick` kicks, `buy stone kiss`
+ * kisses, `drink push stone` pushes and `climb stone and sit on stone` sits.
+ * talk, block and lock only write an empty message, so they lose to any
+ * earlier arm.  The arms that live above therest() (open, read, ...) have
+ * answered before any of this runs.
  *
  * Returns the winning arm's keyword and sets *offset to where c() found it,
  * or returns NULL.
@@ -2046,9 +2053,9 @@ run_line_for_anywhere (scr_gameref_t game, const scr_char *line)
  * wait gate, so `score wait` is the score and no time passes; below takes,
  * drops, wears and removes, which claim or act first, and above the
  * swearing arm, which overwrites it.  Measured 2026-09-20 on p37SITN..p4SITN
- * (cmdfile_psitn.txt: `score sit`, `score wait`; the sit case is
- * lib_sitstand_anywhere()'s).  A line holding one of those earlier or later
- * handlers' words is left to its rows: not measured.
+ * (harness/make_3738_sitnpcprobe.py: `score sit`, `score wait`; the sit case
+ * is lib_sitstand_anywhere()'s).  A line holding one of those earlier or
+ * later handlers' words is left to its rows: not measured.
  */
 static scr_bool
 run_score_anywhere (scr_gameref_t game, const scr_char *string)
@@ -2101,14 +2108,15 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  * without moving something, and give, say and the directions are all
  * `If msg = ""` arms below the gate -- so `give coin to bob wait`, `say
  * hello wait`, `i wait`, `inventory wait` and `n wait` are "Time passes..."
- * with nothing given, listed or walked (p37SITN..p4SITN, cmdfile_psitn.txt:
- * run370x Adrift_203_psitn_37.rtf, run380x Adrift_204_psitn_38.rtf, run390x
- * Adrift_205_psitn_39.txt, run400x Adrift_206_psitn_4.txt, 2026-09-20).
- * ask/talk stay with their rows: characters() overwrites the wait text
- * with the reply (`ask bob about hat wait` is "BOB HAT.").  `score wait`
- * is the score's (run_score_anywhere() runs first).  up/down/in/out with
- * wait: not measured.  run370's openclose writes nothing unless the line names an
- * openable object (4264E7), so there `open stone wait` passes time; 3.8 on
+ * with nothing given, listed or walked (p37SITN..p4SITN,
+ * harness/make_3738_sitnpcprobe.py: run370x runner_probes/sitn.run370.rtf,
+ * run380x runner_probes/sitn.run380.rtf, run390x
+ * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt,
+ * 2026-09-20).  ask/talk stay with their rows: characters() overwrites the
+ * wait text with the reply (`ask bob about hat wait` is "BOB HAT.").  `score
+ * wait` is the score's (run_score_anywhere() runs first).  up/down/in/out with
+ * wait: not measured.  run370's openclose writes nothing unless the line names
+ * an openable object (4264E7), so there `open stone wait` passes time; 3.8 on
  * refuse the open.  `look wait` is examines' from 3.9 (bare `look`), time
  * passing at 3.7/3.8.
  *
@@ -2120,10 +2128,13 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  * stays set.  run370x reaches that with `wait goto hall`, the game's goto
  * word and "goto" each cut from the front.
  *
- * Measured 2026-09-19 with cmdfile_pwait.txt / cmdfile_pwait4.txt on
- * p37GOTO, p38GOTO, p39GOTO and p4EXAM: run370x Adrift_144_pwait37.rtf,
- * run380x Adrift_145_pwait38.rtf, run390x Adrift_146_pwait39.txt, run400x
- * Adrift_147_pwait4.txt.
+ * Measured 2026-09-19 on p37GOTO, p38GOTO, p39GOTO and p4EXAM
+ * (harness/make_37_gotoprobe.py, make_38_gotoprobe.py,
+ * make_39_gotoprobe.py, make_400_examprobe.py): run370x
+ * runner_probes/goto.run370.wait.rtf, run380x
+ * runner_probes/goto.run380.wait.rtf, run390x
+ * runner_probes/goto.run390.wait.txt, run400x
+ * runner_probes/exam.run400.wait.txt.
  */
 static scr_bool
 run_wait_anywhere (scr_gameref_t game, const scr_char *string)
@@ -2211,11 +2222,12 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
  * (`go to kitchen, look`).  Pre-4.0 generaltasks keeps its split queue in a
  * local (run390 var_E4, run380 var_E4), so each step, typed into the box
  * and run as a nested generaltasks, never sees it: the walk and its arrival
- * come first, then the rest of the line (run390x Adrift_135_pgs39.txt,
- * run380x Adrift_134_pgs38.rtf).  run400 keeps the queue in the global
+ * come first, then the rest of the line (run390x
+ * runner_probes/goto.run390.gs.txt, run380x
+ * runner_probes/goto.run380.gs.rtf).  run400 keeps the queue in the global
  * MemVar_4942E4 and empties it at the top of every generaltasks (48A01F),
  * so the first step throws the rest of the line away (run400x
- * Adrift_136_pgs4.txt); see run_player_input().
+ * runner_probes/goto.run400.gs.txt); see run_player_input().
  */
 static std::vector<std::string> run_goto_steps;
 
@@ -2306,7 +2318,7 @@ run_get_dispatch_input (void)
  * examine then prints the book's -- now crumbled -- description.  run400
  * answers the first `examine good book` with that description and only a
  * second one with the restriction's "The book is nothing but dust now."
- * (measured live 2026-08-23, Adrift_15.txt).
+ * (measured live 2026-08-23).
  */
 std::vector<scr_bool> run_tasks_ran_this_command;
 
@@ -2591,32 +2603,35 @@ run_line_t::put_prepass ()
   /*
    * 4.0 puts are the exception to the peek: the library's put-in / put-on
    * gets the line BEFORE any task does, and a task only ever answers a put
-   * the library could not complete.  Measured with the PUT4-PUT7 arena
-   * probes (Adrift_81-87, 2026-09-05), each pairing a passing put task with
-   * reporter tasks restricted on "object is inside container": run400 puts
-   * the pill in the cup and the task never runs, whatever its spelling --
-   * wildcard, prefixed or literal -- while run390 on the 3.9 twin (put39.taf,
-   * Adrift_88) hands the line to the task and moves nothing.  Read off
-   * run400's insides handler (Proc_19_43_46639C): a completed move returns 1
-   * and the dispatcher stops there.  The peek pass would have handed the
-   * line to a non-silent matching task first, which is what cost "Sommeril"
-   * its `put fish in fountain` (task 18's text where the Runner puts the
-   * fish, Adrift_78) and left `take wet page` answered on the next turn
-   * where run400 says "Take what?".  Pre-4.0 keeps the peek order: Scarier
-   * matches run390 on the put39 probe on all twelve lines (the last of
-   * them, the prefixed `put a bean in a jar` row, closed 2026-09-20 with
-   * the pre-4.0 canonical-retry suppression in sclibrar.cpp).
+   * the library could not complete.  Measured with the PUT4-PUT7 arena probes
+   * (runner_probes/put[4-7].run400*.txt, 2026-09-05), each pairing a passing
+   * put task with reporter tasks restricted on "object is inside container":
+   * run400 puts the pill in the cup and the task never runs, whatever its
+   * spelling -- wildcard, prefixed or literal -- while run390 on the 3.9 twin
+   * (put39.taf, runner_probes/put.run390.b.txt) hands the line to the task
+   * and moves nothing.  Read off run400's insides handler
+   * (Proc_19_43_46639C): a completed move returns 1 and the dispatcher stops
+   * there.  The peek pass would have handed the line to a non-silent matching
+   * task first, which is what cost "Sommeril" its `put fish in fountain`
+   * (task 18's text where the Runner puts the fish,
+   * runner_probes/sommeril.run400.probe.txt) and left `take wet page`
+   * answered on the next turn where run400 says "Take what?".  Pre-4.0 keeps
+   * the peek order: Scarier matches run390 on the put39 probe on all twelve
+   * lines (the last of them, the prefixed `put a bean in a jar` row, closed
+   * 2026-09-20 with the pre-4.0 canonical-retry suppression in sclibrar.cpp).
    *
    * A put the 4.0 library REFUSES on size or capacity is different again:
    * every message path of that handler exits without setting its return
    * byte, so the refusal is printed but the line is not claimed, and the
    * task passes then answer it as well, run straight on from the refusal
    * with the two-space separator -- "The rock is too big to fit inside the
-   * slot.  PUTBIG." (PUT7, Adrift_87; Zack Smackfoot's `put knife in slot`,
-   * Adrift_57).  The handler signals that with run_priority_refuse(); the
-   * join is left pending so that a refusal no task follows stands alone.
-   * Either way the line is handled once the refusal is printed, so the
-   * standard table's duplicate put rows never print it a second time.
+   * slot.  PUTBIG." (PUT7, runner_probes/put7.run400.b.txt; Zack
+   * Smackfoot's `put knife in slot`,
+   * runner_probes/zacksmackfoot.run400.txt).  The handler signals that with
+   * run_priority_refuse(); the join is left pending so that a refusal no
+   * task follows stands alone.  Either way the line is handled once the
+   * refusal is printed, so the standard table's duplicate put rows never
+   * print it a second time.
    */
   /*
    * A 4.0 line that a spent task answers with its RepeatText is not the
@@ -2632,7 +2647,8 @@ run_line_t::put_prepass ()
    * they are still a turn, though, because the dispatcher sets its handled
    * byte before the character pass overwrites the message (`x bob` on a
    * spent task ticks the probe's event, where a plain NPC examine does not
-   * -- Adrift_951, and see the survivor's turn in settle()).
+   * -- runner_probes/repeat2.run400.txt, and see the survivor's turn in
+   * settle()).
    */
   repeat_found = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
                  && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
@@ -2752,9 +2768,10 @@ run_line_t::put_pass ()
                * plainly: "The coin is too big to fit inside the box.You
                * can't put anything inside the desk!" is what the Runner's
                * own scrollback holds, with no separator at all where the
-               * next clause begins (p4AND, Adrift_957 + DUMP_SCROLLBACK,
-               * 2026-09-08).  Only the last clause keeps the pending join,
-               * which is what a task answering the same line wants.
+               * next clause begins (p4AND, runner_probes/and.run400.c.txt
+               * + DUMP_SCROLLBACK, 2026-09-08).  Only the last clause
+               * keeps the pending join, which is what a task answering the
+               * same line wants.
                */
               refused = run_priority_refused;
               if (refused)
@@ -2840,8 +2857,8 @@ run_line_t::get_outer_400 ()
    * class 1, 472D9C); a hit dispatches the task.  A miss goes on to the
    * library take, so a line whose task only matches in the dispatcher proper
    * is answered as a take.  Measured on The X-Files T76: "get in the van"
-   * gives "You take VW Van." (Adrift_132), where T55's same line, with task
-   * 13 pre-matching, gets in.
+   * gives "You take VW Van." (runner_probes/xfiles.run400.t76.txt), where
+   * T55's same line, with task 13 pre-matching, gets in.
    */
   /*
    * On a battle line get_outer is entered on its word anywhere, and claims
@@ -2888,7 +2905,8 @@ run_line_t::get_outer_400 ()
            * line only when the pre-matcher answered 1, a task with text of
            * its own.  A textless task (2) runs there and get_piece carries
            * on, resolving its noun only now.  make_400_takedoubleprobe.py
-           * measures both halves (run400x Adrift_282_p4tdbl, _p4tdbo).
+           * measures both halves (run400x runner_probes/tdbl.run400.txt,
+           * runner_probes/tdbo.run400.txt).
            */
           outer_mark = pf_buffer_length (filter);
           run_game_commands_in_parser_context (game, task_string, TRUE, FALSE);
@@ -3043,10 +3061,10 @@ run_line_t::task_peek ()
    * out as well: the line is the silent claim's below.  p3xBEYOND
    * (make_beyondprobe.py, 2026-09-26): run370 `take orb` with the orb on the
    * floor runs silent task "take orb" twice and answers "I don't
-   * understand.", the orb left there (Adrift_285_c37.rtf); run390 `drop cape
-   * to the floor` with the cape on the floor scores the silent task and says
-   * "I don't understand." rather than "You don't have the red cape!"
-   * (Adrift_287_c39.txt).
+   * understand.", the orb left there (runner_probes/beyond.run370.c.rtf);
+   * run390 `drop cape to the floor` with the cape on the floor scores the
+   * silent task and says "I don't understand." rather than "You don't have
+   * the red cape!"  (runner_probes/beyond.run390.c.txt).
    */
   silent_before_priority = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
@@ -3138,7 +3156,8 @@ run_line_t::priority_pass ()
        * as a named row's does in put_pass().  Settle it the same way, or the
        * STANDARD_COMMANDS twin below prints the refusal a second time:
        * probe PCLOSED `put all in chest` with the chest shut and a stone in
-       * hand is one "The chest is closed!" (Adrift_1195.txt:7).
+       * hand is one "The chest is closed!"
+       * (runner_probes/closed.run400.feed2.txt:7).
        */
       if (!status && run_priority_refused)
         {
@@ -3188,9 +3207,10 @@ run_line_t::task_passes ()
    *
    * run370 and run380 claim the same way (p3xBEYOND, 2026-09-26: silent task
    * "wave cape slowly" +1000 is "I don't understand." where the object
-   * catch-all would say "... with the red cape.", Adrift_285_c37.rtf,
-   * Adrift_286_c38.rtf), but there the line stays a turn: neither has the
-   * not-a-turn byte below 3.90.
+   * catch-all would say "... with the red cape.",
+   * runner_probes/beyond.run370.c.rtf, runner_probes/beyond.run380.c.rtf),
+   * but there the line stays a turn: neither has the not-a-turn byte below
+   * 3.90.
    */
   silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
@@ -3256,7 +3276,8 @@ run_line_t::battle_pass ()
   /*
    * After get_piece's double run the library has nothing left for the line:
    * get_outer was its take.  Whatever either run printed answers it;
-   * nothing at all is DontUnderstand (p4TDBL `get eel`, Adrift_282_p4tdbl).
+   * nothing at all is DontUnderstand (p4TDBL `get eel`,
+   * runner_probes/tdbl.run400.txt).
    */
   outer_silent = outer_twice && !status;
   if (outer_silent && pf_buffer_length (filter) > outer_mark)
@@ -3554,12 +3575,13 @@ run_line_t::settle ()
    * generaltasks (48B6AE-48BB92), not to any verb: it comes after everything
    * the line printed and replaces it, whatever answered.  Measured
    * 2026-09-20 on p4BATT (Ann and Bob both "a guard", Dave and a third guard
-   * next door; run400x Adrift_1208 and Adrift_1209) -- `x guard`, `attack
-   * guard`, `attack guard dave`, `status guard`, `talk to guard`, `where is
-   * guard`, `give stone to guard`, `give club to guard` and the bare noun
-   * `guard` all answer "Which guard.  A guard or a guard?", and the last two
-   * lose a real answer ("You don't have the stone!") to it.  `probe`, a
-   * task, keeps its own text (the 48B60C gate above).
+   * next door; run400x runner_probes/batt.run400.txt and
+   * runner_probes/batt.run400.b.txt) -- `x guard`, `attack guard`, `attack
+   * guard dave`, `status guard`, `talk to guard`, `where is guard`, `give
+   * stone to guard`, `give club to guard` and the bare noun `guard` all
+   * answer "Which guard.  A guard or a guard?", and the last two lose a real
+   * answer ("You don't have the stone!") to it.  `probe`, a task, keeps its
+   * own text (the 48B60C gate above).
    *
    * Both halves of the question read ONE untyped index, MemVar_4941EC, and
    * the object half (48B6B1) gets first refusal: it runs when that index is
@@ -3668,23 +3690,23 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * First Adventure" is the literal, unrestricted, textless command "drop
    * cape to the floor" (+250 score, no message).  run400 answers the typed
    * command with the library's ordinary "Player drop the cape." and the
-   * score UNCHANGED (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23) -- the task
-   * never runs at all, even though its own literal pattern matches the raw
-   * input exactly.  A same-shaped task using a bare object with no trailing
-   * words ("* drop * rock *", i.e. equivalent to the library's own
-   * canonical "drop <object>" callback string) DOES run silently alongside
-   * the library's message (Adrift_2_pET.txt).  So it is specifically the
-   * priority command's own callback -- matching only its constructed
-   * "verb OBJECT" short form, not the raw typed line -- that gets first
-   * refusal on a recognised system verb; a task whose pattern extends past
-   * that short form (trailing words the library only swallows as free
-   * %text%) is never reached once the library has already claimed and
-   * finished the command.  Swapping the two passes reproduces that: on a
-   * recognised system verb, run_priority_commands() (and its short-form
-   * task callback) gets the first and often the only look, and the direct,
-   * ignore-restrictions task pass only sees what the priority commands
-   * didn't recognise as a system verb at all (so "etcontrol"-style
-   * non-system task commands are unaffected).
+   * score UNCHANGED (runner_probes/et2.run400.txt,
+   * runner_probes/et4.run400.txt, 2026-08-23) -- the task never runs at all,
+   * even though its own literal pattern matches the raw input exactly.  A
+   * same-shaped task using a bare object with no trailing words ("* drop *
+   * rock *", i.e. equivalent to the library's own canonical "drop <object>"
+   * callback string) DOES run silently alongside the library's message
+   * (runner_probes/et.run400.txt).  So it is specifically the priority
+   * command's own callback -- matching only its constructed "verb OBJECT"
+   * short form, not the raw typed line -- that gets first refusal on a
+   * recognised system verb; a task whose pattern extends past that short form
+   * (trailing words the library only swallows as free %text%) is never reached
+   * once the library has already claimed and finished the command.  Swapping
+   * the two passes reproduces that: on a recognised system verb,
+   * run_priority_commands() (and its short-form task callback) gets the first
+   * and often the only look, and the direct, ignore-restrictions task pass
+   * only sees what the priority commands didn't recognise as a system verb at
+   * all (so "etcontrol"-style non-system task commands are unaffected).
    *
    * But that swap alone regresses the same game's task 27, "{take/get}
    * {them/boots}" (CompleteText "Taken."): the callback's constructed short
@@ -3739,11 +3761,11 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
    * message gets run for the message, beating the library action -- from 4.0
    * on only.  Probe DONE, task `* get * gem *` restricted to "holding the
    * stone", measured 2026-08-23: run400 answers `get gem` without the stone
-   * with "BLOCK-GEM." (Adrift_20.txt), while run390 on the 3.9 twin probe
-   * quietly takes the gem instead (Adrift_18.txt).  Pre-4.0 the library wins,
-   * so the loud pass is switched off here rather than being allowed to claim
-   * the command.  Tasks whose restrictions PASS still run in either version --
-   * the first loop below does not consult this flag.
+   * with "BLOCK-GEM.", while run390 on the 3.9 twin probe quietly takes the
+   * gem instead.  Pre-4.0 the library wins, so the loud pass is switched off
+   * here rather than being allowed to claim the command.  Tasks whose
+   * restrictions PASS still run in either version -- the first loop below does
+   * not consult this flag.
    */
   const scr_bool include_restrictions =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
@@ -3925,8 +3947,8 @@ run_repeat_element (scr_gameref_t game)
    * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
    * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  run390
    * echoes it the same way: p39WITH `probe`, `again` -> "(probe)" then
-   * "PROBE OK." (Adrift_1163, 2026-09-14).  3.8 and earlier are not
-   * measured.
+   * "PROBE OK." (runner_probes/with.run390.txt, 2026-09-14).  3.8 and
+   * earlier are not measured.
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
     pf_buffer_reference (gs_get_filter (game), run_prior_element,
@@ -4088,7 +4110,7 @@ run_cut_element (scr_gameref_t game)
  * `turns`, a DontUnderstand line and a blank line all count.  Every jump
  * back for the next queued element (4609F9) lands above the increment
  * too.  `again` does not: run390 answers the `turns` that follows 18
- * elements with 19 twice over (Adrift_1161_p39admin.txt).  The
+ * elements with 19 twice over (runner_probes/admin.run390.txt).  The
  * end-of-turn tail in run_main_loop() leaves the counter alone at 3.9.
  * The increment sits after the line is read, so an autosave taken at the
  * prompt and restored there never counts a line twice.
@@ -4106,9 +4128,9 @@ run_count_element (scr_gameref_t game)
        * back to 45EC4B, above the increment.  With no menu pending the stash
        * is empty and the re-run is DontUnderstand, which Scarier already
        * prints for the word; p39WITH `turns`, `both`, `turns` answers 24
-       * then 27 (Adrift_1163).  The question prefix does not: the jump at
-       * 4601A5 never fires for a "With what?" or "Wear what?" answer
-       * (`knife`, `coin` each count once in the same drive).
+       * then 27 (runner_probes/with.run390.txt).  The question prefix does
+       * not: the jump at 4601A5 never fires for a "With what?" or "Wear
+       * what?" answer (`knife`, `coin` each count once in the same drive).
        */
       if (scr_strcasecmp (run_line_element, "both") == 0
           && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
@@ -4154,8 +4176,9 @@ run_element_command (scr_gameref_t game, std::string &command)
    * after the synonyms, pronouns and the everything/slap/take/except
    * rewrites (run380 441C9D, run390 45F2AF, run400 48A399; run370 has none).
    * So after `look`, `with stone` runs as "look with stone" -- the stone's
-   * description at 3.9 (run390x Adrift_200_pnpcwith39) and "Nothing
-   * special." at 3.8 (run380x Adrift_199_pnpcwith38).
+   * description at 3.9 (run390x runner_probes/npcamb.run390.with.txt) and
+   * "Nothing special." at 3.8 (run380x
+   * runner_probes/npcamb.run380.with.rtf).
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_380
       && strncmp (command.c_str (), "with ", 5) == 0)
@@ -4208,14 +4231,17 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * task whose command names no %object% fails outright (run400 480F9E,
    * run390 44ABF0) -- it never sees whatever the previous command referenced.
    * Professor's task 7 (`take mailbox`, square) is the case: run400 never
-   * runs it (Adrift_p4profmail*.txt), Scarier used to pass it on the mailbox
-   * left over from `examine mailbox`.
+   * runs it (runner_probes/professor.run400.profmail.txt,
+   * runner_probes/professor.run400.mail2.txt,
+   * runner_probes/professor.run400.profmail3.txt), Scarier used to pass it on
+   * the mailbox left over from `examine mailbox`.
    *
    * 3.7 and 3.8 forget too, which p*OBJREF's task 2 shows from the printing
    * side: `zork`, whose command binds nothing, prints its text's %object%
    * and %character% raw on the turn right after `nurb rock` bound the red
-   * rock, in all four Runners (Adrift_objref370.rtf, objref380.rtf,
-   * objref390.txt, objref400.txt, 2026-09-20).  Below 3.90 the reference
+   * rock, in all four Runners (runner_probes/objref.run370.rtf,
+   * runner_probes/objref.run380.rtf, runner_probes/objref.run390.txt,
+   * runner_probes/objref.run400.txt, 2026-09-20).  Below 3.90 the reference
    * looks to be local to checktask, which is the same thing seen from the
    * other end.  We kept the older Runners' references across the line and
    * printed "ZORKED a red rock."
@@ -4252,7 +4278,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
        * task matcher; 3.9 runs it as joined, and its task matcher sees
        * every space: p39WITHQ's `saw rope` / `knife` fires the task wired
        * `saw rope with  knife` and not its one-space twin (run390x
-       * Adrift_p39withq.txt, 2026-09-25).
+       * runner_probes/withq.run390.txt, 2026-09-25).
        */
       if (is_400)
         while ((pair = collapsed.find ("  ")) != std::string::npos)
@@ -4323,7 +4349,8 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
  * the 3.8 prompt replaces a turn wholesale (pf_empty() in
  * lib_co_ambiguity_prompt()).  A line that DID something runs normally and
  * simply spends the question: run400 answers `x tree rock` / `x rock` with
- * "A plain thing." and not with the refusal (Adrift_930).
+ * "A plain thing." and not with the refusal
+ * (runner_probes/co.run400.t930.txt).
  *
  * Answering does not score the answer against the prompt's candidates at
  * all: generaltasks splices the typed words into the stored command in
@@ -4333,8 +4360,9 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
  * the keys as well as the trees -- the rebuilt `chop chop keys tree`
  * names them.  "That is still ambiguous!" is then the re-run's own raise
  * meeting the list the last prompt left behind, not an answer this slot
- * gives.  Measured on p4CO.taf, Adrift_927, Adrift_929 and Adrift_co11 --
- * see lib_co_400_object_answer_line().
+ * gives.  Measured on p4CO.taf, runner_probes/co.run400.t927.txt,
+ * runner_probes/co.run400.t929.txt and runner_probes/co.run400.co11.txt
+ * -- see lib_co_400_object_answer_line().
  *
  * 48B15B jumps to 489FEB, the top of the ELEMENT loop, which clears the
  * element's reply and the question but NOT what the last prompt offered
@@ -4364,12 +4392,12 @@ run_element_co_answer_400 (scr_gameref_t game, const scr_char *command,
    * 489FEB is above the stores that mark a line administrative, so the
    * re-run starts a turn of its own and the answer is counted by what
    * the rebuilt line does -- not by the prompt that asked for it.
-   * p4WTIE, run400 Adrift_wtie8 turn 10: `cut rope with stone` is the
-   * question and no turn, and `red stone` runs `cut rope with red
-   * stone`, answers "You don't have the red stone." and ticks.  A
-   * re-run that asks again marks itself (lib_co_400_raise_common()),
-   * and so does the still-ambiguous arm below, so only a line that did
-   * something reaches the clock.
+   * p4WTIE, run400 runner_probes/wtie.run400.w8.txt turn 10: `cut rope
+   * with stone` is the question and no turn, and `red stone` runs `cut
+   * rope with red stone`, answers "You don't have the red stone." and
+   * ticks.  A re-run that asks again marks itself
+   * (lib_co_400_raise_common()), and so does the still-ambiguous arm
+   * below, so only a line that did something reaches the clock.
    */
   game->is_admin = FALSE;
 
@@ -4400,17 +4428,17 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * An EMPTY line element complains too.  Upstream SCARE guarded this
    * whole block with `if (!scr_strempty (command))`, so a bare Return
    * printed nothing.  Both Runners answer one with DontUnderstand:
-   * `cmdfile_stardust.txt` and `cmdfile_xfiles.txt` are the only CRLF
-   * feeds in the Wine harness, so every command in those two runs went in
-   * followed by an extra empty Return, and run390 answered all 115 of
-   * them with S_Tar_Dus's ALR for the message ("I are confused.  DURHH!",
-   * Adrift_38_stardust.txt) and run400 all 22 of xfiles' ("Nope!",
-   * Adrift_31_xfiles.txt).  No walk or event line follows one, so the
-   * turn does not tick either -- which the FALSE return below already
-   * gives us, run_main_loop() ticking only on TRUE.  Only a genuinely
-   * empty input line gets here: the splitter above takes the first
-   * character even when it is a separator, so "." and "i. ." were
-   * complaints before this and still are.
+   * the stardust and xfiles feeds were the only CRLF feeds in the Wine
+   * Runner harness, so every command in those two runs went in followed
+   * by an extra empty Return, and run390 answered all 115 of them with
+   * S_Tar_Dus's ALR for the message ("I are confused.  DURHH!",
+   * runner_probes/stardust.run390.txt) and run400 all 22 of xfiles'
+   * ("Nope!", runner_probes/xfiles.run400.b.txt).  No walk or event
+   * line follows one, so the turn does not tick either -- which the
+   * FALSE return below already gives us, run_main_loop() ticking only
+   * on TRUE.  Only a genuinely empty input line gets here: the splitter
+   * above takes the first character even when it is a separator, so "."
+   * and "i. ." were complaints before this and still are.
    */
 
   /*
@@ -4427,9 +4455,9 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * the empty buffer meets var_29C = 1 and prints nothing.
    *
    * easter.taf's winning `show basket to shopkeeper` is the measured
-   * case: run400 Adrift_273_easter.txt:304-308 goes straight from the
-   * task's text to the WinText.  Gated on the ending so the general
-   * shape of the test cannot disturb an ordinary line.
+   * case: run400 runner_probes/easter.run400.txt:304-308 goes straight
+   * from the task's text to the WinText.  Gated on the ending so the
+   * general shape of the test cannot disturb an ordinary line.
    */
   if (game->pending_endgame != 0
       && run_get_version (bundle) == TAF_VERSION_400
@@ -4459,16 +4487,18 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * generaltasks (48BCF2, `If MemVar_4942E4 <> "" Then MemVar_494174 =
    * MemVar_4942E4 : GoTo 489FEB`), below every exit the DontUnderstand
    * text can take: `wave zzz and yyy` on the p4AND probe answers NO IDEA
-   * twice (Adrift_955).  run390 answers `zzz, look` with NO IDEA and
-   * the room (Adrift_1191), run380 `zzz then look` with "I don't
-   * understand." and the room (Adven_5.rtf).
+   * twice (runner_probes/and.run400.txt).  run390 answers `zzz, look`
+   * with NO IDEA and the room (runner_probes/ask.run390.split2.txt),
+   * run380 `zzz then look` with "I don't understand." and the room
+   * (runner_probes/ask.run380.split2.rtf).
    */
 
   /*
    * 4.0: and what the setter was handed on the way down still stands --
    * openclose's loop runs above therest's DontUnderstand, so `cut rope
    * with gems` answers NO IDEA and leaves "it" at the emerald (p4WTIE,
-   * Adrift_it2).  See uip_note_antecedent_400() in scparser.cpp.
+   * runner_probes/wtie3.run400.it2.txt).  See uip_note_antecedent_400()
+   * in scparser.cpp.
    */
   if (run_get_version (bundle) >= TAF_VERSION_400)
     {

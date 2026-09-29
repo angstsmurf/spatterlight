@@ -1,0 +1,48 @@
+
+> probe
+PROBE OK.
+
+> leave north
+Drop what?
+
+> l
+Lit Room
+A bright room.  Also here is a coin and a pebble.  You can only move north.
+
+> s
+You can only move north.
+
+> l
+Lit Room
+A bright room.  Also here is a coin and a pebble.  You can only move north.
+
+> leave
+Drop what?
+
+> leave qqq
+Drop what?
+
+> leave coin
+You don't have the coin!
+
+> leave bean
+You drop the bean.
+
+> leave cloak
+You drop the cloak.
+
+> i
+You are carrying nothing.
+
+> leave north
+Drop what?
+
+> l
+Lit Room
+A bright room.  Also here is a coin, a pebble, a bean and a cloak.  You can only move north.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

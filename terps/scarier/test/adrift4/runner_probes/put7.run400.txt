@@ -1,0 +1,17 @@
+
+> put pill in cup
+Player put the pill inside the cup.  
+
+> put bean in jar
+
+> put coin in box
+Player put the coin inside the box.  
+
+> zzin1
+BEAN IN JAR.
+
+> zzin2
+PILL IN CUP.
+
+> zzin3
+COIN IN BOX.

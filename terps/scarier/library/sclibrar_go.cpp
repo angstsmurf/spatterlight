@@ -122,9 +122,9 @@ lib_go (scr_gameref_t game, scr_int direction)
    * that count.  No Runner from 3.7 to 4.0 carries an "(at present)"
    * string at all; Scarier's old "can't go in that direction (at present)"
    * for an exit that exists but is currently shut was an invention.
-   * Measured on humbug (4.00, Adrift_4_humbug.txt): `W` into the keypad
-   * door, an exit gated on a task, answers "I can't go in that direction,
-   * but I can move north, east and south."
+   * Measured on humbug (4.00, runner_probes/humbug.run400.b.txt): `W` into the
+   * keypad door, an exit gated on a task, answers "I can't go in that
+   * direction, but I can move north, east and south."
    */
   if (!lib_room_exit_destination (game, direction, &destination)
       || !lib_can_go (game, gs_playerroom (game), direction))
@@ -189,7 +189,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    * and loc_4319A9 for "(Standing up first)").  An earlier census read
    * run390 as having no "Getting off" literal at all and gated this
    * `< 3.90 || >= 4.00`; the literal lives in run390_3.bas:9909, and the
-   * wingman1.taf (3.90) replay of 2026-08-30 (Adrift_3_wingman1.txt,
+   * wingman1.taf (3.90) replay of 2026-08-30 (runner_transcripts/wingman1.txt,
    * brackets ON) prints "(Getting off the Barstool first)" before "You
    * move in."
    *
@@ -203,8 +203,9 @@ lib_go (scr_gameref_t game, scr_int direction)
    *
    * The parent-less half -- sitting or lying on the FLOOR, so "(Standing up
    * first)" rather than "(Getting off X first)" -- was measured 2026-09-07 on
-   * Main Course.taf (4.00, Adrift_931.txt), whose player starts sitting with
-   * ParentObject 0, and on goldilocks (Adrift_932.txt) turn 94, where a task
+   * Main Course.taf (4.00, runner_probes/maincourse.run400.txt), whose player
+   * starts sitting with ParentObject 0, and on goldilocks
+   * (runner_transcripts/goldilocks.txt) turn 94, where a task
    * action seats the player on an unset object.  Both print the line with the
    * box ticked and nothing without it, and both had earlier brackets-OFF
    * transcripts that read as an engine bug until they were re-driven.
@@ -213,19 +214,20 @@ lib_go (scr_gameref_t game, scr_int direction)
    * (run390 431943 -> compose_object_name 42B0E8, run400 450354 -> 448710),
    * which answers "that" for an object the player has not seen.  gateway
    * (3.90) seats the player on a chair only a task's text mentions, and
-   * run390x answers `east` with "(Getting off that first)" (Adrift_163,
-   * 2026-09-14).  run370/380 concatenate the name directly, with no seen
-   * test.  Scarier deliberately names the object in every version
-   * (deviation policy): the player is sitting on it, so hiding its name
-   * behind "that" only loses information.
+   * run390x answers `east` with "(Getting off that first)"
+   * (runner_transcripts/gateway.txt, 2026-09-14).  run370/380 concatenate the
+   * name directly, with no seen test.  Scarier deliberately names the object
+   * in every version (deviation policy): the player is sitting on it, so
+   * hiding its name behind "that" only loses information.
    *
    * Before 3.9 moveroom looks only at the position (run370 422FD0, run380
    * the same): a player standing on an object walks off it with no line, and
    * the parent object survives the move -- only the sit/lie branch clears
    * it.  So `stand on crate`, `s`, `sit`, `stand` is "You move south.", ...,
    * "You stand up from the crate." (p37SIT/p38SIT, run370x
-   * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, 2026-09-19).
-   * run380's take-from reach test reads the same stale parent (446BA5).
+   * runner_probes/sit.run370.sit2.rtf, run380x
+   * runner_probes/sit.run380.sit2.rtf, 2026-09-19).  run380's take-from reach
+   * test reads the same stale parent (446BA5).
    */
   stale_parent = -1;
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
@@ -523,8 +525,8 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  * to "&&&", which jumps past the characters/events tick.  Measured on
  * p39GOTO / p38GOTO / p4GOTO (harness/make_39_gotoprobe.py,
  * make_38_gotoprobe.py, make_400_gotoprobe.py), run390x
- * Adrift_133_pgoto39.txt, run380x Adrift_132_pgoto38.rtf and run400x
- * Adrift_133_p4goto.txt.
+ * runner_probes/goto.run390.txt, run380x runner_probes/goto.run380.rtf and
+ * run400x runner_probes/goto.run400.txt.
  */
 /*
  * lib_go_place_off is set by run_goto_anywhere() for the pass that answers
@@ -571,8 +573,8 @@ lib_command_slot_370 (scr_prop_setref_t bundle, scr_int slot)
  * cuts (42B8E9-42BA4F).  `a rove hall` is "Moving to blue hall..." ("e
  * hall"), `rove kitchen` walks, bare `rove` is DontUnderstand and `goto
  * kitchen` still walks: p37GOTOW (harness/make_37_gotoprobe.py), run370x
- * Adrift_141_pgoto37w.rtf and Adrift_143_pgoto37w2.rtf.  Lower-cased; empty
- * from 3.8 on.
+ * runner_probes/gotow.run370.rtf and runner_probes/gotow.run370.2.rtf.
+ * Lower-cased; empty from 3.8 on.
  */
 static std::string
 lib_goto_alias (scr_prop_setref_t bundle)
@@ -707,12 +709,13 @@ lib_cmd_go_place (scr_gameref_t game)
    * exam, read, and from 3.9 bare look and l (run390 44B76C-44B833, run380
    * 43C69D, run370 434E2A, which has no "look in").  With no object named it
    * answers from its tail, "Nothing special." in a lit room: run390x
-   * Adrift_135_pgs39.txt and Adrift_136_pgs39b.txt (`go to kitchen and
-   * look`, `... and l`, `... and read`, `... with x`, `... and look in`),
-   * run380x Adrift_135_pgs38b.rtf (`go to first room and read`, `... and
-   * x`; `go to kitchen and look` is gotoplace's "Unknown place.").  A goto
-   * line that also names an object is not measured.  4.0 splits `and look`
-   * off first (run400x Adrift_137_pgs4b.txt).
+   * runner_probes/goto.run390.gs.txt and runner_probes/goto.run390.gs_b.txt
+   * (`go to kitchen and look`, `... and l`, `... and read`, `... with x`, `...
+   * and look in`), run380x runner_probes/goto.run380.gs_b.rtf (`go to first
+   * room and read`, `... and x`; `go to kitchen and look` is gotoplace's
+   * "Unknown place.").  A goto line that also names an object is not measured.
+   * 4.0 splits `and look` off first (run400x
+   * runner_probes/goto.run400.gs_b.txt).
    */
   if (version < TAF_VERSION_400)
     {

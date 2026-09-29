@@ -1,0 +1,29 @@
+Probe 37DARK
+A synthetic 3.7 darkness probe.
+
+probe
+PROBE OK.
+
+take torch
+You pick up an torch.
+
+n
+You move north.
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+take box
+You pick up the box.
+
+s
+You move south.
+A bright room.  You can only move north.
+
+put all in box
+You put an torch and a lamp inside the box.
+
+put all in box
+You have nothing to put inside the box.
+
+put coin in box
+You can't see that.
+

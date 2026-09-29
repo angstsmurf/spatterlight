@@ -1,0 +1,27 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You take the torch.
+
+> take box
+You take the box.
+
+> put all in box
+You put the torch and the lamp inside the box.  
+
+> put all in stone
+You can't put anything inside the stone!
+
+> drop all
+You drop the box.  
+
+> put all in box
+You are carrying nothing!
+
+> put coin in torch
+You can't put anything inside the torch!
+
+> probe
+PROBE OK.

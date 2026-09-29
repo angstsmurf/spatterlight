@@ -1,0 +1,23 @@
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a red widget, a blue widget and a lamp.  You can only move west.
+
+> take widget
+Which widget.  The red widget or the blue widget?
+
+> x lamp
+A plain thing.
+
+> take red widget
+You take the red widget.
+
+> take widget
+You take the blue widget.
+
+> x lamp
+A plain thing.
+
+> take light
+You take the lamp.

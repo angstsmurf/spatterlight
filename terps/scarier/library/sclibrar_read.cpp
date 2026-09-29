@@ -50,10 +50,10 @@
 /*
  * 4.0 reads inside examines (471F94), whose noun is referencedob's: a line
  * the up-front score ties goes through its passes, and with no Prefix word
- * typed the last object marked wins.  p4WITHQ2.taf (Adrift_1159): `read book
- * with knife` prints the book's text, `read rope with knife` answers "You
- * can't read the knife!".  -1 when the line did not tie or the answer is not
- * here.
+ * typed the last object marked wins.  p4WITHQ2.taf
+ * (runner_probes/withq2.run400.txt): `read book with knife` prints the
+ * book's text, `read rope with knife` answers "You can't read the knife!".
+ * -1 when the line did not tie or the answer is not here.
  */
 static scr_int
 lib_read_tied_object_400 (scr_gameref_t game)
@@ -200,9 +200,10 @@ lib_cmd_read_other (scr_gameref_t game)
    * "Nothing special." tail, the same one lib_cmd_examine_other prints.  4.0
    * gave read its own handler and its own "<player> see no such thing."
    *
-   * Measured: p39EXAM.taf (3.90), Adrift_41_p39exam.txt, `read zzzz` ->
-   * "Nothing special."; p4EXAM.taf (4.00), Adrift_1_p4exam.txt, the same
-   * command -> "You see no such thing."
+   * Measured: p39EXAM.taf (3.90), runner_probes/exam.run390.txt, `read
+   * zzzz` -> "Nothing special."; p4EXAM.taf (4.00),
+   * runner_probes/exam.run400.txt, the same command -> "You see no such
+   * thing."
    *
    * Sharing examines() means sharing its darkness fork too; see
    * lib_cmd_examine_other().
@@ -220,7 +221,8 @@ lib_cmd_read_other (scr_gameref_t game)
        * would you like to examine.  The gem or the rock?" under run370 and
        * run380, and `read rock with slab` is "You can't read the slab!" /
        * "Which slab would you like to examine.  The rock or the slab?"
-       * (Adrift_228_ow370 .. 230_ow390, Adrift_230_ox370 .. 232_ox390).
+       * (runner_probes/openw.run3[789]0.ow.*,
+       * runner_probes/openw.run3[789]0.ox.*).
        */
       const scr_char *line = run_get_dispatch_input ();
       scr_int named, index_, matched = 0;
@@ -272,9 +274,10 @@ lib_cmd_read_other (scr_gameref_t game)
   /*
    * Reject the attempt -- the same "<name> see no such thing." literal as
    * lib_cmd_examine_other(), unconjugated in the third person, and the same
-   * not-a-turn flag (471F02): read is one of examines()' entry words.  House's
-   * `read defensor` with the book unseen leaves `turns` at 143
-   * (Adrift_128_turnbisect.txt), and the RIFT event 34 turns on shows it.
+   * not-a-turn flag (471F02): read is one of examines()' entry words.
+   * House's `read defensor` with the book unseen leaves `turns` at 143
+   * (runner_probes/house.run400.turnbisect.txt), and the RIFT event 34 turns
+   * on shows it.
    */
   lib_print_response_message (game,
                               "You see no such thing.\n",

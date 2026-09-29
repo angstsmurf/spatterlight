@@ -1,0 +1,57 @@
+
+> easy
+Game is set to easy.  
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a fireplace that gives out magnificent heat. There is an old oak table in the middle of the room. The ceiling is made of thatch and the whole room smells of home. There is a large calendar on the wall. There are some stairs down to a cellar too.
+
+> nnamen tutem selronden flar darg
+A magic cube appears in your hands.
+
+> wear cloak
+Wear what?
+
+> down
+You move down.
+Cottage Cellar
+This dark little room has lots of shelves with little on them.  You can also see a gold coin.
+
+> get all from shelves
+You take 
+
+> up
+You move up.
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a fireplace that gives out magnificent heat. There is an old oak table in the middle of the room. The ceiling is made of thatch and the whole room smells of home. There is a large calendar on the wall. There are some stairs down to a cellar too.
+
+> put oil in lantern
+You don't have any oil.
+
+> light lantern
+You don't have the lantern
+
+> out
+You move out.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are standing in front of an old cottage. A well trodden path leads north up the hills of Forecarn, while another leads west into Dusteron. Due East of here runs a wide path that cuts into Tonerith.
+
+> east
+You move east.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north of here but there is no path running there. You can here the sound of rushing water in the distance.  You can also see the Tonerith stone.
+
+> attack wolf
+Who?
+
+> west
+You move west.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are standing in front of an old cottage. A well trodden path leads north up the hills of Forecarn, while another leads west into Dusteron. Due East of here runs a wide path that cuts into Tonerith.
+
+> attack wolf
+Who?
+
+> attack narfild
+Who?
+
+> x wolf
+You cannot see Wolf from here.

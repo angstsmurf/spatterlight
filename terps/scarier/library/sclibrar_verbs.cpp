@@ -63,12 +63,13 @@
  * With no object passing, the line gets "I don't understand what you are
  * wanting to wield!" -- an ordinary turn.
  *
- * Measured 2026-09-14 on Villains_And_Kings under run390 (Adrift_1187
- * vakwield): the sword is Prefix "Kinda Sharp", Short "Sword", Alias "blade".
- * `wield Sword`, `wield kinda sharp sword`, `wield zzz`, `wield rack` (Short
- * "Rack", empty alias) and a bare `wield` all refuse; `wield blade` wields,
- * then "already wielding", then after a drop "aren't carrying"; 21 lines,
- * 21 turns.  The 4.0 twin has the same shape, from the decompile only.
+ * Measured 2026-09-14 on Villains_And_Kings under run390
+ * (runner_probes/villains_and_kings.run390.wield.txt): the sword is Prefix
+ * "Kinda Sharp", Short "Sword", Alias "blade".  `wield Sword`, `wield kinda
+ * sharp sword`, `wield zzz`, `wield rack` (Short "Rack", empty alias) and a
+ * bare `wield` all refuse; `wield blade` wields, then "already wielding", then
+ * after a drop "aren't carrying"; 21 lines, 21 turns.  The 4.0 twin has the
+ * same shape, from the decompile only.
  */
 static scr_bool
 lib_wield_names_object (scr_gameref_t game, scr_int object,
@@ -198,9 +199,10 @@ lib_cmd_kiss_npc (scr_gameref_t game)
    * Pre-4.0 has no present-character kiss: 3.9's characters() arm names the
    * FIRST character the line names, here or not, and 3.7/3.8 have no arm at
    * all, leaving therest's "I'm not sure it would appreciate that." (run380
-   * 4451EC; `kiss dave`, run370x Adrift_194, run380x Adrift_195).  Both are
-   * lib_cmd_kiss_other()'s; `kiss guard` with Ann and Bob here is Ann's
-   * "she" at 3.9 (run390x Adrift_193_pnpcamb39).
+   * 4451EC; `kiss dave`, run370x runner_probes/npcamb.run370.one.rtf, run380x
+   * runner_probes/npcamb.run380.one.rtf).  Both are lib_cmd_kiss_other()'s;
+   * `kiss guard` with Ann and Bob here is Ann's "she" at 3.9 (run390x
+   * runner_probes/npcamb.run390.txt).
    */
   if (!lib_is_version_400 (game))
     return FALSE;
@@ -259,9 +261,9 @@ lib_cmd_kiss_object (scr_gameref_t game)
  * it overwrites an empty buffer, or therest's "I'm not sure it would
  * appreciate that.", with "I'm not sure " & <gender pronoun> & " would
  * appreciate that!" (run400 47F7E2-47F83A, run390 45970A).  Measured on
- * the_pk_girl under run400x (Adrift_1157 pkgsite, turns 288 and 398): `kiss
- * katryn` with Katryn elsewhere answers "I'm not sure she would appreciate
- * that!".  3.9 is from the decompile alone.
+ * the_pk_girl under run400x (runner_probes/thepkgirl.run400.site.txt, turns
+ * 288 and 398): `kiss katryn` with Katryn elsewhere answers "I'm not sure she
+ * would appreciate that!".  3.9 is from the decompile alone.
  */
 static scr_bool
 lib_kiss_named_npc (scr_gameref_t game)
@@ -395,12 +397,15 @@ lib_cmd_buy_absent (scr_gameref_t game)
  * therest arm -- `break rock with gem`, the gem present and not held, is
  * "<You> don't have the gem." in all four Runners -- but writes no " with
  * <X>" suffix of its own once the instrument is held: the answer is then
- * the plain "<You> might need the rock." (p*WITHPFX, Adrift_222_ws370 /
- * 223_ws380 / 224_ws390 / 225_ws400, cmdfile_pwithpfx4.txt, 2026-09-20).
- * Below 3.90 the arm ends in an exclamation mark, with or without an
- * instrument: run370/run380 answer a bare `break rock` "You might need the
- * rock!" where run390/run400 use a full stop (cmdfile_pwithpfx8.txt,
- * Adrift_224_wx370 .. 227_wx400).
+ * the plain "<You> might need the rock." (p*WITHPFX,
+ * harness/make_withprefixprobe.py; runner_probes/withpfx.run370.pfx4.rtf /
+ * runner_probes/withpfx.run380.ws.rtf / runner_probes/withpfx.run390.ws.txt /
+ * runner_probes/withpfx.run400.ws.txt, 2026-09-20).  Below 3.90 the arm ends
+ * in an exclamation mark, with or without an instrument: run370/run380 answer
+ * a bare `break rock` "You might need the rock!" where run390/run400 use a
+ * full stop (harness/make_withprefixprobe.py;
+ * runner_probes/withpfx.run370.wx.rtf, runner_probes/withpfx.run380.wx.rtf,
+ * runner_probes/withpfx.run390.wx.txt, runner_probes/withpfx.run400.wx.txt).
  */
 scr_bool
 lib_cmd_break_object (scr_gameref_t game)
@@ -467,9 +472,9 @@ lib_cmd_break_absent (scr_gameref_t game)
  * lib_cmd_turn_absent()
  *
  * The `turn` arm of the same therest() clause.  hcw (4.00,
- * Adrift_1055_hcw.txt turn 81) types `turn on intercom` at the park gates
- * with the limousine's intercom seen but elsewhere and gets "You can't see
- * the intercom." -- not turn_other's "You can't turn that.", which run400
+ * runner_probes/hcw.run400.txt turn 81) types `turn on intercom` at the park
+ * gates with the limousine's intercom seen but elsewhere and gets "You can't
+ * see the intercom." -- not turn_other's "You can't turn that.", which run400
  * composes only below the clause, at 489255-489367.
  */
 scr_bool
@@ -484,8 +489,8 @@ lib_cmd_turn_absent (scr_gameref_t game)
  * The same therest() clause for verbs whose own rows take no %object% the
  * clause could read back: the candidates are every object the typed line
  * names anywhere, scored as Proc_21_58_463640 scores them, not just what a
- * pattern bound.  Measured on warlord (4.00, Adrift_141_warlord.txt, xoshiro
- * seed 33):
+ * pattern bound.  Measured on warlord (4.00,
+ * runner_probes/warlord.run400.seed33.txt, xoshiro seed 33):
  *
  *     push barrel           the barrel rolled away    You can't see the barrel.
  *     stand on platform     raised platform elsewhere You can't see the raised
@@ -605,7 +610,7 @@ lib_cmd_eat_object (scr_gameref_t game)
    * an edible one gets the held test, whose refusal ends in "!" (run400
    * 4888AF/488921/488993, run390 45D52E, run380 443D8B, run370 43D332).
    * p4WTIE `eat red stone`, the stone on the floor: "You can't eat the red
-   * stone." (run400 Adrift_it1, 2026-09-21).
+   * stone." (run400 runner_probes/wtie.run400.it1.txt, 2026-09-21).
    */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;

@@ -1,0 +1,36 @@
+
+> give hat
+(to Nobody)
+Which hat.  The red hat or the blue hat?
+
+> read hat
+Which hat.  The red hat or the blue hat?
+
+> put coin in box
+Which box.  The red box or the blue box?
+
+> put hat in red box
+You put the red hat inside the red box.
+
+> put coin in red box
+You put the coin inside the red box.
+
+> eat hat
+Which hat.  The red hat or the blue hat?
+
+> push hat
+Which hat.  The red hat or the blue hat?
+
+> look
+Lit Room
+A bright room.  Also here is a stone, a blue hat, a red box and a blue box.  You can only move north.
+
+> read box
+Which box.  The red box or the blue box?
+
+> give coin
+(to Nobody)
+You don't have the coin!
+
+> probe
+PROBE OK.

@@ -1,0 +1,136 @@
+
+> i
+You are carrying a hat.
+
+> wear zzz
+Wear what?
+
+> hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> remove zzz
+Remove what?
+
+> hat
+You remove the hat.
+
+> i
+You are carrying a hat.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> drop zzz
+Drop what?
+
+> hat
+You drop the hat.
+
+> i
+You are carrying nothing.
+
+> look
+Probe Room
+LONG.  Also here is a hat and a stone.
+
+> take zzz
+Take what?
+
+> hat
+You pick up the hat.
+
+> i
+You are carrying a hat.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> wear
+Wear what?
+
+> hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> remove
+Remove what?
+
+> hat
+You remove the hat.
+
+> i
+You are carrying a hat.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> drop
+Drop what?
+
+> hat
+You drop the hat.
+
+> i
+You are carrying nothing.
+
+> look
+Probe Room
+LONG.  Also here is a hat and a stone.
+
+> take
+Take what?
+
+> hat
+You pick up the hat.
+
+> i
+You are carrying a hat.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> wear zzz
+Wear what?
+
+> wield zzz
+Wear what?
+
+> hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> drop zzz
+Drop what?
+
+> look
+Probe Room
+LONG.  Also here is a stone.
+
+> hat
+I don't understand what you want me to do with the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.

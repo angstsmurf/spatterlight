@@ -1,0 +1,27 @@
+
+> probe
+PROBE OK.
+
+> put stone in bag
+You put the stone inside the bag.
+
+> put lamp in bag
+The lamp can't fit inside the bag at the moment.
+
+> put pebble in bag
+The pebble can't fit inside the bag at the moment.
+
+> put gem in bag
+The gem can't fit inside the bag at the moment.
+
+> put ring in bag
+The ring can't fit inside the bag at the moment.
+
+> put coin in bag
+T6 FAIL.
+
+> i
+You are carrying a coin, a lamp, a box, a tray, a pebble, a bag, a gem and a ring.  A stone is inside the bag.
+
+> probe
+PROBE OK.

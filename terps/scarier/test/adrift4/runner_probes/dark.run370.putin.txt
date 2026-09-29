@@ -1,0 +1,67 @@
+Probe 37DARK
+A synthetic 3.7 darkness probe.
+
+probe
+PROBE OK.
+
+take torch
+You pick up an torch.
+
+n
+You move north.
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+take box
+You pick up the box.
+
+put coin in box
+You can't see that.
+
+x box
+A wooden box.  The box is open.  Inside the box is a coin.
+
+put coin in box
+You can't see that.
+
+get coin from box
+You get a coin from the box.
+
+put coin in box
+You put the coin inside the box.
+
+put coin in box
+You can't see that.
+
+put coin in coin
+You can't do that!
+
+put box in box
+You can't do that!
+
+put stone in stone
+You can't do that!
+
+put coin in stone
+You can't put anything inside the stone.
+
+put stone in box
+You put the stone inside the box.
+
+close box
+You close the box.
+
+put coin in box
+You can't put anything inside the box as it is closed!
+
+open box
+You open the box.
+
+drop box
+You drop the box.
+
+put coin in box
+You are not holding a box.
+
+put coin in me
+You can't do that!
+

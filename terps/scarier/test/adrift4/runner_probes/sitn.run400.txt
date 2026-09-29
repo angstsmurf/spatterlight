@@ -1,0 +1,349 @@
+
+> probe
+PROBE OK.
+
+> x me
+A test subject.
+
+> give coin to bob sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> sit give coin to bob
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> give coin to bob lie
+You lie down on the ground.
+
+> x me
+A test subject.  You are lying down.
+
+> stand
+You stand up.
+
+> ask bob about hat sit
+BOB HAT.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> sit ask bob about hat
+BOB HAT.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> talk to bob sit
+Use the format "ask Bob about [subject]".
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> say hello sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> i sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> sit i
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> inventory sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> n sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> stand
+You stand up.
+
+> sit n
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> stand
+You stand up.
+
+> north sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> stand
+You stand up.
+
+> score sit
+Your score is 0 out of a maximum of 0.  (0%)
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> hint sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> help sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> shit sit
+I really don't think there's any need for language like that!
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> wear hat sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.  You are wearing a hat.
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> stand
+You stand up.
+
+> remove hat sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> stand
+You stand up.
+
+> wear hat lie
+You lie down on the ground.
+
+> x me
+A test subject.  You are lying down.  You are wearing a hat.
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> remove hat
+You remove the hat.
+
+> stand
+You stand up.
+
+> take stool sit
+You take the stool.
+
+> x me
+A test subject.
+
+> i
+You are carrying a coin, a stone, a stool and a hat.
+
+> stand
+You are already standing!
+
+> drop stool sit
+You drop the stool.  
+
+> x me
+A test subject.
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> stand
+You are already standing!
+
+> put coin on stool sit
+You sit down on the stool.
+
+> x me
+A test subject.  You are sitting down on the stool.
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> stand
+You stand up from the stool.
+
+> take coin
+You are already carrying the coin.
+
+> probe
+PROBE OK.
+
+> give coin to bob wait
+Time passes...
+
+> x me
+A test subject.
+
+> ask bob about hat wait
+BOB HAT.
+
+> talk to bob wait
+Use the format "ask Bob about [subject]".
+
+> say hello wait
+Time passes...
+
+> i wait
+Time passes...
+
+> inventory wait
+Time passes...
+
+> n wait
+Time passes...
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> sit wait
+You sit down on the ground.
+
+> stand
+You stand up.
+
+> score wait
+Your score is 0 out of a maximum of 0.  (0%)
+
+> hint wait
+Time passes...
+
+> help wait
+Time passes...
+
+> shit wait
+I really don't think there's any need for language like that!
+
+> wear hat wait
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> remove hat wait
+You remove the hat.
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> take stool wait
+You take the stool.
+
+> i
+You are carrying a coin, a stone, a stool and a hat.
+
+> drop stool wait
+You drop the stool.  
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> put coin on stool wait
+You can't put anything onto the stool!
+
+> i
+You are carrying a coin, a stone and a hat.
+
+> take coin
+You are already carrying the coin.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

@@ -1,0 +1,216 @@
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0 MS Sans Serif;}}
+{\colortbl;\red255\green50\blue50;\red0\green255\blue0;}
+{\*\generator Wine Riched20 2.0;}
+\pard\sl-240\slmult1 \cf1\lang1033\fs24\f0 Probe 37EXAM\par
+\cf2 A synthetic 3.7 examine-refusal probe.\par
+\cf1 \par
+x stone\par
+\cf2 Nothing special.\par
+\cf1 \par
+x crate\par
+\cf2   The crate is open.  Inside the crate is a coin.\par
+\cf1 \par
+x coin\par
+\cf2 A gold coin.\par
+\cf1 \par
+x zzzz\par
+\cf2 Nothing special.\par
+\cf1 \par
+x me\par
+\cf2 You are as well as can be expected, considering the circumstances.\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+Another bare room.  Also here is a statue.  You can only move south.\par
+\cf1 \par
+x statue\par
+\cf2 A marble statue.\par
+\cf1 \par
+s\par
+\cf2 You move south.\par
+A bare room.  Also here is a stone and a crate.  You can move north and east.\par
+\cf1 \par
+x statue\par
+\cf2 You can't see a statue from here!\par
+\cf1 \par
+open statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+close statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+x statues\par
+\cf2 Nothing special.\par
+\cf1 \par
+x door\par
+\cf2 Nothing special.\par
+\cf1 \par
+open door\par
+\cf2 You can't open that.\par
+\cf1 \par
+take door\par
+\cf2 Take what?\par
+\cf1 \par
+open\par
+\cf2 You can't open that.\par
+\cf1 \par
+close\par
+\cf2 You can't close that.\par
+\cf1 \par
+take\par
+\cf2 Take what?\par
+\cf1 \par
+drop\par
+\cf2 Drop what?\par
+\cf1 \par
+read stone\par
+\cf2 You can't read the stone!\par
+\cf1 \par
+read coin\par
+\cf2 You can't read the coin!\par
+\cf1 \par
+read zzzz\par
+\cf2 Nothing special.\par
+\cf1 \par
+buy statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+get off\par
+\cf2 Take what?\par
+\cf1 \par
+x all\par
+\cf2 Please examine one object at a time.\par
+\cf1 \par
+probe\par
+\cf2 PROBE OK.\par
+\cf1 \par
+e\par
+\cf2 You move east.\par
+  You can only move west.\par
+\cf1 \par
+look\par
+\cf2   You can only move west.\par
+\cf1 \par
+w\par
+\cf2 You move west.\par
+A bare room.  Also here is a stone and a crate.  You can move north and east.\par
+\cf1 \par
+e\par
+\cf2 You move east.\par
+  You can only move west.\par
+\cf1 \par
+open\par
+\cf2 You can't open that.\par
+\cf1 \par
+close\par
+\cf2 You can't close that.\par
+\cf1 \par
+take\par
+\cf2 Take what?\par
+\cf1 \par
+drop\par
+\cf2 Drop what?\par
+\cf1 \par
+open door\par
+\cf2 You can't open that.\par
+\cf1 \par
+w\par
+\cf2 You move west.\par
+A bare room.  Also here is a stone and a crate.  You can move north and east.\par
+\cf1 \par
+open stone\par
+\cf2 You can't open the stone.\par
+\cf1 \par
+close stone\par
+\cf2 You can't close the stone.\par
+\cf1 \par
+open crate\par
+\cf2 The crate is already open!\par
+\cf1 \par
+close crate\par
+\cf2 You close the crate.\par
+\cf1 \par
+x crate\par
+\cf2   The crate is closed.\par
+\cf1 \par
+open crate\par
+\cf2 You open the crate.\par
+\cf1 \par
+take stone\par
+\cf2 You pick up the stone.\par
+\cf1 \par
+i\par
+\cf2 You are carrying a stone.\par
+\cf1 \par
+x stone\par
+\cf2 Nothing special.\par
+\cf1 \par
+read stone\par
+\cf2 You can't read the stone!\par
+\cf1 \par
+drop stone\par
+\cf2 You drop the stone.\par
+\cf1 \par
+take statue\par
+\cf2 You can't see a statue from here!\par
+\cf1 \par
+drop statue\par
+\cf2 You don't have a statue!\par
+\cf1 \par
+drop stone\par
+\cf2 You don't have a stone!\par
+\cf1 \par
+drop coin\par
+\cf2 You don't have a coin!\par
+\cf1 \par
+wear statue\par
+\cf2 You are not holding a statue.\par
+\cf1 \par
+wear stone\par
+\cf2 You are not holding a stone.\par
+\cf1 \par
+put stone in statue\par
+\cf2 You can't put anything inside the statue.\par
+\cf1 \par
+put stone on crate\par
+\cf2 You are not holding a crate.\par
+\cf1 \par
+put coin in stone\par
+\cf2 You can't put anything inside the stone.\par
+\cf1 \par
+put stone in crate\par
+\cf2 You are not holding a crate.\par
+\cf1 \par
+take stone\par
+\cf2 You pick up the stone.\par
+\cf1 \par
+e\par
+\cf2 You move east.\par
+  You can only move west.\par
+\cf1 \par
+take coin\par
+\cf2 You can't see a coin from here!\par
+\cf1 \par
+take stone\par
+\cf2 You've already got a stone!\par
+\cf1 \par
+x coin\par
+\cf2 You can't see a coin from here!\par
+\cf1 \par
+drop crate\par
+\cf2 You don't have a crate!\par
+\cf1 \par
+wear crate\par
+\cf2 You are not holding a crate.\par
+\cf1 \par
+put coin on statue\par
+\cf2 You can't put anything on the statue.\par
+\cf1 \par
+w\par
+\cf2 You move west.\par
+A bare room.  Also here is a crate.  You can move north and east.\par
+\cf1 \par
+probe\par
+\cf2 PROBE OK.\par
+\cf0\fs17 \par
+}

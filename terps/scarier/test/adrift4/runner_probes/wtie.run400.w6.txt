@@ -1,0 +1,53 @@
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x stone knife
+Which stone.  The knife, the red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut stone knife
+You can't cut that.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut stone with knife
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut knife with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x stone with knife
+Which stone.  The knife, the red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> take stone with knife
+Which stone.  The red stone or the blue stone?  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> open box knife
+You can't open that.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.

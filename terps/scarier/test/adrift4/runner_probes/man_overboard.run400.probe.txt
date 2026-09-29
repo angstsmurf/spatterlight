@@ -1,0 +1,33 @@
+
+> x poster
+Shiver me timbers! The lovely Kelly Brook in all her glory (well, without many clothes on). You wipe away the drool from your mouth and vow to leave behind these distractions.
+
+> take poster
+As much as you would like to take the poster, and have Kelly Brook accompany you on your quest, you cannot pull the poster from the blu-tac, and anyway, Kelly looks quite happy where she is.
+
+> get poster
+As much as you would like to take the poster, and have Kelly Brook accompany you on your quest, you cannot pull the poster from the blu-tac, and anyway, Kelly looks quite happy where she is.
+
+> pick up poster
+As much as you would like to take the poster, and have Kelly Brook accompany you on your quest, you cannot pull the poster from the blu-tac, and anyway, Kelly looks quite happy where she is.
+
+> take the poster
+As much as you would like to take the poster, and have Kelly Brook accompany you on your quest, you cannot pull the poster from the blu-tac, and anyway, Kelly looks quite happy where she is.
+
+> grab poster
+I don't understand what you want me to do with the kelly brook poster.
+
+> take kelly
+As much as you would like to take the poster, and have Kelly Brook accompany you on your quest, you cannot pull the poster from the blu-tac, and anyway, Kelly looks quite happy where she is.
+
+> take blu-tac
+If you took the blu-tac, your Kelly Brook poster would have to live on the floor, and that is no place for a lady.
+
+> x bed
+An uncomfy well worn bed that could do with a change.
+
+> take bed
+Even you, stupid as you are, would not attempt to carry a bed around with you all day. Well, maybe you are that stupid, but you just aren't damn strong enough to lift it.
+
+> get bed
+Even you, stupid as you are, would not attempt to carry a bed around with you all day. Well, maybe you are that stupid, but you just aren't damn strong enough to lift it.

@@ -1,0 +1,36 @@
+
+> shoot gargoyle #1
+What do you want to attack Gargoyle #1 with?
+
+> sword
+Player can't shoot with the sword!
+
+> turns
+You have taken 1 turns so far.
+
+> kick gargoyle #2
+What do you want to attack Gargoyle #2 with?
+
+> sword
+Player chop Gargoyle #2 with the sword.
+
+> turns
+You have taken 2 turns so far.
+
+> kill gargoyle #3
+Player chop Gargoyle #3 with the sword.
+
+> sword
+I don't understand what you want me to do with the sword.
+
+> turns
+You have taken 3 turns so far.
+
+> attack gargoyle #1
+Player chop Gargoyle #1 with the sword.
+
+> blaster
+I don't understand what you want me to do with the blaster.
+
+> turns
+You have taken 4 turns so far.

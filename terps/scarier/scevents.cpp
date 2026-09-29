@@ -255,11 +255,11 @@ evt_any_task_in_state (scr_gameref_t game, scr_bool state)
  * found them.  Gating on gs_playerroom() there spliced the room the player
  * was *leaving* into the description of the room they were being shown.
  *
- * Measured 2026-08-25 on goldilocks.taf, run400, Adrift_1_goldilocks.txt,
- * turn 243: the escape from the flooding cellar shows the hall, and the
- * Runner prints no porridge line with it, because event 4 [Cellar fills with
- * porridge] lists rooms 11-13 (cellar, dark passage, dungeon) and the hall is
- * room 1.  Scarier printed it.
+ * Measured 2026-08-25 on goldilocks.taf, run400,
+ * runner_probes/goldilocks.run400.txt, turn 243: the escape from the flooding
+ * cellar shows the hall, and the Runner prints no porridge line with it,
+ * because event 4 [Cellar fills with porridge] lists rooms 11-13 (cellar,
+ * dark passage, dungeon) and the hall is room 1.  Scarier printed it.
  *
  * The tick paths keep the player's room, which is what they are asking about.
  */
@@ -431,11 +431,11 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * checkevent 448EB8) writes the location (22), the static room-presence
        * array (24) and the parent (42), and simply falls off the end -- no
        * player-room compare, no write to the 3.9 seen byte (44) on any
-       * branch.  Measured live on cleft.taf (3.90, Adrift_3_cleft.txt): the
-       * klaxon event ends with the player standing in the Loading bay it
-       * delivers the packing case to, and the very next commands get
-       * "You can't open that." / "Take what?" -- the case stays
-       * unreferenceable until something lists it.
+       * branch.  Measured live on cleft.taf (3.90,
+       * runner_probes/cleft.run390.txt): the klaxon event ends with the
+       * player standing in the Loading bay it delivers the packing case to,
+       * and the very next commands get "You can't open that." / "Take what?"
+       * -- the case stays unreferenceable until something lists it.
        */
       if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
           && gs_object_position (game, object) == gs_playerroom (game) + 1)
@@ -491,14 +491,15 @@ evt_taf_version (scr_gameref_t game)
  * (runner_transcripts/haunt.rtf).
  *
  * Measured at 4.0 on the ALR source probe (p4ALRSRC, run400,
- * Adrift_10/11_p4src.txt): `xray` -- a task with CompleteText "X." starting
- * an event whose StartText is "EV ball." -- is "X.  EV qball." on one line,
- * while the FinishText two `wait`s later is "Time passes..." / "FIN qball."
- * on two.  Below 4.0 the corpus says it, troll (3.90) most plainly: its three
- * hunger/thirst events print onto the turn's line and onto each other,
- * "You move northeast.  ...work of shadows upon the ground.  You feel
- * hungry." and "...Your stomach growls. Your throat is sore." on one line
- * each (runner_transcripts/troll.txt), where we broke before every one.
+ * runner_probes/alrsrc.run400.txt and runner_probes/alrsrc.run400.b.txt):
+ * `xray` -- a task with CompleteText "X." starting an event whose StartText
+ * is "EV ball." -- is "X.  EV qball." on one line, while the FinishText two
+ * `wait`s later is "Time passes..." / "FIN qball." on two.  Below 4.0 the
+ * corpus says it, troll (3.90) most plainly: its three hunger/thirst events
+ * print onto the turn's line and onto each other, "You move northeast.
+ * ...work of shadows upon the ground.  You feel hungry." and "...Your stomach
+ * growls. Your throat is sore." on one line each
+ * (runner_transcripts/troll.txt), where we broke before every one.
  */
 static void
 evt_buffer_text (scr_gameref_t game, const scr_char *text)
@@ -787,9 +788,10 @@ evt_finish_affected_task (scr_gameref_t game, scr_int event)
    * "Movimiento Barcelona-Museo" (event 2) finishes on the first
    * `esperar` outside the airport, runs the arrival task, and "Mordedura
    * Taxista" (event 1, started by that task) prints its StartText in the
-   * SAME turn (Adrift_1_vardock_bates.txt, twice).  Without this loop
-   * Scarier printed it a turn later.  Events of a higher index need no
-   * help: the pass reaches them after the task has completed.
+   * SAME turn (runner_probes/vardock_bates.run400.t1.txt, twice).
+   * Without this loop Scarier printed it a turn later.  Events of a
+   * higher index need no help: the pass reaches them after the task has
+   * completed.
    */
   for (other = 0; other < event; other++)
     {
@@ -842,20 +844,22 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
    * starter, so for these two they are 0 and the clock is 0; the waiting
    * block (46FD26) decrements BEFORE it tests for zero, so the clock goes to
    * -1 and the event never starts again.  Probed live 2026-09-19 in run400
-   * (probe EVRS, make_arena_probe.py, Adrift_1196.txt): R2 (RestartType 2,
-   * immediate starter, length 2) printed "R2 FINISH." on the first wait and
-   * nothing afterwards -- no StartText, no LookText in the final `look` --
-   * where the control R1 (RestartType 1) printed "R1 FINISH.  R1 START."
-   * every three turns.  Scarier used to re-arm R2 every two turns.  The Rnd
-   * is still consumed, so draw it here to keep the stream cadence.
+   * (probe EVRS, make_arena_probe.py, runner_probes/evrs.run400.txt): R2
+   * (RestartType 2, immediate starter, length 2) printed "R2 FINISH." on the
+   * first wait and nothing afterwards -- no StartText, no LookText in the
+   * final `look` -- where the control R1 (RestartType 1) printed "R1 FINISH.
+   * R1 START." every three turns.  Scarier used to re-arm R2 every two
+   * turns.  The Rnd is still consumed, so draw it here to keep the stream
+   * cadence.
    *
    * Pre-4.0 is the same: run390 448E23-448E7F and run370 43249F-4324F4 set
    * waiting on a StartTime/EndTime roll, and their waiting blocks decrement
    * first too.  Probe pEVROLL event C (immediate starter, RestartType 2, Time
-   * 2; make_39_evrollprobe.py, run390x Adrift_1200, run380x Adrift_1201)
-   * printed "C FINISH." on turn 2 only and no "C LOOK." afterwards.  The
-   * run390 variant d that re-arms with its StartText every time has a
-   * random-delay starter, whose StartTime/EndTime are real.
+   * 2; make_39_evrollprobe.py, run390x runner_probes/evroll.run390.txt,
+   * run380x runner_probes/evroll.run380.rtf) printed "C FINISH." on turn 2
+   * only and no "C LOOK." afterwards.  The run390 variant d that re-arms with
+   * its StartText every time has a random-delay starter, whose
+   * StartTime/EndTime are real.
    *
    * Restart-immediately is deliberately NOT gated: run400 really does start
    * such an event again -- EV5's H1 printed its StartText a second time and
@@ -1296,8 +1300,9 @@ evt_tick_waiting (scr_gameref_t game, scr_int event)
        * room description.  Probed in run400 2026-08-02 on a zero-length
        * event (probe EV4, Del Sol's "physics distraction 3" shape), and
        * 2026-09-19 on a length rolled 0 from Time 0..1 (probe pEVROLL
-       * event B, run390x Adrift_1200, run380x Adrift_1201: "B START."
-       * and no "B FINISH.").
+       * event B, run390x runner_probes/evroll.run390.txt, run380x
+       * runner_probes/evroll.run380.rtf: "B START." and no "B
+       * FINISH.").
        */
     }
 }
@@ -1344,11 +1349,11 @@ evt_tick_running (scr_gameref_t game, scr_int event)
    * run380 (43A135) and run390 (448714) enter their running blocks
    * on the state alone, and tick such an event twice.
    *
-   * "SS Whore" (4.0, Adrift_304_sswhore.txt) pins it: event 12
-   * (Time 1) is started, mid-pass, by an execute-task action inside
-   * event 11's finish, and its own immediate check decrements it to
-   * the roll; the ordered pass then reaches it and must not finish
-   * it a turn early.
+   * "SS Whore" (4.0, runner_probes/sswhore.run400.txt) pins it: event
+   * 12 (Time 1) is started, mid-pass, by an execute-task action inside
+   * event 11's finish, and its own immediate check decrements it to the
+   * roll; the ordered pass then reaches it and must not finish it a
+   * turn early.
    */
   if (evt_taf_version (game) >= TAF_VERSION_400)
     {
@@ -1405,10 +1410,10 @@ evt_tick_running (scr_gameref_t game, scr_int event)
    * Every Runner has this shape: run390 stores the restart roll at
    * 448E05, decrements at 44892B and tests `clock = 0` at 448A6B;
    * run370 43247A / 432068 / 432173 the same.  Probe pEVROLL
-   * (make_39_evrollprobe.py, run390x Adrift_1200_pevroll39.txt, run380x
-   * Adrift_1201_pevroll38.rtf): event A (task starter, RestartType 1,
-   * Time 0..1, so every roll is 0) prints "A FINISH." on the `ping`
-   * turn only, and "A LOOK." shows in every later look.
+   * (make_39_evrollprobe.py, run390x runner_probes/evroll.run390.txt,
+   * run380x runner_probes/evroll.run380.rtf): event A (task starter,
+   * RestartType 1, Time 0..1, so every roll is 0) prints "A FINISH." on
+   * the `ping` turn only, and "A LOOK." shows in every later look.
    */
   if (gs_event_time (game, event) <= 0)
     {
@@ -1461,14 +1466,15 @@ evt_tick_awaiting (scr_gameref_t game, scr_int event)
        * check -- AFTER the ordered pass has already ticked this event
        * this turn, the running block is closed (46FF48, byte 196 is
        * set) and the +1 survives: the event ends one turn later than
-       * its roll.  "Glum Fiddle" pins it (Adrift_1080_Glum_Fiddle.txt,
-       * seed 1234): "Move Glum to Swamp" (event 0, Time 4, started by
-       * task 36) finishes on the third `wait`, is restarted the same
-       * turn by event 5's finish recheck, and the Runner prints "Glum
-       * suddenly turns and heads south" again on the FIFTH turn after
-       * (`take tray`), not the fourth.  Nothing else of the running
-       * block runs either -- no pause test, no notification, no
-       * finish -- so the start is all that happens here.
+       * its roll.  "Glum Fiddle" pins it
+       * (runner_probes/glum_fiddle.run400.txt, seed 1234): "Move Glum
+       * to Swamp" (event 0, Time 4, started by task 36) finishes on the
+       * third `wait`, is restarted the same turn by event 5's finish
+       * recheck, and the Runner prints "Glum suddenly turns and heads
+       * south" again on the FIFTH turn after (`take tray`), not the
+       * fourth.  Nothing else of the running block runs either -- no
+       * pause test, no notification, no finish -- so the start is all
+       * that happens here.
        */
       already_ticked = evt_taf_version (game) >= TAF_VERSION_400
                        && gs_event_ticked (game, event);
@@ -1551,12 +1557,12 @@ evt_tick_awaiting (scr_gameref_t game, scr_int event)
        * the Runner only reaches after its start-turn decrement.
        *
        * Measured in run400 under Wine, Orient_Express.taf, transcript
-       * Adrift_36_orient_express.txt (2026-08-25).  Turn 43 `use
-       * phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
+       * runner_probes/orient_express.run400.txt (2026-08-25).  Turn 43
+       * `use phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
        * PrefTime1 = 2) and the Runner prints its StartText and its
        * PrefText1 on that one turn; the player leaves the event's
-       * single room next turn, so we printed the PrefText1 never.
-       * Turn 46 `give card to habibo' is the same shape with event 3
+       * single room next turn, so we printed the PrefText1 never.  Turn
+       * 46 `give card to habibo' is the same shape with event 3
        * [Driveby Shooting] (PrefTime1 = 3).
        */
       if (evt_can_see_event (game, event))
@@ -1743,7 +1749,8 @@ evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
  * "SS Whore" (4.0) pins it: "Messenger Arrives After Sex" (event 9) and
  * "Oberst Drink Waiting" (event 8) are started by task 137, which only ever
  * runs as an execute-task action of task 261, the TaskAffected of event 12
- * (Adrift_304_sswhore.txt: the knock at the double doors after `wait`).
+ * (runner_probes/sswhore.run400.txt: the knock at the double doors after
+ * `wait`).
  *
  * The Runner skips the loop when execute_action's flag argument is 0, which
  * happens only for the two library-internal dispatches in its take (47C747)

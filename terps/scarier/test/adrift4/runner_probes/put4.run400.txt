@@ -1,0 +1,26 @@
+
+> i
+Player is carrying a pill and a rock.
+
+> zzin1
+PILL NOT IN CUP.
+
+> zzin2
+ROCK NOT IN SLOT.
+
+> put pill in cup
+
+> zzin1
+PILL IN CUP.
+
+> zzput
+PUTPASS.
+
+> put rock in slot
+The rock is too big to fit inside the slot.  PUTBIG.
+
+> zzin2
+ROCK NOT IN SLOT.
+
+> zzbig
+PUTBIG.

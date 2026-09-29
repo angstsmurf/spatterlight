@@ -1,0 +1,137 @@
+
+
+Nope!
+
+
+Nope!
+
+open desk
+You open Your Desk.  Inside Your Desk is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+
+
+Nope!
+
+x desk
+This is your desk, the appitomy of clutter and despair.  Your Desk is open.  Your Coffee Mug and The Memo are on Your Desk, and inside is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your Badge.
+
+
+Nope!
+
+take all from desk
+You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift, Your Badge and The Memo from Your Desk.
+
+
+Nope!
+
+clean desk
+Oh, good for you, Agent Mulder!
+
+
+Nope!
+
+burn memo
+I don't understand what you want me to do with The Memo.
+
+
+Nope!
+
+strip
+You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
+
+
+Nope!
+
+wear holster
+You put on Gun Holster.
+
+
+Nope!
+
+drink coffee
+Gross . . . you drank the half-solidified, week-old coffee.  Just goes to prove that drummers will drink or eat anything for . . .  no reason at all.
+
+
+Nope!
+
+d
+You move down.
+Lobby
+This is the lobby of the J. Edgar Hoover Building.  Video monitors and long benches remain from the days when they used to allow visitors to tour the building.  Several potted plants look like they need tended to.  Do you have your badge?  You might need it to get back in.  You can move east, up and out.
+
+
+Nope!
+
+e
+You move east.
+Parking Garage A
+This is the top level of the official FBI Parking Garage.  Some light filters in from the exits, but much of the area is illuminated by the neon lights that line the ceiling alone.  You usually park on this level when possible.  Unfortunately, you didn't drive today.   A rat scurries across the floor.  You can move west, down and out.
+
+
+Nope!
+
+d
+You move down.
+Parking Garage B
+This is the lower level of the official FBI Parking Garage.  The area is illuminated by the neon lights that line the ceiling alone.  It is somewhat dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a gun on this guy.  Cancer Man awaits you in the shadows.  You can only move up.
+
+
+Nope!
+
+ask cancerman about 1
+You ask the man, "Who are you?  Who do you work for?"  The man smiles, "I'm a concerned citizen, Agent Mulder.  I assure you that my interests are well placed."
+
+
+Nope!
+
+ask cancerman about 2
+"What can you tell me about my parents?"  Cancerman's chuckle comes out like a cough.  "They were romantic patriots . . . who payed the price for their curiosity."
+
+
+Nope!
+
+ask cancerman about 3
+"Are they dead?"  Cancerman coughs again.  "Young Mulder, if your parents were dead, you would be, too."
+
+
+Nope!
+
+take case file
+You take the case file from Cancer Man.  "Everything you need to find them can be found in the information in this file.  I'll be in touch again . . . Trust No One, Agent Mulder."  
+Parking Garage B
+This is the lower level of the official FBI Parking Garage.  The area is illuminated by the neon lights that line the ceiling alone.  It is somewhat dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a gun on this guy.  Cancer Man awaits you in the shadows.  You can move west and up.  Cancerman has receded into the shadows and is watching you.  Cancerman leaves.
+
+
+Nope!
+
+x Case File 10193
+This is the Bellefleur Case File, detailing your parents' first case together in 1993.  There are two reports, one submitted by each of your parents.  As you read them, you inwardly smile at the ironic tones each takes to one another.  The second report here is by Agent Scully detailing Agent Mulder's disappearance in May of 2000.  The third report details Agent Doggett's search for your mother when she disappeared and his speculation that she could be found in Bellefleur, Oregon.  Case File 10193 is open.  The Warehouse Key is inside Case File 10193.
+
+
+Nope!
+
+take warehouse key
+You take The Warehouse Key from Case File 10193.
+
+
+Nope!
+
+examine warehouse key
+This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"  Completing further research, you find directions to the site.
+
+
+Nope!
+
+u
+You move up.
+Parking Garage A
+This is the top level of the official FBI Parking Garage.  Some light filters in from the exits, but much of the area is illuminated by the neon lights that line the ceiling alone.  You usually park on this level when possible.  Unfortunately, you didn't drive today.  You scan the shadows but see no one.  You can move west, down and out.
+
+
+Nope!
+
+look
+Parking Garage A
+This is the top level of the official FBI Parking Garage.  Some light filters in from the exits, but much of the area is illuminated by the neon lights that line the ceiling alone.  You usually park on this level when possible.  Unfortunately, you didn't drive today.  You scan the shadows but see no one.  You can move west, down and out.
+
+
+Nope!

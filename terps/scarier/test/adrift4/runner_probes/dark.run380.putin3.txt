@@ -1,0 +1,60 @@
+Probe 38DARK
+A synthetic 3.8 darkness probe.
+
+probe
+PROBE OK.
+
+take torch
+You pick up an torch.
+
+n
+You move north.
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+x box
+A wooden box.  The box is open.  Inside the box is a coin.
+
+x stone
+A grey stone.
+
+s
+You move south.
+A bright room.  You can only move north.
+
+put lamp in box
+You are not holding a box.
+
+put stone in lamp
+You can't put anything inside the lamp.
+
+put stone in box
+You are not holding a box.
+
+n
+You move north.
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+put coin in torch
+You can't put anything inside an torch.
+
+take coin
+You are not holding a box.
+
+put coin in torch
+You can't put anything inside an torch.
+
+put torch in coin
+You can't put anything inside the coin.
+
+put all in box
+You are not holding a box.
+
+put all in stone
+You can't put anything inside the stone.
+
+drop all
+You drop an torch and the lamp.
+
+put all in box
+You are not holding a box.
+

@@ -1,0 +1,52 @@
+
+> e
+You move east.
+Bravo
+The second room.  You can only move west.  TICK.
+
+> x hat and coin
+You see no such thing.
+
+> get hat and coin
+There is nothing worth taking here.  TICK.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin, a hat and the large red ball.  You can only move east.  TICK.
+
+> x coin and hat and box
+A plain thing.  TICK.
+
+> x coin and hat and zzz
+A plain thing.  TICK.
+NO IDEA.
+
+> get coin
+You take the coin.  TICK.
+
+> put coin in box and hat in desk and hat in box
+(Taking the hat first)
+The coin is too big to fit inside the box.You can't put anything inside the desk!  The hat is too big to fit inside the box.  TICK.
+
+> i
+You are carrying a coin and a hat.  TICK.
+
+> x coin and box, x hat
+A plain thing.  TICK.
+A plain thing.  TICK.
+
+> drop coin and hat, x box
+You drop the coin and the hat.  TICK.
+A plain thing.  TICK.
+
+> i
+You are carrying nothing.  TICK.
+
+> put coin in box and put hat in desk
+(Taking the coin first)
+The coin is too big to fit inside the box.  TICK.
+You can't put anything inside the desk!  TICK.
+
+> i
+You are carrying a coin.  TICK.

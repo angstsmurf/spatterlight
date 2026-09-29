@@ -1,0 +1,22 @@
+
+e
+You move east.
+Bravo
+The second room.  ALRKILL.
+
+w
+You move west.
+Alpha
+The first room.  You can only move east.  Bob wanders in from the east.
+
+j16
+ALRJOIN.
+
+w
+You move west.
+Alpha
+The first room.  You can only move east.  Bob wanders in from the east.
+
+look
+Alpha
+The first room.  Bob is here.  You can only move east.

@@ -1,0 +1,79 @@
+
+> i
+You are carrying a pair of goggles.
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> wear zzz
+Wear what?
+
+> goggles
+You put on the pair of goggles.
+
+> remove zzz
+Remove what?
+
+> goggles
+You remove the pair of goggles.
+
+> drop zzz
+Drop what?
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> take zzz
+Take what?
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> i
+You are carrying a pair of goggles.
+
+> drop zzz
+Drop what?
+
+> look
+Stairwell
+This is a stairwell. Like many stairwells it has stairs. They go down and down only.
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> take zzz
+Take what?
+
+> take zzz
+Take what?
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> wear zzz
+Wear what?
+
+> wield zzz
+Wear what?
+
+> goggles
+You put on the pair of goggles.
+
+> i
+You are wearing a pair of goggles, and you are carrying nothing.
+
+> remove zzz
+Remove what?
+
+> i
+You are wearing a pair of goggles, and you are carrying nothing.
+
+> wield zzz
+Huh? What? Reexplainicate your self.
+
+> goggles
+I don't understand what you want me to do with the pair of goggles.
+
+> i
+You are wearing a pair of goggles, and you are carrying nothing.

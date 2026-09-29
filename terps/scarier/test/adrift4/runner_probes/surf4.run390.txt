@@ -1,0 +1,31 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You pick up the torch.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.
+
+> take table
+You pick up the table.
+
+> s
+You move south.
+Lit Room
+A bright room.  You can only move north.
+
+> put all on table
+You put the torch and the lamp onto the table.
+
+> put all on table
+You have nothing to put onto the table.
+
+> put coin on table
+You can't do that!
+
+> probe
+PROBE OK.

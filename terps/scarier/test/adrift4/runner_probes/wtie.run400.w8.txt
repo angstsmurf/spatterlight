@@ -1,0 +1,48 @@
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> chop zzz with stone
+NO IDEA.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut stone with knife
+Which stone.  The red stone or the blue stone?
+
+> cut stone with knife
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> chop stone
+Which stone.  The red stone or the blue stone?
+
+> chop stone
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with stone
+Which stone.  The red stone or the blue stone?
+
+> red stone
+You don't have the red stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x box with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.

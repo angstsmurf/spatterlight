@@ -1,0 +1,161 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zap
+ZAP [0] [zero].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork 5 apples
+NUM1 [5] [five].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zap
+ZAP [5] [five].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork 12 apples
+NUM1 [12] [twelve].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork five apples
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork 007 apples
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork 3x apples
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork -5 apples
+NUM1 [-5] [-5].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zap
+ZAP [-5] [-5].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork 5 apples now
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zork apples 5
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zog 7 blip
+NUM2 [7].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> blip 7 zog
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zog blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> blip 9 zog 3 blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> frob five
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> frob 5
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb 0
+NUM3 [0].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb 20
+NUM3 [20].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb 5 blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zap
+ZAP [5] [five].
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.

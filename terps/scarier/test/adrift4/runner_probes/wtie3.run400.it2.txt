@@ -1,0 +1,443 @@
+
+> cut rope with red stone gems
+You don't have the red stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with gems red stone
+You don't have the red stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with red stone knife
+You don't have the red stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with stone knife
+NO IDEA.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(stone)
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with gems
+NO IDEA.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(emerald)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with stone gems
+Which stone.  The red stone, the blue stone, the ruby or the emerald?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(emerald)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x rope with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the rope)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x rope with red stone gems
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(a red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut red stone with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(a red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> push rope with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(stone)
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> open box with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(a knife)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> zzz stone red
+I don't understand what you want me to do with the red stone.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut stone red
+You can't cut the red stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x stone red
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(a red stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x blue stone red stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(stone)
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with blue stone ruby
+You don't have the blue stone.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the blue stone)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> zzz rope with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(stone)
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x gems
+Which gems.  The ruby or the emerald?
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(an emerald)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut gems with stone
+NO IDEA.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(emerald)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> cut rope with red
+I don't understand what you want me to do with the rope.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x it
+(the rope)
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> x knife
+A plain thing.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> turns
+You have taken 103 turns so far.

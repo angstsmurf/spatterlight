@@ -1,0 +1,32 @@
+
+> restore
+Loading game... done.
+
+The Cell - The sunset of a soul...
+A dirty, little, square cell.  The sun is going down. Light is feeble now and shadows longer.  In the southern corner there's a mouse crack.  In the eastern wall there's a two-barred window.  A straw bundle for sleeping in one corner.  In the western wall there's a door.  On the floor, near the door, there's a little bowl.  A little mouse is here.
+
+> put bowl near spyhole
+Where do you want to put the spyhole?
+
+> eat soup
+No more soup...  
+
+"Supper! C'mon guys, supper!"  
+The spyhole is open.
+"Hey You! Pi**e of *h*t! Put that bowl near the spyhole!"
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+A little mouse exits. It's maybe back in its hole..  
+
+The spyhole closes...
+
+> wait
+Time passes...
+
+> look
+The Cell - The sunset of a soul...
+A dirty, little, square cell.  The sun is going down. Light is feeble now and shadows longer.  In the southern corner there's a mouse crack.  In the eastern wall there's a two-barred window.  A straw bundle for sleeping in one corner.  In the western wall there's a door.  On the floor, near the door, there's a little bowl.

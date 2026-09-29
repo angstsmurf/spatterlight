@@ -252,7 +252,7 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
              * objects(ns(Obj)).global_22 raw -- `<> 0` for "isn't holding",
              * `= 0` for "is holding" -- and never walks a container, and
              * run380 43C708 / run370 434E95 are the same code.  Measured in
-             * run390 on Govard (Adrift_282_govard_rt.txt): the Ruins' alt
+             * run390 on Govard (runner_transcripts/govard.txt): the Ruins' alt
              * "...на юго-востоке - Хибара." (room 11, Obj 15 the knife,
              * TypeHideObjects 10) fires while the knife is carried directly
              * and stops the moment it is put in the worn belt, and the
@@ -350,10 +350,11 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
  *     viewroom acts on -- the condition AND HideObjects.  Every message site
  *     below wants this one.
  *
- * Measured: p39DARK.taf (3.90) under run390, Adrift_967.txt and
- * Adrift_968.txt -- a Dark Cave whose alt fires while the torch is not held,
- * "Hide objects" ticked.  Also ALEXIS.TAF (3.90), Adrift_486_alexis_worn_cube
- * .txt, the Passage in the Caves of eternal night: "It is too dark to see."
+ * Measured: p39DARK.taf (3.90) under run390,
+ * runner_probes/dark.run390.unseen.txt and runner_probes/dark.run390.seen.txt
+ * -- a Dark Cave whose alt fires while the torch is not held, "Hide objects"
+ * ticked.  Also ALEXIS.TAF (3.90), runner_probes/alexis_worn_cube.run390.txt,
+ * the Passage in the Caves of eternal night: "It is too dark to see."
  * and no object list, with `x large stone table` and `x holes in the wall`
  * both "You can't see that very clearly." where a lit room would have said
  * "Nothing special."
@@ -518,8 +519,8 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
    * restarts the description.  togetyou (4.00) `infect cut`: The Ear's alt 0
    * (task 22, method 2, Changed "The Infected Ear") sits below alt 1
    * (method 1, M2 shown), so the Runner heads the room "The Infected Ear"
-   * (Adrift_476_togetyou.txt T16) where the start-point walk below never
-   * reached alt 0 and kept "The Ear".
+   * (runner_transcripts/togetyou.txt T16) where the start-point walk below
+   * never reached alt 0 and kept "The Ear".
    *
    * Pre-4.0 keeps the start-point walk, and it can never be seen to differ:
    * no Runner below 4.0 can change a room's name at all.  "Changed" is a
@@ -675,7 +676,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * default Option Compare Binary, so an author who capitalised the article
  * gets it back untouched -- exactly as an authored "The" already does, there
  * being no "the" test at all.  Measured 2026-09-07 on probe PFX (run400,
- * Adrift_940_pfx.txt), eleven objects one per spelling:
+ * runner_probes/pfx.run400.tense.txt), eleven objects one per spelling:
  *
  *     take alpha    (Prefix "a")      Player take the alpha.
  *     take bravo    (Prefix "A")      Player take A bravo.
@@ -819,9 +820,9 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * `take all from desk` with "... Your Badge and The Memo from Your Desk.",
    * `x desk` with "Your Coffee Mug and The Memo are on Your Desk" and `burn
    * memo` with "I don't understand what you want me to do with The Memo."
-   * (Adrift_22_xfiles.txt, 2026-08-25).  Falling through leaves the prefix in
-   * "normalized", which the tail below prints verbatim, so all this branch
-   * ever did was lower-case the author's capital.
+   * (runner_probes/xfiles.run400.txt, 2026-08-25).  Falling through leaves the
+   * prefix in "normalized", which the tail below prints verbatim, so all this
+   * branch ever did was lower-case the author's capital.
    *
    * 3.9 is bracketed rather than read: the run390 decompilation does not
    * reach its normalizer.  Both neighbours leave "the" alone, and the only
@@ -857,8 +858,9 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * authored whitespace-only prefix, which the loader trims to nothing after
    * declining to substitute an "a" into it -- probe ISARE's single-space
    * rings answers `where rings` with " rings are test arena.", leading space
-   * and no article (run400, Adrift_isare.txt, 2026-09-07).  Scarier
-   * deliberately gives that empty prefix a "the" instead (deviation policy).
+   * and no article (run400, runner_probes/isare.run400.txt, 2026-09-07).
+   * Scarier deliberately gives that empty prefix a "the" instead (deviation
+   * policy).
    */
   result += normalized;
   result += ' ';
@@ -1103,8 +1105,8 @@ lib_is_version_400 (scr_gameref_t game)
  * (45FD4D).  Everything else it answers is an ordinary turn that ticks
  * characters() and events() -- hint, help, clear/cls, time, version, save,
  * restore and undo among them.  Measured on p39ADMIN.taf, whose length-1
- * event prints TICK. after each of those (Adrift_1161_p39admin.txt).  4.0
- * has its own, longer, list.
+ * event prints TICK. after each of those (runner_probes/admin.run390.txt).
+ * 4.0 has its own, longer, list.
  */
 scr_bool
 lib_is_version_390 (scr_gameref_t game)
@@ -1881,7 +1883,8 @@ lib_npc_text_is_default (const scr_char *description)
  * glow shining from the jewel in its hilt", and its InRoomDesc is " ".
  * scr_strempty() trims, so Scarier read that as no description and added
  * "Also here is a Topaz." to a room that had just described the sword
- * (measured in run400 under Wine 2026-09-05, Adrift_46.txt turn 11).
+ * (measured in run400 under Wine 2026-09-05, runner_transcripts/topaz.txt
+ * turn 11).
  */
 scr_bool
 lib_inroomdesc_is_absent (const scr_char *inroomdesc)

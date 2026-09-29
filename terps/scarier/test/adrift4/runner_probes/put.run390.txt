@@ -1,0 +1,106 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a table.  You can only move north.
+
+> close chest
+You close the chest.
+
+> open chest
+You open the chest.  A gem is inside the chest.
+
+> take gem
+You take a gem from the chest.
+
+> i
+You are carrying a coin, a stone, a bag and a gem.  A nut is inside the bag.
+
+> take nut
+You take a nut from the bag.
+
+> i
+You are carrying a coin, a stone, a bag, a nut and a gem.
+
+> put zzz in statue
+You can't do that!
+
+> put zzz in coin
+You can't do that!
+
+> put zzz in chest
+You can't do that!
+
+> close chest
+You close the chest.
+
+> put zzz in chest
+You can't do that!
+
+> put coin in chest
+You can't put anything inside the chest as it is closed!
+
+> put coin in cupboard
+You put the coin inside the cupboard.
+
+> look
+Lit Room
+A bright room.  Also here is a table.  You can only move north.
+
+> take coin
+You take a coin from the cupboard.
+
+> put coin in statue
+You can't put anything inside the statue.
+
+> put all in zzz
+You can't put anything inside that!
+
+> put all on zzz
+You can't put anything onto that!
+
+> put all except stone in cupboard
+You put the coin, the stone, the bag, the nut, the gem and the table inside the cupboard.
+
+> i
+You are carrying nothing.
+
+> look
+Lit Room
+A bright room.  You can only move north.
+
+> take all
+You take the coin, the stone, the bag, the nut, the gem and the table from the cupboard.
+
+> put all but coin on table
+You put the coin, the stone, the bag, the nut and the gem onto the table.
+
+> i
+You are carrying a table.  On the table is a coin, a stone, a bag, a nut and a gem.
+
+> look
+Lit Room
+A bright room.  You can only move north.
+
+> take all
+There is nothing to pick up here.
+
+> put coin on table
+You put the coin onto the table.
+
+> put all except coin and stone in cupboard
+Nothing will fit inside the cupboard.
+
+> drop all except coin
+You drop the table.
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

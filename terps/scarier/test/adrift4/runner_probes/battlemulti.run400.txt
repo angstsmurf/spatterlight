@@ -1,0 +1,36 @@
+
+> attack droid
+Player shoot Droid with the blaster.
+
+> attack guard
+Which Guard.  A guard or a guard?
+
+> attack guard and droid
+That is still ambiguous!
+I don't understand what you want to do with Droid.
+
+> attack droid guard with blaster
+Which Guard.  A guard or a guard?
+
+> attack sentry
+Who do you want to attack?
+
+> attack sentry and droid
+Who do you want to attack?
+I don't understand what you want to do with Droid.
+
+> take rock
+Player take the rock.
+
+> attack droid and guard
+Player shoot Droid with the blaster.
+Which Guard.  A guard or a guard?
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	500		500		500
+Hit strength:ilmfeeee	10-10		10		30		(30)
+Accuracy:iilmee fttts	60-60		60		80		(20)
+Defense value:iirmttt	5-5		5		5		(0)
+Agility:eeemee rfetts 	5-5		5		5
+Stamina: ileeerfeetts 	Player is wielding a blaster.

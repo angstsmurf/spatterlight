@@ -1,0 +1,57 @@
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a bag.  You can only move west.  TICK.
+
+> x crate
+A plain thing.  TICK.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin and a hat.  Bob is here.  You can only move east.  TICK.
+
+> get coin
+You take the coin.  TICK.
+
+> put coin in crate
+I don't understand what you want to put things inside.
+
+> put coin in bag
+I don't understand what you want to put things inside.
+
+> put zzz in bag
+I don't understand what you want to put things inside.
+
+> put coin on bag
+I don't understand what you want to put things onto.
+
+> put coin in jar
+Which jar.  The jar or the jar?
+
+> put zzz in jar
+That is still ambiguous!
+
+> put coin on jar
+Which jar.  The jar or the jar?
+
+> put zzz on jar
+That is still ambiguous!
+
+> put coin in jar and zzz
+Which jar.  The jar or the jar?
+That is still ambiguous!
+
+> put coin in zzz and yyy
+I don't understand what you want to put things inside.
+NO IDEA.
+
+> x bag
+You can't see the bag from here!  TICK.
+
+> put coin in bag
+I don't understand what you want to put things inside.
+
+> i
+You are carrying a coin.  TICK.

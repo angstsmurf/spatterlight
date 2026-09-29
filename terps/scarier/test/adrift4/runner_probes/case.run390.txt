@@ -1,0 +1,57 @@
+
+px coin
+PX PASS.
+
+PX coin
+PX PASS.
+
+pa widget
+PA PASS.
+
+pa Widget
+PA PASS.
+
+py
+PY PASS.
+
+PY
+PY PASS.
+
+pz coin
+PZ PASS.
+
+PZ coin
+PZ PASS.
+
+pa brass key
+PA PASS.
+
+pa key
+I don't understand.
+
+pa a brass key
+I don't understand what you want me to do with the small brass key.
+
+pa the brass key
+I don't understand what you want me to do with the small brass key.
+
+pa small brass key
+I don't understand what you want me to do with the small brass key.
+
+pa gem
+PA PASS.
+
+pa jewel
+PA PASS.
+
+pa a gem
+I don't understand what you want me to do with the gem.
+
+pa the gem
+I don't understand what you want me to do with the gem.
+
+pa coin
+PA PASS.
+
+probe
+PROBE OK.

@@ -1,0 +1,100 @@
+
+> probe
+PROBE OK.
+
+> x box
+A wooden box.  The box is open.
+
+> x stone
+A grey stone.
+
+> x pebble
+You see nothing special about the pebble.
+
+> x coin
+A gold coin.
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> get coin from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> get all from box
+You take the coin from the box.
+
+> get all from stone
+You can't take anything from the stone.
+
+> get all from lamp
+You can't take anything from the lamp.
+
+> get stone from box
+There is nothing inside the box.
+
+> get pebble from box
+There is nothing inside the box.
+
+> get coin from zzzz
+I don't understand where you want to get things from.
+
+> box
+I don't understand what you want me to do with the box.
+
+> get all from box and stone
+There is nothing inside the box.
+
+> take all from box
+There is nothing inside the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> remove all from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> pick all from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> empty box
+You take the coin from the box.
+
+> get all from me
+I don't understand where you want to get things from.
+
+> get lamp from me
+I don't understand where you want to get things from.
+
+> get all from zzzz
+I don't understand where you want to get things from.
+
+> take all from zzzz
+I don't understand where you want to get things from.
+
+> pick all from zzzz
+I don't understand where you want to get things from.
+
+> get stone from zzzz
+I don't understand where you want to get things from.
+
+> close box
+You are not carrying the box!
+
+> get all from box
+There is nothing inside the box.
+
+> get coin from box
+There is nothing inside the box.
+
+> probe
+PROBE OK.

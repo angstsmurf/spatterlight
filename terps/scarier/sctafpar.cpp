@@ -2223,11 +2223,11 @@ enum { V380_TASK_MOVEMENTS = 6 };
  *
  * That table is directionally right and wrong by one step, and the genuine
  * run380.exe says why (measured 2026-08-03 with patched probe files, in the
- * adrift-battle Wine prefix).  Version 3.8 has no size axis and no weight
- * axis: it has ONE pooled burden, whose per-class costs are 1/3/7/3/7, and
- * the player's capacity is exactly #MaxCarried.  A 4.0 packed base^digit
- * value cannot express a cost of 7, so gen390 rounds the top class up to
- * 3^2 = 9, which is what makes converted 3.8 games stop being finishable.
+ * Wine Runner harness).  Version 3.8 has no size axis and no weight axis:
+ * it has ONE pooled burden, whose per-class costs are 1/3/7/3/7, and the
+ * player's capacity is exactly #MaxCarried.  A 4.0 packed base^digit value
+ * cannot express a cost of 7, so gen390 rounds the top class up to 3^2 = 9,
+ * which is what makes converted 3.8 games stop being finishable.
  *
  * So the class is kept, verbatim, in its own SizeWeightClass key, and the
  * burden model that reads it lives in scobjcts.cpp with the rest of the
@@ -2825,9 +2825,10 @@ parse_fixup_v380_initial_positions (scr_bool is_v370)
            * An unset -1 parent means the first container or surface.
            * Measured in run380: microwaveman.taf's pistol (obj 2, Parent
            * -1) is taken "from some aluminum clothes", obj 0, the first
-           * container (Adven_1_microwaveman.rtf).  marooned.taf's pill
-           * (obj 33) is the other corpus case.  Left at -1, the loop
-           * below never runs and parent indexes object_type[-1].
+           * container (runner_probes/microwave_man.run380.rtf).
+           * marooned.taf's pill (obj 33) is the other corpus case.  Left
+           * at -1, the loop below never runs and parent indexes
+           * object_type[-1].
            */
           if (count < 0)
             count = 0;
@@ -3492,9 +3493,10 @@ parse_class (const scr_char *class_)
  * becomes the literal "a", while an authored " " is not empty, escapes the
  * substitution, and is then trimmed to a genuinely empty prefix that no later
  * code puts an article back into.  Both halves are measured -- probe ISARE
- * (run400, Adrift_isare.txt, 2026-09-07) lists its no-prefix boots as "a
- * boots" and its single-space rings as " rings", with the joining space and
- * no article, and answers `where rings` with " rings are test arena."
+ * (run400, runner_probes/isare.run400.txt, 2026-09-07) lists its no-prefix
+ * boots as "a boots" and its single-space rings as " rings", with the joining
+ * space and no article, and answers `where rings` with " rings are test
+ * arena."
  *
  * Doing it in the loader retires three downstream imitations of it (the
  * "the "/"a " empty-prefix defaults in lib_print_object_np, lib_print_object
@@ -4267,9 +4269,9 @@ static const scr_patch_edit_t PATCH_LIQID[] = {
  * author did not do was tick Repeatable, so the second east is claimed by
  * the pre-4.0 spent-task rule, prints the blank line, and the game walls at
  * 70 of 100 in the backyard with Jon awake and nowhere to take him
- * (RUNNER-MEASURED 2026-08-31, run390 Adrift_3_vampire.txt).  Ticking the
- * box is what the CompleteText already claims: the RepeatText is
- * whitespace, so the task re-runs forwards and says its line again.
+ * (RUNNER-MEASURED 2026-08-31, run390 runner_probes/vampire.run390.txt).
+ * Ticking the box is what the CompleteText already claims: the RepeatText
+ * is whitespace, so the task re-runs forwards and says its line again.
  */
 static const scr_patch_edit_t PATCH_VAMPIRE[] = {
   PATCH_VERIFY ("Tasks/61/Command/0", "east"),
@@ -4291,11 +4293,11 @@ static const scr_patch_edit_t PATCH_VAMPIRE[] = {
  * slot is `n` itself, so the unlock consumes the walk: the spent task then
  * claims every later `n` in the room ("I have already done that.") and the
  * Archives, the Hidden Room and the roof finale are unreachable at 120 of
- * 135 (RUNNER-MEASURED 2026-08-31, run390 Adrift_3_merry_murders.txt).  The
- * slot is redundant -- the same task is reached by `open door`, `unlock
- * door` and four `use key` spellings, all of them in the list already -- so
- * it is renamed to a phrase that is not a direction, and north goes back to
- * being north.
+ * 135 (RUNNER-MEASURED 2026-08-31, run390
+ * runner_probes/merry_murders.run390.txt).  The slot is redundant -- the
+ * same task is reached by `open door`, `unlock door` and four `use key`
+ * spellings, all of them in the list already -- so it is renamed to a
+ * phrase that is not a direction, and north goes back to being north.
  */
 static const scr_patch_edit_t PATCH_MERRY_MURDERS[] = {
   PATCH_VERIFY ("Tasks/46/CompleteText",

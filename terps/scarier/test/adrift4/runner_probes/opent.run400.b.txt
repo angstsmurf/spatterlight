@@ -1,0 +1,30 @@
+
+> probe
+PROBE OK.
+
+> open chest gem box
+Which chest.  The box, the gem or the chest?
+
+> open box chest
+You can't open that.
+
+> open chest box gem
+Which chest.  The box, the gem or the chest?
+
+> open box gem rock chest
+You can't open that.
+
+> open box rock chest
+You can't open that.
+
+> open gem rock chest
+You can't open that.
+
+> open box gem rock
+You can't open that.
+
+> x box gem chest
+A wooden chest.  The chest is closed.
+
+> probe
+PROBE OK.

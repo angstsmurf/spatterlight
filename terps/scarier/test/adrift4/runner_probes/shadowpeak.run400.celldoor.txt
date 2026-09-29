@@ -1,0 +1,40 @@
+
+> restore
+Loading game... done.
+The prison.
+This room is filled with barred cells; all are locked. It is very dusty and dirty in here.
+  Also here is a cell door and a The dead Margo.  Gargoyle #1 is here.
+  
+You can only move north.
+
+> wibble sword
+I don't understand what you want me to do with the sword.
+
+> wibble sword
+I don't understand what you want me to do with the sword.
+
+> look
+The prison.
+This room is filled with barred cells; all are locked. It is very dusty and dirty in here.
+  Also here is a cell door and a The dead Margo.  Gargoyle #1 is here.
+  You can only move north.  Seeker hums!
+
+
+> put sword near door
+Where do you want to put the sword?
+
+> look
+The prison.
+This room is filled with barred cells; all are locked. It is very dusty and dirty in here.
+  Also here is a cell door and a The dead Margo.  Gargoyle #1 is here.
+  You can only move north.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> wibble sword
+I don't understand what you want me to do with the sword.
+
+> n
+You move north.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+

@@ -1,0 +1,26 @@
+
+> put pill in cup
+
+> zzin1
+PILL IN CUP.
+
+> put bean in jar
+Player put the bean inside the jar.  
+
+> zzin2
+BEAN IN JAR.
+
+> put coin in box
+Player put the coin inside the box.  
+
+> zzin3
+COIN IN BOX.
+
+> zzw
+WILDPASS.
+
+> zzp
+PREFPASS.
+
+> zzl
+LITPASS.

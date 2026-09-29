@@ -1,0 +1,104 @@
+
+> take hat
+You take the hat.  TICK.
+
+> inv
+You are carrying a hat.  C1 inv.  TICK.
+
+> inv
+You are carrying a hat.  TICK.
+
+> inventory
+You are carrying a hat.  C2 inventory.  TICK.
+
+> inventory
+You are carrying a hat.  TICK.
+
+> drop hat
+You drop the hat.  TICK.
+
+> drop hat
+You are not holding the hat.  TICK.
+
+> take hat
+You take the hat.  TICK.
+
+> put hat on desk
+You put the hat onto the desk.  TICK.
+
+> put hat on desk
+You are not holding the hat.  TICK.
+
+> examine bob
+C5 examine bob.  TICK.
+
+> examine bob
+A patient bystander.  TICK.
+
+> look at bob
+C6 look at bob.  TICK.
+
+> look at bob
+A patient bystander.  TICK.
+
+> speak to bob
+C7 speak to bob.  TICK.
+
+> speak to bob
+Use the format "ask Bob about [subject]".  TICK.
+
+> talk bob
+C8 talk bob.  TICK.
+
+> talk bob
+R8 talk bob.  TICK.
+
+> bob, hello
+I don't understand what you want to do with Bob.
+NO IDEA.
+
+> bob, hello
+I don't understand what you want to do with Bob.
+NO IDEA.
+
+> ask bob for hat
+C10 ask bob for hat.  TICK.
+
+> ask bob for hat
+Use the format "ask Bob about [subject]".  TICK.
+
+> x desk
+C11 x desk.  TICK.
+
+> x desk
+R11 x desk.  TICK.
+
+> x me
+C12 x me.  TICK.
+
+> x me
+R12 x me.  TICK.
+
+> take all
+C13 take all.  TICK.
+
+> take all
+R13 take all.  TICK.
+
+> drop all
+C14 drop all.  TICK.
+
+> drop all
+R14 drop all.  TICK.
+
+> put all on desk
+C15 put all on desk.  TICK.
+
+> put all on desk
+R15 put all on desk.  TICK.
+
+> turns
+C16 turns.  TICK.
+
+> turns
+R16 turns.  TICK.

@@ -1,0 +1,118 @@
+
+> probe
+PROBE OK.
+
+> sit on the ground
+You sit down on the ground.
+
+> sit on the floor
+You are already sitting on the floor!
+
+> sit on the ground
+You are already sitting on the ground!
+
+> stand
+You stand up.
+
+> lie on the floor
+You can't lie on that.
+
+> stand on the floor
+You can't stand on that.
+
+> stand on the ground
+You can't stand on that.
+
+> lie on the ground
+You can't lie on that.
+
+> stand
+You are already standing!
+
+> get off stool
+You pick up the stool.
+
+> stand on stool
+You can't stand on the stool.
+
+> get off chair
+You are not standing on anything!
+
+> get off stool
+You are not standing on anything!
+
+> sit on stool
+You can't sit on the stool.
+
+> x me
+A test subject.
+
+> look
+Lit Room
+A bright room.  You can only move north.
+
+> get off
+You are not standing on anything!
+
+> lie on chair
+You lie down on the chair.
+
+> sit on the ground
+You sit down on the ground.
+
+> stand
+You stand up.
+
+> stand on stool
+You can't stand on the stool.
+
+> x me
+A test subject.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a crate.  You can only move south.
+
+> x me
+A test subject.
+
+> look
+Cave
+A cave with rough walls.  Also here is a crate.  You can only move south.
+
+> i
+You are carrying a coin, a stone and a stool.
+
+> s
+You move south.
+Lit Room
+A bright room.  You can only move north.
+
+> look
+Lit Room
+A bright room.  You can only move north.
+
+> sit on stool and lie on chair
+You lie down on the chair.
+
+> stand
+You stand up from the chair.
+
+> sit lie
+You lie down on the ground.
+
+> stand
+You stand up.
+
+> lie on bed
+You can't lie on that.
+
+> get down
+You are not standing on anything!
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

@@ -1,0 +1,65 @@
+
+> attack
+Who do you want to attack?
+
+> gargoyle #1
+Player shoot Gargoyle #1 with the blaster.
+
+> attack
+Who do you want to attack?
+
+> look
+Main Hall
+A massive hall with four stone pillars.  Gargoyle #1, Gargoyle #2 and Gargoyle #3 are here.
+
+> gargoyle #2
+I don't understand what you want to do with Gargoyle #2.
+
+> attack
+Who do you want to attack?
+
+> attack
+Who do you want to attack?
+
+> gargoyle #3
+I don't understand what you want to do with Gargoyle #3.
+
+> attack with blaster
+Who do you want to attack?
+
+> gargoyle #1
+Player shoot Gargoyle #1 with the blaster.
+
+> kick
+Who do you want to attack?
+
+> nonsense words
+Who do you want to attack?
+
+> gargoyle #2
+I don't understand what you want to do with Gargoyle #2.
+
+> hit
+Who do you want to attack?
+
+> kick
+Who do you want to attack?
+
+> gargoyle #3
+Player shoot Gargoyle #3 with the blaster.
+
+> attack
+Who do you want to attack?
+
+> blaster
+Who do you want to attack?
+
+> turns
+You have taken 15 turns so far.
+
+> attack then gargoyle #2
+Who do you want to attack?
+Player shoot Gargoyle #2 with the blaster.
+
+> turns
+You have taken 17 turns so far.

@@ -1,0 +1,32 @@
+
+> look
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a red widget, a blue widget and a lamp.  You can only move west.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take widget
+It is not clear which widget you are referring to.
+
+> x widget
+You see no such thing.
+
+> take light
+There is nothing worth taking here.
+
+> take lamp
+There is nothing worth taking here.
+
+> take red
+Take what?
+
+> take zzz
+Take what?

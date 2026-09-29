@@ -1,0 +1,64 @@
+
+> probe
+PROBE OK.
+
+> frob dave
+FROBBED Dave.
+
+> frob a big dave
+I don't understand what you want to do with Dave.
+
+> frob big dave
+I don't understand what you want to do with Dave.
+
+> frob the dave
+I don't understand what you want to do with Dave.
+
+> nurb rock
+NURBED a big rock.
+
+> nurb a big rock
+I don't understand what you want me to do with the big rock.
+
+> nurb big rock
+I don't understand what you want me to do with the big rock.
+
+> frob eve
+FROBBED Eve.
+
+> frob spook
+Who?
+
+> frob fay
+FROBBED Fay.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Eve is here.  You can only move south.
+
+> frob eve
+FROBBED Eve.
+
+> frob dave
+FROBBED Dave.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a big rock.  Dave is here.  You can only move north.
+
+> frob eve
+FROBBED Eve.
+
+> frob spook
+Eve is not here!
+
+> look
+Lit Room
+A bright room.  Also here is a big rock.  Dave is here.  You can only move north.
+
+> probe
+PROBE OK.
+
+> quit

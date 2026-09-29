@@ -1,0 +1,40 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a coin, a box and a ring.
+
+> put anvil in box
+(Taking the anvil first)
+You can't take the anvil!  You are carrying nothing!
+
+> take coin
+You take the coin.
+
+> put anvil in box
+(Taking the anvil first)
+You can't take the anvil!  
+
+> put coin in box
+
+> put coin in box
+You are not holding the coin.
+
+> take ring
+You take the ring.
+
+> put coin in box
+You are not holding the coin.
+
+> i
+You are carrying a ring.
+
+> drop ring
+You drop the ring.  
+
+> put anvil in box
+(Taking the anvil first)
+You can't take the anvil!  You are carrying nothing!
+
+> put slab in box
+(Taking the slab first)
+You can't take the slab!  You are carrying nothing!  SLABTASK.

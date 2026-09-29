@@ -1,0 +1,64 @@
+
+> give coin to dave
+Dave doesn't seem interested in the coin.
+
+> drop
+Drop what?  TICK.
+
+> coin
+I don't understand what you want me to do with the coin.
+
+> take
+Take what?  TICK.
+
+> coin
+I don't understand what you want me to do with the coin.
+
+> lock
+Lock what?  TICK.
+
+> button
+You can't lock the button.  TICK.
+
+> turn
+Turn what?  TICK.
+
+> button
+You can't turn the button.  TICK.
+
+> climb
+Climb what?  TICK.
+
+> button
+You can't climb the button.  TICK.
+
+> eat
+I don't understand what you are trying to eat.  TICK.
+
+> coin
+I don't understand what you want me to do with the coin.
+
+> push zzz
+You push, but nothing happens.  TICK.
+
+> button
+I don't understand what you want me to do with the button.
+
+> give coin
+(to Dave)
+Dave doesn't seem interested in the coin.
+
+> probe
+PROBE OK.  TICK.
+
+> dave
+I don't understand what you want to do with Dave.
+
+> sit on
+Sit on what?  TICK.
+
+> button
+You can't sit on the button.  TICK.
+
+> i
+You are carrying a coin and a knife.  TICK.

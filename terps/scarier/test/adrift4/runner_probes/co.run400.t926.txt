@@ -1,0 +1,57 @@
+
+> chop tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop shed
+NO IDEA.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x shed
+Which shed.  The hut or the shed?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop keys
+NO IDEA.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x keys
+Which keys.  The mustang key or the truck key?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop rock
+I don't understand what you want me to do with the rock.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x rock
+A plain thing.
+
+> look
+Alpha
+The first room.  You can only move east.

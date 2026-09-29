@@ -1,0 +1,68 @@
+
+> probe
+PROBE OK.
+
+> i
+You are carrying a coin, a stone and a bag.  A nut is inside the bag.
+
+> drop foo and bar
+You are not carrying anything.
+
+> drop coin and foo
+You drop the coin.
+
+> put everything in zzz
+You can't put anything inside that!
+
+> put everything on zzz
+You can't put anything onto that!
+
+> drop all except coin
+You drop the stone and the bag.
+
+> i
+You are carrying nothing.
+
+> look
+Lit Room
+A bright room.  Also here is a coin, a stone, a bag and a table.  You can only move north.
+
+> take all
+You pick up the coin, the stone, the bag and the table.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  You can only move south.
+
+> put coin in cupboard
+Put the coin inside what?
+
+> put coin on table
+You put the coin onto the table.
+
+> put coin in statue
+Put the coin inside what?
+
+> drop coin
+You drop the coin.
+
+> s
+You move south.
+Lit Room
+A bright room.  You can only move north.
+
+> take coin
+Take what?
+
+> drop all but stone
+You drop the bag and the table.
+
+> i
+You are carrying a stone.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

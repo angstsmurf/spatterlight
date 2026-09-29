@@ -1,0 +1,45 @@
+
+> x hat
+Which hat.  The red hat or the blue hat?
+
+> wear hat
+Which hat.  The red hat or the blue hat?
+
+> i
+You are carrying a coin, a bag and a red hat.  A nut is inside the bag.
+
+> remove hat
+Which hat.  The red hat or the blue hat?
+
+> i
+You are carrying a coin, a bag and a red hat.  A nut is inside the bag.
+
+> drop hat
+Which hat.  The red hat or the blue hat?
+
+> i
+You are carrying a coin and a bag.  A nut is inside the bag.
+
+> x box
+Which box.  The red box or the blue box?
+
+> close box
+Which box.  The red box or the blue box?
+
+> x box
+Which box.  The red box or the blue box?
+
+> open box
+Which box.  The red box or the blue box?
+
+> take box
+Which box.  The red box or the blue box?
+
+> i
+You are carrying a coin and a bag.  A nut is inside the bag.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

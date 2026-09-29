@@ -1,0 +1,69 @@
+
+> south
+You depart to the south.
+Slimy Cave
+This naturally-formed cave is small with a low ceiling. Water drips down the eastern wall (from some unknown source) allowing the wall to become slick with an odious slime (ugh!!).
+  
+You can see a vellum scroll.  
+Possible exits: north, west and southeast.  
+There's an awful smell coming from somewhere close by.
+
+> northeast
+You can't go in that direction, but you can move north, west and southeast.  
+There's an awful smell coming from somewhere close by.
+
+> throw starblade west
+
+The sound of a very large beast crying out in agony echoes throughout the caverns.
+
+You slump to the ground emotionally and physically spent for a few moments ... but this is not yet over!
+
+
+> west
+You boldly go west.
+Dead Boring
+What can one say ... a boring , boring and totally boring cave!
+  
+You can see a legendary starblade.  
+Oops! An humungus Wumpus is here!
+  
+Possible exits: north, east and southwest.  
+
+> drop lantern
+You place the lantern on the floor of the cavern. However, carrying the lantern will significantly increase your life span, Cheryl!  
+
+> cut mane
+With utmost care you cut a large tuft of mane from the dead Wumpus.  
+
+> take lantern
+The lantern's glow provides a little comfort against the dark unknown of the Run.  
+
+> east
+You head east.
+Slimy Cave
+This naturally-formed cave is small with a low ceiling. Water drips down the eastern wall (from some unknown source) allowing the wall to become slick with an odious slime (ugh!!).
+  
+You can see a vellum scroll.  
+Possible exits: north, west and southeast.  
+
+> southwest
+You can't go in that direction, but you can move north, west and southeast.  
+
+> north
+You boldly go north.
+Small Cave
+This cave is quite small and cramped. A thick slime coats some of the surrounding walls.
+  
+You can see a rope ladder.  
+Possible exits: east, south and northwest.  
+
+> climb ladder
+ 
+As you struggle up the last few feet of the ladder you are greeted by the thunderous cheers of the spectators from the stands. You hold the tuft of Wumpus mane high in the air as the crowd roars its approval.
+
+You are ushered to the judge's table as an eerie hush descends around the arena. The judges take their time, examining the evidence with great care and deliberation. One by one they raise their green flags, indicating that indeed you have slain the Wumpus.
+
+Again the crowd goes wild, chanting "Cheryl, Cheryl ..." as you turn, holding the Wumpus Mane high for all to see. You have earned the right to the title of "Grand Wumpus Hunter" until the next Wumpus Run.
+
+You are escorted from the arena to enjoy the fruits of your labours ... a nice bath, an excellent meal, a fat bank account (totalling 297000 gold pieces) and a little bit (or whatever else) on the side ...
+[Press any key to end]

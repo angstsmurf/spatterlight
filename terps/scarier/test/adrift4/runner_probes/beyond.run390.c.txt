@@ -1,0 +1,71 @@
+
+> probe
+PROBE OK.
+
+> zap stone
+ZAPPED.
+
+> zap statue
+I don't understand what you want me to do with the statue.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone.  You can only move south.
+
+> x statue
+Nothing special.
+
+> x stone
+A grey stone.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a placemat and a silver orb.  You can only move north.
+
+> x statue
+A marble statue.
+
+> drop cape on the rug
+You drop the red cape.
+
+> inventory
+You are carrying nothing.
+
+> wave cape slowly
+I don't understand.
+
+> score
+Your score is 1000 out of a maximum of 0.  (0%)
+
+> inventory
+You are carrying nothing.
+
+> get orb
+You pick up the silver orb.
+
+> drop orb
+You drop the silver orb.
+
+> take orb
+Take what?
+
+> score
+Your score is 1005 out of a maximum of 0.  (0%)
+
+> inventory
+You are carrying nothing.
+
+> drop cape to the floor
+I don't understand.
+
+> score
+Your score is 1255 out of a maximum of 0.  (0%)
+
+> drop cape
+You don't have the red cape!
+
+> look
+Lit Room
+A bright room.  Also here is a placemat, a red cape and a silver orb.  You can only move north.

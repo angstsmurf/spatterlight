@@ -1,0 +1,58 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, a chest, a ring and a coin.
+
+> put ring in box
+(Taking the ring first)
+The box is closed!
+
+> i
+You are carrying a box, a ring and a stone.
+
+> put coin in chest
+(Taking the coin first)
+The chest is closed!
+
+> i
+You are carrying a box, a ring, a coin and a stone.
+
+> put stone in box
+The box is closed!
+
+> drop ring
+You drop the ring.  
+
+> drop stone
+You drop the stone.  
+
+> drop coin
+You drop the coin.  
+
+> i
+You are carrying a box.
+
+> put all in box
+I don't understand what you want me to do with the box.
+
+> open box
+You open the box.
+
+> put all in box
+I don't understand what you want me to do with the box.
+
+> put all in chest
+The chest is closed!
+
+> open chest
+You are not carrying the chest!
+
+> put all in chest
+The chest is closed!
+
+> i
+You are carrying a box.
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, a chest, a ring, a coin and a stone.

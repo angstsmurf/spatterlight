@@ -1,0 +1,68 @@
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> x keys shed
+Which shed.  The hut or the shed?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x shed keys
+Which shed.  The hut or the shed?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree keys
+Which keys.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x rock keys
+Which keys.  The mustang key or the truck key?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x keys tree
+Which keys.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x shed tree
+Which shed.  The red tree, the blue tree, the hut or the shed?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree hut
+Which tree.  The red tree, the blue tree or the hut?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x rock tree keys
+Which keys.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.

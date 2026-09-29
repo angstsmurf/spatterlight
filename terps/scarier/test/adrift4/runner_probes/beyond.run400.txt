@@ -1,0 +1,73 @@
+
+> probe
+PROBE OK.
+
+> kick stone
+KICKED.
+
+> kick statue
+KICKED.
+
+> look
+Lit Room
+A bright room.  Also here is a placemat and a silver orb.  You can only move north.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone.  You can only move south.
+
+> x statue
+You can't see the statue from here!
+
+> look
+Cave
+A cave with rough walls.  Also here is a stone.  You can only move south.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a placemat and a silver orb.  You can only move north.
+
+> x statue
+A marble statue.
+
+> get placemat
+You take the placemat.
+
+> pat orb
+I don't understand what you want me to do with the silver orb.
+
+> polish orb
+I don't understand what you want me to do with the silver orb.
+
+> score
+Your score is 0 out of a maximum of 0.  (0%)
+
+> drop cape to the floor
+You drop the red cape.  
+
+> score
+Your score is 0 out of a maximum of 0.  (0%)
+
+> look
+Lit Room
+A bright room.  Also here is a red cape and a silver orb.  You can only move north.
+
+> inventory
+You are carrying a placemat.
+
+> drop cape gently
+You are not holding the red cape.
+
+> score
+Your score is 0 out of a maximum of 0.  (0%)
+
+> take orb
+You take the silver orb.
+
+> score
+Your score is 5 out of a maximum of 0.  (0%)
+
+> inventory
+You are carrying a placemat and a silver orb.

@@ -1,0 +1,45 @@
+
+> count
+N=0.
+
+> get bob
+BOBTEXT.  BOBTEXT.
+
+> count
+N=2.
+
+> get cat
+CAT.
+
+> count
+N=3.
+
+> poke bob
+BOBTEXT.
+
+> count
+N=4.
+
+> get dog
+BOBTEXT.
+
+> count
+N=5.
+
+> get dog
+Take what?
+
+> count
+N=5.
+
+> get eel
+I don't understand.
+
+> count
+N=7.
+
+> get bob
+BOBTEXT.  BOBTEXT.
+
+> count
+N=9.

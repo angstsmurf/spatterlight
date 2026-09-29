@@ -1,0 +1,833 @@
+
+> hard
+The game is set to hard.  
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a fireplace that gives out magnificent heat. There is an old oak table in the middle of the room. The ceiling is made of thatch and the whole room smells of home. There is a large calendar on the wall. There are some stairs down to a cellar too.
+
+> nnamen tutem selronden flar darg
+A magic cube appears in your hands.
+
+> wear cube
+You put on the magic cube.
+
+> x old oak table
+The table is beautifully made, very heavy and solid.  On the old oak table is a diary, a brass lantern, a woven cloak and some nice food.
+
+> get all from table
+You take the diary, the brass lantern, the woven cloak and the nice food from the old oak table.
+
+> wear cloak
+You put on the woven cloak.
+
+> down
+You move down.
+Cottage Cellar
+This dark little room has lots of shelves with little on them.  You can also see a gold coin.
+
+> x shelves
+The wooden shelves don't look very strong but suit their purpose.  A bottle of oil is on the shelves.
+
+> get all from shelves
+You take the bottle of oil from the shelves.
+
+> take coin
+You pick up the gold coin and put it in your purse.
+
+> up
+You move up.
+The Old Cottage
+The cottage has clean bright walls and a polished wooden floor. There is a fireplace that gives out magnificent heat. There is an old oak table in the middle of the room. The ceiling is made of thatch and the whole room smells of home. There is a large calendar on the wall. There are some stairs down to a cellar too.
+
+> put oil in lantern
+The oil trickles into the lantern.
+
+> light lantern
+The lantern lights with a little splutter and then gives out a bright light.
+
+> out
+You move out.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are standing in front of an old cottage. A well trodden path leads north up the hills of Forecarn, while another leads west into Dusteron. Due East of here runs a wide path that cuts into Tonerith.
+
+> east
+You move east.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north of here but there is no path running there. You can here the sound of rushing water in the distance.  You can also see the Tonerith stone.  There is a grey wolf circling you.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.
+
+> attack wolf
+Wolf isn't here!
+
+> attack wolf
+Wolf isn't here!
+
+> attack wolf
+Wolf isn't here!  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> attack wolf
+You hit a grey wolf.
+
+> attack wolf
+Wolf isn't here!
+
+> attack wolf
+Wolf isn't here!
+
+> take tonerith stone
+You pick up the Tonerith stone.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> e
+You move east.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the river east of here and a path to the north, running alongside the river. Tonerith pass runs west of here.
+
+> e
+You move east.
+The Bridge of Tonerith
+The large stone bridge extends across the wide river. The sound of rushing water is almost deafening. A mist of spray from the river blows against your face. The bridge is covered in Ivy and moss. The bridge crosses the river towards Kedarn forest to the northeast. West will take you to Tonerith junction.  There is a large dwarven bridgekeeper blocking your way across the bridge.  The Bridgekeeper is here.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.  A gust of wind blows a spray of water across you. The lit lantern splutters and goes out.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> attack bridgekeeper
+You hit an angry dwarf.
+
+> attack bridgekeeper
+You hit an angry dwarf.  An angry dwarf chops you with the iron axe, but it doesn't seem to do any damage.
+
+> w
+You move west.
+Tonerith junction
+You are standing at a junction.  There appears to be a stone bridge over the river east of here and a path to the north, running alongside the river. Tonerith pass runs west of here.
+
+> w
+You move west.
+Tonerith Pass
+This wide path continues to the East. You can see the hills of Forecarn north of here but there is no path running there. You can here the sound of rushing water in the distance.  A grey wolf hits you, but it doesn't seem to do any damage.
+
+> west
+You move west.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are standing in front of an old cottage. A well trodden path leads north up the hills of Forecarn, while another leads west into Dusteron. Due East of here runs a wide path that cuts into Tonerith.
+
+> north
+You move north.
+Hills of Forecarn
+The large green hills of Forecarn, roll out all around. The cool breeze sweeps across your face. From the top of this hill, you can see that the path lies Northeast. However, another hill blocks your view of where the path leads, but you can here the sound of rushing water from that direction. South will take you to a cottage.  You can also see a small sword.
+
+> take small sword
+You pick up the small sword.
+
+> south
+You move south.
+Outside Cottage
+The gentle wind wafts through your hair as you start your adventure. You are standing in front of an old cottage. A well trodden path leads north up the hills of Forecarn, while another leads west into Dusteron. Due East of here runs a wide path that cuts into Tonerith.
+
+> west
+You move west.
+Dusteron Pass
+The path gets gradually less well distinguished. You can feel that in the wind there is a sandy, dusty feeling on your face. The path continues to the North where it appears to get more dusty. Southeast of here is a small cottage.
+
+> north
+You move north.
+Dusteron pass enters the desert
+North of here seems to enter into the Dusteron desert, while South will take you down Dusteron pass.
+
+> north
+You move north.
+Dusteron Desert
+The winds sweeps round you as you squint your eyes, you appear to be in the centre of an open dessert. There is the sound of rushing water, but with the combination of wind and sand, it is difficult to tell where it is coming from. The sand whistles into your eyes but you can just see a small path to the East, otherwise you can retreat south.  You can also see the Dusteron stone.
+
+> take dusteron stone
+You pick up the Dusteron stone.
+
+> east
+You move east.
+Dusteron plains river bank
+You stand on the banks of the Forecarn river, the fast rushing water flows from the west to the east. The sound is almost deafening. Across the other side of the river is a cobblestone path leading away. There is another path to the West leading to the Dusteron desert.   There is a rotted tree standing  just next to the river.
+
+> push tree
+The tree creaks. It looks like it's going to fall into the river.  Then it lands luckily across the river. You can now cross north.
+
+> north
+You are walking across when the tree starts to crumble, as you hop quickly to the other side, the tree breaks in half and floats down the river. "It was a ROTTING tree, what did I expect?" you think to yourself.  
+River bank in Glaven
+You are standing on the bank of the Forecarn river. North of here is a cobblestone path which seems to lead to a cave.
+
+> north
+You move north.
+Entrance to the Cave
+You are standing at the entrance to Caves of Eternal night. The legends were true! They say that there are unimaginable terrors in the caves. Northwest will take you into the cave, Northeast will take you away, up a long path. South will take you to a river bank.
+
+> nw
+You move northwest.
+Passage in the Caves of eternal night
+It is too dark to see.               
+
+> nw
+Exits are southeast.
+
+> attack narfild
+Who?
+
+> attack narfild
+Who?               
+
+> attack narfild
+Who?
+
+> attack narfild
+Who?
+
+> attack narfild
+Who?
+
+> attack narfild
+Who?
+
+> e
+Exits are southeast.               
+
+> x large stone table
+You can't see that very clearly.
+
+> get all from large stone table
+You can't get anything from that.
+
+> turn ring
+You can't do that here!
+
+> w
+Exits are southeast.
+
+> w
+Exits are southeast.
+
+> w
+Exits are southeast.               
+
+> x holes in the wall
+You can't see that very clearly.
+
+> get all from holes in the wall
+You can't get anything from that.
+
+> e
+Exits are southeast.
+
+> e
+Exits are southeast.
+
+> nw
+Exits are southeast.
+
+> nw
+Exits are southeast.               
+
+> e
+Exits are southeast.
+
+> sw
+Exits are southeast.
+
+> give food to tarin
+You can't do that here!               
+
+> ne
+Exits are southeast.
+
+> dig
+You can't do that here!
+
+> se
+You move southeast.
+Entrance to the Cave
+You are standing at the entrance to Caves of Eternal night. The legends were true! They say that there are unimaginable terrors in the caves. Northwest will take you into the cave, Northeast will take you away, up a long path. South will take you to a river bank.
+
+> take longmore stone
+Take what?
+
+> se
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> se
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> se
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> sw
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> take pot
+Take what?
+
+> take ornate key
+Take what?
+
+> fill pot with water
+You can't do that here!
+
+> ne
+You move northeast.
+Long Glaven path
+The path is long and will take you either northeast to a junction or southwest towards a cave.   Tarin the dwarf is barring your way northeast.  Tarin, the dwarf is here.
+
+> e
+Exits are southwest.
+
+> e
+Exits are southwest.
+
+> e
+Exits are southwest.
+
+> open desk
+You can't open that.
+
+> take jacket
+Take what?
+
+> take coins
+Take what?
+
+> wear jacket
+Wear what?
+
+> w
+Exits are southwest.
+
+> n
+Exits are southwest.
+
+> buy metal helmet
+You can't do that here!
+
+> wear metal helmet
+Wear what?
+
+> s
+Exits are southwest.
+
+> s
+Exits are southwest.
+
+> put water in pan
+You can't do that!
+
+> n
+Exits are southwest.
+
+> se
+Exits are southwest.
+
+> open cupboard
+You can't do that here!
+
+> x elven cupboard
+Nothing special.
+
+> get all from cupboard
+You can't get anything from that.
+
+> wear elven armour
+Wear what?
+
+> nw
+Exits are southwest.
+
+> w
+Exits are southwest.
+
+> s
+Exits are southwest.
+
+> se
+Exits are southwest.
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> attack goblin
+Who?
+
+> take kedarn stone
+Take what?
+
+> nw
+Exits are southwest.
+
+> n
+Exits are southwest.
+
+> w
+Exits are southwest.
+
+> nw
+Exits are southwest.
+
+> nw
+Exits are southwest.
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> attack monster
+Who?
+
+> ne
+Exits are southwest.
+
+> unlock chest
+There is no chest here.
+
+> open chest
+There is no chest here.
+
+> x large chest
+Nothing special.
+
+> get all from chest
+You can't get anything from that.
+
+> wear longmore chest plate
+Wear what?
+
+> sw
+You move southwest.
+Entrance to the Cave
+You are standing at the entrance to Caves of Eternal night. The legends were true! They say that there are unimaginable terrors in the caves. Northwest will take you into the cave, Northeast will take you away, up a long path. South will take you to a river bank.
+
+> nw
+You move northwest.
+Passage in the Caves of eternal night
+It is too dark to see.
+
+> e
+Exits are southeast.
+
+> e
+Exits are southeast.               
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?               
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> attack eagle
+Who?
+
+> w
+Exits are southeast.
+
+> w
+Exits are southeast.               
+
+> nw
+Exits are southeast.
+
+> ne
+Exits are southeast.
+
+> ne
+Exits are southeast.
+
+> e
+Exits are southeast.
+
+> se
+You move southeast.
+Entrance to the Cave
+You are standing at the entrance to Caves of Eternal night. The legends were true! They say that there are unimaginable terrors in the caves. Northwest will take you into the cave, Northeast will take you away, up a long path. South will take you to a river bank.
+
+> take nelone stone
+Take what?
+
+> e
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> e
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> give stones to larnt
+You can't do that here!
+
+> e
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> e
+You can't go in that direction, but you can move south, northeast and northwest.
+
+> ne
+You move northeast.
+Long Glaven path
+The path is long and will take you either northeast to a junction or southwest towards a cave.   Tarin the dwarf is barring your way northeast.  Tarin, the dwarf is here.
+
+> nw
+Exits are southwest.
+
+> ne
+Exits are southwest.
+
+> n
+Exits are southwest.
+
+> say the password
+You can't do that here!
+
+> open door
+You can't do that here!
+
+> n
+Exits are southwest.
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> attack larnt
+Who?
+
+> n
+Exits are southwest.
+
+> x long table
+Nothing special.
+
+> get all from long table
+You can't get anything from that.
+
+> s
+Exits are southwest.
+
+> w
+Exits are southwest.
+
+> u
+Exits are southwest.
+
+> unlock chest
+There is no chest here.
+
+> open chest
+There is no chest here.
+
+> x large chest
+Nothing special.
+
+> get all from chest
+You can't get anything from that.
+
+> d
+Exits are southwest.
+
+> e
+Exits are southwest.
+
+> n
+Exits are southwest.
+
+> unlock door
+You can't do that here!
+
+> open door
+You can't do that here!
+
+> n
+Exits are southwest.
+
+> drink gourd
+You do not have the Gourd.
+
+> north
+Exits are southwest.
+
+> north
+Exits are southwest.
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> attack urgorn
+Who?
+
+> score
+Your score is 20 out of a maximum of 65.  (30%)
+
+> 
+Command not understood

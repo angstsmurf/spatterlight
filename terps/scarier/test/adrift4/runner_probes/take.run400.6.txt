@@ -1,0 +1,44 @@
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a red widget, a blue widget, a lamp and a gizmo.  You can only move west.
+
+> vanish
+POOF.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take widget
+It is not clear which widget you are referring to.
+
+> x widget
+You see no such thing.
+
+> take lamp
+There is nothing worth taking here.
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a blue widget, a lamp and a gizmo.  You can only move west.
+
+> vanish2
+POOF.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take widget
+It is not clear which widget you are referring to.
+
+> x widget
+You see no such thing.
+
+> take zzz
+Take what?

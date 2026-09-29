@@ -1,0 +1,22 @@
+
+> look
+Bravo
+Bravo.  OI=[] IN=[] ON=[] ST=[up high] KN=[dull]  CR=[A plate and a bowl are on the crate, and inside is a key and a ring.] RA=[A fork and a spoon are on the rack, and inside is a nail.] TI=[A nut and a bolt are inside the tin.]  Also here is a lever and a knob.  You can only move west.  A plate and a bowl are on the crate, and inside is a key and a ring.  A fork and a spoon are on the rack, and inside is a nail.  A nut and a bolt are inside the tin.
+
+> w
+You move west.
+Alpha
+Alpha.  OI=[A apple is on the box, and inside is a coin and a gem.] IN=[A coin and a gem are inside the box.] ON=[A apple is on the box.] ST=[up high] KN=[dull]  Also here is a lever and a knob.  You can only move east.  A coin and a gem are inside the box.  A apple is on the box.  A apple is on the box, and inside is a coin and a gem.
+
+> look
+Alpha
+Alpha.  OI=[A apple is on the box, and inside is a coin and a gem.] IN=[A coin and a gem are inside the box.] ON=[A apple is on the box.] ST=[up high] KN=[dull]  Also here is a lever and a knob.  You can only move east.  A coin and a gem are inside the box.  A apple is on the box.  A apple is on the box, and inside is a coin and a gem.
+
+> e
+You move east.
+Bravo
+Bravo.  OI=[] IN=[] ON=[] ST=[up high] KN=[dull]  CR=[A plate and a bowl are on the crate, and inside is a key and a ring.] RA=[A fork and a spoon are on the rack, and inside is a nail.] TI=[A nut and a bolt are inside the tin.]  Also here is a lever and a knob.  You can only move west.  A plate and a bowl are on the crate, and inside is a key and a ring.  A fork and a spoon are on the rack, and inside is a nail.  A nut and a bolt are inside the tin.
+
+> look
+Bravo
+Bravo.  OI=[] IN=[] ON=[] ST=[up high] KN=[dull]  CR=[A plate and a bowl are on the crate, and inside is a key and a ring.] RA=[A fork and a spoon are on the rack, and inside is a nail.] TI=[A nut and a bolt are inside the tin.]  Also here is a lever and a knob.  You can only move west.  A plate and a bowl are on the crate, and inside is a key and a ring.  A fork and a spoon are on the rack, and inside is a nail.  A nut and a bolt are inside the tin.

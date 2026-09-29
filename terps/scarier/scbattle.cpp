@@ -990,7 +990,7 @@ enum {
  * fight with "<Prefix> <Alias[0]>" instead -- Orient Express calls its enemy
  * "Igotta Bigbottom" in the room listing but "the large man" in every blow,
  * and "Ivill Getyou" is "BIG BOSS" (measured against run400's own transcript,
- * Adrift_36_orient_express.txt, 2026-08-25).
+ * runner_probes/orient_express.run400.txt, 2026-08-25).
  *
  * The two procedures differ in when they take the alias.  Proc_11_1, the
  * player's blow (Battles.bas @45E1CE), takes it from any NPC with one.
@@ -1132,7 +1132,7 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
  * mid-sentence: trabula.taf names its soldier "a soldier", so the blow that
  * opens a turn reads "A soldier attacks you with the rapier, but you manage
  * to avoid it." while the corpse line, printed from the Name field, reads
- * "Soldier falls down, dead." (measured, Adrift_119_trabula.txt t8/t29).
+ * "Soldier falls down, dead." (measured, runner_transcripts/trabula.txt).
  *
  * The Runner capitalises at exactly five sites, all of them in Proc_11_2 (an
  * NPC's blow) and all of them the *attacker* leading the sentence: the two
@@ -1256,8 +1256,9 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
          (4524FC) from the call site 44AE95; endmessage's EndGame-death
          branch calls that same sub from 45E10B, and run390 Form1.chardohit
          builds the same lines inline after the death sentence (442B7F).
-         Measured live: run400 on light_up_4summer_comp.taf (Adrift_1027
-         turn 352, "You scored 58 out of the maximum 0!"), and
+         Measured live: run400 on light_up_4summer_comp.taf
+         (runner_probes/light_up.run400.txt turn 352, "You scored 58 out of
+         the maximum 0!"), and
          jason_vs_salm / wes_ghn / mr_smith. */
       task_print_end_game_summary (game, FALSE, TRUE);
       task_print_end_keyprompt (game);
@@ -1346,9 +1347,9 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
 
   /*
    * run390 keeps a killed NPC's stamina below zero: Outside's Joe, killed on
-   * the road by the monster, shows "Stamina: -40 (150)" in 3.9 status (Wine
-   * Adrift_outside_statx).  Nothing reads it but status -- the corpse is out
-   * of play and 3.9 has no Recovery.
+   * the road by the monster, shows "Stamina: -40 (150)" in 3.9 status
+   * (runner_probes/outside.run390.statx.txt).  Nothing reads it but status
+   * -- the corpse is out of play and 3.9 has no Recovery.
    */
   if (stamina <= 0)
     {
@@ -1838,7 +1839,8 @@ battle_attribute_report (scr_gameref_t game, scr_int npc, const scr_char *base,
    * the player whether or not it is wielded, so 3.9 status counts a carried
    * weapon before any attack sets the wield.  Outside, holding the shovel
    * (HitValue 50) on arrival in the tunnel: "Hit strength: 100 (50)" in
-   * run390x (Wine Adrift_outside_statx), where the wield alone gave 50.
+   * run390x (runner_probes/outside.run390.statx.txt), where the wield alone
+   * gave 50.
    */
   if (npc < 0 && weapon < 0 && battle_is_legacy_version (game))
     weapon = battle_player_best_weapon (game);

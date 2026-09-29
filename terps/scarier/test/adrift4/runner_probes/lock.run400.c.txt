@@ -1,0 +1,64 @@
+
+> probe
+PROBE OK.  TICK.
+
+> open box with zzz
+You can't open the box as it is locked!  TICK.
+
+> unlock box with coin
+You unlock the box with the coin.  TICK.
+
+> open box with zzz
+You open the box.  TICK.
+
+> open jar with zzz
+You can't open the jar!  TICK.
+
+> open coin with zzz
+You can't open the coin!  TICK.
+
+> close box with zzz
+You close the box.  TICK.
+
+> open box
+You open the box.  TICK.
+
+> close box with knife
+You can't close the box with the knife.  TICK.
+
+> n
+You move north.
+Beta
+The second room.  Also here is a gem, a red bag and a blue bag.  Dave is here.  You can only move south.  TICK.
+
+> open box with zzz
+You can't see the box.  TICK.
+
+> close box with coin
+You can't close the coin!  TICK.
+
+> open box with coin
+You can't open the coin!  TICK.
+
+> close box with zzz
+You can't see the box.  TICK.
+
+> unlock box with zzz
+The box is not locked!  TICK.
+
+> lock box with zzz
+You can't lock the box as it is open.  TICK.
+
+> open box with gem
+You can't open the gem!  TICK.
+
+> s
+You move south.
+Alpha
+The first room.  Also here is a red stone and a blue stone.  You can only move north.  TICK.
+
+> open box with zzz
+The box is already open!  TICK.
+
+> probe
+PROBE OK.  TICK.

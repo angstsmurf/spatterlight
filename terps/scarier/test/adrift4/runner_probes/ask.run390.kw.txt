@@ -1,0 +1,67 @@
+
+> zzz push stone
+You push the stone, but nothing happens.
+
+> look, push stone
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+You push the stone, but nothing happens.
+
+> push and pull stone
+You pull the stone, but nothing happens.
+
+> push stone pull
+You pull the stone, but nothing happens.
+
+> hit stone, kill
+You hit the stone, but nothing happens.
+Now that isn't very nice.
+
+> please push stone
+Your kindness gets you nowhere.
+
+> zzz push
+You push, but nothing happens.
+
+> sing and dance
+You do a little dance.
+
+> jump stone
+Wheee-boinng.
+
+> stone jump
+Wheee-boinng.
+
+> go stone
+Unknown place.
+
+> push stone and kick
+You kick the stone, but nothing happens.
+
+> turn stone light
+You can't turn the stone.
+
+> climb stone and sit on stone
+You can't sit on the stone.
+
+> zzz cut stone
+You can't cut the stone.
+
+> open stone push
+You can't open the stone!
+
+> read stone
+You can't read the stone!
+
+> push stone
+You push the stone, but nothing happens.
+
+> buy stone kiss
+I'm not sure the stone would appreciate that.
+
+> drink push stone
+You push the stone, but nothing happens.
+
+> look
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.

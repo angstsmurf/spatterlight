@@ -1,0 +1,55 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You take the torch.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> take box
+You take the box.
+
+> put nut on table
+You put the nut onto the table.  
+
+> take table
+You take the table.
+
+> put nut on table
+The nut is already on the table!
+
+> drop box
+You drop the box.  
+
+> put nut on table
+The nut is already on the table!
+
+> put pebble on table
+(Taking the pebble first)
+You put the pebble onto the table.  
+
+> put torch on table
+You put the torch onto the table.  
+
+> put stone on bench
+(Taking the stone first)
+You put the stone onto the bench.  
+
+> put nut on bench
+You put the nut onto the bench.  
+
+> put zzzz on table
+Where do you want to put the table?
+
+> put coin on zzzz
+Where do you want to put that?
+
+> probe
+PROBE OK.

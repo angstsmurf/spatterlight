@@ -1,0 +1,52 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem and a rock.  You can only move north.
+
+> break rock
+You might need the rock.
+
+> take gem
+You pick up the gem.
+
+> break rock
+You might need the rock.
+
+> open rock
+You can't open the rock!
+
+> read rock
+You can't read the rock!
+
+> cut rock
+You can't cut the rock.
+
+> push rock
+GENPFX.
+
+> fix rock
+I don't think you can fix the rock.
+
+> fix rock with gem
+I don't think you can fix the rock with the gem.
+
+> lock rock with gem
+You can't lock the rock with the gem.
+
+> turn rock with gem
+You can't turn the rock with the gem.
+
+> smell rock with gem
+The rock smells normal.
+
+> clear rock with gem
+You can't clear the rock with the gem.
+
+> drop gem
+You drop the gem.
+
+> probe
+PROBE OK.

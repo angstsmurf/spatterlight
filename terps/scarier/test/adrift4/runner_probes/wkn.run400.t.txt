@@ -1,0 +1,39 @@
+
+> z
+Time passes...
+Bob BOB ENTERS. from the north.  CHARTASK FIRED.
+
+> n
+Player moves north.
+Far Room
+LONG.
+
+> s
+Player moves south.
+Probe Room
+LONG.  Bob is standing here.  CHARTASK FIRED.
+
+> z
+Time passes...
+Bob BOB LEAVES. to the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+Bob BOB ENTERS. from the north.  CHARTASK FIRED.
+
+> n
+Player moves north.
+Far Room
+LONG.
+
+> s
+Player moves south.
+Probe Room
+LONG.  Bob is standing here.  CHARTASK FIRED.
+
+> z
+Time passes...
+Bob BOB LEAVES. to the north.

@@ -1,0 +1,47 @@
+
+> probe
+PROBE OK.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.
+
+> drop lamp in box
+You drop the lamp.
+
+> i
+You are carrying nothing.
+
+> take lamp
+You pick up the lamp.
+
+> leave lamp in box
+You drop the lamp.
+
+> i
+You are carrying nothing.
+
+> take lamp
+You pick up the lamp.
+
+> leave lamp on table
+You drop the lamp.
+
+> i
+You are carrying nothing.
+
+> take lamp
+You pick up the lamp.
+
+> drop lamp on table
+You drop the lamp.
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

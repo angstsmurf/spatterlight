@@ -74,9 +74,9 @@ lib_cmd_look (scr_gameref_t game)
  * run390 44B758), and the line ends in the game's DontUnderstand.  Measured
  * on Lair of the Vampire (4.00), whose synonym 2 rewrites `look` to `x`:
  * run400 answers `look` with "Try something different." in three separate
- * captures (Adrift_131/332/674_lair.txt), and because the room is never
- * listed, the cobalt key an earlier task dropped there stays unseen and the
- * next `get all` leaves it behind.
+ * captures (runner_probes/lair.run400.[abc].txt), and because the room is
+ * never listed, the cobalt key an earlier task dropped there stays unseen and
+ * the next `get all` leaves it behind.
  *
  * 3.7/3.8 examines has no such exit, but the list is just as exact, so a
  * bare `x`, `ex`, `examine`, `exam` or `look at` enters examines and
@@ -84,10 +84,11 @@ lib_cmd_look (scr_gameref_t game)
  * the room`, `look at room` and `look around`; `l room` is DontUnderstand.
  * Only the four listed lines look, in any case.  (`x,` is "Nothing
  * special." there too: the comma ends the word -- see
- * uip_match_whitespace().)  p37EXAM/p38EXAM, run370x
- * Adrift_173_pbare37.rtf / Adrift_175_pbare37b.rtf, run380x
- * Adrift_172_pbare38.rtf / Adrift_174_pbare38b.rtf
- * (`cmdfile_p3738bare.txt`, `cmdfile_p3738bare2.txt`).
+ * uip_match_whitespace().)  p37EXAM/p38EXAM
+ * (harness/make_3738_examprobe.py), run370x
+ * runner_probes/exam.run370.bare.rtf / runner_probes/exam.run370.bare_b.rtf,
+ * run380x runner_probes/exam.run380.bare.rtf /
+ * runner_probes/exam.run380.bare_b.rtf.
  *
  * Deliberate deviation: below 3.9 any line this row matches that names the
  * room or location looks, so `examine room`, `look at room` and `x the
@@ -307,7 +308,8 @@ lib_cmd_restart (scr_gameref_t game)
  * "[The previous turn has been undone.]", "Sorry, no more undo is
  * available." and "You can't undo what hasn't been done." are in no Runner's
  * pool at all, and neither Runner prints a room name with the answer:
- * Adrift_361_cellar.txt (4.00) reads plain "Undone." three times running.
+ * runner_transcripts/cellar.txt (4.00) reads plain "Undone." three times
+ * running.
  *
  * 3.9 and 4.0 also REPLAY the restored turn's output.  Each Runner keeps a
  * 10-deep record array (run400 MemVar_494124) whose field 0 is the turn's
@@ -315,12 +317,13 @@ lib_cmd_restart (scr_gameref_t game)
  * before -- when the record is written at the start of each line (@48BD6E);
  * `undo` reads slot *1* and prints "Undone." & vbCrLf & the text that slot
  * holds, so undoing `e` re-prints what `take satchel` said, the next undo
- * what `x chair` said (Adrift_687_cellar), and Adrift_892_hero's
- * wait/wait/undo re-prints the first "Time passes...".  An emptied slot is
- * stamped "!!" (@45B146) and that sentinel is what the availability test
- * reads (@45AE5C); run390 do_undo has the same shape.  Scarier keeps the text
- * beside each undo state: the flushed output taken as the temporary game is
- * copied (run_get_undo_text() for the undo game, the memo for older ones).
+ * what `x chair` said (runner_probes/cellar.run400.b.txt), and
+ * runner_probes/hero.run400.txt's wait/wait/undo re-prints the first "Time
+ * passes...".  An emptied slot is stamped "!!" (@45B146) and that sentinel is
+ * what the availability test reads (@45AE5C); run390 do_undo has the same
+ * shape.  Scarier keeps the text beside each undo state: the flushed output
+ * taken as the temporary game is copied (run_get_undo_text() for the undo
+ * game, the memo for older ones).
  */
 scr_bool
 lib_cmd_undo (scr_gameref_t game)
@@ -337,8 +340,9 @@ lib_cmd_undo (scr_gameref_t game)
    */
 
   /*
-   * 3.9's undo leaves the turn counter where it is: Adrift_1161's `turns`
-   * after undo/redo/x me/i/z/wait/exits/yes reads 37, one per element typed.
+   * 3.9's undo leaves the turn counter where it is:
+   * runner_probes/admin.run390.txt's `turns` after
+   * undo/redo/x me/i/z/wait/exits/yes reads 37, one per element typed.
    */
   const scr_int turns = game->turns;
   std::string replay;
@@ -1072,8 +1076,8 @@ lib_cmd_wait (scr_gameref_t game)
    * the literal, then Proc_21_4_442418 which returns vbCrLf), so a walk
    * announcement in the same turn starts a new line instead of joining
    * with two spaces; 3.9 stores the bare literal (run390 45E636) and joins.
-   * Measured run400, EV15, Adrift_1_ev15.txt: "Time passes..." / "Walker
-   * arrives from the east." on separate lines.
+   * Measured run400, EV15, runner_probes/ev15.run400.txt: "Time passes..." /
+   * "Walker arrives from the east." on separate lines.
    */
   pf_buffer_string (filter, "Time passes...\n");
   if (lib_is_version_400 (game))

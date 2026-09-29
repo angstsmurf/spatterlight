@@ -1,0 +1,68 @@
+
+> probe
+PROBE OK.
+
+> give hat to bob
+Bob doesn't seem interested in the hat.
+
+> i
+You are carrying a hat.
+
+> give coin to bob
+You don't have the coin!
+
+> take give hat bob
+I don't think Bob would appreciate being handled.
+
+> give take hat bob
+I don't think Bob would appreciate being handled.
+
+> x give hat bob
+An ordinary man.
+
+> give x hat bob
+An ordinary man.
+
+> drop give hat bob
+You drop the hat.
+
+> i
+You are carrying nothing.
+
+> take hat
+You pick up the hat.
+
+> give wear hat bob
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> give open box bob
+You open the box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> give nut bob
+You don't have the nut!
+
+> give zzz bob
+Give what?
+
+> push give hat bob
+You push the hat, but nothing happens.
+
+> open give box bob
+The box is already open!
+
+> give hat
+(to Bob)
+You don't have the hat!
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

@@ -1,0 +1,138 @@
+
+> open desk
+You open your desk.  The pens are inside your desk.
+
+> take pens
+You take the pens from your desk.
+
+> examine my dresser
+A dresser with several drawers, though given that you're already dressed, its contents are of little interest to you.  The wallet is on your dresser.
+
+> take wallet
+You take the wallet from your dresser.
+
+> examine bookshelf
+On your bookshelf is the math book, the philosophy book, the C++ book and the literature book.
+
+> take math book
+You take the math book from your bookshelf.
+
+> examine steve's dresser
+An inaccurate clock rests atop Steve's dresser, claiming the time is currently 0:00 - military time. The top drawer is locked but you've never seen Steve with a key - not that you would ever look through his stuff.  Steve's dresser is locked.  Steve's alarm clock is on Steve's dresser.
+
+> set steve's clock hour to 7
+You change the hour on Steve's clock to 7.  
+
+> set steve's clock minute to 42
+You change the minute on Steve's clock to 42.  You hear a "click" - did the dresser unlock?
+
+> open steve's dresser
+You open Steve's dresser.  The gold key and the silver key are inside Steve's dresser.
+
+> look in steve's dresser
+An inaccurate clock rests atop Steve's dresser, claiming the time is currently 0:00 - military time. The top drawer is locked but you've never seen Steve with a key - not that you would ever look through his stuff.  Steve's dresser is open.  Steve's alarm clock is on Steve's dresser, and inside is the gold key and the silver key.
+
+> take gold key
+You take the gold key from Steve's dresser.
+
+> north
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> down
+You can only move north.
+
+> north
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> unlock stairwell door with gold key
+I don't understand what you want me to do with the gold key.
+
+> open stairwell door
+You can't open that.
+
+> up
+You can only move north.
+
+> south
+You can only move north.
+
+> sit chair
+You sit down on the ground.
+
+> get notebook
+Take what?
+
+> open door
+You can't open that.
+
+> north
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> pull sheet
+You pull, but nothing happens.
+
+> south
+You can only move north.
+
+> down
+You can only move north.
+
+> take gold key
+You take the silver key from Steve's dresser.
+
+> north
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> west
+You can only move north.
+
+> up
+You can only move north.
+
+> north
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> unlock lauren's dresser with gold key
+Which dresser.  Your dresser or Steve's dresser?
+
+> open lauren's dresser
+That is still ambiguous!
+
+> take pistol
+Take what?
+
+> examine pillow
+You see no such thing.
+
+> x pillow
+You see no such thing.
+
+> look
+Room 315 (Your Room)
+A standard two-person dorm room, which is to say it isn't very cozy. You've been living here a couple months and it isn't too bad. You've got a window to the outside world that you can't open, which is of course terrible, and a door which has to stay shut because an open door is somehow a "fire hazard." You and your room mate Steve have the same set of furniture: a bookshelf, a bed, a desk, a chair, and a dresser. You wish you had more than one dresser since you've had to store some clothes in your desk, but you've done well with what you have. A calendar is pinned to the bulletin board that you and Steve share.
+
+> s
+You can only move north.
+
+> d
+You can only move north.
+
+> d
+You can only move north.
+
+> look
+Room 315 (Your Room)
+A standard two-person dorm room, which is to say it isn't very cozy. You've been living here a couple months and it isn't too bad. You've got a window to the outside world that you can't open, which is of course terrible, and a door which has to stay shut because an open door is somehow a "fire hazard." You and your room mate Steve have the same set of furniture: a bookshelf, a bed, a desk, a chair, and a dresser. You wish you had more than one dresser since you've had to store some clothes in your desk, but you've done well with what you have. A calendar is pinned to the bulletin board that you and Steve share.
+
+> n
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> up
+You can only move north.
+
+> n
+You don't have all your stuff yet, and you'd better not go to class unprepared.
+
+> look
+Room 315 (Your Room)
+A standard two-person dorm room, which is to say it isn't very cozy. You've been living here a couple months and it isn't too bad. You've got a window to the outside world that you can't open, which is of course terrible, and a door which has to stay shut because an open door is somehow a "fire hazard." You and your room mate Steve have the same set of furniture: a bookshelf, a bed, a desk, a chair, and a dresser. You wish you had more than one dresser since you've had to store some clothes in your desk, but you've done well with what you have. A calendar is pinned to the bulletin board that you and Steve share.

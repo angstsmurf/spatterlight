@@ -1,0 +1,43 @@
+
+> attack droid guard
+Player shoot a sentry with the blaster.Player shoot Droid with the blaster.
+
+> attack guard droid
+Player shoot a sentry with the blaster.Player shoot Droid with the blaster.
+
+> attack robot droid guard
+Player shoot a sentry with the blaster.Player shoot Droid with the blaster.Player shoot Robot with the blaster.
+
+> attack guard with droid
+I don't understand what you want to do with Guard.
+
+> attack droid guard with blaster
+Player shoot a sentry with the blaster.Player shoot Droid with the blaster.
+
+> attack sentry droid
+Player shoot Droid with the blaster.
+
+> take rock
+Player take the rock.
+
+> attack droid guard
+Player shoot a sentry with the blaster.Player shoot Droid with the blaster.
+
+> blaster
+I don't understand what you want me to do with the blaster.
+
+> rock
+I don't understand what you want me to do with the rock.
+
+> attack guard, droid
+Player shoot a sentry with the blaster.
+I don't understand what you want to do with Droid.
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	500		500		500
+Hit strength:ilmfeeee	10-10		10		30		(30)
+Accuracy:iilmee fttts	60-60		60		80		(20)
+Defense value:iirmttt	5-5		5		5		(0)
+Agility:eeemee rfetts 	5-5		5		5
+Stamina: ileeerfeetts 	Player is wielding a blaster.

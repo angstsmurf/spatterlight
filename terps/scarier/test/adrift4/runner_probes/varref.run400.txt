@@ -1,0 +1,69 @@
+
+> probe
+PROBE OK.
+
+> zap
+ZAP [7] [seven] [quux].
+
+> zork 7 apples
+VAR1 [7] [quux].
+
+> zork num apples
+I don't understand.
+
+> zork %num% apples
+I don't understand.
+
+> zog 7 blip
+VAR2.
+
+> blip 7 zog
+I don't understand.
+
+> frob seven
+I don't understand.
+
+> frob 7
+I don't understand.
+
+> nurb quux
+I don't understand.
+
+> nurb 0
+VARS.
+
+> nurb
+I don't understand.
+
+> nurb 42
+I don't understand.
+
+> nurb QUUX
+I don't understand.
+
+> nurb word
+I don't understand.
+
+> blip %nosuch%
+I don't understand.
+
+> blip nosuch
+I don't understand.
+
+> wibb 7
+CASE.
+
+> wibb %NUM%
+I don't understand.
+
+> bork 5
+I don't understand.
+
+> snib 5
+I don't understand.
+
+> zap
+ZAP [7] [seven] [quux].
+
+> probe
+PROBE OK.

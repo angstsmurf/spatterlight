@@ -1,0 +1,67 @@
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> chop tree and chop tree and chop tree
+Which tree.  The red tree or the blue tree?
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop tree and x tree
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree and chop tree
+Which tree.  The red tree or the blue tree?
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop tree and chop tree
+Which tree.  The red tree or the blue tree?
+That is still ambiguous!
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree and zzz and x tree
+Which tree.  The red tree or the blue tree?
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree and zzz
+Which tree.  The red tree or the blue tree?
+That is still ambiguous!
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop tree and chop keys
+Which tree.  The red tree or the blue tree?
+Which keys.  The red tree, the blue tree, the mustang key or the truck key?
+
+> look
+Alpha
+The first room.  You can only move east.

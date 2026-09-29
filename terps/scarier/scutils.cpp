@@ -378,9 +378,9 @@ scr_congruential_rand (scr_uint new_seed)
  *
  * Runner-compatible generator: the same xoshiro128** with SplitMix32 seeding
  * as erkyrath_random() (common_utils/randomness.c) and as the vbrng.dll hook
- * that feeds the Wine ADRIFT Runners (~/adrift-battle/runner/wine/rng/).  A
- * Runner under that hook sees `Rnd` = (w >> 8) / 2^24 -- VB's 24-bit Single --
- * and rolls `Int(Rnd * n) + lo`.  Presenting the same word here as the 31-bit
+ * that feeds the Wine ADRIFT Runners of the Wine Runner harness.  A Runner
+ * under that hook sees `Rnd` = (w >> 8) / 2^24 -- VB's 24-bit Single -- and
+ * rolls `Int(Rnd * n) + lo`.  Presenting the same word here as the 31-bit
  * value (w >> 8) << 7 makes scr_randomint()'s multiply-shift compute exactly
  * floor(((w >> 8) * n) / 2^24) = Int(Rnd * n), so Scarier and the Runner draw
  * identical integers from identical words: a seed-matched transcript pair can

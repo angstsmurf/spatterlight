@@ -1,0 +1,36 @@
+
+px coin
+PX PASS.
+
+PX coin
+PX PASS.
+
+PX Widget
+I don't understand what you want me to do with the Widget.
+
+py
+PY PASS.
+
+PY
+PY PASS.
+
+pz coin
+PZ PASS.
+
+PZ coin
+PZ PASS.
+
+pq widget
+I don't understand what you want me to do with the Widget.
+
+pq Widget
+I don't understand what you want me to do with the Widget.
+
+pa Widget
+I don't understand what you want me to do with the Widget.
+
+pa widget
+I don't understand what you want me to do with the Widget.
+
+pa coin
+PA PASS.

@@ -1,0 +1,98 @@
+
+w
+I move west.
+Hallway
+The long hallway leads to a few different places: to the West is Trey Steele's office, one of the party guests here tonight. To the Southeast, is the Mens Bathroom, and to the Southwest is the Women's Bathroom.   Finally, to the North is the Janitor's Closet, which is currently locked.
+
+Nancy's here, chatting with some of the guests.  Barry patrols the area.
+
+se
+I move southeast.
+Mens Bathroom
+The small Bathroom looks like garbage, and smells much worse. A broken mirror sits above a dirty sink, shards of glass jut out of it, ready to stab anyone who dares to touch them. On the opposite side of the room sits three urinals, one of them hanging off the wall at an angle.  Near the back of the room, sits a small stall, where a horrible smell dispenses from.
+
+open stall
+I held my breath from the horrible stench, and pushed open the stall door. There was a loud creaking noise as it slowly swinged open. I entered the cramped stall and let out a loud scream. Sitting on the toilet, was the body of Max Thurman, his lifeless eyes staring straight at me, and his cold hands frozen in fear against the knife jutting out of his head.
+
+I backed out of the stall, a sense of fear and dread blocking all of my senses. I could hear the sounds of footsteps, as people came to find out the cause of the scream. Barry Tompkins, the head security guard of the building, was the first one to enter, and he let out a loud moan as he saw the body of Max in the stall. He grabbed me by the arm and pulled me out into the hallway, convinced I was the one that killed Max. He pulled me into the Plaza, where the rest of the guests watched with perplexed looks on their faces.
+
+"Everyone, I have some bad news. Max Thurman is dead," Barry bellowed out to the guests, a sense of sadness could be detected in his tone.
+
+The guests stood stunned as Barry explained what happened. I stood there, watching their faces, knowing already that one of them had just brutally murdered a fellow human being. 
+
+"One of us just killed our boss. I don't know why, and I don't care why. I just want to make sure that person will be brought to justice. That is why I am sealing off the elevator," Barry continued to shout to the crowd.
+
+There were loud groans and shocked sighs as the guests began to beg for their freedom.
+
+"No one is leaving. I am going to call the police, and they're going to come here and find out who did this. I've already blocked off the use of all elevators with my security pass, so it's useless. One of you made a terrible mistake today, and I'm going to make sure you are punished for it," Barry screamed, his voice getting angrier and louder.
+
+Barry shot a suspicious look at me, and then stormed out of the room, leaving to go call the police. Deep down inside of me, I knew he was right. If there was a vicious criminal, they had to be stopped, and I decided I'd better help stop them...Act II
+
+
+I don't understand what you mean!
+
+se
+I can't go in that direction, but I can move north, east and west.
+
+x pocket
+Nothing special.
+
+nw
+I can't go in that direction, but I can move north, east and west.
+
+e
+I move east.
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's office. To the North are the computer labs. Chatting can be heard to the West, coming from the Plaza.  Frank stares at the wall, admiring some artwork hanging from it.
+
+e
+I move east.
+Outside Thurman's Office
+Right now, I'm standing in the small area outside Max Thurman's office. A lone desk sits near the wall, a computer sits atop of it. Stuck into the walls, are large metallic letters that spell out the word "SinTex". Two large oak doors sit to the North, leading to Max Thurman's office.
+
+e
+I can only move west.
+
+unlock door
+You have nothing to unlock the door with!
+
+n
+You can't, the door to Max's office is locked.
+
+e
+I can only move west.
+
+n
+You can't, the door to Max's office is locked.
+
+take file
+Take what?
+
+open file
+What file?
+
+s
+I can only move west.
+
+e
+I can only move west.
+
+research alex
+This file is missing from database. Please report to archives to fix the error.
+
+As I clicked the screen off, a scream echoed into the hall.
+
+w
+I move west.
+Hallway.
+
+w
+I move west.
+Plaza.
+
+n
+I move north.
+Staff Room
+During the day, the Staff Room is full of light, fun, and safety. But now, in the night, it's a dark quiet place that makes me feel cold inside. The oak table in the middle of the room is covered in garbage, the janitor's obviously haven't been through yet. A large counter stretches across the room, containing many appliances such as a blender, a toaster and a microwave.  
+
+Looking closer, something can be seen inside the microwave.

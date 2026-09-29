@@ -1,0 +1,32 @@
+
+> x cabo
+Kike Morales, un pistolín que llegó hace un año de una de esas unidades en las que lo único que se hace es contar cacillos.
+
+> x Cabo
+Kike Morales, un pistolín que llegó hace un año de una de esas unidades en las que lo único que se hace es contar cacillos.
+
+> x CABO
+Kike Morales, un pistolín que llegó hace un año de una de esas unidades en las que lo único que se hace es contar cacillos.
+
+> hablar con Cabo
+Que pasa tio!, me han llamado de la cantina debes pasarte por allí a recoger una bolsa de comida para la guardia.
+
+> n
+Vas al norte.
+PATIO DE ARMAS
+El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de banderines de gloriosas unidades que un día se alojaron en este cuartel.  El Teniente de tu sección está aquí.
+
+> o
+Vas al oeste.
+CANTINA
+  Abres las puertas de  la cantina, o mejor dicho, el "hogar del soldado". Para ser Sábado no está mal, un binomio de la 1ª Compañía echando una partida al Cabal y en la barra, como siempre, está la mejor camarera de toda la OTAN... Marifé....  Marifé está aquí.
+
+> x marife
+No ves tal cosa.
+
+> x Marife
+No ves tal cosa.
+
+> mirar
+CANTINA
+  Abres las puertas de  la cantina, o mejor dicho, el "hogar del soldado". Para ser Sábado no está mal, un binomio de la 1ª Compañía echando una partida al Cabal y en la barra, como siempre, está la mejor camarera de toda la OTAN... Marifé....  Marifé está aquí.

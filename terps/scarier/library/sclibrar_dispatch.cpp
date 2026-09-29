@@ -142,12 +142,13 @@ lib_object_short_name_is_ambiguous (scr_gameref_t game, scr_int object)
  * "TenebraeSemper.taf" task 0 is "get * pen(s)": run400 runs it for
  * `get pens` ("You take a pen from the drawer.") and NOT for `take pens`,
  * which completes the library take of the pens object untouched (probes
- * Adrift_1_tenebrae_probe{,3}.txt, 2026-08-30) -- so the game's "have a pen"
- * gate on leaving the dorm really does require typing `get`.  Retrying with
- * a canonical "get" let Scarier's `take pens` fire that task and walk past
- * the gate.  The precedents the retry was tuned on all keep the typed verb
- * (Wax Worx `get marie` -> "get * head", Sommeril `take silver orb` ->
- * "take silver orb"), so hand the retry the verb the player used: the
+ * runner_probes/tenebraesemper.run400.probe.txt,
+ * runner_probes/tenebraesemper.run400.probe3.txt, 2026-08-30) -- so the game's
+ * "have a pen" gate on leaving the dorm really does require typing `get`.
+ * Retrying with a canonical "get" let Scarier's `take pens` fire that task and
+ * walk past the gate.  The precedents the retry was tuned on all keep the
+ * typed verb (Wax Worx `get marie` -> "get * head", Sommeril `take silver orb`
+ * -> "take silver orb"), so hand the retry the verb the player used: the
  * library's own synonym of the canonical verb that opens the dispatched
  * command element, or the canonical verb when none does.
  */
@@ -297,7 +298,7 @@ lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
  * LCase()d copy, and on a hit dispatch the RAW line, whose capitals the
  * wildcard matcher compares binary (see uip_set_binary_input()).  The hit
  * claims even when the raw dispatch then runs nothing.  hcw (4.00,
- * Adrift_1055_hcw.txt turn 162): `put susan in trunk` with the Fembot
+ * runner_probes/hcw.run400.txt turn 162): `put susan in trunk` with the Fembot
  * holding "sleeping Susan" pre-matches task 477 `get * susan` on "get
  * sleeping susan", dispatches "get sleeping Susan", runs nothing, and ends
  * on "I don't understand what you mean." -- task 243 `put * susan *` misses
@@ -319,9 +320,10 @@ scr_bool lib_rebuilt_silent_continues = FALSE;
  * the line as TYPED, with no referenced object.  Professor in the Laboratory,
  * mailbox up: `take mailbox`, `pick up mailbox`, `take rope` and `take the
  * mailbox on-a rope` pre-match task 9's "already up by the window" and answer
- * "What was that?..." (Adrift_1156_p4profmail8), while `get mailbox` gets
- * task 9's message (Adrift_p4profmail7 T15).  A first-pass hit still
- * dispatches the rebuilt line case-kept (Adrift_p4profmail2 T24).
+ * "What was that?..." (runner_probes/professor.run400.mail8.txt), while `get
+ * mailbox` gets task 9's message (runner_probes/professor.run400.mail7.txt
+ * T15).  A first-pass hit still dispatches the rebuilt line case-kept
+ * (runner_probes/professor.run400.mail2.txt T24).
  */
 scr_bool lib_rebuilt_fallback_typed = FALSE;
 
@@ -413,13 +415,16 @@ lib_try_game_command_common (scr_gameref_t game,
    * No pre-4.0 Runner rebuilds the line from the resolved object's authored
    * Prefix.  Measured on p37PRETRY / p38PRETRY / p39PRETRY (2026-09-20,
    * make_39_pretryprobe.py and make_3738_pretryprobe.py; transcripts
-   * Adrift_127, Adrift_pretry39b, Adrift_pretry3{7,8}{,b}): all three answer
-   * `take pebble` against a task `take a pebble`, `get stone` against `get a
-   * stone`, `put bean in jar` against `put a bean in a jar` and `drop coin`
-   * against `drop a coin` out of the library, with every one of those tasks
-   * alive when its own spelling is typed.  The crossed pairs (`get pebble`,
-   * `take stone`) rule out a canonical-verb rebuild as well as a typed-verb
-   * one.  Only the bare-name form below survives, and only for one object.
+   * runner_probes/pretry.run390.txt, runner_probes/pretry2.run390.txt,
+   * runner_probes/pretry.run370.rtf, runner_probes/pretry.run370.b.rtf,
+   * runner_probes/pretry.run380.rtf, runner_probes/pretry.run380.b.rtf): all
+   * three answer `take pebble` against a task `take a pebble`, `get stone`
+   * against `get a stone`, `put bean in jar` against `put a bean in a jar` and
+   * `drop coin` against `drop a coin` out of the library, with every one of
+   * those tasks alive when its own spelling is typed.  The crossed pairs (`get
+   * pebble`, `take stone`) rule out a canonical-verb rebuild as well as a
+   * typed-verb one.  Only the bare-name form below survives, and only for one
+   * object.
    */
   /*
    * Deliberate deviation (2026-09-27): on a line no task matches the
@@ -451,7 +456,7 @@ lib_try_game_command_common (scr_gameref_t game,
    * MemVar_494208 (the takes write it at 47B8F9 only once the take goes
    * ahead), so a "referenced object" restriction sees none.  Professor's
    * `take mailbox` in the square: the refusal's "get the Mailbox on-a Rope"
-   * skips task 7 and runs task 8 (Adrift_p4profmail2.txt).
+   * skips task 7 and runs task 8 (runner_probes/professor.run400.mail2.txt).
    */
   const scr_var_setref_t ref_vars = gs_get_vars (game);
   const scr_int saved_ref_object = var_get_ref_object (ref_vars);
@@ -604,9 +609,10 @@ lib_try_game_command_short (scr_gameref_t game,
  * The refusal-exit pre-match of run400's per-piece take (Proc_19_23_473A34
  * @473241) is built from the RESOLVED object and the canonical "get", not
  * from the typed words: `take poster` on man overboard.taf runs "Get *
- * poster", a task with no take form at all (Adrift_1_man_overboard.txt:39,
- * Adrift_1_moprobe.txt, 2026-08-29/30).  Only the pre-action retry above is
- * verb-literal.
+ * poster", a task with no take form at all
+ * (runner_probes/man_overboard.run400.txt:39,
+ * runner_probes/man_overboard.run400.probe.txt, 2026-08-29/30).  Only the
+ * pre-action retry above is verb-literal.
  */
 scr_bool
 lib_try_game_command_short_canonical (scr_gameref_t game,
@@ -628,12 +634,13 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
  *
  * The two measurements it reconciles are the same shape as put's.  dusk.taf
  * task 48 `drop * board`, the board in hand, claims `drop board` in run400
- * (Adrift_221_dusk.txt:80) -- the wildcard absorbs the article the rebuild
- * puts in.  p4REPEAT3.taf task 3, whose command is the literal `drop hat`,
- * does not: run400 answers both `drop hat` turns out of the library, "You
- * drop the hat." and then "You are not holding the hat.", and neither the
- * CompleteText nor the RepeatText is ever printed (Adrift_952.txt,
- * 2026-09-08).  "drop the hat" simply is not `drop hat`.
+ * (runner_transcripts/dusk.txt:80) -- the wildcard absorbs the article the
+ * rebuild puts in.  p4REPEAT3.taf task 3, whose command is the literal `drop
+ * hat`, does not: run400 answers both `drop hat` turns out of the library,
+ * "You drop the hat." and then "You are not holding the hat.", and neither the
+ * CompleteText nor the RepeatText is ever printed
+ * (runner_probes/repeat3.run400.txt, 2026-09-08).  "drop the hat" simply is
+ * not `drop hat`.
  *
  * Pre-4.0 has no authored-prefix form either -- run370/380/390 all answer
  * `drop coin` against a task `drop a coin` out of the library (p3xPRETRY,
@@ -660,8 +667,8 @@ lib_try_game_command_short_definite (scr_gameref_t game,
    * Any of the object's names can fill the noun slot, not just its Short.
    * frustrated.taf's `drop tree` names the upper half of the trunk by an
    * alias, and run400 gives the line to `*drop*tree*`
-   * (Adrift_274_frustrated.txt) -- "drop the upper half of the trunk" is not
-   * what that pattern matches, "drop the tree" is.
+   * (runner_transcripts/frustrated.txt) -- "drop the upper half of the trunk"
+   * is not what that pattern matches, "drop the tree" is.
    */
   alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count && !status; alias++)
@@ -741,7 +748,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
  * take on a 2.  The and-loop does the same per object.
  *
  * Measured on p4AUTOFROM.taf (make_400_autofromprobe.py, run400,
- * Adrift_p4autofrom.txt, 2026-09-13):
+ * runner_probes/autofrom.run400.txt, 2026-09-13):
  *
  *   get treat     treat on the stove, `get *stove*`   -> "T2 BOLTED."
  *   Get token     `get * token from * table`,
@@ -753,8 +760,8 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
  *   get tin and string  `get the tin from *`          -> the string taken,
  *                 then "T8 TIN.", the tin left alone
  *
- * warlord (Adrift_1059_warlord.txt T104/T112/T122) is the first of these:
- * task 2103 `move/push/get *stove*` answers the treat, the bone and the
+ * warlord (runner_probes/warlord.run400.txt T104/T112/T122) is the first of
+ * these: task 2103 `move/push/get *stove*` answers the treat, the bone and the
  * cudgel with "The stove is bolted to the floor.".
  *
  * *looked_up says whether the object qualified; when it did, this look-up
@@ -789,7 +796,7 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
    * The typed line is pre-matched first (472DC8, ahead of the rewrite), and
    * a 1 claims it there: ticket.taf's `get notepad` fails task 113
    * `[get]{the}[notepad]` loudly with "The Station Master stops you." and
-   * never reaches task 415 `get *desk*` (Adrift_1127).
+   * never reaches task 415 `get *desk*` (runner_probes/ticket.run400.txt).
    */
   *looked_up = TRUE;
   lib_rebuilt_raw_dispatch = TRUE;
@@ -834,22 +841,23 @@ lib_try_game_command_with_object (scr_gameref_t game,
  *
  * The definite form is what reconciles the measurements: `put * firewood in
  * * fireplace` wins `put firewood in fireplace` in run400
- * (Adrift_1_goldilocks.txt 383, prefixes "a pile of" / "the"), as does
- * `put * battery * flashlight` (Adrift_1_Tear.txt), while the PUT5 arena
- * probe's `put a bean in a jar`, `put * pill in cup` and `put coin in box`
- * tasks (Adrift_82.txt, 2026-09-05) and sommeril's `put fish in fountain`
- * (Adrift_78.txt, both prefixes empty) all lose to the library: none of
- * those patterns matches "put the bean in the jar" / "put the FISH in the
- * FOUNTAIN".  The typed spelling never reaches the tasks through this
- * handler at all -- The ADRIFT Project's `put battery in charger` comes out
- * of the synonym table as "put nickel-cadmium nickel-cadmium accumulator in
- * charger", which no pattern of its `#Charge battery` task matches, and the
- * author's own run400 transcript still shows the task firing: it is the
- * rebuild "put the small battery in the battery charger" that `put * battery
- * * charger *` claims.  Pre-4.0 offers the tasks nothing at all here: the
- * p3xPRETRY probes put the bean in the jar on all three Runners with `put a
- * bean in a jar` matched and passing (2026-09-20), and there the typed line
- * has already been through the tasks before the library sees it.
+ * (runner_probes/goldilocks.run400.txt 383, prefixes "a pile of" / "the"), as
+ * does `put * battery * flashlight` (runner_transcripts/Tear.txt), while the
+ * PUT5 arena probe's `put a bean in a jar`, `put * pill in cup` and `put coin
+ * in box` tasks (runner_probes/put5.run400.txt, 2026-09-05) and sommeril's
+ * `put fish in fountain` (runner_probes/sommeril.run400.probe.txt, both
+ * prefixes empty) all lose to the library: none of those patterns matches "put
+ * the bean in the jar" / "put the FISH in the FOUNTAIN".  The typed spelling
+ * never reaches the tasks through this handler at all -- The ADRIFT Project's
+ * `put battery in charger` comes out of the synonym table as "put
+ * nickel-cadmium nickel-cadmium accumulator in charger", which no pattern of
+ * its `#Charge battery` task matches, and the author's own run400 transcript
+ * still shows the task firing: it is the rebuild "put the small battery in the
+ * battery charger" that `put * battery * charger *` claims.  Pre-4.0 offers
+ * the tasks nothing at all here: the p3xPRETRY probes put the bean in the jar
+ * on all three Runners with `put a bean in a jar` matched and passing
+ * (2026-09-20), and there the typed line has already been through the tasks
+ * before the library sees it.
  */
 scr_bool
 lib_try_game_command_with_object_400 (scr_gameref_t game,
@@ -971,11 +979,12 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
    * filler after a single object reference (probe DONE 2026-08-23: Space
    * Boy's First Adventure Task 72's own command is the literal, unrestricted,
    * textless "drop cape to the floor"; typing it live gets the library's
-   * ordinary "Player drop the cape." with the score unchanged, Adrift_8_pET2.txt/
-   * Adrift_10_pET4.txt), where scarier's exact-match-only %object% previously
-   * failed to parse "cape to the floor" at all, so the library's drop never
-   * ran and the command fell through to "Drop what?" instead.  This fallback
-   * is tried last so it never preempts a real "X and Y" list.
+   * ordinary "Player drop the cape." with the score unchanged,
+   * runner_probes/et2.run400.txt, runner_probes/et4.run400.txt), where
+   * scarier's exact-match-only %object% previously failed to parse "cape to
+   * the floor" at all, so the library's drop never ran and the command fell
+   * through to "Drop what?" instead.  This fallback is tried last so it never
+   * preempts a real "X and Y" list.
    */
   list = var_get_ref_text (vars);
   if (uip_match ("%object%", list, game))
@@ -996,8 +1005,10 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
        * nothing answers to the noun after it, and swallowing the tail turned
        * it into a plain take -- "You take the stone." -- where run390 says
        * "You can't do that!" and run400 "I don't understand where you want to
-       * get things from." (p39DARK/p4TFROM, Adrift_969/971, 2026-09-10).  The
-       * take-from catch-alls carry both; see lib_cmd_take_from_nowhere().
+       * get things from." (p39DARK/p4TFROM,
+       * runner_probes/dark.run390.feed3.txt, runner_probes/tfrom.run400.txt,
+       * 2026-09-10).  The take-from catch-alls carry both; see
+       * lib_cmd_take_from_nowhere().
        */
       *are_more_objects = FALSE;
       is_matched = TRUE;

@@ -279,7 +279,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
              * past a leading break.  So a character whose in-room text opens
              * with "<br>" keeps that break, and it lands *after* the two
              * separator spaces rather than instead of them --
-             * Adrift_226_spooked.txt lines 120-122 show the room
+             * runner_transcripts/spooked.txt lines 120-122 show the room
              * description's trailing "  ", then the author's blank line, then
              * "Samuel, your scientist pal, is here."
              */
@@ -553,12 +553,12 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * area." each have a Long and a start alt that suppresses it with empty
    * text, and the Runner prints the heading and the exits alone.
    *
-   * Measured on p39EXAM.taf (3.90), Adrift_41_p39exam.txt and
-   * Adrift_43_p39exam.txt: the Void Room has an empty Long, no alts and no
-   * objects, and both `e` and `look` answer "There is nothing of interest
-   * here.  You can only move west." -- the sentence joined to the exits line
-   * with the ordinary two-space clause gap.  The 4.0 twin p4EXAM.taf,
-   * Adrift_1_p4exam.txt, prints the exits alone.
+   * Measured on p39EXAM.taf (3.90), runner_probes/exam.run390.txt and
+   * runner_probes/exam.run390.held.txt: the Void Room has an empty Long, no
+   * alts and no objects, and both `e` and `look` answer "There is nothing of
+   * interest here.  You can only move west." -- the sentence joined to the
+   * exits line with the ordinary two-space clause gap.  The 4.0 twin
+   * p4EXAM.taf, runner_probes/exam.run400.txt, prints the exits alone.
    */
   if (!is_described)
     {
@@ -612,14 +612,15 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * match.
    *
    * That is the whole of ADRIFT 4's darkness.  Measured on p39DARK.taf
-   * (3.90): entering the Dark Cave unlit (Adrift_967.txt) leaves `x stone`,
-   * `read stone` and `x box` at the unmatched-noun answer "You can't see that
-   * very clearly.", `take stone` at "Take what?" and `get all from box` at
-   * "You can't get anything from that." -- the container is not reachable
-   * either.  Adrift_968.txt then walks in with the torch, so the same objects
-   * are stamped, drops the torch and returns: now `take stone` succeeds and
-   * `x stone` answers the named form, "You can't see the stone very
-   * clearly."  Being seen is permanent; being lit is not.
+   * (3.90): entering the Dark Cave unlit
+   * (runner_probes/dark.run390.unseen.txt) leaves `x stone`, `read stone` and
+   * `x box` at the unmatched-noun answer "You can't see that very clearly.",
+   * `take stone` at "Take what?" and `get all from box` at "You can't get
+   * anything from that." -- the container is not reachable either.
+   * runner_probes/dark.run390.seen.txt then walks in with the torch, so the
+   * same objects are stamped, drops the torch and returns: now `take stone`
+   * succeeds and `x stone` answers the named form, "You can't see the stone
+   * very clearly."  Being seen is permanent; being lit is not.
    *
    * 4.0 is left alone: nothing has measured its marking loops against a
    * HideObjects alt, and lib_room_is_dark() shows run400 never even assigns
@@ -1041,11 +1042,11 @@ lib_cmd_print_room_exits (scr_gameref_t game)
  * block on its line whatever ends it, and follows a bare heading with two
  * leading spaces.  Every Runner shows it: `look` in the p2give probe world is
  * "... Bob is here.  You can only move north." at all four versions
- * (Adrift_269_3g37.rtf and 270_3g38.rtf are the scrollback itself), and
- * egghunt's empty-Long rooms print "The Holy City" then "  You can move
- * north, south and west." (runner_transcripts/egghunt.txt).  Scarier
- * deliberately drops the two spaces where they would open a line
- * (deviation policy; see lib_buffer_literal_gap).
+ * (runner_probes/ord.run370.give.rtf and runner_probes/ord.run380.give.rtf are
+ * the scrollback itself), and egghunt's empty-Long rooms print "The Holy City"
+ * then "  You can move north, south and west."
+ * (runner_transcripts/egghunt.txt).  Scarier deliberately drops the two spaces
+ * where they would open a line (deviation policy; see lib_buffer_literal_gap).
  */
 void
 lib_print_room_exits (scr_gameref_t game, scr_int room)

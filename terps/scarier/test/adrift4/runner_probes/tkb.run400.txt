@@ -1,0 +1,608 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a stone, a rock and a table.  You can only move north.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> take stone and nut
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop stone
+You are not holding the stone.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take nut and stone
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop stone
+You are not holding the stone.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take nut and key
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You drop the key.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> take key and nut
+You take the key from the tray.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray, a key and a chest.  A nut is inside the box.  A bolt is inside the bag.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You drop the key.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> take nut and bolt
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> take stone and nut and bolt
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop stone
+You are not holding the stone.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> take nut and cup
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop cup
+You are not holding the cup.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put cup on table
+You are not holding the cup.
+
+> take cup and stone
+You take the cup from the table.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray, a chest and a cup.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop cup
+You drop the cup.  
+
+> drop stone
+You are not holding the stone.
+
+> put cup on table
+(Taking the cup first)
+You put the cup onto the table.  
+
+> take nut
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take key
+You take the key from the tray.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray, a key and a chest.  A nut is inside the box.  A bolt is inside the bag.
+
+> drop key
+You drop the key.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> take ring
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get nut from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get all from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from bag and box
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get bolt from box and bag
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop bolt
+You drop the bolt.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get bolt from bag and box
+You take the bolt from the bag.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a bolt, a tray and a chest.  A nut is inside the box.  A key is on the tray.
+
+> drop bolt
+You drop the bolt.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get all from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get all from bag and box
+You take the bolt from the bag.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a bolt, a tray and a chest.  A nut is inside the box.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get nut and bolt from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut and bolt from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get all from box and tray
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You drop the key.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> get key from tray and box
+You take the key from the tray.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray, a key and a chest.  A nut is inside the box.  A bolt is inside the bag.
+
+> drop key
+You drop the key.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> get key from box and tray
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop key
+You drop the key.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> get ring from chest and box
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get ring from box and chest
+Take what?
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get nut from box and chest
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from chest and box
+The chest is closed.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from box and zzz
+You take the nut from the box.
+I don't understand.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from zzz and box
+I don't understand where you want to get things from.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> box
+I don't understand what you want me to do with the box.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get coin from zzz
+I don't understand where you want to get things from.
+
+> box
+I don't understand what you want me to do with the box.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get key from zzz
+I don't understand where you want to get things from.
+
+> tray
+I don't understand what you want me to do with the tray.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop key
+You drop the key.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> look
+Lit Room
+A bright room.  Also here is a stone, a rock and a table.  You can only move north.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> get nut from
+
+> box
+I don't understand what you want me to do with the box.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray and a chest.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from tray
+You can't take anything from the tray.
+
+> get key from box
+Take what?
+
+> get nut from statue
+You can't take anything from the statue.
+
+> get nut from stone
+You can't take anything from the stone.
+
+> get nut from gem
+I don't understand where you want to get things from.
+
+> get gem from box
+Take what?
+
+> get coin from box
+Take what?
+
+> get hat from box
+Take what?
+
+> get ring from box
+Take what?
+
+> get cup from box
+Take what?
+
+> get cup from table
+You take the cup from the table.
+
+> i
+You are carrying a coin, a hat, a box, a bag, a tray, a chest and a cup.  A nut is inside the box.  A bolt is inside the bag.  A key is on the tray.
+
+> drop cup
+You drop the cup.  
+
+> put cup on table
+(Taking the cup first)
+You put the cup onto the table.  
+
+> get nut and cup from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut and key from box and tray
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat, a box, a nut, a bag, a tray and a chest.  A bolt is inside the bag.  A key is on the tray.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You drop the key.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on tray
+(Taking the key first)
+You put the key onto the tray.  
+
+> probe
+PROBE OK.

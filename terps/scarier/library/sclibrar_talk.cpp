@@ -57,13 +57,14 @@
  *
  * The generic hint has no full stop after its closing quote in any release
  * (run400 488D6E-488D8C appends only Chr(34)); measured on run370, run380 and
- * run390, p3xNPCAMB `ask` (Adrift_194/195/196).  The per-character hint does
- * append "." (run400 47F8C4).  Scarier deliberately ends both with the full
- * stop (deviation policy: a missing stop is a display accident), except in a
- * game with an ALR on the hint -- two dozen games replace the Runner's
- * unstopped 'Use the format "ask [character] about [subject]"' with a
- * sentence of their own, which the stop would double ("no response..") --
- * where the Runner's form is kept.
+ * run390, p3xNPCAMB `ask` (runner_probes/npcamb.run370.one.rtf,
+ * runner_probes/npcamb.run380.one.rtf, runner_probes/npcamb.run390.one.txt).
+ * The per-character hint does append "." (run400 47F8C4).  Scarier
+ * deliberately ends both with the full stop (deviation policy: a missing stop
+ * is a display accident), except in a game with an ALR on the hint -- two
+ * dozen games replace the Runner's unstopped 'Use the format "ask [character]
+ * about [subject]"' with a sentence of their own, which the stop would double
+ * ("no response..") -- where the Runner's form is kept.
  */
 const scr_char *
 lib_ask_format_subject (scr_gameref_t game)
@@ -143,8 +144,9 @@ lib_ask_format_character (scr_gameref_t game)
  * such test: 4.0 binds the character by containment and settles a crowd
  * with the Prefix contest, so `ask blue guard about key` is "BOB KEY.".
  *
- * MEASURED p39PFX (run390x, Adrift_1211) against p4PFX (run400x,
- * Adrift_1210), cmdfile_ppfx.txt turns 7 and 8.
+ * MEASURED p39PFX (run390x, runner_probes/pfx.run390.txt) against p4PFX
+ * (run400x, runner_probes/pfx.run400.txt), harness/make_prefixprobe.py turns
+ * 7 and 8.
  *
  * Deliberate deviation: Scarier has no column test, so `ask blue guard
  * about key` and `ask the guard about key` are asked at every version.
@@ -200,7 +202,7 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    * (45975C-4597C0) has no room gate either, and nothing after it in
    * characters() overwrites it for an absent NPC: the "isn't here!" arm
    * (459C2A) wants an empty or "can't talk to that." buffer.  Measured
-   * p39ABSNPC (Adrift_1206_p39absnpc.txt): `talk to fred` (never seen),
+   * p39ABSNPC (runner_probes/absnpc.run390.txt): `talk to fred` (never seen),
    * `speak to erin`, `talk to erin about key` and `talk to girl` (Alias)
    * from the next room all answer the hint.
    */
@@ -212,8 +214,9 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    * not, so the LAST one named answers -- 3.7 and 3.8 included, whose arm
    * (run380 4405D7) has no room test either.  `talk to guard` with Ann and
    * Bob here and Cora next door, never met, is "Use the format "ask Cora
-   * about [subject]"." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/
-   * 192/193).
+   * about [subject]"." (run370x/run380x/run390x,
+   * runner_probes/npcamb.run370.b.rtf / runner_probes/npcamb.run380.rtf /
+   * runner_probes/npcamb.run390.txt).
    */
   if (!lib_is_version_400 (game))
     {
@@ -263,9 +266,9 @@ lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game)
  * after "about".  Scarier's `ask %object% *` row binds a trailing
  * %object% by containment anywhere in the line, hence this test.
  *
- * Measured on Ticket (4.00, Adrift_1127_ticket.txt turn 154): the Runner
- * prints "Young Girl isn't here!" where Scarier used to print "You get no
- * reply from the flowers.".
+ * Measured on Ticket (4.00, runner_probes/ticket.run400.txt turn 154): the
+ * Runner prints "Young Girl isn't here!" where Scarier used to print "You get
+ * no reply from the flowers.".
  */
 static scr_bool
 lib_line_names_object_before_about (scr_gameref_t game, scr_int object)
@@ -348,9 +351,9 @@ lib_cmd_ask_other (scr_gameref_t game)
  * line nothing answers keeps it.  Scarier's grammar puts the character and
  * object rows ahead of this one, which is the same order.
  *
- * Measured on thelasthour (4.00, Adrift_297_thelasthour.txt turn 80):
- * `ask sly about him` -- "sly" is a task word, not a character, and the
- * game has no male to fill "him" in -- answers "(No male)" and then "I
+ * Measured on thelasthour (4.00, runner_probes/thelasthour.run400.txt
+ * turn 80): `ask sly about him` -- "sly" is a task word, not a character, and
+ * the game has no male to fill "him" in -- answers "(No male)" and then "I
  * can't talk to that." where Scarier used to print the format hint.
  *
  * Two answers outrank the seed.  4.0's up-front resolver (Proc_21_58_463640,
@@ -365,10 +368,10 @@ lib_cmd_ask_other (scr_gameref_t game)
  * 440AC0/440ACC, run390 459C0B/459C32 and run370 438C0A do the same, minus
  * the 4.0-only absent-object pass.
  *
- * Measured on Ticket (4.00, Adrift_1127_ticket.txt turns 154 and 156): `ask
- * young girl about flowers` with the girl elsewhere answers "Young Girl
- * isn't here!" while the flowers are held, and "You can't see the flowers."
- * once they have been given away.
+ * Measured on Ticket (4.00, runner_probes/ticket.run400.txt turns 154 and
+ * 156): `ask young girl about flowers` with the girl elsewhere answers "Young
+ * Girl isn't here!" while the flowers are held, and "You can't see the
+ * flowers." once they have been given away.
  */
 scr_bool
 lib_cmd_ask_about_nothing (scr_gameref_t game)

@@ -794,16 +794,16 @@ run_main_loop (scr_gameref_t game)
        * event into WAITING with its rolled delay, which the first command
        * then decrements: a delay of 1 starts the event on turn 1, not at
        * load.  Measured 2026-09-04 in run380 with haunt.taf (transcript
-       * Adven_1_haunt.rtf): its Weather event (delay 1..1, length 4, restart
-       * after delay) prints "Thunder rumbles ominously." on the first
-       * command turn and cycles from there, where the startup tick had put
-       * that line under the intro and every later weather line one turn
-       * early.  A zero-length immediate event parks in 3.8 (its clock goes
-       * -1, -2, ... past the `= 0' finish test at run380 43A474), so it is
-       * not finished at load either; that half is read from the decompile,
-       * not measured -- the corpus has one such event, wrecked.taf's EVENT
-       * 35, whose only effect is an un-complete of a task nothing has
-       * completed yet.
+       * runner_probes/haunt.run380.rtf): its Weather event (delay 1..1, length
+       * 4, restart after delay) prints "Thunder rumbles ominously." on the
+       * first command turn and cycles from there, where the startup tick had
+       * put that line under the intro and every later weather line one turn
+       * early.  A zero-length immediate event parks in 3.8 (its clock goes -1,
+       * -2, ... past the `= 0' finish test at run380 43A474), so it is not
+       * finished at load either; that half is read from the decompile, not
+       * measured -- the corpus has one such event, wrecked.taf's EVENT 35,
+       * whose only effect is an un-complete of a task nothing has completed
+       * yet.
        */
       if (run_get_version (bundle) >= TAF_VERSION_390)
         {

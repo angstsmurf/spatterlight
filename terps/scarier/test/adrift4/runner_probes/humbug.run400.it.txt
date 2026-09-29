@@ -1,0 +1,360 @@
+
+> x satchel
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is closed.
+
+> x it
+(a satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is closed.
+
+> open satchel
+I open the satchel.  A manuscript and a paper aeroplane are inside the satchel.
+
+> x plane
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> x it
+(a paper aeroplane)
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> get plane
+Okay.  I have taken the paper aeroplane from the satchel.
+
+> x it
+(the paper aeroplane)
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> drop it
+(the paper aeroplane)
+Okay.  I have dropped the paper aeroplane.  
+
+> x it
+(the paper aeroplane)
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> get aeroplane
+Okay.  I have taken the paper aeroplane.
+
+> x it
+(the paper aeroplane)
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> x can
+Nothing Special.
+
+> x it
+(the paper aeroplane)
+The paper aeroplane is a masterpiece of aerodynamic design.
+
+> w
+
+Manor Grounds 
+I am standing in the manor grounds to the west of the driveway.  There is a small round hut here in the middle of the lawn.  It has been almost completely hidden under the heavy blanket of the snow.  It doesn't look a very large hut - I expect only one or maybe two people could fit in there at a time.  Exits are east, west and in.
+
+> in
+
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a shovel and a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get shovel
+Okay.  I have taken the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> look in dustbin
+The dustbin has the words "If lost please return to Horace" chalked on its side.  A banana is inside the dustbin.
+
+> x it
+(the dustbin)
+The dustbin has the words "If lost please return to Horace" chalked on its side.  A banana is inside the dustbin.
+
+> get banana
+Okay.  I have taken the banana from the dustbin.
+
+> x it
+(the banana)
+A normal banana.  It looks rather nibble-worthy.
+
+> x horace
+Horace is Grandad's tubby gardener.  He is wrapped up warmly against the cold.  Grandad says he's a genius.  Frankly, I think he's a few coupons short of a toast rack.
+
+> x it
+(the banana)
+A normal banana.  It looks rather nibble-worthy.
+
+> put banana in dustbin
+Okay.  I put the banana inside the dustbin.  
+
+> x it
+(the banana)
+A normal banana.  It looks rather nibble-worthy.
+
+> x can
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> x it
+(a can)
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> get can
+Horace sees me reaching for the can and pushes me back, "What do you think you're doing?  That petrol is dangerous stuff"
+
+> x it
+(the can)
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> out
+
+Manor Grounds 
+I am standing in the manor grounds to the west of the driveway.  There is a small round hut here in the middle of the lawn.  It has been almost completely hidden under the heavy blanket of the snow.  It doesn't look a very large hut - I expect only one or maybe two people could fit in there at a time.  Exits are east, west and in.
+
+> x hut
+Nothing Special.
+
+> x it
+(the can)
+I can't see the can from here!
+
+> x teeth
+Nothing Special.
+
+> x sapphire
+Nothing Special.
+
+> x chute
+Nothing Special.
+
+> x robot
+Nothing Special.
+
+> in
+
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> get shovel
+I am already carrying the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x can
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> x it
+(a can)
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> drop shovel
+Okay.  I have dropped the shovel.  
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get shovel
+Okay.  I have taken the shovel.
+
+> put shovel in dustbin
+The shovel is too big to fit inside the dustbin.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x satchel
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> x it
+(a satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> close satchel
+I close the satchel.
+
+> x it
+(the satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is closed.
+
+> x satchel
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is closed.
+
+> x it
+(a satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is closed.
+
+> open satchel
+I open the satchel.  A manuscript is inside the satchel.
+
+> x it
+(the satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> put shovel in satchel
+The shovel is too big to fit inside the satchel.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x satchel
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> x it
+(a satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> look in satchel
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> x it
+(a satchel)
+The satchel is highly moth-eaten, but some attempt has been made to patch it up.  On the side of the satchel I have carefully stencilled my name: Sidney Widdershins.  The satchel is open.  A manuscript is inside the satchel.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get shovel from satchel
+Take what?
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> throw shovel
+I don't understand what you want me to do with the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x the shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get shovel
+I am already carrying the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> drop shovel
+Okay.  I have dropped the shovel.  
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x the shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get the shovel
+Okay.  I have taken the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> drop it
+(a shovel)
+Okay.  I have dropped the shovel.  
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> look at it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x shovel
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> examine it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> x it
+(a shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.
+
+> get shovel
+Okay.  I have taken the shovel.
+
+> get shovel
+I am already carrying the shovel.
+
+> x it
+(the shovel)
+The dirty shovel has a strong oak handle.  It is quite heavy.

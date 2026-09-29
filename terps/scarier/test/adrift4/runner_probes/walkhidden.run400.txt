@@ -1,0 +1,40 @@
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+Hid wanders in.
+
+> z
+Time passes...
+
+> look
+Alpha
+The first room.  Hid is here.  You can only move east.
+
+> go
+GO.
+
+> z
+Time passes...
+
+> look
+Alpha
+The first room.  Hid and Nev are here.  You can only move east.
+
+> go2
+GO2.  Base wanders in from the east.
+
+> z
+Time passes...
+
+> look
+Alpha
+The first room.  Hid, Nev and Base are here.  You can only move east.

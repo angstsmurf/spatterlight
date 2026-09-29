@@ -1,0 +1,7 @@
+
+> attack guard
+Player shoot a sentry with the blaster.  Guard falls down, dead.Player shoot Guard with the blaster.  Guard falls down, dead.
+
+> look
+Test Arena
+A bare arena for testing combat.  Also here is a rock.  A droid hovers here.

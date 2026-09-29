@@ -1,0 +1,180 @@
+
+> look
+Test Arena
+A bare arena.  TICK.
+
+> turns
+You have taken 2 turns so far.
+
+> hint
+You're just going to have to work it out for yourself...  TICK.
+
+> help
+Failing that, try asking someone!  TICK.
+
+> clear
+Screen cleared.  TICK.
+
+> cls
+Screen cleared.  TICK.
+
+> turns
+You have taken 7 turns so far.
+
+> where
+You can't go in any direction!  TICK.
+
+> about
+So there you go!
+
+> info
+So there you go!
+
+> author
+So there you go!
+
+> information
+So there you go!
+
+> history
+History  13:  look
+History  12:  turns
+History  11:  hint
+History  10:  help
+History  9:  clear
+History  8:  cls
+History  7:  turns
+History  6:  where
+History  5:  about
+History  4:  info
+History  3:  author
+History  2:  information
+History  1:  history
+
+> past
+History  14:  look
+History  13:  turns
+History  12:  hint
+History  11:  help
+History  10:  clear
+History  9:  cls
+History  8:  turns
+History  7:  where
+History  6:  about
+History  5:  info
+History  4:  author
+History  3:  information
+History  2:  history
+History  1:  past
+
+> score
+Your score is 0 out of a maximum of 8.  (0%)
+
+> count
+Size:		You have 0.  The most you can hold is 10.
+Weight:	You have 0.  The most you can hold is 10.
+
+> num
+Size:		You have 0.  The most you can hold is 10.
+Weight:	You have 0.  The most you can hold is 10.
+
+> turns
+You have taken 18 turns so far.
+
+> again
+(turns)
+You have taken 19 turns so far.
+
+> g
+(again)
+I don't understand.
+
+> verbose
+I don't understand.
+
+> brief
+I don't understand.
+
+> notify
+I don't understand.
+
+> time
+The time is 10:12:52 AM.  TICK.
+
+> version
+ADRIFT Version 3.90 Release 20
+Last updated: 31/05/01  TICK.
+
+> license
+I don't understand.
+
+> statusline
+I don't understand.
+
+> turns
+You have taken 28 turns so far.
+
+> undo
+Undone.
+I don't understand.  TICK.
+
+> redo
+I don't understand.
+
+> x me
+A test player.  TICK.
+
+> i
+You are carrying nothing.  TICK.
+
+> z
+Time passes...
+TICK.
+
+> wait
+Time passes...
+TICK.
+
+> exits
+You can't go in any direction!  TICK.
+
+> yes
+That's interesting, but it doesn't mean much.  TICK.
+
+> turns
+You have taken 37 turns so far.
+
+> save
+Saving current game... done.
+Game saved.  TICK.
+
+> x me
+A test player.  TICK.
+
+> save
+Saving current game... done.
+Game saved.  TICK.
+
+> x me
+A test player.  TICK.
+
+> restore
+Loading game... done.
+
+Test Arena
+A bare arena.  TICK.
+
+> x me
+A test player.  TICK.
+
+> turns
+You have taken 40 turns so far.
+
+> probe
+PROBE OK.  TICK.
+
+> status
+I don't understand.
+
+> turns
+You have taken 43 turns so far.

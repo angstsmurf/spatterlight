@@ -1,0 +1,86 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You pick up the torch.
+
+> n
+You move north.
+Dark Cave
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+> x box
+A wooden box.  The box is open.  A coin is inside the box.
+
+> x stone
+A grey stone.
+
+> x pebble
+Nothing special.
+
+> get coin from box
+You take a coin from the box.
+
+> put coin in box
+You put the coin inside the box.
+
+> get all from box
+You take the coin from the box.
+
+> get all from stone
+You can't take anything from the stone!
+
+> get stone from box
+The stone is not inside the box!
+
+> get pebble from box
+The pebble is not inside the box!
+
+> get coin from zzzz
+The coin isn't in or on anything!
+
+> box
+I don't understand what you want me to do with the box.
+
+> get all from box and stone
+You can't take anything from the stone!
+
+> take all from box
+There is nothing inside the box.
+
+> put coin in box
+You put the coin inside the box.
+
+> remove all from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.
+
+> pick all from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.
+
+> empty box
+I don't understand what you want me to do with the box.
+
+> get all from me
+You can't get anything from that.
+
+> get lamp from me
+The lamp isn't in or on anything!
+
+> close box
+You close the box.
+
+> get all from box
+You can't get anything from the box as it is closed!
+
+> get coin from box
+You can't do that!
+
+> probe
+PROBE OK.

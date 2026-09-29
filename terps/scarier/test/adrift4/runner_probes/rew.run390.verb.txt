@@ -1,0 +1,162 @@
+
+> probe
+PROBE OK.
+
+> take drop coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> drop take coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> take examine coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> examine take coin
+A gold coin.
+
+> i
+You are carrying a coin.
+
+> drop examine coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> examine drop coin
+A gold coin.
+
+> i
+You are carrying nothing.
+
+> take wear coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> wear take coin
+You've already got the coin!
+
+> i
+You are carrying a coin.
+
+> drop remove coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> remove drop coin
+You don't have the coin!
+
+> i
+You are carrying nothing.
+
+> wear remove coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> remove wear coin
+You are not holding the coin.
+
+> i
+You are carrying nothing.
+
+> x get coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> get x coin
+A gold coin.
+
+> i
+You are carrying a coin.
+
+> take push coin
+You've already got the coin!
+
+> i
+You are carrying a coin.
+
+> push take coin
+You've already got the coin!
+
+> i
+You are carrying a coin.
+
+> drop push coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> push drop coin
+You don't have the coin!
+
+> i
+You are carrying nothing.
+
+> examine push coin
+A gold coin.
+
+> i
+You are carrying nothing.
+
+> push examine coin
+A gold coin.
+
+> i
+You are carrying nothing.
+
+> push pull coin
+You pull the coin, but nothing happens.
+
+> pull push coin
+You pull the coin, but nothing happens.
+
+> kick hit coin
+You hit the coin, but nothing happens.
+
+> hit kick coin
+You hit the coin, but nothing happens.
+
+> take drop
+Take what?
+
+> i
+You are carrying nothing.
+
+> drop take
+Take what?
+
+> i
+You are carrying nothing.
+
+> wear examine
+Nothing special.
+
+> i
+You are carrying nothing.
+
+> examine wear
+Nothing special.
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.

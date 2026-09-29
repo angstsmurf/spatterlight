@@ -1,0 +1,27 @@
+
+> drop all
+You drop the pair of goggles.  
+
+> drop all
+You are carrying nothing!
+
+> ask zzz about yyy
+You can't talk to that.
+
+> put zzz in yyy
+I don't understand what you want to put things inside.
+
+> take zzz
+Take what?
+
+> remove zzz
+Remove what?
+
+> wield zzz
+Remove what?
+
+> get off
+You are not standing on anything!
+
+> x me
+You look like a mess.  You are lying down.

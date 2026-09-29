@@ -1,0 +1,86 @@
+
+> probe
+PROBE OK.
+
+> x guard
+Which guard.  A red guard, a blue guard or a red guard?
+
+> x red guard
+That is still ambiguous!
+
+> x blue guard
+A blue guard.
+
+> x a blue guard
+A blue guard.
+
+> blue guard
+I don't understand what you want to do with Bob.
+
+> talk to blue guard
+Use the format "ask Bob about [subject]".
+
+> ask blue guard about key
+BOB KEY.
+
+> ask red guard about key
+Which guard.  A red guard, a blue guard or a red guard?
+
+> where is blue guard
+Bob is lit room.  (Right next to you silly!)
+
+> x guard blue
+A blue guard.
+
+> x blue
+You see no such thing.
+
+> x ann
+A red guard.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> x red tree
+A red tree.
+
+> x blue tree
+A blue tree.
+
+> x a red tree
+A red tree.
+
+> x tree red
+A red tree.
+
+> x rock
+A grey rock.
+
+> take blue tree
+You take the blue tree.
+
+> i
+You are carrying a blue tree.
+
+> take red tree
+You take the red tree.
+
+> i
+You are carrying a red tree and a blue tree.
+
+> drop red tree
+You drop the red tree.  
+
+> take tree
+You take the red tree.
+
+> red
+I don't understand.
+
+> put blue tree on rock
+You can't put anything onto the rock!
+
+> x dave
+A quiet man.
+
+> quit

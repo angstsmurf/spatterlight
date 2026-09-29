@@ -1,0 +1,170 @@
+
+> probe
+PROBE OK.
+
+> take stone
+You pick up the stone.
+
+> hit dave with zzz
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kick dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> punch dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> fight dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hug dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk with dave
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> dance with dave
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> x dave with stone
+A quiet man.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> cut dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> push dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> zzz with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> zzz with
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> with stone
+A grey stone.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> stone with
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> push stone with zzz
+With what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> wait with stone
+Time passes...
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> ask dave about key with stone
+DAVE KEY.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit cora with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> drop stone
+You drop the stone.
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit dave with stone
+I don't understand what you want me to do with the stone!
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit stone with dave
+With what?
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> kick stone with
+With what?
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> push without stone
+You push the stone, but nothing happens.
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> probe
+PROBE OK.

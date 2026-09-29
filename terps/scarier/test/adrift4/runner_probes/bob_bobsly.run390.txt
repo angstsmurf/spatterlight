@@ -1,0 +1,21 @@
+
+> turns
+You have taken 1 turns so far.
+
+> x bouncer
+A large man who sure takes his vitamins. He is standing guard at the nightclub entrance and only allows guests into the nightclub.
+
+> turns
+You have taken 3 turns so far.
+
+> x zzq
+Nothing special.
+
+> turns
+You have taken 5 turns so far.
+
+> z
+Time passes...
+
+> turns
+You have taken 7 turns so far.

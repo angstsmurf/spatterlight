@@ -1,0 +1,46 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a alpha, A bravo, an charlie, An delta, some echo, Some foxtrot, a big golf, A big hotel, SOME india, the juliet and The kilo.
+
+> take alpha
+Player take the alpha.
+
+> take bravo
+Player take A bravo.
+
+> take charlie
+Player take the charlie.
+
+> take delta
+Player take An delta.
+
+> take echo
+Player take the echo.
+
+> take foxtrot
+Player take Some foxtrot.
+
+> take golf
+Player take the big golf.
+
+> take hotel
+Player take A big hotel.
+
+> take india
+Player take SOME india.
+
+> take juliet
+Player take the juliet.
+
+> take kilo
+Player's hands are full.
+
+> i
+Player is carrying a alpha, A bravo, an charlie, An delta, some echo, Some foxtrot, a big golf, A big hotel, SOME india and the juliet.
+
+> drop bravo
+Player drop A bravo.  
+
+> x bravo
+A probe object.

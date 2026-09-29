@@ -1,0 +1,135 @@
+
+> probe
+PROBE OK.
+
+> take stone
+You pick up the stone.
+
+> kiss dave
+I'm not sure he would appreciate that!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack dave
+Dave avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take dave
+I don't think Dave would appreciate being handled.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take stone from dave
+Dave is not carrying the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hug dave
+I don't understand what you want to do with Dave.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> eat dave
+I don't understand what you want to do with Dave.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk to dave
+Use the format "ask Dave about [subject]".
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> ask
+Use the format "ask [character] about [subject]"
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kiss stone
+I'm not sure the stone would appreciate that.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack stone
+I don't understand what you want me to do with the stone.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kiss ann
+I'm not sure she would appreciate that!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kiss bob
+I'm not sure he would appreciate that!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take ann
+I don't think a guard would appreciate being handled.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take stone from ann
+Ann is not carrying the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> x cora
+You cannot see Cora from here.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take cora
+Take what?
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take stone from cora
+The stone isn't in or on anything!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kiss cora
+I'm not sure he would appreciate that!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> probe
+PROBE OK.

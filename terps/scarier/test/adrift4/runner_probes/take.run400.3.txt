@@ -1,0 +1,41 @@
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a widget and a gizmo.  You can only move west.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take coin
+You take the coin.
+
+> take coin
+You are already carrying the coin.
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a widget and a gizmo.  You can only move west.
+
+> take statue
+There is nothing worth taking here.
+
+> take coin
+You are already carrying the coin.
+
+> x statue
+You can't see the statue from here!
+
+> take gizmo
+You take the gizmo.
+
+> w
+You move west.
+Alpha
+The first room.  You can only move east.
+
+> take gizmo
+You are already carrying the gizmo.

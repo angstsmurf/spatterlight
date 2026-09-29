@@ -337,9 +337,9 @@ lib_object_too_large (scr_gameref_t game, scr_int object)
  * object, a container the player carries included: the contents are already
  * in both running totals, so a take out of a carried bag counts them twice.
  * wilkins `take times` at 99/90 on both axes answers "My hands are full."
- * (Adrift_850 line 84), businessasusual `take all` with limits 9/9 and every
- * object 9/9 takes one and refuses the next by size, and provenance
- * `get rope` out of the carried rucksack is refused by weight.
+ * (runner_transcripts/wilkins.txt line 84), businessasusual `take all` with
+ * limits 9/9 and every object 9/9 takes one and refuses the next by size, and
+ * provenance `get rope` out of the carried rucksack is refused by weight.
  *
  * Earlier versions test weight first and skip objects inside or on something
  * the player already holds.
@@ -374,7 +374,7 @@ lib_take_over_capacity (scr_gameref_t game, scr_int object, scr_bool *is_size)
  * is waived when the container itself is held by the player (container
  * [22] = 0); the size test never is.  ALEXIS `get all from large stone table`
  * refuses the size-81 knife by size: "You can't take any more, as your hands
- * are full."  (Adrift_145 T28.)
+ * are full."  (runner_transcripts/alexis.txt:119.)
  */
 static scr_bool
 lib_take_from_over_capacity_390 (scr_gameref_t game, scr_int object,
@@ -404,8 +404,8 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
    * set (the prefix only when it is too), and fall back to the Name when it
    * is empty; run380 44057D and run370 4386EE always print Prefix & " " &
    * Alias(0), empty or not.  House (4.00), Cathy alias "girl", no prefix:
-   * "I don't think girl would appreciate being handled." (Adrift_95,
-   * 2026-09-06).
+   * "I don't think girl would appreciate being handled."
+   * (runner_probes/house.run400.girl.txt, 2026-09-06).
    */
   {
     const scr_filterref_t filter = gs_get_filter (game);
@@ -469,10 +469,10 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
  * Measured on ONNAFA (4.00): `get key of pure harry` with Red Harry (alias
  * Harry) present answers only "I don't think Harry would appreciate being
  * handled." (runner_transcripts/onnafa.txt:1622), and the key is used later.
- * The pre-4.0 halves are p3xORD, cmdfile_p2chr.txt: `take hat bob`,
- * `take coin bob`, `get hat bob`, `pick up hat bob`, `take bob hat` and
- * `take box bob` all answer only the refusal and all still take the object
- * (Adrift_265_3c37.rtf, 266_3c38.rtf, 267_3c39.txt, 268_3c40.txt).
+ * The pre-4.0 halves are p3xORD (make_orderprobe.py): `take hat bob`, `take
+ * coin bob`, `get hat bob`, `pick up hat bob`, `take bob hat` and `take box
+ * bob` all answer only the refusal and all still take the object
+ * (runner_probes/ord.run*.chr.*).
  */
 static scr_int
 lib_take_npc_overwrite (scr_gameref_t game)
@@ -505,14 +505,14 @@ lib_take_npc_overwrite (scr_gameref_t game)
  * object>!" (441227 for an object inside something else, 44128A for a loose
  * one).  3.7 has no such arm at all.
  *
- * Measured on p38ORD, cmdfile_p2chr.txt (Adrift_266_3c38.rtf): `take hat
- * bob` and `get hat bob` are "Bob is not carrying the hat!" while the hat is
- * loose on the floor and still gets taken, `take nut bob` names the nut
- * shut inside the box, `take hat coin bob` speaks for the coin (the higher
- * index), `take ask bob about hat` loses the topic reply to it, and `pick up
- * hat bob` keeps the take refusal because "pick up" is not one of this arm's
- * two verbs.  3.7's same feed answers the take refusal throughout
- * (Adrift_265_3c37.rtf).
+ * Measured on p38ORD (runner_probes/ord.run380.chr.rtf): `take hat bob` and
+ * `get hat bob` are "Bob is not carrying the hat!" while the hat is loose on
+ * the floor and still gets taken, `take nut bob` names the nut shut inside
+ * the box, `take hat coin bob` speaks for the coin (the higher index), `take
+ * ask bob about hat` loses the topic reply to it, and `pick up hat bob` keeps
+ * the take refusal because "pick up" is not one of this arm's two verbs.
+ * 3.7's same feed answers the take refusal throughout
+ * (runner_probes/ord.run370.chr.rtf).
  *
  * TRUE once it has spoken, having truncated the buffer back to mark first.
  */
@@ -581,8 +581,9 @@ lib_cmd_take_npc (scr_gameref_t game)
   /*
    * 3.7/3.8: the last character the line names answers, here or not; see
    * lib_print_npc_not_here_pre390().  `take guard` with Ann and Bob here and
-   * Cora next door is "Cora is not here!" (run370x Adrift_193_pnpcamb37b,
-   * run380x Adrift_192).
+   * Cora next door is "Cora is not here!" (run370x
+   * runner_probes/npcamb.run370.b.rtf, run380x
+   * runner_probes/npcamb.run380.rtf).
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     {
@@ -597,14 +598,15 @@ lib_cmd_take_npc (scr_gameref_t game)
           lib_print_take_npc_refusal (game, npc);
           /* 3.8's take-from arm speaks below it; it names an object the
              take resolver never saw, as `take nut bob` does for a nut shut
-             inside a CLOSED box (Adrift_266_3c38.rtf). */
+             inside a CLOSED box (runner_probes/ord.run380.chr.rtf). */
           lib_take_from_npc_overwrite_380 (game, npc, mark);
         }
       return TRUE;
     }
 
   /* Get the referenced npc, and if none, consider complete.  3.9 fills an
-     empty buffer, so the FIRST present character answers (Adrift_193). */
+     empty buffer, so the FIRST present character answers
+     (runner_probes/npcamb.run390.txt). */
   npc = lib_disambiguate_npc_pick (game, "take", &is_ambiguous,
                                    NPC_PICK_FIRST);
   if (npc == -1)
@@ -647,8 +649,10 @@ static scr_bool lib_take_and_pieces_400 = FALSE;
  * take verbs rewritten, "remove "/"pick "/"take " -> "get " (get_outer's
  * Replace chain, @458127-458176), never a rebuild from the resolved object.
  * Professor.taf with the Mailbox on-a Rope static, measured in run400 on
- * 2026-09-14 (Adrift_p4profmail2/3, Adrift_1152_p4profmail4,
- * Adrift_1153_p4profmail5):
+ * 2026-09-14 (runner_probes/professor.run400.mail2.txt,
+ * runner_probes/professor.run400.profmail3.txt,
+ * runner_probes/professor.run400.mail4.txt,
+ * runner_probes/professor.run400.mail5.txt):
  *
  *   `take mailbox`, `take the mailbox` -> "You can't take the Mailbox on-a
  *     Rope!  The mailbox is already down." (task 8's
@@ -727,9 +731,10 @@ scr_bool lib_take_from_single_named = FALSE;
  *
  * Measured on the same turn of two probes, `get coin from box` with the box
  * held and the coin inside it: run370 answers "You get a coin from the box."
- * (p37DARK, Adrift_986:27) and run380 "You take a coin from the box."
- * (p38DARK, Adrift_982:27), 2026-09-12.  The typed verb was "get" on both,
- * so this is the handler's own wording and not an echo of the input.
+ * (p37DARK, runner_probes/dark.run370.putin.txt:27) and run380 "You take a
+ * coin from the box." (p38DARK, runner_probes/dark.run380.putin.txt:27),
+ * 2026-09-12.  The typed verb was "get" on both, so this is the handler's own
+ * wording and not an echo of the input.
  *
  * The bare-verb refusal in lib_take_from_unseen_refusal() prints the same
  * phrase from the same place in the Runner and moves with it; that half is
@@ -989,8 +994,8 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                                               &looked_up);
           /*
            * 4.0's take piece looks up "get " & name(obj, 0) only
-           * (462B0D): `take pebble` never reaches a task `take a pebble`
-           * and takes the pebble (p4WITHQ2.taf, Adrift_1159).
+           * (462B0D): `take pebble` never reaches a task `take a pebble` and
+           * takes the pebble (p4WITHQ2.taf, runner_probes/withq2.run400.txt).
            */
           if (!looked_up && lib_is_version_400 (game))
             status = lib_try_game_command_take_definite (game, object);
@@ -1145,13 +1150,13 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                * @0047359A), clears it, writes "You take ...." and then, if
                * the copy was not empty, pspace()s and appends it back
                * (@004736B6).  So a task claiming one of the objects prints
-               * after the library's line.  fullcircle `get all`, with a
-               * `get *branch*` task, answers "You take the helm and the
-               * locket.  You take the branch."  (Adrift_1053_fullcircle.txt
-               * line 356.)  run390 orders it the same way: The Will's
-               * `get all` at the Narrow Squeeze, where task 142 `* get *
-               * clover` claims the clover, answers "You take the rare stamp,
-               * ... and the gold ring.  You take the jade clover." (run390x,
+               * after the library's line.  fullcircle `get all`, with a `get
+               * *branch*` task, answers "You take the helm and the locket.
+               * You take the branch."  (runner_probes/fullcircle.run400.txt
+               * line 356.)  run390 orders it the same way: The Will's `get
+               * all` at the Narrow Squeeze, where task 142 `* get * clover`
+               * claims the clover, answers "You take the rare stamp, ... and
+               * the gold ring.  You take the jade clover." (run390x,
                * runner_transcripts/thewill.txt T197).
                */
               scr_owned_string saved;
@@ -1190,8 +1195,8 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                * from table` with "You take the diary and the woven cloak
                * from the old oak table." and `get all from table` with "You
                * take the diary, the brass lantern, the woven cloak and the
-               * nice food from the old oak table."  (Adrift_8.txt, measured
-               * live 2026-08-22.)
+               * nice food from the old oak table."  (Measured live
+               * 2026-08-22.)
                *
                * That multi-take exception is a 3.9 change of its own: pre-3.9
                * the multi-take loop prints raw too, so from 3.7 to 3.8 every
@@ -1360,8 +1365,8 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       /*
        * 4.0 drops a named object that is not in the container without a word:
        * run400 answers `get coin and stone from box` with just "You take the
-       * coin from the box." (p4TFROM, Adrift_974, 2026-09-10), and there is
-       * no such literal anywhere in run400.
+       * coin from the box." (p4TFROM, runner_probes/tfrom.run400.b.txt,
+       * 2026-09-10), and there is no such literal anywhere in run400.
        *
        * Pre-4.0 does report it, and composes the sentence a word at a time
        * (run390 loc_4636D0-46378A: tense & Short & isare() & "not " & var_E0
@@ -1369,11 +1374,13 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
        * No " is not in " literal exists in any of the four Runners, so the
        * wording here is "inside", not "in", and the sentence ends with an
        * exclamation mark: run390 answers `get stone from box` with "The stone
-       * is not inside the box!" (p39DARK, Adrift_970/973, 2026-09-10).  It
-       * reports an object the player is already holding the same way -- the
-       * measured turn is `get coin from box` with the coin in hand and the
-       * box open and empty, "The coin is not inside the box!" (Adrift_973) --
-       * so there is no held-or-worn exemption above.
+       * is not inside the box!" (p39DARK, runner_probes/dark.run390.feed4.txt
+       * and runner_probes/dark.run390.feed5.txt, 2026-09-10).  It reports an
+       * object the player is already holding the same way -- the measured
+       * turn is `get coin from box` with the coin in hand and the box open
+       * and empty, "The coin is not inside the box!"
+       * (runner_probes/dark.run390.feed5.txt) -- so there is no held-or-worn
+       * exemption above.
        *
        * 3.7/3.8 have no such sentence (no "not inside"/"not on" in run370 or
        * run380): their take loop (run380 446FC5) skips a named object that
@@ -1449,9 +1456,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   /*
    * A 4.0 line split on "and" resolves each piece through the same
    * single-take handler (run400 4731A2 loops the pieces through
-   * Proc_19_23_473A34), so every piece gets the single wording: p4TKA
-   * `take hat and stone` with the hat worn is "You take the stone.  You are
-   * already carrying the hat." (Adrift_208_ptka_4 cells 14/40/44, 2026-09-20).
+   * Proc_19_23_473A34), so every piece gets the single wording: p4TKA `take
+   * hat and stone` with the hat worn is "You take the stone.  You are already
+   * carrying the hat." (runner_probes/tka.run400.txt cells 14/40/44,
+   * 2026-09-20).
    */
   const scr_bool worn_is_held = lib_is_version_400 (game)
                                 && (lib_take_single_named
@@ -1475,9 +1483,9 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * already holding the object answers with its own fail message where the
    * library would have said "You are already carrying the cone.".
    *
-   * Measured on IceCream.taf in run400 (Adrift_900_icecream2.txt,
-   * 2026-09-07): `take cone`, with the cone already in hand at the start of
-   * the game, is task 14's "  You already have an empty cone." -- the
+   * Measured on IceCream.taf in run400 (runner_transcripts/icecream.txt, turn
+   * 1, 2026-09-07): `take cone`, with the cone already in hand at the start
+   * of the game, is task 14's "  You already have an empty cone." -- the
    * FailMessage of its one restriction -- and not the library refusal.
    *
    * The look-up is the one 4.0's implicit take uses, definite name and
@@ -1538,7 +1546,8 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
     }
   else
     /* Pre-3.9 spells it Prefix & " " & Short (run380 43E03E): p38EXAM `take
-     * stone` held is "You've already got a stone!" (Adrift_1165). */
+     * stone` held is "You've already got a stone!"
+     * (runner_probes/exam.run380.txt). */
     has_printed |= lib_print_object_list (game, has_printed, list, " and ", '!',
                                           "You've already got ",
                                           "I've already got ",
@@ -1561,10 +1570,11 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * 436585) and nothing else, so a worn object falls through to the same
    * " can't see <raw> from here!" arm an absent one gets (436909/43696A).
    *
-   * p37TWO/p38TWO/p39TWO `take hat` with the hat worn (cmdfile_p2verb3.txt
-   * cell 7, Adrift_255_2x37.rtf / 256_2x38.rtf / 257_2x39.txt, 2026-09-21):
-   * "You can't see a hat from here!" / "You are already wearing a hat!" /
-   * "You are already wearing the hat!".
+   * p37TWO/p38TWO/p39TWO `take hat` with the hat worn (cell 7 of
+   * runner_probes/two.run370.verb3.rtf / runner_probes/two.run380.verb3.rtf /
+   * runner_probes/two.run390.verb3.txt, 2026-09-21): "You can't see a hat
+   * from here!" / "You are already wearing a hat!" / "You are already wearing
+   * the hat!".
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
       && !list.empty ())
@@ -1627,10 +1637,11 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * runs "Get * poster", as do `take poster`, `pick up poster`, `take the
    * poster` and `take bed` ("Get * bed"); `grab poster` is no take verb at
    * all and gets "I don't understand what you want me to do with the kelly
-   * brook poster."  (man overboard.taf, run400, Adrift_1_moprobe.txt and
-   * Adrift_1_man_overboard.txt line 39-40, measured 2026-08-29.)  The loop
-   * at the top of this function does the same for take-able objects; the
-   * static ones never reach it, so they get their turn here instead.
+   * brook poster."  (man overboard.taf, run400,
+   * runner_probes/man_overboard.run400.probe.txt and
+   * runner_probes/man_overboard.run400.txt line 39-40, measured 2026-08-29.)
+   * The loop at the top of this function does the same for take-able objects;
+   * the static ones never reach it, so they get their turn here instead.
    */
   if (!has_printed && !list.empty () && lib_is_version_400 (game))
     {
@@ -1643,8 +1654,9 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
        * mailbox` and `get x rope` pre-match task 9
        * `[check/get/pull]{the}[mailbox]{on-a/on a}{rope}` on "get the mailbox
        * on-a rope", miss it on "get the Mailbox on-a Rope", and answer "What
-       * was that?..." (Adrift_p4profmail2 T24/T25; `get mailbox`, typed,
-       * runs task 9 in Adrift_1154_p4profmail6).  A hit on a failing
+       * was that?..." (runner_probes/professor.run400.mail2.txt T24/T25; `get
+       * mailbox`, typed, runs task 9 in
+       * runner_probes/professor.run400.mail6.txt).  A hit on a failing
        * restriction dispatches the typed line instead; see
        * lib_rebuilt_fallback_typed.
        */
@@ -1669,7 +1681,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
     {
       /* Each "and" piece is its own single-take refusal: p4TKA `take stone
          and statue` -> "You take the stone.  You can't take the statue!"
-         (Adrift_208_ptka_4 cells 17/20, 2026-09-20). */
+         (runner_probes/tka.run400.txt cells 17/20, 2026-09-20). */
       for (const scr_int item : list)
         {
           lib_list_t one;
@@ -1740,7 +1752,8 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
  * a gem in an open box on the floor, `get gem` is "You are not holding a
  * box." while `take gem` and `pick up gem` are "Take what?", and a nut in a
  * held bag is "You get a nut from the bag." for `get nut` and "Take what?"
- * for `take nut` (p37TFSW, run370x Adrift_189_ptfsw3_37.rtf, 2026-09-19).
+ * for `take nut` (p37TFSW, run370x runner_probes/tfsw.run370.sweep3.rtf,
+ * 2026-09-19).
  *
  * Scarier gives 3.7 run380's gate instead, so `take gem from box`, `take
  * nut` from a held bag and `empty bag` work there as they do at 3.8, and
@@ -1776,13 +1789,16 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * line (see the run370 insides() note above), so for take or pick up a bare take
    * naming something that sits in or on another object names nothing at all
    * and falls to the catch-all.  Measured on the same turn of two probes,
-   * `take coin` with the coin inside an open box standing on the cave
-   * floor: run370 answers "Take what?" (p37DARK, Adrift_987:48 and again
-   * Adrift_988:41) where run380 answers "You are not holding a box."
-   * (p38DARK, Adrift_983:48 / Adrift_984:41), i.e. run380 rewrote the line
-   * and then refused it on the hold gate.  2026-09-12.  The explicit form
-   * is untouched -- run370 plays `get coin from box` perfectly well
-   * (Adrift_986:27) and applies the same hold gate to it (Adrift_987:18).
+   * `take coin` with the coin inside an open box standing on the cave floor:
+   * run370 answers "Take what?" (p37DARK,
+   * runner_probes/dark.run370.putin2.txt:48 and again
+   * runner_probes/dark.run370.putin3.txt:41) where run380 answers "You are
+   * not holding a box." (p38DARK, runner_probes/dark.run380.putin2.txt:48 /
+   * runner_probes/dark.run380.putin3.txt:41), i.e. run380 rewrote the line
+   * and then refused it on the hold gate.  2026-09-12.  The explicit form is
+   * untouched -- run370 plays `get coin from box` perfectly well
+   * (runner_probes/dark.run370.putin.txt:27) and applies the same hold gate
+   * to it (runner_probes/dark.run370.putin2.txt:18).
    */
   return obj_indirectly_in_room (game, object, gs_playerroom (game))
          && !obj_is_static (game, object)
@@ -1842,16 +1858,16 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * says nothing, and a closed one is not visited.  No 3.7/3.8/4.0 Runner has
  * the loop ("get all" is a run390-only literal).
  *
- * Measured on p39PUT (run390x Adrift_154_p39put.txt T23; feeds
- * cmdfile_p39takeall.txt / cmdfile_p39takeall2.txt, Adrift_p39takeall.txt /
- * Adrift_p39takeall2b.txt, 2026-09-19): "You take the coin, ... and the
- * table from the cupboard." with nothing on the floor; "You pick up the
- * table.  You take the gem from the cupboard." with the open chest empty
+ * Measured on p39PUT (run390x runner_probes/put.run390.txt T23;
+ * make_3738_putprobe.py, runner_probes/put.run390.takeall.txt /
+ * runner_probes/put.run390.takeall2.txt, 2026-09-19): "You take the coin, ...
+ * and the table from the cupboard." with nothing on the floor; "You pick up
+ * the table.  You take the gem from the cupboard." with the open chest empty
  * after it; "You take the gem from the cupboard.  You take the coin from the
- * chest."; an unseen gem in the open chest is left behind, and a closed
- * chest is skipped.  The capacity arms (insides() returning 2, and the
- * "can't take any more/anything, as ... hands are full." rewrite at 455A68)
- * are not modelled.
+ * chest."; an unseen gem in the open chest is left behind, and a closed chest
+ * is skipped.  The capacity arms (insides() returning 2, and the "can't take
+ * any more/anything, as ... hands are full." rewrite at 455A68) are not
+ * modelled.
  */
 static scr_bool
 lib_take_all_sweep_390 (scr_gameref_t game, scr_bool has_printed)
@@ -2024,11 +2040,11 @@ lib_take_absent_score (scr_gameref_t game, scr_int object,
  * What it ranges over is measured rather than argued:
  * harness/make_400_takeprobe.py builds p4TAKE (a coin loose in Alpha, a
  * statue static in Alpha, a widget and a gizmo loose in Bravo), with --tie
- * p4TAKE2 (a red widget and a blue widget, both Short "widget" with Prefix
- * "a red"/"a blue", plus a lamp aliased "light", all in Bravo), and with
+ * p4TAKE2 (a red widget and a blue widget, both Short "widget" with Prefix "a
+ * red"/"a blue", plus a lamp aliased "light", all in Bravo), and with
  * --hidden p4TAKE3 (the same pair, with tasks that move either or both of
  * them to hidden).  Six feeds under Wine, run400, transcripts
- * Adrift_p4take1 .. Adrift_p4take6 in the harness prefix:
+ * runner_probes/take.run400.*.txt:
  *
  *     take widget   (Bravo never entered)        ->  Take what?
  *     take widget   (from Alpha, Bravo seen)     ->  There is nothing worth
@@ -2052,18 +2068,18 @@ lib_take_absent_score (scr_gameref_t game, scr_int object,
  * So the candidate set is the objects the player has SEEN -- the same seen
  * byte the examine path reads, and the same one that makes `x widget` answer
  * "You can't see the widget from here!" in the very next command of
- * Adrift_p4take2 -- matched by WHOLE name, Short or Alias, with a Prefix word
- * naming nothing on its own.  Statics count (the statue) and so do hidden
- * objects (p4TAKE3's pair still ties with both of them nowhere).  A candidate
- * that is present hands the line back to the ordinary path, which is where
- * the present tie's co() prompt is raised.
+ * runner_probes/take.run400.2.txt -- matched by WHOLE name, Short or Alias,
+ * with a Prefix word naming nothing on its own.  Statics count (the statue)
+ * and so do hidden objects (p4TAKE3's pair still ties with both of them
+ * nowhere).  A candidate that is present hands the line back to the ordinary
+ * path, which is where the present tie's co() prompt is raised.
  *
- * The scores then decide between the two refusals, and only a genuine tie
- * for the best score is ambiguous.  That is what zelda's `get key` turns on:
- * its super-hot key is Short "key" with an Alias "key" as well, so it scores
- * 2 against the iron key's 1 and wins outright -- run400 answers with the
- * flat refusal (Adrift_319_zelda.txt:573) even though both keys are seen and
- * both are called "key".
+ * The scores then decide between the two refusals, and only a genuine tie for
+ * the best score is ambiguous.  That is what zelda's `get key` turns on: its
+ * super-hot key is Short "key" with an Alias "key" as well, so it scores 2
+ * against the iron key's 1 and wins outright -- run400 answers with the flat
+ * refusal (runner_transcripts/zelda.txt:573) even though both keys are seen
+ * and both are called "key".
  */
 scr_bool
 lib_cmd_take_absent (scr_gameref_t game)
@@ -2087,8 +2103,8 @@ lib_cmd_take_absent (scr_gameref_t game)
    * 1, which scores only what is here, so absent objects never tie: with
    * nothing present marked, the handler runs to its empty-buffer tail,
    * "There is nothing worth taking here." (473A13) -- never "Take what?".
-   * Measured on p4AND from Bravo, `get hat and coin` with both seen in
-   * Alpha (run400 Adrift_956).
+   * Measured on p4AND from Bravo, `get hat and coin` with both seen in Alpha
+   * (run400 runner_probes/and.run400.b.txt).
    */
   if (lib_input_contains_word_400 (input, "and"))
     {
@@ -2247,21 +2263,23 @@ lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
  * get_piece (Proc_19_23_473A34) names a take's object from the WHOLE
  * fragment before it parses anything: 473011 hands the line to the noun
  * scorer 463640 in mode 1 (lib_name_object_resolve_400()), and what comes
- * back decides the piece whatever else the line said.  A unique winner is
- * the only object marked (473022): p4WTIE (run400, Adrift_wtie12/16/17,
- * 2026-09-20) has `take rope with ruby` take the ruby and `take rope with
- * knife` and `take zzz with knife` answer "You are already carrying the
- * knife." -- the static rope is never a candidate, the held knife only on
- * the second pass.  A tie with a pending object asks (4733BD): "Which " &
- * the LAST tied object's raw Short & ".  " & the pass-0 marks & "?", so
- * `take ruby with stone` is "Which ruby.  The red stone, the blue stone or
- * the ruby?" and `take knife with stone`, the knife skipped on pass 0, is
- * "Which stone.  The red stone or the blue stone?" (Adrift_wtie16/17).  A
- * tie with none (Me(424) < 0, 47333C) is the flat "It is not clear which "
- * & <the last tied object's typed name, 446C74> & " you are referring to."
- * (47335F-4733A5): p4AND `get coin, hat`, both held, "It is not clear
- * which hat you are referring to." (Adrift_955), the coin scoring because
- * c() ends a word at the comma.
+ * back decides the piece whatever else the line said.  A unique winner is the
+ * only object marked (473022): p4WTIE (run400,
+ * runner_probes/wtie.run400.12.txt, runner_probes/wtie.run400.16.txt and
+ * runner_probes/wtie.run400.17.txt, 2026-09-20) has `take rope with ruby`
+ * take the ruby and `take rope with knife` and `take zzz with knife` answer
+ * "You are already carrying the knife." -- the static rope is never a
+ * candidate, the held knife only on the second pass.  A tie with a pending
+ * object asks (4733BD): "Which " & the LAST tied object's raw Short & ".  " &
+ * the pass-0 marks & "?", so `take ruby with stone` is "Which ruby.  The red
+ * stone, the blue stone or the ruby?" and `take knife with stone`, the knife
+ * skipped on pass 0, is "Which stone.  The red stone or the blue stone?"
+ * (runner_probes/wtie.run400.16.txt and runner_probes/wtie.run400.17.txt).  A
+ * tie with none (Me(424) < 0, 47333C) is the flat "It is not clear which " &
+ * <the last tied object's typed name, 446C74> & " you are referring to."
+ * (47335F-4733A5): p4AND `get coin, hat`, both held, "It is not clear which
+ * hat you are referring to." (runner_probes/and.run400.txt), the coin scoring
+ * because c() ends a word at the comma.
  *
  * Returns TRUE when it has answered the line.  *BOUND is set when a unique
  * winner is now the one referenced object, and the caller skips its own
@@ -2284,7 +2302,8 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
   /* A "from" line names its container first (472E03-472F35), so a line
      whose container resolves nothing is "I don't understand where you want
      to get things from." however its piece ties: `take stone from zzz`
-     (p4WTIE, Adrift_wtfrom).  lib_take_from_piece_400() scores the piece. */
+     (p4WTIE, runner_probes/wtie.run400.from.txt).  lib_take_from_piece_400()
+     scores the piece. */
   if (lib_input_contains_word_400 (line, "from"))
     return FALSE;
 
@@ -2318,9 +2337,12 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
  * refrigerator`, and after the bare `get moxie` / `get pop-tarts` that
  * takes() rewrites into a take-from (43E47B) -- "You take old meat from the
  * big white refrigerator.  You take all of the knives from the silverware
- * drawer." (Adrift_1181/1183/1185_kn*.rtf; Adven_9_timmy_reid.rtf turn 8).
- * `get garbage container`, off the floor, runs nothing (Adrift_1186).
- * run370 has no sweep, and run390 none either.
+ * drawer." (runner_probes/timmy_reid.run380.kn1.txt,
+ * runner_probes/timmy_reid.run380.kn3.txt,
+ * runner_probes/timmy_reid.run380.kn5.txt; runner_transcripts/timmy_reid.rtf
+ * turn 8).  `get garbage container`, off the floor, runs nothing
+ * (runner_probes/timmy_reid.run380.kn6.txt).  run370 has no sweep, and run390
+ * none either.
  */
 void
 lib_take_from_task_sweep_380 (scr_gameref_t game)
@@ -2380,15 +2402,15 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  * the blue gem still listed on the skeleton at T55.  Scarier resolved the
  * line to the box / the blue gem alone and took it.
  *
- * Only the single-named plain take: the "and" list and "all" walk other
- * modes of the loop.  Below 3.9 the object prints its raw prefix, as the
- * already-got list below does (p38EXAM, Adrift_1165).  3.7 has no
- * from-parent branch at all -- a bare take of something in or on an object
- * writes nothing (lib_take_filter) -- so there the namesake speaks from
- * either side of the target; the last one in index order, as every write
- * overwrites.  A 3.8/3.9 namesake ABOVE the target is left alone: the
- * rewrite has run by the time it speaks and what the caller does with the
- * rewritten line is unmeasured.
+ * Only the single-named plain take: the "and" list and "all" walk other modes
+ * of the loop.  Below 3.9 the object prints its raw prefix, as the
+ * already-got list below does (p38EXAM, runner_probes/exam.run380.txt).  3.7
+ * has no from-parent branch at all -- a bare take of something in or on an
+ * object writes nothing (lib_take_filter) -- so there the namesake speaks
+ * from either side of the target; the last one in index order, as every write
+ * overwrites.  A 3.8/3.9 namesake ABOVE the target is left alone: the rewrite
+ * has run by the time it speaks and what the caller does with the rewritten
+ * line is unmeasured.
  */
 /*
  * The test the takes() loop puts each object through before letting it
@@ -2479,12 +2501,13 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
     }
   /*
    * Mode 1 is takes()' (run390): the recount is over the loose namesakes.
-   * Mode 2 is drops()' (run390 4458CF): the recount is over isheld()
-   * (42A34C) -- held, worn, or in or on a parent that isheld, recursively,
-   * no openness test.  So `drop hat` with the red hat in hand and the blue
-   * one on the floor recounts to one and drops the red hat, while red worn
-   * and blue held recounts to two and drops nothing (p39TASK,
-   * Adrift_185_pname_39.txt / Adrift_185_pname2_39.txt, 2026-09-19).
+   * Mode 2 is drops()' (run390 4458CF): the recount is over isheld() (42A34C)
+   * -- held, worn, or in or on a parent that isheld, recursively, no openness
+   * test.  So `drop hat` with the red hat in hand and the blue one on the
+   * floor recounts to one and drops the red hat, while red worn and blue held
+   * recounts to two and drops nothing (p39TASK,
+   * runner_probes/task.run390.pname.txt /
+   * runner_probes/task.run390.pname2.txt, 2026-09-19).
    *
    * Deliberate deviation: run380 has no modes, and no Runner narrows wear
    * or remove, so `wear hat` with the red hat held and the blue one on the
@@ -2551,8 +2574,8 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
  * and the answer is "It is not clear which <object> you are referring to."
  * for the highest-indexed object it names, which Scarier already gives.
  *
- * Measured 2026-09-21 on p37ORD/p38ORD/p39ORD/p4ORD with `cmdfile_p2mult
- * .txt` (Adrift_267_3m37.rtf, 268_3m38.rtf, 269_3m39.txt, 270_3m40.txt).
+ * Measured 2026-09-21 on p37ORD/p38ORD/p39ORD/p4ORD
+ * (runner_probes/ord.run*.mult.*).
  *
  * Returns the object the loop is left free to take, or -1; sets *crowded
  * when every loose candidate was flagged and the take is off.
@@ -2730,11 +2753,12 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
  * counts nothing in or on anything, so there the same line is "You can't
  * get any of them.".  Held objects and characters are named but never
  * candidates: p39ABSNPC `take erin and stone` with the stone held (run390x
- * Adrift_1206_p39absnpc.txt T36), and p3xPUT `take coin and stone`, `take
- * nut and coin` (the nut in the held bag), `take statue and cupboard`,
- * `take zzz and qqq` (run370x/run380x/run390x Adrift_170/171/172_ptakeand,
- * cmdfile_p3738takeand.txt).  Each Runner's pre-pass also skips an object
- * whose "get <Short>" pre-matches a task; not modelled.
+ * runner_probes/absnpc.run390.txt T36), and p3xPUT `take coin and stone`,
+ * `take nut and coin` (the nut in the held bag), `take statue and cupboard`,
+ * `take zzz and qqq` (run370x/run380x/run390x
+ * runner_probes/put.run370.takeand.rtf, runner_probes/put.run380.takeand.rtf,
+ * runner_probes/put.run390.takeand.txt).  Each Runner's pre-pass also skips
+ * an object whose "get <Short>" pre-matches a task; not modelled.
  */
 static scr_bool
 lib_take_and_none_pre400 (scr_gameref_t game)
@@ -2899,7 +2923,7 @@ lib_obhere_380 (scr_gameref_t game, scr_int object)
  * object in the room, or a dynamic one loose here, held, worn, or in or on
  * something the player carries.  Something in a box on the floor is not
  * present to it -- `get nut from statue` names the statue, not the nut
- * (p37TKA, run370x Adrift_205_ptka_37.rtf cell 122, 2026-09-20).
+ * (p37TKA, run370x runner_probes/tka.run370.rtf cell 122, 2026-09-20).
  */
 scr_bool
 lib_present_370 (scr_gameref_t game, scr_int object)
@@ -3014,10 +3038,12 @@ lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
  * the box on the floor stays at "Please take objects from one place at a
  * time." because the box is not held (3.8's slot test).
  *
- * Measured on p37TKA/p38TKA/p39TKA (Adrift_205/206/207_ptka, cells 3, 6, 9,
+ * Measured on p37TKA/p38TKA/p39TKA (runner_probes/tka.run370.rtf,
+ * runner_probes/tka.run380.rtf, runner_probes/tka.run390.txt, cells 3, 6, 9,
  * 14, 17, 20, 23, 32, 40, 44, 168) and p37TKB/p38TKB/p39TKB
- * (Adrift_207/208/209_ptkb, cells 3, 8, 31, 38, 44), 2026-09-20.  3.9's own
- * loop (454B08) prints the same strings with definite names.
+ * (runner_probes/tkb.run370.rtf, runner_probes/tkb.run380.rtf,
+ * runner_probes/tkb.run390.txt, cells 3, 8, 31, 38, 44), 2026-09-20.  3.9's
+ * own loop (454B08) prints the same strings with definite names.
  */
 static scr_bool
 lib_take_and_pre400 (scr_gameref_t game)
@@ -3249,9 +3275,9 @@ lib_take_and_pre400 (scr_gameref_t game)
  *     nothing; a piece that names nothing at all keeps the parser's own
  *     answers, as does a tie.
  *
- * run400x Adrift_208_ptka_4.txt / Adrift_210_ptkb_4.txt, 2026-09-20.  0 when
- * this does not apply and the ordinary parse should run; 1 when the pieces
- * are in multiple_references and *references counts them.
+ * run400x runner_probes/tka.run400.txt / runner_probes/tkb.run400.txt,
+ * 2026-09-20.  0 when this does not apply and the ordinary parse should run;
+ * 1 when the pieces are in multiple_references and *references counts them.
  */
 static scr_int
 lib_take_and_400 (scr_gameref_t game, scr_int *references)
@@ -3374,14 +3400,14 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * (run390 4458CF, and the same walk in run380 438889 / run370 430689).  So a
  * word the line holds that names nothing costs nothing: `blorp take coin` is
  * "You pick up the coin." and `blorp drop coin` "You drop the coin." in all
- * three older Runners (p37REW/p38REW/p39REW with cmdfile_pcasc.txt --
- * Adrift_250_casc37b.rtf, Adrift_249_casc38.rtf, Adrift_250_casc39.txt,
- * 2026-09-20), and so are `take zzz hat` and `drop zzz hat` at 3.90 (p39WHAT,
- * Adrift_p39what2.txt, cmdfile_p39what2.txt, same day).  Scarier binds
- * %text% positionally, so with the verb hoisted to the front by
- * run_hoist_verb_line() the rest of the line went to the noun and the take
- * fell to "Take what?" while the drop fell to the absent row's "You don't
- * have a coin!".
+ * three older Runners (p37REW/p38REW/p39REW, make_rewriteprobe.py --
+ * runner_probes/rew.run370.casc.rtf, runner_probes/rew.run380.casc.rtf,
+ * runner_probes/rew.run390.casc.txt, 2026-09-20), and so are `take zzz hat`
+ * and `drop zzz hat` at 3.90 (p39WHAT, runner_probes/what.run390.what2.txt,
+ * same day).  Scarier binds %text% positionally, so with the verb hoisted to
+ * the front by run_hoist_verb_line() the rest of the line went to the noun
+ * and the take fell to "Take what?" while the drop fell to the absent row's
+ * "You don't have a coin!".
  *
  * Only from the parse's failure branch, so every line whose words the parser
  * does account for keeps the answer it had; and only when ONE object in the
@@ -3440,11 +3466,12 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * answers again over that.  See lib_take_npc_overwrite() for the arms and
  * their gates.  Ask it wherever a take writes and returns, not only from
  * the main loop -- the held-namesake pre-empt writes its "You've already
- * got the hat!" and returns, and the Runner overwrites that line too:
- * `take give hat bob` with the hat in hand is "I don't think Bob would
- * appreciate being handled." at 3.7/3.9/4.0 and "Bob is not carrying the
- * hat!" at 3.8 (cmdfile_p2give.txt cell 5, Adrift_269_3g37.rtf,
- * 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt, 2026-09-21).
+ * got the hat!" and returns, and the Runner overwrites that line too: `take
+ * give hat bob` with the hat in hand is "I don't think Bob would appreciate
+ * being handled." at 3.7/3.9/4.0 and "Bob is not carrying the hat!" at 3.8
+ * (cell 5 of runner_probes/ord.run370.give.rtf,
+ * runner_probes/ord.run380.give.rtf, runner_probes/ord.run390.give.txt,
+ * runner_probes/ord.run400.give.txt, 2026-09-21).
  */
 
 /*
@@ -3464,9 +3491,9 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * take refusal standing; the "Use the format" hint for a line with no
  * `about` (47FBB0) is not measured and not modelled.
  *
- * Measured on p4ORD, cmdfile_p2chr.txt (run400x Adrift_268_3c40.txt,
- * 2026-09-21): `take ask bob about hat` is "Bob says, 'That is a fine hat.'"
- * and the hat is still taken; 3.7/3.8/3.9 keep their take-arm answers.
+ * Measured on p4ORD (run400x runner_probes/ord.run400.chr.txt, 2026-09-21):
+ * `take ask bob about hat` is "Bob says, 'That is a fine hat.'" and the hat
+ * is still taken; 3.7/3.8/3.9 keep their take-arm answers.
  *
  * TRUE once it has spoken, having truncated the buffer back to mark first.
  */
@@ -3555,10 +3582,11 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    * the container clause named nothing, or two things, or nothing at all --
    * is still a take-from to every Runner (see lib_take_from_and() and
    * lib_take_from_trailing()); pre-4.0 it is never a bare take, so the
-   * catch-alls of the take-from-nowhere rows answer it, not the held
-   * namesake or "Take what?" (`get coin from zzz` with the coin in hand:
+   * catch-alls of the take-from-nowhere rows answer it, not the held namesake
+   * or "Take what?" (`get coin from zzz` with the coin in hand:
    * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
-   * anything!"; p3xTKB Adrift_207/208/209_ptkb cell 144, 2026-09-20).
+   * anything!"; p3xTKB runner_probes/tkb.run370.rtf, tkb.run380.rtf,
+   * tkb.run390.txt cell 144, 2026-09-20).
    */
   if (!is_except)
     {
@@ -3613,16 +3641,18 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       /*
        * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
        * noun scorer 463640 (473011), which counts whole words and skips the
-       * rest, so a word it does not know costs nothing.  Professor.taf, run400:
-       * `get x rope` in the square refuses "You can't take the Mailbox on-a
-       * Rope!" (Adrift_p4profmail2 T22), the alias "rope" scoring; in the
-       * Laboratory it ends on DontUnderstand after the refusal's pre-match
-       * (T25, Adrift_1154_p4profmail6 T26).  Scarier's object parser wanted
-       * every word, and the line fell to "Take what?".  The X-Files, run400
-       * Adrift_424/522_xfiles.txt:248: `take phone book` -> "You take Your
-       * Cell Phone from Your Backpack.".  One piece only; a list keeps the
-       * parser's own answers.  Only from the "Take what?" catch-all, so every
-       * other take row has had the line first (Pilfers `get off bed`).
+       * rest, so a word it does not know costs nothing.  Professor.taf,
+       * run400: `get x rope` in the square refuses "You can't take the
+       * Mailbox on-a Rope!" (runner_probes/professor.run400.mail2.txt T22),
+       * the alias "rope" scoring; in the Laboratory it ends on DontUnderstand
+       * after the refusal's pre-match (T25,
+       * runner_probes/professor.run400.mail6.txt T26).  Scarier's object
+       * parser wanted every word, and the line fell to "Take what?".  The
+       * X-Files, run400 runner_transcripts/xfiles.txt:248: `take phone book`
+       * -> "You take Your Cell Phone from Your Backpack.".  One piece only; a
+       * list keeps the parser's own answers.  Only from the "Take what?"
+       * catch-all, so every other take row has had the line first (Pilfers
+       * `get off bed`).
        */
       const scr_char *text = var_get_ref_text (gs_get_vars (game));
       scr_int object;
@@ -3721,9 +3751,9 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    *
    * 3.70 is not in this: its takes() calls no co() at all, and settles a
    * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
-   * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both
-   * and the rock speaks (p37OPENA, Adrift_232_oy370, 2026-09-20) -- and
-   * this gate used to turn that into "Take what?".
+   * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both and
+   * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf, 2026-09-20) --
+   * and this gate used to turn that into "Take what?".
    */
   if (!is_except && references == 1
       && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380

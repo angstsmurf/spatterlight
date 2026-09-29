@@ -1,0 +1,13 @@
+
+look
+Probe Room
+LONG qball QQ done qAAA tok.  EXTRA tok.
+
+zulu
+You take the qqball.
+
+victor
+CT n=9 TXT qqball.  AM n=9 TXT qqball.
+
+uniform
+CTU.  You take the qqqball.  AMU.

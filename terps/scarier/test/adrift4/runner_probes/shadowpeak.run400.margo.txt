@@ -1,0 +1,37 @@
+
+> restore
+Loading game... done.
+The prison.
+This room is filled with barred cells; all are locked. It is very dusty and dirty in here.
+  Also here is a cell door and a The dead Margo.  Gargoyle #1 is here.
+  
+You can only move north.
+
+> attack margo with sword
+Margo isn't here!  Seeker hums!
+
+
+> attack margo with sword
+Margo isn't here!  Gargoyle #1 stabs you with the military fork.  Seeker hums!
+
+
+> n
+You move north.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+
+
+> n
+You move north.
+The crypts.
+This huge cavern rests in the very rocks forming the foundations of Castle Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern. You feel very uneasy in this place; something is not quite right about it. South leads back to the bottom of the main stairs; another exit leads northward.
+  You can move north and south.  Seeker hums!
+Seeker hums!
+
+
+> look
+The crypts.
+This huge cavern rests in the very rocks forming the foundations of Castle Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern. You feel very uneasy in this place; something is not quite right about it. South leads back to the bottom of the main stairs; another exit leads northward.
+  You can move north and south.  Seeker hums!
+Seeker hums!
+

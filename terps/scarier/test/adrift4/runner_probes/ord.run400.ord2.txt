@@ -1,0 +1,187 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> i
+You are carrying a hat.
+
+> take box
+You take the box.
+
+> x box
+A wooden box.  The box is closed.
+
+> open box
+You open the box.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> x open box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> open x box
+You open the box.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> open examine box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> open read box
+You can't read the box!
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> open look at box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> blorp x box
+I don't understand what you want me to do with the box.
+
+> blorp exam box
+I don't understand what you want me to do with the box.
+
+> blorp examine box
+A wooden box.  The box is closed.
+
+> push open box
+You open the box.  A nut is inside the box.
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> open where is box
+You are carrying the box!
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> close box
+You close the box.
+
+> push where is coin
+The coin is lit room.
+
+> x ask bob about hat
+An ordinary man.
+
+> open ask bob about hat
+Bob says, 'That is a fine hat.'
+
+> x box
+A wooden box.  The box is closed.
+
+> close box
+The box is already closed!
+
+> drop box
+You drop the box.  
+
+> take open box
+You take the box.
+
+> i
+You are carrying a hat and a box.
+
+> x box
+A wooden box.  The box is closed.
+
+> drop box
+You drop the box.  
+
+> open take box
+You take the box.
+
+> i
+You are carrying a hat and a box.
+
+> x box
+A wooden box.  The box is closed.
+
+> drop box
+You drop the box.  
+
+> take box
+You take the box.
+
+> wear open hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying a box.
+
+> x hat
+A felt hat.
+
+> remove hat
+You remove the hat.
+
+> x where is coin
+A gold coin.
+
+> take ask bob about hat
+Bob says, 'That is a fine hat.'
+
+> i
+You are carrying a hat and a box.
+
+> drop hat
+You drop the hat.  
+
+> take ask bob about hat
+Bob says, 'That is a fine hat.'
+
+> i
+You are carrying a hat and a box.
+
+> give hat to bob
+Bob doesn't seem interested in the hat.
+
+> i
+You are carrying a hat and a box.
+
+> x give hat to bob
+An ordinary man.
+
+> i
+You are carrying a hat and a box.
+
+> probe
+PROBE OK.

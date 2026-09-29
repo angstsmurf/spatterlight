@@ -1,0 +1,110 @@
+
+> blorp take
+Take what?
+
+> blorp drop
+Drop what?
+
+> blorp eat
+I don't understand what you are trying to eat.
+
+> blorp drink
+You can't drink that.
+
+> blorp open
+You can't open that.
+
+> blorp close
+You can't close that.
+
+> blorp wear
+Wear what?
+
+> blorp remove
+Remove what?
+
+> blorp read
+You see no such thing.
+
+> blorp examine
+You see no such thing.
+
+> blorp look
+You see no such thing.
+
+> blorp kill
+Now that isn't very nice.
+
+> blorp kiss
+I'm not sure it would appreciate that.
+
+> blorp ask
+Use the format "ask [character] about [subject]"
+
+> blorp give
+(to Nobody)
+Give what?
+
+> blorp put
+Where do you want to put that?
+
+> blorp push
+You push, but nothing happens.
+
+> blorp pull
+You pull, but nothing happens.
+
+> blorp turn
+You can't turn that.
+
+> blorp listen
+You hear nothing out of the ordinary.
+
+> blorp smell
+That smells normal.
+
+> blorp touch
+You can't touch that.
+
+> blorp search
+I don't understand.
+
+> blorp unlock
+You can't unlock that.
+
+> blorp lock
+You can't lock that.
+
+> blorp sit
+You sit down on the ground.
+
+> blorp stand
+You stand up.
+
+> blorp buy
+I don't think that is for sale.
+
+> blorp wave
+I don't understand.
+
+> blorp throw
+I don't understand.
+
+> blorp take coin
+You take the coin.
+
+> blorp drop coin
+You drop the coin.  
+
+> blorp wear coin
+You are not holding the coin.
+
+> blorp open coin
+You can't open the coin!
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a coin, an exception and a slapper.  You can only move north.

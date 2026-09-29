@@ -1,0 +1,126 @@
+
+> probe
+PROBE OK.
+
+> blip zog blip gem blip
+WILD1 a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip gem blip zog blip
+WILD1 a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip zog blip rock blip gem blip
+WILD1 a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip zog blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip zog blip coin blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> nurb gem blip
+WILD2 a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> nurb gem
+WILD2 a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> nurb blip gem
+I don't understand what you want me to do with the gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip zog blip king blip
+WILD3 King.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip king blip zog blip
+WILD3 King.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip zog blip queen blip
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip gem blip
+FLAT a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> blip stone blip
+FLAT a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a coin.  You can only move south.
+
+> blip zog blip coin blip
+WILD1 a coin.
+
+> look
+Cave
+A cave with rough walls.  Also here is a coin.  You can only move south.
+
+> blip king blip zog blip
+WILD3 King.
+
+> look
+Cave
+A cave with rough walls.  Also here is a coin.  You can only move south.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a big rock and a gem.  The King is here.  You can only move north.
+
+> probe
+PROBE OK.
+
+> quit
+
+> y
+I don't understand.

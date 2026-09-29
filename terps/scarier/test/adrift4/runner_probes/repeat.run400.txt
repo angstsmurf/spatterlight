@@ -1,0 +1,92 @@
+
+> look
+Alpha
+The first room.  Also here is a coin.  Bob is here.  You can only move east.
+
+> write on wall
+C1 write on wall.
+
+> write on wall
+R1 write on wall.
+
+> listen
+C2 listen.
+
+> listen
+R2 listen.
+
+> talk to bob
+C3 talk to bob.
+
+> talk to bob
+Use the format "ask Bob about [subject]".
+
+> kiss bob
+C4 kiss bob.
+
+> kiss bob
+R4 kiss bob.
+
+> look under desk
+C5 look under desk.
+
+> look under desk
+R5 look under desk.
+
+> take coin
+C6 take coin.
+
+> take coin
+R6 take coin.
+
+> x coin
+C7 x coin.
+
+> x coin
+R7 x coin.
+
+> push button
+C8 push button.
+
+> push button
+R8 push button.
+
+> smell
+C9 smell.
+
+> smell
+R9 smell.
+
+> frobnicate
+C10 frobnicate.
+
+> frobnicate
+R10 frobnicate.
+
+> jump
+C11 jump.
+
+> jump
+Wheee-boinng.
+
+> dance
+C12 * dance *.
+
+> dance
+R12 * dance *.
+
+> north
+C13 north.
+
+> north
+R13 north.
+
+> east
+C14 east.
+
+> east
+R14 east.
+
+> look
+Alpha
+The first room.  Also here is a coin.  Bob is here.  You can only move east.

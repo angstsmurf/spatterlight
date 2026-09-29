@@ -1,0 +1,95 @@
+
+> probe
+PROBE OK.  TICK.
+
+> kiss ed
+I'm not sure he would appreciate that!  TICK.
+
+> kiss dave
+I'm not sure he would appreciate that!  TICK.
+
+> open box with knife
+You can't open the box with the knife.  TICK.
+
+> open box with coin
+You can't open the box with the coin.  TICK.
+
+> unlock box with knife
+You can't unlock the box with the knife.  TICK.
+
+> open box
+You can't open the box as it is locked!  TICK.
+
+> unlock box with coin
+You unlock the box with the coin.  TICK.
+
+> open box with coin
+You can't open the box with the coin.  TICK.
+
+> open box
+You open the box.  TICK.
+
+> close box with coin
+You can't close the box with the coin.  TICK.
+
+> lock box with coin
+You can't lock the box as it is open.  TICK.
+
+> cut stone with knife
+I don't understand what you want me to do with the knife.
+
+> cut rope with stone
+I don't understand what you want me to do with the rope.
+
+> put zzz in bag
+I don't understand what you want to put things inside.
+
+> put gem in jar
+It is not clear which object you are referring to.  TICK.
+
+> n
+You move north.
+Beta
+The second room.  Also here is a gem, a red bag and a blue bag.  Dave is here.  You can only move south.  TICK.
+
+> kiss dave
+I'm not sure he would appreciate that!  TICK.
+
+> kiss ed
+I'm not sure he would appreciate that!  TICK.
+
+> s
+You move south.
+Alpha
+The first room.  Also here is a red stone and a blue stone.  You can only move north.  TICK.
+
+> kiss dave
+I'm not sure he would appreciate that!  TICK.
+
+> kiss ed
+I'm not sure he would appreciate that!  TICK.
+
+> put gem in jar
+(Taking the gem first)
+You put the gem inside the jar.  TICK.
+
+> put gem in box
+(Taking the gem first)
+You put the gem inside the box.  TICK.
+
+> put zzz in bag
+I don't understand what you want to put things inside.
+
+> put gem in bag
+I don't understand what you want to put things inside.
+
+> cut stone with gem
+I don't understand what you want me to do with the gem.
+
+> cut rope with bag
+I don't understand what you want me to do with the rope.
+
+> ping
+
+> probe
+PROBE OK.  TICK.

@@ -108,7 +108,8 @@ lib_cmd_locate_object (scr_gameref_t game)
    * know where that is!" at 4684DA) and the characters() where/find/locate
    * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
    * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
-   * Ticket (Adrift_1127, 2026-09-12): "where is young girl" ticks 59 draws.
+   * Ticket (runner_probes/ticket.run400.txt, 2026-09-12): "where is young
+   * girl" ticks 59 draws.
    */
 
   /*
@@ -341,8 +342,10 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * Pre-4.0 assigns the answer outright for every character named, so the
    * LAST one named answers, here or not: `where is guard` with Ann and Bob
    * here and Cora next door is "You haven't seen Cora yet!", and once she
-   * is met "Cora is cave." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/
-   * 192/193; run380 440B3E).  npc is already the last named.
+   * is met "Cora is cave." (run370x/run380x/run390x,
+   * runner_probes/npcamb.run370.b.rtf, runner_probes/npcamb.run380.rtf,
+   * runner_probes/npcamb.run390.txt; run380 440B3E).  npc is already the
+   * last named.
    */
 
   /*
@@ -453,9 +456,9 @@ lib_cmd_turns (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
 
   /* "1 turns" -- no Runner singularises it (run400 48ACA1 concatenates the
-     one literal; measured run400 EV16 Adrift_1_ev16.txt and run390
-     BobBobsly.taf Adrift_1_bob390.txt, both "You have taken 1 turns so
-     far."). */
+     one literal; measured run400 EV16 runner_probes/ev16.run400.txt and
+     run390 BobBobsly.taf runner_probes/bob_bobsly.run390.txt, both "You
+     have taken 1 turns so far."). */
   pf_buffer_string (filter, "You have taken ");
   pf_buffer_integer (filter, game->turns);
   pf_buffer_string (filter, " turns so far.\n");
@@ -622,7 +625,8 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
  * the wielded or best weapon's HitValue) or armourstrength() (defence plus
  * worn protection), and the bracket is the attribute's maximum field.  No
  * header, no Accuracy or Agility row and no wielding line.  Measured on the
- * town of azra (3.90, run390x Adrift_188 T60, 2026-09-14).
+ * town of azra (3.90, run390x runner_transcripts/the_town_of_azra_v390.txt
+ * T60, 2026-09-14).
  */
 static void
 lib_print_battle_status_390 (scr_gameref_t game, scr_int npc)
@@ -816,12 +820,12 @@ lib_cmd_examine_all (scr_gameref_t game)
  * That seen byte is the whole 3.9-vs-4.0 difference, and it is already
  * measured from the other side: run400 on EV16 answers `x dave`, with Dave
  * alive in the next room and never yet met, "You see no such thing." rather
- * than naming him (Adrift_1_ev16.txt; see lib_cmd_examine_other below).
- * Pre-4.0 has no such test -- probe 1 on ALEXIS.TAF under run390 named an
- * unseen character back at the player (cmdfile_alexis_absent_npc_1.txt,
- * probe_alexis_121.txt).  The 4.0 half is measured too: cobl (4.00), `x cat`
- * for the ginger cat seen in an earlier room, "You cannot see the ginger cat
- * from here."
+ * than naming him (runner_probes/ev16.run400.txt; see lib_cmd_examine_other
+ * below).  Pre-4.0 has no such test -- probe 1 on ALEXIS.TAF under run390
+ * named an unseen character back at the player
+ * (runner_probes/alexis.run390.absent_npc.txt).  The 4.0 half is measured too:
+ * cobl (4.00), `x cat` for the ginger cat seen in an earlier room, "You cannot
+ * see the ginger cat from here."
  *
  * The reference test is the shared Name-or-first-Alias one, run390 4592B8
  * (`c(LCase(Name)) Or c(LCase(Alias))`); see lib_npc_named_in_line().
@@ -840,16 +844,17 @@ lib_cmd_examine_all (scr_gameref_t game)
  * would stand.  Scarier applies them in the output filter, after this hook,
  * and that is now measured rather than assumed:
  *
- *   run400, p4ALRNPC.taf (Adrift_126.txt), ALRs "You see no such thing." ->
- *     "... , or else it is unimportant." and "cannot see" -> "cannot spot".
- *     `x dave` from the next room, Dave seen: "You cannot spot Dave from
- *     here."  The rewrite fired against the UNALR'd default, and its own
- *     output was then ALR'd -- so the ALR pass runs strictly after this one.
- *     `x erin` (alive, never seen) gives the ALR'd tail on the same path,
- *     which is the seen gate and the ALR wiring in one control.
- *   run390, p39ALRNPC.taf (Adrift_966.txt), the same world with "Nothing
- *     special." ALR'd instead: `x dave` and `x erin` both answer "You cannot
- *     spot <Name> from here." -- the pre-4.0 arm, with no seen gate.
+ *   run400, p4ALRNPC.taf (runner_probes/alrnpc.run400.txt), ALRs "You see no
+ *     such thing." -> "... , or else it is unimportant." and "cannot see" ->
+ *     "cannot spot".  `x dave` from the next room, Dave seen: "You cannot spot
+ *     Dave from here."  The rewrite fired against the UNALR'd default, and its
+ *     own output was then ALR'd -- so the ALR pass runs strictly after this
+ *     one.  `x erin` (alive, never seen) gives the ALR'd tail on the same
+ *     path, which is the seen gate and the ALR wiring in one control.
+ *   run390, p39ALRNPC.taf (runner_probes/alrnpc.run390.txt), the same world
+ *     with "Nothing special." ALR'd instead: `x dave` and `x erin` both
+ *     answer "You cannot spot <Name> from here." -- the pre-4.0 arm, with
+ *     no seen gate.
  *
  * Both transcripts are identical to scarier's on every turn.  That settles
  * the_pk_girl t~3067, whose golden line this rule moved.
@@ -926,12 +931,14 @@ lib_npc_examine_absent (scr_gameref_t game)
  * run400.exe alone, which is what dates the change.
  *
  * Both halves are measured, not argued:
- *   run390, Merry_Murders.taf (3.90), Adrift_39_merry_murders.txt line 38 --
+ *   run390, Merry_Murders.taf (3.90),
+ *     runner_probes/merry_murders.run390.pocket.txt line 38 --
  *     `x pocket` in the lit Plaza, no `pocket` object in the game:
  *     "Nothing special."
- *   run400, The_X-Files_A_New_Beginning.taf (4.00), Adrift_22_xfiles.txt
- *     lines 187 and 233 -- `look at camera` and `look up byers`, neither noun
- *     an object: "You see no such thing."
+ *   run400, The_X-Files_A_New_Beginning.taf (4.00),
+ *     runner_probes/xfiles.run400.txt lines 187 and 233 -- `look at camera`
+ *     and `look up byers`, neither noun an object: "You see no such
+ *     thing."
  *
  * 4.0 also sets a flag beside this message (MemVar_494281 at 471F02), and
  * that is the whole of 4.0's tail.  Pre-4.0 puts a darkness fork in front of
@@ -959,9 +966,9 @@ lib_cmd_examine_other (scr_gameref_t game)
    * 45E67C), so 3.9 answers "Examine what?".  `exam` is not in that test and
    * still comes here: "Nothing special." at 3.9, "You see no such thing." at
    * 4.0.  3.7/3.8 have no exit, and every bare form is "Nothing special.".
-   * p39EXAM run390x Adrift_176_pexab39.txt, p4EXAM run400x
-   * Adrift_177_pexab4.txt, p38EXAM run380x Adrift_178_pexab38.rtf
-   * (`cmdfile_pexabbr.txt`).
+   * p39EXAM run390x runner_probes/exam.run390.abbr.txt, p4EXAM run400x
+   * runner_probes/exam.run400.abbr.txt, p38EXAM run380x
+   * runner_probes/exam.run380.abbr.rtf.
    */
   if (lib_is_version_390 (game) || lib_is_version_400 (game))
     {
@@ -983,8 +990,9 @@ lib_cmd_examine_other (scr_gameref_t game)
               if (!lib_is_version_390 (game))
                 return FALSE;
               lib_what (game, "Examine");
-              /* `x` / `stone` examines the stone (Adrift_185_ppfx_39.txt);
-               * lib_what() stores only a line equal to its verb. */
+              /* `x` / `stone` examines the stone
+               * (runner_probes/task.run390.pfx.txt); lib_what() stores only
+               * a line equal to its verb. */
               lib_battle_who_pending = input;
               return TRUE;
             }
@@ -997,7 +1005,8 @@ lib_cmd_examine_other (scr_gameref_t game)
    * that is here -- so `x big dave` and `x tall guard`, which SCARE's
    * %character% pattern does not bind, describe Dave and (of Ann and Bob,
    * both guards) Bob, the LAST present (run370x/run380x/run390x,
-   * Adrift_193_pnpcamb37b/192/193; run380 440D0B).
+   * runner_probes/npcamb.run370.b.rtf, runner_probes/npcamb.run380.rtf,
+   * runner_probes/npcamb.run390.txt; run380 440D0B).
    */
   if (!lib_is_version_400 (game))
     {
@@ -1046,10 +1055,10 @@ lib_cmd_examine_other (scr_gameref_t game)
   /*
    * The 4.0 text is the player's name and the literal " see no such thing."
    * (471EF6), so a named third-person player gets "Player see no such
-   * thing." -- measured run400, EV16, Adrift_1_ev16.txt (`x dave`, Dave
-   * being in the next room).  The same probe reads `turns` unchanged across
-   * it: the flag 4.0 sets beside the message (MemVar_494281 at 471F02, and
-   * at 4801E1 for the character handler's copy) is the Runner's "not a
+   * thing." -- measured run400, EV16, runner_probes/ev16.run400.txt (`x dave`,
+   * Dave being in the next room).  The same probe reads `turns` unchanged
+   * across it: the flag 4.0 sets beside the message (MemVar_494281 at 471F02,
+   * and at 4801E1 for the character handler's copy) is the Runner's "not a
    * turn" flag, the one `turns` and `score` set.
    */
   lib_print_response_message (game,
@@ -1071,9 +1080,10 @@ lib_cmd_examine_other (scr_gameref_t game)
  *
  * The typed-look list (lib_cmd_look_typed()) has already taken an exact
  * `look`, so what reaches here is a line with "look" somewhere else in it:
- * `look,`, `zzz, look` and `, look` (run380x Adven_5.rtf) and, at 3.9 only,
- * `look.` (run390x Adrift_1190) -- 3.9's c() also ends a word at a period,
- * 3.8 answers `look.` with the game's DontUnderstand.
+ * `look,`, `zzz, look` and `, look` (run380x
+ * runner_probes/ask.run380.split2.rtf) and, at 3.9 only, `look.` (run390x
+ * runner_probes/ask.run390.split.txt) -- 3.9's c() also ends a word at a
+ * period, 3.8 answers `look.` with the game's DontUnderstand.
  *
  * c() is the Runner's (run_c_word_pre400()), not uip_contains_words().
  * The row sits above the object and character catch-alls, which the Runner
@@ -1164,8 +1174,8 @@ lib_cmd_eat_other (scr_gameref_t game)
    * A 4.0 string (run400 4889C7).  run380's eat arm (443D6E) and run390's
    * (45D4EF) speak only for a present object, so with none the line goes
    * on to the catch-all: `eat statue` from the wrong room is the same-room
-   * answer in 3.8 (147_pverb38.txt) and "I don't understand." in 3.9
-   * (Adrift_148_pverb39.txt).
+   * answer in 3.8 (runner_probes/exam.run380.verb.rtf) and "I don't
+   * understand." in 3.9 (runner_probes/exam.run390.verb.txt).
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
       && !lib_is_version_400 (game))
@@ -1337,9 +1347,10 @@ lib_cmd_sleep (scr_gameref_t game)
  * by c("talk") Or c("speak") inside the named-character block -- the words
  * need not be next to each other, and there is no room test.  So `talk with
  * dave` is the hint too, where the `[talk/speak] %character%` rows miss it:
- * 'Use the format "ask Dave about <subject>".' (run370x Adrift_198_pnpcwith37)
- * and '... [subject]".' (run380x Adrift_199_pnpcwith38).  The last character
- * named wins, as for lib_cmd_talk_to_npc().
+ * 'Use the format "ask Dave about <subject>".' (run370x
+ * runner_probes/npcamb.run370.with.rtf) and '... [subject]".' (run380x
+ * runner_probes/npcamb.run380.with.rtf).  The last character named wins, as
+ * for lib_cmd_talk_to_npc().
  */
 
 static scr_bool

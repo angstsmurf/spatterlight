@@ -1,0 +1,164 @@
+
+> probe
+PROBE OK.
+
+> lock
+Lock what?
+
+> unlock
+Unlock what?
+
+> block
+Block what?
+
+> break
+Break what?
+
+> destroy
+Destroy what?
+
+> smash
+Smash what?
+
+> buy
+Buy what?
+
+> clean
+Clean what?
+
+> climb
+Climb what?
+
+> cut
+Cut what?
+
+> drink
+You can't drink that.
+
+> fix
+Fix what?
+
+> hit
+Hit what?
+
+> slap
+Hit what?
+
+> kick
+Kick what?
+
+> lift
+Lift what?
+
+> light
+Light what?
+
+> mend
+Mend what?
+
+> move
+Move what?
+
+> press
+Press what?
+
+> pull
+Pull what?
+
+> push
+Push what?
+
+> repair
+Repair what?
+
+> rub
+I don't think you can repair that.
+
+> sell
+Sell what?
+
+> shake
+Shake what?
+
+> stop
+Stop what?
+
+> suck
+Suck what?
+
+> turn
+Turn what?
+
+> touch
+Touch what?
+
+> unblock
+Unblock what?
+
+> wash
+Wash what?
+
+> attack
+You can't wash that.
+
+> kill
+Now that isn't very nice.
+
+> punch
+Who do you think you are, Mike Tyson?
+
+> eat
+I don't understand.
+
+> read
+Nothing special.
+
+> open
+You can't open that.
+
+> close
+You can't close that.
+
+> give
+(to Nobody)
+Give what?
+
+> put
+Give what?
+
+> take
+Take what?
+
+> drop
+Drop what?
+
+> wear
+Wear what?
+
+> remove
+Remove what?
+
+> examine
+Examine what?
+
+> x
+Examine what?
+
+> search
+Nothing special.
+
+> enter
+You can only move north.
+
+> jump
+Wheee-boinng.
+
+> kiss
+I'm not sure it would appreciate that.
+
+> hug
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a stone.  Dave, Ann and Bob are here.  You can only move north.

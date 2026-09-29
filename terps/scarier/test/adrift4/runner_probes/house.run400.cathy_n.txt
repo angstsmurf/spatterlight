@@ -1,0 +1,39 @@
+
+> 2
+Its a beautifully sunny day as you stroll into Bellview road.  
+Cathy's house should be at the far end of the row.  
+Today's the day when you confront her. 
+Lets just hope she doesn't mind you dropping in unexpectedly.
+
+You are carrying your diary.
+
+
+Bellview Road - numbers 1 and 2
+You stand upon the hot tarmac of Bellview Road.  The sky is a clear blue and a slight breeze keeps the heat from becoming uncomfortable.  The houses are medium sized, two story dwellings.  North lies No. 1 while south lies No. 2.
+
+> restore
+Loading game... done.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set in the south wall and to the north is the kitchen door.  High up on one wall you notice a dent in the plaster.  Someone has removed an old thredbare rug from its place on the floor, rolled it up and placed it to one side.  You can also see a wooden trapdoor and some wood.  Cathy studies you with interest.
+
+> throw the diary at fireplace
+What?
+
+> throw diary at the hook
+I don't understand what you want me to do with the hook.
+
+> throw the diary at the hook
+I don't understand what you want me to do with the hook.
+
+> throw diary at fire
+What?
+
+> wibble the diary fireplace
+What?
+
+> throw diary at the fireplace
+What?
+
+> throw a diary at fireplace
+What?

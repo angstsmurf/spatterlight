@@ -1,0 +1,33 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, an iron key, a red gem and a blue gem.
+
+> put key in box
+You put the brass key inside the box.  
+
+> i
+You are carrying a box, a gold coin and a silver coin.  A brass key is inside the box.
+
+> put key in box
+The brass key is already inside the box!
+
+> drop key
+You drop the brass key.  
+
+> i
+You are carrying a box, a gold coin and a silver coin.
+
+> put gem in box
+It is not clear which gem you are referring to.
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, a brass key, an iron key, a red gem and a blue gem.
+
+> put coin in box
+Which coin.  The gold coin or the silver coin?
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, a brass key, an iron key, a red gem and a blue gem.

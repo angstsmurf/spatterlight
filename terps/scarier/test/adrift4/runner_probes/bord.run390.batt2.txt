@@ -1,0 +1,249 @@
+
+> probe
+PROBE OK.
+
+> hit bob take coin
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> probe
+PROBE OK.
+
+> hit bob take coin
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> probe
+PROBE OK.
+
+> take coin bob
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> drop coin
+You drop the coin.
+
+> probe
+PROBE OK.
+
+> take bob coin
+I don't think Bob would appreciate being handled.
+
+> i
+You are carrying a hat and a coin.
+
+> drop coin
+You drop the coin.
+
+> probe
+PROBE OK.
+
+> hit bob drop coin
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> take coin
+You pick up the coin.
+
+> hit bob drop coin
+You drop the coin.
+
+> i
+You are carrying a hat.
+
+> probe
+PROBE OK.
+
+> hit bob wear hat
+You hit Bob.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> probe
+PROBE OK.
+
+> hit bob remove hat
+You hit Bob.
+
+> i
+You are carrying a hat.
+
+> probe
+PROBE OK.
+
+> wear hat
+You put on the hat.
+
+> wear hit bob
+You hit Bob.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> probe
+PROBE OK.
+
+> remove hit bob
+You hit Bob.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> probe
+PROBE OK.
+
+> wear hit bob
+You hit Bob.
+
+> i
+You are wearing a hat, and you are carrying nothing.
+
+> remove hat
+You remove the hat.
+
+> probe
+PROBE OK.
+
+> hit bob open box
+You open the box.  A nut is inside the box.
+
+> look in box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> probe
+PROBE OK.
+
+> open box
+The box is already open!
+
+> hit bob close box
+You close the box.
+
+> look in box
+A wooden box.  The box is closed.
+
+> close box
+The box is already closed!
+
+> probe
+PROBE OK.
+
+> open hit bob
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> close hit bob
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> hit bob x box
+An ordinary man.
+
+> probe
+PROBE OK.
+
+> x box hit bob
+An ordinary man.
+
+> probe
+PROBE OK.
+
+> hit push bob
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> where is coin hit bob
+Bob is lit room.  (Right next to you silly!)
+
+> probe
+PROBE OK.
+
+> hit bob talk to bob
+Use the format "ask Bob about [subject]".
+
+> probe
+PROBE OK.
+
+> look hit bob
+An ordinary man.
+
+> probe
+PROBE OK.
+
+> hit bob sit
+You sit down on the ground.
+
+> probe
+PROBE OK.
+
+> stand
+You stand up.
+
+> hit bob stand
+You are already standing!
+
+> probe
+PROBE OK.
+
+> score hit bob
+Your score is 0 out of a maximum of 0.  (0%)
+
+> probe
+PROBE OK.
+
+> wait hit bob
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> give coin to bob hit bob
+Who do you want to attack?
+
+> i
+You are carrying a hat.
+
+> probe
+PROBE OK.
+
+> hit bob give coin to bob
+You hit Bob.
+
+> i
+You are carrying a hat.
+
+> probe
+PROBE OK.
+
+> goto cave hit bob
+You hit Bob.Unknown place.
+
+> probe
+PROBE OK.
+
+> kick bob
+You hit Bob.
+
+> probe
+PROBE OK.
+
+> hit bob hit bob
+You hit Bob.
+
+> probe
+PROBE OK.

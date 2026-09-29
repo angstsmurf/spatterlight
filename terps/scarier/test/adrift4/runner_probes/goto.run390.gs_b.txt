@@ -1,0 +1,16 @@
+
+> go to kitchen and l
+Nothing special.
+
+> go to kitchen and read
+Nothing special.
+
+> go to kitchen with x
+Nothing special.
+
+> go to kitchen and look in
+Nothing special.
+
+> look
+First Room
+The first room.  Also here is a stone.  You can only move north.

@@ -1,0 +1,81 @@
+
+> n
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> e
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+
+> wait stone
+Time passes...
+
+> wait for stone
+Time passes...
+
+> please wait
+Time passes...
+
+> wait here
+Time passes...
+
+> waiting
+NO IDEA.
+
+> z stone
+NO IDEA.
+
+> wait
+Time passes...
+
+> go to first room
+Moving to first room...
+
+> West
+You move west.
+Hall
+A hall.  You can move east, south, west and up.
+
+> South
+You move south.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+Arrived first room.
+
+> wait stone
+Time passes...
+
+> take stone wait
+You pick up the stone.
+
+> drop stone
+You drop the stone.
+
+> open stone wait
+You can't open the stone!
+
+> push stone wait
+Time passes...
+
+> x stone wait
+A grey stone.
+
+> look wait
+Nothing special.
+
+> goto hall wait
+Time passes...
+Unknown place.
+
+> wait goto hall
+Time passes...
+Unknown place.
+
+> turn wait
+Time passes...
+
+> look
+First Room
+The first room.  Also here is a stone.  You can only move north.

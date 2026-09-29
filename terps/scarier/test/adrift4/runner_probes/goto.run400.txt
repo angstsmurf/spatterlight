@@ -1,0 +1,198 @@
+
+> go to first room
+Player is already first room!
+
+> go to kitchen
+Unknown place.
+
+> n
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> e
+Player moves east.
+Kitchen
+A kitchen.  Player can only move west.
+
+> w
+Player moves west.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> s
+Player moves south.
+First Room
+The first room.  Player can only move north.
+
+> go to kitchen
+Moving to kitchen...
+
+> North
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> East
+Player moves east.
+Kitchen
+A kitchen.  Player can only move west.
+Arrived kitchen.
+
+> go to tower
+Unknown place.
+
+> go to first room
+Moving to first room...
+
+> West
+Player moves west.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> South
+Player moves south.
+First Room
+The first room.  Player can only move north.
+Arrived first room.
+
+> go to garden
+Unknown place.
+
+> n
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> n
+Player moves north.
+Garden
+A garden.  Player can only move south.
+
+> s
+Player moves south.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> s
+Player moves south.
+First Room
+The first room.  Player can only move north.
+
+> go to garden
+Moving to garden...
+
+> North
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> North
+Player moves north.
+Garden
+A garden.  Player can only move south.
+Arrived garden.
+
+> probe
+PROBE OK.
+
+> go to first room
+Moving to first room...
+
+> South
+Player moves south.
+Hall
+A hall.  Player can move east, south, west and up.
+
+> South
+Player moves south.
+First Room
+The first room.  Player can only move north.
+Arrived first room.
+
+> go to garden
+Player can't get there from here.
+
+> go to hal
+Moving to hall...
+
+> North
+Player moves north.
+Hall
+A hall.  Player can move east, south, west and up.
+Arrived hall.
+
+> w
+Player moves west.
+Red Hall
+A red hall.  Player can only move east.
+
+> e
+Player moves east.
+Hall
+A hall.  Player can move east, south, west and up.
+
+> u
+Player moves up.
+Blue Hall
+A blue hall.  Player can only move down.
+
+> d
+Player moves down.
+Hall
+A hall.  Player can move east, south, west and up.
+
+> go to hal
+Which "hal"?
+'Hall', 'Red Hall', or 'Blue Hall'.
+
+> go to blue hall
+Moving to blue hall...
+
+> Up
+Player moves up.
+Blue Hall
+A blue hall.  Player can only move down.
+Arrived blue hall.
+
+> goto red hall
+Moving to red hall...
+
+> Down
+Player moves down.
+Hall
+A hall.  Player can move east, south, west and up.
+
+> West
+Player moves west.
+Red Hall
+A red hall.  Player can only move east.
+Arrived red hall.
+
+> go hall
+Moving to hall...
+
+> East
+Player moves east.
+Hall
+A hall.  Player can move east, south, west and up.
+Arrived hall.
+
+> go north
+Player can't go in that direction, but he can move east, south, west and up.
+
+> go to the kitchen
+Unknown place.
+
+> go stone
+Unknown place.
+
+> go
+Just a direction will do.
+
+> goto
+NO IDEA.
+
+> look
+Hall
+A hall.  Player can move east, south, west and up.

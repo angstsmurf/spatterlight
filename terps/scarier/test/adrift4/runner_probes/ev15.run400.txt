@@ -1,0 +1,28 @@
+
+> zzone
+ONE DONE.  Walker leaves to the east.
+
+> x bob
+A probe NPC.
+
+> z
+Time passes...
+Walker arrives from the east.
+
+> z
+Time passes...
+Walker leaves to the east.  T1 FINISH (2 ticks after zzone).
+
+> zztwo
+TWO DONE.  Walker arrives from the east.
+
+> x pebble
+A probe object.  Walker leaves to the east.
+
+> z
+Time passes...
+Walker arrives from the east.  T2 FINISH (2 ticks after zztwo).
+
+> z
+Time passes...
+Walker leaves to the east.

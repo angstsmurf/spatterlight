@@ -48,9 +48,9 @@
  * and 3.8 do this; see run_player_input().  run380 adds one to its counter
  * MemVar_44F138 at the top of generaltasks (441A21), where the jump back for
  * the next `then` element (443453) also lands, so its `turns` counts itself:
- * `look probe clear cls clr turns` answers 6 (p38ADMIN, Adrift_1202).
- * run370 has no counter and no `turns`; run400's is not measured apart from
- * its administrative turns.
+ * `look probe clear cls clr turns` answers 6 (p38ADMIN,
+ * runner_probes/admin.run380.rtf).  run370 has no counter and no `turns`;
+ * run400's is not measured apart from its administrative turns.
  */
 scr_bool
 run_counts_line_elements (scr_gameref_t game)
@@ -81,8 +81,9 @@ run_counts_line_elements (scr_gameref_t game)
  * that starts the text or follows a space decides; it is a word if it runs
  * to the end or is followed by a space or "," -- or "." from 3.9.
  *
- * Measured 2026-09-19 on p38ASK / p39ASK with cmdfile_psplit.txt (run380x
- * Adven_4.rtf, run390x Adrift_1190.txt).
+ * Measured 2026-09-19 on p38ASK / p39ASK (harness/make_38_askprobe.py,
+ * make_39_askprobe.py; run380x runner_probes/ask.run380.split.rtf,
+ * run390x runner_probes/ask.run390.split.txt).
  */
 static scr_bool
 run_then_in_line_pre400 (const scr_char *line, scr_int length,
@@ -161,8 +162,9 @@ run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail,
  * queued behind it, and that command is not split again: the queue is the
  * then-tail, the ". "-tail and the comma-tail, each less one leading space,
  * joined with ", " (45EDEF, 45EF5C).  So `then look` is one `look`, and
- * `look then then look` runs `look` twice (Adrift_1191).  run370/run380
- * have no such test and answer the empty head with DontUnderstand.
+ * `look then then look` runs `look` twice
+ * (runner_probes/ask.run390.split2.txt).  run370/run380 have no such test
+ * and answer the empty head with DontUnderstand.
  */
 std::string
 run_empty_then_head_390 (const scr_char *line)
@@ -233,13 +235,14 @@ run_empty_then_head_390 (const scr_char *line)
  * the object resolver matches it.
  *
  * Measured 2026-09-08 on the hand-built p4AND probe (make_400_andprobe.py;
- * Wine transcripts Adrift_955 and Adrift_956, 41 cells).  `x coin and hat
- * and zzz` cuts at the SECOND " and " (the first is suppressed by "hat");
- * `drop coin and hat, x box` cuts at the comma, the earliest cut of any
- * kind that survives suppression; `wave zzz and yyy` is cut in two and the
- * task named by the whole line never fires; `put coin in box and put hat in
- * desk` is cut ("put" is not an object) into two turns, where `put coin in
- * box and hat in desk` is one turn through put_drop_list's own clause loop
+ * transcripts runner_probes/and.run400.txt and
+ * runner_probes/and.run400.b.txt, 41 cells).  `x coin and hat and zzz` cuts
+ * at the SECOND " and " (the first is suppressed by "hat"); `drop coin and
+ * hat, x box` cuts at the comma, the earliest cut of any kind that survives
+ * suppression; `wave zzz and yyy` is cut in two and the task named by the
+ * whole line never fires; `put coin in box and put hat in desk` is cut
+ * ("put" is not an object) into two turns, where `put coin in box and hat
+ * in desk` is one turn through put_drop_list's own clause loop
  * (lib_put_clauses_400).
  *
  * Pre-4.0 Runners split on far less and never consult the object table;
@@ -308,10 +311,11 @@ run_split_word_names_object (scr_gameref_t game, const scr_char *word)
  * head.  The queue the Runner keeps is its tails joined ", ", the later
  * pass's tail first (459742-459753), which reads back exactly as the rest
  * of the line does here once the caller strips the whitespace after the
- * separator.  Measured on p4AND (run400 Adrift_956): `x coin and box, x
- * hat` is "x coin and box" then "x hat", the comma cut first and the
- * " and " then suppressed by "box"; the earliest-position order Scarier
- * used cut at " and " because "box," carries the comma and names nothing.
+ * separator.  Measured on p4AND (run400 runner_probes/and.run400.b.txt):
+ * `x coin and box, x hat` is "x coin and box" then "x hat", the comma cut
+ * first and the " and " then suppressed by "box"; the earliest-position
+ * order Scarier used cut at " and " because "box," carries the comma and
+ * names nothing.
  */
 scr_int
 run_find_split_400 (scr_gameref_t game, const scr_char *line,

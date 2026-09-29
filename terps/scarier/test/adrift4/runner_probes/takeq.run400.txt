@@ -1,0 +1,34 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a very red gem, a very blue gem, big red pin and small red pin.  You can only move north.
+
+> take very gem
+Which gem.  The very red gem or the very blue gem?
+
+> i
+You are carrying nothing.
+
+> take red gem
+You take the very red gem.
+
+> i
+You are carrying a very red gem.
+
+> take big pin
+You take big red pin.
+
+> i
+You are carrying a very red gem and big red pin.
+
+> take red pin
+You take small red pin.
+
+> i
+You are carrying a very red gem, big red pin and small red pin.
+
+> probe
+PROBE OK.

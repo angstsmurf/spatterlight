@@ -1,0 +1,22 @@
+
+> probe
+PROBE OK.
+
+> take box
+You take the box.
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> get coin and stone from box
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> get stone and coin from box
+You take the coin from the box.
+
+> probe
+PROBE OK.

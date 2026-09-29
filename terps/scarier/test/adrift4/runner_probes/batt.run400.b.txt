@@ -1,0 +1,95 @@
+
+> probe
+PROBE OK.
+
+> x guard sword
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard club
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard stone
+Which stone.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x stone guard
+Which stone.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard dave
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> give club to guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> give sword to guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard
+Which guard.  A guard or a guard?
+
+> ann
+That is still ambiguous!
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard
+Which guard.  A guard or a guard?
+
+> x guard
+That is still ambiguous!
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard
+Which guard.  A guard or a guard?
+
+> nonsense
+That is still ambiguous!
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard
+Which guard.  A guard or a guard?
+
+> club
+That is still ambiguous!
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> probe
+PROBE OK.

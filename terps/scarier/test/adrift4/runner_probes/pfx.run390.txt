@@ -1,0 +1,86 @@
+
+> probe
+PROBE OK.
+
+> x guard
+A second red guard.
+
+> x red guard
+A second red guard.
+
+> x blue guard
+A second red guard.
+
+> x a blue guard
+A second red guard.
+
+> blue guard
+I don't understand what you want to do with Ann.
+
+> talk to blue guard
+Use the format "ask Cid about [subject]".
+
+> ask blue guard about key
+You can't talk to that.
+
+> ask red guard about key
+You can't talk to that.
+
+> where is blue guard
+Cid is lit room.  (Right next to you silly!)
+
+> x guard blue
+A second red guard.
+
+> x blue
+Nothing special.
+
+> x ann
+A red guard.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> x red tree
+A red tree.
+
+> x blue tree
+A blue tree.
+
+> x a red tree
+A red tree.
+
+> x tree red
+A red tree.
+
+> x rock
+A grey rock.
+
+> take blue tree
+You pick up the blue tree.
+
+> i
+You are carrying a blue tree.
+
+> take red tree
+You pick up the red tree.
+
+> i
+You are carrying a red tree and a blue tree.
+
+> drop red tree
+You drop the red tree.
+
+> take tree
+Which tree.  The red tree or the blue tree?
+
+> red
+You've already got the red tree!
+
+> put blue tree on rock
+You can't put anything onto the rock.
+
+> x dave
+A quiet man.
+
+> quit

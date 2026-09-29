@@ -1,0 +1,84 @@
+
+> probe
+PROBE OK.  TICK.
+
+> turns
+You have taken 2 turns so far.
+
+> cut rope with gem
+With what?  TICK.
+
+> turns
+You have taken 4 turns so far.
+
+> knife
+I don't understand what you want me to do with the knife.  TICK.
+
+> turns
+You have taken 6 turns so far.
+
+> cut rope with stone
+You don't have the stone.  TICK.
+
+> cut rope with knife
+You can't cut the rope with the knife.  TICK.
+
+> push rope with knife
+You push the rope with the knife, but nothing happens.  TICK.
+
+> break rope with knife
+You might need the rope.  TICK.
+
+> turns
+You have taken 11 turns so far.
+
+> n
+You move north.
+Beta
+The second room.  Also here is a gem.  TICK.
+
+> s
+You move south.
+Alpha
+The first room.  Also here is a rope and a stone.  TICK.
+
+> cut rope with gem
+With what?  TICK.
+
+> turns
+You have taken 15 turns so far.
+
+> wear zzz
+Wear what?  TICK.
+
+> turns
+You have taken 17 turns so far.
+
+> coin
+I don't understand what you want me to do with the coin.  TICK.
+
+> turns
+You have taken 19 turns so far.
+
+> wait
+Time passes...
+TICK.  TICK.  TICK.
+
+> turns
+You have taken 21 turns so far.
+
+> probe
+PROBE OK.  TICK.
+
+> again
+(probe)
+PROBE OK.  TICK.
+
+> turns
+You have taken 24 turns so far.
+
+> both
+I don't understand.
+
+> turns
+You have taken 27 turns so far.

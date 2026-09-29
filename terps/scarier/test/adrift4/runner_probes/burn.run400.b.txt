@@ -1,0 +1,34 @@
+
+pa coin
+PA PASS.
+
+pa brass key
+PA PASS.
+
+pa key
+I don't understand.
+
+pa a brass key
+I don't understand what you want me to do with the small brass key.
+
+pa the brass key
+I don't understand what you want me to do with the small brass key.
+
+pa small brass key
+I don't understand what you want me to do with the small brass key.
+
+pa gem
+PA PASS.
+
+pa jewel
+PA PASS.
+
+pa a gem
+I don't understand what you want me to do with the gem.
+
+pa the gem
+I don't understand what you want me to do with the gem.
+
+look
+Alpha
+The first room.  Also here is a coin, a Widget, a small brass key and a gem.  You can only move east.

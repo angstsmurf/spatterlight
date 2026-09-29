@@ -1,0 +1,38 @@
+
+> zzone
+ONE DONE.
+
+> x pebble
+A probe object.  R1 FINISH (after zzone).
+
+> z
+Time passes...
+
+> zztwo
+TWO DONE.
+
+> look
+Room A
+Room A, exit east.  Also here is a pebble.  Bob is here, looking dangerous.  Player can only move east.  R2 FINISH (after zztwo).
+
+> z
+Time passes...
+
+> zzthree
+THREE DONE.
+
+> i
+Player is carrying nothing.  R3 FINISH (after zzthree).
+
+> z
+Time passes...
+
+> zzfour
+FOUR DONE.
+
+> x bob
+A probe NPC.
+
+> z
+Time passes...
+R4 FINISH (after zzfour).

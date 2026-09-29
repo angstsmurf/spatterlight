@@ -1,0 +1,86 @@
+
+> probe
+PROBE OK.
+
+> look
+Test Arena
+A bare arena.  Also here is a plate.
+
+> put gem and ring in bag
+You put the gem and the ring inside the bag.
+
+> put coin in bag
+The coin can't fit inside the bag at the moment.
+
+> put coin and stone in bag
+Nothing will fit inside the bag.
+
+> put all in bag
+Nothing will fit inside the bag.
+
+> i
+You are carrying a coin, a stone, a bag and a tray.  A gem and a ring are inside the bag.
+
+> put coin in cupboard
+You put the coin inside the cupboard.
+
+> take coin
+You take a coin from the cupboard.
+
+> put coin on table
+You put the coin onto the table.
+
+> take coin
+You take a coin from the table.
+
+> put coin in shelf
+Put the coin inside what?
+
+> put coin in crate
+Put the coin inside what?
+
+> put statue in cupboard
+You can't see that.
+
+> put apple in cupboard
+You can't do that!
+
+> look
+Test Arena
+A bare arena.  Also here is a plate.
+
+> put all in junk
+You can't put anything inside that!
+
+> put all on junk
+You can't put anything onto that!
+
+> drop coin in junk
+You drop the coin.
+
+> drop coin and stone in junk
+You drop the stone.
+
+> drop coin and stone on junk
+You are not carrying anything.
+
+> put coin and stone on tray
+You put the coin and the stone onto the tray.
+
+> i
+You are carrying a bag and a tray.  A gem and a ring are inside the bag.  A coin and a stone are on the tray.
+
+> n
+You move north.
+Side Room
+A side room.  Also here is a crate.
+
+> put coin in shelf
+You put the coin inside the shelf.
+
+> look
+Side Room
+A side room.  Also here is a crate.
+
+> probe
+PROBE OK.

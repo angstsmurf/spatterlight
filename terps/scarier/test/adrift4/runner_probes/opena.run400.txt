@@ -1,0 +1,34 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem, a rock and a chest.  You can only move north.
+
+> open gem
+You can't open that.
+
+> close gem
+You can't close that.
+
+> x gem
+Which gem.  The gem or the rock?
+
+> read gem
+That is still ambiguous!
+
+> open rock
+You can't open the rock!
+
+> open chest gem
+Which chest.  The gem, the rock or the chest?
+
+> take gem
+It is not clear which gem you are referring to.
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.

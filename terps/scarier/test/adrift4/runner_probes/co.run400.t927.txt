@@ -1,0 +1,30 @@
+
+> x keys
+Which keys.  The mustang key or the truck key?
+
+> mustang
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> chop tree
+Which tree.  The red tree or the blue tree?
+
+> red
+I don't understand what you want me to do with the red tree.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> zzz
+That is still ambiguous!
+
+> x rock
+A plain thing.

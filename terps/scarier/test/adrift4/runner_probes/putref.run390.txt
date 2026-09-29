@@ -1,0 +1,67 @@
+
+> probe
+PROBE OK.
+
+> put coin in lamp
+You can't put anything inside the lamp.
+
+> look
+Test Arena
+A bare arena.
+
+> put coin in box
+You can't put anything inside the box as it is closed!
+
+> look
+Test Arena
+A bare arena.
+
+> put coin on box
+You can't put anything onto the box.
+
+> look
+Test Arena
+A bare arena.
+
+> put coin and stone in junk
+You can't put anything inside the stone.
+
+> look
+Test Arena
+A bare arena.
+
+> put stone in lamp
+T5 PASS.
+
+> look
+Test Arena
+A bare arena.
+
+> put coin in bag
+T6 FAIL.
+
+> look
+Test Arena
+A bare arena.
+
+> look in bag
+A bag.  The bag is open.  A gem and a ring are inside the bag.
+
+> x gem
+A gem.
+
+> put gem in ring
+T7 FAIL.
+
+> look
+Test Arena
+A bare arena.
+
+> put coin on tray
+You put the coin onto the tray.
+
+> i
+You are carrying a stone, a lamp, a box, a tray, a pebble and a bag.  A coin is on the tray.  A gem and a ring are inside the bag.
+
+> probe
+PROBE OK.

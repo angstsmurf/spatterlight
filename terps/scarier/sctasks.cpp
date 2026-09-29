@@ -1825,8 +1825,9 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
 
      The guard sits on endmessage's win and lose branches only; the death sub
      prints regardless.  Measured live in run400: ticktick.taf (EndGame death,
-     Adrift_220/613) and light_up_4summer_comp.taf (battle death, Adrift_1027
-     turn 352) both end "You scored N out of the maximum 0!" / "That is 100% of
+     runner_transcripts/ticktick.txt) and light_up_4summer_comp.taf (battle
+     death, runner_probes/light_up.run400.txt turn 352) both end "You scored N
+     out of the maximum 0!" / "That is 100% of
      the game!". */
   if (max_score <= 0)
     {
@@ -2019,9 +2020,9 @@ task_print_end_game_message (scr_gameref_t game)
              * (run390 loc_43F255, the sub itself @42C920).  Measured live on
              * Richard.taf, whose winning task text and WinText join as
              * "...you return to the staging area.  Rich smiles..."
-             * (Adrift_3_richard.txt) with neither side carrying authored
-             * spaces (the COMPLETE/WINTEXT dumps end "area." and start
-             * "Rich").
+             * (runner_probes/richard.run390.txt) with neither side carrying
+             * authored spaces (the COMPLETE/WINTEXT dumps end "area." and
+             * start "Rich").
              *
              * 3.7 and 3.8 have no pspace sub at all and join inline, with
              * ONE space: run380 tasks() builds the win branch as
@@ -2139,10 +2140,11 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
    * an End-Game action only sets the gameover byte, so a task whose only
    * output would be the ending falls through to the library like any other
    * silent task, and the ending is composed after that.  Measured 2026-08-29
-   * on relojero.taf (4.00), Adrift_1_relojero.txt: task 5 `arreglar *fenix`
-   * has no text and one End-Game (win) action, and run400 answers
-   * "Disculpa pero no te entiendo." (the game's DontUnderstand) and THEN the
-   * WinText.  Returning TRUE for a win or a loss here hid that refusal.
+   * on relojero.taf (4.00), runner_probes/relojero.run400.txt: task 5
+   * `arreglar *fenix` has no text and one End-Game (win) action, and run400
+   * answers "Disculpa pero no te entiendo." (the game's DontUnderstand) and
+   * THEN the WinText.  Returning TRUE for a win or a loss here hid that
+   * refusal.
    *
    * This is a 4.0 rule only.  run390's tasks() (run390_3.bas 42BDC4) sets
    * its result to True the moment checktask() finds a task and
@@ -2219,8 +2221,9 @@ task_run_change_battle_action (scr_gameref_t game,
        * Var2 - 2, so a 3.9 "max defence of NPC N" lands on NPC N+1.  Outside
        * task 11 raises Joe's max defence by 30 and the Runner shows Joe at
        * "Defense value: 80 (30)" afterwards -- the raise went to NPC 1, the
-       * first guard -- so Joe dies on `escape` (Wine Adrift_outside_statx).
-       * A target past the last NPC is skipped.
+       * first guard -- so Joe dies on `escape`
+       * (runner_probes/outside.run390.statx.txt).  A target past the last
+       * NPC is skipped.
        */
       if (var2 != 1 && var1 == 8
           && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
@@ -2565,12 +2568,13 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
  * TRUE when the task's ShowRoomDesc block is built AFTER its actions have run
  * rather than before them.
  *
- * Probe SRD4 (make_arena_probe.py, transcript Adrift_949_SRD4.txt, run400
- * 2026-09-07) walks the five field differences between probe SRD3 -- which
- * showed that no SHAPE difference moves the block -- and lca.taf's task 237.
- * Every cell has the same ShowRoomDesc = Back Room and the same two actions,
- * "Bob -> Store" then "player -> Back Room", so a cell that omits "Bob is
- * here, looking dangerous." is one whose block was built after the moves:
+ * Probe SRD4 (make_arena_probe.py, transcript runner_probes/srd4.run400.txt,
+ * run400 2026-09-07) walks the five field differences between probe SRD3 --
+ * which showed that no SHAPE difference moves the block -- and lca.taf's
+ * task 237.  Every cell has the same ShowRoomDesc = Back Room and the same
+ * two actions, "Bob -> Store" then "player -> Back Room", so a cell that
+ * omits "Bob is here, looking dangerous." is one whose block was built after
+ * the moves:
  *
  *   b0  CompleteText, nothing else                Bob listed
  *   b1  empty CompleteText                        Bob listed
@@ -2730,7 +2734,9 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    * lone space on its own line and then the WinText, where iachini task 30
    * (CompleteText "") gets "I don't understand what you mean!" first.
    * Probe .tafs without the task's variable, Execute Task and restriction
-   * fail texts (Adrift_128_wumpA..D) all kept the silence.
+   * fail texts (runner_probes/wumpusrun.run400.a.txt,
+   * runner_probes/wumpusrun.run400.c.txt,
+   * runner_probes/wumpusrun.run400.d.txt) all kept the silence.
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400
       ? completetext[0] != '\0' : !scr_strempty (completetext))

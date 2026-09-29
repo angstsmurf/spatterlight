@@ -1,0 +1,96 @@
+
+x stone
+Nothing special.
+
+x crate
+The crate is open.  A coin is inside the crate.
+
+x coin
+A gold coin.
+
+x zzzz
+Nothing special.
+
+x me
+A test subject.
+
+n
+You move north.
+North Room
+Another bare room.  Also here is a statue.  You can only move south.
+
+x statue
+A marble statue.
+
+s
+You move south.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+x statue
+Nothing special.
+
+open statue
+You can't open that.
+
+close statue
+You can't close that.
+
+x statues
+Nothing special.
+
+x door
+Nothing special.
+
+open door
+You can't open that.
+
+take door
+Take what?
+
+open
+You can't open that.
+
+close
+You can't close that.
+
+take
+Take what?
+
+drop
+Drop what?
+
+read stone
+You can't read the stone!
+
+read coin
+You can't read the coin!
+
+read zzzz
+Nothing special.
+
+buy statue
+I don't think that is for sale.
+
+get off
+You are not standing on anything!
+
+x all
+Please examine one object at a time.
+
+probe
+PROBE OK.
+
+e
+You move east.
+Void Room
+There is nothing of interest here.  You can only move west.
+
+look
+Void Room
+There is nothing of interest here.  You can only move west.
+
+w
+You move west.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.

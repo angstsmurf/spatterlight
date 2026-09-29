@@ -1,0 +1,87 @@
+
+x lever
+A test object.  The lever is In the UP position.
+
+x compass
+A test object.  The compass is Facing South.
+
+x hatch
+A test object.  The hatch is Locked Off.
+
+x panel
+A test object.  The panel is R1.
+
+x sign
+A test object.  The sign is Sur la gauche.
+
+x switch
+A test object.  The switch is switched off.
+
+ob lever
+OB=[In the UP position]
+
+ob compass
+OB=[Facing South]
+
+ob hatch
+OB=[Locked Off]
+
+ob panel
+OB=[R1]
+
+ob sign
+OB=[Sur la gauche]
+
+ob switch
+OB=[switched off]
+
+st lever
+ST=[in the up position]
+
+st compass
+ST=[facing south]
+
+st hatch
+ST=[locked off]
+
+st panel
+ST=[r1]
+
+st sign
+ST=[sur la gauche]
+
+st switch
+ST=[switched off]
+
+mid lever
+MID: the lever reads in the up position today.
+
+mid compass
+MID: the compass reads facing south today.
+
+mid hatch
+MID: the hatch reads locked off today.
+
+mid panel
+MID: the panel reads r1 today.
+
+mid sign
+MID: the sign reads sur la gauche today.
+
+mid switch
+MID: the switch reads switched off today.
+
+flip
+Flipped.
+
+x lever
+A test object.  The lever is In the DOWN Position.
+
+ob lever
+OB=[In the DOWN Position]
+
+st lever
+ST=[in the down position]
+
+mid lever
+MID: the lever reads in the down position today.

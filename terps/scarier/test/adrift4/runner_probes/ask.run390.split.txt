@@ -1,0 +1,66 @@
+
+> look
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone, look
+A grey stone.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone. look
+A grey stone.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone then look
+A grey stone.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone then look then probe
+A grey stone.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+PROBE OK.
+
+> probe.
+NO IDEA.
+
+> look.
+Nothing special.
+
+> x stone.
+A grey stone.
+
+> then look
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone and look
+A grey stone.
+
+> x stonethen look
+Nothing special.
+
+> x athens then look
+Nothing special.
+You can only move east.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone ,look
+A grey stone.
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.
+
+> x stone.look
+A grey stone.
+
+> probe,probe
+PROBE OK.
+PROBE OK.
+
+> look
+Test Room
+The first room.  Also here is a stone.  Dave and Erin are here.  You can only move east.

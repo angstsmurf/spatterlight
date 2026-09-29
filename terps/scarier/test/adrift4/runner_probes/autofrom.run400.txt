@@ -1,0 +1,57 @@
+
+> probe
+PROBE OK.  TICK.
+
+> x desk
+A plain thing.  The desk is closed.  A notepad is on the desk.  TICK.
+
+> get notepad
+T0 STOPS YOU.  TICK.
+
+> x stove
+You see no such thing.
+
+> get treat
+T2 BOLTED.  TICK.
+
+> x table
+A plain thing.  A token is on the plastic table.  TICK.
+
+> Get token
+T3 TOKEN TASK.  TICK.
+
+> x mailbox
+A plain thing.  A mail is inside the Mailbox on-a Rope.  TICK.
+
+> take mail
+NO IDEA.
+
+> x crate
+A plain thing.  A letter is inside the crate on-a cord.  TICK.
+
+> take letter
+T5 CORD FAIL.  TICK.
+
+> x shelf
+A plain thing.  On the shelf is a pad, a cup and a plate.  TICK.
+
+> get pad from shelf
+You take the pad from the shelf.  TICK.
+
+> get pad
+T6 PAD RAN.  TICK.
+
+> get medicine
+T7 MED FAIL.  TICK.
+
+> x sofa
+A plain thing.  A tin and a piece of string are on the sofa.  TICK.
+
+> get tin and string
+You take the piece of string from the sofa.  T8 TIN.  TICK.
+
+> get cup and plate
+You take the cup and the plate from the shelf.  TICK.
+
+> i
+You are carrying a piece of string, a pad, a cup and a plate.  TICK.

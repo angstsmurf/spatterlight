@@ -1,0 +1,1964 @@
+
+> 
+  
+
+
+
+CHAPTER 1
+
+
+
+An Evening of Incident  
+
+> n
+      The tires of your motorcycle roll to a halt on pavement.   As you switch off the engine, the hum decreases to a terminal choke that is replaced without interval by the sound of conversation and carefree laughter.  Around you people are moving to and from an open double doorway up a ways to the north; the inviting entrance to Majesty Mall.
+
+    It is relatively early in the evening; the air is cool but not cold, and the night is not yet dark.  This is that time when friends are want to meet together and pursue wholesome recreation in and around the grounds of the mall.  Having an atmosphere conducive to pleasant joviality, Majesty Mall has always been a popular hangout, especially among the youth of Rittersburg City.  However, your particular reason for stopping in tonight is to sample again the ice cream served by the best ice cream parlor in town.
+
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of pavement is too narrow a place for them to stall.  It is just right for bicycles and motorbikes such as yours.  Beyond the capillaries and side streets that run off in three directions, the more major roads that make up the city can be seen, buildings of all shapes mingled among them.  It's the heart of the metropolis that you've come to, or the equivalent for a city of this size.  The object of your interest, Majesty Mall, lies north.  Your motorcycle is properly parked on the pavement.  
+
+> n
+(Getting off your motorcycle first)
+You move north.
+
+    Rittersburg may not be your hometown, but its nearness to your home has made it possible for you to take this detour on your way back this evening.  If what you have seen of the city so far is representative of it, quality ice cream parlors are only one element of an altogether agreeable place to live.
+
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on either side leading up to an open double doorway just northward.  These doors are always open.  Perhaps because there are no other malls in this city, this one is always open late.  A steady bi-directional stream of shoppers bustles about the entrance, while now and then a vehicle pulls up momentarily to pick up passenger or party.  
+
+> n
+    As you attempt to enter the mall, somebody bumps into you quite intentionally.
+    "Well, don't I know you?", asks a snide dry voice.
+    It's Jerrick, the rich boy whose acquaintence you are only able to boast having from when you last came to this mall, and had the privilege of meeting up with his company.  Once more his same two buddies, Vin and Gill, are with him.  What terrible luck to be running into them all again.
+   "Now don't tell me, your name was...well wouldn't you know, it hasn't kept."
+
+Enter your name.  (you are male)  
+
+> Petter
+"Petter, was it?  No wonder I forgot.  Well, Petter, is it life in the loser lane as usual?"  And without giving you space to retort, he continues, "No, don't answer.  I can tell just from looking at you.   Well, I didn't come here to dawdle with his kind.  Let's go, fellows."
+    With that he pushes his way past you and departs with his two friends.  You step into the mall. 
+
+Press enter to continue  
+
+> 
+    
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the shops on the west from the shops on the east.  The ceiling, too, reaches to a good height.  The lighting is dim, but not excessively so.  There is a bookstore to the west, a software shop to the east, and more mall extending to the north.  The mall's exit is south.  
+
+> n
+You move north.
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful fountain around which is a bench that patrons may sit on to rest or to wait for acquaintances.  It is the focal point of the building.  An ice cream parlor is to the west, a women's clothing store is to the east, and the mall continues on north and south.   
+    A girl is sitting on the bench with her hands in the lap of her dress.  
+
+> w
+You move west.  
+Ice Cream Parlor
+    The ice cream served in this shop is excellent;  it more than justifies a trip to this mall, even if the route is slightly out of the way.  Ordering a cone is easy but deciding on a flavor sometimes proves time-consuming.  There are wooden stools by the counter for patrons to sit on while they eat and order, and a couple tables a little farther back.  The exit to the ice cream parlor is east.  
+    The shopkeeper is behind the counter, tending to duties.  
+
+    "Welcome!" says the shopkeeper in a highly friendly tone of voice.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    Three girls enter the ice cream parlor and take a table a little ways off.  One of them is the girl you saw sitting by the fountain earlier.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    You can hear the girls talking, although you can't tell exactly what they are saying.   
+
+> wait
+Time passes...
+
+
+    The shopkeeper is wiping the counter.  
+
+> wait
+Time passes...
+
+
+    The three girls are chatting and giggling away.   
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    The girls are still giggling but they seem to have quieted a bit.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    In the corner of your vision you glimpse one of the girls eyeing you, but her head is turned by the time you take a look.  
+
+> wait
+Time passes...
+
+
+    You're mostly sure you just caught another girl looking at you, but now they are talking amongst themselves quietly, smiles on their faces.  
+
+> wait
+Time passes...
+
+
+   You feel the eyes of all three girls on you from across the room.    
+
+> wait
+Time passes...
+
+
+    The shopkeeper is pacing back and forth behind the counter, performing various tasks.  
+
+    Suddenly there is a flurry of noise.  Two men dressed in dark raincoats burst into the parlor and rush towards the table where the girls are sitting.  In an instant they have the younger girl by her arms and are hauling her away.  So unexpected is this occurrence that no one, not even yourself, is there to check the malefactors as they move for the exit.
+    Female screams ring out in the parlor as the young girl and her kidnappers disappear out into the mall.  "Cassie!!!", they cry.
+
+Press enter to continue  
+
+> wait
+  The golden-haired girl comes running up to you and grabs hold of your arm.  "Help!!", she pleads.
+
+1) "I'll do my best."
+2) "I'm sorry.  There's nothing I can do for you."
+3) "No time to chat, we've got to go after those men!"  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> 1
+"Thank you", she replies emphatically.  "We must hurry."  She is ready to follow you.
+
+    "Be careful, Laurie!", her friend says from behind.  
+
+> 
+Pardon me?
+
+> east
+You rush out into the mall...
+
+Majesty Mall Center
+    This, the center of the mall, is occupied and graced by a beautiful fountain around which is a bench that patrons may sit on to rest or to wait for acquaintances.  It is the focal point of the building.  An ice cream parlor is to the west, a women's clothing store is to the east, and the mall continues on north and south.   
+
+    South in the distance, amidst surprised onlookers, you can make out the flurry of kidnappers exiting the mall.  
+
+    Laurie follows you from the west.  
+
+    Many shoppers walk by on both sides of you.  
+
+> south
+You run in the direction that the kidnappers have fled...
+
+Majesty Mall South End
+    The interior of the mall is spacious, with several yards separating the shops on the west from the shops on the east.  The ceiling, too, reaches to a good height.  The lighting is dim, but not excessively so.  There is a bookstore to the west, a software shop to the east, and more mall extending to the north.  The mall's exit is south.  
+
+    Laurie follows you from the north.  
+
+> south
+You move south.
+    As you leave the mall you can see a helicopter lifting off ahead.
+
+Mall Entrance
+    You stand at the mall's canopied entrance.  There are retaining walls on either side leading up to an open double doorway just northward.  These doors are always open.  Perhaps because there are no other malls in this city, this one is always open late.  A steady bi-directional stream of shoppers bustles about the entrance, while now and then a vehicle pulls up momentarily to pick up passenger or party.  
+
+    Laurie follows you from the north.  
+
+> south
+You move south.
+    The helicopter elevates and turns to face west in the direction of the city.  Perhaps you could follow it on your...?!   Someone has sabotaged your motorcycle!
+
+Front of Mall
+    Although four-wheeled vehicles do pass through, this autonomous spot of pavement is too narrow a place for them to stall.  It is just right for bicycles and motorbikes such as yours.  Beyond the capillaries and side streets that run off in three directions, the more major roads that make up the city can be seen, buildings of all shapes mingled among them.  It's the heart of the metropolis that you've come to, or the equivalent for a city of this size.  The object of your interest, Majesty Mall, lies north.  Your motorcycle is properly parked on the pavement.  
+
+    Laurie follows you from the north.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    The helicopter shrinks as it continues westward.  Will the criminals get away so conveniently?  
+
+> wait
+Time passes...
+
+
+    "Try starting the motorcycle anyway", says Laurie.
+
+1) "That would be pointless!"
+2) "I suppose I could try it again."   
+
+> ride the motorcycle
+(Sitting on the motorcycle first)
+Laurie gets on behind you.  Putting your faith in Laurie's improbable hope that the motorcycle will somehow work despite its current condition, you try starting up the engine....and it works!  Laurie seems not to be surprised at all by such a miracle.   As you zip through the city streets in pursuit of the helicopter that you can see far ahead in the night sky, she mutters only, "My sister...they finally got you..."
+
+Press enter to continue  
+
+> 
+      After you have raced through much of the city, you see the helicopter begin to descend beyond a hill by a bridge up ahead.  You pass over the bridge and bring your bike to a halt.  By the time your engine dies, only the sound of sparse traffic passing over the bridge can be heard.  The helicopter is nowhere to be seen.
+  
+Roadside
+    This is the north side of a road that runs east to west on the outskirts of the city.  Traffic on this road is moderate, with every now and then a vehicle zooming past and leaving the sound of its passage reverberating in the air.  Langston Bridge, which you recently passed over, is to the east.  Your motorcycle is parked here.  
+
+> east
+(Getting off your motorcycle first)
+You move east.
+Bridge Landing
+    The bridge that supports the road that you traveled by to reach these parts of the city begins here and continues on to the east.  It is possible to climb over the north railing and onto a hill beyond which you can just barely see the lights of the city.   
+
+    Laurie follows you from the west.  
+
+    Laurie has climbed down from your motorcycle.  
+
+> north
+Laurie climbs over the railing with you...
+
+Top of the Hill
+    You are at the top of a grassy hill that overlooks the city to the north and west, and the river to the east.  The view might be considered romantic under different circumstances.  To the south is Langston Bridge.  Not far off below the hill, in the immediate parts of the city, some buildings are visible, one of which is larger than the rest.  
+
+    Laurie steps forward and looks out over the darkened city below where her sister must surely be, shivering a little because the night has grown noticeably colder.
+    "I had almost managed to convince myself that they wouldn't come again, that we could finally live in safety."  Her voice is faint.  She seems to be talking to herself as much as to you.
+    "It isn't the first time that they tried to kidnap her.  It's just the first time that they succeeded.  They finally succeeded.  And now with our parents away.... " Her voice trails off.
+
+1) "You owe me an explanation."
+2) "Who are they?"
+3) "We'll get her back.  I promise."  
+
+> west
+You move west.
+Bottom of the Hill
+    Down here where the slope lessens, very little can be seen of the city, the river, or anything.  Some largish stones are embedded into the ground at the foot of the hill, which looms above like a tolerant titan.  A vacant lot can be reached by travelling to the west.  
+
+    Laurie follows you from above.  
+
+> west
+You move west.  
+Vacant Lot
+    This is a small parking lot, or something of that nature.  It is not clear exactly what the space is used for, if anything, as there are no vehicles or buildings directly near it.  However, a large building can be seen farther west.  A darkened back street to the north frightens away lone travellers and old ladies.  
+
+    Laurie follows you from the east.  
+
+> north
+You move north.  
+Deserted Street
+    This back street runs through a mostly deserted part of town.  The neighborhood is not a nice one and probably not a friendly one either.  The general condition of buildings and the street itself is poor.  If there were people sitting about it, which there aren't, it would be difficult to picture them smiling.  North is a run-down gas station and south is an empty lot.  To the east the river is almost visible.  The street continues on west.  
+
+    Laurie follows you from the south.   "I do not like this street.  It is too quiet", she whispers.  
+
+> west
+You move west.
+Street in Front of Bar
+    The street continues on east and west.   The area north is occupied by a dingy bar.  To the south is an alley.  A solitary lamppost stands at a corner, partially lighting this darkened street.  It could do with some company.  
+
+    Laurie follows you from the east.  
+
+> north
+Lights and sounds from within prove that the bar is still open.  You step up to open the door but Laurie grabs your sleeve.
+    "Please do not go in there."  She says.  Hoping that you will do the 'right thing', she releases her grip.    
+
+> north
+"I'll just wait out here", says a resigned Laurie.  You enter the bar, but she does not enter with you.
+  
+Bar
+    The interior of this simple bar is dimly lit by two lights hanging from the ceiling.  Shelves full of drinks line the wall behind the serving counter.  There are three stools in front of it.  There is some kind of ornament on one of the walls.  Another room is to the west and the exit to the bar is south.  
+    The bartender is behind the counter.  
+    A scraggly man is sitting on a bar stool.  
+    A stout man is sitting on an adjacent bar stool.  
+    A young man is leaning against a wall apart from the others, with arms folded.  
+
+    Some of the denizens acknowledges your entering the bar with a curt lifting of their chins.  The scraggly man, who has been talking to the bartender seems to be in the middle of an anecdote.   "And of course, you know I wasn't going to take that.  Not from her", he says.
+    "Yeah, so then what?", asks the bartender in a voice dry with boredom.  
+
+> talk to dustin
+He looks up at you as your approach.  "What's on your mind, chief?" he asks.
+
+1) "I'm looking for the bathroom actually."
+2) "Nothing much."
+3) [Tell him about the kidnapping]  
+
+    "So I slapped her one more time for good measure--she deserved worse!--and then I took the money.  Yeah, all of it.  I said to her, 'Woman, I'm gone.  I'll call back when you ain't here.'  I mean, I can do better than her and save a dime in the process!  Geez."
+    The bartender shakes his head, but not out of disbelief.
+    "Hey, you listening, Samson?", the scraggly man asks the stout man, turning to him peevishly.  The stout man says nothing in reply.  There isn't a need, really, to acknowledge that one can hear another from a foot away.  
+
+> 3
+"Well that's downright serendipitous, your stumbling into me.  Yes, I can help you.  And more than that, you're gonna help me."   
+
+1) "Huh?  I've hardly told you anything yet."
+2) "I doubt it."
+3) "Who are you?"  
+
+    "Samson got the same threshold for how mucha your stories he can take in a day that I got.  And the both of us is at our limits."
+    Samson chuckles a little underneath some grunting.  The scraggly man shrugs and says, "Don't know what you mean.  I haven't but said the same thing I always say.  You get nothing new out of me."
+   The bartender nods knowingly.  
+
+> 1
+"You don't have to.  The girl had PK, right?  You don't have to answer that either."  He observes your shock.  "Stupefaction, Chief?  Look, we'll meet again.  But not tonight.  The name's 'Dustin'."   He says this while slapping your shoulder.  And then he is sweeping towards the door.   
+
+    Dustin exits the bar.  
+
+    "That's the whole problem, Gene", says the bartender.
+    Samson shrugs again and continues, "I'm at a different brand of threshold.  Lemme tell you, this one got me there faster than Sam can spend his money."
+    "I doubt Samson spends his money on anything that ain't alcoholic, 'cept maybe during Christmas."
+    "Notin' else worth spendin' money on", grunts Samson explanatorily.
+   
+
+> south
+You move south.
+Street in Front of Bar
+    The street continues on east and west.   The area north is occupied by a dingy bar.  To the south is an alley.  A solitary lamppost stands at a corner, partially lighting this darkened street.  It could do with some company.  Laurie is waiting for you under the lamppost.  
+
+   Gradually Laurie tilts her head sideways and asks, "Are you done in there yet?  My sister is being held somewhere and there is no time for carousing."  She fails to keep indignation completely out of her tone.
+
+1) "Hey, valuable information can sometimes be gleaned from hanging out in bars."
+2) "After just one more drink.  Hang on... Just kidding!"
+3) "Yes, I'm sorry about that."      
+
+> south
+You move south.
+Alley East of Building
+    This is the east side of the large grey building.  It is especially dark here in the shadows provided by the building's wall.  The alley continues into an urban wilderness to the south, but is not worthy of exploration beyond this point.  There is a large dumpster here, enclosed on three sides by a brick wall.    
+
+    Laurie follows you from the north.  
+
+> get on dumpster
+Using hands and feet you clamber up onto the dumpster lid.  From there it is a simple matter to step over to the brick wall.  The small window is in reach.  Laurie comes up after you.  
+
+> open window
+You press against the window and to your surprise it opens with the most minimal effort.  You crawl through it as quickly and nimbly as you can, then drop to the floor inside the foyer.  Laurie lands next to you a moment later.  The security officer whirls around in a flash.
+    "You weasels, how did you get in here!"
+    And then several things happen in quick succession.  The officer begins rushing in your direction.   A banging sound from behind causes the officer to turn his neck.  Was that the front door slamming shut?  Right at that moment the officer trips over his own chair and stumbles to the ground.
+    While you are registering all this Laurie grabs your arm and pulls you towards the hallway.  "Hurry!" she cries.  As you dash towards the hall a loud alarm goes off, ringing throughout the whole building.  Gunshots soon accompany it.  The two of you run for your lives . . .
+
+Press enter to continue  
+
+> 
+  
+
+
+
+CHAPTER 2
+
+
+
+The Rescue of Cassandra  
+
+> 
+    
+Long Hall North
+    You are in the hallway of an office building running north to south and you don't have a lot of time to look around!  Rather than entering one of the rooms that are to the west or east, you would be best off continuing south until you get to a place where you can throw your pursuers off.  
+
+    A loud alarm is ringing.  
+
+> south
+You move south.
+Long Hall South
+   You are in the hallway of an office building running north to south and you don't have a lot of time to look around!  Rather than entering one of the rooms that are to the west or east, you would be best off continuing south until you get to place where you can throw your pursuers off... like that junction up ahead.  
+
+    Laurie follows you from the north.  
+
+    A loud alarm is ringing.  
+
+> south
+You move south.
+
+Hallway Junction
+    This is where the north-south hallway ends.  Running perpendicular to it is a similar-looking hallway which extends east and west for an indeterminable distance.  
+
+    Laurie follows you from the south.
+
+    An officer far down the hallway to the west notices you and immediately runs in your direction.  
+
+    A loud alarm is ringing.  
+
+    You can hear the sound of more than one set of feet chasing you from behind.  
+
+> east
+You move east.
+
+Long Hall East
+    The hallway continues east and west, with the entrance to some darkened room to the south.  
+
+    Laurie follows you from the west.
+
+    You hear what sounds like a window being opened abruptly.
+
+    "In there!", says Laurie, indicating the room to the south, "We can hide in there!"  
+
+    A loud alarm is ringing.  
+
+> south
+You move south.
+Supply Room
+    Light from the hallway north of you allows you to quickly observe the following features in this closet-type room.  There is a filing cabinet in one corner.  Against one wall is a wide shelf containing office supplies.  A window with curtains stands to the south.  
+
+    Laurie follows you from the north.  
+
+    An alarm can be heard in the halls outside.  
+
+> south
+You push aside the curtains and step through the window.
+
+Standing Outside the East Window
+    You are standing on a windowsill that continues to the west.  North through the window is the room from which you stepped out of.  South of you is the exterior wall of some other part of the building.  It must have been built on a hill of some sort.  Though you entered this building at ground level, the drop from the windowsill to the ground beneath is not insignificant.  
+
+    Laurie follows you from the north.  
+
+    Laurie looks like she is on the verge of screaming.  
+
+> west
+You move west along the windowsill.  As you do so, you hear the curtains close in the room you came from.
+
+On the Windowsill
+    You are standing on a windowsill, hugging the north wall to keep from falling.  South of you is the exterior wall of some other part of the building.  The windowsill continues east and west.  
+
+    Laurie edges her way along the windowsill slowly.  There is terror in her eyes.
+
+    You hear the sound of shuffling feet and voices in the room you just left.
+    "They can't be in here.  There's nowhere to hide and the curtains are closed."
+    "Funny, I thought they turned in this way."
+    "Look somewhere else--hurry!"
+    The voices fade out.  
+
+> west
+You move west.
+Standing Outside the West Window
+    You are standing on a windowsill that continues to the east.  North through the window is a darkened room.  Opposite you to the south is the wall of some other part of the building.   
+
+    Laurie follows you from the east.  
+
+> north
+You step through the window.
+
+Copy Room
+    There are no furnishings here other than a copy machine in one corner and stacks of papers all around.  To the north is the main hallway.  There are also rooms to the east and west.  To the south is a window.  
+
+    Laurie follows you through the window and then stops.  
+
+    An alarm can be heard in the halls outside.  
+
+> wait
+Time passes...
+
+
+    An alarm can be heard in the halls outside.  
+
+    Laurie looks like her legs are about to give, and tears are beginning to well up in her eyes.  Finally, she falls to her knees.  
+
+> wait
+Time passes...
+
+
+    An alarm can be heard in the halls outside.  
+
+    "I can't go on!", she cries softly.
+
+1) "Yes you can!"
+2) "What happened back there?"
+3) "But if we stay here they'll find us!"  
+
+> 1
+"You don't understand!", she bursts out.  But somehow, gradually, she manages to gather herself.       
+
+    An alarm can be heard in the halls outside.  
+
+> west
+You move west.
+An Office
+    This is a one-person office with a nice carpet and a desk.  There is a swivel chair beside the desk.  Underneath the desk is a large cardboard box.   
+
+    Laurie follows you from the east.  
+
+> move box
+Moving the cardboard box reveals an open hatchway smack in the middle of the carpet.  An underground vein of some sort can be seen below.
+
+    Laurie eyes light up and she glances at you in astonishment.  
+
+> down
+You hop down the hatch and help Laurie down afterwards...
+
+Press enter to continue  
+
+> 
+    
+Cellar Passageway
+    You stand in a short cellar passageway full of shadows cast by light from around a corner up ahead.  Except for the hatchway from which you dropped, the ceiling is practically concealed by the criss-crossing of a myriad of pipes.  This area appears to be a dead end from which the only way one can go is north.  
+
+> north
+As you move forward you can hear the cries of a girl from up ahead.  You and Laurie crouch behind some furniture that is at hand and survey the scene.
+
+Behind the Furniture
+    This is where the cellar passageway from the south opens into a spacious room to the west.   Pipes hang from the ceiling.  Some miscellaneous furniture provides cover.  
+    Over to the west you see that Laurie's sister is also with them.
+    Three kidnappers are standing near her.  
+
+    "Cassie!", gasps Laurie.  
+
+> west
+You stand up and run to the west.
+
+    Cassie sees you and gasps aloud.  The kidnappers notice you immediately.  All three move to confront you, one after the other.  The last one has a blackjack in his hand.  Is this not an opportunity to be a hero?  
+
+> wait
+Time passes...
+
+
+    The kidnappers quickly surround you.  You realize that you are about to be gang-beaten mercilessly.  
+
+    At that moment, Laurie stands up and shouts "NO!!!"  Enraged, she glares at the men.
+    "Laurie", shrieks Cassie in delight, "I knew you'd come!"
+    Laurie steps forward with mad determination.
+    The Kidnappers, now aware of everyone's presence, ignore both you and Cassie and focus all of their attention on Cassie's older sister.  As one Kidnapper nears her, he is struck on the side of the head by a pail that comes flying seemingly out of nowhere.  Its origin is not difficult to account for; it must have been lying behind some furniture nearby.  But as for being airborne--?!  Cassie yells for you to duck and you do.
+    The pail continues to circles through the air in a random pattern and at a tremendous speed.   It crashes repeatedly into the heads of each of the Kidnappers.  A groan accompanies each collision, but the pail goes on soaring back and forth like a vindictive harpy.
+    Eventually it falls to the floor, rolls for awhile, then is still.  By that time, there is not a single of the men groaning.  They have all been rendered unconscious.
+    Laurie sinks to her knees in relief while Cassie lets out a squeal of joy.  
+
+> wait
+Time passes...
+
+
+    Cassie runs into her sister's arms.  "Laurie!", she cries.   "Are you all right?", asks Laurie.  "I'm fine!", Cassie responds.  "I'm so glad that you came.  But I knew that you would!"
+    And then she runs into your arms.  "Thank you!", she cries with much feeling.  And then, "Um.. sister, who is he?  Wait", she says, turning to look at you again, "Weren't you the one in the ice cream parlor?"
+    Laurie nods her head in enthusiastic affirmation.  
+
+> wait
+Time passes...
+
+
+    Laurie thinks for a moment, then asks you, "I never learned your name, did I?"
+    "Nice to meet you, Petter!", Cassie says cheerfully upon learning your name.
+    "Petter", begins Laurie, "Without you... I... I don't know if I ever could have... I..."
+    Cassie, who has been looking at the fallen Kidnappers,  interrupts Laurie's train of speech and speaks up.  "D'jou think it's safe?"
+    "I...", begins Laurie again,"...I hit them pretty hard, I think."
+    "Yeah, you were incredible, sis!  The way you kept that object in the air all that time--I've never been able to do anything like that!"  Laurie shrugs modestly.
+
+1) "Laurie, you didn't tell me that you also had PK!"
+2) "It's okay.  I basically had it figured out already."
+3) "How come you didn't use your power sooner?"  
+
+> 1
+    "I'm...sorry", she apologizes.  "I didn't know how you would take it.  How could I know if you would have helped me then?  Although, thinking about it now, I think that you would have.  I'm sort of surprised that you didn't figure things out anyways.  I thought...I gave it away on many occasions.  Like when I distracted the security officer and made his chair trip his legs, or when I opened and closed windows and curtains upstairs.  And your motorcycle--I had to fix that, didn't I?"
+
+1) "Laurie, you really are impressive."
+2) "Cassie, you did some amazing things tonight, too."
+3) "So which of you is stronger?"  
+
+> 1
+    Laurie just blushes and Cassie says, "That's my sister for you.  You're going to keep teaching me how to do all the things that you can do, right, Laurie?  Like levitate things and bend metal.  I don't know if I'll ever be able to do all that."
+    "I'll try, I guess", smiles Laurie.
+
+1) "There's one thing I don't get--How come you needed me at all?"
+2) "C'mon, let's get you girls to safety."  
+
+> north
+You move north.  
+Cellar Annex
+    Light cast from the large room to the south permits some visibility in this dark cellar passageway that leads north.  Pipes hang from the ceiling.  There is a door set in the east wall.  Also here is the chest freezer.  
+
+    Laurie follows you from the south.  
+
+    Cassie follows you from the south.  
+
+> north
+You move north.
+Passageway End
+    The passageway ends here at a ladder ascending to a circular hatch on the ceiling.  In fact, it is the underside of a manhole.  Not shocking since the passage has had the feel of being in a damp, forgotten sewer all along.  
+
+    Laurie follows you from the south.  
+
+    Cassie follows you from the south.  
+
+    "We can go up that way", remarks Laurie, pointing to the ladder.  
+
+> up
+As you come near the hatch, the manhole cover slides off seemingly by itself.  The three of you climb up the ladder one after another, yourself in the lead.  
+
+    Laurie replaces the manhole cover.  "It isn't safe for us to be here either", she whispers.  Holding her shoulders in the cold night air, she looks around.
+    "Can we return to our own house?", asks Cassie.
+    Laurie shakes her head.  "I think that is too dangerous.  They know where that is.  They must have known that our parents were out of town and that's why they waited until tonight to...take you away."
+    Cassie giggles.  "It didn't help that I made those ice cream spoons dance on the table, huh?"
+    "Oh, that's how they were able to pinpoint your exact location!", She groans girlishly.  "Cassie, I told you not to do that!  You know that they can hear us do those kind of things by wearing those things in their ears!"
+    "Oops", says Cassie sheepishly.
+    "Oh", cries Laurie, "what will we do?  If we keep running...they'll only find us again.  We can't go on like that.  In order to ever feel safe again...oh, what can we do?" 
+
+    Laurie looks at you with the same pleading expression that you saw in the ice cream parlor.
+
+1) "Gee...I dunno..."
+2) "For now let's get out of here."
+3) "I don't intend to leave you."  
+
+> 1
+Cassie looks sort of disappointed.  Laurie simply looks forlorn.   
+
+    Laurie gazes at the sky, pondering.  By and by she turns to speak to you again.
+    "We can go to my friend's house.  She'll let us stay there, I know she will.  Until...until it is safe to go home again.  Petter, will you take us there?  I can show you the way to her house once we get to your motorcycle."
+    "Let's hurry", agrees Cassie, "I've had enough of this place."  
+
+> north
+The three of you make your way back to your motorcycle without further incident.  Smaller than her sister, Cassie is able to squeeze into the seat with Laurie and hold onto her back while Laurie holds onto yours.  You start the engine and take off into the night, leaving Langston Bridge and its dark alleys behind...
+ 
+
+Press enter to continue   
+
+> 
+  
+
+
+
+CHAPTER 3
+
+
+
+Friends and Clues  
+
+> 
+  You and your passengers arrive at the front of a house that Laurie indicates is the place where her friend lives.  You park your motorcycle and the girls dismount.
+
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other than in the domestic atmosphere that permeates it, made possible by cleanliness and simple feminine decor.  A mat lies at the foot of the front door, which is east.  A mailbox is attached to the wall beside the door.  Your motorcycle is parked close by.  
+
+> wait
+Time passes...
+
+
+    Laurie goes up to the front door, followed by her sister.
+    "Will she be home?", asks Cassie.
+    "I'm sure she will be", replies Laurie.  "It's been several hours since we were in the ice cream place.  She wouldn't have stayed there and she wouldn't have gone to the police either, I don't think."  
+
+> wait
+Time passes...
+
+
+    Laurie knocks on the front door.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    Cassie looks at her sister.  Laurie knocks on the door a little louder.  
+
+> wait
+Time passes...
+
+
+    You hear the door being opened from the other side.  A moment later, a girl is standing there looking very surprised.  In fact, it is the same girl that was in the ice cream parlor with Laurie and Cassie.
+    "Laurie!", she cries.  "And Cassie!  You're both okay!  I can't believe it!"
+    "Monika", Laurie responds.  An exchange of hugging ensues.  
+
+> wait
+Time passes...
+
+
+    "Come in!", insists Monika.  Noticing you with a cordial smile she adds, "You too of course."  The girls enter the house.  
+
+> east
+You enter the house.    
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+    Laurie is standing here.  
+    Monika is standing here.  
+    Cassie is also standing here.  
+
+    "Are you all right, Cassie?", asks Monika.  "I was so worried.  What happened?   Where did they take you?  And how did you get her back?"  The last question is addressed to Laurie.
+    Laurie answers, "Well, to begin with, we never would have done it without Petter."
+    "You remember him from the ice cream shop, don't you Monika?  The one you were saying was--"
+    Blushing, Monika interrupts her, "Right!  Hello, Petter.  I'm Monika, Laurie's friend."
+
+1) "I do remember you."
+2) "Nice to meet you, Monika."
+3) "What were you saying about me?"  
+
+> 1
+Monika seems genuinely happy to hear this.  "Really?", she asks.  
+
+    "So anyway", continues Laurie, "We found Cassie in the cellar of a suspicious-looking office building in a mostly deserted area of the city.  It was them of course..."
+    Laurie proceeds to give her friend an account of the events that transpired since Cassie was kidnapped up until the present hour.  Laurie and Monika sit down on the couch and Cassie sits down on the floor.  
+
+> wait
+Time passes...
+
+
+    While relating the story, Laurie downplays her own heroic contributions to the rescue effort, resting the credit primarily on you.  It is not for fear that her friend might find out about her powers, though, as she does mention the use of PK.  Presumably Monika has already been privy to her friend's secret.  She listens in amazement. 
+    "So is that building their secret hideout then?"
+    "I don't think so", replies Laurie.  If it was, I think it must be a temporary one."
+    Cassie says, "They were going to take me somewhere else.  I heard them talking about it in the cellar."
+    "Thank goodness we found you before then."  Unconcealed relief shows in Laurie's voice.  
+
+> wait
+Time passes...
+
+
+    "What will you do now?", asks Monika.
+    "Monika,", Laurie addresses her best friend sincerely, "would you mind if we stayed here for awhile?  Until it is safe to go back home?  I fear what they will try next."
+    "Laurie!  Of course you can!  And you too, Cassie.  And Petter, too!  You can stay here as long as you like."
+    Laurie faces you.  "Petter, I think that would be a great idea...I mean...um...well, if you don't mind it, I'd like to...have you nearby.  For safety, you know.  And also, there's something you could help me with tomorrow....If you don't mind, that is..."
+    "Yeah, are you going to stay with us, Petter?", asks Cassie excitedly.
+
+1) "For you, Laurie, anything."
+2) "You bet."
+3) "Oh, sure."  
+
+> 2
+    "Thank you so much", says Laurie.  
+    "You're going to stay then?  Right on!", says Cassie.
+    "Is it really okay?", asks Laurie.
+    "Of course it's no problem, Laur!  You and Cassie can stay in that extra bedroom next to the stairway.  There's a fold-up mattress in the closet upstairs that one of you can sleep on.  And the other can sleep on the bed.  Petter, will you come move the mattress?  I'll show you where it is."
+    The girls all stand up.  
+
+> wait
+Time passes...
+
+
+    
+
+    
+
+    Monika walks away to the east.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    
+
+    
+
+    Laurie walks away to the east.  
+
+    
+
+    
+
+    Cassie walks away to the east.  
+
+> wait
+Time passes...
+
+> sleep
+You lie down on the couch and try to fall asleep.  Although you are tired from the activities of the night, you remain awake for some time, tossing and turning.  It could be that part of your inability to sleep is due to the couch and the unfamiliar setting.  Likely, it has more to do with your mind's insistence in reviewing the unexpected course of events that the day brought you, and the people that they involved.  Tenaciously, like a grindstone turning, the events replay over and over until you manage to drift off... 
+
+Press enter to continue      You rested well, quite well.  Your body feels thoroughly refreshed.  Whatever it is that you dreamt of fades from your memory quickly, and your mind is clear and untroubled when your eyelids finally slide open and the morning breaks...  
+
+Press enter to continue  
+
+> south
+    
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+
+    You become aware of the sounds and smells of....yes, breakfast.  
+
+> east
+(Getting off the couch first)
+You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+    You smell good food nearby.  
+
+> wait
+Time passes...
+
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> wait
+Time passes...
+
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> wait
+Time passes...
+
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+    The bedroom door creaks open and Cassie emerges from the room.  Still looking drowsy, she manages to smile and say "Good morning, Petter."  
+
+> wait
+Time passes...
+
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> wait
+Time passes...
+
+
+    
+
+    
+
+    Cassie walks away to the south.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> wait
+Time passes...
+
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> west
+You move west.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+
+> wait
+Time passes...
+
+> 1
+The person you were trying to speak to is not here.  
+
+> 1
+The person you were trying to speak to is not here.  
+
+> 3
+The person you were trying to speak to is not here.  
+
+> north
+You can't go in that direction, but you can move east, south and west.  
+
+> west
+You could really use some breakfast before going out today.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> d
+You can't go in that direction, but you can move east, south and west.  
+
+> 
+Pardon me?
+
+> south
+You move south.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves to make mealtimes pleasant when the weather is nice, and comfortable when it is not.  To the north is the living room and to the east is the kitchen.  Some chairs are pushed in around the table.  A fruit bowl serves as a centerpiece.    
+    Cassie is sitting at the table with her head in her arms.  
+
+    You smell good food nearby.  
+
+> down
+You can't go in that direction, but you can move north and east.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> talk to ethan
+Ethan doesn't hear you from where you are.  
+
+    You smell good food nearby.  
+
+> 2
+The time has passed to say that.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> 1
+The time has passed to say that.  
+
+    You smell good food nearby.  
+
+> up
+You can't go in that direction, but you can move north and east.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> north
+You move north.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> c
+Pardon me?
+
+> 
+Pardon me?
+
+> east
+You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+    You smell good food nearby.  
+
+> east
+You enter the room.  
+Bedroom
+    This small room contains only a bed and a nightstand with a mirror.  All has been kept clean.  Either Monika gets guests often or she simply doesn't need the spare room for herself.  The door is west.  Also here is a foldable mattress.  
+
+> south
+You can only move west.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> 1
+The person you were trying to speak to is not here.  
+
+> north
+You can only move west.  
+
+> west
+You move west.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> west
+You move west.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> e
+You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+    You smell good food nearby.  
+
+> 
+Pardon me?
+
+> north
+You can't go in that direction, but you can move east, south, west and up.  
+
+    Something good is cooking in the kitchen.  You can smell it.  
+
+> wait
+Time passes...
+
+
+    You smell good food nearby.  
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> south
+You move south.
+Kitchen
+    Monika's kitchen sports the usual accommodations, including a counter, a sink, and a stovetop.  A toaster sits at one end of the counter like a book end.  There is a drawer beneath the counter, and several cupboards above it.  There is also a cabinet underneath the sink.  A refrigerator that includes a freezer stands against the opposite wall.  The dining room is west and the stairway north.    
+    Laurie is by the stovetop cooking something.  
+
+    "Good morning", says Laurie cheerfully.  "I hope I didn't awaken you.  I was thinking you might like some hashbrowns.  They should be done soon."
+
+    Laurie turns on the toaster.  
+
+> east
+You can't go in that direction, but you can move north and west.  
+
+    "Monika left early.  She said that she had to run some errands but that she would be back later today."  
+
+> east
+You can't go in that direction, but you can move north and west.  
+
+> sit
+You sit down on the ground.  
+
+> 3
+"Yes, it is rather lovely this morning, isn't it?  And yet...I can't help but wonder what new dangers today will bring.  Cassie and I have a long way to go before we...before we can live in safety.  If it wasn't for you, we wouldn't have made it this far.  But the future is still so uncertain..."  She looks aside wistfully.   
+
+1) "No, I meant you look lovely this morning."
+2) "Don't worry. Everything will be all right."
+3) "Perhaps the future will take care of itself."  
+
+> 1
+Your comment catches her off guard.  Face red, she looks away from you and replies hesitantly, "Oh, um...thanks."  She really does look lovely this morning, with her long hair flowing vibrantly.     
+
+    You hear the toaster pop.  
+
+> 1
+The time has passed to say that.  
+
+    Laurie takes the bread from the toaster.  
+
+> wait
+Time passes...
+
+> 2
+The time has passed to say that.  
+
+> talk to dustin
+Dustin doesn't hear you from where you are.  
+
+    "I may never become a great cook but at least there are some things I can sort of make with confidence", says Laurie.  
+
+> west
+(Standing up first)
+You move west.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves to make mealtimes pleasant when the weather is nice, and comfortable when it is not.  To the north is the living room and to the east is the kitchen.  Some chairs are pushed in around the table.  A fruit bowl serves as a centerpiece.    
+    Cassie is sitting at the table with her head in her arms.  
+
+> west
+You can't go in that direction, but you can move north and east.  
+
+> wait
+Time passes...
+
+
+    Laurie walks in from the east.  
+
+    "Breakfast is ready", announces Laurie.  
+
+> wait
+Time passes...
+
+
+    Laurie puts the plate of hashbrowns and egg omelette down in front of you.  She brings some food for herself and Cassie as well.  Then she sits down at the table.  
+
+> wait
+Time passes...
+
+
+    "There's more bread in the cupboards if you want more toast after this", says Laurie.
+    After finishing a few bites of hashbrowns Cassie says, "It's not ice cream but I'm eating it."
+    "Um, thanks, Cassie, I think."
+    "No, Laur, it's not bad.  I'm just saying that it isn't quite the same as ice cream.  Nothing is.  Except ice cream."
+
+1) "It's delicious, Laurie."
+2) "Cassie is a sweet tooth, huh."
+3) "So what do you need me for today?"  
+
+> wait
+Time passes...
+
+
+    "I've been thinking.   The only way that Cassie and I are ever going to get them off our back for good is if they lose whatever information they have on us.  They don't really know us.  I think that may be our advantage."  She tilts her head in thought.
+
+  "If we could somehow delete the records that they have of us..."
+
+1) "...then they can't come after you anymore!"
+2) "Do you know where to find such records?"  
+
+> wait
+Time passes...
+
+
+    Then Laurie says, "I have a friend that lives nearby whose name is Ethan.  He can do anything with computers, or so he tells me.  Perhaps he can find a way to delete these records.  Petter, will you go over to his place and see if he can't help us?"
+
+1) "Why don't you come along yourself?"
+2) "Is it all right if I just show up like that?"
+3) "Does he know that you have PK?"  
+
+> wait
+Time passes...
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> d
+You can't go in that direction, but you can move north and east.  
+
+> 
+Pardon me?
+
+> south
+You can't go in that direction, but you can move north and east.  
+
+> down
+You can't go in that direction, but you can move north and east.  
+
+> talk to ethan
+Ethan doesn't hear you from where you are.  
+
+> 1
+    "I, um...I'd prefer not to..."
+    Cassie laughs.  "It's because she and Ethan--"
+    No, Cassie, don't say anything bad about Ethan.  He's a nice guy."
+    "Then why did you tell--"
+    "Never mind that, Cassie.  It's...it's his apartment.  I would never step inside...it."  She tries to explain with her eyes but soon lets the matter drop.  
+
+   "So anyways, I'll tell you how to get to his place."  Laurie does so.  
+
+> rosa
+Pardon me?
+
+> wait
+Time passes...
+
+
+    "I think Cassie and I will stay inside today."
+    "All day??", asks Cassie incredulously.
+    "Yes, I think that is the safest."
+    Grabbing a plum from the fruit bowl, Cassie groans.  "Well, it looks like I have a lot of time to work on my juggling."  
+
+> wait
+Time passes...
+
+
+    Thank you, Petter, as always", says Laurie.
+    "Be careful of the piranha", Cassie warns you with a laugh.  
+
+> wait
+Time passes...
+
+
+    Cassie juggles four plums in the air impressively.
+    Laurie notices her.  "Don't use the power for something like that, Cassie.  What if someone is listening?"  
+
+> wait
+Time passes...
+
+
+    With a frown Cassie puts one of the plums back and tries juggling the remaining three.  She has trouble.  Every couple seconds a plum hits the ground with a 'splut'.  
+
+> up
+You can't go in that direction, but you can move north and east.  
+
+    
+
+    
+
+    Laurie walks away to the north.  
+
+    Cassie puts back another plum and tries to juggle just the two.  She is still having trouble.  
+
+> north
+You move north.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+    Laurie is standing here.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> c
+Pardon me?
+
+> 
+Pardon me?
+
+> east
+You move east.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+> east
+You enter the room.  
+Bedroom
+    This small room contains only a bed and a nightstand with a mirror.  All has been kept clean.  Either Monika gets guests often or she simply doesn't need the spare room for herself.  The door is west.  Also here is a foldable mattress.  
+
+> south
+You can only move west.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> north
+You can only move west.  
+
+> east
+You can only move west.  
+
+> west
+You move west.
+By the Stairs
+    The stairway here ascends up to a second floor.  To the west is the living room, to the south is the kitchen, and a door stands before a bedroom to the east.  An air freshener is on the wall here.  
+
+> west
+You move west.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+    Laurie is sitting on the couch.  
+
+> south
+You move south.
+Dining Room
+    A dining table stands before a broad window with curtains, which serves to make mealtimes pleasant when the weather is nice, and comfortable when it is not.  To the north is the living room and to the east is the kitchen.  Some chairs are pushed in around the table.  A fruit bowl serves as a centerpiece.  A plate is on the dining table.  
+    Cassie is standing here, trying to juggle some plums.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    "Oh fubar!", exclaims Cassie, who is beginning to get frustrated with how the juggling is going.  
+
+> wait
+Time passes...
+
+> sit
+You sit down on one of the chairs.  
+
+> 1
+The time has passed to say that.  
+
+> 1
+The time has passed to say that.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+    "Petter, do you know how to juggle?  I think you have to be born with the gift.  It doesn't seem like a learnable thing, if you ask me.  I mean gee, it's even harder than using the power!"  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> north
+(Getting off the chairs first)
+You move north.
+Living Room
+    Monika's living room is satisfactorily filled with the amenities that any home sweet home must include, such as a couch, a coffee table, a rug, and wall decorations adorning the walls.  All that is lacking is the hearth.  The space opens up to a dining area to the south, and an area with a stairway east.  The front door is west.  
+    Laurie is sitting on the couch.  
+
+   Laurie addresses you.  "Petter?  Can you try to come back soon?  I am uncomfortable being here without..."  
+
+> west
+You leave the house, closing the door behind you.  
+Front of Monika's House
+    The house before you is not large, nor is it attractive in any way other than in the domestic atmosphere that permeates it, made possible by cleanliness and simple feminine decor.  A mat lies at the foot of the front door, which is east.  A mailbox is attached to the wall beside the door.  Your motorcycle is parked close by.  
+
+> ride the motorcycle
+(Sitting on the motorcycle first)
+  Where will you go?  
+a) Majesty Mall  
+b) Langston Bridge  
+c) Monika's House  
+d) Ethan's Apartment    
+
+> d
+You start up your motorcycle and depart for Ethan's...
+
+Press enter to continue  
+
+> 
+  You arrive and park in front of Ethan's...
+
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> south
+You open the door and enter the apartment.  
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk, appliances, furniture, and miscellaneous objects have been heaped up or left lying around slovenly.   Dirty laundry spreads over everything.  Smells in the air combine to produce new odors like a chemist's compound.  The room continues to the south, but access is completely blocked by the piles of junk.  As it is, you can barely make your way down the stairway  from which you hear the sounds of typing at a keyboard.  The exit to the apartment is north.  
+
+> down
+You move down.
+Ethan's Den
+    The downstairs of Ethan's apartment is only slightly less cluttered than above.  Since the room is smaller, it actually feels even more crammed down here.  Trash indiscriminately covers the floor.  Standing among the trash you see an open fish tank.  There is computer hardware lying all about.  There is a table on which sits a computer monitor.  
+    Ethan is seated at a chair in front of the computer.  
+
+    Gradually, Ethan turns in his seat to look at you dully, clearly wondering what kind of sale you have come to push today.  
+
+> wait
+Time passes...
+
+> up
+You move up.
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk, appliances, furniture, and miscellaneous objects have been heaped up or left lying around slovenly.   Dirty laundry spreads over everything.  Smells in the air combine to produce new odors like a chemist's compound.  The room continues to the south, but access is completely blocked by the piles of junk.  As it is, you can barely make your way down the stairway  from which you hear the sounds of typing at a keyboard.  The exit to the apartment is north.  
+
+> north
+You leave the apartment, closing the door behind you.  
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> ride the motorcycle
+(Sitting on the motorcycle first)
+  Where will you go?  
+a) Majesty Mall  
+b) Langston Bridge  
+c) Monika's House  
+d) Ethan's Apartment    
+
+> f
+Pardon me?
+
+> 
+Pardon me?
+
+> west
+(Getting off your motorcycle first)
+You move west.
+Apartment to the Left
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back east.  
+
+> west
+You can only move east.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> 1
+Pardon me?
+
+> 1
+Pardon me?
+
+> 1
+Pardon me?
+
+> wait
+Time passes...
+
+> 2
+Pardon me?
+
+> push crates
+You push, but nothing happens.  
+
+> push crates
+You push, but nothing happens.  
+
+> climb over steam roller
+You can't climb that.  
+
+> up
+You can only move east.  
+
+> south
+You can only move east.  
+
+> east
+You move east.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> east
+You move east.
+Apartment to the Right
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back west.  A sticky is posted on the door.  
+
+> start walking
+Pardon me?
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> 3
+Pardon me?
+
+> 1
+Pardon me?
+
+> kiss katryn
+I'm not sure she would appreciate that!  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> 
+Pardon me?
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> d
+You can only move west.  
+
+> 
+Pardon me?
+
+> south
+You can only move west.  
+
+> down
+You can only move west.  
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> revive ethan
+Pardon me?
+
+> up
+You can only move west.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> e
+You can only move west.  
+
+> 
+Pardon me?
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> east
+You can only move west.  
+
+> give money to peddler
+Give pocket change to who?  
+
+> ask peddler about silo
+The peddler isn't here!  
+
+> ask peddler about valley
+The peddler isn't here!  
+
+> west
+You move west.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> south
+You open the door and enter the apartment.  
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk, appliances, furniture, and miscellaneous objects have been heaped up or left lying around slovenly.   Dirty laundry spreads over everything.  Smells in the air combine to produce new odors like a chemist's compound.  The room continues to the south, but access is completely blocked by the piles of junk.  As it is, you can barely make your way down the stairway  from which you hear the sounds of typing at a keyboard.  The exit to the apartment is north.  
+
+> south
+Indeed there is a room in that direction, but it simply isn't possible to get there with all the junk in the way.  
+
+> ride the motorcycle
+You can't see your motorcycle.  
+
+> j
+Pardon me?
+
+> 
+Pardon me?
+
+> search mountains
+You find nothing new.  
+
+> east
+You can't go in that direction, but you can move north, south and down.  
+
+> east
+You can't go in that direction, but you can move north, south and down.  
+
+> east
+You can't go in that direction, but you can move north, south and down.  
+
+> enter booth
+Just a direction will do.  
+
+> x monitors
+You see no such thing, or else it is unimportant.
+
+> wait
+Time passes...
+
+> 2
+Pardon me?
+
+> 3
+Pardon me?
+
+> x katryn
+You see no such thing, or else it is unimportant.
+
+> exit booth
+You leave the apartment, closing the door behind you.  
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> east
+You move east.
+Apartment to the Right
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back west.  A sticky is posted on the door.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> east
+You can only move west.  
+
+> east
+You can only move west.  
+
+> south
+You can only move west.  
+
+> x equipment
+You can't see the computer hardware from here!  
+
+> get magnets
+Take what?  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> west
+You move west.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> west
+You move west.
+Apartment to the Left
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back east.  
+
+> give magnets to dustin
+Give what?  
+
+> south
+You can only move east.  
+
+> south
+You can only move east.  
+
+> south
+You can only move east.  
+
+> east
+You move east.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> east
+You move east.
+Apartment to the Right
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back west.  A sticky is posted on the door.  
+
+> south
+You can only move west.  
+
+> west
+You move west.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> 
+Pardon me?
+
+> east
+You move east.
+Apartment to the Right
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back west.  A sticky is posted on the door.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> open cabinets
+You can't open that.  
+
+> get transmitter
+Take what?  
+
+> south
+You can only move west.  
+
+> east
+You can only move west.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> north
+You'd be leaving the apartment complex if you went that way.  
+
+> get extinguisher
+Take what?  
+
+> south
+You can only move west.  
+
+> east
+You can only move west.  
+
+> spray chadwick
+Pardon me?
+
+> turn on transmitter
+You can't turn that on.  
+
+> attack chadwick
+The man is not here!  
+
+> search chadwick
+You find nothing new.  
+
+> east
+You can only move west.  
+
+> flip door switch
+I don't understand what you want me to do with the door.
+
+> flip zigzag switch
+Pardon me?
+
+> flip ladder switch
+You can't see the ladder.  
+
+> west
+You move west.
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> south
+You open the door and enter the apartment.  
+Inside Apartment
+    The interior of Ethan's apartment is hopelessly messy.  Boxes of junk, appliances, furniture, and miscellaneous objects have been heaped up or left lying around slovenly.   Dirty laundry spreads over everything.  Smells in the air combine to produce new odors like a chemist's compound.  The room continues to the south, but access is completely blocked by the piles of junk.  As it is, you can barely make your way down the stairway  from which you hear the sounds of typing at a keyboard.  The exit to the apartment is north.  
+
+> south
+Indeed there is a room in that direction, but it simply isn't possible to get there with all the junk in the way.  
+
+> west
+You can't go in that direction, but you can move north, south and down.  
+
+> south
+Indeed there is a room in that direction, but it simply isn't possible to get there with all the junk in the way.  
+
+> west
+You can't go in that direction, but you can move north, south and down.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> get band
+Take what?  
+
+> east
+You can't go in that direction, but you can move north, south and down.  
+
+> north
+You leave the apartment, closing the door behind you.  
+Front of Ethan's
+    You stand at a plain concrete apartment complex.  The door to the south of you is where, according to Laurie's directions, Ethan lives.  There are also apartments to the west and east, spaced at a less than neighborly distance apart.  Your motorcycle is parked here.  
+
+> west
+You move west.
+Apartment to the Left
+    The door to somebody's apartment is here to the south.  The only relevant place to go is back east.  
+
+> west
+You can only move east.  
+
+> up
+You can only move east.  
+
+> up
+You can only move east.  
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> punch octal
+Who do you think you are, Mike Tyson?  
+
+> head butt octal
+I don't understand what you want me to do with your face.
+
+> get band
+Take what?  
+
+> kiss katryn
+I'm not sure she would appreciate that!  
+
+> hug katryn
+Pardon me?
+
+> put band on octal
+Where do you want to put that?
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...

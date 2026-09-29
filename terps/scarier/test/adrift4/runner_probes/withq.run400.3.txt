@@ -1,0 +1,57 @@
+
+> probe
+PROBE OK.  TICK.
+
+> cut rope with coin
+You can't cut the rope with the coin.  TICK.
+
+> cut rope with stone
+You don't have the stone.  TICK.
+
+> cut rope with button
+Don't be daft!  TICK.
+
+> cut rope with gem
+I don't understand what you want me to do with the rope.
+
+> knife
+I don't understand what you want me to do with the knife.
+
+> probe
+PROBE OK.  TICK.
+
+> cut rope with zzz
+I don't understand what you want me to do with the rope.
+
+> cut zzz with knife
+I don't understand what you want me to do with the knife.
+
+> push button with knife
+You push the button with the knife, but nothing happens.  TICK.
+
+> turn button on with knife
+You can't turn the button on with the knife.  TICK.
+
+> open button with knife
+You can't open the button with the knife.  TICK.
+
+> lock button with coin
+You can't lock the button with the coin.  TICK.
+
+> climb button with coin
+You can't climb the button with the coin.  TICK.
+
+> cut coin with knife
+You can't cut the coin with the knife.  TICK.
+
+> cut stone with knife
+You can't cut the stone with the knife.  TICK.
+
+> hit button with knife
+You hit the button with the knife, but nothing happens.  TICK.
+
+> cut rope with dave
+I don't understand what you want me to do with the rope.
+
+> i
+You are carrying a coin and a knife.  TICK.

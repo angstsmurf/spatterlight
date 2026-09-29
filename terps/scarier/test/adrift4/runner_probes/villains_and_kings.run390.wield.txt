@@ -1,0 +1,75 @@
+
+> take note
+You sneek the note out of the midgets back pocket.
+
+> n
+You move north.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Yup, its still the first day.  You can move north and south.
+
+> open window
+The window is broken and you can't seam to open the window in its present state.  You can see a shadow of somthing behind the window.
+
+> n
+You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There is a door to the south, and a door to the west.  There is a fishy smell about this room.  Some maids and guards are standing about.  You see a plate of doughnuts on a table to your right.  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> give note to king
+You give the note to the king.  "Gee thanks," he mumbles.  He reads it, then looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives you 100 gold pieces.
+
+> s
+You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about important things, and you just happen to be at the end of that line.  You cant even tell if the line ends.  The throne room is at the end of the hall.  You notice all the people here are very tall except one little man three people ahead of you.  This is the room where you found the note for the stupid king.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on both sides of the stone road that leads to the gigantic door. To the east is a building with smoke pouring out of a chimmmany, To the west is a big ol fountain.  A locked gate is to the south.  The Dumb old guy stares at you.  Yup, its still the first day.  You can move north, east and west.
+
+> e
+You move east.
+Armory
+Woo hoo, now you've entered the armory.  Shields and Weapons and crap decorate the walls.  A fiery forge is in the corner.  There is a weapon rack over there in the corner too.  Yup, its still the first day.  You can move west and in.
+
+> x Weapon Rack
+This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack is Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
+
+> take sword
+You take Kinda Sharp Sword from Weapon Rack.
+
+> wield Sword
+I don't understand what you are wanting to wield!
+
+> wield kinda sharp sword
+I don't understand what you are wanting to wield!
+
+> wield zzz
+I don't understand what you are wanting to wield!
+
+> wield rack
+I don't understand what you are wanting to wield!
+
+> wield blade
+You wield Kinda Sharp Sword.  Strange Forge Boy paces in from inside.
+
+> wield blade
+You are already wielding Kinda Sharp Sword.
+
+> drop sword
+You drop Kinda Sharp Sword.
+
+> wield blade
+You aren't carrying Kinda Sharp Sword!
+
+> wield
+I don't understand what you are wanting to wield!
+
+> turns
+You have taken 21 turns so far.

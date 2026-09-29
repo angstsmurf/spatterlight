@@ -108,10 +108,11 @@ typedef scr_commands_t *scr_commandsref_t;
  * "would this row match?" without running anything: the answer must not
  * leave a binding behind.  3.9 and 4.0 forget both references at the top of
  * every command (see run_player_input()), so a probe's leftover is exactly
- * what the Runner never has.  Professor (Adrift_p4profmail.txt, turn 21):
- * the put-row probe bound the mailbox from `get mail from mailbox on-a rope`
- * and task 7's state restriction on the referenced object passed on it,
- * where run400 fails the restriction silently and takes the mail.
+ * what the Runner never has.  Professor
+ * (runner_probes/professor.run400.profmail.txt, turn 21): the put-row probe
+ * bound the mailbox from `get mail from mailbox on-a rope` and task 7's
+ * state restriction on the referenced object passed on it, where run400
+ * fails the restriction silently and takes the mail.
  */
 class scr_ref_entity_guard
 {

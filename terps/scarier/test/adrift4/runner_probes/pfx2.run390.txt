@@ -1,0 +1,80 @@
+
+> probe
+PROBE OK.
+
+> x guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x red guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x a red guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x the red guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x big guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x a guard
+CID DESC.
+
+> x big red guard
+CID DESC.
+
+> x tree
+Which tree.  The big red tree, the red tree or the red tree?
+
+> x big red tree
+Please examine one object at a time.
+
+> x red tree
+Please examine one object at a time.
+
+> x big red tree
+Please examine one object at a time.
+
+> x a red tree
+Please examine one object at a time.
+
+> x big red tree
+Please examine one object at a time.
+
+> x the red tree
+Please examine one object at a time.
+
+> x big red tree
+Please examine one object at a time.
+
+> x big tree
+Which tree.  The big red tree, the red tree or the red tree?
+
+> x big red tree
+Please examine one object at a time.
+
+> x a tree
+Which tree.  The big red tree, the red tree or the red tree?
+
+> x big red tree
+Please examine one object at a time.
+
+> x rock
+A grey rock.
+
+> quit

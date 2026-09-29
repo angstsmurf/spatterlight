@@ -1,0 +1,34 @@
+
+> look
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take zzz
+Take what?
+
+> take widget
+Take what?
+
+> take statue
+You can't take the statue!
+
+> take coin
+You take the coin.
+
+> take zzz
+Take what?
+
+> take widget
+Take what?
+
+> take all
+There is nothing worth taking here.
+
+> drop coin
+You drop the coin.  
+
+> take zzz
+Take what?
+
+> take widget
+Take what?

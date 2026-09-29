@@ -1,0 +1,10 @@
+
+> goto
+NO IDEA.
+
+> go
+Just a direction will do.
+
+> look
+First Room
+The first room.  Also here is a stone.  You can only move north.

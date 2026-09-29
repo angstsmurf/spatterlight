@@ -1,0 +1,55 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem and a rock.  You can only move north.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> push
+Push what?
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> cut
+Cut what?
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> gem rock
+You don't have the rock.
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.

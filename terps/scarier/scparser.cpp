@@ -130,14 +130,15 @@ uip_note_definite_reference (void)
  * "Which stone." again.
  *
  * Measured on p4WTIE/p4WTIE3 (make_400_withtieprobe.py [--desc], run400
- * Adrift_it1/it2/it3, 2026-09-21): `zzz red stone` and `cut stone red`
- * "(the red stone)" (the scorer; "red" is a Prefix word), `cut rope with
- * blue stone ruby` "(the blue stone)", `cut red stone with stone` "(a red
- * stone)" (the -2 arm; the line asks), `cut rope with gems` "(emerald)",
- * `x stone` "(a blue stone)" (pass A's last mark, described and then
- * asked about), `x blue stone red stone` "(stone)" (pass C ties: nothing
- * described), and `open box with stone`, whose tail openclose scores
- * without co(), leaves the antecedent alone.
+ * runner_probes/wtie.run400.it1.txt, runner_probes/wtie3.run400.it2.txt,
+ * runner_probes/wtie.run400.it3.txt, 2026-09-21): `zzz red stone` and `cut
+ * stone red` "(the red stone)" (the scorer; "red" is a Prefix word), `cut rope
+ * with blue stone ruby` "(the blue stone)", `cut red stone with stone` "(a red
+ * stone)" (the -2 arm; the line asks), `cut rope with gems` "(emerald)", `x
+ * stone` "(a blue stone)" (pass A's last mark, described and then asked
+ * about), `x blue stone red stone` "(stone)" (pass C ties: nothing described),
+ * and `open box with stone`, whose tail openclose scores without co(), leaves
+ * the antecedent alone.
  *
  * Scarier's library reaches these points in its own order, so the writes
  * are kept by stage, and a handler's write -- ours, or the verb-driven
@@ -772,9 +773,9 @@ uip_parse_element (void)
          * Where" (4.00) has task 347 "ask  *girl* about *" -- the girl's
          * CharTask, meant to run from her walk -- and run400 answers `ask
          * young girl about grantby` from her conversation topic ("Wie
-         * bitte? Grantby?", Adrift_1127_ticket.txt, 2026-09-12); Scarier
-         * ran the task instead, and the extra random(0,12) draw put the
-         * whole rest of the transcript out of step.  The multi-space flag
+         * bitte? Grantby?", runner_probes/ticket.run400.txt, 2026-09-12);
+         * Scarier ran the task instead, and the extra random(0,12) draw put
+         * the whole rest of the transcript out of step.  The multi-space flag
          * belongs to the lookahead token, so read it before advancing.
          */
         scr_bool is_double = uip_token_multi_space;
@@ -927,9 +928,10 @@ uip_parse_list (scr_ptnoderef_t list)
            * uip_match_whitespace().  So is one after a closing %object%:
            * p4BEYOND's `polish %object% ` matches nothing in run400, `polish
            * orb` being the object catch-all (make_beyondprobe.py,
-           * Adrift_305_b40.txt, 2026-09-26), as in all three older Runners.
-           * Not after a group or a wildcard: House's task 190 `*get *cathy* `
-           * answers `get cathy` (runner_transcripts/house.txt:146).
+           * runner_probes/beyond.run400.txt, 2026-09-26), as in all three
+           * older Runners.  Not after a group or a wildcard: House's task 190
+           * `*get *cathy* ` answers `get cathy`
+           * (runner_transcripts/house.txt:146).
            */
           if ((literal_only || last_was_object) && child != list
               && child->type == NODE_WHITESPACE)
@@ -1228,8 +1230,8 @@ uip_match_eos (void)
  * LCase() on either side: Professor's lab `take mailbox` pre-matches task 9
  * "[check/get/pull]{the}[mailbox]..." on "get the mailbox on-a rope", misses
  * it on the dispatched "get the Mailbox on-a Rope", and run400 answers
- * DontUnderstand (Adrift_p4profmail2 T24).  %reference% patterns are
- * unmeasured and left alone.
+ * DontUnderstand (runner_probes/professor.run400.mail2.txt T24).  %reference%
+ * patterns are unmeasured and left alone.
  */
 static scr_bool uip_binary_input = FALSE;
 static scr_bool uip_binary_active = FALSE;
@@ -1474,8 +1476,8 @@ uip_match_word (scr_ptnoderef_t node)
  * rule, so the value is the NUMERIC one even for a string variable, a
  * capitalised variable Name is unreachable, and "%t_<name>%" and a marker
  * naming nothing match nothing at all.  Measured on p39VARREF/p4VARREF
- * (make_varrefprobe.py, Adrift_211_vr390.txt, Adrift_212_vr400.txt,
- * 2026-09-20).
+ * (make_varrefprobe.py, runner_probes/varref.run390.txt,
+ * runner_probes/varref.run400.txt, 2026-09-20).
  */
 static scr_bool
 uip_match_variable (scr_ptnoderef_t node)
@@ -1523,8 +1525,9 @@ uip_match_whitespace (scr_bool hard)
    * they do without it.  The word after it must still start after a space,
    * so `x,coin` examines nothing: the boundary matches but the comma stays
    * for the wildcard, and the answer is "Nothing special.".  p37EXAM/p38EXAM,
-   * run370x pxcomma37 / run380x pxcomma38 (`cmdfile_pxcomma.txt`).  Library
-   * patterns only; how a pre-3.9 task command meets a comma is unmeasured.
+   * run370x runner_probes/exam.run370.comma.rtf / run380x
+   * runner_probes/exam.run380.comma.rtf.  Library patterns only; how a pre-3.9
+   * task command meets a comma is unmeasured.
    */
   if (uip_comma_is_space && uip_string[uip_posn] == ','
       && uip_posn > 0 && !scr_isspace (uip_string[uip_posn - 1]))
@@ -1547,9 +1550,10 @@ uip_match_whitespace (scr_bool hard)
    * placemat " (trailing space), "take placemat", "get placemat page" and
    * three more; run400 answers `take placemat` with the task and `get
    * placemat` with the library's "Take what?", the placemat being unlisted
-   * and so unreferenceable (measured 2026-09-05, Adrift_80.txt).  Without
-   * this the end-of-string rule below matched the stray space and the task
-   * claimed both.
+   * and so unreferenceable (measured 2026-09-05,
+   * runner_probes/sommeril.run400.placemat.txt).  Without this the
+   * end-of-string rule below matched the stray space and the task claimed
+   * both.
    *
    * Only after a word: a trailing space after a [] or {} group is ignored,
    * and the corpus is emphatic about it -- "Woof"'s "[chase/hunt]
@@ -1954,13 +1958,14 @@ uip_skip_article (const scr_char *string, scr_int start)
 /*
  * Strict %object% / %character% matching.
  *
- * MEASURED 2026-08-25 on p4BURN.taf under run400 (Adrift_12_p4burn.txt
- * and Adrift_13_p4burn.txt, every command echoed).  A task command pattern is matched
- * by the Runner at 458BBC: it takes the lowercased pattern, does a binary
- * Replace() of "%object%" with the object's Short -- or, in the loop just
- * below, one of its Aliases -- VERBATIM, and compares the result for exact
- * equality with the lowercased input.  Nothing else takes part: no Prefix,
- * no article, no partial name, and no case folding of the name itself.
+ * MEASURED 2026-08-25 on p4BURN.taf under run400
+ * (runner_probes/burn.run400.txt and runner_probes/burn.run400.b.txt, every
+ * command echoed).  A task command pattern is matched by the Runner at 458BBC:
+ * it takes the lowercased pattern, does a binary Replace() of "%object%" with
+ * the object's Short -- or, in the loop just below, one of its Aliases --
+ * VERBATIM, and compares the result for exact equality with the lowercased
+ * input.  Nothing else takes part: no Prefix, no article, no partial name, and
+ * no case folding of the name itself.
  *
  *   task "PX %object%", object Short "coin"        px coin  -> runs
  *                                                  PX coin  -> runs
@@ -1980,7 +1985,7 @@ uip_skip_article (const scr_char *string, scr_int start)
  * named "Memo", "Coffee Mug" and "Gun Holster", never fires in the Runner
  * however the player phrases it.  Bisecting the game itself confirmed it:
  * lowering the verb and the Short together makes `burn memo` run and print
- * the CompleteText (Adrift_11_xfilesbisect.txt).
+ * the CompleteText (runner_probes/xfiles.run400.bisect.txt).
  *
  * %character% is NOT affected: its half of the same matcher (46918F) runs the
  * NPC Name and each Alias through LCase() before the Replace(), where the
@@ -1988,9 +1993,9 @@ uip_skip_article (const scr_char *string, scr_int start)
  * bug, and it is one-sided -- ADRIFTMAS Party's `[kiss {the} %character%]`
  * over an NPC named "Mystery" runs in the Runner, and still runs here.
  *
- * MEASURED 2026-08-25 on p39CASE.taf under run390 (Adrift_1_p39case.txt, all
- * 19 commands echoed): 3.90 substitutes just as strictly, but it DOES fold
- * case.  The same cells, one Runner down --
+ * MEASURED 2026-08-25 on p39CASE.taf under run390
+ * (runner_probes/case.run390.txt, all 19 commands echoed): 3.90 substitutes
+ * just as strictly, but it DOES fold case.  The same cells, one Runner down --
  *
  *   task "pa %object%", Short "Widget"          pa widget -> runs
  *                                               pa Widget -> runs
@@ -2014,8 +2019,9 @@ uip_skip_article (const scr_char *string, scr_int start)
  * pattern's position -- see run_pre400_substitute_references() -- and then
  * compare the rewritten pattern against the whole line, so the strict flag
  * never reaches this matcher there.  Measured on p37CHREF/p38CHREF
- * (Adrift_chref370b.rtf, Adrift_chref380b.rtf, 2026-09-20): `nurb rock` runs
- * the task, `nurb a big rock` and `nurb big rock` do not.
+ * (runner_probes/chref.run370.b.rtf, runner_probes/chref.run380.b.rtf,
+ * 2026-09-20): `nurb rock` runs the task, `nurb a big rock` and `nurb big
+ * rock` do not.
  *
  * This is task-command matching only.  The library's own patterns and the
  * variable functions go through the Runner's noun resolver, which is
@@ -2060,10 +2066,11 @@ uip_set_containment (scr_bool enabled)
  * and run380 429048 also accept a ",", and run390 4334B0 a "," or a ".".
  * That only shows where the splitter leaves the punctuation in the line:
  * 3.8 never splits on a comma, so `x stone, look` examines the stone
- * (Adven_4.rtf), and 3.9 never cuts at a period with no space after it, so
- * `x stone.` and `x stone.look` do (Adrift_1190).  4.0 is untouched: it cuts
- * a line's final period off before the parser sees it (run_find_split_400).
- * Set per match from the game's version in uip_match().
+ * (runner_probes/ask.run380.split.rtf), and 3.9 never cuts at a period with no
+ * space after it, so `x stone.` and `x stone.look` do
+ * (runner_probes/ask.run390.split.txt).  4.0 is untouched: it cuts a line's
+ * final period off before the parser sees it (run_find_split_400).  Set per
+ * match from the game's version in uip_match().
  */
 static const scr_char *uip_word_end_punctuation = "";
 
@@ -2353,9 +2360,9 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
        * A character's Prefix is 4.0's alone in the Runners.  Below it,
        * characters() knows a character by `c(Name) Or c(Alias(0))` and
        * nothing else (run390 459109), so `x blue guard` at 3.9 is just `x
-       * guard` (p39PFX, run390x Adrift_1211, 2026-09-20).  Scarier builds
-       * the forms at every version (deliberate deviation), so the Prefix
-       * picks the guard.
+       * guard` (p39PFX, run390x runner_probes/pfx.run390.txt, 2026-09-20).
+       * Scarier builds the forms at every version (deliberate deviation), so
+       * the Prefix picks the guard.
        */
       vt_key[2].string = name_key;
       name = prop_get_string (bundle, "S<-sis", vt_key);
@@ -2437,8 +2444,9 @@ uip_compare_candidate (const scr_uip_candidate_t &candidate)
    * p4CHREF's `frob a big dave`, `frob big dave` and `frob the dave`, with
    * Dave's Prefix "a big", all miss the `frob %character%` task in run400
    * and run390 alike and fall to the character catch-all, "I don't
-   * understand what you want to do with Dave." (Adrift_chref400b.txt,
-   * Adrift_chref390b.txt, 2026-09-20).
+   * understand what you want to do with Dave."
+   * (runner_probes/chref.run400.b.txt, runner_probes/chref.run390.b.txt,
+   * 2026-09-20).
    */
   if (uip_strict_reference)
     return uip_compare_reference_strict (candidate.plain);
@@ -2592,10 +2600,11 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
  * Measured 2026-09-07 on Bandera.taf (4.00), whose SYNONYM table maps
  * marife/Marife/marife' all to the capitalised "Marife'": run400 answers
  * `x marife`, `x Marife` and `x MARIFE` alike with the ALR'd "You see no
- * such thing." (Adrift_232_bandera.txt, Adrift_900_bandcase.txt), while
- * `hablar con marife` and `besar a marife` reach her tasks.  Repacking the
- * same game with the five replacements lower-cased makes `x marife` print
- * her description (Adrift_901_bandlc.txt) -- the capital is the whole cause.
+ * such thing." (runner_transcripts/bandera.txt,
+ * runner_probes/bandera.run400.case.txt), while `hablar con marife` and `besar
+ * a marife` reach her tasks.  Repacking the same game with the five
+ * replacements lower-cased makes `x marife` print her description
+ * (runner_probes/bandera.run400.lc.txt) -- the capital is the whole cause.
  *
  * Objects are not affected: the Runner resolves them through co()
  * (Proc_21_39_46486C), which has no such trailing binary compare.
@@ -2638,7 +2647,8 @@ uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
    * gate on [48]), and so does run390's checktask binding (44ABEA,
    * [44]).  Glum Fiddle `take cushion`, with the cushion lying unlisted
    * on the pile of boulders, so misses task 19 `[take/get/pick up]
-   * %object%` and the library answers "Take what?" (Adrift_220 T16).
+   * %object%` and the library answers "Take what?"
+   * (runner_probes/glum_fiddle.run400.seen.txt T16).
    */
   if (uip_strict_reference && !is_character
       && !gs_object_seen (game, index))
@@ -2665,16 +2675,15 @@ uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
    * with Eve in the Cave and unmet, is "I don't understand."; after a
    * `n` and an `s` the same line runs the task, and `frob dave` typed
    * in the Cave runs it on the Dave left behind in the Lit Room
-   * (Adrift_chref400b.txt, 2026-09-20).  This is the gate behind xfiles
-   * `look up byers` against task "Look up *%character%*": at the FBI
-   * parking garage the Lone Gunmen have not been met, so run400 answers
-   * with examines' "You see no such thing."
-   * (runner_transcripts/xfiles.txt).
+   * (runner_probes/chref.run400.b.txt, 2026-09-20).  This is the gate behind
+   * xfiles `look up byers` against task "Look up *%character%*": at the FBI
+   * parking garage the Lone Gunmen have not been met, so run400 answers with
+   * examines' "You see no such thing." (runner_transcripts/xfiles.txt).
    *
    * run390's checktask has no gate whatever -- its loops at 44AD48 and
    * 44B323 walk the whole NPC array -- so 3.9 binds a character who is
    * nowhere at all: p39CHREF `frob fay`, Fay having been given no start
-   * room, runs the task (Adrift_chref390b.txt).
+   * room, runs the task (runner_probes/chref.run390.b.txt).
    */
   if (uip_strict_reference && is_character
       && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
@@ -2720,7 +2729,7 @@ uip_record_entity_match (scr_gameref_t game, scr_var_setref_t vars,
    * index order too, within the scope pass that found it:
    * 458E6C Exit Subs on the hit.  p4OBJREF `nurb rock` in the
    * Lit Room, rocks 0 "a big" and 2 "a red" both present and
-   * seen, is "NURBED a big rock." (Adrift_objref400.txt).
+   * seen, is "NURBED a big rock." (runner_probes/objref.run400.txt).
    */
   if (!(uip_strict_reference && strict_first_bound))
     {
@@ -2878,10 +2887,11 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * rewrites the command and the pattern can only meet a line spelling the
    * reference out.  p37CHREF and p38CHREF answer `frob dave` "I don't
    * understand." with Dave standing in the room and seen, and answer every
-   * other cell of the p4CHREF feed the same way (Adrift_chref370b.rtf,
-   * Adrift_chref380b.rtf, 2026-09-20).  The %object% half of this has its
-   * own pre-3.9 shape, a single substitution chosen by the line rather than
-   * by the pattern's position; see run_pre400_substitute_references().
+   * other cell of the p4CHREF feed the same way
+   * (runner_probes/chref.run370.b.rtf, runner_probes/chref.run380.b.rtf,
+   * 2026-09-20).  The %object% half of this has its own pre-3.9 shape, a
+   * single substitution chosen by the line rather than by the pattern's
+   * position; see run_pre400_substitute_references().
    */
   if (is_character && uip_task_commands
       && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
@@ -2921,17 +2931,18 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * contest (lib_npc_400_prefix_score()) then picks among the hits, not the
    * word order.  p4PFX.taf has Ann "a red", Bob "a blue" and Cid "a red" all
    * aliased "guard": run400 answers `x guard blue` with Bob's description
-   * (Adrift_1210, 2026-09-20), where a positional match sees no candidate
-   * at all and we used to say "You see no such thing."
+   * (runner_probes/pfx.run400.txt, 2026-09-20), where a positional match sees
+   * no candidate at all and we used to say "You see no such thing."
    *
    * Pre-4.0 binds a trailing %character% by containment too -- run390's
    * characters() enters the per-NPC block on `c(Name) Or c(Alias(0))`
    * anywhere in the line (run390 459109, run380 4401AA) -- and, having no
    * contest, simply lets the last NPC in index order win: run390 answers
    * `x blue guard`, `x a blue guard` and a bare `blue guard` with Cid's
-   * description, the same as `x guard` (Adrift_1211).  What it does NOT
-   * have is a "<Prefix> <Name>" form to match positionally; Scarier builds
-   * those at every version (deliberate deviation, see uip_build_entities()).
+   * description, the same as `x guard` (runner_probes/pfx.run390.txt).  What
+   * it does NOT have is a "<Prefix> <Name>" form to match positionally;
+   * Scarier builds those at every version (deliberate deviation, see
+   * uip_build_entities()).
    *
    * At 4.0 only a PRESENT, SEEN character binds.  npc_in_command's loop
    * at 45E6C5
@@ -2950,7 +2961,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * mystery meat` to `attack mystery meat` through its synonym table, and
    * although "meat" is an alias of The Mother Meat (asleep on Planet
    * Mutaydid), run400 answers with the object arm, "You can't see the
-   * mystery meat." (Adrift_1090_mutaydid.txt).
+   * mystery meat." (runner_transcripts/mutaydid.txt).
    */
   const scr_bool contain = uip_containment_enabled
                            && !uip_strict_reference
@@ -2987,15 +2998,15 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * red" (2, Lit Room), and task `nurb %object%` printing "NURBED
    * %object%.": run400 answers `nurb rock` in the Lit Room "NURBED a big
    * rock." and the same line in the Cave "NURBED a small rock."
-   * (Adrift_objref400.txt, 2026-09-20).  We bound the last namesake to
-   * match, "a red rock", in both rooms.
+   * (runner_probes/objref.run400.txt, 2026-09-20).  We bound the last namesake
+   * to match, "a red rock", in both rooms.
    *
    * Below 4.0 there is no scope test at all: run390's checktask walks the
    * whole object array under `c(name, cmd) And .global_44 = 1` (44AAD6 for
    * the Short, 44AB65 for the Alias) with no break, so the LAST seen
    * namesake wins wherever it stands -- run390 answers all three cells "NURBED
-   * a red rock." (Adrift_objref390.txt) -- and pre-3.9 the substitution is
-   * the line's own, see run_pre400_substitute_references().
+   * a red rock." (runner_probes/objref.run390.txt) -- and pre-3.9 the
+   * substitution is the line's own, see run_pre400_substitute_references().
    */
   const scr_bool strict_scoped = uip_strict_reference && !is_character
                                  && prop_get_taf_version (gs_get_bundle (game))
@@ -3490,22 +3501,23 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * composes in mode 1 (loc_471749-471789), take/drop/open/close and
            * the "I don't understand what you want me to do with" reply in
            * mode 0 -- see uip_definite_form().  Measured on humbug (4.00,
-           * Adrift_5.txt, 2026-08-29): `x plane` then `x it` echoes "(a paper
-           * aeroplane)", `get plane` then `x it` "(the paper aeroplane)",
-           * `open satchel` "(the satchel)", `throw shovel` (no such verb)
-           * "(the shovel)"; "some gloves" and "an envelope" become "the
-           * gloves" / "the envelope" after `get` (Adrift_4.txt).
+           * runner_probes/humbug.run400.it.txt, 2026-08-29): `x plane` then `x
+           * it` echoes "(a paper aeroplane)", `get plane` then `x it` "(the
+           * paper aeroplane)", `open satchel` "(the satchel)", `throw shovel`
+           * (no such verb) "(the shovel)"; "some gloves" and "an envelope"
+           * become "the gloves" / "the envelope" after `get`
+           * (runner_probes/humbug.run400.b.txt).
            */
           /*
            * 3.7 and 3.8 store the antecedent in generaltasks' pre-pass over
            * the typed line, before any handler: when exactly one object is
            * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
            * 442038, run370 43B696 and 43B805), held or not, whatever the
-           * verb.  Measured on wrecked (3.80, run380x Adrift_274, 2026-09-14):
-           * `get jacket` then `x it` echoes "(the tweed jacket)", `get form`
-           * then `x it` "(an application form)" (Prefix "an", which tense()
-           * leaves alone), and `wave wand` on the held wand makes the later
-           * `drop it` the wand.
+           * verb.  Measured on wrecked (3.80, run380x
+           * runner_transcripts/wrecked.rtf, 2026-09-14): `get jacket` then `x
+           * it` echoes "(the tweed jacket)", `get form` then `x it` "(an
+           * application form)" (Prefix "an", which tense() leaves alone), and
+           * `wave wand` on the held wand makes the later `drop it` the wand.
            */
           if (game->it_form == UIP_IT_BARE
               && prop_get_taf_version (bundle) >= TAF_VERSION_400)
@@ -3575,11 +3587,11 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * are the same string, and the whole command is lower-cased after
            * the splice.
            *
-           * Measured on showtime (4.00, Adrift_312_showtime.txt turn 59):
-           * `get her hand` with no female yet referenced answers
-           * "(No female)" and then runs the game's task, which survives
-           * because its command is the wildcard `get * hand` and the
-           * rewritten line is "get no female hand".
+           * Measured on showtime (4.00, runner_transcripts/showtime.txt turn
+           * 59): `get her hand` with no female yet referenced answers "(No
+           * female)" and then runs the game's task, which survives because its
+           * command is the wildcard `get * hand` and the rewritten line is
+           * "get no female hand".
            */
           prefix = "";
           if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
@@ -3655,7 +3667,8 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
            * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
            * " " & Short for an object, which is what 'replacement' holds.
-           * Measured on wrecked (3.80, run380x Adrift_274, 2026-09-14).
+           * Measured on wrecked (3.80, run380x runner_transcripts/wrecked.rtf,
+           * 2026-09-14).
            */
           pf_buffer_reference (gs_get_filter (game),
                                echo ? echo : replacement.c_str (),
@@ -3838,10 +3851,11 @@ uip_last_npc_name (scr_gameref_t game, scr_int npc)
  * The loop is unconditional, and characters() itself is reached at 48B56E
  * on EVERY line -- the task dispatch's early exits jump to 48B4E3, which is
  * still above it -- so a line a task answered names its characters too.
- * Measured 2026-09-05 (Adrift_79.txt, sommeril.taf): "ask about zzz" in the
- * gargoyle's street echoes "(Nobody)" even with GARGOYLE listed in the room
- * description, then the task-answered "give silver orb to gargoyle" makes
- * the next "ask about zzz" echo "(GARGOYLE)".
+ * Measured 2026-09-05 (runner_probes/sommeril.run400.npcprobe.txt,
+ * sommeril.taf): "ask about zzz" in the gargoyle's street echoes "(Nobody)"
+ * even with GARGOYLE listed in the room description, then the task-answered
+ * "give silver orb to gargoyle" makes the next "ask about zzz" echo
+ * "(GARGOYLE)".
  */
 static scr_int uip_npc_before_noting = -1;
 static scr_int uip_him_before_noting = -1, uip_her_before_noting = -1,
@@ -3926,9 +3940,9 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
  * whose alias is empty (p3xORD); 3.7 cuts its goto word first and walks,
  * and 4.0's Proc_21_40_45E99C never tries an empty alias.  `ask bob about
  * goto cave` cuts to "ob about goto cave" everywhere, naming nobody.
- * run370x..run400x Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt,
- * 278_5g40.txt (cmdfile_p2goto.txt): the `give goto cave` after them echoes
- * "(to Nobody)" at 3.7/4.0 and "(to Bob)" at 3.8/3.9.
+ * run370x..run400x runner_probes/ord.run*.goto.* (make_orderprobe.py): the
+ * `give goto cave` after them echoes "(to Nobody)" at 3.7/4.0 and "(to Bob)"
+ * at 3.8/3.9.
  */
 void
 uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
@@ -4022,7 +4036,7 @@ uip_line_names_npc (scr_gameref_t game, const scr_char *string)
  * 438185 (run380 the same) do both with no gate -- 3.7 has no Appearance
  * menu.  run390 has both too: the ask/talk pair at loc_459036/459107 and
  * the give rewrite in generaltasks at 45F9D5-45FB13 ("(to " at 45FAB9).
- * Measured p39ABSNPC (run390x, Adrift_1206_p39absnpc.txt): `give stone`
+ * Measured p39ABSNPC (run390x, runner_probes/absnpc.run390.txt): `give stone`
  * after `talk to gina` echoes "(to Gina)" and runs as `give stone to gina`.
  * vardock_bates turn 16 showed "(to Vagabundo)" live in 4.0.
  *
@@ -4054,13 +4068,14 @@ uip_ask_echo_skip (const std::string &lowered)
  * parser proper, and a task that answers the line still prints after it --
  * measured 2026-09-05 on two opposite task shapes: `SPAM.taf` turn 11, whose
  * `* ingredients *` wildcard task answers `ask about ingredients` under a
- * bare "(Nobody)" (Adrift_77.txt), and `sommeril.taf` turn 36, whose LITERAL
- * task `ask about glass framed page` answers under "(GARGOYLE)"
- * (Adrift_78.txt).  The literal case is the interesting one: it proves the
- * echo is not suppressed by an earlier typed-command dispatch, and -- since
- * a pattern spelled `ask about glass framed page` cannot match the rewritten
- * `ask gargoyle about glass framed page` -- that the REWRITTEN string is the
- * library's alone.  Tasks go on matching the line the player typed.
+ * bare "(Nobody)" (runner_probes/spam.run400.probe.txt), and `sommeril.taf`
+ * turn 36, whose LITERAL task `ask about glass framed page` answers under
+ * "(GARGOYLE)" (runner_probes/sommeril.run400.probe.txt).  The literal case is
+ * the interesting one: it proves the echo is not suppressed by an earlier
+ * typed-command dispatch, and -- since a pattern spelled `ask about glass
+ * framed page` cannot match the rewritten `ask gargoyle about glass framed
+ * page` -- that the REWRITTEN string is the library's alone.  Tasks go on
+ * matching the line the player typed.
  *
  * So only the echo is hoisted here; uip_rewrite_references() still splices
  * the name in, on the library path, where the give rewrite also stays (that
@@ -4163,7 +4178,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  *                              ("already have") stays "(the shovel)".  Taking
  *                              from a character goes another way: `Get
  *                              Document` from Grandad leaves "(a document)"
- *                              (Adrift_4.txt 1406).
+ *                              (runner_probes/humbug.run400.b.txt 1406).
  *   takes @47BFCF/@47C058      mode 1 on the refusal paths; a failed `get
  *                              shovel from satchel` left "(a shovel)".
  *   drop helper @465F5E        mode 0: `drop shovel` "(the shovel)"; drops'
@@ -4180,8 +4195,8 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  *
  * A command that used the pronoun leaves the antecedent exactly as it was:
  * `drop it`, `x it`, `look at it`, `examine it` all echo the previous form
- * (Adrift_5.txt 321-349), so the caller skips assignment altogether for
- * those.  All measured on humbug, run400, 2026-08-29.
+ * (runner_probes/humbug.run400.it.txt 321-349), so the caller skips assignment
+ * altogether for those.  All measured on humbug, run400, 2026-08-29.
  */
 enum uip_form_t
 { UIP_FORM_KEEP, UIP_FORM_INDEFINITE, UIP_FORM_DEFINITE };

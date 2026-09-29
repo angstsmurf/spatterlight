@@ -1,0 +1,38 @@
+
+> probe
+PROBE OK.
+
+> blip king blip rose blip
+WILD1 OK.
+
+> blip rose blip king blip
+WILD1 OK.
+
+> king rose
+WILD1 OK.
+
+> rose king
+WILD1 OK.
+
+> a zog b zog c
+WILD2 OK.
+
+> a zog b
+WILD2 OK.
+
+> frob x grue
+WILD3 OK.
+
+> frob grue
+WILD3 OK.
+
+> frobgrue
+I don't understand.
+
+> probe
+PROBE OK.
+
+> quit
+
+> y
+I don't understand.

@@ -1,0 +1,180 @@
+
+> probe
+PROBE OK.
+
+> take stone
+You pick up the stone.
+
+> x guard
+A short guard.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk to guard
+Use the format "ask Cora about [subject]".
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> ask guard
+Use the format "ask Bob about [subject]".
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> ask guard about key
+BOB KEY.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk to guard about key
+Use the format "ask Cora about [subject]".
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> give stone to guard
+Ann doesn't seem interested in the stone.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> give guard stone
+Ann doesn't seem interested in the stone.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take guard
+I don't think a guard would appreciate being handled.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kiss guard
+I'm not sure she would appreciate that!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hug guard
+I don't understand what you want to do with Ann.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> eat guard
+I don't understand what you want to do with Ann.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> where is guard
+You haven't seen Cora yet!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard
+Ann avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit guard
+Ann avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> kick guard
+Ann avoids your feeble attempts.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> guard
+I don't understand what you want to do with Ann.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> take stone from guard
+Bob is not carrying the stone!
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> x tall guard
+A short guard.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> x big dave
+A quiet man.
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> where is ann
+Ann is lit room.  (Right next to you silly!)
+
+> look
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk to guard
+Use the format "ask Cora about [subject]".
+
+> north
+You move north.
+Cave
+A cave with rough walls.  Cora is here.  You can only move south.
+
+> x guard
+A third guard.
+
+> talk to guard
+Use the format "ask Cora about [subject]".
+
+> where is guard
+Cora is cave.  (Right next to you silly!)
+
+> south
+You move south.
+Lit Room
+A bright room.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard
+A short guard.
+
+> talk to guard
+Use the format "ask Cora about [subject]".
+
+> where is guard
+Cora is cave.
+
+> probe
+PROBE OK.

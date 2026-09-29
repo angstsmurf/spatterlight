@@ -278,7 +278,8 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
    * conversation arm, which runs after it, overwrites it.  So the LAST
    * character named settles it: with Ann and Bob here and Cora next door,
    * all three guards, `talk to guard about key` is Cora's hint, not "BOB
-   * KEY." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/192/193).
+   * KEY." (run370x/run380x/run390x, runner_probes/npcamb.run370.b.rtf,
+   * runner_probes/npcamb.run380.rtf, runner_probes/npcamb.run390.txt).
    */
   if (hint_when_silent && !lib_is_version_400 (game))
     {
@@ -379,10 +380,11 @@ lib_cmd_talk_to_npc_about (scr_gameref_t game)
  * player's room (459941).  4.0 gates the same block on the flag (run400
  * 47F900), so there a task keeps the line.
  *
- * Measured on Zombies Are Cool (ZAC.taf, 3.90; run390x Adrift_1061_zombies.txt,
- * turns 10-14, 29 and 30): the task `talk to stu` / `ask stu about *` prints
- * "Stu shakes his head, as if he doesn't understand the question.", and run390
- * shows Stu's topic reply alone on every one of them.
+ * Measured on Zombies Are Cool (ZAC.taf, 3.90; run390x
+ * runner_transcripts/zombies.txt, turns 10-14, 29 and 30): the task `talk to
+ * stu` / `ask stu about *` prints "Stu shakes his head, as if he doesn't
+ * understand the question.", and run390 shows Stu's topic reply alone on
+ * every one of them.
  *
  * The task that ran may also have printed NOTHING: then the buffer the ask
  * block finds is empty, and with no topic the no-response answer (459B46) is

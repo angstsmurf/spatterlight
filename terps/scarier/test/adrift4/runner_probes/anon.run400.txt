@@ -1,0 +1,16 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble.
+
+> i
+Anonymous is carrying nothing.
+
+> x me
+A test fighter.
+
+> say name
+Name is [Anonymous].
+
+> turns
+You have taken 4 turns so far.

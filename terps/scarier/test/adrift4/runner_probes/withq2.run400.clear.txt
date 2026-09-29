@@ -1,0 +1,17 @@
+
+> clear screen
+You can't clear that.  TICK.
+
+> clear the rope
+You can't clear the rope.  TICK.
+
+> clear
+Screen cleared.
+
+> look
+Alpha
+The first room.  Also here is a stone and a pebble.  You can only move north.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a stone and a pebble.  You can only move north.  TICK.

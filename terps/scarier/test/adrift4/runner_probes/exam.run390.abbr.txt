@@ -1,0 +1,36 @@
+
+> ex zzz
+Nothing special.
+
+> exam zzz
+Nothing special.
+
+> exam
+Nothing special.
+
+> ex
+Examine what?
+
+> x,
+Examine what?
+
+> ex,
+Examine what?
+
+> exam the
+Nothing special.
+
+> ex crate
+The crate is open.  A coin is inside the crate.
+
+> look at
+Nothing special.
+
+> read
+Nothing special.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

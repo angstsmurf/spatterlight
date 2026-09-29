@@ -1,0 +1,63 @@
+
+> probe
+PROBE OK.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.
+
+> x take bench
+A stone bench.
+
+> take x bench
+A stone bench.
+
+> drop take bench
+You can't take the bench.
+
+> take drop bench
+You can't take the bench.
+
+> wear take bench
+You can't take the bench.
+
+> remove x bench
+A stone bench.
+
+> x remove bench
+A stone bench.
+
+> drop x bench
+A stone bench.
+
+> x drop bench
+A stone bench.
+
+> wear x bench
+A stone bench.
+
+> x wear bench
+A stone bench.
+
+> take bench
+You can't take the bench.
+
+> drop bench
+You don't have the bench!
+
+> wear bench
+You are not holding the bench.
+
+> remove bench
+You are not wearing the bench!
+
+> x bench
+A stone bench.
+
+> look
+Cave
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.
+
+> probe
+PROBE OK.

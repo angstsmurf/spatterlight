@@ -1,0 +1,30 @@
+
+> drop box
+You drop the box.  
+
+> drop stone
+You drop the stone.  
+
+> i
+You are carrying nothing.
+
+> put all in chest
+You are carrying nothing!
+
+> put all in box
+You are carrying nothing!
+
+> get stone
+You take the stone.
+
+> put all in chest
+The chest is closed!
+
+> open chest
+You are not carrying the chest!
+
+> put all in chest
+The chest is closed!
+
+> i
+You are carrying a stone.

@@ -1,0 +1,31 @@
+
+> go0
+GO0.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+Hid wanders in.
+
+> look
+Alpha
+LONG.  Hid is here.
+
+> go1
+GO1.
+
+> look
+Alpha
+LONG.  Hid and Nev are here.
+
+> go2
+GO2.  Base wanders in from the east.
+
+> look
+Alpha
+LONG.  Hid, Nev and Base are here.

@@ -1,0 +1,29 @@
+
+> e
+You move east.
+Bravo
+The second room.  Also here is a widget and a gizmo.  You can only move west.
+
+> look
+Bravo
+The second room.  Also here is a widget and a gizmo.  You can only move west.
+
+> w
+You move west.
+Alpha
+The first room.  Also here is a coin.  You can only move east.
+
+> take widget
+There is nothing worth taking here.
+
+> take coin
+You take the coin.
+
+> take widget
+There is nothing worth taking here.
+
+> take zzz
+Take what?
+
+> x widget
+You can't see the widget from here!

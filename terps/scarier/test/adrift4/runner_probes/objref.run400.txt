@@ -1,0 +1,93 @@
+
+> probe
+PROBE OK.
+
+> zork
+ZORKED %object% and %character%.
+
+> nurb rock
+NURBED a big rock.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> zork
+ZORKED %object% and %character%.
+
+> nurb coin
+NURBED a coin.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> nurb gem
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> nurb zzz
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Also here is a small rock and a gem.  You can only move south.
+
+> nurb rock
+NURBED a small rock.
+
+> look
+Cave
+A cave with rough walls.  Also here is a small rock and a gem.  You can only move south.
+
+> nurb gem
+NURBED a gem.
+
+> look
+Cave
+A cave with rough walls.  Also here is a small rock and a gem.  You can only move south.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> nurb rock
+NURBED a big rock.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> nurb gem
+NURBED a gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> nurb zzz
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock, a red rock and a coin.  You can only move north.
+
+> zork
+ZORKED %object% and %character%.
+
+> probe
+PROBE OK.
+
+> quit
+
+> 
+I don't understand.

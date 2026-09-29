@@ -1,0 +1,56 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a table.  You can only move north.
+
+> take coin and stone
+You can't get either of them.
+
+> take nut and coin
+You can't get any of them.
+
+> take statue and cupboard
+You can't get any of them.
+
+> take zzz and qqq
+You can't get any of them.
+
+> take nut and stone and coin
+You can't get either of them.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  You can only move south.
+
+> take table and coin
+You can't get any of them.
+
+> take table and gem
+You can't get any of them.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a table.  You can only move north.
+
+> take gem and coin
+You can't get any of them.
+
+> i
+You are carrying a coin, a stone and a bag.  A nut is inside the bag.
+
+> take table and stone
+You pick up the table.
+
+> i
+You are carrying a coin, a stone, a bag and a table.  A nut is inside the bag.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

@@ -1,0 +1,24 @@
+
+> drop zzz hat
+You drop the hat.
+
+> i
+You are carrying nothing.
+
+> wear zzz hat
+You are not holding the hat.
+
+> i
+You are carrying nothing.
+
+> take zzz hat
+You pick up the hat.
+
+> i
+You are carrying a hat.
+
+> remove zzz hat
+You are not wearing the hat!
+
+> i
+You are carrying a hat.

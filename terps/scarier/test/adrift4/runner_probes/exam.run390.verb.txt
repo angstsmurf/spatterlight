@@ -1,0 +1,55 @@
+
+> frob statue
+I don't understand.
+
+> frob gem
+I don't understand.
+
+> frob stone
+I don't understand what you want me to do with the stone.
+
+> n
+You move north.
+North Room
+Another bare room.  Also here is a statue.  You can only move south.
+
+> frob stone
+I don't understand.
+
+> frob stone statue
+I don't understand what you want me to do with the statue.
+
+> frob statue stone
+I don't understand what you want me to do with the statue.
+
+> frob gem stone
+I don't understand.
+
+> frob coin
+I don't understand.
+
+> z stone
+I don't understand.
+
+> s
+You move south.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+> frob statue
+I don't understand.
+
+> push statue
+You push, but nothing happens.
+
+> eat statue
+I don't understand.
+
+> frob crate statue
+I don't understand what you want me to do with the crate.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

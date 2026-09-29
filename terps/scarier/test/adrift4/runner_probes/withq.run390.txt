@@ -1,0 +1,78 @@
+
+> probe
+PROBE OK.  Robot hits you.  TICK.
+
+> saw rope
+What with?  Robot hits you.  TICK.
+
+> knife
+T4 SAWN TWO SPACES.  Robot hits you.  TICK.
+
+> turns
+You have taken 5 turns so far.
+
+> cut rope
+What do you want to cut it with?  Robot hits you.  TICK.
+
+> knife
+T7 CUT TWO SPACES.  Robot hits you.  TICK.
+
+> turns
+You have taken 9 turns so far.
+
+> hum
+With what?  Robot hits you.  TICK.
+
+> knife
+T9 HUMMED TWO SPACES.  Robot hits you.  TICK.
+
+> turns
+You have taken 13 turns so far.
+
+> whittle rope
+Whittle it with what?  Robot hits you.  TICK.
+
+> knife
+I don't understand what you want me to do with the knife.  Robot hits you.  TICK.
+
+> turns
+You have taken 16 turns so far.
+
+> i
+You are carrying a knife, a blaster and a sword.  Robot hits you.  TICK.
+
+> shoot robot
+What do you want to attack Robot with?  Robot hits you.  TICK.
+
+> sword
+You can't shoot with the sword!  Robot hits you.  TICK.
+
+> turns
+You have taken 21 turns so far.
+
+> kick robot
+What do you want to attack Robot with?  Robot hits you.  TICK.
+
+> sword
+You chop Robot with the sword.  Robot hits you.  TICK.
+
+> turns
+You have taken 25 turns so far.
+
+> kill robot
+You chop Robot with the sword.  Robot hits you.  TICK.
+
+> sword
+I don't understand what you want me to do with the sword.  Robot hits you.  TICK.
+
+> turns
+You have taken 28 turns so far.
+
+> attack robot
+You chop Robot with the sword.  Robot hits you.  TICK.
+
+> blaster
+I don't understand what you want me to do with the blaster.  Robot hits you.  TICK.
+
+> turns
+You have taken 31 turns so far.

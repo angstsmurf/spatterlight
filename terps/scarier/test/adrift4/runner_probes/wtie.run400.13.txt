@@ -1,0 +1,48 @@
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> take ruby with zzz
+You take the ruby.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone and an emerald.  You can only move north.  TICK.
+
+> i
+You are carrying a knife, a coin and a ruby.  TICK.
+
+> take emerald with stone
+Which emerald.  The red stone, the blue stone or the emerald?  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone and an emerald.  You can only move north.  TICK.
+
+> take stone with coin
+Which stone.  The red stone or the blue stone?  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone and an emerald.  You can only move north.  TICK.
+
+> drop coin with knife
+It is not clear which coin you are referring to.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone and an emerald.  You can only move north.  TICK.
+
+> i
+You are carrying a knife, a coin and a ruby.  TICK.
+
+> drop coin with zzz
+You drop the coin.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone and an emerald.  You can only move north.  TICK.
+
+> i
+You are carrying a knife and a ruby.  TICK.

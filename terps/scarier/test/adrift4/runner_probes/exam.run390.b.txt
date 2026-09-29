@@ -1,0 +1,221 @@
+
+> x stone
+Nothing special.
+
+> x crate
+The crate is open.  A coin is inside the crate.
+
+> x coin
+A gold coin.
+
+> x zzzz
+Nothing special.
+
+> x me
+A test subject.
+
+> n
+You move north.
+North Room
+Another bare room.  Also here is a statue.  You can only move south.
+
+> x statue
+A marble statue.
+
+> s
+You move south.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+> x statue
+Nothing special.
+
+> open statue
+You can't open that.
+
+> close statue
+You can't close that.
+
+> x statues
+Nothing special.
+
+> x door
+Nothing special.
+
+> open door
+You can't open that.
+
+> take door
+Take what?
+
+> open
+You can't open that.
+
+> close
+You can't close that.
+
+> take
+Take what?
+
+> drop
+Drop what?
+
+> read stone
+You can't read the stone!
+
+> read coin
+You can't read the coin!
+
+> read zzzz
+Nothing special.
+
+> buy statue
+I don't think that is for sale.
+
+> get off
+You are not standing on anything!
+
+> x all
+Please examine one object at a time.
+
+> probe
+PROBE OK.
+
+> e
+You move east.
+Void Room
+There is nothing of interest here.  You can only move west.
+
+> look
+Void Room
+There is nothing of interest here.  You can only move west.
+
+> w
+You move west.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+> e
+You move east.
+Void Room
+There is nothing of interest here.  You can only move west.
+
+> open
+You can't open that.
+
+> close
+You can't close that.
+
+> take
+Take what?
+
+> drop
+Drop what?
+
+> open door
+You can't open that.
+
+> w
+You move west.
+Test Room
+A bare room.  Also here is a stone and a crate.  You can move north and east.
+
+> open stone
+You can't open the stone!
+
+> close stone
+You can't close the stone.
+
+> open crate
+The crate is already open!
+
+> close crate
+You close the crate.
+
+> x crate
+The crate is closed.
+
+> open crate
+You open the crate.  A coin is inside the crate.
+
+> take stone
+You pick up the stone.
+
+> i
+You are carrying a stone.
+
+> x stone
+Nothing special.
+
+> read stone
+You can't read the stone!
+
+> drop stone
+You drop the stone.
+
+> take statue
+Take what?
+
+> drop statue
+Drop what?
+
+> drop stone
+You don't have the stone!
+
+> drop coin
+You don't have the coin!
+
+> wear statue
+Wear what?
+
+> wear stone
+You are not holding the stone.
+
+> put stone in statue
+Put the stone inside what?
+
+> put stone on crate
+You can't put anything onto the crate.
+
+> put coin in stone
+You can't put anything inside the stone.
+
+> put stone in crate
+You put the stone inside the crate.
+
+> take stone
+You take a stone from the crate.
+
+> e
+You move east.
+Void Room
+There is nothing of interest here.  You can only move west.
+
+> take coin
+Take what?
+
+> take stone
+You've already got the stone!
+
+> x coin
+Nothing special.
+
+> drop crate
+Drop what?
+
+> wear crate
+Wear what?
+
+> put coin on statue
+You can't do that!
+
+> w
+You move west.
+Test Room
+A bare room.  Also here is a crate.  You can move north and east.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

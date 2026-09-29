@@ -1,0 +1,68 @@
+
+> probe
+PROBE OK.  TICK.
+
+> cut rope
+What do you want to cut it with?
+
+> knife
+You can't cut the rope with the knife.  TICK.
+
+> saw rope
+What with?
+
+> knife
+NO IDEA.
+
+> hum
+With what?
+
+> knife
+I don't understand what you want me to do with the knife.
+
+> whittle rope
+Whittle it with what?  TICK.
+
+> knife
+I don't understand what you want me to do with the knife.
+
+> cut rope
+What do you want to cut it with?
+
+> probe
+PROBE OK.  TICK.
+
+> knife
+I don't understand what you want me to do with the knife.
+
+> push
+Push what?  TICK.
+
+> button
+You push the button, but nothing happens.  TICK.
+
+> give
+(to Nobody)
+Give what?  TICK.
+
+> coin
+Give the coin to who?  TICK.
+
+> dave
+Dave doesn't seem interested in the coin.
+
+> give zzz
+(to Dave)
+Give what?  TICK.
+
+> coin
+Dave doesn't seem interested in the coin.
+
+> break
+Break what?  TICK.
+
+> button
+You might need the button.  TICK.
+
+> i
+You are carrying a coin and a knife.  TICK.

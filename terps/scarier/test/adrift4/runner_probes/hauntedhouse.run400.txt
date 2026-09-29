@@ -1,0 +1,398 @@
+
+shake gutter
+You shake, but nothing happens.
+
+take guttering
+Take what?
+
+drop fags
+Drop what?
+
+open door
+You can't open that.
+
+in
+You can't go in that direction, but you can move south, up and southwest.
+
+n
+You can't go in that direction, but you can move south, up and southwest.
+
+e
+You can't go in that direction, but you can move south, up and southwest.
+
+take pencil
+Take what?
+
+w
+You can't go in that direction, but you can move south, up and southwest.
+
+s
+You move south.
+Front porch
+The front porch of Desther's house is quite impressive. If you didn't know what a dump the inside was, you might well think someone with taste lived here.  Desther is here.  You can only move north.
+
+w
+You can only move north.
+
+take candle
+Take what?
+
+light candle
+You can't light that.
+
+drop matches
+Drop what?
+
+unblock tap
+You can't unblock that.
+
+drop pencil
+Drop what?
+
+take pan
+Take what?
+
+in
+You can only move north.
+
+take rice
+Take what?
+
+out
+You can only move north.
+
+e
+You can only move north.
+
+n
+You move north.
+Entrance.
+
+down
+You can't go in that direction, but you can move south, up and southwest.
+
+drop rice
+Drop what?
+
+take key
+Take what?
+
+turn tap
+You can't turn that.
+
+up
+As you make your way up the stairs, you see a hideous apparition appear out of nowhere.
+
+"Get down those damn stairs, pizza face!" it yells at you.
+
+"Pizza boy not pizza face!" you yell back at it.
+
+The ghost takes a swing for your head with a meat cleaver it's carrying. "Same thing if you ask me, spot. Either way, I ain't letting you up these stairs until you're dead."
+
+s
+You move south.
+Front porch.
+
+w
+You can only move north.
+
+fill pan
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+heat water
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+e
+You can only move north.
+
+out
+You can only move north.
+
+w
+You can only move north.
+
+melt statue
+You can't see the statue.
+
+drop pan
+Drop what?
+
+take ball
+Take what?
+
+e
+You can only move north.
+
+in
+You can only move north.
+
+throw ball
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+take crystal
+Take what?
+
+n
+You move north.
+Entrance.
+
+up
+"Right, you asked for it," says the ghost and buries its meat cleaver in your forehead.
+
+Your body tumbles to the bottom of the stairs - and then gets up. "Now can I come up?" you ask.
+
+The ghost nods. "Sure thing. You are dead after all."
+
+
+I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+
+[Press any key to end]Loading...
+Processing ALR...done.
+
+Indexing tasks...The Haunted House of Hideous Horror
+   "This is what I want," said Desther. " I want to be able to have a bath without a ghost trying to pull the plug. I want to be able to eat my breakfast without a dead body floating around my head. Such things are so distracting. I want my house back. I want the horrors that have manis- manfes- moved in booted out. Do you understand?"
+   You listen to this in bemusement then reply, "dunno, mate. I'm only the pizzy delivery boy."
+  Desther nods. "Yes, yes, I'm aware of that but if you want that tip you're going to have to rid my house of the ghost. Understand?"
+   You consider the possibilities. "What kind of tip are we talking about here? I mean, you're expecting me to risk my life and I'm not doing that for small change."
+   "As much money than you earn in a year."
+   £15? "You got yourself a deal," you say.
+   "Good," says Desther. He leads you into his house. "Now, best of luck. And if you die, I get the pizze free of charge, okay?"
+   "I don't remember agreeing-" you start to say but Desther has scurried outside. The swine!
+   Well, you agreed to clear the house of ghosts. Better get a move on...
+Entrance
+You're in the entrance of Desther's house, a large open area with a statue of the owner in one corner and a series of doors leading off to the rest of the house.  You can move south, up and southwest.
+
+use toilet
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+e
+You can't go in that direction, but you can move south, up and southwest.
+
+n
+You can't go in that direction, but you can move south, up and southwest.
+
+take nail file
+Take what?
+
+sleep
+Zzzzz.  Bored are you?
+
+s
+You move south.
+Front porch
+The front porch of Desther's house is quite impressive. If you didn't know what a dump the inside was, you might well think someone with taste lived here.  Desther is here.  You can only move north.
+
+down
+You can only move north.
+
+s
+You can only move north.
+
+out
+You can only move north.
+
+e
+You can only move north.
+
+file padlock
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+unlock padlock
+You can't open that.
+
+drop nail file
+Drop what?
+
+drop key
+Drop what?
+
+in
+You can only move north.
+
+take teddy
+Take what?
+
+out
+You can only move north.
+
+w
+You can only move north.
+
+in
+You can only move north.
+
+n
+You move north.
+Entrance.
+
+down
+You can't go in that direction, but you can move south, up and southwest.
+
+take wine
+Take what?
+
+up
+As you make your way up the stairs, you see a hideous apparition appear out of nowhere.
+
+"Get down those damn stairs, pizza face!" it yells at you.
+
+"Pizza boy not pizza face!" you yell back at it.
+
+The ghost takes a swing for your head with a meat cleaver it's carrying. "Same thing if you ask me, spot. Either way, I ain't letting you up these stairs until you're dead."
+
+s
+You move south.
+Front porch.
+
+out
+You can only move north.
+
+e
+You can only move north.
+
+n
+You move north.
+Entrance.
+
+climb tree
+You can't climb that.
+
+go on branch
+Unknown place.
+
+jump onto roof
+Wheee-boinng.
+
+drop wine down chimney
+Drop what?
+
+down
+You can't go in that direction, but you can move south, up and southwest.
+
+take stick
+Take what?
+
+put crystal in slot
+I don't understand what you want to put things inside.
+
+open trapdoor
+You can't open that.
+
+down
+You can't go in that direction, but you can move south, up and southwest.
+
+s
+You move south.
+Front porch.
+
+give teddy to ghost
+Give what?
+
+n
+You move north.
+Entrance.
+
+down
+You can't go in that direction, but you can move south, up and southwest.
+
+take boat
+Take what?
+
+sing
+You sing a little song.
+
+s
+You move south.
+Front porch.
+
+e
+You can only move north.
+
+put rod in hole
+I don't understand what you want to put things inside.
+
+in
+You can only move north.
+
+e
+You can only move north.
+
+dig
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+put boat in water
+I don't understand what you want to put things inside.
+
+take candle holder
+Take what?
+
+w
+You can only move north.
+
+w
+You can only move north.
+
+n
+You move north.
+Entrance.
+
+w
+You can't go in that direction, but you can move south, up and southwest.
+
+n
+You can't go in that direction, but you can move south, up and southwest.
+
+put candle holder on table
+Where do you want to put that?
+
+e
+You can't go in that direction, but you can move south, up and southwest.
+
+sit on chair
+You can't sit on that.
+
+ask ghost about object
+You can't talk to that.
+
+w
+You can't go in that direction, but you can move south, up and southwest.
+
+s
+You move south.
+Front porch.
+
+s
+You can only move north.
+
+out
+You can only move north.
+
+e
+You can only move north.
+
+n
+You move north.
+Entrance.
+
+drill concrete
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+take magnet
+Take what?
+
+magnetise object
+   Hmmm. Interesting. No doubt it means something of resounding importance where you come from. But not here.
+
+w
+You can't go in that direction, but you can move south, up and southwest.
+
+e
+You can't go in that direction, but you can move south, up and southwest.
+
+score
+Your score is 0 out of a maximum of 0.  (0%)
+
+open gate
+You can't open that.

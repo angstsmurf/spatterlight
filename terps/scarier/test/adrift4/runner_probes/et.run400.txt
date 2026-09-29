@@ -1,0 +1,119 @@
+
+score
+Player's score is 0 out of a maximum of 0.  (0%)
+
+etcontrol
+ET control fired.
+
+score
+Player's score is 5 out of a maximum of 0.  (0%)
+
+etquiet
+I don't understand.
+
+score
+Player's score is 12 out of a maximum of 0.  (0%)
+
+i
+Player is carrying a rock.
+
+drop rock
+Player drop the rock.  
+
+score
+Player's score is 262 out of a maximum of 0.  (0%)
+
+i
+Player is carrying nothing.
+
+look
+Test Arena
+A bare arena.  Also here is a rock.
+
+score
+Player's score is 262 out of a maximum of 0.  (0%)
+
+score
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) etcontrol
+I don't understand.
+
+understand. understand. score
+I don't understand.
+I don't understand.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) etquiet
+I don't understand.
+
+understand. understand. score
+I don't understand.
+I don't understand.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) i
+I don't understand.
+
+understand. understand. drop rock
+I don't understand.
+I don't understand.
+Player is not holding the rock.
+
+rock. rock. score
+I don't understand what you want me to do with the rock.
+I don't understand what you want me to do with the rock.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) i
+I don't understand.
+
+understand. understand. look
+I don't understand.
+I don't understand.
+Test Arena
+A bare arena.  Also here is a rock.
+
+rock. rock. rock. score
+I don't understand what you want me to do with the rock.
+I don't understand what you want me to do with the rock.
+I don't understand what you want me to do with the rock.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) etcontrol
+I don't understand.
+
+understand. understand. score
+I don't understand.
+I don't understand.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) etquiet
+I don't understand.
+
+understand. understand. score
+I don't understand.
+I don't understand.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) i
+I don't understand.
+
+understand. understand. drop rock
+I don't understand.
+I don't understand.
+Player is not holding the rock.
+
+rock. rock. score
+I don't understand what you want me to do with the rock.
+I don't understand what you want me to do with the rock.
+Player's score is 262 out of a maximum of 0.  (0%)
+
+0%) 0%) i
+I don't understand.
+
+understand. understand. look
+I don't understand.
+I don't understand.
+Test Arena
+A bare arena.  Also here is a rock.

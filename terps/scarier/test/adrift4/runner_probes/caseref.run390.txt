@@ -1,0 +1,40 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  Fay is here.  You can only move north.
+
+> zog rock
+LOOBJ [a big rock].
+
+> frob rock
+UPOBJ [a big rock].
+
+> wibb fay
+LOCHR [Fay].
+
+> nurb fay
+UPCHR [Fay].
+
+> bork 7
+LONUM [7].
+
+> blip 7
+UPNUM [7].
+
+> snib quux
+I don't understand.
+
+> murg quux
+I don't understand.
+
+> xxx zug xxx rock xxx
+LOWILD.
+
+> xxx zag xxx gem xxx
+UPWILD.
+
+> probe
+PROBE OK.

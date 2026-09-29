@@ -1,0 +1,58 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is big gem, small gem, a orb, a orb, the cog, the cog, old red pin and new red pin.  You can only move north.
+
+> take gem
+Which gem.  Big gem or small gem?
+
+> i
+You are carrying nothing.
+
+> take big gem
+You take big gem.
+
+> i
+You are carrying big gem.
+
+> take orb
+Which orb.  The orb or the orb?
+
+> i
+You are carrying big gem.
+
+> take cog
+Which cog.  The cog or the cog?
+
+> i
+You are carrying big gem.
+
+> take pin
+Which pin.  Old red pin or new red pin?
+
+> i
+You are carrying big gem.
+
+> take red pin
+Which pin.  Old red pin or new red pin?
+
+> i
+You are carrying big gem.
+
+> drop orb
+It is not clear which orb you are referring to.
+
+> i
+You are carrying big gem.
+
+> drop red pin
+It is not clear which pin you are referring to.
+
+> i
+You are carrying big gem.
+
+> probe
+PROBE OK.

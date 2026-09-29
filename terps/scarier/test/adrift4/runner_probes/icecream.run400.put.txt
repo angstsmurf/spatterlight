@@ -1,0 +1,32 @@
+
+> scoop ice cream
+You reach down and get a scoop of ice cream.
+
+
+> wipe up the counter
+  You bend over to clean the ice cream, and just as you're about to start, you see that you have a cone in one hand and an ice cream scoop in the other.
+  "What's taking so long?" Ron bellows.
+  "What's taking so long up there? I've got to get to a funeral!" some guy shouts from the end of the line.
+
+
+> put ice cream in cone
+I don't understand what you want to do with the cone.
+
+> put the ice cream in the cone
+I don't understand what you want to do with the cone.
+
+> place ice cream in cone
+  Holding the cone in one hand, you place the scooped ice cream carefully on the top with the other.
+  The ice cream falls on the floor!
+  "Hey!" the customer shouts. "I'm waiting here. Can'tcha be a little more careful?"
+  "Wilbur! Clean that up!" Ron shouts.
+
+> put ice cream on cone
+  You don't have any ice cream in the scoop.
+
+
+> set ice cream in cone
+  You don't have any ice cream in the scoop.
+  "I've never seen such a thing. Imagine! He's just a kid! We'll be here forever," a woman says.
+  "Hey, kid. This is an ice cream parlor, not an artists studio," Ronald growls.
+

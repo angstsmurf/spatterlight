@@ -1,0 +1,44 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble, a box and a ring.
+
+> put box in box
+(Taking the box first)
+You can't put an object inside itself!
+
+> i
+You are carrying a box.
+
+> put box in box
+You can't put an object inside itself!
+
+> put ring in box
+(Taking the ring first)
+You put the ring inside the box.  
+
+> put box in box
+You can't put an object inside itself!
+
+> drop box
+You drop the box.  
+
+> put box in box
+(Taking the box first)
+You can't put an object inside itself!
+
+> i
+You are carrying a box.  A ring is inside the box.
+
+> put pebble in box
+(Taking the pebble first)
+You put the pebble inside the box.  
+
+> i
+You are carrying a box.  A pebble and a ring are inside the box.
+
+> put box in box
+You can't put an object inside itself!
+
+> i
+You are carrying a box.  A pebble and a ring are inside the box.

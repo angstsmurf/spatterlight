@@ -1,0 +1,75 @@
+
+> probe
+PROBE OK.
+
+> take pebble
+You pick up the pebble.
+
+> i
+You are carrying a pebble, a bean and a coin.
+
+> drop pebble
+You drop the pebble.
+
+> get pebble
+You pick up the pebble.
+
+> i
+You are carrying a pebble, a bean and a coin.
+
+> drop pebble
+You drop the pebble.
+
+> take stone
+You pick up the stone.
+
+> i
+You are carrying a stone, a bean and a coin.
+
+> drop stone
+You drop the stone.
+
+> get stone
+You pick up the stone.
+
+> i
+You are carrying a stone, a bean and a coin.
+
+> drop stone
+You drop the stone.
+
+> put bean in jar
+You put the bean inside the jar.
+
+> i
+You are carrying a coin.
+
+> drop coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> take coin
+You pick up the coin.
+
+> put down coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> take a pebble
+TAKEPFX.
+
+> get a stone
+GETPFX.
+
+> put a bean in a jar
+PUTPFX.
+
+> drop a coin
+DROPPFX.
+
+> probe
+PROBE OK.

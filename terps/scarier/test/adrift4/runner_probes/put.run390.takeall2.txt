@@ -1,0 +1,57 @@
+
+> probe
+PROBE OK.
+
+> x chest
+An oak chest.  The chest is open.  A gem is inside the chest.
+
+> take gem
+You take a gem from the chest.
+
+> put gem in cupboard
+You put the gem inside the cupboard.
+
+> take all
+You pick up the table.  You take the gem from the cupboard.
+
+> i
+You are carrying a coin, a stone, a bag, a gem and a table.  A nut is inside the bag.
+
+> put gem in cupboard
+You put the gem inside the cupboard.
+
+> put coin in chest
+You put the coin inside the chest.
+
+> take all
+You take the gem from the cupboard.  You take the coin from the chest.
+
+> i
+You are carrying a coin, a stone, a bag, a gem and a table.  A nut is inside the bag.
+
+> put gem in cupboard
+You put the gem inside the cupboard.
+
+> drop stone
+You drop the stone.
+
+> take all
+You pick up the stone.  You take the gem from the cupboard.
+
+> i
+You are carrying a coin, a stone, a bag, a gem and a table.  A nut is inside the bag.
+
+> put gem in chest
+You put the gem inside the chest.
+
+> put coin in chest
+You put the coin inside the chest.
+
+> take all
+You take the coin and the gem from the chest.
+
+> i
+You are carrying a coin, a stone, a bag, a gem and a table.  A nut is inside the bag.
+
+> probe
+PROBE OK.

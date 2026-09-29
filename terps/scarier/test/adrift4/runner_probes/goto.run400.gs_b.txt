@@ -1,0 +1,47 @@
+
+> n
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> e
+Player moves east.
+Kitchen
+A kitchen.  Player can only move west.
+
+> w
+Player moves west.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> s
+Player moves south.
+First Room
+The first room.  Player can only move north.
+
+> go to kitchen
+Moving to kitchen...
+
+> North
+Player moves north.
+Hall
+A hall.  Player can move north, east, south, west and up.
+
+> East
+Player moves east.
+Kitchen
+A kitchen.  Player can only move west.
+Arrived kitchen.
+
+> go to kitchen, i
+Player is already kitchen!
+Player is carrying nothing.
+
+> go to kitchen and look
+Player is already kitchen!
+Kitchen
+A kitchen.  Player can only move west.
+
+> look
+Kitchen
+A kitchen.  Player can only move west.

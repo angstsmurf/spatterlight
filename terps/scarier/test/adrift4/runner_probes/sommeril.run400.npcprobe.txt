@@ -1,0 +1,64 @@
+
+> n
+You move north.
+Faust Street Junction
+You are standing beneath a street sign - an ornate, Victorian -looking piece of ironwork with a gaslight at its top, proclaims this "FAUST STREET". 
+ Looking ahead northward, the entire village is spread out before you, and you can just discern a HUGE BUILDING with a TOWER at the far end of the street.  You can move north and south.
+
+> n
+You move north.
+Lower Faust Street
+This area of the street is dedicated mostly to an open air CAFE to the west. The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.  You can see the bulging silver form of a FISH in the gutter.  You can move north, south and west.
+
+> w
+You move west.
+Cafe
+Outside the entrance of a small edifice is a single circular TABLE and CHAIR on which has been placed a pristine white TABLECLOTH which flutters lightly in the breeze. It has a table setting for one person, with a shiny white PLATE on a PLACEMAT.   Also here is a MENU.  A WAITER is here.  You can only move east.
+
+> e
+You move east.
+Lower Faust Street
+This area of the street is dedicated mostly to an open air CAFE to the west. The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.  You can see the bulging silver form of a FISH in the gutter.  You can move north, south and west.
+
+> n
+You move north.
+Middle Faust Street
+Here is a area dedicated to warehouses, mostly wooden buildings, but one or two constructed of brick. In the middle of the street, a modern AMBULANCE is a still-frame of blurred motion: Its emergency lights caught in a mid-blink lens flair. It races, in place, northward to some unseen destination. On the east side of this block you can hear the hammering of metal against metal, coming from a roofed open area under a large tree.  You can move north, south and in.
+
+> n
+You move north.
+Upper Faust Street
+This is upper Faust Street.  The street widens somewhat to accommodate a sandstone FOUNTAIN. At its center, on a dais, is a stone STATUE of a skeleton, sitting in the "Thinker" position. Water trickles from its eye sockets into the fountain below. The WATER is dark and brackish. The fountain also marks the entrance to a park further north. 
+   A SILVER ORB is held in the SKELETON's prone hand.  You can move north and south.
+
+> take silver orb
+You are already carrying the SILVER ORB.
+
+> n
+You move north.
+Park
+Here is a small but most unusual park, perhaps a hundred yards wide. The entire effect is one of mind-reeling surrealism. CLOCKS are draped over marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the size of a circus tent is propped up at each end on two tall poles. At the other end of the park, to the north, the stairs to the citadel await you.  A large glass EYEBALL the size of a volkswagen is suspended from a dead tree by a string no thicker than a human hair.    You can move north, south, southeast and southwest.
+
+> sw
+You move southwest.
+Upper Nemo Boulevard
+The scenery takes a bizarre turn at this point. There are buildings, but they are just false fronts, scale cutouts  made of cardboard and propped up by wooden sawhorses. There is a building with a shingle on the front door which says "Typhoon Tavern" to the west. The street widens as part of a park.  A GARGOYLE sits on a  wooden shelf over the tavern door, staring blankly out into the street.  You can move south, in and northeast.
+
+> ask about zzz
+(Nobody)
+You can't talk to that.
+
+> give silver orb to gargoyle
+You place the orb on the gargoyle's small perch and it exclaims
+"For me? Thank you! Now I can move about freely. I can go HOME!" The gargoyle flexes his wings and flies off like a bird from a roost.
+
+> ask about zzz
+(GARGOYLE)
+GARGOYLE isn't here!
+
+> x shelf
+You find it to be inconsequential.
+
+> ask about zzz
+(GARGOYLE)
+GARGOYLE isn't here!

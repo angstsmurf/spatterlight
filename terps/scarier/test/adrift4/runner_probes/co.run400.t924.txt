@@ -1,0 +1,37 @@
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop tree
+Which tree.  The tree or the tree?
+
+> x tree
+That is still ambiguous!
+
+> poke tree
+POKE.
+
+> poke rock
+POKE.
+
+> chop rock
+I don't understand what you want me to do with the rock.
+
+> chop keys
+NO IDEA.
+
+> x keys
+Which keys.  The mustang key or the truck key?
+
+> e
+You move east.
+Bravo
+The second room.  You can only move west.
+
+> chop tree
+I don't understand what you want me to do with the tree.
+
+> look
+Bravo
+The second room.  You can only move west.

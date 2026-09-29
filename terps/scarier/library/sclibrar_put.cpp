@@ -172,15 +172,17 @@ lib_put_print_object_or_that (scr_gameref_t game, scr_int object)
  * in the player's hands, never worn and never inside anything; that is the
  * set "put all in X" and "put all except Y on Z" range over there, and it is
  * what the "You are not holding ..." leftover report is phrased for.  run390
- * also takes what is lying loose in the room: on p39DARK (Adrift_980:50,
- * 2026-09-12), with the torch, lamp and coin in hand and the stone and the
- * pebble on the cave floor, `put all in box` answers "You put the torch, the
- * lamp, the stone, the pebble and the coin inside the box."  It stops there
- * -- once every object is inside the box, the same command answers "Nothing
- * will fit inside the box." (Adrift_980:59), the empty-list message, so the
+ * also takes what is lying loose in the room: on p39DARK
+ * (runner_probes/dark.run390.putin3.txt:50, 2026-09-12), with the torch, lamp
+ * and coin in hand and the stone and the pebble on the cave floor, `put all in
+ * box` answers "You put the torch, the lamp, the stone, the pebble and the
+ * coin inside the box."  It stops there -- once every object is inside the
+ * box, the same command answers "Nothing will fit inside the box."
+ * (runner_probes/dark.run390.putin3.txt:59), the empty-list message, so the
  * contents of a container standing in the room are NOT candidates.  The 4.0
- * control is Adrift_981:11: `put all in box` with the stone, pebble and coin
- * loose in the room moves only the two held objects.
+ * control is runner_probes/tfrom.run400.putin3.txt:11: `put all in box` with
+ * the stone, pebble and coin loose in the room moves only the two held
+ * objects.
  */
 static scr_bool
 lib_put_named_filter (scr_gameref_t game, scr_int object)
@@ -189,9 +191,10 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * A static is named too, at 4.0.  There is no static test at name time --
    * the one that turns the piece away lives in `insides` (@465ED7) and is
    * silent -- so the line is claimed and the take piece runs on it first.
-   * Probe PSTAT (Adrift_941/942_pstat.txt): `put anvil in box`, the anvil a
-   * static lying in the room, answers "(Taking the anvil first)" / "You
-   * can't take the anvil!" where scarier used to fall through to the game's
+   * Probe PSTAT (runner_probes/pstat.run400.txt,
+   * runner_probes/pstat.run400.b.txt): `put anvil in box`, the anvil a static
+   * lying in the room, answers "(Taking the anvil first)" / "You can't take
+   * the anvil!" where scarier used to fall through to the game's
    * DontUnderstand.  Pre-4.0 handlers never see a static.
    */
   if (obj_is_static (game, object))
@@ -208,15 +211,18 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * the put simply runs -- and one sitting inside a container the player is
    * carrying.  Measured on p39DARK against run390 (2026-09-12):
    *
-   *   Adrift_978:55   pebble loose on the cave floor, box in hand, `put
+   *   runner_probes/dark.run390.putin2.txt:55
+   *                   pebble loose on the cave floor, box in hand, `put
    *                   pebble in box` -> "You put the pebble inside the box."
-   *   Adrift_976:31   box in hand with the coin inside it, `put coin in box`
+   *   runner_probes/dark.run390.putin.txt:31
+   *                   box in hand with the coin inside it, `put coin in box`
    *                   -> "You put the coin inside the box." (a no-op move,
    *                   but the Runner says it all the same)
    *
    * and it is only this wide: the coin inside the box once the box is on the
-   * FLOOR is refused, "You can't see that." (Adrift_978:40), so the reach is
-   * one step from the player's hands, not the whole room's contents.  See
+   * FLOOR is refused, "You can't see that."
+   * (runner_probes/dark.run390.putin2.txt:40), so the reach is one step from
+   * the player's hands, not the whole room's contents.  See
    * lib_put_not_reachable_pre400() for that refusal.
    *
    * 3.7 and 3.8 are narrower again, and the step into the player's own
@@ -224,12 +230,15 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * the put universe no matter whose hands the container is in.  Measured on
    * p38DARK under run380 and p37DARK under run370, 2026-09-12, the box held
    * and open with the coin inside it -- `put coin in box` answers "You can't
-   * see that." (Adrift_982:18/24/33 and Adrift_986:18/24/33, and again with
-   * the box brought into the lit room, Adrift_985:28 / Adrift_989:28), where
-   * run390 moves the coin and says so.  Loose room objects stay reachable on
-   * both: `put pebble in box` -> "You put the pebble inside the box."
-   * (Adrift_983:57 / Adrift_987:57).  So run390's one step of reach into a
-   * carried container is a 3.90 addition.
+   * see that." (runner_probes/dark.run380.putin.txt:18/24/33 and
+   * runner_probes/dark.run370.putin.txt:18/24/33, and again with the box
+   * brought into the lit room, runner_probes/dark.run380.putin4.txt:28 /
+   * runner_probes/dark.run370.putin4.txt:28), where run390 moves the coin and
+   * says so.  Loose room objects stay reachable on both: `put pebble in box`
+   * -> "You put the pebble inside the box."
+   * (runner_probes/dark.run380.putin2.txt:57 /
+   * runner_probes/dark.run370.putin2.txt:57).  So run390's one step of reach
+   * into a carried container is a 3.90 addition.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return gs_object_position (game, object) == OBJ_HELD_PLAYER
@@ -255,13 +264,16 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
  * Measured in three run400 replays, none of which raises the 4.0 "Which X."
  * prompt on the line:
  *
- *   easter      Adrift_273:135  `put egg in basket` -> "You put the creme
- *               egg inside the Easter basket.", with the game's other eggs
- *               standing in the room
- *   helsing     Adrift_181:50   `put beads on dance floor` runs the game's
- *               own task past a namesake "beads"
- *   provenance  Adrift_342:1781 `put wood on stump` -> "You place the piece
- *               of wood on the stump.", picking it over the cord of wood
+ *   easter      runner_probes/easter.run400.txt:135
+ *               `put egg in basket` -> "You put the creme egg inside the
+ *               Easter basket.", with the game's other eggs standing in the
+ *               room
+ *   helsing     runner_transcripts/helsing.txt:50
+ *               `put beads on dance floor` runs the game's own task past a
+ *               namesake "beads"
+ *   provenance  runner_probes/provenance.run400.txt:1781
+ *               `put wood on stump` -> "You place the piece of wood on the
+ *               stump.", picking it over the cord of wood
  *
  * Only the resolver narrows this way.  The filter that selects the objects
  * the handler then works on stays wide, so `put anvil in box` -- one static,
@@ -372,10 +384,10 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
    * task's restrictions passing or failing on a restriction that has a
    * message -- House's task 60 "* %object%", restricted to the spinning
    * house with no message, is NOT a hit, and run400 goes on to "(Taking the
-   * wood first)"; Adrift_91.txt); the object then reaches the put handler
-   * unheld and draws its "not holding" refusal, or -- if the handler's own
-   * canonical look-up claims -- the task.  The task the player spelled out
-   * is what the refusal hands the line to afterwards (see
+   * wood first)"; runner_probes/house.run400.wood.txt); the object then
+   * reaches the put handler unheld and draws its "not holding" refusal, or --
+   * if the handler's own canonical look-up claims -- the task.  The task the
+   * player spelled out is what the refusal hands the line to afterwards (see
    * run_all_commands()).
    */
   if (lib_task_prematches_input (game, 1))
@@ -512,7 +524,8 @@ lib_output_length (scr_gameref_t game)
  * put down: run400 46E5A0, the literal an empty-handed `drop all` prints too
  * (see lib_cmd_drop_all).  It closes the take phase, ahead of the task
  * look-ups `insides` makes, and it is printed only when all three of these
- * hold -- measured on probe PSTAT in run400, Adrift_941/942_pstat.txt:
+ * hold -- measured on probe PSTAT in run400, runner_probes/pstat.run400.txt,
+ * runner_probes/pstat.run400.b.txt:
  *
  *   nothing left to act on    `put coin in box` with the coin in hand moves
  *                             it and says nothing (cmd 5), and `put box in
@@ -570,12 +583,12 @@ lib_put_nothing_carried_400 (scr_gameref_t game, scr_bool has_printed)
  * state test at 4661BE = 7 " is locked!" / 4661C9 = 6 " is closed!", ahead
  * of the size test at 466219).  Because the take piece has already run, a
  * put into a shut container still ACQUIRES the object: probe PCLOSED
- * (Adrift_1194.txt) `put ring in box` with the box held and shut prints
- * "(Taking the ring first)" / "The box is closed!" and `i` then lists the
- * ring; `put coin in chest` with the chest shut on the floor is the same
- * shape, "(Taking the coin first)" / "The chest is closed!", and the coin
- * is held afterwards.  An object already in hand draws the refusal alone
- * (`put stone in box`, "The box is closed!").  Returns TRUE and drops every
+ * (runner_probes/closed.run400.txt) `put ring in box` with the box held and
+ * shut prints "(Taking the ring first)" / "The box is closed!" and `i` then
+ * lists the ring; `put coin in chest` with the chest shut on the floor is the
+ * same shape, "(Taking the coin first)" / "The chest is closed!", and the coin
+ * is held afterwards.  An object already in hand draws the refusal alone (`put
+ * stone in box`, "The box is closed!").  Returns TRUE and drops every
  * remaining reference when it refused, so the size and capacity tests see
  * nothing; like those, the refusal leaves the line for the task pass, since
  * insides exits without setting its result byte.
@@ -676,22 +689,23 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * to insides (Proc_19_43_46639C @loc_46E34F), which is where the
        * canonical line reaches the tasks -- so a task that goes on to claim
        * the put still carries the announcement ahead of its own text.
-       * Measured on frustrated turns 53-55 (Adrift_274_frustrated.txt):
-       * `put small rock on left pan` matches task 511 `put*small*left*` and
-       * still opens "(Taking the small rock first)".
+       * Measured on frustrated turns 53-55
+       * (runner_transcripts/frustrated.txt): `put small rock on left pan`
+       * matches task 511 `put*small*left*` and still opens "(Taking the small
+       * rock first)".
        *
        * It runs ahead of the self-container test as well: insides tests
        * possession (Proc_21_46_44615C @465EED) before it tests arg_10 =
        * arg_C (@465FA0), and name_object's take piece has already run by
-       * then.  Probe PBOXBOX (Adrift_1192.txt): `put box in box` with the
-       * box on the floor prints "(Taking the box first)" / "You can't put
-       * an object inside itself!" and the box IS taken -- `i` answers "You
-       * are carrying a box." -- where the same line with the box held
-       * prints only the itself line, and a ring inside the box changes
+       * then.  Probe PBOXBOX (runner_probes/boxbox.run400.txt): `put box in
+       * box` with the box on the floor prints "(Taking the box first)" / "You
+       * can't put an object inside itself!" and the box IS taken -- `i`
+       * answers "You are carrying a box." -- where the same line with the box
+       * held prints only the itself line, and a ring inside the box changes
        * nothing.  Probe PSTAT's silent commands 13 and 18 are not a
-       * counter-measurement: there the coin, object #1, sits inside the
-       * box, and run400's carried-weight cycle (447680) eats the report;
-       * see the deliberate deviation in notes/WINE-TRANSCRIPTS-TODO.md.
+       * counter-measurement: there the coin, object #1, sits inside the box,
+       * and run400's carried-weight cycle (447680) eats the report; see the
+       * deliberate deviation in notes/WINE-TRANSCRIPTS-TODO.md.
        */
       {
         scr_bool take_printed = FALSE;
@@ -708,12 +722,12 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * lib_try_game_command_with_object_400().  A matching task it does
        * not reach -- the typed spelling with no canonical twin -- gets the
        * line from run_all_commands() only if the library then refuses the
-       * put, joined after the refusal (PUT4, Adrift_81.txt).  It runs even
-       * for an object the take above could not acquire: run400 reaches
-       * insides' tasks() call at loc_465EB5 before the possession test at
-       * loc_465EED, so a claim takes the object back out of the "You are
-       * not holding ..." report.  The look-up itself is deferred to the
-       * second pass below, so that the whole take phase precedes it.
+       * put, joined after the refusal (PUT4, runner_probes/put4.run400.txt).
+       * It runs even for an object the take above could not acquire: run400
+       * reaches insides' tasks() call at loc_465EB5 before the possession test
+       * at loc_465EED, so a claim takes the object back out of the "You are
+       * not holding ..." report.  The look-up itself is deferred to the second
+       * pass below, so that the whole take phase precedes it.
        */
       if (lib_is_version_400 (game))
         {
@@ -791,14 +805,14 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * having already moved it to the "You are not holding ..." report -- and
    * before the "already inside", size and capacity tests (arg_10 = arg_C
    * @465FA0, the wording chosen by the target's flags at 465FDA/46600C/
-   * 46602A).  Probe PBOXBOX (Adrift_1192.txt): `put box in box` with the
-   * box on the floor prints "(Taking the box first)" / "You can't put an
-   * object inside itself!" and the box IS taken -- `i` answers "You are
-   * carrying a box." -- where the same line with the box held prints only
-   * the itself line, and a ring inside the box changes nothing.  Probe
-   * PSTAT's silent commands 13 and 18 are not a counter-measurement: there
-   * the coin, object #1, sits inside the box, and run400's carried-weight
-   * cycle (447680) eats the report; see the deliberate deviation in
+   * 46602A).  Probe PBOXBOX (runner_probes/boxbox.run400.txt): `put box in
+   * box` with the box on the floor prints "(Taking the box first)" / "You
+   * can't put an object inside itself!" and the box IS taken -- `i` answers
+   * "You are carrying a box." -- where the same line with the box held prints
+   * only the itself line, and a ring inside the box changes nothing.  Probe
+   * PSTAT's silent commands 13 and 18 are not a counter-measurement: there the
+   * coin, object #1, sits inside the box, and run400's carried-weight cycle
+   * (447680) eats the report; see the deliberate deviation in
    * notes/WINE-TRANSCRIPTS-TODO.md.
    */
   for (const scr_int pending_object : pending)
@@ -848,14 +862,14 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * arm and it was read as dead.  It is not: pPUTZERO39 (SizeMultiple 0,
    * a bag of capacity 2 holding a coin and a stone, `put feather in bag`
    * with the feather at SizeWeight 10) is "The bag is full." in run390 and
-   * the feather stays in hand (Adrift_pputzero39.txt).  The same line with
-   * a size-1 pebble is the ordinary "The pebble can't fit inside the bag
-   * at the moment.", so the per-object refusal above still comes first,
-   * and `put all in bag` with two size-0 objects held is "The bag is
-   * full." rather than "Nothing will fit inside the bag." -- the count
-   * sees them fit, so the nil-count refusal never speaks.  A surface is
-   * barred by the arm's third test (var_E0 = "inside"): the same probe
-   * puts three objects onto a plate of capacity 2 without a word.
+   * the feather stays in hand (runner_probes/putzero.run390.txt).  The same
+   * line with a size-1 pebble is the ordinary "The pebble can't fit inside the
+   * bag at the moment.", so the per-object refusal above still comes first,
+   * and `put all in bag` with two size-0 objects held is "The bag is full."
+   * rather than "Nothing will fit inside the bag." -- the count sees them fit,
+   * so the nil-count refusal never speaks.  A surface is barred by the arm's
+   * third test (var_E0 = "inside"): the same probe puts three objects onto a
+   * plate of capacity 2 without a word.
    *
    * That measurement also settles obj_scale()'s long-standing claim that a
    * multiple of nil gives a size of nil, which nothing had tested.
@@ -895,13 +909,13 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * (461E0B), with no object named.  pPUTREF39.taf / pPUTREF39E.taf
    * (--emptybag), run390x, 2026-09-19: `put stone and pebble in bag` with
    * the bag full is "Nothing will fit inside the bag.", as is `put all in
-   * bag` (Adrift_pputref394.txt:5/11); with room for two, `put stone and
-   * pebble and lamp in bag` is "You put the stone and the lamp inside the
-   * bag.  You can't put any more inside the bag as it is full." (Adrift_
-   * pputref396.txt:5).  A single object keeps the size/capacity pair
-   * below.  The " is full." arm at 461E9D never spoke on these probes,
-   * the bag exactly full included, because it wants an object that fits
-   * into a container with nothing left; it is modelled just above.
+   * bag` (runner_probes/putref.run390.feed4.txt:5/11); with room for two, `put
+   * stone and pebble and lamp in bag` is "You put the stone and the lamp
+   * inside the bag.  You can't put any more inside the bag as it is full."
+   * (runner_probes/putref.run390.feed6.txt:5).  A single object keeps the
+   * size/capacity pair below.  The " is full." arm at 461E9D never spoke on
+   * these probes, the bag exactly full included, because it wants an object
+   * that fits into a container with nothing left; it is modelled just above.
    */
   nothing_fits_390 = FALSE;
   if (lib_is_version_390 (game)
@@ -994,16 +1008,18 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * through tense() and gets the definite form.  p38DARK/p37DARK, box
        * held, torch (Prefix "an") and lamp (Prefix "a") in hand: `put all
        * in box` -> "You put an torch and a lamp inside the box."
-       * (Adrift_985:22, Adrift_989:22, 2026-09-12), against `put torch in
-       * box` -> "You put an torch inside the box." and `put pebble in box`
-       * -> "You put the pebble inside the box." on the same probes
-       * (Adrift_983:60/57).  Only the list is raw -- the container that
-       * follows it is definite in both.  3.9 and 4.0 normalise throughout
-       * ("the torch, the lamp, ..." Adrift_980:50, "the torch and the lamp"
-       * Adrift_981:11), so this is the pre-3.9 all-form alone.  Scarier
-       * deliberately names them definitely there too (deviation policy):
-       * "You put an torch and a lamp inside the box." is the raw prefix
-       * leaking into a success report.
+       * (runner_probes/dark.run380.putin4.txt:22,
+       * runner_probes/dark.run370.putin4.txt:22, 2026-09-12), against `put
+       * torch in box` -> "You put an torch inside the box." and `put pebble in
+       * box` -> "You put the pebble inside the box." on the same probes
+       * (runner_probes/dark.run380.putin2.txt:60/57).  Only the list is raw --
+       * the container that follows it is definite in both.  3.9 and 4.0
+       * normalise throughout ("the torch, the lamp, ..."
+       * runner_probes/dark.run390.putin3.txt:50, "the torch and the lamp"
+       * runner_probes/tfrom.run400.putin3.txt:11), so this is the pre-3.9
+       * all-form alone.  Scarier deliberately names them definitely there too
+       * (deviation policy): "You put an torch and a lamp inside the box." is
+       * the raw prefix leaking into a success report.
        */
       lib_print_list (game, list, lib_put_print_object_or_that, " and ");
       pf_buffer_string (filter, " inside ");
@@ -1170,9 +1186,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
  * handler (Proc_19_43_46639C) exits every message path without setting its
  * return byte, so "The rock is too big to fit inside the slot." is printed
  * and a matching task then answers the same line, joined on with two spaces
- * (arena probe PUT7, Adrift_87, 2026-09-05; Zack Smackfoot `put knife in
- * slot`, Adrift_57).  Signal that to run_priority_commands() and report the
- * handler's return.  Pre-4.0 the refusal claims the line, as it always has.
+ * (arena probe PUT7, runner_probes/put7.run400.b.txt, 2026-09-05; Zack
+ * Smackfoot `put knife in slot`, runner_probes/zacksmackfoot.run400.txt).
+ * Signal that to run_priority_commands() and report the handler's return.
+ * Pre-4.0 the refusal claims the line, as it always has.
  */
 static scr_bool
 lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
@@ -1201,11 +1218,11 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
  * writes "(Taking X first)" straight to the textbox (@46E2EA-46E30C) while
  * the turn's answer collects in MemVar_4941B0, and a claim that printed
  * nothing leaves that empty for generaltasks' tail (48B573) to fill.  hcw
- * turn 162 (Adrift_1055_hcw.txt:1087): `put susan in trunk` pre-matches the
- * lower-cased rebuilds, dispatches the raw "get sleeping Susan" / "put
- * sleeping Susan in the car trunk", runs nothing (see
- * lib_run_rebuilt_line_400()) and reads "(Taking sleeping Susan first)" /
- * "I don't understand what you mean.".
+ * turn 162 (runner_probes/hcw.run400.txt:1087): `put susan in trunk`
+ * pre-matches the lower-cased rebuilds, dispatches the raw "get sleeping
+ * Susan" / "put sleeping Susan in the car trunk", runs nothing (see
+ * lib_run_rebuilt_line_400()) and reads "(Taking sleeping Susan first)" / "I
+ * don't understand what you mean.".
  */
 static scr_bool
 lib_put_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
@@ -1271,14 +1288,18 @@ lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
  * library names an object: the room is no part of the test.  On p38DARK/p37DARK with the player standing in the
  * lit room and the box left behind on the cave floor, `put lamp in box` and
  * `put stone in box` both answer "You are not holding a box."
- * (Adrift_984:25/31, Adrift_988:25/31, 2026-09-12), and so does `put all in
- * box` (Adrift_984:50/988:50) -- the box is found, and then refused for not
- * being in the player's hands.  run390 never finds it and asks "Put the
- * lamp inside what?" instead (Adrift_980:24).
+ * (runner_probes/dark.run380.putin3.txt:25/31,
+ * runner_probes/dark.run370.putin3.txt:25/31, 2026-09-12), and so does `put
+ * all in box` (runner_probes/dark.run380.putin3.txt:50,
+ * runner_probes/dark.run370.putin3.txt:50) -- the box is found, and then
+ * refused for not being in the player's hands.  run390 never finds it and asks
+ * "Put the lamp inside what?" instead
+ * (runner_probes/dark.run390.putin3.txt:24).
  *
  * A noun that names nothing anywhere is still nothing: `put coin in zzzz`
  * and `put coin in me` fall through to lib_cmd_put_in_nowhere()
- * (Adrift_983:72, Adrift_982:66).
+ * (runner_probes/dark.run380.putin2.txt:72,
+ * runner_probes/dark.run380.putin.txt:66).
  *
  * The room-filtered resolver runs first and keeps the ambiguity prompt for
  * the cases it already handled; only when it comes back empty-handed, and
@@ -1289,10 +1310,11 @@ lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
  * The surface half of the row is the same code: with the table left in the
  * cave and the player standing in the lit room, `put lamp on table` and `put
  * stone on table` are both "You are not holding a table." on run370 and
- * run380 (p37SURF/p38SURF, Adrift_1005:5/7 and Adrift_1001:5/7, 2026-09-12),
- * where run390 never finds the table and asks "Put the lamp onto what?"
- * instead.  That is only to be expected once the two handlers turn out to be
- * one; see lib_put_target_takes_on().
+ * run380 (p37SURF/p38SURF, runner_probes/surf3.run370.txt:5/7 and
+ * runner_probes/surf3.run380.txt:5/7, 2026-09-12), where run390 never finds
+ * the table and asks "Put the lamp onto what?" instead.  That is only to be
+ * expected once the two handlers turn out to be one; see
+ * lib_put_target_takes_on().
  */
 static scr_int
 lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
@@ -1345,28 +1367,34 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
  * with the box (a container) and the table (a surface) both in hand:
  *
  *   put pebble on box   You put the pebble inside the box.
- *                                     (Adrift_1012:4, Adrift_1011:4)
+ *                       (runner_probes/surf5.run370.txt:4,
+ *                       runner_probes/surf5.run380.txt:4)
  *   put stone in table  You put the stone on the table.
- *                                     (Adrift_1012:7, Adrift_1011:7)
+ *                       (runner_probes/surf5.run370.txt:7,
+ *                       runner_probes/surf5.run380.txt:7)
  *   put lamp on box     with the box shut
  *                       You can't put anything inside the box as it is
- *                       closed!       (Adrift_1012:10, Adrift_1011:10)
+ *                       closed!
+ *                       (runner_probes/surf5.run370.txt:10,
+ *                       runner_probes/surf5.run380.txt:10)
  *   put all on box      You put an torch, a lamp and a table inside the box.
- *                                     (Adrift_1012:12, Adrift_1011:12)
+ *                       (runner_probes/surf5.run370.txt:12,
+ *                       runner_probes/surf5.run380.txt:12)
  *
  * -- where run390 and run400 keep the two apart and refuse every one of
  * them, "You can't put anything onto the box." / "...inside the table."
- * (Adrift_1007:4/7, Adrift_1008:4/7).  It also explains the third of the
- * pre-3.9 answers that used to look like a surface test and is not: `put
- * coin on box` with the box standing on the cave floor is "You are not
- * holding a box." (Adrift_1003:16), the container handler's own held
- * refusal, reached because the line was routed by the box's kind.
+ * (runner_probes/surf5.run390.txt:4/7, runner_probes/surf5.run400.txt:4/7).
+ * It also explains the third of the pre-3.9 answers that used to look like a
+ * surface test and is not: `put coin on box` with the box standing on the cave
+ * floor is "You are not holding a box." (runner_probes/surf1.run370.txt:16),
+ * the container handler's own held refusal, reached because the line was
+ * routed by the box's kind.
  *
  * A target that is both, or neither, has no kind to be routed by, so it
  * keeps the preposition the player typed -- which is what the neither case
  * is measured to do: `put coin on stone` is "You can't put anything on the
- * stone." (Adrift_1003:14) against `put coin in stone`'s "...inside the
- * stone." on the same Runner.
+ * stone." (runner_probes/surf1.run370.txt:14) against `put coin in stone`'s
+ * "...inside the stone." on the same Runner.
  */
 static scr_bool
 lib_put_target_takes_on (scr_gameref_t game, scr_int target, scr_bool typed_on)
@@ -1401,8 +1429,9 @@ static lib_put_outcome_t lib_put_on_backend (scr_gameref_t game,
  * QUIET, so a failing task leaves the refusal standing; with none, the LOUD
  * pass lets its FailMessage replace it; a passing task replaces it either
  * way.  Measured on pPUTREF39.taf (make_39_putrefprobe.py), run390x,
- * 2026-09-19 (Adrift_pputref39.txt / Adrift_pputref392.txt), each line with
- * a matching task whose restriction fails:
+ * 2026-09-19 (runner_probes/putref.run390.txt /
+ * runner_probes/putref.run390.feed2.txt), each line with a matching task whose
+ * restriction fails:
  *
  *   put coin in lamp    You can't put anything inside the lamp.
  *   put coin in box     You can't put anything inside the box as it is closed!
@@ -1469,11 +1498,12 @@ static scr_bool lib_put_refusal_first_390 (scr_gameref_t game);
  * lib_put_co_refusal_pre390() already gives for a line it could not parse.
  * p37PUT/p38PUT, standing in the cave with the open static cupboard in the
  * lit room: `put coin in cupboard` is "You can't see a cupboard." (run370x
- * Adrift_160_p37drop.rtf, run380x Adrift_161_p38drop.rtf, 2026-09-19);
- * Scarier had put the coin into it.  The not-a-container refusal comes
- * first: `put coin in statue`, the plain static statue also left behind, is
- * "You can't put anything inside the statue." on the same turns.  The
- * static surface is the same handler, and unmeasured.
+ * runner_probes/put.run370.drop.rtf, run380x
+ * runner_probes/put.run380.drop.rtf, 2026-09-19); Scarier had put the coin
+ * into it.  The not-a-container refusal comes first: `put coin in statue`, the
+ * plain static statue also left behind, is "You can't put anything inside the
+ * statue." on the same turns.  The static surface is the same handler, and
+ * unmeasured.
  */
 static scr_bool
 lib_put_static_absent_pre390 (scr_gameref_t game, scr_int target)
@@ -1518,9 +1548,9 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
        * composes its own from "You can't put anything " & preposition --
        * and they end the line with a full stop: p39DARK under run390,
        * `put coin in stone` -> "You can't put anything inside the stone."
-       * (Adrift_976:43), against run400's "You can't put anything inside
-       * the stone!" on the same turn of p4TFROM (Adrift_977:24).  Measured
-       * 2026-09-12.
+       * (runner_probes/dark.run390.putin.txt:43), against run400's "You can't
+       * put anything inside the stone!" on the same turn of p4TFROM
+       * (runner_probes/tfrom.run400.putin.txt:24).  Measured 2026-09-12.
        */
       lib_print_response_object (game,
                                  "You can't put anything inside ",
@@ -1584,8 +1614,10 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
        * calls locked draws the closed wording before 4.0.  The closed half
        * is measured on both arms with the same probe turn, `put lamp in
        * box` with the box shut: run390 "You can't put anything inside the
-       * box as it is closed!" (p39DARK, Adrift_978:28) against run400 "The
-       * box is closed!" (p4TFROM, Adrift_979:18), 2026-09-12.
+       * box as it is closed!" (p39DARK,
+       * runner_probes/dark.run390.putin2.txt:28) against run400 "The box is
+       * closed!" (p4TFROM, runner_probes/tfrom.run400.putin2.txt:18),
+       * 2026-09-12.
        */
       lib_print_response_object (game,
                                  "You can't put anything inside ",
@@ -1610,8 +1642,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
  * given line runs is lib_put_target_takes_on()'s to say, and the all form
  * is routed by the target's kind exactly as the named one is -- `put all on
  * box` with the box in hand is "You put an torch, a lamp and a table inside
- * the box." on run370 and run380 (Adrift_1012:12 / Adrift_1011:12,
- * 2026-09-12).
+ * the box." on run370 and run380 (runner_probes/surf5.run370.txt:12 /
+ * runner_probes/surf5.run380.txt:12, 2026-09-12).
  */
 static scr_bool
 lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
@@ -1639,7 +1671,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * (461B4B-461B87) keeps only the objects co(obj, 0) names.  p39PUT T29
    * `put all except coin and stone in cupboard`, the coin and stone lying
    * on the held table, is "Nothing will fit inside the cupboard." (run390x
-   * Adrift_154_p39put.txt, 2026-09-19): neither named object is held or
+   * runner_probes/put.run390.txt, 2026-09-19): neither named object is held or
    * loose in the room, and the table, unnamed, is not a candidate.  (The
    * and-arm also admits worn objects, 461B38; not modelled.)
    */
@@ -1671,38 +1703,42 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
        * now measured on the same probe turn, `put all in box` repeated once
        * the first has emptied the player's hands:
        *
-       *   run400  You are carrying nothing!          p4TFROM, Adrift_981:20
-       *   run390  Nothing will fit inside the box.   p39DARK, Adrift_980:59
-       *   run380  You are not carrying anything.     p38DARK, Adrift_985:25
+       *   run400  You are carrying nothing!
+       *           p4TFROM, runner_probes/tfrom.run400.putin3.txt:20
+       *   run390  Nothing will fit inside the box.
+       *           p39DARK, runner_probes/dark.run390.putin3.txt:59
+       *   run380  You are not carrying anything.
+       *           p38DARK, runner_probes/dark.run380.putin4.txt:25
        *   run370  You have nothing to put inside the box.
-       *                                              p37DARK, Adrift_989:25
+       *           p37DARK, runner_probes/dark.run370.putin4.txt:25
        *
-       * (2026-09-12; the 3.7/3.8 halves were driven with fast.sh over
-       * cmdfile_p38putin4.txt, a feed authored for this row because none of
-       * the three original put feeds ever runs `put all in` with the
-       * container in the player's hands.)  The census had guessed the 3.7
-       * wording for both pre-3.9 Runners, on the strength of " have nothing
-       * to put inside " sitting in run370 and run380 alike; the measurement
-       * refutes that.  run380 does hold the string -- it is just not on
-       * this path -- and answers with the flat drop-all wording instead,
-       * the same literal lib_print_nothing_held() prints.
+       * (2026-09-12; the 3.7/3.8 halves were driven with a feed authored for
+       * this row because none of the three original put feeds ever runs `put
+       * all in` with the container in the player's hands.)  The census had
+       * guessed the 3.7 wording for both pre-3.9 Runners, on the strength of
+       * " have nothing to put inside " sitting in run370 and run380 alike; the
+       * measurement refutes that.  run380 does hold the string -- it is just
+       * not on this path -- and answers with the flat drop-all wording
+       * instead, the same literal lib_print_nothing_held() prints.
        *
        * The surface row was driven on the same day, `put all on table` with
        * the table in hand and the first call having emptied the player:
        *
-       *   run400  (nothing; see below)            p4SURF,  Adrift_997:6
+       *   run400  (nothing; see below)
+       *           p4SURF,  runner_probes/surf4.run400.txt:6
        *   run390  You have nothing to put onto the table.
-       *                                           p39SURF, Adrift_996:6
-       *   run380  You are not carrying anything.  p38SURF, Adrift_1002:6
+       *           p39SURF, runner_probes/surf4.run390.txt:6
+       *   run380  You are not carrying anything.
+       *           p38SURF, runner_probes/surf4.run380.txt:6
        *   run370  You have nothing to put inside the table.
-       *                                           p37SURF, Adrift_1006:6
+       *           p37SURF, runner_probes/surf4.run370.txt:6
        *
        * -- so 3.7's wording really is " have nothing to put inside " whatever
        * the target is, 3.8 shares its flat line with the container row, and
        * only 3.9 tells the two apart.  Note that 3.9 does NOT reach for
        * "Nothing will fit" on a surface, even one already over its capacity:
-       * the table held six objects on Adrift_1009:6 and the answer was still
-       * "You have nothing to put onto the table."
+       * the table held six objects on runner_probes/surf6.run390.txt:6 and the
+       * answer was still "You have nothing to put onto the table."
        */
       if (lib_is_version_400 (game))
         {
@@ -1711,20 +1747,22 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
            * table itself the only thing carried, `put all on table` says
            * nothing of its own and falls through to the generic catch-all,
            * "I don't understand what you want me to do with the table."
-           * (p4SURF, Adrift_997:6), where the same command with nothing at
-           * all in hand is "You are carrying nothing!" (p4SURF,
-           * Adrift_995:16).  The container row is the same shape, and the
-           * shut state of the container changes nothing on either arm: probe
-           * PCLOSED, `put all in box` with the box the only thing carried,
-           * answers "I don't understand what you want me to do with the
-           * box." both shut and just opened (Adrift_1194.txt:11/13), and with
-           * nothing at all in hand `put all in chest` / `put all in box`
-           * against SHUT containers on the floor answer "You are carrying
-           * nothing!" (Adrift_1195.txt:4/5) -- name_object counts the held
-           * objects with 44615C @46E553-46E580 and speaks at 46E5BC only
-           * when the count is nil, ahead of any insides call, and so ahead
-           * of the closed test.  Something else in hand reaches insides and
-           * its closed refusal, "The chest is closed!" (Adrift_1195.txt:7).
+           * (p4SURF, runner_probes/surf4.run400.txt:6), where the same command
+           * with nothing at all in hand is "You are carrying nothing!"
+           * (p4SURF, runner_probes/surf3.run400.txt:16).  The container row is
+           * the same shape, and the shut state of the container changes
+           * nothing on either arm: probe PCLOSED, `put all in box` with the
+           * box the only thing carried, answers "I don't understand what you
+           * want me to do with the box." both shut and just opened
+           * (runner_probes/closed.run400.txt:11/13), and with nothing at all
+           * in hand `put all in chest` / `put all in box` against SHUT
+           * containers on the floor answer "You are carrying nothing!"
+           * (runner_probes/closed.run400.feed2.txt:4/5) -- name_object counts
+           * the held objects with 44615C @46E553-46E580 and speaks at 46E5BC
+           * only when the count is nil, ahead of any insides call, and so
+           * ahead of the closed test.  Something else in hand reaches insides
+           * and its closed refusal, "The chest is closed!"
+           * (runner_probes/closed.run400.feed2.txt:7).
            */
           {
             scr_int index_;
@@ -1910,33 +1948,43 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * anything, and they are decided in this order -- the object's own failure
  * outranks the container's.  Measured on p39DARK under run390, 2026-09-12:
  *
- *   Adrift_978:67  `put zzzz in box`   You can't do that!
- *   Adrift_980:27  `put stone in lamp` You can't do that!    (the stone is a
+ *   runner_probes/dark.run390.putin2.txt:67
+ *                  `put zzzz in box`   You can't do that!
+ *   runner_probes/dark.run390.putin3.txt:27
+ *                  `put stone in lamp` You can't do that!    (the stone is a
  *                  room away; the lamp is held and is not a container, and
  *                  that refusal never gets a word in)
- *   Adrift_978:40  `put coin in box`   You can't see that.   (the coin is
+ *   runner_probes/dark.run390.putin2.txt:40
+ *                  `put coin in box`   You can't see that.   (the coin is
  *                  inside the box, the box on the floor -- present, named,
  *                  and out of reach; see lib_put_named_filter)
- *   Adrift_980:24  `put lamp in box`   Put the lamp inside what?  (the lamp
+ *   runner_probes/dark.run390.putin3.txt:24
+ *                  `put lamp in box`   Put the lamp inside what?  (the lamp
  *                  is held, the box a room away)
- *   Adrift_976:34  `put coin in coin`  Put the coin inside what?
- *   Adrift_976:37  `put box in box`    Put the box inside what?
- *   Adrift_976:64  `put coin in me`    Put the coin inside what?
+ *   runner_probes/dark.run390.putin.txt:34
+ *                  `put coin in coin`  Put the coin inside what?
+ *   runner_probes/dark.run390.putin.txt:37
+ *                  `put box in box`    Put the box inside what?
+ *   runner_probes/dark.run390.putin.txt:64
+ *                  `put coin in me`    Put the coin inside what?
  *
  * The surface handler answers the same shapes the same way, in its own
  * preposition (p39SURF under run390, 2026-09-12): `put stone on lamp` with
- * the stone a room away is "You can't do that!" (Adrift_990:6), `put coin on
- * table` with the coin on the table and the table on the floor is "You can't
- * see that." (Adrift_990:5), and `put coin on coin`, `put table on table`
- * and `put coin on me` are "Put the coin onto what?", "Put the table onto
- * what?" and "Put the coin onto what?" (Adrift_990:11/12/19).
+ * the stone a room away is "You can't do that!"
+ * (runner_probes/surf1.run390.txt:6), `put coin on table` with the coin on the
+ * table and the table on the floor is "You can't see that."
+ * (runner_probes/surf1.run390.txt:5), and `put coin on coin`, `put table on
+ * table` and `put coin on me` are "Put the coin onto what?", "Put the table
+ * onto what?" and "Put the coin onto what?"
+ * (runner_probes/surf1.run390.txt:11/12/19).
  *
  * -- so the container fragment is resolved with the object already spoken
  * for, and a fragment that names only the object, or names nothing at all,
  * leaves the Runner with no container and it asks.  (4.0 answers the last
  * three "You can't put anything inside the coin!", "You can't put an object
  * inside itself!" and "I don't understand what you want to put things
- * inside." on the same turns of p4TFROM, Adrift_977:15/18/46.)
+ * inside." on the same turns of p4TFROM,
+ * runner_probes/tfrom.run400.putin.txt:15/18/46.)
  *
  * " can't do that!" is in run370, run380 and run390 and in no run400, and
  * " can't see that." is in all four; the prompt is composed, so the census
@@ -2110,20 +2158,22 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
  *     their pillars), whose "The four pillars slowly sink into the ground."
  *     replaces the put message.
  *   - Secret of the Lost World (runner_transcripts/secret_of_lost_world.txt
- *     T118-T119, and the probe Adrift_128_solwred): `put red gem on statue`
- *     names the held green gem (co() matches Short "gem"; the prefix is not
- *     consulted), moves it onto the static statue, and the LOUD pass matches
- *     task 5 `* red * statue`, whose first restriction wants the red gem held:
- *     "You don't have a red gem." replaces the put text, and `x statue` then
- *     shows "A green gem is on ancient statue.".  T119 `put green gem on
- *     statue` finds the gem already there and task 6's "You don't have a
- *     green gem." is all that prints.
+ *     T118-T119, and the probe
+ *     runner_probes/secret_of_lost_world.run390.red.txt): `put red gem on
+ *     statue` names the held green gem (co() matches Short "gem"; the prefix
+ *     is not consulted), moves it onto the static statue, and the LOUD pass
+ *     matches task 5 `* red * statue`, whose first restriction wants the red
+ *     gem held: "You don't have a red gem." replaces the put text, and `x
+ *     statue` then shows "A green gem is on ancient statue.".  T119 `put green
+ *     gem on statue` finds the gem already there and task 6's "You don't have
+ *     a green gem." is all that prints.
  *   - Troll (runner_transcripts/troll.txt T116, run400x and the drop/firewater
- *     probes Adrift_128_trolldrop, Adrift_130_trollfire): `put breadcrumbs in
- *     basin` with the basin HELD -- the basin claims the sweep, the QUIET pass
- *     matches task 51 `* breadcrumbs * basin *` whose second restriction
- *     fails, and the put text "You put the lot of breadcrumbs inside the wash
- *     basin." stands.
+ *     probes runner_probes/troll.run390.drop.txt,
+ *     runner_probes/troll.run390.fire.txt): `put breadcrumbs in basin` with
+ *     the basin HELD -- the basin claims the sweep, the QUIET pass matches
+ *     task 51 `* breadcrumbs * basin *` whose second restriction fails, and
+ *     the put text "You put the lot of breadcrumbs inside the wash basin."
+ *     stands.
  * The "all" and "and" forms rebuild a line per object instead, and are not
  * ported.  3.9 only; run380 sweeps take-from lines instead
  * (lib_take_from_task_sweep_380()), and run400 dispatches its insides
@@ -2247,11 +2297,12 @@ lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
  * container, and either held or lying loose in the player's room (o(22) =
  * room).  So a prefix word that names an ABSENT namesake is simply not
  * heard: secret_of_lost_world T118 (run390, runner_transcripts/
- * secret_of_lost_world.txt and the probe Adrift_128_solwred, 2026-09-19)
- * `put red gem on statue` with the green gem the only gem in play moves the
- * green gem onto the statue -- `x statue` afterwards: "A green gem is on
- * ancient statue.", and `i` no longer lists it.  (What prints is task 5's
- * "You don't have a red gem."; see lib_put_task_sweep_390().)
+ * secret_of_lost_world.txt and the probe
+ * runner_probes/secret_of_lost_world.run390.red.txt, 2026-09-19) `put red gem
+ * on statue` with the green gem the only gem in play moves the green gem onto
+ * the statue -- `x statue` afterwards: "A green gem is on ancient statue.",
+ * and `i` no longer lists it.  (What prints is task 5's "You don't have a red
+ * gem."; see lib_put_task_sweep_390().)
  *
  * Only reached when the parser found nothing under the typed words; a
  * fragment the parser does resolve is left to it.  3.9 only -- run380's
@@ -2342,9 +2393,9 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
        * `put zzz in statue` (static, no container), `put zzz in coin`
        * (held, no container) and `put zzz in chest` (static container,
        * open and shut) are all "You can't do that!" (run370x / run380x
-       * Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, 2026-09-19).  An
-       * object named but out of reach still counts, and goes on to the
-       * container tests below.
+       * runner_probes/put.run370.feed2.rtf,
+       * runner_probes/put.run380.feed2.rtf, 2026-09-19).  An object named but
+       * out of reach still counts, and goes on to the container tests below.
        */
       if (!is_pre_390 || lib_put_co_count_pre390 (game) < 2)
         return lib_put_no_object_pre400 (game);
@@ -2361,7 +2412,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * then " can't see that." (4624EF) and the sweep, as for any object it
    * could not reach.  pPUTFULL39 `put statue in cupboard`, both statics in
    * the room and the cupboard open, is "You can't see that." (run390x
-   * Adrift_pputfull39.txt, 2026-09-19).
+   * runner_probes/putfull.run390.txt, 2026-09-19).
    */
   for (object = 0; has_object && is_pre_390 && object < object_count;
        object++)
@@ -2384,9 +2435,11 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * Measured on p38DARK/p37DARK, 2026-09-12: `put coin in coin` with the
    * coin inside the box, `put box in box` with the box held and open, and
    * `put stone in stone` with the stone loose on the floor all answer "You
-   * can't do that!" (Adrift_982:36/39/42, Adrift_986:36/39/42), against the
-   * "You can't put anything inside the coin." that the very same coin draws
-   * as somebody else's container two feeds later (Adrift_984:47).
+   * can't do that!" (runner_probes/dark.run380.putin.txt:36/39/42,
+   * runner_probes/dark.run370.putin.txt:36/39/42), against the "You can't put
+   * anything inside the coin." that the very same coin draws as somebody
+   * else's container two feeds later
+   * (runner_probes/dark.run380.putin3.txt:47).
    */
   if (has_object && references == 1 && game->multiple_references[container])
     {
@@ -2406,18 +2459,24 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * object a room away or sealed out of reach --
    *
    *   put lamp in box   box on the floor a room away
-   *                     You are not holding a box.  (Adrift_984:25/988:25)
+   *                     You are not holding a box.
+   *                     (runner_probes/dark.run380.putin3.txt:25,
+   *                     runner_probes/dark.run370.putin3.txt:25)
    *   put stone in lamp lamp held, not a container
    *                     You can't put anything inside the lamp.
-   *                                                 (Adrift_984:28/988:28)
+   *                     (runner_probes/dark.run380.putin3.txt:28,
+   *                     runner_probes/dark.run370.putin3.txt:28)
    *   put lamp in box   box held and shut
    *                     You can't put anything inside the box as it is
-   *                     closed!                     (Adrift_983:30/987:30)
+   *                     closed!
+   *                     (runner_probes/dark.run380.putin2.txt:30,
+   *                     runner_probes/dark.run370.putin2.txt:30)
    *
    * -- where run390 answers for the object on every one of those turns
-   * (Adrift_980:24/27, Adrift_978:28).  Note the first: run370 and run380
-   * resolve the container over the whole game, not just the room, which is
-   * why it reaches this test at all; see lib_put_target_pre390().
+   * (runner_probes/dark.run390.putin3.txt:24/27,
+   * runner_probes/dark.run390.putin2.txt:28).  Note the first: run370 and
+   * run380 resolve the container over the whole game, not just the room, which
+   * is why it reaches this test at all; see lib_put_target_pre390().
    */
   if (is_on ? !lib_put_on_is_valid (game, container)
             : !lib_put_in_is_valid (game, container))
@@ -2466,10 +2525,11 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * nothing, so no sweep runs; insides() returns unclaimed and generaltasks'
    * LOUD tasks(0) gets the line with the refusal still in the buffer, where
    * a matching task's FailMessage overwrites it.  pPUTREF39.taf, run390x,
-   * 2026-09-19: `put coin in bag` with the bag full is "T6 FAIL." (Adrift_
-   * pputref392.txt:5) and the coin stays in hand, where with no task the
-   * same line is "The coin can't fit inside the bag at the moment."; a
-   * passing task likewise speaks alone (make_39_putprobe.py PUTBIG).
+   * 2026-09-19: `put coin in bag` with the bag full is "T6 FAIL."
+   * (runner_probes/putref.run390.feed2.txt:5) and the coin stays in hand,
+   * where with no task the same line is "The coin can't fit inside the bag at
+   * the moment."; a passing task likewise speaks alone (make_39_putprobe.py
+   * PUTBIG).
    */
   if (outcome.is_refusal_only && lib_is_version_390 (game)
       && run_in_priority_pass () && run_get_dispatch_input ())
@@ -2488,26 +2548,30 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
  *   box held, coin inside it    The coin is already inside the box!
  *   box on the floor, ditto     You are not holding the coin.
  *
- * -- p4TFROM under run400, `put coin in box` at Adrift_977:12 and again at
- * Adrift_977:34 with the box shut (still "already inside", so this outranks
- * the closed-container refusal), against Adrift_979:30 with the box dropped.
- * Measured 2026-09-12.  " is already inside " is in run400 and in no earlier
- * Runner; the floor case is the take phase's own skip, which
- * lib_put_implicit_take() already carries into the "You are not holding ..."
- * report.
+ * -- p4TFROM under run400, `put coin in box` at
+ * runner_probes/tfrom.run400.putin.txt:12 and again at
+ * runner_probes/tfrom.run400.putin.txt:34 with the box shut (still "already
+ * inside", so this outranks the closed-container refusal), against
+ * runner_probes/tfrom.run400.putin2.txt:30 with the box dropped.  Measured
+ * 2026-09-12.  " is already inside " is in run400 and in no earlier Runner;
+ * the floor case is the take phase's own skip, which lib_put_implicit_take()
+ * already carries into the "You are not holding ..." report.
  *
  * The surface half (is_on) splits the same way on whether the SUPPORTER is
  * in the player's hands.  Measured on p4SURF under run400, 2026-09-12, all
  * with the coin sitting on the table:
  *
  *   table held      put coin on table   The coin is already on the table!
- *                                       (Adrift_991:7, and again at :10 once
- *                                       the coin has been taken and put back)
+ *                                       (runner_probes/surf1.run400.txt:7,
+ *                                       and again at :10 once the coin has
+ *                                       been taken and put back)
  *   table on floor  put coin on table   You are not holding the coin.
- *                                       (Adrift_991:18, after `drop table`)
+ *                                       (runner_probes/surf1.run400.txt:18,
+ *                                       after `drop table`)
  *
- * and the same pair on the nut and the table, Adrift_993:7/9.  " is already
- * on " is in run400 and in no earlier Runner too.
+ * and the same pair on the nut and the table,
+ * runner_probes/surf2.run400.txt:7/9.  " is already on " is in run400 and in
+ * no earlier Runner too.
  *
  * Returns TRUE if it consumed every named object, so the caller is done.
  */
@@ -2564,10 +2628,11 @@ lib_put_already_400 (scr_gameref_t game, scr_int target, scr_bool is_on)
  * The already-inside refusal has to reach an object the ordinary matcher
  * cannot: with the box SHUT and the coin inside it, `put coin in box` is
  * still "The coin is already inside the box!" on run400 (p4TFROM,
- * Adrift_977:34, 2026-09-12), where obj_indirectly_in_room() -- and so
- * lib_disambiguate_object_common()'s own gate -- has already ruled the coin
- * out of the room.  Score the %text% fragment against the container's
- * contents directly, and return the single object it names, or -1.
+ * runner_probes/tfrom.run400.putin.txt:34, 2026-09-12), where
+ * obj_indirectly_in_room() -- and so lib_disambiguate_object_common()'s own
+ * gate -- has already ruled the coin out of the room.  Score the %text%
+ * fragment against the container's contents directly, and return the single
+ * object it names, or -1.
  */
 static scr_int
 lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
@@ -2604,7 +2669,7 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
  * what the player holds, directly or inside something held, pass 1 over
  * everything present, no seen gate in either; see
  * lib_name_object_resolve_400().
- * Probe PPUTTIE (Adrift_1193.txt, 2026-09-19), a box in hand:
+ * Probe PPUTTIE (runner_probes/puttie.run400.txt, 2026-09-19), a box in hand:
  *
  *   put key in box   brass key held, iron key on the floor
  *                    You put the brass key inside the box.   (no prompt)
@@ -2730,8 +2795,8 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
    * object is.  So a noun naming nothing present but one seen object elsewhere
    * is fetched from that other room: p4LOCK `put gem in jar`, the gem left in
    * Beta, answers "(Taking the gem first)" / "You put the gem inside the
-   * jar." (Adrift_1162, 2026-09-14).  An unseen noun still falls to the
-   * clobbering exit below.
+   * jar." (runner_probes/lock.run400.txt, 2026-09-14).  An unseen noun still
+   * falls to the clobbering exit below.
    */
   if (!parsed && !is_except && lib_is_version_400 (game))
     {
@@ -2827,8 +2892,9 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
            * With no put/drop-class task pre-matching the typed line the
            * Runner speaks here and the line is done, a turn: p4PUT `put zzz
            * in box` -> "It is not clear which object you are referring to."
-           * and the probe's ticker fires (Adrift_953, 2026-09-08).  With
-           * one, it stays silent and the tasks get the fragment.
+           * and the probe's ticker fires (runner_probes/put.run400.txt,
+           * 2026-09-08).  With one, it stays silent and the tasks get the
+           * fragment.
            */
           if (!lib_task_prematches_input (game, 2))
             {
@@ -2889,17 +2955,19 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  *   `put coin in zzzz`                         Put the coin inside what?
  *   `put zzzz in box`  (via the %object% row)  You can't do that!
  *
- * (p39DARK, Adrift_976:64, Adrift_978:67/70, Adrift_980:24/27/30,
- * 2026-09-12.)  The surface row is the same in its own preposition -- `put
- * lamp on table` with the table a room away is "Put the lamp onto what?",
- * `put stone on table` with both a room away is "You can't do that!", and so
- * is `put coin on zzzz` with the coin unseen on the table (p39SURF,
- * Adrift_998:5/7 and Adrift_992:15, 2026-09-12).  The
- * object's failure outranks the container's, which is why the noun is
- * resolved here before the prompt is printed.  4.0 has its own answers for
- * the same shapes, up in lib_cmd_put_container_400(); the prompt is composed
- * from pieces every Runner holds, so the census cannot date it and it is
- * gated at 3.90 -- see lib_put_what_pre400().
+ * (p39DARK, runner_probes/dark.run390.putin.txt:64,
+ * runner_probes/dark.run390.putin2.txt:67/70,
+ * runner_probes/dark.run390.putin3.txt:24/27/30, 2026-09-12.)  The surface row
+ * is the same in its own preposition -- `put lamp on table` with the table a
+ * room away is "Put the lamp onto what?", `put stone on table` with both a
+ * room away is "You can't do that!", and so is `put coin on zzzz` with the
+ * coin unseen on the table (p39SURF, runner_probes/surf3.run390.txt:5/7 and
+ * runner_probes/surf2.run390.txt:15, 2026-09-12).  The object's failure
+ * outranks the container's, which is why the noun is resolved here before the
+ * prompt is printed.  4.0 has its own answers for the same shapes, up in
+ * lib_cmd_put_container_400(); the prompt is composed from pieces every Runner
+ * holds, so the census cannot date it and it is gated at 3.90 -- see
+ * lib_put_what_pre400().
  *
  * A table of its own, run after STANDARD_COMMANDS has had its go so that a
  * line naming a real container never reaches it; see STANDARD_PUT_COMMANDS.
@@ -2930,11 +2998,11 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * <Short>.".
  *
  * Measured on cave.taf (3.80) up the tree, nothing referenced present
- * (Adven_1_cave.rtf): `put raft in water` (river water 18, raft 42, pool water
- * 70) is "You can't put anything inside the pool water." (turn 52), and `put
- * amulet on table` (table 48, amulet 64) is "You can't put anything on the
- * star shaped amulet." (turn 212) -- the object, not the table, because the
- * unreachable table never pinned the choice.
+ * (runner_probes/cave.run380.rtf): `put raft in water` (river water 18, raft
+ * 42, pool water 70) is "You can't put anything inside the pool water." (turn
+ * 52), and `put amulet on table` (table 48, amulet 64) is "You can't put
+ * anything on the star shaped amulet." (turn 212) -- the object, not the
+ * table, because the unreachable table never pinned the choice.
  *
  * Returns TRUE when it printed; FALSE leaves the line to the flat refusal,
  * which is also what it answers for the closed and the reachable-container
@@ -3111,11 +3179,13 @@ lib_put_nowhere_common (scr_gameref_t game, scr_bool typed_on)
    * 3.7 and 3.8 have no composed prompt to reach for, and no interest in
    * what the object fragment named: a container fragment that names nothing
    * anywhere in the game ends the line flat.  `put coin in zzzz` with the
-   * coin lying in the box (Adrift_983:72 / Adrift_987:72) and `put coin in
-   * me` with the coin held (Adrift_982:66 / Adrift_986:66) both answer "You
-   * can't do that!", 2026-09-12.  Note that a fragment naming a container
-   * the player merely cannot see no longer arrives here at all -- those are
-   * resolved over the whole game now; see lib_put_target_pre390().
+   * coin lying in the box (runner_probes/dark.run380.putin2.txt:72 /
+   * runner_probes/dark.run370.putin2.txt:72) and `put coin in me` with the
+   * coin held (runner_probes/dark.run380.putin.txt:66 /
+   * runner_probes/dark.run370.putin.txt:66) both answer "You can't do that!",
+   * 2026-09-12.  Note that a fragment naming a container the player merely
+   * cannot see no longer arrives here at all -- those are resolved over the
+   * whole game now; see lib_put_target_pre390().
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return lib_put_no_object_pre400 (game);
@@ -3157,7 +3227,8 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  * pPUTREF39.taf (make_39_putrefprobe.py), run390x, 2026-09-19: `put pebble
  * and stone in junk` / `on junk`, each with a matching task whose restriction
  * fails, answer "You can't put anything inside that!" / "onto that!"
- * (Adrift_pputref392.txt:8/12), where Scarier printed the FailMessage.
+ * (runner_probes/putref.run390.feed2.txt:8/12), where Scarier printed the
+ * FailMessage.
  *
  * The target is insides()' own choice (461000-461641), 3.8's loop (see
  * lib_put_co_refusal_pre390()) with one more test: an object's Short or
@@ -3166,12 +3237,13 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  * "inside" otherwise.  That InStr is a raw substring search, so the "in"
  * inside "coin" or the "on" inside "stone" counts as the preposition:
  * `put coin and stone in junk` chooses the stone and answers "You can't put
- * anything inside the stone." (pPUTREF39 T4, Adrift_pputref39.txt:8), which
- * is the wrong-kind refusal of lib_put_in_is_valid().  A choice that is a
- * valid open container or surface would put the other object into it; that
- * arm is unmeasured and declines.  (The Runner tests the chooser's own name
- * against the preposition with an un-LCased Short, so a capitalised Short
- * may never displace a pinned choice; also unmeasured, not modelled.)
+ * anything inside the stone." (pPUTREF39 T4,
+ * runner_probes/putref.run390.txt:8), which is the wrong-kind refusal of
+ * lib_put_in_is_valid().  A choice that is a valid open container or surface
+ * would put the other object into it; that arm is unmeasured and declines.
+ * (The Runner tests the chooser's own name against the preposition with an
+ * un-LCased Short, so a capitalised Short may never displace a pinned choice;
+ * also unmeasured, not modelled.)
  *
  * These rows sit in the priority table so as to answer ahead of the tasks;
  * anything that is not this case declines to the rows below and to the
@@ -3235,10 +3307,11 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
    * with no object named past the preposition var_8C stays -1 and insides()
    * refuses at 461769 like any other line.  pPUTFULL39 `put all in junk` /
    * `put all on junk` are "You can't put anything inside that!" / "... onto
-   * that!" (run390x Adrift_pputfull39.txt, 2026-09-19).  A named target is
-   * left to the "put all" rows.  generaltasks has already made "everything"
-   * "all" (Replace at 45F225), so `put everything in zzz` / `on zzz` refuse
-   * the same way (p39PUT, run390x Adrift_160_p39drop.txt, 2026-09-19).
+   * that!" (run390x runner_probes/putfull.run390.txt, 2026-09-19).  A named
+   * target is left to the "put all" rows.  generaltasks has already made
+   * "everything" "all" (Replace at 45F225), so `put everything in zzz` / `on
+   * zzz` refuse the same way (p39PUT, run390x
+   * runner_probes/put.run390.drop.txt, 2026-09-19).
    */
   if (lib_co_contains (line, "all") || lib_co_contains (line, "everything"))
     {
@@ -3344,9 +3417,9 @@ lib_cmd_put_on_that_390 (scr_gameref_t game)
  * drops 4456AB; run370 has neither word), so `put all except X in Y` is
  * c("all")'s arm and puts everything.  p37PUT / p38PUT / p39PUT `put all
  * except stone in cupboard` put the stone too (run370x / run380x / run390x
- * Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt,
- * 2026-09-19).  Deliberate deviation: Scarier keeps the exception at every
- * version, in and on alike.
+ * runner_probes/put.run370.feed2.rtf, runner_probes/put.run380.feed2.rtf,
+ * runner_probes/put.run390.txt, 2026-09-19).  Deliberate deviation: Scarier
+ * keeps the exception at every version, in and on alike.
  */
 scr_bool
 lib_cmd_put_in_except_multiple (scr_gameref_t game)
@@ -3405,9 +3478,10 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
        * to insides (Proc_19_43_46639C @loc_46E34F), which is where the
        * canonical line reaches the tasks -- so a task that goes on to claim
        * the put still carries the announcement ahead of its own text.
-       * Measured on frustrated turns 53-55 (Adrift_274_frustrated.txt):
-       * `put small rock on left pan` matches task 511 `put*small*left*` and
-       * still opens "(Taking the small rock first)".
+       * Measured on frustrated turns 53-55
+       * (runner_transcripts/frustrated.txt): `put small rock on left pan`
+       * matches task 511 `put*small*left*` and still opens "(Taking the small
+       * rock first)".
        */
       {
         scr_bool take_printed = FALSE;
@@ -3505,12 +3579,14 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   /*
    * "onto" is 3.9's word.  run370 and run380 write " on ": `put stone on
    * table` with the table in hand is "You put the stone on the table."
-   * (Adrift_1003:15, Adrift_999:15, 2026-09-12), against run390's "You put
-   * the stone onto the table." (Adrift_990:15).  The all form also prints
-   * its list with the objects' own prefixes there, the same way the pre-3.9
-   * "put all in" does: `put all on table` is "You put an torch and a lamp on
-   * the table." (Adrift_1006:5, Adrift_1002:5) where the named form says
-   * "the".  See lib_put_in_backend() for the container twin.
+   * (runner_probes/surf1.run370.txt:15, runner_probes/surf1.run380.txt:15,
+   * 2026-09-12), against run390's "You put the stone onto the table."
+   * (runner_probes/surf1.run390.txt:15).  The all form also prints its list
+   * with the objects' own prefixes there, the same way the pre-3.9 "put all
+   * in" does: `put all on table` is "You put an torch and a lamp on the
+   * table." (runner_probes/surf4.run370.txt:5,
+   * runner_probes/surf4.run380.txt:5) where the named form says "the".  See
+   * lib_put_in_backend() for the container twin.
    */
   verb = LIB_PUT_ON_VERB;
   if (is_pre_390)
@@ -3560,10 +3636,14 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
        * and the run370/run380 pools hold nothing but "Mapontop"); and only
        * 4.0 shouts.  `put coin on stone` on the surface probe, 2026-09-12:
        *
-       *   run370  You can't put anything on the stone.    Adrift_1003:14
-       *   run380  You can't put anything on the stone.    Adrift_999:14
-       *   run390  You can't put anything onto the stone.  Adrift_990:14
-       *   run400  You can't put anything onto the stone!  Adrift_991:14
+       *   run370  You can't put anything on the stone.
+       *           runner_probes/surf1.run370.txt:14
+       *   run380  You can't put anything on the stone.
+       *           runner_probes/surf1.run380.txt:14
+       *   run390  You can't put anything onto the stone.
+       *           runner_probes/surf1.run390.txt:14
+       *   run400  You can't put anything onto the stone!
+       *           runner_probes/surf1.run400.txt:14
        */
       lib_print_response_object (game,
                                  is_pre_390 ? "You can't put anything on "
@@ -3585,16 +3665,19 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
    * container does -- one handler, one test.  With the table left standing
    * in the cave, `put lamp on table`, `put stone on table` and `put all on
    * table` all answer "You are not holding a table." on run370 and run380
-   * (Adrift_1005:5/7, Adrift_1001:5/7, Adrift_1014:3, Adrift_1013:3,
+   * (runner_probes/surf3.run370.txt:5/7, runner_probes/surf3.run380.txt:5/7,
+   * runner_probes/surf6.run370.txt:3, runner_probes/surf6.run380.txt:3,
    * 2026-09-12) -- the object's own prefix, not the "the" of most refusals.
    * Statics are exempt, and have to be: `put stone on bench`, the bench a
-   * static surface on the cave floor, is "You put the stone on the bench."
-   * on both (Adrift_1004:12, Adrift_1000:12).
+   * static surface on the cave floor, is "You put the stone on the bench." on
+   * both (runner_probes/surf2.run370.txt:12,
+   * runner_probes/surf2.run380.txt:12).
    *
    * 3.9 and 4.0 have no such test.  The same `put all on table` with the
    * table on the floor is "You put the torch, the lamp, the stone, the
-   * pebble and the box onto the table." on run390 (Adrift_1009:3), and
-   * run400 moves onto it too (Adrift_1016:6).
+   * pebble and the box onto the table." on run390
+   * (runner_probes/surf6.run390.txt:3), and run400 moves onto it too
+   * (runner_probes/surf6.run400.txt:6).
    */
   if (lib_put_static_absent_pre390 (game, supporter))
     return FALSE;

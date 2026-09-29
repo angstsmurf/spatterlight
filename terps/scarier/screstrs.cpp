@@ -1346,9 +1346,10 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
    * fails without its FailMessage in 3.9 and 4.0: run400 restriction_check
    * leaves the Sub at 480FA6 when MemVar_494208 = &HFF, before the append to
    * MemVar_4941B0 at 481D52-481D70, so the task claims nothing and the
-   * library answers.  villains_and_kings (3.90, Adrift_553 turn `close
-   * window`): task 13 `close * * window` stays silent and run390 prints "You
-   * close Cracked Broken Window.", not the restriction's "already closed".
+   * library answers.  villains_and_kings (3.90,
+   * runner_probes/villains_and_kings.run390.txt turn `close window`): task
+   * 13 `close * * window` stays silent and run390 prints "You close Cracked
+   * Broken Window.", not the restriction's "already closed".
    */
   if (type == 1
       && prop_get_taf_version (bundle) >= TAF_VERSION_390

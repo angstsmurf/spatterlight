@@ -1,0 +1,14 @@
+
+> clear the screen
+You can't clear that.  TICK.
+
+> clear
+Screen cleared.  TICK.
+
+> look
+Test Arena
+A bare arena.  TICK.
+
+> look
+Test Arena
+A bare arena.  TICK.

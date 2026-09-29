@@ -1,0 +1,52 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem, a rock and a chest.  You can only move north.
+
+> take gem
+You take the gem.
+
+> close rock
+You can't close the rock!
+
+> close rock gem
+You can't close that.
+
+> close gem rock
+You can't close that.
+
+> close rock with slab
+Don't be daft!
+
+> open slab rock
+You can't open that.
+
+> open rock gem chest
+Which chest.  The gem, the rock or the chest?
+
+> open zzz
+You can't open that.
+
+> read slab
+You can't read the slab!
+
+> read rock with slab
+You can't read the slab!
+
+> examine rock gem
+A grey rock.
+
+> x gem rock
+A grey rock.
+
+> open chest
+You are not carrying the chest!
+
+> close chest gem
+You can't close that.
+
+> probe
+PROBE OK.

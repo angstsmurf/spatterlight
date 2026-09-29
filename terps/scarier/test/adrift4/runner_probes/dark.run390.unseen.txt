@@ -1,0 +1,91 @@
+
+> probe
+PROBE OK.
+
+> x me
+A test subject.
+
+> i
+You are carrying a lamp.
+
+> x lamp
+A brass lamp.
+
+> n
+You move north.
+Dark Cave
+It is too dark to see.  You can only move south.
+
+> x stone
+You can't see that very clearly.
+
+> x pebble
+You can't see that very clearly.
+
+> x box
+You can't see that very clearly.
+
+> x lamp
+You can't see the lamp very clearly.
+
+> x me
+You can just make out that you are okay.
+
+> x zzzz
+You can't see that very clearly.
+
+> read zzzz
+You can't see that very clearly.
+
+> read stone
+You can't see that very clearly.
+
+> get all from box
+You can't get anything from that.
+
+> look
+Dark Cave
+It is too dark to see.  You can only move south.
+
+> take stone
+Take what?
+
+> i
+You are carrying a lamp.
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is an torch.  You can only move north.
+
+> take torch
+You pick up the torch.
+
+> n
+You move north.
+Dark Cave
+A cave with rough walls.  Also here is a stone, a pebble and a box.  You can only move south.
+
+> x stone
+A grey stone.
+
+> x pebble
+Nothing special.
+
+> x box
+A wooden box.  The box is open.  A coin is inside the box.
+
+> x lamp
+A brass lamp.
+
+> x me
+A test subject.
+
+> x zzzz
+Nothing special.
+
+> get all from box
+You take the coin from the box.
+
+> probe
+PROBE OK.

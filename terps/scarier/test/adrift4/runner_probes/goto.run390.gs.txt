@@ -1,0 +1,116 @@
+
+> n
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> e
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+
+> w
+You move west.
+Hall
+A hall.  You can move east, south, west and up.
+
+> s
+You move south.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+
+> go to kitchen, look
+Moving to kitchen...
+
+> North
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> East
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+Arrived kitchen.
+Kitchen
+A kitchen.  You can only move west.
+
+> go to first room, i
+Moving to first room...
+
+> West
+You move west.
+Hall
+A hall.  You can move east, south, west and up.
+
+> South
+You move south.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+Arrived first room.
+You are carrying nothing.
+
+> look, go to kitchen, i
+First Room
+The first room.  Also here is a stone.  You can only move north.
+Moving to kitchen...
+
+> North
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> East
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+Arrived kitchen.
+You are carrying nothing.
+
+> go to first room then look
+Moving to first room...
+
+> West
+You move west.
+Hall
+A hall.  You can move east, south, west and up.
+
+> South
+You move south.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+Arrived first room.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+
+> go to zzz, look
+Unknown place.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+
+> go to kitchen and look
+Nothing special.
+
+> look
+First Room
+The first room.  Also here is a stone.  You can only move north.
+
+> go to first room, go to kitchen, i
+You are already first room!
+Moving to kitchen...
+
+> North
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> East
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+Arrived kitchen.
+You are carrying nothing.
+
+> look
+Kitchen
+A kitchen.  You can only move west.

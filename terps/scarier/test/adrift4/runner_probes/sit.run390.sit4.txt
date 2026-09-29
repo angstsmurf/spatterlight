@@ -1,0 +1,153 @@
+
+> probe
+PROBE OK.
+
+> sit lie
+You lie down on the ground.
+
+> x me
+A test subject.  You are lying down.
+
+> stand
+You stand up.
+
+> please sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> sit quietly
+You sit down on the ground.
+
+> stand
+You stand up.
+
+> lie stand
+You lie down on the ground.
+
+> x me
+A test subject.  You are lying down.
+
+> stand sit
+You stand up.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> sit on stool lie
+You lie down on the stool.
+
+> x me
+A test subject.  You are lying down on the stool.
+
+> stand
+You stand up from the stool.
+
+> sit stand
+You stand up.
+
+> x me
+A test subject.
+
+> lie on stool sit
+You lie down on the stool.
+
+> x me
+A test subject.  You are lying down on the stool.
+
+> stand
+You stand up from the stool.
+
+> push stone sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> x stool sit
+A wooden stool.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> open stool sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> sit and wait
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> wear coin sit
+You sit down on the ground.
+
+> x me
+A test subject.  You are sitting down.
+
+> stand
+You stand up.
+
+> lay down
+I don't understand.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> lay on stool
+I don't understand what you want me to do with the stool.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> sit on chair stand on stool
+You stand on the chair.
+
+> x me
+A test subject.  You are standing on the chair.
+
+> stand
+You are already standing!
+
+> stand up sit down lie down
+You lie down on the ground.
+
+> x me
+A test subject.  You are lying down.
+
+> stand
+You stand up.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

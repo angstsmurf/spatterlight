@@ -1,0 +1,74 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem and a rock.  You can only move north.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> probe
+PROBE OK.
+
+> mmm
+I don't understand.
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> look
+Lit Room
+A bright room.  Also here is a gem and a rock.  You can only move north.
+
+> mmm
+I don't understand.
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> gem
+I don't understand what you want me to do with the gem!
+
+> probe
+PROBE OK.
+
+> hhh gem
+I don't understand what you want me to do with the gem.
+
+> with zzz
+With what?
+
+> rock
+You don't have the rock.
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> cut rock
+You can't cut the rock.
+
+> probe
+PROBE OK.

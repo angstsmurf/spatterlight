@@ -1,0 +1,30 @@
+
+> probe
+PROBE OK.
+
+> x dave
+A quiet man.
+
+> x zzzz
+You see no such thing, or else it is unimportant.
+
+> x erin
+You see no such thing, or else it is unimportant.
+
+> e
+You move east.
+Bravo
+The second room.  You can only move west.
+
+> x dave
+You cannot spot Dave from here.
+
+> x erin
+You see no such thing, or else it is unimportant.
+
+> x zzzz
+You see no such thing, or else it is unimportant.
+
+> look
+Bravo
+The second room.  You can only move west.

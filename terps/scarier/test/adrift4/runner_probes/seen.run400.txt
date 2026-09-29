@@ -1,0 +1,53 @@
+
+> look
+Test Arena
+A bare arena.  Also here is an echo.
+
+> x alpha
+You see no such thing.
+
+> zza
+ZZA.
+
+> x alpha
+A probe object.
+
+> zzb
+ZZB.
+
+> x bravo
+A probe object.
+
+> zzc
+ZZC.
+
+> x gamma
+A probe object.
+
+> zzd
+ZZD.
+
+> x delta
+You see no such thing.
+
+> i
+You are wearing a bravo, and you are carrying an alpha and a delta.
+
+> x alpha
+A probe object.
+
+> x delta
+A probe object.
+
+> x bravo
+A probe object.
+
+> look
+Test Arena
+A bare arena.  Also here is a gamma and an echo.
+
+> x gamma
+A probe object.
+
+> x echo
+A probe object.

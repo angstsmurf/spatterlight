@@ -143,9 +143,10 @@ lib_cmd_examine_self (scr_gameref_t game)
        * And that is the whole reply: neither run370's block (435A9B-435BEA)
        * nor run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8
        * `x me` never says "You are wearing ..." -- only `i` does.  run370x/
-       * run380x p37SITN/p38SITN `wear hat sit` then `x me` (Adrift_203_
-       * psitn_37.rtf, Adrift_204_psitn_38.rtf, 2026-09-20): "...the
-       * circumstances.  You are sitting down." while `i` lists the hat worn.
+       * run380x p37SITN/p38SITN `wear hat sit` then `x me`
+       * (runner_probes/sitn.run370.rtf, runner_probes/sitn.run380.rtf,
+       * 2026-09-20): "...the circumstances.  You are sitting down." while `i`
+       * lists the hat worn.
        */
       pf_buffer_answer_break (filter);
       return TRUE;
@@ -279,12 +280,12 @@ lib_absent_seen_object (scr_gameref_t game)
    * with no present namesake pass A marks nothing and they never run; the
    * "co(i, 4)" at 456E6A is a single vestigial call, not a loop.)
    *
-   * Measured on cowboyblues (4.00, Adrift_330_cowboyblues.txt line 1070):
-   * `x wall` in the Sheriff's Office after visiting the Back Room ("east
-   * wall" 91, alias "wall") and Blood Alley ("walls" 96, alias "wall")
+   * Measured on cowboyblues (4.00, runner_probes/cowboyblues.run400.txt line
+   * 1070): `x wall` in the Sheriff's Office after visiting the Back Room
+   * ("east wall" 91, alias "wall") and Blood Alley ("walls" 96, alias "wall")
    * answers "You see no such thing." -- both score 1 on the alias and tie.
-   * The old Short-word count here gave "east wall" 1 and "walls" 0 and
-   * wrongly picked 91.  Measured on humbug (Adrift_4_humbug.txt lines
+   * The old Short-word count here gave "east wall" 1 and "walls" 0 and wrongly
+   * picked 91.  Measured on humbug (runner_probes/humbug.run400.b.txt lines
    * 1602-1604): `X machine` with only the washing machine (81, Short
    * "machine") seen answers "I can't see the washing machine from here!",
    * and `X chute` against several seen "chute"s ties and prints the ALR'd
@@ -293,10 +294,10 @@ lib_absent_seen_object (scr_gameref_t game)
    * The candidates are every seen object whose name words the line holds,
    * not only what %object% bound: House's `open bathroom door` from the
    * Hallway, the door seen (examined, even) on the Landing, answers "You
-   * can't open that." (Adrift_128_doorprobe.txt, Adrift_128_housesober.txt
-   * T78-83), because the street's sign (alias "door") and front door (Short
-   * "door") score 1 alongside it, the tie is negative, and openclose leaves
-   * at 4756BC for therest's flat refusal.
+   * can't open that." (runner_probes/house_sober.run400.doorprobe.txt,
+   * runner_probes/house_sober.run400.txt T78-83), because the street's sign
+   * (alias "door") and front door (Short "door") score 1 alongside it, the tie
+   * is negative, and openclose leaves at 4756BC for therest's flat refusal.
    */
   input = run_get_dispatch_input ();
   if (!input)
@@ -356,9 +357,11 @@ lib_cant_see_absent_object (scr_gameref_t game,
  * The 3.7 and 3.8 Runners' co() (run380 42DE60) matches an object's Short or
  * alias wherever the object is, seen or not, and each verb handler then
  * answers for the first match it cannot reach.  Measured on p38EXAM and
- * p37EXAM (make_3738_examprobe.py; run380 Adrift_1165/1168, run370
- * Adrift_1166/1169, 2026-09-14), with the statue seen in the North Room and a
- * gem in a room the player never enters, both named from elsewhere:
+ * p37EXAM (make_3738_examprobe.py; run380 runner_probes/exam.run380.txt and
+ * runner_probes/exam.run380.2.txt, run370 runner_probes/exam.run370.txt and
+ * runner_probes/exam.run370.2.txt, 2026-09-14), with the statue seen in the
+ * North Room and a gem in a room the player never enters, both named from
+ * elsewhere:
  *
  *     command       3.80                                3.70
  *     x statue      seen:   You can't see a statue      the same
@@ -383,8 +386,8 @@ lib_cant_see_absent_object (scr_gameref_t game,
  * takes() walks every object and overwrites a message that still ends in
  * " from here!" (43E3F6), so the LAST match speaks: cave.taf `take parchment`
  * is "You can't see half of a parchment from here!", not the old parchment
- * before it (Adven_1_cave.rtf turns 115/145).  The other handlers are
- * measured on single matches only and keep the first.
+ * before it (runner_probes/cave.run380.rtf turns 115/145).  The other handlers
+ * are measured on single matches only and keep the first.
  *
  * Returns the first (or, with last, the last) object the line names, in
  * index order, or -1 when the
@@ -449,10 +452,11 @@ lib_cant_see_named_pre_390 (scr_gameref_t game, scr_int object,
  * answers "You can't see " & tense(Prefix) & " " & Short & "." and leaves
  * before any verb arm.  The caller only asks for lines that get this far in
  * the Runner -- see run_therest_absent_370().  Measured on p37GOTO
- * (harness/make_37_gotoprobe.py), run370x Adrift_142_p37cantsee.rtf: with
- * the stone in another room, go, enter, push, smell, kiss, turn, jump, buy,
- * open, sing, look, climb, sit on and fly the stone are all "You can't see
- * the stone.", and with it present go, push and kiss answer as ever.
+ * (harness/make_37_gotoprobe.py), run370x
+ * runner_probes/goto.run370.cantsee.rtf: with the stone in another room, go,
+ * enter, push, smell, kiss, turn, jump, buy, open, sing, look, climb, sit on
+ * and fly the stone are all "You can't see the stone.", and with it present
+ * go, push and kiss answer as ever.
  *
  * Returns TRUE if the line was answered.
  */
@@ -609,13 +613,14 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
    * own `turns` and `score`.  3.9 counts it like any other command.
    *
    * Measured 2026-08-29 under Wine.  run400, arena probes EV14/EV15/EV16
-   * (harness/make_arena_probe.py; Adrift_1_ev14.txt, _ev15.txt, _ev16.txt):
-   * a one-turn event started by the previous command finishes on the `z`
-   * AFTER `x bob`, not on `x bob` itself; a looping walker with enter/exit
-   * lines prints nothing on that turn; and `turns` reads 0 after `x bob`,
-   * `x carl` (empty description), `look at bob` and `examine bob`, while
-   * `x me` and `x pebble` count.  run390, BobBobsly.taf (3.90),
-   * Adrift_1_bob390.txt: `turns` climbs by one across `x bouncer`.
+   * (harness/make_arena_probe.py; runner_probes/ev14.run400.txt,
+   * runner_probes/ev15.run400.txt, runner_probes/ev16.run400.txt): a one-turn
+   * event started by the previous command finishes on the `z` AFTER `x bob`,
+   * not on `x bob` itself; a looping walker with enter/exit lines prints
+   * nothing on that turn; and `turns` reads 0 after `x bob`, `x carl` (empty
+   * description), `look at bob` and `examine bob`, while `x me` and `x pebble`
+   * count.  run390, BobBobsly.taf (3.90), runner_probes/bob_bobsly.run390.txt:
+   * `turns` climbs by one across `x bouncer`.
    *
    * This is Beanstalk turn 45: the stranger's greeting is a one-turn event
    * started by `sell cow`, the player examines him and walks east, and by
@@ -651,7 +656,7 @@ lib_cmd_examine_npc (scr_gameref_t game)
    * with the description, and the line is a turn.  Humbug T634 `X robot` at
    * the Bus Stop, with the static robot (213) seen in the tunnel: run400
    * draws for the tick and Grandad arrives on that line
-   * (Adrift_128_humbug_tr.txt).
+   * (runner_transcripts/humbug.txt).
    */
   if (lib_is_version_400 (game))
     {
@@ -1014,10 +1019,10 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter,
  *   Badge.
  *
  * measured live in run400 on The_X-Files_A_New_Beginning.taf (4.00),
- * 2026-08-25, Adrift_22_xfiles.txt line 9.  SCARE had it the other way and
- * as two sentences, "Inside Your Desk is ...  Your Coffee Mug and The Memo
- * are on Your Desk."  The single closing '.' is appended once at the end of
- * whatisinon (loc_46A8C6, and only if anything was added at all), so the
+ * 2026-08-25, runner_probes/xfiles.run400.txt line 9.  SCARE had it the other
+ * way and as two sentences, "Inside Your Desk is ...  Your Coffee Mug and The
+ * Memo are on Your Desk."  The single closing '.' is appended once at the end
+ * of whatisinon (loc_46A8C6, and only if anything was added at all), so the
  * "on" clause does not carry one when an "in" clause follows it.
  *
  * All of that is 3.9-and-later.  Before 3.9 there is no combined lister at
@@ -1120,11 +1125,11 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
        * and the raw state name, the same as the open/closed suffix above
        * it; isare() is never consulted.  magicshow (4.00, Prefix "the",
        * Short "gates", states "Up|Down") measures `examine gates` as "The
-       * gates are down." (Adrift_magicshow T80) only because the game's
-       * own ALRs rewrite "The gates is Down." -- an "are" never matches
-       * them.  Only 4.0 gets here: the 3.7-3.9 schemas have no states
-       * (ZCurrentState), and run390's examine tail (44BE60-44BEEE) is just
-       * the open/closed line and whatisinon().
+       * gates are down." (runner_probes/magicshow.run400.b.txt T80) only
+       * because the game's own ALRs rewrite "The gates is Down." -- an "are"
+       * never matches them.  Only 4.0 gets here: the 3.7-3.9 schemas have no
+       * states (ZCurrentState), and run390's examine tail (44BE60-44BEEE) is
+       * just the open/closed line and whatisinon().
        */
       pf_buffer_string (filter, " is ");
 
@@ -1307,9 +1312,9 @@ lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
  * here, examines speaks for THAT object (471933): "<player> can't see
  * <the X> from here!" when it has been seen (471958), else "<player> can't
  * see that." (471995).  Neither sets the not-a-turn flag.  Measured on
- * warlord (Adrift_1059_warlord.txt): in the Great Hall "tapestries" (90,
- * alias "tapestry") and "third tapestry" (91, alias "tapestry three") both
- * score 1 on `x tapestry three`; pass A marks 90, 91 and the unseen
+ * warlord (runner_probes/warlord.run400.txt): in the Great Hall "tapestries"
+ * (90, alias "tapestry") and "third tapestry" (91, alias "tapestry three")
+ * both score 1 on `x tapestry three`; pass A marks 90, 91 and the unseen
  * tapestries of room 35 (286), whose word "tapestry" has the present 90 as
  * its namesake; pass B is true for all three; no "the" is typed, so pass C
  * leaves 286 and the Runner answers "You can't see that." (and the same for
@@ -1364,12 +1369,13 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
  * last, so the highest index wins.  Examining the object still marks it seen.
  * Unlike a plain character examine the line stays a turn: the arm writes no
  * MemVar_494281, and marking it administrative moves Lair's ambient room text
- * from T180 on out of step with Adrift_131_lair.txt.
+ * from T180 on out of step with runner_probes/lair.run400.a.txt.
  *
  * Measured on Lair of the Vampire (4.00): in the Ancient Feasthall, static
  * object "skeleton" and Havelock's skeleton (alias skeleton) share the room,
  * and `x skeleton` answers only "Havelock's skeletal remains sit on the
- * throne..." (Adrift_332_lair.txt:1573, Adrift_674_lair.txt:1574).
+ * throne..." (runner_probes/lair.run400.b.txt:1573,
+ * runner_probes/lair.run400.c.txt:1574).
  *
  * run390 has the same arm (characters() 459E2A-459FD9, called at 460675
  * below therest), gated only on c(Name) or c(Alias) at 4592B8, no task ran
@@ -1385,9 +1391,9 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
  * task ran, 3.8 only, by VB precedence], the NPC named by Name or first
  * Alias (lib_npc_named_in_line()) and in the room, the description or
  * "There's nothing special about <Name>." assigned outright, then charinv.
- * Measured on p37/p38NPCAMB (make_3738_npcambprobe.py, cmdfile_pnpcwith.txt):
- * `x dave with stone` answers "A quiet man." (run370x Adrift_198_pnpcwith37,
- * run380x Adrift_199_pnpcwith38), not the stone's description.
+ * Measured on p37/p38NPCAMB (make_3738_npcambprobe.py): `x dave with stone`
+ * answers "A quiet man." (run370x runner_probes/npcamb.run370.with.rtf,
+ * run380x runner_probes/npcamb.run380.with.rtf), not the stone's description.
  */
 scr_int
 lib_examine_npc_overwrite_400 (scr_gameref_t game)
@@ -1456,8 +1462,8 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
          * loc_43CF4A/loc_43CF7A, run390 loc_44BE84/loc_44BEB4 -- so a
          * multi-word prefix vanishes: gamma.taf (3.90, Prefix "a mini",
          * Short "fridge") measures `x mini fridge` as "The fridge is
-         * open." (Adrift_3_gamma.txt).  run400 instead composes the name
-         * with the tensed prefix (Proc_21_31_448710 at 4717D1): man
+         * open." (runner_transcripts/gamma.txt).  run400 instead composes the
+         * name with the tensed prefix (Proc_21_31_448710 at 4717D1): man
          * overboard.taf (4.00, Prefix "the set of", Short "drawers")
          * measures `x drawers` as "The set of drawers is closed."
          */
@@ -1514,9 +1520,9 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
  * examines() prints "Please examine one object at a time." (44BFA9), the
  * line a bare `x all` gets.
  *
- * MEASURED p39PFX2 (run390x, Adrift_1213, 2026-09-20): three trees, all
- * Short "tree", Prefixed "a big red", "a red" and "the red".  `x red
- * tree`, `x a red tree`, `x the red tree` and `x big red tree` all type
+ * MEASURED p39PFX2 (run390x, runner_probes/pfx2.run390.txt, 2026-09-20): three
+ * trees, all Short "tree", Prefixed "a big red", "a red" and "the red".  `x
+ * red tree`, `x a red tree`, `x the red tree` and `x big red tree` all type
  * the last Prefix word "red" that all three share, so pass one keeps
  * three and the second finds three Shorts "tree" -- "Please examine one
  * object at a time." every time, the multi-word "big red tree" no help at
@@ -1651,12 +1657,13 @@ lib_cmd_examine_object (scr_gameref_t game)
    * computed from the room alone, and the Runner's object loop never
    * separates the two.
    *
-   * Measured on p39DARK.taf (3.90), Adrift_968.txt: with the box already
-   * seen, `x box` in the dark answers "You can't see the box very clearly.
-   * The box is open.  A coin is inside the box.", and `x lamp` -- held --
-   * answers "You can't see the lamp very clearly."  Adrift_967.txt is the
-   * companion run where the same objects have never been seen, and there the
-   * noun does not resolve at all; see lib_print_room_description().
+   * Measured on p39DARK.taf (3.90), runner_probes/dark.run390.seen.txt: with
+   * the box already seen, `x box` in the dark answers "You can't see the box
+   * very clearly.  The box is open.  A coin is inside the box.", and `x lamp`
+   * -- held -- answers "You can't see the lamp very clearly."
+   * runner_probes/dark.run390.unseen.txt is the companion run where the same
+   * objects have never been seen, and there the noun does not resolve at all;
+   * see lib_print_room_description().
    */
   if (lib_room_is_dark (game, gs_playerroom (game)))
     {
@@ -1720,12 +1727,13 @@ lib_cmd_examine_object (scr_gameref_t game)
    * CHARACTER default, not this one; Scarier already prints it, at
    * lib_cmd_examine_npc.
    *
-   * Measured on p39EXAM.taf (3.90), Adrift_41_p39exam.txt: `x stone` -- the
-   * stone is in the room, has an empty Description, and answers "Nothing
-   * special."  Adrift_43_p39exam.txt repeats it with the stone held, and
-   * answers the same, so being carried makes no difference.  The 4.0 twin
-   * p4EXAM.taf, Adrift_1_p4exam.txt, answers "You see nothing special about
-   * the stone."  ms_mobius_solution is the corpus's only pre-4.0 exposure.
+   * Measured on p39EXAM.taf (3.90), runner_probes/exam.run390.txt: `x stone`
+   * -- the stone is in the room, has an empty Description, and answers
+   * "Nothing special."  runner_probes/exam.run390.held.txt repeats it with the
+   * stone held, and answers the same, so being carried makes no difference.
+   * The 4.0 twin p4EXAM.taf, runner_probes/exam.run400.txt, answers "You see
+   * nothing special about the stone."  ms_mobius_solution is the corpus's only
+   * pre-4.0 exposure.
    */
   if (!is_described)
     {

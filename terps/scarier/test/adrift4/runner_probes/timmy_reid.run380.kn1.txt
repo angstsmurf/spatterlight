@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fcharset0 Arial;}}
+{\colortbl;\red255\green50\blue50;\red0\green255\blue0;}
+{\*\generator Wine Riched20 2.0;}
+\pard\sl-240\slmult1 \cf1\lang1033\fs28\f0 The Timmy Reid Adventure (The Jonny Reid Adventure - Part II)\fs24 \par
+\cf2 All that you remember is looking back at Jon as you scramble to hold on...  You begin to plunge into the swirling image of the cottage.  Your ears start to pop and you hear what sounds like ocean surf.  Your face is brushed with a salty mist.  You fall for what seems an eternity...\par
+\par
+Suddenly, all is bright as your limp carcass slams onto the hot pavement.  The exquisite pain confirms that you aren't dead!  Just before your world goes black, you collect the strength to raise your head from the searing blacktop.  Your eyes roll up into their sockets and you think you see the cottage at Old Orchard Beach.  Darkness...\par
+\par
+You took a nasty fall, but with some effort you manage to pick yourself up and brush off.  You unconsciously start picking small pebbles from your cheek and shoulder and discover that your shirt is stained with blood.  The sun beats down on your head and neck causing you to start sweating.  Your ears suddenly pick up a faint sound like a mosquito's buzz.  The sound gets increasingly louder and you realize that it's not a mosquito but a scream and it's coming from above you.  You shift your feet and look up just in time to see a body hurling downwardly toward you.  Instinctively, you raise your arms to protect yourself and crumple to the ground after being slammed by the body of a small boy.  You sit up stunned and turn toward the boy.  You both scream at the top of your lungs as you realize that the boy is your brother, Jon.\par
+\par
+So begins "The Timmy Reid Adventure"\par
+\cf1 \par
+hug jon\par
+\cf2 You don't know why, but you lean over and give your brother a big hug.  He seems surprised but returns the hug.  As you begin to let him go, he slips something into your hand.  You look down and discover a plastic thumb wrestler " Big John Stud".  You look up at your brother and he is smiling.  You have been awarded 25 points for going beyond the call of duty.\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+You are standing on the front deck of the cottage.  Some of the boards are slightly rotted.  Despite the rot, the deck looks freshly painted.  The front door stands before you and the porch door is to your left.  An old sign is fastened above the porch door and an old welcome mat lies just before the front door.  There is a yellow bug light above the kitchen window and a clothes line running from a large silver colored pulley up to the telephone pole near the road.\par
+\cf1 \par
+search for the cottage key\par
+\cf2 You remember that there is always a key to the cottage hanging on a brad hidden above the kitchen door.  You reach you hand way up, sliding it back and fourth and you catch your finger on the brad and you hear a light clinking sound.  You're not hurt too bad but there will be blood.  You close your fingers around the key and bring it down.  This looks like the key to your room at home.  You hope it unlocks the kitchen door.  Your smarts have gained you 10 points.\par
+\cf1 \par
+unlock the kitchen door\par
+\cf2 You slide the key into the lock and slowly turn it.  You  feel only slight resistance and the door is unlocked.  You've earned 5 points\par
+\cf1 \par
+pull the clothesline\par
+\cf2 You grab hold of the clothesline just above the deck railing and pull it toward you bringing the white towel closer.\par
+\cf1 \par
+get towel from clothesline\par
+\cf2 You take a white towel from the white clothesline.\par
+\cf1 \par
+in\par
+\cf2 You move in.\par
+You are standing in the smallest kitchen that you have ever seen on dry land.  You can almost touch all four walls without moving.  Your breathing gets shallow.  In the kitchen is a refrigerator, the kitchen counter, the kitchen sink, a silverware drawer, a gas stove and a kitchen cupboard.  Also here is a plastic garbage container, the kitchen table and the kitchen chairs.  Electricity rips through your spine as your ears are attacked by one of Art's coughing fits.  It ends after several seconds and you wonder if he's dead.\par
+\cf1 \par
+open refrigerator\par
+\cf2 You open the big white refrigerator.  Inside the big white refrigerator is an old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large bottle of mustard and a moxie.  Your ears are rudely awakened by the sound of a skill saw screaming and scraping through some lumber off  in the distance.  \par
+\cf1 \par
+get moxie\par
+\cf2 You take a moxie from the big white refrigerator.  You take all of the knives from the silverware drawer.\par
+\cf1 \par
+look\par
+\cf2 You are standing in the smallest kitchen that you have ever seen on dry land.  You can almost touch all four walls without moving.  Your breathing gets shallow.  In the kitchen is a refrigerator, the kitchen counter, the kitchen sink, a silverware drawer, a gas stove and a kitchen cupboard.  Also here is a plastic garbage container, the kitchen table and the kitchen chairs.  Jon is here.  The sound of a skill saw ripping through some lumber can be heard intermittantly off in the distance.  The sound of a skill saw ripping lumber finally fades to  stillness.\par
+\cf0\fs16 \par
+}

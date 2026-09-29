@@ -1,0 +1,66 @@
+
+> probe
+PROBE OK.
+
+> take torch
+You take the torch.
+
+> take box
+You take the box.
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> close box
+You close the box.
+
+> put lamp in box
+The box is closed!
+
+> open box
+You open the box.  A coin is inside the box.
+
+> drop box
+You drop the box.  
+
+> put lamp in box
+You put the lamp inside the box.  
+
+> put coin in box
+You are not holding the coin.
+
+> x coin
+A gold coin.
+
+> take coin
+You take the coin from the box.
+
+> put coin in box
+You put the coin inside the box.  
+
+> take box
+You take the box.
+
+> put pebble in box
+(Taking the pebble first)
+You put the pebble inside the box.  
+
+> put torch in box
+You put the torch inside the box.  
+
+> drop coin
+You drop the coin.  
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> put zzzz in box
+It is not clear which object you are referring to.
+
+> put coin in zzzz
+I don't understand what you want to put things inside.
+
+> probe
+PROBE OK.

@@ -1,0 +1,36 @@
+
+> ex zzz
+You see no such thing.
+
+> exam zzz
+You see no such thing.
+
+> exam
+You see no such thing.
+
+> ex
+I don't understand.
+
+> x,
+I don't understand.
+
+> ex,
+I don't understand.
+
+> exam the
+You see no such thing.
+
+> ex crate
+The crate is closed.
+
+> look at
+You see no such thing.
+
+> read
+You see no such thing.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

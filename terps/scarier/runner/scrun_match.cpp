@@ -182,8 +182,9 @@ static std::vector<scr_task_commands_t> run_cache;
  * -- one rule explains both, and it is that the command was folded and the
  * stored Name was not (var_get_command_number()).
  *
- * p*CASEREF then asked the four known markers directly (Adrift_215_cr370.rtf,
- * Adrift_216_cr380.rtf, Adrift_217_cr390.txt, Adrift_218_cr400.txt,
+ * p*CASEREF then asked the four known markers directly
+ * (runner_probes/caseref.run370.rtf, runner_probes/caseref.run380.rtf,
+ * runner_probes/caseref.run390.txt, runner_probes/caseref.run400.txt,
  * 2026-09-20): tasks `frob %Object%`, `nurb %CHARACTER%`, `blip %Number%` and
  * `murg %TEXT%` beside their lower-case twins, fed `frob rock`, `nurb fay`,
  * `blip 7`, `murg quux`.  Every capitalised marker runs its task, in every
@@ -299,19 +300,21 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
  *
  *   `nurb rock`, then `nurb rock` again -> "NURBED a red rock." and then
  *   "NURBED %object%.": the second line still matches the command, now
- *   literally "nurb rock", but binds nothing (Adrift_objref370.rtf).
+ *   literally "nurb rock", but binds nothing
+ *   (runner_probes/objref.run370.rtf).
  *   `nurb gem` first instead -> "NURBED a gem.", and `nurb rock` after it
  *   is the library's "Which rock.  The big rock or the red rock?", the task
- *   being spelled "nurb gem" now (Adrift_objref370b.rtf).
+ *   being spelled "nurb gem" now (runner_probes/objref.run370.b.rtf).
  *   A line that does NOT match leaves the command alone: `frob rock` (the
  *   object catch-all) and `x coin` both keep `nurb coin` working as a task
- *   afterwards (Adrift_objref370e.rtf, objref370c.rtf, 2026-09-20).
+ *   afterwards (runner_probes/objref.run370.e.rtf,
+ *   runner_probes/objref.run370.c.rtf, 2026-09-20).
  *
  * run380 works on a copy throughout -- p38OBJREF answers every cell of both
- * feeds normally (Adrift_objref380.rtf, objref380b.rtf) -- so this is 3.7's
- * alone.  The rewrite belongs to the loaded game rather than to game state:
- * like the Runner's own task record it is not undone by UNDO and not
- * restored from a save.
+ * feeds normally (runner_probes/objref.run380.rtf,
+ * runner_probes/objref.run380.b.rtf) -- so this is 3.7's alone.  The rewrite
+ * belongs to the loaded game rather than to game state: like the Runner's own
+ * task record it is not undone by UNDO and not restored from a save.
  *
  * Deliberate deviation (2026-09-27): not ported.  After one `eat apple`, a
  * task `eat %object%` would answer nothing but the apple for the rest of the
@@ -362,7 +365,7 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
    * eleven-character token hid the verb, and the pattern -- being
    * wildcard-leading -- was then skipped by every library call, so the
    * 4.0 drop handler's look-up could not find it (run400
-   * Adrift_274_frustrated.txt gives it the line).
+   * runner_transcripts/frustrated.txt gives it the line).
    */
   for (pattern += strspn (pattern, PATTERN_WORD_BREAK); *pattern != NUL;)
     {
@@ -434,15 +437,14 @@ run_any_task_ran_this_command (void)
 
 
 /*
- * Measured 2026-08-23 (make_39_doneprobe.py, run390 Adrift_18.txt and
- * Adrift_19.txt): below 4.0 a game task that matches the command element
- * claims it even when it says nothing, so the standard library verb that would
- * otherwise answer never gets a turn.  `x book` on a spent `* x * book *` task
- * answers "You have already done that." instead of the book's description,
- * where `look at book` -- matching no task -- prints the description; and a
- * silent task that runs and prints nothing leaves "I don't understand." rather
- * than the library answer.  4.0 dropped this: run400 falls through to the
- * library examine in both cells (Adrift_14.txt, Adrift_15.txt).
+ * Measured 2026-08-23 (make_39_doneprobe.py, run390): below 4.0 a game task
+ * that matches the command element claims it even when it says nothing, so the
+ * standard library verb that would otherwise answer never gets a turn.  `x
+ * book` on a spent `* x * book *` task answers "You have already done that."
+ * instead of the book's description, where `look at book` -- matching no task
+ * -- prints the description; and a silent task that runs and prints nothing
+ * leaves "I don't understand." rather than the library answer.  4.0 dropped
+ * this: run400 falls through to the library examine in both cells.
  *
  * The spent half is PORTED (2026-09-13): run_spent_task_390() in
  * run_all_commands() makes the claim where run390's checktask makes it, ahead
@@ -664,7 +666,8 @@ run_line_number_word (const std::string &line, scr_int *number)
  *    7 zog` and answers `blip 9 zog 3 blip` with "NUM2 [9]." -- numintext
  *    took the 9 because it is the leftmost digit, not because the pattern
  *    reached it.  run400 refuses both, its own matcher cutting the line as it
- *    goes (Adrift_211_nr390.txt, Adrift_212_nr400.txt, 2026-09-20).
+ *    goes (runner_probes/numref.run390.txt, runner_probes/numref.run400.txt,
+ *    2026-09-20).
  *  - the substituted command has to equal the line that produced it, and
  *    Val() makes that fail: `zork 007 apples` spells "zork 7 apples" and
  *    `zork 3x apples` spells "zork 3 apples", so both are refused at 3.90
@@ -816,7 +819,8 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * come apart whenever a line names two namesakes, and p39WILDREF answers
  * `blip zog blip rock blip gem blip` against "* zog * %object% *" with "WILD1
  * a gem.": the rock (index 0) made the string that matched and the gem (index
- * 1) is what %object% expands to (Adrift_209_wr390.txt, 2026-09-20).
+ * 1) is what %object% expands to (runner_probes/wildref.run390.txt,
+ * 2026-09-20).
  *
  * 3.90 tests the Short (44AAD6) and then the Aliases (44AB65) of the SAME
  * object before it moves on to the next -- one `For var_138 ... Next
@@ -824,12 +828,12 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * .global_8, not the Short.  So the order is obj0.Short, obj0.Alias,
  * obj1.Short, obj1.Alias, ..., and a line naming one object's Short and an
  * earlier object's Alias is spelled with the ALIAS and expands to the
- * later object.  p39TEXTSRC (make_textsrcprobe.py, Adrift_215_ts390.txt,
- * 2026-09-20) answers both `zug rock stone` and `zug stone rock` against
- * "* zug * %object% *" with "WILD [a rock].": the gem is index 0 and binds
- * through its alias "stone", spelling "* zug * stone *", and the rock binds
- * after it.  Both gates are the seen byte .global_44 and nothing else --
- * there is no scope test, so an absent object binds.
+ * later object.  p39TEXTSRC (make_textsrcprobe.py,
+ * runner_probes/textsrc.run390.txt, 2026-09-20) answers both `zug rock stone`
+ * and `zug stone rock` against "* zug * %object% *" with "WILD [a rock].": the
+ * gem is index 0 and binds through its alias "stone", spelling "* zug * stone
+ * *", and the rock binds after it.  Both gates are the seen byte .global_44
+ * and nothing else -- there is no scope test, so an absent object binds.
  *
  * 4.00 is the one that walks twice, every Short and then every Alias:
  * run400 answers the same two lines with "WILD [a gem]." -- the rock's
@@ -852,7 +856,8 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * The game's own variables come last (44AF07) -- see
  * run_substitute_variable_references().
  *
- * Not emulated, and measured 2026-09-20 (p39TEXTSRC, Adrift_215_ts390.txt):
+ * Not emulated, and measured 2026-09-20 (p39TEXTSRC,
+ * runner_probes/textsrc.run390.txt):
  * the string 3.90 searches is not `line` at all but MemVar_468224, a
  * SNAPSHOT of the line taken at the end of the synonym pass (45F20F), so
  * none of generaltasks' own rewrites below it -- "everything"->"all"
@@ -1000,9 +1005,9 @@ run_match_task_commands (scr_gameref_t game,
    * spaces of a "...with?" continuation (`cut rope with ` & " " & `knife`)
    * match no task: run400 answers `cut rope`, `knife` with the library's
    * "You can't cut the rope with the knife." although the game has a task
-   * `cut rope with knife` (Adrift_39_p4withq.txt).  Scarier's matchers want
-   * single spaces, so run_player_input() runs such a rerun collapsed and
-   * raises run_rerun_skips_tasks for it instead.
+   * `cut rope with knife` (runner_probes/withq.run400.txt).  Scarier's
+   * matchers want single spaces, so run_player_input() runs such a rerun
+   * collapsed and raises run_rerun_skips_tasks for it instead.
    */
   if (run_rerun_skips_tasks && !is_library)
     return FALSE;
@@ -1011,9 +1016,9 @@ run_match_task_commands (scr_gameref_t game,
    * 3.9 does not collapse the two spaces either, and its task matcher sees
    * them: p39WITHQ's `saw rope` / `knife` fires the task wired
    * `saw rope with  knife` and not the `saw rope with knife` before it
-   * (run390x Adrift_p39withq.txt, 2026-09-25).  Scarier's matchers let a
-   * double space through, so a pattern that has neither a double space nor
-   * a wildcard to swallow it is skipped instead.  A double space in a
+   * (run390x runner_probes/withq.run390.txt, 2026-09-25).  Scarier's matchers
+   * let a double space through, so a pattern that has neither a double space
+   * nor a wildcard to swallow it is skipped instead.  A double space in a
    * pattern is modelled only as far as that: such a pattern still matches
    * through the usual single-space matcher.
    */
@@ -1042,7 +1047,7 @@ run_match_task_commands (scr_gameref_t game,
       /*
        * Make a special case of library calls and commands that begin with a
        * wildcard.  Probed live in run400 (2026-08-22, probes pPREC and
-       * pPREC2, transcripts Adrift_10/11.txt): a wildcard-leading pattern
+       * pPREC2): a wildcard-leading pattern
        * with failing messaged restrictions blocks the system take only when
        * the pattern explicitly names a verb -- either the library's
        * canonical verb ("* get * tent *" blocks both "get tent" and "take
@@ -1132,8 +1137,9 @@ run_match_task_commands (scr_gameref_t game,
        * after the whole command has been tried as a literal, brackets and
        * all, and after a '*' in it has been matched literally too.
        *
-       * Measured on p4GROUP (make_groupprobe.py, Adrift_210_gr400.txt and
-       * _gr400b.txt, 2026-09-20).  Task 1 is "zog [rock/gem]": run400 takes
+       * Measured on p4GROUP (make_groupprobe.py,
+       * runner_probes/group.run400.txt and runner_probes/group.run400.b.txt,
+       * 2026-09-20).  Task 1 is "zog [rock/gem]": run400 takes
        * `zog rock` and `zog gem` by step 3 AND `zog [rock/gem]` by step 1,
        * while `zog [gem/rock]`, `zog [rock/gem ]` and `zog rock/gem` are
        * refused -- equality on the raw pattern, no normalising beyond the
@@ -1141,8 +1147,8 @@ run_match_task_commands (scr_gameref_t game,
        * takes).  Task 3 is "* blip [red/blue] *": `xxx blip [red/blue] yyy`
        * runs it by step 2 and `xxx blip red yyy` matches nothing, so step 3
        * never expands a group in a '*' command.  run390 answers the same
-       * feed identically (Adrift_209_gr390b.txt) -- its checktask has the
-       * same equality-then-checkwild shape with step 3 missing.
+       * feed identically (runner_probes/group.run390.b.txt) -- its checktask
+       * has the same equality-then-checkwild shape with step 3 missing.
        *
        * Only steps 1 and 2 are done here; step 3 is the tree, which has
        * already run.  A command with a %reference% belongs to 458E6C /
@@ -1214,13 +1220,15 @@ run_match_task_commands (scr_gameref_t game,
        * answer as the match flag, with nothing else consulted.  So a line
        * the tree refuses runs the task all the same, and the two ways that
        * happens are both measured on p*WILDORD (make_wildorderprobe.py,
-       * Adrift_wildorder370.rtf/380.rtf/390.txt, 2026-09-20):
+       * runner_probes/wildord.run370.rtf, runner_probes/wildord.run380.rtf,
+       * runner_probes/wildord.run390.txt, 2026-09-20):
        *
        * - Each middle piece is looked for with InStr over the WHOLE line
        *   and the line is never cut, so ORDER IS FREE.  Task "* king *
        *   rose *" runs on `blip rose blip king blip` in all three
        *   pre-4.0 Runners; 4.0's own matcher cuts, so it refuses there
-       *   (Adrift_wildorder400.txt) and the tree's answer is right.
+       *   (runner_probes/wildord.run400.txt) and the tree's answer is
+       *   right.
        * - Nothing being consumed, one occurrence satisfies a piece twice:
        *   "* zog * zog *" runs on `a zog b`, again pre-4.0 only.
        *
@@ -1254,7 +1262,8 @@ run_match_task_commands (scr_gameref_t game,
        * rock` with task 2's "NURBED a big rock." and `nurb a big rock` and
        * `nurb big rock` -- the rock's Prefix is "a big" -- with the object
        * catch-all, "I don't understand what you want me to do with the big
-       * rock." (Adrift_chref370b.rtf, Adrift_chref380b.rtf, 2026-09-20).
+       * rock." (runner_probes/chref.run370.b.rtf,
+       * runner_probes/chref.run380.b.rtf, 2026-09-20).
        * That is 3.9's and 4.0's answer too, where the strict comparator in
        * uip_compare_candidate() already refuses the prefixed forms; the
        * tolerant tree matcher took all three here because nothing below 3.90
@@ -1268,14 +1277,15 @@ run_match_task_commands (scr_gameref_t game,
        * (433227-433E4A) -- so after the substitution there is nothing but
        * the equality at 44B0E2 and, for a '*' command, checkwild at 44B139
        * to route a group to.  Measured on p*GROUP (make_groupprobe.py,
-       * scrollback_gr370.txt, scrollback_gr380.txt, Adrift_209_gr390.txt,
-       * 2026-09-20): all three Runners answer `zog rock` and `zog gem`
-       * against task 1's "zog [rock/gem]" with the object catch-all and run
-       * the task on `zog [rock/gem]`; `nurb rock` and `nurb the rock` miss
-       * "nurb {the} rock" and `nurb {the} rock` takes it; `frob` and `frob
-       * up` miss "frob {up}" and `frob {up}` takes it.  So a group command
-       * joins the pre-4.0 arm rather than skipping it, and it joins even
-       * with no '*' in it, where the test is plain equality.
+       * runner_probes/group.run370.scrollback.txt,
+       * runner_probes/group.run380.scrollback.txt,
+       * runner_probes/group.run390.txt, 2026-09-20): all three Runners answer
+       * `zog rock` and `zog gem` against task 1's "zog [rock/gem]" with the
+       * object catch-all and run the task on `zog [rock/gem]`; `nurb rock` and
+       * `nurb the rock` miss "nurb {the} rock" and `nurb {the} rock` takes it;
+       * `frob` and `frob up` miss "frob {up}" and `frob {up}` takes it.  So a
+       * group command joins the pre-4.0 arm rather than skipping it, and it
+       * joins even with no '*' in it, where the test is plain equality.
        *
        * Zero corpus exposure, measured 2026-09-20 over every .taf in
        * games/ and downloaded/ (SCR_DUMP_TASKS, 405 games that load; the 14
@@ -1358,8 +1368,9 @@ run_match_task_commands (scr_gameref_t game,
        * match still leaves its object referenced for the rest of the turn.
        * thenightmoon's task 17 is literal `behead dark elf`, but its
        * restriction "the referenced object must be held" answers "You do not
-       * have dead dark elf." there (run390x Adrift_304_nmprobe2_rt.txt), the
-       * body having been bound by a %object% command checked earlier.
+       * have dead dark elf." there (run390x
+       * runner_probes/thenightmoon.run390.probe2.txt), the body having been
+       * bound by a %object% command checked earlier.
        */
       if (!is_matched && version == TAF_VERSION_390 && !lenient
           && strstr (pattern, "%object%") != NULL)
@@ -1391,15 +1402,15 @@ run_match_task_commands (scr_gameref_t game,
              * written for is now measured and ported -- 4.0 makes two
              * passes, present-and-seen then absent-but-seen, and takes the
              * FIRST in index order of whichever pass bound (p4OBJREF,
-             * Adrift_objref400.txt; uip_match_entity()) -- so this is no
-             * longer a divergence report but a way of finding the corpus
-             * turns that exercise the rule, and of watching the older
-             * Runners, which have no scope test at all and let the LAST
-             * seen namesake win wherever it stands.  SCOPE-MISS = nothing
-             * that matched is present, so 4.0 bound on its second pass;
-             * SCOPE-BIND = the bound object is absent while a present one
-             * also matched, which below 4.0 is the Runner's answer and at
-             * 4.0 should no longer happen. */
+             * runner_probes/objref.run400.txt; uip_match_entity()) -- so this
+             * is no longer a divergence report but a way of finding the corpus
+             * turns that exercise the rule, and of watching the older Runners,
+             * which have no scope test at all and let the LAST seen namesake
+             * win wherever it stands.  SCOPE-MISS = nothing that matched is
+             * present, so 4.0 bound on its second pass; SCOPE-BIND = the bound
+             * object is absent while a present one also matched, which below
+             * 4.0 is the Runner's answer and at 4.0 should no longer
+             * happen. */
             static const scr_bool trace_scope =
                 getenv ("SCR_TRACE_SCOPE") != NULL;
             if (trace_scope && strstr (pattern, "%object%") != NULL)
@@ -1498,16 +1509,17 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  *
  * The case that needs excluding is "Space Boy's First Adventure" task 72,
  * "drop cape to the floor" (+250, no message) -- run400 lets the library's
- * ordinary drop win outright and the task never runs at all (Adrift_8_pET2.txt/
- * Adrift_10_pET4.txt, 2026-08-23).  The case that must NOT be excluded is that
- * same game's task 27, "{take/get}{them/boots}" (CompleteText "Taken."),
- * which must still win over the library's own take (run_v4_walkthroughs.sh
- * space_boy golden, "Taken." not "You take the pair of Flight Boots.").
- * Task 27 is kept safe here rather than by reachability: the library only
- * ever builds its callback string from the object's display Short name
- * ("get pair of Flight Boots"), never from an alias like "boots", so 27
- * looks unreachable too -- but it has real CompleteText and so is never
- * silent, and priority's generic take never gets to steal it.
+ * ordinary drop win outright and the task never runs at all
+ * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt, 2026-08-23).
+ * The case that must NOT be excluded is that same game's task 27,
+ * "{take/get}{them/boots}" (CompleteText "Taken."), which must still win over
+ * the library's own take (run_v4_walkthroughs.sh space_boy golden, "Taken."
+ * not "You take the pair of Flight Boots.").  Task 27 is kept safe here rather
+ * than by reachability: the library only ever builds its callback string from
+ * the object's display Short name ("get pair of Flight Boots"), never from an
+ * alias like "boots", so 27 looks unreachable too -- but it has real
+ * CompleteText and so is never silent, and priority's generic take never gets
+ * to steal it.
  *
  * "No visible sign that it ran" has to cover every way task_run_task_
  * unrestricted() (sctasks.cpp) can print, not just CompleteText: a
@@ -1549,7 +1561,8 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * floor": the library's short forms are "drop the cape" and "drop cape", and
  * neither matches a pattern that insists on the trailing "to the floor", so
  * the Runner's library claims the command outright and the task never runs
- * (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23).  "Sommeril" task 35 is the bare
+ * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt, 2026-08-23).
+ * "Sommeril" task 35 is the bare
  * "take silver orb", which IS the library's own short form for that object,
  * so the Runner runs it (silently, +5) and the library's take then answers
  * "You are already carrying the SILVER ORB." -- the shape the golden records.
@@ -1892,11 +1905,11 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * runs it.  Scarier reaches the same line in several passes (peek, no
    * restrictions, restrictions), and the later passes used to re-scan from
    * task 0 with the first task now spent: House (4.00, 2026-09-06,
-   * Adrift_100) `kiss cathy` as the first line naming Cathy runs the silent
-   * once-only task 200 `*cathy*`, and run400 then prints the library's
-   * "I'm not sure she would appreciate that!" -- the game's own kiss task
-   * 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND kiss.
-   * Scarier ran 200 and then 882 on the first line.  Library callbacks
+   * runner_probes/house.run400.kiss.txt) `kiss cathy` as the first line naming
+   * Cathy runs the silent once-only task 200 `*cathy*`, and run400 then prints
+   * the library's "I'm not sure she would appreciate that!" -- the game's own
+   * kiss task 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND
+   * kiss.  Scarier ran 200 and then 882 on the first line.  Library callbacks
    * (is_library) are left alone: those model the Runner's own pre-matcher
    * look-ups from inside the library handlers, which happen after the
    * dispatcher regardless.
@@ -1937,9 +1950,9 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * by test/adrift4/harness/make_39_doneprobe.py) says run390 orders the two
    * tests the other way about: a spent task answers "You have already done
    * that." whether its restrictions pass or fail, and never prints a fail
-   * message (`alpha` and `x book` after dropping the stone, Adrift_18.txt
-   * 2026-08-23).  Pre-4.0 therefore leaves spent tasks out of the loud
-   * restriction pass entirely, and run_task_refusal() answers them.
+   * message (`alpha` and `x book` after dropping the stone, 2026-08-23).
+   * Pre-4.0 therefore leaves spent tasks out of the loud restriction pass
+   * entirely, and run_task_refusal() answers them.
    */
   const scr_bool is_restriction_first =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
@@ -2246,7 +2259,8 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
  *      @453FE2-454028.  A failing restriction with an empty message drops
  *      the task and the walk moves on to the next one @453FC6->454034.
  *
- * Measured live 2026-09-06 on House.taf (Adrift_91.txt-Adrift_93.txt): at
+ * Measured live 2026-09-06 on House.taf (runner_probes/house.run400.wood.txt,
+ * runner_probes/house.run400.t92.txt, runner_probes/house.run400.t93.txt): at
  * the fireplace, "put wood in fireplace" with the wood on the floor matches
  * task 60 "* %object%" (a take-flagged task restricted to the house
  * spinning, FailMessage empty), and run400 still prints "(Taking the wood
@@ -2331,7 +2345,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
    * message therefore loses to ANY later task that passes -- professor.taf's
    * `take mail` rewrites to "get mail from mailbox on-a rope", which fails
    * task 7 `get * rope` loudly but is a silent first-pass hit further down,
-   * so run400 takes the mail (Adrift_388/745_professor.txt).
+   * so run400 takes the mail (runner_probes/professor.run400.txt).
    */
   if (check_restrictions)
     {
@@ -2831,10 +2845,11 @@ run_get_repeat_assist (void)
  * written in table order, RepeatText or fail message alike, and tasks()
  * (42BDC4) either executes the passing task -- whose text replaces the
  * buffer, which is why inverness's third `knock` prints task 23's text
- * although the spent task 22 stands above it (Adrift_1030) -- or, when the
- * buffer changed and nothing passed, returns -1 and generaltasks prints the
- * buffer and skips everything below tasks(0): movement, look, examine,
- * score, the room refusal and therest().
+ * although the spent task 22 stands above it
+ * (runner_probes/inverness.run390.txt) -- or, when the buffer changed and
+ * nothing passed, returns -1 and generaltasks prints the buffer and skips
+ * everything below tasks(0): movement, look, examine, score, the room
+ * refusal and therest().
  *
  * At load, openadv substitutes person(0) & " have already done that." into
  * an empty RepeatText slot (465A8B-465AB9), so the default message and an
@@ -2843,16 +2858,17 @@ run_get_repeat_assist (void)
  * and a spent match always changes the buffer.
  *
  * Measured on the Runner transcripts of The Long Journey Home (run390
- * Adrift_3_journ2_t5.txt: `fly`, `north`, `w`, `x card`, `x king`, `e` all
- * "You have already done that." after task 5's `*` is spent; `i` still
- * lists the inventory and `x creature` still describes the creature), Lair
- * of the CyberCow (Adrift_1107_cybercow_win.txt: the second `fix robot`
- * prints task 80's RepeatText "The invincible robot is structurally
- * complete...", not the library's "I don't think you can fix the robot."),
- * inverness (Adrift_1030: `z`, `look`, `score` all claimed; the five
- * `knock`s run tasks 20, 22, 23, 24, 25 in turn), circus (Adrift_1025:
- * `ask barb about tape` claimed by task 77, and the NPC walk ticks, so the
- * claim is a turn) and chicago's `listen` (task 18).  4.0 moved the claim
+ * runner_probes/journ2.run390.t5.txt: `fly`, `north`, `w`, `x card`, `x
+ * king`, `e` all "You have already done that." after task 5's `*` is spent;
+ * `i` still lists the inventory and `x creature` still describes the
+ * creature), Lair of the CyberCow (runner_transcripts/cybercow_win.txt: the
+ * second `fix robot` prints task 80's RepeatText "The invincible robot is
+ * structurally complete...", not the library's "I don't think you can fix
+ * the robot."), inverness (runner_probes/inverness.run390.txt: `z`, `look`,
+ * `score` all claimed; the five `knock`s run tasks 20, 22, 23, 24, 25 in
+ * turn), circus (runner_transcripts/circus_sold_points.txt: `ask barb about
+ * tape` claimed by task 77, and the NPC walk ticks, so the claim is a turn)
+ * and chicago's `listen` (task 18).  4.0 moved the claim
  * to 48A481 and asks the restrictions there; see run_task_refusal() and
  * run_repeat_survivor_400().
  *
@@ -2890,7 +2906,7 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
        * task writes its RepeatText into an EMPTY buffer (44B4B2), with no
        * room test: matt's `out` is "You have already done that." everywhere
        * until the boss room is entered (probe p39REV, run390x
-       * Adrift_p39rev.txt, 2026-09-24).
+       * runner_probes/rev.run390.txt, 2026-09-24).
        */
       if (!buffer
           && task_is_reverse_refused_390 (game, task)
@@ -3046,15 +3062,16 @@ run_spent_claim_390 (scr_gameref_t game, const scr_char *message)
  * measured case: its task 94 is `*` confined to room 0, so run390 answers "I
  * don't understand what you mean!" and not "You can't do that here!" for `play
  * volleyball` and `use shower` typed outside their rooms
- * (Adrift_37_melbourne_beach.txt).
+ * (runner_probes/melbourne_beach.run390.txt).
  *
  * Both count as a turn, unlike DontUnderstand: in the probe, an event ticking
  * once a turn fires on either refusal and not on the parser complaint, matching
  * the `handled = 1` the Runner sets alongside the message.  Hence the TRUE
  * return, which lets the caller run the turn.  (Measured for all three pre-4.0
  * answers, and for 4.0's RepeatText on 2026-09-08: p4REPEAT2/p4REPEAT3 carry a
- * once-a-turn event and every RepeatText line in Adrift_951/952 is followed by
- * its "TICK.".)
+ * once-a-turn event and every RepeatText line in
+ * runner_probes/repeat2.run400.txt and runner_probes/repeat3.run400.txt is
+ * followed by its "TICK.".)
  *
  * The leading word follows Perspective, which pre-4.0 has only two of: run390
  * answers "I can't do that here!" / "I have already done that." for Perspective
@@ -3112,7 +3129,8 @@ enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
  * the room pass sits between run_standard_verb_commands() and
  * run_standard_fallback_commands(), not after both.
  *
- * Measured on ALEXIS.TAF under run390 (Adrift_486_alexis_worn_cube.txt): `turn
+ * Measured on ALEXIS.TAF under run390
+ * (runner_probes/alexis_worn_cube.run390.txt): `turn
  * ring`, `buy metal helmet`, `open cupboard`, `open door`, `unlock door`, `give
  * stones to larnt` and `say the password` are all answered "You can't do that
  * here!" where Scarier reached "You can't turn that.", "I don't think that is
@@ -3133,10 +3151,10 @@ enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
  * generaltasks' own tail).  So both stay at the foot of the fallback table,
  * and the golden that pins it is the_hangover (3.90): `give approval notes to
  * platypus` with the platypus elsewhere answers "You can't do that here!" and
- * not "Platypus is not here!" (Adrift_71_the_hangover.txt t55).  Moving the
- * character row above the refusal also cost goldilocks and yak_shaving (both
- * 4.00) their `give X to Y` -> "Give what?", which is the same ordering seen
- * from 4.0's side.
+ * not "Platypus is not here!" (runner_transcripts/the_hangover.txt line
+ * 215).  Moving the character row above the refusal also cost goldilocks
+ * and yak_shaving (both 4.00) their `give X to Y` -> "Give what?", which is
+ * the same ordering seen from 4.0's side.
  *
  * 4.0 has no already-done message at all, only RepeatText, and it sits ahead
  * of the library too -- ahead of MORE of it, in fact.  Measured 2026-09-08
@@ -3180,11 +3198,11 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
    * can never also be refused -- the restriction-failure pass at 44CCA5 is
    * likewise entered only when no task was found.
    *
-   * Measured on easter.taf (run400 Adrift_273_easter.txt:304-308): the
-   * winning `show basket to shopkeeper` runs task 63, which is silent and
-   * only ends the game, and run400 prints nothing before the WinText -- not
-   * the "Since you already have Max's list..." RepeatText that a scan over
-   * the other matching tasks turns up here.
+   * Measured on easter.taf (run400 runner_probes/easter.run400.txt:304-308):
+   * the winning `show basket to shopkeeper` runs task 63, which is silent
+   * and only ends the game, and run400 prints nothing before the WinText --
+   * not the "Since you already have Max's list..." RepeatText that a scan
+   * over the other matching tasks turns up here.
    */
   if (run_any_task_ran_this_command ())
     return FALSE;
@@ -3233,7 +3251,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * A task the current command has just completed is not "already done"
        * for that command -- p39done.taf's silent `* x * scroll *` task runs,
        * prints nothing, and run390 then answers "I don't understand." rather
-       * than "You have already done that." (Adrift_18.txt 2026-08-23).
+       * than "You have already done that." (2026-08-23).
        */
       /*
        * 4.0 also asks the restrictions.  A spent task whose restrictions now
@@ -3242,19 +3260,19 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * task 2 is the literal `* north` at the bridge, spent from the first
        * crossing attempt and carrying a RepeatText, but restricted on `say
        * grue` being undone -- once the riddle is answered run400 walks the
-       * player north (Adrift_128_witchtale.txt) instead of printing "I try
-       * to cross the bridge...".  Only silent failures are covered here; a
+       * player north (runner_transcripts/witchtale.txt) instead of printing "I
+       * try to cross the bridge...".  Only silent failures are covered here; a
        * fail message of its own is the restriction pass's business, not this
        * one's.  Pre-4.0 keeps the shape chicago.taf measured.  At 4.0 the
        * post-library pass asks the restrictions too: it once let a spent,
        * restriction-failing task through as a fallback, for `The Magic Show`'s
        * "One rabbit trick is enough for any given act" on `show rabbit to
-       * audience`, but run400 answers that line with the object catch-all
-       * "I don't understand what you want to do with the audience."
-       * (Adrift_351_magicshow.txt:47, Adrift_887_magicshow.txt:40), and hcw's
-       * literal `2` (task 240, spent, both restrictions failing) with the
-       * DontUnderstand text (Adrift_1055_hcw.txt, turn 227), not either
-       * RepeatText.
+       * audience`, but run400 answers that line with the object catch-all "I
+       * don't understand what you want to do with the audience."
+       * (runner_probes/magicshow.run400.a.txt:47,
+       * runner_probes/magicshow.run400.b.txt:40), and hcw's literal `2` (task
+       * 240, spent, both restrictions failing) with the DontUnderstand text
+       * (runner_probes/hcw.run400.txt, turn 227), not either RepeatText.
        */
       /*
        * The room-half pass does not look at the done half at all: the done
@@ -3328,13 +3346,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
       /*
        * 4.0 has no default already-done message and none of those three
        * conditions: measured 2026-09-08 (p4REPEAT/p4REPEAT2/p4REPEAT3 under
-       * run400, Adrift_950-952), an authored RepeatText is printed by the
-       * task dispatcher itself, ahead of nearly the whole library, and takes
-       * the line away from a wildcard command and from movement just as
-       * readily as from a literal one.  What it does NOT take is listed in
-       * run_repeat_survivor_400(), which the caller tests -- the answer is
-       * needed before the priority commands run, so a probe pass reports it
-       * without printing anything.
+       * run400, runner_probes/repeat.run400.txt, repeat2.run400.txt and
+       * repeat3.run400.txt), an authored RepeatText is printed by the task
+       * dispatcher itself, ahead of nearly the whole library, and takes the
+       * line away from a wildcard command and from movement just as readily
+       * as from a literal one.  What it does NOT take
+       * is listed in run_repeat_survivor_400(), which the caller tests -- the
+       * answer is needed before the priority commands run, so a probe pass
+       * reports it without printing anything.
        */
       if (version >= TAF_VERSION_400)
         {
@@ -3397,10 +3416,10 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
  * coin` is "You take the coin. Where do you want to put the coin?".  The
  * already-carrying refusal appends to the buffer as it stands (462D4E):
  * `put take coin` with the coin held is "Where do you want to put the
- * coin?You are already carrying the coin.".  p4ORD cmdfile_p2rest.txt
- * cells 62 and 69 (run400x Adrift_281_9t40.txt, 2026-09-21).  A put beside
- * examine or drop already answers as the Runner does; any other take
- * outcome is not measured, and the line goes on as it did.
+ * coin?You are already carrying the coin.".  p4ORD (make_orderprobe.py)
+ * cells 62 and 69 (run400x runner_probes/ord.run400.rest.txt, 2026-09-21).  A
+ * put beside examine or drop already answers as the Runner does; any other
+ * take outcome is not measured, and the line goes on as it did.
  */
 scr_bool
 run_put_take_400 (scr_gameref_t game, const scr_char *string)
@@ -3508,7 +3527,8 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
  * Where room 0 -- matching instead, and its "You are no longer in the bus."
  * overwrites the exits.  So the Runner prints "... There is a mailbox here.
  * You are no longer in the bus." with no exits sentence, on both of the
- * walkthrough's visits (Adven_10.rtf, runner_transcripts/alices_restaurant).
+ * walkthrough's visits (runner_probes/alices_restaurant.run370.rtf,
+ * runner_transcripts/alices_restaurant).
  * Where nothing matches the second time -- `get out of bus` at the Dump,
  * `take garbage out of bus` -- the first task's text stands.
  *

@@ -1,0 +1,39 @@
+
+> probe
+PROBE OK.
+
+> i
+You are carrying a bean and a cloak.
+
+> drop a coin
+DROPCOIN.
+
+> drop coin bean
+DROPCB.
+
+> drop zzz
+DROPZZZ.
+
+> wear cloak
+You put on the cloak.
+
+> i
+You are wearing a cloak, and you are carrying a bean.
+
+> drop a cloak
+DROPCLOAK.
+
+> take a coin
+You pick up the coin.
+
+> i
+You are wearing a cloak, and you are carrying a coin and a bean.
+
+> drop a coin
+DROPCOIN.
+
+> probe
+PROBE OK.
+
+> i
+You are wearing a cloak, and you are carrying a coin and a bean.

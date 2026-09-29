@@ -1,0 +1,103 @@
+
+> probe
+PROBE OK.
+
+> take off coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> take off coin
+You've already got the coin!
+
+> i
+You are carrying a coin.
+
+> drop coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> put down coin
+You don't have the coin!
+
+> i
+You are carrying nothing.
+
+> take coin
+You pick up the coin.
+
+> put down coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> pick up coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> pick coin from bag
+The coin isn't in or on anything!
+
+> i
+You are carrying a coin.
+
+> look at coin
+A gold coin.
+
+> drop coin
+You drop the coin.
+
+> look at coin
+A gold coin.
+
+> remove take coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> take remove coin
+You've already got the coin!
+
+> i
+You are carrying a coin.
+
+> examine take drop coin
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> drop examine take coin
+You pick up the coin.
+
+> i
+You are carrying a coin.
+
+> take coin then drop coin
+You've already got the coin!
+You drop the coin.
+
+> i
+You are carrying nothing.
+
+> put on coin
+You can't do that!
+
+> i
+You are carrying nothing.
+
+> wear put down coin
+You don't have the coin!
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.

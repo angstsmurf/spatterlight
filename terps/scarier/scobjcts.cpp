@@ -514,16 +514,16 @@ obj_get_player_weight_limit (scr_gameref_t game)
  *
  * A 3.8 object has a single "Size/weight" class, 0..4, and the player has a
  * single "MaxCarried".  Measured in the genuine run380.exe (2026-08-03, with
- * probe files patched through the plaintext of a 3.80 .taf -- see
- * ~/adrift-battle/runner/wine/README.md), those are one *pooled burden*: each
- * class costs 1, 3, 7, 3 or 7, the costs of everything held are summed, and
- * the sum may not exceed MaxCarried.  Pinned at MaxCarried 1, 2, 3, 6, 7 and
- * 8: at 2 a class-1 or class-3 object is refused and a class-0 accepted, at 3
- * both go; at 6 Marooned's tires (class 4) are refused, at 7 they are accepted
- * alone, at 8 tires + map fit and tires + flint + map do not.  Tires (7) and a
- * class-2 gas can (7) never coexist at any limit, which is what rules out a
- * separate size axis and weight axis: two axes would have let the two heavy
- * objects sit one on each.
+ * probe files patched through the plaintext of a 3.80 .taf, in the Wine Runner
+ * harness), those are one *pooled burden*: each class costs 1, 3, 7, 3 or 7,
+ * the costs of everything held are summed, and the sum may not exceed
+ * MaxCarried.  Pinned at MaxCarried 1, 2, 3, 6, 7 and 8: at 2 a class-1 or
+ * class-3 object is refused and a class-0 accepted, at 3 both go; at 6
+ * Marooned's tires (class 4) are refused, at 7 they are accepted alone, at 8
+ * tires + map fit and tires + flint + map do not.  Tires (7) and a class-2 gas
+ * can (7) never coexist at any limit, which is what rules out a separate size
+ * axis and weight axis: two axes would have let the two heavy objects sit one
+ * on each.
  *
  * The refusal is 3.8's only one -- there is no "too heavy" message.  Crime
  * Adventure's kettle (class 2 = 7 against MaxCarried 5) is refused with "Your
@@ -676,7 +676,8 @@ obj_get_player_burden_limit (scr_gameref_t game)
  * Left(s, Len(s) - 1) (4904D3-490574).  Measured on pPUTREF39.taf
  * (make_39_putrefprobe.py) under run390x, 2026-09-19: an empty bag of
  * Capacity 100 takes the stone and then refuses four more size-1 objects
- * with "The lamp can't fit inside the bag at the moment." (Adrift_pputrefv4).
+ * with "The lamp can't fit inside the bag at the moment."
+ * (runner_probes/putref.run390.v4.txt).
  */
 scr_int
 obj_get_container_capacity (scr_gameref_t game, scr_int object)
@@ -807,8 +808,9 @@ obj_lieable_object (scr_gameref_t game, scr_int n)
  *    written "A" is not an "a" prefix, and a name ending in a capital "S" is
  *    not a name ending in "s".
  *
- * Measured cell by cell on probe ISARE (run400, Adrift_isare.txt, 2026-09-07),
- * twelve objects one per spelling, read back through `where <name>`:
+ * Measured cell by cell on probe ISARE (run400,
+ * runner_probes/isare.run400.txt, 2026-09-07), twelve objects one per
+ * spelling, read back through `where <name>`:
  *
  *     where boots   (Prefix "")       The boots is test arena.
  *     where cactus  (Prefix "")       The cactus is test arena.
@@ -1281,12 +1283,12 @@ obj_shows_initial_description (scr_gameref_t game, scr_int object,
  * examines, charinv, inventory, drops, whatisinon, insides, afteroa,
  * checkevent.
  *
- * Measured in run400's Adrift_22_xfiles.txt (The X-Files, 4.00): task 7 "Use Key"
- * carries ShowRoomDesc = 0, so entering Garage 5 through it prints no room
- * description -- and `take knife` there answers "Take what?", although the
- * Small Pocket Knife (object 31, InitialPosition 11 = room 7) is lying
- * loose on the floor.  The very next command, `out`, moves normally, so the
- * player really is in the room; the knife simply does not exist to the
+ * Measured in run400's runner_probes/xfiles.run400.txt (The X-Files, 4.00):
+ * task 7 "Use Key" carries ShowRoomDesc = 0, so entering Garage 5 through it
+ * prints no room description -- and `take knife` there answers "Take what?",
+ * although the Small Pocket Knife (object 31, InitialPosition 11 = room 7) is
+ * lying loose on the floor.  The very next command, `out`, moves normally, so
+ * the player really is in the room; the knife simply does not exist to the
  * parser until something lists it.  Scarier used to mark it seen every turn
  * regardless and took it.
  *
@@ -1367,7 +1369,7 @@ obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
  * from generaltasks (48A3F5), runs obhere over the whole object table in its
  * first pass (4630D5-46311C).  So a character's parts become referenceable on
  * the first line typed while the seen character stands there, with no room
- * listing needed.  Measured on humbug (Adrift_128_humbug_tr.txt, T727):
+ * listing needed.  Measured on humbug (runner_transcripts/humbug.txt, T727):
  * Jasper arrives by event, `X Jasper`, `i`, then `X teeth` describes his
  * teeth (object 180, part of Jasper) instead of "Nothing Special.".
  */

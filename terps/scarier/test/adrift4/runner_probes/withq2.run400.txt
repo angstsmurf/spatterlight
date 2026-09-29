@@ -1,0 +1,112 @@
+
+> probe
+PROBE OK.  TICK.
+
+> cut rope with gem
+I don't understand what you want me to do with the rope.
+
+> n
+You move north.
+Beta
+The second room.  Also here is a gem.  You can only move south.  TICK.
+
+> s
+You move south.
+Alpha
+The first room.  Also here is a stone and a pebble.  You can only move north.  TICK.
+
+> cut rope with gem
+You don't have the gem.  TICK.
+
+> cut gem with knife
+You can't see the gem.  TICK.
+
+> push gem with knife
+You can't see the gem.  TICK.
+
+> open box with knife
+You can't open the box with the knife.  TICK.
+
+> open chest with knife
+You can't open the chest with the knife.  TICK.
+
+> close chest with knife
+You can't close the chest with the knife.  TICK.
+
+> close box with knife
+You can't close the box with the knife.  TICK.
+
+> read book with knife
+BOOK TEXT.  TICK.
+
+> read rope with knife
+You can't read the knife!  TICK.
+
+> fix rope with knife
+I don't think you can fix the rope with the knife.  TICK.
+
+> repair rope with knife
+I don't think you can repair the rope with the knife.  TICK.
+
+> mend rope with knife
+I don't think you can mend the rope with the knife.  TICK.
+
+> feel rope with knife
+You feel nothing out of the ordinary.  TICK.
+
+> clear rope with knife
+You can't clear the rope with the knife.  TICK.
+
+> touch rope with knife
+You can't touch the rope with the knife.  TICK.
+
+> rub rope with knife
+You can't rub the rope with the knife.  TICK.
+
+> clean rope with knife
+You can't clean the rope with the knife.  TICK.
+
+> wash rope with knife
+You can't wash the rope with the knife.  TICK.
+
+> move rope with knife
+You can't move the rope with the knife.  TICK.
+
+> lift rope with knife
+You can't lift the rope with the knife.  TICK.
+
+> light rope with knife
+You can't light the rope with the knife.  TICK.
+
+> suck rope with knife
+You can't suck the rope with the knife.  TICK.
+
+> block rope with knife
+You can't block the rope with the knife.  TICK.
+
+> unblock rope with knife
+You can't unblock the rope with the knife.  TICK.
+
+> stop rope with knife
+You can't stop the rope with the knife.  TICK.
+
+> unlock box with coin
+The box is not locked!  TICK.
+
+> take pebble
+You take the pebble.  TICK.
+
+> put bean in jar
+The bean is too big to fit inside the jar.  TICK.
+
+> drop all
+You drop the coin, the knife, the pebble and the bean.  TICK.
+
+> i
+You are carrying nothing.  TICK.
+
+> put all in jar
+You are carrying nothing!  TICK.
+
+> probe
+PROBE OK.  TICK.

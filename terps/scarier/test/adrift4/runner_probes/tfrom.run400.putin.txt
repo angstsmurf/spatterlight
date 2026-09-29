@@ -1,0 +1,50 @@
+
+> probe
+PROBE OK.
+
+> take box
+You take the box.
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> put coin in box
+The coin is already inside the box!
+
+> put coin in coin
+You can't put anything inside the coin!
+
+> put box in box
+You can't put an object inside itself!
+
+> put stone in stone
+You can't put anything inside the stone!
+
+> put coin in stone
+You can't put anything inside the stone!
+
+> put stone in box
+(Taking the stone first)
+You put the stone inside the box.  
+
+> close box
+You close the box.
+
+> put coin in box
+The coin is already inside the box!
+
+> open box
+You open the box.  A stone and a coin are inside the box.
+
+> drop box
+You drop the box.  
+
+> put coin in box
+You are not holding the coin.
+
+> put coin in me
+I don't understand what you want to put things inside.
+
+> probe
+PROBE OK.

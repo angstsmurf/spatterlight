@@ -1,0 +1,57 @@
+
+> look
+Alpha
+The first room.  Also here is a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> drop coin
+You drop the coin.  TICK.
+
+> unlock box with stone
+You don't have anything to unlock the box with!  TICK.
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> lock box with coin
+The box is already locked!  TICK.
+
+> drop coin
+You are not holding the coin.  TICK.
+
+> unlock box with zzz
+You don't have anything to unlock the box with!  TICK.
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> lock box with coin
+The box is already locked!  TICK.
+
+> drop coin
+You are not holding the coin.  TICK.
+
+> unlock box
+You don't have anything to unlock the box with!  TICK.
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> lock box with coin
+The box is already locked!  TICK.
+
+> unlock box with knife
+You can't unlock the box with the knife.  TICK.
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.
+
+> close box with stone
+Which stone.  The red stone or the blue stone?
+
+> look
+Alpha
+The first room.  Also here is a coin, a red stone, a blue stone, a ruby and an emerald.  You can only move north.  TICK.

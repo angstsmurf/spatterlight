@@ -1,0 +1,71 @@
+
+> w
+You move west.
+Your room
+you are in the place you sleep in.  Also here is Electric Uniform.  You can only move east.
+
+> take electric uniform
+You take Electric Uniform.
+
+> e
+You move east.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.  You can move north, east, south and west.
+
+> n
+You move north.
+Shop
+You are in a large shop that has all kinds of items. One item you have your eye on, the type 3 Wave Motion Cannon.  Merchant is here.  You can only move south.
+
+> buy wave motion cannon
+You give the ten bucks to the clerk.
+
+> s
+You move south.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.  You can move north, east, south and west.
+
+> s
+You move south.
+Teleporter Room
+You are in the teleporter room.  You can only move north.
+
+> open teleporter
+You open The Teleporter.
+
+> use teleporter
+you are teleported!  
+Teleporter booth
+You teleport to the teleport booth in the BluDeath Mountains.  You can only move out.
+
+> out
+You move out.
+BluDeath Mountains
+The old cold place. A lot of people are here.  You can move west and in.
+
+> w
+You move west.
+The Cave
+You see the Cyber Warp right here. There are a lot of people here, too.  You can only move east.
+
+> enter warp
+You run into the warp and everyone applauses.  
+Bisstonia
+You are in the old demension on a search for lightning.  You can only move northeast.
+
+> ne
+You move northeast.
+Back Ally
+You are in the back ally of a famous pizza restorant.  Hooded figrure is here.  You can move in and southwest.
+
+> reveal hooded figure
+Its really Lightning!
+
+> turns
+You have taken 14 turns so far.
+
+> give uniform to lightning
+Which Uniform.  Fire Uniform or Electric Uniform?
+
+> turns
+You have taken 14 turns so far.

@@ -1,0 +1,114 @@
+
+> open door
+Outside The Building
+You're crouching outside the building known simply as Adventure Corps. It's a big building with lots of interesting features to examine but you're too agitated to waste time on such things now.
+   Exits lie: east (inside the building) and west (to your home).
+ 
+
+> e
+You walk right into the door of the building. This is every bit as painful as you always imagined it would be.
+
+> ne
+You can only move east.
+
+> give cd to rudolph
+Give what?
+
+> ne
+You can only move east.
+
+> se
+You can only move east.
+
+> x desk
+You see no such thing.
+
+> 
+Clueless Bob is confused! While this is, admittedly, the normal state of affairs when playing any game he's involved with in any way, shape or form, this time the confusion is pretty down to you. Yep, you entered a command the writer couldn't be bothered to implement a clever response for. Hence you got this message. Try it again if you like. It gets more interesting each time you see it.
+
+> x desk
+You see no such thing.
+
+> 
+Clueless Bob is confused! While this is, admittedly, the normal state of affairs when playing any game he's involved with in any way, shape or form, this time the confusion is pretty down to you. Yep, you entered a command the writer couldn't be bothered to implement a clever response for. Hence you got this message. Try it again if you like. It gets more interesting each time you see it.
+
+> nw
+You can only move east.
+
+> sw
+You can only move east.
+
+> sw
+You can only move east.
+
+> e
+You walk right into the door of the building. This is every bit as painful as you always imagined it would be.
+
+> x notepads
+You see no such thing.
+
+> um
+A voice from out of nowhere cries at you: "STOP CHEATING!!!"
+
+> s
+You can only move east.
+
+> e
+You walk right into the door of the building. This is every bit as painful as you always imagined it would be.
+
+> x reams
+You see no such thing.
+
+> change rules
+Clueless Bob is confused! While this is, admittedly, the normal state of affairs when playing any game he's involved with in any way, shape or form, this time the confusion is pretty down to you. Yep, you entered a command the writer couldn't be bothered to implement a clever response for. Hence you got this message. Try it again if you like. It gets more interesting each time you see it.
+
+> w
+But hadn't you better do what you came here to do first?
+
+> sw
+You can only move east.
+
+> read messages
+You see no such thing.
+
+> type eject
+Clueless Bob is confused! While this is, admittedly, the normal state of affairs when playing any game he's involved with in any way, shape or form, this time the confusion is pretty down to you. Yep, you entered a command the writer couldn't be bothered to implement a clever response for. Hence you got this message. Try it again if you like. It gets more interesting each time you see it.
+
+> smash 101 classics
+You might need that.
+
+> ne
+You can only move east.
+
+> n
+You can only move east.
+
+> w
+But hadn't you better do what you came here to do first?
+
+> ne
+You can only move east.
+
+> ne
+You can only move east.
+
+> e
+You walk right into the door of the building. This is every bit as painful as you always imagined it would be.
+
+> prise container
+Clueless Bob is confused! While this is, admittedly, the normal state of affairs when playing any game he's involved with in any way, shape or form, this time the confusion is pretty down to you. Yep, you entered a command the writer couldn't be bothered to implement a clever response for. Hence you got this message. Try it again if you like. It gets more interesting each time you see it.
+
+> w
+But hadn't you better do what you came here to do first?
+
+> sw
+You can only move east.
+
+> sw
+You can only move east.
+
+> w
+But hadn't you better do what you came here to do first?
+
+> w
+But hadn't you better do what you came here to do first?

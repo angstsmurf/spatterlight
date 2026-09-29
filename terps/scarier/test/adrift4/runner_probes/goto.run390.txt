@@ -1,0 +1,131 @@
+
+> go to first room
+You are already first room!
+
+> go to kitchen
+Moving to kitchen...
+
+> North
+You move north.
+Hall
+A hall.  You can move east, south, west and up.
+
+> East
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+Arrived kitchen.
+
+> look
+Kitchen
+A kitchen.  You can only move west.
+
+> go to first room
+Moving to first room...
+
+> West
+You move west.
+Hall
+A hall.  You can move east, south, west and up.
+
+> South
+You move south.
+First Room
+The first room.  Also here is a stone.  You can only move north.
+Arrived first room.
+
+> go to tower
+You can't get there from here.
+
+> go to zzz
+Unknown place.
+
+> go to garden
+You can't get there from here.
+
+> probe
+PROBE OK.
+
+> go to garden
+Moving to garden...
+
+> North
+You move north.
+Hall
+A hall.  You can move north, east, south, west and up.
+
+> North
+You move north.
+Garden
+A garden.  You can only move south.
+Arrived garden.
+
+> go to kit
+Moving to kitchen...
+
+> South
+You move south.
+Hall
+A hall.  You can move north, east, south, west and up.
+
+> East
+You move east.
+Kitchen
+A kitchen.  You can only move west.
+Arrived kitchen.
+
+> go to hal
+Which "hal"?
+'Hall', 'Red Hall', or 'Blue Hall'.
+
+> go to blue hall
+Moving to blue hall...
+
+> West
+You move west.
+Hall
+A hall.  You can move north, east, south, west and up.
+
+> Up
+You move up.
+Blue Hall
+A blue hall.  You can only move down.
+Arrived blue hall.
+
+> goto red hall
+Moving to red hall...
+
+> Down
+You move down.
+Hall
+A hall.  You can move north, east, south, west and up.
+
+> West
+You move west.
+Red Hall
+A red hall.  You can only move east.
+Arrived red hall.
+
+> go hall
+Moving to hall...
+
+> East
+You move east.
+Hall
+A hall.  You can move north, east, south, west and up.
+Arrived hall.
+
+> go north
+You move north.
+Garden
+A garden.  You can only move south.
+
+> go to the kitchen
+Unknown place.
+
+> go stone
+Unknown place.
+
+> look
+Garden
+A garden.  You can only move south.

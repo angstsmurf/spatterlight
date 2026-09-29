@@ -1,0 +1,177 @@
+
+> restore
+Loading game... done.
+
+
+Parada de taxis
+ 
+Una larga cola de taxis espera a que los turistas, gente de negocios y demás alquilen sus servicios. El primer taxista se encuentra leyendo un diario, sentado en el sillón de su vehículo.   El taxista está aquí.
+
+> examinar el taxi
+Un antiguo Merrcedes, puertas amarillas y resto en negro, típico de la ciudad condal.
+
+> save
+Saving current game... done.
+Game saved.
+
+> hablar con el taxista
+
+Taxista.- ¡Buenas tardes Señor!
+
+....Buenas....
+
+Taxista.- ¿Dónde le llevo?
+
+
+
+> decir museo
+
+
+Taxista.- ¡Enseguida, Señor!...
+
+Te subes en la parte trasera del taxi, tu cuerpo está tembloroso y un fuerte dolor de estómago no te deja pensar...
+
+El taxi arranca tomando la dirección del museo arqueológico.
+
+Barcelona
+Barcelona, unas de las ciudades más cosmopolitas del mundo, uno puede ir por sus calles vestido de tarzán y seguro que nadie se parará a mirarte extrañado.
+
+
+> esperar
+El tiempo pasa...
+El coche se detiene delante de tu destino.  Una pequeña escalinata te conduce al interior del museo. En la entrada puedes ver un gran cartel donde se anuncia la exposición: "Tesoros Egipcios".  Tu mirada se fija en el cuello del taxista, puedes sentir el latido de su corazón y oler su sangre caliente...estás hambriento....¡de...sangre!
+
+> esperar
+El tiempo pasa...
+
+> morder al taxista en el cuello
+
+Tu cerebro se colapsa y solamente piensas en el olor a sangre caliente que desprende ese hombre...
+
+Escuchas el pulso de su cuello retumbar en tus tímpanos...
+
+Te lanzas sobre él y, agarrándolo con fuerza, introduces tus incisivos en su cuello...
+
+...El hambre ha desaparecido...
+
+> examinar el taxi
+La policía de la ciudad ya ha acordonado la zona y están inspeccionando el cadáver del taxista, será mejor que no llames la atención por aquí.
+
+> examinar el cartel
+Se anuncia la exposición "Tesoros Egipcios".
+
+> entrar
+Vas adentro.
+
+Sala Esfinges
+ 
+La exposición "Tesoros Egipcios", comienza en esta sala principal del recinto. Puedes ver una muestra de diferentes esfinges de famosos faraones egipcios, como Tutmosis III y Tutmosis I de la XVIII dinastía, famosos por sus conquistas de territorios mittanos. También puedes ver unas obras esculpidas de Seti I, padre de Ramsés II.
+
+> sur
+Vas al sur.
+
+Sala Escritos
+ 
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el imperio Hitita.
+
+> oeste
+Vas al oeste.
+
+Sala Momias
+ 
+La sala de momias y sacófagos. Quizás, es la sala que más público la visita. Momias de diferentes faraones y sus impresionantes sarcófagos presiden la estancia.
+
+> este
+Vas al este.
+
+Sala Escritos
+ 
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el imperio Hitita.
+
+> sur
+Vas al sur.
+
+Sala Reservada
+ 
+
+Una sala a media luz,...en el centro de ella se encuentra colocada la vitrina principal de toda la exposición...EL BRAZALETE DE RAMSÉS II...Unos pequeños focos alumbran desde el techo hasta esa obra de arte, creando un escenario de protagonismo misterioso.
+
+> examinar el brazalete
+Un brazalete de oro, con motivos fúnebres y  curiosos jeroglíficos.
+
+> romper la vitrina
+Parece un material muy resistente... necesitarías algo para poder romperla.
+
+> norte
+Vas al norte.
+
+Sala Escritos
+ 
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el imperio Hitita.
+
+> norte
+Vas al norte.
+
+Sala Esfinges
+ 
+La exposición "Tesoros Egipcios", comienza en esta sala principal del recinto. Puedes ver una muestra de diferentes esfinges de famosos faraones egipcios, como Tutmosis III y Tutmosis I de la XVIII dinastía, famosos por sus conquistas de territorios mittanos. También puedes ver unas obras esculpidas de Seti I, padre de Ramsés II.
+
+> este
+Vas al este.
+
+Terraza Mirador
+ 
+Desde aquí tienes unas vistas increibles de la ciudad de Barcelona... a lo lejos el Tibidabo, distingues también la Sagrada Familia y las torres de plaza España.
+
+Notas un profundo escalofrio...
+
+Hay alguien más en el mirador...
+
+Jason Dhirco está aquí, lleva un bastón en su mano izquierda. Deberías hablar con él.
+
+> hablar con jason
+Nadie escucha tus delirios.
+
+> esquivar el baston
+Deberías hablar primero con él.
+
+> talk con jason dhirco
+Nadie escucha tus delirios.
+
+> esquivar el baston
+Deberías hablar primero con él.
+
+> hablar con dhirco
+
+Dhirco.- ...¡Miren en que se ha convertido!...El famoso cazavampiros....
+
+                ...¡En otro CHUPASANGRES!...
+
+                 Nunca conseguiras el brazalete Bates...¡Es propiedad del COMITÉ!...
+  
+Jason Dhirco te lanza su bastón directamente hacia el corazón....
+
+
+> 
+Intenta probar otra cosa...
+
+> hablar con jason dhirco
+Nadie escucha tus delirios.  
+
+El bastón atraviesa tu corazón, la mortal plata se encarga de todo lo demás...
+
+
+  Estás muerto.
+
+
+Espero que la próxima vez tengas más suerte.
+[Pulsa cualquier tecla para terminar]Loading...
+Processing ALR...done.
+
+Indexing tasks...Vardock Bates 
+
+Aventura Conversacional creada por Pipo98  v.1.0.2
+ 
+
+
+Esta aventura ha sido programada con Adrift V.4.00. Release 51, de Campbell Wild

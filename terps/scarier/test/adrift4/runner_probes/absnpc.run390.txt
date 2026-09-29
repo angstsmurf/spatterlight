@@ -1,0 +1,123 @@
+
+> probe
+PROBE OK.
+
+> take stone
+You pick up the stone.
+
+> east
+You move east.
+Bravo
+The second room.  Erin and A girl are here.  You can only move west.
+
+> west
+You move west.
+Test Room
+The first room.  Dave is here.  You can only move east.
+
+> talk to erin
+Use the format "ask Erin about [subject]".
+
+> talk to fred
+Use the format "ask Fred about [subject]".
+
+> speak to erin
+Use the format "ask Erin about [subject]".
+
+> talk to erin about key
+Use the format "ask Erin about [subject]".
+
+> ask erin about key
+Erin isn't here!
+
+> ask fred about key
+Fred isn't here!
+
+> give stone to erin
+I don't understand what you want me to do with the stone.
+
+> give stone to fred
+I don't understand what you want me to do with the stone.
+
+> give erin stone
+I don't understand what you want me to do with the stone.
+
+> take erin
+Take what?
+
+> take fred
+Take what?
+
+> get erin
+Take what?
+
+> pick up erin
+Take what?
+
+> kiss erin
+I'm not sure he would appreciate that!
+
+> kiss fred
+I'm not sure he would appreciate that!
+
+> where is erin
+Erin is bravo.
+
+> where is fred
+You haven't seen Fred yet!
+
+> x erin
+You cannot see Erin from here.
+
+> x fred
+You cannot see Fred from here.
+
+> hug erin
+Erin is not here!
+
+> hug fred
+Who?
+
+> talk to dave
+Use the format "ask Dave about [subject]".
+
+> give stone to dave
+Dave doesn't seem interested in the stone.
+
+> take dave
+I don't think Dave would appreciate being handled.
+
+> talk to girl
+Use the format "ask Gina about [subject]".
+
+> give stone to girl
+I don't understand what you want me to do with the stone.
+
+> take girl
+Take what?
+
+> x girl
+You cannot see Gina from here.
+
+> hug girl
+Gina is not here!
+
+> talk to gina
+Use the format "ask Gina about [subject]".
+
+> talk
+No-one listens to your rabblings.
+
+> give stone
+(to Gina)
+I don't understand what you want me to do with the stone.
+
+> take erin and stone
+You can't get any of them.
+
+> look
+Test Room
+The first room.  Dave is here.  You can only move east.
+
+> probe
+PROBE OK.

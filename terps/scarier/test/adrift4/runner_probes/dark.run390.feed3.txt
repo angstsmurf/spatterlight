@@ -1,0 +1,33 @@
+
+> probe
+PROBE OK.
+
+> get all from zzzz
+You can't get anything from that.
+
+> empty zzzz
+I don't understand.
+
+> take all from zzzz
+You can't get anything from that.
+
+> pick all from zzzz
+You can't get anything from that.
+
+> get all from torch
+You can't take anything from the torch!
+
+> get all from lamp
+You can't take anything from the lamp!
+
+> empty torch
+I don't understand what you want me to do with the torch.
+
+> get stone from zzzz
+You can't do that!
+
+> get all from box
+You can't get anything from that.
+
+> probe
+PROBE OK.

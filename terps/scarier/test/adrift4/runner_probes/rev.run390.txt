@@ -1,0 +1,88 @@
+
+> probe
+PROBE OK.
+
+> out
+You have already done that.
+
+> look
+Probe Room
+A bare room.
+
+> unzap
+BREP.
+
+> unpoke
+I don't understand.
+
+> jump
+JUMPED.
+
+> jump
+GREP.
+
+> skip
+SKIPPED.
+
+> dance
+DANCED.
+
+> undance
+UNDANCED.
+
+> undance
+DREP.
+
+> e
+You move east.
+Box Room
+A room with a box.
+
+> out
+You have already done that.
+
+> enter box
+ENTERED.
+
+> out
+LEFT BOX.
+
+> look
+Box Room
+A room with a box.
+
+> e
+You can't go in that direction, but you can move west and out.
+
+> out
+You have already done that.
+
+> unpoke
+UNPOKED.
+
+> poke
+POKED.
+
+> unpoke
+UNPOKED.
+
+> w
+You move west.
+Probe Room
+A bare room.
+
+> leave box
+You have already done that.
+
+> zap
+ZAPPED.
+
+> unzap
+UNZAPPED.
+
+> unzap
+BREP.
+
+> look
+Probe Room
+A bare room.

@@ -395,3 +395,9 @@
 /goldens/bluesky_solution.expected.txt
 /runner_transcripts/**/bluesky.*
 /notes/bluesky_walkthrough.md
+
+# Runner probe transcripts of the explicit games above (runner_probes/<tag>.*).
+/runner_probes/britishfox.*
+/runner_probes/hcw.*
+/runner_probes/magicshow.*
+/runner_probes/sswhore.*

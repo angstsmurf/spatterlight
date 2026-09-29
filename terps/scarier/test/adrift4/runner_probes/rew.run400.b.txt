@@ -1,0 +1,94 @@
+
+> probe
+PROBE OK.
+
+> zog hit
+ZOGHIT.
+
+> zog slap
+I don't understand.
+
+> zog hitter
+ZOGHITTER.
+
+> zog slapper
+I don't understand what you want me to do with the slapper.
+
+> zog unhit
+ZOGUNHIT.
+
+> zog unslap
+I don't understand.
+
+> zog but
+ZOGBUT.
+
+> zog except
+I don't understand.
+
+> zog apart from
+I don't understand.
+
+> zog bution
+ZOGBUTION.
+
+> zog exception
+I don't understand what you want me to do with the exception.
+
+> zog all
+ZOGALL.
+
+> zog everything
+I don't understand.
+
+> zog get
+ZOGGET.
+
+> zog take
+Take what?
+
+> zog all blip
+ZOGALLB.
+
+> zog everything blip
+ZOGALLB.
+
+> zog hit blip
+ZOGHITB.
+
+> zog slap blip
+ZOGHITB.
+
+> zog but blip
+ZOGEXCB.
+
+> zog except blip
+ZOGEXCB.
+
+> zog apart from blip
+ZOGEXCB.
+
+> zog SLAP blip
+ZOGHITB.
+
+> everything blip
+I don't understand.
+
+> all blip
+ALLLEAD.
+
+> x exception
+A rare exception.
+
+> x slapper
+A leather slapper.
+
+> x coin
+A gold coin.
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a coin, an exception and a slapper.  You can only move north.

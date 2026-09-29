@@ -1,0 +1,87 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zog rock
+I don't understand what you want me to do with the big rock.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zog gem
+I don't understand what you want me to do with the gem.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> zog [rock/gem]
+GRP1.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb the rock
+I don't understand what you want me to do with the big rock.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb rock
+I don't understand what you want me to do with the big rock.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> nurb {the} rock
+GRP2.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> xxx blip red yyy
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> xxx blip [red/blue] yyy
+GRP3.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> frob
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> frob up
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> frob {up}
+GRP4.
+
+> look
+Lit Room
+A bright room.  Also here is a big rock and a gem.  You can only move north.
+
+> probe
+PROBE OK.

@@ -1,0 +1,75 @@
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0 MS Sans Serif;}}
+{\colortbl;\red255\green50\blue50;\red0\green255\blue0;}
+{\*\generator Wine Riched20 2.0;}
+\pard\sl-240\slmult1 \cf1\lang1033\fs24\f0 Probe 37EXAM\par
+\cf2 A synthetic 3.7 examine-refusal probe.\par
+\cf1 \par
+x gem\par
+\cf2 You can't see that.\par
+\cf1 \par
+open gem\par
+\cf2 You can't see the gem.\par
+\cf1 \par
+close gem\par
+\cf2 You can't see the gem.\par
+\cf1 \par
+buy gem\par
+\cf2 You can't see the gem.\par
+\cf1 \par
+take gem\par
+\cf2 You can't see a gem from here!\par
+\cf1 \par
+wear gem\par
+\cf2 You are not holding a gem.\par
+\cf1 \par
+drop gem\par
+\cf2 You don't have a gem!\par
+\cf1 \par
+put gem in crate\par
+\cf2 You are not holding a crate.\par
+\cf1 \par
+x statue\par
+\cf2 You can't see that.\par
+\cf1 \par
+take statue\par
+\cf2 You can't see a statue from here!\par
+\cf1 \par
+wear statue\par
+\cf2 You are not holding a statue.\par
+\cf1 \par
+open statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+close statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+buy statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+drop statue\par
+\cf2 You don't have a statue!\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+Another bare room.  Also here is a statue.  You can only move south.\par
+\cf1 \par
+s\par
+\cf2 You move south.\par
+A bare room.  Also here is a stone and a crate.  You can move north and east.\par
+\cf1 \par
+open statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+close statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+buy statue\par
+\cf2 You can't see the statue.\par
+\cf1 \par
+take gem\par
+\cf2 You can't see a gem from here!\par
+\cf1 \par
+probe\par
+\cf2 PROBE OK.\par
+\cf0\fs17 \par
+}

@@ -1,0 +1,63 @@
+
+> probe
+PROBE OK.
+
+> i
+You are carrying a hat.
+
+> take hat coin
+You take the coin.
+
+> i
+You are carrying a hat and a coin.
+
+> drop hat
+You drop the hat.  
+
+> drop coin
+You drop the coin.  
+
+> i
+You are carrying nothing.
+
+> take coin hat
+It is not clear which coin you are referring to.
+
+> i
+You are carrying nothing.
+
+> drop hat
+You are not holding the hat.
+
+> drop coin
+You are not holding the coin.
+
+> take hat box
+It is not clear which box you are referring to.
+
+> i
+You are carrying nothing.
+
+> drop hat
+You are not holding the hat.
+
+> drop box
+You are not holding the box.
+
+> take zzz coin
+You take the coin.
+
+> i
+You are carrying a coin.
+
+> drop coin
+You drop the coin.  
+
+> take hat coin box
+It is not clear which box you are referring to.
+
+> i
+You are carrying nothing.
+
+> probe
+PROBE OK.

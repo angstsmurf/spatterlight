@@ -1,0 +1,572 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a stone, a rock, a box, a bag, a table and a chest.  You can only move north.
+
+> i
+You are carrying a coin and a hat.
+
+> take stone and gem
+You take the stone.
+
+> i
+You are carrying a coin, a hat and a stone.
+
+> drop stone
+You drop the stone.  
+
+> take gem and stone
+You take the stone.
+
+> i
+You are carrying a coin, a hat and a stone.
+
+> drop stone
+You drop the stone.  
+
+> take stone and zzz
+You take the stone.
+I don't understand.
+
+> i
+You are carrying a coin, a hat and a stone.
+
+> drop stone
+You drop the stone.  
+
+> wear hat
+You put on the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin.
+
+> take hat and stone
+You take the stone.  You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> drop stone
+You drop the stone.  
+
+> take stone and statue
+You take the stone.  You can't take the statue!
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> drop stone
+You drop the stone.  
+
+> take statue and stone
+You take the stone.  You can't take the statue!
+
+> i
+You are wearing a hat, and you are carrying a coin and a stone.
+
+> drop stone
+You drop the stone.  
+
+> take stone and nut
+You take the nut from the box.
+
+> i
+You are wearing a hat, and you are carrying a coin and a nut.
+
+> drop stone
+You are not holding the stone.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take stone and rock
+You take the stone and the rock.
+
+> i
+You are wearing a hat, and you are carrying a coin, a stone and a rock.
+
+> drop stone
+You drop the stone.  
+
+> drop rock
+You drop the rock.  
+
+> take gem and rock and stone
+You take the stone and the rock.
+
+> i
+You are wearing a hat, and you are carrying a coin, a stone and a rock.
+
+> drop rock
+You drop the rock.  
+
+> drop stone
+You drop the stone.  
+
+> take hat and gem
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin.
+
+> take gem and hat
+You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin.
+
+> take hat and rock
+You take the rock.  You are already carrying the hat.
+
+> i
+You are wearing a hat, and you are carrying a coin and a rock.
+
+> drop rock
+You drop the rock.  
+
+> remove hat
+You remove the hat.
+
+> take hat and stone
+You take the stone.  You are already carrying the hat.
+
+> i
+You are carrying a coin, a hat and a stone.
+
+> drop stone
+You drop the stone.  
+
+> get nut from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from bag and box
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> drop nut
+You are not holding the nut.
+
+> put nut in box
+You are not holding the nut.
+
+> get bolt from box and bag
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> drop bolt
+You are not holding the bolt.
+
+> put bolt in bag
+You are not holding the bolt.
+
+> get bolt from bag and box
+You take the bolt from the bag.
+
+> i
+You are carrying a coin, a hat and a bolt.
+
+> drop bolt
+You drop the bolt.  
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get all from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You are not holding the bolt.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+You are not holding the bolt.
+
+> get all from bag and box
+You take the bolt from the bag.
+
+> i
+You are carrying a coin, a hat and a bolt.
+
+> drop nut
+You are not holding the nut.
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+You are not holding the nut.
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get nut and bolt from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You are not holding the bolt.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+You are not holding the bolt.
+
+> get nut and bolt from bag
+You take the bolt from the bag.
+
+> i
+You are carrying a coin, a hat and a bolt.
+
+> drop nut
+You are not holding the nut.
+
+> drop bolt
+You drop the bolt.  
+
+> put nut in box
+You are not holding the nut.
+
+> put bolt in bag
+(Taking the bolt first)
+You put the bolt inside the bag.  
+
+> get nut and bolt from box and bag
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> drop bolt
+You are not holding the bolt.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put bolt in bag
+You are not holding the bolt.
+
+> get all from box and table
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You are not holding the key.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on table
+You are not holding the key.
+
+> get key from table and box
+You take the key from the table.
+
+> i
+You are carrying a coin, a hat and a key.
+
+> drop key
+You drop the key.  
+
+> put key on table
+(Taking the key first)
+You put the key onto the table.  
+
+> get key from box and table
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> drop key
+You are not holding the key.
+
+> put key on table
+You are not holding the key.
+
+> get ring from chest and box
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> get ring from box and chest
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> get nut from box and chest
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from chest and box
+The chest is closed.
+
+> i
+You are carrying a coin and a hat.
+
+> drop nut
+You are not holding the nut.
+
+> put nut in box
+You are not holding the nut.
+
+> get nut from table
+You can't take anything from the table.
+
+> get key from box
+Take what?
+
+> get key from bag
+Take what?
+
+> get nut from statue
+You can't take anything from the statue.
+
+> get key from statue
+You can't take anything from the statue.
+
+> get nut from stone
+You can't take anything from the stone.
+
+> get nut from gem
+I don't understand where you want to get things from.
+
+> get gem from box
+Take what?
+
+> get coin from box
+Take what?
+
+> get hat from box
+Take what?
+
+> get ring from box
+Take what?
+
+> get nut from box and zzz
+You take the nut from the box.
+I don't understand.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> get nut from zzz and box
+I don't understand where you want to get things from.
+
+> i
+You are carrying a coin and a hat.
+
+> drop nut
+You are not holding the nut.
+
+> put nut in box
+You are not holding the nut.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> box
+I don't understand what you want me to do with the box.
+
+> i
+You are carrying a coin and a hat.
+
+> drop nut
+You are not holding the nut.
+
+> put nut in box
+You are not holding the nut.
+
+> get key from zzz
+I don't understand where you want to get things from.
+
+> table
+I don't understand what you want me to do with the table.
+
+> i
+You are carrying a coin and a hat.
+
+> drop key
+You are not holding the key.
+
+> put key on table
+You are not holding the key.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> look
+Lit Room
+A bright room.  Also here is a stone, a rock, a box, a bag, a table and a chest.  You can only move north.
+
+> i
+You are carrying a coin and a hat.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> get nut from zzz
+I don't understand where you want to get things from.
+
+> i
+You are carrying a coin and a hat.
+
+> take nut
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take key
+You take the key from the table.
+
+> i
+You are carrying a coin, a hat and a key.
+
+> drop key
+You drop the key.  
+
+> put key on table
+(Taking the key first)
+You put the key onto the table.  
+
+> get nut
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> take ring
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> take nut and key
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.
+
+> drop nut
+You drop the nut.  
+
+> drop key
+You are not holding the key.
+
+> put nut in box
+(Taking the nut first)
+You put the nut inside the box.  
+
+> put key on table
+You are not holding the key.
+
+> lie on bed
+You can't lie on that.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> sit on bed
+You can't sit on that.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> lie on statue
+You can't lie on the statue.
+
+> x me
+A test subject.
+
+> stand
+You are already standing!
+
+> probe
+PROBE OK.

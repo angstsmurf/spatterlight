@@ -1,0 +1,55 @@
+
+> probe
+PROBE OK.
+
+> i
+You are carrying a coin, a stone, a feather, a mote, a bag, a pebble, a twig, a speck and a plate.
+
+> put coin in bag
+You put the coin inside the bag.
+
+> put stone in bag
+You put the stone inside the bag.
+
+> i
+You are carrying a feather, a mote, a bag, a pebble, a twig, a speck and a plate.  A coin and a stone are inside the bag.
+
+> put feather in bag
+The bag is full.
+
+> i
+You are carrying a feather, a mote, a bag, a pebble, a twig, a speck and a plate.  A coin and a stone are inside the bag.
+
+> put mote in bag
+The bag is full.
+
+> put pebble in bag
+The pebble can't fit inside the bag at the moment.
+
+> i
+You are carrying a feather, a mote, a bag, a pebble, a twig, a speck and a plate.  A coin and a stone are inside the bag.
+
+> put twig on plate
+You put the twig onto the plate.
+
+> put pebble on plate
+You put the pebble onto the plate.
+
+> put speck on plate
+You put the speck onto the plate.
+
+> i
+You are carrying a feather, a mote, a bag and a plate.  A coin and a stone are inside the bag.  On the plate is a pebble, a twig and a speck.
+
+> put all in bag
+The bag is full.
+
+> i
+You are carrying a feather, a mote, a bag and a plate.  A coin and a stone are inside the bag.  On the plate is a pebble, a twig and a speck.
+
+> look
+Test Arena
+A bare arena.
+
+> probe
+PROBE OK.

@@ -1,0 +1,52 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem, a rock, a hit, a slap and a but.  You can only move north.
+
+> blip rock
+FLAT [a rock].
+
+> blip stone
+FLAT [a gem].
+
+> zug rock stone
+WILD [a rock].
+
+> zug stone rock
+WILD [a rock].
+
+> zog hit
+SRC1 [a hit].
+
+> zog slap
+You hit the hit, but nothing happens.
+
+> nurb but
+SRC2 [a but].
+
+> nurb except
+I don't understand what you want me to do with the but.
+
+> probe
+PROBE OK.
+
+> frob rock
+I don't understand what you want me to do with the rock.
+
+> with zzz
+With what?
+
+> wibb gem
+You don't have the gem.
+
+> with rock
+You don't have the rock.
+
+> blip gem
+FLAT [a gem].
+
+> probe
+PROBE OK.

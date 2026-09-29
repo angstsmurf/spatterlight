@@ -1,0 +1,186 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> x guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack ann
+You chop a guard with the sword.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack bob
+You chop a guard with the sword.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> kill guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> hit guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> kick guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack dave
+You chop Dave with the sword.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard dave
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack cora
+I don't understand.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack
+Who do you want to attack?
+
+> ann
+You chop a guard with the sword.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack
+Who do you want to attack?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard with stone
+Which stone.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack guard with club
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> status
+Stamina: ileeerfeetts 	Range       	Max		Current value (inc weapons/armour)
+Stamina: ileeerfeetts	9999		9999		9999
+Hit strength:ilmfeeee	5-5		5		8		(3)
+Accuracy:iilmee fttts	9-9		9		9		(0)
+Defense value:iirmttt	99-99		99		99		(0)
+Agility:eeemee rfetts 	9-9		9		9
+Stamina: ileeerfeetts 	You are wielding a sword.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> status guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> give stone to guard
+Which stone.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> talk to guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> where is guard
+Which guard.  A guard or a guard?
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> n
+You move north.
+Cave
+A cave with rough walls.  Cora is here.  You can only move south.
+
+> x guard
+A third guard.
+
+> attack guard
+Who do you want to attack?
+
+> s
+You move south.
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> attack cora
+Cora isn't here!
+
+> look
+Lit Room
+A bright room.  Also here is a club and a stone.  Dave, Ann and Bob are here.  You can only move north.
+
+> probe
+PROBE OK.

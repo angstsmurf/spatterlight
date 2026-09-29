@@ -1,0 +1,879 @@
+
+> 1
+________________________________________
+
+Part 1 - Find the Mailroom
+10.30pm 14th April
+________________________________________
+
+
+Cabin E86, E Deck
+Your two-berth second class cabin is a large, bright, airy place of which you are the only occupant. The feeling of space is probably due to the light mahogany furniture and light green linoleum tiles covering the floor. The sofa-bed turned out to be extremely comfortable and you had one of the best nights sleep you can remember. Standing next to the bed is some sort of cabinet, but you have no idea what it is really called. With ducted warm air heating, the place is a lot better than your rented room in London; but then again what wouldn't be. The cabin door to the north leads to a corridor and a porthole is to the south.  
+
+For the past three days you have only left the cabin for your meals. "Three days lost!" you mutter to yourself. "I could have been having a look at all those first class cabins, with all that loot waiting to be liberated!" Still, you remember the prize you have sitting in the mailroom. All you have to do now is find it.
+
+> open furniture
+You open the mahogany furniture.  A suitcase is sitting inside the mahogany cabinet.  
+
+> get suitcase
+You take the suitcase from the mahogany furniture.  
+
+> open door
+You open your cabin door.  
+
+> north
+You move north.
+Corridor, E Deck
+The corridors on this ship are wide, bright and well lit, in fact just the type of place you hate.  This particular corridor heads both east and west as far as you can see. Just to the south is your cabin door.  
+
+> east
+You move east.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> east
+You move east.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  
+
+> look under chair
+You look under the chair and find a tie pin, which you pick up.  You hear a door close.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is a receipt, some wires and a bank note.  
+
+> put tie pin in suitcase
+You put the tie pin inside the suitcase.  
+
+> close suitcase
+You close the suitcase.  
+
+> east
+You move east.
+Forward Staircase, E Deck
+The forward staircase is always a good place to meet people, so you are desperately hoping no one is about tonight. The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor known as 'Scotland Road' and heading west will take you to the second class entrance.  
+
+Just for a moment you thought you could hear voices coming from the east.
+
+> east
+You move east.
+Scotland Road, E Deck
+You are in a long service corridor for the crew which has the nick-name 'Scotland Road' (you heard one of the crew call it that). About the width of two people, the plain white decoration and functional accessories is in stark contrast to the passenger corridors. The corridor continues east or you can go west to the forward staircase. To the south is the door of the Purser's office.  
+
+> east
+You move east.
+Scotland Road, E Deck
+You are in a long service corridor for the crew, which has the nick-name 'Scotland Road'.  North of you is the laundry and the corridor heads both east and west. To the south is the door of the 'Master-at-Arms' office.  
+
+Standing for a moment, you glance at the door to the south. Master-at-Arms! You can give a man any fancy title you like but as far as you are concerned he is only one thing; a policeman. You have already decided that he should be avoided at all costs.
+
+> north
+You move north.
+Laundry, E Deck
+You remember someone mentioning that the ship carries over 200,000 individual items of laundry and this room seems to be just storage for the soiled linen. You are standing near a large laundry basket. The corridor known as 'Scotland Road' is to the south.  
+
+> open laundry basket
+You open the basket.  A uniform is inside the basket.  
+
+> get uniform
+You take the uniform from the basket.  
+
+> south
+You move south.
+Scotland Road, E Deck
+You are in a long service corridor for the crew, which has the nick-name 'Scotland Road'.  North of you is the laundry and the corridor heads both east and west. To the south is the door of the 'Master-at-Arms' office.  
+
+> east
+You move east.
+Crew Mess Hall, E Deck
+Unlike the passenger parts of the ship, the second-class crew mess hall is functional rather than palatial.  Not much larger than your cabin, it is basically a plain white painted room with metal tables and chairs. The corridor 'Scotland Road' is to the west.  The ship's purser is talking to a steward.  The jovial ship's barber is nodding half asleep in one corner.  The dining room steward is listening attentively to the purser.  
+
+As you enter a steward and someone you think is the purser are leaving and you just catch the end of the conversation they are having.
+
+The steward is saying, "Yes, he has been asking lots of questions.  He wants to interview everyone who has been on E Deck."
+Looking surprised the Purser replies, "Everyone? Has he any idea how many of the crew that could be?"
+Nodding the steward states, "Well, he wants to hold interviews in his cabin starting tomorrow."
+The purser replies, "Well I hope it is one at a time, he will not get that many people in F22."
+
+You make a mental note to find out who is in F22.  The barber rubs his chin.  
+
+> talk to barber
+The barber looks you up and down and then says, "Hello Sir, you do know that this place is only for the crew?"
+You quickly mutter that you do.  
+
+> west
+You move west.
+Scotland Road, E Deck
+You are in a long service corridor for the crew, which has the nick-name 'Scotland Road'.  North of you is the laundry and the corridor heads both east and west. To the south is the door of the 'Master-at-Arms' office.  
+
+> west
+You move west.
+Scotland Road, E Deck
+You are in a long service corridor for the crew which has the nick-name 'Scotland Road' (you heard one of the crew call it that). About the width of two people, the plain white decoration and functional accessories is in stark contrast to the passenger corridors. The corridor continues east or you can go west to the forward staircase. To the south is the door of the Purser's office.  
+
+> west
+You move west.  
+Forward Staircase, E Deck
+The forward staircase is always a good place to meet people, so you are desperately hoping no one is about tonight. The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor known as 'Scotland Road' and heading west will take you to the second class entrance.  
+
+As you enter the forward staircase all the hairs on the back of your neck instantly stand on end.  You have just spotted someone exiting to the west and something about the way they move alarms you.  
+
+> down
+You move down.
+Forward Staircase, F Deck
+This is the lower upper most part of the second-class forward staircase. The walls are oak panelled with silver-plated metal brackets holding oak handrails.  Going up the staircase will take you to 'E' deck and south is yet another corridor.  
+
+> south
+You move south.
+Corridor, F Deck
+You are in a bright white panelled corridor which heads east and west as far as you can see.  The forward staircase is to the north and a cabin door is just to the south.  
+
+> west
+You move west.
+Corridor, F Deck
+You are in a bright white panelled corridor which heads east as far as you can see.  In the opposite direction is the aft staircase and a cabin door is south.  
+
+> west
+You move west.
+Aft Staircase, F Deck
+Much smaller than its forward cousin, the second class aft staircase still manages to achieve an elegant feel. The walls are oak panelled with silver-plated metal brackets holding oak handrails. Going down the staircase will take you to 'G' deck and east is another of the many corridors on the ship.  
+
+> down
+You move down.
+Aft Staircase, G Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. The staircase leads up to 'F' deck and heading south will take you onto 'G' deck.  One of the crew (a man named Collins) is leaning against the wall.  
+
+> south
+You move south.
+Corridor, G Deck
+G Deck is starting to become the third class and crew parts of the ship so you are in a plain white painted corridor; piping and structural beams cover the ceiling. The Post Office is off to the east and north leads to the aft staircase.  A metal gate leading to a third class area is closed to the west. Attached to one wall is a wooden box with a glass front.  
+
+> wear uniform
+You wear the uniform.  
+
+> east
+You move east.
+Post Office, G Deck
+The ship's Post Office houses a range of bags, bins and pigeonholes for sorting the mail. To your west is a corridor (Scotland Road) and some steps lead down.  A postal clerk is busy sorting the mail.  The postal clerk looks in one of the mail bags.  
+
+> down
+You go down the steps.  
+You have found the mail room.
+
+[Press ENTER to continue]
+
+___________________________________
+
+Part 2 - Find Your Package
+11.00pm 14th April
+___________________________________
+
+Mail Storage Room, Orlop Deck
+It is in here that the mail is stored ready to be sorted in the Post Office above.  This ship carries over 3000 bags of mail; you remember someone at lunch boring you to death with that information.  Just at the foot of the steps is a cupboard for securing important mail. You can see some steps leading up.  
+
+> up
+You move up.
+Post Office, G Deck
+The ship's Post Office houses a range of bags, bins and pigeonholes for sorting the mail. To your west is a corridor (Scotland Road) and some steps lead down.  A postal clerk is busy sorting the mail.  The postal clerk rubs his chin.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is a receipt, some wires, a bank note and a tie pin.  
+
+> get receipt
+You take the receipt from the suitcase.  The postal clerk takes a parcel from a bin and puts it in one of the mail bags.  
+
+> close suitcase
+You close the suitcase.  
+
+> give receipt to clerk
+You hand the receipt to the clerk who looks at it for a moment and says, "This should be easy to find, hang on I'll go and look." 
+He disappears for a moment and then returns with a parcel which he hands to you.  
+
+> exam clerk
+Looking to be in his early forties, with greying hair and moustache and an unsmiling face he appears a very serious individual. On his uniform you notice a 'post horn' badge. He has dark rings around his eyes and looks tired.  The postal clerk is carrying a coin.
+
+> i
+You are wearing a uniform, and you are carrying a luggage slip, a ticket, a parcel and a suitcase.  The postal clerk takes a letter from a mail bag and drops it in one of the bins.  
+
+> get coin
+The postal clerk has his back to you so you carefully pick his pocket. It will probably be a good idea not to be seen carrying it about the ship.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is some wires, a bank note and a tie pin.  
+
+> put coin in suitcase
+You put the coin inside the suitcase.  The postal clerk takes a letter from a mail bag and drops it in one of the bins.  
+
+> close suitcase
+You close the suitcase.  
+
+> down
+You go down the steps.  
+Mail Storage Room, Orlop Deck
+It is in here that the mail is stored ready to be sorted in the Post Office above.  This ship carries over 3000 bags of mail; you remember someone at lunch boring you to death with that information.  Just at the foot of the steps is a cupboard for securing important mail. You can see some steps leading up.  
+
+> open cupboard
+You open the cupboard.  A brass key is inside the cupboard.  
+
+> put parcel in cupboard
+You put the parcel inside the cupboard.  
+
+> get key
+You take the brass key from the cupboard.  
+
+> close cupboard
+You close and lock the cupboard.  
+
+> up
+You move up.
+Post Office, G Deck
+The ship's Post Office houses a range of bags, bins and pigeonholes for sorting the mail. To your west is a corridor (Scotland Road) and some steps lead down.  A postal clerk is busy sorting the mail.  
+
+> west
+You move west.
+Corridor, G Deck
+G Deck is starting to become the third class and crew parts of the ship so you are in a plain white painted corridor; piping and structural beams cover the ceiling. The Post Office is off to the east and north leads to the aft staircase.  A metal gate leading to a third class area is closed to the west. Attached to one wall is a wooden box with a glass front.  
+
+You can hear Crewman Collins talking to someone to the west.  You pause a moment to listen. Someone is asking Collins if he has seen a man carrying a large parcel. You can't quite hear the rest of the conversation but it ends with the mystery man saying, "Here is £10, let me know straightaway if you spot anything." You can hear the mystery man heading up the stairs.
+
+"Good job I have hidden the painting somewhere safe until later," you ponder to yourself.
+
+
+> remove uniform
+You remove the uniform.  
+
+> drop uniform
+You drop the uniform.  
+
+> north
+You move north.
+Aft Staircase, G Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. The staircase leads up to 'F' deck and heading south will take you onto 'G' deck.  One of the crew (a man named Collins) is leaning against the wall.  Collins coughs.  
+
+> up
+You move up.
+Aft Staircase, F Deck
+Much smaller than its forward cousin, the second class aft staircase still manages to achieve an elegant feel. The walls are oak panelled with silver-plated metal brackets holding oak handrails. Going down the staircase will take you to 'G' deck and east is another of the many corridors on the ship.  
+
+> east
+You move east.
+Corridor, F Deck
+You are in a bright white panelled corridor which heads east as far as you can see.  In the opposite direction is the aft staircase and a cabin door is south.  
+
+> east
+You move east.
+Corridor, F Deck
+You are in a bright white panelled corridor which heads east and west as far as you can see.  The forward staircase is to the north and a cabin door is just to the south.  
+
+> north
+You move north.
+Forward Staircase, F Deck
+This is the lower upper most part of the second-class forward staircase. The walls are oak panelled with silver-plated metal brackets holding oak handrails.  Going up the staircase will take you to 'E' deck and south is yet another corridor.  
+
+> up
+You move up.
+Forward Staircase, E Deck
+The forward staircase is always a good place to meet people, so you are desperately hoping no one is about tonight. The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor known as 'Scotland Road' and heading west will take you to the second class entrance.  The Master-at-Arms is stood watching you very carefully.  
+You can hear someone talking to the west.  
+King looks at the suitcase and asks, "Are you moving house?" He doesn't seem to be expecting an answer and just chuckles to himself.
+
+> west
+You move west.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  Mr Jones seems to be watching your very carefully.  The concerned looking ship's barber is here.  
+
+A man called Jones is talking to the barber and keeping close to the wall you listen in on the conversation.  
+The barber carries on, "Well I've seen someone like that on this deck but I do not know which cabin they have."
+Jones asks, "Well, let me know if you see them again and there is 10 quid in it for you."
+A sparkle comes into the barbers eyes, "Oh! 10 quid."
+Jones says, "I'm going down to F Deck if you need me."
+
+F Deck! How will you get back to get 'your' picture and how will you stop the barber telling Jones about you!  
+
+[Press ENTER to continue]
+
+
+___________________________________
+
+Part 3 - Avoid Capture
+11.30pm 14th April
+___________________________________
+
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  
+
+> talk to barber
+The barber looks you up and down and then says, "Do you know that you look very similar to the man the Jones fella is looking for?"
+"I think you are wrong," you reply quickly.
+
+The barber has obviously recognised you so you will need to act quickly.  The barber moves his weight from one foot to the other.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is some wires, a bank note, a coin and a tie pin.  
+
+> get note
+You take the bank note from the suitcase.  Master-at-Arms King enters from the east.  The barber coughs.  
+
+> close suitcase
+You close the suitcase.  
+
+> give note to barber
+You hand the £20 to the barber who smiles and says, "Do you know, I believe I was wrong. You actually look nothing like the man Jones is after." He pockets the money.
+
+Quietly to yourself you mutter, "So, now I need to get back and retrieve my package without getting caught by this Jones character."  The barber is giving you a very firm look.  
+
+> southeast
+You move southeast.
+Barber Shop, E Deck
+The barber shop has all the very latest automated shampooing and drying appliances. This is the place to purchase novelties such as postcards and commemorative plates. In the centre of the room is the barber chair which, like everything on this ship, seems brand new.  In front of the chair is a marble washbasin and behind it, against one wall, is a couch.  On one wall is a small notice and just inside the door is a coat stand.  Through the northwest door is the second class entrance.  
+
+> exam stand
+It is a coat stand, one of those with three legs.  An overcoat is hanging on the stand.  
+
+> exam overcoat
+In one of the pockets of the long winter overcoat you find a piece of paper and some identification.  You pocket both.  
+
+> i
+You are carrying a luggage slip, a ticket, a piece of paper, some identification papers, a suitcase and a brass key.  
+
+> northwest
+You move northwest.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  
+
+You feel a very slight tremble and a distant noise.  The barber moves his weight from one foot to the other.  
+
+> east
+You move east.
+Forward Staircase, E Deck
+The forward staircase is always a good place to meet people, so you are desperately hoping no one is about tonight. The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor known as 'Scotland Road' and heading west will take you to the second class entrance.  The Master-at-Arms is stood watching you very carefully.  With the Master-at-arms hanging around it would not be a good idea to let him catch you with anything stolen.  
+
+> up
+You move up.
+Forward Staircase, D Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'C' deck or down the staircase to 'E' deck.  To the west is the door into the Dining Room and east is the Infirmary.  Master-at-Arms King enters from below.  With the Master-at-arms hanging around it would not be a good idea to let him catch you with anything stolen.  
+
+> east
+You move east.
+Infirmary, D Deck
+Bright, white, and clinical looking so it must be the Infirmary.  In the centre of the room is a typical hospital bed, probably hard and uncomfortable.  A desk is pushed again one wall with a medicine cabinet next to it. To the west is the forward staircase.  Dr Simpson is standing to one side of the room, swaying ever so slightly.  
+
+As you enter you get the tell tale aroma of gin.
+
+> open desk
+As you go to open the desk the doctor shouts, "No! Don't open the desk." You pull the desk open before he can stop you. A bottle is inside the desk.  
+
+> x desk
+The desk looks to be fairly old and well used.  The desk is open.  A bottle is inside the desk.  
+
+You notice that the engines seem to have stopped.  
+
+> get all from desk
+You take the bottle from the desk.  
+
+> ask doctor about bottle
+The doctor looks very worried, "Where, where did you get that from? No, it doesn't matter. Look, I need a drink to get me through the day. Please don't tell anyone or you will get me the sack."
+With a small smile you ponder to yourself, "So, he is worried about getting the sack is he?" Out loud you quietly say, "I wonder what would happen if I handed this to the master-at-arms?"
+The doctor replies quickly, "Please don't tell anyone you will get me the sack. Just let me have the bottle back."
+Spotting an opportunity you ask, "What will be in it for me?"
+Pausing for a moment, he shows you a small silver hip flask, "Will this do?"
+You reply with a nod.  
+
+> give bottle to doctor
+You hand the bottle to the doctor, who taking it gives you a small silver hip flask.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is some wires, a coin and a tie pin.  
+
+> put flask in suitcase
+You put the silver flask inside the suitcase.  
+
+> close suitcase
+You close the suitcase.  
+
+> west
+You move west.
+Forward Staircase, D Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'C' deck or down the staircase to 'E' deck.  To the west is the door into the Dining Room and east is the Infirmary.  
+
+> open door
+You open the dining room door.  
+
+> west
+You move west.
+Dining Saloon, D Deck
+The second class dining saloon is a large, spacious room with panelling in sycamore and extends the width of the vessel. All the furniture is mahogany with crimson upholstery and the tables are rectangular with swivel chairs fixed to the deck! You are either too far from the edge of the table or if you are fat, too close. There is a piano in one corner of the room which entertains diners and one of the dining tables is just to your right.  The door to the east leads to the forward staircase.  A dining room steward is here.  
+
+> exam piano
+It is by a company called Broadwood (it is written on the piano).  A cap is on the piano.  
+
+> get cap
+You take the cap from the piano.  
+
+> exam table
+This dining table is mahogany with a crimson upholstery surface.  On the dining table is a menu, a plate, a leaflet and a silver coffee pot.  
+
+> get silver coffee pot
+You take the silver coffee pot from the dining table.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is some wires, a coin, a silver flask and a tie pin.  
+
+> put pot in suitcase
+You put the silver coffee pot inside the suitcase.  
+
+> close suitcase
+You close the suitcase.  
+
+> east
+You move east.
+Forward Staircase, D Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'C' deck or down the staircase to 'E' deck.  To the west is the door into the Dining Room and east is the Infirmary.  
+
+> up
+You move up.
+Forward Staircase, C Deck
+The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'B' deck or down the staircase to 'D' deck.  To the west is the entrance to the Library.  
+
+> west
+You move west.
+Staircase Entrance, C Deck
+This entrance or landing as you would call it, seems like most of the ship and is oak panelled, with the usual tiled flooring. A settee is sited just inside the entrance for the weary passenger to rest. An excellent place for meeting fellow passengers you are hoping everyone is safely in their cabins. Heading either north or south will take you to one of the Promenade Decks on the ship. To the east is the forward staircase and west is the door of the Library.  The Master-at-Arms is stood watching you very carefully.  With the Master-at-arms hanging around it would not be a good idea to let him catch you with anything stolen.  
+
+> exam settee
+The three seater settee is covered in a rich and elegant jade green velvet.  A purse is on the settee.  
+
+> get purse
+You take the purse from the settee.  Master-at-Arms King leaves to the west.  
+
+> open purse
+You open the purse.  A ring is inside the purse.  
+
+> get ring
+You take the ring from the purse.  
+
+> drop purse
+You drop the purse.  
+
+> open suitcase
+You open the suitcase.  Inside the suitcase is some wires, a coin, a silver flask, a silver coffee pot and a tie pin.  
+
+> put ring in suitcase
+You put the ring inside the suitcase.  
+
+> get wires
+You take the wires from the suitcase.  Master-at-Arms King enters from the west.  With the Master-at-arms hanging around it would not be a good idea to let him catch you with anything stolen.  
+
+Suddenly King grabs you by the arm and says, "Now then my lad, what are you carrying?" He examines the things you have acquired on the ship and then continues, "I think we better go to my office."
+
+With the well practiced ease of someone who has had his collar felt more than once, you manage to slip away. As quickly as you can you make for your cabin, unfortunately King still has the loot. He must have put it in his office, "Should I try to get it back?" you wonder.
+
+Cabin E86, E Deck
+Your two-berth second class cabin is a large, bright, airy place of which you are the only occupant. The feeling of space is probably due to the light mahogany furniture and light green linoleum tiles covering the floor. The sofa-bed turned out to be extremely comfortable and you had one of the best nights sleep you can remember. Standing next to the bed is some sort of cabinet, but you have no idea what it is really called. With ducted warm air heating, the place is a lot better than your rented room in London; but then again what wouldn't be. The cabin door to the north leads to a corridor and a porthole is to the south.  
+
+> close suitcase
+The suitcase is already closed!  
+
+> pick lock
+You can't see that  
+
+> west
+You can't go in that direction  
+
+> exam lounger
+You see no such thing.
+
+> get brooch
+You can't see that  
+
+> look under table
+The furniture is a type of combined bedside cabinet, chest of drawers and writing table.  The mahogany furniture is open.  
+
+> open suitcase
+You open the suitcase.  A coin is inside the suitcase.  
+
+> put pen in suitcase
+It is not clear which object you are referring to.  
+
+> put brooch in suitcase
+It is not clear which object you are referring to.  
+
+> close suitcase
+You close the suitcase.  
+
+> east
+You can't go in that direction  
+
+> east
+You can't go in that direction  
+
+> up
+You can't go in that direction  
+
+> west
+You can't go in that direction  
+
+> south
+You can't go in that direction, you would never fit through the closed porthole.  
+
+> exam man
+You see no such thing.
+
+> exam woman
+You see no such thing.
+
+> get pocket watch
+You can't see that  
+
+> get necklace
+You can't see that  
+
+> open suitcase
+You open the suitcase.  A coin is inside the suitcase.  
+
+> put necklace in suitcase
+It is not clear which object you are referring to.  
+
+> put watch in suitcase
+It is not clear which object you are referring to.  
+
+> close suitcase
+You close the suitcase.  
+
+> north
+The cabin door is closed.  
+
+> open door
+You open your cabin door.  
+
+> west
+You can only move north.  
+
+> exam table
+The furniture is a type of combined bedside cabinet, chest of drawers and writing table.  The mahogany furniture is open.  
+
+> get overcoat
+You can't see that  
+
+> get match
+You can't see that  
+
+> east
+You can only move north.  
+
+> east
+You can only move north.  
+
+> wear overcoat
+You are not carrying the overcoat.  
+
+> wear cap
+You put on the cap.  
+
+> down
+You can only move north.  
+
+> down
+You can only move north.  
+
+> down
+You can only move north.  
+
+> down
+You can only move north.  
+
+> south
+You can't go in that direction, you would never fit through the closed porthole.  
+
+> west
+You can only move north.  
+
+> west
+You can only move north.  
+
+> down
+You can only move north.  
+
+> south
+You can't go in that direction, you would never fit through the closed porthole.  
+
+> remove overcoat
+Remove what?  
+
+> drop overcoat
+Drop what?  
+
+> remove cap
+You remove the cap.  
+
+> drop cap
+You drop the cap.  
+
+> get uniform
+There is nothing worth taking here.  
+
+> wear uniform
+You are not carrying the uniform.  
+
+> east
+You can only move north.  
+
+> down
+You can only move north.  
+
+> open cupboard
+You can't see the cupboard.  
+
+> get parcel
+The cupboard is closed.  
+
+> up
+You can only move north.  
+
+> west
+You can only move north.  
+
+> remove uniform
+You are not wearing the uniform!  
+
+> drop uniform
+You are not holding the uniform.  
+
+> open box
+You can't see the wooden box.  
+
+> get axe
+You can't see that  
+
+> smash gate
+You can't see the metal gate.  
+
+> north
+(Getting off your sofa-bed first)
+You move north.
+Corridor, E Deck
+The corridors on this ship are wide, bright and well lit, in fact just the type of place you hate.  This particular corridor heads both east and west as far as you can see. Just to the south is your cabin door.  
+
+> up
+You can't go in that direction, but you can move east and south.  
+
+> east
+You move east.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> east
+You move east.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  You hear a door close.  
+
+> north
+You can't go in that direction, but you can move east, west and southeast.  The barber moves his weight from one foot to the other.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> get key
+You are already carrying the brass key.  The barber coughs.  
+
+> west
+You move west.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> west
+You move west.
+Corridor, E Deck
+The corridors on this ship are wide, bright and well lit, in fact just the type of place you hate.  This particular corridor heads both east and west as far as you can see. Just to the south is your cabin door.  
+
+> south
+You can only move east.  
+
+> get pendant
+You can't see that  
+
+> open furniture
+You can't see the mahogany furniture.  
+
+> get cufflinks
+You can't see that  
+
+> open suitcase
+You open the suitcase.  A coin is inside the suitcase.  
+
+> put pendant in suitcase
+It is not clear which object you are referring to.  
+
+> put cufflinks in suitcase
+It is not clear which object you are referring to.  
+
+> close suitcase
+You close the suitcase.  
+
+> north
+You can only move east.  
+
+> east
+You move east.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> east
+You move east.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  The barber rubs his chin.  
+
+> east
+You move east.
+Forward Staircase, E Deck
+The forward staircase is always a good place to meet people, so you are desperately hoping no one is about tonight. The walls are oak panelled with silver-plated metal brackets holding oak handrails. You can go either up to 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor known as 'Scotland Road' and heading west will take you to the second class entrance.  
+
+> unlock door
+You can't unlock that.  
+
+> south
+You can't go in that direction, but you can move east, west, up and down.  
+
+> exam desk
+You can't see the desk from here!  
+
+> open bag
+You can't open that.  
+
+> x bag
+You see no such thing.
+
+> get all from gladstone bag
+I don't understand where you want to get things from.
+
+> open suitcase
+You open the suitcase.  A coin is inside the suitcase.  
+
+> put case in suitcase
+It is not clear which object you are referring to.  
+
+> close suitcase
+You close the suitcase.  
+
+> north
+You can't go in that direction, but you can move east, west, up and down.  
+
+> west
+You move west.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  The barber moves his weight from one foot to the other.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> give key to purser
+Give the brass key to who?  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  The barber shakes his hand from side to side.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  The barber rubs his chin.  
+
+> west
+You move west.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> talk to goodson
+Use the format "ask Donald Goodson about [subject]".  
+
+> talk to goodson
+Use the format "ask Donald Goodson about [subject]".  
+
+> east
+You move east.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  The barber moves his weight from one foot to the other.  
+
+> down
+You can't go in that direction, but you can move east, west and southeast.  
+
+> down
+You can't go in that direction, but you can move east, west and southeast.  The barber rubs his chin.  
+
+> down
+You can't go in that direction, but you can move east, west and southeast.  
+
+> west
+You move west.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> south
+You can't go in that direction, but you can move east and west.  
+
+> look under chair
+You see no such thing.
+
+> open wallet
+You can't open that.  
+
+> get letter
+You can't see that  
+
+> north
+You can't go in that direction, but you can move east and west.  
+
+> east
+You move east.
+Second Class Entrance, E Deck
+The elegant pillared foyer extends the full width of the ship and is furnished with fine leather chairs. This is where second class passengers board and leave the ship, through a large door to the south.  The walls are panelled in two contrasting veneers of maple and mahogany (you spent a couple of years working as a carpenter). The decorative mouldings and all the handrails look like they are bronze.  You can go west to a corridor, east to the forward staircase and to the southeast is a barber shop.  The concerned looking ship's barber is here.  The barber shakes his hand from side to side.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  The barber rubs his chin.  
+
+> up
+You can't go in that direction, but you can move east, west and southeast.  
+
+> west
+You move west.
+Corridor, E Deck
+You are in a bright white panelled corridor which leads west.  The second class main entrance is east and a cabin door is just to the south.  
+
+> give letter to goodson
+Give what?  
+
+> open suitcase
+You open the suitcase.  A coin is inside the suitcase.  
+
+> put ruby in suitcase
+It is not clear which object you are referring to.  
+
+> close suitcase
+You close the suitcase.  
+
+> open door
+You can't open the E82 door as it is locked!  
+
+> north
+You can't go in that direction, but you can move east and west.  
+
+> open locker
+You can't open that.  
+
+> get rocket
+You can't see that  
+
+> drop rocket
+Drop what?  
+
+> light rocket
+You can't light that.  
+
+> north
+You can't go in that direction, but you can move east and west.  

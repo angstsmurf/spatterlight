@@ -1,0 +1,57 @@
+
+> b0
+B0.  
+Back Room
+A back room.  Also here is a widget.  Bob is here, looking dangerous.  Player can only move west.
+
+> r
+R.
+
+> b1
+Back Room
+A back room.  Also here is a widget.  Bob is here, looking dangerous.  Player can only move west.
+
+> r
+R.
+
+> b2
+Back Room
+A back room.  Also here is a widget.  Player can only move west.  ADDMSG.
+
+> r
+R.
+
+> b3
+B3.  
+Back Room
+A back room.  Also here is a widget.  Bob is here, looking dangerous.  Player can only move west.  ADDMSG.
+
+> r
+R.
+
+> b4
+B4.  
+Back Room
+A back room.  Also here is a widget.  Bob is here, looking dangerous.  Player can only move west.
+
+> r
+R.
+
+> b5
+B5.  
+Back Room
+A back room.  Also here is a widget.  Bob is here, looking dangerous.  Player can only move west.
+
+> r
+R.
+
+> ne
+Back Room
+A back room.  Also here is a widget.  Player can only move west.  ADDMSG.
+
+> r
+R.
+
+> look
+Test Arena
+A bare arena.  Player can only move east.

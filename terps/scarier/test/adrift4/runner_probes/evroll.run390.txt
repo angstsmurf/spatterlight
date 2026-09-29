@@ -1,0 +1,39 @@
+
+> z
+Time passes...
+
+> z
+Time passes...
+B START.  C FINISH.
+
+> z
+Time passes...
+
+> ping
+PING FIRED.  A START.  A FINISH.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> look
+Probe Room
+LONG.  A LOOK.  B LOOK.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> look
+Probe Room
+LONG.  A LOOK.  B LOOK.

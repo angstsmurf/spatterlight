@@ -1,0 +1,248 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> i
+You are carrying a hat.
+
+> open goto cave
+Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> x goto cave
+You see no such thing.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> examine goto cave
+You see no such thing.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> take goto cave
+Take what?Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> push goto cave
+Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> where is goto cave
+I don't know where that is!Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> ask bob about goto cave
+Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> give goto cave
+(to Nobody)
+Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> wear goto cave
+Wear what?Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> drop goto cave
+Drop what?Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> goto cave take box
+You take the box.
+
+> i
+You are carrying a hat and a box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> goto cave open box
+You open the box.  A nut is inside the box.Unknown place.
+
+> i
+You are carrying a hat and a box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> goto cave x box
+Unknown place.
+
+> i
+You are carrying a hat and a box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> take box goto cave
+You are already carrying the box.
+
+> i
+You are carrying a hat and a box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> open box goto cave
+The box is already open!Unknown place.
+
+> i
+You are carrying a hat and a box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> x box goto cave
+A wooden box.  The box is open.  A nut is inside the box.
+
+> i
+You are carrying a hat and a box.  A nut is inside the box.
+
+> look
+Lit Room
+A bright room.  Also here is a coin.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> drop box goto cave
+You drop the box.  
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> goto cave
+Unknown place.
+
+> i
+You are carrying a hat.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a box.  Bob is here.  You can only move north.
+
+> s
+You can only move north.
+
+> probe
+PROBE OK.

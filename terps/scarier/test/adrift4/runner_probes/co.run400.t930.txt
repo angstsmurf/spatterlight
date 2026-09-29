@@ -1,0 +1,39 @@
+
+> rock
+I don't understand what you want me to do with the rock.
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> mustang key
+I don't understand what you want me to do with the mustang key.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> x rock
+A plain thing.
+
+> look
+Alpha
+The first room.  You can only move east.

@@ -65,13 +65,14 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
        * blows and the "can't attack X with Y" refusal append, so several
        * targets leave a single copy and it wipes whatever the line printed
        * before it: `hit guard` with the chopping sword and two guards in the
-       * room is one "You can't hit with the sword!" (run390x Adrift_1207).
+       * room is one "You can't hit with the sword!" (run390x
+       * runner_probes/batt.run390.txt).
        */
       pf_empty (filter);
       /* Ary(0) & " can't " & verb (run390 44D041, run400 47EE9C): the
          perspective subject, so a third-person game reads "Player can't
-         shoot with the sword!" (run400x p4BATTLEWPN, Adrift_p4withqk.txt,
-         2026-09-25). */
+         shoot with the sword!" (run400x p4BATTLEWPN,
+         runner_probes/battlewpn.run400.withq.txt, 2026-09-25). */
       lib_print_response_message (game, "You can't ", "I can't ",
                                   "%player% can't ");
       pf_buffer_string (filter, verb);
@@ -191,13 +192,14 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
  *
  * Measured on Cyberclones II (4.00): `give electric uniform to lightning`,
  * with the Fire Uniform worn and the Electric Uniform held, runs task 6 and
- * draws nothing that turn (Adrift_128/130/131_c2*.txt).  `poke toy` in
- * p4TAMB.taf, with two present toys and no NPC, IS a turn.
+ * draws nothing that turn (runner_probes/cyber2.run400.[abc].txt).  `poke toy`
+ * in p4TAMB.taf, with two present toys and no NPC, IS a turn.
  *
  * British Fox (4.00) `welsh fox rub tits` (synonym -> touch) runs task 44
  * with Welsh Fox's tits and the player's own tits both present, and IS a
  * turn: run400x's Me(424) watchpoint shows no write at all on the line
- * (Adrift_bf_watch.txt / bf_watch_trace.txt, 2026-09-24), where `x tits`
+ * (runner_probes/britishfox.run400.watch.txt /
+ * runner_probes/britishfox.run400.watch_trace.txt, 2026-09-24), where `x tits`
  * asks "Which tits." -- the named-NPC scan was an over-reach.
  *
  * Not modelled: the arm's 454454 prefix contest can hand the write to a
@@ -265,7 +267,8 @@ lib_co_400_scan_objects_pending (scr_gameref_t game, const scr_char *line)
  *
  * Why `take stone with knife` is a turn and `take stone` is not, both
  * answered "Which stone.  The red stone or the blue stone?" (p4WTIE,
- * run400 Adrift_wtie11-17 and Adrift_wtiewatch, 2026-09-20).  get_piece's
+ * run400 runner_probes/wtie.run400.1[1-7].txt and
+ * runner_probes/wtie.run400.watch.txt, 2026-09-20).  get_piece's
  * prompt leaves Me(424) = MemVar_4941EC at the pending object and returns
  * FALSE from get_outer, so generaltasks goes on down its handler list to
  * openclose (Proc_19_44_476468, called at 48A515), and openclose begins
@@ -333,7 +336,8 @@ lib_openclose_with_half_400 (scr_gameref_t game, const scr_char *line)
  * line's own question is somebody else's (therest's crowd).  The open and
  * close arms come first and Exit Sub when the whole line scores nothing
  * (4756BC, 4759E6): `open box with stone` never reaches the loop and leaves
- * "it" where it was (p4WTIE3, run400 Adrift_it2, 2026-09-21).
+ * "it" where it was (p4WTIE3, run400 runner_probes/wtie3.run400.it2.txt,
+ * 2026-09-21).
  *
  * Notes the antecedent only; the question is
  * lib_openclose_with_half_raise_400()'s.
@@ -384,7 +388,8 @@ lib_openclose_with_antecedent_400 (scr_gameref_t game, const scr_char *line)
  * Me(428) as the tail's 463640 left it and co() rebuilt it, the term the
  * pending object's Short replaced by the last of its own aliases the line
  * holds.  p4WTIE2, the red stone aliased "flint" and the blue "pebble", the
- * ruby and the emerald both "gems" (run400 Adrift_wtie19/20, 2026-09-21):
+ * ruby and the emerald both "gems" (run400 runner_probes/wtie2.run400.19.txt
+ * and runner_probes/wtie2.run400.20.txt, 2026-09-21):
  *
  *   x rope with stone         Which stone.  (the stones park after the rope)
  *   x ruby with stone         A plain thing.  (the ruby resets them, last)
@@ -416,8 +421,8 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
   /*
    * openclose's own lock arm answers after the loop and leaves no question:
    * `unlock box with stone` and `unlock box with gems` unlock with the coin,
-   * the box's key, and `lock box with stone` locks (p4WTIE, Adrift_wtie to
-   * wtie4).
+   * the box's key, and `lock box with stone` locks (p4WTIE,
+   * runner_probes/wtie.run400.[1-4].txt).
    */
   if (lib_input_contains_word_400 (line, "lock")
       || lib_input_contains_word_400 (line, "unlock"))
@@ -460,7 +465,8 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
  * var_8A = 0).  Unlike the catch-all this is an ordinary turn: 494281 is
  * left alone, and the walk+event tick runs.
  *
- * Measured 2026-09-06 on Shadowpeak (Adrift_110): `attack margo with
+ * Measured 2026-09-06 on Shadowpeak
+ * (runner_probes/shadowpeak.run400.margo.txt): `attack margo with
  * sword` from the Torture Chamber, Margo seen and elsewhere, answers
  * "Margo isn't here!  Seeker hums!" -- the walker's line proves the tick.
  * The corpus's six `attack holga` lines are the same case.  Scarier used
@@ -480,10 +486,10 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
  * answer through to the catch-all.  Measured against
  * the 2026-09-08 whole-corpus capture: ALEXIS.TAF driven with the cube
  * worn answers `attack wolf` with "Wolf isn't here!" from the rooms the
- * wolf has left, five turns of it (Adrift_486_alexis_worn_cube.txt t17-19,
- * t25-26), where Scarier said "Command not understood".  Before 3.9 there
- * is no battle system at all -- neither run370.exe nor run380.exe contains
- * the string "doesn't seem to do any damage" -- so 3.90 is the floor.
+ * wolf has left, five turns of it (runner_probes/alexis_worn_cube.run390.txt
+ * t17-19, t25-26), where Scarier said "Command not understood".  Before 3.9
+ * there is no battle system at all -- neither run370.exe nor run380.exe
+ * contains the string "doesn't seem to do any damage" -- so 3.90 is the floor.
  *
  * Returns TRUE having printed for every such NPC.
  */
@@ -543,12 +549,12 @@ lib_battle_absent_npc (scr_gameref_t game)
  * turn: the Runner ticks.  run390's twin in characters() @45ACD8 tests Name
  * or first Alias and prints the Name raw (45960F).
  *
- * Measured 2026-09-14 on the_pk_girl under run400x (Adrift_1157 pkgsite):
- * Chadwick, Named "~the ~[CH=%know_chadwick%]Chadwick" and elsewhere,
- * answers `attack chadwick` with "The man is not here!", where Scarier said
- * the game's "Pardon me?".  3.9 is from the decompile alone; 3.7/3.8's
- * per-verb sites (run370 43865D, run380 4404D9) are
- * lib_hit_absent_npc_pre390().
+ * Measured 2026-09-14 on the_pk_girl under run400x
+ * (runner_probes/thepkgirl.run400.site.txt): Chadwick, Named "~the
+ * ~[CH=%know_chadwick%]Chadwick" and elsewhere, answers `attack chadwick` with
+ * "The man is not here!", where Scarier said the game's "Pardon me?".  3.9 is
+ * from the decompile alone; 3.7/3.8's per-verb sites (run370 43865D, run380
+ * 4404D9) are lib_hit_absent_npc_pre390().
  *
  * Returns TRUE having printed for the first such NPC.
  */
@@ -621,11 +627,12 @@ lib_attack_absent_npc (scr_gameref_t game)
  * var_8A = 0 and "Who do you want to attack?" (run400 47F01A, run390
  * 44D1E9), and 494281 is left alone, so it is a real turn.
  *
- * Measured 2026-09-13 on Shadowpeak under run400x (Adrift_1020 turn 361):
- * the witch's cat is Named "Shadow", with aliases "cat", "black cat" and
- * "shadow the black cat".  `attack cat with sword` in its room answers
- * "Who do you want to attack?  Seeker hums!" -- the walker's line proves the
- * tick -- where Scarier bound the alias and killed the cat.
+ * Measured 2026-09-13 on Shadowpeak under run400x
+ * (runner_probes/shadowpeak.run400.txt turn 361): the witch's cat is Named
+ * "Shadow", with aliases "cat", "black cat" and "shadow the black cat".
+ * `attack cat with sword` in its room answers "Who do you want to attack?
+ * Seeker hums!" -- the walker's line proves the tick -- where Scarier bound
+ * the alias and killed the cat.
  *
  * Being named is not enough: the NPC is struck only when var_90 -- the
  * FIRST of dobattle's verbs, in its own order, that is a whole word of the
@@ -653,9 +660,9 @@ static void lib_battle_continue_after_kill (scr_gameref_t game, scr_int npc,
  * " can't attack " in the same procedure): Ary(0) & " can't attack " &
  * Name & " with " & the object's mode-0 name, no full stop.  " is not a
  * weapon!" is wield's (47E93F), not attack's.  A real turn.  Measured
- * 2026-09-13 on p4BATTLEWPN (Adrift_1144): "Player can't attack Gargoyle #3
- * with the rock".  Scarier deliberately closes the sentence with a full stop
- * (deviation policy).
+ * 2026-09-13 on p4BATTLEWPN (runner_probes/battlewpn.run400.txt): "Player
+ * can't attack Gargoyle #3 with the rock".  Scarier deliberately closes the
+ * sentence with a full stop (deviation policy).
  */
 static void
 lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
@@ -749,7 +756,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
        * never sets the not-a-turn byte MemVar_468219, and the tick gate
        * (generaltasks 460650-460672) needs nothing more than a non-empty
        * output buffer to call characters() and events().  Measured on
-       * Govard (Adrift_282_govard_rt.txt, turn 213): "Чем мне атаковать
+       * Govard (runner_transcripts/govard.txt, turn 213): "Чем мне атаковать
        * Волк with?" is followed on the same turn by the wolf's bite and the
        * events' output, where 4.0 would print the question alone.
        */
@@ -868,7 +875,8 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
    * carrying the rock!" (probe pWS2 -- unlike wield's "aren't carrying").
    * Battle off, pre-4.0 characters()' own with-loop says "<You> don't have
    * <the X>!" (run380 44047B, run370 4385FF): `hit dave with stone`, the
-   * stone dropped (run370x Adrift_198_pnpcwith37, run380x Adrift_199). */
+   * stone dropped (run370x runner_probes/npcamb.run370.with.rtf, run380x
+   * runner_probes/npcamb.run380.with.rtf). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER
       && !battle_is_enabled (game) && !lib_is_version_400 (game))
     {
@@ -952,7 +960,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
  *
  * Measured 2026-09-13 on harness/make_400_battlemultiprobe.py's second build
  * (p4BATTLEMULTI2: Guard with alias "sentry", Droid, Robot), run400x
- * Adrift_1131:
+ * runner_probes/battlemulti2.run400.txt:
  *
  *     attack droid guard       ->  Player shoot a sentry with the blaster.
  *                                  Player shoot Droid with the blaster.
@@ -1033,7 +1041,7 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
  * command, not what the player typed.  Outside (3.90), `attack first guard`
  * with both guards aliased "guard": the first guard dies, the line becomes
  * "thefirstprisonguardisdead", and the second guard is left for Joe
- * (runner_transcripts Adrift_outside_trapx, turn 11).  run400's killchar
+ * (runner_probes/outside.run390.trap.txt, turn 11).  run400's killchar
  * (44B0E5-44B0FD) runs the task by index and leaves the line alone.
  *
  * Returns the task's command when `npc` has just died with a KilledTask at
@@ -1076,10 +1084,10 @@ lib_battle_killed_task_line (scr_gameref_t game, scr_int npc)
  * to take their place: SCARE's "Please be more clear, who do you want to
  * attack?" is an invention at every version.  Measured 2026-09-20 on
  * p39BATT (make_battlenpcprobe.py; Ann and Bob both "a guard"), run390x
- * Adrift_1207: `attack/kill/kick guard` are two chops, `hit guard` (the
- * sword chops, so the method is wrong) one refusal, `attack guard with
- * stone` two "can't attack" refusals and `attack guard with club` one "not
- * carrying".  The one-target lines keep the %character% rows' own path.
+ * runner_probes/batt.run390.txt: `attack/kill/kick guard` are two chops, `hit
+ * guard` (the sword chops, so the method is wrong) one refusal, `attack guard
+ * with stone` two "can't attack" refusals and `attack guard with club` one
+ * "not carrying".  The one-target lines keep the %character% rows' own path.
  */
 static scr_bool
 lib_battle_line_names_many (scr_gameref_t game)
@@ -1145,8 +1153,8 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
  * when the prefix still equals var_98.  So a Who that merely raises Who
  * again (`attack`, `attack`) is spent, `hit` then `kick` leaves "kick", and
  * `attack then gargoyle #2` answers its own question.  Measured 2026-09-13 on
- * p4BATTLEHASH, battlewho.txt (Adrift_1143): 21 lines, 21 draws, "You have
- * taken 15 turns" and later 17.
+ * p4BATTLEHASH (runner_probes/battlehash.run400.who.txt): 21 lines, 21 draws,
+ * "You have taken 15 turns" and later 17.
  *
  * The weapon question at 47ED3E stores `"attack " & name & " with"` through
  * the same variable; that one is not ported.  Whether an empty line would be
@@ -1271,8 +1279,9 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
  * never the task matcher -- and what spends it is a line that anything
  * answers.
  *
- * Measured on p*WITHPFX (make_withprefixprobe.py; feeds cmdfile_pwithpfx3,
- * 5, 6 and 7; Adrift_222_wr390, 224_wt390, 224_wu390, 224_wv390,
+ * Measured on p*WITHPFX (make_withprefixprobe.py;
+ * runner_probes/withpfx.run390.wr.txt, runner_probes/withpfx.run390.wt.txt,
+ * runner_probes/withpfx.run390.pfx6.txt, runner_probes/withpfx.run390.wv.txt,
  * 2026-09-20).  With task 15 wired as `fff with ggg`:
  *
  *   fff / with zzz / ggg          "With what?" twice, PFX5. never printed
@@ -1375,10 +1384,10 @@ lib_with_prefix_390_end_element (void)
  * `wear zzz` then `goggles` runs `wear zzz goggles` and puts them on, and
  * `remove zzz` then `wield zzz` answers "Remove what?" again.  The other
  * 4.0 questions measured beside them do not: `drop zzz` and `take zzz` then
- * `goggles` are the object catch-all.  Measured 2026-09-14 on ptbad.taf,
- * cmdfile_whatcont.txt (Adrift_38_ptbad_whatcont.txt) and Adrift_36.
- * run390's wears sets its prefix too (43D289) and its removes does not;
- * neither is measured, so this stays 4.0.
+ * `goggles` are the object catch-all.  Measured 2026-09-14 on ptbad.taf
+ * (runner_probes/tbad.run400.whatcont.txt and
+ * runner_probes/tbad.run400.probe3.txt).  run390's wears sets its prefix too
+ * (43D289) and its removes does not; neither is measured, so this stays 4.0.
  */
 void
 lib_question_prefix_from_line (scr_gameref_t game)
@@ -1398,10 +1407,10 @@ lib_question_prefix_from_line (scr_gameref_t game)
  * So a task printing "What with?" to `saw rope` does not tick, and `knife`
  * then runs `saw rope with  knife` -- two spaces, which no task command
  * matches at 4.0.  "Whittle it with what?" is neither and ticks.  Measured
- * 2026-09-14 on p4WITHQ.taf, cmdfile_withq.txt and cmdfile_withq2.txt
- * (Adrift_39_p4withq.txt, Adrift_40_p4withq2.txt).  Returns TRUE when the
- * line is not a turn for it, which is 4.0 only; the prefix half is 3.9's
- * too (see inside).
+ * 2026-09-14 on p4WITHQ.taf (harness/make_400_withqprobe.py;
+ * runner_probes/withq.run400.txt, runner_probes/withq.run400.2.txt).  Returns
+ * TRUE when the line is not a turn for it, which is 4.0 only; the prefix half
+ * is 3.9's too (see inside).
  */
 scr_bool
 lib_question_with_rule (scr_gameref_t game, const scr_char *line)
@@ -1429,14 +1438,14 @@ lib_question_with_rule (scr_gameref_t game, const scr_char *line)
    * dobattle's parked "attack <name> with" (44CEDF) exactly as 48B530 lands
    * on 47ED3E -- but never touches the not-a-turn byte MemVar_468219, so at
    * 3.9 the line that asked is a turn.  Measured 2026-09-25 on p39WITHQ
-   * (make_39_withqprobe.py, cmdfile_p39withq.txt, run390x
-   * Adrift_p39withq.txt): a task printing "What with?" / "With what?" /
-   * "What do you want to cut it with?" ticks, `knife` then runs
-   * `saw rope with  knife` -- two spaces, and at 3.9 the task matcher sees
-   * them: the task wired with two spaces fires, the one-space twin does not
-   * -- and `shoot robot` / `sword` is "You can't shoot with the sword!",
-   * the verb the line typed, not dobattle's "attack".  run400x on
-   * p4BATTLEWPN (cmdfile_p4withq_kill.txt, Adrift_p4withqk.txt) refuses
+   * (make_39_withqprobe.py, run390x runner_probes/withq.run390.txt): a task
+   * printing "What with?" / "With what?" / "What do you want to cut it with?"
+   * ticks, `knife` then runs `saw rope with  knife` -- two spaces, and at 3.9
+   * the task matcher sees them: the task wired with two spaces fires, the
+   * one-space twin does not -- and `shoot robot` / `sword` is "You can't shoot
+   * with the sword!", the verb the line typed, not dobattle's "attack".
+   * run400x on p4BATTLEWPN (harness/make_400_battlewpnprobe.py,
+   * runner_probes/battlewpn.run400.withq.txt) refuses
    * the same way, so the overwrite is both Runners'.  3.7/3.8 have no
    * "with?" literal at all.
    */
@@ -1532,12 +1541,12 @@ lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
  * same variable, `"attack " & LCase(Name) & " with"` (47ED3E), so `sword`
  * next runs as `attack gargoyle #2 with sword`.  Several targets each ask,
  * and the last one's prefix stands.  Measured 2026-09-13 on p4BATTLEWPN
- * (blaster, sword and rock held, nothing wielded), run400x Adrift_1144:
- * `attack gargoyle #2` / `sword` strikes with the sword, and the sword stays
- * wielded; `attack gargoyle #3` / `rock` is the rock's refusal, a turn; `kick
- * gargoyle #3` / `nonsense words` is the character catch-all; `look`, a
- * repeated question and `turns` spend the prefix as they do Who's.  17 draws
- * both sides.
+ * (blaster, sword and rock held, nothing wielded), run400x
+ * runner_probes/battlewpn.run400.txt: `attack gargoyle #2` / `sword` strikes
+ * with the sword, and the sword stays wielded; `attack gargoyle #3` / `rock`
+ * is the rock's refusal, a turn; `kick gargoyle #3` / `nonsense words` is the
+ * character catch-all; `look`, a repeated question and `turns` spend the
+ * prefix as they do Who's.  17 draws both sides.
  */
 static void
 lib_battle_weapon_question (scr_gameref_t game, scr_int npc)
@@ -1576,8 +1585,10 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
  * (lib_battle_cant_attack()).  Returns the weapon, or -1.
  *
  * That walk is measured on thesorc, a 3.90 game, and 4.0 is NOT the same.
- * Measured over 68 cases in run400 (Adrift_305_socks6 / Adrift_306_socks7 /
- * Adrift_305..309_battlew2..battlew5n, 2026-09-27), 4.0 binds the weapon like
+ * Measured over 68 cases in run400
+ * (runner_probes/illegalsocks_patched.run400.socks6.txt /
+ * runner_probes/illegalsocks_patched.run400.socks7.txt /
+ * runner_probes/battlew*.run400.txt, 2026-09-27), 4.0 binds the weapon like
  * this: a word matches a Short case-SENSITIVELY but an Alias or a Prefix word
  * without regard to case, always whole; an object is a candidate only if its
  * Short or an Alias matched, never a Prefix alone; it scores the number of
@@ -1631,18 +1642,20 @@ lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
  * replaces everything the line printed; the blows themselves stand.
  * Measured 2026-09-13 on p4BATTLEMULTI: `attack guard` against the two
  * stamina-500 Guards prints only "Which Guard.  A guard or a guard?" yet
- * draws for two blows (Adrift_1132), and against a stamina-1 copy
- * (p4BATTLEMULTI3) it prints both blows and both deaths with no question at
- * all, the Guards being gone by the time generaltasks looks for them
- * (Adrift_1137).  `attack droid guard with blaster` then `look` leaves the
- * room empty (Adrift_1138).  Whether the question still makes the line a
- * turn is not measured; it is left admin, as the object question is.
+ * draws for two blows (runner_probes/battlemulti.run400.which_a.txt), and
+ * against a stamina-1 copy (p4BATTLEMULTI3) it prints both blows and both
+ * deaths with no question at all, the Guards being gone by the time
+ * generaltasks looks for them (runner_probes/battlemulti3.run400.which_k.txt).
+ * `attack droid guard with blaster` then `look` leaves the room empty
+ * (runner_probes/battlemulti3.run400.which_l.txt).  Whether the question still
+ * makes the line a turn is not measured; it is left admin, as the object
+ * question is.
  *
  * It replaces the Who question too, which is how a line naming namesakes by
  * an ALIAS reads at 4.0: dobattle names its targets by Name alone (47EB46),
  * so `attack guard` against Ann and Bob, both aliased "guard", finds none
  * and asks Who -- and generaltasks then wipes it (p4BATT, run400x
- * Adrift_1208, 2026-09-20).
+ * runner_probes/batt.run400.txt, 2026-09-20).
  */
 static void
 lib_battle_400_namesake_tail (scr_gameref_t game)
@@ -1818,7 +1831,8 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
        * test and whatever follows "with", and leaves 494281 alone, so the
        * line is a turn.  Measured 2026-09-13 on p4BATTLEHASH (NPCs Named
        * `Gargoyle #1`..`#3`): `attack gargoyle` answers exactly that
-       * (Adrift_1142), where Scarier fell to the catch-all.
+       * (runner_probes/battlehash.run400.txt), where Scarier fell to the
+       * catch-all.
        */
       if (lib_battle_names_absent_npc (game, input))
         return FALSE;
@@ -1850,7 +1864,8 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
     {
       /*
        * A "with" naming no object prints nothing in dobattle, and the line
-       * goes on to the character catch-all (Adrift_1144 `nonsense words`).
+       * goes on to the character catch-all
+       * (runner_probes/battlewpn.run400.txt `nonsense words`).
        */
       if (!lib_battle_line_names_any_object (game, input))
         return FALSE;
@@ -1940,15 +1955,16 @@ lib_battle_line_npc (scr_gameref_t game, const scr_char *input)
  *
  * 3.7/3.8 with the Battle System off answer `attack dave` with
  * DontUnderstand, while `hit dave` and `kick dave` get "Dave avoids your
- * feeble attempts." (run370x Adrift_194_pnpcone37, run380x Adrift_195,
- * 2026-09-19).  Read 2026-09-20: the feeble line is characters()' attack
- * arm, which the turn tail runs only behind a therest message ending ", but
- * nothing happens." -- and therest has hit/kick/push/pull/press arms but no
- * "attack" arm, so a bare `attack` line reaches the tail with nothing
- * written: DontUnderstand, no tick.  The arm's c("attack") only ever fires
- * on a line that also holds one of those verbs (`push attack dave`), which
- * is lib_hit_arm_pre390() under the push/pull/press handlers.  TRUE for
- * such a line, which the caller leaves unhandled.
+ * feeble attempts." (run370x runner_probes/npcamb.run370.one.rtf, run380x
+ * runner_probes/npcamb.run380.one.rtf, 2026-09-19).  Read 2026-09-20: the
+ * feeble line is characters()' attack arm, which the turn tail runs only
+ * behind a therest message ending ", but nothing happens." -- and therest has
+ * hit/kick/push/pull/press arms but no "attack" arm, so a bare `attack` line
+ * reaches the tail with nothing written: DontUnderstand, no tick.  The arm's
+ * c("attack") only ever fires on a line that also holds one of those verbs
+ * (`push attack dave`), which is lib_hit_arm_pre390() under the
+ * push/pull/press handlers.  TRUE for such a line, which the caller leaves
+ * unhandled.
  */
 static scr_bool
 lib_attack_line_pre390 (scr_gameref_t game)

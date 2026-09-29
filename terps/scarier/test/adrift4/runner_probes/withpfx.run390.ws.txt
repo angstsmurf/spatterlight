@@ -1,0 +1,64 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a gem and a rock.  You can only move north.
+
+> cut rock with pearl
+With what?
+
+> cut rock with gem
+You don't have the gem.
+
+> push rock with gem
+You don't have the gem.
+
+> break rock with gem
+You don't have the gem.
+
+> take gem
+You pick up the gem.
+
+> cut rock with gem
+You can't cut the rock with the gem.
+
+> push rock with gem
+You push the rock with the gem, but nothing happens.
+
+> break rock with gem
+You might need the rock.
+
+> open rock with gem
+You can't open the gem!
+
+> read rock with gem
+You can't read the gem!
+
+> drop gem
+You drop the gem.
+
+> probe
+PROBE OK.
+
+> push
+Push what?
+
+> rock
+GENPFX.
+
+> probe
+PROBE OK.
+
+> fff
+I don't understand.
+
+> with zzz
+With what?
+
+> ggg
+With what?
+
+> probe
+PROBE OK.

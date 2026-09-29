@@ -1,0 +1,76 @@
+
+> probe
+PROBE OK.
+
+> take box
+You take the box.
+
+> put coin in box
+(Taking the coin first)
+You put the coin inside the box.  
+
+> get stone from box
+Take what?
+
+> get pebble from box
+Take what?
+
+> get all from box and stone
+You take the coin from the box.
+
+> get all from stone and box
+You can't take anything from the stone.
+
+> close box
+You close the box.
+
+> get all from box
+The box is closed.
+
+> get coin from box
+The box is closed.
+
+> get stone from box
+The box is closed.
+
+> open box
+You open the box.
+
+> empty torch
+You can't take anything from the torch.
+
+> empty zzzz
+I don't understand where you want to get things from.
+
+> empty stone
+You can't take anything from the stone.
+
+> get all from torch
+You can't take anything from the torch.
+
+> take coin from box
+There is nothing inside the box.
+
+> get coin from box
+There is nothing inside the box.
+
+> get coin from stone
+You can't take anything from the stone.
+
+> put coin in box
+You put the coin inside the box.  
+
+> get all from box and coin
+You take the coin from the box.
+
+> get coin from box and stone
+There is nothing inside the box.
+
+> remove coin from zzzz
+I don't understand where you want to get things from.
+
+> empty me
+I don't understand where you want to get things from.
+
+> probe
+PROBE OK.

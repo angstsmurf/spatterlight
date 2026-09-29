@@ -1,0 +1,15 @@
+
+> attack gargoyle #2 gargoyle #3
+Player shoot Gargoyle #2 with the blaster.Player shoot Gargoyle #3 with the blaster.
+
+> attack gargoyle #3 gargoyle #1 gargoyle #2
+Player shoot Gargoyle #1 with the blaster.Player shoot Gargoyle #2 with the blaster.Player shoot Gargoyle #3 with the blaster.
+
+> attack gargoyle #2 #3
+Player shoot Gargoyle #2 with the blaster.
+
+> attack gargoyle
+Who do you want to attack?
+
+> attack gargoyle #1 gargoyle #2 with blaster
+Player shoot Gargoyle #1 with the blaster.Player shoot Gargoyle #2 with the blaster.

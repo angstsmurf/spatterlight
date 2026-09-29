@@ -1,0 +1,16 @@
+
+i
+Player is carrying a rock and a cape.
+
+drop cape to the floor
+Player drop the cape.  
+
+score
+Player's score is 0 out of a maximum of 0.  (0%)
+
+i
+Player is carrying a rock.
+
+look
+Test Arena
+A bare arena.  Also here is a cape.

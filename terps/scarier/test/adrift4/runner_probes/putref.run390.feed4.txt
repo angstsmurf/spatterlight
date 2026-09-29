@@ -1,0 +1,31 @@
+
+> probe
+PROBE OK.
+
+> put stone and pebble in bag
+Nothing will fit inside the bag.
+
+> i
+You are carrying a coin, a stone, a lamp, a box, a tray, a pebble and a bag.  A gem and a ring are inside the bag.
+
+> put all in bag
+Nothing will fit inside the bag.
+
+> i
+You are carrying a coin, a stone, a lamp, a box, a tray, a pebble and a bag.  A gem and a ring are inside the bag.
+
+> put lamp and stone and pebble in bag
+Nothing will fit inside the bag.
+
+> look
+Test Arena
+A bare arena.
+
+> put stone and pebble on tray
+You put the stone and the pebble onto the tray.
+
+> i
+You are carrying a coin, a lamp, a box, a tray and a bag.  A stone and a pebble are on the tray.  A gem and a ring are inside the bag.
+
+> probe
+PROBE OK.

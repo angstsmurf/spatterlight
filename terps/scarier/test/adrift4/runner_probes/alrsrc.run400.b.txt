@@ -1,0 +1,35 @@
+
+look
+Probe Room
+LONG qball QQ done qAAA tok.  EXTRA tok.
+
+take ball
+Player take the qball.
+
+x ball
+tok tok.
+
+zulu
+You take the qqball.
+
+yankee
+Y qqball.  ADD qqball.
+
+yankee
+REP qball.
+
+xray
+X.  EV qball.
+
+victor
+CT n=9 TXT qqball.  AM n=9 TXT qqball.
+
+wait
+Time passes...
+FIN qball.
+
+wait
+Time passes...
+
+wait
+Time passes...

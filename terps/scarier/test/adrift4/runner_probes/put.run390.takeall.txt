@@ -1,0 +1,103 @@
+
+> probe
+PROBE OK.
+
+> look
+Lit Room
+A bright room.  Also here is a table.  You can only move north.
+
+> drop coin
+You drop the coin.
+
+> put stone on table
+You put the stone onto the table.
+
+> take all
+You pick up the coin and the table.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> put gem in cupboard
+You can't do that!
+
+> take all
+There is nothing to pick up here.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> put gem in cupboard
+You can't do that!
+
+> drop coin
+You drop the coin.
+
+> take all
+You pick up the coin.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> put gem in cupboard
+You can't do that!
+
+> put coin in chest
+You put the coin inside the chest.
+
+> take all
+You take the coin from the chest.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> drop coin
+You drop the coin.
+
+> take all
+You pick up the coin.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> put coin in cupboard
+You put the coin inside the cupboard.
+
+> close chest
+You close the chest.
+
+> get all
+You take the coin from the cupboard.
+
+> i
+You are carrying a coin, a bag and a table.  A nut is inside the bag.  A stone is on the table.
+
+> open chest
+You open the chest.  A gem is inside the chest.
+
+> put gem in chest
+You can't see that.
+
+> put coin in chest
+You put the coin inside the chest.
+
+> close chest
+You close the chest.
+
+> take all
+There is nothing to pick up here.
+
+> open chest
+You open the chest.  A coin and a gem are inside the chest.
+
+> drop table
+You drop the table.
+
+> take all
+You pick up the table.  You take the coin and the gem from the chest.
+
+> i
+You are carrying a coin, a bag, a gem and a table.  A nut is inside the bag.  A stone is on the table.
+
+> probe
+PROBE OK.

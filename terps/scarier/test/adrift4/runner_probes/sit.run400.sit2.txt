@@ -1,0 +1,127 @@
+
+> probe
+PROBE OK.
+
+> sit on stool
+You sit down on the stool.
+
+> sit on stool
+You sit down on the stool.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> lie on stool
+You lie down on the stool.
+
+> sit
+You sit up on the stool.
+
+> sit
+You are already sitting down.
+
+> stand
+You stand up from the stool.
+
+> stand on stool
+You stand on the stool.
+
+> stand
+You are already standing!
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> lie
+You lie down on the stool.
+
+> sit
+You sit up on the stool.
+
+> stand
+You stand up from the stool.
+
+> drop coin
+You drop the coin.  
+
+> sit on coin
+You can't sit on the coin.
+
+> sit in chair
+You sit down on the chair.
+
+> get up
+You stand up from the chair.
+
+> sit on a stool
+You sit down on the stool.
+
+> stand
+You stand up from the stool.
+
+> lie on chair
+You lie down on the chair.
+
+> n
+(Getting off the chair first)
+You move north.
+Cave
+A cave with rough walls.  Also here is a crate.  You can only move south.
+
+> look
+Cave
+A cave with rough walls.  Also here is a crate.  You can only move south.
+
+> stand on crate
+You stand on the crate.
+
+> s
+(Getting off the crate first)
+You move south.
+Lit Room
+A bright room.  Also here is a coin and a stool.  You can only move north.
+
+> look
+Lit Room
+A bright room.  Also here is a coin and a stool.  You can only move north.
+
+> sit
+You sit down on the ground.
+
+> stand
+You stand up.
+
+> stand on stool
+You stand on the stool.
+
+> n
+(Getting off the stool first)
+You move north.
+Cave
+A cave with rough walls.  Also here is a crate.  You can only move south.
+
+> sit
+You sit down on the ground.
+
+> stand
+You stand up.
+
+> lie on crate
+You can't lie on the crate.
+
+> lie on bed
+You lie down on the bed.
+
+> lie
+You are already lying down.
+
+> stand
+You stand up from the bed.
+
+> probe
+PROBE OK.
+
+> probe
+PROBE OK.

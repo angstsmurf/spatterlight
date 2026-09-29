@@ -1,0 +1,35 @@
+
+> chop tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> x tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> rock
+That is still ambiguous!
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> blue
+A plain thing.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x rock tree
+Which tree.  The red tree, the blue tree or the rock?
+
+> look
+Alpha
+The first room.  You can only move east.

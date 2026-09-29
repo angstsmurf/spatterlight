@@ -123,7 +123,9 @@ lib_which_head (scr_gameref_t game, const scr_char *head,
  * character wins, or only when the message is still empty, so the FIRST
  * does.  Measured on p37/p38/p39NPCAMB (make_3738_npcambprobe.py; Ann and
  * Bob both "a guard" in the room, Cora a third guard next door), run370x
- * Adrift_193_pnpcamb37b, run380x Adrift_192, run390x Adrift_193:
+ * runner_probes/npcamb.run370.b.rtf, run380x
+ * runner_probes/npcamb.run380.rtf, run390x
+ * runner_probes/npcamb.run390.txt:
  *
  *   LAST    x guard (description), ask guard (hint), ask guard about key
  *           (topic), 3.9 take stone from guard ("Bob is not carrying...")
@@ -174,8 +176,9 @@ lib_last_named_npc (scr_gameref_t game)
  * appreciate being handled." if here, else "<Name> is not here!", assigned
  * outright -- so the last named character settles it, with no seen test.
  * `take cora` and `take stone from cora` with Cora next door, never met:
- * "Cora is not here!" (run370x Adrift_194, run380x Adrift_195), where 3.9
- * says "Take what?".  TRUE once it has answered for an absent character.
+ * "Cora is not here!" (run370x runner_probes/npcamb.run370.one.rtf,
+ * run380x runner_probes/npcamb.run380.one.rtf), where 3.9 says "Take
+ * what?".  TRUE once it has answered for an absent character.
  */
 scr_bool
 lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc)
@@ -386,11 +389,11 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
  * truck keys`, with the carried mustang keys and the truck keys both
  * aliased "keys", answers "Which keys.  The mustang keys or the truck
  * keys?" -- and the truck keys are taken, because `drive truck bob` works
- * 30 commands later (run380 under Wine, Adven_8_mikes.rtf and the
- * 2026-09-04 re-drive; an earlier note that the keys were NOT taken was
- * wrong).  The next command is not eaten as an answer -- `east` after the
- * prompt simply moves east.  4.0 narrows differently (the up-front word
- * score of Proc_21_58_463640, see lib_absent_seen_object()) and never raises this
+ * 30 commands later (run380 under Wine, runner_probes/life_of_mike.run380.rtf
+ * and the 2026-09-04 re-drive; an earlier note that the keys were NOT taken
+ * was wrong).  The next command is not eaten as an answer -- `east` after the
+ * prompt simply moves east.  4.0 narrows differently (the up-front word score
+ * of Proc_21_58_463640, see lib_absent_seen_object()) and never raises this
  * prompt from the dispatcher, so the port stops at 3.9.
  */
 scr_bool
@@ -517,8 +520,9 @@ lib_co_lastword (const scr_char *string)
  * -- "a", "the", or a bare adjective like "big" -- distinguishes nothing at
  * all, and a "big red" tells nothing apart from a "small red".
  *
- * Measured on p*TAKEP and p*TAKEQ (Adrift_238_pc370 .. 243_pd400,
- * 2026-09-20), everything loose in one lit room:
+ * Measured on p*TAKEP and p*TAKEQ (runner_probes/takep.run*.* and
+ * runner_probes/takeq.run*.*, 2026-09-20), everything loose in one lit
+ * room:
  *
  *                               3.70 / 3.80        3.90            4.00
  *   "big" gem, "small" gem
@@ -753,14 +757,15 @@ lib_object_held_pre380 (scr_gameref_t game, scr_int object)
  * objects on the verb's own side -- loose for takes(), held for drops() --
  * have their Shorts in it.  The count (takes' var_116, 436250) is of every
  * such Short, not of one shared name: `take coin hat` with both loose is
- * "Take what?" (p37ORD cmdfile_p2mult.txt, run370 Adrift_267_3m37.rtf), so
- * same-Short namesakes are only the commonest crowd.  3.7's handlers never call co(), so what makes a
- * 3.7 crowd is the SHORT alone: two objects answering to one word through
- * an Alias are not namesakes to it, and each simply acts.  p37OPENA
- * (Adrift_232_oy370, 2026-09-20) is that side: a gem and a rock aliased
- * "gem", both Prefixed "a", and `take gem` is "You pick up the rock." with
- * BOTH in the inventory afterwards -- while two objects both Short "orb"
- * and both Prefixed "a" are "Take what?" (p37TAKEP, Adrift_238_pc370).
+ * "Take what?" (p37ORD, run370 runner_probes/ord.run370.mult.rtf), so
+ * same-Short namesakes are only the commonest crowd.  3.7's handlers never
+ * call co(), so what makes a 3.7 crowd is the SHORT alone: two objects
+ * answering to one word through an Alias are not namesakes to it, and each
+ * simply acts.  p37OPENA (runner_probes/opena.run370.rtf, 2026-09-20) is that
+ * side: a gem and a rock aliased "gem", both Prefixed "a", and `take gem` is
+ * "You pick up the rock." with BOTH in the inventory afterwards -- while two
+ * objects both Short "orb" and both Prefixed "a" are "Take what?" (p37TAKEP,
+ * runner_probes/takep.run370.rtf).
  */
 static scr_bool
 lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
@@ -1108,7 +1113,8 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * (43CC86) and insides(), so a line one of the other handlers settled --
    * `wear hat`, `drop hat`, `x hat` with two hats -- never asks; each of
    * them answers its own way (lib_disambiguate_object_common).  p37TASK,
-   * Adrift_183_pname_37.rtf / Adrift_179_pname2_37.rtf, 2026-09-19.
+   * runner_probes/task.run370.pname.rtf /
+   * runner_probes/task.run370.pname2.rtf, 2026-09-19.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
       && lib_co_prompt_370_blocked)
@@ -1121,7 +1127,8 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * completion's "(to Nobody)" is not part of it: the Runner prints that
    * echo as it rewrites the line (run390 45FAB9 -> 47B568), so `give hat`
    * with two hats is "(to Nobody)" and then "Which hat.  The red hat or
-   * the blue hat?" (p39TASK, run390x Adrift_185_ppclear_39.txt, 2026-09-19).
+   * the blue hat?" (p39TASK, run390x runner_probes/task.run390.pclear.txt,
+   * 2026-09-19).
    */
   {
     const std::string echo (pf_leading_reference (filter));
@@ -1167,8 +1174,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * per turn, the term is the last flagged).  A line something answers
    * drops the question (`close box` / `look`).  3.7/3.8 store nothing
    * (run380 4432AA, run370 43C997).  See lib_battle_who_continuation().
-   * p39TASK run390x Adrift_185_ppfx_39.txt (cmdfile_p39pfx.txt),
-   * 2026-09-19.
+   * p39TASK run390x runner_probes/task.run390.pfx.txt, 2026-09-19.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     lib_battle_who_store (std::string (prompt_term) + "|" + command);
@@ -1190,10 +1196,13 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
  *
  * So `n` marks everything in the room the player is walking out of, while
  * `frob stone`, naming one object, leaves the stone unknown.  Measured on
- * p38EXAM/p37EXAM (Adrift_148_pseenA38 .. Adrift_151_pseenB37.rtf): `frob
- * stone` twice in the start room is "What stone?" both times; after `n` the
- * stone is known ("You must be in the same room as the stone ..." in 3.8),
- * and `frob coin`, the coin inside the crate, is still "What coin?".
+ * p38EXAM/p37EXAM (runner_probes/exam.run380.seena.rtf,
+ * runner_probes/exam.run380.seenb.rtf,
+ * runner_probes/exam.run370.seena.rtf,
+ * runner_probes/exam.run370.seenb.rtf): `frob stone` twice in the start
+ * room is "What stone?" both times; after `n` the stone is known ("You
+ * must be in the same room as the stone ..." in 3.8), and `frob coin`, the
+ * coin inside the crate, is still "What coin?".
  */
 void
 lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
@@ -1253,13 +1262,14 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * aliased "shed" beside an object whose Short IS "shed", and a third "tree"
  * in the far room as the presence control.  One task `poke %object%`, the
  * game's DontUnderstand "NO IDEA.", and a one-shot event printing "TICK." so
- * that a swallowed turn shows.  Transcripts Adrift_924-930, run400 under
- * Wine (feeds cmdfile_co.txt .. cmdfile_co6.txt in the harness prefix).
+ * that a swallowed turn shows.  Transcripts runner_probes/co.run400.t9*.txt,
+ * run400 under Wine (harness/make_400_coprobe.py).
  *
  * The gate comment on lib_co_ambiguity_prompt() above used to say 4.0 "never
  * raises this prompt from the dispatcher, so the port stops at 3.9".  It does
  * raise it -- from the two handlers rather than from the turn driver, under
- * two different tests (Adrift_926, every cell isolated by a neutral `look`):
+ * two different tests (runner_probes/co.run400.t926.txt, every cell isolated
+ * by a neutral `look`):
  *
  *     chop tree   ->  Which tree.  The red tree or the blue tree?
  *     x    tree   ->  Which tree.  The red tree or the blue tree?
@@ -1277,7 +1287,8 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * Short+alias or alias+alias tie is not ambiguous enough for it and the
  * game's DontUnderstand comes out instead.  Presence really is filtered: with
  * only the far room's tree present, `chop tree` gives the plain "I don't
- * understand what you want me to do with the tree." (Adrift_924).
+ * understand what you want me to do with the tree."
+ * (runner_probes/co.run400.t924.txt).
  *
  * The wording is the 3.7/3.8 one already ported above -- `Which <term>.
  * <NP> or <NP>?`, a full stop, two spaces, the noun phrases in index order
@@ -1285,7 +1296,8 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * read "Which tree.  The tree or the tree?".
  *
  * What counts as a name, what gets listed, and where the term comes from
- * (Adrift_928-930):
+ * (runner_probes/co.run400.t928.txt, runner_probes/co.run400.t929.txt,
+ * runner_probes/co.run400.t930.txt):
  *
  *     chop key        ->  NO IDEA.
  *     x    key        ->  You see no such thing.
@@ -1308,13 +1320,15 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *
  * Neither the prompt nor any of its answers is a turn.  The probe's ticker
  * has StarterType 1 and Time1 = Time2 = 1, so its "TICK." lands on the first
- * real turn of the session: Adrift_925 prints it after the opening `look`,
- * Adrift_926 after the `look` that FOLLOWS `chop tree`, and Adrift_927 after
- * the `look` that follows both `x keys` and its answer `mustang`.  Every
- * prompt and every answer is therefore administrative.
+ * real turn of the session: runner_probes/co.run400.t925.txt prints it after
+ * the opening `look`, runner_probes/co.run400.t926.txt after the `look` that
+ * FOLLOWS `chop tree`, and runner_probes/co.run400.t927.txt after the `look`
+ * that follows both `x keys` and its answer `mustang`.  Every prompt and
+ * every answer is therefore administrative.
  *
  * The prompt leaves a question pending and the NEXT line is read against it
- * (Adrift_925/927, and lca):
+ * (runner_probes/co.run400.t925.txt and runner_probes/co.run400.t927.txt,
+ * and lca):
  *
  *     x keys / mustang     ->  That is still ambiguous!
  *     chop tree / red      ->  I don't understand what you want me to do with
@@ -1327,7 +1341,8 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *     x tree rock / x rock ->  A plain thing.
  *     x keys / x rock      ->  A plain thing.
  *     chop tree / look     ->  (the room description)
- *     chop tree / n        ->  (lca Adrift_328_lca.txt:738 -- the player moves)
+ *     chop tree / n        ->  (the player moves;
+ *                                runner_probes/lca.run400.txt:738)
  *
  * The rule that fits all of them is not "the next line is an answer": it is
  * that the pending question changes only the places a line can end up with
@@ -1343,8 +1358,9 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *     goes with it: that is either the game's DontUnderstand text or the
  *     unhandled-verb catch-all.  `rock` / `x rock` is the pair that settles
  *     the second half -- bare `rock` gets the catch-all in isolation
- *     (Adrift_930), so with a question open it is claimed and answers "That
- *     is still ambiguous!", while `x rock` examines the rock.
+ *     (runner_probes/co.run400.t930.txt), so with a question open it is
+ *     claimed and answers "That is still ambiguous!", while `x rock`
+ *     examines the rock.
  *
  * The slot does not look at the candidates at all: it splices the typed
  * words into the stored command where the term stood and re-runs the whole
@@ -1358,9 +1374,9 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * So naming a listed object outright does not pick it -- but a word that
  * narrows the rebuilt line does, wherever it lands in it.
  *
- * Either answer clears the question: Adrift_925's `x keys` gets the full
- * prompt again immediately after `chop keys` had answered "That is still
- * ambiguous!".
+ * Either answer clears the question: runner_probes/co.run400.t925.txt's
+ * `x keys` gets the full prompt again immediately after `chop keys` had
+ * answered "That is still ambiguous!".
  *
  * The sibling string "That wasn't one of the options!" belongs to the OTHER
  * half of the state.  generaltasks keeps two things, not one: the question
@@ -1383,8 +1399,10 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *     that flagged no ambiguity at all forgets it (48B61F), and 48BB92
  *     clears the flagged list at the end of every element.
  *
- * Measured on p4CO with run400 (Adrift_co7 to Adrift_co11, 2026-09-20), all
- * administrative -- `turns` never moves:
+ * Measured on p4CO with run400 (runner_probes/co.run400.co7.txt,
+ * runner_probes/co.run400.co8.txt, runner_probes/co.run400.co9.txt,
+ * runner_probes/co.run400.co10.txt, runner_probes/co.run400.co11.txt,
+ * 2026-09-20), all administrative -- `turns` never moves:
  *
  *     x tree and x tree        ->  prompt / wasn't one of the options
  *     x tree then x tree       ->  the same, and so is `x tree. x tree`
@@ -1407,9 +1425,10 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  * full prompt.  `x tree and x rock and x tree` is what proves the question
  * survives an element that did something, and `x tree and x tree and x tree`
  * that "wasn't one of the options" leaves the offered list behind for the
- * element after it.  That it is a list and not the term is Adrift_co14: `x
- * tree` / `x tree rock` -- one term, two objects then three -- is prompt /
- * prompt, where `x tree` twice is prompt / still ambiguous.
+ * element after it.  That it is a list and not the term is
+ * runner_probes/co.run400.co14.txt: `x tree` / `x tree rock` -- one term,
+ * two objects then three -- is prompt / prompt, where `x tree` twice is
+ * prompt / still ambiguous.
  *
  * An element that says NOTHING never reaches any of this: the answer slot
  * claims it first, and takes the rest of the typed line with it.  That is
@@ -1446,9 +1465,10 @@ scr_bool lib_co_400_therest_split = FALSE;
  * (the Which arm at 464560), 48BB53 copies that into 4941F4, and 48B6FF
  * compares the two strings.  `x tree` then `x tree rock` is the cell --
  * same term, two objects then three, and run400 asks the whole question
- * again (Adrift_co14, 2026-09-20); the term model said "That is still
- * ambiguous!".  We compare the candidate objects rather than the rendered
- * string, which differs only where two different sets render alike.
+ * again (runner_probes/co.run400.co14.txt, 2026-09-20); the term model
+ * said "That is still ambiguous!".  We compare the candidate objects
+ * rather than the rendered string, which differs only where two different
+ * sets render alike.
  */
 static std::vector<scr_int> lib_co_400_prompt_list;
 static scr_bool lib_co_400_prompt_seen = FALSE;
@@ -1572,8 +1592,9 @@ lib_co_400_begin_line (scr_bool is_new_line)
  * generaltasks' first write of the line (48A3F5-48A42E): the whole line
  * scored by 463640 in mode 0, and a lone winner named in its definite form
  * -- `zzz red stone` "(the red stone)", `cut rope with blue stone ruby`
- * "(the blue stone)" (Adrift_it1/it2, 2026-09-21).  This is also the
- * "I don't understand what you want me to do with" reply's antecedent.
+ * "(the blue stone)" (runner_probes/wtie.run400.it1.txt,
+ * runner_probes/wtie3.run400.it2.txt, 2026-09-21).  This is also the "I
+ * don't understand what you want me to do with" reply's antecedent.
  */
 
 void
@@ -1673,11 +1694,11 @@ lib_co_400_print_still_ambiguous (scr_gameref_t game)
  * The character question (lib_npc_400_raise_for_line()) records no
  * candidates, and its answer is not scored: run400 re-runs the original line
  * with the typed words in front of the term.  Measured on p4BATTLEMULTI
- * (Adrift_1139, 2026-09-13): a fresh `attack guard and droid` prints "Which
- * Guard.  A guard or a guard?" for its first half, and its second half
- * `droid`, which alone gets only the catch-all, answers it -- "That is still
- * ambiguous!" and twelve more draws, the three blows of `attack droid
- * guard`.
+ * (runner_probes/battlemulti.run400.whichf.txt, 2026-09-13): a fresh `attack
+ * guard and droid` prints "Which Guard.  A guard or a guard?" for its first
+ * half, and its second half `droid`, which alone gets only the catch-all,
+ * answers it -- "That is still ambiguous!" and twelve more draws, the three
+ * blows of `attack droid guard`.
  */
 scr_bool
 lib_co_400_pending_is_npc (void)
@@ -1731,7 +1752,7 @@ lib_co_400_namesake_count (scr_gameref_t game,
  * a handler that RAN, and it prints in full whatever was open before: run400
  * answers p4TAKER's `drop cog` with "Which cog.  The cog or the cog?" and
  * the `drop pad` right after it with "Which pad.  The pad or the pad?"
- * (Adrift_243_pe400, 2026-09-20).
+ * (runner_probes/taker.run400.txt, 2026-09-20).
  */
 static void
 lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
@@ -1818,9 +1839,10 @@ lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
  * The question a line holding " with " raises comes out of ONE half, not out
  * of the whole line.  therest splits before any verb test (4883C5) and
  * scores each half with 463640, so the marked candidates the prompt reads
- * back are the ones the last half scored.  p4WTIE (run400, Adrift_wtie/6/7/8
- * /9, 2026-09-20), with "stone" the Short of two objects and a knife, a box
- * and a rope beside them:
+ * back are the ones the last half scored.  p4WTIE (run400,
+ * runner_probes/wtie.run400.1.txt and runner_probes/wtie.run400.w[6-9].txt,
+ * 2026-09-20), with "stone" the Short of two objects and a knife, a box and
+ * a rope beside them:
  *
  *   head ties       `cut stone with knife`, `cut stone with zzz`,
  *                   `chop stone with knife` -- "Which stone.  The red stone
@@ -1907,8 +1929,8 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
    * line holds -- `cut pebble with stone` is "Which pebble.", `cut flint
    * with stone` "Which stone." (the blue stone parks, "flint" is the red
    * one's), and `cut rope with stone flint pebble` ties 2-2 and asks
-   * "Which pebble." too (Adrift_wtie19, 2026-09-21).  It asks whether or
-   * not the whole line named one object.
+   * "Which pebble." too (runner_probes/wtie2.run400.19.txt, 2026-09-21).
+   * It asks whether or not the whole line named one object.
    */
   if (lib_name_object_resolve_400 (game, tail + 6, 0, &tied_pending,
                                    &last_tied, &marked, &mark_count) == -1
@@ -1966,9 +1988,10 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
  * generaltasks then asks whenever Me(424) is an object (48B6B1), whatever
  * examines found: the term is Short(Me(424)) replaced by the last of its
  * aliases the line holds, the list is Me(428).  Measured on p4CO with
- * run400 (Adrift_co15, 2026-09-21) -- red tree 0, blue tree 1, rock 2,
- * mustang key 3 and truck key 4 (both aliased "keys"), hut 5 (aliased
- * "shed"), shed 6, and a tree 7 in the other room:
+ * run400 (runner_probes/co.run400.co15.txt, 2026-09-21) -- red tree 0,
+ * blue tree 1, rock 2, mustang key 3 and truck key 4 (both aliased
+ * "keys"), hut 5 (aliased "shed"), shed 6, and a tree 7 in the other
+ * room:
  *
  *   x keys shed, x shed keys   Which shed.  The hut or the shed?
  *                              (the keys rebuild, then "shed" rebuilds)
@@ -1985,9 +2008,9 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
  *   x tree hut                 Which tree.  The red tree, the blue tree or
  *                              the hut?
  *
- * And Adrift_925's `chop keys` answering `x shed`: the rebuilt `x chop keys
- * shed` ends on "The hut or the shed?" again, the list 48B6FF compares, so
- * "That is still ambiguous!".
+ * And runner_probes/co.run400.t925.txt's `chop keys` answering `x shed`:
+ * the rebuilt `x chop keys shed` ends on "The hut or the shed?" again, the
+ * list 48B6FF compares, so "That is still ambiguous!".
  */
 
 /* Me(428) as co() builds it, for its substring test. */
@@ -2195,7 +2218,8 @@ lib_co_400_raise_for_references (scr_gameref_t game)
    * examines has already described referencedob's pick, and named it to
    * the antecedent setter (471749-471789), before generaltasks replaces the
    * description with the question: `x stone` asks, and `x it` then echoes
-   * "(a blue stone)", pass A's last mark (Adrift_it1, 2026-09-21).
+   * "(a blue stone)", pass A's last mark
+   * (runner_probes/wtie.run400.it1.txt, 2026-09-21).
    */
   object = lib_examine_referencedob_ex_400 (game, input, TRUE);
   if (object >= 0 && obj_indirectly_in_room (game, object, room))
@@ -2288,13 +2312,15 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
  * aliases do not count here, which is why run400 answers `chop shed` (the
  * hut answers to "shed" only by alias) with the game's DontUnderstand while
  * `x shed` raises the question.  A candidate that shares no name still gets
- * listed: `chop tree rock` prompts with all three (Adrift_929).
+ * listed: `chop tree rock` prompts with all three
+ * (runner_probes/co.run400.t929.txt).
  */
 /*
  * The term the scan prompts with.  The Short tie above is what RAISES the
  * question, but the word it asks about is not always that Short: an ALIAS
  * two or more of the candidates share, typed as a whole word of the line,
- * takes its place.  p4CO, run400, 2026-09-20 (Adrift_co12, Adrift_co13):
+ * takes its place.  p4CO, run400, 2026-09-20
+ * (runner_probes/co.run400.co12.txt, runner_probes/co.run400.co13.txt):
  *
  *     chop keys tree        Which keys.  ... the mustang key or the truck key?
  *     chop tree keys        Which keys.  (same list; the typed order is
@@ -2401,8 +2427,8 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
    * flag holds the unhandled-verb catch-all back.  So `chop tree` twice over
    * is the answer slot's "That is still ambiguous!" and not the scan's
    * "That wasn't one of the options!", which only an element that DID answer
-   * -- an examine, whose reply is in the buffer -- can reach (Adrift_co11,
-   * 2026-09-20).
+   * -- an examine, whose reply is in the buffer -- can reach
+   * (runner_probes/co.run400.co11.txt, 2026-09-20).
    */
   if (lib_co_400_question_pending ())
     {
@@ -2417,7 +2443,8 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
    * other object of the same score never asks -- p4WTIE's `chop stone
    * knife` is the game's DontUnderstand text, where `chop stone` and
    * p4CO's `chop tree rock` (the pair first, the odd one after) both ask
-   * (Adrift_wtie6/7, 2026-09-20).
+   * (runner_probes/wtie.run400.w6.txt, runner_probes/wtie.run400.w7.txt,
+   * 2026-09-20).
    */
   term = prop_get_indexed_string (bundle, "Objects", tied[0], "Short");
   if (scr_strempty (term) || !lib_input_contains_word (input, term))
@@ -2449,20 +2476,22 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
  * 8, count field 12) that is a whole word of the line, and the prompt is
  * "Which " & term & ".  " & list & "?", with "That is still ambiguous!" in
  * its place while a question is already open.  Measured 2026-09-13 on
- * harness/make_400_battlemultiprobe.py (Adrift_1130): two NPCs both Named
- * "Guard", Prefix "a", in the room --
+ * harness/make_400_battlemultiprobe.py
+ * (runner_probes/battlemulti.run400.txt): two NPCs both Named "Guard",
+ * Prefix "a", in the room --
  *
  *     attack guard                     ->  Which Guard.  A guard or a guard?
  *     attack droid guard with blaster  ->  Which Guard.  A guard or a guard?
  *     attack guard and droid           ->  That is still ambiguous!  (the
  *                                          question from the line before)
  *
- * and on light_up (Adrift_1027 T294), where "Red Riven" and "Blue Riven"
- * (Prefixes "Red"/"Blue") share the alias "riven": `attack riven` ->
- * "Which riven.  Red riven or Blue riven?".  So only the term's namesakes
- * are listed -- the droid the line also names is not -- each as its Prefix
- * and the lower-cased term, the first capitalised; and nothing is struck,
- * not even the droid.  Neither the question nor its answer is a turn.
+ * and on light_up (runner_probes/light_up.run400.txt T294), where "Red
+ * Riven" and "Blue Riven" (Prefixes "Red"/"Blue") share the alias "riven":
+ * `attack riven` -> "Which riven.  Red riven or Blue riven?".  So only the
+ * term's namesakes are listed -- the droid the line also names is not --
+ * each as its Prefix and the lower-cased term, the first capitalised; and
+ * nothing is struck, not even the droid.  Neither the question nor its
+ * answer is a turn.
  */
 static scr_bool
 lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
@@ -2482,7 +2511,7 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
  *
  * Measured 2026-09-20 on p4PFX2.taf (make_prefixprobe.py ... 2): Ann "a big
  * red", Bob "a red" and Cid "the red", all three aliased "guard" and all in
- * the room, run400x Adrift_1212.
+ * the room, run400x runner_probes/pfx2.run400.txt.
  *
  *     x guard          ->  Which guard.  A big red guard, a red guard or
  *                          the red guard?      (0-0-0)
@@ -2721,12 +2750,13 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
    * of it that is a whole word of the line, the last winning.
    *
    * It is a plain collision, not a term choice.  p4BATT (run400x
-   * Adrift_1208/1209, 2026-09-20) has Dave 0, Ann 1, Bob 2, Cora 3 with Ann
-   * and Bob both "a guard", and objects sword 0, club 1, stone 2; the
-   * flagged index is Bob's 2, so `attack guard with stone`, `give stone to
-   * guard`, `x guard stone` and `x stone guard` all print "Which stone.  A
-   * guard or a guard?" while `x guard sword`, `attack guard with club`,
-   * `give club to guard` and `x guard dave` print "Which guard.".
+   * runner_probes/batt.run400.txt and runner_probes/batt.run400.b.txt,
+   * 2026-09-20) has Dave 0, Ann 1, Bob 2, Cora 3 with Ann and Bob both "a
+   * guard", and objects sword 0, club 1, stone 2; the flagged index is
+   * Bob's 2, so `attack guard with stone`, `give stone to guard`, `x guard
+   * stone` and `x stone guard` all print "Which stone.  A guard or a
+   * guard?" while `x guard sword`, `attack guard with club`, `give club to
+   * guard` and `x guard dave` print "Which guard.".
    */
   if (flagged >= 0 && flagged < gs_object_count (game)
       && gs_object_seen (game, flagged)
@@ -2828,9 +2858,9 @@ lib_npc_400_raise_for_line_string (scr_gameref_t game, const scr_char *line)
  * keys.  The red tree, the blue tree, the mustang key or the truck key?":
  * the rebuilt `chop chop keys tree` names the keys as well as the trees, and
  * a scorer confined to the prompt's own candidates can never see them
- * (Adrift_co11 turn 15, 2026-09-20).  "That is still ambiguous!" is then not
- * this slot's answer but the re-run's own raise, meeting the term the last
- * prompt left behind.
+ * (runner_probes/co.run400.co11.txt turn 15, 2026-09-20).  "That is still
+ * ambiguous!" is then not this slot's answer but the re-run's own raise,
+ * meeting the term the last prompt left behind.
  */
 std::string
 lib_co_400_object_answer_line (const scr_char *line)
@@ -2944,11 +2974,13 @@ lib_co_note_line_top (scr_gameref_t game)
  *     close rock gem      can't close the rock.  (all three versions)
  *     close gem rock      can't close the gem.   (all three versions)
  *
- * (Adrift_228_ow370 / 229_ow380 / 230_ow390, Adrift_230_ox370 / 231_ox380 /
- * 232_ox390.)  3.80 gave `open` a refusal of its own inside openclose(),
- * above therest, and that one names the lowest object INDEX instead and
- * ends in a bang; `close` got none until 4.0, so it keeps falling through
- * to therest at every pre-4.0 version.
+ * (runner_probes/openw.run370.ow.rtf, runner_probes/openw.run380.ow.rtf,
+ * runner_probes/openw.run390.ow.txt, runner_probes/openw.run370.ox.rtf,
+ * runner_probes/openw.run380.ox.rtf, runner_probes/openw.run390.ox.txt.)
+ * 3.80 gave `open` a refusal of its own inside openclose(), above therest,
+ * and that one names the lowest object INDEX instead and ends in a bang;
+ * `close` got none until 4.0, so it keeps falling through to therest at
+ * every pre-4.0 version.
  */
 static scr_int
 lib_name_offset_pre400 (scr_gameref_t game, scr_int object,
@@ -3061,19 +3093,22 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * "Which hat.  The red hat or the blue hat?" the generaltasks scan raises;
    * likewise remove, open, close, take and drop (3.8).  3.9's takes() uses
    * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
-   * narrow.  Measured on p38TASK/p39TASK (Adrift_184_pname_38.rtf,
-   * Adrift_182_pname2_38.rtf, Adrift_185_pname_39.txt,
-   * Adrift_185_pname2_39.txt, 2026-09-19).  Scarier narrows take and drop
-   * at 3.8 too, and wear and remove at both (deliberate deviation), so
-   * that `wear hat` puts on the red hat.
+   * narrow.  Measured on p38TASK/p39TASK
+   * (runner_probes/task.run380.pname.rtf,
+   * runner_probes/task.run380.pname2.rtf,
+   * runner_probes/task.run390.pname.txt,
+   * runner_probes/task.run390.pname2.txt, 2026-09-19).  Scarier narrows take
+   * and drop at 3.8 too, and wear and remove at both (deliberate deviation),
+   * so that `wear hat` puts on the red hat.
    *
    * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
    * same co(obj, 0), so the last Prefix word settles a crowd for it too:
    * `x tree red` with trees Prefixed "a red" and "a blue" is "A red tree."
-   * (p39PFX, run390x Adrift_1211 turn 17, 2026-09-20).  What it does NOT
-   * do is answer when the word narrows nothing: there co() is false for
-   * every candidate, referencedob() counts none, and examines() keeps its
-   * own "Nothing special." below, under the end-of-turn "Which tree."
+   * (p39PFX, run390x runner_probes/pfx.run390.txt turn 17, 2026-09-20).
+   * What it does NOT do is answer when the word narrows nothing: there co()
+   * is false for every candidate, referencedob() counts none, and
+   * examines() keeps its own "Nothing special." below, under the
+   * end-of-turn "Which tree."
    */
   const scr_bool examine_390 = taf_version >= TAF_VERSION_390
                                && strcmp (verb, "examine") == 0;
@@ -3107,8 +3142,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
            * nothing and it says so: takes() "Take what?" (3.8 and 3.9),
            * 3.8 examines() "Nothing special.".  The end-of-turn prompt
            * wipes that unless a task ran this turn -- an event's does
-           * (p38EVQ2/p39EVQ2, Adrift_p38EVQ2.rtf / Adrift_p39EVQ2.txt,
-           * 2026-09-20).
+           * (p38EVQ2/p39EVQ2, runner_probes/evq2.run380.rtf /
+           * runner_probes/evq2.run390.txt, 2026-09-20).
            */
           if (strcmp (verb, "take") == 0)
             lib_what (game, "Take");
@@ -3146,7 +3181,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * set.
    *
    * Measured 2026-09-20 on p4PFX2.taf, three trees Prefixed "a big red",
-   * "a red" and "the red" beside a "a" rock (run400x Adrift_1212):
+   * "a red" and "the red" beside a "a" rock (run400x
+   * runner_probes/pfx2.run400.txt):
    *
    *     x tree          ->  Which tree.  The big red tree, the red tree or
    *                         the red tree?                       (1-1-1)
@@ -3262,8 +3298,9 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
 
   /*
    * 3.7 has no co() in its handlers, and each settles a namesake its own
-   * way (p37TASK, Adrift_183_pname_37.rtf / Adrift_179_pname2_37.rtf,
-   * 2026-09-19; two hats, red held and blue loose, two open boxes loose):
+   * way (p37TASK, runner_probes/task.run370.pname.rtf /
+   * runner_probes/task.run370.pname2.rtf, 2026-09-19; two hats, red held
+   * and blue loose, two open boxes loose):
    *
    *   drops (430DDC) / takes (436280): every held (loose) namesake lacking
    *     the last word of its Prefix in the line is marked and skipped,
@@ -3293,10 +3330,12 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * gem rock` and `examine rock gem` are all "Which rock would you like to
    * examine.  The gem or the rock?" under run370 AND run380, and `read rock
    * with slab` is "Which slab would you like to examine.  The rock or the
-   * slab?" (p*OPENW, Adrift_228_ow370 / 229_ow380 / 230_ox370 / 231_ox380,
-   * 2026-09-20) -- so the word order on the line never picks here, only the
-   * index does.  3.90 replaced the question with referencedob()'s last-word
-   * pass; see lib_examine_crowded_390().
+   * slab?" (p*OPENW, runner_probes/openw.run370.ow.rtf,
+   * runner_probes/openw.run380.ow.rtf, runner_probes/openw.run370.ox.rtf,
+   * runner_probes/openw.run380.ox.rtf, 2026-09-20) -- so the word order on
+   * the line never picks here, only the index does.  3.90 replaced the
+   * question with referencedob()'s last-word pass; see
+   * lib_examine_crowded_390().
    *
    * Pre-4.0 `read` is one of examines()' entry words, so it asks the same
    * question about the same verb; see lib_cmd_read_other().
@@ -3331,9 +3370,9 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * argument-less every-object form takes() uses -- so only object #0's
    * Alias ever becomes a Short, and every other object must be named by
    * its Short: `don ball` holding a red and a blue ball, both aliased
-   * "ball", is "Wear what?" (p37SLOT2 cmdfile_pslot37b.txt,
-   * Adrift_pslot37b.rtf, 2026-09-21).  Deliberate deviation: Scarier lets
-   * every Alias name the object, as 3.8 does.
+   * "ball", is "Wear what?" (p37SLOT2, harness/make_37_slotprobe.py,
+   * runner_probes/slot2.run370.b.rtf, 2026-09-21).  Deliberate deviation:
+   * Scarier lets every Alias name the object, as 3.8 does.
    */
   if (count > 1 && taf_version < TAF_VERSION_380)
     {
@@ -3374,9 +3413,10 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * the last by index overwrites the message.  Below 3.90 that is the whole
    * rule -- `take red pin` with pins Prefixed "old red" and "new red" is
    * "You pick up new red pin." at 3.70 AND 3.80, and `i` afterwards lists
-   * both; `drop red pin` then drops both (p*TAKEP, Adrift_238_pc370 /
-   * 239_pc380, 2026-09-20).  3.90 keeps only the FIRST by index: the same
-   * line is "You pick up old red pin." and `i` lists it alone.
+   * both; `drop red pin` then drops both (p*TAKEP,
+   * runner_probes/takep.run370.rtf / runner_probes/takep.run380.rtf,
+   * 2026-09-20).  3.90 keeps only the FIRST by index: the same line is "You
+   * pick up old red pin." and `i` lists it alone.
    *
    * What survives is the Prefix contest, and which crowd runs it is the
    * version split:
@@ -3396,7 +3436,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * `take big gem` over gems Prefixed "big" and "small" is "Take what?" at
    * 3.70 and the co() question at 3.80, exactly as bare `take gem` is,
    * while `take red gem` over "a very red" / "a very blue" answers (p*TAKEP
-   * / p*TAKEQ, Adrift_238_pc370 .. 241_pc400 and 240_pd370 .. 243_pd400).
+   * / p*TAKEQ, runner_probes/takep.run*.* and runner_probes/takeq.run*.*).
    */
   if (count > 0 && taf_version < TAF_VERSION_400
       && (strcmp (verb, "take") == 0 || strcmp (verb, "drop") == 0)
@@ -3417,10 +3457,10 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
            * any other.  So an Alias counts as fully as a Short, and `take
            * red ball` over a red and a blue ball both aliased "ball" picks
            * up BOTH, "You pick up the blue ball." -- `drop red ball` drops
-           * both the same way (p37SLOT2 cmdfile_pslot37c.txt, run370x
-           * Adrift_283_pslot37c.rtf, 2026-09-21).  The loop's action is
-           * under `If Not c("from")` (43648C), so a take-from line keeps
-           * the parser's references.
+           * both the same way (p37SLOT2, harness/make_37_slotprobe.py,
+           * run370x runner_probes/slot2.run370.c.rtf, 2026-09-21).  The
+           * loop's action is under `If Not c("from")` (43648C), so a
+           * take-from line keeps the parser's references.
            */
           for (index_ = 0;
                index_ < gs_object_count (game) && !lib_co_contains (line, "from");
@@ -3440,14 +3480,15 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
            * takes() walks what is loose and drops() what is held, so a
            * namesake in the wrong place is not in the crowd at all: two
            * orbs on the floor are "Drop what?" to nobody, they are drops'
-           * ordinary "You don't have a orb!" (p37TAKEP, Adrift_238_pc370
-           * turn 14).  With nothing eligible the loop never ran, nothing
-           * is ambiguous, and the handler's own refusal answers about the
-           * first name on the line -- drops' refusal only fills an empty
-           * message.  takes' "You've already got" (436561) overwrites, so
-           * with every namesake in hand the LAST by index answers: `take
-           * ball` holding both balls is "You've already got a blue ball!"
-           * (Adrift_283_pslot37c.rtf).
+           * ordinary "You don't have a orb!" (p37TAKEP,
+           * runner_probes/takep.run370.rtf turn 14).  With nothing
+           * eligible the loop never ran, nothing is ambiguous, and the
+           * handler's own refusal answers about the first name on the
+           * line -- drops' refusal only fills an empty message.  takes'
+           * "You've already got" (436561) overwrites, so with every
+           * namesake in hand the LAST by index answers: `take ball`
+           * holding both balls is "You've already got a blue ball!"
+           * (runner_probes/slot2.run370.c.rtf).
            */
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             {
@@ -3531,11 +3572,12 @@ pre400_take_done:
    * openclose() walks the referenced objects and acts on each OPENABLE one,
    * the last by index overwriting the message -- run370, run380 and run390
    * all answer `open rock gem chest` with "You open the chest." (p*OPENW,
-   * Adrift_230_ox370 / 231_ox380 / 232_ox390, 2026-09-20), and with two
-   * closed containers on the line all three answer `open box gem chest`
-   * with "You open the chest." and leave the box open as well (p*OPENT,
-   * Adrift_238_op370 / 239_op380 / 240_op390, 2026-09-20).  So 3.7's
-   * every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the same one.
+   * runner_probes/openw.run370.ox.rtf, runner_probes/openw.run380.ox.rtf,
+   * runner_probes/openw.run390.ox.txt, 2026-09-20), and with two closed
+   * containers on the line all three answer `open box gem chest` with "You
+   * open the chest." and leave the box open as well (p*OPENT, 2026-09-20).
+   * So 3.7's every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the
+   * same one.
    *
    * The test is "openable at all", not "in the state the verb wants": with
    * the box already open, `open box gem`, `open gem box`, `open gem chest`
@@ -3589,9 +3631,9 @@ pre400_take_done:
    * `x lower right cupboard` (aliases "lower right cupboard" and "right
    * cupboard" on one, "right cupboard" on the other) answers "Which right
    * cupboard.  The right lower cupboard or the right upper cupboard?"
-   * (Adrift_128_p_hub_adj.txt, runner_transcripts/hub.txt).  Scarier lets
-   * the longer alias pick (deliberate deviation), so that line examines
-   * the lower cupboard.
+   * (runner_probes/hub.run400.adj.txt, runner_transcripts/hub.txt).
+   * Scarier lets the longer alias pick (deliberate deviation), so that line
+   * examines the lower cupboard.
    */
   if (count == 1 && lib_is_version_400 (game)
       && strcmp (verb, "examine") == 0
@@ -3732,9 +3774,10 @@ pre400_take_done:
            * and not the reference set our own `%object% *` row bound: a
            * second noun of the same score joins it, and a crowd it leads
            * asks nothing.  p4WTIE `cut stone knife` is therest's "You
-           * can't cut that." where `cut stone` asks (Adrift_wtie6,
-           * 2026-09-20) -- the knife is the crowd's first object, so the
-           * stones never park a pending object.
+           * can't cut that." where `cut stone` asks
+           * (runner_probes/wtie.run400.w6.txt, 2026-09-20) -- the knife
+           * is the crowd's first object, so the stones never park a
+           * pending object.
            */
           raised = lib_co_400_raise_for_pending_tie (game);
         }
@@ -3750,9 +3793,10 @@ pre400_take_done:
            * And a 4.0 crowd that asks nothing leaves the handler with no
            * object at all rather than a listing: the command goes on to
            * its own %text% row, which is where "You can't cut that." and
-           * "You can't open that." come from (Adrift_wtie6 `cut stone
-           * knife`, `open box knife`, 2026-09-20).  The invented listing
-           * below is 3.9-and-below's alone.
+           * "You can't open that." come from
+           * (runner_probes/wtie.run400.w6.txt `cut stone knife`, `open
+           * box knife`, 2026-09-20).  The invented listing below is
+           * 3.9-and-below's alone.
            */
           if (is_ambiguous)
             *is_ambiguous = FALSE;
@@ -3768,9 +3812,10 @@ pre400_take_done:
    * counts each candidate's Prefix words in the line, and an equal count
    * is &HFE, "Sorry, I'm not sure which object you're referring to."
    * (4719EA, still a turn); no Prefix word typed leaves the last marked.
-   * Measured on p4AND (run400 Adrift_955/956): `x coin and a hat` -> the
-   * Sorry line, "a" being both objects' Prefix; `x coin and the hat`, `x
-   * coin and hat and box` -> one description.
+   * Measured on p4AND (run400 runner_probes/and.run400.txt,
+   * runner_probes/and.run400.b.txt): `x coin and a hat` -> the Sorry line,
+   * "a" being both objects' Prefix; `x coin and the hat`, `x coin and hat
+   * and box` -> one description.
    */
   if (lib_is_version_400 (game) && strcmp (verb, "examine") == 0
       && run_get_dispatch_input ())
@@ -3861,8 +3906,9 @@ lib_disambiguate_object (scr_gameref_t game,
  * flat can't-do tail.
  *
  * Measured on p4EXAM.taf, one statue seen in the North Room and examined
- * from the Test Room (Adrift_1_p4exam.txt, all 32 commands echoed) against
- * p39EXAM.taf under run390 (Adrift_41/43_p39exam.txt):
+ * from the Test Room (runner_probes/exam.run400.txt, all 32 commands
+ * echoed) against p39EXAM.taf under run390 (runner_probes/exam.run390.txt,
+ * runner_probes/exam.run390.held.txt):
  *
  *     command        run400                              run390
  *     x statue       You can't see the statue from here! Nothing special.

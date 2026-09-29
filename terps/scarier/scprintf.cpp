@@ -698,10 +698,11 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
  * would.  Qui a tue Dana (4.00) is the measurement -- its 602 ALRs carry
  * both [You move] -> [Vous vous deplacez] and, right after it, the author's
  * attempted fix-up [Vous vous deplacez in.] -> [Vous entrez.] -- and run400
- * answers `in` with "Vous vous deplacez in." (Adrift_369:210), so the fix-up
- * never fires.  It cannot: it is 22 characters against 8, so the sort has
- * already walked past it when [You move] writes its original into the line,
- * and the walk never comes back.
+ * answers `in` with "Vous vous deplacez in."
+ * (runner_probes/qui_a_tue_dana.run400.txt:210), so the fix-up never fires.
+ * It cannot: it is 22 characters against 8, so the sort has already walked
+ * past it when [You move] writes its original into the line, and the walk
+ * never comes back.
  *
  * The equality test at 44C75E is the recursion's only brake, and it is a
  * whole-text one: filtering [Okay.  I put ] for the self-containing ALR
@@ -918,10 +919,10 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
    * exactly such text, would never match the last sentence of a paragraph
    * here.  The Reluctant Vampire's `open freezer` ALR "You open the freezer.
    * Some jam and a bottle are inside the freezer. " -> "... Lurking inside are
-   * some jam and a bottle." fires in run400 (Adrift_1058_reluctantvampire.txt
-   * line 744).  Where a game has such an original, give each line end the
-   * Runner's two spaces for the walk, behind a marker, and take back whatever
-   * the walk left of them afterwards.
+   * some jam and a bottle." fires in run400
+   * (runner_probes/reluctantvampire.run400.txt line 744).  Where a game has
+   * such an original, give each line end the Runner's two spaces for the walk,
+   * behind a marker, and take back whatever the walk left of them afterwards.
    */
   if (pf_alr_trailing_space)
     {
@@ -1241,9 +1242,9 @@ pf_output_untagged (const scr_char *string)
  * this all started from -- its "[I put ] -> [Okay.  I put ]" is
  * self-containing, so task 80's CompleteText answers `Put sweet on plinth`
  * with "Okay.  Okay.  I put the sweet on the plinth."
- * (Adrift_30_humbug.txt:841) while the library's own put, in the same
- * transcript, says "Okay.  I put the watch onto the rectangular table." with
- * a single "Okay.".
+ * (runner_probes/humbug.run400.txt:841) while the library's own put, in the
+ * same transcript, says "Okay.  I put the watch onto the rectangular table."
+ * with a single "Okay.".
  *
  * Scarier deliberately does not reproduce that multiplication (deviation
  * policy): pf_replace_alr() leaves a self-containing ALR's original alone
@@ -1635,7 +1636,8 @@ pf_print_so_far (scr_filterref_t filter,
  * it is why some text comes out with its ALRs applied twice.  Measured under
  * run400.exe in Wine on 2026-08-24 with harness/make_400_alrsrcprobe.py,
  * whose ALRs include the self-containing "ball -> qball" (transcripts
- * Adrift_11/12/13 in ~/adrift-battle/runner/wine/pfx/drive_c/adrift):
+ * runner_probes/alrsrc.run400.b.txt, runner_probes/alrsrc.run400.c.txt and
+ * runner_probes/alrsrc.run400.d.txt):
  *
  *    look       "LONG ball ..." (room, no task)      -> LONG qball
  *    zulu       task CompleteText                    -> You take the qqball.
@@ -2053,13 +2055,14 @@ pf_text_ends_with_newline (const scr_char *text)
  * buffer, while every break Scarier supplies is a literal newline.  A trailing
  * "<br>" is therefore the author's, the Runner has it too, and run400 really
  * does print a blank line between it and the next paragraph's "<br>" -- see
- * Ghost town's "...but follows you anyway.<br>" in Adrift_325_ghosttown.txt
- * 586-592.  The one literal newline that is not ours is 4.0's
- * "Time passes...\n" (Adrift_254_patient7.txt 81-87), which
- * pf_buffer_hard_break() records, and the 4.0 bracketed reference line, which
- * pf_buffer_reference() records.  Measured over the whole transcript archive:
- * harness/sweep_wine_breaks.py, and the write-up under "Ported 2026-09-07: a
- * leading <br> is collapsed only against a break of Scarier's own".
+ * Ghost town's "...but follows you anyway.<br>" in
+ * runner_probes/ghosttown.run400.txt 586-592.  The one literal newline that is
+ * not ours is 4.0's "Time passes...\n" (runner_probes/patient7.run400.txt
+ * 81-87), which pf_buffer_hard_break() records, and the 4.0 bracketed
+ * reference line, which pf_buffer_reference() records.  Measured over the
+ * whole transcript archive: harness/sweep_wine_breaks.py, and the write-up
+ * under "Ported 2026-09-07: a leading <br> is collapsed only against a break
+ * of Scarier's own".
  */
 static void
 pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
@@ -2506,13 +2509,15 @@ pf_buffer_pspace (scr_filterref_t filter)
  * that opens with a break of its own is buffered unchanged: the break there
  * reads the same either way.
  *
- * Measured with the ALR source probe (p4SRC.taf, run400, Adrift_12/13):
+ * Measured with the ALR source probe (p4SRC.taf, run400,
+ * runner_probes/alrsrc.run400.c.txt and runner_probes/alrsrc.run400.d.txt):
  * `uniform`, CompleteText "CTU ball.", an action running zulu ("You take the
- * ball."), AdditionalMessage "AMU ball.", answers on ONE line
- * "CTU qqqball.  You take the qqqball.  AMU qqball."  It matters beyond the
- * line structure because the ALR pass sees the joined string: the_pk_girl's
- * Original `done soon."  The toaster is now on` spans task 832's CompleteText
- * and that of task 699, which 832's action runs (Adrift_1157 T156).
+ * ball."), AdditionalMessage "AMU ball.", answers on ONE line "CTU qqqball.
+ * You take the qqqball.  AMU qqball."  It matters beyond the line structure
+ * because the ALR pass sees the joined string: the_pk_girl's Original `done
+ * soon."  The toaster is now on` spans task 832's CompleteText and that of
+ * task 699, which 832's action runs (runner_probes/thepkgirl.run400.site.txt
+ * T156).
  */
 scr_bool
 pf_has_hidden_prefix (scr_filterref_t filter)
@@ -2585,9 +2590,9 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
  * prints "The rock is too big to fit inside the slot." and then lets a
  * matching task answer the same line, concatenated onto the refusal --
  * "The rock is too big to fit inside the slot.  PUTBIG." (arena probe PUT7,
- * Adrift_87, 2026-09-05; Zack Smackfoot's `put knife in slot`, Adrift_57).
- * If no task claims, the refusal stands alone on its own line, exactly as
- * buffered.
+ * runner_probes/put7.run400.b.txt, 2026-09-05; Zack Smackfoot's `put knife in
+ * slot`, runner_probes/zacksmackfoot.run400.txt).  If no task claims, the
+ * refusal stands alone on its own line, exactly as buffered.
  */
 void
 pf_buffer_join_pending (scr_filterref_t filter)
@@ -2696,7 +2701,8 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
  * by the SECOND clause of a put list still comes out above the first
  * clause's answer.  The Runner's own scrollback for `put coin in box and hat
  * in desk and hat in box` opens with the take line and only then prints "The
- * coin is too big to fit inside the box." (p4AND, Adrift_957, 2026-09-08).
+ * coin is too big to fit inside the box." (p4AND,
+ * runner_probes/and.run400.c.txt, 2026-09-08).
  *
  * The buffer only ever moves within itself, so offsets recorded past the
  * moved text still address the same characters; the trailing-newline note is
@@ -3271,9 +3277,9 @@ pf_find_folded (const std::string &line, size_t from, const scr_char *word)
  * starts with the `в` of `войти`: that hit is followed by `о`, the gate
  * says FALSE, and the whole-word ` в ` later in the line is never looked
  * at, so the line reaches the tasks intact and task 126 ("Я вошел в дом.")
- * matches (run390 under Wine, Adrift_dolg.txt 2026-09-25).  4.00 (454C78:
- * `var_98 = var_96 + 1`, then back to 454B51) carries on from the next
- * character, so any whole-word occurrence anywhere passes it.
+ * matches (run390 under Wine, runner_probes/dolg.run390.txt 2026-09-25).
+ * 4.00 (454C78: `var_98 = var_96 + 1`, then back to 454B51) carries on from
+ * the next character, so any whole-word occurrence anywhere passes it.
  *
  * An empty search never passes: 4.00 returns 0 outright (454B0F), and the
  * others' Replace() of an empty original is a no-op anyway.
@@ -3560,9 +3566,10 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
    * pf_apply_synonym() above for the loops and their gates.
    *
    * Vardock Bates pins the order (run400 under Wine,
-   * Adrift_3_vardock_bates.txt 2026-08-29).  Its table has hablar->talk
-   * [101], then jason->"jason dhirco" [160], then dhirco->"jason dhirco"
-   * [161], and the task is [talk]{con}[dhirco/jason/jason dhirco]:
+   * runner_probes/vardock_bates.run400.txt 2026-08-29).  Its table has
+   * hablar->talk [101], then jason->"jason dhirco" [160], then
+   * dhirco->"jason dhirco" [161], and the task is
+   * [talk]{con}[dhirco/jason/jason dhirco]:
    *
    *   hablar con dhirco        -> talk con jason dhirco          task runs
    *   hablar con jason         -> talk con jason jason dhirco    generic
@@ -3582,15 +3589,17 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
    * the other way: the mid-word hits are skipped, the standalone ` в `
    * passes the gate, and the substring Replace behind it then rewrites
    * every `в`, giving `позinонить in зinонок`, which run390 does not
-   * understand; only `дернуть за шнурок` rings the bell (Adrift_dolg.txt).
+   * understand; only `дернуть за шнурок` rings the bell
+   * (runner_probes/dolg.run390.txt).
    *
    * The compare inside Replace() is binary against the lower-cased line,
    * so an Original with a capital letter never fires.  Measured 2026-09-25
    * on patched copies of two games: run390 with Dolg's инв->inv and
    * себя->me re-spelt `Инв`/`Себя` answers `инв` with "Я не понимаю, что
-   * вы хотите!" (Adrift_282_dolgcap.txt); run400 with Vardock Bates'
-   * hablar->talk re-spelt `Hablar` leaves `hablar con el taxista` unhandled
-   * (Adrift_284_vardcap.txt) where the real game runs the taxi task.
+   * вы хотите!" (runner_probes/dolg.run390.cap.txt); run400 with Vardock
+   * Bates' hablar->talk re-spelt `Hablar` leaves `hablar con el taxista`
+   * unhandled (runner_probes/vardock_bates.run400.cap.txt) where the real
+   * game runs the taxi task.
    */
   {
     const scr_int version = prop_get_taf_version (bundle);
@@ -3633,9 +3642,10 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
    * 4.0's literals carry their own spaces, so its rewrites only fire in the
    * MIDDLE of a line and its exclusion word runs the other way, but->except
    * where 3.90 goes except->but.  Measured 2026-09-20 on p37REW/p38REW/
-   * p39REW/p4REW (make_rewriteprobe.py, cmdfile_prew2.txt,
-   * Adrift_246_rew37b.rtf / 247_rew38b.rtf / 248_rew39b.txt /
-   * 249_rew40b.txt), tasks spelled with the POST-rewrite text:
+   * p39REW/p4REW (make_rewriteprobe.py; runner_probes/rew.run370.b.rtf,
+   * runner_probes/rew.run380.b.rtf, runner_probes/rew.run390.b.txt,
+   * runner_probes/rew.run400.b.txt), tasks spelled with the POST-rewrite
+   * text:
    *
    *                        3.70      3.80      3.90       4.00
    *   zog slap             ZOGHIT.   ZOGHIT.   ZOGHIT.    DontUnderstand

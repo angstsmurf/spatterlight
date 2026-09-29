@@ -1,0 +1,65 @@
+
+> turns
+You have taken 0 turns so far.
+
+> x tree and x tree and x tree
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+That is still ambiguous!
+
+> turns
+You have taken 0 turns so far.
+
+> x tree and x keys
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+
+> turns
+You have taken 0 turns so far.
+
+> x tree and x shed
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+
+> turns
+You have taken 0 turns so far.
+
+> x tree and x tree
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+
+> red
+NO IDEA.
+
+> turns
+You have taken 0 turns so far.
+
+> x tree and x tree
+Which tree.  The red tree or the blue tree?
+That wasn't one of the options!
+
+> x rock
+A plain thing.  
+TICK.
+
+> turns
+You have taken 1 turns so far.
+
+> x keys and x keys
+Which keys.  The mustang key or the truck key?
+That wasn't one of the options!
+
+> mustang
+NO IDEA.
+
+> turns
+You have taken 1 turns so far.
+
+> x tree
+Which tree.  The red tree or the blue tree?
+
+> x tree
+That is still ambiguous!
+
+> turns
+You have taken 1 turns so far.

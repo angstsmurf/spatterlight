@@ -1,0 +1,35 @@
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0 MS Sans Serif;}}
+{\colortbl;\red255\green50\blue50;\red0\green255\blue0;}
+{\*\generator Wine Riched20 2.0;}
+\pard\sl-240\slmult1 \cf1\lang1033\fs24\f0 Probe 370SURF\par
+\cf2 A synthetic put-ON probe.\par
+\cf1 \par
+probe\par
+\cf2 PROBE OK.\par
+\cf1 \par
+take torch\par
+\cf2 You pick up an torch.\par
+\cf1 \par
+n\par
+\cf2 You move north.\par
+A cave with rough walls.  Also here is a stone, a pebble, a table and a box.  You can only move south.\par
+\cf1 \par
+put all on table\par
+\cf2 You are not holding a table.\par
+\cf1 \par
+i\par
+\cf2 You are carrying an torch and a lamp.\par
+\cf1 \par
+x table\par
+\cf2 A low table.  On the table is a coin.\par
+\cf1 \par
+put all on table\par
+\cf2 You are not holding a table.\par
+\cf1 \par
+i\par
+\cf2 You are carrying an torch and a lamp.\par
+\cf1 \par
+x table\par
+\cf2 A low table.  On the table is a coin.\par
+\cf0\fs17 \par
+}

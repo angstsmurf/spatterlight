@@ -1,0 +1,43 @@
+
+> chop key
+NO IDEA.
+
+> look
+Alpha
+The first room.  You can only move east.  
+TICK.
+
+> x key
+You see no such thing.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop mustang
+NO IDEA.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x mustang
+You see no such thing.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> chop truck key
+I don't understand what you want me to do with the truck key.
+
+> look
+Alpha
+The first room.  You can only move east.
+
+> x tree rock
+Which tree.  The red tree, the blue tree or the rock?
+
+> look
+Alpha
+The first room.  You can only move east.

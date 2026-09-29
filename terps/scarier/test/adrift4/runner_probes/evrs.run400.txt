@@ -1,0 +1,39 @@
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble.  R2 LOOK.  R1 LOOK.
+
+> wait
+Time passes...
+R2 FINISH.
+
+> wait
+Time passes...
+R1 FINISH.  R1 START.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+R1 FINISH.  R1 START.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+R1 FINISH.  R1 START.
+
+> wait
+Time passes...
+
+> look
+Test Arena
+A bare arena.  Also here is a pebble.  R1 LOOK.

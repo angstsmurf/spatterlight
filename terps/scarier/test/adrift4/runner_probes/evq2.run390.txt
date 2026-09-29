@@ -1,0 +1,21 @@
+
+> probe
+PROBE OK.  EVENT TASK RAN.
+
+> poke hat
+Which hat.  The red hat or the blue hat?
+
+> x hat
+Nothing special.  EVENT TASK RAN.
+
+> take hat
+Take what?  EVENT TASK RAN.
+
+> put hat
+Take what?  EVENT TASK RAN.
+
+> probe
+PROBE OK.  EVENT TASK RAN.
+
+> i
+You are carrying nothing.  EVENT TASK RAN.

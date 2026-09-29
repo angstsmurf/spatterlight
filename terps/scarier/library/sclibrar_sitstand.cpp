@@ -62,8 +62,9 @@ enum
  * `stand on stool`, `lie`, `sit`, `stand` is "You lie down on the ground.",
  * "You sit up.", "You stand up from the stool.".  Standing on an object is
  * position 0, so a bare `stand` there is "You are already standing!".
- * p37SIT/p38SIT (make_3738_sitprobe.py), cmdfile_p3738sit2.txt, run370x
- * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, 2026-09-19.
+ * p37SIT/p38SIT (make_3738_sitprobe.py), run370x
+ * runner_probes/sit.run370.sit2.rtf, run380x
+ * runner_probes/sit.run380.sit2.rtf, 2026-09-19.
  */
 static scr_bool
 lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
@@ -143,7 +144,8 @@ lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
  * `sit on the ground/floor` is its own arm: "sit down on the ground." from
  * any place but the floor, where it is "are already sitting on the floor!"
  * (or "ground!") with a literal "are".  p39SIT/p4SIT, run390x
- * Adrift_166_p39sit2.txt, run400x Adrift_167_p4sit2.txt, 2026-09-19.
+ * runner_probes/sit.run390.sit2.txt, run400x
+ * runner_probes/sit.run400.sit2.txt, 2026-09-19.
  */
 static scr_bool
 lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
@@ -255,9 +257,9 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
  * co() and no location test: it takes every object whose Short or Alias is
  * a whole word of the line and whose SitLie fits, held, contained or in
  * another room alike, and the last match wins.  p37SIT `sit on bed` from the
- * other room is "You sit down on a bed.", and a held stool is sat on
- * (run370x Adrift_162_p37sit.rtf, 2026-09-19).  Returns -1 for no match;
- * the line then falls to therest, whose answers Scarier already gives
+ * other room is "You sit down on a bed.", and a held stool is sat on (run370x
+ * runner_probes/sit.run370.rtf, 2026-09-19).  Returns -1 for no match; the
+ * line then falls to therest, whose answers Scarier already gives
  * ("You can't see the crate." for `lie on crate`, sit-only, elsewhere).
  */
 static scr_int
@@ -388,8 +390,9 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
          * 46B8F2-46B93A, run390 4445F8-44463A, run380 434042); run370's loop
          * has no location test at all (lib_sit_lie_scan_370).  A held stool is never
          * stood on, and the line falls to the "can't stand on" refusal.
-         * House.taf's `stand on stool` with the stool in hand, whose ALR turns
-         * that refusal into "While you're still holding it?" (Adrift_128).
+         * House.taf's `stand on stool` with the stool in hand, whose ALR
+         * turns that refusal into "While you're still holding it?"
+         * (runner_probes/house.run400.turnbisect.txt).
          */
         vt_key[0].string = "Objects";
         vt_key[1].integer = object;
@@ -419,9 +422,10 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
    * run390 4441A7/444661/444890, run380 43408C/43428E/4344D0, run370
    * 42AF05/42B0AD/42B292).  Before 3.9 the object is named by its authored
    * Prefix, not "the": "You sit down on a stool.".  p37SIT..p4SIT
-   * (make_3738_sitprobe.py), cmdfile_p3738sit2.txt, run370x
-   * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, run390x
-   * Adrift_166_p39sit2.txt, run400x Adrift_167_p4sit2.txt, 2026-09-19.
+   * (make_3738_sitprobe.py), run370x runner_probes/sit.run370.sit2.rtf,
+   * run380x runner_probes/sit.run380.sit2.rtf, run390x
+   * runner_probes/sit.run390.sit2.txt, run400x
+   * runner_probes/sit.run400.sit2.txt, 2026-09-19.
    */
   switch (movement)
     {
@@ -509,9 +513,11 @@ lib_cmd_get_on_object (scr_gameref_t game)
  * 3.9+ sit block has an arm for that (run400 46B39E, run390 444077); lie
  * and stand, and every block before 3.9 (whose c("on") takes the object
  * loop), find no object and write nothing, so the line falls to therest's
- * "You can't sit on that." (p37SIT..p4SIT, cmdfile_p3738sit3.txt: run370x
- * Adrift_166_p37sit3.rtf, run380x Adrift_167_p38sit3.rtf, run390x
- * Adrift_168_p39sit3.txt, run400x Adrift_169_p4sit3.txt, 2026-09-19).
+ * "You can't sit on that." (p37SIT..p4SIT: run370x
+ * runner_probes/sit.run370.sit3.rtf, run380x
+ * runner_probes/sit.run380.sit3.rtf, run390x
+ * runner_probes/sit.run390.sit3.txt, run400x
+ * runner_probes/sit.run400.sit3.txt, 2026-09-19).
  */
 static scr_bool
 lib_floor_named (void)
@@ -567,7 +573,7 @@ lib_cmd_lie_on_floor (scr_gameref_t game)
  * run370's object loops (lib_sit_lie_scan_370) look at no scope, so an
  * object in another room is sat on even when no %object% row binds it:
  * p37SIT `sit on bed` from the Lit Room is "You sit down on a bed." (run370x
- * Adrift_162_p37sit.rtf, 2026-09-19).  3.7 only; declines when nothing
+ * runner_probes/sit.run370.rtf, 2026-09-19).  3.7 only; declines when nothing
  * matches, leaving the line to the therest refusals below.
  */
 static scr_bool
@@ -626,10 +632,11 @@ lib_cmd_lie_scan_370 (scr_gameref_t game)
  * (46BACE, beside c("lie") at 46BAC1); run370, run380 and run390 have no
  * such word, so `lay down` is "I don't understand." and `lay on stool` "I
  * don't understand what you want me to do with the stool." (p37SIT..p4SIT,
- * cmdfile_p3738sit4.txt: run370x Adrift_168_psit4_37.rtf, run380x
- * Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
- * Adrift_171_psit4_4.txt, 2026-09-19).  Deliberate deviation: Scarier's
- * [lie/lay] rows take it below 4.0 too.
+ * run370x runner_probes/sit.run370.sit4.rtf, run380x
+ * runner_probes/sit.run380.sit4.rtf, run390x
+ * runner_probes/sit.run390.sit4.txt, run400x
+ * runner_probes/sit.run400.sit4.txt, 2026-09-19).  Deliberate deviation:
+ * Scarier's [lie/lay] rows take it below 4.0 too.
  */
 
 
@@ -791,9 +798,10 @@ lib_sitstand_strip (const scr_char *line, scr_int taf_version)
  * message it may overwrite; openclose after it writes nothing once it has
  * (run390 Call sitstand() 45F50D, openclose 45F512).  examines comes later
  * still and replaces the text but not the move.  Measured on p37SIT..p4SIT
- * with cmdfile_p3738sit4.txt (run370x Adrift_168_psit4_37.rtf, run380x
- * Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
- * Adrift_171_psit4_4.txt, 2026-09-19), every Runner alike:
+ * (run370x runner_probes/sit.run370.sit4.rtf, run380x
+ * runner_probes/sit.run380.sit4.rtf, run390x
+ * runner_probes/sit.run390.sit4.txt, run400x
+ * runner_probes/sit.run400.sit4.txt, 2026-09-19), every Runner alike:
  *   sit lie, lie stand                  "You lie down on the ground."
  *   stand sit, sit stand                "You stand up."
  *   please sit, sit quietly, push stone sit, open stool sit, wear coin sit
@@ -808,9 +816,11 @@ lib_sitstand_strip (const scr_char *line, scr_int taf_version)
  * refusals.
  *
  * The rest of generaltasks around it, measured on p37SITN..p4SITN (the SIT
- * world plus a worn hat and Bob with a "hat" topic) with cmdfile_psitn.txt
- * (run370x Adrift_203_psitn_37.rtf, run380x Adrift_204_psitn_38.rtf, run390x
- * Adrift_205_psitn_39.txt, run400x Adrift_206_psitn_4.txt, 2026-09-20):
+ * world plus a worn hat and Bob with a "hat" topic) with
+ * make_3738_sitnpcprobe.py's feed (run370x runner_probes/sitn.run370.rtf,
+ * run380x runner_probes/sitn.run380.rtf, run390x
+ * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt,
+ * 2026-09-20):
  *   - takes and drops claim the line (GoTo past sitstand): `take stool
  *     sit` takes, `drop stool sit` drops, no move.  A refused put claims
  *     at 3.8 and 3.9 ("You can't put anything on the stool.") but not at
@@ -1066,10 +1076,12 @@ lib_line_cut_word (const scr_char *line, const scr_char *at, size_t length)
  * line below sitstand (run400 48A515, run390 45F512, run380 4422xx, run370
  * 43B9xx).  It cannot claim, so the handlers below it overwrite its message
  * while keeping its act, and the ones above it claim the line before it is
- * reached.  Measured on p37ORD..p4ORD with cmdfile_p2ord2.txt (run370x
- * Adrift_263_3o37.rtf, run380x Adrift_264_3o38.rtf, run390x
- * Adrift_265_3o39.txt, run400x Adrift_266_3o40.txt, 2026-09-21), the box
- * shut before each cell:
+ * reached.  Measured on p37ORD..p4ORD (make_orderprobe.py; run370x
+ * runner_probes/ord.run370.ord2.rtf, run380x
+ * runner_probes/ord.run380.ord2.rtf, run390x
+ * runner_probes/ord.run390.ord2.txt, run400x
+ * runner_probes/ord.run400.ord2.txt, 2026-09-21), the box shut before each
+ * cell:
  *   x open box, open examine box, open look at box   the description of an
  *   open read box, open x box (3.7-3.9)              OPEN box; it opened
  *   open where is box                 "You are carrying the box!", and open
@@ -1177,10 +1189,12 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   /*
    * And the `go` nudge at the end of the verb sweep, which overwrites
    * whatever was said (lib_cmd_just_a_direction()): `open go to cave` is
-   * "Just a direction will do." at every version, since a mid-line "go to"
-   * is no gotoplace line (p2ord, run370x Adrift_271_4o37.rtf, run380x
-   * Adrift_272_4o38.rtf, run390x Adrift_275_4o39.txt, run400x
-   * Adrift_276_4o40.txt).  The nudge row answers a bare `go`.
+   * "Just a direction will do." at every version, since a mid-line "go to" is
+   * no gotoplace line (make_orderprobe.py, run370x
+   * runner_probes/ord.run370.ord.rtf, run380x
+   * runner_probes/ord.run380.ord.rtf, run390x
+   * runner_probes/ord.run390.ord.txt, run400x
+   * runner_probes/ord.run400.ord.txt).  The nudge row answers a bare `go`.
    */
   const scr_bool nudged = lib_co_contains (typed, "go")
                           && !lib_goto_line_enters (game, typed);
@@ -1210,8 +1224,8 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
      * give fills only an EMPTY buffer, and " not carrying " (4758D3) is an
      * outright write, so at 4.0 -- where the box must be held to open --
      * `give open box bob` is openclose's "You are not carrying the box!"
-     * though nothing opened (p4ORD cmdfile_p2give.txt, run400x
-     * Adrift_272_3g40.txt).  Below 4.0 the box simply opens.
+     * though nothing opened (p4ORD, run400x
+     * runner_probes/ord.run400.give.txt).  Below 4.0 the box simply opens.
      */
     if (!acted && !speaks && taf_version >= TAF_VERSION_400
         && lib_co_contains (typed, "give") && pf_buffer_length (filter) > mark)
@@ -1234,11 +1248,11 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
  * whereis (run400 4684E4, entered on c("where"), c("find") or c("locate") at
  * 467CE5-467D03) is another plain Call generaltasks makes on every line, and
  * it sits below examines -- which claims the line, so `x where is coin` is
- * the coin's description and no where-is -- and above therest, whose arms
- * are all `If msg = "" Then`: `push where is coin` is "The coin is lit
- * room." at every version (cmdfile_p2ord2.txt cells 52 and 33; the same four
- * transcripts as lib_openclose_anywhere()).  A line naming a handler that
- * claims or acts above it is left alone; nothing has measured those.
+ * the coin's description and no where-is -- and above therest, whose arms are
+ * all `If msg = "" Then`: `push where is coin` is "The coin is lit room." at
+ * every version (cells 52 and 33; the same four transcripts as
+ * lib_openclose_anywhere()).  A line naming a handler that claims or acts
+ * above it is left alone; nothing has measured those.
  */
 scr_bool
 lib_whereis_anywhere (scr_gameref_t game, lib_line_runner_t run_line)
@@ -1343,10 +1357,10 @@ lib_cmd_get_off_object (scr_gameref_t game)
     }
 
   /*
-   * 3.9+ get-off asks about the parent before it looks at the name: `get
-   * off chair` standing on nothing is "You are not standing on anything!"
-   * (run400 46B702, run390 4443E1; run390x Adrift_168_p39sit3.txt, run400x
-   * Adrift_169_p4sit3.txt, 2026-09-19).
+   * 3.9+ get-off asks about the parent before it looks at the name: `get off
+   * chair` standing on nothing is "You are not standing on anything!"
+   * (run400 46B702, run390 4443E1; run390x runner_probes/sit.run390.sit3.txt,
+   * run400x runner_probes/sit.run400.sit3.txt, 2026-09-19).
    */
   if (lib_player_parent_here (game) == -1)
     return lib_print_response_message (game,
