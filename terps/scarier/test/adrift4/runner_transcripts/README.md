@@ -152,7 +152,7 @@ the release in any engine that reads the file. Fourteen rows compare identical
 that have nothing to do with the patch:
 
 - Five (`spirits_flight`, `tenebraesemper`, `villains_and_kings`, `lockedout`,
-  `liqid`) differ only in the Runner text accidents that `4e8ff9752` reverted
+  `liqid`) differ only in the Runner text accidents that `99b447b64` reverted
   on purpose -- the literal `" is "` in a multi-object "Inside ... is", the
   Runner's literal `Prefix` case ("You take A Flashlight.", "You stab An evil
   witch"), "Which battery." for "Which battery?", "Also here are" for "You can

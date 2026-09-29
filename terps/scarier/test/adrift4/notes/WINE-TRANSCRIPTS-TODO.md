@@ -1188,7 +1188,7 @@ case, and their goldens are re-blessed. The row notes in
     - In a lenient line, lib_try_game_command_common allows the 3.9
       prefixed retry and keeps the verb as parsed instead of the typed
       verb: Tenebrae `take pens`, `take a pebble`.
-  The 3.8 take->get rewrite, the 3735220c5 synonym gate and the `stats`
+  The 3.8 take->get rewrite, the 97bd698f7 synonym gate and the `stats`
   removal are kept. Re-blessed: icecream, xfiles, the_town_of_azra,
   sommeril(+patched), Glum_Fiddle, JGrim, iachini, tenebraesemper,
   house(+patched; the web task fires, so house's death path moves by one
