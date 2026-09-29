@@ -32,7 +32,7 @@ The author's list is not directly runnable. It uses two shorthands:
 
 The expander that turns the file into `goldens/largo_winch_solution.txt` lives
 in the scratchpad (`largo_gen.py`); its `REPAIRS` list is reproduced in the
-harness row's comment block.
+row's section of `notes/v4_walkthrough_rows.md`.
 
 ## The five fights
 

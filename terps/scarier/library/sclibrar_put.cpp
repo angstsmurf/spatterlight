@@ -1187,7 +1187,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
  * return byte, so "The rock is too big to fit inside the slot." is printed
  * and a matching task then answers the same line, joined on with two spaces
  * (arena probe PUT7, runner_probes/put7.run400.b.txt, 2026-09-05; Zack
- * Smackfoot `put knife in slot`, runner_probes/zacksmackfoot.run400.txt).
+ * Smackfoot `put knife in slot`, runner_transcripts/zacksmackfoot.txt).
  * Signal that to run_priority_commands() and report the handler's return.
  * Pre-4.0 the refusal claims the line, as it always has.
  */

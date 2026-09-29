@@ -699,7 +699,7 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
  * both [You move] -> [Vous vous deplacez] and, right after it, the author's
  * attempted fix-up [Vous vous deplacez in.] -> [Vous entrez.] -- and run400
  * answers `in` with "Vous vous deplacez in."
- * (runner_probes/qui_a_tue_dana.run400.txt:210), so the fix-up never fires.
+ * (runner_transcripts/qui_a_tue_dana.txt:210), so the fix-up never fires.
  * It cannot: it is 22 characters against 8, so the sort has already walked
  * past it when [You move] writes its original into the line, and the walk
  * never comes back.
@@ -2591,7 +2591,7 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
  * matching task answer the same line, concatenated onto the refusal --
  * "The rock is too big to fit inside the slot.  PUTBIG." (arena probe PUT7,
  * runner_probes/put7.run400.b.txt, 2026-09-05; Zack Smackfoot's `put knife in
- * slot`, runner_probes/zacksmackfoot.run400.txt).  If no task claims, the
+ * slot`, runner_transcripts/zacksmackfoot.txt).  If no task claims, the
  * refusal stands alone on its own line, exactly as buffered.
  */
 void

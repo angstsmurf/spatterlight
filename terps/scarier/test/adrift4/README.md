@@ -81,6 +81,10 @@ python3 waitkey_audit.py
 whole thing when no `games/` corpus exists on the machine. Rows whose `.taf` is
 missing SKIP rather than fail.
 
+Each row's measurement evidence and re-bless history lives in
+`notes/v4_walkthrough_rows.md`, under the row's solution file, not in the
+script itself.
+
 ### Spatterlight autosave
 
 `harness/run_autosave_tests.py` is the one tool here that does **not** use

@@ -3,8 +3,8 @@
 Replay a wired walkthrough command for command in the real Windows ADRIFT
 Runner under Wine and diff the Runner's own transcript against Scarier's.
 Where they disagree, fix the engine, never the walkthrough. Then re-bless the
-golden and write the evidence into the game's row comment in
-`harness/run_v4_walkthroughs.sh`. Scope is all four file versions (3.70,
+golden and write the evidence into the game's row section in
+`notes/v4_walkthrough_rows.md`. Scope is all four file versions (3.70,
 3.80, 3.90, 4.00). Only the Runner binary and the capture flow change with
 the version.
 
@@ -12,9 +12,9 @@ the version.
 file holds the workflow, the open leads, the deliberate deviations and a
 one-entry-per-rule index of everything ported. The evidence behind each
 index entry (probe feeds, `Adrift_<N>_<tag>` transcript names, Runner
-addresses, corpus fallout) lives in the row comments of
-`run_v4_walkthroughs.sh`, in the code comment next to the function the entry
-names, in `~/Adrift_decompile/index/annotations.tsv`, and in git history:
+addresses, corpus fallout) lives in the row notes
+(`notes/v4_walkthrough_rows.md`), in the code comment next to the function
+the entry names, in `~/Adrift_decompile/index/annotations.tsv`, and in git history:
 
     git show c182b2fa6:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # before the 09-20 prune; full 2026-09-19 entries with transcript names and addresses
     git show aee976374:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # before the second 09-19 prune
@@ -22,7 +22,7 @@ names, in `~/Adrift_decompile/index/annotations.tsv`, and in git history:
     git show 72fd5ea08:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # last full version before the 09-14 prune
     git show 45e20596:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md    # before the 2026-09-06 compaction
 
-Row comments and probe generators cite sections by title ("Ported
+Row notes and probe generators cite sections by title ("Ported
 2026-09-10: the take-from handler's own answers" and so on). Grep the
 `72fd5ea08` version for the title; grep `c182b2fa6` for a transcript name.
 
@@ -188,7 +188,7 @@ Row comments and probe generators cite sections by title ("Ported
    holds the literal; find the use site, near-miss literals are menu
    captions). Measure with a probe if the corpus does not isolate the rule.
    Port behind a `TAF_VERSION` gate, run the suite, re-bless with `--bless
-   <substr>`. Record the measurement in the row comment and a line in the
+   <substr>`. Record the measurement in the row notes and a line in the
    index. Add the addresses to `~/Adrift_decompile/index/annotations.tsv`
    and run `sh index/refresh.sh`.
 
@@ -574,8 +574,8 @@ Five of the 22 walkthroughs wired up on 2026-09-24 drove clean against
 the Runner but disagreed with it (the other 17 were identical; cloddemo
 and temporfell are capture artefacts, see "Harness and compare"). All five
 are now identical on every turn, apart from whitespace in thenightmoon's
-case, and their goldens are re-blessed. The row comments in
-`run_v4_walkthroughs.sh` carry the evidence.
+case, and their goldens are re-blessed. The row notes in
+`notes/v4_walkthrough_rows.md` carry the evidence.
 
 - **mages T0-2, T29** (3.90): the game declares a variable named "sleep"
   twice (var 13 = 210, var 15 = 0). Scarier looked variables up by name, so
@@ -2484,7 +2484,7 @@ transcript names are in the code comment next to the named function, in
   pass after a task ran is modelled; `all`/`and` lines and lines the
   library answers are not measured. (`run_takes_second_pass_370`,
   `lib_takes_offers_tasks_370`, `pf_printed_to`, 2026-09-21; the full
-  diagnosis is the alices_restaurant row comment and commit c1aa55cdd.)
+  diagnosis is the alices_restaurant row notes and commit c1aa55cdd.)
 
 ### Nouns, scope and the seen model
 

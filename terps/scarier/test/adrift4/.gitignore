@@ -76,8 +76,8 @@
 # The croft.taf SYNONYM-precedence probe generator.  It is a faithful
 # reduction of an AIF file and is built from that game's own vocabulary, so
 # it stays local like the solutions above; the finding it measured is
-# recorded, in schematic form, in the croft comment block in
-# harness/run_v4_walkthroughs.sh and in notes/WALKTHROUGH_TODO.md.
+# recorded, in schematic form, in the croft section of
+# notes/v4_walkthrough_rows.md and in notes/WALKTHROUGH_TODO.md.
 /harness/make_39_synprobe.py
 /harness/pSYN.taf
 /harness/pSYN.taf.plain

@@ -2627,7 +2627,7 @@ run_line_t::put_prepass ()
    * with the two-space separator -- "The rock is too big to fit inside the
    * slot.  PUTBIG." (PUT7, runner_probes/put7.run400.b.txt; Zack
    * Smackfoot's `put knife in slot`,
-   * runner_probes/zacksmackfoot.run400.txt).  The handler signals that with
+   * runner_transcripts/zacksmackfoot.txt).  The handler signals that with
    * run_priority_refuse(); the join is left pending so that a refusal no
    * task follows stands alone.  Either way the line is handled once the
    * refusal is printed, so the standard table's duplicate put rows never

@@ -4,7 +4,7 @@
 The palace (rooms 42-53) is patrolled by four mooks, NPCs 14-17, which EVENTs
 15-18 respawn into the player's room on ranged timers -- so any change to the
 RNG stream or the tick order re-phases them and the fixed attack weave desyncs.
-The rules, from the row's comment block in run_v4_walkthroughs.sh:
+The rules, from the row's notes in notes/v4_walkthrough_rows.md:
 
   * a correct-verb attack always KOs (sentry punch, guard kick, patrol throw,
     soldier punch);

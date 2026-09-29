@@ -2020,7 +2020,7 @@ task_print_end_game_message (scr_gameref_t game)
              * (run390 loc_43F255, the sub itself @42C920).  Measured live on
              * Richard.taf, whose winning task text and WinText join as
              * "...you return to the staging area.  Rich smiles..."
-             * (runner_probes/richard.run390.txt) with neither side carrying
+             * (runner_transcripts/richard.txt) with neither side carrying
              * authored spaces (the COMPLETE/WINTEXT dumps end "area." and
              * start "Rich").
              *
@@ -2140,7 +2140,7 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
    * an End-Game action only sets the gameover byte, so a task whose only
    * output would be the ending falls through to the library like any other
    * silent task, and the ending is composed after that.  Measured 2026-08-29
-   * on relojero.taf (4.00), runner_probes/relojero.run400.txt: task 5
+   * on relojero.taf (4.00), runner_transcripts/relojero.txt: task 5
    * `arreglar *fenix` has no text and one End-Game (win) action, and run400
    * answers "Disculpa pero no te entiendo." (the game's DontUnderstand) and
    * THEN the WinText.  Returning TRUE for a win or a loss here hid that
@@ -2734,7 +2734,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    * lone space on its own line and then the WinText, where iachini task 30
    * (CompleteText "") gets "I don't understand what you mean!" first.
    * Probe .tafs without the task's variable, Execute Task and restriction
-   * fail texts (runner_probes/wumpusrun.run400.a.txt,
+   * fail texts (runner_transcripts/wumpusrun.txt,
    * runner_probes/wumpusrun.run400.c.txt,
    * runner_probes/wumpusrun.run400.d.txt) all kept the silence.
    */

@@ -490,7 +490,7 @@ lib_cmd_turn_absent (scr_gameref_t game)
  * clause could read back: the candidates are every object the typed line
  * names anywhere, scored as Proc_21_58_463640 scores them, not just what a
  * pattern bound.  Measured on warlord (4.00,
- * runner_probes/warlord.run400.seed33.txt, xoshiro seed 33):
+ * runner_probes/warlord.run400.txt, xoshiro seed 33):
  *
  *     push barrel           the barrel rolled away    You can't see the barrel.
  *     stand on platform     raised platform elsewhere You can't see the raised

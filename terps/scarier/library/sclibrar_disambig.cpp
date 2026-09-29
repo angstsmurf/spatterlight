@@ -1342,7 +1342,7 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *     x keys / x rock      ->  A plain thing.
  *     chop tree / look     ->  (the room description)
  *     chop tree / n        ->  (the player moves;
- *                                runner_probes/lca.run400.txt:738)
+ *                                runner_transcripts/lca.txt:738)
  *
  * The rule that fits all of them is not "the next line is an answer": it is
  * that the pending question changes only the places a line can end up with
