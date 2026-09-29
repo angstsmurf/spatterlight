@@ -1,7 +1,7 @@
-# IFP header definitions for Scarier 1.4.0.
+# IFP header definitions for Scarier 1.5.0.
 IFP_ENGINE_TYPE="Adrift"
 IFP_ENGINE_NAME="Scarier"
-IFP_ENGINE_VERSION="1.4.0"
+IFP_ENGINE_VERSION="1.5.0"
 
 IFP_ACCEPTOR_OFFSET=0
 IFP_ACCEPTOR_LENGTH=14

@@ -30,7 +30,7 @@
 
 /* Runtime version and emulated version, for %version% variable and so on. */
 #ifndef SCARIER_VERSION
-# define SCARIER_VERSION "1.4.0"
+# define SCARIER_VERSION "1.5.0"
 #endif
 #ifndef SCARIER_PATCH_LEVEL
 # define SCARIER_PATCH_LEVEL ""
