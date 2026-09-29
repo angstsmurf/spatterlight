@@ -12,6 +12,8 @@
        pick    `show menu`    them autosaves: the relaunch resumes at the
        query   `ask`          parser prompt before them and the command is
        nap     `wait`         typed again.
+       take ball  (garden) Core's "which one?" menu: DOES autosave.
+       juggle  roll + ask + take ball, replayed back to that menu.
 
      The room description names the apple through a hyperlink (Core's
      default); clicking it pops the object's verb menu, which DOES stay
@@ -52,6 +54,14 @@
     <description>A garden. The lounge is south.</description>
     <object name="rose">
       <inherit name="editor_object" />
+    </object>
+    <object name="red ball">
+      <inherit name="editor_object" />
+      <take />
+    </object>
+    <object name="blue ball">
+      <inherit name="editor_object" />
+      <take />
     </object>
     <exit alias="south" to="lounge">
       <inherit name="southdirection" />
@@ -114,6 +124,17 @@
         }
         else {
           msg ("Denied.")
+        }
+      }
+    </script>
+  </command>
+  <command name="jugglecmd">
+    <pattern>juggle</pattern>
+    <script>
+      msg ("You roll " + GetRandomInt(1, 1000) + ".")
+      ask ("Juggle?") {
+        if (result) {
+          HandleSingleCommand ("take ball")
         }
       }
     </script>

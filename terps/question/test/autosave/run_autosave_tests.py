@@ -30,9 +30,15 @@ where the control run has no such repaint.  On top of that every relaunch must
 Prompts a game can be closed on other than the turn prompt -- Quest 4's
 question and selection menu, Quest 5's `get input`, `show menu`, `ask` and
 `wait` -- must NOT autosave: the relaunch resumes at the turn prompt before
-them and the player types the command again.  The one exception is the Quest
-5 verb menu popped by clicking an object link, which is recorded in the blob
-and reopened.  case_pending_prompt covers all of these.
+them and the player types the command again.  Two exceptions resume in the
+prompt instead: the Quest 5 verb menu popped by clicking an object link, which
+is recorded in the blob and reopened, and the parser's own "which one do you
+mean?" disambiguation menu (Quest 4's choose_object, Quest 5 while
+game.disambiguating is set).  That one autosaves the state from the start of
+the turn plus a replay record (the command line and the answers to earlier
+prompts of the same turn); the relaunch re-runs the turn muted up to the menu
+and waits there without redrawing it.  case_pending_prompt covers all of
+these.
 
 A damaged autosave (garbage where the game state should be) must be
 discarded without taking input, after which the next launch boots fresh; a
@@ -369,7 +375,8 @@ def case_pending_prompt(terp, case, res, verbose):
     follow that line: the relaunch resumes at the turn prompt before it, and
     `second` (the line again, then its answer) must produce what the single
     session produced.  With resume=True the prompt IS meant to survive (the
-    verb menu of a clicked object): `second` then starts with the answer."""
+    verb menu of a clicked object, a disambiguation menu): `second` then
+    starts with the answer."""
     game, first, second = case["game"], case["first"], case["second"]
     resume = case.get("resume", False)
     sig = SIG_PREFIX + case["name"]
@@ -582,6 +589,15 @@ def build_cases():
     pending("q4-menu", probe4, ["look", "menu"], ["menu", "2", "look"],
             expect=["[two]"])
 
+    # Closed under the parser's "which ball?" menu: it autosaves, and the
+    # relaunch replays the command silently back to it.  juggle rolls and
+    # asks a question before the menu, so the replay must draw the same
+    # number and answer the question the same way.
+    pending("q4-which", probe4, ["look", "take ball"], ["2", "i"],
+            resume=True, expect=["blue ball"])
+    pending("q4-which-juggle", probe4, ["look", "roll", "juggle", "1"],
+            ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
+
     # Pane hyperlinks: live after a relaunch (cut 1), and the unfolded verb
     # menu -- a re-save without a turn -- comes back unfolded (cut 2).
     equiv("q4-pane-links", probe4,
@@ -640,6 +656,15 @@ def build_cases():
             ["query", "yes", "look"], expect=["Confirmed."])
     pending("q5-wait", probe5, ["look", "nap"], ["nap", "look"],
             expect=["You wake up."])
+
+    # Closed under Core's "which ball?" menu: it autosaves (engine state
+    # from the start of the turn plus a replay record), and the relaunch
+    # replays the command back to it with the output muted.  juggle draws a
+    # number and asks a question first.
+    pending("q5-which", probe5, ["north", "take ball"], ["2", "i"],
+            resume=True, expect=["blue ball"])
+    pending("q5-which-juggle", probe5, ["north", "roll", "juggle", "yes"],
+            ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
 
     # An inline object link: live after a relaunch (cut after "look"), and
     # the verb menu it pops reopens after a relaunch (cut after the click).

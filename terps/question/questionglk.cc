@@ -80,6 +80,7 @@ protected:
 
     virtual std::string get_string ();
     virtual uint make_choice (const std::string &, std::vector<std::string>);
+    virtual uint choose_object (const std::string &, std::vector<std::string>);
     virtual QuestionResult play_sound (const std::string &filename, bool looped, bool sync);
     virtual QuestionResult show_image (const std::string &filename, const std::string &resolution,
 				   const std::string &caption, ...);
@@ -163,6 +164,23 @@ static int ignore_lines = 0;  /* count of lines to ignore in game output */
  * swallowed and any input the startscript asks for (a name prompt, a "press
  * any key" pause) is auto-answered instead of blocking. */
 static bool g_autorestore_booting = false;
+
+/* The running turn, recorded for an autosave taken while the parser's "which
+ * one do you mean?" menu is open (question_do_menu_autosave): the command
+ * line and every answer given to a prompt since it started. */
+static std::string g_turn_command;
+static std::vector<std::string> g_turn_answers;
+
+/* Set by choose_object for the make_choice call it makes, so that menu (and
+ * no game-script menu) is autosaved at. */
+static bool g_choosing_object = false;
+
+/* True while an autorestore replays the turn such an autosave was taken in:
+ * output is swallowed and prompts are answered from g_replay_answers until
+ * make_choice reaches the menu again, which is already on screen. */
+static bool g_replaying = false;
+static std::vector<std::string> g_replay_answers;
+static size_t g_replay_next = 0;
 
 static void draw_banner();
 static void update_objwin(QuestionRunner *gr);
@@ -328,6 +346,11 @@ run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting
      * that window the prompt and echo are already on screen, so swallow it. */
     if (inputwin == mainglkwin)
         ignore_lines = 2;
+    g_turn_command = cmd;
+    g_turn_answers.clear();
+#ifdef SPATTERLIGHT
+    question_note_turn_start(gr);
+#endif
     gr->run_command(cmd);
 }
 
@@ -579,6 +602,27 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
             /* The restored transcript already ends with the old prompt;
              * just re-request input below without printing another. */
             autorestored = false;
+#ifdef SPATTERLIGHT
+            /* ...unless it was saved with a "which one?" menu open: then
+             * it ends with that menu, and the state is from before the
+             * command that put it up.  Run the command again, silently and
+             * with the same answers to any earlier prompts, until it gets
+             * back to the menu; make_choice then waits for the choice. */
+            std::string cmd;
+            if (question_autosave_take_replay(&cmd, &g_replay_answers)) {
+                g_replay_next = 0;
+                g_replaying = true;
+                run_or_handle_command(cmd, gr, quitting);
+                if (g_replaying)
+                    fprintf(stderr, "question: autosave replay of \"%s\" "
+                            "never reached its menu\n", cmd.c_str());
+                g_replaying = false;
+                g_replay_answers.clear();
+                draw_banner();
+                update_objwin(gr);
+                continue;
+            }
+#endif
         } else {
             print_prompt();
 #ifdef SPATTERLIGHT
@@ -659,6 +703,12 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
                 } else {
                     /* Just counting down: no output, so the live input is fine. */
                     gr->tick_timers();
+#ifdef SPATTERLIGHT
+                    /* ...but the state no longer matches the prompt's
+                     * autosave, which a "which one?" menu autosave would
+                     * replay the next command from. */
+                    question_turn_state_changed();
+#endif
                 }
                 break;
 
@@ -1041,7 +1091,7 @@ glk_put_cstring(const char *s)
 QuestionResult
 QuestionGlkInterface::print_normal (const std::string &s)
 {
-    if (g_autorestore_booting)
+    if (g_autorestore_booting || g_replaying)
         return r_success;
     if(!ignore_lines)
       {
@@ -1058,8 +1108,11 @@ QuestionGlkInterface::print_newline ()
         return r_success;
     if (!ignore_lines)
       {
-	glk_put_cstring("\n");
-	g_output_seen = true;
+	if (!g_replaying)
+	  {
+	    glk_put_cstring("\n");
+	    g_output_seen = true;
+	  }
       }
     else
       {
@@ -1138,7 +1191,7 @@ QuestionGlkInterface::get_file (const std::string &fname) const
 QuestionResult
 QuestionGlkInterface::wait_keypress (const std::string &msg)
 {
-  if (g_autorestore_booting)
+  if (g_autorestore_booting || g_replaying)
     return r_success;
   if (!msg.empty())
     print_formatted(msg);
@@ -1176,6 +1229,18 @@ QuestionGlkInterface::get_string ()
    * resulting state is about to be replaced by the restored one. */
   if (g_autorestore_booting)
     return "x";
+  if (g_replaying)
+    {
+      if (g_replay_next < g_replay_answers.size())
+	{
+	  const std::string &answer = g_replay_answers[g_replay_next++];
+	  g_turn_answers.push_back(answer);
+	  return answer;
+	}
+      /* The replay asked for more than the turn it recorded did; stop
+       * replaying and let the player answer. */
+      g_replaying = false;
+    }
   char buf[200];
   /* Use Glk's own echo here: get_string ignores timers, so it never cancels
    * its input, and auto-echo places the entry inline at the prompt. */
@@ -1188,7 +1253,9 @@ QuestionGlkInterface::get_string ()
     glk_select(&ev);
 
     if (ev.type == evtype_LineInput && ev.win == inputwin) {
-      return std::string(buf, ev.val1);
+      std::string answer(buf, ev.val1);
+      g_turn_answers.push_back(answer);
+      return answer;
     }
     /* All other events, including timer, are deliberately
      * ignored.
@@ -1202,25 +1269,46 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
     if (g_autorestore_booting)
         return 0;
 
+    bool object_menu = g_choosing_object;
+    g_choosing_object = false;
+
     size_t n = v.size();
     if (n == 0)
         return 0;   /* nothing to choose between; the caller's own fallback */
 
-    /* Only clear a *separate* input window; if input shares the main window
-     * this would wipe the whole screen before every menu. */
-    if (inputwin != mainglkwin)
-        glk_window_clear(inputwin);
-
-    glk_put_cstring(label.c_str());
-    glk_put_cstring("\n");
-    for (size_t i = 0; i < n; ++i)
+    /* An autorestore replay answers this menu from its record without
+     * showing it -- unless the record has run out, which means this is the
+     * menu the autosave was taken at.  That one is on screen already, so
+     * it is not printed again: the player just answers it. */
+    bool replayed = g_replaying && g_replay_next < g_replay_answers.size();
+    if (g_replaying && !replayed)
+        g_replaying = false;
+    else if (!replayed)
       {
-	std::string line = std::to_string(i + 1) + ": " + v[i] + "\n";
-	glk_put_cstring(line.c_str());
-      }
+	/* Only clear a *separate* input window; if input shares the main
+	 * window this would wipe the whole screen before every menu. */
+	if (inputwin != mainglkwin)
+	    glk_window_clear(inputwin);
 
-    std::string prompt = "Choose [1-" + std::to_string(n) + "]> ";
-    glk_put_string_stream(inputwinstream, (char *) prompt.c_str());
+	glk_put_cstring(label.c_str());
+	glk_put_cstring("\n");
+	for (size_t i = 0; i < n; ++i)
+	  {
+	    std::string line = std::to_string(i + 1) + ": " + v[i] + "\n";
+	    glk_put_cstring(line.c_str());
+	  }
+
+	std::string prompt = "Choose [1-" + std::to_string(n) + "]> ";
+	glk_put_string_stream(inputwinstream, (char *) prompt.c_str());
+#ifdef SPATTERLIGHT
+	/* The parser's own "which one?" menu is autosaved at, with the menu
+	 * on screen and no input requested yet, as at the turn prompt.  The
+	 * game's own menus and questions are not; a relaunch goes back to the
+	 * prompt before the command that asked them. */
+	if (object_menu)
+	    question_do_menu_autosave(g_turn_command, g_turn_answers);
+#endif
+      }
 
     /* Anything unparseable or out of range is clamped to a valid entry, so
      * the caller always gets an index it can use. */
@@ -1232,9 +1320,17 @@ QuestionGlkInterface::make_choice (const std::string &label, std::vector<std::st
 
     /* The chosen line was already echoed by get_string; just leave a blank
      * line after the menu. */
-    glk_put_cstring("\n");
+    if (!replayed)
+        glk_put_cstring("\n");
 
     return choice - 1;
+}
+
+uint
+QuestionGlkInterface::choose_object (const std::string &label, std::vector<std::string> v)
+{
+    g_choosing_object = true;
+    return make_choice(label, v);
 }
 
 /* Resolve `rel_name` against the directory holding `parent` (the story file),
@@ -1313,7 +1409,7 @@ static schanid_t question_soundchannel = NULL;
 QuestionResult
 QuestionGlkInterface::play_sound (const std::string &filename, bool looped, bool /*sync*/)
 {
-  if (g_autorestore_booting)
+  if (g_autorestore_booting || g_replaying)
     return r_success;
 
   /* Quest's "sync" flag blocks until the sound finishes; we play
@@ -1354,7 +1450,7 @@ QuestionResult
 QuestionGlkInterface::show_image (const std::string &filename, const std::string &resolution,
 			     const std::string & /*caption*/, ...)
 {
-  if (g_autorestore_booting)
+  if (g_autorestore_booting || g_replaying)
     return r_success;
   if (filename.empty())
     return r_not_supported;

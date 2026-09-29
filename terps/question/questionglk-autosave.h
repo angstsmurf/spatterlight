@@ -41,6 +41,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 class QuestionRunner;
 
@@ -97,6 +98,30 @@ void question_do_autosave(QuestionRunner *gr);
  * replaced and the frontend globals re-pointed.  On failure the bad
  * autosave files have been deleted; the caller should reset and exit. */
 bool question_restore_autosave(QuestionRunner *gr);
+
+/* Autosave while the parser's "which one do you mean?" menu is open.  The
+ * engine can't be serialized mid-parse, so the autosave instead holds the
+ * state from the start of the turn plus a replay record: the command line
+ * and the answers already given to earlier prompts in the same turn.  An
+ * autorestore loads that state and re-runs the command silently, feeding it
+ * the recorded answers, until it reaches the open menu again.
+ *
+ * The start-of-turn state is cached by question_do_autosave.  Call
+ * question_turn_state_changed when the engine state moves on without one (a
+ * timer counting down), and question_note_turn_start just before running a
+ * command, which re-captures the state if the cache went stale. */
+void question_note_turn_start(QuestionRunner *gr);
+void question_turn_state_changed(void);
+
+/* Write the menu autosave.  Called with the menu and its prompt on screen
+ * and no input requested yet, like question_do_autosave. */
+void question_do_menu_autosave(const std::string &command,
+                               const std::vector<std::string> &answers);
+
+/* After a successful question_restore_autosave: true (once) if the autosave
+ * was taken at an open menu, handing back what to replay. */
+bool question_autosave_take_replay(std::string *command,
+                                   std::vector<std::string> *answers);
 
 /* ---- Quest 5 (aslxglk.cc / aslx Interp) ---------------------------------- */
 

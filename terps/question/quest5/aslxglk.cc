@@ -315,7 +315,40 @@ std::string g_autorestore_panel;      /* frame picture to re-establish */
 std::vector<std::pair<std::string, std::array<uint32_t, 4>>> g_autorestore_rngs;
 Interp *g_autosave_interp = nullptr;
 void aslx_do_autosave(Interp &in);
+
+/* Autosave under the parser's "which one do you mean?" menu (Core's
+ * disambiguation ShowMenu, flagged by game.disambiguating).  Its callback
+ * sits in the engine as a live script continuation that no snapshot can
+ * hold, so that autosave instead carries the state the turn STARTED from
+ * plus a replay record -- the command and every answer given to a prompt
+ * since -- and an autorestore re-runs the turn with its output muted,
+ * feeding it those answers, until the menu is pending again (see
+ * start_replay).  The screen already shows the menu: the GUI snapshot was
+ * taken with it up. */
+using RngStreams = std::vector<std::pair<std::string, std::array<uint32_t, 4>>>;
+struct TurnStart {
+    bool valid = false;         /* false once the engine moved on without it */
+    std::string state;          /* save_game at the start of the turn */
+    RngStreams rngs;            /* ...and the RNG streams, drawn again on replay */
+};
+TurnStart g_turn_start;
+std::string g_turn_command;                 /* the turn being played */
+std::vector<std::string> g_turn_answers;    /* its prompts' answers so far */
+/* Armed by the prompt loop for the one read_line that shows a
+ * disambiguation menu's prompt: that read_line writes the menu autosave. */
+Interp *g_menu_autosave_interp = nullptr;
+/* Decoded from the blob; the turn loop starts the replay from them. */
+bool g_autorestore_replay = false;
+std::string g_replay_command;
+std::vector<std::string> g_replay_answers;
+void aslx_do_menu_autosave(Interp &in);
+void turn_start_changed() { g_turn_start.valid = false; }
 #endif
+
+/* True while an autorestore replays a turn (see g_turn_start): the prompt
+ * loop and the prompt hooks answer from g_replay_answers instead of the
+ * player, and every hook that draws is muted. */
+bool g_replaying = false;
 
 /* Scope guard: suspend autosave while a prompt the snapshot cannot describe
  * is up.  Engine-owned prompts (the SCRIPT-COMMAND forms of ShowMenu, ask,
@@ -1453,6 +1486,9 @@ void run_asl_event(Interp &in, const LinkAction &act)
 {
     in.send_event(act.event_func, act.event_param);
     in.drain_on_ready();
+#ifdef SPATTERLIGHT
+    turn_start_changed();
+#endif
 }
 
 /* (ASLEvent function name, its parameter) pairs -- what a scanned JS body
@@ -1639,6 +1675,13 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
      * windows carry no pending request and a restore re-enters here). */
     if (g_autosave_interp)
         aslx_do_autosave(*g_autosave_interp);
+    /* A disambiguation menu's prompt: its autosave, once.  Consumed here so
+     * no nested read_line (a verb menu popped by a link click under it) and
+     * no re-prompt after a bad choice writes another. */
+    if (Interp *mi = g_menu_autosave_interp) {
+        g_menu_autosave_interp = nullptr;
+        aslx_do_menu_autosave(*mi);
+    }
 #endif
     if (want_line)
         glk_request_line_event_uni(gwin, buf, 255, 0);
@@ -1804,6 +1847,9 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
                 in.drain_on_ready();
                 reprompt = pb.broke;
             }
+#ifdef SPATTERLIGHT
+            turn_start_changed();
+#endif
             update_banner(in);
             redraw_side_pane(in);
             redraw_grid_map();
@@ -1925,6 +1971,9 @@ void read_keypress(Interp &in)
              * than a fresh label every second. */
             (void) lift_continue_link();
             in.tick(1);
+#ifdef SPATTERLIGHT
+            turn_start_changed();
+#endif
             update_banner(in);
             redraw_side_pane(in);
             redraw_grid_map();
@@ -3039,6 +3088,9 @@ void panel_contents(const std::string &html)
  * is not supported yet" etc.), bracketed and emphasized. */
 void flush_warnings(World &w, size_t &seen)
 {
+    /* A replayed turn's warnings were printed the first time round. */
+    if (g_replaying)
+        seen = w.warnings.size();
     for (; seen < w.warnings.size(); seen++) {
         glk_set_style(style_Emphasized);
         glk_put_string((char *) "[");
@@ -3199,9 +3251,11 @@ struct BlobReader {
  * the output-section log joined it): an older blob has different fields, and
  * an autorestore that mis-parses is worse than one discarded for a fresh
  * start.  aslx_recover_frontend rejects anything that does not match. */
-const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 4";
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 5";
 
-std::string aslx_encode_frontend(Interp &in)
+/* `turn` = a disambiguation-menu autosave: the blob carries the RNG streams
+ * from the start of the turn and the replay record (g_turn_start). */
+std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr)
 {
     std::string b;
     blob_str(b, kAslxBlobMagic);
@@ -3240,8 +3294,11 @@ std::string aslx_encode_frontend(Interp &in)
     blob_str(b, g_panel_last);
     /* The exact RNG streams (fallback + per compiled expression), so a
      * deterministic session's randomness continues across an autorestore. */
-    std::vector<std::pair<std::string, std::array<uint32_t, 4>>> rngs;
-    in.capture_rng_streams(rngs);
+    RngStreams rngs;
+    if (turn)
+        rngs = turn->rngs;
+    else
+        in.capture_rng_streams(rngs);
     blob_num(b, (long) rngs.size());
     for (const auto &entry : rngs) {
         blob_str(b, entry.first);
@@ -3264,6 +3321,14 @@ std::string aslx_encode_frontend(Interp &in)
         blob_str(b, s.name);
         blob_num(b, (long) s.start);
         blob_num(b, s.end == (size_t) -1 ? -1 : (long) s.end);
+    }
+    /* The replay record: the turn's command and its answers so far. */
+    blob_num(b, turn ? 1 : 0);
+    if (turn) {
+        blob_str(b, g_turn_command);
+        blob_num(b, (long) g_turn_answers.size());
+        for (const std::string &a : g_turn_answers)
+            blob_str(b, a);
     }
     return b;
 }
@@ -3332,6 +3397,15 @@ bool aslx_recover_frontend(const std::string &blob)
         s.end = e < 0 ? (size_t) -1 : (size_t) e;
         g_sections.push_back(s);
     }
+    g_autorestore_replay = r.num() != 0;
+    g_replay_command.clear();
+    g_replay_answers.clear();
+    if (g_autorestore_replay) {
+        g_replay_command = r.str();
+        long nanswers = r.num();
+        for (long i = 0; i < nanswers && r.ok; i++)
+            g_replay_answers.push_back(r.str());
+    }
     if (!r.ok || !gwin)
         return false;
 
@@ -3372,12 +3446,149 @@ void panel_restore_picture()
  * snapshot request, in that order. */
 void aslx_do_autosave(Interp &in)
 {
-    if (!question_autosave_wanted())
+    if (!question_autosave_wanted()) {
+        /* Not saved, so the next command captures its own start state. */
+        g_turn_start.valid = false;
         return;
+    }
     std::string engine_state = in.save_game(g_storyfile ? g_storyfile : "");
     if (engine_state.empty())
         return;
+    g_turn_start.state = engine_state;
+    g_turn_start.rngs.clear();
+    in.capture_rng_streams(g_turn_start.rngs);
+    g_turn_start.valid = true;
     aslx_do_autosave_write(engine_state, aslx_encode_frontend(in));
+}
+
+/* Just before a command runs: make sure g_turn_start holds the state it
+ * runs from, in case a disambiguation menu wants to autosave under it.
+ * Usually the prompt's autosave already put it there. */
+void note_turn_start(Interp &in, const std::string &cmd)
+{
+    g_turn_command = cmd;
+    g_turn_answers.clear();
+    if (!gli_enable_autosave || g_turn_start.valid)
+        return;
+    g_turn_start.state = in.save_game(g_storyfile ? g_storyfile : "");
+    g_turn_start.rngs.clear();
+    in.capture_rng_streams(g_turn_start.rngs);
+    g_turn_start.valid = !g_turn_start.state.empty();
+}
+
+/* Under a disambiguation menu: the turn's starting state, and a blob with
+ * the windows as they are now (menu on screen) but the RNG streams as they
+ * were then, plus the replay record.  Skipped when the engine has moved on
+ * since the turn started other than through the turn itself (a timer tick,
+ * a link's ASLEvent): replaying the command would not arrive here. */
+void aslx_do_menu_autosave(Interp &in)
+{
+    if (!question_autosave_wanted() || !g_turn_start.valid)
+        return;
+    aslx_do_autosave_write(g_turn_start.state,
+                           aslx_encode_frontend(in, &g_turn_start));
+}
+
+/* The hooks a replay mutes: everything that writes to the story window or
+ * the frontend's record of it (the blob restored those as they were under
+ * the menu), and everything that would block.  The pane, banner, map and
+ * frame hooks keep running -- they redraw from engine state that the replay
+ * brings back to what it was.  Emptied hooks stay SET, as no-ops: an unset
+ * hook changes engine behaviour (see play_sound). */
+struct ReplayMutedHooks {
+    decltype(Interp::print) print;
+    decltype(Interp::clear_screen) clear_screen;
+    decltype(Interp::disable_command_links) disable_command_links;
+    decltype(Interp::start_output_section) start_output_section;
+    decltype(Interp::end_output_section) end_output_section;
+    decltype(Interp::hide_output_section) hide_output_section;
+    decltype(Interp::show_picture) show_picture;
+    decltype(Interp::play_sound) play_sound;
+    decltype(Interp::stop_sound) stop_sound;
+    decltype(Interp::do_wait) do_wait;
+    decltype(Interp::do_pause) do_pause;
+} g_replay_muted;
+
+template <typename F, typename Mute>
+void mute_hook(F &hook, F &saved, Mute mute)
+{
+    saved = hook;
+    if (hook)
+        hook = mute;
+}
+
+void start_replay(Interp &in)
+{
+    ReplayMutedHooks &m = g_replay_muted;
+    auto none = [](const std::string &) {};
+    mute_hook(in.print, m.print, none);
+    mute_hook(in.clear_screen, m.clear_screen, [] {});
+    mute_hook(in.disable_command_links, m.disable_command_links, [] {});
+    mute_hook(in.start_output_section, m.start_output_section, none);
+    mute_hook(in.end_output_section, m.end_output_section, none);
+    mute_hook(in.hide_output_section, m.hide_output_section, none);
+    mute_hook(in.show_picture, m.show_picture, none);
+    mute_hook(in.play_sound, m.play_sound,
+              [](const std::string &, bool, bool) {});
+    mute_hook(in.stop_sound, m.stop_sound, [] {});
+    mute_hook(in.do_wait, m.do_wait, [] {});
+    mute_hook(in.do_pause, m.do_pause, [](int) {});
+    g_replaying = true;
+}
+
+void end_replay(Interp &in)
+{
+    if (!g_replaying)
+        return;
+    ReplayMutedHooks &m = g_replay_muted;
+    in.print = m.print;
+    in.clear_screen = m.clear_screen;
+    in.disable_command_links = m.disable_command_links;
+    in.start_output_section = m.start_output_section;
+    in.end_output_section = m.end_output_section;
+    in.hide_output_section = m.hide_output_section;
+    in.show_picture = m.show_picture;
+    in.play_sound = m.play_sound;
+    in.stop_sound = m.stop_sound;
+    in.do_wait = m.do_wait;
+    in.do_pause = m.do_pause;
+    m = ReplayMutedHooks();
+    g_replaying = false;
+    g_replay_answers.clear();
+}
+
+/* The next recorded answer, which must be of `kind` ('k' menu key, 'c' menu
+ * cancelled, 'y'/'n' question, 'i' input line).  False when the record has
+ * run out or does not match -- for a menu the first is where the replay was
+ * meant to stop; anything else means the replay went another way. */
+bool replay_answer(const char *kinds, std::string *text = nullptr)
+{
+    if (g_replay_answers.empty())
+        return false;
+    const std::string &a = g_replay_answers.front();
+    if (a.empty() || !strchr(kinds, a[0]))
+        return false;
+    if (text)
+        *text = a;
+    g_turn_answers.push_back(a);
+    g_replay_answers.erase(g_replay_answers.begin());
+    return true;
+}
+
+/* The replay went somewhere the recording did not: stop muting and let the
+ * player take it from here. */
+void replay_diverged(Interp &in, const char *where)
+{
+    fprintf(stderr, "aslxglk: autosave replay of \"%s\" diverged at %s\n",
+            g_replay_command.c_str(), where);
+    end_replay(in);
+}
+
+bool game_disambiguating(Interp &in)
+{
+    Element *game = in.world().find("game");
+    const Value *v = game ? in.resolve_field(game, "disambiguating") : nullptr;
+    return v && Interp::truthy(*v);
 }
 
 #endif /* SPATTERLIGHT */
@@ -3398,17 +3609,63 @@ void install_host_hooks(Interp &in, bool &restart_requested)
      * while the parser prompt's autosave hook is armed, so suspend it for the
      * duration -- see AutosaveSuspend.  (The script-command forms are pending
      * engine state and are safe; they run from the prompt loop.) */
+    /* Each answer is also recorded for the turn (g_turn_answers), and a
+     * replay answers from the record instead. */
     in.menu_provider = [&in](const MenuData &m, std::string &key) -> bool {
         [[maybe_unused]] AutosaveSuspend no_autosave;
-        return run_menu_ui(in, m, key);
+#ifdef SPATTERLIGHT
+        std::string a;
+        if (g_replaying) {
+            if (replay_answer("kc", &a)) {
+                key = a.substr(1);
+                return a[0] == 'k';
+            }
+            replay_diverged(in, "a menu");
+        }
+#endif
+        bool picked = run_menu_ui(in, m, key);
+#ifdef SPATTERLIGHT
+        g_turn_answers.push_back(picked ? "k" + key : "c");
+#endif
+        return picked;
     };
     in.ask_provider = [&in](const std::string &q, bool &answer) -> bool {
         [[maybe_unused]] AutosaveSuspend no_autosave;
-        return run_question_ui(in, q, answer);
+#ifdef SPATTERLIGHT
+        std::string a;
+        if (g_replaying) {
+            if (replay_answer("yn", &a)) {
+                answer = a[0] == 'y';
+                return true;
+            }
+            replay_diverged(in, "a question");
+        }
+#endif
+        bool answered = run_question_ui(in, q, answer);
+#ifdef SPATTERLIGHT
+        if (answered)
+            g_turn_answers.push_back(answer ? "y" : "n");
+#endif
+        return answered;
     };
     in.input_provider = [&in](std::string &text) -> bool {
         [[maybe_unused]] AutosaveSuspend no_autosave;
-        return run_input_ui(in, text);
+#ifdef SPATTERLIGHT
+        std::string a;
+        if (g_replaying) {
+            if (replay_answer("i", &a)) {
+                text = a.substr(1);
+                return true;
+            }
+            replay_diverged(in, "an input line");
+        }
+#endif
+        bool got = run_input_ui(in, text);
+#ifdef SPATTERLIGHT
+        if (got)
+            g_turn_answers.push_back("i" + text);
+#endif
+        return got;
     };
     in.request_save = [&in] { do_save_ui(in); };
     /* Core's `restart` command (via JS.eval window.location.reload).  The
@@ -3647,8 +3904,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
          * prompt is a fresh one, printed after the chosen command has run. */
         if (!g_pending_menu_alias.empty())
             g_autorestore_menu_resume = true;
-        else
+        /* Taken under a disambiguation menu: the engine state is the turn's
+         * start, and the turn loop replays the turn back to the menu, whose
+         * prompt (not the parser's) ends the window. */
+        else if (!g_autorestore_replay)
             g_autorestore_reentry = true;
+        g_turn_start.state = engine_state;
+        g_turn_start.rngs = g_autorestore_rngs;
+        g_turn_start.valid = true;
     }
 #endif
 
@@ -3689,6 +3952,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         in.restore_rng_streams(g_autorestore_rngs);
         g_autorestore_rngs.clear();
     }
+    if (g_autorestore_replay) {
+        g_autorestore_replay = false;
+        start_replay(in);
+    }
+    bool replay_sent = false;   /* the replayed command has been sent */
 #endif
 
     /* Turn loop, then the end-of-story menu -- which may undo back into play,
@@ -3700,14 +3968,52 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             return SessionEnd::Restart;
         if (const MenuData *m = in.pending_menu()) {
             std::string key;
-            bool picked = run_menu_ui(in, *m, key);
+            bool resumed = false;
+#ifdef SPATTERLIGHT
+            if (g_replaying) {
+                std::string a;
+                if (replay_answer("kc", &a)) {
+                    key = a.substr(1);
+                    in.set_menu_response(a[0] == 'k' ? &key : nullptr);
+                    goto turn_done;
+                }
+                /* The record is used up: this is the menu the autosave was
+                 * taken under, already on screen.  Just wait for a choice. */
+                resumed = true;
+                end_replay(in);
+            } else if (game_disambiguating(in)) {
+                g_menu_autosave_interp = &in;
+            }
+#endif
+            bool picked = run_menu_ui(in, *m, key, resumed);
+#ifdef SPATTERLIGHT
+            g_menu_autosave_interp = nullptr;
+            g_turn_answers.push_back(picked ? "k" + key : "c");
+#endif
             in.set_menu_response(picked ? &key : nullptr);
         } else if (const std::string *q = in.pending_question()) {
             bool answer = false;
-            if (run_question_ui(in, *q, answer))
+#ifdef SPATTERLIGHT
+            if (g_replaying) {
+                std::string a;
+                if (replay_answer("yn", &a)) {
+                    in.set_question_response(a[0] == 'y');
+                    goto turn_done;
+                }
+                replay_diverged(in, "a question");
+            }
+#endif
+            if (run_question_ui(in, *q, answer)) {
+#ifdef SPATTERLIGHT
+                g_turn_answers.push_back(answer ? "y" : "n");
+#endif
                 in.set_question_response(answer);
+            }
         } else if (in.pending_wait()) {
-            read_keypress(in);
+#ifdef SPATTERLIGHT
+            if (!g_replaying)
+#endif
+                read_keypress(in);
             if (in.pending_wait())
                 in.finish_wait();
         } else {
@@ -3750,9 +4056,24 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
             if (!host_owned)
                 g_autosave_interp = &in;
 #endif
-            InResult r = read_line(in, prompted, prompt,
-                                   /*want_line=*/true, prompt_on_screen);
+            InResult r;
 #ifdef SPATTERLIGHT
+            std::string a;
+            if (g_replaying && !host_owned && !replay_sent) {
+                replay_sent = true;
+                r = {InEnd::Line, g_replay_command};
+            } else if (g_replaying && host_owned && replay_answer("i", &a)) {
+                r = {InEnd::Line, a.substr(1)};
+            } else {
+                /* The turn ended, or asked for something else, short of
+                 * the menu it was recorded under. */
+                if (g_replaying)
+                    replay_diverged(in, "the prompt");
+#endif
+                r = read_line(in, prompted, prompt,
+                              /*want_line=*/true, prompt_on_screen);
+#ifdef SPATTERLIGHT
+            }
             g_autosave_interp = nullptr;
 #endif
             if (r.kind == InEnd::State || r.kind == InEnd::Event)
@@ -3790,11 +4111,20 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                          * link itself is the visible act, and echoing it
                          * would put "> Page2" through a gamebook that is
                          * meant to read as prose. */
-                        if (!bar_shown && r.kind == InEnd::Line)
+                        if (!bar_shown && r.kind == InEnd::Line &&
+                            !g_replaying)
                             echo_metaverb(cmd);
                         g_swallow = 2;
                         g_swallow_cmd = cmd;
                     }
+#ifdef SPATTERLIGHT
+                    /* A line under a `get input` answers it; any other
+                     * starts a turn. */
+                    if (host_owned)
+                        g_turn_answers.push_back("i" + cmd);
+                    else
+                        note_turn_start(in, cmd);
+#endif
                     in.send_command(cmd);
                     g_swallow = 0;
                     /* Drain first: the hint must land after the game's help
@@ -3803,10 +4133,14 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                     /* Only for a real parser turn: with the command box hidden
                      * (gamebook) HELP is not a command, and a `get input`
                      * override makes it an answer to the game's question. */
-                    hint_system_commands(cmd, g_command_bar && !host_owned);
+                    hint_system_commands(cmd, g_command_bar && !host_owned &&
+                                              !g_replaying);
                 }
             }
         }
+#ifdef SPATTERLIGHT
+    turn_done:
+#endif
         in.drain_on_ready();
         fire_js_events(in);
         flush_warnings(w, warnings_seen);

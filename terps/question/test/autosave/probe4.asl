@@ -11,6 +11,11 @@
 '           game can be closed on (neither autosaves: the relaunch resumes at
 '           the turn prompt before them).  Not `q`/`m`: `q` is the
 '           frontend's quit metaverb.
+'   take ball
+'           the parser's "which one?" menu (red or blue ball), which DOES
+'           autosave: the relaunch replays the command up to it.
+'   juggle  rolls, asks, then takes a ball -- a replay that must draw the
+'           same number and feed the question's answer back before the menu.
 '
 ' The lamp in the pane is the hyperlink case: clicking its name unfolds its
 ' verb menu (a re-save, no turn), clicking "Take" runs the command.  The
@@ -30,6 +35,10 @@ define game <Autosave Probe>
   if ask <Ready?> then msg <[yes]> else msg <[no]>
  }
  command <menu> choose <pick>
+ command <juggle> {
+  msg <You roll $rand(1;1000)$.>
+  if ask <Juggle?> then exec <take ball> else msg <[no]>
+ }
 end define
 
 define variable <count>
@@ -52,6 +61,14 @@ define room <Hall>
  end define
  define object <book>
   look <A dusty book.>
+  take
+ end define
+ define object <red ball>
+  alt <ball>
+  take
+ end define
+ define object <blue ball>
+  alt <ball>
   take
  end define
 end define

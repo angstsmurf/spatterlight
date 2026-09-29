@@ -23,6 +23,7 @@
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
 
 ### Question (Quest)
+- Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
 
 #### Quest 5
 - Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run.

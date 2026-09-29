@@ -158,6 +158,14 @@ public:
    */
   virtual uint make_choice (const std::string &info, std::vector<std::string> choices) = 0;
 
+  /* The parser's "which one do you mean?" menu, when a command names an
+   * object ambiguously.  A host that treats it differently from a menu the
+   * game itself puts up (Spatterlight autosaves while it is open) overrides
+   * this; otherwise it is just make_choice().
+   */
+  virtual uint choose_object (const std::string &info, std::vector<std::string> choices)
+  { return make_choice (info, choices); }
+
   /* Asks the user a yes/no question
    * (If not overridden, this has an implementation that uses make_choice()
    */

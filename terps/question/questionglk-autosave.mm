@@ -44,6 +44,7 @@ extern "C" {
 #include "fileref.h"
 }
 
+#include <cstring>
 #include <string>
 
 #include "QuestionRunner.hh"
@@ -320,57 +321,170 @@ static void question_library_unarchive(TempLibrary *library, NSCoder *decoder)
  * state serialization plus the undo history (so UNDO still works across an
  * autorestore, as Bocfel carries its save stacks in its autosave).  Both
  * parts are length-prefixed because the QUEST300 body reads to end-of-
- * buffer.  A file without the container magic is a bare engine state (an
- * autosave from before the container existed).  Being on disk, the magic
- * keeps its pre-rename "GEAS" prefix. */
+ * buffer.  An autosave taken at an open "which one?" menu appends a third
+ * part, the replay record (see question_do_menu_autosave); a turn-prompt
+ * autosave has none.  A file without the container magic is a bare engine
+ * state (an autosave from before the container existed).  Being on disk,
+ * the magic keeps its pre-rename "GEAS" prefix. */
 static const char *const kQuestionContainerMagic = "GEASAUTO1\n";
 
+static void put_part(std::string &out, const std::string &part)
+{
+    out += std::to_string(part.size());
+    out += '\n';
+    out += part;
+}
+
+/* Read one length-prefixed part at `pos`, advancing it. */
+static bool get_part(const std::string &data, size_t &pos, std::string *part)
+{
+    size_t eol = data.find('\n', pos);
+    if (eol == std::string::npos)
+        return false;
+    unsigned long len = strtoul(data.c_str() + pos, nullptr, 10);
+    pos = eol + 1;
+    if (len > data.size() - pos)
+        return false;
+    part->assign(data, pos, len);
+    pos += len;
+    return true;
+}
+
 static std::string container_wrap(const std::string &engine_state,
-                                  const std::string &undo_history)
+                                  const std::string &undo_history,
+                                  const std::string &replay = std::string())
 {
     std::string out = kQuestionContainerMagic;
-    out += std::to_string(engine_state.size());
-    out += '\n';
-    out += engine_state;
-    out += std::to_string(undo_history.size());
-    out += '\n';
-    out += undo_history;
+    put_part(out, engine_state);
+    put_part(out, undo_history);
+    if (!replay.empty())
+        put_part(out, replay);
     return out;
 }
 
 static bool container_split(const std::string &data, std::string *engine_state,
-                            std::string *undo_history)
+                            std::string *undo_history, std::string *replay)
 {
     const std::string magic = kQuestionContainerMagic;
+    replay->clear();
     if (data.compare(0, magic.size(), magic) != 0) {
         *engine_state = data;   /* legacy: the whole file is the engine state */
         undo_history->clear();
         return true;
     }
     size_t pos = magic.size();
-    for (std::string *part : { engine_state, undo_history }) {
-        size_t eol = data.find('\n', pos);
-        if (eol == std::string::npos)
+    if (!get_part(data, pos, engine_state) || !get_part(data, pos, undo_history))
+        return false;
+    return pos == data.size() || get_part(data, pos, replay);
+}
+
+/* The replay record: the command line, then each answer, all length-
+ * prefixed. */
+static std::string replay_encode(const std::string &command,
+                                 const std::vector<std::string> &answers)
+{
+    std::string out;
+    put_part(out, command);
+    for (const std::string &a : answers)
+        put_part(out, a);
+    return out;
+}
+
+static bool replay_decode(const std::string &data, std::string *command,
+                          std::vector<std::string> *answers)
+{
+    size_t pos = 0;
+    answers->clear();
+    if (!get_part(data, pos, command))
+        return false;
+    while (pos < data.size()) {
+        std::string a;
+        if (!get_part(data, pos, &a))
             return false;
-        unsigned long len = strtoul(data.c_str() + pos, nullptr, 10);
-        pos = eol + 1;
-        if (len > data.size() - pos)
-            return false;
-        part->assign(data, pos, len);
-        pos += len;
+        answers->push_back(a);
     }
+    return true;
+}
+
+/* The state at the start of the current turn, which a menu autosave saves in
+ * place of the (unserializable) mid-parse state: engine state, undo history
+ * and the RNG position, since the replay draws the same numbers again. */
+static struct {
+    bool valid = false;
+    std::string state;
+    std::string undo;
+    int rng_usenative = -1;
+    uint32_t rng_state[4] = { 0, 0, 0, 0 };
+} turn_start;
+
+static void capture_turn_start(QuestionRunner *gr, const std::string &state)
+{
+    QuestionGlkFrontendState st;
+    question_stash_frontend_state(&st);
+    turn_start.state = state;
+    turn_start.undo = gr->save_undo_history();
+    turn_start.rng_usenative = st.rng_usenative;
+    memcpy(turn_start.rng_state, st.rng_state, sizeof turn_start.rng_state);
+    turn_start.valid = !state.empty();
+}
+
+void question_note_turn_start(QuestionRunner *gr)
+{
+    if (gli_enable_autosave && !turn_start.valid)
+        capture_turn_start(gr, gr->save_state(false));
+}
+
+void question_turn_state_changed(void)
+{
+    turn_start.valid = false;
+}
+
+void question_do_menu_autosave(const std::string &command,
+                               const std::vector<std::string> &answers)
+{
+    if (!question_autosave_wanted() || !turn_start.valid)
+        return;
+    /* The windows as they are now (the menu on screen), but the RNG as it
+     * was when the turn began. */
+    question_stash_frontend_state(&frontend_state);
+    frontend_state.rng_usenative = turn_start.rng_usenative;
+    memcpy(frontend_state.rng_state, turn_start.rng_state,
+           sizeof frontend_state.rng_state);
+    write_autosave_pair(container_wrap(turn_start.state, turn_start.undo,
+                                       replay_encode(command, answers)),
+                        question_library_archive);
+}
+
+static bool pending_replay = false;
+static std::string pending_replay_command;
+static std::vector<std::string> pending_replay_answers;
+
+bool question_autosave_take_replay(std::string *command,
+                                   std::vector<std::string> *answers)
+{
+    if (!pending_replay)
+        return false;
+    pending_replay = false;
+    command->swap(pending_replay_command);
+    answers->swap(pending_replay_answers);
+    pending_replay_command.clear();
+    pending_replay_answers.clear();
     return true;
 }
 
 void question_do_autosave(QuestionRunner *gr)
 {
-    if (!question_autosave_wanted())
+    if (!question_autosave_wanted()) {
+        /* Not saved, so the next command captures its own start state. */
+        turn_start.valid = false;
         return;
+    }
     std::string data = gr->save_state(false);
     if (data.empty())
         return;
+    capture_turn_start(gr, data);
     question_stash_frontend_state(&frontend_state);
-    write_autosave_pair(container_wrap(data, gr->save_undo_history()),
+    write_autosave_pair(container_wrap(data, turn_start.undo),
                         question_library_archive);
 }
 
@@ -393,8 +507,8 @@ bool question_restore_autosave(QuestionRunner *gr)
         }
 
         std::string filedata((const char *)gamedata.bytes, (size_t)gamedata.length);
-        std::string data, undo_history;
-        if (!container_split(filedata, &data, &undo_history)) {
+        std::string data, undo_history, replay;
+        if (!container_split(filedata, &data, &undo_history, &replay)) {
             NSLog(@"question autorestore: autosave container was malformed.");
             question_autosave_discard();
             return false;
@@ -417,6 +531,15 @@ bool question_restore_autosave(QuestionRunner *gr)
         }
         question_recover_frontend_state(&frontend_state);
         [newlib updateFromLibraryLate];
+
+        /* The restored state is where the next turn starts from -- or, for
+         * a menu autosave, where the replayed one does. */
+        capture_turn_start(gr, data);
+        pending_replay = !replay.empty() &&
+            replay_decode(replay, &pending_replay_command,
+                          &pending_replay_answers);
+        if (!replay.empty() && !pending_replay)
+            NSLog(@"question autorestore: replay record was malformed (ignored).");
     }
     return true;
 }

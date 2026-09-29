@@ -800,8 +800,8 @@ string question_implementation::get_obj_name (const string &name, const vector<s
        * 4854).  The marker and the italics are that window's presentation of
        * a menu; here the caption is handed to the host, which lays the menu
        * out its own way (see QuestionGlkInterface::make_choice). */
-      num = gi->make_choice ("Please select which " + name + " you mean:",
-			     printed_objs);
+      num = gi->choose_object ("Please select which " + name + " you mean:",
+			       printed_objs);
 
       return objs[num];
     }
