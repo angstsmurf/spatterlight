@@ -20,6 +20,12 @@ void zterp_os_edit_file(const std::string &filename);
 std::vector<char> zterp_os_edit_notes(const std::vector<char> &notes);
 void zterp_os_show_transcript(const std::vector<char> &transcript);
 
+#ifdef SPATTERLIGHT
+// While true, zterp_os_autosave_name() names the temp file the
+// Spatterlight autosave writer renames into place afterwards.
+extern "C" bool zterp_os_autosave_to_tmp;
+#endif
+
 #ifndef ZTERP_GLK
 std::pair<unsigned int, unsigned int> zterp_os_get_screen_size();
 void zterp_os_init_term();

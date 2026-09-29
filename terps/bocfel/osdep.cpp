@@ -1020,6 +1020,8 @@ std::string convertToString(char* a)
     return s;
 }
 
+bool zterp_os_autosave_to_tmp = false;
+
 std::optional<std::string> zterp_os_autosave_name()
 {
     getautosavedir((char *)game_file.c_str());
@@ -1028,7 +1030,7 @@ std::optional<std::string> zterp_os_autosave_name()
     std::string s = convertToString(autosavedir);
     if (s.size() == 0)
         return std::nullopt;
-    return s + "/autosave.glksave";
+    return s + (zterp_os_autosave_to_tmp ? "/autosave-tmp.glksave" : "/autosave.glksave");
 }
 
 #define have_zterp_os_autosave_name

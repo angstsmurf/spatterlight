@@ -36,6 +36,11 @@
 #include "stack.h"
 #include "v6_specific.h"
 
+// Defined in osdep.cpp, which can't be included here (its Style
+// clashes with MacTypes.h). While true, zterp_os_autosave_name()
+// names the temp file spatterlight_do_autosave renames into place.
+extern "C" bool zterp_os_autosave_to_tmp;
+
 void spatterlight_do_autosave(enum SaveOpcode saveopcode);
 bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode);
 
@@ -69,6 +74,7 @@ typedef struct library_state_data_struct {
     uint16_t routine;
     int queued_sound;
     int sound_channel_tag;
+    int music_channel_tag;
     long last_random_seed;
     int random_calls_count;
     int queued_volume;

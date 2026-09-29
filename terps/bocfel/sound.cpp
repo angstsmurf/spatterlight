@@ -404,6 +404,7 @@ void stash_library_sound_state(library_state_data *dat)
         return;
 
     auto channel = channels.at(Channels::Effects);
+    auto music = channels.at(Channels::Music);
 
     dat->autosave_version = 1;
     dat->routine = channel->routine;
@@ -411,7 +412,28 @@ void stash_library_sound_state(library_state_data *dat)
     // library state, as it did when Queued::number was a plain field.
     dat->queued_sound = channel->queued.has_value() ? channel->queued->number : 0;
     dat->queued_volume = channel->queued.has_value() ? channel->queued->volume : 8;
-    dat->sound_channel_tag = channel->channel->tag;
+    // 0 is never a valid tag, so it stands for "no channel".
+    dat->sound_channel_tag = channel->channel != nullptr ? channel->channel->tag : 0;
+    dat->music_channel_tag = music->channel != nullptr ? music->channel->tag : 0;
+}
+
+// Autorestore replaces the Glk sound channel list, freeing every channel
+// created at startup, so each Channel must be pointed at a channel from the
+// restored list. Falls back to any restored channel not already taken
+// (autosaves from before the music tag was stored), and then to a new one,
+// so a channel pointer is never left null or dangling.
+static schanid_t recover_channel(int tag, schanid_t taken)
+{
+    schanid_t chan = tag != 0 ? gli_schan_for_tag(tag) : nullptr;
+    if (chan != nullptr && chan != taken) {
+        return chan;
+    }
+    for (chan = glk_schannel_iterate(nullptr, nullptr); chan != nullptr; chan = glk_schannel_iterate(chan, nullptr)) {
+        if (chan != taken) {
+            return chan;
+        }
+    }
+    return glk_schannel_create(0);
 }
 
 void recover_library_sound_state(library_state_data *dat)
@@ -419,7 +441,12 @@ void recover_library_sound_state(library_state_data *dat)
     if (!dat || !channels.loaded())
         return;
     auto channel = channels.at(Channels::Effects);
-    channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
+    auto music = channels.at(Channels::Music);
+    channel->channel = recover_channel(dat->sound_channel_tag, nullptr);
+    // Music may be an alias of the effects channel (see Channels::create).
+    if (music != channel) {
+        music->channel = recover_channel(dat->music_channel_tag, channel->channel);
+    }
     channel->routine = dat->routine;
     if (dat->queued_sound != 0) {
         uint8_t volume = dat->autosave_version > 0 ? dat->queued_volume : 8;

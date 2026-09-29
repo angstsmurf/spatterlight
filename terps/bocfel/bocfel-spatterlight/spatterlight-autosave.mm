@@ -48,8 +48,42 @@ static library_state_data library_state; /* used by the archive/unarchive hooks 
 
 /* Do an auto-save of the game state, to an macOS-appropriate location. This also saves the Glk library state.
  
- The game goes into ~Library/Application Support/Spatterlight/Bocfel Files/Autosaves/(FILE HASH)/autosave.glksave; the library state into autosave.plist. However, we do this as atomically as possible -- we write to temp files and then rename.
+ The game goes into ~Library/Application Support/Spatterlight/Bocfel Files/Autosaves/(FILE HASH)/autosave.glksave; the library state into autosave.plist. Both are written to temp names first and only then renamed into place, so a failed or interrupted write leaves the previous good pair intact; if the second rename fails, the first is rolled back. (Only a crash in the instant between the two renames can still split the pair.)
  */
+
+/* Move tmpname to finalname, keeping the previous finalname as bakname. */
+static bool move_into_place(NSString *dirname, NSString *tmpname,
+                            NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *tmppath = [dirname stringByAppendingPathComponent:tmpname];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+    NSError *error = nil;
+
+    [fileManager removeItemAtPath:bakpath error:nil];
+    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
+    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
+        NSLog(@"Could not move %@ to final position: %@", tmpname, error);
+        /* Put the previous file back, so it is not left only as -bak. */
+        [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+        return false;
+    }
+    return true;
+}
+
+/* Undo a move_into_place that succeeded: put the -bak file back as the
+ * final one, so the pair on disk is the previous turn's again. */
+static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
+    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
+
+    [fileManager removeItemAtPath:finalpath error:nil];
+    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+}
+
 void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
     
     if (!gli_enable_autosave)
@@ -60,12 +94,11 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         return;
     }
 
-    if (autosavedir == NULL) {
-        create_autosavedir(const_cast<char *>(game_file.c_str()));
-    }
-
-    if (autosavedir == NULL) {
-        win_showerror("Could not create autosave directory name.");
+    // Create the directory every time, not only when autosavedir is unset:
+    // the startup autorestore check sets autosavedir without creating it,
+    // and the directory may since have been deleted.
+    if (!create_autosavedir(const_cast<char *>(game_file.c_str()))) {
+        win_showerror("Could not create autosave directory.");
         return;
     }
 
@@ -78,38 +111,30 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
             return;
         }
 
-        NSError *error = nil;
+        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
+        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
 
-        // Rename any existing autosave file
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *oldgamepath = [dirname stringByAppendingPathComponent:@"autosave-bak.glksave"];
-        
-        [fileManager removeItemAtPath:oldgamepath error:&error];
-        [fileManager moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
-
+        /* 1. The game state, to its temp name. */
         unsigned long stored_pc = pc;
         if (saveopcode == SaveOpcode::None) {
             saveopcode = SaveOpcode::ReadChar;
             pc--;
         }
-        bool res;
-        res = do_save(SaveType::Autosave, saveopcode);
+        zterp_os_autosave_to_tmp = true;
+        bool res = do_save(SaveType::Autosave, saveopcode);
+        zterp_os_autosave_to_tmp = false;
         pc = stored_pc;
         
         if (!res) {
             win_showerror("Failed to autosave.");
             NSLog(@"do_save() failed!");
-
-            // Re-instate the old renamed save file back to where it was
-            [fileManager removeItemAtPath:finalgamepath error:&error];
-            [fileManager moveItemAtPath:oldgamepath toPath:finalgamepath error:&error];
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
         
+        /* 2. The library state, to its temp name.
+         * The spatterlight_library_archive hook will write out the contents of library_state. */
         stash_library_state(&library_state);
-        /* The spatterlight_library_archive hook will write out the contents of library_state. */
-        
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
 
         [TempLibrary setExtraArchiveHook:spatterlight_library_archive];
         NSError *archiveError = nil;
@@ -118,31 +143,33 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
 
         if (!archiveData) {
             NSLog(@"library serialize failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
 
         if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
             NSLog(@"library serialize write failed: %@", archiveError);
+            [fileManager removeItemAtPath:tmpgamepath error:nil];
             return;
         }
-        
-        NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-        NSString *oldlibpath = [dirname stringByAppendingPathComponent:@"autosave-bak.plist"];
 
-
-        /* This is not really atomic, but we're already past the serious failure modes. */
-        error = nil;
-        [fileManager removeItemAtPath:oldlibpath error:&error];
-        error = nil;
-        [fileManager moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
-
-        error = nil;
-        if (![[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:&error]) {
-            /* We don't abort out in this case; we leave the game autosave in place by itself, which is not ideal but better than data loss. */
-            win_showerror("Could not move autosave plist to final position.");
-            NSLog(@"Could not move library autosave to final position (continuing): %@", error);
+        /* 3. Both written: rename them into place as a pair. If the plist
+         * cannot follow the glksave, take the glksave back too, so the
+         * files on disk never mix two turns. */
+        if (!move_into_place(dirname, @"autosave-tmp.glksave",
+                             @"autosave.glksave", @"autosave-bak.glksave")) {
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
         }
-        win_autosave(library.autosaveTag); // Call window server to do its own autosave
+        if (!move_into_place(dirname, @"autosave-tmp.plist",
+                             @"autosave.plist", @"autosave-bak.plist")) {
+            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
+            [fileManager removeItemAtPath:tmplibpath error:nil];
+            return;
+        }
+
+        /* 4. Call window server to do its own autosave. */
+        win_autosave(library.autosaveTag);
     }
     return;
 }
@@ -279,6 +306,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
     [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
+    [encoder encodeInt32:(int32_t)library_state.music_channel_tag forKey:@"bocfel_music_channel_tag"];
     [encoder encodeInt32:(int32_t)library_state.autosave_version forKey:@"bocfel_autosave_version"];
     [encoder encodeInt32:(int32_t)library_state.queued_volume forKey:@"bocfel_queued_volume"];
     [encoder encodeInt64:(int64_t)library_state.last_random_seed forKey:@"bocfel_last_random_seed"];
@@ -343,6 +371,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
     library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
+    library_state.music_channel_tag = [decoder decodeInt32ForKey:@"bocfel_music_channel_tag"];
     library_state.autosave_version = [decoder decodeInt32ForKey:@"bocfel_autosave_version"];
     library_state.queued_volume = [decoder decodeInt32ForKey:@"bocfel_queued_volume"];
     library_state.last_random_seed = [decoder decodeInt64ForKey:@"bocfel_last_random_seed"];

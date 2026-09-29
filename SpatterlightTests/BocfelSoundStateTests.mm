@@ -18,6 +18,7 @@
 #import <XCTest/XCTest.h>
 
 #include <cstring>
+#include <initializer_list>
 #include <exception>
 
 // Compile sound.cpp the way the bocfel target does, minus Blorb support
@@ -34,8 +35,28 @@
 
 static bool stub_sound_supported = false;
 static int stub_channels_created = 0;
-static struct glk_schannel_struct stub_channel_pool[4];
-static struct glk_schannel_struct stub_recovered_channel;
+static struct glk_schannel_struct stub_channel_pool[16];
+
+// The Glk channel list, as gli_schan_for_tag and glk_schannel_iterate see
+// it. Autorestore replaces it wholesale; stub_restore_list models that.
+static schanid_t stub_list[16];
+static int stub_list_count = 0;
+
+static schanid_t stub_new_channel(int tag)
+{
+    schanid_t chan = &stub_channel_pool[stub_channels_created++];
+    chan->tag = tag;
+    stub_list[stub_list_count++] = chan;
+    return chan;
+}
+
+// Replace the channel list with channels carrying these tags.
+static void stub_restore_list(std::initializer_list<int> tags)
+{
+    stub_list_count = 0;
+    for (int tag : tags)
+        stub_new_channel(tag);
+}
 
 extern "C" {
 
@@ -48,9 +69,18 @@ schanid_t glk_schannel_create(glui32 rock)
 {
     if (!stub_sound_supported)
         return NULL;
-    schanid_t chan = &stub_channel_pool[stub_channels_created++];
-    chan->tag = 4711 + stub_channels_created; // 4712 = effects, 4713 = music
-    return chan;
+    return stub_new_channel(4711 + stub_channels_created + 1); // 4712 = effects, 4713 = music
+}
+
+schanid_t glk_schannel_iterate(schanid_t chan, glui32 *rockptr)
+{
+    int i = 0;
+    if (chan) {
+        while (i < stub_list_count && stub_list[i] != chan)
+            i++;
+        i++;
+    }
+    return i < stub_list_count ? stub_list[i] : NULL;
 }
 
 void glk_schannel_set_volume(schanid_t chan, glui32 vol) {}
@@ -61,8 +91,10 @@ void win_beep(int type) {}
 
 channel_t *gli_schan_for_tag(int tag)
 {
-    stub_recovered_channel.tag = tag;
-    return &stub_recovered_channel;
+    for (int i = 0; i < stub_list_count; i++)
+        if (stub_list[i]->tag == tag)
+            return stub_list[i];
+    return NULL;
 }
 
 } // extern "C"
@@ -115,11 +147,16 @@ bool is_game(Game game) { return false; }
     XCTAssertEqual(dat.autosave_version, 1);
     XCTAssertEqual(dat.sound_channel_tag, 4712, @"stash did not record the effects channel's tag");
 
+    XCTAssertEqual(dat.music_channel_tag, 4713, @"stash did not record the music channel's tag");
+
     // Round-trip: recover autosaved state, then stash it back out again.
+    // Autorestore has replaced the channel list with the saved channels.
+    stub_restore_list({31337, 31338});
     dat.routine = 7;
     dat.queued_sound = 3;
     dat.queued_volume = 5;
     dat.sound_channel_tag = 31337;
+    dat.music_channel_tag = 31338;
     recover_library_sound_state(&dat);
 
     library_state_data out;
@@ -130,6 +167,34 @@ bool is_game(Game game) { return false; }
     XCTAssertEqual(out.queued_volume, 5);
     XCTAssertEqual(out.sound_channel_tag, 31337,
                    @"recover did not reattach the channel found by gli_schan_for_tag");
+    XCTAssertEqual(out.music_channel_tag, 31338,
+                   @"recover did not reattach the music channel");
+
+    // Saved tags missing from the restored list (an old autosave without the
+    // music tag, or a mismatched one): the effects channel used to become
+    // NULL and crash the next stash; music was left pointing at a freed
+    // channel. Effects falls back to the restored channel, music to a new one.
+    stub_restore_list({500});
+    dat.sound_channel_tag = 999;
+    dat.music_channel_tag = 0;
+    recover_library_sound_state(&dat);
+    XCTAssertEqual(channels.at(Channels::Effects)->channel->tag, 500,
+                   @"effects did not fall back to the restored channel");
+    schanid_t music = channels.at(Channels::Music)->channel;
+    XCTAssertTrue(music != NULL && music != channels.at(Channels::Effects)->channel,
+                  @"music was not given a channel of its own");
+
+    memset(&out, 0, sizeof out);
+    stash_library_sound_state(&out);
+    XCTAssertEqual(out.sound_channel_tag, 500);
+    XCTAssertEqual(out.music_channel_tag, music->tag);
+
+    // No channels restored at all: both get fresh, distinct channels.
+    stub_restore_list({});
+    recover_library_sound_state(&dat);
+    XCTAssertTrue(channels.at(Channels::Effects)->channel != NULL);
+    XCTAssertTrue(channels.at(Channels::Music)->channel != NULL);
+    XCTAssertTrue(channels.at(Channels::Effects)->channel != channels.at(Channels::Music)->channel);
 }
 
 @end
