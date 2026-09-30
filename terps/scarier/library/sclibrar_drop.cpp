@@ -957,23 +957,37 @@ lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
      or character name are no verbs; see lib_mask_long_names(). */
   const std::string masked = lib_mask_long_names (game, line);
   const scr_char *const words = masked.c_str ();
+  auto take_what = [version] (const scr_char *text) -> scr_bool
+    {
+      return version == TAF_VERSION_390
+             && (lib_co_contains (text, "get") || lib_co_contains (text, "take")
+                 || lib_co_contains (text, "pick"))
+             && !lib_co_contains (text, "from")
+             && !lib_co_contains (text, "get on")
+             && !lib_co_contains (text, "get down");
+    };
+  auto drop_word = [] (const scr_char *text) -> scr_bool
+    {
+      return lib_co_contains (text, "drop")
+             || lib_co_contains (text, "put down")
+             || lib_co_contains (text, "leave")
+             || (lib_co_contains (text, "put")
+                 && lib_co_contains (text, "down"));
+    };
 
-  if (version == TAF_VERSION_390
-      && (lib_co_contains (words, "get") || lib_co_contains (words, "take")
-          || lib_co_contains (words, "pick"))
-      && !lib_co_contains (words, "from")
-      && !lib_co_contains (words, "get on")
-      && !lib_co_contains (words, "get down"))
+  if (SCR_TRACING_DEVIATIONS ()
+      && (take_what (line) != take_what (words)
+          || drop_word (line) != drop_word (words)))
+    SCR_DEVIATION ("mask_what_prompt", "masked=\"%s\"", words);
+
+  if (take_what (words))
     {
       pf_buffer_string (filter, "Take what?");
       pf_buffer_answer_break (filter);
       return TRUE;
     }
 
-  if (!(lib_co_contains (words, "drop")
-        || lib_co_contains (words, "put down")
-        || lib_co_contains (words, "leave")
-        || (lib_co_contains (words, "put") && lib_co_contains (words, "down"))))
+  if (!drop_word (words))
     return FALSE;
   if (lib_co_contains (words, "all") || lib_co_contains (words, "and"))
     return FALSE;
@@ -2072,18 +2086,13 @@ lib_pre400_slot_words (scr_gameref_t game,
  * the reasons.
  */
 static scr_int
-lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
-                          scr_bool present[LIB_PRE400_HANDLERS],
-                          scr_bool *slot_line = NULL)
+lib_pre400_handler_words_in (scr_gameref_t game, const scr_char *line,
+                             scr_bool present[LIB_PRE400_HANDLERS],
+                             scr_bool *slot_line)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   std::string slots[LIB_PRE400_HANDLERS];
   scr_int handler, count;
-
-  /* Deliberate deviation (2026-09-30): a handler word inside a longer
-     object or character name enters no handler; see lib_mask_long_names(). */
-  const std::string masked = lib_mask_long_names (game, line);
-  line = masked.c_str ();
 
 #define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
 
@@ -2122,6 +2131,29 @@ lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
   return count;
 
 #undef LIB_PRE400_C
+}
+
+static scr_int
+lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
+                          scr_bool present[LIB_PRE400_HANDLERS],
+                          scr_bool *slot_line = NULL)
+{
+  /* Deliberate deviation (2026-09-30): a handler word inside a longer
+     object or character name enters no handler; see lib_mask_long_names(). */
+  const std::string masked = lib_mask_long_names (game, line);
+
+  if (SCR_TRACING_DEVIATIONS () && masked != line)
+    {
+      scr_bool runner[LIB_PRE400_HANDLERS] = { FALSE };
+      scr_bool ours[LIB_PRE400_HANDLERS] = { FALSE };
+
+      lib_pre400_handler_words_in (game, line, runner, NULL);
+      lib_pre400_handler_words_in (game, masked.c_str (), ours, NULL);
+      if (memcmp (runner, ours, sizeof runner) != 0)
+        SCR_DEVIATION ("mask_handlers", "masked=\"%s\"", masked.c_str ());
+    }
+  return lib_pre400_handler_words_in (game, masked.c_str (), present,
+                                      slot_line);
 }
 
 

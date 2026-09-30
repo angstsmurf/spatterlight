@@ -531,6 +531,8 @@ lib_references_are_namesakes (scr_gameref_t game)
         return FALSE;
       count++;
     }
+  if (count > 1)
+    SCR_DEVIATION ("namesakes_asked", "short=\"%s\"", first);
   return count > 1;
 }
 

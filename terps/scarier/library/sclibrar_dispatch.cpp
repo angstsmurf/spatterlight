@@ -589,6 +589,8 @@ lib_try_game_command_common (scr_gameref_t game,
                     command == buffer ? sizeof (buffer) : (size_t) required,
                     "%s %s", verb, name);
           status = run_game_task_commands (game, command);
+          if (status && use_definite)
+            SCR_DEVIATION ("definite_retry", "ran=\"%s\"", command);
         }
     }
 
@@ -838,6 +840,8 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
           && run_line_matches_task_strictly (game, parent_line.c_str (),
                                              object_line.c_str ()))
         {
+          SCR_DEVIATION ("from_retry_skipped", "parent=\"%s\"",
+                         parent_line.c_str ());
           lib_rebuilt_silent_continues = FALSE;
           lib_rebuilt_raw_dispatch = FALSE;
           run_set_task_class_filter (0);

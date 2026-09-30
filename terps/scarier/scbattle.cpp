@@ -1339,6 +1339,8 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    */
   if (!(task >= 0 && gs_npc_stamina (game, npc) > 0))
     gs_set_npc_dead (game, npc, TRUE);
+  else
+    SCR_DEVIATION ("killed_npc_revivable", "npc=%ld task=%ld", npc, task);
 }
 
 /*

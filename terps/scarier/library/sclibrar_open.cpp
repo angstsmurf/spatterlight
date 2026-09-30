@@ -603,6 +603,10 @@ lib_cmd_open_object (scr_gameref_t game)
        * stands, as at 3.8/3.9 and as it did before the port (e66709de2).
        * A chest too heavy to lift was otherwise unopenable.
        */
+      if (lib_is_version_400 (game)
+          && !obj_is_static (game, object)
+          && !obj_indirectly_held_by_player (game, object))
+        SCR_DEVIATION ("openclose_not_carried", "object=%ld", object);
       if (FALSE
           && lib_is_version_400 (game)
           && !obj_is_static (game, object)
@@ -739,6 +743,10 @@ lib_cmd_close_object (scr_gameref_t game)
     case OBJ_OPEN:
       /* Same 4.0-only carrying gate as in lib_cmd_open_object above, and
          the same deliberate deviation: Scarier closes it where it stands. */
+      if (lib_is_version_400 (game)
+          && !obj_is_static (game, object)
+          && !obj_indirectly_held_by_player (game, object))
+        SCR_DEVIATION ("openclose_not_carried", "object=%ld", object);
       if (FALSE
           && lib_is_version_400 (game)
           && !obj_is_static (game, object)

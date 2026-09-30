@@ -3822,7 +3822,11 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
           continue;
         if (strcmp (entry.original, "take") == 0
             && (!take_to_get || pf_has_take_off (current)))
-          continue;
+          {
+            if (take_to_get)
+              SCR_DEVIATION ("take_off_kept", NULL);
+            continue;
+          }
         if (entry.substring)
           pf_rewrite_substring (string, buffer, modified, current,
                                 entry.original, entry.replacement,

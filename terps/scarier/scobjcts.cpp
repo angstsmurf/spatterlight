@@ -694,6 +694,9 @@ obj_get_container_capacity (scr_gameref_t game, scr_int object)
    * more objects held one.  Scarier honours the authored count; a game the
    * Runner could finish can never need less room than that.
    */
+  if (prop_get_taf_version (bundle) == TAF_VERSION_390
+      && count >= OBJ_DIMENSION_DIVISOR)
+    SCR_DEVIATION ("capacity_390", "object=%ld count=%ld", object, count);
   if (FALSE && prop_get_taf_version (bundle) == TAF_VERSION_390)
     {
       while (count >= OBJ_DIMENSION_DIVISOR)

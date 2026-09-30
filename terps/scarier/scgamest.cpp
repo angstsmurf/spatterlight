@@ -385,6 +385,9 @@ gs_carried_size (scr_gameref_t gs)
       if (gs_runner_possessed (gs, object) && !gs_runner_worn (gs, object))
         possessed += obj_get_size (gs, object);
     }
+  if (gs->carried_size > possessed)
+    SCR_DEVIATION ("carried_cap", "runner=%ld ours=%ld", gs->carried_size,
+                   possessed);
   return gs->carried_size < possessed ? gs->carried_size : possessed;
 }
 
