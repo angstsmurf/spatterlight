@@ -1406,10 +1406,21 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
           && lib_npc_400_find_namesakes (game, NULL, NULL)))
     return -1;
 
+  /*
+   * Deliberate deviation (2026-09-30): a character's name inside a longer
+   * object name on the line does not count (lib_mask_long_names()).  The
+   * Runners' c() finds "dog" in `x dog collar`, so the collar's examine
+   * printed the dog, and `take dog collar` took the collar while saying "I
+   * don't think dog would appreciate being handled." (bec2def78, 0b6154aa4,
+   * 9b5cdae73).  A character whose name IS an object's (Lair's skeleton)
+   * still overwrites.
+   */
+  const std::string masked = lib_mask_long_names (game, input, TRUE);
+
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
       if (npc_in_room (game, npc, gs_playerroom (game))
-          && lib_npc_referenced (game, npc, input))
+          && lib_npc_referenced (game, npc, masked.c_str ()))
         found = npc;
     }
   return found;

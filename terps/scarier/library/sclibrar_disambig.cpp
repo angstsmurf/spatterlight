@@ -509,17 +509,19 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
  * (two-verb lines, the verb hoist, sitstand) test the masked copy, so the
  * "pick" of an ice pick, the "drop" of a cough drop or the "stand" of a hat
  * stand is no verb: `x ice pick` examines it, where the ports answered
- * "Take what?".
+ * "Take what?".  OBJECTS_ONLY leaves character names standing, for the
+ * tests that ask whether the line names a character at all.
  */
 std::string
-lib_mask_long_names (scr_gameref_t game, const scr_char *line)
+lib_mask_long_names (scr_gameref_t game, const scr_char *line,
+                     scr_bool objects_only)
 {
   static const scr_char *const CATEGORIES[] = { "Objects", "NPCs" };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   std::string masked (line ? line : "");
   size_t category;
 
-  for (category = 0; category < 2; category++)
+  for (category = 0; category < (objects_only ? 1u : 2u); category++)
     {
       const scr_char *const kind = CATEGORIES[category];
       const scr_int count = category == 0 ? gs_object_count (game)
