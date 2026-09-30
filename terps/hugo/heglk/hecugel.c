@@ -552,11 +552,16 @@ int hugo_color(int c)
             LOG("Unmapped color %d\n", c);
     }
 
+    /* A window's own default colors go to the GUI as zcolor_Default, which it
+       resolves against the theme when it draws, so that text follows a
+       light/dark switch. A default text color used to be passed as a default
+       only when the background was a default too; with a custom background it
+       was fixed at gfgcol/gsfgcol, and that text kept the old side's color. */
     if (wins[curwin].win || (statuswin && curwin == statuswin))
     {
         if (curwin == statuswin || wins[curwin].win->type == wintype_TextGrid)
         {
-            if (c == DEF_SLFCOLOR && wins[curwin].fg == DEF_SLFCOLOR && wins[curwin].bg == DEF_SLBGCOLOR)
+            if (c == DEF_SLFCOLOR && wins[curwin].fg == DEF_SLFCOLOR)
             {
                 return zcolor_Default;
             }
@@ -564,7 +569,7 @@ int hugo_color(int c)
                 return zcolor_Default;
             }
         } else {
-            if (c == DEF_FCOLOR  && wins[curwin].fg == DEF_FCOLOR && wins[curwin].bg == DEF_BGCOLOR)
+            if (c == DEF_FCOLOR && wins[curwin].fg == DEF_FCOLOR)
             {
                 return zcolor_Default;
             }

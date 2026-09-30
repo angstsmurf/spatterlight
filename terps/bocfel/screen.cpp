@@ -676,14 +676,34 @@ static glui32 zcolor_map[] = {
 #ifdef SPATTERLIGHT
 glui32 user_selected_foreground = 0, user_selected_background = 0xffffff;
 
+// Whether user_selected_foreground/background, and the
+// SPATTERLIGHT_CURRENT_FOREGROUND palette slot, are Spatterlight's theme colors
+// (gfgcol/gbgcol) rather than colors the player picked in the game. Theme
+// colors change with the light/dark side, so they are re-read from
+// gfgcol/gbgcol, which every arrange event updates, instead of being compared
+// against them: after a switch the stored values no longer match, and
+// init_screen() used to take that to mean the player had chosen them.
+static bool user_colours_follow_theme = true;
+
+static bool colour_index_follows_theme(uint16_t idx) {
+    return idx == DEFAULT_COLOUR || idx == SPATTERLIGHT_CURRENT_FOREGROUND || idx == SPATTERLIGHT_CURRENT_BACKGROUND;
+}
+
 void update_user_defined_colours(void) {
     if (fg_global_idx == 0 || bg_global_idx == 0) {
         user_selected_foreground = gfgcol;
         user_selected_background = gbgcol;
+        user_colours_follow_theme = true;
         return;
     }
-    user_selected_foreground = zcolor_map[get_global(fg_global_idx)];
-    user_selected_background = zcolor_map[get_global(bg_global_idx)];
+    uint16_t fg_idx = get_global(fg_global_idx);
+    uint16_t bg_idx = get_global(bg_global_idx);
+    if (user_colours_follow_theme) {
+        update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
+    }
+    user_colours_follow_theme = colour_index_follows_theme(fg_idx) && colour_index_follows_theme(bg_idx);
+    user_selected_foreground = zcolor_map[fg_idx];
+    user_selected_background = zcolor_map[bg_idx];
     if (user_selected_foreground == zcolor_Default) {
         user_selected_foreground = gfgcol;
     }
@@ -6579,14 +6599,13 @@ void init_screen(bool first_run)
     uint8_t fg = DEFAULT_COLOUR;
     uint8_t bg = DEFAULT_COLOUR;
 
-    bool colours_are_default = (first_run ||
-                                (user_selected_foreground == gfgcol &&
-                                 user_selected_background == gbgcol));
+    bool colours_are_default = (first_run || user_colours_follow_theme);
 
     if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
         if (first_run) {
             user_selected_foreground = gfgcol;
             user_selected_background = gbgcol;
+            user_colours_follow_theme = true;
             update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
             update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
         } else {
