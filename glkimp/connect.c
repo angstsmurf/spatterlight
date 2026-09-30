@@ -282,10 +282,10 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
         bufferlen = 0;
     }
 
-    if (color == zcolor_Default) {
-        color = gbgcol;
-        fprintf(stderr, "win_fillrect called with color zcolor_Default!\n");
-    }
+    /* zcolor_Default (from glk_window_erase_rect on a window whose
+       background is the default) goes to the GUI as it is, which resolves it
+       against the theme when it draws. Turning it into gbgcol here fixed the
+       color the theme had when the game asked. */
 
     if (color == zcolor_Cursor || color == zcolor_Current || color == zcolor_Transparent) {
         fprintf(stderr, "win_fillrect called with illegal zcolor! (%d)\n", color);

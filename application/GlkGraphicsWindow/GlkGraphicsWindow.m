@@ -217,11 +217,19 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         unionRect.origin.y = rects[0].y;
     }
     [_image lockFocus];
-    uint32_t current_color = zcolor_Default;
+    uint32_t current_color = 0;
+    BOOL color_set = NO;
     for (i = 0; i < count; i++) {
-        if (current_color != rects[i].color)
-            [[NSColor colorFromInteger:rects[i].color] set];
+        if (!color_set || current_color != rects[i].color) {
+            // The window's default background is resolved against the theme
+            // now, not when the game asked (see win_fillrect).
+            if (rects[i].color == zcolor_Default)
+                [self.glkctl.theme.bufferBackground set];
+            else
+                [[NSColor colorFromInteger:rects[i].color] set];
+        }
         current_color = rects[i].color;
+        color_set = YES;
         NSRect rect = [self florpCoords:NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h)];
         NSRectFill(rect);
         unionRect = NSUnionRect(unionRect, rect);
