@@ -575,7 +575,14 @@ lib_try_game_command_common (scr_gameref_t game,
                : (lib_rebuilt_raw_dispatch
                   ? lib_run_rebuilt_line_400 (game, command)
                   : run_game_task_commands (game, command));
-      if (!status && !use_definite
+      /*
+       * Deliberate deviation (2026-09-30): on a line no task matches
+       * strictly, the definite rebuild gets the prefix-less retry too.
+       * run400's take piece offers the tasks only "get the X" (9298e56b0),
+       * so `take mailbox` went past an author's literal `get mailbox` task
+       * and its "bolted to the post" restriction, and took the mailbox.
+       */
+      if (!status && (!use_definite || run_lenient_task_matching ())
           && !lib_object_short_name_is_ambiguous (game, object))
         {
           snprintf (command,
@@ -803,6 +810,40 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
   lib_rebuilt_silent_continues = TRUE;
   status = lib_try_game_command_short (game, "get", object);
   run_set_task_class_filter (1);
+
+  /*
+   * Deliberate deviation (2026-09-30): the "from" retry is skipped when
+   * "get <parent>" alone already matches a task, which is then the
+   * parent's task and not the object's.  run400 lets warlord's `get
+   * *stove*` ("The stove is bolted to the floor.") answer `get treat` for
+   * the treat on the stove, so the treat, the bone and the cudgel could
+   * never be taken (0806086b4).  Only a task that names the parent and not
+   * the object counts: humbug's `[get/take] {a/the} %object% {from
+   * [dennis/fireman]}` matches "get table" and "get token" alike, and must
+   * not keep `get token` from its `get * token from * table`.
+   */
+  if (!status)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      const scr_char *parent_name =
+          prop_get_indexed_string (bundle, "Objects", parent, "Short");
+      const scr_char *object_name =
+          prop_get_indexed_string (bundle, "Objects", object, "Short");
+      const std::string parent_line = std::string ("get ")
+                                      + (parent_name ? parent_name : "");
+      const std::string object_line = std::string ("get ")
+                                      + (object_name ? object_name : "");
+
+      if (parent_name
+          && run_line_matches_task_strictly (game, parent_line.c_str (),
+                                             object_line.c_str ()))
+        {
+          lib_rebuilt_silent_continues = FALSE;
+          lib_rebuilt_raw_dispatch = FALSE;
+          run_set_task_class_filter (0);
+          return FALSE;
+        }
+    }
   if (!status)
     status = lib_try_game_command_common (game, "get", object, "from", parent,
                                           TRUE, FALSE, FALSE, TRUE);

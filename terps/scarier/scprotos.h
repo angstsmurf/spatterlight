@@ -769,6 +769,9 @@ extern scr_bool lib_move_what_after_silent_task_pre400 (scr_gameref_t game);
 extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
                                            const scr_char *line);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
+extern scr_bool run_line_matches_task_strictly (scr_gameref_t game,
+                                                const scr_char *string,
+                                                const scr_char *except = NULL);
 enum { LIB_NAME_MASK = '#' };
 extern std::string lib_mask_long_names (scr_gameref_t game,
                                         const scr_char *line,

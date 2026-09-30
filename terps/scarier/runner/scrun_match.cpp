@@ -1852,9 +1852,13 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
  *
  * The walk is a peek: the references it binds are put back, so the real
  * dispatch starts from the state it always did.
+ *
+ * With EXCEPT, a task counts only if no command of it matches EXCEPT too,
+ * so a catch-all task that would take either line is passed over.
  */
 scr_bool
-run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string)
+run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
+                                const scr_char *except)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const std::vector<scr_bool> object_references = game->object_references;
@@ -1873,6 +1877,10 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string)
         continue;
       matched = run_match_task_commands (game, task, string, TRUE, FALSE)
                 || run_match_task_commands (game, task, string, FALSE, FALSE);
+      if (matched && except)
+        matched = !run_match_task_commands (game, task, except, TRUE, FALSE)
+                  && !run_match_task_commands (game, task, except,
+                                               FALSE, FALSE);
     }
 
   game->object_references = object_references;
