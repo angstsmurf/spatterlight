@@ -367,8 +367,25 @@ gs_carried_weight (scr_gameref_t gs)
 scr_int
 gs_carried_size (scr_gameref_t gs)
 {
+  scr_int possessed = 0, object;
+
   assert (gs_is_game_valid (gs));
-  return gs->carried_size;
+
+  /*
+   * Deliberate deviation (2026-09-30).  run400 takes only a container's OWN
+   * size off the running total when it leaves the player, so whatever was
+   * put inside it stays charged for good (e66709de2): `take bag`, `take
+   * rock`, `put rock in bag`, `drop bag` leaves 3 on `count` with empty
+   * hands, and every such drop brings "hands are full" nearer.  The total
+   * is capped at what the player still possesses by the same rule, so the
+   * Runner's own count stands everywhere it does not leak.
+   */
+  for (object = 0; object < gs->object_count; object++)
+    {
+      if (gs_runner_possessed (gs, object) && !gs_runner_worn (gs, object))
+        possessed += obj_get_size (gs, object);
+    }
+  return gs->carried_size < possessed ? gs->carried_size : possessed;
 }
 
 void
