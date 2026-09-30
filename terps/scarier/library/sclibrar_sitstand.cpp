@@ -519,12 +519,20 @@ lib_cmd_get_on_object (scr_gameref_t game)
  * runner_probes/sit.run390.sit3.txt, run400x
  * runner_probes/sit.run400.sit3.txt, 2026-09-19).
  */
+/*
+ * Deliberate deviation (2026-09-30): the floor rows answer every line they
+ * match, so `lie on floor`, `stand on the ground` and a pre-3.9 `sit on the
+ * floor` lie, stand or sit as they did before a1183ae58, instead of "You
+ * can't lie on that.".  The Runner rule is kept here for reference.
+ */
 static scr_bool
 lib_floor_named (void)
 {
   const scr_char *line = run_get_dispatch_input ();
 
-  return line && (lib_co_contains (line, "on") || lib_co_contains (line, "in"));
+  return FALSE
+         && line && (lib_co_contains (line, "on")
+                     || lib_co_contains (line, "in"));
 }
 
 scr_bool

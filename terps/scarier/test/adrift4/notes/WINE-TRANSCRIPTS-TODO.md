@@ -1369,6 +1369,10 @@ case, and their goldens are re-blessed. The row notes in
   - Not changed: a 3.7/3.8 Obj2 restriction on a static object still fails
     (985d3a092). b607dd8 tested the preceding dynamic object instead, which
     only happened to suit twilight; PATCH_TWILIGHT covers that game.
+  - The floor rows answer `lie on floor`, `stand on the ground` and a
+    pre-3.9 `sit on the floor` (lib_floor_named()). The Runners give lie,
+    stand and pre-3.9 sit no arm for "on/in the floor", so those lines were
+    "You can't lie on that." (a1183ae58).
 ---
 
 ## Rules measured and ported (index)
