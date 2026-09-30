@@ -88,15 +88,47 @@ lib_wield_names_object (scr_gameref_t game, scr_int object,
   at = line.find ("wield");
   wield_at = at == std::string::npos ? 0 : (scr_int) at + 1;
 
+  /*
+   * Deliberate deviation (2026-09-30): the names are lower-cased like the
+   * line, and every Alias counts.  The Runner's test finds a Short or first
+   * Alias as authored in the lower-cased line, so a weapon called
+   * "Excalibur" or "Sword" could never be wielded, and neither could one
+   * named by its second Alias (bec2def78).
+   */
+  auto lowered = [] (const scr_char *name) -> std::string
+    {
+      std::string text (name ? name : "");
+
+      for (char &c : text)
+        c = scr_tolower (c);
+      return text;
+    };
+
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  at = line.find (shortname ? shortname : "");
+  at = line.find (lowered (shortname));
   short_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+  if (short_at > wield_at)
+    return TRUE;
 
-  alias = lib_first_alias (bundle, vt_key, "Objects", object);
-  at = line.find (alias ? alias : "");
-  alias_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+  alias_at = 0;
+  {
+    const scr_int alias_count = lib_alias_prepare (bundle, vt_key, "Objects",
+                                                   object);
+    scr_int index_;
 
-  return short_at > wield_at || alias_at > wield_at;
+    for (index_ = 0; index_ < alias_count; index_++)
+      {
+        vt_key[3].integer = index_;
+        alias = prop_get_string (bundle, "S<-sisi", vt_key);
+        if (scr_strempty (alias))
+          continue;
+        at = line.find (lowered (alias));
+        alias_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+        if (alias_at > wield_at)
+          return TRUE;
+      }
+  }
+  return FALSE;
 }
 
 static void
