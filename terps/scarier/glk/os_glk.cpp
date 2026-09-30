@@ -732,7 +732,7 @@ gsc_get_ending_option (void)
  *    each is a single bad field, so the patch table repairs them instead and
  *    they are not listed below: one notice, and no session-wide change to
  *    spent-task handling.  After "glk patches off" their walls are back, and
- *    "glk repeatassist on" is then the way past them.
+ *    "glk assist repeat on" is then the way past them.
  *  - Room assist.  A task left set to run in no room at all.  Space Run's
  *    ending is behind one; in The Hangover it is the doctor taking the fries
  *    (5/7 without, 6/7 with -- a separate bug still blocks the last point).
@@ -749,7 +749,7 @@ gsc_get_ending_option (void)
  * legacy hit model.
  *
  * For these known games the matching assists default to on, applied at game
- * start; "glk <assist> off" still turns each one off, and a one-line notice is
+ * start; "glk assist <name> off" still turns each one off, and a one-line notice is
  * printed at startup (see gsc_main).
  *
  * Games are recognised by the TAF's GameName and GameAuthor, compared
@@ -817,15 +817,15 @@ typedef const struct
 } gsc_assist_switch_t;
 
 static gsc_assist_switch_t GSC_ASSIST_SWITCHES[] = {
-  {GSC_ASSIST_COMBAT, "combat assist", "glk combatassist off",
+  {GSC_ASSIST_COMBAT, "combat assist", "glk assist combat off",
    scr_get_combat_assist, scr_set_combat_assist},
-  {GSC_ASSIST_MOVE, "move assist", "glk moveassist off",
+  {GSC_ASSIST_MOVE, "move assist", "glk assist move off",
    scr_get_move_assist, scr_set_move_assist},
-  {GSC_ASSIST_REPEAT, "repeat assist", "glk repeatassist off",
+  {GSC_ASSIST_REPEAT, "repeat assist", "glk assist repeat off",
    scr_get_repeat_assist, scr_set_repeat_assist},
-  {GSC_ASSIST_ROOM, "room assist", "glk roomassist off",
+  {GSC_ASSIST_ROOM, "room assist", "glk assist room off",
    scr_get_room_assist, scr_set_room_assist},
-  {GSC_ASSIST_CAPACITY, "carrying capacity recompute", "glk capacity off",
+  {GSC_ASSIST_CAPACITY, "carrying capacity recompute", "glk assist capacity off",
    gsc_get_capacity, gsc_set_capacity},
   {0, NULL, NULL, NULL, NULL}
 };

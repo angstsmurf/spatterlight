@@ -291,15 +291,42 @@ gsc_command_abbreviations (const char *argument)
 
 
 /*
- * gsc_command_capacity()
+ * gsc_command_assist()
  *
- * Select how the player's carried load is accounted for.  When off (the
- * default) Scarier mirrors the real ADRIFT Runner, keeping a running total
- * updated on take and drop.  When on, Scarier recomputes the load afresh from
- * the objects currently held on each check (legacy SCARE behaviour).
+ * The optional assists, deliberately non-faithful aids for games broken by
+ * their own data, switched as "glk assist <name> [on | off]":
  *
- * Only run400 keeps a running total, so the switch bites only in a 4.0 game;
- * see obj_uses_running_load() for the probe that establishes that.
+ *  - combat: amateur games that left every character's Accuracy and Agility
+ *    unconfigured (0), so the 4.0 "accuracy > agility" hit test (0 > 0) never
+ *    lands and combat stalemates forever.  Such fully-unconfigured games get
+ *    an automatic hit, letting combat play out on the author's
+ *    strength-vs-defence basis; games that do configure combat (e.g. Sun
+ *    Empire) are never affected.
+ *  - move: native-4.0 games authored with a move task action's "To:" combo
+ *    left at VB's default -1 (the destination room sitting in Var3).  The
+ *    Runner silently ignores such a move, which in e.g. To Hell & Beyond
+ *    traps the player in the mansion; an unset move whose Var3 names a real
+ *    room is honoured as "to room".
+ *  - repeat: pre-4.0 games where a finished task claims a command the player
+ *    needs again, answering "You have already done that." (or the task's
+ *    RepeatText) ahead of movement and the library, which in e.g. The Long
+ *    Journey Home and Inverness Castle blocks the only way on.  Those
+ *    commands go on to the ordinary handlers; 4.0 games are unaffected.
+ *  - room: a task whose Where room list was left set to no rooms at all,
+ *    which the Runner can never run ("You can't do that here!"); such tasks
+ *    may run in every room.
+ *  - capacity: how the player's carried load is accounted for.  Off, Scarier
+ *    mirrors the Runner's running total, updated on take and drop; on, it
+ *    recomputes the load afresh from the objects held on each check (legacy
+ *    SCARE behaviour).  Only run400 keeps a running total, so the switch
+ *    bites only in a 4.0 game; see obj_uses_running_load().  It helps one
+ *    known game and breaks another's route, so it is left unlisted: not
+ *    offered in the synopsis or help, and reported only while it is on.
+ *
+ * All are off by default, and switched on per game at startup by the
+ * known-game table in os_glk.cpp.  Each was once a command of its own, and
+ * the old names -- combatassist, moveassist, repeatassist, roomassist and
+ * capacity -- remain as aliases.
  */
 scr_bool
 gsc_get_capacity (void)
@@ -313,111 +340,149 @@ gsc_set_capacity (scr_bool state)
   scr_set_game_capacity_recompute (gsc_game, state);
 }
 
-static void
-gsc_command_capacity (const char *argument)
+typedef const struct
 {
-  gsc_command_toggle (argument, "capacity",
-                      "Glk carrying capacity recompute is",
-                      scr_get_game_capacity_recompute (gsc_game),
-                      gsc_set_capacity,
-                      "; the load is summed afresh from held objects on each"
-                      " check (legacy SCARE behaviour).\n",
-                      "; a running total is kept as the original ADRIFT Runner"
-                      " does.\n", FALSE);
+  const char * const name;        /* Word after "glk assist". */
+  const char * const alias;       /* The command it used to be. */
+  const char * const label;       /* Opens its messages, with the verb. */
+  scr_bool (* const get_state) (void);
+  void (* const set_state) (scr_bool);
+  const char * const on_detail;
+  const char * const off_detail;
+  const scr_bool unlisted;        /* Left out of the synopsis and help. */
+} gsc_assist_t;
+
+static gsc_assist_t GSC_ASSISTS[] = {
+  {"combat", "combatassist", "Glk combat assist is",
+   scr_get_combat_assist, scr_set_combat_assist,
+   ".  Note this deviates from the original ADRIFT Runner and is intended"
+   " only for games whose combat data is broken (every character's Accuracy"
+   " and Agility left at 0).  It takes effect for the next fight; games that"
+   " configure combat are unaffected.\n",
+   "; combat matches the original ADRIFT Runner.\n", FALSE},
+  {"move", "moveassist", "Glk move assist is",
+   scr_get_move_assist, scr_set_move_assist,
+   ".  Note this deviates from the original ADRIFT Runner and is intended"
+   " only for games with a broken move task (a destination room left unset)"
+   " that would otherwise be unwinnable.\n",
+   "; moves match the original ADRIFT Runner.\n", FALSE},
+  {"repeat", "repeatassist", "Glk repeat assist is",
+   scr_get_repeat_assist, scr_set_repeat_assist,
+   ".  Note this deviates from the original ADRIFT Runner and is intended"
+   " only for pre-4.0 games where a finished task blocks a command, such as"
+   " an exit, that the game needs again.\n",
+   "; finished tasks behave as in the original ADRIFT Runner.\n", FALSE},
+  {"room", "roomassist", "Glk room assist is",
+   scr_get_room_assist, scr_set_room_assist,
+   ".  Note this deviates from the original ADRIFT Runner and is intended"
+   " only for games with a task that was left set to run in no room at"
+   " all.\n",
+   "; tasks run only where the original ADRIFT Runner runs them.\n", FALSE},
+  {"capacity", "capacity", "Glk carrying capacity recompute is",
+   gsc_get_capacity, gsc_set_capacity,
+   "; the load is summed afresh from held objects on each check (legacy"
+   " SCARE behaviour).\n",
+   "; a running total is kept as the original ADRIFT Runner does.\n", TRUE},
+  {NULL, NULL, NULL, NULL, NULL, NULL, NULL, FALSE}
+};
+
+static void
+gsc_assist_toggle (gsc_assist_t *assist, const char *argument,
+                   const char *command)
+{
+  gsc_command_toggle (argument, command, assist->label, assist->get_state (),
+                      assist->set_state, assist->on_detail, assist->off_detail,
+                      FALSE);
 }
 
+static void
+gsc_command_assist (const char *argument)
+{
+  gsc_assist_t *assist, *matched;
+  size_t length;
+  int matches;
 
-/*
- * gsc_command_combat_assist()
- *
- * Turn the optional Battle-System combat assist on and off.  This is a
- * deliberately non-faithful aid for amateur ADRIFT games that left every
- * character's Accuracy and Agility unconfigured (0), so the 4.0 "accuracy >
- * agility" hit test (0 > 0) never lands and combat stalemates forever.  When on,
- * such fully-unconfigured games get an automatic hit, letting combat play out on
- * the author's strength-vs-defence basis.  Games that do configure combat (e.g.
- * Sun Empire) are never affected.  Off by default.
- */
+  assert (argument);
+
+  /* A bare "glk assist", or "status", reports each listed assist, and an
+     unlisted one only while it is on, so a player who has it can see it. */
+  if (strlen (argument) == 0 || scr_strcasecmp (argument, "status") == 0)
+    {
+      for (assist = GSC_ASSISTS; assist->name; assist++)
+        {
+          if (!assist->unlisted || assist->get_state ())
+            gsc_assist_toggle (assist, "", "assist");
+        }
+      return;
+    }
+
+  /* The first word names the assist, allowing abbreviation; an exact
+     spelling wins outright, as for the commands themselves. */
+  length = strcspn (argument, "\t ");
+  matched = NULL;
+  matches = 0;
+  for (assist = GSC_ASSISTS; assist->name; assist++)
+    {
+      if (length == strlen (assist->name)
+          && scr_strncasecmp (argument, assist->name, length) == 0)
+        {
+          matched = assist;
+          matches = 1;
+          break;
+        }
+      if (scr_strncasecmp (argument, assist->name, length) == 0)
+        {
+          matched = assist;
+          matches++;
+        }
+    }
+  if (matches != 1)
+    {
+      gsc_command_usage ("assist");
+      return;
+    }
+
+  argument += length;
+  argument += strspn (argument, "\t ");
+  gsc_assist_toggle (matched, argument, "assist");
+}
+
+/* The old names, each one assist's toggle as a command of its own. */
+static void
+gsc_command_assist_alias (int index_, const char *argument)
+{
+  gsc_assist_toggle (GSC_ASSISTS + index_, argument,
+                     GSC_ASSISTS[index_].alias);
+}
+
 static void
 gsc_command_combat_assist (const char *argument)
 {
-  gsc_command_toggle (argument, "combatassist", "Glk combat assist is",
-                      scr_get_combat_assist (), scr_set_combat_assist,
-                      ".  Note this deviates from the original ADRIFT Runner"
-                      " and is intended only for games whose combat data is"
-                      " broken (every character's Accuracy and Agility left at"
-                      " 0).  It takes effect for the next fight; games that"
-                      " configure combat are unaffected.\n",
-                      "; combat matches the original ADRIFT Runner.\n", FALSE);
+  gsc_command_assist_alias (0, argument);
 }
 
-
-/*
- * gsc_command_move_assist()
- *
- * Turn the optional move assist on and off.  This is a deliberately non-faithful
- * aid for a few native-4.0 games authored with a move task action's "To:" combo
- * left at VB's default -1 (the destination room sitting in Var3).  The reference
- * Runner silently ignores such a move, which in e.g. To Hell & Beyond traps the
- * player in the mansion.  When on, an unset (-1) move whose Var3 names a real
- * room is honoured as "to room".  Off by default.
- */
 static void
 gsc_command_move_assist (const char *argument)
 {
-  gsc_command_toggle (argument, "moveassist", "Glk move assist is",
-                      scr_get_move_assist (), scr_set_move_assist,
-                      ".  Note this deviates from the original ADRIFT Runner"
-                      " and is intended only for games with a broken move task"
-                      " (a destination room left unset) that would otherwise be"
-                      " unwinnable.\n",
-                      "; moves match the original ADRIFT Runner.\n", FALSE);
+  gsc_command_assist_alias (1, argument);
 }
 
-
-/*
- * gsc_command_repeat_assist()
- *
- * Turn the optional repeat assist on and off.  This is a deliberately
- * non-faithful aid for pre-4.0 games where a finished task claims a command
- * the player needs again: the Runner answers "You have already done that."
- * (or the task's RepeatText) ahead of movement and the library, which in e.g.
- * The Long Journey Home and Inverness Castle blocks the only way on.  When
- * on, those commands go on to the ordinary handlers.  Off by default; 4.0
- * games are unaffected.
- */
 static void
 gsc_command_repeat_assist (const char *argument)
 {
-  gsc_command_toggle (argument, "repeatassist", "Glk repeat assist is",
-                      scr_get_repeat_assist (), scr_set_repeat_assist,
-                      ".  Note this deviates from the original ADRIFT Runner"
-                      " and is intended only for pre-4.0 games where a"
-                      " finished task blocks a command, such as an exit, that"
-                      " the game needs again.\n",
-                      "; finished tasks behave as in the original ADRIFT"
-                      " Runner.\n", FALSE);
+  gsc_command_assist_alias (2, argument);
 }
 
-
-/*
- * gsc_command_room_assist()
- *
- * Turn the optional room assist on and off.  This is a deliberately
- * non-faithful aid for games with a task whose Where room list was left set
- * to no rooms at all, which the Runner can never run ("You can't do that
- * here!").  When on, such tasks may run in every room.  Off by default.
- */
 static void
 gsc_command_room_assist (const char *argument)
 {
-  gsc_command_toggle (argument, "roomassist", "Glk room assist is",
-                      scr_get_room_assist (), scr_set_room_assist,
-                      ".  Note this deviates from the original ADRIFT Runner"
-                      " and is intended only for games with a task that was"
-                      " left set to run in no room at all.\n",
-                      "; tasks run only where the original ADRIFT Runner"
-                      " runs them.\n", FALSE);
+  gsc_command_assist_alias (3, argument);
+}
+
+static void
+gsc_command_capacity (const char *argument)
+{
+  gsc_command_assist_alias (4, argument);
 }
 
 
@@ -1208,6 +1273,10 @@ static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
                                              "colour [on | off]",
                                              "zoom [in | out | auto]", NULL};
+static const char * const GSC_USAGE_ASSIST[] = {"combat [on | off]",
+                                               "move [on | off]",
+                                               "repeat [on | off]",
+                                               "room [on | off]", NULL};
 static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
 
 /* The "glk help" entry for each command, printed by gsc_command_help().  Text
@@ -1289,7 +1358,8 @@ static const char GSC_HELP_CAPACITY[] =
   "By default Scarier keeps a running total as you take and drop, like the"
   " ADRIFT Runner.  Use `glk capacity on` to recompute it instead from what"
   " you are holding (legacy SCARE behaviour), and `glk capacity off` to go"
-  " back.  It changes when a take is refused as too much to carry, and what"
+  " back; `glk assist capacity on` and `off` do the same.  It changes when a"
+  " take is refused as too much to carry, and what"
   " `count` reports.  Only a 4.0 Runner keeps such a total; earlier ones"
   " recompute anyway, so for a 3.7, 3.8 or 3.9 game the setting does"
   " nothing.  For a game known to be uncompletable without it, it is"
@@ -1308,48 +1378,31 @@ static const char GSC_HELP_PATCHES[] =
   " runs unaltered.  Reload the game for a change to this setting to take"
   " effect.\n";
 
-static const char GSC_HELP_COMBAT_ASSIST[] =
-  "Helps with broken combat.\n\n"
-  "Some amateur ADRIFT games left every character's Accuracy and Agility at"
-  " 0, so no attack ever lands and combat stalemates forever.  Use `glk"
-  " combatassist on` to give such games an automatic hit, letting combat"
-  " play out on the author's strength-vs-defence basis, and `glk"
-  " combatassist off` to turn it off.  This deliberately deviates from the"
-  " original ADRIFT Runner; games that do configure combat are never"
-  " affected.  For a few games known to be uncompletable without it, the"
-  " assist is switched on automatically at startup.\n";
-
-static const char GSC_HELP_MOVE_ASSIST[] =
-  "Helps with a broken move task.\n\n"
-  "A few games were authored with a move's destination room left unset; the"
-  " original ADRIFT Runner ignores such a move, which can make the game"
-  " impossible to finish.  Use `glk moveassist on` to honour these moves to"
-  " the named room, and `glk moveassist off` to turn it off.  This"
-  " deliberately deviates from the original ADRIFT Runner.  For a few games"
-  " known to be uncompletable without it, the assist is switched on"
-  " automatically at startup.\n";
-
-static const char GSC_HELP_REPEAT_ASSIST[] =
-  "Helps with a finished task that blocks the way.\n\n"
-  "In games made with ADRIFT 3.9 or earlier, a task that has been done"
-  " answers every later command that matches it with \"You have already"
-  " done that.\", even when that command is a move the game needs again,"
-  " which can make the game impossible to finish.  Use `glk repeatassist"
-  " on` to let such commands through to movement and the other built-in"
-  " commands, and `glk repeatassist off` to turn it off.  This deliberately"
-  " deviates from the original ADRIFT Runner, and does nothing in a 4.0"
-  " game.  For a few games known to be uncompletable without it, the assist"
-  " is switched on automatically at startup.\n";
-
-static const char GSC_HELP_ROOM_ASSIST[] =
-  "Helps with a task that can never run.\n\n"
-  "A few games were authored with a task set to run in no room at all; the"
-  " original ADRIFT Runner answers it with \"You can't do that here!\""
-  " wherever you are, which can make the game impossible to finish.  Use"
-  " `glk roomassist on` to let such tasks run in every room, and `glk"
-  " roomassist off` to turn it off.  This deliberately deviates from the"
-  " original ADRIFT Runner.  For a few games known to be uncompletable"
-  " without it, the assist is switched on automatically at startup.\n";
+static const char GSC_HELP_ASSIST[] =
+  "Helps with games broken by their own data.\n\n"
+  "A few ADRIFT games cannot be finished in the original ADRIFT Runner"
+  " because of the way they were written.  Each assist works around one"
+  " such problem, and deliberately deviates from the Runner to do it:\n\n"
+  "`combat` -- every character's Accuracy and Agility were left at 0, so no"
+  " attack ever lands and combat stalemates forever.  The assist gives an"
+  " automatic hit, letting combat play out on the author's"
+  " strength-vs-defence basis.  Games that do configure combat are never"
+  " affected.\n\n"
+  "`move` -- a move's destination room was left unset, and the Runner"
+  " ignores the move.  The assist honours it.\n\n"
+  "`repeat` -- in games made with ADRIFT 3.9 or earlier, a task that has"
+  " been done answers every later command that matches it with \"You have"
+  " already done that.\", even a move the game needs again.  The assist"
+  " lets such commands through to movement and the other built-in"
+  " commands.  It does nothing in a 4.0 game.\n\n"
+  "`room` -- a task was set to run in no room at all, and the Runner"
+  " answers it with \"You can't do that here!\" wherever you are.  The"
+  " assist lets such tasks run in every room.\n\n"
+  "Use `glk assist combat on` to turn an assist on, and `glk assist combat"
+  " off` to turn it off again; plain `glk assist` says which are on.  For a"
+  " few games known to be uncompletable without them, the ones they need"
+  " are switched on automatically at startup.  The older names, as in `glk"
+  " combatassist on`, still work.\n";
 
 static const char GSC_HELP_VERBOSE[] =
   "Controls verbose room descriptions.\n\n"
@@ -1408,8 +1461,7 @@ static void gsc_command_summary (const char *argument);
 
 /* Commands not flagged GSC_CMD_A5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
-   capacity, combatassist, moveassist, repeatassist, roomassist (4.0 Battle
-   System / task quirks), and
+   assist and its aliases (4.0 Battle System / task quirks), and
    verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game).
 
    Entries flagged GSC_CMD_ALIAS are alternative names for a command listed
@@ -1438,21 +1490,28 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   {"abbreviations", gsc_command_abbreviations,
    GSC_CMD_ARGUMENT,
    "abbreviation expansions", GSC_USAGE_ONOFF, GSC_HELP_ABBREVIATIONS},
-  {"capacity", gsc_command_capacity,
+  {"assist", gsc_command_assist,
    GSC_CMD_ARGUMENT,
-   "carrying capacity recompute", GSC_USAGE_ONOFF, GSC_HELP_CAPACITY},
+   "assist", GSC_USAGE_ASSIST, GSC_HELP_ASSIST},
+  /* The assists' names from when each was a command of its own.  capacity
+     is an alias too, though not of a listed assist: it is kept out of the
+     command list and the synopsis, and "glk help capacity" is its only
+     documentation. */
   {"combatassist", gsc_command_combat_assist,
-   GSC_CMD_ARGUMENT,
-   "combat assist", GSC_USAGE_ONOFF, GSC_HELP_COMBAT_ASSIST},
+   GSC_CMD_ARGUMENT | GSC_CMD_ALIAS,
+   "combat assist", GSC_USAGE_ONOFF, GSC_HELP_ASSIST},
   {"moveassist", gsc_command_move_assist,
-   GSC_CMD_ARGUMENT,
-   "move assist", GSC_USAGE_ONOFF, GSC_HELP_MOVE_ASSIST},
+   GSC_CMD_ARGUMENT | GSC_CMD_ALIAS,
+   "move assist", GSC_USAGE_ONOFF, GSC_HELP_ASSIST},
   {"repeatassist", gsc_command_repeat_assist,
-   GSC_CMD_ARGUMENT,
-   "repeat assist", GSC_USAGE_ONOFF, GSC_HELP_REPEAT_ASSIST},
+   GSC_CMD_ARGUMENT | GSC_CMD_ALIAS,
+   "repeat assist", GSC_USAGE_ONOFF, GSC_HELP_ASSIST},
   {"roomassist", gsc_command_room_assist,
-   GSC_CMD_ARGUMENT,
-   "room assist", GSC_USAGE_ONOFF, GSC_HELP_ROOM_ASSIST},
+   GSC_CMD_ARGUMENT | GSC_CMD_ALIAS,
+   "room assist", GSC_USAGE_ONOFF, GSC_HELP_ASSIST},
+  {"capacity", gsc_command_capacity,
+   GSC_CMD_ARGUMENT | GSC_CMD_ALIAS,
+   "carrying capacity recompute", GSC_USAGE_ONOFF, GSC_HELP_CAPACITY},
   {"patches", gsc_command_patches,
    GSC_CMD_ARGUMENT,
    "game patches", GSC_USAGE_ONOFF, GSC_HELP_PATCHES},

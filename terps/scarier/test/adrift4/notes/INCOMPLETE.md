@@ -24,8 +24,9 @@ doesn't.
 
 They are not interchangeable.
 
-- **GLK-layer assists** — `glk combatassist / moveassist / repeatassist /
-  roomassist / capacity on` (harness: `SCR_ASSUME_COMBAT`, `_MOVES`,
+- **GLK-layer assists** — `glk assist combat / move / repeat / room /
+  capacity on` (old names `glk combatassist` etc. kept as aliases; capacity is
+  unlisted in help) (harness: `SCR_ASSUME_COMBAT`, `_MOVES`,
   `_REPEATS`, `_ROOMS`, `_CAPACITY`).  They change ENGINE BEHAVIOUR for one
   session and are deliberate divergences from the Runner.  In the glk build
   eleven known games get the ones they need turned on automatically
@@ -341,7 +342,7 @@ out of the Bozo backyard, the only exit) is spent by the first exit and claims
 the second under the pre-4.0 spent-task rule (run390-measured, ported
 2026-09-13).  The patch ticks T61 Repeatable: its CompleteText says "You enter
 the nightclub again." and its RepeatText is a single space.  With `glk patches
-off`, `glk repeatassist on` is still the way past.
+off`, `glk assist repeat on` is still the way past.
 
 **The Merry Murders** (Merry_Murders.taf) — 120/135 → 135/135.  The second
 archives `n` is claimed by spent T46 ("I have already done that.";
