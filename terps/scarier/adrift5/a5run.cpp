@@ -277,8 +277,19 @@ a5run_turns (a5_run_t *run) { return run->st->turns; }
 
 /* ------------------------------------------------------------- media capture */
 
+static a5run_media_resolver_t a5run_media_resolver = NULL;
+static void *a5run_media_resolver_ctx = NULL;
+
+void
+a5run_set_media_resolver (a5run_media_resolver_t resolver, void *ctx)
+{
+  a5run_media_resolver = resolver;
+  a5run_media_resolver_ctx = ctx;
+}
+
 /* a5text media sink: resolve the src path to a Blorb resource number (via the
-   game's <FileMappings>) and record the event on the run's per-turn list.
+   game's <FileMappings>, then any host resolver) and record the event on the
+   run's per-turn list.
    For an image, returns the resolved number so the renderer can leave a
    positional image mark in interactive mode (see A5_IMG_MARK); for a sound,
    the recorded event's list index, which the renderer likewise leaves as a
@@ -293,6 +304,9 @@ a5run_media_cb (void *ctx, int kind, const char *src, int channel, int loop)
   ev.channel = channel;
   ev.loop = loop;
   ev.number = (src != NULL) ? a5model_resource_for_file (run->adv, src) : -1;
+  if (src != NULL && a5run_media_resolver != NULL)
+    ev.number = a5run_media_resolver (a5run_media_resolver_ctx, src,
+                                      kind == A5_MEDIA_IMAGE, ev.number);
   ev.shown = 0;
   /* A description may be rendered more than once internally during a turn; drop
      an image already recorded this turn so it is not shown twice. */

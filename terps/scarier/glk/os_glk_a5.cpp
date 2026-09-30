@@ -813,11 +813,15 @@ gsc_a5_restore (a5_run_t *run)
 /*  The game file is a Blorb; its Pict/Snd resources are addressed by  */
 /*  the same numbers the engine reports through the media side channel */
 /*  (a5run_media_*).  We register the Blorb as the Glk resource map so */
-/*  glk_image_draw / glk_schannel_play work by resource number.        */
+/*  glk_image_draw / glk_schannel_play work by resource number.  On    */
+/*  Spatterlight, media files beside the game are loaded under numbers */
+/*  of their own (gsc_a5_resolve_media).                               */
 /*---------------------------------------------------------------------*/
 
 int gsc_a5_graphics_ok = FALSE;
 int gsc_a5_sound_ok = FALSE;
+/* Whether the game is a Blorb registered as the resource map. */
+static int gsc_a5_have_blorb = FALSE;
 
 /* One Glk sound channel per ADRIFT audio channel.  The Runner has exactly 8
    (clsSound.vb: Channels(7), numbered 1..8 in the <audio> tag; anything out of
@@ -870,6 +874,32 @@ extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
  * such as Emglken, whose Glk implements glkunix_stream_open_pathname over its
  * own VFS and permits it outside glkunix_startup_code.
  */
+#ifdef SPATTERLIGHT
+/*
+ * gsc_a5_resolve_media()
+ *
+ * The engine's media resolver (a5run_set_media_resolver).  A src the Blorb
+ * holds keeps its <FileMappings> number.  Anything else -- every src of a raw
+ * .taf, or one a Blorb names but never bundled -- is looked for as a file
+ * beside the game, by its last path component, the way os_play_sound finds
+ * an ADRIFT 4 game's unembedded sounds; the Runner itself opens the author's
+ * full path, which exists only on the author's machine.
+ */
+static int
+gsc_a5_resolve_media (void *ctx, const char *src, int is_image, int mapped)
+{
+  glui32 id;
+  (void) ctx;
+
+  if (mapped > 0 && gsc_a5_have_blorb)
+    return mapped;
+  if (is_image ? !gsc_a5_graphics_ok : !gsc_a5_sound_ok)
+    return mapped;
+  id = gsc_load_external_resource (src, !is_image);
+  return id != 0 ? (int) id : mapped;
+}
+#endif
+
 static void
 gsc_a5_init_resources (void)
 {
@@ -877,6 +907,12 @@ gsc_a5_init_resources (void)
 
   gsc_a5_graphics_ok = glk_gestalt (gestalt_Graphics, 0) != 0;
   gsc_a5_sound_ok = glk_gestalt (gestalt_Sound, 0) != 0;
+  gsc_a5_have_blorb = FALSE;
+#ifdef SPATTERLIGHT
+  /* Media files beside the game are usable with or without a Blorb, so
+     losing the resource map below leaves graphics and sound on here. */
+  a5run_set_media_resolver (gsc_a5_resolve_media, NULL);
+#endif
   if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
     return;
 
@@ -885,15 +921,21 @@ gsc_a5_init_resources (void)
     {
       /* The file is unreachable by path (a host that cannot reopen it, or a
          game that has moved since startup): no resource map, so no media. */
+#ifndef SPATTERLIGHT
       gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+#endif
       return;
     }
   if (giblorb_set_resource_map (stream) != giblorb_err_None)
     {
       /* Not a Blorb (e.g. a raw .taf with no resources): no media. */
       glk_stream_close (stream, NULL);
+#ifndef SPATTERLIGHT
       gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+#endif
+      return;
     }
+  gsc_a5_have_blorb = TRUE;
 }
 
 

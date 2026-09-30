@@ -362,6 +362,9 @@ extern void gsc_a5_undo_look (a5_run_t *run);
 extern void gsc_a5_status (a5_run_t *run);
 
 #ifdef SPATTERLIGHT
+/* os_glk_resources.cpp: load a media file from beside the game. */
+extern glui32 gsc_load_external_resource (const char *filepath, int is_sound);
+
 /* os_glk_autosave.cpp: Spatterlight autosave and autorestore. */
 extern void gsc_autosave (void);
 extern bool gsc_sc_apply_all (const std::string &data);

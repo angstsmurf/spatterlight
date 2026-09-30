@@ -84,7 +84,8 @@ extern int   a5run_turns         (a5_run_t *run);
 /* Embedded-media events produced by the most recent a5run_intro / a5run_input,
    in display order, for the host to show images / play sounds.  `kind` is one of
    the A5_MEDIA_* values (a5text.h); `number` is the Blorb resource number (from
-   <FileMappings>), or -1 when unresolved / for sound-stop.  The list is rebuilt
+   <FileMappings>, or the host's media resolver), or -1 when unresolved / for
+   sound-stop.  The list is rebuilt
    each turn; pointers from a5run_media_get are valid until the next turn. */
 typedef struct {
   int kind;          /* A5_MEDIA_IMAGE / A5_MEDIA_SOUND / _SOUND_STOP / _PAUSE   */
@@ -93,6 +94,18 @@ typedef struct {
   int loop;          /* sound loop flag                                         */
   int shown;         /* host bookkeeping: presented at its positional mark      */
 } a5_media_event_t;
+
+/* Optional host hook for media the Blorb may not hold.  When set, every
+   <img>/<audio> src goes through it along with the <FileMappings> number
+   (-1 if none), and whatever it returns becomes the event's number: a host
+   that finds the file on disk -- a raw .taf whose media sit beside it, or a
+   Blorb that names a file it never bundled -- loads it under a resource
+   number of its own and returns that; otherwise it returns `mapped`.  Unset
+   (the default, and the headless harnesses) the mapping is used as is. */
+typedef int (*a5run_media_resolver_t) (void *ctx, const char *src,
+                                       int is_image, int mapped);
+extern void a5run_set_media_resolver (a5run_media_resolver_t resolver,
+                                      void *ctx);
 
 extern int                     a5run_media_count (a5_run_t *run);
 extern const a5_media_event_t *a5run_media_get   (a5_run_t *run, int i);
