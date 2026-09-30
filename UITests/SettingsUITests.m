@@ -176,6 +176,10 @@
     XCTAssert([self waitForElement:copyFromDark toExistWithTimeout:5], @"No Replace with Dark button");
     XCTAssert(copyFromDark.enabled && copyFromLight.enabled, @"Lectrote has different light and dark colors");
     [self captureWindow:settings named:@"1-styles"];
+    [self showTab:@"Themes" inSettings:settings];
+    XCTAssert(settings.images[@"Theme preview"].exists, @"No theme previews in the list of themes");
+    [self captureWindow:settings named:@"1-themes"];
+    [self showStylesTab:settings];
     [self captureWindow:game named:@"1-game"];
 
     [copyFromDark click];

@@ -447,6 +447,8 @@ NSString *fontToString(NSFont *font) {
 
     self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
+    themesTableView.rowSizeStyle = NSTableViewRowSizeStyleCustom;
+    themesTableView.rowHeight = [ThemePreviewView previewSize].height + 2;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
@@ -660,6 +662,10 @@ NSString *fontToString(NSFont *font) {
     return @{ @"gridFont": btnGridFont, @"bufferFont": btnBufferFont, @"anyFont": btnAnyFont,
               @"gridMargin": txtGridMargin, @"bufferMargin": txtBufferMargin,
               @"enableStyles": btnEnableStyles };
+}
+
+- (NSTableView *)themesTable {
+    return themesTableView;
 }
 
 - (NSString *)selectedStyleName {
@@ -2413,6 +2419,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 
     [Preferences rebuildTextAttributes];
+    [self refreshThemePreviews];
 }
 
 // This is sent from the font panel when changing font style there
@@ -2468,6 +2475,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 
     [Preferences rebuildTextAttributes];
+    [self refreshThemePreviews];
 }
 
 // This is sent from the font panel when changing background color there

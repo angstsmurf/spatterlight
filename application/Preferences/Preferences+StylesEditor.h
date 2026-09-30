@@ -18,8 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL dark;
 @end
 
+/// Two small samples of the theme's proportional text: with Dark mode off,
+/// then with it on.
+@interface ThemePreviewView : NSView
+@property (weak, nullable) Theme *theme;
++ (NSSize)previewSize;
+@end
+
 @interface Preferences ()
 - (NSString *)selectedStyleName;
+- (NSTableView *)themesTable;
 @end
 
 @interface Preferences (StylesEditor)
@@ -31,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configureStylesEditor;
 /// Updates the color wells from the current theme.
 - (void)syncStylesEditor;
+/// Redraws the previews in the list of themes, e.g. after a font change.
+- (void)refreshThemePreviews;
 
 /// A label for a row of settings, right-aligned like the others on the tab.
 - (NSTextField *)formLabel:(NSString *)text;

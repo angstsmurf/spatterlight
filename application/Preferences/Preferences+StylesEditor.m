@@ -14,6 +14,83 @@
 @implementation ThemeColorWell
 @end
 
+@implementation ThemePreviewView
+
+static const CGFloat previewTileWidth = 33, previewTileHeight = 24, previewGap = 4, previewTextSize = 15;
+
++ (NSSize)previewSize {
+    return NSMakeSize(previewTileWidth * 2 + previewGap, previewTileHeight);
+}
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        self.toolTip = NSLocalizedString(@"How games using this theme look with Dark mode off, and with Dark mode on.", nil);
+        self.accessibilityElement = YES;
+        self.accessibilityRole = NSAccessibilityImageRole;
+        self.accessibilityLabel = NSLocalizedString(@"Theme preview", nil);
+    }
+    return self;
+}
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
+static NSRect sampleInkBounds(NSFont *font) {
+    return [@"Aa" boundingRectWithSize:NSZeroSize
+                               options:NSStringDrawingUsesDeviceMetrics
+                            attributes:@{ NSFontAttributeName: font }];
+}
+
+// The theme's proportional font, sized so the letters of "Aa" are as tall as
+// in system text of previewTextSize. Measured by the letters rather than the
+// point size, as pixel fonts draw small glyphs on tall lines.
+- (NSFont *)sampleFont {
+    static CGFloat targetHeight;
+    if (!targetHeight)
+        targetHeight = NSHeight(sampleInkBounds([NSFont systemFontOfSize:previewTextSize]));
+    NSFont *font = self.theme.bufferNormal.font ?: [NSFont systemFontOfSize:previewTextSize];
+    font = [NSFont fontWithDescriptor:font.fontDescriptor size:previewTextSize] ?: font;
+    NSRect ink = sampleInkBounds(font);
+    if (NSIsEmptyRect(ink))
+        return font;
+    CGFloat scale = MIN(targetHeight / NSHeight(ink), (previewTileWidth - 7) / NSWidth(ink));
+    return [NSFont fontWithDescriptor:font.fontDescriptor size:previewTextSize * scale] ?: font;
+}
+
+- (void)drawTileInRect:(NSRect)rect paper:(NSColor *)paper ink:(NSColor *)ink font:(NSFont *)font {
+    NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(rect, 0.5, 0.5) xRadius:3 yRadius:3];
+    [(paper ?: NSColor.textBackgroundColor) setFill];
+    [path fill];
+    [[NSColor.labelColor colorWithAlphaComponent:0.25] setStroke];
+    path.lineWidth = 1;
+    [path stroke];
+    NSDictionary *attributes = @{ NSFontAttributeName: font,
+                                  NSForegroundColorAttributeName: ink ?: NSColor.textColor };
+    // Without NSStringDrawingUsesLineFragmentOrigin, the origin is the baseline.
+    NSRect letters = sampleInkBounds(font);
+    NSPoint baseline = NSMakePoint(round(NSMidX(rect) - NSMidX(letters)),
+                                   round(NSMidY(rect) + NSMidY(letters)));
+    [@"Aa" drawWithRect:(NSRect){ baseline, NSZeroSize } options:0 attributes:attributes];
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    Theme *theme = self.theme;
+    if (!theme)
+        return;
+    GlkStyle *normal = theme.bufferNormal;
+    NSColor *lightPaper = theme.bufferBackground;
+    NSColor *darkPaper = theme.bufferBackgroundDark ?: lightPaper;
+    NSColor *lightInk = normal.color;
+    NSColor *darkInk = normal.darkColor ?: lightInk;
+    NSFont *font = [self sampleFont];
+    [self drawTileInRect:NSMakeRect(0, 0, previewTileWidth, previewTileHeight) paper:lightPaper ink:lightInk font:font];
+    [self drawTileInRect:NSMakeRect(previewTileWidth + previewGap, 0, previewTileWidth, previewTileHeight) paper:darkPaper ink:darkInk font:font];
+}
+
+@end
+
 @interface Preferences ()
 @property (strong) IBOutlet NSView *stylesView;
 /// The Glk Styles tab controls that only have instance variable outlets.
@@ -276,6 +353,83 @@ static NSArray<NSString *> *themeColorKeys(void) {
     [self themeColorsDidChange:theme];
 }
 
+#pragma mark Previews in the list of themes
+
+- (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row {
+    if (tableView != self.themesTable)
+        return;
+    NSTableCellView *cell = [rowView viewAtColumn:0];
+    if (![cell isKindOfClass:[NSTableCellView class]])
+        return;
+    ThemePreviewView *preview = nil;
+    for (NSView *view in cell.subviews)
+        if ([view isKindOfClass:[ThemePreviewView class]])
+            preview = (ThemePreviewView *)view;
+    NSSize size = [ThemePreviewView previewSize];
+    if (!preview) {
+        preview = [[ThemePreviewView alloc] initWithFrame:NSMakeRect(4, 0, size.width, size.height)];
+        preview.autoresizingMask = NSViewMinYMargin | NSViewMaxYMargin;
+        [cell addSubview:preview];
+        NSTextField *name = cell.textField;
+        NSRect frame = name.frame;
+        CGFloat inset = NSMaxX(preview.frame) + 6 - NSMinX(frame);
+        frame.origin.x += inset;
+        frame.size.width -= inset;
+        frame.origin.y = floor((NSHeight(cell.bounds) - NSHeight(frame)) / 2);
+        name.frame = frame;
+        name.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin | NSViewMaxYMargin;
+    }
+    [preview setFrameOrigin:NSMakePoint(4, floor((NSHeight(cell.bounds) - size.height) / 2))];
+    preview.theme = cell.objectValue;
+    preview.needsDisplay = YES;
+    if (row == 0)
+        [self placeThemePreviewLegendOver:preview];
+}
+
+// A sun over the tiles with Dark mode off, and a moon over the ones with it on.
+- (void)placeThemePreviewLegendOver:(ThemePreviewView *)preview {
+    if (@available(macOS 11.0, *)) {
+        NSScrollView *scrollView = self.themesTable.enclosingScrollView;
+        NSView *tab = scrollView.superview;
+        if (!tab)
+            return;
+        NSMutableArray<NSImageView *> *legend = objc_getAssociatedObject(self, @selector(placeThemePreviewLegendOver:));
+        if (!legend) {
+            legend = [NSMutableArray new];
+            NSArray *symbols = @[ @[ @"sun.max", NSLocalizedString(@"Dark mode off", nil) ],
+                                  @[ @"moon", NSLocalizedString(@"Dark mode on", nil) ] ];
+            for (NSArray *symbol in symbols) {
+                NSImage *image = [NSImage imageWithSystemSymbolName:symbol[0] accessibilityDescription:symbol[1]];
+                NSImageView *imageView = [NSImageView imageViewWithImage:image];
+                imageView.contentTintColor = NSColor.secondaryLabelColor;
+                imageView.symbolConfiguration = [NSImageSymbolConfiguration configurationWithPointSize:13 weight:NSFontWeightRegular];
+                imageView.toolTip = symbol[1];
+                imageView.autoresizingMask = NSViewMinYMargin;
+                [tab addSubview:imageView];
+                [legend addObject:imageView];
+            }
+            objc_setAssociatedObject(self, @selector(placeThemePreviewLegendOver:), legend, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+        NSRect previewInTab = [preview convertRect:preview.bounds toView:tab];
+        CGFloat tileWidth = (NSWidth(previewInTab) - previewGap) / 2;
+        for (NSUInteger i = 0; i < legend.count; i++) {
+            CGFloat midX = NSMinX(previewInTab) + tileWidth / 2 + i * (tileWidth + previewGap);
+            legend[i].frame = NSMakeRect(round(midX - 9), NSMaxY(scrollView.frame) + 2, 18, 18);
+        }
+    }
+}
+
+- (void)refreshThemePreviews {
+    [self.themesTable enumerateAvailableRowViewsUsingBlock:^(NSTableRowView *rowView, NSInteger row) {
+        NSTableCellView *cell = [rowView viewAtColumn:0];
+        for (NSView *view in cell.subviews)
+            if ([view isKindOfClass:[ThemePreviewView class]]) {
+                ((ThemePreviewView *)view).theme = cell.objectValue;
+                view.needsDisplay = YES;
+            }
+    }];
+}
+
 - (NSTextField *)formLabel:(NSString *)text {
     NSTextField *label = [NSTextField labelWithString:text];
     label.alignment = NSTextAlignmentRight;
@@ -473,6 +627,7 @@ static NSArray<NSString *> *themeColorKeys(void) {
     self.colorsExplanation.stringValue = colorsMatch
         ? NSLocalizedString(@"The light and dark colors are the same, so games look the same with Dark mode on or off.", nil)
         : NSLocalizedString(@"Games show the light colors when Dark mode is off, and the dark colors when it's on.", nil);
+    [self refreshThemePreviews];
     BOOL showLight = [self stylesEditorShowsLightColors];
     BOOL showDark = [self stylesEditorShowsDarkColors];
     for (NSView *view in self.lightColumnViews)

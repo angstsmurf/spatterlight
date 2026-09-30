@@ -16,11 +16,14 @@ static NSString * const SpatterlightPerThemeDarkColorsMigratedKey = @"Spatterlig
 
 @interface Preferences ()
 @property (strong) IBOutlet NSView *stylesView;
+@property (strong) IBOutlet NSView *themesView;
 - (NSString *)themeScopeTitle;
 @end
 
 @interface Preferences (AppearancePrivate)
 @property (nonatomic, strong) NSButton *darkModeSwitch;
+/// The same checkbox on the Themes tab, whose list has previews of both modes.
+@property (nonatomic, strong) NSButton *themesDarkModeSwitch;
 @end
 
 @implementation Preferences (Appearance)
@@ -32,6 +35,13 @@ static NSString * const SpatterlightPerThemeDarkColorsMigratedKey = @"Spatterlig
 }
 - (void)setDarkModeSwitch:(NSButton *)value {
     objc_setAssociatedObject(self, @selector(darkModeSwitch), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSButton *)themesDarkModeSwitch {
+    return objc_getAssociatedObject(self, @selector(themesDarkModeSwitch));
+}
+- (void)setThemesDarkModeSwitch:(NSButton *)value {
+    objc_setAssociatedObject(self, @selector(themesDarkModeSwitch), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - Override API
@@ -259,17 +269,48 @@ static void SPFillDarkColorsFromLight(Theme *theme) {
         [modeSwitch.topAnchor constraintEqualToAnchor:panel.topAnchor constant:topPad],
     ]];
 
+    [self configureThemesTabDarkModeSwitch];
+
     [Preferences applyAppearanceOverrideToApp];
     [self syncDarkModeSwitchFromResolvedMode];
 }
 
-- (void)syncDarkModeSwitchFromResolvedMode {
-    if (!self.darkModeSwitch)
+// Above "Theme setting for all games", under the preview. The tab grows by a
+// row at the top to make room.
+- (void)configureThemesTabDarkModeSwitch {
+    NSView *panel = self.themesView;
+    if (!panel || self.themesDarkModeSwitch)
         return;
+
+    NSButton *modeSwitch = [NSButton checkboxWithTitle:NSLocalizedString(@"Dark mode", nil)
+                                                target:self
+                                                action:@selector(darkModeSwitchChanged:)];
+    modeSwitch.toolTip = NSLocalizedString(@"Show Spatterlight in dark mode. When this matches the system setting, Spatterlight follows the system.", nil);
+    [modeSwitch sizeToFit];
+
+    const CGFloat topPad = 8, rowHeight = NSHeight(modeSwitch.frame) + 8;
+    BOOL autoresizes = panel.autoresizesSubviews;
+    panel.autoresizesSubviews = NO;
+    NSRect frame = panel.frame;
+    frame.size.height += rowHeight;
+    panel.frame = frame;
+    panel.autoresizesSubviews = autoresizes;
+
+    modeSwitch.frame = NSMakeRect(round((NSWidth(frame) - NSWidth(modeSwitch.frame)) / 2),
+                                  NSHeight(frame) - topPad - NSHeight(modeSwitch.frame),
+                                  NSWidth(modeSwitch.frame), NSHeight(modeSwitch.frame));
+    modeSwitch.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+    self.themesDarkModeSwitch = modeSwitch;
+    [panel addSubview:modeSwitch];
+}
+
+- (void)syncDarkModeSwitchFromResolvedMode {
     NSControlStateValue state =
         ([Preferences resolvedAppearance] == kDarkAppearance) ? NSOnState : NSOffState;
     if (self.darkModeSwitch.state != state)
         self.darkModeSwitch.state = state;
+    if (self.themesDarkModeSwitch.state != state)
+        self.themesDarkModeSwitch.state = state;
 }
 
 - (IBAction)darkModeSwitchChanged:(NSButton *)sender {
@@ -293,6 +334,7 @@ static void SPFillDarkColorsFromLight(Theme *theme) {
     else
         [Preferences setAppearanceOverride:(wantDark ? @"dark" : @"light")];
 
+    [self syncDarkModeSwitchFromResolvedMode];
     self.themesHeader.stringValue = [self themeScopeTitle];
 
     [self updatePrefsPanel];
