@@ -85,6 +85,10 @@
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
+    BOOL ignoreTableSelectionChanges;
+    // A clone of a non-editable theme that restoreThemeSelection: has not
+    // selected in the themes table yet.
+    __weak Theme *pendingSelectionTheme;
     NSUInteger restoreSelectionAttempts;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
@@ -399,6 +403,12 @@ NSString *fontToString(NSFont *font) {
         toolbar.selectedItemIdentifier = themesPanel;
 
     _previewShown = [defaults boolForKey:@"ShowThemePreview"];
+
+    // The tool menu is also the contextual menu of the themes table, where
+    // it applies to the clicked theme. Skip the hidden pull-down title item.
+    NSMenu *contextMenu = [_actionButton.menu copy];
+    [contextMenu removeItemAtIndex:0];
+    themesTableView.menu = contextMenu;
 
     if (!_belowView.subviews.count) {
         currentPanel = _themesView;
@@ -1028,6 +1038,14 @@ NSString *fontToString(NSFont *font) {
 
 - (void)restoreThemeSelection:(Theme *)sender {
     ThemeArrayController *arrayController = _arrayController;
+    // A theme cloned outside of event handling, such as in an alert
+    // completion handler, is not in the table until the context has processed
+    // its changes. The selection changes this causes are not user choices.
+    ignoreTableSelectionChanges = YES;
+    [_managedObjectContext processPendingChanges];
+    ignoreTableSelectionChanges = NO;
+    if (sender == pendingSelectionTheme)
+        pendingSelectionTheme = nil;
     if (arrayController.selectedTheme == sender) {
         return;
     }
@@ -1068,12 +1086,24 @@ NSString *fontToString(NSFont *font) {
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
+        if (ignoreTableSelectionChanges)
+            return;
+        // Adding a clone to the table changes the selection, sometimes more
+        // than once, while the original theme is still the selected row. Until
+        // restoreThemeSelection: selects the clone, these are not user choices.
+        // The restore timer does not fire while the color panel tracks a drag,
+        // so theme must stay the clone or every drag step would clone again.
+        if (pendingSelectionTheme && _arrayController.selectedTheme != pendingSelectionTheme)
+            return;
         if (disregardTableSelection == YES) {
             disregardTableSelection = NO;
             return;
         }
 
-        theme = _arrayController.selectedTheme;
+        Theme *selected = _arrayController.selectedTheme;
+        if (!selected)
+            return;
+        theme = selected;
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
@@ -1108,10 +1138,12 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
-    ThemeArrayController *arrayController = _arrayController;
-    NSArray *themes = arrayController.arrangedObjects;
-    for (Theme *aTheme in themes) {
-        if ([aTheme.name isEqualToString:string] && [themes indexOfObject:aTheme] != [themes indexOfObject:arrayController.selectedTheme])
+    return [self notDuplicate:string exceptTheme:_arrayController.selectedTheme];
+}
+
+- (BOOL)notDuplicate:(NSString *)string exceptTheme:(nullable Theme *)exception {
+    for (Theme *aTheme in _arrayController.arrangedObjects) {
+        if ([aTheme.name isEqualToString:string] && aTheme != exception)
             return NO;
     }
     return YES;
@@ -1119,14 +1151,17 @@ NSString *fontToString(NSFont *font) {
 
 - (BOOL)control:(NSControl *)control
 textShouldEndEditing:(NSText *)fieldEditor {
-    if ([self notDuplicate:fieldEditor.string] == NO) {
-        [self showDuplicateThemeNameAlert:fieldEditor];
+    Theme *renamed = [self themeForTableCellSubview:control];
+    if (!renamed)
+        renamed = _arrayController.selectedTheme;
+    if ([self notDuplicate:fieldEditor.string exceptTheme:renamed] == NO) {
+        [self showDuplicateThemeNameAlert:fieldEditor theme:renamed];
         return NO;
     }
     return YES;
 }
 
-- (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor {
+- (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor theme:(Theme *)renamed {
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText =
     [NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", nil), fieldEditor.string];
@@ -1136,7 +1171,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         if (result == NSAlertSecondButtonReturn) {
-            fieldEditor.string = theme.name;
+            fieldEditor.string = renamed.name;
         }
     }];
 }
@@ -1144,8 +1179,33 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
     if ([notification.object isKindOfClass:[NSTextField class]]) {
         NSTextField *textfield = notification.object;
-        [self changeThemeName:textfield.stringValue];
+        // A theme renamed from the contextual menu may not be the current one.
+        Theme *renamed = [self themeForTableCellSubview:textfield];
+        if (!renamed || renamed == theme)
+            [self changeThemeName:textfield.stringValue];
     }
+}
+
+/// The theme of the themes table row that view is in, or nil.
+- (nullable Theme *)themeForTableCellSubview:(NSView *)view {
+    NSInteger row = [themesTableView rowForView:view];
+    NSArray *themes = _arrayController.arrangedObjects;
+    if (row < 0 || row >= (NSInteger)themes.count)
+        return nil;
+    return themes[(NSUInteger)row];
+}
+
+/// The theme that a tool menu command applies to: the clicked row if the
+/// command was chosen from the contextual menu of the themes table,
+/// otherwise the selected theme.
+- (Theme *)themeForMenuCommand:(id)sender {
+    if ([sender isKindOfClass:[NSMenuItem class]] && ((NSMenuItem *)sender).menu == themesTableView.menu) {
+        NSInteger row = themesTableView.clickedRow;
+        NSArray *themes = _arrayController.arrangedObjects;
+        if (row >= 0 && row < (NSInteger)themes.count)
+            return themes[(NSUInteger)row];
+    }
+    return theme;
 }
 
 - (NSArray *)sortDescriptors {
@@ -1354,8 +1414,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSUInteger row = arrayController.selectionIndex - 1;
     if (row >= [arrayController.arrangedObjects count])
         row = 0;
-    [arrayController remove:sender];
-    arrayController.selectionIndex = row;
+    if (pendingSelectionTheme == themeToRemove)
+        pendingSelectionTheme = nil;
+    [arrayController removeObject:themeToRemove];
+    // Select the theme this one was cloned or created from, if it still
+    // exists. Otherwise the theme above the removed one.
+    if (ancestor && [arrayController.arrangedObjects containsObject:ancestor])
+        arrayController.selectedObjects = @[ancestor];
+    else
+        arrayController.selectionIndex = row;
     if (!ancestor)
         ancestor = arrayController.selectedTheme;
 
@@ -1364,11 +1431,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)applyToSelected:(id)sender {
-    [theme addGames:[NSSet setWithArray:_libcontroller.selectedGames]];
+    [[self themeForMenuCommand:sender] addGames:[NSSet setWithArray:_libcontroller.selectedGames]];
 }
 
 - (IBAction)selectUsingTheme:(id)sender {
-    [_libcontroller selectGames:theme.games];
+    [_libcontroller selectGames:[self themeForMenuCommand:sender].games];
 }
 
 - (IBAction)deleteUserThemes:(id)sender {
@@ -1441,7 +1508,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)editNewEntry:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
-    NSUInteger row = arrayController.selectionIndex;
+    NSUInteger row = [arrayController.arrangedObjects indexOfObject:[self themeForMenuCommand:sender]];
+    if (sender == nil || row == NSNotFound)
+        row = arrayController.selectionIndex;
     if (row == NSNotFound)
         row = [arrayController.arrangedObjects count] - 1;
     if (row >= [arrayController.arrangedObjects count])
@@ -1464,7 +1533,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return NO;
         }
     } else if (action == @selector(selectUsingTheme:)) {
-        if (theme.games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
+        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
@@ -1479,7 +1548,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return NO;
         }
     } else if (action == @selector(editNewEntry:)) {
-        return theme.editable;
+        return [self themeForMenuCommand:menuItem].editable;
+
+    } else if (action == @selector(useInLightMode:) || action == @selector(useInDarkMode:)) {
+        // These act on the selected theme, so in the contextual menu of
+        // another row they only show that theme's state.
+        Theme *target = [self themeForMenuCommand:menuItem];
+        menuItem.state = (action == @selector(useInLightMode:)) ? target.hardLight : target.hardDark;
+        return target == theme;
 
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
@@ -2376,7 +2452,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [self changeThemeName:name];
         _btnRemove.enabled = YES;
         theme = clonedTheme;
-        disregardTableSelection = YES;
+        pendingSelectionTheme = clonedTheme;
         [self performSelector:@selector(restoreThemeSelection:) withObject:clonedTheme afterDelay:0.1];
         return clonedTheme;
     }
