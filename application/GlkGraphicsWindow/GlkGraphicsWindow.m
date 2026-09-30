@@ -33,6 +33,12 @@
 
 @end
 
+// Colors reach setBgColor: from requests as signed ints, so zcolor_Default
+// arrives as -1 and zcolor_Current as -2, and from glui32 paths unsigned.
+static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
+    return value == (NSInteger)zcolor || value == (NSInteger)(int32_t)zcolor;
+}
+
 @implementation GlkGraphicsWindow
 
 + (BOOL) supportsSecureCoding {
@@ -91,10 +97,10 @@
 }
 
 - (void)setBgColor:(NSInteger)bc {
-    if (bc == zcolor_Current)
+    if (SPIsZColor(bc, zcolor_Current))
         return;
     NSColor *color;
-    if (bc == zcolor_Default) {
+    if (SPIsZColor(bc, zcolor_Default)) {
         color = self.glkctl.theme.bufferBackground;
         bgnd = color.integerColor;
     } else {
