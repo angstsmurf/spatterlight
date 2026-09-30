@@ -352,6 +352,12 @@
     }
 }
 
+- (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid {
+    NSArray<NSNumber *> *record = self.measuredColorAnswers[@(value)];
+    return record.count >= 4 && record[3].unsignedIntegerValue == stylehint_BackColor &&
+    record[1].boolValue == grid;
+}
+
 - (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
     NSArray<NSNumber *> *record = self.measuredColorAnswers[@(value)];
     if (record.count < 4)
@@ -1104,11 +1110,19 @@
             }
             break;
 
-        case SETBGND:
-            if (req->a2 < 0)
+        case SETBGND: {
+            // A background the game read from the theme with
+            // glk_style_measure (Scott, Plus and TADS match their graphics
+            // and banner windows to the main window that way) is the default
+            // background, and follows a light/dark switch like one.
+            NSInteger bgcolor = req->a2;
+            if (bgcolor >= 0 &&
+                [self isMeasuredDefaultBackground:bgcolor grid:[reqWin isKindOfClass:[GlkTextGridWindow class]]])
+                bgcolor = -1;
+            if (bgcolor < 0)
                 bg = theme.resolvedBufferBackground;
             else
-                bg = [NSColor colorFromInteger:req->a2];
+                bg = [NSColor colorFromInteger:bgcolor];
             if (req->a1 == -1) {
                 self.lastAutoBGColor = bg;
                 [self setBorderColor:bg];
@@ -1116,9 +1130,10 @@
             }
 
             if (reqWin) {
-                [reqWin setBgColor:req->a2];
+                [reqWin setBgColor:bgcolor];
             }
             break;
+        }
 
         case DRAWIMAGE:
             if (reqWin) {

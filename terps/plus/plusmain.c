@@ -2317,7 +2317,10 @@ void ResizeTitleImage(void)
 {
     glui32 graphwidth, graphheight, optimal_width, optimal_height;
 #ifdef SPATTERLIGHT
-    glk_window_set_background_color(Graphics, gbgcol);
+    /* The default background, which Spatterlight resolves against the
+       theme when it draws, so the title screen follows a light/dark switch;
+       gbgcol is the value it had when this ran. */
+    glk_window_set_background_color(Graphics, zcolor_Default);
     glk_window_clear(Graphics);
 #endif
     glk_window_get_size(Graphics, &graphwidth, &graphheight);

@@ -56,6 +56,9 @@ typedef NS_ENUM(NSUInteger, kAutoBorderSource) {
 /// glk_style_measure on the other light/dark side, translated to the value the
 /// same style and hint have now. Any other color is returned unchanged.
 - (NSInteger)currentValueForMeasuredColor:(NSInteger)value;
+/// Whether value is a default background this game read from the theme with
+/// glk_style_measure, for a text grid (grid) or a text buffer window.
+- (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid;
 
 @property(readonly, getter=isAlive) BOOL alive;
 
