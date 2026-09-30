@@ -179,13 +179,17 @@
         return nil;
 
     if (styles.count <= stylevalue || [styles[stylevalue] isEqual:[NSNull null]]) {
+        GlkStyle *style = nil;
         if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]];
+        } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
+            style = (GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]];
         }
-        if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
-        }
-        return nil;
+        if (!style)
+            return nil;
+        if (self.theme.doStyles && self.styleHints.count > stylevalue)
+            return [style attributesWithHints:self.styleHints[stylevalue]];
+        return style.resolvedAttributeDict;
     }
 
     return styles[stylevalue];
@@ -196,13 +200,20 @@
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue {
 
     if ([styles[stylevalue] isEqual:[NSNull null]]) {
+        GlkStyle *style = nil;
         if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]];
         } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]];
         } else {
             return nil;
         }
+        if (!style)
+            return nil;
+        if (self.theme.doStyles && self.styleHints.count > stylevalue)
+            styles[stylevalue] = [style attributesWithHints:self.styleHints[stylevalue]];
+        else
+            styles[stylevalue] = style.resolvedAttributeDict;
     }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
@@ -227,7 +238,7 @@
         attributes[@"ReverseVideo"] = @(YES);
         if (!self.theme.doStyles || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // Current style has stylehint_ReverseColor unset, so we reverse colors
-            attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.gridBackground : self.theme.bufferBackground];
+            attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.resolvedGridBackground : self.theme.resolvedBufferBackground];
         }
     }
 
@@ -375,9 +386,9 @@
     GlkWindow * __weak weakSelf = self;
     NSColor *blockBgCol;
     if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.gridBackground;
+        blockBgCol = self.theme.resolvedGridBackground;
     else
-        blockBgCol = self.theme.bufferBackground;
+        blockBgCol = self.theme.resolvedBufferBackground;
 
     if (self.theme.doStyles) {
         [attStr
@@ -449,9 +460,9 @@
     GlkWindow * __weak weakSelf = self;
     NSColor *blockBgCol;
     if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.gridBackground;
+        blockBgCol = self.theme.resolvedGridBackground;
     else
-        blockBgCol = self.theme.bufferBackground;
+        blockBgCol = self.theme.resolvedBufferBackground;
 
     [attStr
      enumerateAttribute:@"ReverseVideo"

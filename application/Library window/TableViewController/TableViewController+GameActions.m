@@ -358,9 +358,6 @@
     }
 
     if (action == @selector(applyTheme:)) {
-        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
-            return NO;
-
         if (self.enabledThemeItem != nil) {
             for (NSMenuItem *item in self.themesSubMenu.submenu.itemArray) {
                 item.state = NSOffState;

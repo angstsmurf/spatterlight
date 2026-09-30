@@ -483,7 +483,7 @@ replacementString:(id)repl {
             color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
         }
         if (!color) {
-            color = self.theme.bufferBackground;
+            color = self.theme.resolvedBufferBackground;
         }
         _textview.insertionPointColor = color;
     }
