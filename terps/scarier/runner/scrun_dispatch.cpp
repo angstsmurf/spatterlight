@@ -2819,6 +2819,47 @@ run_line_t::put_pass ()
 }
 
 /*
+ * run_get_motion_task_line()
+ *
+ * Deliberate deviation (2026-09-30).  run400's get_outer takes the object a
+ * get line names before the task dispatcher runs, whatever words stand
+ * between the verb and the name, so The X-Files' `get in the van` answers
+ * "You take VW Van." and its task 26 `*Van*`, which gets the player in,
+ * never runs (runner_probes/xfiles.run400.t76.txt).  TRUE when LINE is
+ * "get" followed by a word that makes it a movement -- get in, into, on,
+ * out, under, behind, through, up, down, ... -- and a task matches the typed
+ * line.  get_outer then leaves the line to the tasks.  A plain `get van`,
+ * and a movement line no task takes, keep the Runner's take.
+ */
+static scr_bool
+run_get_motion_task_line (scr_gameref_t game, const scr_char *line,
+                          const std::string &task_line)
+{
+  static const scr_char *const MOTION[] = {
+    "in", "into", "inside", "on", "onto", "out", "under", "underneath",
+    "beneath", "behind", "through", "over", "across", "aboard", "up", "down",
+    "back", "away", "near", "beside", "onboard", NULL
+  };
+  const scr_char *next;
+  size_t length;
+  scr_int index_;
+
+  if (strncmp (line, "get ", 4) != 0)
+    return FALSE;
+  next = line + 4;
+  while (*next == ' ')
+    next++;
+  length = strcspn (next, " ");
+  for (index_ = 0; MOTION[index_]; index_++)
+    {
+      if (strlen (MOTION[index_]) == length
+          && strncmp (next, MOTION[index_], length) == 0)
+        return run_line_matches_task_strictly (game, task_line.c_str ());
+    }
+  return FALSE;
+}
+
+/*
  * run_line_t::get_outer_400()
  *
  * run400's get_outer, between put_drop_list and the task dispatcher: a
@@ -2976,6 +3017,11 @@ run_line_t::get_outer_400 ()
                 pf_buffer_string (filter, "Take what?\n");
               status = TRUE;
             }
+        }
+      else if (run_get_motion_task_line (game, outer_line, task_string))
+        {
+          /* Not a take: the dispatcher has the line.  See
+             run_get_motion_task_line(). */
         }
       else if (lib_take_names_dynamic_400 (game, outer_line))
         {
@@ -4139,6 +4185,85 @@ run_count_element (scr_gameref_t game)
 }
 
 /*
+ * run_element_filtered()
+ *
+ * The element with the game's synonyms and the built-in rewrites applied,
+ * or NULL if nothing changed.  Deliberate deviations (2026-09-30), each for
+ * the lines where the Runner's own rewrite leaves the author's task out of
+ * reach:
+ *
+ *  - The game's synonyms are applied the Runner's way (pf_apply_synonym())
+ *    and Scarier's older way (pf_apply_synonyms_by_word()).  The Runner's
+ *    loops replace substrings inside words, skip a synonym whose first hit
+ *    sits inside another word or whose Original has a capital, and let a
+ *    later synonym rewrite an earlier one's text, so Vardock Bates' `hablar
+ *    con jason` became "talk con jason jason dhirco" and no task took it.
+ *  - run380 rewrites a typed "take" to "get" before any task sees the line,
+ *    so a 3.80 task whose commands say only `take X` can never fire:
+ *    great.taf's `take picasso` just picks the painting up.
+ *
+ * The Runner's spelling runs whenever it reaches a task, so Dolg's `войти в
+ * дом` and a `take X` that reaches a `get X` task are unchanged.  Otherwise
+ * the first other spelling that reaches a task runs, and a line no spelling
+ * takes gets the whole-word synonyms and the Runner's take->get.
+ */
+static scr_char *
+run_element_filtered (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = prop_get_taf_version (bundle);
+  scr_owned_string runner (pf_filter_input (run_line_element, bundle));
+  std::vector<scr_owned_string> others;
+  size_t index_;
+
+  if (version < TAF_VERSION_380)
+    return runner.release ();
+
+  others.emplace_back (pf_filter_input (run_line_element, bundle,
+                                        TRUE, FALSE));
+  if (version == TAF_VERSION_380)
+    {
+      others.emplace_back (pf_filter_input (run_line_element, bundle,
+                                            FALSE, TRUE));
+      others.emplace_back (pf_filter_input (run_line_element, bundle,
+                                            FALSE, FALSE));
+    }
+
+  /* The spelling the matcher sees: trimmed, whitespace runs collapsed. */
+  auto spelling = [] (const scr_owned_string &text) -> std::string
+    {
+      std::vector<scr_char> copy;
+      const scr_char *source = text ? text.get () : run_line_element;
+
+      copy.assign (source, source + strlen (source) + 1);
+      return scr_normalize_string (copy.data ());
+    };
+  const std::string runner_spelling = spelling (runner);
+
+  for (index_ = 0; index_ < others.size (); index_++)
+    {
+      if (spelling (others[index_]) != runner_spelling)
+        break;
+    }
+  if (index_ == others.size ())
+    return runner.release ();
+
+  if (run_line_matches_task_strictly (game, runner_spelling.c_str ()))
+    return runner.release ();
+  for (index_ = 0; index_ < others.size (); index_++)
+    {
+      const std::string other = spelling (others[index_]);
+
+      if (other != runner_spelling
+          && run_line_matches_task_strictly (game, other.c_str ()))
+        return others[index_].release ();
+    }
+
+  /* No spelling reaches a task: the whole-word synonyms, with take->get. */
+  return others[0].release ();
+}
+
+/*
  * run_element_command()
  *
  * The command the element runs as: the element filtered for synonyms and
@@ -4155,7 +4280,7 @@ run_element_command (scr_gameref_t game, std::string &command)
    * pointer-aliasing logic that decides which buffer "wins", and COMMAND
    * takes a copy of the winner.
    */
-  scr_owned_string filtered (pf_filter_input (run_line_element, bundle));
+  scr_owned_string filtered (run_element_filtered (game));
   scr_owned_string replaced (uip_replace_pronouns (game,
       filtered ? filtered.get () : run_line_element));
 

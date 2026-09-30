@@ -1189,7 +1189,8 @@ case, and their goldens are re-blessed. The row notes in
       prefixed retry and keeps the verb as parsed instead of the typed
       verb: Tenebrae `take pens`, `take a pebble`.
   The 3.8 take->get rewrite, the 97bd698f7 synonym gate and the `stats`
-  removal are kept. Re-blessed: icecream, xfiles, the_town_of_azra,
+  removal are kept (but see the 2026-09-30 audit below: each now yields to
+  the line's other spellings when those reach a task). Re-blessed: icecream, xfiles, the_town_of_azra,
   sommeril(+patched), Glum_Fiddle, JGrim, iachini, tenebraesemper,
   house(+patched; the web task fires, so house's death path moves by one
   turn), bandera, govard (three wear lines get the task's "Sdelano!").
@@ -1219,6 +1220,33 @@ case, and their goldens are re-blessed. The row notes in
   take report is now its own clause on both paths, the canonical rebuild's
   included: "Your hands are full.  You dump the wood ...", where 4.0's
   rebuild claim used to print "full.You".
+- **Second audit of the Runner ports (2026-09-30).** Each item below was
+  found by probing b607dd8 against HEAD on synthetic games (the corpus was
+  not available), and each only made Scarier understand the player less
+  well. The Runner rule stays documented at the code.
+  - A line's other spellings reach the tasks (run_element_filtered()).
+    The Runner's spelling runs whenever it reaches a task. Otherwise the
+    first of these that does runs, and a line no spelling takes gets the
+    whole-word synonyms and the Runner's take->get:
+    - The game's synonyms applied the way b607dd8 applied them
+      (pf_apply_synonyms_by_word()): whole words, any case, a later synonym
+      firing only on the whole of an earlier one's text. The Runner's loops
+      (97bd698f7, 3d23a4b74) replace substrings inside words, skip a synonym
+      whose first hit sits inside another word or whose Original has a
+      capital, and cascade, so Vardock Bates' `hablar con jason` became
+      "talk con jason jason dhirco" and no task took it, and a synonym
+      `Grab` -> `get` never fired. Dolg's `войти в дом` still reaches its
+      task through the Runner's spelling.
+    - At 3.80, the line without the take->get rewrite (fac37056e). A 3.80
+      task written `take X` could never fire: great.taf's `take picasso`
+      just took the painting. A `take X` that reaches a `get X` task
+      (jb2000, Crime) is unchanged. `take off X` is never rewritten, since
+      "get off hat" is a dismount and the hat stayed on.
+  - A 4.0 `get in/into/on/out/under/... X` line that a task matches is left
+    to the tasks (run_get_motion_task_line()). run400's get_outer takes the
+    named object first, so X-Files' `get in the van` took the van
+    (1b29a95c0). `get van` and a movement line no task takes keep the take.
+    The xfiles route can go back to `get in the van`.
 ---
 
 ## Rules measured and ported (index)

@@ -3524,14 +3524,105 @@ pf_apply_synonym (std::string &line, const pf_str_pair_t &entry,
 
 
 /*
+ * pf_has_take_off()
+ *
+ * TRUE if STRING holds the whole words "take off".  Deliberate deviation
+ * (2026-09-30): run380's take->get rewrite turns `take off hat` into "get
+ * off hat", which is a dismount, so the hat stays on; Scarier leaves a
+ * "take off" line to the remove handler.
+ */
+static scr_bool
+pf_has_take_off (const scr_char *string)
+{
+  std::string line (string);
+  size_t hit;
+
+  for (hit = 0; hit < line.size (); hit++)
+    line[hit] = scr_tolower (line[hit]);
+  for (hit = line.find ("take off"); hit != std::string::npos;
+       hit = line.find ("take off", hit + 1))
+    {
+      const size_t end = hit + strlen ("take off");
+
+      if ((hit == 0 || scr_isspace (line[hit - 1]))
+          && (end == line.size () || scr_isspace (line[end])))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * pf_apply_synonyms_by_word()
+ *
+ * The game's synonyms applied as Scarier applied them before the Runner's
+ * loops were ported (2026-09-25; see pf_apply_synonym()), kept as a
+ * deliberate deviation for the lines the Runner's loops spoil.  The line is
+ * walked a word at a time, and the Original is matched as whole words, in
+ * any case.  At each word the first synonym that matches fires; a later
+ * synonym fires on that text only when its Original is the whole of the
+ * replacement, and the walk then resumes after the replacement.  So Lair of
+ * the Vampire's harris->steve->harris still ends as "harris", while Vardock
+ * Bates' `hablar con jason` becomes "talk con jason dhirco" (the Runner's
+ * loops write "jason jason dhirco"), Dolg's `позвонить в звонок` keeps its
+ * words whole ("позвонить in звонок", where run390 writes "позinонить in
+ * зinонок"), and a synonym whose Original has a capital still fires.
+ */
+static std::string
+pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
+{
+  std::string buffer (string);
+  size_t offset;
+
+  offset = strspn (buffer.c_str (), WHITESPACE);
+  while (offset < buffer.size ())
+    {
+      size_t span = 0;
+      size_t index_;
+
+      for (index_ = 0; index_ < pf_synonym_cache.size (); index_++)
+        {
+          const pf_str_pair_t &entry = pf_synonym_cache[index_];
+          const std::string replacement = version == TAF_VERSION_380
+              ? pf_v380_verb_name (entry.replacement)
+              : std::string (entry.replacement);
+          scr_int extent;
+
+          extent = pf_compare_words (buffer.c_str () + offset, entry.original);
+          if (extent == 0)
+            continue;
+          if (span > 0 && (size_t) extent != span)
+            continue;
+
+          buffer.replace (offset, extent, replacement);
+          span = replacement.size ();
+        }
+
+      if (span > 0)
+        offset += span;
+      else
+        offset += strcspn (buffer.c_str () + offset, WHITESPACE);
+      offset += strspn (buffer.c_str () + offset, WHITESPACE);
+    }
+
+  return buffer;
+}
+
+
+/*
  * pf_filter_input()
  *
  * Applies synonym changes to a player input string, and returns the resulting
  * string to the caller, or NULL if no synonym changes were needed.  The
  * return string is malloc'ed, so the caller needs to remember to free it.
+ * TAKE_TO_GET FALSE leaves out the 3.80-only take->get rewrite, and
+ * RUNNER_SYNONYMS FALSE applies the game's synonyms the way Scarier did before
+ * the Runner port (pf_apply_synonyms_by_word()), for the caller that offers
+ * the tasks the other spellings of a line (run_element_command()).
  */
 scr_char *
-pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
+pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
+                 scr_bool take_to_get, scr_bool runner_synonyms)
 {
   scr_vartype_t vt_key[3];
   scr_int synonym_count, index_;
@@ -3604,6 +3695,12 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
   {
     const scr_int version = prop_get_taf_version (bundle);
     std::string line (string);
+
+    if (!runner_synonyms && version >= TAF_VERSION_380)
+      {
+        line = pf_apply_synonyms_by_word (string, version);
+        synonym_count = 0;
+      }
 
     for (index_ = 0; index_ < synonym_count; index_++)
       {
@@ -3718,6 +3815,9 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
     for (const pf_builtin_rewrite_t &entry : BUILTIN)
       {
         if (version < entry.min_version || version > entry.max_version)
+          continue;
+        if (strcmp (entry.original, "take") == 0
+            && (!take_to_get || pf_has_take_off (current)))
           continue;
         if (entry.substring)
           pf_rewrite_substring (string, buffer, modified, current,
