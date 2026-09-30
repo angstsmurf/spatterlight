@@ -70,8 +70,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 #ifdef GARGLK
     if (!game_file.empty()) {
-        auto story_name = std::filesystem::path(game_file).filename();
-        garglk_set_story_name(story_name.string().c_str());
+        auto slash = game_file.find_last_of('/');
+        auto story_name = slash == std::string::npos ? game_file : game_file.substr(slash + 1);
+        garglk_set_story_name(story_name.c_str());
     } else {
         frefid_t ref = glk_fileref_create_by_prompt(fileusage_Data | fileusage_BinaryMode, filemode_Read, 0);
         if (ref != nullptr) {
@@ -217,10 +218,15 @@ static void load_resources()
         return;
     }
 
-    for (const auto &ext : {"blb", "blorb"}) {
-        std::filesystem::path blorb_file(game_file);
+    // Replace the extension by hand: std::filesystem::path requires
+    // macOS 10.15, and Spatterlight deploys to 10.13.
+    auto slash = game_file.find_last_of('/');
+    auto base_start = slash == std::string::npos ? 0 : slash + 1;
+    auto dot = game_file.find_last_of('.');
+    auto stem = (dot == std::string::npos || dot <= base_start) ? game_file : game_file.substr(0, dot);
 
-        if (set_map(blorb_file.replace_extension(ext).string())) {
+    for (const auto &ext : {"blb", "blorb"}) {
+        if (set_map(stem + "." + ext)) {
             return;
         }
     }
