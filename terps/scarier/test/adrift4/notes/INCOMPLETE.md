@@ -14,7 +14,7 @@ declined on content grounds (14 of them permanently) — see *Content policy* in
 `WALKTHROUGH_TODO.md`.
 
 Scores are what the committed walkthrough rows score in the seeded headless
-harness (suite: 671/671 PASS, 2026-09-30), cross-checked against each row's manifest
+harness (suite: 670/670 PASS, 2026-09-30), cross-checked against each row's manifest
 comment, which is the authority when a walkthrough note disagrees.  "Faithful"
 means every assist off and no patches.  The per-game note
 (`<Game>_walkthrough.md`) carries the current verdict; a remembered summary
@@ -32,7 +32,7 @@ They are not interchangeable.
   (`GSC_GAME_ASSIST_TABLE` in `os_glk.cpp`, matched on GameName+GameAuthor),
   with a one-line startup notice; `glk <assist> off` restores faithful
   behaviour.  The headless harness does NOT apply that table.
-- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 37 games, 238 edits.  It
+- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 36 games, 235 edits.  It
   changes GAME DATA, content-verified edit by edit, and repairs the author's
   slip itself.  ON BY DEFAULT in the glk build (`glk patches off`, then reload,
   to play a game exactly as its author left it), with a one-line notice; opt-in
@@ -564,7 +564,8 @@ In Toronto), DetectiveTemplate.taf and shablon.taf (Russian author sandboxes).
     gitignored; the manifest rows are the committed artefacts.
   - **Sentor** — 12/13 → 13/13.  T2 `slap Stefcho`, which 3.90 rewrites to
     `hit` before task matching, runs through the line's other spelling
-    (`spelling_task`); the patched row is byte-identical.
+    (`spelling_task`).  `PATCH_SENTOR` (re-spelling it `hit Stefcho`) was
+    then redundant and removed, with its patched row.
   - **The Warlord, The Princess & The Bulldog** — 99/100 → 100/100 (100 before
     the 2026-09-14 4.0 auto-"from" take port, 99 in run400, Adrift_1059).
     `get treat` / `get bone` / `get cudgel` take from the iron stove instead
@@ -625,7 +626,10 @@ exhausted as sources of candidates:
 - a restriction on a "referenced" thing no pattern binds
 - a task whose own command the game's synonym table rewrites before any task
   can see it — found only Melbourne Beach, Crime Scene 2, The Fugitive and
-  Sentor (all patched) plus NAT_01, which measurement threw out
+  Sentor (all patched) plus NAT_01, which measurement threw out.  Sentor's
+  rewrite is the Runner's built-in `slap` -> `hit`, which `spelling_task`
+  now sees past, so its patch was removed 2026-09-30; the other three are
+  rewritten by the games' own synonyms and still need theirs
 
 The "Assist:" results were MEASURED (2026-09-27): for every game still listed
 as short in section 4, turning all five assists on changes nothing, because

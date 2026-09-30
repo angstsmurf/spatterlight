@@ -789,7 +789,6 @@ matt_solution.txt|matt.taf|You scored 161 out of the maximum 161!|SCR_SKIP_WAITK
 # "slap Stefcho", which 3.90 rewrites to hit before task matching, runs
 # through the line's other spelling (spelling_task).
 sentor_solution.txt|sentor.taf|You became a favourite man of KALI|SCR_SKIP_WAITKEY=1
-sentor_patched_solution.txt|sentor.taf|You scored 13 out of the maximum 13!|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Marmalade Skies. Suit, bar-vault columns, recode transmitter. 150/150.
 marmalade_solution.txt|Marmalade_Skies.taf|You have been saved.|SCR_SKIP_WAITKEY=1
 # The Crash. Bandage, ski the cliff, nails, boots off the body, patch the boat.

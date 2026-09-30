@@ -153,6 +153,9 @@ lines) was pruned on 2026-09-19; recover any dated entry from git history:
     short." The pattern is re-spelt `hit Stefcho`, what the rewrite leaves
     behind; a task that matches the line is dispatched ahead of the battle
     library. Same shape as Melbourne Beach, Crime Scene 2 and The Fugitive.
+    *Patch removed 2026-09-30:* the `spelling_task` deviation lets the
+    author's `slap Stefcho` reach the task, so the faithful row scores 13/13
+    without it.
 - **A sixth joined on 2026-09-27, *The Studio* 96→100/100**, taking the table
   to **35 games, 212 edits**. Twenty-seven ChangeScore tasks sum to the declared
   100, and the four points of the Bedroom shoot's opening act were out of reach.

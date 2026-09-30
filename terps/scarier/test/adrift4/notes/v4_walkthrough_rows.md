@@ -12020,22 +12020,9 @@ Gitignored goldens.
 ```text
 Re-blessed 2026-09-30 (spelling_task): T2's `slap Stefcho`, which 3.90
 rewrites to `hit` before task matching, now reaches its task through the
-line's other spelling, so the row scores 13/13 (was 12/13) -- the same
-answer as sentor_patched.
-```
-
-## sentor_patched_solution.txt
-
-```text
-And the same route, command for command, with the built-in game patch
-(SCR_ASSUME_PATCHES=1): task 2 wakes Stefcho the talking skull and is
-patterned `slap Stefcho`, but 3.90 rewrites `slap` to `hit` before tasks are
-matched -- one of the Runner's own built-ins (BUILTIN[] in scprintf.cpp), not
-a synonym of this game's, which has none -- so the line reaches the battle
-library instead ("it doesn't seem to do any damage.") and the game ends "You
-finished 1 points short."  Patched, the pattern is re-spelt `hit Stefcho`,
-what the rewrite leaves behind, and the task takes the line first.
-13 of 13.
+line's other spelling, so the row scores 13/13 (was 12/13).  PATCH_SENTOR,
+which re-spelt the pattern `hit Stefcho` for the same point, was removed
+and its sentor_patched row with it: the two goldens had become identical.
 ```
 
 ## locuras_solution.txt

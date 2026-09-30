@@ -4831,36 +4831,6 @@ static const scr_patch_edit_t PATCH_NIGHTMOON[] = {
 };
 
 /*
- * Sentor, "Escape from Dead side and returning to the erth for revenge. ".
- *
- * Task 2 wakes Stefcho, the little skull who talks, and it carries one of the
- * thirteen points the game declares.  Its command is `slap Stefcho`, and no
- * line typed at the prompt can ever be it: version 3.90 rewrites `slap` to
- * `hit` before any task sees the input.  This one is not the game's own doing
- * -- Sentor has no synonyms at all -- but one of the Runner's built-in
- * rewrites, alongside `everything` -> `all` and `apart from` -> `but`
- * (BUILTIN[] in scprintf.cpp, and the probe matrix recorded there: a task
- * spelled with the POST-rewrite text is the one that fires, so the rewrite
- * runs ahead of task matching, not after it).  `slap stefcho` therefore
- * arrives as `hit stefcho`, the battle library answers "You hit the skull,
- * but it doesn't seem to do any damage.", and the game ends "You finished 1
- * points short."
- *
- * The pattern is re-spelt `hit Stefcho`, what the rewrite leaves behind.  A
- * task that matches the line is dispatched before the battle library sees it,
- * so the skull opens its eyes -- "-Welkome back master." -- and Sentor can be
- * finished on 13 of 13.
- */
-static const scr_patch_edit_t PATCH_SENTOR[] = {
-  PATCH_VERIFY ("Tasks/2/CompleteText",
-                "You slap the litle skull And it open his eyes."
-                "         -Welkome back master."),
-  PATCH_VERIFY ("Tasks/2/Hint1",
-                "Ani shamarosai tozi marzeliv sunliv cherep."),
-  PATCH_STRING ("Tasks/2/Command/0", "slap Stefcho", "hit Stefcho")
-};
-
-/*
  * Sun Empire: Quest for the Founders (Part I), Daniel Hiebert.
  *
  * The genetic sampler is the game's collection puzzle -- a task per
@@ -5008,9 +4978,11 @@ static const scr_patch_edit_t PATCH_HOUSE_OF_HORROR[] = {
  * must be in the same room as the Player.  Version 3.90's passrest leaves that
  * exit with the result still zero and without copying the FailMessage ("What?"),
  * so the restriction fails silently, the fall-through lands back on 73's
- * refusal, and the four points are gone.  SCARE reproduces that exit
- * deliberately (restr_pass_task_char() in screstrs.cpp, and
- * runner_transcripts/studio.txt pins it), so the faithful ceiling is 96.
+ * refusal, and the four points are gone (runner_transcripts/studio.txt), so
+ * the Runner's ceiling is 96.  Scarier no longer reproduces that exit: a
+ * deliberate deviation (self_room_390 in restr_pass_task_char(), screstrs.cpp)
+ * passes the restriction as 4.0 does, so 110 runs unpatched too -- but then
+ * whether or not Shelby is in the room.
  *
  * Var1 = 2 is Shelby, the first of the game's two characters, and that is what
  * the restriction was meant to say.  Its two immediate neighbours, tasks 111
@@ -5274,11 +5246,6 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "beheading the dark elf asks for a blade in hand, not for his"
               " body to be carried and lying in the Library at once",
               PATCH_NIGHTMOON),
-  PATCH_GAME ("Sentor", "Escape from Dead side and returning to the erth"
-              " for revenge. ",
-              "waking Stefcho is spelled the way version 3.90 rewrites the"
-              " word, so the skull can be slapped awake",
-              PATCH_SENTOR),
   PATCH_GAME ("Sun Empire: Quest for the Founders (Part I) (C) Copyright 2003"
               " - All Rights Reserved", "Daniel Hiebert",
               "sampling Skynd asks for the Orgaan alive or dead, as sampling"
