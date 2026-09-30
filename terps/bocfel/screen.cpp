@@ -700,6 +700,7 @@ void update_user_defined_colours(void) {
     uint16_t bg_idx = get_global(bg_global_idx);
     if (user_colours_follow_theme) {
         update_color(SPATTERLIGHT_CURRENT_FOREGROUND, gfgcol);
+        update_color(SPATTERLIGHT_CURRENT_BACKGROUND, gbgcol);
     }
     user_colours_follow_theme = colour_index_follows_theme(fg_idx) && colour_index_follows_theme(bg_idx);
     user_selected_foreground = zcolor_map[fg_idx];
@@ -739,7 +740,9 @@ void update_v6_colours(void) {
 void update_color(int which, unsigned long color)
 {
 #ifdef SPATTERLIGHT
-    if (which <= DEFAULT_COLOUR || which >= SPATTERLIGHT_CURRENT_BACKGROUND) {
+    // SPATTERLIGHT_CURRENT_BACKGROUND is writable too: it used to be refused
+    // here, so the slot kept its placeholder white on a dark theme.
+    if (which <= DEFAULT_COLOUR || which > SPATTERLIGHT_CURRENT_BACKGROUND) {
 #else
     if (which < 2 || which > 12) {
 #endif
