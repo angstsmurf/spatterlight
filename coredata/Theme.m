@@ -382,13 +382,13 @@
 #pragma mark - Light / dark color variants
 
 - (NSColor *)sp_colorLight:(NSColor *)light dark:(NSColor *)dark {
-    if ([Preferences resolvedAppearance] == kDarkAppearance)
+    if ([Preferences themeUsesDarkColors:self])
         return dark ?: light;
     return light ?: dark;
 }
 
 - (void)sp_setColor:(NSColor *)color lightKey:(NSString *)lightKey darkKey:(NSString *)darkKey {
-    if ([Preferences resolvedAppearance] == kDarkAppearance)
+    if ([Preferences themeUsesDarkColors:self])
         [self setValue:color forKey:darkKey];
     else
         [self setValue:color forKey:lightKey];

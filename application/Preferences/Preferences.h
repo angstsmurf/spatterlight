@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 - (void)updatePrefsPanel;
 
 + (kAppearanceType)systemAppearance;
-/// Override if set, else system. Used for theme light/dark color resolution.
+/// Override if set, else system. The appearance of the app's windows and controls.
 + (kAppearanceType)resolvedAppearance;
 
 @property BOOL previewShown;
@@ -182,5 +182,12 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 @property (weak) IBOutlet NSStepper *marginVerticalBufferStepper;
 
 @property ParagraphPopOver *paragraphPopover;
+
+@end
+
+@interface Preferences (ColorsChoice)
+
+/// Whether game windows using the theme show its dark colors.
++ (BOOL)themeUsesDarkColors:(Theme *)theme;
 
 @end

@@ -458,13 +458,13 @@
 }
 
 - (NSColor *)resolvedColor {
-    if ([Preferences resolvedAppearance] == kDarkAppearance)
+    if ([Preferences themeUsesDarkColors:[self findTheme]])
         return self.darkColor ?: self.color;
     return self.color ?: self.darkColor;
 }
 
 - (void)setResolvedColor:(NSColor *)color {
-    if ([Preferences resolvedAppearance] == kDarkAppearance)
+    if ([Preferences themeUsesDarkColors:[self findTheme]])
         self.darkColor = color;
     else
         self.color = color;

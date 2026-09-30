@@ -24,6 +24,7 @@
 
 #import "Preferences.h"
 #import "Preferences+Appearance.h"
+#import "Preferences+StylesEditor.h"
 
 #ifndef DEBUG
 #define NSLog(...)
@@ -367,6 +368,7 @@ NSString *fontToString(NSFont *font) {
     _scrollView.borderType = NSNoBorder;
 
     [self configureStylesTabAppearanceControls];
+    [self configureStylesEditor];
 
     [self changeThemeName:theme.name];
 
@@ -532,6 +534,7 @@ NSString *fontToString(NSFont *font) {
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.resolvedColor;
     btnAnyFont.title = fontToString(selectedStyle.font);
+    [self syncStylesEditor];
 
     _btnAutoBorderColor.state = theme.borderBehavior == kAutomatic ? NSOnState : NSOffState;
     _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
@@ -651,6 +654,12 @@ NSString *fontToString(NSFont *font) {
 - (GlkStyle *)selectedStyle {
     NSString *styleName = [self selectedStyleName];
     return [theme valueForKey:styleName];
+}
+
+- (NSDictionary<NSString *, NSView *> *)stylesTabControls {
+    return @{ @"gridFont": btnGridFont, @"bufferFont": btnBufferFont, @"anyFont": btnAnyFont,
+              @"gridMargin": txtGridMargin, @"bufferMargin": txtBufferMargin,
+              @"enableStyles": btnEnableStyles };
 }
 
 - (NSString *)selectedStyleName {
@@ -1596,6 +1605,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     clrAnyFg.color = selectedStyle.resolvedColor;
     btnAnyFont.title = fontToString(selectedStyle.font);
     selectedFontButton = btnAnyFont;
+    [self syncStylesEditor];
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     [self.dummyTextView updateTextWithAttributes:selectedStyle.resolvedAttributeDict];
     NSMutableDictionary *convertedAttributes = selectedStyle.resolvedAttributeDict.mutableCopy;
