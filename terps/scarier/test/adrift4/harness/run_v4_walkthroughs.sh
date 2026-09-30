@@ -560,7 +560,7 @@ handyman_solution.txt|Handyman.taf|You scored 200 out of the maximum 200!|
 xclue_solution.txt|xclue1.0a.taf|THE END|
 ovaloffice_solution.txt|ovaloffice.taf|You scored 32 out of the maximum 32!|
 planescape_solution.txt|Planescape-Encounters1.taf|You scored 15 out of the maximum 15!|
-studio_solution.txt|studio.taf|You scored 96 out of the maximum 100!|
+studio_solution.txt|studio.taf|You scored 100 out of the maximum 100!|
 studio_patched_solution.txt|studio.taf|You scored 100 out of the maximum 100!|SCR_ASSUME_PATCHES=1
 funtown_solution.txt|fun town.taf|Sorry, there is no way to open the chest before you accumulate 200 points.|
 funtown_patched_solution.txt|fun town.taf|Well done - you scored maximum points!|SCR_ASSUME_PATCHES=1
@@ -785,9 +785,9 @@ homelessharry_solution.txt|Homeless Harry.taf|Yay, you won the game!|SCR_SKIP_WA
 gosha_solution.txt|gosha.taf|You scored 250 out of the maximum 250!|SCR_SKIP_WAITKEY=1
 # Matt's Strange Adventure. Typed combat verbs; n into the temple; Room B east then boss.
 matt_solution.txt|matt.taf|You scored 161 out of the maximum 161!|SCR_SKIP_WAITKEY=1
-# Sentor. Lighter, statue-key, fire dragon, torch, Kali knife. 12/13: T2
-# "slap Stefcho" is unreachable, since 3.90 rewrites slap -> hit before
-# task matching.
+# Sentor. Lighter, statue-key, fire dragon, torch, Kali knife. 13/13: T2
+# "slap Stefcho", which 3.90 rewrites to hit before task matching, runs
+# through the line's other spelling (spelling_task).
 sentor_solution.txt|sentor.taf|You became a favourite man of KALI|SCR_SKIP_WAITKEY=1
 sentor_patched_solution.txt|sentor.taf|You scored 13 out of the maximum 13!|SCR_SKIP_WAITKEY=1 SCR_ASSUME_PATCHES=1
 # Marmalade Skies. Suit, bar-vault columns, recode transmitter. 150/150.

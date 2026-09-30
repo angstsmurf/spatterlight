@@ -582,6 +582,9 @@ destination combo left at the floor (Var3 = 0), so the player is sitting on
 nothing and the next move stands up first.  With the box ticked run400 prints
 it too, on its own line, and the row is 251 of 252 again.  Its wording is the
 game's: an ALR rewrites the library's "Standing up first".
+Re-blessed 2026-09-30, four lines (openclose_not_carried): the first `open
+package` opens the package where it stands instead of run400's "I am not
+carrying the package!", so the second says "The package is already open!".
 ```
 
 ## mhpquest_solution.txt
@@ -1888,6 +1891,9 @@ the library close ("You close Cracked Broken Window.", run390 Adrift_553).
 A type-1 restriction with Var1=0 and no referenced object fails SILENTLY
 (run400 restriction_check leaves at 480F9E/480FA6), and the referenced
 object is cleared before each typed line (48A004 / run390 45EC66).
+Re-blessed 2026-09-30, one line (wield_name): `wield sword` wields
+the Kinda Sharp Sword by name instead of "I don't understand what you are
+wanting to wield!".  Score unchanged.
 ```
 
 ## villains_and_kings_patched_solution.txt
@@ -1899,6 +1905,8 @@ the broken window is in rather than in no room at all, and the one point it
 awards lands -- 31/37, the ceiling the note above works out.  The script is
 the faithful one minus the no-op `take golden soap`, which the author's
 wildcard command matches once the task can run.
+Re-blessed 2026-09-30, one line: `wield sword`, as the row
+above.
 ```
 
 ## wes_ghn_solution.txt
@@ -3270,6 +3278,10 @@ the pronoun echo is tense()'d at store time ("(the tweed jacket)", run380 441EF1
 `inventory` lists before task 43's text (4421C2 has no GoTo); ask topics match by
 substring, last one wins (4408B2), on a line spliced with the Short alone (441F09),
 so T129 gets the "wand" reply and T211 `about good time` the "me, myself" one.
+Re-blessed 2026-09-30, one reply (topic_whole_word): `ask her about good time`
+gets Suzie's "Oh, that.  That'll be referring to my musical talents." --
+the 3.9 whole-word topic test -- instead of run380's "me, myself" reply,
+which the substring test found in "time".
 ```
 
 ## mortality_solution.txt
@@ -4867,6 +4879,10 @@ Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): the `west`
 back into the Cell now lists "You can also see Lara's doll.", which run400
 prints at Adrift_332_lair.txt:1315 -- the doll is put there by the task's own
 actions, and the room block is built after them.
+Re-blessed 2026-09-30 (look_kept): the typed `look` the game rewrites to `x` stays
+a look, so the Passageway is listed where run400 says "Try something
+different.", its cobalt key is seen, and the random events shift from
+there.  Final score 221 -> 226.
 ```
 
 ## fugitive_solution.txt
@@ -9120,6 +9136,11 @@ in same room as Player" restriction ("What?"), which run390's passrest fails
 SILENTLY (early exit 4522CC before the FailMessage copy), so the earlier
 out-of-room task 74 sharing the pattern draws "You can't do that here!"
 and the 4-point shoot can never run. Ported 2026-09-26.
+Re-blessed 2026-09-30 (self_room_390): task 111's "must be in same room as
+Player" restriction passes, as at 4.0, so the Bedroom shoot runs and the
+row reaches 100/100 -- byte-identical to studio_patched now.  The row's
+win marker moved from 96 to 100.  The 96/100 above stays the Runner's
+ceiling.
 ```
 
 ## studio_patched_solution.txt
@@ -10729,6 +10750,9 @@ the take-from refuses the non-container mug (runner_transcripts/onnafa.txt:626).
 2026-09-27: that refusal is gone again.  Scarier leaves a line that only names an
 "empty ..." object alone (deliberate deviation from get_outer's rewrite, 6095ff3b0),
 so T68 is Perry's trade text alone.
+Re-blessed 2026-09-30, one line (mask_npc_overwrite): `get key of pure harry`
+takes the key instead of reading Harry out of the key's name ("I don't
+think Harry would appreciate being handled.").
 ```
 
 ## house_solution.txt
@@ -11041,6 +11065,10 @@ T112/T122 `get treat`/`get bone`/`get cudgel` now print "The stove is bolted to 
 Merrick answers "That's no use to me," as run400 does (Adrift_1059, 99).
 2026-09-27: `x tapestry three` examines it: the longer name is not
 swallowed by the plain "tapestry" (deliberate deviation, key ring).
+Re-blessed 2026-09-30 (from_retry_skipped): `get treat`, `get bone` and `get
+cudgel` take them from the iron stove instead of run400's "The stove is
+bolted to the floor.", so Merrick gets his treat and the score is 100/100
+(was 99).
 ```
 
 ## tictactoe_solution.txt
@@ -11985,6 +12013,15 @@ Gosha Adventure (AIF): 250/250 max. Take the TV (joke points), aspirin,
 sleep; Klava leaves, so take her bottle and give it to Petrovich (worth
 more than hitting him, and excludes it); key, phone Masha, Plan for Vovan.
 Gitignored goldens.
+```
+
+## sentor_solution.txt
+
+```text
+Re-blessed 2026-09-30 (spelling_task): T2's `slap Stefcho`, which 3.90
+rewrites to `hit` before task matching, now reaches its task through the
+line's other spelling, so the row scores 13/13 (was 12/13) -- the same
+answer as sentor_patched.
 ```
 
 ## sentor_patched_solution.txt

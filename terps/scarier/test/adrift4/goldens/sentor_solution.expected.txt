@@ -82,7 +82,7 @@ up Stefcho try to slap it  Stefcho e tuk
 You drop the lighter.
 
 > slap Stefcho
-You hit the skull, but it doesn't seem to do any damage.
+You slap the litle skull And it open his eyes.         -Welkome back master.
 
 > get lighter
 You pick up the lighter.
@@ -162,8 +162,8 @@ favourite man. And she will helps you from this moment to the end of time.
 
   You became a favourite man of KALI and drom now you will live very very
 easy and good.
-You scored 12 out of the maximum 13!
-That is 92% of the game!
-You finished 1 points short.
+You scored 13 out of the maximum 13!
+That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

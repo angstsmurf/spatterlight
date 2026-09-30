@@ -1052,7 +1052,8 @@ forest.  A battered old dustbin sits to one side of the porch.  I can also
 see a package.  I can move south and in.
 
 > open package
-I am not carrying the package!
+I open the package.  An electric toaster and a leaflet are inside the
+package.
 
 > take package
 The package is too heavy for me to carry at the moment.
@@ -1066,8 +1067,7 @@ the dead mouse, the overripe pumpkin and the pair of gardening gloves.
 I take the package.
 
 > open package
-I open the package.  An electric toaster and a leaflet are inside the
-package.
+The package is already open!
 
 > take toaster
 I take the electric toaster from the package.

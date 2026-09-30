@@ -101,7 +101,7 @@ Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
 You take Kinda Sharp Sword from Weapon Rack.
 
 > wield sword
-I don't understand what you are wanting to wield!
+You wield Kinda Sharp Sword.
 
 > w
 You move west.

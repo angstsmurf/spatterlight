@@ -2341,7 +2341,7 @@ fortress. The manuscripts are my property but anything else - like dragon
 eggs or the like - you find lying around, feel free to keep."
 
 > get key of pure harry
-I don't think Harry would appreciate being handled.
+You take the key of pure Harry.
 
 > nw
    You move northwest.

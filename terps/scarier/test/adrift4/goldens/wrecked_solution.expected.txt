@@ -1057,8 +1057,7 @@ I'd say ADRIFT is by far the best."
 
 > ask her about good time
 (Suzie)
-Suzie looks me up and down.  "You're quite nice, but that's not why you're
-here."
+"Oh, that.  That'll be referring to my musical talents."
 
 > give her the flute
 (Suzie)
