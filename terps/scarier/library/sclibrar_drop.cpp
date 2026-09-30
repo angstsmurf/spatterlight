@@ -953,24 +953,29 @@ lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
   if (!line || version >= TAF_VERSION_400)
     return FALSE;
 
+  /* Deliberate deviation (2026-09-30): verb words inside a longer object
+     or character name are no verbs; see lib_mask_long_names(). */
+  const std::string masked = lib_mask_long_names (game, line);
+  const scr_char *const words = masked.c_str ();
+
   if (version == TAF_VERSION_390
-      && (lib_co_contains (line, "get") || lib_co_contains (line, "take")
-          || lib_co_contains (line, "pick"))
-      && !lib_co_contains (line, "from")
-      && !lib_co_contains (line, "get on")
-      && !lib_co_contains (line, "get down"))
+      && (lib_co_contains (words, "get") || lib_co_contains (words, "take")
+          || lib_co_contains (words, "pick"))
+      && !lib_co_contains (words, "from")
+      && !lib_co_contains (words, "get on")
+      && !lib_co_contains (words, "get down"))
     {
       pf_buffer_string (filter, "Take what?");
       pf_buffer_answer_break (filter);
       return TRUE;
     }
 
-  if (!(lib_co_contains (line, "drop")
-        || lib_co_contains (line, "put down")
-        || lib_co_contains (line, "leave")
-        || (lib_co_contains (line, "put") && lib_co_contains (line, "down"))))
+  if (!(lib_co_contains (words, "drop")
+        || lib_co_contains (words, "put down")
+        || lib_co_contains (words, "leave")
+        || (lib_co_contains (words, "put") && lib_co_contains (words, "down"))))
     return FALSE;
-  if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
+  if (lib_co_contains (words, "all") || lib_co_contains (words, "and"))
     return FALSE;
 
   for (object = 0; object < gs_object_count (game); object++)
@@ -2074,6 +2079,11 @@ lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   std::string slots[LIB_PRE400_HANDLERS];
   scr_int handler, count;
+
+  /* Deliberate deviation (2026-09-30): a handler word inside a longer
+     object or character name enters no handler; see lib_mask_long_names(). */
+  const std::string masked = lib_mask_long_names (game, line);
+  line = masked.c_str ();
 
 #define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
 

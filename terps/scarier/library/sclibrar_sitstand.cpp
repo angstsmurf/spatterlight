@@ -878,10 +878,35 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
   if (!line || game->pending_endgame != 0)
     return FALSE;
 
-  sit = lib_co_contains (line, "sit");
-  stand = lib_co_contains (line, "stand");
-  lie = lib_co_contains (line, "lie")
-        || (taf_version >= TAF_VERSION_400 && lib_co_contains (line, "lay"));
+  /*
+   * Deliberate deviation (2026-09-30).  The Runners enter sitstand on the
+   * word anywhere, so `open hat stand` was "You are already standing!",
+   * `push lie detector` "You are already lying down.", and `ask bob about
+   * stand` or `tell bob a lie` lost their topic.  A sit/stand/lie inside
+   * a longer object or character name is no verb (lib_mask_long_names()),
+   * and a line that says, asks, tells or talks is free text.
+   */
+  {
+    static const scr_char *const SPEECH[] = {
+      "ask", "say", "tell", "talk", "shout", "yell", NULL
+    };
+
+    for (word = SPEECH; *word; word++)
+      {
+        const size_t length = strlen (*word);
+
+        if (scr_strncasecmp (line, *word, length) == 0
+            && (line[length] == NUL || line[length] == ' '))
+          return FALSE;
+      }
+  }
+  const std::string masked = lib_mask_long_names (game, line);
+
+  sit = lib_co_contains (masked.c_str (), "sit");
+  stand = lib_co_contains (masked.c_str (), "stand");
+  lie = lib_co_contains (masked.c_str (), "lie")
+        || (taf_version >= TAF_VERSION_400
+            && lib_co_contains (masked.c_str (), "lay"));
   blocks = sit + stand + lie;
   if (blocks == 0)
     return FALSE;
@@ -1144,6 +1169,21 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   at = lib_openclose_word (typed, &hit);
   if (!at)
     return FALSE;
+
+  /*
+   * Deliberate deviation (2026-09-30): the words below are tested on the
+   * line with every longer object and character name masked
+   * (lib_mask_long_names()), so `open drop box` is an open and not a drop,
+   * and an "open" inside a name opens nothing.
+   */
+  const std::string masked = lib_mask_long_names (game, typed);
+  const scr_char *const words = masked.c_str ();
+  {
+    const scr_char *masked_hit = NULL;
+
+    if (!lib_openclose_word (words, &masked_hit))
+      return FALSE;
+  }
   cut_at = lib_openclose_word (line, &cut_hit);
 
   const std::string cut =
@@ -1151,7 +1191,7 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
              : std::string (line);
 
   for (word = LEFT_ALONE; *word; word++)
-    if (lib_co_contains (typed, *word))
+    if (lib_co_contains (words, *word))
       {
         /* The claim is theirs, and only the leading open/close word stands
            between them and the anchored row that carries it. */
@@ -1165,27 +1205,27 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
      and characters, whose ask arm wants the name at column 5 below 4.0. */
   speaks = FALSE;
   for (word = EXAMINES; *word && !speaks; word++)
-    speaks = lib_co_contains (typed, *word);
-  if ((taf_version >= TAF_VERSION_380 && lib_co_contains (typed, "look in"))
+    speaks = lib_co_contains (words, *word);
+  if ((taf_version >= TAF_VERSION_380 && lib_co_contains (words, "look in"))
       || (taf_version >= TAF_VERSION_390
-          && (lib_co_contains (typed, "look") || lib_co_contains (typed, "l"))))
+          && (lib_co_contains (words, "look") || lib_co_contains (words, "l"))))
     speaks = TRUE;
   for (word = EXAMINE_HEADS_400; *word && !speaks; word++)
     {
       const size_t size = strlen (*word);
 
       speaks = taf_version >= TAF_VERSION_400
-               ? scr_strncasecmp (typed, *word, size) == 0
-                 && (typed[size] == NUL || typed[size] == ' ')
-               : lib_co_contains (typed, *word);
+               ? scr_strncasecmp (words, *word, size) == 0
+                 && (words[size] == NUL || words[size] == ' ')
+               : lib_co_contains (words, *word);
     }
-  if (lib_co_contains (typed, "where") || lib_co_contains (typed, "find")
-      || lib_co_contains (typed, "locate") || lib_co_contains (typed, "score")
-      || lib_co_contains (typed, "talk to"))
+  if (lib_co_contains (words, "where") || lib_co_contains (words, "find")
+      || lib_co_contains (words, "locate") || lib_co_contains (words, "score")
+      || lib_co_contains (words, "talk to"))
     speaks = TRUE;
-  if (lib_co_contains (typed, "ask"))
+  if (lib_co_contains (words, "ask"))
     speaks = speaks || taf_version >= TAF_VERSION_400
-             || scr_strncasecmp (typed, "ask ", 4) == 0;
+             || scr_strncasecmp (words, "ask ", 4) == 0;
   /*
    * And the `go` nudge at the end of the verb sweep, which overwrites
    * whatever was said (lib_cmd_just_a_direction()): `open go to cave` is
@@ -1196,7 +1236,7 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
    * runner_probes/ord.run390.ord.txt, run400x
    * runner_probes/ord.run400.ord.txt).  The nudge row answers a bare `go`.
    */
-  const scr_bool nudged = lib_co_contains (typed, "go")
+  const scr_bool nudged = lib_co_contains (words, "go")
                           && !lib_goto_line_enters (game, typed);
   speaks = speaks || nudged;
 
@@ -1228,7 +1268,7 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
      * runner_probes/ord.run400.give.txt).  Below 4.0 the box simply opens.
      */
     if (!acted && !speaks && taf_version >= TAF_VERSION_400
-        && lib_co_contains (typed, "give") && pf_buffer_length (filter) > mark)
+        && lib_co_contains (words, "give") && pf_buffer_length (filter) > mark)
       return TRUE;
     if (!acted || speaks)
       {
