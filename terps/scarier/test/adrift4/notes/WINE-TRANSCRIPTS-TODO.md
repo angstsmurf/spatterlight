@@ -1301,6 +1301,13 @@ case, and their goldens are re-blessed. The row notes in
     being handled." ("dog is not carrying the dog collar!" at 3.8)
     (bec2def78, 0b6154aa4, 9b5cdae73). A character whose name is a whole
     object name (Lair's skeleton) still overwrites.
+  - 3.9's reverse-command claim is not ported (run_spent_task_390()).
+    run390 answers a reverse command of a never-done, non-repeatable task
+    with its RepeatText in every room (32a3f3423), so with `out` as the
+    reverse of `enter box`, `out` was "You have already done that." in
+    every room with an Out exit, and the player could not leave. The
+    spent-task claim of a DONE task is kept; the repeat assist already
+    lifts it where a game needs that.
 ---
 
 ## Rules measured and ported (index)
