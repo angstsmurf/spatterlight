@@ -1232,6 +1232,12 @@ uip_match_eos (void)
  * it on the dispatched "get the Mailbox on-a Rope", and run400 answers
  * DontUnderstand (runner_probes/professor.run400.mail2.txt T24).  %reference%
  * patterns are unmeasured and left alone.
+ *
+ * Deliberate deviation (2026-09-30): on a line no task matches strictly
+ * (uip_set_lenient_tasks()) the rebuilt line is compared case-free.  The
+ * pre-match hits case-free and the dispatch then missed byte for byte, so
+ * `take golden idol` for a "Golden Idol" with a `get *idol*` task was
+ * swallowed as DontUnderstand, neither taken nor answered (5489f80fe).
  */
 static scr_bool uip_binary_input = FALSE;
 static scr_bool uip_binary_active = FALSE;
@@ -1343,7 +1349,8 @@ uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
   scr_bool matched = TRUE;
 
   const size_t first_star = uip_wildcard_prepare (pat, line,
-                                                  !uip_binary_input, TRUE);
+                                                  !uip_binary_input
+                                                  || uip_lenient_tasks, TRUE);
   if (first_star == std::string::npos)
     return FALSE;
   if (line.substr (0, first_star) != pat.substr (0, first_star))
@@ -3380,7 +3387,8 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
                                : (version < TAF_VERSION_390) ? "," : "";
     uip_comma_is_space = version < TAF_VERSION_390 && !uip_task_commands;
 
-    uip_binary_active = uip_binary_input && strpbrk (pattern, "*[{")
+    uip_binary_active = uip_binary_input && !uip_lenient_tasks
+                        && strpbrk (pattern, "*[{")
                         && !strchr (pattern, '%');
     match = uip_match_node (tree);
     uip_binary_active = was_binary;

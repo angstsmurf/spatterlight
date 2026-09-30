@@ -3901,6 +3901,69 @@ run_typed_line_task_commands (scr_gameref_t game, const scr_char *string,
 
 
 /*
+ * run_separator_task_line()
+ *
+ * Deliberate deviation (2026-09-30).  TRUE when a task command that itself
+ * holds one of the line separators the line holds (" and ", " then ", ",",
+ * ". ") matches the whole line; the line is then not cut.  run400 cuts at
+ * those words first (7d38fbf08), and from 3.9 the Runners cut at " then "
+ * and ". ", so an author's `jump up and down`, `rock and roll` or `search
+ * then pray` never reached its task: 4.0 answered `jump up and down` with
+ * the jump and then a movement refusal.  A command without the separator
+ * (a catch-all `*`) does not count, so `get coin then n` still splits.
+ */
+static scr_bool
+run_ci_contains (const scr_char *haystack, const scr_char *needle)
+{
+  const size_t length = strlen (needle);
+
+  for (; *haystack != NUL; haystack++)
+    if (scr_strncasecmp (haystack, needle, length) == 0)
+      return TRUE;
+  return FALSE;
+}
+
+static scr_bool
+run_separator_task_line (scr_gameref_t game, const scr_char *line)
+{
+  static const scr_char *const SEPARATORS[] = {
+    " and ", " then ", ",", ". ", NULL
+  };
+  const scr_task_commands_guard task_commands;
+  const scr_int task_count = gs_task_count (game);
+  scr_int task;
+
+  if (!run_ci_contains (line, " and ") && !run_ci_contains (line, " then ")
+      && !strchr (line, ',') && !strstr (line, ". "))
+    return FALSE;
+
+  for (task = 0; task < task_count; task++)
+    {
+      for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
+        {
+          for (const scr_char *pattern :
+               run_task_command_patterns (game, task, forwards))
+            {
+              const scr_char *const *separator;
+              scr_bool shared = FALSE;
+
+              if (pattern[strspn (pattern, WHITESPACE)] == SPECIAL_PATTERN)
+                continue;
+              for (separator = SEPARATORS; *separator && !shared; separator++)
+                shared = run_ci_contains (pattern, *separator)
+                         && run_ci_contains (line, *separator);
+              if (!shared)
+                continue;
+              if (scr_strcasecmp (pattern, line) == 0
+                  || uip_match (pattern, line, game))
+                return TRUE;
+            }
+        }
+    }
+  return FALSE;
+}
+
+/*
  * run_comma_splits_pre390()
  *
  * Deliberate deviation: 3.7/3.8 split a line at a comma, as SCARE did and
@@ -4121,7 +4184,9 @@ run_cut_element (scr_gameref_t game)
        * instead looks like "i" and ".", and results in a parser
        * complaint.
        */
-      const scr_int split = (run_line_buffer[0] == NUL)
+      const scr_int split = (run_line_buffer[0] == NUL
+                             || run_separator_task_line (game,
+                                                         run_line_buffer))
                             ? -1
                             : run_find_split_400 (game, run_line_buffer,
                                                   &sep_length);
@@ -4140,10 +4205,12 @@ run_cut_element (scr_gameref_t game)
        */
       const scr_int version = prop_get_taf_version (bundle);
 
-      length = run_find_split_pre400 (version, run_line_buffer, &extent,
-                                      version < TAF_VERSION_390
-                                      && run_comma_splits_pre390
-                                           (game, run_line_buffer));
+      length = run_separator_task_line (game, run_line_buffer)
+               ? -1
+               : run_find_split_pre400 (version, run_line_buffer, &extent,
+                                        version < TAF_VERSION_390
+                                        && run_comma_splits_pre390
+                                             (game, run_line_buffer));
       if (length < 0)
         length = extent = (scr_int) strlen (run_line_buffer);
       else if (length == 0 && version == TAF_VERSION_390

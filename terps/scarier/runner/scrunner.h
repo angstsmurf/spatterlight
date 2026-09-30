@@ -259,8 +259,6 @@ extern void run_replace_all (std::string &text, const scr_char *find,
 extern scr_bool run_any_task_ran_this_command (void);
 extern void run_restriction_cache_task_pick (scr_gameref_t game,
                                              const scr_char *string);
-extern scr_bool
-run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string);
 extern scr_bool run_game_commands_common (scr_gameref_t game,
                                           const scr_char *string,
                                           scr_bool include_restrictions,

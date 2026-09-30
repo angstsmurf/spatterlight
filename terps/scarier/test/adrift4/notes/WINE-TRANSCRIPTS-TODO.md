@@ -1308,6 +1308,30 @@ case, and their goldens are re-blessed. The row notes in
     every room with an Out exit, and the player could not leave. The
     spent-task claim of a DONE task is kept; the repeat assist already
     lifts it where a game needs that.
+  - A line whose whole text a task command matches, where that command
+    itself holds the separator (" and ", " then ", "," or ". "), is not cut
+    (run_separator_task_line()). run400 cuts at those first (7d38fbf08) and
+    3.9 at " then "/". ", so `jump up and down`, `rock and roll` and
+    `search then pray` tasks never fired. A catch-all `*` does not count,
+    so `get coin then n` still splits.
+  - 4.0's auto-"from" take retry is skipped when "get <parent>" alone
+    matches a task (lib_try_game_command_take_from_parent_400()). run400
+    let warlord's `get *stove*` answer `get treat` for the treat on the
+    stove, so the treat, bone and cudgel could never be taken (0806086b4).
+    Only a task that matches "get <parent>" and not "get <object>" counts,
+    so humbug's catch-all `[get/take] {a/the} %object% {from ...}` does not
+    keep `get token` from its `get * token from * table`.
+  - In the lenient retry the rebuilt take line is matched case-free
+    (uip_set_binary_input()). A "Golden Idol" with a `get *idol*` task
+    pre-matched case-free and then missed byte for byte, so `take golden
+    idol` was swallowed as DontUnderstand (5489f80fe).
+  - In the lenient retry the definite "get the X" rebuild gets the
+    prefix-less "get X" retry as well (lib_try_game_command_common()).
+    run400 offers only the definite form (9298e56b0), so `take mailbox`
+    went past an author's literal `get mailbox` task and its restriction.
+  - Not changed: 4.0's spent-task RepeatText on a movement line
+    (4e53b89ce). les_feux needs `go north` in room 9, but onnafa's task 458
+    uses the same RepeatText as the author's gate on `d`.
 ---
 
 ## Rules measured and ported (index)
