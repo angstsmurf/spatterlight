@@ -5119,6 +5119,22 @@ static const scr_patch_edit_t PATCH_PROVENANCE[] = {
   PATCH_SET_BOOL ("Tasks/504/Where/Rooms/7", 1, 0)
 };
 
+/*
+ * Cowboy Blues (David Whyld).  Variable 0 is the difficulty: 0 hard, 1
+ * medium, 2 easy.  Each item the game splits by setting gives the easier
+ * settings one task and hard another -- the marble, task 375 (`> 0`) against
+ * tasks 376-378 (`== 0`) -- except the battery.  Task 365, the easy
+ * `x house` that hands it over at once, asks `difficulty > 1`, while hard's
+ * look-twice pair 366/367 asks `== 0`, so on medium no battery task matches,
+ * `x house` falls through to task 369, and without the battery there is no
+ * map and no way past the cave.  Task 365 asks `> 0`, as task 375 does.
+ */
+static const scr_patch_edit_t PATCH_COWBOY_BLUES[] = {
+  PATCH_VERIFY ("Tasks/365/Command/0", "x *house*"),
+  PATCH_VERIFY ("Tasks/366/Command/0", "x *house*"),
+  PATCH_SET ("Tasks/365/Restrictions/0/Var3", 1, 0)
+};
+
 typedef struct
 {
   const scr_char *name;            /* Globals/GameName */
@@ -5277,7 +5293,12 @@ static const scr_patch_game_t PATCH_TABLE[] = {
               "the strawberry is offered to the crow that has swallowed the"
               " key, and the crystal ball's vision in room 7 is no longer"
               " answered by the fallback rub",
-              PATCH_PROVENANCE)
+              PATCH_PROVENANCE),
+  PATCH_GAME ("<font size=1>Cowboy Blues", "David Whyld",
+              "the battery at the house is handed over on the medium setting"
+              " as well as easy, as the marble is, rather than on no setting"
+              " between easy and hard",
+              PATCH_COWBOY_BLUES)
 };
 enum { PATCH_TABLE_SIZE = sizeof (PATCH_TABLE) / sizeof (PATCH_TABLE[0]) };
 

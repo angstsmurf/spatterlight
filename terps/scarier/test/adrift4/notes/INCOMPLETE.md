@@ -14,7 +14,7 @@ declined on content grounds (14 of them permanently) — see *Content policy* in
 `WALKTHROUGH_TODO.md`.
 
 Scores are what the committed walkthrough rows score in the seeded headless
-harness (suite: 670/670 PASS, 2026-09-30), cross-checked against each row's manifest
+harness (suite: 672/672 PASS, 2026-09-30), cross-checked against each row's manifest
 comment, which is the authority when a walkthrough note disagrees.  "Faithful"
 means every assist off and no patches.  The per-game note
 (`<Game>_walkthrough.md`) carries the current verdict; a remembered summary
@@ -32,7 +32,7 @@ They are not interchangeable.
   (`GSC_GAME_ASSIST_TABLE` in `os_glk.cpp`, matched on GameName+GameAuthor),
   with a one-line startup notice; `glk <assist> off` restores faithful
   behaviour.  The headless harness does NOT apply that table.
-- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 36 games, 235 edits.  It
+- **Patch table** — `PATCH_TABLE` in `sctafpar.cpp`, 37 games, 238 edits.  It
   changes GAME DATA, content-verified edit by edit, and repairs the author's
   slip itself.  ON BY DEFAULT in the glk build (`glk patches off`, then reload,
   to play a game exactly as its author left it), with a one-line notice; opt-in
@@ -237,6 +237,17 @@ KilledTask T26 was written for.  46 is unreachable by design: `make out with
 jarvin` (+1) sets kissing_jarvin and nothing clears it before Physics, so it
 excludes T14's `no` (+10) — MaxScore counts both branches.
 
+**Cowboy Blues** (CowboyBlues.taf), medium setting — stuck at 147 → the
+medium ending, 188.  Each item the game splits by difficulty gives easy and
+medium one task and hard another (the marble: T375 `> 0` vs T376-T378 `== 0`).
+The battery is the exception: easy's T365 asks `difficulty > 1`, so on medium
+neither it nor hard's look-twice pair T366/T367 matches.  `x house` then falls
+to T369, and with no battery there is no map.  The patch makes T365 ask `> 0`,
+one field.  The rows (`cowboyblues_medium[_patched]_solution.txt`) play the
+easy route and switch to medium with the game's `dif 1` after the voucher.  A
+from-the-start medium route is not derived: medium gates more than the battery,
+e.g. T23 keeps you in the house until you are armoured, with no hint.
+
 **The Hangover** (hangover.taf) — 5/7 → 6/7 (room assist) → 7/7 (patch).
 Both endgame tasks are Where/Type = 0 (ROOMLIST_NO_ROOMS); run390 answers
 "You can't do that here!" to both and tops out at the same 5/7.  The room
@@ -429,11 +440,15 @@ ceiling, or a deliberate second row.
 - **ALEXIS** (Easy row, carry the cube) — 57/65, the Easy ceiling: every
   scored task except the difficulty bonus, which only Hard pays.  The Hard row
   now scores 65/65.
-- **Cowboy Blues** — 177/401 (was 113), a full win.  Only easy is winnable: on
-  hard the marble never appears (T375/T384), so there is no Shem map (T313) and
-  T1 seals the cave; on medium there is no battery (T365-T367).  So the
-  medium/hard closing bonuses (T604 +20, T605 +30) are unreachable, and 401 is
-  not a real maximum.  The one point left, T721 (eat bread, +1), exists only
+- **Cowboy Blues** — 177/401 (was 113), a full win on easy.  Hard is
+  unfinished content, and no patch can fix it: the marble-holder's hard-mode
+  quest (T376, deliver the locket) has no reward task.  T393 takes the locket
+  (+3) and nothing gives the marble, so there is no Shem map (T313) and T1
+  seals the cave.  The endgame itself works on hard.  The game's own `dif 0/1/2`
+  override (T31-T33, hinted by Shem in T324) gets a hard player past the
+  marble.  Medium's missing battery was an author slip, and the patch table
+  fixes it (section 3).  So the hard closing bonus (T605 +30) is unreachable
+  without the override, and 401 is not a real maximum.  The one point left, T721 (eat bread, +1), exists only
   via the `cheat` command.
 - **Provenance** — 285/300 (was 260), a win.  The remaining 15 are blocked.
   T142 `give strawberry to crow` (+10) needs the skeleton key held.  Its

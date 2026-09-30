@@ -1,0 +1,320 @@
+1
+2
+3
+x leg
+s
+get poetry
+w
+talk jeb
+2
+score
+1
+nw
+look
+score
+buy beer
+i
+talk normal
+x wallet
+open wallet
+score
+give cash to spam
+score
+give beer to normal
+score
+talk normal
+3
+1
+2
+1
+1
+1
+1
+se
+look
+sw
+look
+sw
+x rock
+look
+sw
+look
+score
+kid
+i
+score
+look
+get grenade
+i
+ne
+ne
+e
+e
+look
+ne
+e
+e
+look
+talk toby
+4
+1
+n
+2
+ne
+2
+sw
+s
+n
+throw grenade
+find broom
+find broom
+x table
+x carton
+open box
+open box
+open box
+open box
+s
+ne
+talk higgold
+talk higgold
+1
+sw
+s
+se
+x noticeboard
+talk calhoun
+score
+1
+score
+i
+nw
+w
+w
+look
+nw
+look
+i
+arrest whitey
+score
+se
+e
+e
+se
+talk calhoun
+score
+nw
+w
+w
+sw
+look
+talk mauree
+score
+1
+1
+score
+1
+2
+2
+ne
+nw
+look
+give lolly to cestus
+score
+se
+e
+e
+arrest bomba
+s
+look
+x beggar
+n
+w
+w
+sw
+look
+ne
+nw
+look
+talk cestus
+score
+give lolly to cestus
+5
+score
+1
+3
+1
+1
+1
+4
+se
+e
+e
+se
+give slippers to sheriff
+score
+s
+x wall
+get crowbar
+score
+i
+wear badge
+s
+x wall
+get crowbar
+score
+talk quiff
+score
+2
+score
+3
+score
+1
+n
+nw
+w
+n
+look
+open wardrobe
+score
+i
+get will
+i
+score
+s
+e
+se
+talk sheriff now
+4
+s
+w
+nw
+give will to dyanne
+score
+i
+talk spam
+2
+1
+1
+3
+1
+1
+4
+1
+se
+e
+e
+se
+s
+give package to quiff
+n
+nw
+ne
+e
+talk lola
+w
+sw
+w
+w
+nw
+talk spam
+2
+se
+e
+e
+e
+open warehouse
+sw
+pull board
+ne
+score
+i
+u
+open cabinet
+score
+i
+d
+ne
+give cash to egbert
+wear helmet
+w
+ne
+sw
+ne
+n
+push barrel
+d
+u
+s
+score
+i
+get voucher
+sw
+w
+w
+nw
+give voucher to eccles
+dif 1
+talk speckle
+3
+give cash to spam
+give beer to speckle
+se
+e
+e
+e
+e
+x pile
+x mark
+w
+w
+w
+w
+talk jeb
+4
+wait
+sw
+get mattress
+ne
+e
+s
+talk kid
+2
+1
+n
+s
+e
+x house
+arrest lucy
+nw
+nw
+w
+get battery
+e
+e
+e
+w
+e
+give mattress
+give marble
+give battery
+w
+w
+ne
+e
+n
+n
+
+open box
+open box
+open box
+open box
+open box
+open box
+n
+n
+n
+use helmet
+blow whistle
+kill jake
+score

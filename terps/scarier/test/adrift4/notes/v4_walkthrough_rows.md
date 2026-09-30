@@ -10274,6 +10274,18 @@ eats one line, hence a blank line there.  Only T721 (eat bread, +1; the bread
 exists only via `cheat`) is left: 177 is the practical ceiling.
 ```
 
+## cowboyblues_medium_solution.txt, cowboyblues_medium_patched_solution.txt
+
+```text
+The easy route with `dif 1` (the game's own override, T31-T33) typed after
+the voucher, and `talk jeb` / `4` for the mattress markings: on medium T353
+leaves them unreadable until Jeb translates them.  Unpatched, `x house` gets
+T369's "nothing else has mysteriously appeared" and no battery: no map, walled
+at 147.  Patched (T365 `difficulty > 1` -> `> 0`), the battery comes, and so
+do the map and the medium ending, "you only beat the game on the middle
+setting" (T604), 188.  Added 2026-09-30.
+```
+
 ## grumble_solution.txt
 
 ```text
