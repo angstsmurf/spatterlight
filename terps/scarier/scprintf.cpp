@@ -3619,10 +3619,13 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
  * RUNNER_SYNONYMS FALSE applies the game's synonyms the way Scarier did before
  * the Runner port (pf_apply_synonyms_by_word()), for the caller that offers
  * the tasks the other spellings of a line (run_element_command()).
+ * BUILTINS FALSE leaves out the Runner's own everything/slap/take/except
+ * rewrites altogether, for the same caller.
  */
 scr_char *
 pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
-                 scr_bool take_to_get, scr_bool runner_synonyms)
+                 scr_bool take_to_get, scr_bool runner_synonyms,
+                 scr_bool builtins)
 {
   scr_vartype_t vt_key[3];
   scr_int synonym_count, index_;
@@ -3814,7 +3817,8 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
 
     for (const pf_builtin_rewrite_t &entry : BUILTIN)
       {
-        if (version < entry.min_version || version > entry.max_version)
+        if (!builtins
+            || version < entry.min_version || version > entry.max_version)
           continue;
         if (strcmp (entry.original, "take") == 0
             && (!take_to_get || pf_has_take_off (current)))

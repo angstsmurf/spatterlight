@@ -736,6 +736,23 @@ run_substitute_variable_references (scr_gameref_t game, std::string &literal)
 
       if (end == std::string::npos)
         break;
+      if (run_lenient_tasks)
+        {
+          std::string text;
+
+          /* Deliberate deviation; see var_get_command_text(). */
+          if (!var_get_command_text (vars,
+                                     literal.substr (at + 1,
+                                                     end - at - 1).c_str (),
+                                     text))
+            {
+              at = end + 1;
+              continue;
+            }
+          literal.replace (at, end - at + 1, text);
+          at += text.size ();
+          continue;
+        }
       if (!var_get_command_number (vars,
                                    literal.substr (at + 1,
                                                    end - at - 1).c_str (),
