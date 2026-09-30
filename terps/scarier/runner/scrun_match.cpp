@@ -395,8 +395,10 @@ scr_bool run_rerun_exact_spaces = FALSE;
 scr_bool run_lenient_tasks = FALSE;
 
 /* Set while run_line_yields_to_library() asks whether a task command that
-   names a verb takes the line; see there. */
+   names a verb takes the line, and whether that task's restrictions let it
+   run; see there. */
 static scr_bool run_named_verb_only = FALSE;
+static scr_bool run_passing_only = FALSE;
 
 
 /* How many times run_note_task_ran() has noted a task; a caller compares two
@@ -1883,6 +1885,15 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
         continue;
       matched = run_match_task_commands (game, task, string, TRUE, FALSE)
                 || run_match_task_commands (game, task, string, FALSE, FALSE);
+      if (matched && run_passing_only)
+        {
+          /* After the match, so a restriction on %object% sees the binding. */
+          scr_bool pass;
+          const scr_char *fail_message;
+          matched = restr_eval_task_restrictions (game, task, &pass,
+                                                  &fail_message)
+                    && pass;
+        }
       if (matched && except)
         matched = !run_match_task_commands (game, task, except, TRUE, FALSE)
                   && !run_match_task_commands (game, task, except,
@@ -1899,22 +1910,6 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
 }
 
 
-/*
- * run_line_yields_to_library()
- *
- * Deliberate deviation, narrowed (2026-09-30).  TRUE for a line no task
- * matches the Runner's way, that some task matches leniently, but only by a
- * command that starts with '*' -- one that does not name the verb.  Such a
- * command, read by the tolerant matcher, takes any line holding its words:
- * ShadricksUnderground task 16's ` * in * ` ran on `look in black jar` in
- * the cellar and walked the player into the tunnel, and The X-Files'
- * ` *Buzzer*` would ring the buzzer on `x buzzer`.  run_all_commands() gives
- * that line to the Runner's own dispatch first and keeps its answer unless
- * the library has nothing for it (lib_non_answer, or no claim at all), so
- * the lenient task still has `buzzer` -- "I don't understand what you want
- * me to do with the Buzzer." in every Runner -- but not `look in black jar`.
- * Found by run_lenient_census().
- */
 #ifdef SCARIER_DUMP_TOOLS
 /*
  * run_strict_tasks_requested()
@@ -1937,6 +1932,29 @@ run_strict_tasks_requested (const scr_char *string)
 }
 #endif
 
+
+/*
+ * run_line_yields_to_library()
+ *
+ * Deliberate deviation, narrowed (2026-09-30).  TRUE for a line no task
+ * matches the Runner's way, that some task matches leniently, but only by a
+ * command that starts with '*' -- one that does not name the verb.  Such a
+ * command, read by the tolerant matcher, takes any line holding its words:
+ * ShadricksUnderground task 16's ` * in * ` ran on `look in black jar` in
+ * the cellar and walked the player into the tunnel, and The X-Files'
+ * ` *Buzzer*` would ring the buzzer on `x buzzer`.  run_all_commands() gives
+ * that line to the Runner's own dispatch first and keeps its answer unless
+ * the library has nothing for it (lib_non_answer, or no claim at all), so
+ * the lenient task still has `buzzer` -- "I don't understand what you want
+ * me to do with the Buzzer." in every Runner -- but not `look in black jar`.
+ * Found by run_lenient_census().
+ *
+ * A command that names the verb yields too when its task's restrictions
+ * fail, since the task would only print its FailMessage: rocky's `get chain`
+ * before the necklace is in reach answered "what gold necklace?" where the
+ * Runner's way says "Take what?".  When the library has nothing either
+ * (lib_non_answer), the author's refusal stands.  Found by probe_lenient.sh.
+ */
 scr_bool
 run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
 {
@@ -1954,9 +1972,9 @@ run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
     {
       run_lenient_tasks = TRUE;
       uip_set_lenient_tasks (TRUE);
-      run_named_verb_only = TRUE;
+      run_named_verb_only = run_passing_only = TRUE;
       yields = !run_line_matches_task_strictly (game, string);
-      run_named_verb_only = FALSE;
+      run_named_verb_only = run_passing_only = FALSE;
       yields = yields && run_line_matches_task_strictly (game, string);
     }
   run_lenient_tasks = outer_lenient;
@@ -3315,6 +3333,16 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
     return FALSE;
 
   version = run_get_version (bundle);
+
+  /*
+   * Both refusals are the Runner's answers to a line it matched, so the scan
+   * matches the Runner's way even on a line the deviation gave lenient task
+   * matching (run_line_matches_task_strictly()).  Leniently, Vampire's `look
+   * at stick` matched an out-of-room stick task and answered "You can't do
+   * that here!" over the library's "Nothing special.", and Grand Journey's
+   * `climb bed` and `sit bench` the same (probe_lenient.sh, 2026-09-30).
+   */
+  const scr_lenient_tasks_guard strict_match (FALSE);
 
   /*
    * Walk every task, looking for ones whose command matches the input and that
