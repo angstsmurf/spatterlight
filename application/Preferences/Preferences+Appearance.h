@@ -18,7 +18,8 @@ extern NSString * const SpatterlightAppearanceOverrideKey;
 
 /// Override if set, else system appearance. Cached until the next switch.
 + (kAppearanceType)resolvedAppearance;
-
+/// The system's own appearance, whatever the override. Cached the same way.
++ (kAppearanceType)systemAppearance;
 
 /// Re-reads the system appearance, and announces a switch if the resolved one changed.
 + (void)noteAppearanceMayHaveChanged;

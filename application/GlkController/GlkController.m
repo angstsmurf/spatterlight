@@ -228,6 +228,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // leftover windows. (_stashedTheme is cleared further down.)
     if (_game)
         _theme = _game.theme;
+    lastVOSpeakMenu = _theme.vOSpeakMenu;
 
     libcontroller = ((AppDelegate *)NSApp.delegate).tableViewController;
 
