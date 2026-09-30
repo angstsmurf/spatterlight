@@ -1332,6 +1332,16 @@ case, and their goldens are re-blessed. The row notes in
   - Not changed: 4.0's spent-task RepeatText on a movement line
     (4e53b89ce). les_feux needs `go north` in room 9, but onnafa's task 458
     uses the same RepeatText as the author's gate on `d`.
+  - `wield` finds the weapon's Short and every Alias in any case
+    (lib_wield_names_object()). The Runner's test looks for the Short or
+    first Alias as authored in the lower-cased line, so "Excalibur" or
+    "Sword" could never be wielded (bec2def78).
+  - `look at room`, `x the room` and `examine the room` show the room at
+    3.9/4.0 too (lib_cmd_look_typed()); run390/run400 answered "Nothing
+    special." / "You see no such thing." (bec2def78). A typed `l` or `look`
+    that a game synonym turns into a bare `x` stays a look
+    (run_element_filtered()): Lair of the Vampire's `look` was "Try
+    something different." and the room was never listed.
 ---
 
 ## Rules measured and ported (index)

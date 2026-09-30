@@ -4315,6 +4315,33 @@ run_element_filtered (scr_gameref_t game)
   std::vector<scr_owned_string> others;
   size_t index_;
 
+  /*
+   * Deliberate deviation (2026-09-30): a typed `l` or `look` that the
+   * game's synonyms turn into a bare `x`, `ex` or `examine` stays a look.
+   * Lair of the Vampire rewrites `look` to `x`, and run400 answers the bare
+   * examine word with "Try something different.", so the room was never
+   * listed and the objects in it stayed unseen
+   * (runner_probes/lair.run400.[abc].txt).
+   */
+  if (runner)
+    {
+      std::vector<scr_char> typed (run_line_element,
+                                   run_line_element
+                                   + strlen (run_line_element) + 1);
+      std::vector<scr_char> rewritten (runner.get (),
+                                       runner.get ()
+                                       + strlen (runner.get ()) + 1);
+      const scr_char *const typed_line = scr_normalize_string (typed.data ());
+      const scr_char *const new_line = scr_normalize_string (rewritten.data ());
+
+      if ((scr_strcasecmp (typed_line, "l") == 0
+           || scr_strcasecmp (typed_line, "look") == 0)
+          && (scr_strcasecmp (new_line, "x") == 0
+              || scr_strcasecmp (new_line, "ex") == 0
+              || scr_strcasecmp (new_line, "examine") == 0))
+        return NULL;
+    }
+
   others.emplace_back (pf_filter_input (run_line_element, bundle,
                                         TRUE, FALSE));
   if (version == TAF_VERSION_380)
