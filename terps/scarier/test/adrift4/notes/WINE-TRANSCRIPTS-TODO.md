@@ -1294,6 +1294,13 @@ case, and their goldens are re-blessed. The row notes in
     stayed charged for good (e66709de2): `take bag`, `take rock`, `put rock
     in bag`, `drop bag` left 3 on `count`, and repeated drops ended in
     "hands are full" with empty hands. The weight total is unchanged.
+  - A character's name inside a longer object name does not make the line
+    name the character (lib_examine_npc_overwrite_400(), with object names
+    masked). `x dog collar` with a dog present printed the dog, and `take
+    dog collar` took it while saying "I don't think dog would appreciate
+    being handled." ("dog is not carrying the dog collar!" at 3.8)
+    (bec2def78, 0b6154aa4, 9b5cdae73). A character whose name is a whole
+    object name (Lair's skeleton) still overwrites.
 ---
 
 ## Rules measured and ported (index)
