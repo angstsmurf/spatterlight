@@ -2583,12 +2583,7 @@ run_line_t::lenient ()
   /* Deliberate deviation: see run_line_matches_task_strictly().  The peek
      runs strictly, so the flag is cleared for it first. */
 #ifdef SCARIER_DUMP_TOOLS
-  /* SCR_STRICT_TASKS: no lenient lines at all; SCR_STRICT_LINE: none for
-     that one line.  To see what the Runner-way run answers instead. */
-  static const scr_bool strict_only = getenv ("SCR_STRICT_TASKS") != NULL;
-  static const scr_char *const strict_line = getenv ("SCR_STRICT_LINE");
-  if (strict_only
-      || (strict_line && scr_strcasecmp (strict_line, string) == 0))
+  if (run_strict_tasks_requested (string))
     return FALSE;
 #endif
   const scr_bool outer_lenient = run_lenient_tasks;
@@ -5469,7 +5464,9 @@ run_lenient_census (scr_gameref_t game)
    * hit in play with SCR_TRACE_DEVIATIONS.  ShadricksUnderground's ` * in *`
    * is a real one -- `look in black jar` in the cellar enters the tunnel --
    * and Glum Fiddle's `get the gatehouse` is not.  SCR_CENSUS_NOCROSS skips
-   * this half, which is most of the run time.
+   * this half, which is most of the run time; SCR_CENSUS_CROSS_LINES prints
+   * every hit as `CENSUS crossline task=<n> line="<line>"`, which
+   * probe_lenient.sh plays for real along the walkthroughs.
    */
   static const scr_char *const VERBS[] = {
     "get", "take", "drop", "examine", "x", "look at", "open", "close",
@@ -5562,6 +5559,9 @@ run_lenient_census (scr_gameref_t game)
             woke = other, via = 2;
         if (woke < 0)
           continue;
+        if (getenv ("SCR_CENSUS_CROSS_LINES"))
+          fprintf (stderr, "CENSUS crossline task=%ld line=\"%s\"\n", woke,
+                   typed.c_str ());
         if (cross_lines[woke]++ == 0)
           {
             crossed++;
