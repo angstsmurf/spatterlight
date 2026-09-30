@@ -139,6 +139,31 @@
     return newArray;
 }
 
+// The window's hints for a style, with any color the game read from the
+// theme on the other light/dark side (glk_style_measure) translated to its
+// value now; see GlkController currentValueForMeasuredColor:.
+- (NSArray *)effectiveHintsForStyle:(NSUInteger)style {
+    NSArray *hints = self.styleHints[style];
+    GlkController *glkctl = self.glkctl;
+    if (!glkctl.measuredColorAnswers.count || hints.count <= stylehint_BackColor)
+        return hints;
+
+    NSMutableArray *translated = nil;
+    for (NSNumber *hint in @[ @(stylehint_TextColor), @(stylehint_BackColor) ]) {
+        id value = hints[hint.unsignedIntegerValue];
+        if ([value isEqual:[NSNull null]])
+            continue;
+        NSInteger old = ((NSNumber *)value).integerValue;
+        NSInteger now = [glkctl currentValueForMeasuredColor:old];
+        if (now != old) {
+            if (!translated)
+                translated = [hints mutableCopy];
+            translated[hint.unsignedIntegerValue] = @(now);
+        }
+    }
+    return translated ?: hints;
+}
+
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
               value:(NSInteger *)value {
@@ -188,7 +213,7 @@
         if (!style)
             return nil;
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
-            return [style attributesWithHints:self.styleHints[stylevalue]];
+            return [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
         return style.resolvedAttributeDict;
     }
 
@@ -211,7 +236,7 @@
         if (!style)
             return nil;
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
-            styles[stylevalue] = [style attributesWithHints:self.styleHints[stylevalue]];
+            styles[stylevalue] = [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
         else
             styles[stylevalue] = style.resolvedAttributeDict;
     }
@@ -378,6 +403,13 @@
 // Z-machine colors, with a half the game left at the default completed from
 // the theme's light side when the pair would not read (Theme fitGameColors:).
 - (NSMutableDictionary *)zcolored:(ZColor *)zcolor attributes:(NSMutableDictionary *)attributes {
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.measuredColorAnswers.count) {
+        NSInteger fg = zcolor.setsForeground ? [glkctl currentValueForMeasuredColor:zcolor.fg] : zcolor.fg;
+        NSInteger bg = zcolor.setsBackground ? [glkctl currentValueForMeasuredColor:zcolor.bg] : zcolor.bg;
+        if (fg != zcolor.fg || bg != zcolor.bg)
+            zcolor = [[ZColor alloc] initWithText:fg background:bg];
+    }
     attributes = [zcolor coloredAttributes:attributes];
     [self.theme fitGameColors:attributes
                gameForeground:zcolor.setsForeground

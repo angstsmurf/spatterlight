@@ -49,6 +49,14 @@ typedef NS_ENUM(NSUInteger, kAutoBorderSource) {
 @property NSMutableArray *gridStyleHints;
 @property NSMutableArray *bufferStyleHints;
 
+/// Theme colors this game has read with glk_style_measure, keyed by the color
+/// answered: @[side, isGrid, style, hint]. See currentValueForMeasuredColor:.
+@property NSMutableDictionary<NSNumber *, NSArray<NSNumber *> *> *measuredColorAnswers;
+/// A color the game passes back that it had read from the theme with
+/// glk_style_measure on the other light/dark side, translated to the value the
+/// same style and hint have now. Any other color is returned unchanged.
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value;
+
 @property(readonly, getter=isAlive) BOOL alive;
 
 @property(readonly) NSTimeInterval storedTimerLeft;

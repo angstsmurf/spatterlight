@@ -352,6 +352,29 @@
     }
 }
 
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
+    NSArray<NSNumber *> *record = self.measuredColorAnswers[@(value)];
+    if (record.count < 4)
+        return value;
+    if ((kAppearanceType)record[0].unsignedIntegerValue == [Preferences resolvedAppearance])
+        return value;
+
+    BOOL isGrid = record[1].boolValue;
+    NSUInteger style = record[2].unsignedIntegerValue;
+    NSUInteger hint = record[3].unsignedIntegerValue;
+    if (style >= style_NUMSTYLES)
+        return value;
+
+    NSColor *color = nil;
+    if (hint == stylehint_TextColor) {
+        GlkStyle *glkStyle = [self.theme valueForKey:(isGrid ? gGridStyleNames : gBufferStyleNames)[style]];
+        color = glkStyle.resolvedColor;
+    } else if (hint == stylehint_BackColor) {
+        color = isGrid ? self.theme.resolvedGridBackground : self.theme.resolvedBufferBackground;
+    }
+    return color ? color.integerColor : value;
+}
+
 - (BOOL)handleStyleMeasureOnWin:(GlkWindow *)gwindow
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
@@ -375,6 +398,21 @@
 
         if (color) {
             *result = color.integerColor;
+            // Remember answers that came from the theme rather than from the
+            // game's own hints: a game that reads a color once and passes it
+            // back later would otherwise hand over the old side's color after
+            // a light/dark switch. See currentValueForMeasuredColor:.
+            NSInteger hinted;
+            if (![gwindow getStyleVal:style hint:hint value:&hinted]) {
+                if (!self.measuredColorAnswers)
+                    self.measuredColorAnswers = [NSMutableDictionary new];
+                NSNumber *key = @(*result);
+                if (!self.measuredColorAnswers[key])
+                    self.measuredColorAnswers[key] =
+                    @[ @([Preferences resolvedAppearance]),
+                       @([gwindow isKindOfClass:[GlkTextGridWindow class]]),
+                       @(style), @(hint) ];
+            }
             return YES;
         }
     }

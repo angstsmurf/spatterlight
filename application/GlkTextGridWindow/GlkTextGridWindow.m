@@ -90,7 +90,7 @@
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
             } else {
                 styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).resolvedAttributeDict;
             }
@@ -336,7 +336,7 @@
         if (self.theme.doStyles) {
             // We're doing styles, so we call the current theme object with our hints array
             // in order to get an attributes dictionary
-            attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
         } else {
             // We're not doing styles, so use theme attributes with the active light/dark fg
             attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).resolvedAttributeDict;

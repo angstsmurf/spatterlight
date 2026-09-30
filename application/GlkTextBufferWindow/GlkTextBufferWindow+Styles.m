@@ -82,7 +82,7 @@
         if (self.theme.doStyles) {
             // We're doing styles, so we call the current theme object with our hints array
             // in order to get an attributes dictionary
-            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
         } else {
             // We're not doing styles, so use theme attributes with the active light/dark fg
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).resolvedAttributeDict;
