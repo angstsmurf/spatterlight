@@ -100,21 +100,53 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
 
 #pragma mark - Light/dark toggle buttons
 
+// Like the System Settings Appearance icon: a split circle with a smaller,
+// inverted split circle inside it. Drawn as a template image so that it
+// follows the text color in both modes.
++ (NSImage *)appearanceToggleImage {
+    NSImage *image = [NSImage imageWithSize:NSMakeSize(14, 14) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+        [[NSColor blackColor] set];
+        NSRect outerRect = NSInsetRect(dstRect, 1.25, 1.25);
+        NSRect innerRect = NSInsetRect(dstRect, 4.55, 4.55);
+        CGFloat midX = NSMidX(dstRect);
+        NSRect leftHalf = NSMakeRect(NSMinX(dstRect), NSMinY(dstRect), midX - NSMinX(dstRect), NSHeight(dstRect));
+        NSRect rightHalf = NSMakeRect(midX, NSMinY(dstRect), NSMaxX(dstRect) - midX, NSHeight(dstRect));
+
+        NSBezierPath *outer = [NSBezierPath bezierPathWithOvalInRect:outerRect];
+        outer.lineWidth = 1.1;
+        [outer stroke];
+
+        // Left half of the outer circle, with the inner circle cut out.
+        [NSGraphicsContext saveGraphicsState];
+        NSRectClip(leftHalf);
+        NSBezierPath *ring = [NSBezierPath bezierPathWithOvalInRect:outerRect];
+        [ring appendBezierPathWithOvalInRect:innerRect];
+        ring.windingRule = NSWindingRuleEvenOdd;
+        [ring fill];
+        [NSGraphicsContext restoreGraphicsState];
+
+        // Right half of the inner circle.
+        [NSGraphicsContext saveGraphicsState];
+        NSRectClip(rightHalf);
+        [[NSBezierPath bezierPathWithOvalInRect:innerRect] fill];
+        [NSGraphicsContext restoreGraphicsState];
+        return YES;
+    }];
+    image.template = YES;
+    image.accessibilityDescription = NSLocalizedString(@"Switch between light and dark mode", nil);
+    return image;
+}
+
 - (void)configureAppearanceToggleButtons {
     if (self.appearanceToggleButtons.count)
         return;
 
-    NSImage *image = nil;
-    if (@available(macOS 11.0, *)) {
-        NSString *description = NSLocalizedString(@"Switch between light and dark mode", nil);
-        image = [NSImage imageWithSystemSymbolName:@"circle.lefthalf.filled.inverse" accessibilityDescription:description];
-        if (!image)
-            image = [NSImage imageWithSystemSymbolName:@"circle.lefthalf.filled" accessibilityDescription:description];
-    }
+    NSImage *image = [Preferences appearanceToggleImage];
 
     NSMutableArray<NSButton *> *buttons = [NSMutableArray new];
 
-    // One button at the left edge of every tab, on the "Settings for theme …" line.
+    // One button centered at the top of every tab, above the "Settings for theme …"
+    // line. The xib leaves room for it above each header.
     NSMutableArray<NSView *> *labels = [NSMutableArray new];
     for (NSTextFieldCell *header in @[ self.themesHeader, self.stylesHeader, self.detailsHeader,
                                        self.zcodeHeader, self.vOHeader, self.miscHeader ]) {
@@ -136,20 +168,22 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
         if (!panel)
             continue;
 
-        NSButton *button;
-        if (image) {
-            button = [NSButton buttonWithImage:image target:self action:@selector(toggleAppearance:)];
-        } else {
-            button = [NSButton buttonWithTitle:@"◐" target:self action:@selector(toggleAppearance:)];
-        }
+        // Keep the header centered across the full width of the tab.
+        NSRect labelFrame = label.frame;
+        labelFrame.origin.x = -2;
+        labelFrame.size.width = NSWidth(panel.bounds) + 4;
+        label.frame = labelFrame;
+        label.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
+
+        NSButton *button = [NSButton buttonWithImage:image target:self action:@selector(toggleAppearance:)];
         button.bordered = NO;
         button.imagePosition = NSImageOnly;
         button.translatesAutoresizingMaskIntoConstraints = NO;
         [panel addSubview:button positioned:NSWindowAbove relativeTo:label];
 
         [NSLayoutConstraint activateConstraints:@[
-            [button.leadingAnchor constraintEqualToAnchor:panel.leadingAnchor constant:8],
-            [button.centerYAnchor constraintEqualToAnchor:label.centerYAnchor],
+            [button.centerXAnchor constraintEqualToAnchor:panel.centerXAnchor],
+            [button.topAnchor constraintEqualToAnchor:panel.topAnchor constant:7],
         ]];
         [buttons addObject:button];
     }

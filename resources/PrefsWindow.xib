@@ -205,7 +205,7 @@
             <point key="canvasLocation" x="37" y="-409.5"/>
         </window>
         <customView id="Kqs-Yu-Lte" userLabel="Themes Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="354"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="374"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-DC-aRi">
@@ -401,7 +401,7 @@
             <point key="canvasLocation" x="-1291" y="1003"/>
         </customView>
         <customView id="sUR-oS-224" userLabel="Glk Style Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="330"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="350"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button toolTip="Whether changes made on this tab apply to both the light mode and the dark mode colors of the theme." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LdM-ap-9Qk">
@@ -741,7 +741,7 @@
             <point key="canvasLocation" x="-703" y="818"/>
         </customView>
         <customView id="Twz-9X-p1f" userLabel="Presentation Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="489"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="509"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSp-XC-D77">
@@ -1057,7 +1057,7 @@
         </customView>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="8bM-HF-6YZ" userLabel="Format Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="617"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="637"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYg-7T-XS8">
@@ -1571,7 +1571,7 @@
             <point key="canvasLocation" x="493" y="963.5"/>
         </customView>
         <customView id="U1d-3r-zfM" userLabel="VoiceOver Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="267"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="287"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfe-GQ-FuD">
@@ -1739,7 +1739,7 @@
             <point key="canvasLocation" x="-794" y="1516.5"/>
         </customView>
         <view id="jd4-1T-OFI" userLabel="Misc Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="297"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="317"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h5o-q5-7bG">
@@ -1915,13 +1915,13 @@
             <point key="canvasLocation" x="-187" y="1531.5"/>
         </view>
         <view id="sGk-vs-Ced" userLabel="Global Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="327"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="347"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FNI-Gx-fBJ">
                     <rect key="frame" x="-2" y="302" width="564" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="These settings apply to all themes " usesSingleLineMode="YES" id="pr1-vn-eiU">
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="These settings apply to all themes" usesSingleLineMode="YES" id="pr1-vn-eiU">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -2108,7 +2108,7 @@
                 <constraint firstItem="QKR-gA-Brv" firstAttribute="centerY" secondItem="G9f-IG-BcV" secondAttribute="centerY" id="Chs-cy-007"/>
                 <constraint firstItem="QKR-gA-Brv" firstAttribute="leading" secondItem="G9f-IG-BcV" secondAttribute="trailing" constant="7" id="Chs-ld-006"/>
                 <constraint firstItem="G9f-IG-BcV" firstAttribute="leading" secondItem="sGk-vs-Ced" secondAttribute="leading" constant="194" id="Lib-ld-004"/>
-                <constraint firstItem="G9f-IG-BcV" firstAttribute="top" secondItem="sGk-vs-Ced" secondAttribute="top" constant="196" id="Lib-tp-005"/>
+                <constraint firstItem="G9f-IG-BcV" firstAttribute="top" secondItem="sGk-vs-Ced" secondAttribute="top" constant="216" id="Lib-tp-005"/>
             </constraints>
             <point key="canvasLocation" x="426" y="1546.5"/>
         </view>
