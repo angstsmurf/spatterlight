@@ -36,6 +36,13 @@ static NSString * const SpatterlightPerThemeDarkColorsMigratedKey = @"Spatterlig
 
 #pragma mark - Override API
 
+// The appearance every color lookup resolves against. Theme and GlkStyle ask
+// for it on each resolved color, so it is read once per switch and cached:
+// all the redrawing a switch sets off then agrees on one answer, instead of
+// asking the system again halfway through. -1 means "not read yet".
+static NSInteger SPCachedSystemAppearance = -1;
+static NSInteger SPCachedResolvedAppearance = -1;
+
 + (NSString *)appearanceOverride {
     NSString *value = [[NSUserDefaults standardUserDefaults] stringForKey:SpatterlightAppearanceOverrideKey];
     if ([value isEqualToString:@"light"] || [value isEqualToString:@"dark"])
@@ -49,7 +56,90 @@ static NSString * const SpatterlightPerThemeDarkColorsMigratedKey = @"Spatterlig
         [defaults setObject:override forKey:SpatterlightAppearanceOverrideKey];
     else
         [defaults removeObjectForKey:SpatterlightAppearanceOverrideKey];
+    // Setting NSApp.appearance fires the effectiveAppearance observer, which
+    // re-reads the cache; callers announce through noteAppearanceMayHaveChanged,
+    // which does nothing if that already happened.
     [Preferences applyAppearanceOverrideToApp];
+}
+
+// Asks the system for its appearance now, bypassing the cache.
+//
+// AppleInterfaceThemeChangedNotification can arrive before this process's
+// NSUserDefaults has picked up the new AppleInterfaceStyle, so reading the
+// default from its handler can return the old mode. With no override applied,
+// NSApp's effective appearance is the system's, and AppKit has updated it by
+// the time its KVO notification fires. With an override applied, NSApp only
+// reports the override, so the global default is read directly, after
+// synchronizing so that CFPreferences does not answer from a stale cache.
++ (kAppearanceType)readSystemAppearance {
+    if (@available(macOS 10.14, *)) {
+        if (NSApp && NSApp.appearance == nil) {
+            NSAppearanceName match =
+            [NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+            if (match)
+                return [match isEqualToString:NSAppearanceNameDarkAqua] ? kDarkAppearance : kLightAppearance;
+        }
+    }
+
+    CFPreferencesAppSynchronize(kCFPreferencesAnyApplication);
+    CFPropertyListRef value = CFPreferencesCopyAppValue(CFSTR("AppleInterfaceStyle"), kCFPreferencesAnyApplication);
+    BOOL dark = NO;
+    if (value) {
+        dark = CFGetTypeID(value) == CFStringGetTypeID() &&
+        CFStringCompare((CFStringRef)value, CFSTR("Dark"), kCFCompareCaseInsensitive) == kCFCompareEqualTo;
+        CFRelease(value);
+    }
+    return dark ? kDarkAppearance : kLightAppearance;
+}
+
++ (kAppearanceType)systemAppearance {
+    if (SPCachedSystemAppearance < 0)
+        SPCachedSystemAppearance = (NSInteger)[Preferences readSystemAppearance];
+    return (kAppearanceType)SPCachedSystemAppearance;
+}
+
+// Re-reads the system appearance and, if the appearance colors resolve against
+// has changed, tells the preferences window and every game about it, once.
+// Called for AppKit's effectiveAppearance change, for the system's distributed
+// notification, and for rechecks after it (see noteColorModeChanged:).
++ (void)noteAppearanceMayHaveChanged {
+    SPCachedSystemAppearance = (NSInteger)[Preferences readSystemAppearance];
+    kAppearanceType previous = (kAppearanceType)SPCachedResolvedAppearance;
+    BOOL wasKnown = SPCachedResolvedAppearance >= 0;
+    SPCachedResolvedAppearance = -1;
+    kAppearanceType now = [Preferences resolvedAppearance];
+
+    Preferences *prefs = [Preferences instance];
+    [prefs syncDarkModeSwitchFromResolvedMode];
+
+    if (wasKnown && previous == now)
+        return;
+    [prefs appearanceDidChange];
+}
+
+// Checks again a little later: the distributed notification can arrive
+// before the new mode can be read. Each check announces only a real change,
+// so the extra ones cost nothing once the switch has been seen.
++ (void)scheduleAppearanceRechecks {
+    for (NSNumber *delay in @[@0.25, @1.0]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay.doubleValue * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            [Preferences noteAppearanceMayHaveChanged];
+        });
+    }
+}
+
+// The one place a light/dark switch is announced. The preferences window
+// refreshes itself, and ColorModeChanged goes to every game, each of which
+// updates only itself (GlkController noteColorModeChanged:). Posting a
+// PreferencesChanged as well would make the games showing the current theme
+// rearrange twice.
+- (void)appearanceDidChange {
+    self.themesHeader.stringValue = [self themeScopeTitle];
+    [self updatePrefsPanel];
+    [self.coreDataManager saveChanges];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
 }
 
 + (void)applyAppearanceOverrideToApp {
@@ -64,12 +154,18 @@ static NSString * const SpatterlightPerThemeDarkColorsMigratedKey = @"Spatterlig
 }
 
 + (kAppearanceType)resolvedAppearance {
+    if (SPCachedResolvedAppearance >= 0)
+        return (kAppearanceType)SPCachedResolvedAppearance;
     NSString *override = [Preferences appearanceOverride];
+    kAppearanceType resolved;
     if ([override isEqualToString:@"dark"])
-        return kDarkAppearance;
-    if ([override isEqualToString:@"light"])
-        return kLightAppearance;
-    return [Preferences systemAppearance];
+        resolved = kDarkAppearance;
+    else if ([override isEqualToString:@"light"])
+        resolved = kLightAppearance;
+    else
+        resolved = [Preferences systemAppearance];
+    SPCachedResolvedAppearance = (NSInteger)resolved;
+    return resolved;
 }
 
 #pragma mark - Migration
@@ -293,13 +389,7 @@ static void SPFillDarkColorsFromLight(Theme *theme) {
     else
         [Preferences setAppearanceOverride:(wantDark ? @"dark" : @"light")];
 
-    self.themesHeader.stringValue = [self themeScopeTitle];
-
-    [self updatePrefsPanel];
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:[Preferences currentTheme]]];
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+    [Preferences noteAppearanceMayHaveChanged];
 }
 
 @end

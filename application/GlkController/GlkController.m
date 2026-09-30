@@ -219,7 +219,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     Game *game = _game;
 
     [Preferences changeCurrentGlkController:self];
-    [self noteColorModeChanged:nil];
+    // Take the game's theme, as noteColorModeChanged: used to be called here
+    // to do, but without its preferences pass: that queued a forced arrange
+    // before the interpreter had started, and a restarted game rearranged its
+    // leftover windows. (_stashedTheme is cleared further down.)
+    if (_game)
+        _theme = _game.theme;
 
     libcontroller = ((AppDelegate *)NSApp.delegate).tableViewController;
 
