@@ -2483,7 +2483,8 @@ public:
   run_line_t (const run_line_t &) = delete;
   run_line_t &operator= (const run_line_t &) = delete;
 
-  scr_bool run ();
+  /* FORCE: 0 decides leniency from the line, >0 forces it on, <0 off. */
+  scr_bool run (int force = 0);
 
 private:
   void reset ();
@@ -2581,6 +2582,15 @@ run_line_t::lenient ()
 {
   /* Deliberate deviation: see run_line_matches_task_strictly().  The peek
      runs strictly, so the flag is cleared for it first. */
+#ifdef SCARIER_DUMP_TOOLS
+  /* SCR_STRICT_TASKS: no lenient lines at all; SCR_STRICT_LINE: none for
+     that one line.  To see what the Runner-way run answers instead. */
+  static const scr_bool strict_only = getenv ("SCR_STRICT_TASKS") != NULL;
+  static const scr_char *const strict_line = getenv ("SCR_STRICT_LINE");
+  if (strict_only
+      || (strict_line && scr_strcasecmp (strict_line, string) == 0))
+    return FALSE;
+#endif
   const scr_bool outer_lenient = run_lenient_tasks;
   run_lenient_tasks = FALSE;
   uip_set_lenient_tasks (FALSE);
@@ -3744,10 +3754,11 @@ run_line_t::finish (scr_bool result)
  * run_all_commands() says why the passes stand where they do.
  */
 scr_bool
-run_line_t::run ()
+run_line_t::run (int force)
 {
   reset ();
-  const scr_lenient_tasks_guard lenient_tasks (lenient ());
+  const scr_lenient_tasks_guard lenient_tasks (force == 0 ? lenient ()
+                                               : force > 0);
   if (spent_claim_390 ())
     return finish (TRUE);
 
@@ -3864,6 +3875,36 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * ("glk capacity"), handled in the front end before input ever reaches the
    * interpreter, so there is no administrative meta-command to match here.
    */
+  /*
+   * Deliberate deviation: a line only a verb-less task command takes
+   * leniently is the Runner's first, and the task's only if the library
+   * has nothing for it; see run_line_yields_to_library().  Nothing the
+   * library says to such a line changes the game, so its words are simply
+   * taken back.
+   */
+  if (run_line_yields_to_library (game, string))
+    {
+      const size_t mark = pf_buffer_length (gs_get_filter (game));
+      scr_bool answered;
+
+      lib_non_answer = FALSE;
+      {
+        run_line_t runner_line (game, string);
+
+        answered = runner_line.run (-1) && !lib_non_answer;
+      }
+      lib_non_answer = FALSE;
+      if (answered)
+        {
+          SCR_DEVIATION ("library_first", "kept the library's answer");
+          return TRUE;
+        }
+      pf_truncate (gs_get_filter (game), mark);
+      run_line_t lenient_line (game, string);
+
+      return lenient_line.run (1);
+    }
+
   run_line_t line (game, string);
 
   return line.run ();

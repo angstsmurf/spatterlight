@@ -1516,6 +1516,7 @@ lib_cmd_verb_object (scr_gameref_t game)
     uip_note_antecedent_400 (object, UIP_IT_DEFINITE, UIP_STAGE_SCORER);
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");
+  lib_non_answer = TRUE;
   lib_co_400_note_refusal ();
   lib_battle_who_note_unanswered ();
   return TRUE;
