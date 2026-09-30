@@ -353,21 +353,24 @@
 }
 
 - (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid {
-    NSArray<NSNumber *> *record = self.measuredColorAnswers[@(value)];
-    return record.count >= 4 && record[3].unsignedIntegerValue == stylehint_BackColor &&
-    record[1].boolValue == grid;
+    NSArray *record = self.measuredColorAnswers[@(value)];
+    return record.count >= 4 && [record[3] unsignedIntegerValue] == stylehint_BackColor &&
+    [record[1] boolValue] == grid;
 }
 
 - (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
-    NSArray<NSNumber *> *record = self.measuredColorAnswers[@(value)];
-    if (record.count < 4)
+    NSArray *record = self.measuredColorAnswers[@(value)];
+    if (record.count < 5)
         return value;
-    if ((kAppearanceType)record[0].unsignedIntegerValue == [Preferences resolvedAppearance])
+    // The theme matters too: an autorestored game may have read its colors
+    // from a theme it no longer uses.
+    if ((kAppearanceType)[record[0] unsignedIntegerValue] == [Preferences resolvedAppearance] &&
+        [record[4] isEqual:(self.theme.name ?: @"")])
         return value;
 
-    BOOL isGrid = record[1].boolValue;
-    NSUInteger style = record[2].unsignedIntegerValue;
-    NSUInteger hint = record[3].unsignedIntegerValue;
+    BOOL isGrid = [record[1] boolValue];
+    NSUInteger style = [record[2] unsignedIntegerValue];
+    NSUInteger hint = [record[3] unsignedIntegerValue];
     if (style >= style_NUMSTYLES)
         return value;
 
@@ -406,8 +409,8 @@
             *result = color.integerColor;
             // Remember answers that came from the theme rather than from the
             // game's own hints: a game that reads a color once and passes it
-            // back later would otherwise hand over the old side's color after
-            // a light/dark switch. See currentValueForMeasuredColor:.
+            // back later would otherwise hand over the old side's or old
+            // theme's color after a switch. See currentValueForMeasuredColor:.
             NSInteger hinted;
             if (![gwindow getStyleVal:style hint:hint value:&hinted]) {
                 if (!self.measuredColorAnswers)
@@ -417,7 +420,7 @@
                     self.measuredColorAnswers[key] =
                     @[ @([Preferences resolvedAppearance]),
                        @([gwindow isKindOfClass:[GlkTextGridWindow class]]),
-                       @(style), @(hint) ];
+                       @(style), @(hint), self.theme.name ?: @"" ];
             }
             return YES;
         }

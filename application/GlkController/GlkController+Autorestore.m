@@ -129,6 +129,19 @@
     self.bufferStyleHints = restoredController.bufferStyleHints;
     self.gridStyleHints = restoredController.gridStyleHints;
 
+    // The restored interpreter still holds the colors it read with
+    // glk_style_measure before the autosave. Anything it has measured since
+    // launch is kept where the archive has no answer for that color.
+    NSDictionary *restoredAnswers = restoredController.measuredColorAnswers;
+    if (restoredAnswers.count) {
+        NSMutableDictionary *answers = restoredAnswers.mutableCopy;
+        [self.measuredColorAnswers enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSArray *record, BOOL *stop) {
+            if (!answers[key])
+                answers[key] = record;
+        }];
+        self.measuredColorAnswers = answers;
+    }
+
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
 
@@ -202,8 +215,18 @@
     // This makes autorestoring in fullscreen a little less flickery
     [self adjustContentView];
 
-    if (restoredControllerLate.bgcolor)
-        [self setBorderColor:restoredControllerLate.bgcolor];
+    if (restoredControllerLate.bgcolor) {
+        // A border that was the theme's default background takes this
+        // session's side of it, not the one it was saved on.
+        NSColor *border = restoredControllerLate.bgcolor;
+        if (self.theme.borderBehavior == kAutomatic) {
+            if (restoredControllerLate.lastAutoBGSource == kAutoBorderBufferDefault)
+                border = self.theme.resolvedBufferBackground;
+            else if (restoredControllerLate.lastAutoBGSource == kAutoBorderGridDefault)
+                border = self.theme.resolvedGridBackground;
+        }
+        [self setBorderColor:border];
+    }
 
     GlkWindow *winToGrabFocus = nil;
 
@@ -621,6 +644,10 @@
         self.printsAndClearsThisTurn = [decoder decodeIntegerForKey:@"printsAndClearsThisTurn"];
 
         self.oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
+        self.lastAutoBGSource = (kAutoBorderSource)[decoder decodeIntegerForKey:@"lastAutoBGSource"];
+        self.measuredColorAnswers =
+        [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSDictionary class], [NSArray class], [NSNumber class], [NSString class], nil]
+                                forKey:@"measuredColorAnswers"];
 
         self.showingCoverImage = [decoder decodeBoolForKey:@"showingCoverImage"];
 
@@ -697,6 +724,9 @@
     [encoder encodeInteger:self.printsAndClearsThisTurn forKey:@"printsAndClearsThisTurn"];
 
     [encoder encodeObject:self.theme.name forKey:@"oldThemeName"];
+    [encoder encodeInteger:(NSInteger)self.lastAutoBGSource forKey:@"lastAutoBGSource"];
+    if (self.measuredColorAnswers.count)
+        [encoder encodeObject:self.measuredColorAnswers forKey:@"measuredColorAnswers"];
 
     [encoder encodeBool:self.showingCoverImage forKey:@"showingCoverImage"];
 
