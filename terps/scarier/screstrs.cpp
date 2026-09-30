@@ -603,12 +603,15 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
   if (var1 == 0 && (var2 == 0 || var2 == 1)
       && prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
+      /*
+       * Deliberate deviation (2026-09-30): 3.9 answers "must be in the same
+       * room as the Player" the way 4.0 does, passing (a4c5edffa).  run390's
+       * failure made any 3.9 task carrying the Generator's default row
+       * unreachable -- Studio's 100th point among them -- with nothing
+       * said.  "must not be" still fails silently.
+       */
       if (var3 == 0)
-        {
-          if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-            return FALSE;
-          return var2 == 0;
-        }
+        return var2 == 0;
       if (var3 == 1 && var_get_ref_character (vars) < 0)
         return FALSE;
     }

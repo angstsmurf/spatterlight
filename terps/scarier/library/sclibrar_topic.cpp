@@ -86,32 +86,6 @@ lib_subject_in_text_390 (const scr_char *subject, scr_int posn,
 }
 
 /*
- * lib_subject_in_text_3738()
- *
- * The 3.7/3.8 subject test: the comma-terminated subject at posn, less its
- * leading spaces, occurs anywhere in the lower-cased text.  See
- * lib_npc_find_topic().
- */
-static scr_bool
-lib_subject_in_text_3738 (const scr_char *subject, scr_int posn,
-                          const scr_char *string)
-{
-  std::string word, text (string);
-  scr_int end;
-
-  while (subject[posn] != NUL && scr_isspace (subject[posn]))
-    posn++;
-  for (end = posn; subject[end] != NUL && subject[end] != COMMA;)
-    end++;
-  word.assign (subject + posn, end - posn);
-  for (auto &c : text)
-    c = scr_tolower (c);
-
-  return !word.empty () && text.find (word) != std::string::npos;
-}
-
-
-/*
  * lib_npc_topic_response()
  * lib_npc_reply_to()
  *
@@ -199,13 +173,18 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
  * overwritten by it.  The 3.7/3.8 substring test is measured on wrecked T211
  * (run380x): `ask her about good time` gets Suzie's "me, myself" reply, since
  * "time" contains "me".
+ *
+ * Deliberate deviation (2026-09-30): 3.7/3.8 use the 3.9 whole-word test,
+ * case-free.  The 3.7/3.8 InStr answered `ask bob about good time` from a
+ * "me" topic and `ask bob about paper` from an "ape" one, and since it
+ * lower-cased only the text, a subject authored as "Key" never matched
+ * (baf1e529d).
  */
 scr_int
 lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_bool is_3738 = prop_get_taf_version (bundle) < TAF_VERSION_390;
   const scr_char *const text = var_get_ref_text (vars);
   scr_vartype_t vt_key[5];
   scr_int topic_count, topic, answer;
@@ -244,9 +223,7 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
           if (lib_trace)
             scr_trace ("Library: subject %s[%ld]\n", subjects, start);
 
-          if ((is_star
-               || (is_3738 ? lib_subject_in_text_3738 (subjects, start, text)
-                           : lib_subject_in_text_390 (subjects, start, text)))
+          if ((is_star || lib_subject_in_text_390 (subjects, start, text))
               && (!is_star || answer == -1)
               && !scr_strempty (lib_npc_topic_response (game, npc, topic)))
             {
