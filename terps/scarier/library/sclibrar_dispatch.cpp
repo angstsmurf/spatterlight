@@ -307,6 +307,16 @@ lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
 scr_bool lib_rebuilt_raw_dispatch = FALSE;
 
 /*
+ * Set by the library replies that only say it has nothing for the line --
+ * the verb catch-all's "I don't understand what you want me to do with X."
+ * and its takefrom and open-with twins, the buy refusals, and the
+ * "... but nothing happens." of push, pull and the like.  Read by
+ * run_all_commands() after a line it handed the library first; see
+ * run_line_yields_to_library().
+ */
+scr_bool lib_non_answer = FALSE;
+
+/*
  * Set by lib_try_game_command_take_from_parent_400() only: the take piece
  * 46302C exits on a pre-match return of 1 and lets a 2 (a silent task)
  * dispatch and then fall through to the library take (@462C71-462C85).

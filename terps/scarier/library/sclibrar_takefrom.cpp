@@ -370,6 +370,7 @@ lib_take_from_answer_370 (scr_gameref_t game, scr_int associate)
       lib_print_wrapped_object (game,
                                 "I don't understand what you want me to do with ",
                                 object, ".\n");
+      lib_non_answer = TRUE;
       return TRUE;
     }
   for (object = 0; input && object < gs_object_count (game); object++)

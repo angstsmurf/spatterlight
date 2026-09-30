@@ -145,6 +145,7 @@ lib_nothing_happens_common (scr_gameref_t game,
         lib_print_object_np (game, first);
         lib_print_wrapped_object (game, " with ", instrument,
                                   ", but nothing happens.\n");
+        lib_non_answer = TRUE;
         return TRUE;
       }
   }
@@ -155,6 +156,7 @@ lib_nothing_happens_common (scr_gameref_t game,
       pf_buffer_string (filter, person);
       pf_buffer_string (filter, verb);
       pf_buffer_string (filter, ", but nothing happens.\n");
+      lib_non_answer = TRUE;
       return TRUE;
     }
 
@@ -169,6 +171,7 @@ lib_nothing_happens_common (scr_gameref_t game,
   pf_buffer_character (filter, ' ');
   lib_print_object_np (game, object);
   pf_buffer_string (filter, ", but nothing happens.\n");
+  lib_non_answer = TRUE;
   return TRUE;
 }
 

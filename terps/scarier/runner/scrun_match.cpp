@@ -394,6 +394,10 @@ scr_bool run_rerun_exact_spaces = FALSE;
    run_line_matches_task_strictly(). */
 scr_bool run_lenient_tasks = FALSE;
 
+/* Set while run_line_yields_to_library() asks whether a task command that
+   names a verb takes the line; see there. */
+static scr_bool run_named_verb_only = FALSE;
+
 
 /* How many times run_note_task_ran() has noted a task; a caller compares two
    readings to learn whether a pass ran anything, a task that had already run
@@ -1060,6 +1064,8 @@ run_match_task_commands (scr_gameref_t game,
       /* Retrieve the pattern for this command, find its first character. */
       pattern = patterns[command];
       first = strspn (pattern, WHITESPACE);
+      if (run_named_verb_only && pattern[first] == WILDCARD_PATTERN)
+        continue;
 
       /*
        * Make a special case of library calls and commands that begin with a
@@ -1890,6 +1896,45 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
   var_set_ref_number (vars, ref_number);
   var_set_ref_text (vars, ref_text.c_str ());
   return matched;
+}
+
+
+/*
+ * run_line_yields_to_library()
+ *
+ * Deliberate deviation, narrowed (2026-09-30).  TRUE for a line no task
+ * matches the Runner's way, that some task matches leniently, but only by a
+ * command that starts with '*' -- one that does not name the verb.  Such a
+ * command, read by the tolerant matcher, takes any line holding its words:
+ * ShadricksUnderground task 16's ` * in * ` ran on `look in black jar` in
+ * the cellar and walked the player into the tunnel, and The X-Files'
+ * ` *Buzzer*` would ring the buzzer on `x buzzer`.  run_all_commands() gives
+ * that line to the Runner's own dispatch first and keeps its answer unless
+ * the library has nothing for it (lib_non_answer, or no claim at all), so
+ * the lenient task still has `buzzer` -- "I don't understand what you want
+ * me to do with the Buzzer." in every Runner -- but not `look in black jar`.
+ * Found by run_lenient_census().
+ */
+scr_bool
+run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
+{
+  const scr_bool outer_lenient = run_lenient_tasks;
+  scr_bool yields = FALSE;
+
+  run_lenient_tasks = FALSE;
+  uip_set_lenient_tasks (FALSE);
+  if (!run_line_matches_task_strictly (game, string))
+    {
+      run_lenient_tasks = TRUE;
+      uip_set_lenient_tasks (TRUE);
+      run_named_verb_only = TRUE;
+      yields = !run_line_matches_task_strictly (game, string);
+      run_named_verb_only = FALSE;
+      yields = yields && run_line_matches_task_strictly (game, string);
+    }
+  run_lenient_tasks = outer_lenient;
+  uip_set_lenient_tasks (outer_lenient);
+  return yields;
 }
 
 

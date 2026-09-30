@@ -413,6 +413,7 @@ lib_cmd_buy_object (scr_gameref_t game)
   pf_buffer_string (filter,
                     lib_select_plurality (game, object, " is", " are"));
   pf_buffer_string (filter, " for sale.\n");
+  lib_non_answer = TRUE;
   return TRUE;
 }
 
@@ -420,6 +421,7 @@ scr_bool
 lib_cmd_buy_other (scr_gameref_t game)
 {
   /* Reject this attempt. */
+  lib_non_answer = TRUE;
   return lib_print_message (game, "I don't think that is for sale.\n");
 }
 

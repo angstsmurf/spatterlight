@@ -342,6 +342,7 @@ lib_with_arm_390 (scr_gameref_t game)
                             " with ");
           lib_print_object_np (game, object);
           pf_buffer_string (filter, "!\n");
+          lib_non_answer = TRUE;
           return TRUE;
         }
     }
