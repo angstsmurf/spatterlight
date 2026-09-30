@@ -1354,6 +1354,12 @@ case, and their goldens are re-blessed. The row notes in
     at 4.0 (restr_pass_task_char()). run390 fails it silently
     (a4c5edffa), so every task carrying the Generator's default row was
     dead; Studio's own patch (83368ef7b) is no longer needed for that.
+  - A crowd of namesakes (all one Short) is asked about, not acted on
+    whole, by the pre-4.0 open/close loop and the 3.7 wear/remove loop
+    (lib_references_are_namesakes()). `open door` with a red and a blue
+    door opened both at 3.7, and `wear hat` put on both hats (83c4a19c0,
+    2e4d7ba0e). A line naming different things (`open box gem chest`)
+    keeps the Runner's walk.
 ---
 
 ## Rules measured and ported (index)

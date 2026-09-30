@@ -500,6 +500,41 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
 }
 
 /*
+ * lib_references_are_namesakes()
+ *
+ * TRUE when two or more objects are referenced and all share one Short.
+ * Deliberate deviation (2026-09-30): the pre-4.0 loops that act on every
+ * referenced object (open/close at 3.7-3.9, wear/remove at 3.7) are for a
+ * line naming several things; a crowd of namesakes is asked about instead,
+ * so `open door` with a red and a blue door no longer opens both, nor
+ * `wear hat` put on both hats (83c4a19c0, 2e4d7ba0e).
+ */
+static scr_bool
+lib_references_are_namesakes (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *first = NULL;
+  scr_int index_, count = 0;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      const scr_char *shortname;
+
+      if (!game->object_references[index_])
+        continue;
+      shortname = prop_get_indexed_string (bundle, "Objects", index_, "Short");
+      if (!shortname)
+        return FALSE;
+      if (!first)
+        first = shortname;
+      else if (scr_strcasecmp (first, shortname) != 0)
+        return FALSE;
+      count++;
+    }
+  return count > 1;
+}
+
+/*
  * lib_mask_long_names()
  *
  * Deliberate deviation (2026-09-30).  A copy of LINE, the same length, with
@@ -3450,7 +3485,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * runner_probes/slot2.run370.b.rtf, 2026-09-21).  Deliberate deviation:
    * Scarier lets every Alias name the object, as 3.8 does.
    */
-  if (count > 1 && taf_version < TAF_VERSION_380)
+  if (count > 1 && taf_version < TAF_VERSION_380
+      && !lib_references_are_namesakes (game))
     {
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
       const scr_bool is_remove = strcmp (verb, "remove") == 0;
@@ -3668,7 +3704,8 @@ pre400_take_done:
    * first name by WORD POSITION (lib_first_named_pre400()).
    */
   if (count > 1 && taf_version < TAF_VERSION_400
-      && (strcmp (verb, "open") == 0 || strcmp (verb, "close") == 0))
+      && (strcmp (verb, "open") == 0 || strcmp (verb, "close") == 0)
+      && !lib_references_are_namesakes (game))
     {
       const scr_bool is_open = strcmp (verb, "open") == 0;
       const scr_int wanted = is_open ? OBJ_CLOSED : OBJ_OPEN;
