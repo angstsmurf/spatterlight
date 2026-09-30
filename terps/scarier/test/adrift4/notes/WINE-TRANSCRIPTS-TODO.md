@@ -1360,6 +1360,15 @@ case, and their goldens are re-blessed. The row notes in
     door opened both at 3.7, and `wear hat` put on both hats (83c4a19c0,
     2e4d7ba0e). A line naming different things (`open box gem chest`)
     keeps the Runner's walk.
+  - A battle-killed NPC whose KilledTask gave it stamina back is not dead
+    for good (battle kill in scbattle.cpp), so its walk brings it back as
+    the author meant. The Town of Azra's #banditkristdies/#deerdies revive
+    their NPC this way, and with the NPC dead for good (bc16dfe2d) the
+    house goal was unreachable. An NPC with no KilledTask, or left at no
+    stamina, stays dead.
+  - Not changed: a 3.7/3.8 Obj2 restriction on a static object still fails
+    (985d3a092). b607dd8 tested the preceding dynamic object instead, which
+    only happened to suit twilight; PATCH_TWILIGHT covers that game.
 ---
 
 ## Rules measured and ported (index)
