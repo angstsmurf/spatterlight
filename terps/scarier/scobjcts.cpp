@@ -688,7 +688,13 @@ obj_get_container_capacity (scr_gameref_t game, scr_int object)
   packed = prop_get_indexed_integer (bundle, "Objects", object, "Capacity");
 
   count = packed / OBJ_DIMENSION_DIVISOR;
-  if (prop_get_taf_version (bundle) == TAF_VERSION_390)
+  /*
+   * Deliberate deviation (2026-09-30): run390 reads only the first digit
+   * of the count (6db5e9698), so a 3.9 container authored to hold ten or
+   * more objects held one.  Scarier honours the authored count; a game the
+   * Runner could finish can never need less room than that.
+   */
+  if (FALSE && prop_get_taf_version (bundle) == TAF_VERSION_390)
     {
       while (count >= OBJ_DIMENSION_DIVISOR)
         count /= OBJ_DIMENSION_DIVISOR;

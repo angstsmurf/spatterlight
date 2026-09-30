@@ -1342,6 +1342,18 @@ case, and their goldens are re-blessed. The row notes in
     that a game synonym turns into a bare `x` stays a look
     (run_element_filtered()): Lair of the Vampire's `look` was "Try
     something different." and the room was never listed.
+  - 3.7/3.8 ask topics use the 3.9 whole-word, case-free subject test
+    (lib_npc_find_topic()). The 3.7/3.8 InStr answered `ask bob about good
+    time` from a "me" topic and `paper` from an "ape" one, and a subject
+    authored as "Key" never matched (baf1e529d). wrecked T211 is the
+    measured Runner cell that now differs.
+  - A 3.9 container holds the count its Capacity was authored with
+    (obj_get_container_capacity()). run390 reads the first digit only
+    (6db5e9698), so a container for ten objects held one.
+  - At 3.9 "the Player must be in the same room as the Player" passes, as
+    at 4.0 (restr_pass_task_char()). run390 fails it silently
+    (a4c5edffa), so every task carrying the Generator's default row was
+    dead; Studio's own patch (83368ef7b) is no longer needed for that.
 ---
 
 ## Rules measured and ported (index)
