@@ -76,6 +76,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "scarier.h"
 #include "scprotos.h"
