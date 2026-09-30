@@ -16,6 +16,9 @@
 - (instancetype)initWithText:(NSInteger)fg background:(NSInteger)bg;
 
 - (NSMutableDictionary *)coloredAttributes:(NSMutableDictionary *)dict;
+/// Whether the game chose this color itself (not default, current or transparent).
+@property (readonly) BOOL setsForeground;
+@property (readonly) BOOL setsBackground;
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict;
 
 

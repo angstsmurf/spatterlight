@@ -183,6 +183,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSColor *)resolvedSpacingColor;
 - (nullable NSColor *)resolvedBufLinkColor;
 - (nullable NSColor *)resolvedGridLinkColor;
+/// A game that sets only a text color (or only a background) designed it
+/// against the default background (or text color) of the light side. When the
+/// half it left to the theme makes the pair unreadable, as after a switch to
+/// dark mode, this completes the pair from the light side: the game's text gets
+/// the background it was designed for, and its background the text color.
+/// Does nothing when the game set both halves or neither, or when the pair
+/// already reads. lightForeground is the style's light text color; nil means
+/// the Normal style's.
+- (void)fitGameColors:(NSMutableDictionary *)attributes
+       gameForeground:(BOOL)gameForeground
+       gameBackground:(BOOL)gameBackground
+      lightForeground:(nullable NSColor *)lightForeground
+                 grid:(BOOL)grid;
+
 - (void)setResolvedBufferBackground:(nullable NSColor *)color;
 - (void)setResolvedGridBackground:(nullable NSColor *)color;
 - (void)setResolvedBorderColor:(nullable NSColor *)color;

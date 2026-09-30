@@ -229,7 +229,7 @@
                 // If the style has reverseColor hint set, we apply the zcolors in reverse
                 attributes = [currentZColor reversedAttributes:attributes];
             } else {
-                attributes = [currentZColor coloredAttributes:attributes];
+                attributes = [self zcolored:currentZColor attributes:attributes];
             }
         }
     }
@@ -375,6 +375,18 @@
     }
 }
 
+// Z-machine colors, with a half the game left at the default completed from
+// the theme's light side when the pair would not read (Theme fitGameColors:).
+- (NSMutableDictionary *)zcolored:(ZColor *)zcolor attributes:(NSMutableDictionary *)attributes {
+    attributes = [zcolor coloredAttributes:attributes];
+    [self.theme fitGameColors:attributes
+               gameForeground:zcolor.setsForeground
+               gameBackground:zcolor.setsBackground
+              lightForeground:nil
+                         grid:[self isKindOfClass:[GlkTextGridWindow class]]];
+    return attributes;
+}
+
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
     
@@ -417,7 +429,7 @@
                     mutDict = [z reversedAttributes:mutDict];
                 } else {
                     // Apply Zcolor normally
-                    mutDict = [z coloredAttributes:mutDict];
+                    mutDict = [weakSelf zcolored:z attributes:mutDict];
                 }
                 [attStr addAttributes:mutDict range:range2];
             }];

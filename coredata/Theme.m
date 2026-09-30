@@ -13,6 +13,8 @@
 #import "Interpreter.h"
 #import "Preferences.h"
 
+#include <math.h>
+
 #include "glk.h"
 #include "glkimp.h"
 
@@ -411,6 +413,67 @@
 }
 - (NSColor *)resolvedGridLinkColor {
     return [self sp_colorLight:self.gridLinkColor dark:self.gridLinkColorDark];
+}
+
+#pragma mark - Game colors against the resolved side
+
+// WCAG relative luminance, or -1 for a color with no RGB form.
+static CGFloat SPRelativeLuminance(NSColor *color) {
+    NSColor *rgb = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+    if (!rgb)
+        return -1;
+    CGFloat channels[3] = { rgb.redComponent, rgb.greenComponent, rgb.blueComponent };
+    for (NSUInteger i = 0; i < 3; i++) {
+        CGFloat c = channels[i];
+        channels[i] = (c <= 0.03928) ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4);
+    }
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+}
+
+// WCAG contrast ratio, 1 to 21. A pair that cannot be measured counts as
+// readable, so that it is left alone.
+static CGFloat SPContrastRatio(NSColor *a, NSColor *b) {
+    CGFloat la = SPRelativeLuminance(a), lb = SPRelativeLuminance(b);
+    if (la < 0 || lb < 0)
+        return 21;
+    return (MAX(la, lb) + 0.05) / (MIN(la, lb) + 0.05);
+}
+
+// Below this a pair is taken to be unreadable: WCAG's minimum for large text
+// and interface elements. Black or navy text on a dark background falls well
+// under it, most colors a game picks for emphasis do not.
+static const CGFloat kSPMinGameColorContrast = 3.0;
+
+- (void)fitGameColors:(NSMutableDictionary *)attributes
+       gameForeground:(BOOL)gameForeground
+       gameBackground:(BOOL)gameBackground
+      lightForeground:(NSColor *)lightForeground
+                 grid:(BOOL)grid {
+    if (gameForeground == gameBackground)
+        return;
+
+    NSColor *fg = attributes[NSForegroundColorAttributeName];
+    NSColor *bg = attributes[NSBackgroundColorAttributeName];
+    if (!bg)
+        bg = grid ? self.resolvedGridBackground : self.resolvedBufferBackground;
+    if (!fg || !bg)
+        return;
+
+    CGFloat contrast = SPContrastRatio(fg, bg);
+    if (contrast >= kSPMinGameColorContrast)
+        return;
+
+    if (gameForeground) {
+        NSColor *designed = grid ? self.gridBackground : self.bufferBackground;
+        if (designed && SPContrastRatio(fg, designed) > contrast)
+            attributes[NSBackgroundColorAttributeName] = designed;
+    } else {
+        NSColor *designed = lightForeground;
+        if (!designed)
+            designed = grid ? self.gridNormal.color : self.bufferNormal.color;
+        if (designed && SPContrastRatio(designed, bg) > contrast)
+            attributes[NSForegroundColorAttributeName] = designed;
+    }
 }
 
 - (void)setResolvedBufferBackground:(NSColor *)color {
