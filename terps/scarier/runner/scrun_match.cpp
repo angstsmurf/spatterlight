@@ -2924,8 +2924,13 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
        * room test: matt's `out` is "You have already done that." everywhere
        * until the boss room is entered (probe p39REV, run390x
        * runner_probes/rev.run390.txt, 2026-09-24).
+       *
+       * Deliberate deviation (2026-09-30): not ported.  The claim names a
+       * task that was never done, in every room, so a room's own `out`
+       * exit could not be taken and `leave box` was refused too
+       * (32a3f3423).  The line goes on to the library.
        */
-      if (!buffer
+      if (FALSE && !buffer
           && task_is_reverse_refused_390 (game, task)
           && !run_match_task_commands (game, task, string, TRUE, FALSE)
           && run_match_task_commands (game, task, string, FALSE, FALSE))
