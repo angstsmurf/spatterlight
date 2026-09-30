@@ -1780,6 +1780,50 @@ var_get_command_number (scr_var_setref_t vars, const scr_char *name,
 
 
 /*
+ * var_get_command_text()
+ *
+ * Deliberate deviation (2026-09-30), for lenient task matching only: a
+ * task command's %name% as Scarier read it before the Runner port
+ * (72ae49a1e).  The name is found in any case, and a string variable
+ * spells its text, so Lair of the Vampire's `drop %item%` and a `call
+ * %who%` over who="bob" answer the words the variable holds.  The Runner
+ * lower-cases the marker, finds no capitalised Name and spells a string
+ * variable as 0 (var_get_command_number()).
+ */
+scr_bool
+var_get_command_text (scr_var_setref_t vars, const scr_char *name,
+                      std::string &text)
+{
+  scr_varref_t var = NULL;
+  scr_int index_;
+
+  assert (var_is_valid (vars));
+  for (index_ = 0; index_ < VAR_HASH_TABLE_SIZE && !var; index_++)
+    {
+      scr_varref_t candidate;
+
+      for (candidate = vars->variable[index_]; candidate;
+           candidate = candidate->next)
+        {
+          if (scr_strcasecmp (candidate->name, name) == 0)
+            {
+              var = candidate;
+              break;
+            }
+        }
+    }
+  if (!var)
+    return FALSE;
+
+  if (var->type == VAR_STRING)
+    text = var->value.string ? var->value.string : "";
+  else
+    text = std::to_string ((long) var->value.integer);
+  return TRUE;
+}
+
+
+/*
  * var_number_word()
  *
  * int2text() (run390 429048's caller, numintext2 42946C), the Runner's

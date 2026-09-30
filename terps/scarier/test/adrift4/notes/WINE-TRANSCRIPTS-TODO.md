@@ -1247,6 +1247,26 @@ case, and their goldens are re-blessed. The row notes in
     named object first, so X-Files' `get in the van` took the van
     (1b29a95c0). `get van` and a movement line no task takes keep the take.
     The xfiles route can go back to `get in the van`.
+    - The line without the Runner's own everything->all, slap->hit and
+      except/apart from->but rewrites (84e923733), which run before any
+      task. `slap *`, `confess everything to priest` and `say nothing
+      except the truth` tasks never fired.
+  - In the lenient retry, a `%name%` in a task command finds its variable
+    in any case and spells a string variable's text
+    (var_get_command_text()). The Runner lower-cases the marker, so a
+    capitalised Name is unreachable, and spells a string variable as 0
+    (72ae49a1e): `call %who%` over who="bob" wanted `call 0`, and Lair of
+    the Vampire's `drop %item%` went the same way.
+  - In the lenient retry, a doubled space after an included {} option is
+    an ordinary word boundary (606cccef4). `zap {the}  {standard} washing
+    machine` answered only the bare `zap washing machine`. Only after an
+    option, where the Runner still reaches the task with the option left
+    out: a doubled space anywhere else makes the task dead in every Runner,
+    and The Ticket's `ask  *girl* about *` woke up to answer every question
+    to the girl with a random phrase, swallowing her topics.
+  - `%character%` stays strict in the retry, as decided on 2026-09-27
+    (thenightmoon). `give lamp to the guard` still misses a `give lamp to
+    %character%` task.
 ---
 
 ## Rules measured and ported (index)

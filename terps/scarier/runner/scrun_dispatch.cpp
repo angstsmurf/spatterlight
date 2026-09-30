@@ -4201,6 +4201,10 @@ run_count_element (scr_gameref_t game)
  *  - run380 rewrites a typed "take" to "get" before any task sees the line,
  *    so a 3.80 task whose commands say only `take X` can never fire:
  *    great.taf's `take picasso` just picks the painting up.
+ *  - Every Runner rewrites everything->all and slap->hit, and 3.8+ the
+ *    except/but/apart from words, before the tasks (see pf_filter_input()),
+ *    so a task written `slap *` or `confess everything to priest` never
+ *    fires.  The line without those rewrites is tried last.
  *
  * The Runner's spelling runs whenever it reaches a task, so Dolg's `войти в
  * дом` and a `take X` that reaches a `get X` task are unchanged.  Otherwise
@@ -4216,9 +4220,6 @@ run_element_filtered (scr_gameref_t game)
   std::vector<scr_owned_string> others;
   size_t index_;
 
-  if (version < TAF_VERSION_380)
-    return runner.release ();
-
   others.emplace_back (pf_filter_input (run_line_element, bundle,
                                         TRUE, FALSE));
   if (version == TAF_VERSION_380)
@@ -4228,6 +4229,10 @@ run_element_filtered (scr_gameref_t game)
       others.emplace_back (pf_filter_input (run_line_element, bundle,
                                             FALSE, FALSE));
     }
+  others.emplace_back (pf_filter_input (run_line_element, bundle,
+                                        TRUE, TRUE, FALSE));
+  others.emplace_back (pf_filter_input (run_line_element, bundle,
+                                        TRUE, FALSE, FALSE));
 
   /* The spelling the matcher sees: trimmed, whitespace runs collapsed. */
   auto spelling = [] (const scr_owned_string &text) -> std::string

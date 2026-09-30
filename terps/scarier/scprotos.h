@@ -311,6 +311,9 @@ extern scr_bool var_is_unknown_reference (scr_var_setref_t vars,
 extern scr_bool var_get_command_number (scr_var_setref_t vars,
                                         const scr_char *name,
                                         scr_int *number);
+extern scr_bool var_get_command_text (scr_var_setref_t vars,
+                                      const scr_char *name,
+                                      std::string &text);
 extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
                                               std::string &text);
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);
@@ -434,7 +437,8 @@ extern scr_char *pf_escape (const scr_char *string);
 extern scr_char *pf_filter_input (const scr_char *string,
                                  scr_prop_setref_t bundle,
                                  scr_bool take_to_get = TRUE,
-                                 scr_bool runner_synonyms = TRUE);
+                                 scr_bool runner_synonyms = TRUE,
+                                 scr_bool builtins = TRUE);
 extern void pf_debug_trace (scr_bool flag);
 extern scr_bool pf_text_ends_with_break (const scr_char *text);
 

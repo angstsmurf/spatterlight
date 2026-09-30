@@ -1489,6 +1489,19 @@ uip_match_variable (scr_ptnoderef_t node)
 
   /* Get the variable name to match, from overloaded word. */
   assert (node->word);
+  if (uip_lenient_tasks)
+    {
+      std::string text;
+
+      /* Deliberate deviation; see var_get_command_text(). */
+      if (!var_get_command_text (vars, node->word, text))
+        return FALSE;
+      length = (scr_int) text.size ();
+      if (scr_strncasecmp (uip_string + uip_posn, text.c_str (), length) != 0)
+        return FALSE;
+      uip_posn += length;
+      return TRUE;
+    }
   if (!var_get_command_number (vars, node->word, &number))
     return FALSE;
 
@@ -1627,11 +1640,27 @@ uip_match_double_whitespace (void)
  * nothing else runs between them.
  */
 static scr_bool uip_last_group_empty = FALSE;
+static scr_bool uip_last_group_optional = FALSE;
 
 static scr_bool
 uip_match_group_double_whitespace (void)
 {
   if (uip_last_group_empty)
+    return uip_match_whitespace (FALSE);
+
+  /*
+   * Deliberate deviation (2026-09-30): on a line no task matches the
+   * Runner's way (uip_set_lenient_tasks()), a doubled space after an
+   * included {} option is an ordinary word boundary.  An author's
+   * accidental `zap {the}  {standard} washing machine` otherwise answers
+   * only the bare `zap washing machine`.  Only after an option: the Runner
+   * still reaches such a task with the option left out, so the author saw
+   * it run.  A doubled space anywhere else makes the task unreachable in
+   * every Runner, and waking it wakes text nobody tested -- The Ticket's
+   * `ask  *girl* about *` would answer every question to the girl with a
+   * random phrase and swallow her topics.
+   */
+  if (uip_lenient_tasks && uip_last_group_optional)
     return uip_match_whitespace (FALSE);
 
   return uip_match_double_whitespace ();
@@ -1727,6 +1756,7 @@ uip_match_choice (scr_ptnoderef_t node)
   start_posn = uip_posn;
   matched = uip_match_alternatives (node);
   uip_last_group_empty = uip_posn == start_posn;
+  uip_last_group_optional = FALSE;
   return matched;
 }
 
@@ -1783,6 +1813,7 @@ uip_match_optional (scr_ptnoderef_t node)
 
   /* Note for a following double space whether anything was consumed. */
   uip_last_group_empty = uip_posn == start_posn;
+  uip_last_group_optional = TRUE;
 
   /* Return TRUE no matter what. */
   return TRUE;
