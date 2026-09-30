@@ -499,6 +499,80 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
   return shadowed && !lib_co_contains (rest.c_str (), term);
 }
 
+/*
+ * lib_mask_long_names()
+ *
+ * Deliberate deviation (2026-09-30).  A copy of LINE, the same length, with
+ * every whole-word occurrence of an object's Short or Alias, or a
+ * character's Name or Alias, that runs to two words or more overwritten by
+ * LIB_NAME_MASK.  The Runner ports that look for a verb anywhere on the line
+ * (two-verb lines, the verb hoist, sitstand) test the masked copy, so the
+ * "pick" of an ice pick, the "drop" of a cough drop or the "stand" of a hat
+ * stand is no verb: `x ice pick` examines it, where the ports answered
+ * "Take what?".
+ */
+std::string
+lib_mask_long_names (scr_gameref_t game, const scr_char *line)
+{
+  static const scr_char *const CATEGORIES[] = { "Objects", "NPCs" };
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string masked (line ? line : "");
+  size_t category;
+
+  for (category = 0; category < 2; category++)
+    {
+      const scr_char *const kind = CATEGORIES[category];
+      const scr_int count = category == 0 ? gs_object_count (game)
+                                          : gs_npc_count (game);
+      scr_int index_;
+
+      for (index_ = 0; index_ < count; index_++)
+        {
+          scr_vartype_t vt_key[4];
+          scr_int alias_count, alias;
+
+          alias_count = lib_alias_prepare (bundle, vt_key, kind, index_);
+          for (alias = -1; alias < alias_count; alias++)
+            {
+              const scr_char *name;
+              size_t length, posn;
+
+              if (alias < 0)
+                name = prop_get_indexed_string (bundle, kind, index_,
+                                                category == 0 ? "Short"
+                                                              : "Name");
+              else
+                {
+                  vt_key[3].integer = alias;
+                  name = prop_get_string (bundle, "S<-sisi", vt_key);
+                }
+              if (!name)
+                continue;
+              name += strspn (name, " ");
+              length = strlen (name);
+              while (length > 0 && name[length - 1] == ' ')
+                length--;
+              if (length == 0 || !memchr (name, ' ', length))
+                continue;
+
+              for (posn = 0; posn + length <= masked.size (); posn++)
+                {
+                  if (scr_strncasecmp (masked.c_str () + posn, name, length)
+                      != 0
+                      || (posn > 0 && masked[posn - 1] != ' ')
+                      || (posn + length < masked.size ()
+                          && masked[posn + length] != ' '
+                          && masked[posn + length] != ','
+                          && masked[posn + length] != '.'))
+                    continue;
+                  masked.replace (posn, length, length, LIB_NAME_MASK);
+                }
+            }
+        }
+    }
+  return masked;
+}
+
 const scr_char *
 lib_co_lastword (const scr_char *string)
 {

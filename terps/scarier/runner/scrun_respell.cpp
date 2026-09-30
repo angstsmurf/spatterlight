@@ -1229,6 +1229,15 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
     return FALSE;
 
   /*
+   * Deliberate deviation (2026-09-30): a verb word inside an object's or a
+   * character's longer name is no verb.  Every rewrite below must stand on
+   * the masked line too (lib_mask_long_names()), so `x ice pick`, `get
+   * cough drop` and `open drop box` keep their one verb.
+   */
+  const std::string masked = lib_mask_long_names (game, string);
+  const scr_bool has_mask = masked != string;
+
+  /*
    * Below 4.0 a line naming TWO of the five anchored handlers is decided by
    * generaltasks' call order and not by where the words sit, so it is
    * re-spelled even when the head is a verb itself -- `drop take hat` with
@@ -1241,8 +1250,15 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
     if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
         && lib_two_verb_line_pre400 (game, string, &decided))
       {
-        hoisted = decided;
-        return TRUE;
+        std::string unused;
+
+        if (!has_mask
+            || lib_two_verb_line_pre400 (game, masked.c_str (), &unused))
+          {
+            hoisted = decided;
+            return TRUE;
+          }
+        return FALSE;
       }
   }
 
@@ -1250,7 +1266,14 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
      head being a verb is no reason to leave the line alone: `x get coin` is
      get_outer's answer.  See run_two_verb_line_400(). */
   if (run_two_verb_line_400 (game, string, hoisted))
-    return TRUE;
+    {
+      std::string unused;
+
+      if (!has_mask || run_two_verb_line_400 (game, masked.c_str (), unused))
+        return TRUE;
+      hoisted.clear ();
+      return FALSE;
+    }
 
   if (run_hoist_longest (HOIST_HEADS_400, string))
     return FALSE;
@@ -1261,6 +1284,8 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
       const scr_char *verb;
 
       if (scan != string && scan[-1] != ' ')
+        continue;
+      if (masked[scan - string] == LIB_NAME_MASK)
         continue;
       verb = run_hoist_any_verb_at (game, scan);
       if (!verb)

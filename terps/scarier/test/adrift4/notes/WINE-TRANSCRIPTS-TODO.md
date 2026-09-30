@@ -1267,6 +1267,23 @@ case, and their goldens are re-blessed. The row notes in
   - `%character%` stays strict in the retry, as decided on 2026-09-27
     (thenightmoon). `give lamp to the guard` still misses a `give lamp to
     %character%` task.
+  - A verb word inside a longer object or character name is no verb
+    (lib_mask_long_names()). The ports that read a verb anywhere on the
+    line test a copy with every multi-word Short, Alias or Name masked:
+    the pre-4.0 and 4.0 two-verb rewrites and the verb hoist (41992011e,
+    08051e473, 6178514a6, 2105899d5, 0e226cdb0, 1b66bac20), the pre-4.0
+    handler-word count, the silent-task "Drop what?" claim, sitstand
+    (e5c0a91e5, edf898c11) and openclose (7748b61c7). So `x ice pick` is
+    no "Take what?", `eat cough drop` no "Drop what?", `open drop box` no
+    "You don't have a drop box!", and `open hat stand` or `push lie
+    detector` no "You are already standing/lying down.".
+  - sitstand leaves a line that starts with ask, say, tell, talk, shout or
+    yell alone, so `ask bob about stand` keeps its topic and `say lie` is
+    a say.
+  - The 4.0 put line's drop->put, inside/into->in and onto->on rewrites
+    are whole-word, and drop only as the verb (run_normalise_put_line()).
+    run400's substring Replace()s made `put coin in drop box` "put coin in
+    put box", which no put row understood.
 ---
 
 ## Rules measured and ported (index)

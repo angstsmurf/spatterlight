@@ -1391,12 +1391,40 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
 std::string
 run_normalise_put_line (const scr_char *string)
 {
+  /*
+   * Deliberate deviation (2026-09-30): the four rewrites are whole-word, and
+   * "drop" only as the line's verb.  run400's substring Replace()s reach
+   * into names, so `put coin in drop box` became "put coin in put box" and
+   * was "I don't understand what you want to put things inside.", and a
+   * "pointo" or "gloveinside" would lose letters the same way.
+   */
+  static const scr_char *const WORDS[][2] = {
+    {"inside", "in"}, {"into", "in"}, {"onto", "on"}
+  };
   std::string line (string);
+  size_t index_;
 
-  run_replace_all (line, "drop ", "put ");
-  run_replace_all (line, "inside", "in");
-  run_replace_all (line, "into", "in");
-  run_replace_all (line, "onto", "on");
+  if (line.compare (0, 5, "drop ") == 0)
+    line.replace (0, 4, "put");
+  for (index_ = 0; index_ < sizeof WORDS / sizeof WORDS[0]; index_++)
+    {
+      const std::string from (WORDS[index_][0]);
+      size_t at = 0;
+
+      while ((at = line.find (from, at)) != std::string::npos)
+        {
+          const size_t end = at + from.size ();
+
+          if ((at == 0 || line[at - 1] == ' ')
+              && (end == line.size () || line[end] == ' '))
+            {
+              line.replace (at, from.size (), WORDS[index_][1]);
+              at += strlen (WORDS[index_][1]);
+            }
+          else
+            at = end;
+        }
+    }
   return line;
 }
 
