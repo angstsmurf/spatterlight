@@ -1423,6 +1423,18 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
           && lib_npc_referenced (game, npc, masked.c_str ()))
         found = npc;
     }
+  if (SCR_TRACING_DEVIATIONS ())
+    {
+      scr_int runner = -1;
+
+      for (npc = 0; npc < gs_npc_count (game); npc++)
+        if (npc_in_room (game, npc, gs_playerroom (game))
+            && lib_npc_referenced (game, npc, input))
+          runner = npc;
+      if (runner != found)
+        SCR_DEVIATION ("mask_npc_overwrite", "runner=%ld ours=%ld", runner,
+                       found);
+    }
   return found;
 }
 

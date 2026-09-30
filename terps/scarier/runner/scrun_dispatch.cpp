@@ -1425,6 +1425,22 @@ run_normalise_put_line (const scr_char *string)
             at = end;
         }
     }
+  if (SCR_TRACING_DEVIATIONS ())
+    {
+      static const scr_char *const RUNNER[][2] = {
+        {"drop", "put"}, {"inside", "in"}, {"into", "in"}, {"onto", "on"}
+      };
+      std::string runner (string);
+
+      for (index_ = 0; index_ < sizeof RUNNER / sizeof RUNNER[0]; index_++)
+        for (size_t at = 0;
+             (at = runner.find (RUNNER[index_][0], at)) != std::string::npos;
+             at += strlen (RUNNER[index_][1]))
+          runner.replace (at, strlen (RUNNER[index_][0]), RUNNER[index_][1]);
+      if (runner != line)
+        SCR_DEVIATION ("put_whole_word", "runner=\"%s\" ours=\"%s\"",
+                       runner.c_str (), line.c_str ());
+    }
   return line;
 }
 
@@ -2095,7 +2111,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
     "bollocks", "bollox", "piss", "bugger", "bloody", NULL
   };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = run_get_version (bundle);
+  const scr_int version = prop_get_taf_version (bundle);
   const scr_char *const *word;
   const auto has_word = [&] (const scr_char *what) -> scr_bool
     {
@@ -2176,7 +2192,7 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = run_get_version (bundle);
+  const scr_int version = prop_get_taf_version (bundle);
   const scr_char *const *word;
   const auto has_word = [&] (const scr_char *what) -> scr_bool
     {
@@ -2543,6 +2559,7 @@ run_line_t::reset ()
   run_dispatch_input = string;
 #ifdef SCARIER_DUMP_TOOLS
   run_trace_last_input = string;
+  scr_trace_deviation_line ();
 #endif
   run_co_pending_input = string;
   run_co_task_claimed = FALSE;
@@ -2882,7 +2899,14 @@ run_get_motion_task_line (scr_gameref_t game, const scr_char *line,
     {
       if (strlen (MOTION[index_]) == length
           && strncmp (next, MOTION[index_], length) == 0)
-        return run_line_matches_task_strictly (game, task_line.c_str ());
+        {
+          const scr_bool motion
+              = run_line_matches_task_strictly (game, task_line.c_str ());
+
+          if (motion)
+            SCR_DEVIATION ("get_motion", NULL);
+          return motion;
+        }
     }
   return FALSE;
 }
@@ -3686,6 +3710,27 @@ run_line_t::settle ()
 scr_bool
 run_line_t::finish (scr_bool result)
 {
+  if (SCR_TRACING_DEVIATIONS () && run_lenient_tasks)
+    {
+      std::string tasks;
+      size_t task;
+
+      for (task = 0; task < run_tasks_ran_this_command.size (); task++)
+        if (run_tasks_ran_this_command[task])
+          {
+            const scr_task_commands_guard task_commands;
+            std::string commands;
+
+            for (const scr_char *pattern :
+                 run_task_command_patterns (game, (scr_int) task, TRUE))
+              commands += (commands.empty () ? "" : " | ")
+                          + std::string (pattern);
+            tasks += (tasks.empty () ? "" : " ; ") + std::to_string (task)
+                     + " {" + commands.substr (0, 300) + "}";
+          }
+      if (!tasks.empty ())
+        SCR_DEVIATION ("lenient_task", "tasks=%s", tasks.c_str ());
+    }
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();
   return result;
@@ -3923,6 +3968,8 @@ run_ci_contains (const scr_char *haystack, const scr_char *needle)
   return FALSE;
 }
 
+static std::string run_separator_trace;
+
 static scr_bool
 run_separator_task_line (scr_gameref_t game, const scr_char *line)
 {
@@ -3956,7 +4003,13 @@ run_separator_task_line (scr_gameref_t game, const scr_char *line)
                 continue;
               if (scr_strcasecmp (pattern, line) == 0
                   || uip_match (pattern, line, game))
-                return TRUE;
+                {
+                  if (SCR_TRACING_DEVIATIONS ())
+                    run_separator_trace = "line=\"" + std::string (line)
+                                          + "\" task=" + std::to_string (task)
+                                          + " cmd=\"" + pattern + "\"";
+                  return TRUE;
+                }
             }
         }
     }
@@ -4191,6 +4244,15 @@ run_cut_element (scr_gameref_t game)
                             : run_find_split_400 (game, run_line_buffer,
                                                   &sep_length);
 
+      if (SCR_TRACING_DEVIATIONS () && split < 0 && run_line_buffer[0] != NUL
+          && run_separator_task_line (game, run_line_buffer))
+        {
+          scr_int runner_length = 1;
+
+          if (run_find_split_400 (game, run_line_buffer, &runner_length) >= 0)
+            SCR_DEVIATION ("separator_unsplit", "%s",
+                           run_separator_trace.c_str ());
+        }
       length = (split < 0) ? (scr_int) strlen (run_line_buffer) : split;
       extent = length;
       extent += (run_line_buffer[length] == NUL) ? 0 : sep_length;
@@ -4211,6 +4273,18 @@ run_cut_element (scr_gameref_t game)
                                         version < TAF_VERSION_390
                                         && run_comma_splits_pre390
                                              (game, run_line_buffer));
+      if (SCR_TRACING_DEVIATIONS () && length < 0
+          && run_separator_task_line (game, run_line_buffer))
+        {
+          scr_int runner_extent = 0;
+
+          if (run_find_split_pre400 (version, run_line_buffer, &runner_extent,
+                                     version < TAF_VERSION_390
+                                     && run_comma_splits_pre390
+                                          (game, run_line_buffer)) >= 0)
+            SCR_DEVIATION ("separator_unsplit", "%s",
+                           run_separator_trace.c_str ());
+        }
       if (length < 0)
         length = extent = (scr_int) strlen (run_line_buffer);
       else if (length == 0 && version == TAF_VERSION_390
@@ -4339,7 +4413,10 @@ run_element_filtered (scr_gameref_t game)
           && (scr_strcasecmp (new_line, "x") == 0
               || scr_strcasecmp (new_line, "ex") == 0
               || scr_strcasecmp (new_line, "examine") == 0))
-        return NULL;
+        {
+          SCR_DEVIATION ("look_kept", "runner=%s", new_line);
+          return NULL;
+        }
     }
 
   others.emplace_back (pf_filter_input (run_line_element, bundle,
@@ -4383,10 +4460,18 @@ run_element_filtered (scr_gameref_t game)
 
       if (other != runner_spelling
           && run_line_matches_task_strictly (game, other.c_str ()))
-        return others[index_].release ();
+        {
+          SCR_DEVIATION ("spelling_task", "variant=%zu runner=\"%s\" ran=\"%s\"",
+                         index_, runner_spelling.c_str (), other.c_str ());
+          return others[index_].release ();
+        }
     }
 
   /* No spelling reaches a task: the whole-word synonyms, with take->get. */
+  if (scr_strcasecmp (spelling (others[0]).c_str (),
+                      runner_spelling.c_str ()) != 0)
+    SCR_DEVIATION ("spelling_library", "runner=\"%s\" ran=\"%s\"",
+                   runner_spelling.c_str (), spelling (others[0]).c_str ());
   return others[0].release ();
 }
 
@@ -5005,3 +5090,474 @@ run_player_input (scr_gameref_t game)
   run_element_finish (game, is_rerunning, was_undo_available);
   return status;
 }
+
+#ifdef SCARIER_DUMP_TOOLS
+/*
+ * run_lenient_census()
+ *
+ * SCR_CENSUS_LENIENT: for every task, the lines a player would type to reach
+ * it -- each command expanded, [a/b] and {a/b} options in every combination
+ * (capped), `*` left empty or holding a word, %object% each of three
+ * objects' Shorts (lower-case non-statics first: a 3.9 %object% never binds
+ * a static), %character% a character's Name, a variable its value, all
+ * lower-cased as the Runner
+ * lower-cases a typed line -- run the Runner's way (its split, its spelling,
+ * strict matching) and Scarier's (run_separator_task_line(), the spelling
+ * run_element_filtered() picks, lenient matching when no other task takes
+ * the line strictly).  A task no line reaches the Runner's way but some line
+ * reaches Scarier's is printed as
+ *
+ *   CENSUS woken task=<n> via=<separator|spelling|lenient> line="<line>"
+ *          ran="<spelling>" cmds={<commands>}
+ *
+ * then a CENSUS summary.  Restrictions, where, scope and the library's
+ * retries are not looked at; every object and character is marked seen so
+ * that the seen gate does not stand in for them.  For auditing what the
+ * deviations wake; see test/adrift4/harness/census_lenient.sh.
+ */
+static std::vector<std::string>
+run_census_expand (const std::string &pattern, size_t &at, scr_char close)
+{
+  static const size_t CAP = 48;
+  std::vector<std::string> result (1, std::string ());
+
+  auto append = [&result] (const std::vector<std::string> &tails)
+    {
+      std::vector<std::string> joined;
+
+      for (const std::string &head : result)
+        for (const std::string &tail : tails)
+          if (joined.size () < CAP)
+            joined.push_back (head + tail);
+      result.swap (joined);
+    };
+
+  while (at < pattern.size ())
+    {
+      const scr_char c = pattern[at];
+
+      if (c == close || (close != NUL && c == '/'))
+        return result;
+      at++;
+      if (c == '[' || c == '{')
+        {
+          const scr_char end = c == '[' ? ']' : '}';
+          std::vector<std::string> alternatives;
+
+          if (c == '{')
+            alternatives.push_back (std::string ());
+          for (;;)
+            {
+              std::vector<std::string> one
+                  = run_census_expand (pattern, at, end);
+
+              alternatives.insert (alternatives.end (), one.begin (),
+                                   one.end ());
+              if (at < pattern.size () && pattern[at] == '/')
+                {
+                  at++;
+                  continue;
+                }
+              if (at < pattern.size ())
+                at++;
+              break;
+            }
+          append (alternatives);
+        }
+      else if (c == '*')
+        {
+          /* A wildcard left empty, or holding a word. */
+          if (at >= pattern.size () || pattern[at] != '*')
+            append (std::vector<std::string> ({std::string (),
+                                               std::string ("it")}));
+        }
+      else
+        append (std::vector<std::string> (1, std::string (1, c)));
+    }
+  return result;
+}
+
+static std::string
+run_census_normal (const scr_char *text)
+{
+  std::string line;
+
+  for (; *text != NUL; text++)
+    {
+      const scr_char c = scr_tolower (*text);
+
+      if (scr_isspace (c))
+        {
+          if (!line.empty () && line[line.size () - 1] != ' ')
+            line += ' ';
+        }
+      else
+        line += c;
+    }
+  while (!line.empty () && line[line.size () - 1] == ' ')
+    line.erase (line.size () - 1);
+  return line;
+}
+
+static std::string
+run_census_references (scr_gameref_t game, const std::string &pattern,
+                       scr_int pick)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  std::string line (pattern);
+  size_t at = 0;
+
+  /* The pick'th name: lower-case, non-static objects first (a 3.9
+     %object% never binds a static). */
+  auto first_name = [&] (const scr_char *kind, const scr_char *field,
+                         scr_int count) -> std::string
+    {
+      std::vector<std::string> lower_names, other_names;
+      scr_int index_;
+
+      for (index_ = 0; index_ < count; index_++)
+        {
+          const scr_char *name = prop_get_indexed_string (bundle, kind, index_,
+                                                          field);
+          std::string text (name ? name : "");
+          scr_bool lower = !text.empty ();
+
+          for (const scr_char c : text)
+            lower = lower && !(c >= 'A' && c <= 'Z');
+          if (lower && kind[0] == 'O')
+            lower = !prop_get_indexed_boolean (bundle, kind, index_,
+                                               "Static");
+          if (!text.empty ())
+            (lower ? lower_names : other_names).push_back (text);
+        }
+      lower_names.insert (lower_names.end (), other_names.begin (),
+                          other_names.end ());
+      return lower_names.empty () ? std::string ()
+             : lower_names[pick % lower_names.size ()];
+    };
+
+  while ((at = line.find ('%', at)) != std::string::npos)
+    {
+      const size_t end = line.find ('%', at + 1);
+      std::string name, value;
+      scr_int type;
+      scr_vartype_t vt_value;
+
+      if (end == std::string::npos)
+        break;
+      name = line.substr (at + 1, end - at - 1);
+      if (name == "object")
+        value = first_name ("Objects", "Short", gs_object_count (game));
+      else if (name == "character")
+        value = first_name ("NPCs", "Name", gs_npc_count (game));
+      else if (name == "number")
+        value = "1";
+      else if (name == "text")
+        value = "hello";
+      else if (var_get (vars, name.c_str (), &type, &vt_value))
+        value = type == VAR_INTEGER ? std::to_string (vt_value.integer)
+                                    : std::string (vt_value.string);
+      else
+        value = name;
+      line.replace (at, end - at + 1, value);
+      at += value.size ();
+    }
+  return line;
+}
+
+static void
+run_lenient_census (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = prop_get_taf_version (bundle);
+  const scr_int task_count = gs_task_count (game);
+  scr_int task, index_, woken = 0, reachable = 0, dead = 0;
+  scr_int by_reason[3] = { 0, 0, 0 };
+  static const scr_char *const REASONS[] = {
+    "separator", "spelling", "lenient"
+  };
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    gs_set_object_seen (game, index_, TRUE);
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    gs_set_npc_seen (game, index_, TRUE);
+  run_lenient_tasks = FALSE;
+  uip_set_lenient_tasks (FALSE);
+
+  auto matches = [game] (scr_int which, const std::string &line,
+                         scr_bool lenient) -> scr_bool
+    {
+      run_lenient_tasks = lenient;
+      uip_set_lenient_tasks (lenient);
+      const scr_bool matched
+          = run_census_matches_task (game, which, line.c_str ());
+      run_lenient_tasks = FALSE;
+      uip_set_lenient_tasks (FALSE);
+      return matched;
+    };
+  auto splits = [game, version] (const std::string &line) -> scr_bool
+    {
+      scr_int unused = 0;
+
+      if (version >= TAF_VERSION_400)
+        return run_find_split_400 (game, line.c_str (), &unused) >= 0;
+      return run_find_split_pre400 (version, line.c_str (), &unused,
+                                    version < TAF_VERSION_390
+                                    && run_comma_splits_pre390
+                                         (game, line.c_str ())) >= 0;
+    };
+
+  for (task = 0; task < task_count; task++)
+    {
+      std::vector<std::string> lines, commands;
+      scr_bool runner_alive = FALSE;
+      std::string woke_line, woke_ran;
+      scr_int woke_reason = -1;
+
+      {
+        const scr_task_commands_guard task_commands;
+
+        for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
+          for (const scr_char *pattern :
+               run_task_command_patterns (game, task, forwards))
+            {
+              if (pattern[strspn (pattern, WHITESPACE)] == SPECIAL_PATTERN)
+                continue;
+              commands.push_back (pattern);
+              for (scr_int pick = 0; pick < 3; pick++)
+                {
+                  const std::string text
+                      = run_census_references (game, pattern, pick);
+                  size_t at = 0;
+
+                  for (const std::string &line :
+                       run_census_expand (text, at, NUL))
+                    {
+                      const std::string typed
+                          = run_census_normal (line.c_str ());
+
+                      if (!typed.empty ())
+                        lines.push_back (typed);
+                    }
+                  if (text == pattern)
+                    break;
+                }
+            }
+      }
+      if (lines.empty ())
+        continue;
+
+      for (const std::string &typed : lines)
+        {
+          run_dispatch_input = typed.c_str ();
+
+          scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
+                                                             bundle));
+          const std::string runner_line = run_census_normal
+              (runner_filtered ? runner_filtered.get () : typed.c_str ());
+          const scr_bool runner_split = splits (typed);
+
+          if (!runner_split && matches (task, runner_line, FALSE))
+            {
+              runner_alive = TRUE;
+              break;
+            }
+          if (woke_reason >= 0)
+            continue;
+
+          const scr_bool our_split
+              = runner_split && !run_separator_task_line (game, typed.c_str ());
+          if (our_split)
+            continue;
+          strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
+          run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
+          scr_owned_string ours (run_element_filtered (game));
+          const std::string our_line = run_census_normal
+              (ours ? ours.get () : typed.c_str ());
+          scr_bool lenient = TRUE;
+          scr_int other;
+
+          for (other = 0; other < task_count && lenient; other++)
+            if (other != task && matches (other, our_line, FALSE))
+              lenient = FALSE;
+          if (matches (task, our_line, FALSE)
+              || (lenient && matches (task, our_line, TRUE)))
+            {
+              woke_line = typed;
+              woke_ran = our_line;
+              woke_reason = runner_split ? 0 : our_line != runner_line ? 1 : 2;
+            }
+        }
+      run_dispatch_input = NULL;
+
+      if (runner_alive)
+        reachable++;
+      else if (woke_reason < 0)
+        {
+          dead++;
+          if (getenv ("SCR_CENSUS_DEAD"))
+            fprintf (stderr, "CENSUS dead task=%ld line=\"%s\"\n", task,
+                     lines[0].c_str ());
+        }
+      else
+        {
+          std::string joined;
+
+          for (const std::string &command : commands)
+            joined += (joined.empty () ? "" : " | ") + command;
+          woken++;
+          by_reason[woke_reason]++;
+          fprintf (stderr, "CENSUS woken task=%ld via=%s line=\"%s\""
+                   " ran=\"%s\" cmds={%s}\n", task, REASONS[woke_reason],
+                   woke_line.c_str (), woke_ran.c_str (),
+                   joined.substr (0, 400).c_str ());
+        }
+    }
+  /*
+   * Cross wakes: library verbs on every name an object or character
+   * answers to.  A line the Runner hands to the library (no task matches
+   * its spelling strictly) that Scarier gives to a task -- through its
+   * spelling or leniently -- is printed once per task:
+   *
+   *   CENSUS cross task=<n> via=<spelling|lenient> lines=<count>
+   *          line="<first line>" ran="<spelling>" cmds={<commands>}
+   *
+   * Candidates only: the library handlers that claim a line before the
+   * lenient retry (a take of a static, a put) are not modelled, so check a
+   * hit in play with SCR_TRACE_DEVIATIONS.  ShadricksUnderground's ` * in *`
+   * is a real one -- `look in black jar` in the cellar enters the tunnel --
+   * and Glum Fiddle's `get the gatehouse` is not.  SCR_CENSUS_NOCROSS skips
+   * this half, which is most of the run time.
+   */
+  static const scr_char *const VERBS[] = {
+    "get", "take", "drop", "examine", "x", "look at", "open", "close",
+    "wear", "remove", "take off", "push", "pull", "eat", "drink", "read",
+    "sit on", "stand on", "lie on", "talk to", "ask", "give", "hit", "kill",
+    "attack", "put", "turn", "move", "search", "climb", "enter", "unlock",
+    "lock", "wield", "use", "go", "throw", NULL
+  };
+  std::vector<std::string> names;
+  std::vector<scr_int> cross_lines (task_count, 0);
+  std::vector<std::string> cross_first (task_count), cross_ran (task_count);
+  std::vector<scr_int> cross_via (task_count, -1);
+  scr_int crossed = 0;
+
+  for (const scr_char *category : {"Objects", "NPCs"})
+    {
+      const scr_bool is_object = category[0] == 'O';
+      const scr_int count = is_object ? gs_object_count (game)
+                                      : gs_npc_count (game);
+
+      for (index_ = 0; index_ < count; index_++)
+        {
+          const scr_char *name = prop_get_indexed_string
+              (bundle, category, index_, is_object ? "Short" : "Name");
+          const scr_char *prefix = prop_get_indexed_string
+              (bundle, category, index_, "Prefix");
+          scr_vartype_t vt_key[4];
+          scr_int alias, aliases;
+
+          if (!scr_strempty (name))
+            {
+              names.push_back (name);
+              names.push_back (std::string ("the ") + name);
+              if (!scr_strempty (prefix))
+                names.push_back (std::string (prefix) + " " + name);
+            }
+          vt_key[0].string = category;
+          vt_key[1].integer = index_;
+          vt_key[2].string = "Alias";
+          aliases = prop_get_child_count (bundle, "I<-sis", vt_key);
+          for (alias = 0; alias < aliases; alias++)
+            {
+              vt_key[3].integer = alias;
+              const scr_char *text = prop_get_string (bundle, "S<-sisi",
+                                                      vt_key);
+              if (!scr_strempty (text))
+                names.push_back (text);
+            }
+        }
+    }
+
+  if (getenv ("SCR_CENSUS_NOCROSS"))
+    names.clear ();
+  for (const scr_char *const *verb = VERBS; *verb; verb++)
+    for (const std::string &name : names)
+      {
+        const std::string typed
+            = run_census_normal ((std::string (*verb) + " " + name).c_str ());
+        scr_bool strict = FALSE;
+        scr_int other, via = -1, woke = -1;
+
+        if (splits (typed) && !run_separator_task_line (game, typed.c_str ()))
+          continue;
+        run_dispatch_input = typed.c_str ();
+        scr_owned_string runner_filtered (pf_filter_input (typed.c_str (),
+                                                           bundle));
+        const std::string runner_line = run_census_normal
+            (runner_filtered ? runner_filtered.get () : typed.c_str ());
+
+        for (other = 0; other < task_count && !strict; other++)
+          strict = matches (other, runner_line, FALSE);
+        if (strict || splits (typed))
+          {
+            run_dispatch_input = NULL;
+            continue;
+          }
+
+        strncpy (run_line_element, typed.c_str (), LINE_BUFFER_SIZE - 1);
+        run_line_element[LINE_BUFFER_SIZE - 1] = NUL;
+        scr_owned_string ours (run_element_filtered (game));
+        const std::string our_line = run_census_normal
+            (ours ? ours.get () : typed.c_str ());
+        run_dispatch_input = NULL;
+
+        for (other = 0; other < task_count && woke < 0; other++)
+          if (matches (other, our_line, FALSE))
+            woke = other, via = 1;
+        for (other = 0; other < task_count && woke < 0; other++)
+          if (matches (other, our_line, TRUE))
+            woke = other, via = 2;
+        if (woke < 0)
+          continue;
+        if (cross_lines[woke]++ == 0)
+          {
+            crossed++;
+            cross_first[woke] = typed;
+            cross_ran[woke] = our_line;
+            cross_via[woke] = via;
+          }
+      }
+
+  for (task = 0; task < task_count; task++)
+    if (cross_lines[task] > 0)
+      {
+        std::string joined;
+        const scr_task_commands_guard task_commands;
+
+        for (const scr_bool forwards : {scr_bool (TRUE), scr_bool (FALSE)})
+          for (const scr_char *pattern :
+               run_task_command_patterns (game, task, forwards))
+            joined += (joined.empty () ? "" : " | ") + std::string (pattern);
+        fprintf (stderr, "CENSUS cross task=%ld via=%s lines=%ld"
+                 " line=\"%s\" ran=\"%s\" cmds={%s}\n", task,
+                 REASONS[cross_via[task]], cross_lines[task],
+                 cross_first[task].c_str (), cross_ran[task].c_str (),
+                 joined.substr (0, 400).c_str ());
+      }
+  fprintf (stderr, "CENSUS summary tasks=%ld runner_reachable=%ld dead=%ld"
+           " woken=%ld separator=%ld spelling=%ld lenient=%ld crossed=%ld\n",
+           task_count, reachable, dead, woken, by_reason[0], by_reason[1], by_reason[2], crossed);
+  fflush (stderr);
+}
+
+scr_bool
+run_census_requested (scr_gameref_t game)
+{
+  if (getenv ("SCR_CENSUS_LENIENT") == NULL)
+    return FALSE;
+  run_lenient_census (game);
+  return TRUE;
+}
+#endif

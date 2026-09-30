@@ -104,11 +104,34 @@ lib_wield_names_object (scr_gameref_t game, scr_int object,
       return text;
     };
 
+  /* The Runner's own test, for SCR_TRACE_DEVIATIONS. */
+  auto runner_names = [&] () -> scr_bool
+    {
+      const scr_char *const names[] = {
+        prop_get_indexed_string (bundle, "Objects", object, "Short"),
+        lib_alias_prepare (bundle, vt_key, "Objects", object) > 0
+          ? (vt_key[3].integer = 0,
+             prop_get_string (bundle, "S<-sisi", vt_key)) : ""
+      };
+
+      for (const scr_char *name : names)
+        {
+          const std::string::size_type hit = line.find (name ? name : "");
+          if ((hit == std::string::npos ? 0 : (scr_int) hit + 1) > wield_at)
+            return TRUE;
+        }
+      return FALSE;
+    };
+
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   at = line.find (lowered (shortname));
   short_at = at == std::string::npos ? 0 : (scr_int) at + 1;
   if (short_at > wield_at)
-    return TRUE;
+    {
+      if (SCR_TRACING_DEVIATIONS () && !runner_names ())
+        SCR_DEVIATION ("wield_name", "object=%ld", object);
+      return TRUE;
+    }
 
   alias_at = 0;
   {
@@ -125,7 +148,11 @@ lib_wield_names_object (scr_gameref_t game, scr_int object,
         at = line.find (lowered (alias));
         alias_at = at == std::string::npos ? 0 : (scr_int) at + 1;
         if (alias_at > wield_at)
-          return TRUE;
+          {
+            if (SCR_TRACING_DEVIATIONS () && !runner_names ())
+              SCR_DEVIATION ("wield_name", "object=%ld", object);
+            return TRUE;
+          }
       }
   }
   return FALSE;

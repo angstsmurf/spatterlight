@@ -85,6 +85,28 @@ lib_subject_in_text_390 (const scr_char *subject, scr_int posn,
   return FALSE;
 }
 
+#ifdef SCARIER_DUMP_TOOLS
+/* The 3.7/3.8 InStr subject test, for SCR_TRACE_DEVIATIONS only; see
+   lib_npc_find_topic(). */
+static scr_bool
+lib_subject_in_text_3738 (const scr_char *subject, scr_int posn,
+                          const scr_char *string)
+{
+  std::string word, text (string);
+  scr_int end;
+
+  while (subject[posn] != NUL && scr_isspace (subject[posn]))
+    posn++;
+  for (end = posn; subject[end] != NUL && subject[end] != COMMA;)
+    end++;
+  word.assign (subject + posn, end - posn);
+  for (auto &c : text)
+    c = scr_tolower (c);
+
+  return !word.empty () && text.find (word) != std::string::npos;
+}
+#endif
+
 /*
  * lib_npc_topic_response()
  * lib_npc_reply_to()
@@ -188,6 +210,11 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
   const scr_char *const text = var_get_ref_text (vars);
   scr_vartype_t vt_key[5];
   scr_int topic_count, topic, answer;
+#ifdef SCARIER_DUMP_TOOLS
+  scr_int runner_answer = -1;
+  const scr_bool trace_3738 = SCR_TRACING_DEVIATIONS ()
+                              && prop_get_taf_version (bundle) < TAF_VERSION_390;
+#endif
 
   /* Get the topics the NPC converses about. */
   vt_key[0].string = "NPCs";
@@ -232,10 +259,22 @@ lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 
               answer = topic;
             }
+#ifdef SCARIER_DUMP_TOOLS
+          if (trace_3738
+              && (is_star || lib_subject_in_text_3738 (subjects, start, text))
+              && (!is_star || runner_answer == -1)
+              && !scr_strempty (lib_npc_topic_response (game, npc, topic)))
+            runner_answer = topic;
+#endif
 
           posn = end;
         }
     }
+#ifdef SCARIER_DUMP_TOOLS
+  if (trace_3738 && runner_answer != answer)
+    SCR_DEVIATION ("topic_whole_word", "npc=%ld runner=%ld ours=%ld", npc,
+                   runner_answer, answer);
+#endif
   return answer;
 }
 

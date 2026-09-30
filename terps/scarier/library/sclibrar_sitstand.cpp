@@ -530,6 +530,8 @@ lib_floor_named (void)
 {
   const scr_char *line = run_get_dispatch_input ();
 
+  if (line && (lib_co_contains (line, "on") || lib_co_contains (line, "in")))
+    SCR_DEVIATION ("floor_named", NULL);
   return FALSE
          && line && (lib_co_contains (line, "on")
                      || lib_co_contains (line, "in"));
@@ -905,10 +907,27 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
 
         if (scr_strncasecmp (line, *word, length) == 0
             && (line[length] == NUL || line[length] == ' '))
-          return FALSE;
+          {
+            if (lib_co_contains (line, "sit") || lib_co_contains (line, "stand")
+                || lib_co_contains (line, "lie")
+                || (taf_version >= TAF_VERSION_400
+                    && lib_co_contains (line, "lay")))
+              SCR_DEVIATION ("sitstand_speech", NULL);
+            return FALSE;
+          }
       }
   }
   const std::string masked = lib_mask_long_names (game, line);
+  if (SCR_TRACING_DEVIATIONS () && masked != line
+      && ((lib_co_contains (line, "sit") != lib_co_contains (masked.c_str (), "sit"))
+          || (lib_co_contains (line, "stand")
+              != lib_co_contains (masked.c_str (), "stand"))
+          || (lib_co_contains (line, "lie")
+              != lib_co_contains (masked.c_str (), "lie"))
+          || (taf_version >= TAF_VERSION_400
+              && lib_co_contains (line, "lay")
+                 != lib_co_contains (masked.c_str (), "lay"))))
+    SCR_DEVIATION ("mask_sitstand", "masked=\"%s\"", masked.c_str ());
 
   sit = lib_co_contains (masked.c_str (), "sit");
   stand = lib_co_contains (masked.c_str (), "stand");
@@ -1190,7 +1209,13 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
     const scr_char *masked_hit = NULL;
 
     if (!lib_openclose_word (words, &masked_hit))
-      return FALSE;
+      {
+        const scr_char *typed_hit = NULL;
+
+        if (SCR_TRACING_DEVIATIONS () && lib_openclose_word (typed, &typed_hit))
+          SCR_DEVIATION ("mask_openclose", "masked=\"%s\"", words);
+        return FALSE;
+      }
   }
   cut_at = lib_openclose_word (line, &cut_hit);
 

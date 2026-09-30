@@ -676,6 +676,11 @@ run_main_loop (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
+#ifdef SCARIER_DUMP_TOOLS
+  if (run_census_requested (game))
+    exit (EXIT_SUCCESS);
+#endif
+
   /*
    * This may not be the very first time this game has been used, for example
    * saving a game right at the start, or undo-ing back to the start through

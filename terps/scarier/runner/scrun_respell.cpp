@@ -1258,6 +1258,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
             hoisted = decided;
             return TRUE;
           }
+        SCR_DEVIATION ("mask_two_verb", "runner=\"%s\"", decided.c_str ());
         return FALSE;
       }
   }
@@ -1271,6 +1272,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
 
       if (!has_mask || run_two_verb_line_400 (game, masked.c_str (), unused))
         return TRUE;
+      SCR_DEVIATION ("mask_two_verb", "runner=\"%s\"", hoisted.c_str ());
       hoisted.clear ();
       return FALSE;
     }
@@ -1286,7 +1288,11 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
       if (scan != string && scan[-1] != ' ')
         continue;
       if (masked[scan - string] == LIB_NAME_MASK)
-        continue;
+        {
+          if (SCR_TRACING_DEVIATIONS () && run_hoist_any_verb_at (game, scan))
+            SCR_DEVIATION ("mask_hoist", "verb at \"%s\"", scan);
+          continue;
+        }
       verb = run_hoist_any_verb_at (game, scan);
       if (!verb)
         continue;

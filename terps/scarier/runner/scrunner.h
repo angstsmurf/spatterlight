@@ -44,6 +44,12 @@ static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
 /* State shared across the runner files, each defined in the file named. */
 
+#ifdef SCARIER_DUMP_TOOLS
+extern scr_bool run_census_requested (scr_gameref_t game);
+extern scr_bool run_census_matches_task (scr_gameref_t game, scr_int task,
+                                         const scr_char *string);
+#endif
+
 /* scrun_match.cpp */
 extern scr_bool run_rerun_skips_tasks;
 extern scr_bool run_rerun_exact_spaces;

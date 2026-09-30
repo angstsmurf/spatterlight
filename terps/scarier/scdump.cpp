@@ -77,6 +77,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
+
+#include <set>
+#include <string>
 
 #include "scarier.h"
 #include "scprotos.h"
@@ -1536,6 +1540,61 @@ scr_dump_npc_trace (scr_gameref_t game)
   for (npc = 0; npc < gs_npc_count (game); npc++)
     fprintf (stderr, "JUDYTRACE npc=%ld room=%ld\n",
              npc, gs_npc_location (game, npc) - 1);
+  fflush (stderr);
+}
+
+/*
+ * scr_tracing_deviations()
+ * scr_trace_deviation()
+ * scr_trace_deviation_line()
+ *
+ * SCR_TRACE_DEVIATIONS: one stderr line per deliberate deviation that
+ * decided something on the current input line --
+ *
+ *   DEV <id>\t[<input line>]\t<detail>
+ *
+ * -- each id and detail once per line.  For auditing what the deviations
+ * let a player do; see test/adrift4/harness/trace_deviations.sh.
+ */
+extern std::string run_trace_last_input;
+
+static std::set<std::string> scr_deviations_seen;
+
+scr_bool
+scr_tracing_deviations (void)
+{
+  static int enabled = -1;
+
+  if (enabled < 0)
+    enabled = getenv ("SCR_TRACE_DEVIATIONS") != NULL;
+  return enabled;
+}
+
+void
+scr_trace_deviation_line (void)
+{
+  scr_deviations_seen.clear ();
+}
+
+void
+scr_trace_deviation (const char *id, const char *format, ...)
+{
+  char detail[1024] = "";
+
+  if (!scr_tracing_deviations ())
+    return;
+  if (format)
+    {
+      va_list ap;
+
+      va_start (ap, format);
+      vsnprintf (detail, sizeof (detail), format, ap);
+      va_end (ap);
+    }
+  if (!scr_deviations_seen.insert (std::string (id) + '\t' + detail).second)
+    return;
+  fprintf (stderr, "DEV %s\t[%s]\t%s\n", id, run_trace_last_input.c_str (),
+           detail);
   fflush (stderr);
 }
 

@@ -611,7 +611,11 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
        * said.  "must not be" still fails silently.
        */
       if (var3 == 0)
-        return var2 == 0;
+        {
+          if (var2 == 0 && prop_get_taf_version (bundle) == TAF_VERSION_390)
+            SCR_DEVIATION ("self_room_390", NULL);
+          return var2 == 0;
+        }
       if (var3 == 1 && var_get_ref_character (vars) < 0)
         return FALSE;
     }

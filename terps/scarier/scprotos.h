@@ -1440,6 +1440,15 @@ extern void if_update_graphic (const scr_char *filepath,
 #ifdef SCARIER_DUMP_TOOLS
 extern void scr_dump_structure_once (scr_gameref_t game);
 extern void scr_dump_npc_trace (scr_gameref_t game);
+extern scr_bool scr_tracing_deviations (void);
+extern void scr_trace_deviation (const char *id, const char *format, ...);
+extern void scr_trace_deviation_line (void);
+#define SCR_TRACING_DEVIATIONS() scr_tracing_deviations ()
+#define SCR_DEVIATION(...) \
+  (scr_tracing_deviations () ? scr_trace_deviation (__VA_ARGS__) : (void) 0)
+#else
+#define SCR_TRACING_DEVIATIONS() FALSE
+#define SCR_DEVIATION(...) ((void) 0)
 #endif
 
 #endif

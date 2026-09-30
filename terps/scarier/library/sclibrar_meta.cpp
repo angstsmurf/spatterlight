@@ -128,6 +128,8 @@ lib_cmd_look_typed (scr_gameref_t game)
           last = last ? last + 1 : line;
           is_look = scr_strcasecmp (last, "room") == 0
                     || scr_strcasecmp (last, "location") == 0;
+          if (is_look)
+            SCR_DEVIATION ("look_at_room", NULL);
         }
       scr_free (line);
       if (!is_look)

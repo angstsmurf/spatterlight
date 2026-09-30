@@ -2938,6 +2938,11 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
        * exit could not be taken and `leave box` was refused too
        * (32a3f3423).  The line goes on to the library.
        */
+      if (SCR_TRACING_DEVIATIONS () && !buffer
+          && task_is_reverse_refused_390 (game, task)
+          && !run_match_task_commands (game, task, string, TRUE, FALSE)
+          && run_match_task_commands (game, task, string, FALSE, FALSE))
+        SCR_DEVIATION ("spent_reverse_390", "task=%ld", task);
       if (FALSE && !buffer
           && task_is_reverse_refused_390 (game, task)
           && !run_match_task_commands (game, task, string, TRUE, FALSE)
@@ -3590,3 +3595,14 @@ run_takes_second_pass_370 (scr_gameref_t game, const scr_char *string,
   if (run_task_runs_noted != noted)
     pf_erase (filter, clobber, mark);
 }
+
+#ifdef SCARIER_DUMP_TOOLS
+/* run_census_matches_task(): run_match_task_commands() for the census. */
+scr_bool
+run_census_matches_task (scr_gameref_t game, scr_int task,
+                         const scr_char *string)
+{
+  return run_match_task_commands (game, task, string, TRUE, FALSE)
+         || run_match_task_commands (game, task, string, FALSE, FALSE);
+}
+#endif

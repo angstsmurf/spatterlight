@@ -1037,9 +1037,13 @@ find_game() {  # $1=basename -> prints path or nothing
 # Without it the goldens record only the replies, so reading one means counting
 # prompts against the solution file by hand, and a route that desyncs by one
 # command is invisible in the diff.
+#
+# V4WT_STDERR_DIR, if set, keeps each row's stderr there as
+# <game>.<solution>.err (trace_deviations.sh reads it).
 transcript() {  # $1=game path $2=solution path
   { cat "$2"; echo quit; echo y; } \
-    | ( ulimit -t 30; env SCR_ECHO_INPUT=1 SCR_RNG=xoshiro $ROW_ENV "$SCARE_BIN" "$1" 2>/dev/null ) \
+    | ( ulimit -t 30; env SCR_ECHO_INPUT=1 SCR_RNG=xoshiro $ROW_ENV "$SCARE_BIN" "$1" \
+        2>"${V4WT_STDERR_DIR:-/dev/null}${V4WT_STDERR_DIR:+/$(basename "$1").$(basename "$2").err}" ) \
     | tr -d '\r' | sed 's/[[:space:]]*$//' | cat -s
 }
 
