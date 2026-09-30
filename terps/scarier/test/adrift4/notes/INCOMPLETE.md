@@ -14,7 +14,7 @@ declined on content grounds (14 of them permanently) — see *Content policy* in
 `WALKTHROUGH_TODO.md`.
 
 Scores are what the committed walkthrough rows score in the seeded headless
-harness (suite: 672/672 PASS), cross-checked against each row's manifest
+harness (suite: 671/671 PASS, 2026-09-30), cross-checked against each row's manifest
 comment, which is the authority when a walkthrough note disagrees.  "Faithful"
 means every assist off and no patches.  The per-game note
 (`<Game>_walkthrough.md`) carries the current verdict; a remembered summary
@@ -95,12 +95,10 @@ right repair.
 | Melbourne Beach | — | 38/41 | 39/41 | Short — partly patched |
 | Sommeril | — | 85/100 | 95/100 | Short — patched to its pool |
 | The Fugitive | — | 656/666 | 646/666 | Short — patch trades 20 for 10 |
-| Studio (AIF) | — | 96/100 | 100/100 | Short points fixed by patch |
 | The Twilight | — | 485/500 | 500/500 | Short points fixed by patch |
 | House Of Horror | — | 145/155 | 155/155 | Short points fixed by patch |
 | Sun Empire: Quest for the Founders (Part I) | — | 140/145 | 145/145 | Short points fixed by patch |
 | Terrified | — | 60/65 | 65/65 | Short points fixed by patch |
-| Sentor | — | 12/13 | 13/13 | Short points fixed by patch |
 | Professor Von Witt | — | 154/229 | 229/229 | Short points fixed by patch |
 | FunHouse | — | 310/410 | 410/410 | Short points fixed by patch |
 | Locked Out | — | 90/110 | 110/110 | Short points fixed by patch |
@@ -108,7 +106,6 @@ right repair.
 | Goldilocks - Breaking & Entering | — | 32/35 | 35/35 | Short points fixed by patch |
 | Provenance | — | 285/300 | 300/300 | Short points fixed by patch |
 | ALEXIS (Easy), Cowboy Blues | — | — | — | Short at their real ceiling (section 4) |
-| The Warlord, The Princess & The Bulldog | warlord.taf | 99/100 | same | Short — Runner-faithful take answer |
 | The Prostitute, Loving Family, fantasyworld (AIF) | — | — | — | Short by content policy (section 4) |
 | Insidejob, JimPond, Grumble, Great Escape, ARGH's Great Escape, Cursed, Crime Adventure, VGM1_3 and 21 more | — | — | — | Phantom maximum (section 5) |
 | ~33 sandboxes, intros and demos | — | — | — | No ending by design (see below) |
@@ -414,21 +411,12 @@ the car the author's lesser choice rather than a silent one.
 
 ### Fully repaired by the patch table
 
-**Studio (AIF)** — 96/100 → 100/100 (96 is the Runner's own ceiling,
-runner_transcripts/studio.txt).  T111 carries a "Player must be in same room
-as Player" restriction, which run390 fails SILENTLY, so the earlier out-of-room
-T74 sharing the pattern answers instead.  `PATCH_STUDIO` sets
-Restrictions/0/Var1 0 → 2 (Shelby in the room, as T112/T113 ask).  Game, golden
-and blessed transcript stay gitignored; the patched manifest row is the
-committed artefact.
-
 **Locked Out** — 90/110 → 110/110.  T20 `put rock on lid` (+20) had
 Where=NO_ROOMS and lost its line to the library put; opened to all rooms.
 
 **The Twilight** 485/500 → 500/500 · **House Of Horror** 145/155 → 155/155 ·
 **Sun Empire: Quest for the Founders (Part I)** 140/145 → 145/145 ·
-**Terrified** 60/65 → 65/65 · **Sentor** 12/13 → 13/13 · **Professor Von
-Witt** 154/229 → 229/229 · **FunHouse** 310/410 → 410/410 · **The Crime
+**Terrified** 60/65 → 65/65 · **Professor Von Witt** 154/229 → 229/229 · **FunHouse** 310/410 → 410/410 · **The Crime
 Scene** 78/80 → 80/80 · **Goldilocks - Breaking & Entering** 32/35 → 35/35.
 
 ### Short by route choice
@@ -459,13 +447,6 @@ ceiling, or a deliberate second row.
 - **lair-of-the-cybercow** — the 6/10 row is the deliberate dark-path branch;
   the sibling win row scores 10/10.
 - **The Circus** — the 64/140 sold-points row is kept beside the 140/140 one.
-
-### Short, and faithful to the Runner
-
-- **The Warlord, The Princess & The Bulldog** — 99/100 (was 100 before the
-  2026-09-14 4.0 auto-"from" take port).  `get treat` / `get bone` / `get
-  cudgel` answer "The stove is bolted to the floor." and Merrick "That's no use
-  to me," exactly as run400 does (Adrift_1059, 99).
 
 ### Short by content policy (AIF)
 
@@ -569,6 +550,26 @@ WanderersGoW 0.04.taf (demo ends at 29/29 with no type-6), toronto.taf (A Day
 In Toronto), DetectiveTemplate.taf and shablon.taf (Russian author sandboxes).
 
 ## 7. Resolved or overturned — do not re-list
+
+- **Full score FAITHFUL by deliberate deviation (2026-09-30)** — no patch
+  needed any more, but above the Runner's own ceiling, so the Wine Runners
+  will not reproduce these scores (`trace_deviations.sh` names each):
+  - **Studio (AIF)** — 96/100 → 100/100 (96 is the Runner's ceiling,
+    runner_transcripts/studio.txt).  T111 carries a "Player must be in same
+    room as Player" restriction, which run390 fails SILENTLY, so the earlier
+    out-of-room T74 sharing the pattern answered instead.  3.9 now passes it
+    as 4.0 does (`self_room_390`).  `PATCH_STUDIO` (Restrictions/0/Var1 0 → 2,
+    Shelby in the room, as T112/T113 ask) still repairs the data, and both
+    rows are byte-identical.  Game, goldens and blessed transcripts stay
+    gitignored; the manifest rows are the committed artefacts.
+  - **Sentor** — 12/13 → 13/13.  T2 `slap Stefcho`, which 3.90 rewrites to
+    `hit` before task matching, runs through the line's other spelling
+    (`spelling_task`); the patched row is byte-identical.
+  - **The Warlord, The Princess & The Bulldog** — 99/100 → 100/100 (100 before
+    the 2026-09-14 4.0 auto-"from" take port, 99 in run400, Adrift_1059).
+    `get treat` / `get bone` / `get cudgel` take from the iron stove instead
+    of "The stove is bolted to the floor." (`from_retry_skipped`), so Merrick
+    gets his treat.
 
 - **House** — 19/30 → 30/30 FAITHFUL, no patch.  `put wood in fireplace`
   (T459) is now answered the way run400 does it ("Your hands are full.  You
