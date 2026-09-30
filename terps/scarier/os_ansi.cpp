@@ -39,6 +39,17 @@
 
 #include "scarier.h"
 
+#ifdef SCARIER_DUMP_TOOLS
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#include <string>
+#include <vector>
+
+extern scr_bool run_probe_strict;
+#endif
+
 enum { FALSE = 0, TRUE = !FALSE };
 
 /*
@@ -283,12 +294,187 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 /* Solution-file line counter for the SCR_TRACE_ADMIN derivation aid. */
 static long os_ansi_input_line = 0;
 
+#ifdef SCARIER_DUMP_TOOLS
+/*
+ * Leniency audit, SCR_PROBE_LINES=<file>: before each walkthrough line runs,
+ * try every line in the file (one per line, blank and '#' lines skipped) in
+ * two forked children, one as Scarier plays it and one with no leniency at
+ * all (run_probe_strict, the Runner way), and report the lines whose answers
+ * differ on stderr:
+ *
+ *   PROBE\t<solution line>\t<probe line>
+ *   L\t<lenient answer line>      (one per line of output)
+ *   S\t<strict answer line>
+ *   D\t<DEV trace line>           (the lenient child's, SCR_TRACE_DEVIATIONS)
+ *
+ * The children never touch the walkthrough's stdin, and each stops at its
+ * next read, so the parent plays on as if nothing had happened.
+ * SCR_PROBE_EVERY=N probes only every Nth solution line.  probe_lenient.sh
+ * drives this with the census's cross lines.
+ */
+static std::vector<std::string> os_ansi_probe_lines;
+static scr_bool os_ansi_probe_child = FALSE;
+
+static std::string
+os_ansi_slurp (const char *path)
+{
+  std::string text;
+  FILE *stream = fopen (path, "rb");
+  if (stream)
+    {
+      char chunk[4096];
+      size_t count;
+      while ((count = fread (chunk, 1, sizeof chunk, stream)) > 0)
+        text.append (chunk, count);
+      fclose (stream);
+    }
+  return text;
+}
+
+static void
+os_ansi_report (const char *tag, const std::string &text)
+{
+  size_t start = 0;
+  while (start < text.size ())
+    {
+      size_t end = text.find ('\n', start);
+      if (end == std::string::npos)
+        end = text.size ();
+      std::string line = text.substr (start, end - start);
+      if (tag[0] != 'D' || line.compare (0, 4, "DEV ") == 0)
+        fprintf (stderr, "%s\t%s\n", tag, line.c_str ());
+      start = end + 1;
+    }
+}
+
+/*
+ * Run PROBE in a child, strictly or not, its stdout and stderr going to
+ * OUT_PATH and ERR_PATH.  Returns TRUE in the child, with BUFFER holding the
+ * line to play, and FALSE in the parent once the child is done.
+ */
+static scr_bool
+os_ansi_probe_run (const std::string &probe, scr_bool strict,
+                   const char *out_path, const char *err_path,
+                   scr_char *buffer, scr_int length)
+{
+  fflush (stdout);
+  fflush (stderr);
+  pid_t child = fork ();
+  if (child == 0)
+    {
+      int null_in = open ("/dev/null", O_RDONLY);
+      int out = open (out_path, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+      int err = open (err_path, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+      /* fd 0 away from the walkthrough, so no exit-time seek can move it. */
+      dup2 (null_in, 0);
+      dup2 (out, 1);
+      dup2 (err, 2);
+      close (null_in);
+      close (out);
+      close (err);
+      alarm (10);
+      os_ansi_probe_child = TRUE;
+      run_probe_strict = strict;
+      snprintf (buffer, length, "%s\n", probe.c_str ());
+      return TRUE;
+    }
+  if (child > 0)
+    {
+      int status;
+      while (waitpid (child, &status, 0) < 0 && errno == EINTR)
+        ;
+    }
+  return FALSE;
+}
+
+static scr_bool
+os_ansi_probe (scr_char *buffer, scr_int length)
+{
+  static scr_bool loaded = FALSE;
+  static long every = 1;
+  static std::string out_paths[2], err_paths[2];
+
+  if (!loaded)
+    {
+      const char *path = getenv ("SCR_PROBE_LINES");
+      loaded = TRUE;
+      if (!path)
+        return FALSE;
+      std::string text = os_ansi_slurp (path);
+      size_t start = 0;
+      while (start < text.size ())
+        {
+          size_t end = text.find ('\n', start);
+          if (end == std::string::npos)
+            end = text.size ();
+          std::string line = text.substr (start, end - start);
+          if (!line.empty () && line[line.size () - 1] == '\r')
+            line.erase (line.size () - 1);
+          if (line.find_first_not_of (" \t") != std::string::npos
+              && line[line.find_first_not_of (" \t")] != '#')
+            os_ansi_probe_lines.push_back (line);
+          start = end + 1;
+        }
+      if (getenv ("SCR_PROBE_EVERY"))
+        every = strtol (getenv ("SCR_PROBE_EVERY"), NULL, 10);
+      if (every < 1)
+        every = 1;
+      for (int mode = 0; mode < 2; mode++)
+        {
+          std::string stem = getenv ("TMPDIR") ? getenv ("TMPDIR") : "/tmp";
+          stem += "/scr_probe." + std::to_string ((long) getpid ()) + "."
+                  + std::to_string (mode);
+          out_paths[mode] = stem + ".out";
+          err_paths[mode] = stem + ".err";
+        }
+    }
+  if (os_ansi_probe_lines.empty () || os_ansi_input_line % every != 0)
+    return FALSE;
+
+  for (const std::string &probe : os_ansi_probe_lines)
+    {
+      std::string answers[2];
+      for (int mode = 0; mode < 2; mode++)
+        {
+          if (os_ansi_probe_run (probe, mode == 1, out_paths[mode].c_str (),
+                                 err_paths[mode].c_str (), buffer, length))
+            return TRUE;
+          answers[mode] = os_ansi_slurp (out_paths[mode].c_str ());
+        }
+      if (answers[0] != answers[1])
+        {
+          fprintf (stderr, "PROBE\t%ld\t%s\n", os_ansi_input_line,
+                   probe.c_str ());
+          os_ansi_report ("L", answers[0]);
+          os_ansi_report ("S", answers[1]);
+          os_ansi_report ("D", os_ansi_slurp (err_paths[0].c_str ()));
+          fflush (stderr);
+        }
+    }
+  for (int mode = 0; mode < 2; mode++)
+    {
+      unlink (out_paths[mode].c_str ());
+      unlink (err_paths[mode].c_str ());
+    }
+  return FALSE;
+}
+#endif
+
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
 {
   scr_bool echo_input, scripted;
 
   full_flush ();
+#ifdef SCARIER_DUMP_TOOLS
+  /* A probe child has answered its one line; that is all it is for. */
+  if (os_ansi_probe_child)
+    {
+      fflush (stdout);
+      fflush (stderr);
+      _exit (EXIT_SUCCESS);
+    }
+#endif
   if (feof (stdin))
     {
       /*
@@ -381,6 +567,10 @@ os_read_line (scr_char *buffer, scr_int length)
     }
 
 #ifdef SCARIER_DUMP_TOOLS
+  /* The leniency probe; a child plays its probe line instead. */
+  if (os_ansi_probe (buffer, length))
+    return TRUE;
+
   /*
    * Derivation aid, paired with SCR_TRACE_ADMIN in run_main_loop(): name the
    * line just read (1-based, comments counted) so an "ADMIN" trace line can

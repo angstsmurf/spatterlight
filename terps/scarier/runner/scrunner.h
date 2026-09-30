@@ -51,6 +51,10 @@ extern scr_bool run_census_matches_task (scr_gameref_t game, scr_int task,
 #endif
 
 /* scrun_match.cpp */
+#ifdef SCARIER_DUMP_TOOLS
+extern scr_bool run_probe_strict;
+extern scr_bool run_strict_tasks_requested (const scr_char *string);
+#endif
 extern scr_bool run_rerun_skips_tasks;
 extern scr_bool run_rerun_exact_spaces;
 extern scr_bool run_lenient_tasks;

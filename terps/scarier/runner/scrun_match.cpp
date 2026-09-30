@@ -1915,11 +1915,38 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
  * me to do with the Buzzer." in every Runner -- but not `look in black jar`.
  * Found by run_lenient_census().
  */
+#ifdef SCARIER_DUMP_TOOLS
+/*
+ * run_strict_tasks_requested()
+ *
+ * Dump tools: TRUE when STRING gets no leniency at all -- every line under
+ * SCR_STRICT_TASKS or run_probe_strict (the os_ansi probe's strict child),
+ * or the one line SCR_STRICT_LINE names.  To see what the Runner-way run
+ * answers instead.
+ */
+scr_bool run_probe_strict = FALSE;
+
+scr_bool
+run_strict_tasks_requested (const scr_char *string)
+{
+  static const scr_bool strict_only = getenv ("SCR_STRICT_TASKS") != NULL;
+  static const scr_char *const strict_line = getenv ("SCR_STRICT_LINE");
+
+  return strict_only || run_probe_strict
+         || (strict_line && scr_strcasecmp (strict_line, string) == 0);
+}
+#endif
+
 scr_bool
 run_line_yields_to_library (scr_gameref_t game, const scr_char *string)
 {
   const scr_bool outer_lenient = run_lenient_tasks;
   scr_bool yields = FALSE;
+
+#ifdef SCARIER_DUMP_TOOLS
+  if (run_strict_tasks_requested (string))
+    return FALSE;
+#endif
 
   run_lenient_tasks = FALSE;
   uip_set_lenient_tasks (FALSE);
