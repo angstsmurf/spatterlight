@@ -448,6 +448,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _gameView.layer.masksToBounds = YES;
 
     _lastAutoBGColor = _theme.resolvedBufferBackground;
+    _lastAutoBGSource = kAutoBorderBufferDefault;
     if (_theme.borderBehavior == kUserOverride)
         [self setBorderColor:_theme.resolvedBorderColor];
     else
@@ -1959,8 +1960,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:theme.resolvedBorderColor]) {
         [self setBorderColor:theme.resolvedBorderColor];
-    } else if (theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
-        [self setBorderColor:_lastAutoBGColor];
+    } else if (theme.borderBehavior == kAutomatic) {
+        // A default background has to be looked up again: after a light/dark
+        // switch the stored color is the old mode's.
+        NSColor *autoColor = [self resolvedLastAutoBGColor];
+        if (autoColor && ![autoColor isEqualToColor:_bgcolor])
+            [self setBorderColor:autoColor];
     }
 
     GlkEvent *gevent;

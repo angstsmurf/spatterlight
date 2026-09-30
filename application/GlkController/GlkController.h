@@ -26,6 +26,12 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @end
 
+typedef NS_ENUM(NSUInteger, kAutoBorderSource) {
+    kAutoBorderGameColor,
+    kAutoBorderBufferDefault,
+    kAutoBorderGridDefault
+};
+
 @interface GlkController : NSWindowController <NSSecureCoding, NSDraggingDestination>
 
 @property NSMutableDictionary<NSNumber*,GlkWindow*> *gwindows;
@@ -77,6 +83,9 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) BOOL supportsAutorestore;
 
 @property NSColor *lastAutoBGColor;
+/// Whether lastAutoBGColor was the theme's buffer or grid background (and so
+/// follows a light/dark switch) or a color of the game's own.
+@property kAutoBorderSource lastAutoBGSource;
 @property NSColor *bgcolor;
 
 @property NSInteger eventcount;

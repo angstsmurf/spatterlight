@@ -225,6 +225,11 @@
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
             [self recalcBackground];
+            // With no line input the caret is hidden by painting it the
+            // background color, which was read when input ended; after a
+            // light/dark switch that would leave a caret of the old
+            // background showing. (No-op while line input is active.)
+            [self hideInsertionPoint];
             if ([container hasMarginImages])
                 [container performSelector:@selector(invalidateLayout:) withObject:nil afterDelay:0.2];
         }

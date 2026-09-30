@@ -25,6 +25,9 @@
 @interface GlkGraphicsWindow () <NSSecureCoding> {
     BOOL mouse_request;
     BOOL transparent;
+    // bgnd holds the theme's default background, resolved when it was set,
+    // and follows a light/dark switch (see prefsDidChange).
+    BOOL bgndIsDefault;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
 }
@@ -32,6 +35,12 @@
 @property NSOperationQueue *workQueue;
 
 @end
+
+// Colors reach setBgColor: from requests as signed ints, so zcolor_Default
+// arrives as -1 and zcolor_Current as -2, and from glui32 paths unsigned.
+static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
+    return value == (NSInteger)zcolor || value == (NSInteger)(int32_t)zcolor;
+}
 
 @implementation GlkGraphicsWindow
 
@@ -65,6 +74,7 @@
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
+        bgndIsDefault = [decoder decodeBoolForKey:@"bgndIsDefault"];
         subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
     }
@@ -78,6 +88,7 @@
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
+    [encoder encodeBool:bgndIsDefault forKey:@"bgndIsDefault"];
 }
 
 
@@ -91,10 +102,11 @@
 }
 
 - (void)setBgColor:(NSInteger)bc {
-    if (bc == zcolor_Current)
+    if (SPIsZColor(bc, zcolor_Current))
         return;
     NSColor *color;
-    if (bc == zcolor_Default) {
+    bgndIsDefault = SPIsZColor(bc, zcolor_Default);
+    if (bgndIsDefault) {
         color = self.glkctl.theme.resolvedBufferBackground;
         bgnd = color.integerColor;
     } else {
@@ -106,6 +118,24 @@
         self.layer.backgroundColor = NSColor.clearColor.CGColor;
     else
         self.layer.backgroundColor = color.CGColor;
+}
+
+// A default background is looked up again after a light/dark switch. The
+// pixels already drawn are the game's to repaint, and the forced arrange that
+// follows the switch asks it to; only a window with nothing drawn in it yet
+// is refilled here, as clear would.
+- (void)prefsDidChange {
+    if (!bgndIsDefault)
+        return;
+    NSColor *color = self.glkctl.theme.resolvedBufferBackground;
+    if (!color || color.integerColor == bgnd)
+        return;
+    bgnd = color.integerColor;
+    if (!transparent)
+        self.layer.backgroundColor = color.CGColor;
+    if (!_showingImage && !NSEqualSizes(NSZeroSize, _image.size))
+        [self clear];
+    [self recalcBackground];
 }
 
 - (void)recalcBackground {

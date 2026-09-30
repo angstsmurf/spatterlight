@@ -38,6 +38,14 @@
     Theme *theme = self.theme;
     if (theme.borderBehavior == kAutomatic) {
         self.lastAutoBGColor = color;
+        // Windows and SETBGND pass the theme's resolved background when they
+        // mean the default, so the match tells the two apart.
+        if ([color isEqualToColor:theme.resolvedBufferBackground])
+            self.lastAutoBGSource = kAutoBorderBufferDefault;
+        else if ([color isEqualToColor:theme.resolvedGridBackground])
+            self.lastAutoBGSource = kAutoBorderGridDefault;
+        else
+            self.lastAutoBGSource = kAutoBorderGameColor;
     } else {
         color = theme.resolvedBorderColor;
         if (self.lastAutoBGColor == nil)
@@ -56,6 +64,21 @@
 
         [Preferences instance].borderColorWell.color = color;
     }
+}
+
+- (NSColor *)resolvedLastAutoBGColor {
+    NSColor *color = nil;
+    switch (self.lastAutoBGSource) {
+        case kAutoBorderBufferDefault:
+            color = self.theme.resolvedBufferBackground;
+            break;
+        case kAutoBorderGridDefault:
+            color = self.theme.resolvedGridBackground;
+            break;
+        case kAutoBorderGameColor:
+            break;
+    }
+    return color ?: self.lastAutoBGColor;
 }
 
 - (GlkWindow *)largestWindow {
