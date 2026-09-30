@@ -1327,7 +1327,18 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * both engines.
    */
   gs_set_npc_location (game, npc, 0);
-  gs_set_npc_dead (game, npc, TRUE);
+
+  /*
+   * Deliberate deviation (2026-09-30): an NPC whose KilledTask ran and gave
+   * it stamina back is not dead for good, so its walk can bring it back as
+   * the author meant.  The Town of Azra's KilledTasks (#banditkristdies,
+   * #deerdies) hide the NPC and restore its stamina so that a walk
+   * respawns it, and with the NPC dead for good (bc16dfe2d) the house goal
+   * could no longer be reached.  An NPC with no KilledTask, or one left at
+   * no stamina, stays dead.
+   */
+  if (!(task >= 0 && gs_npc_stamina (game, npc) > 0))
+    gs_set_npc_dead (game, npc, TRUE);
 }
 
 /*
