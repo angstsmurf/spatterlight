@@ -1284,6 +1284,16 @@ case, and their goldens are re-blessed. The row notes in
     are whole-word, and drop only as the verb (run_normalise_put_line()).
     run400's substring Replace()s made `put coin in drop box` "put coin in
     put box", which no put row understood.
+  - 4.0 `open` and `close` act on a dynamic object where it stands
+    (lib_cmd_open_object(), lib_cmd_close_object()). run400 answers "You are
+    not carrying the box!" unless it is held (e66709de2), so a chest too
+    heavy to lift could never be opened.
+  - The 4.0 running carried SIZE is capped at the own sizes of what the
+    player still possesses (gs_carried_size()). run400 takes only a
+    container's own size off when it leaves the player, so its contents
+    stayed charged for good (e66709de2): `take bag`, `take rock`, `put rock
+    in bag`, `drop bag` left 3 on `count`, and repeated drops ended in
+    "hands are full" with empty hands. The weight total is unchanged.
 ---
 
 ## Rules measured and ported (index)
