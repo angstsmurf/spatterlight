@@ -213,7 +213,8 @@ Murders were dropped from the assist table on 2026-09-27: each is one bad
 field, so the patch table repairs them instead.  Measured and deliberately NOT
 in the table: g7056, Ghoster, Noximion (and combat in Space Run), where the
 assist made no difference, and Goldilocks, whose route the capacity switch
-breaks.
+breaks.  Their harness rows run without the combat assist too (since
+2026-09-30), matching the same goldens.
 
 ## 3. Unwinnable as authored, won with the patch table
 

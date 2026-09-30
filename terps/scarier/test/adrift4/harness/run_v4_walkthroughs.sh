@@ -870,18 +870,18 @@ grandjourney_solution.txt|grandjourney.taf|You have finished the DEMO version of
 # Sk8 Sponsorz. 998 park kickflips to Birdhouse (turn-timed events).
 sk8sponsorz_solution.txt|sk8sponsorz.taf|You succeed and join Birdhouse.|SCR_SKIP_WAITKEY=1
 # G7056. Cake/fuse, jump, garage, generator, captor, 10x sniper sentry, roof beacon.
-g7056_solution.txt|g7056.taf|MISSION COMPLETED!!!|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+g7056_solution.txt|g7056.taf|MISSION COMPLETED!!!|SCR_SKIP_WAITKEY=1
 # Space Run demo. Hand/scanner, keycard, fuse wires, stairs button (Adam kills
 # the stairs alien), customs, shower lever, turbo lift sector C.  290/290.
-spacerun_solution.txt|spacerun.taf|wait for the full version to find out|SCR_ASSUME_COMBAT=1 SCR_ASSUME_ROOMS=1 SCR_SKIP_WAITKEY=1
+spacerun_solution.txt|spacerun.taf|wait for the full version to find out|SCR_ASSUME_ROOMS=1 SCR_SKIP_WAITKEY=1
 # Enigma. Corridor fight, copper/brass keys in the oak doors, authored warlord death, stone door.
 enigma_solution.txt|enigma.taf|clawed feet scrape across the mountain rocks|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
 # Seek and Enjoy. Chores then train; go down not d (toys death); drop card before toilet doorbell.
 seekandenjoy_solution.txt|seekandenjoybybackmasker.taf|some time to yourself|SCR_SKIP_WAITKEY=1
 # Ghoster. Occupy alien, stand on hill, beacon, ferry body, crowbar bulkhead, occupy captain, kill robot.
-ghoster_solution.txt|ghoster.taf|But it is at least a victory.|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+ghoster_solution.txt|ghoster.taf|But it is at least a victory.|SCR_SKIP_WAITKEY=1
 # Noximion. Shield, Barrens port go to 1 (event), b, 16 buzzards, wait for dungeon complete.
-noximion_solution.txt|noximion.taf|defeated all monsters and completed the dungeon|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
+noximion_solution.txt|noximion.taf|defeated all monsters and completed the dungeon|SCR_SKIP_WAITKEY=1
 # Hunting Ground. Greet, pistol/dagger/pearls, dump corpses, leave John in blue, Libby last, jump dock.
 huntingground_solution.txt|Hunting Ground.taf|too much upon his pistol|SCR_SKIP_WAITKEY=1
 # Go. House, small-door engraving, diary teleport, cash machine, office, taxi. 190/190.
