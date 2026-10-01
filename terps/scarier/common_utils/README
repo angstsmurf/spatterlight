@@ -23,11 +23,15 @@ a copy in here, or the copied folder will not build.
                  vendorcheck covers it too.
 
   sc_garglk.c
-  sc_garglk.h    strndup() for toolchains without one -- MinGW and MSVC, where
-                 Gargoyle's CMake probe defines GARGLK_NEEDS_STRNDUP.  Empty
-                 translation unit everywhere else, and no part of the
-                 Spatterlight build.  Included by adrift5/a5restr.cpp and
-                 adrift5/a5text.cpp.
+  sc_garglk.h    Portability for the ADRIFT 5 engine.  strndup() for
+                 toolchains without one -- MinGW and MSVC, where Gargoyle's
+                 CMake probe defines GARGLK_NEEDS_STRNDUP; sc_garglk.c is an
+                 empty translation unit everywhere else, and no part of the
+                 Spatterlight build.  And strcasecmp()/strncasecmp(): the
+                 header includes <strings.h>, or under MSVC, which has no
+                 such header, maps them to _stricmp()/_strnicmp().  Included
+                 by every adrift5/ file that compares case-insensitively,
+                 instead of <strings.h>.
 
 Fixes made here in the Gargoyle tree belong upstream in the Spatterlight tree
 first; the copy only ever travels one way.

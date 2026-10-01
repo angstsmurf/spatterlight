@@ -32,7 +32,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 
 #include <algorithm>
 #include <string>
@@ -44,6 +43,9 @@
 #include "a5run_internal.h"
 #include "a5text.h"
 #include "a5util.h"
+
+/* strcasecmp() where the toolchain lacks <strings.h>. */
+#include "../common_utils/sc_garglk.h"
 
 /* A reference alias split into its base ("object1" -> "object") and, when
    `num_out` is non-NULL, its trailing digit run ("object1" -> "1").  ADRIFT

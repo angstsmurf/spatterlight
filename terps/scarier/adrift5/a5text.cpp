@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 
 #include <algorithm>
 #include <string>
@@ -40,7 +39,7 @@
 #include "a5util.h"
 #include <unordered_map>
 
-/* strndup() where the toolchain has none; empty everywhere else. */
+/* strcasecmp() and strndup() where the toolchain lacks them. */
 #include "../common_utils/sc_garglk.h"
 
 /* ----------------------------------------------------------- small helpers */

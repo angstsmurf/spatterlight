@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 
 #include <map>
 #include <set>
@@ -38,7 +37,7 @@
 #include "a5text.h"
 #include "a5util.h"
 
-/* strndup() where the toolchain has none; empty everywhere else. */
+/* strcasecmp() and strndup() where the toolchain lacks them. */
 #include "../common_utils/sc_garglk.h"
 
 int a5restr_trace = 0;
