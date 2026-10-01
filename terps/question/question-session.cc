@@ -101,6 +101,9 @@ bool question_implementation::undo ()
     }
   state.restore_undo (undo_buffer.peek());
   state.running = true;
+  /* The clones made since that snapshot are gone from the state; drop their
+   * definition aliases too, so a later clone may reuse the name. */
+  restore_clones ();
   print_formatted ("Undone.");
   /* Rebuild the cached views of the restored state and redescribe the room. */
   regen_var_room ();
@@ -150,6 +153,7 @@ std::string question_implementation::save_state (bool run_hooks)
  * by the clone handler and carried in the save like any other property. */
 void question_implementation::restore_clones ()
 {
+  gf.clear_clones ();
   const vector<size_t> *v = state.prop_records ("!clones");
   if (v == NULL)
     return;

@@ -61,6 +61,8 @@
 
   A script line of "[status]" is not passed to the game: it prints the status
   pane's current contents (get_status_vars ()) into the transcript instead.
+  "[save]" snapshots the game as a player's SAVE would, and "[restore]" loads
+  that snapshot back as a player's RESTORE would (beforesave/onload and all).
     --seed N      RNG seed (overrides $QUESTION_SEED).
     --max-reloads N   Per-turn save-scum reload cap (default 20000).
     --lenient-names   Keep the engine's player-facing name leniency (accepting
@@ -123,6 +125,8 @@ namespace {
    String helpers lcase () and trim () come from the Question core (question-util.cc /
    readfile.cc); trim () strips all isspace, so it also drops CR from CRLF. */
 std::deque<std::string> g_queue;
+/* The runner's one save slot, for "[save]" / "[restore]". */
+std::string g_saved;
 
 /* Thrown once the game has asked for input far more often than the script can
    answer.  A Quest game that validates its input ("How many players?" ... "Try
@@ -539,6 +543,18 @@ main (int argc, char **argv)
 	  gi->emit ("[status]\n");
 	  for (const std::string &sv : gr->get_status_vars ())
 	    gi->emit (sv + "\n");
+	  continue;
+	}
+      if (lcase (c) == "[save]")
+	{
+	  g_saved = gr->save_state ();
+	  gi->emit ("\n[save]\n");
+	  continue;
+	}
+      if (lcase (c) == "[restore]")
+	{
+	  gi->emit ("\n[restore]\n");
+	  gi->emit (gr->load_state (g_saved) ? "[restored]\n" : "[refused]\n");
 	  continue;
 	}
       if (const Fight *f = find_fight (c))

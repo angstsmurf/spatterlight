@@ -1,0 +1,38 @@
+
+SaveRestore
+
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> frac
+
+[save]
+
+> zero
+
+[restore]
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+[restored]
+
+> shown
+n=.5
+
+> sword
+
+> undo
+Undone.
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> shield
+
+> look at thing
+A round shield.
+[runner] turns=7 leftover=0 running=true

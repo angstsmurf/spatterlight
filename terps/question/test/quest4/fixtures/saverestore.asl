@@ -1,0 +1,35 @@
+! What a RESTORE and an UNDO must carry across.
+!  - Numeric variables are doubles, but the save wrote them through int, so
+!    n = 0.5 came back as 1.
+!  - A clone's definition alias outlived the clone itself across UNDO, so a
+!    second clone of the same name answered with the first one's description.
+define game <SaveRestore>
+ asl-version <410>
+ start <Hall>
+ command <frac> set numeric <n; 1 / 2>
+ command <zero> set numeric <n; 0>
+ command <shown> msg <n=%n%>
+ command <sword> clone <Sword; Thing>
+ command <shield> clone <Shield; Thing>
+end define
+define variable <n>
+ type numeric
+ value <0>
+end define
+define room <Hall>
+ look <The hall.>
+ east <Attic>
+ define object <Box>
+  look <A box.>
+ end define
+ define object <Sword>
+  look <A sharp sword.>
+ end define
+ define object <Shield>
+  look <A round shield.>
+ end define
+end define
+define room <Attic>
+ look <The attic.>
+ west <Hall>
+end define
