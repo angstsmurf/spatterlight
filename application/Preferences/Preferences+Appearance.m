@@ -5,13 +5,16 @@
 
 #import "Preferences+Appearance.h"
 
+#import "BuiltInThemes.h"
 #import "CoreDataManager.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 #import "Theme.h"
 
 NSString * const SpatterlightAppearanceOverrideKey = @"SpatterlightAppearanceOverride";
+NSString * const SpatterlightFabulichModeKey = @"FabulichMode";
 static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeSidesV1";
+static NSString * const SpatterlightBuiltInSidesMigratedKey = @"SpatterlightThemeSidesV2";
 
 @interface Preferences ()
 @property (strong) IBOutlet NSView *globalView;
@@ -128,8 +131,26 @@ static const CGFloat kAppearanceToggleMargin = 3;
 // of asking the system again halfway through. -1 means "not read yet".
 static NSInteger SPCachedSystemAppearance = -1;
 static NSInteger SPCachedResolvedAppearance = -1;
+// The theme side last announced, which can change without the app's
+// appearance changing, when Fabulich mode is switched on or off.
+static NSInteger SPAnnouncedSidesDark = -1;
 
++ (BOOL)fabulichMode {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:SpatterlightFabulichModeKey];
+}
+
++ (void)setFabulichMode:(BOOL)fabulich {
+    [[NSUserDefaults standardUserDefaults] setBool:fabulich forKey:SpatterlightFabulichModeKey];
+}
+
++ (BOOL)themeSidesAreDark {
+    return [Preferences fabulichMode] && [Preferences resolvedAppearance] == kDarkAppearance;
+}
+
+// Outside Fabulich mode there is no toggle, and the app follows the system.
 + (NSString *)appearanceOverride {
+    if (![Preferences fabulichMode])
+        return nil;
     NSString *value = [[NSUserDefaults standardUserDefaults] stringForKey:SpatterlightAppearanceOverrideKey];
     if ([value isEqualToString:@"light"] || [value isEqualToString:@"dark"])
         return value;
@@ -200,10 +221,11 @@ static NSInteger SPCachedResolvedAppearance = -1;
     return (kAppearanceType)SPCachedSystemAppearance;
 }
 
-// Re-reads the system appearance and, if the resolved appearance has changed,
-// tells the preferences window and every game about it, once. Called for
-// AppKit's effectiveAppearance change, for the system's distributed
-// notification and the rechecks after it, and for the light/dark toggle.
+// Re-reads the system appearance and, if the resolved appearance or the
+// active theme side has changed, tells the preferences window and every game
+// about it, once. Called for AppKit's effectiveAppearance change, for the
+// system's distributed notification and the rechecks after it, for the
+// light/dark toggle, and for switching Fabulich mode.
 + (void)noteAppearanceMayHaveChanged {
     SPCachedSystemAppearance = (NSInteger)[Preferences readSystemAppearance];
     [Preferences dropOverrideMatchingSystem];
@@ -212,10 +234,14 @@ static NSInteger SPCachedResolvedAppearance = -1;
     SPCachedResolvedAppearance = -1;
     kAppearanceType now = [Preferences resolvedAppearance];
 
+    NSInteger previousSides = SPAnnouncedSidesDark;
+    SPAnnouncedSidesDark = [Preferences themeSidesAreDark];
+
     Preferences *prefs = [Preferences instance];
     [prefs syncAppearanceToggleButtons];
 
-    if (wasKnown && previous == now)
+    BOOL sidesUnchanged = previousSides < 0 || previousSides == SPAnnouncedSidesDark;
+    if (wasKnown && previous == now && sidesUnchanged)
         return;
     [prefs appearanceDidChange];
 }
@@ -275,8 +301,16 @@ static NSInteger SPCachedResolvedAppearance = -1;
 #pragma mark - Light and dark theme sides
 
 + (BOOL)migrateToThemeSidesIfNeededInContext:(NSManagedObjectContext *)context {
+    if (!context)
+        return NO;
+    BOOL first = [Preferences migrateToThemeSidesV1InContext:context];
+    BOOL second = [Preferences migrateToBuiltInSidesInContext:context];
+    return first || second;
+}
+
++ (BOOL)migrateToThemeSidesV1InContext:(NSManagedObjectContext *)context {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (!context || [defaults boolForKey:SpatterlightThemeSidesMigratedKey])
+    if ([defaults boolForKey:SpatterlightThemeSidesMigratedKey])
         return NO;
 
     // An earlier build turned Lectrote Dark into a user theme. Make it
@@ -292,10 +326,54 @@ static NSInteger SPCachedResolvedAppearance = -1;
     return YES;
 }
 
+// The built-in themes got light and dark sides of their own. This replaces
+// the automode versions that an earlier build added, moving their games, the
+// themes made from them and the saved theme choice to the theme they copied.
++ (BOOL)migrateToBuiltInSidesInContext:(NSManagedObjectContext *)context {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:SpatterlightBuiltInSidesMigratedKey])
+        return NO;
+
+    NSDictionary<NSString *, NSString *> *replacements =
+    @{ @"Default automode" : @"Default",
+       @"Gargoyle automode" : @"Gargoyle",
+       @"Lectrote automode" : @"Lectrote" };
+
+    NSString *savedName = [defaults stringForKey:@"themeName"];
+
+    for (NSString *oldName in replacements) {
+        NSFetchRequest *req = [Theme fetchRequest];
+        req.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@ AND editable == NO", oldName];
+        NSArray<Theme *> *oldThemes = [context executeFetchRequest:req error:nil];
+        if (!oldThemes.count)
+            continue;
+
+        NSString *newName = replacements[oldName];
+        req.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@ AND editable == NO", newName];
+        Theme *replacement = [context executeFetchRequest:req error:nil].firstObject;
+        if (!replacement) {
+            newName = @"Default";
+            replacement = [BuiltInThemes createDefaultThemeInContext:context forceRebuild:NO];
+        }
+
+        for (Theme *old in oldThemes) {
+            [replacement addGames:old.games];
+            [replacement addDefaultChild:old.defaultChild];
+            [context deleteObject:old];
+        }
+        if ([savedName caseInsensitiveCompare:oldName] == NSOrderedSame)
+            [defaults setObject:newName forKey:@"themeName"];
+    }
+
+    [defaults setBool:YES forKey:SpatterlightBuiltInSidesMigratedKey];
+    return YES;
+}
+
 + (void)activateThemeSidesInContext:(NSManagedObjectContext *)context {
     if (!context)
         return;
-    [Theme activateSidesForDark:([Preferences resolvedAppearance] == kDarkAppearance) inContext:context];
+    SPAnnouncedSidesDark = [Preferences themeSidesAreDark];
+    [Theme activateSidesForDark:SPAnnouncedSidesDark inContext:context];
 }
 
 #pragma mark - Light/dark toggle
@@ -324,6 +402,7 @@ static NSInteger SPCachedResolvedAppearance = -1;
     if (globalLabel)
         [labels addObject:globalLabel];
 
+    BOOL fabulich = [Preferences fabulichMode];
     for (NSView *label in labels) {
         NSView *panel = label.superview;
         if (!panel)
@@ -340,6 +419,7 @@ static NSInteger SPCachedResolvedAppearance = -1;
         toggle.target = self;
         toggle.action = @selector(toggleAppearance:);
         toggle.translatesAutoresizingMaskIntoConstraints = NO;
+        toggle.hidden = !fabulich;
         [panel addSubview:toggle positioned:NSWindowAbove relativeTo:label];
 
         [NSLayoutConstraint activateConstraints:@[

@@ -8,10 +8,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const SpatterlightAppearanceOverrideKey;
+extern NSString * const SpatterlightFabulichModeKey;
 
 @interface Preferences (Appearance)
 
-/// nil = follow system, @"light", or @"dark".
+/// In Fabulich mode the light/dark toggle is shown, and themes switch to
+/// their dark side along with the app. Off by default: then the app follows
+/// the system and only the light side of each theme is used.
++ (BOOL)fabulichMode;
++ (void)setFabulichMode:(BOOL)fabulich;
+/// YES when the themes should show their dark side: Fabulich mode in dark mode.
++ (BOOL)themeSidesAreDark;
+
+/// nil = follow system, @"light", or @"dark". Always nil outside Fabulich mode.
 + (nullable NSString *)appearanceOverride;
 + (void)setAppearanceOverride:(nullable NSString *)override;
 + (void)applyAppearanceOverrideToApp;

@@ -498,7 +498,9 @@
 
 // Not declared in BuiltInThemes.h.
 @interface BuiltInThemes (ThemeSideTesting)
-+ (Theme *)createDefaultAutomodeThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
++ (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
++ (Theme *)createLectroteDarkThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
++ (Theme *)createGargoyleThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force;
 @end
 
 // The light and dark sides of a theme (Theme.m), the light/dark override
@@ -529,15 +531,15 @@
     [super tearDown];
 }
 
-// Default automode, showing its light side whatever the machine is set to.
+// Default, showing its light side whatever the machine is set to.
 - (Theme *)automodeTheme {
-    Theme *theme = [BuiltInThemes createDefaultAutomodeThemeInContext:self.context forceRebuild:YES];
+    Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
     XCTAssertNotNil(theme);
     [theme activateSideForDark:NO];
     return theme;
 }
 
-- (void)testAutomodeThemeHasSeparateSides {
+- (void)testBuiltInThemeHasSeparateSides {
     Theme *theme = [self automodeTheme];
     XCTAssertTrue(theme.hasSeparateSides);
     XCTAssertFalse(theme.sideIsDark);
@@ -583,7 +585,7 @@
 
 - (void)testActivateSidesInContextSkipsSingleSidedThemes {
     Theme *automode = [self automodeTheme];
-    Theme *plain = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
+    Theme *plain = [BuiltInThemes createDOSThemeInContext:self.context forceRebuild:YES];
     XCTAssertFalse(plain.hasSeparateSides);
     NSInteger plainBackground = plain.bufferBackground.integerColor;
 
@@ -595,18 +597,18 @@
 }
 
 - (void)testSeparateAndDiscardSides {
-    Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
+    Theme *theme = [BuiltInThemes createDOSThemeInContext:self.context forceRebuild:YES];
     [theme separateSidesWithActiveDark:NO];
     XCTAssertTrue(theme.hasSeparateSides);
     XCTAssertTrue(theme.sidesAreIdentical);
 
-    theme.bufferBackground = [NSColor blackColor];
+    theme.bufferBackground = [NSColor whiteColor];
     XCTAssertFalse(theme.sidesAreIdentical);
 
     [theme discardInactiveSide];
     XCTAssertFalse(theme.hasSeparateSides);
     XCTAssertTrue(theme.sidesAreIdentical);
-    XCTAssertTrue([theme.bufferBackground isEqualToColor:[NSColor blackColor]]);
+    XCTAssertTrue([theme.bufferBackground isEqualToColor:[NSColor whiteColor]]);
 }
 
 // The inactive side is archived; style attributes must come back intact.
@@ -649,14 +651,32 @@
 }
 
 - (void)testSingleSidedThemeHasNoLightSideToFallBackOn {
-    Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    theme.bufferBackground = [NSColor blackColor];
+    Theme *theme = [BuiltInThemes createDOSThemeInContext:self.context forceRebuild:YES];
+    XCTAssertTrue([theme.bufferBackground isEqualToColor:[NSColor blackColor]]);
     NSMutableDictionary *attributes = [@{ NSForegroundColorAttributeName: [NSColor blackColor] } mutableCopy];
     [theme fitGameColors:attributes gameForeground:YES gameBackground:NO lightStyle:nil grid:NO];
     // The theme's own background is the only one there is, and it reads no
     // better, so the game's color is left as it is.
     XCTAssertNil(attributes[NSBackgroundColorAttributeName]);
     XCTAssertTrue([attributes[NSForegroundColorAttributeName] isEqualToColor:[NSColor blackColor]]);
+}
+
+// MS-DOS, DOSBox and Lectrote Dark are dark on both sides.
+- (void)testDarkBuiltInThemesAreSingleSided {
+    XCTAssertFalse([BuiltInThemes createDOSThemeInContext:self.context forceRebuild:YES].hasSeparateSides);
+    XCTAssertFalse([BuiltInThemes createLectroteDarkThemeInContext:self.context forceRebuild:YES].hasSeparateSides);
+}
+
+// Rebuilding a theme while its dark side shows gives it fresh sides.
+- (void)testRebuildingOnTheDarkSideKeepsBothSides {
+    Theme *theme = [self automodeTheme];
+    [theme activateSideForDark:YES];
+    theme.bufferBackground = [NSColor redColor];
+    [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
+    [theme activateSideForDark:YES];
+    XCTAssertTrue([theme.bufferBackground isEqualToColor:[NSColor blackColor]]);
+    [theme activateSideForDark:NO];
+    XCTAssertTrue([theme.bufferBackground isEqualToColor:[NSColor whiteColor]]);
 }
 
 #pragma mark The light/dark override
@@ -673,9 +693,12 @@
 
 - (void)testMigrationToThemeSidesRunsOnce {
     NSString *key = @"SpatterlightThemeSidesV1";
+    NSString *key2 = @"SpatterlightThemeSidesV2";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     id saved = [defaults objectForKey:key];
+    id saved2 = [defaults objectForKey:key2];
     [defaults removeObjectForKey:key];
+    [defaults setBool:YES forKey:key2];
 
     Theme *lectroteDark = (Theme *)[NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:self.context];
     lectroteDark.name = @"Lectrote Dark";
@@ -694,6 +717,48 @@
         [defaults setObject:saved forKey:key];
     else
         [defaults removeObjectForKey:key];
+    if (saved2)
+        [defaults setObject:saved2 forKey:key2];
+    else
+        [defaults removeObjectForKey:key2];
+}
+
+- (void)testAutomodeThemesAreReplacedByTheirNamesakes {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *keys = @[ @"SpatterlightThemeSidesV1", @"SpatterlightThemeSidesV2", @"themeName" ];
+    NSMutableDictionary *saved = [NSMutableDictionary new];
+    for (NSString *key in keys) {
+        id value = [defaults objectForKey:key];
+        if (value)
+            saved[key] = value;
+    }
+    [defaults setBool:YES forKey:@"SpatterlightThemeSidesV1"];
+    [defaults removeObjectForKey:@"SpatterlightThemeSidesV2"];
+    [defaults setObject:@"Gargoyle automode" forKey:@"themeName"];
+
+    Theme *gargoyle = [BuiltInThemes createGargoyleThemeInContext:self.context forceRebuild:YES];
+    Theme *automode = (Theme *)[NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:self.context];
+    automode.name = @"Gargoyle automode";
+    automode.editable = NO;
+    Theme *child = (Theme *)[NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:self.context];
+    child.name = @"Gargoyle automode (modified)";
+    child.editable = YES;
+    child.defaultParent = automode;
+
+    XCTAssertTrue([Preferences migrateToThemeSidesIfNeededInContext:self.context]);
+    NSFetchRequest *request = [Theme fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"name == %@", @"Gargoyle automode"];
+    XCTAssertEqual([self.context countForFetchRequest:request error:nil], 0);
+    XCTAssertEqual(child.defaultParent, gargoyle);
+    XCTAssertEqualObjects([defaults stringForKey:@"themeName"], @"Gargoyle");
+    XCTAssertFalse([Preferences migrateToThemeSidesIfNeededInContext:self.context]);
+
+    for (NSString *key in keys) {
+        if (saved[key])
+            [defaults setObject:saved[key] forKey:key];
+        else
+            [defaults removeObjectForKey:key];
+    }
 }
 
 @end

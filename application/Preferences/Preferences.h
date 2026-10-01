@@ -53,8 +53,9 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 + (kZoomDirectionType)zoomDirection;
 
 + (Theme *)currentTheme;
-/// YES while the user hides themes whose light and dark sides are the same.
-+ (BOOL)hidesSingleModeThemes;
+/// NO for the built-in themes that the current mode hides: MS-DOS, DOSBox
+/// and Lectrote Dark in Fabulich mode, the DOS automode themes otherwise.
++ (BOOL)themeIsVisibleInCurrentMode:(Theme *)theme;
 
 + (Preferences *)instance;
 
@@ -101,7 +102,6 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 @property (weak) IBOutlet NSBox *divider;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
-@property (weak) IBOutlet NSButton *btnApplyToBothModes;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
 @property (weak) IBOutlet NSButton *swapBufColBtn;
 
@@ -155,6 +155,8 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 
 @property (weak) IBOutlet NSButton *btnUnderlineLinksGrid;
 @property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
+
+@property (weak) IBOutlet NSButton *btnFabulichMode;
 
 @property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;

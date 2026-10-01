@@ -318,10 +318,8 @@
 
     NSMenu *themesMenu2 = themesMenu.copy;
 
-    BOOL hideSingleMode = [Preferences hidesSingleModeThemes];
-
     for (Theme *theme in themes) {
-        if (hideSingleMode && theme.sidesAreIdentical)
+        if (![Preferences themeIsVisibleInCurrentMode:theme])
             continue;
         [themesMenu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
         [themesMenu2 addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
