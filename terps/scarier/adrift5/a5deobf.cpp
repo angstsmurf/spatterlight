@@ -120,11 +120,13 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
   size_t cap;
   int status;
 
-  /* The result is handed back through a uint32_t *out_size, so a decompressed
-     payload cannot usefully exceed 4 GB; cap growth here uses size_t and is
-     bounded so the doubling can never overflow to 0 and hand inflate a bogus
-     avail_out. */
-  const size_t A5_INFLATE_MAX = 0xFFFFFFFFu;
+  /* Cap the decompressed size.  The input is an untrusted game or save file,
+     and deflate reaches ~1000:1, so without a ceiling a small zip bomb could
+     drive the buffer to gigabytes.  Real game XML runs to megabytes, not
+     hundreds of them, so 256 MB never binds on a genuine file.  Growth uses
+     size_t and is bounded so the doubling can never overflow and hand
+     inflate a bogus avail_out. */
+  const size_t A5_INFLATE_MAX = (size_t) 256 * 1024 * 1024;
 
   memset (&stream, 0, sizeof stream);
   if (inflateInit (&stream) != Z_OK)

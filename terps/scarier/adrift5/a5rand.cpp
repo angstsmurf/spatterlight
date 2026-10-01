@@ -99,6 +99,8 @@ a5rand_between (long lo, long hi)
   }
 }
 
+enum { A5RAND_POOL_LIMIT = 65536 };
+
 long
 a5rand_norepeat (long lo, long hi)
 {
@@ -109,6 +111,13 @@ a5rand_norepeat (long lo, long hi)
      `For i = iMin To iMax`, which is empty when min > max and then picks from
      an empty list; no shipped game does that.) */
   char keybuf[48];
+  /* A pool is one long per value and built with O(n^2) inserts, so a huge
+     range (urand(1,100000000) in a corrupt or hostile game) would stall and
+     exhaust memory; draw such a range with plain Random() instead.  The
+     pool loop stops at hi rather than incrementing past it, which would overflow
+     when hi == LONG_MAX. */
+  if (hi > lo && (unsigned long) hi - (unsigned long) lo >= A5RAND_POOL_LIMIT)
+    return a5rand_between (lo, hi);
   snprintf (keybuf, sizeof keybuf, "%ld-%ld", lo, hi);
   std::vector<long> &pool = a5rand_pools[keybuf];
   if (pool.empty ())
@@ -116,6 +125,8 @@ a5rand_norepeat (long lo, long hi)
       {
         long pos = a5rand_between (0, (long) pool.size ());
         pool.insert (pool.begin () + (size_t) pos, i);
+        if (i == hi)
+          break;
       }
   if (pool.empty ())
     return lo;

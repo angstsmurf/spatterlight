@@ -201,6 +201,13 @@ typedef struct a5_task_s {
   a5_specific_t *specifics; int n_specifics;
 } a5_task_t;
 
+/* Upper bound the loader clamps <ArrayLength> to (the array is allocated and
+   filled up front, so the file's value cannot be trusted as-is). */
+enum { A5_MAX_ARRAY_LENGTH = 65536 };
+
+/* Upper bound the loader clamps <WaitTurns> to. */
+enum { A5_MAX_WAIT_TURNS = 1000 };
+
 typedef struct a5_variable_s {
   const char *key;
   const char *name;

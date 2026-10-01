@@ -40,6 +40,11 @@
  * serialisation (a5run_snapshot / a5run_undo / a5run_undo_forget): walking back
  * several turns replays byte-identically (RNG included), the stack drains to a
  * hard failure, and the depth cap holds.
+ *
+ * A last section feeds the loader and restore path hostile input -- runaway
+ * XML nesting, a keyless group property, absurd ArrayLength / WaitTurns,
+ * and a cyclic character-carrier chain -- each of which used to
+ * crash or exhaust memory, and must now be refused or clamped.
  */
 
 #include <stdio.h>
@@ -304,6 +309,78 @@ main (void)
     if (a5run_undo (runC))
       { printf ("FAIL: undo succeeded after undo_forget\n"); failures++; }
     a5run_free (runC);
+  }
+
+  /* --- Hostile input: refused or clamped, never a crash. --- */
+  {
+    /* Runaway nesting: a few KB of zlib inflates to this, and the recursive
+       parser used to overflow the stack on it.  Over the depth cap the parse
+       is refused; a legitimately nested document still parses. */
+    std::string deep = "<Adventure>";
+    for (i = 0; i < 100000; i++)
+      deep += "<a>";
+    char *dbuf = strdup (deep.c_str ());
+    a5_xml_doc_t *ddoc = a5xml_parse (dbuf, (uint32_t) deep.size ());
+    if (ddoc != NULL)
+      { printf ("FAIL: 100000-deep XML was not refused\n"); failures++; a5xml_free (ddoc); }
+    else
+      free (dbuf);
+    if (a5run_restore (runA, deep.c_str (), deep.size ()))
+      { printf ("FAIL: 100000-deep save was accepted\n"); failures++; }
+    std::string ok = "<Adventure>";
+    for (i = 0; i < 100; i++) ok += "<a>";
+    for (i = 0; i < 100; i++) ok += "</a>";
+    ok += "</Adventure>";
+    char *obuf = strdup (ok.c_str ());
+    a5_xml_doc_t *odoc = a5xml_parse (obuf, (uint32_t) ok.size ());
+    if (odoc == NULL)
+      { printf ("FAIL: 100-deep XML was refused\n"); failures++; free (obuf); }
+    else
+      a5xml_free (odoc);
+
+    /* A keyless group <Property>, an ArrayLength of 2e9, a WaitTurns of 2e9
+       and two characters each riding the other. */
+    static const char *kHostile =
+      "<Adventure>\n"
+      "  <WaitTurns>2000000000</WaitTurns>\n"
+      "  <Location><Key>Room</Key></Location>\n"
+      A5_XML_PLAYER_AT ("Room")
+      "  <Character><Key>C2</Key>\n"
+      "    <Property><Key>CharacterLocation</Key><Value>On Character</Value></Property>\n"
+      "    <Property><Key>CharOnWho</Key><Value>C3</Value></Property>\n"
+      "  </Character>\n"
+      "  <Character><Key>C3</Key>\n"
+      "    <Property><Key>CharacterLocation</Key><Value>On Character</Value></Property>\n"
+      "    <Property><Key>CharOnWho</Key><Value>C2</Value></Property>\n"
+      "  </Character>\n"
+      "  <Object><Key>O1</Key><Property><Key>A</Key></Property></Object>\n"
+      "  <Group><Key>G</Key><Type>Objects</Type><Member>O1</Member>\n"
+      "    <Property><Value>x</Value></Property></Group>\n"
+      "  <Variable><Key>V</Key><Name>V</Name><Type>Numeric</Type>\n"
+      "    <ArrayLength>2000000000</ArrayLength></Variable>\n"
+      "</Adventure>\n";
+    a5_adventure_t *hadv = a5_test_build_adventure (kHostile, "hostile");
+    if (hadv == NULL)
+      failures++;
+    else
+      {
+        if (hadv->n_variables != 1
+            || hadv->variables[0].array_length != A5_MAX_ARRAY_LENGTH)
+          { printf ("FAIL: ArrayLength not clamped to %d\n", A5_MAX_ARRAY_LENGTH); failures++; }
+        if (hadv->wait_turns != A5_MAX_WAIT_TURNS)
+          { printf ("FAIL: WaitTurns %d, want clamp to %d\n", hadv->wait_turns, A5_MAX_WAIT_TURNS); failures++; }
+        a5_state_t *hst = a5state_new (hadv);
+        if (hst == NULL)
+          { printf ("FAIL: a5state_new on hostile model\n"); failures++; }
+        else
+          {
+            int c2 = a5state_character_index (hst, "C2");
+            if (c2 < 0 || a5state_character_visible_at_location (hst, c2, "Room"))
+              { printf ("FAIL: cyclic carrier chain resolved to a room\n"); failures++; }
+            a5state_free (hst);
+          }
+        a5model_free (hadv);
+      }
   }
 
   a5run_free (runA);
