@@ -59,6 +59,7 @@ namespace {
     size_t i = 0, n;
     const bool strict;
     bool ok = true;
+    int depth = 0;
     NumParser (const string &str, bool in_strict)
       : s (str), n (str.length ()), strict (in_strict) {}
     void skipws () { while (i < n && isspace ((unsigned char) s[i])) i++; }
@@ -97,14 +98,25 @@ namespace {
     }
     double factor () {
       skipws ();
-      if (i < n && (s[i] == '+' || s[i] == '-')) {
-	char op = s[i++];
+      /* A run of signs is folded here rather than recursed on, and brackets
+       * are capped, so a game's "------...1" or "((((...1" cannot run the
+       * parser off the end of the stack. */
+      bool negate = false;
+      while (i < n && (s[i] == '+' || s[i] == '-')) {
+	if (s[i++] == '-')
+	  negate = !negate;
+	skipws ();
+      }
+      if (negate) {
 	double v = factor ();
-	return (op == '-') ? -v : v;
+	return -v;
       }
       if (i < n && s[i] == '(') {
+	if (depth >= 1000) { ok = false; i = n; return 0; }
 	i++;
+	depth++;
 	double v = expr ();
+	depth--;
 	skipws ();
 	if (i < n && s[i] == ')')
 	  i++;

@@ -1,0 +1,12 @@
+
+DeepExpr
+
+You are in Lab.
+A plain lab.
+
+> signs
+n = 6
+
+> brackets
+n = 0
+[runner] turns=2 leftover=0 running=true

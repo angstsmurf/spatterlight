@@ -626,11 +626,27 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
 	}
 	  
       depth = 0;
+      /* The body of a text or synonyms block is prose, not structure: a line
+       * in it that happens to start with "Define" must not open a block, or
+       * depth never gets back to 0 and every later block is dropped.  Pass 2
+       * of the preprocessor skips these bodies the same way. */
+      bool in_text_block = false;
       for (uint i = 0; i < v.size(); i ++)
 	{
+	  if (in_text_block)
+	    {
+	      if (is_end_define (v[i]))
+		{
+		  in_text_block = false;
+		  -- depth;
+		}
+	      continue;
+	    }
 	  if (is_define(v[i]))
 	    {
 	      ++ depth;
+	      if (is_start_textmode (v[i]))
+		in_text_block = true;
 	      /* Folded, like read_into's blocktype. */
 	      string blocktype = lcase (nth_token (v[i], 2));
 	      if (depth == 1)
@@ -1354,8 +1370,23 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
    * TODO: What if there's a !addto for a block other than game, synonyms,
    * default, defaultroom? */
   vector<string> owed;
+  /* Inside a text or synonyms block only its "end define" counts: a line of
+   * prose starting "define" would otherwise push an entry nothing pops. */
+  bool in_text_body = false;
   for (uint line = 0; line < v2.size(); line ++)
     {
+      if (in_text_body)
+	{
+	  if (!is_end_define (v2[line]))
+	    {
+	      v.push_back (v2[line]);
+	      continue;
+	    }
+	  in_text_body = false;
+	}
+      else if (first_token (v2[line], tok_start, tok_end) == "define"
+	       && is_start_textmode (v2[line]))
+	in_text_body = true;
       tok = first_token (v2[line], tok_start, tok_end);
       if (tok == "!addto")
 	{

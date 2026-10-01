@@ -196,11 +196,13 @@ struct QuestionFile
   void get_type_property (const std::string &typenamex, const std::string &propname,
 			  bool &, std::string &) const;
   bool obj_of_type (const std::string &object, const std::string &type) const;
-  bool type_of_type (const std::string &subtype, const std::string &supertype) const;
+  bool type_of_type (const std::string &subtype, const std::string &supertype,
+		     int depth = 0) const;
 
   std::set<std::string> get_obj_keys (const std::string &) const;
   void get_obj_keys (const std::string &, std::set<std::string> &) const;
-  void get_type_keys (const std::string &, std::set<std::string> &) const;
+  void get_type_keys (const std::string &, std::set<std::string> &,
+		      int depth = 0) const;
   /* Flatten a type for the runtime `type <obj; typename>` statement: every
    * property (name, value -- "!" for a negated one) and action (name, script)
    * the type carries, recursing through included types in declaration order,
@@ -210,6 +212,10 @@ struct QuestionFile
 		     std::vector<std::pair<std::string, std::string>> &props,
 		     std::vector<std::pair<std::string, std::string>> &actions,
 		     std::vector<std::string> &included, int depth = 0) const;
+  /* How deep the type walks above follow `type <...>` includes.  A type can
+   * include itself through a cycle, which Quest would recurse on forever;
+   * any sane bound will do. */
+  static constexpr int kMaxTypeDepth = 32;
 
   bool obj_has_action (const std::string &objname, const std::string &propname) const;
   bool get_obj_action (const std::string &objname, const std::string &propname,

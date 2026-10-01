@@ -1,0 +1,16 @@
+
+TypeCycle
+
+You are in Lab.
+There is rock here.
+A lab.
+
+> x rock
+Nothing out of the ordinary.
+
+> poke
+Poked.
+
+> check
+not c
+[runner] turns=3 leftover=0 running=true
