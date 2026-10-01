@@ -3377,6 +3377,7 @@
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
 		C35032ED2F37EF0900BD32A6 /* randomness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = randomness.h; sourceTree = "<group>"; };
 		C35032EE2F37EF0900BD32A6 /* randomness.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = randomness.c; sourceTree = "<group>"; };
+		C3A51F0000000000000000D1 /* rgbsurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rgbsurface.h; sourceTree = "<group>"; };
 		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
 		C353EFE126263DD7006D17E3 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
 		C354AA69274CD8EF00C8D01D /* ScottFree command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ScottFree command script.txt"; sourceTree = "<group>"; };
@@ -6592,6 +6593,7 @@
 				C31919B22EF6B97E0062991C /* common_file_utils.c */,
 				C35032ED2F37EF0900BD32A6 /* randomness.h */,
 				C35032EE2F37EF0900BD32A6 /* randomness.c */,
+				C3A51F0000000000000000D1 /* rgbsurface.h */,
 			);
 			path = common_utils;
 			sourceTree = "<group>";

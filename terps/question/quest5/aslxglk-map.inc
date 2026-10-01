@@ -29,9 +29,10 @@
  * rasterises them into a Glk graphics window at the top of the screen (a
  * root-window split, so the band sits above the banner like the reference
  * player's gridPanel sits above everything).  Glk's only drawing primitive
- * is the filled rectangle, so -- as in the scarier map pane -- the picture
- * is rendered into an RGB surface and flushed as run-length spans of the
- * rows that changed since the last blit.
+ * is the filled rectangle, so the picture is rendered into an RGB surface
+ * and flushed as run-length spans of the rows that changed since the last
+ * blit -- by the same rasteriser as the scarier map pane
+ * (common_utils/rgbsurface.h).
  *
  * grid.js behaviour kept:
  *  - one layer per floor (the z each command carries); the layer of the
@@ -78,6 +79,7 @@ glui32 g_gm_canvas = 0xFFFFFF;       /* SetBackgroundColour (Core default White)
 struct GmSurface {
     int w = 0, h = 0;
     std::vector<glui32> px;
+    rgbsurf_t view() { return rgbsurf_t{ w, h, px.data() }; }
 };
 GmSurface g_gm_screen;
 bool g_gm_flush = true;
@@ -251,245 +253,53 @@ glui32 gm_colour(const std::string &spec, glui32 fallback)
     return fallback;
 }
 
-/* --- the RGB surface and its primitives ---------------------------------- */
+/* --- the RGB surface and its primitives ----------------------------------
+ * All drawing is the shared rasteriser's (common_utils/rgbsurface.h, which
+ * the scarier map pane draws with too); these wrappers fix this map's
+ * choices -- canvas-style square pens, undashed -- and bind it to a
+ * GmSurface. */
 
-void gm_blend(GmSurface &s, int x, int y, glui32 rgb, int alpha)
-{
-    if (x < 0 || y < 0 || x >= s.w || y >= s.h)
-        return;
-    glui32 &p = s.px[(size_t) y * s.w + x];
-    if (alpha >= 255) {
-        p = rgb;
-        return;
-    }
-    glui32 r = ((rgb >> 16 & 0xff) * alpha + (p >> 16 & 0xff) * (255 - alpha)) / 255;
-    glui32 g = ((rgb >> 8 & 0xff) * alpha + (p >> 8 & 0xff) * (255 - alpha)) / 255;
-    glui32 b = ((rgb & 0xff) * alpha + (p & 0xff) * (255 - alpha)) / 255;
-    p = (r << 16) | (g << 8) | b;
-}
-
-/* Fill [x0,x1) x [y0,y1), clamped to the surface: authored coordinates are
- * unbounded, and a glide re-rasterises at 30 Hz, so iterating (and rejecting)
- * millions of off-surface pixels is a UI freeze. */
 void gm_fill_rect(GmSurface &s, int x0, int y0, int x1, int y1,
                   glui32 rgb, int alpha)
 {
-    if (x0 < 0) x0 = 0;
-    if (y0 < 0) y0 = 0;
-    if (x1 > s.w) x1 = s.w;
-    if (y1 > s.h) y1 = s.h;
-    for (int y = y0; y < y1; y++)
-        for (int x = x0; x < x1; x++)
-            gm_blend(s, x, y, rgb, alpha);
-}
-
-/* A wd x wd pen stamp, centred like a canvas stroke straddles its path. */
-void gm_nib(GmSurface &s, int x, int y, int wd, glui32 rgb, int alpha)
-{
-    if (wd <= 1) {
-        gm_blend(s, x, y, rgb, alpha);
-        return;
-    }
-    if (wd > 1024)   /* a pen wider than any surface is a fill; keep the
-                      * offset arithmetic inside int range */
-        wd = 1024;
-    int o = wd / 2;
-    gm_fill_rect(s, x - o, y - o, x - o + wd, y - o + wd, rgb, alpha);
+    rgbsurf_t v = s.view();
+    rgbsurf_fill_rect(&v, x0, y0, x1, y1, rgb, alpha);
 }
 
 void gm_line(GmSurface &s, int x0, int y0, int x1, int y1, int wd,
              glui32 rgb, int alpha)
 {
-    /* Clip against the surface (plus the pen's overhang) before walking:
-     * fully-outside lines vanish, and a partially-visible line with far
-     * endpoints is shortened parametrically instead of stepping millions of
-     * rejected pixels.  Lines already inside the margin are untouched. */
-    int m = (wd > 1 ? wd / 2 : 0) + 1;
-    long lox = -(long) m, loy = -(long) m;
-    long hix = (long) s.w + m, hiy = (long) s.h + m;
-    if (((long) x0 < lox && (long) x1 < lox) ||
-        ((long) x0 >= hix && (long) x1 >= hix) ||
-        ((long) y0 < loy && (long) y1 < loy) ||
-        ((long) y0 >= hiy && (long) y1 >= hiy))
-        return;
-    if (x0 < lox || x1 < lox || x0 >= hix || x1 >= hix ||
-        y0 < loy || y1 < loy || y0 >= hiy || y1 >= hiy) {
-        double t0 = 0, t1 = 1, fdx = (double) x1 - x0, fdy = (double) y1 - y0;
-        auto clip = [&](double p, double q) {
-            if (p == 0) return q >= 0;
-            double r = q / p;
-            if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
-            else       { if (r < t0) return false; if (r < t1) t1 = r; }
-            return true;
-        };
-        if (!clip(-fdx, x0 - (double) lox) ||
-            !clip(fdx, (double) hix - 1 - x0) ||
-            !clip(-fdy, y0 - (double) loy) ||
-            !clip(fdy, (double) hiy - 1 - y0))
-            return;
-        int nx0 = (int) lround(x0 + t0 * fdx), ny0 = (int) lround(y0 + t0 * fdy);
-        int nx1 = (int) lround(x0 + t1 * fdx), ny1 = (int) lround(y0 + t1 * fdy);
-        x0 = nx0; y0 = ny0; x1 = nx1; y1 = ny1;
-    }
-    int dx = abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
-    int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
-    int err = dx + dy;
-    for (;;) {
-        gm_nib(s, x0, y0, wd, rgb, alpha);
-        if (x0 == x1 && y0 == y1)
-            break;
-        int e2 = 2 * err;
-        if (e2 >= dy) { err += dy; x0 += sx; }
-        if (e2 <= dx) { err += dx; y0 += sy; }
-    }
+    rgbsurf_t v = s.view();
+    rgbsurf_line(&v, x0, y0, x1, y1, wd, RGBSURF_NIB_SQUARE, rgb, alpha, 0);
 }
 
 void gm_fill_circle(GmSurface &s, int cx, int cy, int r, glui32 rgb, int alpha)
 {
-    /* Bounding-box reject and clamp the scan to the surface; r*r in double
-     * so an absurd authored radius cannot overflow int. */
-    if ((long) cx + r < 0 || (long) cx - r >= s.w ||
-        (long) cy + r < 0 || (long) cy - r >= s.h)
-        return;
-    int dy0 = (long) cy - r < 0 ? -cy : -r;
-    int dy1 = (long) cy + r >= s.h ? s.h - 1 - cy : r;
-    for (int dy = dy0; dy <= dy1; dy++) {
-        long dx = lround(floor(sqrt((double) r * r - (double) dy * dy) + 0.5));
-        long xa_l = (long) cx - dx, xb_l = (long) cx + dx;
-        int xa = xa_l < 0 ? 0 : (int) xa_l;
-        int xb = xb_l >= s.w ? s.w - 1 : (int) xb_l;
-        for (int x = xa; x <= xb; x++)
-            gm_blend(s, x, cy + dy, rgb, alpha);
-    }
+    rgbsurf_t v = s.view();
+    rgbsurf_fill_circle(&v, cx, cy, r, rgb, alpha);
 }
 
-/* --- 8x8 bitmap text (font8x8_basic, public domain: Marcel Sondaar; the
- * same face the scarier map pane carries).  Glk graphics windows cannot
- * render text, so room labels are drawn as glyphs.  LSB of each row byte is
- * the leftmost pixel. */
-const unsigned char kGmFont[95][8] = {
-  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* space */
-  { 0x18, 0x3c, 0x3c, 0x18, 0x18, 0x00, 0x18, 0x00 },  /* '!' */
-  { 0x36, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '"' */
-  { 0x36, 0x36, 0x7f, 0x36, 0x7f, 0x36, 0x36, 0x00 },  /* '#' */
-  { 0x0c, 0x3e, 0x03, 0x1e, 0x30, 0x1f, 0x0c, 0x00 },  /* '$' */
-  { 0x00, 0x63, 0x33, 0x18, 0x0c, 0x66, 0x63, 0x00 },  /* '%' */
-  { 0x1c, 0x36, 0x1c, 0x6e, 0x3b, 0x33, 0x6e, 0x00 },  /* '&' */
-  { 0x06, 0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '\'' */
-  { 0x18, 0x0c, 0x06, 0x06, 0x06, 0x0c, 0x18, 0x00 },  /* '(' */
-  { 0x06, 0x0c, 0x18, 0x18, 0x18, 0x0c, 0x06, 0x00 },  /* ')' */
-  { 0x00, 0x66, 0x3c, 0xff, 0x3c, 0x66, 0x00, 0x00 },  /* '*' */
-  { 0x00, 0x0c, 0x0c, 0x3f, 0x0c, 0x0c, 0x00, 0x00 },  /* '+' */
-  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x0c, 0x06 },  /* ',' */
-  { 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00 },  /* '-' */
-  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x0c, 0x00 },  /* '.' */
-  { 0x60, 0x30, 0x18, 0x0c, 0x06, 0x03, 0x01, 0x00 },  /* '/' */
-  { 0x3e, 0x63, 0x73, 0x7b, 0x6f, 0x67, 0x3e, 0x00 },  /* '0' */
-  { 0x0c, 0x0e, 0x0c, 0x0c, 0x0c, 0x0c, 0x3f, 0x00 },  /* '1' */
-  { 0x1e, 0x33, 0x30, 0x1c, 0x06, 0x33, 0x3f, 0x00 },  /* '2' */
-  { 0x1e, 0x33, 0x30, 0x1c, 0x30, 0x33, 0x1e, 0x00 },  /* '3' */
-  { 0x38, 0x3c, 0x36, 0x33, 0x7f, 0x30, 0x78, 0x00 },  /* '4' */
-  { 0x3f, 0x03, 0x1f, 0x30, 0x30, 0x33, 0x1e, 0x00 },  /* '5' */
-  { 0x1c, 0x06, 0x03, 0x1f, 0x33, 0x33, 0x1e, 0x00 },  /* '6' */
-  { 0x3f, 0x33, 0x30, 0x18, 0x0c, 0x0c, 0x0c, 0x00 },  /* '7' */
-  { 0x1e, 0x33, 0x33, 0x1e, 0x33, 0x33, 0x1e, 0x00 },  /* '8' */
-  { 0x1e, 0x33, 0x33, 0x3e, 0x30, 0x18, 0x0e, 0x00 },  /* '9' */
-  { 0x00, 0x0c, 0x0c, 0x00, 0x00, 0x0c, 0x0c, 0x00 },  /* ':' */
-  { 0x00, 0x0c, 0x0c, 0x00, 0x00, 0x0c, 0x0c, 0x06 },  /* ';' */
-  { 0x18, 0x0c, 0x06, 0x03, 0x06, 0x0c, 0x18, 0x00 },  /* '<' */
-  { 0x00, 0x00, 0x3f, 0x00, 0x00, 0x3f, 0x00, 0x00 },  /* '=' */
-  { 0x06, 0x0c, 0x18, 0x30, 0x18, 0x0c, 0x06, 0x00 },  /* '>' */
-  { 0x1e, 0x33, 0x30, 0x18, 0x0c, 0x00, 0x0c, 0x00 },  /* '?' */
-  { 0x3e, 0x63, 0x7b, 0x7b, 0x7b, 0x03, 0x1e, 0x00 },  /* '@' */
-  { 0x0c, 0x1e, 0x33, 0x33, 0x3f, 0x33, 0x33, 0x00 },  /* 'A' */
-  { 0x3f, 0x66, 0x66, 0x3e, 0x66, 0x66, 0x3f, 0x00 },  /* 'B' */
-  { 0x3c, 0x66, 0x03, 0x03, 0x03, 0x66, 0x3c, 0x00 },  /* 'C' */
-  { 0x1f, 0x36, 0x66, 0x66, 0x66, 0x36, 0x1f, 0x00 },  /* 'D' */
-  { 0x7f, 0x46, 0x16, 0x1e, 0x16, 0x46, 0x7f, 0x00 },  /* 'E' */
-  { 0x7f, 0x46, 0x16, 0x1e, 0x16, 0x06, 0x0f, 0x00 },  /* 'F' */
-  { 0x3c, 0x66, 0x03, 0x03, 0x73, 0x66, 0x7c, 0x00 },  /* 'G' */
-  { 0x33, 0x33, 0x33, 0x3f, 0x33, 0x33, 0x33, 0x00 },  /* 'H' */
-  { 0x1e, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'I' */
-  { 0x78, 0x30, 0x30, 0x30, 0x33, 0x33, 0x1e, 0x00 },  /* 'J' */
-  { 0x67, 0x66, 0x36, 0x1e, 0x36, 0x66, 0x67, 0x00 },  /* 'K' */
-  { 0x0f, 0x06, 0x06, 0x06, 0x46, 0x66, 0x7f, 0x00 },  /* 'L' */
-  { 0x63, 0x77, 0x7f, 0x7f, 0x6b, 0x63, 0x63, 0x00 },  /* 'M' */
-  { 0x63, 0x67, 0x6f, 0x7b, 0x73, 0x63, 0x63, 0x00 },  /* 'N' */
-  { 0x1c, 0x36, 0x63, 0x63, 0x63, 0x36, 0x1c, 0x00 },  /* 'O' */
-  { 0x3f, 0x66, 0x66, 0x3e, 0x06, 0x06, 0x0f, 0x00 },  /* 'P' */
-  { 0x1e, 0x33, 0x33, 0x33, 0x3b, 0x1e, 0x38, 0x00 },  /* 'Q' */
-  { 0x3f, 0x66, 0x66, 0x3e, 0x36, 0x66, 0x67, 0x00 },  /* 'R' */
-  { 0x1e, 0x33, 0x07, 0x0e, 0x38, 0x33, 0x1e, 0x00 },  /* 'S' */
-  { 0x3f, 0x2d, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'T' */
-  { 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x3f, 0x00 },  /* 'U' */
-  { 0x33, 0x33, 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x00 },  /* 'V' */
-  { 0x63, 0x63, 0x63, 0x6b, 0x7f, 0x77, 0x63, 0x00 },  /* 'W' */
-  { 0x63, 0x63, 0x36, 0x1c, 0x1c, 0x36, 0x63, 0x00 },  /* 'X' */
-  { 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'Y' */
-  { 0x7f, 0x63, 0x31, 0x18, 0x4c, 0x66, 0x7f, 0x00 },  /* 'Z' */
-  { 0x1e, 0x06, 0x06, 0x06, 0x06, 0x06, 0x1e, 0x00 },  /* '[' */
-  { 0x03, 0x06, 0x0c, 0x18, 0x30, 0x60, 0x40, 0x00 },  /* '\\' */
-  { 0x1e, 0x18, 0x18, 0x18, 0x18, 0x18, 0x1e, 0x00 },  /* ']' */
-  { 0x08, 0x1c, 0x36, 0x63, 0x00, 0x00, 0x00, 0x00 },  /* '^' */
-  { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff },  /* '_' */
-  { 0x0c, 0x0c, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00 },  /* '`' */
-  { 0x00, 0x00, 0x1e, 0x30, 0x3e, 0x33, 0x6e, 0x00 },  /* 'a' */
-  { 0x07, 0x06, 0x06, 0x3e, 0x66, 0x66, 0x3b, 0x00 },  /* 'b' */
-  { 0x00, 0x00, 0x1e, 0x33, 0x03, 0x33, 0x1e, 0x00 },  /* 'c' */
-  { 0x38, 0x30, 0x30, 0x3e, 0x33, 0x33, 0x6e, 0x00 },  /* 'd' */
-  { 0x00, 0x00, 0x1e, 0x33, 0x3f, 0x03, 0x1e, 0x00 },  /* 'e' */
-  { 0x1c, 0x36, 0x06, 0x0f, 0x06, 0x06, 0x0f, 0x00 },  /* 'f' */
-  { 0x00, 0x00, 0x6e, 0x33, 0x33, 0x3e, 0x30, 0x1f },  /* 'g' */
-  { 0x07, 0x06, 0x36, 0x6e, 0x66, 0x66, 0x67, 0x00 },  /* 'h' */
-  { 0x0c, 0x00, 0x0e, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'i' */
-  { 0x30, 0x00, 0x30, 0x30, 0x30, 0x33, 0x33, 0x1e },  /* 'j' */
-  { 0x07, 0x06, 0x66, 0x36, 0x1e, 0x36, 0x67, 0x00 },  /* 'k' */
-  { 0x0e, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c, 0x1e, 0x00 },  /* 'l' */
-  { 0x00, 0x00, 0x33, 0x7f, 0x7f, 0x6b, 0x63, 0x00 },  /* 'm' */
-  { 0x00, 0x00, 0x1f, 0x33, 0x33, 0x33, 0x33, 0x00 },  /* 'n' */
-  { 0x00, 0x00, 0x1e, 0x33, 0x33, 0x33, 0x1e, 0x00 },  /* 'o' */
-  { 0x00, 0x00, 0x3b, 0x66, 0x66, 0x3e, 0x06, 0x0f },  /* 'p' */
-  { 0x00, 0x00, 0x6e, 0x33, 0x33, 0x3e, 0x30, 0x78 },  /* 'q' */
-  { 0x00, 0x00, 0x3b, 0x6e, 0x66, 0x06, 0x0f, 0x00 },  /* 'r' */
-  { 0x00, 0x00, 0x3e, 0x03, 0x1e, 0x30, 0x1f, 0x00 },  /* 's' */
-  { 0x08, 0x0c, 0x3e, 0x0c, 0x0c, 0x2c, 0x18, 0x00 },  /* 't' */
-  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x33, 0x6e, 0x00 },  /* 'u' */
-  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x1e, 0x0c, 0x00 },  /* 'v' */
-  { 0x00, 0x00, 0x63, 0x6b, 0x7f, 0x7f, 0x36, 0x00 },  /* 'w' */
-  { 0x00, 0x00, 0x63, 0x36, 0x1c, 0x36, 0x63, 0x00 },  /* 'x' */
-  { 0x00, 0x00, 0x33, 0x33, 0x33, 0x3e, 0x30, 0x1f },  /* 'y' */
-  { 0x00, 0x00, 0x3f, 0x19, 0x0c, 0x26, 0x3f, 0x00 },  /* 'z' */
-  { 0x38, 0x0c, 0x0c, 0x07, 0x0c, 0x0c, 0x38, 0x00 },  /* '{' */
-  { 0x18, 0x18, 0x18, 0x00, 0x18, 0x18, 0x18, 0x00 },  /* '|' */
-  { 0x07, 0x0c, 0x0c, 0x38, 0x0c, 0x0c, 0x07, 0x00 },  /* '}' */
-  { 0x6e, 0x3b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }   /* '~' */
-};
+/* Labels are drawn in the 8x8 face; a character it lacks shows as '?'. */
+unsigned char gm_drawable(unsigned char c)
+{
+    return c < 0x20 || c > 0x7e ? '?' : c;
+}
 
 /* Proportional advance: the glyph's used columns plus a 1px gap. */
 int gm_advance(unsigned char c)
 {
-    if (c < 0x20 || c > 0x7e)
-        c = '?';
+    c = gm_drawable(c);
     if (c == ' ')
         return 4;
-    unsigned bits = 0;
-    for (int r = 0; r < 8; r++)
-        bits |= kGmFont[c - 0x20][r];
-    int w = 0;
-    while (bits) { w++; bits >>= 1; }
+    int w = rgbsurf_glyph_cols(&rgbsurf_font8x8, c);
     return (w ? w : 3) + 1;
 }
 
 void gm_glyph(GmSurface &s, unsigned char c, int x, int y,
               glui32 rgb, int alpha)
 {
-    if (c < 0x20 || c > 0x7e)
-        c = '?';
-    const unsigned char *g = kGmFont[c - 0x20];
-    for (int r = 0; r < 8; r++)
-        for (int b = 0; b < 8; b++)
-            if (g[r] & (1u << b))
-                gm_blend(s, x + b, y + r, rgb, alpha);
+    rgbsurf_t v = s.view();
+    rgbsurf_draw_glyph(&v, &rgbsurf_font8x8, gm_drawable(c), x, y, rgb, alpha);
 }
 
 /* The label's UTF-8 collapsed to drawable ASCII, non-ASCII as '?'. */
@@ -647,26 +457,15 @@ void redraw_grid_map()
     surf.px.assign((size_t) w * h, g_gm_canvas);
     gm_render(surf);
 
-    if (g_gm_screen.w != surf.w || g_gm_screen.h != surf.h)
-        g_gm_flush = true;
-
-    for (int y = 0; y < surf.h; y++) {
-        const glui32 *row = &surf.px[(size_t) y * surf.w];
-        if (!g_gm_flush &&
-            memcmp(row, &g_gm_screen.px[(size_t) y * surf.w],
-                   (size_t) surf.w * sizeof row[0]) == 0)
-            continue;
-        int x = 0;
-        while (x < surf.w) {
-            glui32 c = row[x];
-            int x0 = x;
-            do
-                x++;
-            while (x < surf.w && row[x] == c);
-            glk_window_fill_rect(gmapwin, c, (glsi32) x0, (glsi32) y,
-                                 (glui32) (x - x0), 1);
-        }
-    }
+    /* Only the rows that changed since the last blit, unless the window may
+     * no longer hold it (a different size counts as that too). */
+    rgbsurf_t now = surf.view(), shown = g_gm_screen.view();
+    rgbsurf_send(&now, g_gm_flush ? nullptr : &shown,
+                 [](void *, unsigned int rgb, int x, int y, int len) {
+                     glk_window_fill_rect(gmapwin, rgb, (glsi32) x, (glsi32) y,
+                                          (glui32) len, 1);
+                 },
+                 nullptr);
 
     g_gm_screen = std::move(surf);
     g_gm_flush = false;

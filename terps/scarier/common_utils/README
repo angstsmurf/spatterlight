@@ -14,6 +14,14 @@ a copy in here, or the copied folder will not build.
                  `make -f Makefile.headless vendorcheck`, part of the default
                  `test` target, fails if they drift.
 
+  rgbsurface.h   Verbatim copy of terps/common_utils/rgbsurface.h, the shared
+                 software rasteriser (header-only) behind the map pane; the
+                 Quest 5 grid map in terps/question uses the original.  Unlike
+                 randomness, Scarier includes THIS copy in every build
+                 (mapdraw.h: "common_utils/rgbsurface.h"), which needs no
+                 include path.  Keep it byte-identical to the original:
+                 vendorcheck covers it too.
+
   sc_garglk.c
   sc_garglk.h    strndup() for toolchains without one -- MinGW and MSVC, where
                  Gargoyle's CMake probe defines GARGLK_NEEDS_STRNDUP.  Empty

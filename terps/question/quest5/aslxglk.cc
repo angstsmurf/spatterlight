@@ -55,6 +55,10 @@
 #include <string>
 #include <vector>
 
+/* The grid map's rasteriser (aslxglk-map.inc); outside the anonymous
+ * namespace that file is included into. */
+#include "../../common_utils/rgbsurface.h"
+
 extern "C" {
 #include "glk.h"
 #ifdef SPATTERLIGHT

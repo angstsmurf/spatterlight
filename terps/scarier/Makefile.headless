@@ -258,10 +258,12 @@ test-fd:
 
 # Gargoyle builds Scarier from a straight copy of this directory, so the shared
 # files it needs from outside it are vendored in common_utils/ (see the README
-# there).  Nothing in the Spatterlight tree compiles those copies, which is
-# exactly how they came to sit a bug-fix behind the originals once already, so
-# check them here rather than discover it in the next Gargoyle build.
-VENDORED := randomness.c randomness.h
+# there).  Nothing in the Spatterlight tree compiles the randomness copies,
+# which is exactly how they came to sit a bug-fix behind the originals once
+# already, so check them here rather than discover it in the next Gargoyle
+# build.  (rgbsurface.h is the other way round: Scarier includes its own copy
+# everywhere, so here it is the original in ../common_utils that could drift.)
+VENDORED := randomness.c randomness.h rgbsurface.h
 
 vendorcheck:
 	@for f in $(VENDORED); do \

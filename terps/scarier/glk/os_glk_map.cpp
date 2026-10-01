@@ -384,6 +384,14 @@ gsc_map_worth_opening (void)
   return map_has_content (gsc_map, &view, ploc);
 }
 
+/* One run of a colour, for rgbsurf_send. */
+static void
+gsc_map_span (void *ctx, unsigned int rgb, int x, int y, int len)
+{
+  (void) ctx;
+  glk_window_fill_rect (gsc_map_window, rgb, x, y, (glui32) len, 1);
+}
+
 /*
  * gsc_map_redraw()
  *
@@ -404,7 +412,6 @@ gsc_map_redraw (void)
   const char *ploc = NULL;
   char keybuf[16];
   glui32 w, h;
-  int x, y;
 
   /* A map that was asked for while there was nothing on it: try again now
      that the game has moved on.  (gsc_map_show comes straight back here, but
@@ -465,29 +472,9 @@ gsc_map_redraw (void)
       && (gsc_map_screen->w != surf->w || gsc_map_screen->h != surf->h))
     gsc_map_screen_drop ();
 
-  for (y = 0; y < surf->h; y++)
-    {
-      const glui32 *row = &surf->px[(size_t) y * surf->w];
-
-      /* Untouched row: what is on screen is already right. */
-      if (!gsc_map_full_flush && gsc_map_screen != NULL
-          && memcmp (row, &gsc_map_screen->px[(size_t) y * surf->w],
-                     (size_t) surf->w * sizeof row[0]) == 0)
-        continue;
-
-      x = 0;
-      while (x < surf->w)
-        {
-          glui32 c = row[x];
-          int x0 = x;
-
-          do
-            x++;
-          while (x < surf->w && row[x] == c);
-          glk_window_fill_rect (gsc_map_window, c,
-                                x0, y, (glui32) (x - x0), 1);
-        }
-    }
+  /* Untouched rows: what is on screen is already right. */
+  rgbsurf_send (surf, gsc_map_full_flush ? NULL : gsc_map_screen,
+                gsc_map_span, NULL);
 
   /* These pixels are the screen now. */
   map_surface_free (gsc_map_screen);

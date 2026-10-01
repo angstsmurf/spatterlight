@@ -47,6 +47,8 @@
 #ifndef MAPDRAW_H
 #define MAPDRAW_H
 
+#include "common_utils/rgbsurface.h"
+
 /* The twelve directions, in the order both engines number them: ADRIFT 5's
    DirectionsEnum (Global.vb:1468) and ADRIFT 4's exit array (run400 Form29's
    opp(), and SCARE's DIRNAMES) agree exactly, so one enum serves both. */
@@ -157,11 +159,10 @@ extern void map_free (map_t *map);
 
 /* --- rendering ---------------------------------------------------------- */
 
-/* A 24-bit RGB surface, 0x00RRGGBB per pixel, row-major. */
-typedef struct map_surface_s {
-  int w, h;
-  unsigned int *px;
-} map_surface_t;
+/* A 24-bit RGB surface, 0x00RRGGBB per pixel, row-major: the shared
+   rasteriser's (common_utils/rgbsurface.h), which draws every primitive
+   below. */
+typedef rgbsurf_t map_surface_t;
 
 extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
