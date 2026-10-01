@@ -61,9 +61,6 @@
 @dynamic gridLinkStyle;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
-@dynamic hardDark;
-@dynamic hardLight;
-@dynamic hardLightOrDark;
 @dynamic inactiveSideData;
 @dynamic minTimer;
 @dynamic morePrompt;
@@ -104,7 +101,6 @@
 @dynamic bufSubH;
 @dynamic bufUsr1;
 @dynamic bufUsr2;
-@dynamic darkTheme;
 @dynamic defaultChild;
 @dynamic defaultParent;
 @dynamic games;
@@ -120,7 +116,6 @@
 @dynamic gridUsr1;
 @dynamic gridUsr2;
 @dynamic interpreter;
-@dynamic lightTheme;
 
 - (Theme *)clone {
 
@@ -153,10 +148,6 @@
         //NSLog(@"Setting my %@ to %@", attr, [theme valueForKey:attr]);
         [self setValue:[theme valueForKey:attr] forKey:attr];
 	}
-
-    self.hardDark = NO;
-    self.hardLight = NO;
-    self.hardLightOrDark = NO;
 
     self.editable = YES;
 

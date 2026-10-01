@@ -104,9 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
-@property (nonatomic) BOOL hardDark;
-@property (nonatomic) BOOL hardLight;
-@property (nonatomic) BOOL hardLightOrDark;
 @property (nullable, nonatomic, retain) NSData *inactiveSideData;
 @property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
@@ -147,7 +144,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *bufSubH;
 @property (nullable, nonatomic, retain) GlkStyle *bufUsr1;
 @property (nullable, nonatomic, retain) GlkStyle *bufUsr2;
-@property (nullable, nonatomic, retain) Theme *darkTheme;
 @property (nullable, nonatomic, retain) NSSet<Theme *> *defaultChild;
 @property (nullable, nonatomic, retain) Theme *defaultParent;
 @property (nullable, nonatomic, retain) NSSet<Game *> *games;
@@ -163,7 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr1;
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
 @property (nullable, nonatomic, retain) Interpreter *interpreter;
-@property (nullable, nonatomic, retain) Theme *lightTheme;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;
