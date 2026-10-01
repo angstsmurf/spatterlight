@@ -89,6 +89,9 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 @property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
 @property (weak) IBOutlet NSTextFieldCell *stylesHeader;
 
+/// The light/dark toggles at the top of each tab (Preferences+Appearance).
+@property (nonatomic, strong) NSArray<NSControl *> *appearanceToggleButtons;
+
 @property (weak) IBOutlet NSButton *btnOneThemeForAll;
 
 @property (weak) IBOutlet NSPopUpButton *actionButton;

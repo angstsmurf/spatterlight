@@ -10,8 +10,6 @@
 #import "NSColor+integer.h"
 #import "Theme.h"
 
-#import <objc/runtime.h>
-
 NSString * const SpatterlightAppearanceOverrideKey = @"SpatterlightAppearanceOverride";
 static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeSidesV1";
 
@@ -41,7 +39,9 @@ static const CGFloat kAppearanceToggleMargin = 3;
 
 - (void)setDark:(BOOL)dark {
     _dark = dark;
-    self.toolTip = dark ? NSLocalizedString(@"Dark Mode", nil) : NSLocalizedString(@"Light Mode", nil);
+    // The toggle sets the mode of the whole app, not of the theme whose
+    // settings sit below it.
+    self.toolTip = dark ? NSLocalizedString(@"Dark Mode for all of Spatterlight", nil) : NSLocalizedString(@"Light Mode for all of Spatterlight", nil);
     self.needsDisplay = YES;
 }
 
@@ -104,6 +104,10 @@ static const CGFloat kAppearanceToggleMargin = 3;
     return NSLocalizedString(@"Dark Mode", nil);
 }
 
+- (NSString *)accessibilityHelp {
+    return NSLocalizedString(@"Switches all of Spatterlight between light and dark mode.", nil);
+}
+
 - (id)accessibilityValue {
     return @(self.dark);
 }
@@ -115,20 +119,7 @@ static const CGFloat kAppearanceToggleMargin = 3;
 
 @end
 
-@interface Preferences (AppearancePrivate)
-@property (nonatomic, strong) NSArray<AppearanceToggle *> *appearanceToggleButtons;
-@end
-
 @implementation Preferences (Appearance)
-
-#pragma mark - Associated objects
-
-- (NSArray<AppearanceToggle *> *)appearanceToggleButtons {
-    return objc_getAssociatedObject(self, @selector(appearanceToggleButtons));
-}
-- (void)setAppearanceToggleButtons:(NSArray<AppearanceToggle *> *)value {
-    objc_setAssociatedObject(self, @selector(appearanceToggleButtons), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
 
 #pragma mark - Override API
 
@@ -366,8 +357,8 @@ static NSInteger SPCachedResolvedAppearance = -1;
 
 - (void)syncAppearanceToggleButtons {
     BOOL dark = ([Preferences resolvedAppearance] == kDarkAppearance);
-    for (AppearanceToggle *toggle in self.appearanceToggleButtons)
-        toggle.dark = dark;
+    for (NSControl *control in self.appearanceToggleButtons)
+        ((AppearanceToggle *)control).dark = dark;
 }
 
 - (IBAction)toggleAppearance:(id)sender {
