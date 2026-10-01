@@ -7,45 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */; };
+		04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270E6B209A9E09002DAFC06D /* os_glk_output.cpp */; };
 		08669A147249B2573251633E /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		144A2FE274534FB4993C777A /* GlkTextBufferWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */; };
 		173BCAC39A06DA931B4F8506 /* scrunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */; };
-		4C44E5DB3A10C6F1FE7545B4 /* scrun_dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */; };
-		39C9AC2CFBECF80768383253 /* scrun_match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */; };
-		1C549A242052A7FB21B57C0C /* scrun_respell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */; };
-		F346A70799DCE547CDEC5797 /* scrun_split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E120DB9AF3E1E490C38748 /* scrun_split.cpp */; };
 		19D88E2BC51CE7D70C5E993E /* scmemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696FA361A71397E8752D0FB6 /* scmemos.cpp */; };
 		1ABB2ED57F81352C17CB2330 /* scexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E220FDEDCD8D1B5AE9EA51D2 /* scexpr.cpp */; };
 		1AE8023714624955A595CABF /* GlkTextBufferWindow+Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */; };
+		1C549A242052A7FB21B57C0C /* scrun_respell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */; };
 		1D875076321050CD1785924A /* scevents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FBC38D091ED69CB6B5650A /* scevents.cpp */; };
 		1DBFEF1954685D4A5E8DDE18 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		1F63CA869B31832335D3506D /* os_glk_locale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */; };
 		232CEA9D4970A2A5AACCF18B /* a5model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB5081C8D969BA9C6C4CFC46 /* a5model.cpp */; };
 		25802386D7FED0D3FDF606C6 /* scdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7044549A9EFF7192B123BF36 /* scdebug.cpp */; };
 		263A07091928C89161E1C435 /* sclocale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A16591AA3CA68885CF7C3D4E /* sclocale.cpp */; };
 		294A13D30E730A4793639191 /* scserial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE20BE1A122588EF6BEFBB6B /* scserial.cpp */; };
 		2AD991D3EF68FB26902FF578 /* scprops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E7D25CD79FDADB081ACDA2B /* scprops.cpp */; };
+		2BFB7655F77D5E26E713C2D5 /* sclibrar_topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000C /* sclibrar_topic.cpp */; };
 		2C111C3B1ADCD93867B3D95B /* sctaffil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB01DAD407B134C528B7D00C /* sctaffil.cpp */; };
 		2DD17473719D6C61EB223742 /* zoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F67B5BB98C648FCD4036DFBF /* zoom.cpp */; };
 		2EBE4FED5375406CAB41205F /* GlkTextBufferWindow+Autorestore.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */; };
 		307777B2D489022C9E2B82E8 /* scresour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFA9E6AA5E9249D05BF4D194 /* scresour.cpp */; };
 		31B8BBA42E0ADFC51AC0131B /* sctafpar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F072EA2A580A5CA81386D0D /* sctafpar.cpp */; };
 		365A4945CB177013B53370E2 /* scgamest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 24A4363FEF151AF32725A1B4 /* scgamest.cpp */; };
+		3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */; };
+		39C9AC2CFBECF80768383253 /* scrun_match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */; };
 		3B98519817A0F0691F423FD2 /* a5rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10990E34B23D66921A762A58 /* a5rand.cpp */; };
 		3C14D827049A5F119A0E0907 /* sctasks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B865055FE24752E15286600C /* sctasks.cpp */; };
+		3E2E84B018DE10869B0A956E /* os_glk_commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946A07640B121A5812CB92C3 /* os_glk_commands.cpp */; };
 		40A619690435E0E3210987DB /* a5deobf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401133B22D772C6E0C4276CE /* a5deobf.cpp */; };
 		455DC4917D97AE525260DC00 /* a5state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AB67C13C9D268DDBA2A5918 /* a5state.cpp */; };
+		4C44E5DB3A10C6F1FE7545B4 /* scrun_dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */; };
 		4E500535C637C160734FA425 /* os_glk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 682A6ED470E4107F583B7D84 /* os_glk.cpp */; };
-		8AD93400C43DDC9920ACE95A /* os_glk_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B344363573905809560F3E02 /* os_glk_map.cpp */; };
-		1F63CA869B31832335D3506D /* os_glk_locale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */; };
-		936D840A8647FDCCAD31E08D /* os_glk_status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5543540277974C1585C839AB /* os_glk_status.cpp */; };
-		04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270E6B209A9E09002DAFC06D /* os_glk_output.cpp */; };
-		044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */; };
-		3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */; };
-		3E2E84B018DE10869B0A956E /* os_glk_commands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946A07640B121A5812CB92C3 /* os_glk_commands.cpp */; };
-		CACD7EACBA73D9E051991AD9 /* os_glk_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */; };
-		EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */; };
-		95355B3AD47EAD33C95CB5EF /* os_glk_a5_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */; };
-		FB0EB1BDCB25FDE679E440E7 /* os_glk_autosave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */; };
+		5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000012 /* sclibrar_misc.cpp */; };
 		55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
@@ -56,23 +51,32 @@
 		55368B76272BF24700740A0A /* questionglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* questionglkterm.c */; };
 		55368B77272BF24700740A0A /* questionfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6B272BF24700740A0A /* questionfile.cc */; };
 		55368B78272BF24700740A0A /* question-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B70272BF24700740A0A /* question-runner.cc */; };
-		82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */ = {isa = PBXBuildFile; fileRef = 37866468D5231E111EE74225 /* question-vars.cc */; };
-		6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0DC680911AC3DA7F2C06CD24 /* question-objects.cc */; };
-		F1C1DC8B328A727F1723BE31 /* question-rooms.cc in Sources */ = {isa = PBXBuildFile; fileRef = B2AA4AA2C2B0729996055C32 /* question-rooms.cc */; };
-		83BC8563C42D67BAC7BBC310 /* question-session.cc in Sources */ = {isa = PBXBuildFile; fileRef = A92950C009BF4A39CF12625D /* question-session.cc */; };
-		6BBB799774C4BAA0320E0E45 /* question-parse.cc in Sources */ = {isa = PBXBuildFile; fileRef = 21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */; };
-		C5E84B5FD2E5F0F4CBF5F172 /* question-script.cc in Sources */ = {isa = PBXBuildFile; fileRef = 187C9F883FBC372D4B34BBDE /* question-script.cc */; };
-		8AB02FA685E1EECA635C6363 /* question-functions.cc in Sources */ = {isa = PBXBuildFile; fileRef = F63940E32BB62C9B58F823F2 /* question-functions.cc */; };
-		F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 590D911A50D862B9538A05DA /* question-panes.cc */; };
 		55368B79272BF27D00740A0A /* question in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 55368B5B272BF1C500740A0A /* question */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.swift */; };
 		55A01EE02B1898E9003D7C18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DE223262CA008C9CB7 /* Foundation.framework */; };
+		579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000013 /* sclibrar_talk.cpp */; };
+		58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000003 /* sclibrar_meta.cpp */; };
+		5AF4A13E29CFB22A4FE69C16 /* sclibrar_room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000002 /* sclibrar_room.cpp */; };
+		5C1B1B000000000000000005 /* sclibrar_disambig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000005 /* sclibrar_disambig.cpp */; };
+		5C1B1B000000000000000006 /* sclibrar_examine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000006 /* sclibrar_examine.cpp */; };
+		5C1B1B000000000000000007 /* sclibrar_dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */; };
+		5C1B1B000000000000000008 /* sclibrar_take.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000008 /* sclibrar_take.cpp */; };
+		5C1B1B000000000000000009 /* sclibrar_takefrom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */; };
+		5C1B1B00000000000000000A /* sclibrar_drop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000A /* sclibrar_drop.cpp */; };
+		5C1B1B00000000000000000B /* sclibrar_open.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000B /* sclibrar_open.cpp */; };
+		5C1B1B00000000000000000D /* sclibrar_put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000D /* sclibrar_put.cpp */; };
+		5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000F /* sclibrar_battle.cpp */; };
+		5C1B1B000000000000000014 /* sclibrar_refuse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000014 /* sclibrar_refuse.cpp */; };
+		5C1B1B000000000000000015 /* sclibrar_verbobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */; };
 		61C07B5A3024065800388340 /* NowPlayingCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C07B593024065800388340 /* NowPlayingCoordinator.m */; };
 		61E6BE2FF01D3415E4034249 /* scnpcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96800C7329F2706EB62F4306 /* scnpcs.cpp */; };
 		662C36FF62B14FED8CEE7729 /* GlkTextBufferWindow+Hyperlinks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */; };
 		6721E9E796626F0B9D599492 /* scinterf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */; };
+		67B56162D60EBAAB84AF9D24 /* sclibrar_sitstand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */; };
+		6BBB799774C4BAA0320E0E45 /* question-parse.cc in Sources */ = {isa = PBXBuildFile; fileRef = 21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */; };
 		6C3A9D6886A51FFC631E5F99 /* a5expr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */; };
+		6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0DC680911AC3DA7F2C06CD24 /* question-objects.cc */; };
 		6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D212737246BDC4E00D775A8 /* NSColor+integer.m */; };
 		6D395C021EAD095E0070886C /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941B1EAC1BC4003DA5C4 /* accel.c */; };
 		6D395C041EAD095E0070886C /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941D1EAC1BC4003DA5C4 /* exec.c */; };
@@ -202,11 +206,18 @@
 		6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF73C3423B8F46100F76CF9 /* GlkStyle.m */; };
 		72E7277F072A3B0BD2082020 /* scarier in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = F5398D5487D9E1D664301C09 /* scarier */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		79E763325FC58B140D00FEF3 /* scobjcts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CC2449C2978F679050748B2 /* scobjcts.cpp */; };
+		82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */ = {isa = PBXBuildFile; fileRef = 37866468D5231E111EE74225 /* question-vars.cc */; };
 		839AE40E479A4A7CBE84ADFE /* GlkTextBufferWindow+Scrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */; };
+		83BC8563C42D67BAC7BBC310 /* question-session.cc in Sources */ = {isa = PBXBuildFile; fileRef = A92950C009BF4A39CF12625D /* question-session.cc */; };
 		87050ACAEA7E96F45C479678 /* scutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA889483D559290F70E80C64 /* scutils.cpp */; };
 		888ADA60DD7D269F7DC216A3 /* a5xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FBDDF07BAE218674A9BF2815 /* a5xml.cpp */; };
+		8AB02FA685E1EECA635C6363 /* question-functions.cc in Sources */ = {isa = PBXBuildFile; fileRef = F63940E32BB62C9B58F823F2 /* question-functions.cc */; };
 		8ACEDF01792C4B3AACF80444 /* GlkTextBufferWindow+Speech.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */; };
+		8AD93400C43DDC9920ACE95A /* os_glk_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B344363573905809560F3E02 /* os_glk_map.cpp */; };
+		8DC1ABC3D328048D2C4D82E6 /* sclibrar_read.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000E /* sclibrar_read.cpp */; };
 		8E6D5566C3EB91367805E306 /* a5parse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */; };
+		936D840A8647FDCCAD31E08D /* os_glk_status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5543540277974C1585C839AB /* os_glk_status.cpp */; };
+		95355B3AD47EAD33C95CB5EF /* os_glk_a5_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */; };
 		959A6EFF5663A5DC40B20A19 /* a5restr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AACD49A13B6CCDC934F28451 /* a5restr.cpp */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
@@ -256,10 +267,10 @@
 		961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDE09F239E700528FF9 /* AppDelegate.m */; };
 		961CCEF209F23A0000528FF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE009F239E700528FF9 /* main.m */; };
 		961CCEF409F23A0000528FF9 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE409F239E700528FF9 /* Preferences.m */; };
-		961CCEF809F23A0000528FF9 /* Preferences+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEF809F23A0000528FFA /* Preferences+Appearance.m */; };
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
+		961CCEF809F23A0000528FF9 /* Preferences+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEF809F23A0000528FFA /* Preferences+Appearance.m */; };
 		961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.xib */; };
 		961CCF3E09F2946700528FF9 /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */; };
 		961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2309F2940F00528FF9 /* Credits.rtf */; };
@@ -487,6 +498,7 @@
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
 		A10F00013024070000388340 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10F00023024070000388340 /* MediaPlayer.framework */; };
 		A386445CBE7CFA2393827746 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		A42A9783CDD36891E0DE5FD7 /* sclibrar_verbs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000010 /* sclibrar_verbs.cpp */; };
 		A4C48ACBD56A42C3ADB4F649 /* GlkTextBufferWindow+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */; };
 		A5B000000000000000000101 /* a5sb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000102 /* a5sb.cpp */; };
 		A5B000000000000000000103 /* a5run_ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000104 /* a5run_ref.cpp */; };
@@ -1055,33 +1067,21 @@
 		C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF0B92E6B752600276383 /* Fetches.m */; };
 		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 		C5A3C0D64B99E81E7639FE6A /* scvars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CEEB5304EB4E1088A443 /* scvars.cpp */; };
+		C5E84B5FD2E5F0F4CBF5F172 /* question-script.cc in Sources */ = {isa = PBXBuildFile; fileRef = 187C9F883FBC372D4B34BBDE /* question-script.cc */; };
+		CACD7EACBA73D9E051991AD9 /* os_glk_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */; };
 		CADE0001CADE0001CADE0001 /* game_cm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CADE0003CADE0003CADE0003 /* game_cm.cpp */; };
 		CC9FC385F0D6751126B1C67D /* a5sexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2DA72BBCC0B7869F9EFA7F /* a5sexpr.cpp */; };
 		D7F5F5C3EC304C7526A1A745 /* scprintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87010291D59681D38B0F44C5 /* scprintf.cpp */; };
 		E010519EC9196D58BA837C92 /* a5run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF22095E6A4182F0BA2C8C35 /* a5run.cpp */; };
-		5C1B1B000000000000000005 /* sclibrar_disambig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000005 /* sclibrar_disambig.cpp */; };
-		5C1B1B000000000000000006 /* sclibrar_examine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000006 /* sclibrar_examine.cpp */; };
-		5C1B1B000000000000000007 /* sclibrar_dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */; };
-		5C1B1B000000000000000008 /* sclibrar_take.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000008 /* sclibrar_take.cpp */; };
-		5C1B1B000000000000000009 /* sclibrar_takefrom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */; };
-		5C1B1B00000000000000000A /* sclibrar_drop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000A /* sclibrar_drop.cpp */; };
-		5C1B1B00000000000000000B /* sclibrar_open.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000B /* sclibrar_open.cpp */; };
-		5C1B1B00000000000000000D /* sclibrar_put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000D /* sclibrar_put.cpp */; };
-		5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000F /* sclibrar_battle.cpp */; };
-		5C1B1B000000000000000014 /* sclibrar_refuse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000014 /* sclibrar_refuse.cpp */; };
-		5C1B1B000000000000000015 /* sclibrar_verbobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */; };
-		579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000013 /* sclibrar_talk.cpp */; };
-		5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000012 /* sclibrar_misc.cpp */; };
-		67B56162D60EBAAB84AF9D24 /* sclibrar_sitstand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */; };
-		A42A9783CDD36891E0DE5FD7 /* sclibrar_verbs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000010 /* sclibrar_verbs.cpp */; };
-		8DC1ABC3D328048D2C4D82E6 /* sclibrar_read.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000E /* sclibrar_read.cpp */; };
-		2BFB7655F77D5E26E713C2D5 /* sclibrar_topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000C /* sclibrar_topic.cpp */; };
-		F9AAABD75CC870D29036DDE6 /* sclibrar_go.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000004 /* sclibrar_go.cpp */; };
-		58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000003 /* sclibrar_meta.cpp */; };
-		5AF4A13E29CFB22A4FE69C16 /* sclibrar_room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000002 /* sclibrar_room.cpp */; };
-		F8753300DF418D00B872E6FB /* sclibrar_print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000001 /* sclibrar_print.cpp */; };
+		EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */; };
+		F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 590D911A50D862B9538A05DA /* question-panes.cc */; };
+		F1C1DC8B328A727F1723BE31 /* question-rooms.cc in Sources */ = {isa = PBXBuildFile; fileRef = B2AA4AA2C2B0729996055C32 /* question-rooms.cc */; };
+		F346A70799DCE547CDEC5797 /* scrun_split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E120DB9AF3E1E490C38748 /* scrun_split.cpp */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
+		F8753300DF418D00B872E6FB /* sclibrar_print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000001 /* sclibrar_print.cpp */; };
+		F9AAABD75CC870D29036DDE6 /* sclibrar_go.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000004 /* sclibrar_go.cpp */; };
 		FA11B0010000000000000003 /* LibraryOrganizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA11B0010000000000000002 /* LibraryOrganizer.m */; };
+		FB0EB1BDCB25FDE679E440E7 /* os_glk_autosave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */; };
 		MAPDRAW00000000000000001 /* mapdraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = MAPDRAW00000000000000002 /* mapdraw.cpp */; };
 		SCMAP000000000000000001 /* scmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = SCMAP000000000000000002 /* scmap.cpp */; };
 /* End PBXBuildFile section */
@@ -1786,22 +1786,35 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01E120DB9AF3E1E490C38748 /* scrun_split.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_split.cpp; sourceTree = "<group>"; };
 		066545D7B54AED7A90A3003E /* scparser.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser.cpp; sourceTree = "<group>"; };
+		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
 		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
+		0DC680911AC3DA7F2C06CD24 /* question-objects.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-objects.cc"; sourceTree = "<group>"; };
 		0E7D25CD79FDADB081ACDA2B /* scprops.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprops.cpp; sourceTree = "<group>"; };
 		10990E34B23D66921A762A58 /* a5rand.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5rand.cpp; sourceTree = "<group>"; };
+		17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match.cpp; sourceTree = "<group>"; };
+		187C9F883FBC372D4B34BBDE /* question-script.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script.cc"; sourceTree = "<group>"; };
 		198EF78EF2D09C69E82D3A7B /* zoom.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; indentWidth = 4; name = zoom.h; path = terps/bocfel/zoom.h; sourceTree = SOURCE_ROOT; tabWidth = 4; };
 		1B305C336D7D955664940307 /* scbattle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scbattle.cpp; sourceTree = "<group>"; };
+		21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-parse.cc"; sourceTree = "<group>"; };
 		24A4363FEF151AF32725A1B4 /* scgamest.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scgamest.cpp; sourceTree = "<group>"; };
+		270E6B209A9E09002DAFC06D /* os_glk_output.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_output.cpp; sourceTree = "<group>"; };
+		2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_input.cpp; sourceTree = "<group>"; };
+		3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5_display.cpp; sourceTree = "<group>"; };
 		366403C87A2444E58975FC7A /* GlkTextBufferWindow+Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Input.h"; sourceTree = "<group>"; };
 		368791E905344FE7ADBC5C4D /* GlkTextBufferWindow+Styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Styles.h"; sourceTree = "<group>"; };
 		3777563A3F41478D9D6D4C22 /* GlkTextBufferWindowPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextBufferWindowPrivate.h; sourceTree = "<group>"; };
+		37866468D5231E111EE74225 /* question-vars.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-vars.cc"; sourceTree = "<group>"; };
 		39EE443C3CA84CFD89C8E2B8 /* GlkTextBufferWindow+Hyperlinks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Hyperlinks.h"; sourceTree = "<group>"; };
 		3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Scrolling.m"; sourceTree = "<group>"; };
 		3CC2449C2978F679050748B2 /* scobjcts.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scobjcts.cpp; sourceTree = "<group>"; };
 		401133B22D772C6E0C4276CE /* a5deobf.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5deobf.cpp; sourceTree = "<group>"; };
 		414F4CD2D21942699EBA0D64 /* GlkTextBufferWindow+Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Images.h"; sourceTree = "<group>"; };
 		4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Images.m"; sourceTree = "<group>"; };
+		44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_locale.cpp; sourceTree = "<group>"; };
+		4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_autosave.cpp; sourceTree = "<group>"; };
+		487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_dispatch.cpp; sourceTree = "<group>"; };
 		4F072EA2A580A5CA81386D0D /* sctafpar.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar.cpp; sourceTree = "<group>"; };
 		541F8346135F0995045B7BD0 /* a5blorb.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5blorb.cpp; sourceTree = "<group>"; };
 		55368B5B272BF1C500740A0A /* question */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = question; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1824,36 +1837,40 @@
 		55368B6E272BF24700740A0A /* question-impl.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-impl.hh"; sourceTree = "<group>"; };
 		55368B6F272BF24700740A0A /* reserved_words.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reserved_words.hh; sourceTree = "<group>"; };
 		55368B70272BF24700740A0A /* question-runner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-runner.cc"; sourceTree = "<group>"; };
-		37866468D5231E111EE74225 /* question-vars.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-vars.cc"; sourceTree = "<group>"; };
-		0DC680911AC3DA7F2C06CD24 /* question-objects.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-objects.cc"; sourceTree = "<group>"; };
-		B2AA4AA2C2B0729996055C32 /* question-rooms.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-rooms.cc"; sourceTree = "<group>"; };
-		A92950C009BF4A39CF12625D /* question-session.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-session.cc"; sourceTree = "<group>"; };
-		21A049B8AB09C0AF0F7FBD3A /* question-parse.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-parse.cc"; sourceTree = "<group>"; };
-		187C9F883FBC372D4B34BBDE /* question-script.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script.cc"; sourceTree = "<group>"; };
-		F63940E32BB62C9B58F823F2 /* question-functions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-functions.cc"; sourceTree = "<group>"; };
-		590D911A50D862B9538A05DA /* question-panes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-panes.cc"; sourceTree = "<group>"; };
-		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
+		5543540277974C1585C839AB /* os_glk_status.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_status.cpp; sourceTree = "<group>"; };
 		55A01EDA2B188142003D7C18 /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		55A01EDB2B188178003D7C18 /* sha2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
 		55A01EDC2B189325003D7C18 /* BlorbResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlorbResource.swift; sourceTree = "<group>"; };
+		590D911A50D862B9538A05DA /* question-panes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-panes.cc"; sourceTree = "<group>"; };
 		5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Output.m"; sourceTree = "<group>"; };
+		599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_respell.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000001 /* sclibrar_print.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_print.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000002 /* sclibrar_room.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_room.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000003 /* sclibrar_meta.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_meta.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000004 /* sclibrar_go.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_go.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000005 /* sclibrar_disambig.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_disambig.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000006 /* sclibrar_examine.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_examine.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_dispatch.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000008 /* sclibrar_take.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_take.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_takefrom.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000A /* sclibrar_drop.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_drop.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000B /* sclibrar_open.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_open.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000C /* sclibrar_topic.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_topic.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000D /* sclibrar_put.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_put.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000E /* sclibrar_read.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_read.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000000F /* sclibrar_battle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_battle.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000010 /* sclibrar_verbs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbs.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_sitstand.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000012 /* sclibrar_misc.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_misc.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000013 /* sclibrar_talk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_talk.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000014 /* sclibrar_refuse.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_refuse.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbobj.cpp; sourceTree = "<group>"; };
 		61C07B573024065000388340 /* NowPlayingCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayingCoordinator.h; sourceTree = "<group>"; };
 		61C07B593024065800388340 /* NowPlayingCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NowPlayingCoordinator.m; sourceTree = "<group>"; };
 		621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Autorestore.m"; sourceTree = "<group>"; };
 		6408B5CA09BAAF2505BD12D5 /* a5expr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5expr.cpp; sourceTree = "<group>"; };
 		682A6ED470E4107F583B7D84 /* os_glk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk.cpp; sourceTree = "<group>"; };
-		B344363573905809560F3E02 /* os_glk_map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_map.cpp; sourceTree = "<group>"; };
-		44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_locale.cpp; sourceTree = "<group>"; };
-		5543540277974C1585C839AB /* os_glk_status.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_status.cpp; sourceTree = "<group>"; };
-		270E6B209A9E09002DAFC06D /* os_glk_output.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_output.cpp; sourceTree = "<group>"; };
-		733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_symbols.cpp; sourceTree = "<group>"; };
 		68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_resources.cpp; sourceTree = "<group>"; };
-		946A07640B121A5812CB92C3 /* os_glk_commands.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_commands.cpp; sourceTree = "<group>"; };
-		2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_input.cpp; sourceTree = "<group>"; };
-		EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5.cpp; sourceTree = "<group>"; };
-		3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5_display.cpp; sourceTree = "<group>"; };
-		4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_autosave.cpp; sourceTree = "<group>"; };
-		739C201E861B62158253BFCF /* os_glk_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = os_glk_internal.h; sourceTree = "<group>"; };
 		696FA361A71397E8752D0FB6 /* scmemos.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scmemos.cpp; sourceTree = "<group>"; };
 		6A79E5D609D14956970E49F6 /* GlkTextBufferWindow+Scrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Scrolling.h"; sourceTree = "<group>"; };
 		6AB67C13C9D268DDBA2A5918 /* a5state.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5state.cpp; sourceTree = "<group>"; };
@@ -2092,12 +2109,15 @@
 		6DF73C3323B8F46100F76CF9 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
 		6DF73C3423B8F46100F76CF9 /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
 		7044549A9EFF7192B123BF36 /* scdebug.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scdebug.cpp; sourceTree = "<group>"; };
+		733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_symbols.cpp; sourceTree = "<group>"; };
+		739C201E861B62158253BFCF /* os_glk_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = os_glk_internal.h; sourceTree = "<group>"; };
 		7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5parse.cpp; sourceTree = "<group>"; };
 		87010291D59681D38B0F44C5 /* scprintf.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scprintf.cpp; sourceTree = "<group>"; };
 		8EE0E82499061DB6D3D5ED73 /* scinterf.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scinterf.cpp; sourceTree = "<group>"; };
 		91D06A59F00340EB841884EB /* GlkTextBufferWindow+Speech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Speech.m"; sourceTree = "<group>"; };
 		9255CEEB5304EB4E1088A443 /* scvars.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scvars.cpp; sourceTree = "<group>"; };
 		92FBC38D091ED69CB6B5650A /* scevents.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scevents.cpp; sourceTree = "<group>"; };
+		946A07640B121A5812CB92C3 /* os_glk_commands.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_commands.cpp; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
 		961152500A4F355800BB7FF2 /* htmlattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlattr.h; sourceTree = "<group>"; };
 		961152510A4F355800BB7FF2 /* htmldb2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmldb2.cpp; sourceTree = "<group>"; };
@@ -2398,14 +2418,14 @@
 		961CCEE009F239E700528FF9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		961CCEE309F239E700528FF9 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		961CCEE409F239E700528FF9 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		961CCEF709F23A0000528FFA /* Preferences+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Appearance.h"; sourceTree = "<group>"; };
-		961CCEF809F23A0000528FFA /* Preferences+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Appearance.m"; sourceTree = "<group>"; };
 		961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextBufferWindow.h; sourceTree = "<group>"; };
 		961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextBufferWindow.m; sourceTree = "<group>"; };
 		961CCEE709F239E700528FF9 /* GlkTextGridWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextGridWindow.h; sourceTree = "<group>"; };
 		961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextGridWindow.m; sourceTree = "<group>"; };
 		961CCEE909F239E700528FF9 /* GlkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkWindow.h; sourceTree = "<group>"; };
 		961CCEEA09F239E700528FF9 /* GlkWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkWindow.m; sourceTree = "<group>"; };
+		961CCEF709F23A0000528FFA /* Preferences+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Appearance.h"; sourceTree = "<group>"; };
+		961CCEF809F23A0000528FFA /* Preferences+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Appearance.m"; sourceTree = "<group>"; };
 		961CCF2309F2940F00528FF9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		961CCF2409F2940F00528FF9 /* IconApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconApp.icns; sourceTree = "<group>"; };
 		961CCF2509F2940F00528FF9 /* IconGame.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = IconGame.icns; sourceTree = "<group>"; };
@@ -3087,11 +3107,8 @@
 		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
 		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 		A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrunner.cpp; sourceTree = "<group>"; };
-		487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_dispatch.cpp; sourceTree = "<group>"; };
-		17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match.cpp; sourceTree = "<group>"; };
-		599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_respell.cpp; sourceTree = "<group>"; };
-		01E120DB9AF3E1E490C38748 /* scrun_split.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_split.cpp; sourceTree = "<group>"; };
 		A6AE1074305149939B370BB6 /* GlkTextBufferWindow+Speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Speech.h"; sourceTree = "<group>"; };
+		A92950C009BF4A39CF12625D /* question-session.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-session.cc"; sourceTree = "<group>"; };
 		AA11US7A09F29EE60083E64E /* illustrator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = illustrator.c; sourceTree = "<group>"; };
 		AA2B7934CD9F4447B195CFA0 /* GlkTextBufferWindow+Autorestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Autorestore.h"; sourceTree = "<group>"; };
 		AA889483D559290F70E80C64 /* scutils.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scutils.cpp; sourceTree = "<group>"; };
@@ -3101,27 +3118,8 @@
 		AC710000000000000000A002 /* agtifid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = agtifid.h; sourceTree = "<group>"; };
 		AC8E0000000000000000F11E /* archetype.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = archetype.c; sourceTree = "<group>"; };
 		B0C28DFE777A2A70B7F78AF6 /* screstrs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = screstrs.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000001 /* sclibrar_print.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_print.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000002 /* sclibrar_room.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_room.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000003 /* sclibrar_meta.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_meta.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000004 /* sclibrar_go.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_go.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000005 /* sclibrar_disambig.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_disambig.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000006 /* sclibrar_examine.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_examine.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_dispatch.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000008 /* sclibrar_take.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_take.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_takefrom.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000A /* sclibrar_drop.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_drop.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000B /* sclibrar_open.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_open.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000C /* sclibrar_topic.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_topic.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000D /* sclibrar_put.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_put.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000E /* sclibrar_read.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_read.cpp; sourceTree = "<group>"; };
-		5C1B1A00000000000000000F /* sclibrar_battle.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_battle.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000010 /* sclibrar_verbs.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbs.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_sitstand.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000012 /* sclibrar_misc.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_misc.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000013 /* sclibrar_talk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_talk.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000014 /* sclibrar_refuse.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_refuse.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbobj.cpp; sourceTree = "<group>"; };
+		B2AA4AA2C2B0729996055C32 /* question-rooms.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-rooms.cc"; sourceTree = "<group>"; };
+		B344363573905809560F3E02 /* os_glk_map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_map.cpp; sourceTree = "<group>"; };
 		B865055FE24752E15286600C /* sctasks.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctasks.cpp; sourceTree = "<group>"; };
 		C0FFEE000000000000000F11 /* comprehend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = comprehend.c; sourceTree = "<group>"; };
 		C2CBBEA552FF4A3F8ADED453 /* GlkTextBufferWindow+Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Output.h"; sourceTree = "<group>"; };
@@ -3174,7 +3172,6 @@
 		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
 		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
 		C311875125BD8F1E00739D7B /* SoundHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundHandler.h; sourceTree = "<group>"; };
-		C311875225BD8F1E00739D7B /* ogg.xcodeproj */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; name = ogg.xcodeproj; path = /Users/administrator/spatterlight/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<absolute>"; };
 		C311DE2925C4383100484639 /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = twine.c; sourceTree = "<group>"; };
 		C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C311DEF625C472E500484639 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -3850,8 +3847,10 @@
 		CFA9E6AA5E9249D05BF4D194 /* scresour.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scresour.cpp; sourceTree = "<group>"; };
 		D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Styles.m"; sourceTree = "<group>"; };
 		E220FDEDCD8D1B5AE9EA51D2 /* scexpr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scexpr.cpp; sourceTree = "<group>"; };
+		EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5.cpp; sourceTree = "<group>"; };
 		EE20BE1A122588EF6BEFBB6B /* scserial.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scserial.cpp; sourceTree = "<group>"; };
 		F5398D5487D9E1D664301C09 /* scarier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scarier; sourceTree = BUILT_PRODUCTS_DIR; };
+		F63940E32BB62C9B58F823F2 /* question-functions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-functions.cc"; sourceTree = "<group>"; };
 		F67B5BB98C648FCD4036DFBF /* zoom.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; indentWidth = 4; path = zoom.cpp; sourceTree = "<group>"; tabWidth = 4; };
 		FA11B0010000000000000001 /* LibraryOrganizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryOrganizer.h; sourceTree = "<group>"; };
 		FA11B0010000000000000002 /* LibraryOrganizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryOrganizer.m; sourceTree = "<group>"; };
@@ -4449,66 +4448,6 @@
 				F67B5BB98C648FCD4036DFBF /* zoom.cpp */,
 			);
 			path = bocfel;
-			sourceTree = "<group>";
-		};
-		SCLIBGRP0000000000000001 /* library */ = {
-			isa = PBXGroup;
-			children = (
-				5C1B1A000000000000000001 /* sclibrar_print.cpp */,
-				5C1B1A000000000000000002 /* sclibrar_room.cpp */,
-				5C1B1A000000000000000003 /* sclibrar_meta.cpp */,
-				5C1B1A000000000000000004 /* sclibrar_go.cpp */,
-				5C1B1A000000000000000005 /* sclibrar_disambig.cpp */,
-				5C1B1A000000000000000006 /* sclibrar_examine.cpp */,
-				5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */,
-				5C1B1A000000000000000008 /* sclibrar_take.cpp */,
-				5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */,
-				5C1B1A00000000000000000A /* sclibrar_drop.cpp */,
-				5C1B1A00000000000000000B /* sclibrar_open.cpp */,
-				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
-				5C1B1A00000000000000000D /* sclibrar_put.cpp */,
-				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
-				5C1B1A00000000000000000F /* sclibrar_battle.cpp */,
-				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
-				5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */,
-				5C1B1A000000000000000012 /* sclibrar_misc.cpp */,
-				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
-				5C1B1A000000000000000014 /* sclibrar_refuse.cpp */,
-				5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */,
-			);
-			path = library;
-			sourceTree = "<group>";
-		};
-		SCGLKGRP0000000000000001 /* glk */ = {
-			isa = PBXGroup;
-			children = (
-				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
-				739C201E861B62158253BFCF /* os_glk_internal.h */,
-				B344363573905809560F3E02 /* os_glk_map.cpp */,
-				44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */,
-				5543540277974C1585C839AB /* os_glk_status.cpp */,
-				270E6B209A9E09002DAFC06D /* os_glk_output.cpp */,
-				733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */,
-				68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */,
-				946A07640B121A5812CB92C3 /* os_glk_commands.cpp */,
-				2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */,
-				EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */,
-				3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */,
-				4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */,
-			);
-			path = glk;
-			sourceTree = "<group>";
-		};
-		SCRUNGRP0000000000000001 /* runner */ = {
-			isa = PBXGroup;
-			children = (
-				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
-				487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */,
-				17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */,
-				599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */,
-				01E120DB9AF3E1E490C38748 /* scrun_split.cpp */,
-			);
-			path = runner;
 			sourceTree = "<group>";
 		};
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
@@ -6635,13 +6574,6 @@
 			path = common_sagadraw;
 			sourceTree = "<group>";
 		};
-		C374D19726EE4B4F006F430E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C37EC58C2847A9E00084B841 /* plus */ = {
 			isa = PBXGroup;
 			children = (
@@ -7055,6 +6987,66 @@
 				C3A1997D299982E300D27500 /* OSFastGraphics.m */,
 			);
 			path = ImageHashing;
+			sourceTree = "<group>";
+		};
+		SCGLKGRP0000000000000001 /* glk */ = {
+			isa = PBXGroup;
+			children = (
+				682A6ED470E4107F583B7D84 /* os_glk.cpp */,
+				739C201E861B62158253BFCF /* os_glk_internal.h */,
+				B344363573905809560F3E02 /* os_glk_map.cpp */,
+				44CE90662FF31A6FA0B0C1AC /* os_glk_locale.cpp */,
+				5543540277974C1585C839AB /* os_glk_status.cpp */,
+				270E6B209A9E09002DAFC06D /* os_glk_output.cpp */,
+				733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */,
+				68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */,
+				946A07640B121A5812CB92C3 /* os_glk_commands.cpp */,
+				2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */,
+				EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */,
+				3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */,
+				4725CCCE24803784B24C22BE /* os_glk_autosave.cpp */,
+			);
+			path = glk;
+			sourceTree = "<group>";
+		};
+		SCLIBGRP0000000000000001 /* library */ = {
+			isa = PBXGroup;
+			children = (
+				5C1B1A000000000000000001 /* sclibrar_print.cpp */,
+				5C1B1A000000000000000002 /* sclibrar_room.cpp */,
+				5C1B1A000000000000000003 /* sclibrar_meta.cpp */,
+				5C1B1A000000000000000004 /* sclibrar_go.cpp */,
+				5C1B1A000000000000000005 /* sclibrar_disambig.cpp */,
+				5C1B1A000000000000000006 /* sclibrar_examine.cpp */,
+				5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */,
+				5C1B1A000000000000000008 /* sclibrar_take.cpp */,
+				5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */,
+				5C1B1A00000000000000000A /* sclibrar_drop.cpp */,
+				5C1B1A00000000000000000B /* sclibrar_open.cpp */,
+				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
+				5C1B1A00000000000000000D /* sclibrar_put.cpp */,
+				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
+				5C1B1A00000000000000000F /* sclibrar_battle.cpp */,
+				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
+				5C1B1A000000000000000011 /* sclibrar_sitstand.cpp */,
+				5C1B1A000000000000000012 /* sclibrar_misc.cpp */,
+				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
+				5C1B1A000000000000000014 /* sclibrar_refuse.cpp */,
+				5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */,
+			);
+			path = library;
+			sourceTree = "<group>";
+		};
+		SCRUNGRP0000000000000001 /* runner */ = {
+			isa = PBXGroup;
+			children = (
+				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
+				487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */,
+				17A1E52B55BFE85E48C70AFA /* scrun_match.cpp */,
+				599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */,
+				01E120DB9AF3E1E490C38748 /* scrun_split.cpp */,
+			);
+			path = runner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -8077,10 +8069,6 @@
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = C374D19726EE4B4F006F430E /* Products */;
-					ProjectRef = C311875225BD8F1E00739D7B /* ogg.xcodeproj */;
-				},
 				{
 					ProductGroup = C344B2C426E4D9B4004B0A8F /* Products */;
 					ProjectRef = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
