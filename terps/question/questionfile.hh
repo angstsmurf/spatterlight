@@ -158,6 +158,12 @@ struct QuestionFile
    * `blocks` from growing, which matters because callers hold
    * `const QuestionBlock *` across script execution. */
   void register_clone (const std::string &srcname, const std::string &newname);
+  /* Drop every alias register_clone has added, so an UNDO or RESTORE can
+   * replay the clones of the state it lands in from a clean slate. */
+  void clear_clones ();
+private:
+  std::vector<std::string> clone_name_keys_, clone_type_keys_;
+public:
 
   const QuestionBlock &block (const std::string &type, size_t index) const;
   size_t size (const std::string &type) const;

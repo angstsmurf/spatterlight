@@ -111,7 +111,13 @@ private:
    * many callers that need an integer (array indices, loop bounds); getd()
    * exposes the raw double for formatting and float math. */
   std::vector<double> data;
-  static int as_int (double d) { return (int) (d < 0 ? d - 0.5 : d + 0.5); }
+  /* Clamped first: casting a double outside int's range is undefined. */
+  static int as_int (double d)
+  {
+    if (!(d > -2147483648.5)) return d != d ? 0 : -2147483647 - 1;
+    if (!(d < 2147483647.5)) return 2147483647;
+    return (int) (d < 0 ? d - 0.5 : d + 0.5);
+  }
 public:
   std::string name;
 

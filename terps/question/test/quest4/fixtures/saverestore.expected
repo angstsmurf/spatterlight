@@ -1,0 +1,72 @@
+
+SaveRestore
+
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> frac
+
+[save]
+
+> zero
+
+[restore]
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+[restored]
+
+> shown
+n=.5
+
+> paint
+
+> frac
+
+> east
+You are in Attic.
+You can go west.
+The attic.
+
+[restore]
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+[restored]
+
+> undo
+(No more undo information available!)
+
+> colour
+Box is !
+
+> shown
+n=.5
+
+> sword
+
+> undo
+Undone.
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> shield
+
+> look at thing
+A round shield.
+
+[restore foreign]
+[refused]
+
+> look
+You are in Hall.
+There is Box, Sword, Shield and Thing here.
+You can go east.
+The hall.
+[runner] turns=14 leftover=0 running=true

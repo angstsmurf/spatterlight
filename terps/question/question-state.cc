@@ -27,7 +27,10 @@
 #include <ostream>
 #include <fstream>
 #include <iostream>
+#include <climits>
+#include <cmath>
 #include <cstdlib>
+#include <locale>
 
 using namespace std;
 
@@ -42,12 +45,23 @@ class QuestionOutputStream {
   ostringstream o; 
   
 public: 
+  QuestionOutputStream () { o.imbue (std::locale::classic ()); }
   QuestionOutputStream &put (string s) { o << s; o.put (char (0)); return *this; }
   QuestionOutputStream &put (char ch) { o.put (ch); return *this; }
   QuestionOutputStream &put (int i) { o << i; o.put (char (0)); return *this; }
   QuestionOutputStream &put (uint i) { o << i; o.put (char (0)); return *this; }
   QuestionOutputStream &put (unsigned long i) { o << i; o.put (char (0)); return *this; } // for Mac OS X ...
   QuestionOutputStream &put (unsigned long long i) { o << i; o.put (char (0)); return *this; }
+  /* Full precision, so a numeric variable's fraction survives a round trip; a
+   * whole number still writes as plain digits, as the int overload did. */
+  QuestionOutputStream &put (double d)
+  {
+    std::streamsize prec = o.precision (17);
+    o << d;
+    o.precision (prec);
+    o.put (char (0));
+    return *this;
+  }
   
 
   /* The raw stream bytes, unobfuscated and headerless (the undo-history
@@ -96,7 +110,24 @@ public:
       pos ++;   // skip the terminating null
     return s;
   }
-  int get_int () { return atoi (get_str().c_str()); }
+  /* Clamped: atoi is undefined on a value out of int range, and a save file
+   * is untrusted input. */
+  int get_int ()
+  {
+    long long v = strtoll (get_str().c_str(), nullptr, 10);
+    return v > INT_MAX ? INT_MAX : v < INT_MIN ? INT_MIN : (int) v;
+  }
+  /* Read in the C locale, as put(double) wrote it: older saves hold plain
+   * integers here, which read back unchanged. */
+  double get_double ()
+  {
+    istringstream is (get_str());
+    is.imbue (std::locale::classic ());
+    double d = 0.0;
+    if (!(is >> d) || !std::isfinite (d))
+      return 0.0;
+    return d;
+  }
   uint get_uint () { return (uint) strtoul (get_str().c_str(), nullptr, 10); }
 };
 
@@ -182,7 +213,7 @@ void write_to (QuestionOutputStream &gos, const IVarRecord &ivr)
   gos.put (ivr.max());
   for (size_t i = 0; i <= ivr.max(); i ++)
     {
-      gos.put (ivr.get(i));
+      gos.put (ivr.getd(i));
     }
 }
 
@@ -324,7 +355,7 @@ struct SaveReader
 	v.name = gis.get_str ();
 	if (!elem_count (cnt)) return false;
 	for (size_t j = 0; j < cnt; j ++)
-	  v.set (j, gis.get_int ());
+	  v.set (j, gis.get_double ());
 	out.push_back (v);
       }
     return true;

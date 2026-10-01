@@ -165,6 +165,8 @@ test_serialize_roundtrip ()
   gs.svars.push_back (sv);
   IVarRecord iv ("score");
   iv.set (0, 42);
+  iv.set (1, 0.5);
+  iv.set (2, -2.25);
   gs.ivars.push_back (iv);
   gs.items.push_back ("a rusty key");
 
@@ -179,6 +181,20 @@ test_serialize_roundtrip ()
 	 "round trip: sparse string array");
   check (back.ivars.size () == 1 && back.ivars[0].get (0) == 42,
 	 "round trip: numeric variable");
+  check (back.ivars.size () == 1 && back.ivars[0].getd (1) == 0.5
+	   && back.ivars[0].getd (2) == -2.25,
+	 "round trip: a numeric variable keeps its fraction");
+
+  IVarRecord huge ("huge");
+  huge.set (0, 1e300);
+  huge.set (1, -1e300);
+  check (huge.get (0) == INT_MAX && huge.get (1) == INT_MIN,
+	 "an out-of-range numeric clamps to int rather than overflowing");
+
+  check (save_game_key ("/Games/Quest/World's End.ASL")
+	   == save_game_key ("world's end.cas")
+	 && save_game_key ("a.asl") != save_game_key ("b.asl"),
+	 "a save's game tag ignores directory, extension and case");
   check (back.items.size () == 1 && back.items[0] == "a rusty key",
 	 "round trip: inventory items");
 

@@ -808,7 +808,10 @@ void QuestionFile::register_clone (const string &srcname, const string &newname)
    * aliases so a cloned room still answers "room" to obj_type_of. */
   auto ot = obj_types.find (srckey);
   if (ot != obj_types.end () && obj_types.find (newkey) == obj_types.end ())
-    obj_types[newkey] = ot->second;
+    {
+      obj_types[newkey] = ot->second;
+      clone_type_keys_.push_back (newkey);
+    }
 
   /* Point the new name at the source's definition block(s).  name_index keys
    * are "<blocktype>\1<lowercased name>", so every key whose name half is the
@@ -835,7 +838,20 @@ void QuestionFile::register_clone (const string &srcname, const string &newname)
     }
   for (const auto &t: twins)
     if (name_index.find (t.first) == name_index.end ())
-      name_index[t.first] = t.second;
+      {
+	name_index[t.first] = t.second;
+	clone_name_keys_.push_back (t.first);
+      }
+}
+
+void QuestionFile::clear_clones ()
+{
+  for (const std::string &k: clone_name_keys_)
+    name_index.erase (k);
+  for (const std::string &k: clone_type_keys_)
+    obj_types.erase (k);
+  clone_name_keys_.clear ();
+  clone_type_keys_.clear ();
 }
 
 string QuestionFile::static_svar_lookup (const string &varname) const

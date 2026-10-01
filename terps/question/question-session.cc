@@ -101,6 +101,9 @@ bool question_implementation::undo ()
     }
   state.restore_undo (undo_buffer.peek());
   state.running = true;
+  /* The clones made since that snapshot are gone from the state; drop their
+   * definition aliases too, so a later clone may reuse the name. */
+  restore_clones ();
   print_formatted ("Undone.");
   /* Rebuild the cached views of the restored state and redescribe the room. */
   regen_var_room ();
@@ -150,6 +153,7 @@ std::string question_implementation::save_state (bool run_hooks)
  * by the clone handler and carried in the save like any other property. */
 void question_implementation::restore_clones ()
 {
+  gf.clear_clones ();
   const vector<size_t> *v = state.prop_records ("!clones");
   if (v == NULL)
     return;
@@ -168,15 +172,40 @@ void question_implementation::restore_clones ()
     }
 }
 
+/* The file name a save's header records, reduced to what survives the game
+ * being moved or recompiled: no directory, no extension, case folded. */
+static string save_game_key (const string &path)
+{
+  string::size_type slash = path.find_last_of ("/\\");
+  string base = slash == string::npos ? path : path.substr (slash + 1);
+  string::size_type dot = base.rfind ('.');
+  if (dot != string::npos && dot > 0)
+    base.erase (dot);
+  return lcase (base);
+}
+
 bool question_implementation::load_state (const string &data, bool run_hooks)
 {
   QuestionState newstate;
   string gamename;
   if (!deserialize_game (data, gamename, newstate))
     return false;
+  /* A player's RESTORE of a save some other game wrote would drop them in
+   * rooms and among objects this one does not define.  The header names the
+   * game; check it.  An autorestore (run_hooks == false) is exempt: the app
+   * keys those to this very file, which may since have been renamed. */
+  if (run_hooks && !gamename.empty ()
+      && save_game_key (gamename) != save_game_key (story_filename))
+    return false;
   state = newstate;
   is_running_ = state.running = true;
   restore_clones ();
+  /* The undo snapshots belong to the game just abandoned: each records a
+   * length of *its* property log, which means nothing against the restored
+   * one.  Start the history afresh from here.  (An autorestore replaces it
+   * straight afterwards with the saved history, via load_undo_history.) */
+  undo_buffer = LimitStack<UndoState> (kUndoLevels);
+  { UndoState u = state.save_undo (); undo_buffer.push (u); }
   if (run_hooks)
     load_method_ = "loaded";   /* a real restore -> $loadmethod$ = "loaded" */
   /* Rebuild the cached views of the (now restored) current room. */
