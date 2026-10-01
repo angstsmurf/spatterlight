@@ -1,0 +1,16 @@
+
+TextDefine
+
+Define your terms carefully.
+define them twice.
+
+You are in Lab.
+A plain lab.
+
+> look
+You are in Lab.
+A plain lab.
+
+> ping
+Pong.
+[runner] turns=2 leftover=0 running=true

@@ -1,0 +1,2 @@
+look
+x rock

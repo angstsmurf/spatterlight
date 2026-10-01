@@ -1,0 +1,15 @@
+
+LoadVarError
+
+You are in Lab.
+There is rock here.
+A plain lab.
+
+> look
+You are in Lab.
+There is rock here.
+A plain lab.
+
+> x rock
+A  rock.
+[runner] turns=2 leftover=0 running=true

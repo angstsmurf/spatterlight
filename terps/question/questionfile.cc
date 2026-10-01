@@ -431,8 +431,12 @@ void QuestionFile::get_obj_keys (const string &obj, set<string> &rv) const
   QUESTION_DBG << "Returning (" << rv << ")\n";
 }
 
-void QuestionFile::get_type_keys (const string &typen, set<string> &rv) const
+void QuestionFile::get_type_keys (const string &typen, set<string> &rv,
+				  int depth) const
 {
+  /* Types can include each other in a cycle; see flatten_type. */
+  if (depth > kMaxTypeDepth)
+    return;
   QUESTION_DBG << "get_type_keys (" << typen << ", " << rv << ")\n";
   const QuestionBlock* gb = find_by_name ("type", typen);
   if (gb == NULL)
@@ -451,7 +455,7 @@ void QuestionFile::get_type_keys (const string &typen, set<string> &rv) const
 	  tok = next_token (line, c1, c2);
 	  if (is_param(tok))
 	    {
-	      get_type_keys (param_contents(tok), rv);
+	      get_type_keys (param_contents(tok), rv, depth + 1);
 	      QUESTION_DBG << "      g_t_k: Adding <" << tok << "> to rv: " << rv << "\n";
 	    }
 	}
@@ -504,8 +508,11 @@ const entry_kind act_kind = { &QuestionBlock::obj_act, &QuestionBlock::type_act,
    bool_rv/string_rv.  Quest property and action names are case-insensitive. */
 void get_type_entry (const QuestionFile &gf, const entry_kind &k,
 		     const string &typenamex, const string &name,
-		     bool &bool_rv, string &string_rv)
+		     bool &bool_rv, string &string_rv, int depth = 0)
 {
+  /* Types can include each other in a cycle; see flatten_type. */
+  if (depth > QuestionFile::kMaxTypeDepth)
+    return;
   const QuestionBlock *block = gf.find_by_name ("type", typenamex);
   if (block == NULL)
     {
@@ -516,7 +523,7 @@ void get_type_entry (const QuestionFile &gf, const entry_kind &k,
   for (const QuestionBlock::dir &d: block->*(k.type_list))
     {
       if (d.is_type)
-	get_type_entry (gf, k, d.a, name, bool_rv, string_rv);
+	get_type_entry (gf, k, d.a, name, bool_rv, string_rv, depth + 1);
       else if (ci_equal (d.a, name))
 	{
 	  bool_rv = k.value_from_bv ? d.bv : true;
@@ -624,7 +631,7 @@ void QuestionFile::flatten_type (const string &typenamex,
 {
   /* A type may include itself through a cycle; GetPropertiesInType would
    * recurse forever there too, so any sane bound is fine. */
-  if (depth > 32)
+  if (depth > kMaxTypeDepth)
     return;
   const QuestionBlock *block = find_by_name ("type", typenamex);
   if (block == NULL)
@@ -672,12 +679,16 @@ bool QuestionFile::obj_of_type (const string &objname, const string &typenamex) 
 }
 
 
-bool QuestionFile::type_of_type (const string &subtype, const string &supertype) const
+bool QuestionFile::type_of_type (const string &subtype, const string &supertype,
+				 int depth) const
 {
   if (ci_equal (subtype, supertype))
     {
       return true;
     }
+  /* Types can include each other in a cycle; see flatten_type. */
+  if (depth > kMaxTypeDepth)
+    return false;
   const QuestionBlock *block = find_by_name ("type", subtype);
   if (block == NULL)
     {
@@ -686,7 +697,7 @@ bool QuestionFile::type_of_type (const string &subtype, const string &supertype)
     }
   ensure_cached (*block);
   for (const string &tn: block->parent_types)
-    if (type_of_type (tn, supertype))
+    if (type_of_type (tn, supertype, depth + 1))
       return true;
   return false;
 }
@@ -918,6 +929,27 @@ string QuestionFile::static_ivar_lookup (const string &varname) const
 
 string QuestionFile::static_eval (const string &input) const
 {
+  /* The variable lookups throw on a type mismatch or a malformed variable
+   * block.  Here, at load time, nothing but set_game's catch would see that,
+   * and it abandons startup and leaves the game silent; a bad reference in one
+   * description is not worth that, so report it and substitute nothing. */
+  auto lookup = [this] (string (QuestionFile::*fn) (const string &) const,
+			const string &name) -> string {
+    try
+      {
+	return (this->*fn) (name);
+      }
+    catch (const string &err)
+      {
+	debug_print (err);
+	return "";
+      }
+    catch (const char *err)
+      {
+	debug_print (err);
+	return "";
+      }
+  };
   string rv = "";
   for (size_t i = 0; i < input.length(); i ++)
     {
@@ -976,7 +1008,8 @@ string QuestionFile::static_eval (const string &input) const
 	    {
 	      string objname;
 	      if (input[i+1] == '(' && input[k-1] == ')')
-		objname = static_svar_lookup (input.substr (i+2, k-i-3));
+		objname = lookup (&QuestionFile::static_svar_lookup,
+				  input.substr (i+2, k-i-3));
 	      else
 		objname = input.substr (i+1, k-i-1);
 	      QUESTION_DBG << "  objname == '" << objname << endl;
@@ -996,7 +1029,8 @@ string QuestionFile::static_eval (const string &input) const
 	    {
 	      QUESTION_DBG << "i == " << i << ", j == " << j << ", length is " << input.length() << endl;
 	      QUESTION_DBG << "Looking up static var " << input.substr (i+1, j-i-1) << endl;
-	      rv += static_svar_lookup (input.substr (i+1, j-i-1));
+	      rv += lookup (&QuestionFile::static_svar_lookup,
+			    input.substr (i+1, j-i-1));
 	    }
 	  i = j;
 	}
@@ -1019,7 +1053,8 @@ string QuestionFile::static_eval (const string &input) const
 	  if (j == i + 1)
 	    rv += "%";
 	  else
-	    rv += static_ivar_lookup (input.substr (i+1, j-i-1));
+	    rv += lookup (&QuestionFile::static_ivar_lookup,
+			    input.substr (i+1, j-i-1));
 	  i = j;
 	}
       /* The fourth conversion character.  GetParameter runs a dollar pass too
