@@ -10,6 +10,7 @@ precedence_test_hl
 badparent_test_hl
 corrupt_test_hl
 quit_test_hl
+expr_test_hl
 capacity_test_hl
 scmap_dump
 

@@ -718,9 +718,16 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
 /*
  * A pair of ALRs that rewrite each other (A -> B and B -> A) recurses for
  * ever, and the Runner really would overflow its stack on one.  No game in
- * the corpus has such a pair, so this cap is a guard, not a model.
+ * the corpus has such a pair, so these caps are guards, not a model.  The
+ * walk is deterministic, so re-entering an ALR already on the recursion path
+ * would repeat that path for ever: that ALR's replacement is spliced in
+ * unfiltered instead.  The depth and size caps bound what is left -- long
+ * acyclic chains, and replacements that multiply on each level (A -> "B B",
+ * B -> "C C", ...), which would otherwise double the text per level.
  */
 enum { PF_ALR_DEPTH_LIMIT = 32 };
+static const size_t PF_ALR_SIZE_LIMIT = 65536;
+static std::vector<char> pf_alr_on_path;
 
 static void
 pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
@@ -732,8 +739,10 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
   scr_int iteration;
 
   out.assign (string);
-  if (depth > PF_ALR_DEPTH_LIMIT)
+  if (depth > PF_ALR_DEPTH_LIMIT || out.size () > PF_ALR_SIZE_LIMIT)
     return;
+  if (pf_alr_on_path.size () != pf_alr_cache.size ())
+    pf_alr_on_path.assign (pf_alr_cache.size (), FALSE);
 
   /*
    * 47A3DC, the first thing ALRs() does with whatever text it was handed:
@@ -788,7 +797,14 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
             return;
 
           /* 44C76F: the replacement is itself filtered before it is spliced. */
-          pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
+          if (pf_alr_on_path[index_])
+            expansion.assign (entry.replacement);
+          else
+            {
+              pf_alr_on_path[index_] = TRUE;
+              pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
+              pf_alr_on_path[index_] = FALSE;
+            }
         }
       else
         expansion.assign (entry.replacement);
@@ -796,6 +812,8 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
       if (pf_replace_alr (out.c_str (), rebuilt, entry, expansion.c_str ()))
         {
           out = std::move (rebuilt);
+          if (out.size () > PF_ALR_SIZE_LIMIT)
+            return;
 
           /*
            * The text changed under us, so which originals are present may have

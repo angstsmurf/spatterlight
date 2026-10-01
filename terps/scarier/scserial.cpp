@@ -1157,6 +1157,45 @@ ser_get_int (void)
 }
 
 /*
+ * ser_reject_if()
+ *
+ * Reject the save currently being restored (via the restore error throw) when
+ * a value read from the untrusted save file is out of range for this game.  The
+ * gs_* accessors only assert their index arguments, which is a no-op under
+ * NDEBUG, so without these explicit checks a corrupt save could plant
+ * out-of-range room/object/NPC indices that later read or write game-state
+ * arrays out of bounds.
+ */
+static void
+ser_reject_if (scr_bool out_of_range)
+{
+  if (out_of_range)
+    {
+      scr_error ("ser_reject_if:"
+                 " index out of range at line %ld\n", ser_tasline - 1);
+      throw ser_tas_error_t ();
+    }
+}
+
+/*
+ * ser_get_wield()
+ *
+ * Read the player's wielded weapon: an object index, or -1 for none.  It is
+ * used unchecked as an object index whenever the player attacks
+ * (battle_player_wielded_weapon), so anything else must not survive the
+ * restore.  Clear it to "none" rather than reject the save: Runner-written
+ * battle saves have not been checked against this field (see the note at
+ * ser_save_battle_block), and a lost wield costs only a re-wield.
+ */
+static scr_int
+ser_get_wield (scr_gameref_t game)
+{
+  const scr_int wield = ser_get_int ();
+
+  return (wield >= 0 && wield < gs_object_count (game)) ? wield : -1;
+}
+
+/*
  * ser_restore_battle_attributes()
  *
  * Read back the version-2 mutable battle attributes of one character.  The
@@ -1219,34 +1258,13 @@ ser_restore_battle_block (scr_gameref_t game, scr_int npc)
         battle->lo[slot] = ser_get_int ();
     }
   if (npc < 0)
-    gs_set_playerwield (game, ser_get_int ());
+    gs_set_playerwield (game, ser_get_wield (game));
   else
     {
       battle->speed = ser_get_int ();
       gs_set_npc_attackcounter (game, npc, ser_get_int ());
     }
   battle->seeded = TRUE;
-}
-
-/*
- * ser_reject_if()
- *
- * Reject the save currently being restored (via the restore error throw) when
- * a value read from the untrusted save file is out of range for this game.  The
- * gs_* accessors only assert their index arguments, which is a no-op under
- * NDEBUG, so without these explicit checks a corrupt save could plant
- * out-of-range room/object/NPC indices that later read or write game-state
- * arrays out of bounds.
- */
-static void
-ser_reject_if (scr_bool out_of_range)
-{
-  if (out_of_range)
-    {
-      scr_error ("ser_reject_if:"
-                 " index out of range at line %ld\n", ser_tasline - 1);
-      throw ser_tas_error_t ();
-    }
 }
 
 /*
@@ -1491,7 +1509,7 @@ ser_load_game_body (scr_gameref_t game,
   /* Restore the rest of the player block, validating untrusted indices. */
   {
     const scr_int playerroom = ser_get_int ();
-    ser_reject_if (playerroom < 0 || playerroom > gs_room_count (new_game));
+    ser_reject_if (playerroom < 1 || playerroom > gs_room_count (new_game));
     gs_set_playerroom (new_game, playerroom - 1);
   }
   {
@@ -1601,6 +1619,26 @@ ser_load_game_body (scr_gameref_t game,
         }
     }
 
+  /*
+   * Each in/on parent was checked above to be an object, but not that the
+   * chain ends: an object inside itself, or two inside each other, sends
+   * every containment walk (obj_indirectly_in_room and friends) into unbounded
+   * recursion.  A chain longer than the object count must revisit an object.
+   * Only dynamic objects had their parent checked, so stop at a static one.
+   */
+  for (index_ = 0; index_ < gs_object_count (new_game); index_++)
+    {
+      scr_int object = index_, steps = 0;
+
+      while (!obj_is_static (new_game, object)
+             && (new_game->objects[object].position == OBJ_IN_OBJECT
+                 || new_game->objects[object].position == OBJ_ON_OBJECT))
+        {
+          ser_reject_if (++steps > gs_object_count (new_game));
+          object = new_game->objects[object].parent;
+        }
+    }
+
   /* Restore tasks information. */
   for (index_ = 0; index_ < gs_task_count (new_game); index_++)
     {
@@ -1616,7 +1654,13 @@ ser_load_game_body (scr_gameref_t game,
       /* Restore first event details. */
       gs_set_event_time (new_game, index_, ser_get_int ());
       task = ser_get_int ();
-      gs_set_event_state (new_game, index_, ser_get_int () + 1);
+      {
+        /* An unknown state would only surface later, as a scr_fatal from
+           evt_tick() that ends the session; refuse the save instead. */
+        const scr_int state = ser_get_int () + 1;
+        ser_reject_if (state < ES_WAITING || state > ES_PAUSED);
+        gs_set_event_state (new_game, index_, state);
+      }
 
       /* Verify and restore the starter task, if any. */
       if (task > 0)
@@ -1722,7 +1766,7 @@ ser_load_game_body (scr_gameref_t game,
           ser_tasline++;
           gs_set_playerstamina (new_game, ser_get_int ());
           gs_set_playerstaminacounter (new_game, ser_get_int ());
-          gs_set_playerwield (new_game, ser_get_int ());
+          gs_set_playerwield (new_game, ser_get_wield (new_game));
           if (is_v2)
             ser_restore_battle_attributes (gs_player_battle (new_game));
           for (index_ = 0; index_ < gs_npc_count (new_game); index_++)
