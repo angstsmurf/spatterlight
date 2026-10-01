@@ -507,6 +507,10 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Update panels
 
 - (void)updatePrefsPanel {
+    // A deleted theme has no context to create styles in, so populateStyles
+    // below would crash on it.
+    if (theme.isDeleted || !theme.managedObjectContext)
+        theme = nil;
     if (!theme) {
         theme = _currentGame.theme;
     }
@@ -1379,6 +1383,18 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 
+    // The current theme may be one of the deleted ones. Pick a built-in theme
+    // to take its place before deleting: a deleted theme loses its context,
+    // and updatePrefsPanel would crash trying to give it new styles.
+    Theme *survivor = theme;
+    if (survivor.editable) {
+        survivor = [self findAncestorThemeOf:survivor];
+        if (!survivor || survivor.editable || ![self themeIsVisible:survivor])
+            survivor = [self defaultAutomodeTheme];
+        if (!survivor)
+            survivor = self.defaultTheme;
+    }
+
     NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
 
     for (Theme *t in fetchedObjects) {
@@ -1389,19 +1405,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
             if (ancestor && !ancestor.editable) {
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
-                if (t == theme) {
-                    NSUInteger row = [arrayController.arrangedObjects indexOfObject:t];
-                    arrayController.selectionIndex = row;
-                }
             }
             [orphanedGames unionSet:t.games];
         }
     }
 
-    [arrayController removeObjects:fetchedObjects];
+    if (pendingSelectionTheme.editable)
+        pendingSelectionTheme = nil;
 
-    [theme addGames:orphanedGames];
-    arrayController.selectedObjects = @[theme];
+    // Removing the selected theme moves the selection to some other row. That
+    // is not a user choice, so it must not be applied to the current game.
+    theme = survivor;
+    ignoreTableSelectionChanges = YES;
+    [arrayController removeObjects:fetchedObjects];
+    ignoreTableSelectionChanges = NO;
+
+    [survivor addGames:orphanedGames];
+    arrayController.selectedObjects = @[survivor];
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
