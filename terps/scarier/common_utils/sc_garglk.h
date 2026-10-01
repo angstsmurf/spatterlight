@@ -19,6 +19,22 @@
 #ifndef SC_GARGOYLE_H
 #define SC_GARGOYLE_H
 
+/* strcasecmp() and strncasecmp() are POSIX, declared in <strings.h>.  MSVC
+   has neither that header nor those names, only _stricmp() and _strnicmp() in
+   <string.h>; MinGW, like every other toolchain, has <strings.h>.  So include
+   this file rather than <strings.h>. */
+#ifdef _MSC_VER
+#include <string.h>
+#ifndef strcasecmp
+#define strcasecmp _stricmp
+#endif
+#ifndef strncasecmp
+#define strncasecmp _strnicmp
+#endif
+#else
+#include <strings.h>
+#endif
+
 #ifdef GARGLK_NEEDS_STRNDUP
 
 #include <stddef.h>

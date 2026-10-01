@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -35,6 +34,9 @@
 #include "a5model.h"
 #include "a5parse.h"   /* a5_correct_command (CorrectCommand) */
 #include "a5util.h"
+
+/* strcasecmp() where the toolchain lacks <strings.h>. */
+#include "../common_utils/sc_garglk.h"
 
 /* ------------------------------------------------------------------ helpers */
 

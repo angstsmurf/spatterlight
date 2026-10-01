@@ -45,7 +45,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 
 #include <algorithm>
 #include <memory>
@@ -63,6 +62,9 @@
 #include "a5sexpr.h"
 #include "a5text.h"
 #include "a5util.h"
+
+/* strcasecmp() where the toolchain lacks <strings.h>. */
+#include "../common_utils/sc_garglk.h"
 
 /* Debug/trace switches, resolved from the environment ONCE.  These sit on hot
    paths -- A5DBG_SPEC is tested per override child per item, A5_TRACE_SETVAR and
