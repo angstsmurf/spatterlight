@@ -807,7 +807,7 @@
     XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     if (themesTab.exists)
         [themesTab click];
-    [app.tables.staticTexts[@"Lectrote Dark"] click];
+    [app.tables.staticTexts[@"Lectrote"] click];
     [app.toolbars.buttons[@"Details"] click];
     [app.checkBoxes[@"Animate scrolling"] click];
     [app.toolbars.buttons[@"Misc"] click];
@@ -1914,7 +1914,9 @@
     [infoWin.buttons[XCUIIdentifierCloseWindow] click];
 
     [textField rightClick];
-    [libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"].menuItems[@"Lectrote Dark"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".menuItems[@\"Apply Theme\"]",".menus.menuItems[@\"Lectrote Dark\"]",".menuItems[@\"Lectrote Dark\"]",".tables[@\"Games\"]"],[[[-1,5,2],[-1,1,2],[-1,0,1]],[[-1,5,2],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0,0]]@END_MENU_TOKEN@*/ click];
+    [libraryWindow.tables[@"Games"].menuItems[@"Lectrote"] click];
+    [textField rightClick];
+    [libraryWindow.tables[@"Games"].menuItems[@"Default"] click];
     [textField rightClick];
     [libraryWindow.tables[@"Games"].menuItems[@"Lectrote"] click];
     [textField rightClick];
@@ -2032,7 +2034,6 @@
     [tables.staticTexts[@"DOSBox"] click];
     [tables.staticTexts[@"Gargoyle"] click];
     [tables.staticTexts[@"Lectrote"] click];
-    [tables.staticTexts[@"Lectrote Dark"] click];
     [tables.staticTexts[@"Montserrat"] click];
     [tables.staticTexts[@"MS-DOS"] click];
     [tables.staticTexts[@"Spatterlight Classic"] click];

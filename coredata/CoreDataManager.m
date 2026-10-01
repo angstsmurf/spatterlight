@@ -306,6 +306,15 @@
         }
     }
 
+    // Pass -SpatterlightStoreFileName on the command line to keep a separate
+    // library, e.g. so UI tests never touch the user's real one.
+    NSString *alternateStoreName = [[NSUserDefaults standardUserDefaults] stringForKey:@"SpatterlightStoreFileName"];
+    if (alternateStoreName.length) {
+        *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:alternateStoreName isDirectory:NO];
+        *needMigrate = NO;
+        return *groupURL;
+    }
+
     *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
 
     NSURL *targetURL = *groupURL;

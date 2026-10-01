@@ -135,8 +135,6 @@
             menuItem.state = NSOffState;
         }
     } else if (action == @selector(applyTheme:)) {
-        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
-            return NO;
         for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
             if ([item.title isEqual:self.game.theme.name])
                 item.state = NSOnState;
