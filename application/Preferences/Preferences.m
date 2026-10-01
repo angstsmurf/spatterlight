@@ -135,6 +135,8 @@
 
 @end
 
+static char SPEffectiveAppearanceContext;
+
 @implementation Preferences
 
 /*
@@ -469,26 +471,33 @@ NSString *fontToString(NSFont *font) {
                                                object:_managedObjectContext];
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    if (@available(macOS 10.14, *))
+        [NSApp addObserver:self forKeyPath:@"effectiveAppearance" options:0 context:&SPEffectiveAppearanceContext];
 }
 
 #pragma mark Color mode changes
 
 
-+ (kAppearanceType)systemAppearance {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleInterfaceStyle"] isEqualToString:@"Dark"])
-        return kDarkAppearance;
-    return kLightAppearance;
+// The system's distributed notification. It can arrive before the new mode
+// is readable, so the check is repeated shortly afterwards; a switch is only
+// announced once, whichever check sees it (see noteAppearanceMayHaveChanged).
+- (void)noteColorModeChanged:(NSNotification *)notification {
+    [Preferences noteAppearanceMayHaveChanged];
+    [Preferences scheduleAppearanceRechecks];
 }
 
-- (void)noteColorModeChanged:(NSNotification *)notification {
-    [Preferences activateThemeSidesInContext:_managedObjectContext];
-    [self syncAppearanceToggleButtons];
-    _themesHeader.stringValue = [self themeScopeTitle];
-    [self updatePrefsPanel];
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+// AppKit's own change of NSApp.effectiveAppearance, which it makes only once
+// the new system mode is in effect. It does not fire while an override pins
+// the app's appearance; the distributed notification covers that case.
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if (context == &SPEffectiveAppearanceContext) {
+        [Preferences noteAppearanceMayHaveChanged];
+        return;
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 

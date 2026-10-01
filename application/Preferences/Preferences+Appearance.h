@@ -16,8 +16,17 @@ extern NSString * const SpatterlightAppearanceOverrideKey;
 + (void)setAppearanceOverride:(nullable NSString *)override;
 + (void)applyAppearanceOverrideToApp;
 
-/// Override if set, else system appearance.
+/// The system's appearance, whatever the override. Cached until the next switch.
++ (kAppearanceType)systemAppearance;
+/// Override if set, else system appearance. Cached until the next switch.
 + (kAppearanceType)resolvedAppearance;
+
+/// Re-reads the system appearance, and announces a switch if the resolved one changed.
++ (void)noteAppearanceMayHaveChanged;
+/// Runs noteAppearanceMayHaveChanged again shortly, for a notification that may arrive early.
++ (void)scheduleAppearanceRechecks;
+
+- (void)appearanceDidChange;
 
 /// Run once when moving to light and dark theme sides. Returns YES if the
 /// built-in themes must be rebuilt.

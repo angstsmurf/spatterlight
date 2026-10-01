@@ -61,7 +61,6 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 + (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;
 
-+ (kAppearanceType)systemAppearance;
 /// Override if set, else system. Used for theme light/dark color resolution.
 + (kAppearanceType)resolvedAppearance;
 
