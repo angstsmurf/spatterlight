@@ -2779,7 +2779,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
 #pragma mark Fabulich mode
 
 - (IBAction)toggleFabulichMode:(id)sender {
-    BOOL on = ![Preferences fabulichMode];
+    [self setFabulichModeEnabled:![Preferences fabulichMode]];
+}
+
+- (void)setFabulichModeEnabled:(BOOL)on {
+    if (on == [Preferences fabulichMode])
+        return;
     [Preferences setFabulichMode:on];
     // Each visit to Fabulich mode starts out following the system.
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:SpatterlightAppearanceOverrideKey];

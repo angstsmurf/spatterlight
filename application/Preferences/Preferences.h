@@ -157,6 +157,8 @@ typedef NS_ENUM(NSUInteger, kAppearanceType) {
 @property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
 
 @property (weak) IBOutlet NSButton *btnFabulichMode;
+/// Enters or leaves Fabulich mode, as the button in the Global panel does.
+- (void)setFabulichModeEnabled:(BOOL)on;
 
 @property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;

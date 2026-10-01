@@ -22,6 +22,8 @@
 #import "Metadatahandler.h"
 #import "Game.h"
 #import "Theme.h"
+#import "Preferences.h"
+#import "Preferences+Appearance.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -554,6 +556,35 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     NSWindow.allowsAutomaticWindowTabbing = NO;
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    // Let the windows restored at launch appear before asking.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self offerFabulichModeIfNeeded];
+    });
+}
+
+// Asks once, on first launch, whether to enter Fabulich mode.
+- (void)offerFabulichModeIfNeeded {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"HasOfferedFabulichMode"])
+        return;
+    // A modal alert would block the unit tests, which run inside the app.
+    if (NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"])
+        return;
+    [defaults setBool:YES forKey:@"HasOfferedFabulichMode"];
+    if ([Preferences fabulichMode])
+        return;
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = NSLocalizedString(@"Do you want to enter Fabulich mode?", nil);
+    alert.informativeText = NSLocalizedString(@"In Fabulich mode, themes get a dark mode, and can switch between light and dark to match the system. Spatterlight also gets its own light/dark switch in the settings window.\n\nYou can enter or leave Fabulich mode at any time in the Global panel of the settings.", nil);
+    [alert addButtonWithTitle:NSLocalizedString(@"Enter Fabulich Mode", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Not Now", nil)];
+
+    if ([alert runModal] == NSAlertFirstButtonReturn)
+        [_prefctl setFabulichModeEnabled:YES];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
