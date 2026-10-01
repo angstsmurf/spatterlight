@@ -1288,9 +1288,13 @@ parse_read_multiline (void)
   multiline.reset ((scr_char *) scr_malloc (used + 1));
   memcpy (multiline.get (), line, used + 1);
 
-  /* Now concatenate until separator found. */
+  /*
+   * Now concatenate until separator found.  The separator carries its own
+   * terminator, so compare as strings: a three-byte memcmp() of an empty last
+   * line reads one byte past the end of its slab.
+   */
   line = parse_get_taf_string ();
-  while (memcmp (line, separator, SEPARATOR_SIZE) != 0)
+  while (strcmp (line, (const scr_char *) separator) != 0)
     {
       /* Room for what is there, a newline, this line, and the terminator. */
       size_t size = used + strlen (line) + 2;

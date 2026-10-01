@@ -38,7 +38,13 @@
 
 
 /* Assorted definitions and constants. */
-enum { MAX_NESTING_DEPTH = 32 };
+/*
+ * Bounds on the values stack and on factor nesting -- each nested '(' or
+ * unary sign is one factor level, and each can leave a value pending on the
+ * stack.  An expression past either is reported as a parse error, like any
+ * other malformed expression, rather than ending the game.
+ */
+enum { MAX_NESTING_DEPTH = 256 };
 static const scr_char NUL = '\0';
 static const scr_char PERCENT = '%';
 static const scr_char SINGLE_QUOTE = '\'';
@@ -479,6 +485,9 @@ typedef struct
   scr_vartype_t value;
 } scr_stack_t;
 static scr_stack_t expr_eval_stack[MAX_NESTING_DEPTH];
+
+/* Parse error jump buffer. */
+static jmp_buf expr_parse_error;
 static scr_int expr_eval_stack_index = 0;
 
 /* Variables set to reference for %...% values. */
@@ -538,7 +547,10 @@ static void
 expr_eval_push_integer (scr_int value)
 {
   if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
-    scr_fatal ("expr_eval_push_integer: stack overflow\n");
+    {
+      scr_error ("expr_eval_push_integer: stack overflow\n");
+      scr_longjmp (expr_parse_error, 1);
+    }
 
   expr_eval_stack[expr_eval_stack_index].is_collectible = FALSE;
   expr_eval_stack[expr_eval_stack_index++].value.integer = value;
@@ -550,7 +562,10 @@ expr_eval_push_string (const scr_char *value)
   scr_char *value_copy;
 
   if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
-    scr_fatal ("expr_eval_push_string: stack overflow\n");
+    {
+      scr_error ("expr_eval_push_string: stack overflow\n");
+      scr_longjmp (expr_parse_error, 1);
+    }
 
   /* Push a copy of value. */
   value_copy = (decltype(value_copy)) scr_malloc (strlen (value) + 1);
@@ -563,7 +578,10 @@ static void
 expr_eval_push_alloced_string (scr_char *value)
 {
   if (expr_eval_stack_index >= MAX_NESTING_DEPTH)
-    scr_fatal ("expr_eval_push_alloced_string: stack overflow\n");
+    {
+      scr_error ("expr_eval_push_alloced_string: stack overflow\n");
+      scr_longjmp (expr_parse_error, 1);
+    }
 
   expr_eval_stack[expr_eval_stack_index].is_collectible = TRUE;
   expr_eval_stack[expr_eval_stack_index++].value.mutable_string = value;
@@ -617,6 +635,41 @@ expr_eval_result (scr_vartype_t *vt_rvalue)
 
 
 /*
+ * expr_eval_add()
+ * expr_eval_subtract()
+ * expr_eval_multiply()
+ * expr_eval_negate()
+ *
+ * Integer arithmetic that wraps on overflow, done in the unsigned domain
+ * because signed overflow is undefined behaviour and game data can hold any
+ * value.
+ */
+static scr_int
+expr_eval_add (scr_int left, scr_int right)
+{
+  return (scr_int) ((scr_uint) left + (scr_uint) right);
+}
+
+static scr_int
+expr_eval_subtract (scr_int left, scr_int right)
+{
+  return (scr_int) ((scr_uint) left - (scr_uint) right);
+}
+
+static scr_int
+expr_eval_multiply (scr_int left, scr_int right)
+{
+  return (scr_int) ((scr_uint) left * (scr_uint) right);
+}
+
+static scr_int
+expr_eval_negate (scr_int value)
+{
+  return (scr_int) (0 - (scr_uint) value);
+}
+
+
+/*
  * expr_eval_abs()
  *
  * Return the absolute value of the given scr_int.  Replacement for labs(),
@@ -625,12 +678,9 @@ expr_eval_result (scr_vartype_t *vt_rvalue)
 static scr_int
 expr_eval_abs (scr_int value)
 {
-  return value < 0 ? -value : value;
+  return value < 0 ? expr_eval_negate (value) : value;
 }
 
-
-/* Parse error jump buffer. */
-static jmp_buf expr_parse_error;
 
 /*
  * expr_eval_push_value()
@@ -845,7 +895,7 @@ expr_eval_numeric_operator (scr_int token)
   switch (token)
     {
     case TOK_UMINUS:
-      expr_eval_push_integer (-(expr_eval_pop_integer ()));
+      expr_eval_push_integer (expr_eval_negate (expr_eval_pop_integer ()));
       break;
 
     case TOK_UPLUS:
@@ -878,13 +928,13 @@ expr_eval_numeric_operator (scr_int token)
         switch (token)
           {
           case TOK_ADD:
-            result = val1 + val2;
+            result = expr_eval_add (val1, val2);
             break;
           case TOK_SUBTRACT:
-            result = val1 - val2;
+            result = expr_eval_subtract (val1, val2);
             break;
           case TOK_MULTIPLY:
-            result = val1 * val2;
+            result = expr_eval_multiply (val1, val2);
             break;
           case TOK_AND:
             result = val1 && val2;
@@ -941,7 +991,8 @@ expr_eval_division (scr_int token)
     case TOK_DIVIDE:
     case TOK_MOD:
       {
-        scr_int val1, val2, x, y, result = 0;
+        scr_int val1, val2, result = 0;
+        scr_uint x, y, quotient, remainder;
 
         /* Extract the two values to work on, complain about division by 0. */
         val2 = expr_eval_pop_integer ();
@@ -957,10 +1008,13 @@ expr_eval_division (scr_int token)
          * ANSI/ISO C only defines integer division for positive values.
          * Negative values usually work consistently across platforms, but are
          * not guaranteed.  For maximum portability, then, here we'll work
-         * carefully with positive integers only.
+         * carefully with positive integers only -- unsigned magnitudes, so
+         * that the most negative value has one too.
          */
-        x = expr_eval_abs (val1);
-        y = expr_eval_abs (val2);
+        x = val1 < 0 ? 0 - (scr_uint) val1 : (scr_uint) val1;
+        y = val2 < 0 ? 0 - (scr_uint) val2 : (scr_uint) val2;
+        quotient = x / y;
+        remainder = x % y;
 
         /* Generate the result value. */
         switch (token)
@@ -971,9 +1025,12 @@ expr_eval_division (scr_int token)
              * point, then applying (asymmetrical) rounding, so we have to do
              * the same here.
              */
-            result = ((val1 < 0) == (val2 < 0))
-                     ?  ((x / y) + (((x % y) * 2 >= y) ? 1 : 0))
-                     : -((x / y) + (((x % y) * 2 >  y) ? 1 : 0));
+            if ((val1 < 0) == (val2 < 0))
+              result = (scr_int) (quotient
+                                  + (remainder >= y - remainder ? 1 : 0));
+            else
+              result = expr_eval_negate ((scr_int) (quotient
+                                  + (remainder > y - remainder ? 1 : 0)));
             break;
 
           case TOK_MOD:
@@ -982,7 +1039,8 @@ expr_eval_division (scr_int token)
              * conventional (non-rounded), way, so that A=(AdivB)*B+AmodB
              * does not hold.
              */
-            result = (val1 < 0) ? -(x % y) : (x % y);
+            result = (val1 < 0) ? expr_eval_negate ((scr_int) remainder)
+                                : (scr_int) remainder;
             break;
 
           default:
@@ -1027,7 +1085,7 @@ expr_eval_power (void)
       else if (val1 == 1)
         result = val1;
       else if (val1 == -1)
-        result = (-val2 & 1) ? val1 : -val1;
+        result = (val2 & 1) ? val1 : -val1;
       else
         result = 0;
     }
@@ -1036,7 +1094,7 @@ expr_eval_power (void)
       /* Raise to positive powers using the Russian Peasant algorithm. */
       while ((val2 & 1) == 0)
         {
-          val1 = val1 * val1;
+          val1 = expr_eval_multiply (val1, val1);
           val2 >>= 1;
         }
 
@@ -1044,9 +1102,9 @@ expr_eval_power (void)
       val2 >>= 1;
       while (val2 > 0)
         {
-          val1 = val1 * val1;
+          val1 = expr_eval_multiply (val1, val1);
           if (val2 & 1)
-            result = result * val1;
+            result = expr_eval_multiply (result, val1);
           val2 >>= 1;
         }
     }
@@ -1484,6 +1542,27 @@ expr_parse_variable_factor (const scr_char *caller, scr_int want,
 
 
 /*
+ * expr_parse_enter()
+ *
+ * Count a factor level on the way in, and fail the parse past the limit, so
+ * that a run of '(' or unary signs cannot recurse without bound.  The
+ * factor parsers count back down on the way out; a parse error skips that,
+ * but every evaluation resets the count.
+ */
+static scr_int expr_parse_depth = 0;
+
+static void
+expr_parse_enter (void)
+{
+  if (++expr_parse_depth > MAX_NESTING_DEPTH)
+    {
+      scr_error ("expr_parse: expression nested too deeply\n");
+      scr_longjmp (expr_parse_error, 1);
+    }
+}
+
+
+/*
  * expr_parse_numeric_factor()
  *
  * Parse a numeric expression factor.
@@ -1491,6 +1570,8 @@ expr_parse_variable_factor (const scr_char *caller, scr_int want,
 static void
 expr_parse_numeric_factor (void)
 {
+  expr_parse_enter ();
+
   /* Handle factors based on lookahead token. */
   switch (expr_parse_lookahead)
     {
@@ -1625,6 +1706,8 @@ expr_parse_numeric_factor (void)
                 " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
       scr_longjmp (expr_parse_error, 1);
     }
+
+  expr_parse_depth--;
 }
 
 
@@ -1659,6 +1742,8 @@ expr_parse_string_expr (void)
 static void
 expr_parse_string_factor (void)
 {
+  expr_parse_enter ();
+
   /* Handle factors based on lookahead token. */
   switch (expr_parse_lookahead)
     {
@@ -1746,6 +1831,8 @@ expr_parse_string_factor (void)
                 " syntax error, unexpected token, %ld\n", expr_parse_lookahead);
       scr_longjmp (expr_parse_error, 1);
     }
+
+  expr_parse_depth--;
 }
 
 
@@ -1767,6 +1854,7 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
   const expr_tokenize_guard tokenizer (expression);
 
   /* Try parsing an expression, and catch errors. */
+  expr_parse_depth = 0;
   if (scr_setjmp (expr_parse_error) == 0)
     {
       /* Parse an expression, and ensure it ends at string end. */

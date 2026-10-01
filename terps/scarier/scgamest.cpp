@@ -1531,6 +1531,26 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
       gs_set_object_unmoved (game, index_, unmoved);
       gs_set_object_static_unmoved (game, index_, TRUE);
     }
+
+  /*
+   * An object whose #InitialPosition puts it inside or on itself, directly
+   * or round a loop of containers, sends every containment walk into
+   * unbounded recursion on the first turn.  The movers above only check the
+   * container index, so look for the loop here: a chain longer than the
+   * object count must revisit an object.
+   */
+  for (index_ = 0; index_ < game->object_count; index_++)
+    {
+      scr_int object = index_, steps = 0;
+
+      while (game->objects[object].position == OBJ_IN_OBJECT
+             || game->objects[object].position == OBJ_ON_OBJECT)
+        {
+          if (++steps > game->object_count)
+            scr_fatal ("gs_create: object %ld is inside itself\n", index_);
+          object = game->objects[object].parent;
+        }
+    }
 }
 
 
@@ -1662,6 +1682,11 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
   vt_key[0].string = "Header";
   vt_key[1].string = "StartRoom";
   game->playerroom = prop_get_integer (bundle, "I<-ss", vt_key);
+
+  /* The start room indexes the rooms array from the first turn on. */
+  if (game->playerroom < 0 || game->playerroom >= game->room_count)
+    scr_fatal ("gs_create: start room out of range, %ld\n",
+               game->playerroom);
   vt_key[0].string = "Globals";
   vt_key[1].string = "Position";
   game->playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
@@ -1874,8 +1899,14 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->stop_sound = FALSE;
   game->sound_active = FALSE;
 
-  /* Initialize wait turns from game properties. */
+  /*
+   * Initialize wait turns from game properties.  A negative count would set
+   * a wait counter the main loop never brings back to zero, so it would run
+   * turns forever without reading input; treat it as no wait.
+   */
   game->waitturns = prop_get_global_integer (bundle, "WaitTurns");
+  if (game->waitturns < 0)
+    game->waitturns = 0;
 
   /* Non-game conveniences. */
   game->is_running = FALSE;

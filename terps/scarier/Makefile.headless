@@ -110,6 +110,12 @@ CORRUPT_BIN     := test/adrift4/harness/corrupt_test_hl
 QUIT_HARNESS := test/adrift4/harness/quit_test.cpp
 QUIT_BIN     := test/adrift4/harness/quit_test_hl
 
+# The expression/pattern harness feeds hostile expressions and task patterns
+# to scexpr.cpp and scparser.cpp; any game serves for the variables set, so it
+# borrows the precedence .taf.
+EXPR_HARNESS := test/adrift4/harness/expr_test.cpp
+EXPR_BIN     := test/adrift4/harness/expr_test_hl
+
 # ADRIFT 5 (Phases 0-1): container + de-obfuscation + zlib inflate -> XML, then
 # an in-situ XML DOM parser -> typed object model.  Self-contained at the
 # "container edge" -- links no interpreter sources.
@@ -209,7 +215,7 @@ V4_GAMES_DIR ?= test/adrift4/games
 SUITE_STAGES := unittest vendorcheck capacitytest wheretest gamescheck a5runtest \
                 v4walkthroughs a5maptest scprojregress a5walkthroughs-golden
 
-UNIT_BINS := $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5PARSE_BIN) \
+UNIT_BINS := $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5PARSE_BIN) \
              $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN)
 SUITE_BINS := $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_BIN) $(CAP_TAF) $(WHERE_TAF) \
               $(A5RUN_BIN) $(A5MAP_BIN) $(SCPROJ_BIN) \
@@ -236,6 +242,7 @@ unittest: $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF)
 	./$(BADP_BIN) $(BADP_TAF)
 	./$(CORRUPT_BIN)
 	./$(QUIT_BIN) $(PREC_TAF)
+	./$(EXPR_BIN) $(PREC_TAF)
 	./$(A5PARSE_BIN)
 	./$(A5SEXPR_BIN)
 	./$(A5DIS_BIN)
@@ -380,6 +387,8 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
 	$(SAN_ENV) ./$(CORRUPT_BIN)_san
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(EXPR_HARNESS) $(LDLIBS) -o $(EXPR_BIN)_san
+	$(SAN_ENV) ./$(EXPR_BIN)_san $(PREC_TAF)
 	$(MAKE) -f Makefile.headless $(CAP_TAF)
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) os_ansi.cpp \
 	    test/adrift4/harness/seed.cpp $(LDLIBS) -o $(CAP_BIN)_san
@@ -423,6 +432,9 @@ $(CORRUPT_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(CORRUPT_HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
 
 $(QUIT_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(QUIT_HARNESS))
+	$(CXX) $^ $(LDLIBS) -o $@
+
+$(EXPR_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(EXPR_HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
 
 # Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
@@ -613,7 +625,7 @@ $(BADP_TAF): test/adrift4/harness/make_badparent_taf.py
 
 clean:
 	rm -rf $(OBJDIR)
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN) $(A5MAP_BIN) $(SCMAP_BIN) $(A5_RAND_OBJ) $(CAP_BIN) $(SCARE_BIN) $(SCPROJ_BIN)
-	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(A5DUP_BIN)_san $(CAP_BIN)_san $(SAN_RAND_OBJ)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN) $(A5MAP_BIN) $(SCMAP_BIN) $(A5_RAND_OBJ) $(CAP_BIN) $(SCARE_BIN) $(SCPROJ_BIN)
+	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(EXPR_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(A5DUP_BIN)_san $(CAP_BIN)_san $(SAN_RAND_OBJ)
 
 -include $(shell find $(OBJDIR) -name '*.d' 2>/dev/null)

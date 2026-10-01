@@ -413,7 +413,17 @@ uip_next_token (void)
    * Return a word.  This is a contiguous run of non-pattern-special, non-
    * whitespace, non-percent characters
    */
-  sscanf (uip_pattern + uip_index, "%[^][/{}*% \f\n\r\t\v]", uip_temporary);
+  if (sscanf (uip_pattern + uip_index, "%[^][/{}*% \f\n\r\t\v]",
+              uip_temporary) != 1)
+    {
+      /*
+       * A '%' that opens no %var% (a trailing "50%", an unclosed "%foo").
+       * The scan above matched nothing and left the previous token in the
+       * buffer, so take the '%' as a one-character word instead.
+       */
+      uip_temporary[0] = uip_pattern[uip_index];
+      uip_temporary[1] = NUL;
+    }
   uip_token_value = uip_temporary;
   uip_index += strlen (uip_temporary);
   return TOK_WORD;

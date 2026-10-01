@@ -66,8 +66,13 @@ lib_save_object_references (scr_gameref_t game, scr_bool buffer[], scr_int lengt
   available = length * sizeof (buffer[0]);
   references = required > available ? (decltype(+buffer)) scr_malloc (required) : buffer;
 
-  /* Copy over references from the game, and return the saved copy. */
-  memcpy (references, game->object_references.data (), required);
+  /*
+   * Copy over references from the game, and return the saved copy.  A game
+   * with no objects has an empty vector whose data() may be NULL, and memcpy
+   * must not be handed NULL even for zero bytes.
+   */
+  if (required > 0)
+    memcpy (references, game->object_references.data (), required);
   return references;
 }
 
@@ -78,7 +83,8 @@ lib_restore_object_references (scr_gameref_t game, const scr_bool references[])
 
   /* Calculate the bytes in the references array, and copy back to the game. */
   bytes = gs_object_count (game) * sizeof (references[0]);
-  memcpy (game->object_references.data (), references, bytes);
+  if (bytes > 0)
+    memcpy (game->object_references.data (), references, bytes);
 }
 
 
