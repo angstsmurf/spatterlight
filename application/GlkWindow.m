@@ -139,6 +139,43 @@
     return newArray;
 }
 
+// The window's hints for a style, with any color the game read from the
+// theme on the other light/dark side (glk_style_measure) translated to its
+// value now; see GlkController currentValueForMeasuredColor:.
+- (NSArray *)effectiveHintsForStyle:(NSUInteger)style {
+    NSArray *hints = self.styleHints[style];
+    GlkController *glkctl = self.glkctl;
+    if (!glkctl.measuredColorAnswers.count || hints.count <= stylehint_BackColor)
+        return hints;
+
+    NSMutableArray *translated = nil;
+    for (NSNumber *hint in @[ @(stylehint_TextColor), @(stylehint_BackColor) ]) {
+        id value = hints[hint.unsignedIntegerValue];
+        if ([value isEqual:[NSNull null]])
+            continue;
+        NSInteger old = ((NSNumber *)value).integerValue;
+        NSInteger now = [glkctl currentValueForMeasuredColor:old];
+        if (now != old) {
+            if (!translated)
+                translated = [hints mutableCopy];
+            translated[hint.unsignedIntegerValue] = @(now);
+        }
+    }
+    return translated ?: hints;
+}
+
+// Likewise for Z-machine colors the game set from measured values.
+- (ZColor *)translatedZColor:(ZColor *)zcolor {
+    GlkController *glkctl = self.glkctl;
+    if (!zcolor || !glkctl.measuredColorAnswers.count)
+        return zcolor;
+    NSInteger fg = [glkctl currentValueForMeasuredColor:zcolor.fg];
+    NSInteger bg = [glkctl currentValueForMeasuredColor:zcolor.bg];
+    if (fg == zcolor.fg && bg == zcolor.bg)
+        return zcolor;
+    return [[ZColor alloc] initWithText:fg background:bg];
+}
+
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
               value:(NSInteger *)value {
@@ -188,7 +225,7 @@
         if (!style)
             return nil;
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
-            return [style attributesWithHints:self.styleHints[stylevalue]];
+            return [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
         return style.attributeDict;
     }
 
@@ -211,7 +248,7 @@
         if (!style)
             return nil;
         if (self.theme.doStyles && self.styleHints.count > stylevalue)
-            styles[stylevalue] = [style attributesWithHints:self.styleHints[stylevalue]];
+            styles[stylevalue] = [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
         else
             styles[stylevalue] = style.attributeDict;
     }
@@ -225,11 +262,12 @@
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
+            ZColor *zcolor = [self translatedZColor:currentZColor];
             if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                 // If the style has reverseColor hint set, we apply the zcolors in reverse
-                attributes = [currentZColor reversedAttributes:attributes];
+                attributes = [zcolor reversedAttributes:attributes];
             } else {
-                attributes = [currentZColor coloredAttributes:attributes];
+                attributes = [zcolor coloredAttributes:attributes];
             }
         }
     }
@@ -399,7 +437,7 @@
             if (!value) {
                 return;
             }
-            ZColor *z = value;
+            ZColor *z = [weakSelf translatedZColor:value];
             [attStr
              enumerateAttributesInRange:range
              options:0

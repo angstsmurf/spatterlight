@@ -213,6 +213,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     _ignoreResizes = YES;
 
+    // A restarted game measures its colors again.
+    _measuredColorAnswers = nil;
+
     skipNextScriptCommand = NO;
 
     _game = game_;
