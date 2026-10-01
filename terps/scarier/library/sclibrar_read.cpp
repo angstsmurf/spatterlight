@@ -170,7 +170,7 @@ lib_read_object (scr_gameref_t game, scr_int object)
   task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
 
   /* Select either the main or the alternate description. */
-  if (task >= 0 && gs_task_done (game, task))
+  if (gs_task_valid (game, task) && gs_task_done (game, task))
     vt_key[2].string = "AltDesc";
   else
     vt_key[2].string = "Description";

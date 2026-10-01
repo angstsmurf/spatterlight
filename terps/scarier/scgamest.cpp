@@ -279,6 +279,54 @@ gs_in_range (scr_int value, scr_int limit)
 
 
 /*
+ * gs_event_valid()
+ * gs_room_valid()
+ * gs_task_valid()
+ * gs_object_valid()
+ * gs_npc_valid()
+ *
+ * Range checks for a 0-based index read from the game file.  A TAF can name
+ * any number in a task, room, object or NPC reference, and the accessors
+ * below only assert their indices, so callers holding a file-derived index
+ * test it here first and treat an out-of-range one as no reference at all.
+ */
+scr_bool
+gs_event_valid (scr_gameref_t gs, scr_int event)
+{
+  assert (gs_is_game_valid (gs));
+  return gs_in_range (event, gs->event_count);
+}
+
+scr_bool
+gs_room_valid (scr_gameref_t gs, scr_int room)
+{
+  assert (gs_is_game_valid (gs));
+  return gs_in_range (room, gs->room_count);
+}
+
+scr_bool
+gs_task_valid (scr_gameref_t gs, scr_int task)
+{
+  assert (gs_is_game_valid (gs));
+  return gs_in_range (task, gs->task_count);
+}
+
+scr_bool
+gs_object_valid (scr_gameref_t gs, scr_int object)
+{
+  assert (gs_is_game_valid (gs));
+  return gs_in_range (object, gs->object_count);
+}
+
+scr_bool
+gs_npc_valid (scr_gameref_t gs, scr_int npc)
+{
+  assert (gs_is_game_valid (gs));
+  return gs_in_range (npc, gs->npc_count);
+}
+
+
+/*
  * gs_*()
  *
  * Game accessors and mutators.
@@ -1447,8 +1495,12 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
 
               game->objects[index_].position = OBJ_PART_NPC;
 
+              /* Parent 0 is the player; a nonexistent NPC reads as 0 too,
+                 as obj_static_in_room() does. */
               vt_key[2].string = "Parent";
               parent = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+              if (parent < 0 || parent >= game->npc_count)
+                parent = -1;
               game->objects[index_].parent = parent;
               game->objects[index_].runner_parent = -1;
             }
@@ -1640,7 +1692,7 @@ gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
   /* Set up initial NPCs states. */
   for (index_ = 0; index_ < game->npc_count; index_++)
     {
-      scr_int walk, walkstep_count;
+      scr_int walk, walkstep_count, startroom;
 
       gs_set_npc_position (game, index_, 0);
       gs_set_npc_parent (game, index_, -1);
@@ -1652,9 +1704,12 @@ gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
 
       vt_key[1].integer = index_;
 
+      /* StartRoom 0 is nowhere, n room n-1; a nonexistent room is nowhere. */
       vt_key[2].string = "StartRoom";
-      gs_set_npc_location (game, index_,
-                           prop_get_integer (bundle, "I<-sis", vt_key));
+      startroom = prop_get_integer (bundle, "I<-sis", vt_key);
+      if (startroom < 0 || startroom > game->room_count)
+        startroom = 0;
+      gs_set_npc_location (game, index_, startroom);
 
       vt_key[2].string = "Walks";
       walkstep_count = prop_get_child_count (bundle, "I<-sis", vt_key);

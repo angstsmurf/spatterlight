@@ -16,8 +16,12 @@ This game has one room, one NPC, and three dynamic objects:
   * "coin"   -- InitialPosition "in container", Parent -1 -> bad container
   * "ring"   -- InitialPosition "held", Parent 1  -> held by the real NPC (sane)
 
+The player's and the NPC's alternate descriptions name task 99, which does not
+exist (the game has no tasks); examining either must not read past the tasks.
+
 The test loads the game (which runs the first turn-update) and checks it does
-not crash, that the two bad objects are hidden, and that the good one is not.
+not crash, that the two bad objects are hidden, and that the good one is not,
+then examines the player and the guard.
 
 Run:  python3 make_badparent_taf.py badparent_test.taf
 """
@@ -46,7 +50,7 @@ s(1)                                        # DispFirstRoom
 s(0)                                        # BattleSystem OFF
 s(0)                                        # MaxScore
 s("Player"); s(0); s("A tester.")            # PlayerName, PromptName, PlayerDesc
-s(0)                                        # Task (==0 -> no AltDesc)
+s(99); s("ALT SELF")                        # Task 99 (nonexistent), AltDesc
 s(0); s(0); s(0)                            # Position, ParentObject, PlayerGender
 s(100); s(100)                             # MaxSize, MaxWt
 s(0)                                        # EightPointCompass (-> 8 exits)
@@ -110,8 +114,8 @@ s("a")                                      # Prefix
 s(0)                                        # V$Alias count
 s("A test guard.")                           # Descr
 s(1)                                        # StartRoom (1 = room 0)
-s("")                                       # AltText
-s(0)                                        # Task
+s("ALT GUARD")                              # AltText
+s(99)                                       # Task 99 (nonexistent)
 s(0)                                        # V<TOPIC> count
 s(0)                                        # V<WALK> count
 s(0)                                        # BShowEnterExit (-> no Enter/Exit)

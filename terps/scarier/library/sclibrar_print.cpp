@@ -122,7 +122,7 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
 
         vt_key[4].string = "Var2";
         var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-        if (var2 == 0)          /* No task. */
+        if (!gs_task_valid (game, var2 - 1))     /* No task. */
           retval = TRUE;
         else
           {
@@ -211,26 +211,33 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
                     : obj_is_static (game, 0)))
               object = 0;
             else
-              {
-                switch (var2)
-                  {
-                  case 0: case 2: case 4:
-                    retval = TRUE;
-                    break;
-                  case 1: case 3: case 5:
-                    retval = FALSE;
-                    break;
-                  default:
-                    scr_fatal ("lib_use_room_alt:"
-                              " invalid player condition, %ld\n", var2);
-                  }
-                break;
-              }
+              object = -1;
           }
         else if (var2 == 2 || var2 == 3)
           object = obj_wearable_object (game, var3 - 1);
         else
           object = obj_dynamic_object (game, var3 - 1);
+
+        /*
+         * No object to test -- Var3 = 0 as above, or a Var3 naming no
+         * object at all (negative, or an empty list), read the same way.
+         */
+        if (object < 0)
+          {
+            switch (var2)
+              {
+              case 0: case 2: case 4:
+                retval = TRUE;
+                break;
+              case 1: case 3: case 5:
+                retval = FALSE;
+                break;
+              default:
+                scr_fatal ("lib_use_room_alt:"
+                          " invalid player condition, %ld\n", var2);
+              }
+            break;
+          }
 
         switch (var2)
           {

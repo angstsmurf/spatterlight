@@ -79,7 +79,7 @@ lib_cmd_examine_self (scr_gameref_t game)
   task = prop_get_integer (bundle, "I<-ss", vt_key) - 1;
 
   /* Select either the main or the alternate description. */
-  if (task >= 0 && gs_task_done (game, task))
+  if (gs_task_valid (game, task) && gs_task_done (game, task))
     vt_key[1].string = "AltDesc";
   else
     vt_key[1].string = "PlayerDesc";
@@ -575,7 +575,7 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
   task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
 
   /* Select either the main or the alternate description. */
-  if (task >= 0 && gs_task_done (game, task))
+  if (gs_task_valid (game, task) && gs_task_done (game, task))
     {
       vt_key[2].string = "AltText";
       resource = 1;
@@ -1709,7 +1709,7 @@ lib_cmd_examine_object (scr_gameref_t game)
       should_be = !prop_get_boolean (bundle, "B<-sis", vt_key);
 
       /* Select either the main or the alternate description. */
-      if (task >= 0 && gs_task_done (game, task) == should_be)
+      if (gs_task_valid (game, task) && gs_task_done (game, task) == should_be)
         {
           vt_key[2].string = "AltDesc";
           resource = "Res2";

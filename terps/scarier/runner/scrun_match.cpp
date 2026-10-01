@@ -2595,9 +2595,14 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
 scr_bool
 run_task_run_by_index (scr_gameref_t game, scr_int task)
 {
+  scr_int command;
+
+  /* An "execute task" action or event naming no task runs nothing. */
+  if (!gs_task_valid (game, task))
+    return FALSE;
+
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, TRUE);
-  scr_int command;
 
   /*
    * Sub_20_22 hands every one of its tasks to execute_task with mode 1
@@ -2665,6 +2670,9 @@ void
 run_npc_walk_task (scr_gameref_t game, scr_int walktask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (!gs_task_valid (game, walktask))
+    return;
 
   if (run_get_version (bundle) < TAF_VERSION_400)
     run_task_command_dispatch (game, walktask);
@@ -2850,7 +2858,8 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 void
 run_event_task (scr_gameref_t game, scr_int eventtask)
 {
-  run_task_command_dispatch (game, eventtask);
+  if (gs_task_valid (game, eventtask))
+    run_task_command_dispatch (game, eventtask);
 }
 
 

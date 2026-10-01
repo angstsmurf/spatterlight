@@ -2533,6 +2533,10 @@ parse_fixup_v380_wear_restr (scr_int wearobj, const scr_char *failmessage)
                 wearobj--;
             }
         }
+
+      /* No such wearable object: no restriction, as for none selected. */
+      if (wearobj > 0)
+        return;
       obj_index = object - 1;
 
       /* Now convert wearobj from object index to dynamic index. */
@@ -2845,6 +2849,13 @@ parse_fixup_v380_initial_positions (scr_bool is_v370)
                 count--;
             }
           parent--;
+
+          /*
+           * Past the last container or surface: leave Parent as it is, out
+           * of range for version 4.0 too, so it names no parent.
+           */
+          if (count >= 0)
+            continue;
 
           /* If parent is a surface, adjust position. */
           if (object_type[parent] == V380_OBJ_IS_SURFACE)
@@ -3573,9 +3584,11 @@ static void
 parse_add_walkalerts (scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[5];
-  scr_int npcs_count, npc;
+  scr_int npcs_count, npc, task_count;
 
-  /* Get the count of NPCs. */
+  /* Get the count of tasks, and of NPCs. */
+  vt_key[0].string = "Tasks";
+  task_count = prop_get_child_count (bundle, "I<-s", vt_key);
   vt_key[0].string = "NPCs";
   npcs_count = prop_get_child_count (bundle, "I<-s", vt_key);
 
@@ -3593,11 +3606,14 @@ parse_add_walkalerts (scr_prop_setref_t bundle)
         {
           scr_int starttask;
 
-          /* Get start task of walk. */
+          /*
+           * Get start task of walk.  One beyond the tasks starts no walk;
+           * putting an alert under it would invent a task.
+           */
           vt_key[3].integer = walk;
           vt_key[4].string = "StartTask";
           starttask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-          if (starttask >= 0)
+          if (starttask >= 0 && starttask < task_count)
             {
               scr_vartype_t vt_key2[4], vt_value;
               scr_int count;

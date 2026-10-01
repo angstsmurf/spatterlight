@@ -481,6 +481,11 @@ extern void memo_clear_commands (scr_memo_setref_t memento);
 extern scr_gameref_t gs_create (scr_var_setref_t vars, scr_prop_setref_t bundle,
                                scr_filterref_t filter);
 extern scr_bool gs_is_game_valid (scr_gameref_t game);
+extern scr_bool gs_event_valid (scr_gameref_t gs, scr_int event);
+extern scr_bool gs_room_valid (scr_gameref_t gs, scr_int room);
+extern scr_bool gs_task_valid (scr_gameref_t gs, scr_int task);
+extern scr_bool gs_object_valid (scr_gameref_t gs, scr_int object);
+extern scr_bool gs_npc_valid (scr_gameref_t gs, scr_int npc);
 extern void gs_copy (scr_gameref_t to, scr_gameref_t from);
 extern void gs_destroy (scr_gameref_t game);
 

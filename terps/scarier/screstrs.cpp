@@ -71,6 +71,21 @@ restr_integer_variable (scr_gameref_t game, scr_int n)
 
 
 /*
+ * restr_selector_npc()
+ *
+ * task_selector_npc(), but -1 for a selector naming no existing character,
+ * so that one is treated like an unset referenced character.
+ */
+static scr_int
+restr_selector_npc (scr_gameref_t game, scr_int var)
+{
+  const scr_int npc = task_selector_npc (gs_get_vars (game), var);
+
+  return gs_npc_valid (game, npc) ? npc : -1;
+}
+
+
+/*
  * restr_object_in_place()
  *
  * Is object in a certain place, state, or condition.
@@ -80,7 +95,6 @@ restr_object_in_place (scr_gameref_t game,
                        scr_int object, scr_int var2, scr_int var3,
                        scr_bool quantified)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
   scr_int npc, holder;
 
   if (restr_trace)
@@ -166,7 +180,7 @@ restr_object_in_place (scr_gameref_t game,
           return parent_position == OBJ_HELD_PLAYER
                  || parent_position == OBJ_WORN_PLAYER;
         }
-      npc = task_selector_npc (vars, var3);
+      npc = restr_selector_npc (game, var3);
 
       return gs_object_position (game, object) == OBJ_HELD_NPC
              && gs_object_parent (game, object) == npc;
@@ -175,7 +189,7 @@ restr_object_in_place (scr_gameref_t game,
     case 8:                    /* Worn by */
       if (var3 == 0)            /* Player */
         return gs_object_position (game, object) == OBJ_WORN_PLAYER;
-      npc = task_selector_npc (vars, var3);
+      npc = restr_selector_npc (game, var3);
 
 
       return gs_object_position (game, object) == OBJ_WORN_NPC
@@ -186,7 +200,7 @@ restr_object_in_place (scr_gameref_t game,
       if (var3 == 0)            /* Player */
         return obj_indirectly_in_room (game,
                                        object, gs_playerroom (game));
-      npc = task_selector_npc (vars, var3);
+      npc = restr_selector_npc (game, var3);
 
 
       if (npc < 0)
@@ -557,7 +571,9 @@ restr_pass_task_task_state (scr_gameref_t game, scr_int var1, scr_int var2)
       return TRUE;
     }
 
-  /* Check just the given task. */
+  /* Check just the given task; a nonexistent one is never done. */
+  if (!gs_task_valid (game, var1 - 1))
+    return !should_be;
   return gs_task_done (game, var1 - 1) == should_be;
 }
 
@@ -629,15 +645,16 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
   /* Decode NPC number, -1 if none. */
   npc1 = npc2 = -1;
   if (var1 > 0)
-    npc1 = task_selector_npc (vars, var1);
+    npc1 = restr_selector_npc (game, var1);
 
   /*
    * "The referenced character" with none referenced fails.  Ordinary
    * dispatch evaluates restrictions only after a pattern match, but 4.0's
    * task_pick walks them BEFORE matching (see restr_cache_fallback()), where
-   * a task naming %character% can meet an unset reference.
+   * a task naming %character% can meet an unset reference.  A selector
+   * naming no existing character fails the same way.
    */
-  if (var1 == 1 && npc1 < 0)
+  if (var1 != 0 && npc1 < 0)
     return FALSE;
 
   /* Player or NPC? */
@@ -650,7 +667,7 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
         {
         case 0:                /* In same room as */
           if (var3 > 0)
-            npc2 = task_selector_npc (vars, var3);
+            npc2 = restr_selector_npc (game, var3);
           if (var3 == 0)       /* Player */
             return TRUE;
           else if (npc2 < 0)
@@ -696,7 +713,7 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
           if (var3 == 0)
             return npc_in_room (game, npc1, gs_playerroom (game));
           if (var3 > 0)
-            npc2 = task_selector_npc (vars, var3);
+            npc2 = restr_selector_npc (game, var3);
           if (npc2 < 0)
             return FALSE;
           return npc_in_room (game, npc1, gs_npc_location (game, npc2) - 1);

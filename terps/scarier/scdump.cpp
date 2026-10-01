@@ -269,15 +269,16 @@ scdump_objloc (scr_gameref_t game)
         if (eff < 0 && (pos == -10 || pos == -20))
           {
             scr_int cur = i;
-            while (guard++ < 32 && cur >= 0
+            while (guard++ < 32 && gs_object_valid (game, cur)
                    && (gs_object_position (game, cur) == -10
                        || gs_object_position (game, cur) == -20))
               cur = gs_object_parent (game, cur);
-            if (cur >= 0)
+            if (gs_object_valid (game, cur))
               for (r = 0; r < gs_room_count (game); r++)
                 if (obj_directly_in_room (game, cur, r)) { eff = r; break; }
           }
-        if (eff < 0 && (pos == -200 || pos == -300) && par >= 0)
+        if (eff < 0 && (pos == -200 || pos == -300)
+            && gs_npc_valid (game, par))
           eff = gs_npc_location (game, par) - 1;
         /* Raw SizeWeight (tens = size, units = weight) alongside the
          * scaled values, because "too heavy to carry" verdicts hinge on

@@ -32,6 +32,9 @@
  * Loading the game runs the first turn-update; reaching this code at all proves
  * it no longer crashes.  We then confirm the placements above.
  *
+ * The player's and the guard's alternate descriptions also name task 99, which
+ * does not exist; examining them used to assert in gs_task_done().
+ *
  * Pass the .taf path as argv[1].  Exits 0 on success, 1 on any mismatch.
  */
 #include <stdio.h>
@@ -95,7 +98,20 @@ os_read_line (scr_char *buffer, scr_int length)
               gs_object_position (game, ring) == OBJ_HIDDEN, 0);
     }
 
-  strncpy ((char *) buffer, "quit", length - 1);
+  /* Then examine the player and the guard, whose alternate descriptions name
+   * a nonexistent task; reaching "quit" proves neither read past the tasks. */
+  {
+    static const char *const commands[] = {"x me", "x guard", "quit"};
+    static int next = 0;
+    const char *command = commands[next < 2 ? next++ : 2];
+
+    if (strcmp (command, "quit") == 0 && next == 2)
+      {
+        next = 3;
+        expect ("examined player and NPC with bad alt task", 1, 1);
+      }
+    strncpy ((char *) buffer, command, length - 1);
+  }
   buffer[length - 1] = '\0';
   return 1;
 }

@@ -1203,7 +1203,10 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
         if (key_index == -1)
           break;
 
+        /* A Key naming no object reads as no key at all. */
         the_key = obj_dynamic_object (game, key_index);
+        if (the_key < 0)
+          break;
         if (with_key)
           {
             /*

@@ -147,6 +147,17 @@ npc_walk_property (scr_gameref_t game, scr_int npc, scr_int walk,
   return prop_get_integer (bundle, "I<-sisis", vt_key);
 }
 
+/* A StartTask or StoppingTask naming a nonexistent task reads as none. */
+static scr_int
+npc_walk_task (scr_gameref_t game, scr_int npc, scr_int walk,
+               const scr_char *name)
+{
+  scr_int task;
+
+  task = npc_walk_property (game, npc, walk, name);
+  return (task > 0 && !gs_task_valid (game, task - 1)) ? 0 : task;
+}
+
 static scr_bool
 npc_walk_is_loop (scr_gameref_t game, scr_int npc, scr_int walk)
 {
@@ -206,11 +217,11 @@ npc_walk_is_enabled (scr_gameref_t game, scr_int npc, scr_int walk)
 {
   scr_int starttask, stoppingtask;
 
-  starttask = npc_walk_property (game, npc, walk, "StartTask");
+  starttask = npc_walk_task (game, npc, walk, "StartTask");
   if (starttask > 0 && !gs_task_done (game, starttask - 1))
     return FALSE;
 
-  stoppingtask = npc_walk_property (game, npc, walk, "StoppingTask");
+  stoppingtask = npc_walk_task (game, npc, walk, "StoppingTask");
   if (stoppingtask > 0 && gs_task_done (game, stoppingtask - 1))
     return FALSE;
 
@@ -245,7 +256,7 @@ npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
 {
   scr_int starttask, stoppingtask;
 
-  starttask = npc_walk_property (game, npc, walk, "StartTask");
+  starttask = npc_walk_task (game, npc, walk, "StartTask");
   if (starttask > 0)
     {
       if (!gs_task_done (game, starttask - 1))
@@ -254,7 +265,7 @@ npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
         return FALSE;
     }
 
-  stoppingtask = npc_walk_property (game, npc, walk, "StoppingTask");
+  stoppingtask = npc_walk_task (game, npc, walk, "StoppingTask");
   if (stoppingtask > 0 && gs_task_done (game, stoppingtask - 1))
     return FALSE;
 
@@ -370,7 +381,7 @@ npc_setup_initial (scr_gameref_t game)
 
       for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
         {
-          if (npc_walk_property (game, npc, walk, "StartTask") == 0
+          if (npc_walk_task (game, npc, walk, "StartTask") == 0
               && !npc_start_walk_is_390_noop (game, npc, walk))
             npc_start_npc_walk (game, npc, walk);
         }
@@ -392,6 +403,10 @@ npc_room_in_roomgroup (scr_gameref_t game, scr_int room, scr_int group)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
   scr_int member;
+
+  /* An exit can lead to a nonexistent room, which is in no group. */
+  if (!gs_room_valid (game, room))
+    return FALSE;
 
   /* Check roomgroup membership. */
   vt_key[0].string = "RoomGroups";
@@ -868,6 +883,7 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
  *
  * Return a walk's CharTask as a task index, -1 for none, and when there is
  * one its MeetChar in *meetchar: -1 for the player, else a character index.
+ * A nonexistent task is none, and a nonexistent character is never met.
  */
 static scr_int
 npc_walk_chartask (scr_gameref_t game, scr_int npc, scr_int walk,
@@ -883,11 +899,13 @@ npc_walk_chartask (scr_gameref_t game, scr_int npc, scr_int walk,
   vt_key[3].integer = walk;
   vt_key[4].string = "CharTask";
   chartask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-  if (chartask >= 0)
-    {
-      vt_key[4].string = "MeetChar";
-      *meetchar = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-    }
+  if (!gs_task_valid (game, chartask))
+    return -1;
+
+  vt_key[4].string = "MeetChar";
+  *meetchar = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+  if (*meetchar >= 0 && !gs_npc_valid (game, *meetchar))
+    *meetchar = -2;
   return chartask;
 }
 
@@ -1005,6 +1023,10 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
          walker stands still even if the player moves away (probe K). */
       if (is_arrival)
         dest = gs_playerroom (game);
+    }
+  else if (destnum < 0)
+    {
+      /* Not a room or a group: the walker stays where it is. */
     }
   else if (destnum < gs_room_count (game) + 2)
     {
@@ -1159,7 +1181,7 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
 
   vt_key[4].string = "ObjectTask";
   objecttask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-  if (objecttask >= 0)
+  if (gs_task_valid (game, objecttask))
     {
       scr_int meetobject;
 
@@ -1169,7 +1191,8 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
       /* Convert a dynamic-object index to a global one where required. */
       if (meetobject >= 0 && npc_walk_meetobject_needs_fixup (game))
         meetobject = obj_dynamic_object (game, meetobject);
-      if (meetobject >= 0 && obj_directly_in_room (game, meetobject, dest))
+      if (gs_object_valid (game, meetobject)
+          && obj_directly_in_room (game, meetobject, dest))
         {
           run_npc_walk_task (game, objecttask);
         }

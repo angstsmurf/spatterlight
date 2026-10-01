@@ -912,6 +912,11 @@ ser_save_game_body (scr_gameref_t game)
             {
               vt_key[2].string = "TaskNum";
               task = prop_get_integer (bundle, "I<-sis", vt_key);
+
+              /* No such task is no starter task; the restore would refuse
+                 the save over it. */
+              if (task < 0 || task > gs_task_count (game))
+                task = 0;
             }
           else
             task = 0;

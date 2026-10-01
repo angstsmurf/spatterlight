@@ -941,7 +941,7 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
 
         vt_key[2].string = "Parent";
         npc = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (npc == 0)
+        if (npc == 0 || !gs_npc_valid (game, npc - 1))
           return gs_player_in_room (game, room);
         else
           return npc_in_room (game, npc - 1, room);
@@ -1409,7 +1409,7 @@ obj_mark_npc_parts_seen (scr_gameref_t game)
 
       vt_key[2].string = "Parent";
       npc = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (npc == 0
+      if (npc == 0 || !gs_npc_valid (game, npc - 1)
           || (npc_in_room (game, npc - 1, gs_playerroom (game))
               && gs_npc_seen (game, npc - 1)))
         gs_set_object_seen (game, index_, TRUE);

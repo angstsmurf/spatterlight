@@ -741,7 +741,8 @@ lib_can_go (scr_gameref_t game, scr_int room, scr_int direction)
               }
 
             /* Restrict if task isn't done/not done as expected. */
-            if ((check != 0) == gs_task_done (game, restriction))
+            if (gs_task_valid (game, restriction)
+                && (check != 0) == gs_task_done (game, restriction))
               is_restricted = TRUE;
             break;
           }
@@ -750,8 +751,10 @@ lib_can_go (scr_gameref_t game, scr_int room, scr_int direction)
           {
             scr_int object, check, openable;
 
-            /* Get the target object. */
+            /* Get the target object; with none, nothing restricts. */
             object = obj_stateful_object (game, restriction);
+            if (object < 0)
+              break;
 
             /* Get the expected object state. */
             vt_key[4].string = "Var2";

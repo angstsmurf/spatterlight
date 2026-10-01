@@ -1226,7 +1226,8 @@ battle_npc_battle_task (scr_gameref_t game, scr_int npc, const scr_char *name)
   vt_key[1].integer = npc;
   vt_key[2].string = "Battle";
   vt_key[3].string = name;
-  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+  if (prop_get (bundle, "I<-siss", &vt_rvalue, vt_key)
+      && gs_task_valid (game, vt_rvalue.integer - 1))
     return vt_rvalue.integer - 1;
   return -1;
 }

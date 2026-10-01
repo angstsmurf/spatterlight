@@ -231,6 +231,8 @@ task_cache_entry (scr_gameref_t game, scr_int task)
       task_cache.assign (gs_task_count (game), initial);
       task_cache_game = game;
     }
+  if (!gs_task_valid (game, task))
+    scr_fatal ("task_cache_entry: invalid task, %ld\n", task);
   return &task_cache[task];
 }
 
@@ -356,6 +358,10 @@ task_where_allows_run (scr_gameref_t game, scr_int task)
   scr_int type;
   scr_task_props_t *cached;
 
+  /* A nonexistent task is runnable nowhere. */
+  if (!gs_task_valid (game, task))
+    return FALSE;
+
   cached = task_cache_entry (game, task);
 
   /* Check room list for the task and return it. */
@@ -443,6 +449,9 @@ task_can_run_task_directional (scr_gameref_t game,
   scr_dump_structure_once (game);
 #endif
 
+  if (!gs_task_valid (game, task))
+    return FALSE;
+
   return task_state_allows_run (game, task, forwards)
          && task_where_allows_run (game, task);
 }
@@ -462,6 +471,7 @@ task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
   return prop_get_taf_version (bundle) == TAF_VERSION_390
+         && gs_task_valid (game, task)
          && prop_get_indexed_boolean (bundle, "Tasks", task, "Reversible")
          && !gs_task_done (game, task)
          && !task_is_repeatable (game, task);
@@ -489,7 +499,8 @@ task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
 scr_bool
 task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
 {
-  return !task_where_allows_run (game, task)
+  return gs_task_valid (game, task)
+         && !task_where_allows_run (game, task)
          && (forwards || task_state_allows_run (game, task, FALSE));
 }
 
@@ -510,7 +521,8 @@ task_is_room_refused (scr_gameref_t game, scr_int task, scr_bool forwards)
 scr_bool
 task_is_done_refused (scr_gameref_t game, scr_int task)
 {
-  return gs_task_done (game, task)
+  return gs_task_valid (game, task)
+         && gs_task_done (game, task)
          && !task_is_repeatable (game, task)
          && task_where_allows_run (game, task);
 }
@@ -620,7 +632,8 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
   switch (var2)
     {
     case 0:                    /* To room */
-      if (var3 == 0)
+      /* 0 is hidden; so is a room that does not exist (-1 always was). */
+      if (var3 <= 0 || var3 > gs_room_count (game))
         {
           if (task_trace)
             scr_trace ("Task: moving object %ld to hidden\n", object);
@@ -761,6 +774,33 @@ task_move_object_to (scr_gameref_t game, scr_int object, scr_int var2,
 
 
 /*
+ * task_move_destination_valid()
+ *
+ * FALSE if an object move's var3 names a container, surface or character
+ * that does not exist; the move is then skipped.  A room past the end is
+ * taken as hidden by task_move_object_to() instead, and an unset referenced
+ * character is the movers' own business.
+ */
+static scr_bool
+task_move_destination_valid (scr_gameref_t game, scr_int var2, scr_int var3)
+{
+  switch (var2)
+    {
+    case 2:                    /* Into object */
+      return obj_container_object (game, var3) >= 0;
+    case 3:                    /* Onto object */
+      return obj_surface_object (game, var3) >= 0;
+    case 4:                    /* Held by */
+    case 5:                    /* Worn by */
+    case 6:                    /* Same room as */
+      return var3 <= 1 || gs_npc_valid (game, var3 - 2);
+    default:
+      return TRUE;
+    }
+}
+
+
+/*
  * task_move_object()
  *
  * Move an object to a place.
@@ -803,6 +843,14 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     {
       if (task_trace)
         scr_trace ("Task: ignoring move of static object %ld\n", object);
+      return;
+    }
+
+  if (!task_move_destination_valid (game, var2, var3))
+    {
+      if (task_trace)
+        scr_trace ("Task: ignoring move of object %ld to nonexistent"
+                   " destination %ld, %ld\n", object, var2, var3);
       return;
     }
 
@@ -1027,8 +1075,10 @@ task_move_npc_to_room (scr_gameref_t game, scr_int npc, scr_int room)
   if (task_trace)
     scr_trace ("Task: moving NPC %ld to room %ld\n", npc, room);
 
-  /* Update the NPC's state. */
-  if (room < gs_room_count (game))
+  /* Update the NPC's state; below -1 is no room, so hidden like -1. */
+  if (room < 0)
+    gs_set_npc_location (game, npc, 0);
+  else if (room < gs_room_count (game))
     gs_set_npc_location (game, npc, room + 1);
   else
     {
@@ -1086,8 +1136,11 @@ task_run_move_npc_action (scr_gameref_t game,
       switch (var2)
         {
         case 0:                /* To room */
+          if (var3 < 0)
+            return;
+          /* var3 past the rooms is a group; mark the room actually reached. */
           gs_move_player_to_room (game, var3);
-          obj_mark_room_statics_seen (game, var3);
+          obj_mark_room_statics_seen (game, gs_playerroom (game));
           return;
 
         case 1:                /* To roomgroup part */
@@ -1114,7 +1167,7 @@ task_run_move_npc_action (scr_gameref_t game,
             return;
           else                 /* ...referenced or specified NPC */
             npc = task_selector_npc (vars, var3);
-          if (npc < 0)
+          if (!gs_npc_valid (game, npc))
             return;
 
           if (task_trace)
@@ -1187,7 +1240,7 @@ task_run_move_npc_action (scr_gameref_t game,
       /* NPC -- first find which NPC to move about.  With no referenced
          character, run400 leaves the action at once (48CDB8, Exit Sub). */
       npc = task_selector_npc (vars, var1);
-      if (npc < 0)
+      if (!gs_npc_valid (game, npc))
         return;
 
       /* Decide where to move the NPC to. */
@@ -1249,7 +1302,7 @@ task_run_move_npc_action (scr_gameref_t game,
                * action is dropped silently, without the Runner's error text.
                */
               ref_npc = task_selector_npc (vars, var3);
-              if (ref_npc < 0)
+              if (!gs_npc_valid (game, ref_npc))
                 return;
               if (task_trace)
                 {
@@ -1330,8 +1383,10 @@ task_run_change_object_status (scr_gameref_t game, scr_int var1, scr_int var2)
                 var1, var2);
     }
 
-  /* Identify the target object. */
+  /* Identify the target object; none if there are no stateful objects. */
   object = obj_stateful_object (game, var1);
+  if (object < 0)
+    return;
 
   /* See if openable. */
   vt_key[0].string = "Objects";
@@ -2429,6 +2484,9 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
       npc = prop_get_integer (bundle, "I<-sisi", vt_key);
       vt_key[3].integer = alert + 1;
       walk = prop_get_integer (bundle, "I<-sisi", vt_key);
+      if (!gs_npc_valid (game, npc)
+          || walk < 0 || walk >= gs_npc_walkstep_count (game, npc))
+        continue;
       npc_start_npc_walk (game, npc, walk);
     }
 }
@@ -2528,7 +2586,7 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
   vt_key[1].integer = task;
   vt_key[2].string = "ShowRoomDesc";
   showroomdesc = prop_get_integer (bundle, "I<-sis", vt_key);
-  if (showroomdesc == 0)
+  if (!gs_room_valid (game, showroomdesc - 1))
     return FALSE;
 
   /*

@@ -129,7 +129,7 @@ lib_npc_topic_response (scr_gameref_t game, scr_int npc, scr_int topic)
   vt_key[4].string = "Task";
   task = prop_get_integer (bundle, "I<-sisis", vt_key);
 
-  if (task > 0 && gs_task_done (game, task - 1))
+  if (gs_task_valid (game, task - 1) && gs_task_done (game, task - 1))
     vt_key[4].string = "AltReply";
   else
     vt_key[4].string = "Reply";

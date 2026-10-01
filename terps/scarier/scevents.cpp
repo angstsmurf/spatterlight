@@ -317,8 +317,9 @@ static void
 evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
                  scr_bool at_start)
 {
-  /* Ignore negative values of object. */
-  if (object >= 0)
+  /* Ignore negative values of object, a nonexistent object, and a
+     destination below "hidden". */
+  if (gs_object_valid (game, object) && destination >= -1)
     {
       const scr_bool room_set = obj_is_static (game, object)
           && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
