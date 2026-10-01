@@ -1425,9 +1425,8 @@ QuestionGlkInterface::play_sound (const std::string &filename, bool looped, bool
   std::string parent = storyfilename ? storyfilename : "";
   std::string path = absolute_name (filename, parent);
 
-  /* Assign each distinct file a stable resource number and load it once. */
-  static std::map<std::string, int> sound_ids;
-  int resno = register_path_resource (sound_ids, path, true);
+  /* Each distinct file gets a stable resource number and is loaded once. */
+  int resno = register_path_resource (path, true);
   if (!resno)
     {
       std::cerr << "play_sound: cannot open " << path << "\n";
@@ -1462,8 +1461,7 @@ QuestionGlkInterface::show_image (const std::string &filename, const std::string
   std::string parent = storyfilename ? storyfilename : "";
   std::string path = absolute_name (filename, parent);
 
-  static std::map<std::string, int> image_ids;
-  int resno = register_path_resource (image_ids, path, false);
+  int resno = register_path_resource (path, false);
   if (!resno)
     {
       std::cerr << "show_image: cannot open " << path << "\n";

@@ -67,7 +67,9 @@ int gsc_in_debug_read = 0;
 #endif
 
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
-static char gamefile[1024];
+/* The game's file name, without its directory: what garglk_add_resource_from_file
+   takes to find a chunk of it (os_glk_resources.cpp). */
+char gsc_gamefile[1024];
 
 static const char *find_last_of(const char *str, const char *chars)
 {
@@ -1594,9 +1596,9 @@ glkunix_startup_code (glkunix_startup_t * data)
 #endif
     const char *slash = find_last_of(argv[argv_index], sep);
     if (slash == NULL) {
-      snprintf(gamefile, sizeof gamefile, "%s", argv[argv_index]);
+      snprintf(gsc_gamefile, sizeof gsc_gamefile, "%s", argv[argv_index]);
     } else {
-      snprintf(gamefile, sizeof gamefile, "%s", slash + 1);
+      snprintf(gsc_gamefile, sizeof gsc_gamefile, "%s", slash + 1);
   }
 #endif
 

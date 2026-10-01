@@ -2641,16 +2641,13 @@ void index_bundled_js(World &w)
 
 #ifdef SPATTERLIGHT
 /* Quest's image and sound files are external and arbitrarily named, so
- * register each with the backend under a private resource number (the
- * win_find / win_load pre-registration shared with the classic runner --
- * see questglk-common.inc) and let glk_image_draw* / glk_schannel_play*
- * short-circuit their PIC<n>/SND<n> blorb lookup. */
+ * each is registered with glkimp (gli_add_resource_from_path, as the classic
+ * runner does -- see questglk-common.inc), which gives it a resource number
+ * that glk_image_draw* / glk_schannel_play* then find. */
 
 /* filename (case-folded) -> registered resource number; 0 = known-failed. */
 std::map<std::string, glui32> g_image_ids;
 std::map<std::string, glui32> g_sound_ids;
-int g_image_next_id = 1;
-int g_sound_next_id = 1;
 
 /* Stage bytes in a temporary file for the backend to load.  An IMAGE file
  * is only needed until the load round-trips (see load_media_resource),
@@ -2703,36 +2700,28 @@ glui32 load_media_resource(const std::string &name, bool sound)
 {
     glui32 id = 0;
     std::string temp_path;
-    int &next_id = sound ? g_sound_next_id : g_image_next_id;
+    glui32 usage = sound ? giblorb_ID_Snd : giblorb_ID_Pict;
 
     const ZipEntryInfo *e =
         g_is_package && name.find("..") == std::string::npos
             ? zip_find_entry(g_package_entries, name) : nullptr;
     if (e && e->method == 0 && g_storyfile) {
-        id = (glui32) (next_id++);
-        if (sound)
-            win_loadsound((int) id, (char *) g_storyfile, (int) e->offset,
-                          (int) e->comp_size);
-        else
-            win_loadimage((int) id, g_storyfile, (int) e->offset,
-                          (int) e->comp_size);
+        id = gli_add_resource_from_path(usage, g_storyfile, (glui32) e->offset,
+                                        (glui32) e->comp_size);
     } else {
         std::string bytes;
         if (!resource_bytes(name, bytes) || bytes.empty())
             return 0;
         if (!stage_temp_file(bytes, temp_path, /*keep_for_session=*/sound))
             return 0;
-        id = (glui32) (next_id++);
-        if (sound)
-            win_loadsound((int) id, (char *) temp_path.c_str(), 0,
-                          (int) bytes.size());
-        else
-            win_loadimage((int) id, temp_path.c_str(), 0, (int) bytes.size());
+        id = gli_add_resource_from_path(usage, temp_path.c_str(), 0,
+                                        (glui32) bytes.size());
     }
 
     glui32 w, h;
-    bool ok = sound ? win_findsound((int) id) != 0
-                    : glk_image_get_info(id, &w, &h) != 0;
+    bool ok = id != 0 &&
+              (sound ? win_findsound((int) id) != 0
+                     : glk_image_get_info(id, &w, &h) != 0);
     if (!ok)
         id = 0;
     /* Images are consumed by the round-trip; staged sounds stay for the

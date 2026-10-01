@@ -75,9 +75,10 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
   PCX (8-bpp VGA and 1-bpp/≤4-plane EGA) and IFF (planar ILBM
   and chunky `PBM `, byterun or uncompressed) are decoded by file magic, not
   extension, and written once per session to a temp 8-bpp BMP —
-  a format ImageIO reads natively. The file is registered under a small
-  resource number with `win_loadimage(resno, path, 0, len)`
-  (`glkimp/connect.c`), after which the standard `glk_image_*` calls hit the
+  a format ImageIO reads natively. The file is registered with
+  `gli_add_resource_from_path(giblorb_ID_Pict, path, 0, len)`
+  (`glkimp/fileresource.c`), which picks its resource number and loads it;
+  after that the standard `glk_image_*` calls hit the
   app-side cache and the `PIC<n>` fallback in `loadimage()` is never
   consulted. Display draws the picture **inline in the buffer window**, on a
   paragraph of its own, with `glk_image_draw_scaled_ext()` (Glk 0.7.6
@@ -170,7 +171,7 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
   and `NSSound` plays 8-bit mono PCM at all three sample rates. Files whose
   magic is neither `RIFF` nor `FORM` are rejected — this is what catches the
   misnamed text file `nuthin.wav`. Registration goes through
-  `win_loadsound(resno, path, 0, len)`, playback through
+  `gli_add_resource_from_path(giblorb_ID_Snd, path, 0, len)`, playback through
   `glk_schannel_play()` — whose internal `loadsound()` issues the `FINDSOUND`
   that keeps the app's single `_lastsoundresno` slot in step; calling
   `win_playsound()` directly would play the wrong sample. `SBPLAY.EXE`

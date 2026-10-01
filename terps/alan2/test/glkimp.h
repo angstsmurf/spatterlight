@@ -11,7 +11,7 @@
 extern int gli_enable_graphics;
 extern int gli_enable_sound;
 
-void win_loadimage(int resno, const char *filename, int offset, int reslen);
-void win_loadsound(int resno, char *filename, int offset, int reslen);
+glui32 gli_add_resource_from_path(glui32 usage, const char *path,
+                                  glui32 offset, glui32 length);
 
 #endif

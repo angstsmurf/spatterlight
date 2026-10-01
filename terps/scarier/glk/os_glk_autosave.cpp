@@ -398,13 +398,15 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_title_image = (glui32) st->title_image;
   gsc_title_offset = (scr_int) st->title_offset;
   gsc_title_length = (scr_int) st->title_length;
-  /* The app-side image cache does not survive a relaunch; re-load the title
-     image chunk so a post-restore resize can still redraw the cover. */
+  /* The app-side image cache does not survive a relaunch; register the title
+     image chunk again so a post-restore resize can still redraw the cover.
+     It comes back under the number it had, unless the autosave predates the
+     shared numbering, so take the number given. */
   if (gsc_graphics_window != NULL && gsc_title_image != 0
-      && gsc_title_length > 0 && gli_game_path != NULL
-      && !win_findimage ((int) gsc_title_image))
-    win_loadimage ((int) gsc_title_image, gli_game_path,
-                   (int) gsc_title_offset, (int) gsc_title_length);
+      && gsc_title_length > 0)
+    gsc_title_image = garglk_add_resource_from_file
+      (giblorb_ID_Pict, gsc_gamefile,
+       (glui32) gsc_title_offset, (glui32) gsc_title_length);
   gsc_map_shown = st->map_shown;
   gsc_map_at_top = st->map_at_top;
   gsc_map_zoom = st->map_zoom;

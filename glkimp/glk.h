@@ -31,6 +31,7 @@ typedef int32_t glsi32;
 #define GLK_MODULE_SOUND2
 #define GLK_MODULE_HYPERLINKS
 #define GLK_MODULE_DATETIME
+#define GLK_MODULE_GARGLK_FILE_RESOURCES
 #define GLK_MODULE_RESOURCE_STREAM
 #define GLK_MODULE_GARGLKTEXT
 
@@ -488,6 +489,15 @@ extern glui32 garglk_unput_string_count_uni(glui32 *str);
 
 extern frefid_t garglk_fileref_create_in_game_dir(glui32 usage, char *name,
                                            glui32 rock);
+
+/* Register `len` bytes at `offset` of `filename` -- a file in the game's own
+ * directory, named without any path -- as a picture (giblorb_ID_Pict) or
+ * sound (giblorb_ID_Snd), and return the resource number to draw or play it
+ * by, or 0 if it cannot be had.  In Spatterlight (fileresource.c) the name
+ * may differ from the file's in case, and a `len` of 0 means the rest of the
+ * file; portable callers pass the real length. */
+extern glui32 garglk_add_resource_from_file(glui32 usage, const char *filename,
+                                            glui32 offset, glui32 len);
 
 #define zcolor_Transparent   ((glui32)0xfffffffc)
 #define zcolor_Cursor        ((glui32)0xfffffffd)

@@ -39,8 +39,9 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include "glkimp.h"             /* win_loadimage(), win_loadsound(),
+#include "glkimp.h"             /* gli_add_resource_from_path(),
                                    gli_enable_graphics, gli_enable_sound */
+#include "gi_blorb.h"           /* giblorb_ID_Pict, giblorb_ID_Snd */
 
 #include "types.h"
 #include "main.h"               /* advnam, para(), newline() */
@@ -63,8 +64,6 @@ typedef struct {
 
 static MediaEntry entries[MAX_ENTRIES];
 static int numentries = 0;
-static int nextpicres = 1;
-static int nextsndres = 1;
 
 /* SBPLAY.EXE blocked, so consecutive sbplay calls played sequentially in
    DOS. Glk playback is asynchronous and a second play on the same channel
@@ -407,8 +406,8 @@ static long writeBmp(int fd, int w, int h,
 }
 
 /* Decode the picture, convert it to a temp BMP kept for the session, and
-   register it with the app under a fresh resource number, so the standard
-   glk_image_* calls find it and the app-side cache handles repeats. */
+   register it with glkimp, which gives it a resource number the standard
+   glk_image_* calls find. */
 static Boolean registerPicture(MediaEntry *e)
 {
     long len, bmplen;
@@ -431,9 +430,9 @@ static Boolean registerPicture(MediaEntry *e)
             || memcmp(data, "\x89PNG", 4) == 0
             || memcmp(data, "GIF8", 4) == 0)) {
         free(data);
-        e->resno = nextpicres++;
-        win_loadimage(e->resno, e->path, 0, (int)len);
-        return TRUE;
+        e->resno = (int)gli_add_resource_from_path(giblorb_ID_Pict, e->path,
+                                                   0, (glui32)len);
+        return e->resno != 0;
     }
 
     if (data[0] == 0x0A)
@@ -459,9 +458,9 @@ static Boolean registerPicture(MediaEntry *e)
     if (bmplen == 0)
         return FALSE;
 
-    e->resno = nextpicres++;
-    win_loadimage(e->resno, bmppath, 0, (int)bmplen);
-    return TRUE;
+    e->resno = (int)gli_add_resource_from_path(giblorb_ID_Pict, bmppath,
+                                               0, (glui32)bmplen);
+    return e->resno != 0;
 }
 
 
@@ -935,8 +934,10 @@ static void playSound(MediaEntry *e)
             return;
         }
         fclose(f);
-        e->resno = nextsndres++;
-        win_loadsound(e->resno, e->path, 0, (int)len);
+        e->resno = (int)gli_add_resource_from_path(giblorb_ID_Snd, e->path,
+                                                   0, (glui32)len);
+        if (e->resno == 0)
+            return;             /* sound is off */
     }
 
     chan = soundchan[nextchan];

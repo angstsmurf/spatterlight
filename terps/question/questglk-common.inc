@@ -45,16 +45,17 @@ extern "C" {
 }
 
 #ifdef SPATTERLIGHT
-/* Spatterlight's by-name resource registration (glkimp).  Quest games in
- * both dialects reference image/sound files by name (e.g. "die.wav"), not by
- * numbered Blorb resource, so each file is pre-registered with the backend
- * under a synthetic resource number; glk_image_draw* / glk_schannel_play*
- * then short-circuit their PIC<n>/SND<n> lookup because win_findimage /
- * win_findsound report the number already loaded. */
-extern "C" int  win_findimage (int resno);
-extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
-extern "C" int  win_findsound (int resno);
-extern "C" void win_loadsound (int resno, char *filename, int offset, int reslen);
+/* Spatterlight's by-path resource registration (glkimp's fileresource.c).
+ * Quest games in both dialects reference image/sound files by name (e.g.
+ * "die.wav"), not by numbered Blorb resource, so each file is registered
+ * with the backend under a resource number of glkimp's choosing;
+ * glk_image_draw* / glk_schannel_play* then find it already loaded. */
+extern "C" {
+#include "gi_blorb.h"
+glui32 gli_add_resource_from_path (glui32 usage, const char *path,
+                                   glui32 offset, glui32 length);
+int  win_findsound (int resno);
+}
 #endif
 
 namespace questglk {
@@ -691,29 +692,18 @@ prompt_read_save (std::string &data)
 /* -------------------------------------------------------------- resources */
 
 #ifdef SPATTERLIGHT
-/* Path-named resource -> stable Glk resource number, loading the whole file
- * into the backend on first use.  Returns 0 when the file cannot be opened
- * (the failed path keeps its number, so it is retried on the next request).
- * Used by the classic runner, whose resources are plain files; the Quest 5
- * frontend resolves .quest package entries itself. */
+/* A whole file, by path, as a Glk resource: glkimp's
+ * gli_add_resource_from_path gives it a resource number (the same one for
+ * the same file every time) and loads it into the backend on first use.
+ * Returns 0 when the file cannot be had.  Used by the classic runner, whose
+ * resources are plain files; the Quest 5 frontend resolves .quest package
+ * entries itself. */
 [[maybe_unused]] static int
-register_path_resource (std::map<std::string, int> &ids,
-                        const std::string &path, bool sound)
+register_path_resource (const std::string &path, bool sound)
 {
-    auto it = ids.find (path);
-    int resno = it == ids.end () ? (ids[path] = (int) ids.size () + 1)
-                                 : it->second;
-    if (!(sound ? win_findsound (resno) : win_findimage (resno))) {
-        std::ifstream f (path.c_str (), std::ios::binary | std::ios::ate);
-        if (!f.is_open ())
-            return 0;
-        int len = (int) f.tellg ();
-        if (sound)
-            win_loadsound (resno, (char *) path.c_str (), 0, len);
-        else
-            win_loadimage (resno, path.c_str (), 0, len);
-    }
-    return resno;
+    return (int) gli_add_resource_from_path (sound ? giblorb_ID_Snd
+                                                   : giblorb_ID_Pict,
+                                             path.c_str (), 0, 0);
 }
 
 #else /* !SPATTERLIGHT */
@@ -723,7 +713,7 @@ register_path_resource (std::map<std::string, int> &ids,
  * sound or image as unsupported.  Defined rather than #ifdef'd at each call
  * site so the frontends compile against a plain Glk (CheapGlk) too. */
 [[maybe_unused]] static int
-register_path_resource (std::map<std::string, int> &, const std::string &, bool)
+register_path_resource (const std::string &, bool)
 {
     return 0;
 }

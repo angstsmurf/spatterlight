@@ -30,216 +30,75 @@
 /*---------------------------------------------------------------------*/
 
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
-schanid_t sound_channel;
-
-void
-os_play_sound (const scr_char *filepath,
-               scr_int offset, scr_int length, scr_bool is_looping)
-{
-  if (sound_channel == NULL) {
-    sound_channel = glk_schannel_create(0);
-  }
-
-  if (sound_channel == NULL) {
-    return;
-  }
-
-  glui32 id = garglk_add_resource_from_file(giblorb_ID_Snd, gamefile, offset, length);
-  if (id != 0) {
-    glk_schannel_play_ext(sound_channel, id, is_looping ? 0xffffffff : 1, 0);
-  }
-}
-
-void
-os_stop_sound (void)
-{
-  if (sound_channel != NULL) {
-    glk_schannel_stop(sound_channel);
-  }
-}
-#elif defined(SPATTERLIGHT)
 /*
- * Spatterlight resource handling.  Pre-load a chunk of the game file, or a
- * resource file beside it, into the Spatterlight Glk image/sound cache via
- * win_loadimage/win_loadsound and then dispatch through the standard Glk
- * drawing/playing routines.
+ * Sounds and graphics go through garglk_add_resource_from_file(): Gargoyle's
+ * own, or glkimp's in Spatterlight.  Either way it takes a file in the game's
+ * directory, named without a path, and returns a resource number for the
+ * standard Glk drawing and playing routines.
  */
-#include <dirent.h>
-#include <strings.h>
-#include <sys/stat.h>
-
-extern "C" char *gli_game_path;
-extern "C" int  win_findimage (int resno);
-extern "C" void win_loadimage (int resno, const char *filename, int offset, int reslen);
-extern "C" int  win_findsound (int resno);
-extern "C" void win_loadsound (int resno, char *filename, int offset, int reslen);
-
-static glui32
-gsc_resource_id (scr_int offset, scr_int length)
-{
-  /* Synthesize a stable id from offset and length so repeat calls for the
-   * same resource hit the cache instead of re-loading from disk.  Fold the
-   * full 64-bit offset into 32 bits rather than shift-then-truncate: a plain
-   * "(offset << 12) ^ length" cast to glui32 drops the high bits of any
-   * offset >= 2^20, so distinct chunks in a large game could collide on one
-   * cached id and cause the wrong image or sound to be drawn or played. */
-  unsigned long long hash;
-
-  hash = (unsigned long long) (scr_uint) offset;
-  hash = (hash ^ (unsigned long long) (scr_uint) length) * 0x9E3779B97F4A7C15ULL;
-  return (glui32) (hash ^ (hash >> 32));
-}
-
-/*
- * gsc_external_resource()
- *
- * Find a resource that is not embedded in the game file.  Such a game (one
- * with "Embedded" off, like Druggy Lane) names each sound or graphic by the
- * full path it had on the author's machine -- "C:\My Documents\Adrift\...
- * \day.wav" -- and ships the files beside the .taf.  So look for the path's
- * last component in the game's own directory, first as spelled and then
- * ignoring case, since a Windows author's capitals need not match the files
- * on disk.  On success, fill in the full path and the file's length and
- * return TRUE; with no such file, return FALSE.
- */
-static int
-gsc_external_resource (const scr_char *filepath, char *path, size_t size,
-                       scr_int *length)
-{
-  const char *name, *slash;
-  size_t dirlen;
-  struct stat info;
-
-  if (scr_strempty (filepath) || gli_game_path == NULL)
-    return FALSE;
-
-  /* The name is whatever follows the last separator, of either kind. */
-  name = filepath;
-  for (slash = filepath; *slash != '\0'; slash++)
-    {
-      if (*slash == '\\' || *slash == '/' || *slash == ':')
-        name = slash + 1;
-    }
-  if (*name == '\0')
-    return FALSE;
-
-  slash = strrchr (gli_game_path, '/');
-  dirlen = slash != NULL ? (size_t) (slash - gli_game_path) : 0;
-  if (dirlen + 1 + strlen (name) + 1 > size)
-    return FALSE;
-  snprintf (path, size, "%.*s/%s",
-            (int) dirlen, dirlen > 0 ? gli_game_path : ".", name);
-  if (dirlen == 0)
-    dirlen = 1;
-
-  if (stat (path, &info) != 0)
-    {
-      DIR *dir;
-      struct dirent *entry;
-      int found = FALSE;
-
-      path[dirlen] = '\0';
-      dir = opendir (path);
-      if (dir == NULL)
-        return FALSE;
-      while ((entry = readdir (dir)) != NULL)
-        {
-          if (strcasecmp (entry->d_name, name) == 0)
-            {
-              snprintf (path + dirlen, size - dirlen, "/%s", entry->d_name);
-              found = TRUE;
-              break;
-            }
-        }
-      closedir (dir);
-      if (!found || stat (path, &info) != 0)
-        return FALSE;
-    }
-
-  if (!S_ISREG (info.st_mode) || info.st_size <= 0 || info.st_size > INT_MAX)
-    return FALSE;
-  *length = (scr_int) info.st_size;
-  return TRUE;
-}
-
-/*
- * gsc_external_resource_id()
- *
- * Synthesize a cache id for an external resource file.  Offset and length
- * will not do here: every such file starts at offset zero, and same-sized
- * files are common (Druggy Lane's crack.wav and day.wav are both 60602
- * bytes), so hash the path instead.  Bit 30 is set and bit 31 clear: the id
- * stays a positive int, as the ADRIFT 5 text marks and win_load* want it, and
- * clear of the small numbers a Blorb gives its own resources.
- */
-static glui32
-gsc_external_resource_id (const char *path)
-{
-  glui32 hash = 2166136261u;
-
-  for (; *path != '\0'; path++)
-    hash = (hash ^ (unsigned char) *path) * 16777619u;
-  return (hash & 0x3fffffffu) | 0x40000000u;
-}
 
 /*
  * gsc_load_resource()
  *
- * Common part of os_play_sound() and os_show_graphic(): work out the cache id
- * for a resource, embedded or external, and load it into the app-side cache
- * if it is not there already.  Returns the id, or zero if there is nothing to
+ * Common part of os_play_sound() and os_show_graphic(): register a resource,
+ * embedded or external, and return its number, or zero if there is nothing to
  * load.
+ *
+ * An embedded resource is a chunk of the game file.  A game with "Embedded"
+ * off, like Druggy Lane, instead names each sound or graphic by the full path
+ * it had on the author's machine -- "C:\My Documents\Adrift\...\day.wav" --
+ * and ships the files beside the .taf; that is the path's last component, in
+ * the game's directory.  Spatterlight's garglk_add_resource_from_file() finds
+ * it whatever its case -- a Windows author's capitals need not match the
+ * files on disk -- and takes a zero length as the whole file.  Gargoyle's
+ * makes no such promises, so there external resources stay unsupported.
  */
 static glui32
 gsc_load_resource (const scr_char *filepath, scr_int offset, scr_int length,
                    int is_sound)
 {
-  char path[PATH_MAX];
-  char *file;
-  glui32 id;
-
-  if (gli_game_path == NULL)
-    return 0;
+  glui32 usage = is_sound ? giblorb_ID_Snd : giblorb_ID_Pict;
 
   if (length > 0)
-    {
-      id = gsc_resource_id (offset, length);
-      file = gli_game_path;
-    }
-  else if (gsc_external_resource (filepath, path, sizeof path, &length))
-    {
-      id = gsc_external_resource_id (path);
-      offset = 0;
-      file = path;
-    }
-  else
-    return 0;
+    return garglk_add_resource_from_file (usage, gsc_gamefile,
+                                          (glui32) offset, (glui32) length);
+#ifdef SPATTERLIGHT
+  {
+    const char *name, *p;
 
-  if (is_sound)
-    {
-      if (!win_findsound ((int) id))
-        win_loadsound ((int) id, file, (int) offset, (int) length);
-    }
-  else
-    {
-      if (!win_findimage ((int) id))
-        win_loadimage ((int) id, file, (int) offset, (int) length);
-    }
-  return id;
+    if (scr_strempty (filepath))
+      return 0;
+    /* The name is whatever follows the last separator, of either kind. */
+    name = filepath;
+    for (p = filepath; *p != '\0'; p++)
+      {
+        if (*p == '\\' || *p == '/' || *p == ':')
+          name = p + 1;
+      }
+    if (*name == '\0')
+      return 0;
+    return garglk_add_resource_from_file (usage, name, 0, 0);
+  }
+#else
+  (void) filepath;
+  return 0;
+#endif
 }
 
+#ifdef SPATTERLIGHT
 /*
  * gsc_load_external_resource()
  *
  * The ADRIFT 5 side's way in: load a media file named by an <img>/<audio>
- * src from beside the game, returning its cache id, or zero if there is no
- * such file.
+ * src from beside the game, returning its resource number, or zero if there
+ * is no such file.
  */
 glui32
 gsc_load_external_resource (const char *filepath, int is_sound)
 {
   return gsc_load_resource (filepath, 0, 0, is_sound);
 }
+#endif
 
 schanid_t sound_channel;
 
@@ -508,35 +367,9 @@ gsc_refresh_windows (void)
 /*
  * os_show_graphic()
  *
- * Use the Gargoyle-specific garglk_add_resource_from_file().  Before the
- * player's first input, show the image as a title in a dedicated graphics
- * window; afterwards, draw it inline in the main window.
- */
-void
-os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
-{
-  if (length <= 0 || gsc_main_window == NULL)
-    return;
-
-  glui32 id = garglk_add_resource_from_file(giblorb_ID_Pict, gamefile, offset, length);
-  if (id == 0)
-    return;
-
-  if (!gsc_seen_input && gsc_show_title_graphic (id))
-    {
-      gsc_title_screen_wait ();
-      return;
-    }
-
-  gsc_draw_inline_graphic(id);
-}
-#elif defined(SPATTERLIGHT)
-/*
- * os_show_graphic()
- *
- * Pre-load the requested image, a chunk of the game file or a file beside it,
- * into the Spatterlight Glk image cache.  Before the player's first input, show it as
- * a title image in a dedicated graphics window; afterwards, draw it inline in
+ * Register the requested image, a chunk of the game file or a file beside it
+ * (see gsc_load_resource).  Before the player's first input, show it as a
+ * title image in a dedicated graphics window; afterwards, draw it inline in
  * the main window.
  */
 void
@@ -553,11 +386,13 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 
   if (!gsc_seen_input && gsc_show_title_graphic (id))
     {
+#ifdef SPATTERLIGHT
       /* An external title file can't be re-loaded from the game file after
          an autorestore, so record no chunk for it; that restore then simply
          skips the re-load, as before for any external graphic. */
       gsc_title_offset = length > 0 ? offset : 0;
       gsc_title_length = length > 0 ? length : 0;
+#endif
       gsc_title_screen_wait ();
       return;
     }

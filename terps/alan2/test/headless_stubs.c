@@ -6,22 +6,21 @@
    gli_enable_graphics stays on so a scripted run still exercises the
    PCX/ILBM-to-BMP conversion in glkmedia.c; the drawing itself is inert
    because CheapGlk refuses graphics windows and reports images as
-   unavailable. Sound registration is a no-op and CheapGlk hands out no
-   sound channels. */
+   unavailable. Registration only hands out a number, and CheapGlk hands
+   out no sound channels. */
 
 #include "glk.h"
 
 int gli_enable_graphics = 1;
 int gli_enable_sound = 1;
 
-void win_loadimage(int resno, const char *filename, int offset, int reslen)
+/* Hands out numbers as glkimp would, without the app to load into. */
+glui32 gli_add_resource_from_path(glui32 usage, const char *path,
+                                  glui32 offset, glui32 length)
 {
-    (void)resno; (void)filename; (void)offset; (void)reslen;
-}
-
-void win_loadsound(int resno, char *filename, int offset, int reslen)
-{
-    (void)resno; (void)filename; (void)offset; (void)reslen;
+    static glui32 next = 0x40000000u;
+    (void)usage; (void)path; (void)offset; (void)length;
+    return next++;
 }
 
 /* Gargoyle extensions called from glkstart.c, absent from CheapGlk */

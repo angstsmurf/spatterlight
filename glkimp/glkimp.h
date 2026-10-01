@@ -168,6 +168,11 @@ void win_delchan(int chan);
 void win_setvolume(int chan, int vol, int duration, int notify);
 int  win_findsound(int resno);
 void win_loadsound(int resno, char *filename, int offset, int reslen);
+
+/* garglk_add_resource_from_file() for any path, not only a name in the game's
+ * directory: a temp file the terp decoded, a subfolder.  See fileresource.c. */
+glui32 gli_add_resource_from_path(glui32 usage, const char *path,
+                                  glui32 offset, glui32 length);
 void win_playsound(int chan, int repeats, int notify);
 void win_stopsound(int chan);
 void win_pause(int chan);

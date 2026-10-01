@@ -310,6 +310,9 @@ extern void gsc_put_string_symbol (const scr_char *string,
 
 /* os_glk_resources.cpp: ADRIFT <=4 resources and the title window. */
 extern void gsc_refresh_windows (void);
+#ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
+extern char gsc_gamefile[1024];   /* os_glk.cpp */
+#endif
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
 extern schanid_t sound_channel;
 #endif
