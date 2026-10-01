@@ -19,3 +19,5 @@ sword
 undo
 shield
 look at thing
+[restore foreign]
+look

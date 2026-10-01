@@ -89,4 +89,13 @@ The hall.
 
 > look at thing
 A round shield.
-[runner] turns=18 leftover=0 running=true
+
+[restore foreign]
+[refused]
+
+> look
+You are in Hall.
+There is Box, Sword, Shield and Thing here.
+You can go east.
+The hall.
+[runner] turns=19 leftover=0 running=true

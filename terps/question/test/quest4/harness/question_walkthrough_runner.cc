@@ -62,7 +62,9 @@
   A script line of "[status]" is not passed to the game: it prints the status
   pane's current contents (get_status_vars ()) into the transcript instead.
   "[save]" snapshots the game as a player's SAVE would, and "[restore]" loads
-  that snapshot back as a player's RESTORE would (beforesave/onload and all).
+  that snapshot back as a player's RESTORE would (beforesave/onload and all);
+  "[restore foreign]" restores it with the current room renamed, as a save
+  another game wrote would have it.
     --seed N      RNG seed (overrides $QUESTION_SEED).
     --max-reloads N   Per-turn save-scum reload cap (default 20000).
     --lenient-names   Keep the engine's player-facing name leniency (accepting
@@ -551,10 +553,24 @@ main (int argc, char **argv)
 	  gi->emit ("\n[save]\n");
 	  continue;
 	}
-      if (lcase (c) == "[restore]")
+      if (lcase (c) == "[restore]" || lcase (c) == "[restore foreign]")
 	{
-	  gi->emit ("\n[restore]\n");
-	  gi->emit (gr->load_state (g_saved) ? "[restored]\n" : "[refused]\n");
+	  std::string data = g_saved;
+	  if (lcase (c) != "[restore]")
+	    {
+	      std::string name;
+	      QuestionState st;
+	      if (deserialize_game (data, name, st))
+		{
+		  for (ObjectRecord &o: st.objs)
+		    if (o.name == st.location)
+		      o.name = "Elsewhere";
+		  st.location = "Elsewhere";
+		  data = serialize_game (name, st);
+		}
+	    }
+	  gi->emit ("\n" + lcase (c) + "\n");
+	  gi->emit (gr->load_state (data) ? "[restored]\n" : "[refused]\n");
 	  continue;
 	}
       if (const Fight *f = find_fight (c))

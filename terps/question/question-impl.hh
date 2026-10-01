@@ -84,6 +84,14 @@ class question_implementation : public QuestionRunner
    * and RESTART sites so the two cannot drift apart. */
   static constexpr unsigned kUndoLevels = 20;
   LimitStack <UndoState> undo_buffer;
+  /* The object and timer names a fresh state of this game starts with, in
+   * order: what save_fits_game checks a save against. */
+  std::vector <std::string> initial_objs_, initial_timers_;
+  /* Could this state have come from playing this game?  Play only ever
+   * appends objects (clone, create object) and never adds timers, so a save
+   * of this game starts with exactly its objects and has exactly its timers,
+   * and stands in a room it defines or created. */
+  bool save_fits_game (const QuestionState &st) const;
   std::vector <std::string> function_args;
   std::string this_object;
   /* Most recently referenced object, used to resolve pronouns ("it", etc.).

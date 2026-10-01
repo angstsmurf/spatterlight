@@ -172,12 +172,43 @@ void question_implementation::restore_clones ()
     }
 }
 
+bool question_implementation::save_fits_game (const QuestionState &st) const
+{
+  if (st.objs.size () < initial_objs_.size ()
+      || st.timers.size () != initial_timers_.size ())
+    return false;
+  for (size_t i = 0; i < initial_objs_.size (); i ++)
+    if (st.objs[i].name != initial_objs_[i])
+      return false;
+  for (size_t i = 0; i < initial_timers_.size (); i ++)
+    if (st.timers[i].name != initial_timers_[i])
+      return false;
+  if (gf.find_by_name ("room", st.location) != NULL)
+    return true;
+  /* A room the game made with "create room" (see room_exists). */
+  const string created = "properties " + lcase (st.location);
+  if (const vector<size_t> *pv = st.prop_records ("!createdroom"))
+    for (size_t idx: *pv)
+      if (ci_equal (st.props[idx].data, created))
+	return true;
+  return false;
+}
+
 bool question_implementation::load_state (const string &data, bool run_hooks)
 {
   QuestionState newstate;
   string gamename;
   if (!deserialize_game (data, gamename, newstate))
     return false;
+  /* A save this game could not have written -- another game's, or an older
+   * release of this one -- would leave the player among rooms and objects it
+   * does not define.  Turn it away before anything changes, so the game
+   * carries on exactly where it was. */
+  if (!save_fits_game (newstate))
+    {
+      gi->debug_print ("Restore: the save does not fit this game.");
+      return false;
+    }
   /* The undo snapshots taken so far record lengths of the log about to be
    * replaced; hand them that log, so UNDO can go back across the restore. */
   {
@@ -288,6 +319,12 @@ void question_implementation::set_game (const string &s)
 	  }
 
       state = QuestionState (*gi, gf);
+      initial_objs_.clear ();
+      for (const ObjectRecord &o: state.objs)
+	initial_objs_.push_back (o.name);
+      initial_timers_.clear ();
+      for (const TimerRecord &t: state.timers)
+	initial_timers_.push_back (t.name);
 
       /* The initial value of a variable is a *parameter*, not a literal.
        * SetUpDisplayVariables runs each `value <...>` through GetParameter as

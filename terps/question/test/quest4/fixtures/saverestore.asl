@@ -7,6 +7,9 @@
 !    state neither ever had (here: the abandoned "frac" kept, "paint" lost).
 !  - A clone's definition alias outlived the clone itself across UNDO, so a
 !    second clone of the same name answered with the first one's description.
+!  - A save this game could not have written (here: one standing in a room
+!    the game does not define) has to be turned away, leaving the game as it
+!    was.
 define game <SaveRestore>
  asl-version <410>
  start <Hall>
