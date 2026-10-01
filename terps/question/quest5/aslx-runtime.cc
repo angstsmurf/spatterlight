@@ -25,6 +25,7 @@
 #include <cerrno>
 #include <cmath>
 #include <cstdlib>
+#include <cstring>
 #include <deque>
 #include <regex>
 #include <sstream>
@@ -581,8 +582,8 @@ struct Lexer {
         while (i < src.size() && src[i] != '"') {
             char c = src[i];
             // Backslash escapes, matching Parlot's StringLiteralQuotes decoding
-            // used by QuestNCalcLogicalExpressionParser. Core relies on \" \' \\
-            // (the last so "\\D" yields the regex \D); an unknown escape keeps
+            // used by QuestNCalcLogicalExpressionParser. Core relies on \", \' and
+            // \\ (the last so "\\D" yields the regex \D); an unknown escape keeps
             // the following character verbatim.
             if (c == '\\' && i + 1 < src.size()) {
                 char n = src[i + 1];

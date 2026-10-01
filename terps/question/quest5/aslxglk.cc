@@ -2019,7 +2019,7 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
             glk_put_char('\n');
         }
         for (size_t i = 0; i < m.options.size(); i++) {
-            char num[16];
+            char num[24];
             snprintf(num, sizeof num, "%zu: ", i + 1);
             in.print(num + m.options[i].second);
             glk_put_char('\n');

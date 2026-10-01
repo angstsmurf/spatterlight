@@ -19,6 +19,7 @@
 
 #include "istring.hh"
 #include "general.hh"
+#include <algorithm>
 #include <cstring>
 #include <iostream>
 
