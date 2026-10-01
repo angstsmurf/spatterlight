@@ -493,7 +493,7 @@ void question_implementation::set_game (const string &s)
 	for (auto i = game.data.rbegin(); i != game.data.rend(); ++ i)
 	  if (ci_equal (first_token (*i, c1, c2), "lib") &&
 	      ci_equal (next_token (*i, c1, c2), "startscript"))
-	    run_script_as ("game", i->substr (c2 + 1));
+	    run_script_as ("game", c2 < i->length() ? i->substr (c2 + 1) : "");
       for (const auto &i: game.data)
 	{
 	  /* CI: Quest matches "startscript " with BeginsWith
@@ -502,7 +502,7 @@ void question_implementation::set_game (const string &s)
 	  if (ci_equal (tok, "lib") && asl_version_ < 311)
 	    tok = next_token (i, c1, c2);
 	  if (ci_equal (tok, "startscript"))
-	    run_script_as ("game", i.substr (c2 + 1));
+	    run_script_as ("game", c2 < i.length() ? i.substr (c2 + 1) : "");
 	}
 
       /* ... unless the startscript asked for no intro, in which case it has

@@ -1,0 +1,40 @@
+
+ForEachGrow
+
+You are in Room.
+There is apple, b, c, d and e here.
+A room.
+
+> all
+game
+apple
+b
+c
+d
+e
+
+> here
+apple
+b
+c
+d
+e
+apple1
+apple2
+apple3
+apple4
+apple5
+apple6
+
+> case
+cloned
+
+> top
+2147483645
+2147483646
+2147483647
+-2147483646
+-2147483647
+-2147483648
+counted
+[runner] turns=4 leftover=0 running=true

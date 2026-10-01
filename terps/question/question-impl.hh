@@ -636,12 +636,15 @@ public:
    * cap is 230 or more.  175 sits between the two with room on both sides.  It
    * was 100, which is *below* the benign case: `descend` gave up eight calls
    * short of the bottom, and the fixture failed under `make asan` alone. */
-#if defined(__has_feature)
+#if defined(__SANITIZE_ADDRESS__)        /* GCC */
+# define QUESTION_ASAN 1
+#elif defined(__has_feature)             /* Clang */
 # if __has_feature(address_sanitizer)
-  static constexpr int kMaxScriptDepth = 175;
-# else
-  static constexpr int kMaxScriptDepth = 500;
+#  define QUESTION_ASAN 1
 # endif
+#endif
+#ifdef QUESTION_ASAN
+  static constexpr int kMaxScriptDepth = 175;
 #else
   static constexpr int kMaxScriptDepth = 500;
 #endif

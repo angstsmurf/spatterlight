@@ -134,7 +134,8 @@ void question_implementation::run_onchange_script (const string &varname)
 	    /* CI: Quest reads the block's keywords with BeginsWith, which
 	     * lowercases (V4Game.Part2.cs:715). */
 	    if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
-	      script = trim (go.data[j].substr (c2 + 1));
+	      script = trim (c2 < go.data[j].length()
+			     ? go.data[j].substr (c2 + 1) : "");
 	  if (script != "")
 	    run_script (script);
 	}

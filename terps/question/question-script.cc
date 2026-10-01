@@ -36,6 +36,7 @@
 #include <ctime>
 #include <cmath>
 #include <cstdio>
+#include <climits>
 #include <cstring>
 #include "general.hh"
 #include "istring.hh"
@@ -216,7 +217,8 @@ void question_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       set_obj_action (trim (tok.substr (0, index)),
-		      "<" + trim (tok.substr (index+1)) + "> " + s.substr (c2 + 1));
+		      "<" + trim (tok.substr (index+1)) + "> "
+		      + (c2 < s.length() ? s.substr (c2 + 1) : ""));
       return;
     }
     break;
@@ -578,8 +580,10 @@ void question_implementation::run_script (const string &s, string &rv)
       /* Quest's record copy takes the source's runtime Properties and Actions
        * too, so a source that has been changed since load clones as it is now,
        * not as it was written. */
+      /* Copied first: add_prop appends to the very list being walked when
+       * the new name differs from the source only in case. */
       if (const vector<size_t> *pv = state.prop_records (src))
-	for (size_t idx: *pv)
+	for (size_t idx: vector<size_t> (*pv))
 	  state.add_prop (newname, state.props[idx].data);
       /* So a clone survives a save/restore: load_state replays these to
        * re-register the definition aliases, which live in the QuestionFile and are
@@ -1004,22 +1008,29 @@ void question_implementation::run_script (const string &s, string &rv)
 		  /* "in game" leaves inLocation empty, which matches every
 		   * container -- including none, so the "game" pseudo-object
 		   * (state.objs[0], Quest's _objs[1]) is walked as well. */
+		  /* These loops index state.objs afresh on every pass: the body
+		   * can clone or create an object, and the push_back that adds
+		   * it may reallocate the vector under a range-for.  Objects
+		   * added during the loop are not visited. */
+		  const size_t nobjs = state.objs.size();
 		  if (want_exit)
 		    {
-		      for (const auto &i: state.objs)
-			if (i.is_room)
-			  for (const string &e: exit_object_names (i.name))
+		      for (size_t k = 0; k < nobjs; k ++)
+			if (state.objs[k].is_room)
+			  for (const string &e:
+				 exit_object_names (state.objs[k].name))
 			    {
 			      set_svar ("quest.thing", e);
 			      run_script (script);
 			    }
 		      return;
 		    }
-		  for (const auto &i: state.objs)
-		    if (i.is_room == want_room)
+		  for (size_t k = 0; k < nobjs; k ++)
+		    if (state.objs[k].is_room == want_room)
 		      {
-			QUESTION_DBG << "  quest.thing -> " + i.name + "\n";
-			set_svar ("quest.thing", i.name);
+			string name = state.objs[k].name;
+			QUESTION_DBG << "  quest.thing -> " + name + "\n";
+			set_svar ("quest.thing", name);
 			run_script (script);
 		      }
 		  return;
@@ -1044,10 +1055,12 @@ void question_implementation::run_script (const string &s, string &rv)
 		   * compares lower-cased both sides, so the casing a move or a
 		   * "parent" line happened to use does not matter. */
 		  string container = lcase (tok);
-		  for (const auto &i: state.objs)
-		    if (i.is_room == want_room && lcase (i.parent) == container)
+		  const size_t nobjs = state.objs.size();
+		  for (size_t k = 0; k < nobjs; k ++)
+		    if (state.objs[k].is_room == want_room &&
+			lcase (state.objs[k].parent) == container)
 		      {
-			set_svar ("quest.thing", i.name);
+			set_svar ("quest.thing", state.objs[k].name);
 			run_script (script);
 		      }
 		  return;
@@ -1081,11 +1094,19 @@ void question_implementation::run_script (const string &s, string &rv)
 	   * iteration of every loop -- the bundled type library walks a string with
 	   * "for <n; 1; %lengthof%>", so its last character was never seen -- and
 	   * ran a negative step zero times. */
+	  /* The next value is computed wide, so a loop whose end is near
+	   * INT_MAX/INT_MIN stops there rather than overflowing and wrapping
+	   * round to start over (four billion passes, i.e. a hang). */
 	  for (set_ivar (varname, startindex);
 	       step > 0 ? get_ivar (varname) <= endindex
-			: get_ivar (varname) >= endindex;
-	       set_ivar (varname, get_ivar (varname) + step))
-	    run_script (script);
+			: get_ivar (varname) >= endindex; )
+	    {
+	      run_script (script);
+	      long long next = (long long) get_ivar (varname) + step;
+	      if (next > INT_MAX || next < INT_MIN)
+		break;
+	      set_ivar (varname, (int) next);
+	    }
 	  return;
 	}
 
