@@ -168,15 +168,19 @@ ElemKind elem_kind_from_string(const std::string &s) {
     // Small fixed set; a first-char switch keeps this off the memcmp path for
     // the common kinds without a map.
     switch (s.empty() ? '\0' : s[0]) {
-    case 'o': if (s == "object") return ElemKind::Object;
-              if (s == "output") return ElemKind::Output; break;
+    case 'o':
+        if (s == "object") return ElemKind::Object;
+        if (s == "output") return ElemKind::Output;
+        break;
     case 'c': if (s == "command") return ElemKind::Command; break;
     case 'v': if (s == "verb") return ElemKind::Verb; break;
     case 'f': if (s == "function") return ElemKind::Function; break;
     case 'g': if (s == "game") return ElemKind::Game; break;
-    case 't': if (s == "type") return ElemKind::Type;
-              if (s == "turnscript") return ElemKind::Turnscript;
-              if (s == "timer") return ElemKind::Timer; break;
+    case 't':
+        if (s == "type") return ElemKind::Type;
+        if (s == "turnscript") return ElemKind::Turnscript;
+        if (s == "timer") return ElemKind::Timer;
+        break;
     case 'w': if (s == "walkthrough") return ElemKind::Walkthrough; break;
     case 'e': if (s == "exit") return ElemKind::Exit; break;
     case 'r': if (s == "resource") return ElemKind::Resource; break;
