@@ -113,6 +113,7 @@
 		6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C896218BD6E00088D849 /* HelpPanelController.xib */; };
 		6D85C899218BE4AC0088D849 /* Glulxe License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
+		C3A51F0000000000000000C1 /* autosavefiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000C2 /* autosavefiles.m */; };
 		6DB774C02458B9B300EDC671 /* blorb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AB2458B9B300EDC671 /* blorb.cpp */; };
 		6DB774C12458B9B300EDC671 /* branch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AC2458B9B300EDC671 /* branch.cpp */; };
 		6DB774C22458B9B300EDC671 /* dict.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AD2458B9B300EDC671 /* dict.cpp */; };
@@ -1919,6 +1920,8 @@
 		6D85C895218BD6E00088D849 /* HelpPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpPanelController.m; sourceTree = "<group>"; };
 		6D85C896218BD6E00088D849 /* HelpPanelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HelpPanelController.xib; path = ../application/HelpPanelController.xib; sourceTree = "<group>"; };
 		6DB6B519219E31BF0039D2D7 /* fileref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileref.m; sourceTree = "<group>"; };
+		C3A51F0000000000000000C2 /* autosavefiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = autosavefiles.m; sourceTree = "<group>"; };
+		C3A51F0000000000000000C3 /* autosavefiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autosavefiles.h; sourceTree = "<group>"; };
 		6DB6B51B219E38870039D2D7 /* fileref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileref.h; sourceTree = "<group>"; };
 		6DB774A22458B95E00EDC671 /* bocfel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bocfel; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DB774AB2458B9B300EDC671 /* blorb.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blorb.cpp; sourceTree = "<group>"; tabWidth = 4; };
@@ -4955,6 +4958,8 @@
 				961CCE8909F2381B00528FF9 /* gi_dispa.c */,
 				C34F1FA71ED85E06002AB38B /* gi_debug.h */,
 				C34F1FA61ED85E06002AB38B /* gi_debug.c */,
+				C3A51F0000000000000000C3 /* autosavefiles.h */,
+				C3A51F0000000000000000C2 /* autosavefiles.m */,
 				961CCE8209F2381B00528FF9 /* blorb.c */,
 				961CCE8309F2381B00528FF9 /* connect.c */,
 				961CCE8409F2381B00528FF9 /* event.c */,
@@ -8476,6 +8481,7 @@
 				96264AC50A494A5E0093569C /* cgunicod.c in Sources */,
 				C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */,
 				6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */,
+				C3A51F0000000000000000C1 /* autosavefiles.m in Sources */,
 				6D79CFD3222A86A600363B08 /* TempLibrary.m in Sources */,
 				6D79CFD7222AA71100363B08 /* TempFileRef.m in Sources */,
 				6D79CFD8222AA71100363B08 /* TempStream.m in Sources */,

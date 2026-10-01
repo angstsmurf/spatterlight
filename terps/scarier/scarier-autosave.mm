@@ -37,122 +37,37 @@
    win_autosave() then tells the window server to snapshot the GUI under
    the same tag.
 
-   This file owns only the files and the plist; everything engine-side
-   (containers, window tags) lives in os_glk_autosave.cpp behind
-   #ifdef SPATTERLIGHT.
+   The files themselves -- writing the pair, renaming it into place,
+   reading it back -- are glkimp's (autosavefiles.m), shared with the other
+   terps.  This file adds only the plist hooks that carry the frontend
+   state; everything engine-side (containers, window tags) lives in
+   os_glk_autosave.cpp behind #ifdef SPATTERLIGHT.
 */
 
-extern "C" {
-#include "glk.h"
-#include "glkimp.h"
-#include "fileref.h"
-}
-
+#include <cstdlib>
 #include <string>
+
+#include "autosavefiles.h"
 
 #include "scarier-autosave.h"
 
 #import "TempLibrary.h"
 
-/* ---- file plumbing ------------------------------------------------------- */
-
-static NSString *autosave_dirname(void)
-{
-    if (autosavedir == NULL)
-        getautosavedir(const_cast<char *>(gsc_autosave_game_path()));
-    if (autosavedir == NULL)
-        return nil;
-    NSString *dirname = [[NSFileManager defaultManager]
-        stringWithFileSystemRepresentation:autosavedir length:strlen(autosavedir)];
-    if (!dirname.length)
-        return nil;
-    return dirname;
-}
+/* ---- file plumbing: glkimp/autosavefiles.m ------------------------------- */
 
 bool scarier_autosave_exists(void)
 {
-    if (!gli_enable_autosave)
-        return false;
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return false;
-        NSString *gamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *libpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:gamepath])
-            return false;
-        if (![fileManager fileExistsAtPath:libpath]) {
-            /* A glksave with no plist can't be restored; delete it so it
-             * does not cause trouble later. */
-            [fileManager removeItemAtPath:gamepath error:nil];
-            return false;
-        }
-        return true;
-    }
+    return gli_autosave_exists(gsc_autosave_game_path());
 }
 
 bool scarier_autosave_wanted(void)
 {
-    if (!gli_enable_autosave)
-        return false;
-    /* Match Bocfel: no autosave before the first real event, after mere
-     * rearrange/redraw wakeups, or on timer events when the timer pref is
-     * off. */
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange ||
-        lasteventtype == evtype_Redraw ||
-        (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer))
-        return false;
-    return true;
+    return gli_autosave_wanted();
 }
 
 void scarier_autosave_discard(void)
 {
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return;
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        for (NSString *name in @[ @"autosave.glksave", @"autosave.plist",
-                                  @"autosave-bak.glksave", @"autosave-bak.plist" ])
-            [fileManager removeItemAtPath:[dirname stringByAppendingPathComponent:name]
-                                    error:nil];
-    }
-}
-
-/* Move any current "final" file to its -bak name and the freshly written
- * temp file into the final position. */
-static bool move_into_place(NSString *dirname, NSString *tmpname,
-                            NSString *finalname, NSString *bakname)
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *tmppath = [dirname stringByAppendingPathComponent:tmpname];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-
-    [fileManager removeItemAtPath:bakpath error:nil];
-    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
-
-    NSError *error = nil;
-    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
-        NSLog(@"scarier autosave: could not move %@ to final position: %@", tmpname, error);
-        /* Put the old file back so the previous autosave stays usable. */
-        [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
-        return false;
-    }
-    return true;
-}
-
-/* Undo a move_into_place that succeeded: put the -bak file back as the
- * final one, so the pair on disk is the previous turn's again. */
-static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-
-    [fileManager removeItemAtPath:finalpath error:nil];
-    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+    gli_autosave_discard(gsc_autosave_game_path());
 }
 
 /* ---- the frontend state, as plist archive extras ------------------------- */
@@ -247,125 +162,31 @@ static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
 
 void scarier_autosave_write(const std::string &engine_state)
 {
-    /* Unconditional: an earlier scarier_autosave_exists() probe may already
-     * have resolved the directory NAME (getautosavedir) without creating
-     * the directory itself.  createDirectoryAtURL is a no-op when it
-     * already exists. */
-    create_autosavedir(const_cast<char *>(gsc_autosave_game_path()));
-
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname) {
-            win_showerror("Could not create autosave directory name.");
-            return;
-        }
-
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
-
-        /* 1. The game state, to its temp name. */
-        NSData *gamedata = [NSData dataWithBytes:engine_state.data()
-                                          length:engine_state.size()];
-        NSError *error = nil;
-        if (![gamedata writeToFile:tmpgamepath options:NSDataWritingAtomic error:&error]) {
-            NSLog(@"scarier autosave: game state write failed: %@", error);
-            return;
-        }
-
-        /* 2. The Glk library state, with the frontend's tags appended, to
-         * its temp name. */
-        gsc_stash_frontend_state(&frontend_state);
-
-        TempLibrary *library = [[TempLibrary alloc] init];
-
-        [TempLibrary setExtraArchiveHook:scarier_library_archive];
-        NSError *archiveError = nil;
-        NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library
-                                                    requiringSecureCoding:NO
-                                                                    error:&archiveError];
-        [TempLibrary setExtraArchiveHook:nil];
-
-        if (!archiveData) {
-            NSLog(@"scarier autosave: library serialize failed: %@", archiveError);
-            [fileManager removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
-            NSLog(@"scarier autosave: library write failed: %@", archiveError);
-            [fileManager removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-
-        /* 3. Both written: rename them into place as a pair.  If the plist
-         * cannot follow the glksave, take the glksave back too, so the
-         * files on disk never mix two turns. */
-        if (!move_into_place(dirname, @"autosave-tmp.glksave",
-                             @"autosave.glksave", @"autosave-bak.glksave")) {
-            [fileManager removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-        if (!move_into_place(dirname, @"autosave-tmp.plist",
-                             @"autosave.plist", @"autosave-bak.plist")) {
-            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
-            [fileManager removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-
-        /* 4. Have the window server snapshot the GUI under the same tag. */
-        win_autosave(library.autosaveTag);
-    }
+    gsc_stash_frontend_state(&frontend_state);
+    gli_autosave_write(gsc_autosave_game_path(), engine_state.data(),
+                       engine_state.size(), scarier_library_archive);
 }
 
 /* ---- restore ------------------------------------------------------------- */
 
 bool scarier_autosave_read_game(std::string *out)
 {
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return false;
-        NSString *gamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSError *error = nil;
-        NSData *gamedata = [NSData dataWithContentsOfFile:gamepath options:0 error:&error];
-        if (!gamedata) {
-            NSLog(@"scarier autorestore: could not read game state: %@", error);
-            return false;
-        }
-        out->assign((const char *)gamedata.bytes, (size_t)gamedata.length);
-        return true;
-    }
+    void *data = NULL;
+    size_t length = 0;
+    if (!gli_autosave_read_game(gsc_autosave_game_path(), &data, &length))
+        return false;
+    out->assign((const char *)data, length);
+    free(data);
+    return true;
 }
 
 bool scarier_autosave_restore_library(void)
 {
-    if (!gli_enable_autosave)
-        return false;
     @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
+        TempLibrary *newlib = gli_autosave_load_library(gsc_autosave_game_path(),
+                                                        scarier_library_unarchive);
+        if (!newlib)
             return false;
-        NSString *libpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-
-        NSError *error = nil;
-        TempLibrary *newlib = nil;
-        NSData *libdata = [NSData dataWithContentsOfFile:libpath options:0 error:&error];
-        if (libdata) {
-            NSKeyedUnarchiver *unarchiver =
-                [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&error];
-            if (unarchiver) {
-                unarchiver.requiresSecureCoding = NO;
-                [TempLibrary setExtraUnarchiveHook:scarier_library_unarchive];
-                newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey
-                                                                         error:&error];
-                [TempLibrary setExtraUnarchiveHook:nil];
-                [unarchiver finishDecoding];
-            }
-        }
-        if (!newlib) {
-            NSLog(@"scarier autorestore: could not restore library state: %@", error);
-            return false;
-        }
         [newlib updateFromLibrary];
         gsc_recover_frontend_state(&frontend_state);
         [newlib updateFromLibraryLate];

@@ -37,7 +37,9 @@
    an archive hook.  A given game file only ever runs on one of the two
    engines, so the shared names never collide.
 
-   The split of labour: scarier-autosave.mm owns the files and the plist
+   The split of labour: glkimp's autosavefiles.m owns the files (writing
+   the pair, renaming it into place, reading it back), shared with other
+   terps; scarier-autosave.mm adds the plist hooks for the frontend state
    (Objective-C, app target only); os_glk_autosave.cpp owns everything that
    touches the engines and the Glk globals (containers, stash/recover), and
    the prompts in os_glk.cpp / os_glk_a5.cpp call it.
