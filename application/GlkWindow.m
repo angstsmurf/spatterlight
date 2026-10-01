@@ -176,6 +176,19 @@
     return [[ZColor alloc] initWithText:fg background:bg];
 }
 
+// Z-machine colors, with measured colors translated, and with a half the
+// game left at the default completed from the theme's light side when the
+// pair would not read (Theme fitGameColors:).
+- (NSMutableDictionary *)zcolored:(ZColor *)zcolor attributes:(NSMutableDictionary *)attributes {
+    attributes = [[self translatedZColor:zcolor] coloredAttributes:attributes];
+    [self.theme fitGameColors:attributes
+               gameForeground:zcolor.setsForeground
+               gameBackground:zcolor.setsBackground
+                   lightStyle:nil
+                         grid:[self isKindOfClass:[GlkTextGridWindow class]]];
+    return attributes;
+}
+
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
               value:(NSInteger *)value {
@@ -262,12 +275,11 @@
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
-            ZColor *zcolor = [self translatedZColor:currentZColor];
             if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                 // If the style has reverseColor hint set, we apply the zcolors in reverse
-                attributes = [zcolor reversedAttributes:attributes];
+                attributes = [[self translatedZColor:currentZColor] reversedAttributes:attributes];
             } else {
-                attributes = [zcolor coloredAttributes:attributes];
+                attributes = [self zcolored:currentZColor attributes:attributes];
             }
         }
     }
@@ -437,7 +449,7 @@
             if (!value) {
                 return;
             }
-            ZColor *z = [weakSelf translatedZColor:value];
+            ZColor *z = value;
             [attStr
              enumerateAttributesInRange:range
              options:0
@@ -452,10 +464,10 @@
                 if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                     // Style has stylehint_ReverseColor set,
                     // So we apply Zcolor with reversed attributes
-                    mutDict = [z reversedAttributes:mutDict];
+                    mutDict = [[weakSelf translatedZColor:z] reversedAttributes:mutDict];
                 } else {
                     // Apply Zcolor normally
-                    mutDict = [z coloredAttributes:mutDict];
+                    mutDict = [weakSelf zcolored:z attributes:mutDict];
                 }
                 [attStr addAttributes:mutDict range:range2];
             }];

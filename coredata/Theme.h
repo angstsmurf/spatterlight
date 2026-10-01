@@ -195,6 +195,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setInactiveSide:(nullable NSDictionary *)side activeIsDark:(BOOL)activeIsDark;
 - (void)applySideSnapshot:(NSDictionary *)side;
 
+/// A game that sets only a text color (or only a background) designed it
+/// against the default background (or text color) of the light side. When the
+/// half it left to the theme makes the pair unreadable, as on the dark side,
+/// this completes the pair from the light side: the game's text gets the
+/// background it was designed for, and its background the text color.
+/// Does nothing when the game set both halves or neither, when the pair
+/// already reads, or when the theme has no separate light side. lightStyle is
+/// the name of the style whose light text color to use; nil means Normal.
+- (void)fitGameColors:(NSMutableDictionary *)attributes
+       gameForeground:(BOOL)gameForeground
+       gameBackground:(BOOL)gameBackground
+           lightStyle:(nullable NSString *)lightStyle
+                 grid:(BOOL)grid;
+
 @end
 
 @interface Theme (CoreDataGeneratedAccessors)

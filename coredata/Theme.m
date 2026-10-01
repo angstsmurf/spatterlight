@@ -14,6 +14,9 @@
 #import "AttributeDictionaryTransformer.h"
 #import "Theme.h"
 
+#include <math.h>
+#import <objc/runtime.h>
+
 #include "glk.h"
 #include "glkimp.h"
 
@@ -545,6 +548,102 @@ static NSArray<NSString *> *sideThemeKeys(void) {
         NSLog(@"Theme activateSidesForDark: %@", error);
     for (Theme *theme in themes)
         [theme activateSideForDark:dark];
+}
+
+#pragma mark Game colors against the light side
+
+static char SPLightSideCacheKey;
+
+// The light side as a sideSnapshot, when it is the stored inactive side.
+// nil when the theme's own attributes hold the light side, or there is only
+// one. Cached against inactiveSideData, since game colors are fitted for
+// every run of colored text.
+- (nullable NSDictionary *)storedLightSide {
+    if (!self.sideIsDark)
+        return nil;
+    NSData *data = self.inactiveSideData;
+    if (!data)
+        return nil;
+    NSArray *cache = objc_getAssociatedObject(self, &SPLightSideCacheKey);
+    if (cache.count == 2 && cache[0] == data)
+        return cache[1];
+    NSDictionary *side = self.inactiveSide;
+    if (!side)
+        return nil;
+    objc_setAssociatedObject(self, &SPLightSideCacheKey, @[ data, side ], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return side;
+}
+
+- (nullable NSColor *)lightSideBackgroundForGrid:(BOOL)grid {
+    NSString *key = grid ? @"gridBackground" : @"bufferBackground";
+    NSDictionary *side = [self storedLightSide];
+    if (side)
+        return side[@"theme"][key];
+    return [self valueForKey:key];
+}
+
+- (nullable NSColor *)lightSideColorOfStyle:(NSString *)name {
+    NSDictionary *side = [self storedLightSide];
+    if (side)
+        return side[@"styles"][name][@"attributeDict"][NSForegroundColorAttributeName];
+    return ((GlkStyle *)[self valueForKey:name]).color;
+}
+
+// WCAG relative luminance, or -1 for a color with no RGB form.
+static CGFloat SPRelativeLuminance(NSColor *color) {
+    NSColor *rgb = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+    if (!rgb)
+        return -1;
+    CGFloat channels[3] = { rgb.redComponent, rgb.greenComponent, rgb.blueComponent };
+    for (NSUInteger i = 0; i < 3; i++) {
+        CGFloat c = channels[i];
+        channels[i] = (c <= 0.03928) ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4);
+    }
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+}
+
+// WCAG contrast ratio, 1 to 21. A pair that cannot be measured counts as
+// readable, so that it is left alone.
+static CGFloat SPContrastRatio(NSColor *a, NSColor *b) {
+    CGFloat la = SPRelativeLuminance(a), lb = SPRelativeLuminance(b);
+    if (la < 0 || lb < 0)
+        return 21;
+    return (MAX(la, lb) + 0.05) / (MIN(la, lb) + 0.05);
+}
+
+// Below this a pair is taken to be unreadable: WCAG's minimum for large text
+// and interface elements. Black or navy text on a dark background falls well
+// under it, most colors a game picks for emphasis do not.
+static const CGFloat kSPMinGameColorContrast = 3.0;
+
+- (void)fitGameColors:(NSMutableDictionary *)attributes
+       gameForeground:(BOOL)gameForeground
+       gameBackground:(BOOL)gameBackground
+           lightStyle:(NSString *)lightStyle
+                 grid:(BOOL)grid {
+    if (gameForeground == gameBackground)
+        return;
+
+    NSColor *fg = attributes[NSForegroundColorAttributeName];
+    NSColor *bg = attributes[NSBackgroundColorAttributeName];
+    if (!bg)
+        bg = grid ? self.gridBackground : self.bufferBackground;
+    if (!fg || !bg)
+        return;
+
+    CGFloat contrast = SPContrastRatio(fg, bg);
+    if (contrast >= kSPMinGameColorContrast)
+        return;
+
+    if (gameForeground) {
+        NSColor *designed = [self lightSideBackgroundForGrid:grid];
+        if (designed && SPContrastRatio(fg, designed) > contrast)
+            attributes[NSBackgroundColorAttributeName] = designed;
+    } else {
+        NSColor *designed = [self lightSideColorOfStyle:lightStyle ?: (grid ? @"gridNormal" : @"bufferNormal")];
+        if (designed && SPContrastRatio(designed, bg) > contrast)
+            attributes[NSForegroundColorAttributeName] = designed;
+    }
 }
 
 @end
