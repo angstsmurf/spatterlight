@@ -19,18 +19,113 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
 - (NSString *)themeScopeTitle;
 @end
 
+// The light/dark toggle: a grey capsule with a filled circle at the
+// left end (light mode) or the right end (dark mode). Any click switches it.
+@interface AppearanceToggle : NSControl
+@property (nonatomic) BOOL dark;
+@end
+
+@implementation AppearanceToggle
+
+// Room around the pill for the knob's shadow.
+static const CGFloat kAppearanceToggleMargin = 3;
+
+- (NSSize)intrinsicContentSize {
+    return NSMakeSize(24 + 2 * kAppearanceToggleMargin, 13 + 2 * kAppearanceToggleMargin);
+}
+
+- (BOOL)isFlipped {
+    return NO;
+}
+
+- (void)setDark:(BOOL)dark {
+    _dark = dark;
+    self.toolTip = dark ? NSLocalizedString(@"Dark Mode", nil) : NSLocalizedString(@"Light Mode", nil);
+    self.needsDisplay = YES;
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    NSRect pillRect = NSInsetRect(self.bounds, kAppearanceToggleMargin, kAppearanceToggleMargin);
+    CGFloat height = NSHeight(pillRect);
+
+    // The same translucent grey as an unchecked checkbox.
+    CGFloat radius = height / 2;
+    [[NSColor quaternaryLabelColor] set];
+    [[NSBezierPath bezierPathWithRoundedRect:pillRect xRadius:radius yRadius:radius] fill];
+
+    // The knob, like a slider knob: white (light grey in dark mode) with a
+    // soft shadow.
+    BOOL darkAppearance = NO;
+    if (@available(macOS 10.14, *))
+        darkAppearance = [[self.effectiveAppearance bestMatchFromAppearancesWithNames:@[ NSAppearanceNameAqua, NSAppearanceNameDarkAqua ]] isEqualToString:NSAppearanceNameDarkAqua];
+
+    NSRect knobRect = NSMakeRect(self.dark ? NSMaxX(pillRect) - height : NSMinX(pillRect), NSMinY(pillRect), height, height);
+    [NSGraphicsContext saveGraphicsState];
+    NSShadow *shadow = [NSShadow new];
+    shadow.shadowColor = [NSColor colorWithWhite:0 alpha:darkAppearance ? 0.5 : 0.3];
+    shadow.shadowOffset = NSMakeSize(0, -0.5);
+    shadow.shadowBlurRadius = 2;
+    [shadow set];
+    [(darkAppearance ? [NSColor colorWithWhite:0.88 alpha:1] : [NSColor whiteColor]) set];
+    [[NSBezierPath bezierPathWithOvalInRect:knobRect] fill];
+    [NSGraphicsContext restoreGraphicsState];
+}
+
+- (void)selectDark:(BOOL)dark {
+    if (dark == self.dark)
+        return;
+    self.dark = dark;
+    [self sendAction:self.action to:self.target];
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    if (!self.enabled)
+        return;
+    // Clicking the knob or the empty side both switch it.
+    [self selectDark:!self.dark];
+}
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
+
+#pragma mark Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (NSAccessibilityRole)accessibilityRole {
+    return NSAccessibilityCheckBoxRole;
+}
+
+- (NSString *)accessibilityLabel {
+    return NSLocalizedString(@"Dark Mode", nil);
+}
+
+- (id)accessibilityValue {
+    return @(self.dark);
+}
+
+- (BOOL)accessibilityPerformPress {
+    [self selectDark:!self.dark];
+    return YES;
+}
+
+@end
+
 @interface Preferences (AppearancePrivate)
-@property (nonatomic, strong) NSArray<NSButton *> *appearanceToggleButtons;
+@property (nonatomic, strong) NSArray<AppearanceToggle *> *appearanceToggleButtons;
 @end
 
 @implementation Preferences (Appearance)
 
 #pragma mark - Associated objects
 
-- (NSArray<NSButton *> *)appearanceToggleButtons {
+- (NSArray<AppearanceToggle *> *)appearanceToggleButtons {
     return objc_getAssociatedObject(self, @selector(appearanceToggleButtons));
 }
-- (void)setAppearanceToggleButtons:(NSArray<NSButton *> *)value {
+- (void)setAppearanceToggleButtons:(NSArray<AppearanceToggle *> *)value {
     objc_setAssociatedObject(self, @selector(appearanceToggleButtons), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -98,54 +193,15 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
     [Theme activateSidesForDark:([Preferences resolvedAppearance] == kDarkAppearance) inContext:context];
 }
 
-#pragma mark - Light/dark toggle buttons
-
-// Like the System Settings Appearance icon: a split circle with a smaller,
-// inverted split circle inside it. Drawn as a template image so that it
-// follows the text color in both modes.
-+ (NSImage *)appearanceToggleImage {
-    NSImage *image = [NSImage imageWithSize:NSMakeSize(14, 14) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        [[NSColor blackColor] set];
-        NSRect outerRect = NSInsetRect(dstRect, 1.25, 1.25);
-        NSRect innerRect = NSInsetRect(dstRect, 4.55, 4.55);
-        CGFloat midX = NSMidX(dstRect);
-        NSRect leftHalf = NSMakeRect(NSMinX(dstRect), NSMinY(dstRect), midX - NSMinX(dstRect), NSHeight(dstRect));
-        NSRect rightHalf = NSMakeRect(midX, NSMinY(dstRect), NSMaxX(dstRect) - midX, NSHeight(dstRect));
-
-        NSBezierPath *outer = [NSBezierPath bezierPathWithOvalInRect:outerRect];
-        outer.lineWidth = 1.1;
-        [outer stroke];
-
-        // Left half of the outer circle, with the inner circle cut out.
-        [NSGraphicsContext saveGraphicsState];
-        NSRectClip(leftHalf);
-        NSBezierPath *ring = [NSBezierPath bezierPathWithOvalInRect:outerRect];
-        [ring appendBezierPathWithOvalInRect:innerRect];
-        ring.windingRule = NSWindingRuleEvenOdd;
-        [ring fill];
-        [NSGraphicsContext restoreGraphicsState];
-
-        // Right half of the inner circle.
-        [NSGraphicsContext saveGraphicsState];
-        NSRectClip(rightHalf);
-        [[NSBezierPath bezierPathWithOvalInRect:innerRect] fill];
-        [NSGraphicsContext restoreGraphicsState];
-        return YES;
-    }];
-    image.template = YES;
-    image.accessibilityDescription = NSLocalizedString(@"Switch between light and dark mode", nil);
-    return image;
-}
+#pragma mark - Light/dark toggle
 
 - (void)configureAppearanceToggleButtons {
     if (self.appearanceToggleButtons.count)
         return;
 
-    NSImage *image = [Preferences appearanceToggleImage];
+    NSMutableArray<AppearanceToggle *> *toggles = [NSMutableArray new];
 
-    NSMutableArray<NSButton *> *buttons = [NSMutableArray new];
-
-    // One button centered at the top of every tab, above the "Settings for theme …"
+    // One toggle centered at the top of every tab, above the "Settings for theme …"
     // line. The xib leaves room for it above each header.
     NSMutableArray<NSView *> *labels = [NSMutableArray new];
     for (NSTextFieldCell *header in @[ self.themesHeader, self.stylesHeader, self.detailsHeader,
@@ -175,31 +231,29 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
         label.frame = labelFrame;
         label.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
 
-        NSButton *button = [NSButton buttonWithImage:image target:self action:@selector(toggleAppearance:)];
-        button.bordered = NO;
-        button.imagePosition = NSImageOnly;
-        button.translatesAutoresizingMaskIntoConstraints = NO;
-        [panel addSubview:button positioned:NSWindowAbove relativeTo:label];
+        AppearanceToggle *toggle = [AppearanceToggle new];
+        toggle.target = self;
+        toggle.action = @selector(toggleAppearance:);
+        toggle.translatesAutoresizingMaskIntoConstraints = NO;
+        [panel addSubview:toggle positioned:NSWindowAbove relativeTo:label];
 
         [NSLayoutConstraint activateConstraints:@[
-            [button.centerXAnchor constraintEqualToAnchor:panel.centerXAnchor],
-            [button.topAnchor constraintEqualToAnchor:panel.topAnchor constant:7],
+            [toggle.centerXAnchor constraintEqualToAnchor:panel.centerXAnchor],
+            [toggle.topAnchor constraintEqualToAnchor:panel.topAnchor constant:7 - kAppearanceToggleMargin],
         ]];
-        [buttons addObject:button];
+        [toggles addObject:toggle];
     }
 
-    self.appearanceToggleButtons = buttons;
+    self.appearanceToggleButtons = toggles;
 
     [Preferences applyAppearanceOverrideToApp];
     [self syncAppearanceToggleButtons];
 }
 
 - (void)syncAppearanceToggleButtons {
-    NSString *toolTip = ([Preferences resolvedAppearance] == kDarkAppearance) ?
-        NSLocalizedString(@"Switch to Light Mode", nil) :
-        NSLocalizedString(@"Switch to Dark Mode", nil);
-    for (NSButton *button in self.appearanceToggleButtons)
-        button.toolTip = toolTip;
+    BOOL dark = ([Preferences resolvedAppearance] == kDarkAppearance);
+    for (AppearanceToggle *toggle in self.appearanceToggleButtons)
+        toggle.dark = dark;
 }
 
 - (IBAction)toggleAppearance:(id)sender {
@@ -208,6 +262,13 @@ static NSString * const SpatterlightThemeSidesMigratedKey = @"SpatterlightThemeS
     // switches between nil (follow the system) and the opposite of the system.
     kAppearanceType system = [Preferences systemAppearance];
     kAppearanceType desired = ([Preferences resolvedAppearance] == kDarkAppearance) ? kLightAppearance : kDarkAppearance;
+    if ([sender isKindOfClass:[AppearanceToggle class]])
+        desired = ((AppearanceToggle *)sender).dark ? kDarkAppearance : kLightAppearance;
+
+    if (desired == [Preferences resolvedAppearance]) {
+        [self syncAppearanceToggleButtons];
+        return;
+    }
 
     if (desired == system)
         [Preferences setAppearanceOverride:nil];
