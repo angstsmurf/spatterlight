@@ -15,6 +15,7 @@
 
 #include "gi_blorb.h"
 #include "glulxe.h"
+#include "autosavefiles.h"
 
 #if VM_DEBUGGER
 /* This header file may come with the Glk library. If it doesn't, comment
@@ -232,52 +233,13 @@ static void spatterglk_game_autorestore(void)
 
     @autoreleasepool {
 
-        TempLibrary *newlib = nil;
-        getautosavedir(gamefile->filename);
-        if (autosavedir == NULL)
+        if (!gli_autosave_exists(gamefile->filename))
             return;
         NSString *dirname = @(autosavedir);
-        if (dirname.length == 0)
-            return;
         NSString *glksavepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:glksavepath])
-            return;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
-
-            // If there is a glksave but no plist, we delete the glksave
-            // to make sure it does not cause trouble later.
-            NSError *error;
-
-            if ([[NSFileManager defaultManager] isDeletableFileAtPath:glksavepath]) {
-                BOOL success = [[NSFileManager defaultManager] removeItemAtPath:glksavepath error:&error];
-                if (!success) {
-                    NSLog(@"glulxe spatterglk_game_autorestore: Error removing Glk autosave: %@", error);
-                }
-            }
-            return;
-        }
-
-
-        NSError *unarchiveError = nil;
-        NSData *libdata = [NSData dataWithContentsOfFile:libsavepath options:0 error:&unarchiveError];
-        if (libdata) {
-            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&unarchiveError];
-            if (unarchiver) {
-                unarchiver.requiresSecureCoding = NO;
-                [TempLibrary setExtraUnarchiveHook:spatterglk_library_unarchive];
-                newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey error:&unarchiveError];
-                [TempLibrary setExtraUnarchiveHook:nil];
-                [unarchiver finishDecoding];
-                if (!newlib)
-                    NSLog(@"Unable to restore autosave library: %@", unarchiveError);
-            } else {
-                NSLog(@"Unable to create unarchiver for autosave library: %@", unarchiveError);
-            }
-        } else {
-            NSLog(@"Unable to read autosave library file: %@", unarchiveError);
-        }
+        TempLibrary *newlib = gli_autosave_load_library(gamefile->filename,
+                                                        spatterglk_library_unarchive);
 
         if (!newlib||!((LibraryState *)newlib.extraData).active) {
             /* Without a Glk state, there's no point in even trying the VM state. We reset the game */
@@ -374,7 +336,8 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
 {
 //    NSLog(@"### game called select, last event was %d", lasteventtype);
 
-    if (!gli_enable_autosave)
+    /* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
+    if (!gli_autosave_wanted())
         return;
 
     if (lasteventtype == evtype_Timer && lastAutosaveTimestamp.timeIntervalSinceNow > -0.05) {
@@ -382,64 +345,17 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
         return;
     }
 
-    if (lasteventtype == 0xFFFFFFFF
-      || lasteventtype == 0xFFFFFFFE)
+    if (lasteventtype == 0xFFFFFFFE)
       return;
-
-	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
-
-    if (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer)
-    {
-        return;
-    }
-
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange || lasteventtype == evtype_Redraw)
-    {
-		return;
-    }
 
     lastAutosaveTimestamp = [NSDate date];
 
     spatterglk_do_autosave(selector, arg0, arg1, arg2);
 }
 
-/* Move tmpname to finalname, keeping the previous finalname as bakname. */
-static BOOL move_into_place(NSString *dirname, NSString *tmpname,
-                            NSString *finalname, NSString *bakname)
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *tmppath = [dirname stringByAppendingPathComponent:tmpname];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-    NSError *error = nil;
-
-    [fileManager removeItemAtPath:bakpath error:nil];
-    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
-    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
-        NSLog(@"could not move %@ to final position: %@", tmpname, error);
-        /* Put the previous file back, so it is not left only as -bak. */
-        [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
-        return NO;
-    }
-    return YES;
-}
-
-/* Undo a move_into_place that succeeded: put the -bak file back as the
- * final one, so the pair on disk is the previous turn's again. */
-static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-
-    [fileManager removeItemAtPath:finalpath error:nil];
-    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
-}
-
 void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2)
 {
     @autoreleasepool {
-        TempLibrary *library = [[TempLibrary alloc] init];
         /* When the save file is autorestored, the VM will restart the @glk opcode. That means that the Glk argument (the event structure address) must be waiting on the stack. Possibly also the @glk opcode's operands -- these might or might not have come off the stack. */
 
         glui32 oldmode, oldrock;
@@ -544,47 +460,14 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
 
         if (res) {
             NSLog(@"VM autosave failed!");
-            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
+            gli_autosave_discard_tmp(gamefile->filename);
             return;
         }
 
-        //stash_library_state();
-        /* The spatterglk_library_archive hook will write out the contents of library_state. */
-
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
-        [TempLibrary setExtraArchiveHook:spatterglk_library_archive];
-        NSError *archiveError = nil;
-        NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library requiringSecureCoding:NO error:&archiveError];
-        [TempLibrary setExtraArchiveHook:nil];
-
-        if (!archiveData) {
-            NSLog(@"library serialize failed: %@", archiveError);
-            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-
-        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
-            NSLog(@"library serialize write failed: %@", archiveError);
-            [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-
-        /* Both written: rename them into place as a pair. If the plist
-         * cannot follow the glksave, take the glksave back too, so the
-         * files on disk never mix two turns. */
-        if (!move_into_place(dirname, @"autosave-tmp.glksave",
-                             @"autosave.glksave", @"autosave-bak.glksave")) {
-            [[NSFileManager defaultManager] removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-        if (!move_into_place(dirname, @"autosave-tmp.plist",
-                             @"autosave.plist", @"autosave-bak.plist")) {
-            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
-            [[NSFileManager defaultManager] removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-//        NSLog(@"Glulxe created an autosave with tag %u", library.autosaveTag);
-        win_autosave(library.autosaveTag); // Call window server to do its own autosave
+        /* The spatterglk_library_archive hook will write out the library
+         * state; glkimp's autosavefiles.m writes the plist and renames it
+         * and the glksave into place as a pair. */
+        gli_autosave_commit(gamefile->filename, spatterglk_library_archive);
     }
 }
 

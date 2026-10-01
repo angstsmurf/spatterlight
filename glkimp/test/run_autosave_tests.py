@@ -21,8 +21,8 @@ On top of that every relaunch must
 
 and every session must leave a complete pair behind: autosave.glksave and
 autosave.plist, with no autosave-tmp.* left over (the
-write-both-then-rename-as-a-pair order of spatterlight-autosave.mm and
-spatterstart.m).  Each case starts with no autosave directory at all, so the
+write-both-then-rename-as-a-pair order of glkimp's autosavefiles.m, which
+both terps call).  Each case starts with no autosave directory at all, so the
 first session also proves the directory is created on demand.
 
 A relaunched Glulxe restores inside glk_select and does not re-request line

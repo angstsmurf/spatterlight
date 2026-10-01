@@ -123,22 +123,36 @@ bool gli_autosave_write(const char *gamepath, const void *data, size_t length,
             return false;
         }
 
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
-
         /* 1. The game state, to its temp name. */
+        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
         NSData *gamedata = [NSData dataWithBytes:data length:length];
         NSError *error = nil;
         if (![gamedata writeToFile:tmpgamepath options:NSDataWritingAtomic error:&error]) {
             NSLog(@"autosave: game state write failed: %@", error);
             return false;
         }
+    }
+    return gli_autosave_commit(gamepath, archive_hook);
+}
+
+bool gli_autosave_commit(const char *gamepath, gli_autosave_hook archive_hook)
+{
+    @autoreleasepool {
+        NSString *dirname = autosave_dirname(gamepath);
+        if (!dirname) {
+            win_showerror("Could not create autosave directory name.");
+            return false;
+        }
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
+        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
 
         /* 2. The Glk library state, with the terp's extras appended, to
          * its temp name. */
         TempLibrary *library = [[TempLibrary alloc] init];
 
+        NSError *error = nil;
         [TempLibrary setExtraArchiveHook:archive_hook];
         NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library
                                                     requiringSecureCoding:NO
@@ -175,6 +189,18 @@ bool gli_autosave_write(const char *gamepath, const void *data, size_t length,
         win_autosave(library.autosaveTag);
     }
     return true;
+}
+
+void gli_autosave_discard_tmp(const char *gamepath)
+{
+    @autoreleasepool {
+        NSString *dirname = autosave_dirname(gamepath);
+        if (!dirname)
+            return;
+        [[NSFileManager defaultManager]
+            removeItemAtPath:[dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"]
+                       error:nil];
+    }
 }
 
 bool gli_autosave_read_game(const char *gamepath, void **data, size_t *length)

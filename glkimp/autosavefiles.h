@@ -45,6 +45,9 @@ bool gli_autosave_wanted(void);
  * next launch starts fresh instead of failing the same way. */
 void gli_autosave_discard(const char *gamepath);
 
+/* Remove autosave-tmp.glksave, when the terp's own save into it failed. */
+void gli_autosave_discard_tmp(const char *gamepath);
+
 /* Read autosave.glksave into a malloc'ed buffer the caller frees. */
 bool gli_autosave_read_game(const char *gamepath, void **data, size_t *length);
 
@@ -56,6 +59,12 @@ bool gli_autosave_read_game(const char *gamepath, void **data, size_t *length);
  * pair left in place, if anything fails. */
 bool gli_autosave_write(const char *gamepath, const void *data, size_t length,
                         gli_autosave_hook archive_hook);
+
+/* For a terp that writes its own state to autosave-tmp.glksave in the
+ * autosave directory (through its usual save code) instead of handing it
+ * over as bytes: the rest of gli_autosave_write, from the plist on.  On
+ * failure the temp glksave is removed and the previous pair stays. */
+bool gli_autosave_commit(const char *gamepath, gli_autosave_hook archive_hook);
 
 /* Unarchive autosave.plist (unarchive_hook, if any, reads the terp's
  * extras back), or return nil.  Nothing live is replaced: the caller runs
