@@ -1897,6 +1897,11 @@ static void test_save_degenerate_state() {
     CHECK(native.find("\"cb\"") != std::string::npos);
     std::string snap = in.save_game("runtime.aslx");
     CHECK(Interp::is_save_data(snap.data(), snap.size()));
+
+    // Values are reference-counted, so a list holding itself is a cycle that
+    // is never freed; break it, or LeakSanitizer fails `make asan` on it.
+    in.run_script("list remove (ca.selfref, ca.selfref)", c);
+    CHECK_STR(Interp::to_string(in.eval("ListCount(ca.selfref)", c)), "0");
 }
 
 // Hostile save data: counts, lengths and nesting come from an untrusted file
