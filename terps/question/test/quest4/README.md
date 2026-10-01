@@ -78,13 +78,11 @@ kept because a range says what the fixture is actually testing.
 > example: it is a clean pass at `-O2` either way, and a heap-buffer-overflow
 > under ASan before the fix.
 >
-> The reverse also happens once: `scriptdepth` FAILs under `make asan` and only
-> there. Its `.expected` was recorded against the production `kMaxScriptDepth`
-> of 500, and ASan builds deliberately lower the cap to 100 (`question-impl.hh`),
+> ASan builds also lower `kMaxScriptDepth` from 500 to 175 (`question-impl.hh`),
 > because ASan's redzones inflate `run_script`'s frame enough that 500 nested
-> frames overflow the sanitizer's stack before the guard can trip. The recursion
-> is abandoned earlier, which is the whole point of the cap — a known, expected
-> diff, not a regression.
+> frames overflow the sanitizer's stack before the guard can trip.  175 still
+> lets `scriptdepth`'s benign recursion finish, so its `.expected` holds under
+> both builds.
 
 ## Unit tests (`harness/question_unit_tests.cc`)
 

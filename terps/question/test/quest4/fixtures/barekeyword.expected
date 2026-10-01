@@ -1,0 +1,13 @@
+
+BareKeyword
+
+You are in Room.
+There is apple here.
+A room.
+
+> act
+acted
+
+> change
+changed
+[runner] turns=2 leftover=0 running=true
