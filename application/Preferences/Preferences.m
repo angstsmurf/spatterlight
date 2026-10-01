@@ -93,7 +93,6 @@
     __weak Theme *pendingSelectionTheme;
     NSUInteger restoreSelectionAttempts;
     CGFloat defaultWindowHeight;
-    CGFloat restoredPreviewHeight;
     NSView *currentPanel;
 
     NSDictionary *catalinaSoundsToBigSur;
@@ -424,10 +423,8 @@ NSString *fontToString(NSFont *font) {
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
-        CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
-        if (height <= 0)
-            height = [_previewController calculateHeight] + 40;
-        [self resizeWindowToHeight:height + defaultWindowHeight animate:NO];
+        [_previewController updatePreviewText];
+        [self resizeWindowToHeight:[self calculateWindowHeightWithPreview] animate:NO];
         [_previewController fixScrollBar];
     }
 
@@ -732,6 +729,17 @@ NSString *fontToString(NSFont *font) {
 - (void)notePreferencesChanged:(NSNotification *)notify {
     // Change the theme of the sample text field
     [self.coreDataManager saveChanges];
+    [self fitPreviewToText];
+}
+
+- (void)fitPreviewToText {
+    if (!_previewShown || _previewHeightConstraint.constant <= 0)
+        return;
+    _previewController.theme = theme;
+    [_previewController updatePreviewText];
+    CGFloat height = [self calculateWindowHeightWithPreview];
+    if (fabs(height - NSHeight(self.window.frame)) >= 1)
+        [self resizeWindowToHeight:height animate:NO];
 }
 
 - (NSSize)windowWillResize:(NSWindow *)window
@@ -1111,22 +1119,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         }
     }
 
-    NSNumber *previewHeightNumber = (NSNumber *)[state decodeObjectOfClass:[NSNumber class] forKey:@"previewHeight"];
-    if (previewHeightNumber) {
-        restoredPreviewHeight = previewHeightNumber.floatValue;
-        _previewHeightConstraint.constant = restoredPreviewHeight;
-    } else {
-        restoredPreviewHeight = 0;
-    }
-
-    if (restoredItem || previewHeightNumber) {
+    if (restoredItem) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
         defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
-        CGFloat blockHeight = defaultWindowHeight;
         [self switchToPanel:restoredItem resizePreview:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            [self resizeWindowToHeight:previewHeightNumber.floatValue + blockHeight animate:YES];
-        });
     }
 }
 
@@ -2617,14 +2613,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     CGFloat previewHeight = 0;
 
-    if (_previewShown) {
-        previewHeight = resizePreview ? _previewHeightConstraint.constant : NSHeight(_sampleTextBorderView.frame);
-        if (restoredPreviewHeight != 0) {
-            previewHeight = restoredPreviewHeight;
-        }
-    }
-
-    restoredPreviewHeight = 0;
+    if (_previewShown)
+        previewHeight = [_previewController calculateHeight] + 40;
 
     _previewHeightConstraint.constant = previewHeight;
 
