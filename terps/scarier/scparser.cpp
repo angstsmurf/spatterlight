@@ -45,22 +45,6 @@
 #include "scgamest.h"
 
 
-/*
- * uip_strdup()
- *
- * Copy a std::string into a freshly scr_malloc'ed C string, so callers that
- * expect to scr_free() the result keep working unchanged.  The boundary between
- * std::string internals and the engine's char* contract.
- */
-static scr_char *
-uip_strdup (const std::string &string)
-{
-  scr_char *buffer = (scr_char *) scr_malloc (string.size () + 1);
-  memcpy (buffer, string.c_str (), string.size () + 1);
-  return buffer;
-}
-
-
 /* Assorted definitions and constants. */
 static const scr_char NUL = '\0';
 static const scr_char MINUS = '-';
@@ -3767,7 +3751,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
     }
 
   /* Return the final string, or NULL if no pronoun replacements. */
-  return modified ? uip_strdup (buffer) : NULL;
+  return modified ? scr_strdup (buffer) : NULL;
 }
 
 
@@ -4192,7 +4176,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
   if (modified && uip_trace)
     scr_trace ("Parser: reference rewrite \"%s\"\n", command.c_str ());
 
-  return modified ? uip_strdup (command) : NULL;
+  return modified ? scr_strdup (command) : NULL;
 }
 
 

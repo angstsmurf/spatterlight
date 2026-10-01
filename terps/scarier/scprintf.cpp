@@ -41,22 +41,6 @@
 #include "scprotos.h"
 
 
-/*
- * pf_strdup()
- *
- * Copy a std::string into a freshly scr_malloc'ed C string, so callers that
- * expect to scr_free() the result keep working unchanged.  Used as the boundary
- * between the std::string accumulators below and the engine's char* contract.
- */
-static scr_char *
-pf_strdup (const std::string &string)
-{
-  scr_char *buffer = (scr_char *) scr_malloc (string.size () + 1);
-  memcpy (buffer, string.c_str (), string.size () + 1);
-  return buffer;
-}
-
-
 /* Assorted definitions and constants. */
 static const scr_uint PRINTFILTER_MAGIC = 0xb4736417;
 enum
@@ -512,7 +496,7 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
     is_interpolated = TRUE;
 
   if (is_interpolated)
-    return pf_strdup (buffer);
+    return scr_strdup (buffer);
   return NULL;
 }
 
@@ -979,7 +963,7 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
     pf_alr_walk (string, current, vars, recursive, 0);
 
   /* Return the rebuilt string if any replacement was made, else NULL. */
-  return current.compare (string) == 0 ? NULL : pf_strdup (current);
+  return current.compare (string) == 0 ? NULL : scr_strdup (current);
 }
 
 
@@ -1385,7 +1369,7 @@ pf_filter_internal (const scr_char *string,
     }
 
   /* Return an allocated current, or NULL if nothing changed. */
-  return have_current ? pf_strdup (current) : NULL;
+  return have_current ? scr_strdup (current) : NULL;
 }
 
 
@@ -1748,7 +1732,7 @@ pf_transfer_buffer (scr_filterref_t filter)
       scr_char *retval;
 
       /* Copy out the buffered text for the caller to own. */
-      retval = pf_strdup (filter->buffer);
+      retval = scr_strdup (filter->buffer);
 
       /* Clear all filter fields down to empty values. */
       filter->buffer.clear ();
@@ -3098,7 +3082,7 @@ pf_escape (const scr_char *string)
   if (cursor > marker)
     buffer.append (marker, cursor - marker);
 
-  return pf_strdup (buffer);
+  return scr_strdup (buffer);
 }
 
 
@@ -3857,7 +3841,7 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle,
   }
 
   /* Return the final string, or NULL if no replacements. */
-  return modified ? pf_strdup (buffer) : NULL;
+  return modified ? scr_strdup (buffer) : NULL;
 }
 
 
