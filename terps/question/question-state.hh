@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include <unordered_map>
 #include "general.hh"
 
@@ -171,12 +172,18 @@ struct PropsIndex
  * instead of growing with the property history.  Everything else here is small
  * and bounded (the object list grows only by `clone`; vars/exits/items grow
  * only slowly), so those are copied normally.  props_index is derived and rebuilt
- * lazily, so it is not stored. */
+ * lazily, so it is not stored.
+ *
+ * A RESTORE replaces the log wholesale, so a snapshot taken before it is no
+ * longer a prefix of the live log.  The restore hands each such snapshot the
+ * abandoned log in props_base (one shared copy for all of them), and undoing
+ * to it rebuilds the log from there instead of truncating the live one. */
 struct UndoState
 {
   bool running = false;
   std::string location;
   size_t props_len = 0;
+  std::shared_ptr<const std::vector<PropertyRecord>> props_base;
   std::vector<ObjectRecord> objs;
   std::vector<ExitRecord> exits;
   std::vector<TimerRecord> timers;

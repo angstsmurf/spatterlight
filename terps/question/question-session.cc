@@ -178,6 +178,16 @@ bool question_implementation::load_state (const string &data, bool run_hooks)
   string gamename;
   if (!deserialize_game (data, gamename, newstate))
     return false;
+  /* The undo snapshots taken so far record lengths of the log about to be
+   * replaced; hand them that log, so UNDO can go back across the restore. */
+  {
+    auto old_log = std::make_shared<const vector<PropertyRecord>> (
+      std::move (state.props));
+    undo_buffer.for_each ([&old_log] (UndoState &u) {
+      if (!u.props_base)
+	u.props_base = old_log;
+    });
+  }
   state = newstate;
   is_running_ = state.running = true;
   restore_clones ();
@@ -194,6 +204,10 @@ bool question_implementation::load_state (const string &data, bool run_hooks)
   if (run_hooks)
     run_game_event ("onload");
   look ();
+  /* A player's RESTORE is a step UNDO can take back, like a turn.  (An
+   * autorestore replaces the history straight afterwards.) */
+  if (run_hooks && state.running)
+    { UndoState u = state.save_undo (); undo_buffer.push (u); }
   return true;
 }
 

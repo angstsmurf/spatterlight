@@ -1,6 +1,10 @@
 ! What a RESTORE and an UNDO must carry across.
 !  - Numeric variables are doubles, but the save wrote them through int, so
 !    n = 0.5 came back as 1.
+!  - UNDO after a RESTORE has to go back to the game the restore abandoned.
+!    The undo snapshots record lengths of the property log, which the
+!    restore replaced, so UNDO used to stitch the two games together into a
+!    state neither ever had (here: the abandoned "frac" kept, "paint" lost).
 !  - A clone's definition alias outlived the clone itself across UNDO, so a
 !    second clone of the same name answered with the first one's description.
 define game <SaveRestore>
@@ -9,6 +13,8 @@ define game <SaveRestore>
  command <frac> set numeric <n; 1 / 2>
  command <zero> set numeric <n; 0>
  command <shown> msg <n=%n%>
+ command <paint> property <Box; color=red>
+ command <colour> msg <Box is $objectproperty(Box; color)$>
  command <sword> clone <Sword; Thing>
  command <shield> clone <Shield; Thing>
 end define

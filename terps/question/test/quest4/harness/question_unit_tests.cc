@@ -280,6 +280,11 @@ test_timer_roundtrip ()
 void
 test_undo_history_roundtrip ()
 {
+  /* The first two snapshots predate a RESTORE and share the log it replaced;
+     the third was taken after it and has none. */
+  auto base = std::make_shared<std::vector<PropertyRecord>> ();
+  for (int i = 0; i < 9; i++)
+    base->emplace_back ("obj" + string_int (i), "prop=" + string_int (i));
   std::vector<UndoState> states;
   for (int s = 0; s < 3; s++)
     {
@@ -315,6 +320,8 @@ test_undo_history_roundtrip ()
       u.ivars.push_back (iv);
 
       u.items.push_back ("a rusty key");
+      if (s < 2)
+	u.props_base = base;
       states.push_back (u);
     }
 
@@ -352,6 +359,16 @@ test_undo_history_roundtrip ()
 	     "undo history: numeric variables " + string_int (s));
       check (b.items.size () == 1 && b.items[0] == "a rusty key",
 	     "undo history: items " + string_int (s));
+    }
+  if (back.size () == 3)
+    {
+      check (back[0].props_base && back[0].props_base == back[1].props_base
+	       && !back[2].props_base,
+	     "undo history: a pre-restore log is written once and shared");
+      check (back[0].props_base && back[0].props_base->size () == 9
+	       && (*back[0].props_base)[8].name == "obj8"
+	       && (*back[0].props_base)[8].data == "prop=8",
+	     "undo history: a pre-restore log round-trips");
     }
 
   /* An empty history is legal -- the first turn has nothing to undo to. */

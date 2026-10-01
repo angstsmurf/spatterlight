@@ -83,6 +83,13 @@ template <class T> class LimitStack {
     return data[dobwd(cur_ptr)];
   }
 
+  /* Apply f to every live entry, in place. */
+  template <class F> void for_each (F f)
+  {
+    for (size_t i = dofwd (end_ptr); i != cur_ptr; fwd (i))
+      f (data[i]);
+  }
+
   /* The stack's live entries, oldest first -- for serializing the undo
    * history into an autosave.  (Entries occupy the ring slots after end_ptr
    * up to, but not including, the next write slot cur_ptr.) */

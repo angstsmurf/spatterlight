@@ -27,6 +27,7 @@
 #include <ostream>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 #include <climits>
 #include <cmath>
 #include <cstdlib>
@@ -375,11 +376,13 @@ struct SaveReader
 
 /* ---- undo history (Spatterlight autosave) ------------------------------- */
 
-static void write_to (QuestionOutputStream &gos, const UndoState &u)
+static void write_to (QuestionOutputStream &gos, const UndoState &u,
+		      unsigned long long base)
 {
   gos.put (char (u.running ? 1 : 0));
   gos.put (u.location);
   gos.put ((unsigned long long) u.props_len);
+  gos.put (base);
   write_to (gos, u.objs);
   write_to (gos, u.exits);
   write_to (gos, u.timers);
@@ -391,16 +394,38 @@ static void write_to (QuestionOutputStream &gos, const UndoState &u)
 /* Bumped to 2 when ObjectRecord::parent stopped doubling as the container link
  * and became Quest's ContainerRoom alone: the field is unchanged on the wire,
  * but a history written by the old engine holds container names where this one
- * expects rooms, and replaying it would put objects inside themselves.  The
+ * expects rooms, and replaying it would put objects inside themselves.  Bumped
+ * to 3 for the props logs of snapshots taken before a RESTORE (UndoState::
+ * props_base): written once each, ahead of the states, which refer to them by
+ * number (0 for none).  A version 2 history, which has none, still reads.  The
  * "GEAS" prefix predates the rename and stays, as it is on disk. */
-static const char *const kUndoHistoryMagic = "GEASUNDO2";
+static const char *const kUndoHistoryMagic = "GEASUNDO3";
+static const char *const kUndoHistoryMagicV2 = "GEASUNDO2";
 
 std::string serialize_undo_history (const std::vector<UndoState> &states)
 {
   QuestionOutputStream gos;
+  std::vector<const std::vector<PropertyRecord> *> bases;
+  for (const UndoState &u : states)
+    if (u.props_base && std::find (bases.begin (), bases.end (),
+				   u.props_base.get ()) == bases.end ())
+      bases.push_back (u.props_base.get ());
+  gos.put ((unsigned long long) bases.size());
+  for (const std::vector<PropertyRecord> *b : bases)
+    {
+      gos.put ((unsigned long long) b->size());
+      for (const PropertyRecord &r : *b)
+	gos.put (r.name).put (r.data);
+    }
   gos.put ((unsigned long long) states.size());
   for (const UndoState &u : states)
-    write_to (gos, u);
+    {
+      unsigned long long base = 0;
+      if (u.props_base)
+	base = std::find (bases.begin (), bases.end (), u.props_base.get ())
+	       - bases.begin () + 1;
+      write_to (gos, u, base);
+    }
   /* Plain, un-obfuscated: this only ever travels inside the autosave. */
   return std::string (kUndoHistoryMagic) + char (0) + gos.raw_contents ();
 }
@@ -409,12 +434,35 @@ bool deserialize_undo_history (const std::string &data,
                                std::vector<UndoState> &states)
 {
   states.clear ();
-  const string magic = kUndoHistoryMagic;
-  if (data.size() < magic.size() + 1) return false;
-  if (data.compare (0, magic.size(), magic) != 0 || data[magic.size()] != 0)
+  auto has_magic = [&data] (const string &magic) {
+    return data.size() >= magic.size() + 1
+	   && data.compare (0, magic.size(), magic) == 0
+	   && data[magic.size()] == 0;
+  };
+  const bool v2 = has_magic (kUndoHistoryMagicV2);
+  if (!v2 && !has_magic (kUndoHistoryMagic))
     return false;
-  QuestionInputStream gis (data.substr (magic.size() + 1));
+  /* Both magics are the same length. */
+  QuestionInputStream gis (data.substr (string (kUndoHistoryMagic).size() + 1));
   SaveReader rd (gis);
+
+  std::vector<std::shared_ptr<const std::vector<PropertyRecord>>> bases;
+  if (!v2)
+    {
+      size_t nbases;
+      if (!rd.count (nbases)) return false;
+      for (size_t bi = 0; bi < nbases; bi++)
+	{
+	  size_t n;
+	  if (!rd.count (n)) return false;
+	  auto b = std::make_shared<std::vector<PropertyRecord>> ();
+	  b->reserve (n);
+	  for (size_t i = 0; i < n; i ++)
+	    { string nm = gis.get_str(), d = gis.get_str();
+	      b->emplace_back (nm, d); }
+	  bases.push_back (b);
+	}
+    }
 
   size_t nstates;
   if (!rd.count (nstates)) return false;
@@ -424,6 +472,16 @@ bool deserialize_undo_history (const std::string &data,
       u.running = gis.get_char() != 0;
       u.location = gis.get_str();
       u.props_len = gis.get_uint();
+      if (!v2)
+	{
+	  size_t base = gis.get_uint();
+	  if (base > bases.size()) return false;
+	  if (base > 0)
+	    {
+	      u.props_base = bases[base - 1];
+	      if (u.props_len > u.props_base->size()) return false;
+	    }
+	}
       if (!rd.objs (u.objs)) return false;
       if (!rd.exits (u.exits)) return false;
       if (!rd.timers (u.timers)) return false;
@@ -586,7 +644,11 @@ void QuestionState::restore_undo (const UndoState &u)
    * The < guard is belt-and-suspenders (a snapshot can't out-length the live
    * log in normal play); we can't fabricate appended records, so leave props
    * untouched in that impossible case. */
-  if (u.props_len <= props.size ())
+  if (u.props_base)
+    props.assign (u.props_base->begin (),
+		  u.props_base->begin ()
+		  + std::min (u.props_len, u.props_base->size ()));
+  else if (u.props_len <= props.size ())
     props.erase (props.begin () + u.props_len, props.end ());
   objs = u.objs;
   exits = u.exits;

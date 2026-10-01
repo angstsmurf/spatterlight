@@ -22,6 +22,60 @@ The hall.
 > shown
 n=.5
 
+> zero
+
+> paint
+
+> east
+You are in Attic.
+You can go west.
+The attic.
+
+[restore]
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+[restored]
+
+> colour
+Box is !
+
+> shown
+n=.5
+
+> undo
+Undone.
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> undo
+Undone.
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
+> undo
+Undone.
+You are in Attic.
+You can go west.
+The attic.
+
+> colour
+Box is red
+
+> shown
+n=0
+
+> west
+You are in Hall.
+There is Box, Sword and Shield here.
+You can go east.
+The hall.
+
 > sword
 
 > undo
@@ -35,4 +89,4 @@ The hall.
 
 > look at thing
 A round shield.
-[runner] turns=7 leftover=0 running=true
+[runner] turns=18 leftover=0 running=true
