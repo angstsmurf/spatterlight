@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
 
 - (CGFloat)calculateHeight;
+/// The height of the preview with its text and the theme's border.
+- (CGFloat)fittingHeight;
 - (void)updatePreviewText;
 - (void)fixScrollBar;
 - (void)scrollToTop;

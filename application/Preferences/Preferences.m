@@ -769,7 +769,7 @@ NSString *fontToString(NSFont *font) {
         newHeight = defaultWindowHeight;
     } else {
         newHeight = [self calculateWindowHeightWithPreview];
-        _previewHeightConstraint.constant = [_previewController calculateHeight] + 40;
+        _previewHeightConstraint.constant = [_previewController fittingHeight];
     }
 
     NSRect currentFrame = window.frame;
@@ -853,9 +853,7 @@ NSString *fontToString(NSFont *font) {
 
 - (CGFloat)calculateWindowHeightWithPreview {
 
-    CGFloat proposedHeight = [_previewController calculateHeight];
-
-    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40;
+    CGFloat totalHeight = defaultWindowHeight + [_previewController fittingHeight];
     CGRect screenframe = [NSScreen mainScreen].visibleFrame;
 
     if (totalHeight > screenframe.size.height) {
@@ -2614,7 +2612,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     CGFloat previewHeight = 0;
 
     if (_previewShown)
-        previewHeight = [_previewController calculateHeight] + 40;
+        previewHeight = [_previewController fittingHeight];
 
     _previewHeightConstraint.constant = previewHeight;
 
