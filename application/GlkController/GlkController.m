@@ -1715,8 +1715,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
         NSWindowStyleMaskFullScreen) {
-        NSLog(@"zoomContentToSize: We are not in fullscreen");
-
         newSize.width += (CGFloat)borders;
         newSize.height += (CGFloat)borders;
 
@@ -1740,7 +1738,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self.window setFrame:winrect display:YES];
         _gameView.frame = [self contentFrameForWindowed];
     } else {
-        NSLog(@"zoomContentToSize: We are in fullscreen");
         // We are in fullscreen
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      newSize.width,

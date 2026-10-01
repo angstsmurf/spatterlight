@@ -597,7 +597,6 @@
 
 - (void)handleChangeTitle:(char *)buf length:(size_t)len {
     buf[len] = '\0';
-    NSLog(@"HandleChangeTitle: %s length: %zu", buf, len);
     NSString *str = @(buf);
     if (str && str.length > (NSUInteger)len - 1)
         [@(buf) substringToIndex:(NSUInteger)len - 1];
