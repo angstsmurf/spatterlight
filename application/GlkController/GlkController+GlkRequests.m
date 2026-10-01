@@ -352,6 +352,39 @@
     }
 }
 
+- (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid {
+    NSArray *record = self.measuredColorAnswers[@(value)];
+    return record.count >= 5 && [record[3] unsignedIntegerValue] == stylehint_BackColor &&
+    [record[1] boolValue] == grid;
+}
+
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
+    NSArray *record = self.measuredColorAnswers[@(value)];
+    if (record.count < 5)
+        return value;
+    // The theme matters too: an autorestored game may have read its colors
+    // from a theme it no longer uses.
+    Theme *theme = self.theme;
+    if ([record[0] boolValue] == theme.sideIsDark &&
+        [record[4] isEqual:(theme.name ?: @"")])
+        return value;
+
+    BOOL isGrid = [record[1] boolValue];
+    NSUInteger style = [record[2] unsignedIntegerValue];
+    NSUInteger hint = [record[3] unsignedIntegerValue];
+    if (style >= style_NUMSTYLES)
+        return value;
+
+    NSColor *color = nil;
+    if (hint == stylehint_TextColor) {
+        GlkStyle *glkStyle = [theme valueForKey:(isGrid ? gGridStyleNames : gBufferStyleNames)[style]];
+        color = glkStyle.attributeDict[NSForegroundColorAttributeName];
+    } else if (hint == stylehint_BackColor) {
+        color = isGrid ? theme.gridBackground : theme.bufferBackground;
+    }
+    return color ? color.integerColor : value;
+}
+
 - (BOOL)handleStyleMeasureOnWin:(GlkWindow *)gwindow
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
@@ -375,6 +408,21 @@
 
         if (color) {
             *result = color.integerColor;
+            // Remember answers that came from the theme rather than from the
+            // game's own hints: a game that reads a color once and passes it
+            // back later would otherwise hand over the old side's or old
+            // theme's color after a switch. See currentValueForMeasuredColor:.
+            NSInteger hinted;
+            if (![gwindow getStyleVal:style hint:hint value:&hinted]) {
+                if (!self.measuredColorAnswers)
+                    self.measuredColorAnswers = [NSMutableDictionary new];
+                NSNumber *key = @(*result);
+                if (!self.measuredColorAnswers[key])
+                    self.measuredColorAnswers[key] =
+                    @[ @(self.theme.sideIsDark),
+                       @([gwindow isKindOfClass:[GlkTextGridWindow class]]),
+                       @(style), @(hint), self.theme.name ?: @"" ];
+            }
             return YES;
         }
     }
@@ -1065,11 +1113,19 @@
             }
             break;
 
-        case SETBGND:
-            if (req->a2 < 0)
+        case SETBGND: {
+            // A background the game read from the theme with
+            // glk_style_measure (Scott, Plus and TADS match their graphics
+            // and banner windows to the main window that way) is the default
+            // background, and follows a light/dark switch like one.
+            NSInteger bgcolor = req->a2;
+            if (bgcolor >= 0 &&
+                [self isMeasuredDefaultBackground:bgcolor grid:[reqWin isKindOfClass:[GlkTextGridWindow class]]])
+                bgcolor = -1;
+            if (bgcolor < 0)
                 bg = theme.bufferBackground;
             else
-                bg = [NSColor colorFromInteger:req->a2];
+                bg = [NSColor colorFromInteger:bgcolor];
             if (req->a1 == -1) {
                 self.lastAutoBGColor = bg;
                 [self setBorderColor:bg];
@@ -1077,9 +1133,10 @@
             }
 
             if (reqWin) {
-                [reqWin setBgColor:req->a2];
+                [reqWin setBgColor:bgcolor];
             }
             break;
+        }
 
         case DRAWIMAGE:
             if (reqWin) {

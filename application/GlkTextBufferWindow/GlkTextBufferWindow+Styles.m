@@ -32,7 +32,7 @@
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
-        bgcolor = [NSColor colorFromInteger:bgnd];
+        bgcolor = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd]];
     }
     if (!bgcolor) {
         if (!self.theme) {
@@ -82,7 +82,7 @@
         if (self.theme.doStyles) {
             // We're doing styles, so we call the current theme object with our hints array
             // in order to get an attributes dictionary
-            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
         } else {
             // We're not doing styles, so use the raw style attributes from
             // the theme object's attributeDict object
@@ -226,6 +226,11 @@
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
             [self recalcBackground];
+            // With no line input the caret is hidden by painting it the
+            // background color, which was read when input ended; after a
+            // light/dark switch that would leave a caret of the old
+            // background showing. (No-op while line input is active.)
+            [self hideInsertionPoint];
             if ([container hasMarginImages])
                 [container performSelector:@selector(invalidateLayout:) withObject:nil afterDelay:0.2];
         }

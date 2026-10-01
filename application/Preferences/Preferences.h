@@ -20,9 +20,9 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
     kAskIfReplace,
 };
 
-typedef NS_ENUM(NSUInteger, kModeType) {
-    kDarkMode,
-    kLightMode
+typedef NS_ENUM(NSUInteger, kAppearanceType) {
+    kDarkAppearance,
+    kLightAppearance
 };
 
 
@@ -53,22 +53,22 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 + (kZoomDirectionType)zoomDirection;
 
 + (Theme *)currentTheme;
+/// NO for the built-in themes that the current mode hides: MS-DOS, DOSBox
+/// and Lectrote Dark in Fabulich mode, the DOS automode themes otherwise.
++ (BOOL)themeIsVisibleInCurrentMode:(Theme *)theme;
 
 + (Preferences *)instance;
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;
 
-+ (kModeType)currentSystemMode;
+/// Override if set, else system. Used for theme light/dark color resolution.
++ (kAppearanceType)resolvedAppearance;
 
 @property BOOL previewShown;
 @property (strong) IBOutlet NSView *sampleTextBorderView;
 
 @property (nonatomic) Theme *defaultTheme ;
-@property Theme *darkTheme;
-@property Theme *lightTheme;
-@property BOOL darkOverrideActive;
-@property BOOL lightOverrideActive;
 
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
@@ -90,6 +90,9 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
 @property (weak) IBOutlet NSTextFieldCell *stylesHeader;
 
+/// The light/dark toggles at the top of each tab (Preferences+Appearance).
+@property (nonatomic, strong) NSArray<NSControl *> *appearanceToggleButtons;
+
 @property (weak) IBOutlet NSButton *btnOneThemeForAll;
 
 @property (weak) IBOutlet NSPopUpButton *actionButton;
@@ -97,9 +100,6 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *btnAdd;
 @property (weak) IBOutlet NSButton *btnRemove;
 @property (weak) IBOutlet NSBox *divider;
-
-@property (strong) IBOutlet NSMenuItem *lightModeMenuItem;
-@property (strong) IBOutlet NSMenuItem *darkModeMenuItem;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
@@ -156,6 +156,10 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSButton *btnUnderlineLinksGrid;
 @property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
 
+@property (weak) IBOutlet NSButton *btnFabulichMode;
+/// Enters or leaves Fabulich mode, as the button in the Global panel does.
+- (void)setFabulichModeEnabled:(BOOL)on;
+
 @property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;
 @property (weak) IBOutlet NSButton *recheckMissingCheckbox;
@@ -167,8 +171,6 @@ typedef NS_ENUM(NSUInteger, kModeType) {
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
 @property (weak) IBOutlet NSButton *slowDrawCheckbox;
-@property (weak) IBOutlet NSButton *hardDarkCheckbox;
-@property (weak) IBOutlet NSButton *hardLightCheckbox;
 @property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
 @property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 

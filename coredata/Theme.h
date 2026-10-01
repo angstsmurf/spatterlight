@@ -104,9 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t gridLinkStyle;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
-@property (nonatomic) BOOL hardDark;
-@property (nonatomic) BOOL hardLight;
-@property (nonatomic) BOOL hardLightOrDark;
+@property (nullable, nonatomic, retain) NSData *inactiveSideData;
 @property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
@@ -116,6 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t sADisplayStyle;
 @property (nonatomic) int32_t sAInventory;
 @property (nonatomic) int32_t sAPalette;
+@property (nonatomic) BOOL sideIsDark;
 @property (nonatomic) int32_t scrollbackLimit;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
@@ -145,7 +144,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *bufSubH;
 @property (nullable, nonatomic, retain) GlkStyle *bufUsr1;
 @property (nullable, nonatomic, retain) GlkStyle *bufUsr2;
-@property (nullable, nonatomic, retain) Theme *darkTheme;
 @property (nullable, nonatomic, retain) NSSet<Theme *> *defaultChild;
 @property (nullable, nonatomic, retain) Theme *defaultParent;
 @property (nullable, nonatomic, retain) NSSet<Game *> *games;
@@ -161,7 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr1;
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
 @property (nullable, nonatomic, retain) Interpreter *interpreter;
-@property (nullable, nonatomic, retain) Theme *lightTheme;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;
@@ -169,6 +166,43 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetCommonValues;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<GlkStyle *> * _Nonnull allStyles;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCustomStyles;
+
+// A theme has a light side and a dark side. Usually they are the same
+// attributes. When they differ, the theme's own attributes hold the side
+// for the active appearance, and the other side is stored in inactiveSideData.
+
+/// YES if the light and dark sides are separate.
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasSeparateSides;
+/// Make the light and dark sides separate copies. The active side is dark if activeIsDark is YES.
+- (void)separateSidesWithActiveDark:(BOOL)activeIsDark;
+/// Throw away the inactive side, so that both appearances use the active one.
+- (void)discardInactiveSide;
+/// YES if the inactive side has the same values as the active one.
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL sidesAreIdentical;
+/// Swap sides if needed, so that the theme's attributes hold the side for this appearance.
+- (void)activateSideForDark:(BOOL)dark;
++ (void)activateSidesForDark:(BOOL)dark inContext:(NSManagedObjectContext *)context;
+/// Snapshot of the attributes that differ between the light and dark sides.
+- (NSDictionary *)sideSnapshot;
+/// The stored side that is not in use, in the sideSnapshot format. nil if the sides are the same.
+- (nullable NSDictionary *)inactiveSide;
+/// Store a snapshot as the inactive side. activeIsDark tells which side the theme's attributes hold.
+- (void)setInactiveSide:(nullable NSDictionary *)side activeIsDark:(BOOL)activeIsDark;
+- (void)applySideSnapshot:(NSDictionary *)side;
+
+/// A game that sets only a text color (or only a background) designed it
+/// against the default background (or text color) of the light side. When the
+/// half it left to the theme makes the pair unreadable, as on the dark side,
+/// this completes the pair from the light side: the game's text gets the
+/// background it was designed for, and its background the text color.
+/// Does nothing when the game set both halves or neither, when the pair
+/// already reads, or when the theme has no separate light side. lightStyle is
+/// the name of the style whose light text color to use; nil means Normal.
+- (void)fitGameColors:(NSMutableDictionary *)attributes
+       gameForeground:(BOOL)gameForeground
+       gameBackground:(BOOL)gameBackground
+           lightStyle:(nullable NSString *)lightStyle
+                 grid:(BOOL)grid;
 
 @end
 

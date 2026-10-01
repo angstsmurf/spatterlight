@@ -102,6 +102,12 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
             style:(NSUInteger)style;
 - (void)flowBreak;
 - (void)prefsDidChange;
+/// styleHints[style], with colors read by glk_style_measure from another
+/// theme or the other light/dark side translated to their current values.
+- (NSArray *)effectiveHintsForStyle:(NSUInteger)style;
+/// zcolor with any color read by glk_style_measure from another theme or the
+/// other light/dark side translated to its current value.
+- (ZColor *)translatedZColor:(ZColor *)zcolor;
 - (void)terpDidStop;
 + (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;

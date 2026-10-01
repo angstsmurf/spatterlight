@@ -61,7 +61,7 @@
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
             } else {
                 styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
             }

@@ -288,7 +288,21 @@
 
     attributes[NSParagraphStyleAttributeName] = para;
     attributes[NSFontAttributeName] = font;
-    
+
+    // A text color without a background, or a background without a text
+    // color, was chosen against the light side's default for the other half.
+    BOOL hintedForeground = [hints[stylehint_TextColor] isNotEqualTo:[NSNull null]];
+    BOOL hintedBackground = [hints[stylehint_BackColor] isNotEqualTo:[NSNull null]];
+    if (hintedForeground != hintedBackground) {
+        NSInteger index = self.index;
+        if (index >= 0 && index < style_NUMSTYLES)
+            [[self findTheme] fitGameColors:attributes
+                             gameForeground:hintedForeground
+                             gameBackground:hintedBackground
+                                 lightStyle:(isBufferStyle ? gBufferStyleNames : gGridStyleNames)[(NSUInteger)index]
+                                       grid:!isBufferStyle];
+    }
+
     return attributes;
 }
 

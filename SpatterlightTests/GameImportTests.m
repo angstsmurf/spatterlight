@@ -1630,6 +1630,78 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     return YES;
 }
 
+// Stores from the models before the current one migrate to it. The current
+// model drops the old dark mode's Theme fields (hardDark, hardLight,
+// hardLightOrDark and the darkTheme/lightTheme pair), so each source store
+// sets them, and the themes must come through with their other values.
+- (void)testThemesMigrateFromModels16To18 {
+    NSURL *momd = [[NSBundle mainBundle] URLForResource:@"Spatterlight" withExtension:@"momd"];
+    XCTAssertNotNil(momd);
+    NSManagedObjectModel *finalModel = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"].managedObjectModel;
+    XCTAssertNotNil(finalModel);
+    XCTAssertNil(finalModel.entitiesByName[@"Theme"].propertiesByName[@"hardDark"]);
+    XCTAssertNil(finalModel.entitiesByName[@"Theme"].propertiesByName[@"darkTheme"]);
+
+    for (NSString *version in @[ @"16", @"17", @"18" ]) {
+        NSManagedObjectModel *source = [[NSManagedObjectModel alloc] initWithContentsOfURL:
+                                        [momd URLByAppendingPathComponent:[NSString stringWithFormat:@"Spatterlight %@.mom", version]]];
+        XCTAssertNotNil(source, @"model %@ must exist in the momd", version);
+        if (!source)
+            continue;
+
+        NSURL *store = [[NSURL fileURLWithPath:NSTemporaryDirectory()]
+                        URLByAppendingPathComponent:[NSString stringWithFormat:@"themes-v%@-%@.storedata", version,
+                                                     NSProcessInfo.processInfo.globallyUniqueString]];
+        // The app opens its store with history tracking, so the migration
+        // expects it.
+        NSDictionary *options = @{ NSPersistentHistoryTrackingKey: @YES };
+        @autoreleasepool {
+            NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:source];
+            NSError *error = nil;
+            XCTAssertNotNil([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:store options:options error:&error], @"create v%@ store: %@", version, error);
+            NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            context.persistentStoreCoordinator = coordinator;
+            NSManagedObject *light = [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:context];
+            NSManagedObject *dark = [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:context];
+            [light setValue:@"Old Light" forKey:@"name"];
+            [light setValue:@YES forKey:@"hardLight"];
+            [light setValue:@YES forKey:@"hardLightOrDark"];
+            [light setValue:@17 forKey:@"defaultRows"];
+            [dark setValue:@"Old Dark" forKey:@"name"];
+            [dark setValue:@YES forKey:@"hardDark"];
+            [light setValue:dark forKey:@"darkTheme"];
+            XCTAssertTrue([context save:&error], @"save v%@ store: %@", version, error);
+            for (NSPersistentStore *s in coordinator.persistentStores.copy)
+                [coordinator removePersistentStore:s error:NULL];
+        }
+
+        CoreDataManager *cdm = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
+        NSError *migrationError = nil;
+        XCTAssertTrue([cdm progressivelyMigrateStoreAtURL:store ofType:NSSQLiteStoreType toModel:finalModel error:&migrationError],
+                      @"migrating v%@: %@", version, migrationError);
+
+        @autoreleasepool {
+            NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
+            NSError *error = nil;
+            XCTAssertNotNil([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:store options:options error:&error], @"open migrated v%@ store: %@", version, error);
+            NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            context.persistentStoreCoordinator = coordinator;
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Theme"];
+            request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
+            NSArray<NSManagedObject *> *themes = [context executeFetchRequest:request error:&error];
+            XCTAssertEqual(themes.count, 2u, @"v%@", version);
+            XCTAssertEqualObjects([themes.firstObject valueForKey:@"name"], @"Old Dark");
+            XCTAssertEqualObjects([themes.lastObject valueForKey:@"name"], @"Old Light");
+            XCTAssertEqualObjects([themes.lastObject valueForKey:@"defaultRows"], @17, @"v%@", version);
+            for (NSPersistentStore *s in coordinator.persistentStores.copy)
+                [coordinator removePersistentStore:s error:NULL];
+        }
+
+        for (NSString *suffix in @[ @"", @"-shm", @"-wal" ])
+            [[NSFileManager defaultManager] removeItemAtPath:[store.path stringByAppendingString:suffix] error:NULL];
+    }
+}
+
 // End-to-end check that progressive migration chains a real, pre-hash store all
 // the way to the current model AND actually runs the custom
 // IfidToHashMigrationPolicy (i.e. passes through "Spatterlight 15"), rather than

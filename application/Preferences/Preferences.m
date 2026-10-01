@@ -19,10 +19,16 @@
 #import "TableViewController.h"
 #import "TableViewController+TableDelegate.h"
 #import "TableViewController+LibraryManagement.h"
+#import "TableViewController+GameActions.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
 
 #import "Preferences.h"
+#import "Preferences+Appearance.h"
+
+// The strip at the top of each panel that holds the light/dark toggle. It is
+// cut off outside Fabulich mode.
+static const CGFloat kAppearanceStripHeight = 20;
 
 #ifndef DEBUG
 #define NSLog(...)
@@ -89,10 +95,14 @@
     // A clone of a non-editable theme that restoreThemeSelection: has not
     // selected in the themes table yet.
     __weak Theme *pendingSelectionTheme;
+    NSString *stylesHeaderBase;
     NSUInteger restoreSelectionAttempts;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
     NSView *currentPanel;
+    // The height of each panel in the nib, including the strip at the top
+    // that holds the light/dark toggle in Fabulich mode.
+    NSMapTable<NSView *, NSNumber *> *panelFullHeights;
 
     NSDictionary *catalinaSoundsToBigSur;
     NSDictionary *bigSurSoundsToCatalina;
@@ -129,6 +139,8 @@
 
 @end
 
+static char SPEffectiveAppearanceContext;
+
 @implementation Preferences
 
 /*
@@ -161,14 +173,19 @@ static Preferences *prefs = nil;
 
 + (void)readDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *name = [defaults objectForKey:@"themeName"];
-
-    if (!name)
-        name = @"Old settings";
 
     CoreDataManager *coreDataManager = ((AppDelegate*)NSApp.delegate).coreDataManager;
 
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
+
+    // Before reading the theme name: this may delete the saved theme and
+    // change the name.
+    BOOL migratedToThemeSides = [Preferences migrateToThemeSidesIfNeededInContext:managedObjectContext];
+
+    NSString *name = [defaults objectForKey:@"themeName"];
+
+    if (!name)
+        name = @"Old settings";
 
     NSFetchRequest *fetchRequest = [Theme fetchRequest];
     NSArray *fetchedObjects;
@@ -188,7 +205,8 @@ static Preferences *prefs = nil;
 
     // Rebuild default themes the first time a new Spatterlight version is run (or the preferences are deleted.)
     // Rebuilding is so quick that this may be overkill. Perhaps we should just rebuild on every run?
-    BOOL forceRebuild = NO;
+    // Moving to theme sides rebuilds them too.
+    BOOL forceRebuild = migratedToThemeSides;
     NSString *appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 
     NSString *lastThemesRebuild = [defaults objectForKey:@"LastThemesRebuild"];
@@ -201,6 +219,8 @@ static Preferences *prefs = nil;
     // We may or may not have created the Default and Old themes already above.
     // Then these won't be recreated below.
     [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
+
+    [Preferences activateThemeSidesInContext:managedObjectContext];
 }
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
@@ -346,12 +366,10 @@ NSString *fontToString(NSFont *font) {
 
     _previewController.theme = theme;
 
-    [self findDarkAndLightThemes];
-    if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
-        _lightOverrideActive = YES;
-    } else if (_darkTheme && [Preferences currentSystemMode] == kDarkMode) {
-        _darkOverrideActive = YES;
-    }
+    // The system may have switched to the overridden mode while Spatterlight
+    // was not running.
+    [Preferences dropOverrideMatchingSystem];
+    [Preferences applyAppearanceOverrideToApp];
 
     _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
@@ -367,6 +385,8 @@ NSString *fontToString(NSFont *font) {
     _scrollView.verticalScroller.alphaValue = 100;
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
+
+    [self configureAppearanceToggleButtons];
 
     [self changeThemeName:theme.name];
 
@@ -390,6 +410,15 @@ NSString *fontToString(NSFont *font) {
         globalPanel:_globalView
     };
 
+    panelFullHeights = [NSMapTable weakToStrongObjectsMapTable];
+    for (NSView *panel in itemIdentifierToViewDict.allValues)
+        [panelFullHeights setObject:@(NSHeight(panel.frame)) forKey:panel];
+    // Panels are pinned to the bottom of the view below the preview, which
+    // cuts off the toggle strip at their top outside Fabulich mode.
+    if (@available(macOS 14.0, *))
+        _belowView.clipsToBounds = YES;
+    _btnFabulichMode.title = [Preferences fabulichMode] ? NSLocalizedString(@"Exit Fabulich mode", nil) : NSLocalizedString(@"Enter Fabulich mode", nil);
+
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
     toolbar.delegate = self;
     toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
@@ -404,6 +433,10 @@ NSString *fontToString(NSFont *font) {
 
     _previewShown = [defaults boolForKey:@"ShowThemePreview"];
 
+    // Adding a theme must not bring back the themes hidden in this mode.
+    _arrayController.clearsFilterPredicateOnInsertion = NO;
+    [self applyThemeFilter];
+
     // The tool menu is also the contextual menu of the themes table, where
     // it applies to the clicked theme. Skip the hidden pull-down title item.
     NSMenu *contextMenu = [_actionButton.menu copy];
@@ -416,7 +449,7 @@ NSString *fontToString(NSFont *font) {
         currentPanel = _belowView.subviews[0];
     }
 
-    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
+    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, [self visibleHeightOfPanel:currentPanel])]));
 
     if (!_previewShown) {
         _previewHeightConstraint.constant = 0;
@@ -457,181 +490,43 @@ NSString *fontToString(NSFont *font) {
                                                object:_managedObjectContext];
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    if (@available(macOS 10.14, *))
+        [NSApp addObserver:self forKeyPath:@"effectiveAppearance" options:0 context:&SPEffectiveAppearanceContext];
 }
 
 #pragma mark Color mode changes
 
 
-+ (kModeType)currentSystemMode {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleInterfaceStyle"] isEqualToString:@"Dark"])
-        return kDarkMode;
-    return kLightMode;
-}
-
+// The system's distributed notification. It can arrive before the new mode
+// is readable, so the check is repeated shortly afterwards; a switch is only
+// announced once, whichever check sees it (see noteAppearanceMayHaveChanged).
 - (void)noteColorModeChanged:(NSNotification *)notification {
-    if ([Preferences currentSystemMode] == kDarkMode) {
-        if (_darkTheme) {
-            _darkOverrideActive = YES;
-            [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_darkTheme]];
-        } else {
-            if (_lightOverrideActive || _darkOverrideActive)
-                [self lightOrDarkOverrideWasRemoved];
-            return;
-        }
-        _lightOverrideActive = NO;
-    } else {
-        if (_lightTheme) {
-            _lightOverrideActive = YES;
-            [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_lightTheme]];
-        } else {
-            if (_darkOverrideActive || _darkOverrideActive)
-                [self lightOrDarkOverrideWasRemoved];
-            return;
-        }
-        _darkOverrideActive = NO;
-    }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
-    _themesHeader.stringValue = [self themeScopeTitle];
+    [Preferences noteAppearanceMayHaveChanged];
+    [Preferences scheduleAppearanceRechecks];
 }
 
-- (void)lightOrDarkOverrideWasRemoved {
-    _lightOverrideActive = NO;
-    _darkOverrideActive = NO;
-    _themesHeader.stringValue = [self themeScopeTitle];
-    if (self.window.keyWindow) {
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            _currentGame.theme = theme;
-        }
-    } else if (_currentGame) {
-        [prefs restoreThemeSelection:_currentGame.theme];
+// AppKit's own change of NSApp.effectiveAppearance, which it makes only once
+// the new system mode is in effect. It does not fire while an override pins
+// the app's appearance; the distributed notification covers that case.
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if (context == &SPEffectiveAppearanceContext) {
+        [Preferences noteAppearanceMayHaveChanged];
+        return;
     }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
-}
-
-- (void)findDarkAndLightThemes {
-    _darkTheme = nil;
-    _lightTheme = nil;
-    _lightOverrideActive = NO;
-    _darkOverrideActive = NO;
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardDark == YES"];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        _darkTheme = fetchedObjects[0];
-        _darkTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _darkTheme)
-                    wrong.hardDark = NO;
-            }
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO darkTheme: %@", error);
-        }
-        _darkTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLight == YES"];
-    error = nil;
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        _lightTheme = fetchedObjects[0];
-        _lightTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _lightTheme) {
-                    wrong.hardLight = NO;
-                }
-            }
-
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO lightTheme: %@", error);
-        }
-        _lightTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLightOrDark == YES"];
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (Theme *wrong in fetchedObjects) {
-        if (!wrong.hardDark && !wrong.hardLight)
-            wrong.hardLightOrDark = NO;
-    }
-
-    if (_lightTheme && _lightTheme == _darkTheme) {
-        _darkTheme = nil;
-        _lightTheme.hardDark = NO;
-    }
-}
-
-- (IBAction)useInLightMode:(id)sender {
-    if (_lightModeMenuItem.state == NSOnState) {
-        _hardLightCheckbox.state = NSOffState;
-    } else {
-        _hardLightCheckbox.state = NSOnState;
-    }
-    [self changeHardLightTheme:_hardLightCheckbox];
-    if (!theme.hardLight) {
-        //We switched off the light theme override. Current game (or all) gets this theme applied
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
-        }
-    }
-}
-
-- (IBAction)useInDarkMode:(id)sender {
-    if (_darkModeMenuItem.state == NSOnState) {
-        _hardDarkCheckbox.state = NSOffState;
-    } else {
-        _hardDarkCheckbox.state = NSOnState;
-    }
-    [self changeHardDarkTheme:_hardDarkCheckbox];
-    if (!theme.hardDark) {
-        // We switched off the dark theme override. Current game (or all) gets this theme applied
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
-        }
-    }
-}
-
-- (IBAction)clearLightDarkOverrides:(id)sender {
-    [self findDarkAndLightThemes];
-    if (_darkTheme) {
-        _darkTheme.hardDark = NO;
-        _darkTheme.hardLightOrDark = NO;
-        _darkTheme = nil;
-    }
-    if (_lightTheme) {
-        _lightTheme.hardLight = NO;
-        _lightTheme.hardLightOrDark = NO;
-        _lightTheme = nil;
-    }
-    [self lightOrDarkOverrideWasRemoved];
-    theme = _arrayController.selectedTheme;
-    if (_oneThemeForAll)
-        self.oneThemeForAll = YES;
-    else
-        _currentGame.theme = theme;
-    [self updatePrefsPanel];
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 
 #pragma mark Update panels
 
 - (void)updatePrefsPanel {
+    // A deleted theme has no context to create styles in, so populateStyles
+    // below would crash on it.
+    if (theme.isDeleted || !theme.managedObjectContext)
+        theme = nil;
     if (!theme) {
         theme = _currentGame.theme;
     }
@@ -670,6 +565,8 @@ NSString *fontToString(NSFont *font) {
 
     _btnOverwriteStyles.enabled = theme.hasCustomStyles;
 
+    [self updateStylesHeader];
+
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
 
@@ -687,6 +584,7 @@ NSString *fontToString(NSFont *font) {
     _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
     if (theme.borderColor == nil)
         theme.borderColor = theme.bufferBackground;
+    _borderColorWell.color = theme.borderColor;
 
     _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
     _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSOffState : NSOnState;
@@ -776,10 +674,6 @@ NSString *fontToString(NSFont *font) {
     _delaysCheckbox.state = theme.sADelays;
     _slowDrawCheckbox.state = theme.slowDrawing;
 
-    _hardDarkCheckbox.state = theme.hardDark;
-    _darkModeMenuItem.state = theme.hardDark;
-    _hardLightCheckbox.state = theme.hardLight;
-    _lightModeMenuItem.state = theme.hardLight;
 
     _scottAdamsFlickerCheckbox.state = theme.flicker;
 
@@ -815,7 +709,7 @@ NSString *fontToString(NSFont *font) {
 - (void)setCurrentGame:(Game *)currentGame {
     _currentGame = currentGame;
     _themesHeader.stringValue = [self themeScopeTitle];
-    if (currentGame && currentGame.theme != theme && !(_darkOverrideActive || _lightOverrideActive)) {
+    if (currentGame && currentGame.theme != theme) {
         [self restoreThemeSelection:currentGame.theme];
     }
 }
@@ -1064,6 +958,15 @@ NSString *fontToString(NSFont *font) {
         return;
     }
     restoreSelectionAttempts = 0;
+    if (sender && ![themes containsObject:sender]) {
+        // The theme filter lets the current theme through even if it is
+        // hidden in this mode, such as the theme of the current game.
+        theme = sender;
+        ignoreTableSelectionChanges = YES;
+        [arrayController rearrangeObjects];
+        ignoreTableSelectionChanges = NO;
+        themes = arrayController.arrangedObjects;
+    }
     if (![themes containsObject:sender]) {
         // Fall back to the last theme in the table, but never leave the global
         // nil: everything downstream (changeCurrentGlkController: in particular)
@@ -1104,21 +1007,24 @@ NSString *fontToString(NSFont *font) {
         if (!selected)
             return;
         theme = selected;
+        // Hide the previous theme if it was only shown because it was current.
+        ignoreTableSelectionChanges = YES;
+        [_arrayController rearrangeObjects];
+        _arrayController.selectedObjects = @[theme];
+        ignoreTableSelectionChanges = NO;
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
 
-        if (!_lightOverrideActive && !_darkOverrideActive) {
-            if (_oneThemeForAll) {
-                NSFetchRequest *fetchRequest = [Game fetchRequest];
-                NSArray *fetchedObjects;
-                NSError *error;
-                fetchRequest.includesPropertyValues = NO;
-                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-                [theme addGames:[NSSet setWithArray:fetchedObjects]];
-            } else if (_currentGame) {
-                _currentGame.theme = theme;
-            }
+        if (_oneThemeForAll) {
+            NSFetchRequest *fetchRequest = [Game fetchRequest];
+            NSArray *fetchedObjects;
+            NSError *error;
+            fetchRequest.includesPropertyValues = NO;
+            fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            [theme addGames:[NSSet setWithArray:fetchedObjects]];
+        } else if (_currentGame) {
+            _currentGame.theme = theme;
         }
 
         // Send notification that theme has changed -- trigger configure events
@@ -1132,9 +1038,20 @@ NSString *fontToString(NSFont *font) {
     NSString *themeString = [NSString stringWithFormat:@"Settings for theme %@", name];
     _detailsHeader.stringValue = themeString;
     _miscHeader.stringValue = themeString;
-    _stylesHeader.stringValue = themeString;
+    stylesHeaderBase = themeString;
+    [self updateStylesHeader];
     _zcodeHeader.stringValue = themeString;
     _vOHeader.stringValue = themeString;
+}
+
+// In Fabulich mode, the Glk Styles tab header tells which mode is being
+// edited, as changes only apply to that one.
+- (void)updateStylesHeader {
+    NSString *header = stylesHeaderBase ? stylesHeaderBase : [NSString stringWithFormat:@"Settings for theme %@", theme.name];
+    if ([Preferences fabulichMode])
+        header = [header stringByAppendingString:[Preferences themeSidesAreDark] ?
+                  NSLocalizedString(@" (dark mode)", nil) : NSLocalizedString(@" (light mode)", nil)];
+    _stylesHeader.stringValue = header;
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -1261,7 +1178,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (restoredItem || previewHeightNumber) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
-        defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
+        defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, [self visibleHeightOfPanel:currentPanel])]));
         CGFloat blockHeight = defaultWindowHeight;
         [self switchToPanel:restoredItem resizePreview:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
@@ -1349,9 +1266,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSString *)themeScopeTitle {
-    if (_lightOverrideActive) return NSLocalizedString(@"Light theme override active", nil);
-    if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", nil);
-
     if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
     if (_currentGame == nil) {
         return NSLocalizedString(@"No game is currently running", nil);
@@ -1387,44 +1301,51 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)removeTheme:(id)sender {
+    [self removeThemeObject:_arrayController.selectedTheme];
+}
+
+/// The Delete item of the tool menu: like the minus button, but in the
+/// contextual menu of the themes table it deletes the clicked theme.
+- (IBAction)deleteTheme:(id)sender {
+    [self removeThemeObject:[self themeForMenuCommand:sender]];
+}
+
+- (void)removeThemeObject:(Theme *)themeToRemove {
     ThemeArrayController *arrayController = _arrayController;
-    Theme *themeToRemove = arrayController.selectedTheme;
     if (!themeToRemove.editable) {
         NSBeep();
         return;
     }
-    if (themeToRemove.hardLightOrDark) {
-        if (themeToRemove.hardDark) {
-            self.darkTheme = nil;
-            if (_darkOverrideActive) {
-                [self lightOrDarkOverrideWasRemoved];
-            }
-        } else {
-            self.lightTheme = nil;
-            if (_lightOverrideActive) {
-                [self lightOrDarkOverrideWasRemoved];
-            }
-        }
-    }
-    Theme *ancestor = themeToRemove.defaultParent;
-    if (!ancestor)
-        ancestor = [self findAncestorThemeOf:themeToRemove];
+    Theme *ancestor = [self visibleAncestorOf:themeToRemove];
     NSSet *orphanedGames = themeToRemove.games;
     NSSet *orphanedThemes = themeToRemove.defaultChild;
-    NSUInteger row = arrayController.selectionIndex - 1;
-    if (row >= [arrayController.arrangedObjects count])
-        row = 0;
     if (pendingSelectionTheme == themeToRemove)
         pendingSelectionTheme = nil;
-    [arrayController removeObject:themeToRemove];
-    // Select the theme this one was cloned or created from, if it still
-    // exists. Otherwise the theme above the removed one.
-    if (ancestor && [arrayController.arrangedObjects containsObject:ancestor])
-        arrayController.selectedObjects = @[ancestor];
-    else
-        arrayController.selectionIndex = row;
-    if (!ancestor)
-        ancestor = arrayController.selectedTheme;
+
+    if (themeToRemove != arrayController.selectedTheme) {
+        // A clicked theme that is not the selected one: keep the selection.
+        Theme *selected = arrayController.selectedTheme;
+        ignoreTableSelectionChanges = YES;
+        [arrayController removeObject:themeToRemove];
+        if (selected)
+            arrayController.selectedObjects = @[selected];
+        ignoreTableSelectionChanges = NO;
+        if (!ancestor)
+            ancestor = selected;
+    } else {
+        NSUInteger row = arrayController.selectionIndex - 1;
+        if (row >= [arrayController.arrangedObjects count])
+            row = 0;
+        [arrayController removeObject:themeToRemove];
+        // Select the theme this one was cloned or created from, if it still
+        // exists. Otherwise the theme above the removed one.
+        if (ancestor && [arrayController.arrangedObjects containsObject:ancestor])
+            arrayController.selectedObjects = @[ancestor];
+        else
+            arrayController.selectionIndex = row;
+        if (!ancestor)
+            ancestor = arrayController.selectedTheme;
+    }
 
     [ancestor addGames:orphanedGames];
     [ancestor addDefaultChild:orphanedThemes];
@@ -1450,28 +1371,45 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 
+    // The current theme may be one of the deleted ones. Pick a built-in theme
+    // to take its place before deleting: a deleted theme loses its context,
+    // and updatePrefsPanel would crash trying to give it new styles.
+    Theme *survivor = theme;
+    if (survivor.editable) {
+        survivor = [self findAncestorThemeOf:survivor];
+        if (!survivor || survivor.editable || ![self themeIsVisible:survivor])
+            survivor = [self fallbackTheme];
+        if (!survivor)
+            survivor = self.defaultTheme;
+    }
+
     NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
 
     for (Theme *t in fetchedObjects) {
         if (t.games.count || t.defaultChild.count) {
             Theme *ancestor = [self findAncestorThemeOf:t];
+            if (ancestor && ![self themeIsVisible:ancestor])
+                ancestor = [self fallbackTheme];
             if (ancestor && !ancestor.editable) {
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
-                if (t == theme) {
-                    NSUInteger row = [arrayController.arrangedObjects indexOfObject:t];
-                    arrayController.selectionIndex = row;
-                }
             }
             [orphanedGames unionSet:t.games];
         }
     }
 
-    [arrayController removeObjects:fetchedObjects];
+    if (pendingSelectionTheme.editable)
+        pendingSelectionTheme = nil;
 
-    [theme addGames:orphanedGames];
-    arrayController.selectedObjects = @[theme];
-    [self findDarkAndLightThemes];
+    // Removing the selected theme moves the selection to some other row. That
+    // is not a user choice, so it must not be applied to the current game.
+    theme = survivor;
+    ignoreTableSelectionChanges = YES;
+    [arrayController removeObjects:fetchedObjects];
+    ignoreTableSelectionChanges = NO;
+
+    [survivor addGames:orphanedGames];
+    arrayController.selectedObjects = @[survivor];
 }
 
 - (nullable Theme *)findAncestorThemeOf:(Theme *)t {
@@ -1493,6 +1431,73 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
     NSLog(@"Found no ancestor theme!");
     return nil;
+}
+
+/// The theme to select when t is deleted: the nearest theme it was cloned or
+/// created from that is shown in the themes table, or "Default" if
+/// they are all hidden.
+- (nullable Theme *)visibleAncestorOf:(Theme *)t {
+    Theme *ancestor = t.defaultParent;
+    if (!ancestor)
+        ancestor = [self findAncestorThemeOf:t];
+    NSMutableSet *seen = [NSMutableSet set];
+    while (ancestor && ![self themeIsVisible:ancestor] && ![seen containsObject:ancestor]) {
+        [seen addObject:ancestor];
+        ancestor = ancestor.defaultParent;
+    }
+    if (ancestor && ![self themeIsVisible:ancestor])
+        ancestor = [self fallbackTheme];
+    return ancestor;
+}
+
+#pragma mark Fabulich mode themes
+
+/// The single-sided dark themes that Fabulich mode hides, and the themes
+/// with a light side that take their place there.
++ (NSDictionary<NSString *, NSString *> *)fabulichCounterparts {
+    return @{ @"MS-DOS" : @"MS-DOS automode",
+              @"DOSBox" : @"DOSBox automode",
+              @"Lectrote Dark" : @"Lectrote" };
+}
+
++ (BOOL)themeIsVisibleInCurrentMode:(Theme *)t {
+    if (t.editable)
+        return YES;
+    NSDictionary *counterparts = [Preferences fabulichCounterparts];
+    if ([Preferences fabulichMode])
+        return counterparts[t.name] == nil;
+    // Lectrote is shown in both modes
+    return ![@[ @"MS-DOS automode", @"DOSBox automode" ] containsObject:t.name];
+}
+
+/// The current theme is always shown.
+- (BOOL)themeIsVisible:(Theme *)t {
+    return t == theme || [Preferences themeIsVisibleInCurrentMode:t];
+}
+
+- (nullable Theme *)fallbackTheme {
+    return [_arrayController findThemeByName:@"Default"];
+}
+
+/// The theme that takes the place of a built-in theme hidden in the current mode.
+- (nullable Theme *)counterpartOfTheme:(Theme *)t {
+    if (t.editable)
+        return nil;
+    NSDictionary *counterparts = [Preferences fabulichCounterparts];
+    NSString *name = nil;
+    if ([Preferences fabulichMode]) {
+        name = counterparts[t.name];
+    } else if (![t.name isEqualToString:@"Lectrote"]) {
+        name = [counterparts allKeysForObject:t.name].firstObject;
+    }
+    return name ? [_arrayController findThemeByName:name] : nil;
+}
+
+- (void)applyThemeFilter {
+    __weak Preferences *weakSelf = self;
+    _arrayController.filterPredicate = [NSPredicate predicateWithBlock:^BOOL(Theme *t, NSDictionary *bindings) {
+        return [weakSelf themeIsVisible:t];
+    }];
 }
 
 - (IBAction)togglePreview:(id)sender {
@@ -1533,7 +1538,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return NO;
         }
     } else if (action == @selector(selectUsingTheme:)) {
-        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
+        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll) {
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
@@ -1547,21 +1552,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (fetchedObjects == nil || fetchedObjects.count == 0) {
             return NO;
         }
-    } else if (action == @selector(editNewEntry:)) {
+    } else if (action == @selector(editNewEntry:) || action == @selector(deleteTheme:)) {
         return [self themeForMenuCommand:menuItem].editable;
-
-    } else if (action == @selector(useInLightMode:) || action == @selector(useInDarkMode:)) {
-        // These act on the selected theme, so in the contextual menu of
-        // another row they only show that theme's state.
-        Theme *target = [self themeForMenuCommand:menuItem];
-        menuItem.state = (action == @selector(useInLightMode:)) ? target.hardLight : target.hardDark;
-        return target == theme;
-
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
         ((NSMenuItem*)menuItem).title = title;
-    } else if (action == @selector(clearLightDarkOverrides:)) {
-        return (_darkTheme || _lightTheme);
     }
 
     return YES;
@@ -1800,88 +1795,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         default:
             NSLog(@"Unhandled hyperlink window type");
             break;
-    }
-}
-
-- (IBAction)changeHardDarkTheme:(id)sender {
-    BOOL lightOrDarkWasRemoved = NO;
-    theme.hardDark = (_hardDarkCheckbox.state == NSOnState);
-    if (theme.hardDark) {
-        // The Use in dark mode checkbox was switched on.
-        // Switch off the other one
-        _hardLightCheckbox.state = NSOffState;
-        // If this was the light theme, nil it
-        if (_lightTheme == theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-        theme.hardLight = NO;
-        if (_darkTheme && _darkTheme != theme) {
-            // Reset any previous dark theme
-            _darkTheme.hardDark = NO;
-            _darkTheme.hardLightOrDark = NO;
-        }
-        theme.hardLightOrDark = YES;
-        _darkTheme = theme;
-    } else {
-        // The use in dark mode checkbox was switched off
-        // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_darkTheme == theme) {
-            _darkTheme = nil;
-            if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-    }
-
-    if (lightOrDarkWasRemoved) {
-        [self lightOrDarkOverrideWasRemoved];
-    } else {
-        [self noteColorModeChanged:nil];
-    }
-}
-
-- (IBAction)changeHardLightTheme:(id)sender {
-    BOOL lightOrDarkWasRemoved = NO;
-    theme.hardLight = (_hardLightCheckbox.state == NSOnState);
-    if (theme.hardLight) {
-        // The Use in light mode checkbox was switched on
-        // Switch off the other one
-        _hardDarkCheckbox.state = NSOffState;
-        // If this was the dark theme, nil it
-        theme.hardDark = NO;
-        if (_darkTheme == theme) {
-            if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-            _darkTheme = nil;
-        }
-        if (_lightTheme && _lightTheme != theme) {
-            // Reset any previous light theme
-            _lightTheme.hardLight = NO;
-            _lightTheme.hardLightOrDark = NO;
-        }
-        theme.hardLightOrDark = YES;
-        _lightTheme = theme;
-    } else {
-        // The use in light mode checkbox was switched off
-        // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_lightTheme == theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-    }
-
-    if (lightOrDarkWasRemoved) {
-        [self lightOrDarkOverrideWasRemoved];
-    } else {
-        [self noteColorModeChanged:nil];
     }
 }
 
@@ -2440,6 +2353,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (Theme *)cloneThemeIfNotEditable {
+    Theme *result = [self cloneThemeIfNotEditableKeepingSides];
+    // In Fabulich mode, edits only apply to the side of the current mode.
+    // Otherwise only the light side is used, and edits go there.
+    if ([Preferences fabulichMode] && !result.hasSeparateSides)
+        [result separateSidesWithActiveDark:[Preferences themeSidesAreDark]];
+    return result;
+}
+
+- (Theme *)cloneThemeIfNotEditableKeepingSides {
     if (!theme.editable) {
         Theme *clonedTheme = theme.clone;
         clonedTheme.editable = YES;
@@ -2500,11 +2422,31 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
-    [prefs cloneThemeIfNotEditable];
+    // Zooming applies to both light and dark mode
+    [prefs cloneThemeIfNotEditableKeepingSides];
 
+    [Preferences scaleStylesOfTheme:theme by:scalefactor];
+
+    if (theme.hasSeparateSides) {
+        BOOL activeIsDark = theme.sideIsDark;
+        [theme activateSideForDark:!activeIsDark];
+        [Preferences scaleStylesOfTheme:theme by:scalefactor];
+        [Preferences rebuildTextAttributes];
+        [theme activateSideForDark:activeIsDark];
+    }
+
+    [Preferences rebuildTextAttributes];
+
+    /* send notification that default size has changed -- resize all windows */
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"DefaultSizeChanged"
+     object:theme];
+}
+
++ (void)scaleStylesOfTheme:(Theme *)themeToScale by:(CGFloat)scalefactor {
     CGFloat fontSize;
 
-    for (GlkStyle *style in theme.allStyles) {
+    for (GlkStyle *style in themeToScale.allStyles) {
         fontSize = style.font.pointSize;
         fontSize *= scalefactor;
         if (fontSize > 0) {
@@ -2534,13 +2476,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
         style.attributeDict = dict;
     }
-
-    [Preferences rebuildTextAttributes];
-
-    /* send notification that default size has changed -- resize all windows */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DefaultSizeChanged"
-     object:theme];
 }
 
 - (void)updatePanelAfterZoom {
@@ -2827,6 +2762,107 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [self switchToPanel:item resizePreview:NO];
 }
 
+- (CGFloat)fullHeightOfPanel:(NSView *)panel {
+    NSNumber *height = [panelFullHeights objectForKey:panel];
+    return height ? height.doubleValue : NSHeight(panel.frame);
+}
+
+/// The height of the part of a panel that is shown: all of it in Fabulich
+/// mode, otherwise all but the toggle strip at the top.
+- (CGFloat)visibleHeightOfPanel:(NSView *)panel {
+    CGFloat height = [self fullHeightOfPanel:panel];
+    if (![Preferences fabulichMode])
+        height -= kAppearanceStripHeight;
+    return height;
+}
+
+#pragma mark Fabulich mode
+
+- (IBAction)toggleFabulichMode:(id)sender {
+    [self setFabulichModeEnabled:![Preferences fabulichMode]];
+}
+
+- (void)setFabulichModeEnabled:(BOOL)on {
+    if (on == [Preferences fabulichMode])
+        return;
+    [Preferences setFabulichMode:on];
+    // Each visit to Fabulich mode starts out following the system.
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:SpatterlightAppearanceOverrideKey];
+
+    _btnFabulichMode.title = on ? NSLocalizedString(@"Exit Fabulich mode", nil) : NSLocalizedString(@"Enter Fabulich mode", nil);
+
+    [self animateToggleStripShown:on];
+
+    // Show the themes of the new mode. The current theme is still shown, so
+    // switch to its counterpart if the new mode hides it.
+    ThemeArrayController *arrayController = _arrayController;
+    ignoreTableSelectionChanges = YES;
+    [arrayController rearrangeObjects];
+    if (theme)
+        arrayController.selectedObjects = @[theme];
+    ignoreTableSelectionChanges = NO;
+    Theme *counterpart = [self counterpartOfTheme:theme];
+    if (counterpart && ![Preferences themeIsVisibleInCurrentMode:theme] &&
+        [arrayController.arrangedObjects containsObject:counterpart]) {
+        arrayController.selectedObjects = @[counterpart];
+    }
+    NSUInteger row = arrayController.selectionIndex;
+    if (row != NSNotFound)
+        [themesTableView scrollRowToVisible:(NSInteger)row];
+    [_libcontroller rebuildThemesSubmenu];
+
+    // The app goes back to following the system, and the themes switch to
+    // the side of the new mode.
+    [Preferences applyAppearanceOverrideToApp];
+    [Preferences noteAppearanceMayHaveChanged];
+    [self updateStylesHeader];
+}
+
+/// Slides the panel down to show the light/dark toggle strip at its top, or
+/// up to hide it, and fades the toggle in or out.
+- (void)animateToggleStripShown:(BOOL)shown {
+    NSWindow *window = self.window;
+    CGFloat delta = shown ? kAppearanceStripHeight : -kAppearanceStripHeight;
+
+    CGFloat panelHeight = [self visibleHeightOfPanel:currentPanel];
+    defaultWindowHeight = ceil(NSHeight([window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, panelHeight)]));
+    window.minSize = NSMakeSize(kDefaultPrefWindowWidth, panelHeight);
+
+    // Keep the top edge of the window where it is.
+    NSRect newFrame = window.frame;
+    newFrame.size.height += delta;
+    newFrame.origin.y -= delta;
+
+    NSArray<NSControl *> *toggles = self.appearanceToggleButtons;
+    for (NSControl *toggle in toggles) {
+        if (shown) {
+            toggle.alphaValue = 0;
+            toggle.hidden = NO;
+        }
+    }
+
+    _bottomConstraint.active = NO;
+
+    Preferences * __weak weakSelf = self;
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.25;
+        context.allowsImplicitAnimation = YES;
+        [window.animator setFrame:newFrame display:YES];
+        weakSelf.belowHeightConstraint.animator.constant = panelHeight;
+        for (NSControl *toggle in toggles)
+            toggle.animator.alphaValue = shown ? 1 : 0;
+    } completionHandler:^{
+        Preferences *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        strongSelf.bottomConstraint.active = YES;
+        for (NSControl *toggle in toggles) {
+            toggle.hidden = ![Preferences fabulichMode];
+            toggle.alphaValue = 1;
+        }
+    }];
+}
+
 - (void)switchToPanel:(NSToolbarItem *)item resizePreview:(BOOL)resizePreview {
 
     // This must be set here for selecting tab using VoiceOver to work properly
@@ -2838,7 +2874,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     currentPanel = preferencePane;
 
-    CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
+    CGFloat currentPanelHeight = [self visibleHeightOfPanel:currentPanel];
 
     defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]));
     self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
@@ -2851,7 +2887,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     window.title = item.label;
 
     NSRect newFrame = window.frame;
-    NSRect frameForContent = [window frameRectForContentRect:currentPanel.frame];
+    NSRect frameForContent = [window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, currentPanelHeight)];
 
     CGFloat previewHeight = 0;
 
@@ -2886,8 +2922,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (_belowView.subviews.count)
         [_belowView.subviews[0] removeFromSuperview];
     [_belowView addSubview:currentPanel];
-    currentPanel.frame = _belowView.bounds;
-    currentPanel.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    currentPanel.frame = NSMakeRect(0, 0, NSWidth(_belowView.bounds), [self fullHeightOfPanel:currentPanel]);
+    currentPanel.autoresizingMask = NSViewWidthSizable | NSViewMaxYMargin;
 
     _bottomConstraint.active = NO;
     _belowHeightConstraint.constant = currentPanelHeight;

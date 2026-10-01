@@ -90,7 +90,7 @@
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
             } else {
                 styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
             }
@@ -336,7 +336,7 @@
         if (self.theme.doStyles) {
             // We're doing styles, so we call the current theme object with our hints array
             // in order to get an attributes dictionary
-            attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:[self effectiveHintsForStyle:i]];
         } else {
             // We're not doing styles, so use the raw style attributes from
             // the theme object's attributeDict object
@@ -478,7 +478,7 @@
     }
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
-        bgcolor = [NSColor colorFromInteger:bgnd];
+        bgcolor = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd]];
     }
 
     if (!bgcolor)
@@ -556,7 +556,7 @@
             bgCol = self.theme.gridBackground;
         }
         else {
-            bgCol = [NSColor colorFromInteger:bgnd];
+            bgCol = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd]];
         }
     }
     _pendingBackgroundCol = bgCol;

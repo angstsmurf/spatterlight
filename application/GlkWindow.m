@@ -139,6 +139,56 @@
     return newArray;
 }
 
+// The window's hints for a style, with any color the game read from the
+// theme on the other light/dark side (glk_style_measure) translated to its
+// value now; see GlkController currentValueForMeasuredColor:.
+- (NSArray *)effectiveHintsForStyle:(NSUInteger)style {
+    NSArray *hints = self.styleHints[style];
+    GlkController *glkctl = self.glkctl;
+    if (!glkctl.measuredColorAnswers.count || hints.count <= stylehint_BackColor)
+        return hints;
+
+    NSMutableArray *translated = nil;
+    for (NSNumber *hint in @[ @(stylehint_TextColor), @(stylehint_BackColor) ]) {
+        id value = hints[hint.unsignedIntegerValue];
+        if ([value isEqual:[NSNull null]])
+            continue;
+        NSInteger old = ((NSNumber *)value).integerValue;
+        NSInteger now = [glkctl currentValueForMeasuredColor:old];
+        if (now != old) {
+            if (!translated)
+                translated = [hints mutableCopy];
+            translated[hint.unsignedIntegerValue] = @(now);
+        }
+    }
+    return translated ?: hints;
+}
+
+// Likewise for Z-machine colors the game set from measured values.
+- (ZColor *)translatedZColor:(ZColor *)zcolor {
+    GlkController *glkctl = self.glkctl;
+    if (!zcolor || !glkctl.measuredColorAnswers.count)
+        return zcolor;
+    NSInteger fg = [glkctl currentValueForMeasuredColor:zcolor.fg];
+    NSInteger bg = [glkctl currentValueForMeasuredColor:zcolor.bg];
+    if (fg == zcolor.fg && bg == zcolor.bg)
+        return zcolor;
+    return [[ZColor alloc] initWithText:fg background:bg];
+}
+
+// Z-machine colors, with measured colors translated, and with a half the
+// game left at the default completed from the theme's light side when the
+// pair would not read (Theme fitGameColors:).
+- (NSMutableDictionary *)zcolored:(ZColor *)zcolor attributes:(NSMutableDictionary *)attributes {
+    attributes = [[self translatedZColor:zcolor] coloredAttributes:attributes];
+    [self.theme fitGameColors:attributes
+               gameForeground:zcolor.setsForeground
+               gameBackground:zcolor.setsBackground
+                   lightStyle:nil
+                         grid:[self isKindOfClass:[GlkTextGridWindow class]]];
+    return attributes;
+}
+
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
               value:(NSInteger *)value {
@@ -179,13 +229,17 @@
         return nil;
 
     if (styles.count <= stylevalue || [styles[stylevalue] isEqual:[NSNull null]]) {
+        GlkStyle *style = nil;
         if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]];
+        } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
+            style = (GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]];
         }
-        if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
-        }
-        return nil;
+        if (!style)
+            return nil;
+        if (self.theme.doStyles && self.styleHints.count > stylevalue)
+            return [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
+        return style.attributeDict;
     }
 
     return styles[stylevalue];
@@ -196,13 +250,20 @@
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue {
 
     if ([styles[stylevalue] isEqual:[NSNull null]]) {
+        GlkStyle *style = nil;
         if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]];
         } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
+            style = (GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]];
         } else {
             return nil;
         }
+        if (!style)
+            return nil;
+        if (self.theme.doStyles && self.styleHints.count > stylevalue)
+            styles[stylevalue] = [style attributesWithHints:[self effectiveHintsForStyle:stylevalue]];
+        else
+            styles[stylevalue] = style.attributeDict;
     }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
@@ -216,9 +277,9 @@
         if (self.theme.doStyles) {
             if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                 // If the style has reverseColor hint set, we apply the zcolors in reverse
-                attributes = [currentZColor reversedAttributes:attributes];
+                attributes = [[self translatedZColor:currentZColor] reversedAttributes:attributes];
             } else {
-                attributes = [currentZColor coloredAttributes:attributes];
+                attributes = [self zcolored:currentZColor attributes:attributes];
             }
         }
     }
@@ -403,10 +464,10 @@
                 if ([hintsForStyle[stylehint_ReverseColor] isEqualTo:@(1)]) {
                     // Style has stylehint_ReverseColor set,
                     // So we apply Zcolor with reversed attributes
-                    mutDict = [z reversedAttributes:mutDict];
+                    mutDict = [[weakSelf translatedZColor:z] reversedAttributes:mutDict];
                 } else {
                     // Apply Zcolor normally
-                    mutDict = [z coloredAttributes:mutDict];
+                    mutDict = [weakSelf zcolored:z attributes:mutDict];
                 }
                 [attStr addAttributes:mutDict range:range2];
             }];

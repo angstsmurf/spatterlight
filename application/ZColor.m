@@ -39,6 +39,14 @@
     [encoder encodeInteger:_bg forKey:@"bg"];
 }
 
+- (BOOL)setsForeground {
+    return _fg != zcolor_Default && _fg != zcolor_Current && _fg != zcolor_Transparent;
+}
+
+- (BOOL)setsBackground {
+    return _bg != zcolor_Default && _bg != zcolor_Current && _bg != zcolor_Transparent;
+}
+
 - (NSMutableDictionary *)coloredAttributes:(NSMutableDictionary *)dict {
     if (_fg != zcolor_Default && _fg != zcolor_Current && _fg != zcolor_Transparent) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_fg];
