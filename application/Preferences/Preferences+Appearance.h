@@ -15,6 +15,11 @@ extern NSString * const SpatterlightAppearanceOverrideKey;
 + (nullable NSString *)appearanceOverride;
 + (void)setAppearanceOverride:(nullable NSString *)override;
 + (void)applyAppearanceOverrideToApp;
+/// The override to keep when the system is in the given appearance: nil once
+/// they agree, so that the system's next switch takes effect again.
++ (nullable NSString *)override:(nullable NSString *)override keptForSystemAppearance:(kAppearanceType)system;
+/// Clears a stored override that the system appearance has come to match.
++ (void)dropOverrideMatchingSystem;
 
 /// The system's appearance, whatever the override. Cached until the next switch.
 + (kAppearanceType)systemAppearance;

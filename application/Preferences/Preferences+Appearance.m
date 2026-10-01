@@ -157,6 +157,22 @@ static NSInteger SPCachedResolvedAppearance = -1;
     [Preferences applyAppearanceOverrideToApp];
 }
 
+// The override that should stay in place given the system appearance. The
+// toggle only ever stores the opposite of the system, so once the system
+// comes round to the same mode the override has no work left to do. Keeping
+// it would pin the app to that mode and make it ignore the system's next
+// switch.
++ (nullable NSString *)override:(nullable NSString *)override keptForSystemAppearance:(kAppearanceType)system {
+    NSString *systemName = (system == kDarkAppearance) ? @"dark" : @"light";
+    return [override isEqualToString:systemName] ? nil : override;
+}
+
++ (void)dropOverrideMatchingSystem {
+    NSString *override = [Preferences appearanceOverride];
+    if (override && ![Preferences override:override keptForSystemAppearance:[Preferences systemAppearance]])
+        [Preferences setAppearanceOverride:nil];
+}
+
 // Asks the system for its appearance now, bypassing the cache.
 //
 // AppleInterfaceThemeChangedNotification can arrive before this process's
@@ -199,6 +215,7 @@ static NSInteger SPCachedResolvedAppearance = -1;
 // notification and the rechecks after it, and for the light/dark toggle.
 + (void)noteAppearanceMayHaveChanged {
     SPCachedSystemAppearance = (NSInteger)[Preferences readSystemAppearance];
+    [Preferences dropOverrideMatchingSystem];
     kAppearanceType previous = (kAppearanceType)SPCachedResolvedAppearance;
     BOOL wasKnown = SPCachedResolvedAppearance >= 0;
     SPCachedResolvedAppearance = -1;

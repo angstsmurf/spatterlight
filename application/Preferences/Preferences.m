@@ -359,6 +359,9 @@ NSString *fontToString(NSFont *font) {
 
     _previewController.theme = theme;
 
+    // The system may have switched to the overridden mode while Spatterlight
+    // was not running.
+    [Preferences dropOverrideMatchingSystem];
     [Preferences applyAppearanceOverrideToApp];
 
     _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
