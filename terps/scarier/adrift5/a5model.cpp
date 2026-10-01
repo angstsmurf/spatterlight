@@ -110,6 +110,9 @@ const a5_prop_t *
 a5_prop_find (const a5_prop_t *props, int n, const char *key)
 {
   int i;
+  /* A <Property> with no <Key> collects a NULL key; never strcmp it. */
+  if (key == NULL)
+    return NULL;
   for (i = 0; i < n; i++)
     if (props[i].key != NULL && strcmp (props[i].key, key) == 0)
       return &props[i];
@@ -272,6 +275,12 @@ a5_load_variables (a5_adventure_t *a)
                   v->initial = a5xml_child_text (c, "InitialValue");
                   al = a5xml_child_text (c, "ArrayLength");
                   len = (al != NULL) ? strtol (al, NULL, 10) : 0;
+                  /* Cap the untrusted length: a5state_new allocates and fills
+                     every element up front, so a hostile ArrayLength of 2e9
+                     would ask for 16 GB (and anything past INT_MAX would
+                     wrap through the int cast).  No real game comes near. */
+                  if (len > A5_MAX_ARRAY_LENGTH)
+                    len = A5_MAX_ARRAY_LENGTH;
                   v->array_length = (len > 1) ? (int) len : 1;
                 });
 }
@@ -583,6 +592,9 @@ a5_apply_group_properties (a5_adventure_t *a)
             continue;
           for (pi = 0; pi < g->n_props; pi++)
             {
+              /* A keyless group <Property> names nothing to inherit. */
+              if (g->props[pi].key == NULL)
+                continue;
               a5_prop_t *ex = (a5_prop_t *)
                 a5_prop_find (o->props, o->n_props, g->props[pi].key);
               if (ex != NULL)
@@ -1009,6 +1021,10 @@ a5model_from_doc (a5_xml_doc_t *doc)
     const char *wt = a5xml_child_text (root, "WaitTurns");
     a->wait_turns = (wt != NULL) ? (int) strtol (wt, NULL, 10) : 3;
     if (a->wait_turns < 0) a->wait_turns = 0;
+    /* Each waited turn runs a full event/walk tick, so a hostile WaitTurns of
+       2e9 would hang a single "wait".  The Runner's own limit is unknown, so
+       cap far above any plausible game rather than at the v4 engine's 20. */
+    if (a->wait_turns > A5_MAX_WAIT_TURNS) a->wait_turns = A5_MAX_WAIT_TURNS;
   }
   /* <TaskExecution>: HighestPriorityTask vs HighestPriorityPassingTask.  Under
      the latter (the "v4 logic" mode) a task that matches the command but fails

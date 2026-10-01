@@ -289,6 +289,14 @@ a5state_new (const a5_adventure_t *adv)
                  is copied into EVERY element. */
               int n = v->array_length, e;
               st->var_arr[i] = (long *) calloc ((size_t) n, sizeof (long));
+              if (st->var_arr[i] == NULL)
+                {
+                  /* Out of memory: degrade to a scalar (every accessor
+                     treats a NULL var_arr[i] as one) rather than write
+                     through NULL. */
+                  st->var_num[i] = v->initial ? strtol (v->initial, NULL, 10) : 0;
+                  continue;
+                }
               if (v->initial != NULL && strchr (v->initial, ',') != NULL)
                 {
                   const char *p = v->initial;
@@ -1224,11 +1232,15 @@ a5state_character_at_location (const a5_state_t *st, int ci, const char *lockey)
   return 0;
 }
 
-int
-a5state_character_visible_at_location (const a5_state_t *st, int ci,
-                                       const char *lockey)
+/* The carrier-chain walk behind a5state_character_visible_at_location.  The
+   depth guard (as in exists_at / char_location_key_depth) stops a cyclic
+   On-Character chain -- C2 riding C3 riding C2, from a game file or a save's
+   <OnChar> -- from recursing until the stack overflows. */
+static int
+char_visible_at_depth (const a5_state_t *st, int ci, const char *lockey,
+                       int depth)
 {
-  if (ci < 0 || lockey == NULL || st->char_loc == NULL)
+  if (ci < 0 || lockey == NULL || st->char_loc == NULL || depth > 32)
     return 0;
   /* On/In an object: the runner never consults the character's own location for
      this -- clsCharacter.BoundVisible (clsCharacter.vb:711) hands straight off
@@ -1258,8 +1270,15 @@ a5state_character_visible_at_location (const a5_state_t *st, int ci,
   if (st->char_onchar != NULL && st->char_onchar[ci] != NULL)
     { int cc = a5state_character_index (st, st->char_onchar[ci]);
       return cc >= 0 && cc != ci
-             && a5state_character_visible_at_location (st, cc, lockey); }
+             && char_visible_at_depth (st, cc, lockey, depth + 1); }
   return 0;
+}
+
+int
+a5state_character_visible_at_location (const a5_state_t *st, int ci,
+                                       const char *lockey)
+{
+  return char_visible_at_depth (st, ci, lockey, 0);
 }
 
 long

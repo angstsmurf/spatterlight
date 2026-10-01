@@ -29,6 +29,7 @@
  */
 
 #include <ctype.h>
+#include <limits.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -144,6 +145,17 @@ val_of (const Val &v)
   return (end == p) ? 0.0 : d;
 }
 
+/* val_of() as a long, saturated: a cast of a double outside long's range is
+   undefined behaviour, and game text can hold any number. */
+long
+long_of (const Val &v)
+{
+  double d = val_of (v);
+  if (d >= (double) LONG_MAX) return LONG_MAX;
+  if (d <= (double) LONG_MIN) return LONG_MIN;
+  return (long) d;
+}
+
 /* --------------------------------------------------------------- tokens */
 
 enum TokKind { T_NUM, T_STR, T_IDENT, T_OP, T_END };
@@ -241,6 +253,7 @@ tokenise (const char *expr)
 struct Parser {
   std::vector<Tok> toks;
   size_t pos;
+  int depth;            /* parse_unary() nesting, capped against "((((..." */
   const Tok &cur () const { return toks[pos]; }
   bool is_op (const char *o) const
     { return toks[pos].kind == T_OP && toks[pos].text == o; }
@@ -293,11 +306,11 @@ apply_function (const std::string &lid, std::vector<Val> &a)
   if (f == "len" && n >= 1)
     return mk_num ((double) a[0].s.size ());
   if (f == "val" && n >= 1)
-    return mk_num ((double) (long) val_of (a[0]));
+    return mk_num (trunc (val_of (a[0])));
   if (f == "str" && n >= 1)
     return mk_str (a[0].s);
   if (f == "mid" && n >= 3)
-    { long start = (long) val_of (a[1]), cnt = (long) val_of (a[2]);
+    { long start = long_of (a[1]), cnt = long_of (a[2]);
       if (start < 1) start = 1;
       std::string s = a[0].s;
       if ((size_t) (start - 1) >= s.size ()) return mk_str ("");
@@ -309,10 +322,10 @@ apply_function (const std::string &lid, std::vector<Val> &a)
             { s.replace (i, from.size (), to); i += to.size (); } }
       return mk_str (s); }
   if (f == "lft" && n >= 2)
-    { long k = (long) val_of (a[1]); if (k < 0) k = 0;
+    { long k = long_of (a[1]); if (k < 0) k = 0;
       return mk_str (a[0].s.substr (0, (size_t) k)); }
   if (f == "rgt" && n >= 2)
-    { long k = (long) val_of (a[1]); if (k < 0) k = 0;
+    { long k = long_of (a[1]); if (k < 0) k = 0;
       std::string s = a[0].s;
       return mk_str ((size_t) k >= s.size () ? s : s.substr (s.size () - (size_t) k)); }
   if (f == "ist" && n >= 2)
@@ -326,14 +339,15 @@ apply_function (const std::string &lid, std::vector<Val> &a)
     return (a5sexpr_rng_hook && a5sexpr_rng_hook (0, 1) == 1) ? a[0] : a[1];
   if (f == "oneof" && n >= 1)
     { long idx = a5sexpr_rng_hook ? a5sexpr_rng_hook (0, (long) n - 1) : 0;
-      if (idx < 0) idx = 0; if ((size_t) idx >= n) idx = (long) n - 1;
+      if (idx < 0) idx = 0;
+      if ((size_t) idx >= n) idx = (long) n - 1;
       return a[idx]; }
   if ((f == "rand" || f == "urand") && n >= 2)
     {
       /* rand(min,max) -> Random(min,max); urand(min,max) -> NoRepeatRandom
          (a per-range shuffled pool consumed without repeats -- The Salvage's
          planet-name assignment urand(1,33)). */
-      long lo = (long) val_of (a[0]), hi = (long) val_of (a[1]);
+      long lo = long_of (a[0]), hi = long_of (a[1]);
       if (f == "urand" && a5sexpr_urand_hook)
         return mk_num ((double) a5sexpr_urand_hook (lo, hi));
       return mk_num ((double) (a5sexpr_rng_hook ? a5sexpr_rng_hook (lo, hi) : lo));
@@ -342,7 +356,7 @@ apply_function (const std::string &lid, std::vector<Val> &a)
     {
       /* clsVariable.SetToExpression single-arg rand: Random(0, value) -- inclusive
          0..value (e.g. RAND(8) draws 0..8), NOT the bare literal. */
-      long hi = (long) val_of (a[0]);
+      long hi = long_of (a[0]);
       if (f == "urand" && a5sexpr_urand_hook)
         return mk_num ((double) a5sexpr_urand_hook (0, hi));
       return mk_num ((double) (a5sexpr_rng_hook ? a5sexpr_rng_hook (0, hi) : hi));
@@ -387,9 +401,21 @@ parse_atom (Parser &p)
   return mk_str ("");
 }
 
+/* Every nested '(', function argument and unary sign passes through here, so
+   this is where a pathologically deep expression is cut off (it reduces to
+   "") rather than overflowing the stack. */
+enum { PARSE_DEPTH_LIMIT = 256 };
+
 Val
 parse_unary (Parser &p)
 {
+  struct Guard {
+    Parser &p;
+    explicit Guard (Parser &p_) : p (p_) { p.depth++; }
+    ~Guard () { p.depth--; }
+  } guard (p);
+  if (p.depth > PARSE_DEPTH_LIMIT)
+    return mk_str ("");
   if (p.is_op ("-")) { p.adv (); return mk_num (-val_of (parse_unary (p))); }
   if (p.is_op ("+")) { p.adv (); return mk_num (val_of (parse_unary (p))); }
   return parse_atom (p);
@@ -443,8 +469,9 @@ parse_add (Parser &p)
         }
       else if (p.is_op ("-")) { p.adv (); left = mk_num (val_of (left) - val_of (parse_mul (p))); }
       else if (p.is_op ("mod"))
-        { p.adv (); long r = (long) val_of (parse_mul (p));
-          left = mk_num (r == 0 ? 0.0 : (double) ((long) val_of (left) % r)); }
+        { p.adv (); long r = long_of (parse_mul (p));
+          /* r == -1 too: LONG_MIN % -1 traps. */
+          left = mk_num (r == 0 || r == -1 ? 0.0 : (double) (long_of (left) % r)); }
       else if (p.is_op ("^")) { p.adv (); left = mk_num (pow (val_of (left), val_of (parse_mul (p)))); }
       else break;
     }
@@ -518,6 +545,7 @@ a5_eval_sexpr (const char *expr)
   Parser p;
   p.toks = tokenise (expr);
   p.pos = 0;
+  p.depth = 0;
   Val v = parse_logic (p);
   return strdup (v.s.c_str ());
 }

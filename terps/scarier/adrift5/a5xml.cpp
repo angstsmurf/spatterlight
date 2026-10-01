@@ -190,9 +190,18 @@ a5_skip_misc (char **pp, char *end)
   *pp = p;
 }
 
-/* Parse one element whose start tag '<' is at *pp.  Returns NULL on error. */
+/* Element nesting allowed before the parse is refused.  Each level costs a
+   stack frame here (and in a5_node_free and the DOM walkers downstream), and a
+   few KB of zlib can inflate to a million nested tags, so an unbounded depth
+   is a stack overflow on a hostile game or save file.  Real ADRIFT documents
+   nest only a dozen or so deep (Adventure > Task > Restrictions > Restriction
+   > ...), so this never binds on a genuine file. */
+enum { A5_XML_MAX_DEPTH = 256 };
+
+/* Parse one element whose start tag '<' is at *pp, `depth` levels below the
+   root.  Returns NULL on error. */
 static a5_xml_node_t *
-a5_parse_element (char **pp, char *end)
+a5_parse_element (char **pp, char *end, int depth)
 {
   char *p = *pp;
   a5_xml_node_t *node;
@@ -200,6 +209,8 @@ a5_parse_element (char **pp, char *end)
   int self_close = 0;
   char *text_start = NULL, *text_lt = NULL;
 
+  if (depth > A5_XML_MAX_DEPTH)
+    return NULL;
   node = a5_node_new ();
   if (node == NULL)
     return NULL;
@@ -271,7 +282,7 @@ a5_parse_element (char **pp, char *end)
         }
       else
         {
-          a5_xml_node_t *child = a5_parse_element (&p, end);
+          a5_xml_node_t *child = a5_parse_element (&p, end, depth + 1);
           if (child == NULL)
             {
               a5_node_free (node);
@@ -329,7 +340,7 @@ a5xml_parse (char *buf, uint32_t len)
   if (p >= end || *p != '<')
     return NULL;
 
-  root = a5_parse_element (&p, end);
+  root = a5_parse_element (&p, end, 0);
   if (root == NULL)
     return NULL;
 
