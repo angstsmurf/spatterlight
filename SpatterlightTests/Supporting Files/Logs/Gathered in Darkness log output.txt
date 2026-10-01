@@ -36,8 +36,8 @@ Interpreter: question
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=106
-[TEXT] Gathered In Darkness, v1.0 Michael "Dr.Froth" Millsap
+[MSG] cmd=PRINT a1=0 a2=1 a3=0 len=110
+[TEXT] Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
 [MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=20
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=524
 [TEXT] 
@@ -4019,9 +4019,19 @@ You take the left half of the music.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
 [TEXT] open desk
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=28
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=694
 [TEXT] 
 You open it.
+The desk is a lackluster metal one that might have been found in a mechanics office back in the sixties.  It has a wood laminate top and metal frame with a single, unlocked drawer in the center.  You wonder if they did not care for the curator very much because instead of a chair, there is only an unpaded barstool.
+It contains the 
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=24
+[TEXT] Dim Hall Key
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=18
+[TEXT]  and the 
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=30
+[TEXT] Curator's Notes
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] .
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -4121,10 +4131,11 @@ You open it.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
 [TEXT] take key
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=130
 [TEXT] 
 (first removing it from Desk)
 Done.
+
 You take the key with you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
@@ -4144,7 +4155,7 @@ You take the key with you.
 [TEXT] Curator's Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 47
+[TEXT] Chapter 2 | Moves: 48
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4238,7 +4249,7 @@ The red light gives a fearsome glow to the exhibits in here.  The office is nort
 [TEXT] Curator's Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 47
+[TEXT] Chapter 2 | Moves: 48
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4247,7 +4258,7 @@ The red light gives a fearsome glow to the exhibits in here.  The office is nort
 [TEXT] Museum
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 48
+[TEXT] Chapter 2 | Moves: 49
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4344,7 +4355,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Museum
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 48
+[TEXT] Chapter 2 | Moves: 49
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4353,7 +4364,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 49
+[TEXT] Chapter 2 | Moves: 50
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4479,7 +4490,7 @@ You step into the impressive great hall, and are instantly overcome with fear. T
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 49
+[TEXT] Chapter 2 | Moves: 50
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4488,7 +4499,7 @@ You step into the impressive great hall, and are instantly overcome with fear. T
 [TEXT] Great Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 50
+[TEXT] Chapter 2 | Moves: 51
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4610,7 +4621,7 @@ Elegance and class do not even begin to describe the ambiance of this dining roo
 [TEXT] Great Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 50
+[TEXT] Chapter 2 | Moves: 51
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4619,7 +4630,7 @@ Elegance and class do not even begin to describe the ambiance of this dining roo
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 51
+[TEXT] Chapter 2 | Moves: 52
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4715,7 +4726,7 @@ You search among the bowls of nuts and fruits and the cornucopias too.  All you 
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 51
+[TEXT] Chapter 2 | Moves: 52
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4724,7 +4735,7 @@ You search among the bowls of nuts and fruits and the cornucopias too.  All you 
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 52
+[TEXT] Chapter 2 | Moves: 53
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4831,7 +4842,7 @@ You take the rotten apple.
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 52
+[TEXT] Chapter 2 | Moves: 53
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4840,7 +4851,7 @@ You take the rotten apple.
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 53
+[TEXT] Chapter 2 | Moves: 54
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4944,7 +4955,7 @@ This professional, restaurant sized kitchen would be the ideal place to prepare 
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 53
+[TEXT] Chapter 2 | Moves: 54
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4953,7 +4964,7 @@ This professional, restaurant sized kitchen would be the ideal place to prepare 
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 54
+[TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5054,7 +5065,7 @@ The pantry that your are now standing in is lit by a single naked bulb at ceilin
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 54
+[TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5063,7 +5074,7 @@ The pantry that your are now standing in is lit by a single naked bulb at ceilin
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 54
+[TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5145,7 +5156,7 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 54
+[TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5154,7 +5165,7 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 55
+[TEXT] Chapter 2 | Moves: 56
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5247,7 +5258,7 @@ You grab the cheese grader and vow to take it with you.
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 55
+[TEXT] Chapter 2 | Moves: 56
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5256,7 +5267,7 @@ You grab the cheese grader and vow to take it with you.
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 56
+[TEXT] Chapter 2 | Moves: 57
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5346,7 +5357,7 @@ The massive resort kitchen remains deserted, though in truth you are not upset b
 [TEXT] Pantry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 56
+[TEXT] Chapter 2 | Moves: 57
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5355,7 +5366,7 @@ The massive resort kitchen remains deserted, though in truth you are not upset b
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 57
+[TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5463,7 +5474,7 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [TEXT] Kitchen
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 57
+[TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5472,7 +5483,7 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 57
+[TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5584,7 +5595,7 @@ This Alcove is essentially an interior porch with one major difference from most
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 57
+[TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5593,7 +5604,7 @@ This Alcove is essentially an interior porch with one major difference from most
 [TEXT] Alcove
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 58
+[TEXT] Chapter 2 | Moves: 59
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5714,7 +5725,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [TEXT] Alcove
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 58
+[TEXT] Chapter 2 | Moves: 59
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5723,7 +5734,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [TEXT] Alcove
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 59
+[TEXT] Chapter 2 | Moves: 60
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5852,7 +5863,7 @@ The smaller table here in the breakfast room could seat about eight to ten peopl
 [TEXT] Alcove
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 59
+[TEXT] Chapter 2 | Moves: 60
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5861,7 +5872,7 @@ The smaller table here in the breakfast room could seat about eight to ten peopl
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 60
+[TEXT] Chapter 2 | Moves: 61
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5971,7 +5982,7 @@ As you flip through the music you can only find one that is scored for piano.  E
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 60
+[TEXT] Chapter 2 | Moves: 61
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5980,7 +5991,7 @@ As you flip through the music you can only find one that is scored for piano.  E
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 61
+[TEXT] Chapter 2 | Moves: 62
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6089,15 +6100,6 @@ As you flip through the music you can only find one that is scored for piano.  E
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
 [TEXT] take music
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=150
-[TEXT] 
-Which music do you mean?
-1: The left half
-2: The right half
-Choose [1-2]> 
-[MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=142
 [TEXT] 
 You take the right half of the music.
@@ -6111,7 +6113,7 @@ You take the right half of the music.
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 61
+[TEXT] Chapter 2 | Moves: 62
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6120,7 +6122,133 @@ You take the right half of the music.
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 62
+[TEXT] Chapter 2 | Moves: 63
+[MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
+[TEXT] Inventory
+
+[MSG] cmd=SETLINK a1=2 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=14
+[TEXT] Journal
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=2 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=20
+[TEXT] Flashlight
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=3 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rusty Pliers
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=4 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=44
+[TEXT] Sheet Music (lft.half)
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=5 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Dim Hall Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=6 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=24
+[TEXT] Rotten Fruit
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=7 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=26
+[TEXT] Cheese Grader
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=8 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=42
+[TEXT] Sheet Music (rt.half)
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=9 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=22
+[TEXT] Dave's Note
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=10 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Chain Key
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=4
+[TEXT] 
+
+
+[MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
+[TEXT] Compass
+
+[MSG] cmd=SETLINK a1=2 a2=11 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=8
+[TEXT] West
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=SETLINK a1=2 a2=12 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=18
+[TEXT] Northwest
+[MSG] cmd=SETLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
+[TEXT] 
+
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
+[MSG] cmd=INITLINK a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
+[TEXT] 
+> 
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=199 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
+[TEXT] 2
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=148
+[TEXT] 
+I don't understand your command. Type HELP for a list of valid commands.
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 63
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
+[TEXT] Breakfast Room
+[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
+[TEXT] Chapter 2 | Moves: 64
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6237,7 +6365,7 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 62
+[TEXT] Chapter 2 | Moves: 64
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6246,7 +6374,7 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 63
+[TEXT] Chapter 2 | Moves: 65
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6356,7 +6484,7 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 63
+[TEXT] Chapter 2 | Moves: 65
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6365,7 +6493,7 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 64
+[TEXT] Chapter 2 | Moves: 66
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6486,7 +6614,7 @@ You take the golden apple.
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 64
+[TEXT] Chapter 2 | Moves: 66
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6495,7 +6623,7 @@ You take the golden apple.
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 65
+[TEXT] Chapter 2 | Moves: 67
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6613,7 +6741,7 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [TEXT] Breakfast Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 65
+[TEXT] Chapter 2 | Moves: 67
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6622,7 +6750,7 @@ The dinning room could easily facilitate twenty or more guests.  Exits are east,
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 66
+[TEXT] Chapter 2 | Moves: 68
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6754,7 +6882,7 @@ The great beasts continue in their unholy slumber.  You can safely go upstairs o
 [TEXT] Dinning Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 66
+[TEXT] Chapter 2 | Moves: 68
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6763,7 +6891,7 @@ The great beasts continue in their unholy slumber.  You can safely go upstairs o
 [TEXT] Great Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 67
+[TEXT] Chapter 2 | Moves: 69
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6920,7 +7048,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Great Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 67
+[TEXT] Chapter 2 | Moves: 69
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6929,7 +7057,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 68
+[TEXT] Chapter 2 | Moves: 70
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7076,10 +7204,10 @@ Locations stretch off in many directions from this central location.  Their dest
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=14
 [TEXT] use key
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=182
 [TEXT] 
-Which key do you mean?
-1: Dim Hall Key
+Please select which key you mean:
+1: the Dim Hall Key
 2: small handcuff key
 Choose [1-2]> 
 [MSG] cmd=SETECHO a1=0 a2=1 a3=0 len=0
@@ -7097,7 +7225,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 68
+[TEXT] Chapter 2 | Moves: 70
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7106,7 +7234,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 69
+[TEXT] Chapter 2 | Moves: 71
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7259,7 +7387,7 @@ Cautiously, you meander into the dim hallway.  This small corridor is lit only b
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 69
+[TEXT] Chapter 2 | Moves: 71
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7268,7 +7396,7 @@ Cautiously, you meander into the dim hallway.  This small corridor is lit only b
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 70
+[TEXT] Chapter 2 | Moves: 72
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7393,7 +7521,7 @@ The typical carpet and black tile found in most of the resort has been replaced 
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 70
+[TEXT] Chapter 2 | Moves: 72
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7402,7 +7530,7 @@ The typical carpet and black tile found in most of the resort has been replaced 
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 71
+[TEXT] Chapter 2 | Moves: 73
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7516,7 +7644,7 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 71
+[TEXT] Chapter 2 | Moves: 73
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7525,7 +7653,7 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 72
+[TEXT] Chapter 2 | Moves: 74
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7644,7 +7772,7 @@ White tile spreads out across the floor of this small entry area like a giant st
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 2 | Moves: 72
+[TEXT] Chapter 2 | Moves: 74
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7653,7 +7781,7 @@ White tile spreads out across the floor of this small entry area like a giant st
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 73
+[TEXT] Chapter 3 | Moves: 75
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7758,7 +7886,7 @@ You footfalls echo through the long, enclosed hallway and you catch yourself try
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 73
+[TEXT] Chapter 3 | Moves: 75
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7767,7 +7895,7 @@ You footfalls echo through the long, enclosed hallway and you catch yourself try
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 74
+[TEXT] Chapter 3 | Moves: 76
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7886,7 +8014,7 @@ The doors to Lab A-1 open before you and you step into what you feel might be th
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 74
+[TEXT] Chapter 3 | Moves: 76
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7895,7 +8023,7 @@ The doors to Lab A-1 open before you and you step into what you feel might be th
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 75
+[TEXT] Chapter 3 | Moves: 77
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8014,7 +8142,7 @@ As you step into the office of Dr. Skinn you realize that this is not at all wha
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 75
+[TEXT] Chapter 3 | Moves: 77
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8023,7 +8151,7 @@ As you step into the office of Dr. Skinn you realize that this is not at all wha
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 76
+[TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8182,7 +8310,7 @@ Choose [1-6]>
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 76
+[TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8191,7 +8319,7 @@ Choose [1-6]>
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 77
+[TEXT] Chapter 3 | Moves: 79
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8312,7 +8440,7 @@ You here the footsteps head off away from your position and then the steel plate
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 77
+[TEXT] Chapter 3 | Moves: 79
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8321,7 +8449,7 @@ You here the footsteps head off away from your position and then the steel plate
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 78
+[TEXT] Chapter 3 | Moves: 80
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8442,7 +8570,7 @@ You take the black key ring.
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 78
+[TEXT] Chapter 3 | Moves: 80
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8451,7 +8579,7 @@ You take the black key ring.
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 79
+[TEXT] Chapter 3 | Moves: 81
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8573,7 +8701,7 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [TEXT] Dr.Skinn's Small Office
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 79
+[TEXT] Chapter 3 | Moves: 81
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8582,7 +8710,7 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 80
+[TEXT] Chapter 3 | Moves: 82
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8707,7 +8835,7 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 80
+[TEXT] Chapter 3 | Moves: 82
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8716,7 +8844,7 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 81
+[TEXT] Chapter 3 | Moves: 83
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8841,7 +8969,7 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 81
+[TEXT] Chapter 3 | Moves: 83
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8850,7 +8978,7 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 82
+[TEXT] Chapter 3 | Moves: 84
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8961,7 +9089,7 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 82
+[TEXT] Chapter 3 | Moves: 84
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8970,7 +9098,7 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 83
+[TEXT] Chapter 3 | Moves: 85
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9092,7 +9220,7 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 83
+[TEXT] Chapter 3 | Moves: 85
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9101,7 +9229,7 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 84
+[TEXT] Chapter 3 | Moves: 86
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9226,7 +9354,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 84
+[TEXT] Chapter 3 | Moves: 86
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9235,7 +9363,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 85
+[TEXT] Chapter 3 | Moves: 87
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9388,7 +9516,7 @@ Twelve large skylights pour in the reminding light from the graying sky overhead
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 85
+[TEXT] Chapter 3 | Moves: 87
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9397,7 +9525,7 @@ Twelve large skylights pour in the reminding light from the graying sky overhead
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 86
+[TEXT] Chapter 3 | Moves: 88
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9514,7 +9642,7 @@ You unlock the door to the tower.
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 86
+[TEXT] Chapter 3 | Moves: 88
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9523,7 +9651,7 @@ You unlock the door to the tower.
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 87
+[TEXT] Chapter 3 | Moves: 89
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9635,7 +9763,7 @@ The blackish green brick that composes the dank tower entrance appears to be qui
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 87
+[TEXT] Chapter 3 | Moves: 89
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9644,7 +9772,7 @@ The blackish green brick that composes the dank tower entrance appears to be qui
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 88
+[TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9766,7 +9894,7 @@ Old boxes with collapsing dust covered cardboard walls stand stacked underneath 
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 88
+[TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9775,7 +9903,7 @@ Old boxes with collapsing dust covered cardboard walls stand stacked underneath 
 [TEXT] Under The Stairs
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 88
+[TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9882,7 +10010,7 @@ You take the tubing.
 [TEXT] Under The Stairs
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 88
+[TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9891,7 +10019,7 @@ You take the tubing.
 [TEXT] Under The Stairs
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 89
+[TEXT] Chapter 3 | Moves: 91
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9995,7 +10123,7 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [TEXT] Under The Stairs
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 89
+[TEXT] Chapter 3 | Moves: 91
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10004,7 +10132,7 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 90
+[TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10133,7 +10261,7 @@ Your first thought as you enter the cell block is that there is no way that this
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 90
+[TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10142,7 +10270,7 @@ Your first thought as you enter the cell block is that there is no way that this
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 90
+[TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10252,7 +10380,7 @@ You flip the switch and unlock the doors to the cells.
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 90
+[TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10261,7 +10389,7 @@ You flip the switch and unlock the doors to the cells.
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 91
+[TEXT] Chapter 3 | Moves: 93
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10372,7 +10500,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 91
+[TEXT] Chapter 3 | Moves: 93
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10381,7 +10509,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 92
+[TEXT] Chapter 3 | Moves: 94
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10506,7 +10634,7 @@ This cell is empty and immaculate.  You are sure that it has not been used in qu
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 92
+[TEXT] Chapter 3 | Moves: 94
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10515,7 +10643,7 @@ This cell is empty and immaculate.  You are sure that it has not been used in qu
 [TEXT] Empty Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 93
+[TEXT] Chapter 3 | Moves: 95
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10629,7 +10757,7 @@ You take the bucket.
 [TEXT] Empty Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 93
+[TEXT] Chapter 3 | Moves: 95
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10638,7 +10766,7 @@ You take the bucket.
 [TEXT] Empty Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 94
+[TEXT] Chapter 3 | Moves: 96
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10749,7 +10877,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Empty Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 94
+[TEXT] Chapter 3 | Moves: 96
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10758,7 +10886,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 95
+[TEXT] Chapter 3 | Moves: 97
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10893,7 +11021,7 @@ The cell is small and made out of the same dank brick as the rest of the tower. 
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 95
+[TEXT] Chapter 3 | Moves: 97
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10902,7 +11030,7 @@ The cell is small and made out of the same dank brick as the rest of the tower. 
 [TEXT] Heath's Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 96
+[TEXT] Chapter 3 | Moves: 98
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11032,7 +11160,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Heath's Cell
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 96
+[TEXT] Chapter 3 | Moves: 98
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11041,7 +11169,7 @@ The stone corridor that you find yourself in leads only to three cells.  The sil
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 97
+[TEXT] Chapter 3 | Moves: 99
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11166,16 +11294,16 @@ Heath sits on the bench as you enter the cell.  "I'm starving, were you able to 
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 97
+[TEXT] Chapter 3 | Moves: 99
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Heath's Cell
-[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 98
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 100
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11308,18 +11436,18 @@ The corridor is in disarray.  The mauled body of Heath lays dead next to the sou
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=24
 [TEXT] Heath's Cell
-[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 98
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 100
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 99
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11445,9 +11573,9 @@ You turn Heath's body to where the his back is facing you and raise up the chees
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=28
 [TEXT] Stone Corridor
-[MSG] cmd=MOVETO a1=1 a2=58 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=42
-[TEXT] Chapter 3 | Moves: 99
+[MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] Chapter 3 | Moves: 101
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11456,7 +11584,7 @@ You turn Heath's body to where the his back is facing you and raise up the chees
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 100
+[TEXT] Chapter 3 | Moves: 102
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11584,7 +11712,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 100
+[TEXT] Chapter 3 | Moves: 102
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11593,7 +11721,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 101
+[TEXT] Chapter 3 | Moves: 103
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11715,7 +11843,7 @@ Stepping into the cell block still gives you the same feeling of dread and disgu
 [TEXT] Stone Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 101
+[TEXT] Chapter 3 | Moves: 103
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11724,7 +11852,7 @@ Stepping into the cell block still gives you the same feeling of dread and disgu
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 102
+[TEXT] Chapter 3 | Moves: 104
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11821,7 +11949,7 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [TEXT] Cell Block
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 102
+[TEXT] Chapter 3 | Moves: 104
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11830,7 +11958,7 @@ Again you find yourself in the moist, musty tower entrance.  The resort hall is 
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 103
+[TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11945,7 +12073,7 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [TEXT] Tower Entrance
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 103
+[TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11954,7 +12082,7 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 103
+[TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12057,7 +12185,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 103
+[TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12066,7 +12194,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 104
+[TEXT] Chapter 3 | Moves: 106
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12170,7 +12298,7 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 104
+[TEXT] Chapter 3 | Moves: 106
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12179,7 +12307,7 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 105
+[TEXT] Chapter 3 | Moves: 107
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12256,9 +12384,15 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
 [TEXT] open trunk
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=28
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=492
 [TEXT] 
 You open it.
+The trunk is about as long as a footlocker and made out of steel.  The trunk has been painted with a glossy black finish.  You can see that someone has put an identification sticker on the trunk that reads "NASSIC".
+It contains the 
+[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=28
+[TEXT] NASSIC Syringe
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=4
+[TEXT] .
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
@@ -12268,7 +12402,7 @@ You open it.
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 105
+[TEXT] Chapter 3 | Moves: 107
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12277,7 +12411,7 @@ You open it.
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 106
+[TEXT] Chapter 3 | Moves: 108
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12378,7 +12512,7 @@ You take the syringe filled with NASSIC.
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 106
+[TEXT] Chapter 3 | Moves: 108
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12387,7 +12521,7 @@ You take the syringe filled with NASSIC.
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 107
+[TEXT] Chapter 3 | Moves: 109
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12483,7 +12617,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 107
+[TEXT] Chapter 3 | Moves: 109
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12492,7 +12626,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 108
+[TEXT] Chapter 3 | Moves: 110
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12582,7 +12716,7 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [TEXT] Dry Storage
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 108
+[TEXT] Chapter 3 | Moves: 110
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12591,7 +12725,7 @@ The bright hall is indeed well lit.  There are exits to the north, south, and ea
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 109
+[TEXT] Chapter 3 | Moves: 111
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12695,7 +12829,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Bright Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 109
+[TEXT] Chapter 3 | Moves: 111
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12704,7 +12838,7 @@ Locations stretch off in many directions from this central location.  Their dest
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 110
+[TEXT] Chapter 3 | Moves: 112
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12843,7 +12977,7 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [TEXT] Central Hub
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 110
+[TEXT] Chapter 3 | Moves: 112
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12852,7 +12986,7 @@ This hall is not very well lit at all.  You can see a Library to the west, the m
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 111
+[TEXT] Chapter 3 | Moves: 113
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12963,7 +13097,7 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] Dim Hall
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 111
+[TEXT] Chapter 3 | Moves: 113
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12972,7 +13106,7 @@ You enter the music room and discover that the piano and the bust of Bach have n
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 112
+[TEXT] Chapter 3 | Moves: 114
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13080,7 +13214,7 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] Music Room
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 112
+[TEXT] Chapter 3 | Moves: 114
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13089,7 +13223,7 @@ The entrance to lab is quiet, like a sterile tomb.  The corridor is through the 
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 113
+[TEXT] Chapter 3 | Moves: 115
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13186,7 +13320,7 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [TEXT] Lab Entry
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 113
+[TEXT] Chapter 3 | Moves: 115
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13195,7 +13329,7 @@ Something about this long, deserted corridor makes the small hairs on the back o
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 114
+[TEXT] Chapter 3 | Moves: 116
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13306,7 +13440,7 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [TEXT] Lab Corridor
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 114
+[TEXT] Chapter 3 | Moves: 116
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13315,7 +13449,7 @@ The lab remains unchanged from your last visit.  The corridor is west and the of
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 115
+[TEXT] Chapter 3 | Moves: 117
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13426,7 +13560,7 @@ You place the bucket full of treated skin into the sliding tray and close the do
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 115
+[TEXT] Chapter 3 | Moves: 117
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13435,7 +13569,7 @@ You place the bucket full of treated skin into the sliding tray and close the do
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 116
+[TEXT] Chapter 3 | Moves: 118
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13540,7 +13674,7 @@ With everything in place you press the red button next to the sliding tray and h
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 116
+[TEXT] Chapter 3 | Moves: 118
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13549,7 +13683,7 @@ With everything in place you press the red button next to the sliding tray and h
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 117
+[TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13674,7 +13808,7 @@ Congrats.
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 117
+[TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13683,7 +13817,7 @@ Congrats.
 [TEXT] Lab A-1
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] Chapter 3 | Moves: 117
+[TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
