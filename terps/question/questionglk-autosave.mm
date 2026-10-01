@@ -36,16 +36,23 @@
    in the instant between the two renames can still split the pair.)
    win_autosave() then tells the window server to snapshot the GUI under
    the same tag.
+
+   The files themselves -- writing the pair, renaming it into place,
+   reading it back -- are glkimp's (autosavefiles.m), shared with the other
+   terps.  This file adds the plist hooks that carry each frontend's state,
+   the Quest 4 container and its replay record.
 */
 
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
-#include "fileref.h"
 }
 
+#include <cstdlib>
 #include <cstring>
 #include <string>
+
+#include "autosavefiles.h"
 
 #include "QuestionRunner.hh"
 #include "questionglk-autosave.h"
@@ -54,220 +61,47 @@ extern "C" {
 
 extern "C" const char *storyfilename;   /* defined in questionglkterm.c */
 
-/* ---- shared file plumbing ------------------------------------------------ */
-
-static NSString *autosave_dirname(void)
-{
-    if (autosavedir == NULL)
-        getautosavedir(const_cast<char *>(storyfilename));
-    if (autosavedir == NULL)
-        return nil;
-    NSString *dirname = [[NSFileManager defaultManager]
-        stringWithFileSystemRepresentation:autosavedir length:strlen(autosavedir)];
-    if (!dirname.length)
-        return nil;
-    return dirname;
-}
+/* ---- file plumbing: glkimp/autosavefiles.m ------------------------------- */
 
 bool question_autosave_exists(void)
 {
-    if (!gli_enable_autosave)
-        return false;
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return false;
-        NSString *gamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *libpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if (![fileManager fileExistsAtPath:gamepath])
-            return false;
-        if (![fileManager fileExistsAtPath:libpath]) {
-            /* A glksave with no plist can't be restored; delete it so it
-             * does not cause trouble later. */
-            [fileManager removeItemAtPath:gamepath error:nil];
-            return false;
-        }
-        return true;
-    }
+    return gli_autosave_exists(storyfilename);
 }
 
 bool question_autosave_wanted(void)
 {
-    if (!gli_enable_autosave)
-        return false;
-    /* Match Bocfel: no autosave before the first real event, after mere
-     * rearrange/redraw wakeups, or on timer events when the timer pref is
-     * off. */
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange ||
-        lasteventtype == evtype_Redraw ||
-        (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer))
-        return false;
-    return true;
+    return gli_autosave_wanted();
 }
 
 void question_autosave_discard(void)
 {
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return;
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        for (NSString *name in @[ @"autosave.glksave", @"autosave.plist",
-                                  @"autosave-bak.glksave", @"autosave-bak.plist" ])
-            [fileManager removeItemAtPath:[dirname stringByAppendingPathComponent:name]
-                                    error:nil];
-    }
+    gli_autosave_discard(storyfilename);
 }
 
-/* Move any current "final" file to its -bak name and the freshly written
- * temp file into the final position. */
-static bool move_into_place(NSString *dirname, NSString *tmpname,
-                            NSString *finalname, NSString *bakname)
+static bool read_autosave_game(std::string *out)
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *tmppath = [dirname stringByAppendingPathComponent:tmpname];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-
-    [fileManager removeItemAtPath:bakpath error:nil];
-    [fileManager moveItemAtPath:finalpath toPath:bakpath error:nil];
-
-    NSError *error = nil;
-    if (![fileManager moveItemAtPath:tmppath toPath:finalpath error:&error]) {
-        NSLog(@"question autosave: could not move %@ to final position: %@", tmpname, error);
-        /* Put the old file back so the previous autosave stays usable. */
-        [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
+    void *data = NULL;
+    size_t length = 0;
+    if (!gli_autosave_read_game(storyfilename, &data, &length))
         return false;
-    }
+    out->assign((const char *)data, length);
+    free(data);
     return true;
 }
 
-/* Undo a move_into_place that succeeded: put the -bak file back as the
- * final one, so the pair on disk is the previous turn's again. */
-static void roll_back(NSString *dirname, NSString *finalname, NSString *bakname)
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *finalpath = [dirname stringByAppendingPathComponent:finalname];
-    NSString *bakpath = [dirname stringByAppendingPathComponent:bakname];
-
-    [fileManager removeItemAtPath:finalpath error:nil];
-    [fileManager moveItemAtPath:bakpath toPath:finalpath error:nil];
-}
-
-/* Write the engine state and the Glk library plist (with the given archive
- * hook appending engine-specific extras), then ask the window server to
- * snapshot the GUI under the same tag.  The per-prompt guards
- * (question_autosave_wanted) are the caller's job. */
-static void write_autosave_pair(const std::string &engine_state,
-                                void (*archive_hook)(TempLibrary *, NSCoder *))
-{
-    /* Unconditionally, NOT `if (autosavedir == NULL)`: getautosavedir resolves
-     * the directory NAME without creating it, and the boot-time
-     * question_autosave_exists / aslx autorestore probe calls it -- so autosavedir
-     * is already non-null here and the guard skipped the one call that makes
-     * the directory, leaving every write to fail with mktemp errno 2.  The
-     * real app pre-creates the directory, which is why this stayed latent;
-     * anything else driving the terp (test/glkdrive.py), or a user whose
-     * autosave folder was removed, hits it immediately.
-     * createDirectoryAtURL:withIntermediateDirectories:YES is idempotent. */
-    create_autosavedir(const_cast<char *>(storyfilename));
-
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname) {
-            win_showerror("Could not create autosave directory name.");
-            return;
-        }
-
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
-
-        /* 1. The game state, to its temp name. */
-        NSData *gamedata = [NSData dataWithBytes:engine_state.data()
-                                          length:engine_state.size()];
-        NSError *error = nil;
-        if (![gamedata writeToFile:tmpgamepath options:NSDataWritingAtomic error:&error]) {
-            NSLog(@"question autosave: game state write failed: %@", error);
-            return;
-        }
-
-        /* 2. The Glk library state, to its temp name. */
-        TempLibrary *library = [[TempLibrary alloc] init];
-
-        [TempLibrary setExtraArchiveHook:archive_hook];
-        NSError *archiveError = nil;
-        NSData *archiveData = [NSKeyedArchiver archivedDataWithRootObject:library
-                                                    requiringSecureCoding:NO
-                                                                    error:&archiveError];
-        [TempLibrary setExtraArchiveHook:nil];
-
-        if (!archiveData) {
-            NSLog(@"question autosave: library serialize failed: %@", archiveError);
-            [fileManager removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-        if (![archiveData writeToFile:tmplibpath options:NSDataWritingAtomic error:&archiveError]) {
-            NSLog(@"question autosave: library write failed: %@", archiveError);
-            [fileManager removeItemAtPath:tmpgamepath error:nil];
-            return;
-        }
-
-        /* 3. Both written: rename them into place as a pair.  If the plist
-         * cannot follow the glksave, take the glksave back too, so the
-         * files on disk never mix two turns. */
-        if (!move_into_place(dirname, @"autosave-tmp.glksave",
-                             @"autosave.glksave", @"autosave-bak.glksave")) {
-            [fileManager removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-        if (!move_into_place(dirname, @"autosave-tmp.plist",
-                             @"autosave.plist", @"autosave-bak.plist")) {
-            roll_back(dirname, @"autosave.glksave", @"autosave-bak.glksave");
-            [fileManager removeItemAtPath:tmplibpath error:nil];
-            return;
-        }
-
-        /* 4. Have the window server snapshot the GUI under the same tag. */
-        win_autosave(library.autosaveTag);
-    }
-}
-
 /* Unarchive autosave.plist with the given hook and replace the live Glk
- * object lists.  Returns the library (retained in a static for the "late"
- * pass) or nil. */
-static TempLibrary *pending_library = nil;
-
+ * object lists.  Returns the library or nil; the caller runs its "late"
+ * pass once its own globals point at the restored objects. */
 static TempLibrary *restore_library(void (*unarchive_hook)(TempLibrary *, NSCoder *))
 {
-    NSString *dirname = autosave_dirname();
-    if (!dirname)
-        return nil;
-    NSString *libpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-
-    NSError *error = nil;
-    TempLibrary *newlib = nil;
-    NSData *libdata = [NSData dataWithContentsOfFile:libpath options:0 error:&error];
-    if (libdata) {
-        NSKeyedUnarchiver *unarchiver =
-            [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&error];
-        if (unarchiver) {
-            unarchiver.requiresSecureCoding = NO;
-            [TempLibrary setExtraUnarchiveHook:unarchive_hook];
-            newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey
-                                                                     error:&error];
-            [TempLibrary setExtraUnarchiveHook:nil];
-            [unarchiver finishDecoding];
-        }
-    }
-    if (!newlib) {
-        NSLog(@"question autorestore: could not restore library state: %@", error);
-        return nil;
-    }
+    TempLibrary *newlib = gli_autosave_load_library(storyfilename, unarchive_hook);
     [newlib updateFromLibrary];
     return newlib;
 }
+
+/* The aslx frontend's library, held between aslx_autosave_restore_library
+ * and its late pass. */
+static TempLibrary *pending_library = nil;
 
 /* ---- Quest 4 (questionglk.cc / QuestionRunner) --------------------------- */
 
@@ -450,9 +284,10 @@ void question_do_menu_autosave(const std::string &command,
     frontend_state.rng_usenative = turn_start.rng_usenative;
     memcpy(frontend_state.rng_state, turn_start.rng_state,
            sizeof frontend_state.rng_state);
-    write_autosave_pair(container_wrap(turn_start.state, turn_start.undo,
-                                       replay_encode(command, answers)),
-                        question_library_archive);
+    std::string container = container_wrap(turn_start.state, turn_start.undo,
+                                           replay_encode(command, answers));
+    gli_autosave_write(storyfilename, container.data(), container.size(),
+                       question_library_archive);
 }
 
 static bool pending_replay = false;
@@ -484,8 +319,9 @@ void question_do_autosave(QuestionRunner *gr)
         return;
     capture_turn_start(gr, data);
     question_stash_frontend_state(&frontend_state);
-    write_autosave_pair(container_wrap(data, turn_start.undo),
-                        question_library_archive);
+    std::string container = container_wrap(data, turn_start.undo);
+    gli_autosave_write(storyfilename, container.data(), container.size(),
+                       question_library_archive);
 }
 
 bool question_restore_autosave(QuestionRunner *gr)
@@ -493,20 +329,12 @@ bool question_restore_autosave(QuestionRunner *gr)
     if (!gli_enable_autosave)
         return false;
     @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return false;
-        NSString *gamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-
-        NSError *error = nil;
-        NSData *gamedata = [NSData dataWithContentsOfFile:gamepath options:0 error:&error];
-        if (!gamedata) {
-            NSLog(@"question autorestore: could not read game state: %@", error);
+        std::string filedata;
+        if (!read_autosave_game(&filedata)) {
             question_autosave_discard();
             return false;
         }
 
-        std::string filedata((const char *)gamedata.bytes, (size_t)gamedata.length);
         std::string data, undo_history, replay;
         if (!container_split(filedata, &data, &undo_history, &replay)) {
             NSLog(@"question autorestore: autosave container was malformed.");
@@ -571,26 +399,14 @@ void aslx_do_autosave_write(const std::string &engine_state,
                             const std::string &frontend_blob)
 {
     aslx_frontend_blob = frontend_blob;
-    write_autosave_pair(engine_state, aslx_library_archive);
+    gli_autosave_write(storyfilename, engine_state.data(), engine_state.size(),
+                       aslx_library_archive);
     aslx_frontend_blob.clear();
 }
 
 bool aslx_autosave_read_game(std::string *out)
 {
-    @autoreleasepool {
-        NSString *dirname = autosave_dirname();
-        if (!dirname)
-            return false;
-        NSString *gamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSError *error = nil;
-        NSData *gamedata = [NSData dataWithContentsOfFile:gamepath options:0 error:&error];
-        if (!gamedata) {
-            NSLog(@"aslx autorestore: could not read game state: %@", error);
-            return false;
-        }
-        out->assign((const char *)gamedata.bytes, (size_t)gamedata.length);
-        return true;
-    }
+    return read_autosave_game(out);
 }
 
 bool aslx_autosave_restore_library(std::string *frontend_blob_out)
