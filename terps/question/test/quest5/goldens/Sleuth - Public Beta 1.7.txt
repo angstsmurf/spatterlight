@@ -1,0 +1,120 @@
+SLEUTH
+ By Scott Greig
+
+1. Basic Game
+2. Personalized Game
+3. Review Instructions
+
+ Based on the 1983 game by Eric N. Miller. Made with permission.
+Image by Sam Kabo Ashwell.
+> 1
+> 1
+It is a dark and stormy night. A murder is being committed... (Press any key to continue)
+Wayne Crawford was brutally murdered only hours ago. The body was removed by persons unknown from the murder scene. You are now standing at the front door of the Crawford estate. The door is open.
+You are at the West Stairs.
+These stairs lead up to the west hall. The steps are made of marble slabs.
+You can go south or north.
+> xyzzy
+> xyzzy
+As the word escapes your lips, images begin to take form before your eyes. You see that the murder was committed in the Parlor with the Pewter Jefferson Cup by Maude Moore.
+> n
+> n
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north, west or east.
+> e
+> e
+You are in the Sewing Room.
+You are standing in the sewing room. Many overstuffed chairs sit in a circle in the center of the room.
+You can see a Reading Lamp and a magnifying glass.
+You can go west.
+> take magnifying glass
+> take magnifying glass
+Now to find the murder weapon!!!
+> w
+> w
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north, west or east.
+> n
+> n
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north or east.
+> n
+> n
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north or east.
+> n
+> n
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, east or west.
+> e
+> e
+You are in the Main Hall.
+You are walking down the main hall. Silk bunting hangs along the north wall.
+You can go west, south, east or north.
+> e
+> e
+You are in the East Hall.
+You are walking through the east hall. Small crystal lamps light the walls.
+You can see David Preston.
+You can go west, north, south or east.
+> e
+> e
+You are in the Butler's Bedroom.
+You have entered the butler's bedroom. The room has been decorated in a simple, but tasteful manner. The furniture is rather worn.
+You can see a Pewter Jefferson Cup.
+You can go west.
+> take pewter jefferson cup
+> take pewter jefferson cup
+You pick it up.
+> x pewter jefferson cup
+> x pewter jefferson cup
+There are traces of blood on it! This must be the murder weapon!
+> w
+> w
+You are in the East Hall.
+You are walking through the east hall. Small crystal lamps light the walls.
+You can go west, north, south or east.
+> w
+> w
+You are in the Main Hall.
+You are walking down the main hall. Silk bunting hangs along the north wall.
+You can go west, south, east or north.
+> w
+> w
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, east or west.
+> s
+> s
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north or east.
+> s
+> s
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north or east.
+> s
+> s
+You are in the West Hall.
+You are walking through the west hall. The walls are papered in a tasteful floral design.
+You can go south, north, west or east.
+> w
+> w
+You are in the Parlor.
+You have entered the parlor. A large sofa sits in the middle of the room. You can see the front lawn through the window.
+You can see a Antique Silver Teapot.
+You can go east.
+> gather
+> gather
+The suspects all file into the room and take a seat. They stare at you expectantly, waiting to hear your deduction.
+> accuse Maude Moore
+> accuse Maude Moore
+Maude Moore rises defiantly and declares, "Alright, it was me!! I killed Wayne, and I'd do it again given the chance! Wayne deserved everything they got!"
+YOU WIN!!!
+[state=Finished]

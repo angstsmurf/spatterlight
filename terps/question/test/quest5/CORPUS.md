@@ -28,7 +28,7 @@ holds only Quest 5 walkthroughs; `_pre-quest5/` (Quest 1–4) and `_not-quest5/`
 - **Walkthrough coverage is believed complete.** Of the 631 Quest games on IFDB, exactly 35 have a walkthrough link. Cross-referencing Welbourn's full index (1340 entries) and `if-archive/solutions/` (499 files) against all 631 titles found **zero** additional. Don't re-hunt.
 - **plover.net's `idx_quest.html` cannot prune by version string alone**: a bare `Quest` (no number) means "version unrecorded", not "pre-5" — 15 of the first 49 verified Quest 5 games were labelled bare `Quest` there. The pre-5 walkthrough split was done by triangulating bare-`Quest` + index-year (2001–2009) + `.asl`/`.cas` format, with ASL headers as ground truth.
 - **`_not-quest5/`** (games folder) holds Quest 3/4 `.asl`/`.cas` games (which belong to the *existing* Question engine) and the QuestJS outlier.
-- Every `.quest` here is verified: a real zip containing `game.aslx`. Three deliberate
+- Every `.quest` here is verified: a real zip containing `game.aslx`. Five deliberate
   version duplicates:
   - `Quest for the Serpent's Eye v1.1.3.quest` (newer release, kept alongside the frozen
     v1.1.1 corpus copy; the frozen override replays on it to THE END with errors=0 —
@@ -48,6 +48,17 @@ holds only Quest 5 walkthroughs; `_pre-quest5/` (Quest 1–4) and `_not-quest5/`
     NOT replay on it — Desmond's conversation menu lost a topic and renumbered, and an
     out-of-range menu answer silently swallows the rest of the run — so it IS separately
     wired, with its own override + golden.
+  - `Sir Loin - Coming of Age (ASL 600 build).quest` (DavyB's 26 Sept 2026 re-save of
+    v1.7 for Quest Viva, `<asl version="600">`, shipped as `Sir Loin One Too 1.7.quest`;
+    same gameid and version as the pinned 580 build). The 580 build's script replays
+    unchanged, but the transcript differs (yes/no ShowMenu prompts became `ask`, a
+    sound-effects line at the start), and it exercises the ASL 600 loader, so it IS
+    separately wired.
+  - `Sleuth - Public Beta 1.7.quest` (the author's later build, v1.7, ASL 520, Quest
+    5.2, shipped as `Sleuth-1.7.quest`; the corpus's `Sleuth - SpringThing 2012
+    Edition.aslx` is v1.0, ASL 510, with a different gameid). The SpringThing script
+    replays except the accusation: the same seed picks a different murderer (Maude
+    Moore, not Harriet Moore), so it IS separately wired.
 
   Three games were renamed to their in-game titles when they were wired, since the corpus
   row and the golden are keyed on the file's basename: `behind_the_door_final.quest` →

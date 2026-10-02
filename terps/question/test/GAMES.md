@@ -45,15 +45,17 @@ recorded bytes; missing files are not an error.
 
 Quest games get republished in place, and `textadventures.co.uk` serves every
 build of a game from the same URL. The corpus deliberately holds the *older*
-build in three cases, all documented in `quest5/CORPUS.md`:
+build in five cases, all documented in `quest5/CORPUS.md`:
 
 | corpus file | build of | what differs |
 | --- | --- | --- |
 | `Quest for the Serpent's Eye v1.1.3.quest` | the frozen v1.1.1 copy | prose polish; the frozen script still replays, 16 diff lines |
 | `Guttersnipe- The Baleful Backwash (2018 re-release).quest` | the frozen 2018-03-24 copy | renamed objects and a rebuilt trapdoor lock — needs its own script |
 | `The Acreage (pub 6.29 revision).quest` | the frozen 5.9.9166 copy | 177 objects against 173, reworked opening — needs its own script |
+| `Sir Loin - Coming of Age (ASL 600 build).quest` | the frozen ASL 580 copy | Quest Viva re-save; script replays, menus became `ask` — own golden |
+| `Sleuth - Public Beta 1.7.quest` | the frozen v1.0 `.aslx` | same seed picks a different murderer — own script |
 
-The last two are the argument for pinning by hash rather than by name: the same
+The Backwash, Acreage and Sleuth rows are the argument for pinning by hash rather than by name: the same
 walkthrough does *not* survive the rebuild, so a corpus refreshed by filename
 would swap the game under a frozen golden and produce a diff that looks exactly
 like an engine regression.

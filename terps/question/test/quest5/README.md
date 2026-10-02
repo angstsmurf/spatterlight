@@ -29,7 +29,7 @@ for a win marker.
   with its source URL where one exists. This is what makes the corpus
   reproducible without redistributing it; see `../GAMES.md` and
   `../fetch_games.sh`.
-- `CORPUS.md` — the prose companion to that manifest: the three deliberate
+- `CORPUS.md` — the prose companion to that manifest: the five deliberate
   version duplicates, the unwired extra copies, the three files renamed to
   their in-game titles when they were wired, and sourcing facts.
 - `downloaded/` — the same arrangement for the third-party walkthrough
