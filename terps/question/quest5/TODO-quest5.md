@@ -10,9 +10,11 @@
   Sleuth no longer MISS). `aslx_replay` installs its menu/ask/input providers
   before StartGame, so an expression-form `Ask` at boot (The Day the Sky Fell
   Down) is fed like the oracle feeds it.
+- The last missing built-ins landed (§2): `Asc`, `Chr`, `InstrRev`, `LTrim`,
+  `RTrim`, VB-exact `Trim`, `CurrentDateUTC`, `GetFileData` and the two
+  external-file stubs.
 - Still open: Stranger Parts 7–11 and the other typing-clock rows (§7.1);
-  `<backgroundimage>` (milestone 5); the missing string/date/file built-ins
-  (§2, unused by the corpus); `make check` does not run the corpus replay
+  `<backgroundimage>` (milestone 5, skipped for now); `make check` does not run the corpus replay
   (milestone 6); moving the oracle's pinned QuestViva revision to current
   upstream (fork `main` fast-forwarded 2026-09-25; needs the
   `patch_questviva.py` `_random` anchor fixed and every golden re-checked).
@@ -1381,13 +1383,20 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       `True`/`False`/`Null`, NCalc `if()`/`cast()`, `GetFileURL`/
       `GetUniqueElementName`/`RunDelegateFunction`; typed (Value-holding)
       lists with reference-identity equality (2026-07-16). TODO (re-audited
-      2026-10-02 against QuestViva's `src/Engine/Functions/*.cs`): the
-      built-ins still missing natively are `Asc`, `Chr`, `InstrRev` (2- and
-      3-arg), `LTrim`, `RTrim`, `CurrentDateUTC` and
-      `GetFileData`/`GetExternalFileData`/`SetExternalFileData`. No corpus game
-      calls them. (`FormatList` and the scope helpers are Core.aslx functions
-      and already run as library code.) List/dict literals are also still
-      unsupported.
+      2026-10-02 against QuestViva's `src/Engine/Functions/*.cs`), now done:
+      `Asc`, `Chr` (Windows-1252 above 127, a deliberate deviation; see the
+      oracle README), `InstrRev` (2- and 3-arg), `LTrim`/`RTrim` and a VB-exact
+      `Trim` (space and U+3000 only; tabs survive), `CurrentDateUTC`, and
+      `GetFileData` through the new `Interp::resource_provider` (package entry
+      or file beside a bare `.aslx`, BOM dropped, null when missing, ".." is
+      "Invalid filename"); `Get`/`SetExternalFileData` raise QuestViva's "not
+      supported" errors. Fifteen corpus games call `GetFileData`, all on
+      paths the walkthroughs never reach (the native sweep passed before
+      the built-in existed); Pixie's Quest calls `Asc` on ASCII. Unit-tested
+      in `aslx_runtime_test`; probe scripts matched the oracle line for line
+      apart from the 1252 deviation.
+      (`FormatList` and the scope helpers are Core.aslx functions and already
+      run as library code.) List/dict literals are still unsupported.
 - [x] **Command parsing comes free**: implemented in `CoreParser.aslx`, and it
       now runs — `HandleCommand` → `ScopeCommands` → `IsRegexMatch`/
       `GetMatchStrength` → `ResolveName`/`GetScope`/`ResolveNameFromList`/

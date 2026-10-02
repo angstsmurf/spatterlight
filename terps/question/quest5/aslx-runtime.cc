@@ -26,6 +26,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 #include <deque>
 #include <regex>
 #include <sstream>

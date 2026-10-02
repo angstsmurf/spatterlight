@@ -625,6 +625,13 @@ public:
     // available and yields "". Unset, the expression form reports an error.
     std::function<bool(std::string &line)> input_provider;
 
+    // Package resource reader for GetFileData: the named entry of the .quest
+    // zip, or the file beside a bare .aslx (QuestViva's GetResourceData).
+    // Return true with the raw bytes in `data`; false means the resource is
+    // missing, which GetFileData reports as null. Unset, every resource is
+    // missing.
+    std::function<bool(const std::string &name, std::string &data)> resource_provider;
+
     // -- timers (TimerRunner port, TODO §3) -----------------------------------
     // Quest timers are <timer> elements with `enabled`/`interval`/`trigger`/
     // `script` fields against a game.timeelapsed clock; the enable/disable/

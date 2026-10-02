@@ -3641,6 +3641,7 @@ void install_host_hooks(Interp &in, bool &restart_requested)
 #endif
         return answered;
     };
+    in.resource_provider = resource_bytes;
     in.input_provider = [&in](std::string &text) -> bool {
         [[maybe_unused]] AutosaveSuspend no_autosave;
 #ifdef SPATTERLIGHT

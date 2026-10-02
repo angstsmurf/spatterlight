@@ -68,6 +68,17 @@ static std::string evals(Interp &in, const std::string &expr) {
     return Interp::to_string(in.eval(expr, ctx));
 }
 
+// The message a failing expression raises (past the "Error evaluating
+// expression '...': " wrapper), or "" if it evaluates.
+static std::string eval_error(Interp &in, const std::string &expr) {
+    try { evals(in, expr); } catch (const std::runtime_error &e) {
+        std::string m = e.what();
+        size_t at = m.find("': ");
+        return at == std::string::npos ? m : m.substr(at + 3);
+    }
+    return "";
+}
+
 static void test_expressions() {
     World w;
     w.asl_version = 550;
@@ -124,6 +135,33 @@ static void test_expressions() {
     CHECK_STR(evals(in, "Instr(\"hello\", \"z\")"), "0");
     CHECK_STR(evals(in, "Replace(\"a-b-c\", \"-\", \"+\")"), "a+b+c");
     CHECK_STR(evals(in, "Trim(\"  hi  \")"), "hi");
+    // VB trims strip only ' ' and U+3000 (tabs survive); InstrRev finds the
+    // last match ending at or before start; all checked against the oracle.
+    CHECK_STR(evals(in, "\"[\" + LTrim(\"  a b  \") + \"][\" + RTrim(\"  a b  \") + \"]\""), "[a b  ][  a b]");
+    CHECK_STR(evals(in, "LengthOf(Trim(Chr(9) + \"x \" + Chr(9)))"), "4");
+    CHECK_STR(evals(in, "Trim(\"\u3000x \u3000\")"), "x");
+    CHECK_STR(evals(in, "InstrRev(\"abcabc\", \"bc\")"), "5");
+    CHECK_STR(evals(in, "InstrRev(\"abcabc\", \"\")"), "6");
+    CHECK_STR(evals(in, "InstrRev(\"\", \"\")"), "0");
+    CHECK_STR(evals(in, "InstrRev(4, \"abcabc\", \"bc\")"), "2");
+    CHECK_STR(evals(in, "InstrRev(2, \"abcabc\", \"bc\")"), "0");
+    CHECK_STR(evals(in, "InstrRev(10, \"abcabc\", \"bc\")"), "0");
+    CHECK_STR(evals(in, "InstrRev(3, \"abcabc\", \"\")"), "3");
+    CHECK_STR(evals(in, "InstrRev(\"aBc\", \"b\")"), "0");
+    CHECK_STR(eval_error(in, "InstrRev(0, \"abc\", \"b\")"),
+              "Argument 'Start' must be greater than 0 or equal to -1. (Parameter 'Start')");
+    // Asc/Chr: ASCII as the oracle; 128-255 are Windows-1252 (a deliberate
+    // deviation: QuestViva errors there for want of the code page).
+    CHECK_STR(evals(in, "Asc(\"abc\")"), "97");
+    CHECK_STR(evals(in, "Chr(65) + Chr(127)"), "A\x7F");
+    CHECK_STR(evals(in, "LengthOf(Chr(0))"), "1");
+    CHECK_STR(evals(in, "Chr(233) + Chr(128)"), "\u00E9\u20AC");
+    CHECK_STR(evals(in, "Asc(\"\u00E9\") + Asc(\"\u20AC\")"), "361");
+    CHECK_STR(evals(in, "Asc(\"\u0436\")"), "63");
+    CHECK_STR(eval_error(in, "Asc(\"\")"),
+              "Length of argument 'String' must be greater than zero. (Parameter 'String')");
+    CHECK_STR(eval_error(in, "GetExternalFileData(\"x\")"), "GetExternalFileData is not supported");
+    CHECK_STR(evals(in, "TypeOf(CurrentDateUTC())"), "int");
     CHECK_STR(evals(in, "LengthOf(\"hello\")"), "5");
     CHECK_STR(evals(in, "StartsWith(\"hello\", \"he\")"), "True");
     CHECK_STR(evals(in, "Join(Split(\"a,b,c\", \",\"), \"|\")"), "a|b|c");

@@ -229,6 +229,30 @@ int main(int argc, char **argv) {
     }
     Interp in(w);
     std::string transcript;
+    // GetFileData reads the .quest package entry, or the file beside a bare
+    // .aslx (as aslxglk's resource_bytes does).
+    std::string package;
+    {
+        std::ifstream f(argv[1], std::ios::binary);
+        package.assign(std::istreambuf_iterator<char>(f), {});
+    }
+    std::vector<ZipEntryInfo> entries;
+    bool is_package = zip_list_entries((const uint8_t *)package.data(),
+                                       package.size(), entries);
+    std::string story_dir = argv[1];
+    story_dir = story_dir.find('/') == std::string::npos
+        ? "." : story_dir.substr(0, story_dir.rfind('/'));
+    in.resource_provider = [&](const std::string &name, std::string &out) {
+        if (is_package) {
+            const ZipEntryInfo *e = zip_find_entry(entries, name);
+            return e && zip_extract_entry((const uint8_t *)package.data(),
+                                          package.size(), *e, out);
+        }
+        std::ifstream f(story_dir + "/" + name, std::ios::binary);
+        if (!f) return false;
+        out.assign(std::istreambuf_iterator<char>(f), {});
+        return true;
+    };
     // ASLX_RAW=1: mirror every print's raw HTML to stderr, for chasing a
     // transcript diff back to the markup that produced it.
     static const bool raw_trace = std::getenv("ASLX_RAW") != nullptr;

@@ -72,6 +72,14 @@ static uint32_t cp_to_upper(uint32_t c) {
     if (c >= 0x450 && c <= 0x45F) return c - 0x50;               // ѐ..џ
     return c;
 }
+// Windows-1252 0x80..0x9F; the five holes map to their C1 controls, as
+// Windows' own conversion does.
+static const uint32_t cp1252_high[32] = {
+    0x20AC, 0x0081, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+    0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x008D, 0x017D, 0x008F,
+    0x0090, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+    0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x009D, 0x017E, 0x0178,
+};
 // Codepoint-wise UTF-8 case conversion; first_only converts just the leading
 // codepoint (CapFirst). Malformed bytes pass through unchanged.
 static std::string utf8_case(const std::string &s, bool upper, bool first_only) {
@@ -772,7 +780,73 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         return vstr(s);
     }
-    if (fn == "trim" && n == 1) return vstr(rt_trim(sarg(0)));
+    // VB Trim/LTrim/RTrim strip only the space and the ideographic space
+    // (U+3000); tabs and newlines survive, unlike rt_trim.
+    if ((fn == "trim" || fn == "ltrim" || fn == "rtrim") && n == 1) {
+        std::string s = sarg(0);
+        static const std::string ideo = "\xE3\x80\x80";
+        size_t a = 0, b = s.size();
+        if (fn != "rtrim")
+            for (;;) {
+                if (a < b && s[a] == ' ') ++a;
+                else if (b - a >= 3 && s.compare(a, 3, ideo) == 0) a += 3;
+                else break;
+            }
+        if (fn != "ltrim")
+            for (;;) {
+                if (b > a && s[b - 1] == ' ') --b;
+                else if (b - a >= 3 && s.compare(b - 3, 3, ideo) == 0) b -= 3;
+                else break;
+            }
+        return vstr(s.substr(a, b - a));
+    }
+    // InstrRev([start,] input, search): the last match that ENDS at or before
+    // `start` (1-based, -1 = the whole string), case-sensitive, by byte like
+    // Instr.
+    if (fn == "instrrev" && (n == 2 || n == 3)) {
+        long start = -1; std::string s, find;
+        if (n == 2) { s = sarg(0); find = sarg(1); }
+        else { start = iarg(0); s = sarg(1); find = sarg(2); }
+        if (start == 0 || start < -1)
+            error("Argument 'Start' must be greater than 0 or equal to -1. "
+                  "(Parameter 'Start')");
+        if (s.empty()) return vint(0);
+        if (start == -1) start = (long)s.size();
+        if ((size_t)start > s.size()) return vint(0);
+        if (find.empty()) return vint(start);
+        if (find.size() > (size_t)start) return vint(0);
+        size_t pos = s.rfind(find, (size_t)start - find.size());
+        return vint(pos == std::string::npos ? 0 : (long)pos + 1);
+    }
+    // Asc/Chr: ASCII is exact. QuestViva on .NET Core has no code page 1252
+    // and errors on anything else; Question deliberately uses Windows-1252
+    // there, as the Windows Quest runner did (unmappable characters -> '?').
+    if (fn == "asc" && n == 1) {
+        std::string s = sarg(0);
+        if (s.empty())
+            error("Length of argument 'String' must be greater than zero. "
+                  "(Parameter 'String')");
+        unsigned char b = (unsigned char)s[0];
+        if (b < 0x80) return vint(b);
+        uint32_t cp = 0;
+        if ((b & 0xE0) == 0xC0 && s.size() >= 2) cp = ((b & 0x1Fu) << 6) | ((unsigned char)s[1] & 0x3Fu);
+        else if ((b & 0xF0) == 0xE0 && s.size() >= 3) cp = ((b & 0x0Fu) << 12) | (((unsigned char)s[1] & 0x3Fu) << 6) | ((unsigned char)s[2] & 0x3Fu);
+        else return vint('?');
+        if (cp >= 0xA0 && cp <= 0xFF) return vint((long)cp);
+        for (int i = 0; i < 32; ++i)
+            if (cp1252_high[i] == cp) return vint(0x80 + i);
+        return vint('?');
+    }
+    if (fn == "chr" && n == 1) {
+        long c = iarg(0);
+        if (c < 0 || c > 255) error("Argument 'CharCode' is not a valid value.");
+        uint32_t cp = c < 0x80 || c >= 0xA0 ? (uint32_t)c : cp1252_high[c - 0x80];
+        std::string out;
+        if (cp < 0x80) out += (char)cp;
+        else if (cp < 0x800) { out += (char)(0xC0 | (cp >> 6)); out += (char)(0x80 | (cp & 0x3F)); }
+        else { out += (char)(0xE0 | (cp >> 12)); out += (char)(0x80 | ((cp >> 6) & 0x3F)); out += (char)(0x80 | (cp & 0x3F)); }
+        return vstr(out);
+    }
     // ExpressionOwner.IsInt/IsDouble: int.TryParse / double.TryParse (decimal
     // point only, no exponent/thousands) on the string form.
     if (fn == "isint" && n == 1) {
@@ -1090,6 +1164,21 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         if (!input_provider(line)) return vstr("");
         return vstr(line);
     }
+
+    // QuestViva GetFileData: the resource's text (BOM dropped), null when
+    // there is no such resource; a path climbing out with ".." is refused.
+    if (fn == "getfiledata" && n == 1) {
+        std::string name = sarg(0), data;
+        if (name.find("..") != std::string::npos) error("Invalid filename");
+        if (!resource_provider || !resource_provider(name, data)) return vnull();
+        if (data.compare(0, 3, "\xEF\xBB\xBF") == 0) data.erase(0, 3);
+        return vstr(data);
+    }
+    if (fn == "getexternalfiledata" && n == 1)
+        error("GetExternalFileData is not supported");
+    if (fn == "setexternalfiledata" && n == 2)
+        error("SetExternalFileData is not supported");
+    if (fn == "currentdateutc" && n == 0) return vint((long)std::time(nullptr));
 
     if (fn == "getrandomint" && n == 2)
         return vint(active_rng().between(iarg(0), iarg(1)));

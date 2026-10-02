@@ -489,6 +489,16 @@ Bathhouse*, *Hawk the Hunter* and *Dream Pieces 2* were the #2188 string-concat
 regression (#2167's unset-attribute guard also fired on `+` with a null string),
 and *Iron John* / *The Tree* were stale goldens refreshed after Spatterlight #180.
 
+A second deliberate deviation shows up only in scripts, not in any golden:
+`Asc` and `Chr` outside ASCII. QuestViva calls VB's `Asc`/`Chr`, which go
+through Windows-1252, and .NET Core ships without that code page, so the oracle
+errors with "No data is available for encoding 1252" for `Chr(128)`..`Chr(255)`
+and for `Asc` of any non-ASCII character. The Windows Quest runner had the code
+page, so the native engine maps 128..255 through Windows-1252 (`Chr(128)` is
+"€", `Asc("é")` is 233, an unmappable character gives 63, "?"), and reports
+`Chr` outside 0..255 as an invalid argument. No corpus game reaches either
+case (Pixie's Quest calls `Asc` on ASCII only).
+
 ## Determinism (RNG)
 
 The oracle replaces QuestViva's `Random` with `ErkyrathRandom` — a C# port of
