@@ -29,9 +29,9 @@ for a win marker.
   with its source URL where one exists. This is what makes the corpus
   reproducible without redistributing it; see `../GAMES.md` and
   `../fetch_games.sh`.
-- `CORPUS.md` — the prose companion to that manifest: each game's author, ASL
-  version and walkthrough, the three deliberate version duplicates, and the
-  three files renamed to their in-game titles when they were wired.
+- `CORPUS.md` — the prose companion to that manifest: the three deliberate
+  version duplicates, the unwired extra copies, the three files renamed to
+  their in-game titles when they were wired, and sourcing facts.
 - `downloaded/` — the same arrangement for the third-party walkthrough
   documents `extract_walkthrough.py` reads, falling back to
   `~/Downloads/Quest 5 walkthroughs` (or set `WALKS=`). Only the 9

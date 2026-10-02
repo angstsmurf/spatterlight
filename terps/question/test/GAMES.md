@@ -12,8 +12,8 @@ What *is* committed is a checksum manifest per corpus:
 - `quest5/games.manifest.tsv`
 
 and `fetch_games.sh`, which reads them. `quest5/CORPUS.md` is the prose
-companion to the Quest 5 manifest — who wrote each game, which ASL version it
-declares, which walkthrough drives it.
+companion to the Quest 5 manifest — the deliberate version duplicates, the
+unwired extra copies, and what is known about sourcing games and walkthroughs.
 
 ## Using it
 
