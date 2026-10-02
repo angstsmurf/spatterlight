@@ -631,7 +631,7 @@ static void create_submenu(JourneyVOMenu *m, int object, int objectindex) {
 // target of "CAST GLOW ON ___").
 static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
 
-    struct JourneyVOMenu menu[10];
+    struct JourneyVOMenu menu[10] = {};
 
     int table, table_count;
     if (type == kJMenuTypeObjects) {

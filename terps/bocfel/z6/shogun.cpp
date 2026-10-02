@@ -148,7 +148,7 @@ static void setup_text_and_status(int P) {
         SHIGH = 0;
 
     if (SHOGUN_MENU_BG_WIN.id)
-        HIGH -= SHOGUN_MENU_BG_WIN.x_size;
+        HIGH -= SHOGUN_MENU_BG_WIN.y_size;
 
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, V6_STATUS_WINDOW.x_origin, imagescaley * 2 + SHIGH, V6_STATUS_WINDOW.x_size, HIGH - SHIGH);
 }

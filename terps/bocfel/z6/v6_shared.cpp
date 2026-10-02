@@ -1098,8 +1098,8 @@ static uint16_t hint_topic_name(uint16_t chapter) {
 // The seen-hints table is a nibble table: the high 4 bits of each byte
 // store the count for odd-numbered questions; the low 4 bits store even.
 static int16_t get_seen_hints(void) {
-    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
-    int16_t address = cv + (h_quest_num - 1) / 2;
+    uint16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
+    uint16_t address = cv + (h_quest_num - 1) / 2;
     int16_t seen = user_byte(address);
     bool odd = ((h_quest_num & 1) == 1);
     if (odd) {
@@ -1220,8 +1220,8 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
 // Stores the number of hints revealed for the current question in the
 // nibble table. Preserves the other nibble in the same byte.
 static void store_hints_seen(uint8_t value) {
-    int16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
-    int16_t address = cv + (h_quest_num - 1) / 2;
+    uint16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
+    uint16_t address = cv + (h_quest_num - 1) / 2;
     uint8_t seen = user_byte(address);
     bool odd = ((h_quest_num & 1) == 1);
     if (odd) {
@@ -1232,7 +1232,7 @@ static void store_hints_seen(uint8_t value) {
         value = value & 0x0f;
     }
     value = seen | value;
-    store_byte(address, value);
+    user_store_byte(address, value);
 }
 
 // Initializes the hint display for the current question: shows the title,

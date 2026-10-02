@@ -2253,7 +2253,8 @@ static void find_journey_globals(void) {
             offset = find_values_in_pattern({ 0xc1, 0x93, 0x01, WILDCARD, WILDCARD, WILDCARD, 0xc1 }, { &praxix, &bergon1, &bergon2 }, offset, 200);
 
             jo.PRAXIX = praxix;
-            jo.BERGON = word(offset - 1);
+            if (offset != -1)
+                jo.BERGON = word(offset - 1);
             find_routines_in_pattern({ 0xc1, 0x8f, WILDCARD, WILDCARD, 0xb0, 0xc1 }, { &jr.PARSE_ELVISH }, offset, 200);
         } else if (entrypoint.fn == CHANGE_NAME && entrypoint.found_at_address != 0) {
             uint8_t tag = 0, dummy;
@@ -2266,7 +2267,8 @@ static void find_journey_globals(void) {
 
             offset = find_values_in_pattern({ 0xe3, 0x1b, WILDCARD, WILDCARD, WILDCARD, 0x08 }, { &ja.KBD, &ja.KBD, &ja.KBD }, offset, 200);
 
-            jo.TAG_OBJECT = word(offset - 2);
+            if (offset != -1)
+                jo.TAG_OBJECT = word(offset - 2);
 
             offset = find_globals_in_pattern({ 0x08, 0x2d, WILDCARD, 0x01, }, { &jg.TAG_NAME_LENGTH }, offset, 200);
 
@@ -3189,7 +3191,7 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zt.PILE_TABLE not found!\n");
             }
         } else if (entrypoint.fn == SNARFEM && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0xce, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xcc, 0x1f, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
+            start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0xce, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xcc, 0x1f, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
             if (start == -1) {
                 start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, {&zo.FAN}, entrypoint.found_at_address, 350);
                 if (start != -1) {
