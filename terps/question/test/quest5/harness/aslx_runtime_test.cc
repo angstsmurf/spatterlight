@@ -162,6 +162,15 @@ static void test_expressions() {
               "Length of argument 'String' must be greater than zero. (Parameter 'String')");
     CHECK_STR(eval_error(in, "GetExternalFileData(\"x\")"), "GetExternalFileData is not supported");
     CHECK_STR(evals(in, "TypeOf(CurrentDateUTC())"), "int");
+    // NCalc list literals: "(a, b)" with ',' or ';', and "()"; FLEE's
+    // `x in (a, b)` is the real use. Membership is case- and type-exact.
+    CHECK_STR(evals(in, "\"a\" in (\"a\", \"b\")"), "True");
+    CHECK_STR(evals(in, "\"A\" in (\"a\", \"b\")"), "False");
+    CHECK_STR(evals(in, "1 in (\"1\", \"2\")"), "False");
+    CHECK_STR(evals(in, "3 in (1; 2; 3)"), "True");
+    CHECK_STR(evals(in, "\"c\" not in (\"a\", \"b\")"), "True");
+    CHECK_STR(evals(in, "ListCount((\"a\", \"b\")) + ListCount(())"), "2");
+    CHECK_STR(evals(in, "(\"a\")"), "a");
     CHECK_STR(evals(in, "LengthOf(\"hello\")"), "5");
     CHECK_STR(evals(in, "StartsWith(\"hello\", \"he\")"), "True");
     CHECK_STR(evals(in, "Join(Split(\"a,b,c\", \",\"), \"|\")"), "a|b|c");

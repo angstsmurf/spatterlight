@@ -499,6 +499,15 @@ page, so the native engine maps 128..255 through Windows-1252 (`Chr(128)` is
 `Chr` outside 0..255 as an invalid argument. No corpus game reaches either
 case (Pixie's Quest calls `Asc` on ASCII only).
 
+A third, also script-only: NCalc's list literal `(a, b, …)` (`,` or `;`
+separated, `()` empty). Its real use is FLEE's `x in (a, b)` membership test,
+and that, `not in`, `foreach` and `ListCount` match the oracle exactly
+(membership is case- and type-exact: `1 in ("1", "2")` is false). QuestViva
+hands everything else a bare `object[]`: `TypeOf`, `ListContains` and indexing
+error, and `msg` prints `System.Object[]`. Question builds an ordinary list
+instead (an object list when every item is an object, else the value-holding
+list `NewList()` makes), so those work. No corpus game writes a list literal.
+
 ## Determinism (RNG)
 
 The oracle replaces QuestViva's `Random` with `ErkyrathRandom` — a C# port of

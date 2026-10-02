@@ -13,6 +13,7 @@
 - The last missing built-ins landed (§2): `Asc`, `Chr`, `InstrRev`, `LTrim`,
   `RTrim`, VB-exact `Trim`, `CurrentDateUTC`, `GetFileData` and the two
   external-file stubs.
+- NCalc list literals `(a, b, …)` / `()` parse natively (§2).
 - Still open: Stranger Parts 7–11 and the other typing-clock rows (§7.1);
   `<backgroundimage>` (milestone 5, skipped for now); `make check` does not run the corpus replay
   (milestone 6); moving the oracle's pinned QuestViva revision to current
@@ -1396,7 +1397,11 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       in `aslx_runtime_test`; probe scripts matched the oracle line for line
       apart from the 1252 deviation.
       (`FormatList` and the scope helpers are Core.aslx functions and already
-      run as library code.) List/dict literals are still unsupported.
+      run as library code.) List literals `(a, b)` / `()` landed too
+      (2026-10-02): `in`/`not in`/`foreach`/`ListCount` match the oracle, and
+      the rest is a deliberate deviation (oracle README). NCalc has no
+      dictionary literal (`[x]`/`{x}` are bracketed names), so there is none
+      to add.
 - [x] **Command parsing comes free**: implemented in `CoreParser.aslx`, and it
       now runs — `HandleCommand` → `ScopeCommands` → `IsRegexMatch`/
       `GetMatchStrength` → `ResolveName`/`GetScope`/`ResolveNameFromList`/

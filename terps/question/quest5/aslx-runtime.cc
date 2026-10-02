@@ -498,6 +498,7 @@ static std::string encode_identifier_spaces(const std::string &in) {
 struct Expr {
     enum class Kind {
         Num, Str, Bool, Null, Var, Member, Index, Call, Unary, Binary, Ternary,
+        List,  // "(a, b, ...)" / "()": NCalc's LogicalExpressionList, in `args`
         // An expression whose COMPILE failed, kept as a node that raises the
         // parse error (in `str`) only when EVALUATED: QuestViva's Expression<T>
         // hands the raw text to NCalc, which parses lazily at Evaluate time, so
@@ -912,8 +913,26 @@ struct Parser {
             return e;
         }
         if (is_op("(")) {
+            // A group, or NCalc's list "(a, b, ...)" / "()" (',' or ';'
+            // separated) -- FLEE's `x in (a, b)` membership form.
             advance();
+            if (is_op(")")) {
+                advance();
+                auto e = std::make_shared<Expr>();
+                e->kind = Expr::Kind::List;
+                return e;
+            }
             ExprP e = parse_ternary();
+            if (is_op(",") || is_op(";")) {
+                auto l = std::make_shared<Expr>();
+                l->kind = Expr::Kind::List;
+                l->args.push_back(e);
+                while (is_op(",") || is_op(";")) {
+                    advance();
+                    l->args.push_back(parse_ternary());
+                }
+                e = l;
+            }
             if (!is_op(")")) fail("expected ')'");
             advance();
             return e;
@@ -3008,6 +3027,22 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     case Expr::Kind::Ternary:
         return truthy(eval_expr(*e.a, ctx)) ? eval_expr(*e.b, ctx)
                                             : eval_expr(*e.c, ctx);
+    case Expr::Kind::List: {
+        // QuestViva yields a bare object[] that only `in`, foreach and
+        // ListCount accept (TypeOf/ListContains/indexing error, msg prints
+        // "System.Object[]"). Question makes it an ordinary list instead -- an
+        // object list when every item is an object, else a value-holding list
+        // like NewList() -- a deliberate deviation where the oracle errors.
+        bool objects = !e.args.empty();
+        std::vector<Value> items;
+        for (const ExprP &a : e.args) {
+            items.push_back(eval_expr(*a, ctx));
+            if (items.back().type != Value::Type::ObjectRef) objects = false;
+        }
+        Value v = objects ? vobjlist({}) : vstrlist({});
+        for (Value &item : items) v.list().push_back(std::move(item));
+        return v;
+    }
     case Expr::Kind::Binary: {
         const std::string &op = e.str;
         if (op == "and") return vbool(truthy(eval_expr(*e.a, ctx)) &&
