@@ -1830,7 +1830,7 @@ static uint16_t snarfem_click(bool already_picked_pile) {
     get_image_size(BOX_1_LOC, &left, &top);
     int box_space;
     get_image_size(SN_BOX_SPACE, &box_space, nullptr);
-    for (int i = 1; i < 9; i++) {
+    for (int i = 1; i <= 9; i++) {
         if (within(left, top, width, height)) {
             return i;
         }
@@ -1838,7 +1838,9 @@ static uint16_t snarfem_click(bool already_picked_pile) {
     }
     if (already_picked_pile)
         return 0;
-    for (int i = 1; i < 9; i++) {
+    // There are only four piles; PILE_1_PIC_LOC + 4 onward are the flower
+    // and peg locations, not piles.
+    for (int i = 1; i <= 4; i++) {
         get_image_size(PILE_OF_0 + i, &width, &height);
         get_image_size(PILE_1_PIC_LOC + i - 1, &left, &top);
         if (within(left, top, width, height)) {

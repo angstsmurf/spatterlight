@@ -74,14 +74,18 @@ static const int kBytesPerColor = 3;
 // extract_palette() (defined elsewhere) or extract_palette_from_png_data().
 uint8_t global_palette[kMaxPaletteEntries * kBytesPerColor];
 
-// zlib-inflate the IDAT payload into a freshly allocated buffer of exactly
-// max_output_size bytes. If *produced is non-null it receives the number of
+// zlib-inflate the image data into a freshly allocated buffer of exactly
+// max_output_size bytes. The zlib stream may be split across several
+// consecutive IDAT chunks starting at chunks[first_idat]; they are fed to
+// zlib in order. (read_png has verified that the chunk list ends with IEND,
+// so the walk below always terminates within the parsed chunks.) If *produced is non-null it receives the number of
 // bytes zlib actually decoded; a truncated or corrupt stream produces fewer
 // than max_output_size bytes. The buffer is zero-initialized so any tail zlib
 // never wrote reads as palette index 0 (transparent) rather than garbage.
 // The caller is responsible for deleting the returned buffer with delete[].
-static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_output_size, size_t *produced)
+static uint8_t *decompress_idat(struct png_chunk *chunks, int first_idat, size_t max_output_size, size_t *produced)
 {
+    const uint32_t idat_type = IFF::TypeID("IDAT").val();
     char* output = new char[max_output_size]();  // () => zero-initialized
     if (produced != nullptr)
         *produced = 0;
@@ -90,15 +94,24 @@ static uint8_t *decompress_idat(uint8_t *data, size_t datalength, size_t max_out
     infstream.zalloc = Z_NULL;
     infstream.zfree = Z_NULL;
     infstream.opaque = Z_NULL;
-    infstream.avail_in = (unsigned)datalength; // size of input
-    infstream.next_in = (Bytef *)data; // input char array
+    infstream.avail_in = 0;
+    infstream.next_in = Z_NULL;
     infstream.avail_out = (unsigned)max_output_size; // size of output
     infstream.next_out = (Bytef *)output; // output char array
 
     if (inflateInit2(&infstream, MAX_WBITS|0x20) != Z_OK)
         return (uint8_t *)output;  // all-zero buffer; nothing decoded
 
-    int ret = inflate(&infstream, Z_NO_FLUSH);
+    int ret = Z_OK;
+    for (int i = first_idat; chunks[i].type == idat_type; i++) {
+        if (chunks[i].length == 0)
+            continue;
+        infstream.avail_in = (unsigned)chunks[i].length;
+        infstream.next_in = (Bytef *)chunks[i].data;
+        ret = inflate(&infstream, Z_NO_FLUSH);
+        if (ret != Z_OK)
+            break;
+    }
     // Z_OK / Z_STREAM_END are the success cases; anything else (Z_DATA_ERROR,
     // Z_BUF_ERROR, ...) means the stream was truncated or corrupt, but
     // total_out still reflects the valid prefix decoded so far.
@@ -118,7 +131,7 @@ static uint32_t read32be(uint8_t *ptr, int index) { return (static_cast<uint32_t
 // in `chunks` (caller-provided, must hold at least kMaxChunks entries) and
 // filling in `header` from the IHDR chunk.
 //
-// On success, *idat_index is set to the index of the IDAT chunk, and (if
+// On success, *idat_index is set to the index of the first IDAT chunk, and (if
 // non-null) *plte_index is set to the PLTE chunk index, or -1 if absent.
 // Returns false if the data is too short, not a PNG, has a missing IHDR
 // or IEND, or has a truncated chunk.
@@ -159,7 +172,8 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
         debug_png_print("Chunk %d is of type 0x%08x (%c%c%c%c)\n", chunk_count, chunks[chunk_count].type, read_ptr[4], read_ptr[5], read_ptr[6], read_ptr[7]);
 
         if (chunks[chunk_count].type == IFF::TypeID("IDAT").val())
-            *idat_index = chunk_count;
+            if (*idat_index == -1)
+                *idat_index = chunk_count;
         if (plte_index != nullptr && chunks[chunk_count].type == IFF::TypeID("PLTE").val())
             *plte_index = chunk_count;
 
@@ -331,13 +345,14 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canv
 
     int pixels_per_byte = 8 / pngheader.bit_depth;
 
-    int row_stride = pngheader.width / pixels_per_byte + 1 + (pngheader.width % 2);
+    // One filter byte plus the packed pixels, rounded up to a whole byte.
+    int row_stride = 1 + ((int)pngheader.width * pngheader.bit_depth + 7) / 8;
 
     size_t decompressed_size = (size_t)row_stride * pngheader.height;
     debug_png_print("Needed space for image data: %zu\n", decompressed_size);
 
     size_t produced = 0;
-    uint8_t *decompressed = decompress_idat(chunks[idat_index].data, chunks[idat_index].length, decompressed_size, &produced);
+    uint8_t *decompressed = decompress_idat(chunks, idat_index, decompressed_size, &produced);
 
     // Only iterate over bytes zlib actually decoded; the rest of the buffer is
     // zeroed (transparent) rather than indeterminate, but there's no reason to

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <sys/stat.h>
 
 #include "debugprint.h"
@@ -186,12 +187,22 @@ static int populate_disk_images(const char *filename, size_t *file_length) {
         }
     }
 
+    // Find the side number in the file name. Search from the end, so that
+    // e.g. the year in "Arthur 1989 side 1.woz" isn't picked, and prefer a
+    // lone digit over one that is part of a longer number.
     int disk_number_pos = -1;
-    for (size_t i = separator_pos; i < filenamelen; i++) {
-        if (filename[i] - '0' == disk_index) {
-            disk_number_pos = (int)i;
+    for (size_t i = filenamelen; i > separator_pos; i--) {
+        size_t pos = i - 1;
+        if (filename[pos] - '0' != disk_index)
+            continue;
+        bool digit_before = pos > 0 && isdigit((unsigned char)filename[pos - 1]);
+        bool digit_after = pos + 1 < filenamelen && isdigit((unsigned char)filename[pos + 1]);
+        if (!digit_before && !digit_after) {
+            disk_number_pos = (int)pos;
             break;
         }
+        if (disk_number_pos == -1)
+            disk_number_pos = (int)pos;
     }
 
     char alternate_path[1024];

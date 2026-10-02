@@ -32,7 +32,8 @@ static strid_t load_file(const std::string &file)
     return glkunix_stream_open_pathname(const_cast<char *>(file.c_str()), 0, 0);
 }
 
-// Frees all per-image data (pixel data, palette, and Huffman trees).
+// Frees all per-image data (pixel data, palette, and Huffman trees) and the
+// raw_images array itself, leaving image_count at 0.
 // Huffman trees require special handling: multiple images can share the same
 // allocated tree, so before freeing one we null out all other references to it.
 // The global default_huffman_tree is a static buffer and must not be freed.
@@ -57,6 +58,9 @@ void free_images(void) {
         }
         img->huffman_tree = nullptr;
     }
+    free(raw_images);
+    raw_images = nullptr;
+    image_count = 0;
 }
 
 // Searches for graphics files associated with the given game file name.
