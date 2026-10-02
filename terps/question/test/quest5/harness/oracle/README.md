@@ -379,6 +379,13 @@ native driver honours the same header the same way, and
 side-fire) on both drivers. The header is opt-in per script, so every DrainTimers
 golden is untouched.
 
+Every clock advance goes through `TickSettled`: `WorldModel.Tick` awaits each due
+timer script to completion, and a timer that runs a synchronous `play sound(...,
+true, ...)` (Mt. Underlook's intercom timers) parks on a `FinishWait` that only the
+browser's audio-ended callback would send. `TickSettled` answers those waits and
+pauses while the tick is in flight, and throws if the script suspends on anything
+else for 5 s.
+
 ### Synchronous sounds: `play sound (…, true, …)`
 
 `play sound` takes a *synchronous* flag, and a synchronous play is not a UI hook —

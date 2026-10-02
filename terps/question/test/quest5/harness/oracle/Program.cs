@@ -231,7 +231,7 @@ if (args.Length >= 2)
             if (int.TryParse(cmd[5..].Trim(), out var tsecs) && tsecs > 0)
             {
                 pendingTick = 0;
-                await world.Tick(tsecs);
+                await TickSettled(tsecs);
                 await AutoAdvance();
             }
         }
@@ -271,6 +271,26 @@ async Task AutoAdvance()
     }
 }
 
+// Tick the clock, finishing any `wait`/pause a timer script parks on while the
+// tick is still in flight. Unlike SendCommand (which returns as soon as the turn
+// suspends), WorldModel.Tick awaits every due timer script to completion, so a
+// timer that hits a synchronous `play sound` (Mt. Underlook's c4: `play sound
+// ("4.mp3", true, false)`) would otherwise await a FinishWait nobody can call --
+// the browser's audio-ended callback has no headless counterpart.
+async Task TickSettled(int secs)
+{
+    var tick = world.Tick(secs);
+    var idle = 0;
+    while (!tick.IsCompleted)
+    {
+        if (player.IsWaiting)      { player.IsWaiting = false;  await world.FinishWait(); idle = 0; }
+        else if (player.IsPausing) { player.IsPausing = false;  await world.FinishPause(); idle = 0; }
+        else if (++idle > 5000) throw new Exception("timer script suspended on something other than a wait/pause");
+        else await Task.Delay(1);
+    }
+    await tick;
+}
+
 // Let real time pass after a step, under whichever model the script chose.
 //
 // Default (no `#!clock=`): DrainTimers — the player waits out every pending
@@ -295,7 +315,7 @@ async Task SettleClock(bool typed)
     if (clockSecs == 0) { await DrainTimers(); return; }
     if (!typed || world.State == GameState.Finished) return;
     pendingTick = 0;
-    await world.Tick(clockSecs);
+    await TickSettled(clockSecs);
     await AutoAdvance();
 }
 
@@ -313,7 +333,7 @@ async Task DrainTimers()
     while (world.State != GameState.Finished && guard++ < 500 && PendingTimeoutSeconds(out var secs))
     {
         pendingTick = 0;
-        await world.Tick(secs > 0 ? secs : 1);
+        await TickSettled(secs > 0 ? secs : 1);
         await AutoAdvance();
     }
 }

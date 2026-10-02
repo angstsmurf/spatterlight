@@ -2,10 +2,9 @@
 #!clock=5
 # Mt. Underlook: Trial of False Eyes (Quest 5, ASL v580, 25564-line game.aslx,
 # 1294 objects); no published walkthrough exists -- derived entirely from
-# source. BEST-REACHABLE SO FAR, NOT A WIN: the script clears the Act 1
-# Kokouson chase (which needs the `#!clock=5` typing clock -- see REAL-TIME
-# CHASE below) and stops alive in the Cavern Network; the vehicle chase and
-# Act 2 that follow are reachable now and still owed.
+# source. A FULL WIN: ends "You have completed Mt. Underlook!" ([state=
+# Finished]). Act 1 needs the `#!clock=5` typing clock (REAL-TIME CHASE below);
+# so do the Grand Admiral gun drill, the hoverbike chase and the endgame.
 #
 # Escape sequence: `pull switch` in Corridor 59Q turns the corridor lights on
 # (global switch, not room-local) and opens the Mutilated Corpse; `search
@@ -57,8 +56,40 @@
 # Chase), unlocks the Heavy Titanium Door) -- 15 seconds against a
 # 25-second interval -- then `e` into the Cavern Network.
 #
-# Script plays every Act 1 beat through the Kokouson boss fight and the
-# chase and stops alive in the Cavern Network. errors=0, steps=30.
+# Act 2, beyond the Cavern Network (all on the typing clock):
+#  * Garbage Trench: `grab expired rations` (four +20 HP heals, kept for the
+#    Devson fight), `take empty fuel can`; the ruined xport menu (`3`) and
+#    the box of junk menu (`12` = the matches) answer by object order.
+#  * Sewer: `damage sewage pipe` x2, `hide behind rubble` and wait out the
+#    patrol (z x4), then on east; zoning out drops you back in the Trench.
+#  * Grand Admiral: `eat fresh ration` / `eat canned veggies` (+`1`
+#    disambiguation answers), key card, then the gun drill: `fire west gun
+#    controls` / `fire east gun controls` timed with z's, then `ride
+#    hoverbike`.
+#  * Hoverbike chase: each rider's approach is a RandomChance draw, so the
+#    answers are what this exact command history produces: "flies in front"
+#    -> `shoot hoverbike controls`, "right side" -> `ram right ...`, "on your
+#    left" -> `ram left ...`, otherwise `n`, until "You escape the valley".
+#  * Cell escape: smash the toilet, `loot dode`, `wedge cracked wall`, then
+#    `wiggle pipe cracked wall` until it breaks (also RandomChance-gated).
+#  * Kokouson's wing: shower disguise, the inquire-kokouson dialogue, mandela
+#    serum, severed hand, Warson IT admin, `drench computer` + `override all
+#    locks computer`, the note + bomb, the bookshelf fire (douse + ignite),
+#    `arena lock computer`; the four expired rations bring HP to 100 (each
+#    heals on a timer ~3 commands later, hence the `z z z` gaps).
+#  * Devson fight (RandomChance per swing): "dagger slips" -> `use dagger
+#    devson`, "stumbles"/"evades your swing" -> `strike devson`, else `dodge
+#    devson`. From less than full HP he wins.
+#  * Endgame: combination lock 4 / 5 / 22 (each a `get input` answer on the
+#    next line), stairs, `unlock generator`, `vandalize generator`, then 14
+#    z's for the closing timers (13 is one short) and `sign recruitment
+#    document`.
+# Because the chase/wiggle/fight answers depend on the RNG history, ANY edit
+# earlier in this file can reshuffle them -- re-derive the later answers
+# against the oracle after touching it.
+# `take all from cooking supplies` is a no-op ("I can't see that") kept because
+# it spends 5 clock-seconds the later timing depends on. errors=1, steps=466.
+#
 e
 pull switch
 search corpse
@@ -79,6 +110,9 @@ take key card
 pick lock gunsafe
 search gunsafe
 take revolver
+take nutrient pack
+1
+take nutrient pack
 s
 swipe card panel
 w
@@ -89,3 +123,436 @@ e
 e
 pull switch
 e
+eat nutrient pack
+1
+ne
+ne
+n
+take chisel
+take chargetape
+s
+sw
+sw
+se
+inspect computer room door
+use chargetape computer room door
+sw
+search desk
+search grenade box
+ne
+take bomb
+1
+take bomb
+sw
+create time bomb tinker kit
+create grenade tinker kit
+interact computer
+Deimos
+interact computer
+ne
+nw
+ne
+throw time bomb
+ne
+e
+in
+throw grenade tank
+e
+pull switch
+o
+n
+grab can opener
+search cooking supplies
+take all from cooking supplies
+w
+hide behind large crate
+hide behind large crate
+2
+hide behind large crate
+3
+eat nutrient pack
+heal bandage
+heal bandage
+heal bandage
+heal bandage
+z
+z
+z
+z
+z
+z
+z
+z
+z
+search drunk guard
+e
+take canned fruit
+take canned veggies
+1
+take canned veggies
+1
+take canned veggies
+search weapon crate
+search battery box
+drop it battery
+search battery box
+drop it battery
+search battery box
+drop it battery
+search battery box
+drop it battery
+search battery box
+drop it battery
+search battery box
+e
+grab flashlight
+take wrapped sandwich
+load battery flashlight
+search battery box
+drop it battery
+search battery box
+drop it battery
+search battery box
+build insulated blade
+w
+eat canned fruit
+eat canned veggies
+1
+search supply crate
+attack mushroom
+attack mushroom
+attack mushroom
+attack mushroom
+search mushroom corpse
+loot odd key
+loot cooked mushroom cap
+eat wrapped sandwich
+e
+take heavy item
+w
+s
+smash water pipe
+Yes
+n
+e
+w
+Yes
+s
+z
+z
+z
+z
+switch flashlight
+s
+peek cell 1s
+peek cell 2s
+peek cell 3s
+z
+stab ghoul
+search ghoul corpse
+s
+e
+fight ghoul
+s
+s
+e
+s
+search medical supply box
+take heavy bandage
+wash hands sink
+n
+w
+n
+search puddle
+s
+unlock heavy tech door
+s
+search dead warden
+override locks bracelet
+n
+e
+se
+switch flashlight
+heal heavy bandage
+eat cooked mushroom cap
+eat warden's lunch
+e
+se
+attempt lock heavy metal cell
+attempt lock heavy metal cell
+unlock heavy metal cell
+s
+sleep on mattress
+inspect mattress
+bend spring
+use lockpick lockpick
+e
+speak with southern cell
+w
+reach in toilet
+e
+speak with southern cell
+s
+talk with simple cage
+d
+cut metal wall
+e
+e
+u
+n
+z
+z
+z
+z
+z
+z
+break rusty rail
+d
+search warden's desk
+e
+shoot lady bellonadaughter
+e
+z
+z
+z
+speak with lady bellonadaughter
+n
+search fuel rack
+take ep-2
+take ep-3
+add ep2 mamba
+grab key key rack
+add ep3 xport #1
+enter vehicle xport #1
+drive xport dash
+drive xport dash
+shoot rocket xport dash
+thrust xport dash
+thrust xport dash
+pull up xport dash
+thrust xport dash
+in
+grab expired rations
+o
+take empty fuel can
+w
+nw
+inspect ruined xport
+3
+se
+e
+ne
+search box of junk
+12
+sw
+damage sewage pipe
+damage sewage pipe
+e
+look at sewage channels
+e
+hide behind rubble
+z
+z
+z
+z
+leave rubble
+e
+n
+e
+e
+e
+n
+u
+u
+grab fresh rations
+eat fresh ration
+1
+eat fresh ration
+1
+eat fresh ration
+1
+eat fresh ration
+1
+eat fresh ration
+1
+eat fresh ration
+eat canned veggies
+1
+eat canned veggies
+take key card
+n
+z
+z
+z
+fire west gun controls
+z
+z
+fire east gun controls
+u
+e
+e
+ride hoverbike
+n
+n
+n
+shoot hoverbike controls
+n
+n
+n
+shoot hoverbike controls
+n
+n
+n
+ram left hoverbike controls
+n
+n
+n
+ram left hoverbike controls
+n
+n
+n
+n
+look at cell door
+smash toilet
+d
+u
+2
+inspect toilet
+loot dode
+wedge cracked wall
+wiggle pipe cracked wall
+wiggle pipe cracked wall
+wiggle pipe cracked wall
+wiggle pipe cracked wall
+wiggle pipe cracked wall
+n
+w
+s
+inspect corpse
+n
+look at cell 11q
+s
+take shower shower
+change clothes shower
+s
+e
+e
+e
+s
+inquire kokouson
+z
+inquire kokouson
+z
+inquire kokouson
+inquire kokouson
+z
+z
+z
+z
+inquire kokouson
+z
+inquire kokouson
+z
+take mandela serum
+look at counter
+take severed hand
+eat severed hand
+n
+w
+w
+n
+attack warson it admin
+inspect computer
+drench computer
+override all locks computer
+s
+brown button elevator controls
+n
+e
+look at desk
+read note
+inspect bomb
+w
+n
+pull switch
+search cushion leather armchair
+2
+take vodka
+douse bookshelf
+ignite bookshelf
+z
+z
+z
+z
+e
+e
+n
+w
+push glass chest
+arena lock computer
+eat expired ration
+1
+z
+z
+z
+eat expired ration
+1
+z
+z
+z
+eat expired ration
+1
+z
+z
+z
+eat expired ration
+z
+z
+z
+e
+n
+n
+z
+accept challenge devson
+dodge devson
+strike devson
+strike devson
+strike devson
+dodge devson
+dodge devson
+dodge devson
+dodge devson
+use dagger devson
+loot devson
+s
+e
+activate elevator controls
+n
+enter combination combination lock
+4
+enter combination combination lock
+5
+enter combination combination lock
+22
+n
+climb up stairs
+climb up stairs
+n
+n
+unlock generator
+vandalize generator
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+sign recruitment document

@@ -1613,9 +1613,12 @@ survives in the 2026-08-26 Time Machine backup); everything it held is wired.
       byte-identical. **Owed:** Parts 7–11 (Vampire → Siren → werewolf →
       Wizard/Dragon → Endgame/Demonlord); see the `quest5-stranger-unregarded`
       memo.
-- [~] **Other typing-clock rows** — A Story of Salvation, Mt. Underlook and The
-      Encyclopedia of Elementals are also best-reachable rows that stop just
-      past their real-time gate; the rest of each game is owed.
+- [x] **Mt. Underlook** — WON 2026-10-02 on the typing clock (466 steps,
+      errors=1, native byte-identical); the hoverbike chase, wall wiggle and
+      Devson fight answers are RNG-history-dependent, see the override header.
+- [~] **Other typing-clock rows** — A Story of Salvation and The Encyclopedia of
+      Elementals are still best-reachable rows that stop just past their
+      real-time gate; the rest of each game is owed.
 - [x] **Signos** — WIRED as the **77th golden** (M4u, 2012, ASL 520; 2,311,079
       bytes). Fetched 2026-07-22 from
       `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`;

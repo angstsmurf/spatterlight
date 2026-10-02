@@ -105,6 +105,18 @@ You pick the lock and open the safe!
 
 > take revolver
 You take the revolver.
+> take nutrient pack
+
+> take nutrient pack
+Please choose which 'nutrient pack' you mean:
+1: Nutrient Pack
+2: Nutrient Pack
+> 1
+You take the ration.
+> take nutrient pack
+
+> take nutrient pack
+You take the ration.
 > s
 
 > s
@@ -160,4 +172,2284 @@ You hear Kokouson's voice over the intercom. "Haha! You have a fighting spirit. 
 
 A Cavern Network
 A dark, network of crudely carved caverns. There is very little support - it's a wonder how these rooms don't collapse. The ceiling is filled with more of those pipe bombs and very dim blue lights.
-[state=Running]
+> eat nutrient pack
+
+> eat nutrient pack
+Please choose which 'nutrient pack' you mean:
+1: Nutrient Pack
+2: Nutrient Pack
+> 1
+You consume the ration. It has the texture of cardboard and tastes like dried blueberries, stale chocolate, and hand sanitizer.
+Oh well.
+> ne
+
+> ne
+A large warning sign on the door suggests the cavern is unstable. The door is open though so - why not?
+
+The Northern Cavern
+The cavern is long and even darker than the previous one. Stone columns barely support the ceiling. Occasionally the cavern rumbles and a rock or two will fall. They aren't earthquakes, rather it sounds like theres something large and moving in a nearby area. You notice a wisp flickering around the room.
+Some rocks fall and hit you on the head!
+> ne
+
+> ne
+
+The North Corridor
+The cavern is similar to the first one, only more narrow and with no columns. Rocks still occasionally fall
+> n
+
+> n
+
+A Mysterious Grotto
+The grotto is small with a large, stone door on the northern side. Some broken picaxes and supply crates clutter the room.
+> take chisel
+
+> take chisel
+You take the chisel.
+> take chargetape
+
+> take chargetape
+You pick it up.
+> s
+
+> s
+
+The North Corridor
+The cavern is similar to the first one, only more narrow and with no columns. Rocks still occasionally fall
+> sw
+
+> sw
+
+The Northern Cavern
+The cavern is long and even darker than the previous one. Stone columns barely support the ceiling. Occasionally the cavern rumbles and a rock or two will fall. They aren't earthquakes, rather it sounds like theres something large and moving in a nearby area.
+Some rocks fall and land nearby.
+> sw
+
+> sw
+
+A Cavern Network
+A dark, network of crudely carved caverns. There is very little support - it's a wonder how these rooms don't collapse. The ceiling is filled with more of those pipe bombs and very dim blue lights.
+> se
+
+> se
+
+The Cell Block S Office
+The room has a metal floor and walls. There are several doors in the room. The desk appears to have been cleared out some time ago. Rust covers the switches on the walls. The cameras on the ceiling appear active.
+There are only two bombs in this room, and rust surrounds the spot where they are attached.
+Kokouson speaks to you over the intercom.
+"You've become a bit of a hassle, haven't you?"
+You ask "Why was my cell door left open?"
+> inspect computer room door
+
+> inspect computer room door
+You inspect the door.
+You inspect the door. It's pretty thin and has a smooth surface.
+Kokouson chuckles "That is a wise question. One I am not going to allow you the luxury of getting an answer to."
+> use chargetape computer room door
+
+> use chargetape computer room door
+You stick the Chargetape to the door. It fumes for a moment before exploding!
+There is almost nothing left of the door.
+You seethe "Why these games?!"
+> sw
+
+> sw
+
+A Computer Room
+The room is small. There is a desk carrying a computer from the 2020s, and a tinkering kit beside it. In the corner there is a box of grenades labled "duds".
+> search desk
+
+> search desk
+You search the desk and find some bandages and a clockwork device!
+Kokouson replies "It will be over soon. As we speak I have soldiers heading to your location, once my programmer opens that door you locked you are a dead man."
+> search grenade box
+
+> search grenade box
+You find a grenade ingition!
+> ne
+
+> ne
+
+The Cell Block S Office
+The room has a metal floor and walls. There are several doors in the room. The desk appears to have been cleared out some time ago. Rust covers the switches on the walls. The cameras on the ceiling appear active.
+> take bomb
+
+> take bomb
+Please choose which 'bomb' you mean:
+1: Bomb
+2: Bomb
+> 1
+You use the chisel to remove the bomb from the wall!
+> take bomb
+
+> take bomb
+You use the chisel to remove the bomb from the wall!
+> sw
+
+> sw
+
+A Computer Room
+The room is small. There is a desk carrying a computer from the 2020s, and a tinkering kit beside it. In the corner there is a box of grenades labled "duds".
+> create time bomb tinker kit
+
+> create time bomb tinker kit
+You create a time bomb!
+> create grenade tinker kit
+
+> create grenade tinker kit
+You build a grenade!
+> interact computer
+
+> interact computer
+You open the computer. It asks for a password.
+> Deimos
+Hello, Kokouson!
+Kokouson speaks over the intercom.
+"My computer just locked me out. Is this your doing? No matter...the doors to the cavern will be down soon."
+> interact computer
+
+> interact computer
+You browse the computer. You learn that the generator for the prison section needs to be turned off manually. It's just past Cell Block S, perhaps if you get past that damned tank you can find a way into it! You see notes about prisoners in block Q but the computer is remotely powered off before you can read anything.
+Kokouson speaks to you over the intercom. "My guards will have that door down any second!"
+> ne
+
+> ne
+
+The Cell Block S Office
+The room has a metal floor and walls. There are several doors in the room. The desk appears to have been cleared out some time ago. Rust covers the switches on the walls. The cameras on the ceiling appear active.
+> nw
+
+> nw
+
+A Cavern Network
+A dark, network of crudely carved caverns. There is very little support - it's a wonder how these rooms don't collapse. The ceiling is filled with more of those pipe bombs and very dim blue lights.
+> ne
+
+> ne
+A large warning sign on the door suggests the cavern is unstable. The door is open though so - why not?
+
+The Northern Cavern
+The cavern is long and even darker than the previous one. Stone columns barely support the ceiling. Occasionally the cavern rumbles and a rock or two will fall. They aren't earthquakes, rather it sounds like theres something large and moving in a nearby area.
+Some rocks fall and land nearby.
+> throw time bomb
+
+> throw time bomb
+You throw the time bomb into the depression on the pillar! Get to safety!
+> ne
+
+> ne
+
+The North Corridor
+The cavern is similar to the first one, only more narrow and with no columns. Rocks still occasionally fall
+The cavern behind you collapses and kills the guards! Kokouson is either pissed or entertained. Neither would be in your favor.
+> e
+
+> e
+
+A Loud Cavern
+The cavern is very loud, and shaking! The large machine must be close. It sounds kind of like a tank. Better be careful!
+A wisp flickers around the room.
+Some rocks fall and land near you!
+> in
+
+> in
+
+A Cavern
+A large cavern with a titanium garage-style door on the eastern end.
+A massive military tank is in the room!
+The tank sees you! It begins turning its gun!
+> throw grenade tank
+
+> throw grenade tank
+You throw the grenade at the tank - blowing it up!
+The tank aims its gun at you!
+> e
+
+> e
+
+Intersection S - V
+The room is tiny and has a massive, dented ramp leading upward. It is a dimly lit area, and the door at the top of the ramp is locked.
+> pull switch
+
+> pull switch
+You pull the switch.
+> o
+
+> o
+
+Maintenance Tunnel SV
+The room is a long and narrow passageway. It is entirely cased in metal, with some exposed wires and pipes. The rooms has a gentle slant toward the south. You can hear the rumbling of tanks in the caverns above. Several cameras are attached to the ceiling but they seem to switch on and off at random. It's a slight relief that you aren't being watched from every possible angle. The massive, metal door to the mouth has worn print reading "Cell Block S".
+> n
+
+> n
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+> grab can opener
+
+> grab can opener
+You take the can opener.
+> search cooking supplies
+
+> search cooking supplies
+> take all from cooking supplies
+
+> take all from cooking supplies
+I can't see that. (all)
+> w
+
+> w
+
+Extra Storage
+The storage room is massive and filled with large crates. It is well ventilated. There is a barely-conscious Warson guard reclining in the middle of the room. The sound of the ventilation cloaks your footsteps - but it's best to stay hidden the best you can. Unfortunately there is nothing useful to you in the crates.
+A different guard enters the room from a large door on the opposite side. He kicks the other guard - who appears drunk, and begins speaking, The ventilation is too loud to hear anything. Maybe you should get closer. Keep your movements as short and small as possible!
+> hide behind large crate
+
+> hide behind large crate
+You hide behind the crate.
+> hide behind large crate
+
+> hide behind large crate
+Please choose which 'large crate' you mean:
+1: Large Crate
+2: Large Crate
+3: Large Crate
+4: Large Crate
+5: Large Crate
+> 2
+You hide behind the crate.
+> hide behind large crate
+
+> hide behind large crate
+Please choose which 'large crate' you mean:
+1: Large Crate
+2: Large Crate
+3: Large Crate
+4: Large Crate
+5: Large Crate
+> 3
+You hide behind the crate.
+You're now in earshot of the guards! Stay silent and wait a moment.
+> eat nutrient pack
+
+> eat nutrient pack
+You consume the ration. It has the texture of cardboard and tastes like dried blueberries, stale chocolate, and hand sanitizer.
+Oh well.
+> heal bandage
+
+> heal bandage
+Please choose which 'bandage' you mean:
+1: Bandage
+2: Bandage
+3: Bandage
+4: Bandage
+> heal bandage
+
+> heal bandage
+Please choose which 'bandage' you mean:
+1: Bandage
+2: Bandage
+3: Bandage
+4: Bandage
+> heal bandage
+
+> heal bandage
+Please choose which 'bandage' you mean:
+1: Bandage
+2: Bandage
+3: Bandage
+4: Bandage
+The sober guard deprecates "Drunk AGAIN?"
+> heal bandage
+
+> heal bandage
+Please choose which 'bandage' you mean:
+1: Bandage
+2: Bandage
+3: Bandage
+4: Bandage
+The sober guard growls "Pathetic. You know, Kokouson says the escaped prisoner is near this area. He could have walked right past you and stolen your keys!"
+The drunk guard grumbles some more.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The sober guard sighs. "We all get bored between raids, but you're the only one who consumes so much alcohol. Pray that if our prisoner commits any further sabotage that it isn't under your watch."
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The drunk guard slurs "Nobody...ethcapes...can ethcape...Underrrlook."
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The sober guard kicks the drunk. "Escape isn't the concern, it's the damage he could do before being caught."
+The sober guard absquatulates as the drunk falls back asleep.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> search drunk guard
+
+> search drunk guard
+You search the guard. All you find are his keys.
+> e
+
+> e
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+> take canned fruit
+
+> take canned fruit
+You pick it up.
+> take canned veggies
+
+> take canned veggies
+Please choose which 'canned veggies' you mean:
+1: Canned Veggies
+2: Canned Veggies
+3: Canned Veggies
+> 1
+You pick it up.
+> take canned veggies
+
+> take canned veggies
+Please choose which 'canned veggies' you mean:
+1: Canned Veggies
+2: Canned Veggies
+> 1
+You pick it up.
+> take canned veggies
+
+> take canned veggies
+You pick it up.
+> search weapon crate
+
+> search weapon crate
+You find an insulated blade.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> e
+
+> e
+
+Cell Block T
+The cell block is well-lit but has no cameras. There are no prisoners in this area - it appears to be under rennovation. None of the cells have doors and there are tables placed haphazardly across the hall with various power tools resting upon them.
+> grab flashlight
+
+> grab flashlight
+> take wrapped sandwich
+
+> take wrapped sandwich
+You pick it up.
+> load battery flashlight
+
+> load battery flashlight
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> drop it battery
+
+> drop it battery
+You drop the battery. Not environmentally friendly, but you're in a cave complex under a mountain in the lair of an aggressive faction and the world already ended so it's no big deal.
+> search battery box
+
+> search battery box
+You pull a random battery from the crate.
+> build insulated blade
+
+> build insulated blade
+You stick the battery into the hilt.
+> w
+
+> w
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+> eat canned fruit
+
+> eat canned fruit
+You eat the canned fruit. It tastes like prison toilet wine, but gives you a burst of energy.
+> eat canned veggies
+
+> eat canned veggies
+Please choose which 'canned veggies' you mean:
+1: Canned Veggies
+2: Canned Veggies
+3: Canned Veggies
+> 1
+You open the can and eat the veggies. They lost their flavor ages ago, but are still healthy.
+> search supply crate
+
+> search supply crate
+A carnivorous mushroom jumps out!
+The mushroom bites you!
+> attack mushroom
+
+> attack mushroom
+You slice into the mushroom! The electricity burns it a little.
+The mushroom bites you!
+> attack mushroom
+
+> attack mushroom
+You scortch the mushroom!
+The mushroom bites you!
+> attack mushroom
+
+> attack mushroom
+It's barely alive!
+The mushroom bites you!
+> attack mushroom
+
+> attack mushroom
+You kill the mushroom!
+> search mushroom corpse
+
+> search mushroom corpse
+You search the mushroom's corpse.
+It smells amazing!
+> loot odd key
+
+> loot odd key
+> loot cooked mushroom cap
+
+> loot cooked mushroom cap
+> eat wrapped sandwich
+
+> eat wrapped sandwich
+> e
+
+> e
+
+Cell Block T
+The cell block is well-lit but has no cameras. There are no prisoners in this area - it appears to be under rennovation. None of the cells have doors and there are tables placed haphazardly across the hall with various power tools resting upon them.
+> take heavy item
+
+> take heavy item
+You strain yourself carrying the massive thing.
+> w
+
+> w
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+Your arms hurt from carrying the heavy item.
+> s
+
+> s
+
+Maintenance Tunnel SV
+The room is a long and narrow passageway. It is entirely cased in metal, with some exposed wires and pipes. The rooms has a gentle slant toward the south. You can hear the rumbling of tanks in the caverns above. Several cameras are attached to the ceiling but they seem to switch on and off at random. It's a slight relief that you aren't being watched from every possible angle. The massive, metal door to the mouth has worn print reading "Cell Block S".
+> smash water pipe
+
+> smash water pipe
+The tunnel is likely to take heavy flood damage once you do this. Are you sure? Type "Yes" if you are.
+Your arms hurt from carrying the heavy item.
+> Yes
+Kokouson speaks over the intercom. "I see you there, Oliver. Do you really expect to get into Cell Block S? Hah! If my guards do not kill you the nightmares we keep in there will.
+> n
+
+> n
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+> e
+
+> e
+
+Cell Block T
+The cell block is well-lit but has no cameras. There are no prisoners in this area - it appears to be under rennovation. None of the cells have doors and there are tables placed haphazardly across the hall with various power tools resting upon them.
+You close the door behind you as you hear a group of Warsons enter the storage unit. They sprint toward the door but the pipes burst. You hear the swishing sounds of water followed by a loud "pop!" from the south. Maybe you can enter Cell Block S now?
+Bellonadaughter speaks over the intercom. "Still having trouble with the escapee from Q?"
+She giggles.
+You've heard rumours about her before, primarily her reputation for cruelty. When speaking she even sounds psychotic.
+You stub your toe on a petrified toe!
+> w
+
+> w
+
+Storage Unit V
+A cluttered storage unit. It is filled with crates and toolboxes. There are also some spare weapon parts in here, perhaps they could be of use?
+Almost everything in the room is destroyed or gone. The ground is wet.
+Do you need to take a leak in the corner before you continue?
+> Yes
+You relieve yourself in the corner.
+Kokouson responds to her. "Minor hassle, I've just sent a squad into MTSV to kill him."
+> s
+
+> s
+
+Maintenance Tunnel SV
+The room is a long and narrow passageway. It is entirely cased in metal, with some exposed wires and pipes. The rooms has a gentle slant toward the south. You can hear the rumbling of tanks in the caverns above. Several cameras are attached to the ceiling but they seem to switch on and off at random. It's a slight relief that you aren't being watched from every possible angle. The massive, metal door to the mouth has worn print reading "Cell Block S".
+> z
+
+> z
+Time passes.
+Bellonadaughter replies. "You should have just sent me in to begin with, he would already be dead."
+> z
+
+> z
+Time passes.
+Kokouson growls. "I have him this time!"
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Bellonadaughter purrs. "Well, when your plan fails I will go after him myself. I've NEVER lost a mark."
+> switch flashlight
+
+> switch flashlight
+You turn the flashlight on.
+> s
+
+> s
+
+Cell Block S
+The room is long, and dark with no lights. You hear disturbing, otherworldly sounds emitting from the cells. Your head starts to hurt. There is a deep puddle at the end of the hall filled with dead guards. A mist fills the room, but you can't feel it. Is it even real? The air tastes like blood.
+> peek cell 1s
+
+> peek cell 1s
+You peek into the cell. You see a mutated amalgamation squirming on the ground, weeping. Was this a person or creature that was allergic to water?
+> peek cell 2s
+
+> peek cell 2s
+You peek into the cell. There's a woman sitting inside wearing little more than rags over her breasts and groin. Her skin is severely burned and she has several strips of metal attached to her body. Tiny arms and legs protrude from random parts of her body and squirm. She is hunched over - hiding something.
+She mumbles. "You are not one of them...they do things here..."
+She weeps.
+> peek cell 3s
+
+> peek cell 3s
+You peek into the cell. You see a decapitated man in a loin cloth impaled on a spike. His body writhes in agony and has a large hole in his chest cavity. There are two jars in the cell. One houses a brain and the other a heart. Heavy wires extend from the jars and into his back.
+> z
+
+> z
+Time passes.
+After seeing the morbid sights within the first few cells you become unnerved. You struggle to fathom the madness and cruelty here and question your own sanity. Every little quake of the broken Earth, every little sound and phantom flicker in your vision you mentally amplify into something else.
+A ghoul appears from the shadows and attacks you!
+> stab ghoul
+
+> stab ghoul
+You stab the ghoul, and burn its nerves to a crisp!
+> search ghoul corpse
+
+> search ghoul corpse
+You find an odder key.
+> s
+
+> s
+You use the drowned guards as stepping stones to the door.
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+You think you deserve freedom, Oliver?
+Wasn't there a camera in this room?
+> e
+
+> e
+
+Sub S East
+The block is short. There are only two cells, but also two other doors.
+You are a slaver.
+Did you honestly believe that technology would make the world more safe?
+Watching themselves...you...you...then they were watching others.
+> fight ghoul
+
+> fight ghoul
+What? It was just an optical illusion with the shadows?
+> s
+
+> s
+
+Cell Block S
+The room is long, and dark with no lights. You hear disturbing, otherworldly sounds emitting from the cells. Your head starts to hurt. There is a deep puddle at the end of the hall filled with dead guards. A mist fills the room, but you can't feel it. Is it even real? The air tastes like blood.
+You wake up.
+> s
+
+> s
+You use the drowned guards as stepping stones to the door.
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+Wasn't there a camera in this room?
+> e
+
+> e
+
+Sub S East
+The block is short. There are only two cells, but also two other doors.
+> s
+
+> s
+
+The Cell Block S Infirmary
+The room is lit by power from outside of the cell block. You can turn your flashlight off while in here to conserve battery. There is a medical bed covered in blood. Bloodied tools crowd the shelves. A box of medical supplies sits in the corner.
+They got addicted to watching. addicted to watching. to watching. watching.
+Nosey. Paranoid.
+All because of you, Oliver.
+> search medical supply box
+
+> search medical supply box
+You find a pair of gloves!
+> take heavy bandage
+
+> take heavy bandage
+You pick it up.
+> wash hands sink
+
+> wash hands sink
+You wash your hands in the sink.
+The water stops running. Perhaps you used the last of it.
+Not all the blood washed away is your own...
+> n
+
+> n
+
+Sub S East
+The block is short. There are only two cells, but also two other doors.
+> w
+
+> w
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+Wasn't there a camera in this room?
+> n
+
+> n
+
+Cell Block S
+The room is long, and dark with no lights. You hear disturbing, otherworldly sounds emitting from the cells. Your head starts to hurt. There is a deep puddle at the end of the hall filled with dead guards. A mist fills the room, but you can't feel it. Is it even real? The air tastes like blood.
+> search puddle
+
+> search puddle
+You wear your gloves and reach into thje filthy water. It's still nasty.
+You find a key device!
+You also find a flintlock!
+> s
+
+> s
+You use the drowned guards as stepping stones to the door.
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+Wasn't there a camera in this room?
+> unlock heavy tech door
+
+> unlock heavy tech door
+You hold the laser device up to the door. After a buzz and a few clicks you assume the lock is deactivated. The laser's battery dies so you throw the device away.
+> s
+
+> s
+
+The Warden's Chamber
+The room is pretty small. The ruins around the ground imply that it was once an office of sorts, but it appears to have been ravaged. There is a well-decorated Warson on the ground. He is dead, and resting upon him is an engorged mushroom. It appears as if the mushroom is also dead.
+How many families did you destroy?
+How many military atrocities did you enable?
+> search dead warden
+
+> search dead warden
+You loot the warden.
+> override locks bracelet
+
+> override locks bracelet
+The device is pretty corrupted and damaged, but you manage to override one lock. You hear a gentle beep to the east.
+> n
+
+> n
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+Wasn't there a camera in this room?
+> e
+
+> e
+
+Sub S East
+The block is short. There are only two cells, but also two other doors.
+> se
+
+> se
+Your arms suddenly grow teeth, and you vomit teeth!
+You pass out.
+
+The S Sub-Blocks
+The room is small and has a metal door on every side. Only the southern door appears locked. You notice these doors are much heavier than in the rest of the prison. What do the Sons of War even do down here?
+Wasn't there a camera in this room?
+You wake up. Your arms are normal. You feel your mouth - also normal. What was that about?
+> switch flashlight
+
+> switch flashlight
+You turn the flashlight on.
+> heal heavy bandage
+
+> heal heavy bandage
+> eat cooked mushroom cap
+
+> eat cooked mushroom cap
+You eat the cap. It's delicious!
+> eat warden's lunch
+
+> eat warden's lunch
+It still tastes like cardboard.
+> e
+
+> e
+
+Sub S East
+The block is short. There are only two cells, but also two other doors.
+> se
+
+> se
+
+Sub S Eastern End
+The hallway is short with only two large cells. One is surrounded by only basic metal bars while the other is encased in a solid wall of steel.
+> attempt lock heavy metal cell
+
+> attempt lock heavy metal cell
+You play around with the lock and see if you have any matching keys.
+You beat the first lock!
+> attempt lock heavy metal cell
+
+> attempt lock heavy metal cell
+You beat the second lock!
+> unlock heavy metal cell
+
+> unlock heavy metal cell
+You open the door!
+> s
+
+> s
+A large, gnome-like creature crushes you!
+
+Your Cell
+You are in your original cell?
+> sleep on mattress
+
+> sleep on mattress
+You get some rest. Despite the discomfort it was still needed.
+> inspect mattress
+
+> inspect mattress
+You break off a spring!
+> bend spring
+
+> bend spring
+You bend the spring into a lockpick.
+> use lockpick lockpick
+
+> use lockpick lockpick
+You unlock your cell - breaking the lockpick in the process.
+> e
+
+> e
+
+Corridor 59Q
+The cavern is long. There are a few light fixtures drilled into the ceiling with steel-covered wires linking them together. The lights are the color of blood and incredibly dim - providing only enough light to navigate. Dust particles float around in the air - taxing your lungs. The cells are between five and thirty feet apart from one another with no distinguishable organization. They all appear locked, and the  peep vents are covered. To the south is a cell, you could have sworn there used to be a door there.
+> speak with southern cell
+
+> speak with southern cell
+The shady figure motions near the door. He is a creature with glowing, yellow eyes and filth for skin. Behind the filth there is only smoke. The filth djinn laughs.
+"Hey there, human! Want to make a deal? Bring me a gift."
+> w
+
+> w
+
+Your Cell
+You are in your original cell?
+> reach in toilet
+
+> reach in toilet
+You reach in and grab some filth.
+> e
+
+> e
+
+Corridor 59Q
+The cavern is long. There are a few light fixtures drilled into the ceiling with steel-covered wires linking them together. The lights are the color of blood and incredibly dim - providing only enough light to navigate. Dust particles float around in the air - taxing your lungs. The cells are between five and thirty feet apart from one another with no distinguishable organization. They all appear locked, and the  peep vents are covered. To the south is a cell, you could have sworn there used to be a door there.
+> speak with southern cell
+
+> speak with southern cell
+"And THAT is what I need!"
+> s
+
+> s
+Kokouson enters the corridor! He slices your limbs apart before you have a chance to react. You pass out as your blood and organs burst from your torso like fireworks.
+
+Sub S Eastern End
+The hallway is short with only two large cells. One is surrounded by only basic metal bars while the other is encased in a solid wall of steel. The doors of the steel cell are wide open, and there is a dead man within. He seems to have been beaten to a pulp.
+> talk with simple cage
+
+> talk with simple cage
+The man inside laughs. His face is heavily disfigured - possibly from the experimental proteins.
+"You really did a number on that guy in there! I was just sleeping then woke up to seeing the door open and you beating the shit out of that poor fellow! He was so close to digging his way out too. I hope you don't have any problems with me!"
+You wonder what the prisoner is talking about. Wasn't there an earth elemental in there? You realize your knuckles are sore and covered in another man's blood.
+> d
+
+> d
+
+A Deep Tunnel
+A deep tunnel. Not quite finished.
+> cut metal wall
+
+> cut metal wall
+You use the shockknife to cut through the metal - breaking it in the process!
+> e
+
+> e
+
+A Quiet Hallway
+A long, quiet wallway. The walls are stone with occasional metal supports keeping them stable. There is a strip of metal going down the ceiling. There doesn't seem to be any guard patrols down this hallway either.
+> e
+
+> e
+You enter the breaker closet. It's a tight fit.
+
+A Breaker Closet
+It's a tiny breaker room barely large enough to fit in. Although it contains the breakers for most the prison you decide it's best not to mess with any. You can climb into the maintenance shaft through here.
+> u
+
+> u
+
+A Maintenance Tunnel
+A long, narrow tunnel. It is filled with various breakers and valves. You are in the heart of the prison. There is an opening at the end of the tunnel.
+You slip as you climb and accidentally flip a switch.
+> n
+
+> n
+
+A Balcony
+You are on a balcony overlooking a command hub. Sitting at the desk is a decorated Warson. He is asleep. You should probably find something to take him out!
+A radio in the area below activates. A strange voice speaks over it.
+"A couple lights in Cell Block B lost power. We inspected the wiring and it's perfectly sound, something or someone must have flipped the breaker."
+> z
+
+> z
+Time passes.
+Kokouson replies over the channel. "I'm sending a team into S to check for a corpse. My escapee is a slippery one, and block S isn't far from the breakers."
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The mysterious voice replies. "If he's out of the prison area he can cause much more trouble, but he will also be easier to find. Chief Warden Maheeseson is in the area, and Bellonadaughter will be once out of surgery."
+> z
+
+> z
+Time passes.
+Kokouson growls. "No! The rat is mine!"
+> z
+
+> z
+Time passes.
+The strange voice chuckles. "Do you want to take this to Seth...?"
+> break rusty rail
+
+> break rusty rail
+You break a piece from the rusty rail.
+Kokouson answers with an audible snarl.
+> d
+
+> d
+
+The Chief Warden's Chamber
+The room is a large square with a door on every side. The northern door is labled "Lab 5". The eastern door is labled "Generator Room". The southern door is labled "Airflow". There is no label on the western door.
+You leap from the balcony and stab the guard with the rusty rail!
+> search warden's desk
+
+> search warden's desk
+You take everything from the desk that isn't paperwork or bolted down.
+> e
+
+> e
+You swipe the key...it breaks and doesn't even work!
+The door to Lab 5 opens and a decorated, armored warrior walks through. Oh shit - It's Bellonadaughter! She's one of the leadersr!
+She giggles as the door closes. "Well! I knew I heard something in here...you killed Maheeseson? He was the chief warden. I'm impressed someone in your condition was able to...wait...the bastard was sleeping on the clock again, wasn't he? Well...I seek not to avenge him. I hated pronouncing his name. Nerdy and overweight American naming himself after a powerful Egyptian god...kind of hilarious! Kokouson is just a little less foolish, he really wants your head! I should take it as means to taunt him. Hold your head over his! I just got out of surgery though. I'll give you a choice. You can try to fight me and die a slow and honorable death, or try to flee...make things interesting. I'll give you a moment to think about it. Kokouson is still searching Block S for you so we have time."
+
+> shoot lady bellonadaughter
+
+> shoot lady bellonadaughter
+You draw your flintlock and shoot at Bellonadaughter!
+The bullet sways from its path and into her shoulder guard.
+She laughs. "You've got guts, I'll give you that. Tell you what...I'm still woozy from the drugs and my jaw hurts like a bitch. I sort of want to see where this goes. I'll unlock the generator door for you. Be quick...because I still want to kill you. I'll also be taking the key for the vents...."
+> e
+
+> e
+
+The Generator Room
+The room is massive and contains a piece of machinery that nearly fills the room. Various armored wires and tubes surround the walls. The central device is protected by an adamant case with layers of adamant mesh allowing small amounts of air to circulate through the core. There is no rust or wear anywhere on the machinery. The gears are almost reflective and well-lubricated. How can this thing be sabotaged?
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Lady Bellonadaughter enters the room!
+> speak with lady bellonadaughter
+
+> speak with lady bellonadaughter
+Bellonadaughter giggles through her mask.
+"Well...here you are! Planning on some sabotage, huh? I should kill you...but your disappointment is more entertaining! All that work you went through to get here only to find that there is nothing you can do!"
+
+A spark breaks from her new vocal implants, causing a minor and temporary change to her dialect.
+
+"The only way to get into that contraption is with a key carried by only two people - our head of security, Devson, and...obviously...our leader, Seth Aresson. Kokouson knows you are here and is on his way to kill you. It ends here...you have failed."
+You feel a brief, but strong headache. When it ends you notice a door you didn't see before.
+> n
+
+> n
+You press the emergency lock as you rush through the door.
+
+The Xport "Garage"
+The cavern is massive, and filled with Xports (flying SUV-like vehicles, originally used by police forces and government agencies). There is a desk full of keys, lucky for you the fobs are numbered and match the numbers on the liscense plates. Behind the Xports there is a Shade (Britsh style luxury flying sedan with an skull-faced angelic hood ornament). Beside the shade is a Mamba (Exotic hyper-car that can fly and freely bend infront of the windshield and behind the rear window). There is a rack fileld with fuel canisters near the keys.
+> search fuel rack
+
+> search fuel rack
+> take ep-2
+
+> take ep-2
+You pick it up.
+> take ep-3
+
+> take ep-3
+You pick it up.
+> add ep2 mamba
+
+> add ep2 mamba
+You fill the mamba with the EP-2
+> grab key key rack
+
+> grab key key rack
+You take the key for Xport #1
+> add ep3 xport #1
+
+> add ep3 xport #1
+You fill the vehicle with Ep-3
+> enter vehicle xport #1
+
+> enter vehicle xport #1
+You enter the vehicle.
+> drive xport dash
+
+> drive xport dash
+
+The Runway Cavern
+It's a long cavern. You should be able to escape!
+You drive into the next cavern!
+> drive xport dash
+
+> drive xport dash
+You drive into the next cavern. You see the Shade in your rear view mirror!
+
+The Runway Cavern
+It's a long cavern. You should be able to escape!
+> shoot rocket xport dash
+
+> shoot rocket xport dash
+You fire a rocket and destroy the pillar - clearing the way!
+> thrust xport dash
+
+> thrust xport dash
+
+The Runway Cavern
+A long cavern. There is a metal security wall blocking the way!
+You accelerate into the next room!
+> thrust xport dash
+
+> thrust xport dash
+You accelerate and burst through the wall!
+
+The Runway Cavern
+A long runway cavern. There is a pool of acidic waste up ahead!
+> pull up xport dash
+
+> pull up xport dash
+You pull the vehicle up. You fly above the acid pool with minimal damage to your Xport!
+> thrust xport dash
+
+> thrust xport dash
+You fly through the cavern exit, but Bellonadaughter fires a rocket which clips your Xport! You slowly lose power and crash-land into a smelly trench.
+
+A Garbage Trench
+A long, deep canyon filled with waste! This is where the Sons of War dump all their rubbish. It's filled with all kinds of garbage, ranging from broken vehicle parts to paper products. There are even pools of human and chemical waste.
+> in
+
+> in
+
+A Dilapidated Delivery Truck
+An old, flying delivery truck. It has been out of order since before the war.
+> grab expired rations
+
+> grab expired rations
+You grab a handful of expired rations.
+> o
+
+> o
+
+A Garbage Trench
+A long, deep canyon filled with waste! This is where the Sons of War dump all their rubbish. It's filled with all kinds of garbage, ranging from broken vehicle parts to paper products. There are even pools of human and chemical waste.
+> take empty fuel can
+
+> take empty fuel can
+You pick it up.
+> w
+
+> w
+
+A Filth Beach
+There is a large pool of sewage and other liquid wastes in this area.
+> nw
+
+> nw
+
+A Junkyard
+A miniature junkyard with several ruined Xports.
+> inspect ruined xport
+
+> inspect ruined xport
+Please choose which 'ruined xport' you mean:
+1: Ruined Xport
+2: Ruined Xport
+3: Ruined Xport
+4: Ruined Xport
+> 3
+You tip the vehicle over, allowing some fuel to pour into the tank!
+> se
+
+> se
+
+A Filth Beach
+There is a large pool of sewage and other liquid wastes in this area.
+> e
+
+> e
+
+A Garbage Trench
+A long, deep canyon filled with waste! This is where the Sons of War dump all their rubbish. It's filled with all kinds of garbage, ranging from broken vehicle parts to paper products. There are even pools of human and chemical waste.
+> ne
+
+> ne
+
+Useless Cargo
+This part of the trench is filled with boxes upon boxes of miscellaneous cargo. Likely loot from stolen vehicles and raided villages that the Sons of War have no use for.
+> search box of junk
+
+> search box of junk
+Please choose which 'box of junk' you mean:
+1: Box of Junk
+2: Box of Junk
+3: Box of Junk
+4: Box of Junk
+5: Box of Junk
+6: Box of Junk
+7: Box of Junk
+8: Box of Junk
+9: Box of Junk
+10: Box of Junk
+11: Box of Junk
+12: Box of Junk
+13: Box of Junk
+14: Box of Junk
+15: Box of Junk
+> 12
+You find a box of matches!
+> sw
+
+> sw
+
+A Garbage Trench
+A long, deep canyon filled with waste! This is where the Sons of War dump all their rubbish. It's filled with all kinds of garbage, ranging from broken vehicle parts to paper products. There are even pools of human and chemical waste.
+> damage sewage pipe
+
+> damage sewage pipe
+You pour the fuel over the metal bars!
+> damage sewage pipe
+
+> damage sewage pipe
+You ignite the fuel and it melts the metal bars away! You can enter the pipe now.
+> e
+
+> e
+
+A Sewer Pipe
+A large sewer pipe. You can barely walk through it.
+The smell is rancid!
+> look at sewage channels
+
+> look at sewage channels
+You look into the channels ahead. You see a creature walk by the entrance. It wears a damaged version of a Warson guard's uniform. The eyes are swollen and the bottom half of its face is nothing except yellowed teeth. It has one muscular, bruised arm with metal sealing its hand into a fist. The creature's eyes appear weak - you can probably hide from it pretty easily.
+> e
+
+> e
+
+Sewage Channel 6
+A long sewage channel. The smell of chemicals overpowers the smell of the waste.
+> hide behind rubble
+
+> hide behind rubble
+You hide behind the rubble.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+A mutant enters the room - hide!
+> z
+
+> z
+Time passes.
+The creature stumbles around the room.
+> z
+
+> z
+Time passes.
+The mutant leaves the room.
+> leave rubble
+
+> leave rubble
+You get out from behind the rubble.
+> e
+
+> e
+
+Sewage Channel 7
+A smaller sewage channel with a giant "water"fall on one end.
+Have you ever experienced deja vu?
+> n
+
+> n
+
+Drainage Channel D
+It's a large sewage channel with a vented floor leading deeper into the mountain. This must be where used oil and impotent fuel from larger vehicles is poured.
+You need to stop zoning out.
+
+A Garbage Trench
+A long, deep canyon filled with waste! This is where the Sons of War dump all their rubbish. It's filled with all kinds of garbage, ranging from broken vehicle parts to paper products. There are even pools of human and chemical waste.
+> e
+
+> e
+
+A Sewer Pipe
+A large sewer pipe. You can barely walk through it.
+The smell is rancid!
+> e
+
+> e
+
+Sewage Channel 6
+A long sewage channel. The smell of chemicals overpowers the smell of the waste.
+> e
+
+> e
+
+Sewage Channel 7
+A smaller sewage channel with a giant "water"fall on one end.
+> n
+
+> n
+
+Drainage Channel D
+It's a large sewage channel with a vented floor leading deeper into the mountain. This must be where used oil and impotent fuel from larger vehicles is poured.
+> u
+
+> u
+
+A Hangar
+A large, underground hangar. All the doors are closed and the main lights are off - but there are enough low-power lights on to be able to see. There is a giant airship in the middle of the hangar - you've never seen a vehicle this size before! It must be the legendary Grand Admiral.
+Your ambitions caused suffering before, Oliver. Including your own.
+> u
+
+> u
+You climb the ladder onto the Grand Admiral
+
+The Grand Admiral (Living Quarters)
+The living quarters of the massive airship. Most of the doors are locked, but there are some fresh supplies left unguarded in the hall!
+> grab fresh rations
+
+> grab fresh rations
+You take some rations!
+> eat fresh ration
+
+> eat fresh ration
+Please choose which 'fresh ration' you mean:
+1: Fresh Ration
+2: Fresh Ration
+3: Fresh Ration
+4: Fresh Ration
+5: Fresh Ration
+6: Fresh Ration
+> 1
+You eat the ration. It tastes good and feels good.
+> eat fresh ration
+
+> eat fresh ration
+Please choose which 'fresh ration' you mean:
+1: Fresh Ration
+2: Fresh Ration
+3: Fresh Ration
+4: Fresh Ration
+5: Fresh Ration
+> 1
+You eat the ration. It tastes good and feels good.
+> eat fresh ration
+
+> eat fresh ration
+Please choose which 'fresh ration' you mean:
+1: Fresh Ration
+2: Fresh Ration
+3: Fresh Ration
+4: Fresh Ration
+> 1
+You eat the ration. It tastes good and feels good.
+> eat fresh ration
+
+> eat fresh ration
+Please choose which 'fresh ration' you mean:
+1: Fresh Ration
+2: Fresh Ration
+3: Fresh Ration
+> 1
+You eat the ration. It tastes good and feels good.
+> eat fresh ration
+
+> eat fresh ration
+Please choose which 'fresh ration' you mean:
+1: Fresh Ration
+2: Fresh Ration
+> 1
+You eat the ration. It tastes good and feels good.
+> eat fresh ration
+
+> eat fresh ration
+You eat the ration. It tastes good and feels good.
+> eat canned veggies
+
+> eat canned veggies
+Please choose which 'canned veggies' you mean:
+1: Canned Veggies
+2: Canned Veggies
+> 1
+You open the can and eat the veggies. They lost their flavor ages ago, but are still healthy.
+> eat canned veggies
+
+> eat canned veggies
+You open the can and eat the veggies. They lost their flavor ages ago, but are still healthy.
+> take key card
+
+> take key card
+You pick it up.
+> n
+
+> n
+
+The GA Gun Room
+A small room that controls several of the ship's guns.
+You peek at the radar to see guards heading your way! There are two ramps leading toward the airship. Use the gun controls to shoot at the guards when they get on the ramps.
+You enter the gun room!
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Guards enter from the western door!
+> z
+
+> z
+Time passes.
+> fire west gun controls
+
+> fire west gun controls
+You fire the guns on the western side!
+You are safe from the guards, but you hear another door open!
+> z
+
+> z
+Time passes.
+Guards enter from the Eastern door!
+> z
+
+> z
+Time passes.
+> fire east gun controls
+
+> fire east gun controls
+You fire the guns on the eastern side!
+You are safe from the guards!
+A ladder drops from the ceiling!
+> u
+
+> u
+
+The Grand Admiral (Loading Bay)
+The empty loading bay of the Grand Admiral. You can access the dock!
+> e
+
+> e
+
+The Loading Dock
+A wide, metal plank leading to a cave exit!
+> e
+
+> e
+
+The Outside Hangar Caverns
+You are in a valley just outside of the hangar - so close to freedom!
+> ride hoverbike
+
+> ride hoverbike
+You get on the hoverbike.
+Nearby guards see you and hop on their hoverbikes! You accelerate forward but their bikes are slightly faster! Think fast!
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+A warson rider flies in front of you!
+> shoot hoverbike controls
+
+> shoot hoverbike controls
+You fire the hoverbike's gun!
+You move ahead!
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+A warson rider flies in front of you!
+> shoot hoverbike controls
+
+> shoot hoverbike controls
+You fire the hoverbike's gun!
+You move ahead!
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+A warson rider pulls up on your left!
+> ram left hoverbike controls
+
+> ram left hoverbike controls
+You swing the bike to the left!
+You move ahead!
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+A warson rider pulls up on your left!
+> ram left hoverbike controls
+
+> ram left hoverbike controls
+You swing the bike to the left!
+You move ahead!
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+You can't go there.
+> n
+
+> n
+
+An Open Field
+An open field, away from Mt. Underlook. Are you free?
+You escape the valley!
+You get off the hoverbike.
+> n
+
+> n
+You run away from the mountain and toward the sunset. As twilight hits you...what?
+
+Your Cell
+A familiar cell.
+You wake up in a familiar cell.
+No...no, it can't be! Something feels different, and the ground feels hollow. Your hands are covered in sand and blood.
+You feel something in your mouth.
+You spit out a tooth. It isn't one of yours...
+> look at cell door
+
+> look at cell door
+Locked tight. You need to find another way out.
+> smash toilet
+
+> smash toilet
+You smash the toilet - revealing the hole leading into the miniature sewer.
+> d
+
+> d
+You climb into the filthy hole.
+
+Q Block Sewer
+The sewage system of Q Block. It's pretty much just a dirty tunnel with some waste flow into a medium-sized pipe.
+> u
+
+> u
+Please choose which 'u' you mean:
+1: Up to Your Cell
+2: Into Cell 13Q
+> 2
+You climb up the filthy chute. You push the cell's toilet off its foundation as you enter the cell.
+
+Cell 13Q
+A regular cell. There's a mattress, a tipped toilet, and a dead man on the floor.
+You know what you need to do...
+> inspect toilet
+
+> inspect toilet
+You find a broken, but dense metal pipe!
+> loot dode
+
+> loot dode
+You steal the clothing from the corpse.
+Kokouson speaks over the intercom.
+"That prisoner is around here somewhere! He was last reported heading back to Block Q."
+...what?
+> wedge cracked wall
+
+> wedge cracked wall
+You jam the metal pipe into the wall.
+> wiggle pipe cracked wall
+
+> wiggle pipe cracked wall
+You fail to break the wall.
+You wiggle the pipe.
+> wiggle pipe cracked wall
+
+> wiggle pipe cracked wall
+You fail to break the wall.
+You wiggle the pipe.
+> wiggle pipe cracked wall
+
+> wiggle pipe cracked wall
+You fail to break the wall.
+You wiggle the pipe.
+> wiggle pipe cracked wall
+
+> wiggle pipe cracked wall
+You fail to break the wall.
+You wiggle the pipe.
+> wiggle pipe cracked wall
+
+> wiggle pipe cracked wall
+You break a chunk of the wall off, you can fit through!
+You wiggle the pipe.
+> n
+
+> n
+You climb through the broken wall.
+
+Cell 14Q
+An empty cell that was recently cleaned. The door is open!
+> w
+
+> w
+
+Corridor59Q
+Better lit than usual...
+> s
+
+> s
+
+The Showers
+The prison showers. There are only a few showerheads in the room, and the floor hasn't been maintained in years. It is moist and sticky, possibly from uses dating back weeks.
+> inspect corpse
+
+> inspect corpse
+You inspect the...what? There's nothing here?
+> n
+
+> n
+
+Corridor59Q
+Better lit than usual...
+> look at cell 11q
+
+> look at cell 11q
+Your cell. There's nothing unusual there. Your head hurts.
+> s
+
+> s
+
+The Showers
+The prison showers. There are only a few showerheads in the room, and the floor hasn't been maintained in years. It is moist and sticky, possibly from uses dating back weeks.
+> take shower shower
+
+> take shower shower
+You take a shower, though it only lasts a minute before the water is cut off.
+> change clothes shower
+
+> change clothes shower
+You change into the cleaner clothes that you stole.
+> s
+
+> s
+
+A Patrol Corridor
+A long hallway leading west. Guards use this as a shortcut for patrolling.
+You enter the patrol corridors.
+Kokouson speaks over the intercom.
+"The prisoner has been captured in the nearby wastelands! I want him secure this time, and keep him away from that damned serum!"
+Wait...what?
+> e
+
+> e
+
+Sub S West
+You're back in the western wing of block S. What the...it's normal? The room is lit slightly better than the other cell blocks. There's almost no damage to the walls. The only thing "off" is all the blood on the floor. Something rings in the back of your head.
+> e
+
+> e
+
+Intersection S
+The main intersection of Cell Block S. Just a clean metal corridor.
+> e
+
+> e
+
+Sub S East
+The eastern sub-block of S Block. Well-lit and mostly empty.
+> s
+
+> s
+You enter the infirmary and the door slams shut and locks behind you.
+There is a man on the medical bed - it's you!
+You open your eyes and find yourself on the medical bed. Kokouson is standing over you.
+
+The Infirmary
+The infirmary of Cell Block S. It's clean and currently in use.
+> inquire kokouson
+
+> inquire kokouson
+You ask "How am I here?"
+Kokouson chuckles. "We captured you. You nearly escaped into that sunset...but you were too weak to handle the wastelands."
+> z
+
+> z
+Time passes.
+> inquire kokouson
+
+> inquire kokouson
+You ask "No? I woke up back in my cell - I made-"
+Kokouson interjects. "Not real. Well, to you it was your reality but it was not the reality shared here."
+> z
+
+> z
+Time passes.
+> inquire kokouson
+
+> inquire kokouson
+Your voice quakes. "What do you mean...?"
+Kokouson shakes his head. "Do you really not remember? I suppose too much of the serum must still be in your head. Tell me - what recent, significant feats do you recall leading up to this point?"
+> inquire kokouson
+
+> inquire kokouson
+You think for a moment. "Well...I left my cell, I shot you and your guard, I broke some machines, I hacked your computer and collapsed a cavern, I flooded a tunnel, I inspected the generator then got chased by that psychotic woman, I climbed up through the airship to the bikes, woke up back in my cell, then made my way here."
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Kokouson shakes his head. "Only some of that happened, and not all as you say. I opened your cell, then you pickpocketed one of my daggers. You knew another prisoner held a lockpick. You forced it down his throat and killed him with my weapon. Then you dropped my dagger down your toilet before passing out. I'm not sure what you believe to have flooded - but you did release a toxic gas into a nearby tunnel when my soldiers stormed it. You went on a little spree killing other prisoners in this cell block. You did vandalize my Mamba's fuel tank - now I know to trap it.
+> z
+
+> z
+Time passes.
+> inquire kokouson
+
+> inquire kokouson
+You feel anxious. "Everything felt so real..."
+Kokouson smiles. "It was...to you. Missing memories is a side-effect of the Mandela Serum. It seems to have hit you harder than theorized. Allow me to fill in the massive blank. You joined the Sons of War several years ago. You impressed us, we decided to give you an opportunity. You were loyal, but your ethics weren't certain. You had too much regret in your past, you analyzed the morality behind the decisions which made your life before the war, and what lead you to us. Seth had an idea...he could give you the Mandela serum. It is a drug which shifts consciousness into parallel realities. We wanted to see how you would behave under the illusions of living as your copies in other worlds do, what decisions you would make for survival. Killing Maheeseson wasn't expected though it did impress us. All your decisions were impressive, your ethics now are in no question...but now your loyalty is. I need to review the results with Seth."
+> z
+
+> z
+Time passes.
+> inquire kokouson
+
+> inquire kokouson
+You say "I feel tired..."
+Kokouson nods. "Yes, some of the serum is still in your system. It should all be out within the next two minutes. Now your survival depends on how big you can think."
+> z
+
+> z
+Time passes.
+
+The Infirmary
+You wake up in the infirmary...there is nobody in here.
+> take mandela serum
+
+> take mandela serum
+You pick it up.
+> look at counter
+
+> look at counter
+A counter with a severed hand on it.
+> take severed hand
+
+> take severed hand
+You pick it up.
+> eat severed hand
+
+> eat severed hand
+You eat the hand. Despite being half-rotted it taste's pretty good.
+You feel a temporary boost of strength!
+> n
+
+> n
+
+Sub S East
+You just had to share your paranoia.
+> w
+
+> w
+
+Intersection S
+You believe it wasn't contagious through habit? Temptation?
+> w
+
+> w
+
+Sub S West
+You made parents and children hate eachother. You deleted privacy from civilization.
+> n
+
+> n
+
+The Cell Block S Office
+This is the office that was near the caverns, only it is in better condition. This must be in a reality where you never vandalized this place, and where everything was still in working order. The computer room is just a part of this room.
+> attack warson it admin
+
+> attack warson it admin
+You're stronger than you realize. Cannibalism did wonders for you! You overpower and kill the guard.
+> inspect computer
+
+> inspect computer
+The computer is on the lock control screen. You can unlock every cell in the prison with a push of a button! That would really create a distraction.
+> drench computer
+
+> drench computer
+You pour the serum over the computer! With any luck actions taken on this computer will now affect the Warson networks in all realities.
+> override all locks computer
+
+> override all locks computer
+You override all the locks. Every cell in every reality is now open!
+You black out. You hear Kokouson cuss and vacate the room.
+
+The Infirmary
+The infirmary of Cell Block S. It's clean and currently in use.
+> s
+
+> s
+
+An Elevator
+> brown button elevator controls
+
+> brown button elevator controls
+The button takes you to a random floor.
+> n
+
+> n
+
+The Warson Dormitories
+The quarters of the Warson soldiers. This place feels very familiar...
+> e
+
+> e
+
+Room AT
+This room feels so...it was yours! Things are beginning to make sense.
+> look at desk
+
+> look at desk
+Your old desk. There is a book and a note on the surface.
+> read note
+
+> read note
+It reads "The day has come, after several years of excelling as a soldier I have been picked to be a leader of the Sons of War! They have different hazing methods for each person chosen. One element always remains the same - I must prove I am not to be trifled with. I must appear threatening. Thousands...tens of thousands...of warriors in this tribe. I am expected to prove that I can take on all of them! I have been given very little information about what my test will be. All I have been told is that I will be given an experimental drug known as "Mandela's Serum". In theory the drug will shift my consciousness between realities, and that the drug will shut down my parallel minds or mix them together - making my behaviors and what I see unpredictable across the board. I will also be confused, and my memories will be temporarily erased or spotty.
+
+If I find this note while still under the affects of the drug - know that you are no longer Oliver and haven't been for a while. You're a Warson. You joined the faction as you saw them as the only option to bring order and government back to the world - since the gods are long gone and the Blessed sealed themselves away. In your previous life...before the big war...you invented a surveillance app which most the world became addicted to. It made everyone aware and paranoid, it destroyed relationships of all sorts and gave the governments and media more power than they were ever meant to possess. This earned you a high rank in the shadow, globalist government of the 2030s. Later down the road you invented a way to link the app with microscopic bots which could be snuck into a populace's water source. The bots could take over a few blood cells and reprogram them into viruses. This lead to artificial plagues used to exterminate undesirable groups of people and assist in deeper political agendas.
+
+I caused so much havoc...The Sons of War...they know humanity's nature. They know order and humanity's subtle lust for authority. This is your outlet to help rebuild what is left of society and lead humanity to a point where it will end with structure, with dignity.
+
+I know not what illusions will be played on me...on you. I know not what the test will consist of, but if this note is informative...stick with the quest! Prove you are a threat to The Sons of War. If you remember your mission, you are still an enemy. You will be killed. You must complete the test...you must prove you are a significant threat. Cripple the entire faction! Show them how much damage you can do while being hunted in their own base!
+
+The doors in this area are extra secure. You need a key card to open them. I have hidden ours behind the bomb on the wall.
+
+You have made it this far. Good luck, Warson."
+> inspect bomb
+
+> inspect bomb
+You find a key card!
+> w
+
+> w
+
+The Warson Dormitories
+The quarters of the Warson soldiers. This place feels very familiar...
+> n
+
+> n
+
+The Lounge
+You can't see much.
+You hear Kokouson speaking over the intercom.
+"I see you have figured everything out. Is it to your benefit? Now that you know the truth you are faced with a more difficult decision. Are you going to attempt the impossible task, sacrifice yourself attempting to impress us? Or...are you going to attempt to escape the mountain again? The wastelands are not kind, and you will never be at peace. A wise man would just surrender...but you are no wise man, nor are you a coward. How much more torment are you willing to endure before you give up and face having bitten off more than you can chew? You were a bigshot before the Interdicted One spread his flames, but now you are nothing. No better than the average fool who's life was ruined by yours."
+> pull switch
+
+> pull switch
+The switch is heavier than you believe it should be. The room lights up.
+> search cushion leather armchair
+
+> search cushion leather armchair
+Please choose which 'leather armchair' you mean:
+1: Leather Armchair
+2: Leather Armchair
+> 2
+You find a lighter!
+> take vodka
+
+> take vodka
+You pick it up.
+> douse bookshelf
+
+> douse bookshelf
+You douse the bookshelf in vodka!
+> ignite bookshelf
+
+> ignite bookshelf
+You set the bookshelf on fire! Give it a moment to burn.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+The bookshelf burns away!
+> z
+
+> z
+Time passes.
+> e
+
+> e
+
+A Secret Passage
+A secret passage between the soldiers' dorms and the leadership's.
+> e
+
+> e
+You swipe your key card and enter the next room.
+
+The Leadership Quarters
+The hallway with the faction's leaders' bedrooms.
+> n
+
+> n
+
+The Leadership Offices
+The hallway where the leadership's offices are.
+> w
+
+> w
+The door was left unlocked.
+
+The Tier 2 Office
+The office for more recent members of the council.
+> push glass chest
+
+> push glass chest
+You push the chest aside - revealing a secret hole in the floor! You find a strange relic.
+> arena lock computer
+
+> arena lock computer
+You unlock the sparring room.
+> eat expired ration
+
+> eat expired ration
+Please choose which 'expired ration' you mean:
+1: Expired Ration
+2: Expired Ration
+3: Expired Ration
+4: Expired Ration
+> 1
+You eat the ration. It tastes awful.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You feel a bit better as the ration enters your stomach.
+> eat expired ration
+
+> eat expired ration
+Please choose which 'expired ration' you mean:
+1: Expired Ration
+2: Expired Ration
+3: Expired Ration
+> 1
+You eat the ration. It tastes awful.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You feel a bit better as the ration enters your stomach.
+> eat expired ration
+
+> eat expired ration
+Please choose which 'expired ration' you mean:
+1: Expired Ration
+2: Expired Ration
+> 1
+You eat the ration. It tastes awful.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You feel a bit better as the ration enters your stomach.
+> eat expired ration
+
+> eat expired ration
+You eat the ration. It tastes awful.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+You feel a bit better as the ration enters your stomach.
+> e
+
+> e
+
+The Leadership Offices
+The hallway where the leadership's offices are.
+> n
+
+> n
+
+Intersection A
+A small intersection.
+> n
+
+> n
+
+The Sparring Room
+A large arena. This is where the leaders practice their hand to hand combat. The floor is bloodied - likely because Kokouson and Bellonadaughter are infamous for not holding back.
+You see a man standing in the room. It's Devson!
+He looks at you and chuckles. "You've really become a hassle, haven't you? Let's conclude this madness with a fight. Are you ready?"
+> z
+
+> z
+Time passes.
+> accept challenge devson
+
+> accept challenge devson
+You prepare to fight Devson.
+Devson charges toward you!
+Devson punches you.
+> dodge devson
+
+> dodge devson
+You attempt to evade Devson's attack.
+You manage to evade him.
+Devson charges toward you!
+Devson stumbles for a moment.
+> strike devson
+
+> strike devson
+You attempt to hit Devson.
+Devson evades your swing and hits you!
+> strike devson
+
+> strike devson
+You attempt to hit Devson.
+Devson evades your swing and hits you!
+> strike devson
+
+> strike devson
+You attempt to hit Devson.
+You hit Devson!
+Devson charges toward you!
+Devson punches you.
+> dodge devson
+
+> dodge devson
+You attempt to evade Devson's attack.
+You manage to evade him.
+Devson charges toward you!
+Devson punches you.
+> dodge devson
+
+> dodge devson
+You attempt to evade Devson's attack.
+You manage to evade him.
+Devson charges toward you!
+Devson punches you.
+> dodge devson
+
+> dodge devson
+You attempt to evade Devson's attack.
+You manage to evade him.
+Devson charges toward you!
+Devson punches you.
+> dodge devson
+
+> dodge devson
+You attempt to evade Devson's attack.
+You manage to evade him.
+Devson charges toward you!
+Devson's dagger slips from its sheath!
+> use dagger devson
+
+> use dagger devson
+You grab Devson's dagger and motion it upwards - right into his neck!
+> loot devson
+
+> loot devson
+You search his corpse and steal his keys and his bracelet!
+Your feather disappears. Did it even exist?
+> s
+
+> s
+
+Intersection A
+A small intersection.
+> e
+
+> e
+You use Devson's key to enter the elevator.
+
+An Elevator
+The elevator used by the leadership.
+> activate elevator controls
+
+> activate elevator controls
+You swipe the card. Oddly enough - the elevator barely moves.
+> n
+
+> n
+
+The Relic Vaults
+A passageway where The Sons of War store significant treasures. The walls are covered in locked safes, and the door at the end is sealed by a combination lock.
+The chamber below the floor sets itself on fire!
+> enter combination combination lock
+
+> enter combination combination lock
+Enter the first number into the command bar.
+> 4
+You correctly enter the first number!
+> enter combination combination lock
+
+> enter combination combination lock
+Enter the second number into the command bar.
+> 5
+You correctly enter the second number!
+> enter combination combination lock
+
+> enter combination combination lock
+Enter the third number into the command bar.
+> 22
+You unlock the door!
+> n
+
+> n
+
+The Stairs
+A tall spiral stairway. The stairs and the room are covered in stainless steel.
+> climb up stairs
+
+> climb up stairs
+
+The Stairs
+A tall spiral stairway. The stairs and the room are covered in stainless steel.
+Kokouson speaks over the intercom.
+"What are you doing?"
+> climb up stairs
+
+> climb up stairs
+
+The Stairs
+A tall spiral stairway. The stairs and the room are covered in stainless steel.
+Bellonadaughter speaks over the intercom.
+"It appears as if he is winning the little cat and mouse game you two have been playing."
+> n
+
+> n
+
+The Hall of Trophies
+This long corridor is where The Sons of War store their greatest trophies from conquest.
+> n
+
+> n
+
+The Generator Room
+> unlock generator
+
+> unlock generator
+You unlock the door into the generator!
+> vandalize generator
+
+> vandalize generator
+You reach into the generator and destroy what you can.
+The machine begins to spark and shake. The inside explodes but the outside remains intact. You hear snapping noises as most of the base loses power. The emergency lights turn on.
+> z
+
+> z
+Time passes.
+Kokouson enters the room!
+He shouts "I figured you'd be back here, now you have nowhere to do. Now, I can take your life!"
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Bellonadaughter enters the room.
+She laughs and looks at Kokouson. "So is he lucid now, or are you going to run your little knife through someone still struggling with an identity crisis?"
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Seth Areseson enters the room!
+He clanks his gauntlets together and shouts "Both of you - shut it!"
+
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+> z
+
+> z
+Time passes.
+Seth points at you.
+"You there - you've caused so much chaos lately. You have failed your test, though. You have only been a nuisance but not a threat. I give you props for killing Devson and Maheeseon, but your test was to prove yourself a threat to EVERYONE."
+> z
+
+> z
+Time passes.
+You hold Devson's bracelet in view of the others and rest your finger on the button to activate the bombs.
+You shout "I am a threat to everyone, including myself! It's the life I've led. Kill me if it will placate you, but all organisms twitch when killed and mine will detonate this entire mountain!"
+> z
+
+> z
+Time passes.
+Kokouson glares at you and says "The bombs don't explode instantly, there is a timer."
+> z
+
+> z
+Time passes.
+You shout back.
+"The timer is only like fifteen seconds, none of you will escape!"
+> z
+
+> z
+Time passes.
+Seth snarls at you and says. "Welcome to the council."
+You are guided back to the leadership offices. Devson's bracelet and keys are now yours, along with his chamber which you are free to decorate to your liking at a later date. Bellonadaughter and Kokouson aren't thrilled about your promotion but they have orders from Seth not to harm you. You receive congradulatory emails from Hachimanson and Hanumanson.
+You're assigned Devson's position as the head of HQ security. For your Warson name you decide to name yourself after the Greek titan of war - Perses.
+
+The Recruitment Office
+It's a small office space connected to Seth's chambers. You are sitting at a desk. Seth just left the room.
+> sign recruitment document
+
+> sign recruitment document
+You sign "Perseson" on the bottom of the sheet.
+You have completed Mt. Underlook!
+If you would like to read other tales from this universe visit www.skyrookgorge.com
+Credits
+Written by Ken Ra
+Developed by Ken Ra using Quest
+Voice Acting
+Kokouson - Femi Owoyale
+Bellonadaughter - Kayla Lopez
+Seth Areseson - Caleb Jones
+Devson - Ken Ra
+Other voices - Kayla Lopez, Caleb Jones, and Ken Ra
+Soundtrack composed by Ken Ra
+Images created by Ken Ra, template images from Pixabay
+[state=Finished]
