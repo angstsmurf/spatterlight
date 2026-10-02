@@ -280,22 +280,11 @@ void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int s
     if (dest_y + src_height <= 0)
         return;
 
-    // Extend destination buffer downward if necessary. image_buffer_size()
-    // does the size_t product and the sanity check on the dimensions, so the
-    // grow check below can't be defeated by a product that wrapped negative.
-    const size_t required_size = image_buffer_size(dst_width, dest_y + src_height, kBytesPerPixel);
-    if (required_size == 0)
+    // Extend destination buffer downward if necessary.
+    size_t dst_size = (size_t)*dst_buffer_size;
+    if (!grow_image_buffer(dst_pixels, &dst_size, dst_width, dest_y + src_height, kBytesPerPixel))
         return;
-    if ((size_t)*dst_buffer_size < required_size) {
-        size_t expanded_size;
-        uint8_t *expanded = image_alloc(dst_width, dest_y + src_height, kBytesPerPixel, &expanded_size);
-        if (expanded == nullptr)
-            return;
-        memcpy(expanded, *dst_pixels, *dst_buffer_size);
-        *dst_buffer_size = (int)expanded_size;
-        free(*dst_pixels);
-        *dst_pixels = expanded;
-    }
+    *dst_buffer_size = (int)dst_size;
 
     for (int row = 0; row < src_height; row++) {
         const int draw_y = dest_y + row;
@@ -321,7 +310,7 @@ void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int s
 void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_width, int rect_height) {
     int screen_width = (int)hw_screenwidth;
 
-    if (rect_width <= 0 || rect_height <= 0 || rect_width > screen_width)
+    if (pixmap == nullptr || rect_width <= 0 || rect_height <= 0 || rect_width > screen_width)
         return;
 
     if (dest_x < 0)
@@ -333,22 +322,11 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
     if (dest_y + rect_height <= 0)
         return;
 
-    // Extend pixmap downward if necessary. image_buffer_size() does the size_t
-    // product, so a negative wrap can't skip the grow and let the fill loop run
-    // past the buffer.
-    size_t required_size = image_buffer_size(screen_width, dest_y + rect_height, kBytesPerPixel);
-    if (required_size == 0)
+    // Extend pixmap downward if necessary.
+    size_t pixmap_size = (size_t)pixlength;
+    if (!grow_image_buffer(&pixmap, &pixmap_size, screen_width, dest_y + rect_height, kBytesPerPixel))
         return;
-    if ((size_t)pixlength < required_size) {
-        size_t expanded_size;
-        uint8_t *expanded = image_alloc(screen_width, dest_y + rect_height, kBytesPerPixel, &expanded_size);
-        if (expanded == nullptr)
-            return;
-        memcpy(expanded, pixmap, pixlength);
-        pixlength = (int)expanded_size;
-        free(pixmap);
-        pixmap = expanded;
-    }
+    pixlength = (int)pixmap_size;
 
     uint8_t red   = (color >> 16) & 0xff;
     uint8_t green = (color >> 8) & 0xff;

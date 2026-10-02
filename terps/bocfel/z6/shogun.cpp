@@ -925,9 +925,7 @@ void shogun_DISPLAY_BORDER(void) {
 // Uses 2x scaling (or imagescalex for Mac B/W). The image is added to the
 // margin image list for tracking across redraws.
 void CENTER_PIC_X(void) {
-    float inline_scale = 2.0;
-    if (graphics_type == kGraphicsTypeMacBW)
-        inline_scale = imagescalex;
+    float inline_scale = v6_inline_image_scale();
     glk_set_style(style_User1);
     draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, variable(1), imagealign_InlineCenter, variable(1), inline_scale, false);
     glk_set_style(style_Normal);
@@ -981,9 +979,7 @@ void MARGINAL_PIC(void) {
 
     int width;
     get_image_size(picnum, &width, nullptr);
-    float inline_scale = 2.0;
-    if (graphics_type == kGraphicsTypeMacBW)
-        inline_scale = imagescalex;
+    float inline_scale = v6_inline_image_scale();
 
     if (width * inline_scale > V6_TEXT_BUFFER_WINDOW.x_size) {
         inline_scale = (float)V6_TEXT_BUFFER_WINDOW.x_size / width;
@@ -1504,16 +1500,10 @@ void shogun_update_on_resize(void) {
     } else {
         shogun_display_border(current_border);
         if (V6_TEXT_BUFFER_WINDOW.id) {
-            float xscalefactor = 0;
-            float yscalefactor = 0;
-            if (graphics_type_changed) {
-                refresh_margin_images();
-                yscalefactor = 2.0;
-                if (graphics_type == kGraphicsTypeMacBW)
-                    yscalefactor = imagescalex;
-                xscalefactor = yscalefactor * pixelwidth;
-            }
-            win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
+            if (graphics_type_changed)
+                v6_refresh_text_buffer_images();
+            else
+                win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
             win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
         }
         if (V6_TEXT_BUFFER_WINDOW.id != nullptr && !(current_menu == sm.PART_MENU && screenmode == MODE_SHOGUN_MENU)) {
@@ -1538,9 +1528,7 @@ void shogun_update_on_resize(void) {
 // Draws the current picture as an inline image in the text buffer with
 // the specified alignment. Used by the shared V6 image display code.
 void shogun_display_inline_image(glui32 align) {
-    float inline_scale = 2.0;
-    if (graphics_type == kGraphicsTypeMacBW)
-        inline_scale = imagescaley;
+    float inline_scale = v6_inline_image_scale();
     draw_inline_image(V6_TEXT_BUFFER_WINDOW.id, current_picture, align, current_picture, inline_scale, false);
     add_margin_image_to_list(current_picture);
 }
@@ -1554,12 +1542,7 @@ void shogun_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    if (current_graphics_buf_win)
-        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
-    if (graphics_fg_glk)
-        dat->graphics_fg_tag = graphics_fg_glk->tag;
-    if (stored_bufferwin)
-        dat->stored_lower_tag = stored_bufferwin->tag;
+    v6_stash_graphics_windows(dat);
     dat->slideshow_pic = current_border;
 
     dat->shogun_menu = current_menu;
@@ -1572,9 +1555,7 @@ void shogun_recover_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
-    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
-    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+    v6_recover_graphics_windows(dat);
     current_border = (ShogunBorderType)dat->slideshow_pic;
 
     current_menu = dat->shogun_menu;
@@ -1605,13 +1586,7 @@ void shogun_update_after_restore(void) {
 // active, re-opens the foreground graphics window.
 void shogun_update_after_autorestore(void) {
     update_user_defined_colours();
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-
-    for (auto &window : windows) {
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
-    }
+    v6_set_window_colors_from_globals();
 
     if (current_graphics_buf_win) {
         glk_window_set_background_color(current_graphics_buf_win, user_selected_background);

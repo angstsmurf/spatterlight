@@ -194,6 +194,54 @@ int MenuString::append_zstr(uint16_t addr) {
 // graphics type changes and the window needs fresh configuration.
 // In slideshow mode, the new window is sized to fill the screen;
 // otherwise it's hidden (zero size) and the background window is used.
+// Autosave helpers for the window pointers that Arthur, Shogun and Zork Zero
+// all keep: the current graphics buffer window, the foreground graphics
+// window and the stored text buffer window, saved by their Glk tags.
+void v6_stash_graphics_windows(library_state_data *dat) {
+    if (current_graphics_buf_win)
+        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
+    if (graphics_fg_glk)
+        dat->graphics_fg_tag = graphics_fg_glk->tag;
+    if (stored_bufferwin)
+        dat->stored_lower_tag = stored_bufferwin->tag;
+}
+
+void v6_recover_graphics_windows(library_state_data *dat) {
+    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
+    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
+    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+}
+
+// Per-window colours are not part of the autosave, so after an autorestore
+// they are rebuilt from the (restored) Z-machine colour globals.
+void v6_set_window_colors_from_globals(void) {
+    uint8_t fg = get_global(fg_global_idx);
+    uint8_t bg = get_global(bg_global_idx);
+
+    for (auto &window : windows) {
+        window.fg_color = Color(Color::Mode::ANSI, fg);
+        window.bg_color = Color(Color::Mode::ANSI, bg);
+    }
+}
+
+// Scale used for pictures drawn inline in the text buffer (Shogun and
+// Zork Zero): 2x the original, or the screen scale for the Mac B/W graphics,
+// which are already high resolution (and have square pixels).
+float v6_inline_image_scale(void) {
+    if (graphics_type == kGraphicsTypeMacBW)
+        return imagescalex;
+    return 2.0;
+}
+
+// After the graphics type changes, redraw the margin images in the text
+// buffer window at the new scale.
+void v6_refresh_text_buffer_images(void) {
+    refresh_margin_images();
+    float yscalefactor = v6_inline_image_scale();
+    float xscalefactor = yscalefactor * pixelwidth;
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
+}
+
 void v6_close_and_reopen_front_graphics_window(void) {
     if (graphics_fg_glk) {
         if (current_graphics_buf_win == graphics_fg_glk) {

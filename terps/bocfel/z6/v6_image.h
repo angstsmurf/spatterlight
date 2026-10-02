@@ -67,6 +67,12 @@ size_t image_buffer_size(int width, int height, int bytes_per_pixel);
 // rather than as garbage.
 uint8_t *image_alloc(int width, int height, int bytes_per_pixel, size_t *size_out);
 
+// Make sure *buffer (currently *size bytes) can hold a width x height image,
+// growing it downward if needed: the existing contents are kept and the new
+// rows are zeroed. Returns false (leaving the buffer untouched) if the
+// dimensions are invalid or allocation fails.
+bool grow_image_buffer(uint8_t **buffer, size_t *size, int width, int height, int bytes_per_pixel);
+
 extern ImageStruct *raw_images;
 extern int image_count;
 extern uint8_t global_palette[16 * 3];

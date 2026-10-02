@@ -1433,6 +1433,18 @@ static bool score_check(void) {
     return (result == 1);
 }
 
+// Deletes the Fanucci command grid and the card-label grids (windows[2..6])
+// and returns to normal mode.
+static void teardown_fanucci_windows(void) {
+    if (fanucci_command_grid != nullptr) {
+        gli_delete_window(fanucci_command_grid);
+        fanucci_command_grid = nullptr;
+    }
+    for (int i = 2; i < 7; i++)
+        v6_delete_win(&windows[i]);
+    screenmode = MODE_NORMAL;
+}
+
 // Z-machine entry point: main Double Fanucci game loop. Alternates between
 // player play selection and jester plays, updating cards and scores each
 // round. The game ends when one side wins 3 rounds, the score threshold is
@@ -1482,11 +1494,7 @@ void FANUCCI(void) {
                 finished = true;
         }
     }
-    gli_delete_window(fanucci_command_grid);
-    fanucci_command_grid = nullptr;
-    for (int i = 2; i < 7; i++)
-        v6_delete_win(&windows[i]);
-    screenmode = MODE_NORMAL;
+    teardown_fanucci_windows();
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
@@ -1535,13 +1543,8 @@ void z0_erase_window(int16_t index) {
         // fanucci_command_grid is the unique marker that Fanucci is set up;
         // tear it and the card-label grids (windows[2..6]) down exactly as the
         // FANUCCI play loop does on a normal exit.
-        if (fanucci_command_grid != nullptr) {
-            gli_delete_window(fanucci_command_grid);
-            fanucci_command_grid = nullptr;
-            for (int i = 2; i < 7; i++)
-                v6_delete_win(&windows[i]);
-            screenmode = MODE_NORMAL;
-        }
+        if (fanucci_command_grid != nullptr)
+            teardown_fanucci_windows();
         break;
 
     default:
@@ -2430,25 +2433,35 @@ static void update_blink_coordinates(uint16_t x, uint16_t y) {
         glk_request_timer_events(1);
 }
 
+// Computes the map coordinates of the current room's "you are here" marker
+// (the same values V-MAP-LOOP gets from MAP-X/MAP-Y). Returns false if the
+// map routines or the P-MAP-LOC property weren't located for this revision:
+// P_MAP_LOC == 0 would make internal_get_prop abort ("invalid property: 0"),
+// and MAP_X/MAP_Y == 0 would pack_routine(0) into a garbage routine.
+static bool z0_current_room_map_coords(uint16_t *cx, uint16_t *cy) {
+    if (zp.P_MAP_LOC == 0 || zr.MAP_X == 0 || zr.MAP_Y == 0)
+        return false;
+
+    // Get the map location table of current room
+    uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
+    // Get the coordinates of the map representation of current room
+    *cy = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+    *cx = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
+    return true;
+}
+
 // Z-machine entry point: called each iteration of the map interaction loop.
 // Fixes a bug where resizing the screen during map mode and then clicking
 // outside an eligible room would draw the blinking indicator at stale
 // coordinates. We recalculate the current room's map position and update
 // the local variables every iteration.
 void V_MAP_LOOP(void) {
-    // Bail if the map plumbing wasn't located for this revision: P_MAP_LOC == 0
-    // would make internal_get_prop abort ("invalid property: 0"), and
-    // MAP_X/MAP_Y == 0 would pack_routine(0) into a garbage routine. Without the
+    // Bail if the map plumbing wasn't located for this revision. Without the
     // "you are here" coordinates the map still draws (sans marker) rather than
     // crashing.
-    if (zp.P_MAP_LOC == 0 || zr.MAP_X == 0 || zr.MAP_Y == 0)
+    uint16_t CX, CY;
+    if (!z0_current_room_map_coords(&CX, &CY))
         return;
-
-    // Get the map location table of current room
-    uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
-    // Get the coordinates of the map representation of current room
-    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
-    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
 
     // Store into the local slots the game reads when it calls
     // BLINK-WHILE-AWAITING-INPUT. The slot numbers are revision-dependent
@@ -2634,12 +2647,9 @@ void z0_update_on_resize(void) {
                 // the suspended BLINK-WHILE-AWAITING-INPUT frame we're nested in
                 // are now stale. Recompute them and write them into that frame's
                 // Y/X locals (vars 3/4) so the resumed blink lands on its room.
-                if (zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
-                    uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
-                    uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
-                    uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
+                uint16_t CX, CY;
+                if (z0_current_room_map_coords(&CX, &CY))
                     update_blink_coordinates(CX, CY);
-                }
 
                 glk_request_timer_events(1);
                 return;
@@ -2661,10 +2671,9 @@ void z0_update_on_resize(void) {
                 // the TYPED? routine) as well as the local Y and X variables
                 // (which are used to redraw/unhighlight the previous
                 // location icon when we move away).
-                uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
-                uint16_t CY = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)});
-                uint16_t CX = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)});
-                update_blink_coordinates(CX, CY);
+                uint16_t CX, CY;
+                if (z0_current_room_map_coords(&CX, &CY))
+                    update_blink_coordinates(CX, CY);
             }
             return;
         }
@@ -2681,14 +2690,8 @@ void z0_update_on_resize(void) {
             if (zr.V_REFRESH != 0)
                 internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
             if (V6_TEXT_BUFFER_WINDOW.id) {
-                if (graphics_type_changed) {
-                    refresh_margin_images();
-                    float yscalefactor = 2.0;
-                    if (graphics_type == kGraphicsTypeMacBW)
-                        yscalefactor = imagescalex;
-                    float xscalefactor = yscalefactor * pixelwidth;
-                    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
-                }
+                if (graphics_type_changed)
+                    v6_refresh_text_buffer_images();
                 win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
             }
             break;
@@ -2992,7 +2995,7 @@ bool z0_display_picture(int x, int y, Window *win) {
     // wraps around it.
     if (win->id && win->id->type == wintype_TextBuffer) {
         pending_flowbreak = true;
-        float inline_scale = (graphics_type == kGraphicsTypeMacBW) ? imagescalex : 2.0;
+        float inline_scale = v6_inline_image_scale();
         draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
         add_margin_image_to_list(current_picture);
         return true;
@@ -3045,12 +3048,7 @@ void z0_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    if (current_graphics_buf_win)
-        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
-    if (graphics_fg_glk)
-        dat->graphics_fg_tag = graphics_fg_glk->tag;
-    if (stored_bufferwin)
-        dat->stored_lower_tag = stored_bufferwin->tag;
+    v6_stash_graphics_windows(dat);
     if (z0_right_status_window)
         dat->z0_right_status_tag = z0_right_status_window->tag;
 
@@ -3063,9 +3061,7 @@ void z0_recover_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
-    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
-    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+    v6_recover_graphics_windows(dat);
     z0_right_status_window = gli_window_for_tag(dat->z0_right_status_tag);
 
     shown_rebus_hint_message = dat->z0_shown_rebus_hint_message;

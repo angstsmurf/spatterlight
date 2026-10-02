@@ -329,19 +329,8 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canv
     // dimensions, which keeps the canvas-growth check and the per-byte bounds
     // check below honest. (read_png has already capped width/height, but the
     // canvas is the caller's and dest_y is not ours to trust.)
-    size_t required_size = image_buffer_size(canvas_width, dest_y + (int)pngheader.height, kBytesPerPixel);
-    if (required_size == 0)
+    if (!grow_image_buffer(&canvas, canvas_size, canvas_width, dest_y + (int)pngheader.height, kBytesPerPixel))
         return false;
-    if (*canvas_size < required_size) {
-        size_t expanded_size;
-        uint8_t *expanded = image_alloc(canvas_width, dest_y + (int)pngheader.height, kBytesPerPixel, &expanded_size);
-        if (expanded == nullptr)
-            return false;
-        memcpy(expanded, canvas, *canvas_size);
-        *canvas_size = expanded_size;
-        free(canvas);
-        canvas = expanded;
-    }
 
     int pixels_per_byte = 8 / pngheader.bit_depth;
 
