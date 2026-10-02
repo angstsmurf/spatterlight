@@ -14,7 +14,7 @@
   `RTrim`, VB-exact `Trim`, `CurrentDateUTC`, `GetFileData` and the two
   external-file stubs.
 - NCalc list literals `(a, b, …)` / `()` parse natively (§2).
-- Still open: Stranger Parts 7–11 and the other typing-clock rows (§7.1);
+- Still open: Stranger Parts 7–11 (§7.1);
   `<backgroundimage>` (milestone 5, skipped for now); `make check` does not run the corpus replay
   (milestone 6); moving the oracle's pinned QuestViva revision to current
   upstream (fork `main` fast-forwarded 2026-09-25; needs the
@@ -1616,9 +1616,11 @@ survives in the 2026-08-26 Time Machine backup); everything it held is wired.
 - [x] **Mt. Underlook** — WON 2026-10-02 on the typing clock (466 steps,
       errors=1, native byte-identical); the hoverbike chase, wall wiggle and
       Devson fight answers are RNG-history-dependent, see the override header.
-- [~] **Other typing-clock rows** — A Story of Salvation and The Encyclopedia of
-      Elementals are still best-reachable rows that stop just past their
-      real-time gate; the rest of each game is owed.
+- [x] **Other typing-clock rows** — A Story of Salvation WON 2026-10-02
+      (118 steps; bunker → garden → Hardacre's lab → `open eyes`) and The
+      Encyclopedia of Elementals WON 2026-10-02 (423 steps, all five sections;
+      every fight derived adaptively against the history-dependent RNG, see the
+      override header). Both errors=0.
 - [x] **Signos** — WIRED as the **77th golden** (M4u, 2012, ASL 520; 2,311,079
       bytes). Fetched 2026-07-22 from
       `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`;

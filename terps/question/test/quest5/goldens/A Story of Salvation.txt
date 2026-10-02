@@ -1359,4 +1359,199 @@ There are several empty bunk beds here, and shelves lined with supplies.
 
 You can see some beds and some shelves.
 You can go east or west.
-[state=Running]
+> w
+
+> w
+
+You are on a set of stone stairs.
+
+They lead downwards to the supply shelter to the east, and upwards to the surface to the west, where you can see the dark, starless sky.
+
+You can go east or west.
+> w
+
+> w
+
+You are in a garden.
+
+You are inside the grounds of a very large house, which stands to the north.  A fence surrounds the grounds, although to the south you can see a path leading through a gate and into the trees.
+
+To the east, a concrete entranceway protrudes from the ground, over a set of steps leading downwards.
+
+It is no longer raining.  Some rabbits have already emerged from the woods, watching you from the southern end of the garden.
+
+You can see a house.
+You can go east, north or south.
+> s
+
+> s
+
+You are on a path.
+
+To the north it emerges into an overgrown garden.  To the west, it continues into the woods.
+
+You can go north or west.
+> w
+
+> w
+
+You are on a path.
+
+It curves from the east to the north, leading into the darkness of the woods in both directions.
+
+You can go east or north.
+> n
+
+> n
+
+You are at a crossroads.
+
+Two dirt tracks cross each other here through the trees.  You shine your torch in each direction but can make out very little - just four pathways leading deeper into the woods.
+
+You can go south, west, east or north.
+> n
+
+> n
+
+You are on a path.
+
+It runs from the south to the north, bounded on either side by twisted trees.  The sickness that blights the island's undergrowth looks even more severe here, the leaves and branches virtually rotten and riddled with strange white growths, like pustules.
+
+You can go south or north.
+> n
+
+> n
+
+You are in the woods.
+
+To the south, a path leads back into the tangled and blighted trees.  To the north stands a huge, ruined building.  It is completely overrun with weeds and ivy.
+
+The silence here is deathly.
+
+You can see a building.
+You can go south or north.
+> n
+
+> n
+
+You are in an unknown building.
+
+You can go south.
+A corridor leads you into the structure, which has held up remarkably well in spite of its outward appearance.  Your footsteps crunch on broken glass on the floor, and you grimace at the sound - for all you know there are more of the repulsive creatures in here, hunting you in the darkness.  What on earth are they??  You wish you'd pressed the writer for more answers.
+
+You turn around to glance back at the entrance, wondering if you should just turn back, when you realise that the silence is no longer absolute... you can hear breathing, coming from the darkness in front of you.
+
+Feeling sick dread spread in your belly, you raise your torch, and realise you have emerged into a large chamber.  Metal drawers and chairs are scattered around, but the piles of furniture are concentrated near the doorways leading away from the room... like makeshift barricades.  Overturned gurneys and other medical equipment is also strewn about, and there is more broken glass everywhere... it looks like a laboratory that has been ransacked.
+
+But these things do not hold your attention for long.  Moving your torch beam towards the sound of the breathing, you illuminate the small figure of an old man in a wheelchair.  He looks somewhat like David Lopan from that film, Big Trouble In Little China... impossibly old, his papery skin covered in liver spots, and strands of long white hair hanging into his lap.  His eyes are so sunken as to appear closed, and at first you wonder if he is asleep... but then he lifts his ancient head and talks to you.
+
+"Looking for me, eh?"
+
+You are lost for words.
+
+"Cat got your tongue?"
+
+"Err... no, I... I'm just looking for a way off the island."
+
+"Don't give me that rubbish," he snaps, spittle flying from his thin lips.  "I know all about you.  Here to snoop around, writing your little biography on me... I know everything that goes on on my island."
+
+You realise that he thinks you are the writer, the dying man from atop the lighthouse.  You open your mouth to protest, but he cuts you off.
+
+"Well, why don't I give you what you came for.  I'll tell you everything.  It's quite a simple story, really.  The Nazi bombing?  A cover up.  WE destroyed this island - our own government.  Want to know WHY?"
+
+You nod, dumbly, completely confused.
+
+"Where do you think all of these RABBITS came from??  We were testing things here... poison gas... nerve toxins... mutagens... this place, this very laboratory in which you're standing, was Britain's dirty little war secret."
+
+He clicks a button and his chair begins to move towards you, crunching over the broken glass on the floor.  Instinctively you edge backwards, towards the wall.
+
+"Ironic isn't is that the rabbits now own the place, eh??"  He chuckles, a sinster cackle in the gloom.  You wonder what he was doing, just waiting there in the darkness...  "They say that life finds a way... a way to survive, to adapt..."
+
+He stops his trundling advance, his beady eyes focusing on a point somewhere above your head as he rambles.
+
+"When I first found them living under the island I was terrified.  It was like a real life nightmare.  But just like the rabbits... all they really wanted was someone to look after them.  A bit of order... regular feeding... maybe even some love.  And in return, look what they gave me!"  His gaze snaps back to yours as he spreads his hands to indicate himself.  "I am over a hundred years old... and I still have all my marbles."  He cackles once again.  "Not all of the stuff in these barrels is toxic... some of the things we developed are actually quite beneficial..."
+
+"Who... who are you?" you whisper, already knowing the answer.
+
+A devilish smile splits his monstrous old face, and he extends a skeletal hand.
+
+"I'm Edward Hardacre.  Pleased to meet you."
+
+... and then a horrifying scream echoes through the chamber.
+
+You spin and raise your torch, just in time to see a hairless abomination scrambling towards you, shrieking as it reaches out a hand covered with suckers...
+
+And then your head is slammed back into the hard stone wall and the last thing you remember is the sound of diabolical cackling before everything turns black.
+
+...
+
+Your eyes slowly ease open
+
+...
+
+The pain in your skull is immense
+
+...
+
+...
+
+...
+
+You just want to lie down
+
+You are somewhere.
+
+Around you is complete blackness.
+
+Concentrating, you can hear the sound of the sea lapping gently, somewhere in the distance.
+
+Pain throbs like a giant hand squeezing your brain.
+
+You realise that your eyes are closed.
+
+> open eyes
+
+> open eyes
+
+You open them.
+You open your eyes, and leap to your feet in panic.  This is insane.  It is...
+
+... too much
+
+You are in a carriage on the ferris wheel.  Your sudden movement has set it swaying.
+
+Your arms are strapped to your sides, because you are wearing a straitjacket.  You struggle but cannot free them, and realise that your attempts are simply making the rocking motion worse.  Suddenly you feel sick, and stumble over to the side to vomit.
+
+As the bile rises in your throat you see that you are many feet above the ground.  The sun is rising on the horizon, but that is not the only source of light.
+
+The ferris wheel is on fire.
+
+You are at the top, and it is burning.
+
+In abject horror you dart around the tiny carriage, looking for some way down... but how on earth will you climb without even having your arms free??
+
+Once again you look over the side, and see that on the ground far below a crowd has gathered.  Literally hundreds of people are staring up at you.  No, not people... more abberations.  Mutants.  Victims of whatever sinister experiments were conducted here, their tortured lives prolonged by whatever dark science has kept Hardacre alive for all these years.
+
+Hardacre...
+
+You see him down there too, sitting in his chair, face turned upwards towards you.  He is holding something.  It's a megaphone.
+
+"Hello there!!" his voice echoes in the chill morning air.
+
+You feel sickness threaten to overwhelm you again, and spit bile down at him.
+
+"Well that wasn't very nice was it??  I'm trying to give you a good send-off!!  A bit of an event for all of my people."
+
+As if in response, a chorus of wailing and chittering emanates from the assembled freaks.
+
+"But... why??  WHAT HAVE I DONE TO YOU???" you scream down at them, eyes drawn to the flames that are licking slowly upwards, devouring the old structure.
+
+You can't see Hardacre's expression, but his voice tells you that he is smiling.
+
+"You're like I used to be.  Always sticking your nose into other people's business.  We're a happy little community here.  People and rabbits just living off the land.  We just want to be left ALONE!"
+
+You sink back into your seat, knowing that the flames will soon engulf you.  You wonder if your life would have been spared had he not confused you with the nosey writer.  You wonder what your life could have been, how it might have ended, if you had made different choices throughout.  You are still wondering this when your carriage begins to burn.
+
+THE END
+
+[state=Finished]

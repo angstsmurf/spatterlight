@@ -224,4 +224,2872 @@ The Fields Across the Moat
 You stand with the others who fled across the moat from the castle, watching it burn. The darkness of the night is contrasted by the bright light cast from the fire. You could swear that the flames have a malicious grin as they rise further into the sky than one would think possible. You can only hope to make your way to a nearby village if you hope to get any sleep at all tonight.
 You can see the rescued man.
 You can go to a small cottage.
-[state=Running]
+> go small cottage
+
+~ go small cottage
+The man you saved stops you before you can leave.
+"Here, take this as a token of my gratitude.  I am forever in your debt."
+He hands you a bag of gold coins.  You thank him and continue into the forest.
+You begin your long trek through the forest to find someplace to rest.  After about an hour, you stumble across a small cottage.  As you get nearer, you realize that it is a blacksmith's shop.  You approach cautiously, seeing no one around.
+Press any key...
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back and a well.
+You can go to town, inside the house or the mines.
+> go inside the house
+
+~ go inside the house
+
+Someone's House
+The main area you find yourself in is cozy and neat.  The windows let plenty of light into this living area with modest furniture.  Somewhere, singing can be heard.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go downstairs
+
+~ go downstairs
+
+Basement
+You cautiously go down the steps, and as you do, the singing gets louder.  It's a jovial tune, sung by a man with a gravelly voice.  As you reach the bottom of the stairs, you see a large man with his back to you working over a table.  The room is filled with tools and smells of metal.
+You can see a man.
+You can go to upstairs.
+> speak to man
+
+~ speak to man
+  The man is startled by your voice.  He jumps, turns around, and begins waving a pointy tool at you.
+  "Who are you?  What are you doing in my house!?"
+
+  You flinch a bit, then begin explaining your situation to the man.
+  You tell him that the nation you come from was being conquered by the nation you are in, Hinton.  By the terms of peace, you were given to Hinton to be a resident and to serve in the castle.  You tell the man that you don't know why you were offered up, because up until that point you had only been considered a novice mage, and you alone were surrendered to stop the war.
+  You go on to say that since then you've been living in the castle, and are often plagued by visions.  As of yet the visions have only ever been of your home town, and a man with a staff made of bone.  It was one of these visions that woke you earlier this night, which led you to find the hidden library and take the book about magnificent creatures previously unknown to you.  And it was these visions which kept you from being in your room, where you recall that you left your spellbook when the castle was attacked.
+
+  "Who attacked the castle?" the man asks you from his chair in the main room of the house, where you went to tell your tale.
+
+  You explain to him that as far as you can tell, nobody knows, as the attack was so quick and devastating that none who stayed to fight survived.
+
+  The man sits in silence for a while, rubbing his chin and grunting while he thinks.  You begin to feel the effects of your lack of sleep, and the exhaustion of the night's events.  You struggle to keep your eyes open, but the silence of the room is so peaceful that you can't help but fall into a heavy sleep.
+Press any key...
+
+You wake up to find yourself slumped in the chair with a blanket laid over you.  On the table in front of you are some clothes that look as though they'll fit.  The sun is shining in through the window, so you decide to get up and find the man you met the night before.
+You put the clothes from the table on, and decide that they look pretty good on you.
+
+Someone's House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go outside
+
+~ go outside
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and a man.
+You can go to town, inside the house or the mines.
+> speak to man
+
+~ speak to man
+  "Good morning!  I didn't catch your name!"
+  "Hawk, huh?  I like it.  My name's Hephaestus.  So look, I take it you need to get your spellbook and find your way home so you can figure out just what's going on, so I'll make you a deal.  If you help me I will make you some armor and a weapon, which you'll definitely need if you're going get home alive.
+  "As for what I need, well... I have a secret to confess.  I'm madly in love with a woman named Sheila.  I've asked her to marry me a hundred times, but she always turns me down.  But I know how to win her heart, and I've almost completed my gift for her.  First, I need you to go to town and find out what her favorite gemstone is.  Then, I'll need you to go to the mines and talk Steve into letting go of one of whatever it is.  I would go myself, but I'm too busy with work here to make the trip.
+  "So what do you say?  Do we have a deal?"
+
+He holds his hand out for you to shake.
+> shake hands
+
+~ shake hands
+  "Excellent!  Well, in that case you can get started right away.  She lives in town, you'll probably find her in one of the stores.  Also, if you don't have any money, I can set you up if you want to to do some work for me.  If you're interested, just ask me about 'work' whenever you want to make some money."
+> take crank
+
+~ take crank
+You notice that the crank can be removed from the winch fairly easily, so you take it with you.
+> go inside the house
+
+~ go inside the house
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go downstairs
+
+~ go downstairs
+
+Hephaestus' Basement
+The basement is filled with all sorts of tools Hephaestus uses for his work.  The smell of oil and metal floats in the air, and the temperature is slightly lower than that upstairs.
+You can see some rope.
+You can go to upstairs.
+> take rope
+
+~ take rope
+You pick it up and coil it around your shoulder.
+> go upstairs
+
+~ go upstairs
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go upstairs
+
+~ go upstairs
+
+Hephaestus' Bedroom
+This simple bedroom is the only room on the second floor. While largely unremarkable, the window does provide a very nice view of the town's rooftops rising over the forest.
+You can see a bed, a nightstand and a dresser.
+You can go to downstairs.
+> look under bed
+
+~ look under bed
+You take a peek under the bed.  Under it, you see a large cooking pot.
+> take pot
+
+~ take pot
+You pull the pot from under the bed.
+> go downstairs
+
+~ go downstairs
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go outside
+
+~ go outside
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to town, inside the house or the mines.
+> use garden
+
+~ use garden
+You kneel down and pull some fresh carrots from the garden.  They look delicious!
+> go town
+
+~ go town
+This quiet, peaceful town rests at the edge of a forest.  Its denizens are friendly, but guarded towards you as a stranger.  As you begin to make your way towards the center of town, you see a sign that says, "Welcome to Drensburg."
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go cobbler's shop
+
+~ go cobbler's shop
+
+The Cobbler's Shop
+This plain, cozy building is very neat and tidy. The walls are lined with shelves with several different types of shoes on them. This man must be a very successful cobbler!
+You can see the cobbler, a woman speaking to the cobbler and shoes.
+You can go to outside.
+> speak to woman
+
+~ speak to woman
+She ignores you, she's busy trying to describe a pair of shoes to the cobbler.
+  "I want something... exotic," she says.
+  The cobbler responds, "Sheila I've tried to make what you described.  But you never seem to like it."
+  "Oh, sure, they're what I described, but they're not exotic."
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go butcher's shop
+
+~ go butcher's shop
+
+The Butcher's Shop
+This simple shop has little room out front for customers. There is a counter with scales on it for weighing meat, and there is a slab for cutting meat.
+You can see the butcher, the hunter, a bird and a washtub.
+You can go to outside.
+> x bird
+
+~ x bird
+It's laying dead on the counter. The butcher is haggling with the hunter over what price he'll pay for it.
+The bird has some exotic-looking feathers.
+> take feathers
+
+~ take feathers
+  The hunter notices you eyeing his bird.  "Would you like to make a bid?" he asks, turning his back on the butcher.
+  "Now hold on a minute!" the butcher begins.
+
+  You explain that you're only interested in the feathers.
+
+  "Oh," the hunter says, visibly disappointed.  "I'll sell those to you for 5 gold, then!"
+> buy feathers
+
+~ buy feathers
+"Thank you very much!  Pleasure doing business with you."
+
+You take a few of the feathers.
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go cobbler's shop
+
+~ go cobbler's shop
+
+The Cobbler's Shop
+This plain, cozy building is very neat and tidy. The walls are lined with shelves with several different types of shoes on them. This man must be a very successful cobbler!
+You can see the cobbler, Sheila speaking to the cobbler and shoes.
+You can go to outside.
+> put feathers on shoes
+
+~ put feathers on shoes
+You stick the feathers into the folds of a pair of women's shoes.
+
+  Sheila sees the shoes and squeals. "Yes! Those are the exotic shoes I've been looking for! I'll take them!"
+  "Hold on now," the cobbler says, "I'll have to attach those permanently. Give me a little bit."
+
+He takes the shoes to the back of the store.
+
+"I can wait." Sheila crosses her arms and stands by the counter
+> speak to sheila
+
+~ speak to sheila
+  "What is it?  My favorite gemstone?  What is this?  I'd imagine with the clothes you're wearing it couldn't be anything other than a common scam.  I'm not in the habit of divulging personal information to complete strangers, so if you'll excuse me I have a full day of shopping ahead of me and won't be trifled with your nonsense."
+
+She walks out of the store in a huff.
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go tailor's shop
+
+~ go tailor's shop
+
+The Tailor's Shop
+The messy store has pieces of cloth and thread of all colors strewn about. The counter top is covered in sewing supplies and pieces of paper with numbers scribbled all over them.
+You can see the tailor, a mannequin, a mess, a piece of charcoal and Sheila.
+You can go to outside.
+> speak to sheila
+
+~ speak to sheila
+"Ugh, you again!?  And now, of all times, when I'm trapped here with the tailor!  I'll make you a deal, if you can help us find a sewing needle in this mess, I'll tell you whatever it is you want to know."
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go hephaestus' house
+
+~ go hephaestus' house
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> go mines
+
+~ go mines
+
+The Mines
+After walking through the forest for about two miles, you find mines set into the side of the mountain. There doesn't appear to be any building nearby, just an entrace to a mine.  You briefly wonder if the miner lives in the mines.
+You can see Steve, a table and a minecart.
+You can go to Hephaestus' house or the mineshaft.
+> x table
+
+~ x table
+Just a run of the mill table built to last outdoors.
+There's some odd rocks.
+> take odd rocks
+
+~ take odd rocks
+You decide one of the stones could be useful.  You take one.
+> go hephaestus' house
+
+~ go hephaestus' house
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> go town
+
+~ go town
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> go tailor's shop
+
+~ go tailor's shop
+
+The Tailor's Shop
+The messy store has pieces of cloth and thread of all colors strewn about. The counter top is covered in sewing supplies and pieces of paper with numbers scribbled all over them.
+You can see the tailor, a mannequin, a mess, a piece of charcoal and Sheila.
+You can go to outside.
+> use magnet on mess
+
+~ use magnet on mess
+You hold the rock out near the piles of junk in the floor and slowly move around the room.  Before long, a needle flies out from underneath all the junk and sticks to the rock!
+> give needle to tailor
+
+~ give needle to tailor
+"Thank you so much!"
+> speak to sheila
+
+~ speak to sheila
+"Alright, fine, since you've helped me I'll tell you...  Oh my goodness!  A little boy just fell into the well!"
+
+She runs out of the store, along with the tailor, and you can see a large crowd of people gathered outside around the well.
+> go outside
+
+~ go outside
+
+Drensburg
+There is a crowd gathered loosely around the well, and many of the townsfolk are panicking.
+You can see a well, Sheila and a crowd.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop or the tailor's shop.
+> use crank on well
+
+~ use crank on well
+You put the crank into the winch above the town's well.  Now the winch should work.
+> use rope on well
+
+~ use rope on well
+You tie the rope off to the winch above the well, and give it several good tugs to test it.  Once you're satisfied it can hold you, you drop the rope down into the well, hearing the end of it splash in a thin puddle at the bottom.
+> go butcher's shop
+
+~ go butcher's shop
+
+The Butcher's Shop
+This simple shop has little room out front for customers. There is a counter with scales on it for weighing meat, and there is a slab for cutting meat.
+You can see a washtub.
+You can go to outside.
+> take washtub
+
+~ take washtub
+You pick up the bulky tub.
+> go outside
+
+~ go outside
+
+Drensburg
+There is a crowd gathered loosely around the well, and many of the townsfolk are panicking.
+You can see a well, Sheila and a crowd.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or the bottom of the well.
+> use glow powder on well
+
+~ use glow powder on well
+You sprinkle the powder over the well and it begins to coat the walls of the inside all the way down.  A little bit of glow powder goes a long way and you can see all the way to the bottom of the well now.
+> go bottom of the well
+
+~ go bottom of the well
+
+The Bottom of the Well
+The floor of the well is uneven and covered in a thin layer of blood red water. The air is damp smells like a cave, and the walls are natural and uneven, too.
+You can see a boy.
+You can climb out of the well.
+> use washtub on rope
+
+~ use washtub on rope
+You attach the rope to the washtub in the fashion of a lift.
+> use washtub on boy
+
+~ use washtub on boy
+You gently pick the boy up and place him securely in the washtub.
+> climb rope
+
+~ climb rope
+
+Drensburg
+There is a crowd gathered loosely around the well, and many of the townsfolk are panicking.
+You can see a well, Sheila and a crowd.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or the bottom of the well.
+> turn winch
+
+~ turn winch
+You start turning the winch, but the weight on the other end makes the effort difficult.
+Seeing your struggle, the crowd around you rushes to help and soon the washtub is pulled to the top of the well.  The boy is lifted from the tub, and the town celebrates your heroism as the boy is carried to a doctor.
+Slowly, the crowd disperses.
+> speak to sheila
+
+~ speak to sheila
+As you approach Sheila, you notice that she is staring at you provocatively.
+
+  "I had no idea you were so brave.  And you were so quick on your feet, too!  I like a man who's... spontaneous."
+
+You begin to feel that your intentions are being misinterpereted, but Sheila presses her finger on your lips before you can explain the situation.
+
+  "Shhhh... there's no need to explain.  You're not the first man to chase me around town.  But you might be the first man to... get anywhere from it."
+
+You try to display your discomfort physically, but that, too, is misinterpereted.
+
+  "Not so fast, mister, you still have to earn it.  How about you come to my mansion and we share a meal.  If you show me you know how to treat a girl nice; dress up, provide a good meal, bring me something... romantic, I'll give you anything you want."
+
+With that, she walks away towards a large mansion set slightly apart from the rest of the town.
+> go tailor's shop
+
+~ go tailor's shop
+
+The Tailor's Shop
+The messy store has pieces of cloth and thread of all colors strewn about. The counter top is covered in sewing supplies and pieces of paper with numbers scribbled all over them.
+You can see a mannequin, a mess, a piece of charcoal and the tailor.
+You can go to outside.
+> speak to tailor
+
+~ speak to tailor
+  "You need a suit do you?  Alright, I'll take your measurements and I can have one for you in no time."
+
+She takes your measurements, and then goes into another room in the store.  She comes back with a suit.
+
+  "I happen to have a suit in your measurements already, and it'll look good on you, too.  That'll be 40 gold if you want it."
+> buy suit
+
+~ buy suit
+You hand the gold to the tailor and take the nice suit.
+> wear suit
+
+~ wear suit
+You put it on.  Lookin' good!
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well and a flower girl.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or Sheila's mansion.
+> buy flowers
+
+~ buy flowers
+You pay 1 gold for the flowers.
+> go butcher's shop
+
+~ go butcher's shop
+
+The Butcher's Shop
+This simple shop has little room out front for customers. There is a counter with scales on it for weighing meat, and there is a slab for cutting meat.
+You can see the butcher.
+You can go to outside.
+> speak to butcher
+
+~ speak to butcher
+"Hello.  You want something you can make for a date?  I got just the thing: a big beautiful roast, only 15 gold!"
+> buy roast
+
+~ buy roast
+You hand the butcher 15 gold and take the roast.
+> go outside
+
+~ go outside
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well and a flower girl.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or Sheila's mansion.
+> go hephaestus' house
+
+~ go hephaestus' house
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back and a well.
+You can go to Drensburg, inside the house or the mines.
+> go inside the house
+
+~ go inside the house
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go downstairs
+
+~ go downstairs
+
+Hephaestus' Basement
+The basement is filled with all sorts of tools Hephaestus uses for his work.  The smell of oil and metal floats in the air, and the temperature is slightly lower than that upstairs.
+You can see Hephaestus.
+You can go to upstairs.
+> give pot to hephaestus
+
+~ give pot to hephaestus
+  "You've found it!  I'll go get this started.  Let me know when you get hungry."
+
+He takes the pot and the roast and runs up the stairs to begin cooking.
+> go upstairs
+
+~ go upstairs
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair, a fireplace, the pot cooking the roast and Hephaestus.
+You can go to outside, downstairs or upstairs.
+> speak to hephaestus
+
+~ speak to hephaestus
+  "The roast is still cooking.  So why don't you tell me more about your home?  What is it that you're going back to?"
+
+You and Hephaestus spend a lot of time talking about where you come from, and the decisions you've both made.  Before too long, the roast is finished.
+> go outside
+
+~ go outside
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> go town
+
+~ go town
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well and a flower girl.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or Sheila's mansion.
+> go sheila's mansion
+
+~ go sheila's mansion
+
+Sheila's Mansion
+The walkway to the front door is simple, yet elegant. Inside the mansion it is bright and inviting.  The floors are made of exotic hardwood that has been waxed, and there is a regal design that has been painted on the walls.  Such extravagance was not found in the castle, but was rumored to have existed in the royal chambers. There are many exquisite trinkets and pieces of art. You feel a bit out of place.
+You can see Sheila.
+You can go to back to town.
+> speak to sheila
+
+~ speak to sheila
+  "You clean up nice.  And you brought flowers for me!?  You are just too sweet.  What did you make me for dinner?"
+
+She takes the roast and the flowers and bids you to sit down at a large dining table.  Once she has set everything out, she sits next to you.
+
+  "You know, there are a lot of guys out there that I could get that would treat me like a princess just because my family has money.  But I get the feeling you're not after my money, are you?"
+
+She takes a bite of the roast, and chews thoughtfully, then turns to you.
+
+  "Aren't you living with that blacksmith guy?"
+
+1 - Yes
+2 - No
+
+> 2
+
+  "Oh, so you're just visiting town, then.  Are you some kind of tax collector or a knight or something?  No, wait!  I know!  You're an artist, travelling the countryside, seeing the world, gathering experiences for your next masterpiece!  Hmmm... I can see I was right to invite you here.
+  "So you have to tell me, what is your medium?  How do you express your inner anguish?
+Press any key...
+
+1 - Music
+2 - Poetry
+3 - Playwriting
+4 - Painting
+> 2
+
+  "Ah, verse which provides a window into your soul!  So you're not just a man who selflessly throws himself into danger's way to save children, but you also courageously expose your innermost thoughts for the whole world to see.  I can think of nothing more beautiful.
+  "At least you've got some creativity in you somewhere.  I've seen too many men who simply have no potential for anything other than labor.  I mean, what kind of girl would I be if I were to let myself be given to a man who is no better than the servants who make his meals?"
+She lets out a sigh as you both finish your meal.
+  "So what do you think, Hawk?  Was tonight what you expected?"
+
+1 - Tell her it was magical
+2 - Tell her you think it could have gone better
+> 1
+
+  "I must agree, you are a very special man."
+
+She closes her eyes and lets out a yawn.
+
+  "Well, I suppose we should conclude our night.  It's gotten late and I'm sure you have a busy schedule tomorrow.
+  "You are a very, very attractive man I must say.  And a promise is a promise, so please, tell me what it is I can do for you tonight..."
+
+You explain that you only want to know what her favorite gemstone is.  She seems disappointed.
+
+  "Oh, I see...  Oh, I see!  What are you making me, you sly dog?  Here, just a moment."
+
+She disappears into the hallway, and comes back a minute later with a sizeable ruby.
+
+  "Here, take it, and don't worry about the sentiment or the money, I have plenty.  I'm excited to see what you come back with, you thoughtful, sensitive artist, you."
+
+She walks you to the door and closes it behind you, your task finally complete.
+Press any key...
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or Sheila's mansion.
+> go hephaestus' house
+
+~ go hephaestus' house
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> give ruby to hephaestus
+
+~ give ruby to hephaestus
+  "This is Sheila's favorite gemstone then!  I'm so excited!  Thank you so much Hawk!  I'm going to go set this into the gift I've made her right now!"
+
+Hephaestus runs into the house, nearly tripping over his own feet as he goes.
+> go inside the house
+
+~ go inside the house
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go downstairs
+
+~ go downstairs
+
+Hephaestus' Basement
+The basement is filled with all sorts of tools Hephaestus uses for his work.  The smell of oil and metal floats in the air, and the temperature is slightly lower than that upstairs.
+You can see Hephaestus.
+You can go to upstairs.
+> speak to hephaestus
+
+~ speak to hephaestus
+  "There!  It's done.  So this is what I need you to do.  Go to Sheila and tell her that someone she's very special to has a gift for her.  That's when I'll surprise her with her gift!  I'm so excited, I can hardly wait!"
+> go upstairs
+
+~ go upstairs
+
+Hephaestus' House
+The house is still and quiet.  You can see sunlight streaming in through the windows.
+You can see a table, an armchair and a fireplace.
+You can go to outside, downstairs or upstairs.
+> go outside
+
+~ go outside
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back and a well.
+You can go to Drensburg, inside the house or the mines.
+> go town
+
+~ go town
+
+Drensburg
+There are several shops that appear to be open and in the streets are children playing. The sounds of birds and farm animals can be heard not far from here.
+You can see a well and Sheila.
+You can go to Hephaestus' house, the cobbler's shop, the butcher's shop, the tailor's shop or Sheila's mansion.
+> speak to sheila
+
+~ speak to sheila
+You tell Sheila that someone she's very special to has a gift for her.
+
+  "Well aren't you just a hopeless romantic.  Fine, then I'll close my eyes while you get the surprise ready."
+
+Hephaestus approaches Sheila from behind and gently taps her on the shoulder.  She turns, surprised to see him, and he reveals his gift to her: the ruby set in gold on a gold chain.  Sheila turns pale.
+
+  "I... you were... I thought..."
+
+  Hephaestus speaks up, "Sheila, I think you're a wonderful woman, and I'd love to spend my life taking care of you.  Please accept this gift as a token of my affection."
+
+  Sheila, speechless takes the gift.  It's an anklet.  Too bewildered to protest, she allows to Hephaestus to put the anklet on her.
+  "I don't... that's sweet, but... I thought Hawk..."
+
+  "Hawk is a great friend, and I owe him a lot.  I'll just let you get yourself sorted out, you know where to find me when you want to talk."  And with that, Hephaestus turns back towards the woods where his house sits.
+> go hephaestus' house
+
+~ go hephaestus' house
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> speak to hephaestus
+
+~ speak to hephaestus
+  "Thank you so much for going through all that trouble doing what you did!  As promised, I'm making you a sword and armor right now!"
+
+You wait for several hours as Hephaestus works away at his forge.  Finally, he tells you your things are complete.
+
+  "All done, and everything should be in order.  Now, before I send you out into the world I want to make sure you know how to use that thing.  Ask me about 'training' whenever you want a quick refresher on how to fight."
+> ask hephaestus about training
+
+~ ask hephaestus about training
+
+Training
+You can see blacksmith.
+
+  "Okay, so combat can be summed up to one thing: if you can successfully predict how your opponent will act, you will have the upper hand.
+  "We'll start you off on the offensive, when you get a chance to attack there are three methods you can choose from to wound your enemy: a simple slash, a precise thrust, or a devastating slam.
+  "A slash is the most basic move and it holds the least risk of all the attacks.  It also has the least ability to do damage.  A thrust has slightly more power behind it than a slash, but it can very easily be parried, leaving you open to a counter attack!  A slam is an extremely powerful move, but it can be parried more easily than a slash and your opponent can always find the time to dodge out of its way.
+  "Why don't we spar a bit and you can try one of those moves out now!"
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash blacksmith
+
+~ slash blacksmith
+The blacksmith tries to parry, but you hit, doing moderate damage.
+
+  "Good!  Now, for defense.  You'll get some hints as to what your enemy is doing by watching them closely.  It takes some time to get used to most enemies, and to be able to read them.  When you're defending against your enemies, you can defend, parry, or dodge.
+  "When you think your enemy is going to slash, your best bet is to defend, as it works especially well in this case.  In general, though, if you're not sure what your opponent is doing, defending is a good option, as it will reduce the damage from whatever blow you are being dealt.  Keep in mind, though, that the weakness of defend is the slam, which does enough damage that it will completely overcome your extra defense.
+  "When you think your enemy is going to thrust, you should parry.  While sometimes you might sometimes fail to parry a thrust, you will still reduce the damage done by the thrust.  You can also parry slams and slashes, but parrying slams is difficult, and parrying slashes is nearly impossible.  The most useful aspect of the parry is that, when successful, it allows you to deal some damage on your defense turn.
+  "Finally, if you think your enemy is going to slam, do not hesistate to prepare a dodge.  You will always dodge a slam, but your rate of success with any other form of attack depends on how quick you are (or how quick your enemies are).  Different enemies will have differing success with dodging your attacks, but you'll probably be able to dodge non-slam attacks about a fifth of the time.
+
+He raises his sword above his head!
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash blacksmith
+
+~ slash blacksmith
+The blacksmith tries to parry, but you hit, doing light damage.
+He raises his sword above his head!
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash blacksmith
+
+~ slash blacksmith
+The blacksmith tries to dodge, but fails.  You land a blow, doing moderate damage.
+Hephaestus holds his sword straight out!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the blacksmith.  You take minor damage.
+> slash blacksmith
+
+~ slash blacksmith
+The blacksmith tries to parry, but you hit, doing moderate damage.
+
+  "Okay!  I think you got it!"
+
+The Blacksmith's Shop
+The main building is small, but looks well kept. The lawn is healthy and dotted with flowers here and there. You can hear the wind rustling through the trees.
+You can see a garden, the forge out back, a well and Hephaestus at his forge.
+You can go to Drensburg, inside the house or the mines.
+> speak to hephaestus
+
+~ speak to hephaestus
+  "It looks like you've got everything you need to be on your way, now.  If you want to practice again, just ask me about 'training' again.  I don't have much more to offer you, but I can give you a ride to the castle.  Just let me know when you're ready to leave."
+> speak to hephaestus
+
+~ speak to hephaestus
+  "Okay, then, if you're all set to go we'll leave now!"
+
+Hephaestus walks around the house to get some things.  While he is away, Sheila approaches you from the direction of town.
+
+  "I wanted to thank you for your interest in my wellbeing.  I'm going to give Hephaestus a chance.  As a token of appreciation, I want you to have this."
+
+She hands you 100 gold, and leaves.
+
+Hephaestus comes back with his things, and you leave for the castle.
+You ride through the forest on horseback with Hephaestus.  Before too long you find yourself back at the fields you stood at the night the castle burned.  With astonishment you look upon the ruin that used to be the majestic castle you spent the past few months in.  The totality of the destruction that has been wrought on the castle is jarring, but fear creeps into your soul when you realize that goblins have moved into the ruin, and they seem to be on their guard.  Hephaestus wishes you well, and leaves you to your journey.
+
+  As he departs, he gives you one last piece of advice: "If there's anything you wish to save from the things you're about to face, now is the time to do something about it."
+Press any key...
+
+The Fields Outside the Ruined Castle
+The fields are peaceful, but barren. You feel a strong breeze, and the sun breaks through the clouds here and there with frightening intensity. Ahead lies the castle, caving in on itself in its fallen glory. You place your hand on the hilt of your sword in anticipation.
+You can go to the castle entrance.
+> go castle entrance
+
+~ go castle entrance
+
+The Castle Gate Ruins
+The gate which once seemed so intimidating now lies as piles of ash near the walls of the castle. Through the gate, where the main hall used to welcome visitors with its grand atmostphere, there is an intimidating wall of debris. Near the rubble, there is a hole that has been punched through the strong stone floor that leads to a more secretive part of the castle.
+You can go to the dungeon or the fields.
+> go dungeon
+
+~ go dungeon
+
+The Dungeon
+There is a patch of light that shines through the hole through which you've entered the room, but that only serves to make the darkness of the room that much more potent. A few steps past the hole and you can't see your hand in front of your face.
+> listen
+
+~ listen
+You stand absolutely still in the darkness and concentrate on what you hear.  You hear snorting and muttering coming from somewhere in the room.  You unsheathe your sword in anticipation.
+> use glow powder
+
+~ use glow powder
+You grab a handful of the glow powder and throw it, creating a large, bright cloud.  It reveals two goblins picking through the cells, and they attack!
+
+You must defend!
+You can see the goblin on the left and the goblin on the right.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin on the left
+
+~ slash goblin on the left
+The goblin on the left tries to dodge, but fails.  You land a blow, doing major damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin on the left
+
+~ slash goblin on the left
+The goblin on the left tries to parry, but you hit, doing major damage.
+The goblin on the left let's out a breif yelp as he dies.
+
+The goblin subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The goblin hits you.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+
+The goblin readies his weapon by his side!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The goblin hits you.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+The goblin clutches his wounds and slumps onto the ground, dead.
+
+The Dungeon
+The room smells of mold and waste. You had never seen the dungeon in all your months in the castle, but it doesn't appear to have suffered much from the attack. Whoever attacked the castle must not have been concerned with freeing the prisoners.
+There is a far cell, a middle cell and a near cell.
+You can go to the castle entrance or the torture chamber.
+> go torture chamber
+
+~ go torture chamber
+
+The Torture Chamber
+All sorts of macabre mechanisms to inflict pain decorate the room. Though the room is only dimly lit, you can see the bloodstains on the floor. Chains and shackles hang from the wall, some of them broken. You don't know anyone who was unlucky enough to earn a trip to this room, but you suspect that only a few of those who did survived it.
+You can see a rack, an iron maiden and a brass bull.
+You can go to the dungeon or up the stairs.
+> knock on brass bull
+
+~ knock on brass bull
+The device sounds as though there is something in it.  You reach for your sword as you watch a goblin leap out of the creature!
+
+You are attacking!
+You can see the goblin and an iron maiden.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin
+
+~ slash goblin
+You swing, but the attack fails to connect as he moves out of the way of the blow!
+
+The goblin subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The goblin hits you.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin holds his weapon close.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take moderate damage!
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+The goblin stumbles around, adding to the bloodstains on the floor before dying.
+
+The Torture Chamber
+All sorts of macabre mechanisms to inflict pain decorate the room. Though the room is only dimly lit, you can see the bloodstains on the floor. Chains and shackles hang from the wall, some of them broken. You don't know anyone who was unlucky enough to earn a trip to this room, but you suspect that only a few of those who did survived it.
+You can see a rack, an iron maiden and a brass bull (containing some metal nails).
+You can go to the dungeon or up the stairs.
+> take metal nails
+
+~ take metal nails
+You scoop up the nails and stow them away.
+> go up the stairs
+
+~ go up the stairs
+As you reach the top of the stairs your heart fills with hope.  You are surrounded by the remains of Main Hall.  You turn towards the staircase that leads to your room, but as you do, hope fades.  The staircase has been destroyed.  However, you can still see the entrance to the hall, so all you need is to find a way up.
+
+The Ruins of the Main Hall
+You recognize the room, however it is very much in ruins. Many of the pieces that made the room notable are missing, though most of it was old and probably needed replacing. There are a few new paths that have been made available through the rubble. The sky is fully visible above, and it looks as though the sun may come out fully before the day is done.
+You can see a ruined staircase.
+You can go to the west wing, the royal chambers, the kitchen or the torture chamber.
+> go west wing
+
+~ go west wing
+
+The Ruined West Wing
+This wing of the castle looks identical to the east wing, where your room was. A few days ago its mystery got the better of you and you found the hidden library hiding behind its walls. The entrance to this secret room was left open and it appears to be stuck in that position.  The hallway is blocked off before you can get very far past the secret passage, and all the rooms that branched off from the hallway are filled with rubble.
+You can see a ten foot pole.
+You can go to the forbidden library or the main hall.
+> take ten foot pole
+
+~ take ten foot pole
+Carrying this around won't be much fun, but every adventurer knows the value of a ten foot pole!
+> go forbidden library
+
+~ go forbidden library
+You make your way through the secret passage, the light from the glow powder only just fading from days before.  When you come out the other side, you see a goblin picking through the wreckage of the room.
+
+You are attacking!
+You can see the goblin.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+
+The goblin subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take light damage.
+> slash goblin
+
+~ slash goblin
+The goblin tries to parry, but you hit, doing major damage.
+The goblin glares at you as he dies, silently passing.
+
+The Ruins of the Library
+The library is in much better condition than any of the other parts of the castle that were above ground. Most of the shelves have fallen, and many of the books they held are singed and scattered on the floor, but all things considered, the library has held up well. It still needs a good dusting, though.
+You can see some fallen bookshelves, some books and the fallen chandelier.
+You can go to the west wing.
+> x chandelier
+
+~ x chandelier
+It seems to have been knocked down in the attack. The candles that it held are largely missing, and have lost their ethereal glow. Some of the arms of the chandelier didn't survive the attack, they look like they shattered on impact with the floor.
+There are some some metal shards.
+> take metal shards
+
+~ take metal shards
+The shards are small enough, and they could be useful as blades.
+> go west wing
+
+~ go west wing
+
+The Ruined West Wing
+This wing of the castle looks identical to the east wing, where your room was. A few days ago its mystery got the better of you and you found the hidden library hiding behind its walls. The entrance to this secret room was left open and it appears to be stuck in that position.  The hallway is blocked off before you can get very far past the secret passage, and all the rooms that branched off from the hallway are filled with rubble.
+You can go to the forbidden library or the main hall.
+> go main hall
+
+~ go main hall
+
+The Ruins of the Main Hall
+You recognize the room, however it is very much in ruins. Many of the pieces that made the room notable are missing, though most of it was old and probably needed replacing. There are a few new paths that have been made available through the rubble. The sky is fully visible above, and it looks as though the sun may come out fully before the day is done.
+You can see a ruined staircase.
+You can go to the west wing, the royal chambers, the kitchen or the torture chamber.
+> go royal chambers
+
+~ go royal chambers
+
+The Royal Chambers
+The supposed majesty of this room seems to have been destroyed along with the rest of the furniture and decor that was the subject of so much conversation among the staff. The only piece of furniture that seems to have survived is the large, regal bed in the center of the room, which is in good condition. The rest is all rubble.
+You can see a bed and a wooden shafts.
+You can go to the main hall.
+> look under bed
+
+~ look under bed
+You look under the bed, a place that commonly contains objects of great value, and you find a metal beam.
+> take metal beam
+
+~ take metal beam
+The piece is compact enough, so you take it with you.
+> take wooden shafts
+
+~ take wooden shafts
+They're small enough that you decide to tuck them into your belt in case you need them.
+> go main hall
+
+~ go main hall
+
+The Ruins of the Main Hall
+You recognize the room, however it is very much in ruins. Many of the pieces that made the room notable are missing, though most of it was old and probably needed replacing. There are a few new paths that have been made available through the rubble. The sky is fully visible above, and it looks as though the sun may come out fully before the day is done.
+You can see a ruined staircase.
+You can go to the west wing, the royal chambers, the kitchen or the torture chamber.
+> go kitchen
+
+~ go kitchen
+As you make your way around the rubble obstructing the kitchen, you see a goblin eyeing you hungrily.
+
+You are attacking!
+You can see the goblin.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing moderate damage.
+
+The goblin readies his weapon by his side!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin readies his weapon by his side!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin takes a quick step forward, holding his weapon straight up!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin holds his weapon close.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take moderate damage!
+The goblin cries out in pain before falling, slain.
+
+The Kitchen
+The shelves and cabinets have been emptied of their contents, and left open. Of what little cooking equipment survived, it is scattered around the room and in very poor condition.  Most of the counters are burnt, too.
+You can see a broken ladder.
+You can go to the main hall or the cellar.
+> take broken ladder
+
+~ take broken ladder
+A ladder would be very useful, so you take it, despite its condition.
+> go cellar
+
+~ go cellar
+You step down into the cellar, and are upset to find two goblins staring at you as you reach the bottom of the stairs.
+
+You are attacking!
+You can see the goblin on the left and the goblin on the right.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin on the left
+
+~ slash goblin on the left
+The goblin on the left tries to dodge, but fails.  You land a blow, doing major damage.
+
+The goblin on the left swings his weapon in a large arc.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+
+The goblin on the right holds his weapon above his head.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash goblin on the left
+
+~ slash goblin on the left
+You swing, but the attack fails to connect as he moves out of the way of the blow!
+
+The goblin on the left holds his weapon above his head.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+
+The goblin on the right takes a quick step forward, holding his weapon straight up!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin on the right.  You take minor damage.
+> slash goblin on the left
+
+~ slash goblin on the left
+The goblin on the left tries to dodge, but fails.  You land a blow, doing major damage.
+The goblin on the left falls to one knee, trying to stay conscious, before it succumbs to its wounds.
+
+The goblin takes a quick step forward, holding his weapon straight up!
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+
+The goblin subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the goblin.  You take minor damage.
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+The goblin falls on its back, whimpering slightly.
+
+The Cellar
+While the cellar is a little dark and smells like mold, it seems to have held up well against the attack. The food stores it held are missing, which you attribute mostly to the goblins. The air is very moist and it is significantly colder here. You can hear rats scurry about.
+You can see some empty sacks and a hinge.
+You can go to the kitchen.
+> take hinge
+
+~ take hinge
+There are a lot of uses a loose hinge could be put to.  You take it.
+> use hinge on metal shards
+
+~ use hinge on metal shards
+You attach the shards to the hinge.  If you could find something to use as handles you could make some cutters.
+> use wooden shafts on cutters
+
+~ use wooden shafts on cutters
+You attach the shafts to the hinge with the blades.  Now you have a pair of cutters you can handle!
+> use ten foot pole on broken ladder
+
+~ use ten foot pole on broken ladder
+You discard the broken side of the ladder, and you attach the ten foot pole by jamming the handholds into the holes in the pole.  Now you have a working ladder!
+> go kitchen
+
+~ go kitchen
+
+The Kitchen
+The shelves and cabinets have been emptied of their contents, and left open. Of what little cooking equipment survived, it is scattered around the room and in very poor condition.  Most of the counters are burnt, too.
+You can go to the main hall or the cellar.
+> go main hall
+
+~ go main hall
+
+The Ruins of the Main Hall
+You recognize the room, however it is very much in ruins. Many of the pieces that made the room notable are missing, though most of it was old and probably needed replacing. There are a few new paths that have been made available through the rubble. The sky is fully visible above, and it looks as though the sun may come out fully before the day is done.
+You can see a ruined staircase.
+You can go to the west wing, the royal chambers, the kitchen or the torture chamber.
+> use ladder on ruined staircase
+
+~ use ladder on ruined staircase
+You place the ladder at the base of the ruined staircase, making a route to the hallway.
+> climb ladder
+
+~ climb ladder
+
+The Ruined East Hallway
+The hallway is badly damaged, but most of the rooms appear to be intact, though you doubt there is anything of use in any of them.  In front of you, you see that there is a large gap in the floor of the hallway that blocks the path to your room.
+You can see a gap in the floor and a large board.
+You can go to the main hall or down.
+> take large board
+
+~ take large board
+You carefully take the board.
+> use metal beam on large board
+
+~ use metal beam on large board
+You set the beam against the board lengthwise and determine that you could probably use it to support the damaged board.  Now you just need a way to attach it.
+> use metal nails on large board
+
+~ use metal nails on large board
+You pick up a nearby rock and use it to hammer the nails through the beam into the board to support it.  It should be able to support weight now.
+> use large board on gap
+
+~ use large board on gap
+You lay the supported board down across the gap.  You should be able to cross without much difficulty now!
+> go across the gap
+
+~ go across the gap
+
+The Doorway to Your Bedroom
+You can see the doorway to your room. Unfortunately, some debris has fallen in front of it. If you could just find a way to cut one of the metal beams that is trapped under the rubble you could climb into your room.
+You can see some metal beams.
+You can go to the hallway.
+> use cutters on metal beams
+
+~ use cutters on metal beams
+You begin cutting the beams, opening a gap just big enough to climb through before the cutters break.
+> go your bedroom
+
+~ go your bedroom
+
+Your Room
+The interior of this room is just how you remembered it. It appears it was hardly disturbed in the attack, much to your relief. Perhaps you've finally caught a break.
+You can see your bed and a nightstand.
+You can go to the hallway.
+> x nightstand
+
+~ x nightstand
+It's the nightstand you left your spellbook in a few nights ago. You wish you had suspected what was to come, that you might have brought it with you that night. Regardless of what was, you've made it back here, now.
+You see your spellbook.
+> take spellbook
+
+~ take spellbook
+After so much struggle, you take what you came for.
+
+You open the spellbook to the first couple of pages, turning past the pages that recall the mechanics of how spells work, until you come to a page detailing the casting of spells.  You recall that when you want to cast a spell you must open your spellbook, and then select a spell that is currently written in your spellbook to cast.
+You take notice of the Full Heal spell that is scribed within your book.  You are not capable of scribing this spell within one-hundred pages, it was scribed for you by your teacher at the time.  You don't recall her name.  A spell like that is a very valuable tool, and it's a shame you won't be able to retrieve it when it's gone.
+
+A huge explosion rocks the castle once again.  It's deja vu as you close the book up and tuck it away safely, now intent on getting out of the castle.  What could be causing that noise?
+> go hallway
+
+~ go hallway
+You climb through the hole in the rubble, and more falls to block it off after you get through!
+
+The Hallway is on Fire!
+You look above you to see that the sky has turned blood red, and ash is falling all around you. Before you can begin to assess your situation you see the huge, looming figure of a creature made of fire before you. As you stare into the terrible might of the beast, you see him turn to face you.
+And then he gets hotter. The heat becomes swealtering, and you soon realize you need to leave immediately!
+You can go to the main hall.
+> go main hall
+
+~ go main hall
+
+The Fiery Ruins of the Main Hall
+As you make your way down the ladder, it breaks. All the pathways that were available to you before have been blocked by newly fallen rubble, except the way to the torture chamber. However, blocking your path is a large flame.
+You can see some large flames.
+You can go to the torture chamber.
+> open spellbook
+
+~ open spellbook
+Which section would you like to open?
+
+1 - Preface
+2 - Spells
+3 - Close spellbook
+
+> 2
+Which spell would you like to cast?
+1 - Full Heal
+2 - Lesser Healing
+3 - Gust
+4 - Close spellbook
+
+> 3
+You ready Gust.  Now cast at something.
+> cast at flames
+
+~ cast at flames
+You cast Gust at the flames.
+The blast of wind is strong enough to scatter the fuel for the fire!  It's out!
+> go torture chamber
+
+~ go torture chamber
+You run down the steps into a light, smoky haze.  When you reach the bottom of the steps you encounter a nasty looking goblin that isn't pleased to see you.
+
+You are attacking!
+You can see the goblin.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin holds his weapon above his head.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+You feel the intense heat all around you, and though you are extremely uncomfortable, it does not cause you any harm.
+The goblin is look weakened from the heat.
+> slash goblin
+
+~ slash goblin
+You land a blow on your enemy, doing light damage.
+
+The goblin holds his weapon close.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take moderate damage!
+> slash goblin
+
+~ slash goblin
+The goblin tries to dodge, but fails.  You land a blow, doing major damage.
+The goblin falls to the floor with a thud, succumbing to the heat.
+
+The Torture Chamber
+The air is smoky, but the high ceiling keeps the worst of it from you. But for how long?  The heat seems to stir the air and awaken the metallic smell of blood the room has taken on.
+You can see a rack, a brass bull and an iron maiden.
+You can go to the main hall or the dungeon.
+> go dungeon
+
+~ go dungeon
+
+The Dungeon
+The smoky haze begins to close around you. The area underneath the hole that leads up and out of the castle is on fire. You'll need some way to pass before you can make your escape!
+You can see the far cell, the middle cell, the near cell and some flames.
+You can go outside or to the torture chamber.
+> x middle cell
+
+~ x middle cell
+This cell has been shaken by the attacks. The door to this cell has come off, and the contents are in disarray.
+In it, you see a bed plank.
+> take bed plank
+
+~ take bed plank
+You grab the piece the of wood.
+> use bed plank on flames
+
+~ use bed plank on flames
+You place the light board over the short flames.  The fire begins to lick at the board, it won't last long!
+> go outside
+
+~ go outside
+
+The Fields Outside the Burning Castle
+You run from the castle, safe from the falling rubble at last.  But you fear that your safety may yet be at stake, for the heat intesifies with every step you take.  The huge creature of fire draws near.
+As you get closer, though, you begin to feel that you have some power... some control over it.  It stops in its tracks as you stare at it, concentrate on it.  You realize at once that it is within your power to banish the creature.
+You can see the fire elemental.
+> banish fire elemental
+
+~ banish fire elemental
+The creature lets out a crackling wail for just a moment, and then, in a flash of heat and wind, it's gone.  Where it stood, you see an amulet fall in the grass.
+> take amulet
+
+~ take amulet
+You pick up the amulet, and place it around your neck.  When you do, you feel stronger.
+You notice a group of strangers emerge from the forest.
+> speak to strangers
+
+~ speak to strangers
+  "We are the druids of the forest.  When we saw that the fire elemental had returned we came to destroy it... but it looks as though you have already discovered your power.
+  "You may have not yet realized that the creature was attracted to you, or why it was.  These things we will explain to you in due time.  For now, you should come with us.  It isn't safe here, as the kingdom will send men to come for you soon."
+
+Having little choice in the matter, you follow the druids to a small tribal village within one of the thickest parts of the forest.  The structures include the trees and are largely made from twigs and saplings, some that have grown straight out of the ground in position.  The druids lead you to an empty hut with a bedroll.
+
+  "Sleep.  All will be explained in the morning."
+
+You are tempted to resist, to keep yourself awake amidst these strangers, but your exhaustion from the days efforts allows you precious little time for such thoughts before you drift into sleep.
+
+You wake up to the sound of light rain on the branches above you.  You sit up with a jolt, your wits about you enough to be on guard.  Your possessions seem to be intact and within reach, and your wounds have healed.  You pick up your things and resolve to explore.
+
+A Hut
+The hut seems to be made up of a mixture of live saplings and long twigs tied together at the top. The floor is dirt and there are no signs as to whether or not anyone lived in this hut before.
+You can see a bedroll.
+You can go outside.
+> go outside
+
+~ go outside
+
+The Town Center
+The center of this community appears to be a residential area as is the rest of the town. There are no businesses or stores, only huts in which people make their home.
+The one exception appears to be the shaman's hut, from which you can hear faint chanting sounds.
+You can go to the hut, the shaman's hut or the garden.
+> go garden
+
+~ go garden
+
+A Garden
+This small area of the forest is clear of trees. A sizeable plot of land is recieving sunlight, and most likely grows enough food to feed the majority of the population of the village.
+You can see a gardener.
+You can go to the town center.
+> speak to gardener
+
+~ speak to gardener
+  "So you are the one the fire elemental was after.  You would do well to get used to such encounters.  If you wish to arm yourself against the challenges ahead with the magic of our people, ask the shaman about magic, and he may sell you a spell.  Yes, we also require currency from time to time.  Only very few every truly escape such a need."
+> go town center
+
+~ go town center
+
+The Town Center
+The center of this community appears to be a residential area as is the rest of the town. There are no businesses or stores, only huts in which people make their home.
+You can go to the hut, the shaman's hut or the garden.
+> go shaman's hut
+
+~ go shaman's hut
+
+The Shaman's Hut
+At the center of this large hut is the trunk of a fully mature tree. The walls of the hut come together just under the canopy of the tree. The inside is lit by bowls of glow powder which sit on shelves on the walls of the single, circular room, casting a gentle, slightly bluish light around the room.
+Around the trunk of the tree, a ritual involving dancing and chanting is taking place.  You watch the ritual for a few moments, when suddenly all movement and sound stops.
+  "Come," you hear from behind the trunk of the tree.  It is a man's voice, which surprises you as you notice that you've only seen women in the village so far.  The others in the room slowly turn and stare at you, waiting for you to act.
+You can see the shaman and some druids.
+You can go outside.
+> speak to shaman
+
+~ speak to shaman
+  "It is rare that someone so powerful allows themselves to be offered up as a gift as you were.  But I suspect your humility is not behind your complacency."
+
+You express your surprise at his knowledge of your past.
+
+  "We are isolated from the cities and towns of the world, as we worship nature in its beauty and power.  But in order to preserve this beauty and power we must be vigilant and understand what is happening around us.  The war waged by this nation on its neighbor threatened much of the landscape, and many of our own people were returned to the earth in preventing the destruction from becoming rampant.  It is only fair that you know that we had a small part in your surrender to this nation."
+
+You grow angry at this confession, and demand to know what it was that made you valuable.
+Press any key...
+
+  "So no one has yet told you about your rebirth.  Perhaps they never felt that you were loyal to them.  Your homeland has never known why this nation coveted you, but they were happy to trade you away for peace.  As for our involvement, we merely informed this nation of your significance in the world.  It was not at our suggestion that you were taken from your home, though we were not ignorant of its possibility.
+  "But you're still ignorant of your own importance.  I did not think I would be granted the honor of explaining your destiny to you, but such is the will of the earth.  There is no single name for what you are.  In some cultures you have been called a sorcerer, in some you have been called a god.  Many have feared you, but none have had the resources to understand you until now.  The discovery of arcane writing has unlocked mysteries men have been afraid to solve for some time.  Man has learned of our world's connection to the realm of energies and action.  It is from this realm that the energies released from spells originate.  And it is from this realm that the elementals, the rulers and incarnations of these energies, come.
+Press any key...
+
+  "You are special, Hawk.  You can command these energies as the elementals can.  You have not yet discovered your full potential, that is yet to come, but you must soon.  I have seen visions of what goes on elsewhere.  There is a man with a staff of bone.  A man who's magic comes not from the realm of energies but is fueled by the souls of the dead.  He knows what you are, and he means to destroy you.  But you must not run.  It is imperative that you defeat this man who wishes to extinguish your life, for if you run, he will grow more powerful while you remain weak.
+  "This man would draw you out by attacking the village in which you were born.  He means to kill those who have shown you kindness to draw you to him in anger, but you must meet him before this attack and strike him down.  This attack is happening very soon.  You must return home as quickly as possible.
+  "We druidic folk cannot offer aid to you in this journey, we must stay with our forest, but we can offer you an escort to the border.  The fastest way to your home will require you to go through a checkpoint in the wall that was built at the border of these nations in the early days of the war.  The men who attend this checkpoint have been told to capture you, so you must use care.  You have the day to prepare for this journey, you will be escorted to this fortress come nightfall.  You may come and see me if you have any questions."
+> ask shaman about magic
+
+~ ask shaman about magic
+  "I happen to have a spell that I can teach you to scribe, but it is a secret of my people.  I will need monetary compensation for such a thing.  One hundred gold coins seems like very little for a favor of this caliber."
+
+After explaining that you would like to know the effects of the spell and whether or not you could scribe it efficiently into your spellbook, you glean that the spell will render a target unable to move.  While you can't cast spells in combat, it does sound very useful.  It will take around 40 pages to scribe into your spellbook.
+> buy spell
+
+~ buy spell
+  "Very well, I will show you what is necessary."
+
+You learn to scribe Entangle.
+> go outside
+
+~ go outside
+
+The Town Center
+The center of this community appears to be a residential area as is the rest of the town. There are no businesses or stores, only huts in which people make their home.
+You can go to the hut, the shaman's hut or the garden.
+> go hut
+
+~ go hut
+
+A Hut
+The hut seems to be made up of a mixture of live saplings and long twigs tied together at the top. The floor is dirt and there are no signs as to whether or not anyone lived in this hut before.
+You can see a bedroll.
+You can go outside.
+> sleep in bedroll
+
+~ sleep in bedroll
+You lay down to rest, but a thought is nagging at you as you close your eyes.  You recall that you haven't scribed any new spells in your spellbook, and if you're going into danger, you'd rather not be without your most powerful tool.  You open your spellbook and prepare the special ink you've always kept with it.
+
+What would you like to do?
+
+1 - Scribe spells
+2 - Erase spells
+3 - Finish scribing
+> 1
+
+You have 18 pages free.  Which spell would you like to scribe?
+
+1 - Lesser Healing: 32 pages
+2 - Gust: 16 pages
+3 - Entangle: 43 pages
+4 - Back
+> 2
+You scribe Gust into your spellbook.
+
+You have 2 pages free.  Which spell would you like to scribe?
+
+1 - Lesser Healing: 32 pages
+2 - Gust: 16 pages
+3 - Entangle: 43 pages
+4 - Back
+> 4
+
+What would you like to do?
+
+1 - Scribe spells
+2 - Erase spells
+3 - Finish scribing
+> 3
+
+Are you sure?
+
+1 - Yes
+2 - No
+> 1
+
+Satisfied, you close the spellbook.
+> sleep in bedroll
+
+~ sleep in bedroll
+You lay down to rest before your journey resumes.  It's always good to save moments like these in your memory.
+
+You are awoken by a stoic druid who leads you into the woods before you have time to rub your eyes.  You struggle to keep up with their pace, even after the grogginess has subsided.  As the trees begin to thin, you exit the forest altogether, next to a path that leads a dimly-lit fortress in the night.  Before you get very close to the fortress, the druids indicate that they will follow you no further.
+
+Alone again in front of an oppressive obstacle, you resolve to face this challenge, or die trying.
+Press any key...
+
+The Front Gate
+The gate on this end is open at the moment, however there are two guards at its front guarding the entrance. The fort's opressive silhouette stands out against the dark night sky, as a centerpiece to that of the wall stretching in both directions for as far as you can see. The field on which you stand shows signs of battle.
+You can see the guards and some battle remnants.
+You can go to the traffic gate.
+> x battle remnants
+
+~ x battle remnants
+Largely broken pieces of this or that, pieces of armor or siege weaponry. Nothing too specific. You can pick out a broken sword hilt among the garbage.
+> throw hilt
+
+~ throw hilt
+You pick up the sword hilt from the scattered objects and throw it in a large arc towards the wall on one side of the fort.  Though the distance is impressive, the sword carries all the way to the wall as if helped by some invisible force.
+The guards react to the sound, and walk around the corner of the fort, looking for the cause.  The front gate is unguarded!
+> go traffic gate
+
+~ go traffic gate
+
+The Traffic Gate
+The gate to your home is closed, and there doesn't appear to be any mechanism to open it in the room.
+You can see some empty crates, shelves and a sign.
+You can go to the north hallway, to the front gate, to the south hallway or to a storage closet.
+> x shelves
+
+~ x shelves
+A few shelves with some odds and ends on them. It's hard to say what it's meant for.
+You find a health potion.
+> take health potion
+
+~ take health potion
+These are always handy to have around.  You take it.
+> open spellbook
+
+~ open spellbook
+Which section would you like to open?
+
+1 - Preface
+2 - Spells
+3 - Close spellbook
+
+> 2
+Which spell would you like to cast?
+1 - Full Heal
+2 - Lesser Healing
+3 - Gust
+4 - Close spellbook
+
+> 3
+You ready Gust.  Now cast at something.
+> cast at crates
+
+~ cast at crates
+You cast Gust at the empty crates.
+You summon wind to blow the crates every which way in a terrible jumble.  Eventually the crates are ejected from the room and you see a potion that must've been hidden in between the crates.
+> take potion of invisiblity
+
+~ take potion of invisiblity
+You stash the handy little drink away.
+> go north hallway
+
+~ go north hallway
+
+The Traffic Gate Hallway
+As you begin to walk to down this hallway you notice a guard patrolling ahead of you. You duck behind a nearby crate. The guard walks up, then down the hallway, always stopping just before he reaches your crate. You'll have to sneak by him if you don't want to fight him.
+You can see a patrolling guard, a weapons rack and a cupboard.
+You can go to the traffic gate or around the corner.
+The guard turns towards you.
+> attack patrolling guard
+
+~ attack patrolling guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You are attacking!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing light damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take light damage.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take light damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard tightens his grip on his sword.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing light damage.
+The guard's death knell is muffled as his throat is slit.  He falls.
+
+The Traffic Gate Hallway
+The hallway is clear, it's a straight walk now.
+You can see a weapons rack and a cupboard.
+You can go to the traffic gate or around the corner.
+> go around the corner
+
+~ go around the corner
+
+The North Tower Hallway
+This hallway is being patrolled as well. Luckily, there are still places to hide.
+You can see a patrolling guard, a pile of blankets and a nook.
+You can go to the traffic gate hallway or up the stairs.
+The guard turns towards you.
+> attack patrolling guard
+
+~ attack patrolling guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You are attacking!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard adopts a forward stance.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take light damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+The guard falls to his knees and struggles to stand for a while before laying down.
+
+The North Tower Hallway
+The hallway is clear.
+You can see a pile of blankets and a nook.
+You can go to the traffic gate hallway or up the stairs.
+> go up the stairs
+
+~ go up the stairs
+
+In the Tower
+Halfway to the top of the tower there is a break level. It is a large, circular room filled with several things you can hide in. It looks like the guard is meandering around the room checking objects from time to time, turning his back to the rest of the room as he does. The room appears to take up the entirety of the space of the tower, so getting from one end to the other will take a little time. Choose your timing carefully if you don't wish to get caught.
+You can see a cabinet, a pile of rugs, a large barrel, a torch rack, a practice dummy and a patrolling guard.
+You can go down the stairs or to the top of the tower.
+The guard begins looking around the room.
+> attack guard
+
+~ attack guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You are attacking!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard tightens his grip on his sword.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The guard hits you.  You take light damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard holds his weapon with two hands.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+The guard's sword arm is badly wounded.  He drops his sword and surrenders to you, allowing you take measures to ensure he won't cause problems.
+
+In the Tower
+The large, circular room has little else than scattered junk in it.
+You can see a cabinet, a pile of rugs, a large barrel, a torch rack and a practice dummy.
+You can go down the stairs or to the top of the tower.
+> go top of the tower
+
+~ go top of the tower
+
+The Top of the Tower
+The air at the top of the tower is chilly and bracing after coming from the warmth of the torchlit fortress. The guard patrolling at the top of this tower is walking along the edge of the walkway, back and forth.
+You can see a patrolling guard, a sleeping guard, an unlit brazier and a supply closet.
+You can go down the stairs.
+> push patrolling guard
+
+~ push patrolling guard
+You charge forward from your hiding place and give the guard a firm shove off the side of the tower.  He falls without struggle, but his ally wakes up from his sleep and begins to fumble for his sword!
+
+Tower Fight
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing light damage.
+
+The guard tightens his grip on his sword.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard holds his weapon with two hands.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard adopts a forward stance.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+The guard stumbles backward from the blow until he falls off the top of the tower!
+
+The Top of the Tower
+The air at the top of the tower is chilly and bracing after coming from the warmth of the torchlit fortress.  You could see for miles up here if it weren't so dark.
+You can see an unlit brazier and a supply closet.
+You can go down the stairs.
+> open closet
+
+~ open closet
+You open the door to the shed to find an assortment of small objects, most of which are useless to you.  However, you do notice a hole in the roof of the closet from which water is dripping directly onto the fuel that is used in torches.
+You see a pole torch.
+> take pole torch
+
+~ take pole torch
+You pick up the object.
+> use glow powder on pole torch
+
+~ use glow powder on pole torch
+You take a handful of glow powder from your bag and drop onto the end of your torch.  It glows with a bright light.
+> wave pole torch
+
+~ wave pole torch
+You wave the torch from side to side to signal the other guards to open the gate.  Soon, you hear the gate opening below.
+As you throw down the pole torch you see a bright light far in the distance, as though it's a star that has fallen to earth.  In an instant the thing comes much closer, and though it is painful to look at it is then that you see it for what it is: a very large being made of pure light.  Its high-pitched roar stings your ears, and you find yourself desperate to get out of the fort before it can come any closer.
+> go down the stairs
+
+~ go down the stairs
+
+In the Tower
+Halfway to the top of the tower there is a break level. It is a large, circular room filled with several things you can hide in. It looks like the guard is meandering around the room checking objects from time to time, turning his back to the rest of the room as he does. The room appears to take up the entirety of the space of the tower, so getting from one end to the other will take a little time. Choose your timing carefully if you don't wish to get caught.
+You can see a cabinet, a pile of rugs, a large barrel, a torch rack, a practice dummy and a patrolling guard.
+You can go down the stairs or to the top of the tower.
+The guard begins looking around the room.
+> attack guard
+
+~ attack guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You must defend!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard tightens his grip on his sword.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard holds his weapon low.
+
+You can:
+Defend, Parry, or Dodge.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+The guard's sword arm is badly wounded.  He drops his sword and surrenders to you, allowing you take measures to ensure he won't cause problems.
+
+In the Tower
+The large, circular room has little else than scattered junk in it.
+You can see a cabinet, a pile of rugs, a large barrel, a torch rack and a practice dummy.
+You can go down the stairs or to the top of the tower.
+> go down the stairs
+
+~ go down the stairs
+
+The North Tower Hallway
+This hallway is being patrolled as well. Luckily, there are still places to hide.
+You can see a pile of blankets, a nook and a patrolling guard.
+You can go to the traffic gate hallway or up the stairs.
+The guard turns towards you.
+> attack guard
+
+~ attack guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You must defend!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard holds his weapon with two hands.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard pulls his weapon back.
+
+You can:
+Defend, Parry, or Dodge.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard holds his weapon with two hands.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+The guard falls to his knees and struggles to stand for a while before laying down.
+
+The North Tower Hallway
+The hallway is clear.
+You can see a pile of blankets and a nook.
+You can go to the traffic gate hallway or up the stairs.
+> open spellbook
+
+~ open spellbook
+Which section would you like to open?
+
+1 - Preface
+2 - Spells
+3 - Close spellbook
+
+> 2
+Which spell would you like to cast?
+1 - Full Heal
+2 - Lesser Healing
+3 - Close spellbook
+
+> 1
+You cast the spell and your wounds are all healed completely.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> go traffic gate hallway
+
+~ go traffic gate hallway
+
+The Traffic Gate Hallway
+As you begin to walk to down this hallway you notice a guard patrolling ahead of you. You duck behind a nearby crate. The guard walks up, then down the hallway, always stopping just before he reaches your crate. You'll have to sneak by him if you don't want to fight him.
+You can see a weapons rack, a cupboard and a patrolling guard.
+You can go to the traffic gate or around the corner.
+The guard turns towards you.
+> attack guard
+
+~ attack guard
+You draw your weapon and charge from your hiding place.  You take him by surprise!
+
+You must defend!
+You can see the guard.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take light damage.
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+The guard's death knell is muffled as his throat is slit.  He falls.
+
+The Traffic Gate Hallway
+The hallway is clear, it's a straight walk now.
+You can see a weapons rack and a cupboard.
+You can go to the traffic gate or around the corner.
+> open spellbook
+
+~ open spellbook
+Which section would you like to open?
+
+1 - Preface
+2 - Spells
+3 - Close spellbook
+
+> 2
+Which spell would you like to cast?
+1 - Lesser Healing
+2 - Close spellbook
+
+> 1
+You cast the spell and you feel a little better.
+(You are healed 35%)
+> drink health potion
+
+~ drink health potion
+You drink the potion, and you feel marginally better.
+> go traffic gate
+
+~ go traffic gate
+
+The Traffic Gate
+The gate to your homeland is open, but the room is guarded now!  You need to find a way to deal with the guards.
+You can see shelves, a sign and some guards.
+You can go to the north hallway, to the front gate, to the south hallway, to a storage closet or home.
+> fight guards
+
+~ fight guards
+You charge them from behind, taking them by surprise!
+
+You are attacking!
+You can see the guard on the left and the guard on the right.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> slash guard on the left
+
+~ slash guard on the left
+The guard on the left tries to parry, but you hit, doing moderate damage.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash guard on the left
+
+~ slash guard on the left
+The guard on the left tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard on the left holds his weapon low.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+
+The guard on the right holds his weapon with two hands.
+
+You can:
+Defend, Parry, or Dodge.
+> dodge
+
+> dodge
+You move out of the way of a mighty blow!
+> slash guard on the left
+
+~ slash guard on the left
+You land a blow on your enemy, doing light damage.
+
+The guard on the left adopts a forward stance.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+
+The guard on the right holds his weapon low.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take light damage!
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> slash guard on the left
+
+~ slash guard on the left
+You land a blow on your enemy, doing light damage.
+
+The guard on the left subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The guard on the left hits you.  You take light damage.
+
+The guard on the right subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard on the right.  You take minor damage.
+> slash guard on the left
+
+~ slash guard on the left
+The guard on the left tries to dodge, but fails.  You land a blow, doing moderate damage.
+The guard on the left cries out for assistance as he falls!
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The guard hits you.  You take light damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard pulls his weapon back.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+The light in the fort suddenly increases a drastic amount!  Every dark corner is now well lit!
+But before very long the lighting returns to normal.
+> slash guard
+
+~ slash guard
+The guard tries to dodge, but fails.  You land a blow, doing moderate damage.
+
+The guard pulls his weapon back.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the guard.  You take minor damage.
+> slash guard
+
+~ slash guard
+The guard tries to parry, but you hit, doing moderate damage.
+
+The guard subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+The guard hits you.  You take light damage.
+> slash guard
+
+~ slash guard
+You land a blow on your enemy, doing light damage.
+The guard curses you as he dies.
+
+The Traffic Gate
+The gate is open, you're free to return home!
+You can see shelves and a sign.
+You can go to the north hallway, to the front gate, to the south hallway, to a storage closet or home.
+> go home
+
+~ go home
+
+The Road Home
+You run out of the fort, stepping foot on the soil of your homeland for the first time in months.  But the relief you feel is short-lived, as the huge creature of light stands atop the fort, looking down at you!
+The creature's size and power are too much for you to handle and you flee into the forests of your country.  But no matter how rapid your pace or how swift your footsteps are, the being's speed is always able to match yours.
+You run and run into the night, but you are unable to flee the creature's reach, until finally all you can see is blinding light, and you slip into unconciousness.
+
+A Prison Cell
+You wake up to find yourself in a prison cell without any of your possessions.  Outside the bars of your cell stands a dark figure whos features are obscured by his armor.  The figure says nothing, he simply stares at you as you get to your feet.
+
+You ask the figure if he is a servant of the necromancer, but he offers no response.  Soon, the figure slowly walks away from your cell until you can no longer see him.  The air in the cell feels cold.
+You can see a bed and a chamber pot.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+> wait
+
+~ wait
+Time passes.
+
+The ground starts to shake and you hear a terrible roar come from far away.  Before you have time to react, the prison in which you stand begins to fall apart!  Pieces of the wall fly at your head and the bars which prevented your escape begin to bend and crumple.  You, too, are affected by the mysterious force which rends your cell into pieces.  You are picked up and thrown out a hole that was just torn in the wall.
+As you roll on the ground, dazed and confused, you see the prison crumble into little more than dust in front of you.
+Press any key...
+
+Where the Prison Used to Be
+You stand to your feet, choking on dust and debris from the wreckage. Looking around, wondering what could have caused such a catastrophe, you see your home.
+It has been completely destroyed. The wreckage of the village in which you were raised is barely recognizable, but the memories of your youth make it painfully obvious that it is your home which has been demolished so completely. The devastation can only begin to set in before things start to happen quickly.
+Press any key...
+
+You turn to see the forest that sat next to your village begin to be torn down by a great force, and as the leaves and debris from the destruction of the forest come loose, the source of this chaos is revealed.
+A being of pure force walks through the trees as though they were tall grass, the trunks being ripped up by their roots like weeds from a garden.  While this creature is invisible by all conventional definitions, the motion of the branches and foliage of the trees reveal the familiar shape of the family of creatures that stalk you.
+
+Behind you, you hear the debris begin to move around.  The knight that watched you from you outside your cell in the prison begins to rise from a pile of rubble that had been dropped on him by the destruction of the prison.  He stands to his feet, as steady on them as anyone could be, and begins to walk towards you.
+> x safe
+
+~ x safe
+It looks like it was in the prison when it was destroyed. It's fairly banged up, but it's still intact.
+It contains your armor, a potion of Lesser Healing, your glow powder, the Encyclopedia of Elementals, some gold, a magnet, your sword, your spellbook, an amulet and a potion of invisiblity.
+> take amulet
+
+~ take amulet
+You retrieve your missing amulet.
+> take potion of lesser healing
+
+~ take potion of lesser healing
+You pick up the potion.
+> take glow powder
+
+~ take glow powder
+There's a chance you might want this to light your way.  You let it hang off of your belt.
+> take spellbook
+
+~ take spellbook
+You retrieve your lost spellbook again.
+> take armor
+
+~ take armor
+You pick up the chain shirt and put it on quickly.
+> take sword
+
+~ take sword
+You retrieve your stolen sword from the safe.
+> fight knight
+
+~ fight knight
+Sword in hand, you charge towards the figure with a bloodcurdling yell.
+
+You are attacking!
+You can see the silent knight.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash silent knight
+
+~ slash silent knight
+The silent knight tries to parry, but you hit, doing moderate damage.
+
+The silent knight subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take moderate damage.
+> slash silent knight
+
+~ slash silent knight
+The silent knight tries to parry, but you hit, doing light damage.
+
+The silent knight subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take moderate damage.
+> slash silent knight
+
+~ slash silent knight
+You land a blow on your enemy, doing minor damage.
+
+The silent knight swivels back slightly.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the silent knight.  You take minor damage.
+> slash silent knight
+
+~ slash silent knight
+The silent knight tries to parry, but you hit, doing moderate damage.
+
+The silent knight subtly readies his attack.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+Your opponent smashes through your defense.  You take moderate damage.
+> slash silent knight
+
+~ slash silent knight
+The silent knight tries to parry, but you hit, doing moderate damage.
+The silent knight's armor falls to pieces, revealing that there was never anyone inside, it was simply enchanted armor.
+
+Where the Prison Used to Be
+Debris and garbage lie all around you from the totality of the destruction of your hometown.
+You can see a safe (containing the Encyclopedia of Elementals, some gold, a magnet and a potion of invisiblity).
+You can go to the center of town.
+> drink potion of lesser healing
+
+~ drink potion of lesser healing
+You let the bottle's contents slip down your throat and you feel its effects instantly.
+> go center of town
+
+~ go center of town
+You begin walking towards the center of town, not quite sure of how to continue from here.  The memories you made as a child growing up here all invoke mixed feelings of anger and depression.  But just as you are about to decide to give up and run away from this fate which has chosen you, you see a figure walking towards you in the distance.  At first you can't know much about him, but soon you can tell that he is wearing a black robe.  His walking stick he carries so lightly is made of bone.  And he is being followed by an army of skeletons.
+
+The necromancer comes ever closer, and there is no time for you to do anything but await his arrival.  The druids foretold that he would go to your home to destroy it, but the Force elemental has already done that.  So what, then?  Will he simply kill you now, or take you as a prisoner?  Will he try to exploit your unwanted powers, or is there no place in his world for you?  He steps out from amongst the skeletons.
+
+  "Have you come to face your death, or simply to take away the satisfaction I would have felt from destroying your home in front of you?"
+
+You have no response to the necromancer, as any threats you think of get caught in your throat in face of this powerful mage and his army of the dead.
+
+  "Do you know why I have come for you?  Why I'm going to kill you?"
+
+You reply that he's going to kill you because you can control elementals.
+
+  "No, boy, it's because I want your power.  I want your power and I've found a way to take it for myself.  All I have to do is get it away from you."  He motions to his army of skeletons.  "Do you think I overdid it a little bit?"  He cackles maniacally.
+
+You shudder a little, desperately trying to think of a way out of this whole ordeal.  And then you hear yourself tell him that he can't have your power, that you're going to kill him here and now, and that all that he's worked for will mean nothing in just a few minutes.  Except that you haven't uttered a word.  You turn around, looking for the person who has stolen your voice to taunt the necromancer, but you find nothing.
+
+  "So you think you can kill me, eh?  You'll see how laughable that is very soon.  But before I kill you and turn your friends and family into the newest recruits in my army I have but one thing to say to you."  The necromancer holds his staff in front of him and his eyes glow as he begins to chant the magic words sorcerers use to conjure magic.  "Sheintok!"
+A ball of acid shoots into the sky from the necromancer's staff.  You unsheathe your sword and begin to run, against all instinct and reason, towards the necromancer.  You hear the ball of acid land just where you were standing as you charge desperately towards the most powerful mage in the world.
+
+The Acidic Siege
+The necromancer is shooting balls of acid at you, as well as summoning walls acid mist which sweep along the ground towards you! The balls of acid will land where you are standing when they are shot, and you can run to avoid them, however, if you aren't behind cover when a wall of acid mist reaches you, it will hit you and knock you back to the last place you took cover at.  You'll have to time running from cover to cover to successfully avoid both the clouds of acid mist and the balls of acid falling from above!
+Type run to go to the next spot of cover.
+> run
+
+~ run
+You run towards a four foot high piece of rubble conveniently located in your path towards the necromancer while he continues his assault of acid balls.
+Faendor!
+A wall of acidic mist rushes towards you!
+> run
+
+~ run
+You can't run any faster!
+Time left until the mist arrives: 4
+You reach the next place of cover and duck behind it.
+> run
+
+~ run
+You dash towards the next closest sizeable chunk of debris in your path.
+Time left until the mist arrives: 3
+> run
+
+~ run
+You can't run any faster!
+Time left until the mist arrives: 2
+You slide into the space behind the chunk of debris.
+> run
+
+~ run
+You dash from this rubble towards the next.
+Time left until the mist arrives: 1
+> run
+
+~ run
+You can't run any faster!
+You run right into the mist of acid!  The mist burns your skin and your lungs!  You take light damage and you stumble back to the last place you took cover.
+Sheintok!
+A ball of acid rises into the air!
+> run
+
+~ run
+You dash from this rubble towards the next.
+Time left until the ball arrives: 7
+> run
+
+~ run
+You can't run any faster!
+Time left until the ball arrives: 6
+You duck behind the piece of rubble.
+> run
+
+~ run
+You charge forward again against the onslaught.
+Time left until the ball arrives: 5
+Faendor!
+A wall of acidic mist rushes towards you!
+You find another safe piece of rubble.  You're getting close to him now.
+> run
+
+~ run
+You put your head down and run again.  You're almost there.
+Time left until the ball arrives: 4
+Time left until the mist arrives: 4
+This is the last piece of rubble before you  reach him, all that's left is to strike!
+Sheintok!
+A ball of acid rises into the air!
+> run
+
+~ run
+You charge forward towads the sorcerer, sword in hand.
+Time left until the ball arrives: 3
+Time left until the mist arrives: 3
+You approach him with incredible speed and bring the sword down hard, hoping to end the battle here and now.
+Press any key...
+You hear the sound your sword would make were it to hit metal.  You look up to see that the necromancer has encased himself in a bubble of some crystalline looking material.  He smiles at you and motions behind him, where his army of skeletons can be seen marching toward you.  You make your sword ready, and begin to make your peace with the world.
+Press any key...
+
+A trumpet sounds, and huge wave of water comes from the East and takes a great many of the skeletons with it.
+There is no large body of water anywhere near your hometown.
+You look around, and see a horse approaching you quickly from behind.  Riding the horse is Hephaestus, who unsheathes a sword and rides past you towards the skeleton army, accompanied by many of the druids that found you after you left the castle.  As they ride into battle with the necromancer's foul army, one of the druids stops and turns to you.
+
+  "Quickly!  Break the spell and kill this man, we'll only last so long against an army of this size."
+
+With this in mind, you take stock of your surroundings, and remember that you had an alchemy set in your house that could be of some use to you.
+Press any key...
+
+The Destroyed Town Center
+The town is in shambles, but you can still pick out which buildings were which, and there's no way of knowing what their contents are until you poke around. Nostalgia and desperation intermingle while you ponder the way to overcome yet another obstacle.
+You can see the necromancer.
+You can go to your house, the bakery or an open shed.
+> go bakery
+
+~ go bakery
+
+The Bakery
+Most of the four walls of the bakery are still standing. The countertop still has crumbs, wrapping paper, and other things on it, but the ceiling and the oven have been completely destroyed. The baker would be devastated to see his business in such condition.
+You can see a sack of flour and the countertops.
+You can go outside.
+Time left until the ball arrives: 2
+Time left until the mist arrives: 2
+> take sack of flour
+
+~ take sack of flour
+You take a good bit of flour with you, it could be a useful ingredient.
+Time left until the ball arrives: 1
+Time left until the mist arrives: 1
+> x countertops
+
+~ x countertops
+It looks like the bakery's business was still thriving right up to the point when the Force elemental came. You shudder as you touch upon the thought you had been avoiding; where are the residents of this town?
+There's still a bowl of salt.
+Sploosh!  The ball of acid burns the ground somewhere behind you.
+The mist passes over you as you crouch behind your cover, avoiding it.
+> take bowl of salt
+
+~ take bowl of salt
+You take the bowl and its contents with you.
+> use bowl of salt on flour
+
+~ use bowl of salt on flour
+Remembering that the first in step in preparing potions for brewing is to add salt, you salt the flour, using half the bowl.
+> go outside
+
+~ go outside
+
+The Destroyed Town Center
+The town is in shambles, but you can still pick out which buildings were which, and there's no way of knowing what their contents are until you poke around. Nostalgia and desperation intermingle while you ponder the way to overcome yet another obstacle.
+You can see the necromancer.
+You can go to your house, the bakery or an open shed.
+> go open shed
+
+~ go open shed
+
+An Open Shed
+It's dark in here, just a little too dark to see.
+> use glow powder
+
+~ use glow powder
+You toss some glow powder around the room and it does what it's meant to.
+> take fertilizer
+
+~ take fertilizer
+You take the fertilizer, realizing its possible use for your potion.
+> use bowl of salt on fertilizer
+
+~ use bowl of salt on fertilizer
+You use the remaining half of the salt to mix with the bonemeal, preparing it for use in a potion.
+> go outside
+
+~ go outside
+
+The Destroyed Town Center
+The town is in shambles, but you can still pick out which buildings were which, and there's no way of knowing what their contents are until you poke around. Nostalgia and desperation intermingle while you ponder the way to overcome yet another obstacle.
+You can see the necromancer.
+You can go to your house, the bakery or an open shed.
+> go your house
+
+~ go your house
+
+Your Home
+Walking into your home after so long to find it in this condition is hard for you. The things you took for granted are now perverted shadows of your childhood memories. You know you have to carry on, but you wonder... why was it necessary that this confrontation occur here?
+You can see your alchemy set and an experimental health potion.
+You can go outside.
+> take experimental health potion
+
+~ take experimental health potion
+You pick the potion and stow it away for now.
+> use salted bonemeal on alchemy set
+
+~ use salted bonemeal on alchemy set
+You add the salted bonemeal to the beaker.
+> use salted flour on alchemy set
+
+~ use salted flour on alchemy set
+You add the salted flour to the beaker.
+> use alchemy set
+
+~ use alchemy set
+You add water to the beaker and stir the ingredients around.  You set them to a boil, and for the first time ever it strikes you that alchemy is strikingly similar to cooking.
+And then it hits you.  You're still missing an ingredient.  There has to be a magical ingredient that dissolves in the mixture, something that can give its power to the potion.  What can you use?
+> use glow powder on alchemy set
+
+~ use glow powder on alchemy set
+You remember the glow powder you've had for so long, and you dump what's left of it into the beaker.  At once a cloud of smoke rises from the mixture, which turns a deep purple.
+The characteristic of death (or an end) from the bonemeal mixes with the all-purpose generic magic which comes from a bland organic substance like flour.  These properties create a Dispel Magic potion.  It's almost like you knew what you were doing!
+> go outside
+
+~ go outside
+
+The Destroyed Town Center
+The town is in shambles, but you can still pick out which buildings were which, and there's no way of knowing what their contents are until you poke around. Nostalgia and desperation intermingle while you ponder the way to overcome yet another obstacle.
+You can see the necromancer.
+You can go to your house, the bakery or an open shed.
+> drink experimental health potion
+
+~ drink experimental health potion
+You drink down the potion, finding it to be disagree with your palette, but are relieved when you recover from moderate damage with no immediate side effects!
+> use dispel magic potion on necromancer
+
+~ use dispel magic potion on necromancer
+You approach the crystal, bottle in hand.  The necromancer takes no notice of you, apparently assuming that you're beaten.  You pour the mixture over the top of his crystal bubble, throw the bottle down and unsheathe your sword, waiting.
+After a few seconds, the necromancer begins to look at his bubble, and he turns to you with rage written all over his face.  At once, the bubble crumbles to dust, then melts into the ground.
+
+For a while you and the necromancer stare at each other, testing your resolves.  Then he speaks.
+
+  "I didn't think you would put up such a fight.  I'm impressed.  But my abilities extend beyond a mastery of magic.  I am a competent warrior as well.  And how do you feel about your abilities?  Are you as confident?"
+
+Tired of the walking, and the fighting, but mostly the talking, you offer no response.  You simply offer him the end of your sword.
+
+  "Very well, so shall it be.  Die!"
+Press any key...
+
+The Finale
+You can see the necromancer.
+
+Attack the enemy!  You can:
+slash an enemy, thrust at or thrust an enemy, or you can slam an enemy.
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+
+He drops to one knee with staff pointed at you.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take minor damage!
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+
+He drops to one knee with staff pointed at you.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take minor damage!
+> slash necromancer
+
+~ slash necromancer
+You land a blow on your enemy, doing minor damage.
+
+He raises his staff in one hand.
+
+You can:
+Defend, Parry, or Dodge.
+> defend
+
+> defend
+You are hit by the necromancer.  You take minor damage.
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+
+He drops to one knee with staff pointed at you.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take minor damage!
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+
+He holds the staff in one hand, his arm fully extended sideways.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take minor damage!
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+
+He drops to one knee with staff pointed at you.
+
+You can:
+Defend, Parry, or Dodge.
+> parry
+
+> parry
+You parry their thrust!  They take minor damage!
+> slash necromancer
+
+~ slash necromancer
+The necromancer tries to parry, but you hit, doing light damage.
+The necromancer acts as though he will shrug this blow off as well, but then he coughs and blood drips down his chin.  His arms weaken and release the staff, which falls to the ground with a hollow bone noise.  He falls to his knees, and looks up at you as if to say something, the look in his eyes turning from anger to fear as he does.  He dies with a dull moan, and flops over on the ground.
+With the necromancer dead, there is nothing left to bind the magic that has animated the skeletons, and they all fall to pieces moments later.  The druids help each other up and dust themeselves off.  Most of them survived the battle.  One of them approaches you and says a few words about the good that you've done for the world and how future generations will sing your praise, but it's all a bit inconsequential.  For you, this nightmarish chain of events may finally be done.  Your home is destroyed and you have no idea what's become of your friends and family, but for now you can rest and be at ease.
+
+At least you think you can, when the druids point out an unnatural, nebulous blob floating about ten feet above your head.  At once you recognize it as an elemental.  You try to banish the creature, but a druid stops you.
+
+  "Do not!  It can't hurt you.  That elemental is not like the others: it is above them, like a king among his servants.  That is the elemental of Potential, and without it, the other elementals would have free reign to power, and the world would fall into chaos.
+  "It governs when elementals are allowed the energy to do things such as make their way into our world, and when that energy is to be taken away again.  All things contain this element of Potential, and all other elements are simply different aspects of this one.  It is said that your people do not truly control elementals, but that they control this single elemental, and through him: all the elementals, all the elements, and all of energy.  Do not send it away, but embrace its presence, and take it as a sign of your greatness both now, and in a time yet to come."
+Press any key...
+
+A thought pops into your head and you begin to look around for Hephaestus.  You don't see him among the many druids, nor do you see his horse.  You ask the druid you've been talking to about him.
+
+  "Ah, yes.  He came upon our village shortly after you left it.  He is the first man to ever find our village without our guidance.  He said he followed us for as long as he could after we took you from the castle, and that he was only worried for your safety.  When we told him of the events to come for you in your future he insisted that we aid you.  The shaman took notice of this and said it was an omen.  We prepared ourselves for battle and came to this place as fast as we could, with your friend at the lead.  He is very fond of you."
+
+You ask him where Hephaestus is now.  He looks out toward the battlefield for a while and then looks back at you.
+
+  "I'm sorry."
+
+A feeling of hopelessness and anger takes you.  You stomp around in circles for a bit, unable to vent your feelings, until you notice the wobbly, inconstant shadow of the Potential elemental above you.  You ask it what power he could lend you to repair this tragedy, what energy it could offer to undo this terrible outcome.
+The Potential elemental looks at you for a moment, and then fades back into the realm from whence it came.
+You sob into the ground for a bit, until the hair on the back of your neck stands on end.  You look up to see yet another elemental in front of you.
+Press any key...
+
+The elemental's appearance is indescribable and inconstant, and you can feel raw power coming from it.  The druids all claim ignorance of the creature's nature, but you understand fully the moment you lay your eyes on it.
+It is the elemental of Time.  The being that determines whether the flow of time is constant or otherwise; and you know what you are to do with the knowledge of this creature's existance.  Wielding your power fully for the first time you throw yourself backwards through time.  Your intention was to go to the moment at which Hephaestus was slain, but your inexperience causes you to overshoot it and you find yourself in the town's bakery as the necromancer stands in the town, talking to you.
+
+  He says, "No, boy, it's because I want your power.  I want your power and I've found a way to take it for myself.  All I have to do is get it away from you."  He motions to his army of skeletons.  "Do you think I overdid it a little bit?"
+
+Seeing him now with his army of abominations fills you with rage, and you just can't stop yourself.  You call out exactly what you did to him, what you're going to do to him.  He doesn't notice that the voice came from the bakery as you duck down behind a partially destroyed wall, an idea coming into your head.
+Press any key...
+
+Focusing hard now, you use your power over time again to take yourself to an hour before the Force elemental destroyed your town.  You find yourself outside of town, with the bakery between you and where you were when you saw the Time elemental.
+As you suspected, the people are still in town milling about their own business.  Using your control of Force, you pick yourself up off the ground, rising high into the air, until you're a hundred feet above the ground.  Then you throw yourself in the direction from whence you sense the Force elemental, and before long you see it, destroying a beaver dam with blissful ignorance.  You banish the creature, and continue your flight in a slightly different direction until you see him.
+The necromancer marches with his skeleton army below, their steps in beat with his.  You use your power of Light to make yourself invisible and you swoop down in a dive towards the necromancer, heating your blade with Fire as you do.
+At the bottom of your dive you level out and run the necromancer through with your blade, picking him up as you ascend once again.  You allow yourself to be seen, and you stare into his eyes, watching confusion change to horror, before you sling him off of your blade towards the ground.  His army looks at his body for only a few moments before falling to pieces where they stand.
+Press any key...
+
+You float there, in the sky, for a long time.  Nothing can hurt you anymore.  Nothing will ever pose a threat to you again.  Nothing can hurt the ones that you love, and even if it could, you could stop it before it ever happened.  You have to use your power.  You have to use your power to do whatever you desire, and if you so choose, you will never stop.  Death is for those who live by the rules of Time, not those who define the rules that Time obeys.  The world is yours to shape.
+
+And the world is waiting to know.
+How will you shape it?
+
+The End
+Thanks for playing the game! It was made with a lot of hard work and love. I have a lot of friends who tested it and helped along the way, and of course I wouldn't have even started making it at all if it weren't for Alex Warren's amazing Quest program.
+
+There was also a lot of help from Pertex, jaynabonne, The Pixie, and sgreig, though they probably weren't fully aware that they were helping me specifically.
+
+The background image can be found at http://www.commentnation.com/background.php?MyFile=parchment_paper_seamless_pattern.php&ID=C86.php and was not created by me, but is owned and distributed by the site's owner.
+You can end the game.
+> end
+
+~ end
+[state=Finished]

@@ -61,12 +61,19 @@
 # seconds in total, each countdown finds its flag already cleared, and the
 # player bars the bunker door behind them.
 #
-# Script plays every reachable beat (asylum cell paper, nightfall4 trigger,
+# Endgame: from the bunker `w` x2 to the garden, `s`, `w`, then `n` x4
+# (crossroads, blighted path, woods, the ruined laboratory). Entering the lab
+# plays Hardacre's monologue through nested `wait`s and drops you in
+# "somewhere" with your eyes closed (inventory stripped); `open eyes` runs the
+# ferris-wheel ending and `finish`. The game has only this one ending; the
+# bullets in the east woods building and the locked north gate are red
+# herrings.
+#
+# Script plays the whole game (asylum cell paper, nightfall4 trigger,
 # ruined-house screwdriver, chapel paper/screwdriver/key puzzle, chapel-door
 # ambush-avoidance, lighthouse key, dying writer's trapdoor key, the
-# catacombs chase) and ends alive in the underground bunker. The rest of the
-# game (bunker, garden, Hardacre's lab, Somewhere, the ferris-wheel ending)
-# is reachable now and still owed. errors=0, steps=109, deterministic.
+# catacombs chase, Hardacre's lab) to THE END. errors=0, steps=118,
+# deterministic.
 north
 north
 west
@@ -176,3 +183,12 @@ west
 west
 west
 west
+w
+w
+s
+w
+n
+n
+n
+n
+open eyes
