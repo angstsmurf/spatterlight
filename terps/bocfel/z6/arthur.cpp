@@ -785,12 +785,7 @@ void arthur_stash_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    if (current_graphics_buf_win)
-        dat->current_graphics_win_tag = current_graphics_buf_win->tag;
-    if (graphics_fg_glk)
-        dat->graphics_fg_tag = graphics_fg_glk->tag;
-    if (stored_bufferwin)
-        dat->stored_lower_tag = stored_bufferwin->tag;
+    v6_stash_graphics_windows(dat);
     dat->slideshow_pic = last_slideshow_pic;
 }
 
@@ -801,9 +796,7 @@ void arthur_recover_state(library_state_data *dat) {
     if (!dat)
         return;
 
-    current_graphics_buf_win = gli_window_for_tag(dat->current_graphics_win_tag);
-    graphics_fg_glk = gli_window_for_tag(dat->graphics_fg_tag);
-    stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
+    v6_recover_graphics_windows(dat);
     last_slideshow_pic = dat->slideshow_pic;
 }
 
@@ -820,13 +813,7 @@ void arthur_update_after_restore(void) {
 // foreground graphics window, and triggers a window change event.
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-
-    for (auto &window : windows) {
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
-    }
+    v6_set_window_colors_from_globals();
 
     v6_close_and_reopen_front_graphics_window();
 

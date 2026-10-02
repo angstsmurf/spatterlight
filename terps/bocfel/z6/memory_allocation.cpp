@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "v6_image.h"
 
@@ -39,6 +40,26 @@ uint8_t *image_alloc(int width, int height, int bytes_per_pixel, size_t *size_ou
     if (size_out != nullptr)
         *size_out = size;
     return buffer;
+}
+
+bool grow_image_buffer(uint8_t **buffer, size_t *size, int width, int height, int bytes_per_pixel)
+{
+    size_t required_size = image_buffer_size(width, height, bytes_per_pixel);
+    if (required_size == 0)
+        return false;
+    if (*size >= required_size)
+        return true;
+
+    size_t expanded_size;
+    uint8_t *expanded = image_alloc(width, height, bytes_per_pixel, &expanded_size);
+    if (expanded == nullptr)
+        return false;
+    if (*buffer != nullptr)
+        memcpy(expanded, *buffer, *size);
+    free(*buffer);
+    *buffer = expanded;
+    *size = expanded_size;
+    return true;
 }
 
 void *MemAlloc(size_t size)

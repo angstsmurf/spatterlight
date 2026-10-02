@@ -1858,6 +1858,10 @@ void journey_recover_state(library_state_data *dat) {
     journey_current_input = dat->current_input_mode;
     journey_input_length = dat->current_input_length;
     number_of_printed_journey_words = dat->number_of_journey_words;
+    if (number_of_printed_journey_words < 0)
+        number_of_printed_journey_words = 0;
+    if (number_of_printed_journey_words > BOCFEL_MAX_JOURNEY_WORDS)
+        number_of_printed_journey_words = BOCFEL_MAX_JOURNEY_WORDS;
     for (int i = 0; i < number_of_printed_journey_words; i++) {
         printed_journey_words[i].str = dat->journey_words[i].str;
         printed_journey_words[i].pcf = dat->journey_words[i].pcf;

@@ -11,6 +11,7 @@
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
+#include "spatterlight-autosave.h"
 }
 
 #include <stdio.h>
@@ -27,6 +28,11 @@ void add_margin_image_to_list(int image);
 void clear_margin_image_list(void);
 void refresh_margin_images(void);
 void v6_close_and_reopen_front_graphics_window(void);
+void v6_stash_graphics_windows(library_state_data *dat);
+void v6_recover_graphics_windows(library_state_data *dat);
+void v6_set_window_colors_from_globals(void);
+float v6_inline_image_scale(void);
+void v6_refresh_text_buffer_images(void);
 void transcribe_and_print_string(const char *str);
 bool skip_puzzle_prompt(const char *str);
 
