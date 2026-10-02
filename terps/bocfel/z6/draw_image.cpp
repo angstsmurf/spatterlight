@@ -123,29 +123,6 @@ void ensure_pixmap(winid_t winid) {
     }
 }
 
-//void fudge_for_apple_2_maze(bool on) {
-//    if (graphics_type == kGraphicsTypeApple2 && get_global(sg.MAZE_WIDTH) != 19) {
-//        if (screenmode != MODE_SHOGUN_MAZE)
-//            on = false;
-//        if (on) {
-//            if (hw_screenwidth == 280)
-//                return;
-//            hw_screenwidth = 280;
-//            pixelwidth = 1.0;
-//        } else {
-//            if (hw_screenwidth == 140)
-//                return;
-//            hw_screenwidth = 140;
-//            pixelwidth = 2.0;
-//        }
-//        pixlength = hw_screenwidth * 200 * 4;
-//        imagescalex = (float)gscreenw / hw_screenwidth;
-//        free(pixmap);
-//        pixmap = nullptr;
-//        ensure_pixmap(current_graphics_buf_win);
-//    }
-//}
-
 // Serialize an RGBA buffer to a TIFF file at `name`. Used to hand the
 // pixmap to the Glk image cache via a temp file. Silently no-ops if
 // `size` doesn't fit in the uint32_t TIFF row count; logs to stderr on
@@ -660,7 +637,7 @@ void extract_palette_from_picnum(int picnum) {
 // by xscale/yscale to land at the right offset in the hw_screen-space
 // destination. If use_previous_palette is false the image's palette is
 // also loaded as the new global_palette.
-void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
+static void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
     if (*pixmap == nullptr) {
         fprintf(stderr, "draw_to_pixmap_palette_optional called with a nullptr pixmap!\n");
         return;
@@ -676,13 +653,13 @@ void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *
 }
 
 // draw_to_pixmap_palette_optional with palette replacement enabled.
-void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+static void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
     draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, false);
 }
 
 // As draw_to_pixmap, but keeps whatever palette is already loaded. Used
 // when compositing several images that should share a single palette.
-void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
+static void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
     draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, true);
 }
 

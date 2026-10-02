@@ -25,11 +25,9 @@ void extract_palette_from_picnum(int picnum);
 ImageStruct *recreate_image(glui32 picnum, int flipped);
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped);
 void draw_to_buffer(winid_t winid, int picnum, int x, int y);
-void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, bool flipped);
 void draw_to_pixmap_unscaled(int image, int x, int y);
 void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y);
 void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y);
-void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
 void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
@@ -59,7 +57,6 @@ void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);
 void draw_rectangle_on_bitmap(glui32 color, int x, int y, int width, int height);
 bool sample_pixmap_pixel(int x, int y, glui32 *color);
-//void fudge_for_apple_2_maze(bool on);
 
 // Shared with draw_border.cpp: composites a source bitmap onto a
 // destination bitmap, growing the destination buffer downward if needed.

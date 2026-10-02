@@ -256,8 +256,6 @@ static void update_status_line(bool interlude) {
     print_right_justified_number(tmp);
     glk_window_move_cursor(gwin, width - 10, 1);
     glk_put_string(const_cast<char*>("Moves:"));
-    if (get_global(sg.MOVES) == 278)
-        fprintf(stderr, "here\n");
     print_right_justified_number(get_global(sg.MOVES));
     set_current_window(&windows[0]);
 
@@ -1085,7 +1083,6 @@ static void display_maze(bool clear) {
     screenmode = MODE_SHOGUN_MAZE;
     int height;
     get_image_size(P_MAZE_BACKGROUND, nullptr, &height);
-//    fudge_for_apple_2_maze(1);
     int maze_height = height * imagescaley;
 
     long status_height = V6_STATUS_WINDOW.y_size;

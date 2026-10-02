@@ -33,6 +33,7 @@
 // with `rtrue` (0xb0), so the original Z-code at that address returns
 // immediately and the C++ replacement is the sole implementation.
 #include <unordered_map>
+#include <vector>
 
 #include "zterp.h"
 #include "screen.h"
@@ -1848,7 +1849,7 @@ static std::vector<EntryPoint> entrypoints = {
 // Scans `length_to_search` bytes of story memory starting at `startpos`
 // for the given pattern. WILDCARD bytes in the pattern match anything.
 // Returns the absolute address of the first match, or -1 if not found.
-static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startpos, uint32_t length_to_search) {
+static int32_t find_pattern_in_mem(const std::vector<uint8_t> &pattern, uint32_t startpos, uint32_t length_to_search) {
     // Chained searches sometimes feed the -1 of a previous failed search
     // back in as startpos, which wraps to a huge unsigned value. Bail out
     // rather than reading out of bounds, and clamp the search window so we
@@ -1881,7 +1882,7 @@ static int32_t find_pattern_in_mem(std::vector<uint8_t> pattern, uint32_t startp
 // offset used by the Z-machine encoding) and written into the next slot
 // of `vars`. Returns the address of the *last* wildcard in the matched
 // pattern, useful for chaining successive searches forward.
-static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vars, uint32_t startpos, uint32_t length_to_search
+static int32_t find_globals_in_pattern(const std::vector<uint8_t> &pattern, const std::vector<uint8_t *> &vars, uint32_t startpos, uint32_t length_to_search
                                 ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -1890,6 +1891,10 @@ static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector
     int32_t last_match_offset = offset;
     for (int i = 0; i < pattern.size(); i++) {
         if (pattern[i] == WILDCARD) {
+            if (varsindex >= (int)vars.size()) {
+                fprintf(stderr, "Pattern has more wildcards than output slots!\n");
+                break;
+            }
             *vars[varsindex++] = memory[offset + i] - 0x10;
             last_match_offset = offset + i;
         }
@@ -1900,7 +1905,7 @@ static int32_t find_globals_in_pattern(std::vector<uint8_t> pattern, std::vector
 // Like find_globals_in_pattern, but each *pair* of adjacent WILDCARD
 // bytes is read as a packed 16-bit routine address. The address is
 // unpacked (multiplied by the v6 packing factor) before being stored.
-static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vector<uint32_t *> routines, uint32_t startpos, uint32_t length_to_search
+static int32_t find_routines_in_pattern(const std::vector<uint8_t> &pattern, const std::vector<uint32_t *> &routines, uint32_t startpos, uint32_t length_to_search
                                  ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -1909,6 +1914,10 @@ static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vecto
     int32_t last_match_offset = offset;
     for (int i = 0; i < pattern.size() - 1; i++) {
         if (pattern[i] == WILDCARD && pattern[i + 1] == WILDCARD) {
+            if (routineindex >= (int)routines.size()) {
+                fprintf(stderr, "Pattern has more wildcards than output slots!\n");
+                break;
+            }
             *routines[routineindex++] = unpack_routine(word(offset + i));
             last_match_offset = offset + i;
         }
@@ -1919,7 +1928,7 @@ static int32_t find_routines_in_pattern(std::vector<uint8_t> pattern, std::vecto
 // Like find_globals_in_pattern, but each WILDCARD slot is captured
 // verbatim (no -0x10 adjustment). Use this for raw byte operands such
 // as object numbers, property numbers, or short constants.
-static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint8_t *> vals, uint32_t startpos, uint32_t length_to_search
+static int32_t find_values_in_pattern(const std::vector<uint8_t> &pattern, const std::vector<uint8_t *> &vals, uint32_t startpos, uint32_t length_to_search
                                ) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
@@ -1928,6 +1937,10 @@ static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
     int32_t last_match_offset = offset;
     for (int i = 0; i < pattern.size(); i++) {
         if (pattern[i] == WILDCARD) {
+            if (valindex >= (int)vals.size()) {
+                fprintf(stderr, "Pattern has more wildcards than output slots!\n");
+                break;
+            }
             *vals[valindex++] = byte(offset + i);
             last_match_offset = offset + i;
         }
@@ -1939,7 +1952,7 @@ static int32_t find_values_in_pattern(std::vector<uint8_t> pattern, std::vector<
 // read as a raw (un-unpacked) 16-bit word. Use this for byte-addressed
 // tables (object tables, picture tables, etc.) where no unpacking is
 // needed.
-static int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::vector<uint16_t *> vals, uint32_t startpos, uint32_t length_to_search) {
+static int32_t find_16_bit_values_in_pattern(const std::vector<uint8_t> &pattern, const std::vector<uint16_t *> &vals, uint32_t startpos, uint32_t length_to_search) {
     int32_t offset = find_pattern_in_mem(pattern, startpos, length_to_search);
     if (offset == -1)
         return -1;
@@ -1947,6 +1960,10 @@ static int32_t find_16_bit_values_in_pattern(std::vector<uint8_t> pattern, std::
     int32_t last_match_offset = offset;
     for (int i = 0; i < pattern.size() - 1; i++) {
         if (pattern[i] == WILDCARD && pattern[i + 1] == WILDCARD) {
+            if (valindex >= (int)vals.size()) {
+                fprintf(stderr, "Pattern has more wildcards than output slots!\n");
+                break;
+            }
             *vals[valindex++] = word(offset + i);
             last_match_offset = offset + i;
         }
@@ -1985,6 +2002,77 @@ static void patch_arthur_pauses(void) {
 // Shared across the per-game globals finders because the after_V_COLOR
 // entrypoint is positioned at this address.
 static uint32_t end_of_color_addr = 0;
+
+// Shogun and Zork Zero share the same V-COLOR shape: locate the fg/bg
+// color globals and the routine's final return instruction (stored in
+// end_of_color_addr). Returns the offset of the last global match, or -1.
+static int32_t find_v_color_globals(uint32_t v_color_addr) {
+    int32_t start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, v_color_addr, 300);
+    if (start == -1) {
+        // Fallback for early releases (<= r288) whose V-COLOR uses the
+        // 0x0d store idiom instead of 0x2d. The { &bg, &fg } order is
+        // correct and verified against real binaries: r278/r283 reach
+        // this path and yield fg/bg globals consistent with the primary
+        // 0x2d path of the adjacent later release r288 (fg 0x1c in both).
+        start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, v_color_addr, 300);
+    }
+
+    if (start == -1) {
+        fprintf(stderr, "Error! Could not find color globals!\n");
+        return -1;
+    }
+
+    int32_t found = find_pattern_in_mem({ 0xb8 }, v_color_addr, 300);
+    if (found == -1)
+        found = find_pattern_in_mem({ 0xb0 }, start, 200);
+    if (found != -1)
+        end_of_color_addr = found;
+    else
+        fprintf(stderr, "Could not find return from routine V_COLOR!\n");
+
+    return start;
+}
+
+// Hint and function-key tables are located the same way in several games.
+
+// DO-HINTS loads the hint table address (Arthur, Shogun, Zork Zero).
+// Returns the match offset, or -1.
+static int32_t find_hints_table(uint32_t do_hints_addr) {
+    int32_t start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, do_hints_addr, 300);
+    if (start == -1)
+        fprintf(stderr, "Could not find hints_table_addr\n");
+    return start;
+}
+
+// DISPLAY-HINT references the current question and chapter globals and
+// the seen-hints table (Shogun, Zork Zero). Returns the last match, or -1.
+static int32_t find_display_hint_globals(uint32_t display_hint_addr) {
+    int32_t start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, display_hint_addr, 300);
+    if (start == -1) {
+        fprintf(stderr, "Error! Could not find hint_quest_global_idx!\n");
+        return -1;
+    }
+    start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
+    if (start == -1) {
+        fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
+        return -1;
+    }
+    start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
+    if (start == -1)
+        fprintf(stderr, "seen_hints_table_addr not found!\n");
+    return start;
+}
+
+// V-DEFINE references the function key and function key name tables
+// (Shogun, Zork Zero). Returns the last match, or -1.
+static int32_t find_function_key_tables(uint32_t v_define_addr) {
+    int32_t start = find_16_bit_values_in_pattern({ 0xd4, 0x2f, WILDCARD, WILDCARD, 0x00, 0x06 }, { &fkeys_table_addr }, v_define_addr, 300);
+    if (start == -1) {
+        fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
+        return -1;
+    }
+    return find_16_bit_values_in_pattern({ 0xf7, 0x8b, 0x0b, WILDCARD, WILDCARD, 0x00, 0x08, 0x66 }, { &fnames_table_addr }, start, 1100);
+}
 
 #pragma mark - Per-game Globals Finders
 
@@ -2088,9 +2176,8 @@ static void find_arthur_globals(void) {
 //                fprintf(stderr, "at.K_DIROUT_TBL = 0x%x\n", at.K_DIROUT_TBL);
             }
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
+            start = find_hints_table(entrypoint.found_at_address);
             if (start != -1) {
-//                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
                 start = find_16_bit_values_in_pattern({ 0xd4, 0x1f, WILDCARD, WILDCARD, 0x02, 0x09, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x00 }, { &at.K_HINT_ITEMS, &at.K_HINT_ITEMS }, start, 300);
                 if (start != -1) {
 //                    fprintf(stderr, "at.K_HINT_ITEMS = 0x%x\n", at.K_HINT_ITEMS);
@@ -2351,33 +2438,7 @@ static void find_shogun_globals(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
-            if (start == -1) {
-                // Fallback for early releases (<= r288) whose V-COLOR uses the
-                // 0x0d store idiom instead of 0x2d. The { &bg, &fg } order is
-                // correct and verified against real binaries: r278/r283 reach
-                // this path and yield fg/bg globals consistent with the primary
-                // 0x2d path of the adjacent later release r288 (fg 0x1c in both).
-                start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
-
-            }
-
-            if (start != -1) {
-//                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
-                int found = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 300);
-
-                if (found == -1) {
-                    found = find_pattern_in_mem({ 0xb0 }, start, 200);
-                }
-                if (found != -1) {
-                    end_of_color_addr = found;
-//                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
-                } else {
-                    fprintf(stderr, "Could not find return from routine V_COLOR!\n");
-                }
-            } else {
-                fprintf(stderr, "Error! Could not find color globals!\n");
-            }
+            start = find_v_color_globals(entrypoint.found_at_address);
             entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
@@ -2454,41 +2515,12 @@ static void find_shogun_globals(void) {
         } else if (entrypoint.fn == after_V_CREDITS && credits_return_address != 0) {
             entrypoint.found_at_address = credits_return_address;
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
-            if (start != -1) {
-//                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
-            }
-
+            start = find_hints_table(entrypoint.found_at_address);
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
-            if (start != -1) {
-//                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
-                start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
-                if (start != -1) {
-                    start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
-                    if (start == -1) {
-                        fprintf(stderr, "seen_hints_table_addr not found!\n");
-                    }
-                } else {
-                    fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
-                }
-            } else {
-                fprintf(stderr, "Error! Could not fin hint_quest_global_idx!\n");
-            }
+            start = find_display_hint_globals(entrypoint.found_at_address);
             entrypoint.found_at_address = 0; // DISPLAY_HINT
         } else if (entrypoint.fn == V_DEFINE && entrypoint.found_at_address != 0) {
-
-            start = find_16_bit_values_in_pattern({ 0xd4, 0x2f, WILDCARD, WILDCARD, 0x00, 0x06 }, { &fkeys_table_addr }, entrypoint.found_at_address, 300);
-
-            if (start != -1) {
-//                fprintf(stderr, "fkeys_table_addr = 0x%x\n", fkeys_table_addr);
-                start = find_16_bit_values_in_pattern({ 0xf7, 0x8b, 0x0b, WILDCARD, WILDCARD, 0x00, 0x08, 0x66 }, { &fnames_table_addr }, start, 1100);
-                if (start != -1) {
-//                    fprintf(stderr, "fnames_table_addr = 0x%x\n", fnames_table_addr);
-                }
-            } else {
-                fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
-            }
+            start = find_function_key_tables(entrypoint.found_at_address);
         } else if (entrypoint.fn == shogun_UPDATE_STATUS_LINE && entrypoint.found_at_address != 0) {
 
             uint8_t dummy;
@@ -2739,26 +2771,7 @@ static void find_zork0_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.fn == V_COLOR && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, entrypoint.found_at_address, 300);
-            if (start == -1) {
-                start = find_globals_in_pattern({ 0x0d, WILDCARD, 0x02, 0x0d, WILDCARD, 0x09 }, { &bg_global_idx, &fg_global_idx }, entrypoint.found_at_address, 300);
-            }
-            if (start != -1) {
-                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
-                int found = find_pattern_in_mem({ 0xb8 }, entrypoint.found_at_address, 300);
-
-                if (found == -1) {
-                    found = find_pattern_in_mem({ 0xb0 }, start, 200);
-                }
-                if (found != -1) {
-                    end_of_color_addr = found;
-                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
-                } else {
-                    fprintf(stderr, "Could not find return from routine V_COLOR!\n");
-                }
-            } else {
-                fprintf(stderr, "Could not find color globals!\n");
-            }
+            start = find_v_color_globals(entrypoint.found_at_address);
             entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == SET_BORDER && entrypoint.found_at_address != 0) {
             zr.SET_BORDER = entrypoint.found_at_address;
@@ -2938,50 +2951,19 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zg.TOWER_CHANGED not found!\n");
             }
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({ 0xf3, 0x3f, 0xff, 0xfd, 0xcd, 0x4f, WILDCARD, WILDCARD, WILDCARD, 0xcf, 0x1f, WILDCARD, WILDCARD }, { &hints_table_addr, &hints_table_addr, &hints_table_addr }, entrypoint.found_at_address, 300);
-            if (start != -1) {
-                fprintf(stderr, "hints_table_addr = 0x%x\n", hints_table_addr);
-            } else {
-                fprintf(stderr, "Could not find hints_table_addr\n");
-            }
+            start = find_hints_table(entrypoint.found_at_address);
             if (memory[entrypoint.found_at_address + 8] == 0x88) {
                 memory[entrypoint.found_at_address + 8] = 0xb0;
             }
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
-            start = find_globals_in_pattern({ 0x0b, 0x54, WILDCARD, 0x01, 0x00 }, { &hint_quest_global_idx }, entrypoint.found_at_address, 300);
-            if (start != -1) {
-                fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
-                start = find_globals_in_pattern({ 0x01, 0x55, WILDCARD, 0x01, 0x00 }, { &hint_chapter_global_idx }, start, 200);
-                if (start != -1) {
-                    fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
-                    start = find_16_bit_values_in_pattern({ 0x01, 0x00, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x00, 0x04 }, { &seen_hints_table_addr }, start, 300);
-                    if (start != -1) {
-                        fprintf(stderr, "seen_hints_table_addr = 0x%x\n", seen_hints_table_addr);
-                    }
-                } else {
-                    fprintf(stderr, "Error! Could not find hint_chapter_global_idx!\n");
-                }
-            } else {
-                fprintf(stderr, "Error! Could not find hint_quest_global_idx!\n");
-            }
+            start = find_display_hint_globals(entrypoint.found_at_address);
             entrypoint.found_at_address = 0; // DISPLAY_HINT
             } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
                    entrypoint.found_at_address != 0) {
             memory[entrypoint.found_at_address] = 0xab;
             memory[entrypoint.found_at_address + 1] = 0x02;
         } else if (entrypoint.fn == V_DEFINE && entrypoint.found_at_address != 0) {
-
-            start = find_16_bit_values_in_pattern({ 0xd4, 0x2f, WILDCARD, WILDCARD, 0x00, 0x06 }, { &fkeys_table_addr }, entrypoint.found_at_address, 300);
-
-            if (start != -1) {
-                fprintf(stderr, "fkeys_table_addr = 0x%x\n", fkeys_table_addr);
-                start = find_16_bit_values_in_pattern({ 0xf7, 0x8b, 0x0b, WILDCARD, WILDCARD, 0x00, 0x08, 0x66 }, { &fnames_table_addr }, start, 1100);
-                if (start != -1) {
-                    fprintf(stderr, "fnames_table_addr = 0x%x\n", fnames_table_addr);
-                }
-            } else {
-                fprintf(stderr, "Error! Could not find fkeys_table_addr!\n");
-            }
+            start = find_function_key_tables(entrypoint.found_at_address);
         } else if (entrypoint.fn == V_REFRESH && entrypoint.found_at_address != 0) {
             zr.V_REFRESH = entrypoint.found_at_address - 1;
             start = find_globals_in_pattern({ 0x01, 0xc1, 0x8f, WILDCARD }, { &zg.CURRENT_SPLIT }, entrypoint.found_at_address, 200);
@@ -3398,6 +3380,11 @@ static std::unordered_map<uint32_t, EntryPoint *> entrypoint_map;
 static uint32_t lowest_entrypoint = UINT32_MAX;
 static uint32_t highest_entrypoint = 0;
 
+// One bit per address in [lowest_entrypoint, highest_entrypoint], set
+// where an entrypoint lives. The range covers most of the code area, so
+// without this nearly every instruction would cost a hash lookup.
+static std::vector<bool> entrypoint_bits;
+
 // One-time entrypoint discovery, called shortly after the story file
 // has been loaded into memory. Walks the master `entrypoints` table in
 // order, locates each row's pattern in dynamic memory, stubs the
@@ -3494,6 +3481,9 @@ void find_entrypoints(void) {
         find_zork0_globals();
     }
 
+    entrypoint_map.clear();
+    lowest_entrypoint = UINT32_MAX;
+    highest_entrypoint = 0;
     for (auto &entrypoint : entrypoints) {
         if (entrypoint.found_at_address != 0) {
             entrypoint_map[entrypoint.found_at_address] = &entrypoint;
@@ -3503,14 +3493,24 @@ void find_entrypoints(void) {
                 highest_entrypoint = entrypoint.found_at_address;
         }
     }
+
+    entrypoint_bits.clear();
+    if (!entrypoint_map.empty()) {
+        entrypoint_bits.resize(highest_entrypoint - lowest_entrypoint + 1);
+        for (const auto &pair : entrypoint_map)
+            entrypoint_bits[pair.first - lowest_entrypoint] = true;
+    }
 }
 
 // Hot-path dispatcher called from the Z-machine interpreter on each
 // instruction fetch. If the current PC matches a registered entrypoint,
-// invokes the corresponding C++ replacement. The cheap range check
-// keeps the overhead negligible when no entrypoint matches.
+// invokes the corresponding C++ replacement. The range check and bitmap
+// keep the overhead negligible when no entrypoint matches; the hash
+// lookup only runs on an actual hit.
 void check_entrypoints(uint32_t pc) {
     if (pc > highest_entrypoint || pc < lowest_entrypoint)
+        return;
+    if (!entrypoint_bits[pc - lowest_entrypoint])
         return;
     auto found = entrypoint_map.find(pc);
 
