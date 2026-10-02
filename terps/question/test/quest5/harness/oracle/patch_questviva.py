@@ -443,3 +443,44 @@ elif enter_anchor in p2text:
     print("[patch] patched: V4Game.Part2.cs -> QvhAwaitingEnter")
 else:
     sys.exit("[patch] SendCommand(string) not found (upstream changed?)")
+
+# 15. Extended attribute loaders must store under the RESOLVED attribute name.
+# An attribute whose name is not a bare XML element name is written wrapped,
+# `<attr name="pov_alt" type="stringlist"><value>…</value></attr>`. Beta.57's
+# DefaultXmlLoader resolves the name from the wrapper, but then the list and
+# dictionary loaders store the value under `reader.Name` -- which is literally
+# "attr" -- so the real attribute is never set. Quest 6's editor wraps every
+# underscored name this way, so an ASL 600 re-save hits it on the first frame:
+# "Sir Loin - Coming of Age (ASL 600 build)" has no game.pov_alt list, and
+# InitPOV's `list add (newPOV.pov_alt, …)` fails with "Unrecognised list type".
+# Upstream fixed it in v6.0.0-rc.4 by passing the resolved name into Load();
+# this is the same change. (Its files are CRLF, so newlines are kept as-is.)
+loaders = engine / "GameLoader"
+ext = loaders / "ExtendedAttributeLoaders.cs"
+elem = loaders / "ElementLoaders.cs"
+ext_text = ext.read_text(encoding="utf-8-sig", newline="")
+elem_text = elem.read_text(encoding="utf-8-sig", newline="")
+if "string attributeName" in ext_text:
+    print("[patch] already patched: ExtendedAttributeLoaders.cs -> resolved attribute name")
+else:
+    sig_old = "void Load(XmlReader reader, Element current);"
+    over_old = "public override void Load(XmlReader reader, Element current)"
+    call_old = "extendedAttributeLoader.Load(reader, current);"
+    if (ext_text.count(sig_old) != 2 or ext_text.count(over_old) != 6
+            or elem_text.count(call_old) != 1):
+        sys.exit("[patch] extended attribute loader signatures not found (upstream changed?)")
+    ext_text = ext_text.replace(sig_old,
+        "void Load(XmlReader reader, Element current, string attributeName);")
+    ext_text = ext_text.replace(over_old,
+        "public override void Load(XmlReader reader, Element current, string attributeName)")
+    ext_text = ext_text.replace("AddScriptDictionary(currentXmlElementName, result)",
+                                "AddScriptDictionary(attributeName, result)")
+    ext_text = ext_text.replace("current.Fields.Set(reader.Name, ",
+                                "current.Fields.Set(attributeName, ")
+    ext_text = ext_text.replace("AddObjectDictionary(reader.Name, result)",
+                                "AddObjectDictionary(attributeName, result)")
+    elem_text = elem_text.replace(call_old,
+        "extendedAttributeLoader.Load(reader, current, attribute);")
+    ext.write_text(ext_text, encoding="utf-8-sig", newline="")
+    elem.write_text(elem_text, encoding="utf-8-sig", newline="")
+    print("[patch] patched: ExtendedAttributeLoaders.cs -> resolved attribute name")

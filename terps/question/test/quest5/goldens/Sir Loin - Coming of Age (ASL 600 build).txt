@@ -1,0 +1,1903 @@
+Sir Loin: Coming of Age
+
+by CJ592  (updated by DavyB)
+
+Sound effects have been switched off. Type sound to switch them on again.
+
+IN THE BEGINNING...
+
+A long, long time ago, somewhere between the dark ages and the light ages...in some sort of dawny age... Come-Here-A-Lot Castle sat proudly on English soil, somewhere near Bognor Regis. That was where King Arnold reigned, aided by his loyal and self-righteous Knights of the Brown Table.
+
+Many people longed to become Knights of the Brown Table. One such person was Loin, a small orphan boy brought to the castle by the kindly Quartermaster, Stan.
+
+As Loin lies sleeping in the hay in the Royal Stable, he dreams that one day he will wield the sword of the Knights and serve his King.
+
+And today may just be the day...
+
+...or maybe tomorrow?
+
+Day One: Helping the King
+
+You awake in the stable, the place where you have lived since moving into the castle.
+
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see a scroll, some hay, a trough, a nosebag and a mule.
+
+[Type help for guidance]
+
+> take scroll
+
+> take scroll
+You pick it up.
+> open nosebag
+
+> open nosebag
+You open the nosebag and find an old carrot, which you pick up.
+> east
+
+> east
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see Stan and a noticeboard.
+> give scroll to stan
+
+> give scroll to stan
+"Ah good, you got the note," says Stan. "Now listen carefully, the King is in need of some wine. You have to get grapes from the garden, take them to the wine press, press them, and fill this jug full of wine. Then, bring it back to me." He hands you the jug.
+> west
+
+> west
+You are standing in a large garden. There is lush vegetation around you and a large vine is growing up one of the walls that surrounds the secluded area. The only way out is a path to the east.
+
+You can see a gnome and a vine.
+> x gnome
+
+> x gnome
+The gnome is made of wood and painted quite badly.
+It is holding a fishing rod.
+> take fishing rod
+
+> take fishing rod
+On further inspection you notice that the rod is loose. You pull it hard and soon it comes free.
+> use fishing rod on vine
+
+> use fishing rod on vine
+You poke the vine with the rod and manage to dislodge the only bunch of grapes available. Acting quickly, you catch the bunch on its way down.
+> east
+
+> east
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see Stan and a noticeboard.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> west
+
+> west
+You are in a large barn full of machinery. The only exit is to the east.
+
+You can see a press.
+> x press
+
+> x press
+This is a machine that will grind, mash or pulp anything that you put into it. Sticking out of the side is a large pole with a harness attached. The pole is connected to a grinding wheel, which obviously does the pressing. Underneath is a large basin to collect what is produced.
+> use grapes on press
+
+> use grapes on press
+You put the grapes into the press and they disappear from sight.
+> x harness
+
+> x harness
+The harness is attached to the press by a large pole. It appears that you have to tie an animal to the harness to get the press to work.
+With the harness is a saddle.
+> take saddle
+
+> take saddle
+You pick it up.
+> east
+
+> east
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> west
+
+> west
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see some hay, a trough, a nosebag and a mule.
+> use saddle on mule
+
+> use saddle on mule
+You place the saddle on the mule. You should be able to mount it now.
+> mount mule
+
+> mount mule
+You ease yourself into the saddle. You are now on the mule.
+> use carrot on fishing rod
+
+> use carrot on fishing rod
+You push the end of the rod into the carrot. You now have a rod with a carrot stuck on it.
+> use fishing rod on mule
+
+> use fishing rod on mule
+You wave the rod in front of the mule. It sees the carrot and immediately starts to move.
+
+You manage to direct the mule towards the Barn. Once there, you dismount, attach the mule to the harness, and give it the carrot as a reward.
+
+You are in a large barn full of machinery. The only exit is to the east.
+
+You can see a press (with a basin, a large pole and a grinding wheel) and a mule (on which there is a saddle and a harness).
+> put jug in basin
+
+> put jug in basin
+You put the jug into the basin to collect whatever comes out of the press.
+> use fishing rod on mule
+
+> use fishing rod on mule
+You tap the mule lightly with the rod and it starts to move. As it is does so, the grinding wheel turns. The mule pulls for few minutes and then stops.
+
+The press grinds the grapes and produces a fine red wine that drips into the jug below.
+> take jug
+
+> take jug
+You pick it up.
+> east
+
+> east
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see Stan and a noticeboard.
+> give jug to stan
+
+> give jug to stan
+"Well done, that is great," he says. "The King needs to see you. He is in the throne room."
+
+With that, Stan walks off.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> take vase
+
+> take vase
+You move the vase and find a strange iron key, which you pick up.
+> north
+
+> north
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> speak to king
+
+> speak to king
+"Ah Loin, Thank you for the wine. I have a favour to ask of you. I am in a bit of a pickle. Tonight I am hosting a banquet for several guests, and they will be expecting me to draw Skelibar from the stone, but I haven't been able to do that for ages."
+
+"I need you to fix it for me to be able to do it. What you will need to do is
+1) Hide the stone and sword that is in the courtyard
+2) Create a fake stone and sword that I can use."
+
+"Can you do this for me?"
+
+"Sure," you say." I'll give it a go."
+
+"Go see my forger if you need to," he adds.
+> west
+
+> west
+You are in a small games room filled with toys and games. The only exit is to the east. The walls are painted with colourful cartoon patterns and a small window lets in a tiny bit of light.
+
+You can see Sir Halibut (sitting on top of a toybox).
+> speak to sir halibut
+
+> speak to sir halibut
+"I have lost the key to this toybox," he says. "I have searched everywhere in the castle, but I am grounded so I can't go outside."
+
+You say "Yes."
+
+"Great! Here, borrow these, they will help you." Halibut gives you a pair of multicoloured sunglasses.
+
+"The glasses are magic. They help you find hidden things if you use in them in certain locations. All you need to do is go outside and use them to find the hidden key. Then bring it back to me."
+> east
+
+> east
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> east
+
+> east
+You are in the study. The only exit is to the west. It seems pretty bare with just a few tapestries hanging on the walls...though you are sure you can hear something odd!
+
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+As you study the study you are surprised at what you find. There is someone in the corner under a blanket.
+
+You lift the blanket and see a strange old man.
+
+"No," he screams, "I was hiding under that."
+
+You recognise him as Marlon the Wizard!
+> speak to marlon the wizard
+
+> speak to marlon the wizard
+"I was hiding under the blanket because of something stupid I have done. I was looking after the Queen's ring when suddenly it disappeared. I don't know where it went, but if I don't find it the King will kill me."
+
+You say "Yes."
+
+"Great! If you find the ring, bring it back to me and as a reward I will lend you my blanket."
+> west
+
+> west
+You take off the sunglasses as you walk out of the study.
+
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> south
+
+> south
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> west
+
+> west
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace and a cabinet.
+> west
+
+> west
+You are in the kitchen. There are many cupboards here and a huge stove and sink. The only exit is east to the Dining Room.
+
+You can see the Chef and cupboards.
+> speak to chef
+
+> speak to chef
+"I am very busy. I don't have time to talk, as I have to make some cherry pies for the Queen."
+
+You say "Yes."
+
+"Great. Take this bowl of cherries and make some cherry puree, there's a good chap!"
+
+"If you do this for me, I will even let you have one of the cherry pies."
+> east
+
+> east
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace and a cabinet.
+> east
+
+> east
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> west
+
+> west
+You are in a large barn full of machinery. The only exit is to the east.
+
+You can see a press (with a basin, a large pole and a grinding wheel) and a mule (on which there is a saddle and a harness).
+> use cherries on press
+
+> use cherries on press
+You put the cherries into the press and they disappear from sight.
+> put bowl in basin
+
+> put bowl in basin
+You put the bowl into the basin to collect whatever comes out of the press.
+> use fishing rod on mule
+
+> use fishing rod on mule
+You tap the mule lightly with the rod and it starts to move. As it is does so, the grinding wheel turns. The mule pulls for few minutes and then stops.
+
+The press grinds the cherries into a fine puree that falls into the bowl below.
+> take bowl
+
+> take bowl
+You pick it up.
+> east
+
+> east
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> west
+
+> west
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace and a cabinet.
+> west
+
+> west
+You are in the kitchen. There are many cupboards here and a huge stove and sink. The only exit is east to the Dining Room.
+
+You can see the Chef and cupboards.
+> give bowl to chef
+
+> give bowl to chef
+"Thanks," she says, "Take this." She gives you a cherry pie, then disappears.
+> eat pie
+
+> eat pie
+You bite into the cherry pie. It is delicious.
+
+But then your teeth find something hard.
+
+Spitting it out you find it is a ring!
+> take ring
+
+> take ring
+You already have it.
+> open cupboards
+
+> open cupboards
+You search the kitchen and find a bag of dried potato and a bag of dried peas, both of which look useful so you pick them up.
+> east
+
+> east
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace and a cabinet.
+> east
+
+> east
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> north
+
+> north
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> east
+
+> east
+You are in the study. The only exit is to the west. It seems pretty bare with just a few tapestries hanging on the walls.
+
+You can see Marlon the Wizard.
+> give ring to marlon the wizard
+
+> give ring to marlon the wizard
+You hand the ring to Marlon.
+
+"Excellent. I knew I could trust you. Now I must go."
+
+"Feel free to take the blanket. Although I will need it back later."
+> west
+
+> west
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> south
+
+> south
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> west
+
+> west
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see some hay, a trough and a nosebag.
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+You notice there is something hidden in the hay. It is a small red key, which you pick up.
+> east
+
+> east
+You take off the sunglasses as you walk out of the stable.
+
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> north
+
+> north
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> west
+
+> west
+You are in a small games room filled with toys and games. The only exit is to the east. The walls are painted with colourful cartoon patterns and a small window lets in a tiny bit of light.
+
+You can see Sir Halibut (sitting on top of a toybox).
+> give small red key to sir halibut
+
+> give small red key to sir halibut
+You give the key to Sir Halibut. He gets excited and opens up the toybox he was sitting on. He pulls out something you can't see and skips off merrily.
+> open toybox
+
+> open toybox
+You search through the toybox and find an interesting pea shooter and wooden sword, which you pick up.
+> east
+
+> east
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> east
+
+> east
+You are in the study. The only exit is to the west. It seems pretty bare with just a few tapestries hanging on the walls.
+
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+With the glasses you can see the blanket.
+> take blanket
+
+> take blanket
+You pick it up.
+> west
+
+> west
+You take off the sunglasses as you walk out of the study.
+
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> south
+
+> south
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> east
+
+> east
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> south
+
+> south
+You turn the iron key in the lock until you hear the expected 'click'.
+
+You open the gate and enter.
+
+You are in the cemetery. It holds the graves of many nobles and lords who have lived and worked in the castle. North leads back to the lawn.
+
+You can see Queen Winalot and a lot of graves.
+> speak to queen
+
+> speak to queen
+"Oh hello," she replies. "I didn't see you there as I was far too busy doing the rubbings. You just put the paper on the stone and rub, and you get an imprint of the stone."
+
+You say "Yes."
+
+"Great. I have this spare brass rubbing kit. You don't have to use it on just brass you know. Give it a go."
+> north
+
+> north
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> west
+
+> west
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone.
+> x stone
+
+> x stone
+The stone in the courtyard is famous. It holds the sword Skelibar. King Arnold was supposed to have lifted it from the stone, which made him king. However, you wonder why it is still there.
+> use brass rubbing kit on sword
+
+> use brass rubbing kit on sword
+You place the paper over the sword and rub.
+
+You get a very clear and detailed copy of Skelibar.
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> east
+
+> east
+You are in a large office/shed. This is where the King's forger works. Your only exit is back out to the west.
+
+You can see Sir Dwane, black paint, white paint and a stool.
+> take black paint
+
+> take black paint
+You pick it up.
+> take white paint
+
+> take white paint
+You pick it up.
+> give wooden sword to sir dwane
+
+> give wooden sword to sir dwane
+"Perfect," he says.
+
+"Now all I need is a design to work from."
+> give copy of skelibar to sir dwane
+
+> give copy of skelibar to sir dwane
+"Excellent," says Sir Dwane. "This is exactly the detail I need to make a fake sword."
+
+With the wooden sword and the rubbing of the real sword, Sir Dwane is able to create a magnificent fake Skelibar for you.
+> west
+
+> west
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> east
+
+> east
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> in
+
+> in
+You hold your nose and jump in.
+You are in the pond. It's deeper than it looks and you are just about staying afloat. You can go out or dive to the bottom.
+
+You can see pond water.
+> use bag of potato on pond
+
+> use bag of potato on pond
+You dip the bag into the pond and soak the dried potato. It instantly turns into a bag of fluffy mash!
+> out
+
+> out
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> west
+
+> west
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> west
+
+> west
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see some hay, a trough and a nosebag.
+> use black paint on trough
+
+> use black paint on trough
+You put the black paint into the trough
+.
+> use white paint on trough
+
+> use white paint on trough
+You put the white paint into the trough
+, and mix it with the black paint to create some
+grey paint.
+> use bag of potato on trough
+
+> use bag of potato on trough
+You put the bag of potato into the trough
+, and mix everything together to create a grey sludge. When this dries, you realise you have created a fake stone very similar to the one in the courtyard!
+> use fake skelibar on fake stone
+
+> use fake skelibar on fake stone
+You put the fake Skelibar into the grey mash.
+
+Well done! You have created a very convincing fake sword-in-the-stone. You can't wait to give it to the King.
+> east
+
+> east
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+You can now see the blanket.
+> use blanket on stone
+
+> use blanket on stone
+Please choose which 'stone' you mean:
+1: stone
+2: fake sword-in-the-stone
+> 1
+You drape the blanket over the stone with Skelibar in it. On removing your glasses, all three disappear!
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> north
+
+> north
+You are in a very ornate Throne Room. There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush fabric. South leads back to the Grand Hall. The games room is to the west and the study to the east.
+
+You can see King Arnold and a throne.
+> give fake sword-in-the-stone to king
+
+> give fake sword-in-the-stone to king
+"That is marvellous," the King says. "You have managed to create a very convincing sword-in-the-stone replica with a sword that comes out easily...and hidden the original!"
+
+"Let's hope our ruse works," he says with a wink, and leaves the room.
+
+The night goes very well for the King, and you are glad you were able to help.
+
+Day Two: The King's Challenge
+The next morning you wake, once again, in the stable.
+
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see some hay, a trough and a nosebag.
+> east
+
+> east
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> speak to stan
+
+> speak to stan
+"Ah, Loin," Stan says to you. "The King was very pleased with your work yesterday and has given you the opportunity to become a Knight of the Brown Table. All you have to do is..."
+
+1) Get yourself a helmet
+2) Get yourself a shield
+3) Rescue a princess (we will need proof!)
+
+"Show me that you have all that and we shall speak to the King. Now get going lad!"
+
+"Oh, and you may need this." Stan hands you a pass.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+You can see the blanket hiding the sword in the stone.
+> take blanket
+
+> take blanket
+You take the blanket back.
+> north
+
+> north
+You take off the sunglasses as you walk out of the courtyard.
+
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> west
+
+> west
+You are standing in a large garden. There is lush vegetation around you and a large vine is growing up one of the walls that surrounds the secluded area. The only way out is a path to the east.
+
+You can see a gnome, a vine and a mule (on which there is a harness).
+> wear glasses
+
+> wear glasses
+You put on the glasses and look around.
+
+You can now see the blanket.
+> wear blanket
+
+> wear blanket
+You put it on, making you invisible!
+> take mule
+
+> take mule
+As you are hidden under the blanket, you manage to approach the mule. Grabbing the harness, it starts to stuggle but after a while you manage to lead it back to the stable.
+
+The Royal Stable is a large wooden shed, big enough to hold five stalls. However, there are no horses here at the moment. The only exit is east to the courtyard.
+
+You can see some hay, a trough, a nosebag and a mule (on which there is a harness).
+
+As you tie up the mule, a small part of the harness falls off. It is a strap.
+> take strap
+
+> take strap
+You pick it up.
+> east
+
+> east
+You take off the sunglasses as you walk out of the stable.
+
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> south
+
+> south
+The portcullis is down blocking your way out of the castle.
+> west
+
+> west
+You are in a large barn full of machinery. The only exit is to the east.
+
+You can see a broken press.
+> x broken press
+
+> x broken press
+The press, which you spent so much time working on yesterday, is now lying in pieces on the floor. You can't help but wonder how it happened.
+Among the wreakage you see scrap metal and a basin.
+> take basin
+
+> take basin
+You pick it up.
+> take scrap
+
+> take scrap
+You can't take it, it is too heavy.
+> use strap on basin
+
+> use strap on basin
+You attach the strap to the basin. You have made quite a nice helmet for yourself.
+> wear helmet
+
+> wear helmet
+You put it on.
+> i
+
+> i
+You are carrying a small notebook, a fishing rod, a bag of dried peas, a pea shooter, a brass rubbing kit, a pass, a pair of sunglasses and a helmet (worn) (attached to which is a strap).
+> east
+
+> east
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> give pass to guard
+
+> give pass to guard
+You hand the pass to the guard.
+
+"Okay, you are free to go outside," he replies.
+
+With that, he opens the portcullis. You can now leave the castle.
+> south
+
+> south
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> east
+
+> east
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> south
+
+> south
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen. A path leads north.
+
+You can see a climbing frame and Patch the Dog.
+> throw fishing rod
+
+> throw fishing rod
+You throw the rod and Patch runs off very excited.
+
+Moments later, he runs back to you with the rod in his mouth.
+
+Patch looks at you even more excitedly. I think he wants to do it again.
+> take fishing rod
+
+> take fishing rod
+You pick it up.
+> throw fishing rod
+
+> throw fishing rod
+You throw the rod again and Patch runs off to fetch it. This time, however, he doesn't bring the rod back to you, but a satchel, which you pick up.
+> north
+
+> north
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> west
+
+> west
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> south
+
+> south
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> southeast
+
+> southeast
+You are in the Pet Grooming Centre. It is really just a wooden hut containing several cages. There is a strong smell in here. There is only one exit.
+
+You can see Woodhouse the Barbarian (holding a tortoise) and cages.
+> x cages
+
+> x cages
+The cages are immaculately clean.
+You notice something lying in one of them. It is a bar of carbolic soap.
+> take soap
+
+> take soap
+You pick it up.
+> speak to woodhouse
+
+> speak to woodhouse
+"Don't bother me now," Woodhouse says. "That nasty little dog has run off with my satchel!"
+> give satchel to woodhouse
+
+> give satchel to woodhouse
+"Thank you," Woodhouse says. "Here, take this. Maybe you can control that wretched dog!" He hands you a whistle.
+
+He then opens the satchel and looks even more dismayed.
+> northwest
+
+> northwest
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> west
+
+> west
+You are in a small orchard. It looks as if fruit is about to be gathered but no one is picking it at the moment. A path leads back to the east.
+
+You can see Sir Lankylegs (carrying a kitten), a lemon tree and a crate.
+> open crate
+
+> open crate
+You open the crate but don't see any lemons. You do, however, find a sticky label, which you pick up.
+> take sticky label
+
+> take sticky label
+You already have it.
+> speak to sir lankylegs
+
+> speak to sir lankylegs
+"I have just got my new kitten. Isn't she beautiful!"
+> use pea shooter on kitten
+
+> use pea shooter on kitten
+You have an idea. You start blowing peas at the kitten in the tree. Each one seems to hit accurately and eventually the kitten gets so irritated it comes back down. You notice that you have used all your peas.
+
+Lankylegs scoops the kitten back into his arms.
+
+"Thank you," he says. "You shall have the honour of naming my new kitten. Just say her name."
+> princess
+
+> princess
+"Yippee! That's a great name for my cat. Princess!"
+
+And with that, he rushes off in the direction of the castle clutching his kitten. He is known to be very friendly with the King and Queen, especially the Queen!
+
+You notice that he has dropped something. It is a large brass key, which you pick up.
+> east
+
+> east
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> south
+
+> south
+The casino is small and really only has a fruit machine. Behind a counter stands a croupier. The only exit is to the north.
+
+You can see a fruit machine (on which there is a handle) and a croupier.
+> speak to croupier
+
+> speak to croupier
+"If you can get three lemons on the fruit machine, I will give you a lemon."
+> use sticky label on fruit machine
+
+> use sticky label on fruit machine
+You stick the sticky label on the fruit machine over the place where the third disc spins, and pull the handle.
+
+Now it looks like all the discs show lemons!
+
+The croupier, who cannot see all that well from behind the counter, growls at you but reluctantly gives you the lemon.
+
+Perhaps you should leave before your fraud is detected!
+> wait
+
+> wait
+Time passes.
+> north
+
+> north
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> southwest
+
+> southwest
+There is a strong smell of molten metal and smoke in the Blacksmith's shed. There are many forged weapons and other metal items adorning the walls. In the centre of the shed there is a large furnace. There is only one exit.
+
+You can see a box of matches and a furnace.
+> take matches
+
+> take matches
+You pick them up.
+> northeast
+
+> northeast
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> north
+
+> north
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> north
+
+> north
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> west
+
+> west
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> west
+
+> west
+You are in the kitchen. There are many cupboards here and a huge stove and sink. The only exit is east to the Dining Room.
+
+You can see cupboards and Queen Winalot.
+> speak to queen
+
+> speak to queen
+The Queen is grumbling to herself. "There is no way I can do all this laundry in this tiny sink." She then spots you and beckons you over...
+
+You say "Yes."
+
+"Great! Take this laundry and try to find a place to get it washed and dried. If you do that I will reward you"
+> east
+
+> east
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> east
+
+> east
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> east
+
+> east
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> use dirty laundry on pond
+
+> use dirty laundry on pond
+You wash the dirty laundry in the water using the soap. Eventually you get some nice clean, but very wet laundry.
+> west
+
+> west
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> south
+
+> south
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> east
+
+> east
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> south
+
+> south
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen. A path leads north.
+
+You can see a climbing frame and Patch the Dog.
+> use wet laundry on climbing frame
+
+> use wet laundry on climbing frame
+You spread the wet laundry out over the climbing frame. It should dry well there.
+> north
+
+> north
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> up
+
+> up
+You are sitting on the saddle of the Wind Maker. From here you should be able to operate the machine. You can use the ladder to go down again.
+
+You can see a Wind Maker (on which you see pedals, a saddle and a ladder).
+> use pedals
+
+> use pedals
+You sit in the Wind Maker seat and start to pedal.
+
+Eventually the fan turns and starts to create wind, blowing to the south.
+
+The wind dries the laundry hanging on the climbing frame.
+> down
+
+> down
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> south
+
+> south
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen. A path leads north.
+
+You can see a climbing frame (on which there is dry laundry) and Patch the Dog.
+> take dry laundry
+
+> take dry laundry
+You pick it up.
+> north
+
+> north
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> west
+
+> west
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> north
+
+> north
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> west
+
+> west
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> west
+
+> west
+You are in the kitchen. There are many cupboards here and a huge stove and sink. The only exit is east to the Dining Room.
+
+You can see cupboards and Queen Winalot.
+> give dry laundry to queen
+
+> give dry laundry to queen
+You give the dry laundry to the Queen. She seems extremely pleased.
+
+"Here take this," she says, and hands you one of the clean sheets.
+
+With that, the Queen rushes off.
+> east
+
+> east
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> give brass rubbing kit to marlon
+
+> give brass rubbing kit to marlon
+You give the brass rubbing kit to Marlon. After all it does contain crayons and paper.
+
+Marlon scribbles a note and passes it to you. He then takes his blanket back, snuggles up to it, and falls asleep.
+> read note
+
+> read note
+The note says:
+After a heavy night, I have lost my voice.
+Will you make me a honey and lemon drink?
+That's honey and lemon in a cup heated up.
+Then bring it back to me.
+
+If you do this I will give you some magic.
+As a demonstration of his magical powers, Marlon has made this a self-destruct note...it has just disappeared in a puff of smoke! Luckily you had already added the details to your notebook.
+> i
+
+> i
+You are carrying a small notebook, a pea shooter, a pair of sunglasses, a helmet (worn) (attached to which is a strap), a whistle, a large brass key, a lemon, a box of matches and a sheet.
+> l
+
+> l
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> east
+
+> east
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> unlock door
+
+> unlock door
+You push the large brass key into the lock and turn it until you hear the lock release.
+You open the door and enter the room.
+
+You are in the Queen's private chamber. It is decked out like a shrine to all things aquatic. The only exit is to the west.
+
+You can see an old sea chest, a fish tank (where you can see a sign) and a diving suit.
+> east
+
+> east
+There is nothing of interest in that direction.
+> open chest
+
+> open chest
+You open the old sea chest and find a diving mask, which you pick up.
+> x diving suit
+
+> x diving suit
+The diving suit is in the corner of the room.
+It is being held up by a skeleton.
+> take skeleton
+
+> take skeleton
+You pick it up and throw it over your shoulder.
+> west
+
+> west
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> east
+
+> east
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> use pea shooter on diving mask
+
+> use pea shooter on diving mask
+You fix the pea shooter onto the diving mask. That should do quite well as a snorkel pipe.
+> wear diving mask
+
+> wear diving mask
+You put it on.
+> in
+
+> in
+You hold your nose and jump in.
+You are in the pond. It's deeper than it looks and you are just about staying afloat. You can go out or dive to the bottom.
+
+You can see pond water.
+> dive
+
+> dive
+You dive under the water in the pond, wearing your mask. Swimming aound you feel a metal object on the pond bed. You pick it up.
+
+As you return to the surface, the improvised diving mask is knocked off and sinks to the bottom of the pond. You won't be going diving again!
+> out
+
+> out
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> x metal object
+
+> x metal object
+It is a small crank handle. It should fit into a machine somewhere.
+> west
+
+> west
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> south
+
+> south
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a woodpile.
+> use matches on woodpile
+
+> use matches on woodpile
+You strike one of your matches and use it on the woodpile.
+The bonfire doesn't seem to go up very well. Instead, it starts to smoke violently.
+> east
+
+> east
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> up
+
+> up
+You are sitting on the saddle of the Wind Maker. From here you should be able to operate the machine. You can use the ladder to go down again.
+
+You can see a Wind Maker (on which you see pedals, a saddle and a ladder).
+> x saddle
+
+> x saddle
+It's where you are sitting.
+Below the saddle is a socket.
+> put crank handle in socket
+
+> put crank handle in socket
+You fit the handle into the socket. It clicks firmly into place.
+> turn crank handle
+
+> turn crank handle
+You turn the handle...and the machine makes a quarter turn in a clockwise direction.
+> use pedals
+
+> use pedals
+You sit in the Wind Maker seat and start to pedal.
+
+Eventually the fan turns and starts to create wind, blowing to the west.
+
+As you pedal, the wind causes the smoke from the lit bonfire to blow towards the hive.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> down
+
+> down
+You are in a small clearing which houses a large wind generating machine. Paths lead south and west.
+
+You can see a Wind Maker.
+> west
+
+> west
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a bonfire.
+> west
+
+> west
+The Honey Garden is a small wooded grove. The only exit is a path to the east.
+
+You can see a large hive.
+> search hive
+
+> search hive
+You search the hive and find a honeycomb and some beeswax, which you pick up.
+> east
+
+> east
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a bonfire.
+> south
+
+> south
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> southeast
+
+> southeast
+You are in the Pet Grooming Centre. It is really just a wooden hut containing several cages. There is a strong smell in here. There is only one exit.
+
+You can see Woodhouse the Barbarian (holding a tortoise) and cages.
+> give beeswax to woodhouse
+
+> give beeswax to woodhouse
+You give the beeswax to Woodhouse. He thanks you and finishes off polishing the tortoise.
+
+My, it is looking pretty now.
+
+After he is finished he hands it to you.
+
+"Do me a favour and return this to its home."
+> northwest
+
+> northwest
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> north
+
+> north
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a bonfire.
+> north
+
+> north
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> north
+
+> north
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> east
+
+> east
+You are in the Queen's private chamber. It is decked out like a shrine to all things aquatic. The only exit is to the west.
+
+You can see an old sea chest, a fish tank (where you can see a sign) and a diving suit.
+> put tortoise in fish tank
+
+> put tortoise in fish tank
+You place the tortoise back into its tank.
+
+As you do, you notice something glistening in the tank. It is a small silver key, which you pick up.
+> west
+
+> west
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> west
+
+> west
+The dining room is long and contains a large table. Around the table there are many chairs. It is the legendary Brown Table! West leads to the kitchen and east back to the Grand Hall.
+
+You can see a dining table, a fireplace, a cabinet and Marlon the Wizard.
+> unlock cabinet
+
+> unlock cabinet
+With mounting excitement, you unlock the cabinet.
+
+The door is rather stiff, but with a sharp pull you open it.
+
+Disappointingly, all you find inside is a small metal cup, but you take it anyway.
+> open cabinet
+
+> open cabinet
+It is already open.
+> use honeycomb on cup
+
+> use honeycomb on cup
+You pour honey from the honeycomb into the cup.
+> use lemon on cup
+
+> use lemon on cup
+You squeeze some lemon juice into the cup.
+The honey and lemon mix to make a soothing drink. All you need to do now is heat it up.
+> use matches on fireplace
+
+> use matches on fireplace
+You strike one of your matches and use it on the fireplace.
+The fire catches and soon there is a pleasant glow from it.
+> use cup on fireplace
+
+> use cup on fireplace
+You hold the cup over the fire and watch as the honey and lemon drink heats up. Soon you have a nice hot drink, the one that Marlon wanted!
+> give cup to marlon
+
+> give cup to marlon
+The smell has brought Marlon round. You give him the hot drink and he downs it eagerly.
+
+After a while he lets out a contented sigh. "That's better, I've got my voice back now."
+
+"Here is some magic as a reward," he says, as he hands you a piece of paper from his robe.
+
+With that, Marlon disappears... literally!
+> east
+
+> east
+You are in the Grand Hall of Come-Here-A-Lot Castle. It is adorned with various pieces of art. The Throne Room is to the north, and the Dining Room to the west. East is the Queen's Chamber, with south leading back outside.
+
+You can see a painting, a statue, a vase and the door to the Queen's Chamber.
+> south
+
+> south
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> east
+
+> east
+You are in a large office/shed. This is where the King's forger works. Your only exit is back out to the west.
+
+You can see Sir Dwane and a stool.
+> give sheet to sir dwane
+
+> give sheet to sir dwane
+You give the sheet to Sir Dwane. "This is perfect," he says.
+"Now what kind of image do you want designed on it?"
+> give skeleton to sir dwane
+
+> give skeleton to sir dwane
+You give the skeleton to Sir Dwane. "This is excellent. It will make a very scary image."
+He creates a ghostly skeleton image on the sheet and returns it to you.
+> west
+
+> west
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> east
+
+> east
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> south
+
+> south
+You are in the cemetery. It holds the graves of many nobles and lords who have lived and worked in the castle. North leads back to the lawn.
+
+You can see a lot of graves and Sir Halibut (flying a kite).
+> wear ghost costume
+
+> wear ghost costume
+You put on the ghost costume...
+...and creep up behind Sir Halibut.
+
+...
+
+...
+
+...
+
+BOO!
+
+"AAAAAAAAAAARGHHHHHHH," he screams and runs off, leaving his kite behind.
+> take kite
+
+> take kite
+You pick it up.
+> north
+
+> north
+The ghost costume catches on the gate on the way out of the cemetery and is badly torn. You decide to throw it away before the Queen sees what you have done to her sheet!
+
+You are in a small lawned area, with a pond in the middle. To the south is an iron gate leading to the Royal Cemetery. The keep is to the west.
+
+You can see the Royal Pond and an iron gate.
+> west
+
+> west
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> south
+
+> south
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> south
+
+> south
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> east
+
+> east
+You are in a large office/shed. This is where the King's forger works. Your only exit is back out to the west.
+
+You can see Sir Dwane and a stool.
+> give kite to sir dwane
+
+> give kite to sir dwane
+You give the kite to Sir Dwane and he seems delighted. "With a metal mold you can make a proper shield," he says. "I have all the materials here."
+
+He then sets to work, creating a mold based on the kite pattern, and gives it to you.
+> west
+
+> west
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> west
+
+> west
+You are in a large barn full of machinery. The only exit is to the east.
+
+You can see a broken press (in which there is scrap metal).
+> read piece of paper
+
+> read piece of paper
+It looks like a spell used to make a heavy object weightless. It works by putting this paper onto the object and saying SHAZAM.
+> use spell on scrap metal
+
+> use spell on scrap metal
+You set the piece of paper on top of the scrap metal.
+> shazam
+
+> shazam
+You say SHAZAM in a loud voice.
+The scrap metal doesn't seem any different but the piece of paper has disappeared.
+> take scrap metal
+
+> take scrap metal
+You pick it up. The spell has worked!
+> east
+
+> east
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> south
+
+> south
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a bonfire.
+> south
+
+> south
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> southwest
+
+> southwest
+There is a strong smell of molten metal and smoke in the Blacksmith's shed. There are many forged weapons and other metal items adorning the walls. In the centre of the shed there is a large furnace. There is only one exit.
+
+You can see a furnace.
+> use matches on furnace
+
+> use matches on furnace
+You strike your last match and use it on the furnace.
+It roars into life.
+> put scrap metal in furnace
+
+> put scrap metal in furnace
+You put the scrap metal into the furnace and it disappears from sight. Inside it heats to a high temperature and becomes molten.
+> x furnace
+
+> x furnace
+The furnace is large with a place to put scrap metal for smelting. It is hot.
+Attached to the furnace you see a bowl and a button.
+> put mold in bowl
+
+> put mold in bowl
+You put the metal mold into the shallow bowl of the furnace.
+> push button
+
+> push button
+You push the button and the metal pours into the mold. It forms around the kite shape and eventually cools into a very nice looking shield!
+> take shield
+
+> take shield
+Now that it is cool enough, you break the shield out of the mold.
+> northeast
+
+> northeast
+You are in the village centre. From here you can go south-west to the Blacksmith, south to the Casino, south-east to the Pet Grooming Centre and west to an orchard. North leads back to the crossroads.
+
+> north
+
+> north
+You are standing at a crossroads just south of  Come-Here-A-Lot Castle. Paths lead north, south, east and west.
+
+You can see a bonfire.
+> north
+
+> north
+You are standing at the South Gate. The courtyard is to the north, there is a forge to the east, and a barn to the west. South leads out of the castle.
+
+You can see a Guard and the door to the forge.
+> north
+
+> north
+You are standing in a large courtyard. South leads out of the castle. The keep is to the north and the Royal Stable to the west.
+
+You can see a stone (in which there is Skelibar).
+> north
+
+> north
+You are at the front steps of the castle keep. The entrance doors are to the north. There is path east and a path west, with south leading back to the courtyard.
+
+You can see a noticeboard and Stan.
+> speak to stan
+
+> speak to stan
+"Well done! You are ready to see the King. Let's go."
+
+Stan leads the way and you follow. Wearing your helmet and clutching your shield, you are anxious to make a good impression.
+
+You enter a crowded Throne Room. The King and Queen are there, along with all the Knights of the Brown Table and Marlon the Wizard. The Chef is serving the wine you gave to Stan, and you catch sight of the fake sword-in-the-stone tucked in behind the throne.
+
+You bow to the King as you enter. Sir Lankylegs is beside the King, holding Princess.
+
+You can see a throne (behind which there is a fake sword-in-the-stone), King Arnold, Queen Winalot, Sir Dwane, Sir Halibut, Sir Lankylegs (carrying a kitten), Marlon the Wizard, the Chef (holding a jug (containing a fine red wine)) and Stan.
+
+The King rises from his throne, saying, "Loin, we have been watching you over the past two days and have been been very impressed by your service to the crown, and your progress towards becoming a knight. We all agree you are now ready to join us."
+
+With that, the King takes his sword and taps you on each shoulder.
+
+Arise Sir Loin!
+Defender of the Realm!!
+
+"Now, let's adjourn to the Dining Room, where a place has been reserved for you at the Brown Table, and a feast laid on in your honour. Lead on Sir Loin..."
+
+Congratulations, you have been knighted...and completed the game successfully!
+
+THE END...?
+Sir Loin 2: The Phantom Dennis
+
+Type QUIT to finish.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> quit
+
+> quit
+[state=Finished]

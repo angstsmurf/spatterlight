@@ -1,0 +1,1962 @@
+Begin.
+
+> Ontegah
+Begin.
+
+Fog writhes through the branches of trees, lit dull orange by a streetlamp. The empty road stretches into depthless woods, the asphalt wet with dew. A gust of wind chills your face and you blink, your breath coming in short gasps. You back into something cold and metal and turn around to see a rusted pay phone.
+
+Pick up receiver.
+
+Walk to the left.
+
+Walk to the right.
+
+> Gas Station First
+Walk to the left.
+
+You shiver as you walk for some time before you see another street lamp illuminating a gas station. The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Follow path into woods.
+
+> f150
+Walk to the truck.
+
+The truck is on concrete bricks, the paint peeling off. There's nothing in the bed; inside a set of keys sits in the ignition.
+
+Turn on truck.
+
+Walk to front of the gas station.
+
+> Turn on truck
+Turn on truck.
+
+No lights and the engine doesn’t turn over.
+
+Take keys.
+
+Walk to front of the gas station.
+
+> Pickup Keys
+Take keys.
+
+You put the keys in your pocket.
+
+Walk to front of the gas station.
+
+> Gas Station First
+Walk to front of the gas station.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Follow path into woods.
+
+> Gas Station Locked
+Enter gas station.
+
+You try several keys on the key ring until one works, the door opens with a grating sound. You put the doorstop down so the luminosity from outside can penetrate the darkness. The shelves have all been cleared and your steps disturb a thick layer of dust. An unlit candle sits on the counter.
+
+Explore gas station.
+
+Walk outside.
+
+> Explore gas station
+Explore gas station.
+
+The building has been gutted. You pick up a bag of beef jerky off the floor and examine the dead mold inside. A handwritten note is taped to a window. Searching behind the counter you find a small flashlight.
+
+Take flashlight.
+
+Walk outside.
+
+Read note.
+
+> Pickup flashlight
+Take flashlight.
+
+You put the flashlight in your pocket.
+
+Walk outside.
+
+Read note.
+
+> Gas Station First
+Walk outside.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Follow path into woods.
+
+> Woods First
+Follow path into woods.
+
+The large, twisting trees block out the orange glow from the streetlamp as you walk down the path. Vines hang from the boughs, wrapping around you as you walk, and you have to stop more than once to pull them off of you. The path ahead becomes more narrow and tenebrous.
+
+Continue down the path.
+
+Walk to gas station.
+
+> The Body first
+Continue down the path.
+
+You walk for a time, the forest becoming more claustrophobic, until you step in something gelatinous. Cold liquid splashes onto your jeans. The canopy parts above you, a sliver of feeble moonlight allowing your eyes to focus on a grey hand. Your breath catches and you stumble backwards, your boot makes a sucking sound as you pull it out of the corpse.
+
+The body is missing its head, neck, left shoulder and arm, flaps of skin hanging over the puddle of gore spilt out of the torso. Against your revulsion you lean in closer to see deep puncture marks across the back in a procession suggestive of a bite from a massive jaw.
+
+The path ends.
+
+Search body.
+
+> Search body
+Search body.
+
+You find a backpack nearby and dig through it, pulling out a cellphone and some AA batteries.
+
+The cellphone turns insubstantial in your hand, dissolving into an amber mist, and then reforms into a small ringing bell. Its chiming echoes around you and into the distance, and then the bell dissipates, into nothing.
+
+You sling the backpack over your shoulder.
+
+Walk to entrance of the woods.
+
+> The Merciless Appears
+Walk to entrance of the woods.
+
+As you draw near to the opening of the woods you hear a guttural hiss. You crouch down and peer from behind the trunk of a large tree.
+
+The trees shudder as a wall of bedraggled ropes presses against them, the loud cracks of snapping branches ringing in your ears. Gargantuan digits wrap around a nearby oak, black nails gauging the bark and then the sound of splintering wood as it’s uprooted. You recognize the ropes for what they are, matted hair hanging from a behemothic arm. The bulk of the creature is hidden from view behind the remaining timber. You begin to retreat, but freeze when two enormous orbs open in front of the hand, reflecting a dim silver light. Petrified you gaze upon a colossal, leathered face which hangs from an elongated, maned neck.
+
+A growl, then the head swings away and its massive arm disappears. You watch as the unutterable horror strides away into obscurity, its footfalls quiet.
+
+You remain motionless, your heart battering against your chest. Nothing stirs in the darkness beyond, the woods silent.
+
+Walk to gas station.
+
+> Gas Station First
+Walk to gas station.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Walk to the corpse.
+
+> Pay Phone
+Walk to the pay phone.
+
+The streetlamp casts an orange aura onto the pay phone.
+
+Walk to the right.
+
+Pick up the reciever.
+
+Walk to gas station.
+
+> Cave First
+Walk to the right.
+
+You walk for a while before the road ends, bracketed by trees on either side. In front of you looms a stone wall; a cave recesses into the mountainside.
+
+Enter cave.
+
+Walk to pay phone.
+
+> Enter cave
+Enter cave.
+
+The musty air is still. The gravel crunches underneath your shoes, which seems loud. It is too dark to continue without a light.
+
+Walk outside.
+
+Use flashlight with batteries.
+
+> Cave Hole
+Use flashlight with batteries.
+
+You put the batteries into the flashlight and turn it on, a meager beam of light illuminating the rock walls around you. Stalactites hang overhead and the walls draw to a narrow point forty feet ahead of you. You shine the beam on the ground to avoid tripping on one of the many odd-shaped stones strewn about.
+
+You reach the place where the walls meet, a precarious hole that you may be able to fit through.
+
+Squeeze through hole.
+
+Walk to cave entrance.
+
+> Squeeze through hole
+Squeeze through hole.
+
+You take the backpack off and throw it through the hole to the other side along with the flashlight and then kick one leg through, turning sideways. The chilled stone presses on your chest and back. Halfway through you get stuck. Exhaling all the way you push to no avail. Light-headed you try again, your palms clammy against the stone. Your grasping fingers find an outcropping of rock on the other side and you pull yourself through, a moment before losing consciousness.
+
+Hunched over you pant for several moments until you calm down.
+
+Pickup backpack and flashlight.
+
+> North side hole
+Pickup backpack and flashlight.
+
+This part of the cavern is more confined than the previous area. Scanning the area you notice a wooden door set into the rock wall, a strange, purple rune etched into it. Propped against the nearby wall is a crowbar.
+
+Take crowbar.
+
+Open door with purple rune.
+
+Continue further into cave.
+
+Squeeze through hole.
+
+> Further cave
+Continue further into cave.
+
+It is not long before the subterranean walls begin to recede and then a mouth forms, light pouring through. As you approach you smell fresh air, petrichor and cedar. Stepping out of the opening you find yourself at the nexus of three paths, surrounded by forest.
+
+Walk down the left path.
+
+Enter cave.
+
+Walk down the right path.
+
+Walk down the middle path.
+
+> Docks hub
+Walk down the left path.
+
+As you tread down the path you hear the sound of water lapping. Before you is a wooden wharf protruding into a vast river, several docks extending off of it. To your left the path leads to a white cottage on a hill overlooking the river.
+
+Explore wharf.
+
+Walk to cottage.
+
+Walk to cave.
+
+> Wharf
+Explore wharf.
+
+The planks creak and sag under your weight. The odor of brackish water fills your nostrils. The tide knocks against the pilings beneath you. Most of the slips are unoccupied; a fishing vessel has capsized and lies half underwater in one and a modest sailboat is docked in another. A corroded gas can rests below a fish cleaning table.
+
+Take gas can.
+
+Walk to sunken boat.
+
+Walk to sailboat.
+
+Walk to shore.
+
+> Gas Can
+Take gas can.
+
+You manage to fit the gas can into your backpack.
+
+Walk to sunken boat.
+
+Walk to sailboat.
+
+Walk to shore.
+
+> Docks hub
+Walk to shore.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Outside Cottage
+Walk to cottage.
+
+The worn exterior is in dire need of whitewashing. A few steps lead to a patio with a rocking chair.
+
+Sit in rocking chair.
+
+Enter cottage.
+
+Walk to shoreline.
+
+> Cottage
+Enter cottage.
+
+You open the door and peer into the darkened interior, the nauseating smell of rotting meat assaulting you. Debris covers the floor, newspaper, pill bottles, Old Ordinary cans and trash. You turn on your flashlight to get a better look.
+
+ On the counter lies what appears to be a decomposing leg of an animal, perhaps a buck. On a table lies a box of 9mm bullets. In the corner of the building lies a large pole of oxidized metal. On the far wall there is a door, like the one you saw in the cave, except this one is engraved with a red rune instead.
+
+Take rotting meat.
+
+Take box of bullets.
+
+Take metal pole.
+
+Open door with red rune.
+
+Walk outside.
+
+> Pole
+Take metal pole.
+
+You examine the metal pole in your hands. It looks to be a massive handle, perhaps used for heavy machinery.
+
+Take rotting meat.
+
+Take box of bullets.
+
+Open door with red rune.
+
+Walk outside.
+
+> Outside Cottage
+Walk outside.
+
+The worn exterior is in dire need of whitewashing. A few steps lead to a patio with a rocking chair.
+
+Sit in rocking chair.
+
+Enter cottage.
+
+Walk to shoreline.
+
+> Docks hub
+Walk to shoreline.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Further cave
+Walk to cave.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the right path.
+
+Walk down the middle path.
+
+Walk to shoreline.
+
+> Metro Exterior
+Walk down the right path.
+
+You walk for some time until a smaller path branches away, leading to a structure, lit by a streetlamp. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Continue down the path.
+
+Walk to cave.
+
+> Theatre Exterior
+Continue down the path.
+
+You continue for several minutes until the path forks, an imposing, Victorian building on your right. In the dark, you can barely make out an unlit marquee reading “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Continue down the path.
+
+Walk to subway station.
+
+> Theatre
+Enter theatre.
+
+Metal barricades have been dropped behind the windows of the box office, one of the grand doors left ajar. It is aphotic inside; you turn on your flashlight, exposing black carpet torn and pulled up in some places. You continue further to find an empty theatre. Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Open door.
+
+Sit down.
+
+Walk outside.
+
+> Projection Room
+Open door.
+
+You walk to the top of a narrow stair case and down a hallway to find a projection room. Barren inside, a bulky projector is pointed through a window at the screen. On a table lies an unlit candle. A metal file lies beside it.
+
+Take metal file.
+
+Inspect projector.
+
+Walk downstairs.
+
+> Inspect projector
+Inspect projector.
+
+The antiquated machinery has a certain charm, its cumbrous iron scarred from years of use. There is no film in it and with no power in the building to see if it works.
+
+Take metal file.
+
+Walk downstairs.
+
+> Theatre
+Walk downstairs.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Theatre Exterior
+Walk outside.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Continue down the path.
+
+Walk to subway station.
+
+> Drawbridge
+Continue down the path.
+
+As you walk, you hear the sound of running water. Ahead there is a clearing.
+
+A corroded drawbridge juts upwards, a long metal chain attached to a crankshaft holding it in place. You walk to the edge of the drop off and look down to see strong rapids tumbling over jagged rocks. The path continues up a hill.
+
+Inspect crankshaft.
+
+Climb down drop off and swim across the rapids.
+
+Walk up the hill.
+
+Walk to theatre.
+
+> Inspect crankshaft
+Inspect crankshaft.
+
+You examine the tarnished crankshaft to find it has no controls, only a circular hole in the side of the casing.
+
+Climb down drop off and swim across the rapids.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Use metal handle with crankshaft.
+
+> Use crankshaft
+Use metal handle with crankshaft.
+
+You slide the metal handle through the hole until it stops. Rotating it you hear a click as it locks into place. You push the handle forward and with a grinding sound the metal chain unspools from the casing, the drawbridge lowering. There is a loud clang when the chain runs out and the bridge connects with the land on the other side.
+
+Cross bridge.
+
+Walk up the hill.
+
+Walk to theatre.
+
+> Cul de sac
+Cross bridge.
+
+Every step on the drawbridge causes a low reverberation. As you step off the bridge you notice the grove is more stifling here, the woodland more dense and impinging on the path. You traverse the path until it concludes in a cul de sac with two dilapidated buildings, lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique.” You hear faint music emanating from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Gloom Boutique
+Enter Gloom Boutique.
+
+Haunting jazz music emerges from an old transistor radio, set atop a polished bar. Short lamps emit an ethereal violet glow, vaporous tendrils of haze spiraling behind you as you walk. Bizarre artwork hangs, depictions of contorted women merged with mechanical instruments. This was once a tavern, upholstered booths line one wall. Behind the bar you find one remaining bottle of bourbon labeled “Quagmire’s." On a table rests an abandoned lighter. There is a door marked with a strange, green rune. Behind the last booth on the other side of the room is another door, painted black.
+
+Drink bourbon.
+
+Take lighter.
+
+Open door with green rune.
+
+Open black door.
+
+Walk outside.
+
+> Lighter
+Take lighter.
+
+You pick up the lighter and place it in your backpack.
+
+Drink bourbon.
+
+Walk outside.
+
+Open door with green rune.
+
+Open black door.
+
+> Basement
+Open black door.
+
+Behind the door are some dust-coated stairs that lead to a filthy, concrete basement. Spent glass ampoules litter the floor beneath the table, labels worn down to one word: HUSH. Beside them a small steel instrument, hinged, a spring clamp at one end and a fine needle at the other. A shovel is propped up in the corner. A few feet of rubber tubing hangs on the wall. A piece of paper lies beneath a flickering lamp on a table.
+
+Take steel instrument.
+
+Take rubber tubing.
+
+Take shovel.
+
+Read note.
+
+Walk upstairs.
+
+> Rubber Tubing
+Take rubber tubing.
+
+You place the rubber tubing in your backpack.
+
+Take steel instrument.
+
+Take shovel.
+
+Read note.
+
+Walk upstairs.
+
+> Shovel
+Take shovel.
+
+The handle of the shovel won’t fit in your backpack so you close the zipper around it, holding it in place.
+
+Take steel instrument.
+
+Read note.
+
+Walk upstairs.
+
+> Gloom Boutique
+Walk upstairs.
+
+Haunting jazz music emerges from an old transistor radio, set atop a polished bar. Short lamps emit an ethereal violet glow, vaporous tendrils of haze spiraling behind you as you walk. Bizarre artwork hangs, depictions of contorted women merged with mechanical instruments, upholstered booths line one wall. Behind the bar you find one remaining bottle of bourbon labeled “Quagmire’s." There is a door marked with a strange, green rune. Behind the last booth on the other side of the room is another door, painted black.
+
+Drink bourbon.
+
+Open door with green rune.
+
+Walk outside.
+
+Walk downstairs to basement.
+
+> Cul de sac
+Walk outside.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Motel Room
+Enter motel room.
+
+The door creaks open, you feel along the wall for a light switch, flipping it on. Two lamps bathe the motel room in light; a safe lies beside a cheap-looking bed, one of the lamps is on a bedstand, the other near a table with an empty rocks glass resting on it. The sheets are stiff and brown in one place, near the edge. A cobalt necklace lies coiled on the bedstand, forgotten, one bead carved with some jagged, unfamiliar mark.
+
+Take rocks glass.
+
+Inspect safe.
+
+Inspect bedstand.
+
+Walk outside.
+
+> Bedstand
+Inspect bedstand.
+
+Inside the drawer rests a Bible. A torn piece of paper lies on the shelf.
+
+Close drawer.
+
+Take torn piece of paper.
+
+Take Bible.
+
+> Torn Piece A
+Take torn piece of paper.
+
+The page is torn down the middle, words scrawled in ink:
+
+  20 paces
+  the end
+  Turn right
+  paces to
+  It is buried
+
+Take Bible.
+
+Close drawer.
+
+> Close Drawer
+Close drawer.
+
+Take rocks glass.
+
+Inspect safe.
+
+Inspect bedstand.
+
+Walk outside.
+
+> Cul de sac
+Walk outside.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Drawbridge
+Walk to bridge and cross it.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+> Theatre Exterior
+Walk to theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Theatre
+Enter theatre.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Projection Room
+Walk upstairs to projection room.
+
+You walk to the top of a narrow stair case and down a hallway to find a projection room. Barren inside, a bulky projector is pointed through a window at the screen. On a table lies an unlit candle. A metal file lies beside it.
+
+Take metal file.
+
+Inspect projector.
+
+Walk downstairs.
+
+Light candle.
+
+> Red Candle
+Light candle.
+
+You flick the lighter and press the flame against the wick. The candle catches, a blood red flame.
+
+Take metal file.
+
+Inspect projector.
+
+Walk downstairs.
+
+> Theatre
+Walk downstairs.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Theatre Exterior
+Walk outside.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Metro Exterior
+Walk to subway station.
+
+A streetlamp lights a structure. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Walk to cave.
+
+Walk to theatre.
+
+> Further cave
+Walk to cave.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the middle path.
+
+Walk to shoreline.
+
+Walk to subway station.
+
+> Docks hub
+Walk to shoreline.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Outside Cottage
+Walk to cottage.
+
+The worn exterior is in dire need of whitewashing. A few steps lead to a patio with a rocking chair.
+
+Sit in rocking chair.
+
+Enter cottage.
+
+Walk to shoreline.
+
+> Cottage
+Enter cottage.
+
+The nauseating smell of rotting meat assaulting you. Debris covers the floor, newspaper, pill bottles, beer cans and trash. On the counter lies what appears to be a decomposing leg of an animal, perhaps a buck. On a table lies a box of 9mm bullets. On the far wall there is a door engraved with a red rune.
+
+Take rotting meat.
+
+Take box of bullets.
+
+Open door with red rune.
+
+Walk outside.
+
+> Red Door
+Open door with red rune.
+
+The door opens, revealing a miniscule chamber. On a table lies a torn piece of paper.
+
+Take torn piece of paper.
+
+Exit chamber.
+
+> Torn Piece B
+Take torn piece of paper.
+
+The page is torn down the middle, words scrawled in ink:
+
+ past
+ of path
+ walk 40
+ obelisk
+
+Holding the piece of paper up to the one you collected in the motel room you see it is a perfect match.
+
+It reads:
+
+ 20 paces past
+ the end of path
+ turn right walk 40
+ paces to obelisk
+ it is buried
+
+Exit chamber.
+
+> Cottage
+Exit chamber.
+
+The nauseating smell of rotting meat assaulting you. Debris covers the floor, newspaper, pill bottles, beer cans and trash. On the counter lies what appears to be a decomposing leg of an animal, perhaps a buck. On a table lies a box of 9mm bullets. On the far wall there is a door engraved with a red rune.
+
+Take rotting meat.
+
+Take box of bullets.
+
+Open door with red rune.
+
+Walk outside.
+
+> Outside Cottage
+Walk outside.
+
+The worn exterior is in dire need of whitewashing. A few steps lead to a patio with a rocking chair.
+
+Sit in rocking chair.
+
+Enter cottage.
+
+Walk to shoreline.
+
+> Docks hub
+Walk to shoreline.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Further cave
+Walk to cave.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the middle path.
+
+Walk to subway station.
+
+Walk to shoreline.
+
+> North side hole
+Enter cave.
+
+This part of the cavern is more confined. Scanning the area you notice a wooden door set into the rock wall, a strange, purple rune etched into it. Propped against the nearby wall is a crowbar. There's a hole in the stone wall.
+
+Take crowbar.
+
+Open door with purple rune.
+
+Squeeze through hole.
+
+Exit cave to three paths.
+
+> South side hole
+Squeeze through hole.
+
+Exhaling, you force yourself back through the hole. There are many odd-shaped stones about, stalactites hanging overhead. You can fit through a gap where the walls meet.
+
+Walk to cave entrance.
+
+Squeeze through hole.
+
+> Cave entrance
+Walk to cave entrance.
+
+The musty air is still. Outside the trees creak in the wind. The cry of a distant bird or animal echoes through the trees.
+
+Walk to pay phone.
+
+Continue further into cave.
+
+> Pay Phone
+Walk to pay phone.
+
+The streetlamp casts an orange aura onto the pay phone.
+
+Pick up the reciever.
+
+Walk to gas station.
+
+Walk to cave.
+
+> Gas Station First
+Walk to gas station.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Walk to the corpse.
+
+> f150
+Walk to the truck.
+
+The truck is on concrete bricks, the paint peeling off. There's nothing in the bed.
+
+Walk to front of the gas station.
+
+Use gas can and rubber tubing with truck.
+
+> Siphon
+Use gas can and rubber tubing with truck.
+
+You run one end of the tubing into the gas tank and suck on the other. Caustic liquid fills your mouth and you gag, spitting it onto the ground. You siphon a couple of gallons of gas into the gas can.
+
+Walk to front of the gas station.
+
+> Gas Station First
+Walk to front of the gas station.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Walk to the corpse.
+
+> The Body
+Walk to the corpse.
+
+The body is missing its head, neck, left shoulder and arm, flaps of skin hanging over the puddle of gore spilt out of the torso. Deep puncture marks across the back suggest a bite from a massive jaw. The path ends.
+
+Walk to gas station.
+
+Walk twenty steps past the end of the path.
+
+> Continue 20
+Walk twenty steps past the end of the path.
+
+With a shudder you glance at the cadaver and press on into the wilderness, counting each step past the path. You exhale to squeeze between the trunks of trees and thorns scrape into your exposed skin, drawing blood. You reach step twenty.
+
+Turn right and walk forty steps.
+
+Return to the path.
+
+> Obelisk
+Turn right and walk forty steps.
+
+You fear you’ve lost count of the steps you’ve taken, but then you come upon a clearing. An intimidating obelisk looms from the center of the glade, ten feet high and made of a cinereous metal.
+
+Inspect obelisk.
+
+Return to path.
+
+Dig in front of obelisk.
+
+> Dig Obelisk
+Dig in front of obelisk.
+
+ A deep sense of unease comes over you as you dig up the grey sand. Something pink catches your eye a couple feet down. You drop to your knees and pull it out with your hands, a plastic easter egg. You open it and find a crumpled piece of paper.
+
+ It reads:
+
+ He knows I remember
+ 9  5  7  9
+
+Return to path.
+
+> The Body
+Return to path.
+
+The body is missing its head, neck, left shoulder and arm, flaps of skin hanging over the puddle of gore spilt out of the torso. Deep puncture marks across the back suggest a bite from a massive jaw. The path ends.
+
+Walk to gas station.
+
+Walk to obelisk.
+
+> Gas Station First
+Walk to gas station.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Walk to the corpse.
+
+> Gas Station Locked
+Enter gas station.
+
+The shelves have all been cleared and your steps disturb a thick layer of dust. An unlit candle sits on the counter.
+
+Walk outside.
+
+Light candle.
+
+Read note.
+
+> Purple Candle
+Light candle.
+
+You flick the lighter and press the flame against the wick. The candle catches, an intense, violaceous flame.
+
+Read note.
+
+Walk outside.
+
+> Gas Station First
+Walk outside.
+
+The windows are boarded and the logos painted over by whitewash and graffiti. Behind the building is an old, red F-150. The road terminates and a dirt path leads into the forest.
+
+Enter gas station.
+
+Walk to the truck.
+
+Walk to the pay phone.
+
+Walk to the corpse.
+
+> Pay Phone
+Walk to the pay phone.
+
+The streetlamp casts an orange aura onto the pay phone.
+
+Pick up the reciever.
+
+Walk to cave.
+
+Walk to gas station.
+
+> Cave First
+Walk to cave.
+
+In front of you looms a stone wall; a cave recesses into the mountainside.
+
+Enter cave.
+
+Walk to pay phone.
+
+> Enter cave
+Enter cave.
+
+The musty air is still. Outside the trees creak in the wind.
+
+Walk to pay phone.
+
+Continue further into cave.
+
+> Cave Hole
+Continue further into cave.
+
+There are many odd-shaped stones about, stalactites hanging overhead. You can fit through a gap where the walls meet.
+
+Walk to cave entrance.
+
+Squeeze through hole.
+
+> North side hole
+Squeeze through hole.
+
+This part of the cavern is more confined. Scanning the area you notice a wooden door set into the rock wall, a strange, purple rune etched into it. Propped against the nearby wall is a crowbar. There's a hole in the stone wall.
+
+Take crowbar.
+
+Open door with purple rune.
+
+Squeeze through hole.
+
+Exit cave to three paths.
+
+> Purple door
+Open door with purple rune.
+
+The door opens, revealing a cramped chamber. On a table lies a statue of a man, his face covered by two wings, as well as his feet, and two wings stretch outward from where his arms would be. His entire body is covered in eyes.
+
+Take seraphim statue.
+
+Exit chamber.
+
+> Seraphim
+Take seraphim statue.
+
+You place the statue inside your backpack.
+
+Exit chamber.
+
+> North side hole
+Exit chamber.
+
+This part of the cavern is more confined. Scanning the area you notice a wooden door set into the rock wall, a strange, purple rune etched into it. Propped against the nearby wall is a crowbar. There's a hole in the stone wall.
+
+Take crowbar.
+
+Open door with purple rune.
+
+Squeeze through hole.
+
+Exit cave to three paths.
+
+> Further cave
+Exit cave to three paths.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the middle path.
+
+Walk to subway station.
+
+Walk to shoreline.
+
+> Metro Exterior
+Walk to subway station.
+
+A streetlamp lights a structure. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Walk to cave.
+
+Walk to theatre.
+
+> Theatre Exterior
+Walk to theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Theatre
+Enter theatre.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Projection Room
+Walk upstairs to projection room.
+
+You walk to the top of a narrow stair case and down a hallway to find a projection room. Barren inside, a bulky projector is pointed through a window at the screen. On a table lies an unlit candle. A metal file lies beside it.
+
+Take metal file.
+
+Inspect projector.
+
+Walk downstairs.
+
+Light candle.
+
+Walk to sailboat and bring generator to projection room.
+
+> Drag From Theatre
+Walk to sailboat and bring generator to projection room.
+
+You return to the sailboat and pick up the generator. It is heavy; you have to set it down and rest several times on your trek back to the theatre. Exhausted, you begin to drag it up the stairs. One stair cracks under your combined weight; adrenaline conquers your exhaustion and you find your footing. You reach the landing, fill the generator with gasoline, and pull the ripcord. You hear a grating sound and then the generator coughs to life.
+
+Walk downstairs.
+
+> Theatre
+Walk downstairs.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Theatre Exterior
+Walk outside.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Drawbridge
+Walk to drawbridge.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+> Cul de sac
+Cross bridge.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Motel Room
+Enter motel room.
+
+Two lamps bathe the motel room in light; a safe lies beside a cheap-looking bed, one of the lamps is on a bedstand, the other near a table with an empty rocks glass resting on it. The sheets are stiff and brown in one place, near the edge. A cobalt necklace lies coiled on the bedstand, forgotten, one bead carved with some jagged, unfamiliar mark.
+
+Take rocks glass.
+
+Inspect safe.
+
+Inspect bedstand.
+
+Walk outside.
+
+> Safe
+Inspect safe.
+
+It is made of black-laminated metal and has a four-number combination lock.
+
+Take rocks glass.
+
+Inspect bedstand.
+
+Walk outside.
+
+Enter 9579 into combination lock.
+
+> Safe Code
+Enter 9579 into combination lock.
+
+Your hands tremble as you input the numbers. With a click the door to the safe swings open. Inside lies a black key.
+
+Take black key.
+
+> Take Black Key
+Take black key.
+
+You put the key in your pocket.
+
+Take rocks glass.
+
+Inspect bedstand.
+
+Walk outside.
+
+> Cul de sac
+Walk outside.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Drawbridge
+Walk to bridge and cross it.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+> Theatre Exterior
+Walk to theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Metro Exterior
+Walk to subway station.
+
+A streetlamp lights a structure. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Walk to cave.
+
+Walk to theatre.
+
+> Further cave
+Walk to cave.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the middle path.
+
+Walk to shoreline.
+
+Walk to subway station.
+
+> Docks hub
+Walk to shoreline.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Wharf
+Walk down docks.
+
+The planks creak and sag under your weight. The odor of brackish water fills your nostrils. The tide knocks against the pilings beneath you. Most of the slips are unoccupied; a fishing vessel has capsized and lies half underwater in one and a modest sailboat is docked in another.
+
+Walk to sunken boat.
+
+Walk to sailboat.
+
+Walk to shore.
+
+> Sailboat
+Walk to sailboat.
+
+The sailboat is perhaps thirty feet long, and looks to be in good condition. Behind iron-barred windows a dim light emanates.
+
+Walk back down docks.
+
+Try black key with sailboat door.
+
+> Sailboat interior
+Try black key with sailboat door.
+
+The door creaks open to reveal a cramped saloon that smells of tobacco and cedar. The walls are covered in framed photographs of three different women. The women’s clothes date from thirty years ago; all of the photos are candid, shot from some distance and angle. One of the women is blonde, the other a redhead, and one with jet black hair. You feel the boat rock as you step. The interior has been stripped, save a candle and a spyglass lying on a lacquered table. A letter rests on a chair.
+
+Take spyglass.
+
+Light candle.
+
+Read letter.
+
+Exit sailboat.
+
+> Green Candle
+Light candle.
+
+You flick the lighter and press the flame against the wick. The candle catches, an emerald green flame.
+
+Take spyglass.
+
+Read letter.
+
+Exit sailboat.
+
+> Wharf
+Exit sailboat.
+
+The planks creak and sag under your weight. The odor of brackish water fills your nostrils. The tide knocks against the pilings beneath you. Most of the slips are unoccupied; a fishing vessel has capsized and lies half underwater in one and a modest sailboat is docked in another.
+
+Walk to sunken boat.
+
+Walk to sailboat.
+
+Walk to shore.
+
+> Docks hub
+Walk to shore.
+
+Before you is a wooden wharf protruding into a vast river, several docks extending off of it. A path leads to a white cottage on a hill overlooking the river, another into the forest.
+
+Walk to cottage.
+
+Walk to cave.
+
+Walk down docks.
+
+> Further cave
+Walk to cave.
+
+The mouth of the grotto looms opposite three paths leading into the forest.
+
+Enter cave.
+
+Walk down the middle path.
+
+Walk to subway station.
+
+Walk to shoreline.
+
+> Metro Exterior
+Walk to subway station.
+
+A streetlamp lights a structure. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Walk to cave.
+
+Walk to theatre.
+
+> Theatre Exterior
+Walk to theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Drawbridge
+Walk to drawbridge.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+> Cul de sac
+Cross bridge.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Gloom Boutique
+Enter Gloom Boutique.
+
+Haunting jazz music emerges from an old transistor radio, set atop a polished bar. Short lamps emit an ethereal violet glow, vaporous tendrils of haze spiraling behind you as you walk. Bizarre artwork hangs, depictions of contorted women merged with mechanical instruments, upholstered booths line one wall. Behind the bar you find one remaining bottle of bourbon labeled “Quagmire’s." There is a door marked with a strange, green rune. Behind the last booth on the other side of the room is another door, painted black.
+
+Drink bourbon.
+
+Open door with green rune.
+
+Walk outside.
+
+Walk downstairs to basement.
+
+> Green door
+Open door with green rune.
+
+The door opens, revealing a narrow chamber. On a table lies a statue of a beautiful man, his four arms ending in pincers. Twisted horns rise above his long, flowing hair.
+
+Take incubus statue.
+
+Exit chamber.
+
+> Incubus
+Take incubus statue.
+
+You place the statue inside your backpack.
+
+Exit chamber.
+
+> Gloom Boutique
+Exit chamber.
+
+Haunting jazz music emerges from an old transistor radio, set atop a polished bar. Short lamps emit an ethereal violet glow, vaporous tendrils of haze spiraling behind you as you walk. Bizarre artwork hangs, depictions of contorted women merged with mechanical instruments, upholstered booths line one wall. Behind the bar you find one remaining bottle of bourbon labeled “Quagmire’s." There is a door marked with a strange, green rune. Behind the last booth on the other side of the room is another door, painted black.
+
+Drink bourbon.
+
+Open door with green rune.
+
+Walk outside.
+
+Walk downstairs to basement.
+
+> Cul de sac
+Walk outside.
+
+The grove is more stifling here. Two dilapidated buildings are lit by a streetlamp. On your left is what appears to be a motel room, the number “1” on the door. In front of the second building is a purple neon sign that reads “Gloom Boutique." Faint music emanates from inside.
+
+Enter motel room.
+
+Enter Gloom Boutique.
+
+Walk to bridge and cross it.
+
+> Drawbridge
+Walk to bridge and cross it.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk up the hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+> Hill
+Walk up the hill.
+
+At the top of the hill, a railed lookout over the river. Far across the water, past the treeline, a colossal black structure breaks the horizon. On the far side of the hill you see a great, iron fence. You walk down and appraise the fence, the ground it connects with is sandy and loose. Beyond the bounds there are many eroded gravestones.
+
+Walk to drawbridge.
+
+Use shovel to dig away sand.
+
+> Climb under fence
+Use shovel to dig away sand.
+
+You unearth the ground below the fence, hollowing out a hole you can fit through.
+
+Climb under fence to the graveyard.
+
+Walk to drawbridge.
+
+> Graveyard Interior
+Climb under fence to the graveyard.
+
+Crawling through, you stand and wipe the dirt from your clothes. As you walk through the graveyard you notice that most of the names on the headstones are undecipherable, the rock smoothed by time. You come upon a daunting mausoleum in the center of the grounds.
+
+Enter mausoleum.
+
+Climb under fence to the lookout.
+
+> Mausoleum Door
+Enter mausoleum.
+
+The marble doors are locked. There are two cavities, about a foot tall and narrow in the doors. You wonder on their purpose.
+
+Climb under fence to the lookout.
+
+Place seraphim and incubus statues in mausoleum door.
+
+> Mausoleum Interior
+Place seraphim and incubus statues in mausoleum door.
+
+The statues fit into the cavities and a deep clang resounds as the door unlocks. The air dries your mouth as you step through the door, illuminating the chamber with your flashlight. Four stone sarcophagi occupy the floor, one’s lid is pulled to the side.
+
+On the far wall there is a shrine; gold coins and petrified flowers lie in front of three framed photographs hidden beneath a layer of dust.
+
+Above them hangs a sculpture of a gigantesque head. Many arms writhe around it like a ball of snakes and it rests on a bisected neck, exposing its voice box. Where there would be a face there are full, succulent lips lined with jagged teeth that enclose a blood-red eye, a slender, grey tongue protruding from the pupil.
+
+Open sarcophagus.
+
+Inspect open sarcophagus.
+
+Inspect photographs.
+
+Inspect sculpture.
+
+Walk outside.
+
+> Inspect Sarcophagus1
+Inspect open sarcophagus.
+
+There are no remains inside, only a can of 35 mm film.
+
+Take filmcan.
+
+Open sarcophagus.
+
+Inspect photographs.
+
+Inspect sculpture.
+
+Walk outside.
+
+> Filmcan
+Take filmcan.
+
+You place the film can in your backpack.
+
+Open sarcophagus.
+
+Inspect photographs.
+
+Inspect sculpture.
+
+Walk outside.
+
+> Mausoleum Door
+Walk outside.
+
+The marbles doors are open, the seraphim and incubus statues resting in their respective niches.
+
+Climb under fence to the lookout.
+
+Enter mausoleum.
+
+> Hill Dug From Graveyard
+Climb under fence to the lookout.
+
+You can climb back through the hole below the great, iron fence. Beyond the bounds there are many eroded gravestones. From here you can see the lookout, the river and the bastion beyond.
+
+Climb under fence to the graveyard.
+
+Walk to drawbridge.
+
+> Drawbridge
+Walk to drawbridge.
+
+The corroded bridge extends across the river. The path continues up a hill.
+
+Walk to theatre.
+
+Cross bridge.
+
+Walk to graveyard fence.
+
+> Theatre Exterior
+Walk to theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Theatre
+Enter theatre.
+
+Inside there are rows of crimson, upholstered seats, that look to be in much better condition than the carpet in the lobby, arranged below a large screen, flanked by curtains. There is a door on your right that says “Employees Only.”
+
+Sit down.
+
+Walk outside.
+
+Walk upstairs to projection room.
+
+> Projection Room
+Walk upstairs to projection room.
+
+You walk to the top of a narrow stair case and down a hallway to find a projection room. Barren inside, a bulky projector is pointed through a window at the screen. On a table lies an unlit candle. A metal file lies beside it. The generator sits beside the projector.
+
+Take metal file.
+
+Walk downstairs.
+
+Light candle.
+
+Insert film can into the projector and plug the projector into the generator.
+
+> Film Can Into Projector
+Insert film can into the projector and plug the projector into the generator.
+
+You place the can inside the projector and plug it in. It hums and throws a black and white image onto the screen. It is difficult to see from here.
+
+Walk downstairs and sit in upholstered seat.
+
+> Movie
+Walk downstairs and sit in upholstered seat.
+
+A still image of one of the women in the photographs, the one with dark hair, shines onto the screen in front of you.
+
+ The screen goes black.
+
+ An elongated hallway. At the end stands a man in overalls, his grey hair combed to the side, unblinking.
+
+ His voice, choked and vacillating, rings through the theatre.
+
+ “I - am sorry. I cannot - it begs - of me. I must.”
+
+ He is close to the camera.
+
+ “He takes - me every night. In dreams.”
+
+ His body convulses.
+
+“Have the ripples gone silent?”
+
+Continue watching.
+
+> Movie 2
+Continue watching.
+
+A field, tall grass swaying in the wind. The camera pans and beneath an oak tree there is a swingset, a young boy playing in the sand.
+
+ The old man in the hall.
+
+ “He - is here.”
+
+ A man wearing white walks through the field. The boy notices, scrunching his face.
+
+ “Hello Paul.” The man in white says.
+
+ The boy begins to cry.
+
+ “I am - not here!” The old man in the hall yells.
+
+ “It is time.” The man in white says.
+
+ He walks to the boy and wraps his arm around him.
+
+Continue watching.
+
+> Movie 3
+Continue watching.
+
+“I am not here.” the boy sobs.
+
+ The boy tries to run but the man in white grabs him, his nails scratching the boy's arm.
+
+ “Why don’t - you love me?” The old man in the hall wails.
+
+ “No!” The man in white growls.
+
+ He grips the boy by the belt this time.
+
+ The old man in the hall cries.
+
+ “No one - to protect - me.”
+
+Continue watching.
+
+> Movie 4
+Continue watching.
+
+A glassine pond, fringed by algae and moss, enshrouded by a dying swamp. Vines weave between ancient trees, leaves rotted white.
+
+Frozen in time. The vines don't sway, nor the surface.
+
+Not one leaf dares to fall.
+
+The film lingers long enough that it might be a photograph.
+
+Beneath the surface, a flash of shrouded movement, causing not one ripple.
+
+“I am here, child," says an abyssal voice.
+
+Continue watching.
+
+> Movie 5
+Continue watching.
+
+The boy lies in the hallway, half naked, bleeding on the floor, crying. He begins to seizure, black blood foaming around his mouth.
+
+ Strained words disgorged.
+
+ “I - will protect - you.”
+
+ A slick, alabaster hand reaches out of his throat, breaking his jaw.
+
+ “I am - merciless.”
+
+ The screen goes black. The projector keeps running.
+
+Exit theatre.
+
+> Theatre Exterior
+Exit theatre.
+
+A Victorian building in the dark. An unlit marquee reads “THEATRE” above a box office and a doorway.
+
+Enter theatre.
+
+Walk to subway station.
+
+Walk to drawbridge.
+
+> Metro Exterior
+Walk to subway station.
+
+A streetlamp lights a structure. A sign outside says “Metro.” It’s little more than a roof over a set of stairs.
+
+Enter subway station.
+
+Walk to cave.
+
+Walk to theatre.
+
+> Subway
+Enter subway station.
+
+Halogen lights in the ceiling above you activate as you descend the stairs, a metallic scent in the air. When you reach the landing several bulbs turn on and you see a subway car, the door open. You hear the low thrum of electricity. A sign says “Danger: Do not enter or cross tracks” and there is a picture of a stick figure man being electrocuted. A purse rests on a nearby bench.
+
+Enter subway car.
+
+Take purse.
+
+Climb down to tracks.
+
+Walk outside.
+
+> Subway Car
+Enter subway car.
+
+The seating that was once here has been removed, brackets left exposed. One chair rests in front of a console, below a window looking down the tunnel. Examining the console you see a LED screen and a keypad, “Enter Password” in sans serif font and a blinking cursor.
+
+Try random passwords.
+
+Exit subway car.
+
+Enter “merciless” as password.
+
+> Correct Password
+Enter “merciless” as password.
+
+ You sit in the chair by the console and type the word “merciless” into the keypad. The console emits a ding and the door to the subway car closes. An engine turns on and the car rolls into the tunnel, extinguishing the light.
+
+ A long time passes. The sound of the engine fades. You become aware that you are no longer sitting, that there is no longer a chair, nor subway car. You float in empty space.
+
+Wait.
+
+> Ocean
+Wait.
+
+The smell of salt. The grittiness of sand under your hands and feet. The sound of waves crashing. You open your eyes and see the ocean. A seagull picks at some seaweed washed ashore. The shoreline continues to the horizon in both directions.
+
+ The soft touch of someone’s hand on yours. You look into the eyes of a woman from one of the photographs. Long red hair falls across her shoulders, rippling in the wind.
+
+ “You are safe here.”
+
+ She squeezes your hand.
+
+"Who are you?"
+
+"What is going on?"
+
+"Where are we?"
+
+> Who are you
+"Who are you?"
+
+“My name is Tabitha.”
+
+"What is going on?"
+
+"Where are we?"
+
+> What is going on
+"What is going on?"
+
+“You are on your way home, your sojourn almost over.”
+
+"Where are we?"
+
+> Where are we
+"Where are we?"
+
+"No one really knows."
+
+"What happened to the boy?"
+
+> What happened
+"What happened to the boy?"
+
+She flinches.
+
+“He suffered greatly and perished.”
+
+She stands and helps you to your feet.
+
+“Follow me.”
+
+She walks over a bluff behind the beach.
+
+Follow Tabitha.
+
+> Follow Tabitha
+Follow Tabitha.
+
+You walk over the bluff into a field. Candles hang from the branches of a massive oak tree overlooking a table. In the distance you see a cottage.
+
+Your body shakes as you sit down. An oblong, metal disk lies on the table. Tabitha sits down, and her smile fades.
+
+“I wonder if you already know.”
+
+She turns the disk over and hands it to you. It is a mirror.
+
+Look into mirror.
+
+> Look into mirror
+Look into mirror.
+
+You see the unblinking gaze of a skinless, desiccated face, most of the jaw and cheekbone missing, black sutures still holding where the flesh around them has given up.
+
+“Breathe easy now - there is no danger here.”
+
+Tabitha’s hand once again on yours; you look at her eyes red with tears and then back at the mirror.
+
+You see yourself in the reflection.
+
+“You have a choice,” Tabitha says, voice trembling “You can choose nonexistence, or you can carry the burden with you, until the day you die.”
+
+Her face contorts into a necrotic, stygian mask, her withered eyes without a trace of emotion.
+
+"I choose nonexistence."
+
+“I will carry the burden.”
+
+> Carry The Burden
+“I will carry the burden.”
+
+“Please,” Tabitha says “Live a life worth living - for those of us who could not come home.”
+
+She is beautiful again, and then she fades away, followed by the playground, and the landscape.
+
+You are in empty space with the massive tree, and you see now that it has many more branches and countless candles. One by one they blow out.
+
+Close your eyes.
+
+> Carry The Burden 2
+Close your eyes.
+
+You are alone, on the cold tile of your shower stall, in your bathroom. Streams of blood run from the long trenches in your legs down the drain. Your breath is shallow, your vision unfocused. You try to get up but you collapse, your arms too weak to support your weight. Dragging your legs you crawl into your bedroom. Your head falls to the floor, your body cold and numb.
+
+An alabaster hand grasps your wrist and pulls you onto your bed. Through the fog of near unconsciousness you see him pick up your phone and dial.
+
+Indiscernible words crackle from the receiver.
+
+“I have lost a lot of blood.” he says.
+
+He pauses, speaks your address, then hangs up.
+
+He leans in close, his face blurred by the smudged lens of tears.
+
+“I will protect you.”
+
+He leaves the room, and you hear the faint click of your front door unlocking.
+
+Darkness envelops you as paramedics arrive.
+
+Open your eyes.
+
+> Credits
+Open your eyes.
+
+Thank you for playing She Cried Against Strangling Hands.
+Written and scored by Vulture Culture.
+Play more at vultureculture.live.
+
+[state=Running]

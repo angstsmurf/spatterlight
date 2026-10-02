@@ -1,0 +1,1098 @@
+The Day the Sky Fell Down
+
+by Father Thyme
+
+Last night the sky fell down. You have emerged from hiding into a world that has changed drastically.
+
+The smooth surface of Central Park that you have known all your life looks very different. A vast rubble pile mars  its pristine whiteness. It has been many hours since the event. The rumbling lasted several minutes. No one dared leave Habitation. The disembodied voices that ruled daily life, issuing commands, education and instructions have fallen silent, leaving you and your fellow trainees leaderless and helpless.
+
+You are considered rash, daring and foolhardy. An exception to your fellows still cowering under their beds. You alone no longer hear the voices, not since your strange accident two years ago. A thing you have never revealed to anyone for fear of the GODS overhearing.
+
+Hunger and thirst have taken their toll, but fear of the unknown prevented an excursion outside. Finally you alone have dared to emerge from Habitation to face the outside world and seek an answer, and food and drink if possible.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+Sound effects have been switched off. Type SOUND to switch them on again.
+
+[For guidance and other options type HELP]
+> w
+
+> w
+You move to Cleanliness.
+
+Cleanliness
+The laundry and shower unit are deserted.
+
+You can see showers, a laundry machine and a door to cubicles.
+You can go east back to Central Park or in to the cublicle area.
+> switch on laundry machine
+
+> switch on laundry machine
+The machine does not respond. The power is obviously not on.
+
+You climb onto a small low platform to reach the higher switches. None of them produce any results.
+
+As you step down, the platform suddenly rolls sideways. It appears to be on wheels.
+
+You pick yourself up off the floor.
+> take trolley
+
+> take trolley
+You pick it up.
+> e
+
+> e
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> sw
+
+> sw
+You move to Sustenance.
+
+Sustenance
+The dining hall of Sustenance is deserted, as you expected it would be. The long wooden tables are bare. The serving hatch shutters are closed.
+
+You can see steel shutters, tables, a crate and a microwave oven.
+You can go northeast back to Central Park.
+> take crate
+
+> take crate
+With great effort you lift the crate onto the trolley.
+> ne
+
+> ne
+You move to Central Park pushing the trolley and crate ahead of you.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile and a small trolley (on which there is a crate).
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> s
+
+> s
+You move to The entry arch of Habitation pushing the trolley and crate ahead of you.
+
+The entry arch of Habitation
+You are standing outside Habitation.
+
+You can see a door and a small trolley (on which there is a crate).
+You can go north back to Central Park.
+> knock on door
+
+> knock on door
+You knock on the door.
+You shout “I have food!”
+
+The door bursts open. An avalanche of trainees descends on the crate. Big Eva the Cleanliness Senior, a trainee twice your size wrenches out the trolley. She smashes it down on the crate. There is a splintering of wood, with debris flying in all directions.
+
+Trainees vanish into Habitation clutching food and drink. In seconds the crate is looted. Big Eva drops the trolley and hurls the splintered lid back on top of the wrecked crate. The door slams behind the last of them.
+
+You are disgusted. They didn’t even say thank you.
+> open wrecked crate
+
+> open wrecked crate
+You lift up the shattered lid which lies sideways across the wreckage.
+All that remains in the crate is a bottle and a breakfast bar.
+> take bottle
+
+> take bottle
+Something metallic rattles in the wreckage as you lift the bottle out.
+> take brass key
+
+> take brass key
+You pick up the key. This can only belong to Big Eva.
+> take breakfast bar
+
+> take breakfast bar
+You pick up a lone breakfast bar from the wreckage of the crate.
+> eat breakfast bar
+
+> eat breakfast bar
+You unwrap it and tuck in. It's delicious. You feel much better now.
+> take trolley
+
+> take trolley
+You pick it up.
+> n
+
+> n
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> w
+
+> w
+You move to Cleanliness.
+
+Cleanliness
+The laundry and shower unit are deserted.
+
+You can see showers, a laundry machine and a door to cubicles.
+You can go east back to Central Park or in to the cublicle area.
+> in
+
+> in
+Using the brass key, you unlock the door, open it and enter.
+
+The cubicles
+It feels odd that there's not the usual queue in here.
+
+You can see four cubicles.
+You can go out.
+> look at four cubicles
+
+> look at four cubicles
+A row of four cubicles.
+On one cubicle door is a notice.
+> read notice
+
+> read notice
+It appears to be an order of the GODS. Probably placed during curfew, before the present emergency occurred.
+
+CUBICLE CLOSED DUE TO DAMAGED PEDESTAL
+A REPLACEMENT IS NOW AVAILABLE OUTSIDE MAINTENANCE
+TRAINEE JIG IS ORDERED TO DRIVE IT HERE ON THE GURNEY AFTER CURFEW ENDS
+WORKING PARTY THREE TO ASSIST
+> out
+
+> out
+You return to Cleanliness.
+
+As you exit you put the key on the nail holding the note. Big Eva will be looking for it.
+
+Cleanliness
+The laundry and shower unit are deserted.
+
+You can see showers, a laundry machine and a door to cubicles.
+You can go east back to Central Park or in to the cublicle area.
+> e
+
+> e
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> nw
+
+> nw
+You move to Godliness.
+
+Godliness
+
+The only arch plated with gold.
+
+You can see The Door of Fulfilment  and The Measure.
+You can go southeast back to Central Park.
+> use trolley
+
+> use trolley
+You jump on the trolley and sail under The Measure before losing your balance and falling off . As you were passing The Measure, you are sure you heard a click from The Door of Fulfilment.
+> take trolley
+
+> take trolley
+You pick it up.
+> se
+
+> se
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> e
+
+> e
+You move to Outside the arch of  Medication.
+
+Outside the arch of  Medication
+You are standing just outside the arch of Medication.
+
+You can see The Gurney and the door into Medication.
+You can go west back to Central Park or east.
+> e
+
+> e
+You move to Inside Medication.
+
+Inside Medication
+You are inside Medication. It reeks of surgical spirit and soap. Medical posters, charts and anatomical diagrams cover the walls, giving a sense of clutter.
+
+You can see The Robodoc, posters and a table.
+You can go west into the foyer.
+> look at robodoc
+
+> look at robodoc
+The Robodoc is a large machine standing in the rear of Medication. It teaches basic medicine, gives lectures and also performs operations. None of its  many flashing lights, cameras  and readouts are operating today. The surgery training dummy lies in front of it on the slab. Its operating arm is poised over the dummy as if eager to continue as soon as the power returns.
+It is holding a scalpel.
+> take scalpel
+
+> take scalpel
+You take the scalpel.
+> look at table
+
+> look at table
+A wooden table, much ringed by coffee mugs.
+On it is a scrawled sign and a tube of ointment.
+> take ointment
+
+> take ointment
+You pick it up.
+> use ointment
+
+> use ointment
+You squeeze the contents of the tube onto your palm. After applying the lotion liberally to both eyes they feel remarkably refreshed, allowing to see much more clearly than before. Wonderful stuff! As there is no more left, you throw the tube away.
+> take posters
+
+> take posters
+One very large poster is particularly nauseating. It depicts a body with all the internal organs in full colour. You cannot bear to look at it any longer. You rip it down, screw it up and throw it outside.
+
+There’s a small door behind it.
+> e
+
+> e
+You open the door and go in, releasing a cloud of dust. This door has not been used for a while.
+
+Small murky cupboard
+There’s someone in here with you, shimmering in the darkness.
+
+You can see a glowing figure.
+You can go west out of the cupboard.
+> look at glowing figure
+
+> look at glowing figure
+
+A glowing figure. It has a grey cloth-like covering from head to foot. You are unable to decide if this is a ghost or some strange creature.
+> take covering
+
+> take covering
+Emboldened by the figure’s silence and lack of movement, you tug at the covering. It sticks to your hand. You shake it off. It falls into a crumpled heap on the floor. It’s a kobb web.
+
+You are taken aback by what else your actions have revealed. A full sized anatomical skeleton.
+
+> look at skeleton
+
+> look at skeleton
+It's a full sized anatomical skeleton.
+Inside is a glowing mass.
+> look at glowing mass
+
+> look at glowing mass
+A glowing mass inside the ribcage of the skeleton. It looks like a nest, probably of a kobb. It’s built of the luminous wing cases and legs of humm bugs. Kobbs are notorious for collecting shiny objects.
+
+Suddenly the nest splits apart.
+> look at nest
+
+> look at nest
+You see a partly open spherical mass of luminous insect parts, and something else. It's the owner of the nest!
+
+Inside you see a kobb.
+> attack kobb
+
+> attack kobb
+You attempt to stab the kobb but it seizes the scalpel from your hand in two of its ten legs. It then clambers down the skeleton and into a rhatt hole in the darkest corner of the cupboard clutching its prize. The rhatt emerges squealing and vanishes into the darkness. The kobb has a new home.
+> look at nest
+
+> look at nest
+A mass of luminous insect parts.
+Inside you see a shiny object.
+> take shiny object
+
+> take shiny object
+You carefully pull the shiny object out of the skeleton’s ribcage.
+> wear medallion
+
+> wear medallion
+You hang the medallion around your neck.
+> w
+
+> w
+You leave the cupboard.
+
+Inside Medication
+You are inside Medication. It reeks of surgical spirit and soap.
+
+You can see The Robodoc, a dummy, posters, a small door and a table (on which there is a scrawled sign).
+You can go west into the foyer.
+> w
+
+> w
+You move to Outside the arch of  Medication.
+
+Outside the arch of  Medication
+You are standing just outside the arch of Medication.
+
+You can see The Gurney and the door into Medication.
+You can go west back to Central Park or east.
+> w
+
+> w
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> search rubble pile
+
+> search rubble pile
+With the lotion protecting your eyes, you are able to search methodically.
+Just as you are about to give up, you come across an interesting rock. You pick it up. It is very heavy, but only the size of a tennis ball, and almost as round.
+> n
+
+> n
+You move to Outside Vista.
+
+Outside Vista
+
+You are standing outside the archway of Vista. Beyond the arch a sloping green meadow extends ever upward to where the jagged peaks of mountains rise into the sky. The mountains look misty with distance. Trainees sometimes gather in groups to gaze at the forbidden outside world. One day they may pass through Godliness and visit it.
+
+Between you and the arch lies the almost invisibly delineated boundary known as the line. Passing through the line  is impossible. Any person stupid enough to venture into it is immediately assailed by an overwhelming fear of approaching the archway. The unfortunate victim suffers no injuries but is unable to continue towards the arch of Vista. One step back is enough to cancel the fear. One step forward brings it back.
+
+The faint glow of the line is not visible today, which is very strange.
+
+You can go south back to Central Park or north towards the arch of Vista.
+> n
+
+> n
+You move to Under the arch.
+
+Under the arch
+Bolstered by the fact that the line is not visible you pluck up the courage to gingerly edge your way towards Vista and are unexpectedly actually standing in the archway. You have been bracing yourself for the onset of the line of fear. Nothing happened, save a slight tingling sensation halfway through.
+
+The laws of the world have gone haywire. No one has ever approached Vista this closely before.
+
+You can see mist and mountains.
+You can go south or north.
+> throw rock
+
+> throw rock
+You step backward a few paces and throw the rock at the mist. The rock shatters. For a long moment nothing seems to happen, then the mist collapses into dust and splinters. The mountains become clearer. The way north seems open.
+> n
+
+> n
+You move to Through the arch.
+
+Through the arch
+You are in a green painted courtyard sloping steeply up to mountains no higher than ten times the height of yourself. The scene seems to be cleverly carved, moulded and painted to resemble reality. To the west and east the blank white walls of the neighbouring buildings box you in.
+
+You can see mountains and a steel ladder.
+You can go south.
+> look at ladder
+
+> look at ladder
+To your left the wall of Godliness has a ladder bolted to it. It obviously leads to the rooftops. It has traces of red on it.
+On the ground beside it is a bronze key.
+> take bronze key
+
+> take bronze key
+You pick it up.
+> u
+
+> u
+You feel afraid to do that. Everyone knows that the rooftops are the domain of monsters. Sometimes their glaring faces can be seen peering down on Central Park. Any attempt to climb the buildings is greeted by their roars from above. No one has ever tried climbing more than waist high from the ground. You pause to gather courage. Dare you climb the ladder.
+
+Yes you must. You have already come this far.
+
+The roof
+The roof is flat with a low parapet. To the south of you a creature squats on three small wheels.  It stands immobile seemingly peering down into Central Park.
+
+Is this one of the fabled monsters of the rooftops?
+
+Dare you remain and look again?
+
+You can see a ladder and a monster.
+> look at monster
+
+> look at monster
+
+The creature shows no sign of life. On closer scrutiny it appears to be a spiked metal machine standing on wheels. The front of the thing is fashioned into a staring silver and red animal face. Parts of its body have been recently painted red. There’s a small door in the rear of the thing. Stencilled letters read TOOL STORAGE.
+
+You cautiously step in front of it. The thing does not roar or move towards you. After the initial shock, you realise now  that this is purely a harmless warning device, designed to move around the roof. The power failure that blanked out the line of fear and anything more powerful than lighting has seemingly immobilised it.
+
+There’s a can underneath the creature and you notice footprints on the ground.
+> look at footprints
+
+> look at footprints
+Large footprints in the dust too big to be your own. They are sharply defined and don’t show the imprint of individual toes. Someone walked from the ladder to the monster, then ran back to the ladder with huge strides. The huge strides are outlined in bright red paint.
+> open tool storage door
+
+> open tool storage door
+Using the bronze key you put it in the lock and turn.
+
+Drat! The key has snapped off in the lock. You hurl the useless half key away in disgust.
+
+You kick the monster in frustration.
+
+The thing rolls slightly on its wheels. You hear a loud click as some internal mechanism disengages. The roof slopes slightly here. The monster gains momentum. It rolls ponderously into the low parapet. Bricks crumble. The monster topples and rolls slowly over the edge.
+
+CRASH!!!!
+> d
+
+> d
+You climb back down the ladder.
+
+Through the arch
+You are in a cunningly created courtyard.
+
+You can see mountains, a steel ladder and a pile of wreckage.
+You can go south.
+> s
+
+> s
+You move to Under the arch.
+
+Under the arch
+You stand under the arch, unaffected by the dreaded line.
+
+You can see mountains.
+You can go south or north.
+> s
+
+> s
+You move to Outside Vista.
+
+Outside Vista
+You are outside the arch of Vista. There seem no restrictions on approaching it.
+
+You can go south back to Central Park or north towards the arch of Vista.
+> s
+
+> s
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> se
+
+> se
+You move to Education.
+
+Education
+You are outside the great hall of Education.
+
+You can see a shoe.
+You can go northwest back to Central Park or southeast.
+> look at shoe
+
+> look at shoe
+It’s a shoe. You recognise what it is from the pictures of the GODS in Education. They fit them on their feet, you are not sure why. Why would a GOD be in such a hurry as to leave a shoe behind?
+
+It is covered with red paint.
+> se
+
+> se
+You enter the hallowed archway of Education.
+
+The Great Hall of Education
+A vast high vaulted ceiling, a sea of desks, strangely silent and deserted. Not quite what you are used to. The desks are normally packed with students.
+
+You can see desks, Old Creak and a stage.
+You can go northwest or up onto the stage.
+> touch old creak
+
+> touch old creak
+To your horror the red eyes light up. The raised arm descends with supernatural speed. A piece of chalk flashes past you and clatters into the desks.
+
+Old Creak rumbles round and round on his stand, his arm creaking and spitting chalk. You dive under a desk. The last piece hits a panel behind the stage. It rocks slightly with the impact.
+
+Old Creak falls silent. The red glowing eyes fade. The last gasp of backup battery power has run its course. Or has it?
+
+You climb out from under the desk. Peace reigns.
+> u
+
+> u
+You climb the six steps up to the stage.
+
+The Stage
+The rear wall of the stage is made up of painted panels portraying the GODS.
+
+You can see panels.
+You can go down from the stage.
+> look at panels
+
+> look at panels
+The panels are painted with stylised pictures of gods and goddesses eating and drinking at a long table. They are more than twice the height of the diminutive picture of a trainee holding a tray of glasses. He is clad in cloth coverings similar to the GODS and has shoes. This must be a picture of the world beyond this. A world you hope to reach though Godliness.
+One panel has a damaged picture.
+> look at damaged picture
+
+> look at damaged picture
+This panel has a picture with a large chip of paint missing. That must be where a chalk lump hit. Beside it a very faint red partial handprint that you would not normally have noticed. On closer inspection, this panel looks more worn than the others and seems loose.
+> push panels
+
+> push panels
+You push the damaged panel. It moves back slightly, then slides sideways to reveal an opening.
+> in
+
+> in
+You squeeze through the opening.
+
+Behind the panel
+You are in a small dusty room behind the panels. There are scuffed footprints in the dust.
+
+You can see footprints and a trapdoor.
+You can go out through the opening.
+> look at trapdoor
+
+> look at trapdoor
+The trapdoor is open.
+Below it you see a ladder.
+> d
+
+> d
+You climb down the ladder.
+
+Down below
+You are in small square, dimly lit room. Weak light filters down from the room above.
+
+You can see a steel door, a ladder and a body.
+> look at body
+
+> look at body
+An enormous crumpled body is lying at the base of the ladder. To your horror it can only be a GOD. You have never seen one before, but the paintings on the stage are clear enough. How is it possible for a GOD to be dead?
+
+The GOD has only one shoe, possibly the reason for his fall.
+He is wearing a blue outfit (with a white tape and a pocket).
+> look in pocket
+
+> look in pocket
+You look rather gingerly inside the pocket. There’s a small hand torch inside. You take possession of it. The GOD has no more use for it.
+> switch on torch
+
+> switch on torch
+A bright light shines out. You can see much better now.
+> look at grille
+
+> look at grille
+A small metal grille by the door has become visible in the brighter light. You press a button on the front of it.
+
+Suddenly it crackles. A strangely accented voice speaks. “Hey Vango, don't speak, just listen. I'm in a rush. That last batch barely reached The Measure. Be more careful in future or we'll have them thrown back at us.”
+
+He finishes by adding “Something’s up. The high power’s all off. Heard a big bang. Think it might be an emergency drill. Gotta go now.”
+
+The cackle cuts off.
+
+What was that about? What did he mean by "batch"? Perhaps it is something to do with The Door to Fulfilment as he mentioned The Measure?
+> u
+
+> u
+As you reach out for the ladder, you touch something small hanging on a rung. It tinkles to your feet.
+> take steel key
+
+> take steel key
+You pick up the key.
+> u
+
+> u
+You climb the ladder.
+
+Suddenly a small flock of bhatts emerges from a crevice. They fly round your head squeaking. You have difficulty holding onto the ladder.
+
+You drop the torch, there is a sound of breaking glass, and the light goes out.
+
+Behind the panel
+You are in a small room behind the panels.
+
+You can see footprints and a trapdoor (through which you see a ladder).
+You can go out through the opening.
+> out
+
+> out
+
+The Stage
+The GODS on the panels continue their feast.
+
+You can see panels and an opening.
+You can go down from the stage.
+> d
+
+> d
+Using the steps, you leave the stage.
+
+The Great Hall of Education
+The great hall remains as it was the last time you looked.
+
+You can see desks, Old Creak and a stage.
+You can go northwest or up onto the stage.
+> nw
+
+> nw
+You leave the Great Hall
+
+Education
+You are outside the great hall of Education.
+
+You can see a shoe.
+You can go northwest back to Central Park or southeast.
+> nw
+
+> nw
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> n
+
+> n
+You move to Outside Vista.
+
+Outside Vista
+You are outside the arch of Vista. There seem no restrictions on approaching it.
+
+You can go south back to Central Park or north towards the arch of Vista.
+> n
+
+> n
+You move to Under the arch.
+
+Under the arch
+You stand under the arch, unaffected by the dreaded line.
+
+You can see mountains.
+You can go south or north.
+> n
+
+> n
+You move to Through the arch.
+
+Through the arch
+You are in a cunningly created courtyard.
+
+You can see mountains, a steel ladder and a pile of wreckage.
+You can go south.
+> look at wreckage
+
+> look at wreckage
+The twisted and shattered wreckage of the monster.
+Amongst it you spot a small tool box.
+> open box
+
+> open box
+You unlock the box and open it.
+
+You take out a spanner. It’s the only thing in there so you discard the box and its key. They were an encumbrance.
+> s
+
+> s
+You move to Under the arch.
+
+Under the arch
+You stand under the arch, unaffected by the dreaded line.
+
+You can see mountains.
+You can go south or north.
+> s
+
+> s
+You move to Outside Vista.
+
+Outside Vista
+You are outside the arch of Vista. There seem no restrictions on approaching it.
+
+You can go south back to Central Park or north towards the arch of Vista.
+> s
+
+> s
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> nw
+
+> nw
+You move to Godliness.
+
+Godliness
+
+The only arch plated with gold.
+
+You can see The Door of Fulfilment  and The Measure.
+You can go southeast back to Central Park or in through The Door.
+> in
+
+> in
+Despite your fears, now seems the right time to find out what is behind The Door of Fulfilment. You open it and go in.
+
+Inside Godliness
+Inside is not at all what you had grown up to expect. Large lockers line one wall. Beyond them a steel door faces you.
+
+You can see lockers, a steel door, a table and a notice board.
+You can go out of the room back to Godliness.
+> look at table
+
+> look at table
+A small metal table.
+On it you see a short metal bar.
+> take short metal bar
+
+> take short metal bar
+You grasp the bar. You can’t move it.
+It is an integral part of the table.
+The bar buzzes faintly. Your hand tingles.
+You remove your hand.
+Tattooed on your palm is a large S.
+> out
+
+> out
+You make your way back into Godliness. Puzzled and rather disappointed at what you have seen.
+
+Godliness
+
+The only arch plated with gold.
+
+You can see The Door of Fulfilment  and The Measure.
+You can go southeast back to Central Park or in through The Door.
+> se
+
+> se
+You move to Central Park.
+
+Central Park
+You are in Central Park. It is deserted, apart from yourself.
+
+You can see a rubble pile.
+You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+> e
+
+> e
+You move to Outside the arch of  Medication.
+
+Outside the arch of  Medication
+You are standing just outside the arch of Medication.
+
+You can see The Gurney and the door into Medication.
+You can go west back to Central Park or east.
+> enter gurney
+
+> enter gurney
+A disembodied voice from the gurney stops you in your tracks.
+“YOUR FACIAL FEATURES ARE IN DOUBT. CONFIRM YOUR IDENTITY BY GIVING YOUR NAME AS THE REGISTERED GURNEY DRIVER.”
+
+The driving seat crackles with a powerful electric pulse, leaving you in no doubt what will happen if you sit on it.
+
+> Jig
+You reply "Jig."
+
+“IDENTITY OF A REGISTERED DRIVER CONFIRMED PLEASE  BOARD AND CONTINUE YOUR DRIVING DUTIES.”
+
+The seat ceases its threatening crackles. You mount the two small steps below the driving seat and seat yourself on the rear of the vehicle.
+
+As the trolley was getting in the way, you leave it on the ground outside.
+
+On the gurney
+You are sitting on the gurney.
+
+You can see controls.
+You can go out.
+> look at controls
+
+> look at controls
+The controls seem very complicated. They look as if they might be difficult to use.
+
+You are puzzled by an oblong plate covering a large area of the controls. It looks crudely made, as if it were a later addition.
+> look at oblong steel plate
+
+> look at oblong steel plate
+An oblong steel plate securely attached to the control panel. It looks crudely made and not in keeping with this finely crafted machine. It’s fixed firmly to the control panel with a large rusty nut.
+> turn nut
+
+> turn nut
+You turn the nut using the spanner. It suddenly comes loose and bounces out of the gurney. You hear the thud of a heavy object hitting the ground below The Gurney. The oblong plate slides down the panel and vanishes into the dark footwell. A recessed button and a hole are revealed in the control panel.
+
+Unexpectedly the gurney jolts violently and rises several metres into the air. It doesn’t look safe to leave the vehicle without breaking your legs, and possibly neck. You look through the hole in the panel and can see a big concrete block lying under the gurney. The long bolt protruding from it obviously fixed the block to the underside, restricting movement to ground only. It seems the gurney was originally built to fly, but trainees have been prevented from knowing its true use.
+> press button
+
+> press button
+The button clicks down, then rises and extends, revealing itself to be the tip of a retracted joystick. The gurney suddenly rises a vast distance. The sky is very close.
+> operate joystick
+
+> operate joystick
+The joystick is difficult to operate. It is very stiff, probably due to disuse. Movements are limited. Trying to land The Gurney seems impossible. You persevere experimenting with directional control. Try, try again!
+> operate joystick
+
+> operate joystick
+You manage to move The Gurney towards the sun. It looks as if it moves on an almost invisible blue painted metal track on the sky. The temperature rapidly increases. You are forced to turn away from the blazing heat.
+> operate joystick
+
+> operate joystick
+Tiny round windows in the sky  pass overhead as you move on. You assume these are the stars you see shining at night. You can even recognise constellations.
+> operate joystick
+
+> operate joystick
+You make a sharp turn to avoid the moon, suspended from a thin wire from the ceiling. A cunning curved black screen hangs from a complicated mechanism alongside it, presumably to allow crescent moons. The moon dwindles behind you. You are getting better at this flying.
+> operate joystick
+
+> operate joystick
+You are directly below a jagged hole in the blueness above. This is the point where the sky fell down. You aim The Gurney into the gap as best you can...
+
+...and almost make it!
+
+The gurney clips the edge of the hole, and you are tipped into a large bush. You clamber out immediately. You have seen pictures of bushes in school books but didn’t realise how prickly they were.
+
+Dome
+You are on top of a gigantic dome. In its centre is a round building surrounded by the shrubbery into which you fell. Nearby is the hole where you came out. You can see that if you move too close you might fall in or indeed slide off the dome to your death if you approach its edge.
+
+White clouds drift across the blue sky. The real sky! A thing you have never seen before. Looking around, you see more domes like the one you are on. They are well spaced out. Beyond them are trees and then mountains.
+
+You can see a hole in the roof, a round building, shrubbery and The Gurney.
+
+Loud thunder sounds accompanied by bright flashes of light streaking across the sky emanate at intervals from beyond the curve of the dome and far below you. It's difficult to see properly through the smoke but you are sure you can see GODS fighting each other. There are also some damaged machines on the ground.
+> look at shrubbery
+
+> look at shrubbery
+A collection of shrubs is growing in a channel around most of the outside of the central building.
+Among the shrubs is a neglected bush (in which there is a spanner and a shiny object).
+> take bush
+
+> take bush
+The bush is dangerously close to the hole. Uprooting it is impossible. However, with difficulty you manage to break a short thick branch from it.
+> look at round building
+
+> look at round building
+A round two-story building.
+You can see a door at the front and a metal rail around the building.
+> look at metal rail
+
+> look at metal rail
+The rail runs around the building above the door.
+Attached is a wire rope (connected to a carriage).
+> look at wire rope
+
+> look at wire rope
+The wire rope is attached to a metal rail that runs around the building.
+Connected to it is a carriage.
+> d
+
+> d
+With care, you make your way along the wire to the carriage below.
+
+Down the rope
+You hang onto the wire to avoid falling.
+
+You can see a carriage and a wire rope (connected to a winch).
+You can go back up to the building.
+> look at carriage
+
+> look at carriage
+A four wheeled rail vehicle.
+You can see cylinders and a panel.
+> look at cylinders
+
+> look at cylinders
+The carriage is packed with dozens of pointed cylinders with metal vanes.
+Between them you spot a shiny silver case.
+> take case
+
+> take case
+You slide the case out from between the cylinders. As you do so you almost drop it as you are startled by the sudden appearance of a huge bowl shaped object drifting overhead.
+
+Suddenly a thin beam of black light shoots up from below. The impossible light wavers and seems to be searching for the bowl. The bowl dodges and rises vertically, vanishing into a cloud bank.
+
+Cheering rises from below the curve of the dome.
+
+A faint crackle rings out and small missiles ricochet off the dome surface.
+
+Silence falls.
+> u
+
+> u
+You move up the incline clinging to the rope.
+
+Dome
+You are on top of a gigantic dome. In its centre is a round building surrounded by the shrubbery into which you fell. Nearby is the hole where you came out.
+
+You can see a hole in the roof, a round building (on which there is a door at the front and a metal rail around the building (attached is a wire rope (connected to a carriage))), shrubbery (including a neglected bush (in which there is a spanner and a shiny object)) and The Gurney.
+You can go east through the door.
+> light branch
+
+> light branch
+You use the case’s small flame to light the branch. The resinous wood lights easily and gives a pale light, but unfortunately, also a great deal of smoky fumes.
+> u
+
+> u
+With little effort, you make your way up the wire to the metal rail. You have always been good at climbing.
+
+On the Rail
+You are standing on top of the rail.
+
+You can see a window and a wire rope.
+You can go down.
+> open window
+
+> open window
+The window is very stiff, as it hasn't been opened for a while. You free it eventually and climb in.
+
+Inside the building
+You can just about see in here. The burning branch is giving off a lot of smoke.
+
+You can see a black rag on the wall.
+You can go out of the window.
+> take black rag
+
+> take black rag
+You attempt to take the rag. It flies out of the exit gap, squeaking madly and flapping its wings.
+
+A bhatt was hanging asleep on the light switch.
+> switch on switch
+
+> switch on switch
+You switch it to on. A bright light comes on in the ceiling. With great relief you hurl the burning branch through the window. You hear it bounce down the slope.
+> d
+
+> d
+
+The Ground Floor
+You are on the ground floor. The room is empty.
+
+You can see stairs and a door.
+You can go up or west.
+> look at door
+
+> look at door
+A simple wooden door, normally secured with a bolt.
+In place of the bolt is a screwdriver.
+> take screwdriver
+
+> take screwdriver
+You pick it up.
+> u
+
+> u
+
+Inside the building
+It’s very dusty in here, it smells of machine oil.
+
+You can see a switch and stairs.
+You can go out of the window or down.
+> out
+
+> out
+You crawl back out through the window.
+
+On the Rail
+You are standing on top of the rail.
+
+You can see a window and a wire rope.
+You can go down.
+> d
+
+> d
+You climb down the wire again, landing on the top of the dome.
+
+Dome
+You are on top of a gigantic dome. In its centre is a round building surrounded by the shrubbery into which you fell. Nearby is the hole where you came out.
+
+You can see a hole in the roof, a round building (on which there is a door at the front and a metal rail around the building (attached is a wire rope (connected to a carriage))), shrubbery (including a neglected bush (in which there is a spanner and a shiny object)) and The Gurney.
+You can go east through the door.
+> d
+
+> d
+With care, you make your way along the wire to the carriage below.
+
+Down the rope
+You hang onto the wire to avoid falling.
+
+You can see a carriage (visible are cylinders and a panel) and a wire rope (connected to a winch).
+You can go back up to the building.
+> look at panel
+
+> look at panel
+A metal panel marked MAINTENANCE.
+It is held in place with four screws.
+> use screwdriver on four screws
+
+> use screwdriver on four screws
+You tackle the first screw. It's a bit stiff but comes out easily in the end. You think you hear a faint creak from the winch but decide to ignore it.
+
+The second screw is almost the same but the creak is more distinct this time. You check the lever on the winch but it is still having no effect.
+
+Screw three is tighter but again quite quickly removed. Just as you take it out there is another creak. Again louder.
+
+The final screw is also tight but eventually it frees up. Shockingly, on the last turn, the wire rope suddenly begins whirring madly. The winch spins and the carriage disappears to the GODS know where. Seconds later a tremendous explosion far below you shakes the dome.
+
+Stones patter on the building’s roof.
+
+The wire rope falls limp. All becomes silent. There is a strong smell of burning.
+> d
+
+> d
+You move down the incline, clinging to the rope.
+
+Below the dome
+You are standing below the dome in a scene of desolation.  Several large craters pit this area. Pieces of twisted metal lie everywhere. The bowl shaped flying object has reappeared and is slowly sinking towards the ground further east. It looks a thousand times bigger than the gurney.
+
+You can see a bowl shaped object.
+You can go south, west, north, east or up.
+> s
+
+> s
+Accepting your fate you approach the vehicle.
+
+By the vehicle
+The vehicle has landed. Figures have emerged. Feeling bold you approach the nearest. By their enormous size they can only be GODS.
+
+You can see GODS.
+> speak to gods
+
+> speak to gods
+As you think about what to say, the nearest GOD speaks. “Well done youngster, you did well. We blew up their air defences, but they still had a matter disrupter behind the dome. You fixed that proper with your ammo lift trick. We saw everything. We’ve been tracking you since you got out of the dome.”
+
+He turns, looks behind and waves. “Hey Sarge! This is him!” After adding “The Sarge’ll put you right,” he boards a passing land speeder not unlike the gurney, but much faster. The vehicle vanishes in an easterly direction.
+> look at sarge
+
+> look at sarge
+You approach the distant figure. He removes his helmet.
+It's a she!
+
+She speaks. “I am Sergeant Barbarella Smith, but you can call me Bar, every one else does.” She extends her hand and shakes yours. “No human could have got down that wire,” she says admiringly.
+
+“I’m human and I did,” you reply proudly.
+
+“You really don’t know, do you?” she replies. “You’re a Simian, kidnapped as a yearling, from Simia, a planet on the Spinward Rim, brainwashed and fitted with a docility implant, then brought here to Harma 7 to train as a slave labourer. This is a slave training base hidden in an abandoned dome of the Slith, an ancient race extinct some fifteen thousand years."
+
+"Your people are descended from a race now extinct on Old Earth called the Chimpanzee. A race once primitive but gradually brought to its full potential by biotechnology.”
+
+"I am human, but the Galactic Empire is composed of many races. The Starforce trooper you just met was a Gohat. If he had removed his helmet you would have seen his three eyes."
+
+She pauses for breath. “Your name?” “Yuk” you reply. “That is a ridiculous name!  It sounds like an unwholesome reaction to food."
+
+She ponders. “You came up though the dome. Your new name is Hup, a noble name. Hup the Wanderlust was a famous Simian Explorer and discoverer of planets.”
+
+You can only nod. You have been named by a GODDESS. You are pleased with your new name.
+
+“Well Hup, you and your compatriots are being rehoused on the planet Ptang. There you will be re-educated and supplied with funds to start new lives. My own brother Ish lives in Ptang City, capital of Ptang. He runs The Narl Beast Saloon and a small cab company. I’m sure he would offer you a job. Please mention my name.”
+
+She takes you by the hand. “Come. Your fellows are over there awaiting the transport to a new life!”
+
+THE END
+
+As Hup travels into a new future, congratulations on completing this game. To meet Hup again visit MAROONED and MEMOIRS OF A SPACE TRAMP by
+Father Thyme on Quest.
+[state=Finished]

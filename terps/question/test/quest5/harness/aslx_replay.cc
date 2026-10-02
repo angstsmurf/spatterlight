@@ -282,38 +282,10 @@ int main(int argc, char **argv) {
         if (!restored) { std::cerr << "[fatal] restore failed: " << err << "\n"; return 4; }
     }
 
-    Context boot;
-    if (!restored)
-        in.begin_timers();  // BeginInternalAsync arms enabled timers before InitInterface
-    try {
-        if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
-        if (!restored && w.find("StartGame")) in.call_function("StartGame", {}, &boot);
-        // BeginInternalAsync ends with UpdateListsAsync -- with no UpdateList
-        // subscriber that is just UpdateStatusAttributes, exactly like qvh.
-        in.update_lists();
-    } catch (const TurnSuspended &) {
-        // synchronous `play sound` during boot: the rest of Begin is abandoned
-    }
-    in.drain_on_ready();
-    auto auto_advance = [&]() {
-        int guard = 0;
-        while (!w.finished && in.pending_wait() && guard++ < 100) in.finish_wait();
-    };
-    auto_advance();
-    // Oracle DrainTimers: pending_tick mirrors RequestNextTimerTick (the engine
-    // reports it after every call; we poll next_timer_seconds() at the same
-    // points). While a SetTimeout timer pends, tick exactly its trigger delta.
-    auto drain_timers = [&]() {
-        int guard = 0;
-        int pending_tick = in.next_timer_seconds();
-        while (!w.finished && guard++ < 500 && in.has_enabled_timeout()) {
-            int secs = pending_tick;
-            in.tick(secs > 0 ? secs : 1);
-            auto_advance();
-            pending_tick = in.next_timer_seconds();
-        }
-    };
-
+    // The script and its prompt providers go in BEFORE the boot: StartGame
+    // can itself raise an expression-form Ask/ShowMenu/GetInput (The Day
+    // the Sky Fell Down asks about sound effects), which the oracle feeds
+    // from the first script line.
     bool echo = w.asl_version >= 520;
     std::ifstream script(argv[2]);
     std::vector<std::string> lines;
@@ -334,19 +306,8 @@ int main(int argc, char **argv) {
             if (cs > 0) clock_secs = (int)cs;
         }
     }
-    // Program.cs SettleClock: drain (default) or, under the typing clock, tick
-    // exactly clock_secs once per typed command/event -- never for a menu or
-    // question answer (they belong to the command that asked), nor for
-    // save:/assert:/tick: bookkeeping.
-    auto settle_clock = [&](bool typed) {
-        if (clock_secs == 0) { drain_timers(); return; }
-        if (!typed || w.finished) return;
-        in.tick(clock_secs);
-        auto_advance();
-    };
     size_t li = 0;
     int steps = 0;
-    settle_clock(false);  // qvh: DrainTimers after Begin (no-op under the clock)
 
     // Resolve a script line to a menu option key: exact key, display text
     // (case-insensitive), or 1-based number. Empty return = no match.
@@ -416,6 +377,50 @@ int main(int argc, char **argv) {
         }
         return false;  // script exhausted
     };
+
+    Context boot;
+    if (!restored)
+        in.begin_timers();  // BeginInternalAsync arms enabled timers before InitInterface
+    try {
+        if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
+        if (!restored && w.find("StartGame")) in.call_function("StartGame", {}, &boot);
+        // BeginInternalAsync ends with UpdateListsAsync -- with no UpdateList
+        // subscriber that is just UpdateStatusAttributes, exactly like qvh.
+        in.update_lists();
+    } catch (const TurnSuspended &) {
+        // synchronous `play sound` during boot: the rest of Begin is abandoned
+    }
+    in.drain_on_ready();
+    auto auto_advance = [&]() {
+        int guard = 0;
+        while (!w.finished && in.pending_wait() && guard++ < 100) in.finish_wait();
+    };
+    auto_advance();
+    // Oracle DrainTimers: pending_tick mirrors RequestNextTimerTick (the engine
+    // reports it after every call; we poll next_timer_seconds() at the same
+    // points). While a SetTimeout timer pends, tick exactly its trigger delta.
+    auto drain_timers = [&]() {
+        int guard = 0;
+        int pending_tick = in.next_timer_seconds();
+        while (!w.finished && guard++ < 500 && in.has_enabled_timeout()) {
+            int secs = pending_tick;
+            in.tick(secs > 0 ? secs : 1);
+            auto_advance();
+            pending_tick = in.next_timer_seconds();
+        }
+    };
+
+    // Program.cs SettleClock: drain (default) or, under the typing clock, tick
+    // exactly clock_secs once per typed command/event -- never for a menu or
+    // question answer (they belong to the command that asked), nor for
+    // save:/assert:/tick: bookkeeping.
+    auto settle_clock = [&](bool typed) {
+        if (clock_secs == 0) { drain_timers(); return; }
+        if (!typed || w.finished) return;
+        in.tick(clock_secs);
+        auto_advance();
+    };
+    settle_clock(false);  // qvh: DrainTimers after Begin (no-op under the clock)
 
     while (li < lines.size()) {
         if (w.finished) break;

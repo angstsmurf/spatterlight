@@ -1,0 +1,189 @@
+Another Puzzle
+
+by EJDS
+
+Where am I? What is this place? Why do I keep on getting stuck in these puzzles? How did I even get here in the first place? Why am I even here?
+
+You are in a room.
+You can see a disintegration button and an other button.
+An ordinary room.
+
+> look at other button
+
+> look at other button
+The other button has been placed here by EJDS to ease the programming of this game. To escape the first room, you must press this button. If you don't want to escape the room you can just press the disintegration button.
+> press other button
+
+> press other button
+You press the button. A wall crumbles down and reveals an exit.
+YEY 5 POINTS
+> press other button
+
+> press other button
+You press it. Nothing happens, but you see some sort of flickering in the other room.
+> e
+
+> e
+
+You are in a room.
+You can see a safe, a calendar, a vent and a script.
+You can go west or in the vent.
+The room is dimly lit.
+> look at safe
+
+> look at safe
+There's a keypad on it.
+> enter code in keypad
+
+> enter code in keypad
+What code?
+> 0918
+You hear two beeps and a click.
+YEY 10 POINTS
+> open safe
+
+> open safe
+It opens.
+It contains a screwdriver and a flashlight.
+> take screwdriver
+
+> take screwdriver
+You pick it up.
+> take flashlight
+
+> take flashlight
+You pick it up.
+> switch on flashlight
+
+> switch on flashlight
+You switch it on.
+> use screwdriver
+
+> use screwdriver
+You unscrew the screws. They fall off, and you figure out that you can lift the vent quite easily.
+> open vent
+
+> open vent
+You open it.
+> go in the vent
+
+> go in the vent
+
+You are in the vent.
+You can see a button and a ventilator fan.
+You can go out of the vent or in the fan.
+A normal vent.
+> press button
+
+> press button
+You hear something rumbling above you.
+YEY 5 POINTS
+> go out of the vent
+
+> go out of the vent
+
+You are in a room.
+You can see a safe, a calendar, a vent and a script.
+You can go west, in the vent or east.
+The room is dimly lit.
+> e
+
+> e
+
+You are in a room.
+You can see a blue pressure plate, a red pressure plate and a black pressure plate.
+You can go west.
+A room. The puzzle in this room seems familiar. You've done this puzzle before, right?
+> step on blue pressure plate
+
+> step on blue pressure plate
+You step on the plate. The ground shakes.
+> step on black pressure plate
+
+> step on black pressure plate
+You step on the plate. The ground shakes even more.
+> step on red pressure plate
+
+> step on red pressure plate
+You step on the plate. The ground stops shaking, and a wall opens to reveal a passage.
+YEY 10 POINTS
+> go through the passage
+
+> go through the passage
+
+You are in a secret room.
+You can see a TV, a keypad and a mirror.
+You can go through the passage.
+Wow! Another secret room.
+> read keypad
+
+> read keypad
+If you drop me I’m sure to crack, but give me a smile and I’ll always smile back. What am I?
+> enter code in keypad
+
+> enter code in keypad
+What code?
+> mirror
+The keypad displays the message "0000", and a wall vanishes into thin air.
+YEY 10 POINTS
+> e
+
+> e
+
+You are in an other secret room.
+You can go west or east.
+Another secret room.
+*screaming inside*
+You hear a voice coming somewhere from the room.
+Nothing is gonna happen here.
+Just go through the door at the east.
+> e
+
+> e
+
+You are in a room3.
+You can see a light switch, a table (on which there is a shirt and a cookie) and some sort of AI robot.
+You can go west or east.
+The result of lack of motivation, laziness, and inexperience.
+You hear a voice again.
+This room is just a practice room.
+Please interact with all things in here before proceeding to the other room.
+Oops... EJDS forgot to add a room alias. Oh wait, he did it on purpose.
+> take shirt
+
+> take shirt
+You pick it up.
+YEY 2 POINTS
+> take cookie
+
+> take cookie
+You pick it up.
+YEY 3 POINTS
+You wonder why people in RPG-like games are silent, so you try to speak. Unfortunately, you have not been scripted talk.
+Sadly...
+> switch on light switch
+
+> switch on light switch
+You switch it on.
+> switch
+
+> switch
+You are in a room3.
+You can see a light switch, a table and a human.
+You can go west or east.
+The result of lack of motivation, laziness, and inexperience.
+
+> e
+
+> e
+You can hear the human walking around the room.
+
+You are in a room.
+You can see some sort of technology something.
+You can go west.
+It seems as though EJDS has run out of ideas.
+> hack into technology something
+
+> hack into technology something
+Yey yu finished da beta
+[state=Finished]
