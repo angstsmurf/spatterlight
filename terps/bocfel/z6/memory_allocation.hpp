@@ -12,6 +12,5 @@
 
 void *MemAlloc(size_t size);
 void *MemCalloc(size_t size);
-void *MemRealloc(void *ptr, size_t size);
 
 #endif /* memory_allocation_hpp */

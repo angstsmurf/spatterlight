@@ -401,7 +401,6 @@ int global_define_line = 0;
 // Renders the entire definitions menu: title, all function key definitions,
 // and built-in commands. Sends VoiceOver menu items for each line.
 static void display_softs(void) {
-    fprintf(stderr, "display_softs\n");
     uint16_t number_of_lines = user_word(fkeys_table_addr) / 2;
     winid_t win = DEFINITIONS_WINDOW.id;
     glk_set_window(win);

@@ -61,13 +61,3 @@ void *MemCalloc(size_t size)
 
     return (t);
 }
-
-void *MemRealloc(void *ptr, size_t size)
-{
-    void *t = (void *)realloc(ptr, size);
-    if (t == nullptr) {
-        fprintf(stderr, "Out of memory");
-        exit(1);
-    }
-    return (t);
-}
