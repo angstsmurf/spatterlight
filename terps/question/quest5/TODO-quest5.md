@@ -1,5 +1,22 @@
 # TODO: Quest 5 support in Question
 
+## Status (2026-10-02, corpus 165 rows; open items re-audited)
+
+- Corpus: 165 `corpus.tsv` rows, all with frozen goldens. `check_golden.sh`
+  165/165. Native `run_replays.sh` 162/165, and the three failures are the
+  expected Quest Viva #2189 grid-error lines (The Acreage 6.29, Woo Rebooted
+  3.7, GiantKiller Too 2.15; see the oracle README). `run_replays.sh` now
+  falls back to a bare `.aslx` like `check_golden.sh` (An Amical Bet and
+  Sleuth no longer MISS). `aslx_replay` installs its menu/ask/input providers
+  before StartGame, so an expression-form `Ask` at boot (The Day the Sky Fell
+  Down) is fed like the oracle feeds it.
+- Still open: Stranger Parts 7–11 and the other typing-clock rows (§7.1);
+  `<backgroundimage>` (milestone 5); the missing string/date/file built-ins
+  (§2, unused by the corpus); `make check` does not run the corpus replay
+  (milestone 6); moving the oracle's pinned QuestViva revision to current
+  upstream (fork `main` fast-forwarded 2026-09-25; needs the
+  `patch_questviva.py` `_random` anchor fixed and every golden re-checked).
+
 ## Status (2026-07-22, a pane fold refreshes the autosave -- BOTH frontends)
 
 - Unfolding an object's verb list in the side pane passes no turn, so no
@@ -1363,9 +1380,14 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       (space-encoded) identifiers, `in`/`not in`, case-insensitive
       `True`/`False`/`Null`, NCalc `if()`/`cast()`, `GetFileURL`/
       `GetUniqueElementName`/`RunDelegateFunction`; typed (Value-holding)
-      lists with reference-identity equality (2026-07-16). TODO: the remaining
-      built-ins (DateTime, `FormatList` and the scope helpers) and list/dict
-      literals.
+      lists with reference-identity equality (2026-07-16). TODO (re-audited
+      2026-10-02 against QuestViva's `src/Engine/Functions/*.cs`): the
+      built-ins still missing natively are `Asc`, `Chr`, `InstrRev` (2- and
+      3-arg), `LTrim`, `RTrim`, `CurrentDateUTC` and
+      `GetFileData`/`GetExternalFileData`/`SetExternalFileData`. No corpus game
+      calls them. (`FormatList` and the scope helpers are Core.aslx functions
+      and already run as library code.) List/dict literals are also still
+      unsupported.
 - [x] **Command parsing comes free**: implemented in `CoreParser.aslx`, and it
       now runs — `HandleCommand` → `ScopeCommands` → `IsRegexMatch`/
       `GetMatchStrength` → `ResolveName`/`GetScope`/`ResolveNameFromList`/
@@ -1465,7 +1487,10 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       room name from JS.updateLocation. Both the JS.* and the pre-JS
       `request (SetStatus/UpdateLocation/SetPanelContents)` channels route to
       the same hooks.
-- [ ] `JS.*` calls: implement the handful Core itself uses (`JS.eval` from
+- [x] `JS.*` calls (closed 2026-10-02: every call Core makes is bridged —
+      `JS.addText` output, `JS.uiShow`/`uiHide` panes, `JS.updateLocation`,
+      the grid-map vocabulary behind the `grid_draw` hook, and restart; all
+      165 corpus rows replay natively): implement the handful Core itself uses (`JS.eval` from
       user games gets a one-time warning and is ignored). Games built around
       custom JavaScript UIs are explicitly out of scope — detect and warn.
       Done so far: the restart channel (2026-07-16) — Core's `restart`
@@ -1560,17 +1585,23 @@ stays unsupported, as in `quest4.c`.
 
 ### 7.1 More-games queue (corpus gaps)
 
-Wiring recipe per game: copy from the staging dir `~/Downloads/More Quest 5
-games` into `~/Downloads/Quest 5 games` (what `check_golden.sh` reads) + its
-MANIFEST row, then override → golden pair → native `aslx_replay` byte-diff →
-README row → one commit. See the `quest5-remaining-games` memo.
+Wiring recipe per game: copy the file into the gitignored
+`test/quest5/games/` + its `games.manifest.tsv` row, then
+`harness/oracle/corpus.tsv` row → override → golden pair →
+`check_golden.sh` + native `run_replays.sh` → overrides/README row → one
+commit. The `~/Downloads/More Quest 5 games` staging dir is gone (a copy
+survives in the 2026-08-26 Time Machine backup); everything it held is wired.
 
-Staged but unwired (`~/Downloads/More Quest 5 games`):
-
-- [ ] **Stranger** — the largest game in the corpus (~350 rooms). Blocked: a
-      real-time reflex trap makes it not oracle-winnable headless. A 287-command
-      opening plus the first full walkthrough are recorded in the
-      `quest5-stranger-unregarded` memo.
+- [~] **A Stranger, Unregarded** (`Stranger.quest`) — the largest game in the
+      corpus (~350 rooms). WIRED 2026-09-25 as a best-reachable row: the
+      `#!clock=5` typing clock gets it past the real-time portcullis trap, and
+      the 308-step route stops Running at Vampire1, errors=0, native
+      byte-identical. **Owed:** Parts 7–11 (Vampire → Siren → werewolf →
+      Wizard/Dragon → Endgame/Demonlord); see the `quest5-stranger-unregarded`
+      memo.
+- [~] **Other typing-clock rows** — A Story of Salvation, Mt. Underlook and The
+      Encyclopedia of Elementals are also best-reachable rows that stop just
+      past their real-time gate; the rest of each game is owed.
 - [x] **Signos** — WIRED as the **77th golden** (M4u, 2012, ASL 520; 2,311,079
       bytes). Fetched 2026-07-22 from
       `ifarchive.org/if-archive/games/competition2012/quest/signos/Signos.quest`;
@@ -1581,8 +1612,11 @@ Staged but unwired (`~/Downloads/More Quest 5 games`):
       errors=0; native `aslx_replay` byte-identical first try, zero engine
       changes. The game ships a `WALKTHRU` command but it is wrong (see the
       overrides/README row) and self-caps at "100 points".
-- [ ] `game.quest`, `nnnnnbhn12345ABC.quest` — placeholder/junk names; triage
-      whether either is a real game before spending a slot on it.
+- [x] `game.quest`, `nnnnnbhn12345ABC.quest` — not junk, and both already
+      wired under their real names: `game.quest` is **EELTAIL** (Mick Green,
+      v1.8, won with all ten treasures), and `nnnnnbhn12345ABC.quest` is
+      byte-identical (sha256 `685e5720…`) to **Warriors** (Kit version demo,
+      2016, "END OF DEMO.").
 
 (ScummVM's "sleepingassassin" entry shares micky's md5; it is the same file as
 *El asesino durmiente*, already wired.)
@@ -1621,6 +1655,9 @@ Staged but unwired (`~/Downloads/More Quest 5 games`):
 6. **Integration** (babel claim + Info.plist + Xcode wiring ✅ 2026-07-16;
    app-verified with Dream Pieces; babel zip metadata + cover art ✅
    2026-07-17): remaining — a corpus-wide replay gate wired into `make check`.
+   The gate exists as `test/quest5/harness/run_replays.sh` (all 165 goldens,
+   8-way parallel), but it needs the locally fetched games, so it is run by
+   hand rather than from `make check`.
 
 Size honesty: milestones 2–3 alone are on the order of the whole existing
 runner (`question-runner.cc` is 5.5 k lines) — the engine primitives are small
