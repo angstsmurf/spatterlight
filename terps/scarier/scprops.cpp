@@ -19,6 +19,7 @@
  */
 
 #include <assert.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -54,17 +55,20 @@ typedef struct scr_prop_node_s
   struct scr_prop_node_s **child_list;
 
   /*
-   * TRUE when a string-keyed child_list is sorted by name for binary search
-   * (see prop_find_child).  Cleared whenever a string child is appended;
-   * meaningless for integer-keyed nodes, whose children are positional.
+   * For a node with string-keyed children, the hash of each child's name
+   * (see prop_hash_name), parallel to child_list.  Both arrays are kept in
+   * ascending hash order by prop_add_child, so prop_find_child can binary
+   * search this one -- a few adjacent integers -- and touch only the child
+   * it lands on.  NULL for leaves and for integer-keyed nodes, whose
+   * children are positional.
    */
-  scr_bool is_sorted;
+  uint32_t *child_hashes;
 
   /*
    * The string-keyed child returned by the last successful lookup, verified
-   * by strcmp before reuse.  Loops asking a node for the same key repeatedly
+   * by name before reuse.  Loops asking a node for the same key repeatedly
    * (the task scan asking the root for "Tasks", say) hit here in one compare
-   * instead of a binary search.
+   * instead of a hash and a binary search.
    */
   struct scr_prop_node_s *last_found;
 } scr_prop_node_t;
@@ -286,10 +290,63 @@ prop_new_node (scr_prop_setref_t bundle)
 
 
 /*
+ * prop_hash_name()
+ * prop_names_equal()
+ * prop_hash_position()
+ *
+ * The pieces of the string-keyed child lookup.  Property names are short
+ * ("Short", "Restrictions", "Var1"), so the hash and the comparison are
+ * plain byte loops, inlined into prop_find_child -- a call out to strcmp
+ * per probe was most of what a lookup cost.  prop_hash_position returns the
+ * index of the first of 'count' ascending hashes that is not below 'hash',
+ * or 'count' if there is none.
+ */
+static inline uint32_t
+prop_hash_name (const scr_char *name)
+{
+  uint32_t hash = 5381;
+
+  for (; *name != NUL; name++)
+    hash = hash * 33 + (scr_byte) *name;
+  return hash;
+}
+
+static inline scr_bool
+prop_names_equal (const scr_char *name1, const scr_char *name2)
+{
+  for (; *name1 == *name2; name1++, name2++)
+    {
+      if (*name1 == NUL)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+static inline scr_int
+prop_hash_position (const uint32_t *hashes, scr_int count, uint32_t hash)
+{
+  const uint32_t *base = hashes;
+
+  if (count == 0)
+    return 0;
+
+  /* Halve the range without branching on the data. */
+  while (count > 1)
+    {
+      const scr_int half = count / 2;
+
+      base += base[half - 1] < hash ? half : 0;
+      count -= half;
+    }
+  return (base - hashes) + (*base < hash ? 1 : 0);
+}
+
+
+/*
  * prop_compare_child_names()
  *
  * qsort() comparator ordering string-keyed child nodes by their interned
- * names, for the binary search in prop_find_child().
+ * names, for prop_debug_dump_node().
  */
 static int
 prop_compare_child_names (const void *child1, const void *child2)
@@ -342,47 +399,37 @@ prop_find_child (scr_prop_noderef_t parent, scr_int type, scr_vartype_t name)
            * single hottest inner loop (tens of millions of iterations on a
            * full walkthrough -- see the P4 profiling notes and the v4
            * profiling memo).  String children carry no positional meaning
-           * (this lookup is the only reader, and an earlier move-to-front
-           * scheme reordered them freely), so keep each list sorted by name
-           * and binary search it.  Lists are sorted lazily on first lookup;
-           * prop_add_child clears is_sorted when it appends, so load-time
-           * find/add interleaving stays correct and the steady state after
-           * load is one sort per node, then log2(n) strcmp probes per lookup
-           * in place of a linear scan plus a move-to-front memmove.
+           * (this lookup is the only reader), so prop_add_child keeps them
+           * in order of their names' hashes: a lookup hashes the key once,
+           * binary searches the parent's hash array, and compares names
+           * only to confirm the child it lands on.
            */
           {
             const scr_char *const key = name.string;
-            scr_int low, high;
+            const uint32_t *const hashes = parent->child_hashes;
+            const scr_int count = parent->property.integer;
+            uint32_t hash;
+            scr_int index_;
 
             /* Re-check the last hit first; loops repeat the same key. */
             child = parent->last_found;
-            if (child && strcmp (key, child->name.string) == 0)
+            if (child && prop_names_equal (key, child->name.string))
               return child;
 
-            if (!parent->is_sorted)
-              {
-                qsort (parent->child_list, parent->property.integer,
-                       sizeof (*parent->child_list), prop_compare_child_names);
-                parent->is_sorted = TRUE;
-              }
+            /* An integer-keyed parent has no string children to find. */
+            if (!hashes)
+              break;
 
-            low = 0;
-            high = parent->property.integer - 1;
-            while (low <= high)
+            hash = prop_hash_name (key);
+            for (index_ = prop_hash_position (hashes, count, hash);
+                 index_ < count && hashes[index_] == hash; index_++)
               {
-                const scr_int middle = (low + high) / 2;
-                const int comparison =
-                    strcmp (key, parent->child_list[middle]->name.string);
-
-                if (comparison == 0)
+                child = parent->child_list[index_];
+                if (prop_names_equal (key, child->name.string))
                   {
-                    parent->last_found = parent->child_list[middle];
-                    return parent->child_list[middle];
+                    parent->last_found = child;
+                    return child;
                   }
-                else if (comparison < 0)
-                  high = middle - 1;
-                else
-                  low = middle + 1;
               }
           }
           break;
@@ -431,7 +478,7 @@ prop_add_child (scr_prop_noderef_t parent,
   /* Initialize property and child list to visible nulls. */
   child->property.voidp = NULL;
   child->child_list = NULL;
-  child->is_sorted = FALSE;
+  child->child_hashes = NULL;
   child->last_found = NULL;
 
   /* Make a brief check for obvious overwrites. */
@@ -452,6 +499,8 @@ prop_add_child (scr_prop_noderef_t parent,
         scr_fatal ("prop_add_child: integer key cannot be negative\n");
       else if (name.integer > MAX_INTEGER_KEY)
         scr_fatal ("prop_add_child: integer key is too large\n");
+      else if (parent->child_hashes)
+        scr_fatal ("prop_add_child: integer key under string keys\n");
 
       /* Resize the parent's child list if necessary. */
       parent->child_list = (decltype(parent->child_list)) prop_ensure_capacity (parent->child_list,
@@ -468,16 +517,34 @@ prop_add_child (scr_prop_noderef_t parent,
       break;
 
     case PROP_KEY_STRING:
-      /* Add a single entry to the child list, and resize. */
-      parent->child_list = (decltype(parent->child_list)) prop_ensure_capacity (parent->child_list,
-                                                 parent->property.integer,
-                                                 parent->property.integer + 1,
-                                                 sizeof (*parent->child_list));
+      {
+        const uint32_t hash = prop_hash_name (child->name.string);
+        const scr_int count = parent->property.integer;
+        scr_int position;
 
-      /* Store the child at the end of the list; the append invalidates any
-       * sorted order prop_find_child established (re-sorted on next find). */
-      parent->child_list[parent->property.integer++] = child;
-      parent->is_sorted = FALSE;
+        if (count > 0 && !parent->child_hashes)
+          scr_fatal ("prop_add_child: string key under integer keys\n");
+
+        /* Add a single entry to the child list and its hashes, and resize. */
+        parent->child_list = (decltype(parent->child_list)) prop_ensure_capacity (parent->child_list,
+                                                   count, count + 1,
+                                                   sizeof (*parent->child_list));
+        parent->child_hashes = (decltype(parent->child_hashes)) prop_ensure_capacity (parent->child_hashes,
+                                                   count, count + 1,
+                                                   sizeof (*parent->child_hashes));
+
+        /* Open a gap at the child's place in hash order, and store it. */
+        position = prop_hash_position (parent->child_hashes, count, hash);
+        memmove (parent->child_list + position + 1,
+                 parent->child_list + position,
+                 (count - position) * sizeof (*parent->child_list));
+        memmove (parent->child_hashes + position + 1,
+                 parent->child_hashes + position,
+                 (count - position) * sizeof (*parent->child_hashes));
+        parent->child_list[position] = child;
+        parent->child_hashes[position] = hash;
+        parent->property.integer = count + 1;
+      }
       break;
 
     default:
@@ -824,6 +891,10 @@ prop_trim_node (scr_prop_noderef_t node)
       node->child_list = (decltype(node->child_list)) prop_trim_capacity (node->child_list,
                                              node->property.integer,
                                              sizeof (*node->child_list));
+      if (node->child_hashes)
+        node->child_hashes = (decltype(node->child_hashes)) prop_trim_capacity (node->child_hashes,
+                                               node->property.integer,
+                                               sizeof (*node->child_hashes));
     }
 }
 
@@ -1093,7 +1164,7 @@ prop_create_empty (void)
   bundle->root_node->child_list = NULL;
   bundle->root_node->name.string = "ROOT";
   bundle->root_node->property.voidp = NULL;
-  bundle->root_node->is_sorted = FALSE;
+  bundle->root_node->child_hashes = NULL;
   bundle->root_node->last_found = NULL;
 
   /* No taf is yet connected with this set. */
@@ -1121,8 +1192,9 @@ prop_destroy_child_list (scr_prop_noderef_t node)
       for (index_ = 0; index_ < node->property.integer; index_++)
         prop_destroy_child_list (node->child_list[index_]);
 
-      /* Free our own child list. */
+      /* Free our own child list, and its hashes if string-keyed. */
       scr_free (node->child_list);
+      scr_free (node->child_hashes);
     }
 }
 
@@ -1284,13 +1356,18 @@ prop_debug_dump_node (scr_prop_setref_t bundle,
 
       if (node->child_list)
         {
+          /* String-keyed children are held in hash order; dump by name. */
+          std::vector<scr_prop_noderef_t> children (
+              node->child_list, node->child_list + node->property.integer);
+
+          if (node->child_hashes)
+            qsort (children.data (), children.size (),
+                   sizeof (children[0]), prop_compare_child_names);
+
           /* Recursively dump children. */
           scr_trace (", child count %ld\n", node->property.integer);
           for (index_ = 0; index_ < node->property.integer; index_++)
-            {
-              prop_debug_dump_node (bundle, depth + 1,
-                                    index_, node->child_list[index_]);
-            }
+            prop_debug_dump_node (bundle, depth + 1, index_, children[index_]);
         }
       else
         {

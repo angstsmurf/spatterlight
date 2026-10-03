@@ -537,28 +537,49 @@ lib_references_are_namesakes (scr_gameref_t game)
 }
 
 /*
- * lib_mask_long_names()
+ * lib_cache_long_names()
+ * lib_forget_bundle()
  *
- * Deliberate deviation (2026-09-30).  A copy of LINE, the same length, with
- * every whole-word occurrence of an object's Short or Alias, or a
- * character's Name or Alias, that runs to two words or more overwritten by
- * LIB_NAME_MASK.  The Runner ports that look for a verb anywhere on the line
- * (two-verb lines, the verb hoist, sitstand) test the masked copy, so the
- * "pick" of an ice pick, the "drop" of a cough drop or the "stand" of a hat
- * stand is no verb: `x ice pick` examines it, where the ports answered
- * "Take what?".  OBJECTS_ONLY leaves character names standing, for the
- * tests that ask whether the line names a character at all.
+ * The names lib_mask_long_names() masks: every object's Short and Aliases,
+ * then every character's Name and Aliases, in that order, trimmed of outer
+ * spaces, keeping those of two words or more.  The bundle fixes them for
+ * the whole game, and the masking runs several times a command, where
+ * reading them back out of the properties each time was a seventh of a
+ * walkthrough's run time.  So they are collected once per bundle; the
+ * runner calls lib_forget_bundle() before destroying one, so a later bundle
+ * allocated at the same address can't inherit them.
  */
-std::string
-lib_mask_long_names (scr_gameref_t game, const scr_char *line,
-                     scr_bool objects_only)
+enum { LIB_LONG_NAME_CATEGORIES = 2 };
+static scr_prop_setref_t lib_long_names_bundle = NULL;
+static std::vector<std::string> lib_long_names[LIB_LONG_NAME_CATEGORIES];
+
+void
+lib_forget_bundle (scr_prop_setref_t bundle)
 {
-  static const scr_char *const CATEGORIES[] = { "Objects", "NPCs" };
+  if (lib_long_names_bundle == bundle)
+    {
+      size_t category;
+
+      lib_long_names_bundle = NULL;
+      for (category = 0; category < LIB_LONG_NAME_CATEGORIES; category++)
+        lib_long_names[category].clear ();
+    }
+}
+
+static void
+lib_cache_long_names (scr_gameref_t game)
+{
+  static const scr_char *const CATEGORIES[LIB_LONG_NAME_CATEGORIES]
+    = { "Objects", "NPCs" };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  std::string masked (line ? line : "");
   size_t category;
 
-  for (category = 0; category < (objects_only ? 1u : 2u); category++)
+  if (lib_long_names_bundle == bundle)
+    return;
+
+  lib_forget_bundle (lib_long_names_bundle);
+  lib_long_names_bundle = bundle;
+  for (category = 0; category < LIB_LONG_NAME_CATEGORIES; category++)
     {
       const scr_char *const kind = CATEGORIES[category];
       const scr_int count = category == 0 ? gs_object_count (game)
@@ -574,7 +595,7 @@ lib_mask_long_names (scr_gameref_t game, const scr_char *line,
           for (alias = -1; alias < alias_count; alias++)
             {
               const scr_char *name;
-              size_t length, posn;
+              size_t length;
 
               if (alias < 0)
                 name = prop_get_indexed_string (bundle, kind, index_,
@@ -593,19 +614,51 @@ lib_mask_long_names (scr_gameref_t game, const scr_char *line,
                 length--;
               if (length == 0 || !memchr (name, ' ', length))
                 continue;
+              lib_long_names[category].emplace_back (name, length);
+            }
+        }
+    }
+}
 
-              for (posn = 0; posn + length <= masked.size (); posn++)
-                {
-                  if (scr_strncasecmp (masked.c_str () + posn, name, length)
-                      != 0
-                      || (posn > 0 && masked[posn - 1] != ' ')
-                      || (posn + length < masked.size ()
-                          && masked[posn + length] != ' '
-                          && masked[posn + length] != ','
-                          && masked[posn + length] != '.'))
-                    continue;
-                  masked.replace (posn, length, length, LIB_NAME_MASK);
-                }
+/*
+ * lib_mask_long_names()
+ *
+ * Deliberate deviation (2026-09-30).  A copy of LINE, the same length, with
+ * every whole-word occurrence of an object's Short or Alias, or a
+ * character's Name or Alias, that runs to two words or more overwritten by
+ * LIB_NAME_MASK.  The Runner ports that look for a verb anywhere on the line
+ * (two-verb lines, the verb hoist, sitstand) test the masked copy, so the
+ * "pick" of an ice pick, the "drop" of a cough drop or the "stand" of a hat
+ * stand is no verb: `x ice pick` examines it, where the ports answered
+ * "Take what?".  OBJECTS_ONLY leaves character names standing, for the
+ * tests that ask whether the line names a character at all.
+ */
+std::string
+lib_mask_long_names (scr_gameref_t game, const scr_char *line,
+                     scr_bool objects_only)
+{
+  std::string masked (line ? line : "");
+  size_t category;
+
+  lib_cache_long_names (game);
+  for (category = 0; category < (objects_only ? 1u : 2u); category++)
+    {
+      for (const std::string &name : lib_long_names[category])
+        {
+          const size_t length = name.size ();
+          size_t posn;
+
+          for (posn = 0; posn + length <= masked.size (); posn++)
+            {
+              if (scr_strncasecmp (masked.c_str () + posn, name.c_str (),
+                                   length) != 0
+                  || (posn > 0 && masked[posn - 1] != ' ')
+                  || (posn + length < masked.size ()
+                      && masked[posn + length] != ' '
+                      && masked[posn + length] != ','
+                      && masked[posn + length] != '.'))
+                continue;
+              masked.replace (posn, length, length, LIB_NAME_MASK);
             }
         }
     }

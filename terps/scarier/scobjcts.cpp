@@ -51,6 +51,10 @@ static scr_bool obj_trace = FALSE;
  * and CurrentState, and Wearable exactly when it is not static (see the
  * object grammars in sctafpar.cpp), so the reads below are the ones the old
  * object-by-object lookups made.
+ *
+ * A static object's Where room list and Parent are kept too: every "is it
+ * here" question about a static that no event has moved is answered from
+ * them, for every object, several times a turn.
  */
 enum
 {
@@ -75,6 +79,22 @@ static scr_prop_setref_t obj_cache_bundle = NULL;
 static std::vector<scr_byte> obj_kinds;       /* per object, 1 << OBJ_KIND_* */
 static std::vector<scr_int> obj_numbering[OBJ_KIND_COUNT];
 
+/*
+ * A static object's home.  `type` is its Where Type, or OBJ_WHERE_UNCACHED
+ * for a dynamic object and for a list that lacks the property its type calls
+ * for, which the callers then read from the bundle as they always did.
+ * `detail` is Where Room for ROOMLIST_ONE_ROOM and Parent for
+ * ROOMLIST_NPC_PART; `rooms` is Where Rooms for ROOMLIST_SOME_ROOMS.
+ */
+enum { OBJ_WHERE_UNCACHED = -1 };
+struct obj_where_t
+{
+  scr_int type;
+  scr_int detail;
+  std::vector<scr_byte> rooms;
+};
+static std::vector<obj_where_t> obj_wheres;
+
 void
 obj_forget_bundle (scr_prop_setref_t bundle)
 {
@@ -86,6 +106,62 @@ obj_forget_bundle (scr_prop_setref_t bundle)
       obj_kinds.clear ();
       for (kind = 0; kind < OBJ_KIND_COUNT; kind++)
         obj_numbering[kind].clear ();
+      obj_wheres.clear ();
+    }
+}
+
+/*
+ * obj_cache_where()
+ *
+ * Read a static object's Where room list, and its Parent if it is part of a
+ * character, into `where`.
+ */
+static void
+obj_cache_where (scr_prop_setref_t bundle, scr_int object, obj_where_t *where)
+{
+  scr_vartype_t vt_key[5], vt_rvalue;
+  scr_int count, index_;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Where";
+  vt_key[3].string = "Type";
+  if (!prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    return;
+
+  switch (vt_rvalue.integer)
+    {
+    case ROOMLIST_ONE_ROOM:
+      vt_key[3].string = "Room";
+      if (!prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+        return;
+      where->detail = vt_rvalue.integer;
+      where->type = ROOMLIST_ONE_ROOM;
+      break;
+
+    case ROOMLIST_SOME_ROOMS:
+      vt_key[3].string = "Rooms";
+      count = prop_get_child_count (bundle, "I<-siss", vt_key);
+      where->rooms.assign (count, FALSE);
+      for (index_ = 0; index_ < count; index_++)
+        {
+          vt_key[4].integer = index_;
+          where->rooms[index_] = prop_get_boolean (bundle, "B<-sissi", vt_key);
+        }
+      where->type = ROOMLIST_SOME_ROOMS;
+      break;
+
+    case ROOMLIST_NPC_PART:
+      vt_key[2].string = "Parent";
+      if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key))
+        return;
+      where->detail = vt_rvalue.integer;
+      where->type = ROOMLIST_NPC_PART;
+      break;
+
+    default:
+      where->type = vt_rvalue.integer;
+      break;
     }
 }
 
@@ -107,6 +183,7 @@ obj_cache_kinds (scr_gameref_t game)
   obj_forget_bundle (obj_cache_bundle);
   obj_cache_bundle = bundle;
   obj_kinds.assign (gs_object_count (game), 0);
+  obj_wheres.assign (gs_object_count (game), obj_where_t ());
   for (object = 0; object < gs_object_count (game); object++)
     {
       const scr_bool is_static =
@@ -140,6 +217,11 @@ obj_cache_kinds (scr_gameref_t game)
               obj_numbering[kind].push_back (object);
             }
         }
+
+      obj_wheres[object].type = OBJ_WHERE_UNCACHED;
+      obj_wheres[object].detail = 0;
+      if (is_static)
+        obj_cache_where (bundle, object, &obj_wheres[object]);
     }
 }
 
@@ -920,6 +1002,7 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
+  const obj_where_t *where = NULL;
   scr_int type;
 
   /* Static object moved to player or room by event? */
@@ -934,11 +1017,16 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
     }
 
   /* Check and return the room list for the object. */
+  obj_cache_kinds (game);
+  if (object >= 0 && object < (scr_int) obj_wheres.size ()
+      && obj_wheres[object].type != OBJ_WHERE_UNCACHED)
+    where = &obj_wheres[object];
+
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Where";
   vt_key[3].string = "Type";
-  type = prop_get_integer (bundle, "I<-siss", vt_key);
+  type = where ? where->type : prop_get_integer (bundle, "I<-siss", vt_key);
   switch (type)
     {
     case ROOMLIST_ALL_ROOMS:
@@ -947,10 +1035,14 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
       return FALSE;
 
     case ROOMLIST_ONE_ROOM:
+      if (where)
+        return where->detail == room + 1;
       vt_key[3].string = "Room";
       return prop_get_integer (bundle, "I<-siss", vt_key) == room + 1;
 
     case ROOMLIST_SOME_ROOMS:
+      if (where && room + 1 >= 0 && room + 1 < (scr_int) where->rooms.size ())
+        return where->rooms[room + 1];
       vt_key[3].string = "Rooms";
       vt_key[4].integer = room + 1;
       return prop_get_boolean (bundle, "B<-sissi", vt_key);
@@ -963,7 +1055,8 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
           return FALSE;
 
         vt_key[2].string = "Parent";
-        npc = prop_get_integer (bundle, "I<-sis", vt_key);
+        npc = where ? where->detail
+                    : prop_get_integer (bundle, "I<-sis", vt_key);
         if (npc == 0 || !gs_npc_valid (game, npc - 1))
           return gs_player_in_room (game, room);
         else
@@ -1415,23 +1508,31 @@ obj_mark_npc_parts_seen (scr_gameref_t game)
   if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     return;
 
+  obj_cache_kinds (game);
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
+      const obj_where_t *where = NULL;
       scr_int npc;
 
       if (gs_object_seen (game, index_) || !obj_is_static (game, index_)
           || !gs_object_static_unmoved (game, index_))
         continue;
 
+      if (index_ < (scr_int) obj_wheres.size ()
+          && obj_wheres[index_].type != OBJ_WHERE_UNCACHED)
+        where = &obj_wheres[index_];
+
       vt_key[0].string = "Objects";
       vt_key[1].integer = index_;
       vt_key[2].string = "Where";
       vt_key[3].string = "Type";
-      if (prop_get_integer (bundle, "I<-siss", vt_key) != ROOMLIST_NPC_PART)
+      if ((where ? where->type : prop_get_integer (bundle, "I<-siss", vt_key))
+          != ROOMLIST_NPC_PART)
         continue;
 
       vt_key[2].string = "Parent";
-      npc = prop_get_integer (bundle, "I<-sis", vt_key);
+      npc = where ? where->detail
+                  : prop_get_integer (bundle, "I<-sis", vt_key);
       if (npc == 0 || !gs_npc_valid (game, npc - 1)
           || (npc_in_room (game, npc - 1, gs_playerroom (game))
               && gs_npc_seen (game, npc - 1)))

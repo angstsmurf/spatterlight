@@ -1263,16 +1263,19 @@ run_runner_load_draws (scr_gameref_t game)
 /*
  * run_destroy_bundle()
  *
- * Destroy a game's properties bundle, first dropping the object and variable
- * caches built from it, so a later bundle allocated at the same address can't
- * inherit them.  (Those caches are keyed by bundle rather than by game because
- * the undo and temporary game copies share their game's bundle.)
+ * Destroy a game's properties bundle, first dropping the object, variable,
+ * library and restriction caches built from it, so a later bundle allocated
+ * at the same address can't inherit them.  (Those caches are keyed by bundle
+ * rather than by game because the undo and temporary game copies share their
+ * game's bundle.)
  */
 static void
 run_destroy_bundle (scr_prop_setref_t bundle)
 {
   obj_forget_bundle (bundle);
   var_forget_bundle (bundle);
+  lib_forget_bundle (bundle);
+  restr_forget_bundle (bundle);
   prop_destroy (bundle);
 }
 

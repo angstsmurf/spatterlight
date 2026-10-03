@@ -789,6 +789,7 @@ extern scr_bool run_line_yields_to_library (scr_gameref_t game,
                                             const scr_char *string);
 extern scr_bool lib_non_answer;
 enum { LIB_NAME_MASK = '#' };
+extern void lib_forget_bundle (scr_prop_setref_t bundle);
 extern std::string lib_mask_long_names (scr_gameref_t game,
                                         const scr_char *line,
                                         scr_bool objects_only = FALSE);
@@ -1301,6 +1302,7 @@ extern scr_bool restr_eval_task_restrictions_cached (scr_gameref_t game,
 extern scr_int restr_cache_fallback (scr_gameref_t game, scr_int task,
                                      const scr_char **fail_message);
 extern void restr_cache_reset (void);
+extern void restr_forget_bundle (scr_prop_setref_t bundle);
 extern void restr_debug_trace (scr_bool flag);
 
 /* NPC gender enumeration and functions. */

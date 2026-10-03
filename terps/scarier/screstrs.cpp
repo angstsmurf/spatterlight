@@ -927,6 +927,163 @@ restr_pass_task_var (scr_gameref_t game,
 
 
 /*
+ * A task's restrictions, read out of the bundle.
+ *
+ * Restrictions are the most evaluated thing in the engine -- the dispatcher
+ * walks every task's on each typed line, and the library's pre-matchers walk
+ * them again -- and each evaluation used to fetch the restriction's Type and
+ * its two or three Vars from the property tree, five keys deep.  They belong
+ * to the bundle and never change in play, so decode a task's restrictions
+ * the first time any is asked for.  Like the object attributes cache this is
+ * keyed by bundle, which the undo and temporary game copies share, and the
+ * runner calls restr_forget_bundle() before destroying a bundle.
+ *
+ * A decoded restriction holds what the evaluation for its type reads: Var1
+ * to Var3 for types 0, 3 and 4 (and Var4 for type 4), Var1 and Var2 for
+ * types 1 and 2, nothing for any other.  The strings point into the bundle.
+ * Version 3.8 restrictions are made up by the parser, which leaves out an
+ * empty FailMessage, so that is read without insisting on it; a restriction
+ * past the end of a task's list, or a missing message, goes back to the
+ * bundle for the fatal error it always got.
+ */
+struct restr_decoded_t
+{
+  scr_int type;
+  scr_int var1, var2, var3;
+  const scr_char *var4;
+  const scr_char *fail_message;         /* NULL if the property is absent. */
+};
+
+struct restr_task_t
+{
+  scr_bool is_decoded;
+  const scr_char *mask;                 /* RestrMask, NULL until asked for. */
+  std::vector<restr_decoded_t> restrictions;
+};
+
+static scr_prop_setref_t restr_props_bundle = NULL;
+static std::vector<restr_task_t> restr_props;
+
+void
+restr_forget_bundle (scr_prop_setref_t bundle)
+{
+  if (restr_props_bundle == bundle)
+    {
+      restr_props_bundle = NULL;
+      restr_props.clear ();
+    }
+}
+
+/*
+ * restr_decode_task()
+ *
+ * Return the decoded restrictions of a task, or NULL if there is no such
+ * task.
+ */
+static restr_task_t *
+restr_decode_task (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5], vt_rvalue;
+  scr_int restr_count, restriction;
+  restr_task_t *entry;
+
+  if (restr_props_bundle != bundle)
+    {
+      restr_forget_bundle (restr_props_bundle);
+      restr_props_bundle = bundle;
+      restr_props.assign (gs_task_count (game), restr_task_t ());
+    }
+
+  if (task < 0 || task >= (scr_int) restr_props.size ())
+    return NULL;
+  entry = &restr_props[task];
+  if (entry->is_decoded)
+    return entry;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "Restrictions";
+  restr_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+
+  entry->mask = NULL;
+  entry->restrictions.clear ();
+  entry->restrictions.reserve (restr_count);
+  for (restriction = 0; restriction < restr_count; restriction++)
+    {
+      restr_decoded_t decoded = { 0, 0, 0, 0, NULL, NULL };
+
+      vt_key[3].integer = restriction;
+      vt_key[4].string = "Type";
+      decoded.type = prop_get_integer (bundle, "I<-sisis", vt_key);
+      switch (decoded.type)
+        {
+        case 0:
+        case 3:
+          prop_get_var_integers (bundle, vt_key, 3, &decoded.var1,
+                                 &decoded.var2, &decoded.var3);
+          break;
+
+        case 1:
+        case 2:
+          prop_get_var_integers (bundle, vt_key, 2, &decoded.var1,
+                                 &decoded.var2, NULL);
+          break;
+
+        case 4:
+          prop_get_var_integers (bundle, vt_key, 3, &decoded.var1,
+                                 &decoded.var2, &decoded.var3);
+          vt_key[4].string = "Var4";
+          decoded.var4 = prop_get_string (bundle, "S<-sisis", vt_key);
+          break;
+
+        default:
+          break;
+        }
+
+      vt_key[4].string = "FailMessage";
+      if (prop_get (bundle, "S<-sisis", &vt_rvalue, vt_key))
+        decoded.fail_message = vt_rvalue.string;
+
+      entry->restrictions.push_back (decoded);
+    }
+
+  entry->is_decoded = TRUE;
+  return entry;
+}
+
+
+/*
+ * restr_get_decoded()
+ *
+ * Return a task's decoded restriction.  One that does not exist is a fatal
+ * error, raised by the property read that would have found it missing.
+ */
+static const restr_decoded_t *
+restr_get_decoded (scr_gameref_t game, scr_int task, scr_int restriction)
+{
+  const restr_task_t *const entry = restr_decode_task (game, task);
+
+  if (!entry || restriction < 0
+      || restriction >= (scr_int) entry->restrictions.size ())
+    {
+      scr_vartype_t vt_key[5];
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "Restrictions";
+      vt_key[3].integer = restriction;
+      vt_key[4].string = "Type";
+      prop_get_integer (gs_get_bundle (game), "I<-sisis", vt_key);
+      scr_fatal ("restr_get_decoded: restriction %ld of task %ld"
+                " is out of range\n", restriction, task);
+    }
+
+  return &entry->restrictions[restriction];
+}
+
+
+/*
  * restr_pass_task_restriction()
  *
  * Demultiplexer for task restrictions.
@@ -934,10 +1091,8 @@ restr_pass_task_var (scr_gameref_t game,
 static scr_bool
 restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restriction)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_int type, var1, var2, var3;
-  const scr_char *var4;
+  const restr_decoded_t *decoded;
+  scr_int type;
   scr_bool result = FALSE;
 
   if (restr_trace)
@@ -947,41 +1102,35 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
     }
 
   /* Get the task restriction type. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "Restrictions";
-  vt_key[3].integer = restriction;
-  vt_key[4].string = "Type";
-  type = prop_get_integer (bundle, "I<-sisis", vt_key);
+  decoded = restr_get_decoded (game, task, restriction);
+  type = decoded->type;
 
   /* Demultiplex depending on type. */
   switch (type)
     {
     case 0:                    /* Object location. */
-      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
-      result = restr_pass_task_object_location (game, var1, var2, var3);
+      result = restr_pass_task_object_location (game, decoded->var1,
+                                                decoded->var2, decoded->var3);
       break;
 
     case 1:                    /* Object state. */
-      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
-      result = restr_pass_task_object_state (game, var1, var2);
+      result = restr_pass_task_object_state (game,
+                                             decoded->var1, decoded->var2);
       break;
 
     case 2:                    /* Task state. */
-      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
-      result = restr_pass_task_task_state (game, var1, var2);
+      result = restr_pass_task_task_state (game,
+                                           decoded->var1, decoded->var2);
       break;
 
     case 3:                    /* Player and NPCs. */
-      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
-      result = restr_pass_task_char (game, var1, var2, var3);
+      result = restr_pass_task_char (game, decoded->var1,
+                                     decoded->var2, decoded->var3);
       break;
 
     case 4:                    /* Variable. */
-      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
-      vt_key[4].string = "Var4";
-      var4 = prop_get_string (bundle, "S<-sisis", vt_key);
-      result = restr_pass_task_var (game, var1, var2, var3, var4);
+      result = restr_pass_task_var (game, decoded->var1, decoded->var2,
+                                    decoded->var3, decoded->var4);
       break;
 
     case 5:                    /* Action type (Runner: Sub_20_3 type 5 / sentinel 0xEC). */
@@ -1351,19 +1500,25 @@ static const scr_char *
 restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
+  const restr_decoded_t *const decoded =
+      restr_get_decoded (game, task, restriction);
   const scr_char *message;
   scr_int type;
 
   /* Get the restriction message, and the restriction's type. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "Restrictions";
-  vt_key[3].integer = restriction;
-  vt_key[4].string = "FailMessage";
-  message = prop_get_string (bundle, "S<-sisis", vt_key);
-  vt_key[4].string = "Type";
-  type = prop_get_integer (bundle, "I<-sisis", vt_key);
+  message = decoded->fail_message;
+  if (!message)
+    {
+      scr_vartype_t vt_key[5];
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "Restrictions";
+      vt_key[3].integer = restriction;
+      vt_key[4].string = "FailMessage";
+      message = prop_get_string (bundle, "S<-sisis", vt_key);
+    }
+  type = decoded->type;
 
   /*
    * A state restriction on "the referenced object" with no object referenced
@@ -1379,8 +1534,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
       && prop_get_taf_version (bundle) >= TAF_VERSION_390
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
-      vt_key[4].string = "Var1";
-      if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0)
+      if (decoded->var1 == 0)
         return NULL;
     }
 
@@ -1393,8 +1547,7 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
       && prop_get_taf_version (bundle) == TAF_VERSION_390
       && var_get_ref_object (gs_get_vars (game)) < 0)
     {
-      vt_key[4].string = "Var1";
-      if (prop_get_integer (bundle, "I<-sisis", vt_key) == 2)
+      if (decoded->var1 == 2)
         return NULL;
     }
 
@@ -1407,14 +1560,9 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
   if (type == 3
       && prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
-      scr_int var1, var2, var3;
+      const scr_int var1 = decoded->var1, var2 = decoded->var2,
+                    var3 = decoded->var3;
 
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
       if (var1 == 0 && (var2 == 0 || var2 == 1)
           && (var3 == 0
               || (var3 == 1
@@ -1454,18 +1602,14 @@ restr_eval_task_restrictions (scr_gameref_t game,
                               scr_int task, scr_bool *pass,
                               const scr_char **fail_message)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
+  restr_task_t *const entry = restr_decode_task (game, task);
   scr_int restr_count, lowest_fail;
   const scr_char *pattern;
   scr_bool result;
   assert (pass && fail_message);
 
   /* Get the count of restrictions on the task. */
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "Restrictions";
-  restr_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  restr_count = entry ? (scr_int) entry->restrictions.size () : 0;
 
   /* If none, stop now, acting as if all passed. */
   if (restr_count == 0)
@@ -1479,8 +1623,16 @@ restr_eval_task_restrictions (scr_gameref_t game,
     }
 
   /* Get the task's restriction combination pattern. */
-  vt_key[2].string = "RestrMask";
-  pattern = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!entry->mask)
+    {
+      scr_vartype_t vt_key[3];
+
+      vt_key[0].string = "Tasks";
+      vt_key[1].integer = task;
+      vt_key[2].string = "RestrMask";
+      entry->mask = prop_get_string (gs_get_bundle (game), "S<-sis", vt_key);
+    }
+  pattern = entry->mask;
 
   if (restr_trace)
     {
@@ -1625,17 +1777,13 @@ scr_int
 restr_cache_fallback (scr_gameref_t game, scr_int task,
                       const scr_char **fail_message)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int restr_count, restriction;
+  const restr_task_t *const entry = restr_decode_task (game, task);
+  const scr_int restr_count =
+      entry ? (scr_int) entry->restrictions.size () : 0;
+  scr_int restriction;
 
   *fail_message = NULL;
   restr_cache_sync (game);
-
-  vt_key[0].string = "Tasks";
-  vt_key[1].integer = task;
-  vt_key[2].string = "Restrictions";
-  restr_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
   if (restr_count > 0
       && (restr_cache.size () <= (size_t) task || restr_cache[task].empty ()))
