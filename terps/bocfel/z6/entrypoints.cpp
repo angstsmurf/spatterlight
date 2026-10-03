@@ -3180,22 +3180,29 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zt.PILE_TABLE not found!\n");
             }
         } else if (entrypoint.fn == SNARFEM && entrypoint.found_at_address != 0) {
-            // The win branch is STORE L03,#01 ; CLEAR_ATTR FAN,TRYTAKEBIT ;
-            // NEW_LINE ; NEW_LINE. FAN is a byte constant from r343 on and a
-            // word constant in r296 and r66. (r242 handles the win inline
-            // instead, so there is nothing to find there.)
-            start = find_pattern_in_mem({0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, entrypoint.found_at_address, 350);
-            if (start != -1) {
-                zo.FAN = memory[start + 4];
-                zp.TRYTAKEBIT = memory[start + 5];
-            } else {
-                start = find_pattern_in_mem({0x0d, 0x04, 0x01, 0xcc, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xbb, 0xbb}, entrypoint.found_at_address, 350);
-                if (start != -1) {
-                    zo.FAN = word(start + 5);
-                    zp.TRYTAKEBIT = memory[start + 7];
-                }
+            // Find the branch taken when the player removes the last pebble,
+            // which SNARFEM() jumps to when the player asks to skip the game.
+            // It always opens with STORE L03,#01 (the stop flag), but so does
+            // the jester-wins branch further down, so match what follows too:
+            //   r343 on:     CLEAR_ATTR FAN,TRYTAKEBIT (byte constants) ; NEW_LINE ; NEW_LINE
+            //   r296, r66:   the same with FAN as a word constant
+            //   r242:        INSERT_OBJ FAN,HERE ; CLEAR_ATTR FAN,TRYTAKEBIT
+            static const std::vector<std::vector<uint8_t>> win_patterns = {
+                {0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb},
+                {0x0d, 0x04, 0x01, 0xcc, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xbb, 0xbb},
+                {0x0d, 0x04, 0x01, 0xce, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xcc, 0x1f},
+            };
+            for (const auto &pattern : win_patterns) {
+                start = find_pattern_in_mem(pattern, entrypoint.found_at_address, 350);
+                if (start != -1)
+                    break;
             }
-            fprintf(stderr, "zo.FAN: 0x%x zp.TRYTAKEBIT: 0x%x\n", zo.FAN, zp.TRYTAKEBIT);
+            if (start != -1) {
+                zr.SNARFEM_WIN = start;
+                fprintf(stderr, "zr.SNARFEM_WIN: 0x%x\n", zr.SNARFEM_WIN);
+            } else {
+                fprintf(stderr, "zr.SNARFEM_WIN not found!\n");
+            }
         } else if (entrypoint.fn == PBOZ_WIN_CHECK && entrypoint.found_at_address != 0 && zo.NOT_HERE_OBJECT == 0) {
             // r66 has no detectable SETUP-PBOZ to read NOT-HERE-OBJECT from,
             // but draw_cards() needs it; take it from the first

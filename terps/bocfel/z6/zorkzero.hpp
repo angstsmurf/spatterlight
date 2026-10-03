@@ -236,6 +236,8 @@ typedef struct ZorkRoutines {
     uint32_t DRAW_PEGS;
     uint32_t SET_B_PIC;
     uint32_t TOWER_WIN_CHECK;
+    // Address of the branch in SNARFEM taken when the player wins. 0 = not found.
+    uint32_t SNARFEM_WIN;
     uint32_t PLAY_SELECTED;
 } ZorkRoutines;
 
@@ -279,7 +281,6 @@ typedef struct ZorkObjects {
     uint16_t PYRAMID_L;
     uint16_t PYRAMID;
     uint16_t PYRAMID_R;
-    uint16_t FAN;
     uint16_t BROOM;
 } ZorkObjects;
 

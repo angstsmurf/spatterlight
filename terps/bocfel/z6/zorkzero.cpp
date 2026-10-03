@@ -37,6 +37,7 @@
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
+#include "process.h"
 #include "screen.h"
 #include "stack.h"
 #include "unicode.h"
@@ -1915,15 +1916,37 @@ void SN_CLICK(void) {
     store_variable(2, snarfem_click(variable(1)));
 }
 
-// Z-machine entry point: offers auto-solve for the Snarfem game.
-// If accepted, immediately wins by clearing the TRYTAKEBIT on the FAN object.
+// Z-machine entry point: offers auto-solve for the Snarfem game. This
+// fires at the top of the game's main loop. If the player accepts, jump
+// straight into the branch the game takes when the last pebble is removed,
+// so the game itself does whatever a win entails in this release (which
+// differs: r242 awards the fan and the points right there, later releases
+// flag the win on the FAN object for the caller).
+//
+// The loop comes round once per keypress (pile, then number of pebbles), so
+// remember that the question has been answered for this game.
+static bool snarfem_asked = false;
+
 void SNARFEM(void) {
-    // Without the FAN object (release 242, where winning is handled inline
-    // rather than by clearing its TRYTAKEBIT) there is no way to fake a win.
-    if (zo.FAN != 0 && autosolve_visual_puzzle()) {
-        transcribe_and_print_string("\n");
-        store_variable(4, 1);
-        internal_clear_attr(zo.FAN, zp.TRYTAKEBIT);
+    if (zr.SNARFEM_WIN == 0)
+        return;
+    // Local 4 is the stop flag. Whoever wins, the game sets it and loops back
+    // here to return, which is the only way out of the routine: the game is
+    // over, so the next one may ask again.
+    if (variable(4) != 0) {
+        snarfem_asked = false;
+        return;
+    }
+    if (snarfem_asked)
+        return;
+    snarfem_asked = true;
+    if (autosolve_visual_puzzle()) {
+        // r242 (the only release where the branch moves the fan with an
+        // INSERT_OBJ) continues the "You remove N pebbles from Pile #N"
+        // sentence with its winning message, so give it something to continue.
+        if (memory[zr.SNARFEM_WIN + 3] == 0xce)
+            transcribe_and_print_string("You remove the last pebble");
+        pc = zr.SNARFEM_WIN;
     }
 }
 
