@@ -140,6 +140,7 @@ void zprint();
 void znew_line();
 void zprint_ret();
 void zerase_window();
+void zwindow_size();
 void zerase_line();
 void zset_cursor();
 void zget_cursor();

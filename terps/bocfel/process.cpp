@@ -296,7 +296,7 @@ void setup_opcodes()
     setup_single_opcode(5, 6, Opcount::Ext, 0x0d, zset_true_colour);
 #ifndef ZTERP_NO_V6
     setup_single_opcode(6, 6, Opcount::Ext, 0x10, znop); // XXX move_window
-    setup_single_opcode(6, 6, Opcount::Ext, 0x11, znop); // XXX window_size
+    setup_single_opcode(6, 6, Opcount::Ext, 0x11, zwindow_size);
     setup_single_opcode(6, 6, Opcount::Ext, 0x12, zwindow_style);
     setup_single_opcode(6, 6, Opcount::Ext, 0x13, zget_wind_prop);
     setup_single_opcode(6, 6, Opcount::Ext, 0x14, znop); // XXX scroll_window

@@ -1714,8 +1714,12 @@ static void resize_upper_window(uint32_t nlines, bool from_game)
             update_delayed();
 #ifdef SPATTERLIGHT
         // Spatterlight's "fancy quotebox" hack breaks Mad Bomber
-        // so we add another hack to special-case that game
-        } else if (!is_game(Game::MadBomber) &&
+        // so we add another hack to special-case that game.
+        // It is not used in V6 either: there a box may be drawn in
+        // the colours of the upper window rather than in reverse
+        // video (V6Lib does this), and then it can't be told apart
+        // from the rest of the window and would just disappear.
+        } else if (!is_game(Game::MadBomber) && zversion != 6 &&
                    (gli_enable_quoteboxes || gli_zmachine_no_err_win)) {
             win_quotebox(upperwin->id->peer, (int)nlines);
             update_delayed();
@@ -2443,6 +2447,24 @@ static bool draw_mysterious(glui32 pic, glui32 w, glui32 h, double x, double y)
 }
 #endif
 
+// The heights V6 games have given their windows with @window_size. The
+// windows aren’t actually resized, but zerase_window() uses this to
+// tell a full-screen text window from a small one.
+static std::array<uint16_t, 8> v6_window_heights;
+
+void zwindow_size()
+{
+    int16_t window = as_signed(zargs[0]);
+
+    if (window == -3) {
+        window = curwin - &windows[0];
+    }
+
+    if (window >= 0 && window < 8) {
+        v6_window_heights[window] = zargs[1];
+    }
+}
+
 void zerase_window()
 {
 #ifdef SPATTERLIGHT
@@ -2498,6 +2520,22 @@ void zerase_window()
             if (arg0 == -3)
                 arg0 = curwin->index;
             clear_window(&windows[arg0]);
+        } else if (arg0 == -3 && (curwin == mainwin || curwin == upperwin)) {
+            clear_window(curwin);
+        } else if (arg0 == -3 || (arg0 >= 2 && arg0 < 8)) {
+            // Windows 2–7 are redirected to the main window, so they
+            // can’t be erased separately. Games that print their story
+            // text in one of them (e.g. V6Lib ones) still expect erasing
+            // it to clear the screen, so do that if the window is the
+            // current one and takes up most of the screen. Erasing other
+            // windows, such as a menu bar or a window used to draw a
+            // rectangle, must leave the text alone.
+            Window *win = arg0 == -3 ? curwin : &windows[arg0];
+            if (win == curwin && win->id == mainwin->id &&
+                v6_window_heights[win - &windows[0]] * 2 > word(0x24)) {
+
+                clear_window(mainwin);
+            }
         }
 #endif
         break;
@@ -5678,8 +5716,10 @@ void zget_wind_prop()
             glui32 h;
             glk_window_get_size(win->id, nullptr, &h);
             val = h;
-        } else {
+        } else if (is_spatterlight_v6) {
             val = win->y_size;
+        } else {
+            val = word(0x24) * font_height;
         }
         break;
     case 3:  // x size
