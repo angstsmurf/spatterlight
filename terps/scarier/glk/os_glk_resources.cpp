@@ -152,22 +152,25 @@ os_stop_sound (void)
 #ifdef GSC_HAVE_TITLE_WINDOW
 /*
  * Title/cover graphic support.  Adrift games can carry an "IntroRes" cover
- * image, shown by the engine before the game's first turn.  Adrift intros
- * routinely clear the main window with <cls> tags -- "To Hell in a Hamper"
- * emits one as its very first output -- so drawing the cover inline would wipe
- * it immediately.  Instead, any graphic requested before the player's first
- * input is shown in a temporary graphics window at the top of the display,
- * closed on that first keypress.  This mirrors the original Runner, which
- * shows the title in a separate picture pane that text clears don't touch.
+ * image, shown by the engine before the game's first turn.  A cover is shown
+ * one of two ways, never half-way between them:
+ *
+ *   - a cover that fits comfortably in the main window (a wide banner) is
+ *     drawn inline at the top of the story, like any other graphic -- the
+ *     redraw-after-clear in os_glk_output.cpp keeps it on screen when the
+ *     intro opens with a <cls>, as "To Hell in a Hamper" does;
+ *
+ *   - a bigger one (SS Whore's portrait cover, say) becomes a title screen: a
+ *     graphics window over the whole display, the image scaled to fit and
+ *     centred, until the player presses a key or clicks.  The intro text,
+ *     still buffered, then appears in the full-height main window.
+ *
+ * An earlier version showed every cover in a pane above the main window while
+ * the intro text ran beneath it, which left neither the picture nor the text
+ * enough room.
  */
 winid_t gsc_graphics_window = NULL;
 glui32 gsc_title_image = 0;
-#ifdef SPATTERLIGHT
-/* The title image's chunk in the game file, so an autorestore can re-load it
-   into the app-side image cache (the cache does not survive a relaunch). */
-scr_int gsc_title_offset = 0;
-scr_int gsc_title_length = 0;
-#endif
 int gsc_seen_input = FALSE;
 
 
@@ -214,15 +217,14 @@ gsc_title_redraw (void)
 /*
  * gsc_show_title_graphic()
  *
- * Open a temporary graphics window above the main text, sized to the image's
- * aspect ratio, and draw the title image into it.  Returns TRUE on success,
- * FALSE if graphics windows are unavailable, in which case the caller falls
- * back to an inline draw.
+ * Open a graphics window covering the whole display -- the root is split, so
+ * the status line and any map are hidden too -- and draw the title image into
+ * it.  Returns TRUE on success, FALSE if graphics windows are unavailable.
  */
 int
 gsc_show_title_graphic (glui32 image)
 {
-  glui32 win_width, win_height, img_width, img_height, pane_height;
+  glui32 img_width, img_height;
 
   if (!glk_gestalt (gestalt_Graphics, 0)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
@@ -233,29 +235,16 @@ gsc_show_title_graphic (glui32 image)
 
   if (gsc_graphics_window == NULL)
     {
-      gsc_graphics_window = glk_window_open (gsc_main_window,
-                                             winmethod_Above | winmethod_Fixed,
-                                             0, wintype_Graphics, 0);
+      gsc_graphics_window = glk_window_open (glk_window_get_root (),
+                                             winmethod_Above
+                                             | winmethod_Proportional
+                                             | winmethod_NoBorder,
+                                             100, wintype_Graphics, 0);
       if (gsc_graphics_window == NULL)
         return FALSE;
     }
 
   gsc_title_image = image;
-
-  /* Size the pane to fit the image width, preserving its aspect ratio. */
-  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
-  if (win_width == 0)
-    {
-      glk_window_close (gsc_graphics_window, NULL);
-      gsc_graphics_window = NULL;
-      gsc_title_image = 0;
-      return FALSE;
-    }
-  pane_height = img_height * win_width / img_width;
-  glk_window_set_arrangement (glk_window_get_parent (gsc_graphics_window),
-                              winmethod_Above | winmethod_Fixed,
-                              pane_height, gsc_graphics_window);
-
   gsc_title_redraw ();
   return TRUE;
 }
@@ -263,8 +252,8 @@ gsc_show_title_graphic (glui32 image)
 /*
  * gsc_close_title_graphic()
  *
- * Close the temporary title window, if open, returning its space to the main
- * window.  Called when the player provides their first input.
+ * Close the title window, if open, returning the display to the windows it
+ * covered.
  */
 void
 gsc_close_title_graphic (void)
@@ -278,32 +267,43 @@ gsc_close_title_graphic (void)
 }
 
 /*
+ * gsc_title_fits_inline()
+ *
+ * Given the title window just opened over the display, decide whether the
+ * cover would sit comfortably inline instead: no more than half the display's
+ * height once a text buffer has narrowed it to the display's width (as
+ * Spatterlight does; images narrower than that are drawn at their own size).
+ */
+static int
+gsc_title_fits_inline (void)
+{
+  glui32 win_width, win_height, img_width, img_height, inline_height;
+
+  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
+  if (win_width == 0 || win_height == 0)
+    return TRUE;
+  if (!glk_image_get_info (gsc_title_image, &img_width, &img_height)
+      || img_width == 0 || img_height == 0)
+    return TRUE;
+
+  inline_height = img_width > win_width
+                  ? img_height * win_width / img_width : img_height;
+  return inline_height * 2 <= win_height;
+}
+
+/*
  * gsc_title_screen_wait()
  *
- * A cover taller than it is wide, sized to the display's width, can leave the
- * main window no room at all (SS Whore's portrait cover squeezes it to zero
- * height).  The pane is then really a title screen: the player can't see the
- * main window's prompt, so keys typed into it seem lost, and the intro text
- * printed into the hidden window would be scrolled to its end once the pane
- * closed.  So in that case wait here for any key (or click) on the title,
- * then close it, before the engine flushes the intro text into what is once
- * again a full-height main window.
+ * Wait for any key, or a click, on the title screen, then close it.
  */
 static void
 gsc_title_screen_wait (void)
 {
-  glui32 width, height;
   winid_t key_window;
   int mouse;
   event_t event;
 
   if (gsc_graphics_window == NULL)
-    return;
-
-  /* A main window that still shows a few lines keeps the side-pane layout:
-     the player reads the intro under the cover and types as usual. */
-  glk_window_get_size (gsc_main_window, &width, &height);
-  if (height >= 3)
     return;
 
   /* Take the key on the title itself where the library allows it; otherwise
@@ -338,7 +338,6 @@ gsc_title_screen_wait (void)
   else
     glk_cancel_char_event (key_window);
 
-  gsc_seen_input = TRUE;
   gsc_close_title_graphic ();
 }
 #endif /* GSC_HAVE_TITLE_WINDOW */
@@ -368,9 +367,9 @@ gsc_refresh_windows (void)
  * os_show_graphic()
  *
  * Register the requested image, a chunk of the game file or a file beside it
- * (see gsc_load_resource).  Before the player's first input, show it as a
- * title image in a dedicated graphics window; afterwards, draw it inline in
- * the main window.
+ * (see gsc_load_resource).  Before the player's first input, a cover too
+ * big to sit inline is shown as a full-display title screen (see above);
+ * anything else is drawn inline in the main window.
  */
 void
 os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
@@ -386,15 +385,12 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 
   if (!gsc_seen_input && gsc_show_title_graphic (id))
     {
-#ifdef SPATTERLIGHT
-      /* An external title file can't be re-loaded from the game file after
-         an autorestore, so record no chunk for it; that restore then simply
-         skips the re-load, as before for any external graphic. */
-      gsc_title_offset = length > 0 ? offset : 0;
-      gsc_title_length = length > 0 ? length : 0;
-#endif
-      gsc_title_screen_wait ();
-      return;
+      if (!gsc_title_fits_inline ())
+        {
+          gsc_title_screen_wait ();
+          return;
+        }
+      gsc_close_title_graphic ();
     }
 
   gsc_draw_inline_graphic (id);

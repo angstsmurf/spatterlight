@@ -55,6 +55,9 @@
 
     GlkController *restoredController;
     GlkController *restoredControllerLate;
+    // Restored windows the interpreter closed before restoreUI adopted their
+    // views, so restoreUI must leave them out.
+    NSMutableSet<NSNumber *> *windowsClosedBeforeRestore;
     NSMutableData *bufferedData;
 
     TableViewController *libcontroller;

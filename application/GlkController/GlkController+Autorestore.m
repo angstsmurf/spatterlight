@@ -145,6 +145,11 @@
                             sortedArrayUsingSelector:@selector(compare:)];
     for (id key in orderedKeys) {
 
+        if (!restoreUIOnly && [windowsClosedBeforeRestore containsObject:key]) {
+            [(restoredController.gwindows)[key] removeFromSuperview];
+            continue;
+        }
+
         win = self.gwindows[key];
 
         if (!restoreUIOnly) {
@@ -247,6 +252,7 @@
     restoredController = nil;
     restoredControllerLate = nil;
     restoreUIOnly = NO;
+    windowsClosedBeforeRestore = nil;
 
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that

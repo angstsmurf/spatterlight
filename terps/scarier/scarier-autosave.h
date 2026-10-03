@@ -102,8 +102,6 @@ struct ScarierGlkFrontendState {
     uint32_t a5_chan_sound[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     int seen_input = 0;         /* first input given (title window dismissed)  */
     uint32_t title_image = 0;   /* cover image resource id, 0 when none        */
-    int64_t title_offset = 0;   /* its chunk in the game file, to re-load the  */
-    int64_t title_length = 0;   /* app-side image cache after a relaunch       */
     int map_shown = 0;
     int map_at_top = 0;
     int map_zoom = 0;

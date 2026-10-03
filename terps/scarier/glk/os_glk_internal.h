@@ -122,12 +122,12 @@ extern "C" {
 # define GSC_HAVE_ZCOLORS 1
 #endif
 
-/* Whether a cover image can be shown in a pane of its own above the story
-   window (see gsc_show_title_graphic).  The pane itself needs nothing but core
-   Glk graphics; what varies is where the image comes from, so the hosts that
-   can turn a chunk of the game file into a Glk image number are exactly the
-   ones that can have it -- Spatterlight through its image cache, Gargoyle
-   through garglk_add_resource_from_file. */
+/* Whether a cover image can be shown as a title screen, a graphics window
+   over the whole display (see gsc_show_title_graphic).  The window itself
+   needs nothing but core Glk graphics; what varies is where the image comes
+   from, so the hosts that can turn a chunk of the game file into a Glk image
+   number are exactly the ones that can have it -- Spatterlight through its
+   image cache, Gargoyle through garglk_add_resource_from_file. */
 #if defined(SPATTERLIGHT) || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)
 # define GSC_HAVE_TITLE_WINDOW 1
 #endif
@@ -320,10 +320,6 @@ extern schanid_t sound_channel;
 extern winid_t gsc_graphics_window;
 extern glui32 gsc_title_image;
 extern int gsc_seen_input;
-# ifdef SPATTERLIGHT
-extern scr_int gsc_title_offset;
-extern scr_int gsc_title_length;
-# endif
 extern int gsc_show_title_graphic (glui32 image);
 extern void gsc_close_title_graphic (void);
 #endif

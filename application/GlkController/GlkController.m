@@ -422,6 +422,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     lastContentResize = NSZeroRect;
 
     restoredController = nil;
+    windowsClosedBeforeRestore = nil;
     inFullScreenResize = NO;
 
     self.window.representedFilename = _gamefile;

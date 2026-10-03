@@ -95,8 +95,6 @@ static void scarier_library_archive(TempLibrary *library, NSCoder *encoder)
     }
     [encoder encodeInt32:st->seen_input forKey:@"scarier_seen_input"];
     [encoder encodeInt32:(int32_t)st->title_image forKey:@"scarier_title_image"];
-    [encoder encodeInt64:st->title_offset forKey:@"scarier_title_offset"];
-    [encoder encodeInt64:st->title_length forKey:@"scarier_title_length"];
     [encoder encodeInt32:st->map_shown forKey:@"scarier_map_shown"];
     [encoder encodeInt32:st->map_at_top forKey:@"scarier_map_at_top"];
     [encoder encodeInt32:st->map_zoom forKey:@"scarier_map_zoom"];
@@ -138,8 +136,6 @@ static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
     }
     st->seen_input = [decoder decodeInt32ForKey:@"scarier_seen_input"];
     st->title_image = (uint32_t)[decoder decodeInt32ForKey:@"scarier_title_image"];
-    st->title_offset = [decoder decodeInt64ForKey:@"scarier_title_offset"];
-    st->title_length = [decoder decodeInt64ForKey:@"scarier_title_length"];
     st->map_shown = [decoder decodeInt32ForKey:@"scarier_map_shown"];
     st->map_at_top = [decoder decodeInt32ForKey:@"scarier_map_at_top"];
     st->map_zoom = [decoder decodeInt32ForKey:@"scarier_map_zoom"];

@@ -870,6 +870,12 @@
                 [self.windowsToBeRemoved addObject:reqWin];
                 [self.gwindows removeObjectForKey:@(req->a1)];
                 self.shouldCheckForMenu = YES;
+            } else if (shouldRestoreUI && restoredController.gwindows[@(req->a1)]) {
+                // An autorestored window, closed by the interpreter before
+                // restoreUI has brought its view back.
+                if (!windowsClosedBeforeRestore)
+                    windowsClosedBeforeRestore = [[NSMutableSet alloc] init];
+                [windowsClosedBeforeRestore addObject:@(req->a1)];
             } else
                 NSLog(@"delwin called on a non-existant Glk window (%d)", req->a1);
 

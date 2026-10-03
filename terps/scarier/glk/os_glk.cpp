@@ -1288,6 +1288,13 @@ gsc_main (void)
          the restored transcript too (the autosave was taken between it and
          the prompt), so skip that one reprint as well. */
       scr_note_autorestored ();
+#ifdef GSC_HAVE_TITLE_WINDOW
+      /* An autosave from before title screens waited for their own key can
+         hold a cover pane open over the story; the game is past its intro
+         by now, so put the story window back on its own. */
+      gsc_close_title_graphic ();
+      gsc_seen_input = TRUE;
+#endif
       glk_set_window (gsc_main_window);
       glk_set_style (style_Normal);
       gsc_autorestored = TRUE;
