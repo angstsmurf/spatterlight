@@ -93,6 +93,7 @@ typedef struct scr_prop_set_s
   scr_bool is_readonly;
   scr_prop_noderef_t root_node;
   scr_tafref_t taf;
+  scr_int taf_version;          /* prop_get_taf_version() cache, -1 if unread */
 } scr_prop_set_t;
 
 
@@ -563,6 +564,7 @@ prop_put (scr_prop_setref_t bundle, const scr_char *format,
   scr_prop_noderef_t node;
   scr_int index_;
   assert (prop_is_valid (bundle));
+  bundle->taf_version = -1;
 
   /* Format check. */
   if (!format || format[0] == NUL
@@ -681,6 +683,7 @@ prop_put_integer (scr_prop_setref_t bundle, const scr_char *format,
   if (!node)
     return FALSE;
   node->property.integer = value;
+  bundle->taf_version = -1;
   return TRUE;
 }
 
@@ -944,14 +947,22 @@ prop_get_global_string (scr_prop_setref_t bundle, const scr_char *name)
  * format the game was parsed from.  Version gates are scattered through the
  * engine -- many library messages and behaviours split on it -- and every
  * one of them built this one-element vt_key by hand.
+ *
+ * The task matcher asks for it per pattern, so the answer is kept on the
+ * set; prop_put() and prop_put_integer() drop it.
  */
 scr_int
 prop_get_taf_version (scr_prop_setref_t bundle)
 {
   scr_vartype_t vt_key[1];
+  assert (prop_is_valid (bundle));
 
-  vt_key[0].string = "Version";
-  return prop_get_integer (bundle, "I<-s", vt_key);
+  if (bundle->taf_version < 0)
+    {
+      vt_key[0].string = "Version";
+      bundle->taf_version = prop_get_integer (bundle, "I<-s", vt_key);
+    }
+  return bundle->taf_version;
 }
 
 
@@ -1069,6 +1080,7 @@ prop_create_empty (void)
   bundle = new scr_prop_set_s ();
   bundle->magic = PROP_MAGIC;
   bundle->node_count = 0;
+  bundle->taf_version = -1;
 
   /* Leave open for insertions. */
   bundle->is_readonly = FALSE;

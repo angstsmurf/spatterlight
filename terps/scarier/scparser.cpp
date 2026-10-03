@@ -3270,107 +3270,127 @@ uip_debug_trace (scr_bool flag)
 
 
 /*
- * Cache of parsed pattern trees, keyed by the original pattern text.
- *
- * uip_match() historically built and destroyed a fresh parse tree on every
- * call, and with the whole library plus every task command template matched
- * against each input line, that tree churn profiles at a third of the whole
- * interpreter.  Patterns come from fixed library tables and from game
- * properties, so the set is small and stable: parse each distinct pattern
- * once and keep the tree (matching never mutates it).
- *
- * Cached trees are never destroyed or evicted.  Nothing in the matcher calls
- * back into uip_match() today, but eviction would still be the one way for a
- * cached tree to vanish under a walk, so if the cache ever fills -- which no
- * sane game approaches -- further patterns just fall back to the old
- * parse-and-destroy path.  A pattern that fails to parse is cached as NULL
- * so it fails fast when retried.
+ * A parsed pattern: its tree (NULL if the pattern failed to parse), and
+ * whether uip_set_binary_input() can apply to it, which depends on the
+ * pattern's text alone.  Matching never mutates either.
  */
-enum { UIP_TREE_CACHE_SIZE = 4096 };
-static std::unordered_map<std::string, scr_ptnoderef_t> uip_tree_cache;
+struct scr_uip_pattern_s
+{
+  scr_ptnoderef_t tree;
+  scr_bool binary_candidate;
+};
+
 
 /*
- * uip_match()
+ * uip_compile_pattern()
+ * uip_destroy_pattern()
  *
- * Match a string to a pattern, and return TRUE on match, FALSE otherwise.
- * For performance, this function uses a local buffer to try to avoid the
- * need to copy each of the pattern and match strings passed in, and reuses
- * parsed pattern trees through uip_tree_cache.
+ * Parse a pattern for uip_match_pattern(), and free one.  A pattern that
+ * fails to parse still compiles, to a pattern that matches nothing.  The
+ * runner keeps one per task command for the life of the game, so the task
+ * matcher neither parses nor looks one up per attempt.
  */
-scr_bool
-uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
+scr_uip_patternref_t
+uip_compile_pattern (const scr_char *pattern)
 {
+  scr_uip_patternref_t compiled;
   scr_char *cleansed;
   scr_char buffer[UIP_ALLOCATION_AVOIDANCE_SIZE];
-  scr_bool match, is_tree_cached;
-  scr_ptnoderef_t tree;
-  assert (pattern && string && game);
+  assert (pattern);
 
-  /* Reuse any previously parsed tree for this pattern. */
-  std::unordered_map<std::string, scr_ptnoderef_t>::const_iterator
-    cached = uip_tree_cache.find (pattern);
-  if (cached != uip_tree_cache.end ())
+  compiled = new scr_uip_pattern_s ();
+  compiled->binary_candidate = strpbrk (pattern, "*[{") && !strchr (pattern, '%');
+
+  /* Start tokenizer. */
+  cleansed = uip_cleanse_string (pattern, buffer, sizeof (buffer), FALSE);
+  if (uip_trace)
+    scr_trace ("UIParser: pattern \"%s\"\n", cleansed);
+  uip_tokenize_start (cleansed);
+
+  /* Try parsing the pattern, and catch errors. */
+  if (scr_setjmp (uip_parse_error) == 0)
     {
-      /* A cached NULL records a pattern that failed to parse. */
-      if (!cached->second)
-        return FALSE;
-
-      tree = cached->second;
-      is_tree_cached = TRUE;
-      if (uip_trace)
-        scr_trace ("UIParser: pattern \"%s\" (cached tree)\n", pattern);
+      /* Parse the pattern into a match tree. */
+      uip_parse_lookahead = uip_next_token ();
+      uip_parse_group_depth = 0;
+      uip_parse_tree = uip_new_node (NODE_LIST);
+      uip_parse_list (uip_parse_tree);
+      uip_tokenize_end ();
     }
   else
     {
-      /* Start tokenizer. */
-      cleansed = uip_cleanse_string (pattern, buffer, sizeof (buffer), FALSE);
-      if (uip_trace)
-        scr_trace ("UIParser: pattern \"%s\"\n", cleansed);
-      uip_tokenize_start (cleansed);
-
-      /* Try parsing the pattern, and catch errors. */
-      if (scr_setjmp (uip_parse_error) == 0)
-        {
-          /* Parse the pattern into a match tree. */
-          uip_parse_lookahead = uip_next_token ();
-          uip_parse_group_depth = 0;
-          uip_parse_tree = uip_new_node (NODE_LIST);
-          uip_parse_list (uip_parse_tree);
-          uip_tokenize_end ();
-          cleansed = uip_free_cleansed_string (cleansed, buffer);
-        }
-      else
-        {
-          /* Parse error -- clean up and fail. */
-          uip_tokenize_end ();
-          uip_destroy_tree (uip_parse_tree);
-          uip_parse_tree = NULL;
-          cleansed = uip_free_cleansed_string (cleansed, buffer);
-          if (uip_tree_cache.size () < UIP_TREE_CACHE_SIZE)
-            uip_tree_cache[pattern] = NULL;
-          return FALSE;
-        }
-
-      /*
-       * Detach the tree from the parser statics (so a re-entrant parse
-       * cannot touch it) and cache it if there is room.
-       */
-      tree = uip_parse_tree;
+      /* Parse error -- clean up and fail. */
+      uip_tokenize_end ();
+      uip_destroy_tree (uip_parse_tree);
       uip_parse_tree = NULL;
-      is_tree_cached = uip_tree_cache.size () < UIP_TREE_CACHE_SIZE;
-      if (is_tree_cached)
-        uip_tree_cache[pattern] = tree;
     }
+  uip_free_cleansed_string (cleansed, buffer);
+
+  /* Detach the tree from the parser statics, so a re-entrant parse cannot
+     touch it. */
+  compiled->tree = uip_parse_tree;
+  uip_parse_tree = NULL;
+  return compiled;
+}
+
+void
+uip_destroy_pattern (scr_uip_patternref_t compiled)
+{
+  if (compiled)
+    {
+      if (compiled->tree)
+        uip_destroy_tree (compiled->tree);
+      delete compiled;
+    }
+}
+
+
+/*
+ * uip_needs_trim()
+ *
+ * TRUE if uip_cleanse_string() would change the string -- leading or
+ * trailing whitespace.  Most input lines have none, and are matched in
+ * place rather than copied.
+ */
+static scr_bool
+uip_needs_trim (const scr_char *string)
+{
+  const size_t length = strlen (string);
+
+  return length > 0
+         && (scr_isspace (string[0]) || scr_isspace (string[length - 1]));
+}
+
+
+/*
+ * uip_match_pattern()
+ *
+ * Match a string to a compiled pattern, and return TRUE on match, FALSE
+ * otherwise.
+ */
+scr_bool
+uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
+                   scr_gameref_t game)
+{
+  scr_char *cleansed;
+  scr_char buffer[UIP_ALLOCATION_AVOIDANCE_SIZE];
+  scr_bool match;
+  assert (compiled && string && game);
+
+  /* A pattern that failed to parse matches nothing. */
+  if (!compiled->tree)
+    return FALSE;
 
   /* Dump out the pattern tree if requested. */
   if (if_get_trace_flag (SCR_DUMP_PARSER_TREES))
-    uip_debug_dump (tree);
+    uip_debug_dump (compiled->tree);
 
   /* Match the string to the pattern tree. */
-  cleansed = uip_cleanse_string (string, buffer, sizeof (buffer));
+  cleansed = uip_needs_trim (string)
+             ? uip_cleanse_string (string, buffer, sizeof (buffer)) : NULL;
   if (uip_trace)
-    scr_trace ("UIParser: string \"%s\"\n", cleansed);
-  uip_match_start (cleansed, game);
+    scr_trace ("UIParser: string \"%s\"\n", cleansed ? cleansed : string);
+  uip_match_start (cleansed ? cleansed : string, game);
   {
     const scr_bool was_binary = uip_binary_active;
     const scr_char *const was_punctuation = uip_word_end_punctuation;
@@ -3382,23 +3402,111 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
     uip_comma_is_space = version < TAF_VERSION_390 && !uip_task_commands;
 
     uip_binary_active = uip_binary_input && !uip_lenient_tasks
-                        && strpbrk (pattern, "*[{")
-                        && !strchr (pattern, '%');
-    match = uip_match_node (tree);
+                        && compiled->binary_candidate;
+    match = uip_match_node (compiled->tree);
     uip_binary_active = was_binary;
     uip_word_end_punctuation = was_punctuation;
     uip_comma_is_space = was_comma_space;
   }
 
-  /* Clean up matching, and free the pattern tree unless it is cached. */
+  /* Clean up matching. */
   uip_match_end ();
-  cleansed = uip_free_cleansed_string (cleansed, buffer);
-  if (!is_tree_cached)
-    uip_destroy_tree (tree);
+  if (cleansed)
+    uip_free_cleansed_string (cleansed, buffer);
 
   /* Return result of matching. */
   if (uip_trace)
     scr_trace ("UIParser: %s\n", match ? "MATCHED!" : "No match");
+  return match;
+}
+
+
+/*
+ * Cache of compiled patterns, keyed by the original pattern text.
+ *
+ * uip_match() historically built and destroyed a fresh parse tree on every
+ * call, and with the whole library plus every task command template matched
+ * against each input line, that tree churn profiles at a third of the whole
+ * interpreter.  Library patterns come from fixed tables, so parse each
+ * distinct pattern once and keep it.  (Task commands are compiled by the
+ * runner instead -- see uip_compile_pattern() -- and a large game has more
+ * than this cache holds.)
+ *
+ * Cached patterns are never destroyed or evicted.  Nothing in the matcher
+ * calls back into uip_match() today, but eviction would still be the one way
+ * for a cached tree to vanish under a walk, so if the cache ever fills,
+ * further patterns just fall back to parse-and-destroy.
+ *
+ * The keys are private copies of the patterns (never freed, like the
+ * trees), hashed and compared as C strings, so a lookup builds no
+ * std::string.
+ */
+struct uip_cstring_hash
+{
+  size_t
+  operator() (const scr_char *string) const
+  {
+    size_t hash = 2166136261u;              /* FNV-1a */
+
+    for (; *string != NUL; string++)
+      hash = (hash ^ (unsigned char) *string) * 16777619u;
+    return hash;
+  }
+};
+
+struct uip_cstring_equal
+{
+  bool
+  operator() (const scr_char *left, const scr_char *right) const
+  {
+    return strcmp (left, right) == 0;
+  }
+};
+
+enum { UIP_TREE_CACHE_SIZE = 4096 };
+static std::unordered_map<const scr_char *, scr_uip_patternref_t,
+                          uip_cstring_hash, uip_cstring_equal> uip_tree_cache;
+
+
+/*
+ * uip_match()
+ *
+ * Match a string to a pattern, and return TRUE on match, FALSE otherwise,
+ * reusing the pattern's compiled form through uip_tree_cache.
+ */
+scr_bool
+uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
+{
+  scr_uip_patternref_t compiled;
+  scr_bool match, is_cached;
+  assert (pattern && string && game);
+
+  /* Reuse any previously compiled pattern. */
+  const auto cached = uip_tree_cache.find (pattern);
+  if (cached != uip_tree_cache.end ())
+    {
+      compiled = cached->second;
+      is_cached = TRUE;
+      if (uip_trace && compiled->tree)
+        scr_trace ("UIParser: pattern \"%s\" (cached tree)\n", pattern);
+    }
+  else
+    {
+      compiled = uip_compile_pattern (pattern);
+      is_cached = uip_tree_cache.size () < UIP_TREE_CACHE_SIZE;
+      if (is_cached)
+        {
+          const size_t length = strlen (pattern);
+          scr_char *const key = (decltype(+key)) scr_malloc (length + 1);
+
+          memcpy (key, pattern, length + 1);
+          uip_tree_cache.emplace (key, compiled);
+        }
+    }
+
+  match = uip_match_pattern (compiled, string, game);
+  if (!is_cached)
+    uip_destroy_pattern (compiled);
   return match;
 }
 

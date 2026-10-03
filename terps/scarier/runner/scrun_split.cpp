@@ -404,10 +404,7 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
 scr_int
 run_get_version (const scr_prop_setref_t bundle)
 {
-  scr_vartype_t vt_key;
-
-  vt_key.string = "Version";
-  return prop_get_integer (bundle, "I<-s", &vt_key);
+  return prop_get_taf_version (bundle);
 }
 
 

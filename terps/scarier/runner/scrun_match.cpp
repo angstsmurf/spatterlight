@@ -151,10 +151,27 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
  * wrappers the uncached code used.  The cache tracks a single game;
  * gs_destroy() calls run_forget_game().
  */
+/*
+ * What run_match_task_commands() reads off each pattern before and after
+ * matching it, worked out once with the pattern.  refs is
+ * run_pattern_references()'s answer, or -1 when that answer hangs on a
+ * marker naming one of the game's own variables and has to be asked live.
+ * compiled is the pattern parsed for uip_match_pattern(), on first use.
+ */
+typedef struct
+{
+  scr_int first;                  /* strspn (pattern, WHITESPACE) */
+  scr_int refs;
+  scr_bool wild, group;           /* holds '*'; holds '[' or '{' */
+  scr_bool has_object, has_character;
+  scr_uip_patternref_t compiled;
+} scr_pattern_facts_t;
+
 typedef struct
 {
   scr_bool known[2];                          /* indexed [forwards] */
   std::vector<const scr_char *> patterns[2];
+  std::vector<scr_pattern_facts_t> facts[2];  /* one per patterns[] entry */
   /* A command whose markers were lower-cased lives here, and patterns[]
      points into it.  See run_lower_command_markers(). */
   std::vector<std::string> rewritten[2];
@@ -168,6 +185,24 @@ static scr_bool run_task_passes_class_filter (scr_gameref_t game,
 static const void *run_cache_game = NULL;
 
 static std::vector<scr_task_commands_t> run_cache;
+
+static scr_int run_pattern_references (scr_gameref_t game,
+                                       const scr_char *pattern);
+
+/*
+ * run_clear_cache()
+ *
+ * Empty the cache, freeing the patterns it compiled.
+ */
+static void
+run_clear_cache (void)
+{
+  for (scr_task_commands_t &cached : run_cache)
+    for (std::vector<scr_pattern_facts_t> &facts : cached.facts)
+      for (scr_pattern_facts_t &fact : facts)
+        uip_destroy_pattern (fact.compiled);
+  run_cache.clear ();
+}
 
 /*
  * run_lower_command_markers()
@@ -243,6 +278,7 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
 
   if (run_cache_game != game)
     {
+      run_clear_cache ();
       run_cache.assign (gs_task_count (game), scr_task_commands_t ());
       run_cache_game = game;
     }
@@ -278,6 +314,21 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
               cached->patterns[direction][command] =
                   cached->rewritten[direction][command].c_str ();
             }
+        }
+
+      cached->facts[direction].resize (command_count);
+      for (command = 0; command < command_count; command++)
+        {
+          const scr_char *const pattern = cached->patterns[direction][command];
+          scr_pattern_facts_t *const facts = &cached->facts[direction][command];
+
+          facts->first = strspn (pattern, WHITESPACE);
+          facts->refs = run_pattern_references (NULL, pattern);
+          facts->wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
+          facts->group = strpbrk (pattern, "[{") != NULL;
+          facts->has_object = strstr (pattern, "%object%") != NULL;
+          facts->has_character = strstr (pattern, "%character%") != NULL;
+          facts->compiled = NULL;
         }
       cached->known[direction] = TRUE;
     }
@@ -336,7 +387,7 @@ run_forget_game (const void *game)
   if (run_cache_game == game)
     {
       run_cache_game = NULL;
-      run_cache.clear ();
+      run_clear_cache ();
     }
 }
 
@@ -782,7 +833,8 @@ run_substitute_variable_references (scr_gameref_t game, std::string &literal)
  *
  * The set of %reference% markers a task command carries, as a bitmask, or
  * RUN_REF_OTHER for a marker that is none of the four and reaches no
- * variable of the game's own either.
+ * variable of the game's own either.  With a NULL game, -1 where the answer
+ * would depend on the game's variables.
  */
 enum
 {
@@ -794,36 +846,36 @@ enum
 static scr_int
 run_pattern_references (scr_gameref_t game, const scr_char *pattern)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
-  const std::string text (pattern);
   scr_int found = 0;
-  size_t at;
+  const scr_char *at;
 
-  for (at = 0; (at = text.find ('%', at)) != std::string::npos; )
+  for (at = strchr (pattern, '%'); at; )
     {
-      const size_t end = text.find ('%', at + 1);
-      const std::string token = end == std::string::npos
-                                ? std::string ()
-                                : text.substr (at, end - at + 1);
+      const scr_char *const end = strchr (at + 1, '%');
+      const size_t length = end ? end - at + 1 : 0;
       scr_int number;
 
-      if (token == "%object%")
+#define RUN_TOKEN_IS(literal) \
+      (length == sizeof (literal) - 1 && memcmp (at, literal, length) == 0)
+      if (RUN_TOKEN_IS ("%object%"))
         found |= RUN_REF_OBJECT;
-      else if (token == "%character%")
+      else if (RUN_TOKEN_IS ("%character%"))
         found |= RUN_REF_CHARACTER;
-      else if (token == "%number%" || token == "%t_number%")
+      else if (RUN_TOKEN_IS ("%number%") || RUN_TOKEN_IS ("%t_number%"))
         found |= RUN_REF_NUMBER;
-      else if (token == "%text%")
+      else if (RUN_TOKEN_IS ("%text%"))
         found |= RUN_REF_TEXT;
-      else if (token.length () > 2
-               && var_get_command_number (vars,
-                                          token.substr (1,
-                                                        token.length () - 2)
+      else if (length > 2 && !game)
+        return -1;
+      else if (length > 2
+               && var_get_command_number (gs_get_vars (game),
+                                          std::string (at + 1, length - 2)
                                               .c_str (), &number))
         found |= RUN_REF_VARIABLE;
       else
         return found | RUN_REF_OTHER;
-      at = end + 1;
+#undef RUN_TOKEN_IS
+      at = strchr (end + 1, '%');
     }
   return found;
 }
@@ -1014,6 +1066,8 @@ run_match_task_commands (scr_gameref_t game,
 {
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, forwards);
+  std::vector<scr_pattern_facts_t> &all_facts =
+      run_cache[task].facts[forwards ? 1 : 0];
   const scr_int command_count = (scr_int) patterns.size ();
   scr_int command;
   scr_bool is_matched;
@@ -1064,11 +1118,12 @@ run_match_task_commands (scr_gameref_t game,
   for (command = 0; command < command_count; command++)
     {
       const scr_char *pattern;
+      scr_pattern_facts_t &facts = all_facts[command];
       scr_int first;
 
       /* Retrieve the pattern for this command, find its first character. */
       pattern = patterns[command];
-      first = strspn (pattern, WHITESPACE);
+      first = facts.first;
       if (run_named_verb_only && pattern[first] == WILDCARD_PATTERN)
         continue;
 
@@ -1101,33 +1156,35 @@ run_match_task_commands (scr_gameref_t game,
        * otherwise run task 5's warning for striking a friend, which no
        * Runner ever shows, and lose the game.
        */
-      const scr_bool lenient = run_lenient_tasks
-                               && strstr (pattern, "%character%") == NULL;
+      const scr_bool lenient = run_lenient_tasks && !facts.has_character;
       if (lenient && version >= TAF_VERSION_390)
         uip_set_strict_reference (FALSE, FALSE);
 
       const scr_char *matched_input = string;
+      if (pattern[first] != SPECIAL_PATTERN && !facts.compiled)
+        facts.compiled = uip_compile_pattern (pattern);
       if (pattern[first] == SPECIAL_PATTERN)
         ;
       else if (is_library && pattern[first] == WILDCARD_PATTERN)
         {
           if (run_pattern_names_verb (pattern, string))
-            is_matched = uip_match (pattern, string, game);
+            is_matched = uip_match_pattern (facts.compiled, string, game);
           if (!is_matched && run_dispatch_input != NULL
               && run_pattern_names_verb (pattern, run_dispatch_input))
             {
-              is_matched = uip_match (pattern, run_dispatch_input, game);
+              is_matched = uip_match_pattern (facts.compiled,
+                                              run_dispatch_input, game);
               matched_input = run_dispatch_input;
             }
         }
       else
-        is_matched = uip_match (pattern, string, game);
+        is_matched = uip_match_pattern (facts.compiled, string, game);
 
       if (lenient && version >= TAF_VERSION_390)
         uip_set_strict_reference (TRUE, version >= TAF_VERSION_400);
 
-      const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
-      const scr_bool group = strpbrk (pattern, "[{") != NULL;
+      const scr_bool wild = facts.wild;
+      const scr_bool group = facts.group;
 
       /*
        * Which %reference% markers the command carries decides who answers
@@ -1141,7 +1198,9 @@ run_match_task_commands (scr_gameref_t game,
        * file has no Variables section either, so nothing there can name a
        * variable and the question does not arise.
        */
-      const scr_int refs = run_pattern_references (game, pattern);
+      const scr_int refs = facts.refs >= 0
+                           ? facts.refs
+                           : run_pattern_references (game, pattern);
       const scr_bool numeric = (refs & RUN_REF_NUMBER)
                                && version >= TAF_VERSION_390;
       const scr_bool variable = (refs & RUN_REF_VARIABLE) != 0;
@@ -1328,8 +1387,7 @@ run_match_task_commands (scr_gameref_t game,
               || numeric
               || variable
               || literal_ref
-              || (is_matched
-                  && strstr (pattern, "%object%") != NULL)
+              || (is_matched && facts.has_object)
               /*
                * A 3.9 %character% command is decided the same way, not by
                * the tree's position: checktask's NPC walk (44AD48-44ADC2)
@@ -1345,7 +1403,7 @@ run_match_task_commands (scr_gameref_t game,
                * with your longsword." (runner_transcripts/thenightmoon.txt).
                */
               || (is_matched && version >= TAF_VERSION_390
-                  && strstr (pattern, "%character%") != NULL)))
+                  && facts.has_character)))
         {
           std::string literal;
           scr_int ref_object, ref_character;
@@ -1401,7 +1459,7 @@ run_match_task_commands (scr_gameref_t game,
        * bound by a %object% command checked earlier.
        */
       if (!is_matched && version == TAF_VERSION_390 && !lenient
-          && strstr (pattern, "%object%") != NULL)
+          && facts.has_object)
         {
           std::string literal;
           scr_int ref_object, ref_character;

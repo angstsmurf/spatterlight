@@ -626,8 +626,14 @@ extern void gs_set_multiple_references (scr_gameref_t gs);
 extern void gs_clear_multiple_references (scr_gameref_t gs);
 
 /* Pattern matching functions. */
+typedef struct scr_uip_pattern_s *scr_uip_patternref_t;
 extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
+extern scr_uip_patternref_t uip_compile_pattern (const scr_char *pattern);
+extern void uip_destroy_pattern (scr_uip_patternref_t compiled);
+extern scr_bool uip_match_pattern (scr_uip_patternref_t compiled,
+                                   const scr_char *string,
+                                   scr_gameref_t game);
 extern void uip_set_strict_reference (scr_bool strict, scr_bool match_case);
 extern void uip_set_containment (scr_bool enabled);
 extern void uip_set_lenient_tasks (scr_bool lenient);
