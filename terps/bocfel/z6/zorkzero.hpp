@@ -199,6 +199,7 @@ typedef struct ZorkGlobals {
     uint8_t F_WIN_COUNT;
     uint8_t F_PLAYS;
     uint8_t YOUR_SCORE;
+    uint8_t J_SCORE;
     uint8_t DEFAULT_FG;
     uint8_t DEFAULT_BG;
     uint8_t BLINK_TBL;
@@ -256,6 +257,10 @@ typedef struct ZorkTables {
     uint16_t B_X_TBL;
     uint16_t B_Y_TBL;
     uint16_t F_CARD_TABLE;
+    // r296 only: DRAW-CARDS-TABLE, five words flagging the card slots that
+    // need redrawing (later revisions use attributes on NOT-HERE-OBJECT).
+    // Non-zero also means that F_CARD_TABLE is a table of words, not bytes.
+    uint16_t DRAW_CARDS_TABLE;
     uint16_t PICINF_TBL;
     uint16_t SL_LOC_TBL;
 } ZorkTables;

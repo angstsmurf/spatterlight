@@ -1192,8 +1192,8 @@ static void update_score(winid_t win, uint16_t global, int offset) {
 
 // Refreshes both Jester's and player's score displays.
 static void update_scores(void) {
-    update_score(V6_STATUS_WINDOW.id, 0x39, 17);
-    update_score(z0_right_status_window, 0x3b, 13);
+    update_score(V6_STATUS_WINDOW.id, zg.J_SCORE, 17);
+    update_score(z0_right_status_window, zg.YOUR_SCORE, 13);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
@@ -1213,8 +1213,14 @@ static void draw_offset_image(int pic, int x, int y, int offpic) {
 // suit inkblot symbols.
 static void draw_card(int x, int y, int rank, int suit) {
     int rank_order[] = { -1, 4, 5, 6, 7, 8, 9, 0, 10, 1, 2, 3 };
-    rank = user_byte(zt.F_CARD_TABLE + rank);
-    suit = user_byte(zt.F_CARD_TABLE + suit);
+    if (zt.DRAW_CARDS_TABLE != 0) {
+        // r296 keeps the cards in a table of words
+        rank = user_word(zt.F_CARD_TABLE + rank * 2);
+        suit = user_word(zt.F_CARD_TABLE + suit * 2);
+    } else {
+        rank = user_byte(zt.F_CARD_TABLE + rank);
+        suit = user_byte(zt.F_CARD_TABLE + suit);
+    }
     if (rank == 0) {
         draw_to_pixmap_unscaled(F_CARD_BACK, x, y);
     } else if (rank > 11) {
@@ -1232,13 +1238,15 @@ static void draw_card(int x, int y, int rank, int suit) {
 
 // Draws all 5 card slots (discard pile + 4 hand cards) at their respective
 // positions. Sets attributes on NOT-HERE-OBJECT to track which slots are
-// visible.
+// visible (r296 instead clears the slot's word in DRAW-CARDS-TABLE).
 static void draw_cards(void) {
     int x, y;
     for (int cnt = 0; cnt < 5; cnt++) {
         get_image_size(F_DISCARD_PIC_LOC + cnt, &x, &y);
         uint16_t draw_cards_attribute = DRAW_CARDS_OFFSET + cnt;
-        if (zo.NOT_HERE_OBJECT != 0 && !internal_test_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute))
+        if (zt.DRAW_CARDS_TABLE != 0)
+            user_store_word(zt.DRAW_CARDS_TABLE + cnt * 2, 0);
+        else if (zo.NOT_HERE_OBJECT != 0 && !internal_test_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute))
             internal_set_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute);
         draw_card(x, y, cnt * 2, cnt * 2 + 1);
     }

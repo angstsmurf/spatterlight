@@ -1605,6 +1605,18 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "SETUP-FANUCCI alt",
+        // r296 has no APPLE? test at the top of the routine: it starts with
+        // SET_WINDOW #07; ERASE_WINDOW (7 locals, hence the leading 0x07).
+        { 0x07, 0xeb, 0x7f, 0x07, 0xbe, 0x05, 0x57, 0x63, 0x01, 0x01, 0xeb, 0x7f, 0x01 },
+        1,
+        0,
+        true,
+        SETUP_FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
         "FANUCCI",
         // The short signature (CALL_2N <PICINF-PLUS-ONE> ,F-MENU-LOC ; LOADW)
         // is not unique: in r343 and the r366 demo the same bytes occur
@@ -1616,6 +1628,21 @@ static std::vector<EntryPoint> entrypoints = {
         // revision that has this routine, and resolves to the very same
         // address as before in r383..r393.
         { 0xda, 0x4f, WILDCARD, 0x01, 0x80,
+          0xcf, 0x1f, WILDCARD, WILDCARD, 0x01, 0x01,
+          0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x02,
+          0x0d, 0x03, 0x00 },
+        0,
+        0,
+        true,
+        FANUCCI
+    },
+
+    {
+        Game::ZorkZero,
+        "FANUCCI alt",
+        // r296 and r66 call PICINF-PLUS-ONE with a 16-bit packed address
+        // (da 0f) rather than through a global (da 4f).
+        { 0xda, 0x0f, WILDCARD, WILDCARD, 0x01, 0x80,
           0xcf, 0x1f, WILDCARD, WILDCARD, 0x01, 0x01,
           0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x02,
           0x0d, 0x03, 0x00 },
@@ -1639,6 +1666,17 @@ static std::vector<EntryPoint> entrypoints = {
         Game::ZorkZero,
         "J-PLAY",
         { 0xb2, 0x14, 0xe0, 0x00, 0x03, 0x62, 0xe0, 0x52 },
+        -1,
+        0,
+        false,
+        J_PLAY
+    },
+
+    {
+        Game::ZorkZero,
+        "J-PLAY alt",
+        // The opening text is worded differently in r296 and r66
+        { 0xb2, 0x14, 0xe0, 0x00, 0x03, 0x6a, 0x95, 0x56 },
         -1,
         0,
         false,
@@ -2767,6 +2805,25 @@ static uint32_t find_zork0_v_map_head(uint32_t blink_call) {
 // minigames (Tower of Bozbar, Peggleboz, Snarfem, Double Fanucci) and
 // the map/compass system, plus their backing tables and the BLINK_TBL
 // used by the map cursor.
+// The Double Fanucci replacement (SETUP_FANUCCI / FANUCCI) plays the game
+// through the story's own PLAY-SELECTED, J-PLAY and SCORE-CHECK routines and
+// reads its card and play-name tables. If any of those could not be located
+// (as in the r242 beta), restore the stubbed-out originals and leave the
+// game to the Z-code.
+static void unhook_incomplete_fanucci(void) {
+    if (zr.PLAY_SELECTED != 0 && zr.J_PLAY != 0 && zr.SCORE_CHECK != 0 &&
+        zt.F_CARD_TABLE != 0 && zt.F_PLAY_TABLE != 0 && zt.F_PLAY_TABLE_APPLE != 0)
+        return;
+    for (auto &entrypoint : entrypoints) {
+        if ((entrypoint.fn == FANUCCI || entrypoint.fn == SETUP_FANUCCI) && entrypoint.found_at_address != 0) {
+            fprintf(stderr, "Double Fanucci support is incomplete: unhooking %s\n", entrypoint.title.c_str());
+            if (entrypoint.stub_original && entrypoint.offset >= 0 && entrypoint.offset < (int)entrypoint.pattern.size())
+                store_byte(entrypoint.found_at_address, entrypoint.pattern[entrypoint.offset]);
+            entrypoint.found_at_address = 0;
+        }
+    }
+}
+
 static void find_zork0_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
@@ -2839,23 +2896,42 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == PLAY_SELECTED && entrypoint.found_at_address != 0) {
             zr.PLAY_SELECTED = entrypoint.found_at_address;
             fprintf(stderr, "zr.PLAY_SELECTED at address 0x%x\n", entrypoint.found_at_address);
-            start = find_16_bit_values_in_pattern({0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0x8c, 0x00, 0x08, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0xad, 0x00}, {&zt.F_PLAY_TABLE, &zt.F_PLAY_TABLE_APPLE}, entrypoint.found_at_address - 24, 20);
+            // <COND (<APPLE?> <GET ,F-PLAY-TABLE-APPLE .PTR>) (T <GET ,F-PLAY-TABLE .PTR>)>:
+            // the abbreviated Apple II table comes first.
+            start = find_16_bit_values_in_pattern({0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0x8c, 0x00, 0x08, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0xad, 0x00}, {&zt.F_PLAY_TABLE_APPLE, &zt.F_PLAY_TABLE}, entrypoint.found_at_address - 24, 20);
+            if (start == -1) {
+                // r296 has a single table of play names, no Apple II variant
+                start = find_16_bit_values_in_pattern({0xcf, 0x2f, WILDCARD, WILDCARD, 0x03, 0x00, 0xad, 0x00}, {&zt.F_PLAY_TABLE}, entrypoint.found_at_address - 24, 20);
+                if (start != -1)
+                    zt.F_PLAY_TABLE_APPLE = zt.F_PLAY_TABLE;
+            }
             if (start != -1) {
                 fprintf(stderr, "zt.F_PLAY_TABLE: 0x%x zt.F_PLAY_TABLE_APPLE 0x%x\n", zt.F_PLAY_TABLE, zt.F_PLAY_TABLE_APPLE);
+            } else {
+                fprintf(stderr, "zt.F_PLAY_TABLE not found!\n");
             }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == SCORE_CHECK && entrypoint.found_at_address != 0) {
             zr.SCORE_CHECK = entrypoint.found_at_address;
             fprintf(stderr, "zr.SCORE_CHECK at address 0x%x\n", entrypoint.found_at_address);
+            // The routine opens with <G? ,J-SCORE ,YOUR-SCORE>
+            zg.J_SCORE = memory[entrypoint.found_at_address + 2] - 0x10;
+            zg.YOUR_SCORE = memory[entrypoint.found_at_address + 3] - 0x10;
+            fprintf(stderr, "zg.J_SCORE: 0x%x zg.YOUR_SCORE: 0x%x\n", zg.J_SCORE, zg.YOUR_SCORE);
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == J_PLAY && entrypoint.found_at_address != 0) {
             zr.J_PLAY = entrypoint.found_at_address;
             fprintf(stderr, "zr.J_PLAY at address 0x%x\n", entrypoint.found_at_address);
-            start = find_16_bit_values_in_pattern({0xe2, 0x1b, WILDCARD, WILDCARD, 0x00, 0x02, 0xe2, 0x1b, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.F_CARD_TABLE, &zt.F_PLAY_TABLE}, entrypoint.found_at_address, 500);
+            start = find_16_bit_values_in_pattern({0xe2, 0x1b, WILDCARD, WILDCARD, 0x00, 0x02, 0xe2, 0x1b, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.F_CARD_TABLE, &zt.F_CARD_TABLE}, entrypoint.found_at_address, 500);
+            if (start == -1) {
+                // r296 stores the cards as words (STOREW rather than STOREB),
+                // and flags the slot for DRAW-CARDS in DRAW-CARDS-TABLE first.
+                start = find_16_bit_values_in_pattern({0xe1, 0x17, WILDCARD, WILDCARD, 0x00, 0x01, 0xe1, 0x1b, WILDCARD, WILDCARD, 0x00, 0x02, 0xe1, 0x1b, WILDCARD, WILDCARD, 0x01, 0x03 }, {&zt.DRAW_CARDS_TABLE, &zt.F_CARD_TABLE, &zt.F_CARD_TABLE}, entrypoint.found_at_address, 500);
+            }
             if (start == -1) {
                 fprintf(stderr, "zt.F_CARD_TABLE not found!\n");
             } else {
-                fprintf(stderr, "zt.F_CARD_TABLE: 0x%x\n", zt.F_CARD_TABLE);
+                fprintf(stderr, "zt.F_CARD_TABLE: 0x%x zt.DRAW_CARDS_TABLE: 0x%x\n", zt.F_CARD_TABLE, zt.DRAW_CARDS_TABLE);
             }
             entrypoint.found_at_address = 0;
         } else if (entrypoint.fn == DRAW_PEGS && entrypoint.found_at_address != 0) {
@@ -3442,6 +3518,13 @@ void find_entrypoints(void) {
     // any V_MAP_LOOP has matched, skip the rest.
     bool found_v_map_loop = false;
 
+    // Zork Zero's SETUP-FANUCCI, FANUCCI and J-PLAY each have an "alt"
+    // pattern for the early revisions (r296, r66). Exactly one of each pair
+    // is the real routine, so once one has matched, skip the other.
+    bool found_setup_fanucci = false;
+    bool found_fanucci = false;
+    bool found_j_play = false;
+
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
 //            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
@@ -3449,6 +3532,11 @@ void find_entrypoints(void) {
                 continue;
             }
             if (entrypoint.fn == V_MAP_LOOP && found_v_map_loop) {
+                continue;
+            }
+            if ((entrypoint.fn == SETUP_FANUCCI && found_setup_fanucci) ||
+                (entrypoint.fn == FANUCCI && found_fanucci) ||
+                (entrypoint.fn == J_PLAY && found_j_play)) {
                 continue;
             }
             if (entrypoint.pattern.size()) {
@@ -3489,6 +3577,13 @@ void find_entrypoints(void) {
                     if (entrypoint.fn == V_MAP_LOOP) {
                         found_v_map_loop = true;
                     }
+                    if (entrypoint.fn == SETUP_FANUCCI) {
+                        found_setup_fanucci = true;
+                    } else if (entrypoint.fn == FANUCCI) {
+                        found_fanucci = true;
+                    } else if (entrypoint.fn == J_PLAY) {
+                        found_j_play = true;
+                    }
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
@@ -3510,6 +3605,7 @@ void find_entrypoints(void) {
         find_shogun_globals();
     } else if (is_spatterlight_zork0) {
         find_zork0_globals();
+        unhook_incomplete_fanucci();
     }
 
     entrypoint_map.clear();
