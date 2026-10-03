@@ -4154,7 +4154,9 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         // Glk implementations that support it), input won’t be echoed
         // to the screen after it’s been entered. This will echo it
         // where appropriate, for both canceled and completed input.
-        if (curwin->has_echo) {
+        // Echoing is a property of the Glk window, so this also applies
+        // to the V6 windows that are redirected to the main window.
+        if (curwin->has_echo || (curwin->id == mainwin->id && mainwin->has_echo)) {
             glk_set_style(style_Input);
             for (glui32 i = 0; i < input.len; i++) {
                 xglk_put_char(input.line[i]);
