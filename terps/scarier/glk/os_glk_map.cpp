@@ -151,8 +151,9 @@ gsc_sc_walk_stop (void)
  * line request is cancelled so that the next line read can issue the first
  * step in its place, and whatever the player had half-typed is discarded.
  * Returns TRUE when a walk was started, and `event` is then the LineInput
- * event the cancel produced.  A click on empty map re-arms the mouse request
- * and returns FALSE, as does a click anywhere but the map.
+ * event the cancel produced.  A click on empty map, on the player's own room
+ * or on one with no way there re-arms the mouse request and returns FALSE; a
+ * click anywhere but the map returns FALSE.
  */
 int
 gsc_map_click (event_t *event)
@@ -194,7 +195,14 @@ gsc_map_click (event_t *event)
 
   hit = map_hit (gsc_map, &view, &gsc_map_cam, gsc_map_px_w, gsc_map_px_h,
                  (int) event->val1, (int) event->val2);
-  if (hit != NULL && (here == NULL || strcmp (hit, here) != 0))
+  /* Only a room there is a way to now starts a walk.  One behind a shut door
+     is left alone like empty map, before the line request is touched:
+     cancelling it would end the prompt's line, and the walk would then give
+     up at once with nothing to show for it. */
+  if (hit != NULL && here != NULL
+      && (strcmp (hit, here) == 0 || map_walk_step (&view, here, hit) < 0))
+    hit = NULL;
+  if (hit != NULL)
     {
       if (gsc_is_a5)
         {
