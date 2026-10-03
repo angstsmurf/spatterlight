@@ -24,8 +24,7 @@
 // (CoreOutput.aslx ProcessTextCommand_Command). We collect every such link as
 // it scrolls past, and when the script sends CMD we match it to the most
 // recent still-unspent link carrying that data-command and print its text.
-#include "../../../quest5/aslx.cc"
-#include "../../../quest5/aslx-runtime.cc"
+#include "../../../quest5/aslx-runtime-internal.hh"
 
 #include <fstream>
 #include <iostream>

@@ -846,6 +846,13 @@
 		C3A3F3012FDA410900FB7D3C /* graphics_magician.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3A3F3002FDA410900FB7D3C /* graphics_magician.cpp */; };
 		C3A3F4A62FDAACED00FB7D3C /* graphics_magician_cga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */; };
 		C3A51F00000000000000000A /* aslxglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000001 /* aslxglk.cc */; };
+		C3A51F000000000000000015 /* aslx.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000002 /* aslx.cc */; };
+		C3A51F000000000000000016 /* aslx-runtime.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000004 /* aslx-runtime.cc */; };
+		C3A51F000000000000000017 /* aslx-runtime-parse.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000006 /* aslx-runtime-parse.cc */; };
+		C3A51F000000000000000018 /* aslx-runtime-builtins.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000007 /* aslx-runtime-builtins.cc */; };
+		C3A51F000000000000000019 /* aslx-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000010 /* aslx-state.cc */; };
+		C3A51F00000000000000001A /* aslx-savenative.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000011 /* aslx-savenative.cc */; };
+		C3A51F00000000000000001B /* aslxglk-map.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000012 /* aslxglk-map.cc */; };
 		C3A51F00000000000000000B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C3A51F00000000000000000C /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000009 /* libexpat.tbd */; };
 		C3A51F00000000000000000D /* aslx-core in Resources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000008 /* aslx-core */; };
@@ -3539,8 +3546,13 @@
 		C3A51F000000000000000003 /* aslx.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = aslx.hh; sourceTree = "<group>"; };
 		C3A51F000000000000000004 /* aslx-runtime.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-runtime.cc"; sourceTree = "<group>"; };
 		C3A51F000000000000000005 /* aslx-runtime.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime.hh"; sourceTree = "<group>"; };
-		C3A51F000000000000000006 /* aslx-runtime-parse.inc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-parse.inc"; sourceTree = "<group>"; };
-		C3A51F000000000000000007 /* aslx-runtime-builtins.inc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-builtins.inc"; sourceTree = "<group>"; };
+		C3A51F000000000000000006 /* aslx-runtime-parse.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-runtime-parse.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000007 /* aslx-runtime-builtins.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-runtime-builtins.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000010 /* aslx-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-state.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000011 /* aslx-savenative.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslx-savenative.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000012 /* aslxglk-map.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslxglk-map.cc"; sourceTree = "<group>"; };
+		C3A51F000000000000000013 /* aslx-runtime-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-internal.hh"; sourceTree = "<group>"; };
+		C3A51F000000000000000014 /* aslxglk-map.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-map.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000008 /* aslx-core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "aslx-core"; sourceTree = "<group>"; };
 		C3A51F000000000000000009 /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		C3A51F00000000000000000F /* quest5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest5.c; sourceTree = "<group>"; };
@@ -6711,11 +6723,16 @@
 			children = (
 				C3A51F000000000000000002 /* aslx.cc */,
 				C3A51F000000000000000003 /* aslx.hh */,
-				C3A51F000000000000000007 /* aslx-runtime-builtins.inc */,
-				C3A51F000000000000000006 /* aslx-runtime-parse.inc */,
+				C3A51F000000000000000007 /* aslx-runtime-builtins.cc */,
+				C3A51F000000000000000013 /* aslx-runtime-internal.hh */,
+				C3A51F000000000000000006 /* aslx-runtime-parse.cc */,
 				C3A51F000000000000000004 /* aslx-runtime.cc */,
 				C3A51F000000000000000005 /* aslx-runtime.hh */,
+				C3A51F000000000000000011 /* aslx-savenative.cc */,
+				C3A51F000000000000000010 /* aslx-state.cc */,
 				C3A51F000000000000000008 /* aslx-core */,
+				C3A51F000000000000000012 /* aslxglk-map.cc */,
+				C3A51F000000000000000014 /* aslxglk-map.hh */,
 				C3A51F000000000000000001 /* aslxglk.cc */,
 			);
 			path = quest5;
@@ -8356,6 +8373,13 @@
 				55368B74272BF24700740A0A /* questionglk.cc in Sources */,
 				C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */,
 				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
+				C3A51F000000000000000015 /* aslx.cc in Sources */,
+				C3A51F000000000000000016 /* aslx-runtime.cc in Sources */,
+				C3A51F000000000000000017 /* aslx-runtime-parse.cc in Sources */,
+				C3A51F000000000000000018 /* aslx-runtime-builtins.cc in Sources */,
+				C3A51F000000000000000019 /* aslx-state.cc in Sources */,
+				C3A51F00000000000000001A /* aslx-savenative.cc in Sources */,
+				C3A51F00000000000000001B /* aslxglk-map.cc in Sources */,
 				55368B78272BF24700740A0A /* question-runner.cc in Sources */,
 				82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */,
 				6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */,

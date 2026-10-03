@@ -31,8 +31,9 @@
   rendering as a link at all), hence these direct calls.
 
   link_action lives in aslxglk.cc's anonymous namespace, so this TU includes
-  the frontend whole -- the same unity build aslxglk_smoke does -- and supplies
-  the Glk entry points CheapGlk's main() expects.
+  the frontend whole (the engine and the map pane are linked in as objects, as
+  for aslxglk_smoke) and supplies the Glk entry points CheapGlk's main()
+  expects.
 
   Build:  make aslxglk_link_tests       (in this directory)
   Run:    ./aslxglk_link_tests          (exit 0 = all passed)

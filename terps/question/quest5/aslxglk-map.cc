@@ -16,8 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* aslxglk-map.inc -- the Quest 5 grid map (game.gridmap), unity-included by
- * aslxglk.cc inside its anonymous namespace.
+/* aslxglk-map.cc -- the Quest 5 grid map (game.gridmap): a graphics band
+ * across the top of the screen, driven by the Glk frontend (aslxglk.cc)
+ * through aslxglk-map.hh.
  *
  * All map layout runs engine-side in CoreGrid.aslx (bundled in aslx-core):
  * as the player explores it computes room rectangles in abstract grid units,
@@ -56,12 +57,26 @@
  * engine ignores for now.
  */
 
+#include "aslxglk-map.hh"
+
 #include <algorithm>
 #include <cctype>
 #include <cmath>
 #include <cstring>
+#include <string>
+#include <vector>
+
+#include "../../common_utils/rgbsurface.h"
+
+/* Spatterlight's "slow draw / real-time delays" preference (glkimp): off in
+ * deterministic mode, where the marker jumps instead of gliding. */
+extern "C" int gli_sa_delays;
+
+using aslx::GridDraw;
 
 winid_t gmapwin = nullptr;
+
+namespace {
 
 std::vector<GridDraw> g_gm_ops;      /* boxes/labels/lines, arrival order */
 GridDraw g_gm_player;                /* the one player marker */
@@ -89,7 +104,6 @@ bool g_gm_flush = true;
  * rates is 6 steps of 33ms.  g_gm_disp* is the marker as drawn (grid units),
  * g_gm_view* the view centre (map px); outside a glide both track
  * g_gm_player exactly (grid_map_anim_snap). */
-const glui32 GM_ANIM_TICK_MS = 33;
 const int GM_ANIM_STEPS = 6;
 
 bool g_gm_glide = false;                  /* marker slide in flight */
@@ -98,6 +112,8 @@ double g_gm_dispx = 0, g_gm_dispy = 0;    /* drawn marker, grid units */
 double g_gm_stepx = 0, g_gm_stepy = 0;    /* marker step per tick */
 double g_gm_viewx = 0, g_gm_viewy = 0;    /* view centre, map px */
 double g_gm_vstepx = 0, g_gm_vstepy = 0;  /* pan step per tick */
+
+}  // namespace
 
 bool grid_map_animating()
 {
@@ -155,6 +171,8 @@ void grid_map_anim_tick()
     }
     g_gm_dirty = true;
 }
+
+namespace {
 
 /* --- colours: the CSS3 extended keywords, as canvas/paper.js accepts and
  * Quest authors write them ("White", "DarkRed", "#803020"). */
@@ -431,6 +449,8 @@ void gm_render(GmSurface &s)
     }
 }
 
+}  // namespace
+
 /* --- the Glk window ------------------------------------------------------ */
 
 void gm_screen_drop()
@@ -489,7 +509,7 @@ static const glui32 GM_HEIGHT_PERCENT = 30;
  * it.  The engine's `hpx` is kept only as the show/hide trigger; the display
  * list survives a hide, as in the reference player (ShowGrid(0) just
  * collapses the panel). */
-void grid_map_show(int hpx)
+static void grid_map_show(int hpx)
 {
     g_gm_height = hpx;
     if (hpx > 0 && !gmapwin) {

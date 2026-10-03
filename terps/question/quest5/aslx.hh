@@ -34,12 +34,14 @@
 #define QUESTION_ASLX_HH
 
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <map>
 #include <memory>
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include <locale.h>
@@ -55,6 +57,16 @@ namespace aslx {
 inline double c_strtod(const char *s, char **end = nullptr) {
     static locale_t c_loc = newlocale(LC_ALL_MASK, "C", (locale_t)0);
     return strtod_l(s, end, c_loc);
+}
+
+// The writing side: printf's "%.<precision>g" with the decimal point pinned to
+// '.', so a saved double never comes out as a comma-decimal locale's "3,5".
+inline std::string c_format_g(double d, int precision) {
+    char buf[64];
+    std::snprintf(buf, sizeof buf, "%.*g", precision, d);
+    for (char *c = buf; *c; ++c)
+        if (*c == ',') *c = '.';
+    return buf;
 }
 
 // A typed field value. Only the storage side matters for the loader; arithmetic
@@ -95,7 +107,7 @@ struct Value {
     // argument binding, `y = x` assignment, reading a field) shares the same
     // backing, so `list add`/`dictionary add` through any alias is visible
     // everywhere. Builtins that derive a *new* collection from an input must
-    // call detach() first (see aslx-runtime-builtins.inc).
+    // call detach() first (see aslx-runtime-builtins.cc).
     //
     // Entries of both are full Values, not strings: Quest's collections hold
     // typed/boxed entries, and a single list/dictionary can mix objects,
@@ -174,6 +186,33 @@ inline void Value::ensure_backing() {
     default:
         break;
     }
+}
+
+// Value constructors.
+inline Value vnull() { Value v; v.type = Value::Type::Null; return v; }
+inline Value vstr(std::string s) {
+    Value v; v.type = Value::Type::String; v.str = std::move(s); return v;
+}
+inline Value vint(long i) { Value v; v.type = Value::Type::Int; v.integer = i; return v; }
+inline Value vdouble(double d) { Value v; v.type = Value::Type::Double; v.dbl = d; return v; }
+inline Value vbool(bool b) { Value v; v.type = Value::Type::Boolean; v.boolean = b; return v; }
+inline Value vobj(std::string name) {
+    Value v; v.type = Value::Type::ObjectRef; v.str = std::move(name); return v;
+}
+inline Value vscript(std::string source) {
+    Value v; v.type = Value::Type::Script; v.str = std::move(source); return v;
+}
+inline Value vstrlist(std::vector<std::string> l) {
+    Value v; v.type = Value::Type::StringList;
+    v.list();  // allocate the backing so a fresh list has its own identity
+    for (std::string &s : l) v.list().push_back(vstr(std::move(s)));
+    return v;
+}
+inline Value vobjlist(std::vector<std::string> l) {
+    Value v; v.type = Value::Type::ObjectList;
+    v.list();
+    for (std::string &s : l) v.list().push_back(vobj(std::move(s)));
+    return v;
 }
 
 // Element kind: an enum mirror of the `elem_type` string, set whenever
@@ -276,6 +315,8 @@ struct World {
     long next_sort_index = 0;
 
     Element *find(const std::string &n) const;
+    // The <function> element of that name, or nullptr.
+    Element *find_function(const std::string &n) const;
     // Case-insensitive lookup of a <delegate> element by name (lazily cached in
     // delegate_ci_). `rundelegate` is invoked with the impl field/tag name, whose
     // case may differ from the delegate declaration (e.g. "addscript" vs
@@ -375,6 +416,16 @@ bool zip_extract_entry(const uint8_t *data, size_t len, const ZipEntryInfo &e,
 // dictionary and resolves URLs the same way. Returns nullptr if absent.
 const ZipEntryInfo *zip_find_entry(const std::vector<ZipEntryInfo> &entries,
                                    const std::string &name);
+
+// Inflate one raw-deflate (zip method 8) payload into `out`; `rawlen` is the
+// entry's declared decompressed size. Returns false on a corrupt stream. For
+// a host that reads an entry's payload from the package file by its offset
+// instead of holding the whole package in memory.
+bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
+                 std::string &out);
+
+// Read a whole file into `out`; false if it cannot be opened.
+bool slurp_file(const std::string &path, std::string &out);
 
 // Human-readable dump of the element tree, for the loader debug mode / tests.
 std::string dump(const World &world);

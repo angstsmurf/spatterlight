@@ -45,7 +45,7 @@ own rules do.
 
 ## Per-file syntax check (`make syntax`)
 
-Every harness here unity-includes the engine: `question_walkthrough_runner.cc`
+The Quest 4 harnesses here unity-include the engine: `question_walkthrough_runner.cc`
 `#include`s all six engine `.cc` files, so they become **one** translation unit.
 That means a function defined in one `.cc` and called from another compiles
 cleanly even when no header declares it — the caller simply sees the earlier

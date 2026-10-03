@@ -23,8 +23,8 @@
 // Built by test/Makefile; links libexpat + zlib (via the loader). See
 // TODO-quest5.md §2.
 
-#include "../../../quest5/aslx.cc"
-#include "../../../quest5/aslx-runtime.cc"
+#include "../../../quest5/aslx.hh"
+#include "../../../quest5/aslx-runtime.hh"
 
 #include <cstdio>
 #include <iostream>
@@ -1361,7 +1361,7 @@ static void test_undo() {
     CHECK_STR(evals(in, "GetDirectChildren(sack)[0].name"), "coin");
 }
 
-// Save/restore: the v1 snapshot format (aslx-state.inc). A restore reloads
+// Save/restore: the v1 snapshot format (aslx-state.cc). A restore reloads
 // the game file fresh and applies the snapshot, mirroring QuestViva's
 // saved-game boot (InitInterface re-runs, StartGame does not).
 static void test_save_restore() {

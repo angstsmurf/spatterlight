@@ -16,12 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-// aslx-savenative.inc -- Quest 5 native `.quest-save` compatibility (TODO §5).
+// aslx-savenative.cc -- Quest 5 native `.quest-save` compatibility (TODO §5).
 //
-// Included at the end of aslx-runtime.cc, after aslx-state.inc (whose anonymous
-// `save_family` we reuse). This is the interoperable save format: an ASLX
-// document Quest's own desktop player and QuestViva read and write, as opposed
-// to the compact v1 snapshot in aslx-state.inc.
+// This is the interoperable save format: an ASLX document Quest's own desktop
+// player and QuestViva read and write, as opposed to the compact v1 snapshot
+// in aslx-state.cc (whose `save_family` it shares).
 //
 //   <!-- Saved by Question ... -->
 //   <asl version="550" original="/path/Game.quest">
@@ -43,6 +42,14 @@
 // still yields a document Quest accepts (its loader overlays our elements onto
 // the same reloaded original). The reader is symmetric: it ignores non-family
 // elements a Quest-written save carries, since the reload already has them.
+
+#include "aslx-runtime-internal.hh"
+
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
+#include <deque>
+#include <set>
 
 namespace aslx {
 
@@ -91,17 +98,17 @@ void write_text(std::string &out, const std::string &s) {
     out += "]]>";
 }
 
+using Attrs = std::vector<std::pair<std::string, std::string>>;
+
 struct SaveWriter {
     std::string out;
     int indent = 0;
     int version = 0;
 
-    void pad() { for (int i = 0; i < indent; ++i) out += "  "; }
+    void pad() { out.append((size_t)indent * 2, ' '); }
 
-    // <tag a="v" ...> with no body, self-closed if `selfclose`.
-    void open(const std::string &tag,
-              const std::vector<std::pair<std::string, std::string>> &attrs,
-              bool selfclose) {
+    // The indented `<tag a="v" ...`, left for the caller to finish.
+    void start(const std::string &tag, const Attrs &attrs) {
         pad();
         out += '<';
         out += tag;
@@ -112,8 +119,13 @@ struct SaveWriter {
             xml_escape_into(out, a.second, true);
             out += '"';
         }
-        out += selfclose ? "/>\n" : ">\n";
-        if (!selfclose) ++indent;
+    }
+
+    // <tag a="v" ...> opening a nested body, which close() ends.
+    void open(const std::string &tag, const Attrs &attrs) {
+        start(tag, attrs);
+        out += ">\n";
+        ++indent;
     }
 
     void close(const std::string &tag) {
@@ -124,21 +136,11 @@ struct SaveWriter {
         out += ">\n";
     }
 
-    // A leaf field element: <tag type="..">text</tag> on one line, or a
-    // self-closed <tag/> when text is empty and no type is given.
-    void leaf(const std::string &tag,
-              const std::vector<std::pair<std::string, std::string>> &attrs,
-              const std::string &text, bool have_text) {
-        pad();
-        out += '<';
-        out += tag;
-        for (const auto &a : attrs) {
-            out += ' ';
-            out += a.first;
-            out += "=\"";
-            xml_escape_into(out, a.second, true);
-            out += '"';
-        }
+    // A leaf element: <tag type="..">text</tag> on one line, or a self-closed
+    // <tag/> when `have_text` is false.
+    void leaf(const std::string &tag, const Attrs &attrs,
+              const std::string &text, bool have_text = true) {
+        start(tag, attrs);
         if (!have_text) {
             out += "/>\n";
             return;
@@ -154,13 +156,11 @@ struct SaveWriter {
 // Shortest decimal that round-trips a double (QuestViva writes the invariant
 // ToString; C++ has no built-in shortest, so try increasing precision).
 std::string double_to_str(double d) {
-    char buf[64];
-    for (int prec = 15; prec <= 17; ++prec) {
-        std::snprintf(buf, sizeof buf, "%.*g", prec, d);
-        if (std::atof(buf) == d) return buf;
+    for (int prec = 15; prec < 17; ++prec) {
+        std::string text = c_format_g(d, prec);
+        if (c_strtod(text.c_str()) == d) return text;
     }
-    std::snprintf(buf, sizeof buf, "%.17g", d);
-    return buf;
+    return c_format_g(d, 17);
 }
 
 // A string/object dictionary can faithfully hold ONLY strings / object refs; a
@@ -202,6 +202,23 @@ std::string dict_value_string(const Value &v) {
     }
 }
 
+// The entries of a string/object list, joined with `sep`.
+std::string join_names(const Value &v, const char *sep) {
+    std::string joined;
+    const auto &l = v.list();
+    for (size_t i = 0; i < l.size(); ++i) {
+        if (i) joined += sep;
+        joined += l[i].str;
+    }
+    return joined;
+}
+
+// A delegate-implementation script keeps the delegate name as its type
+// (DelegateImplementationSaver); a plain script is type="script".
+std::string script_type(const Value &v) {
+    return v.declared_type.empty() ? "script" : v.declared_type;
+}
+
 // A scalar/joined field name QuestViva writes as its own tag (<myattr .../>)
 // vs. wrapped (<attr name="my attr" .../>) -- OnlyLettersAndNumbers in
 // FieldSaverBase.WriteAttribute (underscores force the wrapper).
@@ -229,17 +246,22 @@ bool xml_tag_ok(const std::string &n) {
     return true;
 }
 
+// The ObjectSaver family, saved nested by containment; timers save flat
+// (TimerSaver).
+bool nested_family(const std::string &t) {
+    return t == "object" || t == "game" || t == "command" || t == "verb" ||
+           t == "exit" || t == "turnscript";
+}
+
 // Ignore-field sets, mirroring ObjectSaver/ElementSaverBase/TimerSaver. `name`,
 // `elementtype` and our synthetic bookkeeping fields are handled structurally
 // (element attributes / nesting) and must not be re-emitted as <field>s.
 bool ignore_field(const std::string &elem_type, const std::string &attr) {
     if (attr == "name" || attr == "elementtype") return true;
-    // ObjectSaver family (everything nested by containment): parent is nesting,
-    // type is the element tag / inherits.
-    bool obj_family = elem_type == "object" || elem_type == "game" ||
-                      elem_type == "command" || elem_type == "verb" ||
-                      elem_type == "exit" || elem_type == "turnscript";
-    if (obj_family && (attr == "type" || attr == "parent")) return true;
+    // ObjectSaver family: parent is nesting, type is the element tag /
+    // inherits.
+    if (nested_family(elem_type) && (attr == "type" || attr == "parent"))
+        return true;
     if (elem_type == "game" && attr == "gamename") return true;
     if ((elem_type == "command" || elem_type == "verb") &&
         (attr == "isverb" || attr == "anonymous"))
@@ -280,16 +302,26 @@ bool is_default_type(const std::string &t) {
 
 std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q);
 
-// A statement whose body collect_firsttime descends into (single-body forms;
-// switch and firsttime/otherwise are handled by the callers).
-bool is_recursing_keyword(const std::string &s) {
+// The single-body statements collect_firsttime descends into come in two
+// shapes (switch and firsttime/otherwise are handled by the callers). This is
+// the length of the keyword opening one that takes NO parameter -- wait /
+// on ready / get input / a plain else -- or 0.
+size_t bare_block_keyword(const std::string &s) {
+    if (starts_with_word(s, "wait")) return 4;
+    if (s.compare(0, 8, "on ready") == 0) return 8;
+    if (s.compare(0, 9, "get input") == 0) return 9;
+    if (starts_with_word(s, "else") &&
+        !starts_with_word(rt_trim(text_after(s, "else")), "if"))
+        return 4;
+    return 0;
+}
+
+// ... and the ones whose body follows a parenthesized parameter.
+bool is_parameter_block(const std::string &s) {
     return starts_with_word(s, "if") || starts_with_word(s, "while") ||
            starts_with_word(s, "foreach") || starts_with_word(s, "for") ||
-           starts_with_word(s, "wait") || starts_with_word(s, "ask") ||
-           starts_with_word(s, "else") ||
-           (s.compare(0, 8, "on ready") == 0) ||
-           (s.compare(0, 9, "get input") == 0) ||
-           (s.compare(0, 9, "show menu") == 0);
+           starts_with_word(s, "ask") || starts_with_word(s, "else") ||
+           s.compare(0, 9, "show menu") == 0;
 }
 
 std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
@@ -343,39 +375,26 @@ std::string bake_switch(const std::string &stmt, std::deque<bool> &q) {
 // Bake a single (already firsttime/otherwise-stripped) statement.
 std::string bake_generic(const std::string &stmt, std::deque<bool> &q) {
     if (starts_with_word(stmt, "switch")) return bake_switch(stmt, q);
-    if (is_recursing_keyword(stmt)) {
-        // Locate the body the way parse_one_statement does: after the
-        // parenthesized parameter for the parameterized forms, after the
-        // keyword itself for the parameterless ones. split_block (first '{')
-        // would mis-split a one-liner whose own braces get_script already
-        // stripped -- the first brace it finds then belongs to a NESTED
-        // statement, so the flag stream and the body text both corrupt.
-        std::string head, body;
-        bool parameterless =
-            starts_with_word(stmt, "wait") ||
-            stmt.compare(0, 8, "on ready") == 0 ||
-            stmt.compare(0, 9, "get input") == 0 ||
-            (starts_with_word(stmt, "else") &&
-             !starts_with_word(rt_trim(text_after(stmt, "else")), "if"));
-        if (parameterless) {
-            size_t k = starts_with_word(stmt, "wait")          ? 4
-                       : stmt.compare(0, 8, "on ready") == 0   ? 8
-                       : stmt.compare(0, 9, "get input") == 0  ? 9
-                                                               : 4;  // else
-            head = stmt.substr(0, k);
-            body = rt_trim(stmt.substr(k));
-        } else {
-            std::string after;
-            bool found = false;
-            get_parameter(stmt, after, found);
-            if (!found) return stmt;
-            head = stmt.substr(0, stmt.size() - after.size());
-            body = rt_trim(after);
-        }
-        if (!body.empty())
-            return head + " {\n" + bake_stmt_list(body, q) + "\n}";
+    // Locate the body the way parse_one_statement does: after the keyword
+    // itself for the parameterless forms, after the parenthesized parameter
+    // for the others. split_block (first '{') would mis-split a one-liner
+    // whose own braces get_script already stripped -- the first brace it finds
+    // then belongs to a NESTED statement, so the flag stream and the body text
+    // both corrupt.
+    std::string head, body;
+    if (size_t k = bare_block_keyword(stmt)) {
+        head = stmt.substr(0, k);
+        body = rt_trim(stmt.substr(k));
+    } else if (is_parameter_block(stmt)) {
+        std::string after;
+        bool found = false;
+        get_parameter(stmt, after, found);
+        if (!found) return stmt;
+        head = stmt.substr(0, stmt.size() - after.size());
+        body = rt_trim(after);
     }
-    return stmt;  // no descent: emitted verbatim
+    if (body.empty()) return stmt;  // no descent: emitted verbatim
+    return head + " {\n" + bake_stmt_list(body, q) + "\n}";
 }
 
 std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
@@ -440,17 +459,6 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
     return out;
 }
 
-// Serialize one field value onto `w` under attribute `attr`, on an element of
-// `elem_type`. A QuestViva saved game emits NO <implied> declarations, so its
-// own reload resolves every type-less attribute to string (or boolean when
-// empty). It exploits this by writing STRING fields type-less and everything
-// else -- ints, booleans, objects, scripts, delegate impls, collections -- with
-// an explicit type. We do the same: it is what makes an already-converted
-// command <pattern> reload as raw regex instead of being re-run through the
-// simplepattern loader (which would mangle it). An EMPTY string keeps
-// type="string" -- without it a type-less empty tag reloads as boolean.
-// `elem_type` is unused now (kept for symmetry / future need). Skips Null.
-
 // Emit one entry as a `<value ...>` element (QuestViva's FieldSaver.SaveValue):
 // a general list's entries and a generic `dictionary`'s item values are typed
 // and may themselves be collections (Quest's nested grid dictionaries), so this
@@ -460,126 +468,141 @@ std::string bake_stmt_list(const std::string &inner, std::deque<bool> &q) {
 // it truncate to null rather than overflowing the stack.
 void write_value(SaveWriter &w, Interp &in, const Value &v, int depth = 0);
 
-void write_field(SaveWriter &w, Interp &in, const World &world,
-                 const std::string &elem_type, const std::string &elem_name,
+// The type a nested collection is saved under. `generic` is set for the forms
+// whose entries carry their own types: a general list (declared_type "list",
+// or mixed/boxed entries) as opposed to a homogeneous stringlist, and a generic
+// dictionary (declared_type "dictionary", boxed values) as opposed to a
+// string/object dictionary of plain string/object-name values.
+const char *collection_type(const Value &v, bool &generic) {
+    using T = Value::Type;
+    generic = false;
+    switch (v.type) {
+    case T::StringList:
+        generic = v.declared_type == "list" || list_needs_generic(v);
+        return generic ? "list" : "stringlist";
+    case T::StringDict:
+    case T::ObjectDict:
+        generic = v.declared_type == "dictionary" || dict_needs_generic(v);
+        return generic ? "dictionary"
+               : v.type == T::ObjectDict ? "objectdictionary"
+                                         : "stringdictionary";
+    default:
+        return "scriptdictionary";
+    }
+}
+
+// The entries of a nested collection, between its open and close tags. `depth`
+// is the nesting level those entries sit at.
+void write_entries(SaveWriter &w, Interp &in, const Value &v, bool generic,
+                   int depth) {
+    using T = Value::Type;
+    if (v.type == T::StringList) {
+        for (const Value &e : v.list()) {
+            if (generic)
+                write_value(w, in, e, depth);  // typed, recursive
+            else
+                w.leaf("value", {}, e.str);    // homogeneous stringlist
+        }
+    } else if (v.type == T::ScriptDict) {
+        // Scriptdict entries are compiled scripts like any Script field: bake
+        // their run firsttimes or they re-fire after a reload.
+        for (const auto &kv : v.dict())
+            w.leaf("item", {{"key", kv.first}},
+                   in.bake_firsttime_source(kv.second.str));
+    } else {
+        for (const auto &kv : v.dict()) {
+            w.open("item", {});
+            w.leaf("key", {}, kv.first);
+            if (generic) {
+                write_value(w, in, kv.second, depth);  // typed, recursive
+            } else {
+                std::string vs = dict_value_string(kv.second);
+                w.leaf("value", {}, vs, !vs.empty());
+            }
+            w.close("item");
+        }
+    }
+}
+
+// Serialize one field value onto `w` under attribute `attr` of the element
+// named `elem_name`. A QuestViva saved game emits NO <implied> declarations, so
+// its own reload resolves every type-less attribute to string (or boolean when
+// empty). It exploits this by writing STRING fields type-less and everything
+// else -- ints, booleans, objects, scripts, delegate impls, collections -- with
+// an explicit type. We do the same: it is what makes an already-converted
+// command <pattern> reload as raw regex instead of being re-run through the
+// simplepattern loader (which would mangle it). An EMPTY string keeps
+// type="string" -- without it a type-less empty tag reloads as boolean.
+void write_field(SaveWriter &w, Interp &in, const std::string &elem_name,
                  const std::string &attr, const Value &v) {
     using T = Value::Type;
-    (void)world; (void)elem_type;
+    // Scalars and the joined-string containers (objectlist, and the legacy
+    // v530- list/dictionary forms) go through WriteAttribute's tag rule.
     bool simple = simple_attr_name(attr);
     std::string tag = simple ? attr : "attr";
-    std::vector<std::pair<std::string, std::string>> base;
+    Attrs base;
     if (!simple) base.emplace_back("name", attr);
-
-    // Scalar leaf: strings are type-less (empty string keeps its type so it
-    // does not reload as boolean); every other scalar carries its type.
-    auto scalar_attrs = [&](const std::string &type, bool empty_text) {
-        auto a = base;
-        if (type != "string" || empty_text) a.emplace_back("type", type);
-        return a;
-    };
-    // Joined-string containers (objectlist, and the legacy v530- list/dict
-    // forms) go through the SCALAR tag rule (WriteAttribute).
-    auto with_type = [&](const std::string &type) {
-        auto a = base;
+    auto typed = [&](const std::string &type, const std::string &text) {
+        Attrs a = base;
         a.emplace_back("type", type);
-        return a;
+        w.leaf(tag, a, text);
     };
-    // v540+ nested containers use the attribute name as the tag directly.
-    bool xml_tag = xml_tag_ok(attr);
-    std::string ctag = xml_tag ? attr : "attr";
-    std::vector<std::pair<std::string, std::string>> cbase;
-    if (!xml_tag) cbase.emplace_back("name", attr);
-    auto cwith_type = [&](const std::string &type) {
-        auto a = cbase;
+    // A v540+ nested container uses the attribute name as the tag directly.
+    auto nested = [&](const char *type, bool generic) {
+        bool xml_tag = xml_tag_ok(attr);
+        std::string ctag = xml_tag ? attr : "attr";
+        Attrs a;
+        if (!xml_tag) a.emplace_back("name", attr);
         a.emplace_back("type", type);
-        return a;
+        w.open(ctag, a);
+        write_entries(w, in, v, generic, 0);
+        w.close(ctag);
     };
 
+    bool generic = false;
     switch (v.type) {
     case T::Null:
         return;  // a removed/never-set attribute is simply absent
     case T::String:
-        w.leaf(tag, scalar_attrs("string", v.str.empty()), v.str, true);
+        if (v.str.empty()) typed("string", v.str);
+        else w.leaf(tag, base, v.str);
         return;
-    case T::Script: {
-        // A delegate-implementation field keeps the delegate name as its type
-        // (DelegateImplementationSaver); a plain script uses type="script".
-        std::string type = (!v.declared_type.empty() &&
-                             v.declared_type != "script")
-                                ? v.declared_type
-                                : "script";
+    case T::Script:
         // Own script attribute: bake the flags of THIS element's instance
         // (the firsttime scope its runs were cached under).
-        w.leaf(tag, scalar_attrs(type, false),
-               in.bake_firsttime_source(v.str, Interp::scope_key(elem_name, attr)),
-               true);
+        typed(script_type(v),
+              in.bake_firsttime_source(v.str, Interp::scope_key(elem_name, attr)));
         return;
-    }
     case T::Int:
-        w.leaf(tag, scalar_attrs("int", false), std::to_string(v.integer), true);
+        typed("int", std::to_string(v.integer));
         return;
     case T::Double:
-        w.leaf(tag, scalar_attrs("double", false), double_to_str(v.dbl), true);
+        typed("double", double_to_str(v.dbl));
         return;
     case T::Boolean:
         // QuestViva's BooleanSaver: a TRUE flag with a simple name is a bare
         // <attr/> (no type, no text) -- which reloads as boolean true; a spaced
-        // name or a FALSE value writes the value with its (usually explicit)
-        // type.
-        if (v.boolean && simple) {
-            w.leaf(tag, base, "", false);
-        } else {
-            w.leaf(tag, scalar_attrs("boolean", false), v.boolean ? "true" : "false", true);
-        }
+        // name or a FALSE value writes the value with its type.
+        if (v.boolean && simple) w.leaf(tag, base, "", false);
+        else typed("boolean", v.boolean ? "true" : "false");
         return;
     case T::ObjectRef:
-        w.leaf(tag, scalar_attrs("object", false), v.str, true);
+        typed("object", v.str);
         return;
     case T::StringList: {
-        // A general typed list (declared_type "list": mixed/boxed entries) is
-        // written with per-value types; a homogeneous stringlist uses <value>.
-        bool general = v.declared_type == "list" || list_needs_generic(v);
-        if (w.version <= 530 && !general) {
-            // Legacy: semicolon-joined, type="list".
-            std::string joined;
-            const auto &l = v.list();
-            for (size_t i = 0; i < l.size(); ++i) {
-                if (i) joined += "; ";
-                joined += l[i].str;
-            }
-            w.leaf(tag, with_type("list"), joined, true);
-            return;
-        }
-        w.open(ctag, cwith_type(general ? "list" : "stringlist"), false);
-        for (const Value &e : v.list()) {
-            if (general)
-                write_value(w, in, e);        // typed, recursive
-            else
-                w.leaf("value", {}, e.str, true);  // homogeneous stringlist
-        }
-        w.close(ctag);
+        const char *type = collection_type(v, generic);
+        // Legacy homogeneous stringlist: semicolon-joined, type="list".
+        if (w.version <= 530 && !generic) typed("list", join_names(v, "; "));
+        else nested(type, generic);
         return;
     }
-    case T::ObjectList: {
+    case T::ObjectList:
         // ObjectListSaver: always semicolon-joined element names, both versions.
-        std::string joined;
-        const auto &l = v.list();
-        for (size_t i = 0; i < l.size(); ++i) {
-            if (i) joined += "; ";
-            joined += l[i].str;
-        }
-        w.leaf(tag, with_type("objectlist"), joined, true);
+        typed("objectlist", join_names(v, "; "));
         return;
-    }
     case T::StringDict:
     case T::ObjectDict: {
-        // A generic dictionary (declared_type "dictionary") holds boxed, typed
-        // values (recursively serialised); a string/object dictionary holds
-        // plain string/object-name values.
-        bool generic = v.declared_type == "dictionary" || dict_needs_generic(v);
-        const char *tn = generic ? "dictionary"
-                         : v.type == T::ObjectDict ? "objectdictionary"
-                                                   : "stringdictionary";
+        const char *type = collection_type(v, generic);
         if (w.version <= 530 && !generic) {
             // Legacy SaveString: "k = v;k2 = v2".
             std::string s;
@@ -590,128 +613,62 @@ void write_field(SaveWriter &w, Interp &in, const World &world,
                 s += " = ";
                 s += dict_value_string(d[i].second);
             }
-            w.leaf(tag, with_type(tn), s, true);
-            return;
+            typed(type, s);
+        } else {
+            nested(type, generic);
         }
-        w.open(ctag, cwith_type(tn), false);
-        for (const auto &kv : v.dict()) {
-            w.open("item", {}, false);
-            w.leaf("key", {}, kv.first, true);
-            if (generic) {
-                write_value(w, in, kv.second);  // typed, recursive
-            } else {
-                std::string vs = dict_value_string(kv.second);
-                w.leaf("value", {}, vs, !vs.empty());
-            }
-            w.close("item");
-        }
-        w.close(ctag);
         return;
     }
-    case T::ScriptDict: {
-        w.open(ctag, cwith_type("scriptdictionary"), false);
-        for (const auto &kv : v.dict()) {
-            std::vector<std::pair<std::string, std::string>> ia;
-            ia.emplace_back("key", kv.first);
-            // Scriptdict entries are compiled scripts like any Script field:
-            // bake their run firsttimes or they re-fire after a reload.
-            w.leaf("item", ia, in.bake_firsttime_source(kv.second.str), true);
-        }
-        w.close(ctag);
+    case T::ScriptDict:
+        nested(collection_type(v, generic), generic);
         return;
-    }
     }
 }
 
-// See the forward declaration above write_field.
+// See the forward declaration above collection_type.
 void write_value(SaveWriter &w, Interp &in, const Value &v, int depth) {
     using T = Value::Type;
-    auto ty = [](const std::string &t) {
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("type", t);
-        return a;
+    auto typed = [&](const std::string &type, const std::string &text) {
+        w.leaf("value", {{"type", type}}, text);
     };
     if (depth > 100) {  // self-referential collection: truncate to null
-        w.leaf("value", {}, "", true);
+        w.leaf("value", {}, "");
         return;
     }
     switch (v.type) {
     case T::Null:
-        w.leaf("value", {}, "", true);
+        w.leaf("value", {}, "");
         return;
     case T::String:
-        w.leaf("value", ty("string"), v.str, true);
+        typed("string", v.str);
         return;
-    case T::Script: {
-        std::string t = (!v.declared_type.empty() && v.declared_type != "script")
-                            ? v.declared_type
-                            : "script";
-        w.leaf("value", ty(t), in.bake_firsttime_source(v.str), true);
+    case T::Script:
+        typed(script_type(v), in.bake_firsttime_source(v.str));
         return;
-    }
     case T::Int:
-        w.leaf("value", ty("int"), std::to_string(v.integer), true);
+        typed("int", std::to_string(v.integer));
         return;
     case T::Double:
-        w.leaf("value", ty("double"), double_to_str(v.dbl), true);
+        typed("double", double_to_str(v.dbl));
         return;
     case T::Boolean:
-        if (v.boolean) w.leaf("value", {}, "", false);       // bare <value/>
-        else w.leaf("value", ty("boolean"), "false", true);
+        if (v.boolean) w.leaf("value", {}, "", false);  // bare <value/>
+        else typed("boolean", "false");
         return;
     case T::ObjectRef:
-        w.leaf("value", ty("object"), v.str, true);
+        typed("object", v.str);
         return;
-    case T::StringList: {
-        bool general = v.declared_type == "list" || list_needs_generic(v);
-        w.open("value", ty(general ? "list" : "stringlist"), false);
-        for (const Value &e : v.list()) {
-            if (general) write_value(w, in, e, depth + 1);
-            else w.leaf("value", {}, e.str, true);
-        }
-        w.close("value");
+    case T::ObjectList:
+        typed("objectlist", join_names(v, "; "));
         return;
-    }
-    case T::ObjectList: {
-        std::string joined;
-        const auto &l = v.list();
-        for (size_t i = 0; i < l.size(); ++i) {
-            if (i) joined += "; ";
-            joined += l[i].str;
-        }
-        w.leaf("value", ty("objectlist"), joined, true);
-        return;
-    }
+    case T::StringList:
     case T::StringDict:
-    case T::ObjectDict: {
-        bool generic = v.declared_type == "dictionary" || dict_needs_generic(v);
-        const char *tn = generic ? "dictionary"
-                         : v.type == T::ObjectDict ? "objectdictionary"
-                                                   : "stringdictionary";
-        w.open("value", ty(tn), false);
-        for (const auto &kv : v.dict()) {
-            w.open("item", {}, false);
-            w.leaf("key", {}, kv.first, true);
-            if (generic) {
-                write_value(w, in, kv.second, depth + 1);
-            } else {
-                std::string vs = dict_value_string(kv.second);
-                w.leaf("value", {}, vs, !vs.empty());
-            }
-            w.close("item");
-        }
-        w.close("value");
-        return;
-    }
+    case T::ObjectDict:
     case T::ScriptDict: {
-        w.open("value", ty("scriptdictionary"), false);
-        for (const auto &kv : v.dict()) {
-            std::vector<std::pair<std::string, std::string>> ia;
-            ia.emplace_back("key", kv.first);
-            // Same as the field-position scriptdictionary: bake run
-            // firsttimes out of each entry.
-            w.leaf("item", ia, in.bake_firsttime_source(kv.second.str), true);
-        }
+        bool generic = false;
+        const char *type = collection_type(v, generic);
+        w.open("value", {{"type", type}});
+        write_entries(w, in, v, generic, depth + 1);
         w.close("value");
         return;
     }
@@ -719,18 +676,12 @@ void write_value(SaveWriter &w, Interp &in, const Value &v, int depth) {
 }
 
 // Common inherit + own-field body of an element.
-void write_fields(SaveWriter &w, Interp &in, const World &world,
-                  const Element *e) {
-    for (const std::string &t : e->inherits) {
-        if (is_default_type(t)) continue;
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", t);
-        w.leaf("inherit", a, "", false);
-    }
-    for (const auto &kv : e->fields) {
-        if (ignore_field(e->elem_type, kv.first)) continue;
-        write_field(w, in, world, e->elem_type, e->name, kv.first, kv.second);
-    }
+void write_fields(SaveWriter &w, Interp &in, const Element *e) {
+    for (const std::string &t : e->inherits)
+        if (!is_default_type(t)) w.leaf("inherit", {{"name", t}}, "", false);
+    for (const auto &kv : e->fields)
+        if (!ignore_field(e->elem_type, kv.first))
+            write_field(w, in, e->name, kv.first, kv.second);
 }
 
 }  // namespace
@@ -746,7 +697,7 @@ std::string Interp::bake_firsttime_source(const std::string &src,
                                           const std::string &scope) {
     std::shared_ptr<std::vector<Stmt>> body;
     if (!scope.empty()) {
-        auto it = script_cache_.find(scope + '\x1F' + src);
+        auto it = script_cache_.find(script_cache_key(scope, src));
         if (it != script_cache_.end()) body = it->second;
     }
     if (!body) {
@@ -756,10 +707,7 @@ std::string Interp::bake_firsttime_source(const std::string &src,
     }
     std::vector<std::shared_ptr<bool>> flags;
     collect_firsttime(*body, flags);
-    bool any = false;
-    for (const auto &f : flags)
-        if (*f) { any = true; break; }
-    if (!any) return src;
+    if (!any_firsttime_ran(flags)) return src;
     std::deque<bool> q;
     for (const auto &f : flags) q.push_back(*f);
     return bake_stmt_list(src, q);
@@ -768,48 +716,51 @@ std::string Interp::bake_firsttime_source(const std::string &src,
 // ---- writer ---------------------------------------------------------------
 
 std::string Interp::save_game_native(const std::string &original_file) {
+    using T = Value::Type;
     SaveWriter w;
     w.version = world_.asl_version;
 
     w.out += "<!-- Saved by Question (native Quest 5 engine) -->\n";
-    std::vector<std::pair<std::string, std::string>> asl_attrs;
+    Attrs asl_attrs;
     asl_attrs.emplace_back(
         "version", world_.version_string.empty() ? std::to_string(world_.asl_version)
                                                   : world_.version_string);
     if (!original_file.empty())
         asl_attrs.emplace_back("original", original_file);
-    w.open("asl", asl_attrs, false);
+    w.open("asl", asl_attrs);
+
+    auto by_sort = [](const Element *a, const Element *b) {
+        return a->sort_index < b->sort_index;
+    };
+    // The live elements `want` picks, in sort_index order.
+    auto live_sorted = [&](auto want) {
+        std::vector<const Element *> v;
+        for (const auto &up : world_.elements)
+            if (up->registered && want(up.get())) v.push_back(up.get());
+        std::sort(v.begin(), v.end(), by_sort);
+        return v;
+    };
+    auto of_kind = [](ElemKind k) {
+        return [k](const Element *e) { return e->kind == k; };
+    };
+    // The text of a field holding a value of type `t`, else "".
+    auto text_of = [](const Element *e, const char *attr, T t) {
+        const Value *v = e->field(attr);
+        return v && v->type == t ? v->str : std::string();
+    };
 
     // Runtime containment is the `parent` field (Element::children is the
     // load-time graph and goes stale on MoveObject). Build a live parent->
     // children map over the registered object family, ordered by sort_index.
-    auto live = [&](const Element *e) {
-        return world_.find(e->name) == e;
-    };
-    auto parent_name = [&](const Element *e) -> std::string {
-        const Value *p = e->field("parent");
-        if (p && p->type == Value::Type::ObjectRef) return p->str;
-        return std::string();
-    };
-
-    // Which families nest (ObjectSaver) vs. save flat (TimerSaver).
-    auto nested_family = [](const std::string &t) {
-        return t == "object" || t == "game" || t == "command" ||
-               t == "verb" || t == "exit" || t == "turnscript";
-    };
-
     std::map<std::string, std::vector<const Element *>> children;
     std::vector<const Element *> roots;
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (!nested_family(e->elem_type) || !live(e)) continue;
-        std::string pn = parent_name(e);
+        if (!nested_family(e->elem_type) || !e->registered) continue;
+        std::string pn = text_of(e, "parent", T::ObjectRef);
         if (!pn.empty() && world_.find(pn)) children[pn].push_back(e);
         else roots.push_back(e);
     }
-    auto by_sort = [](const Element *a, const Element *b) {
-        return a->sort_index < b->sort_index;
-    };
     std::sort(roots.begin(), roots.end(), by_sort);
     for (auto &kv : children) std::sort(kv.second.begin(), kv.second.end(), by_sort);
 
@@ -819,30 +770,37 @@ std::string Interp::save_game_native(const std::string &original_file) {
     std::set<const Element *> emitted;
     std::function<void(const Element *)> emit = [&](const Element *e) {
         if (!emitted.insert(e).second) return;
-        const std::string &t = e->elem_type;
-        std::string tag = t;  // object/game/command/verb/exit/turnscript
-        std::vector<std::pair<std::string, std::string>> attrs;
-        if (t == "game") {
+        // object/game/command/verb/exit/turnscript
+        const std::string &tag = e->elem_type;
+        Attrs attrs;
+        if (tag == "game") {
             const Value *gn = e->field("gamename");
-            attrs.emplace_back("name", gn && gn->type == Value::Type::String
+            attrs.emplace_back("name", gn && gn->type == T::String
                                                ? gn->str : world_.game_name);
-        } else if (t == "exit") {
-            attrs.emplace_back("name", e->name);
-            const Value *al = e->field("alias");
-            if (al && al->type == Value::Type::String && !al->str.empty())
-                attrs.emplace_back("alias", al->str);
-            const Value *to = e->field("to");
-            if (to && to->type == Value::Type::ObjectRef && !to->str.empty())
-                attrs.emplace_back("to", to->str);
         } else {
             attrs.emplace_back("name", e->name);
         }
-        w.open(tag, attrs, false);
-        write_fields(w, *this, world_, e);
+        if (tag == "exit") {
+            std::string alias = text_of(e, "alias", T::String);
+            if (!alias.empty()) attrs.emplace_back("alias", alias);
+            std::string to = text_of(e, "to", T::ObjectRef);
+            if (!to.empty()) attrs.emplace_back("to", to);
+        }
+        w.open(tag, attrs);
+        write_fields(w, *this, e);
         auto it = children.find(e->name);
         if (it != children.end())
             for (const Element *c : it->second) emit(c);
         w.close(tag);
+    };
+    // <tag name="..">inherits + own fields</tag> for each element of a kind
+    // that saves flat.
+    auto emit_flat = [&](const char *tag, ElemKind kind) {
+        for (const Element *e : live_sorted(of_kind(kind))) {
+            w.open(tag, {{"name", e->name}});
+            write_fields(w, *this, e);
+            w.close(tag);
+        }
     };
     // A QuestViva saved game is a COMPLETE, self-contained world: its loader
     // loads ONLY the save (the original .quest supplies resources, not
@@ -853,17 +811,8 @@ std::string Interp::save_game_native(const std::string &original_file) {
     // Our own overlay reader tolerates a partial save (it reloads the original
     // first), but Quest/QuestViva need the whole thing.
     auto join_params = [](const Element *e) {
-        std::string s;
         const Value *p = e->field("paramnames");
-        if (p && (p->type == Value::Type::StringList ||
-                  p->type == Value::Type::ObjectList)) {
-            const auto &l = p->list();
-            for (size_t i = 0; i < l.size(); ++i) {
-                if (i) s += ", ";
-                s += l[i].str;
-            }
-        }
-        return s;
+        return p && is_list(*p) ? join_names(*p, ", ") : std::string();
     };
 
     // NOTE: we deliberately emit NO <implied> declarations, exactly like
@@ -875,27 +824,19 @@ std::string Interp::save_game_native(const std::string &original_file) {
     // <template>/<dynamictemplate>: scripts are stored post-substitution, so
     // static [refs] are already gone, but the runtime Template()/
     // DynamicTemplate() builtins still look these up by name.
-    for (const auto &kv : world_.templates) {
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", kv.first);
-        w.leaf("template", a, kv.second, true);
-    }
-    for (const auto &kv : world_.dynamic_templates) {
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", kv.first);
-        w.leaf("dynamictemplate", a, kv.second, true);
-    }
+    for (const auto &kv : world_.templates)
+        w.leaf("template", {{"name", kv.first}}, kv.second);
+    for (const auto &kv : world_.dynamic_templates)
+        w.leaf("dynamictemplate", {{"name", kv.first}}, kv.second);
     // <delegate name=".." parameters=".." type="returntype"/>
     for (const auto &up : world_.elements) {
         const Element *e = up.get();
-        if (e->kind != ElemKind::Delegate || !live(e)) continue;
-        const Value *rt = e->field("returntype");
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", e->name);
-        a.emplace_back("parameters", join_params(e));
-        a.emplace_back("type",
-                       rt && rt->type == Value::Type::String ? rt->str : "");
-        w.leaf("delegate", a, "", false);
+        if (e->kind != ElemKind::Delegate || !e->registered) continue;
+        w.leaf("delegate",
+               {{"name", e->name},
+                {"parameters", join_params(e)},
+                {"type", text_of(e, "returntype", T::String)}},
+               "", false);
     }
 
     for (const Element *e : roots) emit(e);
@@ -904,66 +845,27 @@ std::string Interp::save_game_native(const std::string &original_file) {
     // walk from roots never reaches them. Emit them as extra roots: the
     // cycle flattens (their parent comes from XML nesting on reload) instead
     // of silently vanishing from the save.
-    std::vector<const Element *> cycle_orphans;
-    for (const auto &up : world_.elements) {
-        const Element *e = up.get();
-        if (nested_family(e->elem_type) && live(e) && !emitted.count(e))
-            cycle_orphans.push_back(e);
-    }
-    std::sort(cycle_orphans.begin(), cycle_orphans.end(), by_sort);
-    for (const Element *e : cycle_orphans) emit(e);
+    for (const Element *e : live_sorted([&](const Element *x) {
+             return nested_family(x->elem_type) && !emitted.count(x);
+         }))
+        emit(e);
 
-    // <type name="..">inherits + own fields</type>
-    std::vector<const Element *> types;
-    for (const auto &up : world_.elements) {
-        const Element *e = up.get();
-        if (e->kind == ElemKind::Type && live(e)) types.push_back(e);
-    }
-    std::sort(types.begin(), types.end(), by_sort);
-    for (const Element *e : types) {
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", e->name);
-        w.open("type", a, false);
-        write_fields(w, *this, world_, e);
-        w.close("type");
-    }
+    emit_flat("type", ElemKind::Type);
     // <function name=".." parameters=".." type="returntype">script</function>
-    std::vector<const Element *> funcs;
-    for (const auto &up : world_.elements) {
-        const Element *e = up.get();
-        if (e->kind == ElemKind::Function && live(e)) funcs.push_back(e);
-    }
-    std::sort(funcs.begin(), funcs.end(), by_sort);
-    for (const Element *e : funcs) {
-        std::vector<std::pair<std::string, std::string>> a;
-        a.emplace_back("name", e->name);
+    for (const Element *e : live_sorted(of_kind(ElemKind::Function))) {
+        Attrs a{{"name", e->name}};
         std::string params = join_params(e);
         if (!params.empty()) a.emplace_back("parameters", params);
-        const Value *rt = e->field("returntype");
-        if (rt && rt->type == Value::Type::String && !rt->str.empty())
-            a.emplace_back("type", rt->str);
+        std::string returns = text_of(e, "returntype", T::String);
+        if (!returns.empty()) a.emplace_back("type", returns);
         const Value *sc = e->field("script");
-        std::string body = sc && sc->type == Value::Type::Script
-                               ? bake_firsttime_source(sc->str,
-                                                       scope_key(e->name, "script"))
-                               : std::string();
+        std::string body;
+        if (sc && sc->type == T::Script)
+            body = bake_firsttime_source(sc->str, scope_key(e->name, "script"));
         w.leaf("function", a, body, !body.empty());
     }
-
     // Timers save flat (TimerSaver), after the object graph.
-    std::vector<const Element *> timers;
-    for (const auto &up : world_.elements) {
-        const Element *e = up.get();
-        if (e->kind == ElemKind::Timer && live(e)) timers.push_back(e);
-    }
-    std::sort(timers.begin(), timers.end(), by_sort);
-    for (const Element *e : timers) {
-        std::vector<std::pair<std::string, std::string>> attrs;
-        attrs.emplace_back("name", e->name);
-        w.open("timer", attrs, false);
-        write_fields(w, *this, world_, e);
-        w.close("timer");
-    }
+    emit_flat("timer", ElemKind::Timer);
 
     w.close("asl");
     return w.out;
@@ -989,21 +891,19 @@ bool Interp::is_native_save_data(const char *data, size_t len) {
     size_t asl = head.find("<asl");
     if (asl == std::string::npos) return false;
     size_t gt = head.find('>', asl);
-    std::string tag = gt == std::string::npos ? head.substr(asl)
-                                              : head.substr(asl, gt - asl);
+    std::string tag =
+        head.substr(asl, gt == std::string::npos ? gt : gt - asl);
     return tag.find("original") != std::string::npos;
 }
 
 bool Interp::restore_game_native(const std::string &data, std::string &err) {
     // Validate the ASL version matches this (already-reloaded) world.
     {
-        const char *p = data.data(), *end = p + data.size();
         size_t off = data.find("<asl");
         if (off == std::string::npos) { err = "not an ASLX save"; return false; }
-        p += off;
         size_t gt = data.find('>', off);
-        std::string tag = gt == std::string::npos ? std::string(p, end)
-                                                  : data.substr(off, gt - off);
+        std::string tag =
+            data.substr(off, gt == std::string::npos ? gt : gt - off);
         size_t vp = tag.find("version=\"");
         if (vp != std::string::npos) {
             size_t vs = vp + 9, ve = tag.find('"', vs);
@@ -1031,14 +931,7 @@ bool Interp::restore_game_native(const std::string &data, std::string &err) {
     // Drop every live mutable-family element the save did not (re)define: it was
     // destroyed before the save was written (Quest's saved game lists all
     // surviving objects; anything absent no longer exists).
-    std::vector<std::string> drop;
-    for (const auto &up : world_.elements) {
-        Element *e = up.get();
-        if (save_family(e->elem_type) && world_.find(e->name) == e &&
-            !overlaid.count(e->name))
-            drop.push_back(e->name);
-    }
-    for (const std::string &n : drop) world_.unregister_name(n);
+    drop_unsaved_elements(world_, overlaid);
 
     // Merged-listextend slots may hold pre-restore state (as in restore_game).
     extend_cache_.clear();

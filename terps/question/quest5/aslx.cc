@@ -196,6 +196,11 @@ Element *World::find(const std::string &n) const {
     return it == by_name.end() ? nullptr : it->second;
 }
 
+Element *World::find_function(const std::string &n) const {
+    Element *e = find(n);
+    return e && e->kind == ElemKind::Function ? e : nullptr;
+}
+
 // Case-insensitive lookup of a <delegate> element. `rundelegate`/HasDelegate...
 // are invoked with the implementation FIELD name (e.g. the tag "addscript"),
 // which QuestViva matches OrdinalIgnoreCase against the <delegate name="AddScript">
@@ -290,16 +295,11 @@ static void set_kind_fields(Element *ep) {
             {"game", "object", "game"},
             {"turnscript", "object", "turnscript"},
         };
-    Value ev2;
-    ev2.type = Value::Type::String;
-    ev2.str = ep->elem_type;
+    Value ev2 = vstr(ep->elem_type);
     for (const auto &m : kMap) {
         if (ep->elem_type == m.et) {
             ev2.str = m.elementtype;
-            Value tv;
-            tv.type = Value::Type::String;
-            tv.str = m.type;
-            ep->set_field("type", tv);
+            ep->set_field("type", vstr(m.type));
             break;
         }
     }
@@ -318,10 +318,7 @@ Element *World::create_object(const std::string &name, const std::string &type,
     if (!name.empty()) {
         // Same `name` field every loaded element gets (FieldDefinitions.Name)
         // -- a runtime-created timer reads this.name to destroy itself.
-        Value nv;
-        nv.type = Value::Type::String;
-        nv.str = name;
-        ep->set_field("name", nv);
+        ep->set_field("name", vstr(name));
     }
     // Every runtime-created element inherits its implicit default type (lowest
     // priority), then the caller's explicit type -- QuestViva
@@ -512,8 +509,8 @@ static uint32_t rd32(const uint8_t *p) {
            ((uint32_t)p[3] << 24);
 }
 
-static bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
-                        std::string &out) {
+bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
+                 std::string &out) {
     out.clear();
     // rawlen is the entry's own declared size; cap it before allocating (the
     // largest real .quest payloads are tens of MB).
@@ -660,6 +657,13 @@ static bool is_editor_tag(const std::string &t) {
     return t == "editor" || t == "tab" || t == "control";
 }
 
+// A command/verb `pattern` field: a regex string carrying its declared type.
+static Value vpattern(std::string regex) {
+    Value v = vstr(std::move(regex));
+    v.declared_type = "string";
+    return v;
+}
+
 struct Frame {
     enum class Kind {
         Element,
@@ -705,8 +709,6 @@ struct Loader;
 // its elements/templates to the shared World. Used for both the top-level file
 // and every resolved <include>. Defined below the expat trampolines.
 static bool parse_buffer_into(Loader &ld, const char *data, size_t len);
-// Read a whole file into `out`; false if it cannot be opened.
-static bool slurp_file(const std::string &path, std::string &out);
 static std::string ascii_lower(const std::string &s) {
     std::string r = s;
     for (char &c : r) c = (char)std::tolower((unsigned char)c);
@@ -749,6 +751,15 @@ struct Loader {
     explicit Loader(World &w) : world(w) {}
 
     Element *current() { return containers.empty() ? nullptr : containers.back(); }
+
+    // Open a frame for the tag just started; the caller fills in the rest.
+    Frame &push_frame(Frame::Kind kind, const std::string &tag) {
+        frames.emplace_back();
+        Frame &f = frames.back();
+        f.kind = kind;
+        f.tag = tag;
+        return f;
+    }
 
     void error(const std::string &e) { world.errors.push_back(e); }
 
@@ -824,12 +835,8 @@ struct Loader {
         // FieldDefinitions.Name). Core reads obj.name / cmd.name pervasively --
         // notably as the RegexCache key in HandleSingleCommand -- so an empty
         // name would collapse every command's cache entry onto one key.
-        if (!name.empty()) {
-            Value nv;
-            nv.type = Value::Type::String;
-            nv.str = name;
-            ep->set_field("name", nv);
-        }
+        if (!name.empty())
+            ep->set_field("name", vstr(name));
         ep->parent = current();
         if (ep->parent) {
             ep->parent->children.push_back(ep);
@@ -837,12 +844,8 @@ struct Loader {
             // stores it (FieldDefinitions.Parent). Core reads/writes obj.parent
             // pervasively (scope, MoveObject); the runtime derives children from
             // this field so it stays correct after a runtime move.
-            if (!ep->parent->name.empty()) {
-                Value pv;
-                pv.type = Value::Type::ObjectRef;
-                pv.str = ep->parent->name;
-                ep->set_field("parent", pv);
-            }
+            if (!ep->parent->name.empty())
+                ep->set_field("parent", vobj(ep->parent->name));
         } else {
             world.roots.push_back(ep);
         }
@@ -878,11 +881,7 @@ struct Loader {
             return;
         }
         if (is_editor_tag(name)) {
-            Frame f;
-            f.kind = Frame::Kind::Ignore;
-            f.tag = name;
-            f.ignore_depth = 1;
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::Ignore, name).ignore_depth = 1;
             return;
         }
 
@@ -895,37 +894,24 @@ struct Loader {
         bool value_ctx = ctx == Frame::Kind::Field || ctx == Frame::Kind::Value ||
                          ctx == Frame::Kind::ItemValue;
         if (value_ctx && name == "value") {
-            Frame f;
-            f.kind = Frame::Kind::Value;
-            f.tag = name;
-            f.type = attr_get(attrs, "type");
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::Value, name).type = attr_get(attrs, "type");
             return;
         }
         if (value_ctx && name == "item") {
-            Frame f;
-            f.kind = Frame::Kind::Item;
-            f.tag = name;
+            Frame &f = push_frame(Frame::Kind::Item, name);
             if (attrs.count("key")) {  // scriptdictionary form
                 f.item_key = attr_get(attrs, "key");
                 f.item_has_key = true;
             }
-            frames.push_back(std::move(f));
             return;
         }
         if (ctx == Frame::Kind::Item && name == "key") {
-            Frame f;
-            f.kind = Frame::Kind::ItemKey;
-            f.tag = name;
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::ItemKey, name);
             return;
         }
         if (ctx == Frame::Kind::Item && name == "value") {
-            Frame f;
-            f.kind = Frame::Kind::ItemValue;
-            f.tag = name;
-            f.type = attr_get(attrs, "type");
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::ItemValue, name).type =
+                attr_get(attrs, "type");
             return;
         }
 
@@ -934,11 +920,7 @@ struct Loader {
             std::string v = attr_get(attrs, "version");
             world.version_string = v;
             world.asl_version = std::atoi(v.c_str());
-            Frame f;
-            f.kind = Frame::Kind::Leaf;
-            f.tag = name;
-            f.attrs = attrs;
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::Leaf, name).attrs = attrs;
             return;
         }
 
@@ -947,11 +929,7 @@ struct Loader {
             return;
         }
         if (is_leaf_tag(name)) {
-            Frame f;
-            f.kind = Frame::Kind::Leaf;
-            f.tag = name;
-            f.attrs = attrs;
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::Leaf, name).attrs = attrs;
             return;
         }
 
@@ -970,12 +948,8 @@ struct Loader {
             // name attribute is only its display name.
             e = new_element("game", "game", false);
             world.game_name = nm;
-            if (!nm.empty()) {
-                Value v;
-                v.type = Value::Type::String;
-                v.str = nm;
-                e->set_field("gamename", v);
-            }
+            if (!nm.empty())
+                e->set_field("gamename", vstr(nm));
         } else if (name == "command" || name == "verb") {
             std::string pattern = attr_get(attrs, "pattern");
             if (name == "verb" && nm.empty()) nm = attr_get(attrs, "property");
@@ -990,12 +964,8 @@ struct Loader {
                 nm = unique_id(base.empty() ? name : base);
             }
             e = new_element(name, nm, anon);
-            if (anon) {
-                Value b;
-                b.type = Value::Type::Boolean;
-                b.boolean = true;
-                e->set_field("anonymous", b);
-            }
+            if (anon)
+                e->set_field("anonymous", vbool(true));
             std::string tmpl = attr_get(attrs, "template");
             if (!pattern.empty()) {
                 // A `pattern=` attribute: template-substitute any [refs] and
@@ -1005,9 +975,7 @@ struct Loader {
                 // "^look$|^l$"; "^restart$" stays); VerbLoader only overrides
                 // the template= path. Simplepattern conversion is reserved for
                 // nested <pattern> elements (defaultcommand's declared type).
-                Value p; p.type = Value::Type::String; p.declared_type = "string";
-                p.str = replace_templates(pattern);
-                e->set_field("pattern", p);
+                e->set_field("pattern", vpattern(replace_templates(pattern)));
             } else if (!tmpl.empty()) {
                 // A `template=` attribute names a verbtemplate; its combined
                 // (";"-joined) text is a verb simplepattern
@@ -1019,30 +987,22 @@ struct Loader {
                     if (name == "verb") {
                         pending_verb_patterns.emplace_back(e, ttext);
                     } else {
-                        Value p; p.type = Value::Type::String;
-                        p.declared_type = "string";
-                        p.str = convert_verb_simple_pattern(ttext, "");
-                        e->set_field("pattern", p);
+                        e->set_field("pattern", vpattern(convert_verb_simple_pattern(
+                                                    ttext, "")));
                     }
                     // v530+: displayverb is the first verb in the list.
                     if (world.asl_version >= 530) {
                         std::vector<std::string> verbs = list_split(ttext);
-                        if (!verbs.empty()) {
-                            Value dv; dv.type = Value::Type::String;
-                            dv.str = trim(verbs[0]);
-                            e->set_field("displayverb", dv);
-                        }
+                        if (!verbs.empty())
+                            e->set_field("displayverb", vstr(trim(verbs[0])));
                     }
                 }
             }
             if (name == "verb") {
                 std::string prop = attr_get(attrs, "property");
-                if (!prop.empty()) {
-                    Value v; v.type = Value::Type::String; v.str = prop;
-                    e->set_field("property", v);
-                }
-                Value b; b.type = Value::Type::Boolean; b.boolean = true;
-                e->set_field("isverb", b);
+                if (!prop.empty())
+                    e->set_field("property", vstr(prop));
+                e->set_field("isverb", vbool(true));
             }
         } else if (name == "exit") {
             std::string id = nm;
@@ -1051,10 +1011,8 @@ struct Loader {
             std::string alias = attr_get(attrs, "alias");
             std::string to = attr_get(attrs, "to");
             if (alias.empty()) alias = to;
-            if (!alias.empty()) {
-                Value v; v.type = Value::Type::String; v.str = alias;
-                e->set_field("alias", v);
-            }
+            if (!alias.empty())
+                e->set_field("alias", vstr(alias));
             if (!to.empty()) {
                 Value v; v.type = Value::Type::ObjectRef; v.str = to;
                 v.declared_type = "object";
@@ -1067,11 +1025,7 @@ struct Loader {
             e = new_element(name, id, nm.empty());
         }
 
-        Frame f;
-        f.kind = Frame::Kind::Element;
-        f.tag = name;
-        f.elem = e;
-        frames.push_back(std::move(f));
+        push_frame(Frame::Kind::Element, name).elem = e;
         containers.push_back(e);
     }
 
@@ -1079,20 +1033,13 @@ struct Loader {
                      const std::map<std::string, std::string> &attrs) {
         if (!current()) {
             // A field with no enclosing element -- malformed; ignore its subtree.
-            Frame f;
-            f.kind = Frame::Kind::Ignore;
-            f.tag = name;
-            f.ignore_depth = 1;
-            frames.push_back(std::move(f));
+            push_frame(Frame::Kind::Ignore, name).ignore_depth = 1;
             return;
         }
-        Frame f;
-        f.kind = Frame::Kind::Field;
-        f.tag = name;
+        Frame &f = push_frame(Frame::Kind::Field, name);
         f.attr_name = (name == "attr") ? attr_get(attrs, "name") : name;
         f.type = attr_get(attrs, "type");
         f.attrs = attrs;
-        frames.push_back(std::move(f));
     }
 
     // ---- character data ---------------------------------------------------
@@ -1176,17 +1123,13 @@ struct Loader {
         // command body text is its script; verb body text is defaulttext.
         if (e->kind == ElemKind::Command) {
             if (!trim(body).empty()) {
-                Value v; v.type = Value::Type::Script;
-                v.str = replace_templates(body);
+                Value v = vscript(replace_templates(body));
                 v.declared_type = "script";
                 e->set_field("script", v);
             }
         } else if (e->kind == ElemKind::Verb) {
-            if (!trim(body).empty()) {
-                Value v; v.type = Value::Type::String;
-                v.str = replace_templates(trim(body));
-                e->set_field("defaulttext", v);
-            }
+            if (!trim(body).empty())
+                e->set_field("defaulttext", vstr(replace_templates(trim(body))));
         }
     }
 
@@ -1234,8 +1177,7 @@ struct Loader {
         }
         if (tag == "javascript") {
             Element *e = new_element("javascript", unique_id("javascript"), true);
-            Value v; v.type = Value::Type::String; v.str = attr_get(f.attrs, "src");
-            e->set_field("src", v);
+            e->set_field("src", vstr(attr_get(f.attrs, "src")));
             return;
         }
         if (tag == "function" || tag == "delegate") {
@@ -1258,12 +1200,9 @@ struct Loader {
                 e->set_field("paramnames", pv);
             }
             std::string ret = attr_get(f.attrs, "type");
-            if (!ret.empty()) {
-                Value rv; rv.type = Value::Type::String; rv.str = ret;
-                e->set_field("returntype", rv);
-            }
-            Value sv; sv.type = Value::Type::Script;
-            sv.str = replace_templates(f.text);
+            if (!ret.empty())
+                e->set_field("returntype", vstr(ret));
+            Value sv = vscript(replace_templates(f.text));
             sv.declared_type = "script";
             e->set_field("script", sv);
             return;
@@ -1459,8 +1398,7 @@ struct Loader {
             size_t h;
             while ((h = first.find("#object#")) != std::string::npos)
                 first.erase(h, 8);
-            Value dv; dv.type = Value::Type::String; dv.str = trim(first);
-            owner->set_field("displayverb", dv);
+            owner->set_field("displayverb", vstr(trim(first)));
             return;
         }
         owner->set_field(attr,
@@ -1571,7 +1509,7 @@ static bool parse_buffer_into(Loader &ld, const char *data, size_t len) {
     return ok;
 }
 
-static bool slurp_file(const std::string &path, std::string &out) {
+bool slurp_file(const std::string &path, std::string &out) {
     FILE *fp = std::fopen(path.c_str(), "rb");
     if (!fp) return false;
     std::fseek(fp, 0, SEEK_END);
@@ -1639,9 +1577,8 @@ static void finish_verb_patterns(Loader &ld, World &world) {
         const Value *sep = find_field_rec(world, e, "separator", seen);
         std::string separator =
             (sep && sep->type == Value::Type::String) ? sep->str : "";
-        Value p; p.type = Value::Type::String; p.declared_type = "string";
-        p.str = convert_verb_simple_pattern(pv.second, separator);
-        e->set_field("pattern", p);
+        e->set_field("pattern", vpattern(convert_verb_simple_pattern(pv.second,
+                                                                     separator)));
     }
 }
 

@@ -39,13 +39,10 @@
 // sends their data-command (or fires their ASLEvent) as if typed.  Everything
 // else -- fonts, colours, alignment -- is deliberately dropped (§4: don't
 // write a browser).  Images and sounds are presentation-milestone work.
-//
-// Like the test drivers, this unity-includes the loader + runtime: their
-// file-local helpers stay shared, and this is the only aslx translation unit
-// in the Question binary.
 
-#include "aslx.cc"
-#include "aslx-runtime.cc"
+#include "aslx.hh"
+#include "aslx-runtime.hh"
+#include "aslxglk-map.hh"
 
 #include <cstdio>
 #include <cstdlib>
@@ -54,10 +51,6 @@
 #include <set>
 #include <string>
 #include <vector>
-
-/* The grid map's rasteriser (aslxglk-map.inc); outside the anonymous
- * namespace that file is included into. */
-#include "../../common_utils/rgbsurface.h"
 
 extern "C" {
 #include "glk.h"
@@ -105,8 +98,7 @@ glui32 g_timer_ms = 0;
 int g_timer_frac_ms = 0;
 
 /* Shared frontend helpers (questglk-common.inc).  Using-declarations rather
- * than a using-directive: aslx.cc has a file-local trim of its own, and a
- * name declared here shadows it instead of colliding with it. */
+ * than a using-directive, so each borrowed name is spelled out here. */
 using questglk::close_side_pane_windows;
 using questglk::draw_status_banner;
 using questglk::echo_input_line;
@@ -148,8 +140,8 @@ using questglk::utf8_next_cp;
  * ASCII byte -- Greek pane labels ("τόξο") and room names must capitalize
  * ("Τόξο") exactly as under QuestViva.  questglk::cap_first stays ASCII-only
  * for the Quest 4 frontend (Question strings are Latin-1-ish, passthrough there);
- * here the engine's .NET-invariant simple case map is in this TU already, so
- * this shadows the shared one rather than importing it. */
+ * here the engine's .NET-invariant simple case map is at hand, so this shadows
+ * the shared one rather than importing it. */
 static std::string cap_first(const std::string &s)
 {
     return aslx::utf8_case(s, true, true);
@@ -299,10 +291,6 @@ void panel_arrange();
  * pending. */
 void redraw_side_pane(Interp &in);
 void fill_pane_divider();
-
-/* The grid map (game.gridmap): a graphics band across the top of the screen,
- * drawn from CoreGrid.aslx's paint stream via the grid_draw host hook. */
-#include "aslxglk-map.inc"
 
 #ifdef SPATTERLIGHT
 /* Spatterlight autosave.  aslx_do_autosave (defined with the rest of the
@@ -1542,8 +1530,7 @@ void fire_js_events(Interp &in)
         }
         if (func.empty())
             continue;
-        Element *h = in.world().find(func);
-        if (!h || h->kind != ElemKind::Function)
+        if (!in.world().find_function(func))
             continue;
         if (++fired > kMaxChain) {
             /* Not silently: past the cap a game is either cycling or doing
@@ -2374,8 +2361,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
          * template may carry {if:}/{random:} directives (Dream Pieces). */
         std::string msg = template_text_or(in.world(), "UnresolvedObject",
                                            "You can't see any such thing.");
-        Element *pt = in.world().find("ProcessText");
-        if (pt && pt->kind == ElemKind::Function) {
+        if (in.world().find_function("ProcessText")) {
             Value v = in.call_function("ProcessText", {vstr(msg)}, nullptr);
             if (v.type == Value::Type::String)
                 msg = v.str;
@@ -2383,8 +2369,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
             /* Pre-580 Cores have no ProcessText wrapper; their OutputText
              * calls ProcessTextSection(text, data) with a fresh dictionary
              * carrying "fulltext" -- do the same. */
-            pt = in.world().find("ProcessTextSection");
-            if (pt && pt->kind == ElemKind::Function) {
+            if (in.world().find_function("ProcessTextSection")) {
                 Value data;
                 data.type = Value::Type::StringDict;
                 data.dict().push_back({"fulltext", vstr(msg)});
@@ -3928,6 +3913,16 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 #endif
 
     size_t warnings_seen = 0;
+    /* What every turn boundary brings up to date: queued JS callbacks, new
+     * warnings, the banner, the panes, the map and the timer cadence. */
+    auto refresh = [&] {
+        fire_js_events(in);
+        flush_warnings(w, warnings_seen);
+        update_banner(in);
+        redraw_side_pane(in);
+        redraw_grid_map();
+        update_timer_request(in);
+    };
 
     /* Saved-game boot, mirroring WorldModel.BeginInternalAsync with
      * _loadedFromSaved: timers are not re-armed, InitInterface re-runs,
@@ -4026,12 +4021,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         panel_restore_picture();
 #endif
     in.drain_on_ready();
-    fire_js_events(in);
-    flush_warnings(w, warnings_seen);
-    update_banner(in);
-    redraw_side_pane(in);
-    redraw_grid_map();
-    update_timer_request(in);
+    refresh();
 
 #ifdef SPATTERLIGHT
     /* Put every RNG stream back where the autosave left it, now that the
@@ -4244,12 +4234,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     turn_done:
 #endif
         in.drain_on_ready();
-        fire_js_events(in);
-        flush_warnings(w, warnings_seen);
-        update_banner(in);
-        redraw_side_pane(in);
-        redraw_grid_map();
-        update_timer_request(in);
+        refresh();
     }
 
     if (in.script_errors_fatal() && !fatal_reported) {
@@ -4268,12 +4253,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 
     /* Undone back into play: repaint what the turn loop keeps current, since
      * the rolled-back turn may have moved the player or changed the lists. */
-    fire_js_events(in);
-    flush_warnings(w, warnings_seen);
-    update_banner(in);
-    redraw_side_pane(in);
-    redraw_grid_map();
-    update_timer_request(in);
+    refresh();
     }
 }
 

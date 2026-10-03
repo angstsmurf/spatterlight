@@ -166,7 +166,7 @@
   untested and it shows: `aslx_replay` strips HTML before it sees a tag, and
   `aslxglk_smoke` runs on CheapGlk, whose gestalt reports NO hyperlink
   support — so `g_hyperlinks` is false there and no link is ever registered
-  or clicked.  The test unity-includes `aslxglk.cc` (`link_action` is
+  or clicked.  The test `#include`s `aslxglk.cc` itself (`link_action` is
   file-local) and calls it on real Core output for each link flavour,
   asserting both the recovered action and `live()`.  Verified to fail on
   both of today's regressions.
@@ -283,7 +283,7 @@
   `GetRandomInt` inside a script body restarted from the seed on relaunch
   (test/autosave `q5-rng` caught it).  Those roots are now captured too,
   keyed "\x01<script cache key>\x1D<ordinal>" over `collect_expr_roots`
-  (aslx-state.inc); `test_rng_streams_survive_capture` covers both kinds.
+  (aslx-state.cc); `test_rng_streams_survive_capture` covers both kinds.
 - **Quest 4 UNDO history survives an autorestore** (petter pointed at
   Bocfel, which writes its whole save stacks -- Undo/MSav chunks -- into
   its autosave).  The undo ring is flat snapshots, so it serializes
@@ -317,7 +317,7 @@
   (§5's last open save item). A native save is a complete, self-contained ASLX
   document (`<asl version=".." original="game.quest"> ... </asl>`) — Quest's
   loader reads ONLY the save (the original `.quest` supplies resources, not
-  elements), so the save re-emits the WHOLE world. `aslx-savenative.inc` ports
+  elements), so the save re-emits the WHOLE world. `aslx-savenative.cc` ports
   QuestViva's `GameSaver` (SaveMode.SavedGame) + `FieldSaver` + `ObjectSaver`:
   - **Writer** (`Interp::save_game_native`): implied/template/dynamictemplate/
     delegate then the nested object graph (containment via the runtime `parent`
@@ -638,7 +638,7 @@
   verbatim). Verified through Core's real parser (Dream Pieces: take/i/undo
   echoes "Undo: i" and reverts); goldens unaffected with the logger running
   hot on every replayed command. `test_undo` in the runtime tests.
-- **Save/restore (v1 snapshot)**: `aslx-state.inc` serializes the DYNAMIC
+- **Save/restore (v1 snapshot)**: `aslx-state.cc` serializes the DYNAMIC
   state only — every live mutable-family element (object/exit/command/verb/
   game/turnscript/timer) with elem_type/inherits/anonymous/sort_index and its
   own fields as full recursive Values (nested lists/dicts round-trip, scripts
@@ -679,8 +679,8 @@
   and via the CheapGlk smoke harness Dream Pieces and The Myothian Falcon play
   to their WINS through the exact frontend code (`test/quest5/harness/aslxglk_smoke`,
   `make aslxglk_smoke`, needs the local corpus).
-- **`aslxglk.cc` — the Glk frontend** (unity-includes the loader+runtime, the
-  only aslx TU in the Question binary; `questionglk.cc:glk_main` sniffs the story file
+- **`aslxglk.cc` — the Glk frontend** (drives the loader+runtime through
+  `aslx.hh` / `aslx-runtime.hh`; `questionglk.cc:glk_main` sniffs the story file
   and dispatches, .asl/.cas untouched):
   - **Prompt loop** (§3 Glk wiring done): asks the engine what it awaits —
     `pending_menu()` → numbered menu (number / key / display-text answers,
@@ -1523,8 +1523,8 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       `aslx_glk_main`; else the existing `read_question_file` path. (The aslx
       runner has its own host seam, not `QuestionInterface` — the interaction
       models are too different.)
-- [x] New sources into the Question target of `Spatterlight.xcodeproj` (only
-      aslxglk.cc compiles — it unity-includes the rest; links libz+libexpat)
+- [x] New sources into the Question target of `Spatterlight.xcodeproj` (every
+      `quest5/*.cc` is its own translation unit; links libz+libexpat)
       *and* the standalone `test/Makefile` (`aslxglk_smoke` vs CheapGlk).
 - [x] Babel: `babel/quest5.c` claims zips containing `game.aslx` and raw
       `<asl` XML. **Metadata + cover landed (2026-07-17)**: game.aslx is
@@ -1553,12 +1553,12 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       `public.quest5` UTI; also gGameFileTypes in AppDelegate.m, the
       quest5→question terp table, Autorestore + fileref format names.
 - [x] Save/undo (2026-07-16): undo via the §2 UndoLogger port; save/restore
-      via the v1 snapshot format (`aslx-state.inc`,
+      via the v1 snapshot format (`aslx-state.cc`,
       `Interp::save_game`/`restore_game`) wired into aslxglk.cc — Core's
       `save` command lands in the `request (RequestSave)` host hook, RESTORE
       is a frontend metaverb with scratch-reload validation, and the
       post-game menu offers RESTORE. **Native `.quest-save` compatibility
-      landed 2026-07-17** (`aslx-savenative.inc`, GameSaver port + firsttime
+      landed 2026-07-17** (`aslx-savenative.cc`, GameSaver port + firsttime
       baking + a loader override mode + recursive nested typed collections):
       `save_game_native`/`restore_game_native`, `restore_game` auto-detects the
       format, and the RESTORE metaverb imports a Quest/QuestViva-written save.

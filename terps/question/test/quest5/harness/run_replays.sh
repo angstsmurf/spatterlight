@@ -39,9 +39,9 @@ unset ASLX_SEED ASLX_GRID_TRACE ASLX_RESTORE
 
 DIFF_LINES="${DIFF_LINES:-20}"
 
-# aslx_replay unity-includes the engine sources, so a binary newer than
-# aslx_replay.cc can still be older than the edit being tested; ask make every
-# time (a no-op when nothing has changed). It is not part of `make check` --
+# aslx_replay links the engine objects, so a binary newer than aslx_replay.cc
+# can still be older than the edit being tested; ask make every time (a no-op
+# when nothing has changed). It is not part of `make check` --
 # `check` is deliberately corpus-free -- so it may not have been built at all.
 make -C "$HERE/../.." quest5/harness/aslx_replay >/dev/null || exit 2
 [ -x "$REPLAY" ] || { echo "no $REPLAY" >&2; exit 2; }

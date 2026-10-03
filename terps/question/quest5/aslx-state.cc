@@ -16,10 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-// aslx-state.inc -- Quest 5 save/restore: the v1 snapshot format (TODO §5).
-//
-// Included at the end of aslx-runtime.cc (same single-TU layout as the parse
-// and builtins units).
+// aslx-state.cc -- Quest 5 save/restore: the v1 snapshot format (TODO §5).
 //
 // Design: a restore RELOADS the original game file into a fresh World/Interp
 // and applies this snapshot on top, so only DYNAMIC state is serialized --
@@ -46,6 +43,12 @@
 //
 // Encoding: a line-ish text format with netstring-style length-prefixed blobs
 // ("<len>:<bytes>") so script bodies and game text round-trip byte-exactly.
+
+#include "aslx-runtime-internal.hh"
+
+#include <cctype>
+#include <cstdlib>
+#include <cstring>
 
 namespace aslx {
 
@@ -144,12 +147,9 @@ void wr_value(std::string &out, const Value &v, int depth = 0) {
     case Value::Type::Int:
         wr_num(out, v.integer);
         break;
-    case Value::Type::Double: {
-        char buf[64];
-        std::snprintf(buf, sizeof buf, "%.17g", v.dbl);
-        wr_blob(out, buf);
+    case Value::Type::Double:
+        wr_blob(out, c_format_g(v.dbl, 17));
         break;
-    }
     case Value::Type::Boolean:
         out += v.boolean ? '1' : '0';
         break;
@@ -242,6 +242,8 @@ bool rd_value(const char *&p, const char *end, Value &v, int depth = 0) {
     }
 }
 
+}  // namespace
+
 // The element family whose state can change at runtime through the script
 // layer (field writes need an ObjectRef, and GetObject/AllCommands only hand
 // out this family; `create`/`destroy` only make/unmake it). Functions, types,
@@ -251,6 +253,15 @@ bool save_family(const std::string &elem_type) {
            elem_type == "command" || elem_type == "verb" ||
            elem_type == "game" || elem_type == "turnscript" ||
            elem_type == "timer";
+}
+
+void drop_unsaved_elements(World &w, const std::set<std::string> &keep) {
+    std::vector<std::string> drop;
+    for (const auto &up : w.elements)
+        if (is_saved_element(*up) && !keep.count(up->name))
+            drop.push_back(up->name);
+    for (const std::string &n : drop)
+        w.unregister_name(n);
 }
 
 // Preorder walk of a compiled script body collecting every firsttime flag.
@@ -269,6 +280,20 @@ void collect_firsttime(const std::vector<Stmt> &body,
         for (const auto &c : s.cases)
             collect_firsttime(c.second, out);
     }
+}
+
+bool any_firsttime_ran(const std::vector<std::shared_ptr<bool>> &flags) {
+    for (const auto &f : flags)
+        if (*f) return true;
+    return false;
+}
+
+void apply_firsttime(const std::vector<Stmt> &body,
+                     const std::vector<bool> &bits) {
+    std::vector<std::shared_ptr<bool>> flags;
+    collect_firsttime(body, flags);
+    for (size_t i = 0; i < flags.size() && i < bits.size(); ++i)
+        *flags[i] = bits[i];
 }
 
 // Preorder walk of a compiled script body collecting every expression ROOT
@@ -302,8 +327,6 @@ void collect_expr_roots(std::vector<Stmt> &body, std::vector<ExprP> &out) {
     }
 }
 
-}  // namespace
-
 bool Interp::is_save_data(const char *data, size_t len) {
     return len >= sizeof kSaveMagic - 1 &&
            std::memcmp(data, kSaveMagic, sizeof kSaveMagic - 1) == 0;
@@ -319,15 +342,11 @@ std::string Interp::save_game(const std::string &original_file) {
 
     // Live mutable-family elements, in storage (creation) order, so a restore
     // recreates runtime-created elements in the same enumeration order.
-    long count = 0;
+    std::vector<const Element *> saved;
     for (const auto &up : world_.elements)
-        if (save_family(up->elem_type) && world_.find(up->name) == up.get())
-            ++count;
-    wr_num(out, count);
-    for (const auto &up : world_.elements) {
-        Element *e = up.get();
-        if (!save_family(e->elem_type) || world_.find(e->name) != e)
-            continue;
+        if (is_saved_element(*up)) saved.push_back(up.get());
+    wr_num(out, (long)saved.size());
+    for (const Element *e : saved) {
         out += 'E';
         wr_blob(out, e->name);
         wr_blob(out, e->elem_type);
@@ -350,10 +369,7 @@ std::string Interp::save_game(const std::string &original_file) {
     for (const auto &kv : script_cache_) {
         std::vector<std::shared_ptr<bool>> flags;
         collect_firsttime(*kv.second, flags);
-        bool any = false;
-        for (const auto &f : flags)
-            if (*f) { any = true; break; }
-        if (!any)
+        if (!any_firsttime_ran(flags))
             continue;
         ++ft_count;
         wr_blob(ft, kv.first);
@@ -373,26 +389,24 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
     if (is_native_save_data(data.data(), data.size()))
         return restore_game_native(data, err);
 
+    auto fail = [&err](const char *why) {
+        err = why;
+        return false;
+    };
     const char *p = data.data();
     const char *end = p + data.size();
-    if (!is_save_data(p, data.size())) {
-        err = "not an aslx save file";
-        return false;
-    }
+    if (!is_save_data(p, data.size()))
+        return fail("not an aslx save file");
     p += sizeof kSaveMagic - 1;
 
     std::string game_name, original;
     long version = 0, next_sort = 0, elem_count = 0;
     if (!rd_blob(p, end, game_name) || !rd_num(p, end, version) ||
         !rd_blob(p, end, original) || !rd_num(p, end, next_sort) ||
-        !rd_num(p, end, elem_count) || elem_count < 0) {
-        err = "malformed save header";
-        return false;
-    }
-    if (game_name != world_.game_name || version != world_.asl_version) {
-        err = "this save belongs to a different game";
-        return false;
-    }
+        !rd_num(p, end, elem_count) || elem_count < 0)
+        return fail("malformed save header");
+    if (game_name != world_.game_name || version != world_.asl_version)
+        return fail("this save belongs to a different game");
 
     // Parse everything up front so a malformed save leaves the world alone.
     struct SavedElement {
@@ -406,84 +420,64 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
     // save can claim billions). Each element/inherit/field costs input bytes,
     // so growing as items actually parse keeps memory proportional to the
     // save's real size; the `> end - p` checks reject absurd counts up front.
-    if (elem_count > end - p) {
-        err = "malformed save header";
-        return false;
-    }
+    if (elem_count > end - p)
+        return fail("malformed save header");
     std::vector<SavedElement> saved;
     for (long ei = 0; ei < elem_count; ++ei) {
         saved.emplace_back();
         SavedElement &se = saved.back();
         long n = 0;
         if (!rd_char(p, end, 'E') || !rd_blob(p, end, se.name) ||
-            !rd_blob(p, end, se.elem_type) || p >= end) {
-            err = "malformed save element";
-            return false;
-        }
+            !rd_blob(p, end, se.elem_type) || p >= end)
+            return fail("malformed save element");
         se.anonymous = *p++ == '1';
         if (!rd_num(p, end, se.sort_index) || !rd_num(p, end, n) || n < 0 ||
-            n > end - p) {
-            err = "malformed save element";
-            return false;
-        }
+            n > end - p)
+            return fail("malformed save element");
         for (long i = 0; i < n; ++i) {
             std::string t;
-            if (!rd_blob(p, end, t)) { err = "malformed save element"; return false; }
+            if (!rd_blob(p, end, t)) return fail("malformed save element");
             se.inherits.push_back(std::move(t));
         }
-        if (!rd_num(p, end, n) || n < 0 || n > end - p) {
-            err = "malformed save element";
-            return false;
-        }
+        if (!rd_num(p, end, n) || n < 0 || n > end - p)
+            return fail("malformed save element");
         for (long i = 0; i < n; ++i) {
             std::string key;
             Value val;
-            if (!rd_blob(p, end, key) || !rd_value(p, end, val)) {
-                err = "malformed save field";
-                return false;
-            }
+            if (!rd_blob(p, end, key) || !rd_value(p, end, val))
+                return fail("malformed save field");
             se.fields.emplace_back(std::move(key), std::move(val));
         }
         // The writer only ever emits the save family; anything else is a
         // crafted save trying to overwrite a static element (function, type).
-        if (!save_family(se.elem_type)) {
-            err = "malformed save element";
-            return false;
-        }
+        if (!save_family(se.elem_type))
+            return fail("malformed save element");
     }
     long ft_count = 0;
-    if (!rd_num(p, end, ft_count) || ft_count < 0 || ft_count > end - p) {
-        err = "malformed save (firsttime section)";
-        return false;
-    }
+    if (!rd_num(p, end, ft_count) || ft_count < 0 || ft_count > end - p)
+        return fail("malformed save (firsttime section)");
     std::vector<std::pair<std::string, std::vector<bool>>> fts;
     for (long fi = 0; fi < ft_count; ++fi) {
         fts.emplace_back();
         auto &ft = fts.back();
         long n = 0;
         if (!rd_blob(p, end, ft.first) || !rd_num(p, end, n) || n < 0 ||
-            end - p < n) {
-            err = "malformed save (firsttime section)";
-            return false;
-        }
+            end - p < n)
+            return fail("malformed save (firsttime section)");
         ft.second.resize((size_t)n);
         for (long i = 0; i < n; ++i)
             ft.second[(size_t)i] = *p++ == '1';
     }
-    if (end - p < 3 || std::memcmp(p, "END", 3) != 0) {
-        err = "malformed save (truncated)";
-        return false;
-    }
+    if (end - p < 3 || std::memcmp(p, "END", 3) != 0)
+        return fail("malformed save (truncated)");
 
     // The drop phase below filters on save_family; the apply phase must too,
     // or a save naming an existing static element (function, type, ...) would
     // overwrite it. Validate before mutating anything.
     for (const SavedElement &se : saved) {
         Element *e = world_.find(se.name);
-        if (e && !save_family(e->elem_type)) {
-            err = "save element collides with a static element";
-            return false;
-        }
+        if (e && !save_family(e->elem_type))
+            return fail("save element collides with a static element");
     }
 
     // Apply. First unregister every live mutable-family element the save does
@@ -491,13 +485,7 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
     std::set<std::string> in_save;
     for (const SavedElement &se : saved)
         in_save.insert(se.name);
-    std::vector<std::string> drop;
-    for (const auto &up : world_.elements)
-        if (save_family(up->elem_type) && world_.find(up->name) == up.get() &&
-            !in_save.count(up->name))
-            drop.push_back(up->name);
-    for (const std::string &n : drop)
-        world_.unregister_name(n);
+    drop_unsaved_elements(world_, in_save);
 
     // ... then bring each saved element to its saved state: identity, type
     // stack and the own-field bag replaced wholesale (the saved fields include
@@ -526,19 +514,12 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
     // ones compiled later.
     legacy_firsttime_.clear();
     for (auto &ft : fts) {
-        std::string scope, src = ft.first;
-        size_t sep = src.find('\x1F');
-        if (sep != std::string::npos) {
-            scope = src.substr(0, sep);
-            src = src.substr(sep + 1);
-        }
+        std::string scope, src;
+        split_script_cache_key(ft.first, scope, src);
         auto body = compile_script(src, scope);
         if (!body)
             continue;
-        std::vector<std::shared_ptr<bool>> flags;
-        collect_firsttime(*body, flags);
-        for (size_t i = 0; i < flags.size() && i < ft.second.size(); ++i)
-            *flags[i] = ft.second[i];
+        apply_firsttime(*body, ft.second);
         if (scope.empty()) {
             legacy_firsttime_[src] = ft.second;
             const std::string tail = '\x1F' + src;
@@ -547,10 +528,7 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
                     kv.first.compare(kv.first.size() - tail.size(), tail.size(),
                                      tail) != 0)
                     continue;
-                std::vector<std::shared_ptr<bool>> sf;
-                collect_firsttime(*kv.second, sf);
-                for (size_t i = 0; i < sf.size() && i < ft.second.size(); ++i)
-                    *sf[i] = ft.second[i];
+                apply_firsttime(*kv.second, ft.second);
             }
         }
     }

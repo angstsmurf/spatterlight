@@ -59,7 +59,7 @@ struct Rng {
     double next_double();
 };
 
-// AST forward declarations (defined in the .cc).
+// AST forward declarations (defined in aslx-runtime-internal.hh).
 struct Expr;
 struct Stmt;
 
@@ -157,9 +157,10 @@ struct GridDraw {
 };
 
 // A .NET-flavoured regex compiled for std::regex, plus the ordered names of its
-// capture groups (empty string for an unnamed group). Defined in the .cc; the
-// parser primitives (IsRegexMatch/GetMatchStrength/Populate) use it. Mirrors
-// QuestViva's RegexCache entry (System.Text.RegularExpressions.Regex).
+// capture groups (empty string for an unnamed group). Defined in
+// aslx-runtime-internal.hh; the parser primitives (IsRegexMatch /
+// GetMatchStrength / Populate) use it. Mirrors QuestViva's RegexCache entry
+// (System.Text.RegularExpressions.Regex).
 struct CompiledRegex;
 
 // One logged state change (the IUndoAction family in UndoLogger.cs / Fields.cs
@@ -743,9 +744,21 @@ private:
     // set / list add / dictionary add / error / finish / undo / JS.*). Returns
     // true if `name` was one and it was executed. Checked before function and
     // built-in dispatch, matching Quest's ScriptFactory keyword precedence.
-    bool exec_statement_command(const std::string &name,
-                                const std::vector<std::shared_ptr<Expr>> &args,
+    using ExprList = std::vector<std::shared_ptr<Expr>>;
+    bool exec_statement_command(const std::string &name, const ExprList &args,
                                 Context &ctx);
+    // Its larger families, one function each.
+    Value eval_arg(const ExprList &args, size_t i, Context &ctx);
+    void exec_js_command(const std::string &fn, const ExprList &args,
+                         Context &ctx);
+    bool exec_grid_command(const std::string &fn,
+                           const std::vector<Value> &args);
+    void exec_play_sound(const ExprList &args, Context &ctx);
+    void exec_request(const std::string &name, const ExprList &args,
+                      Context &ctx);
+    void exec_create_exit(const ExprList &args, Context &ctx);
+    void exec_list_command(bool add, const ExprList &args, Context &ctx);
+    void exec_dictionary_command(bool add, const ExprList &args, Context &ctx);
 
     // Resolve an lvalue expression (local var or obj.attr) to the mutable Value
     // backing it (copy-on-write for inherited attrs). Used by the list/
@@ -836,6 +849,22 @@ private:
     void flush_deferred_on_ready_queue();
     // Cancel a still-dormant wait/ask/menu/get-input without running its body.
     void cancel_dormant_suspension();
+    // BeginPrompt, in its two halves: cancel_prompt drops whatever holds a
+    // slot without running its callback, begin_prompt registers `body` there
+    // with a snapshot of `ctx`. (Separate because `ask` draws its inline
+    // prompt in between.)
+    void cancel_prompt(bool &pending, PendingCallback &cb);
+    void begin_prompt(bool &pending, PendingCallback &cb,
+                      const std::vector<Stmt> &body, const Context &ctx);
+    // Empty a pending slot, handing its callback to the caller to run.
+    PendingCallback take_prompt(bool &pending, PendingCallback &cb);
+    // Claim the wait slot for something other than a `wait` statement (a
+    // synchronous `play sound`, `request (Wait)`): a parked sync sound resumes
+    // inline, a pending `wait` is cancelled.
+    void claim_wait_slot();
+    // Run a resolved wait/ask/menu callback, then the turn boundary it ends
+    // and the pane refresh. `inline_prompt` also retires the inline menu.
+    void resolve_prompt(PendingCallback &cb, bool inline_prompt);
     // AddOnReady: defer if dormant, trampoline if nested, else run now.
     void add_on_ready(const std::vector<Stmt> *body, const Context &ctx);
     // Run a prompt/on-ready callback as its own script boundary (errors are
@@ -865,6 +894,10 @@ private:
     // the attribute at its previous value fires nothing.
     void fire_changed_script(Element *e, const std::string &attr,
                              const Value &oldval, bool changed);
+    // Fields.Set for a script-level write (obj.attr = v / set()): clone-on-set,
+    // the v530+ null removal, the reorder a parent write causes, the undo
+    // records, then the changed<attr> script.
+    void assign_field(Element *e, const std::string &attr, Value val);
 
     // -- undo internals (UndoLogger.cs) ----------------------------------------
     bool undo_logging_ = false;                          // m_logging
@@ -884,12 +917,22 @@ private:
     // attribute actually changes, with `added` recording whether it existed.
     void log_field_set(Element *e, const std::string &attr,
                        const Value &newval, bool removing);
+    // An engine-side own-attribute write that is undoable but otherwise bare
+    // (no clone, no changed<attr> script). Returns the stored value.
+    Value &set_field_logged(Element *e, const std::string &attr, const Value &v);
     // The SortIndex metafield bump a parent write performs: log the old value
     // before overwriting (UpdateElementSortOrder's Fields.Set is undoable).
     void log_sort_index(Element *e);
     // Element creation/destruction (CreateDestroyLogEntry).
     void log_create(Element *e);
     void log_destroy(Element *e);
+    // An entry added to / removed from the collection `coll` at `index`
+    // (UndoListAdd/Remove, UndoDictionaryAdd/Remove). `entry` is the list item
+    // or the removed dictionary value; `key` the dictionary key.
+    void log_list_change(UndoAction::Kind kind, const Value &coll, long index,
+                         const Value &entry);
+    void log_dict_change(UndoAction::Kind kind, const Value &coll, long index,
+                         const std::string &key, const Value &entry);
 
     // -- timer internals (TimerRunner port) -----------------------------------
     std::vector<Element *> live_timers();
@@ -962,6 +1005,12 @@ private:
     // FinishTurn call itself).
     bool finish_turn_deferred_ = false;
 };
+
+// Codepoint-wise UTF-8 case conversion with .NET's invariant simple mappings
+// (behind the LCase/UCase/CapFirst builtins; the Glk frontend capitalises with
+// it too). first_only converts just the leading codepoint. Malformed bytes pass
+// through unchanged. Defined in aslx-runtime-builtins.cc.
+std::string utf8_case(const std::string &s, bool upper, bool first_only);
 
 }  // namespace aslx
 

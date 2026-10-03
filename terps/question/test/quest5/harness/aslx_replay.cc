@@ -55,8 +55,7 @@
 // literal trailing U+00A0s). Then 26 goldens (The Deer Trail, an override
 // rendering the author's "Direction to <room>" shorthand into parser
 // commands); it replayed byte-identical with no engine changes — 25 of 26.
-#include "../../../quest5/aslx.cc"
-#include "../../../quest5/aslx-runtime.cc"
+#include "../../../quest5/aslx-runtime-internal.hh"
 
 #include <fstream>
 #include <iostream>

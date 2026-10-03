@@ -23,7 +23,7 @@
 //
 // Built by test/Makefile; links libexpat and zlib. See TODO-quest5.md.
 
-#include "../../../quest5/aslx.cc"
+#include "../../../quest5/aslx.hh"
 
 #include <cstdio>
 #include <iostream>

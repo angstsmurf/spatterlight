@@ -18,16 +18,15 @@
 
 // aslx-runtime.cc -- Quest 5 script + expression evaluator. See aslx-runtime.hh.
 
-#include "aslx-runtime.hh"
+#include "aslx-runtime-internal.hh"
 
 #include <algorithm>
 #include <cctype>
 #include <cerrno>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
-#include <cstring>
 #include <ctime>
-#include <deque>
 #include <regex>
 #include <sstream>
 #include <stdexcept>
@@ -44,13 +43,6 @@ namespace aslx {
 // groups are passed through untouched and do not consume a capture index.
 // See QuestViva Utility.IsRegexMatch/GetMatchStrength/Populate + RegexCache.cs.
 // ===========================================================================
-
-struct CompiledRegex {
-    std::regex re;
-    // names[k] is the name of capture group k+1 ("" for an unnamed group).
-    std::vector<std::string> names;
-    bool valid = false;
-};
 
 // Rewrite a .NET pattern into an ECMAScript one, filling `names`. Distinguishes
 // the named-group "(?<name>" / "(?'name'" from lookbehind "(?<=" / "(?<!" and
@@ -126,7 +118,7 @@ static std::shared_ptr<CompiledRegex> build_regex(const std::string &pattern,
 // "take (?<object>.*)|get (?<object>.*)" alternation) are one logical group
 // whose value is the last successful capture. std::regex keeps them as distinct
 // numbered groups, so we coalesce here.
-static std::vector<std::pair<std::string, std::string>> named_groups(
+std::vector<std::pair<std::string, std::string>> named_groups(
         const CompiledRegex &cr, const std::smatch &m) {
     std::vector<std::pair<std::string, std::string>> out;
     for (size_t k = 0; k < cr.names.size(); ++k) {
@@ -144,7 +136,7 @@ static std::vector<std::pair<std::string, std::string>> named_groups(
 
 // Sum the lengths captured by the (coalesced) named groups, matching
 // Utility.GetMatchStrengthInternal (unnamed/numbered groups are excluded).
-static int named_group_len(const CompiledRegex &cr, const std::smatch &m) {
+int named_group_len(const CompiledRegex &cr, const std::smatch &m) {
     int total = 0;
     for (const auto &g : named_groups(cr, m)) total += (int)g.second.size();
     return total;
@@ -213,44 +205,8 @@ double Rng::next_double() {
 }
 
 // ===========================================================================
-// Value constructors + coercions
+// Value coercions
 // ===========================================================================
-
-static Value vnull() { Value v; v.type = Value::Type::Null; return v; }
-static Value vstr(std::string s) {
-    Value v; v.type = Value::Type::String; v.str = std::move(s); return v;
-}
-static Value vint(long i) { Value v; v.type = Value::Type::Int; v.integer = i; return v; }
-static Value vdouble(double d) { Value v; v.type = Value::Type::Double; v.dbl = d; return v; }
-static Value vbool(bool b) { Value v; v.type = Value::Type::Boolean; v.boolean = b; return v; }
-static Value vobj(std::string name) {
-    Value v; v.type = Value::Type::ObjectRef; v.str = std::move(name); return v;
-}
-static Value vstrlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::StringList;
-    v.list();  // allocate the backing so a fresh list has its own identity
-    for (std::string &s : l) v.list().push_back(vstr(std::move(s)));
-    return v;
-}
-static Value vobjlist(std::vector<std::string> l) {
-    Value v; v.type = Value::Type::ObjectList;
-    v.list();
-    for (std::string &s : l) v.list().push_back(vobj(std::move(s)));
-    return v;
-}
-
-static bool is_number(const Value &v) {
-    return v.type == Value::Type::Int || v.type == Value::Type::Double;
-}
-static double as_double(const Value &v) {
-    if (v.type == Value::Type::Int) return (double)v.integer;
-    if (v.type == Value::Type::Double) return v.dbl;
-    if (v.type == Value::Type::Boolean) return v.boolean ? 1 : 0;
-    return 0;
-}
-static bool is_list(const Value &v) {
-    return v.type == Value::Type::StringList || v.type == Value::Type::ObjectList;
-}
 
 static std::string fmt_double(double d) {
     if (std::isfinite(d) && d == std::floor(d) && std::fabs(d) < 1e15) {
@@ -293,242 +249,6 @@ bool Interp::truthy(const Value &v) {
     return true;
 }
 
-// ===========================================================================
-// Tokenizer helpers, mirroring QuestViva Utility.cs
-// ===========================================================================
-
-// Case-insensitive ASCII compare (NCalc's true/false literals and the "null"
-// parameter lookup are case-insensitive).
-static bool rt_iequals(const std::string &a, const char *b) {
-    size_t n = 0;
-    for (; n < a.size() && b[n]; ++n)
-        if (std::tolower((unsigned char)a[n]) != std::tolower((unsigned char)b[n]))
-            return false;
-    return n == a.size() && b[n] == 0;
-}
-
-static std::string rt_trim(const std::string &s) {
-    size_t a = 0, b = s.size();
-    while (a < b && std::isspace((unsigned char)s[a])) ++a;
-    while (b > a && std::isspace((unsigned char)s[b - 1])) --b;
-    return s.substr(a, b - a);
-}
-
-// Replace the contents of each "..." string with dashes, keeping the quotes and
-// everything outside strings unchanged, so structural scans ignore string bodies.
-// Replace the contents of every double-quoted string with '-' so structural
-// scanning (braces, newlines, "//") ignores anything inside a literal. A
-// backslash escapes the next character -- in particular "\"" is a literal quote,
-// not a terminator -- matching QuestViva's Utility.SplitQuotes (the backslash
-// "don't process the next character" rule). Length is preserved so positions in
-// the obscured string map back to the original.
-static std::string obscure_strings(const std::string &in) {
-    std::string out;
-    out.reserve(in.size());
-    bool inq = false;
-    for (size_t i = 0; i < in.size(); ++i) {
-        char c = in[i];
-        if (c == '\\') {  // backslash + next char are literal, never a quote
-            out += inq ? '-' : c;
-            if (i + 1 < in.size()) { out += inq ? '-' : in[i + 1]; ++i; }
-            continue;
-        }
-        if (c == '"') { out += '"'; inq = !inq; }
-        else out += inq ? '-' : c;
-    }
-    return out;
-}
-
-// Extract the text between the first `open` and its matching `close`. Returns
-// the inside; sets `after` to whatever follows the close. Empty string if none.
-static std::string extract_balanced(const std::string &text, char open, char close,
-                                    std::string &after, bool &found) {
-    found = false;
-    after.clear();
-    std::string ob = obscure_strings(text);
-    size_t start = ob.find(open);
-    if (start == std::string::npos) return "";
-    int depth = 1;
-    size_t pos = start;
-    while (true) {
-        ++pos;
-        if (pos >= ob.size()) break;
-        if (ob[pos] == open) ++depth;
-        else if (ob[pos] == close) --depth;
-        if (depth == 0) break;
-    }
-    if (depth != 0) return "";  // unbalanced
-    found = true;
-    after = text.substr(pos + 1);
-    return text.substr(start + 1, pos - start - 1);
-}
-
-static std::string get_parameter(const std::string &script, std::string &after,
-                                 bool &found) {
-    return extract_balanced(script, '(', ')', after, found);
-}
-
-// Split a parameter list on top-level commas, respecting strings and nested
-// parens; backslash escapes the next char. Mirrors Utility.SplitParameter.
-static std::vector<std::string> split_parameters(const std::string &text) {
-    std::vector<std::string> result;
-    bool inq = false, process_next = true;
-    int brackets = 0;
-    std::string cur;
-    for (char c : text) {
-        bool process = process_next;
-        process_next = true;
-        if (process) {
-            if (c == '\\') { process_next = false; }
-            else if (c == '"') { inq = !inq; }
-            else if (!inq) {
-                if (c == '(') ++brackets;
-                if (c == ')') brackets = std::max(0, brackets - 1);
-                if (brackets == 0 && c == ',') {
-                    result.push_back(rt_trim(cur));
-                    cur.clear();
-                    continue;
-                }
-            }
-        }
-        cur += c;
-    }
-    result.push_back(rt_trim(cur));
-    return result;
-}
-
-// Pull the next statement off the front of `script`. A statement runs to the
-// next newline, unless a `{` opens first, in which case it is `head { block }`.
-static std::string get_script(const std::string &script, std::string &after) {
-    after.clear();
-    std::string ob = obscure_strings(script);
-    size_t brace = ob.find('{');
-    size_t nl = ob.find('\n');
-    size_t comment = ob.find("//");
-    if (nl == std::string::npos) return script;
-    if (brace == std::string::npos || nl < brace ||
-        (comment != std::string::npos && comment < brace && comment < nl)) {
-        after = script.substr(nl + 1);
-        return script.substr(0, nl);
-    }
-    std::string before = script.substr(0, brace);
-    bool found;
-    std::string inside = extract_balanced(script, '{', '}', after, found);
-    if (inside.find('\n') != std::string::npos)
-        return before + "{" + inside + "}";
-    return before + inside;
-}
-
-static std::string remove_surrounding_braces(const std::string &input) {
-    std::string s = rt_trim(input);
-    if (s.size() >= 2 && s.front() == '{' && s.back() == '}')
-        return s.substr(1, s.size() - 2);
-    return s;
-}
-
-// Strip // line comments, respecting string literals (a "//" inside a quoted
-// string is not a comment). Uses obscure_strings so backslash-escaped quotes are
-// handled the same way the statement splitter handles them.
-static std::string remove_comments(const std::string &input) {
-    std::string ob = obscure_strings(input);
-    std::string out;
-    out.reserve(input.size());
-    for (size_t i = 0; i < input.size(); ++i) {
-        if (ob[i] == '/' && i + 1 < input.size() && ob[i + 1] == '/') {
-            // Skip to end of line (the comment); keep the newline itself.
-            while (i < input.size() && input[i] != '\n') ++i;
-            if (i < input.size()) out += '\n';
-            continue;
-        }
-        out += input[i];
-    }
-    return out;
-}
-
-// Quest identifiers can contain spaces ("OUTSIDE INN", "game.Next text").
-// QuestViva pre-encodes every expression with Utility.EncodeIdentifierSpaces:
-// outside string literals, two space-separated words whose boundary characters
-// are both word characters are joined into one identifier -- unless either
-// word is an expression keyword (and/or/xor/not/if/in). We do the same but
-// join with '\x01' (instead of "___SPACE___"), which the lexer folds back to a
-// space inside a single Ident token, so no decode pass is needed downstream.
-static bool is_word_char(char c) {
-    // Any byte >= 0x80 is part of a UTF-8 sequence: .NET \w covers Unicode
-    // letters, and game identifiers use them ("Glühwein").
-    return std::isalnum((unsigned char)c) || c == '_' ||
-           (unsigned char)c >= 0x80;
-}
-
-static bool is_expr_keyword(const std::string &w) {
-    // Utility.s_keywords (case-sensitive, like the HashSet it feeds).
-    return w == "and" || w == "or" || w == "xor" || w == "not" || w == "if" ||
-           w == "in";
-}
-
-static std::string encode_identifier_spaces(const std::string &in) {
-    std::string out = in;
-    bool inq = false;
-    for (size_t i = 0; i < out.size(); ++i) {
-        char c = out[i];
-        if (c == '\\') { ++i; continue; }  // backslash: next char is literal
-        if (c == '"') { inq = !inq; continue; }
-        if (inq || c != ' ') continue;
-        // A single space with word characters on both sides (a run of spaces
-        // never joins -- QuestViva splits on ' ' and an empty word bails).
-        if (i == 0 || i + 1 >= out.size()) continue;
-        if (!is_word_char(out[i - 1]) || !is_word_char(out[i + 1])) continue;
-        // The trailing word-char run before / leading run after the space
-        // (the (\w+)$ / ^(\w+) matches in IsSplitVariableName).
-        size_t a = i;
-        while (a > 0 && is_word_char(out[a - 1])) --a;
-        size_t b = i + 1;
-        while (b < out.size() && is_word_char(out[b])) ++b;
-        if (is_expr_keyword(out.substr(a, i - a)) ||
-            is_expr_keyword(out.substr(i + 1, b - i - 1)))
-            continue;
-        out[i] = '\x01';
-    }
-    return out;
-}
-
-// ===========================================================================
-// Expression AST + parser
-// ===========================================================================
-
-struct Expr {
-    enum class Kind {
-        Num, Str, Bool, Null, Var, Member, Index, Call, Unary, Binary, Ternary,
-        List,  // "(a, b, ...)" / "()": NCalc's LogicalExpressionList, in `args`
-        // An expression whose COMPILE failed, kept as a node that raises the
-        // parse error (in `str`) only when EVALUATED: QuestViva's Expression<T>
-        // hands the raw text to NCalc, which parses lazily at Evaluate time, so
-        // an unparsable never-reached condition is harmless (Serpent's Eye has
-        // a literal empty `else if ()` in the Shopkeeper's giveto script).
-        ParseError
-    };
-    Kind kind;
-    // literals
-    double num = 0; bool is_int = false;
-    std::string str;      // Str / Var name / Member name / Call name / op
-    bool boolean = false;
-    // children
-    std::shared_ptr<Expr> a, b, c;
-    std::vector<std::shared_ptr<Expr>> args;
-    // Original source text, set on the ROOT node of each compiled expression
-    // only. A non-empty src marks the QuestViva Expression<T> boundary where a
-    // runtime failure is wrapped as "Error evaluating expression '<src>': ...".
-    std::string src;
-    // Per-expression RNG stream (lazily created at the root on first draw).
-    // Through beta.57 QuestViva's NcalcExpressionEvaluator constructed its OWN
-    // ExpressionOwner -- and thus its own seed-1234 ErkyrathRandom -- per
-    // compiled expression (the oracle's patch_questviva.py section 16 keeps
-    // that convention now upstream shares one), so every expression's
-    // GetRandomInt/GetRandomDouble sequence starts fresh and advances only
-    // when THAT expression evaluates. (Verified against the
-    // oracle: EFMB's PickOneString stream restarts at the seed.)
-    std::shared_ptr<Rng> rng;
-};
-
 // A wrapped expression-evaluation failure (NcalcExpressionEvaluator's catch).
 // `original` keeps the innermost message so a nested failure (Eval()) re-wraps
 // with the OUTER source but the ORIGINAL message, exactly like QuestViva's
@@ -538,477 +258,6 @@ struct EvalError : std::runtime_error {
     EvalError(const std::string &src, const std::string &orig)
         : std::runtime_error("Error evaluating expression '" + src + "': " + orig),
           original(orig) {}
-};
-
-using ExprP = std::shared_ptr<Expr>;
-
-namespace {
-
-struct Tok {
-    enum class T { Num, Str, Ident, Op, End } t;
-    std::string s;
-    double num = 0; bool is_int = false;
-};
-
-struct Lexer {
-    const std::string &src;
-    size_t i = 0;
-    std::vector<Tok> toks;
-
-    explicit Lexer(const std::string &s) : src(s) {}
-
-    void lex() {
-        while (i < src.size()) {
-            char c = src[i];
-            if (std::isspace((unsigned char)c)) { ++i; continue; }
-            if (c == '"') { lex_string(); continue; }
-            if (std::isdigit((unsigned char)c) ||
-                (c == '.' && i + 1 < src.size() &&
-                 std::isdigit((unsigned char)src[i + 1]))) {
-                lex_number();
-                continue;
-            }
-            if (std::isalpha((unsigned char)c) || c == '_' ||
-                (unsigned char)c >= 0x80) {
-                // Bytes >= 0x80 are UTF-8 letters (.NET identifiers are \w,
-                // which is Unicode-aware -- "Glühwein").
-                lex_ident();
-                continue;
-            }
-            lex_op();
-        }
-        toks.push_back({Tok::T::End, ""});
-    }
-
-    void lex_string() {
-        ++i;  // opening quote
-        std::string s;
-        while (i < src.size() && src[i] != '"') {
-            char c = src[i];
-            // Backslash escapes, matching Parlot's StringLiteralQuotes decoding
-            // used by QuestNCalcLogicalExpressionParser. Core relies on \", \' and
-            // \\ (the last so "\\D" yields the regex \D); an unknown escape keeps
-            // the following character verbatim.
-            if (c == '\\' && i + 1 < src.size()) {
-                char n = src[i + 1];
-                switch (n) {
-                case 'n': s += '\n'; break;
-                case 't': s += '\t'; break;
-                case 'r': s += '\r'; break;
-                default:  s += n;    break;  // " ' \ and anything else: literal
-                }
-                i += 2;
-                continue;
-            }
-            s += c;
-            ++i;
-        }
-        if (i < src.size()) ++i;  // closing quote
-        toks.push_back({Tok::T::Str, s});
-    }
-
-    void lex_number() {
-        size_t start = i;
-        bool isdbl = false;
-        while (i < src.size() &&
-               (std::isdigit((unsigned char)src[i]) || src[i] == '.')) {
-            if (src[i] == '.') isdbl = true;
-            ++i;
-        }
-        std::string n = src.substr(start, i - start);
-        Tok t{Tok::T::Num, n};
-        t.num = c_strtod(n.c_str());
-        t.is_int = !isdbl;
-        toks.push_back(t);
-    }
-
-    void lex_ident() {
-        std::string s;
-        while (i < src.size() &&
-               (std::isalnum((unsigned char)src[i]) || src[i] == '_' ||
-                (unsigned char)src[i] >= 0x80 || src[i] == '\x01')) {
-            // '\x01' is the encode_identifier_spaces join marker: this is one
-            // multi-word identifier ("OUTSIDE INN"); restore the space.
-            s += (src[i] == '\x01') ? ' ' : src[i];
-            ++i;
-        }
-        toks.push_back({Tok::T::Ident, s});
-    }
-
-    void lex_op() {
-        static const char *twos[] = {"<>", "!=", "==", ">=", "<=", "<<", ">>",
-                                     nullptr};
-        for (int k = 0; twos[k]; ++k) {
-            if (src.compare(i, 2, twos[k]) == 0) {
-                toks.push_back({Tok::T::Op, twos[k]});
-                i += 2;
-                return;
-            }
-        }
-        toks.push_back({Tok::T::Op, std::string(1, src[i])});
-        ++i;
-    }
-};
-
-struct Parser {
-    std::vector<Tok> toks;
-    size_t p = 0;
-    int depth = 0;
-
-    explicit Parser(std::vector<Tok> t) : toks(std::move(t)) {}
-
-    // Recursion cap for the descent: without it 100k nested "(" or "not"s
-    // overflow the stack when the expression is first (lazily) compiled. The
-    // guard sits on every self-recursing production; the fail unwinds to the
-    // normal parse-error path.
-    struct DepthGuard {
-        Parser &ps;
-        explicit DepthGuard(Parser &pr) : ps(pr) {
-            if (++ps.depth > 200)
-                ps.fail("expression is nested more than 200 levels deep");
-        }
-        ~DepthGuard() { --ps.depth; }
-    };
-
-    const Tok &cur() { return toks[p]; }
-    bool is_op(const char *o) {
-        return cur().t == Tok::T::Op && cur().s == o;
-    }
-    bool is_kw(const char *k) {
-        return cur().t == Tok::T::Ident && cur().s == k;
-    }
-    void advance() { if (p + 1 < toks.size()) ++p; }
-    [[noreturn]] void fail(const std::string &m) {
-        throw std::runtime_error("expression parse error: " + m);
-    }
-
-    ExprP parse() {
-        ExprP e = parse_ternary();
-        if (cur().t != Tok::T::End) fail("unexpected token '" + cur().s + "'");
-        return e;
-    }
-
-    ExprP parse_ternary() {
-        DepthGuard dg(*this);
-        ExprP cond = parse_logical();
-        if (is_op("?")) {
-            advance();
-            ExprP a = parse_logical();
-            if (!is_op(":")) fail("expected ':'");
-            advance();
-            ExprP b = parse_logical();
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Ternary;
-            e->a = cond; e->b = a; e->c = b;
-            return e;
-        }
-        return cond;
-    }
-
-    ExprP bin(const std::string &op, ExprP l, ExprP r) {
-        auto e = std::make_shared<Expr>();
-        e->kind = Expr::Kind::Binary; e->str = op; e->a = l; e->b = r;
-        return e;
-    }
-
-    ExprP parse_logical() {
-        ExprP l = parse_not();
-        while (is_kw("and") || is_kw("or") || is_kw("xor")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_not());
-        }
-        return l;
-    }
-    // Logical NOT binds looser than equality/comparison, so "not x = null" is
-    // "not (x = null)" -- matching QuestViva's notOperator level, which sits
-    // between and/or and equality (not the tight unary "-"). See
-    // QuestNCalcLogicalExpressionParser (the grammar comment on notOperator).
-    ExprP parse_not() {
-        if (is_kw("not") || is_op("!")) {
-            DepthGuard dg(*this);
-            advance();
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Unary; e->str = "not"; e->a = parse_not();
-            return e;
-        }
-        return parse_equality();
-    }
-    ExprP parse_equality() {
-        ExprP l = parse_relational();
-        while (is_op("=") || is_op("==") || is_op("<>") || is_op("!=")) {
-            std::string op = cur().s; advance();
-            l = bin((op == "==" ? "=" : (op == "!=" ? "<>" : op)), l,
-                    parse_relational());
-        }
-        return l;
-    }
-    ExprP parse_relational() {
-        ExprP l = parse_shift();
-        while (true) {
-            if (is_op(">") || is_op("<") || is_op(">=") || is_op("<=")) {
-                std::string op = cur().s; advance();
-                l = bin(op, l, parse_shift());
-                continue;
-            }
-            // "in" / "not in" sit at the relational level in QuestViva's
-            // grammar (QuestNCalcLogicalExpressionParser: relational => shift
-            // ((">=" | "<=" | "<" | ">" | "in" | "not in") shift)*).
-            if (is_kw("in")) {
-                advance();
-                l = bin("in", l, parse_shift());
-                continue;
-            }
-            if (is_kw("not") && p + 1 < toks.size() &&
-                toks[p + 1].t == Tok::T::Ident && toks[p + 1].s == "in") {
-                advance(); advance();
-                l = bin("not in", l, parse_shift());
-                continue;
-            }
-            break;
-        }
-        return l;
-    }
-    // shift => additive (("<<" | ">>") additive)*, left-associative, between
-    // relational and additive as in NCalc's grammar. Oracle-verified
-    // (NCalcAsync 6.3.2): "2 << 1 + 1" is 8, "1 << 2 > 3" is True,
-    // "1 << 1 << 2" is 8. Deeper's keyring bitmask: "player.keyring + (1 << n)".
-    ExprP parse_shift() {
-        ExprP l = parse_additive();
-        while (is_op("<<") || is_op(">>")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_additive());
-        }
-        return l;
-    }
-    ExprP parse_additive() {
-        ExprP l = parse_multiplicative();
-        while (is_op("+") || is_op("-")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_multiplicative());
-        }
-        return l;
-    }
-    ExprP parse_multiplicative() {
-        ExprP l = parse_unary();
-        while (is_op("*") || is_op("/") || is_op("%")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_unary());
-        }
-        return l;
-    }
-    ExprP parse_unary() {
-        // Only arithmetic negation binds tightly here; logical "not" is handled
-        // at parse_not (looser than equality).
-        if (is_op("-")) {
-            DepthGuard dg(*this);
-            std::string op = cur().s;
-            advance();
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Unary; e->str = op; e->a = parse_unary();
-            return e;
-        }
-        return parse_power();
-    }
-    ExprP parse_power() {
-        // NCalc's "^" is exponentiation (not XOR), right-associative, and it
-        // binds TIGHTER than unary minus: "-2^2" is -4 and "2^3^2" is 512
-        // (both verified against the oracle). Moquette's GetRandomPoisson
-        // opens with "L = e ^ -expected", so the right operand must be able to
-        // be a unary expression too.
-        ExprP l = parse_postfix();
-        if (is_op("^")) {
-            DepthGuard dg(*this);
-            advance();
-            l = bin("^", l, parse_unary());
-        }
-        return l;
-    }
-    ExprP parse_postfix() {
-        ExprP e = parse_primary();
-        while (true) {
-            if (is_op(".")) {
-                advance();
-                if (cur().t != Tok::T::Ident) fail("expected name after '.'");
-                std::string name = cur().s; advance();
-                if (is_op("(")) {
-                    // method-style call obj.name(args) -- rare; treat as call
-                    // taking the receiver as the first argument is not needed
-                    // for M2, so parse and drop into a Call on `name`.
-                    auto call = std::make_shared<Expr>();
-                    call->kind = Expr::Kind::Call; call->str = name;
-                    call->args = parse_args();
-                    call->a = e;  // receiver kept for future use
-                    e = call;
-                } else {
-                    auto m = std::make_shared<Expr>();
-                    m->kind = Expr::Kind::Member; m->a = e; m->str = name;
-                    e = m;
-                }
-            } else if (is_op("[")) {
-                advance();
-                ExprP idx = parse_ternary();
-                if (!is_op("]")) fail("expected ']'");
-                advance();
-                auto ix = std::make_shared<Expr>();
-                ix->kind = Expr::Kind::Index; ix->a = e; ix->b = idx;
-                e = ix;
-            } else {
-                break;
-            }
-        }
-        return e;
-    }
-    std::vector<ExprP> parse_args() {
-        // assumes cur() is '('
-        advance();
-        std::vector<ExprP> args;
-        if (is_op(")")) { advance(); return args; }
-        while (true) {
-            args.push_back(parse_ternary());
-            if (is_op(",") || is_op(";")) { advance(); continue; }
-            break;
-        }
-        if (!is_op(")")) fail("expected ')'");
-        advance();
-        return args;
-    }
-    ExprP parse_primary() {
-        const Tok &t = cur();
-        if (t.t == Tok::T::Num) {
-            advance();
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Num; e->num = t.num; e->is_int = t.is_int;
-            return e;
-        }
-        if (t.t == Tok::T::Str) {
-            advance();
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Str; e->str = t.s;
-            return e;
-        }
-        if (t.t == Tok::T::Ident) {
-            // Boolean/null literals are case-insensitive ("True", "FALSE"):
-            // NCalc's Terms.Text("true", true), and the null parameter check in
-            // NcalcExpressionEvaluator.ResolveVariable.
-            if (rt_iequals(t.s, "true") || rt_iequals(t.s, "false")) {
-                advance();
-                auto e = std::make_shared<Expr>();
-                e->kind = Expr::Kind::Bool; e->boolean = rt_iequals(t.s, "true");
-                return e;
-            }
-            if (rt_iequals(t.s, "null")) {
-                advance();
-                auto e = std::make_shared<Expr>();
-                e->kind = Expr::Kind::Null;
-                return e;
-            }
-            std::string name = t.s;
-            advance();
-            if (is_op("(")) {
-                auto e = std::make_shared<Expr>();
-                e->kind = Expr::Kind::Call; e->str = name;
-                e->args = parse_args();
-                return e;
-            }
-            auto e = std::make_shared<Expr>();
-            e->kind = Expr::Kind::Var; e->str = name;
-            return e;
-        }
-        if (is_op("(")) {
-            // A group, or NCalc's list "(a, b, ...)" / "()" (',' or ';'
-            // separated) -- FLEE's `x in (a, b)` membership form.
-            advance();
-            if (is_op(")")) {
-                advance();
-                auto e = std::make_shared<Expr>();
-                e->kind = Expr::Kind::List;
-                return e;
-            }
-            ExprP e = parse_ternary();
-            if (is_op(",") || is_op(";")) {
-                auto l = std::make_shared<Expr>();
-                l->kind = Expr::Kind::List;
-                l->args.push_back(e);
-                while (is_op(",") || is_op(";")) {
-                    advance();
-                    l->args.push_back(parse_ternary());
-                }
-                e = l;
-            }
-            if (!is_op(")")) fail("expected ')'");
-            advance();
-            return e;
-        }
-        fail("unexpected token '" + t.s + "'");
-    }
-};
-
-}  // namespace
-
-// Compile an expression source string to an AST (used by the statement parser).
-static ExprP compile_expr_str(const std::string &src) {
-    std::string enc = encode_identifier_spaces(src);
-    Lexer lex(enc);
-    lex.lex();
-    Parser parser(lex.toks);
-    try {
-        ExprP e = parser.parse();
-        if (e) e->src = src;  // mark the Expression<T> wrap boundary
-        return e;
-    } catch (const std::runtime_error &err) {
-        throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
-    }
-}
-
-// Compile, deferring a failure to evaluation time (see Expr::Kind::ParseError).
-static ExprP compile_expr_str_deferred(const std::string &src) {
-    try {
-        return compile_expr_str(src);
-    } catch (const std::exception &err) {
-        auto e = std::make_shared<Expr>();
-        e->kind = Expr::Kind::ParseError;
-        e->str = err.what();
-        e->src = src;
-        return e;
-    }
-}
-
-// ===========================================================================
-// Statement AST + parser
-// ===========================================================================
-
-struct Stmt {
-    enum class Kind {
-        Msg, If, While, For, ForEach, Assign, Call, Return, Comment,
-        Switch, FirstTime, OnReady, Wait, GetInput, ShowMenu, Ask,
-        // A statement whose COMPILE failed: the rest of the body still loads
-        // (QuestViva parses statement-by-statement, lazily), and the error --
-        // kept in `name` -- surfaces only if this statement actually RUNS.
-        // EFMB has a `MoveObject (coin, )` behind an always-false guard.
-        ParseError
-    };
-    Kind kind;
-    std::string name;              // Assign var/prop, For/ForEach var, Call name
-    ExprP expr;                    // Msg/Return value, While/If cond, Assign value,
-                                   // Switch selector
-    // "x => { script }" (SetScriptScript): the RHS is a script literal, stored
-    // as source text and assigned as a Script value. expr is null in that case.
-    std::string script_text;
-    ExprP obj;                     // Assign target object (before last dot), or null
-    ExprP from, to, step;          // For
-    ExprP list;                    // ForEach
-    std::vector<Stmt> body;        // block (also FirstTime first / OnReady callback)
-    // If: chained else-if/else
-    std::vector<std::pair<ExprP, std::vector<Stmt>>> elseifs;
-    std::vector<Stmt> else_body;   // also Switch `default`, FirstTime `otherwise`
-    bool has_else = false;
-    std::vector<ExprP> call_args;  // Call
-    // Switch: each case is (one-or-more match exprs) -> body.
-    std::vector<std::pair<std::vector<ExprP>, std::vector<Stmt>>> cases;
-    // FirstTime: per-compiled-instance "has it run yet" flag. The compiled Stmt
-    // is cached and reused across invocations, so this shared flag persists,
-    // matching QuestViva's per-FirstTimeScript m_hasRun.
-    std::shared_ptr<bool> ran;
 };
 
 // ===========================================================================
@@ -1042,39 +291,22 @@ std::shared_ptr<CompiledRegex> Interp::compiled_regex(const std::string &pattern
 std::shared_ptr<Expr> Interp::compile_expr(const std::string &src) {
     auto it = expr_cache_.find(src);
     if (it != expr_cache_.end()) return it->second;
-    std::string enc = encode_identifier_spaces(src);
-    Lexer lex(enc);
-    lex.lex();
-    Parser parser(lex.toks);
-    ExprP e;
-    try {
-        e = parser.parse();
-    } catch (const std::runtime_error &err) {
-        throw std::runtime_error(std::string(err.what()) + " in [" + src + "]");
-    }
-    if (e) e->src = src;  // mark the Expression<T> wrap boundary
+    ExprP e = compile_expr_str(src);
     expr_cache_[src] = e;
     return e;
 }
 
-namespace {
-// Defined in aslx-state.inc (included below): preorder expression roots.
-void collect_expr_roots(std::vector<Stmt> &body, std::vector<ExprP> &out);
-}  // namespace
-
 void Interp::capture_rng_streams(
     std::vector<std::pair<std::string, std::array<uint32_t, 4>>> &out)
 {
+    auto state = [](const Rng &r) {
+        return std::array<uint32_t, 4>{r.s[0], r.s[1], r.s[2], r.s[3]};
+    };
     out.clear();
-    out.emplace_back(std::string(),
-                     std::array<uint32_t, 4>{rng_.s[0], rng_.s[1],
-                                             rng_.s[2], rng_.s[3]});
+    out.emplace_back(std::string(), state(rng_));
     for (const auto &kv : expr_cache_) {
         const ExprP &e = kv.second;
-        if (e && e->rng)
-            out.emplace_back(kv.first,
-                             std::array<uint32_t, 4>{e->rng->s[0], e->rng->s[1],
-                                                     e->rng->s[2], e->rng->s[3]});
+        if (e && e->rng) out.emplace_back(kv.first, state(*e->rng));
     }
     // Expressions embedded in compiled script bodies (msg (...), the RHS of an
     // assignment, an if condition, ...) are compiled by the statement parser,
@@ -1088,8 +320,7 @@ void Interp::capture_rng_streams(
             const ExprP &e = roots[i];
             if (!e->rng) continue;
             out.emplace_back('\x01' + kv.first + '\x1D' + std::to_string(i),
-                             std::array<uint32_t, 4>{e->rng->s[0], e->rng->s[1],
-                                                     e->rng->s[2], e->rng->s[3]});
+                             state(*e->rng));
         }
     }
 }
@@ -1112,12 +343,8 @@ void Interp::restore_rng_streams(
             std::string key = entry.first.substr(1, sep - 1);
             size_t ordinal = (size_t) std::strtoul(entry.first.c_str() + sep + 1,
                                                    nullptr, 10);
-            std::string scope, src = key;
-            size_t sc = key.find('\x1F');
-            if (sc != std::string::npos) {
-                scope = key.substr(0, sc);
-                src = key.substr(sc + 1);
-            }
+            std::string scope, src;
+            split_script_cache_key(key, scope, src);
             std::shared_ptr<std::vector<Stmt>> body;
             try {
                 body = compile_script(src, scope);
@@ -1156,25 +383,6 @@ Value Interp::eval(const std::string &source, Context &ctx) {
     return eval_expr(*e, ctx);
 }
 
-// -- statement parsing ------------------------------------------------------
-
-static bool starts_with_word(const std::string &line, const std::string &kw) {
-    if (line.compare(0, kw.size(), kw) != 0) return false;
-    if (line.size() == kw.size()) return true;
-    char n = line[kw.size()];
-    return !(std::isalnum((unsigned char)n) || n == '_' ||
-             (unsigned char)n >= 0x80);
-}
-
-// Forward-declared recursive statement compiler (defined in the .inc below).
-static std::vector<Stmt> parse_statements(const std::string &src, Interp &interp);
-
-namespace {
-// Defined in aslx-state.inc (included below): preorder firsttime flags.
-void collect_firsttime(const std::vector<Stmt> &body,
-                       std::vector<std::shared_ptr<bool>> &out);
-}  // namespace
-
 std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src,
                                                           const std::string &scope) {
     // QuestViva compiles each script ATTRIBUTE into its own IScript tree, so
@@ -1183,7 +391,7 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
     // all carry `firsttime { IncreaseCounter ("DR") }`; sharing one compiled
     // body by source text ran the block once for the whole game. Key by the
     // owning attribute when the caller knows it.
-    std::string key = scope.empty() ? src : scope + '\x1F' + src;
+    std::string key = script_cache_key(scope, src);
     auto it = script_cache_.find(key);
     if (it != script_cache_.end()) return it->second;
     auto v = std::make_shared<std::vector<Stmt>>(parse_statements(src, *this));
@@ -1191,16 +399,17 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
         // A save written before scoping recorded the flags by source alone;
         // seed this instance from it so restored one-time text stays spent.
         auto lg = legacy_firsttime_.find(src);
-        if (lg != legacy_firsttime_.end()) {
-            std::vector<std::shared_ptr<bool>> flags;
-            collect_firsttime(*v, flags);
-            for (size_t i = 0; i < flags.size() && i < lg->second.size(); ++i)
-                *flags[i] = lg->second[i];
-        }
+        if (lg != legacy_firsttime_.end()) apply_firsttime(*v, lg->second);
     }
     script_cache_[key] = v;
     return v;
 }
+
+// RunScriptAsync's MaxScriptExecutionDepth message.
+static const char kDepthExceeded[] =
+    "Script execution depth exceeded 200 - this usually means a script is "
+    "recursing infinitely (e.g. a \"changed<field>\" script that sets the "
+    "field it's watching)";
 
 // The script boundary (QuestViva RunScriptAsync): a parse or runtime throw
 // aborts THIS script body only; it is logged and reported, and the calling
@@ -1210,10 +419,7 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
 template <typename Body>
 void Interp::script_boundary(Context &ctx, Body body) {
     if (script_depth_ >= kMaxScriptDepth)
-        throw std::runtime_error(
-            "Script execution depth exceeded 200 - this usually means a script "
-            "is recursing infinitely (e.g. a \"changed<field>\" script that "
-            "sets the field it's watching)");
+        throw std::runtime_error(kDepthExceeded);
     ++script_depth_;
     try {
         body();
@@ -1267,9 +473,6 @@ void Interp::exec_block_from(const std::vector<Stmt> &stmts, size_t start,
     }
 }
 
-Element *interp_eval_element(Interp &, const Value &);
-static bool values_equal(const Value &a, const Value &b);
-
 void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     switch (s.kind) {
     case Stmt::Kind::Comment: return;
@@ -1319,9 +522,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         // dictionary iteration binds the KEYS (object refs for an ObjectDict).
         std::vector<Value> items;
         if (is_list(lst)) items = lst.list();
-        else if (lst.type == Value::Type::StringDict ||
-                 lst.type == Value::Type::ObjectDict ||
-                 lst.type == Value::Type::ScriptDict) {
+        else if (is_dict(lst)) {
             bool obj = (lst.type == Value::Type::ObjectDict);
             for (auto &kv : lst.dict())
                 items.push_back(obj ? vobj(kv.first) : vstr(kv.first));
@@ -1337,68 +538,16 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         return;
     }
     case Stmt::Kind::Assign: {
-        Value val;
-        if (s.expr) {
-            val = eval_expr(*s.expr, ctx);
-        } else {
-            // "x => { ... }": assign the script literal itself.
-            val.type = Value::Type::Script;
-            val.str = s.script_text;
-        }
+        // "x => { ... }" (no expression) assigns the script literal itself.
+        Value val = s.expr ? eval_expr(*s.expr, ctx) : vscript(s.script_text);
         if (!s.obj) {
             ctx.locals[s.name] = val;
-        } else {
-            Value ov = eval_expr(*s.obj, ctx);
-            Element *e = interp_eval_element(*this, ov);
-            if (e) {
-                const Value *prev = resolve_field(e, s.name);
-                Value old = prev ? *prev : vnull();
-                // Fields.Set CLONES a list/dictionary on any assignment that
-                // changes the OWN attribute (QuestList.RequiresCloning is
-                // unconditionally true; the changed-check consults own
-                // attributes only, so localising an inherited list --
-                // "newPOV.pov_alt = newPOV.pov_alt" -- copies the type's
-                // backing instead of aliasing it. Basilica's possession
-                // mechanic relies on every body getting its own alt list).
-                const Value *own = e->field(s.name);
-                // Fields.Set's `changed` -- computed against the OWN
-                // attribute (absent own => changed unless writing null), and
-                // before any clone, exactly as v5 orders it.
-                bool changed = own ? !values_equal(*own, val)
-                                   : val.type != Value::Type::Null;
-                bool same_backing = own &&
-                    own->list_store == val.list_store &&
-                    own->dict_store == val.dict_store;
-                if (!same_backing) val.detach();
-                // v530+: assigning null REMOVES the own attribute
-                // (Fields.Set), so HasAttribute goes false and Core re-init
-                // paths ("player.grid_coordinates = null" then Grid_Redraw)
-                // work. Older games store the null.
-                if (world_.asl_version >= 530 && val.type == Value::Type::Null) {
-                    log_field_set(e, s.name, val, /*removing=*/true);
-                    e->remove_field(s.name);
-                } else {
-                    log_field_set(e, s.name, val, /*removing=*/false);
-                    e->set_field(s.name, val);
-                }
-                // EVERY parent write moves the element to the end of its
-                // parent's children -- even a same-value one. QuestViva's
-                // Fields.Set calls SetParentFromFields unconditionally, which
-                // removes + re-appends in the children index (the `changed`
-                // check only guards the saver-facing SortIndex metafield).
-                // WearGarment's redundant `object.parent = game.pov` really
-                // does reorder the inventory.
-                if (s.name == "parent") {
-                    log_sort_index(e);
-                    e->sort_index = world_.next_sort_index++;
-                    world_.note_containment_change();
-                }
-                fire_changed_script(e, s.name, old, changed);
-            } else {
-                error("Assignment to attribute '" + s.name +
-                                    "' of a non-object");
-            }
+            return;
         }
+        Element *e = interp_eval_element(*this, eval_expr(*s.obj, ctx));
+        if (!e)
+            error("Assignment to attribute '" + s.name + "' of a non-object");
+        assign_field(e, s.name, std::move(val));
         return;
     }
     case Stmt::Kind::Switch: {
@@ -1449,33 +598,13 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         // which first cancels whatever holds the slot. A parked synchronous
         // `play sound` resumes inline HERE, before this wait registers.
         resume_parked_tail();
-        // Cancelling the old wait: clear the slot BEFORE end_pending_callback,
-        // whose on-ready flush may itself reach a prompt statement -- with the
-        // flag still set that nested statement would end the SAME callback
-        // again, driving the pending count negative (permanent wedge).
-        if (wait_pending_) {
-            wait_pending_ = false;
-            wait_cb_ = PendingCallback{};
-            cancel_dormant_suspension();
-        }
-        wait_pending_ = true;
-        wait_cb_.body = &s.body;
-        wait_cb_.ctx = ctx;
-        wait_cb_.ctx.returned = false;
-        begin_dormant_suspension();
+        cancel_prompt(wait_pending_, wait_cb_);
+        begin_prompt(wait_pending_, wait_cb_, s.body, ctx);
         return;
     }
     case Stmt::Kind::GetInput: {
-        if (command_override_) {  // release the slot first; see Wait above
-            command_override_ = false;
-            command_cb_ = PendingCallback{};
-            cancel_dormant_suspension();
-        }
-        command_override_ = true;
-        command_cb_.body = &s.body;
-        command_cb_.ctx = ctx;
-        command_cb_.ctx.returned = false;
-        begin_dormant_suspension();
+        cancel_prompt(command_override_, command_cb_);
+        begin_prompt(command_override_, command_cb_, s.body, ctx);
         return;
     }
     case Stmt::Kind::Ask: {
@@ -1483,18 +612,10 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         // printed -- rendering the yes/no prompt is presentation. (A v600+
         // game draws it inline; see show_inline_prompt.)
         std::string caption = to_string(eval_expr(*s.expr, ctx));
-        if (question_pending_) {  // release the slot first; see Wait above
-            question_pending_ = false;
-            question_cb_ = PendingCallback{};
-            cancel_dormant_suspension();
-        }
+        cancel_prompt(question_pending_, question_cb_);
         if (inline_prompts()) show_inline_question(caption, ctx);
-        question_pending_ = true;
         question_ = caption;
-        question_cb_.body = &s.body;
-        question_cb_.ctx = ctx;
-        question_cb_.ctx.returned = false;
-        begin_dormant_suspension();
+        begin_prompt(question_pending_, question_cb_, s.body, ctx);
         return;
     }
     case Stmt::Kind::ShowMenu: {
@@ -1527,17 +648,9 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         } else {
             print_via_core(caption, ctx);
         }
-        if (menu_pending_) {  // release the slot first; see Wait above
-            menu_pending_ = false;
-            menu_cb_ = PendingCallback{};
-            cancel_dormant_suspension();
-        }
-        menu_pending_ = true;
+        cancel_prompt(menu_pending_, menu_cb_);
         menu_ = std::move(md);
-        menu_cb_.body = &s.body;
-        menu_cb_.ctx = ctx;
-        menu_cb_.ctx.returned = false;
-        begin_dormant_suspension();
+        begin_prompt(menu_pending_, menu_cb_, s.body, ctx);
         return;
     }
     case Stmt::Kind::Call: {
@@ -1546,15 +659,9 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         if (exec_statement_command(s.name, s.call_args, ctx)) return;
         std::vector<Value> args;
         for (const auto &a : s.call_args) args.push_back(eval_expr(*a, ctx));
-        if (!s.script_text.empty()) {
-            // Trailing "{ script }" block: one extra script-literal argument.
-            Value scr;
-            scr.type = Value::Type::Script;
-            scr.str = s.script_text;
-            args.push_back(std::move(scr));
-        }
-        if (world_.find(s.name) &&
-            (world_.find(s.name)->kind == ElemKind::Function)) {
+        // Trailing "{ script }" block: one extra script-literal argument.
+        if (!s.script_text.empty()) args.push_back(vscript(s.script_text));
+        if (world_.find_function(s.name)) {
             call_function(s.name, std::move(args), &ctx);
         } else {
             bool handled = false;
@@ -1574,14 +681,11 @@ void Interp::error(const std::string &message) {
     throw std::runtime_error(message);
 }
 
-static std::string safe_xml_escape(const std::string &s);
-
 void Interp::report_script_error(const std::string &what) {
-    std::string msg = std::string("Error running script: ") + what;
     // The LOG copy carries the innermost executing function for diagnostics;
     // the player-facing print below stays bare (QuestViva prints ex.Message).
-    errors().push_back(frames_.empty() ? msg
-                                       : msg + " [in " + frames_.back() + "]");
+    log_exception(what);
+    std::string msg = "Error running script: " + what;
     if (++script_error_count_ >= max_script_errors_) {
         // Every script is failing the same way; the session is wedged. Stop
         // running scripts and end the game (WorldModel's scriptErrorsFatal).
@@ -1605,11 +709,11 @@ void Interp::report_script_error(const std::string &what) {
 }
 
 void Interp::log_exception(const std::string &what) {
-    // See the header note: the LogException-only boundary. Same log format as
-    // report_script_error, no print, no breaker feed.
-    std::string msg = std::string("Error running script: ") + what;
-    errors().push_back(frames_.empty() ? msg
-                                       : msg + " [in " + frames_.back() + "]");
+    // See the header note: the LogException-only boundary. The log half of
+    // report_script_error: no print, no breaker feed.
+    std::string msg = "Error running script: " + what;
+    if (!frames_.empty()) msg += " [in " + frames_.back() + "]";
+    errors().push_back(std::move(msg));
 }
 
 void Interp::warn_once(const std::string &key, const std::string &message) {
@@ -1649,6 +753,70 @@ void Interp::cancel_dormant_suspension() {
     // TrySetCanceled / play-sound claiming the wait slot).
     signal_callback_resolving();
     end_pending_callback();
+}
+
+void Interp::cancel_prompt(bool &pending, PendingCallback &cb) {
+    if (!pending) return;
+    // Clear the slot BEFORE end_pending_callback, whose on-ready flush may
+    // itself reach a prompt statement -- with the flag still set that nested
+    // statement would end the SAME callback again, driving the pending count
+    // negative (permanent wedge).
+    pending = false;
+    cb = PendingCallback{};
+    // (AwaitResponseAndRunCallbackAsync's finally still runs on a cancelled
+    // prompt, so end_pending_callback discharges any FinishTurn deferred past
+    // it rather than stranding it.)
+    cancel_dormant_suspension();
+}
+
+void Interp::begin_prompt(bool &pending, PendingCallback &cb,
+                          const std::vector<Stmt> &body, const Context &ctx) {
+    pending = true;
+    cb.body = &body;
+    cb.ctx = ctx;
+    cb.ctx.returned = false;
+    begin_dormant_suspension();
+}
+
+PendingCallback Interp::take_prompt(bool &pending, PendingCallback &cb) {
+    pending = false;
+    PendingCallback taken = std::move(cb);
+    cb = PendingCallback{};
+    return taken;
+}
+
+void Interp::claim_wait_slot() {
+    resume_parked_tail();
+    cancel_prompt(wait_pending_, wait_cb_);
+}
+
+void Interp::resolve_prompt(PendingCallback &cb, bool inline_prompt) {
+    // SignalCallbackResolving before the body (#2177): AddOnReady during the
+    // callback runs now -- chained MoveObjects run each room's cascade before
+    // the next move -- not deferred behind later statements.
+    signal_callback_resolving();
+    try {
+        run_callback_boundary(cb.body, cb.ctx);
+    } catch (TurnSuspended &ts) {
+        // The callback parked on a sync sound; its finally (EndPendingCallback
+        // -- which discharges any FinishTurn the command deferred past this
+        // prompt) and the pane refresh are owed by the parked continuation.
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
+        return;
+    }
+    // WorldModel.FinishWait / SetMenuResponse / SetQuestionResponse: the turn
+    // boundary -- end_pending_callback runs the FinishTurn the command
+    // deferred past this prompt (turnscripts tick against the room the
+    // callback left the player in, not the one it left) -- then refresh the
+    // panes once the callback chain resolved. A park inside either defers the
+    // rest to the resume.
+    try {
+        if (inline_prompt) end_inline_prompt(cb.ctx);
+        end_pending_callback();
+        if (!world_.finished) update_lists();
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+    }
 }
 
 void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
@@ -1767,6 +935,46 @@ void Interp::drain_on_ready() {
     }
 }
 
+void Interp::assign_field(Element *e, const std::string &attr, Value val) {
+    const Value *prev = resolve_field(e, attr);
+    Value old = prev ? *prev : vnull();
+    // Fields.Set CLONES a list/dictionary on any assignment that changes the
+    // OWN attribute (QuestList.RequiresCloning is unconditionally true; the
+    // changed-check consults own attributes only, so localising an inherited
+    // list -- "newPOV.pov_alt = newPOV.pov_alt" -- copies the type's backing
+    // instead of aliasing it. Basilica's possession mechanic relies on every
+    // body getting its own alt list).
+    const Value *own = e->field(attr);
+    // Fields.Set's `changed` -- computed against the OWN attribute (absent own
+    // => changed unless writing null), and before any clone, exactly as v5
+    // orders it.
+    bool changed = own ? !values_equal(*own, val)
+                       : val.type != Value::Type::Null;
+    bool same_backing = own && own->list_store == val.list_store &&
+                        own->dict_store == val.dict_store;
+    if (!same_backing) val.detach();
+    // v530+: assigning null REMOVES the own attribute (Fields.Set), so
+    // HasAttribute goes false and Core re-init paths
+    // ("player.grid_coordinates = null" then Grid_Redraw) work. Older games
+    // store the null.
+    bool removing = world_.asl_version >= 530 && val.type == Value::Type::Null;
+    log_field_set(e, attr, val, removing);
+    if (removing) e->remove_field(attr);
+    else e->set_field(attr, val);
+    // EVERY parent write moves the element to the end of its parent's
+    // children -- even a same-value one. QuestViva's Fields.Set calls
+    // SetParentFromFields unconditionally, which removes + re-appends in the
+    // children index (the `changed` check only guards the saver-facing
+    // SortIndex metafield). WearGarment's redundant `object.parent = game.pov`
+    // really does reorder the inventory.
+    if (attr == "parent") {
+        log_sort_index(e);
+        e->sort_index = world_.next_sort_index++;
+        world_.note_containment_change();
+    }
+    fire_changed_script(e, attr, old, changed);
+}
+
 void Interp::fire_changed_script(Element *e, const std::string &attr,
                                  const Value &oldval, bool changed) {
     // Quest 5 (branch v5) fires changed<attr> from Fields_AttributeChanged
@@ -1794,8 +1002,7 @@ void Interp::show_inline_prompt(const std::string *caption,
                                 Context &ctx) {
     if (caption) print_via_core(*caption, ctx);
     auto is_fn = [&](const char *name) {
-        Element *f = world_.find(name);
-        return f && f->kind == ElemKind::Function;
+        return world_.find_function(name) != nullptr;
     };
     std::string section;
     bool have_section = false;
@@ -1822,9 +1029,8 @@ void Interp::show_inline_question(const std::string &caption, Context &ctx) {
     // ShowInlineQuestionAsync: the [Yes]/[No] templates, resolved here because
     // runtime-built text gets no load-time template substitution.
     auto tmpl = [&](const char *name) {
-        for (auto it = world_.templates.rbegin(); it != world_.templates.rend(); ++it)
-            if (it->first == name) return it->second;
-        return std::string(name);
+        const std::string *t = find_template(world_, name);
+        return t ? *t : std::string(name);
     };
     show_inline_prompt(&caption, {tmpl("Yes"), tmpl("No")}, ctx);
 }
@@ -1834,9 +1040,8 @@ void Interp::end_inline_prompt(Context &ctx) {
     inline_prompt_active_ = false;
     std::string section = std::move(inline_prompt_section_);
     inline_prompt_section_.clear();
-    Element *hide = world_.find("HideOutputSection");
-    if (!section.empty() && !world_.finished && hide &&
-        hide->kind == ElemKind::Function)
+    if (!section.empty() && !world_.finished &&
+        world_.find_function("HideOutputSection"))
         call_function("HideOutputSection", {vstr(section)}, &ctx);
 }
 
@@ -1846,8 +1051,7 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
     // script boundary as usual, while bypass throws (depth cap) are logged
     // only. Without Core (unit tests) or on older games, print directly.
     // OutputText ends at JS.addText -> print.
-    Element *ot = world_.find("OutputText");
-    if (world_.asl_version >= 540 && ot && ot->kind == ElemKind::Function) {
+    if (world_.asl_version >= 540 && world_.find_function("OutputText")) {
         try {
             call_function("OutputText", {vstr(text)}, &ctx);
         } catch (const std::exception &err) {
@@ -1919,7 +1123,7 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
 }
 
 // Utility.SafeXML -- also the safexml builtin.
-static std::string safe_xml_escape(const std::string &s) {
+std::string safe_xml_escape(const std::string &s) {
     std::string out;
     for (char c : s) {
         if (c == '&') out += "&amp;";
@@ -1936,9 +1140,7 @@ void Interp::send_command(const std::string &command) {
     // HandleCommandAsyncInternal. A pending `get input` consumes the line
     // (command override) instead of the parser.
     if (command_override_) {
-        command_override_ = false;
-        PendingCallback cb = std::move(command_cb_);
-        command_cb_ = PendingCallback{};
+        PendingCallback cb = take_prompt(command_override_, command_cb_);
         cb.ctx.locals["result"] = vstr(command);
         // SignalCallbackResolving before the body: AddOnReady during the
         // callback runs now (classic Pop), not deferred behind later statements.
@@ -1946,7 +1148,7 @@ void Interp::send_command(const std::string &command) {
         try {
             run_callback_boundary(cb.body, cb.ctx);
         } catch (TurnSuspended &ts) {
-            // Parked on a sync sound (see set_menu_response).
+            // Parked on a sync sound (see resolve_prompt).
             park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/1);
             return;
         }
@@ -1970,8 +1172,7 @@ void Interp::send_command(const std::string &command) {
             print_via_core("", ctx);
             print_via_core("> " + safe_xml_escape(command), ctx);
         }
-        Element *hc = world_.find("HandleCommand");
-        if (hc && hc->kind == ElemKind::Function) {
+        if (world_.find_function("HandleCommand")) {
             try {
                 call_function("HandleCommand", {vstr(command), vnull()}, &ctx);
             } catch (const std::exception &err) {
@@ -2003,11 +1204,9 @@ void Interp::send_command(const std::string &command) {
 
 void Interp::set_menu_response(const std::string *key) {
     if (!menu_pending_) return;
-    menu_pending_ = false;
     MenuData md = std::move(menu_);
     menu_ = MenuData{};
-    PendingCallback cb = std::move(menu_cb_);
-    menu_cb_ = PendingCallback{};
+    PendingCallback cb = take_prompt(menu_pending_, menu_cb_);
     if (key) {
         // ShowMenuScript echoes the chosen option's display text.
         for (const auto &kv : md.options) {
@@ -2020,59 +1219,21 @@ void Interp::set_menu_response(const std::string *key) {
     } else {
         cb.ctx.locals["result"] = vnull();  // cancelled
     }
-    signal_callback_resolving();
-    try {
-        run_callback_boundary(cb.body, cb.ctx);
-    } catch (TurnSuspended &ts) {
-        // Parked on a sync sound: the callback finally (EndPendingCallback)
-        // and the pane refresh are owed by the parked continuation.
-        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
-        return;
-    }
-    // WorldModel.SetMenuResponse: the turn boundary (end_pending_callback runs any
-    // FinishTurn the command deferred past this prompt), then a pane refresh
-    // once the chain resolved. A park inside either defers the rest.
-    try {
-        end_inline_prompt(cb.ctx);
-        end_pending_callback();
-        if (!world_.finished) update_lists();
-    } catch (TurnSuspended &ts) {
-        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
-    }
+    resolve_prompt(cb, /*inline_prompt=*/true);
 }
 
 void Interp::set_question_response(bool response) {
     if (!question_pending_) return;
-    question_pending_ = false;
     question_.clear();
-    PendingCallback cb = std::move(question_cb_);
-    question_cb_ = PendingCallback{};
+    PendingCallback cb = take_prompt(question_pending_, question_cb_);
     cb.ctx.locals["result"] = vbool(response);
-    signal_callback_resolving();
-    try {
-        run_callback_boundary(cb.body, cb.ctx);
-    } catch (TurnSuspended &ts) {
-        // Parked on a sync sound (see set_menu_response).
-        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
-        return;
-    }
-    // WorldModel.SetQuestionResponse: the turn boundary (end_pending_callback runs any
-    // FinishTurn the command deferred past this prompt), then a pane refresh
-    // once the chain resolved. A park inside either defers the rest.
-    try {
-        end_inline_prompt(cb.ctx);
-        end_pending_callback();
-        if (!world_.finished) update_lists();
-    } catch (TurnSuspended &ts) {
-        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
-    }
+    resolve_prompt(cb, /*inline_prompt=*/true);
 }
 
 void Interp::try_finish_turn(Context &ctx) {
     // WorldModel.TryFinishTurnAsync: LogException-only. Core's RunTurnScripts
     // self-guards on IsGameRunning(), so this no-ops once the game has finished.
-    Element *ft = world_.find("FinishTurn");
-    if (!ft || ft->kind != ElemKind::Function) return;
+    if (!world_.find_function("FinishTurn")) return;
     try {
         call_function("FinishTurn", {}, &ctx);
     } catch (const std::exception &err) {
@@ -2117,33 +1278,8 @@ void Interp::finish_wait() {
         resume_parked_tail();
         return;
     }
-    wait_pending_ = false;
-    PendingCallback cb = std::move(wait_cb_);
-    wait_cb_ = PendingCallback{};
-    // SignalCallbackResolving before the body (#2177): AddOnReady during
-    // chained MoveObjects runs each room's cascade before the next move.
-    signal_callback_resolving();
-    try {
-        run_callback_boundary(cb.body, cb.ctx);
-    } catch (TurnSuspended &ts) {
-        // The callback parked on a sync sound; its AwaitWaitAndRunCallback
-        // finally (EndPendingCallback -- which discharges any FinishTurn the
-        // command deferred past this wait) and the pane refresh are owed by
-        // the parked continuation.
-        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
-        return;
-    }
-    // WorldModel.FinishWait: the turn boundary -- end_pending_callback runs
-    // the FinishTurn the command deferred past this wait (turnscripts tick
-    // against the room the callback left the player in, not the one it
-    // left) -- then refresh the panes once the callback chain resolved (a
-    // park inside either defers the rest to the resume).
-    try {
-        end_pending_callback();
-        if (!world_.finished) update_lists();
-    } catch (TurnSuspended &ts) {
-        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
-    }
+    PendingCallback cb = take_prompt(wait_pending_, wait_cb_);
+    resolve_prompt(cb, /*inline_prompt=*/false);
 }
 
 void Interp::park_suspension(TurnSuspended &ts, bool owes_update,
@@ -2202,10 +1338,7 @@ void Interp::resume_parked_tail() {
         if (b >= frames.size()) break;  // defensive: no boundary, drop
         Context ctx = std::move(frames[b].ctx);
         if (script_depth_ >= kMaxScriptDepth) {
-            report_script_error(
-                "Script execution depth exceeded 200 - this usually means a "
-                "script is recursing infinitely (e.g. a \"changed<field>\" "
-                "script that sets the field it's watching)");
+            report_script_error(kDepthExceeded);
             break;
         }
         ++script_depth_;
@@ -2266,8 +1399,7 @@ void Interp::resume_parked_tail() {
 void Interp::send_event(const std::string &name, const std::string &param) {
     // WorldModel.SendEventCore -- the ASLEvent bridge (hyperlink onclicks).
     Context ctx;
-    Element *h = world_.find(name);
-    if (!h || h->kind != ElemKind::Function) {
+    if (!world_.find_function(name)) {
         print_via_core("Error - no handler for event '" + name + "'", ctx);
         return;
     }
@@ -2296,8 +1428,7 @@ std::vector<Element *> Interp::objects_in_scope(const std::string &scope) {
     // GetObjectsInScopeAsync: throws when the scope function is missing
     // (update_lists' catch turns that into a LogException, like the callers'
     // catches in the reference).
-    Element *f = world_.find(scope);
-    if (!f || f->kind != ElemKind::Function)
+    if (!world_.find_function(scope))
         throw std::runtime_error("No function '" + scope + "'");
     Context ctx;
     Value v = call_function(scope, {}, &ctx);
@@ -2316,21 +1447,18 @@ ListData Interp::list_data_for(Element *obj, bool inventory) {
     Context ctx;
 
     // GetDisplayAliasAsync: Core function when present, element name otherwise.
-    Element *gda = world_.find("GetDisplayAlias");
-    d.display_alias = gda && gda->kind == ElemKind::Function
+    d.display_alias = world_.find_function("GetDisplayAlias")
         ? to_string(call_function("GetDisplayAlias", {vobj(obj->name)}, &ctx))
         : obj->name;
 
     // GetListDisplayAliasAsync: the pane label (may carry {}-processed markup).
-    Element *glda = world_.find("GetListDisplayAlias");
-    d.text = glda && glda->kind == ElemKind::Function
+    d.text = world_.find_function("GetListDisplayAlias")
         ? to_string(call_function("GetListDisplayAlias", {vobj(obj->name)}, &ctx))
         : d.display_alias;
 
     // Verbs: pre-v520 (or Core-less) reads the inventoryverbs/displayverbs
     // fields directly; later Core supplies GetDisplayVerbs.
-    Element *gdv = world_.find("GetDisplayVerbs");
-    if (world_.asl_version <= 520 || !gdv || gdv->kind != ElemKind::Function) {
+    if (world_.asl_version <= 520 || !world_.find_function("GetDisplayVerbs")) {
         const Value *verbs =
             resolve_field(obj, inventory ? "inventoryverbs" : "displayverbs");
         if (verbs && verbs->list_store)
@@ -2373,8 +1501,7 @@ bool Interp::verb_menu_for(const std::string &element_name, ListData &out) {
 std::vector<ListData> Interp::exits_list_data() {
     // GetExitsListDataAsync: ScopeExits, or GetExitsList on v530+.
     std::string scope = "ScopeExits";
-    Element *gel = world_.find("GetExitsList");
-    if (world_.asl_version >= 530 && gel && gel->kind == ElemKind::Function)
+    if (world_.asl_version >= 530 && world_.find_function("GetExitsList"))
         scope = "GetExitsList";
     std::vector<ListData> out;
     for (Element *e : objects_in_scope(scope))
@@ -2385,8 +1512,7 @@ std::vector<ListData> Interp::exits_list_data() {
 void Interp::update_status_variables() {
     // UpdateStatusVariablesAsync: Core's UpdateStatusAttributes ends in
     // JS.updateStatus. Its own catch is LogException-only.
-    Element *f = world_.find("UpdateStatusAttributes");
-    if (!f || f->kind != ElemKind::Function) return;
+    if (!world_.find_function("UpdateStatusAttributes")) return;
     Context ctx;
     try {
         call_function("UpdateStatusAttributes", {}, &ctx);
@@ -2466,12 +1592,9 @@ void Interp::set_time_elapsed(long t) {
     // TimerRunner's writes go through Fields.Set, so while a command's
     // transaction is still open (timer ticks happen at prompt level, after
     // `start transaction` and before the next one) they are undoable too --
-    // hence the log_field_set calls here and below.
-    if (Element *game = world_.find("game")) {
-        Value v = vint(t);
-        log_field_set(game, "timeelapsed", v, false);
-        game->set_field("timeelapsed", v);
-    }
+    // hence set_field_logged here and below.
+    if (Element *game = world_.find("game"))
+        set_field_logged(game, "timeelapsed", vint(t));
 }
 
 void Interp::begin_timers() {
@@ -2490,8 +1613,7 @@ void Interp::increment_time(int seconds) {
         Value v = field_int(t, "trigger") < now
                       ? vint(now + field_int(t, "interval"))
                       : vint(field_int(t, "trigger") + seconds);
-        log_field_set(t, "trigger", v, false);
-        t->set_field("trigger", v);
+        set_field_logged(t, "trigger", v);
     }
 }
 
@@ -2506,9 +1628,9 @@ void Interp::tick(int seconds) {
     for (Element *t : live_timers()) {
         if (!timer_enabled(t)) continue;
         if (now >= field_int(t, "trigger")) {
-            Value v = vint(field_int(t, "trigger") + field_int(t, "interval"));
-            log_field_set(t, "trigger", v, false);
-            t->set_field("trigger", v);
+            set_field_logged(
+                t, "trigger",
+                vint(field_int(t, "trigger") + field_int(t, "interval")));
             const Value *scr = resolve_field(t, "script");
             if (scr && scr->type == Value::Type::Script)
                 due.emplace_back(t, scr->str);
@@ -2608,10 +1730,6 @@ Value interp_run_delegate(Interp &in, Element *obj, const std::string &delname,
 // ever committed by the next command or by `undo` itself. Actions are recorded
 // only while a transaction is open (AddUndoAction checks m_logging), so
 // nothing from boot/StartGame is undoable.
-
-// Template lookups live in aslx-runtime-builtins.inc (same TU, included below).
-static const std::string *find_template(World &w, const std::string &name);
-static const std::string *find_dyn_template(World &w, const std::string &name);
 
 void Interp::add_undo(UndoAction a) {
     if (!undo_logging_) return;
@@ -2785,6 +1903,12 @@ void Interp::log_field_set(Element *e, const std::string &attr,
     add_undo(std::move(a));
 }
 
+Value &Interp::set_field_logged(Element *e, const std::string &attr,
+                                const Value &v) {
+    log_field_set(e, attr, v, /*removing=*/false);
+    return e->set_field(attr, v);
+}
+
 void Interp::log_sort_index(Element *e) {
     if (!undo_logging_) return;
     UndoAction a;
@@ -2808,6 +1932,30 @@ void Interp::log_destroy(Element *e) {
     a.kind = UndoAction::Kind::Destroy;
     a.element = e->name;
     a.element_ptr = e;
+    add_undo(std::move(a));
+}
+
+void Interp::log_list_change(UndoAction::Kind kind, const Value &coll,
+                             long index, const Value &entry) {
+    if (!undo_logging_) return;
+    UndoAction a;
+    a.kind = kind;
+    a.list_backing = coll.list_store;
+    a.old_value = entry;
+    a.index = index;
+    add_undo(std::move(a));
+}
+
+void Interp::log_dict_change(UndoAction::Kind kind, const Value &coll,
+                             long index, const std::string &key,
+                             const Value &entry) {
+    if (!undo_logging_) return;
+    UndoAction a;
+    a.kind = kind;
+    a.dict_backing = coll.dict_store;
+    a.attr = key;
+    a.old_value = entry;
+    a.index = index;
     add_undo(std::move(a));
 }
 
@@ -2883,11 +2031,9 @@ const Value *Interp::resolve_field(Element *e, const std::string &name) {
     // slot so the returned pointer stays valid; it is rebuilt on every read
     // (QuestViva re-merges each Get too).
     Value merged;
-    merged.type = (base && (base->type == Value::Type::StringList ||
-                            base->type == Value::Type::ObjectList))
-                      ? base->type : exts.front()->type;
-    if (base && (base->type == Value::Type::StringList ||
-                 base->type == Value::Type::ObjectList))
+    bool base_is_list = base && is_list(*base);
+    merged.type = base_is_list ? base->type : exts.front()->type;
+    if (base_is_list)
         for (const Value &v : base->list()) merged.list().push_back(v);
     for (auto it = exts.rbegin(); it != exts.rend(); ++it)
         for (const Value &v : (*it)->list()) merged.list().push_back(v);
@@ -2901,15 +2047,12 @@ Value Interp::resolve_variable(const std::string &name, Context &ctx, bool &foun
     if (rt_iequals(name, "null")) return vnull();
     auto it = ctx.locals.find(name);
     if (it != ctx.locals.end()) return it->second;
-    if (Element *e = world_.find(name)) {
-        (void)e;
-        return vobj(name);
-    }
+    if (world_.find(name)) return vobj(name);
     found = false;
     return vnull();
 }
 
-static bool values_equal(const Value &a, const Value &b) {
+bool values_equal(const Value &a, const Value &b) {
     if (a.type == Value::Type::Null || b.type == Value::Type::Null)
         return a.type == Value::Type::Null && b.type == Value::Type::Null;
     if (is_number(a) && is_number(b)) return as_double(a) == as_double(b);
@@ -3075,7 +2218,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
         bool handled = false;
         Value r = call_builtin(e.str, args, handled, ctx);
         if (handled) return r;
-        if (world_.find(e.str) && world_.find(e.str)->kind == ElemKind::Function)
+        if (world_.find_function(e.str))
             return call_function(e.str, std::move(args), &ctx);
         error("Unknown function '" + e.str + "'");
         return vnull();
@@ -3152,9 +2295,7 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
             if (is_list(r)) {
                 for (auto &entry : r.list())
                     if (values_equal(entry, l)) { contains = true; break; }
-            } else if (r.type == Value::Type::StringDict ||
-                       r.type == Value::Type::ObjectDict ||
-                       r.type == Value::Type::ScriptDict) {
+            } else if (is_dict(r)) {
                 std::string key = to_string(l);
                 for (auto &kv : r.dict())
                     if (kv.first == key) { contains = true; break; }
@@ -3320,8 +2461,8 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     static const bool trace_calls = std::getenv("ASLX_TRACE_CALLS") != nullptr;
     if (trace_calls)
         fprintf(stderr, "[call d%d] %s\n", script_depth_, name.c_str());
-    Element *fn = world_.find(name);
-    if (!fn || fn->kind != ElemKind::Function) {
+    Element *fn = world_.find_function(name);
+    if (!fn) {
         error("Function not found: '" + name + "'");
         return vnull();
     }
@@ -3399,8 +2540,7 @@ void Interp::chart_uncharted_room(const Value &roomv, const Value &playerv) {
         return;  // first pass: Grid_GetPlayerCoordinateDictionary seeds it
     for (const char *f : {"Grid_GetPlayerCoordinateDictionary",
                           "Grid_SetGridCoordinateForPlayer"}) {
-        Element *e = world_.find(f);
-        if (!e || e->kind != ElemKind::Function) return;
+        if (!world_.find_function(f)) return;
     }
     // Charted = the room's entry carries all three coordinates (a lookup on
     // the way to an error leaves an EMPTY entry behind).
@@ -3471,192 +2611,509 @@ Value *Interp::lvalue_of(const Expr &e, Context &ctx) {
         if (const Value *inh = resolve_field(el, e.str)) {
             // The copy-down creates an own attribute: log it as an added
             // field set so a rollback removes it (back to the inherited one).
-            log_field_set(el, e.str, *inh, /*removing=*/false);
-            return &el->set_field(e.str, *inh);
+            return &set_field_logged(el, e.str, *inh);
         }
-        log_field_set(el, e.str, Value{}, /*removing=*/false);
-        return &el->set_field(e.str, Value{});
+        return &set_field_logged(el, e.str, Value{});
     }
     return nullptr;
 }
 
-bool Interp::exec_statement_command(const std::string &name,
-                                    const std::vector<std::shared_ptr<Expr>> &args,
-                                    Context &ctx) {
+// The grid-map paint vocabulary (CoreGrid.aslx -> grid.js), forwarded to the
+// grid_draw hook as GridDraw commands; `args` are the call's evaluated
+// arguments. Guarding numbers through as_double keeps a game that passes junk
+// from crashing the bridge (grid.js would have silently drawn NaNs). Returns
+// false, having done nothing, for a name that is not part of the vocabulary.
+bool Interp::exec_grid_command(const std::string &fn,
+                               const std::vector<Value> &args) {
+    auto arg = [&](size_t i) { return i < args.size() ? args[i] : vnull(); };
+    auto num = [&](size_t i) { return as_double(arg(i)); };
+    auto str = [&](size_t i) { return to_string(arg(i)); };
+    GridDraw g;
+    if (fn == "ShowGrid") {
+        g.op = GridDraw::Op::Show;
+        g.h = num(0);
+        grid_draw(g);
+    } else if (fn == "Grid_SetScale") {
+        g.op = GridDraw::Op::Scale;
+        g.w = num(0);
+        grid_draw(g);
+    } else if (fn == "Grid_DrawBox") {
+        g.op = GridDraw::Op::Box;
+        g.x = num(0); g.y = num(1); g.z = (int)num(2);
+        g.w = num(3); g.h = num(4);
+        g.border = str(5);
+        g.borderwidth = (int)num(6);
+        g.fill = str(7);
+        g.sides = (int)num(8);
+        grid_draw(g);
+    } else if (fn == "Grid_DrawLabel") {
+        g.op = GridDraw::Op::Label;
+        g.x = num(0); g.y = num(1); g.z = (int)num(2);
+        g.text = str(3);
+        g.fill = args.size() > 4 ? str(4) : "black";
+        grid_draw(g);
+    } else if (fn == "Grid_DrawLine") {
+        g.op = GridDraw::Op::Line;
+        g.x = num(0); g.y = num(1); g.x2 = num(2); g.y2 = num(3);
+        g.border = str(4);
+        g.borderwidth = (int)num(5);
+        grid_draw(g);
+    } else if (fn == "Grid_DrawPlayer") {
+        g.op = GridDraw::Op::Player;
+        g.x = num(0); g.y = num(1); g.z = (int)num(2);
+        g.w = num(3);
+        g.border = str(4);
+        g.borderwidth = (int)num(5);
+        g.fill = str(6);
+        grid_draw(g);
+    } else if (fn == "Grid_ClearAllLayers") {
+        g.op = GridDraw::Op::Clear;
+        grid_draw(g);
+    } else if (fn == "setBackground" && !args.empty()) {
+        /* SetBackgroundColour: the reference player tints the whole game
+         * panel AND #gridPanel with it, and grid colours are authored
+         * against that -- a game on a black background draws its exit lines
+         * in white.  Only the map pane takes it here (the text window keeps
+         * the Glk theme), so it rides the grid channel. */
+        g.op = GridDraw::Op::Canvas;
+        g.fill = str(0);
+        grid_draw(g);
+    } else {
+        return false;
+    }
+    return true;
+}
+
+// JS.* -- the front-end bridge. Only JS.addText carries game text; route it
+// to the output sink. JS.setPanelContents is the picture frame
+// (SetFramePicture/ClearFramePicture wrap it, and OnEnterRoom sets it from
+// the room's `picture` attribute) -- routed to the set_panel_contents host
+// hook when one is installed, dropped otherwise.
+// Everything else is a UI side effect we can ignore in the headless/native
+// core (a later presentation milestone wires the rest).
+void Interp::exec_js_command(const std::string &fn, const ExprList &args,
+                             Context &ctx) {
+    /* A JS.* call is an ordinary FunctionCallScript to QuestViva: it
+     * evaluates EVERY argument, left to right, before it even looks at the
+     * name -- so an argument that fails reports a script error whether or
+     * not anything is listening at the other end. Cache them here and read
+     * the cache below (through `ev`), so each argument is evaluated exactly
+     * once, in order, on every path including the ones we ignore.
+     *
+     * Evaluating lazily instead -- only the arguments a handled case
+     * actually reads -- silently dropped three "The given key 'x' was not
+     * present in the dictionary" reports from The Acreage, whose CoreGrid
+     * map paints an uncharted room: JS.Grid_DrawBox's first three
+     * arguments each call Grid_GetGridCoordinateForPlayer on coordinates
+     * the room does not have yet. See the `picture` note below for the
+     * same rule on a statement we do implement. */
+    std::vector<Value> jsargs;
+    jsargs.reserve(args.size());
+    for (const auto &a : args)
+        jsargs.push_back(eval_expr(*a, ctx));
     auto ev = [&](size_t i) -> Value {
-        return i < args.size() ? eval_expr(*args[i], ctx) : vnull();
+        return i < jsargs.size() ? jsargs[i] : vnull();
     };
+    /* Hand an unimplemented JS.* call's last argument to the host, which
+     * decides whether it names a game function to fire as an ASLEvent. */
+    auto js_fallback = [&] {
+        /* Zero-argument calls reach the host too, with an empty argument:
+         * the name alone can be the signal (JS.HookClicks installs the
+         * reference player's click-anywhere handler). */
+        if (js_event_bridge)
+            js_event_bridge(fn, args.empty() ? std::string()
+                                             : to_string(ev(args.size() - 1)));
+    };
+    if (fn == "addText" && !args.empty())
+        print(to_string(ev(0)));
+    else if (fn == "setPanelContents" && !args.empty() && set_panel_contents)
+        set_panel_contents(to_string(ev(0)));
+    else if (fn == "updateStatus" && !args.empty() && update_status)
+        update_status(to_string(ev(0)));
+    else if (fn == "updateLocation" && !args.empty() && update_location)
+        update_location(to_string(ev(0)));
+    else if (fn == "disableAllCommandLinks" && disable_command_links)
+        disable_command_links();
+    else if (fn == "clearScreen" && clear_screen)
+        // Core's ClearScreen (playercore.js clearScreen: wipe the
+        // transcript, keep the panes and the picture frame).
+        clear_screen();
+    else if (fn == "panesVisible" && !args.empty() && panes_visible)
+        panes_visible(truthy(ev(0)));
+    else if ((fn == "TextFX.Typewriter" || fn == "TextFX.Unscramble") &&
+             !args.empty() && textfx_text) {
+        // playercore.js addFx: a styled span (with a trailing space) plus
+        // a line break; the animation then fills the span with the text.
+        // Args are (text, speed[, reveal], font, color, size) -- the
+        // style triple sits at the tail either way.
+        std::string html = "<span";
+        if (args.size() >= 4)
+            html += " style=\"font-family:" +
+                    to_string(ev(args.size() - 3)) + ";color:" +
+                    to_string(ev(args.size() - 2)) + ";font-size:" +
+                    to_string(ev(args.size() - 1)) + "pt\"";
+        html += ">" + to_string(ev(0)) + " </span><br/>";
+        textfx_text(html);
+    }
+    else if (fn == "StartOutputSection" && !args.empty() &&
+             start_output_section)
+        start_output_section(to_string(ev(0)));
+    else if (fn == "EndOutputSection" && !args.empty() &&
+             end_output_section)
+        end_output_section(to_string(ev(0)));
+    else if (fn == "HideOutputSection" && !args.empty() &&
+             hide_output_section)
+        hide_output_section(to_string(ev(0)));
+    else if ((fn == "uiShow" || fn == "uiHide") && !args.empty() &&
+             (show_command_bar || panes_visible)) {
+        // The command box and the panes (playercore.js uiShow/uiHide
+        // special-case "#gamePanes" through panesVisible); the other ids
+        // this channel carries ("#location") are pure layout in the
+        // reference player's DOM and mean nothing here.
+        std::string id = to_string(ev(0));
+        if (id == "#txtCommandDiv" && show_command_bar)
+            show_command_bar(fn == "uiShow");
+        else if (id == "#gamePanes" && panes_visible)
+            panes_visible(fn == "uiShow");
+    }
+    else if (fn == "eval" && !args.empty() && request_restart) {
+        /* The restart channel: Core's `restart` command evals
+         * "window.location.reload();" (older Cores first probe the
+         * desktop player's RestartGame()).  That reload IS the restart
+         * -- route it to the host.  Everything else this eval channel
+         * carries (transcript flags, jQuery pane tweaks) stays ignored. */
+        std::string js = to_string(ev(0));
+        if (js.find("location.reload") != std::string::npos ||
+            js.find("RestartGame") != std::string::npos)
+            request_restart();
+    } else if (!grid_draw || !exec_grid_command(fn, jsargs)) {
+        /* Not ours and not the grid map's (or no grid bridge at all):
+         * everything unhandled goes to the JS callback bridge (see the hook's
+         * note). */
+        js_fallback();
+    }
+}
+
+// play sound (file, synchronous, loop) -- PlaySoundScript.ExecuteAsync
+// evaluates all three in that order, then hands them to the UI.
+void Interp::exec_play_sound(const ExprList &args, Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
+    std::string filename = !args.empty() ? to_string(ev(0)) : "";
+    bool sync = args.size() >= 2 && truthy(ev(1));
+    bool loop = args.size() >= 3 && truthy(ev(2));
+    if (sync) {
+        // A synchronous play claims the wait slot (BeginPrompt on
+        // _waitTcs): a previously parked sync sound resumes inline; a
+        // pending `wait` is cancelled -- its callback never runs. Note no
+        // begin_pending_callback -- PlaySoundScript never counts itself,
+        // so `on ready` is not deferred by the sound.
+        claim_wait_slot();
+    }
+    if (play_sound) {
+        // The host plays it; a synchronous host BLOCKS in the hook until
+        // playback finishes, so the rest of the turn resumes exactly
+        // where QuestViva's awaited wait slot would resume it.
+        play_sound(filename, sync, loop);
+        return;
+    }
+    warn_once("play sound", "'play sound' is not supported yet; ignored");
+    if (sync) {
+        // With no UI to report the sound finished, everything after this
+        // statement parks on the wait slot: the unwind captures the
+        // remainder as TurnSuspended frames, stored at the turn boundary
+        // and resumed when the slot is next claimed (the next `wait` or
+        // sync sound, or a host finish_wait) -- see resume_parked_tail.
+        throw TurnSuspended{};
+    }
+}
+
+// request (RequestType, data): a player-UI request (RequestScript). The
+// first argument is a bare enum identifier (Speak, Quit, Show, ...) that is
+// not a resolvable expression, so we must NOT evaluate the args -- headless
+// ignores UI requests (a later presentation milestone wires the handful Core
+// relies on). Same for `request` with a callback and RequestSave.
+void Interp::exec_request(const std::string &name, const ExprList &args,
+                          Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
+    // The request's first arg is a bare enum identifier (never evaluated).
+    // RequestSave is the one request with engine-side meaning: Core's
+    // `save` command runs `request (RequestSave, "")` and the UI is
+    // expected to capture + persist the game (PlayerUI.RequestSave). The
+    // newer standalone `requestsave` command is the same request.
+    std::string req =
+        name == "requestsave"
+            ? "RequestSave"
+            : (!args.empty() && args[0]->kind == Expr::Kind::Var
+                   ? args[0]->str : "");
+    if (req == "Quit") {
+        // RequestScript's Quit case: PlayerUi.Quit() (a headless no-op)
+        // then WorldModel.Finish() -> FinishGame(). FinishGame sets
+        // State=Finished FIRST, then TrySetCanceled()s the pending TCS --
+        // which resumes any parked synchronous `play sound` continuation
+        // inline (its remaining statements print, but Core's turnscripts
+        // and pane refresh no-op now that the game is finished). Match that
+        // order so a parked tail is flushed exactly as QuestViva flushes it.
+        world_.finished = true;
+        resume_parked_tail();
+    } else if (req == "RequestSave") {
+        if (request_save)
+            request_save();
+        else
+            warn_once("requestsave", "Saving is not supported here.");
+    } else if (req == "SetStatus" && update_status) {
+        // The pre-JS status channel: games embedding an older Core send
+        // `request (SetStatus, text)` (PlayerUI.SetStatusText) where the
+        // modern one calls JS.updateStatus. The data joins lines with
+        // real newlines ("\n" string escapes); normalise to <br/> so the
+        // hook sees the JS contract. Data is only evaluated when a hook
+        // will consume it (RequestScript always evaluates; headless
+        // parity keeps the old ignore-unevaluated behaviour).
+        std::string data = to_string(ev(1)), html;
+        for (char c : data) {
+            if (c == '\n') html += "<br/>";
+            else html += c;
+        }
+        update_status(html);
+    } else if (req == "ClearScreen" && clear_screen) {
+        // RequestScript's ClearScreen case: PlayerUi.ClearScreen() -- the
+        // pre-JS pairing for JS.clearScreen.
+        clear_screen();
+    } else if (req == "PanesVisible" && panes_visible) {
+        // PlayerUI.SetPanesVisible(data) -- the pre-JS pairing for
+        // JS.panesVisible; the data is the string "on" or "off"
+        // (Player.cs: panesVisible(data == "on")).
+        panes_visible(to_string(ev(1)) == "on");
+    } else if (req == "UpdateLocation" && update_location) {
+        // PlayerUI.LocationUpdated -- same pre-JS pairing as SetStatus.
+        update_location(to_string(ev(1)));
+    } else if (req == "SetPanelContents" && set_panel_contents) {
+        // PlayerUI.SetPanelContents -- the picture frame, like
+        // JS.setPanelContents.
+        set_panel_contents(to_string(ev(1)));
+    } else if (req == "RunScript" && set_panel_contents) {
+        // PlayerUI.RunScript(data) -- Quest 5.0's "call a function in the
+        // player's HTML frame" channel, data being "name; arg". Quest 5.0
+        // games carry their own SetFramePicture built on it (Nearco II:
+        // `request (RunScript, "setFramePicture; " + GetFileURL(f))`,
+        // driving the Frame.htm/Frame.js pair bundled in the package),
+        // which is the same picture frame later Cores reach through
+        // JS.setPanelContents -- so route those two verbs to the same
+        // hook. Every other function this channel can name is real
+        // JavaScript we cannot run, and stays ignored.
+        std::string data = to_string(ev(1));
+        size_t semi = data.find(';');
+        std::string fn = rt_trim(data.substr(0, semi)), arg;
+        if (semi != std::string::npos) arg = rt_trim(data.substr(semi + 1));
+        if (fn == "setFramePicture" && !arg.empty())
+            set_panel_contents("<img src=\"" + arg + "\"/>");
+        else if (fn == "clearFramePicture")
+            set_panel_contents("");
+    } else if (req == "Background" && grid_draw) {
+        // PlayerUI.SetBackground -- the pre-JS pairing for
+        // JS.setBackground, sent by games that embed a Quest 5.0-era Core
+        // (Dream Pieces 2). Same meaning: it is the canvas the grid map's
+        // colours were authored against. See the JS.setBackground case.
+        GridDraw g;
+        g.op = GridDraw::Op::Canvas;
+        g.fill = to_string(ev(1));
+        grid_draw(g);
+    } else if ((req == "Show" || req == "Hide") &&
+               (show_command_bar || panes_visible)) {
+        // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
+        // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",
+        // "Command", "Location"); the command box and the panes mean
+        // something outside a DOM ("Location" is pure layout).
+        std::string el = to_string(ev(1));
+        if (el == "Command" && show_command_bar)
+            show_command_bar(req == "Show");
+        else if (el == "Panes" && panes_visible)
+            panes_visible(req == "Show");
+    } else if (req == "Wait") {
+        // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
+        // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+
+        // throws (games use the `wait` script command instead). It claims
+        // the wait slot (BeginPrompt on _waitTcs): a parked synchronous
+        // `play sound` resumes inline HERE and a pending `wait` callback is
+        // cancelled. A synchronous host then BLOCKS in do_wait until the
+        // keypress and the enclosing script resumes inline; headless it is a
+        // silent no-op (do_wait's doc explains why that stays oracle-exact).
+        if (world_.asl_version >= 540)
+            throw std::runtime_error(
+                "The 'Wait' request is not supported for games written for "
+                "Quest 5.4 or later. Use the 'wait' script command "
+                "instead.");
+        claim_wait_slot();
+        if (do_wait) do_wait();
+    } else if (req == "Pause") {
+        // RequestScript Pause -> DoPauseAsync (Core's Pause function).
+        // Valid only pre-v550 -- v550+ throws (games use SetTimeout). The
+        // data is int.TryParse'd; a non-numeric string is ignored (no
+        // pause), matching QuestViva. Pause uses a SEPARATE slot (_pauseTcs)
+        // so it leaves any parked sync sound on the wait slot untouched. A
+        // synchronous host BLOCKS in do_pause for the interval; headless it
+        // is a silent no-op.
+        if (world_.asl_version >= 550)
+            throw std::runtime_error(
+                "The 'Pause' request is not supported for games written "
+                "for Quest 5.5 or later. Use the 'SetTimeout' function "
+                "instead.");
+        long ms = 0;
+        if (parse_int32_text(to_string(ev(1)), ms) == IntParse::Ok && do_pause)
+            do_pause((int)ms);
+    }
+}
+
+// CreateExitScript / ObjectFactory.CreateExit.
+void Interp::exec_create_exit(const ExprList &args, Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
+    // 3 args: (alias, from, to); 4: (alias, from, to, initialType);
+    // 5: (id, alias, from, to, initialType). No id -> a generated
+    // "exitN" name and the anonymous flag.
+    size_t base = args.size() >= 5 ? 1 : 0;
+    Value alias = ev(base);
+    Value from = ev(base + 1), to = ev(base + 2);
+    std::string type =
+        args.size() >= 4 ? to_string(ev(base + 3)) : std::string();
+    std::string id = args.size() >= 5 ? to_string(ev(0)) : std::string();
+    bool anonymous = id.empty();
+    if (anonymous) {
+        int k = 0;
+        do { id = "exit" + std::to_string(++k); } while (world_.find(id));
+    }
+    Element *exit = world_.create_object(id, type, "exit");
+    log_create(exit);
+    // `newExit.Fields[Alias] = exitName` goes through Fields.Set, so a
+    // null alias is REMOVED at v530+ (the initial type's alias -- "west"
+    // from westdirection -- shows through) and stored as an own null
+    // before that. Deeper's `create exit (name, null, room, room_west,
+    // "westdirection")` relies on the inherited alias for GetExitByName.
+    if (alias.type == Value::Type::Null) {
+        if (world_.asl_version < 530) exit->set_field("alias", vnull());
+    } else {
+        exit->set_field("alias", vstr(to_string(alias)));
+    }
+    if (from.type == Value::Type::ObjectRef)
+        exit->set_field("parent", from);
+    exit->set_field("to", to);
+    if (anonymous) exit->set_field("anonymous", vbool(true));
+}
+
+// list add / list remove (list, item).
+void Interp::exec_list_command(bool add, const ExprList &args, Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
+    if (args.size() < 2) return;
+    Value *lst = lvalue_of(*args[0], ctx);
+    // QuestViva's ListAddScript evaluates its target as an EXPRESSION and
+    // mutates the QuestList reference it yields -- the target need not be
+    // an assignable name at all (spondre: `list add (groups[class], entry)`).
+    // When it isn't an lvalue, evaluate it; the copy aliases list_store,
+    // so mutating through it edits the stored list.
+    Value lst_expr;
+    if (!lst) {
+        lst_expr = ev(0);
+        if (is_list(lst_expr)) lst = &lst_expr;
+    }
+    // Copy the target onto the stack before evaluating the item: ev(1) runs
+    // arbitrary game script that may add or remove an attribute on the
+    // element `lst` points into, reallocating its fields vector and leaving
+    // `lst` dangling. A Value copy shares list_store (reference semantics),
+    // so the add/remove and its undo record still hit the stored list.
+    Value lst_hold;
+    if (lst) { lst_hold = *lst; lst = &lst_hold; }
+    Value item = ev(1);
+    if (!lst || !is_list(*lst)) {
+        errors().push_back("Unrecognised list type");
+        return;
+    }
+    if (add) {
+        // The value is stored boxed/typed verbatim (QuestList<object>.Add)
+        // -- a list can hold dictionaries, objects, numbers... (spondre).
+        auto &v = lst->list();
+        log_list_change(UndoAction::Kind::ListAdd, *lst, (long)v.size(), item);
+        v.push_back(std::move(item));
+    } else {
+        // QuestList.Remove: first occurrence only (List<T>.Remove).
+        auto &v = lst->list();
+        for (auto i = v.begin(); i != v.end(); ++i)
+            if (values_equal(*i, item)) {
+                log_list_change(UndoAction::Kind::ListRemove, *lst,
+                                (long)(i - v.begin()), *i);
+                v.erase(i);
+                break;
+            }
+    }
+}
+
+// dictionary add (dictionary, key, value) / dictionary remove (dictionary,
+// key).
+void Interp::exec_dictionary_command(bool add, const ExprList &args,
+                                     Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
+    if (args.size() < 2) return;
+    Value *d = lvalue_of(*args[0], ctx);
+    // Same expression-target fallback as `list add` above (QuestViva
+    // mutates whatever QuestDictionary the expression yields).
+    Value d_expr;
+    if (!d) {
+        d_expr = ev(0);
+        if (is_dict(d_expr)) d = &d_expr;
+    }
+    // Copy the target onto the stack before evaluating the key/value: the
+    // ev(1) key and the later ev(2) value run game script that may realloc
+    // the element's fields vector and dangle `d`. The copy shares dict_store
+    // (reference semantics), so mutations and undo records still hit the
+    // stored dictionary.
+    Value d_hold;
+    if (d) { d_hold = *d; d = &d_hold; }
+    std::string key = to_string(ev(1));
+    if (!d || !is_dict(*d)) {
+        errors().push_back("Unrecognised dictionary type");
+        return;
+    }
+    // QuestDictionary.Add throws on a duplicate key (DictionaryAddScript
+    // calls IDictionary.Add directly) -- The Zen Garden defines the
+    // `touch` verb twice and its golden opens with exactly this error
+    // from Core's InitVerbsList. Only `dictionary add` throws; the
+    // remove path below still just erases.
+    if (add) {
+        for (auto &kv : d->dict())
+            if (kv.first == key)
+                error("Error adding key '" + key + "' to dictionary: "
+                      "An item with the same key has already been added. "
+                      "Key: " + key);
+    }
+    // remove any existing entry with this key first (Add replaces).
+    for (auto it = d->dict().begin(); it != d->dict().end();) {
+        if (it->first == key) {
+            log_dict_change(UndoAction::Kind::DictRemove, *d,
+                            (long)(it - d->dict().begin()), key, it->second);
+            it = d->dict().erase(it);
+        } else {
+            ++it;
+        }
+    }
+    if (add) {
+        log_dict_change(UndoAction::Kind::DictAdd, *d,
+                        (long)d->dict().size(), key, Value{});
+        d->dict().emplace_back(key, ev(2));  // store the typed value verbatim
+    }
+}
+
+// One argument of a statement command, evaluated on demand; a missing one is
+// null.
+Value Interp::eval_arg(const ExprList &args, size_t i, Context &ctx) {
+    return i < args.size() ? eval_expr(*args[i], ctx) : vnull();
+}
+
+bool Interp::exec_statement_command(const std::string &name,
+                                    const ExprList &args, Context &ctx) {
+    auto ev = [&](size_t i) { return eval_arg(args, i, ctx); };
     auto as_element = [&](const Value &v) -> Element * {
         return v.type == Value::Type::ObjectRef ? world_.find(v.str) : nullptr;
     };
 
-    // JS.* -- the front-end bridge. Only JS.addText carries game text; route it
-    // to the output sink. JS.setPanelContents is the picture frame
-    // (SetFramePicture/ClearFramePicture wrap it, and OnEnterRoom sets it from
-    // the room's `picture` attribute) -- routed to the set_panel_contents host
-    // hook when one is installed, dropped otherwise.
-    // Everything else is a UI side effect we can ignore in the headless/native
-    // core (a later presentation milestone wires the rest).
     if (name.compare(0, 3, "JS.") == 0) {
-        std::string fn = name.substr(3);
-        /* A JS.* call is an ordinary FunctionCallScript to QuestViva: it
-         * evaluates EVERY argument, left to right, before it even looks at the
-         * name -- so an argument that fails reports a script error whether or
-         * not anything is listening at the other end. Cache them here and read
-         * the cache below (the shadowing `ev`), so each argument is evaluated
-         * exactly once, in order, on every path including the ones we ignore.
-         *
-         * Evaluating lazily instead -- only the arguments a handled case
-         * actually reads -- silently dropped three "The given key 'x' was not
-         * present in the dictionary" reports from The Acreage, whose CoreGrid
-         * map paints an uncharted room: JS.Grid_DrawBox's first three
-         * arguments each call Grid_GetGridCoordinateForPlayer on coordinates
-         * the room does not have yet. See the `picture` note below for the
-         * same rule on a statement we do implement. */
-        std::vector<Value> jsargs;
-        jsargs.reserve(args.size());
-        for (const auto &a : args)
-            jsargs.push_back(eval_expr(*a, ctx));
-        auto ev = [&](size_t i) -> Value {
-            return i < jsargs.size() ? jsargs[i] : vnull();
-        };
-        /* Hand an unimplemented JS.* call's last argument to the host, which
-         * decides whether it names a game function to fire as an ASLEvent. */
-        auto js_fallback = [&] {
-            /* Zero-argument calls reach the host too, with an empty argument:
-             * the name alone can be the signal (JS.HookClicks installs the
-             * reference player's click-anywhere handler). */
-            if (js_event_bridge)
-                js_event_bridge(fn, args.empty() ? std::string()
-                                                 : to_string(ev(args.size() - 1)));
-        };
-        if (fn == "addText" && !args.empty())
-            print(to_string(ev(0)));
-        else if (fn == "setPanelContents" && !args.empty() && set_panel_contents)
-            set_panel_contents(to_string(ev(0)));
-        else if (fn == "updateStatus" && !args.empty() && update_status)
-            update_status(to_string(ev(0)));
-        else if (fn == "updateLocation" && !args.empty() && update_location)
-            update_location(to_string(ev(0)));
-        else if (fn == "disableAllCommandLinks" && disable_command_links)
-            disable_command_links();
-        else if (fn == "clearScreen" && clear_screen)
-            // Core's ClearScreen (playercore.js clearScreen: wipe the
-            // transcript, keep the panes and the picture frame).
-            clear_screen();
-        else if (fn == "panesVisible" && !args.empty() && panes_visible)
-            panes_visible(truthy(ev(0)));
-        else if ((fn == "TextFX.Typewriter" || fn == "TextFX.Unscramble") &&
-                 !args.empty() && textfx_text) {
-            // playercore.js addFx: a styled span (with a trailing space) plus
-            // a line break; the animation then fills the span with the text.
-            // Args are (text, speed[, reveal], font, color, size) -- the
-            // style triple sits at the tail either way.
-            std::string html = "<span";
-            if (args.size() >= 4)
-                html += " style=\"font-family:" +
-                        to_string(ev(args.size() - 3)) + ";color:" +
-                        to_string(ev(args.size() - 2)) + ";font-size:" +
-                        to_string(ev(args.size() - 1)) + "pt\"";
-            html += ">" + to_string(ev(0)) + " </span><br/>";
-            textfx_text(html);
-        }
-        else if (fn == "StartOutputSection" && !args.empty() &&
-                 start_output_section)
-            start_output_section(to_string(ev(0)));
-        else if (fn == "EndOutputSection" && !args.empty() &&
-                 end_output_section)
-            end_output_section(to_string(ev(0)));
-        else if (fn == "HideOutputSection" && !args.empty() &&
-                 hide_output_section)
-            hide_output_section(to_string(ev(0)));
-        else if ((fn == "uiShow" || fn == "uiHide") && !args.empty() &&
-                 (show_command_bar || panes_visible)) {
-            // The command box and the panes (playercore.js uiShow/uiHide
-            // special-case "#gamePanes" through panesVisible); the other ids
-            // this channel carries ("#location") are pure layout in the
-            // reference player's DOM and mean nothing here.
-            std::string id = to_string(ev(0));
-            if (id == "#txtCommandDiv" && show_command_bar)
-                show_command_bar(fn == "uiShow");
-            else if (id == "#gamePanes" && panes_visible)
-                panes_visible(fn == "uiShow");
-        }
-        else if (fn == "eval" && !args.empty() && request_restart) {
-            /* The restart channel: Core's `restart` command evals
-             * "window.location.reload();" (older Cores first probe the
-             * desktop player's RestartGame()).  That reload IS the restart
-             * -- route it to the host.  Everything else this eval channel
-             * carries (transcript flags, jQuery pane tweaks) stays ignored. */
-            std::string js = to_string(ev(0));
-            if (js.find("location.reload") != std::string::npos ||
-                js.find("RestartGame") != std::string::npos)
-                request_restart();
-        } else if (js_event_bridge && !grid_draw) {
-            /* No grid bridge: everything unhandled goes straight to the JS
-             * callback bridge (see the hook's note). */
-            js_fallback();
-        } else if (grid_draw) {
-            /* The grid-map paint vocabulary (CoreGrid.aslx -> grid.js),
-             * forwarded as GridDraw commands. Guarding numbers through
-             * as_double keeps a game that passes junk from crashing the
-             * bridge (grid.js would have silently drawn NaNs). */
-            auto num = [&](size_t i) { return as_double(ev(i)); };
-            GridDraw g;
-            if (fn == "ShowGrid") {
-                g.op = GridDraw::Op::Show;
-                g.h = num(0);
-                grid_draw(g);
-            } else if (fn == "Grid_SetScale") {
-                g.op = GridDraw::Op::Scale;
-                g.w = num(0);
-                grid_draw(g);
-            } else if (fn == "Grid_DrawBox") {
-                g.op = GridDraw::Op::Box;
-                g.x = num(0); g.y = num(1); g.z = (int)num(2);
-                g.w = num(3); g.h = num(4);
-                g.border = to_string(ev(5));
-                g.borderwidth = (int)num(6);
-                g.fill = to_string(ev(7));
-                g.sides = (int)num(8);
-                grid_draw(g);
-            } else if (fn == "Grid_DrawLabel") {
-                g.op = GridDraw::Op::Label;
-                g.x = num(0); g.y = num(1); g.z = (int)num(2);
-                g.text = to_string(ev(3));
-                g.fill = args.size() > 4 ? to_string(ev(4)) : "black";
-                grid_draw(g);
-            } else if (fn == "Grid_DrawLine") {
-                g.op = GridDraw::Op::Line;
-                g.x = num(0); g.y = num(1); g.x2 = num(2); g.y2 = num(3);
-                g.border = to_string(ev(4));
-                g.borderwidth = (int)num(5);
-                grid_draw(g);
-            } else if (fn == "Grid_DrawPlayer") {
-                g.op = GridDraw::Op::Player;
-                g.x = num(0); g.y = num(1); g.z = (int)num(2);
-                g.w = num(3);
-                g.border = to_string(ev(4));
-                g.borderwidth = (int)num(5);
-                g.fill = to_string(ev(6));
-                grid_draw(g);
-            } else if (fn == "Grid_ClearAllLayers") {
-                g.op = GridDraw::Op::Clear;
-                grid_draw(g);
-            } else if (fn == "setBackground" && !args.empty()) {
-                /* SetBackgroundColour: the reference player tints the whole
-                 * game panel AND #gridPanel with it, and grid colours are
-                 * authored against that -- a game on a black background
-                 * draws its exit lines in white.  Only the map pane takes it
-                 * here (the text window keeps the Glk theme), so it rides
-                 * the grid channel. */
-                g.op = GridDraw::Op::Canvas;
-                g.fill = to_string(ev(0));
-                grid_draw(g);
-            } else {
-                js_fallback();
-            }
-        }
+        exec_js_command(name.substr(3), args, ctx);
         return true;
     }
 
@@ -3688,44 +3145,8 @@ bool Interp::exec_statement_command(const std::string &name,
         return true;
     }
 
-    // play sound (file, synchronous, loop) -- PlaySoundScript.ExecuteAsync
-    // evaluates all three in that order, then hands them to the UI.
     if (name == "play sound") {
-        std::string filename = !args.empty() ? to_string(ev(0)) : "";
-        bool sync = args.size() >= 2 && truthy(ev(1));
-        bool loop = args.size() >= 3 && truthy(ev(2));
-        if (sync) {
-            // A synchronous play claims the wait slot (BeginPrompt on
-            // _waitTcs): a previously parked sync sound resumes inline; a
-            // pending `wait` is cancelled -- its callback never runs. Note no
-            // begin_pending_callback -- PlaySoundScript never counts itself,
-            // so `on ready` is not deferred by the sound.
-            resume_parked_tail();
-            if (wait_pending_) {
-                wait_pending_ = false;
-                wait_cb_ = PendingCallback{};
-                // (AwaitWaitAndRunCallbackAsync's finally still runs on a
-                // cancelled wait, so end_pending_callback discharges any
-                // FinishTurn deferred past it rather than stranding it.)
-                cancel_dormant_suspension();
-            }
-        }
-        if (play_sound) {
-            // The host plays it; a synchronous host BLOCKS in the hook until
-            // playback finishes, so the rest of the turn resumes exactly
-            // where QuestViva's awaited wait slot would resume it.
-            play_sound(filename, sync, loop);
-            return true;
-        }
-        warn_once(name, "'" + name + "' is not supported yet; ignored");
-        if (sync) {
-            // With no UI to report the sound finished, everything after this
-            // statement parks on the wait slot: the unwind captures the
-            // remainder as TurnSuspended frames, stored at the turn boundary
-            // and resumed when the slot is next claimed (the next `wait` or
-            // sync sound, or a host finish_wait) -- see resume_parked_tail.
-            throw TurnSuspended{};
-        }
+        exec_play_sound(args, ctx);
         return true;
     }
 
@@ -3737,164 +3158,19 @@ bool Interp::exec_statement_command(const std::string &name,
         return true;
     }
 
-    // request (RequestType, data): a player-UI request (RequestScript). The
-    // first argument is a bare enum identifier (Speak, Quit, Show, ...) that is
-    // not a resolvable expression, so we must NOT evaluate the args -- headless
-    // ignores UI requests (a later presentation milestone wires the handful Core
-    // relies on). Same for `request` with a callback and RequestSave.
     if (name == "request" || name == "requestsave") {
-        // The request's first arg is a bare enum identifier (never evaluated).
-        // RequestSave is the one request with engine-side meaning: Core's
-        // `save` command runs `request (RequestSave, "")` and the UI is
-        // expected to capture + persist the game (PlayerUI.RequestSave). The
-        // newer standalone `requestsave` command is the same request.
-        std::string req =
-            name == "requestsave"
-                ? "RequestSave"
-                : (!args.empty() && args[0]->kind == Expr::Kind::Var
-                       ? args[0]->str : "");
-        if (req == "Quit") {
-            // RequestScript's Quit case: PlayerUi.Quit() (a headless no-op)
-            // then WorldModel.Finish() -> FinishGame(). FinishGame sets
-            // State=Finished FIRST, then TrySetCanceled()s the pending TCS --
-            // which resumes any parked synchronous `play sound` continuation
-            // inline (its remaining statements print, but Core's turnscripts
-            // and pane refresh no-op now that the game is finished). Match that
-            // order so a parked tail is flushed exactly as QuestViva flushes it.
-            world_.finished = true;
-            resume_parked_tail();
-        } else if (req == "RequestSave") {
-            if (request_save)
-                request_save();
-            else
-                warn_once("requestsave", "Saving is not supported here.");
-        } else if (req == "SetStatus" && update_status) {
-            // The pre-JS status channel: games embedding an older Core send
-            // `request (SetStatus, text)` (PlayerUI.SetStatusText) where the
-            // modern one calls JS.updateStatus. The data joins lines with
-            // real newlines ("\n" string escapes); normalise to <br/> so the
-            // hook sees the JS contract. Data is only evaluated when a hook
-            // will consume it (RequestScript always evaluates; headless
-            // parity keeps the old ignore-unevaluated behaviour).
-            std::string data = to_string(ev(1)), html;
-            for (char c : data) {
-                if (c == '\n') html += "<br/>";
-                else html += c;
-            }
-            update_status(html);
-        } else if (req == "ClearScreen" && clear_screen) {
-            // RequestScript's ClearScreen case: PlayerUi.ClearScreen() -- the
-            // pre-JS pairing for JS.clearScreen.
-            clear_screen();
-        } else if (req == "PanesVisible" && panes_visible) {
-            // PlayerUI.SetPanesVisible(data) -- the pre-JS pairing for
-            // JS.panesVisible; the data is the string "on" or "off"
-            // (Player.cs: panesVisible(data == "on")).
-            panes_visible(to_string(ev(1)) == "on");
-        } else if (req == "UpdateLocation" && update_location) {
-            // PlayerUI.LocationUpdated -- same pre-JS pairing as SetStatus.
-            update_location(to_string(ev(1)));
-        } else if (req == "SetPanelContents" && set_panel_contents) {
-            // PlayerUI.SetPanelContents -- the picture frame, like
-            // JS.setPanelContents.
-            set_panel_contents(to_string(ev(1)));
-        } else if (req == "RunScript" && set_panel_contents) {
-            // PlayerUI.RunScript(data) -- Quest 5.0's "call a function in the
-            // player's HTML frame" channel, data being "name; arg". Quest 5.0
-            // games carry their own SetFramePicture built on it (Nearco II:
-            // `request (RunScript, "setFramePicture; " + GetFileURL(f))`,
-            // driving the Frame.htm/Frame.js pair bundled in the package),
-            // which is the same picture frame later Cores reach through
-            // JS.setPanelContents -- so route those two verbs to the same
-            // hook. Every other function this channel can name is real
-            // JavaScript we cannot run, and stays ignored.
-            std::string data = to_string(ev(1));
-            std::string fn = data, arg;
-            size_t semi = data.find(';');
-            if (semi != std::string::npos) {
-                fn = data.substr(0, semi);
-                arg = data.substr(semi + 1);
-            }
-            auto trim_ws = [](std::string t) {
-                size_t b = t.find_first_not_of(" \t\r\n");
-                size_t e = t.find_last_not_of(" \t\r\n");
-                return b == std::string::npos ? std::string()
-                                              : t.substr(b, e - b + 1);
-            };
-            fn = trim_ws(fn);
-            arg = trim_ws(arg);
-            if (fn == "setFramePicture" && !arg.empty())
-                set_panel_contents("<img src=\"" + arg + "\"/>");
-            else if (fn == "clearFramePicture")
-                set_panel_contents("");
-        } else if (req == "Background" && grid_draw) {
-            // PlayerUI.SetBackground -- the pre-JS pairing for
-            // JS.setBackground, sent by games that embed a Quest 5.0-era Core
-            // (Dream Pieces 2). Same meaning: it is the canvas the grid map's
-            // colours were authored against. See the JS.setBackground case.
-            GridDraw g;
-            g.op = GridDraw::Op::Canvas;
-            g.fill = to_string(ev(1));
-            grid_draw(g);
-        } else if ((req == "Show" || req == "Hide") &&
-                   (show_command_bar || panes_visible)) {
-            // PlayerUI.Show/Hide -- the element-visibility channel, the pre-JS
-            // pairing for JS.uiShow/uiHide. Data is an element name ("Panes",
-            // "Command", "Location"); the command box and the panes mean
-            // something outside a DOM ("Location" is pure layout).
-            std::string el = to_string(ev(1));
-            if (el == "Command" && show_command_bar)
-                show_command_bar(req == "Show");
-            else if (el == "Panes" && panes_visible)
-                panes_visible(req == "Show");
-        } else if (req == "Wait") {
-            // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
-            // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+
-            // throws (games use the `wait` script command instead). It claims
-            // the wait slot (BeginPrompt on _waitTcs): a parked synchronous
-            // `play sound` resumes inline HERE and a pending `wait` callback is
-            // cancelled. A synchronous host then BLOCKS in do_wait until the
-            // keypress and the enclosing script resumes inline; headless it is a
-            // silent no-op (do_wait's doc explains why that stays oracle-exact).
-            if (world_.asl_version >= 540)
-                throw std::runtime_error(
-                    "The 'Wait' request is not supported for games written for "
-                    "Quest 5.4 or later. Use the 'wait' script command "
-                    "instead.");
-            resume_parked_tail();
-            if (wait_pending_) {
-                wait_pending_ = false;
-                wait_cb_ = PendingCallback{};
-                // (AwaitWaitAndRunCallbackAsync's finally still runs on a
-                // cancelled wait, so end_pending_callback discharges any
-                // FinishTurn deferred past it rather than stranding it.)
-                cancel_dormant_suspension();
-            }
-            if (do_wait) do_wait();
-        } else if (req == "Pause") {
-            // RequestScript Pause -> DoPauseAsync (Core's Pause function).
-            // Valid only pre-v550 -- v550+ throws (games use SetTimeout). The
-            // data is int.TryParse'd; a non-numeric string is ignored (no
-            // pause), matching QuestViva. Pause uses a SEPARATE slot (_pauseTcs)
-            // so it leaves any parked sync sound on the wait slot untouched. A
-            // synchronous host BLOCKS in do_pause for the interval; headless it
-            // is a silent no-op.
-            if (world_.asl_version >= 550)
-                throw std::runtime_error(
-                    "The 'Pause' request is not supported for games written "
-                    "for Quest 5.5 or later. Use the 'SetTimeout' function "
-                    "instead.");
-            std::string data = rt_trim(to_string(ev(1)));
-            size_t i = (!data.empty() && (data[0] == '-' || data[0] == '+'))
-                           ? 1 : 0;
-            bool is_int = i < data.size();
-            for (size_t k = i; k < data.size(); ++k)
-                if (!std::isdigit((unsigned char)data[k])) { is_int = false; break; }
-            if (is_int && do_pause) do_pause((int)strtol(data.c_str(), nullptr, 10));
-        }
+        exec_request(name, args, ctx);
         return true;
     }
 
+    // The optional parameter dictionary of `do` / `invoke` (argument `i`)
+    // becomes the locals of the script about to run.
+    auto bind_params = [&](size_t i, Context &local) {
+        if (i >= args.size()) return;
+        Value params = ev(i);
+        for (auto &kv : params.dict())
+            local.locals[kv.first] = kv.second;  // values are typed per-entry
+    };
     if (name == "do") {
         Element *obj = as_element(ev(0));
         std::string action = to_string(ev(1));
@@ -3912,11 +3188,7 @@ bool Interp::exec_statement_command(const std::string &name,
         // (resolved now, for the same dangling reason).
         std::string scope = field_scope(obj, action);
         Context local;
-        if (args.size() >= 3) {
-            Value params = ev(2);
-            for (auto &kv : params.dict())
-                local.locals[kv.first] = kv.second;  // values are typed per-entry
-        }
+        bind_params(2, local);
         // DoScript passes the object as thisElement (WorldModel.RunScriptAsync
         // binds it as the "this" parameter).
         local.locals["this"] = vobj(obj->name);
@@ -3930,11 +3202,7 @@ bool Interp::exec_statement_command(const std::string &name,
             return true;
         }
         Context local;
-        if (args.size() >= 2) {
-            Value params = ev(1);
-            for (auto &kv : params.dict())
-                local.locals[kv.first] = kv.second;  // values are typed per-entry
-        }
+        bind_params(1, local);
         run_script(scr.str, local);
         return true;
     }
@@ -3954,37 +3222,8 @@ bool Interp::exec_statement_command(const std::string &name,
         log_create(world_.create_object(to_string(ev(0)), "", "timer"));
         return true;
     }
-    if (name == "create exit") {  // CreateExitScript / ObjectFactory.CreateExit
-        // 3 args: (alias, from, to); 4: (alias, from, to, initialType);
-        // 5: (id, alias, from, to, initialType). No id -> a generated
-        // "exitN" name and the anonymous flag.
-        size_t base = args.size() >= 5 ? 1 : 0;
-        Value alias = ev(base);
-        Value from = ev(base + 1), to = ev(base + 2);
-        std::string type =
-            args.size() >= 4 ? to_string(ev(base + 3)) : std::string();
-        std::string id = args.size() >= 5 ? to_string(ev(0)) : std::string();
-        bool anonymous = id.empty();
-        if (anonymous) {
-            int k = 0;
-            do { id = "exit" + std::to_string(++k); } while (world_.find(id));
-        }
-        Element *exit = world_.create_object(id, type, "exit");
-        log_create(exit);
-        // `newExit.Fields[Alias] = exitName` goes through Fields.Set, so a
-        // null alias is REMOVED at v530+ (the initial type's alias -- "west"
-        // from westdirection -- shows through) and stored as an own null
-        // before that. Deeper's `create exit (name, null, room, room_west,
-        // "westdirection")` relies on the inherited alias for GetExitByName.
-        if (alias.type == Value::Type::Null) {
-            if (world_.asl_version < 530) exit->set_field("alias", vnull());
-        } else {
-            exit->set_field("alias", vstr(to_string(alias)));
-        }
-        if (from.type == Value::Type::ObjectRef)
-            exit->set_field("parent", from);
-        exit->set_field("to", to);
-        if (anonymous) exit->set_field("anonymous", vbool(true));
+    if (name == "create exit") {
+        exec_create_exit(args, ctx);
         return true;
     }
     if (name == "create turnscript") {  // CreateTurnScript
@@ -4000,166 +3239,20 @@ bool Interp::exec_statement_command(const std::string &name,
     }
     if (name == "set") {  // set(obj, "field", value)
         Element *obj = as_element(ev(0));
-        if (obj) {
-            std::string attr = to_string(ev(1));
-            const Value *prev = resolve_field(obj, attr);
-            Value old = prev ? *prev : vnull();
-            Value nv = ev(2);
-            // Clone-on-set for collections -- see the Assign case.
-            const Value *own = obj->field(attr);
-            // Fields.Set's `changed` -- see the Assign case.
-            bool changed = own ? !values_equal(*own, nv)
-                               : nv.type != Value::Type::Null;
-            bool same_backing = own && own->list_store == nv.list_store &&
-                                own->dict_store == nv.dict_store;
-            if (!same_backing) nv.detach();
-            // v530+ null assignment removes the attribute -- see Assign.
-            if (world_.asl_version >= 530 && nv.type == Value::Type::Null) {
-                log_field_set(obj, attr, nv, /*removing=*/true);
-                obj->remove_field(attr);
-            } else {
-                log_field_set(obj, attr, nv, /*removing=*/false);
-                obj->set_field(attr, nv);
-            }
-            // Same-value writes reorder too -- see the Assign case.
-            if (attr == "parent") {
-                log_sort_index(obj);
-                obj->sort_index = world_.next_sort_index++;
-                world_.note_containment_change();
-            }
-            fire_changed_script(obj, attr, old, changed);
-        } else {
+        if (!obj) {
             errors().push_back("set: not an object");
+            return true;
         }
+        std::string attr = to_string(ev(1));
+        assign_field(obj, attr, ev(2));
         return true;
     }
     if (name == "list add" || name == "list remove") {
-        if (args.size() < 2) return true;
-        Value *lst = lvalue_of(*args[0], ctx);
-        // QuestViva's ListAddScript evaluates its target as an EXPRESSION and
-        // mutates the QuestList reference it yields -- the target need not be
-        // an assignable name at all (spondre: `list add (groups[class], entry)`).
-        // When it isn't an lvalue, evaluate it; the copy aliases list_store,
-        // so mutating through it edits the stored list.
-        Value lst_expr;
-        if (!lst) {
-            lst_expr = ev(0);
-            if (lst_expr.type == Value::Type::StringList ||
-                lst_expr.type == Value::Type::ObjectList)
-                lst = &lst_expr;
-        }
-        // Copy the target onto the stack before evaluating the item: ev(1) runs
-        // arbitrary game script that may add or remove an attribute on the
-        // element `lst` points into, reallocating its fields vector and leaving
-        // `lst` dangling. A Value copy shares list_store (reference semantics),
-        // so the add/remove and its undo record still hit the stored list.
-        Value lst_hold;
-        if (lst) { lst_hold = *lst; lst = &lst_hold; }
-        Value item = ev(1);
-        if (!lst || !(lst->type == Value::Type::StringList ||
-                      lst->type == Value::Type::ObjectList)) {
-            errors().push_back("Unrecognised list type");
-            return true;
-        }
-        if (name == "list add") {
-            // The value is stored boxed/typed verbatim (QuestList<object>.Add)
-            // -- a list can hold dictionaries, objects, numbers... (spondre).
-            auto &v = lst->list();
-            if (undo_logging_) {
-                UndoAction a;
-                a.kind = UndoAction::Kind::ListAdd;
-                a.list_backing = lst->list_store;
-                a.old_value = item;
-                a.index = (long)v.size();
-                add_undo(std::move(a));
-            }
-            v.push_back(std::move(item));
-        } else {
-            // QuestList.Remove: first occurrence only (List<T>.Remove).
-            auto &v = lst->list();
-            for (auto i = v.begin(); i != v.end(); ++i)
-                if (values_equal(*i, item)) {
-                    if (undo_logging_) {
-                        UndoAction a;
-                        a.kind = UndoAction::Kind::ListRemove;
-                        a.list_backing = lst->list_store;
-                        a.old_value = *i;
-                        a.index = (long)(i - v.begin());
-                        add_undo(std::move(a));
-                    }
-                    v.erase(i);
-                    break;
-                }
-        }
+        exec_list_command(name == "list add", args, ctx);
         return true;
     }
     if (name == "dictionary add" || name == "dictionary remove") {
-        if (args.size() < 2) return true;
-        Value *d = lvalue_of(*args[0], ctx);
-        // Same expression-target fallback as `list add` above (QuestViva
-        // mutates whatever QuestDictionary the expression yields).
-        Value d_expr;
-        if (!d) {
-            d_expr = ev(0);
-            if (d_expr.type == Value::Type::StringDict ||
-                d_expr.type == Value::Type::ObjectDict ||
-                d_expr.type == Value::Type::ScriptDict)
-                d = &d_expr;
-        }
-        // Copy the target onto the stack before evaluating the key/value: the
-        // ev(1) key and the later ev(2) value run game script that may realloc
-        // the element's fields vector and dangle `d`. The copy shares dict_store
-        // (reference semantics), so mutations and undo records still hit the
-        // stored dictionary.
-        Value d_hold;
-        if (d) { d_hold = *d; d = &d_hold; }
-        std::string key = to_string(ev(1));
-        if (!d || !(d->type == Value::Type::StringDict ||
-                    d->type == Value::Type::ObjectDict ||
-                    d->type == Value::Type::ScriptDict)) {
-            errors().push_back("Unrecognised dictionary type");
-            return true;
-        }
-        // QuestDictionary.Add throws on a duplicate key (DictionaryAddScript
-        // calls IDictionary.Add directly) -- The Zen Garden defines the
-        // `touch` verb twice and its golden opens with exactly this error
-        // from Core's InitVerbsList. Only `dictionary add` throws; the
-        // remove path below still just erases.
-        if (name == "dictionary add") {
-            for (auto &kv : d->dict())
-                if (kv.first == key)
-                    error("Error adding key '" + key + "' to dictionary: "
-                          "An item with the same key has already been added. "
-                          "Key: " + key);
-        }
-        // remove any existing entry with this key first (Add replaces).
-        for (auto it = d->dict().begin(); it != d->dict().end();) {
-            if (it->first == key) {
-                if (undo_logging_) {
-                    UndoAction a;
-                    a.kind = UndoAction::Kind::DictRemove;
-                    a.dict_backing = d->dict_store;
-                    a.attr = key;
-                    a.old_value = it->second;
-                    a.index = (long)(it - d->dict().begin());
-                    add_undo(std::move(a));
-                }
-                it = d->dict().erase(it);
-            } else {
-                ++it;
-            }
-        }
-        if (name == "dictionary add") {
-            if (undo_logging_) {
-                UndoAction a;
-                a.kind = UndoAction::Kind::DictAdd;
-                a.dict_backing = d->dict_store;
-                a.attr = key;
-                a.index = (long)d->dict().size();
-                add_undo(std::move(a));
-            }
-            d->dict().emplace_back(key, ev(2));  // store the typed value verbatim
-        }
+        exec_dictionary_command(name == "dictionary add", args, ctx);
         return true;
     }
     if (name == "error") {
@@ -4188,11 +3281,3 @@ bool Interp::exec_statement_command(const std::string &name,
 }
 
 }  // namespace aslx
-
-// The statement parser and built-ins are large; they live in a second unit that
-// is included here so this file stays the single translation unit for the
-// runtime (the test unity-includes it).
-#include "aslx-runtime-parse.inc"
-#include "aslx-runtime-builtins.inc"
-#include "aslx-state.inc"
-#include "aslx-savenative.inc"
