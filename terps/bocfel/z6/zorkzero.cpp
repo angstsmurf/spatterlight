@@ -1233,13 +1233,11 @@ static void draw_card(int x, int y, int rank, int suit) {
 // positions. Sets attributes on NOT-HERE-OBJECT to track which slots are
 // visible.
 static void draw_cards(void) {
-    zo.NOT_HERE_OBJECT = 0x159;
-
     int x, y;
     for (int cnt = 0; cnt < 5; cnt++) {
         get_image_size(F_DISCARD_PIC_LOC + cnt, &x, &y);
         uint16_t draw_cards_attribute = DRAW_CARDS_OFFSET + cnt;
-        if (!internal_test_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute))
+        if (zo.NOT_HERE_OBJECT != 0 && !internal_test_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute))
             internal_set_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute);
         draw_card(x, y, cnt * 2, cnt * 2 + 1);
     }
@@ -1463,8 +1461,8 @@ void FANUCCI(void) {
     }
     bool finished = false;
 
-    if (autosolve_visual_puzzle()) {
-        internal_clear_attr(0x012f, 0x1e); // <FCLEAR ,BROOM ,TRYTAKEBIT>
+    if (zo.BROOM != 0 && autosolve_visual_puzzle()) {
+        internal_clear_attr(zo.BROOM, zp.TRYTAKEBIT);
         finished = true;
     }
 
@@ -1478,7 +1476,8 @@ void FANUCCI(void) {
             if (f_win_count == 3) {
                 uint16_t your_score = get_global(zg.YOUR_SCORE);
                 set_global(zg.YOUR_SCORE, your_score + 1000);
-                internal_clear_attr(0x012f, 0x1e); // <FCLEAR ,BROOM ,TRYTAKEBIT>
+                if (zo.BROOM != 0)
+                    internal_clear_attr(zo.BROOM, zp.TRYTAKEBIT);
                 finished = true;
             } else if (score_check()) {
                 finished = true;
@@ -1842,9 +1841,11 @@ static uint16_t snarfem_click(bool already_picked_pile) {
     if (already_picked_pile)
         return 0;
     // There are only four piles; PILE_1_PIC_LOC + 4 onward are the flower
-    // and peg locations, not piles.
+    // and peg locations, not piles. Like the original SN-CLICK, every pile
+    // uses the size of PILE-OF-1 as its hit box (all pile images are the
+    // same size anyway).
+    get_image_size(PILE_OF_0 + 1, &width, &height);
     for (int i = 1; i <= 4; i++) {
-        get_image_size(PILE_OF_0 + i, &width, &height);
         get_image_size(PILE_1_PIC_LOC + i - 1, &left, &top);
         if (within(left, top, width, height)) {
             return i;
@@ -1917,7 +1918,9 @@ void SN_CLICK(void) {
 // Z-machine entry point: offers auto-solve for the Snarfem game.
 // If accepted, immediately wins by clearing the TRYTAKEBIT on the FAN object.
 void SNARFEM(void) {
-    if (autosolve_visual_puzzle()) {
+    // Without the FAN object (release 242, where winning is handled inline
+    // rather than by clearing its TRYTAKEBIT) there is no way to fake a win.
+    if (zo.FAN != 0 && autosolve_visual_puzzle()) {
         transcribe_and_print_string("\n");
         store_variable(4, 1);
         internal_clear_attr(zo.FAN, zp.TRYTAKEBIT);
@@ -2016,8 +2019,7 @@ void SETUP_PBOZ(void) {
     // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
     // except attribute 7, which must not be set
     internal_set_attr(zo.NOT_HERE_OBJECT, 7);
-    zp.TOUCHBIT = 0x20;
-    internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT); // 0x20 is TOUCHBIT
+    internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT);
     set_global(zg.PEG_MOVE_NUMBER, 0);
     selected_peg_pos = 0;
     draw_peggles();

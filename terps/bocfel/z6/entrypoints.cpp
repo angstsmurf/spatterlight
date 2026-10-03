@@ -3127,6 +3127,13 @@ static void find_zork0_globals(void) {
             if (start == -1) {
                 fprintf(stderr, "Did not find zg.F_WIN_COUNT / zg.YOUR_SCORE!\n");
                 start = entrypoint.found_at_address;
+            } else if (memory[start + 1] == 0xcc && memory[start + 2] == 0x1f) {
+                // The score bonus is followed by <FCLEAR ,BROOM ,TRYTAKEBIT>
+                zo.BROOM = word(start + 3);
+                zp.TRYTAKEBIT = memory[start + 5];
+                fprintf(stderr, "zo.BROOM: 0x%x zp.TRYTAKEBIT: 0x%x\n", zo.BROOM, zp.TRYTAKEBIT);
+            } else {
+                fprintf(stderr, "zo.BROOM not found!\n");
             }
             start = find_globals_in_pattern({ 0xeb, 0x7f, 0x01, 0x8f, WILDCARD, WILDCARD, 0x95, WILDCARD }, { &zg.F_PLAYS, &zg.F_PLAYS, &zg.F_PLAYS }, start, 300);
             if (start == -1) {
@@ -3143,9 +3150,9 @@ static void find_zork0_globals(void) {
 
             start = find_16_bit_values_in_pattern({0xcb, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xcb, 0x1f, WILDCARD, WILDCARD }, {&zo.NOT_HERE_OBJECT, &zo.PBOZ_OBJECT, &zo.PBOZ_OBJECT }, entrypoint.found_at_address, 20);
             if (start != -1) {
-                start = find_16_bit_values_in_pattern({0xcb, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xcb, 0x1f, WILDCARD, WILDCARD }, {&zo.NOT_HERE_OBJECT, &zo.PBOZ_OBJECT, &zo.PBOZ_OBJECT }, entrypoint.found_at_address, 20);
-
-                fprintf(stderr, "zo.NOT_HERE_OBJECT: 0x%x zo.PBOZ_OBJECT: 0x%x\n", zo.NOT_HERE_OBJECT, zo.PBOZ_OBJECT);
+                // start is at PBOZ_OBJECT in <FSET ,PBOZ-OBJECT ,TOUCHBIT>
+                zp.TOUCHBIT = memory[start + 2];
+                fprintf(stderr, "zo.NOT_HERE_OBJECT: 0x%x zo.PBOZ_OBJECT: 0x%x zp.TOUCHBIT: 0x%x\n", zo.NOT_HERE_OBJECT, zo.PBOZ_OBJECT, zp.TOUCHBIT);
             } else {
                 fprintf(stderr, "zo.NOT_HERE_OBJECT not found!\n");
             }
@@ -3173,15 +3180,32 @@ static void find_zork0_globals(void) {
                 fprintf(stderr, "zt.PILE_TABLE not found!\n");
             }
         } else if (entrypoint.fn == SNARFEM && entrypoint.found_at_address != 0) {
-            start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0xce, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xcc, 0x1f, WILDCARD, WILDCARD}, {&zo.FAN, &zo.FAN, &zo.FAN}, entrypoint.found_at_address, 220);
-            if (start == -1) {
-                start = find_16_bit_values_in_pattern({0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, {&zo.FAN}, entrypoint.found_at_address, 350);
+            // The win branch is STORE L03,#01 ; CLEAR_ATTR FAN,TRYTAKEBIT ;
+            // NEW_LINE ; NEW_LINE. FAN is a byte constant from r343 on and a
+            // word constant in r296 and r66. (r242 handles the win inline
+            // instead, so there is nothing to find there.)
+            start = find_pattern_in_mem({0x0d, 0x04, 0x01, 0x0c, WILDCARD, WILDCARD, 0xbb, 0xbb}, entrypoint.found_at_address, 350);
+            if (start != -1) {
+                zo.FAN = memory[start + 4];
+                zp.TRYTAKEBIT = memory[start + 5];
+            } else {
+                start = find_pattern_in_mem({0x0d, 0x04, 0x01, 0xcc, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xbb, 0xbb}, entrypoint.found_at_address, 350);
                 if (start != -1) {
-                    zp.TRYTAKEBIT = zo.FAN & 0xff;
-                    zo.FAN = zo.FAN >> 8;
+                    zo.FAN = word(start + 5);
+                    zp.TRYTAKEBIT = memory[start + 7];
                 }
             }
             fprintf(stderr, "zo.FAN: 0x%x zp.TRYTAKEBIT: 0x%x\n", zo.FAN, zp.TRYTAKEBIT);
+        } else if (entrypoint.fn == PBOZ_WIN_CHECK && entrypoint.found_at_address != 0 && zo.NOT_HERE_OBJECT == 0) {
+            // r66 has no detectable SETUP-PBOZ to read NOT-HERE-OBJECT from,
+            // but draw_cards() needs it; take it from the first
+            // <FSET? ,NOT-HERE-OBJECT .CNT> of PBOZ-WIN-CHECK instead.
+            start = find_16_bit_values_in_pattern({0xca, 0x2f, WILDCARD, WILDCARD, 0x01}, {&zo.NOT_HERE_OBJECT}, entrypoint.found_at_address, 24);
+            if (start != -1) {
+                fprintf(stderr, "zo.NOT_HERE_OBJECT (PBOZ-WIN-CHECK fallback): 0x%x\n", zo.NOT_HERE_OBJECT);
+            } else {
+                fprintf(stderr, "zo.NOT_HERE_OBJECT fallback not found!\n");
+            }
         } else if (entrypoint.fn == DRAW_NEW_HERE && entrypoint.found_at_address != 0) {
             uint8_t philhall = 0, mountain = 0, savannah = 0, highway = 0;
             start = find_values_in_pattern({0xa0, WILDCARD, 0x46, 0x41, WILDCARD, WILDCARD, 0x4c, 0x51, WILDCARD, WILDCARD, 0x01, 0xa0, 0x01 }, {&zg.NARROW, &philhall, &philhall, &zp.P_APPLE_DESC, &zp.P_APPLE_DESC}, entrypoint.found_at_address, 50);

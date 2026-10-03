@@ -555,7 +555,7 @@ static int print_tag_route_to_str(char *str, size_t capacity) {
         name_length = max_name_length;
     }
 
-    route.append_zscii(get_global(jg.NAME_TBL) + 4, name_length);
+    route.append_zscii(get_global(jg.NAME_TBL) + 2, name_length);
     route.append(route_suffix);
     return route.length();
 }
@@ -1260,7 +1260,7 @@ void journey_init_screen(void) {
 // Uses abbreviated "Rt" suffix when the screen is narrow or the name is long.
 void TAG_ROUTE_PRINT(void) {
     int tag_name_length = get_global(jg.TAG_NAME_LENGTH);
-    int name_table = get_global(jg.NAME_TBL) + 4;
+    int name_table = get_global(jg.NAME_TBL) + 2;
 
     for (uint16_t j = 0; j < tag_name_length; j++) {
         put_char(user_byte(name_table++));

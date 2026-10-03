@@ -280,6 +280,7 @@ typedef struct ZorkObjects {
     uint16_t PYRAMID;
     uint16_t PYRAMID_R;
     uint16_t FAN;
+    uint16_t BROOM;
 } ZorkObjects;
 
 extern ZorkObjects zo;
