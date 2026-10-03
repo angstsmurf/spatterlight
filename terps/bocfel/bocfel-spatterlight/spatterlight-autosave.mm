@@ -234,6 +234,12 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
 
         [encoder encodeObject:tempMutArray3 forKey:@"bocfel_v6_layout"];
     }
+
+    if (library_state.mysterious_canvas != nullptr && library_state.mysterious_canvas_length > 0) {
+        NSData *canvas = [NSData dataWithBytes:library_state.mysterious_canvas
+                                        length:library_state.mysterious_canvas_length * sizeof(uint32_t)];
+        [encoder encodeObject:canvas forKey:@"bocfel_mysterious_canvas"];
+    }
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
@@ -308,4 +314,13 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
             i++;
         }
     }
+
+    static std::vector<uint32_t> mysterious_canvas;
+    NSData *canvas = [decoder decodeObjectOfClass:[NSData class] forKey:@"bocfel_mysterious_canvas"];
+    mysterious_canvas.resize(canvas.length / sizeof(uint32_t));
+    if (!mysterious_canvas.empty()) {
+        memcpy(mysterious_canvas.data(), canvas.bytes, mysterious_canvas.size() * sizeof(uint32_t));
+    }
+    library_state.mysterious_canvas = mysterious_canvas.empty() ? nullptr : mysterious_canvas.data();
+    library_state.mysterious_canvas_length = static_cast<int>(mysterious_canvas.size());
 }

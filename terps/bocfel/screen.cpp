@@ -419,6 +419,9 @@ public:
         ShogunMaze,
         Mysterious,
         MysteriousSeparator,
+#ifdef SPATTERLIGHT
+        MysteriousRule,
+#endif
     };
 
     enum class Border {
@@ -431,6 +434,9 @@ public:
     void destroy();
     void clear();
     void draw(glui32 pic, const ImageGeometry &geom, glui32 w, glui32 h) const;
+#ifdef SPATTERLIGHT
+    void fill(glui32 color, int x, int y, int w, int h) const;
+#endif
     void draw_border(Type type, Border border, glui32 pic) const;
     void draw_shogun_borders() const;
     glui32 get_window_width() const;
@@ -481,6 +487,30 @@ static GraphicsWindow mysterious_separator;
 // games. We could map game IDs to image IDs, but it’s simpler to just
 // count the total number of images and use that.
 static glui32 mysterious_max_image;
+
+#ifdef SPATTERLIGHT
+// The 2011 releases of the Mysterious Adventures come without a Blorb
+// file. Their pictures are stored in the story file as runs of pixels,
+// and each run is drawn by moving window 5 over it and erasing the
+// window to the colour of the run. The rule below the status lines is
+// drawn in the same way. These rectangles are collected in a canvas of
+// the size of the picture plus the rule, and painted in the graphics
+// window and in the separator window.
+static bool mysterious_inline;
+static constexpr int mysterious_canvas_width = 512;
+static constexpr int mysterious_picture_height = 192;
+static constexpr int mysterious_rule_height = 8;
+static constexpr int mysterious_canvas_height = mysterious_picture_height + mysterious_rule_height;
+static std::vector<glui32> mysterious_canvas;
+static uint16_t mysterious_status_lines = 3;
+
+// Rectangles which have been added to the canvas, but not painted yet.
+struct MysteriousRect {
+    glui32 color;
+    int x, y, width, height;
+};
+static std::vector<MysteriousRect> mysterious_pending;
+#endif
 
 static constexpr glui32 SHOGUN_MAZE_BLOCK_WIDTH = 7;
 static constexpr glui32 SHOGUN_MAZE_BLOCK_HEIGHT = 7;
@@ -2520,8 +2550,11 @@ bool GraphicsWindow::resize(Type type)
             {GraphicsWindow::Type::ShogunTitle, {320, 200}},
             {GraphicsWindow::Type::ShogunNormal, {320, 0}},
             {GraphicsWindow::Type::ShogunMaze, {274, 140}},
-            {GraphicsWindow::Type::Mysterious, {512, 208}},
+            {GraphicsWindow::Type::Mysterious, {512, 192}},
             {GraphicsWindow::Type::MysteriousSeparator, {512, 16}},
+#ifdef SPATTERLIGHT
+            {GraphicsWindow::Type::MysteriousRule, {512, 8}},
+#endif
         };
 
         const auto &size = window_sizes.at(type);
@@ -2620,6 +2653,28 @@ void GraphicsWindow::clear()
         glk_window_clear(m_id);
     }
 }
+
+#ifdef SPATTERLIGHT
+// Fill a rectangle given in the coordinates of the unscaled picture.
+// Both edges are rounded, rather than the size, so that adjacent
+// rectangles leave no gaps between them.
+void GraphicsWindow::fill(glui32 color, int x, int y, int w, int h) const
+{
+    if (m_id == nullptr) {
+        return;
+    }
+
+    double offset = (m_width - (m_ratio * m_base_width)) / 2;
+    long left = std::lround(offset + m_ratio * x);
+    long right = std::lround(offset + m_ratio * (x + w));
+    long top = std::lround(m_ratio * y * aspect_scale());
+    long bottom = std::lround(m_ratio * (y + h) * aspect_scale());
+
+    if (right > left && bottom > top) {
+        glk_window_fill_rect(m_id, color, left, top, right - left, bottom - top);
+    }
+}
+#endif
 
 glui32 GraphicsWindow::get_window_width() const
 {
@@ -2874,8 +2929,172 @@ static bool draw_mysterious(glui32 pic, glui32 w, glui32 h, double x, double y)
     ImageGeometry geom{0, 0};
     graphics_window.draw(pic, geom, w, h);
 
+#ifdef SPATTERLIGHT
+    current_picture = pic;
+#endif
+
     return true;
 }
+
+#ifdef SPATTERLIGHT
+// Paint a rectangle of the canvas in the window it belongs to: the
+// picture in the graphics window, and the rule in the separator window.
+static void mysterious_paint(glui32 color, int x, int y, int w, int h)
+{
+    bool is_default = color == zcolor_Default || color == zcolor_Current;
+
+    if (y < mysterious_picture_height && graphics_window.resize(GraphicsWindow::Type::Mysterious)) {
+        int bottom = std::min(y + h, mysterious_picture_height);
+
+        graphics_window.fill(is_default ? gsbgcol : color, x, y, w, bottom - y);
+    }
+
+    // As with the separator image of the Blorb releases, the creation
+    // of the separator window is delayed till here, to ensure the
+    // upper window is created first, so this comes below it.
+    if (y + h > mysterious_picture_height &&
+        mysterious_separator.create() &&
+        mysterious_separator.resize(GraphicsWindow::Type::MysteriousRule))
+    {
+        int top = std::max(y, mysterious_picture_height) - mysterious_picture_height;
+        int bottom = y + h - mysterious_picture_height;
+
+        // The rule is a white line on the default background, right
+        // below the status lines. Give it the colours of the status
+        // lines, so that it can be seen whatever the theme.
+        if (is_default) {
+            color = gsbgcol;
+        } else if (color == 0xffffff) {
+            color = gsfgcol;
+        }
+
+        mysterious_separator.fill(color, x, top, w, bottom - top);
+    }
+}
+
+// Window 5 is being erased: add its rectangle to the canvas.
+static void mysterious_fill()
+{
+    const auto &geometry = v6_geometry[5];
+    glui32 color = gargoyle_color(windows[5].bg_color);
+    int x = geometry.x - 1;
+    int y = geometry.y - 1;
+    int right = x + geometry.width;
+    int bottom;
+    int limit = mysterious_picture_height;
+
+    // The rule is drawn below the status lines, which in turn are
+    // below the picture.
+    if (y >= mysterious_picture_height) {
+        y -= mysterious_status_lines;
+        limit = mysterious_canvas_height;
+    }
+
+    bottom = y + geometry.height;
+
+    x = std::max(x, 0);
+    y = std::max(y, 0);
+    right = std::min(right, mysterious_canvas_width);
+    bottom = std::min(bottom, limit);
+
+    if (x >= right || y >= bottom) {
+        return;
+    }
+
+    if (mysterious_canvas.empty()) {
+        mysterious_canvas.assign(mysterious_canvas_width * mysterious_canvas_height, zcolor_Default);
+    }
+
+    for (int row = y; row < bottom; row++) {
+        auto start = mysterious_canvas.begin() + row * mysterious_canvas_width;
+        std::fill(start + x, start + right, color);
+    }
+
+    mysterious_pending.push_back({color, x, y, right - x, bottom - y});
+}
+
+// The game selects the main window after each rectangle, which sends
+// what has been drawn so far to the screen. A picture consists of
+// thousands of rectangles, and sending them one at a time is slow, so
+// they are held back until the game asks for input.
+static void mysterious_flush()
+{
+    for (const auto &rect : mysterious_pending) {
+        mysterious_paint(rect.color, rect.x, rect.y, rect.width, rect.height);
+    }
+
+    mysterious_pending.clear();
+}
+
+// Paint the entire canvas, as runs of pixels of the same colour. Rows
+// which are the same are painted in one go.
+static void mysterious_replay()
+{
+    mysterious_pending.clear();
+
+    if (mysterious_canvas.empty()) {
+        return;
+    }
+
+    for (int y = 0; y < mysterious_canvas_height; ) {
+        auto row = mysterious_canvas.begin() + y * mysterious_canvas_width;
+        int limit = y < mysterious_picture_height ? mysterious_picture_height : mysterious_canvas_height;
+        int rows = 1;
+
+        while (y + rows < limit && std::equal(row, row + mysterious_canvas_width, row + rows * mysterious_canvas_width)) {
+            rows++;
+        }
+
+        for (int x = 0; x < mysterious_canvas_width; ) {
+            int run = 1;
+
+            while (x + run < mysterious_canvas_width && row[x + run] == row[x]) {
+                run++;
+            }
+
+            mysterious_paint(row[x], x, y, run, rows);
+            x += run;
+        }
+
+        y += rows;
+    }
+}
+
+// The screen is being cleared: the picture and the rule go as well.
+static void mysterious_reset()
+{
+    mysterious_canvas.clear();
+    mysterious_pending.clear();
+    graphics_window.destroy();
+    mysterious_separator.destroy();
+}
+
+// The game only draws the room picture and the separator when the
+// room changes, so put them back when their windows have been emptied
+// by a resize, or have come back from an autosave.
+static void redraw_mysterious()
+{
+    if (mysterious_inline) {
+        mysterious_replay();
+        return;
+    }
+
+    if (hack != Hack::MysteriousAdventures || current_picture == 0) {
+        return;
+    }
+
+    glui32 w, h;
+    glui32 separator = mysterious_max_image - 3;
+
+    if (glk_image_get_info(current_picture, &w, &h)) {
+        draw_mysterious(current_picture, w, h, 0, 0);
+    }
+
+    if (glk_image_get_info(separator, &w, &h)) {
+        draw_mysterious(separator, w, h, 0, 0);
+    }
+}
+#endif
 #endif
 
 void zwindow_size()
@@ -2915,6 +3134,16 @@ void zerase_window()
     int32_t arg0 = as_signed(zargs[0]);
     arthur_erase_window(zargs[0]);
     z0_erase_window(zargs[0]);
+#ifdef ZTERP_GLK_GRAPHICS
+    if (mysterious_inline) {
+        if (arg0 == 5 || (arg0 == -3 && curwin == &windows[5])) {
+            mysterious_fill();
+            return;
+        } else if (arg0 == -1) {
+            mysterious_reset();
+        }
+    }
+#endif
 #endif
 #ifdef ZTERP_GLK
     switch (as_signed(zargs[0])) {
@@ -3111,6 +3340,13 @@ void zset_cursor()
 {
 #ifdef ZTERP_GLK_GRAPHICS
     if (hack == Hack::MysteriousAdventures) {
+#ifdef SPATTERLIGHT
+        // The status lines of the releases without a Blorb file are
+        // right below the picture.
+        if (mysterious_inline) {
+            zargs[0] = zargs[0] > mysterious_picture_height ? zargs[0] - mysterious_picture_height : 1;
+        } else
+#endif
         zargs[0] -= 180;
     }
 #endif
@@ -3230,6 +3466,9 @@ void v6_restore_hacks(void) {
         } else if (is_spatterlight_zork0) {
             z0_update_after_autorestore();
         }
+#ifdef ZTERP_GLK_GRAPHICS
+        redraw_mysterious();
+#endif
     } else {
         if (is_spatterlight_journey) {
             journey_update_after_restore();
@@ -3554,6 +3793,17 @@ void zsplit_window()
 
 #ifdef ZTERP_GLK_GRAPHICS
     if (hack == Hack::MysteriousAdventures) {
+#ifdef SPATTERLIGHT
+        // The releases without a Blorb file have a varying number of
+        // status lines. Their upper window also covers the picture and
+        // the rule, which have windows of their own here.
+        if (mysterious_inline) {
+            zargs[0] = zargs[0] > mysterious_canvas_height ? zargs[0] - mysterious_canvas_height : 0;
+            if (zargs[0] != 0) {
+                mysterious_status_lines = zargs[0];
+            }
+        } else
+#endif
         zargs[0] = 3;
     }
 #endif
@@ -3634,6 +3884,9 @@ void window_change()
     close_journey_window();
 #endif
     mysterious_separator.destroy();
+#ifdef SPATTERLIGHT
+    redraw_mysterious();
+#endif
 
 #ifndef SPATTERLIGHT
     // This calls V-$REFRESH, i.e. the “refresh” or “$refresh” verb.
@@ -4216,6 +4469,9 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
     // Flush all streams when input is requested.
 #ifndef ZTERP_GLK
     IO::standard_out().flush();
+#endif
+#if defined(SPATTERLIGHT) && defined(ZTERP_GLK_GRAPHICS)
+    mysterious_flush();
 #endif
     if (scriptio != nullptr) {
         scriptio->flush();
@@ -7159,6 +7415,9 @@ void create_graphicswin()
         if ((is_game(Game::Arthur) ||
              is_game(Game::ZorkZero) ||
              is_game(Game::Shogun) ||
+#ifdef SPATTERLIGHT
+             is_game(Game::MysteriousAdventuresInline) ||
+#endif
              is_game(Game::MysteriousAdventures)) &&
              graphics_window.create())
         {
@@ -7179,6 +7438,11 @@ void create_graphicswin()
                     graphics_window.destroy();
                     hack = Hack::None;
                 }
+#ifdef SPATTERLIGHT
+            } else if (is_game(Game::MysteriousAdventuresInline)) {
+                hack = Hack::MysteriousAdventures;
+                mysterious_inline = true;
+#endif
             }
         } else if (is_game(Game::Journey)) {
             hack = Hack::Journey;
@@ -7640,6 +7904,24 @@ void stash_library_state(library_state_data *dat)
 
         v6_stash_layout(dat);
 
+#ifdef ZTERP_GLK_GRAPHICS
+        // The canvas of the Mysterious Adventures without a Blorb file,
+        // as pairs of a colour and the number of pixels having it.
+        static std::vector<uint32_t> canvas_runs;
+        canvas_runs.clear();
+        for (size_t i = 0; i < mysterious_canvas.size(); ) {
+            size_t run = 1;
+            while (i + run < mysterious_canvas.size() && mysterious_canvas[i + run] == mysterious_canvas[i]) {
+                run++;
+            }
+            canvas_runs.push_back(mysterious_canvas[i]);
+            canvas_runs.push_back(run);
+            i += run;
+        }
+        dat->mysterious_canvas = canvas_runs.data();
+        dat->mysterious_canvas_length = static_cast<int>(canvas_runs.size());
+#endif
+
         if (is_spatterlight_journey) {
             journey_stash_state(dat);
         } else if (is_spatterlight_arthur) {
@@ -7668,6 +7950,17 @@ void recover_library_state(library_state_data *dat)
         errorwin = gli_window_for_tag(dat->errorwintag);
         graphics_window.set_id(gli_window_for_tag(dat->graphicswintag));
         graphics_bg_glk = graphics_window.id();
+
+        // The separator of the Mysterious Adventures is the only other
+        // graphics window they have.
+        if (hack == Hack::MysteriousAdventures) {
+            mysterious_separator.set_id(nullptr);
+            for (winid_t win = glk_window_iterate(nullptr, nullptr); win != nullptr; win = glk_window_iterate(win, nullptr)) {
+                if (win->type == wintype_Graphics && win != graphics_window.id()) {
+                    mysterious_separator.set_id(win);
+                }
+            }
+        }
 
         active_blorb_file_stream = gli_stream_for_tag(dat->blorbfiletag);
 
@@ -7706,6 +7999,25 @@ void recover_library_state(library_state_data *dat)
             margin_images[i] = dat->margin_images[i];
 
         v6_recover_layout(dat);
+
+#ifdef ZTERP_GLK_GRAPHICS
+        mysterious_canvas.clear();
+        mysterious_pending.clear();
+        if (mysterious_inline && dat->mysterious_canvas != nullptr) {
+            const size_t size = mysterious_canvas_width * mysterious_canvas_height;
+            for (int i = 0; i + 1 < dat->mysterious_canvas_length; i += 2) {
+                size_t run = dat->mysterious_canvas[i + 1];
+                if (run > size - mysterious_canvas.size()) {
+                    mysterious_canvas.clear();
+                    break;
+                }
+                mysterious_canvas.insert(mysterious_canvas.end(), run, dat->mysterious_canvas[i]);
+            }
+            if (mysterious_canvas.size() != size) {
+                mysterious_canvas.clear();
+            }
+        }
+#endif
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;

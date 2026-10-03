@@ -106,6 +106,9 @@ enum class Game {
     ZorkZero,
     ZorkZeroDOS,
     MysteriousAdventures,
+#ifdef SPATTERLIGHT
+    MysteriousAdventuresInline,
+#endif
 };
 
 bool is_game(Game game);

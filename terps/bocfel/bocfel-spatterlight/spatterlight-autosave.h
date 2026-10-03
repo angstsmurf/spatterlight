@@ -118,6 +118,12 @@ typedef struct library_state_data_struct {
     int v6_layout_valid;
     int v6_layout[BOCFEL_V6_LAYOUT_VALUES];
 
+    // The picture and the rule of the Mysterious Adventures which
+    // draw them themselves, as pairs of a colour and a pixel count.
+    // The memory belongs to whoever filled in the struct.
+    int mysterious_canvas_length;
+    const uint32_t *mysterious_canvas;
+
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);

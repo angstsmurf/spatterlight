@@ -151,6 +151,24 @@ static void initialize_games()
         "1-041209-b1de",
     };
 
+#ifdef SPATTERLIGHT
+    // The 2011 releases, which need no Blorb file: the pictures are
+    // part of the story file.
+    static const std::set<std::string> mysterious_inline = {
+        "1-110126-1bac",
+        "1-110126-d3dd",
+        "1-110126-f57a",
+        "1-110126-d4e7",
+        "1-110126-99f5",
+        "1-110126-7645",
+        "1-110126-db4e",
+        "1-110126-606c",
+        "1-110126-0cfc",
+        "1-110126-c3f2",
+        "1-110126-37b0",
+    };
+#endif
+
     static const std::vector<std::pair<Game, std::set<std::string>>> gamemap = {
         { Game::Infocom1234, infocom1234 },
         { Game::AMFV, { "131-850628", "77-850814", "79-851122" } },
@@ -182,6 +200,9 @@ static void initialize_games()
 #endif
         { Game::ZorkZeroDOS, { "393-890714" } },
         { Game::MysteriousAdventures, mysterious },
+#ifdef SPATTERLIGHT
+        { Game::MysteriousAdventuresInline, mysterious_inline },
+#endif
     };
 
     for (const auto &[game, ids] : gamemap) {
