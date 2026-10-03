@@ -47,6 +47,7 @@ void DRAW_FLOWERS(void);
 void SN_CLICK(void);
 void FANUCCI(void);
 void SETUP_FANUCCI(void);
+void SLIDE_SHOW_END(void);
 void V_MAP_LOOP(void);
 
 enum BorderType {

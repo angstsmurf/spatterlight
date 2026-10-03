@@ -1859,6 +1859,23 @@ static std::vector<EntryPoint> entrypoints = {
         SN_CLICK
     },
 
+    // The end of the demo's SLIDE-SHOW (r66 and later), just after the
+    // HIT-ANY-KEY that follows the version banner:
+    //   NEW_LINE; CALL_1N HIT-ANY-KEY; INSERT_OBJ DIRIGIBLE,SMALLER-HANGAR;
+    //   PUT_PROP GONDOLA,P?REGION,"Fenshire"
+    // The hook sits on the INSERT_OBJ, so it runs once the key is pressed.
+    // global_search because nothing else in the table is near SLIDE-SHOW.
+    {
+        Game::ZorkZero,
+        "SLIDE-SHOW end",
+        { 0xbb, 0x8f, WILDCARD, WILDCARD, 0xce, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xe3, 0x53, WILDCARD, 0x27 },
+        4,
+        0,
+        false,
+        SLIDE_SHOW_END,
+        true,
+    },
+
 
     // Shared with Arthur and Shogun
     {

@@ -1612,7 +1612,20 @@ static void redraw_fanucci(void) {
     if (graphics_type == kGraphicsTypeMacBW)
         y += 2;
     y *= imagescaley;
+    // The two score windows are the status line windows, and keep whatever
+    // text colour they had last. That is the background colour if the border
+    // is off, and the theme's default in the demo's slide show, where
+    // INIT-STATUS-LINE has not run yet. Give them the colour of a bordered
+    // status line, as the scores are printed on top of the border picture.
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+    if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, monochrome_black);
+    } else {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    }
+
     fanucci_window(1, x, y, 20);
+    win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     glk_put_string(const_cast<char*>("Jester's Score:  000"));
 
 //    if (z0_right_status_window == nullptr) {
@@ -1620,7 +1633,10 @@ static void redraw_fanucci(void) {
 //        fprintf(stderr, "Error!\n");
 //    }
 
-    win_sizewin(z0_right_status_window->peer, MAX(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0), y, gscreenw - x, y + V6_STATUS_WINDOW.y_size);
+    // Same vertical position as the Jester's score window
+    const grect_t &jester = V6_STATUS_WINDOW.id->bbox;
+    win_sizewin(z0_right_status_window->peer, MAX(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0), jester.y0, gscreenw - x, jester.y1);
+    win_refresh(z0_right_status_window->peer, 0, 0);
     glk_set_window(z0_right_status_window);
     glk_window_clear(z0_right_status_window);
     glk_put_string(const_cast<char*>("Your Score:  000"));
@@ -1730,6 +1746,14 @@ void SETUP_FANUCCI(void) {
     glk_request_mouse_event(fanucci_command_grid);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
     screenmode = MODE_Z0_GAME;
+}
+
+// The demo's SLIDE-SHOW ends by printing the version banner and
+// "[Hit any key to continue.]", and then goes straight to the first room of
+// the interactive section without a line break or a clear, so that the room
+// name ends up on the same line as the prompt. Start the game on a clean page.
+void SLIDE_SHOW_END(void) {
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 }
 
 #pragma mark - Snarfem (Nim)
