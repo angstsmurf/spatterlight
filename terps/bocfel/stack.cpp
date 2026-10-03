@@ -182,6 +182,13 @@ static void add_frame(uint32_t pc_, uint16_t *sp_, uint8_t nlocals, uint8_t narg
     fp++;
 }
 
+// The number of locals of the routine currently executing: variable() and
+// store_variable() abort on anything above it.
+uint8_t current_frame_nlocals()
+{
+    return CURRENT_FRAME->nlocals;
+}
+
 uint16_t variable(uint16_t var)
 {
     ZASSERT(var < 0x100, "unable to decode variable %u", static_cast<unsigned int>(var));

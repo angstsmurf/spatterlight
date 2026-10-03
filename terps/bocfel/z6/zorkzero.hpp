@@ -36,7 +36,6 @@ void B_MOUSE_WEIGHT_PICK(void);
 void SETUP_PBOZ(void);
 void PBOZ_CLICK(void);
 void PEG_GAME(void);
-void PEG_GAME_READ_CHAR(void);
 void PBOZ_WIN_CHECK(void);
 void DISPLAY_MOVES(void);
 void SNARFEM(void);
@@ -149,6 +148,7 @@ enum BorderType {
 #define EXPAND_HOT_SPOT 477
 
 #define UNHL_PEG 50
+#define HL_PEG 51
 
 #define B_1_WEIGHT 43
 
@@ -236,10 +236,19 @@ typedef struct ZorkRoutines {
     uint32_t J_PLAY;
     uint32_t SCORE_CHECK;
     uint32_t DRAW_PEGS;
+    // The mouse-click handlers of Peggleboz, Snarfem and Tower of Bozbar.
+    // 0 = this revision has no mouse support in that game (r242), so the
+    // game's clickable boxes are not drawn.
+    uint32_t PBOZ_CLICK;
+    uint32_t SN_CLICK;
+    uint32_t B_MOUSE_PEG_PICK;
     uint32_t SET_B_PIC;
     uint32_t TOWER_WIN_CHECK;
     // Address of the branch in SNARFEM taken when the player wins. 0 = not found.
     uint32_t SNARFEM_WIN;
+    // Address of the code in PEG-GAME that follows a legal move and calls
+    // PBOZ-WIN-CHECK. 0 = not found.
+    uint32_t PEG_GAME_WIN;
     uint32_t PLAY_SELECTED;
 } ZorkRoutines;
 
@@ -255,6 +264,10 @@ typedef struct ZorkTables {
     uint16_t PILE_TABLE;
     uint16_t PBOZ_PIC_TABLE;
     uint16_t BOARD_TABLE;
+    // r242 and r296 only: the Peggleboz pegs as a table of words (1 = peg
+    // present), indexed 1..21. Later revisions use attributes 1..21 of
+    // NOT-HERE-OBJECT instead (set = peg gone).
+    uint16_t PEG_TABLE;
     uint16_t B_X_TBL;
     uint16_t B_Y_TBL;
     uint16_t F_CARD_TABLE;

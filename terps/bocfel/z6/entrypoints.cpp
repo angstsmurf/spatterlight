@@ -32,6 +32,7 @@
 // Entries with `stub_original = true` have their first byte overwritten
 // with `rtrue` (0xb0), so the original Z-code at that address returns
 // immediately and the C++ replacement is the sole implementation.
+#include <algorithm>
 #include <unordered_map>
 #include <vector>
 
@@ -1533,15 +1534,17 @@ static std::vector<EntryPoint> entrypoints = {
         PEG_GAME
     },
 
-    {
-        Game::ZorkZero,
-        "PEG-GAME-READ-CHAR",
-        { 0xc1, 0x97, 0x03, 0xfe, 0xfd, 0x46 },
-        0,
-        0,
-        false,
-        PEG_GAME_READ_CHAR
-    },
+    // The Peggleboz routines below have "alt" patterns for the early
+    // revisions, which differ from the later ones in three ways:
+    //   - r296 and r66 call routines by constant (CALL_2N #xxxx = da 0f)
+    //     where the later revisions call through a global (da 4f).
+    //   - r242 and r296 keep the pegs in PEG-TABLE, a table of words (1 = peg
+    //     present), rather than in attributes of NOT-HERE-OBJECT (set = peg
+    //     gone), so SETUP-PBOZ lacks the leading <FSET ,NOT-HERE-OBJECT 7>
+    //     and DRAW-PEGS / PBOZ-WIN-CHECK read the table.
+    //   - r242 has no mouse support in Peggleboz: no PBOZ-CLICK.
+    // Exactly one pattern per routine matches in any given revision; see
+    // has_alt_pattern() in find_entrypoints().
 
     {
         Game::ZorkZero,
@@ -1553,10 +1556,47 @@ static std::vector<EntryPoint> entrypoints = {
         PBOZ_CLICK
     },
 
+    // r296, r66
+    {
+        Game::ZorkZero,
+        "PBOZ-CLICK alt",
+        { 0x0d, 0x05, 0x02, 0xda, 0x0f, WILDCARD, WILDCARD, 0x01, 0xd8 },
+        0,
+        0,
+        false,
+        PBOZ_CLICK
+    },
+
     {
         Game::ZorkZero,
         "SETUP-PBOZ",
-        { 0x0d, 0x01, 0x02, 0xcb, 0x1f, 0x01, 0x59, 0x07 },
+        // Bytes 6-7 were 0x01, 0x59, the object number of NOT-HERE-OBJECT in
+        // r343 and later; it is 0x1fa in r66.
+        { 0x0d, 0x01, 0x02, 0xcb, 0x1f, WILDCARD, WILDCARD, 0x07 },
+        0,
+        0,
+        true,
+        SETUP_PBOZ
+    },
+
+    // r296: STORE I,#02 ; SET_ATTR PBOZ-OBJECT,TOUCHBIT (byte constants) ;
+    // STORE TT,PBOZ-PIC-TABLE ; LOADW TT,#00
+    {
+        Game::ZorkZero,
+        "SETUP-PBOZ alt",
+        { 0x0d, 0x01, 0x02, 0x0b, WILDCARD, WILDCARD, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x4f, 0x02, 0x00, 0x00 },
+        0,
+        0,
+        true,
+        SETUP_PBOZ
+    },
+
+    // r242 (SETUP-PEGGLEBOZ): STORE I,#02 ; TEST_ATTR PEGGLEBOZ-OBJECT,TOUCHBIT ;
+    // SET_ATTR PEGGLEBOZ-OBJECT,TOUCHBIT ; STORE TT,PEGGLEBOZ-PIC-TABLE
+    {
+        Game::ZorkZero,
+        "SETUP-PBOZ alt 2",
+        { 0x0d, 0x01, 0x02, 0xca, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0x80, WILDCARD, 0xcb, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xcd, 0x4f, 0x02 },
         0,
         0,
         true,
@@ -1566,7 +1606,19 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-PEGS",
-        { 0x0d, 0x01, 0x01, 0xca, 0x2f, 0x01, 0x59, 0x01, 0xe3 },
+        // Bytes 6-7 were 0x01, 0x59 (NOT-HERE-OBJECT); see SETUP-PBOZ.
+        { 0x0d, 0x01, 0x01, 0xca, 0x2f, WILDCARD, WILDCARD, 0x01, 0xe3 },
+        -1,
+        0,
+        false,
+        DRAW_PEGS
+    },
+
+    // r242, r296: STORE NUM,#01 ; LOADW PEG-TABLE,NUM -> -(SP) ; JE (SP)+,#01
+    {
+        Game::ZorkZero,
+        "DRAW-PEGS alt",
+        { 0x0d, 0x01, 0x01, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x01, 0x00, 0x41, 0x00, 0x01 },
         -1,
         0,
         false,
@@ -1576,7 +1628,9 @@ static std::vector<EntryPoint> entrypoints = {
     {
         Game::ZorkZero,
         "PBOZ-WIN-CHECK",
-        { 0x0d, 0x01, 0x01, 0xa0, WILDCARD, 0x40, 0x41, 0x01, 0x16, 0xcf },
+        // Last byte was 0xcf, the branch offset of JE CNT,#16, which is 0xd3
+        // in the revisions that count the pegs in PEG-TABLE (r242, r296).
+        { 0x0d, 0x01, 0x01, 0xa0, WILDCARD, 0x40, 0x41, 0x01, 0x16, WILDCARD },
         0,
         0,
         false,
@@ -1750,6 +1804,18 @@ static std::vector<EntryPoint> entrypoints = {
         B_MOUSE_WEIGHT_PICK
     },
 
+    // r296, r66: PICINF-PLUS-ONE is called by constant rather than through a
+    // global (see the Peggleboz "alt" rows above).
+    {
+        Game::ZorkZero,
+        "B-MOUSE-WEIGHT-PICK alt",
+        { 0xda, 0x0f, WILDCARD, WILDCARD, 0x01, 0xdb, 0xcf, 0x1f },
+        0,
+        0,
+        false,
+        B_MOUSE_WEIGHT_PICK
+    },
+
     {
         Game::ZorkZero,
         "TOWER-WIN-CHECK",
@@ -1804,6 +1870,17 @@ static std::vector<EntryPoint> entrypoints = {
         Game::ZorkZero,
         "DRAW-SN-BOXES",
         { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x4f, WILDCARD, 0x01, 0xd6 },
+        0,
+        0,
+        true,
+        DRAW_SN_BOXES
+    },
+
+    // r296, r66: PICINF-PLUS-ONE called by constant, as above.
+    {
+        Game::ZorkZero,
+        "DRAW-SN-BOXES alt",
+        { 0x0d, 0x05, 0x01, 0xeb, 0x7f, 0x01, 0xda, 0x0f, WILDCARD, WILDCARD, 0x01, 0xd6 },
         0,
         0,
         true,
@@ -3051,10 +3128,18 @@ static void find_zork0_globals(void) {
         } else if (entrypoint.fn == DISPLAY_HINT && entrypoint.found_at_address != 0) {
             start = find_display_hint_globals(entrypoint.found_at_address);
             entrypoint.found_at_address = 0; // DISPLAY_HINT
-            } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
+        } else if ((entrypoint.fn == PBOZ_CLICK || entrypoint.fn == B_MOUSE_PEG_PICK || entrypoint.fn == B_MOUSE_WEIGHT_PICK)  &&
                    entrypoint.found_at_address != 0) {
             memory[entrypoint.found_at_address] = 0xab;
             memory[entrypoint.found_at_address + 1] = 0x02;
+            // Remember that this revision has mouse support in the mini-game
+            // (r242 has none), so that its clickable boxes get drawn.
+            if (entrypoint.fn == PBOZ_CLICK)
+                zr.PBOZ_CLICK = entrypoint.found_at_address;
+            else if (entrypoint.fn == B_MOUSE_PEG_PICK)
+                zr.B_MOUSE_PEG_PICK = entrypoint.found_at_address;
+        } else if (entrypoint.fn == SN_CLICK && entrypoint.found_at_address != 0) {
+            zr.SN_CLICK = entrypoint.found_at_address;
         } else if (entrypoint.fn == V_DEFINE && entrypoint.found_at_address != 0) {
             start = find_function_key_tables(entrypoint.found_at_address);
         } else if (entrypoint.fn == V_REFRESH && entrypoint.found_at_address != 0) {
@@ -3240,26 +3325,39 @@ static void find_zork0_globals(void) {
                 memory[start + i] = patch[i];
             }
         } else if (entrypoint.fn == SETUP_PBOZ && entrypoint.found_at_address != 0) {
-
-            start = find_16_bit_values_in_pattern({0xcb, 0x1f, WILDCARD, WILDCARD, WILDCARD, 0xcb, 0x1f, WILDCARD, WILDCARD }, {&zo.NOT_HERE_OBJECT, &zo.PBOZ_OBJECT, &zo.PBOZ_OBJECT }, entrypoint.found_at_address, 20);
-            if (start != -1) {
-                // start is at PBOZ_OBJECT in <FSET ,PBOZ-OBJECT ,TOUCHBIT>
-                zp.TOUCHBIT = memory[start + 2];
-                fprintf(stderr, "zo.NOT_HERE_OBJECT: 0x%x zo.PBOZ_OBJECT: 0x%x zp.TOUCHBIT: 0x%x\n", zo.NOT_HERE_OBJECT, zo.PBOZ_OBJECT, zp.TOUCHBIT);
-            } else {
-                fprintf(stderr, "zo.NOT_HERE_OBJECT not found!\n");
+            // After STORE I,#02 the routine sets its attributes, which is
+            // where the revisions differ (see the three SETUP-PBOZ rows).
+            const uint32_t a = entrypoint.found_at_address + 3;
+            if (memory[a] == 0xcb && memory[a + 5] == 0xcb) {
+                // r343 on: SET_ATTR NOT-HERE-OBJECT,#07 ; SET_ATTR PBOZ-OBJECT,TOUCHBIT
+                zo.NOT_HERE_OBJECT = word(a + 2);
+                zo.PBOZ_OBJECT = word(a + 7);
+                zp.TOUCHBIT = memory[a + 9];
+            } else if (memory[a] == 0xcb && memory[a + 5] == 0x0b) {
+                // r66: the same, with PBOZ-OBJECT as a byte constant
+                zo.NOT_HERE_OBJECT = word(a + 2);
+                zo.PBOZ_OBJECT = memory[a + 6];
+                zp.TOUCHBIT = memory[a + 7];
+            } else if (memory[a] == 0x0b) {
+                // r296: SET_ATTR PBOZ-OBJECT,TOUCHBIT only (the pegs are in
+                // PEG-TABLE, so NOT-HERE-OBJECT plays no part)
+                zo.PBOZ_OBJECT = memory[a + 1];
+                zp.TOUCHBIT = memory[a + 2];
+            } else if (memory[a] == 0xca) {
+                // r242: TEST_ATTR PEGGLEBOZ-OBJECT,TOUCHBIT ; SET_ATTR likewise
+                zo.PBOZ_OBJECT = word(a + 2);
+                zp.TOUCHBIT = memory[a + 4];
             }
-            int oldstart = start;
-            start = find_16_bit_values_in_pattern({0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x4f  }, {&zt.PBOZ_PIC_TABLE }, start, 20);
+            fprintf(stderr, "zo.NOT_HERE_OBJECT: 0x%x zo.PBOZ_OBJECT: 0x%x zp.TOUCHBIT: 0x%x\n", zo.NOT_HERE_OBJECT, zo.PBOZ_OBJECT, zp.TOUCHBIT);
+
+            start = find_16_bit_values_in_pattern({0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x4f  }, {&zt.PBOZ_PIC_TABLE }, entrypoint.found_at_address, 40);
             if (start != -1) {
                 fprintf(stderr, "zt.PBOZ_PIC_TABLE: 0x%x\n", zt.PBOZ_PIC_TABLE);
             } else {
                 fprintf(stderr, "zt.PBOZ_PIC_TABLE not found!\n");
-                start = oldstart;
             }
-            start = find_16_bit_values_in_pattern({0xe1, 0x2b, WILDCARD, WILDCARD, 0x01, 0x00}, {&zt.BOARD_TABLE }, start, 50);
+            start = find_16_bit_values_in_pattern({0xe1, 0x2b, WILDCARD, WILDCARD, 0x01, 0x00}, {&zt.BOARD_TABLE }, entrypoint.found_at_address, 80);
             if (start != -1) {
-
                 fprintf(stderr, "zt.BOARD_TABLE: 0x%x\n", zt.BOARD_TABLE);
             } else {
                 fprintf(stderr, "zt.BOARD_TABLE not found!\n");
@@ -3296,15 +3394,36 @@ static void find_zork0_globals(void) {
             } else {
                 fprintf(stderr, "zr.SNARFEM_WIN not found!\n");
             }
-        } else if (entrypoint.fn == PBOZ_WIN_CHECK && entrypoint.found_at_address != 0 && zo.NOT_HERE_OBJECT == 0) {
-            // r66 has no detectable SETUP-PBOZ to read NOT-HERE-OBJECT from,
-            // but draw_cards() needs it; take it from the first
-            // <FSET? ,NOT-HERE-OBJECT .CNT> of PBOZ-WIN-CHECK instead.
-            start = find_16_bit_values_in_pattern({0xca, 0x2f, WILDCARD, WILDCARD, 0x01}, {&zo.NOT_HERE_OBJECT}, entrypoint.found_at_address, 24);
+        } else if (entrypoint.fn == PEG_GAME && entrypoint.found_at_address != 0) {
+            // Find the code that follows a legal move, which PEG_GAME() jumps
+            // to when the player asks to skip the game. The same in every
+            // revision:
+            //   STORE PEG-SELECTED,#00 ; SET_WINDOW #00 ; ERASE_WINDOW #00 ;
+            //   CALL_1S PBOZ-WIN-CHECK -> -(SP) ; JZ (SP)+
+            start = find_pattern_in_mem({0x0d, 0x02, 0x00, 0xeb, 0x7f, 0x00, 0xed, 0x7f, 0x00, 0x88, WILDCARD, WILDCARD, 0x00, 0xa0, 0x00}, entrypoint.found_at_address, 800);
             if (start != -1) {
-                fprintf(stderr, "zo.NOT_HERE_OBJECT (PBOZ-WIN-CHECK fallback): 0x%x\n", zo.NOT_HERE_OBJECT);
+                zr.PEG_GAME_WIN = start;
+                fprintf(stderr, "zr.PEG_GAME_WIN: 0x%x\n", zr.PEG_GAME_WIN);
             } else {
-                fprintf(stderr, "zo.NOT_HERE_OBJECT fallback not found!\n");
+                fprintf(stderr, "zr.PEG_GAME_WIN not found!\n");
+            }
+        } else if (entrypoint.fn == PBOZ_WIN_CHECK && entrypoint.found_at_address != 0) {
+            // The counting loop tests each peg right after JE CNT,#16:
+            //   r242, r296:  LOADW PEG-TABLE,CNT -> -(SP)  (cf 2f <table> 01 00)
+            //   r66 on:      TEST_ATTR NOT-HERE-OBJECT,CNT (ca 2f <object> 01)
+            const uint32_t a = entrypoint.found_at_address + 10;
+            if (memory[a] == 0xcf && memory[a + 1] == 0x2f) {
+                zt.PEG_TABLE = word(a + 2);
+                fprintf(stderr, "zt.PEG_TABLE: 0x%x\n", zt.PEG_TABLE);
+            } else if (zo.NOT_HERE_OBJECT == 0) {
+                // Fallback for a revision whose SETUP-PBOZ was not found;
+                // draw_cards() needs NOT-HERE-OBJECT too.
+                if (memory[a] == 0xca && memory[a + 1] == 0x2f) {
+                    zo.NOT_HERE_OBJECT = word(a + 2);
+                    fprintf(stderr, "zo.NOT_HERE_OBJECT (PBOZ-WIN-CHECK fallback): 0x%x\n", zo.NOT_HERE_OBJECT);
+                } else {
+                    fprintf(stderr, "zo.NOT_HERE_OBJECT fallback not found!\n");
+                }
             }
         } else if (entrypoint.fn == DRAW_NEW_HERE && entrypoint.found_at_address != 0) {
             uint8_t philhall = 0, mountain = 0, savannah = 0, highway = 0;
@@ -3535,12 +3654,17 @@ void find_entrypoints(void) {
     // any V_MAP_LOOP has matched, skip the rest.
     bool found_v_map_loop = false;
 
-    // Zork Zero's SETUP-FANUCCI, FANUCCI and J-PLAY each have an "alt"
-    // pattern for the early revisions (r296, r66). Exactly one of each pair
-    // is the real routine, so once one has matched, skip the other.
-    bool found_setup_fanucci = false;
-    bool found_fanucci = false;
-    bool found_j_play = false;
+    // Several Zork Zero mini-game routines have "alt" patterns for the early
+    // revisions (r242, r296, r66): SETUP-FANUCCI, FANUCCI and J-PLAY, and the
+    // Peggleboz, Snarfem and Tower of Bozbar ones listed here. Exactly one
+    // pattern of each set is the real routine, so once one has matched, skip
+    // the others.
+    auto has_alt_pattern = [](void (*fn)()) {
+        return fn == SETUP_FANUCCI || fn == FANUCCI || fn == J_PLAY ||
+            fn == PBOZ_CLICK || fn == SETUP_PBOZ ||
+            fn == DRAW_PEGS || fn == B_MOUSE_WEIGHT_PICK || fn == DRAW_SN_BOXES;
+    };
+    std::vector<void (*)()> found_with_alt;
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
@@ -3551,9 +3675,8 @@ void find_entrypoints(void) {
             if (entrypoint.fn == V_MAP_LOOP && found_v_map_loop) {
                 continue;
             }
-            if ((entrypoint.fn == SETUP_FANUCCI && found_setup_fanucci) ||
-                (entrypoint.fn == FANUCCI && found_fanucci) ||
-                (entrypoint.fn == J_PLAY && found_j_play)) {
+            if (has_alt_pattern(entrypoint.fn) &&
+                std::find(found_with_alt.begin(), found_with_alt.end(), entrypoint.fn) != found_with_alt.end()) {
                 continue;
             }
             if (entrypoint.pattern.size()) {
@@ -3594,12 +3717,8 @@ void find_entrypoints(void) {
                     if (entrypoint.fn == V_MAP_LOOP) {
                         found_v_map_loop = true;
                     }
-                    if (entrypoint.fn == SETUP_FANUCCI) {
-                        found_setup_fanucci = true;
-                    } else if (entrypoint.fn == FANUCCI) {
-                        found_fanucci = true;
-                    } else if (entrypoint.fn == J_PLAY) {
-                        found_j_play = true;
+                    if (has_alt_pattern(entrypoint.fn)) {
+                        found_with_alt.push_back(entrypoint.fn);
                     }
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;

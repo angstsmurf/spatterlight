@@ -1900,7 +1900,10 @@ static void draw_snarfem(void) {
     for(int i = 1; i <= 4; i++)
         snarfem_draw_pile(i);
     DRAW_FLOWERS();
-    snarfem_draw_numbered_boxes(last_pile);
+    // The number boxes are there to be clicked on. r242 has no mouse support
+    // in Snarfem (no SN-CLICK, no DRAW-SN-BOXES) and never draws them.
+    if (zr.SN_CLICK != 0)
+        snarfem_draw_numbered_boxes(last_pile);
 
     int x, y, distance_from_bottom, height;
     get_image_size(SN_SPLIT, &x, &y);
@@ -2018,6 +2021,11 @@ static const int kPegBoardTableSize = 43;
 // to the game's DRAW-PEGS routine), UI buttons (dimmed if no move has been
 // made), and positions the text window below the game area.
 static void draw_peggles(void) {
+    // Without these we would write the peg positions into low memory and
+    // call a routine at address 0.
+    if (zt.PBOZ_PIC_TABLE == 0 || zt.BOARD_TABLE == 0 || zr.DRAW_PEGS == 0)
+        return;
+
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
     draw_to_pixmap_unscaled(zorkzero_peggleboz_border, 0, 0);
@@ -2032,20 +2040,24 @@ static void draw_peggles(void) {
 
     internal_call(pack_routine(zr.DRAW_PEGS)); // <DRAW-PEGS>
 
-    get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
-    if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
-        draw_to_pixmap_unscaled(RESTART_BOX, width, height);
-    } else {
-        draw_to_pixmap_unscaled(DIM_RESTART_BOX, width, height);
+    // The boxes are there to be clicked on. r242 has no mouse support in
+    // Peggleboz (no PBOZ-CLICK) and never draws them.
+    if (zr.PBOZ_CLICK != 0) {
+        get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
+        if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
+            draw_to_pixmap_unscaled(RESTART_BOX, width, height);
+        } else {
+            draw_to_pixmap_unscaled(DIM_RESTART_BOX, width, height);
+        }
+        get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
+        if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
+            draw_to_pixmap_unscaled(SHOW_MOVES_BOX, width, height);
+        } else {
+            draw_to_pixmap_unscaled(DIM_SHOW_MOVES_BOX, width, height);
+        }
+        get_image_size(PBOZ_EXIT_BOX_LOC, &width, &height);
+        draw_to_pixmap_unscaled(EXIT_BOX, width, height);
     }
-    get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
-    if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
-        draw_to_pixmap_unscaled(SHOW_MOVES_BOX, width, height);
-    } else {
-        draw_to_pixmap_unscaled(DIM_SHOW_MOVES_BOX, width, height);
-    }
-    get_image_size(PBOZ_EXIT_BOX_LOC, &width, &height);
-    draw_to_pixmap_unscaled(EXIT_BOX, width, height);
 
     adjust_text_window_by_split(PBOZ_SPLIT);
     ADJUST_TEXT_WINDOW(PBOZ_BOTTOM);
@@ -2056,7 +2068,8 @@ static void draw_peggles(void) {
 // BOARD_TABLE for the peg's coordinates)
 static uint16_t selected_peg_pos = 0;
 
-// When true, auto-solves Peggleboz by faking input to win immediately
+// When true, auto-solves Peggleboz: PEG_GAME() jumps to the game's winning
+// branch and PBOZ_WIN_CHECK() fakes a winning board
 static bool skip_pboz = false;
 
 // Z-machine entry point: initializes the Peggleboz game. Hides the status
@@ -2069,22 +2082,24 @@ void SETUP_PBOZ(void) {
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
 
-    // (Note that the below does not apply to release 242)
     // What does this do, exactly? Attribute 7 is checked in PBOZ-WIN-CHECK:
     // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
     // except attribute 7, which must not be set
-    internal_set_attr(zo.NOT_HERE_OBJECT, 7);
-    internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT);
+    // (This does not apply to r242 and r296, which keep the pegs in PEG-TABLE
+    // and whose SETUP-PBOZ leaves them alone.)
+    if (zo.NOT_HERE_OBJECT != 0)
+        internal_set_attr(zo.NOT_HERE_OBJECT, 7);
+    if (zo.PBOZ_OBJECT != 0)
+        internal_set_attr(zo.PBOZ_OBJECT, zp.TOUCHBIT);
     set_global(zg.PEG_MOVE_NUMBER, 0);
     selected_peg_pos = 0;
     draw_peggles();
     flush_image_buffer();
 
-    if (autosolve_visual_puzzle()) {
-        transcribe_and_print_string("\n");
+    // Nothing to tell the player here: the game clears the text window
+    // before announcing the win.
+    if (zr.PEG_GAME_WIN != 0 && autosolve_visual_puzzle())
         skip_pboz = true;
-        transcribe_and_print_string("Press any key twice to win.\n");
-    }
 
 }
 
@@ -2131,38 +2146,42 @@ void PBOZ_CLICK(void) {
     store_variable(2, pboz_click());
 }
 
-// Z-machine entry point: records the selected peg position (variable 2
-// is the peg index, doubled for BOARD_TABLE indexing).
+// Z-machine entry point: called in the main loop of PEG-GAME, right before
+// it waits for a key. Records the selected peg position (variable 2 is the
+// peg index, doubled for BOARD_TABLE indexing). During auto-solve, skips the
+// key and jumps to the code that follows a legal move instead, which clears
+// the text window and calls PBOZ-WIN-CHECK.
 void PEG_GAME(void) {
     selected_peg_pos = variable(2) * 2;
+    if (skip_pboz)
+        pc = zr.PEG_GAME_WIN;
 }
-
-// Z-machine entry point: intercepts character input during auto-solve.
-// If skip_pboz is set, returns 'Q' (quit) on the first call and 'G' (go)
-// on subsequent calls to quickly win the game.
-void PEG_GAME_READ_CHAR(void) {
-    if (skip_pboz) {
-        if (selected_peg_pos == 0)
-            store_variable(3, 'Q');
-        else
-            store_variable(3, 'G');
-    }
-}
-
 
 // Z-machine entry point: during auto-solve, sets attributes 1-21 (except 7)
-// on NOT-HERE-OBJECT to fake a winning board state.
+// on NOT-HERE-OBJECT to fake a winning board state, and redraws the board
+// to match.
 void PBOZ_WIN_CHECK(void) {
-    // Each of the first 21 attributes of NOT-HERE-OBJECT represents a peg on the board.
-    // A set attribute means the peg is out-of-play. We simulate a winning state by
-    // setting all of them and then clearing one (number 7.)
-    if (skip_pboz) {
+    if (!skip_pboz)
+        return;
+    skip_pboz = false;
+    if (zt.PEG_TABLE != 0) {
+        // r242 and r296 have a table of words instead, where 1 means that the
+        // peg is on the board: remove them all and put one back at number 7.
+        for (int i = 1; i < 22; i++) {
+            store_word(zt.PEG_TABLE + i * 2, 0);
+        }
+        store_word(zt.PEG_TABLE + 7 * 2, 1);
+    } else if (zo.NOT_HERE_OBJECT != 0) {
+        // Each of the first 21 attributes of NOT-HERE-OBJECT represents a peg on the board.
+        // A set attribute means the peg is out-of-play. We simulate a winning state by
+        // setting all of them and then clearing one (number 7.)
         for (int i = 1; i < 22; i++) {
             internal_set_attr(zo.NOT_HERE_OBJECT, i);
         }
         internal_clear_attr(zo.NOT_HERE_OBJECT, 7);
-        skip_pboz = false;
     }
+    draw_peggles();
+    flush_image_buffer();
 }
 
 // Z-machine entry point: outputs a line feed for the "Show Moves" display.
@@ -2361,15 +2380,19 @@ static void draw_tower_of_bozbar(void) {
     draw_peg(zt.CENTER_PEG_TABLE, 1);
     draw_peg(zt.RIGHT_PEG_TABLE, 2);
 
-    get_image_size(TOWER_UNDO_BOX_LOC, &width, &height);
-    if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) {
-        draw_to_pixmap_unscaled(DIM_UNDO_BOX, width, height);
-    } else {
-        draw_to_pixmap_unscaled(UNDO_BOX, width, height);
-    }
+    // The boxes are there to be clicked on. r242 has no mouse support in the
+    // tower (no B-MOUSE-PEG-PICK) and never draws them.
+    if (zr.B_MOUSE_PEG_PICK != 0) {
+        get_image_size(TOWER_UNDO_BOX_LOC, &width, &height);
+        if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) {
+            draw_to_pixmap_unscaled(DIM_UNDO_BOX, width, height);
+        } else {
+            draw_to_pixmap_unscaled(UNDO_BOX, width, height);
+        }
 
-    get_image_size(TOWER_EXIT_BOX_LOC, &width, &height);
-    draw_to_pixmap_unscaled(EXIT_BOX, width, height);
+        get_image_size(TOWER_EXIT_BOX_LOC, &width, &height);
+        draw_to_pixmap_unscaled(EXIT_BOX, width, height);
+    }
     flush_image_buffer();
     adjust_text_window_by_split(zorkzero_tower_of_bozbar_split);
     ADJUST_TEXT_WINDOW(zorkzero_tower_of_bozbar_bottom);
@@ -2564,6 +2587,11 @@ static bool redraw_minigame_on_resize(uint16_t current_split) {
             uint16_t CY = user_word(zt.BOARD_TABLE + selected_peg_pos * 2);
             uint16_t CX = user_word(zt.BOARD_TABLE + (selected_peg_pos + 1) * 2);
             update_blink_coordinates(CX, CY);
+            // Without a BLINK-TBL (before r366) the highlight is blinked by a
+            // timed INPUT in BLINK. Re-arm the timer that z0_update_on_resize()
+            // cancelled, or the peg stops blinking (as for the map marker there).
+            if (zg.BLINK_TBL == 0)
+                glk_request_timer_events(1);
         } else {
             flush_image_buffer();
         }
@@ -2897,11 +2925,22 @@ void z0_update_after_autorestore(void) {
     }
 
     if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
-        || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT)
+        || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT || zt.BOARD_TABLE == 0)
         return;
 
-    uint16_t y = user_word(get_global(zg.BLINK_TBL) + 3 * 2);
-    uint16_t x = user_word(get_global(zg.BLINK_TBL) + 4 * 2);
+    uint16_t x, y;
+    if (zg.BLINK_TBL != 0) {
+        y = user_word(get_global(zg.BLINK_TBL) + 3 * 2);
+        x = user_word(get_global(zg.BLINK_TBL) + 4 * 2);
+    } else if (current_frame_nlocals() >= 4 && variable(1) == UNHL_PEG && variable(2) == HL_PEG) {
+        // The revisions without a BLINK-TBL (and global 0 is not a table) keep
+        // the coordinates in the locals of BLINK only: PIC1, PIC2, Y and X.
+        // With a peg selected, that is the routine we were restored into.
+        y = variable(3);
+        x = variable(4);
+    } else {
+        return;
+    }
     if (x == 0 && y == 0)
         return;
 
