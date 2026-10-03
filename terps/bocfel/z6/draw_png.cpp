@@ -77,11 +77,13 @@ uint8_t global_palette[kMaxPaletteEntries * kBytesPerColor];
 // zlib-inflate the image data into a freshly allocated buffer of exactly
 // max_output_size bytes. The zlib stream may be split across several
 // consecutive IDAT chunks starting at chunks[first_idat]; they are fed to
-// zlib in order. (read_png has verified that the chunk list ends with IEND,
-// so the walk below always terminates within the parsed chunks.) If *produced is non-null it receives the number of
-// bytes zlib actually decoded; a truncated or corrupt stream produces fewer
-// than max_output_size bytes. The buffer is zero-initialized so any tail zlib
-// never wrote reads as palette index 0 (transparent) rather than garbage.
+// zlib in order. (read_png only reports chunks that lie wholly inside the
+// file and has verified that the chunk list ends with IEND, so the walk
+// below always terminates within the parsed chunks.) If *produced is non-null
+// it receives the number of bytes zlib actually decoded; a truncated or
+// corrupt stream produces fewer than max_output_size bytes. The buffer is
+// zero-initialized so any tail zlib never wrote reads as palette index 0
+// (transparent) rather than garbage.
 // The caller is responsible for deleting the returned buffer with delete[].
 static uint8_t *decompress_idat(struct png_chunk *chunks, int first_idat, size_t max_output_size, size_t *produced)
 {
@@ -171,18 +173,19 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
         chunks[chunk_count].type = read32be(read_ptr, 4);
         debug_png_print("Chunk %d is of type 0x%08x (%c%c%c%c)\n", chunk_count, chunks[chunk_count].type, read_ptr[4], read_ptr[5], read_ptr[6], read_ptr[7]);
 
-        if (chunks[chunk_count].type == IFF::TypeID("IDAT").val())
-            if (*idat_index == -1)
-                *idat_index = chunk_count;
-        if (plte_index != nullptr && chunks[chunk_count].type == IFF::TypeID("PLTE").val())
-            *plte_index = chunk_count;
-
         chunks[chunk_count].data = &read_ptr[kChunkHeaderSize];
 
         // Verify chunk data + CRC fits within the file
         size_t chunk_payload = (size_t)chunks[chunk_count].length + kChunkCRCSize;
         if (bytes_remaining - kChunkHeaderSize < chunk_payload)
             break;
+
+        // Only record a chunk once it is known to fit, so the indices never
+        // refer to a truncated chunk (which is not counted in chunk_count).
+        if (chunks[chunk_count].type == IFF::TypeID("IDAT").val() && *idat_index == -1)
+            *idat_index = chunk_count;
+        if (plte_index != nullptr && chunks[chunk_count].type == IFF::TypeID("PLTE").val())
+            *plte_index = chunk_count;
 
         read_ptr += kChunkHeaderSize + chunks[chunk_count].length;
         chunks[chunk_count].crc = read32be(read_ptr, 0);
@@ -351,40 +354,35 @@ static bool draw_indexed_png(uint8_t **canvas_ptr, size_t *canvas_size, int canv
         if (flipped)
             draw_y = pngheader.height + dest_y - draw_y - 1;
 
-        int draw_x = dest_x + ((int)(byte_index % row_stride) - 1) * pixels_per_byte;
-
-        // Skip the filter byte at the start of each row
-        if (draw_x < dest_x || draw_x > (int)pngheader.width + dest_x)
+        // Column of the first pixel packed in this byte; -1 * pixels_per_byte
+        // for the filter byte at the start of each row, which is skipped.
+        int column = ((int)(byte_index % row_stride) - 1) * pixels_per_byte;
+        if (column < 0)
             continue;
         if (draw_y >= (int)pngheader.height + dest_y || draw_y < dest_y)
             break;
 
-        // Bounds-check the last pixel this byte will produce. Compute the byte
-        // offset in ptrdiff_t/size_t so a large index can't wrap negative and
-        // slip past the check.
-        int last_pixel_x = draw_x + pixels_per_byte - 1;
-        ptrdiff_t last_offset = ((ptrdiff_t)draw_y * canvas_width + last_pixel_x) * 4;
-        if (last_offset < 0 || (size_t)last_offset + 4 > *canvas_size)
-            break;
+        // Unpack the pixels in this byte, most significant bits first. The
+        // last byte of a row may carry padding bits beyond the image width;
+        // those are not pixels and must not be drawn (or bounds-checked: they
+        // would fall off the end of a canvas that fits the image exactly).
+        for (int i = 0; i < pixels_per_byte; i++) {
+            if (column + i >= (int)pngheader.width)
+                break;
+            int draw_x = dest_x + column + i;
+            if (draw_x < 0 || draw_x >= canvas_width)
+                continue;
 
-        uint8_t *write_ptr = &canvas[(draw_y * canvas_width + draw_x) * 4];
-        uint8_t first_pixel = decompressed[byte_index] >> (8 - pngheader.bit_depth);
-        set_pixel(first_pixel, write_ptr);
+            // Compute the byte offset in ptrdiff_t/size_t so a large index
+            // can't wrap negative and slip past the check.
+            ptrdiff_t offset = ((ptrdiff_t)draw_y * canvas_width + draw_x) * kBytesPerPixel;
+            if (offset < 0 || (size_t)offset + kBytesPerPixel > *canvas_size)
+                continue;
 
-        write_ptr = &canvas[(draw_y * canvas_width + draw_x + 1) * 4];
-        uint8_t next_pixel;
-        if (pngheader.bit_depth == 4) {
-            next_pixel = decompressed[byte_index] & 0xf;
-        } else {
-            next_pixel = (decompressed[byte_index] >> 4) & 3;
-            set_pixel(next_pixel, write_ptr);
-            write_ptr = &canvas[(draw_y * canvas_width + draw_x + 2) * 4];
-            next_pixel = (decompressed[byte_index] >> 2) & 3;
-            set_pixel(next_pixel, write_ptr);
-            write_ptr = &canvas[(draw_y * canvas_width + draw_x + 3) * 4];
-            next_pixel = decompressed[byte_index] & 3;
+            int shift = 8 - pngheader.bit_depth * (i + 1);
+            int color_index = (decompressed[byte_index] >> shift) & ((1 << pngheader.bit_depth) - 1);
+            set_pixel(color_index, &canvas[offset]);
         }
-        set_pixel(next_pixel, write_ptr);
     }
     delete[] decompressed;
     *canvas_ptr = canvas;

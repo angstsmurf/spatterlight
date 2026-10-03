@@ -190,10 +190,6 @@ int MenuString::append_zstr(uint16_t addr) {
     return written;
 }
 
-// Destroys and recreates the foreground graphics window. Used when the
-// graphics type changes and the window needs fresh configuration.
-// In slideshow mode, the new window is sized to fill the screen;
-// otherwise it's hidden (zero size) and the background window is used.
 // Autosave helpers for the window pointers that Arthur, Shogun and Zork Zero
 // all keep: the current graphics buffer window, the foreground graphics
 // window and the stored text buffer window, saved by their Glk tags.
@@ -242,6 +238,10 @@ void v6_refresh_text_buffer_images(void) {
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, xscalefactor, yscalefactor);
 }
 
+// Destroys and recreates the foreground graphics window. Used when the
+// graphics type changes and the window needs fresh configuration.
+// In slideshow mode, the new window is sized to fill the screen;
+// otherwise it's hidden (zero size) and the background window is used.
 void v6_close_and_reopen_front_graphics_window(void) {
     if (graphics_fg_glk) {
         if (current_graphics_buf_win == graphics_fg_glk) {
