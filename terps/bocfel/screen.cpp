@@ -1065,6 +1065,53 @@ void transcribe(uint32_t c)
     }
 }
 
+#ifdef SPATTERLIGHT
+// Outside the Infocom games there is no V6 screen model here: the font
+// is reported as 1×1 units and the cursor can’t be moved in the main
+// window. A game that makes room for a picture in the usual way (print
+// enough newlines to scroll it into view, move the cursor back up, and
+// then @draw_picture) will thus print one newline per pixel row of the
+// picture, and the picture, drawn inline, ends up below hundreds of
+// blank lines (seen in Wyrmward, which uses PunyInform’s
+// ext_z6graphics). So hold back newlines printed to the main window
+// until it is known what follows them: @draw_picture drops as many as
+// the picture is high, anything else prints them all.
+static unsigned long held_newlines = 0;
+static bool flushing_held_newlines = false;
+
+static void put_char_base(uint16_t c, bool unicode);
+
+static bool holds_newlines()
+{
+    return zversion == 6 && !is_spatterlight_v6;
+}
+
+static void flush_held_newlines()
+{
+    if (held_newlines == 0) {
+        return;
+    }
+
+    flushing_held_newlines = true;
+    for (; held_newlines > 0; held_newlines--) {
+        put_char_base(UNICODE_LINEFEED, true);
+    }
+    flushing_held_newlines = false;
+}
+
+// A picture “height” units high is about to be drawn: drop the newlines
+// that made room for it. Returns true if there were any.
+static bool drop_held_newlines(unsigned long height)
+{
+    bool dropped = held_newlines != 0 && height != 0;
+
+    held_newlines -= std::min(held_newlines, height);
+    flush_held_newlines();
+
+    return dropped;
+}
+#endif
+
 // Print out a character. The character is in “c” and is either Unicode
 // or ZSCII; if the former, “unicode” is true. This is meant for any
 // output produced by the game, as opposed to output produced by the
@@ -1077,6 +1124,17 @@ static void put_char_base(uint16_t c, bool unicode)
     if (c == 0) {
         return;
     }
+
+#ifdef SPATTERLIGHT
+    if (holds_newlines() && !flushing_held_newlines && curwin == mainwin && !streams.test(OSTREAM_MEMORY)) {
+        if (c == (unicode ? UNICODE_LINEFEED : ZSCII_NEWLINE)) {
+            held_newlines++;
+            return;
+        }
+
+        flush_held_newlines();
+    }
+#endif
 
     if (streams.test(OSTREAM_MEMORY)) {
         // When writing to memory, ZSCII should always be used (§7.5.3).
@@ -1419,6 +1477,10 @@ void screen_message_prompt(const std::string &message)
 static bool output_stream(int16_t number, uint16_t table, bool formatted)
 {
     ZASSERT(std::labs(number) <= (zversion >= 3 ? 4 : 2), "invalid output stream selected: %ld", static_cast<long>(number));
+
+#ifdef SPATTERLIGHT
+    flush_held_newlines();
+#endif
 
     if (number == 0) {
         return true;
@@ -2384,6 +2446,7 @@ static bool draw_mysterious(glui32 pic, glui32 w, glui32 h, double x, double y)
 void zerase_window()
 {
 #ifdef SPATTERLIGHT
+    flush_held_newlines();
     int32_t arg0 = as_signed(zargs[0]);
     arthur_erase_window(zargs[0]);
     z0_erase_window(zargs[0]);
@@ -2985,6 +3048,9 @@ void zsplit_window()
 
 void zset_window()
 {
+#ifdef SPATTERLIGHT
+    flush_held_newlines();
+#endif
     set_current_window(find_window(zargs[0]));
 }
 
@@ -4242,6 +4308,7 @@ void zread_char()
 
 #ifdef SPATTERLIGHT
 
+    flush_held_newlines();
     flush_image_buffer();
 
     if (internal_read_char_hack) {
@@ -4659,6 +4726,9 @@ static bool read_handler()
 
 void zread()
 {
+#ifdef SPATTERLIGHT
+    flush_held_newlines();
+#endif
     while (!read_handler()) {
     }
 }
@@ -5333,9 +5403,20 @@ void zdraw_picture()
         scale_pic = paletted_image->parent;
     }
 
+#ifdef SPATTERLIGHT
+    bool made_room = curwin == mainwin && holds_newlines() && drop_held_newlines(h);
+#endif
+
     if (curwin->id != nullptr) {
         glk_image_draw_scaled(curwin->id, pic, align, 0, scale_picture(scale_pic, w), scale_picture(scale_pic, h) * aspect_scale());
     }
+
+#ifdef SPATTERLIGHT
+    // The game now moves the cursor to the line below the picture.
+    if (made_room) {
+        held_newlines++;
+    }
+#endif
 #endif
 }
 
