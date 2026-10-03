@@ -1224,11 +1224,12 @@
             ans->cmd = OKAY;
             if (reqWin) {
                 NSString *str = reqWin.cancelLine;
-                ans->len = str.length * sizeof(unichar);
-                if (ans->len > GLKBUFSIZE)
-                    ans->len = GLKBUFSIZE;
+                // buf holds GLKBUFSIZE bytes: copy no more than the reply
+                // carries, or a very long line would run past it.
+                NSUInteger units = MIN(str.length, GLKBUFSIZE / sizeof(unichar));
+                ans->len = units * sizeof(unichar);
                 [str getCharacters:(unsigned short *)buf
-                             range:NSMakeRange(0, str.length)];
+                             range:NSMakeRange(0, units)];
             }
             break;
 
