@@ -321,8 +321,7 @@ static void journey_setup_windows(void) {
             options.int_number == INTERP_APPLE_IIGS ||
             options.int_number == INTERP_MSDOS) {
             offset = 3;
-        }
-        if (options.int_number != INTERP_AMIGA) {
+        } else if (options.int_number != INTERP_AMIGA) {
             offset = 5;
         }
         text_window_left_edge = offset + (picture_width + gcellw) / gcellw;
