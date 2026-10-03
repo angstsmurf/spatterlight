@@ -240,8 +240,12 @@ again:
     
     // Log the message header if logging is enabled
     if (logFileHandle) {
-        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%s a1=%d a2=%d a3=%d len=%zu\n",
-                               msgnames[request.cmd], request.a1, request.a2, request.a3, request.len];
+        // The header comes straight off the pipe: only look up a name the
+        // table has, and log anything else by number.
+        const char *name = (request.cmd >= 0 && (size_t)request.cmd < msgnames_count) ? msgnames[request.cmd] : NULL;
+        NSString *cmdName = name ? @(name) : [NSString stringWithFormat:@"%d", request.cmd];
+        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%@ a1=%d a2=%d a3=%d len=%zu\n",
+                               cmdName, request.a1, request.a2, request.a3, request.len];
         @try {
             [logFileHandle writeData:[headerLog dataUsingEncoding:NSUTF8StringEncoding]];
         } @catch (NSException *exception) {
