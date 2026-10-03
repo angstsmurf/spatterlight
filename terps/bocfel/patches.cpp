@@ -649,6 +649,53 @@ static std::vector<Patch> base_patches = {
         }
     },
 
+    // Sunburst Contamination is compiled BASIC, and never clears the
+    // screen: its start menu is left to scroll away as the game goes
+    // on. That leaves the menu sitting above the opening text, so
+    // clear the screen when one of the menu choices (instructions,
+    // load game, start game) is made. Each of them is followed by a
+    // couple of instructions that can never be reached (the range
+    // check of a constant array index). The choices are made to jump
+    // there, and the unreachable instructions are replaced by:
+    //
+    // @erase_window 0;
+    // @jump <original destination>;
+    {
+        "Sunburst Contamination", "070222", 1, 0x04ff,
+        {
+            // Instructions.
+            {
+                0x6498, 3,
+                {0x8c, 0x00, 0xb6},
+                {0x8c, 0x00, 0x0a},
+            },
+            // The destinations for “instructions” and “start game”.
+            {
+                0x64a3, 12,
+                {0xfa, 0x15, 0x5f, 0x1f, 0x59, 0x1d, 0x00, 0x05, 0x01, 0xfa, 0xe8, 0x7f},
+                {0xed, 0x7f, 0x00, 0x8c, 0x00, 0xa8, 0xed, 0x7f, 0x00, 0x8c, 0x01, 0x38},
+            },
+            // Load game. This is a call to the restore routine followed
+            // by a jump, so the call moves to the destination as well.
+            {
+                0x64cc, 3,
+                {0x8f, 0x02, 0x0e},
+                {0x8c, 0x00, 0x0d},
+            },
+            {
+                0x64da, 9,
+                {0xfa, 0x15, 0x5f, 0x1f, 0x59, 0x1d, 0x00, 0x05, 0x01},
+                {0xed, 0x7f, 0x00, 0x8f, 0x02, 0x0e, 0x8c, 0x01, 0x2a},
+            },
+            // Start game.
+            {
+                0x6503, 3,
+                {0x8c, 0x00, 0xe1},
+                {0x8c, 0xff, 0xa5},
+            },
+        }
+    },
+
     // Transporter tries to read a property of non-existent objects,
     // so we add a bounds check.
     {
