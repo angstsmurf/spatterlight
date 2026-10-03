@@ -38,6 +38,7 @@ stream_t *gli_new_stream(int type, int readable, int writable,
     str->ubufend = NULL;
     str->ubufeof = NULL;
     str->buflen = 0;
+    str->arrayrock.num = 0;
 
     str->readcount = 0;
     str->writecount = 0;
@@ -243,10 +244,13 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
              Instead we use "r+" and then fseek to the end. */
             strcpy(modestr, "r+");
             break;
+        default:
+            gli_strict_warning("stream_open_file: illegal filemode");
+            return NULL;
     }
 
     if (!fref->textmode)
-        strncat(modestr, "b", sizeof modestr - 1);
+        strcat(modestr, "b");
 
     fl = fopen(fref->filename, modestr);
     if (!fl) {
@@ -255,7 +259,7 @@ strid_t glk_stream_open_file(fileref_t *fref, glui32 fmode,
     }
 
     if (fmode == filemode_WriteAppend) {
-        fseek(fl, 0, 2); /* ...to the end. */
+        fseek(fl, 0, SEEK_END);
     }
 
     str = gli_new_stream(strtype_File,
@@ -461,12 +465,9 @@ strid_t gli_stream_open_pathname(char *pathname, int writemode,
     stream_t *str;
     FILE *fl;
 
-    if (!writemode)
-        strncpy(modestr, "r", sizeof modestr);
-    else
-        strncpy(modestr, "w", sizeof modestr);
+    strcpy(modestr, writemode ? "w" : "r");
     if (!textmode)
-        strncat(modestr, "b", sizeof modestr - 1);
+        strcat(modestr, "b");
 
     fl = fopen(pathname, modestr);
     if (!fl) {
@@ -633,6 +634,10 @@ glui32 glk_stream_get_position(stream_t *str)
                 return (glui32)(str->ubufptr - str->ubuf);
             }
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("stream_get_position: file stream has no file!");
+                return 0;
+            }
             if (!str->unicode) {
                 return (glui32)ftell(str->file);
             }
@@ -688,15 +693,7 @@ static void gli_put_char(stream_t *str, unsigned char ch)
                 gli_strict_warning("put_char: window has pending line request");
 //                break;
             }
-            /* If you're going to convert Latin-1 to a different
-             character set, this is (a) place to do it. Only on the
-             putc(); not on the gli_put_char to echostr. */
-	    	if (!gli_utf8output)
-                gli_window_put_char(str->win, ch);
-            // putc(ch, stdout);
-            else
-            	gli_window_put_char(str->win, ch);
-            //gli_putchar_utf8(ch, stdout); FIXME
+            gli_window_put_char(str->win, ch);
             if (str->win->echostr)
                 gli_put_char(str->win->echostr, ch);
             break;
@@ -762,18 +759,15 @@ static void gli_put_char_uni(stream_t *str, glui32 ch)
                 gli_strict_warning("put_char_uni: window has pending line request");
                 break;
             }
-            /* If you're going to convert Latin-1 to a different
-             character set, this is (a) place to do it. Only on the
-             putc(); not on the gli_put_char to echostr. */
-
-			if (!gli_utf8output)
-                gli_window_put_char(str->win, (ch & 0xFF));
-            else
-            	gli_window_put_char(str->win, ch);
+            gli_window_put_char(str->win, ch);
             if (str->win->echostr)
                 gli_put_char_uni(str->win->echostr, ch);
             break;
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("put_char_uni: file stream has no file!");
+                break;
+            }
             gli_stream_ensure_op(str, filemode_Write);
             if (!str->unicode) {
                 if (ch >= 0x100)
@@ -861,17 +855,9 @@ static void gli_put_buffer(stream_t *str, char *buf, glui32 len)
                 gli_strict_warning("put_buffer: window has pending line request");
                 break;
             }
-            /* If you're going to convert Latin-1 to a different
-             character set, this is (a) place to do it. Only on the
-             fwrite(); not on the gli_put_buffer to echostr. */
-            if (!gli_utf8output) {
-                fwrite((unsigned char *)buf, 1, len, stdout);
-            }
-            else {
-                for (lx=0; lx<len; lx++)
-                    //gli_putchar_utf8(((unsigned char *)buf)[lx], stdout);
-                    gli_window_put_char(str->win, ((unsigned char *)buf)[lx]);
-            }
+            /* Never write to stdout here: that is the pipe to the app. */
+            for (lx=0; lx<len; lx++)
+                gli_window_put_char(str->win, ((unsigned char *)buf)[lx]);
             if (str->win->echostr)
                 gli_put_buffer(str->win->echostr, buf, len);
             break;
@@ -1031,13 +1017,13 @@ static glsi32 gli_get_char(stream_t *str, int want_unicode)
                 }
             }
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("get_char: file stream has no file!");
+                return -1;
+            }
             gli_stream_ensure_op(str, filemode_Read);
             if (!str->unicode) {
                 int res;
-                if (!str->file) {
-                    gli_strict_warning("gli_get_char: file stream has no file!");
-                    return -1;
-                }
                 res = getc(str->file);
                 if (res != -1) {
                     str->readcount++;
@@ -1211,6 +1197,10 @@ static glui32 gli_get_buffer(stream_t *str, char *cbuf, glui32 *ubuf,
             str->readcount += len;
             return len;
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("get_buffer: file stream has no file!");
+                return 0;
+            }
             gli_stream_ensure_op(str, filemode_Read);
             if (!str->unicode) {
                 if (cbuf) {
@@ -1434,11 +1424,17 @@ static glui32 gli_get_line(stream_t *str, char *cbuf, glui32 *ubuf,
             str->readcount += lx;
             return lx;
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("get_line: file stream has no file!");
+                return 0;
+            }
             gli_stream_ensure_op(str, filemode_Read);
             if (!str->unicode) {
                 if (cbuf) {
                     char *res;
-                    res = fgets(cbuf, len, str->file);
+                    if (len == 0)
+                        return 0;
+                    res = fgets(cbuf, (int)len, str->file);
                     if (!res) {
                         return 0;
                     }

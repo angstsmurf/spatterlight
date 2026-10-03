@@ -244,6 +244,12 @@ winid_t glk_window_open(winid_t splitwin,
     {
         /* create pairwin, with newwin as the key */
         pairwin = gli_new_window(wintype_Pair, 0);
+        if (!pairwin)
+        {
+            gli_strict_warning("window_open: unable to create pair window");
+            gli_delete_window(newwin);
+            return 0;
+        }
 
         pairwin->pair.dir = method & winmethod_DirMask;
         pairwin->pair.division = method & winmethod_DivisionMask;
@@ -661,7 +667,7 @@ glui32 glk_window_get_type(window_t *win)
 {
     if (!win)
     {
-        gli_strict_warning("window_get_parent: invalid ref");
+        gli_strict_warning("window_get_type: invalid ref");
         return 0;
     }
     return win->type;
@@ -900,6 +906,12 @@ void gli_windows_rearrange(void)
 
 void gli_init_line_event(window_t *win, void *buf, int maxlen, int initlen)
 {
+    if (initlen > maxlen)
+    {
+        gli_strict_warning("request_line_event: initlen exceeds maxlen");
+        initlen = maxlen;
+    }
+
     win_initline(win->peer, maxlen, initlen, buf);
 
     win->line.buf = buf;
@@ -909,41 +921,30 @@ void gli_init_line_event(window_t *win, void *buf, int maxlen, int initlen)
     if (gli_register_arr)
         win->line.inarrayrock = (*gli_register_arr)(buf, maxlen, win->line_request_uni ? "&+#!Iu" : "&+#!Cn");
 
-    if (win->line_request_uni)
-        ((glui32*)buf)[initlen] = 0;
-    else
-        ((char*)buf)[initlen] = 0;
+    /* Terminate the pre-loaded text when there is room for it; the buffer is
+       exactly maxlen characters, so a full one cannot be terminated. */
+    if (initlen < maxlen)
+    {
+        if (win->line_request_uni)
+            ((glui32*)buf)[initlen] = 0;
+        else
+            ((char*)buf)[initlen] = 0;
+    }
 }
 
 void gli_cancel_line_event(window_t *win, event_t *ev)
 {
-    win_cancelline(win->peer, win->line.cap, &win->line.len, win->line.buf);
+    win->line.len = win_cancelline(win->peer, win->line.cap, win->line_request_uni, win->line.buf);
 
-    unsigned short *unicharbuf = (unsigned short *)win->line.buf;
-    glui32 *tempbuf = malloc(win->line.len * sizeof(glui32));
-    for (int i = 0; i < win->line.len; i++) {
-        tempbuf[i] = unicharbuf[i];
-    }
-
-    if (win->line_request_uni)
+    if (win->echostr)
     {
-        glui32 *unicode = win->line.buf;
-        for (int i = 0; i < win->line.len; i++)
-            unicode[i] = tempbuf[i];
-        if (win->echostr)
+        if (win->line_request_uni)
             gli_stream_echo_line_uni(win->echostr, win->line.buf, win->line.len);
-    }
-    else
-    {
-        unsigned char *latin1 = win->line.buf;
-        for (int i = 0; i < win->line.len; i++)
-            latin1[i] = tempbuf[i] < 0x100 ? tempbuf[i] : '?';
-        if (win->echostr)
+        else
             gli_stream_echo_line(win->echostr, win->line.buf, win->line.len);
     }
-    free(tempbuf);
 
-    win->str->readcount +=  win->line.len;
+    win->str->readcount += win->line.len;
 
     if (gli_unregister_arr)
         (*gli_unregister_arr)(win->line.buf, win->line.cap, win->line_request_uni ? "&+#!Iu" : "&+#!Cn", win->line.inarrayrock);
@@ -1271,22 +1272,8 @@ void gli_window_put_char(window_t *win, unsigned chr)
     {
         case wintype_TextBuffer:
         case wintype_TextGrid:
-            if (chr <= 0xffff) {
-                // This is a UCS-2 character
-                win_print(win->peer, chr, win->style);
-            } else if (chr <= 0x10ffff) {
-                // This is a character that can be represented by a surrogate pair
-                // 000uuuuuxxxxxxxxxxxxxxxx -> 110110wwwwxxxxxx 110111xxxxxxxxxx (wwww = uuuuu-1)
-                win_flush();
-                int w = (chr >> 16) - 1;
-                int x = (chr & 0xffff);
-                win_print(win->peer, 0xd800 | (w << 6) | (x >> 10), win->style);
-                win_print(win->peer, 0xdc00 | (x & 0x3ff), win->style);
-            } else {
-                // This is a UCS-4 character outside the range of allowed unicode values
-                win_print(win->peer, 0xfffd, win->style);
-            }
-
+            /* win_print takes care of the UTF-16 encoding. */
+            win_print(win->peer, chr, win->style);
             break;
     }
 }

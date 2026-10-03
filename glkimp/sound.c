@@ -13,39 +13,32 @@ static int loadsound(int sound)
 {
     glui32 chunktype;
     FILE *file;
-    char *buf;
     long pos = 0;
     long len;
     char filename[PATH_MAX];
-    
+
     if (win_findsound(sound))
         return TRUE;
-    
+
     if (!giblorb_is_resource_map())
     {
+        /* A file beside the game; the app reads it itself, all that is
+           needed here is its name and length. */
         snprintf(filename, sizeof(filename), "%s/SND%d", gli_parentdir, sound);
-
-        fprintf(stderr, "loadsound %s\n", filename);
 
         file = fopen(filename, "rb");
         if (!file)
             return FALSE;
 
-        fseek(file, 0, 2);
-        len = ftell(file);
-        fseek(file, 0, 0);
-
-        buf = malloc(len);
-        if (!buf)
+        if (fseek(file, 0, SEEK_END) != 0)
         {
             fclose(file);
             return FALSE;
         }
-
-        fread(buf, len, 1, file);
-
+        len = ftell(file);
         fclose(file);
-        free(buf);
+        if (len == -1)
+            return FALSE;
     }
     else
     {
@@ -82,10 +75,11 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 	return NULL;
     
     chan = malloc(sizeof(channel_t));
-    
+
     if (!chan)
 	return NULL;
-    
+
+    chan->magicnum = MAGIC_SCHANNEL_NUM;
     chan->rock = rock;
     chan->peer = win_newchan(volume);
     if (chan->peer == -1)
@@ -102,10 +96,12 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     if (chan->next) {
         chan->next->prev = chan;
     }
-    
+
     if (gli_register_obj)
 	chan->disprock = (*gli_register_obj)(chan, gidisp_Class_Schannel);
-    
+    else
+	chan->disprock.ptr = NULL;
+
     return chan;
 }
 
@@ -119,10 +115,14 @@ void glk_schannel_destroy(schanid_t chan)
     }
     
     glk_schannel_stop(chan);
-    
-    if (gli_unregister_obj)
+
+    if (gli_unregister_obj) {
 	(*gli_unregister_obj)(chan, gidisp_Class_Schannel, chan->disprock);
-    
+	chan->disprock.ptr = NULL;
+    }
+
+    chan->magicnum = 0;
+
     win_delchan(chan->peer);
     
     prev = chan->prev;
@@ -254,6 +254,13 @@ glui32 glk_schannel_play_multi(schanid_t *chanarray, glui32 chancount,
 {
     glui32 i;
     glui32 successes = 0;
+
+    if (chancount != soundcount)
+    {
+        gli_strict_warning("schannel_play_multi: channel and sound counts differ.");
+        if (soundcount < chancount)
+            chancount = soundcount;
+    }
 
     for (i = 0; i < chancount; i++)
     {

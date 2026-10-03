@@ -54,6 +54,8 @@
 - Fixes a crash when loading a sound or image whose resource number is very large, which killed some Adrift games at their first prompt.
 - The Adrift interpreter can take its game data from an already-open file, for ports that have no file system of their own.
 - Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow.
+- Cancelling line input no longer writes past the game's input buffer: the text typed so far came back as two bytes per character into a buffer sized for one, which could crash a game that takes input back on a timer. Cancelling the file dialog of a restore command no longer hands the game a made-up file name, and text a game pre-loads into the input line keeps its accented characters instead of showing `?`.
+- Each temporary file a game creates no longer leaves a file descriptor open, and a very long line of input no longer risks the interpreter giving up with a protocol error.
 - Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme and the build fixes.
 
 ## Release 1.5.4

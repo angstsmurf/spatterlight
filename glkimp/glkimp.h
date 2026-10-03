@@ -112,7 +112,7 @@ void win_maketransparent(int name);
 void win_initchar(int name);
 void win_cancelchar(int name);
 void win_initline(int name, int cap, int len, void *buf);
-void win_cancelline(int name, int cap, int *len, char *buf);
+int win_cancelline(int name, int cap, int unicode, void *buf);
 void win_setlink(int name, int val);
 void win_initlink(int name);
 void win_cancellink(int name);
@@ -144,7 +144,7 @@ void win_beep_freq(int frequency, int millisecs);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
-void win_print(int name, int ch, int at);
+void win_print(int name, glui32 ch, int at);
 
 // Glk extension from Gargoyle needed to support
 // pre-loaded line input. If the string str matches
@@ -167,7 +167,7 @@ int win_newchan(glui32 volume);
 void win_delchan(int chan);
 void win_setvolume(int chan, int vol, int duration, int notify);
 int  win_findsound(int resno);
-void win_loadsound(int resno, char *filename, int offset, int reslen);
+void win_loadsound(int resno, const char *filename, int offset, int reslen);
 
 /* garglk_add_resource_from_file() for any path, not only a name in the game's
  * directory: a temp file the terp decoded, a subfolder.  See fileresource.c. */
@@ -260,7 +260,7 @@ extern gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typec
 
 //#define gli_strict_warning(msg) do { fprintf(stderr, "glk: %s\n", msg); } while (0)
 
-#define gli_strict_warning(msg) { win_showerror(msg); if (gli_error_handling == ERRORS_ARE_FATAL) { exit(0); } }
+#define gli_strict_warning(msg) do { win_showerror(msg); if (gli_error_handling == ERRORS_ARE_FATAL) { exit(0); } } while (0)
 
 /* The overall screen size, as set by command-line options. A
  better implementation would check the real screen size
@@ -293,6 +293,7 @@ typedef struct grect_struct
 #define MAGIC_WINDOW_NUM (9876)
 #define MAGIC_STREAM_NUM (8769)
 #define MAGIC_FILEREF_NUM (7698)
+#define MAGIC_SCHANNEL_NUM (6987)
 
 
 typedef struct attr_s

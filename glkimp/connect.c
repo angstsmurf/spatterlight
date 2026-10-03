@@ -1,6 +1,7 @@
 #include "glkimp.h"
 #include "protocol.h"
 
+#include <errno.h>
 #include <math.h>
 
 //#define DEBUG
@@ -8,14 +9,14 @@
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
 #define RBUFSIZE (GLKBUFSIZE / sizeof(struct fillrect))
 
-#define MIN(a,b) (a < b ? a : b)
-
 #define MAXWIN 64
 
 enum { BUFNONE, BUFPRINT, BUFRECT };
 
 static struct message wmsg;
-static char wbuf[GLKBUFSIZE];
+/* One byte more than the largest payload, so readmsg() can always
+   NUL-terminate what it received (the prompt replies are read as C strings). */
+static char wbuf[GLKBUFSIZE + 1];
 static uint16_t *pbuf = (void*)wbuf;
 
 /* These structs are used to transmit information that
@@ -81,9 +82,56 @@ uint32_t gsbgcol = 0;
 
 glui32 lasteventtype = -1;
 
-void sendmsg_glk(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf)
+static void protocol_error(const char *what)
 {
-    ssize_t n;
+    fprintf(stderr, "protocol error (%s). exiting.\n", what);
+    exit(1);
+}
+
+/* read() and write() on the pipe may transfer less than asked: a payload
+   larger than the pipe buffer arrives in pieces, and a signal can cut either
+   call short. Both loops carry on until the whole block has gone through.
+   They return FALSE on end of file or a real error. */
+static int read_fully(int fd, void *buf, size_t len)
+{
+    char *p = buf;
+    while (len)
+    {
+        ssize_t n = read(fd, p, len);
+        if (n < 0)
+        {
+            if (errno == EINTR)
+                continue;
+            return FALSE;
+        }
+        if (n == 0)
+            return FALSE;
+        p += n;
+        len -= (size_t)n;
+    }
+    return TRUE;
+}
+
+static int write_fully(int fd, const void *buf, size_t len)
+{
+    const char *p = buf;
+    while (len)
+    {
+        ssize_t n = write(fd, p, len);
+        if (n < 0)
+        {
+            if (errno == EINTR)
+                continue;
+            return FALSE;
+        }
+        p += n;
+        len -= (size_t)n;
+    }
+    return TRUE;
+}
+
+void sendmsg_glk(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, const char *buf)
+{
     struct message msgbuf;
 
     msgbuf.cmd = cmd;
@@ -97,49 +145,34 @@ void sendmsg_glk(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, ch
 #ifdef DEBUG
         //fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
 #endif
-    n = write(sendfd, &msgbuf, sizeof msgbuf);
-    if (n != sizeof msgbuf)
-    {
-        fprintf(stderr, "protocol error. exiting.\n");
-        exit(1);
-    }
+    if (!write_fully(sendfd, &msgbuf, sizeof msgbuf))
+        protocol_error("write header");
 
-    if (len)
-    {
-        n = write(sendfd, buf, len);
-        if (n != len)
-        {
-            fprintf(stderr, "protocol error. exiting.\n");
-            exit(1);
-        }
-    }
+    if (len && !write_fully(sendfd, buf, len))
+        protocol_error("write payload");
 }
 
 #define sendmsg sendmsg_glk
 
+/* Read one reply into *msgbuf and its payload into buf, which must have room
+   for GLKBUFSIZE + 1 bytes: the payload is always NUL-terminated, so a reply
+   that carries a path can be used as a C string, and an empty reply yields an
+   empty string rather than whatever the previous message left behind. */
 void readmsg(struct message *msgbuf, char *buf)
 {
-    ssize_t n;
+    if (!read_fully(readfd, msgbuf, sizeof *msgbuf))
+        protocol_error("read header");
 
-    n = read(readfd, msgbuf, sizeof (struct message));
-    if (msgbuf->cmd == ERROR || n != sizeof (struct message))
-    {
-        fprintf(stderr, "protocol error. exiting.\n");
-        exit(1);
-    }
+    if (msgbuf->cmd == ERROR)
+        protocol_error("error reply");
 
-    if (msgbuf->len)
-    {
-        n = read(readfd, buf, msgbuf->len);
-        if (n != msgbuf->len)
-        {
-            fprintf(stderr, "protocol error. exiting.\n");
-            exit(1);
-        }
-    }
+    if (msgbuf->len > GLKBUFSIZE)
+        protocol_error("payload too large");
 
-    if (msgbuf->len != 0)
-        buf[msgbuf->len] = 0;
+    if (msgbuf->len && !read_fully(readfd, buf, msgbuf->len))
+        protocol_error("read payload");
+
+    buf[msgbuf->len] = 0;
 }
 
 void win_hello(void)
@@ -192,8 +225,19 @@ void win_flush(void)
     bufferwin = -1;
 }
 
-void win_print(int name, int ch, int at)
+/* Queue one character for window `name` in style `at`. Text travels to the
+   app as UTF-16, so a character beyond the BMP becomes a surrogate pair --
+   and both halves must go in the same PRINT message, or the app would see
+   two lone surrogates. */
+void win_print(int name, glui32 ch, int at)
 {
+    int units;
+
+    if (ch > 0x10ffff || (ch >= 0xd800 && ch <= 0xdfff))
+        ch = 0xfffd; /* not a Unicode scalar value: replacement character */
+
+    units = (ch > 0xffff) ? 2 : 1;
+
     if (buffering == BUFRECT)
         win_flush();
 
@@ -201,7 +245,7 @@ void win_print(int name, int ch, int at)
         win_flush();
     if (buffering == BUFPRINT && bufferatt != at)
         win_flush();
-    if (buffering == BUFPRINT && (unsigned long)bufferlen >= PBUFSIZE)
+    if (buffering == BUFPRINT && (unsigned long)(bufferlen + units) > PBUFSIZE)
         win_flush();
 
     if (buffering != BUFPRINT)
@@ -212,7 +256,16 @@ void win_print(int name, int ch, int at)
         bufferlen = 0;
     }
 
-    pbuf[bufferlen++] = ch;
+    if (units == 2)
+    {
+        ch -= 0x10000;
+        pbuf[bufferlen++] = (uint16_t)(0xd800 | (ch >> 10));
+        pbuf[bufferlen++] = (uint16_t)(0xdc00 | (ch & 0x3ff));
+    }
+    else
+    {
+        pbuf[bufferlen++] = (uint16_t)ch;
+    }
 }
 
 /* Gargoyle glue */
@@ -248,18 +301,9 @@ glui32 win_unprint(int name, glui32 *str, int len)
 
 void wintitle(void)
 {
-    size_t len = strlen(gli_story_title);
-    if (len) {
-        char *buf = malloc(len + 1);
-        strncpy(buf, gli_story_title, len + 1);
-        if (strlen(buf))
-        {
-            sendmsg(SETTITLE, 0, 0, 0, 0, 0,
-                    (int)len,
-                    buf);
-        }
-        free(buf);
-    }
+    size_t len = gli_story_title ? strlen(gli_story_title) : 0;
+    if (len)
+        sendmsg(SETTITLE, 0, 0, 0, 0, 0, len, gli_story_title);
 }
 
 /* End of Gargoyle glue */
@@ -299,11 +343,15 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
     bufferlen++;
 }
 
+/* The file prompts answer with the chosen path, or an empty payload when the
+   player cancelled: NULL here. */
 char *win_promptopen(int type)
 {
     win_flush();
     sendmsg(PROMPTOPEN, type, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
+    if (wmsg.len == 0)
+        return NULL;
     return wbuf;
 }
 
@@ -488,37 +536,82 @@ void win_cancelchar(int name)
     sendmsg(CANCELCHAR, name, 0, 0, 0, 0, 0, NULL);
 }
 
+/* Line input travels to and from the app as UTF-16. */
+
+/* Store `srclen` UTF-16 units into the buffer of a line request: up to `cap`
+   glui32 code points for a Unicode request (surrogate pairs combined, a lone
+   surrogate replaced), or up to `cap` Latin-1 bytes otherwise ('?' for what
+   does not fit). Returns the number of characters stored. */
+static int store_line_input(const uint16_t *src, int srclen, int unicode,
+                            void *buf, int cap)
+{
+    int in = 0, out = 0;
+
+    if (unicode)
+    {
+        glui32 *dst = buf;
+        while (in < srclen && out < cap)
+        {
+            glui32 ch = src[in++];
+            if (ch >= 0xd800 && ch <= 0xdbff && in < srclen
+                && src[in] >= 0xdc00 && src[in] <= 0xdfff)
+                ch = 0x10000 + ((ch - 0xd800) << 10) + (src[in++] - 0xdc00);
+            else if (ch >= 0xd800 && ch <= 0xdfff)
+                ch = 0xfffd;
+            dst[out++] = ch;
+        }
+    }
+    else
+    {
+        unsigned char *dst = buf;
+        while (in < srclen && out < cap)
+        {
+            uint16_t ch = src[in++];
+            dst[out++] = (ch < 0x100) ? (unsigned char)ch : '?';
+        }
+    }
+    return out;
+}
+
 void win_initline(int name, int cap, int len, void *buf)
 {
     win_flush();
 
     window_t *win = gli_window_for_peer(name);
+    if (!win)
+        return;
 
-    glui32 ix;
+    int ix;
+
+    /* The pre-loaded text; as UCS-2, which is all a line can hold. */
+    if (len > (int)PBUFSIZE)
+        len = (int)PBUFSIZE;
 
     if (win->line_request_uni) {
         for (ix=0; ix<len; ix++) {
-            pbuf[ix] = ((glui32 *)buf)[ix];
+            glui32 ch = ((glui32 *)buf)[ix];
+            pbuf[ix] = (ch <= 0xffff) ? (uint16_t)ch : '?';
         }
     } else {
-        // If this was not a unicode line event request,
-        // we convert to unicode here
         for (ix=0; ix<len; ix++) {
-            pbuf[ix] = ((char *)buf)[ix];
-            if ( pbuf[ix] >= 0x100)
-                pbuf[ix] = '?';
+            pbuf[ix] = ((unsigned char *)buf)[ix];
         }
     }
 
     sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(uint16_t), (char *)pbuf);
 }
 
-void win_cancelline(int name, int cap, int *len, char *buf)
+/* Cancel the line request on window `name` and store what the player had
+   typed so far into the request's buffer (`cap` characters, glui32 or char
+   according to `unicode`). Returns the number of characters stored. */
+int win_cancelline(int name, int cap, int unicode, void *buf)
 {
     win_flush();
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
-    readmsg(&wmsg, buf);
-    *len = (int)wmsg.len / sizeof(uint16_t);
+    readmsg(&wmsg, wbuf);
+    return store_line_input((const uint16_t *)wbuf,
+                            (int)(wmsg.len / sizeof(uint16_t)),
+                            unicode, buf, cap);
 }
 
 void win_setlink(int name, int val)
@@ -582,16 +675,11 @@ int win_findimage(int resno)
 void win_loadimage(int resno, const char *filename, int offset, int reslen)
 {
     win_flush();
-    if (gli_enable_graphics)
+    if (gli_enable_graphics && filename)
     {
-        int len = (int)strlen(filename);
+        size_t len = strlen(filename);
         if (len)
-        {
-            char *buf = malloc(len + 1);
-            strncpy(buf, filename, len + 1);
-            sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, buf);
-            free(buf);
-        }
+            sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, filename);
     }
 }
 
@@ -618,8 +706,9 @@ void win_drawimage(int name, glui32 x, glui32 y, glui32 width, glui32 height,
     win_flush();
     if (gli_enable_graphics)
     {
-
         window_t *win = gli_window_for_peer(name);
+        if (!win)
+            return;
 
         drawstruct->x = x;
         drawstruct->y = y;
@@ -661,19 +750,14 @@ int win_findsound(int resno)
     return wmsg.a1;
 }
 
-void win_loadsound(int resno, char *filename, int offset, int reslen)
+void win_loadsound(int resno, const char *filename, int offset, int reslen)
 {
     win_flush();
-    if (gli_enable_sound)
+    if (gli_enable_sound && filename)
     {
-        int len = (int)strlen(filename);
+        size_t len = strlen(filename);
         if (len)
-        {
-            char *buf = malloc(len + 1);
-            strncpy(buf, filename, len + 1);
-            sendmsg(LOADSOUND, resno, offset, reslen, 0, 0, len, buf);
-            free(buf);
-        }
+            sendmsg(LOADSOUND, resno, offset, reslen, 0, 0, len, filename);
     }
 }
 
@@ -789,19 +873,9 @@ void win_quotebox(int name, int height)
 
 void win_showerror(const char *str)
 {
-    size_t len = strlen(str);
-    if (len) {
-        char *buf = malloc(len + 1);
-        strncpy(buf, str, len + 1);
-
-        if (strlen(buf))
-        {
-            sendmsg(SHOWERROR, 0, 0, 0, 0, 0,
-                    (int)len,
-                    buf);
-        }
-        free(buf);
-    }
+    size_t len = str ? strlen(str) : 0;
+    if (len)
+        sendmsg(SHOWERROR, 0, 0, 0, 0, 0, len, str);
 }
 
 void win_reset(void)
@@ -839,19 +913,11 @@ void win_purgeimage(glui32 resno, const char *filename, int reslen)
 
     if (gli_enable_graphics)
     {
-        int len = 0;
-        if (filename != NULL) {
-            len = (int)strlen(filename);
-        }
+        size_t len = filename ? strlen(filename) : 0;
         if (len)
-        {
-            char *buf = malloc(len + 1);
-            strncpy(buf, filename, len + 1);
-            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, buf);
-            free(buf);
-        } else {
+            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, filename);
+        else
             sendmsg(PURGEIMG, resno, 0, 0, 0, 0, 0, NULL);
-        }
     }
 }
 
@@ -989,53 +1055,39 @@ again:
             fprintf(stderr, "win_select: received line input event for win peer %d\n", wmsg.a1);
 #endif
 
-            event->type = evtype_LineInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL || !event->win->line_request || event->win->line.buf == NULL)
+            {
+                /* The request was cancelled or the window closed while the
+                   event was on its way; there is no buffer to put it in. */
+                fprintf(stderr, "win_select: line input for window %d, which has no line request\n", wmsg.a1);
+                goto again;
+            }
+
+            event->type = evtype_LineInput;
             event->val2 = wmsg.a3;
 
-            int final_length = wmsg.a2;
-            event->val1 = MIN(wmsg.a2, event->win->line.cap);
-            uint16_t *ibuf = (uint16_t *)wbuf;
+            /* a2 is the typed length in UTF-16 units; the payload carries at
+               most GLKBUFSIZE bytes of it. */
+            i = wmsg.a2;
+            if (i < 0 || (size_t)i > wmsg.len / sizeof(uint16_t))
+                i = (int)(wmsg.len / sizeof(uint16_t));
 
-            if (event->win->line_request_uni)
+            event->val1 = store_line_input((const uint16_t *)wbuf, i,
+                                           event->win->line_request_uni,
+                                           event->win->line.buf,
+                                           event->win->line.cap);
+
+            if (event->win->echostr && event->win->echo_line_input)
             {
-                int length = event->val1;
-                glui32 *obuf = event->win->line.buf;
-                int writepos = 0;
-                for (i = 0; i < length; i++) {
-                    int32_t chr = ibuf[i];
-                    if (chr >= 0xd800 && chr <= 0xdbff && i+1 < length && ibuf[i+1] >= 0xdc00 && ibuf[i+1] <= 0xdfff) {
-                        // This is the first character of a surrogate pair
-                        int high = ibuf[++i];
-
-                        int32_t w = (chr & ~0xd800)>>6;
-                        int32_t x = ((chr&0x3f)<<10)|(high&~0xdc00);
-                        int32_t u = w + 1;
-
-                        chr = (u<<16)|x;
-                        final_length--;
-                    } else if (chr >= 0xd800 && chr <= 0xdfff) {
-                        // This is a lone surrogate character (can't be translated)
-                        chr = 0xfffd;
-                    }
-
-                    obuf[writepos++] = chr;
-                }
-                if (event->win->echostr && event->win->echo_line_input)
-                    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, writepos);
-                event->val1 = writepos;
-            }
-            else
-            {
-                unsigned char *obuf = event->win->line.buf;
-                for (i = 0; i < (int)event->val1; i++)
-                    obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
-                if (event->win->echostr && event->win->echo_line_input)
+                if (event->win->line_request_uni)
+                    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
+                else
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
             }
 
-            event->win->str->readcount += final_length;
-            
+            event->win->str->readcount += event->val1;
+
             if (gli_unregister_arr)
             {
                 (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,

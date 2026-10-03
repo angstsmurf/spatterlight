@@ -150,7 +150,7 @@ void glk_window_flow_break(winid_t win)
 {
     if (!win)
     {
-        gli_strict_warning("window_erase_rect: invalid ref");
+        gli_strict_warning("window_flow_break: invalid ref");
         return;
     }
     if (win->type != wintype_TextBuffer)

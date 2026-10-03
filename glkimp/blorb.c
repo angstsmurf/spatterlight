@@ -13,8 +13,8 @@ giblorb_err_t giblorb_set_resource_map(strid_t file)
 	/* For the moment, we only allow file-streams, because the resource
 	   loaders expect a FILE*. This could be changed, but I see no
 	   reason right now. */
-    
-	if (file->type != strtype_File)
+
+	if (!file || file->type != strtype_File)
 		return giblorb_err_NotAMap;
 
 	err = giblorb_create_map(file, &blorbmap);
@@ -60,24 +60,27 @@ void giblorb_get_resource(glui32 usage, glui32 resnum,
 	giblorb_result_t blorbres;
 
 	*file = NULL;
-	*pos = 0;
+	if (pos)
+		*pos = 0;
+	if (len)
+		*len = 0;
+	if (type)
+		*type = 0;
 
 	if (!blorbmap)
 		return;
 
-	err = giblorb_load_resource(blorbmap, giblorb_method_FilePos, 
+	err = giblorb_load_resource(blorbmap, giblorb_method_FilePos,
 			&blorbres, usage, resnum);
 	if (err)
 		return;
 
 	*file = blorbfile->file;
 	if (pos)
-		*pos = blorbres.data.startpos;  
+		*pos = blorbres.data.startpos;
 	if (len)
-		*len = blorbres.length; 
-
-	if (type) {
+		*len = blorbres.length;
+	if (type)
 		*type = blorbres.chunktype;
-	}
 }
 
