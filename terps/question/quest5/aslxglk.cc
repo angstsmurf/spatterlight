@@ -978,8 +978,14 @@ void hide_output_section(const std::string &name)
      * the text storage lags this log by up to one newline.  Try the exact tail
      * first, then without that newline. */
     bool took = unput_exact(tail);
-    if (!took && tail.back() == U'\n')
-        took = unput_exact(tail.substr(0, tail.size() - 1));
+    if (!took && tail.back() == U'\n') {
+        /* The held-back newline stays pending after the retract and would
+         * come out in front of whatever is printed next, as a blank line
+         * where the section was.  Let it stand in for the newline that ends
+         * the line before the section by taking that one instead. */
+        std::u32string body = tail.substr(0, tail.size() - 1);
+        took = unput_exact(U"\n" + body) || unput_exact(body);
+    }
     if (!took)
         return;                 /* tail moved on: leave the transcript alone */
 
@@ -992,7 +998,8 @@ void hide_output_section(const std::string &name)
         if (g_sections[i].start >= start)
             g_sections.erase(g_sections.begin() + i);
     for (const OutChunk &c : replay)
-        render_html(c.html);
+        if (!c.html.empty())    /* a host prompt's trail: retracted for good */
+            render_html(c.html);
 #else
     (void) name;                /* CheapGlk has no unput: nothing to hide */
 #endif
@@ -1588,25 +1595,41 @@ struct PromptBreak {
     bool broke = false;
     unsigned clear_gen = g_clear_gen;
     std::function<void(const std::string &)> saved;
+    std::function<void(const std::string &)> saved_hide;
+    /* Take the stale prompt off the screen (or break the line under it). */
+    void clear_prompt() {
+        if (broke) return;
+        /* A ClearScreen since this prompt went up already took it off
+         * the screen; retracting (or breaking the line) would only put
+         * a stray blank at the top of the cleared window. */
+        if (g_clear_gen == clear_gen &&
+            !unput_exact(u32_from_utf8(prompt)))
+            glk_put_char('\n');
+        broke = true;
+    }
     PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {
         if (!prompt) return;
         saved = in.print;  /* restore the PRIOR handler on exit -- a nested
                             * redirect must not be stomped back to render_html */
         in.print = [this](const std::string &h) {
-            if (!broke && !h.empty()) {
-                /* A ClearScreen since this prompt went up already took it off
-                 * the screen; retracting (or breaking the line) would only put
-                 * a stray blank at the top of the cleared window. */
-                if (g_clear_gen == clear_gen &&
-                    !unput_exact(u32_from_utf8(prompt)))
-                    glk_put_char('\n');
-                broke = true;
-            }
+            if (!h.empty())
+                clear_prompt();
             render_html(h);
+        };
+        /* A section can only be retracted as the window tail, and the prompt
+         * is sitting on it: a clicked Core menu option hides its list before
+         * (or without) printing anything. */
+        saved_hide = in.hide_output_section;
+        in.hide_output_section = [this](const std::string &n) {
+            clear_prompt();
+            if (saved_hide) saved_hide(n);
         };
     }
     ~PromptBreak() {
-        if (prompt) in.print = saved;
+        if (prompt) {
+            in.print = saved;
+            in.hide_output_section = saved_hide;
+        }
     }
 };
 
@@ -2008,6 +2031,32 @@ bool iequal(const std::string &a, const std::string &b)
     return true;
 }
 
+/* What a host prompt wrote under a v600+ inline option list: the prompt, the
+ * echoed answer, any "please choose" retry.  The engine hides the list once
+ * the prompt resolves (Interp::end_inline_prompt -> HideOutputSection), and
+ * hide_output_section can only retract a section when it knows every
+ * character between it and the end of the window -- so the prompt's own text
+ * goes into the chunk log, with no html: it is retracted with the options and
+ * not replayed.  Best-effort like every retract here: after engine output
+ * landed in between (a timer tick) nothing is logged and the list stays. */
+struct InlinePromptTrail {
+    bool live;
+    std::u32string text;
+    explicit InlinePromptTrail(Interp &in) : live(in.inline_prompts()) {}
+    void wrote(const std::string &s) { if (live) text += u32_from_utf8(s); }
+    void interrupted() { live = false; }
+    void commit()
+    {
+        if (!live || text.empty() || g_sections.empty())
+            return;
+        OutChunk c;
+        c.text = text;
+        g_out_log.push_back(c);
+        trim_out_log();
+        text.clear();
+    }
+};
+
 /* Present a MenuData and return the selected key, or false for cancel.
  * Shared by the script-command prompt (set_menu_response) and the
  * expression-form provider (menu_provider), which is why it does not touch
@@ -2036,6 +2085,8 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
      * the same trick g_autorestore_reentry plays for the parser prompt, which
      * only has one line to worry about. */
     bool on_screen = resumed;
+    InlinePromptTrail trail(in);
+    static const char retry[] = "Please choose one of the numbered options.\n";
     for (;;) {
         char pr[64];
         snprintf(pr, sizeof pr, "\nChoose [1-%zu]%s> ", m.options.size(),
@@ -2044,24 +2095,36 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
         on_screen = false;      /* only the first pass is already drawn */
         if (r.kind == InEnd::State)
             return false;                     /* timer ended the world */
-        if (r.kind == InEnd::Event)
+        if (r.kind == InEnd::Event) {
+            trail.interrupted();
             continue;
+        }
+        trail.wrote(pr);
+        if (g_manual_echo)
+            trail.wrote(r.text + "\n");
+        else
+            trail.interrupted();    /* the library echoed: not ours to match */
         std::string l = trim(r.text);
-        if (l.empty() && m.allow_cancel)
+        if (l.empty() && m.allow_cancel) {
+            trail.commit();
             return false;
+        }
         /* number, exact key, or display text (the replayer's resolution) */
         char *end = nullptr;
         long n = strtol(l.c_str(), &end, 10);
         if (end && *end == 0 && n >= 1 && (size_t) n <= m.options.size()) {
             key = m.options[n - 1].first;
+            trail.commit();
             return true;
         }
         for (auto &kv : m.options)
             if (kv.first == l || iequal(kv.second, l)) {
                 key = kv.first;
+                trail.commit();
                 return true;
             }
-        glk_put_string((char *) "Please choose one of the numbered options.\n");
+        glk_put_string((char *) retry);
+        trail.wrote(retry);
     }
 }
 
@@ -2103,16 +2166,33 @@ bool run_question_ui(Interp &in, const std::string &q, bool &answer)
     bool drawn = in.inline_prompts();
     if (!drawn)
         in.print(q);
+    /* Under the inline list the prompt starts its own line, like a menu's. */
+    const char *pr = drawn ? "\nChoose [1-2] (or yes/no)> " : " (yes/no) > ";
+    InlinePromptTrail trail(in);
+    static const char retry[] = "Please answer YES or NO.";
     for (;;) {
-        InResult r = read_line(in, true, " (yes/no) > ");
+        InResult r = read_line(in, true, pr);
         if (r.kind == InEnd::State)
             return false;                     /* timer ended the world */
-        if (r.kind != InEnd::Line)
+        if (r.kind != InEnd::Line && !(drawn && r.kind == InEnd::Command)) {
+            trail.interrupted();
             continue;
+        }
+        trail.wrote(pr);
+        if (g_manual_echo)
+            trail.wrote(r.text + "\n");
+        else
+            trail.interrupted();
         std::string a = lower(trim(r.text));
-        if (a == "yes" || a == "y" || (drawn && a == "1")) { answer = true;  return true; }
-        if (a == "no"  || a == "n" || (drawn && a == "2")) { answer = false; return true; }
-        glk_put_string((char *) "Please answer YES or NO.");
+        bool yes = a == "yes" || a == "y" || (drawn && a == "1");
+        bool no = a == "no" || a == "n" || (drawn && a == "2");
+        if (yes || no) {
+            trail.commit();
+            answer = yes;
+            return true;
+        }
+        glk_put_string((char *) retry);
+        trail.wrote(retry);
     }
 }
 
@@ -3590,6 +3670,15 @@ bool game_disambiguating(Interp &in)
     return v && Interp::truthy(*v);
 }
 
+/* Core's own ShowMenu (the function, and Ask on top of it) is open: its
+ * options sit in an output section the answer will hide. */
+bool game_menu_pending(Interp &in)
+{
+    Element *game = in.world().find("game");
+    const Value *v = game ? in.resolve_field(game, "menucallback") : nullptr;
+    return v && v->type != Value::Type::Null;
+}
+
 #endif /* SPATTERLIGHT */
 
 /* Wire every host hook the engine offers to this frontend.  Split out of
@@ -4118,6 +4207,19 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
                         g_swallow_cmd = cmd;
                     }
 #ifdef SPATTERLIGHT
+                    /* A typed answer to Core's ShowMenu: the page shows no
+                     * echo for it and hides the option list, which can only
+                     * be retracted together with the prompt line under it
+                     * (see InlinePromptTrail). */
+                    if (prompted && g_manual_echo && !host_owned &&
+                        !g_replaying && !g_sections.empty() &&
+                        game_menu_pending(in)) {
+                        OutChunk c;
+                        c.text = u32_from_utf8(std::string(prompt) + r.text +
+                                               "\n");
+                        g_out_log.push_back(c);
+                        trim_out_log();
+                    }
                     /* A line under a `get input` answers it; any other
                      * starts a turn. */
                     if (host_owned)
