@@ -320,6 +320,7 @@ extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);
 extern const scr_char *var_indexed_name (scr_prop_setref_t bundle,
                                         scr_int index_);
+extern void var_forget_bundle (scr_prop_setref_t bundle);
 extern void var_destroy (scr_var_setref_t vars);
 extern void var_register_game (scr_var_setref_t vars, scr_gameref_t game);
 extern void var_set_ref_character (scr_var_setref_t vars, scr_int character);
@@ -1350,6 +1351,7 @@ enum
 
 extern scr_int obj_initial_location_code (scr_gameref_t game,
                                           scr_int object);
+extern void obj_forget_bundle (scr_prop_setref_t bundle);
 extern scr_bool obj_is_static (scr_gameref_t game, scr_int object);
 extern scr_bool obj_is_container (scr_gameref_t game, scr_int object);
 extern scr_bool obj_is_surface (scr_gameref_t game, scr_int object);

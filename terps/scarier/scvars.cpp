@@ -39,6 +39,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <vector>
 
 #include "scarier.h"
 #include "scprotos.h"
@@ -1964,12 +1965,32 @@ var_get_string (scr_var_setref_t vars, const scr_char *name)
  * overwrote the first, so the `#pass out` event's sleep <= 10 test passed
  * on turn 0, where run390 never passes out (runner_transcripts/mages.txt).
  */
+static scr_prop_setref_t var_names_bundle = NULL;
+static std::vector<const scr_char *> var_names;
+
 const scr_char *
 var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
 {
   static std::set<std::string> duplicate_keys;
   const scr_char *name;
   scr_int earlier;
+
+  /*
+   * The keys never change once a game is loaded, but finding one means
+   * comparing against every earlier variable's Name, and gs_copy() asks for
+   * every variable on every turn -- quadratic in the variable count, and a
+   * fifth of some walkthroughs' run time.  So remember each key; the runner
+   * calls var_forget_bundle() before destroying a bundle.
+   */
+  if (bundle != var_names_bundle)
+    {
+      var_names.clear ();
+      var_names_bundle = bundle;
+    }
+  if (index_ < (scr_int) var_names.size () && var_names[index_])
+    return var_names[index_];
+  if (index_ >= (scr_int) var_names.size ())
+    var_names.resize (index_ + 1, NULL);
 
   name = prop_get_indexed_string (bundle, "Variables", index_, "Name");
   for (earlier = 0; earlier < index_; earlier++)
@@ -1978,10 +1999,22 @@ var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
                                                  earlier, "Name")) == 0)
         {
           std::string key = std::string (name) + "\x01" + std::to_string (index_);
-          return duplicate_keys.insert (key).first->c_str ();
+          name = duplicate_keys.insert (key).first->c_str ();
+          break;
         }
     }
+  var_names[index_] = name;
   return name;
+}
+
+void
+var_forget_bundle (scr_prop_setref_t bundle)
+{
+  if (var_names_bundle == bundle)
+    {
+      var_names_bundle = NULL;
+      var_names.clear ();
+    }
 }
 
 

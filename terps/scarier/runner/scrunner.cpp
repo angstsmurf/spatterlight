@@ -1261,6 +1261,22 @@ run_runner_load_draws (scr_gameref_t game)
 }
 
 /*
+ * run_destroy_bundle()
+ *
+ * Destroy a game's properties bundle, first dropping the object and variable
+ * caches built from it, so a later bundle allocated at the same address can't
+ * inherit them.  (Those caches are keyed by bundle rather than by game because
+ * the undo and temporary game copies share their game's bundle.)
+ */
+static void
+run_destroy_bundle (scr_prop_setref_t bundle)
+{
+  obj_forget_bundle (bundle);
+  var_forget_bundle (bundle);
+  prop_destroy (bundle);
+}
+
+/*
  * run_create()
  *
  * Create a game context from a callback.
@@ -1356,7 +1372,7 @@ run_create (scr_read_callbackref_t callback, void *opaque)
       if (vars)
         var_destroy (vars);
       if (bundle)
-        prop_destroy (bundle);  /* also destroys the taf it adopted */
+        run_destroy_bundle (bundle);  /* also destroys the taf it adopted */
       else
         taf_destroy (taf);
       throw;
@@ -1610,7 +1626,7 @@ run_destroy (scr_gameref_t game)
   var_destroy (gs_get_vars (game->undo));
   gs_destroy (game->undo);
 
-  prop_destroy (gs_get_bundle (game));
+  run_destroy_bundle (gs_get_bundle (game));
   pf_destroy (gs_get_filter (game));
   var_destroy (gs_get_vars (game));
   memo_destroy (gs_get_memento (game));

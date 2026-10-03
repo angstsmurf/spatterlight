@@ -158,6 +158,9 @@ typedef struct
   /* A command whose markers were lower-cased lives here, and patterns[]
      points into it.  See run_lower_command_markers(). */
   std::vector<std::string> rewritten[2];
+  /* run_task_passes_class_filter()'s take/put reading of the forwards
+     patterns, as 1 + (take ? 1 : 0) + (put ? 2 : 0); 0 = not yet read. */
+  scr_byte take_put_class;
 } scr_task_commands_t;
 
 static scr_bool run_task_passes_class_filter (scr_gameref_t game,
@@ -2295,29 +2298,44 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
 {
   static const scr_char *const TAKE_WORDS[] = { "get", "take", "pick" };
   static const scr_char *const PUT_WORDS[] = { "drop", "leave", "put" };
-  const std::vector<const scr_char *> &patterns =
-      run_task_command_patterns (game, task, TRUE);
   scr_bool is_take = FALSE, is_put = FALSE;
   const scr_int mode = run_task_class_filter != 0 ? run_task_class_filter
                        : run_put_class_only ? 2 : 0;
+  scr_byte *take_put_class;
 
   if (mode == 0)
     return TRUE;
 
-  for (const scr_char *pattern : patterns)
+  /*
+   * The reading depends only on the task's patterns, which never change, so
+   * it is made once per task; the scan below is six case-insensitive
+   * substring searches per pattern, and this filter runs for every task on
+   * every take/put line.  run_task_command_patterns() has just (re)built the
+   * cache entry for this game, so the slot is valid.
+   */
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, TRUE);
+  take_put_class = &run_cache[task].take_put_class;
+  if (*take_put_class == 0)
     {
-      size_t index_;
-
-      if (strcmp (pattern, "*") == 0)
-        is_take = is_put = TRUE;
-      for (index_ = 0; index_ < 3; index_++)
+      for (const scr_char *pattern : patterns)
         {
-          if (run_instr (pattern, TAKE_WORDS[index_]) >= 0)
-            is_take = TRUE;
-          if (run_instr (pattern, PUT_WORDS[index_]) >= 0)
-            is_put = TRUE;
+          size_t index_;
+
+          if (strcmp (pattern, "*") == 0)
+            is_take = is_put = TRUE;
+          for (index_ = 0; index_ < 3; index_++)
+            {
+              if (run_instr (pattern, TAKE_WORDS[index_]) >= 0)
+                is_take = TRUE;
+              if (run_instr (pattern, PUT_WORDS[index_]) >= 0)
+                is_put = TRUE;
+            }
         }
+      *take_put_class = 1 + (is_take ? 1 : 0) + (is_put ? 2 : 0);
     }
+  is_take = (*take_put_class - 1) & 1;
+  is_put = ((*take_put_class - 1) & 2) != 0;
 
   switch (mode)
     {

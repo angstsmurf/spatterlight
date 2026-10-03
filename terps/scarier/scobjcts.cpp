@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -32,16 +34,128 @@ static scr_bool obj_trace = FALSE;
 
 
 /*
- * obj_get_flag()
+ * Per-object attribute cache.
  *
- * Return the given boolean property of an object.
+ * Whether an object is static, a container, a surface, and so on is fixed by
+ * the bundle and never changes in play, yet the library and the restriction
+ * checks ask for it object by object, many times a turn -- and finding the
+ * n'th container, surface or stateful object walked every object.  Each answer
+ * was a property tree lookup, and together they were up to a fifth of a
+ * walkthrough's run time.  So read every object's attributes once, the first
+ * time any is asked for, along with the per-kind numberings.  The cache is
+ * keyed by bundle, which the undo and temporary game copies share; the runner
+ * calls obj_forget_bundle() before destroying a bundle, so a later one
+ * allocated at the same address can't inherit it.
+ *
+ * Every object version carries Static, Container, Surface, Openable, SitLie
+ * and CurrentState, and Wearable exactly when it is not static (see the
+ * object grammars in sctafpar.cpp), so the reads below are the ones the old
+ * object-by-object lookups made.
  */
-static scr_bool
-obj_get_flag (scr_gameref_t game, scr_int object, const scr_char *name)
+enum
+{
+  OBJ_KIND_STATIC,
+  OBJ_KIND_DYNAMIC,
+  OBJ_KIND_CONTAINER,
+  OBJ_KIND_SURFACE,
+  OBJ_KIND_STATEFUL,
+  OBJ_KIND_WEARABLE,
+  OBJ_KIND_STANDABLE,
+  OBJ_KIND_LIEABLE,
+  OBJ_KIND_COUNT
+};
+
+/* The two flags held in an object's SitLie property. */
+enum
+{ OBJ_STANDABLE_MASK = 1 << 0,
+  OBJ_LIEABLE_MASK = 1 << 1
+};
+
+static scr_prop_setref_t obj_cache_bundle = NULL;
+static std::vector<scr_byte> obj_kinds;       /* per object, 1 << OBJ_KIND_* */
+static std::vector<scr_int> obj_numbering[OBJ_KIND_COUNT];
+
+void
+obj_forget_bundle (scr_prop_setref_t bundle)
+{
+  if (obj_cache_bundle == bundle)
+    {
+      scr_int kind;
+
+      obj_cache_bundle = NULL;
+      obj_kinds.clear ();
+      for (kind = 0; kind < OBJ_KIND_COUNT; kind++)
+        obj_numbering[kind].clear ();
+    }
+}
+
+/*
+ * obj_cache_kinds()
+ *
+ * Make sure the cache holds the kinds of the game's objects.  An object is
+ * stateful if it is openable, or if it carries a set of states.
+ */
+static void
+obj_cache_kinds (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
 
-  return prop_get_indexed_boolean (bundle, "Objects", object, name);
+  if (obj_cache_bundle == bundle)
+    return;
+
+  obj_forget_bundle (obj_cache_bundle);
+  obj_cache_bundle = bundle;
+  obj_kinds.assign (gs_object_count (game), 0);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_bool is_static =
+          prop_get_indexed_boolean (bundle, "Objects", object, "Static");
+      const scr_int sit_lie =
+          prop_get_indexed_integer (bundle, "Objects", object, "SitLie");
+      scr_bool is_kind[OBJ_KIND_COUNT];
+      scr_int kind;
+
+      is_kind[OBJ_KIND_STATIC] = is_static;
+      is_kind[OBJ_KIND_DYNAMIC] = !is_static;
+      is_kind[OBJ_KIND_CONTAINER] =
+          prop_get_indexed_boolean (bundle, "Objects", object, "Container");
+      is_kind[OBJ_KIND_SURFACE] =
+          prop_get_indexed_boolean (bundle, "Objects", object, "Surface");
+      is_kind[OBJ_KIND_STATEFUL] =
+          prop_get_indexed_integer (bundle, "Objects", object, "Openable") != 0
+          || prop_get_indexed_integer (bundle, "Objects", object,
+                                       "CurrentState") != 0;
+      is_kind[OBJ_KIND_WEARABLE] =
+          !is_static
+          && prop_get_indexed_boolean (bundle, "Objects", object, "Wearable");
+      is_kind[OBJ_KIND_STANDABLE] = (sit_lie & OBJ_STANDABLE_MASK) != 0;
+      is_kind[OBJ_KIND_LIEABLE] = (sit_lie & OBJ_LIEABLE_MASK) != 0;
+
+      for (kind = 0; kind < OBJ_KIND_COUNT; kind++)
+        {
+          if (is_kind[kind])
+            {
+              obj_kinds[object] |= 1 << kind;
+              obj_numbering[kind].push_back (object);
+            }
+        }
+    }
+}
+
+
+/*
+ * obj_is_kind()
+ *
+ * Return TRUE if the object is of the given kind.
+ */
+static scr_bool
+obj_is_kind (scr_gameref_t game, scr_int object, scr_int kind)
+{
+  obj_cache_kinds (game);
+  if (object < 0 || object >= (scr_int) obj_kinds.size ())
+    scr_fatal ("obj_is_kind: invalid object, %ld\n", object);
+  return (obj_kinds[object] & (1 << kind)) != 0;
 }
 
 
@@ -55,19 +169,19 @@ obj_get_flag (scr_gameref_t game, scr_int object, const scr_char *name)
 scr_bool
 obj_is_static (scr_gameref_t game, scr_int object)
 {
-  return obj_get_flag (game, object, "Static");
+  return obj_is_kind (game, object, OBJ_KIND_STATIC);
 }
 
 scr_bool
 obj_is_container (scr_gameref_t game, scr_int object)
 {
-  return obj_get_flag (game, object, "Container");
+  return obj_is_kind (game, object, OBJ_KIND_CONTAINER);
 }
 
 scr_bool
 obj_is_surface (scr_gameref_t game, scr_int object)
 {
-  return obj_get_flag (game, object, "Surface");
+  return obj_is_kind (game, object, OBJ_KIND_SURFACE);
 }
 
 
@@ -75,76 +189,74 @@ obj_is_surface (scr_gameref_t game, scr_int object)
  * obj_nth_object()
  *
  * Adrift numbers objects of a given kind separately from objects at large,
- * so each kind needs a function to convert from that numbering to objects
- * at large: the n'th object matching some property.  This walks the objects
- * for any such property.
+ * so each kind needs a conversion from that numbering to objects at large:
+ * the n'th object of the kind.  As the walk over the objects this replaced
+ * did, a negative n gives -1 and an n past the last of the kind gives the
+ * last object.
  */
-typedef scr_bool (*obj_matcherref_t) (scr_gameref_t game, scr_int object);
-
 static scr_int
-obj_nth_object (scr_gameref_t game, obj_matcherref_t matches, scr_int n)
+obj_nth_object (scr_gameref_t game, scr_int kind, scr_int n)
 {
-  scr_int object, count;
-
-  /* Progress through objects until n matches found. */
-  count = n;
-  for (object = 0; object < gs_object_count (game) && count >= 0; object++)
-    {
-      if (matches (game, object))
-        count--;
-    }
-  return object - 1;
+  obj_cache_kinds (game);
+  if (n < 0)
+    return -1;
+  if (n < (scr_int) obj_numbering[kind].size ())
+    return obj_numbering[kind][n];
+  return gs_object_count (game) - 1;
 }
 
 
 /*
  * obj_container_object()
+ * obj_surface_object()
+ * obj_stateful_object()
+ * obj_dynamic_object()
+ * obj_wearable_object()
+ * obj_standable_object()
+ * obj_lieable_object()
  *
- * Convert container numbering to object numbering.
+ * Convert the numbering of each kind of object to object numbering.
  */
 scr_int
 obj_container_object (scr_gameref_t game, scr_int n)
 {
-  return obj_nth_object (game, obj_is_container, n);
+  return obj_nth_object (game, OBJ_KIND_CONTAINER, n);
 }
 
-
-/*
- * obj_surface_object()
- *
- * Convert surface numbering to object numbering.
- */
 scr_int
 obj_surface_object (scr_gameref_t game, scr_int n)
 {
-  return obj_nth_object (game, obj_is_surface, n);
-}
-
-
-/*
- * obj_is_stateful()
- * obj_stateful_object()
- *
- * Convert stateful object numbering to object numbering.  An object is
- * stateful if it is openable, or if it carries a set of states.
- */
-static scr_bool
-obj_is_stateful (scr_gameref_t game, scr_int object)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool is_openable, is_statussed;
-
-  is_openable = prop_get_indexed_integer (bundle, "Objects", object,
-                                          "Openable") != 0;
-  is_statussed = prop_get_indexed_integer (bundle, "Objects", object,
-                                           "CurrentState") != 0;
-  return is_openable || is_statussed;
+  return obj_nth_object (game, OBJ_KIND_SURFACE, n);
 }
 
 scr_int
 obj_stateful_object (scr_gameref_t game, scr_int n)
 {
-  return obj_nth_object (game, obj_is_stateful, n);
+  return obj_nth_object (game, OBJ_KIND_STATEFUL, n);
+}
+
+scr_int
+obj_dynamic_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, OBJ_KIND_DYNAMIC, n);
+}
+
+scr_int
+obj_wearable_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, OBJ_KIND_WEARABLE, n);
+}
+
+scr_int
+obj_standable_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, OBJ_KIND_STANDABLE, n);
+}
+
+scr_int
+obj_lieable_object (scr_gameref_t game, scr_int n)
+{
+  return obj_nth_object (game, OBJ_KIND_LIEABLE, n);
 }
 
 
@@ -194,45 +306,6 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
   string[last - first] = '\0';
 
   return string;
-}
-
-
-/*
- * obj_is_dynamic()
- * obj_dynamic_object()
- *
- * Return the index of the n'th non-static object found.
- */
-static scr_bool
-obj_is_dynamic (scr_gameref_t game, scr_int object)
-{
-  return !obj_is_static (game, object);
-}
-
-scr_int
-obj_dynamic_object (scr_gameref_t game, scr_int n)
-{
-  return obj_nth_object (game, obj_is_dynamic, n);
-}
-
-
-/*
- * obj_is_wearable()
- * obj_wearable_object()
- *
- * Return the index of the n'th wearable object found.
- */
-static scr_bool
-obj_is_wearable (scr_gameref_t game, scr_int object)
-{
-  return !obj_is_static (game, object)
-         && obj_get_flag (game, object, "Wearable");
-}
-
-scr_int
-obj_wearable_object (scr_gameref_t game, scr_int n)
-{
-  return obj_nth_object (game, obj_is_wearable, n);
 }
 
 
@@ -731,56 +804,6 @@ obj_get_container_free_space (scr_gameref_t game, scr_int object)
     scr_trace ("Object: object %ld has %ld free\n", object, free_space);
 
   return free_space;
-}
-
-
-/* Sit/lie bit mask enumerations. */
-enum
-{ OBJ_STANDABLE_MASK = 1 << 0,
-  OBJ_LIEABLE_MASK = 1 << 1
-};
-
-/*
- * obj_has_sit_lie()
- * obj_is_standable()
- * obj_is_lieable()
- * obj_standable_object()
- * obj_lieable_object()
- *
- * Return the index of the n'th standable or lieable object found.  Both
- * flags live in the one SitLie property.
- */
-static scr_bool
-obj_has_sit_lie (scr_gameref_t game, scr_int object, scr_int mask)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-
-  return (prop_get_indexed_integer (bundle, "Objects", object,
-                                    "SitLie") & mask) != 0;
-}
-
-static scr_bool
-obj_is_standable (scr_gameref_t game, scr_int object)
-{
-  return obj_has_sit_lie (game, object, OBJ_STANDABLE_MASK);
-}
-
-static scr_bool
-obj_is_lieable (scr_gameref_t game, scr_int object)
-{
-  return obj_has_sit_lie (game, object, OBJ_LIEABLE_MASK);
-}
-
-scr_int
-obj_standable_object (scr_gameref_t game, scr_int n)
-{
-  return obj_nth_object (game, obj_is_standable, n);
-}
-
-scr_int
-obj_lieable_object (scr_gameref_t game, scr_int n)
-{
-  return obj_nth_object (game, obj_is_lieable, n);
 }
 
 
