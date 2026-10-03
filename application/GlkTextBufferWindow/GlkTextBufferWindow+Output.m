@@ -231,8 +231,23 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     if (buf.length > textstorage.length)
         return result;
     NSUInteger initialLength = textstorage.length;
-    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
-    if ([stringToRemove isEqualToString:buf.uppercaseString]) {
+    // The smart-quotes theme option rewrites straight quotes on their way in
+    // (handlePrintOnWindow), so the interpreter's record of what it printed
+    // still has the straight ones. Compare with both sides straightened.
+    // (The option's dash and double-space rewrites change the length, and
+    // still defeat the match.)
+    NSString * (^straightened)(NSString *) = ^NSString *(NSString *str) {
+        NSMutableString *m = str.uppercaseString.mutableCopy;
+        NSRange all = NSMakeRange(0, m.length);
+        [m replaceOccurrencesOfString:@"\u2018" withString:@"'" options:NSLiteralSearch range:all];
+        [m replaceOccurrencesOfString:@"\u2019" withString:@"'" options:NSLiteralSearch range:all];
+        [m replaceOccurrencesOfString:@"`" withString:@"'" options:NSLiteralSearch range:all];
+        [m replaceOccurrencesOfString:@"\u201c" withString:@"\"" options:NSLiteralSearch range:all];
+        [m replaceOccurrencesOfString:@"\u201d" withString:@"\"" options:NSLiteralSearch range:all];
+        return m;
+    };
+    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length];
+    if ([straightened(stringToRemove) isEqualToString:straightened(buf)]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
         result = initialLength - textstorage.length;
         // A tail delete invalidates every cached absolute character offset
