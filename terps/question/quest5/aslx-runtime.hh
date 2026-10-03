@@ -225,6 +225,9 @@ public:
     // The RNG stream of the expression currently evaluating (QuestViva has one
     // fresh seed-1234 RNG per compiled expression); rng_ is the fallback for
     // draws made outside any expression.
+    // True when the engine draws Ask/ShowMenu prompts in the transcript
+    // itself (v600+); the host then only collects the answer.
+    bool inline_prompts() const { return world_.asl_version >= 600; }
     Rng &active_rng() { return current_rng_ ? *current_rng_ : rng_; }
     // Raise a runtime script error: appends the innermost executing <function>
     // name ("... (in HandleCommand)") and THROWS, aborting the current script
@@ -842,6 +845,17 @@ private:
     // {...} text processor runs), else the raw sink. Failures are reported and
     // swallowed, like PrintAsync's own catch.
     void print_via_core(const std::string &text, Context &ctx);
+    // WorldModel.ShowInlinePromptAsync / EndInlinePromptAsync (Quest Viva
+    // #2288): a v600+ game draws its Ask/ShowMenu prompt in the transcript
+    // itself -- the caption, then one numbered {command:} link per option
+    // inside an output section that is hidden again once the prompt resolves.
+    void show_inline_prompt(const std::string *caption,
+                            const std::vector<std::string> &option_texts,
+                            Context &ctx);
+    void show_inline_question(const std::string &caption, Context &ctx);
+    void end_inline_prompt(Context &ctx);
+    bool inline_prompt_active_ = false;
+    std::string inline_prompt_section_;   // "" when Core has no output sections
 
     // Element.SetFieldAsync: after a script assignment (obj.attr = v / set()),
     // run the element's "changed<attr>" script if one resolves (inheritance

@@ -2017,7 +2017,9 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
     /* Through in.print, not render_html: with a PromptBreak active (a menu
      * opened by a timer tick) the first output must retract the stale prompt
      * first, exactly like every other engine print. */
-    if (!resumed) {
+    /* A v600+ game has already drawn the caption and the numbered options in
+     * the transcript itself (Interp::show_inline_prompt). */
+    if (!resumed && !in.inline_prompts()) {
         if (!m.caption.empty()) {
             in.print(m.caption);
             glk_put_char('\n');
@@ -2089,14 +2091,18 @@ bool run_verb_menu(Interp &in, bool resumed, std::string &cmd)
     return true;
 }
 
-/* Present a yes/no question and return the answer.  The engine never prints
+/* Present a yes/no question and return the answer.  Before v600 the engine never prints
  * the caption (ShowQuestion is host UI), so render it here.  Shared by the
  * `ask` script-command prompt (set_question_response) and the expression-form
  * provider (ask_provider), which is why it does not touch the pending slot.
  * Returns false when the world ended under the prompt (no answer to give). */
 bool run_question_ui(Interp &in, const std::string &q, bool &answer)
 {
-    in.print(q);  /* through the prompt-retract path; see run_menu_ui */
+    /* through the prompt-retract path; see run_menu_ui.  A v600+ game has
+     * already drawn the question and its 1: Yes / 2: No links itself. */
+    bool drawn = in.inline_prompts();
+    if (!drawn)
+        in.print(q);
     for (;;) {
         InResult r = read_line(in, true, " (yes/no) > ");
         if (r.kind == InEnd::State)
@@ -2104,8 +2110,8 @@ bool run_question_ui(Interp &in, const std::string &q, bool &answer)
         if (r.kind != InEnd::Line)
             continue;
         std::string a = lower(trim(r.text));
-        if (a == "yes" || a == "y") { answer = true;  return true; }
-        if (a == "no"  || a == "n") { answer = false; return true; }
+        if (a == "yes" || a == "y" || (drawn && a == "1")) { answer = true;  return true; }
+        if (a == "no"  || a == "n" || (drawn && a == "2")) { answer = false; return true; }
         glk_put_string((char *) "Please answer YES or NO.");
     }
 }

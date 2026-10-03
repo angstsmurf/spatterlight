@@ -1121,28 +1121,39 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         if (!menu_provider)
             error("ShowMenu (expression form) requires a host menu provider");
-        print_via_core(md.caption, ctx);
+        if (inline_prompts()) {
+            if (md.options.empty()) error("No menu options specified");
+            std::vector<std::string> texts;
+            for (const auto &kv : md.options) texts.push_back(kv.second);
+            show_inline_prompt(&md.caption, texts, ctx);
+        } else {
+            print_via_core(md.caption, ctx);
+        }
         std::string key;
-        if (menu_provider(md, key)) {
+        bool picked = menu_provider(md, key);
+        if (picked) {
             for (const auto &kv : md.options)
                 if (kv.first == key) {
                     print_via_core(" - " + kv.second, ctx);
                     break;
                 }
-            return vstr(key);
         }
-        return vstr("");  // cancelled: result ?? string.Empty
+        end_inline_prompt(ctx);
+        return vstr(picked ? key : "");  // cancelled: result ?? string.Empty
     }
 
     // ExpressionOwner.Ask -- the EXPRESSION form, which QuestViva AWAITS: hand
-    // the caption to the synchronous host and return its yes/no. The caption is
-    // not printed (PlayerUI.ShowQuestion renders it), so this emits nothing.
+    // the caption to the synchronous host and return its yes/no. Before v600
+    // the caption is not printed (PlayerUI.ShowQuestion renders it); a v600+
+    // game draws the question and its Yes/No links inline.
     if (fn == "ask" && n == 1) {
         if (!ask_provider)
             error("Ask (expression form) requires a host question provider");
         bool answer = false;
-        if (!ask_provider(sarg(0), answer)) return vbool(false);
-        return vbool(answer);
+        if (inline_prompts()) show_inline_question(sarg(0), ctx);
+        bool answered = ask_provider(sarg(0), answer);
+        end_inline_prompt(ctx);
+        return vbool(answered && answer);
     }
 
     // ExpressionOwner.GetInput -- the EXPRESSION form of `get input`, which

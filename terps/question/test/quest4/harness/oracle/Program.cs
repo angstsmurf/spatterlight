@@ -348,7 +348,8 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     public bool IsPausing;
 
     public void ShowMenu(MenuData menuData) => PendingMenu = menuData;
-    public void ShowQuestion(string caption) => PendingQuestion = caption;
+    public void ShowQuestion(string caption, bool inline) => PendingQuestion = caption;
+    public void SetTurnPending(bool pending) { }
     public void DoWait() => IsWaiting = true;
     public void DoPause(int ms) => IsPausing = true;
 
@@ -402,5 +403,4 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
         if (Environment.GetEnvironmentVariable("QVH_LOG") == "1")
             Console.Error.WriteLine("[log] " + text);
     }
-    public string GetUIOption(UIOption option) => null!;
 }

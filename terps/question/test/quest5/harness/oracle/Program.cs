@@ -400,7 +400,8 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     public bool IsPausing;
 
     public void ShowMenu(MenuData menuData) => PendingMenu = menuData;
-    public void ShowQuestion(string caption) => PendingQuestion = caption;
+    // inline (v600+, Quest Viva #2288): the engine has already drawn the Yes/No links itself.
+    public void ShowQuestion(string caption, bool inline) => PendingQuestion = caption;
     public void DoWait() => IsWaiting = true;
     public void DoPause(int ms) => IsPausing = true;
     public void SetTurnPending(bool pending) { }  // IPlayer (Quest Viva #2177); the driver reads the engine state directly
@@ -455,5 +456,4 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     public void SetInterfaceString(string name, string text) { }
     public void SetPanelContents(string html) { }
     public void Log(string text) { }
-    public string GetUIOption(UIOption option) => null!;
 }

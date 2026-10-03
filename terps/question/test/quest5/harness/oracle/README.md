@@ -29,7 +29,7 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 
 Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), moves the
 clone to the **pinned upstream revision** (`QV_REV` in `build.sh`, currently
-v6.0.0-beta.57 = `1b129e7a`), applies the harness patches (below), and builds
+v6.0.0-rc.4 + 9 = `5ef2091b`), applies the harness patches (below), and builds
 `bin/Release/net10.0/qvh.dll`. With the .NET 10 SDK the checkout needs no
 retargeting. Override the location with `ORACLE_HOME=/path ./build.sh`, the
 revision with `QV_REV=<sha>`; an existing clone on another revision is reset to
@@ -257,6 +257,15 @@ still go on?"))`); before `ask_provider` existed, the native engine reported
 oracle drove it fine. As with the `ask` statement, the caption is *not* printed by
 the engine — rendering the yes/no prompt is host presentation.
 
+**v600 games are the exception** (Quest Viva #2288): all four forms — `ask`,
+`show menu`, `Ask()`, `ShowMenu()` — draw the prompt *in the transcript*: the
+caption, then one `N: {command:N:text}` link per option (Yes/No from the `Yes`/`No`
+templates for a question) inside an output section that `HideOutputSection` takes
+away once the prompt resolves. The native engine mirrors it
+(`Interp::show_inline_prompt` / `end_inline_prompt`); the Glk frontend then only
+collects the answer instead of drawing its own list. Corpus cases: *Sir Loin (ASL
+600 build)* and *The Day the Sky Fell Down*.
+
 ### Parameterless calls to functions that take parameters
 
 Quest checks a procedure's arity *before* running its body, so a bare
@@ -435,7 +444,7 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0-beta.57 (2026-09-26): **160 passed, 0 failed**.
+`./check_golden.sh` against v6.0.0-rc.4+9 (2026-10-03): **165 passed, 0 failed**.
 The goldens are the oracle's own transcripts (regenerated with
 `update_golden.sh`, or by driving one game from its `overrides/` script), so a
 native/oracle disagreement shows up in `../run_replays.sh`, not here.
@@ -529,6 +538,18 @@ Seed defaults to **1234** (Spatterlight determinism convention); override with
 Question engine **must replicate this** for its transcripts to match the oracle.
 Result: games using `GetRandomInt`/`GetRandomDouble` now produce identical
 transcripts across runs.
+
+**One stream per compiled expression.** Through beta.57 every
+`NcalcExpressionEvaluator` built its own `ExpressionOwner`, hence its own
+generator: with the seeded replacement, each expression's draws start at the seed
+and advance only when *that* expression evaluates. Every golden, every
+seed-dependent derived route and the native engine's `Expr::rng` rest on that.
+Upstream #2294 moved to one shared `ExpressionOwner` per game — a single stream —
+which for an unseeded game is indistinguishable but would re-roll the whole
+corpus (19 transcripts, 5 wins lost when tried). `patch_questviva.py` §16
+therefore keeps the per-expression streams as a pinned oracle convention: the
+evaluator owns a lazily-seeded generator and installs it on the shared owner just
+before each dispatch into it.
 
 ## Known gaps
 

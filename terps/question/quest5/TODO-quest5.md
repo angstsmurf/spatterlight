@@ -16,9 +16,10 @@
 - NCalc list literals `(a, b, …)` / `()` parse natively (§2).
 - A Stranger, Unregarded WON 2026-10-03 (§7.1). Still open:
   `<backgroundimage>` (milestone 5, skipped for now); `make check` does not run the corpus replay
-  (milestone 6); moving the oracle's pinned QuestViva revision to current
-  upstream (fork `main` fast-forwarded 2026-09-25; needs the
-  `patch_questviva.py` `_random` anchor fixed and every golden re-checked).
+  (milestone 6).
+- Oracle pin moved beta.57 -> rc.4+9 (`5ef2091b`) 2026-10-03: 163/165 goldens
+  byte-identical; the two v600 games gained the inline Ask/ShowMenu prompts
+  (#2288, ported natively). Per-expression RNG streams kept by patch §16.
 
 ## Status (2026-07-22, a pane fold refreshes the autosave -- BOTH frontends)
 

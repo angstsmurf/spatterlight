@@ -2,6 +2,9 @@ Sir Loin: Coming of Age
 
 by CJ592  (updated by DavyB)
 
+Do you want sound effects?
+1: Yes
+2: No
 Sound effects have been switched off. Type sound to switch them on again.
 
 IN THE BEGINNING...
@@ -229,6 +232,9 @@ You can see Sir Halibut (sitting on top of a toybox).
 > speak to sir halibut
 "I have lost the key to this toybox," he says. "I have searched everywhere in the castle, but I am grounded so I can't go outside."
 
+"Will you search outside for me?"
+1: Yes
+2: No
 You say "Yes."
 
 "Great! Here, borrow these, they will help you." Halibut gives you a pair of multicoloured sunglasses.
@@ -262,6 +268,9 @@ You recognise him as Marlon the Wizard!
 > speak to marlon the wizard
 "I was hiding under the blanket because of something stupid I have done. I was looking after the Queen's ring when suddenly it disappeared. I don't know where it went, but if I don't find it the King will kill me."
 
+"Will you help me?"
+1: Yes
+2: No
 You say "Yes."
 
 "Great! If you find the ring, bring it back to me and as a reward I will lend you my blanket."
@@ -296,6 +305,9 @@ You can see the Chef and cupboards.
 > speak to chef
 "I am very busy. I don't have time to talk, as I have to make some cherry pies for the Queen."
 
+"You wouldn't like to help would you?"
+1: Yes
+2: No
 You say "Yes."
 
 "Great. Take this bowl of cherries and make some cherry puree, there's a good chap!"
@@ -581,6 +593,9 @@ You can see Queen Winalot and a lot of graves.
 > speak to queen
 "Oh hello," she replies. "I didn't see you there as I was far too busy doing the rubbings. You just put the paper on the stone and rub, and you get an imprint of the stone."
 
+"Do you fancy giving it a go?"
+1: Yes
+2: No
 You say "Yes."
 
 "Great. I have this spare brass rubbing kit. You don't have to use it on just brass you know. Give it a go."
@@ -1128,6 +1143,9 @@ You can see cupboards and Queen Winalot.
 > speak to queen
 The Queen is grumbling to herself. "There is no way I can do all this laundry in this tiny sink." She then spots you and beckons you over...
 
+"I need to get this laundry done, but there is not enough room in this sink. Will you help me?"
+1: Yes
+2: No
 You say "Yes."
 
 "Great! Take this laundry and try to find a place to get it washed and dried. If you do that I will reward you"

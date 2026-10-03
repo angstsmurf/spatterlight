@@ -18,23 +18,28 @@ shutil.copy2(oracle / "ErkyrathRandom.cs", engine / "ErkyrathRandom.cs")
 owner = engine / "Functions" / "ExpressionOwner.cs"
 text = owner.read_text()
 
+# Upstream dropped `readonly` and added a SetRandomSeed(int) test hook (#2294,
+# for the WasmPlayer's walkthrough replays); qvh never calls it, but it must
+# still compile, so it reseeds the same generator. Older pins (beta.57) have
+# the readonly field and no hook -- either form is accepted.
 edits = [
-    ("    private readonly Random _random = new();",
-     "    private readonly ErkyrathRandom _random = ErkyrathRandom.FromEnv();"),
-    ("        return _random.Next(min, max + 1);",
+    (("    private Random _random = new();",
+      "    private readonly Random _random = new();"),
+     "    private ErkyrathRandom _random = ErkyrathRandom.FromEnv();"),
+    (("        return _random.Next(min, max + 1);",),
      "        return _random.NextInclusive(min, max);"),
-    ("        return _random.NextDouble();",
-     "        return _random.NextDouble();"),  # signature-compatible, kept as-is
+    (("    internal void SetRandomSeed(int seed) => _random = new Random(seed);",),
+     "    internal void SetRandomSeed(int seed) => _random = new ErkyrathRandom(unchecked((uint)seed));"),
 ]
+optional = {"SetRandomSeed"}   # absent before #2294
 
 already = "ErkyrathRandom.FromEnv()" in text
-for old, new in edits:
-    if old == new:
-        continue
-    if old in text:
-        text = text.replace(old, new, 1)
-    elif not already:
-        sys.exit(f"[patch] anchor not found (upstream changed?):\n  {old}")
+for olds, new in edits:
+    hit = next((o for o in olds if o in text), None)
+    if hit:
+        text = text.replace(hit, new, 1)
+    elif not already and not any(k in olds[0] for k in optional):
+        sys.exit(f"[patch] anchor not found (upstream changed?):\n  {olds[0]}")
 
 owner.write_text(text)
 print(f"[patch] {'already patched' if already else 'patched'}: "
@@ -88,6 +93,12 @@ lazy = """            try
                 template.Fields[FieldDefinitions.Function] =
                     new QuestViva.Engine.Functions.QvhLazyExpression(expression, new ScriptContext(m_worldModel));
             }"""
+# Upstream renamed m_worldModel -> _worldModel (#2262 style pass); accept both.
+for wm_name in ("m_worldModel", "_worldModel"):
+    if anchor.replace("m_worldModel", wm_name) in ttext:
+        anchor = anchor.replace("m_worldModel", wm_name)
+        lazy = lazy.replace("m_worldModel", wm_name)
+        break
 if "QvhLazyExpression(expression" in ttext:
     print("[patch] already patched: Templates.cs -> lazy dynamictemplate parse")
 elif anchor in ttext:
@@ -221,8 +232,9 @@ shutil.copy2(oracle / "ErkyrathRandomV4.cs", legacy / "ErkyrathRandomV4.cs")
 v4 = legacy / "V4Game.cs"
 v4text = v4.read_text()
 v4_edits = [
-    ("    private readonly Random _random = new();",
-     "    private readonly ErkyrathRandomV4 _random = ErkyrathRandomV4.FromEnv();"),
+    (("    private Random _random = new();",
+      "    private readonly Random _random = new();"),
+     "    private ErkyrathRandomV4 _random = ErkyrathRandomV4.FromEnv();"),
     ("""            return Conversion.Str(
                 Conversion.Int(_random.NextDouble() *
                                (Conversions.ToDouble(parameters[2]) - Conversions.ToDouble(parameters[1]) + 1d)) +
@@ -231,12 +243,22 @@ v4_edits = [
                 Conversions.ToDouble(parameters[1]), Conversions.ToDouble(parameters[2])));"""),
 ]
 v4_already = "ErkyrathRandomV4.FromEnv()" in v4text
-for old, new in v4_edits:
-    if old in v4text:
-        v4text = v4text.replace(old, new, 1)
+for olds, new in v4_edits:
+    if isinstance(olds, str):
+        olds = (olds,)
+    hit = next((o for o in olds if o in v4text), None)
+    if hit:
+        v4text = v4text.replace(hit, new, 1)
     elif not v4_already:
-        sys.exit(f"[patch] V4 anchor not found (upstream changed?):\n  {old}")
+        sys.exit(f"[patch] V4 anchor not found (upstream changed?):\n  {olds[0]}")
 v4.write_text(v4text)
+# The matching SetRandomSeed hook (#2294) lives in V4Game.Part2.cs.
+p2 = legacy / "V4Game.Part2.cs"
+p2seed = p2.read_text()
+seed_old = "    public void SetRandomSeed(int seed) => _random = new Random(seed);"
+if seed_old in p2seed:
+    p2.write_text(p2seed.replace(seed_old,
+        "    public void SetRandomSeed(int seed) => _random = new ErkyrathRandomV4(unchecked((uint)seed));", 1))
 print(f"[patch] {'already patched' if v4_already else 'patched'}: "
       f"V4Game.cs -> ErkyrathRandomV4 (Question mapping, seed 1234 / QVH_SEED)")
 
@@ -484,3 +506,54 @@ else:
     ext.write_text(ext_text, encoding="utf-8-sig", newline="")
     elem.write_text(elem_text, encoding="utf-8-sig", newline="")
     print("[patch] patched: ExtendedAttributeLoaders.cs -> resolved attribute name")
+
+# 16. One RNG stream PER COMPILED EXPRESSION, not one per game. Through
+# beta.57 NcalcExpressionEvaluator built its own ExpressionOwner -- and so its
+# own generator -- for every compiled expression; with the generator swapped
+# for the seeded ErkyrathRandom that made each expression's GetRandomInt /
+# GetRandomDouble sequence start at the seed and advance only when THAT
+# expression evaluates. Every golden, every seed-dependent derived route
+# (Sleuth's murderer, Deeper's dungeon, Stranger's combat...) and the native
+# engine's Expr::rng are built on that convention. Upstream #2294 moved to one
+# shared ExpressionOwner per WorldModel, i.e. a single stream. For an unseeded
+# game the two are indistinguishable, so this is purely a pinned oracle
+# convention: keep the per-expression streams rather than re-derive the corpus.
+# The evaluator owns a lazily-seeded generator and installs it on the shared
+# ExpressionOwner immediately before each dispatch into it (after the
+# arguments, which may run other expressions, have been evaluated).
+ev = engine / "Expressions" / "NcalcExpressionEvaluator.cs"
+evtext = ev.read_text()
+shared_anchor = "        _expressionOwner = scriptContext.WorldModel.ExpressionOwner;\n"
+if "QvhUseRandom" in evtext:
+    print("[patch] already patched: NcalcExpressionEvaluator.cs -> per-expression RNG stream")
+elif shared_anchor not in evtext:
+    # beta.57 and older: `new ExpressionOwner(...)` per evaluator already is one.
+    if "_expressionOwner = new ExpressionOwner(" not in evtext:
+        sys.exit("[patch] ExpressionOwner wiring not found in NcalcExpressionEvaluator.cs (upstream changed?)")
+    print("[patch] upstream-native: NcalcExpressionEvaluator.cs -> per-expression RNG stream")
+else:
+    ev_edits = [
+        ("    private readonly ExpressionOwner _expressionOwner;\n",
+         "    private readonly ExpressionOwner _expressionOwner;\n"
+         "    private ErkyrathRandom? _qvhRandom;   // qvh: this expression's own stream\n"),
+        ("            await EvaluateFunctionFromTypeAsync(typeof(ExpressionOwner), _expressionOwner, name, args.Parameters);\n",
+         "            await EvaluateFunctionFromTypeAsync(typeof(ExpressionOwner), _expressionOwner, name, args.Parameters,\n"
+         "                () => _expressionOwner.QvhUseRandom(_qvhRandom ??= ErkyrathRandom.FromEnv()));\n"),
+        ("        string name, FunctionData parameters)\n    {\n        var methods = GetPublicMethodsByName(type, name);\n",
+         "        string name, FunctionData parameters, Action? qvhBeforeDispatch = null)\n    {\n        var methods = GetPublicMethodsByName(type, name);\n"),
+        ("        var (handled, result) = DispatchToMethod(methods, instance, name, evaluatedArgs);\n",
+         "        qvhBeforeDispatch?.Invoke();\n"
+         "        var (handled, result) = DispatchToMethod(methods, instance, name, evaluatedArgs);\n"),
+    ]
+    for old, new in ev_edits:
+        if evtext.count(old) != 1:
+            sys.exit(f"[patch] per-expression RNG anchor not found exactly once (upstream changed?):\n  {old}")
+        evtext = evtext.replace(old, new, 1)
+    ev.write_text(evtext)
+    hook = "    internal void SetRandomSeed(int seed)"
+    otext = owner.read_text()
+    if hook not in otext:
+        sys.exit("[patch] SetRandomSeed hook not found in ExpressionOwner.cs (upstream changed?)")
+    owner.write_text(otext.replace(
+        hook, "    internal void QvhUseRandom(ErkyrathRandom random) => _random = random;\n" + hook, 1))
+    print("[patch] patched: NcalcExpressionEvaluator.cs -> per-expression RNG stream")

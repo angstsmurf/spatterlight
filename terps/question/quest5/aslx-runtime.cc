@@ -519,10 +519,12 @@ struct Expr {
     // runtime failure is wrapped as "Error evaluating expression '<src>': ...".
     std::string src;
     // Per-expression RNG stream (lazily created at the root on first draw).
-    // QuestViva's NcalcExpressionEvaluator constructs its OWN ExpressionOwner
-    // -- and thus its own seed-1234 ErkyrathRandom -- per compiled expression,
-    // so every expression's GetRandomInt/GetRandomDouble sequence starts fresh
-    // and advances only when THAT expression evaluates. (Verified against the
+    // Through beta.57 QuestViva's NcalcExpressionEvaluator constructed its OWN
+    // ExpressionOwner -- and thus its own seed-1234 ErkyrathRandom -- per
+    // compiled expression (the oracle's patch_questviva.py section 16 keeps
+    // that convention now upstream shares one), so every expression's
+    // GetRandomInt/GetRandomDouble sequence starts fresh and advances only
+    // when THAT expression evaluates. (Verified against the
     // oracle: EFMB's PickOneString stream restarts at the seed.)
     std::shared_ptr<Rng> rng;
 };
@@ -1478,13 +1480,15 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     }
     case Stmt::Kind::Ask: {
         // PlayerUI.ShowQuestion: the caption is handed to the host, not
-        // printed -- rendering the yes/no prompt is presentation.
+        // printed -- rendering the yes/no prompt is presentation. (A v600+
+        // game draws it inline; see show_inline_prompt.)
         std::string caption = to_string(eval_expr(*s.expr, ctx));
         if (question_pending_) {  // release the slot first; see Wait above
             question_pending_ = false;
             question_cb_ = PendingCallback{};
             cancel_dormant_suspension();
         }
+        if (inline_prompts()) show_inline_question(caption, ctx);
         question_pending_ = true;
         question_ = caption;
         question_cb_.body = &s.body;
@@ -1514,8 +1518,15 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
             error("Unknown menu options type");
         }
         if (md.options.empty()) error("No menu options specified");
-        // The caption is printed (PrintAsync) before the menu goes to the UI.
-        print_via_core(caption, ctx);
+        // The caption is printed (PrintAsync) before the menu goes to the UI;
+        // a v600+ game draws the whole menu inline instead.
+        if (inline_prompts()) {
+            std::vector<std::string> texts;
+            for (const auto &kv : md.options) texts.push_back(kv.second);
+            show_inline_prompt(&caption, texts, ctx);
+        } else {
+            print_via_core(caption, ctx);
+        }
         if (menu_pending_) {  // release the slot first; see Wait above
             menu_pending_ = false;
             menu_cb_ = PendingCallback{};
@@ -1778,6 +1789,57 @@ void Interp::fire_changed_script(Element *e, const std::string &attr,
     run_script(scr->str, local, field_scope(e, "changed" + attr));
 }
 
+void Interp::show_inline_prompt(const std::string *caption,
+                                const std::vector<std::string> &option_texts,
+                                Context &ctx) {
+    if (caption) print_via_core(*caption, ctx);
+    auto is_fn = [&](const char *name) {
+        Element *f = world_.find(name);
+        return f && f->kind == ElemKind::Function;
+    };
+    std::string section;
+    bool have_section = false;
+    if (is_fn("StartNewOutputSection")) {
+        Value v = call_function("StartNewOutputSection", {}, &ctx);
+        if (v.type == Value::Type::String) {
+            section = v.str;
+            have_section = true;
+        }
+    }
+    // The option text is the {command:} directive's own last segment, so the
+    // text processor renders it as a link sending the option's number.
+    for (size_t i = 0; i < option_texts.size(); i++) {
+        std::string n = std::to_string(i + 1);
+        print_via_core(n + ": {command:" + n + ":" + option_texts[i] + "}", ctx);
+    }
+    if (have_section && is_fn("EndOutputSection"))
+        call_function("EndOutputSection", {vstr(section)}, &ctx);
+    inline_prompt_active_ = true;
+    inline_prompt_section_ = have_section ? section : std::string();
+}
+
+void Interp::show_inline_question(const std::string &caption, Context &ctx) {
+    // ShowInlineQuestionAsync: the [Yes]/[No] templates, resolved here because
+    // runtime-built text gets no load-time template substitution.
+    auto tmpl = [&](const char *name) {
+        for (auto it = world_.templates.rbegin(); it != world_.templates.rend(); ++it)
+            if (it->first == name) return it->second;
+        return std::string(name);
+    };
+    show_inline_prompt(&caption, {tmpl("Yes"), tmpl("No")}, ctx);
+}
+
+void Interp::end_inline_prompt(Context &ctx) {
+    if (!inline_prompt_active_) return;
+    inline_prompt_active_ = false;
+    std::string section = std::move(inline_prompt_section_);
+    inline_prompt_section_.clear();
+    Element *hide = world_.find("HideOutputSection");
+    if (!section.empty() && !world_.finished && hide &&
+        hide->kind == ElemKind::Function)
+        call_function("HideOutputSection", {vstr(section)}, &ctx);
+}
+
 void Interp::print_via_core(const std::string &text, Context &ctx) {
     // WorldModel.PrintAsync: v540+ routes through Core's OutputText so the
     // {...} text processor runs; failures inside its body report at the
@@ -1971,6 +2033,7 @@ void Interp::set_menu_response(const std::string *key) {
     // FinishTurn the command deferred past this prompt), then a pane refresh
     // once the chain resolved. A park inside either defers the rest.
     try {
+        end_inline_prompt(cb.ctx);
         end_pending_callback();
         if (!world_.finished) update_lists();
     } catch (TurnSuspended &ts) {
@@ -1997,6 +2060,7 @@ void Interp::set_question_response(bool response) {
     // FinishTurn the command deferred past this prompt), then a pane refresh
     // once the chain resolved. A park inside either defers the rest.
     try {
+        end_inline_prompt(cb.ctx);
         end_pending_callback();
         if (!world_.finished) update_lists();
     } catch (TurnSuspended &ts) {

@@ -118,8 +118,8 @@ def drop_banner(Question, name):
     game that really does print its own title first (Defenders of Gondor) keeps
     it on both sides.
     """
-    if name and Question and question[0].startswith(name):
-        Question = question[1:]
+    if name and Question and Question[0].startswith(name):
+        Question = Question[1:]
     return Question
 
 

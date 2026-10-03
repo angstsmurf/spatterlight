@@ -15,6 +15,10 @@ You are in Central Park. It is deserted, apart from yourself.
 
 You can see a rubble pile.
 You can go north to Vista, south to Habitation, west to Cleanliness, northwest to Godliness, northeast to Maintenance, southwest to Sustenance, east to Medication or southeast to Education.
+
+Do you want sound effects?
+1: Yes
+2: No
 Sound effects have been switched off. Type SOUND to switch them on again.
 
 [For guidance and other options type HELP]

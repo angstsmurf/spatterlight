@@ -17,11 +17,13 @@ export PATH="/opt/homebrew/bin:$PATH"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ORACLE_HOME="${ORACLE_HOME:-$HOME/questviva-oracle}"
 QV="$ORACLE_HOME/questviva"
-# Pinned upstream revision: v6.0.0-beta.57 (2026-09-04), the first release with
-# the string-concat regression fix (#2188) on top of the on-ready/FinishTurn
-# rework (#2177, #2182). Override with QV_REV=<sha> to test another revision;
-# patch_questviva.py's anchors are checked against this one.
-QV_REV="${QV_REV:-1b129e7a916c01235c4508a5e45d0a1db06f482f}"
+# Pinned upstream revision: v6.0.0-rc.4 + 9 (2026-10-02). Since beta.57 this
+# brings the shared per-game ExpressionOwner and SetRandomSeed hook (#2294),
+# inline Ask/ShowMenu prompts for v600 games (#2288), the turn no longer ending
+# when a blocking prompt resumes (#2413) and the nullable/LF refactors. Override
+# with QV_REV=<sha> to test another revision; patch_questviva.py's anchors are
+# checked against this one (and still accept beta.57's).
+QV_REV="${QV_REV:-5ef2091b91cbedb8c7b50f0c7d765159b37428e0}"
 
 mkdir -p "$ORACLE_HOME"
 if [ ! -d "$QV/.git" ]; then
