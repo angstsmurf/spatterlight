@@ -1119,6 +1119,40 @@ static bool drop_held_newlines(unsigned long height)
 // avoid interacting with the Z-machine’s streams: interpreter-provided
 // output should not be considered part of a transcript, nor should it
 // be included in the memory stream.
+#ifdef SPATTERLIGHT
+// Some V6 games (e.g. Moments Out of Time) keep a menu bar in a small
+// window which they move to the bottom of the screen. Windows 2–7 are
+// normally redirected to the main window, but that would scatter such
+// a bar all over the story text, so it gets a text grid window of its
+// own instead, below the main window.
+static bool is_v6_bar_window(const Window *win)
+{
+    return zversion == 6 && !is_spatterlight_v6 &&
+        win >= &windows[2] && win <= &windows[7] &&
+        win->id != nullptr && win->id != mainwin->id &&
+        win->id->type == wintype_TextGrid;
+}
+
+// Like the upper window, a bar window doesn’t wrap or scroll.
+static void v6_bar_put_char(uint16_t c)
+{
+    glui32 w, h;
+
+    glk_window_get_size(curwin->id, &w, &h);
+
+    if (c == UNICODE_LINEFEED) {
+        if (curwin->y + 1 < h) {
+            curwin->x = 0;
+            curwin->y++;
+            glk_window_move_cursor(curwin->id, 0, curwin->y);
+        }
+    } else if (curwin->x < w && curwin->y < h) {
+        curwin->x++;
+        xglk_put_char(c);
+    }
+}
+#endif
+
 static void put_char_base(uint16_t c, bool unicode)
 {
     if (c == 0) {
@@ -1223,6 +1257,8 @@ static void put_char_base(uint16_t c, bool unicode)
                         upperwin->x++;
                         xglk_put_char(c);
                     }
+                } else if (is_v6_bar_window(curwin)) {
+                    v6_bar_put_char(c);
                 } else {
                     xglk_put_char(c);
                     if (c == UNICODE_LINEFEED) {
@@ -1683,6 +1719,17 @@ static void clear_window(Window *window)
 
     window->x = window->y = 0;
 }
+
+#ifdef SPATTERLIGHT
+static void v6_clear_bar_window(Window *win)
+{
+    // A grid window cleared while reverse video is on gets the reversed
+    // background colour, but @erase_window ignores the text style.
+    garglk_set_reversevideo_stream(glk_window_get_stream(win->id), 0);
+    win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
+    clear_window(win);
+}
+#endif
 #endif
 
 static void resize_upper_window(uint32_t nlines, bool from_game)
@@ -1786,6 +1833,14 @@ std::pair<unsigned int, unsigned int> get_screen_size()
         glk_window_get_size(upperwin->id, &w, &h);
         height += h;
     }
+#ifdef SPATTERLIGHT
+    for (const auto &window : windows) {
+        if (is_v6_bar_window(&window)) {
+            glk_window_get_size(window.id, nullptr, &h);
+            height += h;
+        }
+    }
+#endif
     width = w;
 #else
     std::tie(width, height) = zterp_os_get_screen_size();
@@ -2452,6 +2507,70 @@ static bool draw_mysterious(glui32 pic, glui32 w, glui32 h, double x, double y)
 // tell a full-screen text window from a small one.
 static std::array<uint16_t, 8> v6_window_heights;
 
+#ifdef SPATTERLIGHT
+// A bar window is a window at most three lines high which the game
+// has moved to the lower half of the screen.
+static bool v6_wants_bar_window(const Window *win)
+{
+    if (zversion != 6 || is_spatterlight_v6 || !options.redirect_v6_windows ||
+        win < &windows[2] || win > &windows[7] || mainwin->id == nullptr) {
+
+        return false;
+    }
+
+    uint16_t height = v6_window_heights[win - &windows[0]];
+
+    return height >= 1 && height <= 3 &&
+        as_signed(win->y_origin) > 0 && win->y_origin * 2 > word(0x24);
+}
+
+static void v6_open_bar_window(Window *win)
+{
+    glui32 height = v6_window_heights[win - &windows[0]];
+
+    if (is_v6_bar_window(win)) {
+        glui32 h;
+        glk_window_get_size(win->id, nullptr, &h);
+        if (h != height) {
+            glk_window_set_arrangement(glk_window_get_parent(win->id), winmethod_Below | winmethod_Fixed, height, win->id);
+        }
+    } else if (win->id == mainwin->id) {
+        winid_t id = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, height, wintype_TextGrid, 0);
+        if (id != nullptr) {
+            win->id = id;
+            win->x = win->y = 0;
+            if (win == curwin) {
+                glk_set_window(win->id);
+                set_current_style();
+            }
+        }
+    }
+}
+
+// Redirect the window to the main window again.
+static void v6_close_bar_window(Window *win)
+{
+    if (is_v6_bar_window(win)) {
+        glk_window_close(win->id, nullptr);
+        win->id = mainwin->id;
+        win->x = win->y = 0;
+        if (win == curwin) {
+            glk_set_window(win->id);
+            set_current_style();
+        }
+    }
+}
+
+static void v6_update_bar_window(Window *win)
+{
+    if (v6_wants_bar_window(win)) {
+        v6_open_bar_window(win);
+    } else {
+        v6_close_bar_window(win);
+    }
+}
+#endif
+
 void zwindow_size()
 {
     int16_t window = as_signed(zargs[0]);
@@ -2462,7 +2581,39 @@ void zwindow_size()
 
     if (window >= 0 && window < 8) {
         v6_window_heights[window] = zargs[1];
+#ifdef SPATTERLIGHT
+        if (window >= 2) {
+            v6_update_bar_window(&windows[window]);
+        } else if (window == 0 && zargs[1] >= word(0x24)) {
+            // The main window covers the entire screen, so there is
+            // no room left for a bar. This is how Moments Out of Time
+            // turns its menu bar off.
+            for (auto &win : windows) {
+                v6_close_bar_window(&win);
+            }
+        }
+#endif
     }
+}
+
+void zmove_window()
+{
+#ifdef SPATTERLIGHT
+    if (is_spatterlight_v6) {
+        return;
+    }
+
+    Window *win = find_window(zargs[0]);
+
+    win->y_origin = zargs[1];
+    win->x_origin = zargs[2];
+
+    // The height of a bar window is unknown after an autorestore, so
+    // leave it alone until the game sets the size again.
+    if (win >= &windows[2] && v6_window_heights[win - &windows[0]] != 0) {
+        v6_update_bar_window(win);
+    }
+#endif
 }
 
 void zerase_window()
@@ -2482,7 +2633,13 @@ void zerase_window()
         break;
     case -1:
         close_upper_window();
-#ifndef SPATTERLIGHT
+#ifdef SPATTERLIGHT
+        for (auto &window : windows) {
+            if (is_v6_bar_window(&window)) {
+                v6_clear_bar_window(&window);
+            }
+        }
+#else
 #ifdef ZTERP_GLK_GRAPHICS
         graphics_window.destroy();
 #endif
@@ -2522,6 +2679,9 @@ void zerase_window()
             clear_window(&windows[arg0]);
         } else if (arg0 == -3 && (curwin == mainwin || curwin == upperwin)) {
             clear_window(curwin);
+        } else if ((arg0 == -3 || (arg0 >= 2 && arg0 < 8)) &&
+                   is_v6_bar_window(arg0 == -3 ? curwin : &windows[arg0])) {
+            v6_clear_bar_window(arg0 == -3 ? curwin : &windows[arg0]);
         } else if (arg0 == -3 || (arg0 >= 2 && arg0 < 8)) {
             // Windows 2–7 are redirected to the main window, so they
             // can’t be erased separately. Games that print their story
@@ -2673,6 +2833,19 @@ void zset_cursor()
             arthur_move_cursor(zargs[0], zargs[1], win->id);
             win->x = zargs[1];
             win->y = zargs[0];
+            return;
+        }
+    } else if (zversion == 6 && !is_spatterlight_v6) {
+        int16_t w = znargs < 3 ? -3 : as_signed(zargs[2]);
+        Window *win = w == -3 ? curwin : (w >= 0 && w < 8) ? &windows[w] : nullptr;
+        if (win != nullptr && is_v6_bar_window(win)) {
+            int16_t y = as_signed(zargs[0]), x = as_signed(zargs[1]);
+            // -1 and -2 turn the cursor off and on.
+            if (y != -1 && y != -2) {
+                win->y = y < 1 ? 0 : y - 1;
+                win->x = x < 1 ? 0 : x - 1;
+                glk_window_move_cursor(win->id, win->x, win->y);
+            }
             return;
         }
     }
@@ -3088,6 +3261,13 @@ void zset_window()
 {
 #ifdef SPATTERLIGHT
     flush_held_newlines();
+
+    // The game doesn’t move its bar window into place again after an
+    // undo or a restore, so if it was closed, reopen it here.
+    Window *win = find_window(zargs[0]);
+    if (v6_wants_bar_window(win)) {
+        v6_open_bar_window(win);
+    }
 #endif
     set_current_window(find_window(zargs[0]));
 }
@@ -5736,10 +5916,10 @@ void zget_wind_prop()
         }
         break;
     case 4:  // y cursor
-        val = 0;
+        val = is_v6_bar_window(win) ? win->y + 1 : 0;
         break;
     case 5:  // x cursor
-        val = 0;
+        val = is_v6_bar_window(win) ? win->x + 1 : 0;
 #else
     case 0: // y coordinate
         val = 0;
@@ -6840,6 +7020,11 @@ void init_screen(bool first_run)
         if (options.redirect_v6_windows) {
 #endif
         for (int i = 2; i < 8; i++) {
+#ifdef SPATTERLIGHT
+            if (is_v6_bar_window(&windows[i])) {
+                glk_window_close(windows[i].id, nullptr);
+            }
+#endif
             windows[i].id = windows[0].id;
         }
 #ifdef SPATTERLIGHT
