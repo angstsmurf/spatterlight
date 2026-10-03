@@ -1112,29 +1112,385 @@ static bool drop_held_newlines(unsigned long height)
 }
 #endif
 
-// Print out a character. The character is in “c” and is either Unicode
-// or ZSCII; if the former, “unicode” is true. This is meant for any
-// output produced by the game, as opposed to output produced by the
-// interpreter, which should use Glk (or standard I/O) calls only, to
-// avoid interacting with the Z-machine’s streams: interpreter-provided
-// output should not be considered part of a transcript, nor should it
-// be included in the memory stream.
+// The geometry V6 games have given their windows with @split_window,
+// @window_size and @move_window, in units (which are characters, as
+// the font size is reported as 1×1). Apart from the upper window, the
+// windows aren’t generally placed accordingly, but @get_wind_prop
+// reports these values, because games calculate the positions and
+// sizes of their windows from those of other windows.
+struct V6Geometry {
+    uint16_t y = 1, x = 1, height = 0, width = 0;
+    bool sized = false, moved = false;
+    // A window placed later lies on top of one placed earlier.
+    unsigned long stamp = 0;
+};
+
+static std::array<V6Geometry, 8> v6_geometry;
+static unsigned long v6_geometry_stamp;
 #ifdef SPATTERLIGHT
-// Some V6 games (e.g. Moments Out of Time) keep a menu bar in a small
-// window which they move to the bottom of the screen. Windows 2–7 are
-// normally redirected to the main window, but that would scatter such
-// a bar all over the story text, so it gets a text grid window of its
-// own instead, below the main window.
-static bool is_v6_bar_window(const Window *win)
+static bool v6_layout_dirty;
+#endif
+
+static bool v6_tracks_geometry()
+{
+#ifdef SPATTERLIGHT
+    return zversion == 6 && !is_spatterlight_v6;
+#else
+    return zversion == 6;
+#endif
+}
+
+static void v6_set_window_size(int window, uint16_t height, uint16_t width)
+{
+    auto &geometry = v6_geometry[window];
+
+    geometry.height = height;
+    geometry.width = width;
+    geometry.sized = true;
+    geometry.stamp = ++v6_geometry_stamp;
+#ifdef SPATTERLIGHT
+    v6_layout_dirty = true;
+#endif
+}
+
+static void v6_set_window_origin(int window, uint16_t y, uint16_t x)
+{
+    auto &geometry = v6_geometry[window];
+
+    geometry.y = y;
+    geometry.x = x;
+    geometry.moved = true;
+    geometry.stamp = ++v6_geometry_stamp;
+#ifdef SPATTERLIGHT
+    v6_layout_dirty = true;
+#endif
+}
+
+#ifdef SPATTERLIGHT
+// Windows 2–7 are normally redirected to the main window, but that
+// jumbles the output of games which really lay out their windows:
+// Moments Out of Time keeps a menu bar in a one-line window at the
+// bottom of the screen, and the V6Lib port of Adventure can show the
+// room description and the inventory in windows above the story text.
+// So a window which the game has both sized and moved, and which is
+// neither the window commands are read in nor covered by a window
+// placed later, becomes a panel: a Glk window of its own above or below
+// the main window. As Glk windows can’t overlap, the panels are laid
+// out in horizontal bands, with panels that are side by side sharing
+// a band.
+static int v6_story_window = -1;
+static std::vector<int> v6_layout_signature;
+
+static bool is_v6_panel(const Window *win)
 {
     return zversion == 6 && !is_spatterlight_v6 &&
         win >= &windows[2] && win <= &windows[7] &&
-        win->id != nullptr && win->id != mainwin->id &&
-        win->id->type == wintype_TextGrid;
+        win->id != nullptr && win->id != mainwin->id;
 }
 
-// Like the upper window, a bar window doesn’t wrap or scroll.
-static void v6_bar_put_char(uint16_t c)
+static bool is_v6_grid_panel(const Window *win)
+{
+    return is_v6_panel(win) && win->id->type == wintype_TextGrid;
+}
+
+struct V6Rect {
+    int y0, x0, y1, x1;
+};
+
+static bool v6_window_rect(int window, V6Rect &rect)
+{
+    const auto &geometry = v6_geometry[window];
+
+    if (!geometry.sized || !geometry.moved || as_signed(geometry.height) < 1 || as_signed(geometry.width) < 1) {
+        return false;
+    }
+
+    rect.y0 = std::max<int>(as_signed(geometry.y), 1);
+    rect.x0 = std::max<int>(as_signed(geometry.x), 1);
+    rect.y1 = rect.y0 + geometry.height - 1;
+    rect.x1 = rect.x0 + geometry.width - 1;
+
+    return true;
+}
+
+// The story window is the one the game reads commands in. Until it has
+// done so, take a window more than a few lines high which reaches the
+// bottom of the screen for one.
+static bool v6_is_story_window(int window)
+{
+    V6Rect rect;
+
+    if (v6_story_window >= 0) {
+        return window == v6_story_window;
+    }
+
+    return v6_geometry[window].height > 3 && v6_window_rect(window, rect) && rect.y1 >= word(0x24);
+}
+
+static bool v6_window_covered(int window)
+{
+    V6Rect rect, other;
+
+    if (!v6_window_rect(window, rect)) {
+        return false;
+    }
+
+    for (int i = 0; i < 8; i++) {
+        if (i != window && v6_geometry[i].stamp > v6_geometry[window].stamp && v6_window_rect(i, other) &&
+            other.y0 <= rect.y1 && other.y1 >= rect.y0 && other.x0 <= rect.x1 && other.x1 >= rect.x0) {
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static bool v6_wants_panel(int window)
+{
+    V6Rect rect;
+
+    return window >= 2 && v6_window_rect(window, rect) && !v6_is_story_window(window) && !v6_window_covered(window);
+}
+
+struct V6Band {
+    enum class Position { Top, Middle, Bottom } position;
+    int y0, y1;
+    std::vector<int> panels;
+};
+
+static std::vector<V6Band> v6_layout_bands()
+{
+    std::vector<int> panels;
+    std::vector<V6Band> bands;
+    V6Rect rect;
+
+    for (int i = 2; i < 8; i++) {
+        if (v6_wants_panel(i)) {
+            panels.push_back(i);
+        }
+    }
+
+    auto origin = [](int window) {
+        V6Rect r;
+        v6_window_rect(window, r);
+        return std::make_pair(r.y0, r.x0);
+    };
+
+    std::sort(panels.begin(), panels.end(), [&origin](int a, int b) {
+        return origin(a) < origin(b);
+    });
+
+    for (int panel : panels) {
+        v6_window_rect(panel, rect);
+        if (!bands.empty() && rect.y0 <= bands.back().y1) {
+            bands.back().y1 = std::max(bands.back().y1, rect.y1);
+            bands.back().panels.push_back(panel);
+        } else {
+            bands.push_back({V6Band::Position::Middle, rect.y0, rect.y1, {panel}});
+        }
+    }
+
+    // A band above the upper window goes at the top of the screen, a
+    // band in the lower half of the story window (or of the screen, if
+    // there is no story window) goes below the main window, and all
+    // others go between the upper window and the main window.
+    V6Rect upper;
+    bool have_upper = upperwin->id != nullptr && upper_window_height > 0 && v6_window_rect(1, upper);
+    int centre = 1 + word(0x24);
+
+    for (int i = 0; i < 8; i++) {
+        if (v6_is_story_window(i) && v6_window_rect(i, rect)) {
+            centre = rect.y0 + rect.y1;
+            break;
+        }
+    }
+
+    for (auto &band : bands) {
+        std::sort(band.panels.begin(), band.panels.end(), [&origin](int a, int b) {
+            return origin(a).second < origin(b).second;
+        });
+
+        if (have_upper && band.y1 < upper.y0) {
+            band.position = V6Band::Position::Top;
+        } else if (band.y0 + band.y1 > centre) {
+            band.position = V6Band::Position::Bottom;
+        }
+    }
+
+    return bands;
+}
+
+// A panel at most three lines high is a bar, which is always a grid.
+// A larger one is a text buffer if the game has turned wrapping on.
+static glui32 v6_panel_type(const V6Band &band, int window)
+{
+    return band.y1 - band.y0 + 1 > 3 && (windows[window].attribute & 1) ? wintype_TextBuffer : wintype_TextGrid;
+}
+
+static void v6_open_band(const V6Band &band)
+{
+    winid_t split = mainwin->id;
+    glui32 method = winmethod_Above;
+    winid_t previous = nullptr;
+    int remaining = 0;
+
+    if (band.position == V6Band::Position::Top) {
+        split = glk_window_get_parent(upperwin->id);
+    } else if (band.position == V6Band::Position::Bottom) {
+        method = winmethod_Below;
+    }
+
+    for (int panel : band.panels) {
+        remaining += v6_geometry[panel].width;
+    }
+
+    for (int panel : band.panels) {
+        glui32 type = v6_panel_type(band, panel);
+        int width = v6_geometry[panel].width;
+        winid_t id;
+
+        if (previous == nullptr) {
+            if (split == nullptr) {
+                return;
+            }
+            id = glk_window_open(split, method | winmethod_Fixed, band.y1 - band.y0 + 1, type, 0);
+        } else {
+            id = glk_window_open(previous, winmethod_Right | winmethod_Proportional, 100 * remaining / (remaining + width), type, 0);
+        }
+
+        if (id == nullptr) {
+            return;
+        }
+
+        windows[panel].id = id;
+        windows[panel].x = windows[panel].y = 0;
+        previous = id;
+        remaining -= width;
+    }
+}
+
+static void v6_close_panels()
+{
+    for (int i = 2; i < 8; i++) {
+        if (is_v6_panel(&windows[i])) {
+            glk_window_close(windows[i].id, nullptr);
+            windows[i].id = mainwin->id;
+            windows[i].x = windows[i].y = 0;
+        }
+    }
+}
+
+// Describe a layout, to tell whether it differs from the one on screen.
+static std::vector<int> v6_signature(const std::vector<V6Band> &bands, std::array<bool, 8> &wanted)
+{
+    std::vector<int> signature;
+
+    for (const auto &band : bands) {
+        signature.push_back(-1);
+        signature.push_back(static_cast<int>(band.position));
+        signature.push_back(band.y1 - band.y0 + 1);
+        for (int panel : band.panels) {
+            signature.push_back(panel);
+            signature.push_back(v6_panel_type(band, panel));
+            signature.push_back(v6_geometry[panel].width);
+            wanted[panel] = true;
+        }
+    }
+
+    return signature;
+}
+
+static void v6_apply_layout()
+{
+    v6_layout_dirty = false;
+
+    if (zversion != 6 || is_spatterlight_v6 || !options.redirect_v6_windows || mainwin->id == nullptr) {
+        return;
+    }
+
+    auto bands = v6_layout_bands();
+    std::array<bool, 8> wanted{};
+    auto signature = v6_signature(bands, wanted);
+
+    bool same = signature == v6_layout_signature;
+    for (int i = 2; i < 8 && same; i++) {
+        same = is_v6_panel(&windows[i]) == wanted[i];
+    }
+
+    if (same) {
+        return;
+    }
+
+    // Glk can’t move windows around, so close all panels and open them
+    // again in their new places.
+    v6_close_panels();
+
+    // Every new band is opened next to the upper window or the main
+    // window, pushing the earlier ones outwards.
+    for (const auto &band : bands) {
+        if (band.position != V6Band::Position::Bottom) {
+            v6_open_band(band);
+        }
+    }
+
+    for (auto band = bands.rbegin(); band != bands.rend(); ++band) {
+        if (band->position == V6Band::Position::Bottom) {
+            v6_open_band(*band);
+        }
+    }
+
+    v6_layout_signature = signature;
+
+    glk_set_window(curwin->id);
+    set_current_style();
+}
+
+// The layout is not updated as soon as the game moves or resizes a
+// window, because games do that one window at a time, and the stages
+// in between make no sense. It is updated when the game is about to
+// read input, and when it draws in a window which might be a panel.
+static void v6_touch_window(Window *win)
+{
+    int window = win - &windows[0];
+
+    if (zversion != 6 || is_spatterlight_v6 || window < 2 || window > 7 || v6_is_story_window(window)) {
+        return;
+    }
+
+    // Drawing in a window which is covered by a later one brings it
+    // back. Moments Out of Time doesn’t move its menu bar into place
+    // again after undoing the command which turned it off.
+    if (!is_v6_panel(win) && v6_window_covered(window)) {
+        v6_geometry[window].stamp = ++v6_geometry_stamp;
+        v6_layout_dirty = true;
+    }
+
+    if (v6_layout_dirty) {
+        v6_apply_layout();
+    }
+}
+
+static void v6_layout_before_input(bool line_input)
+{
+    if (zversion != 6 || is_spatterlight_v6) {
+        return;
+    }
+
+    int window = curwin - &windows[0];
+
+    if (line_input && window != v6_story_window && !is_v6_panel(curwin)) {
+        v6_story_window = window;
+        v6_layout_dirty = true;
+    }
+
+    if (v6_layout_dirty) {
+        v6_apply_layout();
+    }
+}
+
+// Like the upper window, a grid panel doesn’t wrap or scroll.
+static void v6_grid_panel_put_char(uint16_t c)
 {
     glui32 w, h;
 
@@ -1153,6 +1509,13 @@ static void v6_bar_put_char(uint16_t c)
 }
 #endif
 
+// Print out a character. The character is in “c” and is either Unicode
+// or ZSCII; if the former, “unicode” is true. This is meant for any
+// output produced by the game, as opposed to output produced by the
+// interpreter, which should use Glk (or standard I/O) calls only, to
+// avoid interacting with the Z-machine’s streams: interpreter-provided
+// output should not be considered part of a transcript, nor should it
+// be included in the memory stream.
 static void put_char_base(uint16_t c, bool unicode)
 {
     if (c == 0) {
@@ -1160,6 +1523,10 @@ static void put_char_base(uint16_t c, bool unicode)
     }
 
 #ifdef SPATTERLIGHT
+    if (!streams.test(OSTREAM_MEMORY)) {
+        v6_touch_window(curwin);
+    }
+
     if (holds_newlines() && !flushing_held_newlines && curwin == mainwin && !streams.test(OSTREAM_MEMORY)) {
         if (c == (unicode ? UNICODE_LINEFEED : ZSCII_NEWLINE)) {
             held_newlines++;
@@ -1257,8 +1624,8 @@ static void put_char_base(uint16_t c, bool unicode)
                         upperwin->x++;
                         xglk_put_char(c);
                     }
-                } else if (is_v6_bar_window(curwin)) {
-                    v6_bar_put_char(c);
+                } else if (is_v6_grid_panel(curwin)) {
+                    v6_grid_panel_put_char(c);
                 } else {
                     xglk_put_char(c);
                     if (c == UNICODE_LINEFEED) {
@@ -1721,9 +2088,9 @@ static void clear_window(Window *window)
 }
 
 #ifdef SPATTERLIGHT
-static void v6_clear_bar_window(Window *win)
+static void v6_clear_panel(Window *win)
 {
-    // A grid window cleared while reverse video is on gets the reversed
+    // A window cleared while reverse video is on gets the reversed
     // background colour, but @erase_window ignores the text style.
     garglk_set_reversevideo_stream(glk_window_get_stream(win->id), 0);
     win_setbgnd(win->id->peer, gargoyle_color(win->bg_color));
@@ -1834,14 +2201,23 @@ std::pair<unsigned int, unsigned int> get_screen_size()
         height += h;
     }
 #ifdef SPATTERLIGHT
-    for (const auto &window : windows) {
-        if (is_v6_bar_window(&window)) {
-            glk_window_get_size(window.id, nullptr, &h);
+    // Panels which are side by side have the same top edge.
+    width = w;
+    for (int i = 2; i < 8; i++) {
+        bool counted = !is_v6_panel(&windows[i]);
+
+        for (int j = 2; j < i && !counted; j++) {
+            counted = is_v6_panel(&windows[j]) && windows[j].id->bbox.y0 == windows[i].id->bbox.y0;
+        }
+
+        if (!counted) {
+            glk_window_get_size(windows[i].id, &w, &h);
             height += h;
         }
     }
-#endif
+#else
     width = w;
+#endif
 #else
     std::tie(width, height) = zterp_os_get_screen_size();
 #endif
@@ -2502,75 +2878,6 @@ static bool draw_mysterious(glui32 pic, glui32 w, glui32 h, double x, double y)
 }
 #endif
 
-// The heights V6 games have given their windows with @window_size. The
-// windows aren’t actually resized, but zerase_window() uses this to
-// tell a full-screen text window from a small one.
-static std::array<uint16_t, 8> v6_window_heights;
-
-#ifdef SPATTERLIGHT
-// A bar window is a window at most three lines high which the game
-// has moved to the lower half of the screen.
-static bool v6_wants_bar_window(const Window *win)
-{
-    if (zversion != 6 || is_spatterlight_v6 || !options.redirect_v6_windows ||
-        win < &windows[2] || win > &windows[7] || mainwin->id == nullptr) {
-
-        return false;
-    }
-
-    uint16_t height = v6_window_heights[win - &windows[0]];
-
-    return height >= 1 && height <= 3 &&
-        as_signed(win->y_origin) > 0 && win->y_origin * 2 > word(0x24);
-}
-
-static void v6_open_bar_window(Window *win)
-{
-    glui32 height = v6_window_heights[win - &windows[0]];
-
-    if (is_v6_bar_window(win)) {
-        glui32 h;
-        glk_window_get_size(win->id, nullptr, &h);
-        if (h != height) {
-            glk_window_set_arrangement(glk_window_get_parent(win->id), winmethod_Below | winmethod_Fixed, height, win->id);
-        }
-    } else if (win->id == mainwin->id) {
-        winid_t id = glk_window_open(mainwin->id, winmethod_Below | winmethod_Fixed, height, wintype_TextGrid, 0);
-        if (id != nullptr) {
-            win->id = id;
-            win->x = win->y = 0;
-            if (win == curwin) {
-                glk_set_window(win->id);
-                set_current_style();
-            }
-        }
-    }
-}
-
-// Redirect the window to the main window again.
-static void v6_close_bar_window(Window *win)
-{
-    if (is_v6_bar_window(win)) {
-        glk_window_close(win->id, nullptr);
-        win->id = mainwin->id;
-        win->x = win->y = 0;
-        if (win == curwin) {
-            glk_set_window(win->id);
-            set_current_style();
-        }
-    }
-}
-
-static void v6_update_bar_window(Window *win)
-{
-    if (v6_wants_bar_window(win)) {
-        v6_open_bar_window(win);
-    } else {
-        v6_close_bar_window(win);
-    }
-}
-#endif
-
 void zwindow_size()
 {
     int16_t window = as_signed(zargs[0]);
@@ -2580,19 +2887,7 @@ void zwindow_size()
     }
 
     if (window >= 0 && window < 8) {
-        v6_window_heights[window] = zargs[1];
-#ifdef SPATTERLIGHT
-        if (window >= 2) {
-            v6_update_bar_window(&windows[window]);
-        } else if (window == 0 && zargs[1] >= word(0x24)) {
-            // The main window covers the entire screen, so there is
-            // no room left for a bar. This is how Moments Out of Time
-            // turns its menu bar off.
-            for (auto &win : windows) {
-                v6_close_bar_window(&win);
-            }
-        }
-#endif
+        v6_set_window_size(window, zargs[1], zargs[2]);
     }
 }
 
@@ -2602,18 +2897,15 @@ void zmove_window()
     if (is_spatterlight_v6) {
         return;
     }
+#endif
 
     Window *win = find_window(zargs[0]);
 
+#ifdef SPATTERLIGHT
     win->y_origin = zargs[1];
     win->x_origin = zargs[2];
-
-    // The height of a bar window is unknown after an autorestore, so
-    // leave it alone until the game sets the size again.
-    if (win >= &windows[2] && v6_window_heights[win - &windows[0]] != 0) {
-        v6_update_bar_window(win);
-    }
 #endif
+    v6_set_window_origin(win - &windows[0], zargs[1], zargs[2]);
 }
 
 void zerase_window()
@@ -2635,8 +2927,8 @@ void zerase_window()
         close_upper_window();
 #ifdef SPATTERLIGHT
         for (auto &window : windows) {
-            if (is_v6_bar_window(&window)) {
-                v6_clear_bar_window(&window);
+            if (is_v6_panel(&window)) {
+                v6_clear_panel(&window);
             }
         }
 #else
@@ -2680,19 +2972,21 @@ void zerase_window()
         } else if (arg0 == -3 && (curwin == mainwin || curwin == upperwin)) {
             clear_window(curwin);
         } else if ((arg0 == -3 || (arg0 >= 2 && arg0 < 8)) &&
-                   is_v6_bar_window(arg0 == -3 ? curwin : &windows[arg0])) {
-            v6_clear_bar_window(arg0 == -3 ? curwin : &windows[arg0]);
+                   is_v6_panel(arg0 == -3 ? curwin : &windows[arg0])) {
+            v6_clear_panel(arg0 == -3 ? curwin : &windows[arg0]);
         } else if (arg0 == -3 || (arg0 >= 2 && arg0 < 8)) {
             // Windows 2–7 are redirected to the main window, so they
             // can’t be erased separately. Games that print their story
             // text in one of them (e.g. V6Lib ones) still expect erasing
             // it to clear the screen, so do that if the window is the
-            // current one and takes up most of the screen. Erasing other
-            // windows, such as a menu bar or a window used to draw a
-            // rectangle, must leave the text alone.
+            // current one and is either the story window or takes up
+            // most of the screen. Erasing other windows, such as a
+            // window used to draw a rectangle, must leave the text
+            // alone.
             Window *win = arg0 == -3 ? curwin : &windows[arg0];
+            int window = win - &windows[0];
             if (win == curwin && win->id == mainwin->id &&
-                v6_window_heights[win - &windows[0]] * 2 > word(0x24)) {
+                (v6_is_story_window(window) || v6_geometry[window].height * 2 > word(0x24))) {
 
                 clear_window(mainwin);
             }
@@ -2838,7 +3132,10 @@ void zset_cursor()
     } else if (zversion == 6 && !is_spatterlight_v6) {
         int16_t w = znargs < 3 ? -3 : as_signed(zargs[2]);
         Window *win = w == -3 ? curwin : (w >= 0 && w < 8) ? &windows[w] : nullptr;
-        if (win != nullptr && is_v6_bar_window(win)) {
+        if (win != nullptr) {
+            v6_touch_window(win);
+        }
+        if (win != nullptr && is_v6_grid_panel(win)) {
             int16_t y = as_signed(zargs[0]), x = as_signed(zargs[1]);
             // -1 and -2 turn the cursor off and on.
             if (y != -1 && y != -2) {
@@ -3244,6 +3541,17 @@ void zprint_paddr()
 // XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
 void zsplit_window()
 {
+    // The upper window takes up the top of the screen, and the lower
+    // window the rest of it (§8.7.2.1).
+    if (v6_tracks_geometry()) {
+        uint16_t lines = std::min(zargs[0], word(0x24));
+
+        v6_set_window_origin(1, 1, 1);
+        v6_set_window_size(1, lines, word(0x22));
+        v6_set_window_origin(0, lines + 1, 1);
+        v6_set_window_size(0, word(0x24) - lines, word(0x22));
+    }
+
 #ifdef ZTERP_GLK_GRAPHICS
     if (hack == Hack::MysteriousAdventures) {
         zargs[0] = 3;
@@ -3261,13 +3569,6 @@ void zset_window()
 {
 #ifdef SPATTERLIGHT
     flush_held_newlines();
-
-    // The game doesn’t move its bar window into place again after an
-    // undo or a restore, so if it was closed, reopen it here.
-    Window *win = find_window(zargs[0]);
-    if (v6_wants_bar_window(win)) {
-        v6_open_bar_window(win);
-    }
 #endif
     set_current_window(find_window(zargs[0]));
 }
@@ -4530,6 +4831,7 @@ void zread_char()
 
     flush_held_newlines();
     flush_image_buffer();
+    v6_layout_before_input(false);
 
     if (internal_read_char_hack) {
         internal_read_char_hack = false;
@@ -4948,6 +5250,7 @@ void zread()
 {
 #ifdef SPATTERLIGHT
     flush_held_newlines();
+    v6_layout_before_input(true);
 #endif
     while (!read_handler()) {
     }
@@ -5843,6 +6146,9 @@ void zwindow_style(void) {
             win->attribute ^= flags;
             break;
     }
+
+    // Whether a panel is a text buffer depends on the wrapping bit.
+    v6_layout_dirty = true;
 }
 #endif
 
@@ -5881,15 +6187,17 @@ void zget_wind_prop()
 #endif
 
     Window *win = find_window(zargs[0]);
+    const auto &geometry = v6_geometry[win - &windows[0]];
 
-    // These are mostly bald-faced lies.
+    // These are mostly bald-faced lies, apart from the positions and
+    // sizes of the windows, which are those the game asked for.
     switch (zargs[1]) {
 #ifdef SPATTERLIGHT
     case 0: // y origin
-        val = win->y_origin;
+        val = v6_tracks_geometry() && geometry.moved ? geometry.y : win->y_origin;
         break;
     case 1: // x origin
-        val = win->x_origin;
+        val = v6_tracks_geometry() && geometry.moved ? geometry.x : win->x_origin;
         break;
     case 2:  // y size
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
@@ -5898,6 +6206,8 @@ void zget_wind_prop()
             val = h;
         } else if (is_spatterlight_v6) {
             val = win->y_size;
+        } else if (geometry.sized) {
+            val = geometry.height;
         } else {
             val = word(0x24) * font_height;
         }
@@ -5911,27 +6221,29 @@ void zget_wind_prop()
             val = w - 1;
         } else if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
             val = win->x_size;
+        } else if (v6_tracks_geometry() && geometry.sized) {
+            val = geometry.width;
         } else {
             val = word(0x22) * font_width;
         }
         break;
     case 4:  // y cursor
-        val = is_v6_bar_window(win) ? win->y + 1 : 0;
+        val = is_v6_grid_panel(win) ? win->y + 1 : 0;
         break;
     case 5:  // x cursor
-        val = is_v6_bar_window(win) ? win->x + 1 : 0;
+        val = is_v6_grid_panel(win) ? win->x + 1 : 0;
 #else
     case 0: // y coordinate
-        val = 0;
+        val = geometry.moved ? geometry.y : 0;
         break;
     case 1: // x coordinate
-        val = 0;
+        val = geometry.moved ? geometry.x : 0;
         break;
     case 2:  // y size
-        val = word(0x24) * font_height;
+        val = geometry.sized ? geometry.height : word(0x24) * font_height;
         break;
     case 3:  // x size
-        val = word(0x22) * font_width;
+        val = geometry.sized ? geometry.width : word(0x22) * font_width;
         break;
     case 4:  // y cursor
 #ifdef ZTERP_GLK
@@ -7009,6 +7321,8 @@ void init_screen(bool first_run)
     close_upper_window();
 #endif
 
+    v6_geometry.fill(V6Geometry());
+
 #ifdef ZTERP_GLK
     // For now, unless the user disables it, point windows 2–7 (from
     // version 6) to the main window, allowing all output (text and
@@ -7021,13 +7335,16 @@ void init_screen(bool first_run)
 #endif
         for (int i = 2; i < 8; i++) {
 #ifdef SPATTERLIGHT
-            if (is_v6_bar_window(&windows[i])) {
+            if (is_v6_panel(&windows[i])) {
                 glk_window_close(windows[i].id, nullptr);
             }
 #endif
             windows[i].id = windows[0].id;
         }
 #ifdef SPATTERLIGHT
+        v6_story_window = -1;
+        v6_layout_signature.clear();
+        v6_layout_dirty = false;
     } else {
         update_monochrome_colours();
 #endif
@@ -7198,6 +7515,83 @@ void init_screen(bool first_run)
 
 #ifdef SPATTERLIGHT
 
+#pragma mark V6 window layout
+
+// The panels of the non-Infocom V6 games are autosaved along with the
+// other Glk windows, but they only make sense together with the window
+// geometry they were laid out from. Without it the panels would be
+// closed at the first input after an autorestore. Windows which are
+// redirected to the main window share its Glk window, so the tags
+// can’t tell which of them is the current or the main one either.
+static void v6_stash_layout(library_state_data *dat)
+{
+    dat->v6_layout_valid = zversion == 6 && !is_spatterlight_v6;
+    if (!dat->v6_layout_valid) {
+        return;
+    }
+
+    int *value = dat->v6_layout;
+
+    *value++ = v6_story_window;
+    *value++ = curwin - &windows[0];
+    *value++ = mainwin - &windows[0];
+    *value++ = upperwin - &windows[0];
+
+    for (const auto &geometry : v6_geometry) {
+        *value++ = geometry.y;
+        *value++ = geometry.x;
+        *value++ = geometry.height;
+        *value++ = geometry.width;
+        *value++ = (geometry.sized ? 1 : 0) | (geometry.moved ? 2 : 0);
+        *value++ = static_cast<int>(geometry.stamp);
+    }
+}
+
+static void v6_recover_layout(const library_state_data *dat)
+{
+    if (zversion != 6 || is_spatterlight_v6 || !dat->v6_layout_valid) {
+        return;
+    }
+
+    const int *value = dat->v6_layout;
+
+    auto window_at = [](int index, Window *fallback) {
+        return index >= 0 && index < 8 && windows[index].id != nullptr ? &windows[index] : fallback;
+    };
+
+    int story = *value++;
+    v6_story_window = story >= 0 && story < 8 ? story : -1;
+    curwin = window_at(*value++, curwin);
+    mainwin = window_at(*value++, mainwin);
+    mainwin->has_echo = true;
+    upperwin = window_at(*value++, upperwin);
+
+    v6_geometry_stamp = 0;
+    for (auto &geometry : v6_geometry) {
+        geometry.y = *value++;
+        geometry.x = *value++;
+        geometry.height = *value++;
+        geometry.width = *value++;
+        int flags = *value++;
+        geometry.sized = (flags & 1) != 0;
+        geometry.moved = (flags & 2) != 0;
+        geometry.stamp = *value++;
+        v6_geometry_stamp = std::max(v6_geometry_stamp, geometry.stamp);
+    }
+
+    // The panels on screen are those of this layout, unless something
+    // is amiss, in which case they are laid out again.
+    std::array<bool, 8> wanted{};
+    v6_layout_signature = v6_signature(v6_layout_bands(), wanted);
+    v6_layout_dirty = false;
+    for (int i = 2; i < 8; i++) {
+        if (is_v6_panel(&windows[i]) != wanted[i]) {
+            v6_layout_signature.clear();
+            v6_layout_dirty = true;
+        }
+    }
+}
+
 #pragma mark stash_library_state
 
 // This is called during an autosave. It saves the relations
@@ -7243,6 +7637,8 @@ void stash_library_state(library_state_data *dat)
             dat->margin_images[i] = margin_images[i];
 
         dat->number_of_margin_images = number_of_margin_images;
+
+        v6_stash_layout(dat);
 
         if (is_spatterlight_journey) {
             journey_stash_state(dat);
@@ -7308,6 +7704,8 @@ void recover_library_state(library_state_data *dat)
         number_of_margin_images = dat->number_of_margin_images;
         for (int i = 0; i < number_of_margin_images; i++)
             margin_images[i] = dat->margin_images[i];
+
+        v6_recover_layout(dat);
 
         if (is_spatterlight_journey) {
             journey_window = windows[3].id;

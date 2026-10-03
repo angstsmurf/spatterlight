@@ -225,6 +225,15 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         [encoder encodeObject:tempMutArray2 forKey:@"bocfel_margin_images"];
     }
 
+    if (library_state.v6_layout_valid) {
+        NSMutableArray<NSNumber *> *tempMutArray3 = [[NSMutableArray alloc] initWithCapacity:BOCFEL_V6_LAYOUT_VALUES];
+
+        for (int i = 0; i < BOCFEL_V6_LAYOUT_VALUES; i++) {
+            [tempMutArray3 addObject:@(library_state.v6_layout[i])];
+        }
+
+        [encoder encodeObject:tempMutArray3 forKey:@"bocfel_v6_layout"];
+    }
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
@@ -288,5 +297,15 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         if (i >= (NSUInteger)BOCFEL_MAX_MARGIN_IMAGES) break;
         library_state.margin_images[i] = number.intValue;
         i++;
+    }
+
+    NSArray<NSNumber *> *tempArray3 = [decoder decodeObjectOfClass:[NSArray class] forKey:@"bocfel_v6_layout"];
+    library_state.v6_layout_valid = (tempArray3.count == BOCFEL_V6_LAYOUT_VALUES);
+    if (library_state.v6_layout_valid) {
+        i = 0;
+        for (NSNumber *number in tempArray3) {
+            library_state.v6_layout[i] = number.intValue;
+            i++;
+        }
     }
 }

@@ -60,6 +60,7 @@ enum inputMode {
 
 #define BOCFEL_MAX_JOURNEY_WORDS 4
 #define BOCFEL_MAX_MARGIN_IMAGES 100
+#define BOCFEL_V6_LAYOUT_VALUES (4 + 8 * 6)
 
 typedef struct library_state_data_struct {
     int wintag[8];
@@ -110,6 +111,12 @@ typedef struct library_state_data_struct {
     int shogun_menu_selection;
 
     int internal_read_char_hack;
+
+    // The window layout of V6 games other than Infocom's: the story
+    // window and the indices of the current, main and upper windows,
+    // followed by y, x, height, width, flags and stamp of every window.
+    int v6_layout_valid;
+    int v6_layout[BOCFEL_V6_LAYOUT_VALUES];
 
 } library_state_data;
 
