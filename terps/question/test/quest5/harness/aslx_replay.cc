@@ -75,8 +75,14 @@ static std::string strip_html(std::string s) {
             std::string tag = s.substr(i + 1, close - i - 1);
             // qvh's Strip regex ("<br\\s*/?>") is case-SENSITIVE: an
             // uppercase <BR> is dropped by the generic tag stripper, no
-            // newline. Mirror that exactly.
-            if (tag == "br" || tag == "br/" || tag == "br /") out += '\n';
+            // newline. Mirror that exactly -- including \s*, so A Stranger,
+            // Unregarded's fly (`<br  />`, two spaces) gets its own line.
+            if (tag.compare(0, 2, "br") == 0) {
+                size_t j = 2;
+                while (j < tag.size() && std::isspace((unsigned char)tag[j])) j++;
+                if (j < tag.size() && tag[j] == '/') j++;
+                if (j == tag.size()) out += '\n';
+            }
             i = close + 1;
         } else {
             out += s[i++];

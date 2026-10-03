@@ -14,7 +14,7 @@
   `RTrim`, VB-exact `Trim`, `CurrentDateUTC`, `GetFileData` and the two
   external-file stubs.
 - NCalc list literals `(a, b, …)` / `()` parse natively (§2).
-- Still open: Stranger Parts 7–11 (§7.1);
+- A Stranger, Unregarded WON 2026-10-03 (§7.1). Still open:
   `<backgroundimage>` (milestone 5, skipped for now); `make check` does not run the corpus replay
   (milestone 6); moving the oracle's pinned QuestViva revision to current
   upstream (fork `main` fast-forwarded 2026-09-25; needs the
@@ -1606,13 +1606,13 @@ Wiring recipe per game: copy the file into the gitignored
 commit. The `~/Downloads/More Quest 5 games` staging dir is gone (a copy
 survives in the 2026-08-26 Time Machine backup); everything it held is wired.
 
-- [~] **A Stranger, Unregarded** (`Stranger.quest`) — the largest game in the
-      corpus (~350 rooms). WIRED 2026-09-25 as a best-reachable row: the
-      `#!clock=5` typing clock gets it past the real-time portcullis trap, and
-      the 308-step route stops Running at Vampire1, errors=0, native
-      byte-identical. **Owed:** Parts 7–11 (Vampire → Siren → werewolf →
-      Wizard/Dragon → Endgame/Demonlord); see the `quest5-stranger-unregarded`
-      memo.
+- [x] **A Stranger, Unregarded** (`Stranger.quest`) — the largest game in the
+      corpus (~350 rooms). WIRED 2026-09-25 as a best-reachable row (the
+      `#!clock=5` typing clock gets it past the real-time portcullis trap);
+      WON 2026-10-03: all 11 parts to the better ending, 820 steps, 4185/5000,
+      errors=0, native byte-identical once `aslx_replay` matched qvh's
+      `<br\s*/?>`. See the override header and the
+      `quest5-stranger-unregarded` memo.
 - [x] **Mt. Underlook** — WON 2026-10-02 on the typing clock (466 steps,
       errors=1, native byte-identical); the hoverbike chase, wall wiggle and
       Devson fight answers are RNG-history-dependent, see the override header.
