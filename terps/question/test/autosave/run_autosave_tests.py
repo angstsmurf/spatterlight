@@ -534,10 +534,27 @@ def spread(script, parts):
     return [n * i // parts for i in range(1, parts)]
 
 
-def build_cases():
+def probe5_as_v600(stage):
+    """probe5.aslx with its <asl version> raised to 600, written into the
+    staging directory: from ASL 600 on `ask` and `show menu` draw their
+    options inline in the transcript instead of through the host dialog."""
+    with open(os.path.join(HERE, "probe5.aslx"), encoding="utf-8") as f:
+        text = f.read()
+    old = '<asl version="580">'
+    if text.count(old) != 1:
+        sys.exit("run_autosave_tests: probe5.aslx no longer declares %s"
+                 % old)
+    path = os.path.join(stage, "probe5-v600.aslx")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text.replace(old, '<asl version="600">'))
+    return path
+
+
+def build_cases(stage):
     cases = []
     probe4 = os.path.join(HERE, "probe4.asl")
     probe5 = os.path.join(HERE, "probe5.aslx")
+    probe6 = probe5_as_v600(stage)
 
     def equiv(name, gamefile, script, cuts, **kw):
         cases.append(dict(kind=case_equivalence, name=name, game=gamefile,
@@ -679,6 +696,23 @@ def build_cases():
     pending("q5-link-menu", probe5, ["look", "link:0:4"],
             ["2", "i"], resume=True, expect=["You are carrying", "apple"])
 
+    # The same prompts in an ASL 600 game, where `ask` and `show menu` draw
+    # an inline option list that is hidden again once answered.  A relaunch
+    # after an answered prompt must not bring the hidden list back; closed
+    # under one there is still no autosave; and the "which ball?" replay has
+    # to get through juggle's inline question with the output muted.
+    equiv("q5-v600-prompts", probe6,
+          ["look", "pick", "2", "look", "query", "yes", "look", "roll"],
+          [3, 4, 6, 7],
+          expect=["2: green", "You picked green.", "1: Yes", "Confirmed."])
+    pending("q5-v600-show-menu", probe6, ["look", "pick"],
+            ["pick", "2", "look"], expect=["You picked green."])
+    pending("q5-v600-ask", probe6, ["look", "query"],
+            ["query", "yes", "look"], expect=["Confirmed."])
+    pending("q5-v600-which-juggle", probe6,
+            ["north", "roll", "juggle", "yes"],
+            ["1", "i", "roll"], resume=True, expect=["red ball", "You roll"])
+
     for name, gamefile, sol in (
             ("q5-walk-exit-the-room", "Exit the Room.quest",
              "Exit the Room.cmd"),
@@ -759,7 +793,7 @@ def main():
     with tempfile.TemporaryDirectory() as stage:
         if terp is None:
             terp = stage_default_terp(stage)
-        for case in build_cases():
+        for case in build_cases(stage):
             if pattern not in case["name"]:
                 continue
             if not os.path.exists(case["game"]):
