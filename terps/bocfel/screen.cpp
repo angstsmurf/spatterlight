@@ -3132,6 +3132,13 @@ void zerase_window()
 #ifdef SPATTERLIGHT
     flush_held_newlines();
     int32_t arg0 = as_signed(zargs[0]);
+    // Journey's quit routine is just <CLEAR -1> <QUIT>, which blanked the
+    // screen before returning to the OS. Our window stays open after the
+    // game has exited, so that would leave the player with an empty
+    // buffer and no scrollback. Leave the story text alone.
+    if (is_spatterlight_journey && arg0 == -1 && byte(pc) == 0xba) {
+        return;
+    }
     arthur_erase_window(zargs[0]);
     z0_erase_window(zargs[0]);
 #ifdef ZTERP_GLK_GRAPHICS
