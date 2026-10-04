@@ -7964,23 +7964,35 @@ void recover_library_state(library_state_data *dat)
 
         active_blorb_file_stream = gli_stream_for_tag(dat->blorbfiletag);
 
-        for (int i = 0; i < 8; i++)
-        {
-            if (windows[i].id) {
-                if (windows[i].id->tag == dat->mainwintag) {
-                    mainwin = &windows[i];
-                    mainwin->has_echo = true;
-                }
-                if (windows[i].id->tag == dat->curwintag) {
-                    curwin = &windows[i];
-                }
-                if (windows[i].id->tag == dat->upperwintag)
-                {
-                    upperwin = &windows[i];
-                    if (mouse_available())
-                        glk_request_mouse_event(upperwin->id);
+        // Several windows can share one Glk window: outside of V6,
+        // windows 2 to 7 all use the main window's. The pointers are
+        // already right in that case (curwin was just set by the Scrn
+        // chunk), so only go looking for a window when the current one
+        // doesn't have the stashed tag, and then take the first match.
+        // Picking the last one would leave mainwin and curwin at
+        // window 7, which has none of the main window's colours and
+        // styles, and which the next Scrn chunk can't name before V6.
+        auto recover_window = [](Window *&win, int tag) {
+            if (win->id != nullptr && win->id->tag == tag) {
+                return;
+            }
+            for (auto &window : windows) {
+                if (window.id != nullptr && window.id->tag == tag) {
+                    win = &window;
+                    return;
                 }
             }
+        };
+
+        recover_window(mainwin, dat->mainwintag);
+        recover_window(curwin, dat->curwintag);
+        recover_window(upperwin, dat->upperwintag);
+
+        if (mainwin->id != nullptr && mainwin->id->tag == dat->mainwintag) {
+            mainwin->has_echo = true;
+        }
+        if (upperwin->id != nullptr && upperwin->id->tag == dat->upperwintag && mouse_available()) {
+            glk_request_mouse_event(upperwin->id);
         }
 
         seed_random((uint32_t)last_random_seed);
