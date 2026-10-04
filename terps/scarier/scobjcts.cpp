@@ -409,8 +409,27 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
  */
 enum
 { OBJ_DIMENSION_DIVISOR = 10,
-  OBJ_DIMENSION_MULTIPLE = 3
+  OBJ_DIMENSION_MULTIPLE = 3,
+  OBJ_DIMENSION_LIMIT = 0x7fffffff
 };
+
+/*
+ * obj_clamp_dimension()
+ *
+ * Hold a count, a multiple or a scale to the range of the Runner's own
+ * integers.  The editor writes single digits and a multiple of three, so only
+ * a damaged game is ever clamped; unclamped, its numbers overflowed when
+ * multiplied together, which is undefined for a signed type.
+ */
+static scr_int
+obj_clamp_dimension (scr_int value)
+{
+  if (value > OBJ_DIMENSION_LIMIT)
+    return OBJ_DIMENSION_LIMIT;
+  if (value < -OBJ_DIMENSION_LIMIT)
+    return -OBJ_DIMENSION_LIMIT;
+  return value;
+}
 
 /*
  * obj_get_size_multiple()
@@ -456,8 +475,18 @@ obj_scale (scr_int multiple, scr_int index_)
 {
   scr_int retval = 1;
 
+  /*
+   * The index is a digit unless the game is damaged, and then it can be any
+   * number at all.  Sixty-four factors are enough to carry any power that
+   * grows to the limit, and one that does not grow -- a multiple of 0, 1 or
+   * -1 -- only depends on whether the index is odd.
+   */
+  if (index_ > 64)
+    index_ = 64 + index_ % 2;
+
+  multiple = obj_clamp_dimension (multiple);
   for (; index_ > 0; index_--)
-    retval *= multiple;
+    retval = obj_clamp_dimension (retval * multiple);
 
   return retval;
 }
@@ -636,7 +665,8 @@ obj_convert_player_limit (scr_gameref_t game, scr_int value,
         count /= OBJ_DIMENSION_DIVISOR;
     }
 
-  return count * obj_scale (multiple, value % OBJ_DIMENSION_DIVISOR);
+  return obj_clamp_dimension (count)
+         * obj_scale (multiple, value % OBJ_DIMENSION_DIVISOR);
 }
 
 scr_int
@@ -858,7 +888,7 @@ obj_get_container_capacity (scr_gameref_t game, scr_int object)
         count /= OBJ_DIMENSION_DIVISOR;
     }
 
-  capacity = count
+  capacity = obj_clamp_dimension (count)
              * obj_scale (obj_get_size_multiple (game),
                           packed % OBJ_DIMENSION_DIVISOR);
 
