@@ -2166,6 +2166,14 @@ uip_compare_reference (const scr_char *words)
   wpos = uip_skip_article (words, 0);
   posn = uip_skip_article (uip_string, uip_posn);
 
+  /*
+   * A name with nothing after its article matches nothing.  At the end of
+   * the input it used to compare one terminator with the other, find them
+   * equal, and step past both.
+   */
+  if (words[wpos] == NUL)
+    return 0;
+
   /* Match characters from words with the string at position. */
   while (TRUE)
     {
