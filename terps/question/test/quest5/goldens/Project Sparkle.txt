@@ -1,0 +1,130 @@
+Project Sparkle
+
+A dungeonpunk adventure game by Devon Cash
+
+In the year 3678, MAGIC has overtaken the internal combustion engine as the primary source of power, all but eradicating the technology in the wake of the so-called MAGITEK boom.
+ Cities are now built not on rivers or material resources, but convergent vortices of raw magical energy, known as GEYSERS.
+This energy is shaped and manipulated into many forms, some benevolent, others malicious, all otherworldly and unpredictable.
+You are a small town MAGECORPS certified technician currently tending to the local ESSENCE CRYSTAL of the equally small town DURHAM
+You are at the front counter of your small store, it's closing time, and the setting sun throws spears of light into the large windows of your shop, bathing the aging wooden floor in orange light. The floor has been swept, the money counted and stored, and all is well in your small portion of existance. You have been working in this shop for quite some time, a faithful employee of MAGECORP, perveyors of magic items and services for 200 years. This shop sells MAGECORP licensed parts and supplys for their products as well as offering the maintenence services of a trained professional, which is you. You live in the adjoining apartment to the south, and maintain the town's energy source, located in the tower to the west.
+You can go south, west or north.
+
+Press any key to begin
+
+> n
+> n
+You are on the doorstep of your shop, looking out into the street. The night is cooling the air rapidly, the scortching desert day shaping up to be a rather pleasent evening. Across the street sits the town's inn. Even though the rest of the small town seems to be going to sleep, the inn's windows are still bright, and the sounds of muffled singing and raucous laughter make their way through the thick wooden door. To your right, the town's residential district is silent and dark, either in bed or galavanting about the bar. To your left lies the small airship dock the town was built around, it's walled exterior dark and ready to fend off attackers or theives at the slightest notice.
+You can see a Mailbox.
+You can go south, west, east or north.
+To your right lies the mailbox, but something seems amiss, you need to take a closer look to see.
+> open mailbox
+> open mailbox
+You open it.
+It contains a NOTICE FROM MAGECORP HQ.
+> take notice
+> take notice
+You stuff the notice unceremoniously in your pocket.
+> look at notice
+> look at notice
+It reads:
+CONGRATULATIONS!
+
+You have won the MAGECORP SINGLE-EMPLOYEE EXPLORATION LOTTERY!
+
+Please report to the nearest MAGECORP AIRSHIP DOCKING STATION as soon as possible and give the receptionist this voucher as your free ticket to helping the expansion of the known world!
+As agreed to in paragraph III of article 49 of your contract, you are obliged to respond to this summons under pain of expulsion from company payroll and benefits.
+> s
+> s
+You are at the front counter of your small store, it's closing time, and the setting sun throws spears of light into the large windows of your shop, bathing the aging wooden floor in orange light. The floor has been swept, the money counted and stored, and all is well in your small portion of existance. You have been working in this shop for quite some time, a faithful employee of MAGECORP, perveyors of magic items and services for 200 years. This shop sells MAGECORP licensed parts and supplys for their products as well as offering the maintenence services of a trained professional, which is you. You live in the adjoining apartment to the south, and maintain the town's energy source, located in the tower to the west.
+You can go south, west or north.
+> s
+> s
+You are standing in the doorway of your cozy apartment. It's small, but comfortable, and houses everything you need for a simple lifestyle. To your immediate left is your bed, and there is a sink with a large, mirrored cabinet above it directly across from you. The sink is built into a tough-looking wooden countertop that appears to be stacked with a significant number of soild dishes. A toilet and bathtub lie to your right, sectioned off by a wooden screen from the rest of the room. A table with four chairs around it occupies the middle of the room, though you can't remember the last time you had someone over.
+You can see a Bed.
+You can go north.
+> use bed
+> use bed
+You stretch out on the small bed, your feet hanging over the edge, and close your eyes. After a few moments, your mind drifts into a deep, dreamless sleep.
+> n
+> n
+You are at the front counter of your small store, it's closing time, and the setting sun throws spears of light into the large windows of your shop, bathing the aging wooden floor in orange light. The floor has been swept, the money counted and stored, and all is well in your small portion of existance. You have been working in this shop for quite some time, a faithful employee of MAGECORP, perveyors of magic items and services for 200 years. This shop sells MAGECORP licensed parts and supplys for their products as well as offering the maintenence services of a trained professional, which is you. You live in the adjoining apartment to the south, and maintain the town's energy source, located in the tower to the west.
+You can go south, west or north.
+> n
+> n
+You are on the doorstep of your shop, looking out into the street. The night is cooling the air rapidly, the scortching desert day shaping up to be a rather pleasent evening. Across the street sits the town's inn. Even though the rest of the small town seems to be going to sleep, the inn's windows are still bright, and the sounds of muffled singing and raucous laughter make their way through the thick wooden door. To your right, the town's residential district is silent and dark, either in bed or galavanting about the bar. To your left lies the small airship dock the town was built around, it's walled exterior dark and ready to fend off attackers or theives at the slightest notice.
+You can see a Mailbox.
+You can go south, west, east or north.
+> w
+> w
+You are standing, slightly in awe, in front of the massive gates that guard the entrance to the airship docks. The opressive aura of the doors makes it harder to breath, and their sheer magnificance forces your eyes to moisten, they are so beautiful they would make a grown man cry.
+You can see a Sign.
+You can go west or east.
+> w
+> w
+You are in the moderately sized lobby of the local airship dock. One corner of the room seems to be devoted to the storage of out of date magezines and the other holds a modern style fountain. Directly in front of you there a large secretary's desk, at which the secretary is currently sitting. To the west, the lobby opens up into a small, poorly maintained courtyard, home only to one dismally small tree. To the south lies the entrance to the first of two airship docks, the entrance to the second is to the north. Behind you are the amazing airship dock doors, their aura cannot affect you while you are facing away from them.
+You can see a Secretary.
+You can go east, west, south or north.
+> give notice to secretary
+> give notice to secretary
+"Alright, everything seem to be in order, please proceed to Dock 1, MAGECORP will be providing everything you need for this journey."
+
+You back away slowly and turn, breaking the eye contact. He has sent you to Dock 1, so there you must go.
+> s
+> s
+A moderately sized zeppelin lies in wait, the cargo is being loaded, and it is ready to move.
+You can see a Zeppelin.
+You can go north or west.
+> w
+> w
+You are standing on the busy deck of the airship, sailors large and small rush past you, shouting things to each other and at you. Stairs to the south lead to the bridge of the ship, a ladder near you leads down into the galley, the smell of good food flow from the opening. To the north is a door labeled "PASSENGER'S CABIN".
+You can go down, north, south or west.
+> d
+> d
+You are in the galley of the airship, sitting at the counter near the cook. The stern-faced cook gives you an appraising look, then a smile breaks over his face. He hands you a large plate of food and rushes you to a table, where you sit to enjoy the meal. There is a ladder up to the deck behind you.
+You can see a Turkey Stew.
+You can go up or north.
+> eat stew
+> eat stew
+You eat the stew, your stomach filling with turkey and various vegetables. When you finish, you feel distinctly bloated, and not a little tired. Maybe you should find a bed.
+> u
+> u
+You are standing on the busy deck of the airship, sailors large and small rush past you, shouting things to each other and at you. Stairs to the south lead to the bridge of the ship, a ladder near you leads down into the galley, the smell of good food flow from the opening. To the north is a door labeled "PASSENGER'S CABIN".
+You can go down, north, south or west.
+> n
+> n
+You are in a small passenger's cabin, a bed and a tasteful painting are the only things that occupy the room, besides you.
+You can see a Bed.
+You can go south.
+> use bed
+> use bed
+You lay down to sleep for the rest of the journey, and are dissappointed when your feet jut out over the edge of the short bed. You remeneisce wistfully about the disadvantages of being tall, then fall soundly asleep.
+You awake slightly refreshed, and you realise that the airship is now docked, the loading ramp would be to the east off the deck.
+> z
+> z
+Time passes.
+> z
+> z
+Time passes.
+> s
+> s
+You are standing on the busy deck of the airship, sailors large and small rush past you, shouting things to each other and at you. Stairs to the south lead to the bridge of the ship, a ladder near you leads down into the galley, the smell of good food flow from the opening. To the north is a door labeled "PASSENGER'S CABIN".
+You can go down, north, south or west.
+> w
+> w
+You can go southeast.
+> se
+> se
+You can go south, southeast, east, northeast, north, southwest, northwest, west or down.
+> d
+> d
+You can go up, south, west, east or north.
+> s
+> s
+You can go north or down.
+> n
+> n
+You can go up, south, west, east or north.
+> n
+> n
+You can go south.
+[state=Running]

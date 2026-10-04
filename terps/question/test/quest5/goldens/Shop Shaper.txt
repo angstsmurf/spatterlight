@@ -1,0 +1,138 @@
+Shop Shaper
+
+by Light Writer
+
+You are in the Main Hub.
+Welcome to the Main Hub of Shop Shaper!  This is where you can find all the commands you'll need to know to play this game!
+To go to your shop just type to shop.  To go to to the grocery story simply type to grocery store and you'll be transferred to the main entrance where you can easily find yourself at all the departments.  To go to the furniture store, simply, type to furniture store.
+In your shop, you can type stock  ITEM, where item is the item you wish to stock.  If your shop isn't full, you will be asked to submit a price that must be greater than 0.  Depending on what pric you set it compared to its value will help determine how fast it sales.  To find out an object's value simply type value ITEM.
+To remove an item from the shop type remove ITEM
+Keep track of your money by looking in the stats on the right hand side of the screen.  This displays how much gold you have, your shop size, shop stock, and the amount of gold you need to upgrade shop.
+To upgrade your shop type upgrade shop when you have enough gold to upgrade it to the next size.  Keep in mind you don't want to spend all your gold on upgrading if you run out of gold and don't have any things stocked, you lose.
+Simply, type to hub to return to the Main Hub at any time.
+> to grocery store
+
+> to grocery store
+
+You are in a Grocery Store.
+You can go to the Produce Department, Grocery Department or Dairy Department.
+> go to produce department
+
+> go to produce department
+
+You are in the Produce Department.
+You can go to the Entrance.
+For sale here: Tomato (12 Gold Coins gp), Bok Choy (37 Gold Coins gp), Red Apple (7 Gold Coins gp), Blackberries (23 Gold Coins gp), Romaine Lettuce (28 Gold Coins gp).
+> buy red apple
+
+> buy red apple
+You buy the Red Apple for 7 Gold Coins.
+> buy blackberries
+
+> buy blackberries
+You buy the Blackberries for 23 Gold Coins.
+> to shop
+
+> to shop
+
+You are in My Shop.
+> stock red apple
+
+> stock red apple
+Enter the price for this :
+> 12
+You stocked the Red Apple for 12 Gold Coins!
+> stock blackberries
+
+> stock blackberries
+Enter the price for this :
+> 30
+You stocked the Blackberries for 30 Gold Coins!
+> value red apple
+
+> value red apple
+Value for the Red Apple is 10 Gold Coins.
+> look
+
+> look
+You are in My Shop.
+You can see a Red Apple and a Blackberries.
+> remove blackberries
+
+> remove blackberries
+You pick it up.
+> i
+
+> i
+You are carrying a Blackberries.
+> stock blackberries
+
+> stock blackberries
+Enter the price for this :
+> 25
+You stocked the Blackberries for 25 Gold Coins!
+> upgrade shop
+
+> upgrade shop
+You don't have enough gold to upgrade your shop!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> look
+
+> look
+You are in My Shop.
+You can see a Red Apple and a Blackberries.
+> to hub
+
+> to hub
+
+You are in the Main Hub.
+Welcome to the Main Hub of Shop Shaper!  This is where you can find all the commands you'll need to know to play this game!
+To go to your shop just type to shop.  To go to to the grocery story simply type to grocery store and you'll be transferred to the main entrance where you can easily find yourself at all the departments.  To go to the furniture store, simply, type to furniture store.
+In your shop, you can type stock  ITEM, where item is the item you wish to stock.  If your shop isn't full, you will be asked to submit a price that must be greater than 0.  Depending on what pric you set it compared to its value will help determine how fast it sales.  To find out an object's value simply type value ITEM.
+To remove an item from the shop type remove ITEM
+Keep track of your money by looking in the stats on the right hand side of the screen.  This displays how much gold you have, your shop size, shop stock, and the amount of gold you need to upgrade shop.
+To upgrade your shop type upgrade shop when you have enough gold to upgrade it to the next size.  Keep in mind you don't want to spend all your gold on upgrading if you run out of gold and don't have any things stocked, you lose.
+Simply, type to hub to return to the Main Hub at any time.
+> to furniture store
+
+> to furniture store
+
+You are in the Furniture Store.
+For sale here: Wooden TV Stand (2869 Gold Coins gp), Purple Wall Clock (597 Gold Coins gp), Yellow Desk (6087 Gold Coins gp), Silver Wall Clock (597 Gold Coins gp), Yellow Loveseat (5377 Gold Coins gp).
+> look
+
+> look
+You are in the Furniture Store.
+For sale here: Wooden TV Stand (2869 Gold Coins gp), Purple Wall Clock (597 Gold Coins gp), Yellow Desk (6087 Gold Coins gp), Silver Wall Clock (597 Gold Coins gp), Yellow Loveseat (5377 Gold Coins gp).
+> to hub
+
+> to hub
+
+You are in the Main Hub.
+Welcome to the Main Hub of Shop Shaper!  This is where you can find all the commands you'll need to know to play this game!
+To go to your shop just type to shop.  To go to to the grocery story simply type to grocery store and you'll be transferred to the main entrance where you can easily find yourself at all the departments.  To go to the furniture store, simply, type to furniture store.
+In your shop, you can type stock  ITEM, where item is the item you wish to stock.  If your shop isn't full, you will be asked to submit a price that must be greater than 0.  Depending on what pric you set it compared to its value will help determine how fast it sales.  To find out an object's value simply type value ITEM.
+To remove an item from the shop type remove ITEM
+Keep track of your money by looking in the stats on the right hand side of the screen.  This displays how much gold you have, your shop size, shop stock, and the amount of gold you need to upgrade shop.
+To upgrade your shop type upgrade shop when you have enough gold to upgrade it to the next size.  Keep in mind you don't want to spend all your gold on upgrading if you run out of gold and don't have any things stocked, you lose.
+Simply, type to hub to return to the Main Hub at any time.
+[state=Running]

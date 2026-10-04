@@ -1,0 +1,2242 @@
+Island of the Magi
+By Craig Dutton (c) 2012
+
+The Magi Elementalists have lived on the island of Sinahr for many years. They help, guide, and even hinder the four elements of fire, air, earth and water to bring balance to the world.
+
+However, there is unrest and the balance is shifting towards chaos. The Wizard Council of the Crystal Hand have sent you, an adventurer for hire, to the island and find out what is happening.
+
+Two days later you arrive at Sinahr. You disembark the small craft that was rowed by two sailors from the 'Singing Mermaid' that sailed you here, on to a beach on the southside of the island.
+
+The Elemental Tower where the Magi live is located on the northside of the island.
+
+Good luck on your mission.
+
+Press a key to continue.
+You are on a beach.
+You can go east or northwest.
+The tide washing in out across the sandy beach depicts a perfect scene of serenity. Tall cliffs tower above you as the beach stretches to the east.
+> nw
+> nw
+You are on a cliff path.
+You can go southeast or up.
+The steep narrow path climbs up to the clifftop and towards a sandy beach.
+> u
+> u
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> w
+> w
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> d
+> d
+You are in a small cove.
+You can go in or up.
+This sheltered cove is small and sandy with a few pebbles. A path leads up to the clifftop and a cave entrance nearby leads into a dark cave.
+> in
+> in
+You are in a cave.
+You can go out.
+This small cave is wet underfoot from when the tide comes in.
+You can see a cave painting and a stone shelf.
+> look at cave painting
+> look at cave painting
+It depicts a stick figure of a man floating above a river occupied by a long-snouted creature.
+> out
+> out
+You are in a small cove.
+You can go in or up.
+This sheltered cove is small and sandy with a few pebbles. A path leads up to the clifftop and a cave entrance nearby leads into a dark cave.
+> u
+> u
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> e
+> e
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree and a fruit.
+> push tree
+> push tree
+You push the tree quite hard and the fruit falls to the ground.
+> take fruit
+> take fruit
+You pick it up.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> throw fruit
+> throw fruit
+You throw the fruit and it splatters against an invisible bridge. One of the Magi's tricks!
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> sw
+> sw
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> in
+> in
+You are in a cave.
+You can go out.
+It is a small, dark cave with the ground full of small puddles.
+You can see a knife.
+> take knife
+> take knife
+You pick it up.
+> out
+> out
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> s
+> s
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> u
+> u
+You are in a treehouse.
+You can go down.
+The treehouse has been abandoned for years.
+You can see a copper key and a makeshift table.
+> take copper key
+> take copper key
+You pick it up.
+> look at makeshift table
+> look at makeshift table
+Made from an old crate.
+It contains some rope and a stone cylinder.
+> take rope
+> take rope
+You pick it up.
+> take stone cylinder
+> take stone cylinder
+You pick it up.
+> d
+> d
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> n
+> n
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> ne
+> ne
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> n
+> n
+You are by a stone idol.
+You can go south.
+The idol standing in the middle of a small clearing is made of reddish stone and humanoid in shape with the head of a dragon-like creature.
+> use stone cylinder on idol
+> use stone cylinder on idol
+A secret drawer opens at the base of the idol.
+> look at secret drawer
+> look at secret drawer
+Made of stone.
+It contains a dragon scale.
+> take dragon scale
+> take dragon scale
+You pick it up.
+> s
+> s
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> ne
+> ne
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> ne
+> ne
+You are by a lagoon.
+You can go southwest or north.
+A deep blue still-water pool surrounded by a coral reef.
+> n
+> n
+You are by a shipwreck.
+You can go south.
+Only the mast of this pirate galleon juts out of the sea while the rest of the vessel disappears into the murky depths of the sea below.
+> swim in sea
+> swim in sea
+You are swimming underwater in the ship's hold.
+You can go down or up.
+The hold is small and hatches lead up and down.
+You can see a shark.
+> use knife on shark
+> use knife on shark
+You slash at the shark and as you cut it it swims away.
+> open crate
+> open crate
+You open it.
+It contains a compass.
+> look at crate
+> look at crate
+A wooden crate.
+It contains a compass.
+> take compass
+> take compass
+You pick it up.
+> d
+> d
+You are swimming underwater in the Captain's cabin.
+You can go up.
+Old scrolls and maps float around shoals of fish and a large oak desk stands nearby.
+You can see a casket and a skull.
+> unlock casket
+> unlock casket
+Unlocked with the copper key.
+> open casket
+> open casket
+You open it.
+It contains a pearl and a ruby.
+> look at casket
+> look at casket
+Nothing out of the ordinary.
+It contains a pearl and a ruby.
+> take pearl
+> take pearl
+You pick it up.
+> take ruby
+> take ruby
+You pick it up.
+> u
+> u
+You are swimming underwater in the ship's hold.
+You can go down or up.
+The hold is small and hatches lead up and down.
+You can see a crate.
+> u
+> u
+You are by a shipwreck.
+You can go south.
+Only the mast of this pirate galleon juts out of the sea while the rest of the vessel disappears into the murky depths of the sea below.
+> s
+> s
+You are by a lagoon.
+You can go southwest or north.
+A deep blue still-water pool surrounded by a coral reef.
+> sw
+> sw
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> sw
+> sw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> n
+> n
+You are in a native village.
+You can go in or south.
+A large hut where the village Elder resides stands in front of you.
+You can see a Native.
+> give pearl to native
+> give pearl to native
+The Native smiles and takes it from you.  He lets you visit the village Elder.
+> s
+> s
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> ne
+> ne
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> n
+> n
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> n
+> n
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> nw
+> nw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> n
+> n
+You are in a swamp.
+You can go in or south.
+Standing in the middle of the slimy swamp is a solitary wooden hut.
+> in
+> in
+You are in a swamp hut.
+You can go out.
+This dingy and dirty wooden hut has various types of makeshift furniture and the smell can only be described as unforgiving.
+You can see a Hermit.
+> give ruby to hermit
+> give ruby to hermit
+'At last! Now I'm rich enough to buy myself a boat and get off this bloody island!' he screams.
+> take glue
+> take glue
+You pick it up.
+> take silver key
+> take silver key
+You pick it up.
+> out
+> out
+You are in a swamp.
+You can go in or south.
+Standing in the middle of the slimy swamp is a solitary wooden hut.
+> s
+> s
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> se
+> se
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> s
+> s
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> s
+> s
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> sw
+> sw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> se
+> se
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> w
+> w
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> d
+> d
+You are in a small cove.
+You can go in or up.
+This sheltered cove is small and sandy with a few pebbles. A path leads up to the clifftop and a cave entrance nearby leads into a dark cave.
+You can see a Hermit.
+> give compass to hermit
+> give compass to hermit
+'Aha! Now I can find my way home with this wonderful compass!' he cries with delight. He gives you back the ruby as payment and runs off.
+> u
+> u
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> w
+> w
+You are on a plateau.
+You can go east.
+This small rocky plateau gives you a birds-eye view of the westside of the island. More jungle lies to the southwest while mountains far off to the northwest cut off the southside of the island from its northside.
+You can see a monolith.
+> use ruby on monolith
+> use ruby on monolith
+As you touch the ruby to the monolith it glows and vanishes. The flame symbol glows for a short while.
+> e
+> e
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> e
+> e
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> ne
+> ne
+You are outside a lighthouse.
+You can go southwest or in.
+A tall stone grey cylindrical building standing precariously at the edge of a steep cliff.
+> unlock door
+> unlock door
+Unlocked with the silver key.
+> open door
+> open door
+You open it.
+> in
+> in
+You are at the bottom of the lighthouse.
+You can go up, out or down.
+Stone steps leads up to the lamp room and down into a cellar.
+> d
+> d
+You are in a cellar.
+You can go up.
+It is cold and dark and smells of rats.
+You can see a shovel.
+> take shovel
+> take shovel
+You pick it up.
+> u
+> u
+You are at the bottom of the lighthouse.
+You can go up, out or down.
+Stone steps leads up to the lamp room and down into a cellar.
+> u
+> u
+You are in the lamp room.
+You can go down.
+Glass windows surround the round room as you look out across the coral reef-filled ocean.
+You can see a glossy stone.
+> take glossy stone
+> take glossy stone
+You pick it up.
+> d
+> d
+You are at the bottom of the lighthouse.
+You can go up, out or down.
+Stone steps leads up to the lamp room and down into a cellar.
+> out
+> out
+You are outside a lighthouse.
+You can go southwest or in.
+A tall stone grey cylindrical building standing precariously at the edge of a steep cliff.
+> sw
+> sw
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> n
+> n
+You are in a native village.
+You can go in or south.
+A large hut where the village Elder resides stands in front of you.
+> in
+> in
+You are in a Elder's hut.
+You can go out.
+A large wooden hut with a bare floor and a few animal skins hanging from the walls.
+You can see a Elder.
+> give glossy stone to elder
+> give glossy stone to elder
+The Elder takes the stone, mumbles a few strange words, and the stone glows an intense red.  He hands you a firestone.
+> out
+> out
+You are in a native village.
+You can go in or south.
+A large hut where the village Elder resides stands in front of you.
+> s
+> s
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> nw
+> nw
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> n
+> n
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> nw
+> nw
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> n
+> n
+You are in a mine entrance.
+You can go south or in.
+The mine entrance enters a stretch of mountains that separate the southside of the island with the northside.
+You can see a Headhunter.
+> in
+> in
+You are in a tunnel.
+You can go out, east or west.
+It is dark and damp and continues to the west. A cavern lies to the east.
+> e
+> e
+You are in a vaulted cavern.
+You can go west.
+The high-ceilinged cavern has produced, over the centuries, stalactites and stalagmites.
+You can see a mine truck.
+> look at mine truck
+> look at mine truck
+It has fallen on its side.
+It contains a pickaxe.
+> take pickaxe
+> take pickaxe
+You pick it up.
+> w
+> w
+You are in a tunnel.
+You can go out, east or west.
+It is dark and damp and continues to the west. A cavern lies to the east.
+> w
+> w
+You are by a mine shaft.
+You can go east.
+The shaft descends into the darkness below. A wooden post has been hammered into the ground near to the shaft.
+> use rope on post
+> use rope on post
+You tie the rope to the post and let it drop down the shaft.
+> climb rope
+> climb rope
+You climb down the rope to the bottom.
+You are at the bottom of the shaft.
+You can go west.
+The rope dangles in front of you as a small passage can be seen leading off to the west.
+> w
+> w
+You are in a lair.
+You can go east.
+The lair is littered with bones of possibly the minors who worked here. No wonder its been abandoned as the creature had feasted on these poor souls for years.
+You can see a Giant Worm.
+> use firestone on giant worm
+> use firestone on giant worm
+The firestone burns the worm and it turns to ashes.
+> take metal oval
+> take metal oval
+You pick it up.
+> e
+> e
+You are at the bottom of the shaft.
+You can go west.
+The rope dangles in front of you as a small passage can be seen leading off to the west.
+> climb rope
+> climb rope
+You climb up the rope to the top.
+You are by a mine shaft.
+You can go east.
+The shaft descends into the darkness below. A wooden post has been hammered into the ground near to the shaft.
+You can see a rope.
+> e
+> e
+You are in a tunnel.
+You can go out, east or west.
+It is dark and damp and continues to the west. A cavern lies to the east.
+> out
+> out
+You are in a mine entrance.
+You can go south or in.
+The mine entrance enters a stretch of mountains that separate the southside of the island with the northside.
+You can see a Headhunter.
+> s
+> s
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> sw
+> sw
+You are in a campsite.
+You can go northeast or in.
+A small canvas tent stands before you.
+You can see a campfire.
+> use shovel on campfire
+> use shovel on campfire
+You dig underneath the campfire and find an emerald.
+> take emerald
+> take emerald
+You pick it up.
+> ne
+> ne
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> se
+> se
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> s
+> s
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> se
+> se
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> ne
+> ne
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> n
+> n
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> n
+> n
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> nw
+> nw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> ne
+> ne
+You are by a skull-shaped cave entrance.
+You can go in or southwest.
+The cave entrance in the mountain is definately skull-shaped with two small holes for the eyes and a larger hole to enter inside the mountain.
+> in
+> in
+You are in a small cavern.
+You can go west, northeast or out.
+The small high-ceilinged cavern is muddy underfoot and scratching noises can be heard from the darkened corners.
+> ne
+> ne
+You are in a grotto.
+You can go southwest.
+The walls are coloured with various hues of reds, greens and blues.
+You can see a rock.
+> use pickaxe on rock
+> use pickaxe on rock
+You crack open the rock and find a fossil.
+> take fossil
+> take fossil
+You pick it up.
+> sw
+> sw
+You are in a small cavern.
+You can go west, northeast or out.
+The small high-ceilinged cavern is muddy underfoot and scratching noises can be heard from the darkened corners.
+> out
+> out
+You are by a skull-shaped cave entrance.
+You can go in or southwest.
+The cave entrance in the mountain is definately skull-shaped with two small holes for the eyes and a larger hole to enter inside the mountain.
+> sw
+> sw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> se
+> se
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> s
+> s
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> s
+> s
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> sw
+> sw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> nw
+> nw
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> n
+> n
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> nw
+> nw
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> sw
+> sw
+You are in a campsite.
+You can go northeast or in.
+A small canvas tent stands before you.
+> in
+> in
+You are in a tent.
+You can go out.
+The tent is tall enough to stand in and occupied with a campbed and a small desk and chair.
+You can see a Paleontologist.
+> give fossil to paleontologist
+> give fossil to paleontologist
+He asks where you found it and you give him directions. He packs up his tools and heads off there straight away.
+> open tin box
+> open tin box
+You open it.
+> take dynamite
+> take dynamite
+You pick it up.
+> break glass sphere
+> break glass sphere
+You smash it and a small creature pops out.
+> take water sprite
+> take water sprite
+You pick her up.
+> out
+> out
+You are in a campsite.
+You can go northeast or in.
+A small canvas tent stands before you.
+> ne
+> ne
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> se
+> se
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> s
+> s
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> se
+> se
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> sw
+> sw
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> s
+> s
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> sw
+> sw
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> use glue on rowing boat
+> use glue on rowing boat
+You apply a good helping of glue round the edge of the hole.
+> use dragon scale on rowing boat
+> use dragon scale on rowing boat
+You glue the dragon scale to the hole and you've fixed the boat.
+> look at rowing boat
+> look at rowing boat
+A small rowing boat with no oars.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row north along the coastline and arrive at a sheltered cove on the northside of the island.
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> ne
+> ne
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+> n
+> n
+You are in a ruined temple.
+You can go south.
+All that is left are a few pillars.
+You can see a split.
+> use dynamite on split
+> use dynamite on split
+You wedge the dynamite in the split.
+> look at split
+> look at split
+The split has the stick of dynamite wedged in it.
+> use firestone on dynamite
+> use firestone on dynamite
+You light the fuse and run south. You hear a loud explosion.
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+> n
+> n
+You are in a ruined temple.
+You can go south.
+All that is left are a few pillars.
+You can see a gaping hole.
+> use firestone on gaping hole
+> use firestone on gaping hole
+As the firestone falls into the lava a Fire Elemental rises out of the hole before you.
+> s
+> s
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+> e
+> e
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> look at stump
+> look at stump
+The remains of an oak tree.
+You find an orchid hidden behind it.
+> take orchid
+> take orchid
+You pick it up.
+> ne
+> ne
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> ne
+> ne
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> n
+> n
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> in
+> in
+You are in a log cabin.
+You can go out.
+A small bare cabin with bits of debris on the floor.
+You can see a rattlesnake and a saw.
+> use shovel on rattlesnake
+> use shovel on rattlesnake
+You bash it over the head with the shovel.
+> take saw
+> take saw
+You pick it up.
+> out
+> out
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> s
+> s
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> sw
+> sw
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> sw
+> sw
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> w
+> w
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+> sw
+> sw
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row south along the coastline and arrive at a beach on the southside of the island.
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> ne
+> ne
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> n
+> n
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> ne
+> ne
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> n
+> n
+You are in a native village.
+You can go in or south.
+A large hut where the village Elder resides stands in front of you.
+> in
+> in
+You are in a Elder's hut.
+You can go out.
+A large wooden hut with a bare floor and a few animal skins hanging from the walls.
+You can see a Elder.
+> give orchid to elder
+> give orchid to elder
+The Elder takes the orchid and gives you a berry in exchange.
+> eat berry
+> eat berry
+It tastes a bit funny but it has given you superstrength for a minute.
+> out
+> out
+You are in a native village.
+You can go in or south.
+A large hut where the village Elder resides stands in front of you.
+> s
+> s
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> se
+> se
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> d
+> d
+You are on a cliff path.
+You can go southeast or up.
+The steep narrow path climbs up to the clifftop and towards a sandy beach.
+> se
+> se
+You are on a beach.
+You can go east or northwest.
+The tide washing in out across the sandy beach depicts a perfect scene of serenity. Tall cliffs tower above you as the beach stretches to the east.
+> e
+> e
+You are on a beach.
+You can go west.
+The cliffs stop you here as dangerous rocks jut out from the foamy sea to the east.
+You can see an anchor.
+> take anchor
+> take anchor
+You pick it up.
+> w
+> w
+You are on a beach.
+You can go east or northwest.
+The tide washing in out across the sandy beach depicts a perfect scene of serenity. Tall cliffs tower above you as the beach stretches to the east.
+> nw
+> nw
+You are on a cliff path.
+You can go southeast or up.
+The steep narrow path climbs up to the clifftop and towards a sandy beach.
+> u
+> u
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> nw
+> nw
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> w
+> w
+You are in a quagmire.
+You can go east or southwest.
+The ground is treacherously muddy here and you get stuck a few times. It looks even more dangerous to the southwest.
+> drop anchor
+> drop anchor
+You drop it.
+The anchor settles down in the boggy ground and acts as a makeshift bridge for the southwest path.
+> sw
+> sw
+You are at some ruins.
+You can go northeast.
+It used to be a lookout tower and now it stands dangerously close to the edge of the cliff.
+You can see a black panther.
+> use knife on black panther
+> use knife on black panther
+You fight the panther with the knife and scare it away. You find something.
+> take brass key
+> take brass key
+You pick it up.
+> ne
+> ne
+You are in a quagmire.
+You can go east or southwest.
+The ground is treacherously muddy here and you get stuck a few times. It looks even more dangerous to the southwest.
+You can see an anchor.
+> e
+> e
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> se
+> se
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> ne
+> ne
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> ne
+> ne
+You are by a lagoon.
+You can go southwest or north.
+A deep blue still-water pool surrounded by a coral reef.
+You can see a Native.
+> give knife to native
+> give knife to native
+The Native takes your gift and gives you his net before leaving.
+> sw
+> sw
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> n
+> n
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> n
+> n
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> nw
+> nw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> ne
+> ne
+You are by a skull-shaped cave entrance.
+You can go in or southwest.
+The cave entrance in the mountain is definately skull-shaped with two small holes for the eyes and a larger hole to enter inside the mountain.
+> in
+> in
+You are in a small cavern.
+You can go west, northeast or out.
+The small high-ceilinged cavern is muddy underfoot and scratching noises can be heard from the darkened corners.
+> w
+> w
+You are in a rocky chamber.
+You can go north or east.
+A small chamber with a large oak door set in the north wall.
+> unlock door
+> unlock door
+Unlocked with the brass key.
+> open door
+> open door
+You open it.
+> n
+> n
+You are in a columned hall.
+You can go south.
+This palatial hall has four marble columns holding up a vaulted ceiling. On the northside of the hall is a gigantic skeletal throne. Seated upon it is the skeleton of a Giant.
+You can see a pedestal.
+> use metal oval on pedestal
+> use metal oval on pedestal
+As soon as you place the metal oval in the pedestal the Giant Skeleton comes to life. It lifts up a skeletal arm and grabs something hidden high above on a ledge. It places the item down on the ground in front of you and settles back on its throne. It becomes dormant again and the metal oval vanishes.
+> take hunting horn
+> take hunting horn
+You pick it up.
+> s
+> s
+You are in a rocky chamber.
+You can go north or east.
+A small chamber with a large oak door set in the north wall.
+> e
+> e
+You are in a small cavern.
+You can go west, northeast or out.
+The small high-ceilinged cavern is muddy underfoot and scratching noises can be heard from the darkened corners.
+> out
+> out
+You are by a skull-shaped cave entrance.
+You can go in or southwest.
+The cave entrance in the mountain is definately skull-shaped with two small holes for the eyes and a larger hole to enter inside the mountain.
+> sw
+> sw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> se
+> se
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> s
+> s
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> s
+> s
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> sw
+> sw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> nw
+> nw
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> n
+> n
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> e
+> e
+You are in a pond.
+You can go west.
+It is a small pond with murky water and some signs of life.
+> use net on pond
+> use net on pond
+You catch a toad!
+> i
+> i
+You are carrying a copper key, a stone cylinder, some glue, a silver key, a shovel, a pickaxe, an emerald, a Water Sprite, a saw, a brass key, a net, a hunting horn and a toad.
+> w
+> w
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> s
+> s
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> se
+> se
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> sw
+> sw
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> s
+> s
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> sw
+> sw
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row north along the coastline and arrive at a sheltered cove on the northside of the island.
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> ne
+> ne
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+> e
+> e
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> se
+> se
+You are outside an overgrown crypt.
+You can go northwest or in.
+Ivy grows wild around the entrance and a small hole sits just to the left of the gate.
+> use toad on hole
+> use toad on hole
+You place the toad and wait. Eventually the toad pulls the lever with its body and the poor thing is sliced from a hidden blade. The gate opens.
+> in
+> in
+You are in a crypt.
+You can go out.
+A huge stone sarcophagus stands in the middle of this dark and dusty crypt.
+> open sarcophagus
+> open sarcophagus
+You open it.
+> look at corpse
+> look at corpse
+It's look utterly ghoulish.
+Suddenly the corpse rises out of the sarcophagus. It's a Ghoul and wants your soul!
+> use silver key on ghoul
+> use silver key on ghoul
+The silver from the key burns the Ghoul's flesh and it bursts into flames and eventually ashes. You find something.
+> take onyx key
+> take onyx key
+You pick it up.
+> out
+> out
+You are outside an overgrown crypt.
+You can go northwest or in.
+Ivy grows wild around the entrance and a small hole sits just to the left of the gate.
+> nw
+> nw
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> ne
+> ne
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> ne
+> ne
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> n
+> n
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> nw
+> nw
+You are on a mountain range.
+You can go southeast or west.
+Tall snow-peaked mountains rise from the ground like giant teeth. The west path leads to the entrance to the Elemental Tower.
+> w
+> w
+You are outside the Elemental Tower.
+You can go east or in.
+The tower dwarves you as you stand before a huge ebony door.
+> unlock door
+> unlock door
+Unlocked with the onyx key.
+> open door
+> open door
+You open it.
+> in
+> in
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> e
+> e
+You are in a corridor.
+You can go west or east.
+The narrow corridor is decorated with oak panelling and a chequered blue and white floor.
+> e
+> e
+You are in a kitchen.
+You can go west.
+A very sparse kitchen with a few dirty pans but overall a place that doesn't seem to be used much.
+You can see a cupboard.
+> open cupboard
+> open cupboard
+You open it.
+It contains some pepper.
+> take pepper
+> take pepper
+You pick it up.
+> w
+> w
+You are in a corridor.
+You can go west or east.
+The narrow corridor is decorated with oak panelling and a chequered blue and white floor.
+> w
+> w
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> n
+> n
+You are in a corridor.
+You can go south, west, north or east.
+The narrow corridor is decorated with oak panelling and a chequered blue and white floor.
+> n
+> n
+You are in the Watermagi's chamber.
+You can go south.
+The chamber houses all sorts of items relating to water and some of the contraptions the Magi has invented look quite dangerous.
+You can see the Watermagi.
+> use water sprite on cage of fire
+> use water sprite on cage of fire
+The Water Sprite douses the flames and the Watermagi is free. The Water Sprite flies home waving you goodbye.
+> speak to watermagi
+> speak to watermagi
+'Thank you for freeing me. When we are all free we'll speak again.'
+> s
+> s
+You are in a corridor.
+You can go south, west, north or east.
+The narrow corridor is decorated with oak panelling and a chequered blue and white floor.
+> s
+> s
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> d
+> d
+You are in a basement.
+You can go up, north, west, south or east.
+Rooms leads in all directions and stairs lead up.
+> s
+> s
+You are in the Earthmagi's chamber.
+You can go north.
+A very homely room with a few potted plants and soil experients.
+You can see the Earthmagi.
+> blow horn
+> blow horn
+As you blow the horn the air bubble starts to tear and eventually vanishes. The Earthmagi is free.
+> speak to earthmagi
+> speak to earthmagi
+'Thank you for freeing me. When we are all free we'll speak again.'
+> n
+> n
+You are in a basement.
+You can go up, north, west, south or east.
+Rooms leads in all directions and stairs lead up.
+> u
+> u
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> u
+> u
+You are on the first floor landing.
+You can go down, west, south, north, east or up.
+Rooms leads in all directions except for an open balcony to the south.
+> w
+> w
+You are in the Firemagi's chamber.
+You can go east.
+The temperature in this room is extremely hot and the walls feel like they are on fire.
+You can see the Firemagi and a Fire Elemental.
+The Fire and Water Elementals battle each other and the Fire Elemental wins destroying the Water Elemental and freeing the Firemagi. He utters a few words and the Fire Elemental is banished from this realm.
+> speak to firemagi
+> speak to firemagi
+'Thank you for freeing me. When we are all free we'll speak again.'
+> e
+> e
+You are on the first floor landing.
+You can go down, west, south, north, east or up.
+Rooms leads in all directions except for an open balcony to the south.
+> u
+> u
+You are on the second floor landing.
+You can go down, up, south, west, north or east.
+Rooms leads in all directions except for an open balcony to the south.
+> w
+> w
+You are in a laboratory.
+You can go east.
+This is where all the science experiments combined with the elemental magic takes place and is shared by all the Magi.
+You can see a vial.
+> take vial
+> take vial
+You pick it up.
+> e
+> e
+You are on the second floor landing.
+You can go down, up, south, west, north or east.
+Rooms leads in all directions except for an open balcony to the south.
+> u
+> u
+You are on a rooftop.
+You can go down or up.
+The roof houses a small observation platform which you can get to up a short flight of steps.
+> u
+> u
+You are on an observatory.
+You can go down.
+A large brass telescope stands on the raised platform allowing magnificent views around the island.
+> turn telescope
+> turn telescope
+You turn the telescope clockwise by 45 degrees.
+> turn telescope
+> turn telescope
+You turn the telescope clockwise by 45 degrees.
+> turn telescope
+> turn telescope
+You turn the telescope clockwise by 45 degrees.
+> turn telescope
+> turn telescope
+You turn the telescope clockwise by 45 degrees.
+> turn telescope
+> turn telescope
+You turn the telescope clockwise by 45 degrees.
+> use telescope
+> use telescope
+You look southwest and see a giant oak in the forest.
+> d
+> d
+You are on a rooftop.
+You can go down or up.
+The roof houses a small observation platform which you can get to up a short flight of steps.
+> d
+> d
+You are on the second floor landing.
+You can go down, up, south, west, north or east.
+Rooms leads in all directions except for an open balcony to the south.
+> d
+> d
+You are on the first floor landing.
+You can go down, west, south, north, east or up.
+Rooms leads in all directions except for an open balcony to the south.
+> d
+> d
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> out
+> out
+You are outside the Elemental Tower.
+You can go east or in.
+The tower dwarves you as you stand before a huge ebony door.
+> e
+> e
+You are on a mountain range.
+You can go southeast or west.
+Tall snow-peaked mountains rise from the ground like giant teeth. The west path leads to the entrance to the Elemental Tower.
+> se
+> se
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> in
+> in
+You are in a log cabin.
+You can go out.
+A small bare cabin with bits of debris on the floor.
+You can see a rattlesnake.
+> use vial on rattlesnake
+> use vial on rattlesnake
+You extract the venom.
+> out
+> out
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> s
+> s
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> sw
+> sw
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> sw
+> sw
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> w
+> w
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+You can see a giant oak.
+> use saw on giant oak
+> use saw on giant oak
+You saw down the oak and it comes crashing to the ground.
+> look at giant oak
+> look at giant oak
+A fallen oak with a bird's nest stuck in the branches.
+> look at nest
+> look at nest
+An abandoned nest stuck in the branches.
+It contains a sapphire.
+> take sapphire
+> take sapphire
+You pick it up.
+> sw
+> sw
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row south along the coastline and arrive at a beach on the southside of the island.
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> ne
+> ne
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> n
+> n
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> ne
+> ne
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> nw
+> nw
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> n
+> n
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> nw
+> nw
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> n
+> n
+You are in a mine entrance.
+You can go south or in.
+The mine entrance enters a stretch of mountains that separate the southside of the island with the northside.
+You can see a Headhunter.
+> throw pepper
+> throw pepper
+You throw the pepper in the Headhunters eyes and he's blinded. He drops his spear and stumbles into the jungle eyes watering.
+> take spear
+> take spear
+You pick it up.
+> use vial on spear
+> use vial on spear
+You pour some venom on the tip of the spear.
+> look at spear
+> look at spear
+A long pole with a sharp pointed metal end.
+Its tip is coated in venom.
+> s
+> s
+You are in a rocky valley.
+You can go southeast, southwest or north.
+Huge towering slabs of rock surround the valley. To the north lies a mountain range.
+> se
+> se
+You are in a grassy plain.
+You can go south, east or northwest.
+The plain stretches for quite a way towards the south while a rocky valley lies to the northwest.
+> s
+> s
+You are in a grassy plain.
+You can go southeast, west or north.
+The plain stretches for quite a way towards the north and marshy ground lies to the west. A river runs to the southeast.
+> se
+> se
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> ne
+> ne
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> n
+> n
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> use shovel on grave
+> use shovel on grave
+You dig up a corpse that comes to life. Yikes, a Zombie!
+> use spear on zombie
+> use spear on zombie
+You pierce the Zombie in the chest and the venom kicks in. The Zombie crumbles to dust leaving a nice shiny diamond that was hidden inside it.
+> take diamond
+> take diamond
+You pick it up.
+> n
+> n
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> nw
+> nw
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> sw
+> sw
+You are in a clearing.
+You can go northeast.
+The ground here is more solid but still muddy from the swamp.
+You can see a Warthog.
+> use spear on warthog
+> use spear on warthog
+You spear the Warthog in its side. It's dead.
+> take warthog
+> take warthog
+You pick it up.
+> ne
+> ne
+You are in a swamp.
+You can go southwest, northeast, north or southeast.
+As you wade through the murky waters you get bitten by all sorts of insects.
+> se
+> se
+You are in a swamp.
+You can go northwest or south.
+The murky muddy waters go up to your waist in some places.
+> s
+> s
+You are in a burial ground.
+You can go north or south.
+This sacred place is where the natives bury their loved ones. A grave has recently been dug.
+> s
+> s
+You are in a jungle.
+You can go southwest, northeast or north.
+The northeast path seems to open up here.
+> sw
+> sw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> sw
+> sw
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> s
+> s
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> sw
+> sw
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row north along the coastline and arrive at a sheltered cove on the northside of the island.
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> ne
+> ne
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+You can see a giant oak and a nest.
+> e
+> e
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> ne
+> ne
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> nw
+> nw
+You are by a lake.
+You can go southeast.
+The lake is huge and shadows beneath the surface seem to move menacingly. The tall Elemental Tower stands on the opposite side of the lake and is shadowed by snow-peaked mountains.
+> use warthog on lake
+> use warthog on lake
+Huge tentacles rise out of the water and grab the warthog. They return moments later offering you a gift. They disappear from view, bubbles rising to the surface.
+> take warhammer
+> take warhammer
+You pick it up.
+> se
+> se
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> ne
+> ne
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> n
+> n
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> nw
+> nw
+You are on a mountain range.
+You can go southeast or west.
+Tall snow-peaked mountains rise from the ground like giant teeth. The west path leads to the entrance to the Elemental Tower.
+> w
+> w
+You are outside the Elemental Tower.
+You can go east or in.
+The tower dwarves you as you stand before a huge ebony door.
+> in
+> in
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> u
+> u
+You are on the first floor landing.
+You can go down, west, south, north, east or up.
+Rooms leads in all directions except for an open balcony to the south.
+> u
+> u
+You are on the second floor landing.
+You can go down, up, south, west, north or east.
+Rooms leads in all directions except for an open balcony to the south.
+> e
+> e
+You are in the Airmagi's chamber.
+You can go west.
+The room is very airy and cold with wide windows and mists eminate from jars and strange apparatus.
+You can see the Airmagi.
+> use warhammer on stone pillar
+> use warhammer on stone pillar
+The hammer smashes the pillar easily freeing the Airmagi from his earthly prison.
+> speak to airmagi
+> speak to airmagi
+'Thank you for freeing me. When we are all free we'll speak again.'
+
+The four Magi take you to the Dining hall and explain what had happened.
+'It seems that our servant, Hannicus, has been possessed by a demon.' says the Firemagi.
+'He gained powers and trapped us all. Now he resides in the basement in his sanctum.' says the Airmagi.
+'He will soon gain strength to control all the elements and bring chaos to the world unless he is stopped.' says the Earthmagi.
+'He must be exorcised. Perhaps our library might hold the answers. Take this gold key, it will unlock Hannicus' sanctum.' says the Watermagi.
+They all return to their chambers still weak from their ordeal.
+You are in a dining hall.
+You can go east.
+A huge mahogany table stands in the centre of the room with rich drapes hanging from the walls.
+> e
+> e
+You are in a corridor.
+You can go south, west, north or east.
+The narrow corridor is decorated with oak panelling and a chequered blue and white floor.
+> s
+> s
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> out
+> out
+You are outside the Elemental Tower.
+You can go east or in.
+The tower dwarves you as you stand before a huge ebony door.
+> e
+> e
+You are on a mountain range.
+You can go southeast or west.
+Tall snow-peaked mountains rise from the ground like giant teeth. The west path leads to the entrance to the Elemental Tower.
+> se
+> se
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> s
+> s
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> sw
+> sw
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> sw
+> sw
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> w
+> w
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+You can see a giant oak and a nest.
+> sw
+> sw
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row south along the coastline and arrive at a beach on the southside of the island.
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> ne
+> ne
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> n
+> n
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> ne
+> ne
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> e
+> e
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> se
+> se
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> se
+> se
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> w
+> w
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> w
+> w
+You are on a plateau.
+You can go east.
+This small rocky plateau gives you a birds-eye view of the westside of the island. More jungle lies to the southwest while mountains far off to the northwest cut off the southside of the island from its northside.
+You can see a monolith.
+> use emerald on monolith
+> use emerald on monolith
+As you touch the emerald to the monolith it glows and vanishes. The tree symbol glows for a short while.
+> use diamond on monolith
+> use diamond on monolith
+As you touch the diamond to the monolith it glows and vanishes. The cloud symbol glows for a short while.
+> use sapphire on monolith
+> use sapphire on monolith
+As you touch the sapphire to the monolith it glows and vanishes. The water droplet symbol glows for a short while.
+
+The monolith changes form into a humanoid shape. Here stands before you is a mighty Elemental Golem.
+> look
+> look
+You are on a plateau.
+You can go east.
+This small rocky plateau gives you a birds-eye view of the westside of the island. More jungle lies to the southwest while mountains far off to the northwest cut off the southside of the island from its northside.
+You can see a Golem.
+> use warhammer on golem
+> use warhammer on golem
+You smash the Golem in the chest and it shatters into many pieces. Looking around you find a glowing orb.
+> take orb
+> take orb
+You pick it up.
+> e
+> e
+You are on a clifftop.
+You can go east, west or down.
+Impassable jungle can be seen on the northside while a path leads down to a small sheltered cove.
+> e
+> e
+You are on a clifftop.
+You can go down, west, northeast or northwest.
+You look south across the deep blue ocean as it sparkles in the sunlight. The clifftop continues to the west while a jungle path leads northwest. A tall lighthouse can be seen to the northeast.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north, northwest or northeast.
+Large exotic plants and trees surround you while strange noises eminate from the jungle depths. Paths lead in many directions.
+You can see a tree.
+> nw
+> nw
+You are in a jungle.
+You can go southeast, north or west.
+The jungle peters out to the west here as you hear rushing water.
+> w
+> w
+You are by a river bank.
+You can go east.
+On the eastside of a crocodile-infested river.
+> cross bridge
+> cross bridge
+You cross the river to the other side.
+You are by a river bank.
+You can go southwest or northwest.
+On the westside of a crocodile-infested river.
+> sw
+> sw
+You are by a waterfall.
+You can go northeast, south or in.
+A picturesque cascade of water splashing into the river. You spy a cave entrance obscured by the heavy torrent of water.
+> s
+> s
+You are in a jungle.
+You can go north, southwest or up.
+A treehouse atop the thick branches of the nearest tree lie above you while a beach lies to the southwest. A rushing sound of water is heard to the north.
+> sw
+> sw
+You are on a beach.
+You can go northeast.
+The soft sand and the deep blue sea is very picturesque.
+You can see a rowing boat.
+> use shovel on rowing boat
+> use shovel on rowing boat
+Using the shovel as a makeshift oar you row north along the coastline and arrive at a sheltered cove on the northside of the island.
+You are in a sheltered cove.
+You can go northeast.
+The soft sand and the deep blue sea is surrounded by cliffs and a forest lies to the northeast.
+You can see a rowing boat.
+> ne
+> ne
+You are in a forest.
+You can go southwest, north or east.
+It is quite dark and eerie and the sounds of strange creatures eminate from the forest depths.
+You can see a giant oak and a nest.
+> e
+> e
+You are in a forest.
+You can go west, southeast or northeast.
+The path to the northeast is less dense and a stone building can be seen to the southeast.
+You can see a stump.
+> ne
+> ne
+You are by a river bank.
+You can go southwest.
+A long winding river with stepping stones leading to the other side.
+> cross stones
+> cross stones
+You cross carefully to the other side.
+You are by a river bank.
+You can go northwest or northeast.
+A long winding river with stepping stones leading to the other side.
+> ne
+> ne
+You are in a narrow gorge.
+You can go southwest or north.
+The stone path leads north towards the mountains and southwest to a river.
+> n
+> n
+You are on a mountain range.
+You can go south, in or northwest.
+Tall snow-peaked mountains rise from the ground like giant teeth. You stand just outside a log cabin.
+> nw
+> nw
+You are on a mountain range.
+You can go southeast or west.
+Tall snow-peaked mountains rise from the ground like giant teeth. The west path leads to the entrance to the Elemental Tower.
+> w
+> w
+You are outside the Elemental Tower.
+You can go east or in.
+The tower dwarves you as you stand before a huge ebony door.
+> in
+> in
+You are in a hall.
+You can go out, west, north, east, down or up.
+The vaulted ceiling is lined with wide arches and carved grotesques. Corridors lead in all directions and a magnificent staircase goes upstairs and downstairs.
+> d
+> d
+You are in a basement.
+You can go up, north, west, south or east.
+Rooms leads in all directions and stairs lead up.
+> unlock door
+> unlock door
+Unlocked with the gold key.
+> open door
+> open door
+You open it.
+> n
+> n
+You are in a sanctum.
+You can go south.
+An unremarkable room: dark and slimy with a stench of death.
+You can see a Hannicus.
+> use orb on hannicus
+> use orb on hannicus
+You place the orb on Hannicus' forehead and hold him steady. He screams as if hell was calling for his demon back. Soon enough the demon is exorcised from the poor boy and he slumps to the ground exhausted. The four Magi enter and shake you by the hand.
+
+'Well done, my boy, you saved Hannicus.' beams the Firemagi.
+'You saved us too!' cries the Watermagi.
+'You've saved the world, son.' smiles the Airmagi.
+'Is there anything in the world we can reward you with?' asks the Earthmagi.
+
+Considering they have powers to control the deepest oceans to the highest mountains you are sure that a few treasures that have never been discovered before could be yours.
+Congratulations! You have solved the adventure.
+
+The End
+[state=Finished]

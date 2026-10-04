@@ -1,0 +1,1114 @@
+Murder on the Hill
+By Craig Dutton (c) 2012
+
+Lord Augustus Mandrake is dead - murdered! You are Inspector Burton Strange of Scotland Yard and have been called in to investigate this grisly deed.
+
+Lord Mandrake was found late this morning by his cook, Mrs Veronica Holborne, in the greenhouse at the back of Graven Hill House; Lord Mandrake's residence.  The estimated time of death was 10 o'clock this morning and there are a number of suspects:
+
+Lady Mary Mandrake - His Lordship's wife.
+Miss Olivia Mandrake - Lord and Lady Mandrake's daughter.
+Mr Simon Reubens - Fiance to Olivia and a celebrity racing car driver.
+Major Reginald Bolt - Old friend and retired army officer from the 1914-1918 World War.
+Doctor Richard Matthews - Local General Practitioner and friend to Olivia.
+Reverend Peter Potts - Family friend and vicar to a village on the other side of the district.
+Mrs Veronica Holborne - The family cook.
+
+All the suspects had stayed overnight due to a dinner party.
+
+Press a key to continue.
+In this murder mystery set in the 1930's you need to collect all incriminating evidence against one or more suspects. It is up to you to decide which clues are vital and which are not.
+
+To speak to suspects you should ask them something. The following four questions should be asked as standard.
+
+1) Ask suspect about where were you at the time of the murder.
+2) Ask suspect about if he had any enemies.
+3) Ask suspect about what was he like as a person.
+4) Ask suspect about when did you last see him alive.
+
+As new subjects come along you can then ask a suspect about them but only when they are mentioned by someone else first.
+
+There are 3 types of evidence. Evidence you have heard from a suspect. Physical evidence that can be picked up and given to suspects for answers. Other physical evidence that cannot be removed from the scene.
+
+The game will conclude with the Final dénouement; the gathering of all suspects together, the speculation of all the evidence gathered and your accusation of the murderer.
+
+Good Luck, Inspector!
+
+Press a key to play.
+You are inside the greenhouse.
+You can go out.
+The temperature is humid and various plants fill the greenhouse as sunlight beams down from above.
+You can see Lord Augustus Mandrake.
+> look at footprints
+> look at footprints
+Comparing them to his Lordship's feet the ones in the soil are bigger in size.
+> out
+> out
+You are outside the greenhouse.
+You can go east or in.
+A large building with white-framed windows and lower-half brick walls.
+You can see a cigar stub.
+> e
+> e
+You are on the lawn.
+You can go south, west or east.
+A lush green lawn with oak trees bordering it. A greenhouse lies to the west while a lake is seen to the east.
+> s
+> s
+You are by the back of the house.
+You can go in or north.
+Here the verandah opens out towards a large lawn to the north.
+> in
+> in
+You are in the corridor.
+You can go south, east or out.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> s
+> s
+You are in the inner courtyard.
+You can go west, south or north.
+The courtyard has a domed-glass roof letting a lot of light in and the ground has grey hexagonal paving stones.
+> w
+> w
+You are in the ballroom.
+You can go south or east.
+A large high-ceilinged room with a crystal chandelier hanging from above.
+> s
+> s
+You are in the dining room.
+You can go south, west or north.
+A large room housing a long dining table.
+> w
+> w
+You are in the kitchen.
+You can go east, west or down.
+A large kitchen with a stove and a pantry. Steps lead down to the cellar.
+You can see Veronica Holborne.
+> ask veronica about alive
+> ask veronica about alive
+'Heading for the garden, Inspector. He was fuming, muttering the name "Betty" a number of times.'
+> e
+> e
+You are in the dining room.
+You can go south, west or north.
+A large room housing a long dining table.
+> s
+> s
+You are in the lounge.
+You can go east, north or west.
+A well furnished room with decor from the Victorian period.
+You can see Olivia Mandrake.
+> e
+> e
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> out
+> out
+You are by the front of the house.
+You can go south or in.
+The house dates back to the late 16th century during Elizabeth I reign.
+> s
+> s
+You are on the driveway.
+You can go south, west, east or north.
+The drive is uneven and beech trees line either side of it.
+> s
+> s
+You are by some rusty gates.
+You can go north.
+There is a sign on the wall next to the gates and the ground is sandy.
+> take sand
+> take sand
+You pick it up.
+> n
+> n
+You are on the driveway.
+You can go south, west, east or north.
+The drive is uneven and beech trees line either side of it.
+> e
+> e
+You are on a leafy path.
+You can go east, west or northeast.
+The leaves blow in the wind as you walk along the winding path.
+> e
+> e
+You are by a large oak tree.
+You can go west.
+A huge old oak tree that was probably here even before the house was built.
+You can see a seat.
+> look at seat
+> look at seat
+An oak seat.
+You find something.
+> take hacksaw
+> take hacksaw
+You pick it up.
+> w
+> w
+You are on a leafy path.
+You can go east, west or northeast.
+The leaves blow in the wind as you walk along the winding path.
+> ne
+> ne
+You are outside a stone building.
+You can go southwest or in.
+A large domed-shaped building with brick walls and narrow windows.
+> in
+> in
+You are in the family waxworks.
+You can go out.
+An old tradition of the Mandrake family is having members immortalised in wax. An alternative to portraits of knowing what your ancestors looked like.
+You can see a waxwork figure.
+> use hacksaw on waxwork figure
+> use hacksaw on waxwork figure
+You use the saw to cut off its head.
+> take head
+> take head
+You pick it up.
+> out
+> out
+You are outside a stone building.
+You can go southwest or in.
+A large domed-shaped building with brick walls and narrow windows.
+> sw
+> sw
+You are on a leafy path.
+You can go east, west or northeast.
+The leaves blow in the wind as you walk along the winding path.
+> w
+> w
+You are on the driveway.
+You can go south, west, east or north.
+The drive is uneven and beech trees line either side of it.
+> n
+> n
+You are by the front of the house.
+You can go south or in.
+The house dates back to the late 16th century during Elizabeth I reign.
+> in
+> in
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> up
+> up
+You are on the landing.
+You can go down, north, east or west.
+Blue carpet with cream walls. A staircase leads down to the hall.
+> w
+> w
+You are on the landing.
+You can go east, south, west or north.
+Blue carpet with cream walls.
+> w
+> w
+You are in the Hades room.
+You can go east.
+A small airy bedroom with minimal furnishings. This is Reverend Potts' room.
+You can see a pair of boots.
+> take boots
+> take boots
+You pick them up.
+> empty boots
+> empty boots
+A key falls out of the boots on to the ground.
+> take brass key
+> take brass key
+You pick it up.
+> e
+> e
+You are on the landing.
+You can go east, south, west or north.
+Blue carpet with cream walls.
+> s
+> s
+You are on the landing.
+You can go north, west, east or south.
+Blue carpet with cream walls.
+> w
+> w
+You are in the Zeus room.
+You can go east.
+A large airy bedroom with oak furnishings and large tall windows. This is Lord Mandrake's room.
+You can see a bureau.
+> open bureau
+> open bureau
+You open it.
+It contains a scrapbook.
+> take scrapbook
+> take scrapbook
+You pick it up.
+> read scrapbook
+> read scrapbook
+A loose clipping falls to the ground.
+> take clipping
+> take clipping
+You pick it up.
+> read clipping
+> read clipping
+It seems to indicate that the Major, while during the war, was given a court martial for stealing food supplies and his superior officer was Lord Mandrake.
+> e
+> e
+You are on the landing.
+You can go north, west, east or south.
+Blue carpet with cream walls.
+> n
+> n
+You are on the landing.
+You can go east, south, west or north.
+Blue carpet with cream walls.
+> e
+> e
+You are on the landing.
+You can go down, north, east or west.
+Blue carpet with cream walls. A staircase leads down to the hall.
+> e
+> e
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> s
+> s
+You are on the landing.
+You can go north, east or south.
+Blue carpet with cream walls.
+> s
+> s
+You are in the Cerebus room.
+You can go north.
+A small bedroom with mahogany furnishings. This is Simon's room.
+You can see a wardrobe and a chest of drawers.
+> open wardrobe
+> open wardrobe
+You open it.
+It contains a dagger.
+> take dagger
+> take dagger
+You pick it up.
+> open chest of drawers
+> open chest of drawers
+You open it.
+> pull drawer
+> pull drawer
+You pull the drawer out further and a letter falls out hidden from underneath.
+> take letter
+> take letter
+You pick it up.
+> read letter
+> read letter
+The letter has been written on a typewriter and reads:
+
+I KNOW WHAT YOU DID TO THAT POOR MAID. SHAME ON YOU. SHE IS NOW PREGNANT DUE TO YOUR UNHOLY LUSTS AFTER HER. GOD WILL PUNISH YOU AND SO WILL I IF YOU DON'T LEAVE OLIVIA FOR GOOD. IF YOU DON'T LEAVE I WILL TELL YOUR ADORING PUBLIC WHAT A DIRTY LITTLE BOY YOU ARE, L.A.M.
+
+L.A.M. Lord Augustus Mandrake, perhaps?
+> n
+> n
+You are on the landing.
+You can go north, east or south.
+Blue carpet with cream walls.
+> n
+> n
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> n
+> n
+You are in the corridor.
+You can go south, east or up.
+Blue carpet with cream walls. Narrow stairs lead up to the next floor.
+> e
+> e
+You are in the Poseidon room.
+You can go west.
+A small airy bedroom with minimal furnishings.
+You can see a rug.
+> lift rug
+> lift rug
+You find a loose floorboard.
+> use dagger on loose floorboard
+> use dagger on loose floorboard
+You use the dagger to lift up the floorboard.
+> look at hole
+> look at hole
+Dark and dusty.
+It contains a pair of shoes.
+> take shoes
+> take shoes
+You pick them up.
+> w
+> w
+You are in the corridor.
+You can go south, east or up.
+Blue carpet with cream walls. Narrow stairs lead up to the next floor.
+> up
+> up
+You are in the corridor.
+You can go down, east or south.
+Dark green carpet with pale yellow walls. Narrow stairs lead down to the floor below.
+> s
+> s
+You are in the corridor.
+You can go north, south, west or east.
+Dark green carpet with pale yellow walls.
+> e
+> e
+You are in the bathroom.
+You can go west.
+A large room with a bath in the centre.
+You can see a bath.
+> look at bath
+> look at bath
+Nothing unusual.
+It contains a bar of soap.
+> take soap
+> take soap
+You pick it up.
+> w
+> w
+You are in the corridor.
+You can go north, south, west or east.
+Dark green carpet with pale yellow walls.
+> w
+> w
+You are in the corridor.
+You can go east, south or west.
+Dark green carpet with pale yellow walls.
+> w
+> w
+You are in the corridor.
+You can go east, south, west or north.
+Dark green carpet with pale yellow walls.
+> s
+> s
+You are in the Hera room.
+You can go north.
+A dark and dingy room with the smell of tobacco and alcohol filling your nostrils. This is Lady Mandrake's room.
+You can see Lady Mary Mandrake.
+> ask lady mary about person
+> ask lady mary about person
+'He was a womanizer! Oh, I knew of his affairs. Why do you think I've turned to drink. He always went for the young maids. It's a power thing. He used them then tossed them in the gutter.'
+> ask lady mary about elizabeth
+> ask lady mary about elizabeth
+'Ok, Inspector. It was the name of a maid who disappeared 25 years ago. She was a pretty young thing and caught his Lordship's eye. He had an affair with her. I caught them both in one of the upstairs bedrooms.'
+> n
+> n
+You are in the corridor.
+You can go east, south, west or north.
+Dark green carpet with pale yellow walls.
+> n
+> n
+You are in the corridor.
+You can go south, west or up.
+Dark green carpet with pale yellow walls. Narrow stairs lead up to the attic.
+> w
+> w
+You are in the Artemis room.
+You can go east.
+A large airy room with finely crafted furnishings. This is Olivia's room.
+You can see a box.
+> open box
+> open box
+You open it.
+> take ring
+> take ring
+You pick it up.
+> e
+> e
+You are in the corridor.
+You can go south, west or up.
+Dark green carpet with pale yellow walls. Narrow stairs lead up to the attic.
+> s
+> s
+You are in the corridor.
+You can go east, south, west or north.
+Dark green carpet with pale yellow walls.
+> e
+> e
+You are in the corridor.
+You can go east, south or west.
+Dark green carpet with pale yellow walls.
+> e
+> e
+You are in the corridor.
+You can go north, south, west or east.
+Dark green carpet with pale yellow walls.
+> n
+> n
+You are in the corridor.
+You can go down, east or south.
+Dark green carpet with pale yellow walls. Narrow stairs lead down to the floor below.
+> d
+> d
+You are in the corridor.
+You can go south, east or up.
+Blue carpet with cream walls. Narrow stairs lead up to the next floor.
+> s
+> s
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> w
+> w
+You are on the landing.
+You can go down, north, east or west.
+Blue carpet with cream walls. A staircase leads down to the hall.
+> d
+> d
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> n
+> n
+You are in the corridor.
+You can go south, east or north.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> e
+> e
+You are in the study.
+You can go west or east.
+A small oak-panelled room with a large desk in one corner.
+> look at desk
+> look at desk
+It's made of mahogany.
+You find a drawer.
+It contains a calendar.
+> use dagger on drawer
+> use dagger on drawer
+You use the dagger to break the lock.
+> open drawer
+> open drawer
+You open it.
+> take matches
+> take matches
+You pick it up.
+> e
+> e
+You are in the library.
+You can go west or north.
+Hundreds of books line the shelves with every subject covered.
+You can see Doctor Richard Matthews and a book.
+> ask matthews about enemies
+> ask matthews about enemies
+'I don't think he had many friends, Inspector. Simon wasn't his favourite person after he tried to bribe him with a new set of golf clubs.'
+> n
+> n
+You are in the gallery.
+You can go south, west or north.
+An elegant room with pale blue walls and white pillars.
+You can see Simon Reubens.
+> ask simon about enemies
+> ask simon about enemies
+'Apart from me... initially. After all I was enaged to his only daughter. Although, I did hear he didn't like the Reverend that much. Thought he looked a bit shifty.'
+> ask simon about clubs
+> ask simon about clubs
+'It wasn't a bribe I was just being polite. However, he turned on me and tried to pummel me to death with a nine-iron. He apologized afterwards. I told Olivia about it but she didn't believe me. I saw it in her eyes that deep down she knew I was telling the truth.'
+> ask simon about womanizer
+> ask simon about womanizer
+'I overhead someone say that his Lordship got a young woman pregnant years ago. Her name was Elizabeth. That's all I know, Inspector.'
+> s
+> s
+You are in the library.
+You can go west or north.
+Hundreds of books line the shelves with every subject covered.
+You can see Doctor Richard Matthews and a book.
+> w
+> w
+You are in the study.
+You can go west or east.
+A small oak-panelled room with a large desk in one corner.
+You can see a drawer.
+> w
+> w
+You are in the corridor.
+You can go south, east or north.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> s
+> s
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> w
+> w
+You are in the lounge.
+You can go east, north or west.
+A well furnished room with decor from the Victorian period.
+You can see Olivia Mandrake.
+> n
+> n
+You are in the dining room.
+You can go south, west or north.
+A large room housing a long dining table.
+> w
+> w
+You are in the kitchen.
+You can go east, west or down.
+A large kitchen with a stove and a pantry. Steps lead down to the cellar.
+You can see Veronica Holborne.
+> d
+> d
+You are in the cellar.
+You can go up or north.
+A dark and dingy room with the furnace room leading off to the north. Steps lead up to the kitchen.
+> n
+> n
+You are in the furnace room.
+You can go south.
+The furnace sprouts many pipes that wind their way all over the house to heat the rooms.
+> use head on furnace
+> use head on furnace
+You place the head inside the furnace.
+> use matches on furnace
+> use matches on furnace
+You light up the furnace.
+> use sand on fire
+> use sand on fire
+You douse the flames with the sand.
+> take iron key
+> take iron key
+You pick it up.
+> s
+> s
+You are in the cellar.
+You can go up or north.
+A dark and dingy room with the furnace room leading off to the north. Steps lead up to the kitchen.
+> u
+> u
+You are in the kitchen.
+You can go east, west or down.
+A large kitchen with a stove and a pantry. Steps lead down to the cellar.
+You can see Veronica Holborne.
+> e
+> e
+You are in the dining room.
+You can go south, west or north.
+A large room housing a long dining table.
+> s
+> s
+You are in the lounge.
+You can go east, north or west.
+A well furnished room with decor from the Victorian period.
+You can see Olivia Mandrake.
+> e
+> e
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> out
+> out
+You are by the front of the house.
+You can go south or in.
+The house dates back to the late 16th century during Elizabeth I reign.
+> s
+> s
+You are on the driveway.
+You can go south, west, east or north.
+The drive is uneven and beech trees line either side of it.
+> w
+> w
+You are outside the family crypt.
+You can go east or in.
+An old decrepid building with an iron gate that leads inside.
+> unlock crypt gate
+> unlock crypt gate
+Unlocked with the iron key.
+> open crypt gate
+> open crypt gate
+You open it.
+> in
+> in
+You are inside the family crypt.
+You can go out or down.
+A dusty old room with stone steps leading into the main tomb.
+> d
+> d
+You are in a tomb.
+You can go up.
+The first Lord Mandrake resides here in the sarcophagus.
+You can see a sarcophagus.
+> look at sarcophagus
+> look at sarcophagus
+The carving on one side shows 58 angels fighting 58 demons with 58 knights looking on in awe.
+> u
+> u
+You are inside the family crypt.
+You can go out or down.
+A dusty old room with stone steps leading into the main tomb.
+> out
+> out
+You are outside the family crypt.
+You can go east or in.
+An old decrepid building with an iron gate that leads inside.
+> e
+> e
+You are on the driveway.
+You can go south, west, east or north.
+The drive is uneven and beech trees line either side of it.
+> n
+> n
+You are by the front of the house.
+You can go south or in.
+The house dates back to the late 16th century during Elizabeth I reign.
+> in
+> in
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> n
+> n
+You are in the corridor.
+You can go south, east or north.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> n
+> n
+You are in the inner courtyard.
+You can go west, south or north.
+The courtyard has a domed-glass roof letting a lot of light in and the ground has grey hexagonal paving stones.
+> n
+> n
+You are in the corridor.
+You can go south, east or out.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> out
+> out
+You are by the back of the house.
+You can go in or north.
+Here the verandah opens out towards a large lawn to the north.
+> n
+> n
+You are on the lawn.
+You can go south, west or east.
+A lush green lawn with oak trees bordering it. A greenhouse lies to the west while a lake is seen to the east.
+> e
+> e
+You are by a lake.
+You can go west.
+A small island is visible in the centre of this large lake.
+You can see a rowing boat and a pair of oars.
+> take oars
+> take oars
+You pick them up.
+> use oars on boat
+> use oars on boat
+You row the boat to the island.
+You are on the island shore.
+You can go in.
+You see muddy footprints near a small wooden hut.
+You can see a rowing boat.
+> unlock hut door
+> unlock hut door
+Unlocked with the brass key.
+> open hut door
+> open hut door
+You open it.
+> in
+> in
+You are in the hut.
+You can go out.
+The hut has no windows and is quite dark and humid.
+You can see a tea chest.
+> open tea chest
+> open tea chest
+You open it.
+It contains a towel, a pair of candlesticks and a length of rope.
+> take towel
+> take towel
+You pick it up.
+> take candlesticks
+> take candlesticks
+You pick them up.
+> take rope
+> take rope
+You pick it up.
+> out
+> out
+You are on the island shore.
+You can go in.
+You see muddy footprints near a small wooden hut.
+You can see a rowing boat.
+> use boots on footprints2
+> use boots on footprints2
+They match perfectly.
+> use oars on boat
+> use oars on boat
+As you row the boat back to the main shore it starts sinking. You manage to reach it before the boat disappears under the murky depths.
+You are by a lake.
+You can go west.
+A small island is visible in the centre of this large lake.
+> w
+> w
+You are on the lawn.
+You can go south, west or east.
+A lush green lawn with oak trees bordering it. A greenhouse lies to the west while a lake is seen to the east.
+> s
+> s
+You are by the back of the house.
+You can go in or north.
+Here the verandah opens out towards a large lawn to the north.
+> in
+> in
+You are in the corridor.
+You can go south, east or out.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> e
+> e
+You are in the utility room.
+You can go west.
+This room is where the washing of linen and clothes are done.
+You can see a washtub.
+> use soap on towel
+> use soap on towel
+You scrub the soap over the blood-stained towel.
+> use towel on washtub
+> use towel on washtub
+You wash the blood off the towel. Most of it comes off.
+> look at towel
+> look at towel
+The initials DS are sewn into the towel.
+> take towel
+> take towel
+You pick it up.
+> w
+> w
+You are in the corridor.
+You can go south, east or out.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> out
+> out
+You are by the back of the house.
+You can go in or north.
+Here the verandah opens out towards a large lawn to the north.
+> n
+> n
+You are on the lawn.
+You can go south, west or east.
+A lush green lawn with oak trees bordering it. A greenhouse lies to the west while a lake is seen to the east.
+> w
+> w
+You are outside the greenhouse.
+You can go east or in.
+A large building with white-framed windows and lower-half brick walls.
+You can see a cigar stub.
+> in
+> in
+You are inside the greenhouse.
+You can go out.
+The temperature is humid and various plants fill the greenhouse as sunlight beams down from above.
+You can see Lord Augustus Mandrake.
+> use dagger on lord
+> use dagger on lord
+The width and shape of the blade matches the wounds.
+> use shoes on footprints
+> use shoes on footprints
+They are a perfect match.
+> out
+> out
+You are outside the greenhouse.
+You can go east or in.
+A large building with white-framed windows and lower-half brick walls.
+You can see a cigar stub.
+> e
+> e
+You are on the lawn.
+You can go south, west or east.
+A lush green lawn with oak trees bordering it. A greenhouse lies to the west while a lake is seen to the east.
+> s
+> s
+You are by the back of the house.
+You can go in or north.
+Here the verandah opens out towards a large lawn to the north.
+> in
+> in
+You are in the corridor.
+You can go south, east or out.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> s
+> s
+You are in the inner courtyard.
+You can go west, south or north.
+The courtyard has a domed-glass roof letting a lot of light in and the ground has grey hexagonal paving stones.
+> s
+> s
+You are in the corridor.
+You can go south, east or north.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> s
+> s
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> up
+> up
+You are on the landing.
+You can go down, north, east or west.
+Blue carpet with cream walls. A staircase leads down to the hall.
+> e
+> e
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> n
+> n
+You are in the corridor.
+You can go south, east or up.
+Blue carpet with cream walls. Narrow stairs lead up to the next floor.
+> up
+> up
+You are in the corridor.
+You can go down, east or south.
+Dark green carpet with pale yellow walls. Narrow stairs lead down to the floor below.
+> s
+> s
+You are in the corridor.
+You can go north, south, west or east.
+Dark green carpet with pale yellow walls.
+> w
+> w
+You are in the corridor.
+You can go east, south or west.
+Dark green carpet with pale yellow walls.
+> w
+> w
+You are in the corridor.
+You can go east, south, west or north.
+Dark green carpet with pale yellow walls.
+> n
+> n
+You are in the corridor.
+You can go south, west or up.
+Dark green carpet with pale yellow walls. Narrow stairs lead up to the attic.
+> up
+> up
+You are in the attic.
+You can go down or up.
+A dark and dusty room. Stairs lead up to the roof and down to the floor below.
+> up
+> up
+You are on the roof.
+You can go down.
+You can see for miles around. Stairs lead down to the attic.
+You can see a flagpole.
+> use rope on flagpole
+> use rope on flagpole
+You tied one end of the rope to the flagpole and lower the other end down the side of the house.
+> climb rope
+> climb rope
+You climb down the rope to a window ledge.
+You are on the window ledge.
+You can go in.
+A precarious position to be in.
+You can see a rope and a window.
+> use ring on glass
+> use ring on glass
+The diamond cuts a hole large enough for your arm and you unlock the window.
+> open window
+> open window
+You open it.
+> in
+> in
+You are in a secret room.
+You can go out.
+A dark and dingy room with the safe as the only furnishing in here.
+You can see a safe.
+> use lock
+> use lock
+What is the first number?
+> 58
+Correct. What is the second number?
+> 58
+Correct. What is the last number?
+> 58
+The safe unlocks.
+> open safe
+> open safe
+You open it.
+It contains a document and a small letter.
+> take document
+> take document
+You pick it up.
+> take small letter
+> take small letter
+You pick it up.
+> read document
+> read document
+It's an eviction notice for Veronica Holborne at her home 'Rose Cottage'. It's owned by Lord Mandrake and is expected to leave by next month.
+> out
+> out
+You are on the window ledge.
+You can go in.
+A precarious position to be in.
+You can see a rope and a window.
+> climb rope
+> climb rope
+You climb up the rope to the roof.
+You are on the roof.
+You can go down.
+You can see for miles around. Stairs lead down to the attic.
+You can see a flagpole and a rope.
+> d
+> d
+You are in the attic.
+You can go down or up.
+A dark and dusty room. Stairs lead up to the roof and down to the floor below.
+> d
+> d
+You are in the corridor.
+You can go south, west or up.
+Dark green carpet with pale yellow walls. Narrow stairs lead up to the attic.
+> s
+> s
+You are in the corridor.
+You can go east, south, west or north.
+Dark green carpet with pale yellow walls.
+> e
+> e
+You are in the corridor.
+You can go east, south or west.
+Dark green carpet with pale yellow walls.
+> e
+> e
+You are in the corridor.
+You can go north, south, west or east.
+Dark green carpet with pale yellow walls.
+> n
+> n
+You are in the corridor.
+You can go down, east or south.
+Dark green carpet with pale yellow walls. Narrow stairs lead down to the floor below.
+> d
+> d
+You are in the corridor.
+You can go south, east or up.
+Blue carpet with cream walls. Narrow stairs lead up to the next floor.
+> s
+> s
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> s
+> s
+You are on the landing.
+You can go north, east or south.
+Blue carpet with cream walls.
+> e
+> e
+You are in the chapel.
+You can go west.
+A small room with an altar.
+You can see Reverend Peter Potts.
+> give candlesticks to reverend
+> give candlesticks to reverend
+The vicar breaks down and starts crying.
+'Alright, Inspector. I did it. I stole those candlesticks. I have a gambling problem and I'm always in need of money. I am a thief! What are you going to do, Inspector?'
+You need to solve the murder before you deal with this clergy kleptomaniac.
+> ask reverend about thief
+> ask reverend about thief
+'His Lordship knew of my problem and caught me stealing church funds. Instead of calling the Police he asked me to contact a detective friend I had and find out more about Doctor Matthews. He only arrived in the local village a year ago and befriended Olivia. His Lordship always wanted to know about new people living in the village, especially those interested in Olivia. He has been a Doctor for two years and trained at Carlisle Hospital. However, he had been in prison for fraud, not sure what kind. I'm not sure how he has become a GP if he had a conviction? His Lordship was very intrigued about that.'
+> w
+> w
+You are on the landing.
+You can go north, east or south.
+Blue carpet with cream walls.
+> n
+> n
+You are on the landing.
+You can go west, north, south or east.
+Blue carpet with cream walls.
+> w
+> w
+You are on the landing.
+You can go down, north, east or west.
+Blue carpet with cream walls. A staircase leads down to the hall.
+> d
+> d
+You are in the entrance hall.
+You can go out, up, east, north or west.
+A magnificent staircase leads up to the next floor.
+> n
+> n
+You are in the corridor.
+You can go south, east or north.
+A narrow corridor with oak panelling and a mosaic-tiled floor.
+> e
+> e
+You are in the study.
+You can go west or east.
+A small oak-panelled room with a large desk in one corner.
+You can see a drawer.
+> e
+> e
+You are in the library.
+You can go west or north.
+Hundreds of books line the shelves with every subject covered.
+You can see Doctor Richard Matthews and a book.
+> give small letter to matthews
+> give small letter to matthews
+'Poor woman. What a bastard treating her like that and ignoring his first born. I guess he deserved what he got, Inspector.'
+> n
+> n
+You are in the gallery.
+You can go south, west or north.
+An elegant room with pale blue walls and white pillars.
+You can see Simon Reubens.
+> w
+> w
+You are in the billiard room.
+You can go east.
+A large billiard table stands in the centre of the room.
+You can see Major Reginald Bolt.
+> give dagger to major
+> give dagger to major
+'Oh my! That's the dagger I was going to give Augustus as a gift. He collects this sort of thing. It was supposed to be in my room.'
+
+You have all the evidence you need to solve the crime. Time for the Final dénouement.
+
+Press a key to continue.
+You look around the room as all the suspects stare back at you in anticipation of your results.
+
+'I have gathered you all here as I believe I have all the evidence I need to solve the murder of Lord Augustus Mandrake.
+
+'He was murdered with a dagger owned by Major Bolt and it was to be given as a gift to his Lordship. I found footprints in the the soil near his Lordship's body and the eight stab wounds he received was from a malicious attack.
+
+'The dagger was found in Simon's room but anyone could of put it there. However, a blackmail letter to Simon accused him of a sordid affair with a maid. It was signed L.A.M. Signed by his Lordship. Perhaps too incriminating!
+
+'The Doctor mentioned his Lordship was bribed with a new set of golf clubs by Simon and it resulted in a violent attack against him. If Mr Reubens murdered Lord Mandrake he would certainly be free to marry Olivia.
+
+'Simon had overheard that the Reverend Potts wasn't isn't in his Lordship's good-books either. I discoverd the Reverend has sticky fingers and that his Lordship knew about him stealing church funds for his gambling addiction. A good motive for murder, perhaps?
+
+'However, the Reverend was 'asked' by his Lordship to find out more information about Doctor Matthews. A claim of imprisonment cannnot be confirmed but another motive for murder?
+
+'A newspaper clipping I found stated that Major Bolt was given a Court Martial by his Lordship for stealing. The Major claims his Lordship forgave after the war but it is only his say so.'
+
+Press a key to continue.
+'I don't think Olivia could of murdered her father as no evidence is forthcoming and as for Lady Mary Mandrake, the fact she can't hold her drink means she probably would have trouble holding the murder weapon.
+
+'Mrs Holborne was threatend with eviction by Lord Mandrake so he could use her home as a place for his sordid affairs with pretty young things. Is this enough for murder?
+
+'From what I have read and heard, his Lordship was quite a character. A violent, womanizing, intimidating individual. An officer in the army but no gentleman. A devoted father but only to his daughter.
+
+'Twenty five years ago a housemaid called Elizabeth 'Betty' Sinfield had an affair with his Lordship and the union produced a son. She begged for money twice and was tossed into the gutter like all the rest.  Her son's name was Dick.
+
+'I found a towel with blood on it and the initials DS were sewn into it. Dick Sinfield, perhaps? Shoes I found matched the footprints found in the soil in the greenhouse. The murderers, perhaps?'
+
+Who in this room is really Dick Sinfield, son of Elizabeth and the real heir to the Mandrake fortune?
+
+Point to the person you believe murdered Lord Augustus Mandrake.
+You are in the lounge.
+You can go east, north or west.
+A well furnished room with decor from the Victorian period.
+You can see Doctor Richard Matthews, Lady Mary Mandrake, Olivia Mandrake, Major Reginald Bolt, Simon Reubens and Veronica Holborne.
+> point to matthews
+> point to matthews
+
+Doctor Matthews steps forward.
+
+'You're right, Inspector. I murdered my own father. But since he was no father to me I'm glad he's dead. He treated my mother like a whore. A disused plaything, a ragdoll to throw away and be forgotten.
+
+'Actually it was after my mother had died when I was still in prison for fraud that I decided, when I got out, to become the local GP here and conspire to murder my father and take his fortune. Unfortunately, the real Dr Richard Matthews is lying dead under the floorboards of my house in Carlisle, the hovel my mother and I had to suffer in all those years.
+
+'I guess the murder on the hill has lead me to a death on the gallows. I'm ready to go, Inspector.'
+
+You arrest him for murder and the Reverend Potts for stealing.
+
+Another case solved for Inspector Burton Strange of Scotland Yard.
+The End
+[state=Finished]
