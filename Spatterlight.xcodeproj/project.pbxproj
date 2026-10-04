@@ -3562,6 +3562,8 @@
 		C3A51F0000000000000000A3 /* questionglk-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "questionglk-autosave.h"; sourceTree = "<group>"; };
 		C3A51F0000000000000000B2 /* scarier-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "scarier-autosave.mm"; sourceTree = "<group>"; };
 		C3A51F0000000000000000B3 /* scarier-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "scarier-autosave.h"; sourceTree = "<group>"; };
+		A1C2BD54BBB210F1A5BF32CA /* sessrec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sessrec.h; sourceTree = "<group>"; };
+		382F3576525A572D2EEA8878 /* map_ppm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = map_ppm.h; path = test/map_ppm.h; sourceTree = "<group>"; };
 		C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfidToHashMigrationPolicy.h; sourceTree = "<group>"; };
 		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
 		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -4401,6 +4403,8 @@
 				MAPDRAW00000000000000002 /* mapdraw.cpp */,
 				C331B95630069635008F8BD9 /* scmap.h */,
 				SCMAP000000000000000002 /* scmap.cpp */,
+				A1C2BD54BBB210F1A5BF32CA /* sessrec.h */,
+				382F3576525A572D2EEA8878 /* map_ppm.h */,
 				A5GRP0000000000000000001 /* adrift5 */,
 			);
 			path = scarier;
