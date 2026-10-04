@@ -110,8 +110,9 @@ interpreter ships. See `scott-image-format-tests` memory note for full context.
 ## Divergences from the originals (found by the scene tests)
 
 Where a picture is compared anyway it is a `!check ... min=N` in its scene,
-with a comment there; the last three are left out of the scenes. None is
-ported: decide per item whether the interpreter should follow the original.
+with a comment there; the last three are left out of the scenes. Only the
+ticked one is ported: decide per item whether the interpreter should follow
+the original.
 
 - [ ] **Howarth vector pictures, line colour (ZX).** The Spectrum original
       draws its lines in the complement of the background colour (cyan on the
@@ -133,10 +134,12 @@ ported: decide per item whether the interpreter should follow the original.
       the outside waterfall on the cave picture: the six columns it occupied
       get scrolled down one more pixel on some rows, which ones depending on
       the timing of the keypresses (236 pixels in the capture, 99.04%).
-- [ ] **Gremlins, kitchen after the blender has run (C64).** The original
-      leaves whichever blender frame was showing when it stopped (the second
-      in the capture); the interpreter redraws the room, with the first.
-      98.70%.
+- [x] **Gremlins, kitchen after the blender has run.** The original only
+      redraws a picture when something in the room changes, so the blender
+      keeps the frame it stopped on until then (the chute opening brings back
+      the first). Ported (`GremlinsKeepBlenderFrame` in `ai_uk/gremlins.c`);
+      `gremlins_c64` is exact now and `gremlins_zx/blender.scene` pins the
+      second frame on the Spectrum.
 - [ ] **Hulk (C64), last line of every picture.** The original switches from
       bitmap to text mode in the middle of the picture's bottom line: from 112
       pixels in, that line shows the empty text screen. 99.29–99.83%.
@@ -144,10 +147,22 @@ ported: decide per item whether the interpreter should follow the original.
       the wrong colours in the T64 copy; the interpreter patches it on purpose
       (`image_patches` in `sagadraw.c`). Nothing to do unless the patch is
       dropped.
-- [ ] **Claymorgue (ZX and C64), ENTER MOAT.** The pictures after the first few
-      are damaged in every known copy: the ZX original crashes to BASIC, the
-      C64 one fills the screen with garbage. The interpreter patches those
-      pictures out, so only the first two can be compared.
+- [x] **Claymorgue (ZX), ENTER MOAT.** Not a divergence: the `.z80` the scene
+      used is a damaged copy (pictures 9–35 broken, crashes to BASIC; the
+      interpreter patches them out). Whole copies exist — `claymorgue.sna` and
+      both `.tzx` tapes — and all 37 pictures are byte-exact against the
+      original (`groundtruth_zx/claymorgue_N`, `claymorgue_zx/moat.scene`).
+- [x] **Claymorgue (C64), ENTER MOAT.** Not a divergence either: the crack in
+      `claymorgue.t64` (SORCCLAY.T64) has sixteen broken pictures, 12–27
+      except 16 (the original fills the screen with garbage; the interpreter
+      patches them out), and so has the "[ABC]" T64. Both were saved without
+      `$a000`–`$e7ff`, where those pictures live: the data is not in the file
+      in any form, so nothing more can be salvaged (only the first 389 of
+      picture 12's 1016 bytes are left). The plain tape (`claymorgue_whole.t64`) and both disk copies
+      (c64.com's and "cl.morgue castle") are whole, and ENTER MOAT draws the
+      moat on the original. All 44 pictures of the tape match the original
+      (`claymorgue_c64/pictures.scene`, with `!hwpoke` of the picture table at
+      `$7b18` and the harness's `!picture`; `moat.scene`).
 - [ ] **Seas of Blood, start room before the first move.** The original draws
       it before the opening automatic actions have placed the coastline; the
       interpreter draws it after. Not checked for that reason.

@@ -30,6 +30,11 @@
 //                      the timer) — animation frames, slow drawing
 //   !terp <line>       input like a plain line, but skipped when the same script
 //                      is replayed on the original (see below)
+//   !picture <n>       make picture n the picture of every room (the next LOOK
+//                      shows it): for pictures no script can walk to. The
+//                      original gets a `!hwpoke` of its picture table instead.
+//                      Also blanks the picture, as the original does before
+//                      it draws a room: some pictures are only overlays
 //   !check <golden> [min=N] [dx=N] [dy=N]
 //                      compare the graphics window as it is when the game next
 //                      waits for input. Every painted pixel must match unless
@@ -73,6 +78,8 @@ extern int gli_slowdraw, gli_determinism;
 extern int ImageWidth, ImageHeight;
 extern glui32 pal[16];
 extern void glk_main(void);
+
+#include "scott.h"
 
 // ---- Script ------------------------------------------------------------------
 
@@ -553,6 +560,10 @@ void scene_select(event_t *ev)
             char *args = strdup(line + 6);
             check(args);
             free(args);
+        } else if (strncmp(line, "!picture", 8) == 0) {
+            for (int i = 0; i <= GameHeader.NumRooms; i++)
+                Rooms[i].Image = atoi(line + 8);
+            clear_canvas();
         } else if (strncmp(line, "!tick", 5) == 0) {
             ticks_owed = atol(line + 5);
             if (ticks_owed <= 0)

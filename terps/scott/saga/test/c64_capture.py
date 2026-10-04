@@ -20,6 +20,11 @@
 #   !hwwait <secs>    just let the game run (seconds of real time, in warp mode)
 #   !dump <name>      save the screen right now; a later !check of the same
 #                     name then compares against this dump
+#   !hwpoke <addr>=<bytes>[*<n>]
+#                     write hex bytes to RAM, in memory order, n times in a
+#                     row (as in zx_capture.lua): for pictures no script can
+#                     walk to, point the game's picture table somewhere else
+#   !hwmem <name>     save the 64K of RAM as <name> (to find such a table)
 # Everything else (!game, !tick, !slowdraw, comments) is skipped.
 #
 # The original stops with <HIT RETURN> whenever its text window fills up, and
@@ -71,6 +76,16 @@ class Vice:
         text = text.upper().encode('ascii')
         self.command(0x72, bytes([len(text)]) + text)
         self.resume()
+
+    def poke(self, addr, data):
+        # No side effects, main memory, bank 1 (RAM)
+        self.command(0x02, struct.pack('<BHHBH', 0, addr, addr + len(data) - 1, 0, 1) + data)
+        self.resume()
+
+    def ram(self):
+        d = self.command(0x01, struct.pack('<BHHBH', 0, 0, 0xffff, 0, 1))
+        self.resume()
+        return d[2:]
 
     def frame(self):
         """VICE's rendered frame: its pixels (colour numbers), the width of a
@@ -183,6 +198,12 @@ def main():
             steps.append(('dump', rest))
         elif word == '!hwwait':
             steps.append(('wait', float(rest)))
+        elif word == '!hwpoke':
+            addr, _, data = rest.partition('=')
+            data, _, times = data.partition('*')
+            steps.append(('poke', (int(addr, 16), bytes.fromhex(data) * int(times or 1))))
+        elif word == '!hwmem':
+            steps.append(('mem', rest))
         elif word == '!hwkey':
             steps.append(('type', rest))
         elif word == '!hw':
@@ -220,6 +241,11 @@ def main():
                 wait(step + 1)
             elif kind == 'wait':
                 time.sleep(arg)
+            elif kind == 'poke':
+                vice.poke(*arg)
+            elif kind == 'mem':
+                with open(os.path.join(folder, arg), 'wb') as f:
+                    f.write(vice.ram())
             else:
                 if kind == 'check':
                     wait(step + 1)
