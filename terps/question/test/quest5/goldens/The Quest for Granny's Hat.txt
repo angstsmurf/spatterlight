@@ -1,0 +1,913 @@
+The Quest for Granny's Hat
+
+by Sand Duce
+
+You are Flick, a young jockey (or wench, you choose!) who is spending the summer with your grandparents at their charming cottage. One sunny morning, you were helping Granddad Oilcan to chop wood, while Granny Gumdrop visited the forest, to gather mushrooms.
+But disaster struck! Granny returned...without her hat! Her favourite and most gorgeous of hats, gone! Missing! ...pilfered?
+
+Only you can find out the truth! Put your Adventuring pants on, Flick, it's time to Find Granny's Missing Hat!
+A parlour
+A small cosy room, with a comfy settee to sit on. A fire burns in a brick grate. Porcelain ornaments adorn the mantelpiece, and various shelves.
+You can go west or east.
+You can see Granny Gumdrop and an Adventure hints booklet.
+> e
+
+> e
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> n
+
+> n
+
+A bedroom
+It is your own bedroom. A comfy bed has been neatly made. The window overlooks the front lawn and a flowerbed, where colourful fuchsias are in full bloom.
+You can go south.
+You can see a blue key and a side table drawer.
+> take blue key
+
+> take blue key
+You pick it up.
+> open drawer
+
+> open drawer
+You open the top drawer. There are socks inside, and also a silver coin.
+> take coin
+
+> take coin
+You pick it up.
+> s
+
+> s
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> s
+
+> s
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> in
+
+> in
+
+A shed
+You enter the family shed. It smells of sawdust and wood polish. There is a sturdy workbench, and an armchair to sit in for when you need a cup of tea. There are lots of tools here too, all of good quality.
+You can go out.
+You can see a paraffin lamp and a knife.
+> take lamp
+
+> take lamp
+You pick it up.
+> turn on lamp
+
+> turn on lamp
+You turn the paraffin lamp on.
+> out
+
+> out
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> n
+
+> n
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> w
+
+> w
+
+A parlour
+A small cosy room, with a comfy settee to sit on. A fire burns in a brick grate. Porcelain ornaments adorn the mantelpiece, and various shelves.
+You can go west or east.
+You can see Granny Gumdrop and an Adventure hints booklet.
+> w
+
+> w
+
+A back kitchen
+A little kitchen, with a Belfast sink, and a gas range. It is warm and smells of jam and pickles.
+
+There is also a larder here, and the door is slightly ajar.
+You can go east, in or north.
+You can see a jar of honey.
+> take honey
+
+> take honey
+You pick it up.
+> in
+
+> in
+
+A larder
+You're in the larder. This is where Granny keeps her food, and other important bits and pieces.
+You can go out.
+You can see a foot cream and a piece of raw meat.
+> take cream
+
+> take cream
+You pick it up.
+> take meat
+
+> take meat
+You pick it up.
+> out
+
+> out
+
+A back kitchen
+A little kitchen, with a Belfast sink, and a gas range. It is warm and smells of jam and pickles.
+
+There is also a larder here, and the door is slightly ajar.
+You can go east, in or north.
+> e
+
+> e
+
+A parlour
+A small cosy room, with a comfy settee to sit on. A fire burns in a brick grate. Porcelain ornaments adorn the mantelpiece, and various shelves.
+You can go west or east.
+You can see Granny Gumdrop and an Adventure hints booklet.
+> e
+
+> e
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> s
+
+> s
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> s
+
+> s
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> s
+
+> s
+
+A farmyard
+You're in the farmyard of Bogwort's Farm. There are hens clucking and scratching for food, and ducks swimming on a pond.
+
+To the south is the main farmhouse; a grand stone building with a thatched roof.
+You can go north.
+You can see Farmer Bogwort.
+> give cream to farmer
+
+> give cream to farmer
+"Ah, just what I need for my aching feet! Thanks so much, let me reward you". He gives you a brand new fishing rod.
+"I'm off indoors to try it out. Tara young'un, and have a good rest of day!"
+> n
+
+> n
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> w
+
+> w
+
+A village near end
+You are in Bobcat village, on the eastern side. Black and white timbered houses line the cobbled street. Folks go about their business of shopping, and a fountain sprays water up in the air.
+
+You can see Pestcos, a popular store where Granny loves to shop. A sign in the window says "Ask about today's special".
+You can go east, west or in.
+You can see a fountain.
+> in
+
+> in
+
+A Pestcos
+You are inside Pestcos, a popular store in Bobcat village. The shelves reach to to ceiling and are lined with every kind of grocery item you can think of. There are barrels of tea, coffee and spices, and the air smells delicious.
+
+Roundel Attey, the manager, stands behind the counter.
+You can go out.
+You can see Roundel Attey.
+> ask roundel about special
+
+> ask roundel about special
+"Of course! The special is a gift for our regular customers". Roundel gives you a woollen hat as a gift.
+> out
+
+> out
+
+A village near end
+You are in Bobcat village, on the eastern side. Black and white timbered houses line the cobbled street. Folks go about their business of shopping, and a fountain sprays water up in the air.
+
+You can see Pestcos, a popular store where Granny loves to shop. A sign in the window says "Ask about today's special".
+You can go east, west or in.
+You can see a fountain.
+> w
+
+> w
+
+A village middle
+You are in the middle of Bobcat village's main street. It is very busy, with lots of people doing their morning shopping.
+
+The most popular shop here is Sweet Rita's patisserie. The lovely scent of fresh cakes and pastries drift from the open door.
+You can go east, in or west.
+> in
+
+> in
+
+A Sweet Ritas patisserie
+You are inside Sweet Rita's patisserie. There are glass cabinets filled with cakes, pies and pastries. It smells gorgeous in here!
+You can go out.
+You can see Sweet Rita.
+> give coin to rita
+
+> give coin to rita
+"Oooh, that will buy the special today - a creme brulee!" Rita gives you a delicious creme brulee, in exchange for your silver coin.
+> out
+
+> out
+
+A village middle
+You are in the middle of Bobcat village's main street. It is very busy, with lots of people doing their morning shopping.
+
+The most popular shop here is Sweet Rita's patisserie. The lovely scent of fresh cakes and pastries drift from the open door.
+You can go east, in or west.
+> w
+
+> w
+
+A village far end
+You are at the west end of Bobcat village. It is quieter here, with mostly houses and only a few shops.
+
+The very last building is a grand pub, called "The Whistling Ferret". The sign outside shows an anthropomorphic ferret, dressed in a smart jacket and playing a fife.
+You can go east, in or west.
+> in
+
+> in
+
+A The Whistling Ferret
+You enter the pub. It is a cosy place, with a roaring fire in a grand fireplace. Customers sit at stout wooden tables, eating pies and drinking ale.
+
+There is a long bar to your right, where you can buy a drink or something to eat. A menu hangs on the wall, behind the bar.
+You can go out.
+You can see Barlady Giselle and a Bar menu.
+> ask giselle about arnold
+
+> ask giselle about arnold
+"Your Granny's anteater? He's proper useful, clears up any ants here in no time at all. Here, take this for him, for a treat". Giselle gives you a bag of ant-flavoured crisps.
+> out
+
+> out
+
+A village far end
+You are at the west end of Bobcat village. It is quieter here, with mostly houses and only a few shops.
+
+The very last building is a grand pub, called "The Whistling Ferret". The sign outside shows an anthropomorphic ferret, dressed in a smart jacket and playing a fife.
+You can go east, in or west.
+> w
+
+> w
+
+A path to the ocean
+You are walking along a winding path through the countryside. There are grassy hills to the south, and heather covered moorland to the north. To the west, the blue line of the sea can be seen on the horizon.
+You can go east or west.
+> w
+
+> w
+
+A beach
+You are on a large, pebbly beach. The air smells of seaweed and salt. Seagulls wheel overhead, calling out to each other in secret seagull language.
+
+In the distance, you can see the sea - brilliant blue on this sunny day. The waves are dancing and splashing.
+You can go east or west.
+> w
+
+> w
+
+A sea
+You are standing at the edge of the sea. The waves are rough and foamy, and crash against the rocks. There is a jetty to stand on, where you can fish.
+You can go east.
+You can see a jetty.
+> use rod on jetty
+
+> use rod on jetty
+You cast your line in and wait patiently. Presently, you get a bite. You reel in your line and find you have caught a...SEA BASS! Oops, your rod breaks! But luckily, you grab the sea bass in time, before it swims away.
+> e
+
+> e
+
+A beach
+You are on a large, pebbly beach. The air smells of seaweed and salt. Seagulls wheel overhead, calling out to each other in secret seagull language.
+
+In the distance, you can see the sea - brilliant blue on this sunny day. The waves are dancing and splashing.
+You can go east or west.
+> e
+
+> e
+
+A path to the ocean
+You are walking along a winding path through the countryside. There are grassy hills to the south, and heather covered moorland to the north. To the west, the blue line of the sea can be seen on the horizon.
+You can go east or west.
+> e
+
+> e
+
+A village far end
+You are at the west end of Bobcat village. It is quieter here, with mostly houses and only a few shops.
+
+The very last building is a grand pub, called "The Whistling Ferret". The sign outside shows an anthropomorphic ferret, dressed in a smart jacket and playing a fife.
+You can go east, in or west.
+> e
+
+> e
+
+A village middle
+You are in the middle of Bobcat village's main street. It is very busy, with lots of people doing their morning shopping.
+
+The most popular shop here is Sweet Rita's patisserie. The lovely scent of fresh cakes and pastries drift from the open door.
+You can go east, in or west.
+> e
+
+> e
+
+A village near end
+You are in Bobcat village, on the eastern side. Black and white timbered houses line the cobbled street. Folks go about their business of shopping, and a fountain sprays water up in the air.
+
+You can see Pestcos, a popular store where Granny loves to shop. A sign in the window says "Ask about today's special".
+You can go east, west or in.
+You can see a fountain.
+> e
+
+> e
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> e
+
+> e
+
+An Enchanting woodland
+You are walking through a beautiful forest. Birds sing, squirrels chirp and flowers wave in the gentle breeze.
+
+A narrow path leads north, while the wider one runs from east to west.
+You can go west, north or east.
+> e
+
+> e
+
+A forest waterfall
+You are standing by a majestic waterfall. The water tumbles over a rocky outcrop, roaring as it crashes into a fast flowing stream below.
+
+A rough path leads up the side of the waterfall; it is steep but looks like it can be climbed.
+
+There also appears to be a cave behind the waterfall, accessable via a narrow strip of rock.
+You can go up, in or west.
+> up
+
+> up
+
+A top of the waterfall
+You are at the top of the waterfall. There are more lovely trees here, and chattering chipmunks. It is such a delightful place!
+You can go down or east.
+> e
+
+> e
+
+A massive great rock
+You follow a little path through the trees, until you come to a large, flat rock. It looks a good place to sit and chill out.
+You can go west.
+You can see Custard half elven.
+> give creme brulee to custard
+
+> give creme brulee to custard
+"Oh yeah, that's more like it". Custard eats the creme brulee; he enjoys sweet things. "Alright, a deal's a deal, so here's something nice for you". He gives you a silver hand mirror.
+Now he's had something to eat, Custard wanders off to go hunting (or some similar activity).
+> w
+
+> w
+
+A top of the waterfall
+You are at the top of the waterfall. There are more lovely trees here, and chattering chipmunks. It is such a delightful place!
+You can go down or east.
+> down
+
+> down
+
+A forest waterfall
+You are standing by a majestic waterfall. The water tumbles over a rocky outcrop, roaring as it crashes into a fast flowing stream below.
+
+A rough path leads up the side of the waterfall; it is steep but looks like it can be climbed.
+
+There also appears to be a cave behind the waterfall, accessable via a narrow strip of rock.
+You can go up, in or west.
+> in
+
+> in
+
+A waterfall cave
+You are inside the cave behind the waterfall. The roar of the water is muffled in here. It is quite dark, but you can just make out a narrow opening to the north.
+You can go out or north.
+> n
+
+> n
+
+A Back passage
+You are in a back passage. It is very dark but you can make out shadowy shapes.
+You can go south.
+You can see a Big bear.
+> give bass to bear
+
+> give bass to bear
+The big bear scoffs the sea bass right up. He licks his lips, and lumbers off into his den. As he moves, you notice a tiny object, that was hiding under his paws. You quickly pick it up.
+> s
+
+> s
+
+A waterfall cave
+You are inside the cave behind the waterfall. The roar of the water is muffled in here. It is quite dark, but you can just make out a narrow opening to the north.
+You can go out or north.
+> out
+
+> out
+
+A forest waterfall
+You are standing by a majestic waterfall. The water tumbles over a rocky outcrop, roaring as it crashes into a fast flowing stream below.
+
+A rough path leads up the side of the waterfall; it is steep but looks like it can be climbed.
+
+There also appears to be a cave behind the waterfall, accessable via a narrow strip of rock.
+You can go up, in or west.
+> w
+
+> w
+
+An Enchanting woodland
+You are walking through a beautiful forest. Birds sing, squirrels chirp and flowers wave in the gentle breeze.
+
+A narrow path leads north, while the wider one runs from east to west.
+You can go west, north or east.
+> w
+
+> w
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> n
+
+> n
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> n
+
+> n
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> give crisps to arnold
+
+> give crisps to arnold
+Arnold eats the crisps happily, then goes back to sleep! However, inside the bag is a free gift. You take out a Super Shiny Polishing Cloth! Oooooh!
+> use cloth on mirror
+
+> use cloth on mirror
+*rub rub* The mirror gleams and starts to shake. Some of the magic from the Polishing cloth transfers into the mirror, upgrading it into...Super Mirror! Wow!
+> s
+
+> s
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> s
+
+> s
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> e
+
+> e
+
+An Enchanting woodland
+You are walking through a beautiful forest. Birds sing, squirrels chirp and flowers wave in the gentle breeze.
+
+A narrow path leads north, while the wider one runs from east to west.
+You can go west, north or east.
+> n
+
+> n
+
+A Woodland path
+You are following a dirt path through the lovely forest.
+
+On the side of the path, is an old log of a fallen oak tree.
+You can go south or north.
+You can see an old log.
+> n
+
+> n
+
+A clearing
+You are standing in a clearing in the forest. The trees are less thick here, and sunlight is shining through. To the north is a tall stone tower.
+You can go south or north.
+> n
+
+> n
+
+An outside the tower
+You are standing outside the old tower. It is about fifty feet high. The only way inside appears to be through a heavy oak door.
+
+You can go south.
+You can see a heavy door.
+> unlock door
+
+> unlock door
+You unlock the heavy door with the blue key. It fits perfectly!
+You open it.
+> in
+
+> in
+
+An entrance room
+You are standing in the entrance room of the tower. It is rather dark, as the windows are thick with dirt. Bats hang from the rafters, and you can feel the cold seeping up from the stone floor.
+
+There are no visible doors inwards, but a spiral staircase leads up to the first floor.
+You can go out or up.
+> up
+
+> up
+
+A first floor
+You are on the first floor. Dark wood panelling covers the walls and dusty lamps hang from the ceiling. The windows are a little cleaner, but curtains are pulled across them. Whoever lived here, must have valued secrecy.
+
+Wooden doors lead north and west. The spiral staircase continues upwards, to the second floor.
+
+You can go down, north or up.
+You can see a west door.
+> n
+
+> n
+
+A bathroom
+You are in a small bathroom. The walls are tiled with pale peach tiles. The bath, sink and toilet are lime green, they don't match at all!
+
+There is a cupboard on the wall, just above the sink. It too, is painted lime green.
+You can go south.
+You can see a cupboard and a sink.
+> open cupboard
+
+> open cupboard
+You open it.
+You open the cupboard. It is empty, save for a glass bottle.
+> take bottle
+
+> take bottle
+You pick it up.
+> fill bottle
+
+> fill bottle
+You turn on the cold water tap and fill the bottle to the top.
+> s
+
+> s
+
+A first floor
+You are on the first floor. Dark wood panelling covers the walls and dusty lamps hang from the ceiling. The windows are a little cleaner, but curtains are pulled across them. Whoever lived here, must have valued secrecy.
+
+Wooden doors lead north and west. The spiral staircase continues upwards, to the second floor.
+
+You can go down, north or up.
+You can see a west door.
+> up
+
+> up
+
+A second floor
+You are on the second floor. The walls are panelled with smooth, light wood. A little light filters in through grimy casement windows. An opulent, but dusty carpet covers the floor.
+
+Doors lead north and east. The spiral staircse goes up once more, to the third floor.
+You can go down, up, east or north.
+> e
+
+> e
+
+A Wizards kitchen
+You are in the Wizard's kitchen. It is much grander than Granny's kitchen, back home. There is a huge range, that gives off a eerie purple light. There is also a stainless steel sink, with a state of the art mixing tap.
+
+There are all kinds of gadgets on the shelves.
+You can go west.
+You can see a Mixing tap, a kettle and a Jar opener.
+> use opener on honey
+
+> use opener on honey
+You use the jar opener to easily remove the lid of the jar of honey. The honey shimmers and the jar shatters! The honey transforms into an evil wizard! OH NO!
+> use super mirror on wizard
+
+> use super mirror on wizard
+You hold up Super Mirror, just as Whidehatte goes to zap you with an evil spell. The spell reflects off the magically enhanced mirror and zaps him instead! There is a flash of silver light, and Whidehatte is transformed into a newt!
+The newt runs off, and Whidehatte's robes and hat fall to the floor.
+Something falls out of his robe pocket too!
+> take study key
+
+> take study key
+You pick it up.
+> w
+
+> w
+
+A second floor
+You are on the second floor. The walls are panelled with smooth, light wood. A little light filters in through grimy casement windows. An opulent, but dusty carpet covers the floor.
+
+Doors lead north and east. The spiral staircse goes up once more, to the third floor.
+You can go down, up, east or north.
+> down
+
+> down
+
+A first floor
+You are on the first floor. Dark wood panelling covers the walls and dusty lamps hang from the ceiling. The windows are a little cleaner, but curtains are pulled across them. Whoever lived here, must have valued secrecy.
+
+Wooden doors lead north and west. The spiral staircase continues upwards, to the second floor.
+
+You can go down, north or up.
+You can see a west door.
+> unlock west door
+
+> unlock west door
+You unlock the west door with the study key.
+You open it.
+> w
+
+> w
+
+A study
+You are standing in Wizard Whidehatte's study. An impressive desk is covered with old parchments and a feathered quill sits in the inkwell. Glass cabinets are fiiled with spellbooks, and there is a soft easy chair to sit on. Another cabinet is full of Whidehatte's booze collection.
+
+You can go east.
+You can see a Book cabinets, a Drinks cabinet and a Boxette.
+> unlock boxette
+
+> unlock boxette
+You unlock Boxette with Keyette.
+Oooh! You have found a dehydrated ladder.
+You open it.
+> use bottle of water on dehydrated ladder
+
+> use bottle of water on dehydrated ladder
+You pour the water onto the dehydrated ladder, then stand well back. BOOM! A full sized ladder appears.
+> take ladder
+
+> take ladder
+You pick it up.
+> e
+
+> e
+
+A first floor
+You are on the first floor. Dark wood panelling covers the walls and dusty lamps hang from the ceiling. The windows are a little cleaner, but curtains are pulled across them. Whoever lived here, must have valued secrecy.
+
+Wooden doors lead north and west. The spiral staircase continues upwards, to the second floor.
+
+You can go down, north, up or west.
+You can see a west door.
+> up
+
+> up
+
+A second floor
+You are on the second floor. The walls are panelled with smooth, light wood. A little light filters in through grimy casement windows. An opulent, but dusty carpet covers the floor.
+
+Doors lead north and east. The spiral staircse goes up once more, to the third floor.
+You can go down, up, east or north.
+> up
+
+> up
+
+A third floor
+You are on the third floor, the top floor of the tower. Mildew grows on the cold stone walls, and the wind is rattling the windows in their frames.
+
+The spiral staircse ends here.
+
+About ten feet above, you can see a hatch to the attic. You can hear crows cawing up there.
+You can go down.
+> use ladder
+
+> use ladder
+You place the ladder under the hatch. Now you can climb into the attic.
+> up
+
+> up
+
+An attic
+You are in the tower attic. Some roof tiles are missing and daylight is filtering through.
+
+A large crow is guarding an opening to what appears to be a tiny room to the east.
+You can go down.
+You can see a Ma crow.
+> give meat to ma crow
+
+> give meat to ma crow
+Ma crow flies towards you and accepts the piece of raw meat to eat. She knows you are friendly, and allows you access to the tiny room.
+> in
+
+> in
+
+A nesting room
+You are in a tiny room, just big enough to squeeze in. It is warm and comfortable.
+
+Another crow is in here, sitting inside a familiar hat.
+
+Good gosh, it's Granny's Hat! The crows have made it into a nest.
+You can go out.
+You can see a Pa crow.
+> give woollen hat to pa crow
+
+> give woollen hat to pa crow
+Pa crow accepts that woollen hat as a new nest. He settles inside, and allows you to take Granny's hat back.
+> out
+
+> out
+
+An attic
+You are in the tower attic. Some roof tiles are missing and daylight is filtering through.
+You can go down or in.
+You can see a Ma crow.
+> down
+
+> down
+
+A third floor
+You are on the third floor, the top floor of the tower. Mildew grows on the cold stone walls, and the wind is rattling the windows in their frames.
+
+The spiral staircse ends here.
+
+About ten feet above, you can see a hatch to the attic. You can hear crows cawing up there.
+A ladder leads up into the attic.
+You can go down or up.
+> down
+
+> down
+
+A second floor
+You are on the second floor. The walls are panelled with smooth, light wood. A little light filters in through grimy casement windows. An opulent, but dusty carpet covers the floor.
+
+Doors lead north and east. The spiral staircse goes up once more, to the third floor.
+You can go down, up, east or north.
+> down
+
+> down
+
+A first floor
+You are on the first floor. Dark wood panelling covers the walls and dusty lamps hang from the ceiling. The windows are a little cleaner, but curtains are pulled across them. Whoever lived here, must have valued secrecy.
+
+Wooden doors lead north and west. The spiral staircase continues upwards, to the second floor.
+
+You can go down, north, up or west.
+You can see a west door.
+> down
+
+> down
+
+An entrance room
+You are standing in the entrance room of the tower. It is rather dark, as the windows are thick with dirt. Bats hang from the rafters, and you can feel the cold seeping up from the stone floor.
+
+There are no visible doors inwards, but a spiral staircase leads up to the first floor.
+You can go out or up.
+> out
+
+> out
+
+An outside the tower
+You are standing outside the old tower. It is about fifty feet high. The only way inside appears to be through a heavy oak door.
+
+You can go south or in.
+You can see a heavy door.
+> s
+
+> s
+
+A clearing
+You are standing in a clearing in the forest. The trees are less thick here, and sunlight is shining through. To the north is a tall stone tower.
+You can go south or north.
+> s
+
+> s
+
+A Woodland path
+You are following a dirt path through the lovely forest.
+
+On the side of the path, is an old log of a fallen oak tree.
+You can go south or north.
+You can see an old log.
+> s
+
+> s
+
+An Enchanting woodland
+You are walking through a beautiful forest. Birds sing, squirrels chirp and flowers wave in the gentle breeze.
+
+A narrow path leads north, while the wider one runs from east to west.
+You can go west, north or east.
+> w
+
+> w
+
+A wide country lane
+You are standing in a country lane. The road is made from packed dirt, and is smooth, with no ruts or holes. A signpost points in four directions.
+You can go north, south, west or east.
+You can see a Four way signpost.
+> n
+
+> n
+
+A garden
+You are in your back garden. There is a large vegetable patch, where carrots, leeks and radishes are growing. A crazy paving path leads south, towards the garden gate.
+To your left, is the garden shed.
+You can go south, in or north.
+You can see Granddad Oilcan and a History book.
+> n
+
+> n
+
+A hall
+You are in the hallway of your cottage. A wooden staircase leads up to the first floor, but Granny's pet anteater, Arnold, is asleep on the bottom stair, blocking the way.
+
+To the south, is the door to the back garden.
+
+North leads to your bedroom.
+You can go south, north or west.
+You can see Arnold.
+> w
+
+> w
+
+A parlour
+A small cosy room, with a comfy settee to sit on. A fire burns in a brick grate. Porcelain ornaments adorn the mantelpiece, and various shelves.
+You can go west or east.
+You can see Granny Gumdrop and an Adventure hints booklet.
+> give grannys hat to granny gumdrop
+
+> give grannys hat to granny gumdrop
+"Oh my lovely hat! You found it again!" Granny is delighted. She puts on her hat, even though it smells a bit of crows. "Thank you so much dear, you're a real treasure!"
+
+**CONGRATULATIONS**
+You have found Granny Gumdrop's hat and saved the day.
+Well done, Adventurer!
+[state=Finished]

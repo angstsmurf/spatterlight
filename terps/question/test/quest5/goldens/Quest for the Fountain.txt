@@ -1,0 +1,295 @@
+Quest for the Fountain
+The Ancient Search for the Fountain of Youth
+
+by Noah Holzer
+
+You wake up, you are laying in a bed staring at a thatched roof above you.
+A Witch's Hut
+This hut is average in make, but very different in appearance inside. Three large cauldrons boil on one side of the hut and many odd things lie on the table in the center of the hut.
+A witch stands near you, she looks menacing and yet kind. It is obvious she is very wise.
+You can see a witch.
+You can go out.
+> ask witch about altar
+
+> ask witch about altar
+
+The witch does not speak, but beacons for you to follow her. She walks out of the hut.
+> out
+
+> out
+
+The witch yells behind you as you leave the hut, "Please bring me a sample what you find. Do not let my part your quest be for nothing!"
+A yard
+This is a well overgrown field that has a hut in its center. There is a forest to the west and the feild opens up to the east. Jagged cliffs do not allow passage to the north or south. A sign is outside the witch's home that is faded but can still be read.
+You can see a sign and a witch.
+You can go west, east, in or northeast.
+The witch beacons for you to follow her as she walks to the northeast trail.
+> e
+
+> e
+
+A viewledge
+This is a common ground that is well kept and used for many celebrations. The view of the river to the south from here is astounding, it is a beautiful vista of the river flowing through the remains of the ancient aqueduct that lies to the southeast of where you stand now. There is another, though less well kept, yard to the west. A path leads into the woods to the south and to the north. There is a picket fence to the east.
+You can go west, south or north.
+> s
+
+> s
+
+A sandy shore
+This is a sandy beach that is commonly visited by tourists to the area, it has a panoramic view of the river and the water is calm enough to swim in. A path leads into the woods north and another to the northwest. The beach continues to the west.
+You can go west, south, north or northwest.
+> w
+
+> w
+
+A rocky shore
+This place is a rocky beach on the edge of a large river which lies to the south of where you stand now. Upriver, to the west, the shore continues to be rocky, but to the east the shore becomes sandy. A path leads to the northeast into the forest to the north.
+There is a small pond here in which floats an empty closed glass vial.
+You can see a glass vial.
+You can go west, south, east or northeast.
+> take vial
+
+> take vial
+
+You pick it up.
+> e
+
+> e
+
+A sandy shore
+This is a sandy beach that is commonly visited by tourists to the area, it has a panoramic view of the river and the water is calm enough to swim in. A path leads into the woods north and another to the northwest. The beach continues to the west.
+You can go west, south, north or northwest.
+> n
+
+> n
+
+A viewledge
+This is a common ground that is well kept and used for many celebrations. The view of the river to the south from here is astounding, it is a beautiful vista of the river flowing through the remains of the ancient aqueduct that lies to the southeast of where you stand now. There is another, though less well kept, yard to the west. A path leads into the woods to the south and to the north. There is a picket fence to the east.
+You can go west, south or north.
+> n
+
+> n
+
+An altar
+A stone altar in the shape of a large snake sits in the center of an ancient atrium. The grass is long here, but no trees protrude into the amphitheater that sorrounds the altar. This place give you an odd feeling, it seems both new and ancient at the same time.
+You can see a witch.
+You can go southwest or south.
+The witch moves toward the ornate altar and begins to move her hands in some sort of magical ritual.
+The witch's ritual continues... the clouds above drift off to make all of the great skystones above visable.
+The witch finishes her ritual and a ladder forms out of smoke above the altar. The witch looks at you expectantly and gestures to the ladder for you to climb.
+> up
+
+> up
+
+A large skystone path
+This is a path made out of floating stones that you stand on, one of the stones has a smoke-ladder leading down from it. Looking around you can see many similar stones to your east and west, these stones would need to be jumped to reach though. Behind a cloud to the far west you can make out the shape of a large fountain that appears and dissapears as the clouds move around it. There are four skystones floating within stepping distance: a small skystone to the southwest, a large skyblock to the west, a medium skystone to the northwest, and a small skyblock to the north.
+You can go down, southwest, west, northwest or north.
+> sw
+
+> sw
+
+A small skystone
+This floating stone is rather small and you take note of just how high up you are when you stand upon it. There is only one other skystone within jumping distance, due west. There is a path of skystones within stepping distance to the northeast
+You can go west or northeast.
+> w
+
+> w
+
+The next skystone is a fairly long jump away, are you sure you want to try to jump to it?
+> yes
+A medium skystone
+This is a floating stone about the size of a large man, there are three skystones within jumping distance: a huge stone north, a small stone east, and a tiny stone west
+You can go east, west or north.
+You jump and land on the next stone with ease.
+> e
+
+> e
+
+The next skystone is a fairly long jump away, are you sure you want to try to jump to it?
+> yes
+A small skystone
+This floating stone is rather small and you take note of just how high up you are when you stand upon it. There is only one other skystone within jumping distance, due west. There is a path of skystones within stepping distance to the northeast
+You can go west or northeast.
+You jump and land on the next stone with ease.
+> w
+
+> w
+
+The next skystone is a fairly long jump away, are you sure you want to try to jump to it?
+> yes
+You miss your mark and land hard on the ground, you barely hold on to consciousness.
+A river1
+This is a fun place to swim, though it looks more dangerous the further you get from shore and the further you go upriver. There is an odd structure to the east that stands above the water on gogantic arches, it appears to be a very thin bridge.
+You can go north, west, south or east.
+> n
+
+> n
+
+A sandy shore
+This is a sandy beach that is commonly visited by tourists to the area, it has a panoramic view of the river and the water is calm enough to swim in. A path leads into the woods north and another to the northwest. The beach continues to the west.
+You can go west, south, north or northwest.
+> n
+
+> n
+
+A viewledge
+This is a common ground that is well kept and used for many celebrations. The view of the river to the south from here is astounding, it is a beautiful vista of the river flowing through the remains of the ancient aqueduct that lies to the southeast of where you stand now. There is another, though less well kept, yard to the west. A path leads into the woods to the south and to the north. There is a picket fence to the east.
+You can go west, south or north.
+> n
+
+> n
+
+An altar
+A stone altar in the shape of a large snake sits in the center of an ancient atrium. The grass is long here, but no trees protrude into the amphitheater that sorrounds the altar. This place give you an odd feeling, it seems both new and ancient at the same time.
+You can see a witch.
+You can go southwest, up or south.
+> up
+
+> up
+
+A large skystone path
+This is a path made out of floating stones that you stand on, one of the stones has a smoke-ladder leading down from it. Looking around you can see many similar stones to your east and west, these stones would need to be jumped to reach though. Behind a cloud to the far west you can make out the shape of a large fountain that appears and dissapears as the clouds move around it. There are four skystones floating within stepping distance: a small skystone to the southwest, a large skyblock to the west, a medium skystone to the northwest, and a small skyblock to the north.
+You can go down, southwest, west, northwest or north.
+> n
+
+> n
+
+A small skyblock
+This is a small skyblock that is no larger than a small child aqnd seems to be perfectly square. It is hard to stand on this stone because it is facing point-upward. You can see a small triplet of skystones within jumping distance to the west and a long skystone path to the south.
+You can go west or south.
+> w
+
+> w
+
+The next skystone is a long jump away, are you sure you want to try to jump to it?
+> yes
+A small skyblock triplet
+This is a rather odd structure that is made of two skystones stuck to the sides of a skyblock. The whole structure is roughly the size of a toolshed and is flat on the top. From here you can see a medium pile of skystones within stepping distance to the west and a small skyblock within jumping distance to the east.
+You can go west or east.
+You jump and land on the next stone with ease.
+> w
+
+> w
+
+A medium skystone pile
+This stone is made of many other cat sized skystones that appear to be melted together. The whole stone is about the size of a toolshed. From the top of this stone you can see three skystones within stepping distance: a skykeystone to the west, a skystone triplet to the east, and a skystone pair to the south.
+You can go south, west or east.
+> w
+
+> w
+
+A skykeystone
+This stone is about the size of a small human, and it is shaped like an arch keystone. There are many carvings on this stone and it appears to be very ornate, perhaps this was once the keystone to the aqueduct you can see in the distance from here. Standing upon this stone you can see the far off cliffs above the fast-flowing river and the remnants of an aqueduct bridging the river to the southeast. From the top of this stone you can step to a medium pile of skystones to the east and you can jump southwest to land on a gargantuan skyblock.
+You can go southwest or east.
+> sw
+
+> sw
+
+The next skystone is a short jump away, are you sure you want to try to jump to it?
+> yes
+A massive skyblock
+You stand atop a massive skyblock that is a cube larger than most full grown trees. As you move across the skyblock's face you can feel it tipping in the air due to your weight, it is not well balanced. you wonder what force could possibly keep a stone cube this massive floating in the air. From here you can see four skystones within jumping distance: a skykeystone to the northeast, a small skystone pair to the northwest, a path of small skystones to the west, and a skystone pair to the east
+You can go east, west, northeast or northwest.
+You jump and land on the next stone with ease.
+> nw
+
+> nw
+
+The next skystone is a short jump away, are you sure you want to try to jump to it?
+> yes
+A small skystone pair
+This is a pair of skystones that appear to be attracted to eachother like magnets. The top of these stones forms a flat face about the size of a horse. The view from up here is primarily of the high clouds and the skystone feild at various altitudes. There is a large skystone within jumping distance to the west and a massive skyblock you can jump to in the southeast. A medium skyblock is directly above you and can be carefully jumped to.
+You can go southeast, west or up.
+You jump and land on the next stone with ease.
+> w
+
+> w
+
+The next skystone is a medium jump away, are you sure you want to try to jump to it?
+> yes
+A large skystone
+This is a rather large skystone. You can jump to a small pair of skystones to the east and a path of skystones to the southwest.
+You can go east or southwest.
+You jump and land on the next stone with ease.
+> sw
+
+> sw
+
+The next skystone is a short jump away, are you sure you want to try to jump to it?
+> yes
+A path of small skystones
+This is a path of thousands of fist sized skystones that are held together by some unfamiliar force. You can see the entire maze of skystones from here.
+You can go east or northeast.
+The skystone path begins to turn midair, your weight must have upset it when you landed your jump. There is no way to jump back to safety now! You close your eyes and run for the end of the path, but you trip and fall off of the skystones altogether!
+
+You are unconscious...
+You jump and land on the next stone with ease.
+You awake from your unconsciousness laying on cold stone. Your face is damp and your back hurts. You open your eyes...
+A castle roof
+A thick cloud lies to the southwest inside which is a fountain. It is possibe to climb safely down the side of the castle from here, but you may not be able to rerturn easilly.
+You can go southwest or down.
+You lie on your back on the top of the once great castle.
+> sw
+
+> sw
+
+A fountain room
+The cloud floor here is solid feeling, but you fear there may be holes in this tricky magic floor. A fountain stands in the center of the enclosed cloud-room. It is made of gold and silver and the water that it pours out is glittering. A very small cup lies on the fountain's rim.
+You can see a fountain of youth and a cup.
+You can go northeast.
+> take fountain
+
+> take fountain
+
+You fill the vial with water from the fountain.
+> x vial
+
+> x vial
+
+The vial is filled with sparkling water from the Fountain of Youth!
+> ne
+
+> ne
+
+A castle roof
+A thick cloud lies to the southwest inside which is a fountain. It is possibe to climb safely down the side of the castle from here, but you may not be able to rerturn easilly.
+You can go southwest or down.
+> down
+
+> down
+
+A Clearing
+This is a huge clearing in the trees sorrounded by a tall fence made of sharpened pikes. An ancient castle stands in the clearing's center; it was obviously once a mighty fortress, but now it is decrepid.
+You can see an Ancient Castle.
+You can go east or in.
+> e
+
+> e
+
+A forest path
+This path leads east and west and is not altogether long. The forest looms to the north and south and seems to be looming out at you. You can't help but wonder what lies beyond the trees.
+You can go east, west, north or south.
+> e
+
+> e
+
+A yard
+This is a well overgrown field that has a hut in its center. There is a forest to the west and the feild opens up to the east. Jagged cliffs do not allow passage to the north or south. A sign is outside the witch's home that is faded but can still be read.
+You can see a sign.
+You can go west, east, in or northeast.
+> ne
+
+> ne
+
+An altar
+A stone altar in the shape of a large snake sits in the center of an ancient atrium. The grass is long here, but no trees protrude into the amphitheater that sorrounds the altar. This place give you an odd feeling, it seems both new and ancient at the same time.
+You can see a witch.
+You can go southwest, up or south.
+> give vial to witch
+
+> give vial to witch
+
+The witch smiles and grasps you on the shoulder. She opens the vial and drinks the cool water inside, before she has even finished the water she appears to be years younger. When the process is over the old witch is now a beautiful young woman, "Thank you," she says, "for without you we could have never found happiness together...
+
+YOU WIN!!!
+[state=Finished]

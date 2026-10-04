@@ -1,0 +1,523 @@
+Dream of a Tumour
+a short experimental game
+
+by Crawdeloch
+
+GENERAL NOTICE
+
+This game is meant to be played via links only.
+
+Commands can also be typed, but they are not fully supported.
+
+Thank you.
+
+You awake to a feeling of something not being right. You realize you're laying face-first on something cold, struggling to breathe. You gasp for air and roll to your back. Floorboards bend & creak underneath your body, and small sticks scrape your palms.
+
+You breathe, and, with effort, focus your faltering vision. It's dark, but you can make out the basic outline of an unfamiliar room from the floor. Even though the details are sparse in this place, you have a feeling you shouldn't be here.
+
+You see the ceiling and can attempt recalling memories.
+
+> up
+
+> up
+
+As you stand up, you stumble and almost fall, but leaning against the wall remain on your legs.
+
+Faint moonlight shines from a boarded-up window to your left, sending scattered beams across the deserted room that was perhaps once a kitchen. There's not much furniture left, only a dilapitated fridge, and a turned-over dining table resting against one of the corners. A lonely clock ticks on the wall, above an anskew doorway leading into darkness.
+
+There's a pervasive smell of melancholy and neglect in the air.
+
+You see a dysfunctional fridge, a window, a table and a clock.
+
+You can go through an askew doorway.
+> open fridge
+
+> open fridge
+
+You open the fridge. It's empty of sustenance, but there's a medium-sized flashlight placed neatly at the center of the upper shelf.
+
+You don't like this.
+> take flashlight
+
+> take flashlight
+
+You pick up the flashlight and close your eyes for a moment, trying to remember. Nothing comes to mind.
+You shouldn't be here.
+
+Faint moonlight shines from a boarded-up window to your left, sending scattered beams across the deserted room that was perhaps once a kitchen. There's not much furniture left, only a dilapitated fridge, and a turned-over dining table resting against one of the corners. A lonely clock ticks on the wall, above an anskew doorway leading into darkness.
+
+There's a pervasive smell of melancholy and neglect in the air.
+
+You see a dysfunctional fridge, a window, a table and a clock.
+
+You can go through an askew doorway.
+
+Now with the flashlight in hand you feel a bit more comfortable exploring the rest of the house.
+> turn on flashlight
+
+> turn on flashlight
+
+The flashlight clicks on. A strong, yellow beam shoots out.
+> go to an askew doorway
+
+> go to an askew doorway
+
+You step into the darkness.
+The flashlight, while bright, struggles to illuminate the surroundings here as the walls seem strangely absorbtive of light, and the windows have been boarded up even tighter than in kitchen. Near the adjacent wall you can make out a small couch in addition to a strangely fluorescent lamp. At the far corner a steep staircase leads to a ceiling hatch. It is locked with an antique padlock.
+
+There's also the front door opposite to you, and on the left a doorway that doesn't quite look right.
+
+You see a fluorescent floor lamp and a couch.
+
+You can go back to kitchen through an askew doorway, up through the coffin-shaped hatch or further into the house through an off-center doorway.
+> go to an off-center doorway
+
+> go to an off-center doorway
+
+You step through the off-center doorway.
+You come to a small room that perhaps once used to be the main bedroom of the house. Scraping the walls with your flaslight's cone reveal black crayon scribbles all over, overlapping webs that seem to go around and around into perpetuity.
+
+At the center of the room, on the floor, there's a large hole. On your right, there's a small night-table with some items on it. Ruins of a closet lie in a heap against the opposite wall.
+
+You see a hole, a night-table and a closet.
+
+You can go back through an off-center doorway.
+> x hole
+
+> x hole
+
+It's a large hole, perhaps a few feet wide. The surface seems dimensionless, as if lacking depth. You feel like jumping in would solve all your problems, but resist the temptation.
+> x night-table
+
+> x night-table
+
+It's a small wooden night-table. On it, there's a small note along with a large copper key.  At the left corner you also spot an eerie drawing. The items are blanketed in a curious purple-hued dust.
+> take copper key
+
+> take copper key
+
+You take the key. It feels cold.
+> x small note
+
+> x small note
+
+"I can take this no longer. Please forgive me, Charles."
+> go to off-center doorway
+
+> go to off-center doorway
+
+As you step out, you feel relieved.
+The flashlight, while bright, struggles to illuminate the surroundings here as the walls seem strangely absorbtive of light, and the windows have been boarded up even tighter than in kitchen. Near the adjacent wall you can make out a small couch in addition to a strangely fluorescent lamp. At the far corner a steep staircase leads to a ceiling hatch. It is locked with an antique padlock.
+
+There's also the front door opposite to you, and on the left a doorway that doesn't quite look right.
+
+You see a fluorescent floor lamp and a couch.
+
+You can go back to kitchen through an askew doorway, up through the coffin-shaped hatch or further into the house through an off-center doorway.
+> go to coffin-shaped hatch
+
+> go to coffin-shaped hatch
+
+You insert the copper key into the antique padlock. It unlocks with surprising smoothness. You ascent the stairs.
+As you ascent the last steps and peek over the edge, something changes in your surroundings. Great fatigue takes hold of your mind, and you momentarily close your eyes, trying to remain conscious. As you open them again, you see that you're now outdoors, standing in a vast graveyard. You shake your head, thinking this cannot be right, but the chill of a brief gale forces you to concede otherwise.
+
+You begin to shiver.
+You're standing in a deserted cemetery, next to a freshly opened grave and can see innumerable tombstones in various states of decay all around you.  Swaying black growths, like strange plants, stick up from the ground. Up above, the full moon emanates a tenebrous shine. Your breath condenses in the air, and there's an uncanny chill on your skin.
+
+There's a small sheet-metal shack not far from you.
+
+You feel tired, and long for home.
+
+You see the full moon, tombstones and growths.
+
+ You can go into the shack.
+> look
+
+> look
+
+You're standing in a deserted cemetery, next to a freshly opened grave and can see innumerable tombstones in various states of decay all around you.  Swaying black growths, like strange plants, stick up from the ground. Up above, the full moon emanates a tenebrous shine. Your breath condenses in the air, and there's an uncanny chill on your skin.
+
+There's a small sheet-metal shack not far from you.
+
+You feel tired, and long for home.
+
+You see the full moon, tombstones and growths.
+
+ You can go into the shack.
+> go to walk
+
+> go to walk
+
+You traverse the cemetary grounds under the midnight moon.
+You arrive at the growths.
+
+A number of particularly large growths seem to have concentrated on this area, between you and the distant building. They seem quite menacing, snapping around like insects looking for prey, but you could perhaps cut them if you had the proper tool.
+
+Walk back.
+
+> go to walk back
+
+> go to walk back
+
+You're standing in a deserted cemetery, next to a freshly opened grave and can see innumerable tombstones in various states of decay all around you.  Swaying black growths, like strange plants, stick up from the ground. Up above, the full moon emanates a tenebrous shine. Your breath condenses in the air, and there's an uncanny chill on your skin.
+
+There's a small sheet-metal shack not far from you.
+
+You feel tired, and long for home.
+
+You see the full moon, tombstones and growths.
+
+ You can go into the shack.
+> go to shack
+
+> go to shack
+
+The shack's metal door creaks and sighs.
+The shack is small, and mostly void of furniture. Sheet metal walls are poorly embellished by flaking age-old paint. A dirty wooden table leans against one of the corners, and a large iron cabinet stands next to it. It is thoroughly rusted, but seems sturdy otherwise.
+
+You suspect this to be the cemetery caretaker's dwelling.
+
+You see an iron cabinet and a wooden table.
+
+You can go back out.
+> hide iron cabinet
+
+> hide iron cabinet
+
+You slide into the cabinet.
+You are inside the cabinet. It smells of old murk and rust. The doors click shut behind you, seemingly on their own. You don't feel well.
+
+There appears to be a strange drawing taped on the inside of one of the doors.
+
+You could wait,  or leave.
+
+A shade passes by outside.
+> x strange drawing
+
+> x strange drawing
+
+The drawing reminds you of something, but you can't quite figure out what.
+You shouldn't be here.
+
+You are inside the cabinet. It smells of old murk and rust. The doors click shut behind you, seemingly on their own. You don't feel well.
+
+There appears to be a strange drawing taped on the inside of one of the doors.
+
+You could wait,  or leave.
+
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+
+Something clicks.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> go to leave
+
+> go to leave
+
+You're not quite sure what happened.
+The shack is small, and mostly void of furniture. Sheet metal walls are poorly embellished by flaking age-old paint. A dirty wooden table leans against one of the corners, and a large iron cabinet stands next to it. It is thoroughly rusted, but seems sturdy otherwise.
+
+You suspect this to be the cemetery caretaker's dwelling.
+
+You see an iron cabinet, a wooden table and a meat scythe.
+
+You can go back out.
+> take scythe
+
+> take scythe
+
+You pick it up. It feels heavy and primal in your hands.
+> go to back out
+
+> go to back out
+
+You step into the moonlit cemetery.
+You're standing in a deserted cemetery, next to a freshly opened grave and can see innumerable tombstones in various states of decay all around you.  Swaying black growths, like strange plants, stick up from the ground. Up above, the full moon emanates a tenebrous shine. Your breath condenses in the air, and there's an uncanny chill on your skin.
+
+There's a small sheet-metal shack not far from you.
+
+You feel tired, and long for home.
+
+You see the full moon, tombstones, growths and footprints.
+
+ You can go into the shack or walk to the large patch of growths.
+> go to walk
+
+> go to walk
+
+You arrive at the growths.
+
+A number of particularly large growths seem to have concentrated on this area, between you and the distant building. They seem quite menacing, snapping around like insects looking for prey, but you could perhaps cut them if you had the proper tool.
+
+Walk back.
+
+ Since you now have the scythe, you can use it to cut the growths and proceed to the  large building.
+> go to large building
+
+> go to large building
+
+A murder of crows flies over as you swing your tool. Black blood sprays on the ground.
+
+Slowly, you make progress, leaving a trail of misery in your wake.
+Eventually you get through. You take a break to breathe in chilly night air as you look back to surmise the carnage you've caused. The ground is awash in blood, and the full moon reflects from it as if it were the surface of a mirror-still lake. It seems that the ground rejects the blood you have spilled, although some of it gets swept into the surrounding graves.
+
+As the vast pool of blood now blocks your way back, there's only one way ahead; forward. You turn to face what awaits you - you are standing before a grand mortuary made of smoothed stone. The facade of the building is decorated with a row of elaborate greek-style pillars. Steps made of onyx lead to tall double-doors that stand fast and impervious.
+
+You feel like you've been here before.
+
+You see pillars and double-doors.
+
+> x double-doors
+
+> x double-doors
+
+They are made of polished bronze, so shiny that you can see yourself in the reflection - but the view is warped and twisted by the moon's light, blurring your face.
+
+Even though you can see no handle, you could reach out for your reflection.
+> reach out double-doors
+
+> reach out double-doors
+
+You feel a presence.
+
+The world spins and rearranges itself again and again as you struggle to keep your mind together. Images and memories coalescence into fleeting visions of something that you have experienced in the past, but have chosen to forgotten.
+
+There is no time to think, as you are being carried away somewhere else...
+
+> go to somewhere else
+
+> go to somewhere else
+
+Torrential forces throw you around for an indefinite time, until, at last you assume a state estimating  normal and your vision clears into relative coherency.
+
+You are standing on an overgrown gravel road, facing a signpost. You inhale and exhale air that doesn't quite feel like it used to be. You can take in your surroundings, or examine the signpost.
+
+The early-morn mists shift about. It feels like dawn is near.
+
+> x signpost
+
+> x signpost
+
+It's a plain signpost made of wood; old and weathered. It points to four directions.
+
+Ahead: Ruins of Old Whitend.  Back: The Cemetery. Left: Whitend. Right: Old Whitend Lake.
+You shouldn't be here.
+
+You are standing on an overgrown gravel road, facing a signpost. You inhale and exhale air that doesn't quite feel like it used to be. You can take in your surroundings, or examine the signpost.
+
+The early-morn mists shift about. It feels like dawn is near.
+
+You can walk to town or to the old lake.
+> go to to the old lake
+
+> go to to the old lake
+
+You begin the long walk.
+Not long after you have begun your journey towards the old lake, you come across a strange drawing hanging from the branch of a steep-leaning spruce. You reach for it to take a look.
+
+The drawing feels familiar, as if once made by your own hand.
+
+You continue on.
+After many twists and turns the gravel road turns into a simple path, and then the path slowly disappears under you altogether, leaving you to walk on a bare forest floor. Thick undergrowth hinders your movement, and sounds of the forest seem to creep ever closer. Occasional cry of the crow or hoot of an owl makes you turn your head in search for the sound, but nothing can be seen, for nothing moves in this forest - except for yourself.
+
+Nevertheless, you keep going, and eventually, behind the pines you start seeing something new; a clearing of sorts, with a few crooked trees struggling to live, barely standing on the moist ground.
+
+You have arrived at the old lake, or what remains of it.
+
+You see the Swamp.
+
+> x tumour
+
+> x tumour
+
+It forms an unnaturally bloated shape in the midst of the swamp fog as it extents to great heights, far above the distant treeline. You have dreamed of this tumour before, as you recall, but only now do you see it in reality. You are not sure what it is, but it radiates darkness, something wicked and unknown that you do not wish to see.
+
+No amount of excising will ever be enough to get rid of this monstrosity.
+
+Walk back.
+> walk to tumour
+
+> walk to tumour
+
+There is something in there that you cannot face.
+> walk to tumour
+
+> walk to tumour
+
+There is something in there that you cannot face.
+> walk to tumour
+
+> walk to tumour
+
+The very thought fills you with dread.
+> walk to tumour
+
+> walk to tumour
+
+This feels like the worst idea of your life.
+Mustering all your willpower, you inhale deep and take a step on the moist ground. It gives way under your foot. You stop and close your eyes, breathing for a while as the morning chill seeps into your core.
+
+Then you take another step, and another, keeping your head down, trying not to think on what you are doing.
+
+Slowly you repeat the action, making progress, until you are standing before the slowly-pulsating tumour that now towers before you.
+
+You see an incision.
+
+> look
+
+> look
+
+Mustering all your willpower, you inhale deep and take a step on the moist ground. It gives way under your foot. You stop and close your eyes, breathing for a while as the morning chill seeps into your core.
+
+Then you take another step, and another, keeping your head down, trying not to think on what you are doing.
+
+Slowly you repeat the action, making progress, until you are standing before the slowly-pulsating tumour that now towers before you.
+
+You see an incision.
+
+> x incision
+
+> x incision
+
+In the surface of the ever-shifting and squirming wall there is an incision, about as tall as you, running vertically from ground up. It has crossed several veins, and black blood that seeps from the tears suggests it has been cut recently.
+
+A profound terror fills your soul.
+> look
+
+> look
+
+Mustering all your willpower, you inhale deep and take a step on the moist ground. It gives way under your foot. You stop and close your eyes, breathing for a while as the morning chill seeps into your core.
+
+Then you take another step, and another, keeping your head down, trying not to think on what you are doing.
+
+Slowly you repeat the action, making progress, until you are standing before the slowly-pulsating tumour that now towers before you.
+
+You see an incision.
+
+A deep growl emanates from the inside. You freeze in fear.
+> z
+
+> z
+
+Time passes.
+
+Something is trying to come through.
+
+You run.
+You run through the swamp without looking back. A terrifying roar emanates behind you, but you don't stop to look, instead blindly stumble forward, out of the swamp, into the forest.
+
+Eventually you have to slow town to catch your breath. You find yourself leaning against a tree somewhere in the forest, sucking in air, heart slamming against your chest.
+
+As you glance around, all seems still around you.
+You breathe in one last time, feeling sweaty and exhausted, then start walking further into the forest, hoping you haven't gotten lost.
+
+A great number of trees pass by you, but eventually the relieving sight of the old gravel road comes to view.
+
+You follow it back to the crossroads clearing.
+You are standing on an overgrown gravel road, facing a signpost. You inhale and exhale air that doesn't quite feel like it used to be. You can take in your surroundings, or examine the signpost.
+
+The early-morn mists shift about. It feels like dawn is near.
+
+You can walk to town or to the old lake.
+> z
+
+> z
+
+Time passes.
+> z
+
+> z
+
+Time passes.
+> look
+
+> look
+
+You are standing on an overgrown gravel road, facing a signpost. You inhale and exhale air that doesn't quite feel like it used to be. You can take in your surroundings, or examine the signpost.
+
+The early-morn mists shift about. It feels like dawn is near.
+
+You can walk to town or to the old lake.
+> go to to town
+
+> go to to town
+
+You begin the long walk.
+As you traverse the silent forest, you begin to wonder what exactly has been happening to you the past few hours. You feel like you are at the brink of understanding something important, that all the events that have so far transpired have some grand, underlying meaning, but still forming the whole image seems like an insurmountable task for your exhausted mind.
+
+The road twists and turns between two rows of spruces and pines - at times the canopy extents so far over the road that the way becomes a tunnel, tightening around you, as if there were great forces pressing on its sides, all around squeezing, suffocating, until there was little room left...
+
+At last the forest gives away to a larger clearing, the mists disperse and distant town lights come into view. Just a small valley to cross, and you will be home.
+Slowly, after crossing the valley, wooden houses of all sizes start appearing to the sides of the road, and the undergrowth around turns into something more tamed than that of the wild woods. No people can be seen traversing the streets yet though - you assume everyone to be still sleeping during these early twilight hours.
+
+You walk forth through the outer suburb, towards the town centre, where you remember your apartment being located. An eerie silence permeates, and you're unsure whether the inhabitants are sleeping at all, or gone someplace else.
+Eventually you come to the apartment blocks, dull grey buildings that once were new, but now just a faded memory of their prime. Nevertheless, this is home, and your mind clears a little upon seeing the familiar sign stating the block you belong to.
+
+You turn to the door. Whisps of wind send early-morn mists and autumn leaves flying about. A few birch trees decorate the desolate entrance. The road is still silent, even though this near to the centre there should be activity already.
+
+You see streetlights, birch trees and apartments.
+
+You can go home.
+> x apartments
+
+> x apartments
+
+The dull city blocks, these apartment buildings were constructed in late seventies as industrialization brought fresh populace into the town.
+
+Now, as the factories have shut down and workers moved out, there's not much use for them.
+> go to home
+
+> go to home
+
+You step through the familiar apartment block door. It swings open with a comfortable rusted jarr, then slowly closes back, the faulty hatch unable to click properly shut. You have walked through this doorway many times, yet there's something subtly off with it now. Shrugging, you proceed towards the stairs, past the malfunctioning elevator.
+
+The steps up are cracked and dusted, just as they always were. Peeling paint from the concrete walls remind you of something - again - but you are too tired to think on it. Instead you jump up steps, eager to get to your apartment, which awaits you at the seventh floor.
+
+> go to seventh floor
+
+> go to seventh floor
+
+You walk the sterile corridor to your door, and search for your keys. You can find nothing in your pocket, at first, but then the cold copper key hits your hand. As you blink, the modern lock at the door changes shape to that of an antique padlock.
+
+With some hesitancy you insert and turn the key. The lock clicks, then drops to the ground.
+As you step in, a wave of clarity washes over your mind.
+
+Your apartment is as you remember it being, back when you still used to live in Whitend. All kinds of curios and mementos remind you of the past, of how things used to be when she was still alive. There was still hope, back then, and you realize you could have intervened in her self-destructive path if you just had acted sooner. At first you feel guilt, but as your mind clears more and more you begin to realize that there never really was any other way things could have gone...
+Now, in your current state of mind, there's only witnessing how the triumph of time marches over the wounds the past has left, never to vanish, only to be momentarily forgotten in a recurring cyclic nature, time and time again, until the ultimate oblivion overtakes everything - and then there will be nothing left to remember.
+
+You now see that this march of time is not of the healing kind, but of erasing one.
+You fumble in the dark apartment, aimless, from room to room, trying to forget things that you have now re-remembered.
+
+Eventually you come to your bedroom and see your bed. There's only one thing to do.
+
+Lie down.
+
+> go to lie down
+
+> go to lie down
+
+THE END
+
+Dream of a Tumour
+
+A short experimental game by Crawdeloch
+
+Based on the book "Individuation Unto Nothing"
+[state=Finished]

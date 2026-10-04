@@ -1,0 +1,323 @@
+A Captain Name Kent
+Chapter 1: The Dream
+
+by B.W.K. aka Questing
+
+"I've always wanted to leave this island. My parents were both merchants before they had me. Now I want to be just like them.
+
+There's one problem, however. Really two. First, I don't have a ship. Second is Captain Ashbeard, a pirate whose been pillaging our home for years now. I would have to be strong enough to face him!
+
+For now, I'm just  Kent, an orphan boy who likes to help out here on the island."
+
+Your house
+Around you is your bed, a chest, an outhouse key and a workbench.
+You can go out.
+"My one-room shack I used to share with my parents. Ever since the last pirate attack
+destroyed my bathroom, I've had to use Farmer Bill's outhouse."
+> take outhouse key
+
+> take outhouse key
+You picked it up
+> out
+
+> out
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+"Miss. Maple wanted to see me today. I believe she's at the beach right now."
+> e
+
+> e
+
+Farm
+You can see an outhouse,  Farmer Bill and Bella.
+You can go west, east, in or up.
+"A big, red house that's been poorly repaired one too many times."
+> speak to bill
+
+> speak to bill
+"Sorry, I can't pay you for your help for the harvest. Perhaps you can use this candle. I know your room is dark outside."
+> speak to bella
+
+> speak to bella
+"Bobby was suppose to watch our chicken, but he ran off. I need to watch our farm, so can you be a dear and buy us another chicken from the port. I believe the merchant is still there.
+> unlock outhouse key
+
+> unlock outhouse key
+"I unlocked the outhouse. The smell is so bad, I think I might faint if I stay here too long."
+> in
+
+> in
+
+Outhouse
+You can see a chest key and a melted tar.
+You can go out.
+"A disgusting wooden house which everyone refuses to clean."
+> take chest key
+
+> take chest key
+You pick it up.
+> take melted tar
+
+> take melted tar
+"Its sticky, but I think it will come in handy.
+You fainted from the smell. Thankfully, someone carried you back to your house.
+
+Your house
+Around you is your bed, a chest and a workbench.
+You can go out.
+"My one-room shack I used to share with my parents. Ever since the last pirate attack
+destroyed my bathroom, I've had to use Farmer Bill's outhouse."
+> out
+
+> out
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+> w
+
+> w
+
+Lookout Fort
+You can see Mr. Bide.
+You can go east, down or up.
+"My father used to work here as the town's watchman. Since he died and Mr. Bide took over, the entire structure has fallen to pieces."
+> w
+
+> w
+You can't go there.
+> speak to bide
+
+> speak to bide
+"Its about time you showed up to work. Get up to that watchtower and look for attacks! That's an order!!!"
+> up
+
+> up
+
+Watchtower
+You can see a broken telescope.
+You can go down.
+"A tall crumbling brick tower that's owned by Mr. Bide. He's too cheap to fix it, so being the town's watchman is a DANGEROUS position."
+> look out broken telescope
+
+> look out broken telescope
+"Oops!!"
+
+CRASH!!!
+
+"Well, that's broken. Better throw the pieces out the window before Mr. Bide finds out. I'll save this one piece of glass, just in case I need it."
+> down
+
+> down
+
+Lookout Fort
+You can see Mr. Bide.
+You can go east, down or up.
+"My father used to work here as the town's watchman. Since he died and Mr. Bide took over, the entire structure has fallen to pieces."
+> e
+
+> e
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+> in
+
+> in
+
+Your house
+Around you is your bed, a chest and a workbench.
+You can go out.
+"My one-room shack I used to share with my parents. Ever since the last pirate attack
+destroyed my bathroom, I've had to use Farmer Bill's outhouse."
+> unlock chest
+
+> unlock chest
+Unlocked.
+You rummage through the various knicks-knacks your father kept. You feel yourself, tearing up.
+It contains a piece of parchment paper.
+> take parchment paper
+
+> take parchment paper
+You pick it up.
+> create telescope workbench
+
+> create telescope workbench
+"Hope Bobby likes it."
+> out
+
+> out
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+> e
+
+> e
+
+Farm
+You can see an outhouse,  Farmer Bill and Bella.
+You can go west, east, in or up.
+"A big, red house that's been poorly repaired one too many times."
+> e
+
+> e
+
+Beach
+You can see Miss. Maple, Little Bobby and an old sail boat.
+You can go west.
+"The sand is filled with sharp rocks, and the sea is full of junk. Bobbyy loves to play here, so it must have some kind of allure."
+> speak to bobby
+
+> speak to bobby
+"Argh! Thanks!"
+> w
+
+> w
+
+Farm
+You can see an outhouse,  Farmer Bill and Bella.
+You can go west, east, in or up.
+"A big, red house that's been poorly repaired one too many times."
+> w
+
+> w
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+> w
+
+> w
+
+Lookout Fort
+You can see Mr. Bide.
+You can go east, down or up.
+"My father used to work here as the town's watchman. Since he died and Mr. Bide took over, the entire structure has fallen to pieces."
+> down
+
+> down
+
+Port
+You can see Merchant Howard and a bunch of various stuff.
+You can go up.
+"The pride of the town. Its a solid-wood walkway that's withstood several attacks over the years."
+> buy something howard
+
+> buy something howard
+"For that amount, you can get this chicken. Its a bit sickly from being in my sack all day, but some sunshine and insects should fix that."
+
+You made the trade!
+> up
+
+> up
+
+Lookout Fort
+You can see Mr. Bide.
+You can go east, down or up.
+"My father used to work here as the town's watchman. Since he died and Mr. Bide took over, the entire structure has fallen to pieces."
+> e
+
+> e
+
+Town's Main Road
+You can go in, west or east.
+"This is the only road on the island. You can use it to go from the beach to the port."
+> e
+
+> e
+
+Farm
+You can see an outhouse,  Farmer Bill and Bella.
+You can go west, east, in or up.
+"A big, red house that's been poorly repaired one too many times."
+> speak to bella
+
+> speak to bella
+"Thanks sweetie. As a reward, have one of my award winning pumpkins!"
+> up
+
+> up
+
+In front of the Governor's house
+You can go down, in or west.
+"My father actually made every brick for this house, yet he was never paid for it."
+> w
+
+> w
+
+Tom's General Store
+You can see Tom.
+You can go east.
+"This is the newest building in town. Before that, we bought products from merchants for cheap. Since merchants coming to port is now a rare occurrence, we buy our goods here for inflated prices."
+> buy glasses
+
+> buy glasses
+Kent: "I'll give you this pumpkin if you give me those glasses."
+
+Tom: "DEAL!!"
+
+We made the trade.
+> e
+
+> e
+
+In front of the Governor's house
+You can go down, in or west.
+"My father actually made every brick for this house, yet he was never paid for it."
+> light candle
+
+> light candle
+"Now I can see!"
+> in
+
+> in
+
+Governor's House
+You can see Governor Mason.
+You can go out.
+"A small one room cabin which houses the governor."
+> speak to mason
+
+> speak to mason
+Kent: "Here these should help!"
+
+Mason: "Much better. Now what can I help you with?"
+
+Kent: "Miss. Maple says you have a letter for her?"
+
+Mason: "Oh right. I don't know how Mr. Bide got it confused. Please return it to her for me."
+> out
+
+> out
+
+In front of the Governor's house
+You can go down, in or west.
+"My father actually made every brick for this house, yet he was never paid for it."
+> down
+
+> down
+
+Farm
+You can see an outhouse,  Farmer Bill and Bella.
+You can go west, east, in or up.
+"A big, red house that's been poorly repaired one too many times."
+> e
+
+> e
+
+Beach
+You can see Miss. Maple, Little Bobby and an old sail boat.
+You can go west.
+"The sand is filled with sharp rocks, and the sea is full of junk. Bobbyy loves to play here, so it must have some kind of allure."
+> speak to maple
+
+> speak to maple
+She hugs the letter tightly to her chest. "The ship is yours."
+
+Congratulations! You finished the game!
+
+Look out for Chapter 2: Captive
+[state=Finished]
