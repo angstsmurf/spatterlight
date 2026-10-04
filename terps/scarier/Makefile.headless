@@ -426,7 +426,9 @@ SAN_BINS := $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT
             $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(A5DUP_BIN)_san
 
 # Build every _san binary $(JOBS) compiles at a time, then run them in the
-# order the harnesses are listed above.
+# order the harnesses are listed above.  The lone `take a1 foo bar` is a parser
+# regression: "%object% %text%" matched against the referenced text used to
+# read that text after its own %text% capture had reallocated it.
 sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_TAF) $(WHERE_TAF)
 	@$(MAKE) -f Makefile.headless -j$(JOBS) $(SAN_BINS)
 	$(SAN_ENV) ./$(BIN)_san $(TAF)
@@ -441,6 +443,8 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_TAF) $(WHERE_TAF)
 	    < test/adrift4/harness/capacity_nest_script.txt > /dev/null
 	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/where_refusal.taf \
 	    < test/adrift4/harness/where_refusal_script.txt > /dev/null
+	printf 'take a1 foo bar\nquit\ny\n' \
+	    | $(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/capacity_matrix.taf > /dev/null
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5SEXPR_BIN)_san
 	$(SAN_ENV) ./$(A5DIS_BIN)_san

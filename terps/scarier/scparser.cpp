@@ -36,6 +36,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <functional>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -3363,6 +3364,27 @@ uip_needs_trim (const scr_char *string)
 
 
 /*
+ * uip_is_referenced_text()
+ *
+ * TRUE if the string lies inside the game's referenced text.  Such a string
+ * cannot be matched in place: a %text% match stores its capture by
+ * reallocating that very buffer, and the matcher then carries on reading the
+ * string -- an entity reference tries each candidate against the rest of the
+ * pattern in turn.  lib_parse_next_object() matches "%object% and %text%"
+ * against the referenced text itself, so with two objects answering to the
+ * first noun, the second was compared with the freed or overwritten string.
+ */
+static scr_bool
+uip_is_referenced_text (const scr_char *string, scr_gameref_t game)
+{
+  const scr_char *const text = var_get_ref_text (gs_get_vars (game));
+  std::less_equal<const scr_char *> not_after;
+
+  return not_after (text, string) && not_after (string, text + strlen (text));
+}
+
+
+/*
  * uip_match_pattern()
  *
  * Match a string to a compiled pattern, and return TRUE on match, FALSE
@@ -3386,7 +3408,7 @@ uip_match_pattern (scr_uip_patternref_t compiled, const scr_char *string,
     uip_debug_dump (compiled->tree);
 
   /* Match the string to the pattern tree. */
-  cleansed = uip_needs_trim (string)
+  cleansed = (uip_needs_trim (string) || uip_is_referenced_text (string, game))
              ? uip_cleanse_string (string, buffer, sizeof (buffer)) : NULL;
   if (uip_trace)
     scr_trace ("UIParser: string \"%s\"\n", cleansed ? cleansed : string);
