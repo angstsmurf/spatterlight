@@ -40,6 +40,7 @@
 #include "../../../adrift5/a5run.h"
 #include "../../../adrift5/a5state.h"
 #include "../../../adrift5/a5text.h"
+#include "../../map_ppm.h"
 
 struct ctx_t {
   a5_state_t *st;
@@ -103,7 +104,6 @@ main (int argc, char **argv)
   const char *script = NULL;
   const char *walk_to = NULL;
   int W = 480, H = 480, reveal = 0, i;
-  FILE *f;
 
   if (argc < 2)
     {
@@ -222,23 +222,11 @@ main (int argc, char **argv)
              map_has_content (map, &view, ploc));
   }
 
-  f = fopen (out, "wb");
-  if (f == NULL)
+  if (!map_write_ppm (surf, out))
     {
       fprintf (stderr, "%s: cannot write\n", out);
       return 1;
     }
-  fprintf (f, "P6\n%d %d\n255\n", surf->w, surf->h);
-  for (i = 0; i < surf->w * surf->h; i++)
-    {
-      unsigned int p = surf->px[i];
-      unsigned char rgb[3];
-      rgb[0] = (unsigned char) ((p >> 16) & 0xFF);
-      rgb[1] = (unsigned char) ((p >> 8) & 0xFF);
-      rgb[2] = (unsigned char) (p & 0xFF);
-      fwrite (rgb, 1, 3, f);
-    }
-  fclose (f);
   fprintf (stderr, "wrote %s (%dx%d)\n", out, W, H);
 
   map_surface_free (surf);

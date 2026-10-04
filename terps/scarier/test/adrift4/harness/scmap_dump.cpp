@@ -39,6 +39,7 @@
 #include "scarier.h"
 #include "scprotos.h"
 #include "scmap.h"
+#include "../../map_ppm.h"
 
 static FILE *g_script = NULL;
 static int g_reveal_all = 0;
@@ -151,8 +152,6 @@ draw_and_exit (void)
   map_view_t view;
   map_t *map;
   char player[16];
-  FILE *f;
-  int i;
 
   scmap_view (g_game, &view);
   if (g_reveal_all)
@@ -189,23 +188,11 @@ draw_and_exit (void)
     map_chrome_draw (surf, &chrome);
   fprintf (stderr, "scale=%d\n", cam.scale);
 
-  f = fopen (g_out, "wb");
-  if (f == NULL)
+  if (!map_write_ppm (surf, g_out))
     {
       fprintf (stderr, "%s: cannot write\n", g_out);
       exit (1);
     }
-  fprintf (f, "P6\n%d %d\n255\n", surf->w, surf->h);
-  for (i = 0; i < surf->w * surf->h; i++)
-    {
-      unsigned int p = surf->px[i];
-      unsigned char rgb[3];
-      rgb[0] = (unsigned char) ((p >> 16) & 0xFF);
-      rgb[1] = (unsigned char) ((p >> 8) & 0xFF);
-      rgb[2] = (unsigned char) (p & 0xFF);
-      fwrite (rgb, 1, 3, f);
-    }
-  fclose (f);
   fprintf (stderr, "wrote %s (%dx%d)\n", g_out, g_width, g_height);
 
   map_surface_free (surf);
