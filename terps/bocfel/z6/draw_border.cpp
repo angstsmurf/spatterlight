@@ -382,8 +382,11 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     // Erase everything in the foot area and below
     const int bitmap_height = (pixlength / kBytesPerPixel) / hw_screenwidth;
     int foot_top = desired_height - foot_height;
-    if (is_spatterlight_arthur)
-        foot_top -= (foot_top & 1);
+    // Arthur's poles are a 2-line dither, and the foot continues it. Keep the
+    // foot in phase with the tiles (which start at start_y, not necessarily
+    // an even row), or the pattern repeats a line where they meet.
+    if (is_spatterlight_arthur && foot_top > start_y)
+        foot_top -= (foot_top - start_y) % pillar_height;
     erase_lines_in_bitmap(foot_top, bitmap_height - foot_top);
 
     // Draw the foot
