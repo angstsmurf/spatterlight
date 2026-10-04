@@ -55,7 +55,8 @@ HARNESS := test/adrift4/harness/battle_test.cpp
 # objects is what one `clang++ a.cpp b.cpp ...` line does internally anyway, so
 # the binaries are the same.
 #
-# Two object sets: plain/ (CXXFLAGS), and dump/ for the v4 walkthrough `scare`
+# Three object sets: plain/ (CXXFLAGS), san/ (CXXFLAGS plus the sanitizer flags,
+# for the `sanitize` target), and dump/ for the v4 walkthrough `scare`
 # binary, compiled exactly as test/adrift4/harness/build.sh compiles it -- with
 # SCARIER_DUMP_TOOLS, which changes scdump/scnpcs/screstrs/sctasks/os_ansi, and
 # with build.sh's flags rather than CXXFLAGS.
@@ -378,42 +379,74 @@ a5maptest: $(A5MAP_BIN)
 # Each harness is rebuilt from source into a *_san binary (so there is no
 # timestamp/flag-staleness footgun) and run immediately; a sanitizer abort or a
 # non-zero exit stops the target.
-sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(SAN_RAND_OBJ)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(STUBS) $(HARNESS) $(LDLIBS) -o $(BIN)_san
+# Sanitizer builds of the same harnesses.  The engine is compiled once more,
+# into san/ (CXXFLAGS plus SAN_FLAGS, .d files like the other object sets), and
+# every _san binary links from that set, so the target compiles the ~70 engine
+# files once rather than once per harness; the binaries are the ones the old
+# per-harness compile lines produced.  a5parse_test needs no zlib but takes
+# $(LDLIBS) like the rest, which costs nothing.
+sanobjs  = $(patsubst %.cpp,$(OBJDIR)/san/%.o,$(1))
+SAN_LINK = $(CXX) $(CXXFLAGS) $(SAN_FLAGS) $^ $(LDLIBS) -o $@
+
+$(OBJDIR)/san/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) -MMD -MP -c $< -o $@
+
+$(BIN)_san: $(call sanobjs,$(SRC) $(STUBS) $(HARNESS))
+	$(SAN_LINK)
+$(PREC_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(PREC_HARNESS))
+	$(SAN_LINK)
+$(BADP_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(BADP_HARNESS))
+	$(SAN_LINK)
+$(CORRUPT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(CORRUPT_HARNESS))
+	$(SAN_LINK)
+$(QUIT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(QUIT_HARNESS))
+	$(SAN_LINK)
+$(EXPR_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(EXPR_HARNESS))
+	$(SAN_LINK)
+$(CAP_BIN)_san: $(call sanobjs,$(SRC) os_ansi.cpp test/adrift4/harness/seed.cpp)
+	$(SAN_LINK)
+$(A5PARSE_BIN)_san: $(call sanobjs,$(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS))
+	$(SAN_LINK)
+$(A5SEXPR_BIN)_san: $(call sanobjs,$(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+$(A5DIS_BIN)_san: $(call sanobjs,$(A5_RUN_SRC) $(A5DIS_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+$(A5WALK_BIN)_san: $(call sanobjs,$(A5_RUN_SRC) $(A5WALK_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+$(A5OBJ_BIN)_san: $(call sanobjs,$(A5_RUN_SRC) $(A5OBJ_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+$(A5SAVE_BIN)_san: $(call sanobjs,$(A5_RUN_SRC) $(A5SAVE_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+$(A5DUP_BIN)_san: $(call sanobjs,$(A5_RUN_SRC) $(A5DUP_HARNESS)) $(SAN_RAND_OBJ)
+	$(SAN_LINK)
+
+SAN_BINS := $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san \
+            $(EXPR_BIN)_san $(CAP_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san \
+            $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(A5DUP_BIN)_san
+
+# Build every _san binary $(JOBS) compiles at a time, then run them in the
+# order the harnesses are listed above.
+sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_TAF) $(WHERE_TAF)
+	@$(MAKE) -f Makefile.headless -j$(JOBS) $(SAN_BINS)
 	$(SAN_ENV) ./$(BIN)_san $(TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(PREC_HARNESS) $(LDLIBS) -o $(PREC_BIN)_san
 	$(SAN_ENV) ./$(PREC_BIN)_san $(PREC_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(BADP_HARNESS) $(LDLIBS) -o $(BADP_BIN)_san
 	$(SAN_ENV) ./$(BADP_BIN)_san $(BADP_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(CORRUPT_HARNESS) $(LDLIBS) -o $(CORRUPT_BIN)_san
 	$(SAN_ENV) ./$(CORRUPT_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(QUIT_HARNESS) $(LDLIBS) -o $(QUIT_BIN)_san
 	$(SAN_ENV) ./$(QUIT_BIN)_san $(PREC_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) $(OS_STUBS) $(EXPR_HARNESS) $(LDLIBS) -o $(EXPR_BIN)_san
 	$(SAN_ENV) ./$(EXPR_BIN)_san $(PREC_TAF)
-	$(MAKE) -f Makefile.headless $(CAP_TAF)
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(SRC) os_ansi.cpp \
-	    test/adrift4/harness/seed.cpp $(LDLIBS) -o $(CAP_BIN)_san
 	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/capacity_matrix.taf \
 	    < test/adrift4/harness/capacity_matrix_script.txt > /dev/null
 	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/capacity_nest.taf \
 	    < test/adrift4/harness/capacity_nest_script.txt > /dev/null
-	$(MAKE) -f Makefile.headless $(WHERE_TAF)
 	$(SAN_ENV) ./$(CAP_BIN)_san test/adrift4/harness/where_refusal.taf \
 	    < test/adrift4/harness/where_refusal_script.txt > /dev/null
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS) -o $(A5PARSE_BIN)_san
 	$(SAN_ENV) ./$(A5PARSE_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5DIR)/a5sexpr.cpp $(A5DIR)/a5rand.cpp $(A5SEXPR_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SEXPR_BIN)_san
 	$(SAN_ENV) ./$(A5SEXPR_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5DIS_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5DIS_BIN)_san
 	$(SAN_ENV) ./$(A5DIS_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5WALK_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5WALK_BIN)_san
 	$(SAN_ENV) ./$(A5WALK_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5OBJ_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5OBJ_BIN)_san
 	$(SAN_ENV) ./$(A5OBJ_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5SAVE_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5SAVE_BIN)_san
 	$(SAN_ENV) ./$(A5SAVE_BIN)_san
-	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) $(A5_RUN_SRC) $(A5DUP_HARNESS) $(SAN_RAND_OBJ) $(LDLIBS) -o $(A5DUP_BIN)_san
 	$(SAN_ENV) ./$(A5DUP_BIN)_san
 	@echo "sanitize: all self-contained harnesses ASan/UBSan-clean"
 
