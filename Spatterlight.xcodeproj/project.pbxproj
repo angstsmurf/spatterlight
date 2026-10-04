@@ -3183,7 +3183,6 @@
 		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
 		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
 		C311875125BD8F1E00739D7B /* SoundHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundHandler.h; sourceTree = "<group>"; };
-		C311875225BD8F1E00739D7B /* ogg.xcodeproj */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; name = ogg.xcodeproj; path = /Users/administrator/spatterlight/SFBAudioEngine/Libraries/ogg/ogg.xcodeproj; sourceTree = "<absolute>"; };
 		C311DE2925C4383100484639 /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = twine.c; sourceTree = "<group>"; };
 		C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C311DEF625C472E500484639 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -6649,13 +6648,6 @@
 			path = common_sagadraw;
 			sourceTree = "<group>";
 		};
-		C374D19726EE4B4F006F430E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C37EC58C2847A9E00084B841 /* plus */ = {
 			isa = PBXGroup;
 			children = (
@@ -8096,10 +8088,6 @@
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = C374D19726EE4B4F006F430E /* Products */;
-					ProjectRef = C311875225BD8F1E00739D7B /* ogg.xcodeproj */;
-				},
 				{
 					ProductGroup = C344B2C426E4D9B4004B0A8F /* Products */;
 					ProjectRef = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
