@@ -40,6 +40,11 @@ before and after each case.  They still land in the REAL
 
 Games: the tracked babel/test copies of Bronze and Sensory always run; the
 local-only UITests/Supporting Files/Games ones are skipped when missing.
+One story file is assembled here (window0_story), for behaviour that only
+commercial games show otherwise.
+
+Colour changes (SETZCOLOR) count as output, so a relaunch that prints the
+right text in the wrong colours fails too.
 
 Usage:
   python3 run_autosave_tests.py [-v] [--build] [substring]
@@ -53,6 +58,7 @@ import plistlib
 import pwd
 import re
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
@@ -116,6 +122,9 @@ class Session(glkdrive.Driver):
         elif cmd == glkdrive.DELWIN:
             self.delwin += 1
             self.events.append(("delwin",))
+        elif cmd == glkdrive.SETZCOLOR:
+            self.events.append(("out", a1, "{zcolor %x %x}"
+                                % (a2 & 0xffffffff, a3 & 0xffffffff)))
         elif cmd == glkdrive.AUTOSAVE:
             self.events.append(("autosave",))
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
@@ -383,10 +392,13 @@ SENSORY_SCRIPT = [
 # "Kill and enter a line" prompt: 19 keys, 7 lines, 22 keys, then its room.
 AUTOSAVETEST_SCRIPT = (["run all"] + ["key:32"] * 19 + [""] * 7
                        + ["key:32"] * 22 + ["look", "i"])
-# What varies between runs by design (the same masks as UITests'
-# testAutosave): the random test's nondeterministic array, and an object
-# address.
-AUTOSAVETEST_MASK = [r"(?<=Array: 0!=).*", r"(?<=Mainwin parent: )\d+"]
+# What varies between runs by design (the first two are the masks of
+# UITests' testAutosave): the random test's nondeterministic array, an
+# object address, and the main window's stream id.  Glulxe numbers its Glk
+# objects from time(NULL) % 101 (init_dispatch), so the reference session
+# and the relaunched ones only agree when they start in the same second.
+AUTOSAVETEST_MASK = [r"(?<=Array: 0!=).*", r"(?<=Mainwin parent: )\d+",
+                     r"(?<=Mainwin stream: )\d+ \$[0-9A-F]+"]
 
 CURSES_SCRIPT = [
     "look", "inventory", "x me", "e", "look", "w", "s", "n", "take all",
@@ -394,7 +406,93 @@ CURSES_SCRIPT = [
 ]
 
 
-def build_cases():
+def zstring(text):
+    """Z-encode text: lower case from A0, capitals with a shift to A1,
+    anything else as a ZSCII escape."""
+    z = []
+    for ch in text:
+        if ch == " ":
+            z.append(0)
+        elif "a" <= ch <= "z":
+            z.append(6 + ord(ch) - ord("a"))
+        elif "A" <= ch <= "Z":
+            z += [4, 6 + ord(ch) - ord("A")]
+        else:
+            z += [5, 6, ord(ch) >> 5, ord(ch) & 31]
+    while len(z) % 3:
+        z.append(5)
+    out = b""
+    for i in range(0, len(z), 3):
+        word = z[i] << 10 | z[i + 1] << 5 | z[i + 2]
+        if i + 3 == len(z):
+            word |= 0x8000
+        out += struct.pack(">H", word)
+    return out
+
+
+# Layout of the stories assembled here: the globals, 128 bytes of dynamic
+# memory for the story's own use, the object table (property defaults only),
+# an empty dictionary and the code.
+V5_GLOBALS, V5_SCRATCH, V5_OBJECTS, V5_STATIC, V5_CODE = (
+    0x40, 0x220, 0x2A0, 0x320, 0x330)
+
+
+def v5_story(code, data=None, terminators=0):
+    """A V5 story file that starts at `code`.  `data` maps addresses in the
+    scratch area to the bytes to put there; `terminators` is the address of
+    a terminating characters table."""
+    mem = bytearray(V5_CODE) + code
+    mem += bytes(-len(mem) % 4)
+    for addr, value in (data or {}).items():
+        mem[addr:addr + len(value)] = value
+    mem[V5_STATIC:V5_STATIC + 4] = bytes([0, 9, 0, 0])  # an empty dictionary
+    mem[0] = 5                                      # version
+    struct.pack_into(">H", mem, 0x02, 1)            # release
+    struct.pack_into(">H", mem, 0x04, V5_CODE)      # high memory
+    struct.pack_into(">H", mem, 0x06, V5_CODE)      # initial PC
+    struct.pack_into(">H", mem, 0x08, V5_STATIC)    # dictionary
+    struct.pack_into(">H", mem, 0x0A, V5_OBJECTS)   # objects (defaults only)
+    struct.pack_into(">H", mem, 0x0C, V5_GLOBALS)
+    struct.pack_into(">H", mem, 0x0E, V5_STATIC)    # static memory
+    mem[0x12:0x18] = b"261004"                      # serial
+    struct.pack_into(">H", mem, 0x18, V5_GLOBALS)   # abbreviations (none)
+    struct.pack_into(">H", mem, 0x1A, len(mem) // 4)
+    struct.pack_into(">H", mem, 0x1C, sum(mem[0x40:]) & 0xFFFF)
+    struct.pack_into(">H", mem, 0x2E, terminators)
+    return bytes(mem)
+
+
+def window0_story():
+    """A V5 story that sets its colours once and then never leaves window
+    0: it prints "Turn <n>" and a prompt, reads a line, and loops.
+
+    That is how Beyond Zork behaves between commands, and unlike an Inform
+    game, which redraws its status line every turn and so selects window 0
+    again by hand.  Outside of V6 Bocfel's windows 2 to 7 share the main
+    window's Glk window, and an autorestore used to leave the main and
+    current windows pointing at window 7: the colours were dropped after
+    the next command echo, and the autosave after that named a current
+    window the next restore refused ("invalid window: 7"), so the game
+    started over.  The turn count shows the restart, the SETZCOLOR events
+    the colours."""
+    code = bytes([0x1B, 8, 2])                      # set_colour cyan black
+    loop = len(code)
+    code += b"\xB2" + zstring("Turn ")              # print "Turn "
+    code += bytes([0xE6, 0xBF, 0x10])               # print_num G00
+    code += b"\xBB"                                 # new_line
+    code += b"\xB2" + zstring(">")                  # print ">"
+    code += (bytes([0xE4, 0x1F]) + struct.pack(">H", V5_SCRATCH)
+             + bytes([0, 0x11]))                    # aread text 0 -> G01
+    code += bytes([0x95, 0x10])                     # inc G00
+    code += b"\x8C"                                 # jump loop
+    code += struct.pack(">h", loop - (len(code) + 2) + 2)
+    return v5_story(code, {V5_SCRATCH: bytes([40])})    # 40 characters
+
+
+WINDOW0_SCRIPT = ["a", "b", "c", "d", "e"]
+
+
+def build_cases(stage):
     cases = []
 
     def equiv(terp, name, gamefile, script, cuts, **kw):
@@ -413,6 +511,13 @@ def build_cases():
           every(BRONZE_SCRIPT[:8]), **zkw)
     equiv("bocfel", "curses", os.path.join(UIGAMES, "curses.z5"),
           CURSES_SCRIPT, spread(CURSES_SCRIPT, 3), **zkw)
+    # Every command, because it takes two relaunches in a row to get from
+    # the wrong window to the refused restore.
+    window0 = os.path.join(stage, "window0.z5")
+    with open(window0, "wb") as f:
+        f.write(window0_story())
+    equiv("bocfel", "stays-in-window-0", window0, WINDOW0_SCRIPT,
+          every(WINDOW0_SCRIPT), expect=["Turn 5", "{zcolor efef 0}"], **zkw)
 
     # The cuts keep "w" and the "undo" after it in one session; undo across
     # a relaunch is its own case below.
@@ -512,7 +617,7 @@ def main():
     failed = 0
     with tempfile.TemporaryDirectory() as stage:
         terps = stage_terps(stage)
-        for case in build_cases():
+        for case in build_cases(stage):
             label = "%s/%s" % (case["terp"], case["name"])
             if pattern not in label:
                 continue
