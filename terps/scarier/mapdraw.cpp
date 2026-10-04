@@ -120,6 +120,16 @@ mix_rgb (unsigned int a, unsigned int b, double t)
                    (int) (ab + (bb - ab) * t + 0.5));
 }
 
+/* Round to the nearest pixel.  floor() rather than a bare (int) cast: the cast
+   truncates toward zero, which rounds every negative coordinate one pixel
+   toward the origin and so closes the map up by a pixel where it crosses
+   zero. */
+static int
+round_px (double v)
+{
+  return (int) floor (v + 0.5);
+}
+
 static double
 rgb_luminance (unsigned int rgb)
 {
@@ -378,7 +388,7 @@ draw_bezier (map_surface_t *s, double x0, double y0, double x1, double y1,
                 + 3 * u * t * t * x2 + t * t * t * x3;
       double by = u * u * u * y0 + 3 * u * u * t * y1
                 + 3 * u * t * t * y2 + t * t * t * y3;
-      int cx = (int) (bx + 0.5), cy = (int) (by + 0.5);
+      int cx = round_px (bx), cy = round_px (by);
       if (i > 0)
         {
           /* Stroke the segment, keeping the dash phase continuous along the
@@ -567,8 +577,7 @@ draw_arrowhead (map_surface_t *s, double x, double y, double dx, double dy,
       double half = (double) i / 2.0;
       double j;
       for (j = -half; j <= half; j += 0.5)
-        blend (s, (int) (bx + nx * j + 0.5), (int) (by + ny * j + 0.5),
-               rgb, alpha);
+        blend (s, round_px (bx + nx * j), round_px (by + ny * j), rgb, alpha);
     }
 }
 
@@ -751,13 +760,13 @@ proj_init (proj_t *p, const map_camera_t *cam, const map_surface_t *dst)
 static int
 px_x (const proj_t *p, double ux)
 {
-  return (int) (ux * p->cam->scale + 0.5) + p->ox;
+  return round_px (ux * p->cam->scale) + p->ox;
 }
 
 static int
 px_y (const proj_t *p, double uy)
 {
-  return (int) (uy * p->cam->scale + 0.5) + p->oy;
+  return round_px (uy * p->cam->scale) + p->oy;
 }
 
 /* GetLinkPoint (Map.vb:747): where a connector meets the node's edge. */
