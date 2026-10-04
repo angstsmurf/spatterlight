@@ -476,6 +476,14 @@ static jmp_buf uip_parse_error;
  */
 static scr_int uip_parse_group_depth = 0;
 
+/*
+ * The deepest nesting a pattern may have.  Each level is a handful of stack
+ * frames in the parser and again in the matcher, and a damaged game can open
+ * tens of thousands of groups in one command; authored patterns nest two or
+ * three deep.
+ */
+enum { UIP_MAX_GROUP_DEPTH = 64 };
+
 /* Parse tree for cleanup, and forward declaration of pattern list parser. */
 static scr_ptnoderef_t uip_parse_tree = (scr_ptnoderef_t) NULL;
 static void uip_parse_list (scr_ptnoderef_t list);
@@ -742,6 +750,24 @@ uip_parse_alternatives (scr_ptnoderef_t node)
 
 
 /*
+ * uip_parse_enter_group()
+ *
+ * Note one more level of group nesting, and refuse a pattern that nests too
+ * deeply to parse on the stack.
+ */
+static void
+uip_parse_enter_group (void)
+{
+  if (uip_parse_group_depth >= UIP_MAX_GROUP_DEPTH)
+    {
+      scr_error ("uip_parse_enter_group: groups nested too deeply\n");
+      scr_longjmp (uip_parse_error, 1);
+    }
+  uip_parse_group_depth++;
+}
+
+
+/*
  * uip_parse_element()
  *
  * Parse a single pattern element.
@@ -787,7 +813,7 @@ uip_parse_element (void)
       /* Parse a [...[/.../...]] choice. */
       uip_parse_match (TOK_CHOICE);
       node = uip_new_node (NODE_CHOICE);
-      uip_parse_group_depth++;
+      uip_parse_enter_group ();
       uip_parse_alternatives (node);
       uip_parse_group_depth--;
       uip_parse_match (TOK_CHOICE_END);
@@ -797,7 +823,7 @@ uip_parse_element (void)
       /* Parse a {...[/.../...]} optional element. */
       uip_parse_match (TOK_OPTIONAL);
       node = uip_new_node (NODE_OPTIONAL);
-      uip_parse_group_depth++;
+      uip_parse_enter_group ();
       uip_parse_alternatives (node);
       uip_parse_group_depth--;
       uip_parse_match (TOK_OPTIONAL_END);
