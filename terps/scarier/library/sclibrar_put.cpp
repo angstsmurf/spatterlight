@@ -638,6 +638,112 @@ lib_put_in_closed_400 (scr_gameref_t game, scr_int container,
 static scr_bool lib_put_mid_word_390 = FALSE;
 
 /*
+ * lib_put_deferred_stage_400()
+ *
+ * The part of a put that version 4.0 runs after the take phase, shared by
+ * the container and the supporter backends: the "carrying nothing" close to
+ * the takes, the task look-ups the take loop deferred into `pending`, and
+ * the put-into-itself test.  `is_on` selects the supporter wording and the
+ * "on" preposition.  Before 4.0 `pending` is empty and only the first step
+ * can act.
+ */
+static void
+lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
+                            scr_int target, scr_bool is_on,
+                            scr_bool *has_printed, scr_bool *task_claimed,
+                            scr_bool *recursion_rejected)
+{
+  const scr_char *const preposition = is_on ? "on" : "in";
+
+  /*
+   * name_object's own close to the take phase, and then the look-ups it
+   * deferred.  run400 takes every named piece first and hands the pair to
+   * `insides` only afterwards (@46E34F), so the report above comes out
+   * ahead of the first task: probe PSTAT command 12, `put slab in box`
+   * with the slab a static and the inventory empty, reads "(Taking the
+   * slab first)" / "You can't take the slab!  You are carrying nothing!
+   * SLABTASK."
+   */
+  if (!*recursion_rejected
+      && lib_put_nothing_carried_400 (game, *has_printed))
+    *has_printed = TRUE;
+
+  for (const scr_int pending_object : pending)
+    {
+      if (lib_try_game_command_with_object_400 (game, "put", pending_object,
+                                                preposition, target))
+        {
+          game->object_references[pending_object] = FALSE;
+          game->multiple_references[pending_object] = FALSE;
+          *has_printed = TRUE;
+          *task_claimed = TRUE;
+        }
+    }
+
+  /* The typed line, when the rebuild missed; see
+     lib_try_typed_put_line_400(). */
+  if (!*task_claimed && pending.size () == 1
+      && lib_try_typed_put_line_400 (game))
+    {
+      game->object_references[pending.front ()] = FALSE;
+      game->multiple_references[pending.front ()] = FALSE;
+      *has_printed = TRUE;
+      *task_claimed = TRUE;
+    }
+
+  /*
+   * 4.0's self-container test, in insides' own place: after the take phase
+   * and the tasks() call at 465EB5, after the possession test at 465EED --
+   * so only an object the take left in hand reaches it, a failed take
+   * having already moved it to the "You are not holding ..." report -- and
+   * before the "already inside", size and capacity tests (arg_10 = arg_C
+   * @465FA0, the wording chosen by the target's flags at 465FDA/46600C/
+   * 46602A).  Probe PBOXBOX (runner_probes/boxbox.run400.txt): `put box in
+   * box` with the box on the floor prints "(Taking the box first)" / "You
+   * can't put an object inside itself!" and the box IS taken -- `i` answers
+   * "You are carrying a box." -- where the same line with the box held prints
+   * only the itself line, and a ring inside the box changes nothing.  Probe
+   * PSTAT's silent commands 13 and 18 are not a counter-measurement: there the
+   * coin, object #1, sits inside the box, and run400's carried-weight cycle
+   * (447680) eats the report; see the deliberate deviation in
+   * notes/WINE-TRANSCRIPTS-TODO.md.
+   */
+  for (const scr_int pending_object : pending)
+    {
+      if (!game->object_references[pending_object])
+        continue;
+
+      if (!lib_check_put_recursion (game, pending_object, target,
+                                    !*has_printed, is_on))
+        {
+          game->object_references[pending_object] = FALSE;
+          *has_printed = TRUE;
+          *recursion_rejected = TRUE;
+        }
+    }
+}
+
+
+/*
+ * What a put backend's output amounted to, measured against the buffer
+ * length before it began and after its task pass.
+ */
+static void
+lib_put_note_output (scr_gameref_t game, lib_put_outcome_t *outcome,
+                     scr_int length_before, scr_int length_after_tasks,
+                     scr_bool task_claimed)
+{
+  outcome->is_silent = lib_output_length (game) == length_before;
+  outcome->is_tasks_only = task_claimed
+                           && lib_output_length (game) == length_after_tasks;
+  outcome->is_announce_only = task_claimed && lib_put_announce_bytes > 0
+                              && (size_t) (lib_output_length (game)
+                                           - length_before)
+                                 == lib_put_announce_bytes;
+}
+
+
+/*
  * lib_put_in_backend()
  *
  * Common backend handler for placing objects in containers.  Places all
@@ -763,71 +869,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
         }
     }
 
-  /*
-   * name_object's own close to the take phase, and then the look-ups it
-   * deferred.  run400 takes every named piece first and hands the pair to
-   * `insides` only afterwards (@46E34F), so the report above comes out
-   * ahead of the first task: probe PSTAT command 12, `put slab in box`
-   * with the slab a static and the inventory empty, reads "(Taking the
-   * slab first)" / "You can't take the slab!  You are carrying nothing!
-   * SLABTASK."
-   */
-  if (!recursion_rejected && lib_put_nothing_carried_400 (game, has_printed))
-    has_printed = TRUE;
-
-  for (const scr_int pending_object : pending)
-    {
-      if (lib_try_game_command_with_object_400 (game, "put", pending_object,
-                                                "in", container))
-        {
-          game->object_references[pending_object] = FALSE;
-          game->multiple_references[pending_object] = FALSE;
-          has_printed = TRUE;
-          task_claimed = TRUE;
-        }
-    }
-
-  /* The typed line, when the rebuild missed; see
-     lib_try_typed_put_line_400(). */
-  if (!task_claimed && pending.size () == 1
-      && lib_try_typed_put_line_400 (game))
-    {
-      game->object_references[pending.front ()] = FALSE;
-      game->multiple_references[pending.front ()] = FALSE;
-      has_printed = TRUE;
-      task_claimed = TRUE;
-    }
-
-  /*
-   * 4.0's self-container test, in insides' own place: after the take phase
-   * and the tasks() call at 465EB5, after the possession test at 465EED --
-   * so only an object the take left in hand reaches it, a failed take
-   * having already moved it to the "You are not holding ..." report -- and
-   * before the "already inside", size and capacity tests (arg_10 = arg_C
-   * @465FA0, the wording chosen by the target's flags at 465FDA/46600C/
-   * 46602A).  Probe PBOXBOX (runner_probes/boxbox.run400.txt): `put box in
-   * box` with the box on the floor prints "(Taking the box first)" / "You
-   * can't put an object inside itself!" and the box IS taken -- `i` answers
-   * "You are carrying a box." -- where the same line with the box held prints
-   * only the itself line, and a ring inside the box changes nothing.  Probe
-   * PSTAT's silent commands 13 and 18 are not a counter-measurement: there the
-   * coin, object #1, sits inside the box, and run400's carried-weight cycle
-   * (447680) eats the report; see the deliberate deviation in
-   * notes/WINE-TRANSCRIPTS-TODO.md.
-   */
-  for (const scr_int pending_object : pending)
-    {
-      if (!game->object_references[pending_object])
-        continue;
-
-      if (!lib_check_put_recursion (game, pending_object, container,
-                                       !has_printed, FALSE))
-        {
-          game->object_references[pending_object] = FALSE;
-          has_printed = TRUE;
-          recursion_rejected = TRUE;
-        }
-    }
+  /* 4.0's take-phase close, deferred tasks and itself test. */
+  lib_put_deferred_stage_400 (game, pending, container, FALSE,
+                              &has_printed, &task_claimed,
+                              &recursion_rejected);
   length_after_tasks = lib_output_length (game);
 
   /*
@@ -1167,13 +1212,8 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    */
   outcome.is_refusal_only = (is_refusal_only && list.empty ())
                             || (static_refused && !has_moved);
-  outcome.is_silent = lib_output_length (game) == length_before;
-  outcome.is_tasks_only = task_claimed
-                          && lib_output_length (game) == length_after_tasks;
-  outcome.is_announce_only = task_claimed && lib_put_announce_bytes > 0
-                             && (size_t) (lib_output_length (game)
-                                          - length_before)
-                                == lib_put_announce_bytes;
+  lib_put_note_output (game, &outcome, length_before, length_after_tasks,
+                       task_claimed);
   return outcome;
 }
 
@@ -2713,15 +2753,9 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
     {
       if (pending < 0)
         {
-          pf_buffer_string (filter, "It is not clear which ");
-          pf_buffer_string (filter,
-                            lib_drop_named_term_400 (game, last_tied,
-                                                     fragment, FALSE));
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 " you are referring to.\n",
-                                                 " I am referring to.\n",
-                                                 " %player% is referring to.\n"));
+          lib_print_not_clear_which_400
+            (game, lib_drop_named_term_400 (game, last_tied, fragment, FALSE));
+          pf_buffer_character (filter, '\n');
           return TRUE;
         }
 
@@ -2751,6 +2785,51 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
 
 
 /*
+ * lib_put_multiple_close()
+ *
+ * The close the "in" and "on" forms of a multiple put share once the list
+ * is parsed: 4.0's take phase, the target's validation, the retained
+ * target of an except line, then the filter and the backend.
+ */
+static scr_bool
+lib_put_multiple_close (scr_gameref_t game, scr_int target, scr_bool is_on,
+                        scr_bool is_except)
+{
+  scr_int objects, references;
+  lib_put_outcome_t outcome;
+
+  /* 4.0's take phase speaks before the target is examined at all. */
+  if (!is_except && lib_put_already_400 (game, target, is_on))
+    return TRUE;
+
+  /* Validate the object to put into or onto (deferred -> unhandled). */
+  if (!(is_on ? lib_put_on_is_valid (game, target)
+              : lib_put_in_is_valid (game, target)))
+    return lib_put_invalid_result ();
+
+  /* As a special case, complain about requests to retain the target. */
+  if (is_except
+      && lib_multiple_retains_associate (game, target, "retain"))
+    return TRUE;
+
+  /* Filter objects into references, then handle with the backend. */
+  objects = lib_apply_filter (game,
+                              is_except ? lib_put_except_filter
+                                        : lib_put_multiple_filter,
+                              is_except ? target : -1, is_except,
+                              &references);
+  outcome = {};
+  if (objects > 0 || references > 0)
+    outcome = is_on ? lib_put_on_backend (game, target)
+                    : lib_put_in_backend (game, target, is_except);
+  else
+    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
+
+  return lib_put_finish (game, outcome);
+}
+
+
+/*
  * lib_put_in_multiple_common()
  *
  * Put the objects held by the player and listed in %text% into an object,
@@ -2761,9 +2840,8 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
 static scr_bool
 lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
-  scr_int container, objects, references;
+  scr_int container, references;
   scr_bool is_ambiguous;
-  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   container = is_except
@@ -2911,32 +2989,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (references == 0)
     return TRUE;
 
-  /* 4.0's take phase speaks before the container is examined at all. */
-  if (!is_except && lib_put_already_400 (game, container, FALSE))
-    return TRUE;
-
-  /* Validate the container object to put into (deferred -> unhandled). */
-  if (!lib_put_in_is_valid (game, container))
-    return lib_put_invalid_result ();
-
-  /* As a special case, complain about requests to retain the container. */
-  if (is_except
-      && lib_multiple_retains_associate (game, container, "retain"))
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_filter (game,
-                              is_except ? lib_put_except_filter
-                                        : lib_put_multiple_filter,
-                              is_except ? container : -1, is_except,
-                              &references);
-  outcome = {};
-  if (objects > 0 || references > 0)
-    outcome = lib_put_in_backend (game, container, is_except);
-  else
-    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
-
-  return lib_put_finish (game, outcome);
+  return lib_put_multiple_close (game, container, FALSE, is_except);
 }
 
 
@@ -3498,7 +3551,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
         }
 
       /* Reject and remove attempts to place objects on themselves; the
-       * 4.0 test sits after the deferred task pass (see lib_put_in_backend). */
+       * 4.0 test sits after the deferred task pass (see
+       * lib_put_deferred_stage_400). */
       if (!lib_check_put_recursion (game, object, supporter, !has_printed,
                                     TRUE))
         {
@@ -3520,60 +3574,13 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
     }
 
   /*
-   * name_object's own close to the take phase, and then the look-ups it
-   * deferred.  run400 takes every named piece first and hands the pair to
-   * `insides` only afterwards (@46E34F), so the report above comes out
-   * ahead of the first task: probe PSTAT command 12, `put slab in box`
-   * with the slab a static and the inventory empty, reads "(Taking the
-   * slab first)" / "You can't take the slab!  You are carrying nothing!
-   * SLABTASK."
+   * 4.0's take-phase close, deferred tasks and itself test, as insides
+   * orders them.  The itself wording at 46600C is the surface one whenever
+   * the target is a surface and not also a container.
    */
-  if (!recursion_rejected && lib_put_nothing_carried_400 (game, has_printed))
-    has_printed = TRUE;
-
-  for (const scr_int pending_object : pending)
-    {
-      if (lib_try_game_command_with_object_400 (game, "put", pending_object,
-                                                "on", supporter))
-        {
-          game->object_references[pending_object] = FALSE;
-          game->multiple_references[pending_object] = FALSE;
-          has_printed = TRUE;
-          task_claimed = TRUE;
-        }
-    }
-
-  /* The typed line, when the rebuild missed; see
-     lib_try_typed_put_line_400(). */
-  if (!task_claimed && pending.size () == 1
-      && lib_try_typed_put_line_400 (game))
-    {
-      game->object_references[pending.front ()] = FALSE;
-      game->multiple_references[pending.front ()] = FALSE;
-      has_printed = TRUE;
-      task_claimed = TRUE;
-    }
-
-  /*
-   * 4.0's self-supporter test, after the take phase, the tasks() call and
-   * the possession test, as insides orders it; see lib_put_in_backend,
-   * which is the measured side of the same handler (probe PBOXBOX).  The
-   * wording at 46600C is the surface one whenever the target is a surface
-   * and not also a container.
-   */
-  for (const scr_int pending_object : pending)
-    {
-      if (!game->object_references[pending_object])
-        continue;
-
-      if (!lib_check_put_recursion (game, pending_object, supporter,
-                                       !has_printed, TRUE))
-        {
-          game->object_references[pending_object] = FALSE;
-          has_printed = TRUE;
-          recursion_rejected = TRUE;
-        }
-    }
+  lib_put_deferred_stage_400 (game, pending, supporter, TRUE,
+                              &has_printed, &task_claimed,
+                              &recursion_rejected);
   length_after_tasks = lib_output_length (game);
 
   /*
@@ -3595,13 +3602,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   lib_move_backend (game, &verb, supporter, has_printed);
 
   outcome.is_refusal_only = FALSE;
-  outcome.is_silent = lib_output_length (game) == length_before;
-  outcome.is_tasks_only = task_claimed
-                          && lib_output_length (game) == length_after_tasks;
-  outcome.is_announce_only = task_claimed && lib_put_announce_bytes > 0
-                             && (size_t) (lib_output_length (game)
-                                          - length_before)
-                                == lib_put_announce_bytes;
+  lib_put_note_output (game, &outcome, length_before, length_after_tasks,
+                       task_claimed);
   return outcome;
 }
 
@@ -3713,9 +3715,8 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
 static scr_bool
 lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
-  scr_int supporter, objects, references;
+  scr_int supporter, references;
   scr_bool is_ambiguous;
-  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   supporter = is_except
@@ -3746,32 +3747,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (references == 0)
     return TRUE;
 
-  /* 4.0's take phase speaks before the supporter is examined at all. */
-  if (!is_except && lib_put_already_400 (game, supporter, TRUE))
-    return TRUE;
-
-  /* Validate the supporter object to put into. */
-  if (!lib_put_on_is_valid (game, supporter))
-    return lib_put_invalid_result ();
-
-  /* As a special case, complain about requests to retain the supporter. */
-  if (is_except
-      && lib_multiple_retains_associate (game, supporter, "retain"))
-    return TRUE;
-
-  /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_filter (game,
-                              is_except ? lib_put_except_filter
-                                        : lib_put_multiple_filter,
-                              is_except ? supporter : -1, is_except,
-                              &references);
-  outcome = {};
-  if (objects > 0 || references > 0)
-    outcome = lib_put_on_backend (game, supporter);
-  else
-    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
-
-  return lib_put_finish (game, outcome);
+  return lib_put_multiple_close (game, supporter, TRUE, is_except);
 }
 
 

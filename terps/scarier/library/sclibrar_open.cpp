@@ -556,6 +556,42 @@ lib_open_close_tie_400 (scr_gameref_t game, const scr_char *verb,
 }
 
 /*
+ * lib_open_close_not_carried_400()
+ *
+ * The 4.0 Runner only opens or closes a dynamic object the player is holding
+ * (or wearing, possibly nested in a carried container): its open handler
+ * (Proc_19_3, loc_4757CA) allows the open when the object is static Or
+ * Proc_21_46 (held-or-worn, recursive) passes, and otherwise answers "<I am>
+ * not carrying <the object>!".  The 3.8 and 3.9 handlers have no such test.
+ *
+ * Deliberate deviation (2026-09-30): Scarier opens it where it stands, as at
+ * 3.8/3.9 and as it did before the port (e66709de2).  A chest too heavy to
+ * lift was otherwise unopenable.  So this logs the deviation and returns
+ * FALSE; the Runner's refusal is kept, switched off, for reference.
+ */
+static scr_bool
+lib_open_close_not_carried_400 (scr_gameref_t game, scr_int object)
+{
+  static const scr_bool refuse = FALSE;
+
+  if (!lib_is_version_400 (game)
+      || obj_is_static (game, object)
+      || obj_indirectly_held_by_player (game, object))
+    return FALSE;
+
+  SCR_DEVIATION ("openclose_not_carried", "object=%ld", object);
+  if (!refuse)
+    return FALSE;
+
+  lib_print_response_object (game,
+                             "You are not carrying ",
+                             "I am not carrying ",
+                             "%player% is not carrying ",
+                             object, "!\n");
+  return TRUE;
+}
+
+/*
  * lib_cmd_open_object()
  *
  * Attempt to open the referenced object.
@@ -592,34 +628,10 @@ lib_cmd_open_object (scr_gameref_t game)
       return TRUE;
 
     case OBJ_CLOSED:
-      /*
-       * The 4.0 Runner only opens a dynamic object the player is holding
-       * (or wearing, possibly nested in a carried container): its open
-       * handler (Proc_19_3, loc_4757CA) allows the open when the object
-       * is static Or Proc_21_46 (held-or-worn, recursive) passes, and
-       * otherwise answers "<I am> not carrying <the object>!".  The 3.8
-       * and 3.9 handlers have no such test.
-       *
-       * Deliberate deviation (2026-09-30): Scarier opens it where it
-       * stands, as at 3.8/3.9 and as it did before the port (e66709de2).
-       * A chest too heavy to lift was otherwise unopenable.
-       */
-      if (lib_is_version_400 (game)
-          && !obj_is_static (game, object)
-          && !obj_indirectly_held_by_player (game, object))
-        SCR_DEVIATION ("openclose_not_carried", "object=%ld", object);
-      if (FALSE
-          && lib_is_version_400 (game)
-          && !obj_is_static (game, object)
-          && !obj_indirectly_held_by_player (game, object))
-        {
-          lib_print_response_object (game,
-                                     "You are not carrying ",
-                                     "I am not carrying ",
-                                     "%player% is not carrying ",
-                                     object, "!\n");
-          return TRUE;
-        }
+      /* 4.0's carrying gate, not applied; see
+         lib_open_close_not_carried_400(). */
+      if (lib_open_close_not_carried_400 (game, object))
+        return TRUE;
 
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -744,22 +756,8 @@ lib_cmd_close_object (scr_gameref_t game)
     case OBJ_OPEN:
       /* Same 4.0-only carrying gate as in lib_cmd_open_object above, and
          the same deliberate deviation: Scarier closes it where it stands. */
-      if (lib_is_version_400 (game)
-          && !obj_is_static (game, object)
-          && !obj_indirectly_held_by_player (game, object))
-        SCR_DEVIATION ("openclose_not_carried", "object=%ld", object);
-      if (FALSE
-          && lib_is_version_400 (game)
-          && !obj_is_static (game, object)
-          && !obj_indirectly_held_by_player (game, object))
-        {
-          lib_print_response_object (game,
-                                     "You are not carrying ",
-                                     "I am not carrying ",
-                                     "%player% is not carrying ",
-                                     object, "!\n");
-          return TRUE;
-        }
+      if (lib_open_close_not_carried_400 (game, object))
+        return TRUE;
 
       lib_print_response_object (game,
                                  "You close ",

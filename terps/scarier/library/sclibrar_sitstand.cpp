@@ -1514,12 +1514,11 @@ lib_cmd_get_off (scr_gameref_t game)
     }
 
   /* Confirm movement. */
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You get off ", "I get off ",
-                                         "%player% get off "));
-  lib_print_object_np (game, gs_playerparent (game));
-  pf_buffer_string (filter, ".\n");
+  lib_print_response_object (game,
+                             "You get off ",
+                             "I get off ",
+                             "%player% get off ",
+                             gs_playerparent (game), ".\n");
 
   /* Adjust player position and parent. */
   gs_set_playerposition (game, 0);

@@ -4591,23 +4591,10 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
       if (prop_get_taf_version (bundle) <= TAF_VERSION_380
           && uip_match ("%character% *", current, game))
         {
-          scr_int count, index_, npc;
+          scr_int npc;
 
           /* Do the same "disambiguation" as for objects above. */
-          count = 0;
-          npc = -1;
-          for (index_ = 0; index_ < gs_npc_count (game); index_++)
-            {
-              if (game->npc_references[index_]
-                  && gs_npc_seen (game, index_)
-                  && npc_in_room (game, index_, gs_playerroom (game)))
-                {
-                  count++;
-                  npc = index_;
-                }
-            }
-
-          if (count == 1)
+          if (npc_count_referenced_present (game, &npc) == 1)
             {
               /*
                * Version 3.8 games lack NPC gender information, so for this

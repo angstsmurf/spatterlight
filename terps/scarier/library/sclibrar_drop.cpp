@@ -598,6 +598,24 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
 }
 
 /*
+ * The flat reply to a tie nothing breaks, "It is not clear which <term> you
+ * are referring to.", left without its line end for the caller to close.
+ */
+void
+lib_print_not_clear_which_400 (scr_gameref_t game, const scr_char *term)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, "It is not clear which ");
+  pf_buffer_string (filter, term);
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         " you are referring to.",
+                                         " I am referring to.",
+                                         " %player% is referring to."));
+}
+
+/*
  * lib_co_400_raise_for_pending_tie()
  *
  * The unhandled-verb line's question, read off the pending object the way
@@ -738,13 +756,11 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
          rows; where 44CCE0 makes the call is not traced. */
       if (lib_task_prematches_line (game, input, 0, &kind) && kind != 3)
         return FALSE;
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are not holding ",
-                                             "I am not holding ",
-                                             "%player% is not holding "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
+      lib_print_response_object (game,
+                                 "You are not holding ",
+                                 "I am not holding ",
+                                 "%player% is not holding ",
+                                 object, ".\n");
       return TRUE;
     }
 
@@ -752,15 +768,9 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
     {
       if (pending < 0)
         {
-          pf_buffer_string (filter, "It is not clear which ");
-          pf_buffer_string (filter,
-                            lib_drop_named_term_400 (game, last_tied,
-                                                     input, FALSE));
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 " you are referring to.\n",
-                                                 " I am referring to.\n",
-                                                 " %player% is referring to.\n"));
+          lib_print_not_clear_which_400
+            (game, lib_drop_named_term_400 (game, last_tied, input, FALSE));
+          pf_buffer_character (filter, '\n');
           return TRUE;
         }
 

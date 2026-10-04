@@ -194,6 +194,53 @@ lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc)
   return TRUE;
 }
 
+/*
+ * The contest the NPC and object crowds share: score every reference, and
+ * if the top score is not everyone's, drop the references that fall short
+ * of it.  count and last are rewritten only when the crowd thins.
+ */
+template <typename Score>
+static void
+lib_keep_top_scored (std::vector<scr_bool> &references, scr_int total,
+                     scr_int *count, scr_int *last, Score score)
+{
+  scr_int index_, best, kept;
+
+  best = -1;
+  kept = 0;
+  for (index_ = 0; index_ < total; index_++)
+    {
+      scr_int value;
+
+      if (!references[index_])
+        continue;
+      value = score (index_);
+      if (value > best)
+        {
+          best = value;
+          kept = 1;
+        }
+      else if (value == best)
+        kept++;
+    }
+
+  if (kept > 0 && kept < *count)
+    {
+      *count = 0;
+      *last = -1;
+      for (index_ = 0; index_ < total; index_++)
+        {
+          if (references[index_] && score (index_) == best)
+            {
+              (*count)++;
+              *last = index_;
+            }
+          else
+            references[index_] = FALSE;
+        }
+    }
+}
+
 scr_int
 lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
                            scr_bool *is_ambiguous, scr_int pick)
@@ -236,42 +283,12 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
   if (count > 1 && run_get_dispatch_input ())
     {
       const scr_char *line = run_get_dispatch_input ();
-      scr_int best, kept;
 
-      best = -1;
-      kept = 0;
-      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+      lib_keep_top_scored (game->npc_references, gs_npc_count (game), &count, &npc,
+                           [&] (scr_int candidate)
         {
-          scr_int score;
-
-          if (!game->npc_references[index_])
-            continue;
-          score = lib_npc_400_prefix_score (game, index_, line);
-          if (score > best)
-            {
-              best = score;
-              kept = 1;
-            }
-          else if (score == best)
-            kept++;
-        }
-
-      if (kept > 0 && kept < count)
-        {
-          count = 0;
-          npc = -1;
-          for (index_ = 0; index_ < gs_npc_count (game); index_++)
-            {
-              if (game->npc_references[index_]
-                  && lib_npc_400_prefix_score (game, index_, line) == best)
-                {
-                  count++;
-                  npc = index_;
-                }
-              else
-                game->npc_references[index_] = FALSE;
-            }
-        }
+          return lib_npc_400_prefix_score (game, candidate, line);
+        });
     }
 
   /* If the reference is unambiguous, set in variables and return it. */
@@ -2666,6 +2683,35 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
 }
 
 /*
+ * lib_prefix_words_in_input_400()
+ *
+ * Count the words of a Prefix that the input line holds, the 4.0 Prefix
+ * contest's score for objects and characters alike.  The Prefix is cut on
+ * single spaces, so a double space yields an empty word, which scores
+ * nothing.
+ */
+scr_int
+lib_prefix_words_in_input_400 (const scr_char *input, const scr_char *prefix)
+{
+  scr_char *copy, *word, *next;
+  scr_int score;
+
+  score = 0;
+  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
+  strcpy (copy, prefix);
+  for (word = copy; word; word = next)
+    {
+      next = strchr (word, ' ');
+      if (next)
+        *next++ = NUL;
+      if (word[0] != NUL && lib_input_contains_word_400 (input, word))
+        score++;
+    }
+  scr_free (copy);
+  return score;
+}
+
+/*
  * lib_npc_400_prefix_score()
  *
  * The character half of the 4.0 Prefix contest: run400's namesake check
@@ -2727,27 +2773,13 @@ lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
                           const scr_char *input)
 {
   const scr_char *prefix;
-  scr_char *copy, *word, *next;
-  scr_int score;
 
   prefix = prop_get_indexed_string (gs_get_bundle (game), "NPCs",
                                     npc, "Prefix");
   if (scr_strempty (prefix))
     return 0;
 
-  score = 0;
-  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
-  strcpy (copy, prefix);
-  for (word = copy; word; word = next)
-    {
-      next = strchr (word, ' ');
-      if (next)
-        *next++ = NUL;
-      if (word[0] != NUL && lib_input_contains_word_400 (input, word))
-        score++;
-    }
-  scr_free (copy);
-  return score;
+  return lib_prefix_words_in_input_400 (input, prefix);
 }
 
 /* TRUE when the contest picks one of these namesakes outright. */
@@ -3370,42 +3402,12 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
   if (count > 1 && taf_version >= TAF_VERSION_400 && run_get_dispatch_input ())
     {
       const scr_char *line = run_get_dispatch_input ();
-      scr_int best, kept;
 
-      best = -1;
-      kept = 0;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
+      lib_keep_top_scored (game->object_references, gs_object_count (game), &count, &object,
+                           [&] (scr_int candidate)
         {
-          scr_int score;
-
-          if (!game->object_references[index_])
-            continue;
-          score = lib_verb_object_name_score (game, index_, line);
-          if (score > best)
-            {
-              best = score;
-              kept = 1;
-            }
-          else if (score == best)
-            kept++;
-        }
-
-      if (kept > 0 && kept < count)
-        {
-          count = 0;
-          object = -1;
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
-            {
-              if (game->object_references[index_]
-                  && lib_verb_object_name_score (game, index_, line) == best)
-                {
-                  count++;
-                  object = index_;
-                }
-              else
-                game->object_references[index_] = FALSE;
-            }
-        }
+          return lib_verb_object_name_score (game, candidate, line);
+        });
     }
 
   /*
@@ -3866,15 +3868,9 @@ pre400_take_done:
         }
       if (object == -1 && pending < 0)
         {
-          pf_buffer_string (filter, "It is not clear which ");
-          pf_buffer_string (filter,
-                            lib_drop_named_term_400 (game, last_tied,
-                                                     line, FALSE));
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 " you are referring to.\n",
-                                                 " I am referring to.\n",
-                                                 " %player% is referring to.\n"));
+          lib_print_not_clear_which_400
+            (game, lib_drop_named_term_400 (game, last_tied, line, FALSE));
+          pf_buffer_character (filter, '\n');
           if (is_ambiguous)
             *is_ambiguous = TRUE;
           return -1;

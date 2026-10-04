@@ -86,7 +86,6 @@ lib_verb_object_name_score (scr_gameref_t game,
   const scr_char *shortname, *prefix;
   scr_vartype_t vt_key[4];
   scr_int alias_count, alias, score;
-  scr_char *copy, *word, *next;
 
   /* A name the line holds only inside a longer one does not score; see
      lib_co_term_shadowed() (deliberate deviation). */
@@ -127,18 +126,7 @@ lib_verb_object_name_score (scr_gameref_t game,
   if (!prefix || prefix[0] == NUL)
     prefix = "a";
 
-  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
-  strcpy (copy, prefix);
-  for (word = copy; word; word = next)
-    {
-      next = strchr (word, ' ');
-      if (next)
-        *next++ = NUL;
-      if (word[0] != NUL && lib_input_contains_word_400 (input, word))
-        score++;
-    }
-  scr_free (copy);
-  return score;
+  return score + lib_prefix_words_in_input_400 (input, prefix);
 }
 
 /*
@@ -713,15 +701,9 @@ lib_put_task_tie_400 (scr_gameref_t game, const scr_char *input)
       || pending >= 0)
     return FALSE;
 
-  pf_buffer_string (filter, "It is not clear which ");
-  pf_buffer_string (filter,
-                    lib_drop_named_term_400 (game, last_tied, line.c_str (),
-                                             FALSE));
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         " you are referring to.\n",
-                                         " I am referring to.\n",
-                                         " %player% is referring to.\n"));
+  lib_print_not_clear_which_400
+    (game, lib_drop_named_term_400 (game, last_tied, line.c_str (), FALSE));
+  pf_buffer_character (filter, '\n');
   return TRUE;
 }
 
@@ -1012,11 +994,26 @@ lib_catch_all_names_pre390 (scr_gameref_t game, scr_int object)
   return FALSE;
 }
 
+/*
+ * The refusal for an object the player has seen that is not in the room,
+ * which becomes the referenced object as it is named.
+ */
+static void
+lib_must_share_room_with_object (scr_gameref_t game, scr_int object)
+{
+  var_set_ref_object (gs_get_vars (game), object);
+  lib_print_response_object (game,
+                             "You must be in the same room as ",
+                             "I must be in the same room as ",
+                             "%player% must be in the same room as ",
+                             object,
+                             " to be able to do anything with it.\n");
+}
+
 static scr_int
 lib_verb_object_catch_all_pre390 (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
   scr_int object, rank, pick, unseen;
 
   rank = 0;
@@ -1068,13 +1065,7 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
 
   if (rank == 1)
     {
-      var_set_ref_object (vars, pick);
-      lib_print_response_object (game,
-                                 "You must be in the same room as ",
-                                 "I must be in the same room as ",
-                                 "%player% must be in the same room as ",
-                                 pick,
-                                 " to be able to do anything with it.\n");
+      lib_must_share_room_with_object (game, pick);
       return -2;
     }
 
@@ -1331,13 +1322,7 @@ lib_cmd_verb_object (scr_gameref_t game)
           if (gs_object_seen (game, top)
               && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
             {
-              var_set_ref_object (vars, top);
-              lib_print_response_object (game,
-                                         "You must be in the same room as ",
-                                         "I must be in the same room as ",
-                                         "%player% must be in the same room as ",
-                                         top,
-                                         " to be able to do anything with it.\n");
+              lib_must_share_room_with_object (game, top);
               return TRUE;
             }
           count = 1;
@@ -1465,13 +1450,7 @@ lib_cmd_verb_object (scr_gameref_t game)
       if (top >= 0 && top != object && gs_object_seen (game, top)
           && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
         {
-          var_set_ref_object (vars, top);
-          lib_print_response_object (game,
-                                     "You must be in the same room as ",
-                                     "I must be in the same room as ",
-                                     "%player% must be in the same room as ",
-                                     top,
-                                     " to be able to do anything with it.\n");
+          lib_must_share_room_with_object (game, top);
           return TRUE;
         }
     }

@@ -1582,7 +1582,6 @@ lib_cmd_drop_absent_pre390 (scr_gameref_t game)
 scr_bool
 lib_cmd_drop_what (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
   scr_int object;
 
@@ -1610,13 +1609,11 @@ lib_cmd_drop_what (scr_gameref_t game)
       object = lib_seen_named_object_400 (game, input);
       if (object != -1)
         {
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not holding ",
-                                                 "I am not holding ",
-                                                 "%player% is not holding "));
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter, ".\n");
+          lib_print_response_object (game,
+                                     "You are not holding ",
+                                     "I am not holding ",
+                                     "%player% is not holding ",
+                                     object, ".\n");
           return TRUE;
         }
     }
@@ -1832,13 +1829,11 @@ lib_cmd_remove_what (scr_gameref_t game)
       object = lib_seen_named_object_400 (game, input);
       if (object != -1)
         {
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are not wearing ",
-                                                 "I am not wearing ",
-                                                 "%player% is not wearing "));
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter, "!\n");
+          lib_print_response_object (game,
+                                     "You are not wearing ",
+                                     "I am not wearing ",
+                                     "%player% is not wearing ",
+                                     object, "!\n");
           return TRUE;
         }
     }

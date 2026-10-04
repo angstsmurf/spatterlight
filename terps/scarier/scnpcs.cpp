@@ -123,6 +123,34 @@ npc_count_in_room (scr_gameref_t game, scr_int room)
 
 
 /*
+ * npc_count_referenced_present()
+ *
+ * Return the count of NPCs the last command referenced that the player has
+ * seen and that share the player's room, and the last of them in npc, -1
+ * if none.  The references themselves are left as they are.
+ */
+scr_int
+npc_count_referenced_present (scr_gameref_t game, scr_int *npc)
+{
+  scr_int count, index_;
+
+  count = 0;
+  *npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_]
+          && gs_npc_seen (game, index_)
+          && npc_in_room (game, index_, gs_playerroom (game)))
+        {
+          count++;
+          *npc = index_;
+        }
+    }
+  return count;
+}
+
+
+/*
  * npc_walk_property()
  * npc_walk_is_loop()
  * npc_walk_total_time()

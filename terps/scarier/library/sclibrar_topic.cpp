@@ -422,21 +422,9 @@ scr_bool
 lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark,
                                   scr_bool over_empty_buffer)
 {
-  scr_int index_, npc, count, topic;
+  scr_int npc, topic;
 
-  count = 0;
-  npc = -1;
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
-    {
-      if (game->npc_references[index_]
-          && gs_npc_seen (game, index_)
-          && npc_in_room (game, index_, gs_playerroom (game)))
-        {
-          count++;
-          npc = index_;
-        }
-    }
-  if (count != 1)
+  if (npc_count_referenced_present (game, &npc) != 1)
     return FALSE;
 
   topic = lib_npc_find_topic (game, npc);

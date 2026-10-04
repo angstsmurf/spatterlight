@@ -1324,7 +1324,6 @@ lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
 static scr_bool
 lib_examine_tied_absent_400 (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
   scr_int object;
 
@@ -1340,12 +1339,11 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
   if (gs_object_seen (game, object))
     {
       var_set_ref_object (gs_get_vars (game), object);
-      pf_buffer_string (filter,
-                        lib_select_response (game, "You can't see ",
-                                             "I can't see ",
-                                             "%player% can't see "));
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " from here!\n");
+      lib_print_response_object (game,
+                                 "You can't see ",
+                                 "I can't see ",
+                                 "%player% can't see ",
+                                 object, " from here!\n");
     }
   else
     lib_print_response_message (game,

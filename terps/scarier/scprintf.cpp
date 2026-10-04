@@ -333,6 +333,28 @@ pf_is_valid (scr_filterref_t filter)
 
 
 /*
+ * pf_reset_state()
+ *
+ * Set a filter's state flags and markers to their initial values.  The
+ * buffer is the caller's to empty.
+ */
+static void
+pf_reset_state (scr_filterref_t filter)
+{
+  filter->new_sentence = FALSE;
+  filter->is_muted = FALSE;
+  filter->needs_filtering = FALSE;
+  filter->auto_break_at = -1;
+  filter->hard_break_at = -1;
+  filter->hidden = 0;
+  filter->frozen = 0;
+  filter->printed_to = -1;
+  filter->reference_at = -1;
+  filter->join_pending = FALSE;
+}
+
+
+/*
  * pf_create()
  *
  * Create and return a new printfilter.
@@ -370,16 +392,7 @@ pf_create (void)
   /* Create a new printfilter; 'buffer' default-constructs empty. */
   filter = new scr_filter_t ();
   filter->magic = PRINTFILTER_MAGIC;
-  filter->new_sentence = FALSE;
-  filter->is_muted = FALSE;
-  filter->needs_filtering = FALSE;
-  filter->auto_break_at = -1;
-  filter->hard_break_at = -1;
-  filter->hidden = 0;
-  filter->frozen = 0;
-  filter->printed_to = -1;
-  filter->reference_at = -1;
-  filter->join_pending = FALSE;
+  pf_reset_state (filter);
 
   return filter;
 }
@@ -1770,16 +1783,7 @@ pf_empty (scr_filterref_t filter)
 
   /* Free any allocation, and return the filter to initialization state. */
   filter->buffer.clear ();
-  filter->new_sentence = FALSE;
-  filter->is_muted = FALSE;
-  filter->needs_filtering = FALSE;
-  filter->auto_break_at = -1;
-  filter->hard_break_at = -1;
-  filter->hidden = 0;
-  filter->frozen = 0;
-  filter->printed_to = -1;
-  filter->reference_at = -1;
-  filter->join_pending = FALSE;
+  pf_reset_state (filter);
 }
 
 

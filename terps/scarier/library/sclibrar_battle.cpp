@@ -682,6 +682,52 @@ lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
   pf_buffer_answer_break (filter);
 }
 
+/*
+ * lib_battle_attack_target()
+ *
+ * The opening the bare and the "with" attack share: the Battle System gate,
+ * the hand-off of a line naming several characters, and the choice of the
+ * one character attacked.  Returns TRUE when that settles the command, with
+ * the command's result in *status; otherwise *npc is the target.
+ */
+static scr_bool
+lib_battle_attack_target (scr_gameref_t game, const scr_char *verb,
+                          scr_bool legacy, scr_bool is_with,
+                          scr_int *npc, scr_bool *status)
+{
+  scr_bool is_ambiguous;
+
+  /* A Battle-System-only verb defers to other grammar when battle is off. */
+  *status = FALSE;
+  if (!battle_is_enabled (game) && !legacy)
+    return TRUE;
+
+  /* A line naming several characters is dobattle's; lib_battle_attack_many(). */
+  *status = TRUE;
+  if (battle_is_enabled (game)
+      && (lib_is_version_400 (game)
+          ? lib_npc_400_find_namesakes (game, NULL, NULL)
+          : lib_battle_line_names_many (game))
+      && lib_battle_attack_many (game, is_with))
+    return TRUE;
+
+  /* Get the referenced npc, and if none, consider complete. */
+  *npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous,
+                                    battle_is_enabled (game)
+                                    ? NPC_PICK_ASK : NPC_PICK_FIRST);
+  if (*npc != -1)
+    return FALSE;
+
+  /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
+  if (!is_ambiguous && lib_battle_absent_npc (game))
+    return TRUE;
+  /* Battle off, 3.9+: a named NPC elsewhere "is not here!" */
+  if (!is_ambiguous && lib_attack_absent_npc (game))
+    return TRUE;
+  *status = is_ambiguous;
+  return TRUE;
+}
+
 static scr_bool lib_battle_line_names_any_object (scr_gameref_t game,
                                                   const scr_char *input);
 
@@ -691,34 +737,10 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int npc;
-  scr_bool is_ambiguous;
+  scr_bool status;
 
-  /* A Battle-System-only verb defers to other grammar when battle is off. */
-  if (!battle_is_enabled (game) && !legacy)
-    return FALSE;
-
-  /* A line naming several characters is dobattle's; lib_battle_attack_many(). */
-  if (battle_is_enabled (game)
-      && (lib_is_version_400 (game)
-          ? lib_npc_400_find_namesakes (game, NULL, NULL)
-          : lib_battle_line_names_many (game))
-      && lib_battle_attack_many (game, FALSE))
-    return TRUE;
-
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous,
-                                   battle_is_enabled (game)
-                                   ? NPC_PICK_ASK : NPC_PICK_FIRST);
-  if (npc == -1)
-    {
-      /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
-      if (!is_ambiguous && lib_battle_absent_npc (game))
-        return TRUE;
-      /* Battle off, 3.9+: a named NPC elsewhere "is not here!" */
-      if (!is_ambiguous && lib_attack_absent_npc (game))
-        return TRUE;
-      return is_ambiguous;
-    }
+  if (lib_battle_attack_target (game, verb, legacy, FALSE, &npc, &status))
+    return status;
 
   /*
    * A "with" after the target (47EBDE, var_8A = 2) makes the blow the
@@ -802,34 +824,10 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, npc;
   scr_vartype_t vt_key[3];
-  scr_bool weapon, is_ambiguous;
+  scr_bool weapon, status;
 
-  /* A Battle-System-only verb defers to other grammar when battle is off. */
-  if (!battle_is_enabled (game) && !legacy)
-    return FALSE;
-
-  /* A line naming several characters is dobattle's; lib_battle_attack_many(). */
-  if (battle_is_enabled (game)
-      && (lib_is_version_400 (game)
-          ? lib_npc_400_find_namesakes (game, NULL, NULL)
-          : lib_battle_line_names_many (game))
-      && lib_battle_attack_many (game, TRUE))
-    return TRUE;
-
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous,
-                                   battle_is_enabled (game)
-                                   ? NPC_PICK_ASK : NPC_PICK_FIRST);
-  if (npc == -1)
-    {
-      /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
-      if (!is_ambiguous && lib_battle_absent_npc (game))
-        return TRUE;
-      /* Battle off, 3.9+: a named NPC elsewhere "is not here!" */
-      if (!is_ambiguous && lib_attack_absent_npc (game))
-        return TRUE;
-      return is_ambiguous;
-    }
+  if (lib_battle_attack_target (game, verb, legacy, TRUE, &npc, &status))
+    return status;
 
   /*
    * dobattle (run390 44CD63-44CE44, run400 47EC16) walks every object the

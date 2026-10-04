@@ -1314,6 +1314,7 @@ enum
 
 extern scr_bool npc_in_room (scr_gameref_t game, scr_int npc, scr_int room);
 extern scr_int npc_count_in_room (scr_gameref_t game, scr_int room);
+extern scr_int npc_count_referenced_present (scr_gameref_t game, scr_int *npc);
 extern void npc_setup_initial (scr_gameref_t game);
 extern void npc_start_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk);
 extern scr_bool npc_walk_is_enabled (scr_gameref_t game, scr_int npc,

@@ -850,13 +850,11 @@ lib_print_cannot_reach (scr_gameref_t game, scr_int container)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         "You can't reach ",
-                                         "I can't reach ",
-                                         "%player% can't reach "));
-  lib_print_object_np (game, container);
-  pf_buffer_string (filter, " from ");
+  lib_print_response_object (game,
+                             "You can't reach ",
+                             "I can't reach ",
+                             "%player% can't reach ",
+                             container, " from ");
   lib_print_object_np (game, gs_playerparent (game));
   pf_buffer_string (filter, "!");
 }
@@ -2160,14 +2158,8 @@ lib_cmd_take_absent (scr_gameref_t game)
 
   if (best_count > 1)
     {
-      pf_buffer_string (filter, "It is not clear which ");
-      pf_buffer_string (filter, best_term);
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             " you are referring to.\n",
-                                             " I am referring to.\n",
-                                             " %player% is referring"
-                                             " to.\n"));
+      lib_print_not_clear_which_400 (game, best_term);
+      pf_buffer_character (filter, '\n');
       return TRUE;
     }
 
@@ -2229,15 +2221,8 @@ lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
 
   if (pending < 0)
     {
-      pf_buffer_string (filter, "It is not clear which ");
-      pf_buffer_string (filter,
-                        lib_drop_named_term_400 (game, last_tied, line,
-                                                 FALSE));
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             " you are referring to.",
-                                             " I am referring to.",
-                                             " %player% is referring to."));
+      lib_print_not_clear_which_400
+        (game, lib_drop_named_term_400 (game, last_tied, line, FALSE));
       pf_buffer_answer_break (filter);
       gs_clear_multiple_references (game);
       return TRUE;

@@ -539,6 +539,40 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
   return FALSE;
 }
 
+/*
+ * if_game_guarded()
+ *
+ * The opening most API calls share: refuse an invalid game, then run the
+ * body on the game under if_guarded().  The first form returns the body's
+ * value, or fail if the game is invalid or the body ends in a fatal error;
+ * the second is for bodies that return nothing.
+ */
+template <typename F>
+static auto
+if_game_guarded (scr_game game, const scr_char *function_name, F body,
+                 decltype (body ((scr_gameref_t) NULL)) fail)
+  -> decltype (body ((scr_gameref_t) NULL))
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, function_name))
+    return fail;
+
+  return if_guarded (function_name, [&] () { return body (game_); }, fail);
+}
+
+template <typename F>
+static void
+if_game_guarded (scr_game game, const scr_char *function_name, F body)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, function_name))
+    return;
+
+  if_guarded (function_name, [&] () { body (game_); });
+}
+
 
 /*
  * scr_interpret_game()
@@ -559,12 +593,7 @@ if_game_error (scr_gameref_t game, const scr_char *function_name)
 void
 scr_interpret_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_interpret_game"))
-    return;
-
-  if_guarded ("scr_interpret_game", [&] ()
+  if_game_guarded (game, "scr_interpret_game", [&] (scr_gameref_t game_)
     {
       run_interpret (game_);
     });
@@ -573,12 +602,7 @@ scr_interpret_game (scr_game game)
 void
 scr_restart_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_restart_game"))
-    return;
-
-  if_guarded ("scr_restart_game", [&] ()
+  if_game_guarded (game, "scr_restart_game", [&] (scr_gameref_t game_)
     {
       run_restart (game_);
     });
@@ -587,12 +611,7 @@ scr_restart_game (scr_game game)
 scr_bool
 scr_save_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_save_game"))
-    return FALSE;
-
-  return if_guarded ("scr_save_game", [&] ()
+  return if_game_guarded (game, "scr_save_game", [&] (scr_gameref_t game_)
     {
       return run_save_prompted (game_);
     }, FALSE);
@@ -601,12 +620,7 @@ scr_save_game (scr_game game)
 scr_bool
 scr_load_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_load_game"))
-    return FALSE;
-
-  return if_guarded ("scr_load_game", [&] ()
+  return if_game_guarded (game, "scr_load_game", [&] (scr_gameref_t game_)
     {
       return run_restore_prompted (game_);
     }, FALSE);
@@ -615,12 +629,7 @@ scr_load_game (scr_game game)
 scr_bool
 scr_undo_game_turn (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_undo_game_turn"))
-    return FALSE;
-
-  return if_guarded ("scr_undo_game_turn", [&] ()
+  return if_game_guarded (game, "scr_undo_game_turn", [&] (scr_gameref_t game_)
     {
       return run_undo (game_);
     }, FALSE);
@@ -629,12 +638,7 @@ scr_undo_game_turn (scr_game game)
 void
 scr_quit_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_quit_game"))
-    return;
-
-  if_guarded ("scr_quit_game", [&] ()
+  if_game_guarded (game, "scr_quit_game", [&] (scr_gameref_t game_)
     {
       run_quit (game_);
     });
@@ -941,12 +945,7 @@ scr_note_autorestored (void)
 void
 scr_free_game (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_free_game"))
-    return;
-
-  if_guarded ("scr_free_game", [&] ()
+  if_game_guarded (game, "scr_free_game", [&] (scr_gameref_t game_)
     {
       run_destroy (game_);
     });
@@ -1045,12 +1044,7 @@ if_get_attributes (scr_gameref_t game, scr_uint wanted)
 scr_bool
 scr_is_game_running (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_is_game_running"))
-    return FALSE;
-
-  return if_guarded ("scr_is_game_running", [&] ()
+  return if_game_guarded (game, "scr_is_game_running", [&] (scr_gameref_t game_)
     {
       return run_is_running (game_);
     }, FALSE);
@@ -1075,12 +1069,7 @@ scr_does_command_match (scr_game game, const scr_char *string)
 const scr_char *
 scr_get_game_name (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_name"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_name", [&] ()
+  return if_game_guarded (game, "scr_get_game_name", [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_NAME).name;
     }, "[invalid game]");
@@ -1089,12 +1078,7 @@ scr_get_game_name (scr_game game)
 const scr_char *
 scr_get_game_author (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_author"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_author", [&] ()
+  return if_game_guarded (game, "scr_get_game_author", [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_AUTHOR).author;
     }, "[invalid game]");
@@ -1103,12 +1087,8 @@ scr_get_game_author (scr_game game)
 const scr_char *
 scr_get_game_compile_date (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_compile_date"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_compile_date", [&] ()
+  return if_game_guarded (game, "scr_get_game_compile_date",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_COMPILE_DATE).compile_date;
     }, "[invalid game]");
@@ -1117,12 +1097,7 @@ scr_get_game_compile_date (scr_game game)
 scr_int
 scr_get_game_turns (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_turns"))
-    return 0;
-
-  return if_guarded ("scr_get_game_turns", [&] ()
+  return if_game_guarded (game, "scr_get_game_turns", [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_TURNS).turns;
     }, 0);
@@ -1131,12 +1106,7 @@ scr_get_game_turns (scr_game game)
 scr_int
 scr_get_game_score (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_score"))
-    return 0;
-
-  return if_guarded ("scr_get_game_score", [&] ()
+  return if_game_guarded (game, "scr_get_game_score", [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_SCORE).score;
     }, 0);
@@ -1145,12 +1115,8 @@ scr_get_game_score (scr_game game)
 scr_int
 scr_get_game_max_score (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_max_score"))
-    return 0;
-
-  return if_guarded ("scr_get_game_max_score", [&] ()
+  return if_game_guarded (game, "scr_get_game_max_score",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_MAX_SCORE).max_score;
     }, 0);
@@ -1159,12 +1125,7 @@ scr_get_game_max_score (scr_game game)
 const scr_char *
 scr_get_game_room (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_room"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_room", [&] ()
+  return if_game_guarded (game, "scr_get_game_room", [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_ROOM).room;
     }, "[invalid game]");
@@ -1173,12 +1134,8 @@ scr_get_game_room (scr_game game)
 const scr_char *
 scr_get_game_status_line (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_status_line"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_status_line", [&] ()
+  return if_game_guarded (game, "scr_get_game_status_line",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_STATUS_LINE).status_line;
     }, "[invalid game]");
@@ -1187,12 +1144,8 @@ scr_get_game_status_line (scr_game game)
 const scr_char *
 scr_get_game_preferred_font (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_preferred_font"))
-    return "[invalid game]";
-
-  return if_guarded ("scr_get_game_preferred_font", [&] ()
+  return if_game_guarded (game, "scr_get_game_preferred_font",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_PREFERRED_FONT).preferred_font;
     }, "[invalid game]");
@@ -1201,12 +1154,8 @@ scr_get_game_preferred_font (scr_game game)
 scr_bool
 scr_get_game_bold_room_names (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_bold_room_names"))
-    return FALSE;
-
-  return if_guarded ("scr_get_game_bold_room_names", [&] ()
+  return if_game_guarded (game, "scr_get_game_bold_room_names",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_BOLD_ROOM_NAMES).bold_room_names;
     }, FALSE);
@@ -1215,12 +1164,8 @@ scr_get_game_bold_room_names (scr_game game)
 scr_bool
 scr_get_game_verbose (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_verbose"))
-    return FALSE;
-
-  return if_guarded ("scr_get_game_verbose", [&] ()
+  return if_game_guarded (game, "scr_get_game_verbose",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_VERBOSE).verbose;
     }, FALSE);
@@ -1229,12 +1174,8 @@ scr_get_game_verbose (scr_game game)
 scr_bool
 scr_get_game_notify_score_change (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_notify_score_change"))
-    return FALSE;
-
-  return if_guarded ("scr_get_game_notify_score_change", [&] ()
+  return if_game_guarded (game, "scr_get_game_notify_score_change",
+                          [&] (scr_gameref_t game_)
     {
       return if_get_attributes (game_, IF_ATTR_NOTIFY_SCORE_CHANGE)
                .notify_score_change;
@@ -1244,12 +1185,8 @@ scr_get_game_notify_score_change (scr_game game)
 scr_bool
 scr_has_game_completed (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_has_game_completed"))
-    return FALSE;
-
-  return if_guarded ("scr_has_game_completed", [&] ()
+  return if_game_guarded (game, "scr_has_game_completed",
+                          [&] (scr_gameref_t game_)
     {
       return run_has_completed (game_);
     }, FALSE);
@@ -1258,12 +1195,8 @@ scr_has_game_completed (scr_game game)
 scr_bool
 scr_is_game_undo_available (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_is_game_undo_available"))
-    return FALSE;
-
-  return if_guarded ("scr_is_game_undo_available", [&] ()
+  return if_game_guarded (game, "scr_is_game_undo_available",
+                          [&] (scr_gameref_t game_)
     {
       return run_is_undo_available (game_);
     }, FALSE);
@@ -1280,12 +1213,8 @@ scr_is_game_undo_available (scr_game game)
 void
 scr_set_game_bold_room_names (scr_game game, scr_bool flag)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_set_game_bold_room_names"))
-    return;
-
-  if_guarded ("scr_set_game_bold_room_names", [&] ()
+  if_game_guarded (game, "scr_set_game_bold_room_names",
+                   [&] (scr_gameref_t game_)
     {
       const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
 
@@ -1297,12 +1226,7 @@ scr_set_game_bold_room_names (scr_game game, scr_bool flag)
 void
 scr_set_game_verbose (scr_game game, scr_bool flag)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_set_game_verbose"))
-    return;
-
-  if_guarded ("scr_set_game_verbose", [&] ()
+  if_game_guarded (game, "scr_set_game_verbose", [&] (scr_gameref_t game_)
     {
       const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
 
@@ -1314,12 +1238,8 @@ scr_set_game_verbose (scr_game game, scr_bool flag)
 void
 scr_set_game_notify_score_change (scr_game game, scr_bool flag)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_set_game_notify_score_change"))
-    return;
-
-  if_guarded ("scr_set_game_notify_score_change", [&] ()
+  if_game_guarded (game, "scr_set_game_notify_score_change",
+                   [&] (scr_gameref_t game_)
     {
       const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
 
@@ -1368,12 +1288,8 @@ scr_set_game_capacity_recompute (scr_game game, scr_bool flag)
 scr_bool
 scr_does_game_use_sounds (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_does_game_use_sounds"))
-    return FALSE;
-
-  return if_guarded ("scr_does_game_use_sounds", [&] ()
+  return if_game_guarded (game, "scr_does_game_use_sounds",
+                          [&] (scr_gameref_t game_)
     {
       return res_has_sound (game_);
     }, FALSE);
@@ -1382,12 +1298,8 @@ scr_does_game_use_sounds (scr_game game)
 scr_bool
 scr_does_game_use_graphics (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_does_game_use_graphics"))
-    return FALSE;
-
-  return if_guarded ("scr_does_game_use_graphics", [&] ()
+  return if_game_guarded (game, "scr_does_game_use_graphics",
+                          [&] (scr_gameref_t game_)
     {
       return res_has_graphics (game_);
     }, FALSE);
@@ -1448,12 +1360,8 @@ scr_game_scan_strings (scr_game game,
 scr_game_hint
 scr_get_first_game_hint (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_first_game_hint"))
-    return NULL;
-
-  return if_guarded ("scr_get_first_game_hint", [&] ()
+  return if_game_guarded (game, "scr_get_first_game_hint",
+                          [&] (scr_gameref_t game_)
     {
       return run_hint_iterate (game_, NULL);
     }, NULL);
@@ -1550,12 +1458,8 @@ scr_get_game_unsubtle_hint (scr_game game, scr_game_hint hint)
 void
 scr_set_game_debugger_enabled (scr_game game, scr_bool flag)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_set_game_debugger_enabled"))
-    return;
-
-  if_guarded ("scr_set_game_debugger_enabled", [&] ()
+  if_game_guarded (game, "scr_set_game_debugger_enabled",
+                   [&] (scr_gameref_t game_)
     {
       debug_set_enabled (game_, flag);
     });
@@ -1564,12 +1468,8 @@ scr_set_game_debugger_enabled (scr_game game, scr_bool flag)
 scr_bool
 scr_get_game_debugger_enabled (scr_game game)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_get_game_debugger_enabled"))
-    return FALSE;
-
-  return if_guarded ("scr_get_game_debugger_enabled", [&] ()
+  return if_game_guarded (game, "scr_get_game_debugger_enabled",
+                          [&] (scr_gameref_t game_)
     {
       return debug_get_enabled (game_);
     }, FALSE);
@@ -1578,12 +1478,8 @@ scr_get_game_debugger_enabled (scr_game game)
 scr_bool
 scr_run_game_debugger_command (scr_game game, const scr_char *debug_command)
 {
-  const scr_gameref_t game_ = (scr_gameref_t) game;
-
-  if (if_game_error (game_, "scr_run_game_debugger_command"))
-    return FALSE;
-
-  return if_guarded ("scr_run_game_debugger_command", [&] ()
+  return if_game_guarded (game, "scr_run_game_debugger_command",
+                          [&] (scr_gameref_t game_)
     {
       return debug_run_command (game_, debug_command);
     }, FALSE);

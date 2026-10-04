@@ -101,6 +101,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                                 scr_int resolver_arg, scr_bool *is_ambiguous);
 extern scr_bool lib_input_contains_word_400 (const scr_char *input,
                                              const scr_char *word);
+extern scr_int lib_prefix_words_in_input_400 (const scr_char *input,
+                                              const scr_char *prefix);
 
 /* sclibrar_examine.cpp */
 extern scr_bool lib_list_in_object (scr_gameref_t game, scr_int container,
@@ -300,6 +302,8 @@ extern scr_int lib_name_object_resolve_400 (scr_gameref_t game,
 extern const scr_char *
 lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
                          const scr_char *input, scr_bool last_alias);
+extern void lib_print_not_clear_which_400 (scr_gameref_t game,
+                                           const scr_char *term);
 extern scr_bool lib_co_400_raise_for_pending_tie (scr_gameref_t game);
 extern scr_bool lib_give_defer_catch_all;
 extern scr_bool lib_wear_is_put_line_380 (scr_gameref_t game);

@@ -147,6 +147,27 @@ debug_variable_count (scr_gameref_t game)
 
 
 /*
+ * debug_clear_watch_arrays()
+ *
+ * Clear every watchpoint array the debugger holds for the game.
+ */
+static void
+debug_clear_watch_arrays (scr_gameref_t game, scr_debuggerref_t debug)
+{
+  memset (debug->watch_objects, FALSE,
+          gs_object_count (game) * sizeof (*debug->watch_objects));
+  memset (debug->watch_npcs, FALSE,
+          gs_npc_count (game) * sizeof (*debug->watch_npcs));
+  memset (debug->watch_events, FALSE,
+          gs_event_count (game) * sizeof (*debug->watch_events));
+  memset (debug->watch_tasks, FALSE,
+          gs_task_count (game) * sizeof (*debug->watch_tasks));
+  memset (debug->watch_variables, FALSE,
+          debug_variable_count (game) * sizeof (*debug->watch_variables));
+}
+
+
+/*
  * debug_initialize()
  *
  * Create a new set of debug control information, and append it to the
@@ -178,16 +199,7 @@ debug_initialize (scr_gameref_t game)
                                       * sizeof (*debug->watch_variables));
 
   /* Clear all watchpoint arrays. */
-  memset (debug->watch_objects, FALSE,
-          gs_object_count (game) * sizeof (*debug->watch_objects));
-  memset (debug->watch_npcs, FALSE,
-          gs_npc_count (game) * sizeof (*debug->watch_npcs));
-  memset (debug->watch_events, FALSE,
-          gs_event_count (game) * sizeof (*debug->watch_events));
-  memset (debug->watch_tasks, FALSE,
-          gs_task_count (game) * sizeof (*debug->watch_tasks));
-  memset (debug->watch_variables, FALSE,
-          debug_variable_count (game) * sizeof (*debug->watch_variables));
+  debug_clear_watch_arrays (game, debug);
 
   /* Append the new debugger set to the game. */
   assert (!game->debugger);
@@ -1912,16 +1924,7 @@ debug_watchall_common (scr_gameref_t game,
   /* ...but reset all the fast way, with memset(). */
   assert (command == DEBUG_CLEARALL);
   debug->watch_player = FALSE;
-  memset (debug->watch_objects, FALSE,
-          gs_object_count (game) * sizeof (*debug->watch_objects));
-  memset (debug->watch_npcs, FALSE,
-          gs_npc_count (game) * sizeof (*debug->watch_npcs));
-  memset (debug->watch_events, FALSE,
-          gs_event_count (game) * sizeof (*debug->watch_events));
-  memset (debug->watch_tasks, FALSE,
-          gs_task_count (game) * sizeof (*debug->watch_tasks));
-  memset (debug->watch_variables, FALSE,
-          debug_variable_count (game) * sizeof (*debug->watch_variables));
+  debug_clear_watch_arrays (game, debug);
   if_print_debug ("Cleared all watchpoints.\n");
 }
 

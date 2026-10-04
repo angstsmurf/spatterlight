@@ -309,6 +309,21 @@ lib_cmd_locate_object (scr_gameref_t game)
   return TRUE;
 }
 
+/* Answer for a character the player has yet to meet; TRUE if that is so. */
+static scr_bool
+lib_npc_not_seen_yet (scr_gameref_t game, scr_int npc)
+{
+  if (gs_npc_seen (game, npc))
+    return FALSE;
+
+  lib_print_response_npc (game,
+                          "You haven't seen ",
+                          "I haven't seen ",
+                          "%player% haven't seen ",
+                          npc, " yet!\n");
+  return TRUE;
+}
+
 scr_bool
 lib_cmd_locate_npc (scr_gameref_t game)
 {
@@ -356,15 +371,8 @@ lib_cmd_locate_npc (scr_gameref_t game)
   var_set_ref_character (vars, npc);
 
   /* See if this NPC has been seen yet. */
-  if (!gs_npc_seen (game, npc))
-    {
-      lib_print_response_npc (game,
-                              "You haven't seen ",
-                              "I haven't seen ",
-                              "%player% haven't seen ",
-                              npc, " yet!\n");
-      return TRUE;
-    }
+  if (lib_npc_not_seen_yet (game, npc))
+    return TRUE;
 
   /*
    * A corpse gets its own answer, ahead of the room search.  The Runner
@@ -735,15 +743,8 @@ lib_cmd_status_npc (scr_gameref_t game)
   var_set_ref_character (vars, npc);
 
   /* Refuse to report on a character the player has not encountered. */
-  if (!gs_npc_seen (game, npc))
-    {
-      lib_print_response_npc (game,
-                              "You haven't seen ",
-                              "I haven't seen ",
-                              "%player% haven't seen ",
-                              npc, " yet!\n");
-      return TRUE;
-    }
+  if (lib_npc_not_seen_yet (game, npc))
+    return TRUE;
 
   lib_print_battle_status (game, npc);
   return TRUE;
