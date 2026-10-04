@@ -393,6 +393,33 @@ possible_keys (a5_state_t *st, const std::vector<std::string> &keys,
 }
 
 /*
+ * Make KEYS the items of the plural %objects% reference: unknown keys are
+ * skipped, and the item list (though not the returned text) is capped at
+ * A5_MAX_ITEMS.  The items point at the model's own keys, which outlive the
+ * turn.  Returns the keys joined with '|', the form ReferencedObjects is bound
+ * to.
+ */
+std::string
+set_ref_objects (a5_state_t *st, const std::vector<std::string> &keys)
+{
+  std::string pipe;
+
+  st->n_ref_items = 0;
+  st->ref_items_type = 'o';
+  for (auto &k : keys)
+    {
+      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
+      if (o == NULL)
+        continue;
+      if (st->n_ref_items < A5_MAX_ITEMS)
+        st->ref_items[st->n_ref_items++] = o->key;
+      if (!pipe.empty ()) pipe += "|";
+      pipe += o->key;
+    }
+  return pipe;
+}
+
+/*
  * Bind a captured reference under its "Referenced..." aliases (the resolved key)
  * plus a parallel "<alias>$text" carrying the raw typed text (for BeExactText).
  */
@@ -1012,18 +1039,7 @@ resolve_plural (a5_run_t *run, const a5_task_t *t, const std::string &text,
     if (std::find (uniq.begin (), uniq.end (), k) == uniq.end ())
       uniq.push_back (k);
 
-  st->n_ref_items = 0;
-  st->ref_items_type = 'o';
-  std::string pipe;
-  for (auto &k : uniq)
-    {
-      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-      if (o == NULL) continue;                 /* stable model-key pointer */
-      if (st->n_ref_items < A5_MAX_ITEMS)
-        st->ref_items[st->n_ref_items++] = o->key;
-      if (!pipe.empty ()) pipe += "|";
-      pipe += o->key;
-    }
+  std::string pipe = set_ref_objects (st, uniq);
   if (st->n_ref_items == 0)
     return RR_NOMATCH;
 

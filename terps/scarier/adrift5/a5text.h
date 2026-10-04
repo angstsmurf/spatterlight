@@ -197,6 +197,30 @@
 #define A5_UNDERLINE_MARK '\035'
 #define A5_ENDUNDERLINE_MARK '\036'
 
+/* A zero-width presentation mark: a stripped-tag stand-in (A5_ALR_MARK) or
+   one of the single-byte interactive-mode marks.  None of these is visible
+   output.  (The bookkeeping marks -- A5_CLS_MARK, A5_PS_MARK, A5_COMMIT_MARK,
+   A5_DEL_MARK -- are not included; the callers that also want those say so.) */
+static inline int
+a5_is_pres_mark (int c)
+{
+  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
+      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
+      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
+      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
+      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
+      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
+      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK;
+}
+
+/* A mark that opens and closes a payload span, \xNN<payload>\xNN, which must
+   be skipped (or kept) as a unit. */
+static inline int
+a5_is_span_mark (int c)
+{
+  return c == A5_IMG_MARK || c == A5_WINDOW_MARK || c == A5_SOUND_MARK
+      || c == A5_WAIT_MARK || c == A5_COLOUR_MARK;
+}
 
 /* Interactive-presentation mode toggle (default off; see marks above). */
 extern void a5text_set_interactive (int on);

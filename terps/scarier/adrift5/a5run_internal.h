@@ -550,6 +550,8 @@ void ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out);
 /* a5run_ref.cpp (reference resolution + multiple-object references) */
 void bind_reference (a5_state_t *st, const char *group, const char *value,
                      const char *text);
+std::string set_ref_objects (a5_state_t *st,
+                             const std::vector<std::string> &keys);
 int  obj_in_scope     (a5_state_t *st, const char *key);
 int  obj_visible      (a5_state_t *st, const char *key);
 int  obj_seen_p       (a5_state_t *st, const char *key);

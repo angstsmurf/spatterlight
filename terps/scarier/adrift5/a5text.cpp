@@ -3121,6 +3121,23 @@ replace_expressions (a5_state_t *st, const char *src)
   std::unordered_map<std::string, std::string> seen_val;
   std::unordered_map<std::string, size_t> seen_slot;
 
+  /* Push `body` on the deferred-expression sink and leave a `\004<idx>\004`
+     sentinel in the text where its value belongs. */
+  auto defer = [&] (const std::string &key, bool repeat, std::string body)
+    {
+      std::vector<std::string> *sink =
+          (std::vector<std::string> *) st->expr_defer;
+      char mark[24];
+
+      snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
+      if (repeat && seen_slot.count (key))
+        body = defer_dup_prefix (seen_slot[key]) + body;
+      else
+        seen_slot[key] = sink->size ();
+      sink->push_back (body);
+      sb_puts (&sb, mark);
+    };
+
   if (strstr (src, "<#") == NULL)
     return strdup (src);
 
@@ -3141,17 +3158,7 @@ replace_expressions (a5_state_t *st, const char *src)
                      UNSUBSTITUTED body, tagged \003, so both its substitution
                      draws and its reduce happen at the end-of-command flush,
                      in this block's text position. */
-                  std::vector<std::string> *sink =
-                      (std::vector<std::string> *) st->expr_defer;
-                  char mark[24];
-                  snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
-                  std::string body = std::string ("\003") + inner;
-                  if (repeat && seen_slot.count (key))
-                    body = defer_dup_prefix (seen_slot[key]) + body;
-                  else
-                    seen_slot[key] = sink->size ();
-                  sink->push_back (body);
-                  sb_puts (&sb, mark);
+                  defer (key, repeat, std::string ("\003") + inner);
                   free (inner);
                   p = end + 2;
                   continue;
@@ -3181,17 +3188,7 @@ replace_expressions (a5_state_t *st, const char *src)
                  reduce moves; a `\004<idx>\004` sentinel marks the value slot. */
               if (st->expr_defer != NULL && expr_bears_random (oo))
                 {
-                  std::vector<std::string> *sink =
-                      (std::vector<std::string> *) st->expr_defer;
-                  char mark[24];
-                  snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
-                  std::string body (oo);
-                  if (repeat && seen_slot.count (key))
-                    body = defer_dup_prefix (seen_slot[key]) + body;
-                  else
-                    seen_slot[key] = sink->size ();
-                  sink->push_back (body);
-                  sb_puts (&sb, mark);
+                  defer (key, repeat, oo);
                   free (inner); free (sub); free (oo);
                   p = end + 2;
                   continue;
@@ -3330,8 +3327,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
          the ink verdict must come out identical in both modes. */
       for (; *q; q++)
         {
-          if (*q == A5_IMG_MARK || *q == A5_WINDOW_MARK || *q == A5_SOUND_MARK
-              || *q == A5_WAIT_MARK || *q == A5_COLOUR_MARK)
+          if (a5_is_span_mark (*q))
             {
               /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024
                  / \026<seconds>\026 / \027<colour>\027 span (the window name
@@ -3343,14 +3339,7 @@ process_inner_ex (a5_state_t *st, const char *src, int depth, int *pre_alr_ink)
               q = e;
             }
           else if (*q != '\n' && *q != '\r' && *q != ' ' && *q != '\t'
-                   && *q != A5_ALR_MARK && *q != A5_WAITKEY_MARK
-                   && *q != A5_CENTER_MARK && *q != A5_ENDCENTER_MARK
-                   && *q != A5_BOLD_MARK && *q != A5_ENDBOLD_MARK
-                   && *q != A5_ITALIC_MARK && *q != A5_ENDITALIC_MARK
-                   && *q != A5_UNDERLINE_MARK && *q != A5_ENDUNDERLINE_MARK
-                   && *q != A5_RIGHT_MARK && *q != A5_ENDRIGHT_MARK
-                   && *q != A5_ENDCOLOUR_MARK && *q != A5_ENDWINDOW_MARK)
-
+                   && !a5_is_pres_mark (*q))
             { *pre_alr_ink = 1; break; }
         }
       free (pp);
@@ -3849,8 +3838,7 @@ a5text_strip_pres_marks (char *s)
     return;
   for (r = w = s; *r != '\0'; r++)
     {
-      if (*r == A5_IMG_MARK || *r == A5_WINDOW_MARK || *r == A5_SOUND_MARK
-          || *r == A5_WAIT_MARK || *r == A5_COLOUR_MARK)
+      if (a5_is_span_mark (*r))
         {
           /* A spanning mark goes with its payload: \006<number>\006 and
              friends, or nothing at all if the closing mark is missing. */
@@ -3860,13 +3848,7 @@ a5text_strip_pres_marks (char *s)
             r = (char *) e;
           continue;
         }
-      if (*r == A5_ALR_MARK || *r == A5_WAITKEY_MARK
-          || *r == A5_CENTER_MARK || *r == A5_ENDCENTER_MARK
-          || *r == A5_BOLD_MARK || *r == A5_ENDBOLD_MARK
-          || *r == A5_ITALIC_MARK || *r == A5_ENDITALIC_MARK
-          || *r == A5_UNDERLINE_MARK || *r == A5_ENDUNDERLINE_MARK
-          || *r == A5_RIGHT_MARK || *r == A5_ENDRIGHT_MARK
-          || *r == A5_ENDCOLOUR_MARK || *r == A5_ENDWINDOW_MARK
+      if (a5_is_pres_mark (*r)
           || *r == A5_CLS_MARK || *r == A5_PS_MARK || *r == A5_COMMIT_MARK)
         continue;
       *w++ = *r;
@@ -4196,6 +4178,20 @@ object_has_prop_rt (a5_state_t *st, const a5_object_t *o, const char *propkey)
   return a5_prop_find (o->props, o->n_props, propkey) != NULL;
 }
 
+/* Does object `oi` belong in the room view of `lockey`?  A dynamic object is
+   listed unless it is ExplicitlyExclude, a static one only if it is
+   ExplicitlyList -- and either way it must be directly at the location. */
+static int
+object_listed_at (a5_state_t *st, int oi, const char *lockey)
+{
+  const a5_object_t *o = &st->adv->objects[oi];
+  int listed = st->obj[oi].is_static
+      ? object_has_prop_rt (st, o, "ExplicitlyList")
+      : !object_has_prop_rt (st, o, "ExplicitlyExclude");
+
+  return listed && a5state_object_at_location (st, oi, lockey, 1);
+}
+
 /* Get an object's "list description" text (static/dynamic), or NULL. */
 static char *
 object_list_desc (a5_state_t *st, const a5_object_t *o, int is_static)
@@ -4361,10 +4357,8 @@ view_location_impl (a5_state_t *st, const char *lockey)
         {
           const a5_object_t *o = &st->adv->objects[i];
           int is_static = st->obj[i].is_static;
-          int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
-                      || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
           char *ld;
-          if (!include || !a5state_object_at_location (st, i, lockey, 1))
+          if (!object_listed_at (st, i, lockey))
             continue;
           ld = object_list_desc (st, o, is_static);          /* scan render */
           if (ld != NULL && ld[0] != '\0')
@@ -4412,10 +4406,8 @@ view_location_impl (a5_state_t *st, const char *lockey)
       {
         const a5_object_t *o = &st->adv->objects[i];
         int is_static = st->obj[i].is_static;
-        int include = (!is_static && !object_has_prop_rt (st, o, "ExplicitlyExclude"))
-                    || (is_static && object_has_prop_rt (st, o, "ExplicitlyList"));
         char *ld;
-        if (!include || !a5state_object_at_location (st, i, lockey, 1))
+        if (!object_listed_at (st, i, lockey))
           continue;
         ld = object_list_desc (st, o, is_static);
         if (ld != NULL && ld[0] != '\0') { free (ld); continue; } /* special-listed */

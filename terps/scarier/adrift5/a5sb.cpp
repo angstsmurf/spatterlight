@@ -96,23 +96,9 @@ sb_finish (sb_t *b) { return b->p ? b->p : strdup (""); }
 static int
 a5_is_single_pres_mark (unsigned char c)
 {
-  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
-      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
-      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
-      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
-      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
-      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
-      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK
+  return a5_is_pres_mark (c)
       || c == A5_CLS_MARK || c == A5_PS_MARK || c == A5_COMMIT_MARK
       || c == A5_DEL_MARK;
-}
-
-/* True when c opens/closes a payload span: \xNN…\xNN. */
-static int
-a5_is_spanning_pres_mark (unsigned char c)
-{
-  return c == A5_IMG_MARK || c == A5_WINDOW_MARK || c == A5_SOUND_MARK
-      || c == A5_WAIT_MARK || c == A5_COLOUR_MARK;
 }
 
 size_t
@@ -132,7 +118,7 @@ sb_del_glyph (sb_t *b, size_t from)
           i--;
           continue;
         }
-      if (a5_is_spanning_pres_mark (c))
+      if (a5_is_span_mark (c))
         {
           /* Skip the whole \xNN<payload>\xNN span; do not delete it. */
           size_t end = i - 1;

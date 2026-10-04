@@ -35,45 +35,71 @@ a5_be32 (const uint8_t *p)
        | ((uint32_t) p[2] << 8) | (uint32_t) p[3];
 }
 
-int
-a5blorb_find (const uint8_t *buf, uint32_t length,
-              uint32_t usage, uint32_t number, a5_blorb_chunk_t *out)
+/* TRUE if the buffer opens as a Blorb: FORM ... IFRS. */
+static int
+a5_is_blorb (const uint8_t *buf, uint32_t length)
 {
-  uint32_t pos, ridx_off, ridx_size, nresources, entry, index_;
+  return buf != NULL && length >= 12
+         && a5_be32 (buf) == A5_FOURCC ('F', 'O', 'R', 'M')
+         && a5_be32 (buf + 8) == A5_FOURCC ('I', 'F', 'R', 'S');
+}
 
-  if (buf == NULL || length < 12)
-    return 0;
+/* Walk the top-level chunks of a Blorb and hand each to accept(type, body,
+   size), stopping at the first it returns non-zero for.  The one place that
+   steps from chunk to chunk.  Returns what accept returned, or zero when no
+   chunk was accepted. */
+template <typename Accept>
+static int
+a5_each_chunk (const uint8_t *buf, uint32_t length, Accept accept)
+{
+  uint32_t pos = 12;
 
-  /* Outer wrapper must be FORM ... IFRS. */
-  if (a5_be32 (buf) != A5_FOURCC ('F', 'O', 'R', 'M')
-      || a5_be32 (buf + 8) != A5_FOURCC ('I', 'F', 'R', 'S'))
-    return 0;
-
-  /* Walk the top-level chunks looking for the resource index, RIdx. */
-  ridx_off = 0;
-  ridx_size = 0;
-  pos = 12;
   while (pos + 8 <= length)
     {
       uint32_t ctype = a5_be32 (buf + pos);
       uint32_t csize = a5_be32 (buf + pos + 4);
       uint32_t body = pos + 8;
 
-      if (ctype == A5_FOURCC ('R', 'I', 'd', 'x'))
-        {
-          ridx_off = body;
-          ridx_size = csize;
-          break;
-        }
-      /* Chunks are padded to an even length.  Guard the advance against a
-         garbled csize that would overflow uint32 and wrap pos backwards
-         (which would re-scan the same bytes forever). */
+      /* A chunk that claims more than the file holds is garbled, and ends
+         the walk. */
       if (csize > length - body)
         break;
+
+      if (accept (ctype, body, csize))
+        return 1;
+
+      /* Chunks are padded to an even length.  Guard the advance against a
+         csize that would overflow uint32 and wrap pos backwards (which would
+         re-scan the same bytes forever). */
       pos = body + csize + (csize & 1);
       if (pos < body)
         break;
     }
+
+  return 0;
+}
+
+int
+a5blorb_find (const uint8_t *buf, uint32_t length,
+              uint32_t usage, uint32_t number, a5_blorb_chunk_t *out)
+{
+  uint32_t ridx_off, ridx_size, nresources, entry, index_;
+
+  if (!a5_is_blorb (buf, length))
+    return 0;
+
+  /* Walk the top-level chunks looking for the resource index, RIdx. */
+  ridx_off = 0;
+  ridx_size = 0;
+  a5_each_chunk (buf, length,
+                 [&] (uint32_t ctype, uint32_t body, uint32_t csize)
+                 {
+                   if (ctype != A5_FOURCC ('R', 'I', 'd', 'x'))
+                     return 0;
+                   ridx_off = body;
+                   ridx_size = csize;
+                   return 1;
+                 });
 
   if (ridx_off == 0 || ridx_size < 4 || ridx_off + 4 > length)
     return 0;
@@ -127,83 +153,44 @@ a5blorb_find_exec (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
 int
 a5blorb_find_metadata (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
 {
-  uint32_t pos;
-
-  if (buf == NULL || length < 12)
+  if (!a5_is_blorb (buf, length))
     return 0;
 
-  if (a5_be32 (buf) != A5_FOURCC ('F', 'O', 'R', 'M')
-      || a5_be32 (buf + 8) != A5_FOURCC ('I', 'F', 'R', 'S'))
-    return 0;
-
-  pos = 12;
-  while (pos + 8 <= length)
-    {
-      uint32_t ctype = a5_be32 (buf + pos);
-      uint32_t csize = a5_be32 (buf + pos + 4);
-      uint32_t body = pos + 8;
-
-      if (csize > length - body)
-        break;
-
-      if (ctype == A5_FOURCC ('I', 'F', 'm', 'd'))
-        {
-          out->type = ctype;
-          out->data = buf + body;
-          out->size = csize;
-          return 1;
-        }
-
-      pos = body + csize + (csize & 1);
-      if (pos < body)
-        break;
-    }
-
-  return 0;
+  return a5_each_chunk (buf, length,
+                        [&] (uint32_t ctype, uint32_t body, uint32_t csize)
+                        {
+                          if (ctype != A5_FOURCC ('I', 'F', 'm', 'd'))
+                            return 0;
+                          out->type = ctype;
+                          out->data = buf + body;
+                          out->size = csize;
+                          return 1;
+                        });
 }
 
 int
 a5blorb_find_layout (const uint8_t *buf, uint32_t length, a5_blorb_chunk_t *out)
 {
-  uint32_t pos;
-
-  if (buf == NULL || length < 12)
+  if (!a5_is_blorb (buf, length))
     return 0;
 
-  if (a5_be32 (buf) != A5_FOURCC ('F', 'O', 'R', 'M')
-      || a5_be32 (buf + 8) != A5_FOURCC ('I', 'F', 'R', 'S'))
-    return 0;
-
-  pos = 12;
-  while (pos + 8 <= length)
-    {
-      uint32_t ctype = a5_be32 (buf + pos);
-      uint32_t csize = a5_be32 (buf + pos + 4);
-      uint32_t body = pos + 8;
-
-      if (csize > length - body)
-        break;
-
-      /* The Generator writes the layout through a data chunk, which is 'TEXT'
-         unless something set it to 'BINA' (Blorb.vb, DataChunk.ID); either
-         way the payload names its own type in its first four bytes. */
-      if ((ctype == A5_FOURCC ('T', 'E', 'X', 'T')
-           || ctype == A5_FOURCC ('B', 'I', 'N', 'A'))
-          && csize > 4
-          && a5_be32 (buf + body) == A5_FOURCC ('R', 'L', 'A', 'Y'))
-        {
-          out->type = ctype;
-          out->data = buf + body + 4;
-          out->size = csize - 4;
-          return 1;
-        }
-
-      pos = body + csize + (csize & 1);
-      if (pos < body)
-        break;
-    }
-
-  return 0;
+  /* The Generator writes the layout through a data chunk, which is 'TEXT'
+     unless something set it to 'BINA' (Blorb.vb, DataChunk.ID); either way
+     the payload names its own type in its first four bytes. */
+  return a5_each_chunk (buf, length,
+                        [&] (uint32_t ctype, uint32_t body, uint32_t csize)
+                        {
+                          if ((ctype != A5_FOURCC ('T', 'E', 'X', 'T')
+                               && ctype != A5_FOURCC ('B', 'I', 'N', 'A'))
+                              || csize <= 4
+                              || a5_be32 (buf + body)
+                                 != A5_FOURCC ('R', 'L', 'A', 'Y'))
+                            return 0;
+                          out->type = ctype;
+                          out->data = buf + body + 4;
+                          out->size = csize - 4;
+                          return 1;
+                        });
 }
 
 /* ------------------------------------------------ Runner layout (RLAY) XML */

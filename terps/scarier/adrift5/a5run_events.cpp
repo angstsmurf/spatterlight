@@ -363,6 +363,22 @@ ctrl_to_cmd (a5_ctrl_t ctrl)
   return A5_CMD_NONE;
 }
 
+/* The status guard of the UnCompletion loops, the same for a walk as for an
+   event: Start what is not running, Stop or Suspend what is, Resume what is
+   paused. */
+static int
+ctrl_suits_status (a5_ctrl_t ctrl, int status)
+{
+  switch (ctrl)
+    {
+    case A5_CTRL_START:   return status != A5_EV_RUNNING;
+    case A5_CTRL_STOP:
+    case A5_CTRL_SUSPEND: return status == A5_EV_RUNNING;
+    case A5_CTRL_RESUME:  return status == A5_EV_PAUSED;
+    }
+  return 0;
+}
+
 /* clsUserSession: when a task completes (bPass), fire any EventControls. */
 void
 ev_on_task_completed (a5_run_t *run, const char *task_key, sb_t *out)
@@ -415,22 +431,8 @@ ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out)
           const a5_eventctrl_t *c = &wk->controls[ci];
           if (c->on_completion || !streq (c->task_key, task_key))
             continue;
-          switch (c->control)
-            {
-            case A5_CTRL_START:
-              if (rt.status != A5_EV_RUNNING)
-                wk_control (run, (int) wi, c->control, task_key);
-              break;
-            case A5_CTRL_STOP:
-            case A5_CTRL_SUSPEND:
-              if (rt.status == A5_EV_RUNNING)
-                wk_control (run, (int) wi, c->control, task_key);
-              break;
-            case A5_CTRL_RESUME:
-              if (rt.status == A5_EV_PAUSED)
-                wk_control (run, (int) wi, c->control, task_key);
-              break;
-            }
+          if (ctrl_suits_status (c->control, rt.status))
+            wk_control (run, (int) wi, c->control, task_key);
         }
     }
   for (ei = 0; ei < run->adv->n_events; ei++)
@@ -443,25 +445,8 @@ ev_on_task_uncompleted (a5_run_t *run, const char *task_key, sb_t *out)
           const a5_eventctrl_t *c = &e->controls[ci];
           if (c->on_completion || !streq (c->task_key, task_key))
             continue;
-          switch (c->control)
-            {
-            case A5_CTRL_START:
-              if (rt.status != A5_EV_RUNNING)
-                ev_control (run, ei, A5_CMD_START, task_key, out);
-              break;
-            case A5_CTRL_STOP:
-              if (rt.status == A5_EV_RUNNING)
-                ev_control (run, ei, A5_CMD_STOP, task_key, out);
-              break;
-            case A5_CTRL_SUSPEND:
-              if (rt.status == A5_EV_RUNNING)
-                ev_control (run, ei, A5_CMD_PAUSE, task_key, out);
-              break;
-            case A5_CTRL_RESUME:
-              if (rt.status == A5_EV_PAUSED)
-                ev_control (run, ei, A5_CMD_RESUME, task_key, out);
-              break;
-            }
+          if (ctrl_suits_status (c->control, rt.status))
+            ev_control (run, ei, ctrl_to_cmd (c->control), task_key, out);
         }
     }
 }

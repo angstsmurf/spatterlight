@@ -144,19 +144,11 @@ eval_num_value (a5_state_t *st, const char *raw)
          the runner resolves it via ReplaceFunctions before Global.Random, so substitute
          %tokens% first -- otherwise the bound parses as 0 and the whole
          age/decoration/aura draw collapses to a no-op RAND(0,0). */
-      long lo = 0, hi = 0;
-      char *end;
       char *sub = (strchr (raw, '%') != NULL)
                     ? a5text_process_noalr (st, raw) : NULL;
-      const char *rr = sub ? sub : raw;
-      const char *p = rr + 4;
-      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
-      lo = strtol (p, &end, 10);
-      p = end;
-      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
-      hi = (*p) ? strtol (p, NULL, 10) : lo;
+      long drawn = a5rand_between_args ((sub ? sub : raw) + 4);
       free (sub);
-      return a5rand_between (lo, hi);
+      return drawn;
     }
   /* NO ALR pass here: the runner evaluates action values via EvaluateExpression
      (ReplaceFunctions only); ReplaceALRs is Display-time.  GFS's display ALR
@@ -1811,13 +1803,15 @@ act_object_group (a5_run_t *run, const char *kind,
 
 /* The "who" selectors shared by MoveCharacter and Add/RemoveCharacterToGroup
    (clsAction reuses MoveCharacterWhoEnum, clsUserSession.vb:1689/1841): collect
-   the affected character indices.  Returns 0 for a selector it does not cover
-   -- EveryoneWithProperty's presence test differs between the two actions, so
-   it stays with each caller. */
+   the affected character indices from the action's tokens, tk[0] the selector
+   and tk[1] its key.  Returns 0 for a selector it does not know. */
 static int
-collect_character_who (a5_state_t *st, const std::string &who, const char *whok,
+collect_character_who (a5_state_t *st, const std::vector<std::string> &tk,
                        std::vector<int> &cis)
 {
+  const std::string &who = tk[0];
+  const char *whok = act_key (st, tk[1].c_str ());
+
   if (who == "Character")
     { int ci = a5state_character_index (st, whok); if (ci >= 0) cis.push_back (ci); }
   else if (who == "EveryoneAtLocation")
@@ -1843,6 +1837,15 @@ collect_character_who (a5_state_t *st, const std::string &who, const char *whok,
         if (streq (st->char_onobj[i], whok) && st->char_in[i] == want_in)
           cis.push_back (i);
     }
+  else if (who == "EveryoneWithProperty")
+    {
+      /* Here tk[1] is the property, taken as written, and its value follows. */
+      std::string propval = withprop_value (tk);
+      for (int i = 0; i < st->adv->n_characters; i++)
+        if (withprop_matches (st, st->adv->characters[i].key,
+                              tk[1].c_str (), propval))
+          cis.push_back (i);
+    }
   else
     return 0;
   return 1;
@@ -1860,20 +1863,10 @@ act_character_group (a5_run_t *run, const char *kind,
   a5_state_t *st = run->st;
   if (tk.size () < 4)
     return;
-  const std::string &who = tk[0];
-  const char *whok = act_key (st, tk[1].c_str ());
   const char *grp = tk[tk.size () - 1].c_str ();
   int add = streq (kind, "AddCharacterToGroup");
   std::vector<int> cis;
-  if (who == "EveryoneWithProperty")
-    {
-      std::string propval = withprop_value (tk);
-      for (int i = 0; i < st->adv->n_characters; i++)
-        if (withprop_matches (st, st->adv->characters[i].key,
-                              tk[1].c_str (), propval))
-          cis.push_back (i);
-    }
-  else if (!collect_character_who (st, who, whok, cis))
+  if (!collect_character_who (st, tk, cis))
     return;
   for (int ci : cis)
     a5state_set_object_in_group (st, grp, st->adv->characters[ci].key, add);
@@ -1969,18 +1962,8 @@ act_move_character (a5_run_t *run, const char * /*kind*/,
      wand-teleport `EveryoneAtLocation Location33 ToLocation Location34`.
      Token layout is identical to MoveObject: tk[0]=who, tk[1]=who-key,
      tk[2]=to, tk[3]=to-key. */
-  const std::string &who = tk[0];
-  const char *whok = act_key (st, tk[1].c_str ());
   std::vector<int> cis;
-  if (who == "EveryoneWithProperty")
-    {
-      std::string propval = withprop_value (tk);
-      for (int i = 0; i < st->adv->n_characters; i++)
-        if (withprop_matches (st, st->adv->characters[i].key,
-                              tk[1].c_str (), propval))
-          cis.push_back (i);
-    }
-  else if (!collect_character_who (st, who, whok, cis))
+  if (!collect_character_who (st, tk, cis))
     return;
   if (cis.empty ())
     return;

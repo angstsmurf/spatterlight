@@ -261,6 +261,25 @@ find_conv_node (a5_run_t *run, const a5_character_t *ch, int conv_type,
   return best;
 }
 
+/* Run a topic's actions.  The runner runs them through the ActionArrayList
+   ExecuteActions overload, which passes task = Nothing to ExecuteSingleAction
+   -- so they carry NO owning task even though a library Say/Ask task triggered
+   the conversation (and a topic's Score changes never land; see the Score gate
+   in the variable actions). */
+static void
+run_topic_actions (a5_run_t *run, const a5_topic_t *topic, sb_t *out)
+{
+  int saved_sti = run->cur_score_ti;
+
+  if (topic->actions == NULL)
+    return;
+  run->cur_score_ti = -1;
+  for (const a5_xml_node_t *c = topic->actions->first_child; c != NULL;
+       c = c->next)
+    run_action (run, c->name, c->text, 0, out);
+  run->cur_score_ti = saved_sti;
+}
+
 /*
  * ExecuteConversation (clsUserSession): drive a Greet/Ask/Tell/Command/Farewell
  * against a character -- implicit/explicit intro on first contact, then the
@@ -313,21 +332,7 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
           if (intro->is_ask || intro->is_tell || intro->is_command)
             {
               a5state_set_conv_char (st, char_key);
-              if (intro->actions != NULL)
-                {
-                  /* The runner runs topic actions through the ActionArrayList
-                     ExecuteActions overload, which passes task = Nothing to
-                     ExecuteSingleAction -- so they carry NO owning task even
-                     though a library Say/Ask task triggered the conversation
-                     (and a topic's Score changes never land; see the Score
-                     gate in the variable actions). */
-                  int saved_sti = run->cur_score_ti;
-                  run->cur_score_ti = -1;
-                  for (const a5_xml_node_t *c = intro->actions->first_child;
-                       c != NULL; c = c->next)
-                    run_action (run, c->name, c->text, 0, out);
-                  run->cur_score_ti = saved_sti;
-                }
+              run_topic_actions (run, intro, out);
               return;
             }
         }
@@ -356,16 +361,7 @@ exec_conversation (a5_run_t *run, const char *char_key, int conv_type,
         a5state_set_conv_node (st, topic->key);
       else if (!topic->stay_in_node)
         a5state_set_conv_node (st, "");
-      if (topic->actions != NULL)
-        {
-          /* task = Nothing for topic actions, as above. */
-          int saved_sti = run->cur_score_ti;
-          run->cur_score_ti = -1;
-          for (const a5_xml_node_t *c = topic->actions->first_child;
-               c != NULL; c = c->next)
-            run_action (run, c->name, c->text, 0, out);
-          run->cur_score_ti = saved_sti;
-        }
+      run_topic_actions (run, topic, out);
     }
   else
     {

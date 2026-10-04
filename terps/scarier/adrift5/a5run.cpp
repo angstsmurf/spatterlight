@@ -62,23 +62,6 @@ int a5run_trace = 0;
 
 /* -------------------------------------------------------------- message tests */
 
-/* A non-spanning presentation sentinel: a stripped-tag stand-in (A5_ALR_MARK)
-   or one of the interactive-mode marks.  None of these are visible output.
-   (The spanning A5_IMG_MARK / A5_WINDOW_MARK pairs are handled at each call
-   site, since their payload must be skipped as a unit.) */
-static int
-is_pres_mark (char c)
-{
-  return c == A5_ALR_MARK || c == A5_WAITKEY_MARK
-      || c == A5_CENTER_MARK || c == A5_ENDCENTER_MARK
-      || c == A5_BOLD_MARK || c == A5_ENDBOLD_MARK
-      || c == A5_ITALIC_MARK || c == A5_ENDITALIC_MARK
-      || c == A5_UNDERLINE_MARK || c == A5_ENDUNDERLINE_MARK
-      || c == A5_RIGHT_MARK || c == A5_ENDRIGHT_MARK
-      || c == A5_ENDCOLOUR_MARK || c == A5_ENDWINDOW_MARK;
-
-}
-
 /* The runner's bHasOutput (clsUserSession.vb:1272) for an ALREADY-RENDERED plain message
    (the form Scarier holds at every response/emit site, after markup has been
    converted to plain).  The runner keeps a message unless StripCarats leaves the empty
@@ -104,8 +87,7 @@ msg_has_output (const char *m)
     return 0;
   for (; *m != '\0'; m++)
     {
-      if (*m == A5_IMG_MARK || *m == A5_WINDOW_MARK || *m == A5_SOUND_MARK
-          || *m == A5_WAIT_MARK || *m == A5_COLOUR_MARK)
+      if (a5_is_span_mark (*m))
         {
           /* Skip the \006<number>\006 / \022<name>\022 / \024<index>\024 /
              \026<seconds>\026 / \027<colour>\027 span (or a stray mark). */
@@ -114,7 +96,7 @@ msg_has_output (const char *m)
             continue;
           m = e;
         }
-      else if (!is_pres_mark (*m))
+      else if (!a5_is_pres_mark (*m))
         return 1;
     }
   return 0;
@@ -150,7 +132,7 @@ msg_ends_with_cls (const char *m)
           n = j - 1;
           continue;
         }
-      if (!is_pres_mark (c))
+      if (!a5_is_pres_mark (c))
         return 0;
       n--;
     }
@@ -1618,6 +1600,13 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
           return 1;
       return 0;
     };
+    /* Takes ownership of the heap name. */
+    auto dont_understand = [&] (char *name) {
+      sb_puts (out, "I don't understand what you want to do with ");
+      sb_puts (out, name);
+      sb_puts (out, ".");
+      free (name);
+    };
     for (int oi = 0; oi < st->adv->n_objects; oi++)
       {
         const a5_object_t *o = &st->adv->objects[oi];
@@ -1632,11 +1621,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
         int hit = (o->n_names == 0) ? 1 : noun_substr (nouns);
         if (hit)
           {
-            char *nm = a5text_object_name (st, o, A5_ART_DEFINITE);
-            sb_puts (out, "I don't understand what you want to do with ");
-            sb_puts (out, nm);
-            sb_puts (out, ".");
-            free (nm);
+            dont_understand (a5text_object_name (st, o, A5_ART_DEFINITE));
             return;
           }
       }
@@ -1655,11 +1640,7 @@ not_understood (a5_run_t *run, const std::string &in, sb_t *out)
           nouns.push_back (lower (c->name));
         if (noun_substr (nouns))
           {
-            char *nm = a5text_character_known_name (st, c, 0);
-            sb_puts (out, "I don't understand what you want to do with ");
-            sb_puts (out, nm);
-            sb_puts (out, ".");
-            free (nm);
+            dont_understand (a5text_character_known_name (st, c, 0));
             return;
           }
       }
@@ -2535,6 +2516,20 @@ sb_elem_l (sb_t *b, const char *tag, long v)
   sb_elem (b, tag, render_long (num, sizeof num, v));
 }
 
+/* Write a <tag> naming the key of each entity whose flag is set: a "seen"
+   array, sparse by key.  An array that was never allocated writes nothing. */
+template <typename Entity>
+static void
+sb_flagged_keys (sb_t *b, const char *tag, const char *flags,
+                 const Entity *entities, int count)
+{
+  if (flags == NULL)
+    return;
+  for (int i = 0; i < count; i++)
+    if (flags[i])
+      sb_elem (b, tag, entities[i].key);
+}
+
 /* Pre-order list of every node in the game DOM, so a <DisplayOnce> segment
    (tracked by node pointer) has a stable index across a save/restore that
    re-parses an identical game file. */
@@ -2718,22 +2713,13 @@ save_scarier_body (sb_t *b, a5_run_t *run)
     }
 
   /* "Seen" sets (sparse, by key). */
-  if (st->obj_seen != NULL)
-    for (i = 0; i < adv->n_objects; i++)
-      if (st->obj_seen[i])
-        sb_elem (b, "ObjSeen", adv->objects[i].key);
-  if (st->char_seen != NULL)
-    for (i = 0; i < adv->n_characters; i++)
-      if (st->char_seen[i])
-        sb_elem (b, "CharSeen", adv->characters[i].key);
-  if (st->char_introduced != NULL)
-    for (i = 0; i < adv->n_characters; i++)
-      if (st->char_introduced[i])
-        sb_elem (b, "CharIntroduced", adv->characters[i].key);
-  if (st->loc_seen != NULL)
-    for (i = 0; i < adv->n_locations; i++)
-      if (st->loc_seen[i])
-        sb_elem (b, "LocSeen", adv->locations[i].key);
+  sb_flagged_keys (b, "ObjSeen", st->obj_seen, adv->objects, adv->n_objects);
+  sb_flagged_keys (b, "CharSeen", st->char_seen,
+                   adv->characters, adv->n_characters);
+  sb_flagged_keys (b, "CharIntroduced", st->char_introduced,
+                   adv->characters, adv->n_characters);
+  sb_flagged_keys (b, "LocSeen", st->loc_seen,
+                   adv->locations, adv->n_locations);
 
   /* Per-character seen sets for any OTHER viewpoint a BECOME game has switched
      away from (the active player's set is the top-level ObjSeen/CharSeen/LocSeen
@@ -2742,7 +2728,6 @@ save_scarier_body (sb_t *b, a5_run_t *run)
      game. */
   for (i = 0; i < adv->n_characters; i++)
     {
-      int j;
       char *os = st->seen_stash_obj  ? st->seen_stash_obj[i]  : NULL;
       char *cs = st->seen_stash_char ? st->seen_stash_char[i] : NULL;
       char *ls = st->seen_stash_loc  ? st->seen_stash_loc[i]  : NULL;
@@ -2750,15 +2735,9 @@ save_scarier_body (sb_t *b, a5_run_t *run)
         continue;
       sb_puts (b, "<SeenChar>\n");
       sb_elem (b, "Key", adv->characters[i].key);
-      if (os != NULL)
-        for (j = 0; j < adv->n_objects; j++)
-          if (os[j]) sb_elem (b, "ObjSeen", adv->objects[j].key);
-      if (cs != NULL)
-        for (j = 0; j < adv->n_characters; j++)
-          if (cs[j]) sb_elem (b, "CharSeen", adv->characters[j].key);
-      if (ls != NULL)
-        for (j = 0; j < adv->n_locations; j++)
-          if (ls[j]) sb_elem (b, "LocSeen", adv->locations[j].key);
+      sb_flagged_keys (b, "ObjSeen", os, adv->objects, adv->n_objects);
+      sb_flagged_keys (b, "CharSeen", cs, adv->characters, adv->n_characters);
+      sb_flagged_keys (b, "LocSeen", ls, adv->locations, adv->n_locations);
       sb_puts (b, "</SeenChar>\n");
     }
 
@@ -3100,19 +3079,12 @@ save_fd_game (sb_t *b, a5_run_t *run, int lean)
          player character (the runner stores per-character; NPC seen-sets are untracked). */
       if (streq (key, player))
         {
-          int k;
-          if (st->obj_seen != NULL)
-            for (k = 0; k < adv->n_objects; k++)
-              if (st->obj_seen[k])
-                sb_elem (b, "Seen", adv->objects[k].key);
-          if (st->char_seen != NULL)
-            for (k = 0; k < adv->n_characters; k++)
-              if (st->char_seen[k])
-                sb_elem (b, "Seen", adv->characters[k].key);
-          if (st->loc_seen != NULL)
-            for (k = 0; k < adv->n_locations; k++)
-              if (st->loc_seen[k])
-                sb_elem (b, "Seen", adv->locations[k].key);
+          sb_flagged_keys (b, "Seen", st->obj_seen,
+                           adv->objects, adv->n_objects);
+          sb_flagged_keys (b, "Seen", st->char_seen,
+                           adv->characters, adv->n_characters);
+          sb_flagged_keys (b, "Seen", st->loc_seen,
+                           adv->locations, adv->n_locations);
         }
 
       fd_write_props (b, st, key,
@@ -3937,6 +3909,18 @@ a5run_undo_forget (a5_run_t *run)
   run->undo_turn_text.clear ();
 }
 
+/* Drop any open "Which X?" question, with everything remembered about it. */
+static void
+amb_forget (a5_run_t *run)
+{
+  run->amb_active = 0;
+  run->amb_task_index = run->amb_command_index = -1;
+  run->amb_keys.clear ();
+  run->amb_input.clear ();
+  run->amb_ref_name.clear ();
+  run->amb_word.clear ();
+}
+
 /* Restore the newest snapshot (undo the last turn).  Returns 1 on success, 0
    when no undo point remains or the restore failed.  Each snapshot is consumed
    on a successful undo, so repeated UNDO walks back up to A5_UNDO_DEPTH turns
@@ -3964,12 +3948,7 @@ a5run_undo (a5_run_t *run)
   /* The runner's Undo() restores the session's sTurnOutput along with the
      state; the post-game guard replays it after "Undone.". */
   run->last_turn_text = std::move (turn_text);
-  run->amb_active = 0;
-  run->amb_task_index = run->amb_command_index = -1;
-  run->amb_keys.clear ();
-  run->amb_input.clear ();
-  run->amb_ref_name.clear ();
-  run->amb_word.clear ();
+  amb_forget (run);
   run->remembered_verb.clear ();
   run->pending_failover = NULL;
   return 1;
@@ -4127,12 +4106,7 @@ a5run_pending_restore (a5_run_t *run, const char *data, size_t len)
         verb = value;
     }
 
-  run->amb_active = 0;
-  run->amb_task_index = run->amb_command_index = -1;
-  run->amb_keys.clear ();
-  run->amb_input.clear ();
-  run->amb_ref_name.clear ();
-  run->amb_word.clear ();
+  amb_forget (run);
   run->remembered_verb = verb;
   if (has_amb)
     {

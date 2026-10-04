@@ -220,17 +220,7 @@ num_value (a5_state_t *st, const char *k)
         { memcpy (unq, s + 1, len - 2); unq[len - 2] = '\0'; s = unq; }
     }
   if (s != NULL && strncmp (s, "RAND", 4) == 0)
-    {
-      long lo = 0, hi = 0;
-      char *end;
-      const char *p = s + 4;
-      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
-      lo = strtol (p, &end, 10);
-      p = end;
-      while (*p && !(*p == '-' || (*p >= '0' && *p <= '9'))) p++;
-      hi = (*p) ? strtol (p, NULL, 10) : lo;
-      return a5rand_between (lo, hi);
-    }
+    return a5rand_between_args (s + 4);
   /* A bare numeric restriction value is an integer LITERAL, never a variable
      key: the runner's FileIO.LoadRestrictions stores `IntValue = CInt(sElements(3))`
      when `sElements.Length = 4 AndAlso IsNumeric(sElements(3))`, and only takes

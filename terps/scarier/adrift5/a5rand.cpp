@@ -99,6 +99,27 @@ a5rand_between (long lo, long hi)
   }
 }
 
+/* Step to the next thing that can open an integer: a digit or a minus sign. */
+static const char *
+a5rand_skip_to_int (const char *p)
+{
+  while (*p != '\0' && *p != '-' && !(*p >= '0' && *p <= '9'))
+    p++;
+  return p;
+}
+
+long
+a5rand_between_args (const char *args)
+{
+  char *end;
+  long lo, hi;
+
+  lo = strtol (a5rand_skip_to_int (args), &end, 10);
+  args = a5rand_skip_to_int (end);
+  hi = (*args != '\0') ? strtol (args, NULL, 10) : lo;
+  return a5rand_between (lo, hi);
+}
+
 enum { A5RAND_POOL_LIMIT = 65536 };
 
 long

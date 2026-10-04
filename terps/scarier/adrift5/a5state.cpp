@@ -32,6 +32,27 @@
 
 /* ----------------------------------------------------------------- helpers */
 
+/* Make room for one more element in a grow-by-doubling array holding `n` of
+   `cap` (`first` slots to begin with).  Returns 0, leaving the array and its
+   capacity as they were, if realloc fails. */
+template <typename T>
+static int
+a5_reserve_one (T *&arr, int &cap, int n, int first)
+{
+  int nc;
+  T *grown;
+
+  if (n < cap)
+    return 1;
+  nc = cap ? cap * 2 : first;
+  grown = (T *) realloc (arr, (size_t) nc * sizeof *arr);
+  if (grown == NULL)
+    return 0;
+  arr = grown;
+  cap = nc;
+  return 1;
+}
+
 static int
 obj_has_prop (const a5_object_t *o, const char *key)
 {
@@ -464,16 +485,8 @@ void
 a5state_push_look (a5_state_t *st, const char *loc_key, const char *text,
                    const char *event_key)
 {
-  if (st->n_looks == st->cap_looks)
-    {
-      int nc = st->cap_looks ? st->cap_looks * 2 : 4;
-      a5_looktext_t *grown = (a5_looktext_t *)
-        realloc (st->looks, (size_t) nc * sizeof *st->looks);
-      if (grown == NULL)
-        return;
-      st->looks = grown;
-      st->cap_looks = nc;
-    }
+  if (!a5_reserve_one (st->looks, st->cap_looks, st->n_looks, 4))
+    return;
   st->looks[st->n_looks].loc_key   = strdup (loc_key ? loc_key : "");
   st->looks[st->n_looks].text      = strdup (text ? text : "");
   st->looks[st->n_looks].event_key = strdup (event_key ? event_key : "");
@@ -527,16 +540,8 @@ a5state_disp_once_mark (a5_state_t *st, const void *node)
 {
   if (node == NULL || a5state_disp_once_seen (st, node))
     return;
-  if (st->n_disp_once >= st->cap_disp_once)
-    {
-      int nc = st->cap_disp_once ? st->cap_disp_once * 2 : 8;
-      const void **grown = (const void **) realloc (st->disp_once,
-                                                    (size_t) nc * sizeof *st->disp_once);
-      if (grown == NULL)
-        return;
-      st->disp_once = grown;
-      st->cap_disp_once = nc;
-    }
+  if (!a5_reserve_one (st->disp_once, st->cap_disp_once, st->n_disp_once, 8))
+    return;
   st->disp_once[st->n_disp_once++] = node;
 }
 
@@ -713,16 +718,8 @@ a5state_group_add_member (a5_state_t *st, const char *grpkey, const char *key)
 {
   if (grpkey == NULL || key == NULL || gm_find (st, grpkey, key) >= 0)
     return;
-  if (st->n_gm >= st->cap_gm)
-    {
-      int nc = st->cap_gm ? st->cap_gm * 2 : 16;
-      a5_grpmem_t *grown = (a5_grpmem_t *) realloc (st->gm,
-                                                    (size_t) nc * sizeof *st->gm);
-      if (grown == NULL)
-        return;
-      st->gm = grown;
-      st->cap_gm = nc;
-    }
+  if (!a5_reserve_one (st->gm, st->cap_gm, st->n_gm, 16))
+    return;
   st->gm[st->n_gm].grp = strdup (grpkey);
   st->gm[st->n_gm].key = strdup (key);
   st->n_gm++;
@@ -857,16 +854,8 @@ a5state_set_prop (a5_state_t *st, const char *entkey, const char *propkey,
       ov->value = strdup (value ? value : "");
       return;
     }
-  if (st->n_ov >= st->cap_ov)
-    {
-      int nc = st->cap_ov ? st->cap_ov * 2 : 8;
-      a5_prop_ov_t *grown = (a5_prop_ov_t *) realloc (st->ov,
-                                                      (size_t) nc * sizeof *st->ov);
-      if (grown == NULL)
-        return;
-      st->ov = grown;
-      st->cap_ov = nc;
-    }
+  if (!a5_reserve_one (st->ov, st->cap_ov, st->n_ov, 8))
+    return;
   st->ov[st->n_ov].entity = strdup (entkey);
   st->ov[st->n_ov].prop = strdup (propkey);
   st->ov[st->n_ov].value = strdup (value ? value : "");

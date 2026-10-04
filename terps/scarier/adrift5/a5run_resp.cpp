@@ -388,18 +388,7 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
 static void
 rebind_objects (a5_state_t *st, const std::vector<std::string> &keys)
 {
-  std::string pipe;
-  st->n_ref_items = 0;
-  st->ref_items_type = 'o';
-  for (auto &k : keys)
-    {
-      const a5_object_t *o = a5model_object (st->adv, k.c_str ());
-      if (o == NULL) continue;
-      if (st->n_ref_items < A5_MAX_ITEMS)
-        st->ref_items[st->n_ref_items++] = o->key;
-      if (!pipe.empty ()) pipe += "|";
-      pipe += o->key;
-    }
+  std::string pipe = set_ref_objects (st, keys);
   bind_reference (st, "objects", pipe.c_str (), pipe.c_str ());
   a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
 }
