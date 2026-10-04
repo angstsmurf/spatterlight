@@ -1972,6 +1972,7 @@ const scr_char *
 var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
 {
   static std::set<std::string> duplicate_keys;
+  scr_vartype_t vt_key;
   const scr_char *name;
   scr_int earlier;
 
@@ -1987,8 +1988,16 @@ var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
       var_names.clear ();
       var_names_bundle = bundle;
     }
-  if (index_ < (scr_int) var_names.size () && var_names[index_])
+  if (index_ >= 0 && index_ < (scr_int) var_names.size () && var_names[index_])
     return var_names[index_];
+
+  /*
+   * The index is the game's: a restriction, action or save names its
+   * variable by number, and a damaged file can name one that is not there.
+   */
+  vt_key.string = "Variables";
+  if (index_ < 0 || index_ >= prop_get_child_count (bundle, "I<-s", &vt_key))
+    scr_fatal ("var_indexed_name: no variable %ld\n", index_);
   if (index_ >= (scr_int) var_names.size ())
     var_names.resize (index_ + 1, NULL);
 
