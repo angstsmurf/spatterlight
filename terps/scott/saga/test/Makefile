@@ -282,11 +282,50 @@ zxtest: build/zxtest build/zxvectortest
 	if [ -z "$(ZX_GOLDENS)$(ZXVEC_GOLDENS)" ]; then echo "ZX: no goldens yet"; exit 0; fi; \
 	if [ $$fail -eq 0 ]; then echo "ZX: all goldens byte-exact"; else echo "ZX: FAILURES"; exit 1; fi
 
+# ---- Scene tests: the whole interpreter against hardware screen dumps ---------
+# The picture paths that live above the renderers — the game-specific Look
+# routines (Hulk's item overlays, Robin of Sherwood's forest composites, the
+# Gremlins animations), Seas of Blood's Taylor-style pictures, the Howarth
+# vector pictures of the Mysterious Adventures, every Irmak version, the C64
+# palette remaps and image patches, and the ZX loading screen — cannot be
+# reached by unity-including one renderer. scenetest.c runs the real glk_main()
+# instead: a .scene command script plays the game, glk_window_fill_rect paints
+# into a framebuffer, and `!check` lines compare it with a screen dump captured
+# under an emulator at the same point of the same game (zx_capture.lua for
+# MAME, c64_capture.py for VICE; see the header of scenetest.c for the script
+# format, groundtruth_scene/README.md for the capture recipe).
+#
+# Same loader object set as extract_images_c64 (whose unp64 objects are reused),
+# plus the Taylor picture renderer and the real random number generator. The
+# interpreter sources are built with -include scene_glk.h, which redirects their
+# Glk window/event calls to the fake window layer in scenetest.c.
+SCENE_CSRCS := $(filter-out extract_images.c,$(C64X_CSRCS)) \
+  $(TERPS)/aiukgraphics/taylordraw.c $(TERPS)/common_utils/randomness.c
+SCENES := $(wildcard groundtruth_scene/*/*.scene)
+
+build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64
+	@mkdir -p build/sceneobj
+	@echo "compiling scene harness..."; objs=""; for f in $(SCENE_CSRCS); do \
+	  o="build/sceneobj/$$(echo $$f | tr '/.' '__').o"; \
+	  $(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT -DSAGA_REAL_C64_DECRUNCH -DSAGA_SCENE_HARNESS \
+	    -include stddef.h -include scene_glk.h $(EXTRACT_INC) -I$(TERPS)/taylor -I$(UNP64) -c "$$f" -o "$$o" || exit 1; \
+	  objs="$$objs $$o"; done; \
+	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \
+	c++ -g -O0 build/sceneobj/scenetest.o $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
+
+scenetest: build/scenetest
+	@[ -n "$(SCENES)" ] || { echo "Scenes: no goldens yet"; exit 0; }; \
+	fail=0; for s in $(SCENES); do \
+	  echo "$$(basename $$(dirname $$s))/$$(basename $$s)"; \
+	  ./build/scenetest "$$s" || fail=1; \
+	done; \
+	if [ $$fail -eq 0 ]; then echo "Scenes: all checks passed"; else echo "Scenes: FAILURES"; exit 1; fi
+
 # Run every per-format byte-exact renderer test in one shot.
-all-tests: test dostest apple2test titest c64test c64a8test zxtest
+all-tests: test dostest apple2test titest c64test c64a8test zxtest scenetest
 	@echo "All image-format tests passed"
 
 clean:
 	rm -rf build
 
-.PHONY: test groundtruth dostest apple2test titest c64test c64a8test zxtest all-tests clean
+.PHONY: test groundtruth dostest apple2test titest c64test c64a8test zxtest scenetest all-tests clean

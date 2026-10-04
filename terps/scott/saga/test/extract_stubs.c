@@ -48,13 +48,19 @@ GLK_ATTRIBUTE_NORETURN void Fatal(const char *x) {
     exit(1);
 }
 void win_testresult(int result) { (void)result; }
-winid_t FindGlkWindowWithRock(glui32 rock) { (void)rock; return NULL; }
 char *LineBreakText(const char *source, int columns, int *rows, int *length) {
     (void)source; (void)columns; if (rows) *rows = 0; if (length) *length = 0; return NULL;
 }
+int xstrncasecmp(const char *a, const char *b, size_t n) { return strncasecmp(a, b, n); }
+
+// The scene harness (scenetest.c) plays the game for real, so it builds this
+// file with -DSAGA_SCENE_HARNESS and links its own window lookup, the real
+// random number generator and the real Taylor-style picture renderer (Seas of
+// Blood) instead of the stand-ins below.
+#ifndef SAGA_SCENE_HARNESS
+winid_t FindGlkWindowWithRock(glui32 rock) { (void)rock; return NULL; }
 glui32 erkyrath_random(void) { return 0; }
 void set_erkyrath_random(glui32 seed) { (void)seed; }
-int xstrncasecmp(const char *a, const char *b, size_t n) { return strncasecmp(a, b, n); }
 
 // --- Taylor renderer (separate interpreter; never called from the scott path) --
 typedef void (*draw_obj_fn)(uint8_t, uint8_t);
@@ -62,3 +68,4 @@ void InitTaylor(uint8_t *data, uint8_t *end, uint8_t *objloc, int older, int reb
     (void)data; (void)end; (void)objloc; (void)older; (void)rebel; (void)obj_draw;
 }
 int DrawTaylor(int loc, int current_location) { (void)loc; (void)current_location; return 0; }
+#endif
