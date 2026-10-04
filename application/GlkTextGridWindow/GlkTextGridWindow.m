@@ -369,15 +369,22 @@
             [self createBeyondZorkStyle];
 
         /* reassign styles to attributedstrings */
-        // We create a copy of the text storage
-        _bufferTextStorage = [textstorage mutableCopy];
+        // We restyle a copy of the buffer rather than of the text storage.
+        // The two differ whenever something is waiting to be flushed, and
+        // then it is the buffer that is right: a setFrame: has already laid
+        // it out for the new cols. Going back to the text storage here would
+        // leave rows of the old width under the new cols, and the next
+        // setFrame: would cut them in the wrong places. This happens when
+        // autorestoring a game whose theme was changed while it was closed.
+        NSAttributedString *source = _bufferTextStorage.length ? [_bufferTextStorage copy] : [textstorage copy];
+        _bufferTextStorage = [source mutableCopy];
 
         GlkTextGridWindow * __weak weakSelf = self;
 
         NSArray<NSDictionary *> __block *blockStyles = styles;
 
-        [textstorage
-         enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
+        [source
+         enumerateAttributesInRange:NSMakeRange(0, source.length)
          options:0
          usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
@@ -428,8 +435,11 @@
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
-        _textview.selectedRange = selectedRange;
-        dirty = NO;
+        if (NSMaxRange(selectedRange) <= textstorage.length)
+            _textview.selectedRange = selectedRange;
+        // A frame that is still pending needs the next flush to apply it.
+        if (!self.framePending)
+            dirty = NO;
 
         [self recalcBackground];
         _textview.backgroundColor = _pendingBackgroundCol;
