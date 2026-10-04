@@ -952,8 +952,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                [ifid isEqualToString:@"ZCODE-392-890714"] ||
                [ifid isEqualToString:@"ZCODE-393-890714"]) {
         _gameID = kGameIsZorkZero;
-    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
-               [ifid isEqualToString:@"ZCODE-40-890502"] ||
+    } else if ([ifid isEqualToString:@"ZCODE-40-890502"] ||
                [ifid isEqualToString:@"ZCODE-41-890504"] ||
                [ifid isEqualToString:@"ZCODE-54-890606"] ||
                [ifid isEqualToString:@"ZCODE-63-890622"] ||

@@ -230,8 +230,14 @@
             NSError *error2 = nil;
             NSArray<Game *> *result = nil;
             if (destinationMeta.hashTag.length) {
-                request.predicate = [NSPredicate predicateWithFormat:@"ifidString LIKE %@", destinationMeta.hashTag];
+                // At this point hashTag still holds the ifid of the game this
+                // copy was made for (see createDestinationInstancesForSourceInstance).
+                request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid LIKE %@", destinationMeta.hashTag];
                 result = [dContext executeFetchRequest:request error:&error2];
+                if (result.count) {
+                    destinationMeta.game = result.firstObject;
+                    destinationMeta.hashTag = nil;
+                }
             }
             if (!result.count) {
                 for (Ifid *ifid in destinationMeta.ifids) {

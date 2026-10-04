@@ -60,6 +60,12 @@ extern NSString * const kOrganiseDirBookmarkKey;
 /// unless the game currently lives inside the library folder.
 - (void)reorganiseGame:(Game *)game;
 
+/// Call after `game.ifid` has changed. If the game sits in a folder the
+/// organiser made for it under its previous identity, the folder's marker is
+/// rewritten, so that the folder is still recognised as this game's. Must be
+/// called on `game`'s context queue.
+- (void)updateIdentityMarkerForGame:(Game *)game previousIdentity:(NSString *)oldIdentity;
+
 /// Organise every non-hidden game. Runs asynchronously on `context`'s queue,
 /// granting source access per game, saving as it goes. `completion` is called
 /// on the main queue with the number of games moved into the library.

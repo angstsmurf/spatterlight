@@ -269,6 +269,10 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     XCTAssertEqualObjects(game.path, path, @"Game path should match");
     XCTAssertNotNil(game.metadata, @"Game should have metadata");
     XCTAssertTrue(game.found, @"Game should be marked as found");
+    // The launcher picks the interpreter from this, so it must be the format
+    // babel reported and not, say, a string read from a released babel context.
+    XCTAssertEqualObjects(game.detectedFormat, game.metadata.format,
+                          @"Game should have the format it was detected as");
     
     if (game.metadata) {
         XCTAssertNotNil(game.metadata.title, @"Game should have a title");

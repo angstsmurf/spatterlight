@@ -233,4 +233,117 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
                   @"game was not copied into its library folder");
 }
 
+#pragma mark - Entries sharing an IFID
+
+- (NSString *)contentsOf:(NSString *)relativePath {
+    return [NSString stringWithContentsOfURL:[self.root URLByAppendingPathComponent:relativePath]
+                                    encoding:NSUTF8StringEncoding
+                                       error:NULL];
+}
+
+// Two different files with the same IFID, title and file name (two releases
+// of one game, say) share an identity marker. The second must get a folder of
+// its own rather than replace the first one's file. `first` and `second` are
+// the two file contents.
+- (void)checkSameNameEntriesWithContents:(NSString *)first and:(NSString *)second {
+    NSURL *firstURL = [self writeFile:@"in/one/curses.z5" contents:first];
+    NSURL *secondURL = [self writeFile:@"in/two/curses.z5" contents:second];
+
+    Game *one = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:firstURL.path];
+    Game *two = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:secondURL.path];
+
+    NSError *error = nil;
+    XCTAssertTrue([self.organizer organiseGame:one error:&error], @"%@", error);
+    XCTAssertTrue([self.organizer organiseGame:two error:&error], @"%@", error);
+
+    XCTAssertEqualObjects([self contentsOf:@"Z-code games/Curses/curses.z5"], first,
+                          @"the first entry's file was replaced");
+    XCTAssertEqualObjects([self contentsOf:@"Z-code games/Curses 1/curses.z5"], second,
+                          @"the second entry did not get a folder of its own");
+    XCTAssertNotEqualObjects(one.path, two.path);
+
+    // Organising again must leave both where they are.
+    XCTAssertTrue([self.organizer organiseGame:two error:&error], @"%@", error);
+    XCTAssertTrue([self.organizer organiseGame:one error:&error], @"%@", error);
+    XCTAssertEqualObjects([self contentsOf:@"Z-code games/Curses/curses.z5"], first);
+    XCTAssertEqualObjects([self contentsOf:@"Z-code games/Curses 1/curses.z5"], second);
+    XCTAssertFalse([self fileExists:@"Z-code games/Curses 2"]);
+}
+
+// Files long enough to have a signature.
+- (void)testSameIfidAndNameButDifferentFileGetsOwnFolder {
+    [self checkSameNameEntriesWithContents:@"release one of a game that is long enough to sign"
+                                       and:@"release two of a game that is long enough to sign"];
+}
+
+// Files too short for a signature are compared byte for byte.
+- (void)testSameIfidAndNameButDifferentTinyFileGetsOwnFolder {
+    [self checkSameNameEntriesWithContents:@"release 1" and:@"release 2"];
+}
+
+// The same file added from somewhere else is the same game: no second folder.
+- (void)testSameFileFromElsewhereReusesFolder {
+    NSString *contents = @"one and the same game, long enough to have a signature";
+    NSURL *firstURL = [self writeFile:@"in/one/curses.z5" contents:contents];
+    NSURL *secondURL = [self writeFile:@"in/two/curses.z5" contents:contents];
+
+    Game *one = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:firstURL.path];
+    Game *two = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:secondURL.path];
+
+    NSError *error = nil;
+    XCTAssertTrue([self.organizer organiseGame:one error:&error], @"%@", error);
+    XCTAssertTrue([self.organizer organiseGame:two error:&error], @"%@", error);
+
+    XCTAssertTrue([self fileExists:@"Z-code games/Curses/curses.z5"]);
+    XCTAssertFalse([self fileExists:@"Z-code games/Curses 1"]);
+}
+
+// Entries with the same IFID and title but different file names keep sharing
+// one folder.
+- (void)testSameIfidDifferentNamesShareFolder {
+    NSURL *firstURL = [self writeFile:@"in/curses-r12.z5" contents:@"release twelve"];
+    NSURL *secondURL = [self writeFile:@"in/curses-r16.z5" contents:@"release sixteen"];
+
+    Game *one = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:firstURL.path];
+    Game *two = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:secondURL.path];
+
+    NSError *error = nil;
+    XCTAssertTrue([self.organizer organiseGame:one error:&error], @"%@", error);
+    XCTAssertTrue([self.organizer organiseGame:two error:&error], @"%@", error);
+
+    XCTAssertTrue([self fileExists:@"Z-code games/Curses/curses-r12.z5"]);
+    XCTAssertTrue([self fileExists:@"Z-code games/Curses/curses-r16.z5"]);
+    XCTAssertFalse([self fileExists:@"Z-code games/Curses 1"]);
+}
+
+// Moving one of the entries that share a folder must take only its own files
+// along and leave the other entry's file, and the folder, where they are.
+- (void)testReorganisingLeavesOtherEntriesFilesBehind {
+    NSURL *firstURL = [self writeFile:@"Z-code games/Curses/curses-r12.z5"
+                             contents:@"release twelve"];
+    [self writeFile:@"Z-code games/Curses/curses-r12.jpg" contents:@"art"];
+    NSURL *secondURL = [self writeFile:@"Z-code games/Curses/curses-r16.z5"
+                              contents:@"release sixteen"];
+    NSString *marker = [@"Z-code games/Curses/" stringByAppendingString:kMarkerFilename];
+    [self writeFile:marker contents:@"TEST-IFID-SHARED"];
+
+    Game *one = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:firstURL.path];
+    Game *two = [self makeGameWithTitle:@"Curses" ifid:@"TEST-IFID-SHARED" path:secondURL.path];
+    one.group = @"Favorites";
+
+    NSError *error = nil;
+    XCTAssertTrue([self.organizer organiseGame:one error:&error], @"%@", error);
+
+    XCTAssertTrue([self fileExists:@"Favorites/Curses/curses-r12.z5"],
+                  @"game file was not moved to the new group folder");
+    XCTAssertTrue([self fileExists:@"Favorites/Curses/curses-r12.jpg"],
+                  @"companion file was not moved along");
+    XCTAssertFalse([self fileExists:@"Z-code games/Curses/curses-r12.z5"]);
+    XCTAssertTrue([self fileExists:@"Z-code games/Curses/curses-r16.z5"],
+                  @"the other entry's file was moved or removed");
+    XCTAssertFalse([self fileExists:@"Favorites/Curses/curses-r16.z5"]);
+    XCTAssertTrue([self fileExists:marker], @"the shared folder lost its marker");
+    XCTAssertEqualObjects(two.path, secondURL.path);
+}
+
 @end

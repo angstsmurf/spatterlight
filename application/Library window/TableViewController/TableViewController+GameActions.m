@@ -90,7 +90,7 @@
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         game = weakSelf.gameTableModel[idx];
-        if (weakSelf.gameSessions[game.ifid] == nil) {
+        if (weakSelf.gameSessions[game.hashTag] == nil) {
             [weakSelf.managedObjectContext deleteObject:game];
         } else {
             [running addObject:game];
@@ -218,7 +218,7 @@
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         Game *game = weakSelf.gameTableModel[idx];
-        GlkController *gctl = weakSelf.gameSessions[game.ifid];
+        GlkController *gctl = weakSelf.gameSessions[game.hashTag];
 
         if (!gctl) {
             gctl = [[GlkController alloc] init];

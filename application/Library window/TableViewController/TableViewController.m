@@ -180,6 +180,10 @@
     // to play directly from their original .D$$ files where they can be found.
     [self migrateConvertedAGTGames];
 
+    // One-time migration of Quest, Z-code and Glulx games whose stored IFID
+    // has a form babel no longer produces.
+    [self migrateOutdatedIfids];
+
     [[NSNotificationCenter defaultCenter]
      postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
 

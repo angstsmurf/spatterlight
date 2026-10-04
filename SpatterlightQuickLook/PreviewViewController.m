@@ -837,7 +837,7 @@
     if (_metaDict[@"ifid"])
         ifid = (NSString *)_metaDict[@"ifid"];
     if (!ifid.length) {
-        [PreviewViewController ifidFromFile:url.path];
+        ifid = [PreviewViewController ifidFromFile:url.path];
     }
     if (ifid.length) {
         [self addInfoLine:[@"IFID: " stringByAppendingString:ifid] attributes:attrDict linebreak:YES];

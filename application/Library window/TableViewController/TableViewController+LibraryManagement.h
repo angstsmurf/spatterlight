@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startVerifyTimer;
 
 - (void)migrateConvertedAGTGames;
+- (void)migrateOutdatedIfids;
 - (void)stopVerifyTimer;
 
 - (void)lookForMissingFile:(Game *)game;

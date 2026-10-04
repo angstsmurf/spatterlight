@@ -9,6 +9,7 @@
 #import "Metadata.h"
 #import "Fetches.h"
 #import "FolderAccess.h"
+#import "NSString+Categories.h"
 
 NSString * const kKeepGamesOrganisedKey = @"KeepGamesOrganised";
 NSString * const kOrganiseDirBookmarkKey = @"OrganiseDirBookmark";
@@ -17,7 +18,7 @@ NSString * const kOrganiseDirBookmarkKey = @"OrganiseDirBookmark";
 // move a game into, or clobber, a folder that belongs to a different game.
 static NSString * const kIdentityFilename = @".spatterlightIdentity";
 
-// How many "Title", "Title 2", "Title 3"… variants to try before giving up on
+// How many "Title", "Title 1", "Title 2"… variants to try before giving up on
 // finding a free game folder in a group.
 static const NSInteger kMaxDuplicateDirs = 20;
 
@@ -232,7 +233,12 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return [self sanitiseName:title fallback:@"Untitled"];
 }
 
-// The identity string written into a game folder's marker file.
+// The identity string written into a game folder's marker file. This is the
+// IFID where there is one, so every library entry for the same work (other
+// releases, other platforms' versions, the disks of a set) shares one folder.
+// It therefore does not identify a file: anything that could replace or move
+// a file must check the file itself, see -directory:holdsDifferentFileNamedLike:
+// and -directory:holdsOtherGamesThan:file:.
 - (nullable NSString *)identityForGame:(Game *)game {
     if (game.ifid.length)
         return game.ifid;
@@ -255,9 +261,31 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return mine.length && [stored isEqualToString:mine];
 }
 
-// YES if `dir` is free to use for `game`: it either does not exist yet, or it
-// exists and its identity marker names this same game.
-- (BOOL)directory:(NSURL *)dir isAvailableForGame:(Game *)game {
+// YES if `dir` already holds a file with the name of `sourceURL` that is a
+// different game file. The identity marker is the game's IFID, which other
+// releases and other platforms' versions of the same work share, so they
+// share a game folder too. That is fine as long as their files have different
+// names. When the names clash, the marker cannot tell the two apart, but the
+// file signature (what the library itself knows a game by) can.
+- (BOOL)directory:(NSURL *)dir holdsDifferentFileNamedLike:(NSURL *)sourceURL {
+    NSURL *existing = [dir URLByAppendingPathComponent:sourceURL.lastPathComponent].URLByStandardizingPath;
+    if (![existing checkResourceIsReachableAndReturnError:NULL])
+        return NO;
+    if ([existing.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString])
+        return NO;                // the game's own file
+    NSString *theirs = existing.path.signatureFromFile;
+    NSString *mine = sourceURL.path.signatureFromFile;
+    if (theirs.length && mine.length)
+        return ![theirs isEqualToString:mine];
+    // Too small for a signature: compare byte for byte.
+    return ![NSFileManager.defaultManager contentsEqualAtPath:existing.path
+                                                      andPath:sourceURL.path];
+}
+
+// YES if `dir` is free to use for `game`, whose file is `sourceURL`: it either
+// does not exist yet, or it exists, its identity marker names this same game
+// and putting the game file there would not replace a different one.
+- (BOOL)directory:(NSURL *)dir isAvailableForGame:(Game *)game file:(NSURL *)sourceURL {
     NSFileManager *fm = NSFileManager.defaultManager;
     BOOL isDir = NO;
     if (![fm fileExistsAtPath:dir.path isDirectory:&isDir])
@@ -265,7 +293,8 @@ static const NSInteger kMaxDuplicateDirs = 20;
     if (!isDir)
         return NO;                // a file is in the way
 
-    return [self directory:dir isOwnedByGame:game];
+    return [self directory:dir isOwnedByGame:game] &&
+        ![self directory:dir holdsDifferentFileNamedLike:sourceURL];
 }
 
 - (void)writeIdentityForGame:(Game *)game inDirectory:(NSURL *)dir {
@@ -277,9 +306,11 @@ static const NSInteger kMaxDuplicateDirs = 20;
 }
 
 // Finds (and, if `create`, creates) the game folder for `game` under `root`,
-// i.e. <root>/<group>/<title>, disambiguating with "Title 2" etc. when a
-// different game already owns the plain name.
+// i.e. <root>/<group>/<title>, disambiguating with "Title 1" etc. when a
+// different game already owns the plain name, or when a different file with
+// the name of the game file `sourceURL` is already in it.
 - (nullable NSURL *)gameDirectoryForGame:(Game *)game
+                                    file:(NSURL *)sourceURL
                                underRoot:(NSURL *)root
                                   create:(BOOL)create {
     NSFileManager *fm = NSFileManager.defaultManager;
@@ -299,7 +330,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     for (NSInteger n = 0; n < kMaxDuplicateDirs; n++) {
         NSString *name = n == 0 ? title : [NSString stringWithFormat:@"%@ %ld", title, (long)n];
         NSURL *candidate = [groupDir URLByAppendingPathComponent:name isDirectory:YES];
-        if ([self directory:candidate isAvailableForGame:game]) {
+        if ([self directory:candidate isAvailableForGame:game file:sourceURL]) {
             if (create && ![candidate checkResourceIsReachableAndReturnError:NULL]) {
                 if (![fm createDirectoryAtURL:candidate
                   withIntermediateDirectories:YES
@@ -354,7 +385,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
         return NO;
     }
 
-    NSURL *destDir = [self gameDirectoryForGame:game underRoot:root create:YES];
+    NSURL *destDir = [self gameDirectoryForGame:game file:sourceURL underRoot:root create:YES];
     if (!destDir) {
         if (outError)
             *outError = [NSError errorWithDomain:NSCocoaErrorDomain
@@ -395,13 +426,19 @@ static const NSInteger kMaxDuplicateDirs = 20;
 
     if (sourceIsOwnGameDir) {
         // Reorganisation within the library: move the game and its companion
-        // files out of the old game folder into the new one.
+        // files out of the old game folder into the new one. When other
+        // library entries with the same IFID keep their files in the old
+        // folder, only this game's own files move, and the folder (it is not
+        // empty, so it survives below) stays behind for the others.
+        BOOL shared = [self directory:sourceDir holdsOtherGamesThan:game file:sourceURL];
         NSArray<NSURL *> *contents =
         [fm contentsOfDirectoryAtURL:sourceDir
           includingPropertiesForKeys:nil
                              options:0
                                error:NULL];
         for (NSURL *item in contents) {
+            if (shared && ![self file:item belongsWithGameFile:sourceURL])
+                continue;
             NSURL *target = [destDir URLByAppendingPathComponent:item.lastPathComponent];
             if ([target checkResourceIsReachableAndReturnError:NULL])
                 [fm removeItemAtURL:target error:NULL];
@@ -457,18 +494,52 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return [NSString stringWithFormat:@"%@#%@", prefix, suffix];
 }
 
+// YES if `item` is the game file `sourceURL` itself or a file that belongs to
+// the same game: one that shares the main file's name without extension
+// (AGT's .d$$ plus .da1, .da2 …; companion data files; cover art) or another
+// disk of the same numbered set (multi-disk .woz/.dsk games such as
+// "Zork Zero side 1…4.woz").
+- (BOOL)file:(NSURL *)item belongsWithGameFile:(NSURL *)sourceURL {
+    NSString *name = item.lastPathComponent;
+    NSString *mainName = sourceURL.lastPathComponent;
+    if ([name.stringByDeletingPathExtension.lowercaseString
+         isEqualToString:mainName.stringByDeletingPathExtension.lowercaseString])
+        return YES;               // also covers the main file itself
+    NSString *diskSetKey = [self diskSetKeyForFilename:mainName];
+    return diskSetKey && [diskSetKey isEqualToString:[self diskSetKeyForFilename:name]];
+}
+
+// YES if another library entry keeps its file directly in `dir`, and that
+// file is not one of those that belong with the game file `sourceURL` (the
+// disks of one set are entries of their own, but always travel together).
+- (BOOL)directory:(NSURL *)dir holdsOtherGamesThan:(Game *)game file:(NSURL *)sourceURL {
+    NSManagedObjectContext *context = game.managedObjectContext;
+    if (!context)
+        return NO;
+    NSString *dirPath = dir.URLByStandardizingPath.path;
+    NSFetchRequest *request = [Game fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"path BEGINSWITH[c] %@",
+                         [dirPath stringByAppendingString:@"/"]];
+    for (Game *other in [context executeFetchRequest:request error:NULL]) {
+        if (other == game || other.isDeleted)
+            continue;
+        NSURL *otherURL = [NSURL fileURLWithPath:other.path isDirectory:NO].URLByStandardizingPath;
+        if (![otherURL.URLByDeletingLastPathComponent.path.lowercaseString
+              isEqualToString:dirPath.lowercaseString])
+            continue;             // in a subfolder
+        if (![self file:otherURL belongsWithGameFile:sourceURL])
+            return YES;
+    }
+    return NO;
+}
+
 // Copies `sourceURL` and every file in its folder that belongs to the same
-// game, into `destDir`. A file belongs to the game when it shares the main
-// file's name without extension (AGT's .d$$ plus .da1, .da2 …; companion data
-// files; cover art) or when it is another disk of the same numbered set
-// (multi-disk .woz/.dsk games such as "Zork Zero side 1…4.woz").
+// game (see -file:belongsWithGameFile:) into `destDir`.
 - (BOOL)copyGameFileAndSiblings:(NSURL *)sourceURL
                   intoDirectory:(NSURL *)destDir
                           error:(NSError **)outError {
     NSFileManager *fm = NSFileManager.defaultManager;
     NSURL *sourceDir = sourceURL.URLByDeletingLastPathComponent;
-    NSString *stem = sourceURL.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
-    NSString *diskSetKey = [self diskSetKeyForFilename:sourceURL.lastPathComponent];
 
     NSArray<NSURL *> *contents =
     [fm contentsOfDirectoryAtURL:sourceDir
@@ -482,12 +553,8 @@ static const NSInteger kMaxDuplicateDirs = 20;
         [item getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:NULL];
         if (isDir.boolValue)
             continue;
-        NSString *itemStem = item.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
         BOOL isMain = [item.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString];
-        BOOL sameStem = [itemStem isEqualToString:stem];
-        BOOL sameDiskSet = diskSetKey &&
-            [diskSetKey isEqualToString:[self diskSetKeyForFilename:item.lastPathComponent]];
-        if (!isMain && !sameStem && !sameDiskSet)
+        if (!isMain && ![self file:item belongsWithGameFile:sourceURL])
             continue;
 
         NSURL *target = [destDir URLByAppendingPathComponent:item.lastPathComponent];
@@ -530,6 +597,24 @@ static const NSInteger kMaxDuplicateDirs = 20;
     NSError *error = nil;
     if (![self organiseGame:game error:&error])
         NSLog(@"LibraryOrganizer: reorganiseGame failed: %@", error.localizedDescription);
+}
+
+#pragma mark - Identity change
+
+- (void)updateIdentityMarkerForGame:(Game *)game previousIdentity:(NSString *)oldIdentity {
+    if (!oldIdentity.length || !game.path.length)
+        return;
+    NSURL *root = [self libraryRootURLCreatingIfNeeded:NO];
+    NSURL *current = [NSURL fileURLWithPath:game.path isDirectory:NO];
+    if (!root || ![self url:current isInsideRoot:root])
+        return;
+    NSURL *dir = current.URLByDeletingLastPathComponent;
+    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
+    NSString *stored = [NSString stringWithContentsOfURL:idFile
+                                               encoding:NSUTF8StringEncoding
+                                                  error:NULL];
+    if ([stored isEqualToString:oldIdentity])
+        [self writeIdentityForGame:game inDirectory:dir];
 }
 
 #pragma mark - Organise everything

@@ -28,6 +28,18 @@ NS_ASSUME_NONNULL_BEGIN
 // whose original .D$$ can't be found are left on the AGX path (still playable).
 - (void)migrateConvertedAGTGamesInContext:(NSManagedObjectContext *)context;
 
+// One-time repair: the migration above used to leave a re-pointed game with
+// the hash of its deleted .agx. Gives every AGT game played from a .D$$ the
+// signature of that file.
+- (void)repairHashesOfMigratedAGTGamesInContext:(NSManagedObjectContext *)context;
+
+// One-time migration: bring the stored IFIDs of Quest, Z-code and Glulx games
+// in line with what babel now computes for them (QUEST-<MD5> where it used to
+// be the bare MD5; a validated, capitalised UUID or the header-based IFID where
+// the UUID:// marker used to be copied as found). Updates the game, its
+// metadata's IFID record and the organised folder's identity marker.
+- (void)migrateOutdatedIfidsInContext:(NSManagedObjectContext *)context;
+
 @property (weak) TableViewController *tableViewController;
 
 

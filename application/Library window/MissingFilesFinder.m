@@ -246,10 +246,20 @@ extern NSArray *gGameFileTypes;
     }];
 
     [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:matchedPaths.firstObject] andThenRunBlock:^{
-        for (NSString *path in matchedPaths)
-            if (![[self ifidFromFile:path] isEqualToString:filenames[path].ifid]) {
+        // A file is only the missing game if it has the same signature, just
+        // like the file the user picked by hand. An IFID is not enough: other
+        // releases and other platform versions of a game share one. Entries
+        // that never got a signature are matched by IFID and given one below.
+        for (NSString *path in matchedPaths) {
+            Game *candidate = filenames[path];
+            BOOL match;
+            if (candidate.hashTag.length)
+                match = [path.signatureFromFile isEqualToString:candidate.hashTag];
+            else
+                match = [[self ifidFromFile:path] isEqualToString:candidate.ifid];
+            if (!match)
                 filenames[path] = nil;
-            }
+        }
 
         NSArray *matchedIfids = filenames.allValues;
 
@@ -268,6 +278,10 @@ extern NSArray *gGameFileTypes;
                     NSLog(@"Updating game %@ with new path %@", game.metadata.title, path);
                     [game bookmarkForPath:path];
                     game.found = YES;
+                    if (!game.hashTag.length) {
+                        game.hashTag = path.signatureFromFile;
+                        game.metadata.hashTag = game.hashTag;
+                    }
                 }
             }
         }

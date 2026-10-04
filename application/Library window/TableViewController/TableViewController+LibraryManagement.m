@@ -430,7 +430,9 @@
 }
 
 - (void)migrateConvertedAGTGames {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AGTConvertedToDirectMigrationDone"])
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"AGTConvertedToDirectMigrationDone"] &&
+        [defaults boolForKey:@"AGTMigratedHashRepairDone"])
         return;
 
     NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
@@ -443,6 +445,25 @@
             return;
         GameImporter *importer = [[GameImporter alloc] initWithTableViewController:strongSelf];
         [importer migrateConvertedAGTGamesInContext:childContext];
+        [importer repairHashesOfMigratedAGTGamesInContext:childContext];
+        [childContext safeSave];
+    }];
+}
+
+- (void)migrateOutdatedIfids {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"OutdatedIfidMigrationDone"])
+        return;
+
+    NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
+    childContext.undoManager = nil;
+
+    TableViewController * __weak weakSelf = self;
+    [childContext performBlock:^{
+        TableViewController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        GameImporter *importer = [[GameImporter alloc] initWithTableViewController:strongSelf];
+        [importer migrateOutdatedIfidsInContext:childContext];
         [childContext safeSave];
     }];
 }
