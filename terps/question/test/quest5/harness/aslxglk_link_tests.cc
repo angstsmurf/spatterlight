@@ -218,6 +218,172 @@ void test_js_scan_calls()
     check(none.empty(), "a callee named inside a string is not an edge");
 }
 
+/* ---- Deeper's character dialog and status panel (aslxglk-form) ---- */
+
+/* The shape of Deeper's game.gamestart, cut down to two attributes and two
+ * bonus items. */
+const char *kFormHtml =
+    "<div id=\"dialog_window_1\" class=\"dialog_window\" title=\"Your Character\">"
+    "<table><tr class=\"details\">"
+    "<td colspan=\"2\">Name: <input type=\"text\" id=\"name_input\" value=\"Skybird\"/></td>"
+    "<td>Sex: <input type=\"radio\" name=\"sex_input\" value=\"Male\" checked=\"checked\"/>Male\n"
+    " <input type=\"radio\" name=\"sex_input\" value=\"Female\" checked=\"checked\"/>Female</td></tr>"
+    "<tr><td><br/><b>Attributes</b></td><td></td><td><br/><b>Bonus item</b></td></tr>"
+    "<tr><td>Strength</td><td>"
+    "<span onclick=\"incAtt('strength');\">&#x25B2;</span>"
+    "<span onclick=\"decAtt('strength');\">&#x25BC;</span>"
+    "<div id=\"strength\" style=\"display:inline;\">0</div></td>"
+    "<td><input type=\"radio\" name=\"bonus\" value=\"bonus1\" checked=\"checked\">Two healing potions</td></tr>"
+    "<tr><td>Agility</td><td>"
+    "<span onclick=\"incAtt('agility');\">&#x25B2;</span>"
+    "<span onclick=\"decAtt('agility');\">&#x25BC;</span>"
+    "<div id=\"agility\" style=\"display:inline;\">0</div></td>"
+    "<td><input type=\"radio\" name=\"bonus\" value=\"bonus2\">Sabre</td></tr>"
+    "<tr><td>Points left</td><td><div id=\"points\" style=\"display:inline;\">10</div></td></tr>"
+    "</table></div>"
+    "<script>function done() { answer = $('#name_input').val();"
+    " ASLEvent(\"HandleDialogue\", answer); }</script>";
+
+void test_form_parse()
+{
+    aslxform::CharacterForm f;
+    check(aslxform::parse_character_form(kFormHtml, f), "the dialog is recognised");
+    check(f.title == "Your Character", "title comes from the dialog div");
+    check(f.event == "HandleDialogue", "event is HandleDialogue");
+    check(f.name == "Skybird", "default name");
+    check(f.sex.values.size() == 2 && f.sex.checked == 1,
+          "two sexes; the last of two checked radios wins, as in a browser");
+    check(f.counters.size() == 2 && f.counters[0].id == "strength" &&
+          f.counters[1].label == "Agility" && f.counters[0].value == 0,
+          "one counter per incAtt target");
+    check(f.points == 10, "points pool");
+    check(f.bonus.values.size() == 2 && f.bonus.values[1] == "bonus2" &&
+          f.bonus.labels[1] == "Sabre" && f.bonus.checked == 0,
+          "bonus radios keep value and label apart");
+    check(f.answer() == "Skybird|Female|0|0|bonus1", "answer of an untouched form");
+
+    aslxform::CharacterForm g;
+    check(!aslxform::parse_character_form("<b>Name:</b> <i>Skybird</i>", g),
+          "ordinary markup is not a dialog");
+}
+
+void test_form_rules()
+{
+    aslxform::CharacterForm f;
+    aslxform::parse_character_form(kFormHtml, f);
+    check(!f.dec(0), "a counter does not go below zero");
+    for (int i = 0; i < 10; i++)
+        f.inc(0);
+    check(f.counters[0].value == 10 && f.points == 0, "ten points spent");
+    check(!f.inc(1) && f.counters[1].value == 0, "nothing left to spend");
+    check(f.dec(0) && f.inc(1) && f.points == 0, "a point moves between counters");
+
+    f.set_name("  Zog|<the>&  ");
+    check(f.name == "Zogthe", "the name loses the separator and markup characters");
+    f.set_name("   ");
+    check(f.name == "Zogthe", "an empty name keeps the old one");
+    f.set_name(std::string(40, 'x'));
+    check(f.name.size() == aslxform::kFormNameMax, "the name is cut to length");
+    f.set_name("Zog");
+
+    size_t focus = 0;
+    using aslxform::FormKey;
+    using aslxform::FormAct;
+    check(aslxform::form_key(f, focus, FormKey::Activate) == FormAct::EditName,
+          "Return on the name edits it");
+    aslxform::form_key(f, focus, FormKey::Down);
+    aslxform::form_key(f, focus, FormKey::Left);
+    check(focus == 1 && f.sex.checked == 0, "Left on the sex row picks Male");
+    check(aslxform::form_click(f, focus, aslxform::form_link(aslxform::Ctl::Bonus, 1))
+              == FormAct::None && f.bonus.checked == 1,
+          "clicking a bonus selects it");
+    check(aslxform::form_click(f, focus, aslxform::form_link(aslxform::Ctl::Dec, 0))
+              == FormAct::None && f.counters[0].value == 8 && f.points == 1,
+          "clicking a down arrow gives the point back");
+    check(aslxform::form_click(f, focus, aslxform::form_link(aslxform::Ctl::Done))
+              == FormAct::Done, "clicking Done finishes");
+    check(f.answer() == "Zog|Male|8|1|bonus2", "answer after edits");
+    focus = aslxform::form_focus_count(f) - 1;
+    check(aslxform::form_key(f, focus, FormKey::Activate) == FormAct::Done,
+          "Return on the last slot is Done");
+}
+
+void test_form_layout()
+{
+    aslxform::CharacterForm f;
+    aslxform::parse_character_form(kFormHtml, f);
+    for (int width : { 80, 30 }) {
+        aslxform::Layout lay = aslxform::layout_character_form(f, width, 0);
+        std::string tag = width == 80 ? " (wide)" : " (narrow)";
+        bool inside = true, done = false, name_focus = false;
+        std::set<unsigned> links;
+        for (const aslxform::Span &sp : lay.spans) {
+            int cells = (int) u32_from_utf8(sp.text).size();
+            if (sp.x < 0 || sp.y < 0 || sp.y >= lay.height || sp.x + cells > width)
+                inside = false;
+            if (sp.link)
+                links.insert(sp.link);
+            if (sp.link == aslxform::form_link(aslxform::Ctl::Done))
+                done = true;
+            if (sp.focused && sp.text == "Name:")
+                name_focus = true;
+        }
+        check(inside, "every span fits the grid" + tag);
+        check(done, "there is a Done link" + tag);
+        check(name_focus, "focus slot 0 highlights the name's label" + tag);
+        /* name, 2 sexes, 2x(inc, dec), 2 bonuses, done */
+        check(links.size() == 10, "one link per control" + tag);
+    }
+    check(aslxform::layout_character_form(f, 30, 0).height >
+          aslxform::layout_character_form(f, 80, 0).height,
+          "the narrow layout stacks the columns");
+}
+
+void test_status_panel()
+{
+    const char *html =
+        "<div id=\"button_div\">"
+        "<img onclick=\"ASLEvent('HandleButtonClick','look')\"/>"
+        "<img onclick=\"ASLEvent('HandleButtonClick','map')\"/></div>"
+        "<div id=\"status_div\"><table>"
+        "<tr><td>Hit points:</td><td><span id=\"hits-span\">---</span></td></tr>"
+        "<tr><td>Defence:</td><td><span id=\"defence-span\">0</span></td></tr>"
+        "<tr><td>Defence bonus:</td><td><span id=\"defence-span\">0</span></td></tr>"
+        "</table></div>";
+    aslxform::StatusPanel p;
+    check(aslxform::parse_status_panel(html, p), "the status panel is recognised");
+    check(p.rows.size() == 3 && p.rows[0].label == "Hit points:" &&
+          p.rows[0].id == "hits-span" && p.rows[0].value == "---",
+          "rows carry label, id and starting value");
+    check(p.buttons.size() == 2 && p.buttons[1] == "map", "button commands");
+    aslxform::StatusPanel q;
+    check(!aslxform::parse_status_panel("<div id=\"other\">x</div>", q),
+          "other markup is not a panel");
+
+    std::string id, value;
+    check(aslxform::parse_jquery_html("$('#hits-span').html('12/20')", id, value) &&
+          id == "hits-span" && value == "12/20", "single-quoted jQuery html()");
+    check(aslxform::parse_jquery_html("$(\"#gold-span\").html(\"5\");", id, value) &&
+          id == "gold-span" && value == "5", "double-quoted jQuery html()");
+    check(!aslxform::parse_jquery_html("$('#hits-span').hide()", id, value),
+          "other jQuery calls are not cell writes");
+
+    /* The frontend's view: a duplicated id is written in its first row only. */
+    g_cstatus = p;
+    g_cstatus_vals.clear();
+    g_cstatus_vals["defence-span"] = "7";
+    std::vector<std::string> lines = custom_status_lines();
+    check(lines.size() == 3 && lines[0] == "Hit points: ---" &&
+          lines[1] == "Defence: 7" && lines[2] == "Defence bonus: 0",
+          "a duplicated id updates only its first row");
+    check(take_custom_ui(html) && !take_custom_ui("<b>hello</b>") &&
+          take_custom_ui(kFormHtml) && g_form_pending,
+          "both chunks are kept out of the transcript");
+    g_cstatus = aslxform::StatusPanel();
+    g_cstatus_vals.clear();
+    g_form_pending = false;
+}
+
 }  /* namespace */
 
 void glk_main(void)
@@ -234,6 +400,12 @@ void glk_main(void)
     std::cout << "bundled-js scanning:\n";
     test_js_scan_aslevents();
     test_js_scan_calls();
+
+    std::cout << "character dialog and status panel:\n";
+    test_form_parse();
+    test_form_rules();
+    test_form_layout();
+    test_status_panel();
 
     std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
               << " failure" << (failures == 1 ? "" : "s") << ")\n";

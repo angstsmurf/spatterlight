@@ -60,7 +60,8 @@ RANDFLAGS = -I../../common_utils -I$(CHEAPGLK)
 # harness, plus the Glk frontend's map pane for the two harnesses that carry
 # the frontend.  libexpat + zlib are the loader's only external deps.
 ASLXHDRS := ../quest5/aslx.hh ../quest5/aslx-runtime.hh \
-            ../quest5/aslx-runtime-internal.hh ../quest5/aslxglk-map.hh
+            ../quest5/aslx-runtime-internal.hh ../quest5/aslxglk-map.hh \
+            ../quest5/aslxglk-form.hh
 ASLXLOADSRC := ../quest5/aslx.cc
 ASLXENGSRC := $(ASLXLOADSRC) ../quest5/aslx-runtime.cc \
               ../quest5/aslx-runtime-parse.cc ../quest5/aslx-runtime-builtins.cc \
@@ -68,7 +69,7 @@ ASLXENGSRC := $(ASLXLOADSRC) ../quest5/aslx-runtime.cc \
 ASLXOBJDIR := $(Q5)/build
 ASLXLOADOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXLOADSRC))
 ASLXENGOBJ := $(patsubst ../quest5/%.cc,$(ASLXOBJDIR)/%.o,$(ASLXENGSRC))
-ASLXMAPOBJ := $(ASLXOBJDIR)/aslxglk-map.o
+ASLXMAPOBJ := $(ASLXOBJDIR)/aslxglk-map.o $(ASLXOBJDIR)/aslxglk-form.o
 ASLXLIBS := -lexpat -lz
 
 # Quest 5 (.aslx / .quest) milestone-1 loader test: the loader alone.

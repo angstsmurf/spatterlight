@@ -2776,16 +2776,21 @@ void Interp::exec_js_command(const std::string &fn, const ExprList &args,
         else if (id == "#gamePanes" && panes_visible)
             panes_visible(fn == "uiShow");
     }
-    else if (fn == "eval" && !args.empty() && request_restart) {
+    else if (fn == "eval" && !args.empty() && (request_restart || js_eval)) {
         /* The restart channel: Core's `restart` command evals
          * "window.location.reload();" (older Cores first probe the
          * desktop player's RestartGame()).  That reload IS the restart
          * -- route it to the host.  Everything else this eval channel
-         * carries (transcript flags, jQuery pane tweaks) stays ignored. */
+         * carries (transcript flags, jQuery pane tweaks) goes to js_eval
+         * when the host has one, and is ignored otherwise. */
         std::string js = to_string(ev(0));
         if (js.find("location.reload") != std::string::npos ||
-            js.find("RestartGame") != std::string::npos)
-            request_restart();
+            js.find("RestartGame") != std::string::npos) {
+            if (request_restart)
+                request_restart();
+        } else if (js_eval) {
+            js_eval(js);
+        }
     } else if (!grid_draw || !exec_grid_command(fn, jsargs)) {
         /* Not ours and not the grid map's (or no grid bridge at all):
          * everything unhandled goes to the JS callback bridge (see the hook's

@@ -42,6 +42,7 @@
 
 #include "aslx.hh"
 #include "aslx-runtime.hh"
+#include "aslxglk-form.hh"
 #include "aslxglk-map.hh"
 
 #include <cstdio>
@@ -254,6 +255,20 @@ std::string g_status_line;
 /* JS.updateLocation payload -- Core's own "where am I" string, preferred over
  * resolving game.pov.parent by hand (empty for old pre-JS games). */
 std::string g_location_line;
+
+/* Deeper builds two pieces of UI out of raw HTML that a Glk window cannot
+ * show as text: a jQuery-UI character creation dialog (game.gamestart) and a
+ * status panel whose cells the game rewrites through JS.eval.  Both chunks
+ * are taken out of the transcript (take_custom_ui).  The dialog runs as a
+ * text grid once the boot is over -- in the browser its "Done" button fires
+ * after the start script has finished, too -- and the panel's rows go at the
+ * top of the side pane. */
+aslxform::CharacterForm g_form;
+bool g_form_pending = false;
+winid_t gformwin = nullptr;         /* open only while the dialog is up */
+aslxform::StatusPanel g_cstatus;
+/* <span id> -> its current contents, as last set by the game. */
+std::map<std::string, std::string> g_cstatus_vals;
 
 /* Arm / disarm hyperlink input on both clickable windows.  Every event loop
  * here wants the pair -- the main transcript's cmdlinks and the side pane's
@@ -1159,8 +1174,27 @@ void render_html_inner(const std::string &raw)
  * HideOutputSection can retract it later.  With no section open (every game
  * that never calls StartOutputSection, and the headless harness) this is
  * render_html_inner plus one branch. */
+/* Keep Deeper's dialog and status panel markup out of the transcript and
+ * remember what they describe. */
+bool take_custom_ui(const std::string &raw)
+{
+    if (raw.find("dialog_window_1") != std::string::npos &&
+        aslxform::parse_character_form(raw, g_form)) {
+        g_form_pending = true;
+        return true;
+    }
+    if (raw.find("status_div") != std::string::npos &&
+        aslxform::parse_status_panel(raw, g_cstatus)) {
+        g_pane_dirty = true;
+        return true;
+    }
+    return false;
+}
+
 void render_html(const std::string &raw)
 {
+    if (take_custom_ui(raw))
+        return;
     if (g_sections.empty()) {
         if (g_swallow && swallow_echo_chunk(raw))
             return;
@@ -1188,6 +1222,25 @@ void render_html(const std::string &raw)
         g_out_log.push_back(c);
         trim_out_log();
     }
+}
+
+/* The custom status panel as "Label: value" lines.  An id the markup uses
+ * twice (Deeper has two "defence-span" cells) is updated in its first cell
+ * only, which is all a jQuery id selector reaches. */
+std::vector<std::string> custom_status_lines()
+{
+    std::vector<std::string> out;
+    std::vector<std::string> seen;
+    for (const aslxform::StatusRow &r : g_cstatus.rows) {
+        std::string value = r.value;
+        auto it = g_cstatus_vals.find(r.id);
+        if (it != g_cstatus_vals.end() &&
+            std::find(seen.begin(), seen.end(), r.id) == seen.end())
+            value = it->second;
+        seen.push_back(r.id);
+        out.push_back(r.label + " " + value);
+    }
+    return out;
 }
 
 /* ---------------------------------------------------------------- banner -- */
@@ -1252,7 +1305,10 @@ void update_banner(Interp &in)
     /* Room name left, status attributes (JS.updateStatus: "Score: 3 |
      * Health: 90%") right-aligned when they fit, in codepoint-aware UTF-8
      * mode. */
-    draw_status_banner(gbanner, g_room_name, g_status_line, true);
+    std::string status = g_status_line;
+    if (status.empty() && !g_cstatus.rows.empty())
+        status = custom_status_lines().front();     /* the headline row */
+    draw_status_banner(gbanner, g_room_name, status, true);
 }
 
 /* ------------------------------------------------------------- side pane -- */
@@ -1344,7 +1400,8 @@ void redraw_side_pane(Interp &in)
         if (is_dir(d))
             exits.push_back(&d);
 
-    if (inv.empty() && places.empty() && exits.empty()) {
+    if (inv.empty() && places.empty() && exits.empty() &&
+        g_cstatus.rows.empty()) {
         close_side_pane();
         return;
     }
@@ -1407,6 +1464,28 @@ void redraw_side_pane(Interp &in)
             }
         }
     };
+
+    /* The game's own status panel, and under it the commands its icon
+     * buttons send. */
+    if (!g_cstatus.rows.empty()) {
+        first = false;
+        put_pane_header(s, "Status", true);
+        for (const std::string &line : custom_status_lines())
+            put_pane_link(s, line, 0, true);
+        for (size_t i = 0; i < g_cstatus.buttons.size() && g_hyperlinks; i++) {
+            LinkAction act;
+            act.command = g_cstatus.buttons[i];
+            g_pane_links.push_back(act);
+            if (i)
+                glk_put_string_stream(s, (char *) "  ");
+            glk_set_hyperlink_stream(
+                s, kPaneLinkBase + (glui32) g_pane_links.size() - 1);
+            put_stream_utf8(s, cap_first(act.command));
+            glk_set_hyperlink_stream(s, 0);
+            if (i + 1 == g_cstatus.buttons.size())
+                glk_put_char_stream(s, '\n');
+        }
+    }
 
     World &w = in.world();
     section(template_text_or(w, "InventoryLabel", PANE_INVENTORY), inv, false);
@@ -2200,6 +2279,258 @@ bool run_input_ui(Interp &in, std::string &text)
     }
 }
 
+/* ------------------------------------------------------ character dialog -- */
+
+void draw_character_form(const aslxform::Layout &lay, bool links)
+{
+    glk_window_clear(gformwin);
+    strid_t s = glk_window_get_stream(gformwin);
+    for (const aslxform::Span &sp : lay.spans) {
+        glk_window_move_cursor(gformwin, (glui32) std::max(sp.x, 0),
+                               (glui32) sp.y);
+        glk_set_style_stream(s, sp.focused ? style_User1
+                                : sp.heading ? style_Subheader : style_Normal);
+        if (sp.link && links)
+            glk_set_hyperlink_stream(s, sp.link);
+        put_stream_utf8(s, sp.text);
+        if (sp.link && links)
+            glk_set_hyperlink_stream(s, 0);
+    }
+    glk_set_style_stream(s, style_Normal);
+}
+
+/* The dialog as a text grid above the story window: every control is a
+ * hyperlink, and the arrow keys walk and change them.  False when this Glk
+ * has no grid to open (CheapGlk), with the form untouched. */
+bool run_character_grid(Interp &in, aslxform::CharacterForm &f)
+{
+    using namespace aslxform;
+    glui32 rows = 14;
+    gformwin = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, rows,
+                               wintype_TextGrid, 0);
+    if (!gformwin)
+        return false;
+    const bool links = glk_gestalt(gestalt_Hyperlinks, 0) &&
+                       glk_gestalt(gestalt_HyperlinkInput, wintype_TextGrid);
+    size_t focus = 0;
+    Layout lay;
+    auto redraw = [&] {
+        glui32 w = 0, h = 0;
+        glk_window_get_size(gformwin, &w, &h);
+        lay = layout_character_form(f, (int) w, focus);
+        if ((glui32) lay.height != rows) {
+            rows = (glui32) lay.height;
+            glk_window_set_arrangement(glk_window_get_parent(gformwin),
+                                       winmethod_Above | winmethod_Fixed, rows,
+                                       gformwin);
+        }
+        draw_character_form(lay, links);
+    };
+    /* Line input in the grid, at the name, preloaded with the current one. */
+    auto edit_name = [&] {
+        glui32 buf[kFormNameMax + 1];
+        std::u32string cur = u32_from_utf8(f.name);
+        glui32 n = (glui32) std::min(cur.size(), kFormNameMax);
+        for (glui32 i = 0; i < n; i++)
+            buf[i] = cur[i];
+        glk_window_move_cursor(gformwin, (glui32) lay.name_x,
+                               (glui32) lay.name_y);
+        glk_request_line_event_uni(gformwin, buf, (glui32) kFormNameMax, n);
+        for (;;) {
+            event_t ev;
+            glk_select(&ev);
+            if (ev.type == evtype_LineInput && ev.win == gformwin) {
+                f.set_name(utf8_from_uni(buf, ev.val1));
+                return;
+            }
+            /* No redraw of the form itself: Glk forbids output to a window
+             * with a line request pending. */
+            if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
+                handle_arrange(in);
+        }
+    };
+
+    redraw();
+    bool char_req = false, link_req = false;
+    for (;;) {
+        if (!char_req) {
+            glk_request_char_event_uni(gformwin);
+            char_req = true;
+        }
+        if (links && !link_req) {
+            glk_request_hyperlink_event(gformwin);
+            link_req = true;
+        }
+        event_t ev;
+        glk_select(&ev);
+        FormAct act = FormAct::None;
+        bool changed = false;
+        switch (ev.type) {
+        case evtype_CharInput: {
+            if (ev.win != gformwin)
+                break;
+            char_req = false;
+            changed = true;
+            switch (ev.val1) {
+            case keycode_Up:     act = form_key(f, focus, FormKey::Up); break;
+            case keycode_Tab:
+            case keycode_Down:   act = form_key(f, focus, FormKey::Down); break;
+            case keycode_Left:
+            case '-':            act = form_key(f, focus, FormKey::Left); break;
+            case keycode_Right:
+            case '+': case '=':
+            case ' ':            act = form_key(f, focus, FormKey::Right); break;
+            case keycode_Return: act = form_key(f, focus, FormKey::Activate); break;
+            default:             changed = false; break;
+            }
+            break;
+        }
+        case evtype_Hyperlink:
+            if (ev.win != gformwin)
+                break;
+            link_req = false;
+            changed = true;
+            act = form_click(f, focus, ev.val1);
+            break;
+        case evtype_Arrange:
+        case evtype_Redraw:
+            handle_arrange(in);
+            changed = true;
+            break;
+        /* Timer ticks are dropped: the game has not started. */
+        }
+        if (act == FormAct::Done)
+            break;
+        if (act == FormAct::EditName) {
+            if (char_req) {
+                glk_cancel_char_event(gformwin);
+                char_req = false;
+            }
+            edit_name();
+        }
+        if (changed)
+            redraw();
+    }
+    if (char_req)
+        glk_cancel_char_event(gformwin);
+    if (link_req)
+        glk_cancel_hyperlink_event(gformwin);
+    glk_window_close(gformwin, nullptr);
+    gformwin = nullptr;
+    return true;
+}
+
+/* The same questions asked one at a time in the story window, for a Glk
+ * without grids.  An empty or unusable answer keeps the default, so a script
+ * that was not written for the dialog cannot get stuck in it. */
+void run_character_prompts(Interp &in, aslxform::CharacterForm &f)
+{
+    auto ask = [&](const std::string &prompt, std::string &out) {
+        for (int tries = 0; tries < 8; tries++) {
+            InResult r = read_line(in, true, prompt.c_str());
+            if (r.kind == InEnd::State)
+                return false;
+            if (r.kind == InEnd::Line || r.kind == InEnd::Command) {
+                out = trim(r.text);
+                return true;
+            }
+        }
+        return false;
+    };
+    auto choose = [&](aslxform::RadioGroup &g, const char *what) {
+        std::string menu = std::string("\n") + what + ":\n";
+        for (size_t i = 0; i < g.labels.size(); i++)
+            menu += "  " + std::to_string(i + 1) + ": " + g.labels[i] + "\n";
+        put_uni_string(menu);
+        std::string a;
+        if (!ask("Choose [1-" + std::to_string(g.labels.size()) + ", default " +
+                 std::to_string(g.checked + 1) + "]: ", a))
+            return false;
+        char *end = nullptr;
+        long n = strtol(a.c_str(), &end, 10);
+        if (!a.empty() && end && *end == 0 && n >= 1 &&
+            (size_t) n <= g.labels.size())
+            g.checked = (size_t) n - 1;
+        return true;
+    };
+
+    put_uni_string("\n" + (f.title.empty() ? "Your Character" : f.title) + "\n");
+    std::string a;
+    if (!ask("\nName [" + f.name + "]: ", a))
+        return;
+    f.set_name(a);
+    if (!choose(f.sex, "Sex"))
+        return;
+    put_uni_string("\nAttributes: " + std::to_string(f.points) +
+                   " points to share out.\n");
+    for (aslxform::Counter &c : f.counters) {
+        const int most = c.value + f.points;
+        if (!ask(c.label + " [0-" + std::to_string(most) + ", default " +
+                 std::to_string(c.value) + "]: ", a))
+            return;
+        char *end = nullptr;
+        long n = strtol(a.c_str(), &end, 10);
+        if (!a.empty() && end && *end == 0 && n >= 0 && n <= most) {
+            f.points += c.value - (int) n;
+            c.value = (int) n;
+        }
+    }
+    choose(f.bonus, "Bonus item");
+}
+
+/* Run the pending character dialog and hand its answer to the game, the way
+ * the page's "Done" button does. */
+void run_character_dialog(Interp &in)
+{
+    [[maybe_unused]] AutosaveSuspend no_autosave;
+    aslxform::CharacterForm f = g_form;
+    if (!run_character_grid(in, f))
+        run_character_prompts(in, f);
+    /* The dialog leaves nothing behind in the browser; here the choices go
+     * into the scrollback, which is otherwise the only record of them. */
+    put_uni_string("\n" + f.summary() + "\n");
+    LinkAction act;
+    act.event_func = f.event;
+    act.event_param = f.answer();
+    run_asl_event(in, act);
+}
+
+/* A restored game never runs the start script that prints the status panel,
+ * so read the panel straight from the game.  InitInterface then refills most
+ * cells (Deeper's ends in UpdateStatus); the three it leaves alone, which
+ * the game only writes as rooms are entered, are filled from the same
+ * attributes those scripts read. */
+void seed_custom_status(Interp &in)
+{
+    World &w = in.world();
+    Element *io = w.find("interface_obj");
+    const Value *stuff = io ? in.resolve_field(io, "stuff") : nullptr;
+    if (!stuff || stuff->type != Value::Type::String ||
+        !aslxform::parse_status_panel(stuff->str, g_cstatus))
+        return;
+    g_pane_dirty = true;
+
+    Element *game = nullptr;
+    for (Element *r : w.roots)
+        if (r->kind == ElemKind::Game) { game = r; break; }
+    const Value *pov = game ? in.resolve_field(game, "pov") : nullptr;
+    Element *pl = pov && pov->type == Value::Type::ObjectRef
+                      ? w.find(pov->str) : nullptr;
+    if (!pl)
+        return;
+    auto seed = [&](const char *id, Element *e, const char *field,
+                    const char *suffix) {
+        const Value *v = e ? in.resolve_field(e, field) : nullptr;
+        if (v && v->type == Value::Type::Int && !g_cstatus_vals.count(id))
+            g_cstatus_vals[id] = std::to_string(v->integer) + suffix;
+    };
+    const Value *par = in.resolve_field(pl, "parent");
+    seed("level-span", par && par->type == Value::Type::ObjectRef
+                           ? w.find(par->str) : nullptr, "level", "");
+    seed("max-level-span", pl, "maxlevel", "");
+    seed("artefact-span", pl, "artefactcount", "/14");
+}
+
 /* ---------------------------------------------------------- save/restore -- */
 
 std::string core_dir_path();   /* defined in the core section below */
@@ -2300,7 +2631,10 @@ bool handle_status_command(const std::string &raw)
     if (!match_status_command(raw))
         return false;
     echo_metaverb_command(raw);
-    print_status_report(g_status_line, true);
+    std::string status = g_status_line;
+    for (const std::string &line : custom_status_lines())
+        status += (status.empty() ? "" : " | ") + line;
+    print_status_report(status, true);
     return true;
 }
 
@@ -3315,7 +3649,7 @@ struct BlobReader {
  * the output-section log joined it): an older blob has different fields, and
  * an autorestore that mis-parses is worse than one discarded for a fresh
  * start.  aslx_recover_frontend rejects anything that does not match. */
-const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 5";
+const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 6";
 
 /* `turn` = a disambiguation-menu autosave: the blob carries the RNG streams
  * from the start of the turn and the replay record (g_turn_start). */
@@ -3356,6 +3690,12 @@ std::string aslx_encode_frontend(Interp &in, const TurnStart *turn = nullptr)
     blob_str(b, g_status_line);
     blob_str(b, g_location_line);
     blob_str(b, g_panel_last);
+    /* The custom status panel's cells (the rows come back from the game). */
+    blob_num(b, (long) g_cstatus_vals.size());
+    for (const auto &kv : g_cstatus_vals) {
+        blob_str(b, kv.first);
+        blob_str(b, kv.second);
+    }
     /* The exact RNG streams (fallback + per compiled expression), so a
      * deterministic session's randomness continues across an autorestore. */
     RngStreams rngs;
@@ -3433,6 +3773,12 @@ bool aslx_recover_frontend(const std::string &blob)
     g_status_line = r.str();
     g_location_line = r.str();
     g_autorestore_panel = r.str();
+    g_cstatus_vals.clear();
+    long ncells = r.num();
+    for (long i = 0; i < ncells && r.ok; i++) {
+        std::string id = r.str();
+        g_cstatus_vals[id] = r.str();
+    }
     g_autorestore_rngs.clear();
     long nrngs = r.num();
     for (long i = 0; i < nrngs && r.ok; i++) {
@@ -3747,6 +4093,17 @@ void install_host_hooks(Interp &in, bool &restart_requested)
      * also runs to completion -- and the session ends at the next loop
      * check, rebooting through the same teardown as the post-game menu. */
     in.request_restart = [&restart_requested] { restart_requested = true; };
+    /* A custom status panel's cells: "$('#hits-span').html('12/20')".  Only
+     * while there is a panel -- a write to an element that is not on the
+     * page yet is lost in the browser as well. */
+    in.js_eval = [](const std::string &js) {
+        std::string id, value;
+        if (g_cstatus.rows.empty() ||
+            !aslxform::parse_jquery_html(js, id, value))
+            return;
+        g_cstatus_vals[id] = plain_text(value);
+        g_pane_dirty = true;
+    };
     /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
      * a side pane at startup -- an unset hook skips the whole scope
      * computation, like QuestViva with no UpdateList listener.  The hook just
@@ -4002,6 +4359,8 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     Context boot;
     if (!restored)
         in.begin_timers();
+    else
+        seed_custom_status(in);
     try {
         if (w.find("InitInterface")) in.call_function("InitInterface", {}, &boot);
         if (!restored && w.find("StartGame"))
@@ -4022,6 +4381,16 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 #endif
     in.drain_on_ready();
     refresh();
+
+    /* The start script put up a character dialog: answer it before the first
+     * prompt.  (A restored game has been through it already.) */
+    if (g_form_pending) {
+        g_form_pending = false;
+        if (!restored && w.find_function(g_form.event)) {
+            run_character_dialog(in);
+            refresh();
+        }
+    }
 
 #ifdef SPATTERLIGHT
     /* Put every RNG stream back where the autosave left it, now that the
@@ -4290,6 +4659,9 @@ void reset_frontend_state()
     panel_close();
     g_status_line.clear();
     g_location_line.clear();
+    g_form_pending = false;
+    g_cstatus = aslxform::StatusPanel();
+    g_cstatus_vals.clear();
 
     g_command_bar = true;
     g_panes_visible = true;

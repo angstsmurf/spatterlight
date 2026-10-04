@@ -853,6 +853,7 @@
 		C3A51F000000000000000019 /* aslx-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000010 /* aslx-state.cc */; };
 		C3A51F00000000000000001A /* aslx-savenative.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000011 /* aslx-savenative.cc */; };
 		C3A51F00000000000000001B /* aslxglk-map.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000012 /* aslxglk-map.cc */; };
+		C3A51F0000000000000000F1 /* aslxglk-form.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000F2 /* aslxglk-form.cc */; };
 		C3A51F00000000000000000B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C3A51F00000000000000000C /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000009 /* libexpat.tbd */; };
 		C3A51F00000000000000000D /* aslx-core in Resources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000008 /* aslx-core */; };
@@ -3552,6 +3553,8 @@
 		C3A51F000000000000000012 /* aslxglk-map.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslxglk-map.cc"; sourceTree = "<group>"; };
 		C3A51F000000000000000013 /* aslx-runtime-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-internal.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000014 /* aslxglk-map.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-map.hh"; sourceTree = "<group>"; };
+		C3A51F0000000000000000F2 /* aslxglk-form.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslxglk-form.cc"; sourceTree = "<group>"; };
+		C3A51F0000000000000000F3 /* aslxglk-form.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-form.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000008 /* aslx-core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "aslx-core"; sourceTree = "<group>"; };
 		C3A51F000000000000000009 /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		C3A51F00000000000000000F /* quest5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quest5.c; sourceTree = "<group>"; };
@@ -6725,6 +6728,8 @@
 				C3A51F000000000000000008 /* aslx-core */,
 				C3A51F000000000000000012 /* aslxglk-map.cc */,
 				C3A51F000000000000000014 /* aslxglk-map.hh */,
+				C3A51F0000000000000000F2 /* aslxglk-form.cc */,
+				C3A51F0000000000000000F3 /* aslxglk-form.hh */,
 				C3A51F000000000000000001 /* aslxglk.cc */,
 			);
 			path = quest5;
@@ -8368,6 +8373,7 @@
 				C3A51F000000000000000019 /* aslx-state.cc in Sources */,
 				C3A51F00000000000000001A /* aslx-savenative.cc in Sources */,
 				C3A51F00000000000000001B /* aslxglk-map.cc in Sources */,
+				C3A51F0000000000000000F1 /* aslxglk-form.cc in Sources */,
 				55368B78272BF24700740A0A /* question-runner.cc in Sources */,
 				82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */,
 				6CC4273644E59A9DD8C1BB7E /* question-objects.cc in Sources */,

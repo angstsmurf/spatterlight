@@ -545,6 +545,11 @@ public:
     // does server-side under a browser reload). Unset, JS.eval stays ignored
     // with its argument unevaluated, as before.
     std::function<void()> request_restart;
+    // Host hook for every other JS.eval: the raw script text.  A game with
+    // its own HTML status panel rewrites it this way ("$('#hits-span')
+    // .html('12/20')"); a host that draws the panel itself reads the values
+    // off here.  Unset, the text is dropped as before.
+    std::function<void(const std::string &js)> js_eval;
 
     // Host hook for `picture`. QuestViva's PictureScript has two paths: on
     // v540+ it PRINTS an <img src="..."> through Core's OutputText (the HTML
