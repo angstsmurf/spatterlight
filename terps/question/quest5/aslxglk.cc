@@ -2333,6 +2333,13 @@ bool run_character_grid(Interp &in, aslxform::CharacterForm &f)
         glui32 n = (glui32) std::min(cur.size(), kFormNameMax);
         for (glui32 i = 0; i < n; i++)
             buf[i] = cur[i];
+        /* Blank the name as drawn: the input field is laid over the grid,
+         * and whatever it no longer covers would show through. */
+        glk_window_move_cursor(gformwin, (glui32) lay.name_x,
+                               (glui32) lay.name_y);
+        glk_set_style_stream(glk_window_get_stream(gformwin), style_Normal);
+        put_stream_utf8(glk_window_get_stream(gformwin),
+                        std::string(cur.size(), ' '));
         glk_window_move_cursor(gformwin, (glui32) lay.name_x,
                                (glui32) lay.name_y);
         glk_request_line_event_uni(gformwin, buf, (glui32) kFormNameMax, n);

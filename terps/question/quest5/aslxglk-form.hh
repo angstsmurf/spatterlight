@@ -111,8 +111,9 @@ struct Layout {
  * side by side when they fit, stacked otherwise. */
 Layout layout_character_form(const CharacterForm &f, int width, size_t focus);
 
-/* The longest name the dialog accepts, in characters. */
-const size_t kFormNameMax = 24;
+/* The longest name the dialog accepts, in characters: what fits between
+ * "Name:" and the right column of the wide layout. */
+const size_t kFormNameMax = 22;
 
 /* One line of Deeper's status panel (interface_obj.stuff): a label and the
  * <span id="..."> the game rewrites through JS.eval. */

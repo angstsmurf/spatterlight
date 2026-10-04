@@ -334,6 +334,16 @@ void test_form_layout()
         /* name, 2 sexes, 2x(inc, dec), 2 bonuses, done */
         check(links.size() == 10, "one link per control" + tag);
     }
+    /* The longest name stops short of the right column. */
+    f.set_name(std::string(40, 'x'));
+    aslxform::Layout wide = aslxform::layout_character_form(f, 80, 0);
+    bool clear = true;
+    for (const aslxform::Span &sp : wide.spans)
+        if (sp.y == wide.name_y && sp.x > wide.name_x &&
+            sp.x <= wide.name_x + (int) aslxform::kFormNameMax)
+            clear = false;
+    check(clear, "a full-length name does not reach the sex row's label");
+    f.set_name("Skybird");
     check(aslxform::layout_character_form(f, 30, 0).height >
           aslxform::layout_character_form(f, 80, 0).height,
           "the narrow layout stacks the columns");
