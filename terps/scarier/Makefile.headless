@@ -376,9 +376,9 @@ a5maptest: $(A5MAP_BIN)
 # unit portion of `test` runs (the a5runtest game-file replay is excluded: it
 # needs uncommittable game data -- run it under sanitizers by hand with
 #   make -f Makefile.headless a5runtest CXXFLAGS="$(CXXFLAGS) $(SAN_FLAGS)").
-# Each harness is rebuilt from source into a *_san binary (so there is no
-# timestamp/flag-staleness footgun) and run immediately; a sanitizer abort or a
+# Each harness is linked into a *_san binary and run; a sanitizer abort or a
 # non-zero exit stops the target.
+#
 # Sanitizer builds of the same harnesses.  The engine is compiled once more,
 # into san/ (CXXFLAGS plus SAN_FLAGS, .d files like the other object sets), and
 # every _san binary links from that set, so the target compiles the ~70 engine
