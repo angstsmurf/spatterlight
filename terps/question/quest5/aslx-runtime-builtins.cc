@@ -1041,6 +1041,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         else d = std::ceil(d);
         return vdouble(d);
     }
+    // Math.Round(double) rounds half to even (Shop Shaper's round(game.x)).
+    if (fn == "round" && n == 1) return vdouble(std::nearbyint(as_double(arg(0))));
     // Clone / ShallowClone (ExpressionOwner -> Element.Clone): copy the
     // element under a fresh "<root>N" name (GetUniqueElementName strips
     // trailing digits), copying the inherited-type stack and every own field
