@@ -811,14 +811,14 @@ gsc_command_colour (const char *argument)
   const scr_bool poll = scr_strcasecmp (argument, "status") == 0;
 
   gsc_command_toggle (poll ? "" : argument, "colour",
-                      "Glk Adrift colours are",
+                      "Glk ADRIFT colours are",
                       gsc_colour_enabled, gsc_set_colour,
                       "; text is drawn in the game's own colours, on the"
                       " black background it was written for.\n",
                       "; text follows the interpreter's own theme.\n", !poll);
 #else
   assert (argument);
-  gsc_normal_string ("Glk Adrift colours are not available with this"
+  gsc_normal_string ("Glk ADRIFT colours are not available with this"
                      " interpreter.\n");
 #endif
 }
@@ -1290,7 +1290,7 @@ static const char GSC_HELP_MAP[] =
   "Use `glk map on` to show the map and `glk map off` to hide it again;"
   " plain `map` toggles it too, unless the game uses MAP for something of"
   " its own.\n\n"
-  "Some ADRIFT 5 games ask to open with their map already showing, and this"
+  "Some ADRIFT 5 games begin with their map already showing, and this"
   " one may be one of them; either way, whichever of `glk map on` or `glk"
   " map off` you use last is remembered for this game, and the next session"
   " starts that way.  A map with nothing on it yet -- during a title or"
@@ -1319,9 +1319,7 @@ static const char GSC_HELP_SCRIPT[] =
   "Use `glk script on` to begin logging game output, and `glk script off`"
   " to end it; plain `glk script` begins logging too.  Glk Scarier will ask"
   " you for a file when you turn scripts on.  `glk script status` says"
-  " whether logging is currently on.\n\n"
-  "The word `transcript` may be used in place of `script` in any of these,"
-  " as in `glk transcript on`.\n";
+  " whether logging is currently on.\n";
 
 static const char GSC_HELP_INPUTLOG[] =
   "Records the commands you type into a game.\n\n"
@@ -1398,8 +1396,7 @@ static const char GSC_HELP_ASSIST[] =
   "Use `glk assist combat on` to turn an assist on, and `glk assist combat"
   " off` to turn it off again; plain `glk assist` says which are on.  For a"
   " few games known to be uncompletable without them, the ones they need"
-  " are switched on automatically at startup.  The older names, as in `glk"
-  " combatassist on`, still work.\n";
+  " are switched on automatically at startup.\n";
 
 static const char GSC_HELP_VERBOSE[] =
   "Controls verbose room descriptions.\n\n"
@@ -1530,21 +1527,21 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
   /* "color" is a full alias rather than a prefix: neither spelling is a
      prefix of the other, so each resolves on its own, at the cost of "glk col"
      matching both and reporting itself ambiguous.  The plurals are what a
-     player who has just read "Glk Adrift colours are..." is likely to type
+     player who has just read "Glk ADRIFT colours are..." is likely to type
      back; they are prefixed by the singulars, and rely on gsc_command_lookup()
      preferring an exact spelling to keep "glk colour" unambiguous. */
   {"colour", gsc_command_colour,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_STATUS,
-   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+   "ADRIFT colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
   {"colours", gsc_command_colour,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
-   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+   "ADRIFT colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
   {"color", gsc_command_colour,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
-   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+   "ADRIFT colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
   {"colors", gsc_command_colour,
    GSC_CMD_ARGUMENT | GSC_CMD_A5 | GSC_CMD_ALIAS | GSC_CMD_STATUS,
-   "Adrift colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
+   "ADRIFT colours", GSC_USAGE_ONOFFSTATUS, GSC_HELP_COLOUR},
   /* The four meta-commands.  "restore" and "restart" share a prefix, so each
      needs five letters to resolve; "quit" answers to "glk q". */
   {"undo", gsc_command_undo,
